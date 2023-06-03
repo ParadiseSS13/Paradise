@@ -9,7 +9,7 @@
 	put_on_delay = 40
 	max_integrity = 250
 	resistance_flags = NONE
-	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		)
@@ -104,7 +104,7 @@
 	icon_state = "secjacket_open"
 	item_state = "hos"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 20, ACID = 20)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	ignore_suitadjust = 0
@@ -124,7 +124,7 @@
 	icon_state = "hos"
 	item_state = "hos"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 115, ACID = 450)
+	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 115, ACID = 450)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -183,7 +183,7 @@
 	icon_state = "captain_carapace"
 	item_state = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = 450)
+	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 450)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
 	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/gun/energy, /obj/item/gun/projectile)
@@ -200,7 +200,7 @@
 	desc = "A less formal jacket for everyday captain use."
 	icon_state = "captain_jacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	armor = list(MELEE = 40, BULLET = 20, LASER = 25, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = 450)
+	armor = list(MELEE = 40, BULLET = 20, LASER = 25, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 450)
 	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic
@@ -212,7 +212,7 @@
 	name = "captain's formal coat"
 	desc = "For when an armored vest isn't fashionable enough."
 	icon_state = "captain_formal"
-	armor = list(MELEE = 35, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = 450)
+	armor = list(MELEE = 35, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = INFINITY, ACID = 450)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 /obj/item/clothing/suit/armor/vest/capcarapace/coat/white
@@ -234,7 +234,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 50, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 0, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 50, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
@@ -276,7 +276,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	allowed = list(/obj/item/nullrod/claymore)
-	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 0, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
 
 /obj/item/clothing/suit/armor/vest/durathread
 	name = "durathread vest"
@@ -286,7 +286,7 @@
 	strip_delay = 60
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 35, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "bulletproof vest"
@@ -297,7 +297,7 @@
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	armor = list(MELEE = 10, BULLET = 50, LASER = 5, ENERGY = 5, BOMB = 35, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 50, LASER = 5, ENERGY = 5, BOMB = 35, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 8 SECONDS
 	put_on_delay = 6 SECONDS
 	sprite_sheets = list(
@@ -320,7 +320,7 @@
 	item_state = "swat_suit"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/kitchen/knife/combat)
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 450, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50,RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	strip_delay = 12 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
@@ -334,7 +334,7 @@
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 75, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 75, ENERGY = 50, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	var/last_reflect_time
 	var/reflect_cooldown = 5 SECONDS
 
@@ -369,7 +369,7 @@
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
@@ -619,14 +619,14 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	sprite_sheets = null
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
 	desc = "A heavily armored suit that protects against moderate damage."
 	icon_state = "heavy"
 	item_state = "swat_suit"
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
 	flags = THICKMATERIAL
@@ -636,7 +636,7 @@
 	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	flags = THICKMATERIAL
@@ -662,7 +662,7 @@
 	desc = "A set of armor worn by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ertarmor_cmd"
 	item_state = "armor"
-	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 50, ACID = 50)
 
 //Commander
 /obj/item/clothing/suit/armor/vest/ert/command
@@ -709,7 +709,7 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 35, ACID = 35)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 35, ACID = 35)
 
 //LAVALAND!
 
@@ -719,7 +719,7 @@
 	item_state = "dragon"
 	desc = "A suit of armour fashioned from the remains of an ash drake."
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
-	armor = list(MELEE = 115, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 150, BIO = 25, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 115, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 150, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
 	hoodtype = /obj/item/clothing/head/hooded/drake
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -731,7 +731,7 @@
 	icon_state = "dragon"
 	item_state = "dragon"
 	desc = "The skull of a dragon."
-	armor = list(MELEE = 115, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 150, BIO = 25, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 115, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 150, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -744,7 +744,7 @@
 	item_state = "goliath_cloak"
 	desc = "A staunch, practical cape made out of numerous monster materials, it is coveted amongst exiles & hermits."
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival)
-	armor = list(MELEE = 25, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 75, ACID = 75) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
+	armor = list(MELEE = 25, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 75, ACID = 75) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -753,7 +753,7 @@
 	icon_state = "golhood"
 	item_state = "golhood"
 	desc = "A protective & concealing hood."
-	armor = list(MELEE = 25, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
+	armor = list(MELEE = 25, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 75, ACID = 75)
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 
@@ -763,5 +763,5 @@
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS

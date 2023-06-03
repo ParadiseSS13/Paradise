@@ -79,7 +79,7 @@
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	siemens_strength = 1
 	var/custom_name

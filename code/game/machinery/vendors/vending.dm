@@ -31,7 +31,7 @@
 	face_while_pulling = TRUE
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
 
 	/// Icon_state when vending
 	var/icon_vend

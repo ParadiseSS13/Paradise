@@ -16,7 +16,7 @@ Pipelines + Other Objects -> Pipe network
 	power_state = NO_POWER_USE
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	on_blueprints = TRUE
-	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 100, ACID = 70)
 
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	var/layer_offset = 0.0 // generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things
