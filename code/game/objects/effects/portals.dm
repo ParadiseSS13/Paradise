@@ -15,14 +15,13 @@
 	var/failchance = 0
 	var/fail_icon = "portal1"
 
-	var/precision = FALSE // how close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
+	/// How close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
+	var/precision = FALSE
 	var/can_multitool_to_remove = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
 	var/one_use = FALSE // Does this portal go away after one teleport?
 	/// The time after which the effects should play again. Too many effects can lag the server
 	var/effect_cooldown = 0
-	/// If portal is linked to other portal, we will contain second portal in linked variable
-	var/obj/effect/portal/linked = null
 
 /obj/effect/portal/New(loc, turf/_target, obj/creation_object = null, lifespan = 300, mob/creation_mob = null)
 	..()
@@ -45,10 +44,6 @@
 	if(!QDELETED(O))
 		O.portal_destroyed(src)
 	target = null
-	if(istype(linked))
-		linked.linked = null
-		qdel(linked)
-	linked = null
 	do_sparks(5, 0, loc)
 	return ..()
 
@@ -63,9 +58,6 @@
 		return ..()
 
 	if(target && (get_turf(oldloc) == get_turf(target)))
-		return ..()
-
-	if(linked && oldloc == get_turf(linked))
 		return ..()
 
 	if(!teleport(AM))
@@ -96,12 +88,6 @@
 	else
 		user.forceMove(get_turf(src))
 
-/obj/effect/portal/proc/link_portal(obj/effect/portal/another)
-	if(!istype(another))
-		return
-	linked = another
-	another.linked = src
-
 /obj/effect/portal/proc/can_teleport(atom/movable/M)
 	. = TRUE
 
@@ -115,7 +101,7 @@
 	if(!can_teleport(M))
 		return FALSE
 
-	if(!target && !linked)
+	if(!target)
 		qdel(src)
 		return FALSE
 
@@ -135,12 +121,7 @@
 		if(!attempt_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), pick(target_z)), 0, FALSE)) // Try to send them to deep space.
 			return FALSE
 	else
-		var/turf
-		if(istype(linked))
-			turf = get_turf(linked)
-		else
-			turf = target
-		if(!attempt_teleport(M, turf, precision)) // Try to send them to a turf adjacent to target.
+		if(!attempt_teleport(M, target, precision)) // Try to send them to a turf adjacent to target.
 			return FALSE
 	if(one_use)
 		qdel(src)
@@ -185,10 +166,6 @@
 /obj/effect/portal/hand_tele/teleport(atom/movable/M)
 	. = ..()
 	adjust_unstable()
-
-	var/obj/effect/portal/hand_tele/another = linked
-	if(istype(another))
-		another.adjust_unstable()
 
 /obj/effect/portal/hand_tele/proc/adjust_unstable()
 	unstable_time = world.time + UNSTABLE_TIME_DELAY

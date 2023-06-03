@@ -107,6 +107,7 @@ Frequency:
 	origin_tech = "magnets=3;bluespace=4"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/icon_state_inactive = "hand_tele_inactive"
 	var/active_portals = 0
 	/// Variable contains next time hand tele can be used to make it not EMP proof
 	var/emp_timer = 0
@@ -154,14 +155,21 @@ Frequency:
 	user.show_message("<span class='notice'>Locked In.</span>", 2)
 	var/obj/effect/portal/P = new /obj/effect/portal/hand_tele(get_turf(src), T, src, creation_mob = user)
 	try_move_adjacent(P)
-	var/obj/effect/portal/exit = new /obj/effect/portal/hand_tele(T, get_turf(P), src, creation_mob = user)
-	P.link_portal(exit)
 	active_portals++
 	add_fingerprint(user)
 
 /obj/item/hand_tele/emp_act(severity)
-	emp_timer = world.time + rand(25 SECONDS, 30 SECONDS) * severity
+	var/time = rand(25 SECONDS, 30 SECONDS) * severity
+	emp_timer = world.time + time
+	emp_update_icon()
+	addtimer(CALLBACK(src, PROC_REF(emp_update_icon)), time)
 	return ..()
+
+/obj/item/hand_tele/proc/emp_update_icon()
+	if(emp_timer - world.time > 0.1 SECONDS)
+		icon_state = icon_state_inactive
+	else
+		icon_state = initial(icon_state)
 
 /obj/item/hand_tele/examine(mob/user)
 	. = ..()
