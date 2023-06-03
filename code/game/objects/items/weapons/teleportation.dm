@@ -108,6 +108,8 @@ Frequency:
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/active_portals = 0
+	/// Variable contains next time hand tele can be used to make it not EMP proof
+	var/emp_timer = 0
 
 /obj/item/hand_tele/Initialize(mapload)
 	. = ..()
@@ -115,6 +117,10 @@ Frequency:
 
 /obj/item/hand_tele/attack_self(mob/user)
 	var/turf/current_location = get_turf(user)//What turf is the user on?
+	if(emp_timer > world.time)
+		do_sparks(5, 0, loc)
+		to_chat(user, "<span class='warning'>\The [src] attempts to create portal and suddenly disables.</span>")
+		return
 	if(!current_location||!is_teleport_allowed(current_location.z))//If turf was not found or they're somewhere teleproof
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
@@ -146,10 +152,21 @@ Frequency:
 		return
 	var/T = L[t1]
 	user.show_message("<span class='notice'>Locked In.</span>", 2)
-	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(src), T, src, creation_mob = user)
+	var/obj/effect/portal/P = new /obj/effect/portal/hand_tele(get_turf(src), T, src, creation_mob = user)
 	try_move_adjacent(P)
+	var/obj/effect/portal/exit = new /obj/effect/portal/hand_tele(T, get_turf(P), src, creation_mob = user)
+	P.link_portal(exit)
 	active_portals++
 	add_fingerprint(user)
+
+/obj/item/hand_tele/emp_act(severity)
+	emp_timer = world.time + rand(45 SECONDS, 60 SECONDS) * severity
+	return ..()
+
+/obj/item/hand_tele/examine(mob/user)
+	. = ..()
+	if(emp_timer > world.time)
+		. += "<span class='danger'>Currently looks inactive.</span>"
 
 /obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
 	active_portals--
