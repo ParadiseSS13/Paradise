@@ -454,15 +454,13 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		to_chat(world, "Reactor is taking overheat damage! Total Damage: [src.temp_damage]/400")
 		if(temp_damage >= (0.75 * vessel_integrity) || (REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
 			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
-			radio.autosay("[src.+rbmk_meltdown_alert] Core Integrity: [src.temp_damage/400]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
+			radio.autosay("[src.rbmk_meltdown_alert] Core Integrity: [src.temp_damage/400]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
 		if(vessel_integrity <= temp_damage) //It wouldn't be able to tank another hit.
 			meltdown() //Oops! All meltdown
 			return
 	//Second alert condition: Overpressurized (the more lethal one)
 	else if(pressure >= RBMK_PRESSURE_CRITICAL)
 		playsound(loc, 'sound/effects/rbmk/steam_whoosh.ogg', 100, TRUE)
-		var/turf/T = get_turf(src)
-		T.atmos_rbmk_overpressure("nitrogen=[pressure/100];TEMP=[CELSIUS_TO_KELVIN(temperature)]")
 		var/pressure_damage = min(pressure/100, initial(vessel_integrity)/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
 		vessel_integrity -= pressure_damage
 		to_chat(world, "Reactor is taking pressure damage! Total Damage: [src.pressure_damage]/400")
