@@ -23,7 +23,7 @@
 /area/space/nearstation)
 "z" = (
 /obj/structure/safe/floor,
-/obj/item/golden_record,
+/obj/item/twohanded/required/golden_record,
 /turf/simulated/satellite,
 /area/space/nearstation)
 "F" = (
