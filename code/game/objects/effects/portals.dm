@@ -188,7 +188,6 @@
 /obj/effect/portal/hand_tele/teleport(atom/movable/M)
 	. = ..()
 	adjust_unstable()
-	addtimer()
 
 	var/obj/effect/portal/hand_tele/another = linked
 	if(istype(another))
