@@ -150,9 +150,8 @@
 	var/datum/martial_art/MA = src
 	if(!H.mind)
 		return
-	else
-		H.mind.known_martial_arts.Remove(MA)
-		H.mind.martial_art = get_highest_weight(H)
+	H.mind.known_martial_arts.Remove(MA)
+	H.mind.martial_art = get_highest_weight(H)
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 
 ///	Returns the martial art with the highest weight from all the ones someone knows.
