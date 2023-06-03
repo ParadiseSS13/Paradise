@@ -1,6 +1,7 @@
 /datum/species/kidan
 	name = "Kidan"
 	name_plural = "Kidan"
+	max_age = 55
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
