@@ -134,7 +134,7 @@
 			thrown_alert = FALSE
 			clear_alert("light")
 		alpha = 125
-		speed = 1 / 2
+		speed = 0.5
 	return lum_count
 
 
