@@ -139,6 +139,14 @@
 	interact(user)
 
 /obj/machinery/plantgenes/interact(mob/user)
+	ui_interact(user)
+
+/obj/machinery/seed_extractor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "GeneModder", name, 800, 400, master_ui, state)
+		ui.open()
+/*
 	add_fingerprint(user)
 	user.set_machine(src)
 	if(!user)
@@ -289,7 +297,7 @@
 		dat += "<br>No sample found.<br><span class='highlight'>Please, insert a plant sample to use this device.</span>"
 	popup.set_content(dat)
 	popup.open()
-
+*/
 
 /obj/machinery/plantgenes/Topic(href, list/href_list)
 	if(..())
