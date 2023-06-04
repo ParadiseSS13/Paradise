@@ -25,6 +25,10 @@
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
+	/// How much blood will the vampire use on abilities? 200% = x2, 50% = x0.5
+	var/blood_efficency = 100
+	/// How long are vampire cooldowns compared to normal? 200 = x2, 50 = x0.5
+	var/cooldown_efficency = 100
 
 /datum/antagonist/mindslave/thrall
 	name = "Vampire Thrall"
@@ -329,6 +333,11 @@
 	check_vampire_upgrade(TRUE)
 
 /datum/antagonist/vampire/give_objectives()
+	// Hijack objective.
+	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+		add_objective(/datum/objective/hijack)
+		hijackify()
+		return // Hijack should be their only objective (normally), so return.
 	add_objective(/datum/objective/blood)
 	add_objective(/datum/objective/assassinate)
 	add_objective(/datum/objective/steal)
@@ -359,3 +368,8 @@
 /datum/hud/proc/remove_vampire_hud()
 	static_inventory -= vampire_blood_display
 	QDEL_NULL(vampire_blood_display)
+
+/datum/antagonist/vampire/hijackify() //I wanted to let a vampire chose 2 specializations here. However, we all know they would go hemo garg or hemo umbra and make everyone miserable. Instead, we are going to make vampires more efficent with hijack.
+	. = ..()
+	blood_efficency = 66 // 33% more efficent
+	cooldown_efficency = 66 // 33% more efficent

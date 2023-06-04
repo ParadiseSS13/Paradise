@@ -40,7 +40,7 @@
 	vampire.bloodusable -= calculate_blood_cost(vampire)
 
 /datum/spell_handler/vampire/proc/calculate_blood_cost(datum/antagonist/vampire/vampire)
-	var/blood_cost_modifier = 1 + vampire.nullified / 100
+	var/blood_cost_modifier = (1 + vampire.nullified / 100) * (vampire.blood_efficency / 100)
 	var/blood_cost = round(required_blood * blood_cost_modifier)
 	return blood_cost
 

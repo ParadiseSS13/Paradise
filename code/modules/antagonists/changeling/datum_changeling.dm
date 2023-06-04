@@ -151,6 +151,11 @@
  * If they have two objectives as well as absorb, they must survive rather than escape.
  */
 /datum/antagonist/changeling/give_objectives()
+	// Hijack objective.
+	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+		add_objective(/datum/objective/hijack)
+		hijackify()
+		return // Hijack should be their only objective (normally), so return.
 	var/datum/objective/absorb/absorb = new
 	absorb.gen_amount_goal(6, 8)
 	absorb.owner = owner
@@ -192,6 +197,12 @@
 	else // Not dead? no chem/genetic_damage caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 		genetic_damage = max(0, genetic_damage - 1)
+
+/datum/antagonist/changeling/hijackify()
+	. = ..()
+	chem_storage = 100 //25% more
+	chem_recharge_rate = 4 //25% more.
+	genetic_points = 12 //20% more.
 
 /**
  * Respec the changeling's powers after first checking if they're able to respec.

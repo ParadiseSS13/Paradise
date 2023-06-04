@@ -393,3 +393,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 //Displayed at the end of roundend_category section
 /datum/antagonist/proc/roundend_report_footer()
 	return
+
+//Affects the antagonist when given hijack.
+/datum/antagonist/proc/hijackify()
+	return
