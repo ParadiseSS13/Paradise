@@ -26,7 +26,14 @@
 //This is on /cleanable because fuck this ancient mess
 /obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
 	..()
-	if(!off_floor && ishuman(O))
+
+	if(!ishuman(O))
+		return
+
+	if(!gravity_check)
+		bloodyify_human(O)
+
+	if(!off_floor)
 		var/mob/living/carbon/human/H = O
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")

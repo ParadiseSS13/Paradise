@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	gender = PLURAL
 	random_icon_states = null
 	amount = 0
+	gravity_check = ALWAYS_IN_GRAVITY
 
 //BLOODY FOOTPRINTS
 /obj/effect/decal/cleanable/blood/footprints
@@ -28,7 +29,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	var/exited_dirs = 0
 	var/base_alpha = BLOODY_FOOTPRINT_BASE_ALPHA
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
-
+	gravity_check = ALWAYS_IN_GRAVITY
 
 /obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O, oldloc)
 	..()

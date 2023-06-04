@@ -110,11 +110,6 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	. = ..()
 	update_icon()
 
-/obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
-	. = ..()
-	if(!gravity_check && ishuman(O))
-		bloodyify_human(O)
-
 /obj/effect/decal/cleanable/blood/proc/splat(atom/AT)
 	if(gravity_check) //only floating blood can splat :C
 		return
