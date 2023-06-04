@@ -365,3 +365,9 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/revolver/populate_contents()
 	new /obj/item/gun/projectile/revolver(src)
 	new /obj/item/ammo_box/a357(src)
+
+/obj/item/storage/box/syndie_kit/imp_stealth
+	name = "stealth implant box"
+
+/obj/item/storage/box/syndie_kit/imp_stealth/populate_contents()
+	new /obj/item/implanter/stealth(src)
