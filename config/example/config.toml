@@ -19,7 +19,6 @@
 # - discord_configuration
 # - event_configuration
 # - gamemode_configuration
-# - gateway_configuration
 # - general_configuration
 # - ipintel_configuration
 # - job_configuration
@@ -254,24 +253,6 @@ disable_certain_round_early_end = false
 traitor_objective_amount = 2
 # Enable player limits on gamemodes. Disable if testing
 enable_gamemode_player_limit = true
-
-
-################################################################
-
-
-[gateway_configuration]
-# This section contains everything relating to the ingame gateway (away mission) system.
-
-# Do we want to enable this at all? Disable for faster load times in testing
-enable_away_mission = false
-# Delay (in deciseconds) before the gateway is usable
-away_mission_delay = 0
-# List of all enabled away missions. Comment out an entry to disable it.
-enabled_away_missions = [
-	"_maps/map_files/RandomZLevels/beach.dmm",
-	#"_maps/map_files/RandomZLevels/evil_santa.dmm",			# Special christmas mission. Enable for festivities
-	#"_maps/map_files/RandomZLevels/example.dmm",				# Example file. Do not enable.
-]
 
 
 ################################################################

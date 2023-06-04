@@ -280,6 +280,13 @@
 	REMOVE_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
 	return ..()
 
+/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
+	name = "Hardened Wire interface implant"
+	desc = "This wire interface implant is actually wireless, to avoid issues with electromagnetic pulses."
+	origin_tech = "materials=6;programming=6;biotech=6"
+	emp_proof = TRUE
+
+
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth
 	parent_organ = "mouth"

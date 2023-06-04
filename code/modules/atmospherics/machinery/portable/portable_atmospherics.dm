@@ -4,7 +4,7 @@
 	layer = BELOW_OBJ_LAYER
 	power_state = NO_POWER_USE
 	max_integrity = 250
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 60, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 60, ACID = 30)
 	var/datum/gas_mixture/air_contents = new
 
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
