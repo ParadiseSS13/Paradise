@@ -147,6 +147,10 @@
 	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 50, TRUE)
 	give_spells()
 
+/mob/living/simple_animal/pulse_demon/Destroy()
+	SSticker.mode.traitors -= mind
+	return ..()
+
 /mob/living/simple_animal/pulse_demon/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)
