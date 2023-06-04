@@ -122,6 +122,7 @@
 
 /obj/effect/mapping_helpers/airlock/unres/payload(obj/machinery/door/airlock)
 	airlock.unres_sides ^= dir
+	airlock.update_icon()
 
 /obj/effect/mapping_helpers/airlock/autoname
 	name = "airlock autoname helper"
