@@ -48,7 +48,7 @@
 		if(istype(F) && !F.intact)
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
-				if(C.avail() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
+				if(C.get_available_power() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
 					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
 					toast() // mmmm toasty.
