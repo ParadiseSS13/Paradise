@@ -389,7 +389,8 @@
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
 	#define COMPONENT_BLOCK_SWAP (1<<0)
 
-
+#define COMSIG_MOB_AUTOMUTE_CHECK "automute_check"
+	#define WAIVE_AUTOMUTE_CHECK (1<<0)
 
 // /mob/living signals
 
@@ -866,3 +867,5 @@
 #define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
+
+#define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"

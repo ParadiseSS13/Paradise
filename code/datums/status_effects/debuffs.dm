@@ -677,6 +677,9 @@
 /datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
 	id = "abssilenced"
 
+/datum/status_effect/transient/no_oxy_heal
+	id = "no_oxy_heal"
+
 /datum/status_effect/transient/jittery
 	id = "jittering"
 

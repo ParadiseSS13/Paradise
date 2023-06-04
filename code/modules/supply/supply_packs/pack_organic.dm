@@ -180,6 +180,20 @@
 	contains = list(/obj/item/petcollar)
 	containername = "bunny crate"
 
+/datum/supply_packs/organic/gorilla
+	name = "Gorilla Crate"
+	cost = 1000
+	containertype = /obj/structure/closet/critter/gorilla
+	containername = "gorilla crate"
+	department_restrictions = list(DEPARTMENT_SCIENCE)
+
+/datum/supply_packs/organic/gorilla/cargo
+	name = "Cargorilla Crate"
+	cost = 250
+	containertype = /obj/structure/closet/critter/gorilla/cargo
+	containername = "cargorilla crate"
+	department_restrictions = list(DEPARTMENT_SUPPLY)
+
 ////// hippy gear
 
 /datum/supply_packs/organic/hydroponics // -- Skie

@@ -88,6 +88,15 @@
 		to_chat(user, "<span class='userdanger'>The snare sends a psychic backlash!</span>")
 		C.EyeBlind(20 SECONDS)
 
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby(obj/item/I, mob/user)
+	var/obj/item/flash/flash = I
+	if(!istype(flash) || !flash.try_use_flash(user))
+		return ..()
+	user.visible_message("<span class='danger'>[user] points [I] at [src]!</span>",
+	"<span class='danger'>You point [I] at [src]!</span>")
+	visible_message("<span class='notice'>[src] withers away.</span>")
+	qdel(src)
+
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/process()
 	var/turf/T = get_turf(src)
 	var/lighting_count = T.get_lumcount() * 10

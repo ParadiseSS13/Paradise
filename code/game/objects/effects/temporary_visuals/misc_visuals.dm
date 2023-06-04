@@ -364,6 +364,19 @@
 	pixel_y = -32
 	duration = 42
 
+/obj/effect/temp_visual/bsg_kaboom/Initialize(mapload)
+	. = ..()
+	new /obj/effect/warp_effect/bsg(loc)
+
+/obj/effect/warp_effect/bsg
+
+/obj/effect/warp_effect/bsg/Initialize(mapload)
+	. = ..()
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
+	QDEL_IN(src, 0.8 SECONDS)
+
 /obj/effect/temp_visual/rcd_effect
 	icon = 'icons/effects/effects_rcd.dmi'
 	icon_state = "rcd"

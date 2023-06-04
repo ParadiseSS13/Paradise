@@ -32,6 +32,7 @@
 	var/allow_pai = TRUE // Are we even allowed to insert a pai card.
 	var/bot_name
 
+	var/disabling_timer_id = null
 	var/list/player_access = list()
 	var/emagged = 0
 	var/obj/item/card/id/access_card			// the ID card that the bot "holds"
@@ -121,6 +122,8 @@
 		return "<span class='average'>[mode_name[mode]]</span>"
 
 /mob/living/simple_animal/bot/proc/turn_on()
+	if(disabling_timer_id)
+		return FALSE
 	if(stat)
 		return 0
 	on = TRUE
@@ -415,6 +418,20 @@
 /mob/living/simple_animal/bot/proc/un_emp(was_on)
 	stat &= ~EMPED
 	if(was_on)
+		turn_on()
+
+/mob/living/simple_animal/bot/proc/disable(time)
+	if(disabling_timer_id)
+		deltimer(disabling_timer_id) // if we already have disabling timer, lets replace it with new one
+	if(on)
+		turn_off()
+	disabling_timer_id = addtimer(CALLBACK(src, PROC_REF(enable)), time, TIMER_STOPPABLE)
+
+/mob/living/simple_animal/bot/proc/enable()
+	if(disabling_timer_id)
+		deltimer(disabling_timer_id)
+		disabling_timer_id = null
+	if(!on)
 		turn_on()
 
 /mob/living/simple_animal/bot/rename_character(oldname, newname)

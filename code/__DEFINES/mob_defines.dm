@@ -36,7 +36,7 @@
 #define MOB_PLANT		(1 << 10)
 
 #define AGE_MIN 17			//youngest a character can be
-#define AGE_MAX 85			//oldest a character can be
+#define AGE_MAX 500			//oldest a character can be
 
 /// Mob is standing up, usually associated with lying_angle value of 0.
 #define STANDING_UP 0
@@ -250,6 +250,8 @@
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
 #define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))
+#define isgorilla(A) 		(istype((A), /mob/living/simple_animal/hostile/gorilla))
+#define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
