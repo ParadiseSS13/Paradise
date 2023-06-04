@@ -141,7 +141,7 @@
 
 	spawn(30)
 		if(!QDELETED(src))
-			var/turf/T = get_turf(user)
+			var/turf/T = get_turf(src)
 			var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(T)
 			K.maxHealth += round(seed.endurance / 3)
 			K.melee_damage_lower += round(seed.potency / 10)

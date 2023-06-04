@@ -96,7 +96,8 @@
 		..()
 
 /mob/living/simple_animal/diona/run_resist()
-	split()
+	if(!split())
+		..()
 
 /mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M)
 	//Let people pick the little buggers up.

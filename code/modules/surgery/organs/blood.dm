@@ -25,7 +25,8 @@
 	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_BADDNA)) //cryosleep or husked people do not pump the blood.
 		if(blood_volume < BLOOD_VOLUME_NORMAL)
 			blood_volume += 0.1 // regenerate blood VERY slowly
-
+			if(nutrition >= NUTRITION_LEVEL_WELL_FED)
+				blood_volume += 0.1 // double it if you are well fed
 
 		//Effects of bloodloss
 		var/word = pick("dizzy","woozy","faint")
@@ -213,7 +214,7 @@
 		return blood_data
 	if(blood_id == "slimejelly")
 		var/blood_data = list()
-		blood_data["colour"] = dna.species.blood_color
+		blood_data["blood_color"] = dna.species.blood_color
 		return blood_data
 
 //get the id of the substance this mob use as blood.
@@ -256,7 +257,7 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if(get_blood_id() != "blood")//is it blood or welding fuel?
+	if((get_blood_id() != "blood") && (get_blood_id() != "slimejelly"))//is it blood or welding fuel?
 		return
 	if(!T)
 		T = get_turf(src)
