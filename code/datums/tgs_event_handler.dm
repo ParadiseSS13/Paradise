@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(slower_restart, FALSE)
 /datum/tgs_event_handler/impl
 	var/datum/timedevent/reattach_timer
 
-receive_health_checks = TRUE
+	receive_health_checks = TRUE
 
 /datum/tgs_event_handler/impl/HandleEvent(event_code, ...)
 	switch(event_code)
