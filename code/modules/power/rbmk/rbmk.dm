@@ -396,9 +396,12 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			if(prob(25)) //If youre running the reactor cold though, no need to flicker the lights.
 				L.flicker()
 
-	if(temperature < 0) //That's as cold as I'm letting you get it, engineering.
+	if(temperature <= 150) //That's as cold as I'm letting you get it, engineering.
 		color = COLOR_CYAN
-		temperature = 0
+		temperature = 150 //You've stalled my reactor!
+		if(coolant_input.temperature >= 450 && temperature <= 150) //un-stalling a reactor will carry some risk
+			color = null
+			temperature = 250
 	if(pressure_damage > 0)
 		pressure_damage -= min(pressure/100, initial(vessel_integrity)/45)
 	if(temp_damage > 0)
@@ -440,22 +443,22 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 //currently broken. needs total rework.
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/handle_alerts()
 	to_chat(world,"HANDLE ALERTS PROC'D")
-	if(K <= 0 && temperature <= 0)
+	if(K <= 0 && temperature <= 100)
 		shut_down()
 	//First alert condition: Overheat
 	else if(temperature >= RBMK_TEMPERATURE_MELTDOWN)
-		var/temp_damage = min(temperature/100, initial(vessel_integrity)/40)	//40 seconds to meltdown from full integrity, worst-case. Bit less than blowout since it's harder to spike heat that much.
+		var/temp_damage = min(temperature/100, 10)	//40 seconds to meltdown from full integrity, worst-case. Bit less than blowout since it's harder to spike heat that much.
 		vessel_integrity -= temp_damage
-		to_chat(world, "Reactor is taking damge from heat! Total damage: [src.pressure_damage]/400")
+		to_chat(world, "Reactor is taking damge from heat! Total damage: [vessel_integrity]/400")
 		if((REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
-			radio.autosay("[src.rbmk_temp_alert] Core Integrity: [src.temp_damage/400]%", name, "Engineering", list(z)) //scream on engi comms meltdown is occuring
+			radio.autosay("[rbmk_temp_alert] Core Integrity: [vessel_integrity/400]%", name, "Engineering", list(z)) //scream on engi comms meltdown is occuring
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 			lastrbmkwarn = REALTIMEOFDAY
-		to_chat(world, "Reactor is taking overheat damage! Total Damage: [src.temp_damage]/400")
+		to_chat(world, "Reactor is taking overheat damage! Total Damage: [vessel_integrity]/400")
 		if(temp_damage >= (0.75 * vessel_integrity) || (REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
 			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
-			radio.autosay("[src.rbmk_meltdown_alert] Core Integrity: [src.temp_damage/400]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
-		if(vessel_integrity <= temp_damage) //It wouldn't be able to tank another hit.
+			radio.autosay("[rbmk_meltdown_alert] Core Integrity: [vessel_integrity/400]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
+		if(vessel_integrity <= 0) //It wouldn't be able to tank another hit.
 			meltdown() //Oops! All meltdown
 			return
 	//Second alert condition: Overpressurized (the more lethal one)
@@ -463,15 +466,15 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		playsound(loc, 'sound/effects/rbmk/steam_whoosh.ogg', 100, TRUE)
 		var/pressure_damage = min(pressure/100, initial(vessel_integrity)/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
 		vessel_integrity -= pressure_damage
-		to_chat(world, "Reactor is taking pressure damage! Total Damage: [src.pressure_damage]/400")
+		to_chat(world, "Reactor is taking pressure damage! Total Damage: [vessel_integrity]/400")
 		if((REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
-			radio.autosay("[src.rbmk_pressure_alert] Core Integrity: [src.pressure_damage/400]%", name, "Engineering", list(z)) //scream on engi comms blowout is occuring
+			radio.autosay("[rbmk_pressure_alert] Core Integrity: [vessel_integrity/400]%", name, "Engineering", list(z)) //scream on engi comms blowout is occuring
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 			lastrbmkwarn = REALTIMEOFDAY
 		if(pressure_damage >= (0.75 * vessel_integrity) || (REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
 			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
-			radio.autosay("[src.rbmk_blowout_alert] Core Integrity: [src.pressure_damage/400]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
-		if(vessel_integrity <= pressure_damage) //It wouldn't be able to tank another hit.
+			radio.autosay("[rbmk_blowout_alert] Core Integrity: [vessel_integrity/400]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
+		if(vessel_integrity <= 0) //It wouldn't be able to tank another hit.
 			blowout()
 			return
 	else
