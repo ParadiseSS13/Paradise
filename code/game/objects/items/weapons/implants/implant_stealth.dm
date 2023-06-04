@@ -4,12 +4,12 @@
  * Implant which allows you to summon an MGS-style cardboard box that turns you invisble after a short delay.
  */
 /obj/item/implant/stealth
-	name = "S3 implant"
+	name = "S3 bio-chip"
 	desc = "Allows you to be hidden in plain sight."
 	actions_types = list(/datum/action/item_action/agent_box)
 
 /obj/item/implanter/stealth
-	name = "implanter (stealth)"
+	name = "bio-chip implanter (stealth)"
 	implant_type = /obj/item/implant/stealth
 
 /datum/action/item_action/agent_box
@@ -55,7 +55,8 @@
 	// Spawn the actual box
 	var/obj/structure/closet/cardboard/agent/box = new(get_turf(owner), owner)
 	box.implant_user_UID = owner.UID()
-	box.go_invisible(1.7 SECONDS) // Slightly shorter time since we needed 0.3s to to do the spawn animation.
+	// Slightly shorter time since we needed 0.3s to to do the spawn animation.
+	INVOKE_ASYNC(box, TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, go_invisible), 1.7 SECONDS)
 	box.create_fake_box()
 	owner.forceMove(box)
 
@@ -123,6 +124,7 @@
 	if(fake_box)
 		return
 	fake_box = new(get_turf(src))
+	fake_box.mouse_opacity = MOUSE_OPACITY_TRANSPARENT // This object should be completely invisible.
 	box_img = image(icon, fake_box, icon_state, ABOVE_MOB_LAYER)
 	box_img.alpha = 128
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(move_fake_box))
@@ -139,9 +141,13 @@
 
 /obj/structure/closet/cardboard/agent/proc/go_invisible(invis_time = 2 SECONDS)
 	animate(src, alpha = 0, time = invis_time)
+	sleep(invis_time)
+	// This is so people can't locate the box by spamming right click everywhere.
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/structure/closet/cardboard/agent/proc/reveal()
 	alpha = 255
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	addtimer(CALLBACK(src, PROC_REF(go_invisible)), 1 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 /obj/structure/closet/cardboard/agent/Bump(atom/A)

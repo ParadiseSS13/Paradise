@@ -665,11 +665,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 
 /datum/uplink_item/implants/stealthimplant
-	name = "Stealth Implant"
+	name = "Stealth Bio-chip"
 	desc = "This one-of-a-kind implant will make you almost invisible if you play your cards right. \
 			On activation, it will conceal you inside a chameleon cardboard box that is only revealed once someone bumps into it."
 	reference = "SI"
-	item = /obj/item/storage/box/syndie_kit/imp_stealth
+	item = /obj/item/implanter/stealth
 	cost = 8
 
 // POINTLESS BADASSERY
