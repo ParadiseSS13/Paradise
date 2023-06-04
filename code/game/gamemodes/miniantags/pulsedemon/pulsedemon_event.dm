@@ -29,11 +29,11 @@
 /datum/event/spawn_pulsedemon/proc/get_spawn_loc()
 	RETURN_TYPE(/turf)
 	var/list/spawn_centers = list()
-	for(var/datum/powernet/P in SSmachines.powernets)
+	for(var/datum/regional_powernet/P in SSmachines.powernets)
 		for(var/obj/structure/cable/C in P.cables)
 			var/turf/simulated/floor/F = get_turf(C)
 			// is a floor, not tiled, on station, in maintenance and cable has power?
-			if(istype(F) && !F.intact && is_station_level(C.z) && istype(get_area(C), /area/maintenance) && P.avail > 0)
+			if(istype(F) && !F.intact && is_station_level(C.z) && istype(get_area(C), /area/maintenance) && P.available_power > 0)
 				spawn_centers += F
 	if(!spawn_centers)
 		kill()

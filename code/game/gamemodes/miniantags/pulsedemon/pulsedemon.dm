@@ -386,14 +386,14 @@
 
 	var/got_power = FALSE
 	if(current_cable)
-		if(current_cable.avail() >= power_per_regen)
-			current_cable.add_load(power_per_regen)
+		if(current_cable.get_available_power() >= power_per_regen)
+			current_cable.add_power_demand(power_per_regen)
 			got_power = TRUE
 
 			var/excess = initial(power_per_regen) - power_per_regen
-			if(excess > 0 && current_cable.avail() >= excess && do_drain)
+			if(excess > 0 && current_cable.get_available_power() >= excess && do_drain)
 				adjust_charge(excess)
-				current_cable.add_load(excess)
+				current_cable.add_power_demand(excess)
 	else if(current_power)
 		if(isapc(current_power) && loc == current_power && do_drain)
 			if(drain_APC(current_power) > power_per_regen)
@@ -402,8 +402,8 @@
 			if(drain_SMES(current_power) > power_per_regen)
 				got_power = TRUE
 		// try to take power from the powernet if the APC or SMES is empty (or we're not /really/ in the APC)
-		if(!got_power && current_power.avail() >= power_per_regen)
-			current_power.add_load(power_per_regen)
+		if(!got_power && current_power.get_available_power() >= power_per_regen)
+			current_power.consume_direct_power(power_per_regen)
 			got_power = TRUE
 	else if(!can_exit_cable)
 		death()
@@ -558,7 +558,7 @@
 
 /mob/living/simple_animal/pulse_demon/proc/try_shock_mob(mob/living/L, siemens_coeff = 1)
 	var/dealt = 0
-	if(current_cable && current_cable.powernet && current_cable.powernet.avail)
+	if(current_cable && current_cable.powernet && current_cable.powernet.available_power)
 		// returns used energy, not damage dealt, but ez conversion with /20
 		dealt = electrocute_mob(L, current_cable.powernet, src, siemens_coeff) / 20
 	else if(charge >= 1000)
