@@ -5,7 +5,7 @@
 	icon_state = "igniter1"
 	plane = FLOOR_PLANE
 	max_integrity = 300
-	armor = list(melee = 50, bullet = 30, laser = 70, energy = 50, bomb = 20, bio = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(melee = 50, bullet = 30, laser = 70, energy = 50, bomb = 20, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	anchored = TRUE
 	idle_power_consumption = 2
