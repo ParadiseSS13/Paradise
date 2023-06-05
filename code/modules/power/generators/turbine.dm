@@ -315,7 +315,7 @@
 /obj/machinery/power/turbine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "TurbineComputer", name, 400, 300, master_ui, state)
+		ui = new(user, src, ui_key, "TurbineComputer", name, 400, 150, master_ui, state)
 		ui.open()
 
 /obj/machinery/power/turbine/ui_data(mob/user)
@@ -324,10 +324,12 @@
 	data["compressor_broken"] = (!compressor || (compressor.stat & BROKEN))
 	data["turbine"] = compressor?.turbine ? TRUE : FALSE
 	data["turbine_broken"] = (!compressor || !compressor.turbine || (compressor.turbine.stat & BROKEN))
-	data["online"] = compressor?.starter
-	data["power"] = compressor?.turbine?.lastgen
-	data["rpm"] = compressor?.rpm
-	data["temperature"] = compressor?.gas_contained.return_temperature()
+
+	if(compressor && compressor.turbine)
+		data["online"] = compressor.starter
+		data["power"] = compressor.turbine.lastgen
+		data["rpm"] = compressor.rpm
+		data["temperature"] = compressor.gas_contained.return_temperature()
 	return data
 
 /obj/machinery/power/turbine/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
