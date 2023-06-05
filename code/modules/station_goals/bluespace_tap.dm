@@ -232,7 +232,8 @@
 	var/base_points = 4
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 10
-
+	/// When event triggers this will hold references to all portals so we can fix the sprite after they're broken
+	var/list/active_nether_portals = list()
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
@@ -257,12 +258,25 @@
 /obj/machinery/power/bluespace_tap/update_icon(updates)
 	. = ..()
 	overlays.Cut()
+	underlays.Cut()
+	if(length(active_nether_portals))
+		icon_state = "redspace_tap"
+		overlays += icon(icon, "redspace")
+		set_light(15, 5, "#ff0000")
+		return
+	else
+		if(stat & (BROKEN|NOPOWER))
+			set_light(0)
+		else
+			set_light(1, 1, "#353535")
 
 	if(!powernet || powernet.available_power <= 0)
 		icon_state = base_icon_state
 	else
 		icon_state = "[base_icon_state][get_icon_state_number()]"
 		overlays += icon(icon, "screen")
+		if(light)
+			underlays += emissive_appearance(icon, "light_mask")
 
 /obj/machinery/power/bluespace_tap/proc/get_icon_state_number()
 	switch(input_level)
@@ -278,6 +292,16 @@
 			return 4
 		if(11 to INFINITY)
 			return 5
+
+/obj/machinery/power/bluespace_tap/power_change()
+	. = ..()
+	if(stat & (BROKEN|NOPOWER))
+		set_light(0)
+	else
+		set_light(1, 1, "#353535")
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
+
 
 /obj/machinery/power/bluespace_tap/connect_to_network()
 	..()
@@ -365,10 +389,17 @@
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0
-		for(var/i in 1 to rand(1, 3))
-			var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
-			new /obj/structure/spawner/nether/bluespace_tap(location)
+		start_nether_portaling(rand(1,3))
 
+/obj/machinery/power/bluespace_tap/proc/start_nether_portaling(amount)
+	var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
+	var/obj/structure/spawner/nether/bluespace_tap/P = new /obj/structure/spawner/nether/bluespace_tap(location)
+	amount--
+	active_nether_portals += P
+	P.linked_source_object = src
+	update_icon(UPDATE_ICON)
+	if(amount)
+		addtimer(CALLBACK(src, PROC_REF(start_nether_portaling), amount), rand(3,5) SECONDS)
 
 /obj/machinery/power/bluespace_tap/ui_data(mob/user)
 	var/list/data = list()
@@ -398,12 +429,18 @@
 
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
 	add_fingerprint(user)
+	if(length(active_nether_portals))		//this would be cool if we made unique TGUI for this
+		to_chat(user, "<span class='warning'>UNKNOWN INTERFERENCE ... UNRESPONSIVE</span>")
+		return
 	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ghost(mob/user)
 	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ai(mob/user)
+	if(length(active_nether_portals))		//this would be cool if we made unique TGUI for this
+		to_chat(user, "<span class='warning'>UNKNOWN INTERFERENCE ... UNRESPONSIVE</span>")
+		return
 	ui_interact(user)
 
 /**
@@ -423,8 +460,6 @@
 	do_sparks(2, FALSE, src)
 	new A.product_path(get_turf(src))
 	flick_overlay_view(image(icon, src, "flash", FLY_LAYER))
-
-
 
 //UI stuff below
 
@@ -462,9 +497,13 @@
 	spawn_time = 30 SECONDS
 	max_mobs = 5		//Dont' want them overrunning the station
 	max_integrity = 250
+	var/obj/machinery/power/bluespace_tap/linked_source_object //this is the BSH that caused it
 
 /obj/structure/spawner/nether/bluespace_tap/deconstruct(disassembled)
 	new /obj/item/stack/ore/bluespace_crystal(loc)	//have a reward
+	if(linked_source_object)
+		linked_source_object.active_nether_portals -= src
+		linked_source_object.update_icon(UPDATE_ICON)
 	return ..()
 
 /obj/item/paper/bluespace_tap
