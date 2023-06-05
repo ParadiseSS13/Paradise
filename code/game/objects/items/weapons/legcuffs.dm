@@ -175,6 +175,8 @@
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
 		C.Weaken(weaken)
 		playsound(loc, hitsound, 50, TRUE)
+		if(istype(src, /obj/item/restraints/legcuffs/bola/sinew))
+			src.flags = DROPDEL
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
 	name = "reinforced bola"
@@ -198,3 +200,16 @@
 		B.Crossed(hit_atom, null)
 		qdel(src)
 	..()
+
+/obj/item/restraints/legcuffs/bola/sinew
+	name = "skull bola"
+	desc = "A primitive bola made from the remains of your enemies. It doesn't look very reliable."
+	icon_state = "bola_s"
+
+/obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/user)
+	if(flags & DROPDEL)
+		user.apply_damage(10, BRUTE, (pick("l_leg", "r_leg")))
+		new /obj/item/restraints/handcuffs/sinew(loc)
+		new /obj/item/stack/sheet/bone(loc)
+		new /obj/item/stack/sheet/bone(loc)
+	. = ..()

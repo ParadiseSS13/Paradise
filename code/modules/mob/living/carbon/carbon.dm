@@ -899,7 +899,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			if(I == legcuffed)
 				legcuffed.forceMove(drop_location())
-				legcuffed.dropped()
+				legcuffed.dropped(src)
 				legcuffed = null
 				toggle_move_intent()
 				update_inv_legcuffed()

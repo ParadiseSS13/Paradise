@@ -594,6 +594,14 @@
 				 /obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/bola_s
+	name = "Skull Bola"
+	result = /obj/item/restraints/legcuffs/bola/sinew
+	reqs = list(/obj/item/restraints/handcuffs/sinew = 2, //We don't have a "hand craft" version due to the need for 2 restraints in crafting.
+				/obj/item/stack/sheet/bone = 3)
+	time = 20
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/boneaxe
 	name = "Bone Axe"
 	result = /obj/item/twohanded/fireaxe/boneaxe
