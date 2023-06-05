@@ -117,7 +117,7 @@
 	SIGNAL_HANDLER
 	if(!current_gun || !any && action.owner.get_active_hand() != current_gun)
 		return
-	to_chat(action.owner, "<span class='notice'>You holster your fingers. Another time.</span>")
+	to_chat(action.owner, "<span class='notice'>You holster your fingers. Another time perhaps...</span>")
 	QDEL_NULL(current_gun)
 
 /obj/effect/proc_holder/spell/mime/fingergun/fake
