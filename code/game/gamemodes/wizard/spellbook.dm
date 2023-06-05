@@ -418,7 +418,6 @@
 	cost = 4
 	spawn_on_floor = TRUE // it isn't happy if it has to remake itself in hand
 	is_ragin_restricted = TRUE //No blocked magic items on raging, sorry!
-	log_name = "MNB"
 	category = "Artefacts"
 
 /datum/spellbook_entry/item/cursed_heart
