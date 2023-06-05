@@ -763,6 +763,7 @@
 	icon_state = "tray"
 	buildstack = /obj/item/stack/sheet/mineral/titanium
 	buildstackamount = 2
+	pull_speed = 0
 	var/list/typecache_can_hold = list(/mob, /obj/item)
 	var/list/held_items = list()
 
@@ -805,8 +806,8 @@
 		var/mob/living/M = user
 		if(M.UID() in held_items)
 			return FALSE
-	return ..()	
-	
+	return ..()
+
 /obj/structure/table/tray/item_placed(atom/movable/item)
 	. = ..()
 	if(is_type_in_typecache(item, typecache_can_hold))
@@ -815,7 +816,7 @@
 			var/mob/living/M = item
 			if(M.pulling == src)
 				M.stop_pulling()
-			
+
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
