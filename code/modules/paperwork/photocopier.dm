@@ -376,7 +376,7 @@
 	else
 		ass_holder = ass
 	p.desc = "You see [ass_holder]'s ass on the photo."
-	p.log_text = "*Ass of [ass.client.ckey]/([ass])*"
+	p.log_text = "*Ass of [ass?.client?.ckey ? ass.client.ckey : "INVALID"]/([ass])*"
 	p.pixel_x = rand(-10, 10)
 	p.pixel_y = rand(-10, 10)
 	p.img = temp_img

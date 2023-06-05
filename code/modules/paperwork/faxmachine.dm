@@ -374,7 +374,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		embed.embed_content = data
 		embed.embed_colour = replacetext(font_colour, "#", "")
 		payload.embeds += embed
-		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Paper Fax"
+		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Paper Fax at [get_area(src)]"
 		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 	else if(istype(sent, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/bundle = sent
@@ -390,7 +390,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			embed.embed_colour = replacetext(font_colour, "#", "")
 			embed.embed_content = P.log_text
 			payload.embeds += embed
-		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Paper Bundle Fax"
+		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Bundle Fax at [get_area(src)]"
 		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 	else if(istype(sent, /obj/item/photo))
 		var/obj/item/photo/P = sent
@@ -399,7 +399,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		embed.embed_colour = font_colour
 		embed.embed_content = P.log_text
 		payload.embeds += embed
-		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Photo."
+		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Photo at [get_area(src)]"
 		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 
 /obj/machinery/photocopier/faxmachine/proc/sanitize_paper(obj/item/paper/paper) // html to discord markdown-101
@@ -420,16 +420,25 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	text = replacetext(text, "<li>", "- ")
 	text = replacetext(text, "<HR>", "\n`----- Horizontal Rule -----`\n")
-	text = replacetext(text, "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>", "`_TABLE_`\n")
-	text = replacetext(text, "<table>", "`_TABLE_`\n")
+	text = replacetext(text, "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>", "`_TABLE START_`\n")
+	text = replacetext(text, "<table>", "`_GRID START_`\n")
+	text = replacetext(text, "<tr>", "\n") // starts table, \ns it when splits every cell with |
+	text = replacetext(text, "<td>", " | ")
+	text = replacetext(text, "<table>", "`_TABLE END_`\n")
 	text = replacetext(text, "<img src = ntlogo.png>", "` NT LOGO `\n")
 	text = replacetext(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
 	text = replacetextEx(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
+	var/textstamps = paper.stamps
 	for(var/type in paper.stamped)
 		var/obj/item/stamp/stamp = new type()
-		text += "` [replacetext(replacetext(stamp.name, "rubber", ""), "'s", "")] `"
+		if(istype(stamp, /obj/item/stamp/chameleon))
+			var/text_stamp = replacetext(textstamps, regex(".*?<img src=large_stamp-(.*?).png>.*"), "$1") // pops from textstamps.
+			textstamps = replacetext(textstamps, regex("<img src=large_stamp-.*?.png>"), "")
+			text += "` [text_stamp] (CHAMELEON) stamp `"
+		else
+			text += "` [replacetext(replacetext(stamp.name, "rubber", ""), "'s", "")] `"
 
-	return strip_html_properly(text, allow_lines = TRUE)
+	return strip_html_properly(text, MAX_PAPER_MESSAGE_LEN, TRUE) //So satisfying that max paper length equals max description disorcd
 
 /obj/machinery/photocopier/faxmachine/proc/become_mimic()
 	if(scan)
