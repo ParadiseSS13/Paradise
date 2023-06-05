@@ -225,7 +225,6 @@
 /datum/spellbook_entry/mass_mindswap
 	name = "Mass Mindswap"
 	spell_type = /obj/effect/proc_holder/spell/aoe/mass_mindswap
-	log_name = "ML"
 	category = "Defensive"
 
 //Mobility
