@@ -204,8 +204,7 @@
 	. = ..()
 	if(tilted)
 		. += "<span class='warning'>It's been tipped over and won't be usable unless it's righted.</span>"
-		if(Adjacent(user))
-			. += "<span class='notice'>You can <b>Alt-Click</b> it to right it.</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> it to right it when adjacent.</span>"
 
 	if(aggressive)
 		. += "<span class='warning'>Its product lights seem to be blinking ominously...</span>"
@@ -605,7 +604,7 @@
 		return
 
 	if(tilted)
-		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! Alt+click to right it first.</span>")
+		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! <b>Alt-Click</b> to right it first.</span>")
 		return
 
 	if(seconds_electrified != 0 && shock(user, 100))
