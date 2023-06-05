@@ -53,8 +53,8 @@
 	return ..()
 
 /datum/looping_sound/proc/start(atom/add_thing)
-	if(add_thing && !(add_thing in output_atoms))
-		LAZYADD(output_atoms, add_thing)
+	if(add_thing)
+		LAZYADDOR(output_atoms, add_thing)
 	if(!muted)
 		return
 	muted = FALSE
