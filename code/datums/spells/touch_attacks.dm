@@ -36,7 +36,7 @@
 	to_chat(user, "<span class='notice'>You channel the power of the spell to your hand.</span>")
 	return 1
 
-/obj/effect/proc_holder/spell/touch/proc/discharge_hand(atom/target, any=FALSE)
+/obj/effect/proc_holder/spell/touch/proc/discharge_hand(atom/target, any = FALSE)
 	SIGNAL_HANDLER
 	var/mob/living/carbon/user = action.owner
 	if(!istype(attached_hand))
