@@ -84,9 +84,9 @@
 
 
 /datum/click_intercept/give/InterceptClickOn(mob/user, params, atom/object)
-	if(user == object || !iscarbon(object))
+	if(user == object || !ishuman(object))
 		return
-	var/mob/living/carbon/receiver = object
+	var/mob/living/carbon/human/receiver = object
 	if(receiver.stat != CONSCIOUS)
 		to_chat(user, "<span class='warning'>[receiver] can't accept any items because they're not conscious!</span>")
 		return

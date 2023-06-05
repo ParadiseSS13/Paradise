@@ -606,7 +606,7 @@ GLOBAL_VAR(bomb_set)
 	desc = "Better keep this safe."
 	icon_state = "nucleardisk"
 	max_integrity = 250
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	/// Is the disk restricted to the station? If true, also respawns the disk when deleted
 	var/restricted_to_station = TRUE
