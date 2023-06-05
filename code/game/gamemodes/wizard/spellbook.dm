@@ -226,7 +226,6 @@
 	name = "Summon Supermatter Crystal"
 	spell_type = /obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter
 	cost = 3
-	log_name = "SSM"
 	category = "Defensive"
 
 /datum/spellbook_entry/summon_supermatter/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
