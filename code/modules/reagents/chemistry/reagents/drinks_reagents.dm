@@ -387,6 +387,9 @@
 /datum/reagent/consumable/drink/tea/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
+		if(HAS_TRAIT(M, TRAIT_CHAV))
+			update_flags |= M.adjustBruteLoss(-1, FALSE)
+			update_flags |= M.adjustFireLoss(-1, FALSE)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 	return ..() | update_flags
 

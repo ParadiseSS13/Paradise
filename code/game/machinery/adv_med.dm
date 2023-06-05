@@ -76,6 +76,7 @@
 			return
 		M.forceMove(src)
 		occupant = M
+		playsound(src, 'sound/machines/podclose.ogg', 5)
 		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
@@ -138,6 +139,7 @@
 
 	H.forceMove(src)
 	occupant = H
+	playsound(src, 'sound/machines/podclose.ogg', 5)
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 	SStgui.update_uis(src)
@@ -183,6 +185,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
+	playsound(src, 'sound/machines/podopen.ogg', 5)
 	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
@@ -417,8 +420,7 @@
 
 		dat += "<hr>"
 
-		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))
-		blood_percent *= 100
+		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 1)
 
 		extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"

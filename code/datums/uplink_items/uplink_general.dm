@@ -319,6 +319,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/gun/syringe/rapidsyringe/preloaded/half
 	cost = 8
 
+/datum/uplink_item/stealthy_weapons/poisonbottle
+	name = "Poison Bottle"
+	desc = "The Syndicate will ship a bottle containing 40 units of a randomly selected poison. The poison can range from highly irritating to incredibly lethal."
+	reference = "TPB"
+	item = /obj/item/reagent_containers/glass/bottle/traitor
+	cost = 2
+
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Universal Suppressor"
 	desc = "Fitted for use on any small caliber weapon with a threaded barrel, this suppressor will silence the shots of the weapon for increased stealth and superior ambushing capability."
