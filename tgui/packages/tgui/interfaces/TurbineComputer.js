@@ -8,9 +8,9 @@ export const TurbineComputer = (props, context) => {
     compressor,
     compressor_broken,
     turbine,
-    turbine_broken
-  } = data;
-  const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken);
+    turbine_broken,
+  } = data
+  const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken)
   return (
     <Window>
       <Window.Content>
@@ -35,13 +35,13 @@ export const TurbineComputer = (props, context) => {
             <LabeledList>
               <LabeledList.Item
                 label="Compressor Status"
-                color={(!data.compressor || data.compressor_broken) ? 'bad' : 'good'}>
-                {data.compressor_broken? data.compressor ? 'Offline' : 'Missing' : 'Online'}
+                color={(!compressor || compressor_broken) ? 'bad' : 'good'}>
+                {compressor_broken ? compressor ? 'Offline' : 'Missing' : 'Online'}
               </LabeledList.Item>
               <LabeledList.Item
                 label="Turbine Status"
-                color={(!data.turbine || data.turbine_broken) ? 'bad' : 'good'}>
-                {data.turbine_broken ? data.turbine ? 'Offline' : 'Missing' : 'Online'}
+                color={(!turbine || turbine_broken) ? 'bad' : 'good'}>
+                {turbine_broken ? turbine ? 'Offline' : 'Missing' : 'Online'}
               </LabeledList.Item>
             </LabeledList>
           ) || (
