@@ -38,7 +38,6 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = null
 	storage_slots = 30
-	pull_speed = 0
 	max_combined_w_class = 30
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
