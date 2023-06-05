@@ -48,11 +48,13 @@
 		L.rad_act(400)
 		if(HAS_TRAIT(H, TRAIT_GENELESS))
 			return
-		randmuti(H) // Applies bad mutation
+		randmuti(H) // Random appearance mutation
 		if(prob(50))
 			if(prob(90))
+				// High chance of bad mutation
 				randmutb(H)
 			else
+				// Small chance of good mutation
 				randmutg(H)
 
 		domutcheck(H, MUTCHK_FORCED)

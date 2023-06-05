@@ -145,3 +145,10 @@
 				N.layer = initial(N.layer)
 				N.plane = initial(N.plane)
 				N.set_opacity(FALSE)
+
+	// Workaround for issue where area graphics changes aren't applied
+	// immediately on clients, which caused invisible rad storms
+	for(var/mob/M in GLOB.player_list)
+		if (M.client)
+			M.client.UpdateView()
+
