@@ -113,7 +113,7 @@
 			holster_hand(user, TRUE)
 			revert_cast(user)
 
-/obj/effect/proc_holder/spell/mime/fingergun/proc/holster_hand(atom/target, any=FALSE)
+/obj/effect/proc_holder/spell/mime/fingergun/proc/holster_hand(atom/target, any = FALSE)
 	SIGNAL_HANDLER
 	if(!current_gun || !any && action.owner.get_active_hand() != current_gun)
 		return
