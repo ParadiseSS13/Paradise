@@ -264,7 +264,7 @@
 	/// Whether or not the cloak turns off on bumping.
 	var/bumpoff = TRUE
 	/// The alpha applied when the cloak is on.
-	var/stealth_alpha = 25 //Honestly this might be too visable
+	var/stealth_alpha = 50
 
 /obj/item/mod/module/stealth/on_activation()
 	. = ..()

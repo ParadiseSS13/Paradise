@@ -138,8 +138,23 @@
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
+	var/static/list/metroid = list( // 21 + modules + laser gun
+		/obj/item/storage/box/syndie_kit/modsuit/elite, // 9TC
+		/obj/item/mod/module/visor/thermal, // 3 TC
+		/obj/item/mod/module/stealth, //0 TC but strong
+		/obj/item/mod/module/power_kick, //0 TC but funny
+		/obj/item/mod/module/sphere_transform, //0TC but should not be allowed to normally be installed
+		/obj/item/autosurgeon/organ/syndicate/laser_arm, //0 TC but otherwise not obtainable.
+		/obj/item/pinpointer/advpinpointer, //4 TC
+		/obj/item/storage/box/syndidonkpockets, //2TC, otherwise they will just die in the first combat to disabler.
+		/obj/item/storage/belt/utility/full/multitool, //0 TC
+		/obj/item/clothing/head/collectable/slime,  //Priceless (0 TC)
+		/obj/item/encryptionkey/syndicate) //2 TC
+
+
+
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
-	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, grenadier)
+	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, grenadier, metroid)
 	for(var/item in bundle)
 		new item(src)
 
