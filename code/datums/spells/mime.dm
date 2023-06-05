@@ -105,7 +105,7 @@
 	for(var/mob/living/carbon/human/C in targets)
 		if(!current_gun)
 			to_chat(user, "<span class='notice'>You draw your fingers!</span>")
-			current_gun = new gun(src)
+			current_gun = new gun(user, src)
 			C.drop_item()
 			C.put_in_hands(current_gun)
 			RegisterSignal(C, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(holster_hand))
@@ -118,8 +118,7 @@
 	if(!current_gun || !any && action.owner.get_active_hand() != current_gun)
 		return
 	to_chat(action.owner, "<span class='notice'>You holster your fingers. Another time.</span>")
-	qdel(current_gun)
-	current_gun = null
+	QDEL_NULL(current_gun)
 
 /obj/effect/proc_holder/spell/mime/fingergun/fake
 	desc = "Pretend you're shooting bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."

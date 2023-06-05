@@ -110,10 +110,6 @@
 	needs_permit = FALSE //go away beepsky
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
 
-/obj/item/gun/projectile/revolver/fingergun/New(new_parent_spell)
-	parent_spell = new_parent_spell
-	. = ..()
-
 /obj/item/gun/projectile/revolver/fingergun/Destroy()
 	if(parent_spell)
 		parent_spell.current_gun = null
@@ -124,8 +120,9 @@
 	desc = "Pew pew pew!"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 
-/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
+/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, new_parent_spell)
 	. = ..()
+	parent_spell = new_parent_spell
 	verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)

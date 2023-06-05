@@ -43,8 +43,7 @@
 		return
 	if(!any && attached_hand != user.get_active_hand())
 		return
-	qdel(attached_hand)
-	attached_hand = null
+	QDEL_NULL(attached_hand)
 	if(on_remove_message)
 		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
 
