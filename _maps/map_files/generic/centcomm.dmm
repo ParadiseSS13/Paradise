@@ -1490,7 +1490,7 @@
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
 /obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 3;
 	pixel_y = -30
 	},
@@ -1504,7 +1504,7 @@
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
 /obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 3;
 	pixel_y = -30
 	},
@@ -4057,7 +4057,7 @@
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
 /obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 3;
 	pixel_y = -30
 	},
@@ -5009,7 +5009,7 @@
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
 "rB" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 4;
 	pixel_y = 32
 	},
@@ -6146,7 +6146,7 @@
 /area/admin)
 "vI" = (
 /obj/structure/rack,
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 30
 	},
 /obj/item/gun/energy/xray,
@@ -6344,7 +6344,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ww" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 30
 	},
 /obj/structure/rack,
@@ -6438,7 +6438,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "wS" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 30
 	},
 /obj/structure/rack,
@@ -7921,7 +7921,7 @@
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
 /obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 3;
 	pixel_y = -30
 	},
@@ -8837,7 +8837,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Ip" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = -24
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -8846,7 +8846,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "Ir" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 32
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -11733,7 +11733,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "TF" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 4;
 	pixel_y = 32
 	},
