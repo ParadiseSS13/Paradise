@@ -372,10 +372,12 @@
 	data["compressor_broken"] = (!compressor || (compressor.stat & BROKEN)) ? TRUE : FALSE
 	data["turbine"] = compressor?.turbine ? TRUE : FALSE
 	data["turbine_broken"] = (!compressor || !compressor.turbine || (compressor.turbine.stat & BROKEN)) ? TRUE : FALSE
-	data["online"] = compressor?.starter
-	data["power"] = compressor?.turbine?.lastgen
-	data["rpm"] = compressor?.rpm
-	data["temperature"] = compressor?.gas_contained.return_temperature()
+
+	if(compressor && compressor.turbine)
+		data["online"] = compressor.starter
+		data["power"] = compressor.turbine.lastgen
+		data["rpm"] = compressor.rpm
+		data["temperature"] = compressor.gas_contained.return_temperature()
 	return data
 
 /obj/machinery/computer/turbine_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
