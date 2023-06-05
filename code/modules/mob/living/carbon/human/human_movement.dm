@@ -3,8 +3,9 @@
 	. += ..()
 	. += GLOB.configuration.movement.human_delay
 	. += dna.species.movement_delay(src)
-	if(pulling && pulling.pull_speed)
-		. += pulling.pull_speed
+	if(mob_has_gravity() && isobj(pulling))
+		var/obj/pulled = pulling
+		. += pulled.pull_speed
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
 
