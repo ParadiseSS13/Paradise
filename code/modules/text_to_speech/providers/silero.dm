@@ -2,6 +2,10 @@
 	name = "Silero"
 	is_enabled = TRUE
 
+	// Requests in last second and in queue (shared stats)
+	var/tts_shared_rps = "?"
+	var/tts_shared_requests_in_queue = "?"
+
 /datum/tts_provider/silero/request(text, datum/tts_seed/silero/seed, datum/callback/proc_callback)
 	if(throttle_check())
 		return FALSE
@@ -36,6 +40,9 @@
 	if(data["timings"]["003_tts_time"] > 3)
 		is_throttled = TRUE
 		throttled_until = world.time + 15 SECONDS
+
+	tts_shared_rps = data["lastSecondRequestCount"] || "?"
+	tts_shared_requests_in_queue = data["requestInQueue"] || "?"
 
 	return data["results"][1]["audio"]
 
