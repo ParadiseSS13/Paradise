@@ -358,13 +358,9 @@
 	infodisplay += mymob.healths
 
 /mob/living/simple_animal/shade/sword/ClickOn(atom/A, params)
-	if(client.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
-		return
-	if(istype(loc, /obj/item/nullrod/scythe/talking))
+	if(..() && istype(loc, /obj/item/nullrod/scythe/talking))
 		var/obj/item/nullrod/scythe/talking/host_sword = loc
 		return host_sword.click_actions(A, src)
-	return ..()
 
 /obj/item/nullrod/hammmer
 	name = "relic war hammer"
