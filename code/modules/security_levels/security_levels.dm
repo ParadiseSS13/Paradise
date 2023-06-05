@@ -229,13 +229,8 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 	update_firealarms()
 
 /proc/delta_alarm()
-	var/station_z
+	var/station_z = level_name_to_num(MAIN_STATION)
 	var/list/mobs_for_alarm = list()
-	for(var/i in 1 to length(GLOB.space_manager.z_list))
-		if(!is_station_level(i))
-			continue
-		station_z = i
-		break
 
 	for(var/mob/M in get_mob_with_client_list())
 		if(M.z != station_z)
