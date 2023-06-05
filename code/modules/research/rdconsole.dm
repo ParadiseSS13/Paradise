@@ -267,17 +267,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/sync_research()
 	if(!sync)
 		return
-	var/list/temp_unblacklist = list()
-	for(var/v in files.unblacklisted_designs)
-		temp_unblacklist += v
+	var/list/temp_unblacklist = files.unblacklisted_designs
 	files.unblacklisted_designs = list() //Remove this asap, else it will stick around
 	clear_wait_message()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		var/server_processed = FALSE
 
 		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
-			for(var/v in temp_unblacklist)
-				S.files.blacklisted_designs -= v
+			S.files.blacklisted_designs -= temp_unblacklist
 			files.push_data(S.files)
 			server_processed = TRUE
 

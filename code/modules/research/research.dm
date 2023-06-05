@@ -169,10 +169,7 @@ research holder datum.
 // Arguments:
 // `other` - The research datum to send designs and techs to
 /datum/research/proc/push_data(datum/research/other)
-	for(var/v in blacklisted_designs)
-		if(v in other.blacklisted_designs)
-			continue
-		other.blacklisted_designs += v
+	other.blacklisted_designs += (blacklisted_designs - other.blacklisted_designs)
 	for(var/v in unblacklisted_designs)
 		blacklisted_designs -= v
 		other.blacklisted_designs -= v
