@@ -249,7 +249,7 @@
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
 			. += "<span class='notice'>The status display reads:<span>"
 			if(using_power)
-				. += "<span class='notice'>- Recharging <b>[((C.chargerate*recharge_coeff)/C.maxcharge)*100]%</b> cell charge per cycle.<span>"
+				. += "<span class='notice'>- Recharging <b>[((C.chargerate * recharge_coeff) / C.maxcharge) * 100]%</b> cell charge per cycle.<span>"
 			if(charging)
 				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.<span>"
 
