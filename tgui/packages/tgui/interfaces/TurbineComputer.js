@@ -10,8 +10,8 @@ export const TurbineComputer = (props, context) => {
     turbine,
     turbine_broken,
     online
-  } = data
-  const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken)
+  } = data;
+  const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken);
   return (
     <Window>
       <Window.Content>
