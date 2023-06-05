@@ -9,6 +9,7 @@ export const TurbineComputer = (props, context) => {
     compressor_broken,
     turbine,
     turbine_broken,
+    online
   } = data
   const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken)
   return (
@@ -18,9 +19,9 @@ export const TurbineComputer = (props, context) => {
           buttons={(
             <>
               <Button
-                icon={data.online ? 'power-off' : 'times'}
-                content={data.online ? 'Online' : 'Offline'}
-                selected={data.online}
+                icon={online ? 'power-off' : 'times'}
+                content={online ? 'Online' : 'Offline'}
+                selected={online}
                 disabled={!operational}
                 onClick={() => act('toggle_power')}
               />
