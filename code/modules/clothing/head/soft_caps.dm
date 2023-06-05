@@ -108,7 +108,7 @@
 	desc = "It's baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	item_color = "sec"
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/softcap
 
@@ -126,7 +126,7 @@
 	dog_fashion = null
 
 /obj/item/clothing/head/soft/solgov/marines
-	armor = list(MELEE = 10, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 5, RAD = 0, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 10, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	icon_state = "solgovsoft_flipped"
 	strip_delay = 60
 	flipped = TRUE
@@ -134,7 +134,7 @@
 /obj/item/clothing/head/soft/solgov/marines/elite
 	name = "\improper Trans-Solar Federation Specops marine cap"
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. You aren't quite sure how they made this bulletproof, but you are glad it is!"
-	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 50, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "solgovelitesoft_flipped"
 	item_color = "solgovelite"
 	resistance_flags = FIRE_PROOF
@@ -150,7 +150,7 @@
 /obj/item/clothing/head/soft/solgov/marines/command/elite
 	name = "\improper Trans-Solar Federation Specops Lieutenant's cap"
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. You aren't quite sure how they made this bulletproof, but you are glad it is! The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor= list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 50, FIRE = 200, ACID = 200)
+	armor= list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "solgovcelitesoft"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF

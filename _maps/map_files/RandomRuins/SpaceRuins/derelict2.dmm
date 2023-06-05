@@ -31,8 +31,7 @@
 /turf/simulated/wall,
 /area/ruin/space/powered)
 "g" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "h" = (

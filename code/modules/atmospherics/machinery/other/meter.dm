@@ -5,10 +5,11 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	desc = "A gas flow meter"
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
-	layer = GAS_PUMP_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
+	layer_offset = GAS_PUMP_OFFSET
 	anchored = TRUE
 	max_integrity = 150
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 40, ACID = 0)
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	power_state = IDLE_POWER_USE
 	idle_power_consumption = 2
@@ -24,9 +25,6 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	target = null
 	GLOB.gas_meters -= src
 	return ..()
-
-/obj/machinery/atmospherics/meter/detailed_examine()
-	return "Measures the volume and temperature of the pipe under the meter."
 
 /obj/machinery/atmospherics/meter/process_atmos()
 	if(!target || (stat & (BROKEN|NOPOWER)))
@@ -71,6 +69,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 /obj/machinery/atmospherics/meter/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>Measures the volume and temperature of the pipe under the meter.</span>"
 	if(get_dist(user, src) > 3 && !(isAI(user) || istype(user, /mob/dead)))
 		. += "<span class='boldnotice'>You are too far away to read it.</span>"
 

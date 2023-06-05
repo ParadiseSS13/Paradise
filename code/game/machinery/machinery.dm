@@ -5,7 +5,7 @@
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
-	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
 	atom_say_verb = "beeps"
 	var/stat = 0
 
@@ -150,7 +150,7 @@
 	power_state = use_type
 
 /obj/machinery/proc/update_idle_power_consumption(channel = power_channel, amount)
-	if(power_state == ACTIVE_POWER_USE)
+	if(power_state == IDLE_POWER_USE)
 		machine_powernet.adjust_static_power(power_channel, amount - idle_power_consumption)
 	idle_power_consumption = amount
 

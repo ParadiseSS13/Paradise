@@ -12,26 +12,34 @@
 	var/icon_living = ""
 	var/icon_dead = ""
 	var/icon_resting = ""
-	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
-	var/flip_on_death = FALSE //Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
+	/// We only try to show a gibbing animation if this exists.
+	var/icon_gib = null
+	/// Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
+	var/flip_on_death = FALSE
 
 	var/list/speak = list()
 	var/speak_chance = 0
-	var/list/emote_hear = list()	//Hearable emotes
-	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
+	/// Hearable emotes
+	var/list/emote_hear = list()
+	/// Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
+	var/list/emote_see = list()
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
-	var/stop_automated_movement = FALSE //Use this to temporarely stop random movement or to if you write special movement code for animals.
-	var/wander = TRUE	// Does the mob wander around when idle?
-	var/stop_automated_movement_when_pulled = TRUE //When set to TRUE this stops the animal from moving when someone is pulling it.
+	/// Use this to temporarely stop random movement or to if you write special movement code for animals.
+	var/stop_automated_movement = FALSE
+	/// Does the mob wander around when idle?
+	var/wander = TRUE
+	/// When set to TRUE this stops the animal from moving when someone is pulling it.
+	var/stop_automated_movement_when_pulled = TRUE
 
 	//Interaction
 	var/response_help   = "pokes"
 	var/response_disarm = "shoves"
 	var/response_harm   = "hits"
 	var/harm_intent_damage = 3
-	var/force_threshold = 0 //Minimum force required to deal any damage
+	/// Minimum force required to deal any damage
+	var/force_threshold = 0
 
 	//Temperature effect
 	var/minbodytemp = 250
@@ -45,72 +53,91 @@
 	/// Damage the mob will take if it is on fire
 	var/fire_damage = 2
 
-	//Healable by medical stacks? Defaults to yes.
+	/// Healable by medical stacks? Defaults to yes.
 	var/healable = TRUE
 
-	//Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
+	/// Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
-	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
+	/// This damage is taken when atmos doesn't fit all the requirements above
+	var/unsuitable_atmos_damage = 2
 
-	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
+	/// LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
-	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
+	/// How much damage this simple animal does to objects, if any
+	var/obj_damage = 0
 	/// Flat armour reduction, occurs after percentage armour penetration.
 	var/armour_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
 	var/armour_penetration_percentage = 0
-	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
-	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
+	/// Damage type of a simple mob's melee attack, should it do damage.
+	var/melee_damage_type = BRUTE
+	/// 1 for full damage , 0 for none , -1 for 1:1 heal from that source
+	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	var/attacktext = "attacks"
 	var/attack_sound = null
-	var/friendly = "nuzzles" //If the mob does no damage with it's attack
-	var/environment_smash = ENVIRONMENT_SMASH_NONE //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
+	/// If the mob does no damage with it's attack
+	var/friendly = "nuzzles"
+	/// Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
+	var/environment_smash = ENVIRONMENT_SMASH_NONE
 
-	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
+	/// Higher speed is slower, negative speed is faster
+	var/speed = 1
 	var/can_hide = FALSE
 	/// Allows a mob to pass unbolted doors while hidden
 	var/pass_door_while_hidden = FALSE
 
 	var/obj/item/petcollar/pcollar = null
-	var/collar_type //if the mob has collar sprites, define them.
-	var/unique_pet = FALSE // if the mob can be renamed
-	var/can_collar = FALSE // can add collar to mob or not
+	/// If the mob has collar sprites, define them.
+	var/collar_type
+	/// If the mob can be renamed
+	var/unique_pet = FALSE
+	/// Can add collar to mob or not
+	var/can_collar = FALSE
 
-	//Hot simple_animal baby making vars
+	/// Hot simple_animal baby making vars
 	var/list/childtype = null
 	var/next_scan_time = 0
-	var/animal_species //Sorry, no spider+corgi buttbabies.
+	/// Sorry, no spider+corgi buttbabies.
+	var/animal_species
 	var/current_offspring = 0
 	var/max_offspring = DEFAULT_MAX_OFFSPRING
 
-	///Was this mob spawned by xenobiology magic? Used for mobcapping.
+	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
 	var/xenobiology_spawned = FALSE
-	var/gold_core_spawnable = NO_SPAWN //If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood
-
-	var/mob/living/carbon/human/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
+	/// If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood
+	var/gold_core_spawnable = NO_SPAWN
+	/// Holding var for determining who own/controls a sentient simple animal (for sentience potions).
+	var/mob/living/carbon/human/master_commander = null
 
 	var/datum/component/spawner/nest
-
-	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
-
-	var/list/loot = list() //list of things spawned at mob's loc when it dies
-	var/del_on_death = FALSE //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	/// Sentience type, for slime potions
+	var/sentience_type = SENTIENCE_ORGANIC
+	/// List of things spawned at mob's loc when it dies
+	var/list/loot = list()
+	/// Causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	var/del_on_death = FALSE
 	var/deathmessage = ""
-	var/death_sound = null //The sound played on death
+	/// The sound played on death
+	var/death_sound = null
 
 	var/allow_movement_on_non_turfs = FALSE
 
 	var/attacked_sound = "punch"
+	/// The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
+	var/AIStatus = AI_ON
+	/// Once we have become sentient, we can never go back
+	var/can_have_ai = TRUE
 
-	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
-	var/can_have_ai = TRUE //once we have become sentient, we can never go back
+	/// Convenience var for forcibly waking up an idling AI on next check.
+	var/shouldwakeup = FALSE
 
-	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
-
-	var/my_z // I don't want to confuse this with client registered_z
-	///What kind of footstep this mob should have. Null if it shouldn't have any.
+	/// I don't want to confuse this with client registered_z
+	var/my_z
+	/// What kind of footstep this mob should have. Null if it shouldn't have any.
 	var/footstep_type
+	/// Can this simple mob crawl or not? If FALSE, it won't get immobilized by crawling
+	var/can_crawl = FALSE
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -122,8 +149,9 @@
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	verbs -= /mob/verb/observe
-	if(!can_hide)
-		verbs -= /mob/living/simple_animal/verb/hide
+	if(can_hide)
+		var/datum/action/innate/hide/hide = new()
+		hide.Grant(src)
 	if(pcollar)
 		pcollar = new(src)
 		regenerate_icons()
@@ -134,6 +162,8 @@
 	/// We need to clear the reference to where we're walking to properly GC
 	walk_to(src, 0)
 	QDEL_NULL(pcollar)
+	for(var/datum/action/innate/hide/hide in actions)
+		hide.Remove(src)
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
 	if(SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
@@ -174,7 +204,8 @@
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_rest"
 			regenerate_icons()
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //simple mobs cannot crawl
+	if(!can_crawl)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //simple mobs cannot crawl (unless they can)
 
 /mob/living/simple_animal/on_standing_up()
 	..()
@@ -635,3 +666,14 @@
 
 /mob/living/simple_animal/proc/npc_safe(mob/user)
 	return FALSE
+
+/mob/living/simple_animal/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, PROC_REF(end_dchat_plays)))
+
+	if(. == COMPONENT_INCOMPATIBLE)
+		return
+
+	stop_automated_movement = TRUE
+
+/mob/living/simple_animal/proc/end_dchat_plays()
+	stop_automated_movement = FALSE

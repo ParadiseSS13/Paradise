@@ -6,7 +6,7 @@
 	density = TRUE
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 70, ACID = 60)
 	var/icon_closed
 	var/icon_opened
 	var/open_door_sprite = "generic_door"
@@ -133,7 +133,7 @@
 			break
 		if(isobserver(M))
 			continue
-		if(istype(M, /mob/living/simple_animal/bot/mulebot))
+		if(istype(M, /mob/living/simple_animal/bot/mulebot) || istype(M, /mob/camera))
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue
@@ -386,14 +386,14 @@
 	return
 
 /obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)
-	if(opened)
+	if(opened && can_close())
 		target.forceMove(src)
 		visible_message("<span class='danger'>[attacker] shoves [target] inside [src]!</span>", "<span class='warning'>You hear a thud, and something clangs shut.</span>")
 		close()
 		add_attack_logs(attacker, target, "shoved into [src]")
 		return TRUE
 
-	if(can_open())
+	if(!opened && can_open())
 		open()
 		visible_message("<span class='danger'>[attacker] shoves [target] against [src], knocking it open!</span>")
 		target.KnockDown(3 SECONDS)

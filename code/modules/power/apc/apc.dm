@@ -146,7 +146,7 @@
 
 /obj/machinery/power/apc/New(turf/loc, direction, building = 0)
 	if(!armor)
-		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50)
+		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, RAD = 100, FIRE = 90, ACID = 50)
 	..()
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
@@ -243,17 +243,13 @@
 				. += "The cover is broken. It may be hard to force it open."
 			else
 				. += "The cover is closed."
-
-/obj/machinery/power/apc/detailed_examine()
-	return "An APC (Area Power Controller) regulates and supplies backup power for the area they are in. Their power channels are divided \
-			out into 'environmental' (Items that manipulate airflow and temperature), 'lighting' (the lights), and 'equipment' (Everything else that consumes power). \
-			Power consumption and backup power cell charge can be seen from the interface, further controls (turning a specific channel on, off or automatic, \
-			toggling the APC's ability to charge the backup cell, or toggling power for the entire area via master breaker) first requires the interface to be unlocked \
-			with an ID with Engineering access or by one of the station's robots or the artificial intelligence."
-
-/obj/machinery/power/apc/detailed_examine_antag()
-	return "This can be emagged to unlock it. It will cause the APC to have a blue error screen. \
-			Wires can be pulsed remotely with a signaler attached to it. A powersink will also drain any APCs connected to the same wire the powersink is on."
+	. += "<span class='notice'>This powerful, yet small, device powers the entire room in which it is located. From lighting, airlocks, and equipment, an APC is able to power it all! You can unlock an APC by using an ID with the required access on it, or by a local synthetic.</span>"
+	. += "<span class='notice'>The enviroment setting controls the gas and airlock power.</span>"
+	. += "<span class='notice'>The lighting setting controls the power of all the lighting of the room.</span>"
+	. += "<span class='notice'>The equipment setting controls the power of all machines and computers in the room.</span>"
+	. += "<span class='notice'>You can crowbar an unlocked APC to open the cover of the APC.</span>"
+	if(isAntag(user))
+		. += "<span class='warning'>An APC can be emagged to unlock it, this will keep it in it's refresh state, making very obvious something is wrong.</span>"
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
@@ -365,6 +361,10 @@
 		return
 	else
 		return ..()
+
+/obj/machinery/power/apc/AltClick(mob/user)
+	if(Adjacent(user))
+		togglelock(user)
 
 /obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(stat & BROKEN)
@@ -496,7 +496,7 @@
 	if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
-		if(aidisabled || (malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent))) || (istype(robot) && (robot in malfai.connected_robots))))
+		if(aidisabled || (malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent))) || (istype(robot) && malfai && !(robot in malfai.connected_robots))))
 			if(!loud)
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
 			return FALSE
@@ -612,9 +612,9 @@
 	var/last_charging_state = charging
 	update_last_used() // get local powernet usage and clear it for next cycle
 
-	var/excess = surplus()
-	//Now we calculate the state of the external powernet
-	if(!avail())
+	var/excess = get_power_balance()
+
+	if(!get_available_power())
 		main_status = APC_EXTERNAL_POWER_NOTCONNECTED
 	else if(excess < 0)
 		main_status = APC_EXTERNAL_POWER_NOENERGY  // there's more demand than supply on powernet, there's not enough power
@@ -628,11 +628,11 @@
 
 		if(excess > last_used_total)	// if power excess recharge the cell  by the same amount just used
 			cell.give(cell_used)
-			add_load(cell_used / GLOB.CELLRATE)		// add the load used to recharge the cell
+			consume_direct_power(cell_used / GLOB.CELLRATE)		// add the load used to recharge the cell
 		else // no excess, and not enough per-apc
 			if((cell.charge / GLOB.CELLRATE + excess) >= last_used_total)		// can we draw enough from cell+grid to cover last usage?
 				cell.charge = min(cell.maxcharge, cell.charge + GLOB.CELLRATE * excess)	//recharge with what we can
-				add_load(excess) // so draw what we can from the grid
+				consume_direct_power(excess) // so draw what we can from the grid
 				charging = APC_NOT_CHARGING
 			else	// not enough power available to run the last tick!
 				charging = APC_NOT_CHARGING
@@ -658,7 +658,7 @@
 			if(excess > 0)		// check to make sure we have enough to charge
 				// Max charge is capped to % per second constant
 				var/ch = min(excess*GLOB.CELLRATE, cell.maxcharge*GLOB.CHARGELEVEL)
-				add_load(ch/GLOB.CELLRATE) // Removes the power we're taking from the grid
+				consume_direct_power(ch / GLOB.CELLRATE) // Removes the power we're taking from the grid
 				cell.give(ch) // actually recharge the cell
 
 			else
@@ -777,21 +777,24 @@
 /obj/machinery/power/apc/connect_to_network()
 	terminal?.connect_to_network() //The terminal is what the power computer looks for
 
-/obj/machinery/power/apc/surplus()
+/obj/machinery/power/apc/get_surplus()
 	if(terminal)
-		return terminal.surplus()
+		return terminal.get_surplus()
 	else
-		return 0 //not FALSE
+		return 0
 
-/obj/machinery/power/apc/add_load(amount)
+/obj/machinery/power/apc/get_power_balance()
+	if(terminal)
+		return terminal.get_power_balance()
+	else
+		return 0
+
+/obj/machinery/power/apc/consume_direct_power(amount)
 	if(terminal?.powernet)
-		terminal.add_load(amount)
+		terminal.consume_direct_power(amount)
 
-/obj/machinery/power/apc/avail()
-	if(terminal)
-		return terminal.avail()
-	else
-		return 0 //not FALSE
+/obj/machinery/power/apc/get_available_power()
+	return terminal ? terminal.get_available_power() : 0
 
 /obj/machinery/power/apc/proc/power_destroy() // Caused only by explosions and teslas, not for deconstruction
 	if(obj_integrity > integrity_failure || opened != APC_COVER_OFF)

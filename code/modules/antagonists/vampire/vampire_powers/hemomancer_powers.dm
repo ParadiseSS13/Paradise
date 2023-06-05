@@ -109,7 +109,7 @@
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
-			L.visible_message("<span class='warning'>[L] gets ensared in blood tendrils, restricting [L.p_their()] movement!</span>")
+			L.visible_message("<span class='warning'>[L] gets ensnare in blood tendrils, restricting [L.p_their()] movement!</span>")
 			new /obj/effect/temp_visual/blood_tendril/long(get_turf(L))
 
 /obj/effect/temp_visual/blood_tendril

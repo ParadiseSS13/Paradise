@@ -5,7 +5,7 @@
 	w_class = 100
 	item_state = "electronic"
 	flags = CONDUCT
-	var/module_armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	var/module_armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 	/// Has the AI hacked the borg module, allowing access to the malf AI exclusive item.
 	var/malfhacked = FALSE
@@ -536,7 +536,7 @@
 /obj/item/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
-	module_armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	module_armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	custom_removals = list("KA modkits")
 	basic_modules = list(

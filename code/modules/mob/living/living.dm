@@ -48,6 +48,7 @@
 				qdel(S)
 			else
 				S.be_replaced()
+	QDEL_NULL(middleClickOverride)
 	if(mind?.current == src)
 		mind.current = null
 	return ..()
@@ -485,6 +486,7 @@
 	RestoreEars()
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
+	SEND_SIGNAL(src, COMSIG_LIVING_CLEAR_STUNS)
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
@@ -1032,7 +1034,10 @@
 /mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return 0
+		return FALSE
+	if(G.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, "<span class='warning'>This gun is only built to be fired by machines!</span>")
+		return FALSE
 	return 1
 
 /mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
@@ -1086,7 +1091,6 @@
 /mob/living/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z)
-	SSticker.mode.transit_z(src)
 
 /mob/living/rad_act(amount)
 	. = ..()

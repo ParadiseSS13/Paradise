@@ -4,6 +4,10 @@
 		// But we return here since we don't want to do regular dblclick handling
 		return
 
+	var/list/modifiers = params2list(params)
+	if(modifiers["middle"]) // Let ghosts point without teleporting
+		return
+
 	if(can_reenter_corpse && mind && mind.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
@@ -75,7 +79,7 @@
 
 // ---------------------------------------
 // And here are some good things for free:
-// Now you can click through portals, wormholes, gateways, and teleporters while observing. -Sayu
+// Now you can click through portals, wormholes, and teleporters while observing. -Sayu
 
 /obj/machinery/teleport/hub/attack_ghost(mob/user as mob)
 	var/obj/machinery/teleport/station/S = power_station
@@ -87,15 +91,3 @@
 /obj/effect/portal/attack_ghost(mob/user as mob)
 	if(target)
 		user.forceMove(get_turf(target))
-
-/obj/machinery/gateway/centerstation/attack_ghost(mob/user as mob)
-	if(awaygate)
-		user.forceMove(awaygate.loc)
-	else
-		to_chat(user, "[src] has no destination.")
-
-/obj/machinery/gateway/centeraway/attack_ghost(mob/user as mob)
-	if(stationgate)
-		user.forceMove(stationgate.loc)
-	else
-		to_chat(user, "[src] has no destination.")

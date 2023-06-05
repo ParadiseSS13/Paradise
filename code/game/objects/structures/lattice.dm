@@ -6,7 +6,7 @@
 	base_icon_state = "lattice"
 	density = FALSE
 	anchored = TRUE
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 50)
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
@@ -25,9 +25,9 @@
 	. = ..()
 	. += deconstruction_hints(user)
 
-/obj/structure/lattice/detailed_examine()
-	return "Add a metal floor tile to build a floor on top of the lattice.<br>\
-			Lattices can be made by applying metal rods to a space tile."
+/obj/structure/lattice/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Add a floor tile to build a floor on top of the lattice.</span>"
 
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"

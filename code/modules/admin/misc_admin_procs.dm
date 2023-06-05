@@ -122,7 +122,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
-		body += "<A href='?_src_=holder;viewkarma=[M.ckey]'>View Karma</A> | "
 		if(GLOB.configuration.url.forum_playerinfo_url)
 			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)
@@ -424,6 +423,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
 		to_chat(world, "<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
 		log_admin("Announce: [key_name(usr)] : [message]")
+		for(var/client/clients_to_alert in GLOB.clients)
+			window_flash(clients_to_alert)
+			if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
+				SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
@@ -824,14 +827,14 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 	if(GLOB.gamma_ship_location == 1)
 		fromArea = locate(/area/shuttle/gamma/space)
 		toArea = locate(/area/shuttle/gamma/station)
-		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-			H.unlock(TRUE)
+		for(var/obj/machinery/door/poddoor/impassable/gamma/H in GLOB.airlocks)
+			H.open()
 		GLOB.major_announcement.Announce("Central Command has deployed the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
 	else
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
-		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-			H.lock(TRUE)
+		for(var/obj/machinery/door/poddoor/impassable/gamma/H in GLOB.airlocks)
+			H.close() //DOOR STUCK
 		GLOB.major_announcement.Announce("Central Command has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
 	fromArea.move_contents_to(toArea)
 

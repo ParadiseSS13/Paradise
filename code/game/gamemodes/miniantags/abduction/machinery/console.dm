@@ -236,4 +236,4 @@
 		else
 			new item(src.loc)
 	else
-		atom_say("Insufficent data!")
+		atom_say("Insufficient data!")

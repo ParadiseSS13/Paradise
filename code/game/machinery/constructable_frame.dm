@@ -277,7 +277,9 @@ to destroy them and players will be able to make replacements.
 		"CargoDrobe" =							/obj/machinery/economy/vending/cargodrobe,
 		"ChefDrobe" =							/obj/machinery/economy/vending/chefdrobe,
 		"BarDrobe" =							/obj/machinery/economy/vending/bardrobe,
-		"HydroDrobe" =							/obj/machinery/economy/vending/hydrodrobe)
+		"HydroDrobe" =							/obj/machinery/economy/vending/hydrodrobe,
+		"JaniDrobe" =							/obj/machinery/economy/vending/janidrobe,
+		"LawDrobe" =							/obj/machinery/economy/vending/lawdrobe)
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/economy/vending/cigarette/beach,
 		"SyndiMed Plus" =						/obj/machinery/economy/vending/wallmed/syndicate)
@@ -936,7 +938,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/bodyscanner
 	board_name = "Body Scanner"
-	icon_state = "science"
+	icon_state = "medical"
 	build_path = /obj/machinery/bodyscanner
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=2;engineering=3"

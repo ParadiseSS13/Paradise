@@ -16,7 +16,9 @@
 	..()
 	initialize_directions = dir
 
-/obj/machinery/atmospherics/pipe/cap/detailed_examine()
+/obj/machinery/atmospherics/pipe/cap/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Largely cosmetic as pipes automatically seal themselves off from leaking gases if not connected to another pipe. Will prevent a nasty ventcrawler from paying you a visit however.</span>"
 	return "This is a cosmetic attachment, as pipes currently do not spill their contents into the air."
 
 /obj/machinery/atmospherics/pipe/cap/hide(i)
@@ -81,13 +83,16 @@
 /obj/machinery/atmospherics/pipe/cap/visible
 	level = 2
 	icon_state = "cap"
+	plane = GAME_PLANE
+	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/cap/visible/scrubbers
 	name = "scrubbers pipe endcap"
 	desc = "An endcap for scrubbers pipes"
 	icon_state = "cap-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
-	layer = 2.38
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
+	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
@@ -96,7 +101,8 @@
 	desc = "An endcap for supply pipes"
 	icon_state = "cap-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
-	layer = 2.39
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET
+	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
@@ -104,13 +110,16 @@
 	level = 1
 	icon_state = "cap"
 	alpha = 128
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/cap/hidden/scrubbers
 	name = "scrubbers pipe endcap"
 	desc = "An endcap for scrubbers pipes"
 	icon_state = "cap-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
-	layer = 2.38
+	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
+	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
@@ -119,6 +128,7 @@
 	desc = "An endcap for supply pipes"
 	icon_state = "cap-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
-	layer = 2.39
+	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
+	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE

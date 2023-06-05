@@ -14,7 +14,6 @@
 	heavyfootstep = FOOTSTEP_GLASS_BAREFOOT
 	light_power = 0.25
 	light_range = 2
-	layer = TRANSPARENT_TURF_LAYER
 	keep_dir = FALSE
 	intact = FALSE
 	transparent_floor = TRUE
@@ -86,6 +85,9 @@
 	playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
 	ChangeTurf(/turf/simulated/floor/plating)
 
+
+/turf/simulated/floor/transparent/glass/can_lay_cable()
+	return FALSE // this turf isn't "intact" but you also can't lay cable on it
 
 /turf/simulated/floor/transparent/glass/reinforced
 	name = "reinforced glass floor"

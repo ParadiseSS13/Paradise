@@ -1,5 +1,6 @@
 /datum/martial_art/plasma_fist
 	name = "Plasma Fist"
+	weight = 6
 	combos = list(/datum/martial_combo/plasma_fist/tornado_sweep, /datum/martial_combo/plasma_fist/throwback, /datum/martial_combo/plasma_fist/plasma_fist)
 	has_explaination_verb = TRUE
 

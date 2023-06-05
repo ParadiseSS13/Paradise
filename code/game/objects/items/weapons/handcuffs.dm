@@ -19,7 +19,7 @@
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
 	breakouttime = 1 MINUTES
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	// Icon state for cuffed overlay on a mob
 	var/trashtype = null //For disposable cuffs
@@ -57,7 +57,7 @@
 		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
 							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
 
-		playsound(loc, cuffsound, 30, 1, -2)
+		playsound(loc, cuffsound, 15, 1, -10)
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")

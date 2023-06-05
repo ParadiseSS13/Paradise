@@ -6,7 +6,12 @@
 	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
-	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
+	/// used to check if pipes should be visible under the turf or not
+	var/transparent_floor = FALSE
+
+	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
+	var/real_layer = TURF_LAYER
+	layer = MAP_EDITOR_TURF_LAYER
 
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
@@ -48,6 +53,9 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+
+	if(layer == MAP_EDITOR_TURF_LAYER)
+		layer = real_layer
 
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()
@@ -461,7 +469,31 @@
 	return TRUE
 
 /turf/proc/can_lay_cable()
-	return can_have_cabling() & !intact
+	return can_have_cabling() && !intact
+
+/*
+	* # power_list()
+	* returns a list power machinery on the turf and cables on the turf that have a direction equal to the one supplied in params and are currently connected to a powernet
+	*
+	* Arguments:
+	* source - the atom that is calling this proc
+	* direction - the direction that a cable must have in order to be returned in this proc i.e. d1 or d2 must equal direction
+	* cable_only - if TRUE, power_list will only return cables, if FALSE it will also return power machinery
+*/
+/turf/proc/power_list(atom/source, direction, cable_only = FALSE)
+	. = list()
+	for(var/obj/AM in src)
+		if(AM == source)
+			continue	//we don't want to return source
+		if(istype(AM, /obj/structure/cable))
+
+			var/obj/structure/cable/C = AM
+			if(C.d1 == direction || C.d2 == direction)
+				. += C // one of the cables ends matches the supplied direction, add it to connnections
+		if(cable_only || direction)
+			continue
+		if(istype(AM, /obj/machinery/power) && !istype(AM, /obj/machinery/power/apc))
+			. += AM
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon

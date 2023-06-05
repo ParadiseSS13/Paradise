@@ -255,8 +255,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aU" = (
-/obj/structure/window/full/reinforced,
-/obj/structure/grille,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aV" = (
@@ -264,15 +263,13 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aW" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
 /area/ruin/space/unpowered)
 "aX" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aY" = (

@@ -8,7 +8,7 @@
 	icon_opened = "fireaxe_full_open"
 	anchored = TRUE
 	density = FALSE
-	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 90, ACID = 50)
 	var/localopened = FALSE //Setting this to keep it from behaviouring like a normal closet and obstructing movement in the map. -Agouri
 	opened = TRUE
 	var/hitstaken = FALSE

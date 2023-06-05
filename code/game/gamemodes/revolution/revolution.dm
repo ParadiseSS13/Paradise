@@ -20,6 +20,7 @@
 
 	var/finished = 0
 	var/max_headrevs = 3
+	var/check_counter = 0
 	var/list/datum/mind/heads_to_kill = list()
 	var/list/possible_revolutionaries = list()
 
@@ -78,14 +79,22 @@
 		SSshuttle.emergencyNoEscape = 1
 	..()
 
-//////////////////////////////////////////////////////////////////////////
-//Check if heads and head revolutionaries are still alive and on Z-level//
-//////////////////////////////////////////////////////////////////////////
-/datum/game_mode/revolution/transit_z(mob/living/player)
-	if(!finished)
-		var/list/heads = get_all_heads()
-		if(player.mind && ((player.mind in heads) || (player.mind in head_revolutionaries)))
-			SSticker.mode.check_win()
+/datum/game_mode/revolution/process() // to anyone who thinks "why don't we use a normal actually sane check here instead of process for checking Z level changes" It's because equip code is dogshit and you change z levels upon spawning in
+	check_counter++
+	if(check_counter >= 5)
+		if(!finished)
+			check_heads()
+		check_counter = 0
+	return FALSE
+
+/datum/game_mode/revolution/proc/check_heads()
+	var/list/heads = get_all_heads()
+	if(length(heads_to_kill) < length(heads))
+		var/list/new_heads = heads - heads_to_kill
+		for(var/datum/mind/head_mind in new_heads)
+			for(var/datum/mind/rev_mind in head_revolutionaries)
+				mark_for_death(rev_mind, head_mind)
+
 
 /datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
 	var/list/heads = get_living_heads()
@@ -106,6 +115,7 @@
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 		obj_count++
 	to_chat(rev_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revolution)</span>")
+	rev_mind.current.create_log(MISC_LOG, "[rev_mind.current] was made into a head revolutionary")
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
@@ -272,7 +282,7 @@
 				"<span class='userdanger'>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel... the only thing you remember is the name of the one who brainwashed you...</span>")
 			rev_mind.current.Paralyse(10 SECONDS)
 		update_rev_icons_removed(rev_mind)
-			
+
 /////////////////////////////////////
 //Adds the rev hud to a new convert//
 /////////////////////////////////////

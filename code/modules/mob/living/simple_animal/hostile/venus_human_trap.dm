@@ -63,7 +63,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
-	faction = list("hostile","vines","plants")
+	faction = list("hostile", "vines", "plants", "jungle")
 	var/list/grasping = list()
 	var/max_grasps = 4
 	var/grasp_chance = 20
@@ -114,6 +114,7 @@
 			if(O.density)
 				return
 	var/dist = get_dist(src,the_target)
+	changeNext_move(CLICK_CD_MELEE)
 	Beam(the_target, "vine", time=dist*2, maxdistance=dist+2, beam_type=/obj/effect/ebeam/vine)
 	the_target.attack_animal(src)
 

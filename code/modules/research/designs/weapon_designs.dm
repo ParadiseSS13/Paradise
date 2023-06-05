@@ -131,7 +131,7 @@
 	id = "lwap"
 	req_tech = list("combat" = 7, "magnets" = 7, "powerstorage" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_GOLD = 5000, MAT_DIAMOND = 5000)
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 8000, MAT_GOLD = 5000, MAT_DIAMOND = 8000)
 	build_path = /obj/item/weaponcrafting/gunkit/lwap
 	category = list("Weapons")
 
@@ -146,43 +146,75 @@
 	category = list("Weapons")
 
 //WT550 Mags
-
 /datum/design/mag_oldsmg
 	name = "WT-550 Auto Gun Magazine (4.6x30mm)"
 	desc = "A 20 round magazine for the out of date security WT-550 Auto Rifle"
 	id = "mag_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4000)
-	build_path = /obj/item/ammo_box/magazine/wt550m9
+	materials = list(MAT_METAL = 10000)
+	build_path = /obj/item/ammo_box/magazine/wt550m9/empty
 	category = list("Weapons")
 
-/datum/design/mag_oldsmg/ap_mag
-	name = "WT-550 Auto Gun Armour Piercing Magazine (4.6x30mm AP)"
-	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"
-	id = "mag_oldsmg_ap"
+/datum/design/box_oldsmg
+	name = "WT-550 Auto Gun Ammo Box (4.6x30mm)"
+	desc = "A box of 20 rounds for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg"
+	req_tech = list("combat" = 1, "materials" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/ammo_box/wt550
+	category = list("Weapons")
+
+/datum/design/box_oldsmg/ap_box
+	name = "WT-550 Auto Gun Armour Piercing Ammo Box (4.6x30mm AP)"
+	desc = "A box of 20 armour piercing rounds for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg_ap"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600)
-	build_path = /obj/item/ammo_box/magazine/wt550m9/wtap
+	build_path = /obj/item/ammo_box/wt550/wtap
+	category = list("Weapons")
 
-/datum/design/mag_oldsmg/ic_mag
-	name = "WT-550 Auto Gun Incendiary Magazine (4.6x30mm IC)"
-	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"
-	id = "mag_oldsmg_ic"
+/datum/design/box_oldsmg/ic_box
+	name = "WT-550 Auto Gun Incendiary Ammo Box (4.6x30mm IC)"
+	desc = "A box of 20 armour piercing rounds for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg_ic"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_GLASS = 1000)
-	build_path = /obj/item/ammo_box/magazine/wt550m9/wtic
+	build_path = /obj/item/ammo_box/wt550/wtic
+	category = list("Weapons")
 
-/datum/design/mag_oldsmg/tx_mag
-	name = "WT-550 Auto Gun Uranium Magazine (4.6x30mm TX)"
-	desc = "A 20 round uranium tipped magazine for the out of date security WT-550 Auto Rifle"
-	id = "mag_oldsmg_tx"
+/datum/design/box_oldsmg/tx_box
+	name = "WT-550 Auto Gun Uranium Ammo Box (4.6x30mm TX)"
+	desc = "A box of 20 uranium tipped rounds for the out of date security WT-550 Auto Rifle"
+	id = "box_oldsmg_tx"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
-	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
+	build_path = /obj/item/ammo_box/wt550/wttx
+	category = list("Weapons")
+
+/datum/design/mag_laser
+	name = "Laser Rifle Projector Magazine"
+	desc = "A 20 round encased projector magazine for the IK Laser Rifle series"
+	id = "mag_laser"
+	build_type = PROTOLATHE
+	req_tech = list("combat" = 4, "powerstorage" = 4)
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 600)
+	build_path = /obj/item/ammo_box/magazine/laser
+	category = list("Weapons")
+
+/datum/design/mag_laser
+	name = "Laser Rifle Projector Ammunition"
+	desc = "A 20 round encased projector box for the IK Laser Rifle series."
+	id = "mag_laser"
+	build_type = PROTOLATHE
+	req_tech = list("combat" = 4, "powerstorage" = 4)
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 600)
+	build_path = /obj/item/ammo_box/laser
+	category = list("Weapons")
 
 /datum/design/stunrevolver
-	name = "Tesla Revolver Parts Kit"
-	desc = "A kit for a high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
+	name = "Arc Revolver Parts Kit"
+	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
 	id = "stunrevolver"
-	req_tech = list("combat" = 4, "materials" = 4, "powerstorage" = 5)
+	req_tech = list("combat" = 7, "materials" = 6, "powerstorage" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
 	build_path = /obj/item/weaponcrafting/gunkit/tesla

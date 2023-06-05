@@ -284,7 +284,7 @@
 					/obj/item/clothing/head/collectable/slime,
 					/obj/item/clothing/head/collectable/xenom,
 					/obj/item/clothing/head/collectable/petehat)
-	name = "Collectible Hats Crate"
+	name = "Collectable Hats Crate"
 	cost = 2500
 	containername = "collectable hats crate! Brought to you by Bass.inc!"
 
@@ -328,7 +328,7 @@
 					/obj/item/instrument/recorder,
 					/obj/item/instrument/harmonica,
 					/obj/item/instrument/xylophone,
-					/obj/structure/piano)
+					/obj/structure/musician/piano)
 	cost = 500
 	containername = "big band musical instruments collection"
 
@@ -444,7 +444,9 @@
 	cost = 50
 	contains = list(/obj/item/vending_refill/bardrobe,
 					/obj/item/vending_refill/chefdrobe,
-					/obj/item/vending_refill/hydrodrobe)
+					/obj/item/vending_refill/hydrodrobe,
+					/obj/item/vending_refill/janidrobe,
+					/obj/item/vending_refill/lawdrobe)
 	containername = "service clothing vendor crate"
 
 /datum/supply_packs/misc/vending/clothingvendor/cargo

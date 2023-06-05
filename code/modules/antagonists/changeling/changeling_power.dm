@@ -43,6 +43,7 @@
 		return
 	cling = C
 	Grant(user)
+	return TRUE
 
 /datum/action/changeling/Destroy(force, ...)
 	cling.acquired_powers -= src
