@@ -333,7 +333,8 @@
 	vend_reply = "Thank you for using the RoboDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/roboticist = 3,
 					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 3,
-					/obj/item/clothing/suit/storage/labcoat = 3,
+					/obj/item/clothing/suit/storage/labcoat/roboblack = 3,
+					/obj/item/clothing/suit/storage/labcoat/robowhite = 3,
 					/obj/item/clothing/head/soft/black = 3,
 					/obj/item/clothing/gloves/fingerless = 3,
 					/obj/item/clothing/shoes/laceup = 3,
@@ -342,7 +343,8 @@
 	contraband = list(/obj/item/toy/figure/crew/roboticist = 1)
 	prices = list(/obj/item/clothing/under/rank/rnd/roboticist = 50,
 					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 50,
-					/obj/item/clothing/suit/storage/labcoat = 75,
+					/obj/item/clothing/suit/storage/labcoat/roboblack = 75,
+					/obj/item/clothing/suit/storage/labcoat/robowhite = 75,
 					/obj/item/clothing/head/soft/black = 20,
 					/obj/item/clothing/gloves/fingerless = 20,
 					/obj/item/clothing/shoes/laceup = 30,

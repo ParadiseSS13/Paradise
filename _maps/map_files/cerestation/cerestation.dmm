@@ -3774,6 +3774,9 @@
 	dir = 10
 	},
 /obj/item/pen,
+/obj/item/paper/safe_code{
+	owner = "captain"
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/crew_quarters/captain)
 "auT" = (
