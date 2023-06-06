@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(air_injectors)
 	can_unwrench = TRUE
 
 	name = "air injector"
-	desc = "Has a valve and pump attached to it"
+	desc = "Has a valve and pump attached to it."
 
 	var/injecting = FALSE
 

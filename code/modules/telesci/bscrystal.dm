@@ -3,16 +3,17 @@
 	name = "bluespace crystal"
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
 	icon = 'icons/obj/stacks/minerals.dmi'
-	icon_state = "refined_bluespace_crystal"
+	icon_state = "bluespace_crystal" //This is the raw ore from lavaland, so should look like the ore.
 	item_state = "bluespace_crystal"
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "bluespace=6;materials=3"
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
-	refined_type = /obj/item/stack/sheet/bluespace_crystal
+	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+	dynamic_icon_state = TRUE
 
 /obj/item/stack/ore/bluespace_crystal/New(loc, new_amount, merge = TRUE)
 	..()
@@ -38,9 +39,10 @@
 		blink_mob(hit_atom)
 	qdel(src)
 
-// Bluespace crystal fragments (stops point farming)
+// Refined Bluespace crystal fragments (stops point farming)
 /obj/item/stack/ore/bluespace_crystal/refined
 	name = "refined bluespace crystal"
+	icon_state = "refined_bluespace_crystal"
 	points = 0
 	refined_type = null
 
@@ -54,26 +56,3 @@
 	blink_range = 4 // Not as good as the organic stuff!
 	points = 0 // nice try
 	refined_type = null
-
-// Polycrystals, aka stacks
-
-GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/stack/ore/bluespace_crystal/refined, 1)))
-
-/obj/item/stack/sheet/bluespace_crystal
-	name = "bluespace polycrystal"
-	icon_state = "bluespace_crystal"
-	item_state = "bluespace_crystal"
-	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
-	origin_tech = "bluespace=6;materials=3"
-	merge_type = /obj/item/stack/sheet/bluespace_crystal
-	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
-	attack_verb = list("bluespace polybashed", "bluespace polybattered", "bluespace polybludgeoned", "bluespace polythrashed", "bluespace polysmashed")
-	toolspeed = 1
-	usesound = 'sound/items/deconstruct.ogg'
-	point_value = 30
-
-/obj/item/stack/sheet/bluespace_crystal/New()
-	..()
-	recipes = GLOB.bluespace_crystal_recipes
-	pixel_x = rand(0,4)-4
-	pixel_y = rand(0,4)-4

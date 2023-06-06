@@ -207,7 +207,9 @@ REAGENT SCANNER
 			to_chat(user, "<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>")
 	else
 		to_chat(user, "<span class='warning'>Subject has no brain.</span>")
-
+	var/broken_bone = FALSE
+	var/internal_bleed = FALSE
+	var/burn_wound = FALSE
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 		if(!e)
@@ -216,20 +218,18 @@ REAGENT SCANNER
 		if(e.status & ORGAN_BROKEN)
 			if((e.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")) && !(e.status & ORGAN_SPLINTED))
 				to_chat(user, "<span class='warning'>Unsecured fracture in subject [limb]. Splinting recommended for transport.</span>")
+			broken_bone = TRUE
 		if(e.has_infected_wound())
 			to_chat(user, "<span class='warning'>Infected wound detected in subject [limb]. Disinfection recommended.</span>")
+		burn_wound = burn_wound || (e.status & ORGAN_BURNT)
+		internal_bleed = internal_bleed || (e.status & ORGAN_INT_BLEEDING)
+	if(broken_bone)
+		to_chat(user, "<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>")
+	if(internal_bleed)
+		to_chat(user, "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>")
+	if(burn_wound)
+		to_chat(user, "<span class='warning'>Critical burn detected. Examine patient's body for location.</span>")
 
-	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
-		if(!e)
-			continue
-		if(e.status & ORGAN_BROKEN)
-			to_chat(user, "<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>")
-			break
-	for(var/obj/item/organ/external/e in H.bodyparts)
-		if(e.status & ORGAN_INT_BLEEDING)
-			to_chat(user, "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>")
-			break
 	var/blood_id = H.get_blood_id()
 	if(blood_id)
 		if(H.bleed_rate)
@@ -364,8 +364,9 @@ REAGENT SCANNER
 		var/n2_concentration = environment.nitrogen/total_moles
 		var/co2_concentration = environment.carbon_dioxide/total_moles
 		var/plasma_concentration = environment.toxins/total_moles
+		var/n2o_concentration = environment.sleeping_agent/total_moles
 
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
+		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration+n2o_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)
 			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100)] %</span>")
 		else
@@ -384,6 +385,9 @@ REAGENT SCANNER
 		if(plasma_concentration > 0.01)
 			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100)] %</span>")
 
+		if(n2o_concentration > 0.01)
+			to_chat(user, "<span class='info'>Nitrous Oxide: [round(n2o_concentration*100)] %</span>")
+
 		if(unknown_concentration > 0.01)
 			to_chat(user, "<span class='alert'>Unknown: [round(unknown_concentration*100)] %</span>")
 
@@ -397,7 +401,7 @@ REAGENT SCANNER
 	if(!user.incapacitated() && Adjacent(user))
 
 		if(cooldown)
-			to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")
+			to_chat(user, "<span class='warning'>[src]'s barometer function is preparing itself.</span>")
 			return
 
 		var/turf/T = get_turf(user)

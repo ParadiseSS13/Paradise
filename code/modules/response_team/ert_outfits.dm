@@ -169,7 +169,7 @@
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
-		/obj/item/ammo_box/magazine/laser = 2
+		/obj/item/ammo_box/magazine/laser/ert = 2
 	)
 
 	implants = list(/obj/item/implant/mindshield,
@@ -228,7 +228,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
-	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/wire_interface)
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened)
 
 	l_pocket = /obj/item/gun/energy/gun/mini
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -251,7 +251,7 @@
 	cybernetic_implants = list(
 	/obj/item/organ/internal/eyes/cybernetic/shield,
 	/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
-	/obj/item/organ/internal/cyberimp/brain/wire_interface
+	/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	)
 	l_pocket = /obj/item/t_scanner
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -289,7 +289,7 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
 		/obj/item/organ/internal/eyes/cybernetic/shield,
 		/obj/item/organ/internal/cyberimp/arm/toolset,
-		/obj/item/organ/internal/cyberimp/brain/wire_interface
+		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	)
 
 	implants = list(/obj/item/implant/mindshield,
@@ -341,10 +341,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit_store = /obj/item/gun/energy/gun
-	cybernetic_implants = list(
-	/obj/item/organ/internal/cyberimp/arm/surgery,
-	/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
-	)
+
 	belt = /obj/item/defibrillator/compact/advanced/loaded
 
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
@@ -357,12 +354,14 @@
 		/obj/item/roller/holo = 1,
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/handheld_defibrillator = 1,
+		/obj/item/storage/pill_bottle/ert_red = 1,
+		/obj/item/storage/pill_bottle/patch_pack/ert = 1,
 		/obj/item/soap/nanotrasen = 1
 	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery,
-		/obj/item/organ/internal/cyberimp/chest/nutriment
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
 	implants = list(/obj/item/implant/mindshield,
@@ -388,6 +387,9 @@
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller/holo = 1,
 		/obj/item/handheld_defibrillator = 1,
+		/obj/item/storage/box/autoinjectors = 1,
+		/obj/item/storage/pill_bottle/ert_gamma = 1,
+		/obj/item/storage/pill_bottle/patch_pack/ert/gamma = 1
 		)
 
 	cybernetic_implants = list(

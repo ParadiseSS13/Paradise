@@ -1,6 +1,7 @@
 /datum/species/machine
 	name = "Machine"
 	name_plural = "Machines"
+	max_age = 60 // the first posibrains were created in 2510, they can't be much older than this limit, giving some leeway for sounds sake
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independent, free-willed \
 	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \

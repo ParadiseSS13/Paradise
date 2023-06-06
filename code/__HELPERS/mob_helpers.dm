@@ -392,7 +392,7 @@
  *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
  *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
  */
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, list/extra_checks = list(), use_default_checks = TRUE)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE)
 	if(!user)
 		return FALSE
 	var/atom/Tloc = null
@@ -402,7 +402,7 @@
 	var/atom/Uloc = user.loc
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(!allow_moving && !user.Process_Spacemove(0) && user.inertia_dir)
 		drifting = TRUE
 
 	var/holding = user.get_active_hand()
@@ -429,16 +429,23 @@
 		sleep(1)
 		if(progress)
 			progbar.update(world.time - starttime)
+		if(!allow_moving)
+			if(drifting && !user.inertia_dir)
+				drifting = FALSE
+				Uloc = user.loc
+			if(!drifting && user.loc != Uloc)
+				. = FALSE
+				break
 
-		if(drifting && !user.inertia_dir)
-			drifting = FALSE
-			Uloc = user.loc
-
-		if(!user || user.stat || (!drifting && user.loc != Uloc) || check_for_true_callbacks(extra_checks))
+		if(!user || user.stat || check_for_true_callbacks(extra_checks))
 			. = FALSE
 			break
 
 		if(Tloc && (!target || Tloc != target.loc))
+			. = FALSE
+			break
+
+		if(must_be_held && target.loc != user)
 			. = FALSE
 			break
 
@@ -464,7 +471,7 @@
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_INIT(do_after_once_tracker, list())
-/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, attempt_cancel_message = "Attempt cancelled.")
+/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.")
 	if(!user || !target)
 		return
 
@@ -474,7 +481,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key)))
+	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key)))
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)
