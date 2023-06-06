@@ -19,6 +19,12 @@
 /obj/item/sensor_device/attack_self(mob/user as mob)
 	ui_interact(user)
 
+/obj/item/sensor_device/MouseDrop(obj/over_object as obj, src_location, over_location)
+	var/mob/M = usr
+	if((!istype(over_object, /obj/screen)))
+		return attack_self(M)
+
+
 /obj/item/sensor_device/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	crew_monitor.ui_interact(user, ui_key, ui, force_open)
 
