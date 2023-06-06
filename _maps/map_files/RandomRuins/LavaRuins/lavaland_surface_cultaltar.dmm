@@ -82,7 +82,7 @@
 /obj/effect/step_trigger/sound_effect{
 	happens_once = 1;
 	name = "a grave mistake";
-	sound = 'sound/hallucinations/i_see_you1.ogg';
+	sound = list('sound/hallucinations/i_see_you1.ogg');
 	triggerer_only = 1
 	},
 /obj/effect/step_trigger/message{

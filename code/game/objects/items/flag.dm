@@ -201,6 +201,11 @@
 	desc = "A flag proudly boasting the logo of the fearfull Spider Clan, known for their assassins, they work for the ones who pay them most."
 	icon_state = "ninjaflag"
 
+/obj/item/flag/ussp
+	name = "USSP flag"
+	desc = "A flag proudly boasting the logo of the Union of Soviet Socialist Planets, proclaiming the superior heritage of Revolution and Soviet People."
+	icon_state = "usspflag"
+
 //Chameleon
 
 /obj/item/flag/chameleon

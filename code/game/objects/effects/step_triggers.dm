@@ -169,7 +169,7 @@
 /* Simple sound player, Mapper friendly! */
 
 /obj/effect/step_trigger/sound_effect
-	var/sound //eg. path to the sound, inside '' eg: 'growl.ogg'
+	var/list/sound //eg. path to the sound, inside '' eg: 'growl.ogg'
 	var/volume = 100
 	var/freq_vary = 1 //Should the frequency of the sound vary?
 	var/extra_range = 0 // eg World.view = 7, extra_range = 1, 7+1 = 8, 8 turfs radius
@@ -185,9 +185,15 @@
 
 	if(triggerer_only && ismob(A))
 		var/mob/B = A
-		B.playsound_local(T, sound, volume, freq_vary)
+		B.playsound_local(T, pick(sound), volume, freq_vary)
 	else
-		playsound(T, sound, volume, freq_vary, extra_range)
+		playsound(T, pick(sound), volume, freq_vary, extra_range)
 
 	if(happens_once)
 		qdel(src)
+
+/obj/effect/step_trigger/sound_effect/explosion_far
+	sound = list('sound/effects/explosionfar.ogg', 'sound/effects/explosioncreak2.ogg', 'sound/effects/explosioncreak1.ogg', 'sound/effects/explosion_distant.ogg')
+	volume = 200
+	happens_once = 1
+	extra_range = 4

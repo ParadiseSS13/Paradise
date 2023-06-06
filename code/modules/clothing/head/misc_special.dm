@@ -212,6 +212,16 @@
 	icon_state = "sovietadmiralhat"
 	item_state = "sovietadmiralhat"
 
+/obj/item/clothing/head/soviethelmet
+	name = "SSh-68"
+	desc = "Soviet steel combat helmet."
+	icon_state = "soviethelm"
+	item_state = "soviethelm"
+	flags = BLOCKHAIR
+	flags_inv = HIDEHEADSETS
+	armor = list("melee" = 25, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	materials = list(MAT_METAL=2500)
+
 /*
  * Pumpkin head
  */

@@ -1104,6 +1104,15 @@
 	battery.charge = max(0, battery.charge - 1)
 	next_move = world.time + move_delay
 
+//// Damaged spacepod
+/obj/spacepod/civilian/damaged
+	desc = "Heavy damaged spacepod"
+
+/obj/spacepod/civilian/damaged/Initialize()
+	..()
+	deal_damage(200)
+	update_icon()
+
 #undef DAMAGE
 #undef FIRE
 #undef WINDOW

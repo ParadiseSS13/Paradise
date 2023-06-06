@@ -44,6 +44,13 @@
 	icon_state = "paper_clock"
 
 
+/obj/item/decorations/flag/soviet
+	name = "An old Soviet flag"
+	desc = "Archaic flag, remembres to it owner past times."
+	icon_state = "sov_flag"
+	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
+
 //Holiday decorations
 
 //Halloween decorations
@@ -272,3 +279,85 @@
 	icon_state = "lava_land_display"
 
 
+
+///////
+//Decorative corpses
+///////
+
+
+/obj/structure/decorative_structures/corpse
+	name = "Bloody body"
+	icon_state = "deadbody2"
+	density = 0
+	max_integrity = 5
+	var/bloodtiles = 8  // number of tiles with blood while pulling
+
+/obj/structure/decorative_structures/corpse/Initialize()
+	START_PROCESSING(SSobj, src)
+	..()
+
+/obj/structure/decorative_structures/corpse/Destroy()
+	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, 0)
+	var/turf/T = get_turf(src)
+	new /obj/effect/particle_effect/smoke/vomiting(T)
+	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
+	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
+	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
+	new /obj/effect/decal/cleanable/blood/gibs(T)
+	new /obj/effect/decal/cleanable/blood(T)
+	STOP_PROCESSING(SSobj, src)
+	..()
+
+/obj/structure/decorative_structures/corpse/attack_hand(mob/living/user)
+	take_damage(pick(2,3), BRUTE, "melee")
+	playsound(src, (pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')), 20, 0)
+	user.visible_message("<span class='danger'>You punched something viscous! You hear a slimy sound.</span>")
+
+/obj/structure/decorative_structures/corpse/play_attack_sound()
+	return
+
+/obj/structure/decorative_structures/corpse/climb_on()
+	return
+
+/obj/structure/decorative_structures/corpse/Move()
+	. = ..()
+	bloodtiles -= 1
+	if(bloodtiles >= 0 && prob(40))
+		new /obj/effect/decal/cleanable/blood(get_turf(src))
+
+/obj/structure/decorative_structures/corpse/process()
+	for(var/mob/living/carbon/human/H in range(4, src))
+		if(prob(15))
+			var/obj/item/clothing/mask/M = H.wear_mask
+			if(M && (M.flags_cover & MASKCOVERSMOUTH))
+				continue
+			if(NO_BREATHE in H.dna.species.species_traits)
+				continue //no puking if you can't smell!
+			to_chat(H, "<span class='warning'>You smell something foul...</span>")
+			H.fakevomit()
+
+///// jumping meat for body explotion effect
+
+/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping/Initialize(var/turf/T)
+	T = get_offset_target_turf(src.loc, rand(2)-rand(2), rand(2)-rand(2))
+	src.throw_at(T, 2, 1)
+	..()
+
+///// vomit cause gas
+/obj/effect/particle_effect/smoke/vomiting
+	color = "#752424"
+	lifetime = 3
+
+/obj/effect/particle_effect/smoke/vomiting/process()
+	if(..())
+		for(var/mob/living/carbon/M in range(2,src))
+			smoke_mob(M)
+
+/obj/effect/particle_effect/smoke/vomiting/smoke_mob(mob/living/carbon/M)
+	if(..())
+		M.drop_item()
+		M.vomit()
+		M.emote("cough")
+		return 1
+/datum/effect_system/smoke_spread/vomiting
+	effect_type = /obj/effect/particle_effect/smoke/vomiting

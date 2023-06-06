@@ -640,6 +640,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/trader_station/sol
 	name = "Jupiter Station 6"
 
+/area/ussp_centcom
+	name = "USSP central committee"
+	icon_state = "red"
+	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
+/area/ussp_centcom/secretariat
+	name = "Soviet secretariat"
+
 //Labor camp
 /area/mine/laborcamp
 	name = "Labor Camp"

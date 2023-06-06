@@ -2380,12 +2380,17 @@
 		var/destination
 		var/notify
 		var/obj/item/paper/P
-		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Nanotrasen","Syndicate", "No")
+		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Yes","No")
 		switch(use_letterheard)
-			if("Nanotrasen")
-				P = new /obj/item/paper/central_command(null)
-			if("Syndicate")
-				P = new /obj/item/paper/syndicate(null)
+			if("Yes")
+				var/choose_letterheard = alert("Which style of header and footer do you want to use?",,"Nanotrasen","Syndicate","USSP")
+				switch(choose_letterheard)
+					if("Nanotrasen")
+						P = new /obj/item/paper/central_command(null)
+					if("Syndicate")
+						P = new /obj/item/paper/syndicate(null)
+					if("USSP")
+						P = new /obj/item/paper/ussp(null)
 			if("No")
 				P = new /obj/item/paper(null)
 		if(!fax)
@@ -2423,10 +2428,14 @@
 				stamptype = "icon"
 				stampvalue = "syndicate"
 				sendername = "UNKNOWN"
+			if("USSP Central Committee")
+				stamptype = "icon"
+				stampvalue = "ussp"
+				sendername = "Первый секретарь народного комиссара космических станций и планетоидов СССП"
 			if("Administrator")
 				stamptype = input(src.owner, "Pick a stamp type.", "Stamp Type") as null|anything in list("icon","text","none")
 				if(stamptype == "icon")
-					stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","syndicate","granted","denied","clown")
+					stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","syndicate","granted","denied","clown","ussp")
 					switch(stampname)
 						if("centcom")
 							stampvalue = "cent"
@@ -2438,6 +2447,8 @@
 							stampvalue = "deny"
 						if("clown")
 							stampvalue = "clown"
+						if("ussp")
+							stampvalue = "ussp"
 				else if(stamptype == "text")
 					stampvalue = clean_input("What should the stamp say?", "Stamp Text", , owner)
 				else if(stamptype == "none")

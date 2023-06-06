@@ -1519,6 +1519,7 @@
 #include "code\modules\awaymissions\mission_code\ruins\gps.dm"
 #include "code\modules\awaymissions\mission_code\ruins\oldstation.dm"
 #include "code\modules\awaymissions\mission_code\ruins\spacehotelv1.dm"
+#include "code\modules\awaymissions\mission_code\ruins\USSP_gorky17.dm"
 #include "code\modules\awaymissions\mission_code\ruins\ussplaboratory.dm"
 #include "code\modules\awaymissions\mission_code\ruins\wizardcrash.dm"
 #include "code\modules\buildmode\bm_mode.dm"

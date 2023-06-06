@@ -355,5 +355,25 @@
 	id = "blood_ship"
 	suffix = "space_bloodship.dmm"
 	name = "Space bloodship "
-	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice." 
+	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice."
+
+/*
+/datum/map_template/ruin/space/USSP_gorky17
+	id = "USSP_gorky17"
+	suffix = "USSP_gorky17.dmm"
+	name = "USSP Gorky 17 station"
+	description = "USSP Special Operations Outpost hidden among the asteroids."
+	cost = 6 // 200x200 station in asteroid belt, has self destruct system and may spawn secret documents or 8 lvl tech
+	allow_duplicates = FALSE
+*/
+
+/datum/map_template/ruin/space/USSP_gorky17_collapsed
+	id = "USSP_gorky17_collapsed"
+	suffix = "USSP_gorky17_collapsed.dmm"
+	name = "USSP Gorky 17 collapsed station"
+	description = "USSP Special Operations Outpost hidden among the asteroids. An unenviable fate befell this frontier... \
+	After another mission using the gate, a strong bluespace storm began in the outpost sector, which damaged the gate... \
+	Immediately after the described events, the 'fortress' protocol was activated at the facility"
+	cost = 6 // 200x200 station in asteroid belt, has self destruct system and may spawn secret documents or 8 lvl tech
+	allow_duplicates = FALSE
 

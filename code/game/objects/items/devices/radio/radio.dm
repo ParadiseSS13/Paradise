@@ -792,3 +792,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/bot
 	tts_seed = null
+
+/obj/item/radio/phone/ussp
+	name = "Red phone"
+	has_loudspeaker = TRUE
+	frequency = SOV_FREQ

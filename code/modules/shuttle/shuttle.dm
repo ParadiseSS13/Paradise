@@ -932,7 +932,7 @@
 	desc = "Used to control the Transport Shuttle."
 	circuit = /obj/item/circuitboard/ruins_transport_shuttle
 	shuttleId = "ruins_transport_shuttle"
-	possible_destinations = "ussp_dock;dj_post;sindiecake_dock"
+	possible_destinations = "ussp_dock;dj_post;sindiecake_dock;ussp_gorky17"
 
 
 /obj/machinery/computer/shuttle/ruins_civil_shuttle // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.

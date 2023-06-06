@@ -301,6 +301,7 @@
 	c.stamps = copy.stamps
 	c.stamped = copy.stamped
 	c.ico = copy.ico
+	c.language = copy.language
 	c.offset_x = copy.offset_x
 	c.offset_y = copy.offset_y
 	var/list/temp_overlays = copy.overlays       //Iterates through stamps

@@ -32,7 +32,8 @@ GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"UO71",
 	"Xeno",
 	"Hotel",
-	"USSP_LAB"
+	"USSP_LAB",
+	"USSP_gorky17"
 	)) //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 
 GLOBAL_LIST_INIT(ruin_landmarks, list())

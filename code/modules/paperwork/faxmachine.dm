@@ -1,6 +1,7 @@
 GLOBAL_LIST_EMPTY(allfaxes)
 GLOBAL_LIST_INIT(admin_departments, list("Central Command"))
 GLOBAL_LIST_INIT(hidden_admin_departments, list("Syndicate"))
+GLOBAL_LIST_INIT(hidden_ussp, list("USSP Central Committee"))
 GLOBAL_LIST_EMPTY(alldepartments)
 GLOBAL_LIST_EMPTY(hidden_departments)
 GLOBAL_LIST_EMPTY(fax_blacklist)
@@ -14,7 +15,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/fax_network = "Local Fax Network"
 	/// If true, prevents fax machine from sending messages to NT machines
 	var/syndie_restricted = FALSE
-
+	var/ussp_restricted = FALSE
 	/// Can we send messages off-station?
 	var/long_range_enabled = FALSE
 	req_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
@@ -48,7 +49,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
-		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments)))
+		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments) || ("[department]" in GLOB.hidden_ussp)))
 			GLOB.alldepartments |= department
 
 /obj/machinery/photocopier/faxmachine/longrange
@@ -66,6 +67,18 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
 	if(department != "Unknown")
 		GLOB.hidden_departments |= department
+
+/obj/machinery/photocopier/faxmachine/longrange/ussp
+	name = "USSP long range fax machine"
+	fax_network = "USSP Quantum Entanglement Network"
+	ussp_restricted = TRUE
+	req_access = list(ACCESS_USSP_MARINE_CAPTAIN)
+	idle_power_usage = 60
+	active_power_usage = 300
+
+/obj/machinery/photocopier/faxmachine/longrange/ussp/update_network()
+	if(department != "Unknown")
+		GLOB.hidden_ussp |= department
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -204,6 +217,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				var/list/combineddepartments = GLOB.alldepartments.Copy()
 				if(long_range_enabled)
 					combineddepartments += GLOB.admin_departments.Copy()
+					if(z == level_name_to_num(CENTCOMM))
+						for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
+							if(F.ussp_restricted)
+								combineddepartments |= F.department
 				if(emagged)
 					combineddepartments += GLOB.hidden_admin_departments.Copy()
 					combineddepartments += GLOB.hidden_departments.Copy()
@@ -212,6 +229,11 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					combineddepartments += GLOB.hidden_departments.Copy()
 					for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 						if(F.emagged)//we can contact emagged faxes on the station
+							combineddepartments |= F.department
+				if(ussp_restricted)
+					combineddepartments = GLOB.hidden_ussp.Copy()
+					for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
+						if(F.ussp_restricted)
 							combineddepartments |= F.department
 				destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 				if(!destination)
@@ -228,7 +250,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				to_chat(usr, "<span class='warning'>[src] is not ready for another [cooldown_seconds] seconds.</span>")
 				return
 
-			if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
+			if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments) || (destination in GLOB.hidden_ussp))
 				sendcooldown = world.time + cooldown_time
 				SStgui.update_uis(src)
 				send_admin_fax(usr, destination)
@@ -347,6 +369,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			message_admins(sender, "CENTCOM FAX", destination, copyitem, "#006100")
 		if("Syndicate")
 			message_admins(sender, "SYNDICATE FAX", destination, copyitem, "#DC143C")
+		if("USSP Central Committee")
+			message_admins(sender, "USSP FAX", destination, copyitem, "#b60226")
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			F.receivefax(copyitem)
@@ -358,7 +382,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	return round((sendcooldown - world.time) / 10)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : "CentcommReply"]=[sender.UID()]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A HREF='?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A HREF='?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)

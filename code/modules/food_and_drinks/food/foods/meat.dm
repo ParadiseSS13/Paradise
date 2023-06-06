@@ -195,6 +195,14 @@
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
+/obj/item/reagent_containers/food/snacks/monstermeat/rotten
+	name = "rotten meat"
+	desc = "A slab of rotten meat. Looks really awful, a couple of flies sit on it."
+	icon_state = "rottenmeatslab"
+	list_reagents = list("protein" = 1, "toxin" = 10, "????" = 20)
+	tastes = list("slimy meat" = 3, "rotten meat" = 3, "stink" = 3)
+	foodtype = MEAT | GROSS | RAW | TOXIC
+
 //////////////////////
 //	Cooked Meat		//
 //////////////////////

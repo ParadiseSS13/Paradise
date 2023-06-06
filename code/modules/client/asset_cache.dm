@@ -209,7 +209,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"thieflogo.png"		    	= 'icons/misc/paper_icons/thieflogo.png',
 		"large_stamp-ploho.png"		= 'icons/misc/paper_icons/large_stamp-ploho.png',
 		"large_stamp-BIGdeny.png"	= 'icons/misc/paper_icons/large_stamp-BIGdeny.png',
-		"large_stamp-navcom.png"	= 'icons/misc/paper_icons/large_stamp-navcom.png'
+		"large_stamp-navcom.png"	= 'icons/misc/paper_icons/large_stamp-navcom.png',
+		"large_stamp-ussp.png"		= 'icons/misc/paper_icons/large_stamp-ussp.png',
+		"ussplogo.png"			= 'icons/misc/paper_icons/ussplogo.png'
 	)
 
 /datum/asset/simple/chess

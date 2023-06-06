@@ -126,3 +126,8 @@
 	name = "mime's rubber stamp"
 	icon_state = "stamp-mime"
 	item_color = "mime"
+
+/obj/item/stamp/ussp
+	name = "Old USSP rubber stamp"
+	icon_state = "stamp-ussp"
+	item_color = "redcoat"

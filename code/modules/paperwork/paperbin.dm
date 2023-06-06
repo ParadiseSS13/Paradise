@@ -149,3 +149,7 @@
 /obj/item/paper_bin/syndicate
 	name = "syndicate paper bin"
 	letterhead_type = /obj/item/paper/syndicate
+
+/obj/item/paper_bin/ussp
+	name = "ussp paper bin"
+	letterhead_type = /obj/item/paper/ussp

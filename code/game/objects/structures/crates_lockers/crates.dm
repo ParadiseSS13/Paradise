@@ -305,6 +305,13 @@
 	icon_closed = "trashcart"
 	pull_push_speed_modifier = 1
 
+/obj/structure/closet/crate/trashcart/gibs
+	desc = "A heavy, metal trashcart with wheels. You better don't ask."
+	name = "trash cart with gibs"
+	icon_state = "trashcartgib"
+	icon_opened = "trashcartgibopen"
+	icon_closed = "trashcartgib"
+
 /*these aren't needed anymore
 /obj/structure/closet/crate/hat
 	desc = "A crate filled with Valuable Collector's Hats!."
@@ -561,6 +568,13 @@
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
+
+/obj/structure/closet/crate/secure/biohazard
+	name = "secure biohazard crate"
+	desc = "An protected biohazard crate."
+	icon_state = "biohazard"
+	icon_opened = "biohazardopen"
+	icon_closed = "biohazard"
 
 //crates of gear in the free golem ship
 /obj/structure/closet/crate/golemgear/populate_contents()

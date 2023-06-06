@@ -30,3 +30,13 @@
 	autolink_id = "STATION-CORE"
 	hidden_link = TRUE
 
+// USSP CORE //
+/obj/machinery/tcomms/core/ussp
+	network_id = "USSP-CORE"
+
+// GORKY17 RELAY //
+/obj/machinery/tcomms/relay/gorky17
+	network_id = "GORKY17-RELAY"
+	autolink_id = "USSP-CORE"
+	active = TRUE
+	hidden_link = TRUE

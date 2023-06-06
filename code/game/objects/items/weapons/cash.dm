@@ -57,3 +57,44 @@
 
 /obj/item/stack/spacecash/c1000000
 	amount = 1000000
+
+///// USSP space cash
+
+/obj/item/stack/spacecash/ussp
+	name = "1 Soviet Credit"
+	desc = "An old shabby paper Soviet Credit."
+	icon_state = "usspcash"
+	singular_name = "Stovpira"
+	merge_type = /obj/item/stack/spacecash/ussp
+
+/obj/item/stack/spacecash/ussp/c10
+	amount = 10
+
+/obj/item/stack/spacecash/ussp/c50
+	amount = 50
+
+/obj/item/stack/spacecash/ussp/c100
+	amount = 100
+
+/obj/item/stack/spacecash/ussp/c1000
+	amount = 1000
+
+/obj/item/stack/spacecash/ussp/New(loc, amt = null)
+	..()
+	update_icon()
+
+/obj/item/stack/spacecash/ussp/update_icon()
+	..()
+	name = "[amount == max_amount ? "1000000" : amount] Ruble[amount > 1 ? "s" : ""]"
+	if(amount >= 1 && amount < 10)
+		icon_state = "usspcash"
+	else if(amount >= 10 && amount < 50)
+		icon_state = "usspcash10"
+	else if(amount >= 50 && amount < 500)
+		icon_state = "usspcash50"
+	else if(amount >= 500 && amount < 1000)
+		icon_state = "usspcash500"
+	else if(amount >= 1000 && amount < 1000000)
+		icon_state = "usspcash1000"
+	else
+		icon_state = "usspcash1000"
