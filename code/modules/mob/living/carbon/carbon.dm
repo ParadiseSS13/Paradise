@@ -219,53 +219,58 @@
 			M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
 			"<span class='notice'>You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!</span>")
 		return
-	if(health >= HEALTH_THRESHOLD_CRIT)
-		if(src == M && ishuman(src))
-			check_self_for_injuries()
-		else
-			if(player_logged)
-				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
-				"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
-			if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
-				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					if(H.w_uniform)
-						H.w_uniform.add_fingerprint(M)
-				AdjustSleeping(-10 SECONDS)
-				AdjustParalysis(-6 SECONDS)
-				AdjustStunned(-6 SECONDS)
-				AdjustWeakened(-6 SECONDS)
-				AdjustKnockDown(-6 SECONDS)
-				adjustStaminaLoss(-10)
-				resting = FALSE
-				stand_up() // help them up if possible
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(!player_logged)
-					M.visible_message( \
-						"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
-						"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
-						)
-			// BEGIN HUGCODE - N3X
-			else
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(M.zone_selected == "head")
-					M.visible_message(\
-					"<span class='notice'>[M] pats [src] on the head.</span>",\
-					"<span class='notice'>You pat [src] on the head.</span>",\
-					)
-				else
-
-					M.visible_message(\
-					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-					"<span class='notice'>You hug [src].</span>",\
-					)
-					if(ishuman(src))
-						var/mob/living/carbon/human/H = src
-						if(H.wear_suit)
-							H.wear_suit.add_fingerprint(M)
-						else if(H.w_uniform)
-							H.w_uniform.add_fingerprint(M)
+	if(health < HEALTH_THRESHOLD_CRIT)
+		return
+	if(src == M && ishuman(src))
+		check_self_for_injuries()
+		return
+	if(player_logged)
+		M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
+		"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
+	if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+		add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			if(H.w_uniform)
+				H.w_uniform.add_fingerprint(M)
+		AdjustSleeping(-10 SECONDS)
+		AdjustParalysis(-6 SECONDS)
+		AdjustStunned(-6 SECONDS)
+		AdjustWeakened(-6 SECONDS)
+		AdjustKnockDown(-6 SECONDS)
+		adjustStaminaLoss(-10)
+		resting = FALSE
+		stand_up() // help them up if possible
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		if(!player_logged)
+			M.visible_message( \
+				"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
+				"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
+				)
+		return
+	// BEGIN HUGCODE - N3X
+	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	if(M.zone_selected == "head")
+		M.visible_message(\
+		"<span class='notice'>[M] pats [src] on the head.</span>",\
+		"<span class='notice'>You pat [src] on the head.</span>",\
+		)
+		return
+	// If it has any of the highfive statuses, dap, handshake, etc
+	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
+	if(effect)
+		M.apply_status_effect(effect.type)
+		return
+	M.visible_message(\
+	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
+	"<span class='notice'>You hug [src].</span>",\
+	)
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.wear_suit)
+			H.wear_suit.add_fingerprint(M)
+		else if(H.w_uniform)
+			H.w_uniform.add_fingerprint(M)
 
 /**
   * Handles patting out a fire on someone.
