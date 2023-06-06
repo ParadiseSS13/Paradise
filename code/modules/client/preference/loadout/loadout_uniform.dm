@@ -103,7 +103,7 @@
 	path = /obj/item/clothing/under/color/darkred
 
 /datum/gear/uniform/suit/soviet
-	display_name = "USSP uniform"
+	display_name = "Old USSP uniform"
 	path = /obj/item/clothing/under/costume/soviet
 
 /datum/gear/uniform/suit/kilt

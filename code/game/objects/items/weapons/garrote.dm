@@ -154,7 +154,10 @@
 
 
 	strangling.AbsoluteSilence(6 SECONDS) // Non-improvised effects
-	strangling.apply_damage(4, OXY, "head")
+	if(G.state == GRAB_KILL)
+		strangling.PreventOxyHeal(6 SECONDS)
+		strangling.AdjustLoseBreath(6 SECONDS)
+		strangling.apply_damage(4, OXY, "head")
 
 
 /obj/item/twohanded/garrote/suicide_act(mob/user)

@@ -33,6 +33,7 @@
 	. = ..()
 	create_reagents(tank_volume)
 	reagents.add_reagent(reagent_id, tank_volume)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/reagent_dispensers/wrench_act(mob/user, obj/item/I)
 	if(!can_be_unwrenched)
@@ -41,6 +42,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	default_unfasten_wrench(user, I)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/reagent_dispensers/examine(mob/user)
 	. = ..()
@@ -274,9 +276,14 @@
 	desc = "One of the more successful achievements of the Nanotrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap\
 	to produce and devestatingly effective. Signs explain that though this is just a model, every Nanotrasen station is equipped with one, just in case. \
 	All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
-	icon = 'icons/obj/stationobjs.dmi'
+	icon = 'icons/obj/nuclearbomb.dmi'
 	icon_state = "nuclearbomb0"
 	anchored = TRUE
+
+/obj/structure/reagent_dispensers/beerkeg/nuke/update_overlays()
+	. = ..()
+	if(anchored)
+		. += "nukebolts"
 
 /obj/structure/reagent_dispensers/virusfood
 	name = "virus food dispenser"

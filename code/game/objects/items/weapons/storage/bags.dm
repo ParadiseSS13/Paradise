@@ -32,6 +32,8 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	belt_icon = "trashbag"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = null
@@ -391,6 +393,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
+	slot_flags = null
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
