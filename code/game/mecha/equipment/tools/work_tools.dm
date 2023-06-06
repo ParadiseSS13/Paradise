@@ -190,7 +190,7 @@
 	icon_state = "mecha_rcd"
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
-	energy_drain = 250
+	energy_drain = 300
 	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
 	var/obj/item/rcd/mecha_ref/rcd_holder
@@ -201,6 +201,7 @@
 	GLOB.rcd_list += src
 	rcd_holder = new(rcd_holder)
 	rcd_holder.power_use_multiplier = energy_drain
+	rcd_holder.canRwall = TRUE
 	..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Destroy()
@@ -221,7 +222,7 @@
 		to_chat(chassis.occupant, span_warning("Something prevents you from using [rcd_holder] in here..."))
 		return
 	playsound(chassis, 'sound/machines/click.ogg', 50, 1)
-	chassis.can_move = world.time + 5 SECONDS 	// We don't move while we build
+	chassis.can_move = world.time + 2 SECONDS 	// We don't move while we build
 	var/rcd_act_result = target.rcd_act(chassis.occupant, rcd_holder, rcd_holder.mode)
 	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can move again
 		chassis.can_move = 0
@@ -239,9 +240,11 @@
 				occupant_message("Switched RCD to Construct Airlock.")
 			if(RCD_MODE_WINDOW)
 				occupant_message("Switched RCD to Construct Windows.")
+			if(RCD_MODE_FIRELOCK)
+				occupant_message("Switched RCD to Construct Firelock.")
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_equip_info()
-	return "[..()] \[<a href='?src=[UID()];mode=[RCD_MODE_DECON]'>D</a>|<a href='?src=[UID()];mode=[RCD_MODE_TURF]'>C</a>|<a href='?src=[UID()];mode=[RCD_MODE_AIRLOCK]'>A</a>|<a href='?src=[UID()];mode=[RCD_MODE_WINDOW]'>W</a>\]"
+	return "[..()] \[<a href='?src=[UID()];mode=[RCD_MODE_DECON]'>D</a>|<a href='?src=[UID()];mode=[RCD_MODE_TURF]'>C</a>|<a href='?src=[UID()];mode=[RCD_MODE_AIRLOCK]'>A</a>|<a href='?src=[UID()];mode=[RCD_MODE_WINDOW]'>W</a>|<a href='?src=[UID()];mode=[RCD_MODE_FIRELOCK]'>F</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/mimercd
 	name = "mounted MRCD"

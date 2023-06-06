@@ -378,7 +378,7 @@
 	name = "Destroy RCDs"
 	desc = "Detonate all non-cyborg RCDs on the station."
 	button_icon_state = "detonate_rcds"
-	uses = 1
+	uses = 2
 	cooldown_period = 100
 
 /datum/action/innate/ai/destroy_rcds/Activate()

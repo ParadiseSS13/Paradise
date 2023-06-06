@@ -885,7 +885,7 @@
 	req_tech = list("materials" = 5, "bluespace" = 3, "magnets" = 4, "powerstorage"=4, "engineering" = 5)
 	build_path = /obj/item/mecha_parts/mecha_equipment/rcd
 	materials = list(MAT_METAL=30000,MAT_GOLD=20000,MAT_PLASMA=25000,MAT_SILVER=20000)
-	construction_time = 1200
+	construction_time = 300
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_gravcatapult
