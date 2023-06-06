@@ -321,15 +321,16 @@
 			for(var/datum/reagent/R in H.reagents.reagent_list)
 				if(R.shock_reduction)
 					health_deficiency -= R.shock_reduction
-		if(!HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
-			if(health_deficiency >= 40 - 40 * leftover * SLOWDOWN_MULTIPLIER) //If we have 0.25 slowdown, or halfway to the threshold of 0.5, we reduce the health threshold by that 50%
-				if(flight)
-					. += (health_deficiency / 75)
+		if(HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
+			return
+		if(health_deficiency >= 40 - (40 * leftover * SLOWDOWN_MULTIPLIER)) //If we have 0.25 slowdown, or halfway to the threshold of 0.5, we reduce the health threshold by that 50%
+			if(flight)
+				. += (health_deficiency / 75)
+			else
+				if(health_deficiency >= 40)
+					. += (health_deficiency / 25) //Once damage is over 40, you get the harsh formula
 				else
-					if(health_deficiency >= 40)
-						. += (health_deficiency / 25) //Once damage is over 40, you get the harsh formula
-					else
-						. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
+					. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
 
 #undef ADD_SLOWDOWN
 #undef SLOWDOWN_INCREMENT
