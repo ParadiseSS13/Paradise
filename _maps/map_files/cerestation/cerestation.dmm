@@ -80556,9 +80556,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
-"tjB" = (
-/area/mine/unexplored/cere/medical,
-/area/mine/unexplored/cere/medical)
 "tjD" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -141735,7 +141732,7 @@ nVQ
 aZM
 fMl
 fMl
-tjB
+rNK
 rNK
 rNK
 rNK
