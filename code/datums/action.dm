@@ -106,9 +106,8 @@
 		button.desc = desc
 
 		ApplyIcon(button)
-
-		// If the action isn't available, darken the button
-		if(!IsAvailable())
+		var/obj/effect/proc_holder/spell/S = target
+		if(istype(S) && S.cooldown_handler.should_draw_cooldown() || !IsAvailable())
 			apply_unavailable_effect()
 		else
 			return TRUE
@@ -583,11 +582,8 @@
 	var/obj/effect/proc_holder/spell/S = target
 	if(!istype(S))
 		return ..()
-	var/progress = S.cooldown_handler.get_availability_percentage()
-	if(progress == 1)
-		return ..() // This means that the spell is charged but unavailable due to something else
 
-	var/alpha = 220 - 140 * progress
+	var/alpha = S.cooldown_handler.get_cooldown_alpha()
 
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
 	img.alpha = alpha
@@ -598,7 +594,8 @@
 	// Make a holder for the charge text
 	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
 	count_down_holder.plane = FLOAT_PLANE + 1.1
-	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
+	var/text = S.cooldown_handler.statpanel_info()
+	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(count_down_holder)
 
 /*
