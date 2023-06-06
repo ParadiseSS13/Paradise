@@ -1143,10 +1143,11 @@
 /mob/living/carbon_throw_hit(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(C == src || flying || !density)
 		return
-	if(!mob_hurt)
-		if(!self_hurt)
-			take_organ_damage(damage)
-		C.take_organ_damage(damage)
-		C.KnockDown(3 SECONDS)
-		C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
 	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	if(mob_hurt)
+		return
+	if(!self_hurt)
+		take_organ_damage(damage)
+	C.take_organ_damage(damage)
+	C.KnockDown(3 SECONDS)
+	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")

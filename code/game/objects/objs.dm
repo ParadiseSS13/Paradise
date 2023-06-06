@@ -299,10 +299,11 @@
 
 /obj/carbon_throw_hit(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	damage *= 0.75 //Define this probably somewhere, we want objects to hurt less than walls, unless special impact effects.
-	if(!mob_hurt && density)
-		C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
-		C.take_organ_damage(damage)
-		if(!self_hurt)
-			take_damage(damage, BRUTE)
-		C.KnockDown(3 SECONDS)
-		playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
+	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
+	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
+		return
+	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+	C.take_organ_damage(damage)
+	if(!self_hurt)
+		take_damage(damage, BRUTE)
+	C.KnockDown(3 SECONDS)
