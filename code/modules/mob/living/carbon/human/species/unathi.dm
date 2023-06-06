@@ -81,8 +81,9 @@
 		"сворачивает себе шею!",
 		"задерживает дыхание!")
 
-	disliked_food = VEGETABLES | FRUIT | GRAIN | SUGAR | JUNKFOOD
-	liked_food = MEAT | RAW | EGG | GROSS
+	toxic_food = SUGAR | GRAIN | JUNKFOOD
+	disliked_food = FRIED
+	liked_food = MEAT | RAW | EGG | GROSS | FRUIT | VEGETABLES
 
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
