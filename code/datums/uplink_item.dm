@@ -1007,6 +1007,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/ammo/rocketHE
+	name = "84mm High Explosive rocket"
+	desc = "A rocket from a rocketlauncher. This one deals a devastating explosion, enough to tear the station and civillian apart."
+	reference = "RHE"
+	item = /obj/item/ammo_casing/caseless/rocket
+	cost = 8
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+
+/datum/uplink_item/ammo/rocketHEDP
+	name = "84mm High Explosive Dual Purpose rocket"
+	desc = "A rocket from a rocketlauncher. This one emits shrapnel and incendiary ammunition. The rocket itself is strong enough to destroy station mechs and robots with one shot."
+	reference = "RHEDP"
+	item = /obj/item/ammo_casing/caseless/rocket/hedp
+	cost = 6
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 // STEALTHY WEAPONS
 
 /datum/uplink_item/stealthy_weapons
@@ -1238,6 +1255,24 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SMB"
 	item = /obj/item/grenade/syndieminibomb
 	cost = 6
+
+/datum/uplink_item/explosives/rocketlauncher
+	name = "84mm Rocket Propelled Grenade Launcher"
+	desc = "A reusable rocket propelled grenade launcher preloaded with a low-yield 84mm HE round. Guaranteed to send your target out with a bang or your money back!"
+	reference = "PML9"
+	item = /obj/item/gun/projectile/revolver/rocketlauncher
+	cost = 10
+	surplus = 0 // no way
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/explosives/rocketbelt
+	name = "84mm Rocket Belt"
+	desc = "A belt full of rockets for a rocket propelled grenade launcher. Guaranteed to eliminate most of your targets. Just don't blow up your mates!"
+	reference = "PMLB"
+	item = /obj/item/storage/belt/rocketman
+	cost = 35
+	surplus = 0
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/detomatix
 	name = "Detomatix PDA Cartridge"

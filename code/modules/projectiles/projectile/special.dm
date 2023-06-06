@@ -353,3 +353,60 @@
 	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
 	if(ismob(target))
 		R.target = target
+
+/obj/item/projectile/bullet/a84mm_hedp
+	name ="\improper HEDP rocket"
+	desc = "USE A WEEL GUN"
+	icon_state= "84mm-hedp"
+	damage = 80
+	//shrapnel thing
+	var/shrapnel_range = 5
+	var/max_shrapnel = 5
+	var/embed_prob = 100
+	var/embedded_type = /obj/item/embedded/shrapnel
+	speed = 0.8 //rockets need to be slower than bullets
+	var/anti_armour_damage = 200
+	armour_penetration = 100
+	dismemberment = 100
+	ricochets_max = 0
+
+/obj/item/projectile/bullet/a84mm_hedp/on_hit(atom/target, blocked = FALSE)
+	..()
+	explosion(target, -1, 1, 3, 1, 0, flame_range = 6)
+
+	if(ismecha(target))
+		var/obj/mecha/M = target
+		M.take_damage(anti_armour_damage)
+	if(issilicon(target))
+		var/mob/living/silicon/S = target
+		S.take_overall_damage(anti_armour_damage*0.75, anti_armour_damage*0.25)
+
+	for(var/turf/T in view(shrapnel_range, loc))
+		for(var/mob/living/carbon/human/H in T)
+			var/shrapnel_amount = max_shrapnel - T.Distance(target)
+			if(shrapnel_amount > 0)
+				embed_shrapnel(H, shrapnel_amount)
+
+/obj/item/projectile/bullet/a84mm_hedp/proc/embed_shrapnel(mob/living/carbon/human/H, amount)
+	for(var/i = 0, i < amount, i++)
+		if(prob(embed_prob - H.getarmor(null, "bomb")))
+			var/obj/item/embedded/S = new embedded_type(src)
+			H.hitby(S, skipcatch = 1)
+			S.throwforce = 1
+			S.throw_speed = 1
+			S.sharp = FALSE
+		else
+			to_chat(H, "<span class='warning'>Shrapnel bounces off your armor!</span>")
+
+/obj/item/projectile/bullet/a84mm_he
+	name ="\improper HE missile"
+	desc = "Boom."
+	icon_state = "84mm-he"
+	damage = 30
+	speed = 0.8
+	ricochets_max = 0
+
+/obj/item/projectile/bullet/a84mm_he/on_hit(atom/target, blocked=0)
+	..()
+	explosion(target, 1, 3, 5, 7) //devastating
+

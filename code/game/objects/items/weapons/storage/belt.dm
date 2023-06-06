@@ -381,6 +381,22 @@
 		new /obj/item/grenade/chem_grenade/drugs(src) //2
 		new /obj/item/grenade/gas/knockout(src)	//2
 
+/obj/item/storage/belt/rocketman
+	name = "rocket belt"
+	desc = "A belt for holding rockets."
+	icon_state = "assaultbelt"
+	item_state = "assault"
+	storage_slots = 7
+	max_combined_w_class = 30 //just to be sure..
+	max_w_class = WEIGHT_CLASS_NORMAL //Rockets are normal
+	can_hold = /obj/item/ammo_casing/caseless/rocket
+
+/obj/item/storage/belt/rocketman/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/ammo_casing/caseless/rocket(src)
+	for(var/I in 1 to 3)
+		new /obj/item/ammo_casing/caseless/rocket/hedp(src)
+
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."

@@ -169,6 +169,20 @@
 	throw_speed = 3
 	muzzle_flash_color = null
 
+/obj/item/ammo_casing/caseless/rocket
+	name = "\improper PM-9HE"
+	desc = "An 84mm High Explosive rocket. Fire at people and pray."
+	caliber = "84mm"
+	w_class = WEIGHT_CLASS_NORMAL //thats the rocket!
+	icon_state = "84mm-he"
+	projectile_type = /obj/item/projectile/bullet/a84mm_he
+
+/obj/item/ammo_casing/caseless/rocket/hedp
+	name = "\improper PM-9HEDP"
+	desc = "An 84mm High Explosive Dual Purpose rocket. Pointy end toward mechs and unarmed civilians."
+	icon_state = "84mm-hedp"
+	projectile_type = /obj/item/projectile/bullet/a84mm_hedp
+
 /obj/item/ammo_casing/shotgun
 	name = "shotgun slug"
 	desc = "A 12 gauge lead slug."
