@@ -314,7 +314,7 @@
 
 		var/leftover = .
 		. = round_down(. * SLOWDOWN_MULTIPLIER) / SLOWDOWN_MULTIPLIER //This allows us to round in values of 0.5 A slowdown of 0.55 becomes 1.10, which is rounded to 1, then reduced to 0.5
-		leftover = leftover - .
+		leftover -= .
 
 		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
 		if(H.reagents)
@@ -330,7 +330,6 @@
 						. += (health_deficiency / 25) //Once damage is over 40, you get the harsh formula
 					else
 						. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
-	return .
 
 #undef ADD_SLOWDOWN
 #undef SLOWDOWN_INCREMENT
