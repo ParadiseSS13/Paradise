@@ -1,16 +1,6 @@
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 
-//Directions (already defined on BYOND natively, purely here for reference)
-//#define NORTH		1
-//#define SOUTH		2
-//#define EAST		4
-//#define WEST		8
-//#define NORTHEAST	5
-//#define SOUTHEAST 6
-//#define NORTHWEST 9
-//#define SOUTHWEST 10
-
 //Security levels
 #define SEC_LEVEL_GREEN	0
 #define SEC_LEVEL_BLUE	1
@@ -153,6 +143,8 @@
 
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
+#define CAMERA_VIEW_DISTANCE 7
+#define CAMERA_CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
 
 
 //Turf wet states
@@ -538,3 +530,12 @@
 #define REFLECTABILITY_NEVER 0
 #define REFLECTABILITY_PHYSICAL 1
 #define REFLECTABILITY_ENERGY 2
+
+// Deadchat control defines
+
+/// Will execute a single command after the cooldown based on player votes.
+#define DEADCHAT_DEMOCRACY_MODE (1<<0)
+/// Allows each player to do a single command every cooldown.
+#define DEADCHAT_ANARCHY_MODE (1<<1)
+/// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
+#define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)

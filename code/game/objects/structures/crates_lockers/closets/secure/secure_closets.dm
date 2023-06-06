@@ -8,7 +8,7 @@
 	locked = TRUE
 	can_be_emaged = TRUE
 	max_integrity = 250
-	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
 
 /obj/structure/closet/secure_closet/can_open()
