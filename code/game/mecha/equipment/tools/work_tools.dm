@@ -51,7 +51,25 @@
 
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
-		if(M.stat == DEAD) return
+		if(M.stat == DEAD && !issilicon(M))
+			return
+		if(M.stat == DEAD && issilicon(M))
+			if(!M.anchored)
+				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
+					chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
+					M.anchored = 1
+					if(do_after_cooldown(target))
+						cargo_holder.cargo += M
+						M.loc = chassis
+						M.anchored = 0
+						occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+						log_message("Loaded [M]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+					else
+						M.anchored = initial(M.anchored)
+				else
+					occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+			else
+				occupant_message("<span class='warning'>[target] is buckled to something!</span>")
 		if(chassis.occupant.a_intent == INTENT_HARM)
 			M.take_overall_damage(dam_force)
 			if(!M)
@@ -63,6 +81,8 @@
 			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
 		else
+			if(issilicon(M) && M.stat == DEAD)
+				return
 			step_away(M,chassis)
 			occupant_message("<span class='notice'>You push [target] out of the way.</span>")
 			chassis.visible_message("<span class='notice'>[chassis] pushes [target] out of the way.</span>")
