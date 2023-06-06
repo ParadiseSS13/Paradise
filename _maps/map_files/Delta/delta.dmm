@@ -7555,12 +7555,13 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/janitorialcart,
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "aBx" = (
-/obj/structure/janitorialcart,
-/obj/item/reagent_containers/glass/bucket,
 /obj/machinery/light,
+/obj/machinery/economy/vending/janidrobe,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "aBy" = (
@@ -97555,8 +97556,8 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab)
 "xKd" = (
-/obj/machinery/economy/vending/coffee,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/lawdrobe,
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "xKC" = (

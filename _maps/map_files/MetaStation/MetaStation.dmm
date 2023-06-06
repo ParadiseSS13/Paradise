@@ -19518,6 +19518,11 @@
 	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/lights/mixed,
+/obj/item/storage/box/lights/mixed,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "bmR" = (
@@ -20098,15 +20103,8 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/lobby)
 "bou" = (
-/obj/structure/table,
-/obj/item/storage/box/lights/mixed,
-/obj/item/storage/box/lights/mixed,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/storage/box/mousetraps,
-/obj/item/storage/box/mousetraps,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/janidrobe,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "bov" = (
@@ -20270,6 +20268,8 @@
 	},
 /obj/item/clothing/gloves/color/orange,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/mousetraps,
+/obj/item/storage/box/mousetraps,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "boO" = (
@@ -65477,6 +65477,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/economy/vending/lawdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},

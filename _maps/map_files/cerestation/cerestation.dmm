@@ -24152,7 +24152,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "cph" = (
-/obj/machinery/economy/vending/coffee/free,
+/obj/machinery/economy/vending/lawdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -44919,6 +44919,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/janitorialcart{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "gLv" = (
@@ -50007,8 +50010,6 @@
 	},
 /area/medical/medbay)
 "iAF" = (
-/obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -52327,6 +52328,8 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
 /obj/machinery/light,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/mop,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "jqW" = (
@@ -52776,12 +52779,10 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "jwW" = (
-/obj/structure/janitorialcart{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
+/obj/machinery/economy/vending/janidrobe,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "jxb" = (
