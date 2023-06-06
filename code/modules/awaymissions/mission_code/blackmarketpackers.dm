@@ -148,13 +148,6 @@
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
 
-/obj/item/storage/firstaid/with_mousetrap/tactical/AltClick(var/mob/user)
-	if (isliving(user))
-		return ..()
-
-/obj/item/storage/firstaid/with_mousetrap/tactical/attack_ghost(var/mob/user)
-	return
-
 /obj/item/paper/taunt
 	name = "Shrot note"
 	info = "<b>Ha-ha! Gotcha! As always!</b>"
@@ -171,13 +164,6 @@
 /obj/item/storage/firstaid/with_mousetrap/syndie/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
-
-/obj/item/storage/firstaid/with_mousetrap/syndie/AltClick(var/mob/user)
-	if (isliving(user))
-		return ..()
-
-/obj/item/storage/firstaid/with_mousetrap/syndie/attack_ghost(var/mob/user)
-	return
 
 // Дисплей кейс с лодкой
 
