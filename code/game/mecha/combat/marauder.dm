@@ -46,7 +46,7 @@
 	ME.attach(src)
 
 /obj/mecha/combat/marauder/add_cell()
-	cell = new /obj/item/stock_parts/cell/bluespace(src)
+	cell = new /obj/item/stock_parts/cell/infinite/abductor(src)
 
 /obj/mecha/combat/marauder/seraph
 	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
