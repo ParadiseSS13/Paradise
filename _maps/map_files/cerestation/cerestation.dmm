@@ -18837,20 +18837,17 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "bOL" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/light/small{
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
-/area/maintenance/starboard)
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/starboard/south)
 "bOO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -40827,21 +40824,16 @@
 	},
 /area/toxins/storage)
 "fgi" = (
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/starboard/south)
 "fgu" = (
@@ -42516,6 +42508,17 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/starboard)
+"fSH" = (
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteyellow"
+	},
+/area/medical/chemistry)
 "fSQ" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Fore Asteroid Maintenance Access";
@@ -44065,6 +44068,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "gxB" = (
@@ -62154,6 +62158,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"mKj" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/chemistry)
 "mKt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light/small{
@@ -65687,15 +65699,12 @@
 /turf/simulated/wall,
 /area/hallway/primary/port/south)
 "nZf" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24;
-	name = "custom placement"
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/starboard/south)
+/area/maintenance/starboard)
 "nZi" = (
 /obj/machinery/alarm{
 	pixel_y = 24;
@@ -80547,6 +80556,9 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
+"tjB" = (
+/area/mine/unexplored/cere/medical,
+/area/mine/unexplored/cere/medical)
 "tjD" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -83428,6 +83440,9 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/machinery/light/small{
+	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -89342,9 +89357,6 @@
 /turf/simulated/floor/plating/airless,
 /area/maintenance/disposal/south)
 "wlV" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
@@ -94121,6 +94133,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "xUt" = (
@@ -94673,7 +94686,7 @@
 "ygi" = (
 /obj/machinery/chem_heater,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+	dir = 6
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -139916,9 +139929,9 @@ ukL
 ukL
 ukL
 fgi
+bOL
 sOO
 wuW
-bmR
 nwI
 ooM
 fIZ
@@ -140172,10 +140185,10 @@ qcS
 qcS
 qcS
 qcS
+qcS
 set
 was
 tTK
-bvt
 bvt
 bvt
 ljp
@@ -140429,10 +140442,10 @@ ycI
 rEz
 fOd
 ycI
+ycI
 kSO
 xAL
 lrO
-nZf
 npl
 uRk
 npl
@@ -140685,6 +140698,7 @@ bCg
 bCg
 aYQ
 bCg
+bCg
 vXn
 vQC
 vXn
@@ -140692,7 +140706,6 @@ vXn
 vXn
 vXn
 duq
-vXn
 vXn
 vXn
 nwQ
@@ -140940,6 +140953,7 @@ bCg
 qDP
 tsV
 xSE
+xTL
 apM
 bCg
 iyN
@@ -140949,7 +140963,6 @@ rdM
 wpI
 wCP
 oBi
-jCK
 jCK
 jCK
 jCK
@@ -141197,6 +141210,7 @@ pVB
 rfM
 wlV
 xTL
+xTL
 ppI
 bCg
 bcP
@@ -141206,7 +141220,6 @@ bOI
 scE
 uJq
 dAK
-rNK
 rNK
 rNK
 rNK
@@ -141453,6 +141466,7 @@ xdk
 pFJ
 xUh
 ygi
+mKj
 xTL
 wgE
 bCg
@@ -141463,7 +141477,6 @@ cfa
 nVQ
 aZM
 fMl
-rNK
 rNK
 rNK
 rNK
@@ -141711,6 +141724,7 @@ dDA
 rWL
 bFD
 gaO
+xTL
 bxR
 bCg
 bNE
@@ -141721,8 +141735,7 @@ nVQ
 aZM
 fMl
 fMl
-fMl
-rNK
+tjB
 rNK
 rNK
 rNK
@@ -141968,6 +141981,7 @@ bCg
 gxx
 bFE
 lUY
+lUY
 nvb
 bCg
 uRW
@@ -141979,7 +141993,6 @@ aZM
 aZM
 aZM
 fMl
-rNK
 rNK
 rNK
 rNK
@@ -142225,18 +142238,18 @@ bCg
 bEr
 bFF
 uKR
+xTL
 bIK
 bCg
 vHH
 bkr
-fqw
+aZN
 aZM
 aZM
 aZM
 aZM
 aZM
 fMl
-aZN
 lzH
 lzH
 lzH
@@ -142482,17 +142495,17 @@ bCg
 xVB
 ygv
 xTL
+xTL
 cFu
 bCg
 nkf
 bMz
 vdN
-fqw
-aZM
+aZN
+itf
 cQy
 jPW
 xXS
-fMl
 fMl
 fMl
 fMl
@@ -142739,18 +142752,18 @@ bCg
 bEv
 bFG
 xTL
+xTL
 adV
 bCg
 vHH
 bMA
 qZL
-bOL
 ukC
+nZf
 rKw
 rKw
 rkl
 gjb
-aZM
 aZM
 aZM
 aZM
@@ -142996,18 +143009,18 @@ dBp
 bDj
 bFH
 dBL
+fSH
 bIM
 bCg
 vHH
-fqw
-jXm
+vHH
 vHH
 utF
+vHH
 bwX
 gSQ
 gSQ
-jOE
-eQu
+xAV
 aZM
 aZM
 aZM
@@ -143255,15 +143268,15 @@ bFI
 gIm
 bCg
 bCg
+bCg
 vWu
 cKk
-cKk
-vHH
-dCS
+jXm
+utF
+gFg
 gFg
 gFg
 gSQ
-vHH
 ovW
 jeX
 jeX
