@@ -15,7 +15,6 @@ By design, d1 is the smallest direction and d2 is the highest
 /*
 	* # /obj/structure/cable
 	*
-	* The red wire thingies you see on the ground all over the station in maintenance
 	* the d1 and d2 vars deal with the "directions" of the cables, since all instances of this cable structure are
 	* just lines, they have two endpoints (d1 and d2).
 */
@@ -27,7 +26,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	level = 1
 	anchored = TRUE
 	on_blueprints = TRUE
-	color = COLOR_RED
 
 	//The following vars are set here for the benefit of mapping - they are reset when the cable is spawned
 	alpha = 128	//is set to 255 when spawned
@@ -38,12 +36,12 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/allow_diagonal_cable = FALSE
 	/// The coil item type that this will turn into when deconstructed
 	var/cable_coil_type
-	/// The type of voltage that this cable supports, can either be low or hight voltage
+	/// The type of voltage that this cable supports, can either be low or high voltage
 	var/power_voltage_type = 0
 	/// The direction of endpoint one of this cable
-	var/d1 = 0
+	var/d1 = NO_DIRECTION
 	/// The direction of enpoint two of this cable
-	var/d2 = 1
+	var/d2 = NORTH
 	/// The regional powernet this cable is registered to
 	var/datum/regional_powernet/powernet
 
@@ -84,6 +82,29 @@ By design, d1 is the smallest direction and d2 is the highest
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon()
 
+/obj/structure/cable/attackby(obj/item/W, mob/user)
+	var/turf/T = get_turf(src)
+	if(T.transparent_floor || T.intact)
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		return
+	else if(istype(W, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/coil = W
+		if(coil.get_amount() < 1)
+			to_chat(user, "<span class='warning'>Not enough cable!</span>")
+			return
+		coil.cable_join(src, user)
+
+	else if(istype(W, /obj/item/twohanded/rcl))
+		var/obj/item/twohanded/rcl/R = W
+		if(R.loaded)
+			R.loaded.cable_join(src, user)
+			R.is_empty(user)
+	else
+		if(W.flags & CONDUCT)
+			shock(user, 50, 0.7)
+
+	add_fingerprint(user)
+
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
@@ -93,7 +114,8 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	if(usr)
-		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(get_turf(src))])","wires")
+		var/turf/T = get_turf(src)
+		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
 	qdel(src)
 
 /* ===POWERNET PROCS=== */
@@ -121,6 +143,25 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/proc/get_queued_available_power()
 	return powernet ? powernet.queued_power_production : 0
 
+#define SIGNFICANT_WATT_AMOUNT 1000
+/*
+	* # is_voltage_compatabile()
+	*
+	* What happens when you mix HV & LV? (hint it's quite violent). This proc checks two cables (src & connection) which are hypothetically being
+	* connected together. It will check for two things, the amount of power in each cable and the Voltage type of the cables and if there's
+	* a difference in voltage and a significant amount of power in both cables this proc will return FAKSE, otherwise it will return TRUE
+*/
+/obj/structure/cable/proc/is_voltage_compatabile(obj/structure/cable/connection)
+	if(powernet.power_voltage_type == connection.powernet.power_voltage_type)
+		return TRUE // they have the same voltage running through them, they're compatabile
+	if(powernet.power_voltage_type == VOLTAGE_HIGH && get_available_power() >= SIGNFICANT_WATT_AMOUNT)
+		return FALSE // there's a HV cable sending significant power through a LV cable, incompatiblity detected!
+	if(connection.powernet.power_voltage_type == VOLTAGE_HIGH && connection.get_available_power() >= SIGNFICANT_WATT_AMOUNT)
+		return FALSE // there's a HV cable sending significant power through a LV cable, incompatiblity detected!
+	return TRUE // either there's LV power running through a HV cable or there's not a signficant enough amount of power to cause issues
+
+/obj/structure/cable/proc/can_support_voltage(voltage)
+	return voltage == power_voltage_type
 
 /* ===CABLE LAYING HELPERS=== */
 /// merge_connected_networks(), merge_connected_networks_on_turf(), and merge_diagonal_networks() all deal with merging
@@ -141,19 +182,21 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	//flip the direction, so we can check it against cables in the next turf over
 	var/flipped_direction = turn(direction, 180)
+
 	for(var/obj/structure/cable/C in get_step(src, direction))
 		if(src == C) // skip ourself
 			continue
 		if(C.d1 != flipped_direction && C.d2 != flipped_direction)
-			continue	//no match! Continue the search
-		//if the matching cable somehow got no powernet, make him one (should not happen for cables)
+			continue //no match! Continue the search
+		// if the matching cable somehow got no powernet, make it one
 		if(!C.powernet)
 			var/datum/regional_powernet/new_powernet = new()
 			new_powernet.add_cable(C)
-		if(powernet) //if we already have a powernet, then merge the two powernets
-			merge_powernets(powernet, C.powernet)
-		else
+		if(!powernet)
 			C.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
+		else //if we already have a powernet, then merge the two powernets
+			merge_powernets(powernet, C.powernet)
+
 
 /*
 	* # merge_connected_networks_on_turf()

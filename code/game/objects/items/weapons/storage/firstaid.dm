@@ -161,9 +161,9 @@
 
 /obj/item/storage/firstaid/machine/populate_contents()
 	new /obj/item/weldingtool/mini(src)
-	new /obj/item/stack/cable_coil(src)
-	new /obj/item/stack/cable_coil(src)
-	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil/low_voltage(src)
+	new /obj/item/stack/cable_coil/low_voltage(src)
+	new /obj/item/stack/cable_coil/low_voltage(src)
 	new /obj/item/robotanalyzer(src)
 
 /obj/item/storage/firstaid/machine/empty/populate_contents()

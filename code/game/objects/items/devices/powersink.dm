@@ -23,7 +23,7 @@
 	var/mode = 0		// 0 = off, 1=clamped (off), 2=operating
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
 
-	var/obj/structure/cable/attached		// the attached cable
+	var/obj/structure/cable/low_voltage/attached		// the attached cable
 
 /obj/item/powersink/Destroy()
 	STOP_PROCESSING(SSobj, src)

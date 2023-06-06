@@ -264,7 +264,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -347,7 +347,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -373,7 +373,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -391,7 +391,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -414,7 +414,7 @@
 /turf/simulated/wall,
 /area/mine/eva)
 "bg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
@@ -437,7 +437,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -503,7 +503,7 @@
 /turf/simulated/wall,
 /area/mine/production)
 "br" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -526,7 +526,7 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -540,7 +540,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -554,7 +554,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -571,7 +571,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
@@ -585,7 +585,7 @@
 	name = "custom placement";
 	pixel_y = 25
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -598,7 +598,7 @@
 	req_access_txt = "2"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -615,12 +615,12 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = 38
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -674,7 +674,7 @@
 	},
 /area/mine/mechbay)
 "bI" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -702,7 +702,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -727,7 +727,7 @@
 	req_access_txt = "2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -763,7 +763,7 @@
 	name = "Catwalk Airlock";
 	req_access_txt = "48"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -919,7 +919,7 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -956,7 +956,7 @@
 "ck" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1018,7 +1018,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1074,7 +1074,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -1095,14 +1095,14 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "0-4"
 	},
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "cA" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -1121,7 +1121,7 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -1177,7 +1177,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -1199,7 +1199,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -1231,7 +1231,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -1308,11 +1308,11 @@
 	name = "Processing Room APC";
 	pixel_y = -24
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
 "cY" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -1355,7 +1355,7 @@
 /area/mine/mechbay)
 "dc" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/machinery/power/apc{
 	name = "Airlock APC";
 	pixel_y = -24
@@ -1375,12 +1375,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -1423,7 +1423,7 @@
 	dir = 1;
 	network = list("Mining Outpost")
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -1458,7 +1458,7 @@
 "dk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1468,7 +1468,7 @@
 "dl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1479,7 +1479,7 @@
 	},
 /area/mine/production)
 "dm" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1497,7 +1497,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1509,12 +1509,12 @@
 	pixel_x = -27
 	},
 /obj/machinery/hologram/holopad,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
@@ -1573,7 +1573,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1626,7 +1626,7 @@
 /obj/item/radio/beacon,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -1670,7 +1670,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1692,12 +1692,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1711,7 +1711,7 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -1744,7 +1744,7 @@
 "dK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1809,17 +1809,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1860,7 +1860,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -1931,7 +1931,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -1950,7 +1950,7 @@
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
 "ef" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
@@ -1983,7 +1983,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2008,7 +2008,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2019,7 +2019,7 @@
 	},
 /area/mine/storage)
 "el" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2062,7 +2062,7 @@
 	name = "Dinner Room APC";
 	pixel_y = -24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -2077,7 +2077,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2096,7 +2096,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2143,7 +2143,7 @@
 /area/mine/cafeteria)
 "ew" = (
 /obj/structure/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -2152,7 +2152,7 @@
 /area/mine/abandoned)
 "ex" = (
 /obj/effect/baseturf_helper/lava_land/surface,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -2182,7 +2182,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2199,12 +2199,12 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -2237,7 +2237,7 @@
 "eE" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2297,7 +2297,7 @@
 	name = "EVA Storage APC";
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -2308,7 +2308,7 @@
 /area/mine/eva)
 "eK" = (
 /obj/effect/turf_decal/bot/left,
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2319,7 +2319,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2334,7 +2334,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2369,7 +2369,7 @@
 	dir = 1;
 	network = list("Mining Outpost")
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2410,7 +2410,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2426,17 +2426,17 @@
 "eV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -2478,7 +2478,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2489,7 +2489,7 @@
 	},
 /area/mine/living_quarters)
 "fa" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2545,7 +2545,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2587,7 +2587,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2600,7 +2600,7 @@
 "fj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2631,7 +2631,7 @@
 /area/mine/mechbay)
 "fm" = (
 /obj/machinery/light,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2691,7 +2691,7 @@
 "ft" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2714,7 +2714,7 @@
 /area/mine/production)
 "fw" = (
 /obj/effect/baseturf_helper/lava_land/surface,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
@@ -2773,7 +2773,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -2817,12 +2817,12 @@
 	},
 /area/mine/storage)
 "fF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -2895,7 +2895,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
@@ -2906,19 +2906,19 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "fO" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/effect/turf_decal/bot/left,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -2956,7 +2956,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "fU" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2982,7 +2982,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -3059,7 +3059,7 @@
 	name = "Outpost Medbay APC";
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -3091,7 +3091,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -3146,7 +3146,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
@@ -3164,7 +3164,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -3225,7 +3225,7 @@
 "gt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3236,7 +3236,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -3247,7 +3247,7 @@
 	},
 /area/mine/laborcamp/security)
 "gv" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3266,7 +3266,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -3304,7 +3304,7 @@
 /area/lavaland/surface/outdoors)
 "gA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3552,7 +3552,7 @@
 "ii" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -4559,12 +4559,12 @@
 "on" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -4589,12 +4589,12 @@
 	},
 /area/mine/laborcamp)
 "oF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -4637,7 +4637,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -4711,7 +4711,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "rS" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4746,7 +4746,7 @@
 /turf/simulated/wall,
 /area/mine/storage)
 "sM" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4800,7 +4800,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -4894,7 +4894,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4925,7 +4925,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4937,14 +4937,14 @@
 "vg" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/effect/turf_decal/bot/left,
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
 	},
 /area/mine/mechbay)
 "vh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -5020,7 +5020,7 @@
 	pixel_x = 7;
 	pixel_y = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -5130,7 +5130,7 @@
 	},
 /area/mine/laborcamp)
 "yp" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -5164,7 +5164,7 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -5217,7 +5217,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -5294,7 +5294,7 @@
 	pixel_x = 24;
 	name = "Mech Bay APC"
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -5318,7 +5318,7 @@
 	name = "West Hallway APC";
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -5349,7 +5349,7 @@
 /area/mine/mechbay)
 "Co" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -5439,7 +5439,7 @@
 	},
 /area/mine/laborcamp/security)
 "Dq" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -5674,7 +5674,7 @@
 /area/mine/sleeper)
 "IZ" = (
 /obj/effect/baseturf_helper/lava_land/surface,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -5823,12 +5823,12 @@
 "Mh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -5855,7 +5855,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -5872,7 +5872,7 @@
 "Nj" = (
 /obj/effect/turf_decal/bot/left,
 /obj/machinery/mech_bay_recharge_port,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -5978,7 +5978,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6126,7 +6126,7 @@
 	name = "Storage Room APC";
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -6179,7 +6179,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -6204,7 +6204,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6231,12 +6231,12 @@
 "Ve" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "1-4";
 	d1 = 1;
 	d2 = 4
@@ -6247,17 +6247,17 @@
 	},
 /area/mine/mechbay)
 "Vg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6302,7 +6302,7 @@
 /area/mine/laborcamp)
 "VD" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc{
@@ -6348,7 +6348,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6427,7 +6427,7 @@
 	},
 /area/mine/laborcamp)
 "Xl" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6470,7 +6470,7 @@
 "Ya" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -6544,7 +6544,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"

@@ -123,7 +123,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
@@ -172,7 +172,7 @@
 /area/ruin/powered)
 "aM" = (
 /obj/item/hand_labeler,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -253,7 +253,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "bg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -293,7 +293,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "bo" = (
-/obj/item/stack/cable_coil{
+/obj/item/stack/cable_coil/low_voltage{
 	amount = 5
 	},
 /turf/simulated/floor/plating/airless,
@@ -411,7 +411,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bP" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -425,7 +425,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bS" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -574,7 +574,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "ck" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -660,7 +660,7 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "cB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -672,7 +672,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "cF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -681,7 +681,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "cG" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
@@ -760,7 +760,7 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "cU" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
@@ -812,7 +812,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "dg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -823,7 +823,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "dh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
@@ -840,7 +840,7 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "dj" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -849,19 +849,19 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "dk" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -870,7 +870,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "dl" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -879,13 +879,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "dm" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -893,13 +893,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "dn" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -908,7 +908,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "do" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
@@ -954,7 +954,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -971,7 +971,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "dz" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
@@ -982,7 +982,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "dA" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1004,7 +1004,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered/BMPship/Midship)
 "dD" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1033,7 +1033,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "dH" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1061,13 +1061,13 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "dN" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -1077,7 +1077,7 @@
 /area/ruin/unpowered/BMPship/Fore)
 "dO" = (
 /obj/machinery/door/airlock/silver,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1086,7 +1086,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Midship)
 "dP" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -1098,20 +1098,20 @@
 /area/ruin/unpowered/BMPship/Midship)
 "dQ" = (
 /obj/machinery/shieldwallgen,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Midship)
 "dR" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1122,7 +1122,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "dS" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1228,7 +1228,7 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "ee" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1244,19 +1244,19 @@
 	name = "power storage unit";
 	outputting = 0
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/cable,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage,
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "eg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -1266,12 +1266,12 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "eh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -1295,7 +1295,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "el" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1364,7 +1364,7 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "ev" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1408,7 +1408,7 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "eA" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1416,7 +1416,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "eB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
@@ -1425,7 +1425,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "eC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1434,7 +1434,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "eE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -1443,13 +1443,13 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "eF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
@@ -1460,13 +1460,13 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "eG" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -1480,7 +1480,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -1537,7 +1537,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "eW" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1548,7 +1548,7 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "eX" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1568,12 +1568,12 @@
 	name = "power storage unit";
 	outputting = 0
 	},
-/obj/structure/cable,
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "fb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -1637,7 +1637,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "fm" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1716,7 +1716,7 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "fx" = (
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/low_voltage,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "fy" = (
@@ -1740,7 +1740,7 @@
 /turf/template_noop,
 /area/ruin/unpowered/BMPship/Fore)
 "fC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -1752,7 +1752,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1761,7 +1761,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1771,7 +1771,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
@@ -1781,7 +1781,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fG" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -1801,7 +1801,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "fI" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -1812,7 +1812,7 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "fJ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
@@ -1848,13 +1848,13 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fP" = (
-/obj/item/stack/cable_coil{
+/obj/item/stack/cable_coil/low_voltage{
 	amount = 5
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "fQ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1925,7 +1925,7 @@
 /obj/machinery/door/airlock/silver{
 	locked = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1935,7 +1935,7 @@
 /area/ruin/unpowered/BMPship/Aft)
 "ge" = (
 /obj/machinery/door/airlock/titanium,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1954,7 +1954,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2010,7 +2010,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/BMPship/Fore)
 "gq" = (
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
@@ -2043,14 +2043,14 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gx" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gy" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -2080,13 +2080,13 @@
 /area/ruin/unpowered/BMPship/Aft)
 "gE" = (
 /obj/effect/decal/remains/human,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2095,7 +2095,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "gF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -2104,13 +2104,13 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "gG" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -2119,7 +2119,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "gH" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -2171,7 +2171,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet,
 /obj/item/storage/wallet/random,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2211,7 +2211,7 @@
 /area/ruin/powered)
 "gY" = (
 /obj/machinery/door/airlock/titanium,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -2220,7 +2220,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "gZ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";

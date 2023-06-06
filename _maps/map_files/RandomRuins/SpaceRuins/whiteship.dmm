@@ -253,7 +253,7 @@
 /area/shuttle/abandoned)
 "bq" = (
 /obj/structure/computerframe,
-/obj/item/stack/cable_coil/cut,
+/obj/item/stack/cable_coil/low_voltage/cut,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "br" = (

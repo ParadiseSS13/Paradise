@@ -69,7 +69,7 @@
 	},
 /area/ruin/space/unpowered)
 "ao" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
@@ -84,7 +84,7 @@
 	},
 /area/ruin/space/unpowered)
 "ap" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -97,7 +97,7 @@
 	},
 /area/ruin/space/unpowered)
 "aq" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -105,7 +105,7 @@
 	locked = 0;
 	req_access = null
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -211,7 +211,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "aC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -240,7 +240,7 @@
 	},
 /area/ruin/space/unpowered)
 "aE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -249,7 +249,7 @@
 	id_tag = "Awaylab";
 	name = "Acid-Proof containment chamber blast door"
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
@@ -338,7 +338,7 @@
 	},
 /area/ruin/space/unpowered)
 "aQ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -393,7 +393,7 @@
 	desc = "A portable generator for emergency backup power.";
 	name = "P.A.C.M.A.N.-type portable generator"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -404,7 +404,7 @@
 	desc = "A portable generator for emergency backup power.";
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -425,7 +425,7 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -436,7 +436,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aZ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -450,7 +450,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ba" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
@@ -459,7 +459,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -469,7 +469,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bc" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -487,7 +487,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "be" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -496,7 +496,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bf" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -513,7 +513,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -533,7 +533,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
@@ -608,7 +608,7 @@
 	},
 /area/ruin/space/unpowered)
 "bo" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -629,8 +629,8 @@
 	},
 /area/ruin/space/unpowered)
 "bq" = (
-/obj/structure/cable,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage,
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -650,7 +650,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "bs" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -659,13 +659,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bt" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -676,7 +676,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bu" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -685,7 +685,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bv" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -695,7 +695,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bw" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -719,13 +719,13 @@
 	},
 /area/ruin/space/unpowered)
 "by" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -738,7 +738,7 @@
 	},
 /area/ruin/space/unpowered)
 "bz" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -756,7 +756,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bA" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -766,7 +766,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -775,7 +775,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -786,7 +786,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bD" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -798,7 +798,7 @@
 	},
 /area/ruin/space/unpowered)
 "bE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -818,7 +818,7 @@
 	name = "Acid-Proof Pipe"
 	},
 /obj/item/stack/rods,
-/obj/item/stack/cable_coil{
+/obj/item/stack/cable_coil/low_voltage{
 	amount = 5
 	},
 /obj/item/shard{
@@ -841,13 +841,13 @@
 	name = "Acid-Proof Pipe"
 	},
 /obj/item/stack/rods,
-/obj/item/stack/cable_coil{
+/obj/item/stack/cable_coil/low_voltage{
 	amount = 5
 	},
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -926,13 +926,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bR" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -942,7 +942,7 @@
 /area/ruin/space/unpowered)
 "bS" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -951,13 +951,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
@@ -1026,7 +1026,7 @@
 /obj/structure/sign/biohazard{
 	pixel_x = 32
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1108,7 +1108,7 @@
 	},
 /area/ruin/space/unpowered)
 "ci" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1118,7 +1118,7 @@
 	id_tag = "Awaylab";
 	name = "Acid-Proof containment chamber blast door"
 	},
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/low_voltage/cut{
 	amount = 1;
 	icon_state = "coil_red1";
 	item_state = "coil_red1"
@@ -1182,7 +1182,7 @@
 /obj/effect/decal/cleanable/blood/oil{
 	color = "black"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1197,7 +1197,7 @@
 	req_access = null;
 	start_charge = 100
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cr" = (
@@ -1237,7 +1237,7 @@
 	},
 /area/ruin/space/unpowered)
 "cv" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1316,7 +1316,7 @@
 	},
 /area/ruin/space/unpowered)
 "cC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1330,7 +1330,7 @@
 	id_tag = "Awaylab";
 	name = "Acid-Proof containment chamber blast door"
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
@@ -1385,7 +1385,7 @@
 /obj/machinery/computer/monitor/secret{
 	dir = 1
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cK" = (
@@ -1429,7 +1429,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cO" = (
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/machinery/power/apc/off_station/empty_charge{
 	cell_type = 15000;
 	dir = 4;
@@ -1448,7 +1448,7 @@
 /obj/item/retractor,
 /obj/item/hemostat,
 /obj/structure/alien/weeds,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/low_voltage,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1514,13 +1514,13 @@
 	},
 /area/ruin/space/unpowered)
 "cT" = (
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/machinery/door/poddoor/preopen{
 	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
 	id_tag = "Awaylab";
 	name = "Acid-Proof containment chamber blast door"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1536,7 +1536,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "cV" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1674,7 +1674,7 @@
 	locked = 0;
 	req_access = null
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "di" = (
@@ -1717,7 +1717,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "dl" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
@@ -1727,7 +1727,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "dm" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1737,7 +1737,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "dn" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -1833,7 +1833,7 @@
 	},
 /area/ruin/space/unpowered)
 "dy" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2223,7 +2223,7 @@
 	},
 /area/ruin/space/unpowered)
 "ek" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -2560,7 +2560,7 @@
 	},
 /area/ruin/space/unpowered)
 "eR" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2866,7 +2866,7 @@
 	},
 /area/ruin/space/unpowered)
 "fB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2969,7 +2969,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "fP" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -3067,7 +3067,7 @@
 	},
 /area/ruin/space/unpowered)
 "ga" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -3077,7 +3077,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "gb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3090,7 +3090,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gc" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3103,7 +3103,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gd" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3115,7 +3115,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "ge" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3128,7 +3128,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gf" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3141,7 +3141,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3158,7 +3158,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3177,7 +3177,7 @@
 	},
 /area/ruin/space/unpowered)
 "gi" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3192,7 +3192,7 @@
 	},
 /area/ruin/space/unpowered)
 "gj" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3202,7 +3202,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gk" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3223,7 +3223,7 @@
 	icon_state = "door_closed";
 	opacity = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3235,7 +3235,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gm" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3247,7 +3247,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "gn" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3261,7 +3261,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "go" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3278,7 +3278,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3291,7 +3291,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gq" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3305,7 +3305,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gr" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3320,7 +3320,7 @@
 	},
 /area/ruin/space/unpowered)
 "gs" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3339,7 +3339,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gt" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3352,7 +3352,7 @@
 /area/ruin/space/unpowered)
 "gu" = (
 /obj/machinery/light/small,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3365,7 +3365,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gv" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";

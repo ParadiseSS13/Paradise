@@ -44,7 +44,7 @@
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 2)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 2)
 	RefreshParts()
 
 /obj/machinery/bodyscanner/update_icon_state()

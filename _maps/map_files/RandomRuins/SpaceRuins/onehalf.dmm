@@ -4,7 +4,7 @@
 /area/template_noop)
 "ab" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
@@ -14,7 +14,7 @@
 /area/space/nearstation)
 "ac" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -24,7 +24,7 @@
 /area/space/nearstation)
 "ad" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -33,7 +33,7 @@
 /area/space/nearstation)
 "ae" = (
 /obj/structure/lattice,
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/low_voltage/cut{
 	amount = 2;
 	icon_state = "coil_red2"
 	},
@@ -41,7 +41,7 @@
 /area/space/nearstation)
 "af" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -58,7 +58,7 @@
 /area/ruin/space/onehalf/dorms_med)
 "ai" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -105,7 +105,7 @@
 /area/ruin/space/onehalf/dorms_med)
 "aq" = (
 /obj/machinery/door/airlock/external,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -191,7 +191,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/dorms_med)
 "aD" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -229,7 +229,7 @@
 	},
 /area/ruin/space/onehalf/dorms_med)
 "aK" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
@@ -243,7 +243,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/machinery/power/apc/off_station{
 	keep_preset_name = 1;
 	name = "Hallway APC";
@@ -346,7 +346,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/drone_bay)
 "aT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -363,7 +363,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "airlock"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -377,12 +377,12 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/dorms_med)
 "aX" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -391,7 +391,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
 "aY" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -411,7 +411,7 @@
 	},
 /area/ruin/space/onehalf/dorms_med)
 "aZ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -442,13 +442,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -460,7 +460,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/low_voltage/cut{
 	amount = 2;
 	icon_state = "coil_red2"
 	},
@@ -470,7 +470,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -483,13 +483,13 @@
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -501,7 +501,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -520,13 +520,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -537,7 +537,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -552,7 +552,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -564,7 +564,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -754,7 +754,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bQ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -843,7 +843,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "ci" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -856,7 +856,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "cj" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -926,13 +926,13 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "ct" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -943,15 +943,15 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "cu" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -984,7 +984,7 @@
 /area/ruin/space/onehalf/hallway)
 "cz" = (
 /obj/structure/grille/broken,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1007,13 +1007,13 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "cC" = (
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/machinery/power/solar_control,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "cD" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1033,7 +1033,7 @@
 /area/ruin/space/onehalf/hallway)
 "cG" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -1093,7 +1093,7 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "cO" = (
 /obj/structure/lattice,
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/low_voltage/cut{
 	amount = 2;
 	icon_state = "coil_red2"
 	},
@@ -1112,7 +1112,7 @@
 /area/space/nearstation)
 "cS" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1143,11 +1143,11 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "cY" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "onehalf bridge";
 	name = "bridge blast door"
@@ -1156,12 +1156,12 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "cZ" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -1191,12 +1191,12 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "df" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1215,11 +1215,11 @@
 /area/ruin/space/onehalf/hallway)
 "dk" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -1231,7 +1231,7 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "dl" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1245,13 +1245,13 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "dm" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1265,11 +1265,11 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "dn" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -1281,7 +1281,7 @@
 /area/ruin/space/onehalf/abandonedbridge)
 "do" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1294,13 +1294,13 @@
 /area/space/nearstation)
 "dp" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -1310,13 +1310,13 @@
 /area/space/nearstation)
 "dq" = (
 /obj/structure/lattice,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";

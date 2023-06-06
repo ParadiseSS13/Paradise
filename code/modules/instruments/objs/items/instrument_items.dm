@@ -189,7 +189,7 @@
 	name = "Violin"
 	result = list(/obj/item/instrument/violin)
 	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 6,
+				/obj/item/stack/cable_coil/low_voltage = 6,
 				/obj/item/stack/tape_roll = 5)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
@@ -199,7 +199,7 @@
 	name = "Guitar"
 	result = list(/obj/item/instrument/guitar)
 	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 6,
+				/obj/item/stack/cable_coil/low_voltage = 6,
 				/obj/item/stack/tape_roll = 5)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
@@ -209,7 +209,7 @@
 	name = "Electric Guitar"
 	result = list(/obj/item/instrument/eguitar)
 	reqs = list(/obj/item/stack/sheet/metal = 5,
-				/obj/item/stack/cable_coil = 6,
+				/obj/item/stack/cable_coil/low_voltage = 6,
 				/obj/item/stack/tape_roll = 5)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
@@ -219,7 +219,7 @@
 	name = "Banjo"
 	result = list(/obj/item/instrument/banjo)
 	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 6,
+				/obj/item/stack/cable_coil/low_voltage = 6,
 				/obj/item/stack/tape_roll = 5)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS

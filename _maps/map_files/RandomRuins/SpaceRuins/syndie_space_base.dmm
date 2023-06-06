@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -83,7 +83,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "ar" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -96,7 +96,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "at" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -123,12 +123,12 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "aX" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -196,17 +196,17 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "ch" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -240,7 +240,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "cC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -284,7 +284,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "cL" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -299,7 +299,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "cO" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -394,7 +394,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "dW" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -445,7 +445,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "eQ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -506,7 +506,7 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "fx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -523,7 +523,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "fH" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -541,7 +541,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "fQ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -568,7 +568,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "ge" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -605,7 +605,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "gl" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -678,7 +678,7 @@
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/beaker/large,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -752,7 +752,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "hS" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -773,13 +773,13 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -832,7 +832,7 @@
 /area/ruin/unpowered/syndicate_space_base/bar)
 "ir" = (
 /obj/machinery/door/airlock/hatch/syndicate,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -846,7 +846,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "it" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -887,7 +887,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "ji" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -1080,7 +1080,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "kY" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -1169,7 +1169,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1198,7 +1198,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "mB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1214,7 +1214,7 @@
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "mP" = (
 /obj/machinery/power/teg,
-/obj/structure/cable/yellow,
+/obj/structure/cable/low_voltage/yellow,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "mX" = (
@@ -1233,7 +1233,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "ne" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1264,12 +1264,12 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "nm" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -1314,7 +1314,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "nT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1361,7 +1361,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "oi" = (
 /obj/machinery/door/airlock/hatch/syndicate,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1391,7 +1391,7 @@
 	name = "Storage APC";
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1421,7 +1421,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "oO" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -1502,7 +1502,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "pR" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1579,7 +1579,7 @@
 /obj/machinery/economy/vending/toyliberationstation{
 	req_access_txt = "150"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1591,7 +1591,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "rr" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1687,7 +1687,7 @@
 	codes_txt = "patrol;next_patrol=SBSE";
 	location = "SBNE"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1721,7 +1721,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1745,7 +1745,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "tj" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1824,7 +1824,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "uu" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -1878,7 +1878,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "uN" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -1896,7 +1896,7 @@
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "uX" = (
 /obj/machinery/door/airlock/hatch/syndicate,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -1941,13 +1941,13 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "vs" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
@@ -2072,7 +2072,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "wh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2174,13 +2174,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -2260,13 +2260,13 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "xG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -2281,7 +2281,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -2298,7 +2298,7 @@
 /obj/machinery/computer/monitor/secret{
 	name = "Engine Grid Power Monitoring Computer"
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/low_voltage/yellow,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "yq" = (
@@ -2310,7 +2310,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "yz" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -2321,13 +2321,13 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "yB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -2378,7 +2378,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "zm" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -2497,7 +2497,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "AM" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2514,7 +2514,7 @@
 /turf/simulated/mineral,
 /area/template_noop)
 "AX" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2568,7 +2568,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "BS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2660,7 +2660,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2709,7 +2709,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "DH" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2784,7 +2784,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -2804,7 +2804,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "EI" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2835,13 +2835,13 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "EP" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -2898,7 +2898,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Fe" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -2913,7 +2913,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "Fi" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -2987,7 +2987,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "FW" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -3000,7 +3000,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "FY" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -3064,7 +3064,7 @@
 	pixel_x = -5;
 	pixel_y = 30
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3088,7 +3088,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "GM" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3233,7 +3233,7 @@
 	codes_txt = "patrol;next_patrol=SBNE";
 	location = "SBNW"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -3254,7 +3254,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "Je" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -3334,7 +3334,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "Kf" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -3347,13 +3347,13 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Kh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -3368,7 +3368,7 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -3398,7 +3398,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Ko" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -3522,7 +3522,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "Lh" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3556,7 +3556,7 @@
 	pixel_y = 24;
 	shock_proof = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -3569,13 +3569,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "LI" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -3662,7 +3662,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3680,18 +3680,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -3727,7 +3727,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Ms" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -3815,7 +3815,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "NV" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3839,12 +3839,12 @@
 	dir = 4
 	},
 /obj/machinery/power/smes/engineering,
-/obj/structure/cable/yellow,
+/obj/structure/cable/low_voltage/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Op" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3882,7 +3882,7 @@
 	name = "Dorms APC";
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -3931,7 +3931,7 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "PI" = (
 /obj/machinery/light,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -3949,7 +3949,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "PX" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
@@ -3972,7 +3972,7 @@
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Qr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -4049,7 +4049,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "RC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -4096,7 +4096,7 @@
 	codes_txt = "patrol;next_patrol=SBSW";
 	location = "SBSE"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -4237,7 +4237,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "Tn" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -4259,7 +4259,7 @@
 	name = "Arrivals APC";
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -4297,7 +4297,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "TM" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -4333,7 +4333,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "UF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -4365,7 +4365,7 @@
 /turf/simulated/floor/redgrid,
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "Vf" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -4419,14 +4419,14 @@
 /obj/machinery/power/smes/engineering{
 	charge = 0
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/low_voltage/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "VK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
+/obj/structure/cable/low_voltage/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -4455,7 +4455,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "VW" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -4535,7 +4535,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Xh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -4583,7 +4583,7 @@
 	pixel_y = 18
 	},
 /obj/item/reagent_containers/spray/cleaner/advanced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -4598,7 +4598,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -4613,7 +4613,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "Yc" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -4678,7 +4678,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "Za" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -4692,7 +4692,7 @@
 	name = "Test Chamber APC";
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},

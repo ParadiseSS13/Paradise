@@ -29,7 +29,7 @@
 	name = "IED"
 	result = list(/obj/item/grenade/iedcasing)
 	reqs = list(/datum/reagent/fuel = 50,
-				/obj/item/stack/cable_coil = 1,
+				/obj/item/stack/cable_coil/low_voltage = 1,
 				/obj/item/assembly/igniter = 1,
 				/obj/item/reagent_containers/food/drinks/cans = 1)
 	parts = list(/obj/item/reagent_containers/food/drinks/cans = 1)
@@ -72,7 +72,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/gun/nuclear)
 	reqs = list(/obj/item/gun/energy/gun = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/nuclear = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
@@ -87,7 +87,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/temperature)
 	reqs = list(/obj/item/gun/energy/gun = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/temperature = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
@@ -102,7 +102,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/decloner)
 	reqs = list(/obj/item/gun/energy/gun = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/decloner = 1,
 				/datum/reagent/mutagen = 40)
 	time = 10 SECONDS
@@ -118,7 +118,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/ionrifle/carbine)
 	reqs = list(/obj/item/gun/energy/gun = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/ion = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
@@ -133,7 +133,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/kinetic_accelerator/crossbow/large)
 	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/ebow = 1,
 				/datum/reagent/radium = 15)
 	time = 10 SECONDS
@@ -149,7 +149,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/xray)
 	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/xray = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
@@ -164,7 +164,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/immolator)
 	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/immolator = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
@@ -179,7 +179,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/plasma_pistol)
 	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/plasma = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
@@ -194,7 +194,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/arc_revolver)
 	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/tesla = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
@@ -209,7 +209,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/lasercannon)
 	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/accelerator = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
@@ -224,7 +224,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/lwap)
 	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/lwap = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
@@ -239,7 +239,7 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/disabler/silencer)
 	reqs = list(/obj/item/gun/energy/disabler = 1,
-				/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/weaponcrafting/gunkit/u_ionsilencer = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
@@ -258,7 +258,7 @@
 				/obj/item/robot_parts/l_leg = 1,
 				/obj/item/robot_parts/r_leg = 1,
 				/obj/item/stack/sheet/metal = 1,
-				/obj/item/stack/cable_coil = 1,
+				/obj/item/stack/cable_coil/low_voltage = 1,
 				/obj/item/gun/energy/disabler = 1,
 				/obj/item/stock_parts/cell = 1,
 				/obj/item/assembly/prox_sensor = 1)
@@ -394,7 +394,7 @@
 	result = list(/obj/item/ammo_casing/shotgun/improvised)
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/sheet/metal = 1,
-				/obj/item/stack/cable_coil = 1,
+				/obj/item/stack/cable_coil/low_voltage = 1,
 				/datum/reagent/fuel = 10)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 5
@@ -439,7 +439,7 @@
 	name = "Chainsaw"
 	result = list(/obj/item/twohanded/required/chainsaw)
 	reqs = list(/obj/item/circular_saw = 1,
-				/obj/item/stack/cable_coil = 1,
+				/obj/item/stack/cable_coil/low_voltage = 1,
 				/obj/item/stack/sheet/plasteel = 1)
 	tools = list(TOOL_WELDER)
 	time = 50
@@ -495,7 +495,7 @@
 	result = list(/obj/item/kitchen/sushimat)
 	time = 10
 	reqs = list(/obj/item/stack/sheet/wood = 1,
-				/obj/item/stack/cable_coil = 2)
+				/obj/item/stack/cable_coil/low_voltage = 2)
 	category = CAT_MISC
 
 /datum/crafting_recipe/notreallysoap
@@ -511,7 +511,7 @@
 	result = list(/obj/item/twohanded/garrote/improvised)
 	time = 15
 	reqs = list(/obj/item/stack/sheet/wood = 1,
-				/obj/item/stack/cable_coil = 5)
+				/obj/item/stack/cable_coil/low_voltage = 5)
 	pathtools = list(/obj/item/kitchen/knife) // Gotta carve the wood into handles
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -530,7 +530,7 @@
 	result = list(/obj/item/gun/throw/crossbow)
 	time = 150
 	reqs = list(/obj/item/stack/rods = 3,
-				/obj/item/stack/cable_coil = 10,
+				/obj/item/stack/cable_coil/low_voltage = 10,
 				/obj/item/stack/sheet/plastic = 3,
 				/obj/item/stack/sheet/wood = 5)
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
@@ -542,7 +542,7 @@
 	result = list(/obj/item/latexballon)
 	time = 15
 	reqs = list(/obj/item/clothing/gloves/color/latex = 1,
-				/obj/item/stack/cable_coil = 5)
+				/obj/item/stack/cable_coil/low_voltage = 5)
 	category = CAT_MISC
 
 /datum/crafting_recipe/gold_horn
@@ -818,7 +818,7 @@
 	time = 150 // Building a functioning guillotine takes time
 	reqs = list(/obj/item/stack/sheet/plasteel = 3,
 				/obj/item/stack/sheet/wood = 20,
-				/obj/item/stack/cable_coil = 10)
+				/obj/item/stack/cable_coil/low_voltage = 10)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
 
@@ -826,7 +826,7 @@
 	name = "Improvised Jetpack"
 	result = list(/obj/item/tank/jetpack/improvised)
 	time = 30
-	reqs = list(/obj/item/tank/internals/oxygen = 2, /obj/item/extinguisher = 1, /obj/item/pipe = 3, /obj/item/stack/cable_coil = MAXCOIL)
+	reqs = list(/obj/item/tank/internals/oxygen = 2, /obj/item/extinguisher = 1, /obj/item/pipe = 3, /obj/item/stack/cable_coil/low_voltage = MAXCOIL)
 	category = CAT_MISC
 	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
 
@@ -834,7 +834,7 @@
 	name = "Thermal Drill"
 	result = list(/obj/item/thermal_drill)
 	time = 60
-	reqs = list(/obj/item/stack/cable_coil = 5,
+	reqs = list(/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/mecha_parts/mecha_equipment/drill = 1,
 				/obj/item/stock_parts/cell = 1,
 				/obj/item/stack/rods = 2,
@@ -846,7 +846,7 @@
 	name = "Diamond Tipped Thermal Drill"
 	result = list(/obj/item/thermal_drill/diamond_drill)
 	time = 60
-	reqs = list(/obj/item/stack/cable_coil = 5,
+	reqs = list(/obj/item/stack/cable_coil/low_voltage = 5,
 				/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
 				/obj/item/stock_parts/cell = 1,
 				/obj/item/stack/rods = 2,
@@ -1143,7 +1143,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/heart_chain)
 	reqs = list(/obj/item/paper = 1,
 				/obj/item/stack/tape_roll = 2,
-				/obj/item/stack/cable_coil = 2)
+				/obj/item/stack/cable_coil/low_voltage = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/red)
 	category = CAT_DECORATIONS
@@ -1290,7 +1290,7 @@
 	result = list(/obj/structure/decorative_structures/metal/statue/tesla_monument)
 	reqs = list(/obj/item/stack/sheet/metal = 8,
 				/obj/item/stock_parts/cell = 3,
-				/obj/item/stack/cable_coil = 4)
+				/obj/item/stack/cable_coil/low_voltage = 4)
 	tools = list(TOOL_WELDER)
 	category = CAT_DECORATIONS
 	subcategory = CAT_LARGE_DECORATIONS
@@ -1313,7 +1313,7 @@
 				/obj/item/stack/sheet/wood = 4,
 				/obj/item/stack/rods = 4,
 				/obj/item/stock_parts/cell = 1,
-				/obj/item/stack/cable_coil = 4)//thing is a wireframe construct with an electro magnetic hover field
+				/obj/item/stack/cable_coil/low_voltage = 4)//thing is a wireframe construct with an electro magnetic hover field
 	tools = list(TOOL_WIRECUTTER,
 				TOOL_WELDER)
 	pathtools = list(/obj/item/pen,

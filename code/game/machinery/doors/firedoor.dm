@@ -392,7 +392,7 @@
 				return
 		if(CONSTRUCTION_GUTTED)
 			if(iscoil(C))
-				var/obj/item/stack/cable_coil/B = C
+				var/obj/item/stack/cable_coil/low_voltage/B = C
 				if(B.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need more wires to add wiring to [src].</span>")
 					return
@@ -482,7 +482,7 @@
 		return
 	user.visible_message("<span class='notice'>[user] removes the wires from [src].</span>", \
 						"<span class='notice'>You remove the wiring from [src], exposing the circuit board.</span>")
-	var/obj/item/stack/cable_coil/B = new(get_turf(src))
+	var/obj/item/stack/cable_coil/low_voltage/B = new(get_turf(src))
 	B.amount = 5
 	constructionStep = CONSTRUCTION_GUTTED
 	update_icon()

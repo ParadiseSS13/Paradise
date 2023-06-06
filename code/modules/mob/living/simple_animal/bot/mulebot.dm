@@ -826,7 +826,7 @@
 	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/stack/rods(Tsec)
 	new /obj/item/stack/rods(Tsec)
-	new /obj/item/stack/cable_coil/cut(Tsec)
+	new /obj/item/stack/cable_coil/low_voltage/cut(Tsec)
 	if(cell)
 		cell.forceMove(Tsec)
 		cell.update_icon()

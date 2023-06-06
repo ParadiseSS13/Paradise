@@ -1,6 +1,7 @@
 //////////////////////////////
 // POWER MACHINERY BASE CLASS
 //////////////////////////////
+#warn UPDATE_ALL_OF_THIS_FOR_HV
 /obj/machinery/power
 	name = null
 	icon = 'icons/obj/power.dmi'
@@ -58,7 +59,7 @@
 	if(!istype(T))
 		return FALSE
 
-	var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
+	var/obj/structure/cable/low_voltage/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
 
 	if(!C || !C.powernet)
 		return FALSE
@@ -75,8 +76,8 @@
 // attach a wire to a power machine - leads from the turf you are standing on
 //almost never called, overwritten by all power machines but terminal and generator
 /obj/machinery/power/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = I
+	if(istype(I, /obj/item/stack/cable_coil/low_voltage))
+		var/obj/item/stack/cable_coil/low_voltage/coil = I
 		var/turf/T = user.loc
 		if(T.intact || !isfloorturf(T))
 			return
@@ -97,7 +98,7 @@
 /turf/proc/get_cable_node()
 	if(!can_have_cabling())
 		return null
-	for(var/obj/structure/cable/C in src)
+	for(var/obj/structure/cable/low_voltage/C in src)
 		if(C.d1 == NO_DIRECTION)
 			return C
 	return null

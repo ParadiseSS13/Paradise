@@ -108,8 +108,8 @@
 			return FALSE
 
 		if(2) // Welded to the floor
-			if(istype(W, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = W
+			if(istype(W, /obj/item/stack/cable_coil/low_voltage))
+				var/obj/item/stack/cable_coil/low_voltage/C = W
 				to_chat(user, "You start adding cables to \the [src]...")
 				playsound(get_turf(src), C.usesound, 50, 1)
 				if(do_after(user, 20 * C.toolspeed, target = src) && (C.get_amount() >= 2) && (build == 2))
@@ -123,7 +123,7 @@
 			if(istype(W, /obj/item/wirecutters))
 				to_chat(user, "You begin to remove the wiring from \the [src].")
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 3))
-					new /obj/item/stack/cable_coil(loc,2)
+					new /obj/item/stack/cable_coil/low_voltage(loc,2)
 					playsound(get_turf(src), W.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
 					build--

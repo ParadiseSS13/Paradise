@@ -135,7 +135,7 @@
 				if(do_after(user, 40 * W.toolspeed, target = src))
 					if(!src || !anchored || state != EMPTY_ASSEMBLY)
 						return
-					var/obj/item/stack/cable_coil/CC = W
+					var/obj/item/stack/cable_coil/low_voltage/CC = W
 					CC.use(1)
 					to_chat(user, "<span class='notice'>You wire the windoor.</span>")
 					playsound(loc, CC.usesound, 100, 1)
@@ -257,7 +257,7 @@
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != WIRED_ASSEMBLY)
 		return
 	to_chat(user, "<span class='notice'>You cut the windoor wires.</span>")
-	new/obj/item/stack/cable_coil(get_turf(user), 1)
+	new/obj/item/stack/cable_coil/low_voltage(get_turf(user), 1)
 	state = EMPTY_ASSEMBLY
 	if(secure)
 		name = "secure anchored windoor assembly"

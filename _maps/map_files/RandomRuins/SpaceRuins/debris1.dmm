@@ -31,11 +31,11 @@
 /obj/structure/disposalpipe/broken{
 	dir = 8
 	},
-/obj/item/stack/cable_coil/cut,
+/obj/item/stack/cable_coil/low_voltage/cut,
 /turf/space,
 /area/space)
 "l" = (
-/obj/item/stack/cable_coil/cut,
+/obj/item/stack/cable_coil/low_voltage/cut,
 /turf/space,
 /area/space)
 "m" = (

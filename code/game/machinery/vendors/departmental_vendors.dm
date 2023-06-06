@@ -18,7 +18,7 @@
 	products = list(/obj/item/clothing/under/rank/engineering/chief_engineer = 4, /obj/item/clothing/under/rank/engineering/engineer = 40, /obj/item/clothing/shoes/workboots = 4, /obj/item/clothing/head/hardhat = 4,
 					/obj/item/storage/belt/utility = 4, /obj/item/clothing/glasses/meson/engine = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
 					/obj/item/crowbar = 12, /obj/item/wirecutters = 12, /obj/item/multitool = 12,/obj/item/wrench = 12, /obj/item/t_scanner = 12,
-					/obj/item/stack/cable_coil = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8, /obj/item/clothing/head/welding = 8,
+					/obj/item/stack/cable_coil/low_voltage = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8, /obj/item/clothing/head/welding = 8,
 					/obj/item/light/tube = 10, /obj/item/clothing/suit/fire = 4, /obj/item/stock_parts/scanning_module = 5, /obj/item/stock_parts/micro_laser = 5,
 					/obj/item/stock_parts/matter_bin = 5, /obj/item/stock_parts/manipulator = 5)
 	refill_canister = /obj/item/vending_refill/engineering
@@ -30,7 +30,7 @@
 	icon_deny = "robotics_deny"
 	icon_lightmask = "robotics"
 	req_access_txt = "29"
-	products = list(/obj/item/clothing/suit/storage/labcoat = 4, /obj/item/clothing/under/rank/rnd/roboticist = 4, /obj/item/stack/cable_coil = 4, /obj/item/flash = 4,
+	products = list(/obj/item/clothing/suit/storage/labcoat = 4, /obj/item/clothing/under/rank/rnd/roboticist = 4, /obj/item/stack/cable_coil/low_voltage = 4, /obj/item/flash = 4,
 					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3, /obj/item/assembly/signaler = 3, /obj/item/healthanalyzer = 3,
 					/obj/item/scalpel = 2, /obj/item/circular_saw = 2, /obj/item/tank/internals/anesthetic = 2, /obj/item/clothing/mask/breath/medical = 5,
 					/obj/item/screwdriver = 5, /obj/item/crowbar = 5)

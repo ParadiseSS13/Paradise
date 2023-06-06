@@ -83,7 +83,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 5)
 	RefreshParts()
 // The inlet of the compressor is the direction it faces
 
@@ -217,7 +217,7 @@
 	component_parts += new /obj/item/stock_parts/capacitor(src)
 	component_parts += new /obj/item/stock_parts/capacitor(src)
 	component_parts += new /obj/item/stock_parts/capacitor(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 5)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(src, 5)
 	RefreshParts()
 // The outlet is pointed at the direction of the turbine component
 

@@ -109,8 +109,8 @@ FIRE ALARM
 	add_fingerprint(user)
 	if(wiresexposed)
 		if(buildstage == FIRE_ALARM_UNWIRED)
-			if(istype(I, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/coil = I
+			if(istype(I, /obj/item/stack/cable_coil/low_voltage))
+				var/obj/item/stack/cable_coil/low_voltage/coil = I
 				if(!coil.use(5))
 					to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
 					return
@@ -179,7 +179,7 @@ FIRE ALARM
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
-	var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(drop_location())
+	var/obj/item/stack/cable_coil/low_voltage/new_coil = new /obj/item/stack/cable_coil/low_voltage(drop_location())
 	new_coil.amount = 5
 	buildstage = FIRE_ALARM_UNWIRED
 
@@ -219,7 +219,7 @@ FIRE ALARM
 			var/obj/item/I = new /obj/item/firealarm_electronics(loc)
 			if(!disassembled)
 				I.obj_integrity = I.max_integrity * 0.5
-		new /obj/item/stack/cable_coil(loc, 3)
+		new /obj/item/stack/cable_coil/low_voltage(loc, 3)
 	qdel(src)
 
 /obj/machinery/firealarm/proc/update_fire_light(fire)

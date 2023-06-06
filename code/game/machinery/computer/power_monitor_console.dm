@@ -52,7 +52,7 @@
 	GLOB.powermonitor_repository.update_cache()
 
 /obj/machinery/computer/monitor/proc/find_powernet()
-	var/obj/structure/cable/attached = null
+	var/obj/structure/cable/low_voltage/attached = null
 	var/turf/T = loc
 	if(isturf(T))
 		attached = locate() in T

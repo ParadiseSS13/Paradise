@@ -25,7 +25,7 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "es" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -51,7 +51,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "hm" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -71,7 +71,7 @@
 /turf/template_noop,
 /area/template_noop)
 "jv" = (
-/obj/item/stack/cable_coil/cut,
+/obj/item/stack/cable_coil/low_voltage/cut,
 /turf/template_noop,
 /area/space)
 "jR" = (
@@ -89,7 +89,7 @@
 /turf/template_noop,
 /area/space)
 "ky" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -114,7 +114,7 @@
 	shorted = 1;
 	start_charge = -1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -174,7 +174,7 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "EVA Storage"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -240,7 +240,7 @@
 	pixel_x = -24;
 	start_charge = -1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -290,7 +290,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Cp" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -320,11 +320,11 @@
 /turf/simulated/wall,
 /area/ruin/space/unpowered)
 "Fw" = (
-/obj/item/stack/cable_coil/cut,
+/obj/item/stack/cable_coil/low_voltage/cut,
 /turf/template_noop,
 /area/template_noop)
 "Fy" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -337,7 +337,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Gm" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -400,7 +400,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin)
 "Le" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -416,7 +416,7 @@
 /area/template_noop)
 "Nw" = (
 /obj/machinery/power/smes,
-/obj/structure/cable/blue{
+/obj/structure/cable/low_voltage/blue{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -459,7 +459,7 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -475,7 +475,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Ry" = (
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/low_voltage/random,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "RB" = (
@@ -511,13 +511,13 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "TT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -566,7 +566,7 @@
 /turf/space,
 /area/ruin/space/unpowered)
 "Xd" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"

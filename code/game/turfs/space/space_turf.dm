@@ -245,8 +245,8 @@
 
 /turf/space/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /turf/space/proc/set_transition_north(dest_z)
 	destination_x = x

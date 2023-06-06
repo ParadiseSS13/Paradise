@@ -793,7 +793,7 @@
 	icon_state = "artvend"
 	icon_lightmask = "artvend"
 	icon_panel = "screen_vendor"
-	products = list(/obj/item/stack/cable_coil/random = 10,
+	products = list(/obj/item/stack/cable_coil/low_voltage/random = 10,
 					/obj/item/toner = 4,
 					/obj/item/camera = 4,
 					/obj/item/camera_film = 6,
@@ -812,7 +812,7 @@
 	contraband = list(/obj/item/toy/crayon/mime = 1,
 					/obj/item/toy/crayon/rainbow = 1,
 					/obj/item/poster/random_contraband = 5)
-	prices = list(/obj/item/stack/cable_coil/random = 20,
+	prices = list(/obj/item/stack/cable_coil/low_voltage/random = 20,
 				/obj/item/toner = 40,
 				/obj/item/pen/fancy = 40)
 
@@ -832,7 +832,7 @@
 					/obj/item/wrench = 5,
 					/obj/item/analyzer = 5,
 					/obj/item/t_scanner = 5,
-					/obj/item/stack/cable_coil/random = 10,
+					/obj/item/stack/cable_coil/low_voltage/random = 10,
 					/obj/item/clothing/gloves/color/yellow = 1,
 					/obj/item/crowbar/large = 1)
 	contraband = list(/obj/item/clothing/gloves/color/fyellow = 2,
@@ -844,7 +844,7 @@
 				/obj/item/wrench = 75,
 				/obj/item/analyzer = 25,
 				/obj/item/t_scanner = 25,
-				/obj/item/stack/cable_coil/random = 20,
+				/obj/item/stack/cable_coil/low_voltage/random = 20,
 				/obj/item/clothing/gloves/color/yellow = 250,
 				/obj/item/weldingtool/hugetank = 120,
 				/obj/item/crowbar/large = 150)

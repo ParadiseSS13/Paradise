@@ -30,8 +30,8 @@
 				circuit = P
 				return
 		if(SCREWED_CORE)
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = P
+			if(istype(P, /obj/item/stack/cable_coil/low_voltage))
+				var/obj/item/stack/cable_coil/low_voltage/C = P
 				if(C.get_amount() >= 5)
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
@@ -200,7 +200,7 @@
 		to_chat(user, "<span class='notice'>You remove the cables.</span>")
 		state = SCREWED_CORE
 		update_icon(UPDATE_ICON_STATE)
-		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
+		var/obj/item/stack/cable_coil/low_voltage/A = new /obj/item/stack/cable_coil/low_voltage( loc )
 		A.amount = 5
 
 /obj/structure/AIcore/wrench_act(mob/living/user, obj/item/I)
@@ -231,7 +231,7 @@
 	if(state == GLASS_CORE)
 		new /obj/item/stack/sheet/rglass(loc, 2)
 	if(state >= CABLED_CORE)
-		new /obj/item/stack/cable_coil(loc, 5)
+		new /obj/item/stack/cable_coil/low_voltage(loc, 5)
 	if(circuit)
 		circuit.forceMove(loc)
 		circuit = null

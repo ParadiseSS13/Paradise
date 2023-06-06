@@ -20,7 +20,7 @@
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		if(state >= 2)
-			var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
+			var/obj/item/stack/cable_coil/low_voltage/A = new /obj/item/stack/cable_coil/low_voltage(loc)
 			A.amount = 5
 		if(circuit)
 			circuit.forceMove(loc)
@@ -73,8 +73,8 @@
 /obj/machinery/constructable_frame/machine_frame/attackby(obj/item/P, mob/user, params)
 	switch(state)
 		if(1)
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = P
+			if(istype(P, /obj/item/stack/cable_coil/low_voltage))
+				var/obj/item/stack/cable_coil/low_voltage/C = P
 				if(C.get_amount() >= 5)
 					playsound(src.loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
@@ -122,7 +122,7 @@
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 1
 				icon_state = "box_0"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
+				var/obj/item/stack/cable_coil/low_voltage/A = new /obj/item/stack/cable_coil/low_voltage(src.loc,5)
 				A.amount = 5
 				return
 		if(3)
@@ -308,7 +308,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=2"
 	req_components = list(
-							/obj/item/stack/cable_coil = 3,
+							/obj/item/stack/cable_coil/low_voltage = 3,
 							/obj/item/stock_parts/cell = 1,
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -330,7 +330,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=3;powerstorage=3;engineering=3"
 	req_components = list(
-							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/cable_coil/low_voltage = 5,
 							/obj/item/stock_parts/cell = 5,
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -351,7 +351,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=4;powerstorage=4;engineering=4"
 	req_components = list(
-							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/cable_coil/low_voltage = 5,
 							/obj/item/stock_parts/manipulator = 6)
 
 /obj/item/circuitboard/power_turbine
@@ -361,7 +361,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=4;powerstorage=4;engineering=4"
 	req_components = list(
-							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/cable_coil/low_voltage = 5,
 							/obj/item/stock_parts/capacitor = 6)
 
 /obj/item/circuitboard/thermomachine
@@ -373,7 +373,7 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 1,
+							/obj/item/stack/cable_coil/low_voltage = 1,
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/recharger
@@ -403,7 +403,7 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 1,
+							/obj/item/stack/cable_coil/low_voltage = 1,
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/plantgenes
@@ -449,7 +449,7 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/cable_coil = 2,
+							/obj/item/stack/cable_coil/low_voltage = 2,
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/oven
@@ -460,7 +460,7 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/cable_coil/low_voltage = 5,
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/grill
@@ -471,7 +471,7 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/cable_coil/low_voltage = 5,
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/candy_maker
@@ -482,7 +482,7 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/cable_coil/low_voltage = 5,
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/deepfryer
@@ -493,7 +493,7 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 5)
+							/obj/item/stack/cable_coil/low_voltage = 5)
 
 /obj/item/circuitboard/gibber
 	board_name = "Gibber"
@@ -777,7 +777,7 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/cable_coil = 2,
+							/obj/item/stack/cable_coil/low_voltage = 2,
 							/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/pacman/super
@@ -799,7 +799,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=3"
 	req_components = list(
-							/obj/item/stack/cable_coil = 2,
+							/obj/item/stack/cable_coil/low_voltage = 2,
 							/obj/item/stock_parts/scanning_module = 1)
 
 /obj/item/circuitboard/mechfab
@@ -821,7 +821,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
 	req_components = list(
-							/obj/item/stack/cable_coil = 2,
+							/obj/item/stack/cable_coil/low_voltage = 2,
 							/obj/item/stock_parts/scanning_module = 2,
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stack/sheet/glass = 1)
@@ -837,7 +837,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stack/cable_coil = 2,)
+							/obj/item/stack/cable_coil/low_voltage = 2,)
 
 /obj/item/circuitboard/mech_recharger
 	board_name = "Mech Bay Recharger"
@@ -846,7 +846,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=3;powerstorage=3;engineering=3"
 	req_components = list(
-							/obj/item/stack/cable_coil = 1,
+							/obj/item/stack/cable_coil/low_voltage = 1,
 							/obj/item/stock_parts/capacitor = 5)
 
 /obj/item/circuitboard/teleporter_hub
@@ -899,7 +899,7 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 2,
 							/obj/item/stock_parts/capacitor = 1,
-							/obj/item/stack/cable_coil = 1,
+							/obj/item/stack/cable_coil/low_voltage = 1,
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/quantumpad
@@ -912,7 +912,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/ore/bluespace_crystal = 1,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 1)
+							/obj/item/stack/cable_coil/low_voltage = 1)
 
 /obj/item/circuitboard/sleeper
 	board_name = "Sleeper"
@@ -923,7 +923,7 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 1,
+							/obj/item/stack/cable_coil/low_voltage = 1,
 							/obj/item/stack/sheet/glass = 2)
 
 /obj/item/circuitboard/sleeper/syndicate
@@ -944,7 +944,7 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=3;biotech=2;engineering=3"
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
-							/obj/item/stack/cable_coil = 2,
+							/obj/item/stack/cable_coil/low_voltage = 2,
 							/obj/item/stack/sheet/glass = 2)
 
 /obj/item/circuitboard/cryo_tube
@@ -955,7 +955,7 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=4;biotech=3;engineering=4;plasmatech=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stack/cable_coil = 1,
+							/obj/item/stack/cable_coil/low_voltage = 1,
 							/obj/item/stack/sheet/glass = 4)
 
 /obj/item/circuitboard/cell_charger
@@ -984,7 +984,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/tcomms/relay
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2;bluespace=2"
-	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
+	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil/low_voltage = 2)
 
 /obj/item/circuitboard/tcomms/core
 	board_name = "Telecommunications Core"
@@ -992,7 +992,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/tcomms/core
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2"
-	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
+	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil/low_voltage = 2)
 // End telecomms circuit boards
 
 /obj/item/circuitboard/ore_redemption
@@ -1047,7 +1047,7 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/cable_coil/low_voltage = 5,
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/prize_counter
@@ -1060,7 +1060,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stack/cable_coil = 1)
+							/obj/item/stack/cable_coil/low_voltage = 1)
 
 /obj/item/circuitboard/gameboard
 	board_name = "Virtual Gameboard"
@@ -1070,7 +1070,7 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/cable_coil = 3,
+							/obj/item/stack/cable_coil/low_voltage = 3,
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/merch

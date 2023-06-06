@@ -358,8 +358,8 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
 	..()
-	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
-		var/obj/item/stack/cable_coil/C = A
+	if(istype(A, /obj/item/stack/cable_coil/low_voltage) && !sawn_state)
+		var/obj/item/stack/cable_coil/low_voltage/C = A
 		if(sling)
 			to_chat(user, "<span class='warning'>The shotgun already has a sling!</span>")
 		else if(C.use(10))
@@ -377,7 +377,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
 	if(. && sling) //sawing off the gun removes the sling
-		new /obj/item/stack/cable_coil(get_turf(src), 10)
+		new /obj/item/stack/cable_coil/low_voltage(get_turf(src), 10)
 		sling = FALSE
 		update_icon(UPDATE_ICON_STATE)
 
@@ -416,7 +416,7 @@
 	return list()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/stack/cable_coil))
+	if(istype(A, /obj/item/stack/cable_coil/low_voltage))
 		return
 	else
 		return ..()

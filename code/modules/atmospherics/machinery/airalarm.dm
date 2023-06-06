@@ -1019,7 +1019,7 @@
 
 		if(AIR_ALARM_UNWIRED)
 			if(iscoil(I))
-				var/obj/item/stack/cable_coil/coil = I
+				var/obj/item/stack/cable_coil/low_voltage/coil = I
 				if(coil.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need more cable for this!</span>")
 					return
@@ -1088,7 +1088,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(wires.is_all_cut()) // all wires cut
-		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(loc)
+		var/obj/item/stack/cable_coil/low_voltage/new_coil = new /obj/item/stack/cable_coil/low_voltage(loc)
 		new_coil.amount = 5
 		buildstage = AIR_ALARM_UNWIRED
 		update_icon(UPDATE_ICON_STATE)
@@ -1124,7 +1124,7 @@
 		var/obj/item/I = new /obj/item/airalarm_electronics(loc)
 		if(!disassembled)
 			I.obj_integrity = I.max_integrity * 0.5
-		new /obj/item/stack/cable_coil(loc, 3)
+		new /obj/item/stack/cable_coil/low_voltage(loc, 3)
 	qdel(src)
 
 /obj/machinery/alarm/AltClick(mob/user)

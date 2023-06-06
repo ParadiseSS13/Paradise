@@ -39,7 +39,7 @@
 	var/list/pullable_drone_items = list(
 		/obj/item/pipe,
 		/obj/structure/disposalconstruct,
-		/obj/item/stack/cable_coil,
+		/obj/item/stack/cable_coil/low_voltage,
 		/obj/item/stack/rods,
 		/obj/item/stack/sheet,
 		/obj/item/stack/tile

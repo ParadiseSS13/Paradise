@@ -49,7 +49,7 @@
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
@@ -81,7 +81,7 @@
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/RefreshParts()

@@ -72,7 +72,7 @@
 					if(prob(50) && electrocute_mob(user, powernet, src, 1, TRUE))
 						do_sparks(5, TRUE, master)
 						return
-					new /obj/item/stack/cable_coil(loc, 10)
+					new /obj/item/stack/cable_coil/low_voltage(loc, 10)
 					to_chat(user, "<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
 					qdel(src)
 

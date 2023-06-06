@@ -278,7 +278,7 @@
 	else if(W.GetID())			// trying to unlock the interface with an ID card
 		togglelock(user)
 
-	else if(istype(W, /obj/item/stack/cable_coil) && opened)
+	else if(istype(W, /obj/item/stack/cable_coil/low_voltage) && opened)
 		var/turf/host_turf = get_turf(src)
 		if(!host_turf)
 			throw EXCEPTION("attackby on APC when it's not on a turf")
@@ -293,7 +293,7 @@
 			to_chat(user, "<span class='warning'>There is nothing to wire!</span>")
 			return
 
-		var/obj/item/stack/cable_coil/C = W
+		var/obj/item/stack/cable_coil/low_voltage/C = W
 		if(C.get_amount() < 10)
 			to_chat(user, "<span class='warning'>You need ten lengths of cable for APC!</span>")
 			return
@@ -305,7 +305,7 @@
 				return
 			if(C.get_amount() >= 10 && !terminal && opened && has_electronics())
 				var/turf/T = get_turf(src)
-				var/obj/structure/cable/N = T.get_cable_node()
+				var/obj/structure/cable/low_voltage/N = T.get_cable_node()
 				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE))
 					do_sparks(5, TRUE, src)
 					return
@@ -801,7 +801,7 @@
 		return
 	var/drop_loc = drop_location()
 	new /obj/item/stack/sheet/metal(drop_loc, 3) // Metal from the frame
-	new /obj/item/stack/cable_coil(drop_loc, 10) // wiring from the terminal and the APC, some lost due to explosion
+	new /obj/item/stack/cable_coil/low_voltage(drop_loc, 10) // wiring from the terminal and the APC, some lost due to explosion
 	QDEL_NULL(terminal) // We don't want floating terminals
 	qdel(src)
 

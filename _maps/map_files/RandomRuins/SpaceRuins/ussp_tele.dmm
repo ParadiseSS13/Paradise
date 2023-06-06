@@ -7,7 +7,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "c" = (
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/low_voltage/cut{
 	amount = 1
 	},
 /turf/template_noop,

@@ -162,8 +162,8 @@
 		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
 		update_icon(UPDATE_ICON_STATE)
 
-	else if(stage == EMPTY && istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = I
+	else if(stage == EMPTY && istype(I, /obj/item/stack/cable_coil/low_voltage))
+		var/obj/item/stack/cable_coil/low_voltage/C = I
 		C.use(1)
 
 		stage = WIRED

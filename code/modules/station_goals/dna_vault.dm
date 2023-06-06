@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	req_components = list(
 							/obj/item/stock_parts/capacitor/super = 5,
 							/obj/item/stock_parts/manipulator/pico = 5,
-							/obj/item/stack/cable_coil = 2)
+							/obj/item/stack/cable_coil/low_voltage = 2)
 
 /obj/structure/filler
 	name = "big machinery part"

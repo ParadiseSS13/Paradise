@@ -238,7 +238,7 @@
 	if(rods)
 		. += new /obj/item/stack/rods(location, rods)
 	if(cable)
-		. += new /obj/item/stack/cable_coil(location, cable)
+		. += new /obj/item/stack/cable_coil/low_voltage(location, cable)
 
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR

@@ -38,7 +38,7 @@
 
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
 	if(state == ASSEMBLY_WELDED && iscoil(I))
-		var/obj/item/stack/cable_coil/C = I
+		var/obj/item/stack/cable_coil/low_voltage/C = I
 		if(C.use(2))
 			to_chat(user, "<span class='notice'>You add wires to the assembly.</span>")
 			playsound(loc, I.usesound, 50, 1)
@@ -124,7 +124,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	new/obj/item/stack/cable_coil(get_turf(src), 2)
+	new/obj/item/stack/cable_coil/low_voltage(get_turf(src), 2)
 	WIRECUTTER_SNIP_MESSAGE
 	state = ASSEMBLY_WELDED
 	return

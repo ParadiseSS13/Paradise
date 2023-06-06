@@ -2,18 +2,18 @@
 	icon = 'icons/turf/floors.dmi'
 	level = 1
 	luminosity = 1
+	layer = MAP_EDITOR_TURF_LAYER
 
 	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
-	/// used to check if pipes should be visible under the turf or not
-	var/transparent_floor = FALSE
+
 	/// used to check if pipes should be visible under the turf or not
 	var/transparent_floor = FALSE
 
 	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
 	var/real_layer = TURF_LAYER
-	layer = MAP_EDITOR_TURF_LAYER
+
 
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
@@ -446,6 +446,7 @@
 		GLOB.cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
+	#warn IMPLEMENT_NEW_BEHAVIOUR_HERE
 	if(can_lay_cable())
 		if(istype(I, /obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/C = I
@@ -483,6 +484,7 @@
 	* cable_only - if TRUE, power_list will only return cables, if FALSE it will also return power machinery
 */
 /turf/proc/power_list(atom/source, direction, cable_only = FALSE)
+	#warn IMPLEMENT_NEW_BEHAVIOUR_HERE
 	. = list()
 	for(var/obj/AM in src)
 		if(AM == source)

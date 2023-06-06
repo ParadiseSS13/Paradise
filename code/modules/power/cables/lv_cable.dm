@@ -1,3 +1,10 @@
+/*
+	* # /obj/structure/cable/low_voltage
+	*
+	* The colored wire you see on the ground all over the station in maintenance
+	* the d1 and d2 vars deal with the "directions" of the cables, since all instances of this cable structure are
+	* just lines, they have two endpoints (d1 and d2).
+*/
 /obj/structure/cable/low_voltage
 	name = "low-voltage power cable"
 	desc = "A flexible superconducting cable for light regional power transfer."
@@ -9,12 +16,12 @@
 	color = COLOR_RED
 
 	power_voltage_type = VOLTAGE_LOW
+	cable_coil_type = /obj/item/stack/cable_coil/low_voltage
 
 	//The following vars are set here for the benefit of mapping - they are reset when the cable is spawned
 	alpha = 128	//is set to 255 when spawned
 	plane = GAME_PLANE //is set to FLOOR_PLANE when spawned
 	layer = LOW_OBJ_LAYER //isset to WIRE_LAYER when spawned
-
 
 // Items usable on a cable :
 //   - Wirecutters : cut it duh !

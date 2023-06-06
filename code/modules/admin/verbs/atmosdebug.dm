@@ -39,6 +39,7 @@
 	to_chat(usr, "Done")
 
 /client/proc/powerdebug()
+	#warn FIX_THIS_FUCKING_THING
 	set category = "Mapping"
 	set name = "Check Power"
 	if(!src.holder)

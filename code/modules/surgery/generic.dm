@@ -55,7 +55,7 @@
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
 		/obj/item/scalpel/laser = 100,
-		/obj/item/stack/cable_coil = 90,
+		/obj/item/stack/cable_coil/low_voltage = 90,
 		/obj/item/assembly/mousetrap = 25
 	)
 

@@ -12,7 +12,7 @@
 /turf/simulated/wall/r_wall,
 /area/space)
 "e" = (
-/obj/item/stack/cable_coil/cut,
+/obj/item/stack/cable_coil/low_voltage/cut,
 /turf/space,
 /area/template_noop)
 "h" = (
@@ -32,7 +32,7 @@
 /turf/template_noop,
 /area/space)
 "n" = (
-/obj/item/stack/cable_coil/cut,
+/obj/item/stack/cable_coil/low_voltage/cut,
 /turf/template_noop,
 /area/space)
 "o" = (

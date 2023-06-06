@@ -80,8 +80,8 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
 	RefreshParts()
 
 /obj/machinery/dna_scannernew/upgraded/Initialize(mapload)
@@ -92,8 +92,8 @@
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
 	RefreshParts()
 
 /obj/machinery/dna_scannernew/RefreshParts()
@@ -134,7 +134,7 @@
 	for(var/obj/O in src)
 		if(!istype(O,/obj/item/circuitboard/clonescanner) && \
 			!istype(O,/obj/item/stock_parts) && \
-			!istype(O,/obj/item/stack/cable_coil) && \
+			!istype(O,/obj/item/stack/cable_coil/low_voltage) && \
 			O != beaker)
 			O.forceMove(get_turf(src))//Ejects items that manage to get in there (exluding the components and beaker)
 	if(!occupant)

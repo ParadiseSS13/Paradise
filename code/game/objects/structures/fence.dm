@@ -78,7 +78,7 @@
 	if(!in_range(src, user)) //To prevent TK and mech users from getting shocked
 		return FALSE
 	var/turf/T = get_turf(src)
-	var/obj/structure/cable/C = T.get_cable_node()
+	var/obj/structure/cable/low_voltage/C = T.get_cable_node()
 	if(C)
 		if(electrocute_mob(user, C, src, 1, TRUE))
 			do_sparks(3, 1, src)

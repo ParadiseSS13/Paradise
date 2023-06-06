@@ -13,12 +13,12 @@
 	origin_tech = "engineering=4;materials=2"
 	var/max_amount = 90
 	var/active = FALSE
-	var/obj/structure/cable/last = null
-	var/obj/item/stack/cable_coil/loaded = null
+	var/obj/structure/cable/low_voltage/last = null
+	var/obj/item/stack/cable_coil/low_voltage/loaded = null
 
 /obj/item/twohanded/rcl/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = W
+	if(istype(W, /obj/item/stack/cable_coil/low_voltage))
+		var/obj/item/stack/cable_coil/low_voltage/C = W
 		if(!loaded)
 			if(user.drop_item())
 				loaded = W
@@ -50,10 +50,10 @@
 		var/diff = loaded.amount % 30
 		if(diff)
 			loaded.use(diff)
-			new /obj/item/stack/cable_coil(user.loc, diff)
+			new /obj/item/stack/cable_coil/low_voltage(user.loc, diff)
 		else
 			loaded.use(30)
-			new /obj/item/stack/cable_coil(user.loc, 30)
+			new /obj/item/stack/cable_coil/low_voltage(user.loc, 30)
 	loaded.max_amount = initial(loaded.max_amount)
 	loaded.forceMove(user.loc)
 	user.put_in_hands(loaded)
@@ -114,7 +114,7 @@
 	if(!active)
 		last = null
 	else if(!last)
-		for(var/obj/structure/cable/C in get_turf(user))
+		for(var/obj/structure/cable/low_voltage/C in get_turf(user))
 			if(C.d1 == 0 || C.d2 == 0)
 				last = C
 				break

@@ -460,7 +460,7 @@
 /obj/item/wrench,
 /obj/item/weldingtool,
 /obj/item/wirecutters,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/low_voltage,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},

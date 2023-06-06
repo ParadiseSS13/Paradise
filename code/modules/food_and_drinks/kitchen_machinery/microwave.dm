@@ -25,7 +25,7 @@
 	component_parts += new /obj/item/circuitboard/microwave(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 2)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 2)
 	RefreshParts()
 
 /obj/machinery/kitchen_machine/microwave/upgraded/Initialize(mapload)
@@ -34,7 +34,7 @@
 	component_parts += new /obj/item/circuitboard/microwave(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 2)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 2)
 	RefreshParts()
 
 /obj/machinery/kitchen_machine/microwave/RefreshParts()

@@ -32,7 +32,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "j" = (
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/low_voltage,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 

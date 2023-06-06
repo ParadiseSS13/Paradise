@@ -211,7 +211,7 @@
 		else
 			new /obj/item/stack/sheet/plasteel(T, 2) //prevents reconstructing to sharpen the guillotine without additional plasteel
 		new /obj/item/stack/sheet/wood(T, 20)
-		new /obj/item/stack/cable_coil(T, 10)
+		new /obj/item/stack/cable_coil/low_voltage(T, 10)
 		qdel(src)
 
 /obj/structure/guillotine/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)

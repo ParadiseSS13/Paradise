@@ -3541,7 +3541,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "mt" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -3556,7 +3556,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "mw" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -3945,7 +3945,7 @@
 /area/shuttle/transport)
 "nx" = (
 /obj/structure/table,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/low_voltage,
 /obj/item/crowbar/red,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -6476,7 +6476,7 @@
 "wW" = (
 /obj/structure/table,
 /obj/item/stack/rods,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/low_voltage,
 /obj/item/pen,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
@@ -7671,7 +7671,7 @@
 	name = "Gamma Armory APC";
 	pixel_y = -24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -7712,11 +7712,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "DL" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -7731,7 +7731,7 @@
 /area/centcom/specops)
 "DN" = (
 /obj/mecha/combat/marauder/ares/loaded,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -7793,7 +7793,7 @@
 /turf/simulated/floor/engine,
 /area/admin)
 "DY" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},

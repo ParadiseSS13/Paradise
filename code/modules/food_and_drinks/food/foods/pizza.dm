@@ -533,7 +533,7 @@
 			playsound(src, I.usesound, 50, 1, 1)
 			user.unEquip(src)
 			user.visible_message("<span class='notice'>[user] removes the insides of [src]!</span>")
-			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(src.loc)
+			var/obj/item/stack/cable_coil/low_voltage/C = new /obj/item/stack/cable_coil/low_voltage(src.loc)
 			C.amount = 3
 			new /obj/item/bombcore/miniature(loc)
 			new /obj/item/pizzabox(loc)

@@ -248,7 +248,7 @@
 		else
 			var/obj/item/I = new /obj/item/camera_assembly(loc)
 			I.obj_integrity = I.max_integrity * 0.5
-			new /obj/item/stack/cable_coil(loc, 2)
+			new /obj/item/stack/cable_coil/low_voltage(loc, 2)
 	qdel(src)
 
 /obj/machinery/camera/update_icon_state()

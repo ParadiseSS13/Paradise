@@ -111,7 +111,7 @@
 	id = "cable_coil"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 15, MAT_GLASS = 10)
-	build_path = /obj/item/stack/cable_coil
+	build_path = /obj/item/stack/cable_coil/low_voltage
 	category = list("initial","Tools")
 	maxstack = 30
 

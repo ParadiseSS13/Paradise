@@ -383,12 +383,12 @@
 			W.forceMove(src)
 			cell = W
 			to_chat(user, "<span class='notice'>You insert the cell!</span>")
-	if(istype(W, /obj/item/stack/cable_coil))
+	if(istype(W, /obj/item/stack/cable_coil/low_voltage))
 		if(wired)
 			to_chat(user, "<span class='notice'>You have already inserted wire!</span>")
 			return
 		else
-			var/obj/item/stack/cable_coil/coil = W
+			var/obj/item/stack/cable_coil/low_voltage/coil = W
 			coil.use(1)
 			wired = TRUE
 			to_chat(user, "<span class='notice'>You insert the wire!</span>")

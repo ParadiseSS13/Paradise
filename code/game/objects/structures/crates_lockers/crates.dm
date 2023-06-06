@@ -96,8 +96,8 @@
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
 
 /obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = W
+	if(istype(W, /obj/item/stack/cable_coil/low_voltage))
+		var/obj/item/stack/cable_coil/low_voltage/C = W
 		if(rigged)
 			to_chat(user, "<span class='notice'>[src] is already rigged!</span>")
 			return TRUE

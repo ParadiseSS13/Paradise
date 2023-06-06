@@ -26,7 +26,7 @@ GLOBAL_VAR(claw_game_html)
 	component_parts += new /obj/item/circuitboard/clawgame(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 5)
 	component_parts += new /obj/item/stack/sheet/glass(null, 1)
 	RefreshParts()
 

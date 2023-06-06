@@ -15,7 +15,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ad" = (
-/obj/item/stack/cable_coil{
+/obj/item/stack/cable_coil/low_voltage{
 	amount = 2
 	},
 /turf/template_noop,
@@ -35,7 +35,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "ah" = (
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/low_voltage/cut{
 	amount = 1
 	},
 /turf/template_noop,
@@ -475,7 +475,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "bo" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -489,7 +489,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -498,7 +498,7 @@
 /area/ruin/space/derelict/bridge)
 "bq" = (
 /obj/structure/table/wood,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -511,7 +511,7 @@
 /area/ruin/space/derelict/bridge)
 "br" = (
 /obj/structure/chair/stool,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -520,7 +520,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "bs" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -529,7 +529,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "bt" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -537,7 +537,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/bridge)
 "bu" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -548,7 +548,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bv" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -557,7 +557,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bw" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -565,7 +565,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bx" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -671,7 +671,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "bL" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -931,7 +931,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/bridge)
 "cu" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1019,7 +1019,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "cF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1139,7 +1139,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "cT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1259,7 +1259,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "dj" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1532,7 +1532,7 @@
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/gloves/combat,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -1586,7 +1586,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "dV" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1602,7 +1602,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "dY" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1673,7 +1673,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ei" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1699,7 +1699,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "el" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
@@ -1788,7 +1788,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ev" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1811,7 +1811,7 @@
 	inputting = 0;
 	output_level = 30000
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -1822,7 +1822,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "ey" = (
 /obj/machinery/atmospherics/unary/tank/oxygen,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -1873,7 +1873,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eG" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1919,7 +1919,7 @@
 	layer = 2.9;
 	name = "Security Wing Lockdown"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
@@ -1985,7 +1985,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "eS" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2015,7 +2015,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
@@ -2026,7 +2026,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2079,7 +2079,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fd" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2128,7 +2128,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "fj" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -2136,7 +2136,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fk" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2144,7 +2144,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fl" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2157,7 +2157,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "fm" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2169,12 +2169,12 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "fn" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -2183,7 +2183,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "fo" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2194,7 +2194,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "fp" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2207,12 +2207,12 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "fq" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -2220,12 +2220,12 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fr" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -2233,7 +2233,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fs" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -2280,7 +2280,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "fx" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2311,7 +2311,7 @@
 /obj/item/trash/spentcasing{
 	icon_state = "762-casing"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
@@ -2320,7 +2320,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2329,7 +2329,7 @@
 /area/ruin/space/derelict/arrival)
 "fD" = (
 /obj/item/trash/spentcasing,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -2383,7 +2383,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fJ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -2426,7 +2426,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "fQ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -2482,7 +2482,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fX" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -2591,7 +2591,7 @@
 /obj/machinery/power/solar_control{
 	track = 2
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
@@ -2714,12 +2714,12 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "gB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -2727,7 +2727,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
@@ -2744,8 +2744,8 @@
 "gD" = (
 /obj/structure/rack,
 /obj/item/t_scanner,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/low_voltage,
+/obj/item/stack/cable_coil/low_voltage,
 /obj/machinery/light/spot{
 	dir = 1
 	},
@@ -2849,12 +2849,12 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "gT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -2902,7 +2902,7 @@
 /area/ruin/space/derelict/solar_control)
 "gZ" = (
 /obj/machinery/power/solar,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
@@ -2937,7 +2937,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "he" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -2990,7 +2990,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hk" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3022,11 +3022,11 @@
 /area/ruin/space/derelict/crew_quarters)
 "hp" = (
 /obj/machinery/power/solar,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -3040,7 +3040,7 @@
 /area/space/nearstation)
 "hr" = (
 /obj/machinery/power/solar,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -3050,7 +3050,7 @@
 /area/ruin/space/derelict/solar_control)
 "hs" = (
 /obj/machinery/power/solar,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -3074,7 +3074,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "hv" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3145,7 +3145,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3199,7 +3199,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "hL" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3231,17 +3231,17 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hO" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -3256,7 +3256,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hQ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -3272,7 +3272,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hS" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3313,7 +3313,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "hZ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3405,7 +3405,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "im" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3469,7 +3469,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "iy" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3555,7 +3555,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "iJ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3655,7 +3655,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "iX" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3691,7 +3691,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/hallway/primary)
 "jb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3714,7 +3714,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "jd" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3790,7 +3790,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jp" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3827,7 +3827,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ju" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3857,7 +3857,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "jx" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3897,7 +3897,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "jE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -3933,7 +3933,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/crew_quarters)
 "jJ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -3949,7 +3949,7 @@
 	id_tag = "rus2_door_int";
 	name = "External Airlock"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -3960,7 +3960,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
 "jL" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -3973,7 +3973,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
 "jM" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -3994,7 +3994,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/hallway/primary)
 "jO" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4003,12 +4003,12 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "jP" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -4063,12 +4063,12 @@
 	},
 /area/ruin/space/derelict/arrival)
 "jY" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -4078,7 +4078,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "jZ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4088,7 +4088,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "ka" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4096,7 +4096,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4107,7 +4107,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "kc" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4118,7 +4118,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kd" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4127,7 +4127,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ke" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4139,7 +4139,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kf" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4148,7 +4148,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4165,7 +4165,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4179,7 +4179,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ki" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4196,7 +4196,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "kj" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4253,14 +4253,14 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "kq" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/space/derelict/hallway/primary)
 "kr" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4275,7 +4275,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4287,7 +4287,7 @@
 /obj/machinery/door/airlock/external{
 	name = "External Airlock"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4300,7 +4300,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ku" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4313,17 +4313,17 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "kv" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -4331,7 +4331,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kw" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4342,7 +4342,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "kx" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4358,7 +4358,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "ky" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4367,7 +4367,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "kz" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4379,7 +4379,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "kA" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4388,12 +4388,12 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/crew_quarters)
 "kB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -4401,7 +4401,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/crew_quarters)
 "kC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4409,7 +4409,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/crew_quarters)
 "kD" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4426,7 +4426,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/crew_quarters)
 "kE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4435,12 +4435,12 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "kF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -4454,17 +4454,17 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "kH" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -4489,7 +4489,7 @@
 /area/ruin/space/derelict/solar_control)
 "kK" = (
 /obj/machinery/power/tracker,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -4529,7 +4529,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "kR" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -4596,12 +4596,12 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "la" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -4643,7 +4643,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "lg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -4692,7 +4692,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/crew_quarters)
 "ln" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -4704,7 +4704,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "lo" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4719,7 +4719,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
 "lp" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4747,7 +4747,7 @@
 	locked = 1;
 	name = "External Airlock"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -4766,12 +4766,12 @@
 /turf/template_noop,
 /area/ruin/space/derelict/hallway/primary)
 "ls" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -4843,17 +4843,17 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "lC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -4866,7 +4866,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/space/derelict/hallway/primary)
 "lE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -4900,7 +4900,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "lH" = (
 /obj/machinery/power/solar,
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -4984,7 +4984,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "lT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -5046,18 +5046,18 @@
 /turf/template_noop,
 /area/ruin/space/derelict/hallway/primary)
 "mb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -5133,7 +5133,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "mp" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -5256,7 +5256,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/derelict/arrival)
 "mJ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -5289,7 +5289,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "mN" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -5299,7 +5299,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "mO" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -5338,7 +5338,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "mT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -5385,7 +5385,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "na" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -5403,7 +5403,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "nb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -5497,7 +5497,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "no" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -5508,7 +5508,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "np" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -5642,7 +5642,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nH" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4";
@@ -5653,7 +5653,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nI" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -5732,7 +5732,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "nT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -5788,7 +5788,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "nZ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -5837,7 +5837,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "oh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -5848,7 +5848,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "oi" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -5929,7 +5929,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ou" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -5939,7 +5939,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ov" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -5949,7 +5949,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ow" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -5967,7 +5967,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ox" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -5977,7 +5977,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "oy" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -6023,7 +6023,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "oD" = (
 /obj/structure/lattice,
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/low_voltage/cut{
 	amount = 1
 	},
 /turf/template_noop,
@@ -6076,7 +6076,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "oN" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -6147,7 +6147,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "oW" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -6252,7 +6252,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon,
 /area/space/nearstation)
 "pl" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -6294,7 +6294,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "ps" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -6362,7 +6362,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "pB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -6547,13 +6547,13 @@
 /area/ruin/space/derelict/crew_quarters)
 "qa" = (
 /obj/effect/landmark/burnturf,
-/obj/item/stack/cable_coil/cut{
+/obj/item/stack/cable_coil/low_voltage/cut{
 	amount = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/arrival)
 "qb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -6663,7 +6663,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qr" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
@@ -6702,7 +6702,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "qx" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -6738,7 +6738,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "qB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -6748,7 +6748,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "qC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6758,7 +6758,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "qD" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6772,7 +6772,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "qE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -6792,7 +6792,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "qH" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -6942,7 +6942,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -6951,7 +6951,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rc" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6960,7 +6960,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rd" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6971,7 +6971,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "re" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6980,7 +6980,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "rf" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -6991,7 +6991,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -7001,7 +7001,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -7012,12 +7012,12 @@
 	},
 /area/ruin/space/derelict/arrival)
 "ri" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -7027,7 +7027,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rj" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -7073,7 +7073,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rr" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -7145,7 +7145,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "ry" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -7213,7 +7213,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -7321,7 +7321,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rP" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -7329,7 +7329,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -7340,7 +7340,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rQ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -7359,7 +7359,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rR" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -7443,7 +7443,7 @@
 	id_tag = "rus1_door_int";
 	name = "External Airlock"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -7452,7 +7452,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
 "sb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -7465,7 +7465,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
 "sc" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -7488,7 +7488,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
 "sd" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -7503,7 +7503,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
 "se" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -7521,7 +7521,7 @@
 	locked = 1;
 	name = "External Airlock"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -7529,7 +7529,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/arrival)
 "sg" = (
-/obj/item/stack/cable_coil{
+/obj/item/stack/cable_coil/low_voltage{
 	amount = 1
 	},
 /turf/template_noop,
@@ -7546,17 +7546,17 @@
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
 "si" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -7565,12 +7565,12 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "sj" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -7579,12 +7579,12 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "sk" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -7593,17 +7593,17 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "sl" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -7631,8 +7631,8 @@
 /area/ruin/space/derelict/solar_control)
 "sp" = (
 /obj/machinery/power/solar/fake,
-/obj/structure/cable,
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -7648,17 +7648,17 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "ss" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -7667,25 +7667,25 @@
 /turf/template_noop,
 /area/ruin/space/derelict/solar_control)
 "st" = (
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/machinery/power/tracker,
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
 /area/ruin/space/derelict/solar_control)
 "su" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -7703,7 +7703,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
 /area/ruin/space/derelict/arrival)
 "Xn" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"

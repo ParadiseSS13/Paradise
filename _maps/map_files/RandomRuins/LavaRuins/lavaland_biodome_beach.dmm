@@ -21,7 +21,7 @@
 "ae" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/low_voltage,
 /obj/item/storage/box/lights/mixed,
 /obj/effect/turf_decal/sand,
 /obj/effect/turf_decal/sand,

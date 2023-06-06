@@ -30,7 +30,7 @@
 "af" = (
 /obj/structure/closet/cardboard,
 /obj/item/stack/sheet/cardboard,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/low_voltage,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel,
@@ -287,8 +287,8 @@
 /obj/item/stack/rods{
 	amount = 50
 	},
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/low_voltage,
+/obj/item/stack/cable_coil/low_voltage,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "aC" = (

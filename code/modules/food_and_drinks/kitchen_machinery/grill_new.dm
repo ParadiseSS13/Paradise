@@ -25,7 +25,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 5)
 	RefreshParts()
 
 /obj/machinery/kitchen_machine/grill/upgraded/Initialize(mapload)
@@ -35,7 +35,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 5)
 	RefreshParts()
 
 /obj/machinery/kitchen_machine/grill/RefreshParts()

@@ -595,7 +595,7 @@
 		circuit.forceMove(location)
 		circuit = null
 	if(state >= STATE_WIRES)
-		var/obj/item/stack/cable_coil/C = new(location)
+		var/obj/item/stack/cable_coil/low_voltage/C = new(location)
 		C.amount = 5
 	if(state == STATE_GLASS)
 		new /obj/item/stack/sheet/glass(location, 2)
@@ -681,7 +681,7 @@
 
 	if(state == STATE_WIRES)
 		to_chat(user, "<span class='notice'>You remove the cables.</span>")
-		var/obj/item/stack/cable_coil/C = new(drop_location())
+		var/obj/item/stack/cable_coil/low_voltage/C = new(drop_location())
 		C.amount = 5
 		state = STATE_NOWIRES
 		I.play_tool_sound(src)
@@ -713,10 +713,10 @@
 			return
 
 		if(STATE_NOWIRES)
-			if(!istype(I, /obj/item/stack/cable_coil))
+			if(!istype(I, /obj/item/stack/cable_coil/low_voltage))
 				return ..()
 
-			var/obj/item/stack/cable_coil/C = I
+			var/obj/item/stack/cable_coil/low_voltage/C = I
 			if(C.get_amount() < 5)
 				to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
 				return

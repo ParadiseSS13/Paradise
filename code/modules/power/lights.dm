@@ -82,7 +82,7 @@
 			icon_state = "tube-construct-stage1"
 		if("bulb")
 			icon_state = "bulb-construct-stage1"
-	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
+	new /obj/item/stack/cable_coil/low_voltage(get_turf(loc), 1, paramcolor = COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
 
 /obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
@@ -111,10 +111,10 @@
 
 /obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/stack/cable_coil))
+	if(istype(W, /obj/item/stack/cable_coil/low_voltage))
 		if(stage != 1)
 			return
-		var/obj/item/stack/cable_coil/coil = W
+		var/obj/item/stack/cable_coil/low_voltage/coil = W
 		coil.use(1)
 		switch(fixture_type)
 			if("tube")
@@ -533,7 +533,7 @@
 				break_light_tube()
 			if(status != LIGHT_EMPTY)
 				drop_light_tube()
-			new /obj/item/stack/cable_coil(loc, 1, "red")
+			new /obj/item/stack/cable_coil/low_voltage(loc, 1, "red")
 		transfer_fingerprints_to(newlight)
 	qdel(src)
 

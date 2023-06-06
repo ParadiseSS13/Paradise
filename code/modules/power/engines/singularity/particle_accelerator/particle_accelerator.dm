@@ -194,7 +194,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(!iscoil(W))
 		return ..()
 	if(construction_state == ACCELERATOR_WRENCHED)
-		var/obj/item/stack/cable_coil/C = W
+		var/obj/item/stack/cable_coil/low_voltage/C = W
 		if(C.use(1))
 			playsound(loc, C.usesound, 50, 1)
 			user.visible_message("[user] adds wires to [src].", \
@@ -291,7 +291,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(!iscoil(W))
 		return ..()
 	if(construction_state == ACCELERATOR_WRENCHED)
-		var/obj/item/stack/cable_coil/C = W
+		var/obj/item/stack/cable_coil/low_voltage/C = W
 		if(C.use(1))
 			playsound(loc, C.usesound, 50, 1)
 			user.visible_message("[user] adds wires to [src].", \

@@ -38,7 +38,7 @@
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
 	RefreshParts()
 
 /obj/machinery/quantumpad/cere/Initialize(mapload)

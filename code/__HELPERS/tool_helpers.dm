@@ -32,7 +32,7 @@
 	return FALSE
 
 /proc/iscoil(O)
-	if(istype(O, /obj/item/stack/cable_coil))
+	if(istype(O, /obj/item/stack/cable_coil/low_voltage))
 		return TRUE
 	return FALSE
 

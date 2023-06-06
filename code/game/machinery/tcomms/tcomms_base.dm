@@ -62,8 +62,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	component_parts = list()
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
 
 /**
   * Base Destructor

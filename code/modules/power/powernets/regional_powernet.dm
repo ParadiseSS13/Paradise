@@ -27,10 +27,17 @@
 	var/smoothed_available_power = 0
 	/// the load as it appears on the power console (gradually updated)
 	var/smoothed_demand = 0
+	/// The voltage type on this powernet, determines special behaviour like transfer efficiency and merge'ing of powernets
+	var/power_voltage_type = VOLTAGE_LOW
 
-/datum/regional_powernet/New()
+/datum/regional_powernet/New(obj/structure/cable/root_cable)
 	. = ..()
 	SSmachines.powernets += src
+	if(root_cable)
+		add_cable(root_cable)
+		power_voltage_type = root_cable.power_voltage_type // might as well set this here
+		return
+	//stack_trace("[UID()] Regional Powernet Instantiated without a root_cable")
 
 /datum/regional_powernet/Destroy()
 	//Go away references, you suck!

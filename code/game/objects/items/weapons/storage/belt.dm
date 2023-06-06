@@ -96,7 +96,7 @@
 		/obj/item/wrench,
 		/obj/item/multitool,
 		/obj/item/flashlight,
-		/obj/item/stack/cable_coil,
+		/obj/item/stack/cable_coil/low_voltage,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
 		/obj/item/geiger_counter,
@@ -109,7 +109,7 @@
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
 	new /obj/item/wirecutters(src)
-	new /obj/item/stack/cable_coil/random(src, 30)
+	new /obj/item/stack/cable_coil/low_voltage/random(src, 30)
 	update_icon()
 
 /obj/item/storage/belt/utility/full/multitool/populate_contents()
@@ -139,7 +139,7 @@
 	new /obj/item/crowbar/power(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil/random(src, 30)
+	new /obj/item/stack/cable_coil/low_voltage/random(src, 30)
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer(src)
 	update_icon()
@@ -157,7 +157,7 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/multitool/red(src)
-	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
+	new /obj/item/stack/cable_coil/low_voltage(src, 30, COLOR_RED)
 	update_icon()
 
 /obj/item/storage/belt/medical
@@ -404,7 +404,7 @@
 	new /obj/item/weldingtool/largetank(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
-	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
+	new /obj/item/stack/cable_coil/low_voltage(src, 30, COLOR_RED)
 	update_icon()
 
 /obj/item/storage/belt/grenade
@@ -463,7 +463,7 @@
 	new /obj/item/crowbar/abductor(src)
 	new /obj/item/wirecutters/abductor(src)
 	new /obj/item/multitool/abductor(src)
-	new /obj/item/stack/cable_coil(src, 30, COLOR_WHITE)
+	new /obj/item/stack/cable_coil/low_voltage(src, 30, COLOR_WHITE)
 
 /obj/item/storage/belt/military/assault
 	name = "assault belt"
@@ -839,7 +839,7 @@
 	new /obj/item/wirecutters(src)
 	new /obj/item/wrench(src)
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil/low_voltage(src)
 
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/dnainjector/firemut(src)
@@ -866,7 +866,7 @@
 	new /obj/item/wirecutters(src)
 	new /obj/item/wrench(src)
 	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil/low_voltage(src)
 
 	new /obj/item/analyzer(src)
 	new /obj/item/healthanalyzer(src)
@@ -888,7 +888,7 @@
 		/obj/item/wrench,
 		/obj/item/multitool,
 		/obj/item/flashlight,
-		/obj/item/stack/cable_coil,
+		/obj/item/stack/cable_coil/low_voltage,
 		/obj/item/analyzer,
 		/obj/item/extinguisher/mini,
 		/obj/item/radio,

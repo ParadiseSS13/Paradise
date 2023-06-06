@@ -23,7 +23,7 @@
 	component_parts += new /obj/item/circuitboard/candy_maker(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 5)
 	RefreshParts()
 
 /obj/machinery/kitchen_machine/candy_maker/upgraded/Initialize(mapload)
@@ -32,7 +32,7 @@
 	component_parts += new /obj/item/circuitboard/candy_maker(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 5)
 	RefreshParts()
 
 /obj/machinery/kitchen_machine/candy_maker/RefreshParts()

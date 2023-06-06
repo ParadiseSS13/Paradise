@@ -16,7 +16,7 @@
 /obj/item/stack/light_w/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/wirecutters))
-		var/obj/item/stack/cable_coil/CC = new(user.loc)
+		var/obj/item/stack/cable_coil/low_voltage/CC = new(user.loc)
 		CC.amount = 5
 		new/obj/item/stack/sheet/glass(user.loc)
 		use(1)

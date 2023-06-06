@@ -23,7 +23,7 @@
 			to_chat(user, "<span class='warning'>There is another network terminal here!</span>")
 			return
 		else
-			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(T)
+			var/obj/item/stack/cable_coil/low_voltage/C = new /obj/item/stack/cable_coil/low_voltage(T)
 			C.amount = 10
 			to_chat(user, "<span class='notice'>You cut the cables and disassemble the unused power terminal.</span>")
 			qdel(E)

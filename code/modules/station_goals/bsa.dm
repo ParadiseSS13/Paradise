@@ -244,7 +244,7 @@
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
 							/obj/item/stock_parts/capacitor/quadratic = 5,
-							/obj/item/stack/cable_coil = 2)
+							/obj/item/stack/cable_coil/low_voltage = 2)
 
 /obj/item/circuitboard/machine/bsa/middle
 	board_name = "Bluespace Artillery Fusor"
@@ -253,7 +253,7 @@
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 20,
-							/obj/item/stack/cable_coil = 2)
+							/obj/item/stack/cable_coil/low_voltage = 2)
 
 /obj/item/circuitboard/machine/bsa/front
 	board_name = "Bluespace Artillery Bore"
@@ -262,7 +262,7 @@
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
 							/obj/item/stock_parts/manipulator/femto = 5,
-							/obj/item/stack/cable_coil = 2)
+							/obj/item/stack/cable_coil/low_voltage = 2)
 
 /obj/item/circuitboard/computer/bsa_control
 	board_name = "Bluespace Artillery Controls"

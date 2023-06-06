@@ -6,7 +6,7 @@
 #define SMESRATE 0.05			// rate of internal charge to external power
 
 
-
+#warn CONVERT_THIS_TO_HV?
 /obj/machinery/power/smes
 	name = "power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
@@ -41,7 +41,7 @@
 	component_parts += new /obj/item/stock_parts/cell/high(null)
 	component_parts += new /obj/item/stock_parts/cell/high(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 5)
 	RefreshParts()
 
 	dir_loop:
@@ -68,7 +68,7 @@
 	component_parts += new /obj/item/stock_parts/cell/hyper(null)
 	component_parts += new /obj/item/stock_parts/cell/hyper(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 5)
 	RefreshParts()
 
 /obj/machinery/power/smes/RefreshParts()
@@ -122,7 +122,7 @@
 		return
 
 	//building and linking a terminal
-	if(istype(I, /obj/item/stack/cable_coil))
+	if(istype(I, /obj/item/stack/cable_coil/low_voltage))
 		var/dir = get_dir(user,src)
 		if(dir & (dir-1))//we don't want diagonal click
 			return
@@ -140,7 +140,7 @@
 			to_chat(user, "<span class='alert'>You must first remove the floor plating!</span>")
 			return
 
-		var/obj/item/stack/cable_coil/C = I
+		var/obj/item/stack/cable_coil/low_voltage/C = I
 		if(C.get_amount() < 10)
 			to_chat(user, "<span class='alert'>You need more wires.</span>")
 			return
@@ -171,7 +171,7 @@
 		if(do_after(user, 50, target = src))
 			if(!terminal && panel_open)
 				T = get_turf(user)
-				var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
+				var/obj/structure/cable/low_voltage/N = T.get_cable_node() //get the connecting node cable, if there's one
 				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE)) //animate the electrocution if uncautious and unlucky
 					do_sparks(5, 1, src)
 					return
@@ -202,7 +202,7 @@
 					return
 
 				//give the wires back and delete the terminal
-				new /obj/item/stack/cable_coil(T,10)
+				new /obj/item/stack/cable_coil/low_voltage(T,10)
 				user.visible_message(\
 					"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
 					"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")

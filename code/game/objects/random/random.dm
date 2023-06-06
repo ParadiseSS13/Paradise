@@ -103,7 +103,7 @@
 				prob(2);/obj/random/bomb_supply,\
 				prob(1);/obj/item/extinguisher,\
 				prob(1);/obj/item/clothing/gloves/color/fyellow,\
-				prob(3);/obj/item/stack/cable_coil,\
+				prob(3);/obj/item/stack/cable_coil/low_voltage,\
 				prob(2);/obj/random/toolbox,\
 				prob(2);/obj/item/storage/belt/utility,\
 				prob(5);/obj/random/tool,\

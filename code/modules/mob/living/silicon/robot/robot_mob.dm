@@ -766,7 +766,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 				return
 
-	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
+	if(istype(W, /obj/item/stack/cable_coil/low_voltage) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
@@ -774,7 +774,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else if(!getFireLoss(TRUE))
 			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
 			return
-		var/obj/item/stack/cable_coil/coil = W
+		var/obj/item/stack/cable_coil/low_voltage/coil = W
 		adjustFireLoss(-30)
 		updatehealth()
 		add_fingerprint(user)
@@ -1195,7 +1195,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		robot_suit.l_leg = null
 		robot_suit.r_leg.forceMove(T)
 		robot_suit.r_leg = null
-		new /obj/item/stack/cable_coil(T, robot_suit.chest.wired)
+		new /obj/item/stack/cable_coil/low_voltage(T, robot_suit.chest.wired)
 		robot_suit.chest.forceMove(T)
 		robot_suit.chest.wired = FALSE
 		robot_suit.chest = null
@@ -1216,7 +1216,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		new /obj/item/robot_parts/robot_suit(T)
 		new /obj/item/robot_parts/l_leg(T)
 		new /obj/item/robot_parts/r_leg(T)
-		new /obj/item/stack/cable_coil(T, 1)
+		new /obj/item/stack/cable_coil/low_voltage(T, 1)
 		new /obj/item/robot_parts/chest(T)
 		new /obj/item/robot_parts/l_arm(T)
 		new /obj/item/robot_parts/r_arm(T)

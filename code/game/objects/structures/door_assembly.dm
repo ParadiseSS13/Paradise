@@ -64,7 +64,7 @@
 		return
 
 	else if(iscoil(W) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored)
-		var/obj/item/stack/cable_coil/coil = W
+		var/obj/item/stack/cable_coil/low_voltage/coil = W
 		if(coil.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one length of cable to wire the airlock assembly!</span>")
 			return
@@ -184,7 +184,7 @@
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 		return
 	to_chat(user, "<span class='notice'>You cut the wires from the airlock assembly.</span>")
-	new/obj/item/stack/cable_coil(get_turf(user), 1)
+	new/obj/item/stack/cable_coil/low_voltage(get_turf(user), 1)
 	state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	update_icon(UPDATE_OVERLAYS)
 

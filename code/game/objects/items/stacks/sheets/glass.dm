@@ -62,8 +62,8 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 
 /obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/CC = W
+	if(istype(W, /obj/item/stack/cable_coil/low_voltage))
+		var/obj/item/stack/cable_coil/low_voltage/CC = W
 		if(CC.get_amount() < 5)
 			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return

@@ -155,7 +155,7 @@
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
 		return
 	else if(iscoil(W) && buildstage == 1)
-		var/obj/item/stack/cable_coil/coil = W
+		var/obj/item/stack/cable_coil/low_voltage/coil = W
 		if(coil.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need more cable for this!</span>")
 			return
@@ -212,7 +212,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
-	new /obj/item/stack/cable_coil(get_turf(src),5)
+	new /obj/item/stack/cable_coil/low_voltage(get_turf(src),5)
 	on = FALSE
 	b_stat = TRUE
 	buildstage = 1

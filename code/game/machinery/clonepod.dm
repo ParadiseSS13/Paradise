@@ -79,8 +79,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
 	RefreshParts()
 	update_icon()
 
@@ -93,8 +93,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
+	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 1)
 	biomass = CLONE_BIOMASS
 	RefreshParts()
 

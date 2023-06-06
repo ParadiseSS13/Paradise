@@ -583,7 +583,7 @@
 	},
 /area/syndicate_depot/core)
 "bL" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -598,7 +598,7 @@
 	dir = 8
 	},
 /obj/structure/fusionreactor,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -671,7 +671,7 @@
 	},
 /area/syndicate_depot/core)
 "bW" = (
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/machinery/power/terminal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -755,7 +755,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "ci" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -848,7 +848,7 @@
 	},
 /area/syndicate_depot/core)
 "cv" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -861,12 +861,12 @@
 	},
 /area/syndicate_depot/core)
 "cw" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -969,7 +969,7 @@
 	},
 /area/syndicate_depot/core)
 "cI" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -979,7 +979,7 @@
 	},
 /area/syndicate_depot/core)
 "cJ" = (
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /obj/machinery/power/apc/off_station{
 	dir = 4;
 	pixel_x = 24;
@@ -1016,7 +1016,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cO" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1057,7 +1057,7 @@
 	on = 1
 	},
 /obj/effect/spawner/random_spawners/syndicate/turret,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1122,7 +1122,7 @@
 	},
 /area/syndicate_depot/core)
 "db" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -1153,7 +1153,7 @@
 	dir = 4;
 	pixel_x = 24
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plating/airless,
 /area/syndicate_depot/outer)
 "df" = (

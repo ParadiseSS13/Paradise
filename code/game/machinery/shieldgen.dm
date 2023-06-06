@@ -241,8 +241,8 @@
 		malfunction = TRUE
 		update_icon(UPDATE_ICON_STATE)
 
-	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
-		var/obj/item/stack/cable_coil/coil = I
+	else if(istype(I, /obj/item/stack/cable_coil/low_voltage) && malfunction && is_open)
+		var/obj/item/stack/cable_coil/low_voltage/coil = I
 		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
 		if(do_after(user, 30 * coil.toolspeed, target = src))
 			if(!src || !coil)
@@ -327,7 +327,7 @@
 /obj/machinery/shieldwallgen/proc/try_charge_shields_power()
 	var/turf/T = loc
 
-	var/obj/structure/cable/C = T.get_cable_node()
+	var/obj/structure/cable/low_voltage/C = T.get_cable_node()
 	var/datum/regional_powernet/PN = C?.powernet // find the powernet of the connected cable
 
 	if(!PN)

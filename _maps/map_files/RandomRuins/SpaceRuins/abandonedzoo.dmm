@@ -583,7 +583,7 @@
 	},
 /area/ruin/space/unpowered)
 "bq" = (
-/obj/item/stack/cable_coil/cut,
+/obj/item/stack/cable_coil/low_voltage/cut,
 /obj/item/stack/tile/plasteel{
 	pixel_x = 3;
 	pixel_y = -4

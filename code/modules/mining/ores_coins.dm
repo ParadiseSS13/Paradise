@@ -431,8 +431,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	credits = 160
 
 /obj/item/coin/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/CC = W
+	if(istype(W, /obj/item/stack/cable_coil/low_voltage))
+		var/obj/item/stack/cable_coil/low_voltage/CC = W
 		if(string_attached)
 			to_chat(user, "<span class='notice'>There already is a string attached to this coin.</span>")
 			return
@@ -450,7 +450,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			..()
 			return
 
-		var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc)
+		var/obj/item/stack/cable_coil/low_voltage/CC = new/obj/item/stack/cable_coil/low_voltage(user.loc)
 		CC.amount = 1
 		CC.update_icon()
 		overlays = list()

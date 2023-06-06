@@ -81,13 +81,13 @@
 
 /obj/structure/lattice/catwalk/Move()
 	var/turf/T = loc
-	for(var/obj/structure/cable/C in T)
+	for(var/obj/structure/cable/low_voltage/C in T)
 		C.deconstruct()
 	..()
 
 /obj/structure/lattice/catwalk/deconstruct()
 	var/turf/T = loc
-	for(var/obj/structure/cable/C in T)
+	for(var/obj/structure/cable/low_voltage/C in T)
 		C.deconstruct()
 	..()
 

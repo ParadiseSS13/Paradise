@@ -5,8 +5,8 @@
 ////////////////////////////////
 
 /datum/construction/mecha/custom_action(step, atom/used_atom, mob/user)
-	if(istype(used_atom, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = used_atom
+	if(istype(used_atom, /obj/item/stack/cable_coil/low_voltage))
+		var/obj/item/stack/cable_coil/low_voltage/C = used_atom
 		if(C.use(4))
 			playsound(holder, C.usesound, 50, 1)
 		else
@@ -26,8 +26,8 @@
 	SSblackbox.record_feedback("tally", "mechas_created", 1, "[result_name]")
 
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
-	if(istype(used_atom, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = used_atom
+	if(istype(used_atom, /obj/item/stack/cable_coil/low_voltage))
+		var/obj/item/stack/cable_coil/low_voltage/C = used_atom
 		if(C.use(4))
 			playsound(holder, C.usesound, 50, 1)
 		else
@@ -139,7 +139,7 @@
 			"desc" = "The wiring is added."),
 		//12
 		list(
-			"key" = /obj/item/stack/cable_coil,
+			"key" = /obj/item/stack/cable_coil/low_voltage,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The hydraulic systems are active."),
 		//13
@@ -185,7 +185,7 @@
 				holder.icon_state = "ripley4"
 			else
 				user.visible_message("[user] removes the wiring from the [holder].", "You remove the wiring from the [holder].")
-				var/obj/item/stack/cable_coil/coil = new /obj/item/stack/cable_coil(get_turf(holder))
+				var/obj/item/stack/cable_coil/low_voltage/coil = new /obj/item/stack/cable_coil/low_voltage(get_turf(holder))
 				coil.amount = 4
 				holder.icon_state = "ripley2"
 		if(10)
@@ -387,7 +387,7 @@
 			"desc" = "The wiring is added."),
 		//18
 		list(
-			"key" = /obj/item/stack/cable_coil,
+			"key" = /obj/item/stack/cable_coil/low_voltage,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The hydraulic systems are active."),
 		//19
@@ -433,7 +433,7 @@
 				holder.icon_state = "gygax4"
 			else
 				user.visible_message("<span class='notice'>[user] removes the wiring from the [holder].</span>", "<span class='notice'>You remove the wiring from the [holder].</span>")
-				var/obj/item/stack/cable_coil/coil = new /obj/item/stack/cable_coil(get_turf(holder))
+				var/obj/item/stack/cable_coil/low_voltage/coil = new /obj/item/stack/cable_coil/low_voltage(get_turf(holder))
 				coil.amount = 4
 				holder.icon_state = "gygax2"
 		if(16)
@@ -660,7 +660,7 @@
 			"desc" = "The wiring is added."),
 		//13
 		list(
-			"key" = /obj/item/stack/cable_coil,
+			"key" = /obj/item/stack/cable_coil/low_voltage,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The hydraulic systems are active."),
 		//14
@@ -706,7 +706,7 @@
 				holder.icon_state = "fireripley4"
 			else
 				user.visible_message("[user] removes the wiring from the [holder].", "You remove the wiring from the [holder].")
-				var/obj/item/stack/cable_coil/coil = new /obj/item/stack/cable_coil(get_turf(holder))
+				var/obj/item/stack/cable_coil/low_voltage/coil = new /obj/item/stack/cable_coil/low_voltage(get_turf(holder))
 				coil.amount = 4
 				holder.icon_state = "fireripley2"
 		if(11)
@@ -1067,7 +1067,7 @@
 			"desc" = "The wiring is added."),
 		//18
 		list(
-			"key" = /obj/item/stack/cable_coil,
+			"key" = /obj/item/stack/cable_coil/low_voltage,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The hydraulic systems are active."),
 		//19
@@ -1114,7 +1114,7 @@
 				holder.icon_state = "durand4"
 			else
 				user.visible_message("<span class='notice'>[user] removes the wiring from the [holder].</span>", "<span class='notice'>You remove the wiring from the [holder].</span>")
-				var/obj/item/stack/cable_coil/coil = new /obj/item/stack/cable_coil(get_turf(holder))
+				var/obj/item/stack/cable_coil/low_voltage/coil = new /obj/item/stack/cable_coil/low_voltage(get_turf(holder))
 				coil.amount = 4
 				holder.icon_state = "durand2"
 		if(16)
@@ -1321,7 +1321,7 @@
 			"desc" = "The bluespace crystal is connected."),
 		//9
 		list(
-			"key" = /obj/item/stack/cable_coil,
+			"key" = /obj/item/stack/cable_coil/low_voltage,
 			"backkey" = TOOL_CROWBAR,
 			"desc" = "The bluespace crystal is installed."),
 		//10
@@ -1386,7 +1386,7 @@
 			"desc" = "The wiring is added."),
 		//22
 		list(
-			"key" = /obj/item/stack/cable_coil,
+			"key" = /obj/item/stack/cable_coil/low_voltage,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The hydraulic systems are active."),
 		//23
@@ -1433,7 +1433,7 @@
 				holder.icon_state = "phazon4"
 			else
 				user.visible_message("[user] removes the wiring from the [holder].", "You remove the wiring from the [holder].")
-				var/obj/item/stack/cable_coil/coil = new /obj/item/stack/cable_coil(get_turf(holder))
+				var/obj/item/stack/cable_coil/low_voltage/coil = new /obj/item/stack/cable_coil/low_voltage(get_turf(holder))
 				coil.amount = 4
 				holder.icon_state = "phazon2"
 		if(20)
@@ -1680,7 +1680,7 @@
 			"desc" = "The wiring is added."),
 		//12
 		list(
-			"key" = /obj/item/stack/cable_coil,
+			"key" = /obj/item/stack/cable_coil/low_voltage,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The hydraulic systems are active."),
 		//13
@@ -1726,7 +1726,7 @@
 				holder.icon_state = "odysseus4"
 			else
 				user.visible_message("[user] removes the wiring from the [holder].", "You remove the wiring from the [holder].")
-				var/obj/item/stack/cable_coil/coil = new /obj/item/stack/cable_coil(get_turf(holder))
+				var/obj/item/stack/cable_coil/low_voltage/coil = new /obj/item/stack/cable_coil/low_voltage(get_turf(holder))
 				coil.amount = 4
 				holder.icon_state = "odysseus2"
 		if(10)
