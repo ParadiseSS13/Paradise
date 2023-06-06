@@ -1046,8 +1046,9 @@
 	damtype = BURN
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
+	throwforce = 15
 	force_unwielded = 5
-	force_wielded = 25
+	force_wielded = 40
 	toolspeed = 0.25
 	attack_verb = list("enlightened", "enforced", "cleaved", "stabbed", "whacked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
