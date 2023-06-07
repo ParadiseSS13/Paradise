@@ -27947,7 +27947,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/economy/vending/coffee/free,
+/obj/machinery/economy/vending/lawdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -73363,6 +73363,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = -32
 	},
+/obj/machinery/economy/vending/janidrobe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -125096,7 +125097,6 @@
 	},
 /area/medical/research)
 "wCa" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
 	c_tag = "Courtroom Gallery";
 	dir = 4
@@ -125104,6 +125104,7 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greencorner"
