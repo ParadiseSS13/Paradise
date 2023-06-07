@@ -69,11 +69,6 @@ const TurbineBroken = (props, context) => {
 const TurbineWorking = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    compressor,
-    compressor_broken,
-    turbine,
-    turbine_broken,
-    online,
     rpm,
     temperature,
     power
