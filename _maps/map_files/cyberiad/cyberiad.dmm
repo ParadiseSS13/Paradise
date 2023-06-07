@@ -17270,8 +17270,13 @@
 /area/crew_quarters/dorms)
 "aUN" = (
 /obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/obj/machinery/newscaster{
 	name = "north bump";
-	pixel_y = 24
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
@@ -18086,14 +18091,14 @@
 	},
 /area/crew_quarters/dorms)
 "aWN" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
@@ -24114,9 +24119,9 @@
 /area/hallway/primary/central/ne)
 "bkH" = (
 /obj/structure/cable{
-	d1 = 1;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
@@ -62074,9 +62079,12 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "dkD" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
@@ -69467,6 +69475,10 @@
 	},
 /turf/simulated/floor/engine/n20,
 /area/atmos)
+"gNi" = (
+/obj/machinery/prize_counter,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/arcade)
 "gNs" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -77875,6 +77887,11 @@
 	icon_state = "whitehall"
 	},
 /area/medical/paramedic)
+"nmW" = (
+/obj/structure/table,
+/obj/machinery/computer/mob_healer_terminal,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/arcade)
 "nnv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -82376,16 +82393,16 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fpmaint)
 "qCU" = (
-/obj/machinery/door_control{
-	id = "janitor";
-	name = "Shutters Door Control";
-	req_access_txt = "26";
-	pixel_x = 24
-	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "janitor";
 	name = "Janitor Shutters"
+	},
+/obj/machinery/door_control{
+	id = "janitor";
+	name = "Janitor Shutters Door Control";
+	req_access_txt = "26";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -82510,11 +82527,13 @@
 	location = "Janitor"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/door/window/eastright,
 /obj/effect/mapping_helpers/airlock/access/any/service/janitor,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/structure/plasticflaps{
 	opacity = 1
+	},
+/obj/machinery/door/window/eastright{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -89499,6 +89518,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"vOf" = (
+/obj/machinery/door_control,
+/turf/simulated/wall,
+/area/civilian/barber)
 "vOq" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -124334,7 +124357,7 @@ aDP
 aDP
 aDP
 aTb
-aDP
+vOf
 aDP
 bhg
 bnn
@@ -125107,7 +125130,7 @@ bFR
 cUr
 bFR
 aYv
-dkD
+bhq
 bnn
 bkF
 bmi
@@ -125364,8 +125387,8 @@ bFS
 dRi
 dhN
 aYv
-aWN
-bnN
+bhq
+bnn
 bkH
 bWH
 bod
@@ -125621,9 +125644,9 @@ bFR
 beE
 aJu
 aYv
-aUN
+bhq
 bnM
-bpA
+dkD
 bqs
 bpA
 bpA
@@ -125878,9 +125901,9 @@ aVC
 beE
 csQ
 aDP
-bhq
+aUN
 dnk
-bhq
+aWN
 cIZ
 boe
 bhq
@@ -127403,8 +127426,8 @@ aGO
 aIp
 aJv
 aKI
-aGN
-aGN
+gNi
+nmW
 aPf
 aQA
 aSJ
