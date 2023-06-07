@@ -499,7 +499,7 @@
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
-/obj/structure/window/carbon_throw_hit(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/structure/window/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	var/shattered = FALSE
 	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
 		shattered = TRUE
