@@ -120,7 +120,6 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	update_icon()
 
 /obj/effect/decal/cleanable/blood/try_merging_decal(turf/T)
-
 	..()
 
 /obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir)

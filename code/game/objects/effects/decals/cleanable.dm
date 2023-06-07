@@ -104,13 +104,12 @@
 /obj/effect/decal/cleanable/proc/try_merging_decal(turf/T)
 	if(!T)
 		T = loc
-	if(T && isturf(T))
+	if(isturf(T))
 		for(var/obj/effect/decal/cleanable/C in T)
 			if(C != src && C.type == type && !QDELETED(C))
-				if(C.gravity_check)
-					if(replace_decal(C))
-						qdel(src)
-						return TRUE
+				if(C.gravity_check && replace_decal(C))
+					qdel(src)
+					return TRUE
 	return FALSE
 
 /obj/effect/decal/cleanable/proc/check_gravity(turf/T)
