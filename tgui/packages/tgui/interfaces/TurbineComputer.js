@@ -32,7 +32,10 @@ export const TurbineComputer = (props, context) => {
               />
             </>
           )}>
-          {!operational ? <TurbineBroken /> : <TurbineWorking />}
+          {operational 
+            ? <TurbineWorking />
+            : <TurbineBroken />
+          }
         </Section>
       </Window.Content>
     </Window>
@@ -41,7 +44,7 @@ export const TurbineComputer = (props, context) => {
 
 // Element Tree for if the turbine is broken
 const TurbineBroken = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { data } = useBackend(context);
   const {
     compressor,
     compressor_broken,
@@ -67,7 +70,7 @@ const TurbineBroken = (props, context) => {
 
 // Element Tree for if the turbine is working
 const TurbineWorking = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { data } = useBackend(context);
   const {
     rpm,
     temperature,

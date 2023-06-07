@@ -320,10 +320,10 @@
 
 /obj/machinery/power/turbine/ui_data(mob/user)
 	var/list/data = list()
-	data["compressor"] = compressor ? TRUE : FALSE
+	data["compressor"] = !isnull(compressor)
 	data["compressor_broken"] = (!compressor || (compressor.stat & BROKEN))
-	data["turbine"] = compressor?.turbine ? TRUE : FALSE
-	data["turbine_broken"] = (!compressor || !compressor.turbine || (compressor.turbine.stat & BROKEN))
+	data["turbine"] = !isnull(compressor?.turbine)
+	data["turbine_broken"] =(compressor?.turbine?.stat & BROKEN))
 
 	if(compressor && compressor.turbine)
 		data["online"] = compressor.starter
@@ -338,7 +338,7 @@
 
 	switch(action)
 		if("toggle_power")
-			if(compressor && compressor.turbine)
+			if(compressor?.turbine)
 				compressor.starter = !compressor.starter
 				. = TRUE
 
@@ -370,12 +370,12 @@
 
 /obj/machinery/computer/turbine_computer/ui_data(mob/user)
 	var/list/data = list()
-	data["compressor"] = compressor ? TRUE : FALSE
-	data["compressor_broken"] = (!compressor || (compressor.stat & BROKEN)) ? TRUE : FALSE
-	data["turbine"] = compressor?.turbine ? TRUE : FALSE
-	data["turbine_broken"] = (!compressor || !compressor.turbine || (compressor.turbine.stat & BROKEN)) ? TRUE : FALSE
+	data["compressor"] = !isnull(compressor)
+	data["compressor_broken"] = (compressor?.stat & BROKEN)
+	data["turbine"] = !isnull(compressor?.turbine)
+	data["turbine_broken"] = (compressor?.turbine?.stat & BROKEN)
 
-	if(compressor && compressor.turbine)
+	if(compressor?.turbine)
 		data["online"] = compressor.starter
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
@@ -388,7 +388,7 @@
 
 	switch(action)
 		if("toggle_power")
-			if(compressor && compressor.turbine)
+			if(compressor?.turbine)
 				compressor.starter = !compressor.starter
 				. = TRUE
 
