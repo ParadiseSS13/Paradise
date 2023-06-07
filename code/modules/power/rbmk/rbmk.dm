@@ -95,6 +95,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Variables essential to operation
 	var/temperature = 0 //Lose control of this -> Meltdown
 	var/vessel_integrity = 400 //How long can the reactor withstand overpressure / meltdown? This gives you a fair chance to react to even a massive pipe fire
+	var/starting_vessel_integrity = 400 //should be the same as the previous var
 	var/pressure = 0 //Lose control of this -> Blowout
 	var/K = 0 //Rate of reaction.
 	var/desired_k = 0
@@ -131,6 +132,19 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/rbmk_blowout_alert = "REACTOR BLOWOUT IMMINENT"
 	var/temp_damage = 0
 	var/pressure_damage = 0
+
+	//used to activate parts of the reactor code for testing
+	var/testing = FALSE
+
+// procs to start and stop testing
+
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/test()
+	testing = TRUE
+
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/endtest()
+	testing = FALSE
+
+
 /obj/machinery/atmospherics/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
 	slagged = TRUE
@@ -247,6 +261,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
 	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
 	initialize_directions = NORTH|WEST|SOUTH|EAST
+	radio = new(src)
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Engineering" = 0))
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -279,8 +297,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		STOP_PROCESSING(SSmachines, src)
 		return
 
-
-	to_chat(world,"------ Running Process Atmos ------" )
+	if(testing == TRUE)
+		to_chat(world,"------ Running Process Atmos ------" )
 
 	//Let's get our gasses sorted out.
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
@@ -288,16 +306,17 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/datum/gas_mixture/coolant_output = COOLANT_OUTPUT_GATE
 	handle_alerts() //Let's check if they're about to die, and let them know.
 
-	to_chat(world,"----- START OF PROC -----")
-	to_chat(world,"--- Coolant Input ---")
-	to_chat(world,"Total Moles: [coolant_input.total_moles()]" )
-	to_chat(world,"Temperature: [coolant_input.return_temperature()]" )
-	to_chat(world,"--- Coolant Output ---")
-	to_chat(world,"Total Moles: [coolant_output.total_moles()]" )
-	to_chat(world,"Temperature: [coolant_output.return_temperature()]" )
-	to_chat(world,"--- Moderator Total ---")
-	to_chat(world,"Total Moles: [moderator_input.total_moles()]" )
-	to_chat(world,"Temperature: [moderator_input.return_temperature()]" )
+	if(testing == TRUE)
+		to_chat(world,"----- START OF PROC -----")
+		to_chat(world,"--- Coolant Input ---")
+		to_chat(world,"Total Moles: [coolant_input.total_moles()]" )
+		to_chat(world,"Temperature: [coolant_input.return_temperature()]" )
+		to_chat(world,"--- Coolant Output ---")
+		to_chat(world,"Total Moles: [coolant_output.total_moles()]" )
+		to_chat(world,"Temperature: [coolant_output.return_temperature()]" )
+		to_chat(world,"--- Moderator Total ---")
+		to_chat(world,"Total Moles: [moderator_input.total_moles()]" )
+		to_chat(world,"Temperature: [moderator_input.return_temperature()]" )
 
 	//Firstly, heat up the reactor based off of K.
 	var/input_moles = coolant_input.total_moles() //Firstly. Do we have enough moles of coolant?
@@ -432,50 +451,61 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 					grilled_item.name = "Ultimate Meltdown Grilled [initial(grilled_item.name)]"
 					grilled_item.desc = "A [initial(grilled_item.name)]. A grill this perfect is a rare technique only known by a few engineers who know how to perform a 'controlled' meltdown whilst also having the time to throw food on a reactor. I'll bet it tastes amazing."
 */
-	to_chat(world,"----- END OF PROC -----")
-	// issue here, stems from nulled pipe
+	// issue here, stems from nulled pipe, works fine when mapped in
 	parent2.update = 1
 	parent3.update = 1
 	parent1.update = 1
+
+	//each tick remove one from the alert counter
+	lastrbmkwarn = (src.lastrbmkwarn - 1)
+	to_chat(world, "Last warning timer: [src.lastrbmkwarn]")
 	return
 
 //Method to handle sound effects, reactor warnings, all that jazz.
 //currently broken. needs total rework.
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/handle_alerts()
-	to_chat(world,"HANDLE ALERTS PROC'D")
+	if(testing = TRUE)
+		to_chat(world,"HANDLE ALERTS PROC'D")
 	if(K <= 0 && temperature <= 100)
 		shut_down()
 	//First alert condition: Overheat
 	else if(temperature >= RBMK_TEMPERATURE_MELTDOWN)
 		var/temp_damage = min(temperature/100, 10)	//40 seconds to meltdown from full integrity, worst-case. Bit less than blowout since it's harder to spike heat that much.
 		vessel_integrity -= temp_damage
-		to_chat(world, "Reactor is taking damge from heat! Total damage: [vessel_integrity]/400")
-		if((REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
-			radio.autosay("[rbmk_temp_alert] Core Integrity: [vessel_integrity/400]%", name, "Engineering", list(z)) //scream on engi comms meltdown is occuring
+		if(testing = TRUE)
+			to_chat(world, "Reactor is taking damge from heat! Total damage: [vessel_integrity]/400")
+		if(vessel_integrity < starting_vessel_integrity && lastrbmkwarn < 0)
+			radio.autosay("[rbmk_temp_alert] Core Integrity: [vessel_integrity / starting_vessel_integrity]%", name, "Engineering", list(z)) //scream on engi comms meltdown is occuring
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
-			lastrbmkwarn = REALTIMEOFDAY
-		to_chat(world, "Reactor is taking overheat damage! Total Damage: [vessel_integrity]/400")
-		if(temp_damage >= (0.75 * vessel_integrity) || (REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
+			lastrbmkwarn = 30
+		if(vessel_integrity >= (0.75 * starting_vessel_integrity) && lastrbmkwarn < 0)
 			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
-			radio.autosay("[rbmk_meltdown_alert] Core Integrity: [vessel_integrity/400]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
+			radio.autosay("[rbmk_meltdown_alert] Core Integrity: [vessel_integrity / starting_vessel_integrity]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
+			lastrbmkwarn = 30
 		if(vessel_integrity <= 0) //It wouldn't be able to tank another hit.
 			meltdown() //Oops! All meltdown
+			if(testing = TRUE)
+				to_chat(world, "oops, all meltdown")
 			return
 	//Second alert condition: Overpressurized (the more lethal one)
 	else if(pressure >= RBMK_PRESSURE_CRITICAL)
 		playsound(loc, 'sound/effects/rbmk/steam_whoosh.ogg', 100, TRUE)
-		var/pressure_damage = min(pressure/100, initial(vessel_integrity)/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
+		var/pressure_damage = 2	//You should get about 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
 		vessel_integrity -= pressure_damage
-		to_chat(world, "Reactor is taking pressure damage! Total Damage: [vessel_integrity]/400")
-		if((REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
-			radio.autosay("[rbmk_pressure_alert] Core Integrity: [vessel_integrity/400]%", name, "Engineering", list(z)) //scream on engi comms blowout is occuring
+		if(testing = TRUE)
+			to_chat(world, "Reactor is taking pressure damage! Total Damage: [vessel_integrity]/400")
+		if(vessel_integrity < starting_vessel_integrity && lastrbmkwarn < 0)
+			radio.autosay("[rbmk_pressure_alert] Core Integrity: [vessel_integrity / starting_vessel_integrity]%", name, "Engineering", list(z)) //scream on engi comms blowout is occuring
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
-			lastrbmkwarn = REALTIMEOFDAY
-		if(pressure_damage >= (0.75 * vessel_integrity) || (REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
+			lastrbmkwarn = 30
+		if(vessel_integrity >= (0.75 * starting_vessel_integrity) && lastrbmkwarn < 0)
 			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
-			radio.autosay("[rbmk_blowout_alert] Core Integrity: [vessel_integrity/400]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
-		if(vessel_integrity <= 0) //It wouldn't be able to tank another hit.
+			radio.autosay("[rbmk_blowout_alert] Core Integrity: [vessel_integrity / starting_vessel_integrity]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
+			lastrbmkwarn = 30
+		if(vessel_integrity < 0) //It wouldn't be able to tank another hit.
 			blowout()
+			if(testing = TRUE)
+				to_chat(world, "oops, chernobyl!")
 			return
 	else
 		color = null
