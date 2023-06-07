@@ -100,8 +100,8 @@
 		return TRUE
 	if(istype(O, /obj/item/projectile))
 		return TRUE
-	if(ismob(O))
-		if(M.flying || M.floating)
+	if(istype(M))
+		if(M.flying || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(O.throwing)
 		return TRUE

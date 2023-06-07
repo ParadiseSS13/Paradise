@@ -256,10 +256,11 @@
 /obj/structure/m_tray/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return TRUE
-
 	if(istype(mover))
+		if(mover.checkpass(PASSTABLE))
+			return TRUE
 		var/mob/living/our_mover = mover
-		if(mover.checkpass(PASSTABLE) || IS_HORIZONTAL(our_mover) && HAS_TRAIT(our_mover, TRAIT_CONTORTED_BODY))
+		if(istype(our_mover) && IS_HORIZONTAL(our_mover) && HAS_TRAIT(our_mover, TRAIT_CONTORTED_BODY))
 			return TRUE
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE

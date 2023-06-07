@@ -46,9 +46,11 @@
 /obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return TRUE
-	if(istype(mover))
+	if(istype(mover) && mover.checkpass(PASSTABLE))
+		return TRUE
+	if(isliving(mover))
 		var/mob/living/our_mover = mover
-		if(mover.checkpass(PASSTABLE) || IS_HORIZONTAL(our_mover) && HAS_TRAIT(our_mover, TRAIT_CONTORTED_BODY))
+		if(IS_HORIZONTAL(our_mover) && HAS_TRAIT(our_mover, TRAIT_CONTORTED_BODY))
 			return TRUE
 	else
 		return FALSE
