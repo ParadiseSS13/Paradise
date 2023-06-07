@@ -473,6 +473,17 @@
 	var/obj/item/clothing/shoes/magboots/gravity/G = target
 	G.dash(usr)
 
+//Gravitational boots garg stomp
+/datum/action/item_action/gravity_stomp
+	name = "Gravitational field"
+	desc = "Creates an inverse gravitational field around the user, flinging everyone backwards and causing damage to the hull."
+
+/datum/action/item_action/gravity_stomp/Trigger()
+	if(!IsAvailable())
+		return FALSE
+
+	var/obj/item/clothing/shoes/magboots/gravity/G = target
+	G.stomp(usr)
 
 ///prset for organ actions
 /datum/action/item_action/organ_action

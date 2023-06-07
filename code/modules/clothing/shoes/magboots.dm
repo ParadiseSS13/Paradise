@@ -140,7 +140,7 @@
 	desc = "These experimental boots try to get around the restrictions of magboots by installing miniture gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
 	icon_state = "gravboots0"
 	origin_tech = "materials=6;magnets=6;engineering=6"
-	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //In other news, combining magboots with jumpboots is a mess
+	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump, /datum/action/item_action/gravity_stomp) //In other news, combining magboots with jumpboots is a mess
 	strip_delay = 10 SECONDS
 	put_on_delay = 10 SECONDS
 	slowdown_active = SHOES_SLOWDOWN
@@ -149,9 +149,13 @@
 	var/datum/martial_art/grav_stomp/style = new //Only works with core and cell installed.
 	var/jumpdistance = 5
 	var/jumpspeed = 3
-	var/recharging_rate = 6 SECONDS
-	var/recharging_time = 0 // Time until next dash
+	var/recharging_rate_dash = 6 SECONDS
+	var/recharging_time_dash = 0 // Time until next dash
 	var/dash_cost = 1000 // Cost to dash.
+	var/recharging_rate_stomp = 45 // Time until next stomp
+	var/recharging_time_stomp = 0 //Time until next dash
+	var/stomp_cost = 2500 // Cost to stomp.
+	var/max_range = 4 // max stomp range
 	var/power_consumption_rate = 30 // How much power is used by the boots each cycle when magboots are active
 	var/obj/item/assembly/signaler/anomaly/grav/core = null
 	var/obj/item/stock_parts/cell/cell = null
@@ -280,7 +284,7 @@
 		to_chat(user, "<span class='warning'>There's no core installed!</span>")
 		return
 
-	if(recharging_time > world.time)
+	if(recharging_time_dash > world.time)
 		to_chat(user, "<span class='warning'>The boot's gravitational pulse needs to recharge still!</span>")
 		return
 
@@ -292,7 +296,57 @@
 	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = do_callback ? VARSET_CALLBACK(user, flying, FALSE) : null))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
-		recharging_time = world.time + recharging_rate
+		recharging_time_dash = world.time + recharging_rate_dash
 		cell.use(dash_cost)
 	else
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+/obj/item/clothing/shoes/magboots/gravity/proc/stomp(mob/user, list/targets)
+	if(!isliving(user))
+		return
+	if(cell)
+		if(cell.charge <= dash_cost)
+			to_chat(user, "<span class='warning'>Your boots do not have enough charge to stomp!</span>")
+			return
+	else
+		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
+		return
+
+	if(!core)
+		to_chat(user, "<span class='warning'>There's no core installed!</span>")
+		return
+
+	if(recharging_time_stomp > world.time)
+		to_chat(user, "<span class='warning'>The boot's gravitational field needs to recharge still!</span>")
+		return
+
+	var/turf/T = get_turf(user)
+	playsound(T, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(hit_check), 1, T, user), 0.2 SECONDS)
+	new /obj/effect/temp_visual/stomp(T)
+	recharging_time_stomp = world.time + recharging_rate_stomp
+	cell.use(stomp_cost)
+
+
+/obj/item/clothing/shoes/magboots/gravity/proc/hit_check(range, turf/start_turf, mob/user, safe_targets = list())
+	var/list/targets = view(range, start_turf) - view(range - 2, start_turf)
+	for(var/turf/simulated/floor/flooring in targets)
+		if(prob(100 - (range * 20)))
+			flooring.ex_act(EXPLODE_LIGHT)
+
+		for(var/mob/living/L in targets)
+			if(L in safe_targets)
+				continue
+			if(L.throwing) // no double hits
+				continue
+			if(L == usr)
+				continue
+			if(L.move_resist > MOVE_FORCE_VERY_STRONG)
+				continue
+			var/throw_target = get_edge_target_turf(L, get_dir(start_turf, L))
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 3, 4)
+			L.KnockDown(1 SECONDS)
+			safe_targets += L
+		var/new_range = range + 1
+		if(new_range <= max_range)
+			addtimer(CALLBACK(src, PROC_REF(stomp), new_range, start_turf, user, safe_targets), 0.2 SECONDS)
