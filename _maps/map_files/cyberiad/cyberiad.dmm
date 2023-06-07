@@ -15488,15 +15488,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
-"aQq" = (
-/obj/structure/sign/barber{
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/crew_quarters/dorms)
 "aQr" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -126144,7 +126135,7 @@ aKF
 aGI
 aNX
 aLP
-aQq
+aZs
 aSD
 aTJ
 aTJ
