@@ -425,6 +425,15 @@ STATUS EFFECTS
 /mob/living/proc/SetAbsoluteSilence(amount)
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_ABSSILENCED, amount)
 
+/mob/living/proc/PreventedOxyHeal()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_NO_OXY_HEAL)
+
+/mob/living/proc/PreventOxyHeal(amount)
+	SetPreventOxyHeal(max(PreventedOxyHeal(), amount))
+
+/mob/living/proc/SetPreventOxyHeal(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_NO_OXY_HEAL, amount)
+
 /mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSilence(directional_bounded_sum(AmountSilenced(), amount, bound_lower, bound_upper))
 
