@@ -1135,7 +1135,7 @@
 	default_skin = "apocryphal"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_apocryphal
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
+	ui_theme = "malfunction"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 10
