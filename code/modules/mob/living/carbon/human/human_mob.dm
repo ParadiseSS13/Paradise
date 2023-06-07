@@ -1603,7 +1603,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return threatcount
 
 	//Check for ID
-	var/obj/item/card/id/idcard = get_idcard()
+	var/obj/item/card/id/idcard = get_idcard(TRUE)
 	if(judgebot.idcheck && !idcard)
 		threatcount += 4
 
@@ -1817,8 +1817,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	return ..()
 
-/mob/living/carbon/human/proc/get_age_pitch()
-	return 1.0 + 0.5*(30 - age)/80
+/mob/living/carbon/human/proc/get_age_pitch(species_pitch = 85)
+	return 1.0 + 0.5 * ((species_pitch * 0.35) - age) / (0.94 * species_pitch)
 
 /mob/living/carbon/human/get_access()
 	. = ..()
@@ -2011,8 +2011,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		O.toggle_biolum(TRUE)
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
 
-/mob/living/carbon/human/proc/get_perceived_trauma()
-	return min(health, maxHealth - getStaminaLoss())
+/mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
+	return min(health, maxHealth - getStaminaLoss()) + shock_reduction
 
 /mob/living/carbon/human/WakeUp(updating = TRUE)
 	if(dna.species.spec_WakeUp(src))
@@ -2044,7 +2044,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(client)
 			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.active_character.metadata)]")
 		else
-			to_chat(usr, "[src] does not have any stored infomation!")
+			to_chat(usr, "[src] does not have any stored information!")
 	else
 		to_chat(usr, "OOC Metadata is not supported by this server!")
 
@@ -2065,3 +2065,107 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set category = "IC"
 
 	update_flavor_text()
+
+// Behavior for deadchat control
+
+/mob/living/carbon/human/proc/dchat_emote()
+	var/list/possible_emotes = list("scream", "clap", "snap", "crack", "dap", "burp")
+	emote(pick(possible_emotes), intentional = TRUE)
+
+/mob/living/carbon/human/proc/dchat_attack(intent)
+	var/turf/ahead = get_turf(get_step(src, dir))
+	var/atom/victim = locate(/mob/living) in ahead
+	var/obj/item/in_hand = get_active_hand()
+	var/implement = "[isnull(in_hand) ? "[p_their()] fists" : in_hand]"
+	if(!victim)
+		victim = locate(/obj/structure) in ahead
+	if(!victim)
+		switch(intent)
+			if(INTENT_HARM)
+				visible_message("<span class='warning'>[src] swings [implement] wildly!</span>")
+			if(INTENT_HELP)
+				visible_message("<span class='notice'>[src] seems to take a deep breath.</span>")
+		return
+	if(isLivingSSD(victim))
+		visible_message("<span class='notice'>[src] [intent == INTENT_HARM ? "reluctantly " : ""]lowers [p_their()] [implement].</span>")
+		return
+
+	var/original_intent = a_intent
+	a_intent = intent
+	if(in_hand)
+		in_hand.melee_attack_chain(src, victim)
+	else
+		UnarmedAttack(victim, TRUE)
+	a_intent = original_intent
+
+/mob/living/carbon/human/proc/dchat_resist()
+	if(!can_resist())
+		visible_message("<span class='warning'>[src] seems to be unable to do anything!</span>")
+		return
+	if(!restrained())
+		visible_message("<span class='notice'>[src] seems to be doing nothing in particular.</span>")
+		return
+
+	visible_message("<span class='warning'>[src] is trying to break free!</span>")
+	resist()
+
+/mob/living/carbon/human/proc/dchat_pickup()
+	var/turf/ahead = get_step(src, dir)
+	var/obj/item/thing = locate(/obj/item) in ahead
+	if(!thing)
+		return
+
+	var/old_loc = thing.loc
+	var/obj/item/in_hand = get_active_hand()
+
+	if(in_hand)
+		visible_message("<span class='notice'>[src] drops [in_hand] and picks up [thing] instead!</span>")
+		unEquip(in_hand)
+		in_hand.forceMove(old_loc)
+	else
+		visible_message("<span class='notice'>[src] picks up [thing]!</span>")
+	put_in_active_hand(thing)
+
+/mob/living/carbon/human/proc/dchat_throw()
+	var/in_hand = get_active_hand()
+	if(!in_hand)
+		visible_message("<span class='notice'>[src] makes a throwing motion!</span>")
+		return
+	var/atom/possible_target
+	var/cur_turf = get_turf(src)
+	for(var/i in 1 to 5)
+		cur_turf = get_step(cur_turf, dir)
+		possible_target = locate(/mob/living) in cur_turf
+		if(possible_target)
+			break
+
+		possible_target = locate(/obj/structure) in cur_turf
+		if(possible_target)
+			break
+
+	if(!possible_target)
+		throw_item(cur_turf)
+	else
+		throw_item(possible_target)
+
+/mob/living/carbon/human/proc/dchat_shove()
+	var/turf/ahead = get_turf(get_step(src, dir))
+	var/mob/living/carbon/human/H = locate(/mob/living/carbon/human) in ahead
+	if(!H)
+		visible_message("<span class='notice'>[src] tries to shove something away!</span>")
+		return
+	dna?.species.disarm(src, H)
+
+
+/mob/living/carbon/human/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 7 SECONDS)
+	var/list/inputs = list(
+		"emote" = CALLBACK(src, PROC_REF(dchat_emote)),
+		"attack" = CALLBACK(src, PROC_REF(dchat_attack), INTENT_HARM),
+		"help" = CALLBACK(src, PROC_REF(dchat_attack), INTENT_HELP),
+		"pickup" = CALLBACK(src, PROC_REF(dchat_pickup)),
+		"throw" = CALLBACK(src, PROC_REF(dchat_throw)),
+		"disarm" = CALLBACK(src, PROC_REF(dchat_shove)),
+		"resist" = CALLBACK(src, PROC_REF(dchat_resist)),
+	)
+
+	AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, inputs, cooldown)

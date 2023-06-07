@@ -387,6 +387,9 @@
 /datum/reagent/consumable/drink/tea/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
+		if(HAS_TRAIT(M, TRAIT_CHAV))
+			update_flags |= M.adjustBruteLoss(-1, FALSE)
+			update_flags |= M.adjustFireLoss(-1, FALSE)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 	return ..() | update_flags
 
@@ -745,3 +748,13 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
 	if(isskrell(M))
 		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+
+/datum/reagent/consumable/drink/lean
+	name = "Lean"
+	id = "lean"
+	description = "Also known as Purple Drank."
+	color = "#f249d6"
+	drink_icon = "lean"
+	drink_name = "Lean"
+	drink_desc = "Also known as Purple Drank."
+	taste_description = "sweet druggy soda"

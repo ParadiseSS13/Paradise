@@ -1,6 +1,7 @@
 /datum/species/vox
 	name = "Vox"
 	name_plural = "Vox"
+	max_age = 90 // vox stacks can be older than this, but let's assume their body fails beyond repair after such ages.
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	dangerous_existence = TRUE
 	language = "Vox-pidgin"

@@ -43,6 +43,12 @@
 	origin_tech = "syndicate=4"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
 
+/obj/item/encryptionkey/soviet
+	name = "soviet encryption key"
+	icon_state = "cypherkey"
+	channels = list("Special Ops" = 1)
+	origin_tech = "syndicate=4"
+
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
 	desc = "An encryption key for a radio headset. To access the binary channel, use :+."

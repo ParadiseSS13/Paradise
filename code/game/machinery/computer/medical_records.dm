@@ -429,7 +429,7 @@
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)
-					R.fields["age"] = rand(5, 85)
+					R.fields["age"] = rand(AGE_MIN, AGE_MAX)
 				if(4)
 					R.fields["blood_type"] = pick("A-", "B-", "AB-", "O-", "A+", "B+", "AB+", "O+")
 				if(5)

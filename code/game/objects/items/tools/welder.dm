@@ -14,8 +14,8 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-	w_class = WEIGHT_CLASS_SMALL
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	w_class = WEIGHT_CLASS_NORMAL
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
 	origin_tech = "engineering=1;plasmatech=1"
@@ -138,6 +138,12 @@
 	remove_fuel(amount)
 	return TRUE
 
+/obj/item/weldingtool/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!tool_enabled)
+		return
+	remove_fuel(0.5)
+
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)
 	var/did_thing = ..()
@@ -213,12 +219,40 @@
 	desc = "An advanced welder designed to be used in robotic systems."
 	toolspeed = 0.5
 
+/obj/item/weldingtool/research
+	name = "research welding tool"
+	desc = "A scratched-up welder that's been modified many times. Is it still the same tool?"
+	icon_state = "welder_research"
+	item_state = "welder_research"
+	belt_icon = "welder_research"
+	maximum_fuel = 40
+	toolspeed = 0.75
+	light_intensity = 1
+
+/obj/item/weldingtool/research/suicide_act(mob/living/user)
+
+	if(!user)
+		return
+
+	user.visible_message("<span class='suicide'>[user] is tinkering with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
+	to_chat(user, "<span class='notice'> You begin tinkering with [src]...")
+	user.Immobilize(10 SECONDS)
+	sleep(2 SECONDS)
+	add_fingerprint(user)
+
+	user.visible_message("<span class='danger'>[src] blows up in [user]'s face!</span>", "<span class='userdanger'>Oh, shit!</span>")
+	playsound(loc, "sound/effects/explosion1.ogg", 50, TRUE, -1)
+	user.gib()
+
+	return OBLITERATION
+
 /obj/item/weldingtool/mini
 	name = "emergency welding tool"
 	desc = "A miniature welder used during emergencies."
 	icon_state = "miniwelder"
 	maximum_fuel = 10
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
 	low_fuel_changes_icon = FALSE
 
@@ -228,6 +262,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
 	toolspeed = 0.1
+	w_class = WEIGHT_CLASS_SMALL
 	light_intensity = 0
 	origin_tech = "plasmatech=5;engineering=5;abductor=3"
 	requires_fuel = FALSE

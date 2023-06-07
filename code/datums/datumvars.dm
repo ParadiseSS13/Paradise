@@ -895,10 +895,10 @@
 		if(!result || !A)
 			return TRUE
 
-		A.armor = A.armor.setRating(armorlist[MELEE], armorlist[BULLET], armorlist[LASER], armorlist[ENERGY], armorlist[BOMB], armorlist[BIO], armorlist[RAD], armorlist[FIRE], armorlist[ACID], armorlist[MAGIC])
+		A.armor = A.armor.setRating(armorlist[MELEE], armorlist[BULLET], armorlist[LASER], armorlist[ENERGY], armorlist[BOMB], armorlist[RAD], armorlist[FIRE], armorlist[ACID], armorlist[MAGIC])
 
-		log_admin("[key_name(usr)] modified the armor on [A] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], bio = [armorlist[BIO]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
-		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [A] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], bio = [armorlist[BIO]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
+		log_admin("[key_name(usr)] modified the armor on [A] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
+		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [A] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
 		return TRUE
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
@@ -1235,6 +1235,63 @@
 		message_admins("[key_name_admin(usr)] is manipulating the colour matrix for [target]")
 		var/datum/ui_module/colour_matrix_tester/CMT = new(target=target)
 		CMT.ui_interact(usr)
+
+	if(href_list["grantdeadchatcontrol"])
+		if(!check_rights(R_EVENT))
+			return
+
+		var/atom/movable/A = locateUID(href_list["grantdeadchatcontrol"])
+		if(!istype(A))
+			return
+
+		if(!GLOB.dsay_enabled)
+			// TODO verify what happens when deadchat is muted
+			to_chat(usr, "<span class='warning'>Deadchat is globally muted, un-mute deadchat before enabling this.</span>")
+			return
+
+		if(A.GetComponent(/datum/component/deadchat_control))
+			to_chat(usr, "<span class='warning'>[A] is already under deadchat control!</span>")
+			return
+
+		var/control_mode = input(usr, "Please select the control mode","Deadchat Control", null) as null|anything in list("democracy", "anarchy")
+
+		var/selected_mode
+		switch(control_mode)
+			if("democracy")
+				selected_mode = DEADCHAT_DEMOCRACY_MODE
+			if("anarchy")
+				selected_mode = DEADCHAT_ANARCHY_MODE
+			else
+				return
+
+		var/cooldown = input(usr, "Please enter a cooldown time in seconds. For democracy, it's the time between actions (must be greater than zero). For anarchy, it's the time between each user's actions, or -1 for no cooldown.", "Cooldown", null) as null|num
+		if(isnull(cooldown) || (cooldown == -1 && selected_mode == DEADCHAT_DEMOCRACY_MODE))
+			return
+		if(cooldown < 0 && selected_mode == DEADCHAT_DEMOCRACY_MODE)
+			to_chat(usr, "<span class='warning'>The cooldown for democracy mode must be greater than zero.</span>")
+			return
+		if(cooldown == -1)
+			cooldown = 0
+		else
+			cooldown = cooldown SECONDS
+
+		A.deadchat_plays(selected_mode, cooldown)
+		message_admins("[key_name_admin(usr)] provided deadchat control to [A].")
+
+	if(href_list["removedeadchatcontrol"])
+		if(!check_rights(R_EVENT))
+			return
+
+		var/atom/movable/A = locateUID(href_list["removedeadchatcontrol"])
+		if(!istype(A))
+			return
+
+		if(!A.GetComponent(/datum/component/deadchat_control))
+			to_chat(usr, "<span class='warning'>[A] is not currently under deadchat control!</span>")
+			return
+
+		A.stop_deadchat_plays()
+		message_admins("[key_name_admin(usr)] removed deadchat control from [A].")
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])

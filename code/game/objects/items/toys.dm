@@ -1245,7 +1245,7 @@
 
 /obj/item/toy/figure/crew/clown
 	name = "\improper Clown action figure"
-	desc = "The mischevious Clown, from Space Life's SS12 figurine collection."
+	desc = "The mischievous Clown, from Space Life's SS12 figurine collection."
 	icon_state = "clown"
 	toysay = "Honk!"
 

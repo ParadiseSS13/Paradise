@@ -56,7 +56,7 @@ What are the archived variables for?
 	return moles
 
 /datum/gas_mixture/proc/total_trace_moles()
-	var/moles = sleeping_agent + agent_b
+	var/moles = agent_b
 	return moles
 
 	/// Calculate pressure in kilopascals

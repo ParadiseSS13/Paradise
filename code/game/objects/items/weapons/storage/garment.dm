@@ -92,8 +92,9 @@
 
 /obj/item/storage/bag/garment/research_director/populate_contents()
 	new /obj/item/clothing/under/rank/rnd/research_director(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat/rd(src)
 	new /obj/item/clothing/suit/mantle/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 

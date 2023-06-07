@@ -219,13 +219,15 @@
 		to_chat(user, "<span class='warning'>You need a [is_robotic ? "prying": "cauterizing"] tool in your inactive hand to stop the surgery!</span>")
 		return TRUE
 
-	if(skip_surgery || chosen_close_step.try_op(user, patient, selected_zone, close_tool, the_surgery))
+	if(skip_surgery || chosen_close_step.try_op(user, patient, selected_zone, close_tool, the_surgery) == SURGERY_INITIATE_SUCCESS)
 		// logging in case people wonder why they're cut up inside
 		log_attack(user, patient, "Prematurely finished \a [the_surgery] surgery.")
 		qdel(chosen_close_step)
 		patient.surgeries -= the_surgery
 		qdel(the_surgery)
-		return TRUE
+
+	// always return TRUE here so we don't continue the surgery chain and try to start a new surgery with our tool.
+	return TRUE
 
 /datum/component/surgery_initiator/proc/can_start_surgery(mob/user, mob/living/target)
 	if(!user.Adjacent(target))
