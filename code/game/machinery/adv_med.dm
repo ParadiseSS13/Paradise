@@ -383,6 +383,37 @@
 				t1 = "*dead*"
 		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
+		var/extra_font = null
+
+		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 1)
+
+		extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
+		dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
+
+		extra_font = (occupant.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT && occupant.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT ? "<font color='blue'>" : "<font color='red'>")
+		dat += "[extra_font]\tBody Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)</font><br>"
+
+		extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
+		dat += "[extra_font]\tBrute Damage %: [occupant.getBruteLoss()]</font><br>"
+
+		extra_font = (occupant.getOxyLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
+		dat += "[extra_font]\tRespiratory Damage %: [occupant.getOxyLoss()]</font><br>"
+
+		extra_font = (occupant.getToxLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
+		dat += "[extra_font]\tToxin Content %: [occupant.getToxLoss()]</font><br>"
+
+		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
+		dat += "[extra_font]\tBurn Severity %: [occupant.getFireLoss()]</font><br>"
+
+		extra_font = (occupant.radiation < 10 ? "<font color='blue'>" : "<font color='red'>")
+		dat += "[extra_font]\tRadiation Level %: [occupant.radiation]</font><br>"
+
+		extra_font = (occupant.getCloneLoss() < 1 ? "<font color='blue'>" : "<font color='red'>")
+		dat += "[extra_font]\tGenetic Tissue Damage %: [occupant.getCloneLoss()]</font><br>"
+
+		extra_font = (occupant.getBrainLoss() < 1 ? "<font color='blue'>" : "<font color='red'>")
+		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]</font><br>"
+
 		var/found_disease = FALSE
 		for(var/thing in occupant.viruses)
 			var/datum/disease/D = thing
@@ -391,52 +422,7 @@
 			found_disease = TRUE
 			break
 		if(found_disease)
-			dat += "<font color='red'>Disease detected in occupant.</font><BR>"
-
-		var/extra_font = null
-		extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Brute Damage %: [occupant.getBruteLoss()]</font><br>"
-
-		extra_font = (occupant.getOxyLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Respiratory Damage %: [occupant.getOxyLoss()]</font><br>"
-
-		extra_font = (occupant.getToxLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Toxin Content %: [occupant.getToxLoss()]</font><br>"
-
-		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Burn Severity %: [occupant.getFireLoss()]</font><br>"
-
-		extra_font = (occupant.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tRadiation Level %: [occupant.radiation]</font><br>"
-
-		extra_font = (occupant.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tGenetic Tissue Damage %: [occupant.getCloneLoss()]<br>"
-
-		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]<br>"
-
-		dat += "Inebriation Severity: [round(occupant.get_drunkenness() / 10)] seconds<br>"
-		dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
-
-		dat += "<hr>"
-
-		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 1)
-
-		extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
-
-		if(occupant.reagents)
-			dat += "Epinephrine units: [occupant.reagents.get_reagent_amount("Epinephrine")] units<BR>"
-			dat += "Ether: [occupant.reagents.get_reagent_amount("ether")] units<BR>"
-
-			extra_font = (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tSilver Sulfadiazine: [occupant.reagents.get_reagent_amount("silver_sulfadiazine")]</font><br>"
-
-			extra_font = (occupant.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tStyptic Powder: [occupant.reagents.get_reagent_amount("styptic_powder")] units<BR>"
-
-			extra_font = (occupant.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tSalbutamol: [occupant.reagents.get_reagent_amount("salbutamol")] units<BR>"
+			dat += "<font color='red'>Disease detected in occupant.</font><br>"
 
 		dat += "<hr><table border='1'>"
 		dat += "<tr>"
