@@ -81,18 +81,17 @@
 	var/datum/ai_law/inherent/new_law = new(generate_ion_law())
 	var/emag_law = new_law.law
 	if(!length(current.laws.ion_laws))
-		if(prob(20))  // 20% chance to generate an ion law if none exists
-			current.add_ion_law(generate_ion_law())
-			cooldown = world.time + AIUPLOAD_EMAG_COOLDOWN
-			return TRUE
-	else //10% chance to overwrite a current ion
-		if(prob(10))
-			current.laws.ion_laws[1].law = emag_law
-			cooldown = world.time + AIUPLOAD_EMAG_COOLDOWN
-			log_and_message_admins("has given [current] the ion law: [current.laws.ion_laws[1].law].")
-			return TRUE
-		else
+		if(prob(80))  // 20% chance to generate an ion law if none exists
 			return FALSE
+		current.add_ion_law(generate_ion_law())
+		cooldown = world.time + AIUPLOAD_EMAG_COOLDOWN
+		return TRUE
+	if(prob(90)) //10% chance to overwrite a current ion
+		return FALSE
+	current.laws.ion_laws[1].law = emag_law
+	cooldown = world.time + AIUPLOAD_EMAG_COOLDOWN
+	log_and_message_admins("has given [current] the ion law: [current.laws.ion_laws[1].law].")
+	return TRUE	
 
 /// modifies one of the AI's laws to read like an ion law
 /obj/machinery/computer/aiupload/proc/emag_inherent_law()
