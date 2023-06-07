@@ -75,10 +75,10 @@
 	icon_keyboard = "power_key"
 	circuit = /obj/item/circuitboard/rbmk_stats
 	var/next_stat_interval = 0
-	var/list/psiData = list()
-	var/list/powerData = list()
-	var/list/tempInputData = list()
-	var/list/tempOutputdata = list()
+	var/list/psi_data = list()
+	var/list/power_data = list()
+	var/list/temp_input_data = list()
+	var/list/temp_output_data = list()
 
 /obj/machinery/computer/sm_monitor/attack_ai(mob/user)
 	attack_hand(user)
@@ -100,25 +100,25 @@
 /obj/machinery/computer/reactor/stats/process()
 	if(world.time >= next_stat_interval)
 		next_stat_interval = world.time + 1 SECONDS //You only get a slow tick.
-		psiData += (reactor) ? reactor.pressure : 0
-		if(psiData.len > 100) //Only lets you track over a certain timeframe.
-			psiData.Cut(1, 2)
-		powerData += (reactor) ? reactor.power*10 : 0 //We scale up the figure for a consistent:tm: scale
-		if(powerData.len > 100) //Only lets you track over a certain timeframe.
-			powerData.Cut(1, 2)
-		tempInputData += (reactor) ? reactor.last_coolant_temperature : 0 //We scale up the figure for a consistent:tm: scale
-		if(tempInputData.len > 100) //Only lets you track over a certain timeframe.
-			tempInputData.Cut(1, 2)
-		tempOutputdata += (reactor) ? reactor.last_output_temperature : 0 //We scale up the figure for a consistent:tm: scale
-		if(tempOutputdata.len > 100) //Only lets you track over a certain timeframe.
-			tempOutputdata.Cut(1, 2)
+		psi_data += (reactor) ? reactor.pressure : 0
+		if(psi_data.len > 100) //Only lets you track over a certain timeframe.
+			psi_data.Cut(1, 2)
+		power_data += (reactor) ? reactor.power*10 : 0 //We scale up the figure for a consistent:tm: scale
+		if(power_data.len > 100) //Only lets you track over a certain timeframe.
+			power_data.Cut(1, 2)
+		temp_input_data += (reactor) ? reactor.last_coolant_temperature : 0 //We scale up the figure for a consistent:tm: scale
+		if(temp_input_data.len > 100) //Only lets you track over a certain timeframe.
+			temp_input_data.Cut(1, 2)
+		temp_output_data += (reactor) ? reactor.last_output_temperature : 0 //We scale up the figure for a consistent:tm: scale
+		if(temp_output_data.len > 100) //Only lets you track over a certain timeframe.
+			temp_output_data.Cut(1, 2)
 
 /obj/machinery/computer/reactor/stats/ui_data(mob/user)
 	var/list/data = list()
-	data["powerData"] = powerData
-	data["psiData"] = psiData
-	data["tempInputData"] = tempInputData
-	data["tempOutputdata"] = tempOutputdata
+	data["powerData"] = power_data
+	data["psiData"] = psi_data
+	data["tempInputData"] = temp_input_data
+	data["tempOutputdata"] = temp_output_data
 	data["coolantInput"] = reactor ? reactor.last_coolant_temperature : 0
 	data["coolantOutput"] = reactor ? reactor.last_output_temperature : 0
 	data["power"] = reactor ? reactor.power : 0

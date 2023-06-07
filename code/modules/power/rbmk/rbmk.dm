@@ -93,33 +93,49 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	dir = SOUTH //Less headache inducing :))
 	var/rbmkid = "rbmk" //Change me mappers
 	//Variables essential to operation
-	var/temperature = 0 //Lose control of this -> Meltdown
-	var/vessel_integrity = 400 //How long can the reactor withstand overpressure / meltdown? This gives you a fair chance to react to even a massive pipe fire
-	var/starting_vessel_integrity = 400 //should be the same as the previous var
-	var/pressure = 0 //Lose control of this -> Blowout
-	var/K = 0 //Rate of reaction.
+	///Lose control of this -> Meltdown
+	var/temperature = 0
+	///How long can the reactor withstand overpressure / meltdown? This gives you a fair chance to react to even a massive pipe fire
+	var/vessel_integrity = 400
+	///should be the same as the previous var
+	var/starting_vessel_integrity = 400
+	///Lose control of this -> Blowout
+	var/pressure = 0
+	///Rate of reaction.
+	var/K = 0
+	///desired rate of reaction.
 	var/desired_k = 0
-	var/control_rod_effectiveness = 0.65 //Starts off with a lot of control over K. If you flood this thing with plasma, you lose your ability to control K as easily.
-	var/power = 0 //0-100%. A function of the maximum heat you can achieve within operating temperature
-	var/power_modifier = 1 //Upgrade me with parts, science! Flat out increase to physical power output when loaded with plasma.
+	///Starts off with a lot of control over K. If you flood this thing with plasma, you lose your ability to control K as easily.
+	var/control_rod_effectiveness = 0.65
+	///0-100%. A function of the maximum heat you can achieve within operating temperature
+	var/power = 0
+	///Upgrade me with parts, science! Flat out increase to physical power output when loaded with plasma.
+	var/power_modifier = 1
+	///list of loaded fuel rods
 	var/list/fuel_rods = list()
 	//Secondary variables.
-	var/next_slowprocess = 0
+	///rate of moderator input
 	var/gas_absorption_effectiveness = 0.5
-	var/gas_absorption_constant = 0.5 //We refer to this one as it's set on init, randomized.
-	var/minimum_coolant_level = 0.1 //moles of gas required for calculation to occur
-	var/warning = FALSE //Have we begun warning the crew of their impending death?
-	var/next_warning = 0 //To avoid spam.
-	var/last_power_produced = 0 //For logging purposes
-	var/next_flicker = 0 //Light flicker timer
+	///We refer to this one as it's set on init, randomized.
+	var/gas_absorption_constant = 0.5
+	///moles of gas required for calculation to occur
+	var/minimum_coolant_level = 0.1
+	///For logging purposes
+	var/last_power_produced = 0
+	///Light flicker timer
+	var/next_flicker = 0
 	var/base_power_modifier = RBMK_POWER_FLAVOURISER
-	var/slagged = FALSE //Is this reactor even usable any more?
+	///Is this reactor even usable any more?
+	var/slagged = FALSE
 	//Console statistics.
 	var/last_coolant_temperature = 0
 	var/last_output_temperature = 0
-	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
-	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
-	var/obj/item/fuel_rod/held_fuel_rod //used to prevent fuel rod duplicaiton
+	//For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
+	var/last_heat_delta = 0
+	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
+	var/no_coolant_ticks = 0
+	///used to prevent fuel rod duplicaiton
+	var/obj/item/fuel_rod/held_fuel_rod
 
 	// below vars contol emergency alert systems
 	var/obj/item/radio/radio
