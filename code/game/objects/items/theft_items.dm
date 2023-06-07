@@ -158,6 +158,24 @@
 	icon_state = "supermatter_sliver"
 	pulseicon = "supermatter_sliver_pulse"
 
+/obj/item/nuke_core/supermatter_sliver/process()
+	. = ..()
+	var/new_filter = isnull(get_filter("ray"))
+
+	add_filter(name = "ray", priority = 1, params = list(
+		type = "rays",
+		size = 40,
+		color = "#ffd04f",
+		factor = 6,
+		density = 20
+	))
+
+	// Filter animation persists even if the filter itself is changed externally.
+	// Probably prone to breaking. Treat with suspicion.
+	if(new_filter)
+		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+		animate(offset = 0, time = 10 SECONDS)
+
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
 	return
 
