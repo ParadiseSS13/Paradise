@@ -9,7 +9,7 @@
 
 /datum/element/connect_loc/Attach(atom/movable/listener, list/connections)
 	. = ..()
-	if (!istype(listener))
+	if(!istype(listener))
 		return ELEMENT_INCOMPATIBLE
 
 	src.connections = connections

@@ -10,16 +10,16 @@
 	icon_screen = "power"
 	icon_keyboard = null
 	var/obj/machinery/atmospherics/trinary/nuclear_reactor/reactor = null
-	var/id = "rbmk"
+	var/rbmkid = "rbmk"
 
 /obj/machinery/computer/reactor/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(link_to_reactor)), 10 SECONDS)
 
 /obj/machinery/computer/reactor/proc/link_to_reactor()
-	for(var/obj/machinery/atmospherics/trinary/nuclear_reactor/asdf in GLOB.machines)
-		if(asdf.id && asdf.id == id)
-			reactor = asdf
+	for(var/obj/machinery/atmospherics/trinary/nuclear_reactor/rbmkconnect in GLOB.machines)
+		if(rbmkconnect.rbmkid && rbmkconnect.rbmkid == rbmkid)
+			reactor = rbmkconnect
 			return TRUE
 	return FALSE
 
@@ -55,7 +55,7 @@
 		return
 	if(action == "input")
 		var/input = text2num(params["target"])
-		reactor.desired_k = CLAMP(input, 0, 3)
+		reactor.desired_k = clamp(input, 0, 3)
 
 /obj/machinery/computer/reactor/control_rods/ui_data(mob/user)
 	var/list/data = list()

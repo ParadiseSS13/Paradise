@@ -91,7 +91,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	light_color = LIGHT_COLOR_CYAN
 	dir = SOUTH //Less headache inducing :))
-	var/id = "rbmk" //Change me mappers
+	var/rbmkid = "rbmk" //Change me mappers
 	//Variables essential to operation
 	var/temperature = 0 //Lose control of this -> Meltdown
 	var/vessel_integrity = 400 //How long can the reactor withstand overpressure / meltdown? This gives you a fair chance to react to even a massive pipe fire
@@ -217,7 +217,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
 			user.visible_message("<span class='warning'>[user] applies sealant to some of [src]'s worn out seals.</span>", "<span class='notice'>You apply sealant to some of [src]'s worn out seals.</span>")
 			vessel_integrity += 10
-			vessel_integrity = CLAMP(vessel_integrity, 0, initial(vessel_integrity))
+			vessel_integrity = clamp(vessel_integrity, 0, initial(vessel_integrity))
 		return TRUE
 	return ..()
 
@@ -276,7 +276,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 	if(isliving(AM) && temperature > 0)
 		var/mob/living/L = AM
-		L.adjust_bodytemperature(CLAMP(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
+		L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 
 /obj/machinery/atmospherics/trinary/nuclear_reactor/process()
 	..()
@@ -394,7 +394,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Firstly, find the difference between the two numbers.
 	var/difference = abs(K - desired_k)
 	//Then, hit as much of that goal with our cooling per tick as we possibly can.
-	difference = CLAMP(difference, 0, control_rod_effectiveness) //And we can't instantly zap the K to what we want, so let's zap as much of it as we can manage....
+	difference = clamp(difference, 0, control_rod_effectiveness) //And we can't instantly zap the K to what we want, so let's zap as much of it as we can manage....
 	if(difference > fuel_power && desired_k > K)
 		difference = fuel_power //Again, to stop you being able to run off of 1 fuel rod.
 	if(K != desired_k)
@@ -402,7 +402,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			K += difference
 		else if(desired_k < K)
 			K -= difference
-	K = CLAMP(K, 0, RBMK_MAX_CRITICALITY)
+	K = clamp(K, 0, RBMK_MAX_CRITICALITY)
 	if(has_fuel())
 		temperature += K
 	else
