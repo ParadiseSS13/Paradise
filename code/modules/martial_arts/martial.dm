@@ -175,6 +175,9 @@
 	if(issilicon(H))
 		to_chat(usr, "<span class='notice'>Your malformed steel body can barely perform basic tasks, let alone complex martial arts.</span>")
 		return
+	if(isalien(H))
+		to_chat(usr, "<span class='notice'>The hivemind's fighting style has been blessed upon you, you have no need for this useless style.</span>")
+		return
 
 /datum/martial_art/proc/give_explaination(user = usr)
 	explaination_header(user)
