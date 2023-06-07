@@ -92,7 +92,7 @@
 	light_range = 0
 	update_light()
 	name = "dimmed glass flooring"
-	desc = "Something is covering the glass, you look at it, it looks back. Perhaps a light will dim it's life?"
+	desc = "Something shadowy moves to cover the glass. Perhaps shining a light will force it to clear?"
 	START_PROCESSING(SSobj, src)
 
 /turf/simulated/floor/transparent/glass/process()
