@@ -63,3 +63,27 @@
 	desc = "A comfortable suit for paramedics. Has dark colours."
 	icon_state = "labcoat_emt_open"
 	item_state = "labcoat_emt_open"
+
+/obj/item/clothing/suit/storage/labcoat/psych
+	name = "psychologist labcoat"
+	desc = "A suit that protects against minor chemical spills. Has a cyan stripe on the shoulder."
+	icon_state = "labcoat_psych_open"
+	item_state = "labcoat_psych_open"
+
+/obj/item/clothing/suit/storage/labcoat/robowhite
+	name = "roboticist labcoat"
+	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulder."
+	icon_state = "labcoat_robowhite_open"
+	item_state = "labcoat_robowhite_open"
+
+/obj/item/clothing/suit/storage/labcoat/roboblack
+	name = "bioengineer labcoat"
+	desc = "A black suit that protects against minor chemical spills. Has a red stripe on the shoulder."
+	icon_state = "labcoat_roboblack_open"
+	item_state = "labcoat_roboblack_open"
+
+/obj/item/clothing/suit/storage/labcoat/rd
+	name = "research director's labcoat"
+	desc = "More purple than the standard model."
+	icon_state = "labcoat_rd_open"
+	item_state = "labcoat_rd_open"

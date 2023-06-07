@@ -67,9 +67,7 @@
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
 
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.Remove(user)
+		QDEL_LIST_CONTENTS(actions)
 
 		icon_state = "armor"
 		user.update_inv_wear_suit()
