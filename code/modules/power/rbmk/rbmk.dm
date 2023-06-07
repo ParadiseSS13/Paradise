@@ -233,11 +233,11 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		to_chat(user, "<span class='notice'>You can't repair [src] while it is running at above 20% power.</span>")
 		return FALSE
 	if(vessel_integrity > 0.5 * initial(vessel_integrity))
-		to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant.</span>")
+		to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with nanopaste sealant.</span>")
 		return FALSE
 	if(I.use_tool(src, user, 0, volume=40))
 		if(vessel_integrity > 0.5 * initial(vessel_integrity))
-			to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant.</span>")
+			to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with nanopaste sealant.</span>")
 			return FALSE
 		vessel_integrity += 20
 		to_chat(user, "<span class='notice'>You weld together some of [src]'s cracks. This'll do for now.</span>")
@@ -474,13 +474,13 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		vessel_integrity -= temp_damage
 		if(testing == TRUE)
 			to_chat(world, "Reactor is taking damge from heat! Total damage: [vessel_integrity]/400")
-		if(vessel_integrity < starting_vessel_integrity && lastrbmkwarn < 0)
-			radio.autosay("[rbmk_temp_alert] Core Integrity: [vessel_integrity / starting_vessel_integrity]%", name, "Engineering", list(z)) //scream on engi comms meltdown is occuring
+		if((vessel_integrity < starting_vessel_integrity) && lastrbmkwarn < 0)
+			radio.autosay("[rbmk_temp_alert] Core Integrity: [(vessel_integrity / starting_vessel_integrity)*100]%", name, "Engineering", list(z)) //scream on engi comms meltdown is occuring
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 			lastrbmkwarn = 30
-		if(vessel_integrity >= (0.75 * starting_vessel_integrity) && lastrbmkwarn < 0)
+		if((vessel_integrity < (0.25 * starting_vessel_integrity)) && lastrbmkwarn < 1)
 			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
-			radio.autosay("[rbmk_meltdown_alert] Core Integrity: [vessel_integrity / starting_vessel_integrity]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
+			radio.autosay("[rbmk_meltdown_alert] Core Integrity: [(vessel_integrity / starting_vessel_integrity)*100]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
 			lastrbmkwarn = 30
 		if(vessel_integrity <= 0) //It wouldn't be able to tank another hit.
 			meltdown() //Oops! All meltdown
@@ -494,14 +494,14 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		vessel_integrity -= pressure_damage
 		if(testing == TRUE)
 			to_chat(world, "Reactor is taking pressure damage! Total Damage: [vessel_integrity]/400")
-		if(vessel_integrity < starting_vessel_integrity && lastrbmkwarn < 0)
-			radio.autosay("[rbmk_pressure_alert] Core Integrity: [vessel_integrity / starting_vessel_integrity]%", name, "Engineering", list(z)) //scream on engi comms blowout is occuring
+		if((vessel_integrity < starting_vessel_integrity) && lastrbmkwarn < 0)
+			radio.autosay("[rbmk_pressure_alert] Core Integrity: [(vessel_integrity / starting_vessel_integrity)*100]%", name, "Engineering", list(z)) //scream on engi comms blowout is occuring
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
-			lastrbmkwarn = 30
-		if(vessel_integrity >= (0.75 * starting_vessel_integrity) && lastrbmkwarn < 0)
+			lastrbmkwarn = 10
+		if((vessel_integrity < (0.25 * starting_vessel_integrity)) && lastrbmkwarn < 1)
 			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
-			radio.autosay("[rbmk_blowout_alert] Core Integrity: [vessel_integrity / starting_vessel_integrity]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
-			lastrbmkwarn = 30
+			radio.autosay("[rbmk_blowout_alert] Core Integrity: [(vessel_integrity / starting_vessel_integrity)*100]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
+			lastrbmkwarn = 10
 		if(vessel_integrity < 0) //It wouldn't be able to tank another hit.
 			blowout()
 			if(testing == TRUE)
