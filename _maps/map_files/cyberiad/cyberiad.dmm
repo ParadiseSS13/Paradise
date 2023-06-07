@@ -15244,15 +15244,13 @@
 	},
 /area/crew_quarters/sleep)
 "aPM" = (
-/obj/structure/closet/l3closet/janitor,
-/obj/structure/closet/l3closet/janitor,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/closet/jcloset,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "aPN" = (
-/obj/structure/closet/jcloset,
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
@@ -15262,6 +15260,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/economy/vending/janidrobe,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "aPO" = (
