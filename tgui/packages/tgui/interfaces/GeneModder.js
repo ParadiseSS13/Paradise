@@ -1,4 +1,4 @@
-import { useBackend, useSharedState } from "../backend";
+import { useBackend } from "../backend";
 import {
   Button,
   Section,
@@ -68,7 +68,7 @@ const MissingSeed = (props, context) => {
             size={5}
             mb="10px"
           /><br />
-          The GENE MODDER is missing a SEED, DONT FORGET TO CHANGE THIS, #coding-chat.
+          The plant DNA manipulator is missing a seed.
         </Flex.Item>
       </Flex>
     </Section>
@@ -149,38 +149,37 @@ const CoreGenes = (props, context) => {
   } = data;
 
   return (
-
-      <Collapsible
-        key= "Core Genes"
-        title= "Core Genes"
-        open>
-        {core_genes.map((gene) => (
-          <Flex
-            key={gene}
-            py="2px"
-            className="candystripe">
-            <Flex.Item width="100%" ml="2px">
-              {gene.name}
-            </Flex.Item>
-            <Flex.Item pr="5px">
-              <Button
-                content="Extract"
-                disabled={!disk?.can_extract}
-                icon="save"
-                onClick={() => act('extract', {id: gene.id})}
-              />
-            </Flex.Item>
-            <Flex.Item>
-              <Button
-                content="Replace"
-                disabled={!gene.is_type || !disk.can_insert}
-                icon="upload"
-                onClick={() => act('replace', {id: gene.id})}
-              />
-            </Flex.Item>
-          </Flex>
-        ))}
-      </Collapsible>
+    <Collapsible
+      key= "Core Genes"
+      title= "Core Genes"
+      open>
+      {core_genes.map((gene) => (
+        <Flex
+          key={gene}
+          py="2px"
+          className="candystripe">
+          <Flex.Item width="100%" ml="2px">
+            {gene.name}
+          </Flex.Item>
+          <Flex.Item pr="5px">
+            <Button
+              content="Extract"
+              disabled={!disk?.can_extract}
+              icon="save"
+              onClick={() => act('extract', {id: gene.id})}
+            />
+          </Flex.Item>
+          <Flex.Item>
+            <Button
+              content="Replace"
+              disabled={!gene.is_type || !disk.can_insert}
+              icon="arrow-circle-down"
+              onClick={() => act('replace', {id: gene.id})}
+            />
+          </Flex.Item>
+        </Flex>
+      ))}
+    </Collapsible>
   );
 };
 
@@ -202,11 +201,11 @@ const TraitGenes = (props, context) => {
   const { trait_genes, has_trait } = data;
 
   return (
-      <OtherGenes
-        title = "Trait Genes"
-        gene_set = {trait_genes}
-        do_we_show = {has_trait}
-      />
+    <OtherGenes
+      title = "Trait Genes"
+      gene_set = {trait_genes}
+      do_we_show = {has_trait}
+    />
   );
 };
 
