@@ -79,6 +79,7 @@
 	name = "water tank"
 	desc = "A water tank."
 	icon_state = "water"
+	pull_speed = 0
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
@@ -93,6 +94,7 @@
 	icon_state = "oil"
 	reagent_id = "oil"
 	tank_volume = 3000
+	pull_speed = 0
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
@@ -101,6 +103,7 @@
 	reagent_id = "fuel"
 	tank_volume = 4000
 	anchored = TRUE
+	pull_speed = 0
 	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
 
@@ -279,6 +282,7 @@
 	icon = 'icons/obj/nuclearbomb.dmi'
 	icon_state = "nuclearbomb0"
 	anchored = TRUE
+	pull_speed = 0
 
 /obj/structure/reagent_dispensers/beerkeg/nuke/update_overlays()
 	. = ..()
