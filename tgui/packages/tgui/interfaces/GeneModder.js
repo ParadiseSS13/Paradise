@@ -2,10 +2,13 @@ import { useBackend, useSharedState } from "../backend";
 import {
   Button,
   Section,
-  Box,
   Flex,
   Icon,
-  Collapsible } from "../components";
+  Collapsible,
+  LabeledList } from "../components";
+import {
+  ComplexModal,
+} from '../interfaces/common/ComplexModal';
 import { Window } from "../layouts";
 
 export const GeneModder = (props, context) => {
@@ -13,21 +16,40 @@ export const GeneModder = (props, context) => {
   const { has_seed } = data;
 
   return (
-    <Window>
+    <Window resizable>
       <Window.Content display="flex" className="Layout__content--flexColumn">
         <Storage />
-
+        <ComplexModal maxWidth="75%" maxHeight="75%" />
         {has_seed === 0 ? (
           <MissingSeed />
         ) : (
-          <>
-            <CoreGenes/>
-            <ReagentGenes/>
-            <TraitGenes/>
-          </>
+          <Genes />
         )}
       </Window.Content>
     </Window>
+  );
+};
+
+const Genes = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { disk } = data;
+
+  return (
+    <Section
+      title="Genes"
+      flexGrow="1"
+      buttons={
+        <Button
+          content = "Insert Gene from Disk"
+          disabled = {!disk?.can_insert && disk?.not_core}
+          icon = "arrow-circle-down"
+          onClick={() => act('insert')}
+        />
+      }>
+      <CoreGenes/>
+      <ReagentGenes/>
+      <TraitGenes/>
+    </Section>
   );
 };
 
@@ -63,13 +85,11 @@ const Storage = (props, context) => {
   return (
     <Section
       title="Storage">
-      <Flex>
-        <Flex.Item mr="20px" color="silver">
-          Plant Sample:
-        </Flex.Item>
+      <LabeledList>
+        <LabeledList.Item label="Plant Sample">
         {has_seed ? (
-          <Flex.Item mr="5px">
-            {/* <img
+          <Flex.Item mb="-4px">
+            <img
               src={`data:image/jpeg;base64,${seed.image}`}
               style={{
                 'vertical-align': 'middle',
@@ -77,39 +97,46 @@ const Storage = (props, context) => {
                 margin: '0px',
                 'margin-left': '0px',
               }}
-            /> */}
-          <Button
-            content= {seed.name}
-            onClick={() => act('eject_seed')}
-          />
-          {/* <Button
-            content = "test"
-            icon="pen"
-            onClick={() => act('variant_name')}
-          /> */}
-        </Flex.Item>
-        ) : (
-        <Flex.Item>
-          None
-        </Flex.Item> ) }
-      </Flex>
-      <Flex height="21px" mt="8px"align="center">
-        <Flex.Item mr="10px" color="silver">
-          Data Disk:
-        </Flex.Item>
-        {has_disk ? (
-          <Flex.Item>
+            />
             <Button
-              content= {disk.name}
-              onClick={() => act('eject_disk')}
+              content = {seed.name}
+              onClick = {() => act('eject_seed')}
+            />
+            <Button ml="3px"
+              icon="pen"
+              tooltip="Name Variant"
+              onClick={() => act('variant_name')}
             />
           </Flex.Item>
         ) : (
           <Flex.Item>
-            None
+            <Button
+              content = "None"
+              onClick = {() => act('eject_seed')}
+            />
           </Flex.Item>
-        )}
-      </Flex>
+        )
+        }
+        </LabeledList.Item>
+
+        <LabeledList.Item label="Data Disk">
+          {has_disk ? (
+            <Flex.Item>
+              <Button
+                content= {disk.name}
+                onClick={() => act('eject_disk')}
+              />
+            </Flex.Item>
+          ) : (
+            <Flex.Item>
+              <Button
+              content = "None"
+              onClick = {() => act('eject_disk')}
+            />
+            </Flex.Item>
+          )}
+        </LabeledList.Item>
+        </LabeledList>
     </Section>
   );
 };
@@ -122,9 +149,7 @@ const CoreGenes = (props, context) => {
   } = data;
 
   return (
-    <Section
-      title="Products"
-      flexGrow="1">
+
       <Collapsible
         key= "Core Genes"
         title= "Core Genes"
@@ -133,21 +158,20 @@ const CoreGenes = (props, context) => {
           <Flex
             key={gene}
             py="2px"
-            className="candystripe"
-            align="center">
-            <Flex.Item width="40%" ml="2px">
+            className="candystripe">
+            <Flex.Item width="100%" ml="2px">
               {gene.name}
             </Flex.Item>
-            <Flex.Item textAlign="right" width="30%">
-              <Button.Confirm
+            <Flex.Item pr="5px">
+              <Button
                 content="Extract"
-                disabled={!disk.can_extract}
+                disabled={!disk?.can_extract}
                 icon="save"
                 onClick={() => act('extract', {id: gene.id})}
               />
             </Flex.Item>
-            <Flex.Item textAlign="right" width="30%">
-              <Button.Confirm
+            <Flex.Item>
+              <Button
                 content="Replace"
                 disabled={!gene.is_type || !disk.can_insert}
                 icon="upload"
@@ -157,36 +181,41 @@ const CoreGenes = (props, context) => {
           </Flex>
         ))}
       </Collapsible>
-    </Section>
   );
 };
 
 const ReagentGenes = (props, context) => {
   const { data } = useBackend(context);
-  const { reagent_genes } = data;
+  const { reagent_genes, has_reagent } = data;
 
   return (
     <OtherGenes
+      title = "Reagent Genes"
       gene_set = {reagent_genes}
+      do_we_show = {has_reagent}
     />
   );
 };
 
 const TraitGenes = (props, context) => {
   const { data } = useBackend(context);
-  const { trait_genes } = data;
+  const { trait_genes, has_trait } = data;
 
   return (
-    <OtherGenes
-      gene_set = {trait_genes}
-    />
+      <OtherGenes
+        title = "Trait Genes"
+        gene_set = {trait_genes}
+        do_we_show = {has_trait}
+      />
   );
 };
 
 
 const OtherGenes = (props, context) => {
   const {
-    gene_set
+    title,
+    gene_set,
+    do_we_show
   } = props;
   const { act, data } = useBackend(context);
   const {
@@ -194,40 +223,41 @@ const OtherGenes = (props, context) => {
   } = data;
 
   return (
-    <Section
-      title="Products"
-      flexGrow="1">
-      <Collapsible
-        key={gene_set.title}
-        title={gene_set.title}
-        open>
-        {gene_set.items.map((gene) => (
+    <Collapsible
+      key={title}
+      title={title}
+      open>
+      {do_we_show ? (
+        gene_set.map((gene) => (
           <Flex
             key={gene}
             py="2px"
-            className="candystripe"
-            align="center">
-            <Flex.Item width="40%" ml="2px">
+            className="candystripe">
+            <Flex.Item width="100%" ml="2px">
               {gene.name}
             </Flex.Item>
-            <Flex.Item textAlign="right" width="30%">
-              <Button.Confirm
-                content="Extract"
-                disabled={!disk.can_extract}
-                icon="save"
+            <Flex.Item pr="5px">
+              <Button
+                content= "Extract"
+                disabled={!disk?.can_extract}
+                icon= "save"
                 onClick={() => act('extract', {id: gene.id})}
               />
             </Flex.Item>
-            <Flex.Item textAlign="right" width="30%">
-              <Button.Confirm
-                content="Remove"
-                icon="times"
+            <Flex.Item>
+              <Button
+                content = "Remove"
+                icon = 'times'
                 onClick={() => act('remove', {id: gene.id})}
               />
             </Flex.Item>
           </Flex>
-        ))}
-      </Collapsible>
-    </Section>
+        ))
+      ) : (
+        <Flex.Item>
+          No Genes Detected
+        </Flex.Item>
+      )}
+    </Collapsible>
   );
 };

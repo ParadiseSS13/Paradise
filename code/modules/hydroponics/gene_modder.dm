@@ -107,266 +107,133 @@
 		return
 
 	if(istype(I, /obj/item/seeds))
-		if(seed)
-			to_chat(user, "<span class='warning'>A sample is already loaded into the machine!</span>")
-		else
-			if(!user.drop_item())
-				return
-			insert_seed(I)
-			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
-			interact(user)
-		return
+		add_seed(I, user)
 	else if(istype(I, /obj/item/disk/plantgene))
-		if(disk)
-			to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
-		else
-			if(!user.drop_item())
-				return
-			disk = I
-			disk.forceMove(src)
-			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
-			interact(user)
+		add_disk(I, user)
 	else
 		return ..()
 
+/obj/machinery/plantgenes/proc/add_seed(obj/item/seeds/new_seed, mob/user)
+	if(seed)
+		to_chat(user, "<span class='warning'>A sample is already loaded into the machine!</span>")
+		return
+	if(!user.drop_item())
+		return
+	insert_seed(new_seed)
+	to_chat(user, "<span class='notice'>You add [new_seed] to the machine.</span>")
+	ui_interact(user)
+
+/obj/machinery/plantgenes/proc/add_disk(obj/item/disk/plantgene/new_disk, mob/user)
+	if(disk)
+		to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
+		return
+	if(!user.drop_item())
+		return
+	disk = new_disk
+	disk.forceMove(src)
+	to_chat(user, "<span class='notice'>You add [new_disk] to the machine.</span>")
+	ui_interact(user)
 
 /obj/machinery/plantgenes/attack_hand(mob/user)
 	if(..())
 		return
-	interact(user)
-
-/obj/machinery/plantgenes/attack_ghost(mob/user)
-	interact(user)
-
-/obj/machinery/plantgenes/interact(mob/user)
 	ui_interact(user)
 
-/obj/machinery/seed_extractor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/plantgenes/attack_ghost(mob/user)
+	ui_interact(user)
+
+/obj/machinery/plantgenes/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "GeneModder", name, 800, 400, master_ui, state)
+		ui = new(user, src, ui_key, "GeneModder", name, 500, 700, master_ui, state)
 		ui.open()
-/*
-	add_fingerprint(user)
-	user.set_machine(src)
-	if(!user)
-		return
 
-	var/datum/browser/popup = new(user, "plantdna", "Plant DNA Manipulator", 450, 600)
+/obj/machinery/plantgenes/ui_data(mob/user)
+	var/list/data = list()
 
-	var/dat = ""
+	data["has_seed"] = seed ? TRUE : FALSE
+	data["has_disk"] = disk ? TRUE : FALSE
 
-	if(operation)
-		if(!seed || (!target && operation != "insert"))
-			operation = ""
-			target = null
-			interact(user)
-			return
-		if((operation == "replace" || operation == "insert") && (!disk || !disk.gene))
-			operation = ""
-			target = null
-			interact(user)
-			return
+	data["core_genes"] = list()
+	data["reagent_genes"] = list()
+	data["trait_genes"] = list()
 
-		dat += "<div class='line'><h3>Confirm Operation</h3></div>"
-		dat += "<div class='statusDisplay'>Are you sure you want to [operation] "
-		switch(operation)
-			if("remove")
-				dat += "<span class='highlight'>[target.get_name()]</span> gene from \the <span class='highlight'>[seed]</span>?<br>"
-			if("extract")
-				dat += "<span class='highlight'>[target.get_name()]</span> gene from \the <span class='highlight'>[seed]</span>?<br>"
-				dat += "<span class='bad'>The sample will be destroyed in process!</span>"
-				if(istype(target, /datum/plant_gene/core))
-					var/datum/plant_gene/core/gene = target
-					if(istype(target, /datum/plant_gene/core/potency))
-						if(gene.value > max_potency)
-							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[max_potency]</span> potency. "
-							dat += "Target gene will be degraded to <span class='highlight'>[max_potency]</span> potency on extraction."
-					else if(istype(target, /datum/plant_gene/core/lifespan))
-						if(gene.value > max_endurance)
-							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[max_endurance]</span> lifespan. "
-							dat += "Target gene will be degraded to <span class='highlight'>[max_endurance]</span> Lifespan on extraction."
-					else if(istype(target, /datum/plant_gene/core/endurance))
-						if(gene.value > max_endurance)
-							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[max_endurance]</span> endurance. "
-							dat += "Target gene will be degraded to <span class='highlight'>[max_endurance]</span> endurance on extraction."
-					else if(istype(target, /datum/plant_gene/core/yield))
-						if(gene.value > max_yield)
-							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[max_yield]</span> yield. "
-							dat += "Target gene will be degraded to <span class='highlight'>[max_yield]</span> yield on extraction."
-					else if(istype(target, /datum/plant_gene/core/production))
-						if(gene.value < min_production)
-							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[min_production]</span> production. "
-							dat += "Target gene will be degraded to <span class='highlight'>[min_production]</span> production on extraction."
-					else if(istype(target, /datum/plant_gene/core/weed_rate))
-						if(gene.value < min_wrate)
-							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[min_wrate]</span> weed rate. "
-							dat += "Target gene will be degraded to <span class='highlight'>[min_wrate]</span> weed rate on extraction."
-					else if(istype(target, /datum/plant_gene/core/weed_chance))
-						if(gene.value < min_wchance)
-							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[min_wchance]</span> weed chance. "
-							dat += "Target gene will be degraded to <span class='highlight'>[min_wchance]</span> weed chance on extraction."
-			if("replace")
-				dat += "<span class='highlight'>[target.get_name()]</span> gene with <span class='highlight'>[disk.gene.get_name()]</span>?<br>"
-			if("insert")
-				dat += "<span class='highlight'>[disk.gene.get_name()]</span> gene into \the <span class='highlight'>[seed]</span>?<br>"
-		dat += "</div><div class='line'><a href='?src=[UID()];gene=[target && target.UID()];op=[operation]'>Confirm</a> "
-		dat += "<a href='?src=[UID()];abort=1'>Abort</a></div>"
-		popup.set_content(dat)
-		popup.open()
-		return
-
-	dat+= "<div class='statusDisplay'>"
-
-	dat += "<div class='line'><div class='statusLabel'>Plant Sample:</div><div class='statusValue'><a href='?src=[UID()];eject_seed=1'>"
-	dat += seed ? seed.name : "None"
-	dat += "</a></div></div>"
-
-	dat += "<div class='line'><div class='statusLabel'>Data Disk:</div><div class='statusValue'><a href='?src=[UID()];eject_disk=1'>"
-	if(!disk)
-		dat += "None"
-	else if(!disk.gene)
-		dat += "Empty Disk"
-	else
-		dat += disk.gene.get_name()
-	if(disk && disk.read_only)
-		dat += " (RO)"
-	dat += "</a></div></div>"
-
-	dat += "<br></div>"
+	data["has_reagent"] = FALSE
+	data["has_trait"] = FALSE
 
 	if(seed)
-		var/can_insert = disk && disk.gene && disk.gene.can_add(seed)
-		var/can_extract = disk && !disk.read_only
+		data["seed"] = list(
+			"image" = "[icon2base64(icon(initial(seed.icon), initial(seed.icon_state), SOUTH, 1))]",
+			"name" = seed.name,
+			"variant" = seed.variant
+		)
 
-		dat += "<div class='line'><h3>Core Genes</h3></div><div class='statusDisplay'><table>"
-		for(var/a in core_genes)
-			var/datum/plant_gene/G = a
-			if(!G)
-				continue
-			dat += "<tr><td width='260px'>[G.get_name()]</td><td>"
-			if(can_extract)
-				dat += "<a href='?src=[UID()];gene=[G.UID()];op=extract'>Extract</a>"
-			if(can_insert && istype(disk.gene, G.type))
-				dat += "<a href='?src=[UID()];gene=[G.UID()];op=replace'>Replace</a>"
-			dat += "</td></tr>"
-		dat += "</table></div>"
+		for(var/datum/plant_gene/core/c_gene in core_genes)
+			var/list/seed_info = list(
+				"name" = c_gene.get_name(),
+				"id" = c_gene.UID(),
+				"is_type" = disk && istype(disk.gene, c_gene)
+			)
+			data["core_genes"] += list(seed_info)
+			// there will always be core genes, if there isnt, something has gone very wrong
 
-		if(seed.yield != -1)
-			dat += "<div class='line'><h3>Content Genes</h3></div><div class='statusDisplay'>"
-			if(reagent_genes.len)
-				dat += "<table>"
-				for(var/a in reagent_genes)
-					var/datum/plant_gene/G = a
-					dat += "<tr><td width='260px'>[G.get_name()]</td><td>"
-					if(can_extract)
-						dat += "<a href='?src=[UID()];gene=[G.UID()];op=extract'>Extract</a>"
-					dat += "<a href='?src=[UID()];gene=[G.UID()];op=remove'>Remove</a>"
-					dat += "</td></tr>"
-				dat += "</table>"
-			else
-				dat += "No content-related genes detected in sample.<br>"
-			dat += "</div>"
-			if(can_insert && istype(disk.gene, /datum/plant_gene/reagent))
-				dat += "<a href='?src=[UID()];op=insert'>Insert: [disk.gene.get_name()]</a>"
+		for(var/datum/plant_gene/reagent/r_gene in reagent_genes)
+			var/list/seed_info = list(
+				"name" = r_gene.get_name(),
+				"id" = r_gene.UID()
+			)
+			data["reagent_genes"] += list(seed_info)
+			data["has_reagent"] = TRUE
 
-			dat += "<div class='line'><h3>Trait Genes</h3></div><div class='statusDisplay'>"
-			if(trait_genes.len)
-				dat += "<table>"
-				for(var/a in trait_genes)
-					var/datum/plant_gene/G = a
-					dat += "<tr><td width='260px'>[G.get_name()]</td><td>"
-					if(can_extract)
-						dat += "<a href='?src=[UID()];gene=[G.UID()];op=extract'>Extract</a>"
-					dat += "<a href='?src=[UID()];gene=[G.UID()];op=remove'>Remove</a>"
-					dat += "</td></tr>"
-				dat += "</table>"
-			else
-				dat += "No trait-related genes detected in sample.<br>"
-			if(can_insert && istype(disk.gene, /datum/plant_gene/trait))
-				dat += "<a href='?src=[UID()];op=insert'>Insert: [disk.gene.get_name()]</a>"
-			dat += "</div>"
+		for(var/datum/plant_gene/trait/t_gene in trait_genes)
+			var/list/seed_info = list(
+				"name" = t_gene.get_name(),
+				"id" = t_gene.UID()
+			)
+			data["trait_genes"] += list(seed_info)
+			data["has_trait"] = TRUE
 
-		dat += "<div class='line'><h3>Variant</h3></div><div class='statusDisplay'><table>"
-		dat += "<tr><td width='260px'>[seed.variant ? seed.variant : "None"]</td>"
-		dat += "<td><a href='?src=[UID()];set_v=1'>Edit</a></td>"
-		if(seed.variant)
-			dat += "<td><a href='?src=[UID()];del_v=1'>Remove</a></td>"
-		dat += "</tr></table></div>"
-	else
-		dat += "<br>No sample found.<br><span class='highlight'>Please, insert a plant sample to use this device.</span>"
-	popup.set_content(dat)
-	popup.open()
-*/
+	if(disk)
+		var/name = "Empty Disk"
+		if(disk.gene)
+			name = disk.gene.get_name()
+		if(disk.read_only)
+			name = "[name] (Read Only)"
+		data["disk"] = list(
+			"name" = name,
+			"can_insert" = disk.gene?.can_add(seed),
+			"can_extract" = !disk.read_only,
+			"not_core" = !istype(disk?.gene, /datum/plant_gene/core)
+		)
 
-/obj/machinery/plantgenes/Topic(href, list/href_list)
+	data["modal"] = ui_modal_data(src)
+
+	return data
+
+/obj/machinery/plantgenes/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
-		return 1
-	usr.set_machine(src)
+		return
+	if(stat & (NOPOWER|BROKEN))
+		return
 
-	if(href_list["eject_seed"] && !operation)
-		if(seed)
-			seed.forceMove(loc)
-			seed.verb_pickup()
-			seed = null
-			update_genes()
-			update_icon(UPDATE_OVERLAYS)
-		else
-			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/seeds))
-				if(!usr.drop_item())
-					return
-				insert_seed(I)
-				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
-		update_icon(UPDATE_OVERLAYS)
-	else if(href_list["eject_disk"] && !operation)
-		if(disk)
-			disk.forceMove(loc)
-			disk.verb_pickup()
-			disk = null
-			update_genes()
-		else
-			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/disk/plantgene))
-				if(!usr.drop_item())
-					return
-				disk = I
-				disk.forceMove(src)
-				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
-	else if(href_list["op"] == "insert" && disk && disk.gene && seed)
-		if(!operation) // Wait for confirmation
-			operation = "insert"
-		else
-			if(!istype(disk.gene, /datum/plant_gene/core) && disk.gene.can_add(seed))
-				seed.genes += disk.gene.Copy()
-				if(istype(disk.gene, /datum/plant_gene/reagent))
-					seed.reagents_from_genes()
-			update_genes()
-			repaint_seed()
-			operation = ""
-			target = null
+	. = TRUE
 
-	else if(href_list["gene"] && seed)
-		var/datum/plant_gene/G = seed.get_gene(href_list["gene"])
-		if(!G || !href_list["op"] || !(href_list["op"] in list("remove", "extract", "replace")))
-			interact(usr)
-			return
+	var/mob/living/user = ui.user
 
-		if(!operation || target != G) // Wait for confirmation
-			target = G
-			operation = href_list["op"]
+	// target = seed.get_gene(href_list["gene"]) // todo, maybe make target local?
 
-		else if(operation == href_list["op"] && target == G)
-			switch(href_list["op"])
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_ANSWER)
+			switch(params["id"])
 				if("remove")
-					if(!istype(G, /datum/plant_gene/core))
-						seed.genes -= G
-						if(istype(G, /datum/plant_gene/reagent))
+					if(!istype(target, /datum/plant_gene/core))
+						seed.genes -= target
+						if(istype(target, /datum/plant_gene/reagent))
 							seed.reagents_from_genes()
 					repaint_seed()
 				if("extract")
 					if(disk && !disk.read_only)
-						disk.gene = G.Copy()
+						disk.gene = target.Copy()
 						if(istype(disk.gene, /datum/plant_gene/core))
 							var/datum/plant_gene/core/gene = disk.gene
 							if(istype(disk.gene, /datum/plant_gene/core/potency))
@@ -387,38 +254,98 @@
 						QDEL_NULL(seed)
 						update_icon(UPDATE_OVERLAYS)
 				if("replace")
-					if(disk && disk.gene && istype(disk.gene, G.type) && istype(G, /datum/plant_gene/core))
-						seed.genes -= G
+					if(disk && disk.gene && istype(disk.gene, target.type) && istype(target, /datum/plant_gene/core))
+						seed.genes -= target
 						var/datum/plant_gene/core/C = disk.gene.Copy()
 						seed.genes += C
 						C.apply_stat(seed)
 						repaint_seed()
-				if("insert")
-					if(disk && disk.gene && !istype(disk.gene, /datum/plant_gene/core) && disk.gene.can_add(seed))
-						seed.genes += disk.gene.Copy()
-						if(istype(disk.gene, /datum/plant_gene/reagent))
-							seed.reagents_from_genes()
-						disk.gene.apply_vars(seed)
-						repaint_seed()
-
 			update_genes()
-			operation = ""
+			SStgui.update_uis(src)
 			target = null
-	else if(href_list["abort"])
-		operation = ""
-		target = null
-	else if(href_list["set_v"])
-		if(!seed)
 			return
-		seed.variant_prompt(usr, src)
-	else if(href_list["del_v"])
-		if(!seed)
-			return
-		seed.variant = null
-		seed.apply_variant_name()
-		to_chat(usr, "<span class='notice'>You remove the [seed.plantname]'s variant designation.</span>")
 
-	interact(usr)
+	target = seed?.get_gene(params["id"])
+
+	switch(action)
+		if("eject_seed")
+			if(seed)
+				seed.forceMove(loc)
+				user.put_in_hands(seed)
+				seed = null
+				update_genes()
+				update_icon(UPDATE_OVERLAYS)
+			else
+				var/obj/item/I = user.get_active_hand()
+				if(istype(I, /obj/item/seeds))
+					add_seed(I, user)
+			SStgui.update_uis(src)
+		if("eject_disk")
+			if(disk)
+				disk.forceMove(loc)
+				user.put_in_hands(disk)
+				disk = null
+				update_genes()
+			else
+				var/obj/item/I = usr.get_active_hand()
+				if(istype(I, /obj/item/disk/plantgene))
+					add_disk(I, user)
+			SStgui.update_uis(src)
+		if("variant_name")
+			seed.variant_prompt(usr, src)
+			SStgui.update_uis(src)
+			// Todo, maybe someday, make this into a modal and make it look good
+
+		if("extract")
+			var/dat = "Are you sure you want to extract [target.get_name()] gene from the [seed]? \nThe sample will be destroyed in process! \n"
+			if(istype(target, /datum/plant_gene/core))
+				var/datum/plant_gene/core/gene = target
+				if(istype(target, /datum/plant_gene/core/potency))
+					if(gene.value > max_potency)
+						dat += "This device's extraction capabilities are currently limited to [max_potency] potency. \n"
+						dat += "Target gene will be degraded to [max_potency] potency on extraction."
+				else if(istype(target, /datum/plant_gene/core/lifespan))
+					if(gene.value > max_endurance)
+						dat += "This device's extraction capabilities are currently limited to [max_endurance] lifespan. \n"
+						dat += "Target gene will be degraded to [max_endurance] Lifespan on extraction."
+				else if(istype(target, /datum/plant_gene/core/endurance))
+					if(gene.value > max_endurance)
+						dat += "This device's extraction capabilities are currently limited to [max_endurance] endurance. \n"
+						dat += "Target gene will be degraded to [max_endurance] endurance on extraction."
+				else if(istype(target, /datum/plant_gene/core/yield))
+					if(gene.value > max_yield)
+						dat += "This device's extraction capabilities are currently limited to [max_yield] yield. \n"
+						dat += "Target gene will be degraded to [max_yield] yield on extraction."
+				else if(istype(target, /datum/plant_gene/core/production))
+					if(gene.value < min_production)
+						dat += "This device's extraction capabilities are currently limited to [min_production] production. \n"
+						dat += "Target gene will be degraded to [min_production] production on extraction."
+				else if(istype(target, /datum/plant_gene/core/weed_rate))
+					if(gene.value < min_wrate)
+						dat += "This device's extraction capabilities are currently limited to [min_wrate] weed rate. \n"
+						dat += "Target gene will be degraded to [min_wrate] weed rate on extraction."
+				else if(istype(target, /datum/plant_gene/core/weed_chance))
+					if(gene.value < min_wchance)
+						dat += "This device's extraction capabilities are currently limited to [min_wchance] weed chance. \n"
+						dat += "Target gene will be degraded to [min_wchance] weed chance on extraction."
+			ui_modal_boolean(src, action, dat, yes_text = "Extract", no_text = "Cancel")
+
+		if("replace")
+			ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [disk.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel")
+
+		if("remove")
+			ui_modal_boolean(src, action, "Are you sure you want to remove [target.get_name()] gene from the [seed]" , yes_text = "Remove", no_text = "Cancel")
+
+		if("insert")
+			if(!istype(disk.gene, /datum/plant_gene/core) && disk.gene.can_add(seed))
+				seed.genes += disk.gene.Copy()
+				if(istype(disk.gene, /datum/plant_gene/reagent))
+					seed.reagents_from_genes()
+			update_genes()
+			repaint_seed()
+			// this doesnt need a modal, its easy enough to just remove the inserted gene
+
+			SStgui.update_uis(src)
 
 /obj/machinery/plantgenes/proc/insert_seed(obj/item/seeds/S)
 	if(!istype(S) || seed)
