@@ -82,9 +82,12 @@
 	ads_list = list("Apply your brilliant deductive methods in style!", "They already smell of cigarettes!")
 	vend_reply = "Thank you for using the DetDrobe!"
 	products = list(/obj/item/clothing/under/rank/security/detective = 2,
+					/obj/item/clothing/under/rank/security/detective/black = 1,
+					/obj/item/clothing/under/rank/security/detective/skirt = 1,
 					/obj/item/clothing/suit/storage/det_suit = 2,
 					/obj/item/clothing/suit/storage/det_suit/forensics/red = 1,
 					/obj/item/clothing/suit/storage/det_suit/forensics/blue = 1,
+					/obj/item/clothing/suit/storage/det_suit/forensics/black = 1,
 					/obj/item/clothing/suit/armor/vest/det_suit = 1,
 					/obj/item/clothing/glasses/sunglasses/noir = 2,
 					/obj/item/clothing/head/det_hat = 2,
@@ -100,9 +103,12 @@
 					/obj/item/reagent_containers/food/drinks/flask/detflask = 2,
 					/obj/item/storage/fancy/cigarettes/dromedaryco = 5)
 	prices = list(/obj/item/clothing/under/rank/security/detective = 50,
+					/obj/item/clothing/under/rank/security/detective/black = 75,
+					/obj/item/clothing/under/rank/security/detective/skirt = 75,
 					/obj/item/clothing/suit/storage/det_suit = 75,
 					/obj/item/clothing/suit/storage/det_suit/forensics/red = 75,
 					/obj/item/clothing/suit/storage/det_suit/forensics/blue = 75,
+					/obj/item/clothing/suit/storage/det_suit/forensics/black = 75,
 					/obj/item/clothing/suit/armor/vest/det_suit = 75,
 					/obj/item/clothing/head/det_hat = 40,
 					/obj/item/clothing/glasses/sunglasses/noir = 30,
@@ -333,7 +339,8 @@
 	vend_reply = "Thank you for using the RoboDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/roboticist = 3,
 					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 3,
-					/obj/item/clothing/suit/storage/labcoat = 3,
+					/obj/item/clothing/suit/storage/labcoat/roboblack = 3,
+					/obj/item/clothing/suit/storage/labcoat/robowhite = 3,
 					/obj/item/clothing/head/soft/black = 3,
 					/obj/item/clothing/gloves/fingerless = 3,
 					/obj/item/clothing/shoes/laceup = 3,
@@ -342,7 +349,8 @@
 	contraband = list(/obj/item/toy/figure/crew/roboticist = 1)
 	prices = list(/obj/item/clothing/under/rank/rnd/roboticist = 50,
 					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 50,
-					/obj/item/clothing/suit/storage/labcoat = 75,
+					/obj/item/clothing/suit/storage/labcoat/roboblack = 75,
+					/obj/item/clothing/suit/storage/labcoat/robowhite = 75,
 					/obj/item/clothing/head/soft/black = 20,
 					/obj/item/clothing/gloves/fingerless = 20,
 					/obj/item/clothing/shoes/laceup = 30,
