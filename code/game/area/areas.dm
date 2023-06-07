@@ -454,8 +454,7 @@
 		for(var/mob/living/carbon/human/M in A)
 			thunk(M)
 		for(var/obj/effect/decal/cleanable/blood/B in A)
-			if(!B.gravity_check)
-				B.splat(get_turf(B))
+			B.splat(B)
 		for(var/obj/effect/decal/cleanable/vomit/V in A)
 			V.splat(V)
 

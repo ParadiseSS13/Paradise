@@ -23,9 +23,10 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	var/dry_timer = 0
 	var/off_floor = FALSE
 	var/image/weightless_image
+	inertia_move_delay = 1 // so they dont collide with who emitted them
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
-	if(C == src || C.gravity_check != gravity_check)
+	if(C == src)
 		return FALSE
 	if(C.blood_DNA)
 		blood_DNA |= C.blood_DNA.Copy()
@@ -59,8 +60,6 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 		off_floor = TRUE
 		layer = ABOVE_MOB_LAYER
 		plane = GAME_PLANE
-		if(gravity_check)
-			icon_state = pick("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
 
 	if(basecolor == "rainbow")
 		basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
@@ -87,12 +86,6 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 		overlays.Cut()
 	..()
 
-/obj/effect/decal/cleanable/blood/proc/check_gravity(turf/T)
-	if(isnull(T))
-		T = get_turf(src)
-	if(gravity_check != ALWAYS_IN_GRAVITY)
-		gravity_check = has_gravity(src, T)
-
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
 	desc = drydesc
@@ -114,6 +107,8 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	if(gravity_check) //only floating blood can splat :C
 		return
 	var/turf/T = get_turf(AT)
+	if(try_merging_decal(T))
+		return
 	if(loc != T)
 		forceMove(T) //move to the turf to splatter on
 	animate(src) //stop floating
@@ -123,6 +118,10 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	layer = initial(layer)
 	plane = initial(plane)
 	update_icon()
+
+/obj/effect/decal/cleanable/blood/try_merging_decal(turf/T)
+
+	..()
 
 /obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir)
 	if(gravity_check)
@@ -152,13 +151,16 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 		splat(get_turf(A))
 		return
 
-	..()
-
 	if(ishuman(A))
 		bloodyify_human(A)
 		return
 
+	..()
+
 /obj/effect/decal/cleanable/blood/proc/bloodyify_human(mob/living/carbon/human/H)
+	if(inertia_dir && H.inertia_dir == inertia_dir) //if they are moving the same direction we are, no collison
+		return
+
 	var/list/obj/item/things_to_potentially_bloody = list()
 	var/count = amount + 1
 
@@ -335,3 +337,4 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	return FALSE
 
 #undef DRYING_TIME
+#undef ALWAYS_IN_GRAVITY

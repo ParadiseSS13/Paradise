@@ -86,9 +86,9 @@
 		blood_volume = max(blood_volume - amt, 0)
 		if(isturf(loc)) //Blood loss still happens in locker, floor stays clean
 			if(amt >= 10)
-				add_splatter_floor(loc, emittor_intertia = inertia_next_move > world.time ? dir : null)
+				add_splatter_floor(loc, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
 			else
-				add_splatter_floor(loc, 1, emittor_intertia = inertia_next_move > world.time ? dir : null)
+				add_splatter_floor(loc, 1, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
@@ -107,7 +107,7 @@
 		blood_volume = max(blood_volume - amt, 0)
 		if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
 			custom_emote(EMOTE_VISIBLE, "coughs up blood!")
-			add_splatter_floor(loc, 1, emittor_intertia = inertia_next_move > world.time ? dir : null)
+			add_splatter_floor(loc, 1, emittor_intertia = inertia_next_move > world.time ? last_movement_dir : null)
 			return 1
 		else if(amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
 			vomit(0, 1)

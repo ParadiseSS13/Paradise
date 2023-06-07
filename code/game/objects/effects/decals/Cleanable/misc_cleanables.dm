@@ -178,10 +178,12 @@
 	if(gravity_check)
 		return
 	var/turf/T = get_turf(A)
+	if(try_merging_decal(T))
+		return
 	if(loc != T)
 		forceMove(T)
 	icon = initial(icon)
-	gravity_check = TRUE
+	gravity_check = ALWAYS_IN_GRAVITY
 	if(T.density || locate(/obj/structure/window) in T)
 		layer = ABOVE_WINDOW_LAYER
 		plane = GAME_PLANE
@@ -206,11 +208,6 @@
 		return 1
 
 	return 0
-
-/obj/effect/decal/cleanable/vomit/replace_decal(obj/effect/decal/cleanable/vomit/C)
-	. = ..()
-	if(C == src || C.gravity_check != gravity_check)
-		return FALSE
 
 /obj/effect/decal/cleanable/vomit/green
 	name = "green vomit"

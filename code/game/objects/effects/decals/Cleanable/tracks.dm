@@ -1,5 +1,6 @@
 // 5 seconds
 #define TRACKS_CRUSTIFY_TIME   50
+#define ALWAYS_IN_GRAVITY 2
 
 // color-dir-dry
 GLOBAL_LIST_EMPTY(fluidtrack_cache)
@@ -147,3 +148,5 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	if(basecolor == COLOR_BLOOD_MACHINE)
 		return FALSE
 	return TRUE
+
+#undef ALWAYS_IN_GRAVITY

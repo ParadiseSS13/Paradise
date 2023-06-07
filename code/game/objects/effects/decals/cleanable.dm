@@ -1,3 +1,5 @@
+#define ALWAYS_IN_GRAVITY 2
+
 /obj/effect/decal/cleanable
 	///when Initialized() its icon_state will be chosen from this list
 	var/list/random_icon_states = list()
@@ -30,7 +32,7 @@
 	if(!ishuman(O))
 		return
 
-	if(!gravity_check)
+	if(!gravity_check && ishuman(O))
 		bloodyify_human(O)
 
 	if(!off_floor)
@@ -84,12 +86,8 @@
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
-	if(loc && isturf(loc))
-		for(var/obj/effect/decal/cleanable/C in loc)
-			if(C != src && C.type == type && !QDELETED(C))
-				if(replace_decal(C))
-					qdel(src)
-					return TRUE
+	if(try_merging_decal())
+		return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
 	if(smoothing_flags)
@@ -102,3 +100,23 @@
 	if(smoothing_flags)
 		QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
+
+/obj/effect/decal/cleanable/proc/try_merging_decal(turf/T)
+	if(!T)
+		T = loc
+	if(T && isturf(T))
+		for(var/obj/effect/decal/cleanable/C in T)
+			if(C != src && C.type == type && !QDELETED(C))
+				if(C.gravity_check)
+					if(replace_decal(C))
+						qdel(src)
+						return TRUE
+	return FALSE
+
+/obj/effect/decal/cleanable/proc/check_gravity(turf/T)
+	if(isnull(T))
+		T = get_turf(src)
+	if(gravity_check != ALWAYS_IN_GRAVITY)
+		gravity_check = has_gravity(src, T)
+
+#undef ALWAYS_IN_GRAVITY
