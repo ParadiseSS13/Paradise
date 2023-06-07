@@ -152,7 +152,7 @@
 	var/recharging_rate_dash = 6 SECONDS
 	var/recharging_time_dash = 0 // Time until next dash
 	var/dash_cost = 1000 // Cost to dash.
-	var/recharging_rate_stomp = 45 // Time until next stomp
+	var/recharging_rate_stomp = 45 SECONDS// Time until next stomp
 	var/recharging_time_stomp = 0 //Time until next dash
 	var/stomp_cost = 2500 // Cost to stomp.
 	var/max_range = 4 // max stomp range
