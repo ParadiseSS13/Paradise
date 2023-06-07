@@ -437,14 +437,6 @@
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
 
-	// Temp for TM
-	var/list/tmlines = list(
-		"<hr><span class='boldnotice'>",
-		"We are doing a testmerge of widescreen. If your game viewport is still square, please go to the <code>OOC</code> tab and press <code>Fit Viewport</code>. ",
-		"Please leave feedback on the thread here: https://www.paradisestation.org/forum/topic/23876-widescreen-feedback-thread/",
-		"</span><br><span class='userdanger'>UPDATE: </span><span class='notice'>A <code>View Range</code> option has been added to <code>Game Preferences</code>.</span><hr>"
-	)
-	to_chat(src, tmlines.Join(""))
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
