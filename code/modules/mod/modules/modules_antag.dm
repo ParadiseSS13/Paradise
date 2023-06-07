@@ -34,7 +34,7 @@
 	armor_mod_2 = new armor_mod_1
 
 /obj/item/mod/armor/mod_module_armor_boost
-	armor = list(MELEE = 25, BULLET = 30, LASER = 15, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 25, BULLET = 30, LASER = 15, ENERGY = 15, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/mod/module/armor_booster/on_suit_activation()
 	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER

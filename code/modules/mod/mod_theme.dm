@@ -110,7 +110,7 @@
 	armor_type_2 = new armor_type_1
 
 /obj/item/mod/armor/mod_theme
-	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = INFINITY, RAD = 25, FIRE = 33, ACID = 33)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 25, FIRE = 33, ACID = 33)
 
 /datum/mod_theme/engineering
 	name = "engineering"
@@ -160,7 +160,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_engineering
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 30, BIO = INFINITY, RAD = 150, FIRE = INFINITY, ACID = 150) //Bomb armor bumped up a bit, as the modsuit describes it with blast-dampening
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 30, RAD = 150, FIRE = INFINITY, ACID = 150) //Bomb armor bumped up a bit, as the modsuit describes it with blast-dampening
 
 /datum/mod_theme/atmospheric
 	name = "atmospheric"
@@ -213,7 +213,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_atmospheric
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 15, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/advanced
 	name = "advanced"
@@ -271,7 +271,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_advanced
-	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/mining
 	name = "mining"
@@ -364,7 +364,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_mining
-	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 50, BIO = INFINITY, RAD = 50, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
 
 /datum/mod_theme/loader
 	name = "loader"
@@ -413,7 +413,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_loader
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 0, FIRE = 25, ACID = 25)
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 25, ACID = 25)
 
 /datum/mod_theme/medical
 	name = "medical"
@@ -496,7 +496,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_medical
-	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = INFINITY, RAD = 0, FIRE = 75, ACID = 150)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 75, ACID = 150)
 
 /datum/mod_theme/rescue
 	name = "rescue"
@@ -558,7 +558,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_rescue
-	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 10, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150) //Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
+	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 50, FIRE = 150, ACID = 150) //Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
 
 /datum/mod_theme/research
 	name = "research"
@@ -615,7 +615,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_research
-	armor = list(MELEE = 30, BULLET = 30, LASER = 5, ENERGY = 5, BOMB = INFINITY, BIO = INFINITY, RAD = 75, FIRE = 75, ACID = 150) //Slow balistic / explosive testing armor. Not laser testing however!
+	armor = list(MELEE = 30, BULLET = 30, LASER = 5, ENERGY = 5, BOMB = INFINITY, RAD = 75, FIRE = 75, ACID = 150) //Slow balistic / explosive testing armor. Not laser testing however!
 
 /datum/mod_theme/security
 	name = "security"
@@ -671,7 +671,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_security
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 25, BIO = INFINITY, RAD = 0, FIRE = 150, ACID = 150)
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 25, RAD = 0, FIRE = 150, ACID = 150)
 
 /datum/mod_theme/safeguard
 	name = "safeguard"
@@ -726,7 +726,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_safeguard
-	armor = list(MELEE = 30, BULLET = 25, LASER = 25, ENERGY = 15, BOMB = 40, BIO = INFINITY, RAD = 25, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 30, BULLET = 25, LASER = 25, ENERGY = 15, BOMB = 40, RAD = 25, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/magnate
 	name = "magnate"
@@ -785,7 +785,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_magnate
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 15, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = 450) //On one hand this is quite strong, on the other hand energy hole / antagonists need to steal, and thus by extention use this.
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = 450) //On one hand this is quite strong, on the other hand energy hole / antagonists need to steal, and thus by extention use this.
 
 /datum/mod_theme/cosmohonk
 	name = "cosmohonk"
@@ -835,7 +835,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_cosmohonk
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, BIO = INFINITY, RAD = 0, FIRE = 75, ACID = 50)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = 75, ACID = 50)
 
 /datum/mod_theme/syndicate
 	name = "syndicate"
@@ -920,7 +920,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_syndicate
-	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, BIO = INFINITY, RAD = 50, FIRE = 50, ACID = 450)
+	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, RAD = 50, FIRE = 50, ACID = 450)
 	//melee = 40 with booster
 	//bullet = 50
 	//laser = 20 with booster
@@ -982,7 +982,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_elite
-	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 10, BOMB = 60, BIO = INFINITY, RAD = 150, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 10, BOMB = 60, RAD = 150, FIRE = INFINITY, ACID = INFINITY)
 	//melee = 50 // 75 with booster
 	//bullet = 45 // 75 same as
 	//laser = 35 //50 same as
@@ -1042,7 +1042,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_prototype
-	armor = list(MELEE = 20, BULLET = 5, LASER = 10, ENERGY = 10, BOMB = 50, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150)
+	armor = list(MELEE = 20, BULLET = 5, LASER = 10, ENERGY = 10, BOMB = 50, RAD = 50, FIRE = 150, ACID = 150)
 
 /datum/mod_theme/responsory
 	name = "responsory"
@@ -1121,7 +1121,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_responsory //This has no slowdown active, and no variation between levels. I am ASSUMING this will be gamma only.
-	armor = list(MELEE = 40, BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 25, BIO = INFINITY, RAD = INFINITY, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 40, BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 25, RAD = INFINITY, FIRE = 200, ACID = 200)
 
 /datum/mod_theme/apocryphal
 	name = "apocryphal"
@@ -1178,7 +1178,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_apocryphal
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 /datum/mod_theme/corporate
 	name = "corporate"
@@ -1233,7 +1233,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_corporate
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 /datum/mod_theme/debug
 	name = "debug"
@@ -1283,7 +1283,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_debug
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 
 /datum/mod_theme/administrative
@@ -1331,4 +1331,4 @@
 	)
 
 /obj/item/mod/armor/mod_theme_administrative //considering this should not be used, it's getting just DS armor, not infinity in everything.
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
