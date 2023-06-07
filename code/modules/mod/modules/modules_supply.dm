@@ -280,7 +280,7 @@
 
 /obj/item/mod/module/magnet
 	name = "MOD loader hydraulic magnet module"
-	desc = "A powerful hydraulic electromagnet able to launch crates and lockers towards the user, and keep 'em attached."
+	desc = "A powerful hydraulic electromagnet able to launch crates and lockers towards the user, and keep them attached."
 	icon_state = "magnet_loader"
 	module_type = MODULE_ACTIVE
 	removable = FALSE
