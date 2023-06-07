@@ -62,7 +62,7 @@
 		return FALSE
 	var/turf/T = get_turf(current)
 	if(!atoms_share_level(T, src))//off Z level
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!</span>")
+		to_chat(user, "<span class='danger'>Unable to establish a connection: You're too far away from the target silicon!</span>")
 		return FALSE
 	return TRUE
 
