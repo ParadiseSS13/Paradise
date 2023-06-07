@@ -61,6 +61,8 @@
 	anchored = TRUE
 	/// Amount of SSobj ticks (Roughly 2 seconds) since the last hallucination proc'd
 	var/time_since_last_hallucination = 0
+	/// Will we play hallucination sounds or not
+	var/silent = TRUE
 
 /obj/structure/shadowcocoon/Initialize(mapload)
 	. = ..()
@@ -84,9 +86,19 @@
 			flare_to_darken.fuel = 0
 			flare_to_darken.visible_message("<span class='notice'>[flare_to_darken] suddenly dims.</span>")
 		to_darken.extinguish_light()
-	if(time_since_last_hallucination >= rand(4, 8))
+	if(!silent && time_since_last_hallucination >= rand(8, 12))
 		playsound(src, pick('sound/items/deconstruct.ogg', 'sound/weapons/handcuffs.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/effects/eleczap.ogg', get_sfx("bodyfall"), get_sfx("gunshot"), 'sound/weapons/egloves.ogg'), 50)
 		time_since_last_hallucination = 0
+
+/obj/structure/shadowcocoon/AltClick(mob/user)
+	if(!isdemon(user))
+		return ..()
+	if(silent)
+		to_chat(user, "<span class='notice'>You twist and change your trapped victim in [src] to lure in more prey.</span>")
+		silent = FALSE
+		return
+	to_chat(user, "<span class='notice'>The tendrils from [src] snap back to their orignal form.</span>")
+	silent = TRUE
 
 /obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type != BURN) //I unashamedly stole this from spider cocoon code
