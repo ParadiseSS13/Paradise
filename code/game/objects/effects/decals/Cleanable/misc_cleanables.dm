@@ -1,3 +1,5 @@
+#define ALWAYS_IN_GRAVITY 3
+
 /obj/effect/decal/cleanable/generic
 	name = "clutter"
 	desc = "Someone should clean that up."
@@ -291,3 +293,5 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+
+#undef ALWAYS_IN_GRAVITY
