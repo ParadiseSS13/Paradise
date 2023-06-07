@@ -323,7 +323,7 @@
 	data["compressor"] = !isnull(compressor)
 	data["compressor_broken"] = (!compressor || (compressor.stat & BROKEN))
 	data["turbine"] = !isnull(compressor?.turbine)
-	data["turbine_broken"] =(compressor?.turbine?.stat & BROKEN))
+	data["turbine_broken"] = (compressor?.turbine?.stat & BROKEN)
 
 	if(compressor && compressor.turbine)
 		data["online"] = compressor.starter

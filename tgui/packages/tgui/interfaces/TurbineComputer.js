@@ -32,7 +32,7 @@ export const TurbineComputer = (props, context) => {
               />
             </>
           )}>
-          {operational 
+          {operational
             ? <TurbineWorking />
             : <TurbineBroken />
           }
@@ -57,12 +57,16 @@ const TurbineBroken = (props, context) => {
       <LabeledList.Item
         label="Compressor Status"
         color={(!compressor || compressor_broken) ? 'bad' : 'good'}>
-        {compressor_broken ? compressor ? 'Offline' : 'Missing' : 'Online'}
+        {compressor_broken
+        ? compressor ? 'Offline' : 'Missing'
+        : 'Online'}
       </LabeledList.Item>
       <LabeledList.Item
         label="Turbine Status"
         color={(!turbine || turbine_broken) ? 'bad' : 'good'}>
-        {turbine_broken ? turbine ? 'Offline' : 'Missing' : 'Online'}
+        {turbine_broken
+        ? turbine ? 'Offline' : 'Missing'
+        : 'Online'}
       </LabeledList.Item>
     </LabeledList>
   );
