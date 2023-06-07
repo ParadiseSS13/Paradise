@@ -29,9 +29,16 @@
 	name = "control rod management computer"
 	desc = "A computer which can remotely raise / lower the control rods of a reactor."
 	icon_screen = "engie_cams"
+	icon_keyboard = "power_key"
+	circuit = /obj/item/circuitboard/rbmk_control_rods
+
+/obj/machinery/computer/sm_monitor/attack_ai(mob/user)
+	attack_hand(user)
 
 /obj/machinery/computer/reactor/control_rods/attack_hand(mob/living/user)
-	. = ..()
+	add_fingerprint(user)
+	if(stat & (BROKEN|NOPOWER))
+		return
 	ui_interact(user)
 
 /obj/machinery/computer/reactor/control_rods/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -65,15 +72,23 @@
 	name = "reactor statistics console"
 	desc = "A console for monitoring the statistics of a nuclear reactor."
 	icon_screen = "power"
+	icon_keyboard = "power_key"
+	circuit = /obj/item/circuitboard/rbmk_stats
 	var/next_stat_interval = 0
 	var/list/psiData = list()
 	var/list/powerData = list()
 	var/list/tempInputData = list()
 	var/list/tempOutputdata = list()
 
+/obj/machinery/computer/sm_monitor/attack_ai(mob/user)
+	attack_hand(user)
+
 /obj/machinery/computer/reactor/stats/attack_hand(mob/living/user)
-	. = ..()
+	add_fingerprint(user)
+	if(stat & (BROKEN|NOPOWER))
+		return
 	ui_interact(user)
+
 
 /obj/machinery/computer/reactor/stats/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -114,6 +129,8 @@
 	name = "Reactor Fuel Management Console"
 	desc = "A console which can remotely raise fuel rods out of nuclear reactors."
 	icon_screen = "forensics"
+	icon_keyboard = "power_key"
+	circuit = /obj/item/circuitboard/rbmk_fuel_rods
 
 /obj/machinery/computer/reactor/fuel_rods/attack_hand(mob/living/user)
 	. = ..()

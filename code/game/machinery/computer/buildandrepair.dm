@@ -335,6 +335,24 @@
 	build_path = /obj/machinery/computer/sm_monitor
 	origin_tech = "programming=2;powerstorage=2"
 
+/obj/item/circuitboard/rbmk_stats
+	board_name = "RBMK Stats Console"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/reactor/stats
+	origin_tech = "programming=3;powerstorage=3"
+
+/obj/item/circuitboard/rbmk_control_rods
+	board_name = "RBMK Control Rod Management Console"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/reactor/control_rods
+	origin_tech = "programming=3;powerstorage=3"
+
+/obj/item/circuitboard/rbmk_fuel_rods
+	board_name = "RBMK Fuel Rod Management Console"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/reactor/fuel_rods
+	origin_tech = "programming=3;powerstorage=3"
+
 // RD console circuits, so that de/reconstructing one of the special consoles doesn't ruin everything forever
 /obj/item/circuitboard/rdconsole
 	board_name = "RD Console"
