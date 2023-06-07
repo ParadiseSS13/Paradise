@@ -18,7 +18,7 @@
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
 
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
 
 /obj/item/crowbar/red
@@ -68,6 +68,42 @@
 	icon_state = "crowbar_large"
 	item_state = "crowbar_large"
 	toolspeed = 0.5
+
+/obj/item/crowbar/engineering
+	name = "engineering crowbar"
+	desc = "It's a big crowbar, perfect for fending off those assistants trying to get at your gloves."
+	force = 12
+	//w_class = WEIGHT_CLASS_NORMAL Commented out so it can fit in belts
+	throw_speed = 3
+	throw_range = 3
+	materials = list(MAT_METAL = 400)
+	icon_state = "crowbar_eng"
+	item_state = "crowbar_eng"
+	belt_icon = "crowbar_eng"
+	toolspeed = 0.5
+
+/obj/item/crowbar/engineering/suicide_act(mob/living/user)
+
+	if(!user)
+		return
+
+	user.visible_message("<span class='suicide'>[user] looks up and hooks [src] into a ceiling tile! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
+	user.Immobilize(10 SECONDS)
+	playsound(loc, 'sound/items/crowbar.ogg', 50, TRUE, -1)
+
+	sleep(2 SECONDS)
+	add_fingerprint(user)
+
+	to_chat(user, "<span class='userdanger'>You pry open the ceiling tile above you and look beyond it.. oh God, what the hell is <i>that?!</i></span>")
+	user.emote("scream")
+	animate_fading_leap_up(user)
+
+	for(var/obj/item/W in user)
+		user.unEquip(W)
+
+	user.dust()
+	return OBLITERATION
 
 /obj/item/crowbar/cyborg
 	name = "hydraulic crowbar"

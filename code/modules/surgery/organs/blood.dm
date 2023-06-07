@@ -25,7 +25,8 @@
 	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_BADDNA)) //cryosleep or husked people do not pump the blood.
 		if(blood_volume < BLOOD_VOLUME_NORMAL)
 			blood_volume += 0.1 // regenerate blood VERY slowly
-
+			if(nutrition >= NUTRITION_LEVEL_WELL_FED)
+				blood_volume += 0.1 // double it if you are well fed
 
 		//Effects of bloodloss
 		var/word = pick("dizzy","woozy","faint")
