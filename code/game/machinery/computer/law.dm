@@ -13,7 +13,7 @@
 	/// sets the cooldown time between uploads when emag'd
 	var/cooldown = 0
 	/// holds the value for when the inherent_laws are counted in countlaws()
-	var/foundlaws = 0
+	var/found_laws = 0
 
 //For emagging the console
 /obj/machinery/computer/aiupload/emag_act(mob/user)
@@ -46,13 +46,13 @@
 /obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/aiModule))
 		return ..()
-	if(!check_valid_selection())
+	if(!check_valid_selection(user))
 		return
 	if(!emagged) //non-emag law change
 		var/obj/item/aiModule/M = O
 		M.install(src)
 		return
-	apply_emag_laws()
+	apply_emag_laws(user)
 	return
 
 /// checks to ensure there is a selected AI, and that it is on the same Z level
@@ -72,7 +72,7 @@
 		to_chat(user, "<span class='danger'>The program seems to have frozen. It will need some time to process.</span>")
 		return
 	do_sparks(5, TRUE, src)
-	foundlaws = length(current.laws.inherent_laws)
+	found_laws = length(current.laws.inherent_laws)
 	if(!emag_ion_check()) //creates an ion-like inherent law if the ion_laws arnt modified or added
 		emag_inherent_law()
 
@@ -91,15 +91,15 @@
 	current.laws.ion_laws[1].law = emag_law
 	cooldown = world.time + AIUPLOAD_EMAG_COOLDOWN
 	log_and_message_admins("has given [current] the ion law: [current.laws.ion_laws[1].law].")
-	return TRUE	
+	return TRUE
 
 /// modifies one of the AI's laws to read like an ion law
 /obj/machinery/computer/aiupload/proc/emag_inherent_law()
-	if(!foundlaws)
+	if(!found_laws)
 		return
 	var/datum/ai_law/inherent/new_law = new(generate_ion_law())
 	var/emag_law = new_law.law
-	var/lawposition = rand(1, foundlaws)
+	var/lawposition = rand(1, found_laws)
 	current.laws.inherent_laws[lawposition].law = emag_law
 	log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
 	current.show_laws()
