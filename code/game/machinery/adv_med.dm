@@ -360,8 +360,8 @@
 			var/obj/item/paper/P = new /obj/item/paper(loc)
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			var/name = occupant ? occupant.name : "Unknown"
-			P.info = "<CENTER><B>Body Scan - [name]</B></CENTER><BR>"
-			P.info += "<b>Time of scan:</b> [station_time_timestamp()]<br><br>"
+			P.info = "<center><b>Patient: [name]</b></center>"
+			P.info += "<center><b>Time of scan:</b> [station_time_timestamp()]</center><br>"
 			P.info += "[generate_printing_text()]"
 			P.info += "<br><br><b>Notes:</b><br>"
 			P.name = "Body Scan - [name]"
@@ -406,7 +406,7 @@
 		dat += "[extra_font]\tBurn Severity %: [occupant.getFireLoss()]</font><br>"
 
 		extra_font = (occupant.radiation < 10 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tRadiation Level %: [occupant.radiation]</font><br>"
+		dat += "[extra_font]\tRadiation Level: [occupant.radiation] rads</font><br>"
 
 		extra_font = (occupant.getCloneLoss() < 1 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tGenetic Tissue Damage %: [occupant.getCloneLoss()]</font><br>"
@@ -449,66 +449,69 @@
 			if(e.status & ORGAN_INT_BLEEDING)
 				internal_bleeding = "<br>Internal bleeding"
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
-				lung_ruptured = "Lung ruptured:"
+				lung_ruptured = "Lung ruptured"
 			if(e.status & ORGAN_SPLINTED)
-				splint = "Splinted:"
+				splint = "Splinted"
 			if(e.status & ORGAN_BROKEN)
-				AN = "[e.broken_description]:"
+				AN = "[e.broken_description]"
 			if(e.status & ORGAN_SALVED)
-				ointment = "Salved:"
+				ointment = "Salved"
 			if(e.status & ORGAN_BURNT)
-				burn_wound = "Critical Burn:"
+				burn_wound = "Critical Burn"
 			if(e.status & ORGAN_DEAD)
-				dead = "DEAD:"
+				dead = "DEAD"
 			if(e.is_robotic())
-				robot = "Robotic:"
+				robot = "Robotic"
 			if(e.open)
-				open = "Open:"
+				open = "Open"
 			switch(e.germ_level)
 				if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
-					infected = "Mild Infection:"
+					infected = "Mild Infection"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
-					infected = "Mild Infection+:"
+					infected = "Mild Infection+"
 				if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
-					infected = "Mild Infection++:"
+					infected = "Mild Infection++"
 				if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
-					infected = "Acute Infection:"
+					infected = "Acute Infection"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
-					infected = "Acute Infection+:"
+					infected = "Acute Infection+"
 				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
-					infected = "Acute Infection++:"
+					infected = "Acute Infection++"
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
-					infected = "Septic:"
+					infected = "Septic"
 
 			var/unknown_body = 0
 			for(var/I in e.embedded_objects)
 				unknown_body++
 
 			if(unknown_body || e.hidden)
-				imp += "Unknown body present:"
+				imp += "Unknown body present"
 			if(!AN && !open && !infected && !imp)
-				AN = "None:"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][burn_wound][ointment][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
+				AN = ""
+			dat += "<td>[e.name]</td>"
+			dat += "<td>[e.burn_dam]</td>"
+			dat += "<td>[e.brute_dam]</td>"
+			dat += "<td>[robot][bled][AN][splint][burn_wound][ointment][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
-			var/mech = i.desc
-			var/infection = "None"
+			var/infection = ""
 			var/dead = ""
+			var/mech = i.desc
 			if(i.status & ORGAN_DEAD)
-				dead = "DEAD:"
+				dead = "DEAD"
 			switch(i.germ_level)
 				if(1 to INFECTION_LEVEL_ONE + 200)
-					infection = "Mild Infection:"
+					infection = "Mild Infection"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
-					infection = "Mild Infection+:"
+					infection = "Mild Infection+"
 				if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
-					infection = "Mild Infection++:"
+					infection = "Mild Infection++"
 				if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
-					infection = "Acute Infection:"
+					infection = "Acute Infection"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
-					infection = "Acute Infection+:"
+					infection = "Acute Infection+"
 				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
-					infection = "Acute Infection++:"
+					infection = "Acute Infection++"
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
 					infection = "Septic:"
 
