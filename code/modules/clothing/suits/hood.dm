@@ -26,11 +26,10 @@
 	if(slot == slot_wear_suit)
 		return 1
 
-/obj/item/clothing/suit/hooded/equipped(mob/user, slot, initial)
-	. = ..()
-
+/obj/item/clothing/suit/hooded/equipped(mob/user, slot)
 	if(slot != slot_wear_suit)
 		RemoveHood()
+	..()
 
 /obj/item/clothing/suit/hooded/proc/RemoveHood()
 	if(isnull(hood))
@@ -39,7 +38,7 @@
 	suit_adjusted = 0
 	if(ishuman(hood.loc))
 		var/mob/living/carbon/H = hood.loc
-		H.temporarily_remove_item_from_inventory(hood, force = TRUE)
+		H.unEquip(hood, 1)
 		H.update_inv_wear_suit()
 	hood.forceMove(src)
 	for(var/X in actions)
@@ -60,7 +59,7 @@
 			if(H.head)
 				to_chat(H,"<span class='warning'>You're already wearing something on your head!</span>")
 				return
-			else if(H.equip_to_slot_if_possible(hood, slot_head))
+			else if(H.equip_to_slot_if_possible(hood, slot_head, FALSE, FALSE))
 				suit_adjusted = 1
 				icon_state = "[initial(icon_state)]_hood"
 				H.update_inv_wear_suit()
@@ -82,9 +81,8 @@
 	if(suit)
 		suit.RemoveHood()
 
-/obj/item/clothing/head/hooded/equipped(mob/user, slot, initial)
-	. = ..()
-
+/obj/item/clothing/head/hooded/equipped(mob/user, slot)
+	..()
 	if(slot != slot_head)
 		if(suit)
 			suit.RemoveHood()

@@ -58,9 +58,10 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
-			if(!user.drop_transfer_item_to_loc(O, src))
+			if(!user.drop_item())
 				to_chat(user, "<span class='notice'>[O] is stuck to your hand!</span>")
 				return
+			O.forceMove(src)
 			auth = O
 			return attack_hand(user)
 		else
@@ -238,8 +239,7 @@ GLOBAL_VAR(bomb_set)
 		if("auth")
 			if(auth)
 				if(!usr.get_active_hand() && Adjacent(usr))
-					auth.forceMove_turf()
-					usr.put_in_hands(auth, ignore_anim = FALSE)
+					usr.put_in_hands(auth)
 				else
 					auth.forceMove(get_turf(src))
 				yes_code = FALSE
@@ -247,7 +247,8 @@ GLOBAL_VAR(bomb_set)
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/disk/nuclear))
-					usr.drop_transfer_item_to_loc(I, src)
+					usr.drop_item()
+					I.forceMove(src)
 					auth = I
 			return
 	if(!is_auth(usr)) // All requests below here require NAD inserted.

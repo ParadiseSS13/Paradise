@@ -317,14 +317,15 @@
 		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
 		return
 	if(istype(O, /obj/item) && !istype(O, /obj/item/storage) && !istype(O, /obj/item/shippingPackage))
-		if(!user.can_unEquip(O))
+		if(!user.canUnEquip(O))
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
 			return
 		if(O.w_class > 3)
 			to_chat(user, "<span class='notice'>[O] is too large to fit in [src].</span>")
 		else
 			wrapped = O
-			user.drop_transfer_item_to_loc(O, src)
+			user.unEquip(O)
+			O.forceMove(src)
 			O.add_fingerprint(usr)
 			add_fingerprint(usr)
 			to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
@@ -333,7 +334,7 @@
 	if(sealed)
 		to_chat(user, "<span class='notice'>You tear open [src], dropping the contents onto the floor.</span>")
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
-		user.temporarily_remove_item_from_inventory(src)
+		user.unEquip(src)
 		wrapped.forceMove(get_turf(user))
 		wrapped = null
 		qdel(src)
@@ -352,7 +353,7 @@
 		if(alert("Do you want to tear up the package?",, "Yes", "No") == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
-			user.temporarily_remove_item_from_inventory(src)
+			user.unEquip(src)
 			qdel(src)
 
 /obj/item/shippingPackage/proc/update_desc()

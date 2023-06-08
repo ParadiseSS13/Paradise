@@ -32,9 +32,10 @@
 /obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
-		var/obj/item/cuffs = C.handcuffed
-		C.temporarily_remove_item_from_inventory(cuffs, TRUE)
-		qdel(cuffs)
+		QDEL_NULL(C.handcuffed)
+		if(C.buckled && C.buckled.buckle_requires_restraints)
+			C.buckled.unbuckle_mob(C)
+		C.update_handcuffed()
 		return
 	else
 		..()

@@ -40,7 +40,7 @@
 			break
 		if(iscarbon(energyKatana.loc))
 			var/mob/living/carbon/sword_holder = energyKatana.loc
-			sword_holder.drop_item_ground(energyKatana, force = TRUE)
+			sword_holder.unEquip(energyKatana, TRUE)
 		else
 			energyKatana.forceMove(get_turf(energyKatana))
 

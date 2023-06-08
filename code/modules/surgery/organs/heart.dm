@@ -89,7 +89,7 @@
 			to_chat(H, "<span class='userdanger'>[src] is not compatible with your form!</span>")
 			return
 		playsound(user,'sound/effects/singlebeat.ogg', 40, 1)
-		user.drop_item_ground(src)
+		user.drop_item()
 		insert(user)
 	else
 		return ..()

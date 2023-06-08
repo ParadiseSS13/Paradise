@@ -49,7 +49,8 @@
 /obj/item/laser_pointer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/micro_laser))
 		if(!diode)
-			user.drop_transfer_item_to_loc(W, src)
+			user.drop_item()
+			W.loc = src
 			diode = W
 			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
 		else

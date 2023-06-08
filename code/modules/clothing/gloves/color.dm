@@ -19,9 +19,7 @@
 	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
 
-/obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot, initial)
-	. = ..()
-
+/obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -35,8 +33,6 @@
 			to_chat(H, "<span class='biggerdanger'>You feel like you have UNLIMITED POWER!!</span>")
 
 /obj/item/clothing/gloves/color/yellow/power/dropped(mob/user, slot)
-	. = ..()
-
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user

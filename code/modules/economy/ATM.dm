@@ -87,7 +87,8 @@ log transactions
 
 		if(!held_card)
 			add_fingerprint(user)
-			user.drop_transfer_item_to_loc(I, src)
+			user.drop_item()
+			I.forceMove(src)
 			held_card = I
 			if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 				authenticated_account = null
@@ -287,15 +288,16 @@ log transactions
 
 		if("insert_card")
 			if(held_card)
-				held_card.forceMove_turf()
+				held_card.forceMove(loc)
 				authenticated_account = null
 				if(ishuman(usr) && !usr.get_active_hand())
-					usr.put_in_hands(held_card, ignore_anim = FALSE)
+					usr.put_in_hands(held_card)
 				held_card = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
-					usr.drop_transfer_item_to_loc(I, src)
+					usr.drop_item()
+					I.forceMove(src)
 					held_card = I
 
 		if("logout")
@@ -305,7 +307,6 @@ log transactions
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
-	var/obj/item/stack/spacecash/C = new(drop_location(), arbitrary_sum)
-	if(usr)
-		usr.put_in_hands(C, ignore_anim = FALSE)
-
+	var/obj/item/stack/spacecash/C = new(amt = arbitrary_sum)
+	if(!usr?.put_in_hands(C))
+		C.forceMove(get_step(get_turf(src), turn(dir, 180)))

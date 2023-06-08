@@ -127,8 +127,7 @@
 					if(inventory_head.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
-					drop_item_ground(inventory_head)
-					usr.put_in_hands(inventory_head, ignore_anim = FALSE)
+					usr.put_in_hands(inventory_head)
 					inventory_head = null
 					update_muhtar_fluff()
 					regenerate_icons()
@@ -140,8 +139,7 @@
 					if(inventory_mask.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
-					drop_item_ground(inventory_mask)
-					usr.put_in_hands(inventory_mask, ignore_anim = FALSE)
+					usr.put_in_hands(inventory_mask)
 					inventory_mask = null
 					update_muhtar_fluff()
 					regenerate_icons()
@@ -151,8 +149,8 @@
 			if("collar")
 				if(pcollar)
 					var/the_collar = pcollar
-					drop_item_ground(pcollar)
-					usr.put_in_hands(the_collar, ignore_anim = FALSE)
+					unEquip(pcollar)
+					usr.put_in_hands(the_collar)
 					pcollar = null
 					update_muhtar_fluff()
 					regenerate_icons()
@@ -182,7 +180,7 @@
 						usr.visible_message("<span class='notice'>[usr] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s face for a moment.</span>")
 						return
 
-					if(!usr.drop_item_ground(item_to_add))
+					if(!usr.unEquip(item_to_add))
 						to_chat(usr, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s face!</span>")
 						return
 
@@ -230,7 +228,7 @@
 			return
 		return
 
-	if(user && !user.drop_item_ground(item_to_add))
+	if(user && !user.unEquip(item_to_add))
 		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
 		return 0
 

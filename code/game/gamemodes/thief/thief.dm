@@ -137,11 +137,10 @@
 	if(!istype(thief))
 		return
 	if(thief.back)
-		thief.equip_to_slot_if_possible(new /obj/item/thief_kit(thief), slot_in_backpack)
+		thief.equip_to_slot(new /obj/item/thief_kit(thief), slot_in_backpack)
 		to_chat(thief, "<span class='notice'>Набор гильдии воров находится у вас в рюкзаке.</span>")
 	else
-		var/obj/item/thief_kit/kit = new(thief)
-		kit.equip_to_best_slot(thief)
+		thief.equip_to_appropriate_slot(new /obj/item/thief_kit(thief))
 
 /datum/game_mode/proc/auto_declare_completion_thief()
 	if(thieves.len)

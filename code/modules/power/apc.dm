@@ -481,9 +481,10 @@
 			if(stat & MAINT)
 				to_chat(user, "<span class='warning'>There is no connector for your power cell!</span>")
 				return
-			if(!user.drop_transfer_item_to_loc(W, src))
+			if(!user.drop_item())
 				return
 			add_fingerprint(user)
+			W.forceMove(src)
 			cell = W
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [name]!",\
@@ -608,7 +609,8 @@
 			"<span class='clock'>Replicant alloy rapidly covers the APC's innards, replacing the machinery.</span><br>\
 			<span class='clockitalic'>This APC will now passively provide power for the cult!</span>")
 			playsound(user, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
-			user.drop_transfer_item_to_loc(W, src, force = TRUE)
+			user.unEquip(W, 1)
+			W.forceMove(src)
 			cog = W
 			START_PROCESSING(SSfastprocess, W)
 			opened = FALSE
@@ -809,8 +811,7 @@
 	if(usr == user && opened && !issilicon(user))
 		if(cell)
 			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "You remove the [cell].</span>")
-			cell.forceMove_turf()
-			user.put_in_hands(cell, ignore_anim = FALSE)
+			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
 			cell.update_icon()
 			cell = null

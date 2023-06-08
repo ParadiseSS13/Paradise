@@ -70,9 +70,8 @@
 	if(slot == slot_head)
 		return 1
 
-/obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/user, slot, initial)
-	. = ..()
-
+/obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/user, slot)
+	..()
 	if(slot != slot_head)
 		if(suit)
 			suit.RemoveHelmet()
@@ -138,7 +137,8 @@
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 
-		if(user.drop_transfer_item_to_loc(I, src))
+		if(user.unEquip(I))
+			I.forceMove(src)
 			jetpack = I
 			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
 			return
@@ -159,9 +159,8 @@
 	jetpack = null
 	to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
 
-/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot, initial)
-	. = ..()
-
+/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
+	..()
 	if(jetpack)
 		if(slot == slot_wear_suit)
 			for(var/X in jetpack.actions)
@@ -319,9 +318,9 @@
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	toggle_hardsuit_mode(user)
 	user.update_inv_head()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_head(src, forced = TRUE)
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.head_update(src, forced = 1)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -602,9 +601,8 @@
 	var/hud_active = TRUE
 	var/explosion_detection_dist = 40
 
-/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/user, slot, initial)
-	. = ..()
-
+/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/user, slot)
+	..()
 	if(slot == slot_head)
 		GLOB.doppler_arrays += src //Needed to sense the kabooms
 		if(ishuman(user))

@@ -32,20 +32,22 @@
 		if(!b_stat)
 			to_chat(user, "<span class='notice'>[src] is not ready to be attached!</span>")
 			return
-		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit(drop_location())
+		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit( user )
 		A.icon = 'icons/obj/assemblies.dmi'
 
-		if(!user.drop_transfer_item_to_loc(W, A))
+		if(!user.unEquip(W))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot attach it to \the [src]!</span>")
 			return
+		W.loc = A
 		W.master = A
 		A.part1 = W
 
-		user.drop_transfer_item_to_loc(src, A)
+		user.unEquip(src)
+		loc = A
 		master = A
 		A.part2 = src
 
-		user.put_in_hands(A, ignore_anim = FALSE)
+		user.put_in_hands(A)
 		A.add_fingerprint(user)
 		if(src.flags & NODROP)
 			A.flags |= NODROP

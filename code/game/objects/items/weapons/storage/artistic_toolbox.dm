@@ -114,7 +114,8 @@
 			var/obj/item/storage/box/B = new(src)
 			B.name = "Box-'[L.real_name]'"
 			for(var/obj/item/SI in equipped_items)
-				L.drop_transfer_item_to_loc(SI, B, force = TRUE)
+				L.unEquip(SI, TRUE)
+				SI.forceMove(B)
 			equipped_items.Cut()
 
 	L.forceMove(src)
@@ -123,7 +124,7 @@
 	L.death()
 	L.ghostize()
 	if(L == original_owner)
-		L.temporarily_remove_item_from_inventory(src, force = TRUE)
+		L.unEquip(src, TRUE)
 		qdel(L)
 		var/obj/item/storage/toolbox/green/fake_toolbox = new(get_turf(src))
 		fake_toolbox.desc = "It looks a lot duller than it used to."

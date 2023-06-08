@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 					B.handle_item_insertion(src)
 			uses_left--
 			if(uses_left <= 0)
-				user.drop_from_active_hand(src)
+				user.drop_item(src)
 				forceMove(A)
 			var/mutable_appearance/balloon
 			var/mutable_appearance/balloon2

@@ -203,9 +203,10 @@
 			add_fingerprint(user)
 		return
 	else if(istype(W, /obj/item/disk/design_disk))
-		if(!user.drop_transfer_item_to_loc(W, src))
+		if(!user.drop_item())
 			return
 		add_fingerprint(user)
+		W.forceMove(src)
 		inserted_disk = W
 		SStgui.update_uis(src)
 		interact(user)
@@ -346,8 +347,7 @@
 			if(!inserted_id)
 				return FALSE
 			if(ishuman(usr))
-				inserted_id.forceMove_turf()
-				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
+				usr.put_in_hands(inserted_id)
 				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_id] from [src].</span>", \
 									"<span class='notice'>You retrieve [inserted_id] from [src].</span>")
 			else
@@ -357,8 +357,7 @@
 			if(!inserted_disk)
 				return FALSE
 			if(ishuman(usr))
-				inserted_disk.forceMove_turf()
-				usr.put_in_hands(inserted_disk, ignore_anim = FALSE)
+				usr.put_in_hands(inserted_disk)
 				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_disk] from [src].</span>", \
 									"<span class='notice'>You retrieve [inserted_disk] from [src].</span>")
 			else
@@ -482,8 +481,9 @@
 	if(inserted_id)
 		to_chat(user, "<span class='warning'>There is already an ID inside!</span>")
 		return
-	if(!user.drop_transfer_item_to_loc(I, src))
+	if(!user.drop_item())
 		return
+	I.forceMove(src)
 	inserted_id = I
 	SStgui.update_uis(src)
 	interact(user)

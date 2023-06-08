@@ -41,8 +41,7 @@
 		if(cell)
 			cell.update_icon()
 			cell.add_fingerprint(user)
-			cell.forceMove_turf()
-			user.put_in_active_hand(cell, ignore_anim = FALSE)
+			user.put_in_active_hand(cell)
 			to_chat(user, "<span class='notice'>You remove \the [cell].</span>")
 			cell = null
 			var/datum/robot_component/C = components["power cell"]

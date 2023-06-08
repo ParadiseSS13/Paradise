@@ -38,9 +38,10 @@
 /obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id/prisoner))
 		if(!inserted_id)
-			if(!user.drop_transfer_item_to_loc(I, src))
+			if(!user.unEquip(I))
 				return
 			add_fingerprint(user)
+			I.forceMove(src)
 			inserted_id = I
 			to_chat(user, "<span class='notice'>You insert [I].</span>")
 			SStgui.update_uis(src)
@@ -91,14 +92,15 @@
 	switch(action)
 		if("handle_id")
 			if(inserted_id)
-				inserted_id.forceMove_turf()
-				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
+				if(!usr.put_in_hands(inserted_id))
+					inserted_id.forceMove(get_turf(src))
 				inserted_id = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id/prisoner))
-					if(!usr.drop_transfer_item_to_loc(src))
+					if(!usr.unEquip(I))
 						return
+					I.forceMove(src)
 					inserted_id = I
 		if("claim_points")
 			if(!inserted_id)
@@ -147,7 +149,7 @@
 	..()
 
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item/stack/sheet) && user.can_unEquip(I))
+	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I))
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/inp = I
 		points += inp.point_value * inp.amount

@@ -28,7 +28,8 @@
 			return
 		else
 			to_chat(user, "You put [F] into [src] for cooking.")
-			user.drop_transfer_item_to_loc(F, src)
+			user.drop_item()
+			F.loc = src
 			on = TRUE
 			if(!candy)
 				icon_state = "oven_on"

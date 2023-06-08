@@ -104,10 +104,11 @@
 		return TRUE
 	if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
-			if(!user.drop_transfer_item_to_loc(W, src))
+			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
 				return TRUE
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
+			W.forceMove(src)
 		return TRUE
 
 /obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/I)
@@ -130,9 +131,9 @@
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.forceMove_turf()
+		manifest.forceMove(loc)
 		if(ishuman(user))
-			user.put_in_hands(manifest, ignore_anim = FALSE)
+			user.put_in_hands(manifest)
 		manifest = null
 		update_icon()
 		return
@@ -236,9 +237,9 @@
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.forceMove_turf()
+		manifest.forceMove(loc)
 		if(ishuman(user))
-			user.put_in_hands(manifest, ignore_anim = FALSE)
+			user.put_in_hands(manifest)
 		manifest = null
 		update_icon()
 		return

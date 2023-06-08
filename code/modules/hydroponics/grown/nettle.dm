@@ -71,7 +71,7 @@
 		force -= rand(1, (force / 3) + 1) // When you whack someone with it, leaves fall off
 	else
 		to_chat(usr, "All the leaves have fallen off the nettle from violent whacking.")
-		usr.temporarily_remove_item_from_inventory(src)
+		usr.unEquip(src)
 		qdel(src)
 
 /obj/item/grown/nettle/basic
@@ -114,4 +114,4 @@
 		if(prob(20))
 			M.Paralyse(1)
 			M.Weaken(1)
-		M.drop_from_active_hand()
+		M.drop_item()

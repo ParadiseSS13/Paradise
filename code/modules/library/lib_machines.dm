@@ -152,7 +152,8 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
 			return FALSE
 		add_fingerprint(user)
-		user.drop_transfer_item_to_loc(I, src)
+		user.drop_item()
+		I.forceMove(src)
 		return 1
 	else
 		return ..()
@@ -214,7 +215,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		return
 	if(istype(P))
 		add_fingerprint(user)
-		user.drop_transfer_item_to_loc(P, src)
+		user.drop_item()
 		user.visible_message("[user] loads some paper into [src].", "You load some paper into [src].")
 		src.visible_message("[src] begins to hum as it warms up its printing drums.")
 		sleep(rand(200,400))

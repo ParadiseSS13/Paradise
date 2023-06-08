@@ -63,7 +63,8 @@
 		if(!inserted_gps)
 			add_fingerprint(user)
 			inserted_gps = W
-			user.drop_transfer_item_to_loc(W, src)
+			user.unEquip(W)
+			W.loc = src
 			user.visible_message("<span class='notice'>[user] inserts [W] into [src]'s GPS device slot.</span>")
 			updateUsrDialog()
 	else if(istype(W, /obj/item/multitool))
@@ -361,8 +362,7 @@
 
 	if(href_list["ejectGPS"])
 		if(inserted_gps)
-			inserted_gps.forceMove_turf()
-			usr.put_in_hands(inserted_gps, ignore_anim = FALSE)
+			usr.put_in_hands(inserted_gps)
 			inserted_gps = null
 
 	if(href_list["setMemory"])

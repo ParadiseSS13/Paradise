@@ -597,10 +597,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.alpha = w_uniform.alpha
 		standing.color = w_uniform.color
 		overlays_standing[UNIFORM_LAYER] = standing
-
-	// Saved for history .\_/.
-
-	/*else if(!dna.species.nojumpsuit)
+	else if(!dna.species.nojumpsuit)
 		var/list/uniform_slots = list()
 		var/obj/item/organ/external/L = get_organ(BODY_ZONE_L_LEG)
 		if(!(L?.status & ORGAN_ROBOT))
@@ -625,7 +622,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					thing.forceMove(drop_location())											//
 					thing.dropped(src)															//
 					thing.layer = initial(thing.layer)
-					thing.plane = initial(thing.plane)*/
+					thing.plane = initial(thing.plane)
 	apply_overlay(UNIFORM_LAYER)
 
 /mob/living/carbon/human/update_inv_wear_id()

@@ -19,7 +19,8 @@
 		return FALSE
 	bitesize = 0
 	if(M.eat(src, user))
-		user.drop_transfer_item_to_loc(src, M)
+		user.drop_item()
+		forceMove(M)
 		LAZYADD(M.processing_patches, src)
 		return TRUE
 	return FALSE

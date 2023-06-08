@@ -68,7 +68,8 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		to_chat(user, "<span class='notice'>You link [I] with [src].</span>")
 	else if(user.a_intent != INTENT_HARM)
 		add_fingerprint(user)
-		user.transfer_item_to_loc(I, loc)
+		if(user.drop_item())
+			I.forceMove(loc)
 	else
 		return ..()
 

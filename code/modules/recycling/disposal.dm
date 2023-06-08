@@ -174,8 +174,10 @@
 
 	if(!can_be_inserted(I))
 		return
-	if(!user.drop_transfer_item_to_loc(I, src))
+	if(!user.drop_item())
 		return
+	if(I)
+		I.forceMove(src)
 
 	add_fingerprint(user)
 	to_chat(user, "You place \the [I] into the [src].")

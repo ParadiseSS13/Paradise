@@ -60,7 +60,7 @@
 			if(F.wielded)
 				to_chat(user, "<span class='warning'>Unwield \the [F] first.</span>")
 				return
-			if(!user.drop_item_ground(F))
+			if(!user.unEquip(F, FALSE))
 				to_chat(user, "<span class='warning'>\The [F] stays stuck to your hands!</span>")
 				return
 			add_fingerprint(user)
@@ -110,8 +110,7 @@
 	if(localopened)
 		if(fireaxe)
 			add_fingerprint(user)
-			fireaxe.forceMove_turf()
-			user.put_in_hands(fireaxe, ignore_anim = FALSE)
+			user.put_in_hands(fireaxe)
 			to_chat(user, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
 			fireaxe = null
 
@@ -168,8 +167,7 @@
 
 	if(localopened)
 		if(fireaxe)
-			fireaxe.forceMove_turf()
-			usr.put_in_hands(fireaxe, ignore_anim = FALSE)
+			usr.put_in_hands(fireaxe)
 			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
 			fireaxe = null
 		else

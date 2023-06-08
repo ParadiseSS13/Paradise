@@ -16,9 +16,7 @@
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 
-/obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot, initial)
-	. = ..()
-
+/obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == slot_head)
 		if(isvox(user))
 			if(flags & BLOCKHAIR)

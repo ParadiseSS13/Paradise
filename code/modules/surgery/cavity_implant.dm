@@ -174,7 +174,7 @@
 		to_chat(user, "<span class='warning'>This isn't the type of surgery for organ transplants!</span>")
 		return 0//fail
 
-	if(!user.can_unEquip(tool))
+	if(!user.canUnEquip(tool, 0))
 		to_chat(user, "<span class='warning'>[tool] is stuck to your hand, you can't put it in [target]!</span>")
 		return 0
 
@@ -191,14 +191,14 @@
 				to_chat(user, "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>")
 				affected.internal_bleeding = TRUE
 				affected.owner.custom_pain("You feel something rip in your [affected.name]!")
-			user.drop_transfer_item_to_loc(tool, affected)
+			user.drop_item()
 			affected.hidden = tool
+			tool.forceMove(affected)
 			return 1
 	else
 		if(IC)
 			user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
-			IC.forceMove(get_turf(target))
-			user.put_in_hands(IC, ignore_anim = FALSE)
+			user.put_in_hands(IC)
 			affected.hidden = null
 			return 1
 		else

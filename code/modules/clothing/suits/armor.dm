@@ -59,8 +59,9 @@
 
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge)
-		if(user.drop_transfer_item_to_loc(I, src))
+		if(user.unEquip(I))
 			add_fingerprint(user)
+			I.forceMove(src)
 			attached_badge = I
 			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
 			A.Grant(user)

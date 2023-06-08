@@ -50,8 +50,7 @@
 	if(open && cell)
 		if(ishuman(user))
 			if(!user.get_active_hand())
-				cell.forceMove_turf()
-				user.put_in_hands(cell, ignore_anim = FALSE)
+				user.put_in_hands(cell)
 		else
 			cell.loc = loc
 
@@ -143,7 +142,8 @@
 				to_chat(user, "There is a power cell already installed.")
 			else
 				add_fingerprint(user)
-				user.drop_transfer_item_to_loc(W, src)
+				user.drop_item()
+				W.loc = src
 				cell = W
 				to_chat(user, "You insert the power cell.")
 		updateicon()

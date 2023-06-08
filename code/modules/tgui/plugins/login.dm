@@ -91,7 +91,8 @@ GLOBAL_LIST(ui_logins)
 
 	if(istype(O, /obj/item/card/id))
 		// Move the ID inside
-		usr.drop_transfer_item_to_loc(O, src)
+		usr.drop_item()
+		O.forceMove(src)
 
 		// Update the state
 		state.id = O
@@ -110,8 +111,8 @@ GLOBAL_LIST(ui_logins)
 
 	// Drop the ID
 	state.id.forceMove(loc)
-	if(ishuman(usr))
-		usr.put_in_hands(state.id, ignore_anim = FALSE)
+	if(ishuman(usr) && !usr.get_active_hand())
+		usr.put_in_hands(state.id)
 
 	// Update the state
 	state.id = null

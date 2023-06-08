@@ -141,7 +141,7 @@
 		var/mob/living/carbon/C = src
 		for(var/obj/item/bloodcrawl/BC in C)
 			C.flags = null
-			C.temporarily_remove_item_from_inventory(BC)
+			C.unEquip(BC)
 			qdel(BC)
 
 	var/oldcolor = color

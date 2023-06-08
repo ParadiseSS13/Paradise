@@ -23,19 +23,23 @@
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
 /mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
-	if(dna_source)
-		dna = dna_source.dna.Clone()
-
+	dna = dna_source.dna.Clone()
 	var/obj/item/organ/internal/brain/B = new(src)
 	var/obj/item/organ/internal/ears/E = new(src)
 	B.insert()
 	E.insert()
 	..()
 
-// Determines if mob has and can use his hands like a human
-/mob/living/carbon/true_devil/real_human_being()
-	return TRUE
-
+// inventory system could use some love
+/mob/living/carbon/true_devil/put_in_hands(obj/item/W)
+	if(!W)
+		return 0
+	if(put_in_active_hand(W))
+		return TRUE
+	else if(put_in_inactive_hand(W))
+		return TRUE
+	else
+		..()
 
 /mob/living/carbon/true_devil/proc/convert_to_archdevil()
 	maxHealth = 5000 // not an IMPOSSIBLE amount, but still near impossible.
@@ -182,7 +186,7 @@
 							"<span class='userdanger'>[M] has pushed down [src]!</span>")
 					else
 						if(prob(25))
-							drop_from_active_hand()
+							drop_item()
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 							visible_message("<span class='danger'>[M] has disarmed [src]!</span>", \
 							"<span class='userdanger'>[M] has disarmed [src]!</span>")

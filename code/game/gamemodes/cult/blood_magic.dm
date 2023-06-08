@@ -541,7 +541,8 @@
 		"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
 		if(do_mob(user, C, 10))
 			if(!C.handcuffed)
-				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
+				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
+				C.update_handcuffed()
 				C.Silence(6)
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
 				add_attack_logs(user, C, "shackled")
@@ -877,7 +878,7 @@
 				uses -= BLOOD_BARRAGE_COST
 				qdel(src)
 				user.swap_hand()
-				user.drop_from_active_hand()
+				user.drop_item()
 				if(user.put_in_hands(rite))
 					to_chat(user, "<span class='cult'>Both of your hands glow with power!</span>")
 				else

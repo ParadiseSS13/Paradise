@@ -80,7 +80,7 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
-/obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot, initial)
+/obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
 	. = ..()
 	if(slot == slot_shoes && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
@@ -157,7 +157,8 @@
 		if(O)
 			to_chat(user, "<span class='notice'>В креплении уже есть нож.</span>")
 		else
-			user.drop_transfer_item_to_loc(C, src)
+			user.drop_item()
+			C.forceMove(src)
 			to_chat(user, "<span class='notice'>Вы убрали [C] в [src].</span>")
 
 /obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
@@ -173,12 +174,12 @@
 		var/obj/item/kitchen/knife/combat/survival/O = locate() in src
 		if(O)
 			to_chat(user, "<span class='notice'>Вы извлекли [O] из [src].</span>")
-			O.forceMove_turf()
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
-					M.put_in_hands(O, ignore_anim = FALSE)
+					M.put_in_hands(O)
 					return
+			O.forceMove(get_turf(src))
 		else
 			to_chat(user, "<span class='warning'>Крепление пустое.</span>")
 	else
@@ -468,7 +469,7 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
-/obj/item/clothing/shoes/bhop/clown/equipped(mob/user, slot, initial)
+/obj/item/clothing/shoes/bhop/clown/equipped(mob/user, slot)
 	. = ..()
 	if(slot == slot_shoes && enabled_waddle)
 		user.AddElement(/datum/element/waddling)

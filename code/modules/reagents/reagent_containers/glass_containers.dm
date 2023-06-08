@@ -167,8 +167,7 @@
 		return
 	if(assembly)
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
-		assembly.forceMove_turf()
-		usr.put_in_hands(assembly, ignore_anim = FALSE)
+		usr.put_in_hands(assembly)
 		assembly = null
 		qdel(GetComponent(/datum/component/proximity_monitor))
 		update_icon()
@@ -185,7 +184,8 @@
 			to_chat(usr, "<span class='warning'>[src] already has an assembly.</span>")
 			return ..()
 		assembly = W
-		user.drop_transfer_item_to_loc(W, src)
+		user.drop_item()
+		W.forceMove(src)
 		if(assembly.has_prox_sensors())
 			AddComponent(/datum/component/proximity_monitor)
 		overlays += "assembly"
@@ -317,9 +317,8 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	resistance_flags = FLAMMABLE
 
-/obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot, initial)
-    . = ..()
-
+/obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
+    ..()
     if(slot == slot_head && reagents.total_volume)
         to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
         reagents.reaction(user, REAGENT_TOUCH)
@@ -334,7 +333,7 @@
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)
 		user.put_in_hands(new /obj/item/bucket_sensor)
-		user.temporarily_remove_item_from_inventory(src)
+		user.unEquip(src)
 		qdel(src)
 	else
 		..()

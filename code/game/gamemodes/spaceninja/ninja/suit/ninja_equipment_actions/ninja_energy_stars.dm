@@ -36,7 +36,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
 	slot_flags = 0
-	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+	flags = DROPDEL | ABSTRACT | NOBLUDGEON | NOPICKUP
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken)
 	can_charge = 0
 	burst_size = 3
@@ -53,14 +53,8 @@
 	my_action.use_action()
 	my_action = null
 
-
-/obj/item/gun/energy/shuriken_emitter/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
+/obj/item/gun/energy/shuriken_emitter/equip_to_best_slot(mob/M)
 	qdel(src)
-
-
-/obj/item/gun/energy/shuriken_emitter/run_drop_held_item(mob/user)
-	qdel(src)
-
 
 /obj/item/gun/energy/shuriken_emitter/can_shoot()
 	return !my_suit.ninjacost(cost*burst_size)

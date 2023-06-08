@@ -50,7 +50,7 @@
 
 /obj/item/sample/attackby(obj/O, mob/user)
 	if(O.type == src.type)
-		user.drop_item_ground(O)
+		user.unEquip(O)
 		if(merge_evidence(O, user))
 			qdel(O)
 		return 1

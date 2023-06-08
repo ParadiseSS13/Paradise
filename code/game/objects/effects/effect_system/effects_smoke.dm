@@ -122,7 +122,7 @@
 
 /obj/effect/particle_effect/smoke/bad/smoke_mob(mob/living/carbon/M)
 	if(..())
-		M.drop_from_active_hand()
+		M.drop_item()
 		M.adjustOxyLoss(1)
 		M.emote("cough")
 		return 1
@@ -204,7 +204,7 @@
 
 /obj/effect/particle_effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
 	if(..())
-		M.drop_from_active_hand()
+		M.drop_item()
 		M.Sleeping(max(M.sleeping,10))
 		M.emote("cough")
 		return 1

@@ -152,7 +152,8 @@
 			if(copyitem)
 				copyitem.forceMove(get_turf(src))
 				if(ishuman(usr))
-					usr.put_in_hands(copyitem, ignore_anim = FALSE)
+					if(!usr.get_active_hand())
+						usr.put_in_hands(copyitem)
 				to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
 				copyitem = null
 			else if(check_ass())
@@ -248,8 +249,9 @@
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
 		if(!copyitem)
 			add_fingerprint(user)
-			user.drop_transfer_item_to_loc(O, src)
+			user.drop_item()
 			copyitem = O
+			O.forceMove(src)
 			to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
 			flick(insert_anim, src)
 		else
@@ -257,7 +259,7 @@
 	else if(istype(O, /obj/item/toner))
 		if(toner <= 10) //allow replacing when low toner is affecting the print darkness
 			add_fingerprint(user)
-			user.drop_transfer_item_to_loc(O, src)
+			user.drop_item()
 			to_chat(user, "<span class='notice'>You insert the toner cartridge into \the [src].</span>")
 			var/obj/item/toner/T = O
 			toner += T.toner_amount

@@ -149,34 +149,38 @@
 		to_chat(user, "You armed the robot frame")
 		M.use(1)
 		if(user.get_inactive_hand()==src)
-			user.temporarily_remove_item_from_inventory(src)
-			user.put_in_inactive_hand(B, ignore_anim = FALSE)
+			user.unEquip(src)
+			user.put_in_inactive_hand(B)
 		qdel(src)
 	if(istype(W, /obj/item/robot_parts/l_leg))
 		if(l_leg)
 			return
-		user.drop_transfer_item_to_loc(W, src)
+		user.drop_item()
+		W.forceMove(src)
 		l_leg = W
 		updateicon()
 
 	if(istype(W, /obj/item/robot_parts/r_leg))
 		if(r_leg)
 			return
-		user.drop_transfer_item_to_loc(W, src)
+		user.drop_item()
+		W.forceMove(src)
 		r_leg = W
 		updateicon()
 
 	if(istype(W, /obj/item/robot_parts/l_arm))
 		if(l_arm)
 			return
-		user.drop_transfer_item_to_loc(W, src)
+		user.drop_item()
+		W.forceMove(src)
 		l_arm = W
 		updateicon()
 
 	if(istype(W, /obj/item/robot_parts/r_arm))
 		if(r_arm)
 			return
-		user.drop_transfer_item_to_loc(W, src)
+		user.drop_item()
+		W.forceMove(src)
 		r_arm = W
 		updateicon()
 
@@ -185,7 +189,8 @@
 		if(chest)
 			return
 		if(CH.wired && CH.cell)
-			user.drop_transfer_item_to_loc(W, src)
+			user.drop_item()
+			W.forceMove(src)
 			chest = W
 			updateicon()
 		else if(!CH.wired)
@@ -198,7 +203,8 @@
 		if(head)
 			return
 		if(HD.flash2 && HD.flash1)
-			user.drop_transfer_item_to_loc(W, src)
+			user.drop_item()
+			W.forceMove(src)
 			head = W
 			updateicon()
 		else
@@ -287,7 +293,7 @@
 			if(!O)
 				return
 
-			user.drop_from_active_hand()
+			user.drop_item()
 
 			var/datum/job_objective/make_cyborg/task = user.mind.findJobTask(/datum/job_objective/make_cyborg)
 			if(istype(task))
@@ -404,7 +410,8 @@
 			to_chat(user, "<span class='notice'>You have already inserted a cell!</span>")
 			return
 		else
-			user.drop_transfer_item_to_loc(W, src)
+			user.drop_item()
+			W.forceMove(src)
 			cell = W
 			to_chat(user, "<span class='notice'>You insert the cell!</span>")
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -428,17 +435,19 @@
 			to_chat(user, "<span class='notice'>You have already inserted the eyes!</span>")
 			return
 		else if(flash1)
-			user.drop_transfer_item_to_loc(W, src)
+			user.drop_item()
+			W.forceMove(src)
 			flash2 = W
 			to_chat(user, "<span class='notice'>You insert the flash into the eye socket!</span>")
 		else
-			user.drop_transfer_item_to_loc(W, src)
+			user.drop_item()
+			W.forceMove(src)
 			flash1 = W
 			to_chat(user, "<span class='notice'>You insert the flash into the eye socket!</span>")
 	else if(istype(W, /obj/item/stock_parts/manipulator))
 		to_chat(user, "<span class='notice'>You install some manipulators and modify the head, creating a functional spider-bot!</span>")
 		new /mob/living/simple_animal/spiderbot(get_turf(loc))
-		user.drop_transfer_item_to_loc(W, src)
+		user.drop_item()
 		qdel(W)
 		qdel(src)
 

@@ -37,7 +37,8 @@
 
 /obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
-		user.drop_transfer_item_to_loc(W, src)
+		user.drop_item()
+		W.loc = src
 		to_chat(user, "<span class='notice'>You put the [W] into \the [src].</span>")
 		update_icon()
 	else if(istype(W, /obj/item/pen))
@@ -71,8 +72,8 @@
 		if(href_list["remove"])
 			var/obj/item/P = locate(href_list["remove"])
 			if(P && (P.loc == src) && istype(P))
-				P.forceMove_turf()
-				usr.put_in_hands(P, ignore_anim = FALSE)
+				P.loc = usr.loc
+				usr.put_in_hands(P)
 
 		else if(href_list["read"])
 			var/obj/item/paper/P = locate(href_list["read"])

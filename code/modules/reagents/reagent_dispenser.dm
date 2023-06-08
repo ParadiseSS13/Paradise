@@ -150,7 +150,8 @@
 
 				lastrigger = "[key_name_log(user)]"
 				rig = H
-				user.drop_transfer_item_to_loc(H, src)
+				user.drop_item()
+				H.forceMove(src)
 				if(rig.has_prox_sensors())
 					AddComponent(/datum/component/proximity_monitor)
 				var/icon/test = getFlatIcon(H)
@@ -231,7 +232,7 @@
 	add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] takes a cup from [src].</span>", "<span class='notice'>You take a paper cup from [src].</span>")
 	var/obj/item/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
-	user.put_in_hands(S, ignore_anim = FALSE)
+	user.put_in_hands(S)
 	paper_cups--
 
 /obj/structure/reagent_dispensers/water_cooler/wrench_act(mob/user, obj/item/I)

@@ -29,7 +29,8 @@
 	if(istype(W, /obj/item/forensics/swab))
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>Вы вставляете \the [W] в ДНК анализатор.</span>")
-		user.drop_transfer_item_to_loc(W, src)
+		user.unEquip(W)
+		W.forceMove(src)
 		swab = W
 		update_icon()
 		return
@@ -84,8 +85,8 @@
 		to_chat(remover, "<span class='warning'>Внутри сканера нет образца!.</span>")
 		return
 	to_chat(remover, "<span class='notice'>Вы вытащили \the [swab] из сканера.</span>")
-	swab.forceMove_turf()
-	remover.put_in_hands(swab, ignore_anim = FALSE)
+	swab.forceMove(get_turf(src))
+	remover.put_in_hands(swab)
 	swab = null
 	update_icon()
 

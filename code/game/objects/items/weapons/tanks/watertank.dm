@@ -58,16 +58,15 @@
 /obj/item/watertank/proc/make_noz()
 	return new /obj/item/reagent_containers/spray/mister(src)
 
-/obj/item/watertank/equipped(mob/user, slot, initial)
-	. = ..()
-
+/obj/item/watertank/equipped(mob/user, slot)
+	..()
 	if(slot != slot_back)
 		remove_noz()
 
 /obj/item/watertank/proc/remove_noz()
 	if(ismob(noz.loc))
 		var/mob/M = noz.loc
-		M.drop_item_ground(noz, force = TRUE)
+		M.unEquip(noz, 1)
 	return
 
 /obj/item/watertank/Destroy()
@@ -89,15 +88,15 @@
 			if("r_hand")
 				if(H.r_hand)
 					return
-				if(!H.drop_item_ground(src))
+				if(!H.unEquip(src))
 					return
 				H.put_in_r_hand(src)
 			if("l_hand")
 				if(H.l_hand)
 					return
-				if(!H.drop_item_ground(src))
+				if(!H.unEquip(src))
 					return
-				H.put_in_l_hand(src, ignore_anim = FALSE)
+				H.put_in_l_hand(src)
 	return
 
 /obj/item/watertank/attackby(obj/item/W, mob/user, params)
@@ -144,8 +143,8 @@
 
 /proc/check_tank_exists(parent_tank, var/mob/living/carbon/human/M, var/obj/O)
 	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
-		M.temporarily_remove_item_from_inventory(O)
-		qdel(O)
+		M.unEquip(O)
+		qdel(0)
 		return 0
 	else
 		return 1

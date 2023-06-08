@@ -17,7 +17,8 @@
 		if(src == user.get_item_by_slot(slot_wear_suit))
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
-		if(user.drop_transfer_item_to_loc(new_shield, src))
+		if(user.unEquip(new_shield))
+			new_shield.forceMove(src)
 			shield = new_shield
 			shield.hardsuit = src
 			to_chat(user, "<span class='notice'>You successfully install the shield upgrade into [src].</span>")

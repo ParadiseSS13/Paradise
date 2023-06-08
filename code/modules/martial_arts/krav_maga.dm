@@ -112,13 +112,13 @@
 		if(D.hand)
 			if(istype(D.l_hand, /obj/item))
 				var/obj/item/I = D.l_hand
-				if(D.drop_from_active_hand())
-					A.put_in_hands(I, ignore_anim = FALSE)
+				if(D.drop_item())
+					A.put_in_hands(I)
 		else
 			if(istype(D.r_hand, /obj/item))
 				var/obj/item/I = D.r_hand
-				if(D.drop_from_active_hand())
-					A.put_in_hands(I, ignore_anim = FALSE)
+				if(D.drop_item())
+					A.put_in_hands(I)
 		D.visible_message("<span class='danger'>[A] has disarmed [D]!</span>", \
 							"<span class='userdanger'>[A] has disarmed [D]!</span>")
 		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -135,9 +135,7 @@
 	can_be_cut = FALSE
 	resistance_flags = NONE
 
-/obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot, initial)
-	. = ..()
-
+/obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
 	if(slot == slot_gloves)
@@ -145,8 +143,6 @@
 		style.teach(H,1)
 
 /obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user)
-	. = ..()
-
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user

@@ -81,8 +81,9 @@
 				to_chat(user, "<span class='warning'>There's already a cartridge in [src].</span>")
 				return 0
 
-		user.drop_transfer_item_to_loc(D, src)
+		user.drop_item()
 		cartridge = D
+		D.forceMove(src)
 		to_chat(user, "<span class='notice'>You slot [D] into [src].</span>")
 		update_icon()
 		return
@@ -94,9 +95,10 @@
 			to_chat(user, "<span class='warning'>[src] already has [max_beakers] beakers in it - another one isn't going to fit!</span>")
 			return
 		var/obj/item/reagent_containers/glass/beaker/B = I
-		if(!user.drop_transfer_item_to_loc(B, src))
+		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
 			return
+		B.forceMove(src)
 		beakers += B
 		to_chat(user, "<span class='notice'>You slot [B] into [src].</span>")
 		src.updateUsrDialog()

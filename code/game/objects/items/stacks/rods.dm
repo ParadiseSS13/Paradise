@@ -42,9 +42,10 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 /obj/item/stack/rods/fifty
 	amount = 50
 
-/obj/item/stack/rods/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
+/obj/item/stack/rods/New(loc, amount=null)
+	..()
 	recipes = GLOB.rod_recipes
+	update_icon()
 
 /obj/item/stack/rods/update_icon()
 	var/amount = get_amount()
@@ -70,7 +71,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	var/replace = user.is_in_inactive_hand(src)
 	use(2)
 	if(get_amount() <= 0 && replace)
-		user.drop_item_ground(src, force = TRUE)
+		user.unEquip(src, 1)
 		if(new_item)
 			user.put_in_hands(new_item)
 
@@ -108,3 +109,6 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	else
 		icon_state = "f_rods"
 
+/obj/item/stack/fireproof_rods/Initialize(mapload)
+	. = ..()
+	update_icon()

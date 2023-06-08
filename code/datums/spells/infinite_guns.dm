@@ -13,8 +13,8 @@
 
 /obj/effect/proc_holder/spell/targeted/infinite_guns/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/C in targets)
-		C.drop_from_active_hand()
+		C.drop_item()
 		C.swap_hand()
-		C.drop_from_active_hand()
+		C.drop_item()
 		var/obj/item/gun/projectile/shotgun/boltaction/enchanted/GUN = new
 		C.put_in_hands(GUN)

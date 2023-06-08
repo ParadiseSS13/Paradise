@@ -107,8 +107,9 @@
 		else
 			to_chat(user,  "<span class='warning'>Access denied.</span>")
 	else if(open && !showpiece && !(I.flags & ABSTRACT))
-		if(user.drop_transfer_item_to_loc(I, src))
+		if(user.drop_item())
 			add_fingerprint(user)
+			I.forceMove(src)
 			showpiece = I
 			to_chat(user, "<span class='notice'>You put [I] on display</span>")
 			update_icon()
@@ -186,8 +187,9 @@
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
 		playsound(src.loc, I.usesound, 50, 1)
 		if(do_after(user, 30, target = src))
-			if(user.drop_transfer_item_to_loc(I, src))
+			if(user.drop_item())
 				add_fingerprint(user)
+				I.forceMove(src)
 				electronics = I
 				to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 

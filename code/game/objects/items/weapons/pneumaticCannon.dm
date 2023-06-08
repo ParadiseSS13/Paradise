@@ -90,11 +90,12 @@
 	if(I.w_class > src.w_class)
 		to_chat(user, span_warning("[I] is too large to fit into [src]!"))
 		return
-	if(!user.drop_transfer_item_to_loc(I, src))
+	if(!user.unEquip(I))
 		return
 	to_chat(user, span_notice("You load [I] into [src]"))
 	loadedItems.Add(I)
 	loadedWeightClass += I.w_class
+	I.loc = src
 
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
 	. = ..()
@@ -125,7 +126,7 @@
 		return
 	if(user && (CLUMSY in user.mutations) && prob(75))
 		user.visible_message(span_warning("[user] loses [user.p_their()] grip on [src], causing it to go off!"), span_userdanger("[src] slips out of your hands and goes off!"))
-		user.drop_from_active_hand()
+		user.drop_item()
 		if(prob(10))
 			target = get_turf(user)
 		else
@@ -171,17 +172,18 @@
 		if(!tank)
 			return
 		to_chat(user, span_notice("You detach [thetank] from [src]."))
-		tank.forceMove_turf()
-		user.put_in_hands(tank, ignore_anim = FALSE)
+		tank.loc = get_turf(src)
+		user.put_in_hands(tank)
 		tank = null
 	if(!removing)
 		if(tank)
 			to_chat(user, span_warning("[src] already has a tank."))
 			return
-		if(!user.drop_transfer_item_to_loc(thetank, src))
+		if(!user.unEquip(thetank))
 			return
 		to_chat(user, span_notice("You hook [thetank] up to [src]."))
 		tank = thetank
+		thetank.loc = src
 	update_icons()
 
 /obj/item/pneumatic_cannon/proc/update_icons()

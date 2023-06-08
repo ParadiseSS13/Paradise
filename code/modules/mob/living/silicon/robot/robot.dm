@@ -754,8 +754,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				C.installed = 1
 				C.wrapped = W
 				C.install()
-				user.drop_item_ground(W)
-				W.do_pickup_animation(src)
+				user.drop_item()
 				W.loc = null
 
 				var/obj/item/robot_parts/robot_component/WC = W
@@ -789,7 +788,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else if(cell)
 			to_chat(user, "There is a power cell already installed.")
 		else
-			user.drop_transfer_item_to_loc(W, src)
+			user.drop_item()
+			W.loc = src
 			cell = W
 			to_chat(user, "You insert the power cell.")
 
@@ -831,7 +831,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else if(U.locked)
 			to_chat(user, "<span class='warning'>The upgrade is locked and cannot be used yet!</span>")
 		else
-			if(!user.drop_transfer_item_to_loc(W, src))
+			if(!user.drop_item())
 				return
 			if(U.action(src))
 				user.visible_message("<span class = 'notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
@@ -849,7 +849,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else if(mmi.radio)
 			to_chat(user, "<span class='warning'>A radio upgrade is already installed in the MMI!</span>")
 			return
-		else if(user.drop_transfer_item_to_loc(W, src))
+		else if(user.drop_item())
 			to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()

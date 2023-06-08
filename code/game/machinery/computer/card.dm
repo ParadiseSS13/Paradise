@@ -138,14 +138,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		to_chat(usr, "You remove \the [scan] from \the [src].")
 		scan.forceMove(get_turf(src))
 		if(!usr.get_active_hand() && Adjacent(usr))
-			usr.put_in_hands(scan, ignore_anim = FALSE)
+			usr.put_in_hands(scan)
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else if(modify)
 		to_chat(usr, "You remove \the [modify] from \the [src].")
 		modify.forceMove(get_turf(src))
 		if(!usr.get_active_hand() && Adjacent(usr))
-			usr.put_in_hands(modify, ignore_anim = FALSE)
+			usr.put_in_hands(modify)
 		modify = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else
@@ -156,11 +156,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return ..()
 
 	if(!scan && check_access(id_card))
-		user.drop_transfer_item_to_loc(id_card, src)
+		user.drop_item()
+		id_card.forceMove(src)
 		scan = id_card
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else if(!modify)
-		user.drop_transfer_item_to_loc(id_card, src)
+		user.drop_item()
+		id_card.forceMove(src)
 		modify = id_card
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 
@@ -391,7 +393,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(ishuman(usr))
 					scan.forceMove(get_turf(src))
 					if(!usr.get_active_hand() && Adjacent(usr))
-						usr.put_in_hands(scan, ignore_anim = FALSE)
+						usr.put_in_hands(scan)
 					scan = null
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 				else
@@ -405,7 +407,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 						to_chat(usr, "<span class='warning'>This card does not have access.</span>")
 						return FALSE
-					usr.drop_transfer_item_to_loc(I, src)
+					usr.drop_item()
+					I.forceMove(src)
 					scan = I
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 			return
@@ -416,7 +419,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(ishuman(usr))
 					modify.forceMove(get_turf(src))
 					if(!usr.get_active_hand() && Adjacent(usr))
-						usr.put_in_hands(modify, ignore_anim = FALSE)
+						usr.put_in_hands(modify)
 					modify = null
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 				else
@@ -426,7 +429,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
-					usr.drop_transfer_item_to_loc(I, src)
+					usr.drop_item()
+					I.forceMove(src)
 					modify = I
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 			return

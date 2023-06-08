@@ -167,7 +167,8 @@
 		else
 			if(I.reagents.total_volume)
 				to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
-				user.drop_transfer_item_to_loc(I, src)
+				user.drop_item()
+				I.loc = src
 				beakers += I
 			else
 				to_chat(user, "<span class='notice'>[I] is empty.</span>")
@@ -179,11 +180,12 @@
 		if(isigniter(A.a_left) == isigniter(A.a_right))	//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
 			return
 
-		user.drop_transfer_item_to_loc(A, src)
+		user.drop_item()
 		nadeassembly = A
 		if(nadeassembly.has_prox_sensors())
 			AddComponent(/datum/component/proximity_monitor)
 		A.master = src
+		A.loc = src
 		assemblyattacher = user.ckey
 		stage = WIRED
 		to_chat(user, "<span class='notice'>You add [A] to [src]!</span>")
@@ -355,7 +357,7 @@
 /obj/item/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == WIRED)
 		to_chat(user, "<span class='notice'>You add [I] to the assembly.</span>")
-		user.drop_from_active_hand()
+		user.drop_item()
 		I.loc = src
 		beakers += I
 	else

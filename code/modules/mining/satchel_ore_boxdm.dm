@@ -11,9 +11,10 @@
 
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore))
-		if(!user.drop_transfer_item_to_loc(W, src))
+		if(!user.drop_item())
 			return
 		add_fingerprint(user)
+		W.forceMove(src)
 	else if(istype(W, /obj/item/storage))
 		add_fingerprint(user)
 		var/obj/item/storage/S = W

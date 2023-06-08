@@ -39,16 +39,17 @@
 
 	icon_state = "garrot_I_[wielded ? "un" : ""]wrap"
 
-
-/obj/item/twohanded/garrote/unwield(obj/item/source, mob/living/carbon/user)
+/obj/item/twohanded/garrote/wield(mob/living/carbon/user)
 	if(strangling)
-		usr.visible_message("<span class='info'>[usr] removes the [src] from [strangling]'s neck.</span>", \
+		user.visible_message("<span class='info'>[user] removes the [src] from [strangling]'s neck.</span>", \
 				"<span class='warning'>You remove the [src] from [strangling]'s neck.</span>")
 		strangling.garroted_by.Remove(src)
 		strangling = null
 		update_icon()
 		STOP_PROCESSING(SSobj, src)
 
+	else
+		..()
 
 /obj/item/twohanded/garrote/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(garrote_time > world.time) // Cooldown
@@ -82,7 +83,7 @@
 		to_chat(user, "<span class = 'warning'>You cannot use [src] on two people at once!</span>")
 		return
 
-	user.mode()
+	unwield(U)
 
 	U.swap_hand() // For whatever reason the grab will not properly work if we don't have the free hand active.
 	var/obj/item/grab/G = M.grabbedby(U, 1)

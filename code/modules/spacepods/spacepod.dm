@@ -344,8 +344,9 @@
 			to_chat(user, "<span class='notice'>The pod already has a battery.</span>")
 			return
 		to_chat(user, "<span class='notice'>You insert [W] into the pod.</span>")
-		user.drop_transfer_item_to_loc(W, src)
+		user.drop_item(W)
 		battery = W
+		W.forceMove(src)
 		return
 
 	else if(istype(W, /obj/item/spacepod_equipment/key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
@@ -444,7 +445,8 @@
 		return
 	else
 		to_chat(user, "<span class='notice'>You insert [SPE] into the pod.</span>")
-		user.drop_transfer_item_to_loc(SPE, src)
+		user.drop_item(SPE)
+		SPE.forceMove(src)
 		equipment_system.vars[slot] = SPE
 		var/obj/item/spacepod_equipment/system = equipment_system.vars[slot]
 		system.my_atom = src

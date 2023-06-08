@@ -551,7 +551,8 @@
 			to_chat(usr, "[src] already has something inside it.")
 		else
 			to_chat(usr, "You slip [O] into [src].")
-			user.drop_transfer_item_to_loc(O, src)
+			user.drop_item()
+			O.forceMove(src)
 			held = O
 	else
 		return ..()
@@ -780,7 +781,8 @@
 		if(access_id)
 			to_chat(user, "<span class='notice'>There is already \a [access_id] clipped onto \the [src]</span>")
 			return
-		user.drop_transfer_item_to_loc(I, src)
+		user.drop_item()
+		I.forceMove(src)
 		access_id = I
 		to_chat(user, "<span class='notice'>\The [I] clips onto \the [src] snugly.</span>")
 		return
@@ -798,14 +800,11 @@
 		. += "<span class='notice'>There is [bicon(access_id)] \a [access_id] clipped onto it.</span>"
 
 /obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
-	. = ..()
-
 	if(istype(user))
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user)
 	STOP_PROCESSING(SSobj, src)
-	. = ..()
 
 /obj/item/clothing/accessory/petcollar/process()
 	var/mob/living/simple_animal/M = loc

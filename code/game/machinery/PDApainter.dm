@@ -78,9 +78,10 @@
 		else
 			var/obj/item/pda/P = user.get_active_hand()
 			if(istype(P))
-				if(user.drop_transfer_item_to_loc(P, src))
+				if(user.drop_item())
 					add_fingerprint(user)
 					storedpda = P
+					P.forceMove(src)
 					P.add_fingerprint(user)
 					update_icon()
 	else
@@ -181,8 +182,9 @@
 			var/obj/item/pda/P = usr.get_active_hand()
 
 			if(istype(P)) // If it is really PDA.
-				if(usr.drop_transfer_item_to_loc(P, src))
+				if(usr.drop_item())
 					storedpda = P
+					P.forceMove(src)
 					P.add_fingerprint(usr)
 					update_icon()
 					SStgui.update_uis(src)
@@ -206,8 +208,7 @@
 		if(ishuman(usr))
 			storedpda.forceMove(get_turf(src))
 			if(!usr.get_active_hand() && Adjacent(usr))
-				storedpda.forceMove_turf()
-				usr.put_in_hands(storedpda, ignore_anim = FALSE)
+				usr.put_in_hands(storedpda)
 			storedpda = null
 		else
 			storedpda.forceMove(get_turf(src))

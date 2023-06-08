@@ -369,7 +369,7 @@
 		return Expand()
 
 /obj/item/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
-	user.drop_from_active_hand()
+	user.drop_item()
 	forceMove(get_turf(source))
 	return 1
 

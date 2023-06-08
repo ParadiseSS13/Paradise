@@ -37,9 +37,6 @@
 	if(obj_integrity < 90)
 		Die()
 
-/obj/item/clothing/mask/facehugger/allowed_for_alien()
-	return TRUE
-
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
 	return O.attack_obj(src, user)
 
@@ -50,12 +47,12 @@
 	if((stat == CONSCIOUS && !sterile) && !isalien(user))
 		if(Attach(user))
 			return
-	. = ..()
+	..()
 
 /obj/item/clothing/mask/facehugger/attack(mob/living/M, mob/user)
-	. = ..()
-	if(user.drop_item_ground(src))
-		Attach(M)
+	..()
+	user.unEquip(src)
+	Attach(M)
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
 	. = ..()
@@ -74,9 +71,7 @@
 		Die()
 
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
-	//SHOULD_CALL_PARENT(FALSE)
-	if(!Attach(M))
-		return ..()
+	Attach(M)
 
 /obj/item/clothing/mask/facehugger/Crossed(atom/target, oldloc)
 	HasProximity(target)
@@ -149,13 +144,13 @@
 			var/obj/item/clothing/W = target.wear_mask
 			if(W.flags & NODROP)
 				return 0
-			target.drop_item_ground(W)
+			target.unEquip(W)
 
 			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, slot_wear_mask, disable_warning = TRUE)
+		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
 		if(!sterile)
 			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
 

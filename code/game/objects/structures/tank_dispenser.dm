@@ -115,8 +115,8 @@
 	var/obj/item/tank/internals/T = tank_list[1]
 	tank_list.Remove(T)
 
-	T.forceMove_turf()
-	user.put_in_hands(T)
+	if(!user.put_in_hands(T))
+		T.forceMove(loc) // If the user's hands are full, place it on the tile of the dispenser.
 
 	to_chat(user, "<span class='notice'>You take [T] out of [src].</span>")
 	update_icon()
@@ -127,11 +127,12 @@
 		to_chat(user, "<span class='warning'>[src] is full.</span>")
 		return
 
-	if(!user.drop_transfer_item_to_loc(T, src)) // Antidrop check
+	if(!user.drop_item()) // Antidrop check
 		to_chat(user, "<span class='warning'>[T] is stuck to your hand!</span>")
 		return
 
 	add_fingerprint(user)
+	T.forceMove(src)
 	tank_list.Add(T)
 	update_icon()
 	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")

@@ -104,7 +104,8 @@
 					playsound(src.loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
-					user.drop_transfer_item_to_loc(P, src)
+					user.drop_item()
+					P.loc = src
 					icon_state = "box_2"
 					state = 3
 					components = list()
@@ -228,7 +229,8 @@
 							req_components[I] -= camt
 							update_req_desc()
 							break
-						user.drop_transfer_item_to_loc(P, src)
+						user.drop_item()
+						P.forceMove(src)
 						components += P
 						req_components[I]--
 						update_req_desc()

@@ -179,15 +179,16 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			if(copyitem)
 				copyitem.forceMove(get_turf(src))
 				if(ishuman(usr))
-					if(Adjacent(usr))
-						usr.put_in_hands(copyitem, ignore_anim = FALSE)
+					if(!usr.get_active_hand() && Adjacent(usr))
+						usr.put_in_hands(copyitem)
 				to_chat(usr, "<span class='notice'>You eject [copyitem] from [src].</span>")
 				copyitem = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
-					usr.drop_transfer_item_to_loc(I, src)
+					usr.drop_item()
 					copyitem = I
+					I.forceMove(src)
 					to_chat(usr, "<span class='notice'>You insert [I] into [src].</span>")
 					flick(insert_anim, src)
 				else
@@ -264,8 +265,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
 			scan.forceMove(get_turf(src))
-			if(Adjacent(usr))
-				usr.put_in_hands(scan, ignore_anim = FALSE)
+			if(!usr.get_active_hand() && Adjacent(usr))
+				usr.put_in_hands(scan)
 			scan = null
 		else
 			scan.forceMove(get_turf(src))
@@ -274,10 +275,12 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if(!card)
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/card/id))
-				usr.drop_transfer_item_to_loc(I, src)
+				usr.drop_item()
+				I.forceMove(src)
 				scan = I
 		else if(istype(card))
-			usr.drop_transfer_item_to_loc(card, src)
+			usr.drop_item()
+			card.forceMove(src)
 			scan = card
 	SStgui.update_uis(src)
 
@@ -292,8 +295,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(scan)
 		to_chat(usr, "You remove [scan] from [src].")
 		scan.forceMove(get_turf(src))
-		if(Adjacent(usr))
-			usr.put_in_hands(scan, ignore_anim = FALSE)
+		if(!usr.get_active_hand() && Adjacent(usr))
+			usr.put_in_hands(scan)
 		scan = null
 	else
 		to_chat(usr, "There is nothing to remove from [src].")

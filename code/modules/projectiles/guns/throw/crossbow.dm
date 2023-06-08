@@ -106,7 +106,8 @@
 		to_chat(user, "<span class='notice'>[src] already has a cell installed.</span>")
 		return
 
-	user.drop_transfer_item_to_loc(I, src)
+	user.drop_item()
+	I.forceMove(src)
 	cell = I
 	to_chat(user, "<span class='notice'>You jam [cell] into [src] and wire it to the firing coil.</span>")
 	process_chamber()

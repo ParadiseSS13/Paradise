@@ -125,7 +125,7 @@
 	for(var/mob/living/carbon/human/C in targets)
 		if(!istype(C.get_active_hand(), gun) && !istype(C.get_inactive_hand(), gun))
 			to_chat(user, "<span class='notice'>You draw your fingers!</span>")
-			C.drop_from_active_hand()
+			C.drop_item()
 			C.put_in_hands(new gun)
 		else
 			to_chat(user, "<span class='notice'>Holster your fingers first.</span>")

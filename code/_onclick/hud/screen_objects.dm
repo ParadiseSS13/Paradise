@@ -34,7 +34,6 @@
 	maptext_height = 480
 	maptext_width = 480
 
-
 /obj/screen/close
 	name = "close"
 	layer = ABOVE_HUD_LAYER
@@ -45,17 +44,14 @@
 		if(istype(master, /obj/item/storage))
 			var/obj/item/storage/S = master
 			S.close(usr)
-	return TRUE
-
+	return 1
 
 /obj/screen/drop
 	name = "drop"
 	icon_state = "act_drop"
 
 /obj/screen/drop/Click()
-	if(usr.stat == CONSCIOUS)
-		usr.drop_item_ground(usr.get_active_hand())
-
+	usr.drop_item_v()
 
 /obj/screen/grab
 	name = "grab"
@@ -63,14 +59,13 @@
 /obj/screen/grab/Click()
 	var/obj/item/grab/G = master
 	G.s_click(src)
-	return TRUE
+	return 1
 
 /obj/screen/grab/attack_hand()
 	return
 
 /obj/screen/grab/attackby()
 	return
-
 /obj/screen/act_intent
 	name = "intent"
 	icon_state = "help"
@@ -132,7 +127,6 @@
 	else
 		icon_state = "pull0"
 
-
 /obj/screen/resist
 	name = "resist"
 	icon = 'icons/mob/screen_midnight.dmi'
@@ -142,7 +136,6 @@
 	if(isliving(usr))
 		var/mob/living/L = usr
 		L.resist()
-
 
 /obj/screen/throw_catch
 	name = "throw/catch"
@@ -154,29 +147,24 @@
 		var/mob/living/carbon/C = usr
 		C.toggle_throw_mode()
 
-
 /obj/screen/storage
 	name = "storage"
 
 /obj/screen/storage/Click(location, control, params)
 	if(world.time <= usr.next_move)
 		return TRUE
-
 	if(usr.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
 		return TRUE
-
-	if(ismecha(usr.loc)) // stops inventory actions in a mech
+	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return TRUE
-
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
 			master.attackby(I, usr, params)
 	return TRUE
 
-
 /obj/screen/storage/proc/is_item_accessible(obj/item/I, mob/user)
-	if(!user || !I)
+	if (!user || !I)
 		return FALSE
 
 	var/storage_depth = I.storage_depth(user)
@@ -192,22 +180,21 @@
 			return TRUE
 	return FALSE
 
-
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
-	if(!I ||!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || ismecha(user.loc) || !master)
-		return FALSE
+	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || istype(user.loc, /obj/mecha) || !master)
+		return
 
 	var/obj/item/storage/S = master
 	if(!S)
-		return FALSE
+		return
 
 	if(!is_item_accessible(I, user))
 		add_game_logs("tried to abuse storage remote drag&drop with '[I]' at [atom_loc_line(I)] into '[S]' at [atom_loc_line(S)]", user)
-		return FALSE
+		return
 
 	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
 		if(S.contents[S.contents.len] == I) // No point moving them at the end if they're already there!
-			return FALSE
+			return
 
 		var/list/new_contents = S.contents.Copy()
 		if(S.display_contents_with_number)
@@ -230,7 +217,6 @@
 	else // If it's not in the storage, try putting it inside
 		S.attackby(I, user)
 
-
 /obj/screen/zone_sel
 	name = "damage zone"
 	icon_state = "zone_sel"
@@ -241,14 +227,14 @@
 
 /obj/screen/zone_sel/Click(location, control,params)
 	if(isobserver(usr))
-		return FALSE
+		return
 
 	var/list/PL = params2list(params)
 	var/icon_x = text2num(PL["icon-x"])
 	var/icon_y = text2num(PL["icon-y"])
 	var/choice = get_zone_at(icon_x, icon_y)
 	if(!choice)
-		return TRUE
+		return 1
 
 	return set_selected_zone(choice, usr)
 
@@ -288,7 +274,7 @@
 /obj/screen/zone_sel/MouseExited(location, control, params)
 	if(!isobserver(usr) && hovering)
 		cut_overlay(hover_overlays_cache[hovering])
-		hovering = null
+	hovering = null
 
 /obj/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
 	switch(icon_y)
@@ -346,12 +332,12 @@
 
 /obj/screen/zone_sel/proc/set_selected_zone(choice, mob/user)
 	if(isobserver(user))
-		return FALSE
+		return
 
 	if(choice != selecting)
 		selecting = choice
 		update_icon(user)
-	return TRUE
+	return 1
 
 /obj/screen/zone_sel/update_icon(mob/user)
 	overlays.Cut()
@@ -398,7 +384,7 @@
 
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
-	var/image/object_overlay
+	var/list/object_overlays = list()
 
 /obj/screen/inventory/MouseEntered()
 	..()
@@ -406,15 +392,14 @@
 
 /obj/screen/inventory/MouseExited()
 	..()
-	cut_overlay(object_overlay)
-	QDEL_NULL(object_overlay)
+	cut_overlay(object_overlays)
+	object_overlays.Cut()
 
 /obj/screen/inventory/proc/add_overlays()
-	var/mob/user = hud?.mymob
-
-	if(!user || !slot_id)
+	if(!hud?.mymob || !slot_id || slot_id == slot_l_hand || slot_id == slot_r_hand)
 		return
 
+	var/mob/user = hud.mymob
 	var/obj/item/holding = user.get_active_hand()
 
 	if(!holding || user.get_item_by_slot(slot_id))
@@ -423,43 +408,37 @@
 	var/image/item_overlay = image(holding)
 	item_overlay.alpha = 92
 
-	if(!holding.mob_can_equip(user, slot_id, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = FALSE))
+	if(!user.advanced_can_equip(holding, slot_id, disable_warning = TRUE))
 		item_overlay.color = "#ff0000"
 	else
 		item_overlay.color = "#00ff00"
 
-	cut_overlay(object_overlay)
-	object_overlay = item_overlay
-	add_overlay(object_overlay)
-
+	object_overlays += item_overlay
+	add_overlay(object_overlays)
 
 /obj/screen/inventory/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
 	if(world.time <= usr.next_move)
-		return TRUE
-
+		return 1
 	if(usr.incapacitated())
-		return TRUE
-
-	if(ismecha(usr.loc)) // stops inventory actions in a mech
-		return TRUE
+		return 1
+	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+		return 1
 
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
 			return inv_item.Click(location, control, params)
 
-	if(usr.attack_ui(slot_id, params))
-		usr.update_inv_hands()
-
-	return TRUE
-
+	if(usr.attack_ui(slot_id))
+		usr.update_inv_l_hand()
+		usr.update_inv_r_hand()
+	return 1
 
 /obj/screen/inventory/hand
 	var/image/active_overlay
 	var/image/handcuff_overlay
-
 
 /obj/screen/inventory/hand/update_icon()
 	..()
@@ -469,47 +448,37 @@
 		var/state = (slot_id == slot_r_hand) ? "markus" : "gabrielle"
 		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
 
-	if(!hud?.mymob)
-		return
-
 	overlays.Cut()
-	if(iscarbon(hud.mymob))
-		var/mob/living/carbon/user = hud.mymob
-		if(user.handcuffed)
-			overlays += handcuff_overlay
 
-	if(slot_id == slot_l_hand && hud.mymob.hand)
-		overlays += active_overlay
+	if(hud && hud.mymob)
+		if(iscarbon(hud.mymob))
+			var/mob/living/carbon/C = hud.mymob
+			if(C.handcuffed)
+				overlays += handcuff_overlay
 
-	else if(slot_id == slot_r_hand && !hud.mymob.hand)
-		overlays += active_overlay
-
+		if(slot_id == slot_l_hand && hud.mymob.hand)
+			overlays += active_overlay
+		else if(slot_id == slot_r_hand && !hud.mymob.hand)
+			overlays += active_overlay
 
 /obj/screen/inventory/hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
-	var/mob/user = hud?.mymob
-	if(usr != user)
-		return TRUE
+	if(world.time <= usr.next_move)
+		return 1
+	if(usr.incapacitated())
+		return 1
+	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+		return 1
 
-	if(world.time <= user.next_move)
-		return TRUE
-
-	if(user.incapacitated())
-		return TRUE
-
-	if(ismecha(user.loc)) // stops inventory actions in a mech
-		return TRUE
-
-	if(ismob(user))
-		var/mob/M = user
+	if(ismob(usr))
+		var/mob/M = usr
 		switch(name)
 			if("right hand", "r_hand")
 				M.activate_hand("r")
 			if("left hand", "l_hand")
 				M.activate_hand("l")
-	return TRUE
-
+	return 1
 
 /obj/screen/swap_hand
 	name = "swap hand"
@@ -518,16 +487,15 @@
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
 	if(world.time <= usr.next_move)
-		return TRUE
+		return 1
 
 	if(usr.incapacitated())
-		return TRUE
+		return 1
 
 	if(ismob(usr))
-		var/mob/user = usr
-		user.swap_hand()
-	return TRUE
-
+		var/mob/M = usr
+		M.swap_hand()
+	return 1
 
 /obj/screen/healths
 	name = "health"

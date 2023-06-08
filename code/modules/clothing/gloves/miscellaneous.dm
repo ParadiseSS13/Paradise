@@ -136,9 +136,10 @@
 /obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell)
-			if(!user.drop_transfer_item_to_loc(W, src))
+			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[W] is stuck to you!</span>")
 				return
+			W.forceMove(src)
 			cell = W
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
 			update_icon()

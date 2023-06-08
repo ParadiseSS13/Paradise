@@ -46,9 +46,9 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 	materials = list()
 	is_cyborg = 1
 
-/obj/item/stack/sheet/glass/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
+/obj/item/stack/sheet/glass/New(loc, amount)
 	recipes = GLOB.glass_recipes
+	..()
 
 /obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
 	..()
@@ -108,14 +108,10 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	var/metcost = 2
 	var/glacost = 1
 
-/obj/item/stack/sheet/rglass/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	recipes = GLOB.reinforced_glass_recipes
-
 /obj/item/stack/sheet/rglass/cyborg/get_amount()
 	return min(round(source.energy / metcost), round(glasource.energy / glacost))
 
-/obj/item/stack/sheet/rglass/cyborg/use(used, transfer = FALSE, check = TRUE) // Requires special checks, because it uses two storages
+/obj/item/stack/sheet/rglass/cyborg/use(used) // Requires special checks, because it uses two storages
 	if(get_amount(used)) //ensure we still have enough energy if called in a do_after chain
 		source.use_charge(used * metcost)
 		glasource.use_charge(used * glacost)
@@ -125,6 +121,9 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	source.add_charge(amount * metcost)
 	glasource.add_charge(amount * glacost)
 
+/obj/item/stack/sheet/rglass/New(loc, amount)
+	recipes = GLOB.reinforced_glass_recipes
+	..()
 
 GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	new/datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 0, on_floor = TRUE, window_checks = TRUE), \
@@ -145,9 +144,9 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	full_window = /obj/structure/window/full/plasmabasic
 	point_value = 19
 
-/obj/item/stack/sheet/plasmaglass/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
+/obj/item/stack/sheet/plasmaglass/New(loc, amount)
 	recipes = GLOB.pglass_recipes
+	..()
 
 /obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
 	..()
@@ -188,9 +187,9 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	full_window = /obj/structure/window/full/plasmareinforced
 	point_value = 23
 
-/obj/item/stack/sheet/plasmarglass/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
+/obj/item/stack/sheet/plasmarglass/New(loc, amount)
 	recipes = GLOB.prglass_recipes
+	..()
 
 GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	new/datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 0, on_floor = TRUE, window_checks = TRUE)
@@ -208,9 +207,9 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	merge_type = /obj/item/stack/sheet/titaniumglass
 	full_window = /obj/structure/window/full/shuttle
 
-/obj/item/stack/sheet/titaniumglass/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
+/obj/item/stack/sheet/titaniumglass/New(loc, amount)
 	recipes = GLOB.titaniumglass_recipes
+	..()
 
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	new/datum/stack_recipe/window("plastitanium window", /obj/structure/window/plastitanium, 2, time = 0, on_floor = TRUE, window_checks = TRUE)
@@ -228,6 +227,6 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 	full_window = /obj/structure/window/plastitanium
 
-/obj/item/stack/sheet/plastitaniumglass/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
+/obj/item/stack/sheet/plastitaniumglass/New(loc, amount)
 	recipes = GLOB.plastitaniumglass_recipes
+	..()

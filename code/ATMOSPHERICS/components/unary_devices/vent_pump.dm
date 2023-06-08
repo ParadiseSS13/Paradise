@@ -341,7 +341,8 @@
 		if(!welded)
 			if(open)
 				add_fingerprint(user)
-				user.drop_transfer_item_to_loc(W, src)
+				user.drop_item(W)
+				W.forceMove(src)
 			if(!open)
 				to_chat(user, "You can't shove that down there when it is closed")
 		else

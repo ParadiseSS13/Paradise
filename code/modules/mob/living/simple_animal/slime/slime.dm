@@ -279,10 +279,8 @@
 			Feedon(Food)
 	return ..()
 
-
-/mob/living/simple_animal/slime/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
+/mob/living/simple_animal/slime/unEquip(obj/item/I, force)
 	return
-
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return

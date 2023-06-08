@@ -22,7 +22,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		drop_item_ground(W)
+		unEquip(W)
 	notransform = 1
 	canmove = 0
 	icon = null
@@ -68,7 +68,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		drop_item_ground(W)
+		unEquip(W)
 
 	notransform = 1
 	canmove = 0
@@ -125,7 +125,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		drop_item_ground(W)
+		unEquip(W)
 	regenerate_icons()
 	notransform = 1
 	canmove = 0
@@ -149,7 +149,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		drop_item_ground(W)
+		unEquip(W)
 
 	regenerate_icons()
 	notransform = 1

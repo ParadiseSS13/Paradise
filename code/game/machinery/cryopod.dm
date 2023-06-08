@@ -356,7 +356,7 @@
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
 	for(var/obj/item/I in occupant)
-		occupant.drop_item_ground(I)
+		occupant.unEquip(I)
 		I.forceMove(src)
 		handle_contents(I)
 

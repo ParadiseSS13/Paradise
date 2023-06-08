@@ -33,7 +33,8 @@
 	return ..()
 
 /obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
-	user.drop_transfer_item_to_loc(I, src)
+	user.drop_item()
+	I.forceMove(src)
 	updateUsrDialog()
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
@@ -142,34 +143,29 @@
 	var/mob/living/user = usr
 	if(href_list["garbage"])
 		if(mybag)
-			mybag.forceMove_turf()
-			user.put_in_hands(mybag, ignore_anim = FALSE)
+			user.put_in_hands(mybag)
 			to_chat(user, "<span class='notice'>You take [mybag] from [src].</span>")
 			mybag = null
 	if(href_list["mop"])
 		if(mymop)
-			mymop.forceMove_turf()
-			user.put_in_hands(mymop, ignore_anim = FALSE)
+			user.put_in_hands(mymop)
 			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
 			mymop = null
 	if(href_list["spray"])
 		if(myspray)
-			myspray.forceMove_turf()
-			user.put_in_hands(myspray, ignore_anim = FALSE)
+			user.put_in_hands(myspray)
 			to_chat(user, "<span class='notice'>You take [myspray] from [src].</span>")
 			myspray = null
 	if(href_list["replacer"])
 		if(myreplacer)
-			myreplacer.forceMove_turf()
-			user.put_in_hands(myreplacer, ignore_anim = FALSE)
+			user.put_in_hands(myreplacer)
 			to_chat(user, "<span class='notice'>You take [myreplacer] from [src].</span>")
 			myreplacer = null
 	if(href_list["sign"])
 		if(signs)
 			var/obj/item/caution/Sign = locate() in src
 			if(Sign)
-				Sign.forceMove_turf()
-				user.put_in_hands(Sign, ignore_anim = FALSE)
+				user.put_in_hands(Sign)
 				to_chat(user, "<span class='notice'>You take \a [Sign] from [src].</span>")
 				signs--
 			else

@@ -315,7 +315,6 @@
 	var/map_rotate = "none"
 	var/default_map = null
 	var/override_map = null
-	var/item_animations_enabled = TRUE
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -905,9 +904,6 @@
 
 				if("override_map")
 					config.override_map = value
-
-				if("item_animations_disabled")
-					config.item_animations_enabled = FALSE
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")

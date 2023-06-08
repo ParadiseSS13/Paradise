@@ -41,7 +41,8 @@
 		if(screen == 2)
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
-		user.drop_transfer_item_to_loc(P, src)
+		user.unEquip(P)
+		P.loc = src
 		if(istype(user,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
@@ -51,7 +52,8 @@
 		if(screen == 2)
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
-		user.drop_transfer_item_to_loc(W, src)
+		user.unEquip(W)
+		W.loc = src
 
 	else if(istype(W, /obj/item/lighter))
 		burnpaper(W, user)
@@ -60,7 +62,7 @@
 		if((CLUMSY in user.mutations) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.drop_item_ground(W)
+			user.unEquip(W)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
@@ -68,12 +70,12 @@
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return
 
-		user.drop_item_ground(src)
+		user.unEquip(src)
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [W]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
 
 	else if(istype(W, /obj/item/paper_bundle))
-		user.drop_item_ground(W)
+		user.unEquip(W)
 		for(var/obj/O in W)
 			O.loc = src
 			O.add_fingerprint(usr)
@@ -122,7 +124,7 @@
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
 				if(user.is_in_inactive_hand(src))
-					user.temporarily_remove_item_from_inventory(src)
+					user.unEquip(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				qdel(src)
@@ -199,14 +201,12 @@
 			playsound(src.loc, "pageturn", 50, 1)
 		if(href_list["remove"])
 			var/obj/item/W = src[page]
-			W.forceMove_turf()
-			usr.put_in_hands(W, ignore_anim = FALSE)
+			usr.put_in_hands(W)
 			to_chat(usr, "<span class='notice'>You remove the [W.name] from the bundle.</span>")
 			if(amount == 1)
 				var/obj/item/paper/P = src[1]
-				P.forceMove_turf()
-				usr.temporarily_remove_item_from_inventory(src)
-				usr.put_in_hands(P, ignore_anim = FALSE)
+				usr.unEquip(src)
+				usr.put_in_hands(P)
 				qdel(src)
 			else if(page == amount)
 				screen = 2
@@ -246,7 +246,7 @@
 		O.layer = initial(O.layer)
 		O.plane = initial(O.plane)
 		O.add_fingerprint(usr)
-	usr.temporarily_remove_item_from_inventory(src)
+	usr.unEquip(src)
 	qdel(src)
 	return
 

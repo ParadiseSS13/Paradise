@@ -52,8 +52,9 @@
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		if(!giver)
-			if(user.drop_transfer_item_to_loc(I, src))
+			if(user.drop_item())
 				add_fingerprint(user)
+				I.forceMove(src)
 				giver = I
 				updateUsrDialog()
 		else
@@ -141,8 +142,7 @@
 					if(ishuman(usr))
 						giver.loc = usr.loc
 						if(!usr.get_active_hand())
-							giver.forceMove_turf()
-							usr.put_in_hands(giver, ignore_anim = FALSE)
+							usr.put_in_hands(giver)
 						giver = null
 					else
 						giver.loc = src.loc
@@ -151,7 +151,8 @@
 				else
 					var/obj/item/I = usr.get_active_hand()
 					if(istype(I, /obj/item/card/id))
-						usr.drop_transfer_item_to_loc(I, src)
+						usr.drop_item()
+						I.loc = src
 						giver = I
 				updateUsrDialog()
 

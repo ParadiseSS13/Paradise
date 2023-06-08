@@ -65,9 +65,11 @@
 		return
 	if(istype(O, /obj/item/extinguisher))
 		if(!has_extinguisher && opened)
-			if(!user.drop_transfer_item_to_loc(O, src))
+			if(!user.drop_item())
 				return
 			add_fingerprint(user)
+			user.drop_item(O)
+			contents += O
 			has_extinguisher = O
 			update_icon()
 			to_chat(user, "<span class='notice'>You place [O] in [src].</span>")
@@ -115,8 +117,7 @@
 	if(has_extinguisher)
 		if(icon_state == "extinguisher_closed")
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-		has_extinguisher.forceMove_turf()
-		user.put_in_hands(has_extinguisher, ignore_anim = FALSE)
+		user.put_in_hands(has_extinguisher)
 		to_chat(user, "<span class='notice'>You take [has_extinguisher] from [src].</span>")
 		has_extinguisher = null
 		opened = 1

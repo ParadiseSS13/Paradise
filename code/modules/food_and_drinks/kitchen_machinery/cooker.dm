@@ -88,7 +88,8 @@
 	icon_state = onicon
 	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
 	on = 1
-	chef.drop_transfer_item_to_loc(tocook, src)
+	chef.drop_item()
+	tocook.loc = src
 
 // Override this with the correct snack type
 /obj/machinery/cooker/proc/gettype()
