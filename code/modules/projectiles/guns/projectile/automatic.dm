@@ -388,6 +388,7 @@
         return TRUE
 
 //////////// Rusted weapons
+
 /obj/item/gun/projectile/automatic/rusted
 	name = "\improper Rusted gun"
 	desc = "An old gun, be careful using it."
@@ -406,34 +407,12 @@
 	burst_size = 3
 	fire_delay = 1
 	recoil = 1
-	var/malf_counter = 90 // (90 is stub) max shots before exploding - random number between malf_low_bound and malf_high_bound
-	var/self_shot_divisor = 3 // higher value means more shots in the face
-	var/malf_low_bound = 60
-	var/malf_high_bound = 120
-
-/obj/item/gun/projectile/automatic/rusted/Initialize()
-	. = ..()
-	malf_counter = rand(malf_low_bound, malf_high_bound)
-
-/obj/item/gun/projectile/automatic/rusted/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "", bonus_spread = 20)
-	malf_counter -= select ? burst_size : 1
-	if(malf_counter <= 0 && prob(50))
-		new /obj/effect/decal/cleanable/ash(user.loc)
-		user.take_organ_damage(0,30)
-		user.flash_eyes()
-		to_chat(user, "<span class='userdanger'>WOAH! [src] blows up in your hands!</span>")
-		playsound(user, 'sound/effects/explosion1.ogg', 30, 1)
-		qdel(src)
-		return FALSE
-	if(prob(40 - (malf_counter > 0 ? round(malf_counter / self_shot_divisor) : 0)))
-		playsound(user, fire_sound, 30, 1)
-		to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
-		user.take_organ_damage(0,10)
-		return FALSE
-	..()
+	rusted_weapon = TRUE
+	self_shot_divisor = 3
+	malf_low_bound = 60
+	malf_high_bound = 90
 
 // Rusted AKSU Soviet Assault Rifle
-
 /obj/item/gun/projectile/automatic/rusted/aksu
 	name = "\improper Rusted AKSU assault rifle"
 	desc = "An old AK assault rifle favored by Soviet soldiers."
