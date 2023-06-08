@@ -334,14 +334,13 @@
 	name = "\improper SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack"
 	origin_tech = "combat=5;materials=4;engineering=4"
-	projectile = /obj/item/projectile/missile
+	projectile = /obj/item/projectile/missile/light
 	fire_sound = 'sound/effects/bang.ogg'
 	projectiles = 8
 	projectile_energy_cost = 1000
 	equip_cooldown = 60
 	var/missile_speed = 2
 	var/missile_range = 30
-	var/heavy_missile = 0
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
@@ -349,7 +348,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "\improper SRX-13 Heavy Missile Launcher"
-	heavy_missile = TRUE
+	projectile = /obj/item/projectile/missile
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	name = "\improper SGL-6 Flashbang Launcher"
