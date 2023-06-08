@@ -1001,7 +1001,7 @@
 	to_chat(user, "<span class='warning'>You suddenly feel very solid!</span>")
 	var/obj/structure/closet/statue/S = new /obj/structure/closet/statue(user.loc, user)
 	S.timer = 30
-	user.drop_item()
+	user.drop_from_active_hand()
 
 /obj/item/spellbook/oneuse/knock
 	spell = /obj/effect/proc_holder/spell/aoe_turf/knock
@@ -1027,9 +1027,9 @@
 		magichead.flags |= NODROP | DROPDEL	//curses!
 		magichead.flags_inv = null	//so you can still see their face
 		magichead.voicechange = 1	//NEEEEIIGHH
-		if(!user.unEquip(user.wear_mask))
+		if(!user.drop_item_ground(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)
+		user.equip_to_slot_or_del(magichead, slot_wear_mask)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")

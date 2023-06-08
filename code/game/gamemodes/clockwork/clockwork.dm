@@ -167,7 +167,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		"right pocket" = slot_r_store)
 	var/T = new item_path(H)
 	var/item_name = initial(item_path.name)
-	var/where = H.equip_in_one_of_slots(T, slots)
+	var/where = H.equip_in_one_of_slots(T, slots, qdel_on_fail = TRUE)
 	if(!where)
 		to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
 		return FALSE

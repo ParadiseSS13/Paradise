@@ -62,5 +62,5 @@
 				affected_mob.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ) )
 
 			if(!istype(affected_mob.wear_mask, /obj/item/clothing/mask/gas/clown_hat/nodrop))
-				affected_mob.unEquip(affected_mob.wear_mask, TRUE)
+				affected_mob.drop_item_ground(affected_mob.wear_mask, force = TRUE)
 				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/clown_hat/nodrop(src), slot_wear_mask)

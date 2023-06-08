@@ -64,7 +64,7 @@
 
 /datum/action/changeling/biodegrade/proc/dissolve_restraint(mob/living/carbon/human/user, obj/O)
 	if(O && (user.handcuffed == O || user.legcuffed == O || user.wear_suit == O))
-		user.unEquip(O)
+		user.temporarily_remove_item_from_inventory(O)
 		O.visible_message("<span class='warning'>[O] dissolves into a puddle of sizzling goop.</span>")
 		O.forceMove(get_turf(user))
 		qdel(O)

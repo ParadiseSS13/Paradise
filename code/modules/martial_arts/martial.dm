@@ -190,21 +190,23 @@
 /obj/item/clothing/gloves/boxing
 	var/datum/martial_art/boxing/style = new
 
-/obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
+/obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!ishuman(user))
 		return
 	if(slot == slot_gloves)
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
-	return
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
+	. = ..()
+
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_gloves) == src)
 		style.remove(H)
-	return
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
@@ -214,23 +216,25 @@
 	name = "Пояс Истинного Чемпиона"
 	desc = "Вы - лучший! и Вы это знаете!"
 
-/obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
+/obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!ishuman(user))
 		return
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab.</span>")
-	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
+	. = ..()
+
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_belt) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
-	return
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"
@@ -278,7 +282,7 @@
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
-	user.drop_item()
+	user.temporarily_remove_item_from_inventory(src)
 	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
@@ -296,7 +300,7 @@
 
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
-	user.drop_item()
+	user.temporarily_remove_item_from_inventory(src)
 	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
@@ -315,7 +319,7 @@
 		to_chat(user, "<span class='boldannounce'>You completely memorise the basics of CQC.</span>")
 		var/datum/martial_art/cqc/CQC = new(null)
 		CQC.teach(user)
-		user.drop_item()
+		user.temporarily_remove_item_from_inventory(src)
 		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up.</span>")
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
@@ -325,7 +329,7 @@
 			var/mob/living/L = user
 			L.adjustBrainLoss(20)
 			L.adjustFireLoss(20)
-		user.drop_item()
+		user.temporarily_remove_item_from_inventory(src)
 		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up!</span>")
 		playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)
 		new /obj/effect/decal/cleanable/ash(get_turf(src))

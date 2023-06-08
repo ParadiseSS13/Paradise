@@ -297,7 +297,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		if(!stat && eggsleft < 8)
 			var/feedmsg = "[user] feeds [O] to [name]! [pick(feedMessages)]"
 			user.visible_message(feedmsg)
-			user.drop_item()
+			user.drop_transfer_item_to_loc(O, src)
 			qdel(O)
 			eggsleft += rand(1, 4)
 			//world << eggsleft

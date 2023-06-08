@@ -82,7 +82,7 @@
 				if(iscarbon(old_body))
 					var/mob/living/carbon/C = old_body
 					for(var/obj/item/W in C)
-						C.unEquip(W)
+						C.drop_item_ground(W)
 				var/wheres_wizdo = dir2text(get_dir(body_turf, item_turf))
 				if(wheres_wizdo)
 					old_body.visible_message("<span class='warning'>Suddenly [old_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!</span>")
@@ -120,10 +120,10 @@
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.set_species(/datum/species/skeleton)
-					H.unEquip(H.wear_suit)
-					H.unEquip(H.head)
-					H.unEquip(H.shoes)
-					H.unEquip(H.head)
+					H.drop_item_ground(H.wear_suit)
+					H.drop_item_ground(H.head)
+					H.drop_item_ground(H.shoes)
+					H.drop_item_ground(H.head)
 					equip_lich(H)
 
 /obj/effect/proc_holder/spell/targeted/lichdom/proc/equip_lich(mob/living/carbon/human/H)

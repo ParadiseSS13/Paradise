@@ -45,7 +45,7 @@
 		var/mob/living/carbon/C = target
 		if(C.mind && user.mind)
 			if(C.stat == DEAD)
-				if(user.drop_item())
+				if(user.drop_from_active_hand())
 					var/obj/item/paper/contract/infernal/revive/contract = new(user.loc, C.mind, user.mind)
 					user.put_in_hands(contract)
 			else

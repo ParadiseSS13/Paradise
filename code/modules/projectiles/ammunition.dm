@@ -193,8 +193,7 @@
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC, replace_spent))
-			user.drop_item()
-			AC.loc = src
+			user.drop_transfer_item_to_loc(AC, src)
 			num_loaded++
 	if(num_loaded)
 		if(!silent)

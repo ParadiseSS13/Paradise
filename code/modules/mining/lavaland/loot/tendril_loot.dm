@@ -69,7 +69,7 @@
 			playsound(loc, "rustle", 50, 1, -5)
 
 			if(istype(over_object, /obj/screen/inventory/hand))
-				if(!M.unEquip(src))
+				if(!M.drop_item_ground(src))
 					return
 				M.put_in_active_hand(src)
 			else if(bag)

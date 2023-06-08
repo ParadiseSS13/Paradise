@@ -51,13 +51,13 @@
 	hand = owner.bodyparts_by_name[side]
 	if(hand)
 		RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_item_attack_self)) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
-		RegisterSignal(arm_owner, COMSIG_MOB_DROP_ITEM, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
+		RegisterSignal(arm_owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/arm_owner, special = 0)
 	Retract()
 	if(hand)
 		UnregisterSignal(hand, COMSIG_ITEM_ATTACK_SELF)
-		UnregisterSignal(arm_owner, COMSIG_MOB_DROP_ITEM)
+		UnregisterSignal(arm_owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/arm/proc/on_item_attack_self()
@@ -100,7 +100,7 @@
 		"<span class='notice'>[active_item] snaps back into your [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 
-	owner.unEquip(active_item, 1)
+	owner.drop_item_ground(active_item, force = TRUE)
 	active_item.forceMove(src)
 	active_item = null
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
@@ -122,7 +122,7 @@
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
-		if(!owner.unEquip(arm_item))
+		if(!owner.drop_item_ground(arm_item))
 			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
 			return
 		else

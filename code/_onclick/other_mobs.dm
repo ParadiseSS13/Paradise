@@ -20,7 +20,8 @@
 
 	A.attack_hand(src)
 
-/atom/proc/attack_hand(mob/user as mob)
+
+/atom/proc/attack_hand(mob/user)
 	return
 
 /*

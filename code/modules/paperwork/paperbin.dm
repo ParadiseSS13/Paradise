@@ -36,19 +36,19 @@
 
 	if(over_object == M)
 		if(!remove_item_from_storage(M))
-			M.unEquip(src)
-		M.put_in_hands(src)
+			M.drop_item_ground(src)
+		M.put_in_hands(src, ignore_anim = FALSE)
 
 	else if(istype(over_object, /obj/screen))
 		switch(over_object.name)
 			if("r_hand")
 				if(!remove_item_from_storage(M))
-					M.unEquip(src)
-				M.put_in_r_hand(src)
+					M.drop_item_ground(src)
+				M.put_in_r_hand(src, ignore_anim = FALSE)
 			if("l_hand")
 				if(!remove_item_from_storage(M))
-					M.unEquip(src)
-				M.put_in_l_hand(src)
+					M.drop_item_ground(src)
+				M.put_in_l_hand(src, ignore_anim = FALSE)
 
 	add_fingerprint(M)
 
@@ -74,15 +74,14 @@
 			if(letterhead_type && alert("Choose a style",,"Letterhead","Blank")=="Letterhead")
 				P = new letterhead_type
 			else
-				P = new /obj/item/paper
+				P = new /obj/item/paper(drop_location())
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
 				if(prob(30))
 					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
 					P.rigged = 1
 					P.updateinfolinks()
 		if(in_range(user, src))
-			P.loc = user.loc
-			user.put_in_hands(P)
+			user.put_in_hands(P, ignore_anim = FALSE)
 			P.add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
 	else
@@ -92,12 +91,11 @@
 	return
 
 
-/obj/item/paper_bin/attackby(obj/item/paper/i as obj, mob/user as mob, params)
-	if(istype(i))
-		user.drop_item()
-		i.loc = src
-		to_chat(user, "<span class='notice'>You put [i] in [src].</span>")
-		papers.Add(i)
+/obj/item/paper_bin/attackby(obj/item/paper/I, mob/user, params)
+	if(istype(I))
+		user.drop_transfer_item_to_loc(I, src)
+		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+		papers.Add(I)
 		amount++
 	else
 		return ..()
@@ -132,9 +130,8 @@
 			P = papers[papers.len]
 			papers.Remove(P)
 		else
-			P = new /obj/item/paper/carbon
-		P.loc = user.loc
-		user.put_in_hands(P)
+			P = new /obj/item/paper/carbon(drop_location())
+		user.put_in_hands(P, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")

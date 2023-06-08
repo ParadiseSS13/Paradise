@@ -84,7 +84,7 @@
 				to_chat(user, "<span class='notice'>You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?</span>")
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
 			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
-			user.drop_item()
+			user.temporarily_remove_item_from_inventory(src)
 			qdel(src)
 
 /obj/item/organ/internal/regenerative_core/afterattack(atom/target, mob/user, proximity_flag)

@@ -628,12 +628,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		holder.visible_message(\
 			"\The [holder.handcuffed.name] falls off of [holder.name].",\
 			"\The [holder.handcuffed.name] falls off you.")
-		holder.unEquip(holder.handcuffed)
+		holder.drop_item_ground(holder.handcuffed)
 	if(holder.legcuffed && (body_part in list(FOOT_LEFT, FOOT_RIGHT, LEG_LEFT, LEG_RIGHT)))
 		holder.visible_message(\
 			"\The [holder.legcuffed.name] falls off of [holder.name].",\
 			"\The [holder.legcuffed.name] falls off you.")
-		holder.unEquip(holder.legcuffed)
+		holder.drop_item_ground(holder.legcuffed)
 
 /obj/item/organ/external/proc/fracture()
 	if(is_robotic())

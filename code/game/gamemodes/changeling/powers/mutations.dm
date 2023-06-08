@@ -37,7 +37,7 @@
 	..(user, target)
 
 /datum/action/changeling/weapon/sting_action(var/mob/user)
-	if(!user.drop_item())
+	if(!user.drop_from_active_hand())
 		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return
 	var/obj/item/W = new weapon_type(user, silent)
@@ -85,18 +85,18 @@
 	..(H, target)
 
 /datum/action/changeling/suit/sting_action(var/mob/living/carbon/human/user)
-	if(!user.unEquip(user.wear_suit))
+	if(!user.drop_item_ground(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
 		return
-	if(!user.unEquip(user.head))
+	if(!user.drop_item_ground(user.head))
 		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
 		return
 
-	user.unEquip(user.head)
-	user.unEquip(user.wear_suit)
+	user.drop_item_ground(user.head)
+	user.drop_item_ground(user.wear_suit)
 
-	user.equip_to_slot_if_possible(new suit_type(user), slot_wear_suit, TRUE, TRUE)
-	user.equip_to_slot_if_possible(new helmet_type(user), slot_head, TRUE, TRUE)
+	user.equip_to_slot_or_del(new suit_type(user), slot_wear_suit)
+	user.equip_to_slot_or_del(new helmet_type(user), slot_head)
 
 	var/datum/changeling/changeling = user.mind.changeling
 	changeling.chem_recharge_slowdown += recharge_slowdown
@@ -343,7 +343,7 @@
 								if(!I)
 									I = C.get_inactive_hand()
 						if(I)
-							if(C.unEquip(I))
+							if(C.drop_item_ground(I))
 								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
 								add_attack_logs(src, C, "[src] has grabbed [I] out of [C]'s hand with a tentacle")
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
@@ -426,7 +426,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
-			H.unEquip(src, 1)
+			H.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 		return 0
 	else

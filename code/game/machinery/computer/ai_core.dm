@@ -20,14 +20,13 @@
 	switch(state)
 		if(EMPTY_CORE)
 			if(istype(P, /obj/item/circuitboard/aicore))
-				if(!user.drop_item())
+				if(!user.drop_transfer_item_to_loc(P, src))
 					return
 				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 				update_icon()
 				state = CIRCUIT_CORE
-				P.forceMove(src)
 				circuit = P
 				return
 		if(SCREWED_CORE)
@@ -105,11 +104,10 @@
 					to_chat(user, "<span class='warning'>This MMI does not seem to fit!</span>")
 					return
 
-				if(!user.drop_item())
+				if(!user.drop_transfer_item_to_loc(M, src))
 					return
 
 				add_fingerprint(user)
-				M.forceMove(src)
 				brain = M
 				to_chat(user, "<span class='notice'>You add [M.name] to the frame.</span>")
 				update_icon()

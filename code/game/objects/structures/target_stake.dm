@@ -28,7 +28,7 @@
 		add_fingerprint(user)
 		density = 0
 		W.density = 1
-		user.drop_item(src)
+		user.drop_from_active_hand(src)
 		W.loc = loc
 		W.layer = 3.1
 		pinned_target = W
@@ -47,7 +47,8 @@
 		pinned_target.loc = user.loc
 		if(ishuman(user))
 			if(!user.get_active_hand())
-				user.put_in_hands(pinned_target)
+				pinned_target.forceMove_turf()
+				user.put_in_hands(pinned_target, ignore_anim = FALSE)
 				to_chat(user, "You take the target out of the stake.")
 		else
 			pinned_target.loc = get_turf(user)

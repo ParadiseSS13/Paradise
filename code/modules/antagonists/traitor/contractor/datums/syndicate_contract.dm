@@ -395,7 +395,7 @@
 			qdel(I)
 			continue
 
-		if(M.unEquip(I))
+		if(M.drop_item_ground(I))
 			stuff_to_transfer += I
 
 	// Transfer it all (or drop it if not possible)
@@ -418,8 +418,8 @@
 			mask = new /obj/item/clothing/mask/breath(H)
 
 		if(tank)
-			H.equip_to_appropriate_slot(tank)
-			H.equip_to_appropriate_slot(mask)
+			tank.equip_to_best_slot(H)
+			mask.equip_to_best_slot(H)
 			tank.toggle_internals(H, TRUE)
 
 	M.update_icons()

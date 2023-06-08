@@ -105,7 +105,7 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
-/obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
+/obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot, initial)
 	. = ..()
 	if(slot == slot_shoes && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
@@ -220,8 +220,8 @@
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-
-	user.put_in_hands(cell)
+	cell.forceMove_turf()
+	user.put_in_hands(cell, ignore_anim = FALSE)
 	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
 	cell.update_icon()
 	cell = null
@@ -232,9 +232,8 @@
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
 			return
-		if(!user.unEquip(I))
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
-		I.forceMove(src)
 		cell = I
 		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
 		update_icon()
@@ -244,17 +243,17 @@
 		if(core)
 			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
-		I.forceMove(src)
 		core = I
 	else
 		return ..()
 
-/obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot)
-	..()
+/obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!ishuman(user))
 		return
 	if(slot == slot_shoes && cell && core)

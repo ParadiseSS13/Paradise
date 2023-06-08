@@ -45,11 +45,10 @@
 		if(beaker)
 			return 1
 		else
-			if(!user.unEquip(O))
+			if(!user.drop_transfer_item_to_loc(O, src))
 				to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
 				return 0
 			add_fingerprint(user)
-			O.forceMove(src)
 			beaker = O
 			verbs += /obj/machinery/juicer/verb/detach
 			update_icon()
@@ -58,11 +57,10 @@
 	if(!is_type_in_list(O, allowed_items))
 		to_chat(user, "It doesn't look like that contains any juice.")
 		return 1
-	if(!user.unEquip(O))
+	if(!user.drop_transfer_item_to_loc(O, src))
 		to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
 		return 0
 	add_fingerprint(user)
-	O.forceMove(src)
 	updateUsrDialog()
 	return 0
 

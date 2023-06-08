@@ -93,7 +93,7 @@
 		return
 
 	for(var/obj/item/W in user)
-		user.unEquip(W)
+		user.drop_item_ground(W)
 
 	var/obj/item/wrench/medical/W = new /obj/item/wrench/medical(loc)
 	W.add_fingerprint(user)

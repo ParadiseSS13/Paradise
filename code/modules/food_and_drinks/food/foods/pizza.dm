@@ -257,7 +257,8 @@
 
 /obj/item/pizzabox/attack_hand(mob/user)
 	if(open && pizza)
-		user.put_in_hands(pizza)
+		pizza.forceMove_turf()
+		user.put_in_hands(pizza, ignore_anim = FALSE)
 		to_chat(user, "<span class='warning'>You take the [pizza] out of the [src].</span>")
 		pizza = null
 		update_icon()
@@ -269,7 +270,8 @@
 			return
 		var/obj/item/pizzabox/box = boxes[boxes.len]
 		boxes -= box
-		user.put_in_hands(box)
+		box.forceMove_turf()
+		user.put_in_hands(box, ignore_anim = FALSE)
 		to_chat(user, "<span class='warning'>You remove the topmost [src] from your hand.</span>")
 		box.update_icon()
 		update_icon()
@@ -294,8 +296,7 @@
 			for(var/obj/item/pizzabox/i in box.boxes)
 				boxestoadd += i
 			if((boxes.len+1) + boxestoadd.len <= 5)
-				user.drop_item()
-				box.loc = src
+				user.drop_transfer_item_to_loc(box, src)
 				box.boxes = list() // Clear the box boxes so we don't have boxes inside boxes. - Xzibit
 				boxes.Add(boxestoadd)
 				box.update_icon()
@@ -309,8 +310,7 @@
 
 	if(istype(I, /obj/item/reagent_containers/food/snacks/sliceable/pizza/)) // Long ass fucking object name
 		if(open)
-			user.drop_item()
-			I.loc = src
+			user.drop_transfer_item_to_loc(I, src)
 			pizza = I
 
 			update_icon()

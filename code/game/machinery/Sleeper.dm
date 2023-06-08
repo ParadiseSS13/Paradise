@@ -291,13 +291,12 @@
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
 		if(!beaker)
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(I, src))
 				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 				return
 
 			add_fingerprint(user)
 			beaker = I
-			I.forceMove(src)
 			user.visible_message("[user] adds \a [I] to [src]!", "You add \a [I] to [src]!")
 			SStgui.update_uis(src)
 			return
@@ -476,7 +475,8 @@
 
 	if(beaker)
 		filtering = FALSE
-		usr.put_in_hands(beaker)
+		beaker.forceMove_turf()
+		usr.put_in_hands(beaker, ignore_anim = FALSE)
 		beaker = null
 		SStgui.update_uis(src)
 	add_fingerprint(usr)

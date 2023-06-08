@@ -145,8 +145,8 @@
 				L.pulling.forceMove(T)
 
 		//now we're on the new z_level, proceed the space drifting
-		sleep(0)//Let a diagonal move finish, if necessary
-		A.newtonian_move(A.inertia_dir)
+		spawn(0)//Let a diagonal move finish, if necessary
+			A.newtonian_move(A.inertia_dir)
 
 /turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)
 	var/mob/living/check_mob = A

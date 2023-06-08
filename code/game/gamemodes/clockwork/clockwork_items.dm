@@ -110,7 +110,7 @@
 	if(!isclocker(user))
 		if(plushy)
 			return
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.emote("scream")
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		if(iscarbon(user))
@@ -256,7 +256,7 @@
 			human.embed_item_inside(src)
 			to_chat(user, "<span class='clocklarge'>\"How does it feel it now?\"</span>")
 		else
-			user.remove_from_mob(src)
+			user.drop_item_ground(src)
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
 	. = ..()
@@ -400,7 +400,7 @@
 /obj/item/twohanded/clock_hammer/attack(mob/living/M, mob/living/user, def_zone)
 	if(!isclocker(user))
 		user.Weaken(5)
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		user.emote("scream")
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [M]!</span>",
 		"<span class='clocklarge'>\"Don't hit yourself.\"</span>")
@@ -504,7 +504,7 @@
 /obj/item/melee/clock_sword/attack_self(mob/user)
 	. = ..()
 	if(!isclocker(user))
-		user.remove_from_mob(src)
+		user.drop_item_ground(src)
 		user.emote("scream")
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
@@ -532,7 +532,7 @@
 			human.embed_item_inside(src)
 			to_chat(user, "<span class='clocklarge'>\"How does it feel it now?\"</span>")
 		else
-			user.remove_from_mob(src)
+			user.drop_item_ground(src)
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
 	. = ..()
@@ -613,8 +613,9 @@
 				living.AdjustConfused(5)
 		deplete_spell()
 
-/obj/item/shield/clock_buckler/equipped(mob/living/user, slot)
+/obj/item/shield/clock_buckler/equipped(mob/living/user, slot, initial)
 	. = ..()
+
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
@@ -628,7 +629,7 @@
 			to_chat(user, "<span class='userdanger'>The buckler suddenly hits you in the head!</span>")
 			user.emote("scream")
 			user.apply_damage(10, BRUTE, "head")
-		user.remove_from_mob(src)
+		user.drop_item_ground(src)
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
@@ -715,8 +716,9 @@
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
 
-/obj/item/clothing/suit/hooded/clockrobe/equipped(mob/living/user, slot)
+/obj/item/clothing/suit/hooded/clockrobe/equipped(mob/living/user, slot, initial)
 	. = ..()
+
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
@@ -730,7 +732,7 @@
 			user.emote("scream")
 			user.apply_damage(7, BURN, "chest")
 			user.IgniteMob()
-		user.remove_from_mob(src)
+		user.drop_item_ground(src)
 
 // Clockwork Armour. Basically greater robe with more and better spells.
 /obj/item/clothing/suit/armor/clockwork
@@ -795,7 +797,7 @@
 /obj/item/clothing/suit/armor/clockwork/attack_self(mob/user)
 	. = ..()
 	if(!isclocker(user))
-		user.remove_from_mob(src)
+		user.drop_item_ground(src)
 		user.emote("scream")
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
@@ -839,8 +841,9 @@
 	flags &= ~NODROP
 	deplete_spell()
 
-/obj/item/clothing/suit/armor/clockwork/equipped(mob/living/user, slot)
+/obj/item/clothing/suit/armor/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
+
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
@@ -855,7 +858,7 @@
 			user.apply_damage(15, BURN, "chest")
 			user.adjust_fire_stacks(2)
 			user.IgniteMob()
-		user.remove_from_mob(src)
+		user.drop_item_ground(src)
 
 // Gloves
 /obj/item/clothing/gloves/clockwork
@@ -946,8 +949,9 @@
 	to_chat(usr, "<span class='notice'> [src] depletes last magic they had.</span>")
 	deplete_spell()
 
-/obj/item/clothing/gloves/clockwork/equipped(mob/living/user, slot)
+/obj/item/clothing/gloves/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
+
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
@@ -962,7 +966,7 @@
 			user.emote("scream")
 			user.apply_damage(7, BRUTE, "l_arm")
 			user.apply_damage(7, BRUTE, "r_arm")
-		user.remove_from_mob(src)
+		user.drop_item_ground(src)
 
 // Shoes
 /obj/item/clothing/shoes/clockwork
@@ -975,8 +979,9 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 
-/obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot)
+/obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
+
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
@@ -991,7 +996,7 @@
 			user.emote("scream")
 			user.apply_damage(7, BURN, "l_leg")
 			user.apply_damage(7, BURN, "r_leg")
-		user.remove_from_mob(src)
+		user.drop_item_ground(src)
 
 // Helmet
 /obj/item/clothing/head/helmet/clockwork
@@ -1006,8 +1011,9 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	armor = list(melee = 45, bullet = 65, laser = 10, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
 
-/obj/item/clothing/head/helmet/clockwork/equipped(mob/living/user, slot)
+/obj/item/clothing/head/helmet/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
+
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
@@ -1022,7 +1028,7 @@
 			user.emote("scream")
 			user.apply_damage(30, BRUTE, "head")
 			user.adjustBrainLoss(30)
-		user.remove_from_mob(src)
+		user.drop_item_ground(src)
 
 // Glasses
 /obj/item/clothing/glasses/clockwork
@@ -1038,8 +1044,9 @@
 	see_in_dark = 0
 	lighting_alpha = null
 
-/obj/item/clothing/glasses/clockwork/equipped(mob/living/user, slot)
+/obj/item/clothing/glasses/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
+
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, "<span class='clocklarge'>\"I think you need some different glasses. This too bright for you.\"</span>")
@@ -1051,7 +1058,7 @@
 			to_chat(user, "<span class='userdanger'>You suddenly catch fire!</span>")
 			user.adjust_fire_stacks(5)
 			user.IgniteMob()
-		user.remove_from_mob(src)
+		user.drop_item_ground(src)
 
 /obj/item/clothing/glasses/clockwork/attack_self(mob/user)
 	if(!isclocker(user))
@@ -1152,7 +1159,7 @@
 		cog.key = O.key
 		if(SSticker.mode.add_clocker(cog.mind))
 			cog.create_log(CONVERSION_LOG, "[cog.mind] became clock drone by [user.name]")
-		user.unEquip()
+		user.drop_item_ground(src)
 		qdel(src)
 	else
 		visible_message("<span class='notice'>[src] stops to hum. Perhaps you could try again?</span>")
@@ -1183,7 +1190,7 @@
 		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
 		soul.brainmob.mind.transfer_to(cog)
 		playsound(cog, 'sound/effects/constructform.ogg', 50)
-		user.unEquip(soul)
+		user.temporarily_remove_item_from_inventory(soul)
 		qdel(soul)
 		qdel(src)
 
@@ -1254,7 +1261,7 @@
 			human.embed_item_inside(src)
 			to_chat(user, "<span class='clocklarge'>\"How does it feel it now?\"</span>")
 		else
-			user.remove_from_mob(src)
+			user.drop_item_ground(src)
 			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
 	. = ..()
@@ -1267,7 +1274,7 @@
 		return
 	var/mob/living/carbon/human/human = target
 	if(human.stat == DEAD && isclocker(human)) // dead clocker
-		user.unEquip(src)
+		user.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 		if(!human.client)
 			give_ghost(human)

@@ -84,7 +84,7 @@
 /obj/structure/clockwork/functional/workshop/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/sheet/brass) && isclocker(user))
 		var/obj/item/stack/sheet/brass/B = O
-		if(user.unEquip(B))
+		if(user.temporarily_remove_item_from_inventory(B))
 			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You reconstruct [B] for workshop to work with.")
 			brass_amount += MINERAL_MATERIAL_AMOUNT*B.amount

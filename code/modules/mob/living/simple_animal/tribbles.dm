@@ -95,7 +95,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "tribble1"
 	item_state = "tribble1"
-	w_class = 10
+	w_class = 1
 	var/gestation = 0
 	flags = DROPDEL
 

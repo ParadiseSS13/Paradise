@@ -19,10 +19,10 @@
 		return
 	if(ishuman(user) && Adjacent(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/snowball/S = new
+		var/obj/item/snowball/S = new(drop_location())
 		cooldown = world.time + 3 SECONDS
 
-		if(H.put_in_hands(S))
+		if(H.put_in_hands(S, ignore_anim = FALSE))
 			playsound(src, 'sound/weapons/slashmiss.ogg', 15) // crunchy snow sound
 		else
 			qdel(S) // Spawn in hands only

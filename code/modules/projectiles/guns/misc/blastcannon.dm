@@ -42,11 +42,10 @@
 		if(!T.tank_one || !T.tank_two)
 			to_chat(user, "<span class='warning'>What good would an incomplete bomb do?</span>")
 			return FALSE
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(T, src))
 			to_chat(user, "<span class='warning'>[T] seems to be stuck to your hand!</span>")
 			return FALSE
 		user.visible_message("<span class='warning'>[user] attaches [T] to [src]!</span>")
-		T.forceMove(src)
 		bomb = T
 		update_icon()
 		return TRUE

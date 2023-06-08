@@ -590,3 +590,6 @@ DEFAULT_MAP /datum/map/cyberiad
 ## Override server map by specified, uncomment to apply
 # OVERRIDE_MAP /datum/map/delta
 
+## Disable animations on item pickup and drop down
+# ITEM_ANIMATIONS_DISABLED
+

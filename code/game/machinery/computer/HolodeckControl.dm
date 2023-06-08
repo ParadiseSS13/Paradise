@@ -230,7 +230,7 @@
 	if(isobj(obj))
 		var/mob/M = obj.loc
 		if(ismob(M))
-			M.unEquip(obj, 1) //Holoweapons should always drop.
+			M.temporarily_remove_item_from_inventory(obj, force = TRUE) //Holoweapons should always drop.
 
 	if(!silent)
 		var/obj/oldobj = obj
@@ -522,7 +522,7 @@
 		qdel(W)
 		return
 	else if(istype(W, /obj/item) && get_dist(src,user)<2)
-		user.drop_item(src)
+		user.drop_from_active_hand(src)
 		visible_message("<span class='notice'>[user] dunks [W] into the [src]!</span>")
 		return
 

@@ -114,7 +114,7 @@
 	else
 		return 0
 
-/mob/living/silicon/robot/drop_item()
+/mob/living/silicon/robot/drop_from_active_hand(force = FALSE)
 	var/obj/item/gripper/G = get_active_hand()
 	if(istype(G))
 		G.drop_gripped_item(silent = TRUE)
@@ -242,10 +242,12 @@
 
 	return
 
-/mob/living/silicon/robot/unEquip(obj/item/I, force)
+
+/mob/living/silicon/robot/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	if(I == module_active)
 		uneq_active(I)
 	return ..()
+
 
 /mob/living/silicon/robot/proc/update_module_icon()
 	if (!hands)

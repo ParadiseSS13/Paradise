@@ -75,14 +75,14 @@
 		if((CLUMSY in user.mutations) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
-			user.unEquip(P)
+			user.drop_item_ground(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
 
 		if(!in_range(user, src)) //to prevent issues as a result of telepathically lighting a paper
 			return
-		user.unEquip(src)
+		user.drop_item_ground(src)
 		user.visible_message("<span class='danger'>[user] lights [src] on fire with [P]!</span>", "<span class='danger'>You lights [src] on fire!</span>")
 		fire_act()
 
@@ -112,7 +112,7 @@
 /obj/item/paper/AltClick(mob/user, obj/item/I)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		I = H.is_in_hands(/obj/item/paper)
+		I = H.is_type_in_hands(/obj/item/paper)
 		if(I)
 			ProcFoldPlane(H, I)
 
@@ -121,7 +121,7 @@
 		if((!in_range(src, user)) || user.stat || user.restrained())
 			return
 		to_chat(user, "<span class='notice'>You fold [src] into the shape of a plane!</span>")
-		user.unEquip(src)
+		user.drop_item_ground(src)
 		I = new /obj/item/paperplane(user, src)
 		user.put_in_hands(I)
 	else

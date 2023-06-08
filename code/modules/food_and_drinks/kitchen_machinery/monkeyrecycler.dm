@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 					to_chat(user, "<span class='warning'>The monkey is struggling far too much to put it in the recycler.</span>")
 				else
 					add_fingerprint(user)
-					user.drop_item()
+					user.drop_from_active_hand()
 					qdel(target)
 					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
 					playsound(loc, 'sound/machines/juicer.ogg', 50, 1)

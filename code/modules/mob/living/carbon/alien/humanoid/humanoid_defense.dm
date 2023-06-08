@@ -28,7 +28,7 @@
 								"<span class='userdanger'>[M] опрокинул[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>")
 					else
 						if(prob(50))
-							drop_item()
+							drop_from_active_hand()
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 							visible_message("<span class='danger'>[M] обезоружил[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>", \
 								"<span class='userdanger'>[M] обезоружил[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>")

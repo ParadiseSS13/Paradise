@@ -781,7 +781,7 @@
 		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
 		var/obj/item/I = M.get_active_hand()
 		if(I)
-			M.drop_item()
+			M.drop_from_active_hand()
 	if(prob(50))
 		update_flags |= M.adjustFireLoss(10, FALSE)
 	update_flags |= M.adjustBrainLoss(pick(0.5, 0.6, 0.7, 0.8, 0.9, 1), FALSE)

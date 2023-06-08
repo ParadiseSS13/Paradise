@@ -25,11 +25,11 @@
 	return ..()
 
 /obj/structure/engineeringcart/proc/put_in_cart(obj/item/I, mob/user)
-	user.drop_item()
-	I.loc = src
+	user.drop_transfer_item_to_loc(I, src)
 	updateUsrDialog()
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
+
 /obj/structure/engineeringcart/attackby(obj/item/I, mob/user, params)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
 	if(!I.is_robot_module())
@@ -137,37 +137,44 @@
 	var/mob/living/user = usr
 	if(href_list["glass"])
 		if(myglass)
-			user.put_in_hands(myglass)
+			myglass.forceMove_turf()
+			user.put_in_hands(myglass, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [myglass] from [src].</span>")
 			myglass = null
 	if(href_list["metal"])
 		if(mymetal)
-			user.put_in_hands(mymetal)
+			mymetal.forceMove_turf()
+			user.put_in_hands(mymetal, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [mymetal] from [src].</span>")
 			mymetal = null
 	if(href_list["plasteel"])
 		if(myplasteel)
-			user.put_in_hands(myplasteel)
+			myplasteel.forceMove_turf()
+			user.put_in_hands(myplasteel, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [myplasteel] from [src].</span>")
 			myplasteel = null
 	if(href_list["flashlight"])
 		if(myflashlight)
-			user.put_in_hands(myflashlight)
+			myflashlight.forceMove_turf()
+			user.put_in_hands(myflashlight, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [myflashlight] from [src].</span>")
 			myflashlight = null
 	if(href_list["bluetoolbox"])
 		if(mybluetoolbox)
-			user.put_in_hands(mybluetoolbox)
+			mybluetoolbox.forceMove_turf()
+			user.put_in_hands(mybluetoolbox, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [mybluetoolbox] from [src].</span>")
 			mybluetoolbox = null
 	if(href_list["redtoolbox"])
 		if(myredtoolbox)
-			user.put_in_hands(myredtoolbox)
+			myredtoolbox.forceMove_turf()
+			user.put_in_hands(myredtoolbox, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [myredtoolbox] from [src].</span>")
 			myredtoolbox = null
 	if(href_list["yellowtoolbox"])
 		if(myyellowtoolbox)
-			user.put_in_hands(myyellowtoolbox)
+			myyellowtoolbox.forceMove_turf()
+			user.put_in_hands(myyellowtoolbox, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [myyellowtoolbox] from [src].</span>")
 			myyellowtoolbox = null
 

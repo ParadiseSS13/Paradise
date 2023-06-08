@@ -173,11 +173,10 @@
 		else if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(I, src))
 				return FALSE
 			add_fingerprint(user)
 			beaker =  I
-			beaker.loc = src
 			update_icon()
 			updateUsrDialog()
 		return TRUE //no afterattack
@@ -229,9 +228,8 @@
 			to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
 			return TRUE
 
-	if(user.drop_item())
+	if(user.drop_transfer_item_to_loc(I, src))
 		add_fingerprint(user)
-		I.loc = src
 		holdingitems += I
 		src.updateUsrDialog()
 		return FALSE

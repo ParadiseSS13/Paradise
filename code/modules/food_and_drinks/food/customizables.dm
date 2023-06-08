@@ -342,9 +342,8 @@
 		var/obj/item/reagent_containers/food/snacks/customizable/origin = I
 		ingredients += origin.ingredients
 		foodtype |= origin.foodtype
-	user.drop_item()
+	user.drop_transfer_item_to_loc(I, src)
 	cooktype[basename] = 1
-	I.loc = src
 	if(!istype(I, toptype))
 		ingredients += I
 	updateicon()

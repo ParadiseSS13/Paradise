@@ -398,12 +398,10 @@
 			return
 
 		if(!keyslot1)
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			keyslot1 = W
 		else
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			keyslot2 = W
 		recalculateChannels()
 	else

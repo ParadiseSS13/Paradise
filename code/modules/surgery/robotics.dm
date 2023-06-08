@@ -432,11 +432,11 @@
 	else if(current_type == "insert")
 		var/obj/item/organ/internal/I = tool
 
-		if(!user.canUnEquip(I, 0))
+		if(!user.can_unEquip(I))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
 			return 0
 
-		user.drop_item()
+		user.drop_from_active_hand()
 		I.insert(target)
 		user.visible_message("<span class='notice'> [user] has reattached [target]'s [I].</span>" , \
 		"<span class='notice'> You have reattached [target]'s [I].</span>")
@@ -447,7 +447,7 @@
 
 		var/obj/item/mmi/M = tool
 
-		user.unEquip(tool)
+		user.drop_item_ground(tool)
 		M.attempt_become_organ(affected,target)
 
 	else if(current_type == "extract")
@@ -461,7 +461,8 @@
 			if(!istype(thing))
 				thing.forceMove(get_turf(target))
 			else
-				user.put_in_hands(thing)
+				thing.forceMove(get_turf(target))
+				user.put_in_hands(thing, ignore_anim = FALSE)
 		else
 			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
@@ -535,7 +536,8 @@
 
 	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))
-		user.put_in_hands(thing)
+		thing.forceMove(get_turf(target))
+		user.put_in_hands(thing, ignore_anim = FALSE)
 
 	return 1
 

@@ -241,12 +241,12 @@
 		if(!(M.restrained()) && !(M.stat))
 			switch(over_object.name)
 				if("r_hand")
-					if(!M.unEquip(src))
+					if(!M.drop_item_ground(src))
 						return
-					M.put_in_r_hand(src)
+					M.put_in_r_hand(src, ignore_anim = FALSE)
 				if("l_hand")
-					if(!M.unEquip(src))
+					if(!M.drop_item_ground(src))
 						return
-					M.put_in_l_hand(src)
+					M.put_in_l_hand(src, ignore_anim = FALSE)
 			add_fingerprint(usr)
 			return

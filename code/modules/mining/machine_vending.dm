@@ -183,7 +183,8 @@
 			if(!inserted_id)
 				return
 			if(ishuman(usr))
-				usr.put_in_hands(inserted_id)
+				inserted_id.forceMove_turf()
+				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
 			else
 				inserted_id.forceMove(get_turf(src))
 			inserted_id = null
@@ -225,10 +226,9 @@
 			return
 		var/obj/item/card/id/C = user.get_active_hand()
 		if(istype(C) && !istype(inserted_id))
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(C, src))
 				return
 			add_fingerprint(user)
-			C.forceMove(src)
 			inserted_id = C
 			ui_interact(user)
 		return

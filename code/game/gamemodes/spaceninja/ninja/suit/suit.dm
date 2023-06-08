@@ -351,7 +351,7 @@
 	jetpack = null
 	to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
 
-/obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot)
+/obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot, initial)
 	. = ..()
 	if(jetpack)
 		if(slot == slot_wear_suit)
@@ -411,10 +411,10 @@
 				used_power += s_acost
 			if(spirited) // If spirit form is active.
 				if(istype(ninja.r_hand, /obj/item/grab))
-					ninja.unEquip(ninja.r_hand, TRUE)
+					ninja.drop_item_ground(ninja.r_hand, force = TRUE)
 					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
 				if(istype(ninja.l_hand, /obj/item/grab))
-					ninja.unEquip(ninja.l_hand, TRUE)
+					ninja.drop_item_ground(ninja.l_hand, force = TRUE)
 					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
 				used_power += cell.maxcharge * s_spirit_form__percent_cost //that shit is NOT cheap
 			if(cell.charge < used_power) // Проверка на случай когда он не может отнять энергию до нуля и в итоге вечно торчит в инвизе/форме духа/хамелионе
@@ -658,7 +658,7 @@
 	var/mob/living/carbon/human/ninja = affecting
 	if(!n_scarf)
 		var/obj/item/clothing/neck/ninjascarf/new_scarf = new
-		if(!ninja.equip_to_slot_if_possible(new_scarf, slot_neck, 1))		//Уже что то надето в слоте шеи? Алярма, снимите помеху прежде чем продолжить.
+		if(!ninja.equip_to_slot_if_possible(new_scarf, slot_neck, qdel_on_fail = TRUE))		//Уже что то надето в слоте шеи? Алярма, снимите помеху прежде чем продолжить.
 			to_chat(ninja, "[span_userdanger("ERROR")]: 100220 UNABLE TO TRANSFORM HEAD GEAR\nABORTING...")
 			return FALSE
 		n_scarf = new_scarf

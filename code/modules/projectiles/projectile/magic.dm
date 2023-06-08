@@ -177,7 +177,7 @@
 				for(var/i in H.internal_organs)
 					qdel(i)
 			for(var/obj/item/W in M)
-				M.unEquip(W, 1)
+				M.temporarily_remove_item_from_inventory(W, force = TRUE)
 				qdel(W)
 
 		var/mob/living/new_mob

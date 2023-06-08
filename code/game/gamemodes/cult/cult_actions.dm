@@ -115,10 +115,21 @@
 	button.moved = "6:157,4:-2"
 
 /datum/action/innate/cult/use_dagger/Activate()
-	var/obj/item/melee/cultblade/dagger/D = owner.find_item(/obj/item/melee/cultblade/dagger)
-	if(D)
-		owner.remove_from_mob(D)
-		owner.put_in_hands(D)
-		D.attack_self(owner)
+	var/obj/item/melee/cultblade/dagger/dagger
+	for(var/obj/item/I in owner.contents)
+		if(istype(I, /obj/item/storage))
+			for(var/obj/item/SI in I.contents)
+				if(istype(SI, /obj/item/melee/cultblade/dagger))
+					dagger = SI
+					break
+		else if(istype(I, /obj/item/melee/cultblade/dagger))
+			dagger = I
+			break
+
+	if(dagger)
+		if(!dagger.remove_item_from_storage(owner))
+			owner.drop_item_ground(dagger)
+		owner.put_in_hands(dagger)
+		dagger.attack_self(owner)
 	else
 		to_chat(usr, "<span class='cultitalic'>You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell.</span>")

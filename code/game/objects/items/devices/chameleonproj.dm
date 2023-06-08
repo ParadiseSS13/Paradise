@@ -19,9 +19,11 @@
 	var/saved_underlays = null
 
 /obj/item/chameleon/dropped()
+	. = ..()
 	disrupt()
 
 /obj/item/chameleon/equipped()
+	. = ..()
 	disrupt()
 
 /obj/item/chameleon/attack_self()

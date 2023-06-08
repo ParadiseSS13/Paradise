@@ -14,8 +14,8 @@
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 
-/obj/item/stack/ore/New(loc, new_amount, merge = TRUE)
-	..()
+/obj/item/stack/ore/Initialize(mapload, new_amount , merge = TRUE)
+	. = ..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
 	if(is_mining_level(z))
@@ -105,8 +105,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		))
 
 /obj/item/stack/ore/glass/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.sand_recipes
 	. = ..()
+	recipes = GLOB.sand_recipes
 
 /obj/item/stack/ore/glass/throw_impact(atom/hit_atom)
 	if(..() || !ishuman(hit_atom))

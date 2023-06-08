@@ -252,7 +252,7 @@
 	C.place_on_head(D)
 	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
 	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
-	user.drop_item()
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 
 /obj/item/storage/toolbox/fluff/lunchbox //godoforeos: Jason Conrad

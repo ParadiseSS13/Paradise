@@ -361,9 +361,8 @@
 				return
 			if(ishuman(usr))
 				var/obj/item/photo/P = usr.get_active_hand()
-				if(istype(P) && usr.unEquip(P))
+				if(istype(P) && usr.drop_transfer_item_to_loc(P, src))
 					photo = P
-					P.forceMove(src)
 					usr.visible_message("<span class='notice'>[usr] inserts [P] into [src]'s photo slot.</span>",\
 										"<span class='notice'>You insert [P] into [src]'s photo slot.</span>")
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
@@ -587,7 +586,7 @@
 	var/obj/item/photo/P = photo
 	photo = null
 	P.forceMove(loc)
-	if(ishuman(user) && user.put_in_active_hand(P))
+	if(ishuman(user) && user.put_in_active_hand(P, ignore_anim = FALSE))
 		visible_message("<span class='notice'>[src] ejects [P] from its photo slot into [user]'s hand.")
 	else
 		visible_message("<span class='notice'>[src] ejects [P] from its photo slot.")

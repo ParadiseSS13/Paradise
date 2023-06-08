@@ -112,11 +112,11 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		return
 	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
 	if(do_after(user, remove_speed, target = src))
-		var/obj/item/stack/marker_beacon/M = new(loc)
+		var/obj/item/stack/marker_beacon/M = new(drop_location())
 		M.picked_color = picked_color
 		M.update_icon()
 		transfer_fingerprints_to(M)
-		user.put_in_hands(M)
+		user.put_in_hands(M, ignore_anim = FALSE)
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		qdel(src)
 

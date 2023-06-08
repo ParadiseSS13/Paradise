@@ -51,7 +51,7 @@
 /obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-		user.drop_item()
+		user.temporarily_remove_item_from_inventory(I)
 		qdel(I)
 		labels_left = initial(labels_left)	//Yes, it's capped at its initial value
 	else

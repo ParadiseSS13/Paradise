@@ -290,9 +290,8 @@
 	else if(istype(W, /obj/item/pipe))
 		var/obj/item/pipe/P = W
 		if(P.pipe_type in list(0, 1, 5))	//simple pipes, simple bends, and simple manifolds.
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(P, src))
 				return
-			P.loc = src.loc
 			to_chat(user, "<span class='notice'>You fit the pipe into \the [src].</span>")
 	else
 		return ..()

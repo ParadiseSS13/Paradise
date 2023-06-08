@@ -43,8 +43,8 @@
 			R.update_icon()
 			L.update_icon()
 
-/mob/living/carbon/update_inv_r_hand(ignore_cuffs)
-	if(handcuffed && !ignore_cuffs)
+/mob/living/carbon/update_inv_r_hand()
+	if(handcuffed)
 		drop_r_hand()
 		return
 	if(r_hand)
@@ -52,8 +52,8 @@
 			r_hand.screen_loc = ui_rhand
 			client.screen += r_hand
 
-/mob/living/carbon/update_inv_l_hand(ignore_cuffs)
-	if(handcuffed && !ignore_cuffs)
+/mob/living/carbon/update_inv_l_hand()
+	if(handcuffed)
 		drop_l_hand()
 		return
 	if(l_hand)

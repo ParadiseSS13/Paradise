@@ -239,14 +239,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 		else
 			var/obj/item/I = user.get_active_hand()
 			if(istype(I, /obj/item/card/id))
-				user.drop_item()
-				I.forceMove(src)
+				user.drop_transfer_item_to_loc(I, src)
 				id = I
 	else
 		var/obj/item/card/I = user.get_active_hand()
 		if(istype(I, /obj/item/card/id) && I:registered_name)
 			var/obj/old_id = id
-			user.drop_item()
+			user.drop_from_active_hand()
 			I.forceMove(src)
 			id = I
 			user.put_in_hands(old_id)
@@ -256,8 +255,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	..()
 	if(istype(C, /obj/item/cartridge) && !cartridge)
 		cartridge = C
-		user.drop_item()
-		cartridge.forceMove(src)
+		user.drop_transfer_item_to_loc(cartridge, src)
 		cartridge.update_programs(src)
 		update_shortcuts()
 		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
@@ -287,8 +285,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 					SStgui.update_uis(src)
 
 	else if(istype(C, /obj/item/paicard) && !src.pai)
-		user.drop_item()
-		C.forceMove(src)
+		user.drop_transfer_item_to_loc(C, src)
 		pai = C
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
 		SStgui.update_uis(src)
@@ -297,8 +294,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(O)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
 		else
-			user.drop_item()
-			C.forceMove(src)
+			user.drop_transfer_item_to_loc(C, src)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
 	else if(istype(C, /obj/item/nanomob_card))
 		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))

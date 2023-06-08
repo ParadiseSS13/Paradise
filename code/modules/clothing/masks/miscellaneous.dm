@@ -154,11 +154,10 @@
 		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
 			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
 			return FALSE
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(W, src))
 			to_chat(user, "<span class='warning'>You are unable to insert [W] into [src].</span>")
 			return FALSE
 		trigger = W
-		trigger.forceMove(src)
 		trigger.master = src
 		trigger.holder = src
 		AddComponent(/datum/component/proximity_monitor)
@@ -356,14 +355,15 @@
 		"Stok" = 'icons/mob/species/monkey/mask.dmi'
 	)
 
-/obj/item/clothing/mask/horsehead/equipped(mob/user, slot)
+/obj/item/clothing/mask/horsehead/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(flags & NODROP)	//cursed masks only
 		originalname = user.real_name
 		if(!user.real_name || user.real_name == "Unknown")
 			user.real_name = "A Horse With No Name" //it felt good to be out of the rain
 		else
 			user.real_name = "[user.name][temporaryname]"
-		..()
 
 /obj/item/clothing/mask/horsehead/dropped() //this really shouldn't happen, but call it extreme caution
 	if(flags & NODROP)
@@ -547,8 +547,9 @@
 	flags = NODROP | AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
 
-/obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
-	..()
+/obj/item/clothing/mask/cursedclown/equipped(mob/user, slot, initial)
+	. = ..()
+
 	var/mob/living/carbon/human/H = user
 	if(istype(H) && slot == slot_wear_mask)
 		to_chat(H, "<span class='danger'>[src] grips your face!</span>")

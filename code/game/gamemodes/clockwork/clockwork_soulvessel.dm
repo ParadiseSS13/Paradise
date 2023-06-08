@@ -43,7 +43,7 @@
 /obj/item/mmi/robotic_brain/clockwork/proc/try_to_transfer(mob/living/target, mob/user, obj/item/victim_brain)
 	if(ishuman(target))
 		for(var/obj/item/I in target)
-			target.unEquip(I)
+			target.drop_item_ground(I)
 	if(target.client == null)
 		target.dust()
 		get_ghost(target, user)

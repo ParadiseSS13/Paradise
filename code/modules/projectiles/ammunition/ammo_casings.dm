@@ -470,10 +470,9 @@
 		FD.damage_type = BRUTE
 		update_icon()
 	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
-		if(!user.unEquip(A))
+		if(!user.drop_transfer_item_to_loc(A, FD))
 			return
 		harmful = TRUE
-		A.loc = FD
 		FD.log_override = FALSE
 		FD.pen = A
 		FD.damage = 5

@@ -59,8 +59,8 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
 	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
-	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
+	if(hand && owner.can_unEquip(hand))
+		owner.drop_item_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, бросая то что держал!</span>")
 		owner.custom_emote(1, "бросает [owner.p_they()] [owner.p_were()] держали, [owner.p_their()] [name] выходя из строя!")
 
@@ -141,7 +141,7 @@
 			owner.AdjustWeakened(2)
 
 /obj/item/organ/external/foot/remove()
-	if(owner && owner.shoes) owner.unEquip(owner.shoes)
+	if(owner && owner.shoes) owner.drop_item_ground(owner.shoes)
 	. = ..()
 
 /obj/item/organ/external/foot/right
@@ -170,19 +170,19 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
 	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
-	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
+	if(hand && owner.can_unEquip(hand))
+		owner.drop_item_ground(hand)
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, dropping what it was holding!</span>")
 		owner.custom_emote(1, "бросает [owner.p_they()] [owner.p_were()] держали, [owner.p_their()] [name] выходя из строя")
 
 /obj/item/organ/external/hand/remove()
 	if(owner)
 		if(owner.gloves)
-			owner.unEquip(owner.gloves)
+			owner.drop_item_ground(owner.gloves)
 		if(owner.l_hand)
-			owner.unEquip(owner.l_hand, TRUE)
+			owner.drop_item_ground(owner.l_hand, force = TRUE)
 		if(owner.r_hand)
-			owner.unEquip(owner.r_hand, TRUE)
+			owner.drop_item_ground(owner.r_hand, force = TRUE)
 
 	. = ..()
 
@@ -234,15 +234,15 @@
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
 		if(owner.glasses)
-			owner.unEquip(owner.glasses)
+			owner.drop_item_ground(owner.glasses)
 		if(owner.head)
-			owner.unEquip(owner.head)
+			owner.drop_item_ground(owner.head)
 		if(owner.l_ear)
-			owner.unEquip(owner.l_ear)
+			owner.drop_item_ground(owner.l_ear)
 		if(owner.r_ear)
-			owner.unEquip(owner.r_ear)
+			owner.drop_item_ground(owner.r_ear)
 		if(owner.wear_mask)
-			owner.unEquip(owner.wear_mask)
+			owner.drop_item_ground(owner.wear_mask)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()

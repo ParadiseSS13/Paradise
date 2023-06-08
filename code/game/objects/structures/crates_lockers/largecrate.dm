@@ -21,9 +21,9 @@
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.forceMove(loc)
+		manifest.forceMove_turf()
 		if(ishuman(user))
-			user.put_in_hands(manifest)
+			user.put_in_hands(manifest, ignore_anim = FALSE)
 		manifest = null
 		update_icon()
 		return

@@ -29,7 +29,7 @@
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 		spawn(5)
 			if(user)
-				user.drop_item()
+				user.drop_from_active_hand()
 			prime()
 		return 0
 	return 1
@@ -47,7 +47,7 @@
 			prime()
 			return
 		user.dir = get_dir(user, target)
-		user.drop_item()
+		user.drop_from_active_hand()
 		var/t = (isturf(target) ? target : target.loc)
 		walk_towards(src, t, 3)
 	return*/
@@ -84,7 +84,7 @@
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.unEquip(src)
+		M.drop_item_ground(src)
 
 
 /obj/item/grenade/attackby(obj/item/W as obj, mob/user as mob, params)

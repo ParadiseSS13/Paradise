@@ -94,8 +94,9 @@
 	. = ..()
 	attempt_reload()
 
-/obj/item/gun/energy/kinetic_accelerator/equipped(mob/user)
+/obj/item/gun/energy/kinetic_accelerator/equipped(mob/user, slot, initial)
 	. = ..()
+
 	if(!can_shoot())
 		attempt_reload()
 
@@ -319,8 +320,7 @@
 		if(.)
 			to_chat(user, "<span class='notice'>You install the modkit.</span>")
 			playsound(loc, usesound, 100, 1)
-			user.unEquip(src)
-			forceMove(KA)
+			user.drop_transfer_item_to_loc(src, KA)
 			KA.modkits += src
 		else
 			to_chat(user, "<span class='notice'>The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits.</span>")

@@ -263,8 +263,9 @@
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/back
 
-/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
-	..()
+/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot, initial)
+	. = ..()
+
 	if(slot == slot_wear_suit)
 		disguise(user)
 
@@ -1101,7 +1102,9 @@
 	STOP_PROCESSING(SSobj, src)	//probably is cleared in a parent call already, but just in case we're gonna do it here
 	return ..()
 
-/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot, initial)
+	. = ..()
+
 	if(!istype(H) || slot != slot_wear_suit)
 		STOP_PROCESSING(SSobj, src)
 		return

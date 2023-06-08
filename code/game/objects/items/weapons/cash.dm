@@ -14,10 +14,6 @@
 	max_amount = 1000000
 	merge_type = /obj/item/stack/spacecash
 
-/obj/item/stack/spacecash/New(loc, amt = null)
-	..()
-	update_icon()
-
 /obj/item/stack/spacecash/update_icon()
 	..()
 	name = "[amount == max_amount ? "1000000" : amount] Credit[amount > 1 ? "s" : ""]"

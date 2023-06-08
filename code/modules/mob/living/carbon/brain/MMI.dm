@@ -45,8 +45,7 @@
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
 			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
 			return
-		if(user.drop_item())
-			B.forceMove(src)
+		if(user.drop_transfer_item_to_loc(B, src))
 			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
@@ -86,7 +85,7 @@
 			user.visible_message("<span class='notice'>[user] begins to install the [O] into [src]...</span>", \
 				"<span class='notice'>You start to install the [O] into [src]...</span>")
 			if(do_after(user, 20, target=src))
-				if(user.drop_item())
+				if(user.drop_transfer_item_to_loc(O, src))
 					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
 						"<span class='notice'>You install [O] in [src].</span>")
 					if(brainmob)

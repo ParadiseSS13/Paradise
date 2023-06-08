@@ -424,7 +424,7 @@
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 					return
 				add_fingerprint(user)
-				user.drop_item()
+				user.drop_transfer_item_to_loc(C, src)
 				qdel(C)
 				user.visible_message("<span class='notice'>[user] adds a circuit to [src].</span>", \
 									 "<span class='notice'>You insert and secure [C].</span>")

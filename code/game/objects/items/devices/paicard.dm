@@ -358,8 +358,7 @@
 			return
 		to_chat(user, "<span class='notice'>You install upgrade.</span>")
 		upgrade = P
-		user.unEquip(P)
-		P.forceMove(src)
+		user.drop_transfer_item_to_loc(P, src)
 		extra_memory += P.extra_memory
 		is_syndicate_type = TRUE
 		return

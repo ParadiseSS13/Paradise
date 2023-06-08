@@ -162,7 +162,7 @@
 /obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return
 
-/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's.
+/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_from_active_hand())` checks done in certain attackby's.
 /obj/item/gripper/forceMove(atom/destination)
 	return
 

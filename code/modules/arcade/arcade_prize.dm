@@ -23,7 +23,7 @@
 	src.color = pick(GLOB.random_color_list)
 	var/prize_inside = pick(possible_contents)
 	spawn(10)
-		user.unEquip(src)
+		user.temporarily_remove_item_from_inventory(src)
 		if(ispath(prize_inside,/obj/item/stack))
 			var/amount = pick(5, 10, 15, 25, 50)
 			new prize_inside(user.loc, amount)

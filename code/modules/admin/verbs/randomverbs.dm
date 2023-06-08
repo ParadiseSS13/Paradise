@@ -10,7 +10,7 @@
 		return
 
 	for(var/obj/item/W in M)
-		M.unEquip(W)
+		M.drop_item_ground(W)
 
 	log_and_message_admins("made [key_name_admin(M)] drop everything!")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Everything") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -28,7 +28,7 @@
 			return
 		//strip their stuff before they teleport into a cell :downs:
 		for(var/obj/item/W in M)
-			M.unEquip(W)
+			M.drop_item_ground(W)
 		//teleport person to cell
 		M.Paralyse(5)
 		sleep(5)	//so they black out before warping

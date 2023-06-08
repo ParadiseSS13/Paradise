@@ -10,14 +10,18 @@
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
 	. = ..()
+
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
 			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
+			if(isnull(unbuckled))
+				return
 			if(user_unbuckle_mob(unbuckled,user))
 				return TRUE
 		else
 			if(user_unbuckle_mob(buckled_mobs[1], user))
 				return TRUE
+
 
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()

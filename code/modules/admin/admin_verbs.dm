@@ -807,7 +807,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			logmsg = "floor cluwne"
 		if("Shamebrero")
 			if(H.head)
-				H.unEquip(H.head, TRUE)
+				H.drop_item_ground(H.head, force = TRUE)
 			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 			H.equip_to_slot_or_del(S, slot_head)
 			logmsg = "shamebrero"

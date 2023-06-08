@@ -28,9 +28,14 @@
 				I.drop_ungibbable_items()
 			continue
 
+		var/obj/item/storage/holder_storage = I.loc
+		if(istype(holder_storage))
+			holder_storage.remove_from_storage(I, drop_location())
+			continue
+
 		var/mob/holder_mob = I.loc
 		if(istype(holder_mob))
-			holder_mob.unEquip(I)
+			holder_mob.drop_item_ground(I, force = TRUE)
 			continue
 
 		I.forceMove(get_turf(I))

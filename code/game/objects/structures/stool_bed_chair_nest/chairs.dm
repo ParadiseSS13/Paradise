@@ -47,7 +47,7 @@
 		if(!SK.status)
 			to_chat(user, "<span class='notice'>[SK] is not ready to be attached!</span>")
 			return
-		user.drop_item()
+		user.drop_from_active_hand()
 		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(get_turf(src), SK)
 		E.add_fingerprint(user)
 		playsound(src.loc, W.usesound, 50, 1)
@@ -90,8 +90,8 @@
 		if(!ishuman(usr))
 			return
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
-		var/C = new item_chair(loc)
-		usr.put_in_hands(C)
+		var/C = new item_chair(drop_location())
+		usr.put_in_hands(C, ignore_anim = FALSE)
 		transfer_fingerprints_to(C)
 		qdel(src)
 
@@ -466,7 +466,7 @@
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
 	if(prob(5) && istype(M,/mob/living))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
-		user.unEquip(src)
+		user.drop_item_ground(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)
 		qdel(src)

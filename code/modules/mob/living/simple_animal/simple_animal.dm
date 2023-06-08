@@ -490,7 +490,7 @@
 			return pcollar
 	. = ..()
 
-/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = 0)
+/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
 	// . = ..() // Do not call parent. We do not want animals using their hand slots.
 	switch(slot)
 		if(slot_collar)
@@ -502,28 +502,32 @@
 				return FALSE
 			return TRUE
 
-/mob/living/simple_animal/equip_to_slot(obj/item/W, slot)
-	if(!istype(W))
+
+/mob/living/simple_animal/equip_to_slot(obj/item/I, slot, initial)
+	if(!istype(I))
 		return FALSE
 
 	if(!slot)
 		return FALSE
 
-	W.layer = ABOVE_HUD_LAYER
-	W.plane = ABOVE_HUD_PLANE
+	I.layer = ABOVE_HUD_LAYER
+	I.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
 		if(slot_collar)
-			add_collar(W)
+			add_collar(I)
 
-/mob/living/simple_animal/unEquip(obj/item/I, force)
+
+/mob/living/simple_animal/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	. = ..()
 	if(!. || !I)
 		return
 
 	if(I == pcollar)
 		pcollar = null
-		regenerate_icons()
+		if(!QDELETED(src))
+			regenerate_icons()
+
 
 /mob/living/simple_animal/get_access()
 	. = ..()
@@ -627,9 +631,8 @@
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
 		return
-	if(user && !user.unEquip(P))
+	if(user && !user.drop_transfer_item_to_loc(P, src))
 		return
-	P.forceMove(src)
 	P.equipped(src)
 	pcollar = P
 	regenerate_icons()

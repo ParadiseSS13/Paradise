@@ -94,8 +94,7 @@
 		if(!istype(blood_sample) || length(blood_vial.reagents.reagent_list) > 1)
 			to_chat(user, span_boldwarning("The machine won't accept any other reagent's than the one prescribed by the clan. Which in your case is [span_redtext("BLOOD")]!"))
 			return
-		user.drop_item()
-		blood_vial.forceMove(src)
+		user.drop_transfer_item_to_loc(blood_vial, src)
 		vials += blood_vial
 		blood_samples += blood_sample
 		update_state_icon()

@@ -54,7 +54,8 @@ RLF
 	UnregisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 	var/mob/living/silicon/robot/borg = giver
 	borg.cell.charge -= 500
-	receiver.put_in_hands(I)
+	I.forceMove(get_turf(giver))
+	receiver.put_in_hands(I, ignore_anim = FALSE)
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
 	receiver.visible_message("<span class='notice'>[giver] handed [I] to [receiver].</span>")

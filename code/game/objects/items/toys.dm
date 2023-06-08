@@ -209,9 +209,8 @@
 			to_chat(user, "<span class='notice'>\the [flags & NODROP ? src : W] is stuck to your hand, you can't attach it to \the [flags & NODROP ? W : src]!</span>")
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
-			new /obj/item/twohanded/dualsaber/toy(user.loc)
-			user.unEquip(W)
-			user.unEquip(src)
+			var/obj/item/sword = new /obj/item/twohanded/dualsaber/toy(drop_location())
+			user.drop_transfer_item_to_loc(W, sword)
 			qdel(W)
 			qdel(src)
 
@@ -487,15 +486,14 @@
 		icon_state = "deck_[deckstyle]_empty"
 		to_chat(user, "<span class='notice'>There are no more cards to draw.</span>")
 		return
-	var/obj/item/toy/cards/singlecard/H = new/obj/item/toy/cards/singlecard(user.loc)
+	var/obj/item/toy/cards/singlecard/H = new/obj/item/toy/cards/singlecard(drop_location())
 	choice = cards[1]
 	H.cardname = choice
 	H.parentdeck = src
 	var/O = src
 	H.apply_card_vars(H,O)
 	cards -= choice
-	H.pickup(user)
-	user.put_in_active_hand(H)
+	user.put_in_active_hand(H, ignore_anim = FALSE)
 	visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
 
@@ -510,7 +508,7 @@
 	..()
 	if(istype(C))
 		if(C.parentdeck == src)
-			if(!user.unEquip(C))
+			if(!user.drop_transfer_item_to_loc(C, src))
 				to_chat(user, "<span class='notice'>The card is stuck to your hand, you can't add it to the deck!</span>")
 				return
 			cards += C.cardname
@@ -521,20 +519,6 @@
 		update_icon()
 
 
-/obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user, params)
-	..()
-	if(istype(C))
-		if(C.parentdeck == src)
-			if(!user.unEquip(C))
-				to_chat(user, "<span class='notice'>The hand of cards is stuck to your hand, you can't add it to the deck!</span>")
-				return
-			cards += C.currenthand
-			user.visible_message("<span class='notice'>[user] puts [user.p_their()] hand of cards in the deck.</span>", "<span class='notice'>You put the hand of cards in the deck.</span>")
-			qdel(C)
-		else
-			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
-		update_icon()
-
 /obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 	var/mob/M = usr
 	if(M.incapacitated() || !Adjacent(M))
@@ -542,16 +526,16 @@
 	if(!ishuman(M))
 		return
 	if(over_object == M)
-		M.put_in_hands(src)
+		M.put_in_hands(src, ignore_anim = FALSE)
 	if(istype(over_object, /obj/screen))
 		if(!remove_item_from_storage(M))
-			M.unEquip(src)
+			M.drop_item_ground(src)
 		if(over_object != M)
 			switch(over_object.name)
 				if("l_hand")
-					M.put_in_l_hand(src)
+					M.put_in_l_hand(src, ignore_anim = FALSE)
 				if("r_hand")
-					M.put_in_r_hand(src)
+					M.put_in_r_hand(src, ignore_anim = FALSE)
 	add_fingerprint(M)
 	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
@@ -603,25 +587,23 @@
 	if(href_list["pick"])
 		if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
 			var/choice = href_list["pick"]
-			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(cardUser.loc)
+			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(drop_location())
 			currenthand -= choice
 			C.parentdeck = src.parentdeck
 			C.cardname = choice
 			C.apply_card_vars(C,O)
-			C.pickup(cardUser)
-			cardUser.put_in_any_hand_if_possible(C)
+			cardUser.put_in_hands(C, ignore_anim = FALSE)
 			cardUser.visible_message("<span class='notice'>[cardUser] draws a card from [cardUser.p_their()] hand.</span>", "<span class='notice'>You take the [C.cardname] from your hand.</span>")
 
 			interact(cardUser)
 			update_icon()
 			if(currenthand.len == 1)
-				var/obj/item/toy/cards/singlecard/N = new/obj/item/toy/cards/singlecard(src.loc)
+				var/obj/item/toy/cards/singlecard/N = new/obj/item/toy/cards/singlecard(drop_location())
 				N.parentdeck = src.parentdeck
 				N.cardname = src.currenthand[1]
 				N.apply_card_vars(N,O)
-				cardUser.unEquip(src)
-				N.pickup(cardUser)
-				cardUser.put_in_any_hand_if_possible(N)
+				cardUser.temporarily_remove_item_from_inventory(src)
+				cardUser.put_in_hands(N, ignore_anim = FALSE)
 				to_chat(cardUser, "<span class='notice'>You also take [currenthand[1]] and hold it.</span>")
 				cardUser << browse(null, "window=cardhand")
 				qdel(src)
@@ -631,7 +613,7 @@
 	if(istype(C))
 		if(C.parentdeck == parentdeck)
 			currenthand += C.cardname
-			user.unEquip(C)
+			user.drop_transfer_item_to_loc(C, src)
 			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [C.cardname] to your hand.</span>")
 			interact(user)
 			update_icon()
@@ -701,14 +683,13 @@
 	if(istype(I, /obj/item/toy/cards/singlecard/))
 		var/obj/item/toy/cards/singlecard/C = I
 		if(C.parentdeck == parentdeck)
-			var/obj/item/toy/cards/cardhand/H = new/obj/item/toy/cards/cardhand(user.loc)
+			var/obj/item/toy/cards/cardhand/H = new/obj/item/toy/cards/cardhand(drop_location())
 			H.currenthand += C.cardname
 			H.currenthand += cardname
 			H.parentdeck = C.parentdeck
 			H.apply_card_vars(H,C)
-			user.unEquip(C)
-			H.pickup(user)
-			user.put_in_active_hand(H)
+			user.temporarily_remove_item_from_inventory(C)
+			user.put_in_active_hand(H, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You combine the [C.cardname] and the [cardname] into a hand.</span>")
 			qdel(C)
 			qdel(src)
@@ -719,7 +700,7 @@
 		var/obj/item/toy/cards/cardhand/H = I
 		if(H.parentdeck == parentdeck)
 			H.currenthand += cardname
-			user.unEquip(src)
+			src.do_pickup_animation(user)
 			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [cardname] to your hand.</span>")
 			H.interact(user)
 			H.update_icon()
@@ -1409,19 +1390,19 @@
 
 	if(over_object == M)
 		if(!remove_item_from_storage(M))
-			M.unEquip(src)
-		M.put_in_hands(src)
+			M.drop_item_ground(src)
+		M.put_in_hands(src, ignore_anim = FALSE)
 
 	else if(istype(over_object, /obj/screen))
 		switch(over_object.name)
 			if("r_hand")
 				if(!remove_item_from_storage(M))
-					M.unEquip(src)
-				M.put_in_r_hand(src)
+					M.drop_item_ground(src)
+				M.put_in_r_hand(src, ignore_anim = FALSE)
 			if("l_hand")
 				if(!remove_item_from_storage(M))
-					M.unEquip(src)
-				M.put_in_l_hand(src)
+					M.drop_item_ground(src)
+				M.put_in_l_hand(src, ignore_anim = FALSE)
 
 	add_fingerprint(M)
 
@@ -1676,8 +1657,7 @@
 				to_chat(user, "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>")
 			else
 				to_chat(user, "<span class='notice'>You feed \the [O] [bicon(O)] into \the [src]!</span>")
-				user.unEquip(O)
-				O.forceMove(src)
+				user.drop_transfer_item_to_loc(src)
 				stored_minature = O
 		else
 			to_chat(user, "<span class='warning'>You stop feeding \the [O] into \the [src]'s mini-input.</span>")

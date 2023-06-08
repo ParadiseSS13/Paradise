@@ -35,8 +35,8 @@
 
 	if(over_object == M)
 		if(!remove_item_from_storage(M))
-			M.unEquip(src)
-		M.put_in_hands(src)
+			M.drop_item_ground(src)
+		M.put_in_hands(src, ignore_anim = FALSE)
 		anchored = FALSE
 
 	add_fingerprint(M)

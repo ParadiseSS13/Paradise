@@ -83,7 +83,7 @@
 
 /datum/dna/gene/disability/cough/OnMobLife(mob/living/carbon/human/H)
 	if((prob(5) && H.paralysis <= 1))
-		H.drop_item()
+		H.drop_from_active_hand()
 		H.emote("cough")
 
 /datum/dna/gene/disability/clumsy

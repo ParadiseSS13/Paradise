@@ -81,11 +81,10 @@
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip < max_syringes)
-			if(!user.unEquip(I))
+			if(!user.drop_transfer_item_to_loc(I, src))
 				return
 			to_chat(user, "<span class='notice'>You load [I] into \the [src]!</span>")
 			syringes.Add(I)
-			I.loc = src
 			process_chamber() // Chamber the syringe if none is already
 			return TRUE
 		else
@@ -163,11 +162,10 @@
 		if(tank)
 			to_chat(user, span_warning("[src] already has a tank."))
 			return
-		if(!user.unEquip(thetank))
+		if(!user.drop_transfer_item_to_loc(thetank, src))
 			return
 		to_chat(user, span_notice("You hook [thetank] up to [src]."))
 		tank = thetank
-		thetank.loc = src
 	update_icons()
 
 /datum/crafting_recipe/pneumatic_rifle

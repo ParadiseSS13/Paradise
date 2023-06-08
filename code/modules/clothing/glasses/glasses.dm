@@ -13,8 +13,7 @@
 			if(prescription)
 				to_chat(H, "You can't possibly imagine how adding more lenses would improve \the [name].")
 				return
-			H.unEquip(O)
-			O.loc = src // Store the glasses for later removal
+			H.drop_transfer_item_to_loc(O, src)	// Store the glasses for later removal
 			to_chat(H, "You fit \the [name] with lenses from \the [O].")
 			prescription = 1
 			name = "prescription [name]"
@@ -425,11 +424,11 @@
 	name = "high-tech sunglasses"
 	flags = NODROP
 
-/obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot) //grant them laser eyes upon equipping it.
+/obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot, initial) //grant them laser eyes upon equipping it.
 	if(slot == slot_glasses)
 		user.mutations.Add(LASER)
 		user.regenerate_icons()
-	..(user, slot)
+	. = ..(user, slot)
 
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"
@@ -636,7 +635,7 @@
 		var/mob/living/carbon/user = usr
 		user.update_tint()
 		user.update_inv_glasses()
-		
+
 /obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask
 	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."
 	name = "cucumber mask"

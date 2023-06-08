@@ -39,7 +39,7 @@
 			visible_message("<span class='warning'>Шипастые усики жадно подтаскивают тело [H] и разрывают его на куски, окропляя кровью растущие яйца.</span>")
 			playsound(get_turf(src),'sound/magic/demon_consume.ogg', 100, 1)
 			for(var/obj/item/W in H)
-				if(!H.unEquip(W))
+				if(!H.drop_item_ground(W))
 					qdel(W)
 			if(ismegafauna(H))
 				meat_counter += 20

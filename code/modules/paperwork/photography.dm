@@ -66,7 +66,7 @@
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
 				if(user.is_in_inactive_hand(src))
-					user.unEquip(src)
+					user.temporarily_remove_item_from_inventory(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				qdel(src)
@@ -134,11 +134,11 @@
 		if((!( M.restrained() ) && !( M.stat ) && M.back == src))
 			switch(over_object.name)
 				if("r_hand")
-					M.unEquip(src)
-					M.put_in_r_hand(src)
+					M.drop_item_ground(src)
+					M.put_in_r_hand(src, ignore_anim = FALSE)
 				if("l_hand")
-					M.unEquip(src)
-					M.put_in_l_hand(src)
+					M.drop_item_ground(src)
+					M.put_in_l_hand(src, ignore_anim = FALSE)
 			add_fingerprint(usr)
 			return
 		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
 			return
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-		user.drop_item()
+		user.drop_transfer_item_to_loc(I, src)
 		qdel(I)
 		pictures_left = pictures_max
 		return

@@ -1920,10 +1920,10 @@
 					var/mob/living/carbon/human/H = current
 					// Don't "undress" organs right out of the body
 					for(var/obj/item/W in H.contents - (H.bodyparts | H.internal_organs))
-						current.unEquip(W, 1)
+						current.drop_item_ground(W, TRUE)
 				else
 					for(var/obj/item/W in current)
-						current.unEquip(W, 1)
+						current.drop_item_ground(W, TRUE)
 				log_admin("[key_name(usr)] has unequipped [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has unequipped [key_name_admin(current)]")
 			if("takeuplink")

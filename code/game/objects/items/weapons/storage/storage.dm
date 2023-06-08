@@ -9,20 +9,32 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	var/silent = FALSE // No message on putting items in
-	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
-	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
-	var/max_w_class = WEIGHT_CLASS_SMALL //Max size of objects that this object can store (in effect only if can_hold isn't set)
-	var/max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
-	var/storage_slots = 7 //The number of storage slots in this container.
+	///No message on putting items in
+	var/silent = FALSE
+	///List of objects which this item can store (if set, it can't store anything else)
+	var/list/can_hold = new/list()
+	///List of objects which this item can't store (in effect only if can_hold isn't set)
+	var/list/cant_hold = new/list()
+	///Max size of objects that this object can store (in effect only if can_hold isn't set)
+	var/max_w_class = WEIGHT_CLASS_SMALL
+	///The sum of the w_classes of all the items in this storage item.
+	var/max_combined_w_class = 14
+	var/storage_slots = 7
+	///The number of storage slots in this container.
 	var/obj/screen/storage/boxes = null
 	var/obj/screen/close/closer = null
-	var/use_to_pickup	//Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
-	var/display_contents_with_number	//Set this to make the storage item group contents of the same type and display them as a number.
-	var/allow_quick_empty	//Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
-	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
-	var/pickup_all_on_tile = TRUE  //FALSE = pick one at a time, TRUE = pick all on tile
-	var/use_sound = "rustle"	//sound played when used. null for no sound.
+	///Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
+	var/use_to_pickup
+	///Set this to make the storage item group contents of the same type and display them as a number.
+	var/display_contents_with_number
+	///Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
+	var/allow_quick_empty
+	///Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
+	var/allow_quick_gather
+	///FALSE = pick one at a time, TRUE = pick all on tile
+	var/pickup_all_on_tile = TRUE
+	///Sound played when used. null for no sound.
+	var/use_sound = "rustle"
 
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
@@ -123,13 +135,13 @@
 		if(!(M.restrained()) && !(M.stat))
 			switch(over_object.name)
 				if("r_hand")
-					if(!M.unEquip(src))
+					if(!M.drop_item_ground(src))
 						return
-					M.put_in_r_hand(src)
+					M.put_in_r_hand(src, ignore_anim = FALSE)
 				if("l_hand")
-					if(!M.unEquip(src))
+					if(!M.drop_item_ground(src))
 						return
-					M.put_in_l_hand(src)
+					M.put_in_l_hand(src, ignore_anim = FALSE)
 			add_fingerprint(usr)
 			return
 		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
@@ -368,11 +380,15 @@
 	if(!istype(W))
 		return FALSE
 	if(usr)
-		if(!usr.unEquip(W))
+		if(!usr.drop_item_ground(W))
 			return FALSE
 		usr.update_icons()	//update our overlays
 	if(silent)
 		prevent_warning = TRUE
+
+	if(usr)
+		W.do_pickup_animation(src)
+
 	W.forceMove(src)
 	if(QDELING(W))
 		return FALSE
@@ -431,9 +447,14 @@
 		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
-		W.forceMove(new_location)
 
 	if(usr)
+		// This bullshit is required since /image/ registered only when in turf contents
+		var/obj/item/dummy = new W.type(drop_location())
+		dummy.copy_overlays(W)
+		dummy.do_pickup_animation(usr)
+		qdel(dummy)
+
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)

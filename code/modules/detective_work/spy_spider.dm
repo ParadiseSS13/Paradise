@@ -73,8 +73,7 @@
 		to_chat(user, "<span class='warning'>Жучок выключен!</span>")
 		return TRUE
 
-	user.unEquip(spy_spider)
-	spy_spider.forceMove(src)
+	user.drop_transfer_item_to_loc(spy_spider, src)
 	spy_spider_attached = spy_spider
 	to_chat(user, "<span class='info'>Ты незаметно прикрепляешь жучок к [src.declent_ru(DATIVE)].</span>")
 	return TRUE
@@ -89,7 +88,7 @@
 	var/mob/living/carbon/human/user = usr
 
 	if(spy_spider_attached)
-		if(!user.put_in_any_hand_if_possible(spy_spider_attached, del_on_fail = FALSE))
+		if(!user.put_in_any_hand_if_possible(spy_spider_attached))
 			var/turf/user_loc = get_turf(user)
 			spy_spider_attached.forceMove(user_loc)
 		spy_spider_attached = null
@@ -123,7 +122,7 @@
 	if(!do_after_once(user, 3 SECONDS, TRUE, src, TRUE, attempt_cancel_message))
 		return TRUE
 
-	user.unEquip(spy_spider)
+	user.temporarily_remove_item_from_inventory(spy_spider)
 	spy_spider.forceMove(clothing_for_attach)
 	clothing_for_attach.spy_spider_attached = spy_spider
 	to_chat(user, "<span class='info'>Ты незаметно прикрепляешь жучок к одежде [src.declent_ru(GENITIVE)].</span>")

@@ -58,7 +58,7 @@
 	return !magazine
 
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)
-		user.remove_from_mob(AM)
+		user.drop_item_ground(AM)
 		magazine = AM
 		magazine.loc = src
 		playsound(src, magin_sound, 50, 1)
@@ -92,7 +92,7 @@
 		var/obj/item/suppressor/S = A
 		if(can_suppress)
 			if(!suppressed)
-				if(!user.unEquip(A))
+				if(!user.drop_transfer_item_to_loc(A, src))
 					return
 				to_chat(user, "<span class='notice'>You screw [S] onto [src].</span>")
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
@@ -101,7 +101,6 @@
 				S.initial_w_class = w_class
 				fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 				w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
-				A.loc = src
 				update_icon()
 				return
 			else

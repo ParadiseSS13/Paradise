@@ -543,9 +543,8 @@
 	// them to keep them away from us a little longer
 
 	var/mob/living/carbon/human/H = target
-	if(ishuman(target) && (!H.handcuffed))
-		var/obj/item/restraints/handcuffs/energy/used/Z = new /obj/item/restraints/handcuffs/energy/used(src)
-		Z.apply_cuffs(target, src)
+	if(istype(H) && (!H.handcuffed))
+		H.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(H))
 
 	do_sparks(4, 0, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)

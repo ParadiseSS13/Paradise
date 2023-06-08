@@ -131,7 +131,7 @@
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
-		if(!user.drop_item())
+		if(!user.drop_from_active_hand())
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		if(!isEmpProof())
@@ -143,7 +143,7 @@
 		else
 			to_chat(user, "[msg2]")
 	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		if(!isMotion())

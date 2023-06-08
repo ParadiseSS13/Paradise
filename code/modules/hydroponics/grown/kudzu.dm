@@ -33,7 +33,7 @@
 	message_admins("Kudzu planted by [ADMIN_LOOKUPFLW(user)] at [ADMIN_COORDJMP(T)]")
 	investigate_log("was planted by [key_name_log(user)] at [COORD(T)]", INVESTIGATE_BOTANY)
 	new /obj/structure/spacevine_controller(user.loc, mutations, potency, production)
-	user.drop_item()
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 
 /obj/item/seeds/kudzu/attack_self(mob/user)

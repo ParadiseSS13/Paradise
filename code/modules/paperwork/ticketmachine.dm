@@ -114,7 +114,7 @@
 		if(do_after(user, 30, target = src))
 			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You insert [I] into [src] as it whirs nondescriptly.</span>")
-			user.drop_item()
+			user.drop_transfer_item_to_loc(I, src)
 			qdel(I)
 			ticket_number = 0
 			current_number = 0
@@ -164,14 +164,14 @@
 	theirticket.ticket_number = ticket_number
 	theirticket.source = src
 	theirticket.owner = user.UID()
-	user.put_in_hands(theirticket)
+	user.put_in_hands(theirticket, ignore_anim = FALSE)
 	ticket_holders += user.UID()
 	tickets += theirticket
 	if(emagged) //Emag the machine to destroy the HOP's life.
 		ready = FALSE
 		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)//Small cooldown to prevent piles of flaming tickets
 		theirticket.fire_act()
-		user.drop_item()
+		user.drop_from_active_hand()
 		user.adjust_fire_stacks(1)
 		user.IgniteMob()
 
@@ -208,7 +208,7 @@
 		if((CLUMSY in user.mutations) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.drop_item()
+			user.drop_from_active_hand()
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return

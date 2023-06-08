@@ -26,7 +26,7 @@
 	return
 
 /obj/item/gift/attack_self(mob/user as mob)
-	user.drop_item()
+	user.drop_from_active_hand()
 	if(src.gift)
 		user.put_in_active_hand(gift)
 		src.gift.add_fingerprint(user)
@@ -115,7 +115,7 @@
 	if(!ispath(gift_type,/obj/item))	return
 
 	var/obj/item/I = new gift_type(M)
-	M.unEquip(src, 1)
+	M.temporarily_remove_item_from_inventory(src, force = TRUE)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 	qdel(src)

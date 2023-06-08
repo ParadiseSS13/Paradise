@@ -107,7 +107,7 @@
 	if(holding)
 		holding.forceMove(drop_location())
 		if(Adjacent(user) && !issilicon(user))
-			user.put_in_hands(holding)
+			user.put_in_hands(holding, ignore_anim = FALSE)
 	if(new_tank)
 		holding = new_tank
 	else
@@ -119,14 +119,12 @@
 	var/obj/item/tank/T = W
 	if(istype(T) && T.fillable)
 		if(!(stat & BROKEN))
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(T, src))
 				return
 			add_fingerprint(user)
-			user.drop_item()
 			if(src.holding)
 				to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
 				replace_tank(user, FALSE)
-			T.loc = src
 			src.holding = T
 			update_icon()
 		return

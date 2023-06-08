@@ -8,8 +8,7 @@
 			to_chat(ninja, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 
-		if(ninja.unEquip(I))
-			I.forceMove(src)
+		if(ninja.drop_transfer_item_to_loc(I, src))
 			jetpack = I
 			to_chat(ninja, "<span class='notice'>You successfully install the jetpack into [src].</span>")
 			return
@@ -48,7 +47,7 @@
 			to_chat(ninja, span_notice("Higher maximum capacity detected.\nUpgrading..."))
 			if(do_after(ninja,s_delay, target = src))
 				// Отбираем батарейку у игрока
-				if(!ninja.drop_item())
+				if(!ninja.temporarily_remove_item_from_inventory(new_cell))
 					return
 				// Запихиваем её в костюм
 				new_cell.forceMove(src)

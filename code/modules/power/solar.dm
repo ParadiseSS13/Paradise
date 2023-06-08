@@ -237,7 +237,7 @@
 
 	if(!tracker)
 		if(istype(W, /obj/item/tracker_electronics))
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(W, src))
 				return
 			tracker = 1
 			qdel(W)

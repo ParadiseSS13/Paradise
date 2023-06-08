@@ -1,3 +1,10 @@
+/mob/living
+	/// True devil variables
+	var/list/ownedSoullinks //soullinks we are the owner of
+	var/list/sharedSoullinks //soullinks we are a/the sharer of
+	var/canEnterVentWith = "/obj/item/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/radio/borg=0&/obj/machinery/camera=0"
+	var/datum/middleClickOverride/middleClickOverride = null
+
 /mob/living/Initialize()
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
@@ -5,6 +12,19 @@
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
 	GLOB.mob_living_list += src
+
+/mob/living/Destroy()
+	for(var/s in ownedSoullinks)
+		var/datum/soullink/S = s
+		S.ownerDies(FALSE)
+		qdel(s) //If the owner is destroy()'d, the soullink is destroy()'d
+	ownedSoullinks = null
+	for(var/s in sharedSoullinks)
+		var/datum/soullink/S = s
+		S.sharerDies(FALSE)
+		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
+	sharedSoullinks = null
+	return ..()
 
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
@@ -432,14 +452,10 @@
 		var/mob/living/carbon/C = src
 
 		if(C.handcuffed && !initial(C.handcuffed))
-			C.unEquip(C.handcuffed)
-		C.handcuffed = initial(C.handcuffed)
-		C.update_handcuffed()
+			C.drop_item_ground(C.handcuffed, TRUE)
 
 		if(C.legcuffed && !initial(C.legcuffed))
-			C.unEquip(C.legcuffed)
-		C.legcuffed = initial(C.legcuffed)
-		C.update_inv_legcuffed()
+			C.drop_item_ground(C.legcuffed, TRUE)
 
 		if(C.reagents)
 			C.reagents.clear_reagents()
@@ -882,7 +898,7 @@
 
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
-/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
+/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = FALSE)
 	if(what.flags & NODROP)
 		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
@@ -892,28 +908,28 @@
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.unEquip(what)
+			who.drop_item_ground(what)
 			if(silent)
 				put_in_hands(what)
 			add_attack_logs(src, who, "Stripped of [what]")
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
-/mob/living/stripPanelEquip(obj/item/what, mob/who, where, var/silent = 0)
+/mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = FALSE)
 	what = get_active_hand()
 	if(what && (what.flags & NODROP))
 		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
 		return
 	if(what)
-		if(!what.mob_can_equip(who, where, 1))
+		if(!what.mob_can_equip(who, where, TRUE, TRUE))
 			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
 			return
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.put_on_delay))
 			if(what && Adjacent(who) && !(what.flags & NODROP))
-				unEquip(what)
-				who.equip_to_slot_if_possible(what, where, FALSE, TRUE)
+				drop_item_ground(what)
+				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE)
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()

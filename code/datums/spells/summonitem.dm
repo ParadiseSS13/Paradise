@@ -60,7 +60,7 @@
 				if(ismob(item_to_retrieve.loc)) //If its on someone, properly drop it
 					var/mob/M = item_to_retrieve.loc
 
-					if(issilicon(M) || !M.unEquip(item_to_retrieve)) //Items in silicons warp the whole silicon
+					if(issilicon(M) || !M.drop_item_ground(item_to_retrieve)) //Items in silicons warp the whole silicon
 						M.visible_message("<span class='warning'>[M] suddenly disappears!</span>", "<span class='danger'>A force suddenly pulls you away!</span>")
 						M.forceMove(target.loc)
 						M.loc.visible_message("<span class='caution'>[M] suddenly appears!</span>")
@@ -103,12 +103,12 @@
 
 
 			if(target.hand) //left active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, disable_warning = TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, disable_warning = TRUE))
 						butterfingers = 1
 			else			//right active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, disable_warning = TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, disable_warning = TRUE))
 						butterfingers = 1
 			if(butterfingers)
 				item_to_retrieve.loc = target.loc

@@ -287,7 +287,7 @@
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(istype(card.loc, /mob))
 		var/mob/holder = card.loc
-		holder.unEquip(card)
+		holder.drop_item_ground(card)
 	else if(istype(card.loc, /obj/item/pda))
 		var/obj/item/pda/holder = card.loc
 		holder.pai = null
@@ -492,7 +492,7 @@
 	if(istype(H))
 		var/mob/living/M = H.loc
 		if(istype(M))
-			M.unEquip(H)
+			M.drop_item_ground(H)
 		H.loc = get_turf(src)
 		loc = get_turf(H)
 

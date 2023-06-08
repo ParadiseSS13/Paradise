@@ -74,8 +74,11 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	usesound = 'sound/items/deconstruct.ogg'
 	point_value = 30
 
-/obj/item/stack/sheet/bluespace_crystal/New()
-	..()
+/obj/item/stack/sheet/bluespace_crystal/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.bluespace_crystal_recipes
+
+/obj/item/stack/ore/bluespace_crystal/New(loc, new_amount, merge = TRUE)
+	..()
 	pixel_x = rand(0,4)-4
 	pixel_y = rand(0,4)-4

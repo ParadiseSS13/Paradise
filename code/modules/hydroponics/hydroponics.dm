@@ -821,7 +821,7 @@
 			add_fingerprint(user)
 			if(istype(O, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu <span class='warning'>planted</span> in it by [key_name_log(user)]", INVESTIGATE_BOTANY)
-			user.unEquip(O)
+			user.drop_transfer_item_to_loc(O, src)
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
@@ -830,7 +830,6 @@
 			plant_hud_set_health()
 			plant_hud_set_status()
 			lastcycle = world.time
-			O.forceMove(src)
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")

@@ -27,12 +27,12 @@
 	var/hand_handled = 1
 	attached_hand = new hand_path(src)
 	if(user.hand) 	//left active hand
-		if(!user.equip_to_slot_if_possible(attached_hand, slot_l_hand, FALSE, TRUE))
-			if(!user.equip_to_slot_if_possible(attached_hand, slot_r_hand, FALSE, TRUE))
+		if(!user.equip_to_slot_if_possible(attached_hand, slot_l_hand, disable_warning = TRUE))
+			if(!user.equip_to_slot_if_possible(attached_hand, slot_r_hand, disable_warning = TRUE))
 				hand_handled = 0
 	else			//right active hand
-		if(!user.equip_to_slot_if_possible(attached_hand, slot_r_hand, FALSE, TRUE))
-			if(!user.equip_to_slot_if_possible(attached_hand, slot_l_hand, FALSE, TRUE))
+		if(!user.equip_to_slot_if_possible(attached_hand, slot_r_hand, disable_warning = TRUE))
+			if(!user.equip_to_slot_if_possible(attached_hand, slot_l_hand, disable_warning = TRUE))
 				hand_handled = 0
 	if(!hand_handled)
 		qdel(attached_hand)

@@ -215,14 +215,13 @@
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
 			return
 
 		add_fingerprint(user)
 		beaker = I
 		SStgui.update_uis(src)
-		I.forceMove(src)
 		user.visible_message("[user] adds \a [I] to \the [src]!", "You add \a [I] to \the [src]!")
 		return
 	if(istype(I, /obj/item/grab))
@@ -354,7 +353,7 @@
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
 		if(!disk)
 			add_fingerprint(user)
-			user.drop_item()
+			user.drop_from_active_hand()
 			I.forceMove(src)
 			disk = I
 			to_chat(user, "You insert [I].")

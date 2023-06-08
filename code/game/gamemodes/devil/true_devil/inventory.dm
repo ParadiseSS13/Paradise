@@ -1,10 +1,3 @@
-/mob/living/carbon/true_devil/unEquip(obj/item/I, force)
-	if(..(I,force))
-		update_inv_r_hand()
-		update_inv_l_hand()
-		return 1
-	return 0
-
 /mob/living/carbon/true_devil/update_inv_r_hand()
 	..()
 	if(r_hand)

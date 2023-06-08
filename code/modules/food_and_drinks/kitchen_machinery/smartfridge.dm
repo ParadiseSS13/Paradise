@@ -264,9 +264,9 @@
 			if(i == 1 && Adjacent(user) && !issilicon(user))
 				for(var/obj/O in contents)
 					if(O.name == K)
-						if(!user.put_in_hands(O))
-							O.forceMove(loc)
-							adjust_item_drop_location(O)
+						O.forceMove(get_turf(src))
+						adjust_item_drop_location(O)
+						user.put_in_hands(O, ignore_anim = FALSE)
 						update_icon()
 						break
 			else
@@ -299,12 +299,11 @@
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
 				if(M.get_active_hand() == I)
-					if(!M.drop_item())
+					if(!M.drop_transfer_item_to_loc(I, src))
 						to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
 						return FALSE
 				else
-					M.unEquip(I)
-				I.forceMove(src)
+					M.drop_transfer_item_to_loc(I, src)
 			else
 				I.forceMove(src)
 

@@ -21,7 +21,7 @@
 /obj/item/gun/grenadelauncher/attackby(obj/item/I as obj, mob/user as mob, params)
 	if((istype(I, /obj/item/grenade)))
 		if(grenades.len < max_grenades)
-			if(!user.unEquip(I))
+			if(!user.drop_item_ground(I))
 				return
 			I.loc = src
 			grenades += I

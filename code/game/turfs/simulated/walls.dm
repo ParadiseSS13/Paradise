@@ -464,7 +464,7 @@
 					"<span class='notice'>You finish drilling [src] and push [P] into the void.</span>",
 					"<span class='notice'>You hear a ratchet.</span>")
 
-				user.drop_item()
+				user.drop_from_active_hand()
 				if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
 					P.setDir(5)
 					if(user.dir == 1)

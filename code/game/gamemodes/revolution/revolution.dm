@@ -176,7 +176,7 @@
 		"left hand" = slot_l_hand,
 		"right hand" = slot_r_hand,
 	)
-	var/where2 = mob.equip_in_one_of_slots(C, slots)
+	var/where2 = mob.equip_in_one_of_slots(C, slots, qdel_on_fail = TRUE)
 	mob.equip_in_one_of_slots(R,slots)
 
 	mob.update_icons()

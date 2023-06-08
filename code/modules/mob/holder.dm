@@ -57,7 +57,7 @@
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
 	if(istype(M))
-		M.unEquip(src)
+		M.drop_item_ground(src)
 		to_chat(M, "[src.name] вырывается из вашей хватки!")
 		to_chat(L, "Вы вырываетесь из хвата [M.name]!")
 	else if(istype(loc,/obj/item))

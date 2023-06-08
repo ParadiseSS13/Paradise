@@ -67,18 +67,17 @@
 			to_chat(user, "<span class='notice'>[src] currently has no tank attached to it.</span>")
 			return
 		to_chat(user, "<span class='notice'>You detach [thetank] from [src].</span>")
-		tank.forceMove(get_turf(user))
-		user.put_in_hands(tank)
+		tank.forceMove_turf()
+		user.put_in_hands(tank, ignore_anim = FALSE)
 		tank = null
 	if(!removing)
 		if(tank)
 			to_chat(user, "<span class='warning'>[src] already has a tank.</span>")
 			return
-		if(!user.unEquip(thetank))
+		if(!user.drop_transfer_item_to_loc(thetank, src))
 			return
 		to_chat(user, "<span class='notice'>You hook [thetank] up to [src].</span>")
 		tank = thetank
-		thetank.forceMove(src)
 
 
 /obj/item/melee/powerfist/attack(mob/living/target, mob/living/user)

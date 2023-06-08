@@ -380,36 +380,37 @@
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
-		user.unEquip(P)
+		user.drop_item_ground(P)
 		if(istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
-				h_user.unEquip(src)
-				h_user.put_in_r_hand(B)
+				h_user.drop_item_ground(src)
+				h_user.put_in_r_hand(B, ignore_anim = FALSE)
 			else if(h_user.l_hand == src)
-				h_user.unEquip(src)
-				h_user.put_in_l_hand(B)
+				h_user.drop_item_ground(src)
+				h_user.put_in_l_hand(B, ignore_anim = FALSE)
 			else if(h_user.l_store == src)
-				h_user.unEquip(src)
+				h_user.drop_item_ground(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.r_store == src)
-				h_user.unEquip(src)
+				h_user.drop_item_ground(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
 				B.plane = ABOVE_HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.head == src)
-				h_user.unEquip(src)
-				h_user.put_in_hands(B)
+				h_user.drop_item_ground(src)
+				h_user.put_in_hands(B, ignore_anim = FALSE)
 			else if(!istype(src.loc, /turf))
 				src.loc = get_turf(h_user)
-				if(h_user.client)	h_user.client.screen -= src
-				h_user.put_in_hands(B)
+				if(h_user.client)
+					h_user.client.screen -= src
+				h_user.put_in_hands(B, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].</span>")
 		src.loc = B
 		P.loc = B
@@ -445,7 +446,7 @@
 		if((CLUMSY in user.mutations) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.unEquip(P)
+			user.drop_item_ground(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
@@ -453,7 +454,7 @@
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return
 
-		user.unEquip(src)
+		user.drop_item_ground(src)
 		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
 		fire_act()
 

@@ -77,7 +77,7 @@
 		R.info = "<b>Nanotrasen Science Station [SSmapping.map_datum.station_short] - Coroner's Report</b><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [dead_rank]<br><br><b>Time of Death:</b> [dead_tod]<br><br><b>Cause of Death:</b> [dead_cause]<br><br><b>Trace Chemicals:</b> [dead_chems]<br><br><b>Additional Coroner's Notes:</b> [dead_notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(10)
-		user.put_in_hands(R)
+		user.put_in_hands(R, ignore_anim = FALSE)
 	else
 		return ..()
 
@@ -142,12 +142,12 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	sleep(10)
 
-	var/obj/item/paper/P = new(user.loc)
+	var/obj/item/paper/P = new(drop_location())
 	P.name = "Autopsy Data ([target_name])"
 	P.info = "<tt>[scan_data]</tt>"
 	P.overlays += "paper_words"
 
-	user.put_in_hands(P)
+	user.put_in_hands(P, ignore_anim = FALSE)
 
 /obj/item/autopsy_scanner/attack(mob/living/carbon/human/M, mob/living/carbon/user)
 	if(!istype(M))

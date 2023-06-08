@@ -108,7 +108,7 @@
 		to_chat(user,"<span class='notice'>There are no cards in the deck.</span>")
 		return
 
-	var/obj/item/cardhand/H = M.is_in_hands(/obj/item/cardhand)
+	var/obj/item/cardhand/H = M.is_type_in_hands(/obj/item/cardhand)
 	if(H && !(H.parentdeck == src))
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
@@ -117,8 +117,8 @@
 		return
 
 	if(!H)
-		H = new(get_turf(src))
-		user.put_in_hands(H)
+		H = new(drop_location())
+		user.put_in_hands(H, ignore_anim = FALSE)
 
 	var/datum/playingcard/P = cards[1]
 	H.cards += P
@@ -222,16 +222,16 @@
 	if(!ishuman(M))
 		return
 	if(over_object == M)
-		M.put_in_hands(src)
+		M.put_in_hands(src, ignore_anim = FALSE)
 	if(istype(over_object, /obj/screen))
 		if(!remove_item_from_storage(get_turf(M)))
-			M.unEquip(src)
+			M.drop_item_ground(src)
 		if(over_object != M)
 			switch(over_object.name)
 				if("r_hand")
-					M.put_in_r_hand(src)
+					M.put_in_r_hand(src, ignore_anim = FALSE)
 				if("l_hand")
-					M.put_in_l_hand(src)
+					M.put_in_l_hand(src, ignore_anim = FALSE)
 	add_fingerprint(M)
 	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
@@ -248,15 +248,15 @@
 
 /obj/item/pack/attack_self(mob/user as mob)
 	user.visible_message("<span class='notice'>[name] rips open the [src]!</span>", "<span class='notice'>You rips open the [src]!</span>")
-	var/obj/item/cardhand/H = new(get_turf(user))
+	var/obj/item/cardhand/H = new(drop_location())
 
 	H.cards += cards
 	cards.Cut()
-	user.unEquip(src, force = 1)
+	user.temporarily_remove_item_from_inventory(src, force = TRUE)
 	qdel(src)
 
 	H.update_icon()
-	user.put_in_hands(H)
+	user.put_in_hands(H, ignore_anim = FALSE)
 
 /obj/item/cardhand
 	name = "hand of cards"
@@ -367,8 +367,8 @@
 	if(!card)
 		return
 
-	var/obj/item/cardhand/H = new(get_turf(src))
-	user.put_in_hands(H)
+	var/obj/item/cardhand/H = new(drop_location())
+	user.put_in_hands(H, ignore_anim = FALSE)
 	H.cards += card
 	cards -= card
 	H.parentdeck = parentdeck

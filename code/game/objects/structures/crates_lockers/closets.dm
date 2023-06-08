@@ -4,6 +4,7 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = 1
+	layer = LOW_ITEM_LAYER	//Prevents items from dropping on turf visually
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
@@ -180,12 +181,11 @@
 			return
 		if(isrobot(user))
 			return
-		if(!user.drop_item()) //couldn't drop the item
+		if(!user.transfer_item_to_loc(W, src.loc)) //couldn't drop the item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
 			return
 		if(W)
 			add_fingerprint(user)
-			W.forceMove(loc)
 			return TRUE // It's resolved. No afterattack needed. Stops you from emagging lockers when putting in an emag
 	else if(can_be_emaged && (istype(W, /obj/item/card/emag) || istype(W, /obj/item/melee/energy/blade) && !broken))
 		add_fingerprint(user)
