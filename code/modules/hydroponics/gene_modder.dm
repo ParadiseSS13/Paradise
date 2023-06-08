@@ -161,6 +161,8 @@
 	data["has_reagent"] = FALSE
 	data["has_trait"] = FALSE
 
+	data["seed"] = list()
+
 	if(seed)
 		data["seed"] = list(
 			"image" = "[icon2base64(icon(initial(seed.icon), initial(seed.icon_state), SOUTH, 1))]",
@@ -193,6 +195,8 @@
 			data["trait_genes"] += list(seed_info)
 			data["has_trait"] = TRUE
 
+	data["disk"] = list()
+
 	if(disk)
 		var/name = "Empty Disk"
 		if(disk.gene)
@@ -203,7 +207,7 @@
 			"name" = name,
 			"can_insert" = disk.gene?.can_add(seed),
 			"can_extract" = !disk.read_only,
-			"not_core" = !istype(disk?.gene, /datum/plant_gene/core)
+			"is_core" = istype(disk?.gene, /datum/plant_gene/core)
 		)
 
 	data["modal"] = ui_modal_data(src)
@@ -297,44 +301,44 @@
 			// Todo, maybe someday, make this into a modal and make it look good
 
 		if("extract")
-			var/dat = "Are you sure you want to extract [target.get_name()] gene from the [seed]? \nThe sample will be destroyed in process! \n"
+			var/dat = "Are you sure you want to extract [target.get_name()] gene from the [seed]? The sample will be destroyed in process! "
 			if(istype(target, /datum/plant_gene/core))
 				var/datum/plant_gene/core/gene = target
 				if(istype(target, /datum/plant_gene/core/potency))
 					if(gene.value > max_potency)
-						dat += "This device's extraction capabilities are currently limited to [max_potency] potency. \n"
+						dat += "This device's extraction capabilities are currently limited to [max_potency] potency. "
 						dat += "Target gene will be degraded to [max_potency] potency on extraction."
 				else if(istype(target, /datum/plant_gene/core/lifespan))
 					if(gene.value > max_endurance)
-						dat += "This device's extraction capabilities are currently limited to [max_endurance] lifespan. \n"
+						dat += "This device's extraction capabilities are currently limited to [max_endurance] lifespan. "
 						dat += "Target gene will be degraded to [max_endurance] Lifespan on extraction."
 				else if(istype(target, /datum/plant_gene/core/endurance))
 					if(gene.value > max_endurance)
-						dat += "This device's extraction capabilities are currently limited to [max_endurance] endurance. \n"
+						dat += "This device's extraction capabilities are currently limited to [max_endurance] endurance. "
 						dat += "Target gene will be degraded to [max_endurance] endurance on extraction."
 				else if(istype(target, /datum/plant_gene/core/yield))
 					if(gene.value > max_yield)
-						dat += "This device's extraction capabilities are currently limited to [max_yield] yield. \n"
+						dat += "This device's extraction capabilities are currently limited to [max_yield] yield. "
 						dat += "Target gene will be degraded to [max_yield] yield on extraction."
 				else if(istype(target, /datum/plant_gene/core/production))
 					if(gene.value < min_production)
-						dat += "This device's extraction capabilities are currently limited to [min_production] production. \n"
+						dat += "This device's extraction capabilities are currently limited to [min_production] production. "
 						dat += "Target gene will be degraded to [min_production] production on extraction."
 				else if(istype(target, /datum/plant_gene/core/weed_rate))
 					if(gene.value < min_wrate)
-						dat += "This device's extraction capabilities are currently limited to [min_wrate] weed rate. \n"
+						dat += "This device's extraction capabilities are currently limited to [min_wrate] weed rate. "
 						dat += "Target gene will be degraded to [min_wrate] weed rate on extraction."
 				else if(istype(target, /datum/plant_gene/core/weed_chance))
 					if(gene.value < min_wchance)
-						dat += "This device's extraction capabilities are currently limited to [min_wchance] weed chance. \n"
+						dat += "This device's extraction capabilities are currently limited to [min_wchance] weed chance. "
 						dat += "Target gene will be degraded to [min_wchance] weed chance on extraction."
-			ui_modal_boolean(src, action, dat, yes_text = "Extract", no_text = "Cancel")
+			ui_modal_boolean(src, action, dat, yes_text = "Extract", no_text = "Cancel", delegate_no = PROC_REF(do_nothing))
 
 		if("replace")
-			ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [disk.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel")
+			ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [disk.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel", delegate_no = PROC_REF(do_nothing))
 
 		if("remove")
-			ui_modal_boolean(src, action, "Are you sure you want to remove [target.get_name()] gene from the [seed]" , yes_text = "Remove", no_text = "Cancel")
+			ui_modal_boolean(src, action, "Are you sure you want to remove [target.get_name()] gene from the [seed]" , yes_text = "Remove", no_text = "Cancel", delegate_no = PROC_REF(do_nothing))
 
 		if("insert")
 			if(!istype(disk.gene, /datum/plant_gene/core) && disk.gene.can_add(seed))
@@ -346,6 +350,11 @@
 			// this doesnt need a modal, its easy enough to just remove the inserted gene
 
 			SStgui.update_uis(src)
+
+// Needed so the modal booleans dont save stuff when you hit cancel.
+// Returns true so the modal believes it delegated and doesnt let the modal ui answer in ui_act.
+/obj/machinery/plantgenes/proc/do_nothing()
+	return TRUE
 
 /obj/machinery/plantgenes/proc/insert_seed(obj/item/seeds/S)
 	if(!istype(S) || seed)

@@ -41,7 +41,7 @@ const Genes = (props, context) => {
       buttons={
         <Button
           content = "Insert Gene from Disk"
-          disabled = {!disk?.can_insert && disk?.not_core}
+          disabled = {!disk || !disk.can_insert || disk.is_core}
           icon = "arrow-circle-down"
           onClick={() => act('insert')}
         />
