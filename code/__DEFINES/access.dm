@@ -125,6 +125,10 @@
 
 //Awaymissions
 #define ACCESS_AWAY01 271
+#define USSP_BAR 201
+#define USSP_SECURITY 202
+#define USSP_COMAND 203
+#define USSP_ENGINEERING 204
 
 //Ghost roles
 #define ACCESS_FREE_GOLEMS 300
