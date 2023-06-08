@@ -4,7 +4,7 @@
 	wire_count = 6 // 4 actual, 2 duds
 	proper_name = "MOD control unit"
 	window_x = 345
-	window_y = 75
+	window_y = 90
 
 /datum/wires/mod/New(atom/holder)
 	wires = list(WIRE_HACK, WIRE_DISABLE, WIRE_ELECTRIFY, WIRE_INTERFACE)
@@ -14,6 +14,8 @@
 	if(!..())
 		return FALSE
 	var/obj/item/mod/control/mod = holder
+	if(mod.seconds_electrified && mod.shock(user))
+		return FALSE
 	return mod.open
 
 /datum/wires/mod/get_status()

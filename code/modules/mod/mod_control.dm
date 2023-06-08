@@ -304,6 +304,8 @@
 		to_chat(user, "<span class='warning'>Insufficient access!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
+	if(seconds_electrified && get_charge() && shock(user))
+		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MOD_MODULE_REMOVAL, user) & MOD_CANCEL_REMOVAL)
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
@@ -352,6 +354,8 @@
 		update_charge_alert()
 		return TRUE
 	else if(istype(attacking_item, /obj/item/multitool) && open)
+		if(seconds_electrified && get_charge() && shock(user))
+			return TRUE
 		wires.Interact(user)
 		return TRUE
 	else if(open && attacking_item.GetID())
@@ -512,7 +516,7 @@
 		return FALSE
 	do_sparks(5, TRUE, src)
 	var/check_range = TRUE
-	return electrocute_mob(user, get_charge_source(), src, 0.7, check_range)
+	return electrocute_mob(user, get_charge_source(), src, 1, check_range)
 
 /obj/item/mod/control/proc/install(obj/item/mod/module/new_module, mob/user)
 	for(var/obj/item/mod/module/old_module as anything in modules)
