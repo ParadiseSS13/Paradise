@@ -380,39 +380,39 @@
 			if(1)
 				t1 = "Unconscious"
 			else
-				t1 = "*dead*"
-		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
+				t1 = "*Dead*"
+		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth: [occupant.health]% ([t1])</font><br>"
 
 		var/extra_font = null
 
 		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 1)
 
 		extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
+		dat += "[extra_font]\tBlood Level: [blood_percent]% ([occupant.blood_volume] units)</font><br>"
 
 		extra_font = (occupant.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT && occupant.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tBody Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)</font><br>"
 
 		extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tBrute Damage %: [occupant.getBruteLoss()]</font><br>"
+		dat += "[extra_font]\tBrute Damage: [occupant.getBruteLoss()]</font><br>"
 
 		extra_font = (occupant.getOxyLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tRespiratory Damage %: [occupant.getOxyLoss()]</font><br>"
+		dat += "[extra_font]\tRespiratory Damage: [occupant.getOxyLoss()]</font><br>"
 
 		extra_font = (occupant.getToxLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tToxin Content %: [occupant.getToxLoss()]</font><br>"
+		dat += "[extra_font]\tToxin Damage: [occupant.getToxLoss()]</font><br>"
 
 		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tBurn Severity %: [occupant.getFireLoss()]</font><br>"
+		dat += "[extra_font]\tBurn Severity: [occupant.getFireLoss()]</font><br>"
 
 		extra_font = (occupant.radiation < 10 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tRadiation Level: [occupant.radiation] rads</font><br>"
 
 		extra_font = (occupant.getCloneLoss() < 1 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tGenetic Tissue Damage %: [occupant.getCloneLoss()]</font><br>"
+		dat += "[extra_font]\tCellular Tissue Damage: [occupant.getCloneLoss()]</font><br>"
 
 		extra_font = (occupant.getBrainLoss() < 1 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]</font><br>"
+		dat += "[extra_font]\tApprox. Brain Damage: [occupant.getBrainLoss()]</font><br>"
 
 		var/found_disease = FALSE
 		for(var/thing in occupant.viruses)
@@ -424,12 +424,13 @@
 		if(found_disease)
 			dat += "<font color='red'>Disease detected in occupant.</font><br>"
 
-		dat += "<hr><table border='1'>"
+		dat += "<hr>"
+		dat += "<table border='1'>"
 		dat += "<tr>"
 		dat += "<th>Organ</th>"
 		dat += "<th>Burn Damage</th>"
 		dat += "<th>Brute Damage</th>"
-		dat += "<th>Other Wounds</th>"
+		dat += "<th>Injuries</th>"
 		dat += "</tr>"
 
 		for(var/obj/item/organ/external/e in occupant.bodyparts)
@@ -447,9 +448,9 @@
 			var/ointment = ""
 			var/lung_ruptured = ""
 			if(e.status & ORGAN_INT_BLEEDING)
-				internal_bleeding = "<br>Internal bleeding"
+				internal_bleeding = "<br>Internal Bleeding"
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
-				lung_ruptured = "Lung ruptured"
+				lung_ruptured = "Lung Ruptured"
 			if(e.status & ORGAN_SPLINTED)
 				splint = "Splinted"
 			if(e.status & ORGAN_BROKEN)
@@ -459,7 +460,7 @@
 			if(e.status & ORGAN_BURNT)
 				burn_wound = "Critical Burn"
 			if(e.status & ORGAN_DEAD)
-				dead = "DEAD"
+				dead = "Dead"
 			if(e.is_robotic())
 				robot = "Robotic"
 			if(e.open)
@@ -493,12 +494,20 @@
 			dat += "<td>[e.brute_dam]</td>"
 			dat += "<td>[robot][bled][AN][splint][burn_wound][ointment][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
 			dat += "</tr>"
+		dat += "</table>"
+
+		dat += "<table border='1'>"
+		dat += "<tr>"
+		dat += "<th>Organ</th>"
+		dat += "<th>Damage</th>"
+		dat += "<th>Injuries/th>"
+		dat += "</tr>"
+
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
 			var/infection = ""
 			var/dead = ""
-			var/mech = i.desc
 			if(i.status & ORGAN_DEAD)
-				dead = "DEAD"
+				dead = "Dead"
 			switch(i.germ_level)
 				if(1 to INFECTION_LEVEL_ONE + 200)
 					infection = "Mild Infection"
@@ -513,12 +522,14 @@
 				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
 					infection = "Acute Infection++"
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
-					infection = "Septic:"
-
+					infection = "Septic"
 			dat += "<tr>"
-			dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech][dead]</td><td></td>"
+			dat += "<td>[i.name]</td>"
+			dat += "<td>[i.damage]</td>"
+			dat += "<td>[infection]<br>[dead]</td>"
 			dat += "</tr>"
 		dat += "</table>"
+
 		if(HAS_TRAIT(occupant, TRAIT_BLIND))
 			dat += "<font color='red'>Cataracts detected.</font><BR>"
 		if(HAS_TRAIT(occupant, TRAIT_COLORBLIND))
