@@ -175,7 +175,7 @@
 
 /datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
 	var/list/validtargets = list()
-	for(var/mob/living/M in view(user.client.view, get_turf(user)))
+	for(var/mob/living/M in view(user.client.maxview(), get_turf(user)))
 		if(M && M.mind && M.stat != DEAD)
 			if(M == user)
 				continue

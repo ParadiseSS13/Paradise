@@ -21,11 +21,13 @@
 	else
 		adjustBruteLoss(-20)
 
-/mob/living/simple_animal/demon/shadow/ClickOn(atom/A)
+/mob/living/simple_animal/demon/shadow/UnarmedAttack(atom/A)
 	if(!ishuman(A))
+		if(isitem(A))
+			A.extinguish_light()
 		return ..()
 	var/mob/living/carbon/human/target = A
-	if(!in_range(src, target) || target.stat != DEAD)
+	if(target.stat != DEAD)
 		return ..()
 
 	if(isLivingSSD(target) && client.send_ssd_warning(target)) //Similar to revenants, only wrap SSD targets if you've accepted the SSD warning
@@ -57,6 +59,46 @@
 	max_integrity = 100
 	light_color = "#ddd6cf"
 	anchored = TRUE
+	/// Amount of SSobj ticks (Roughly 2 seconds) since the last hallucination proc'd
+	var/time_since_last_hallucination = 0
+	/// Will we play hallucination sounds or not
+	var/silent = TRUE
+
+/obj/structure/shadowcocoon/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/shadowcocoon/process()
+	time_since_last_hallucination++
+	for(var/atom/to_darken in range(4, src))
+		if(prob(60) || !length(to_darken.light_sources))
+			continue
+		if(iswelder(to_darken) && length(to_darken.light_sources))
+			var/obj/item/weldingtool/welder_to_darken = to_darken
+			welder_to_darken.remove_fuel(welder_to_darken.reagents.get_reagent_amount("fuel"))
+			welder_to_darken.visible_message("<span class='notice'>The shadows swarm around and overwhelm the flame of [welder_to_darken].</span>")
+			return
+		if(istype(to_darken, /obj/item/flashlight/flare))
+			var/obj/item/flashlight/flare/flare_to_darken = to_darken
+			if(!flare_to_darken.on)
+				continue
+			flare_to_darken.turn_off()
+			flare_to_darken.fuel = 0
+			flare_to_darken.visible_message("<span class='notice'>[flare_to_darken] suddenly dims.</span>")
+		to_darken.extinguish_light()
+	if(!silent && time_since_last_hallucination >= rand(8, 12))
+		playsound(src, pick('sound/items/deconstruct.ogg', 'sound/weapons/handcuffs.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/effects/eleczap.ogg', get_sfx("bodyfall"), get_sfx("gunshot"), 'sound/weapons/egloves.ogg'), 50)
+		time_since_last_hallucination = 0
+
+/obj/structure/shadowcocoon/AltClick(mob/user)
+	if(!isdemon(user))
+		return ..()
+	if(silent)
+		to_chat(user, "<span class='notice'>You twist and change your trapped victim in [src] to lure in more prey.</span>")
+		silent = FALSE
+		return
+	to_chat(user, "<span class='notice'>The tendrils from [src] snap back to their orignal form.</span>")
+	silent = TRUE
 
 /obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type != BURN) //I unashamedly stole this from spider cocoon code
@@ -76,7 +118,6 @@
 	if(isliving(AM)) // when a living creature is thrown at it, dont knock it back
 		return
 	..()
-
 
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
@@ -99,11 +140,13 @@
 			thrown_alert = TRUE
 			throw_alert("light", /obj/screen/alert/lightexposure)
 		alpha = 255
+		speed = initial(speed)
 	else
 		if(thrown_alert)
 			thrown_alert = FALSE
 			clear_alert("light")
 		alpha = 125
+		speed = 0.5
 	return lum_count
 
 
@@ -143,6 +186,8 @@
 		return
 	hit = TRUE // to prevent double hits from the pull
 	. = ..()
+	for(var/atom/extinguish_target in range(2, src))
+		extinguish_target.extinguish_light(TRUE)
 	if(!isliving(target))
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
 	else
@@ -150,7 +195,6 @@
 		L.Immobilize(2 SECONDS)
 		L.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
 		L.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
-	target.extinguish_light(TRUE)
 
 /obj/effect/ebeam/floor
 	plane = FLOOR_PLANE
