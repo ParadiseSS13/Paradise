@@ -500,7 +500,7 @@
 		dat += "<tr>"
 		dat += "<th>Organ</th>"
 		dat += "<th>Damage</th>"
-		dat += "<th>Injuries/th>"
+		dat += "<th>Injuries</th>"
 		dat += "</tr>"
 
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
