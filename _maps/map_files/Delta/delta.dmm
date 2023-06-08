@@ -15435,6 +15435,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/theatre)
 "aUG" = (
+/obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -19223,6 +19224,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bcL" = (
+/obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
