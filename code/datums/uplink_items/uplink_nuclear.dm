@@ -265,13 +265,13 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/rocket
-	name "Rocket Launcher - 1 Extra Shell"
+	name = "Rocket Launcher - 1 Extra Shell"
 	desc = "An extra shell for your RPG. Make sure your bestie isn't standing in front of you."
 	reference = "HE"
 	item = /obj/item/ammo_casing/rocket
 	cost = 2
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	
+
 /datum/uplink_item/ammo/machinegun
 	name = "L6 SAW - 5.56x45mm Box Magazine"
 	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
