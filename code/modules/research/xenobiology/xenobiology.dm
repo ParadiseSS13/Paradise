@@ -188,6 +188,9 @@
 	if(!isanimal(M) && !ismonkeybasic(M)) //работает только на животных и низших формах карбонов
 		to_chat(user, "<span class='warning'>[M] is not animal nor lesser life form!</span>")
 		return ..()
+	if(istype(M, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
+		to_chat(user, "<span class='warning'>unknown power prevents you from using sentience potion on [M]</span>")
+		return ..()
 	if(M.stat)
 		to_chat(user, "<span class='warning'>[M] is dead!</span>")
 		return ..()
