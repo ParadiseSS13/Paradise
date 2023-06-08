@@ -49,6 +49,8 @@
 	new /obj/item/clothing/mask/gas/mime(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/under/mime(src)
+	new /obj/item/clothing/under/mimeskirt(src)
+	new /obj/item/clothing/under/mimeshorts(src)
 	new /obj/item/clothing/suit/suspenders(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/black(src)

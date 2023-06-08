@@ -401,6 +401,22 @@
 	item_color = "sexymime"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/mimeshorts
+	name = "mime shorts"
+	desc = "..."
+	icon_state = "mime_shorts"
+	item_state = "mime_shorts"
+	item_color = "mime_shorts"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/under/mimeskirt
+	name = "sexy mime skirt"
+	desc = "..."
+	icon_state = "mime_skirt"
+	item_state = "mime_skirt"
+	item_color = "mime_skirt"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
 /obj/item/clothing/under/gladiator
 	name = "gladiator uniform"
 	desc = "Are you not entertained? Is that not why you are here?"
