@@ -425,81 +425,71 @@
 			dat += "<font color='red'>Disease detected in occupant.</font><br>"
 
 		dat += "<hr>"
-		dat += "<table border='1'>"
+		dat += "<table border='1' style='width:100%'>"
 		dat += "<tr>"
-		dat += "<th>Organ</th>"
-		dat += "<th>Burn Damage</th>"
-		dat += "<th>Brute Damage</th>"
+		dat += "<th style='width:30%'>Body Part</th>"
+		dat += "<th style='width:10%'>Burn Damage</th>"
+		dat += "<th style='width:10%'>Brute Damage</th>"
 		dat += "<th>Injuries</th>"
 		dat += "</tr>"
 
 		for(var/obj/item/organ/external/e in occupant.bodyparts)
 			dat += "<tr>"
-			var/AN = ""
-			var/open = ""
-			var/infected = ""
-			var/dead = ""
-			var/robot = ""
-			var/imp = ""
-			var/bled = ""
-			var/splint = ""
-			var/internal_bleeding = ""
-			var/burn_wound = ""
-			var/ointment = ""
-			var/lung_ruptured = ""
+			var/list/ailments = list()
+
 			if(e.status & ORGAN_INT_BLEEDING)
-				internal_bleeding = "<br>Internal Bleeding"
+				ailments |= "Internal Bleeding"
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
-				lung_ruptured = "Lung Ruptured"
+				ailments |= "Lung Ruptured"
 			if(e.status & ORGAN_SPLINTED)
-				splint = "Splinted"
+				ailments |= "Splinted"
 			if(e.status & ORGAN_BROKEN)
-				AN = "[e.broken_description]"
+				ailments |= "[e.broken_description]"
 			if(e.status & ORGAN_SALVED)
-				ointment = "Salved"
+				ailments |= "Salved"
 			if(e.status & ORGAN_BURNT)
-				burn_wound = "Critical Burn"
+				ailments |= "Critical Burn"
 			if(e.status & ORGAN_DEAD)
-				dead = "Dead"
+				ailments |= "Dead"
 			if(e.is_robotic())
-				robot = "Robotic"
+				ailments |= "Robotic"
 			if(e.open)
-				open = "Open"
+				ailments |= "Open"
 			switch(e.germ_level)
 				if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
-					infected = "Mild Infection"
+					ailments |= "Mild Infection"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
-					infected = "Mild Infection+"
+					ailments |= "Mild Infection+"
 				if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
-					infected = "Mild Infection++"
+					ailments |= "Mild Infection++"
 				if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
-					infected = "Acute Infection"
+					ailments |= "Acute Infection"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
-					infected = "Acute Infection+"
+					ailments |= "Acute Infection+"
 				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
-					infected = "Acute Infection++"
+					ailments |= "Acute Infection++"
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
-					infected = "Septic"
+					ailments |= "Septic"
 
 			var/unknown_body = 0
 			for(var/I in e.embedded_objects)
 				unknown_body++
 
 			if(unknown_body || e.hidden)
-				imp += "Unknown body present"
-			if(!AN && !open && !infected && !imp)
-				AN = ""
+				ailments |= "Unknown body present"
+
 			dat += "<td>[e.name]</td>"
 			dat += "<td>[e.burn_dam]</td>"
 			dat += "<td>[e.brute_dam]</td>"
-			dat += "<td>[robot][bled][AN][splint][burn_wound][ointment][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
+			dat += "<td>[jointext(ailments, "<br>")]</td>"
 			dat += "</tr>"
 		dat += "</table>"
+		dat += "<br>"
 
-		dat += "<table border='1'>"
+		dat += "<table border='1' style='width:100%'>"
 		dat += "<tr>"
-		dat += "<th>Organ</th>"
-		dat += "<th>Damage</th>"
+		dat += "<th style='width:30%'>Organ</th>"
+		dat += "<th style='width:10%'>Damage</th>"
 		dat += "<th>Injuries</th>"
 		dat += "</tr>"
 
