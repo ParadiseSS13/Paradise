@@ -130,7 +130,7 @@
 
 /obj/item/projectile/missile/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
-	explosion(target, -1, 1, 2, cause = "[type] fired by [key_name(firer)]")
+	explosion(target, 1, 2, 3, cause = "[type] fired by [key_name(firer)]")
 	return TRUE
 
 /obj/item/projectile/energy/floramut
