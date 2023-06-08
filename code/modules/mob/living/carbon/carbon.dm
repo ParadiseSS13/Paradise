@@ -225,7 +225,7 @@
 		check_self_for_injuries()
 		return
 	if(player_logged)
-		M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
+		M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.</span>", \
 		"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
 	if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 		add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
