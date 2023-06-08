@@ -346,7 +346,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/escape/escape_with_identity/find_target()
 	var/list/possible_targets = list() //Copypasta because NO_DNA races, yay for snowflakes.
 	for(var/datum/mind/possible_target in SSticker.minds)
-		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
+		if(!(is_invalid_target(possible_target)))
 			var/mob/living/carbon/human/H = possible_target.current
 			if(!(NO_DNA in H.dna.species.species_traits))
 				possible_targets += possible_target
