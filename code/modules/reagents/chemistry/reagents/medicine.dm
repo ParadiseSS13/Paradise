@@ -919,6 +919,7 @@
 	id = "stimulative_agent"
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
 	color = "#C8A5DC"
+	process_flags = ORGANIC | SYNTHETIC
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	harmless = FALSE
