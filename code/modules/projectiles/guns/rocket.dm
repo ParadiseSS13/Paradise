@@ -9,7 +9,7 @@
 	throw_range = 3
 	force = 15
 	flags = CONDUCT
-	origin_tech = "combat=6, syndicate=7"
+	origin_tech = "combat=6;syndicate=7"
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	recoil = TRUE
 	var/missile_speed = 2
