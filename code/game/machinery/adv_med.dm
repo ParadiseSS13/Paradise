@@ -424,6 +424,13 @@
 		if(found_disease)
 			dat += "<font color='red'>Disease detected in occupant.</font><br>"
 
+		if(HAS_TRAIT(occupant, TRAIT_BLIND))
+			dat += "<font color='red'>Cataracts detected.</font><br>"
+		if(HAS_TRAIT(occupant, TRAIT_COLORBLIND))
+			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><br>"
+		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHT))
+			dat += "<font color='red'>Retinal misalignment detected.</font><br>"
+
 		dat += "<hr>"
 		dat += "<table border='1' style='width:100%'>"
 		dat += "<tr>"
@@ -494,38 +501,32 @@
 		dat += "</tr>"
 
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
-			var/infection = ""
-			var/dead = ""
+			var/list/ailments = list()
+
 			if(i.status & ORGAN_DEAD)
-				dead = "Dead"
+				ailments |= "Dead"
 			switch(i.germ_level)
 				if(1 to INFECTION_LEVEL_ONE + 200)
-					infection = "Mild Infection"
+					ailments |= "Mild Infection"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
-					infection = "Mild Infection+"
+					ailments |= "Mild Infection+"
 				if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
-					infection = "Mild Infection++"
+					ailments |= "Mild Infection++"
 				if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
-					infection = "Acute Infection"
+					ailments |= "Acute Infection"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
-					infection = "Acute Infection+"
+					ailments |= "Acute Infection+"
 				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
-					infection = "Acute Infection++"
+					ailments |= "Acute Infection++"
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
-					infection = "Septic"
+					ailments |= "Septic"
 			dat += "<tr>"
 			dat += "<td>[i.name]</td>"
 			dat += "<td>[i.damage]</td>"
-			dat += "<td>[infection]<br>[dead]</td>"
+			dat += "<td>[jointext(ailments, "<br>")]</td>"
 			dat += "</tr>"
 		dat += "</table>"
 
-		if(HAS_TRAIT(occupant, TRAIT_BLIND))
-			dat += "<font color='red'>Cataracts detected.</font><BR>"
-		if(HAS_TRAIT(occupant, TRAIT_COLORBLIND))
-			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHT))
-			dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 	else
 		dat += "[src] is empty."
 
