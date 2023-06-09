@@ -127,20 +127,20 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
 	damage = 50
+	var/heavy = TRUE
 
 /obj/item/projectile/missile/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
-	explosion(target, 1, 2, 3, cause = "[type] fired by [key_name(firer)]")
+	if(heavy)
+		explosion(target, 1, 2, 3, cause = "[type] fired by [key_name(firer)]")
+	else
+		explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
 	return TRUE
 
 /obj/item/projectile/missile/light
 	damage = 20
+	heavy = FALSE
 
-/obj/item/projectile/missile/light/on_hit(atom/target, blocked, hit_zone)
-	. = ..()
-	explosion(target, -1, 0, 2)
-	return TRUE
-	
 /obj/item/projectile/energy/floramut
 	name = "alpha somatoray"
 	icon_state = "energy"
