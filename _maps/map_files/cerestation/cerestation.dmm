@@ -9004,16 +9004,19 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "bak" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
 	icon_state = "space";
 	layer = 4;
 	name = "EXTERNAL AIRLOCK";
 	pixel_x = 32
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
@@ -9425,7 +9428,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
@@ -47846,12 +47849,6 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
-"hOj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/plating,
-/area/hallway/primary/central)
 "hOn" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/firealarm{
@@ -62308,13 +62305,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/starboard)
-"mMZ" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
-/area/hallway/primary/central)
 "mNd" = (
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plating,
@@ -79038,9 +79028,7 @@
 /area/hallway/secondary/entry/south)
 "sHX" = (
 /obj/effect/spawner/airlock/s_to_n,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall,
 /area/hallway/primary/central)
 "sIe" = (
@@ -83183,6 +83171,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "uho" = (
@@ -91727,6 +91718,7 @@
 "wZl" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "wZv" = (
@@ -128314,9 +128306,9 @@ cHz
 cHz
 lSw
 aZk
-hOj
+baN
 bak
-mMZ
+aZk
 bbU
 uep
 aYJ
