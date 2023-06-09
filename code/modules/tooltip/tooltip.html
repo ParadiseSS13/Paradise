@@ -90,7 +90,8 @@
 			'tileSize': 32,
 			'control': '',
 			'params': {},
-			'clientView': 0,
+			'client_view_w': 0,
+			'client_view_h': 0,
 			'text': '',
 			'theme': '',
 			'padding': 2,
@@ -102,7 +103,7 @@
 				window.location = 'byond://winset?id='+tooltip.control+';is-visible=false';
 			},
 			updateCallback: function(map) {
-				if(typeof map === 'undefined' || !map) {return false;}
+				if (typeof map === 'undefined' || !map) {return false;}
 
 				//alert(tooltip.params+' | '+tooltip.clientView+' | '+tooltip.text+' | '+tooltip.theme); //DEBUG
 
@@ -110,36 +111,49 @@
 				window.location = 'byond://winset?id='+tooltip.control+';anchor1=0,0;size=999x999';
 
 				//Get the real icon size according to the client view
+				//FYI, this bit is even more borrowed from goon, our widescreen broke tooltips so I took a look at how they do it
+				//To improve our code. Thanks gooncoders, very cool
 				var mapWidth 		= map['view-size'].x,
 					mapHeight 		= map['view-size'].y,
-					tilesShown 		= (tooltip.clientView * 2) + 1,
-					realIconSize 	= mapWidth / tilesShown,
-					resizeRatio		= realIconSize / tooltip.tileSize,
+					tilesShownX 	= tooltip.client_view_w
+					tilesShownY 	= tooltip.client_view_h
+					realIconSizeX 	= mapWidth / tilesShownX,
+					realIconSizeY 	= mapHeight / tilesShownY,
+					resizeRatioX	= realIconSizeX / tooltip.tileSize,
+					resizeRatioY	= realIconSizeY / tooltip.tileSize,
 					//Calculate letterboxing offsets
 					leftOffset 		= (map.size.x - mapWidth) / 2,
 					topOffset 		= (map.size.y - mapHeight) / 2;
 
 				//alert(realIconSize + ' | ' +tooltip.tileSize + ' | ' + resizeRatio); //DEBUG
 
-				//Parse out the tile and cursor locations from params (e.g. "icon-x=32;icon-y=29;screen-loc=3:10,15:29")
+				const parameters = new Object();
+
+				//Parse out the contents of params (e.g. "icon-x=32;icon-y=29;screen-loc=3:10,15:29")
+				//It is worth noting that params is not always ordered in the same way. We therefore need to write the code
+				//To load their values in independantly of their order
 				var paramsA = tooltip.params.cursor.split(';');
-				if(paramsA.length < 3) {return false;} //Sometimes screen-loc is never sent ahaha fuck you byond
+				for (var i = 0; i < paramsA.length; i++) {
+					var entry = paramsA[i];
+					var nameAndValue = entry.split("=");
+					parameters[nameAndValue[0]] = nameAndValue[1];
+				}
+
+				//Sometimes screen-loc is never sent ahaha fuck you byond
+				if (!parameters["icon-x"] || !parameters["icon-y"] || !parameters["screen-loc"]) {
+					return false;
+				}
 				//icon-x
-				var iconX = paramsA[0];
-				iconX = iconX.split('=');
-				iconX = parseInt(iconX[1]);
+				var iconX = parseInt(parameters["icon-x"]);
 				//icon-y
-				var iconY = paramsA[1];
-				iconY = iconY.split('=');
-				iconY = parseInt(iconY[1]);
+				var iconY = parseInt(parameters["icon-y"]);
 				//screen-loc
-				var screenLoc = paramsA[2];
-				screenLoc = screenLoc.split('=');
-				screenLoc = screenLoc[1].split(',');
-				if(screenLoc.length < 2) {return false;}
+				var screenLoc = parameters["screen-loc"];
+				screenLoc = screenLoc.split(',');
+				if (screenLoc.length < 2) {return false;}
 				var left = screenLoc[0];
 				var top = screenLoc[1];
-				if(!left || !top) {return false;}
+				if (!left || !top) {return false;}
 				screenLoc = left.split(':');
 				left = parseInt(screenLoc[0]);
 				var enteredX = parseInt(screenLoc[1]);
@@ -152,30 +166,30 @@
 				var oScreenLoc = tooltip.params.screenLoc.split(','); //o for original ok
 
 				var west = oScreenLoc[0].split(':');
-				if(west.length > 1) { //Only if west has a pixel offset
+				if (west.length > 1) { //Only if west has a pixel offset
 					var westOffset = parseInt(west[1]);
-					if(westOffset !== 0) {
-						if((iconX + westOffset) !== enteredX) { //Cursor entered on the offset tile
+					if (westOffset !== 0) {
+						if ((iconX + westOffset) !== enteredX) { //Cursor entered on the offset tile
 							left = left + (westOffset < 0 ? 1 : -1);
 						}
-						leftOffset = leftOffset + (westOffset * resizeRatio);
+						leftOffset = leftOffset + (westOffset * resizeRatioX);
 					}
 				}
 
-				if(oScreenLoc.length > 1) { //If north is given
+				if (oScreenLoc.length > 1) { //If north is given
 					var north = oScreenLoc[1].split(':');
-					if(north.length > 1) { //Only if north has a pixel offset
+					if (north.length > 1) { //Only if north has a pixel offset
 						var northOffset = parseInt(north[1]);
-						if(northOffset !== 0) {
-							if((iconY + northOffset) === enteredY) { //Cursor entered on the original tile
+						if (northOffset !== 0) {
+							if ((iconY + northOffset) === enteredY) { //Cursor entered on the original tile
 								top--;
-								topOffset = topOffset - ((tooltip.tileSize + northOffset) * resizeRatio);
+								topOffset = topOffset - ((tooltip.tileSize + northOffset) * resizeRatioY);
 							} else { //Cursor entered on the offset tile
-								if(northOffset < 0) { //Offset southwards
-									topOffset = topOffset - ((tooltip.tileSize + northOffset) * resizeRatio);
+								if (northOffset < 0) { //Offset southwards
+									topOffset = topOffset - ((tooltip.tileSize + northOffset) * resizeRatioY);
 								} else { //Offset northwards
 									top--;
-									topOffset = topOffset - (northOffset * resizeRatio);
+									topOffset = topOffset - (northOffset * resizeRatioY);
 								}
 							}
 						}
@@ -183,17 +197,17 @@
 				}
 
 				//Handle special cases (for fuck sake)
-				if(tooltip.special !== 'none') {
+				if (tooltip.special !== 'none') {
 					//Put yo special cases here
 				}
 
 				//Clamp values
-				left = (left < 0 ? 0 : (left > tilesShown ? tilesShown : left));
-				top = (top < 0 ? 0 : (top > tilesShown ? tilesShown : top));
+				left = (left < 0 ? 0 : (left > tilesShownX ? tilesShownX : left));
+				top = (top < 0 ? 0 : (top > tilesShownY ? tilesShownY : top));
 
 				//Calculate where on the screen the popup should appear (below the hovered tile)
-				var posX = Math.round(((left - 1) * realIconSize) + leftOffset + tooltip.padding); //-1 to position at the left of the target tile
-				var posY = Math.round(((tilesShown - top + 1) * realIconSize) + topOffset + tooltip.padding); //+1 to position at the bottom of the target tile
+				var posX = Math.round(((left - 1) * realIconSizeX) + leftOffset + tooltip.padding); //-1 to position at the left of the target tile
+				var posY = Math.round(((tilesShownY - top + 1) * realIconSizeY) + topOffset + tooltip.padding); //+1 to position at the bottom of the target tile
 
 				//alert(mapWidth+' | '+mapHeight+' | '+tilesShown+' | '+realIconSize+' | '+leftOffset+' | '+topOffset+' | '+left+' | '+top+' | '+posX+' | '+posY); //DEBUG
 
@@ -207,11 +221,16 @@
 
 				$wrap.width($wrap.width() + 2); //Dumb hack to fix a bizarre sizing bug
 
-				var docWidth	= $wrap.outerWidth(),
-					docHeight	= $wrap.outerHeight();
+				var pixelRatio = 1;
+				if (window.devicePixelRatio) {
+					pixelRatio = window.devicePixelRatio;
+				}
 
-				if(posY + docHeight > map.size.y) { //Is the bottom edge below the window? Snap it up if so
-					posY = (posY - docHeight) - realIconSize - tooltip.padding;
+				var docWidth	= Math.floor($wrap.outerWidth() * pixelRatio),
+					docHeight	= Math.floor($wrap.outerHeight() * pixelRatio);
+
+				if (posY + docHeight > map.size.y) { //Is the bottom edge below the window? Snap it up if so
+					posY = (posY - docHeight) - realIconSizeY - tooltip.padding;
 				}
 
 				//Actually size, move and show the tooltip box
@@ -221,10 +240,11 @@
 					tooltip.hide();
 				});
 			},
-			update: function(params, clientView, text, theme, special) {
+			update: function(params, client_vw , clien_vh , text, theme, special) {
 				//Assign our global object
 				tooltip.params = $.parseJSON(params);
-				tooltip.clientView = parseInt(clientView);
+				tooltip.client_view_w = parseInt(client_vw);
+				tooltip.client_view_h = parseInt(clien_vh);
 				tooltip.text = text;
 				tooltip.theme = theme;
 				tooltip.special = special;

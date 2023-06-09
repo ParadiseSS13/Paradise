@@ -176,3 +176,11 @@
 	if(circuit && !(flags & NODECONSTRUCT))
 		if(I.use_tool(src, user, 20, volume = I.tool_volume))
 			deconstruct(TRUE, user)
+
+/obj/machinery/computer/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(!self_hurt && prob(50 * (damage / 15)))
+		obj_break(MELEE)
+		take_damage(damage, BRUTE)
+		self_hurt = TRUE
+	return ..()
+
