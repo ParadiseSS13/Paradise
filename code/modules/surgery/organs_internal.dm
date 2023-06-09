@@ -327,7 +327,7 @@
 		if(I.requires_robotic_bodypart)
 			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface [target].</span>")
 			return FALSE
-		if(!user.drop_item())
+		if(!user.drop_item_ground(I))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
 			return 0
 		I.insert(target)
@@ -359,7 +359,8 @@
 			var/obj/item/thing = I.remove(target)
 			if(thing) // some "organs", like egg infections, can have I.remove(target) return null, and so we can't use "thing" in that case
 				if(istype(thing))
-					user.put_in_hands(thing)
+					thing.forceMove(get_turf(target))
+					user.put_in_hands(thing, ignore_anim = FALSE)
 				else
 					thing.forceMove(get_turf(target))
 			target.update_icons()

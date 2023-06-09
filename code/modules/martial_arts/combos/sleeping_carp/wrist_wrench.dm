@@ -13,7 +13,7 @@
 		if(prob(60))
 			user.say(pick("WRISTY TWIRLY!", "WE FIGHT LIKE MEN!", "YOU DISHONOR YOURSELF!", "POHYAH!", "WHERE IS YOUR BATON NOW?", "SAY UNCLE!"))
 		target.emote("scream")
-		target.drop_item()
+		target.drop_from_active_hand()
 		target.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
 		objective_damage(user, target, 5, BRUTE)
 		target.Weaken(2)

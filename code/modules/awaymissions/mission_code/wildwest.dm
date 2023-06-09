@@ -157,9 +157,6 @@
 
 /////For the Wishgranter///////////
 
-/mob/living/carbon
-	var/revival_in_progress = FALSE
-
 /mob/living/carbon/proc/immortality()
 	set category = "Immortality"
 	set name = "Resurrection"

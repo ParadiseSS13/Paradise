@@ -17,8 +17,7 @@
 		if(src == user.get_item_by_slot(slot_wear_suit)) //Make sure the player is not wearing the suit before applying the upgrade.
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
-		if(user.unEquip(new_taser_proof))
-			new_taser_proof.forceMove(src)
+		if(user.drop_transfer_item_to_loc(new_taser_proof, src))
 			taser_proof = new_taser_proof
 			taser_proof.hardsuit = src
 			to_chat(user, "<span class='notice'>You successfully install the taser proof upgrade into [src].</span>")

@@ -3,15 +3,16 @@
 	body_parts_covered = LOWER_TORSO|LEGS
 	displays_id = FALSE
 
-/obj/item/clothing/under/pants/equipped(mob/user, slot)
+/obj/item/clothing/under/pants/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(ishuman(user) && slot == slot_w_uniform)
 		var/mob/living/carbon/human/H = user
 		if(H.undershirt != "Nude")
 			var/additional_body_parts = UPPER_TORSO|ARMS
 			body_parts_covered |= additional_body_parts
-			return ..()
+			return
 	body_parts_covered = LOWER_TORSO|LEGS
-	..()
 
 /obj/item/clothing/under/pants/classicjeans
 	name = "classic jeans"

@@ -19,8 +19,7 @@
 	icon_state = "broom"
 	item_state = "broom0"
 
-/obj/item/twohanded/staff/broom/attack_self(mob/user as mob)
-	..()
+/obj/item/twohanded/staff/broom/wield(obj/item/source, mob/living/carbon/user)
 	item_state = "broom[wielded ? 1 : 0]"
 	force = wielded ? 5 : 3
 	attack_verb = wielded ? list("rammed into", "charged at") : list("bludgeoned", "whacked", "cleaned")
@@ -43,20 +42,21 @@
 			if(wielded)
 				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")
 
+
+/obj/item/twohanded/staff/broom/unwield(obj/item/source, mob/living/carbon/user)
+	user.flying = FALSE
+	user.update_gravity(user.mob_has_gravity())
+	animate(user)
+
+
 /obj/item/twohanded/staff/broom/attackby(var/obj/O, mob/user)
 	if(istype(O, /obj/item/clothing/mask/horsehead))
 		new/obj/item/twohanded/staff/broom/horsebroom(get_turf(src))
-		user.unEquip(O)
+		user.temporarily_remove_item_from_inventory(O)
 		qdel(O)
 		qdel(src)
 		return
 	..()
-
-/obj/item/twohanded/staff/broom/unwield(mob/living/carbon/user)
-	..()
-	user.flying = 0
-	user.update_gravity(user.mob_has_gravity())
-	animate(user)
 
 /obj/item/twohanded/staff/broom/horsebroom
 	name = "broomstick horse"

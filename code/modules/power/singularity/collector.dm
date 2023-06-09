@@ -63,9 +63,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			to_chat(user, "<span class='warning'>There's already a plasma tank loaded.</span>")
 			return 1
 		add_fingerprint(user)
-		user.drop_item()
+		user.drop_transfer_item_to_loc(W, src)
 		src.P = W
-		W.loc = src
 		update_icons()
 	else if(istype(W, /obj/item/crowbar))
 		if(P && !src.locked)

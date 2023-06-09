@@ -10,8 +10,9 @@
 	var/list/examine_extensions = null
 
 
-/obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
-	..()
+/obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
+
 	if(HUDType && slot == slot_glasses)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)

@@ -45,7 +45,7 @@
 		if(M == user)
 			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
 		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
-		user.unEquip(src)	//so icons update :[
+		user.drop_item_ground(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(usr)
 		usr.put_in_hands(trash_item)
@@ -70,7 +70,7 @@
 		return
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		M.unEquip(src)	//so icons update :[
+		M.drop_item_ground(src)	//so icons update :[
 		qdel(src)
 		return FALSE
 
@@ -213,13 +213,12 @@
 		return
 	if(!iscarbon(user))
 		return
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")
 		return
 	to_chat(user, "<span class='warning'>You slip [I] inside [src].</span>")
 	total_w_class += I.w_class
 	add_fingerprint(user)
-	I.forceMove(src)
 
 /obj/item/reagent_containers/food/snacks/sliceable/attackby(obj/item/I, mob/user, params)
 	if((slices_num <= 0 || !slices_num) || !slice_path)

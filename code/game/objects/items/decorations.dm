@@ -355,7 +355,7 @@
 
 /obj/effect/particle_effect/smoke/vomiting/smoke_mob(mob/living/carbon/M)
 	if(..())
-		M.drop_item()
+		M.drop_from_active_hand()
 		M.vomit()
 		M.emote("cough")
 		return 1

@@ -250,10 +250,9 @@
 
 /obj/item/flag/chameleon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grenade) && !boobytrap)
-		if(user.drop_item())
+		if(user.drop_transfer_item_to_loc(I, src))
 			boobytrap = I
 			trapper = user
-			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You hide [I] in the [src]. It will detonate some time after the flag is lit on fire.</span>")
 			var/turf/bombturf = get_turf(src)
 			add_game_logs("has hidden [I] in the [src] ready for detonation at [AREACOORD(bombturf)].", user)

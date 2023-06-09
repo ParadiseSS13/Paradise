@@ -35,10 +35,9 @@
 	if(busy) //So that you can't mess with it while deconstructing
 		return TRUE
 	if(is_type_in_list(O, allowed_books))
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(O, src))
 			return
 		add_fingerprint(user)
-		O.forceMove(src)
 		update_icon()
 		return TRUE
 	else if(istype(O, /obj/item/storage/bag/books))
@@ -82,7 +81,8 @@
 				return
 			add_fingerprint(user)
 			if(!user.get_active_hand())
-				user.put_in_hands(choice)
+				choice.forceMove_turf()
+				user.put_in_hands(choice, ignore_anim = FALSE)
 			else
 				choice.forceMove(get_turf(src))
 			update_icon()
@@ -178,7 +178,7 @@
 	if(carved)
 		if(!store)
 			if(W.w_class < WEIGHT_CLASS_NORMAL)
-				user.drop_item()
+				user.drop_from_active_hand()
 				W.forceMove(src)
 				store = W
 				to_chat(user, "<span class='notice'>You put [W] in [title].</span>")

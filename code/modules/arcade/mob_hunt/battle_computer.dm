@@ -70,8 +70,7 @@
 	if(new_card.mob_data && !new_card.mob_data.cur_health)
 		to_chat(user, "<span class='warning'>This mob is incapacitated! Heal it before attempting to use it in battle!</span>")
 		return
-	user.unEquip(new_card)
-	new_card.forceMove(src)
+	user.drop_transfer_item_to_loc(new_card, src)
 	card = new_card
 	mob_info = card.mob_data
 	update_icon()

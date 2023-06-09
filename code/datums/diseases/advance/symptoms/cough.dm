@@ -37,5 +37,5 @@ BONUS
 				M.emote("cough")
 				var/obj/item/I = M.get_active_hand()
 				if(I && I.w_class == 1)
-					M.drop_item()
+					M.drop_from_active_hand()
 	return

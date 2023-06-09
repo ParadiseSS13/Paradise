@@ -24,6 +24,7 @@
 	add_language("Hivemind")
 	..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
+	update_icons()
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
 	if(..())
@@ -81,12 +82,30 @@
 	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	// No need to even show this right now since its unused.
+
+	/*dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	dat += "<tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[slot_wear_suit]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"
-	dat += "<tr><td><B>Pouches:</B></td><td><A href='?src=[UID()];item=pockets'>[((l_store && !(l_store.flags&ABSTRACT)) || (r_store && !(r_store.flags&ABSTRACT))) ? "Full" : "<font color=grey>Empty</font>"]</A>"
+	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[slot_wear_suit]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"*/
+
+	dat += "<tr><td><B>Chitin pouches:</B></td><td><A href='?src=[UID()];item=[slot_l_store]'>"
+	if(l_store && !(l_store.flags&ABSTRACT))
+		dat += "Left (Full)"
+	else
+		dat += "<font color=grey>Left (Empty)</font>"
+
+	dat += "</A>&nbsp;<A href='?src=[UID()];item=[slot_r_store]'>"
+	if(r_store && !(r_store.flags&ABSTRACT))
+		dat += "Right (Full)"
+	else
+		dat += "<font color=grey>Right (Empty)</font>"
+
+	if(handcuffed)
+		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
+	if(legcuffed)
+		dat += "<tr><td><A href='?src=[UID()];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -101,7 +120,7 @@
 
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
 	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
-	..(I, cuff_break = 1)
+	..(I, cuff_break = TRUE)
 
 /mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
 	if(leaping)

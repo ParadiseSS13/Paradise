@@ -141,8 +141,7 @@
 					if(!src || electronics)
 						return
 					add_fingerprint(user)
-					user.drop_item()
-					W.forceMove(src)
+					user.drop_transfer_item_to_loc(W, src)
 					to_chat(user, "<span class='notice'>You install [W].</span>")
 					electronics = W
 					name = "[(src.secure) ? "secure" : ""] near finished windoor assembly"

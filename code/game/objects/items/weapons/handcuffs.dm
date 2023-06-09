@@ -18,26 +18,19 @@
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
 
-/obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
+
+/obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/living/user)
+	if(C.handcuffed)
+		return
+
 	if(!user.IsAdvancedToolUser())
 		return
 
-	if(!istype(C))
-		return
-
-	if(flags & NODROP)
-		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
-		return
-
-	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
-		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
-		apply_cuffs(user, user)
-		return
-
-	cuff(C, user)
-
-/obj/item/restraints/handcuffs/proc/cuff(mob/living/carbon/C, mob/user, remove_src = TRUE)
 	if(!istype(C)) // Shouldn't be able to cuff anything but carbons.
+		return
+
+	if((flags & NODROP) && !isrobot(user))
+		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
 		return
 
 	if(ishuman(C))
@@ -46,36 +39,58 @@
 			to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
 			return
 
-	if(!C.handcuffed)
-		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
-							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
-
-		playsound(loc, cuffsound, 30, 1, -2)
-		if(do_mob(user, C, 50))
-			apply_cuffs(C, user, remove_src)
-			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-
-			add_attack_logs(user, C, "Handcuffed ([src])")
-		else
-			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
-
-/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, remove_src = TRUE)
-	if(!target.handcuffed)
-		if(remove_src)
-			user.drop_item()
-		if(trashtype)
-			target.handcuffed = new trashtype(target)
-			if(remove_src)
-				qdel(src)
-		else
-			if(remove_src)
-				loc = target
-				target.handcuffed =  src
-			else
-				target.handcuffed = new type(loc)
-		target.update_handcuffed()
+	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
+		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
+		apply_cuffs(user, user)
 		return
+
+	C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
+						"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
+	playsound(loc, cuffsound, 30, 1, -2)
+
+	if(do_mob(user, C, 5 SECONDS))
+		if(isrobot(user))
+			apply_cuffs(C, user, TRUE)
+		else
+			apply_cuffs(C, user)
+
+		C.visible_message(span_notice("[user] handcuffs [C]."), \
+					span_userdanger("[user] handcuffs you."))
+
+		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
+		add_attack_logs(user, C, "Handcuffed ([src])")
+
+	else
+		to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
+
+
+/**
+ * This handles handcuffing people
+ *
+ * When called, this instantly puts handcuffs on someone (if possible)
+ * Arguments:
+ * * mob/living/carbon/target - Who is being handcuffed
+ * * mob/user - Who or what is doing the handcuffing
+ * * dispense - True if the cuffing should create a new item instead of using putting src on the mob, false otherwise. False by default.
+*/
+/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, dispense = FALSE)
+	if(target.handcuffed)
+		return
+
+	if(!user.temporarily_remove_item_from_inventory(src) && !dispense)
+		return
+
+	var/obj/item/restraints/handcuffs/cuffs = src
+	if(trashtype)
+		cuffs = new trashtype()
+	else if(dispense)
+		cuffs = new type()
+
+	target.equip_to_slot(cuffs, slot_handcuffed)
+
+	if(trashtype && !dispense)
+		qdel(src)
+
 
 /obj/item/restraints/handcuffs/sinew
 	name = "sinew restraints"
@@ -150,10 +165,10 @@
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.use(1))
-			var/obj/item/wirerod/W = new /obj/item/wirerod
+			var/obj/item/wirerod/W = new /obj/item/wirerod(drop_location())
 			if(!remove_item_from_storage(user))
-				user.unEquip(src)
-			user.put_in_hands(W)
+				user.temporarily_remove_item_from_inventory(src)
+			user.put_in_hands(W, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
 			qdel(src)
 		else
@@ -165,11 +180,11 @@
 			return
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
 		if(do_after(user, 35 * M.toolspeed * gettoolspeedmod(user), target = src) && M.use(6))
-			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
-			user.put_in_hands(S)
+			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(drop_location())
+			user.put_in_hands(S, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
 			if(!remove_item_from_storage(user))
-				user.unEquip(src)
+				user.temporarily_remove_item_from_inventory(src)
 			qdel(src)
 	else if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
@@ -183,9 +198,6 @@
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 
-/obj/item/restraints/handcuffs/cable/zipties/cyborg/attack(mob/living/carbon/C, mob/user)
-	if(isrobot(user))
-		cuff(C, user, FALSE)
 
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."

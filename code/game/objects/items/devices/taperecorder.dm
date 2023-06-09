@@ -37,8 +37,7 @@
 
 /obj/item/taperecorder/attackby(obj/item/I, mob/user)
 	if(!mytape && istype(I, /obj/item/tape))
-		user.drop_item()
-		I.loc = src
+		user.drop_transfer_item_to_loc(I, src)
 		mytape = I
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		update_icon()
@@ -47,7 +46,8 @@
 	if(mytape)
 		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
 		stop()
-		user.put_in_hands(mytape)
+		mytape.forceMove_turf()
+		user.put_in_hands(mytape, ignore_anim = FALSE)
 		mytape = null
 		update_icon()
 
@@ -273,7 +273,7 @@
 
 	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
+	var/obj/item/paper/P = new /obj/item/paper(drop_location())
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	var/datum/tape_piece/piece
 	for(var/i = 1, mytape.storedinfo.len >= i, i++)
@@ -288,7 +288,7 @@
 			t1 += "[piece.message]<BR>"
 	P.info = t1
 	P.name = "paper- 'Transcript'"
-	usr.put_in_hands(P)
+	usr.put_in_hands(P, ignore_anim = FALSE)
 	canprint = 0
 	sleep(300)
 	canprint = 1

@@ -50,9 +50,9 @@
 
 	to_chat(user, "<span class='notice'>You adjust \the [src] [up ? "up" : "down"].</span>")
 
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		C.head_update(src, forced = 1)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.update_head(src, forced = TRUE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -80,48 +80,17 @@
 			return TRUE
 	return FALSE
 
-//BS12: Species-restricted clothing check.
-/obj/item/clothing/mob_can_equip(M as mob, slot)
 
-	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
-	if(!..())
-		return 0
+/obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+	. = ..()
+	if(!.)
+		return FALSE
 
-	// Skip species restriction checks on non-equipment slots
-	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
-		return 1
-
-	if(species_restricted && istype(M,/mob/living/carbon/human))
-
-		var/wearable = null
-		var/exclusive = null
-		var/mob/living/carbon/human/H = M
-
-		if("exclude" in species_restricted)
-			exclusive = 1
-
-		if(H.dna.species)
-			if(exclusive)
-				if(!(H.dna.species.name in species_restricted))
-					wearable = 1
-			else
-				if(H.dna.species.name in species_restricted)
-					wearable = 1
-
-			if(wearable && ("lesser form" in species_restricted) && issmall(H))
-				wearable = 0
-
-			if(!wearable)
-				to_chat(M, "<span class='warning'>You cannot wear [src].</span>")
-				return 0
-	if(faction_restricted && istype(M,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-
-		if(H.faction)
-			if(H.faction in faction_restricted)
-				to_chat(M, "<span class='warning'>You cannot wear [src].</span>")
-				return 0
-	return 1
+	// For clothing that are faction restricted
+	if(faction_restricted && !M.is_general_slot(slot) && faction_check(faction_restricted, M.faction))
+		if(!disable_warning)
+			to_chat(M, SPAN_WARNING("[src] не могут использовать такие как Вы."))
+		return FALSE
 
 
 /obj/item/clothing/proc/refit_for_species(var/target_species)
@@ -166,57 +135,6 @@
 		"Neara" = 'icons/mob/species/monkey/ears.dmi',
 		"Stok" = 'icons/mob/species/monkey/ears.dmi'
 		) //We read you loud and skree-er.
-
-/obj/item/clothing/ears/attack_hand(mob/user)
-	if(!user)
-		return
-
-	if(loc != user || !ishuman(user))
-		..()
-		return
-
-	var/mob/living/carbon/human/H = user
-	if(H.l_ear != src && H.r_ear != src)
-		..()
-		return
-
-	if(!usr.canUnEquip(src))
-		return
-
-	var/obj/item/clothing/ears/O
-	if(slot_flags & SLOT_TWOEARS )
-		O = (H.l_ear == src ? H.r_ear : H.l_ear)
-		user.unEquip(O)
-		if(!istype(src, /obj/item/clothing/ears/offear))
-			qdel(O)
-			O = src
-	else
-		O = src
-
-	user.unEquip(src)
-
-	if(O)
-		user.put_in_hands(O)
-		O.add_fingerprint(user)
-
-	if(istype(src, /obj/item/clothing/ears/offear))
-		qdel(src)
-
-
-/obj/item/clothing/ears/offear
-	name = "Other ear"
-	w_class = WEIGHT_CLASS_HUGE
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "block"
-	slot_flags = SLOT_EARS | SLOT_TWOEARS
-
-/obj/item/clothing/ears/offear/New(var/obj/O)
-	. = ..()
-	name = O.name
-	desc = O.desc
-	icon = O.icon
-	icon_state = O.icon_state
-	dir = O.dir
 
 
 //Glasses
@@ -273,7 +191,7 @@ BLIND     // can't see anything
 
 	var/action_fluff = "You adjust \the [src]"
 	if(user.glasses == src)
-		if(!user.canUnEquip(src))
+		if(!user.can_unEquip(src))
 			to_chat(usr, "[src] is stuck to you!")
 			return
 		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
@@ -467,9 +385,9 @@ BLIND     // can't see anything
 				flags_cover |= MASKCOVERSMOUTH
 		if(H.head == src && flags_inv == HIDENAME) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-				user.unEquip(src)
+				user.drop_item_ground(src)
 			else //Otherwise, put it in an available hand, the active one preferentially.
-				user.unEquip(src)
+				user.drop_item_ground(src)
 				user.put_in_hands(src)
 	else
 		icon_state += "_up"
@@ -492,9 +410,9 @@ BLIND     // can't see anything
 			flags &= ~AIRTIGHT
 		if(user.wear_mask == src && initial(flags_inv) == HIDENAME) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
 			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-				user.unEquip(src)
+				user.drop_item_ground(src)
 			else //Otherwise, put it in an available hand, the active one preferentially.
-				user.unEquip(src)
+				user.drop_item_ground(src)
 				user.put_in_hands(src)
 	H.wear_mask_update(src, toggle_off = mask_adjusted)
 	usr.update_inv_wear_mask()
@@ -618,16 +536,16 @@ BLIND     // can't see anything
 						var/datum/action/A = X
 						A.UpdateButtonIcon()
 			else
-				if(user.canUnEquip(src)) //Checks to see if the item can be unequipped. If so, lets shred. Otherwise, struggle and fail.
+				if(user.can_unEquip(src)) //Checks to see if the item can be unequipped. If so, lets shred. Otherwise, struggle and fail.
 					if(contents) //If the suit's got any storage capability...
 						for(var/obj/item/O in contents) //AVOIDING ITEM LOSS. Check through everything that's stored in the jacket and see if one of the items is a pocket.
 							if(istype(O, /obj/item/storage/internal)) //If it's a pocket...
 								if(O.contents) //Check to see if the pocket's got anything in it.
 									for(var/obj/item/I in O.contents) //Dump the pocket out onto the floor below the user.
-										user.unEquip(I,1)
+										user.drop_item_ground(I, force = TRUE)
 
 					user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
-					user.unEquip(src)
+					user.temporarily_remove_item_from_inventory(src)
 					qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
 					user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 				else
@@ -643,8 +561,9 @@ BLIND     // can't see anything
 /obj/item/clothing/suit/proc/can_store_weighted(obj/item/I, item_weight = WEIGHT_CLASS_BULKY)
 	return I.w_class <= item_weight
 
-/obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
-	..()
+/obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot, initial) //Handle tail-hiding on a by-species basis.
+	. = ..()
+
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
@@ -767,7 +686,8 @@ BLIND     // can't see anything
 			A.attached_unequip()
 
 /obj/item/clothing/under/equipped(mob/user, slot, initial)
-	..()
+	. = ..()
+
 	if(!ishuman(user))
 		return
 	if(slot == slot_w_uniform)
@@ -806,7 +726,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
 	if(can_attach_accessory(A))
-		if(unequip && !user.unEquip(A)) // Make absolutely sure this accessory is removed from hands
+		if(unequip && !user.drop_item_ground(A)) // Make absolutely sure this accessory is removed from hands
 			return FALSE
 
 		accessories += A

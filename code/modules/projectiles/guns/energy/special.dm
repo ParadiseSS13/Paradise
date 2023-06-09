@@ -602,15 +602,17 @@
 	is_equipped = ismob(loc)
 	return
 
-/obj/item/gun/energy/dominator/equipped(mob/user)
+/obj/item/gun/energy/dominator/equipped(mob/user, slot, initial)
 	. = ..()
+
 	update_icon()
-	return .
+
 
 /obj/item/gun/energy/dominator/dropped(mob/user)
 	. = ..()
+
 	update_icon()
-	return .
+
 
 /obj/item/gun/energy/dominator/proc/set_drop_icon()
 	icon_state = initial(icon_state)

@@ -227,7 +227,7 @@
 			var/atom/movable/M = A
 			if(istype(M.loc, /mob/living))
 				var/mob/living/L = M.loc
-				L.unEquip(M)
+				L.drop_item_ground(M)
 			M.forceMove(src)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)

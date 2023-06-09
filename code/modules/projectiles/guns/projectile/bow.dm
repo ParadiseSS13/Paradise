@@ -28,6 +28,8 @@
 		ready_to_fire = FALSE
 		update_icon()
 
+	. = ..()
+
 /obj/item/gun/projectile/bow/attack_self(mob/living/user)
 	if(!ready_to_fire && magazine.ammo_count())
 		ready_to_fire = TRUE

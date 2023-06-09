@@ -167,7 +167,7 @@
 			L.density = FALSE // Ensures the hook does not hit the target multiple times
 			L.forceMove(get_turf(firer))
 			L.density = old_density
-			firer.drop_item(src)
+			firer.drop_item_ground(src)
 
 
 

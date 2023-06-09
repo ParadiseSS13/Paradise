@@ -293,11 +293,10 @@
 		if(beaker)
 			to_chat(user, "<span class='warning'>В криокапсулу уже загружена другая ёмкость.</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(B, src))
 			to_chat(user, "Вы не можете бросить [B]!")
 			return
 		add_fingerprint(user)
-		B.forceMove(src)
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] загружа[pluralize_ru(user.gender,"ет","ют")] [B] в криокапсулу!", "Вы загружаете [B] в криокапсулу!")

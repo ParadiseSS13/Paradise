@@ -93,8 +93,7 @@
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 				return
 			add_fingerprint(user)
-			user.drop_item()
-			W.forceMove(src)
+			user.drop_transfer_item_to_loc(W, src)
 			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 			name = "near finished airlock assembly"

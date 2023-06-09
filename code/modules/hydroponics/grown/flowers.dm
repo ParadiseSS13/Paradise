@@ -232,7 +232,7 @@
 		force -= rand(1, (force / 3) + 1)
 	else
 		to_chat(usr, "<span class='warning'>All the petals have fallen off the [name] from violent whacking!</span>")
-		usr.unEquip(src)
+		usr.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)

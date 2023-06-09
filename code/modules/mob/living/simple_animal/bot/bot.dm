@@ -337,9 +337,8 @@
 					if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
 						to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
 						return
-					if(!user.drop_item())
+					if(!user.drop_transfer_item_to_loc(W, src))
 						return
-					W.forceMove(src)
 					paicard = card
 					user.visible_message("[user] inserts [W] into [src]!","<span class='notice'>You insert [W] into [src].</span>")
 					paicard.pai.mind.transfer_to(src)

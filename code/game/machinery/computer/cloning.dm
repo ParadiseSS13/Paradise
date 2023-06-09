@@ -94,8 +94,7 @@
 	if(istype(W, /obj/item/disk/data)) //INSERT SOME DISKETTES
 		if(!src.diskette)
 			add_fingerprint(user)
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			src.diskette = W
 			to_chat(user, "You insert [W].")
 			SStgui.update_uis(src)

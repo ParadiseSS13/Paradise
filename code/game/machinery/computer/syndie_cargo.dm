@@ -722,12 +722,12 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	if(cash_sum <= data_storage.cash)
 		data_storage.cash -= cash_sum
 		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
-		var/obj/item/stack/spacecash/C = new(amt = cash_sum)
+		var/obj/item/stack/spacecash/C = new(drop_location(), cash_sum)
 		to_chat(user, "<span class='info'>The machine give you [C]!</span>")
 		var/mob/living/carbon/human/H = user
 		var/name = H.get_authentification_name()
 		data_storage.blackmarket_message += "<span class='bad'>-[cash_sum]</span>: [name] withdraws credits from the console.<br>"
-		user.put_in_hands(C)
+		user.put_in_hands(C, ignore_anim = FALSE)
 	else
 		to_chat(user, "<span class='notice'>Нельзя снять больше денег, чем доступно в консоли!</span>")
 		return

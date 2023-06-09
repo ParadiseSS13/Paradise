@@ -14,9 +14,6 @@
 	max_amount = 1000000
 	merge_type = /obj/item/stack/spacechips
 
-/obj/item/stack/spacechips/New(loc, amt = null)
-	..()
-	update_icon()
 
 /obj/item/stack/spacechips/update_icon()//changes icon depending on the amount of chips
 	..()
@@ -54,13 +51,13 @@
 
 /obj/item/stack/spacechips/c1000
 	amount = 1000
-	
+
 /obj/item/stack/spacechips/c2000
 	amount = 2000
-	
+
 /obj/item/stack/spacechips/c5000
 	amount = 5000
-	
+
 /obj/item/stack/spacechips/c6000
 	amount = 6000
 

@@ -27,12 +27,13 @@
 	..()
 	ToggleHelmet()
 
-/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
+/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!helmettype)
 		return
 	if(slot != slot_wear_suit)
 		RemoveHelmet()
-	..()
 
 /obj/item/clothing/suit/space/hardsuit/proc/RemoveHelmet()
 	if(!helmet)
@@ -42,8 +43,7 @@
 		var/mob/living/carbon/H = helmet.loc
 		if(helmet.on)
 			helmet.attack_self(H)
-		H.unEquip(helmet, TRUE)
-		helmet.forceMove(src)
+		H.transfer_item_to_loc(helmet, src, TRUE)
 		H.update_inv_wear_suit()
 		to_chat(H, "<span class='notice'>The helmet on the hardsuit disengages.</span>")
 		playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
@@ -53,9 +53,10 @@
 /obj/item/clothing/suit/space/hardsuit/dropped()
 	..()
 	RemoveHelmet()
+
 /obj/item/clothing/suit/space/hardsuit/proc/EngageHelmet()
 	var/mob/living/carbon/human/H = src.loc
-	if(H.equip_to_slot_if_possible(helmet, slot_head, FALSE, FALSE))
+	if(H.equip_to_slot_if_possible(helmet, slot_head))
 		to_chat(H, "<span class='notice'>You engage the helmet on the hardsuit.</span>")
 		suittoggled = TRUE
 		H.update_inv_wear_suit()

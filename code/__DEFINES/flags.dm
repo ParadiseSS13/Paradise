@@ -26,6 +26,11 @@
 
 #define DROPDEL					16384	// When dropped, it calls qdel on itself
 
+#define BLOCKHEADHAIR 			32768	// temporarily removes the user's hair overlay. Leaves facial hair.
+#define BLOCKHAIR				65536	// temporarily removes the user's hair, facial and otherwise.
+
+#define NO_PIXEL_RANDOM_DROP	131072	// If dropped, it wont have a randomized pixel_x/pixel_y
+
 
 /* Secondary atom flags, for the flags_2 var, denoted with a _2 */
 

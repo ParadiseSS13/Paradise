@@ -20,7 +20,7 @@
 	if(ranged)
 		B.loc = new_location
 	else
-		user.drop_item()
+		user.drop_from_active_hand()
 		user.put_in_active_hand(B)
 	B.icon_state = icon_state
 

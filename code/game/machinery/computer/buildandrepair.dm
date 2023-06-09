@@ -476,8 +476,7 @@
 					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 					icon_state = "1"
 					circuit = P
-					user.drop_item()
-					P.loc = src
+					user.drop_transfer_item_to_loc(P, src)
 				else
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
 				return
@@ -622,8 +621,7 @@
 					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 					icon_state = "1"
 					circuit = P
-					user.drop_item()
-					P.loc = src
+					user.drop_transfer_item_to_loc(P, src)
 				else
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
 			if(istype(P, /obj/item/screwdriver) && circuit)

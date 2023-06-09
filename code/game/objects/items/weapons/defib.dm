@@ -85,13 +85,20 @@
 	cell = locate(/obj/item/stock_parts/cell) in contents
 	update_icon()
 
+
 /obj/item/defibrillator/ui_action_click()
-	if(ishuman(usr) && Adjacent(usr))
-		toggle_paddles()
+	if(!ishuman(usr) && !Adjacent(usr))
+		return
+
+	toggle_paddles()
+
 
 /obj/item/defibrillator/CtrlClick()
-	if(ishuman(usr) && Adjacent(usr))
-		toggle_paddles()
+	if(!ishuman(usr) && !Adjacent(usr))
+		return
+
+	toggle_paddles()
+
 
 /obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -102,8 +109,9 @@
 			if(C.maxcharge < paddles.revivecost)
 				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
 				return
-			user.drop_item()
-			W.loc = src
+			if(!user.drop_transfer_item_to_loc(W, src))
+				return
+
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 
@@ -115,7 +123,6 @@
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
 
 	else if(W == paddles)
-		paddles.unwield()
 		toggle_paddles()
 
 	update_icon()
@@ -150,29 +157,40 @@
 	set name = "Toggle Paddles"
 	set category = "Object"
 
-	var/mob/living/carbon/human/user = usr
-	var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
-	var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
+	if(!paddles)
+		to_chat(usr, SPAN_WARNING("[src] has no paddles!</span>"))
+		return
 
 	if(paddles_on_defib)
 		//Detach the paddles into the user's hands
-		if(usr.incapacitated()) return
+
+		var/mob/living/carbon/human/user = usr
+		var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
+		var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
+
+		if(user.incapacitated())
+			return
 
 		if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
-			to_chat(user, "<span class='warning'>You can't use your hand to take out the paddles!</span>")
+			to_chat(user, SPAN_WARNING("You can't use your hand to take out the paddles!"))
 			return
 
-		if((usr.r_hand != null && usr.l_hand != null))
-			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
+		if((user.r_hand != null && user.l_hand != null))
+			to_chat(user, SPAN_WARNING("You need a free hand to hold the paddles!"))
 			return
 
-		if(!usr.put_in_hands(paddles))
-			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
+		//We need to do this like that since defib paddles have their own behavior on dropped()
+		if(!is_on_user(user))
+			paddles.forceMove_turf()
+
+		if(!user.put_in_hands(paddles, ignore_anim = FALSE))
+			paddles.forceMove(src)
+			to_chat(user, SPAN_WARNING("You need a free hand to hold the paddles!"))
 			return
-		paddles.loc = user
+
 		paddles_on_defib = FALSE
 	else //remove in any case because some automatic shit
-		remove_paddles(user)
+		remove_paddles(usr)
 
 	update_icon()
 
@@ -188,12 +206,10 @@
 		return TRUE
 
 /obj/item/defibrillator/proc/remove_paddles(mob/user) // from your hands
-	var/mob/living/carbon/human/M = user
-	if(paddles in get_both_hands(M))
-		M.unEquip(paddles)
-		paddles_on_defib = TRUE
-	update_icon()
-	return
+	if(user.is_in_hands(paddles))
+		return user.drop_item_ground(paddles)
+	return TRUE
+
 
 /obj/item/defibrillator/Destroy()
 	if(!paddles_on_defib)
@@ -276,7 +292,6 @@
 
 /obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
-		paddles.unwield()
 		toggle_paddles()
 		update_icon()
 
@@ -350,27 +365,30 @@
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return OXYLOSS
 
-/obj/item/twohanded/shockpaddles/dropped(mob/user as mob)
-	if(user)
-		var/obj/item/twohanded/offhand/O = user.get_inactive_hand()
-		if(istype(O))
-			O.unwield()
-		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
+/obj/item/twohanded/shockpaddles/dropped(mob/user)
+	update_icon()
+	if(defib)
+		to_chat(user, SPAN_NOTICE("The paddles snap back into the main unit."))
+		if(!defib.is_on_user(user))
+			do_pickup_animation(defib)
+		forceMove(defib)
 		defib.paddles_on_defib = TRUE
-		loc = defib
 		defib.update_icon()
-		update_icon()
-	return unwield(user)
+	else
+		return ..()
+
+
+/obj/item/twohanded/shockpaddles/equip_to_best_slot(mob/user, force = FALSE)
+	 user.drop_item_ground(src)
+
 
 /obj/item/twohanded/shockpaddles/on_mob_move(dir, mob/user)
-	if(defib)
-		var/turf/t = get_turf(defib)
-		if(!t.Adjacent(user))
-			defib.remove_paddles(user)
+	if(defib && !in_range(defib, src))
+		user.drop_item_ground(src, force = TRUE)
 
 /obj/item/twohanded/shockpaddles/proc/check_defib_exists(mainunit, var/mob/living/carbon/human/M, var/obj/O)
 	if(!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
-		M.unEquip(O)
+		M.temporarily_remove_item_from_inventory(O, TRUE)
 		qdel(O)
 		return FALSE
 	else
@@ -561,6 +579,7 @@
 	// No-op.
 
 /obj/item/twohanded/shockpaddles/borg/dropped()
+	SHOULD_CALL_PARENT(FALSE)
 	// No-op.
 
 /obj/item/twohanded/shockpaddles/borg/spend_charge(mob/user)

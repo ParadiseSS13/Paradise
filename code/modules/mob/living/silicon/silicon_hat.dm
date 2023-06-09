@@ -220,7 +220,7 @@
 			to_chat(user, "<span class='warning'>Нельзя надеть больше одного головного убора на голову [src]!</span>")
 		return 0
 
-	if(user && !user.unEquip(item_to_add))
+	if(user && !user.drop_item_ground(item_to_add))
 		to_chat(user, "<span class='warning'>[item_to_add] застрял в ваших руках, вы не можете его надеть на голову [src]!</span>")
 		return 0
 
@@ -257,7 +257,7 @@
 
 /mob/living/silicon/proc/drop_hat()
 	if(inventory_head)
-		unEquip(inventory_head)
+		drop_item_ground(inventory_head)
 		null_hat()
 		regenerate_icons()
 

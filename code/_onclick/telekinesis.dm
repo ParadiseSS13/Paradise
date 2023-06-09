@@ -80,15 +80,16 @@
 	return ..()
 
 /obj/item/tk_grab/dropped(mob/user)
-	if(focus && user && loc != user && loc != user.loc) // drop_item() gets called when you tk-attack a table/closet with an item
+	if(focus && user && loc != user && loc != user.loc) // drop_from_active_hand() gets called when you tk-attack a table/closet with an item
 		if(focus.Adjacent(loc))
 			focus.forceMove(loc)
 	. = ..()
 
 
-	//stops TK grabs being equipped anywhere but into hands
-/obj/item/tk_grab/equipped(mob/user, var/slot)
-	if( (slot == slot_l_hand) || (slot== slot_r_hand) )
+//stops TK grabs being equipped anywhere but into hands
+/obj/item/tk_grab/equipped(mob/user, slot)
+	SHOULD_CALL_PARENT(FALSE)
+	if((slot == slot_l_hand) || (slot== slot_r_hand))
 		return
 	qdel(src)
 
@@ -164,7 +165,7 @@
 	if(istype(target, /obj/item))
 		if(target in user.tkgrabbed_objects)
 			// Release the old grab first
-			user.unEquip(user.tkgrabbed_objects[target])
+			user.drop_item_ground(user.tkgrabbed_objects[target])
 		user.tkgrabbed_objects[target] = src
 
 /obj/item/tk_grab/proc/release_object()

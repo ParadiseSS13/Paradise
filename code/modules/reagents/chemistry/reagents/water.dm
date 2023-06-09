@@ -325,7 +325,7 @@
 				var/mob/living/carbon/human/H = M
 				for(var/I in H.contents - (H.bodyparts | H.internal_organs)) // Satanic liver NYI
 					if(is_type_in_list(I, CULT_CLOTHING))
-						H.unEquip(I)
+						H.drop_item_ground(I)
 			return
 		if(isclocker(M))
 			SSticker.mode.remove_clocker(M.mind)
@@ -337,7 +337,7 @@
 				var/mob/living/carbon/human/H = M
 				for(var/I in H.contents - (H.bodyparts | H.internal_organs))
 					if(is_type_in_list(I, CLOCK_CLOTHING))
-						H.unEquip(I)
+						H.drop_item_ground(I)
 
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M

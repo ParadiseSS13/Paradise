@@ -393,7 +393,7 @@
 			continue
 		if(O.flags & NODROP || stealthmode)
 			qdel(O) //they are already dead by now
-		H.unEquip(O)
+		H.drop_item_ground(O)
 		O.loc = loc
 		O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
@@ -401,7 +401,7 @@
 	for(var/obj/item/clothing/C in H)
 		if(C.flags & NODROP || stealthmode)
 			qdel(C)
-		H.unEquip(C)
+		H.drop_item_ground(C)
 		C.loc = loc
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)

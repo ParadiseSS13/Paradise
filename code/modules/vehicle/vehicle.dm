@@ -59,8 +59,7 @@
 
 /obj/vehicle/attackby(obj/item/I, mob/user, params)
 	if(key_type && !is_key(inserted_key) && is_key(I))
-		if(user.drop_item())
-			I.forceMove(src)
+		if(user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 			if(inserted_key)	//just in case there's an invalid key
 				inserted_key.forceMove(drop_location())
@@ -79,8 +78,8 @@
 			to_chat(user, "<span class='warning'>You must be riding [src] to remove [src]'s key!</span>")
 			return
 		to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
-		inserted_key.forceMove(drop_location())
-		user.put_in_hands(inserted_key)
+		inserted_key.forceMove_turf()
+		user.put_in_hands(inserted_key, ignore_anim = FALSE)
 		inserted_key = null
 
 /obj/vehicle/proc/is_key(obj/item/I)

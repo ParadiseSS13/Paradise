@@ -258,7 +258,7 @@
 		user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
 						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL, "bloodcrawl")
-		user.drop_item()
+		user.drop_from_active_hand()
 		insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E.
 		return TRUE
 

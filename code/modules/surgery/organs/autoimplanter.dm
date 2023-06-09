@@ -25,7 +25,7 @@
 		if(storedorgan)
 			to_chat(user, "<span class='notice'>[src] already has an implant stored.</span>")
 			return
-		if(!user.drop_item())
+		if(!user.temporarily_remove_item_from_inventory(I))
 			return
 		I.forceMove(src)
 		storedorgan = I

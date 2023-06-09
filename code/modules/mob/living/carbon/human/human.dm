@@ -615,7 +615,7 @@
 				if(pocket_item.flags & NODROP)
 					to_chat(usr, "<span class='warning'>You try to empty [src]'s [pocket_side] pocket, it seems to be stuck!</span>")
 				to_chat(usr, "<span class='notice'>You try to empty [src]'s [pocket_side] pocket.</span>")
-			else if(place_item && place_item.mob_can_equip(src, pocket_id, 1) && !(place_item.flags&ABSTRACT))
+			else if(place_item && place_item.mob_can_equip(src, pocket_id, TRUE) && !(place_item.flags&ABSTRACT))
 				to_chat(usr, "<span class='notice'>You try to place [place_item] into [src]'s [pocket_side] pocket.</span>")
 				delay_denominator = 4
 			else
@@ -624,14 +624,14 @@
 			if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
 				if(pocket_item)
 					if(pocket_item == (pocket_id == slot_r_store ? r_store : l_store)) //item still in the pocket we search
-						unEquip(pocket_item)
+						drop_item_ground(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
 						add_attack_logs(usr, src, "Stripped of [pocket_item]")
 				else
 					if(place_item)
-						usr.unEquip(place_item)
-						equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
+						usr.drop_item_ground(place_item)
+						equip_to_slot_if_possible(place_item, pocket_id, disable_warning = TRUE)
 						add_attack_logs(usr, src, "Equipped with [place_item]")
 
 				// Update strip window
@@ -1119,11 +1119,11 @@
 /mob/living/carbon/human/cuff_resist(obj/item/I)
 	if(HULK in mutations)
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		if(..(I, cuff_break = 1))
-			unEquip(I)
+		if(..(I, cuff_break = TRUE))
+			drop_item_ground(I, force = TRUE)
 	else
 		if(..())
-			unEquip(I)
+			drop_item_ground(I, force = TRUE)
 
 /mob/living/carbon/human/resist_restraints()
 	if(wear_suit && wear_suit.breakouttime)
@@ -1558,7 +1558,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(current_size >= STAGE_THREE)
 		var/list/handlist = list(l_hand, r_hand)
 		for(var/obj/item/hand in handlist)
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
+			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& drop_item_ground(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	apply_effect(current_size * 3, IRRADIATE)

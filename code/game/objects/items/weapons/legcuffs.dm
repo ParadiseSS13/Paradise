@@ -53,8 +53,7 @@
 			to_chat(user, "<span class='warning'>This beartrap already has a signaler hooked up to it!</span>")
 			return
 		IED = I
-		user.drop_item()
-		I.forceMove(src)
+		user.drop_transfer_item_to_loc(I, src)
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		add_game_logs("has rigged a beartrap with an IED.", user)
 		to_chat(user, "<span class='notice'>You sneak [IED] underneath the pressure plate and connect the trigger wire.</span>")
@@ -71,8 +70,7 @@
 			to_chat(user, "<span class='notice'>The signaler is secured.</span>")
 			sig = null
 			return
-		user.drop_item()
-		I.forceMove(src)
+		user.drop_transfer_item_to_loc(I, src)
 		to_chat(user, "<span class='notice'>You sneak the [sig] underneath the pressure plate and connect the trigger wire.</span>")
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
 	if(istype(I, /obj/item/screwdriver))
@@ -115,9 +113,7 @@
 				else
 					H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
 				if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
-					H.legcuffed = src
-					forceMove(H)
-					H.update_inv_legcuffed()
+					H.equip_to_slot(src, slot_legcuffed)
 					SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 			else
@@ -168,9 +164,7 @@
 	var/mob/living/carbon/C = hit_atom
 	if(!C.legcuffed && C.get_num_legs() >= 2)
 		visible_message("<span class='danger'>[src] ensnares [C]!</span>")
-		C.legcuffed = src
-		forceMove(C)
-		C.update_inv_legcuffed()
+		C.equip_to_slot(src, slot_legcuffed)
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
 		C.Weaken(weaken)

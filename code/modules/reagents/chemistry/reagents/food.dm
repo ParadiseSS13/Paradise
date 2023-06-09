@@ -270,7 +270,7 @@
 				victim.Confused(3)
 				victim.damageoverlaytemp = 60
 				victim.Weaken(3)
-				victim.drop_item()
+				victim.drop_from_active_hand()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
@@ -286,7 +286,7 @@
 				victim.Confused(6)
 				victim.damageoverlaytemp = 75
 				victim.Weaken(5)
-				victim.drop_item()
+				victim.drop_from_active_hand()
 
 /datum/reagent/consumable/frostoil
 	name = "Frost Oil"

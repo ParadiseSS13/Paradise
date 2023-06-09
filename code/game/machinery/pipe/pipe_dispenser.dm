@@ -99,7 +99,7 @@
 	add_fingerprint(usr)
 	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
 		to_chat(usr, "<span class='notice'>You put [W] back to [src].</span>")
-		user.drop_item()
+		user.drop_transfer_item_to_loc(W, src)
 		qdel(W)
 		return
 	else if(istype(W, /obj/item/wrench))

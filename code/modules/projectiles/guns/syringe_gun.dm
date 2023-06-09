@@ -67,11 +67,10 @@
 	if(istype(A, /obj/item/reagent_containers/syringe))
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip < max_syringes)
-			if(!user.unEquip(A))
+			if(!user.drop_transfer_item_to_loc(A, src))
 				return
 			to_chat(user, "<span class='notice'>You load [A] into \the [src]!</span>")
 			syringes.Add(A)
-			A.loc = src
 			process_chamber() // Chamber the syringe if none is already
 			return TRUE
 		else

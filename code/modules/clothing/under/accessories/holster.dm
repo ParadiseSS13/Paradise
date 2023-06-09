@@ -45,13 +45,13 @@
 		to_chat(user, "<span class='warning'>This [W] won't fit in the [src]!</span>")
 		return
 
-	if(!user.canUnEquip(W, 0))
+	if(!user.can_unEquip(W))
 		to_chat(user, "<span class='warning'>You can't let go of the [W]!</span>")
 		return
 
 	holstered = W
-	user.unEquip(holstered)
-	holstered.loc = src
+	user.temporarily_remove_item_from_inventory(holstered)
+	holstered.forceMove(src)
 	holstered.add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] holsters the [holstered].</span>", "<span class='notice'>You holster the [holstered].</span>")
 	playsound(user.loc, 'sound/weapons/gun_interactions/1holster.ogg', 50, 1)

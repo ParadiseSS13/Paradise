@@ -820,7 +820,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				if(isrobot(user))
 					return
 				var/obj/item/gun/energy/E = I //typecasts the item to an energy gun
-				if(!user.unEquip(I))
+				if(!user.temporarily_remove_item_from_inventory(I))
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return
 				add_fingerprint(user)
@@ -848,7 +848,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(4)
 			if(isprox(I))
-				if(!user.unEquip(I))
+				if(!user.temporarily_remove_item_from_inventory(I))
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return
 				add_fingerprint(user)

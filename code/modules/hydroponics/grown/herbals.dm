@@ -24,7 +24,7 @@
 	var/obj/item/stack/medical/bruise_pack/comfrey/C = new(get_turf(user))
 	C.heal_brute = seed.potency
 	to_chat(user, "<span class='notice'>You mash [src] into a poultice.</span>")
-	user.drop_item()
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 
 /obj/item/seeds/aloe
@@ -54,5 +54,5 @@
 	var/obj/item/stack/medical/ointment/aloe/A = new(get_turf(user))
 	A.heal_burn = seed.potency
 	to_chat(user, "<span class='notice'>You mash [src] into a poultice.</span>")
-	user.drop_item()
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)

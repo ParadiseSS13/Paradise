@@ -20,7 +20,7 @@
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		if(!loaded)
-			if(user.drop_item())
+			if(user.drop_from_active_hand())
 				loaded = W
 				loaded.forceMove(src)
 				loaded.max_amount = max_amount //We store a lot.
@@ -99,7 +99,7 @@
 		if(loaded)
 			qdel(loaded)
 			loaded = null
-		unwield(user)
+		user.mode()
 		active = wielded
 		return 1
 	return 0

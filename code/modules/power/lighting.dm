@@ -76,7 +76,7 @@
 			icon_state = "tube-construct-stage1"
 		if("bulb")
 			icon_state = "bulb-construct-stage1"
-	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
+	new /obj/item/stack/cable_coil(get_turf(loc), 1, TRUE, COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
 
 /obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
@@ -414,7 +414,7 @@
 				on = has_power()
 				update()
 
-				user.drop_item()	//drop the item to update overlays and such
+				user.drop_transfer_item_to_loc(L, src)	//drop the item to update overlays and such
 				qdel(L)
 
 				if(on && rigged)
@@ -627,7 +627,7 @@
 
 	if(user) //puts it in our active hand
 		L.add_fingerprint(user)
-		user.put_in_active_hand(L)
+		user.put_in_active_hand(L, ignore_anim = FALSE)
 
 	status = LIGHT_EMPTY
 	update(FALSE)

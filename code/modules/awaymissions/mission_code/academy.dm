@@ -84,10 +84,12 @@
 
 		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
-/obj/item/dice/d20/fate/equipped(mob/user, slot)
+/obj/item/dice/d20/fate/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
 		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
-		user.unEquip(src)
+		user.drop_item_ground(src)
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
 	var/datum/effect_system/smoke_spread/smoke = new

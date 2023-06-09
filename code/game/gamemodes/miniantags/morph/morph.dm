@@ -273,7 +273,7 @@
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0)
 			to_chat(user, "<span class='warning'>[src] just ate your [item]!</span>")
-			user.unEquip(item)
+			user.drop_item_ground(item)
 			eat(item)
 			return ..()
 

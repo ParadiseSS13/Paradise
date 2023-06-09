@@ -270,7 +270,7 @@
 		GUN.guns_left = guns_left - 1
 		discard_gun(user)
 		user.swap_hand()
-		user.drop_item()
+		user.drop_from_active_hand()
 		user.put_in_hands(GUN)
 	else
 		discard_gun(user)

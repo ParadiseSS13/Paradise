@@ -92,7 +92,7 @@
 			return
 		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
 			return
-	if(!user.drop_item())
+	if(!user.drop_item_ground(I))
 		to_chat(user, "<span class='warning'>[I] is stuck to you and cannot be placed into [parent].</span>")
 		return
 	var/inserted = insert_item(I, stack_amt = requested_amount)
@@ -104,6 +104,7 @@
 				stack_trace("Warning: User could not put object back in hand during material container insertion, line [__LINE__]! This can lead to issues.")
 				I.forceMove(user.drop_location())
 		else
+			I.do_pickup_animation(parent)
 			to_chat(user, "<span class='notice'>You insert a material total of [inserted] into [parent].</span>")
 			qdel(I)
 		if(after_insert)

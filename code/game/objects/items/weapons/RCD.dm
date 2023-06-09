@@ -177,7 +177,7 @@
 		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 		return
 
-	if(!user.unEquip(rcd_ammo))
+	if(!user.drop_item_ground(rcd_ammo))
 		to_chat(user, "<span class='warning'>[rcd_ammo] is stuck to your hand!</span>")
 		return
 

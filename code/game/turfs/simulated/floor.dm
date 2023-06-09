@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				"[user] starts sliding [P] along \the [src].", \
 				"<span class='notice'>You slide [P] along \the [src].</span>", \
 				"You hear the scrape of metal against something.")
-			user.drop_item()
+			user.drop_from_active_hand()
 
 			if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
 				P.dir = 5
@@ -242,7 +242,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		if(user && !silent)
 			to_chat(user, "<span class='danger'>You remove the floor tile.</span>")
 		if(floor_tile && make_tile)
-			new floor_tile(src)
+			var/obj/item/stack/stack_dropped = new floor_tile(src)
+			if(user)
+				var/obj/item/stack/stack_offhand = user.get_inactive_hand()
+				if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
+					user.put_in_hands(stack_dropped, ignore_anim = FALSE)
 	return make_plating()
 
 /turf/simulated/floor/singularity_pull(S, current_size)

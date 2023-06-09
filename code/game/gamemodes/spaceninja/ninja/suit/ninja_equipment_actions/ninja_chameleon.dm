@@ -41,7 +41,7 @@
 	item_state = ""
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = 0
-	flags =  DROPDEL | ABSTRACT | NOBLUDGEON | NOPICKUP
+	flags =  DROPDEL | ABSTRACT | NOBLUDGEON
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/ninja_chameleon/my_action = null
 
@@ -51,8 +51,14 @@
 	my_suit = null
 	my_action = null
 
-/obj/item/ninja_chameleon_scanner/equip_to_best_slot(mob/M)
+
+/obj/item/ninja_chameleon_scanner/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
+
+
+/obj/item/ninja_chameleon_scanner/run_drop_held_item(mob/user)
+	qdel(src)
+
 
 /obj/item/ninja_chameleon_scanner/attack_self(mob/user)
 	if(!my_suit.s_busy)	//Боремся со спамом кнопок
@@ -138,7 +144,7 @@
 		n_id_card.assignment = disguise.assignment
 		n_id_card.rank = disguise.rank
 		if(!ninja.wear_id)
-			ninja.equip_to_slot(n_id_card, slot_wear_id)
+			ninja.equip_to_slot_if_possible(n_id_card, slot_wear_id)
 		else
 			qdel(n_id_card)
 			n_id_card = null

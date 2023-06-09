@@ -337,8 +337,7 @@
 		storage = I
 		. = TRUE
 	if(.)
-		user.drop_item()
-		I.forceMove(src)
+		user.drop_transfer_item_to_loc(I, src)
 
 
 /obj/machinery/suit_storage_unit/power_change()
@@ -587,7 +586,7 @@
 	else
 		helmet.forceMove(loc)
 		if(ishuman(usr))
-			usr.put_in_active_hand(helmet)
+			usr.put_in_active_hand(helmet, ignore_anim = FALSE)
 		helmet = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_suit()
@@ -596,7 +595,7 @@
 	else
 		suit.forceMove(loc)
 		if(ishuman(usr))
-			usr.put_in_active_hand(suit)
+			usr.put_in_active_hand(suit, ignore_anim = FALSE)
 		suit = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_mask()
@@ -605,7 +604,7 @@
 	else
 		mask.forceMove(loc)
 		if(ishuman(usr))
-			usr.put_in_active_hand(mask)
+			usr.put_in_active_hand(mask, ignore_anim = FALSE)
 		mask = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_magboots()
@@ -614,7 +613,7 @@
 	else
 		magboots.forceMove(loc)
 		if(ishuman(usr))
-			usr.put_in_active_hand(magboots)
+			usr.put_in_active_hand(magboots, ignore_anim = FALSE)
 		magboots = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_storage()
@@ -623,7 +622,7 @@
 	else
 		storage.forceMove(loc)
 		if(ishuman(usr))
-			usr.put_in_active_hand(storage)
+			usr.put_in_active_hand(storage, ignore_anim = FALSE)
 		storage = null
 
 /obj/machinery/suit_storage_unit/proc/toggle_open(mob/user as mob)

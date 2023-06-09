@@ -165,7 +165,8 @@ GLOBAL_LIST_EMPTY(safes)
 				if(drill_timer)
 					to_chat(user, "<span class='warning'>You cannot remove the drill while it's running!</span>")
 				else if(do_after(user, 2 SECONDS, target = src))
-					user.put_in_hands(drill)
+					drill.forceMove_turf()
+					user.put_in_hands(drill, ignore_anim = FALSE)
 					drill = null
 					update_icon()
 			if("Cancel")
@@ -182,12 +183,11 @@ GLOBAL_LIST_EMPTY(safes)
 			broken = FALSE
 			update_icon()
 		else if(I.w_class + space <= maxspace)
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(I, src))
 				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
 				return
 			add_fingerprint(user)
 			space += I.w_class
-			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 			SStgui.update_uis(src)
 		else
@@ -200,11 +200,10 @@ GLOBAL_LIST_EMPTY(safes)
 			if(drill)
 				to_chat(user, "<span class='warning'>There is already a drill attached!</span>")
 			else if(do_after(user, 2 SECONDS, target = src))
-				if(!user.drop_item())
+				if(!user.drop_transfer_item_to_loc(I, src))
 					to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the safe!</span>")
 					return
 				add_fingerprint(user)
-				I.forceMove(src)
 				drill = I
 				time_to_drill = DRILL_TIME * drill.time_multiplier
 				update_icon()
@@ -248,7 +247,7 @@ GLOBAL_LIST_EMPTY(safes)
 	var/canhear = FALSE
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		if(H.can_hear() && H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
+		if(H.can_hear() && H.is_type_in_hands(/obj/item/clothing/accessory/stethoscope))
 			canhear = TRUE
 
 	. = TRUE
@@ -308,7 +307,8 @@ GLOBAL_LIST_EMPTY(safes)
 				return
 			var/obj/item/I = contents[index]
 			if(I && in_range(src, usr))
-				usr.put_in_hands(I)
+				I.forceMove_turf()
+				usr.put_in_hands(I, ignore_anim = FALSE)
 				space -= I.w_class
 		else
 			return FALSE

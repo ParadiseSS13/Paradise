@@ -334,12 +334,11 @@
 		if(beaker)
 			to_chat(user, "<span class='warning'>В машину уже вставлена мензурка!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 
 		add_fingerprint(user)
 		beaker =  I
-		beaker.loc = src
 		to_chat(user, "<span class='notice'>Вы вставили мензурку в машину.</span>")
 		updateUsrDialog()
 		icon_state = "mixer1"

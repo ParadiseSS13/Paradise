@@ -42,8 +42,7 @@
 	return ..()
 
 /obj/structure/mopbucket/proc/put_in_cart(obj/item/mop/I, mob/user)
-	user.drop_item()
-	I.forceMove(src)
+	user.drop_transfer_item_to_loc(I, src)
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
 
@@ -72,7 +71,8 @@
 /obj/structure/mopbucket/attack_hand(mob/living/user)
 	. = ..()
 	if(mymop)
-		user.put_in_hands(mymop)
+		mymop.forceMove_turf()
+		user.put_in_hands(mymop, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
 		mymop = null
 		update_icon()

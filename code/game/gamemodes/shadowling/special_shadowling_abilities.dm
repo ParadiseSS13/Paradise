@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
 				for(var/obj/item/I in H.contents - (H.bodyparts | H.internal_organs)) //drops all items except organs
-					H.unEquip(I)
+					H.drop_item_ground(I)
 
 				sleep(50)
 				var/turf/simulated/floor/F

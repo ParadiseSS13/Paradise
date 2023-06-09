@@ -91,7 +91,7 @@
 		var/obj/item/slot_item_ID = H.get_item_by_slot(slot_wear_id)
 		qdel(slot_item_ID)
 		var/obj/item/slot_item_hand = H.get_item_by_slot(slot_r_hand)
-		H.unEquip(slot_item_hand)
+		H.drop_item_ground(slot_item_hand)
 
 		var/obj/item/multisword/pure_evil/multi = new(H)
 		H.equip_to_slot_or_del(multi, slot_r_hand)

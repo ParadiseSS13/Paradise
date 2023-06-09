@@ -282,8 +282,9 @@
 
 	icon_override = mob
 
-/obj/item/clothing/head/kitty/equipped(var/mob/M, slot)
+/obj/item/clothing/head/kitty/equipped(mob/M, slot, initial)
 	. = ..()
+
 	if(ishuman(M) && slot == slot_head)
 		update_icon(M)
 
@@ -323,8 +324,9 @@
 	)
 
 
-/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
-	..()
+/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot, initial)
+	. = ..()
+
 	if(ishuman(user) && slot == slot_head)
 		var/mob/living/carbon/human/H = user
 		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))

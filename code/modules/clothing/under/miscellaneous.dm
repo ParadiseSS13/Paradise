@@ -791,8 +791,9 @@
 	item_color = "atmos"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
-	..()
+/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
+
 	if(slot == slot_w_uniform)
 		if(!user.ventcrawler)
 			user.ventcrawler = 2

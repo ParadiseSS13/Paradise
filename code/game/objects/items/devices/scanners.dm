@@ -275,14 +275,14 @@ REAGENT SCANNER
 
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	sleep(3 SECONDS)
-	var/obj/item/paper/P = new(get_turf(src))
+	var/obj/item/paper/P = new(drop_location())
 	P.name = scan_title
 	P.header += "<center><b>[scan_title]</b></center><br>"
 	P.header += "<b>Время сканирования:</b> [station_time_timestamp()]<br><br>"
 	P.header += "[scan_data]"
 	P.info += "<br><br><b>Заметки:</b><br>"
 	if(in_range(user, src))
-		user.put_in_hands(P)
+		user.put_in_hands(P, ignore_anim = FALSE)
 		user.visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] [pluralize_ru(src.gender,"выдаёт","выдают")] лист с отчётом.</span>")
 	GLOB.copier_items_printed++
 	reports_printed++
@@ -558,7 +558,7 @@ REAGENT SCANNER
 		if(advanced)
 			to_chat(user, "<span class='notice'>Модуль обновления уже установлен на [src].</span>")
 		else
-			if(user.unEquip(I))
+			if(user.drop_transfer_item_to_loc(I, src))
 				to_chat(user, "<span class='notice'>Вы установили модуль обновления на [src].</span>")
 				add_overlay("advanced")
 				playsound(loc, I.usesound, 50, 1)
@@ -648,13 +648,13 @@ REAGENT SCANNER
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(50)
 
-		var/obj/item/paper/P = new(get_turf(src))
+		var/obj/item/paper/P = new(drop_location())
 		P.name = "Reagent Scanner Report: [station_time_timestamp()]"
 		P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
 
 		if(ismob(loc))
 			var/mob/M = loc
-			M.put_in_hands(P)
+			M.put_in_hands(P, ignore_anim = FALSE)
 			to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
 			datatoprint = ""
 			scanning = TRUE
@@ -813,11 +813,11 @@ REAGENT SCANNER
 		var/report = generate_printing_text(M, user)
 		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
 		if(do_after(user, scan_time, target = M))
-			var/obj/item/paper/printout = new
+			var/obj/item/paper/printout = new(drop_location())
 			printout.info = report
 			printout.name = "Scan report - [M.name]"
 			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-			user.put_in_hands(printout)
+			user.put_in_hands(printout, ignore_anim = FALSE)
 			time_to_use = world.time + scan_cd
 			if(isrobot(user))
 				var/mob/living/silicon/robot/R = user

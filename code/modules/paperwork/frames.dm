@@ -85,7 +85,7 @@
 		qdel(src)
 	else if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/poster))
 		if(!displayed)
-			user.unEquip(I)
+			user.drop_item_ground(I)
 			insert(I)
 			update_icon()
 		else
@@ -129,7 +129,7 @@
 			to_chat(user, "<span class='notice'>You cannot reach \the [T] from here!</span>")
 			return
 
-	user.unEquip(src)
+	user.drop_item_ground(src)
 	var/obj/structure/sign/picture_frame/PF = new(user.loc, src)
 	PF.dir = newdir
 	PF.pixel_x = px
@@ -236,9 +236,8 @@
 				return
 			add_fingerprint(user)
 			playsound(src, 'sound/weapons/handcuffs.ogg', 50, 1)
-			user.unEquip(I)
+			user.drop_transfer_item_to_loc(I, src)
 			explosive = I
-			I.forceMove(src)
 			user.visible_message("<span class='notice'>[user] fiddles with the back of \the [src].</span>", "<span class='notice'>You secure \the [I] behind \the [src].</span>")
 
 			message_admins("[key_name_admin(user)] attached [I] to a picture frame.")

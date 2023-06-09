@@ -47,9 +47,11 @@
 			to_chat(usr, "<span class='notice'>The bananade is full, screwdriver it shut to lock it down.</span>")
 	if(istype(I, /obj/item/screwdriver))
 		if(fillamt)
-			var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
-			user.unEquip(src)
-			user.put_in_hands(G)
+			var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade(drop_location())
+			if(!remove_item_from_storage(user))
+				user.temporarily_remove_item_from_inventory(src)
+
+			user.put_in_hands(G, ignore_anim = FALSE)
 			G.deliveryamt = src.fillamt
 			to_chat(user, "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>")
 			qdel(src)

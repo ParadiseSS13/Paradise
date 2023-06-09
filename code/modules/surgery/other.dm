@@ -333,5 +333,5 @@
 	target.visible_message("<span class='warning'>A strange black mass falls from [target]'s [E]!</span>")
 	var/obj/item/organ/thing = new /obj/item/organ/internal/shadowtumor(get_turf(target))
 	thing.set_dna(target.dna)
-	user.put_in_hands(thing)
+	user.put_in_hands(thing, ignore_anim = FALSE)
 	return 1

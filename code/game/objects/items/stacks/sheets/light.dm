@@ -21,17 +21,17 @@
 		amount--
 		new/obj/item/stack/sheet/glass(user.loc)
 		if(amount <= 0)
-			user.unEquip(src, 1)
+			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 			qdel(src)
 
 	if(istype(O,/obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/metal/M = O
 		M.use(1)
 		if(M.amount <= 0)
-			user.unEquip(src, 1)
+			user.drop_item_ground(src, force = TRUE)
 			qdel(M)
 		amount--
 		new/obj/item/stack/tile/light(user.loc)
 		if(amount <= 0)
-			user.unEquip(src, 1)
+			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 			qdel(src)

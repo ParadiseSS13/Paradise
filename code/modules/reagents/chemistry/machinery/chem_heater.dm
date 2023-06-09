@@ -48,7 +48,7 @@
 	if(beaker)
 		beaker.forceMove(get_turf(src))
 		if(user && Adjacent(user) && !issilicon(user))
-			user.put_in_hands(beaker)
+			user.put_in_hands(beaker, ignore_anim = FALSE)
 		beaker = null
 		icon_state = "mixer0b"
 		on = FALSE
@@ -70,10 +70,9 @@
 			to_chat(user, "<span class='notice'>A beaker is already loaded into the machine.</span>")
 			return
 
-		if(user.drop_item())
+		if(user.drop_transfer_item_to_loc(I, src))
 			add_fingerprint(user)
 			beaker = I
-			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 			icon_state = "mixer1b"
 			SStgui.update_uis(src)

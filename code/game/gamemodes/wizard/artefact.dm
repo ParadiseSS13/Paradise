@@ -572,7 +572,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 //Voodoo Zombie Pirates added for paradise
 /obj/item/necromantic_stone/proc/equip_skeleton(mob/living/carbon/human/H as mob)
 	for(var/obj/item/I in H)
-		H.unEquip(I)
+		H.drop_item_ground(I)
 	var/randomSpooky = "roman"//defualt
 	randomSpooky = pick("roman","pirate","yand","clown")
 
@@ -691,8 +691,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	if(!link)
 		if(I.loc == user && istype(I) && I.w_class <= WEIGHT_CLASS_SMALL)
-			user.drop_item()
-			I.loc = src
+			user.drop_transfer_item_to_loc(I, src)
 			link = I
 			to_chat(user, "You attach [I] to the doll.")
 			update_targets()

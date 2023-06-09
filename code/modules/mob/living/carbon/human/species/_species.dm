@@ -310,7 +310,7 @@
 	for(var/slot_id in no_equip)
 		var/obj/item/thing = H.get_item_by_slot(slot_id)
 		if(thing && (!thing.species_exception || !is_type_in_list(src, thing.species_exception)))
-			H.unEquip(thing)
+			H.drop_item_ground(thing)
 	if(H.hud_used)
 		H.hud_used.update_locked_slots()
 	H.ventcrawler = ventcrawler
@@ -558,7 +558,7 @@
 			//End BubbleWrap
 
 			if(!talked)	//BubbleWrap
-				if(target.drop_item())
+				if(target.drop_from_active_hand())
 					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружи[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
@@ -648,153 +648,289 @@
 	attack_verb = list("хлестает", "хлестанул", "искромсал", "разорвал") //армалисами почти никто не пользуется. Зачем вносить пол вырезаной расе которой никогда не будет в игре?
 	damage = 6
 
-/datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/H)
+
+/datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/user, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
 
-	if(!H.has_organ_for_slot(slot))
+	if(!user.has_organ_for_slot(slot))
 		return FALSE
 
-	switch(slot)
-		if(slot_l_hand)
-			return !H.l_hand && !H.incapacitated()
-		if(slot_r_hand)
-			return !H.r_hand && !H.incapacitated()
-		if(slot_wear_mask)
-			return !H.wear_mask && (I.slot_flags & SLOT_MASK)
-		if(slot_back)
-			return !H.back && (I.slot_flags & SLOT_BACK)
-		if(slot_wear_suit)
-			return !H.wear_suit && (I.slot_flags & SLOT_OCLOTHING)
-		if(slot_gloves)
-			return !H.gloves && (I.slot_flags & SLOT_GLOVES)
-		if(slot_shoes)
-			return !H.shoes && (I.slot_flags & SLOT_FEET)
-		if(slot_neck)
-			return !H.neck && (I.slot_flags & SLOT_NECK)
-		if(slot_belt)
-			if(H.belt)
-				return FALSE
-			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
+	if(isclothing(I) && !user.is_general_slot(slot))
+		var/obj/item/clothing/cloth = I
+		var/list/rectricted = cloth.species_restricted
 
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+		if(rectricted)
+			var/wearable = ("exclude" in rectricted) ? !(name in rectricted) : (name in rectricted)
+
+			if(wearable && ("lesser form" in rectricted) && issmall(user))
+				wearable = FALSE
+
+			if(!wearable)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
+					to_chat(user, SPAN_WARNING("Вы [src] и не можете использовать [I]."))
+				return FALSE
+
+	switch(slot)
+		// HANDS
+		if(slot_l_hand)
+			if(user.l_hand)
+				return FALSE
+			if(user.incapacitated())
+				return FALSE
+			return TRUE
+
+		if(slot_r_hand)
+			if(user.r_hand)
+				return FALSE
+			if(user.incapacitated())
+				return FALSE
+			return TRUE
+
+		// MASK SLOT
+		if(slot_wear_mask)
+			if(user.wear_mask)
+				return FALSE
+			if(!(I.slot_flags & SLOT_MASK))
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// BACK SLOT
+		if(slot_back)
+			if(user.back)
+				return FALSE
+			if(!(I.slot_flags & SLOT_BACK))
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// SUIT SLOT
+		if(slot_wear_suit)
+			if(user.wear_suit)
+				return FALSE
+			if(!(I.slot_flags & SLOT_OCLOTHING))
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// GLOVES SLOT
+		if(slot_gloves)
+			if(user.gloves)
+				return FALSE
+			if(!(I.slot_flags & SLOT_GLOVES))
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// SHOES SLOT
+		if(slot_shoes)
+			if(user.shoes)
+				return FALSE
+			if(!(I.slot_flags & SLOT_FEET))
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// NECK SLOT
+		if(slot_neck)
+			if(user.neck)
+				return FALSE
+			if(!(I.slot_flags & SLOT_NECK))
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// BELT SLOT
+		if(slot_belt)
+			if(user.belt)
 				return FALSE
 			if(!(I.slot_flags & SLOT_BELT))
-				return
-			return TRUE
-		if(slot_glasses)
-			return !H.glasses && (I.slot_flags & SLOT_EYES)
-		if(slot_head)
-			return !H.head && (I.slot_flags & SLOT_HEAD)
-		if(slot_l_ear)
-			return !H.l_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && H.r_ear)
-		if(slot_r_ear)
-			return !H.r_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && H.l_ear)
-		if(slot_w_uniform)
-			return !H.w_uniform && (I.slot_flags & SLOT_ICLOTHING)
-		if(slot_wear_id)
-			if(H.wear_id)
 				return FALSE
-			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
+			if(!user.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
+					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+				return FALSE
+
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// GLASSES SLOT
+		if(slot_glasses)
+			if(user.glasses)
+				return FALSE
+			if(!(I.slot_flags & SLOT_EYES))
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// HEAD SLOT
+		if(slot_head)
+			if(user.head)
+				return FALSE
+			if(!(I.slot_flags & SLOT_HEAD))
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// EARS SLOTS
+		if(slot_l_ear)
+			if(user.l_ear)
+				return FALSE
+			if(!(I.slot_flags & SLOT_EARS))
+				return FALSE
+			if((I.slot_flags & SLOT_TWOEARS) && user.r_ear)
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		if(slot_r_ear)
+			if(user.r_ear)
+				return FALSE
+			if(!(I.slot_flags & SLOT_EARS))
+				return FALSE
+			if((I.slot_flags & SLOT_TWOEARS) && user.l_ear)
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// UNIFORM SLOT
+		if(slot_w_uniform)
+			if(user.w_uniform)
+				return FALSE
+			if(!(I.slot_flags & SLOT_ICLOTHING))
+				return FALSE
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// ID CARD SLOT
+		if(slot_wear_id)
+			if(user.wear_id)
 				return FALSE
 			if(!(I.slot_flags & SLOT_ID))
 				return FALSE
-			return TRUE
-		if(slot_wear_pda)
-			if(H.wear_pda)
-				return FALSE
-			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
+			if(!user.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
+					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+				return FALSE
+
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// PDA SLOT
+		if(slot_wear_pda)
+			if(user.wear_pda)
 				return FALSE
 			if(!(I.slot_flags & SLOT_PDA))
 				return FALSE
-			return TRUE
+
+			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
+			if(!user.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+				if(!disable_warning)
+					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+				return FALSE
+
+			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+		// POCKETS
 		if(slot_l_store)
 			if(I.flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
 				return FALSE
-			if(H.l_store)
-				return FALSE
-			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_L_LEG)
-
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
-				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
+			if(user.l_store)
 				return FALSE
 			if(I.slot_flags & SLOT_DENYPOCKET)
-				return
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
-				return TRUE
+				return FALSE
+
+			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_L_LEG)
+			if(!user.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+				if(!disable_warning)
+					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+				return FALSE
+
+			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET)
+
 		if(slot_r_store)
 			if(I.flags & NODROP)
 				return FALSE
-			if(H.r_store)
-				return FALSE
-			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_R_LEG)
-
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
-				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
+			if(user.r_store)
 				return FALSE
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return FALSE
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
-				return TRUE
-			return FALSE
+
+			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_R_LEG)
+			if(!user.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+				if(!disable_warning)
+					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+				return FALSE
+
+			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET)
+
+		// SUIT STORE SLOT
 		if(slot_s_store)
-			if(I.flags & NODROP) //Suit storage NODROP items drop if you take a suit off, this is to prevent people exploiting this.
+			if(user.s_store)
 				return FALSE
-			if(H.s_store)
-				return FALSE
-			if(!H.wear_suit)
+			if(!user.wear_suit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен костюм перед тем как вы сможете прикрепить [I].</span>")
+					to_chat(user, SPAN_WARNING("Вам нужен костюм перед тем как вы сможете прикрепить [I]."))
 				return FALSE
-			if(!H.wear_suit.allowed)
+			if(!user.wear_suit.can_store_weighted(I))
 				if(!disable_warning)
-					to_chat(H, "Вы как-то достали костюм без хранения разрешенных предметов. Прекратите это.")
+					to_chat(user, SPAN_WARNING("Размер [I] слишком большой, чтобы прикрепить."))
 				return FALSE
-			if(!H.wear_suit.can_store_weighted(I))
-				if(!disable_warning)
-					to_chat(H, "Размер [I] слишком большой, чтобы прикрепить.")
-				return FALSE
-			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
+
+			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, user.wear_suit.allowed))
 				return TRUE
+
+			if(!user.wear_suit.allowed)
+				if(!disable_warning)
+					user << 'sound/machines/chime.ogg'
+					to_chat(user, SPAN_DANGER("Откуда у Вас этот костюм? Срочно сообщите о находке в высшие инстанции!"))
+				return FALSE
+
 			return FALSE
+
+		// HANDCUFFS SLOT
 		if(slot_handcuffed)
-			return !H.handcuffed && istype(I, /obj/item/restraints/handcuffs)
+			return !user.handcuffed && istype(I, /obj/item/restraints/handcuffs)
+
 		if(slot_legcuffed)
-			return !H.legcuffed && istype(I, /obj/item/restraints/legcuffs)
+			return !user.legcuffed && istype(I, /obj/item/restraints/legcuffs)
+
+		// PLACING ITEM IN BACKPACK
 		if(slot_in_backpack)
-			if(H.back && istype(H.back, /obj/item/storage/backpack))
-				var/obj/item/storage/backpack/B = H.back
-				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+			if(user.back && istype(user.back, /obj/item/storage/backpack))
+				var/obj/item/storage/backpack/backpack = user.back
+				if(backpack.contents.len < backpack.storage_slots && I.w_class <= backpack.max_w_class)
 					return TRUE
 			return FALSE
+
+		// UNIFORM ACCESORIES
 		if(slot_tie)
-			if(!H.w_uniform)
-				if(!disable_warning)
-					to_chat(H, "<span class='warning'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
-				return FALSE
-			var/obj/item/clothing/under/uniform = H.w_uniform
-			if(uniform.accessories.len && !uniform.can_attach_accessory(H))
-				if(!disable_warning)
-					to_chat(H, "<span class='warning'>У вас уже есть аксессуар этого типа на [uniform].</span>")
-				return FALSE
 			if(!(I.slot_flags & SLOT_TIE))
 				return FALSE
+			if(!user.w_uniform)
+				if(!disable_warning)
+					to_chat(user, SPAN_WARNING("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
+				return FALSE
+
+			var/obj/item/clothing/under/uniform = user.w_uniform
+			if(uniform.accessories.len && !uniform.can_attach_accessory(user))
+				if(!disable_warning)
+					to_chat(user, SPAN_WARNING("У вас уже есть аксессуар этого типа на [uniform]."))
+				return FALSE
+
 			return TRUE
 
 	return FALSE //Unsupported slot
+
+
+/**
+ * Proc that check for delayed equip and slot obscuration.
+ */
+/datum/species/proc/equip_delay_self_obscured_check(obj/item/I, slot, mob/living/carbon/human/user, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+	if(user.has_obscured_slot(slot) && !bypass_obscured)
+		if(!disable_warning)
+			to_chat(user, SPAN_WARNING("Вы не можете надеть [I], слот закрыт другой одеждой."))
+		return FALSE
+
+	if(!I.equip_delay_self || bypass_equip_delay_self)
+		return TRUE
+
+	user.visible_message(SPAN_NOTICE("[user] начинает надевать [I]..."), SPAN_NOTICE("Вы начинаете надевать [I]..."))
+	return do_after(user, I.equip_delay_self, target = user)
+
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return FALSE

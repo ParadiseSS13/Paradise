@@ -16,7 +16,7 @@
 		QDEL_NULL(item)
 	else
 		for(var/mob/living/carbon/C in targets)
-			if(C.drop_item())
+			if(C.drop_from_active_hand())
 				item = new item_type
 				C.put_in_hands(item)
 

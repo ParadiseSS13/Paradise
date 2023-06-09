@@ -84,8 +84,8 @@
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-			if(I && D.drop_item())
-				A.put_in_hands(I)
+			if(I && D.drop_from_active_hand())
+				A.put_in_hands(I, ignore_anim = FALSE)
 			D.Jitter(2)
 			D.apply_damage(5, BRUTE)
 			objective_damage(A, D, 5, BRUTE)

@@ -13,7 +13,7 @@
 	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/))
 		var/obj/item/reagent_containers/food/snacks/grown/F = O
 		if(F.seed)
-			if(user && !user.drop_item()) //couldn't drop the item
+			if(user && !user.drop_transfer_item_to_loc(O, extractor)) //couldn't drop the item
 				return
 			while(t_amount < t_max)
 				var/obj/item/seeds/t_prod = F.seed.Copy()
@@ -25,7 +25,7 @@
 	else if(istype(O, /obj/item/grown))
 		var/obj/item/grown/F = O
 		if(F.seed)
-			if(user && !user.drop_item())
+			if(user && !user.drop_transfer_item_to_loc(O, extractor))
 				return
 			while(t_amount < t_max)
 				var/obj/item/seeds/t_prod = F.seed.Copy()
@@ -231,7 +231,7 @@
 
 	if(istype(O.loc,/mob))
 		var/mob/M = O.loc
-		if(!M.drop_item())
+		if(!M.drop_transfer_item_to_loc(O, src))
 			return FALSE
 	else if(istype(O.loc,/obj/item/storage))
 		var/obj/item/storage/S = O.loc
@@ -308,9 +308,9 @@
 			if(i == 1 && Adjacent(user) && !issilicon(user))
 				var/obj/item/seeds/O = Sl[1]
 
-				if(!user.put_in_hands(O))
-					O.forceMove(loc)
-					adjust_item_drop_location(O)
+				O.forceMove_turf()
+				adjust_item_drop_location(O)
+				user.put_in_hands(O, ignore_anim = FALSE)
 
 				Sl.Remove(O)
 

@@ -41,8 +41,7 @@
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/folder) || istype(P, /obj/item/photo) || istype(P, /obj/item/paper_bundle) || istype(P, /obj/item/documents))
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
-		user.drop_item()
-		P.loc = src
+		user.drop_transfer_item_to_loc(P, src)
 		icon_state = "[initial(icon_state)]-open"
 		sleep(5)
 		icon_state = initial(icon_state)
@@ -104,7 +103,8 @@
 		//var/retrieveindex = text2num(href_list["retrieve"])
 		var/obj/item/P = locate(href_list["retrieve"])//contents[retrieveindex]
 		if(istype(P) && (P.loc == src) && src.Adjacent(usr))
-			usr.put_in_hands(P)
+			P.forceMove_turf()
+			usr.put_in_hands(P, ignore_anim = FALSE)
 			updateUsrDialog()
 			icon_state = "[initial(icon_state)]-open"
 			sleep(5)

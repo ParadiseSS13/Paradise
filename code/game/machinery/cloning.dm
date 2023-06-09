@@ -427,7 +427,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 // A user can feed in biomass sources manually.
 	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
-		if(user.drop_item())
+		if(user.drop_transfer_item_to_loc(I, src))
 			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
 			biomass += BIOMASS_BASE_AMOUNT

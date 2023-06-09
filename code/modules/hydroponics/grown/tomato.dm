@@ -181,7 +181,7 @@
 			K.health = K.maxHealth
 			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
 			if(user)
-				user.unEquip(src)
+				user.temporarily_remove_item_from_inventory(src)
 			message_admins("[key_name_admin(user)] released a killer tomato at [ADMIN_COORDJMP(T)]")
 			add_game_logs("released a killer tomato at [COORD(T)]", user)
 			qdel(src)

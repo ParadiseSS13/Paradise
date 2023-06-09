@@ -194,9 +194,8 @@
 	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
 		"<span class='notice'>You put \the [what] into \the [src].")
 
-	user.drop_item()
+	user.drop_transfer_item_to_loc(what, src)
 
-	what.loc = src
 	return
 
 /obj/machinery/processor/attack_hand(mob/user)

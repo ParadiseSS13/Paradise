@@ -803,7 +803,7 @@
 	if(istype(W, /obj/item/mecha_parts/mecha_equipment))
 		var/obj/item/mecha_parts/mecha_equipment/E = W
 		if(E.can_attach(src))
-			if(!user.drop_item())
+			if(!user.drop_from_active_hand())
 				return
 			E.attach(src)
 			user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
@@ -835,10 +835,9 @@
 	else if(istype(W, /obj/item/stock_parts/cell))
 		if(state==4)
 			if(!cell)
-				if(!user.drop_item())
+				if(!user.drop_transfer_item_to_loc(W, src))
 					return
 				to_chat(user, "<span class='notice'>You install the powercell.</span>")
-				W.forceMove(src)
 				cell = W
 				log_message("Powercell installed")
 			else
@@ -846,10 +845,9 @@
 		return
 
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
-		if(!user.unEquip(W))
+		if(!user.drop_transfer_item_to_loc(W, src))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return
-		W.forceMove(src)
 		trackers += W
 		user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
 		diag_hud_set_mechtracking()
@@ -879,7 +877,7 @@
 		initial_icon = P.new_icon
 		reset_icon()
 
-		user.drop_item()
+		user.temporarily_remove_item_from_inventory(P)
 		qdel(P)
 
 	else if(istype(W, /obj/item/mecha_modkit))
@@ -1290,7 +1288,7 @@
 		else if(mmi_as_oc.brainmob.stat)
 			to_chat(user, "Beta-rhythm below acceptable level.")
 			return FALSE
-		if(!user.unEquip(mmi_as_oc))
+		if(!user.drop_item_ground(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return FALSE
 		var/mob/living/carbon/brain/brainmob = mmi_as_oc.brainmob

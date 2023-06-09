@@ -60,12 +60,11 @@
 			if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
 				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the cell!</span>")
 				return
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(I, src))
 				return
 
 			add_fingerprint(user)
 
-			I.forceMove(src)
 			charging = I
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
 			chargelevel = -1
@@ -98,7 +97,8 @@
 		return
 
 	add_fingerprint(user)
-	user.put_in_hands(charging)
+	charging.forceMove_turf()
+	user.put_in_hands(charging, ignore_anim = FALSE)
 	charging.add_fingerprint(user)
 
 	user.visible_message("[user] removes [charging] from [src].", "<span class='notice'>You remove [charging] from [src].</span>")

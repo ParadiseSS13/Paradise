@@ -29,10 +29,10 @@
 	. = ..()
 	var/obj/item/I = C.mob.get_active_hand()
 	if(I)
-		C.mob.drop_item(I)
-		SEND_SIGNAL(C.mob, COMSIG_MOB_DROP_ITEM, keys, C)
+		I.run_drop_held_item(C.mob)
+		SEND_SIGNAL(C.mob, COMSIG_MOB_KEY_DROP_ITEM_DOWN, keys, C)
 	else
-		to_chat(C, "<span class='warning'>You have nothing to drop in your hand!</span>")
+		to_chat(C, SPAN_WARNING("Вы ничего не держите в руке!</span>"))
 
 /datum/keybinding/mob/swap_hands
 	name = "Поменять руки"
@@ -88,7 +88,7 @@
 	if(C.mob.pulling)
 		C.mob.stop_pulling()
 	else
-		to_chat(C, "<span class='notice'>You are not pulling anything.</span>")
+		to_chat(C, SPAN_NOTICE("Вы ничего не тащите."))
 
 /datum/keybinding/mob/face_dir
 	/// The direction to face towards.

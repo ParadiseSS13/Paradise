@@ -129,11 +129,24 @@
 
 
 /mob/living/carbon/alien/humanoid/update_inv_pockets()
-	if(l_store)
-		l_store.screen_loc = ui_storage1
-	if(r_store)
-		r_store.screen_loc = ui_storage2
-	update_icons()
+	if(client && hud_used)
+		var/obj/screen/inventory/inv
+
+		inv = hud_used.inv_slots[slot_l_store]
+		if(inv)
+			inv.update_icon()
+
+		inv = hud_used.inv_slots[slot_r_store]
+		if(inv)
+			inv.update_icon()
+
+		if(l_store)
+			client.screen += l_store
+			l_store.screen_loc = ui_alien_storage_l
+
+		if(r_store)
+			client.screen += r_store
+			r_store.screen_loc = ui_alien_storage_r
 
 
 /mob/living/carbon/alien/humanoid/update_inv_r_hand()

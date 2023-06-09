@@ -272,7 +272,7 @@
 		to_chat(user, "<span class='danger'>No splints left!</span>")
 		return 1
 	else
-		.=..()
+		. = ..()
 /obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
 	if(..())
 		return TRUE

@@ -48,7 +48,7 @@
 			user.adjustBruteLoss(force)
 			user.adjustFireLoss(sanctify_force)
 			user.Weaken(5)
-			user.unEquip(src, 1)
+			user.drop_item_ground(src, force = TRUE)
 			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
 			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
 			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
@@ -90,7 +90,7 @@
 			new_rod.name = "sanctified " + new_rod.name
 
 /obj/item/nullrod/proc/radial_check(mob/living/carbon/human/user)
-	if(!src || !user.is_in_hands(src) || user.incapacitated() || reskinned)
+	if(!src || !user.is_type_in_hands(src) || user.incapacitated() || reskinned)
 		return FALSE
 	return TRUE
 

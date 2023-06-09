@@ -30,8 +30,7 @@
 		user.visible_message("[user] pulls \the [tool] back out of [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You pull \the [tool] back out of [target]'s [parse_zone(target_zone)], there wans't enough room...</span>")
 		return 0
 
-	user.drop_item()
-	tool.forceMove(target)
+	user.drop_transfer_item_to_loc(tool, target)
 
 	var/datum/action/item_action/hands_free/activate_pill/P = new
 	P.button_icon_state = tool.icon_state

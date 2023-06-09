@@ -14,6 +14,8 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
+#define isstack(A) (istype(A, /obj/item/stack))
+
 #define ispda(A) (istype(A, /obj/item/pda))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
@@ -29,6 +31,8 @@
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define is_pen(W) (istype(W, /obj/item/pen))
+
+#define isclothing(A) (istype(A, /obj/item/clothing))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,

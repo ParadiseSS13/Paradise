@@ -25,7 +25,7 @@
 /obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
 		var/obj/item/assembly_holder/A = I
-		if(!user.unEquip(I))
+		if(!user.drop_item_ground(I))
 			return ..()
 		nadeassembly = A
 		A.master = src
@@ -74,7 +74,7 @@
 	to_chat(user, "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>")
 
 	if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = AM))
-		if(!user.unEquip(src))
+		if(!user.drop_item_ground(src))
 			return
 		src.target = AM
 		loc = null

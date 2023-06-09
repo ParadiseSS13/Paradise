@@ -53,10 +53,9 @@
 					to_chat(user, "<span class='notice'>Your gun has no external power connector.</span>")
 					return TRUE
 
-			if(!user.drop_item())
+			if(!user.drop_transfer_item_to_loc(G, src))
 				return TRUE
 			add_fingerprint(user)
-			G.forceMove(src)
 			charging = G
 			use_power = ACTIVE_POWER_USE
 			using_power = check_cell_needs_recharging(get_cell_from(G))
@@ -94,8 +93,8 @@
 	add_fingerprint(user)
 	if(charging)
 		charging.update_icon()
-		charging.forceMove(loc)
-		user.put_in_hands(charging)
+		charging.forceMove_turf()
+		user.put_in_hands(charging, ignore_anim = FALSE)
 		charging = null
 		use_power = IDLE_POWER_USE
 		update_icon()

@@ -21,9 +21,9 @@
 /obj/item/weaponcrafting/receiver/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/pipe))
 		to_chat(user, "You attach the shotgun barrel to the receiver. The pins seem loose.")
-		var/obj/item/weaponcrafting/ishotgunconstruction/I = new /obj/item/weaponcrafting/ishotgunconstruction
-		user.unEquip(src)
-		user.put_in_hands(I)
+		var/obj/item/weaponcrafting/ishotgunconstruction/I = new(drop_location())
+		user.temporarily_remove_item_from_inventory(src)
+		user.put_in_hands(I, ignore_anim = FALSE)
 		qdel(W)
 		qdel(src)
 		return
@@ -39,9 +39,9 @@
 /obj/item/weaponcrafting/ishotgunconstruction/attackby(var/obj/item/I, mob/user as mob, params)
 	..()
 	if(istype(I, /obj/item/screwdriver))
-		var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
-		user.unEquip(src)
-		user.put_in_hands(C)
+		var/obj/item/weaponcrafting/ishotgunconstruction2/C = new(drop_location())
+		user.temporarily_remove_item_from_inventory(src)
+		user.put_in_hands(C, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
 		qdel(src)
 
@@ -54,9 +54,9 @@
 /obj/item/weaponcrafting/ishotgunconstruction2/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weaponcrafting/stock))
 		to_chat(user, "You attach the stock to the receiver-barrel assembly.")
-		var/obj/item/weaponcrafting/ishotgunconstruction3/I = new /obj/item/weaponcrafting/ishotgunconstruction3
-		user.unEquip(src)
-		user.put_in_hands(I)
+		var/obj/item/weaponcrafting/ishotgunconstruction3/I = new(drop_location())
+		user.temporarily_remove_item_from_inventory(src)
+		user.put_in_hands(I, ignore_anim = FALSE)
 		qdel(W)
 		qdel(src)
 		return
@@ -72,10 +72,10 @@
 	if(istype(I, /obj/item/stack/packageWrap))
 		var/obj/item/stack/packageWrap/C = I
 		if(C.use(5))
-			var/obj/item/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/gun/projectile/revolver/doublebarrel/improvised
+			var/obj/item/gun/projectile/revolver/doublebarrel/improvised/W = new(drop_location())
 			investigate_log("[key_name_log(user)] crafted [W]", INVESTIGATE_CRAFTING)
-			user.unEquip(src)
-			user.put_in_hands(W)
+			user.temporarily_remove_item_from_inventory(src)
+			user.put_in_hands(W, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You tie the wrapping paper around the stock and the barrel to secure it.</span>")
 			qdel(src)
 		else

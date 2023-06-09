@@ -22,6 +22,10 @@
 /mob/proc/update_inv_r_hand()
 	return
 
+/mob/proc/update_inv_hands()
+	update_inv_l_hand()
+	update_inv_r_hand()
+
 /mob/proc/update_inv_wear_mask()
 	return
 

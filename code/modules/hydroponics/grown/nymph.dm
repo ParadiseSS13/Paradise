@@ -22,5 +22,5 @@
 /obj/item/reagent_containers/food/snacks/grown/nymph_pod/attack_self(mob/user)
 	new /mob/living/simple_animal/diona(get_turf(user))
 	to_chat(user, "<span class='notice'>You crack open [src] letting the nymph out.</span>")
-	user.drop_item()
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)

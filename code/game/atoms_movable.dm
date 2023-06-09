@@ -219,12 +219,14 @@
 
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
+
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
+
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
 	var/datum/light_source/L
 	var/thing
@@ -287,6 +289,27 @@
 	Moved(old_loc, NONE, TRUE)
 
 	return 1
+
+
+/atom/movable/proc/move_to_null_space()
+
+	var/atom/old_loc = loc
+	var/is_multi_tile = bound_width > world.icon_size || bound_height > world.icon_size
+
+	if(old_loc)
+		loc = null
+		var/area/old_area = get_area(old_loc)
+		if(is_multi_tile && isturf(old_loc))
+			for(var/atom/old_loc_multi as anything in locs)
+				old_loc_multi.Exited(src, NONE)
+		else
+			old_loc.Exited(src, NONE)
+
+		if(old_area)
+			old_area.Exited(src, NONE)
+
+	Moved(old_loc, NONE, TRUE)
+
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
 	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.

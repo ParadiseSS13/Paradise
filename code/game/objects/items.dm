@@ -128,6 +128,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/nutritional_value = 20 	// How much nutrition add
 	var/is_only_grab_intent = FALSE	//Grab if help_intent was used
 
+	///In deciseconds, how long an item takes to equip; counts only for normal clothing slots, not pockets, hands etc.
+	var/equip_delay_self = 0 SECONDS
+
 
 /obj/item/New()
 	..()
@@ -142,10 +145,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!move_resist)
 		determine_move_resist()
 
+
 /obj/item/Initialize(mapload)
 	. = ..()
 	if(istype(loc, /obj/item/storage)) //marks all items in storage as being such
 		in_storage = TRUE
+
 
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
@@ -162,15 +167,18 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(WEIGHT_CLASS_GIGANTIC)
 			move_resist = MOVE_FORCE_NORMAL
 
+
 /obj/item/Destroy()
 	flags &= ~DROPDEL	//prevent reqdels
 	QDEL_NULL(hidden_uplink)
+
 	if(ismob(loc))
-		var/mob/m = loc
-		m.unEquip(src, 1)
+		var/mob/M = loc
+		M.drop_item_ground(src, TRUE)
 	QDEL_LIST(actions)
-	master = null
+
 	return ..()
+
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
@@ -195,6 +203,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	src.loc = null
 
 	src.loc = T
+
 
 /obj/item/examine(mob/user)
 	var/size
@@ -245,12 +254,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><BR>"
 				break
 
+
 /obj/item/burn()
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)
 		var/obj/effect/decal/cleanable/ash/A = new(T)
 		A.desc += "\nLooks like this used to be \an [name] some time ago."
 		..()
+
 
 /obj/item/acid_melt()
 	if(!QDELETED(src))
@@ -261,6 +272,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
 
+
 /obj/item/afterattack(atom/target, mob/user, proximity, params)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
 	..()
@@ -269,29 +281,37 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 	try_item_eat(target, user)
 
-/obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
-	if(!user) return 0
-	if(flags & NOPICKUP) return 0
-	if(hasorgans(user))
+
+/obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)
+	. = ..()
+	if(.)
+		return TRUE
+
+	. = FALSE
+
+	if(!user)
+		return
+
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(user.hand)
 			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp)
-			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
-			return 0
+			to_chat(user, SPAN_WARNING("You try to use your hand, but it's missing!"))
+			return
 		if(temp && !temp.is_usable())
-			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
-			return 0
+			to_chat(user, SPAN_WARNING("You try to move your [temp.name], but cannot!"))
+			return
 
 	if((resistance_flags & ON_FIRE) && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
 				extinguish()
-				to_chat(user, "<span class='notice'>You put out the fire on [src].</span>")
+				to_chat(user, SPAN_NOTICE("You put out the fire on [src]."))
 			else
-				to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
+				to_chat(user, SPAN_WARNING("You burn your hand on [src]!"))
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
 				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
@@ -299,11 +319,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		else
 			extinguish()
 
-	if(acid_level > 20 && !ismob(loc))// so we can still remove the clothes on us that have acid.
+	if(acid_level > 20 && !ismob(loc))	// so we can still remove the clothes on us that have acid.
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
-				to_chat(user, "<span class='warning'>The acid on [src] burns your hand!</span>")
+				to_chat(user, SPAN_WARNING("The acid on [src] burns your hand!"))
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
 				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
 					H.UpdateDamageIcon()
@@ -311,32 +331,53 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(istype(src.loc, /obj/item/storage))
 		//If the item is in a storage item, take it out
 		var/obj/item/storage/S = src.loc
-		S.remove_from_storage(src)
+		S.remove_from_storage(src, user)
+	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
+		return
 
 	if(throwing)
 		throwing.finalize(FALSE)
+
 	if(loc == user)
-		if(!user.advanced_unequip_if_possible(src))
-			return 0
+		if(!allow_attack_hand_drop(user) || !user.temporarily_remove_item_from_inventory(src))
+			return
+	else if(isliving(loc))
+		return
 
-	else
-		if(isliving(loc))
-			return 0
+	. = TRUE
+	pickup(user)
 	add_fingerprint(user)
-	if(pickup(user)) // Pickup succeeded
-		user.put_in_active_hand(src)
 
-	return 1
+	if(!user.put_in_active_hand(src, force = FALSE, ignore_anim = FALSE))
+		user.drop_item_ground(src)
+		return FALSE
+
+
+// If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
+/obj/item/proc/allow_attack_hand_drop(mob/user)
+	return TRUE
+
+
+/**
+ * If xenos can manipulate with this item.
+ */
+/obj/item/proc/allowed_for_alien()
+	return FALSE
+
 
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
 
 	if(!A.has_fine_manipulation)
-		if(src in A.contents) // To stop Aliens having items stuck in their pockets
-			A.unEquip(src)
-		to_chat(user, "<span class='warning'>Your claws aren't capable of such fine manipulation!</span>")
+		to_chat(user, SPAN_WARNING("Your claws aren't capable of such fine manipulation!"))
 		return
+
+	if(!allowed_for_alien())
+		to_chat(user, SPAN_WARNING("Looks like [src] has no use for me!"))
+		return
+
 	attack_hand(A)
+
 
 /obj/item/attack_ai(mob/user as mob)
 	if(istype(src.loc, /obj/item/robot_module))
@@ -347,6 +388,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(!R.low_power_mode) //can't equip modules with an empty cell.
 			R.activate_module(src)
 			R.hud_used.update_robot_modules_display()
+
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
@@ -368,6 +410,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 							failure = 1
 							continue
 						success = 1
+						IT.do_pickup_animation(user)
 						S.handle_item_insertion(IT, 1)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
 					if(success && !failure)
 						to_chat(user, "<span class='notice'>You put everything in [S].</span>")
@@ -377,6 +420,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 						to_chat(user, "<span class='notice'>You fail to pick anything up with [S].</span>")
 
 			else if(S.can_be_inserted(src))
+				I.do_pickup_animation(user)
 				S.handle_item_insertion(src)
 	else if(istype(I, /obj/item/stack/tape_roll))
 		if(istype(src, /obj/item/storage)) //Don't tape the bag if we can put the duct tape inside it instead
@@ -400,6 +444,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else
 		return ..()
 
+
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	if(prob(final_block_chance))
@@ -407,47 +452,103 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return 1
 	return 0
 
+
 // Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
 // Returns TRUE on success, FALSE on failure.
 /obj/item/proc/use(used)
 	return !used
+
 
 //Generic refill proc. Transfers something (e.g. fuel, charge) from an atom to our tool. returns TRUE if it was successful, FALSE otherwise
 //Not sure if there should be an argument that indicates what exactly is being refilled
 /obj/item/proc/refill(mob/user, atom/A, amount)
 	return FALSE
 
+
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
 	return
 
+
+/**
+ * Used only to check for obscuration on do_unEqip.
+ * Works faster than combination `get_slot_by_item(I) in check_obscured_slots()`, but CAN NOT be used to check items on equip.
+ */
+/obj/item/proc/is_obscured_for_unEquip(mob/living/carbon/human/user)
+	if(!user || !istype(user))
+		return FALSE
+
+	if(user.wear_suit)
+		if(src == user.w_uniform && (user.wear_suit.flags_inv & HIDEJUMPSUIT))
+			return TRUE
+		if(src == user.gloves && (user.wear_suit.flags_inv & HIDEGLOVES))
+			return TRUE
+		if(src == user.shoes && (user.wear_suit.flags_inv & HIDESHOES))
+			return TRUE
+
+	if(user.head)
+		if(src == user.wear_mask && (user.head.flags_inv & HIDEMASK))
+			return TRUE
+		if(src == user.glasses && (user.head.flags_inv & HIDEGLASSES))
+			return TRUE
+		if((src == user.l_ear || src == user.r_ear) && (user.head.flags_inv & HIDEHEADSETS))
+			return TRUE
+
+	return FALSE
+
+
+/**
+ * When item is officially left user
+ */
 /obj/item/proc/dropped(mob/user)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.Remove(user)
-	if(flags & DROPDEL)
+	SHOULD_CALL_PARENT(TRUE)
+
+	// Remove any item actions we temporary gave out
+	for(var/datum/action/action_item_has as anything in actions)
+		action_item_has.Remove(user)
+
+	if(flags & DROPDEL && !QDELETED(src))
 		qdel(src)
-	if((flags & NODROP) && !(initial(flags) & NODROP)) //Remove NODROP is dropped
+
+	if((flags & NODROP) && !(initial(flags) & NODROP)) // Remove NODROP flag if it was not initial
 		flags &= ~NODROP
+
 	in_inventory = FALSE
 	mouse_opacity = initial(mouse_opacity)
 	remove_outline()
-	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 
-// called just as an item is picked up (loc is not yet changed)
-/obj/item/proc/pickup(mob/user)
-	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
-	in_inventory = TRUE
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 	return TRUE
 
-// called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
+
+/**
+ * Called just as an item is picked up (loc is not yet changed)
+ */
+/obj/item/proc/pickup(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+
+	in_inventory = TRUE
+
+	return TRUE
+
+
+/**
+ * Called when this item is removed from a storage item, which is passed on as S.
+ * The loc variable is already set to the new destination before this is called.
+ */
 /obj/item/proc/on_exit_storage(obj/item/storage/S as obj)
 	in_storage = FALSE
-	return
 
-// called when this item is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
+	do_drop_animation(S)
+
+
+/**
+ * Called when this item is added into a storage item, which is passed on as S.
+ * The loc variable is already set to the storage item.
+ */
 /obj/item/proc/on_enter_storage(obj/item/storage/S as obj)
 	in_storage = TRUE
-	return
+
 
 /**
   * Called to check if this item can be put into a storage item.
@@ -460,50 +561,150 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/can_enter_storage(obj/item/storage/S, mob/user)
 	return TRUE
 
-// called when "found" in pockets and storage items. Returns 1 if the search should end.
+
+/**
+ * Called when "found" in pockets and storage items. Returns 1 if the search should end.
+ */
 /obj/item/proc/on_found(mob/finder as mob)
 	return
 
-// called when the giver gives it to the receiver
+
+/**
+ * Called when the giver gives it to the receiver.
+ */
 /obj/item/proc/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
 	return
 
-// called after an item is placed in an equipment slot
-// user is mob that equipped it
-// slot uses the slot_X defines found in setup.dm
-// for items that can be placed in multiple slots
-/obj/item/proc/equipped(var/mob/user, var/slot)
+
+/**
+ * Called after an item is placed in an equipment slot.
+ * Note that hands count as slots.
+ *
+ * Arguments:
+ * * 'user' is mob that equipped it
+ * * 'slot' uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
+ * * 'initial' is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
+ */
+/obj/item/proc/equipped(mob/user, slot, initial = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	for(var/datum/action/action_item_has as anything in actions)
+		if(item_action_slot_check(slot, user))
+			action_item_has.Grant(user)
+
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
-	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
-	for(var/X in actions)
-		var/datum/action/A = X
-		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
-			A.Grant(user)
 	in_inventory = TRUE
 
-/obj/item/proc/item_action_slot_check(slot, mob/user)
-	return 1
+	if(!initial)
+		// Playsound etc. nothing for now
+		equip_delay_self = equip_delay_self
 
-//returns 1 if the item is equipped by a mob, 0 otherwise.
-//This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
+	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
+	return TRUE
+
+
+/**
+ * Some items only give their actions buttons when in a specific slot.
+ */
+/obj/item/proc/item_action_slot_check(slot, mob/user)
+	return TRUE
+
+
+/**
+ * Returns `TRUE` if the item is equipped by a mob, `FALSE` otherwise.
+ * This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
+ */
 /obj/item/proc/is_equipped()
 	if(!ismob(loc))
-		return 0
+		return FALSE
 
 	var/mob/M = loc
 	if(src in M.get_equipped_items())
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
-//the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
-//If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
-//Set disable_warning to 1 if you wish it to not give you outputs.
-/obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = 0)
-	if(!M)
-		return 0
 
-	return M.can_equip(src, slot, disable_warning)
+/**
+ * This proc is called whenever mob's client presses 'drop_held_object' hotkey
+ * Not for robots since they have their own key in [keybindinds/robot.dm]
+ * You can easily overriride it for different behavior on other items.
+ */
+/obj/item/proc/run_drop_held_item(mob/user)
+	user.drop_from_active_hand()
+
+
+/**
+* Puts item into best inventory slot.
+* If all slots are filled, item attempts to move in storage: container in offhand, belt, backpack.
+* Proc is a real action after mob's client quick_equip hotkey is pressed. You can override it for diferent behavior.
+*
+* Arguments:
+* * 'force' - set to `TRUE` if you want to ignore equip delay and clothing obscuration.
+* * 'drop_on_fail' - set to `TRUE` if item should be dropped on equip fail.
+* * 'qdel_on_fail' - set to `TRUE` if item should be deleted on equip fail.
+* * 'silent' - set to `TRUE` if you want no warning messages on fail.
+*/
+/obj/item/proc/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE, silent = FALSE)
+
+	if(user.equip_to_appropriate_slot(src, force, silent = TRUE))
+		return TRUE
+
+	if(equip_delay_self)
+		if(!silent)
+			to_chat(user, SPAN_WARNING("Вы должны экипировать [src] вручную!"))
+		return FALSE
+
+	//If storage is active - insert there
+	if(user.s_active && user.s_active.can_be_inserted(src, TRUE))
+		user.s_active.handle_item_insertion(src)
+		return TRUE
+
+	//Checking for storage item in offhand, then belt, then backpack
+	var/list/possible = list( \
+		user.get_inactive_hand(), \
+		user.get_item_by_slot(slot_belt), \
+		user.get_item_by_slot(slot_back) \
+	)
+
+	for(var/obj/item/storage/container in possible)
+		if(!container)
+			continue
+		if(container.can_be_inserted(src, TRUE))
+			return container.handle_item_insertion(src)
+
+	if(drop_on_fail)
+		if(src in user.get_equipped_items(include_pockets = TRUE))
+			user.drop_item_ground(src)
+		else
+			forceMove(drop_location())
+		return FALSE
+
+	if(qdel_on_fail)
+		if(src in user.get_equipped_items(include_pockets = TRUE))
+			user.temporarily_remove_item_from_inventory(src, force = TRUE)
+		qdel(src)
+
+	if(!silent)
+		to_chat(user, SPAN_WARNING("Вы не можете надеть [src]!"))
+
+	return FALSE
+
+
+/**
+ * Mob 'M' is attempting to equip this item into the slot passed through as 'slot'. Return `TRUE` if it can do this and `FALSE` if it can't.
+ * IF this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
+ * If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
+ *
+ * Arguments:
+ * * 'disable_warning' set to `TRUE` if you wish no text outputs
+ * * 'slot' is the slot we are trying to equip to
+ * * 'bypass_equip_delay_self' for whether we want to bypass the equip delay
+ * * 'bypass_obscured' for whether we want to ignore clothing obscuration
+ */
+/obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
@@ -533,20 +734,28 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	usr.UnarmedAttack(src)
 
 
-//This proc is executed when someone clicks the on-screen UI button.
-//The default action is attack_self().
-//Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
+/**
+ * This proc is executed when someone clicks the on-screen UI button.
+ * The default action is attack_self().
+ * Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
+ */
 /obj/item/proc/ui_action_click(mob/user, actiontype)
 	attack_self(user)
 
-/obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
-	return 0
+
+/**
+ * This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
+ */
+/obj/item/proc/IsReflect(def_zone)
+	return FALSE
+
 
 /obj/item/proc/get_loc_turf()
 	var/atom/L = loc
 	while(L && !istype(L, /turf/))
 		L = L.loc
 	return loc
+
 
 /obj/item/proc/eyestab(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 
@@ -600,7 +809,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(prob(50))
 				if(M.stat != DEAD)
 					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
-					M.drop_item()
+					M.drop_from_active_hand()
 				M.AdjustEyeBlurry(10)
 				M.Paralyse(1)
 				M.Weaken(2)
@@ -615,12 +824,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	M.AdjustEyeBlurry(rand(3,4))
 	return
 
+
 /obj/item/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FOUR)
 		throw_at(S, 14, 3, spin = 0)
 	else
 		return
+
 
 /obj/item/throw_impact(atom/A)
 	if(A && !QDELETED(A))
@@ -630,10 +841,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			itempush = 0 // too light to push anything
 		return A.hitby(src, 0, itempush)
 
+
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	thrownby = thrower
 	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
+
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if(callback) //call the original callback
@@ -641,17 +854,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	throw_speed = initial(throw_speed) //explosions change this.
 	in_inventory = FALSE
 
+
 /obj/item/proc/pwr_drain()
-	return 0 // Process Kill
+	return FALSE // Process Kill
+
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
-		return 0
+		return FALSE
 	if(istype(loc,/obj/item/storage))
 		var/obj/item/storage/S = loc
 		S.remove_from_storage(src,newLoc)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /obj/item/proc/wash(mob/user, atom/source)
@@ -664,31 +879,35 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	acid_level = 0
 	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
 						"<span class='notice'>You wash [src] using [source].</span>")
-	return 1
+	return TRUE
+
 
 /obj/item/proc/is_crutch() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
 	return 0
+
 
 // Return true if you don't want regular throw handling
 /obj/item/proc/override_throw(mob/user, atom/target)
 	return FALSE
 
-/obj/item/proc/is_equivalent(obj/item/I)
-	return I == src
 
 /obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	return
+
 
 /obj/item/attack_animal(mob/living/simple_animal/M)
 	if(can_be_hit)
 		return ..()
 	return FALSE
 
+
 /obj/item/mech_melee_attack(obj/mecha/M)
-	return 0
+	return FALSE
+
 
 /obj/item/proc/openTip(location, control, params, user)
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
+
 
 /obj/item/MouseEntered(location, control, params)
 	if(in_inventory || in_storage)
@@ -705,10 +924,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		else
 			apply_outline(L) //if the player's alive and well we send the command with no color set, so it uses the theme's color
 
+
 /obj/item/MouseExited()
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
 	remove_outline()
+
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
 	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
@@ -718,6 +939,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/obj/item/storage/S = loc
 		S.swap_items(src, I, user)
 	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
+
 
 /obj/item/proc/apply_outline(mob/user, outline_color = null)
 	if(!(in_inventory || in_storage) || QDELETED(src) || isobserver(user)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
@@ -748,14 +970,78 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	outline_filter = filter(type = "outline", size = 1, color = outline_color)
 	filters += outline_filter
 
+
 /obj/item/proc/remove_outline()
 	if(outline_filter)
 		filters -= outline_filter
 		outline_filter = null
 
+
 // Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
 /obj/item/proc/get_part_rating()
 	return 0
+
+
+/obj/item/proc/update_equipped_item()
+	if(QDELETED(src) || QDELETED(loc) || !ishuman(loc))
+		return
+
+	var/mob/living/carbon/human/owner = loc
+	var/slot = owner.get_slot_by_item(src)
+
+	switch(slot)
+		if(slot_wear_suit)
+			owner.wear_suit_update(src)
+
+		if(slot_w_uniform)
+			owner.update_inv_w_uniform()
+
+		if(slot_gloves)
+			owner.update_inv_gloves()
+
+		if(slot_neck)
+			owner.update_inv_neck()
+
+		if(slot_glasses)
+			owner.wear_glasses_update(src)
+
+		if(slot_head)
+			owner.update_head(src)
+
+		if(slot_l_ear, slot_r_ear)
+			owner.update_inv_ears()
+
+		if(slot_shoes)
+			owner.update_inv_shoes()
+
+		if(slot_belt)
+			owner.update_inv_belt()
+
+		if(slot_wear_mask)
+			owner.wear_mask_update(src)
+
+		if(slot_wear_id)
+			owner.sec_hud_set_ID()
+			owner.update_inv_wear_id()
+
+		if(slot_wear_pda)
+			owner.update_inv_wear_pda()
+
+		if(slot_l_store, slot_r_store)
+			owner.update_inv_pockets()
+
+		if(slot_s_store)
+			owner.update_inv_s_store()
+
+		if(slot_back)
+			owner.update_inv_back()
+
+		if(slot_l_hand)
+			owner.update_inv_l_hand()
+
+		if(slot_r_hand)
+			owner.update_inv_r_hand()
+
 
 /obj/item/proc/update_slot_icon()
 	if(!ismob(loc))
@@ -793,6 +1079,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else if(owner.l_hand == src)
 		owner.update_inv_l_hand()
 
+
 /obj/item/proc/update_materials_coeff(new_coeff)
 	if(new_coeff <= 1)
 		materials_coeff = new_coeff
@@ -801,12 +1088,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	for(var/material in materials)
 		materials[material] *= materials_coeff
 
+
 /obj/item/proc/deplete_spell()
 	enchant_type = NO_SPELL
 	var/enchant_action = locate(/datum/action/item_action/activate/enchant) in actions
 	if(enchant_action)
 		qdel(enchant_action)
 	update_icon()
+
 
 /obj/item/update_atom_colour()
 	. = ..()
@@ -816,3 +1105,104 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	for(var/action in actions)
 		var/datum/action/myaction = action
 		myaction.UpdateButtonIcon()
+
+
+/**
+ * Simple helper we need to call before putting any item in hands, to allow fancy animation.
+ * Item will be forceMoved() to turf below its holder.
+ */
+/obj/item/proc/forceMove_turf()
+	var/turf/newloc = get(src, /turf)
+	if(!newloc)
+		CRASH("Item holder is not in turf contents.")
+	forceMove(newloc)
+
+
+/**
+ * Proc that checks if item is on user
+ */
+/obj/item/proc/is_on_user(mob/living/user)
+	return user = get(src, /mob/living)
+
+
+/obj/item/proc/do_pickup_animation(atom/target)
+
+	if(!config.item_animations_enabled)
+		return
+
+	if(!isturf(loc) || !target)
+		return
+
+	if(get_turf(src) == get_turf(target))	// No need for pickup animation if item is on user or on the same turf
+		return
+
+	var/image/transfer_animation = image(icon = src, loc = src.loc, layer = MOB_LAYER + 0.1)
+	transfer_animation.transform.Scale(0.75)
+	transfer_animation.plane = GAME_PLANE
+	transfer_animation.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+
+	var/target_x = target.pixel_x
+	var/target_y = target.pixel_y
+	var/direction = get_dir(get_turf(src), target)
+
+	if(direction & NORTH)
+		target_y += 32
+	else if(direction & SOUTH)
+		target_y -= 32
+	if(direction & EAST)
+		target_x += 32
+	else if(direction & WEST)
+		target_x -= 32
+	if(!direction)
+		target_y += 10
+		transfer_animation.pixel_x += 6 * (prob(50) ? 1 : -1)
+
+	flick_overlay_view(transfer_animation, 4)
+	var/matrix/animation_matrix = new(transfer_animation.transform)
+	animation_matrix.Turn(pick(-30, 30))
+	animation_matrix.Scale(0.65)
+
+	animate(transfer_animation, alpha = 175, pixel_x = target_x, pixel_y = target_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
+	animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
+
+
+/obj/item/proc/do_drop_animation(atom/moving_from)
+
+	if(!config.item_animations_enabled)
+		return
+
+	if(!isturf(loc) || !istype(moving_from))
+		return
+
+	var/from_x = moving_from.pixel_x
+	var/from_y = moving_from.pixel_y
+	var/direction = get_dir(moving_from, get_turf(src))
+
+	if(direction & NORTH)
+		from_y -= 32
+	else if(direction & SOUTH)
+		from_y += 32
+	if(direction & EAST)
+		from_x -= 32
+	else if(direction & WEST)
+		from_x += 32
+	if(!direction)
+		from_y += 10
+		from_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
+
+	//We're moving from these chords to our current ones
+	var/old_x = pixel_x
+	var/old_y = pixel_y
+	var/old_alpha = alpha
+	var/matrix/old_transform = transform
+	var/matrix/animation_matrix = new(old_transform)
+	animation_matrix.Turn(pick(-30, 30))
+	animation_matrix.Scale(0.7) // Shrink to start, end up normal sized
+
+	pixel_x = from_x
+	pixel_y = from_y
+	alpha = 0
+	transform = animation_matrix
+
+	// This is instant on byond's end, but to our clients this looks like a quick drop
+	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)

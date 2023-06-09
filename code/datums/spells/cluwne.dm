@@ -31,15 +31,15 @@
 	genemutcheck(src, GLOB.nervousblock, null, MUTCHK_FORCED)
 	rename_character(real_name, "cluwne")
 
-	unEquip(w_uniform, 1)
-	unEquip(shoes, 1)
-	unEquip(gloves, 1)
+	drop_item_ground(w_uniform, force = TRUE)
+	drop_item_ground(shoes, force = TRUE)
+	drop_item_ground(gloves, force = TRUE)
 	if(!istype(wear_mask, /obj/item/clothing/mask/cursedclown)) //Infinite loops otherwise
-		unEquip(wear_mask, 1)
-	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, slot_w_uniform, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, slot_gloves, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, slot_wear_mask, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, slot_shoes, TRUE, TRUE)
+		drop_item_ground(wear_mask, force = TRUE)
+	equip_to_slot_or_del(new /obj/item/clothing/under/cursedclown, slot_w_uniform)
+	equip_to_slot_or_del(new /obj/item/clothing/gloves/cursedclown, slot_gloves)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/cursedclown, slot_wear_mask)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/cursedclown, slot_shoes)
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
@@ -66,22 +66,22 @@
 	genemutcheck(src, GLOB.nervousblock, null, MUTCHK_FORCED)
 
 	var/obj/item/clothing/under/U = w_uniform
-	unEquip(w_uniform, 1)
+	drop_item_ground(w_uniform, force = TRUE)
 	if(U)
 		qdel(U)
 
 	var/obj/item/clothing/shoes/S = shoes
-	unEquip(shoes, 1)
+	drop_item_ground(shoes, force = TRUE)
 	if(S)
 		qdel(S)
 
 	if(istype(wear_mask, /obj/item/clothing/mask/cursedclown))
-		unEquip(wear_mask, 1)
+		drop_item_ground(wear_mask, force = TRUE)
 
 	if(istype(gloves, /obj/item/clothing/gloves/cursedclown))
 		var/obj/item/clothing/gloves/G = gloves
-		unEquip(gloves, 1)
+		drop_item_ground(gloves, force = TRUE)
 		qdel(G)
 
-	equip_to_slot_if_possible(new /obj/item/clothing/under/lawyer/black, slot_w_uniform, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, slot_shoes, TRUE, TRUE)
+	equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/black, slot_w_uniform)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/black, slot_shoes)

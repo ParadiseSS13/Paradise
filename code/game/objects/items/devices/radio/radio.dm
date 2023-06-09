@@ -689,8 +689,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			return
 
 		if(!keyslot)
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			keyslot = W
 
 		recalculateChannels()

@@ -93,7 +93,7 @@ To draw a rune, use a ritual dagger.
 		return
 	if(istype(I, /obj/item/nullrod))
 		if(iscultist(user))//cultist..what are doing..cultist..staph...
-			user.drop_item()
+			user.drop_from_active_hand()
 			user.visible_message("<span class='warning'>[I] suddenly glows with a white light, forcing [user] to drop it in pain!</span>", \
 			"<span class='danger'>[I] suddenly glows with a white light that sears your hand, forcing you to drop it!</span>") // TODO: Make this actually burn your hand
 			return
@@ -353,7 +353,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			H.Silence(3) //Prevent "HALP MAINT CULT" before you realise you're converted
 
 			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
-			if(H.equip_to_slot_if_possible(D, slot_in_backpack, FALSE, TRUE))
+			if(H.equip_to_slot_if_possible(D, slot_in_backpack, disable_warning = TRUE))
 				to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding. </span>")
 			else
 				to_chat(H, "<span class='cultlarge'>There is a dagger on the floor. Use it to do [SSticker.cultdat.entity_title1]'s bidding.</span>")
@@ -905,7 +905,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>",
 								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/item/I in new_human.get_all_slots())
-			new_human.unEquip(I)
+			new_human.drop_item_ground(I)
 		SSticker.mode.remove_cultist(new_human.mind, FALSE)
 		new_human.dust()
 

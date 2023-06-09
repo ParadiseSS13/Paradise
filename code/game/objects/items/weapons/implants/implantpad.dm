@@ -27,8 +27,7 @@
 	if(case)
 		to_chat(user, "<span class='warning'>There's already an implant in the pad!</span>")
 		return
-	user.unEquip(C)
-	C.forceMove(src)
+	user.drop_transfer_item_to_loc(C, src)
 	case = C
 	update_icon()
 
@@ -36,15 +35,16 @@
 	if(!case)
 		to_chat(user, "<span class='warning'>There's no implant in the pad!</span>")
 		return
+
+	case.forceMove_turf()
 	if(user)
-		if(user.put_in_hands(case))
+		if(user.put_in_hands(case, ignore_anim = FALSE))
 			add_fingerprint(user)
 			case.add_fingerprint(user)
 			case = null
 			update_icon()
 			return
 
-	case.forceMove(get_turf(src))
 	case = null
 	update_icon()
 

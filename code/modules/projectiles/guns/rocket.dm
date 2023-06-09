@@ -30,8 +30,7 @@
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
 		if(rockets.len < max_rockets)
-			user.drop_item()
-			I.loc = src
+			user.drop_transfer_item_to_loc(I, src)
 			rockets += I
 			to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
 			to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")

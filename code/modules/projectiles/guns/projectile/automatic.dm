@@ -38,9 +38,8 @@
 				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
 			if(alarmed)
 				alarmed = 0
-			user.remove_from_mob(AM)
+			user.drop_transfer_item_to_loc(AM, src)
 			magazine = AM
-			magazine.loc = src
 			chamber_round()
 			A.update_icon()
 			update_icon()

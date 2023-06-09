@@ -37,11 +37,11 @@
 		return FALSE
 	if(!A1.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(A1)
+			user.drop_transfer_item_to_loc(A1, src)
 		A1.forceMove(src)
 	if(!A2.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(A2)
+			user.drop_transfer_item_to_loc(A2, src)
 		A2.forceMove(src)
 	A1.holder = src
 	A2.holder = src

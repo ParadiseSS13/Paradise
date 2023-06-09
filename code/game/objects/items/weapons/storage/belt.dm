@@ -29,11 +29,13 @@
 	if(!M.restrained() && !M.stat && can_use())
 		switch(over_object.name)
 			if("r_hand")
-				M.unEquip(src)
-				M.put_in_r_hand(src)
+				if(!remove_item_from_storage(drop_location()))
+					M.drop_item_ground(src)
+				M.put_in_r_hand(src, ignore_anim = FALSE)
 			if("l_hand")
-				M.unEquip(src)
-				M.put_in_l_hand(src)
+				if(!remove_item_from_storage(drop_location()))
+					M.drop_item_ground(src)
+				M.put_in_l_hand(src, ignore_anim = FALSE)
 		src.add_fingerprint(usr)
 		return
 
@@ -659,7 +661,7 @@
 	if(length(contents))
 		var/obj/item/I = contents[1]
 		H.visible_message("<span class='notice'>[H] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
-		H.put_in_hands(I)
+		H.put_in_hands(I, ignore_anim = FALSE)
 		update_icon()
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")

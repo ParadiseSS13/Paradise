@@ -375,7 +375,7 @@
 		return ..()
 	user.visible_message("<span class='notice'>[user] scatters [src] in all directions.</span>", \
 						 "<span class='notice'>You scatter [src] across the area. The particles slowly fade away.</span>")
-	user.drop_item()
+	user.drop_from_active_hand()
 	qdel(src)
 
 /obj/item/ectoplasm/revenant/throw_impact(atom/hit_atom)

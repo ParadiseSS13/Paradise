@@ -41,14 +41,14 @@
 				qdel(recipe)
 
 /obj/machinery/bottler/attackby(obj/item/O, mob/user, params)
-	if(!user.canUnEquip(O, 0))
+	if(!user.can_unEquip(O))
 		to_chat(user, "<span class='warning'>[O] is stuck to your hand, you can't seem to put it down!</span>")
 		return 0
 	if(is_type_in_list(O,acceptable_items))
 		if(istype(O, /obj/item/reagent_containers/food/snacks))
 			add_fingerprint(user)
 			var/obj/item/reagent_containers/food/snacks/S = O
-			user.unEquip(S)
+			user.drop_item_ground(S)
 			if(S.reagents && !S.reagents.total_volume)		//This prevents us from using empty foods, should one occur due to some sort of error
 				to_chat(user, "<span class='warning'>[S] is gone, oh no!</span>")
 				qdel(S)			//Delete the food object because it is useless even as food due to the lack of reagents
@@ -62,7 +62,7 @@
 					to_chat(user, "<span class='warning'>Only unopened cans and bottles can be processed to ensure product integrity.</span>")
 					return 0
 				add_fingerprint(user)
-				user.unEquip(C)
+				user.drop_item_ground(C)
 				if(!C.reagents.total_volume)		//Empty cans get recycled, even if they have somehow remained unopened due to some sort of error
 					recycle_container(C)
 				else								//Full cans that are unopened get inserted for processing as ingredients
@@ -70,19 +70,19 @@
 			return 1
 		else
 			add_fingerprint(user)
-			user.unEquip(O)
+			user.drop_item_ground(O)
 			insert_item(O, user)
 			return 1
 	else if(istype(O, /obj/item/trash/can))			//Crushed cans (and bottles) are returnable still
 		add_fingerprint(user)
 		var/obj/item/trash/can/C = O
-		user.unEquip(C)
+		user.drop_item_ground(C)
 		recycle_container(C)
 		return 1
 	else if(istype(O, /obj/item/stack/sheet))		//Sheets of materials can replenish the machine's supply of drink containers (when people inevitably don't return them)
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/S = O
-		user.unEquip(S)
+		user.drop_item_ground(S)
 		process_sheets(S)
 		return 1
 	else		//If it doesn't qualify in the above checks, we don't want it. Inform the person so they (ideally) stop trying to put the nuke disc in.

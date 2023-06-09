@@ -40,7 +40,8 @@
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(bag)
 		add_fingerprint(user)
-		user.put_in_hands(bag)
+		bag.forceMove_turf()
+		user.put_in_hands(bag, ignore_anim = FALSE)
 		bag.update_icon()
 		bag = null
 		update_icon()
@@ -50,11 +51,10 @@
 		if(bag)
 			to_chat(user, "<span class='warning'>[src] already has an IV bag!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 
 		add_fingerprint(user)
-		I.forceMove(src)
 		bag = I
 		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
 		update_icon()

@@ -50,15 +50,15 @@
 		if(!is_pen(P))
 			return
 		to_chat(user, "<span class='notice'>You slide [P] into [src].</span>")
-		user.unEquip(P)
-		P.forceMove(src)
+		user.drop_transfer_item_to_loc(P, src)
 		containedpen = P
 	else
 		if(!containedpen)
 			to_chat(user, "<span class='warning'>There isn't a pen in [src] for you to remove!</span>")
 			return
 		to_chat(user, "<span class='notice'>You remove [containedpen] from [src].</span>")
-		user.put_in_hands(containedpen)
+		containedpen.forceMove_turf()
+		user.put_in_hands(containedpen, ignore_anim = FALSE)
 		containedpen = null
 	update_icon()
 
@@ -88,8 +88,7 @@
 
 /obj/item/clipboard/attackby(obj/item/W, mob/user)
 	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
-		user.unEquip(W)
-		W.forceMove(src)
+		user.drop_transfer_item_to_loc(W, src)
 		to_chat(user, "<span class='notice'>You clip [W] onto [src].</span>")
 		playsound(loc, "pageturn", 50, 1)
 		if(isPaperwork(W) == PAPERWORK)
@@ -134,7 +133,8 @@
 	else if(href_list["remove"])
 		var/obj/item/P = locate(href_list["remove"]) in src
 		if(isPaperwork(P))
-			usr.put_in_hands(P)
+			P.forceMove_turf()
+			usr.put_in_hands(P, ignore_anim = FALSE)
 			to_chat(usr, "<span class='notice'>You remove [P] from [src].</span>")
 			checkTopPaper() //So we don't accidentally make the top sheet not be on the clipboard
 	else if(href_list["viewOrWrite"])

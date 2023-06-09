@@ -145,7 +145,7 @@
 	return 1
 
 /datum/surgery_step/limb/attach/proc/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/E)
-	user.unEquip(E)
+	user.drop_item_ground(E)
 	E.replaced(target)
 	target.update_body()
 	target.updatehealth()

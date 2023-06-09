@@ -127,7 +127,7 @@
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/shard))
-		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
+		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear(drop_location())
 		if(istype(I, /obj/item/shard/plasma))
 			S.force_wielded = 19
 			S.force_unwielded = 11
@@ -135,22 +135,22 @@
 			S.icon_prefix = "spearplasma"
 			S.update_icon()
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)
-		user.unEquip(I)
+			user.temporarily_remove_item_from_inventory(src)
+		user.temporarily_remove_item_from_inventory(I)
 
-		user.put_in_hands(S)
+		user.put_in_hands(S, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
 		qdel(I)
 		qdel(src)
 
 	else if(istype(I, /obj/item/assembly/igniter) && !(I.flags & NODROP))
-		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
+		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod(drop_location())
 
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)
-		user.unEquip(I)
+			user.temporarily_remove_item_from_inventory(src)
+		user.temporarily_remove_item_from_inventory(I)
 
-		user.put_in_hands(P)
+		user.put_in_hands(P, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You fasten [I] to the top of the rod with the cable.</span>")
 		qdel(I)
 		qdel(src)
@@ -362,12 +362,12 @@
 	attack_verb = on ? attack_verb_on : initial(attack_verb)
 	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
 	homerun_able = on
-	
+
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
 	. = ..()
 	if(!(isertmindshielded(user)))
 		user.Weaken(5)
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		to_chat(user, "<span class='cultlarge'>\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\"</span>")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user

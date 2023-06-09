@@ -157,7 +157,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			e.start()
 			if(ismob(loc))
 				var/mob/M = loc
-				M.unEquip(src, 1)
+				M.temporarily_remove_item_from_inventory(src, force = TRUE)
 			qdel(src)
 			return
 		if(reagents.get_reagent_amount("fuel")) // the fuel explodes, too, but much less violently
@@ -166,7 +166,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			e.start()
 			if(ismob(loc))
 				var/mob/M = loc
-				M.unEquip(src, 1)
+				M.temporarily_remove_item_from_inventory(src, force = TRUE)
 			qdel(src)
 			return
 		reagents.set_reacting(TRUE)
@@ -176,10 +176,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(flavor_text)
 			var/turf/T = get_turf(src)
 			T.visible_message(flavor_text)
-		if(iscarbon(loc))
-			var/mob/living/carbon/C = loc
-			if(C.wear_mask == src) // Don't update if it's just in their hand
-				C.wear_mask_update(src)
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			if(H.wear_mask == src) // Don't update if it's just in their hand
+				H.wear_mask_update(src)
 		set_light(2, 0.25, "#E38F46")
 		START_PROCESSING(SSobj, src)
 
@@ -231,7 +231,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
-		M.unEquip(src, 1)		//Force the un-equip so the overlays update
+		M.temporarily_remove_item_from_inventory(src, force = TRUE)		//Force the un-equip so the overlays update
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
@@ -450,8 +450,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(target, /obj/item/reagent_containers/food/snacks/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/O = target
 		if(O.dry)
-			user.unEquip(target, 1)
-			user.unEquip(src, 1)
+			user.temporarily_remove_item_from_inventory(target, force = TRUE)
+			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 			var/obj/item/clothing/mask/cigarette/rollie/R = new /obj/item/clothing/mask/cigarette/rollie(user.loc)
 			R.chem_volume = target.reagents.total_volume
 			target.reagents.trans_to(R, R.chem_volume)

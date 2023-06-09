@@ -87,9 +87,9 @@ By design, d1 is the smallest direction and d2 is the highest
 		investigate_log("was deconstructed by [key_name_log(usr)] at [COORD(T)]", INVESTIGATE_WIRES)
 	if(!(flags & NODECONSTRUCT))
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 2, TRUE, color)
 		else
-			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+			new/obj/item/stack/cable_coil(T, 1, TRUE, color)
 	qdel(src)
 
 ///////////////////////////////////
@@ -508,16 +508,16 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return OXYLOSS
 
-/obj/item/stack/cable_coil/New(loc, length = MAXCOIL, paramcolor = null)
-	..()
-	amount = length
-	if(paramcolor)
-		color = paramcolor
+
+/obj/item/stack/cable_coil/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
+	. = ..()
+	if(cable_color)
+		color = cable_color
+	recipes = GLOB.cable_coil_recipes
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
 	update_icon()
-	recipes = GLOB.cable_coil_recipes
-	update_wclass()
+
 
 ///////////////////////////////////
 // General procedures
@@ -575,7 +575,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	else
 		return ..()
 
-/obj/item/stack/cable_coil/split()
+/obj/item/stack/cable_coil/split_stack()
 	var/obj/item/stack/cable_coil/C = ..()
 	C.color = color
 	return C
@@ -594,7 +594,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		name = "cable coil"
 	..()
 
-/obj/item/stack/cable_coil/proc/update_wclass()
+/obj/item/stack/cable_coil/update_weight()
 	if(amount == 1)
 		w_class = WEIGHT_CLASS_TINY
 	else
@@ -614,7 +614,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 //   - Wirecutters : cut them duh !
 //   - Cable coil : merge cables
 /obj/item/stack/cable_coil/attackby(obj/item/W, mob/user)
-	..()
+	. = ..()
 	if(is_cyborg)
 		return
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -627,7 +627,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			to_chat(user, "You join the cable coils together.")
 			return
 		else
-			to_chat(user, "You transfer [get_amount_transferred()] length\s of cable from one coil to the other.")
+			to_chat(user, "You transfer cables from one coil to the other.")
 			return
 
 	if(istype(W, /obj/item/toy/crayon))
@@ -697,7 +697,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	if(C.shock(user, 50))
 		if(prob(50)) //fail
-			new /obj/item/stack/cable_coil(get_turf(C), 1, paramcolor = C.color)
+			new /obj/item/stack/cable_coil(get_turf(C), 1, TRUE, C.color)
 			C.deconstruct()
 
 	return C
@@ -821,13 +821,13 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/cut
 	item_state = "coil2"
 
-/obj/item/stack/cable_coil/cut/Initialize(mapload)
+/obj/item/stack/cable_coil/cut/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
 	. = ..()
 	src.amount = rand(1,2)
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
 	update_icon()
-	update_wclass()
+	update_weight()
 
 /obj/item/stack/cable_coil/yellow
 	color = WIRE_COLOR_YELLOW
@@ -850,9 +850,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/white
 	color = WIRE_COLOR_WHITE
 
-/obj/item/stack/cable_coil/random/New()
+/obj/item/stack/cable_coil/random/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
 	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
-	..()
+	. = ..(cable_color = color)
 
 /obj/item/stack/cable_coil/proc/cable_color(colorC)
 	if(!colorC)

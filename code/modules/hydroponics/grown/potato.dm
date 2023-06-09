@@ -44,7 +44,7 @@
 		to_chat(user, "<span class='notice'>You cut the potato into wedges with [W].</span>")
 		var/obj/item/reagent_containers/food/snacks/grown/potato/wedges/Wedges = new /obj/item/reagent_containers/food/snacks/grown/potato/wedges
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)
+			user.temporarily_remove_item_from_inventory(src)
 		user.put_in_hands(Wedges)
 		qdel(src)
 	else

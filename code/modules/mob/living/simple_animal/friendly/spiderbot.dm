@@ -80,8 +80,7 @@
 
 		to_chat(user, "<span class='notice'>You install [B] in [src]!</span>")
 
-		user.drop_item()
-		B.forceMove(src)
+		user.drop_transfer_item_to_loc(B, src)
 		mmi = B
 		transfer_personality(B)
 

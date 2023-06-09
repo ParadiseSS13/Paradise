@@ -42,7 +42,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
 	slot_flags = 0
-	flags = DROPDEL | ABSTRACT | NOBLUDGEON | NOPICKUP
+	flags = DROPDEL | ABSTRACT | NOBLUDGEON
 	force = 10
 	ninja_weapon = TRUE
 	var/cost = 500
@@ -58,8 +58,14 @@
 	my_action.toggle_button_on_off()
 	my_action = null
 
-/obj/item/gun/magic/johyo/equip_to_best_slot(mob/M)
+
+/obj/item/gun/magic/johyo/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE)
 	qdel(src)
+
+
+/obj/item/gun/magic/johyo/run_drop_held_item(mob/user)
+	qdel(src)
+
 
 /obj/item/gun/magic/johyo/can_trigger_gun(mob/living/user)
 	if(!my_action.IsAvailable(show_message = TRUE, ignore_ready = TRUE))

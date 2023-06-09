@@ -110,11 +110,11 @@
 	if(isigniter(S.a_left) == isigniter(S.a_right))		//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
 		return
 
-	var/obj/item/onetankbomb/R = new /obj/item/onetankbomb(loc)
+	var/obj/item/onetankbomb/R = new /obj/item/onetankbomb(drop_location())
 
-	M.drop_item()			//Remove the assembly from your hands
-	M.remove_from_mob(src)	//Remove the tank from your character,in case you were holding it
-	M.put_in_hands(R)		//Equips the bomb if possible, or puts it on the floor.
+	M.drop_from_active_hand()			//Remove the assembly from your hands
+	M.drop_item_ground(src)	//Remove the tank from your character,in case you were holding it
+	M.put_in_hands(R, ignore_anim = FALSE)		//Equips the bomb if possible, or puts it on the floor.
 
 	R.bombassembly = S	//Tell the bomb about its assembly part
 	S.master = R		//Tell the assembly about its new owner

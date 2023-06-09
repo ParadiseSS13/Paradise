@@ -124,7 +124,7 @@
 		if(istype(O,/obj/item/stack))
 			var/obj/item/stack/S = O
 			if(S.amount > 1)
-				var/obj/item/stack/to_add = S.split(user, 1)
+				var/obj/item/stack/to_add = S.split_stack(user, 1)
 				to_add.forceMove(src)
 				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
 			else
@@ -148,7 +148,7 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
 		//return 0
 	else

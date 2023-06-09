@@ -42,7 +42,7 @@
 	if(is_sharp(W))
 		to_chat(user, "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>")
 		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
-		user.unEquip(src)
+		user.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 		return
 	else

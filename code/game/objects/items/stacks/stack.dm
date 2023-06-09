@@ -10,19 +10,31 @@
  */
 /obj/item/stack
 	origin_tech = "materials=1"
-	var/list/recipes = list() // /datum/stack_recipe
+	/// A list to all recipies this stack item can create.
+	var/list/recipes = list()
+	/// What's the name of just 1 of this stack. You have a stack of leather, but one piece of leather
 	var/singular_name
+	/// How much is in this stack?
 	var/amount = 1
-	var/to_transfer = 0
-	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
-	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
-	var/recipe_width = 400 //Width of the recipe popup
-	var/recipe_height = 400 //Height of the recipe popup
-	var/is_cyborg = 0 // It's 1 if module is used by a cyborg, and uses its storage
-	var/cost = 1 // How much energy from storage it costs
+	/// See stack recipes initialization. "max_res_amount" must be equal to this max_amount
+	var/max_amount = 50
+	/// The weight class the stack has at amount > 2/3rds of max_amount
+	var/full_w_class = WEIGHT_CLASS_NORMAL
+	/// This path and its children should merge with this stack, defaults to src.type
+	var/merge_type = null
+	/// Width of the recipe popup
+	var/recipe_width = 400
+	/// Height of the recipe popup
+	var/recipe_height = 400
+	/// If TRUE, this stack is a module used by a cyborg (doesn't run out like normal / etc)
+	var/is_cyborg = FALSE
+	/// Related to above. If present, the energy we draw from when using stack items, for cyborgs
 	var/datum/robot_energy_storage/source
+	/// Related to above. How much energy it costs from storage to use stack items
+	var/cost = 1
 
-/obj/item/stack/New(loc, new_amount, merge = TRUE)
+
+/obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 	if(new_amount != null)
 		amount = new_amount
 	while(amount > max_amount)
@@ -30,69 +42,26 @@
 		new type(loc, max_amount, FALSE)
 	if(!merge_type)
 		merge_type = type
-	..()
-	if(merge && !(amount >= max_amount))
-		for(var/obj/item/stack/S in loc)
-			if(S.merge_type == merge_type)
-				merge(S)
 
-/obj/item/stack/Crossed(obj/O, oldloc)
-	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
-		return
-	if(istype(O, merge_type) && !O.throwing)
-		merge(O)
-	..()
-
-/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(istype(AM, merge_type) && !(amount >= max_amount))
-		merge(AM)
 	. = ..()
+
+	if(merge)
+		for(var/obj/item/stack/item_stack in loc)
+			if(item_stack == src)
+				continue
+			if(can_merge(item_stack))
+				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
+				if(is_zero_amount(delete_if_zero = FALSE))
+					return INITIALIZE_HINT_QDEL
+
+	update_icon()
+	update_weight()
+
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
 		usr << browse(null, "window=stack")
 	return ..()
-
-/obj/item/stack/examine(mob/user)
-	. = ..()
-	if (is_cyborg)
-		if(singular_name)
-			. += "<span class='notice'>There is enough energy for [get_amount()] [singular_name]\s.</span>"
-		else
-			. += "<span class='notice'>There is enough energy for [get_amount()].</span>"
-		return
-	if(in_range(user, src))
-		if(singular_name)
-			. += "<span class='notice'>There are [amount] [singular_name]\s in the stack.</span>"
-		else
-			. += "<span class='notice'>There are [amount] [name]\s in the stack.</span>"
-		. +="<span class='notice'>Alt-click to take a custom amount.</span>"
-
-/obj/item/stack/proc/add(newamount)
-	if (is_cyborg)
-		source.add_charge(newamount * cost)
-	else
-		amount += newamount
-		update_icon()
-
-/obj/item/stack/attack_self(mob/user)
-	list_recipes(user)
-
-/obj/item/stack/attack_self_tk(mob/user)
-	list_recipes(user)
-
-/obj/item/stack/attack_tk(mob/user)
-	if(user.stat || !isturf(loc)) return
-	// Allow remote stack splitting, because telekinetic inventory managing
-	// is really cool
-	if(src in user.tkgrabbed_objects)
-		var/obj/item/stack/F = split(user, 1)
-		F.attack_tk(user)
-		if(src && user.machine == src)
-			spawn(0)
-				interact(user)
-	else
-		..()
 
 
 /obj/item/stack/proc/list_recipes(mob/user, recipes_sublist)
@@ -156,6 +125,7 @@
 	popup.set_content(t1)
 	popup.open(0)
 	onclose(user, "stack")
+
 
 /obj/item/stack/Topic(href, href_list)
 	..()
@@ -251,7 +221,7 @@
 		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
 			src = null //dont kill proc after qdel()
-			usr.unEquip(oldsrc, 1)
+			usr.temporarily_remove_item_from_inventory(oldsrc, force = TRUE)
 			qdel(oldsrc)
 			if(istype(O, /obj/item))
 				usr.put_in_hands(O)
@@ -268,8 +238,157 @@
 			interact(usr)
 			return
 
-/obj/item/stack/use(used, check = TRUE)
-	if(check && zero_amount())
+
+/obj/item/stack/examine(mob/user)
+	. = ..()
+	if(is_cyborg)
+		if(singular_name)
+			. += "There is enough energy for [get_amount()] [singular_name]\s."
+		else
+			. += "There is enough energy for [get_amount()]."
+		return
+	if(in_range(user, src))
+		if(singular_name)
+			. += "There are [amount] [singular_name]\s in the stack."
+		else
+			. += "There are [amount] [name]\s in the stack."
+		. += SPAN_NOTICE("<b>Alt-click</b> with an empty hand to take a custom amount.")
+
+
+/obj/item/stack/Crossed(obj/item/crossing, oldloc)
+	if(can_merge(crossing, inhand = FALSE))
+		merge(crossing)
+	. = ..()
+
+
+/obj/item/stack/hitby(atom/movable/hitting, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(can_merge(hitting, inhand = TRUE))
+		merge(hitting)
+	. = ..()
+
+
+/obj/item/stack/attack_self(mob/user)
+	list_recipes(user)
+
+
+/obj/item/stack/attack_self_tk(mob/user)
+	list_recipes(user)
+
+
+/obj/item/stack/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, SPAN_WARNING("You can't do that right now!</span>"))
+		return
+	if(!in_range(src, user))
+		return
+	if(!ishuman(user))
+		return
+	if(amount < 1)
+		return
+	//get amount from user
+	var/max = get_amount()
+	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
+	if(stackmaterial == null || stackmaterial <= 0 || stackmaterial > get_amount())
+		return
+	if(!Adjacent(user, 1))
+		return
+	split_stack(user, stackmaterial)
+	do_pickup_animation(user)
+	to_chat(user, SPAN_NOTICE("You take [stackmaterial] sheets out of the stack."))
+
+
+/obj/item/stack/attack_tk(mob/user)
+	if(user.stat || !isturf(loc))
+		return
+	// Allow remote stack splitting, because telekinetic inventory managing
+	// is really cool
+	if(src in user.tkgrabbed_objects)
+		var/obj/item/stack/F = split_stack(user, 1)
+		F.attack_tk(user)
+		. = F
+		if(src && user.machine == src)
+			spawn(0)
+				interact(user)
+	else
+		. = ..()
+
+
+/obj/item/stack/attack_hand(mob/user)
+	if(user.is_in_inactive_hand(src))
+		if(is_zero_amount(delete_if_zero = TRUE))
+			return FALSE
+		. = split_stack(user, 1)
+		if(src && user.machine == src)
+			spawn(0)
+				interact(user)
+	else
+		. = ..()
+
+
+/obj/item/stack/attackby(obj/item/W, mob/user, params)
+	if(can_merge(W, inhand = TRUE))
+		var/obj/item/stack/S = W
+		if(merge(S))
+			to_chat(user, SPAN_NOTICE("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
+	else
+		. = ..()
+
+
+/obj/item/stack/proc/copy_evidences(obj/item/stack/from)
+	blood_DNA			= from.blood_DNA
+	fingerprints		= from.fingerprints
+	fingerprintshidden	= from.fingerprintshidden
+	fingerprintslast	= from.fingerprintslast
+
+
+/**
+ * Returns TRUE if the item stack is the equivalent of a 0 amount item.
+ *
+ * Also deletes the item if delete_if_zero is TRUE and the stack does not have
+ * is_cyborg set to true.
+ */
+/obj/item/stack/proc/is_zero_amount(delete_if_zero = TRUE)
+	if(is_cyborg)
+		return source.energy < cost
+	if(amount < 1)
+		if(delete_if_zero)
+			qdel(src)
+		return TRUE
+	return FALSE
+
+
+/obj/item/stack/proc/get_amount()
+	if(is_cyborg)
+		. = round(source?.energy / cost)
+	else
+		. = amount
+
+
+/** Adds some number of units to this stack.
+ *
+ * Arguments:
+ * * newamount: The number of units to add to this stack.
+ */
+/obj/item/stack/proc/add(newamount)
+	if(is_cyborg)
+		source.add_charge(newamount * cost)
+	else
+		amount += newamount
+		update_icon()
+		update_weight()
+
+
+/obj/item/stack/proc/update_weight()
+	if(amount <= (max_amount * (1/3)))
+		w_class = clamp(full_w_class-2, WEIGHT_CLASS_TINY, full_w_class)
+	else if (amount <= (max_amount * (2/3)))
+		w_class = clamp(full_w_class-1, WEIGHT_CLASS_TINY, full_w_class)
+	else
+		w_class = full_w_class
+
+
+/obj/item/stack/use(used, transfer = FALSE, check = TRUE)
+	if(check && is_zero_amount(delete_if_zero = TRUE))
 		return FALSE
 	if(is_cyborg)
 		return source.use_charge(used * cost)
@@ -277,113 +396,91 @@
 		return FALSE
 	amount -= used
 	if(check)
-		zero_amount()
+		is_zero_amount(delete_if_zero = TRUE)
 	update_icon()
+	update_weight()
 	return TRUE
 
-/obj/item/stack/proc/get_amount()
-	if(is_cyborg)
-		. = round(source.energy / cost)
-	else
-		return amount
 
-/obj/item/stack/proc/get_max_amount()
-	return max_amount
-
-/obj/item/stack/proc/get_amount_transferred()
-	return to_transfer
-
-/obj/item/stack/proc/split(mob/user, amt)
-	var/obj/item/stack/F = new type(loc, amt)
-	F.copy_evidences(src)
-	if(isliving(user))
-		add_fingerprint(user)
-		F.add_fingerprint(user)
-	use(amt)
-	return F
-
-/obj/item/stack/attack_hand(mob/user)
-	if(user.is_in_inactive_hand(src) && amount > 1)
-		change_stack(user, 1)
-		if(src && usr.machine == src)
-			spawn(0)
-				interact(usr)
-	else
-		..()
-
-/obj/item/stack/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user))
-		return
-	if(!ishuman(usr))
-		return
-	if(amount < 1)
-		return
-	//get amount from user
-	var/min = 0
-	var/max = get_amount()
-	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
-	if(stackmaterial == null || stackmaterial <= min || stackmaterial > get_amount())
-		return
-	if(!Adjacent(user, 1))
-		return
-	change_stack(user,stackmaterial)
-	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
-
-/obj/item/stack/proc/change_stack(mob/user,amount)
-	var/obj/item/stack/F = new type(user, amount, FALSE)
+/** Splits the stack into two stacks.
+ *
+ * Arguments:
+ * - [user][/mob]: The mob splitting the stack.
+ * - amount: The number of units to split from this stack.
+ */
+/obj/item/stack/proc/split_stack(mob/user, amount)
+	if(!use(amount, FALSE))
+		return null
+	var/obj/item/stack/F = new type(user ? user : drop_location(), amount, FALSE)
 	. = F
 	F.copy_evidences(src)
-	user.put_in_hands(F)
-	add_fingerprint(user)
-	F.add_fingerprint(user)
-	use(amount)
 
-/obj/item/stack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, merge_type))
-		var/obj/item/stack/S = W
-		merge(S)
-		to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
-	else
-		return ..()
+	if(user)
+		if(!user.put_in_hands(F, merge_stacks = FALSE))
+			F.forceMove(user.drop_location())
+		add_fingerprint(user)
+		F.add_fingerprint(user)
 
-// Returns TRUE if the stack amount is zero.
-// Also qdels the stack gracefully if it is.
-/obj/item/stack/proc/zero_amount()
-	if(amount < 1)
-		if(is_cyborg)
-			return source.energy < cost
-		if(ismob(loc))
-			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
-			L.unEquip(src, TRUE)
-		if(amount < 1)
-			// If you stand on top of a stack, and drop a - different - 0-amount stack on the floor,
-			// the two get merged, so the amount of items in the stack can increase from the 0 that it had before.
-			// Check the amount again, to be sure we're not qdeling healthy stacks.
-			qdel(src)
-		return TRUE
-	return FALSE
+	is_zero_amount(delete_if_zero = TRUE)
 
-/obj/item/stack/proc/merge(obj/item/stack/S) //Merge src into S, as much as possible
-	if(QDELETED(S) || QDELETED(src) || S == src) //amusingly this can cause a stack to consume itself, let's not allow that.
+
+/** Checks whether this stack can merge itself into another stack.
+ *
+ * Arguments:
+ * - [check][/obj/item/stack]: The stack to check for mergeability.
+ * - [inhand][boolean]: Whether or not the stack to check should act like it's in a mob's hand.
+ */
+/obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
+	if(!istype(check, merge_type))
 		return FALSE
-	var/transfer = get_amount()
-	if(S.is_cyborg)
-		transfer = min(transfer, round((S.source.max_energy - S.source.energy) / S.cost))
-	else
-		transfer = min(transfer, S.max_amount - S.amount)
-	if(transfer <= 0)
-		return
-	if(pulledby)
-		pulledby.start_pulling(S)
-	S.copy_evidences(src)
-	S.add(transfer)
-	use(transfer)
+	if(is_cyborg) // No merging cyborg stacks into other stacks
+		return FALSE
+	if(ismob(loc) && !inhand) // no merging with items that are on the mob
+		return FALSE
+	if(check.throwing)	// no merging for items in middle air
+		return FALSE
+	if(istype(loc, /obj/machinery)) // no merging items in machines that aren't both in componentparts
+		var/obj/machinery/machine = loc
+		if(!(src in machine.component_parts) || !(check in machine.component_parts))
+			return FALSE
+	return TRUE
 
-/obj/item/stack/proc/copy_evidences(obj/item/stack/from)
-	blood_DNA			= from.blood_DNA
-	fingerprints		= from.fingerprints
-	fingerprintshidden	= from.fingerprintshidden
-	fingerprintslast	= from.fingerprintslast
+
+/**
+ * Merges as much of src into target_stack as possible. If present, the limit arg overrides target_stack.max_amount for transfer.
+ *
+ * This calls use() without check = FALSE, preventing the item from qdeling itself if it reaches 0 stack size.
+ *
+ * As a result, this proc can leave behind a 0 amount stack.
+ */
+/obj/item/stack/proc/merge_without_del(obj/item/stack/target_stack, limit)
+	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
+	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
+	if(QDELETED(target_stack))
+		CRASH("Stack merge attempted on qdeleted target stack.")
+	if(QDELETED(src))
+		CRASH("Stack merge attempted on qdeleted source stack.")
+	if(target_stack == src)
+		CRASH("Stack attempted to merge into itself.")
+
+	var/transfer = get_amount()
+	if(target_stack.is_cyborg)
+		transfer = min(transfer, round((target_stack.source.max_energy - target_stack.source.energy) / target_stack.cost))
+	else
+		transfer = min(transfer, (limit ? limit : target_stack.max_amount) - target_stack.amount)
+	if(pulledby)
+		pulledby.start_pulling(target_stack)
+	target_stack.copy_evidences(src)
+	use(transfer, transfer = TRUE, check = FALSE)
+	target_stack.add(transfer)
+	return transfer
+
+
+/**
+ * Merges as much of src into target_stack as possible. If present, the limit arg overrides target_stack.max_amount for transfer.
+ *
+ * This proc deletes src if the remaining amount after the transfer is 0.
+ */
+/obj/item/stack/proc/merge(obj/item/stack/target_stack, limit)
+	. = merge_without_del(target_stack, limit)
+	is_zero_amount(delete_if_zero = TRUE)

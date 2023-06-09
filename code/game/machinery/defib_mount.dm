@@ -75,12 +75,13 @@
 //defib interaction
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/carbon/)
 	var/mob/living/carbon/human/user = usr
-	var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
-	var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
 
 	if(!defib)
 		to_chat(user, "<span class='warning'>There's no defibrillator unit loaded!</span>")
 		return
+
+	var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
+	var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
 
 	if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
 		to_chat(user, "<span class='warning'>You can't use your hand to take out the paddles!</span>")
@@ -89,16 +90,22 @@
 	if(defib.paddles.loc != defib)
 		to_chat(user, "<span class='warning'>[defib.paddles.loc == user ? "You are already" : "Someone else is"] holding [defib]'s paddles!</span>")
 		return
+
+	defib.paddles.forceMove_turf()
+	if(!user.put_in_hands(defib.paddles, ignore_anim = FALSE))
+		defib.paddles.forceMove(defib)
+		to_chat(user, SPAN_WARNING("You need a free hand to hold the paddles!"))
+		return
+
 	add_fingerprint(user)
 	defib.paddles_on_defib = FALSE
-	user.put_in_hands(defib.paddles)
 
 /obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/defibrillator))
 		if(defib)
 			to_chat(user, "<span class='warning'>There's already a defibrillator in [src]!</span>")
 			return
-		if(I.flags & NODROP || !user.drop_item() || !I.forceMove(src))
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		add_fingerprint(user)
@@ -110,7 +117,7 @@
 		return
 	else if(defib && I == defib.paddles)
 		add_fingerprint(user)
-		user.drop_item()
+		user.drop_from_active_hand()
 		return
 	var/obj/item/card/id = I.GetID()
 	if(id)
@@ -155,7 +162,8 @@
 	if(clamps_locked)
 		to_chat(user, "<span class='warning'>You try to tug out [defib], but the mount's clamps are locked tight!</span>")
 		return
-	user.put_in_hands(defib)
+	defib.forceMove_turf()
+	user.put_in_hands(defib, ignore_anim = FALSE)
 	user.visible_message("<span class='notice'>[user] unhooks [defib] from [src].</span>", \
 	"<span class='notice'>You slide out [defib] from [src] and unhook the charging cables.</span>")
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
