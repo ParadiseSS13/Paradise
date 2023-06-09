@@ -343,9 +343,6 @@
 	var/missile_range = 30
 	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
-	//Gonna revert and fix this later, removing for testing purposes.
-
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "\improper SRX-13 Heavy Missile Launcher"
 	projectile = /obj/item/projectile/missile
