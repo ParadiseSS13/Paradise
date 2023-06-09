@@ -5,6 +5,7 @@
 	icon_state = "taperoll"
 	singular_name = "tape roll"
 	w_class = WEIGHT_CLASS_TINY
+	full_w_class = WEIGHT_CLASS_TINY
 	amount = 25
 	max_amount = 25
 

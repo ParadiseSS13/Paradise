@@ -10,6 +10,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "ore"
 	max_amount = 50
+	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into

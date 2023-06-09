@@ -5,6 +5,7 @@
 	icon = 'icons/obj/nanopaste.dmi'
 	icon_state = "tube"
 	w_class = WEIGHT_CLASS_TINY
+	full_w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;engineering=3"
 	amount = 6
 	max_amount = 6

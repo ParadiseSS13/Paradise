@@ -9,6 +9,7 @@
 	throw_speed = 1
 	throw_range = 7
 	w_class = WEIGHT_CLASS_TINY
+	full_w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	singular_name = "credit"
 	max_amount = 1000000
