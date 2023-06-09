@@ -393,6 +393,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
+	slot_flags = null
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
