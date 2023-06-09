@@ -66,6 +66,116 @@
 	icon_state = "soapgibs"
 	cleanspeed = 45 // a little faster to reward chemists for going to the effort
 
+/obj/item/soap/homemade_apple
+	desc = "A homemade bar of soap. Smells of apple"
+	icon_state = "soapapple"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_potato
+	desc = "A homemade bar of soap. Smells of potato"
+	icon_state = "soappotato"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_pumpkin
+	desc = "A homemade bar of soap. Smells of pumpkin"
+	icon_state = "soappumpkin"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_silver
+	desc = "A homemade bar of soap. Smells of silver"
+	icon_state = "soapsilver"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_tomato
+	desc = "A homemade bar of soap. Smells of tomato"
+	icon_state = "soaptomato"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_uran
+	desc = "A homemade bar of soap. Smells of uranium"
+	icon_state = "soapuran"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_watermelon
+	desc = "A homemade bar of soap. Smells of watermelon"
+	icon_state = "soapwatermelon"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_whiskey
+	desc = "A homemade bar of soap. Smells of whiskey"
+	icon_state = "soapwhiskey"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_banana
+	desc = "A homemade bar of soap. Smells of banana"
+	icon_state = "soapbanana"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_beer
+	desc = "A homemade bar of soap. Smells of beer"
+	icon_state = "soapbeer"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_berry
+	desc = "A homemade bar of soap. Smells of berries"
+	icon_state = "soapberry"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_carrot
+	desc = "A homemade bar of soap. Smells of carrot"
+	icon_state = "soapcarrot"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_chocolate
+	desc = "A homemade bar of soap. Smells of chocolate"
+	icon_state = "soapchocolate"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_cola
+	desc = "A homemade bar of soap. Smells of cola"
+	icon_state = "soapcola"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_corn
+	desc = "A homemade bar of soap. Smells of corn"
+	icon_state = "soapcorn"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_golden
+	desc = "A homemade bar of soap. Smells of gold"
+	icon_state = "soapgolden"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_grape
+	desc = "A homemade bar of soap. Smells of grape"
+	icon_state = "soapgrape"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_lemon
+	desc = "A homemade bar of soap. Smells of lemon"
+	icon_state = "soaplemon"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_lime
+	desc = "A homemade bar of soap. Smells of lime"
+	icon_state = "soaplime"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_milk
+	desc = "A homemade bar of soap. Smells of milk"
+	icon_state = "soapmilk"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_orange
+	desc = "A homemade bar of soap. Smells of orange"
+	icon_state = "soaporange"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
+/obj/item/soap/homemade_pineapple
+	desc = "A homemade bar of soap. Smells of pineapple"
+	icon_state = "soappineapple"
+	cleanspeed = 45 // a little faster to reward chemists for going to the effort
+
 /obj/item/soap/ducttape
 	desc = "A homemade bar of soap. It seems to be gibs and tape..Will this clean anything?"
 	icon_state = "soapgibs"

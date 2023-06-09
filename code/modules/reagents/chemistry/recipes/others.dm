@@ -229,6 +229,270 @@
 	result_amount = 3
 	mix_message = "The liquid becomes amazingly furry and smells peculiar."
 
+/datum/chemical_reaction/soapification_apple
+	name = "Soapification_apple"
+	id = "soapification_apple"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "applejuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_apple/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_apple(location)
+
+/datum/chemical_reaction/soapification_potato
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "potato" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_potato/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_potato(location)
+
+/datum/chemical_reaction/soapification_pumpkin
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "pumpkinjuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_pumpkin/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_pumpkin(location)
+
+/datum/chemical_reaction/soapification_silver
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "silver" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_silver/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_silver(location)
+
+/datum/chemical_reaction/soapification_tomato
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "tomatojuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_tomato/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_tomato(location)
+
+/datum/chemical_reaction/soapification_uran
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "uranium" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_uran/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_uran(location)
+
+/datum/chemical_reaction/soapification_watermelon
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "watermelonjuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_watermelon/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_watermelon(location)
+
+/datum/chemical_reaction/soapification_whiskey
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "whiskey" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_whiskey/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_whiskey(location)
+
+/datum/chemical_reaction/soapification_banana
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "banana" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_banana/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_banana(location)
+
+/datum/chemical_reaction/soapification_beer
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "beer" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_beer/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_beer(location)
+
+/datum/chemical_reaction/soapification_berry
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "berryjuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_berry/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_berry(location)
+
+/datum/chemical_reaction/soapification_carrot
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "carrotjuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_carrot/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_carrot(location)
+
+/datum/chemical_reaction/soapification_chocolate
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "cocoa" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_chocolate/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_chocolate(location)
+
+/datum/chemical_reaction/soapification_cola
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "cola" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_cola/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_cola(location)
+
+/datum/chemical_reaction/soapification_corn
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "corn_starch" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_corn/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_corn(location)
+
+/datum/chemical_reaction/soapification_golden
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "gold" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_golden/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_golden(location)
+
+/datum/chemical_reaction/soapification_grape
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "grapejuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_grape/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_grape(location)
+
+/datum/chemical_reaction/soapification_lemon
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "lemonjuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_lemon/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_lemon(location)
+
+/datum/chemical_reaction/soapification_lime
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "limejuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_lime/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_lime(location)
+
+/datum/chemical_reaction/soapification_milk
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "milk" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_milk/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_milk(location)
+
+/datum/chemical_reaction/soapification_orange
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "orangejuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_orange/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_orange(location)
+
+/datum/chemical_reaction/soapification_pineapple
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10, "pineapplejuice" = 10) // requires two scooped gib tiles
+	min_temp = T0C + 100
+	result_amount = 1
+
+/datum/chemical_reaction/soapification_pineapple/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/soap/homemade_pineapple(location)
+
 /datum/chemical_reaction/soapification
 	name = "Soapification"
 	id = "soapification"
@@ -236,7 +500,6 @@
 	required_reagents = list("liquidgibs" = 10, "lye"  = 10) // requires two scooped gib tiles
 	min_temp = T0C + 100
 	result_amount = 1
-
 
 /datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
