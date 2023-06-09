@@ -159,6 +159,7 @@ Made by Xhuis
 		update_shadow_icons_added(new_thrall_mind)
 		add_conversion_logs(new_thrall_mind.current, "Became a Shadow thrall")
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
+		//If you add spells to thrall, be sure to remove them on dethrallize
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk(null))
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall(null))
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
@@ -181,8 +182,9 @@ Made by Xhuis
 	add_conversion_logs(thrall_mind.current, "De-shadow thralled")
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
-	for(var/obj/effect/proc_holder/spell/S in thrall_mind.spell_list)
-		thrall_mind.RemoveSpell(S)
+	//If you add spells to thrall, be sure to remove them on dethrallize
+	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
+	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/shadow_vision/thrall)
 	thrall_mind.current.remove_language("Shadowling Hivemind")
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
 		var/mob/living/carbon/human/H = thrall_mind.current
