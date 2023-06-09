@@ -138,7 +138,7 @@
 	return TRUE
 
 /obj/item/projectile/missile/light
-	damage = 20
+	damage = 15
 	heavy = FALSE
 
 /obj/item/projectile/energy/floramut

@@ -11,7 +11,10 @@
 	flags = CONDUCT
 	origin_tech = "combat=6;syndicate=7"
 	fire_sound = 'sound/weapons/blastcannon.ogg'
-	recoil = TRUE
+	fire_delay = 40
+	recoil = 2
+	zoomable = TRUE
+	zoom_amt = 7
 	var/missile_speed = 2
 	var/missile_range = 30
 
