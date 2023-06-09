@@ -921,6 +921,17 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_servo_hydra_actuator
+	name = "Exosuit Common Equipment (Strafe module)"
+	desc = "Exosuit servo-motors. Allows strafe mode"
+	id = "mech_servo_hydra_actuator"
+	build_type = MECHFAB
+	req_tech = list("powerstorage" = 7, "programming" = 7, "engineering" = 7,"combat" = 7)
+	build_path = /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
+	materials = list(MAT_METAL=40000,MAT_TITANIUM =10000,MAT_URANIUM=10000,MAT_DIAMOND=10000)
+	construction_time = 30 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_sleeper
 	name = "Exosuit Medical Equipment (Mounted Sleeper)"
 	id = "mech_sleeper"
@@ -1015,17 +1026,6 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	materials = list(MAT_METAL=22000,MAT_GOLD=6000,MAT_SILVER=8000)
 	construction_time = 100
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_servo_hydra_actuator
-	name = "Servo-Hydraulic Actuator"
-	desc = "Exosuit servo-motors. Allows strafe mode"
-	id = "mech_servo_hydra_actuator"
-	build_type = MECHFAB
-	req_tech = list("powerstorage" = 7, "programming" = 7, "engineering" = 7,"combat" = 7)
-	build_path = /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
-	materials = list(MAT_METAL=40000,MAT_TITANIUM =10000,MAT_URANIUM=10000,MAT_DIAMOND=10000)
-	construction_time = 30 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/clusterbang_launcher
@@ -1327,7 +1327,7 @@
 	id = "borg_upgrade_gps"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/gps
-	req_tech = list("engineerin" = 7, "programming" = 7, "materials" = 5, "magnets" = 6)
+	req_tech = list("engineering" = 7, "programming" = 7, "materials" = 5, "magnets" = 6)
 	materials = list(MAT_METAL = 10000, MAT_GOLD = 2000, MAT_SILVER = 2000, MAT_TITANIUM = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
