@@ -30482,7 +30482,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/maintenance/turbine)
 "bQB" = (
-/obj/structure/closet/secure_closet/exile,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31649,7 +31649,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/exile,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34693,7 +34693,7 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "ccl" = (
-/obj/structure/closet/secure_closet/exile,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
