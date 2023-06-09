@@ -166,7 +166,7 @@
 	return
 
 /mob/living/silicon/ai/TurfAdjacent(turf/T)
-	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))
+	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T) && (get_dist(eyeobj, T) <= 7)) //not further than view distance
 
 
 // APC
