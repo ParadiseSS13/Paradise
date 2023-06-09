@@ -423,12 +423,16 @@
 		if(flags_cover != initial(flags_cover))
 			if(initial(flags_cover) & MASKCOVERSMOUTH) //If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
 				flags_cover |= MASKCOVERSMOUTH
-		if(H.head == src && flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
-			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+		if(H.head == src)
+			if(isnull(user.get_item_by_slot(slot_bitfield_to_slot(slot_flags))))
 				user.unEquip(src)
-			else //Otherwise, put it in an available hand, the active one preferentially.
-				user.unEquip(src)
-				user.put_in_hands(src)
+				user.equip_to_slot(src, slot_bitfield_to_slot(slot_flags))
+			else if(flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
+				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+					user.unEquip(src)
+				else //Otherwise, put it in an available hand, the active one preferentially.
+					user.unEquip(src)
+					user.put_in_hands(src)
 	else
 		to_chat(user, "<span class='notice'>You push \the [src] out of the way.</span>")
 		gas_transfer_coefficient = null
@@ -446,12 +450,16 @@
 			flags_cover &= ~MASKCOVERSMOUTH
 		if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
 			flags &= ~AIRTIGHT
-		if(user.wear_mask == src && initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
-			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+		if(user.wear_mask == src)
+			if(isnull(user.get_item_by_slot(slot_bitfield_to_slot(slot_flags))))
 				user.unEquip(src)
-			else //Otherwise, put it in an available hand, the active one preferentially.
-				user.unEquip(src)
-				user.put_in_hands(src)
+				user.equip_to_slot(src, slot_bitfield_to_slot(slot_flags))
+			else if(initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
+				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+					user.unEquip(src)
+				else //Otherwise, put it in an available hand, the active one preferentially.
+					user.unEquip(src)
+					user.put_in_hands(src)
 	H.wear_mask_update(src, toggle_off = up)
 	usr.update_inv_wear_mask()
 	usr.update_inv_head()
