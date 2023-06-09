@@ -181,6 +181,8 @@
 				drop_item_ground(wear_id, force = TRUE)
 			if(belt)
 				drop_item_ground(belt, force = TRUE)
+			if(wear_pda)
+				drop_item_ground(wear_pda, force = TRUE)
 		w_uniform = null
 		if(!QDELETED(src))
 			update_inv_w_uniform()
