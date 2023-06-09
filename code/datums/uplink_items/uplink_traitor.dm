@@ -214,6 +214,19 @@
 	job = list("Roboticist")
 	surplus = 0
 
+
+//Science
+
+/datum/uplink_item/jobspecific/universal_gun_kit
+	name = "Universal Self Assembling Gun Kit"
+	desc = "A universal gun kit, that can be combined with any weapon kit to make a functioning RND gun of your own. Uses built in allen keys to self assemble, just combine the kits by hitting them together."
+	reference = "IKEA"
+	item = /obj/item/weaponcrafting/gunkit/universal_gun_kit
+	cost = 8
+	job = list("Scientist", "Research Director", "Roboticist")
+	surplus = 0
+
+
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
