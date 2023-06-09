@@ -154,6 +154,7 @@
 
 /obj/item/organ/external/head/kidan
 	species_type = /datum/species/kidan
+	encased = "head chitin"
 
 /obj/item/organ/external/head/kidan/remove(var/mob/living/user, var/ignore_children)
 	if(iskidan(src.owner))
@@ -165,6 +166,13 @@
 	. = ..()
 	if(iskidan(target))
 		target.adjustBrainLoss(30)
+
+/obj/item/organ/external/chest/kidan
+	encased = "chitin armour"
+	convertable_children = list(/obj/item/organ/external/groin/kidan)
+
+/obj/item/organ/external/groin/kidan
+	encased = "groin chitin"
 
 #undef KIDAN_LANTERN_HUNGERCOST
 #undef KIDAN_LANTERN_MINHUNGER

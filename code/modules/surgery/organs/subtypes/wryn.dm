@@ -111,3 +111,14 @@
 	icon_name = "wryntail_s"
 	max_damage = 35
 	min_broken_damage = 25
+
+/obj/item/organ/external/chest/wryn
+	encased = "chitin armour"
+	convertable_children = list(/obj/item/organ/external/groin/wryn)
+
+/obj/item/organ/external/groin/wryn
+	encased = "groin chitin"
+
+/obj/item/organ/external/head/wryn
+	species_type = /datum/species/wryn
+	encased = "head chitin"
