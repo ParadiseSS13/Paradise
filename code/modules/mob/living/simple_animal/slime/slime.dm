@@ -143,7 +143,8 @@
 /mob/living/simple_animal/slime/regenerate_icons()
 	..()
 	var/icon_text = "[colour] [(age_state.age != SLIME_BABY) ? "adult" : "baby"] slime"
-	icon_dead = "[icon_text] dead"
+	//icon_dead = "[icon_text] dead"
+	icon_dead = "[colour] baby slime dead" //REMOVE THIS ONLY WHEN THERE WILL BE SPRITES OF ALL SLIME COLOURS AND SIZES!!!
 	if(stat != DEAD)
 		icon_state = icon_text
 		if(mood && !stat)
