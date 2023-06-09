@@ -90,7 +90,7 @@
 	force = 20
 	maint_access = 0
 	mech_enter_time = 20
-	max_equip = 3
+	max_equip = 4
 	wreckage = null
 
 /obj/mecha/combat/lockersyndie/go_out()
@@ -109,6 +109,8 @@
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
 	ME.attach(src)
 
 /obj/mecha/combat/lockersyndie/Destroy()
