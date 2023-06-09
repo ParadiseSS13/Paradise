@@ -104,21 +104,21 @@
 	desc = "A suitcase containing the necessary gun parts to build a full gun, when combined with a gun kit. Use it directly on a gunkit to rapidly assemble it."
 	icon_state = "syndicase"
 
-/obj/item/weaponcrafting/gunkit/universal_gun_kit/afterattack(atom/movable/AM, mob/user, flag)
-	if(istype(AM, /obj/item/weaponcrafting/gunkit))
-		var/obj/item/weaponcrafting/gunkit/G = AM
-		if(!G.outcome)
-			to_chat(user, "<span class='warning'>That gunkit can not be used to craft a weapon.</span>")
-			return
-		playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-		if(!do_after(user, 5 SECONDS, target = user))
-			return
-		playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-		var/obj/item/I = new G.outcome
-		user.unEquip(src)
-		user.put_in_hands(I)
-		qdel(G)
-		qdel(src)
+/obj/item/weaponcrafting/gunkit/universal_gun_kit/afterattack(obj/item/weaponcrafting/gunkit/gunkit_to_use, mob/user, flag)
+	if(!istype(gunkit_to_use))
+		return
+	if(!gunkit_to_use.outcome)
+		to_chat(user, "<span class='warning'>That gunkit can not be used to craft a weapon.</span>")
+		return
+	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
+	if(!do_after(user, 5 SECONDS, target = user))
+		return
+	playsound(user, 'sound/items/drill_use.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
+	var/obj/item/gun_produced = new gunkit_to_use.outcome
+	user.unEquip(src)
+	user.put_in_hands(gun_produced)
+	qdel(gunkit_to_use)
+	qdel(src)
 
 // CRAFTING //
 
