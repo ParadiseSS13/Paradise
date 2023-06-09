@@ -74,7 +74,7 @@
  */
 /mob/living/carbon/human/proc/wear_glasses_update(obj/item/clothing/glasses/glasses)
 	if(istype(glasses))
-		if(glasses.tint)
+		if(glasses.tint || initial(glasses.tint))
 			update_tint()
 		if(glasses.prescription)
 			update_nearsighted_effects()

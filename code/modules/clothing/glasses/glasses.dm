@@ -41,8 +41,12 @@
 /obj/item/clothing/glasses/weldingvisortoggle(mob/user)
 	. = ..()
 	if(. && user)
-		user.update_sight()
-		user.update_inv_glasses()
+		if(ishuman(user))
+			var/mob/living/carbon/human/human = user
+			human.wear_glasses_update(src)
+		else
+			user.update_sight()
+			user.update_inv_glasses()
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
