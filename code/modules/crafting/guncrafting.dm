@@ -119,7 +119,6 @@
 		user.put_in_hands(I)
 		qdel(G)
 		qdel(src)
-		return
 
 // CRAFTING //
 
