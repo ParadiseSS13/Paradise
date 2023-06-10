@@ -108,8 +108,8 @@
 	You will be completely protected from the effects of the supermatter by the items granted here, so far as to \
 	allow you to pick up and throw supermatter slivers, which your halberd can cut from the engine. <br>\
 	</i>Provides a Supermatter Halberd and Oblivion Enforcer robes, as well as Instant Summons, Lightning Bolt, and Ethereal Jaunt.<i>"
-	log_name = "OE"
-	items_path = list(/obj/item/twohanded/supermatter, /obj/item/clothing/gloves/color/white/supermatter_immune)
+	items_path = list(/obj/item/twohanded/supermatter, /obj/item/clothing/gloves/color/white/supermatter_immune, \
+		/obj/item/clothing/suit/hooded/oblivion, /obj/item/clothing/mask/gas/voice_modulator/oblivion)
 	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/summonitem, \
 		/obj/effect/proc_holder/spell/charge_up/bounce/lightning)
 	category = "Unique"

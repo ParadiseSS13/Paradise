@@ -854,3 +854,62 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/reagent_containers/food/drinks/everfull/proc/magic_fill(reagent_choice)
 	reagents.clear_reagents()
 	reagents.add_reagent(reagent_choice, volume)
+
+//Oblivion Enforcer clothing (the halberd and gloves are defined elsewhere)
+
+/obj/item/clothing/head/hooded/oblivion
+	name = "Oblivion Enforcer's hood"
+	icon_state = "oblivionhood"
+	desc = "A hood worn by an Oblivion Enforcer."
+	flags = BLOCKHAIR
+	flags_inv = HIDEFACE
+	flags_cover = HEADCOVERSEYES
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = INFINITY, FIRE = 5, ACID = 5)
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	magical = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+	)
+
+/obj/item/clothing/suit/hooded/oblivion
+	name = "Oblivion Enforcer's robes"
+	desc = "A set of armored, radiation-proof robes worn by Oblivion Enforcers."
+	icon_state = "oblivionrobes"
+	item_state = "oblivionrobes"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	hoodtype = /obj/item/clothing/head/hooded/oblivion
+	allowed = list(/obj/item/twohanded/supermatter, /obj/item/nuke_core/supermatter_sliver)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = INFINITY, FIRE = 5, ACID = 5)
+	flags_inv = HIDEJUMPSUIT|HIDESHOES|HIDETAIL|HIDESHOES
+	flags = THICKMATERIAL
+	magical = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+	)
+
+/obj/item/clothing/suit/hooded/oblivion/equipped(mob/user, slot, initial)
+	. = ..()
+	ADD_TRAIT(user, TRAIT_RADIMMUNE, CLOTHING_TRAIT)
+
+/obj/item/clothing/suit/hooded/oblivion/dropped(mob/user, silent)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_RADIMMUNE, CLOTHING_TRAIT)
+
+/obj/item/clothing/mask/gas/voice_modulator/oblivion
+	name = "Oblivion Enforcer's mask"
+	desc = "The mask of an Oblivion Enforcer. Don't forget to turn it on before giving your one-liners!"
+	icon_state = "oblivionmask"
+	item_state = "oblivionmask"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
+	)
