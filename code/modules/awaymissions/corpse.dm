@@ -38,7 +38,7 @@
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
-	if(!uses)
+	if(!uses && !permanent)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
 	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
@@ -54,7 +54,7 @@
 		return
 	if(!species_prompt())
 		return
-	if(!loc || !uses || QDELETED(src) || QDELETED(user))
+	if(!loc || !uses && !permanent || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
 	log_game("[user.ckey] became [mob_name]")

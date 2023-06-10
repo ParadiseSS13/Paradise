@@ -74,10 +74,10 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	for(var/mob/dead/observer/M in ert_candidates)
 		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
 			continue
-		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
+		if((HAS_TRAIT(M, TRAIT_RESPAWNABLE)) && M.JoinResponseTeam())
 			GLOB.response_team_members |= M
 	// If there's still open slots, non-respawnable players can fill them
-	for(var/mob/dead/observer/M in (ert_candidates - GLOB.respawnable_list))
+	for(var/mob/dead/observer/M in (ert_candidates - GLOB.response_team_members))
 		if(M.JoinResponseTeam())
 			GLOB.response_team_members |= M
 
