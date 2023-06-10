@@ -282,6 +282,57 @@
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian", "Coroner", "Psychiatrist", "Virologist")
 
 
+//--------------------------//
+// Species Restricted Gear //
+//-------------------------//
+
+/datum/uplink_item/species_restricted
+	category = "Species Specific Gear"
+	cant_discount = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
+
+//human
+//NONE! Add me!
+
+//Tajaran
+//TO-DO: retrectable claws
+
+//Unathi
+//TO-DO: Dueling Energy Sword
+
+//skrell
+//TO-DO: Some sort of peace inducing toxins?
+
+//Slime people
+// no idea
+
+//Vox
+//Combat stack upgrade, give weak antistun on long cooldown, sharpens claws weak to EMP, will burn vox if EMPd
+
+//Drask
+//Book of elders, contains a random (one of like 5) spells, nothing wiz tier
+
+//Grey
+//Psionics Starter Kit: Get TK, psy resist, one spell
+
+//Diona
+//shard of the reef: Implant that gives thermal vision
+
+//IPC:
+//Positonic supercharge implant: stims, 3 uses, IPC adrenals
+
+//Kidan:
+//Royal Jelly: provides a perminant physical change as well as a significant physical buff. Weaker to pest spray.
+
+//plasmeme
+//fire immunity
+
+//vulp
+//no idea
+
+//Nian
+//Small loan of a million credits
+
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
 // -------------------------------------
