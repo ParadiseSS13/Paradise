@@ -15,7 +15,6 @@
 	var/list/trait_genes = list()
 
 	var/datum/plant_gene/target
-	var/operation = ""
 	var/max_potency = 50 // See RefreshParts() for how these work
 	var/max_yield = 2
 	var/min_production = 12
@@ -223,8 +222,6 @@
 	. = TRUE
 
 	var/mob/living/user = ui.user
-
-	// target = seed.get_gene(href_list["gene"]) // todo, maybe make target local?
 
 	switch(ui_modal_act(src, action, params))
 		if(UI_MODAL_ANSWER)
