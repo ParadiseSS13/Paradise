@@ -648,9 +648,9 @@
 	muzzled_noises = list("annoyed")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 
-/datum/emote/living/carbon/human/hiss
-	key = "hiss"
-	key_third_person = "hisses"
+/datum/emote/living/carbon/human/thiss
+	key = "thisses"
+	key_third_person = "thisses"
 	message = "hisses."
 	message_mime = "hisses silently."
 	message_param = "hisses at %t."
