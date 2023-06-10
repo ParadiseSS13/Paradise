@@ -33715,6 +33715,13 @@
 	icon_state = "dark"
 	},
 /area/security/brig)
+"dno" = (
+/obj/item/mounted/mirror{
+	pixel_z = 28;
+	icon_state = "mirror_broke"
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "dnw" = (
 /obj/structure/chair{
 	dir = 1
@@ -120593,7 +120600,7 @@ wDs
 wDs
 wDs
 wDs
-qSK
+dno
 qSK
 wDs
 dsP
