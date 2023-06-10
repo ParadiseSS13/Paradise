@@ -370,6 +370,6 @@
 	QDEL_NULL(vampire_blood_display)
 
 /datum/antagonist/vampire/hijackify() //I wanted to let a vampire chose 2 specializations here. However, we all know they would go hemo garg or hemo umbra and make everyone miserable. Instead, we are going to make vampires more efficent with hijack.
-	. = ..()
-	blood_efficency = 66 // 33% more efficent
-	cooldown_efficency = 66 // 33% more efficent
+	. = ..()  //Disabled initialy for TM. This will be re-added in if vampires / changelings constantly fall flat in hijack, and will be removed if they do perfectly fine.
+	//blood_efficency = 66 // 33% more efficent
+	//cooldown_efficency = 66 // 33% more efficent

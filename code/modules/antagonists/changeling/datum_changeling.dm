@@ -198,11 +198,11 @@
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 		genetic_damage = max(0, genetic_damage - 1)
 
-/datum/antagonist/changeling/hijackify()
+/datum/antagonist/changeling/hijackify() //Disabled initialy for TM. This will be re-added in if vampires / changelings constantly fall flat in hijack, and will be removed if they do perfectly fine.
 	. = ..()
-	chem_storage = 100 //25% more
-	chem_recharge_rate = 4 //25% more.
-	genetic_points = 12 //20% more.
+	//chem_storage = 100 //25% more
+	//chem_recharge_rate = 4 //25% more.
+	//genetic_points = 12 //20% more.
 
 /**
  * Respec the changeling's powers after first checking if they're able to respec.
