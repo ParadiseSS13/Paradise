@@ -207,7 +207,6 @@
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
 			I.receive_damage(brute * 0.5)
-			brute -= brute * 0.5
 
 	if(status & ORGAN_BROKEN && prob(40) && brute && !owner.stat)
 		owner.emote("scream")	//getting hit on broken hand hurts
