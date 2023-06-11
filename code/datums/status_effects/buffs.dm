@@ -547,6 +547,30 @@
 	else
 		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
 
+/datum/status_effect/drill_payback
+	duration = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+
+/datum/status_effect/drill_payback/on_apply()
+	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
+	addtimer(CALLBACK(src, PROC_REF(payback_phase_2)), 2.7 SECONDS)
+	return TRUE
+
+/datum/status_effect/drill_payback/proc/payback_phase_2()
+	owner.clear_fullscreen("payback")
+	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
+
+/datum/status_effect/drill_payback/tick() //They are not staying down. This will be a fight.
+	if(owner.stat != DEAD)
+		owner.adjustBruteLoss(-3)
+		owner.adjustFireLoss(-3)
+		owner.adjustStaminaLoss(-25)
+
+/datum/status_effect/drill_payback/on_remove()
+	. = ..()
+	owner.clear_fullscreen("payback")
+
 /datum/status_effect/thrall_net
 	id = "thrall_net"
 	tick_interval = 2 SECONDS

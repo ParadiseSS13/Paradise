@@ -62,6 +62,8 @@ GLOBAL_LIST_EMPTY(safes)
 	var/drill_y_offset = -3
 	/// Used by [/obj/item/paper/safe_code] to tell the codes through a paper spawned on map load.
 	var/known_by = list()
+	/// Who placed the drill on the safe. Used to trigger the status effect
+	var/mob/living/carbon/human/driller
 
 /obj/structure/safe/Initialize(mapload)
 	. = ..()
@@ -83,7 +85,7 @@ GLOBAL_LIST_EMPTY(safes)
 		drill.soundloop.stop()
 		drill.forceMove(loc)
 		drill = null
-
+	driller = null
 	QDEL_NULL(progress_bar)
 	QDEL_NULL(drill_overlay)
 	return ..()
@@ -96,6 +98,8 @@ GLOBAL_LIST_EMPTY(safes)
 	add_overlay(progress_bar)
 	if(prob(DRILL_SPARK_CHANCE))
 		drill.spark_system.start()
+	if(!drill.spotted)
+		security_check()
 
 /obj/structure/safe/examine(mob/user)
 	. = ..()
@@ -149,14 +153,16 @@ GLOBAL_LIST_EMPTY(safes)
 					drill_start_time = world.time
 					drill.soundloop.start()
 					update_icon()
+					driller = user
 					START_PROCESSING(SSobj, src)
 			if("Turn Off")
-				if(do_after(user, 2 SECONDS, target = src))
+				if(do_after(user, 10 SECONDS, target = src)) //Can't be too easy to turn off
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
 					cut_overlay(progress_bar)
 					update_icon()
+					driller = null
 					STOP_PROCESSING(SSobj, src)
 			if("Remove Drill")
 				if(drill_timer)
@@ -321,6 +327,25 @@ GLOBAL_LIST_EMPTY(safes)
 			return FALSE
 
 	add_fingerprint(usr)
+
+/obj/structure/safe/proc/security_check()
+	if(get_dist(src, driller) > 9)
+		return //You need to be near the drill if you want to get the buff.
+	for(var/mob/living/carbon/human/H in view(9, src))
+		if((H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") && !H?.mind.special_role) || H.mind.special_role == SPECIAL_ROLE_ERT)
+			drill.spotted = TRUE
+			security_assualt_in_progress()
+			return
+	for(var/mob/living/carbon/human/H in view(9, driller))
+		if((H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") && !H?.mind.special_role) || H.mind.special_role == SPECIAL_ROLE_ERT)
+			drill.spotted = TRUE
+			security_assualt_in_progress()
+			return
+
+/obj/structure/safe/proc/security_assualt_in_progress()
+	drill.atom_say("Security spotted. Nanites deployed. Give them <b>hell.</b>")
+	driller.apply_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+
 
 /**
   * Called every dial turn to determine whether the safe should unlock or not.
