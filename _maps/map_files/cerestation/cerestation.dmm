@@ -7727,8 +7727,8 @@
 	id = "b2";
 	name = "Privacy Bolts";
 	normaldoorcontrol = 1;
-	pixel_x = -24;
-	specialfunctions = 4
+	specialfunctions = 4;
+	pixel_z = 24
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker)
@@ -23050,9 +23050,9 @@
 	id = "b1";
 	name = "Privacy Bolts";
 	normaldoorcontrol = 1;
-	pixel_x = -24;
 	specialfunctions = 4;
-	plane = 1
+	plane = 1;
+	pixel_z = 24
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker)
@@ -90973,6 +90973,7 @@
 /area/maintenance/asmaint)
 "wJe" = (
 /obj/structure/table,
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "wJk" = (
