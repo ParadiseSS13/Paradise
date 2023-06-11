@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(safes)
 	add_overlay(progress_bar)
 	if(prob(DRILL_SPARK_CHANCE))
 		drill.spark_system.start()
-	if(!drill.spotted)
+	if(!drill.spotted && drill.payday)
 		security_check()
 
 /obj/structure/safe/examine(mob/user)
