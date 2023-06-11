@@ -9,6 +9,7 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
+	flags_2 = BLOCKS_LIGHT_2
 	/// No message on putting items in.
 	var/silent = FALSE
 	/// List of objects which this item can store (if set, it can't store anything else)

@@ -33,8 +33,10 @@
 	// Stronger reagents must always come first to avoid being displaced by weaker ones.
 	// Total amount of any reagent in plant is calculated by formula: 1 + round(potency * multiplier)
 
-	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
-	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
+	/// Percentage chance per tray update to grow weeds
+	var/weed_chance = 5
+	/// If weed chance passes, this many weeds sprout during growth
+	var/weed_rate = 1
 
 /obj/item/seeds/New(loc, nogenes = 0)
 	..()
@@ -112,22 +114,19 @@
 	if(prob(traitmut))
 		add_random_traits(1, 1)
 
-
-
-/obj/item/seeds/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
+/obj/item/seeds/bullet_act(obj/item/projectile/Proj) // Works with the Somatoray to modify plant variables.
 	if(istype(Proj, /obj/item/projectile/energy/florayield))
 		var/rating = 1
 		if(istype(loc, /obj/machinery/hydroponics))
 			var/obj/machinery/hydroponics/H = loc
 			rating = H.rating
 
-		if(yield == 0)//Oh god don't divide by zero you'll doom us all.
+		if(yield == 0) // Oh god don't divide by zero you'll doom us all.
 			adjust_yield(1 * rating)
-		else if(prob(1/(yield * yield) * 100))//This formula gives you diminishing returns based on yield. 100% with 1 yield, decreasing to 25%, 11%, 6, 4, 2...
+		else if(prob(1/(yield * yield) * 100)) // This formula gives you diminishing returns based on yield. 100% with 1 yield, decreasing to 25%, 11%, 6, 4, 2...
 			adjust_yield(1 * rating)
 	else
 		return ..()
-
 
 // Harvest procs
 /obj/item/seeds/proc/getYield()
@@ -136,32 +135,27 @@
 	var/obj/machinery/hydroponics/parent = loc
 	if(istype(loc, /obj/machinery/hydroponics))
 		if(parent.yieldmod == 0)
-			return_yield = min(return_yield, 1)//1 if above zero, 0 otherwise
+			return_yield = min(return_yield, 1) // 1 if above zero, 0 otherwise
 		else
 			return_yield *= (parent.yieldmod)
 
-	return return_yield
-
+	return CEILING(return_yield, 1) // No decimal plants, please
 
 /obj/item/seeds/proc/harvest(mob/user = usr)
-	var/obj/machinery/hydroponics/parent = loc //for ease of access
-	var/t_amount = 0
-	var/list/result = list()
-	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc //needed for TK
+	var/obj/machinery/hydroponics/parent = loc // For ease of access
+	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc // Needed for TK
 	var/product_name
-	while(t_amount < getYield())
-		var/obj/item/reagent_containers/food/snacks/grown/t_prod = new product(output_loc, src)
-		result.Add(t_prod) // User gets a consumable
-		if(!t_prod)
+	for(var/i in 1 to getYield())
+		var/obj/item/reagent_containers/food/snacks/grown/produce = new product(output_loc, src)
+		if(!produce)
 			return
-		t_amount++
-		product_name = t_prod.name
-	if(getYield() >= 1)
+
+		product_name = produce.name
+
+	if(getYield())
 		SSblackbox.record_feedback("tally", "food_harvested", getYield(), product_name)
+
 	parent.update_tray()
-
-	return result
-
 
 /obj/item/seeds/proc/prepare_result(obj/item/T)
 	if(!T.reagents)
@@ -174,7 +168,7 @@
 		if(rid == "blood") // Hack to make blood in plants always O-
 			data = list("blood_type" = "O-")
 		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
-			// apple tastes of apple.
+			// Apple tastes of apple.
 			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
 				var/obj/item/reagent_containers/food/snacks/grown/grown_edible = T
 				data = grown_edible.tastes.Copy()
@@ -182,7 +176,7 @@
 		T.reagents.add_reagent(rid, amount, data)
 
 
-/// Setters procs ///
+/// Setter procs ///
 /obj/item/seeds/proc/adjust_yield(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
 		yield = clamp(yield + adjustamt, 0, 10)
@@ -231,7 +225,7 @@
 	if(C)
 		C.value = weed_chance
 
-//Directly setting stats
+// Directly setting stats
 
 /obj/item/seeds/proc/set_yield(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
@@ -282,7 +276,7 @@
 		C.value = weed_chance
 
 
-/obj/item/seeds/proc/get_analyzer_text()  //in case seeds have something special to tell to the analyzer
+/obj/item/seeds/proc/get_analyzer_text()  // In case seeds have something special to tell to the analyzer
 	var/text = ""
 	if(!get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && !get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
 		text += "- Plant type: Normal plant\n"
@@ -316,7 +310,7 @@
 
 	return text
 
-/obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  //in case seeds have some special interaction with special chems
+/obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  // In case seeds have some special interaction with special chems
 	return
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
@@ -383,7 +377,7 @@
 		if(!(seed.icon_dead in states))
 			stack_trace("[seed.name] ([seed.type]) lacks the [seed.icon_dead] icon!")
 
-		if(seed.icon_harvest) // mushrooms have no grown sprites, same for items with no product
+		if(seed.icon_harvest) // Mushrooms have no grown sprites, same for items with no product
 			if(!(seed.icon_harvest in states))
 				stack_trace("[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!")
 
@@ -400,7 +394,7 @@
 /obj/item/seeds/proc/add_random_reagents(lower = 0, upper = 2)
 	var/amount_random_reagents = rand(lower, upper)
 	for(var/i in 1 to amount_random_reagents)
-		var/random_amount = rand(4, 15) * 0.01 // this must be multiplied by 0.01, otherwise, it will not properly associate
+		var/random_amount = rand(4, 15) * 0.01 // This must be multiplied by 0.01, otherwise, it will not properly associate
 		var/datum/plant_gene/reagent/R = new(get_random_reagent_id(), random_amount)
 		if(R.can_add(src))
 			genes += R

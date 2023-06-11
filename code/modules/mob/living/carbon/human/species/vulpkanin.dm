@@ -1,7 +1,6 @@
 /datum/species/vulpkanin
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
-	max_age = 80
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	language = "Canilunzt"
 	primitive_form = /datum/species/monkey/vulpkanin
