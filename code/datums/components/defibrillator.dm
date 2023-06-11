@@ -172,7 +172,6 @@
 	if(ghost?.can_reenter_corpse)
 		to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 		window_flash(ghost.client)
-		notify_ghosts()
 		ghost << sound('sound/effects/genetics.ogg')
 
 	if(!do_after(user, 3 SECONDS * speed_multiplier, target = target)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process

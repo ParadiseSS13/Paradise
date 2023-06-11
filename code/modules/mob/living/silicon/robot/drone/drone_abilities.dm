@@ -1,17 +1,4 @@
 // DRONE ABILITIES
-/mob/living/silicon/robot/drone/verb/hide()
-	set name = "Hide"
-	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
-	set category = "Robot Commands"
-
-	if(layer != TURF_LAYER+0.2)
-		layer = TURF_LAYER+0.2
-		to_chat(src, text("<span class='notice'>You are now hiding.</span>"))
-		pass_flags |= PASSDOOR
-	else
-		layer = MOB_LAYER
-		to_chat(src, text("<span class='notice'>You have stopped hiding.</span>"))
-		pass_flags &= ~PASSDOOR
 
 //Actual picking-up event.
 /mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M)
