@@ -216,7 +216,8 @@
 							/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 							/obj/item/reagent_containers/food/drinks/drinkingglass,
 							/obj/item/reagent_containers/food/drinks/bottle,
-							/obj/item/reagent_containers/food/drinks/mushroom_bowl
+							/obj/item/reagent_containers/food/drinks/mushroom_bowl,
+							/obj/item/reagent_containers/food/drinks/everfull
 							)
 	blocked += typesof(/obj/item/reagent_containers/food/drinks/flask)
 	blocked += typesof(/obj/item/reagent_containers/food/drinks/trophy)
