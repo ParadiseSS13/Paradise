@@ -101,7 +101,7 @@
 
 /obj/screen/fullscreen/payback
 	icon_state = "payback"
-	layer = CRIT_LAYER // temp
+	show_when_dead = TRUE
 
 /obj/screen/fullscreen/flash
 	icon = 'icons/mob/screen_gen.dmi'

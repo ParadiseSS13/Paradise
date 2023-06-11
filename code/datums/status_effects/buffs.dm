@@ -551,6 +551,13 @@
 	duration = -1
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
+	var/drilled_successfully = FALSE
+	var/times_warned = 0
+	var/obj/structure/safe/drilled
+
+/datum/status_effect/drill_payback/on_creation(mob/living/new_owner, obj/structure/safe/S)
+	drilled = S
+	return ..()
 
 /datum/status_effect/drill_payback/on_apply()
 	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
@@ -562,6 +569,12 @@
 	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
 
 /datum/status_effect/drill_payback/tick() //They are not staying down. This will be a fight.
+	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) //We don't want someone drilling the safe at arivals then raiding bridge with the buff
+		to_chat(owner, "<span class='userdanger'>Get back to the safe, they are going to get the drill!</span>")
+		times_warned++
+		if(times_warned >= 6)
+			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+			return
 	if(owner.stat != DEAD)
 		owner.adjustBruteLoss(-3)
 		owner.adjustFireLoss(-3)

@@ -78,7 +78,7 @@
 		/obj/item/clothing/gloves/color/latex/nitrile, // 0 TC
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
-		/obj/item/thermal_drill/diamond_drill, // 1TC
+		/obj/item/thermal_drill/diamond_drill/syndicate, // 1TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/implant = list( // 40TC
