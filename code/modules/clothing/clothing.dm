@@ -558,6 +558,8 @@
 	var/ignore_suitadjust = TRUE
 	var/adjust_flavour = null
 	var/list/hide_tail_by_species = null
+	/// Maximum weight class of an item in the suit storage slot.
+	var/max_suit_w = WEIGHT_CLASS_BULKY
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(mob/user)

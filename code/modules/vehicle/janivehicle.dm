@@ -115,6 +115,10 @@
 		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
 		update_icon(UPDATE_OVERLAYS)
 		return
+	if(istype(I, /obj/item/borg/upgrade/vtec) && floorbuffer)
+		floorbuffer = FALSE
+		vehicle_move_delay -= buffer_delay
+		return ..() //VTEC installation is handled in parent attackby, so we're returning to it early
 	if(mybag && user.a_intent == INTENT_HELP && !is_key(I))
 		mybag.attackby(I, user)
 	else
