@@ -114,8 +114,6 @@
 		var/obj/item/extinguisher/E = inventory_back
 		if(E.AttemptRefill(A, src))
 			return
-		else
-			return ..()
 	return ..()
 
 /mob/living/simple_animal/pet/dog/corgi/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
