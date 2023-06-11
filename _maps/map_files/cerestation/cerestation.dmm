@@ -7728,7 +7728,7 @@
 	name = "Privacy Bolts";
 	normaldoorcontrol = 1;
 	specialfunctions = 4;
-	pixel_z = 24
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker)
@@ -23052,7 +23052,7 @@
 	normaldoorcontrol = 1;
 	specialfunctions = 4;
 	plane = 1;
-	pixel_z = 24
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker)
@@ -33717,8 +33717,8 @@
 /area/security/brig)
 "dno" = (
 /obj/item/mounted/mirror{
-	pixel_z = 28;
-	icon_state = "mirror_broke"
+	icon_state = "mirror_broke";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
