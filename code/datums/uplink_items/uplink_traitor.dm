@@ -316,10 +316,17 @@
 //Psionics Starter Kit: Get TK, psy resist, one spell
 
 //Diona
-//shard of the reef: Implant that gives thermal vision
+//Add m
 
 //IPC:
 //Positonic supercharge implant: stims, 3 uses, IPC adrenals
+/datum/uplink_item/species_restricted/supercharge_implant
+	name = "Synthetic Supercharge Implant"
+	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
+	reference = "SSI"
+	item = /obj/item/implanter/supercharge
+	cost = 8
+	species = list("Machine")
 
 //Kidan:
 //Royal Jelly: provides a perminant physical change as well as a significant physical buff. Weaker to pest spray.

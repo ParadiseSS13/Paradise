@@ -21,6 +21,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/used_TC = 0
 
 	var/job = null
+	var/species = null
 	var/temp_category
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// Whether the uplink is jammed and cannot be used to order items.
@@ -47,7 +48,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /**
   * Build the item lists for use with the UI
   *
-  * Generates a list of items for use in the UI, based on job and other parameters
+  * Generates a list of items for use in the UI, based on job, species and other parameters
   *
   * Arguments:
   * * user - User to check
@@ -56,6 +57,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!job)
 		job = user.mind.assigned_role
 
+	if(!species)
+		species = user.dna.species.name
+
 	var/list/cats = list()
 
 	for(var/category in uplink_items)
@@ -63,6 +67,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		for(var/datum/uplink_item/I in uplink_items[category])
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)) && uplink_type != UPLINK_TYPE_ADMIN)
+					continue
+			if(I.species && I.species.len)
+				if(!(I.species.Find(species)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
 			cats[cats.len]["items"] += list(list(
 				"name" = sanitize(I.name),
