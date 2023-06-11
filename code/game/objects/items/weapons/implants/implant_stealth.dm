@@ -6,6 +6,8 @@
 /obj/item/implant/stealth
 	name = "S3 bio-chip"
 	desc = "Allows you to be hidden in plain sight."
+	implant_state = "implant-syndicate"
+	implant_data = /datum/implant_fluff/stealth
 	actions_types = list(/datum/action/item_action/agent_box)
 
 /obj/item/implanter/stealth
