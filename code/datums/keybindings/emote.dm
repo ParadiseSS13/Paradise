@@ -382,6 +382,10 @@
 	linked_emote ="threat"
 	name = "Угрожать"
 
+/datum/keybinding/emote/carbon/human/unathi/rumble
+	linked_emote ="rumble"
+	name = "Урчать"
+
 /datum/keybinding/emote/carbon/human/creak
 	linked_emote ="creak"
 	name = "Скрипеть"

@@ -390,6 +390,11 @@
 	set category = "Эмоции"
 	usr.user_triggered_emote("whips")
 
+/mob/living/carbon/human/proc/emote_rumble()
+	set name = "< Урчать >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("rumble")
+
 /mob/living/carbon/human/proc/emote_hisses()
 	set name = "< Шипеть >"
 	set category = "Эмоции"
