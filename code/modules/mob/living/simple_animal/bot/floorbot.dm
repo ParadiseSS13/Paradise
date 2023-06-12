@@ -375,9 +375,7 @@
 			target = null
 			mode = BOT_IDLE
 			return
-		var/obj/item/stack/tile/plasteel/T = new /obj/item/stack/tile/plasteel
-		T.amount = 4
-		T.forceMove(M.loc)
+		new /obj/item/stack/tile/plasteel(M.loc, 4)
 		if(M.amount > 1)
 			M.amount--
 		else
@@ -403,12 +401,10 @@
 
 	while(amount)//Dumps the tiles into the appropriate sized stacks
 		if(amount >= 16)
-			var/obj/item/stack/tile/plasteel/T = new (Tsec)
-			T.amount = 16
+			new /obj/item/stack/tile/plasteel(Tsec, 16)
 			amount -= 16
 		else
-			var/obj/item/stack/tile/plasteel/T = new (Tsec)
-			T.amount = amount
+			new /obj/item/stack/tile/plasteel(Tsec, amount)
 			amount = 0
 
 	do_sparks(3, 1, src)

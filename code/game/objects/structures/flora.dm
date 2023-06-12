@@ -355,8 +355,7 @@
 			spawn(rand(15,30))
 				if(get_dist(user,src) < 2)
 					to_chat(user, "<span class='notice'>You clear away [src].</span>")
-					var/obj/item/stack/sheet/wood/W = new(src.loc)
-					W.amount = rand(3,15)
+					new /obj/item/stack/sheet/wood(src.loc, rand(3,15))
 					if(prob(50))
 						add_fingerprint(user)
 						icon_state = "stump[rand(1,2)]"

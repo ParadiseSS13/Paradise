@@ -622,9 +622,7 @@
 
 /datum/chemical_reaction/slimefloor2/on_reaction(datum/reagents/holder, created_volume)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/stack/tile/bluespace/P = new
-	P.amount = 25
-	P.forceMove(get_turf(holder.my_atom))
+	new /obj/item/stack/tile/bluespace(get_turf(holder.my_atom), 25)
 
 /datum/chemical_reaction/slimeteleportation
 	name = "Slime Steroid 2"
@@ -745,9 +743,7 @@
 
 /datum/chemical_reaction/slimefloor/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/stack/tile/sepia/P = new
-	P.amount = 25
-	P.forceMove(get_turf(holder.my_atom))
+	new /obj/item/stack/tile/sepia(get_turf(holder.my_atom), 25)
 
 
 //Pyrite

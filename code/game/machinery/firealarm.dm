@@ -178,8 +178,7 @@ FIRE ALARM
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
-	var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(drop_location())
-	new_coil.amount = 5
+	new /obj/item/stack/cable_coil(drop_location(), 5)
 	buildstage = FIRE_ALARM_UNWIRED
 
 

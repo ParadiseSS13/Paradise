@@ -32,8 +32,7 @@
 /obj/item/stack/sheet/animalhide/random/New()
 	..()
 	var/htype = pick(/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey)
-	var/obj/item/stack/S = new htype(loc)
-	S.amount = amount
+	new htype(loc, amount)
 	qdel(src)
 
 // -------------------------------------

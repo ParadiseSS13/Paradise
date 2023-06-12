@@ -387,8 +387,7 @@
 		SStgui.update_uis(src)
 		sleep(32/coeff)
 		if(is_stack)
-			var/obj/item/stack/S = new D.build_path(BuildTurf)
-			S.amount = multiplier
+			new D.build_path(BuildTurf, multiplier)
 		else
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.update_materials_coeff(coeff)

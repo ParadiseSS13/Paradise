@@ -266,8 +266,7 @@
 			if(!lootdoubles)
 				loot.Remove(lootspawn)
 			if(lootspawn)
-				var/obj/item/stack/sheet/S = new lootspawn(get_turf(src))
-				S.amount = 25
+				new lootspawn(get_turf(src), 25)
 	qdel(src)
 
 

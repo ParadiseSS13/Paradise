@@ -315,8 +315,9 @@
 	// -Sayu
 
 	if(S.amount > S.max_amount)
-		var/obj/item/stack/sheet/temp = new S.type(src)
-		temp.amount = S.amount - S.max_amount
+
+		new S.type(src, S.amount - S.max_amount)
+
 		S.amount = S.max_amount
 
 	return ..(S,new_location)

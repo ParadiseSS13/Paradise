@@ -110,16 +110,12 @@
 		step_to(O, get_turf(pick(view(7, src))))
 
 	//rods
-	var/obj/item/stack/K = new /obj/item/stack/rods(T)
+	var/obj/item/stack/K = new /obj/item/stack/rods(T, pick(1, 2, 3, 4))
 	step_to(K, get_turf(pick(view(7, src))))
-	K.amount = pick(1, 2, 3, 4)
-	K.update_icon()
 
 	//plasteel
-	K = new /obj/item/stack/sheet/plasteel(T)
+	K = new /obj/item/stack/sheet/plasteel(T, pick(1, 2, 3, 4))
 	step_to(K, get_turf(pick(view(7, src))))
-	K.amount = pick(1, 2, 3, 4)
-	K.update_icon()
 
 	//also drop dummy circuit boards deconstructable for research (loot)
 	var/obj/item/circuitboard/C

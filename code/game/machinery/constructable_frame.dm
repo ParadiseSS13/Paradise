@@ -20,8 +20,7 @@
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		if(state >= 2)
-			var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
-			A.amount = 5
+			new /obj/item/stack/cable_coil(loc, 5)
 		if(circuit)
 			circuit.forceMove(loc)
 			circuit = null
@@ -120,8 +119,7 @@
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 1
 				icon_state = "box_0"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
-				A.amount = 5
+				new /obj/item/stack/cable_coil(src.loc, 5)
 				return
 			if(istype(P, /obj/item/wrench))
 				add_fingerprint(user)
@@ -220,8 +218,7 @@
 						if(istype(P, /obj/item/stack))
 							var/obj/item/stack/S = P
 							var/camt = min(S.get_amount(), req_components[I])
-							var/obj/item/stack/NS = new P.type(src)
-							NS.amount = camt
+							var/obj/item/stack/NS = new P.type(src, camt)
 							NS.update_icon()
 							S.use(camt)
 							components += NS

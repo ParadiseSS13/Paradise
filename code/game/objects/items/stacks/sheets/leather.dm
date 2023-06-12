@@ -229,8 +229,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 					src.use(1)
 					break
 			//If it gets to here it means it did not find a suitable stack on the tile.
-			var/obj/item/stack/sheet/hairlesshide/HS = new(usr.loc)
-			HS.amount = 1
+			new /obj/item/stack/sheet/hairlesshide(usr.loc, 1)
 			src.use(1)
 	else
 		..()
@@ -256,7 +255,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 					wetness = initial(wetness)
 					return
 			//If it gets to here it means it did not find a suitable stack on the tile.
-			var/obj/item/stack/sheet/leather/HS = new(src.loc)
-			HS.amount = 1
+			new /obj/item/stack/sheet/leather(src.loc, 1)
 			wetness = initial(wetness)
 			src.use(1)

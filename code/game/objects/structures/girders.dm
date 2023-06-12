@@ -464,15 +464,13 @@
 		if(do_after(user, 40* W.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
-			var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))
-			R.amount = 1
+			var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src), 1)
 			transfer_fingerprints_to(R)
 			qdel(src)
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		var/obj/item/pickaxe/drill/jackhammer/D = W
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
-		var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))
-		R.amount = 1
+		var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src), 1)
 		transfer_fingerprints_to(R)
 		D.playDigSound()
 		qdel(src)

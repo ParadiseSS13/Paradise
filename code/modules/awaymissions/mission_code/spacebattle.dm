@@ -442,15 +442,13 @@
 		step_to(O, get_turf(pick(view(7, src))))
 
 	//rods
-	var/obj/item/stack/K = new /obj/item/stack/rods(T)
+	var/obj/item/stack/K = new /obj/item/stack/rods(T, rand(1,5))
 	step_to(K, get_turf(pick(view(7, src))))
-	K.amount = rand(1,5)
 	K.update_icon()
 
 	//plastitanuim
-	K = new /obj/item/stack/sheet/mineral/plastitanium(T)
+	K = new /obj/item/stack/sheet/mineral/plastitanium(T, rand(1,5))
 	step_to(K, get_turf(pick(view(7, src))))
-	K.amount = rand(1,5)
 	K.update_icon()
 
 	//dummy circuit board
