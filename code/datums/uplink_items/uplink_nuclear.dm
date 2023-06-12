@@ -265,7 +265,7 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/rocket
-	name = "Rocket Launcher - 1 Extra Shell"
+	name = "Rocket Launcher Shell"
 	desc = "An extra shell for your RPG. Make sure your bestie isn't standing in front of you."
 	reference = "HE"
 	item = /obj/item/ammo_casing/rocket
