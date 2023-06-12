@@ -37,7 +37,7 @@
 	..(user, target)
 
 /datum/action/changeling/weapon/sting_action(var/mob/user)
-	if(!user.drop_from_active_hand())
+	if(user.get_active_hand() && !user.drop_from_active_hand())
 		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return
 	var/obj/item/W = new weapon_type(user, silent)
@@ -85,10 +85,10 @@
 	..(H, target)
 
 /datum/action/changeling/suit/sting_action(var/mob/living/carbon/human/user)
-	if(!user.drop_item_ground(user.wear_suit))
+	if(!user.can_unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
 		return
-	if(!user.drop_item_ground(user.head))
+	if(!user.can_unEquip(user.head))
 		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
 		return
 

@@ -541,6 +541,10 @@
  */
 /mob/proc/can_unEquip(obj/item/I, force = FALSE, silent = TRUE, atom/newloc, no_move = FALSE, invdrop = TRUE)
 
+	// If there's nothing to unequip we can do it
+	if(!I)
+		return TRUE
+
 	// NODROP flag
 	if((I.flags & NODROP) && !force)
 		if(!(I.flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
