@@ -7,7 +7,7 @@
 /datum/martial_combo/judo/eyepoke/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(user.IsKnockedDown())
 		return MARTIAL_COMBO_FAIL
-	target.visible_message("<span class='warning'>[user] jabs [target] in their eyes!</span>", \
+	target.visible_message("<span class='warning'>[user] jabs [target] in [user.p_their()] eyes!</span>", \
 						"<span class='userdanger'>[user] jabs you in the eyes!</span>")
 	playsound(get_turf(user), 'sound/weapons/whip.ogg', 40, TRUE, -1)
 	target.apply_damage(10, BRUTE)
