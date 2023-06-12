@@ -1080,7 +1080,7 @@
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 12, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 6, /obj/item/storage/fancy/cigarettes/cigpack_random = 6, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
 	contraband = list(/obj/item/lighter/zippo = 4, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 3)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 60, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 80, /obj/item/storage/fancy/cigarettes/cigpack_random = 120, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 250)
+	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 180, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 240, /obj/item/storage/fancy/cigarettes/cigpack_random = 360, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 250)
 	refill_canister = /obj/item/vending_refill/cigarette
 
 /obj/machinery/vending/cigarette/free

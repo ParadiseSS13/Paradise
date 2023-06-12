@@ -166,8 +166,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
 	slot_flags = SLOT_BELT
-	storage_slots = 6
-	max_combined_w_class = 6
+	storage_slots = 20
+	max_combined_w_class = 20
+	display_contents_with_number = 1
 	can_hold = list(/obj/item/clothing/mask/cigarette,
 		/obj/item/lighter,
 		/obj/item/match)
@@ -181,8 +182,22 @@
 	for(var/i = 1 to storage_slots)
 		new cigarette_type(src)
 
-/obj/item/storage/fancy/cigarettes/update_icon()
-	icon_state = "[initial(icon_state)][contents.len]"
+/obj/item/storage/fancy/cigarettes/update_icon() //lazy as hell
+	switch(contents.len)
+		if(17 to INFINITY)
+			icon_state = "[initial(icon_state)]6"
+		if(14 to 16)
+			icon_state = "[initial(icon_state)]5"
+		if(11 to 13)
+			icon_state = "[initial(icon_state)]4"
+		if(7 to 10)
+			icon_state = "[initial(icon_state)]3"
+		if(4 to 6)
+			icon_state = "[initial(icon_state)]2"
+		if(1 to 3)
+			icon_state = "[initial(icon_state)]1"
+		else
+			icon_state = "[initial(icon_state)]0"
 
 /obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!istype(M, /mob))
@@ -229,14 +244,14 @@
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"
-	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
+	desc = "A packet of twenty imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
 	icon_state = "Dpacket"
 	item_state = "Dpacket"
 
 
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "\improper Syndicate Cigarettes"
-	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\""
+	desc = "A packet of twenty evil-looking cigarettes, A label on the packaging reads, \"Donk Co\""
 	icon_state = "robustpacket"
 	item_state = "robustpacket"
 
@@ -254,7 +269,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
 	name = "Medical Marijuana Packet"
-	desc = "A prescription packet containing six marijuana cigarettes."
+	desc = "A prescription packet containing twenty marijuana cigarettes."
 	icon_state = "medpacket"
 	item_state = "medpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
