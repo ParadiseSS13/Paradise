@@ -377,13 +377,14 @@
 	if(prob(5))
 		M.emote(pick("twitch_s","blink_r","shiver"))
 	M.AdjustJitter(10 SECONDS, bound_upper = 100 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-15, FALSE)
+	update_flags |= M.adjustStaminaLoss(-20, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	M.AdjustConfused(10 SECONDS)
 	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 		M.adjust_nutrition(-25)
+		if(prob(30))
+			M.AdjustConfused(2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
