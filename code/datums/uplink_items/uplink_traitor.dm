@@ -302,8 +302,8 @@
 
 //skrell
 /datum/uplink_item/species_restricted/lovepen
-	name = "Agression Supression Pen"
-	desc = "A syringe disguised as a functional pen. It's filled with a potent agression supressant. \ The pen holds four doses of the mixture. The pen can be refilled "
+	name = "Aggression Supression Pen"
+	desc = "A syringe disguised as a functional pen. It's filled with a potent aggression supressant. \ The pen holds four doses of the mixture. The pen can be refilled "
 	reference = "LP"
 	item = /obj/item/pen/love
 	cost = 4
