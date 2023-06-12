@@ -82,7 +82,7 @@
 					/obj/item/ammo_box/magazine/m556/arg = 2,
 					/obj/item/ammo_box/magazine/ak814 = 2)
 	contraband = list(/obj/item/clothing/under/costume/patriotsuit = 1, /obj/item/bedsheet/patriot = 3)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
 /obj/machinery/economy/vending/toyliberationstation
@@ -110,5 +110,5 @@
 					/obj/item/toy/katana = 10,
 					/obj/item/twohanded/dualsaber/toy = 5,
 					/obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
