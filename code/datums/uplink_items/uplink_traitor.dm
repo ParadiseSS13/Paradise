@@ -307,7 +307,13 @@
 // no idea
 
 //Vox
-//Combat stack upgrade, give weak antistun on long cooldown, sharpens claws weak to EMP, will burn vox if EMPd
+/datum/uplink_item/species_restricted/spikethrower
+	name = "Skipjack Spikethrower"
+	desc = "An energy based weapon that launches high velocity plasma spikes. These spikes hit with enough force to knock the target down and leave a nasty wound."
+	reference = "STG"
+	item = /obj/item/gun/energy/spikethrower
+	cost = 12
+	species = list("Vox")
 
 //Drask
 //Book of elders, contains a random (one of like 5) spells, nothing wiz tier
