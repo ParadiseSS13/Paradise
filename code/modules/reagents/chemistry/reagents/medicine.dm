@@ -251,7 +251,6 @@
 			M.adjustBruteLoss(-volume)
 			if(show_message && !(NO_PAIN in M.dna.species.species_traits))
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
-				M.emote("scream")
 		if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
