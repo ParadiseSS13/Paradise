@@ -26,6 +26,9 @@
 	req_body["symbol_durs"] = list()
 	req_body["format"] = "ogg"
 	req_body["word_ts"] = FALSE
+	if(usr)
+		req_body["atom_type"] = usr.type
+		req_body["ckey"] = usr.ckey || ""
 	// var/json_body = json_encode(req_body)
 	// log_debug(json_body)
 
