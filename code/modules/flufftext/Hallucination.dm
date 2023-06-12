@@ -886,7 +886,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					for(var/i in 0 to rand(1,3))
 						playsound_local(null, 'sound/weapons/empty.ogg', 15, 1)
 						sleep(rand(10,30))
-					playsound_local(null, 'sound/machines/airlockforced.ogg', 15, 1)
+					playsound_local(null, 'sound/machines/airlock_force_open.ogg', 15, 1)
 				if(17)
 					playsound_local(null, 'sound/weapons/saberon.ogg', 35, 1)
 				if(18)
