@@ -127,10 +127,11 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
 	damage = 50
+	///If the missile will have a heavy, or light explosion.
 	var/heavy = TRUE
 
 /obj/item/projectile/missile/on_hit(atom/target, blocked, hit_zone)
-	. = ..()
+	..()
 	if(heavy)
 		explosion(target, 1, 2, 3, cause = "[type] fired by [key_name(firer)]")
 	else

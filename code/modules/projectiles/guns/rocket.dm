@@ -24,17 +24,15 @@
 
 
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_casing/rocket))
-		if(!chambered)
-			user.unEquip(I)
-			I.loc = src
-			chambered = I
-			to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
-
-		else
-			to_chat(user, "<span class='notice'>[src] cannot hold another rocket.</span>")
-	else
+	if(!istype(I, /obj/item/ammo_casing/rocket))
 		return ..()
+	if(!chambered)
+		user.unEquip(I)
+		I.loc = src
+		chambered = I
+		to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
+	else
+		to_chat(user, "<span class='notice'>[src] cannot hold another rocket.</span>")
 
 /obj/item/gun/rocketlauncher/process_chamber()
 	QDEL_NULL(chambered)
