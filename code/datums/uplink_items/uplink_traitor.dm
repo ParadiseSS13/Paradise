@@ -301,7 +301,13 @@
 //TO-DO: Dueling Energy Sword
 
 //skrell
-//TO-DO: Some sort of peace inducing toxins?
+/datum/uplink_item/species_restricted/lovepen
+	name = "Agression Supression Pen"
+	desc = "A syringe disguised as a functional pen. It's filled with a potent agression supressant. \ The pen holds four doses of the mixture. The pen can be refilled "
+	reference = "LP"
+	item = /obj/item/pen/love
+	cost = 4
+	species = list("Skrell")
 
 //Slime people
 // no idea
@@ -322,7 +328,7 @@
 //Psionics Starter Kit: Get TK, psy resist, one spell
 
 //Diona
-//Add m
+//no idea
 
 //IPC:
 //Positonic supercharge implant: stims, 3 uses, IPC adrenals
