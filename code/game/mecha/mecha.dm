@@ -1217,7 +1217,7 @@
 
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
 
-	if(do_after(user, src.mech_enter_time, target = src))
+	if(do_after(user, src.mech_enter_time * gettoolspeedmod(user), target = src))
 		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(occupant)
