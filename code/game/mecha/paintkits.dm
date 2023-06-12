@@ -89,7 +89,7 @@
 	icon_state = "paintkit_executor"
 	desc = "A kit containing all the needed tools and parts to turn a Durand into holy machine of Doom and Purge! For The Mankind! For the Imperator!"
 
-	new_name = "Durand \"mk.V Executioner\""
+	new_name = "mk.V Executioner"
 	new_desc = "Dreadnought of the Executioner Order, heavy fire support configuration, made for purge evil and heretics."
 	new_icon = "executor"
 	allowed_types = list("durand")
