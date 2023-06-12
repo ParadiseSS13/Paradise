@@ -4,6 +4,7 @@
 	animate_movement = 2
 	pressure_resistance = 8
 	throwforce = 10
+	invisibility = SEE_INVISIBLE_LIVING //Invisibility 25
 	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC

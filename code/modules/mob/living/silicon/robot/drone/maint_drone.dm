@@ -19,6 +19,8 @@
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
+	invisibility = INVISIBILITY_LIGHTING //Invisiblity 20
+	see_invisible = INVISIBILITY_LIGHTING //Invisiblity 20
 	/// Cooldown for law syncs
 	var/sync_cooldown = 0
 
@@ -226,6 +228,7 @@
 
 	emagged = TRUE
 	density = TRUE
+	see_invisible = SEE_INVISIBLE_LIVING //Invisibility 25
 	pass_flags = 0
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/holder/drone/emagged
