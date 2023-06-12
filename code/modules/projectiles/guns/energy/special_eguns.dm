@@ -862,7 +862,7 @@
     desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
     icon = 'icons/obj/guns/projectile.dmi'
     icon_state = "spikethrower"
-    item_state = "spikethrower"
+    item_state = "toxgun"
     w_class = WEIGHT_CLASS_NORMAL
     fire_sound_text = "a strange noise"
     can_suppress = 0
@@ -900,7 +900,7 @@
         H.bleed(50)
     ..()
 
-/obj/item/gun/energy/spikethrower/examine(mob/user)
+/obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This items cell recharges on it's own. Known to drive people mad by forcing them to wait for shots to recharge. Cannot be recharged in a recharger.</span>"
 
