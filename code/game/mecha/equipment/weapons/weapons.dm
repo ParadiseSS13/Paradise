@@ -66,11 +66,11 @@
 	size = 2
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
-	equip_cooldown = 8
+	equip_cooldown = 4
 	name = "CH-PS \"Firedart\" Laser"
 	icon_state = "mecha_laser"
 	origin_tech = "magnets=3;combat=3;engineering=3"
-	energy_drain = 30
+	energy_drain = 40
 	projectile = /obj/item/projectile/beam
 	fire_sound = 'sound/weapons/gunshots/1laser4.ogg'
 	harmful = TRUE
@@ -125,12 +125,12 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
-	equip_cooldown = 35
+	equip_cooldown = 10
 	name = "S-1 X-Ray Projector"
 	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
 	icon_state = "mecha_laser"
-	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
-	energy_drain = 80
+	origin_tech = "combat=6;materials=4;programming=6"
+	energy_drain = 120
 	projectile = /obj/item/projectile/beam/xray
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	harmful = TRUE
@@ -141,7 +141,7 @@
 	projectile_delay = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
-	equip_cooldown = 35
+	equip_cooldown = 8
 	name = "ZFI Immolation Beam Gun"
 	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
 	icon_state = "mecha_laser"
@@ -285,8 +285,8 @@
 	name = "FNX-99 \"Hades\" Carbine"
 	icon_state = "mecha_carbine"
 	origin_tech = "materials=4;combat=4"
-	equip_cooldown = 5
-	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
+	equip_cooldown = 8
+	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath/mecha
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	projectiles = 24
 	projectile_energy_cost = 15
@@ -324,7 +324,7 @@
 	name = "Ultra AC 2"
 	icon_state = "mecha_uac2"
 	origin_tech = "combat=4"
-	equip_cooldown = 10
+	equip_cooldown = 12
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
 	projectiles = 300
@@ -341,8 +341,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg
 	name = "AMLG-90"
 	icon_state = "mecha_amlg90"
-	origin_tech = "combat=6;magnets=6;powerstorage=5"
-	equip_cooldown = 10
+	origin_tech = "combat=4"
+	equip_cooldown = 12
 	projectile = /obj/item/projectile/beam/laser
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	projectiles = 150

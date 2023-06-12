@@ -219,6 +219,10 @@
 	name = "dragonsbreath round"
 	damage = 5
 
+/obj/item/projectile/bullet/incendiary/shell/dragonsbreath/mecha
+	name = "liquidlava round"
+	damage = 20
+
 /obj/item/projectile/bullet/meteorshot
 	name = "meteor"
 	icon = 'icons/obj/meteor.dmi'

@@ -9,7 +9,7 @@
 	icon_state = "mecha_teleport"
 	origin_tech = "bluespace=7"
 	equip_cooldown = 150
-	energy_drain = 8000
+	energy_drain = 4000
 	range = MECHA_RANGED
 	var/tele_precision = 4
 
