@@ -34,6 +34,7 @@
 	var/energy_to_lower = -20
 	var/list/shocked_things = list()
 	var/obj/singularity/energy_ball/parent_energy_ball
+	var/where_to_move = 0
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
@@ -77,8 +78,7 @@
 /obj/singularity/energy_ball/process()
 	if(!parent_energy_ball)
 		handle_energy()
-		find_the_basket()
-		move_the_basket_ball(where_to_move)
+		move_the_basket_ball()
 
 		playsound(loc, 'sound/magic/lightningbolt.ogg', 100, TRUE, extrarange = 30, channel = CHANNEL_ENGINE)
 
@@ -106,9 +106,9 @@
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(where_to_move)
-	for(var/thing in GLOB.singularities)
-		var/obj/singularity/tesloose = thing
-		tesloose.target = pick(where_to_move)
+	if(where_to_move == 0)
+		find_the_basket()
+	else
 		for(var/i in 0 to 8)
 			var/movement_dir = get_dir(src, target)
 			var/turf/T = get_step(src, movement_dir)
@@ -120,9 +120,12 @@
 					dust_mobs(C)
 
 /obj/singularity/energy_ball/proc/find_the_basket()
-		var/turf/where_to_move = findEventArea()
-		message_admins("The target is [where_to_move]")
-		return where_to_move
+	var/turf/where_to_move = findEventArea()
+	message_admins("The target is [where_to_move]")
+	for(var/thing in GLOB.singularities)
+		var/obj/singularity/tesloose = thing
+		tesloose.target = pick(where_to_move)
+	return
 
 /obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
