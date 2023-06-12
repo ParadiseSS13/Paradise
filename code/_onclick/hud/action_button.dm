@@ -5,9 +5,11 @@
 	var/ordered = TRUE
 
 /obj/screen/movable/action_button/MouseDrop(over_object)
-	if(over_object == src) // in case something bad happend and game realised we dragged our ability instead of pressing it
+	if(locked && could_be_click_lag()) // in case something bad happend and game realised we dragged our ability instead of pressing it
 		Click()
+		drag_start = 0
 		return
+	drag_start = 0
 	if(locked)
 		to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
 		closeToolTip(usr)

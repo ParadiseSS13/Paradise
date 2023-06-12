@@ -404,6 +404,15 @@
 		object_overlays += item_overlay
 		add_overlay(object_overlays)
 
+/obj/screen/inventory/MouseDrop(atom/over)
+	cut_overlay(object_overlays)
+	object_overlays.Cut()
+	if(could_be_click_lag())
+		Click()
+		drag_start = 0
+		return
+	return ..()
+
 /obj/screen/inventory/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
