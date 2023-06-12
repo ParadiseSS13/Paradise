@@ -158,6 +158,9 @@
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
 
+/obj/item/projectile/bullet/midbullet3/overgrown
+	damage = 25
+
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
