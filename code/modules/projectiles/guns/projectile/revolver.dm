@@ -161,7 +161,7 @@
 	desc = "A bulky revolver that seems to be made out of a plant."
 	icon_state = "revolver"
 	w_class = WEIGHT_CLASS_BULKY
-	origin_tech = "biotech=5,combat=3"
+	origin_tech = "combat=3;biotech=5"
 	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/overgrown
 	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
