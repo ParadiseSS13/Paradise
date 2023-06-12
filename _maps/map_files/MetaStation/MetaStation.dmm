@@ -60450,6 +60450,12 @@
 /obj/machinery/camera{
 	c_tag = "Science - Research Fore"
 	},
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -71026,6 +71032,9 @@
 /area/space/nearstation)
 "mZe" = (
 /obj/machinery/r_n_d/protolathe,
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -89369,14 +89378,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
-"wwn" = (
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console"
-	},
-/turf/simulated/wall/r_wall,
-/area/toxins/lab)
 "wwo" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/structure/disposalpipe/segment,
@@ -89400,10 +89401,6 @@
 	icon_state = "white"
 	},
 /area/security/permabrig)
-"wwx" = (
-/obj/machinery/computer/guestpass,
-/turf/simulated/wall/r_wall,
-/area/toxins/lab)
 "wwI" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
@@ -123810,7 +123807,7 @@ caM
 nWH
 bdb
 dbb
-wwx
+cmo
 mZe
 bVZ
 lVF
@@ -124067,7 +124064,7 @@ cPD
 uhY
 bdb
 dbb
-wwn
+cmo
 hYA
 pho
 bYq
