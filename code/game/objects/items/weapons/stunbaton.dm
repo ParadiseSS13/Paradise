@@ -126,6 +126,12 @@
 			status = 0
 			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge the [src]!</span>")
 	else if(cell && cell.charge >= hitcost)
+		if(cell.rigged)
+			if(prob(30))//30% to explode
+				cell.use(hitcost)
+				cell = null
+				status = 0
+				update_icon()
 		status = !status
 		to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
 		playsound(loc, "sparks", 75, 1, -1)
