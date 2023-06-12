@@ -626,3 +626,14 @@
 	if(item == r_hand)
 		return slot_r_hand
 	return null
+
+
+//search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage
+/mob/proc/find_item(path)
+	for(var/obj/item/I in contents)
+		if(istype(I, /obj/item/storage))
+			for(var/obj/item/SI in I.contents)
+				if(istype(SI, path))
+					return SI
+		else if(istype(I, path))
+			return I
