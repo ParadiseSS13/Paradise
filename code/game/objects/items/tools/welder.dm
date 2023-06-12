@@ -15,7 +15,7 @@
 	throw_range = 5
 	hitsound = "swing_hit"
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
 	origin_tech = "engineering=1;plasmatech=1"
@@ -137,6 +137,12 @@
 		return
 	remove_fuel(amount)
 	return TRUE
+
+/obj/item/weldingtool/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!tool_enabled)
+		return
+	remove_fuel(0.5)
 
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)

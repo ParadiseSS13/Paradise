@@ -1292,9 +1292,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/teleporter/quantum/cargo
 	name = "Cargo Quantum Pad"
 
-/area/gateway
-	name = "\improper Gateway"
-	icon_state = "gateway"
+/area/expedition
+	name = "\improper Expedition room"
+	icon_state = "expedition"
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
 

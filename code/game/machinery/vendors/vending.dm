@@ -31,7 +31,7 @@
 	face_while_pulling = TRUE
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
 
 	/// Icon_state when vending
 	var/icon_vend
@@ -191,6 +191,7 @@
 		for(var/typepath in subtypesof(/datum/vendor_crit))
 			all_possible_crits[typepath] = new typepath()
 
+	update_icon(UPDATE_OVERLAYS)
 	reconnect_database()
 	power_change()
 
@@ -204,8 +205,7 @@
 	. = ..()
 	if(tilted)
 		. += "<span class='warning'>It's been tipped over and won't be usable unless it's righted.</span>"
-		if(Adjacent(user))
-			. += "<span class='notice'>You can <b>Alt-Click</b> it to right it.</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> it to right it when adjacent.</span>"
 
 	if(aggressive)
 		. += "<span class='warning'>Its product lights seem to be blinking ominously...</span>"
@@ -605,7 +605,7 @@
 		return
 
 	if(tilted)
-		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")
+		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! <b>Alt-Click</b> to right it first.</span>")
 		return
 
 	if(seconds_electrified != 0 && shock(user, 100))
@@ -1117,6 +1117,14 @@
 	add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 	tilt(target, from_combat = TRUE)
 	return TRUE
+
+/obj/machinery/economy/vending/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(HAS_TRAIT(C, TRAIT_FLATTENED))
+		return ..()
+	tilt(C, from_combat = TRUE)
+	mob_hurt = TRUE
+	return ..()
+
 
 /*
  * Vending machine types
