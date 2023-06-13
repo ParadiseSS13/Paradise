@@ -23,13 +23,11 @@
 		return
 	if(!isobj(target) && !issimulatedturf(target))
 		return
-	if(reagents.total_volume >= 5)
-		user.visible_message("<span class='warning'>[target] has been splashed with something by [user]!</span>")
-		spawn(5)
-			reagents.reaction(target, REAGENT_TOUCH)
-			reagents.remove_any(5)
-	else
+	if(reagents.total_volume < 5)
 		return ..()
+	user.visible_message("<span class='warning'>[target] has been splashed with something by [user]!</span>")
+	reagents.reaction(target, REAGENT_TOUCH)
+	reagents.remove_any(5)
 
 /obj/item/reagent_containers/glass/paint/red
 	name = "red paint bucket"
