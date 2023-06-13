@@ -11,8 +11,7 @@
 		T.color = color
 
 /datum/reagent/paint/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/item/light))
-		O.color = color
+	O.color = color
 
 /datum/reagent/paint/red
 	name = "Red Paint"

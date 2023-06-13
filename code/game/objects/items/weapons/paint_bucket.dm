@@ -16,12 +16,14 @@
 	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-/obj/item/reagent_containers/glass/paint/afterattack(turf/simulated/target, mob/user, proximity)
+/obj/item/reagent_containers/glass/paint/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!is_open_container())
 		return
-	if(istype(target) && reagents.total_volume >= 5)
+	if(!isobj(target) && !issimulatedturf(target))
+		return
+	if(reagents.total_volume >= 5)
 		user.visible_message("<span class='warning'>[target] has been splashed with something by [user]!</span>")
 		spawn(5)
 			reagents.reaction(target, REAGENT_TOUCH)
