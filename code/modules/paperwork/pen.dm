@@ -141,7 +141,7 @@
 
 
 /obj/item/pen/love
-	container_type = OPENCONTAINER
+	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
 	origin_tech = "engineering=4;syndicate=2"
 
 
@@ -159,7 +159,8 @@
 		contained += "[round(reagent.volume, 0.01)]u [reagent]"
 
 	if(reagents.total_volume && M.reagents)
-		transfered = reagents.trans_to(M, 25)
+		transfered = reagents.trans_to(M, 25) //injects 25u of love, forcing help intent
+		M.apply_status_effect(STATUS_EFFECT_PACIFIED) //pacifies for 40 seconds
 
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
