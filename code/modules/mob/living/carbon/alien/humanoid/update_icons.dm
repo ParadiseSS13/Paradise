@@ -59,8 +59,8 @@
 	if(notransform)
 		return
 
-	update_inv_head()
-	update_inv_wear_suit()
+	//update_inv_head()
+	//update_inv_wear_suit()
 	update_inv_r_hand()
 	update_inv_l_hand()
 	update_inv_pockets()
