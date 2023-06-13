@@ -132,6 +132,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
 	var/special_availability_check = 0//Whether the spell needs to bypass the action button's IsAvailable()
+	var/can_select = FALSE
 
 	var/sound = null //The sound the spell makes when it is cast
 

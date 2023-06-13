@@ -224,6 +224,7 @@ Doesn't work on other aliens/AI.*/
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
 	charge_max = 0.5 SECONDS
+	can_select = TRUE
 
 /obj/effect/proc_holder/spell/neurotoxin/Click()
 	if(cast_check())
