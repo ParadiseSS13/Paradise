@@ -2376,10 +2376,6 @@
 	},
 /turf/simulated/floor,
 /area/ae13/hall)
-"TS" = (
-/obj/item/gun/projectile/revolver,
-/turf/simulated/mineral/iron,
-/area/ae13/asteroid)
 "TU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -5342,7 +5338,7 @@ dR
 dR
 dR
 dR
-TS
+dR
 dR
 dR
 dR
