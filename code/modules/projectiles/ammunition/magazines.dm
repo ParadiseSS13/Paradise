@@ -82,7 +82,7 @@
 
 /obj/item/ammo_box/magazine/internal/overgrown
 	name = "overgrown pistol magazine"
-	desc= "Oh god, this shouldn't be here"
+	desc = "Oh god, this shouldn't be here"
 	ammo_type = /obj/item/ammo_casing/overgrown
 	max_ammo = 8
 
