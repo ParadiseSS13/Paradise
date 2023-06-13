@@ -759,3 +759,8 @@
 	. = base
 	if(rest)
 		. += .(rest)
+
+/// Removes characters incompatible with file names.
+/proc/sanitize_filename(text)
+	var/static/regex/regex = regex(@{""|[\\\n\t/?%*:|<>]|\.\."}, "g")
+	return regex.Replace(text, "")

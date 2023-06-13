@@ -371,10 +371,10 @@
 
 	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE) // activates dark mode if its flagged. -AA07
 		activate_darkmode()
-	else
-		// activate_darkmode() calls the CL update button proc, so we dont want it double called
-		SSchangelog.UpdatePlayerChangelogButton(src)
 
+	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
+		to_chat(src, span_info("You have unread updates in the changelog."))
+		winset(src, "rpane.changelog", "font-style=bold")
 
 	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
 		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
@@ -963,7 +963,6 @@
 // IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
 /client/proc/activate_darkmode()
 	///// BUTTONS /////
-	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
 	winset(src, "rpane.fullscreenb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
@@ -996,7 +995,6 @@
 
 /client/proc/deactivate_darkmode()
 	///// BUTTONS /////
-	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
 	winset(src, "rpane.fullscreenb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.textb", "background-color=none;text-color=#000000")

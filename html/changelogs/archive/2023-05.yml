@@ -1,0 +1,303 @@
+'2023-05-01':
+  ArtemDerp:
+  - bugfix: ferry console null access (#2760)
+  BeebBeebBoob:
+  - add: Edit notes refactor (#2753)
+  - add: add Cerestation Lavaland (#2741)
+  Bizzonium:
+  - bugfix: branch name in merge conflict detector action
+  - add: make CI workflow callable
+  - add: call CI workflow before deployment
+  - bugfix: CI calling from deploy action
+  - add: test inputs on workflow dispatch
+  - add: configurable deployment workflow
+  - add: remove inputs in github actions example
+  Den109G:
+  - add: stamina loss for BS tomatos (#2725)
+  - bugfix: no reagents on CC (#2766)
+  Dimach:
+  - del: Hotkey for quick storage" (#2764)
+  ItsMeJaba:
+  - add: Space Battle rework (#2200)
+  NightDawnFox:
+  - add: add gravboots (#2706)
+  UEDCommander:
+  - add: Nanotrasen Naval Command stamp (#2734)
+  Zwei:
+  - bugfix: Morph Announcement (#2754)
+  captainnelly:
+  - tweak: reduce ore amount from uniq clown/mime statue (#2660)
+'2023-05-03':
+  Daeberdir:
+  - bugfix: robohands fear not legushki. (#2770)
+  Dimach:
+  - refactor: move all reagent_containers reagent creation to Initialize (#2768)
+  - bugfix: wrong bloodpacks in cargo (#2779)
+  - bugfix: timer runtime on startup (#2780)
+  Honker9999999:
+  - bugfix: Borgs have modkits again (#2663)
+  LiquidPotroh:
+  - tweak: Shadowling's glare autotarget on nearest (#2157)
+  Rerik007:
+  - bugfix: attach_self in gravidash action (#2773)
+  - bugfix: overlay of the fax with goal is offset (#2774)
+  - bugfix: missing desc in prevent and debrain objectives (#2771)
+  - bugfix: chasm drop into chasm (#2772)
+  Zwei:
+  - bugfix: Morph Open Vent Range Fix (#2767)
+  - bugfix: No Insta Sleep For Unathi (#2765)
+'2023-05-05':
+  Daeberdir:
+  - bugfix: 'reagent id for #2144. (#2781)'
+  Rerik007:
+  - bugfix: missing wooden bucket sprite (#2785)
+'2023-05-06':
+  ArtemDerp:
+  - add: add shredders and office toys on maps (#2709)
+  Bizzonium:
+  - add: bump ubuntu-20.04 to ubuntu-22.04 in workflows
+  - add: update rust_g from 1.0.4-ss220 to 1.2.0-ss220
+  - bugfix: libssl1.1:i386 on Ubuntu 22.04
+  - bugfix: libssl1.1:i386 on Ubuntu 22.04 (2nd try)
+  - bugfix: libssl1.1:i386 on Ubuntu 22.04 (3rd try)
+  - bugfix: libssl1.1:i386 on Ubuntu 22.04 (4th try)
+  - bugfix: libssl1.1:i386 on Ubuntu 22.04 (5th try)
+  - server: Implement map tests for catching common errors (ParadiseSS13#19204)
+  - server: GitHub action to check for DMI5 (ParadiseSS13#17881)
+  - add: Launch all maps on CI
+  - add: Add CI script for verifying tickedness of files
+  - add: miltibuild on CI
+  Dimach:
+  - bugfix: shuttle camera now point to first docking port if exists, and on observer
+      start otherwise (#2793)
+  - refactor: byond 515 proc references compat (#2790)
+  ItsMeJaba:
+  - bugfix: ussp alarm on atmospherics console (#2778)
+  SAAD:
+  - refactor: Shuttles not take space/lava/chasms with them on transit (#2624)
+  Vladisvell:
+  - bugfix: 'Mecha directional protection fix + ADD: take_damage attack direction
+      (#2783)'
+  - bugfix: Healer Guardian doesn't heal. (#2789)
+  Zwei:
+  - bugfix: Mecha Facing Check (#2763)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#2792)
+'2023-05-07':
+  Bizzonium:
+  - tweak: disable multibuild
+  - bugfix: remove unticked files
+  - bugfix: ooc tag icon
+  Dimach:
+  - bugfix: adminzone level space area (#2796)
+  - bugfix: cerestation grille (#2797)
+  - bugfix: remove broken icon (#2798)
+  NightDawnFox:
+  - tweak: correct hook chain display time (#2788)
+  Rerik007:
+  - bugfix: all donuts have initial icon (#2804)
+  Vladisvell:
+  - bugfix: God summoning message grammar  (#2787)
+  captainnelly:
+  - tweak: add unathi to ashwalker (#2801)
+  - bugfix: unathi sprites (#2799)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#2800)
+'2023-05-08':
+  BeebBeebBoob:
+  - bugfix: Slaving AI via Borg Panel (#2806)
+  Dimach:
+  - bugfix: Bedokur holder icon (#2815)
+  Honker9999999:
+  - add: add honkputer craft (#2803)
+  ItsMeJaba:
+  - bugfix: old space law crimes format (#2808)
+  - bugfix: RD trash-party in cabinet! (#2809)
+  Rerik007:
+  - add: Spai update by bdfyb (#2775)
+  - bugfix: ninja robotic brain (#2805)
+  captainnelly:
+  - tweak: RnD illegal researches designs (#2794)
+  - tweak: plasmaman diet (#2807)
+  - tweak: terrorspider balance patch (#2795)
+'2023-05-09':
+  Dimach:
+  - bugfix: Bedokur inhands icon (#2816)
+'2023-05-10':
+  BeebBeebBoob:
+  - tweak: Clockwork patch (Cogscarab, Marauder, Beacon) (#2811)
+  - bugfix: Log spam from deleted rigged cell (#2827)
+  LiquidPotroh:
+  - bugfix: disease outbreak virus runtime (#2826)
+  NightDawnFox:
+  - add: add chameleon counterfeiter (#2708)
+  Rerik007:
+  - add: Holy constructs (#2786)
+  - bugfix: move item/storage creation to initialize (#2817)
+  Zwei:
+  - bugfix: Fulton & Crates (#2814)
+  captainnelly:
+  - add: blobbernaut ignore lack of gravity (#2812)
+  - add: asclepius rod translation (#2810)
+'2023-05-12':
+  Albonix:
+  - tweak: Better color layer laying for cloak (#2762)
+  Bizzonium:
+  - add: 'new TTS voices: LOL (11), Skyrim (2), Hearthstone (19)'
+  Daeberdir:
+  - add: QM drip (#2784)
+  - bugfix: pet holders devouring. (#2824)
+  - bugfix: Bioguardian text correction. (#2825)
+  Den109G:
+  - bugfix: thermite effect (#2820)
+  Dimach:
+  - bugfix: Cloak fix front sprite (#2838)
+  Rerik007:
+  - bugfix: paper_bundle fire (#2823)
+  Vladisvell:
+  - bugfix: infinite reach for stacks and duping prize tickets (#2830)
+  - bugfix: no more repeated bombs for guardian (#2828)
+  - bugfix: broom and spacepod user floating after exiting in places with gravity
+      (#2829)
+  Сиротка:
+  - tweak: sort fabricator designs (#2821)
+'2023-05-15':
+  Daeberdir:
+  - bugfix: infinity feeding and sound loc logic on "item_eat" proc. (#2852)
+  - bugfix: correct button name in ERT armory. (#2849)
+  - bugfix: airlock correctly drop all contents. (#2851)
+  Dimach:
+  - bugfix: ci errors (#2861)
+  Hero998:
+  - add: improvable сooldown for DNA injectors (#2857)
+  LiquidPotroh:
+  - bugfix: red damage overlay for carbons (#2847)
+  NightDawnFox:
+  - bugfix: borg defib sprite disappears (#2841)
+  Rerik007:
+  - add: add upgraded botanical dispenser to Taipan (#2855)
+  Vladisvell:
+  - bugfix: Holodeck shifted walls, removed redundant holodeck area markers (#2842)
+  - bugfix: no more xray from advanced camera consoles and other ai eye mechanisms
+      (#2848)
+  Zwei:
+  - bugfix: Ninja Pain Hunter (#2850)
+  - bugfix: Ninja Collect Vamp Blood (#2858)
+  - add: Mecha Strafe (#2759)
+  captainnelly:
+  - bugfix: unathi uniform sprites (#2845)
+  - add: add inhands sprite for unathi knife (#2846)
+  - tweak: terror spiders defiler balance patch (#2839)
+  userbaza:
+  - add: fungus, 4th backpack and omega is not a myth anymore on oldstation (#2834)
+'2023-05-16':
+  Daeberdir:
+  - bugfix: emagged sybil typo. (#2862)
+'2023-05-17':
+  Zwei:
+  - add: Xenomorph Queen Mech Resistant (#2859)
+  aeternaclose:
+  - add: Cere improvement (#2835)
+'2023-05-18':
+  LiquidPotroh:
+  - add: Xenomorph Up (#2818)
+  NightDawnFox:
+  - add: health bar now less accurate when painkiller in blood (#2819)
+  Pavel Lysenko:
+  - bugfix: nucleatoin wont slowdown when damaged (#2843)
+  Rerik007:
+  - add: various makeshifts crafts (#2854)
+  Zwei:
+  - bugfix: Fingerprints Remastered (#2844)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#2866)
+'2023-05-19':
+  Vladisvell:
+  - bugfix: black powder now really explodes (#2871)
+  Zwei:
+  - bugfix: Fingerprints Quickfix (#2870)
+  - qol: Ninja's Adjacent Dash No More (#2865)
+  - add: Limitless Strafe for Advanced Mechas (#2863)
+  Сиротка:
+  - tweak: maint mode enable by default for durand, gygax., phazon, HONK and rereticence
+      (#2860)
+  - add: Cheaper paintkits (#2868)
+'2023-05-20':
+  Bizzonium:
+  - bugfix: show blob messages in journalctl in deploy action
+  Zwei:
+  - bugfix: Adjacency Check For Storage Insertion (#2873)
+'2023-05-21':
+  Aziz Chynaliev:
+  - del: Adjacency Check For Storage Insertion" (#2876)
+  LiquidPotroh:
+  - add: Piercing viral injector (#2874)
+  Rerik007:
+  - bugfix: morph invisibility (#2872)
+  Vladisvell:
+  - add: add Pneumatic Rifle (#2864)
+  Сиротка:
+  - tweak: Mech buff p.1 (#2856)
+  - tweak: Mech buff p3. Rover (#2869)
+'2023-05-24':
+  Daeberdir:
+  - add: Human - 3 hair and 2 body markings (#2884)
+  - bugfix: lightgeist HUD regaining on transference potion. (#2885)
+  Dimach:
+  - tweak: disable traitor+thief (#2883)
+  LiquidPotroh:
+  - add: Mime mask with silence skill (#2875)
+  NightDawnFox:
+  - bugfix: more fixes for unathi sprites (#2879)
+  Rerik007:
+  - bugfix: chasm drop you on taipan (#2881)
+  - bugfix: razorgloves onmob sprites some shift (#2888)
+  Vladisvell:
+  - add: Ascended Shadowling retexture (#2878)
+  captainnelly:
+  - add: add new smoking pipe (#2886)
+  Сиротка:
+  - add: add Super Sus Toolbox (#2887)
+  - add: Paintkit "Executioner" (#2889)
+'2023-05-26':
+  Bizzonium:
+  - tweak: lower TTS RPS limit from 5 to 3
+  - bugfix: temporarily disable TTS safety mechanisms
+  - add: update rust_g from 1.2.0-ss220 to 2.0.0-ss220
+'2023-05-27':
+  Bizzonium:
+  - add: make Silero TTS url configurable via config
+  - bugfix: enable TTS safety mechanisms
+  - tweak: increase TTS RPS limit from 3 to 5
+'2023-05-28':
+  Daeberdir:
+  - bugfix: Syndy airlocks dismantle. (#2896)
+  Den109G:
+  - tweak: disable bots radio tts (#2897)
+  Lentye:
+  - tweak: RPD for engi ERT (#2893)
+  NightDawnFox:
+  - add: Contractor stuff (#2813)
+  - tweak: decrease hook stuns (#2890)
+  - tweak: weapons can be reskinned multiple times (#2891)
+  - add: add two new caplaser skin (#2892)
+  Zwei:
+  - bugfix: Storage Adjacency Check (#2877)
+  Сиротка:
+  - bugfix: Odyss leg upgrade detach (#2894)
+'2023-05-29':
+  Bizzonium:
+  - bugfix: temporarily disable TTS safety mechanism
+  - add: better TTS logging
+'2023-05-31':
+  Rerik007:
+  - bugfix: chameleon backpack not change when changing outfit (#2900)
+  - bugfix: kitchen machines not drop contents when deconstucted (#2898)
+  - bugfix: balaclava on head makes you bald (#2901)
+  Vladisvell:
+  - add: add new cocktail effects (#2880)
+  captainnelly:
+  - tweak: defiler nerf (#2902)
+  Сиротка:
+  - bugfix: pacifist mech (#2895)
+  - tweak: Equality robes (#2899)

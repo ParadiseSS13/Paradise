@@ -39,6 +39,7 @@
 @include meta.load-css('./components/ProgressBar.scss');
 @include meta.load-css('./components/Section.scss');
 @include meta.load-css('./components/Slider.scss');
+@include meta.load-css('./components/Stack.scss');
 @include meta.load-css('./components/Table.scss');
 @include meta.load-css('./components/Tabs.scss');
 @include meta.load-css('./components/Tooltip.scss');
@@ -47,6 +48,7 @@
 @include meta.load-css('./interfaces/AccountsUplinkTerminal.scss');
 @include meta.load-css('./interfaces/BrigCells.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');
+@include meta.load-css('./interfaces/Changelog.scss');
 @include meta.load-css('./interfaces/Contractor.scss');
 @include meta.load-css('./interfaces/ExosuitFabricator.scss');
 @include meta.load-css('./interfaces/Newscaster.scss');

@@ -1,0 +1,122 @@
+'2023-06-01':
+  BeebBeebBoob:
+  - add: add fax and requests interaction with Discord + minor fixes (#2904)
+  Dimach:
+  - bugfix: SIT spawn (#2909)
+  Heavens-Fury:
+  - add: Ghetto removed (#2903)
+'2023-06-03':
+  Furior:
+  - bugfix: http security fix
+  Rerik007:
+  - bugfix: centcom_cancast check don't work if loc not turf (#2913)
+  - add: holy shell in chaplain closet (#2906)
+  - bugfix: npc shoot after gt (#2907)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#2911)
+  Сиротка:
+  - bugfix: Odysseus Sleeper (#2910)
+'2023-06-04':
+  Bizzonium:
+  - add: improve TTS caching
+'2023-06-05':
+  BeebBeebBoob:
+  - bugfix: Fax Discord API (area, chameleon stamps, butt invalid) (#2916)
+  Bizzonium:
+  - bugfix: use and migrate old TTS cache
+  - add: show TTS queue stats in MC
+  Daeberdir:
+  - add: Tribal bola. (#2905)
+  Сиротка:
+  - bugfix: Dog size (#2918)
+'2023-06-06':
+  ArtemDerp:
+  - add: USSP Gorky17 station (#2822)
+  NightDawnFox:
+  - add: rocket launcher for nuke ops (#2908)
+  Rerik007:
+  - bugfix: observers trigger mousetraps (#2920)
+  captainnelly:
+  - tweak: new unathi diet (#2929)
+  - add: new shotgun sprites (#2928)
+  - tweak: infinite cell for admin mecha and robot (#2927)
+  Сиротка:
+  - tweak: MouseDrop CM & GPS (#2923)
+  - tweak: Mecha RCD (#2924)
+  - tweak: Mecha can load dead silicons (#2922)
+'2023-06-08':
+  ArtemDerp:
+  - refactor: moving the 'rusted' effect to a more appropriate file (#2935)
+  Bizzonium:
+  - add: correct libssl dependency in CI rust_g job
+  Dimach:
+  - del: Inventory Refactoring" (#2955)
+  NightDawnFox:
+  - bugfix: syndi hardsuit toggles only helmet (#2938)
+  Pavlovvn:
+  - add: ghost role for USSP station (#2915)
+  Rerik007:
+  - bugfix: holy construct sprites and faction (#2936)
+  - add: cryo storage tgui (#2949)
+  Vladisvell:
+  - bugfix: service department Clothemat contains no items (#2948)
+  - bugfix: Changelings no longer get "steal indentity" objectives on offstation roles
+      (#2944)
+  Zwei:
+  - refactor: Inventory Refactoring (#2925)
+  captainnelly:
+  - add: new mime clothes (#2930)
+  - tweak: disable sentience potion for gigant spider-nurse (#2931)
+'2023-06-09':
+  FindingHeMo:
+  - add: 22 types of soap (#2933)
+  Vladisvell:
+  - bugfix: welding helmet is now paintable (#2946)
+  - bugfix: now thralls won't lose not-shadowling magic when tumor removed (#2947)
+  - bugfix: infinite turf checking distance for AI (#2940)
+  - bugfix: dead slime render (#2950)
+  - bugfix: no more objectives for antags on Space Ninja (#2953)
+  Zwei:
+  - refactor: Inventory Refactoring V2 (#2959)
+  - bugfix: Stack Weight Class Fix (#2960)
+  - bugfix: Welding Goggles Correct Tint Update (#2962)
+  - bugfix: PDA Drop and Mining Satchel Fix (#2965)
+  captainnelly:
+  - bugfix: mime clothings (#2958)
+  Сиротка:
+  - bugfix: borgo GPS upgrade (#2945)
+  - tweak: Syndie lockermech (#2943)
+  - tweak: New Insect Surgery (#2919)
+'2023-06-10':
+  Bizzonium:
+  - bugfix: mysqladmin symlink is gone in latest mariadb docker container
+'2023-06-12':
+  Bizzonium:
+  - add: add atom_type and ckey fields to Silero TTS request
+  - bugfix: restore find_item proc
+  NightDawnFox:
+  - tweak: more cigarettes in packs (#2963)
+  - add: plasma stunbatton has has 30% chance to explode when activated (#2964)
+  Zwei:
+  - bugfix: Changeling Drop Fix (#2971)
+  - bugfix: Stack Fixes (#2975)
+  captainnelly:
+  - tweak: no more scream from stryptic powder (#2974)
+  - add: new sound for airlocks (#2970)
+  - add: add emote "rumble" for unathi (#2973)
+  Сиротка:
+  - bugfix: Executioner paintkit name (#2968)
+  - bugfix: Grey toolspeedmod (#2942)
+  - tweak: Mecha weapon (#2966)
+'2023-06-13':
+  LiquidPotroh:
+  - bugfix: Neurotoxin spit accuracy (#2976)
+  - add: Selector image for neuritoxin action (#2978)
+  Zwei:
+  - bugfix: Revenant Resurrection (#2967)
+  - bugfix: Runtimes Caused by No Suit&Head on Xenos (#2979)
+  - bugfix: Copy Not a Real Item for animation (#2982)
+  captainnelly:
+  - tweak: change airlock sound to match animation (#2981)
+  userbaza:
+  - bugfix: remove .357 revolver from random stone in anomalyship (#2977)
