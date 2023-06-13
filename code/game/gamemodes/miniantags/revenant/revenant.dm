@@ -220,6 +220,7 @@
 	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
 	R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
 	R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
+	R.reforming = TRUE
 	ghostize()
 	qdel(src)
 
