@@ -114,6 +114,7 @@
 	if(parent_spell)
 		parent_spell.current_gun = null
 		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
+		parent_spell = null
 	return ..()
 
 /obj/item/gun/projectile/revolver/fingergun/fake

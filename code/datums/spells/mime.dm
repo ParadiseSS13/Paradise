@@ -105,7 +105,7 @@
 	for(var/mob/living/carbon/human/C in targets)
 		if(!current_gun)
 			to_chat(user, "<span class='notice'>You draw your fingers!</span>")
-			current_gun = new gun(user, src)
+			current_gun = new gun(get_turf(user), src)
 			C.drop_item()
 			C.put_in_hands(current_gun)
 			RegisterSignal(C, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(holster_hand))
@@ -113,7 +113,12 @@
 			holster_hand(user, TRUE)
 			revert_cast(user)
 
-/obj/effect/proc_holder/spell/mime/fingergun/proc/holster_hand(atom/target, any = FALSE)
+
+/obj/effect/proc_holder/spell/mime/fingergun/Destroy()
+	current_gun = null
+	return ..()
+
+/obj/effect/proc_holder/spell/mime/fingergun/proc/holster_hand(atom/target, any=FALSE)
 	SIGNAL_HANDLER
 	if(!current_gun || !any && action.owner.get_active_hand() != current_gun)
 		return

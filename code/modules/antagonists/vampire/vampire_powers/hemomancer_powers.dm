@@ -20,7 +20,7 @@
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/proc/dispel()
 	SIGNAL_HANDLER
 	var/mob/living/carbon/human/user = action.owner
-	if(!lowertext(user.mind.special_role) == ROLE_VAMPIRE)
+	if(user.mind.has_antag_datum(/datum/antagonist/vampire))
 		return
 	var/current
 	if(istype(user.l_hand, /obj/item/twohanded/required/vamp_claws))
@@ -63,6 +63,7 @@
 /obj/item/twohanded/required/vamp_claws/Destroy()
 	if(parent_spell)
 		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
+		parent_spell = null
 	return ..()
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)

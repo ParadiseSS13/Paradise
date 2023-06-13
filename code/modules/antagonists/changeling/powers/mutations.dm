@@ -30,13 +30,13 @@
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent, src)
 	user.put_in_hands(W)
-	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract))
-	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract))
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override=TRUE)
+	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override=TRUE)
 	return W
 
 /datum/action/changeling/weapon/proc/retract(atom/target, any=FALSE)
 	SIGNAL_HANDLER
-	if(!lowertext(owner.mind.special_role) == ROLE_CHANGELING)
+	if(!ischangeling(owner))
 		return
 	if(!istype(owner.get_active_hand(), weapon_type))
 		return
@@ -145,6 +145,7 @@
 	if(parent_action)
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+		parent_action = null
 	return ..()
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
@@ -211,6 +212,7 @@
 	if(parent_action)
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+		parent_action = null
 	return ..()
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
