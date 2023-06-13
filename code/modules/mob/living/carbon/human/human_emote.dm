@@ -649,7 +649,7 @@
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 
 /datum/emote/living/carbon/human/thiss
-	key = "thisses"
+	key = "thiss"
 	key_third_person = "thisses"
 	message = "hisses."
 	message_mime = "hisses silently."
