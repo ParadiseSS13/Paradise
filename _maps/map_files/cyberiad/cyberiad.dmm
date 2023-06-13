@@ -36,7 +36,6 @@
 /area/maintenance/apmaint)
 "aag" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/landmark/spawner/xeno,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel,
@@ -33701,25 +33700,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
-"bID" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "bIG" = (
 /obj/machinery/camera{
 	c_tag = "Cargo Delivery Office";
@@ -34396,19 +34376,8 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "bKt" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bKv" = (
@@ -35710,21 +35679,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
-"bNS" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "bNT" = (
 /obj/effect/turf_decal{
 	dir = 9
@@ -54417,11 +54371,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cNB" = (
@@ -66940,9 +66889,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
@@ -66962,9 +66909,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/hallway)
 "fmd" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "fmg" = (
@@ -73539,9 +73484,6 @@
 /area/maintenance/apmaint2)
 "jQQ" = (
 /obj/item/latexballon,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -84276,7 +84218,6 @@
 "rzw" = (
 /obj/structure/closet,
 /obj/item/clothing/suit/ianshirt,
-/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "rzF" = (
@@ -88161,12 +88102,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
-"uhX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/maintenance/port)
 "uid" = (
 /obj/structure/disaster_counter/toxins,
 /turf/simulated/wall/r_wall,
@@ -112138,7 +112073,7 @@ blM
 dsU
 bCp
 cNA
-bID
+blQ
 bGX
 bDQ
 bxb
@@ -112395,7 +112330,7 @@ blM
 cRK
 bCo
 bsf
-bNS
+blQ
 bGX
 pct
 bxb
@@ -113932,7 +113867,7 @@ blM
 blM
 blM
 bvq
-uhX
+blQ
 mBl
 cRC
 aOD
@@ -114189,7 +114124,7 @@ bCs
 bJt
 bnK
 bnw
-bww
+svp
 bnK
 bnK
 cJV
