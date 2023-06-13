@@ -38,7 +38,7 @@
 	if(iscultist(user) && purified && !iswizard(user))
 		return FALSE
 
-	if(iscultist(user) || iswizard(user) || (user.mind?.isholy && purified || usability == TRUE))
+	if(iscultist(user) || iswizard(user) || (user.mind?.isholy && purified))
 		return TRUE
 
 	return FALSE
