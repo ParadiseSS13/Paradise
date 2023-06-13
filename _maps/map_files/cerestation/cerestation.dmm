@@ -92894,6 +92894,7 @@
 /area/security/checkpoint2)
 "xwo" = (
 /obj/structure/falsewall/rock_ancient,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "xwI" = (
 /turf/simulated/floor/engine{
