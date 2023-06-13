@@ -112,8 +112,8 @@
 /mob/living/simple_animal/pet/dog/corgi/UnarmedAttack(atom/A)
 	if(istype(inventory_back, /obj/item/extinguisher))
 		var/obj/item/extinguisher/E = inventory_back
-		E.AttemptRefill(A, src)
-		return
+		if(E.AttemptRefill(A, src))
+			return
 	return ..()
 
 /mob/living/simple_animal/pet/dog/corgi/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
