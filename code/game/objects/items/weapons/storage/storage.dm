@@ -452,7 +452,9 @@
 	if(usr)
 		if(config.item_animations_enabled)
 			// This bullshit is required since /image/ registered only when in turf contents
-			var/obj/item/dummy = new W.type(drop_location())
+			var/obj/item/dummy = new (drop_location())
+			dummy.icon = W.icon
+			dummy.icon_state = W.icon_state
 			dummy.copy_overlays(W)
 			dummy.do_pickup_animation(usr)
 			qdel(dummy)
