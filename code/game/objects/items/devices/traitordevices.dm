@@ -245,3 +245,32 @@
 	charges = 8
 	max_charges = 8
 	flawless = TRUE
+
+/obj/item/fireproofing_injector
+	desc = "It contains alien nanoswarm of created by the technomancers of boron. Through  near sorcerous feats via use of nanomachines, it enables its user to become fully fireproof."
+	icon = 'icons/obj/hypo.dmi'
+	icon_state = "combat_hypo"
+	var/used = FALSE
+	var/failure_message = "The injector is not compatable with your biology!"
+	var/used_message = "The injector is empty!"
+	var/confirmation_message = "The injector is still unused. Do you wish to use it?"
+	var/use_message = "You inject yourself with the nanites!"
+
+/obj/item/fireproofing_injector/attack_self(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
+		to_chat(user, "You are already fireproof!")
+		return
+	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || !(user.dna.species.name=="Plasmaman"))
+		to_chat(user, "[failure_message]")
+		return
+	if(used == TRUE)
+		to_chat(user, "[used_message]")
+		return
+	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
+	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
+	if(choice == "No")
+		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
+		used = FALSE
+		return
+	to_chat(user, "[use_message]")
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, "dna_vault")

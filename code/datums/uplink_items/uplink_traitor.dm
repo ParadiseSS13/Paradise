@@ -344,7 +344,13 @@
 //Royal Jelly: provides a perminant physical change as well as a significant physical buff. Weaker to pest spray.
 
 //plasmeme
-//fire immunity
+/datum/uplink_item/species_restricted/fireproofing_nanites
+	name = "Fireproofing Nanite Inejctor"
+	desc = "A swarm of nanomachines that absorb excess amounts of heat, allowing the user to become practically fireproof"
+	reference = "FPN"
+	item = /obj/item/fireproofing_injector
+	cost = 5
+	species = list("Plasmaman")
 
 //vulp
 //no idea
