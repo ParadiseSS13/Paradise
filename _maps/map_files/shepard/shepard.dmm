@@ -6528,6 +6528,12 @@
 /obj/machinery/atmospherics/meter,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible,
+/obj/machinery/door_control{
+	id = "disvent";
+	name = "Vent Control";
+	pixel_x = -38;
+	pixel_y = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/incinerator)
 "bqC" = (
@@ -16502,15 +16508,10 @@
 /turf/simulated/wall,
 /area/quartermaster/qm)
 "ddP" = (
-/obj/structure/particle_accelerator/particle_emitter/center{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "elevatorshaft"
-	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "ddQ" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin,
@@ -20861,6 +20862,16 @@
 	icon_state = "botblue"
 	},
 /area/engine/engineering)
+"dZp" = (
+/obj/structure/particle_accelerator/end_cap{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "elevatorshaft"
+	},
+/area/engine/supermatter{
+	name = "\improper Engine Containment"
+	})
 "dZq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -43724,13 +43735,15 @@
 	},
 /area/medical/surgery1)
 "iru" = (
-/obj/effect/spawner/window/reinforced/plasma,
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
+/obj/structure/particle_accelerator/particle_emitter/right{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/engine/engineering)
+/turf/simulated/floor/plasteel{
+	icon_state = "elevatorshaft"
+	},
+/area/engine/supermatter{
+	name = "\improper Engine Containment"
+	})
 "irv" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
@@ -45358,15 +45371,12 @@
 /turf/simulated/floor/carpet/green,
 /area/maintenance/gambling_den)
 "iHE" = (
-/obj/structure/cable/white{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
-	},
+/turf/simulated/floor/plating,
 /area/engine/engineering)
 "iHF" = (
 /obj/machinery/firealarm{
@@ -58883,10 +58893,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "lhJ" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/floodlight,
-/turf/simulated/floor/plating,
-/area/storage/secure)
+/obj/structure/particle_accelerator/fuel_chamber{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "elevatorshaft"
+	},
+/area/engine/supermatter{
+	name = "\improper Engine Containment"
+	})
 "lib" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/power/apc{
@@ -73004,14 +73019,15 @@
 	},
 /area/engine/break_room)
 "nRR" = (
-/obj/effect/spawner/window/reinforced/plasma,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/structure/particle_accelerator/particle_emitter/center{
+	dir = 8
 	},
-/turf/simulated/floor/plating,
-/area/engine/engineering)
+/turf/simulated/floor/plasteel{
+	icon_state = "elevatorshaft"
+	},
+/area/engine/supermatter{
+	name = "\improper Engine Containment"
+	})
 "nRU" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/blue{
@@ -73671,15 +73687,16 @@
 	},
 /area/hallway/primary/starboard)
 "nYw" = (
-/obj/structure/particle_accelerator/power_box{
-	dir = 8
+/obj/structure/cable/white{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "elevatorshaft"
+	dir = 8;
+	icon_state = "long"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/engineering)
 "nYx" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -78147,15 +78164,14 @@
 /turf/simulated/floor/carpet/green,
 /area/maintenance/gambling_den)
 "oQx" = (
-/obj/structure/particle_accelerator/particle_emitter/right{
-	dir = 4
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "elevatorshaft"
-	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/turf/simulated/floor/plating,
+/area/engine/engineering)
 "oQG" = (
 /obj/machinery/computer/crew{
 	dir = 4
@@ -79220,16 +79236,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
-"oZC" = (
-/obj/structure/particle_accelerator/fuel_chamber{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "elevatorshaft"
-	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
 "oZE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -95543,6 +95549,16 @@
 	icon_state = "darkred"
 	},
 /area/security/brig)
+"sgp" = (
+/obj/structure/particle_accelerator/power_box{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "elevatorshaft"
+	},
+/area/engine/supermatter{
+	name = "\improper Engine Containment"
+	})
 "sgx" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer{
@@ -110959,16 +110975,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
-"vbe" = (
-/obj/structure/particle_accelerator/end_cap{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "elevatorshaft"
-	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
 "vbh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -118420,7 +118426,7 @@
 /area/security/permabrig)
 "wrT" = (
 /obj/machinery/door/poddoor{
-	id_tag = "auxiliaryturbinevent";
+	id_tag = "auxincineratorvent";
 	name = "Auxiliary Turbine Vent"
 	},
 /turf/simulated/floor/engine,
@@ -141742,7 +141748,7 @@ aZv
 olt
 awZ
 awZ
-lhJ
+ddP
 qXg
 duc
 hvb
@@ -141999,7 +142005,7 @@ dLN
 khH
 awZ
 awZ
-lhJ
+ddP
 qXg
 duc
 fcq
@@ -142753,8 +142759,8 @@ iFI
 iFI
 jRa
 eYn
-oQx
-ddP
+iru
+nRR
 oWr
 vJq
 jRa
@@ -143011,7 +143017,7 @@ ofU
 iLA
 etm
 tze
-nYw
+sgp
 rSh
 vJq
 miW
@@ -143268,7 +143274,7 @@ uga
 kNY
 djv
 gYt
-oZC
+lhJ
 rSh
 wkn
 dID
@@ -143525,7 +143531,7 @@ mXc
 gQS
 eYn
 kEF
-vbe
+dZp
 kEF
 bsL
 dit
@@ -144031,7 +144037,7 @@ dDf
 dDf
 gAS
 bsf
-nRR
+oQx
 gAS
 oFp
 ePU
@@ -144049,7 +144055,7 @@ qAX
 gAS
 hiw
 kNm
-iru
+iHE
 duc
 duc
 duc
@@ -145066,10 +145072,10 @@ pxj
 vyO
 yeZ
 axr
-iHE
-iHE
-iHE
-iHE
+nYw
+nYw
+nYw
+nYw
 leW
 rkQ
 bIP
