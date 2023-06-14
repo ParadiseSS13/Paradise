@@ -123,7 +123,6 @@
 	item = /obj/item/caution/proximity_sign
 	cost = 2
 	job = list("Janitor")
-	surplus = 0
 
 //Virology
 
@@ -260,15 +259,16 @@
 	cost = 8
 	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
 
-//Tator Poison Bottles
+// Genetics
 
-/datum/uplink_item/jobspecific/poisonbottle
-	name = "Poison Bottle"
-	desc = "The Syndicate will ship a bottle containing 40 units of a randomly selected poison. The poison can range from highly irritating to incredibly lethal."
-	reference = "TPB"
-	item = /obj/item/reagent_containers/glass/bottle/traitor
-	cost = 2
-	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Virologist", "Bartender", "Chef")
+/datum/uplink_item/jobspecific/magillitis_serum
+	name = "Magillitis Serum Bio-chip"
+	desc = "A single-use bio-chip which contains an experimental serum that causes rapid muscular growth in Hominidae. \
+			Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
+	reference = "MAG"
+	item = /obj/item/implanter/gorilla_rampage
+	cost = 5
+	job = list("Research Director", "Geneticist")
 
 // Paper contact poison pen
 
@@ -537,7 +537,7 @@
 /datum/uplink_item/explosives/emp_bomb
 	name = "EMP bomb"
 	desc = "The EMP has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
-	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
+	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb. Will pulse 3 times."
 	reference = "SBEMP"
 	item = /obj/item/radio/beacon/syndicate/bomb/emp
 	cost = 8
