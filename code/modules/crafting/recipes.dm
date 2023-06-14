@@ -434,6 +434,7 @@
 	time = 100
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"

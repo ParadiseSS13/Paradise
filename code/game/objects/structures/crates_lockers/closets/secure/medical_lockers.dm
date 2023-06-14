@@ -117,6 +117,7 @@
 	open_door_sprite = "white_secure_door"
 
 /obj/structure/closet/secure_closet/psychiatrist/populate_contents()
+	new /obj/item/storage/bag/garment/psychologist(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/reagent_containers/syringe(src)
 	new /obj/item/reagent_containers/glass/bottle/ether(src)
@@ -149,7 +150,7 @@
 	new /obj/item/defibrillator/compact/advanced/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/belt/medical(src)
-	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/flash(src)
 	new /obj/item/gun/syringe(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)
@@ -204,7 +205,7 @@
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/storage/firstaid/adv(src)
-	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/storage/toolbox/emergency(src)
 
 /obj/structure/closet/secure_closet/reagents
