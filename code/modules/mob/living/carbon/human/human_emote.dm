@@ -648,7 +648,7 @@
 	muzzled_noises = list("annoyed")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 
-/datum/emote/living/carbon/human/hiss/tajaran
+/datum/emote/living/carbon/human/tajaran/hiss
 	key = "hiss"
 	key_third_person = "hisses"
 	message = "hisses."
@@ -659,8 +659,12 @@
 	volume = 80
 	muzzled_noises = list("irritated")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	// catHisses1.wav by Zabuhailo. Edited.
+	// https://freesound.org/people/Zabuhailo/sounds/146963/
 
-/datum/emote/living/carbon/human/meow
+/datum/keybinding/emote/carbon/human/tajaran/meow
+    linked_emote = /datum/emote/living/carbon/human/tajaran/meow
+    name = "Meow"
 	key = "meow"
 	key_third_person = "meows"
 	message = "meows."
@@ -672,6 +676,8 @@
 	volume = 75
 	muzzled_noises = list("soft")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	// Cat Meow Sound Effects by Loudest Paws.
+	// https://www.youtube.com/watch?v=GBiWYNP-uQI
 
 /datum/emote/living/carbon/human/rattle
 	key = "rattle"
