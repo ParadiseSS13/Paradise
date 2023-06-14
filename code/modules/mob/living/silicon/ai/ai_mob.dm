@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
+	see_invisible = SEE_INVISIBLE_LIVING_AI
 	see_in_dark = 8
 	can_strip = FALSE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
@@ -56,7 +57,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//var/list/laws = list()
 	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
 	var/viewalerts = FALSE
-	var/icon/holo_icon//Default is assigned when AI is created.
+	var/icon/holo_icon //Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/pda/silicon/ai/aiPDA = null
 	var/obj/item/multitool/aiMulti = null
