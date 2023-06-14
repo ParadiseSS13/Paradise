@@ -197,13 +197,13 @@
 	data["disk"] = list()
 
 	if(disk)
-		var/name = "Empty Disk"
+		var/disk_name = "Empty Disk"
 		if(disk.gene)
-			name = disk.gene.get_name()
+			disk_name = disk.gene.get_name()
 		if(disk.read_only)
-			name = "[name] (Read Only)"
+			disk_name = "[disk_name] (Read Only)"
 		data["disk"] = list(
-			"name" = name,
+			"name" = disk_name,
 			"can_insert" = disk.gene?.can_add(seed),
 			"can_extract" = !disk.read_only,
 			"is_core" = istype(disk?.gene, /datum/plant_gene/core)
@@ -216,12 +216,10 @@
 /obj/machinery/plantgenes/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
-		return
 
 	. = TRUE
 
-	var/mob/living/user = ui.user
+	var/mob/user = ui.user
 
 	switch(ui_modal_act(src, action, params))
 		if(UI_MODAL_ANSWER)
@@ -288,12 +286,12 @@
 				disk = null
 				update_genes()
 			else
-				var/obj/item/I = usr.get_active_hand()
+				var/obj/item/I = user.get_active_hand()
 				if(istype(I, /obj/item/disk/plantgene))
 					add_disk(I, user)
 			SStgui.update_uis(src)
 		if("variant_name")
-			seed.variant_prompt(usr, src)
+			seed.variant_prompt(user, src)
 			SStgui.update_uis(src)
 			// Todo, maybe someday, make this into a modal and make it look good
 

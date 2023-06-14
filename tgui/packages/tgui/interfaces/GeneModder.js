@@ -6,9 +6,7 @@ import {
   Icon,
   Collapsible,
   LabeledList } from "../components";
-import {
-  ComplexModal,
-} from '../interfaces/common/ComplexModal';
+import { ComplexModal } from '../interfaces/common/ComplexModal';
 import { Window } from "../layouts";
 
 export const GeneModder = (props, context) => {
@@ -17,7 +15,7 @@ export const GeneModder = (props, context) => {
 
   return (
     <Window resizable>
-      <Window.Content display="flex" className="Layout__content--flexColumn">
+      <Window.Content className="Layout__content--flexColumn">
         <Storage />
         <ComplexModal maxWidth="75%" maxHeight="75%" />
         {has_seed === 0 ? (
@@ -40,9 +38,9 @@ const Genes = (props, context) => {
       flexGrow="1"
       buttons={
         <Button
-          content = "Insert Gene from Disk"
-          disabled = {!disk || !disk.can_insert || disk.is_core}
-          icon = "arrow-circle-down"
+          content="Insert Gene from Disk"
+          disabled={!disk || !disk.can_insert || disk.is_core}
+          icon="arrow-circle-down"
           onClick={() => act('insert')}
         />
       }>
@@ -78,13 +76,14 @@ const MissingSeed = (props, context) => {
 const Storage = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    has_seed, seed,
-    has_disk, disk
+    has_seed,
+    seed,
+    has_disk,
+    disk
   } = data;
 
   return (
-    <Section
-      title="Storage">
+    <Section title="Storage">
       <LabeledList>
         <LabeledList.Item label="Plant Sample">
         {has_seed ? (
@@ -99,8 +98,8 @@ const Storage = (props, context) => {
               }}
             />
             <Button
-              content = {seed.name}
-              onClick = {() => act('eject_seed')}
+              content={seed.name}
+              onClick={() => act('eject_seed')}
             />
             <Button ml="3px"
               icon="pen"
@@ -111,14 +110,12 @@ const Storage = (props, context) => {
         ) : (
           <Flex.Item>
             <Button
-              content = "None"
-              onClick = {() => act('eject_seed')}
+              content="None"
+              onClick={() => act('eject_seed')}
             />
           </Flex.Item>
-        )
-        }
+        )}
         </LabeledList.Item>
-
         <LabeledList.Item label="Data Disk">
           {has_disk ? (
             <Flex.Item>
@@ -127,11 +124,11 @@ const Storage = (props, context) => {
                 onClick={() => act('eject_disk')}
               />
             </Flex.Item>
-          ) : (
+            ) : (
             <Flex.Item>
               <Button
-              content = "None"
-              onClick = {() => act('eject_disk')}
+                content="None"
+                onClick={() => act('eject_disk')}
             />
             </Flex.Item>
           )}
@@ -189,9 +186,9 @@ const ReagentGenes = (props, context) => {
 
   return (
     <OtherGenes
-      title = "Reagent Genes"
-      gene_set = {reagent_genes}
-      do_we_show = {has_reagent}
+      title="Reagent Genes"
+      gene_set={reagent_genes}
+      do_we_show={has_reagent}
     />
   );
 };
@@ -202,9 +199,9 @@ const TraitGenes = (props, context) => {
 
   return (
     <OtherGenes
-      title = "Trait Genes"
-      gene_set = {trait_genes}
-      do_we_show = {has_trait}
+      title="Trait Genes"
+      gene_set={trait_genes}
+      do_we_show={has_trait}
     />
   );
 };
@@ -217,9 +214,7 @@ const OtherGenes = (props, context) => {
     do_we_show
   } = props;
   const { act, data } = useBackend(context);
-  const {
-    disk
-  } = data;
+  const { disk } = data;
 
   return (
     <Collapsible
@@ -245,8 +240,8 @@ const OtherGenes = (props, context) => {
             </Flex.Item>
             <Flex.Item>
               <Button
-                content = "Remove"
-                icon = 'times'
+                content="Remove"
+                icon='times'
                 onClick={() => act('remove', {id: gene.id})}
               />
             </Flex.Item>
