@@ -648,7 +648,7 @@
 	muzzled_noises = list("annoyed")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 
-/datum/emote/living/carbon/human/tajaran/hiss
+	/datum/emote/living/carbon/human/tajaran/hiss
 	key = "hiss"
 	key_third_person = "hisses"
 	message = "hisses."
@@ -662,7 +662,7 @@
 	// catHisses1.wav by Zabuhailo. Edited.
 	// https://freesound.org/people/Zabuhailo/sounds/146963/
 
-/datum/keybinding/emote/carbon/human/tajaran/meow
+	/datum/keybinding/emote/carbon/human/tajaran/meow
     linked_emote = /datum/emote/living/carbon/human/tajaran/meow
     name = "Meow"
 	key = "meow"
