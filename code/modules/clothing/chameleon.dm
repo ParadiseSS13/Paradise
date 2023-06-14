@@ -366,6 +366,14 @@
 	chameleon_action.chameleon_blacklist = list()
 	chameleon_action.initialize_disguises()
 
+/obj/item/clothing/glasses/meson/chameleon/Destroy()
+	QDEL_NULL(chameleon_action)
+	return ..()
+
+/obj/item/clothing/glasses/meson/chameleon/emp_act(severity)
+	. = ..()
+	chameleon_action.emp_randomise()
+
 
 /obj/item/clothing/gloves/chameleon
 	desc = "These gloves will protect the wearer from electric shock."
