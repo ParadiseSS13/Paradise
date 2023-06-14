@@ -507,6 +507,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				break
 		if(has_invalid_owner)
 			continue
+		if(!O.meets_objective_condition())
+			continue
 		if(O.flags & 2) // THEFT_FLAG_UNIQUE
 			continue
 

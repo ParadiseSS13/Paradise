@@ -85,6 +85,9 @@
 #define SUPERMATTER_SINGULARITY_RAYS_COLOUR "#750000"
 #define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"
 
+
+GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)
+
 /obj/machinery/atmospherics/supermatter_crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -213,7 +216,8 @@
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 	investigate_log("has been created.", "supermatter")
-
+	if(is_main_engine)
+		GLOB.main_supermatter_engine = src
 	soundloop = new(list(src), TRUE)
 
 /obj/machinery/atmospherics/supermatter_crystal/Destroy()
@@ -227,6 +231,8 @@
 	if(!processes)
 		GLOB.frozen_atom_list -= src
 	QDEL_NULL(countdown)
+	if(is_main_engine && GLOB.main_supermatter_engine == src)
+		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
 	return ..()
 
