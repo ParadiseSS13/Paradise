@@ -100,7 +100,7 @@
 					/obj/item/circuitboard/solar_control,
 					/obj/item/tracker_electronics,
 					/obj/item/paper/solar)
-	cost = 250
+	cost = 100
 	containername = "solar pack crate"
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -212,7 +212,7 @@
 /datum/supply_packs/engineering/engine/teg
 	name = "Thermo-Electric Generator Crate"
 	contains = list(
-		/obj/machinery/power/generator,
+		/obj/machinery/power/teg,
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator)
 	cost = 250
