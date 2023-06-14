@@ -19,8 +19,8 @@
 	var/max_yield = 2
 	var/min_production = 12
 	var/max_endurance = 10 // IMPT: ALSO AFFECTS LIFESPAN
-	var/min_wchance = 67
-	var/min_wrate = 10
+	var/min_weed_chance = 67
+	var/min_weed_rate = 10
 
 /obj/machinery/plantgenes/Initialize(mapload)
 	. = ..()
@@ -69,17 +69,18 @@
 		max_endurance = initial(max_endurance) + (SM.rating * 25) // 35,60,85,100	Clamps at 10min 100max
 
 	for(var/obj/item/stock_parts/micro_laser/ML in component_parts)
-		var/wratemod = ML.rating * 2.5
-		min_wrate = FLOOR(10-wratemod, 1) // 7,5,2,0	Clamps at 0 and 10	You want this low
-		min_wchance = 67-(ML.rating*16) // 48,35,19,3 	Clamps at 0 and 67	You want this low
+		var/weed_rate_mod = ML.rating * 2.5
+		min_weed_rate = FLOOR(10-weed_rate_mod, 1) // 7,5,2,0	Clamps at 0 and 10	You want this low
+		min_weed_chance = 67-(ML.rating*16) // 48,35,19,3 	Clamps at 0 and 67	You want this low
+
 	for(var/obj/item/circuitboard/plantgenes/vaultcheck in component_parts)
 		if(istype(vaultcheck, /obj/item/circuitboard/plantgenes/vault)) // TRAIT_DUMB BOTANY TUTS
 			max_potency = 100
 			max_yield = 10
 			min_production = 1
 			max_endurance = 100
-			min_wchance = 0
-			min_wrate = 0
+			min_weed_chance = 0
+			min_weed_rate = 0
 
 /obj/machinery/plantgenes/update_icon_state()
 	if((stat & (BROKEN|NOPOWER)))
@@ -219,50 +220,11 @@
 
 	. = TRUE
 
-	var/mob/user = ui.user
+	// we dont care what we get from modal act, as long as its not null
+	if(ui_modal_act(src, action, params))
+		return
 
-	switch(ui_modal_act(src, action, params))
-		if(UI_MODAL_ANSWER)
-			switch(params["id"])
-				if("remove")
-					if(!istype(target, /datum/plant_gene/core))
-						seed.genes -= target
-						if(istype(target, /datum/plant_gene/reagent))
-							seed.reagents_from_genes()
-					repaint_seed()
-				if("extract")
-					if(disk && !disk.read_only)
-						disk.gene = target.Copy()
-						if(istype(disk.gene, /datum/plant_gene/core))
-							var/datum/plant_gene/core/gene = disk.gene
-							if(istype(disk.gene, /datum/plant_gene/core/potency))
-								gene.value = min(gene.value, max_potency)
-							else if(istype(disk.gene, /datum/plant_gene/core/lifespan))
-								gene.value = min(gene.value, max_endurance) //INTENDED
-							else if(istype(disk.gene, /datum/plant_gene/core/endurance))
-								gene.value = min(gene.value, max_endurance)
-							else if(istype(disk.gene, /datum/plant_gene/core/production))
-								gene.value = max(gene.value, min_production)
-							else if(istype(disk.gene, /datum/plant_gene/core/yield))
-								gene.value = min(gene.value, max_yield)
-							else if(istype(disk.gene, /datum/plant_gene/core/weed_rate))
-								gene.value = max(gene.value, min_wrate)
-							else if(istype(disk.gene, /datum/plant_gene/core/weed_chance))
-								gene.value = max(gene.value, min_wchance)
-						disk.update_name()
-						QDEL_NULL(seed)
-						update_icon(UPDATE_OVERLAYS)
-				if("replace")
-					if(disk && disk.gene && istype(disk.gene, target.type) && istype(target, /datum/plant_gene/core))
-						seed.genes -= target
-						var/datum/plant_gene/core/C = disk.gene.Copy()
-						seed.genes += C
-						C.apply_stat(seed)
-						repaint_seed()
-			update_genes()
-			SStgui.update_uis(src)
-			target = null
-			return
+	var/mob/user = ui.user
 
 	target = seed?.get_gene(params["id"])
 
@@ -278,7 +240,7 @@
 				var/obj/item/I = user.get_active_hand()
 				if(istype(I, /obj/item/seeds))
 					add_seed(I, user)
-			SStgui.update_uis(src)
+
 		if("eject_disk")
 			if(disk)
 				disk.forceMove(loc)
@@ -289,11 +251,10 @@
 				var/obj/item/I = user.get_active_hand()
 				if(istype(I, /obj/item/disk/plantgene))
 					add_disk(I, user)
-			SStgui.update_uis(src)
+
 		if("variant_name")
 			seed.variant_prompt(user, src)
-			SStgui.update_uis(src)
-			// Todo, maybe someday, make this into a modal and make it look good
+			// uses the default byond prompt, but it works
 
 		if("extract")
 			var/dat = "Are you sure you want to extract [target.get_name()] gene from the [seed]? The sample will be destroyed in process! "
@@ -320,36 +281,81 @@
 						dat += "This device's extraction capabilities are currently limited to [min_production] production. "
 						dat += "Target gene will be degraded to [min_production] production on extraction."
 				else if(istype(target, /datum/plant_gene/core/weed_rate))
-					if(gene.value < min_wrate)
-						dat += "This device's extraction capabilities are currently limited to [min_wrate] weed rate. "
-						dat += "Target gene will be degraded to [min_wrate] weed rate on extraction."
+					if(gene.value < min_weed_rate)
+						dat += "This device's extraction capabilities are currently limited to [min_weed_rate] weed rate. "
+						dat += "Target gene will be degraded to [min_weed_rate] weed rate on extraction."
 				else if(istype(target, /datum/plant_gene/core/weed_chance))
-					if(gene.value < min_wchance)
-						dat += "This device's extraction capabilities are currently limited to [min_wchance] weed chance. "
-						dat += "Target gene will be degraded to [min_wchance] weed chance on extraction."
-			ui_modal_boolean(src, action, dat, yes_text = "Extract", no_text = "Cancel", delegate_no = PROC_REF(do_nothing))
+					if(gene.value < min_weed_chance)
+						dat += "This device's extraction capabilities are currently limited to [min_weed_chance] weed chance. "
+						dat += "Target gene will be degraded to [min_weed_chance] weed chance on extraction."
+			ui_modal_boolean(src, action, dat, yes_text = "Extract", no_text = "Cancel", delegate = PROC_REF(gene_extract))
 
 		if("replace")
-			ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [disk.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel", delegate_no = PROC_REF(do_nothing))
+			ui_modal_boolean(src, action, "Are you sure you want to replace [target.get_name()] gene with [disk.gene.get_name()]?", yes_text = "Replace", no_text = "Cancel", delegate = PROC_REF(gene_replace))
 
 		if("remove")
-			ui_modal_boolean(src, action, "Are you sure you want to remove [target.get_name()] gene from the [seed]" , yes_text = "Remove", no_text = "Cancel", delegate_no = PROC_REF(do_nothing))
+			ui_modal_boolean(src, action, "Are you sure you want to remove [target.get_name()] gene from the [seed]" , yes_text = "Remove", no_text = "Cancel", delegate = PROC_REF(gene_remove))
 
 		if("insert")
 			if(!istype(disk.gene, /datum/plant_gene/core) && disk.gene.can_add(seed))
 				seed.genes += disk.gene.Copy()
 				if(istype(disk.gene, /datum/plant_gene/reagent))
 					seed.reagents_from_genes()
-			update_genes()
-			repaint_seed()
-			// this doesnt need a modal, its easy enough to just remove the inserted gene
+				update_genes()
+				repaint_seed()
+				// this doesnt need a modal, its easy enough to just remove the inserted gene
 
-			SStgui.update_uis(src)
 
-// Needed so the modal booleans dont save stuff when you hit cancel.
-// Returns true so the modal believes it delegated and doesnt let the modal ui answer in ui_act.
-/obj/machinery/plantgenes/proc/do_nothing()
-	return TRUE
+/obj/machinery/plantgenes/proc/gene_remove()
+	if(istype(target, /datum/plant_gene/core))
+		return
+	seed.genes -= target
+	if(istype(target, /datum/plant_gene/reagent))
+		seed.reagents_from_genes()
+	repaint_seed()
+	update_genes()
+	target = null
+
+/obj/machinery/plantgenes/proc/gene_extract()
+	if(!disk || disk.read_only)
+		return
+	disk.gene = target.Copy()
+	if(istype(disk.gene, /datum/plant_gene/core))
+		var/datum/plant_gene/core/gene = disk.gene
+		if(istype(disk.gene, /datum/plant_gene/core/potency))
+			gene.value = min(gene.value, max_potency)
+		else if(istype(disk.gene, /datum/plant_gene/core/lifespan))
+			gene.value = min(gene.value, max_endurance) //INTENDED
+		else if(istype(disk.gene, /datum/plant_gene/core/endurance))
+			gene.value = min(gene.value, max_endurance)
+		else if(istype(disk.gene, /datum/plant_gene/core/production))
+			gene.value = max(gene.value, min_production)
+		else if(istype(disk.gene, /datum/plant_gene/core/yield))
+			gene.value = min(gene.value, max_yield)
+		else if(istype(disk.gene, /datum/plant_gene/core/weed_rate))
+			gene.value = max(gene.value, min_weed_rate)
+		else if(istype(disk.gene, /datum/plant_gene/core/weed_chance))
+			gene.value = max(gene.value, min_weed_chance)
+	disk.update_name()
+	QDEL_NULL(seed)
+	update_icon(UPDATE_OVERLAYS)
+	update_genes()
+	target = null
+
+/obj/machinery/plantgenes/proc/gene_replace()
+	if(!disk?.gene)
+		return
+	if(!istype(target, /datum/plant_gene/core))
+		return
+	if(!istype(disk.gene, target.type))
+		return // you can't replace a endurance gene with a weed chance gene, etc
+	seed.genes -= target
+	var/datum/plant_gene/core/C = disk.gene.Copy()
+	seed.genes += C
+	C.apply_stat(seed)
+	repaint_seed()
+	update_genes()
+	target = null
 
 /obj/machinery/plantgenes/proc/insert_seed(obj/item/seeds/S)
 	if(!istype(S) || seed)
