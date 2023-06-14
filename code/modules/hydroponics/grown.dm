@@ -178,13 +178,14 @@
 
 // For item-containing growns such as eggy or gatfruit
 /obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)
-	if(do_after(user, 15, target = user))
-		user.unEquip(src)
-		if(trash)
-			var/obj/item/T = generate_trash()
-			user.put_in_hands(T)
-			to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")
-		qdel(src)
+	if(!do_after(user, 15, target = user))
+		return
+	user.unEquip(src)
+	if(trash)
+		var/obj/item/T = generate_trash()
+		user.put_in_hands(T)
+		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")
+	qdel(src)
 
 // Diona Nymphs can eat these as well as weeds to gain nutrition.
 /obj/item/reagent_containers/food/snacks/grown/attack_animal(mob/living/simple_animal/M)
