@@ -130,3 +130,47 @@
 		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
 	else
 		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+
+/obj/mecha/working/ripley/full_load
+	name = "Тестовый Рипли"
+	desc = "Рипли, который несет в себе все возможные модули, предназначенные для рабочих мехов, с целью их испытания в индивидуальном порядке. Конструкция надежна как Nokia 3310, скорость как у гоночного болида, но стоимость производства настолько высока, что в массовое производство он никогда не пойдет. Специально для ведущих гениев робототехники."
+	max_equip = 11
+	strafe_allowed = TRUE
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0) // для тестов урона
+	max_integrity = 1000
+	deflect_chance = 0 // нахуй рандом
+	mech_enter_time = 1
+	fast_pressure_step_in = 1 //не хочу страдать на щитспавн мехе для тестов
+	slow_pressure_step_in = 0.5
+
+/obj/mecha/working/ripley/full_load/New()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/drill
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/extinguisher
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/rcd
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/cable_layer
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/wormhole_generator
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter/precise
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/mining_scanner
+	ME.attach(src)
+
+/obj/mecha/working/ripley/full_load/add_cell()
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
