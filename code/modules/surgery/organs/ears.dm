@@ -9,10 +9,7 @@
 	// `deaf` measures "ticks" of deafness. While > 0, the person is deaf.
 	var/deaf = 0
 
-	// `ear_damage` measures long term damage to the ears, if too high,
-	// the person will not have either `deaf` or `ear_damage` decrease
-	// without external aid (earmuffs, drugs)
-	var/ear_damage = 0
+
 	// Multiplier for both long term and short term ear damage
 	var/damage_multiplier = 1
 
@@ -20,18 +17,18 @@
 	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/C = owner
-	if(ear_damage < 100)
+	if(damage < 100)
 		AdjustEarDamage(-0.1)
 
 	// if we have non-damage related deafness like mutations, quirks or clothing (earmuffs), don't bother processing here. Ear healing from earmuffs or chems happen elsewhere
 	if(HAS_TRAIT_NOT_FROM(C, TRAIT_DEAF, EAR_DAMAGE))
 		return
 
-	if(ear_damage >= 100)
+	if(damage >= 100)
 		deaf = max(deaf, 1) // if we're failing we always have at least 1 deaf stack (and thus deafness)
 	else
 		deaf = max(deaf - 1, 0)
-		if((ear_damage > 10) && prob(ear_damage / 30))
+		if((damage > 10) && prob(ear_damage / 30))
 			AdjustEarDamage(0, 4)
 			SEND_SOUND(owner, sound('sound/weapons/flash_ring.ogg'))
 
@@ -43,10 +40,10 @@
 
 /obj/item/organ/internal/ears/proc/RestoreEars()
 	deaf = 0
-	ear_damage = 0
+	damage = 0
 
 /obj/item/organ/internal/ears/proc/AdjustEarDamage(ddmg, ddeaf)
-	ear_damage = clamp(ear_damage + (ddmg * damage_multiplier), 0, 100)
+	damage = clamp(damage + (ddmg * damage_multiplier), 0, 100)
 	deaf = max(deaf + (ddeaf * damage_multiplier), 0)
 
 /obj/item/organ/internal/ears/surgeryize()
@@ -75,4 +72,4 @@
 	if(emp_proof)
 		return
 	..()
-	ear_damage += 40 / severity
+	damage += 40 / severity
