@@ -28,7 +28,7 @@
 		return ..()
 	if(!chambered)
 		user.unEquip(I)
-		I.loc = src
+		I.forceMove(src)
 		chambered = I
 		to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
 	else
