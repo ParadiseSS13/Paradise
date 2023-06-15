@@ -191,7 +191,7 @@
 		to_chat(user, "<span class='warning'>That machine cannot be overloaded.</span>")
 		return FALSE
 	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(null, PROC_REF(detonate), M), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(detonate), M), 5 SECONDS)
 	return TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/overload/proc/detonate(obj/machinery/target)
