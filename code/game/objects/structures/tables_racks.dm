@@ -176,7 +176,8 @@
 	return 1
 
 /obj/structure/table/MouseDrop_T(obj/O, mob/user)
-	..()
+	if(..())
+		return TRUE
 	if((!( isitem(O) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
