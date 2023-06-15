@@ -3,6 +3,11 @@
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 
+	/// Minimum age this species can have
+	var/min_age = AGE_MIN
+	/// Maximum age this species can have
+	var/max_age = 85
+
 	// Damage overlay and masks.
 	var/damage_overlays = 'icons/mob/human_races/masks/dam_human.dmi'
 	var/damage_mask = 'icons/mob/human_races/masks/dam_mask_human.dmi'
@@ -258,66 +263,79 @@
 // MOVE SPEED //
 ////////////////
 #define ADD_SLOWDOWN(__value) if(!ignoreslow || __value < 0) . += __value
+#define SLOWDOWN_INCREMENT 0.5
+#define SLOWDOWN_MULTIPLIER (1 / SLOWDOWN_INCREMENT)
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
 
-	if(has_gravity(H))
-		if(!IS_HORIZONTAL(H))
-			if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
-				. -= 1
-			else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
-				. -= 0.5
+	if(!has_gravity(H))
+		return
+	if(!IS_HORIZONTAL(H))
+		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
+			. -= 1
+		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
+			. -= 0.5
+	else
+		. += GLOB.configuration.movement.crawling_speed_reduction
+
+	var/ignoreslow = FALSE
+	if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
+		ignoreslow = TRUE
+
+	var/flight = H.flying	//Check for flight and flying items
+
+	ADD_SLOWDOWN(speed_mod)
+
+	if(H.wear_suit)
+		ADD_SLOWDOWN(H.wear_suit.slowdown)
+	if(!H.buckled && H.shoes)
+		ADD_SLOWDOWN(H.shoes.slowdown)
+	if(H.back)
+		ADD_SLOWDOWN(H.back.slowdown)
+	if(H.l_hand && (H.l_hand.flags & HANDSLOW))
+		ADD_SLOWDOWN(H.l_hand.slowdown)
+	if(H.r_hand && (H.r_hand.flags & HANDSLOW))
+		ADD_SLOWDOWN(H.r_hand.slowdown)
+
+	if(ignoreslow)
+		return . // Only malusses after here
+
+	if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
+		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
+
+	var/hungry = (500 - H.nutrition) / 5 // So overeat would be 100 and default level would be 80
+	if((hungry >= 70) && !flight)
+		. += hungry/50
+	if(HAS_TRAIT(H, TRAIT_FAT))
+		. += (1.5 - flight)
+
+	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !(HAS_TRAIT(H, TRAIT_RESISTCOLD)))
+		. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
+
+	var/leftover = .
+	. = round_down(. * SLOWDOWN_MULTIPLIER) / SLOWDOWN_MULTIPLIER //This allows us to round in values of 0.5 A slowdown of 0.55 becomes 1.10, which is rounded to 1, then reduced to 0.5
+	leftover -= .
+
+	var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
+	if(H.reagents)
+		for(var/datum/reagent/R in H.reagents.reagent_list)
+			if(R.shock_reduction)
+				health_deficiency -= R.shock_reduction
+	if(HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
+		return
+	if(health_deficiency >= 40 - (40 * leftover * SLOWDOWN_MULTIPLIER)) //If we have 0.25 slowdown, or halfway to the threshold of 0.5, we reduce the health threshold by that 50%
+		if(flight)
+			. += (health_deficiency / 75)
 		else
-			. += GLOB.configuration.movement.crawling_speed_reduction
-
-		var/ignoreslow = FALSE
-		if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
-			ignoreslow = TRUE
-
-		var/flight = H.flying	//Check for flight and flying items
-
-		ADD_SLOWDOWN(speed_mod)
-
-		if(H.wear_suit)
-			ADD_SLOWDOWN(H.wear_suit.slowdown)
-		if(!H.buckled && H.shoes)
-			ADD_SLOWDOWN(H.shoes.slowdown)
-		if(H.back)
-			ADD_SLOWDOWN(H.back.slowdown)
-		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
-			ADD_SLOWDOWN(H.l_hand.slowdown)
-		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
-			ADD_SLOWDOWN(H.r_hand.slowdown)
-
-		if(ignoreslow)
-			return . // Only malusses after here
-
-		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
-		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
-		if(H.reagents)
-			for(var/datum/reagent/R in H.reagents.reagent_list)
-				if(R.shock_reduction)
-					health_deficiency -= R.shock_reduction
-		if(!HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
 			if(health_deficiency >= 40)
-				if(flight)
-					. += (health_deficiency / 75)
-				else
-					. += (health_deficiency / 25)
-		if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
-			. += 2 * H.stance_damage //damaged/missing feet or legs is slow
-
-		if((hungry >= 70) && !flight)
-			. += hungry/50
-		if(HAS_TRAIT(H, TRAIT_FAT))
-			. += (1.5 - flight)
-		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !(HAS_TRAIT(H, TRAIT_RESISTCOLD)))
-			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
-
-	return .
+				. += (health_deficiency / 25) //Once damage is over 40, you get the harsh formula
+			else
+				. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
 
 #undef ADD_SLOWDOWN
+#undef SLOWDOWN_INCREMENT
+#undef SLOWDOWN_MULTIPLIER
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
 	for(var/slot_id in no_equip)
@@ -804,7 +822,7 @@
 				if(!disable_warning)
 					to_chat(H, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
 				return FALSE
-			if(I.w_class > WEIGHT_CLASS_BULKY)
+			if(I.w_class > H.wear_suit.max_suit_w)
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>[I] is too big to attach.</span>")
 				return FALSE

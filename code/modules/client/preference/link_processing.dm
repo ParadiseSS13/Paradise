@@ -135,7 +135,7 @@
 						var/mob/new_player/N = user
 						N.new_player_panel_proc()
 				if("age")
-					active_character.age = rand(AGE_MIN, AGE_MAX)
+					active_character.age = rand(S.min_age , S.max_age)
 				if("hair")
 					if(!(S.bodyflags & BALD))
 						active_character.h_colour = rand_hex_color()
@@ -212,9 +212,9 @@
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
 				if("age")
-					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
+					var/new_age = input(user, "Choose your character's age:\n([S.min_age]-[S.max_age])", "Character Preference") as num|null
 					if(new_age)
-						active_character.age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
+						active_character.age = max(min(round(text2num(new_age)), S.max_age), S.min_age)
 				if("species")
 					var/list/new_species = list()
 					var/prev_species = active_character.species
@@ -230,6 +230,7 @@
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != active_character.species)
+						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
 						if(NS.has_gender && active_character.gender == PLURAL)
 							active_character.gender = pick(MALE,FEMALE)
 						var/datum/robolimb/robohead
@@ -935,6 +936,24 @@
 
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
+
+				if("setviewrange")
+					var/list/viewrange_options = list(
+						"15x15 (Classic)" = "15x15",
+						"17x15 (Wide)" = "17x15",
+						"19x15 (Ultrawide)" = "19x15"
+					)
+
+					var/new_range = input(user, "Select a view range") as anything in viewrange_options
+					var/actual_new_range = viewrange_options[new_range]
+
+					viewrange = actual_new_range
+
+					if(actual_new_range != parent.view)
+						parent.view = actual_new_range
+						// Update the size of the click catcher
+						var/list/actualview = getviewsize(parent.view)
+						parent.void.UpdateGreed(actualview[1],actualview[2])
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))

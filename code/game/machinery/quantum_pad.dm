@@ -95,7 +95,8 @@
 		return
 	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
 
-/obj/machinery/quantumpad/attack_hand(mob/user)
+/obj/machinery/quantumpad/proc/check_usable(mob/user)
+	. = FALSE
 	if(panel_open)
 		to_chat(user, "<span class='warning'>The panel must be closed before operating this machine!</span>")
 		return
@@ -119,8 +120,32 @@
 	if(linked_pad.stat & NOPOWER)
 		to_chat(user, "<span class='warning'>Linked pad is not responding to ping.</span>")
 		return
+	return TRUE
+
+/obj/machinery/quantumpad/attack_hand(mob/user)
+	if(isAI(user))
+		return
+	if(!check_usable(user))
+		return
 	add_fingerprint(user)
 	doteleport(user)
+
+/obj/machinery/quantumpad/attack_ai(mob/user)
+	if(isrobot(user))
+		return attack_hand(user)
+	var/mob/living/silicon/ai/AI = user
+	if(!istype(AI))
+		return
+	if(AI.eyeobj.loc != loc)
+		AI.eyeobj.setLoc(get_turf(loc))
+		return
+	if(!check_usable(user))
+		return
+	var/turf/T = get_turf(linked_pad)
+	if(GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))
+		AI.eyeobj.setLoc(T)
+	else
+		to_chat(user, "<span class='warning'>Linked pad is not on or near any active cameras on the station.</span>")
 
 /obj/machinery/quantumpad/proc/sparks()
 	do_sparks(5, 1, get_turf(src))

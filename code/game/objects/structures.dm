@@ -3,6 +3,7 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	face_while_pulling = TRUE
+	pull_speed = 0.5
 	var/climbable
 	var/mob/living/climber
 	var/broken = FALSE
@@ -22,7 +23,7 @@
 
 /obj/structure/Initialize(mapload)
 	if(!armor)
-		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	return ..()
 
 /obj/structure/Destroy()
