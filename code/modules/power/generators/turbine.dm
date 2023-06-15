@@ -190,7 +190,8 @@
 		overheat += 1
 		if(overheat >= overheat_threshold)
 			trigger_overheat()
-		else
+	if(!(rpm_threshold == OVERDRIVE) && overheat > 0)
+		overheat -= 1
 
 
 	rpm = 0.9* rpm + 0.1 * rpmtarget
