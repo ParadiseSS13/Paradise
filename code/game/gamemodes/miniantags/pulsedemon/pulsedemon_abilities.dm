@@ -191,8 +191,14 @@
 		to_chat(user, "<span class='warning'>That machine cannot be overloaded.</span>")
 		return FALSE
 	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(null, TYPE_PROC_REF(/datum/action/innate/ai/ranged/overload_machine, detonate_machine), target), 5 SECONDS)
+	addtimer(CALLBACK(null, PROC_REF(detonate), M), 5 SECONDS)
 	return TRUE
+
+/obj/effect/proc_holder/spell/pulse_demon/overload/proc/detonate(obj/machinery/target)
+	if(target && !QDELETED(target))
+		explosion(get_turf(target), 0, 1, 1, 0)
+		if(target)
+			qdel(target)
 
 /obj/effect/proc_holder/spell/pulse_demon/remotehijack
 	name = "Remote Hijack"
