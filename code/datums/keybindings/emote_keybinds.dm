@@ -501,6 +501,14 @@
 	linked_emote = /datum/emote/living/carbon/human/growl
 	name = "Growl"
 
+/datum/keybinding/emote/carbon/human/meow
+    linked_emote = /datum/emote/living/carbon/human/meow
+    name = "Meow"
+
+/datum/keybinding/emote/carbon/human/tajaran/hiss
+    linked_emote = /datum/emote/living/carbon/human/hiss
+    name = "Hiss"
+
 /datum/keybinding/emote/carbon/human/rattle
 	linked_emote = /datum/emote/living/carbon/human/rattle
 	name = "Rattle"
