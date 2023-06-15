@@ -56,8 +56,9 @@
 	//Internal radio, used to alert engineers of turbine trip!
 	var/obj/item/radio/radio
 	///overheat message
-	var/overheat_message = "Alert! The gas turbine generator has overheated. Initiating automatic cooling procedures. Manual restart is required."
-
+	var/overheat_message = "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
+	///expresses time until next bearing overheat as a percentile
+	var/bearing_heat = null
 
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
@@ -185,6 +186,7 @@
 		return
 	if(!starter)
 		return
+
 	if(rpm_threshold == OVERDRIVE)
 		//UI update here
 		overheat += 1
@@ -193,7 +195,7 @@
 	if(!(rpm_threshold == OVERDRIVE) && overheat > 0)
 		overheat -= 1
 
-
+	bearing_heat = (overheat / overheat_threshold)*100
 	rpm = 0.9* rpm + 0.1 * rpmtarget
 	var/datum/gas_mixture/environment = inturf.return_air()
 
@@ -411,7 +413,7 @@
 /obj/machinery/computer/turbine_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "TurbineComputer", name, 400, 150, master_ui, state)
+		ui = new(user, src, ui_key, "TurbineComputer", name, 400, 200, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/turbine_computer/ui_data(mob/user)
@@ -426,6 +428,7 @@
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
 		data["temperature"] = compressor.gas_contained.return_temperature()
+		data["bearing_heat"] = compressor.bearing_heat
 	return data
 
 /obj/machinery/computer/turbine_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
