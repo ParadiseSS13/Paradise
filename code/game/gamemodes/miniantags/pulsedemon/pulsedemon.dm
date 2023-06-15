@@ -56,6 +56,8 @@
 	can_have_ai = FALSE
 	can_be_on_fire = FALSE
 	has_unlimited_silicon_privilege = TRUE
+	// this makes the demon able to speak through holopads, due to the overriden say, PD cannot speak normally regardless
+	universal_speak = TRUE
 
 	/// List of sounds that is picked from when the demon speaks.
 	var/list/speech_sounds = list("sound/voice/pdvoice1.ogg", "sound/voice/pdvoice2.ogg", "sound/voice/pdvoice3.ogg")
@@ -489,9 +491,8 @@
 		return TRUE
 	else if(istype(loc, /obj/machinery/hologram/holopad))
 		var/obj/machinery/hologram/holopad/H = loc
-		var/turf/T = get_turf(H)
 		name = "[H]"
-		for(var/mob/M in hearers(T.loc) + src)
+		for(var/mob/M in get_mobs_in_view(7, H))
 			M.hear_say(message_pieces, verb, FALSE, src)
 		name = real_name
 		return TRUE
@@ -504,6 +505,16 @@
 		runechat_msg_location = loc.UID()
 	else
 		return ..()
+
+/mob/living/simple_animal/pulse_demon/visible_message(message, self_message, blind_message)
+	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
+	for(var/mob/M in get_mobs_in_view(7, src))
+		if(M.see_invisible < invisibility)
+			continue //can't view the invisible
+		var/msg = message
+		if(self_message && M == src)
+			msg = self_message
+		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 /mob/living/simple_animal/pulse_demon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	var/list/access = get_all_accesses()
