@@ -254,6 +254,7 @@
 		if(!S.locked && !can_exit_cable)
 			can_exit_cable = TRUE
 			S.do_toggle(can_exit_cable)
+			to_chat(src, "<span class='danger'>Your self-sustaining ability has automatically enabled itself to prevent death from having no connection!</span>")
 
 /mob/living/simple_animal/pulse_demon/proc/update_controlling_area(reset = FALSE)
 	var/area/prev = controlling_area
