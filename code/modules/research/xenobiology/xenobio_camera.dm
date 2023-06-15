@@ -155,7 +155,7 @@
 			current_potion = O
 			to_chat(user, "<span class='notice'>You load [O] in the console's potion slot[replaced ? ", replacing the one that was there before" : ""].</span>")
 		return
-	else if(istype(O, /obj/item/storage/bag))
+	else if(istype(O, /obj/item/storage/bag/bio) || istype(O, /obj/item/storage/box/monkeycubes))
 		var/obj/item/storage/P = O
 		var/loaded = 0
 		for(var/obj/item/reagent_containers/food/snacks/monkeycube/MC in P.contents)
