@@ -82,58 +82,62 @@ const Storage = (props, context) => {
     disk
   } = data;
 
+  let show_seed;
+  let show_disk;
+
+  if(has_seed) {
+    show_seed =
+    <Flex.Item mb="-6px" mt="-4px">
+      <img
+        src={`data:image/jpeg;base64,${seed.image}`}
+        style={{
+          'vertical-align': 'middle',
+          width: '32px',
+          margin: '0px',
+          'margin-left': '0px',
+        }}
+      />
+      <Button
+        content={seed.name}
+        onClick={() => act('eject_seed')}
+      />
+      <Button ml="3px"
+        icon="pen"
+        tooltip="Name Variant"
+        onClick={() => act('variant_name')}
+      />
+    </Flex.Item>
+  } else {
+    show_seed =
+    <Flex.Item>
+      <Button
+        content="None"
+        onClick={() => act('eject_seed')}
+      />
+    </Flex.Item>
+  }
+
+  if (has_disk) {
+    show_disk = disk.name
+  } else {
+    show_disk = "None"
+  }
+
   return (
     <Section title="Storage">
       <LabeledList>
         <LabeledList.Item label="Plant Sample">
-        {has_seed ? (
-          <Flex.Item mb="-4px">
-            <img
-              src={`data:image/jpeg;base64,${seed.image}`}
-              style={{
-                'vertical-align': 'middle',
-                width: '32px',
-                margin: '0px',
-                'margin-left': '0px',
-              }}
-            />
-            <Button
-              content={seed.name}
-              onClick={() => act('eject_seed')}
-            />
-            <Button ml="3px"
-              icon="pen"
-              tooltip="Name Variant"
-              onClick={() => act('variant_name')}
-            />
-          </Flex.Item>
-        ) : (
-          <Flex.Item>
-            <Button
-              content="None"
-              onClick={() => act('eject_seed')}
-            />
-          </Flex.Item>
-        )}
+          {show_seed}
         </LabeledList.Item>
         <LabeledList.Item label="Data Disk">
-          {has_disk ? (
-            <Flex.Item>
-              <Button
-                content= {disk.name}
-                onClick={() => act('eject_disk')}
-              />
-            </Flex.Item>
-            ) : (
-            <Flex.Item>
-              <Button
-                content="None"
-                onClick={() => act('eject_disk')}
+          <Flex.Item>
+            <Button
+              content={show_disk}
+              onClick={() => act('eject_disk')}
             />
-            </Flex.Item>
-          )}
+          </Flex.Item>
         </LabeledList.Item>
-        </LabeledList>
+      </LabeledList>
     </Section>
   );
 };

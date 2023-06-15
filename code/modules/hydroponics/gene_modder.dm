@@ -220,7 +220,7 @@
 
 	. = TRUE
 
-	// we dont care what we get from modal act, as long as its not null
+	// we dont care what we get from modal act, as long as its not null because we only have boolean modals
 	if(ui_modal_act(src, action, params))
 		return
 
@@ -257,37 +257,16 @@
 			// uses the default byond prompt, but it works
 
 		if("extract")
-			var/dat = "Are you sure you want to extract [target.get_name()] gene from the [seed]? The sample will be destroyed in process! "
+			var/dat = "Are you sure you want to extract [target.get_name()] gene from the [seed]? The sample will be destroyed in process!"
 			if(istype(target, /datum/plant_gene/core))
-				var/datum/plant_gene/core/gene = target
-				if(istype(target, /datum/plant_gene/core/potency))
-					if(gene.value > max_potency)
-						dat += "This device's extraction capabilities are currently limited to [max_potency] potency. "
-						dat += "Target gene will be degraded to [max_potency] potency on extraction."
-				else if(istype(target, /datum/plant_gene/core/lifespan))
-					if(gene.value > max_endurance)
-						dat += "This device's extraction capabilities are currently limited to [max_endurance] lifespan. "
-						dat += "Target gene will be degraded to [max_endurance] Lifespan on extraction."
-				else if(istype(target, /datum/plant_gene/core/endurance))
-					if(gene.value > max_endurance)
-						dat += "This device's extraction capabilities are currently limited to [max_endurance] endurance. "
-						dat += "Target gene will be degraded to [max_endurance] endurance on extraction."
-				else if(istype(target, /datum/plant_gene/core/yield))
-					if(gene.value > max_yield)
-						dat += "This device's extraction capabilities are currently limited to [max_yield] yield. "
-						dat += "Target gene will be degraded to [max_yield] yield on extraction."
-				else if(istype(target, /datum/plant_gene/core/production))
-					if(gene.value < min_production)
-						dat += "This device's extraction capabilities are currently limited to [min_production] production. "
-						dat += "Target gene will be degraded to [min_production] production on extraction."
-				else if(istype(target, /datum/plant_gene/core/weed_rate))
-					if(gene.value < min_weed_rate)
-						dat += "This device's extraction capabilities are currently limited to [min_weed_rate] weed rate. "
-						dat += "Target gene will be degraded to [min_weed_rate] weed rate on extraction."
-				else if(istype(target, /datum/plant_gene/core/weed_chance))
-					if(gene.value < min_weed_chance)
-						dat += "This device's extraction capabilities are currently limited to [min_weed_chance] weed chance. "
-						dat += "Target gene will be degraded to [min_weed_chance] weed chance on extraction."
+				var/datum/plant_gene/core/core_gene = target
+				var/genemod_var = core_gene.get_genemod_variable(src) // polymorphism my beloved
+
+				if((core_gene.use_max && core_gene.value < genemod_var) || (!core_gene.use_max && core_gene.value > genemod_var))
+					var/gene_name = lowertext(core_gene.name)
+					dat += " This device's extraction capabilities are currently limited to [genemod_var] [gene_name]. \
+							Target gene will be degraded to [genemod_var] [gene_name] on extraction."
+
 			ui_modal_boolean(src, action, dat, yes_text = "Extract", no_text = "Cancel", delegate = PROC_REF(gene_extract))
 
 		if("replace")
@@ -321,21 +300,13 @@
 		return
 	disk.gene = target.Copy()
 	if(istype(disk.gene, /datum/plant_gene/core))
-		var/datum/plant_gene/core/gene = disk.gene
-		if(istype(disk.gene, /datum/plant_gene/core/potency))
-			gene.value = min(gene.value, max_potency)
-		else if(istype(disk.gene, /datum/plant_gene/core/lifespan))
-			gene.value = min(gene.value, max_endurance) //INTENDED
-		else if(istype(disk.gene, /datum/plant_gene/core/endurance))
-			gene.value = min(gene.value, max_endurance)
-		else if(istype(disk.gene, /datum/plant_gene/core/production))
-			gene.value = max(gene.value, min_production)
-		else if(istype(disk.gene, /datum/plant_gene/core/yield))
-			gene.value = min(gene.value, max_yield)
-		else if(istype(disk.gene, /datum/plant_gene/core/weed_rate))
-			gene.value = max(gene.value, min_weed_rate)
-		else if(istype(disk.gene, /datum/plant_gene/core/weed_chance))
-			gene.value = max(gene.value, min_weed_chance)
+		var/datum/plant_gene/core/core_gene = disk.gene
+		var/genemod_var = core_gene.get_genemod_variable(src)
+		if(core_gene.use_max)
+			core_gene.value = max(core_gene.value, genemod_var)
+		else
+			core_gene.value = min(core_gene.value, genemod_var)
+
 	disk.update_name()
 	QDEL_NULL(seed)
 	update_icon(UPDATE_OVERLAYS)
