@@ -21,7 +21,7 @@
 	current_size = STAGE_TWO
 	move_self = TRUE
 	grav_pull = 0
-	density = FALSE
+	density = TRUE
 	energy = 0
 	dissipate = FALSE
 	dissipate_delay = 5
@@ -34,7 +34,7 @@
 	var/energy_to_lower = -20
 	var/list/shocked_things = list()
 	var/obj/singularity/energy_ball/parent_energy_ball
-	var/where_to_move = 0
+	var/has_a_target = 0
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
@@ -106,25 +106,22 @@
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(where_to_move)
-	if(where_to_move == 0)
+	if(!has_a_target)
 		find_the_basket()
+		return
 	else
+		var/turf/target_turf = pick(where_to_move)
 		for(var/i in 0 to 8)
-			var/movement_dir = get_dir(src, target)
+			var/movement_dir = get_dir(src, target_turf)
 			var/turf/T = get_step(src, movement_dir)
-			if(can_move(T))
-				forceMove(T)
-				setDir(movement_dir)
-				step(src, movement_dir)
-				for(var/mob/living/carbon/C in loc)
-					dust_mobs(C)
+			forceMove(T)
+			for(var/mob/living/carbon/C in loc)
+				dust_mobs(C)
 
 /obj/singularity/energy_ball/proc/find_the_basket()
 	var/turf/where_to_move = findEventArea()
 	message_admins("The target is [where_to_move]")
-	for(var/thing in GLOB.singularities)
-		var/obj/singularity/tesloose = thing
-		tesloose.target = pick(where_to_move)
+	has_a_target = 1
 	return
 
 /obj/singularity/energy_ball/proc/handle_energy()
