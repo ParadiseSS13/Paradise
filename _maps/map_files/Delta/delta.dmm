@@ -72054,6 +72054,7 @@
 /area/maintenance/consarea_virology)
 "kJj" = (
 /obj/structure/table,
+/obj/item/storage/box/tapes,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -118837,6 +118838,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/table/wood,
+/obj/item/storage/box/tapes,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "vvP" = (

@@ -410,3 +410,4 @@
 	new /obj/item/radio/headset/heads/magistrate/alt(src)	//added here deleted on maps
 	new /obj/item/megaphone(src)
 	new /obj/item/storage/garmentbag/magistrate(src)
+	new /obj/item/storage/box/tapes(src)
