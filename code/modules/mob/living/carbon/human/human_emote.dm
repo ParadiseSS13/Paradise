@@ -649,16 +649,11 @@
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 
 /datum/emote/living/carbon/human/hiss/tajaran
-	key = "hiss"
-	key_third_person = "hisses"
-	message = "hisses."
 	message_mime = "hisses silently."
-	message_param = "hisses at %t."
 	species_type_whitelist_typecache = list(/datum/species/tajaran)
 	sound = "sound/effects/tajaranhiss.ogg"
 	volume = 80
 	muzzled_noises = list("irritated")
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	// catHisses1.wav by Zabuhailo. Edited.
 	// https://freesound.org/people/Zabuhailo/sounds/146963/
 
