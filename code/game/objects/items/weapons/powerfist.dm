@@ -83,6 +83,9 @@
 
 
 /obj/item/melee/powerfist/attack(mob/living/target, mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
 	if(!tank)
 		to_chat(user, "<span class='warning'>[src] can't operate without a source of gas!</span>")
 		return

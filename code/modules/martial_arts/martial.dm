@@ -167,10 +167,21 @@
 	set desc = "Gives information about the martial arts you know."
 	set category = "Martial Arts"
 	var/mob/living/carbon/human/H = usr
-	if(!istype(H))
+	if(istype(H))
+		H.mind.martial_art.give_explaination(H)
+		return
+	if(isobserver(H) || iscameramob(H))
 		to_chat(usr, "<span class='warning'>You shouldn't have access to this verb. Report this as a bug to the github please.</span>")
 		return
-	H.mind.martial_art.give_explaination(H)
+	if(isanimal(H))
+		to_chat(usr, "<span class='notice'>Your beastial form isn't compatible with any martial arts you know.</span>")
+		return
+	if(issilicon(H))
+		to_chat(usr, "<span class='notice'>Your malformed steel body can barely perform basic tasks, let alone complex martial arts.</span>")
+		return
+	if(isalien(H))
+		to_chat(usr, "<span class='notice'>The hivemind's fighting style has been blessed upon you, you have no need for this useless style.</span>")
+		return
 
 /datum/martial_art/proc/give_explaination(user = usr)
 	explaination_header(user)
