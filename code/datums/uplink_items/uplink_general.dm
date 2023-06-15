@@ -163,10 +163,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Highly Visible and Dangerous Weapons"
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol"
+	name = "FK-69 Pistol Kit"
 	reference = "SPI"
-	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
-	item = /obj/item/gun/projectile/automatic/pistol
+	desc = "A box containing a small, easily concealable handgun and two eight-round magazines chambered in 10mm auto rounds. Compatible with suppressors."
+	item = /obj/item/storage/box/syndie_kit/stechkin
 	cost = 4
 
 /datum/uplink_item/dangerous/revolver
