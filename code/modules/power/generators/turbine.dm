@@ -61,6 +61,8 @@
 	/// If the turbine is outputing enough to visibly affect its sprite
 	var/generator_threshold = FALSE
 	var/productivity = 1
+	///Used to form the turbine power generation curve
+	var/power_curve_mod = 1.7
 
 /obj/machinery/computer/turbine_computer
 	name = "gas turbine control computer"
@@ -158,6 +160,7 @@
 	var/datum/gas_mixture/environment = inturf.return_air()
 
 	// It's a simplified version taking only 1/10 of the moles from the turf nearby. It should be later changed into a better version
+	//2023 note: It works, im not touc
 
 	var/transfer_moles = environment.total_moles()/10
 	//var/transfer_moles = rpm/10000*capacity
@@ -204,7 +207,7 @@
 // rpms, TurbGenG modifies the shape of the curve - the lower the value the less straight the curve is.
 
 #define TURBPRES 9000000
-#define TURBGENQ 100000
+#define TURBGENQ 500000
 #define TURBGENG 0.5
 
 /obj/machinery/power/turbine/Initialize(mapload)
@@ -255,7 +258,7 @@
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBGENQ and TURBGENG values
 
-	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity
+	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * power_curve_mod * productivity
 
 	produce_direct_power(lastgen)
 
