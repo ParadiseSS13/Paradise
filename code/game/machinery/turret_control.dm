@@ -88,8 +88,8 @@
 		else
 			control_area = null
 
-	power_change() //Checks power and initial settings
-	return
+	updateTurrets()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(isrobot(user) || isAI(user))
