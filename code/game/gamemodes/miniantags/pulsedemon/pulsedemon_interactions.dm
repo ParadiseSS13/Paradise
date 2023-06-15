@@ -22,7 +22,7 @@
 		if(iscarbon(G.loc) || isturf(G.loc))
 			G.process_fire(A, src, FALSE)
 			visible_message("<span class='danger'>[G] fires itself at [A]!</span>", "<span class='danger'>You force [G] to fire at [A]!</span>", "<span class='italics'>You hear \a [G.fire_sound_text]!</span>")
-			changeNext_click(G.fire_delay)
+			changeNext_click(1 SECONDS) // I can't actually find what the default gun fire cooldown is, so it's 1 second until someone enlightens me
 			return
 	else if(current_robot)
 		log_admin("[key_name_admin(src)] made [key_name_admin(current_robot)] attack [A]")
