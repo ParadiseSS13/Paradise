@@ -518,6 +518,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
 	update_icon()
+	update_weight()
 
 
 ///////////////////////////////////
@@ -823,12 +824,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	item_state = "coil2"
 
 /obj/item/stack/cable_coil/cut/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
-	. = ..()
-	src.amount = rand(1,2)
-	pixel_x = rand(-2,2)
-	pixel_y = rand(-2,2)
-	update_icon()
-	update_weight()
+	. = ..(mapload, rand(1,2), merge, cable_color)
 
 /obj/item/stack/cable_coil/yellow
 	color = WIRE_COLOR_YELLOW
@@ -852,8 +848,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	color = WIRE_COLOR_WHITE
 
 /obj/item/stack/cable_coil/random/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
-	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
-	. = ..(cable_color = color)
+	var/random_color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
+	. = ..(mapload, new_amount, merge, random_color)
 
 /obj/item/stack/cable_coil/proc/cable_color(colorC)
 	if(!colorC)
