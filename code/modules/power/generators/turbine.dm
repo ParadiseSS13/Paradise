@@ -26,8 +26,11 @@
 #define FAST 2
 #define SLOW 1
 
+//below defines the time between an overheat event and next startup
+#define OVERHEAT_TIME 120
+
 /obj/machinery/power/compressor
-	name = "compressor"
+	name = "gas turbine compressor"
 	desc = "The compressor stage of a gas turbine generator."
 	icon = 'icons/obj/pipes.dmi'
 	icon_state = "compressor"
@@ -44,6 +47,16 @@
 	var/capacity = 1e6
 	var/comp_id = 0
 	var/efficiency
+	///value that dertermines the amount of overheat "damage" on the turbine.
+	var/overheat = 0
+	///Required overheat "damage" to proc an overheat event. By default, this is seconds of overdrive required for an overheat event.
+	var/overheat_threshold = 300
+	///This value needs to be zero. It represents seconds since the last overheat event
+	var/last_overheat = 0
+	//Internal radio, used to alert engineers of turbine trip!
+	var/obj/item/radio/radio
+	///overheat message
+	var/overheat_message = "Alert! The gas turbine generator has overheated. Initiating automatic cooling procedures. Manual restart is required."
 
 
 /obj/machinery/power/turbine
@@ -63,6 +76,7 @@
 	var/productivity = 1
 	///Used to form the turbine power generation curve
 	var/power_curve_mod = 1.7
+
 
 /obj/machinery/computer/turbine_computer
 	name = "gas turbine control computer"
@@ -95,6 +109,12 @@
 	if(!turbine)
 		stat |= BROKEN
 
+
+	//Radio for screaming about overheats
+	radio = new(src)
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Engineering" = 0))
 
 #define COMPFRICTION 5e5
 #define COMPSTARTERLOAD 2800
@@ -148,13 +168,30 @@
 /obj/machinery/power/compressor/CanAtmosPass(turf/T)
 	return !density
 
+/obj/machinery/power/compressor/proc/trigger_overheat()
+	starter = FALSE
+	last_overheat = OVERHEAT_TIME
+	overheat = 0
+	radio.autosay("[overheat_message]", name, "Engineering", list(z))
+	playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+
 /obj/machinery/power/compressor/process()
 	if(!turbine)
 		stat = BROKEN
 	if(stat & BROKEN || panel_open)
 		return
+	if(last_overheat > 0)
+		last_overheat -= 1 //second
+		return
 	if(!starter)
 		return
+	if(rpm_threshold == OVERDRIVE)
+		//UI update here
+		overheat += 1
+		if(overheat >= overheat_threshold)
+			trigger_overheat()
+		else
+
 
 	rpm = 0.9* rpm + 0.1 * rpmtarget
 	var/datum/gas_mixture/environment = inturf.return_air()
@@ -341,9 +378,14 @@
 
 	switch(action)
 		if("toggle_power")
-			if(compressor?.turbine)
+			if(compressor?.turbine && compressor.last_overheat <= 0)
 				compressor.starter = !compressor.starter
 				. = TRUE
+				playsound(src, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+			if(compressor.last_overheat > 0)
+				compressor.starter = FALSE
+				to_chat(usr,"<span class='alert'>The turbine was overheated, please wait [compressor.last_overheat] seconds for cooldown procedures to complete.</span>")
+				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 		if("reconnect")
 			locate_machinery()
@@ -391,9 +433,15 @@
 
 	switch(action)
 		if("toggle_power")
-			if(compressor?.turbine)
+			if(compressor?.turbine && compressor.last_overheat <= 0)
+				if(compressor.starter == FALSE)
+					playsound(compressor, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 				compressor.starter = !compressor.starter
 				. = TRUE
+			if(compressor.last_overheat > 0)
+				compressor.starter = FALSE
+				to_chat(usr,"<span class='alert'>The turbine was overheated, please wait [compressor.last_overheat] seconds for cooldown procedures to complete.</span>")
+				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 		if("reconnect")
 			locate_machinery()
