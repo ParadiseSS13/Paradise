@@ -204,8 +204,8 @@
 /obj/item/scrying
 	name = "scrying orb"
 	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means."
-	icon = 'icons/obj/projectiles.dmi'
-	icon_state ="bluespace"
+	icon = 'icons/obj/wizard.dmi'
+	icon_state ="scrying_orb"
 	throw_speed = 7
 	throw_range = 15
 	throwforce = 15

@@ -103,9 +103,12 @@
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
+	RECT_TURFS(RADIUS, RADIUS, CENTER)
+
+#define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
 	block( \
-		locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
-		locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
+	locate(max(CENTER.x-(H_RADIUS),1),          max(CENTER.y-(V_RADIUS),1),          CENTER.z), \
+	locate(min(CENTER.x+(H_RADIUS),world.maxx), min(CENTER.y+(V_RADIUS),world.maxy), CENTER.z) \
 	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
@@ -372,7 +375,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 48
+#define SQL_VERSION 49
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -530,6 +533,9 @@
 #define REFLECTABILITY_NEVER 0
 #define REFLECTABILITY_PHYSICAL 1
 #define REFLECTABILITY_ENERGY 2
+
+// This isnt in client_defines due to scoping issues
+#define DEFAULT_CLIENT_VIEWSIZE "19x15"
 
 // Deadchat control defines
 
