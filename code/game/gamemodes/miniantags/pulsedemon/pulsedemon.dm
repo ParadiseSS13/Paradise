@@ -36,7 +36,7 @@
 	maxbodytemp = 4000
 	maxHealth = 50
 	health = 50
-	speed = -1
+	speed = -0.5
 	flying = TRUE
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
@@ -87,9 +87,9 @@
 	/// Controls whether the demon can move outside of cables. Toggled by a spell.
 	var/can_exit_cable = FALSE
 	/// Speed used while moving inside cables.
-	var/inside_cable_speed = -1
+	var/inside_cable_speed = -0.5
 	/// Speed used while moving outside cables. Can be upgraded.
-	var/outside_cable_speed = 4
+	var/outside_cable_speed = 5
 
 	/// The time it takes to hijack APCs and cyborgs.
 	var/hijack_time = 30 SECONDS
