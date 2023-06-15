@@ -36,6 +36,7 @@
 	var/allow_species_pick = FALSE
 	var/allow_gender_pick = FALSE
 	var/allow_name_pick = FALSE
+	var/allow_tts_pick = TRUE // defaulted to TRUE because some "simple mob" mob_spawns may require custom voice
 	var/mob_species = null
 
 	var/assignedrole
@@ -130,6 +131,9 @@
 		GLOB.mob_spawners -= name
 	return ..()
 
+/obj/effect/mob_spawn/is_mob_spawnable()
+	return TRUE
+
 /obj/effect/mob_spawn/proc/use_prefs_prompt(mob/user)
 	return
 
@@ -187,7 +191,8 @@
 		M.mind.offstation_role = offstation_role
 		special(M, name)
 		MM.name = M.real_name
-		M.change_voice()
+		if(allow_tts_pick)
+			M.change_voice()
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
@@ -204,6 +209,7 @@
 	allow_prefs_prompt = FALSE
 	allow_gender_pick = FALSE
 	allow_name_pick = FALSE
+	allow_tts_pick = TRUE
 	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE

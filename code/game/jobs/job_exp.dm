@@ -1,6 +1,9 @@
 // Playtime requirements for special roles (hours)
 
 GLOBAL_LIST_INIT(role_playtime_requirements, list(
+	// SPECIFIC ROLES
+	ROLE_THUNDERDOME = 0,
+
 	// NT ROLES
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.

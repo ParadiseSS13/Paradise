@@ -28,6 +28,7 @@ GLOBAL_LIST_INIT(other_roles, list(
 	ROLE_NYMPH,
 	ROLE_ERT,
 	ROLE_GHOST,
+	ROLE_THUNDERDOME,
 	ROLE_ELITE,
 	"AntagHUD",
 	"Records"

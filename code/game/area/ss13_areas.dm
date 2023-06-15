@@ -582,6 +582,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Thunderdome (Observer.)"
 	icon_state = "purple"
 
+/area/tdome/newtdome
+	name = "\improper New Thunderdome Arena"
+	icon_state = "thunder"
+
+/area/tdome/newtdome/CQC
+	name = "\improper New Thunderdome Arena - Close Combat"
+	icon_state = "thunderCQC"
+
 /area/exploration/methlab
 	name = "\improper Abandoned Drug Lab"
 	icon_state = "green"
