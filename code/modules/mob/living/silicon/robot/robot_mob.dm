@@ -801,7 +801,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					demon.do_hijack_robot(src)
 					cell.rigged = FALSE
 				else
-					demon.exit_to_turf(src)
+					demon.exit_to_turf()
 
 			module?.update_cells()
 			diag_hud_set_borgcell()

@@ -137,6 +137,9 @@
 	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_cross_shock))
 	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_cross_shock))
 
+	// drop demon onto ground if its loc is a non-turf and gets deleted
+	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(deleted_handler))
+
 	pb_helper = new()
 
 	current_power = locate(/obj/machinery/power) in loc
@@ -148,6 +151,17 @@
 	update_glow()
 	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 50, TRUE)
 	give_spells()
+
+/mob/living/simple_animal/pulse_demon/proc/deleted_handler(src, force)
+	SIGNAL_HANDLER
+	// assume normal deletion if we're on a turf, otherwise deletion could be inherited from loc
+	if(force || loc == null || isturf(loc))
+		return FALSE
+	// if we did actually die, simple_animal/death will set del_on_death to FALSE before calling qdel
+	if(!del_on_death)
+		return FALSE
+	exit_to_turf()
+	return TRUE
 
 /mob/living/simple_animal/pulse_demon/Destroy()
 	SSticker.mode.traitors -= mind
@@ -228,8 +242,8 @@
 	empulse(T, heavy_radius, light_radius)
 	playsound(T, pick(hurt_sounds), 50, TRUE)
 
-/mob/living/simple_animal/pulse_demon/proc/exit_to_turf(atom/oldloc)
-	var/turf/T = get_turf(loc)
+/mob/living/simple_animal/pulse_demon/proc/exit_to_turf()
+	var/turf/T = get_turf(src)
 	current_power = null
 	update_controlling_area()
 	current_cable = null
@@ -267,6 +281,11 @@
 /mob/living/simple_animal/pulse_demon/Move(newloc)
 	var/obj/machinery/power/new_power = locate(/obj/machinery/power) in newloc
 	var/obj/structure/cable/new_cable = locate(/obj/structure/cable) in newloc
+
+	if(QDELETED(new_power))
+		new_power = null
+	if(QDELETED(new_cable))
+		new_cable = null
 
 	if(istype(new_power, /obj/machinery/power/terminal))
 		// entering a terminal is kinda useless and any working terminal will have a cable under it

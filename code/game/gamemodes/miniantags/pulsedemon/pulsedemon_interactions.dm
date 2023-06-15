@@ -133,7 +133,7 @@
 		if(!user.pb_helper.start(user, src, user.hijack_time, TRUE, PD_HIJACK_CB(user, check_valid_recharger), PD_HIJACK_CB(user, finish_hijack_recharger), PD_HIJACK_FAIL(user)))
 			to_chat(user, "<span class='warning'>You are already performing an action!</span>")
 		else
-			user.do_hijack_notice()
+			user.do_hijack_notice(charging)
 	else
 		to_chat(user, "<span class='warning'>There is no weapon charging. Click again to retry.</span>")
 
@@ -154,7 +154,7 @@
 		if(!user.pb_helper.start(user, src, user.hijack_time, TRUE, PD_HIJACK_CB(user, check_valid_cell_charger), PD_HIJACK_CB(user, finish_hijack_cell_charger), PD_HIJACK_FAIL(user)))
 			to_chat(user, "<span class='warning'>You are already performing an action!</span>")
 		else
-			user.do_hijack_notice()
+			user.do_hijack_notice(charging)
 	else
 		to_chat(user, "<span class='warning'>There is no cell charging. Click again to retry.</span>")
 
@@ -176,7 +176,7 @@
 		if(!user.pb_helper.start(user, src, user.hijack_time, TRUE, PD_HIJACK_CB(user, check_valid_recharge_station), PD_HIJACK_CB(user, finish_hijack_recharge_station), PD_HIJACK_FAIL(user)))
 			to_chat(user, "<span class='warning'>You are already performing an action!</span>")
 		else
-			user.do_hijack_notice()
+			user.do_hijack_notice(occupant)
 			to_chat(R, "<span class='danger'>ALERT: ELECTRICAL MALEVOLENCE DETECTED, TARGETING SYSTEMS HIJACK IN PROGRESS</span>")
 	else
 		to_chat(user, "<span class='warning'>There is no silicon-based occupant inside. Click again to retry.</span>")
