@@ -791,6 +791,8 @@
 
 // player on mulebot attempted to move
 /mob/living/simple_animal/bot/mulebot/relaymove(mob/user)
+	if(ispulsedemon(user))
+		return ..()
 	if(user.incapacitated())
 		return
 	if(load == user)
