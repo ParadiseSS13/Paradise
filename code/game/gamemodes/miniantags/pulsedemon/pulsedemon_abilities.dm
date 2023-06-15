@@ -139,7 +139,7 @@
 	playsound(T, 'sound/magic/lightningshock.ogg', 50, TRUE)
 	O.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 1 SECONDS)
 	for(var/turf/working in getline(O, T))
-		for(var/mob/M in working)
+		for(var/mob/living/M in working)
 			electrocute_mob(M, C.powernet, user)
 	user.forceMove(T)
 	user.Move(T)
