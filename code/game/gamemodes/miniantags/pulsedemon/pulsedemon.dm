@@ -679,7 +679,15 @@
 /mob/living/simple_animal/pulse_demon/ex_act()
 	return
 
+/mob/living/simple_animal/pulse_demon/CanPass(atom/movable/mover, turf/target, height)
+	. = ..()
+	// maybe a prob on this? prob only for weak ions? discover in testing
+	if(istype(mover, /obj/item/projectile/ion))
+		return FALSE
+
 /mob/living/simple_animal/pulse_demon/bullet_act(obj/item/projectile/Proj)
+	if(istype(Proj, /obj/item/projectile/ion))
+		return ..()
 	visible_message("<span class='warning'>[Proj] goes right through [src]!</span>")
 
 /mob/living/simple_animal/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
