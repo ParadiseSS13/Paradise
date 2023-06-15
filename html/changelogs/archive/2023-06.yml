@@ -109,6 +109,8 @@
   - bugfix: Grey toolspeedmod (#2942)
   - tweak: Mecha weapon (#2966)
 '2023-06-13':
+  Dimach:
+  - add: auto changelog generation (#2980)
   LiquidPotroh:
   - bugfix: Neurotoxin spit accuracy (#2976)
   - add: Selector image for neuritoxin action (#2978)
@@ -120,3 +122,21 @@
   - tweak: change airlock sound to match animation (#2981)
   userbaza:
   - bugfix: remove .357 revolver from random stone in anomalyship (#2977)
+'2023-06-14':
+  Сиротка:
+  - qol: Shitspawn mechas (#2941)
+'2023-06-15':
+  Igz0m:
+  - tweak: change taipan members count to sector be available (#2989)
+  NightDawnFox:
+  - tweak: '"Prototype Bone Repair Kit" rework (#2937)'
+  Vladisvell:
+  - tweak: now boxes with monkey cubes can be used to fill xenobio consoles (#2992)
+  - add: thunderdome for ghosts (#2912)
+  WolfLox:
+  - add: mantis blade (#2990)
+  Zwei:
+  - bugfix: Cable Dupe Fix (#2988)
+  - bugfix: Stop Xenos From Catching Disallowed Items (#2991)
+  mqopi:
+  - add: box with spare tapes for magistrate, IIA (#2986)
