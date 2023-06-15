@@ -148,8 +148,7 @@
 
 /// Returns the effect if the mob calling the proc owns the given status effect, but checks by type.
 /mob/living/proc/has_status_effect_type(effect)
-	. = null
-	if(!status_effects)
+	if(!length(status_effects))
 		return
 	for(var/datum/status_effect/S in status_effects)
 		if(istype(S, effect))
