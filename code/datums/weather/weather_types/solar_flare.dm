@@ -42,6 +42,9 @@
 	. = ..()
 	if(.) //If true the mob is already affected, no need to keep processing
 		return TRUE
+	var/turf/mob_turf = get_turf(L)
+	if(mob_turf && !(mob_turf.z in impacted_z_levels))
+		return FALSE
 	if(isanimal(L)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
 		return FALSE
 	if(isdrone(L)) //same with poor maint drones who just wanna have fun
