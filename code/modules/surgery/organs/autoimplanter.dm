@@ -38,3 +38,33 @@
 			storedorgan = null
 			to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
 			playsound(get_turf(user), I.usesound, 50, 1)
+
+/obj/item/autoimplanter/oneuse
+	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. At once."
+
+/obj/item/autoimplanter/oneuse/attack_self(mob/user)
+	. = ..()
+	user.drop_from_active_hand()
+	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+
+/obj/item/autoimplanter/oneuse/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/screwdriver))
+		storedorgan.forceMove(get_turf(user))
+		storedorgan = null
+		to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
+		playsound(get_turf(user), I.usesound, 50, 1)
+		user.temporarily_remove_item_from_inventory(src, force = TRUE)
+		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		qdel(src)
+	. = ..()
+
+/obj/item/autoimplanter/oneuse/mantisblade
+	name = "autoimplanter(mantis blade right)"
+	storedorgan = new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex
+
+/obj/item/autoimplanter/oneuse/mantisblade/l
+	name = "autoimplanter(mantis blade left)"
+	storedorgan = new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l

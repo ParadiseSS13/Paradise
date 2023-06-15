@@ -50,6 +50,55 @@
 		final_block_chance = 0 //Don't bring a sword to a gunfight
 	return ..()
 
+/obj/item/melee/mantisblade
+	name = "Gorlex mantis blade"
+	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
+	icon_state = "syndie_mantis"
+	item_state = "syndie_mantis"
+	force = 20
+	throwforce = 20
+	w_class = WEIGHT_CLASS_NORMAL
+	block_chance = 30
+	armour_penetration = 30
+	sharp = TRUE
+	origin_tech = "combat=5"
+	attack_verb = list("slashed", "stabbed", "sliced", "caned")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	materials = list(MAT_METAL = 1000)
+
+/obj/item/melee/mantisblade/equipped(mob/user, slot)
+	. = ..()
+
+	if(slot == slot_l_hand)
+		transform = null
+	else
+		transform = matrix(-1, 0, 0, 0, 1, 0)
+
+/obj/item/melee/mantisblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	return ..()
+
+/obj/item/melee/mantisblade/attack(mob/living/M, mob/living/user, secondattack = FALSE)
+	. = ..()
+	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
+	if(istype(secondsword, /obj/item/melee/mantisblade) && !secondattack && user.a_intent == INTENT_HARM)
+		addtimer(CALLBACK(src, PROC_REF(mantis_attack), M, user, FALSE), 0.2 SECONDS)
+	return
+
+/obj/item/melee/mantisblade/proc/mantis_attack(mob/living/M, mob/living/user, secondattack = FALSE)
+	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
+	secondsword.attack(M, user, TRUE)
+	user.changeNext_move(CLICK_CD_MELEE)
+
+/obj/item/melee/mantisblade/shellguard
+	name = "Shellguard mantis blade"
+	force = 15
+	armour_penetration = 20
+	block_chance = 20
+	icon_state = "mantis"
+	item_state = "mantis"
+
 /obj/item/melee/icepick
 	name = "ice pick"
 	desc = "Used for chopping ice. Also excellent for mafia esque murders."

@@ -136,6 +136,14 @@
 	desc = "A sleek, sturdy box"
 	icon_state = "box_of_doom"
 
+/obj/item/storage/box/syndie_kit/mantisblade
+	name = "Boxed Space Suit and Helmet"
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/syndie_kit/mantisblade/populate_contents()
+	new /obj/item/autoimplanter/oneuse/mantisblade(src)
+	new /obj/item/autoimplanter/oneuse/mantisblade/l(src)
+
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
 	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
