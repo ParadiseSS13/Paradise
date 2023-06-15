@@ -156,6 +156,8 @@
 			direct = newdir
 			n = get_step(mob, direct)
 
+	mob.last_movement_dir = direct
+
 	var/prev_pulling_loc = null
 	if(mob.pulling)
 		prev_pulling_loc = mob.pulling.loc
