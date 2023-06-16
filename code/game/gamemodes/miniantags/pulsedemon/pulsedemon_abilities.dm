@@ -378,27 +378,27 @@
 		if(PD_UPGRADE_HIJACK_SPEED)
 			if(user.hijack_time <= 1 SECONDS)
 				return -1
-			cost = (100 / (user.hijack_time / (1 SECONDS))) * 10 KW
+			cost = (100 / (user.hijack_time / (1 SECONDS))) * 20 KW
 		if(PD_UPGRADE_DRAIN_SPEED)
-			if(user.power_drain_rate >= 600 KW)
+			if(user.power_drain_rate >= 500 KW)
 				return -1
-			cost = user.power_drain_rate * 10
+			cost = user.power_drain_rate * 15
 		if(PD_UPGRADE_MAX_HEALTH)
 			if(user.maxHealth >= 200)
 				return -1
-			cost = user.maxHealth * 1 KW
+			cost = user.maxHealth * 5 KW
 		if(PD_UPGRADE_HEALTH_REGEN)
-			if(user.health_regen_rate >= 200)
+			if(user.health_regen_rate >= 100)
 				return -1
-			cost = user.health_regen_rate * 10 KW
+			cost = user.health_regen_rate * 50 KW
 		if(PD_UPGRADE_HEALTH_LOSS)
 			if(user.health_loss_rate <= 1)
 				return -1
-			cost = (100 / user.health_loss_rate) * 10 KW
+			cost = (100 / user.health_loss_rate) * 20 KW
 		if(PD_UPGRADE_HEALTH_COST)
 			if(user.power_per_regen <= 1)
 				return -1
-			cost = (100 / user.power_per_regen) * 10 KW
+			cost = (100 / user.power_per_regen) * 50 KW
 		if(PD_UPGRADE_MAX_CHARGE)
 			cost = user.maxcharge
 		else
@@ -447,13 +447,13 @@
 			user.hijack_time = max(round(user.hijack_time / 1.5), 1 SECONDS)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [user.hijack_time / 10] seconds to hijack APCs.</span>")
 		if(PD_UPGRADE_DRAIN_SPEED)
-			user.power_drain_rate = min(round(user.power_drain_rate * 1.5), 600 KW)
+			user.power_drain_rate = min(round(user.power_drain_rate * 1.5), 500 KW)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now drain [format_si_suffix(user.power_drain_rate)]W per cycle.</span>")
 		if(PD_UPGRADE_MAX_HEALTH)
 			user.maxHealth = min(round(user.maxHealth * 1.5), 200)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], your max health is now [user.maxHealth].</span>")
 		if(PD_UPGRADE_HEALTH_REGEN)
-			user.health_regen_rate = min(round(user.health_regen_rate * 1.5), 200)
+			user.health_regen_rate = min(round(user.health_regen_rate * 1.5), 100)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now regenerate [user.health_regen_rate] health per cycle when powered.</span>")
 		if(PD_UPGRADE_HEALTH_LOSS)
 			user.health_loss_rate = max(round(user.health_loss_rate / 1.5), 1)
