@@ -517,7 +517,7 @@
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
-		C.handcuffed = initial(C.handcuffed)
+		C.uncuff()
 
 		for(var/thing in C.viruses)
 			var/datum/disease/D = thing

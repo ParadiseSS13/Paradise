@@ -162,8 +162,7 @@
 		"<span class='userdanger'>[user] is trying to put handcuffs on you!</span>")
 		if(do_mob(user, target, 10))
 			if(!target.handcuffed)
-				target.handcuffed = new /obj/item/restraints/handcuffs/cable(target)
-				target.update_handcuffed()
+				target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(target))
 				to_chat(user, "<span class='notice'>You shackle [target].</span>")
 				add_attack_logs(user, target, "shackled")
 				cuffs--
