@@ -10366,6 +10366,10 @@
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
 	})
+"cbY" = (
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/carpet,
+/area/lawoffice)
 "cch" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Electrical Maintenance";
@@ -58688,13 +58692,15 @@
 	},
 /area/storage/primary)
 "lsc" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+/obj/structure/grille,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/light/small{
+	dir = 1
 	},
-/turf/simulated/floor/plating,
-/area/storage/tech)
+/turf/simulated/floor/plating/airless,
+/area/engine/supermatter{
+	name = "\improper Engine Containment"
+	})
 "lsd" = (
 /turf/simulated/wall,
 /area/maintenance/apmaint)
@@ -59157,9 +59163,13 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningstorage)
 "lwW" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
-/turf/simulated/floor/carpet,
-/area/lawoffice)
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/storage/tech)
 "lxf" = (
 /obj/structure/crematorium{
 	dir = 8
@@ -68505,16 +68515,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"npY" = (
-/obj/structure/grille,
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
 "nqa" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -107699,7 +107699,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "uUZ" = (
-/obj/structure/lattice,
 /obj/structure/grille/broken,
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/east,
@@ -137399,7 +137398,7 @@ fBi
 fBi
 pCx
 iLA
-npY
+lsc
 svG
 avF
 uoN
@@ -147247,7 +147246,7 @@ xle
 hOb
 pcm
 pcm
-lwW
+cbY
 pcm
 pcm
 dvP
@@ -151560,7 +151559,7 @@ tFN
 jjH
 qSs
 bkm
-lsc
+lwW
 hVj
 bUF
 uYA
