@@ -1031,6 +1031,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Kitchen"
 	icon_state = "kitchen"
 
+/area/crew_quarters/kitchen/freezer
+	name = "\improper Kitchen Freezer"
+	icon_state = "kitchen"
+
 /area/crew_quarters/bar
 	name = "\improper Bar"
 	icon_state = "bar"

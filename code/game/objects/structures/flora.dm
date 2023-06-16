@@ -306,6 +306,10 @@
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
 	icon_state = "plant-dead"
 
+/obj/item/twohanded/required/kirbyplants/dead/LateInitialize()
+	. = ..()
+	icon_state = "plant-dead"
+
 //a rock is flora according to where the icon file is
 //and now these defines
 /obj/structure/flora/rock
