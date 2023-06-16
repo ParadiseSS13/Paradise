@@ -614,7 +614,7 @@
 
 /mob/living/simple_animal/pulse_demon/proc/is_under_tile()
 	var/turf/T = get_turf(src)
-	return T.transparent_floor || T.intact
+	return T.transparent_floor || T.intact || locate(/obj/structure/alien/weeds) in T
 
 /mob/living/simple_animal/pulse_demon/proc/do_hijack_notice(atom/A)
 	to_chat(src, "<span class='notice'>You are now attempting to hijack [A], this will take approximately [hijack_time / 10] seconds.</span>")
