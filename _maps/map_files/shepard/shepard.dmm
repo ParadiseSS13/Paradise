@@ -8776,6 +8776,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "bMQ" = (
@@ -11011,14 +11014,6 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
-"chT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "long"
-	},
-/area/expedition)
 "cih" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -16397,20 +16392,12 @@
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
 "dfQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/structure/sign/double/map/left{
+	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
+	icon_state = "map-left-SH"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "long"
-	},
-/area/hallway/primary/port/north)
+/turf/simulated/wall,
+/area/crew_quarters/cafe)
 "dgd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -17477,6 +17464,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
+"dqw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "long"
+	},
+/area/hallway/primary/port/north)
 "dqy" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17520,6 +17522,7 @@
 /obj/item/clothing/head/mailman,
 /obj/item/clothing/under/misc/mailman,
 /obj/structure/closet,
+/obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "brownfull"
 	},
@@ -18221,6 +18224,15 @@
 	icon_state = "blue"
 	},
 /area/assembly/showroom)
+"dzf" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/central/north)
 "dzj" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/decal/warning_stripes/blue/hollow,
@@ -23145,13 +23157,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/chief)
-"eBf" = (
-/obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
-	icon_state = "map-right-SH"
-	},
-/turf/simulated/wall,
-/area/crew_quarters/cafe)
 "eBj" = (
 /obj/structure/table,
 /obj/item/crowbar,
@@ -23593,6 +23598,12 @@
 	icon_state = "white"
 	},
 /area/medical/research)
+"eET" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
 "eFq" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -26074,6 +26085,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/item/flash,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "yellowcorner"
@@ -28119,12 +28131,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"fyL" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
 "fyM" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/airlock/external{
@@ -28467,6 +28473,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/item/wirecutters/security,
 /turf/simulated/floor/plasteel,
 /area/security/seceqstorage)
 "fCA" = (
@@ -32768,6 +32775,22 @@
 	icon_state = "vault"
 	},
 /area/medical/medbay2)
+"guV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable/blue{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "long"
+	},
+/area/hallway/primary/central/north)
 "gve" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -39418,12 +39441,12 @@
 	name = "Bridge Requests Console";
 	pixel_y = 27
 	},
-/obj/item/flash,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/multitool/command,
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "hID" = (
@@ -57625,6 +57648,34 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
+"lgN" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light,
+/obj/structure/sign/directions{
+	icon_state = "direction_serv";
+	pixel_y = -19
+	},
+/obj/structure/sign/directions/evac{
+	pixel_y = -27
+	},
+/obj/structure/sign/directions/bridge{
+	pixel_y = -35
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = -43
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/port/north)
 "lgR" = (
 /obj/machinery/computer/card{
 	dir = 1
@@ -61079,6 +61130,7 @@
 "lPp" = (
 /obj/structure/rack,
 /obj/item/clothing/glasses/welding,
+/obj/item/weldingtool/research,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "lPq" = (
@@ -73518,6 +73570,34 @@
 	icon_state = "green"
 	},
 /area/crew_quarters/fitness)
+"omD" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sign/directions/security{
+	pixel_y = -27
+	},
+/obj/structure/sign/directions/medical{
+	pixel_y = -35
+	},
+/obj/structure/sign/directions{
+	icon_state = "direction_dorm";
+	pixel_y = -19
+	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = -43
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/port/north)
 "omE" = (
 /obj/structure/table/wood,
 /obj/item/storage/lockbox/medal,
@@ -80952,33 +81032,15 @@
 /turf/simulated/floor/wood,
 /area/library)
 "pKT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/sign/directions/security{
-	pixel_y = -27
-	},
-/obj/structure/sign/directions/medical{
-	pixel_y = -35
-	},
-/obj/structure/sign/directions{
-	icon_state = "direction_dorm";
-	pixel_y = -19
-	},
-/obj/structure/sign/directions/cargo{
-	pixel_y = -43
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "yellowcorner"
+	icon_state = "long"
 	},
-/area/hallway/primary/port/north)
+/area/security/lobby)
 "pKX" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4;
@@ -88517,20 +88579,17 @@
 	},
 /area/hallway/primary/starboard/north)
 "rhw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/blue{
+	d1 = 2;
+	d2 = 9;
+	icon_state = "2-9"
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/blue{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "long"
-	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "rhx" = (
 /obj/structure/table/wood,
@@ -89754,16 +89813,6 @@
 	},
 /turf/simulated/wall,
 /area/toxins/mixing)
-"rtv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
-	},
-/area/security/lobby)
 "rtQ" = (
 /mob/living/simple_animal/hostile/retaliate/carp/koi{
 	name = "Jeremy"
@@ -92635,12 +92684,6 @@
 	},
 /turf/simulated/floor/grass/no_creep,
 /area/hallway/secondary/garden)
-"rWk" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
 "rWs" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -93571,6 +93614,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/item/crowbar/engineering,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowfull"
@@ -103999,30 +104043,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/light,
-/obj/structure/sign/directions{
-	icon_state = "direction_serv";
-	pixel_y = -19
-	},
-/obj/structure/sign/directions/evac{
-	pixel_y = -27
-	},
-/obj/structure/sign/directions/bridge{
-	pixel_y = -35
-	},
-/obj/structure/sign/directions/science{
-	pixel_y = -43
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
+	icon_state = "long"
 	},
-/area/hallway/primary/port/north)
+/area/expedition)
 "uit" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -109310,6 +109334,15 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/plating,
 /area/medical/genetics)
+"vgV" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/central/nw)
 "vgZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -109622,19 +109655,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/north)
-"vjx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/blue{
-	d1 = 2;
-	d2 = 9;
-	icon_state = "2-9"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/central/north)
 "vjD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -110227,15 +110247,6 @@
 	icon_state = "delivery"
 	},
 /area/bridge/meeting_room)
-"vqd" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bluecorner"
-	},
-/area/hallway/primary/central/north)
 "vql" = (
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room)
@@ -114098,9 +114109,9 @@
 	},
 /area/toxins/misc_lab)
 "vZc" = (
-/obj/structure/sign/double/map/left{
+/obj/structure/sign/double/map/right{
 	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
-	icon_state = "map-left-SH"
+	icon_state = "map-right-SH"
 	},
 /turf/simulated/wall,
 /area/crew_quarters/cafe)
@@ -114651,6 +114662,7 @@
 	pixel_y = 24
 	},
 /obj/item/clothing/suit/hooded/wintercoat/medical,
+/obj/item/wrench/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -125067,13 +125079,10 @@
 /area/maintenance/atmos_control)
 "yeb" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluecorner"
-	},
-/area/hallway/primary/central/nw)
+/turf/simulated/floor/bluegrid,
+/area/turret_protected/ai)
 "yee" = (
 /turf/simulated/wall,
 /area/chapel/main)
@@ -150555,7 +150564,7 @@ wkH
 kYl
 iFU
 fgm
-dfQ
+dqw
 pnB
 jMs
 fBi
@@ -150812,7 +150821,7 @@ fhO
 kYl
 aTS
 fgm
-uio
+lgN
 ujD
 ujD
 ujD
@@ -151069,7 +151078,7 @@ fhO
 kYl
 qdp
 fgm
-pKT
+omD
 ujD
 ujD
 ujD
@@ -151620,7 +151629,7 @@ rqS
 pbK
 gSb
 rIo
-rtv
+pKT
 aHY
 mjQ
 oTi
@@ -154952,7 +154961,7 @@ nYy
 xfj
 kVm
 ykt
-yeb
+vgV
 wKt
 ruf
 wKt
@@ -157005,8 +157014,8 @@ daP
 oKm
 tOv
 ekd
-rhw
-vqd
+guV
+dzf
 xjo
 fHX
 fYW
@@ -157769,7 +157778,7 @@ pIR
 spS
 txR
 xgo
-chT
+uio
 wlC
 hiz
 gZZ
@@ -158034,7 +158043,7 @@ cPe
 mGv
 jUf
 gtX
-vjx
+rhw
 uTR
 eMR
 dzd
@@ -161576,7 +161585,7 @@ qiZ
 yas
 lSC
 fus
-fyL
+eET
 htW
 vqY
 ilJ
@@ -163118,7 +163127,7 @@ yfP
 yas
 lSC
 fyq
-rWk
+yeb
 htW
 oBw
 gEp
@@ -170892,7 +170901,7 @@ ezs
 eOm
 ezs
 ezs
-vZc
+dfQ
 fMg
 sTf
 fDx
@@ -171149,7 +171158,7 @@ ezs
 ezs
 ezs
 ezs
-eBf
+vZc
 puB
 eFv
 thc
