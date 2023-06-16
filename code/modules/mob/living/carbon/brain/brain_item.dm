@@ -48,10 +48,20 @@
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
-	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
-		. += "<span class='notice'>You can feel the small spark of life still left in this one.</span>"
-	else
-		. += "<span class='notice'>This one seems particularly lifeless. Perhaps it will regain some of its luster later...</span>"
+	if(brainmob && brainmob.client)//if there be a brain inside... the brain.
+		. += "You can feel a bright spark of life in this one!"
+		return
+	if(brainmob?.mind)
+		var/foundghost = FALSE
+		for(var/mob/dead/observer/G in GLOB.player_list)
+			if(G.mind == brainmob.mind)
+				foundghost = G.can_reenter_corpse
+				break
+		if(foundghost)
+			. += "You can feel the small spark of life still left in this one."
+			return
+
+	. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
 /obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
 	if(dna)
