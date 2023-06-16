@@ -3,12 +3,12 @@
 // How to use it? - Mappers
 //
 // This is a very good power generating mechanism. All you need is a blast furnace with soaring flames and output.
-// Not everything is included yet so the turbine can run out of fuel quiet quickly. The best thing about the turbine is that even
+// Not everything is included yet so the turbine can run out of fuel quite quickly. The best thing about the turbine is that even
 // though something is on fire that passes through it, it won't be on fire as it passes out of it. So the exhaust fumes can still
 // containt unreacted fuel - plasma and oxygen that needs to be filtered out and re-routed back. This of course requires smart piping
 // For a computer to work with the turbine the compressor requires a comp_id matching with the turbine computer's id. This will be
 // subjected to a change in the near future mind you. Right now this method of generating power is a good backup but don't expect it
-// become a main power source unless some work is done. Have fun. At 50k RPM it generates 60k power. So more than one turbine is needed!
+// become a main power source unless some work is done. Have fun.
 //
 // - Numbers
 //
@@ -87,6 +87,7 @@
 	circuit = /obj/item/circuitboard/turbine_computer
 	var/obj/machinery/power/compressor/compressor
 	var/id = 0
+	var/linked_compressor = null
 
 // the inlet stage of the gas turbine electricity generator
 
@@ -154,8 +155,6 @@
 
 	if(exchange_parts(user, I))
 		return
-
-
 	return ..()
 
 /obj/machinery/power/compressor/crowbar_act(mob/user, obj/item/I)
@@ -165,6 +164,16 @@
 /obj/machinery/power/compressor/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return TRUE
+
+/obj/machinery/power/compressor/multitool_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	if(panel_open)
+		M.set_multitool_buffer(user, src)
+
 
 /obj/machinery/power/compressor/CanAtmosPass(turf/T)
 	return !density
@@ -404,11 +413,17 @@
 		locate_machinery()
 
 /obj/machinery/computer/turbine_computer/locate_machinery()
-	compressor = locate(/obj/machinery/power/compressor) in range(5, src)
+	compressor = linked_compressor
 
 /obj/machinery/computer/turbine_computer/attack_hand(mob/user)
 	. = ..()
 	ui_interact(user)
+
+/obj/machinery/computer/turbine_computer/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	var/obj/item/multitool/M = I
+	linked_compressor = M.buffer
+	to_chat(user, "<span class='notice'>You link [src] to the turbine compressor in [I]'s buffer.</span>")
 
 /obj/machinery/computer/turbine_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
