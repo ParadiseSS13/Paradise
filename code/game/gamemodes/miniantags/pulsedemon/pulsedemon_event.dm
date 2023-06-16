@@ -4,6 +4,7 @@
 /datum/event/spawn_pulsedemon/proc/get_pulsedemon()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon?", ROLE_PULSEDEMON, FALSE, source = /mob/living/simple_animal/pulse_demon)
 	if(!length(candidates))
+		message_admins("no candidates were found for the pulse demon event.")
 		kill()
 		return
 
@@ -31,12 +32,17 @@
 	var/list/spawn_centers = list()
 	for(var/datum/regional_powernet/P in SSmachines.powernets)
 		for(var/obj/structure/cable/C in P.cables)
+			if(!is_station_level(C.z) || P.available_power <= 0)
+				break // skip iterating over this entire powernet, it's not on station or it has zero available power (so it's not suitable)
+
 			var/turf/simulated/floor/F = get_turf(C)
 			// is a floor, not tiled, on station, in maintenance and cable has power?
-			if(istype(F) && !F.intact && is_station_level(C.z) && istype(get_area(C), /area/maintenance) && P.available_power > 0)
+			if(istype(F) && (!F.intact && !F.transparent_floor) && istype(get_area(C), /area/maintenance))
 				spawn_centers += F
 	if(!spawn_centers)
 		kill()
+		message_admins("no suitable spawn locations were found for the pulse demon event.")
+		log_debug("no suitable spawn locations were found for the pulse demon event.")
 		return
 	return pick(spawn_centers)
 

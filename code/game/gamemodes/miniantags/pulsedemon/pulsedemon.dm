@@ -115,12 +115,12 @@
 	/// Delay tracker for movement inside bots.
 	var/bot_movedelay = 0
 	/// A cyborg that has already been hijacked can be re-entered instantly.
-	var/list/mob/living/silicon/robot/hijacked_robots
+	var/list/hijacked_robots
 
 	/// Images currently being shown on the client.
-	var/list/image/images_shown = list()
+	var/list/images_shown = list()
 	/// List of all previously hijacked APCs.
-	var/list/obj/machinery/power/apc/hijacked_apcs = list()
+	var/list/hijacked_apcs = list()
 	/// Reference to the APC currently being hijacked.
 	var/obj/machinery/power/apc/apc_being_hijacked
 	/// This demon's progressbar helper, used for the hijacking timer on APCs and all charger types (cell, gun, cyborg).

@@ -110,13 +110,14 @@
 		attack_ai(user)
 
 /mob/living/simple_animal/bot/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
-	if(user.loc != src)
-		to_chat(user, "<span class='warning'>You are now inside [src]. If it is destroyed, you will be dropped onto the ground, and may die if there is no cable under you.</span>")
-		to_chat(user, "<span class='notice'>Leave it by jumping to a hijacked APC.</span>")
-		ejectpai(user)
-		user.forceMove(src)
-		user.current_bot = src
-		hijacked = TRUE
+	if(user.loc == src)
+		return
+	to_chat(user, "<span class='warning'>You are now inside [src]. If it is destroyed, you will be dropped onto the ground, and may die if there is no cable under you.</span>")
+	to_chat(user, "<span class='notice'>Leave it by jumping to a hijacked APC.</span>")
+	ejectpai(user)
+	user.forceMove(src)
+	user.current_bot = src
+	hijacked = TRUE
 
 /mob/living/simple_animal/bot/relaymove(mob/user, dir)
 	if(!on || !isturf(loc))
@@ -182,7 +183,7 @@
 		to_chat(user, "<span class='warning'>There is no silicon-based occupant inside. Click again to retry.</span>")
 
 /mob/living/simple_animal/pulse_demon/proc/check_valid_recharge_station(obj/machinery/recharge_station/R)
-	return R.occupant && istype(R.occupant, /mob/living/silicon/robot)
+	return isrobot(R.occupant)
 
 /mob/living/simple_animal/pulse_demon/proc/finish_hijack_recharge_station(obj/machinery/recharge_station/S)
 	do_hijack_robot(S.occupant)
@@ -213,11 +214,7 @@
 	else
 		attack_ai(user)
 
-// for overrides on bots
-/atom/proc/attack_integrated_pulsedemon(mob/living/simple_animal/pulse_demon/user, atom/A)
-	return
-
-/mob/living/simple_animal/bot/attack_integrated_pulsedemon(mob/living/simple_animal/pulse_demon/user, atom/A)
+/mob/living/simple_animal/bot/proc/attack_integrated_pulsedemon(mob/living/simple_animal/pulse_demon/user, atom/A)
 	if(!on)
 		return
 	if(Adjacent(A))
@@ -252,7 +249,7 @@
 		if(prob(50))
 			F.MakeSlippery(TURF_WET_WATER)
 		if(prob(50))
-			audible_message("<span class='warning'>Something flies out of [src]! He seems to be acting oddly.</span>")
+			audible_message("<span class='warning'>Something flies out of [src]! It seems to be acting oddly.</span>")
 			if(!(locate(/obj/effect/decal/cleanable/blood/gibs) in F))
 				new /obj/effect/decal/cleanable/blood/gibs(F)
 

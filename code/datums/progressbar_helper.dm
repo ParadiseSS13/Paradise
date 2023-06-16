@@ -4,8 +4,8 @@
 #define PBHELPER_FAILED 3
 #define PBHELPER_FINISHED 4
 
-// basically just do_after but uses timers and callbacks
-// every callback is optional, if they're all null you just get a progressbar that ends after `delay` deciseconds
+/// Basically just do_after but uses timers and callbacks.
+/// Every callback is optional, if they're all null you just get a progressbar that ends after `delay` deciseconds.
 /datum/progressbar_helper
 	var/datum/progressbar/progbar
 	var/progbar_timer_id = TIMER_ID_NULL
@@ -24,7 +24,7 @@
 	var/datum/callback/fail_cb
 	var/datum/callback/always_cb
 
-// returns FALSE if this instance is already performing an action, otherwise TRUE
+/// Returns FALSE if this instance is already performing an action, otherwise TRUE.
 /datum/progressbar_helper/proc/start(mob/source, atom/target, delay, staystill = TRUE, datum/callback/check = null, datum/callback/onfinish = null, datum/callback/onfail = null, datum/callback/always = null)
 	if(state == PBHELPER_RUNNING || !istype(source) || !istype(target))
 		return FALSE
