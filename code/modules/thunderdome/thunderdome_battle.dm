@@ -1,25 +1,30 @@
-#define MELEE_MODE "CqC"		//Spawn people with only melee things
-#define RANGED_MODE "Ranged"		//Spawn people with only ranged things
-#define MIXED_MODE "Mixed"		//Spawn people with melee and ranged things
-#define DEFAULT_TIME_LIMIT 5 MINUTES //Time-to-Live of participants (default - 5 minutes)
-#define ARENA_COOLDOWN 5 MINUTES //After which time thunderdome will be once again allowed to use
-#define CQC_ARENA_RADIUS 6 //how much tiles away from a center players will spawn
-#define RANGED_ARENA_RADIUS 10
-#define VOTING_POLL_TIME 60 SECONDS
-#define MAX_PLAYERS_COUNT 16
-#define MIN_PLAYERS_COUNT 2
-#define SPAWN_COEFFICENT 0.85 //how many (polled * spawn_coefficent) players will go brawling
-/* Uncomment this if you want to mess up with thunderdome alone
+#define MELEE_MODE 			"CqC"		//Spawn people with only melee things
+#define RANGED_MODE		 	"Ranged"		//Spawn people with only ranged things
+#define MIXED_MODE 			"Mixed"		//Spawn people with melee and ranged things
+#define DEFAULT_TIME_LIMIT 	5 MINUTES //Time-to-Live of participants (default - 5 minutes)
+#define ARENA_COOLDOWN		5 MINUTES //After which time thunderdome will be once again allowed to use
+#define CQC_ARENA_RADIUS	6 //how much tiles away from a center players will spawn
+#define RANGED_ARENA_RADIUS	10
+#define VOTING_POLL_TIME	30 SECONDS
+#define MAX_PLAYERS_COUNT 	16
+#define MIN_PLAYERS_COUNT 	2
+#define SPAWN_COEFFICENT	0.85 //how many (polled * spawn_coefficent) players will go brawling
+#define PICK_PENALTY		30 SECONDS //Prevents fast handed guys from picking polls twice in a row.
+// Uncomment this if you want to mess up with thunderdome alone
+/*
 #define THUND_TESTING
 #ifdef THUND_TESTING
-#define DEFAULT_TIME_LIMIT 30 SECONDS
-#define ARENA_COOLDOWN 30 SECONDS
-#define VOTING_POLL_TIME 10 SECONDS
-#define MIN_PLAYERS_COUNT 1
+#define DEFAULT_TIME_LIMIT 	30 SECONDS
+#define ARENA_COOLDOWN 		30 SECONDS
+#define VOTING_POLL_TIME 	10 SECONDS
+#define MIN_PLAYERS_COUNT 	1
+#define PICK_PENALTY 		0
 #endif
 */
 
 GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
+GLOBAL_VAR_INIT(tdome_arena, locate(/area/tdome/newtdome))
+GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 
 /**
  * #thunderdome_battle
@@ -33,7 +38,7 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 /datum/thunderdome_battle
 	var/spawn_minimum_limit = MIN_PLAYERS_COUNT
 	var/spawn_coefficent = SPAWN_COEFFICENT
-	var/isGoing = FALSE
+	var/is_going = FALSE
 	var/maxplayers = MAX_PLAYERS_COUNT
 	var/time_limit = DEFAULT_TIME_LIMIT
 	var/arena_cooldown = ARENA_COOLDOWN
@@ -45,14 +50,11 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	var/melee_random_items_count = 1
 	var/ranged_random_items_count = 2
 	var/mixed_random_items_count = 1
+	var/who_started_last_poll = null //storing ckey of whoever started poll last. Preventing fastest hands of Wild West from polling twice in a row
+	var/when_cleansing_happened = 0 //storing (in ticks) moment of arena cleansing
+	var/obj/thunderdome_poller/last_poller = null
 
 	var/list/melee_pool = list(
-		/obj/item/CQC_manual = 1,
-		/obj/item/sleeping_carp_scroll = 1,
-		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
-		/obj/item/clothing/gloves/fingerless/rapid = 1,
-		/obj/item/melee/baton/loaded = 1,
-		/obj/item/melee/baseball_bat = 1,
 		/obj/item/melee/rapier = 1,
 		/obj/item/melee/energy/axe = 1,
 		/obj/item/melee/energy/sword/saber/red = 1,
@@ -61,7 +63,14 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		/obj/item/twohanded/chainsaw = 1,
 		/obj/item/twohanded/dualsaber = 1,
 		/obj/item/twohanded/singularityhammer = 1,
-		/obj/item/twohanded/fireaxe = 1
+		/obj/item/twohanded/fireaxe = 1,
+		/obj/item/melee/icepick = 1,
+		/obj/item/melee/candy_sword = 1,
+		/obj/item/melee/energy/sword/pirate = 1,
+		/obj/item/storage/toolbox/surgery = 1,
+		/obj/item/storage/toolbox/mechanical = 1,
+		/obj/item/storage/toolbox/syndicate = 1,
+		/obj/item/storage/box/syndie_kit/mantisblade = 1
 	)
 
 	var/list/ranged_pool = list(
@@ -72,12 +81,20 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		/obj/item/gun/projectile/automatic/l6_saw = 1,
 		/obj/item/gun/projectile/automatic/lasercarbine = 1,
 		/obj/item/gun/projectile/automatic/shotgun/bulldog = 1,
-		/obj/item/gun/magic/wand/fireball = 1,
+		/obj/item/gun/magic/staff/slipping = 1,
 		/obj/item/gun/projectile/revolver/mateba = 3,
 		/obj/item/gun/projectile/shotgun/automatic = 2,
 		/obj/item/gun/projectile/shotgun/riot = 2,
 		/obj/item/gun/projectile/automatic/ak814 = 1,
-		/obj/item/gun/projectile/automatic/shotgun/bulldog = 2
+		/obj/item/gun/projectile/shotgun/riot/buckshot = 3,
+		/obj/item/gun/projectile/shotgun/boltaction = 1,
+		/obj/item/gun/projectile/shotgun/automatic/combat = 2,
+		/obj/item/gun/projectile/automatic/pistol/APS = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8ar = 1,
+		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
+		/obj/item/gun/projectile/revolver/golden = 1,
+		/obj/item/gun/projectile/revolver/nagant = 1,
+		/obj/item/gun/energy/gun/nuclear = 2
 	)
 
 /**
@@ -88,9 +105,9 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
   * * center - Object in the center of a thunderdome
   */
 /datum/thunderdome_battle/proc/start(mode as text, obj/center)
-	if(isGoing)
+	if(is_going)
 		return
-	isGoing = TRUE
+	is_going = TRUE
 	add_game_logs("Thunderdome poll voting in [mode] mode started.")
 	var/image/I = new('icons/mob/thunderdome_previews.dmi', "thunderman_preview_[mode]")
 	var/list/candidates = shuffle(SSghost_spawns.poll_candidates("Желаете записаться на Тандердом? (Режим - [mode])", \
@@ -103,7 +120,7 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 
 	//vars below are responsible for making spawns at the edge of circle with certain radius
 	var/points = players_count
-	var/delta_phi_ = 2 * PI / points
+	var/delta_phi = 2 * PI / points
 	var/currpoint = 1
 	var/curr_x = center.x
 	var/curr_y = center.y
@@ -128,23 +145,28 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 			random_stuff += get_random_items(melee_pool, mixed_random_items_count)
 			random_stuff += get_random_items(ranged_pool, mixed_random_items_count)
 		else
-			isGoing = FALSE
+			is_going = FALSE
 			return //Shouldn't be happening.
 
 	if(mode == MELEE_MODE)
 		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
 			if(M.id_tag != "TD_CloseCombat")
 				continue
-			spawn(0)
-				M.close()
+			M.do_animate("closing")
+			M.density = TRUE
+			M.set_opacity(1)
+			M.layer = M.closingLayer
+			M.update_icon()
 
 	if(mode == RANGED_MODE || mode == MIXED_MODE)
 		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
 			if(M.id_tag != "TD_CloseCombat")
 				continue
 			if(M.density)
-				spawn(0)
-					M.open()
+				M.do_animate("opening")
+				M.density = FALSE
+				M.set_opacity(0)
+				M.update_icon()
 
 
 	while(currpoint <= points)
@@ -153,11 +175,11 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 		var/ang = phi * 180 / PI
 		curr_x = center.x + radius * cos(ang)
 		curr_y = center.y + radius * sin(ang)
-		var/obj/effect/mob_spawn/human/thunderdome/brawler = new brawler_type(get_rounded_location(curr_x, curr_y, center.z))
+		var/obj/effect/mob_spawn/human/thunderdome/brawler = new brawler_type(locate(curr_x, curr_y, center.z))
 		brawler.outfit.backpack_contents += random_stuff
 		var/mob/dead/observer/ghost = candidates[currpoint]
 		brawler.attack_ghost(ghost)
-		phi += delta_phi_
+		phi += delta_phi
 		currpoint += 1
 
 	add_game_logs("Thunderdome battle has begun in [mode] mode.")
@@ -189,16 +211,14 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
  *
 */
 /datum/thunderdome_battle/proc/clear_thunderdome()
-	var/area/tdome_arena = locate(/area/tdome/newtdome)
-	var/area/tdome_arena_melee = locate(/area/tdome/newtdome/CQC)
+	clear_area(GLOB.tdome_arena)
+	clear_area(GLOB.tdome_arena_melee)
 
-	clear_area(tdome_arena)
-	clear_area(tdome_arena_melee)
-
-	isGoing = FALSE
+	is_going = FALSE
+	when_cleansing_happened = world.time
 	add_game_logs("Thunderdome battle has ended.")
 	var/image/alert_overlay = image('icons/obj/assemblies.dmi', "thunderdome-bomb-active-wires")
-	notify_ghosts(message = "Thunderdome is ready for battle!", title="Thunderdome News", alert_overlay = alert_overlay, ghost_sound = 'sound/misc/notice2.ogg')
+	notify_ghosts(message = "Thunderdome is ready for battle!", title="Thunderdome News", alert_overlay = alert_overlay, source = last_poller, action = NOTIFY_JUMP)
 
 /**
  * Clears area from:
@@ -263,12 +283,20 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	. = ..()
 	if(!thunderdome)
 		thunderdome = GLOB.thunderdome_battle
-	if(!SSghost_spawns.is_eligible(user, ROLE_THUNDERDOME))
-		to_chat(user, "Вы не можете использовать Тандердом. Включите эту возможность в Game Preferences!")
+	var/can_we_roll = thunderdome.when_cleansing_happened + PICK_PENALTY
+	if(SSticker.current_state != GAME_STATE_PLAYING)
 		return
-	if(thunderdome.isGoing)
+	if((thunderdome.who_started_last_poll == user.ckey) && (can_we_roll > world.time) && !thunderdome.is_going)
+		to_chat(user, "Вы сможете начать набор только спустя [PICK_PENALTY / 10] секунд после очистки Тандердома.")
+		return
+	if(!SSghost_spawns.is_eligible(user, ROLE_THUNDERDOME))
+		to_chat(user, "Вы не можете использовать Тандердом. Включите эту возможность, отметив роль Thunderdome в Game Preferences!")
+		return
+	if(thunderdome.is_going)
 		to_chat(user, "Битва все ещё идёт или прошло недостаточно времени с момента последнего голосования!")
 		return
+	thunderdome.who_started_last_poll = user.ckey
+	thunderdome.last_poller = src
 	thunderdome.start(gamemode, src)
 
 /obj/item/storage/backpack/thunderdome_infinite
@@ -290,18 +318,18 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(jobban_isbanned(user, banType))
-		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		to_chat(user, span_warning("You are jobanned!"))
 		return
 	if(config.use_exp_restrictions && min_hours)
 		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
-			to_chat(user, "<span class='warning'>У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней.</span>")
+			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней."))
 			return
 	var/mob_use_prefs = FALSE
 	var/_mob_species = FALSE
 	var/_mob_gender = FALSE
 	var/_mob_name = FALSE
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
-		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
+		to_chat(user, span_warning("The [name] is no longer usable!"))
 		return
 	if(id_job == null)
 		add_game_logs("[user.ckey] became [mob_name]", user)
@@ -324,7 +352,6 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	backpack_contents = list(
 		/obj/item/CQC_manual = 1,
 		/obj/item/sleeping_carp_scroll = 1,
-		/obj/item/ipc_combat_upgrade = 1,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
 		/obj/item/clothing/gloves/fingerless/rapid = 1
 	)
@@ -371,6 +398,12 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	var/time_to_live = DEFAULT_TIME_LIMIT
+	actions_types = list(/datum/action/item_action/postponed_death)
+
+/datum/action/item_action/postponed_death
+	name = "Suicide"
+	check_flags = FALSE
+
 
 /obj/item/implant/postponed_death/implant(mob/source, mob/user)
 	. = ..()
@@ -390,3 +423,4 @@ GLOBAL_DATUM_INIT(thunderdome_battle, /datum/thunderdome_battle, new())
 #undef MAX_PLAYERS_COUNT
 #undef MIN_PLAYERS_COUNT
 #undef SPAWN_COEFFICENT
+#undef PICK_PENALTY

@@ -632,6 +632,9 @@
 /obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/wood,
 /area/admin)
+"ga" = (
+/turf/simulated/wall/indestructible,
+/area/tdome/newtdome/CQC)
 "ge" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/fingergun/fake,
@@ -4192,6 +4195,9 @@
 "Yq" = (
 /turf/space,
 /area/space)
+"Yz" = (
+/turf/simulated/wall/indestructible,
+/area/tdome/newtdome)
 "YC" = (
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
@@ -59642,6 +59648,7 @@ Yq
 Yq
 QQ
 ac
+Yz
 ac
 ac
 ac
@@ -59659,8 +59666,7 @@ ac
 ac
 ac
 ac
-ac
-ac
+Yz
 ac
 QQ
 Yq
@@ -59900,6 +59906,7 @@ Yq
 QQ
 ac
 ac
+Yz
 ac
 ac
 ac
@@ -59907,6 +59914,7 @@ ac
 ac
 ac
 ac
+Yz
 ac
 ac
 ac
@@ -59914,9 +59922,7 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
+Yz
 ac
 ac
 QQ
@@ -60161,6 +60167,7 @@ ac
 ac
 ac
 ac
+Yz
 ac
 ac
 ac
@@ -60168,8 +60175,7 @@ ac
 ac
 ac
 ac
-ac
-ac
+Yz
 ac
 ac
 ac
@@ -60932,15 +60938,15 @@ ac
 ad
 yQ
 yQ
+ga
 yQ
 yQ
 yQ
+ga
 yQ
 yQ
 yQ
-yQ
-yQ
-yQ
+ga
 yQ
 yQ
 ad
@@ -61185,7 +61191,7 @@ Yq
 QQ
 ac
 ac
-ac
+Yz
 ad
 yQ
 yQ
@@ -61201,7 +61207,7 @@ yQ
 yQ
 yQ
 ad
-ac
+Yz
 ac
 ac
 QQ
@@ -61448,11 +61454,11 @@ yQ
 yQ
 yQ
 yQ
+ga
 yQ
 yQ
 yQ
-yQ
-yQ
+ga
 yQ
 yQ
 yQ
@@ -61706,9 +61712,9 @@ yQ
 yQ
 yQ
 yQ
+ga
 yQ
-yQ
-yQ
+ga
 yQ
 yQ
 yQ
@@ -62212,25 +62218,25 @@ Yq
 Yq
 QQ
 ac
-ac
+Yz
 ac
 ad
 yQ
+ga
 yQ
 yQ
-yQ
-yQ
+ga
 yQ
 Uw
 yQ
+ga
 yQ
 yQ
-yQ
-yQ
+ga
 yQ
 ad
 ac
-ac
+Yz
 ac
 QQ
 Yq
@@ -62734,9 +62740,9 @@ yQ
 yQ
 yQ
 yQ
+ga
 yQ
-yQ
-yQ
+ga
 yQ
 yQ
 yQ
@@ -62990,11 +62996,11 @@ yQ
 yQ
 yQ
 yQ
+ga
 yQ
 yQ
 yQ
-yQ
-yQ
+ga
 yQ
 yQ
 yQ
@@ -63241,7 +63247,7 @@ Yq
 QQ
 ac
 ac
-ac
+Yz
 ad
 yQ
 yQ
@@ -63257,7 +63263,7 @@ yQ
 yQ
 yQ
 ad
-ac
+Yz
 ac
 ac
 QQ
@@ -63502,15 +63508,15 @@ ac
 ad
 yQ
 yQ
+ga
 yQ
 yQ
 yQ
+ga
 yQ
 yQ
 yQ
-yQ
-yQ
-yQ
+ga
 yQ
 yQ
 ad
@@ -64273,6 +64279,7 @@ ac
 ac
 ac
 ac
+Yz
 ac
 ac
 ac
@@ -64280,8 +64287,7 @@ ac
 ac
 ac
 ac
-ac
-ac
+Yz
 ac
 ac
 ac
@@ -64526,6 +64532,7 @@ Yq
 QQ
 ac
 ac
+Yz
 ac
 ac
 ac
@@ -64533,6 +64540,7 @@ ac
 ac
 ac
 ac
+Yz
 ac
 ac
 ac
@@ -64540,9 +64548,7 @@ ac
 ac
 ac
 ac
-ac
-ac
-ac
+Yz
 ac
 ac
 QQ
@@ -64782,6 +64788,7 @@ Yq
 Yq
 QQ
 ac
+Yz
 ac
 ac
 ac
@@ -64799,8 +64806,7 @@ ac
 ac
 ac
 ac
-ac
-ac
+Yz
 ac
 QQ
 Yq
