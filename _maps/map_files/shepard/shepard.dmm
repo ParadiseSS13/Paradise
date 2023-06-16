@@ -10366,16 +10366,6 @@
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
 	})
-"cbY" = (
-/obj/structure/grille,
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
 "cch" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Electrical Maintenance";
@@ -63986,6 +63976,12 @@
 /obj/structure/sign/explosives,
 /turf/simulated/wall/r_wall,
 /area/toxins/test_area)
+"muk" = (
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+	name = "Forklift"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/office)
 "mum" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -68510,11 +68506,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "npY" = (
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
-	name = "Forklift"
+/obj/structure/grille,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/light/small{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/office)
+/turf/simulated/floor/plating/airless,
+/area/engine/supermatter{
+	name = "\improper Engine Containment"
+	})
 "nqa" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -107708,7 +107708,7 @@
 	name = "Singularity Blast Doors"
 	},
 /obj/effect/spawner/window/reinforced/tinted,
-/turf/space,
+/turf/simulated/floor/plating/airless,
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
 	})
@@ -137399,7 +137399,7 @@ fBi
 fBi
 pCx
 iLA
-cbY
+npY
 svG
 avF
 uoN
@@ -170160,7 +170160,7 @@ wXZ
 rio
 ayi
 tbh
-npY
+muk
 gYp
 wfH
 kUc
