@@ -113,7 +113,7 @@
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
 	chemical_cost = 25
-	dna_cost = 2
+	dna_cost = 3
 	genetic_damage = 10
 	req_human = 1
 	max_genetic_damage = 20
@@ -129,11 +129,19 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
 	force = 25
+	armour_penetration = 20
+	block_chance = 50
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
 	gender = FEMALE
 	ru_names = list(NOMINATIVE = "рука-клинок", GENITIVE = "руки-клинка", DATIVE = "руке-клинку", ACCUSATIVE = "руку-клинок", INSTRUMENTAL = "рукой-клинком", PREPOSITIONAL = "руке-клинке")
+
+/obj/item/melee/arm_blade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //only blocks melee
+	return ..()
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -161,7 +169,7 @@
 			user.visible_message("<span class='warning'>[user] jams [src] into the airlock and starts prying it open!</span>", "<span class='warning'>We start forcing the airlock open.</span>", \
 			"<span class='italics'>You hear a metal screeching sound.</span>")
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-			if(!do_after(user, 100, target = A))
+			if(!do_after(user, 3 SECONDS, target = A))
 				return
 
 		//user.say("Heeeeeeeeeerrre's Johnny!")
