@@ -909,6 +909,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 			return TRUE
 		else if(!(issilicon(user) || ispulsedemon(user))) //Bot is hacked, so only silicons are allowed access.
 			return TRUE
+	if(hijacked && !ispulsedemon(user))
+		return FALSE
 	if(locked && !(issilicon(user) || ispulsedemon(user)))
 		return TRUE
 	return FALSE
