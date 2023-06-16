@@ -354,7 +354,6 @@ GLOBAL_LIST_EMPTY(safes)
 	drill.song.start_playing(driller)
 	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		message_admins("[O]")
 		O.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(ghost_payback_phase_2)), 2.7 SECONDS)
 
