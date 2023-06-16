@@ -443,7 +443,11 @@
 			adjustHealth(-health_regen_rate)
 		clear_alert(ALERT_CATEGORY_NOPOWER)
 	else
-		adjustHealth(health_loss_rate)
+		var/rate = health_loss_rate
+		if(!current_cable && !current_power && can_exit_cable)
+			// 2 * initial_rate - upgrade_level
+			rate += initial(health_loss_rate)
+		adjustHealth(rate)
 		throw_alert(ALERT_CATEGORY_NOPOWER, /obj/screen/alert/pulse_nopower)
 
 	if(regen_lock > 0)
