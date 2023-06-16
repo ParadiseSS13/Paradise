@@ -40,9 +40,9 @@
 			if(istype(F) && (!F.intact && !F.transparent_floor) && istype(get_area(C), /area/maintenance))
 				spawn_centers += F
 	if(!spawn_centers)
-		kill()
 		message_admins("no suitable spawn locations were found for the pulse demon event.")
 		log_debug("no suitable spawn locations were found for the pulse demon event.")
+		kill()
 		return
 	return pick(spawn_centers)
 

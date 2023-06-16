@@ -6,6 +6,8 @@
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
 
+#define PULSEDEMON_SOURCE_DRAIN_INVALID (-1)
+
 /mob/living/simple_animal/pulse_demon
 	name = "pulse demon"
 	real_name = "pulse demon"
@@ -157,7 +159,7 @@
 /mob/living/simple_animal/pulse_demon/proc/deleted_handler(src, force)
 	SIGNAL_HANDLER
 	// assume normal deletion if we're on a turf, otherwise deletion could be inherited from loc
-	if(force || loc == null || isturf(loc))
+	if(force || isnull(loc) || isturf(loc))
 		return FALSE
 	// if we did actually die, simple_animal/death will set del_on_death to FALSE before calling qdel
 	if(!del_on_death)
@@ -168,6 +170,10 @@
 /mob/living/simple_animal/pulse_demon/Destroy()
 	SSticker.mode.traitors -= mind
 	return ..()
+
+/mob/living/simple_animal/pulse_demon/Login()
+	. = ..()
+	update_cableview()
 
 /mob/living/simple_animal/pulse_demon/vv_edit_var(var_name, var_value)
 	if(var_name == "charge")
@@ -401,7 +407,7 @@
 
 /mob/living/simple_animal/pulse_demon/proc/drain_APC(obj/machinery/power/apc/A, multiplier = 1)
 	if(A.being_hijacked)
-		return -1
+		return PULSEDEMON_SOURCE_DRAIN_INVALID
 	var/amount_to_drain = clamp(A.cell.charge, 0, power_drain_rate * multiplier)
 	A.cell.use(min(amount_to_drain, maxcharge - charge)) // calculated seperately because the apc charge multiplier shouldn't affect the actual consumption
 	return adjust_charge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER)
@@ -551,20 +557,22 @@
 
 /mob/living/simple_animal/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
-	if(is_valid_apc(A) && !(A in hijacked_apcs) && !apc_being_hijacked && !A.being_hijacked)
-		do_hijack_notice(A)
-		if(pb_helper.start(src, A, hijack_time, TRUE, \
-		  CALLBACK(src, PROC_REF(is_valid_apc), A), \
-		  CALLBACK(src, PROC_REF(finish_hijack_apc), A, remote), \
-		  CALLBACK(src, PROC_REF(fail_hijack)), \
-		  CALLBACK(src, PROC_REF(cleanup_hijack_apc), A)))
-			apc_being_hijacked = A
-			A.being_hijacked = TRUE
-			A.update_icon()
-			return TRUE
-		else
-			to_chat(src, "<span class='warning'>You are already performing an action!</span>")
-	return FALSE
+	if(!is_valid_apc(A) || (A in hijacked_apcs) || apc_being_hijacked || A.being_hijacked)
+		return FALSE
+
+	do_hijack_notice(A)
+	if(pb_helper.start(src, A, hijack_time, TRUE, \
+		CALLBACK(src, PROC_REF(is_valid_apc), A), \
+		CALLBACK(src, PROC_REF(finish_hijack_apc), A, remote), \
+		CALLBACK(src, PROC_REF(fail_hijack)), \
+		CALLBACK(src, PROC_REF(cleanup_hijack_apc), A)))
+		apc_being_hijacked = A
+		A.being_hijacked = TRUE
+		A.update_icon()
+		return TRUE
+	else
+		to_chat(src, "<span class='warning'>You are already performing an action!</span>")
+		return FALSE
 
 // TODO: this formula is eeeeeehhhhhhhhhhhhhhhhhhhhhhhhhhhh but figuring out what would actually fit is not easy, discover in testing sometime
 // note: the station maps supposedly average ~150 APCs, so the upper levels here are certainly possible, also you can manually upgrade the capacity stat
@@ -651,10 +659,6 @@
 		apc_image.plane = ABOVE_LIGHTING_PLANE
 		images_shown += apc_image
 		client.images += apc_image
-
-/mob/living/simple_animal/pulse_demon/reset_perspective(atom/A)
-	. = ..()
-	update_cableview()
 
 /mob/living/simple_animal/pulse_demon/emp_act(severity)
 	. = ..()

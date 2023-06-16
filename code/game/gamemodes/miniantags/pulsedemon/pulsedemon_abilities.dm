@@ -195,7 +195,7 @@
 	return TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/overload/proc/detonate(obj/machinery/target)
-	if(target && !QDELETED(target))
+	if(target && !QDELING(target))
 		explosion(get_turf(target), 0, 1, 1, 0)
 		if(target)
 			qdel(target)
@@ -229,7 +229,7 @@
 /obj/effect/proc_holder/spell/pulse_demon/remotedrain/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
 	if(isapc(target))
 		var/drained = user.drain_APC(target, PULSEDEMON_REMOTE_DRAIN_MULTIPLIER)
-		if(drained == -1)
+		if(drained == PULSEDEMON_SOURCE_DRAIN_INVALID)
 			to_chat(user, "<span class='warning'>This APC is being hijacked, you cannot drain from it right now.</span>")
 		else
 			to_chat(user, "<span class='notice'>You drain [format_si_suffix(drained)]W from [target].</span>")
