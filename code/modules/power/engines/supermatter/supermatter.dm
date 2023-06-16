@@ -545,7 +545,7 @@
 
 	//Makes em go mad and accumulate rads.
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
-		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION))
+		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION) && !HAS_TRAIT(l, SM_HALLUCINATION_IMMUNE))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			var/hallucination_amount = power * hallucination_power * D
 			l.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
@@ -1128,6 +1128,11 @@
 			if(zap_count > 1)
 				targets_hit = targets_hit.Copy() //Pass by ref begone
 			supermatter_zap(target, new_range, zap_str, zap_flags, targets_hit)
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/manual_start(amount)
+	has_been_powered = TRUE
+	power += amount
+	message_admins("[src] has been activated and given an increase EER of [amount] at [ADMIN_JMP(src)]")
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY

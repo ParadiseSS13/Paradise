@@ -125,7 +125,7 @@
 	return unEquip(r_hand, force) //Why was this not calling unEquip in the first place jesus fuck.
 
 //Drops the item in our active hand.
-/mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.
+/mob/proc/drop_item()
 	if(hand)
 		return drop_l_hand()
 	else
