@@ -58691,16 +58691,6 @@
 	icon_state = "yellow"
 	},
 /area/storage/primary)
-"lsc" = (
-/obj/structure/grille,
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
 "lsd" = (
 /turf/simulated/wall,
 /area/maintenance/apmaint)
@@ -68515,6 +68505,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"npY" = (
+/obj/structure/grille,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/engine/supermatter{
+	name = "\improper Engine Containment"
+	})
 "nqa" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -107699,7 +107699,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "uUZ" = (
-/obj/structure/grille/broken,
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/door/poddoor/preopen{
@@ -137398,7 +137397,7 @@ fBi
 fBi
 pCx
 iLA
-lsc
+npY
 svG
 avF
 uoN
