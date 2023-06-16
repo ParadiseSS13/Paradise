@@ -18,27 +18,39 @@
 	var/weapon_name_simple
 
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
-	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
-		qdel(user.l_hand)
-		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-		user.update_inv_l_hand()
-		return
-	if(istype(user.r_hand, weapon_type))
-		qdel(user.r_hand)
-		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-		user.update_inv_r_hand()
+	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
+		retract(user, TRUE)
 		return
 	..(user, target)
 
 /datum/action/changeling/weapon/sting_action(mob/user)
+	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
 	if(!user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return FALSE
-	var/obj/item/W = new weapon_type(user, silent)
+	var/obj/item/W = new weapon_type(user, silent, src)
 	user.put_in_hands(W)
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override = TRUE)
+	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
 	return W
+
+/datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
+	SIGNAL_HANDLER
+	if(!ischangeling(owner))
+		return
+	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
+		return
+	var/done = FALSE
+	if(istype(owner.l_hand, weapon_type))
+		qdel(owner.l_hand)
+		owner.update_inv_l_hand()
+		done = TRUE
+	if(istype(owner.r_hand, weapon_type))
+		qdel(owner.r_hand)
+		owner.update_inv_r_hand()
+		done = TRUE
+	if(done && !silent)
+		owner.visible_message("<span class='warning'>With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit
@@ -122,10 +134,19 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/melee/arm_blade/Initialize(mapload)
+/obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
+	parent_action = new_parent_action
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+
+/obj/item/melee/arm_blade/Destroy()
+	if(parent_action)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+		parent_action = null
+	return ..()
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -138,7 +159,6 @@
 	if(istype(target, /obj/machinery/computer))
 		var/obj/machinery/computer/C = target
 		C.attack_alien(user) //muh copypasta
-
 
 /***************************************\
 |***********COMBAT TENTACLES*************|
@@ -177,14 +197,23 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/gun/magic/tentacle/Initialize(mapload, silent)
+/obj/item/gun/magic/tentacle/Initialize(mapload, silent, new_parent_action)
 	. = ..()
+	parent_action = new_parent_action
 	if(ismob(loc))
 		if(!silent)
 			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 		else
 			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
+
+/obj/item/gun/magic/tentacle/Destroy()
+	if(parent_action)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+		parent_action = null
+	return ..()
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, "<span class='warning'>[src] is not ready yet.</span>")
@@ -381,7 +410,6 @@
 	else
 		remaining_uses--
 		return ..()
-
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
