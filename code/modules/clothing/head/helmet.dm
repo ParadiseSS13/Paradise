@@ -73,6 +73,7 @@
 	name = "night-vision helmet"
 	desc = "A helmet with a built-in pair of night vision goggles."
 	icon_state = "helmetNVG"
+	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/head/helmet/alt
