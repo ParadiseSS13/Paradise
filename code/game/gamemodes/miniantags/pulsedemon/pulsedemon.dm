@@ -74,6 +74,8 @@
 	var/do_drain = TRUE
 	/// Amount of power (in watts) to drain from power sources every Life tick.
 	var/power_drain_rate = 1000
+	/// Maximum value for power_drain_rate based on upgrades.
+	var/max_drain_rate = 1000
 
 	/// Amount of power (in watts) required to regenerate health.
 	var/power_per_regen = 1000

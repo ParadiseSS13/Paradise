@@ -274,6 +274,20 @@
 	user.do_drain = do_toggle(!user.do_drain, user)
 	return TRUE
 
+/obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain/AltClick(mob/living/simple_animal/pulse_demon/user)
+	if(!istype(user))
+		return
+
+	var/amount = text2num(input(user, "Input a value between 1 and [user.max_drain_rate]. 0 will reset it to the maximum.", "Drain Speed Setting"))
+	if(amount == null || amount < 0)
+		to_chat(user, "<span class='warning'>Invalid input. Drain speed has not been modified.</span>")
+		return
+
+	if(amount == 0)
+		amount = user.max_drain_rate
+	user.power_drain_rate = amount
+	to_chat(user, "<span class='notice'>Drain speed has been set to [format_si_suffix(user.power_drain_rate)]W per second.</span>")
+
 /obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable
 	name = "Toggle Self-Sustaining"
 	desc = "Toggle whether you can move outside of cables or power sources."
@@ -380,9 +394,9 @@
 				return -1
 			cost = (100 / (user.hijack_time / (1 SECONDS))) * 20 KW
 		if(PD_UPGRADE_DRAIN_SPEED)
-			if(user.power_drain_rate >= 500 KW)
+			if(user.max_drain_rate >= 500 KW)
 				return -1
-			cost = user.power_drain_rate * 15
+			cost = user.max_drain_rate * 15
 		if(PD_UPGRADE_MAX_HEALTH)
 			if(user.maxHealth >= 200)
 				return -1
@@ -445,10 +459,13 @@
 	switch(choice)
 		if(PD_UPGRADE_HIJACK_SPEED)
 			user.hijack_time = max(round(user.hijack_time / 1.5), 1 SECONDS)
-			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [user.hijack_time / 10] seconds to hijack APCs.</span>")
+			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [user.hijack_time / (1 SECONDS)] second\s to hijack APCs.</span>")
 		if(PD_UPGRADE_DRAIN_SPEED)
-			user.power_drain_rate = min(round(user.power_drain_rate * 1.5), 500 KW)
-			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now drain [format_si_suffix(user.power_drain_rate)]W per cycle.</span>")
+			var/old = user.max_drain_rate
+			user.max_drain_rate = min(round(user.max_drain_rate * 1.5), 500 KW)
+			if(user.power_drain_rate == old)
+				user.power_drain_rate = user.max_drain_rate
+			to_chat(user, "<span class='notice'>You have upgraded your [choice], you can now drain [format_si_suffix(user.max_drain_rate)]W per cycle.</span>")
 		if(PD_UPGRADE_MAX_HEALTH)
 			user.maxHealth = min(round(user.maxHealth * 1.5), 200)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], your max health is now [user.maxHealth].</span>")
