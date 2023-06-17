@@ -329,6 +329,11 @@
 	assemblytype = /obj/structure/firelock_frame/heavy
 	max_integrity = 550
 
+/obj/machinery/door/firedoor/heavy/LateInitialize()
+	. = ..()
+	if(!density)
+		set_opacity(FALSE)
+
 /obj/item/firelock_electronics
 	name = "firelock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'

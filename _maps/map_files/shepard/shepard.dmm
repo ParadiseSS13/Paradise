@@ -5991,25 +5991,19 @@
 /turf/simulated/floor/carpet,
 /area/security/courtroomdandp)
 "bmQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/cable/blue{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluefull"
+	icon_state = "blackcorner";
+	dir = 8
 	},
-/area/hallway/primary/central/north)
+/area/hallway/primary/starboard/north)
 "bmV" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -18570,7 +18564,11 @@
 	},
 /area/security/prisonlockers)
 "dCq" = (
-/obj/machinery/suit_storage_unit/captain,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Captain's Office";
+	density = 0
+	},
+/obj/structure/table/wood,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Captain's Desk";
@@ -20140,26 +20138,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
-"dVY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/cable/blue{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
-/area/hallway/primary/central/north)
 "dWd" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -26510,12 +26488,23 @@
 	},
 /area/medical/research)
 "fjm" = (
-/obj/structure/disposalpipe/segment{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable/blue{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "deliveryblue"
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/hallway/primary/central/north)
 "fjn" = (
@@ -26866,6 +26855,26 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
+"fmu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable/blue{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluefull"
+	},
+/area/hallway/primary/central/north)
 "fmx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -45250,7 +45259,20 @@
 	},
 /area/lawoffice)
 "iPS" = (
-/obj/structure/filingcabinet,
+/obj/structure/table/wood,
+/obj/item/paper_bin/nanotrasen,
+/obj/machinery/door_control{
+	id = "captainofficedoor";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	pixel_x = -13;
+	pixel_y = 10;
+	req_access_txt = "20"
+	},
+/obj/item/pen/multi/fountain,
+/obj/machinery/keycard_auth{
+	pixel_y = -24
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "iPV" = (
@@ -62595,6 +62617,7 @@
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Departures"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -63211,17 +63234,7 @@
 /turf/simulated/floor/plating,
 /area/security/prisonlockers)
 "mmf" = (
-/obj/structure/table/wood,
-/obj/item/pen/multi/fountain,
-/obj/machinery/door_control{
-	id = "captainofficedoor";
-	name = "Office Door";
-	normaldoorcontrol = 1;
-	pixel_x = 5;
-	pixel_y = -3;
-	req_access_txt = "20"
-	},
-/obj/item/paper_bin/nanotrasen,
+/obj/structure/filingcabinet,
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -30
 	},
@@ -82204,6 +82217,15 @@
 	icon_state = "red"
 	},
 /area/security/checkpoint2)
+"pZT" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "deliveryblue"
+	},
+/area/hallway/primary/central/north)
 "pZU" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1;
@@ -92322,15 +92344,9 @@
 	},
 /area/construction)
 "rUK" = (
-/obj/structure/table/wood,
+/obj/machinery/suit_storage_unit/captain,
 /obj/structure/window/reinforced{
 	dir = 8
-	},
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office"
-	},
-/obj/machinery/keycard_auth{
-	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
@@ -119824,6 +119840,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -158608,7 +158625,7 @@ mNI
 wPD
 oHC
 dIv
-dVY
+fjm
 kVm
 fjW
 pJn
@@ -159122,7 +159139,7 @@ qJO
 vyQ
 lGT
 bxd
-bmQ
+fmu
 pKO
 hAr
 fET
@@ -161436,7 +161453,7 @@ iTq
 efW
 aDF
 hOH
-fjm
+pZT
 jMr
 vaF
 rgP
@@ -175278,7 +175295,7 @@ aLR
 tcQ
 axS
 sqo
-jfc
+bmQ
 aSb
 mpa
 cZu
