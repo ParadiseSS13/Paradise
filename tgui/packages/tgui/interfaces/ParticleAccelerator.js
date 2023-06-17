@@ -8,6 +8,7 @@ export const ParticleAccelerator = (props, context) => {
     assembled,
     power,
     strength,
+    max_strength
   } = data;
   return (
     <Window>
@@ -39,14 +40,14 @@ export const ParticleAccelerator = (props, context) => {
               <Button
                 icon="backward"
                 disabled={!assembled || strength === 0}
-                onClick={() => act('remove_strength')} />
-              <Box px="5px>
+                onClick={() => act('remove_strength')}
+                mr="4px"/>
                   {strength}
-              </Box>
               <Button
                 icon="forward"
                 disabled={!assembled || strength === max_strength}
-                onClick={() => act('add_strength')} />
+                onClick={() => act('add_strength')}
+                ml="4px"/>
             </LabeledList.Item>
           </LabeledList>
         </Section>
