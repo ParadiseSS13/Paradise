@@ -230,6 +230,10 @@
 	if(..())
 		return
 
+	if(!interface_control)
+		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
+		return
+
 	switch(action)
 		if("power")
 			if(wires.is_cut(WIRE_PARTICLE_POWER))
