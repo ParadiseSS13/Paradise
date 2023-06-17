@@ -12,9 +12,17 @@ jobs:
     name: 'Generate Changelog'
     runs-on: ubuntu-latest
     steps:
+    - name: Changelog bot install token
+      id: changelog-bot
+      uses: getsentry/action-github-app-token@v2
+      with:
+        app_id: ${{ secrets.CHANGELOGBOT_APPID }}
+        private_key: ${{ secrets.CHANGELOGBOT_PRIVATEKEY }}
     - name: 'Update Branch'
       uses: actions/checkout@v3
       with:
+        repository: 'ss220-space/Paradise'
+        token: ${{ steps.changelog-bot.outputs.token }}
         fetch-depth: 1000
 
     - name: 'Install Dependencies'
