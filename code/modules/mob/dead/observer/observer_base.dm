@@ -92,6 +92,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
 	..()
 	plane = GAME_PLANE
+	add_observer_verbs()
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
@@ -105,6 +106,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		QDEL_NULL(orbit_menu)
 	if(seerads)
 		STOP_PROCESSING(SSobj, src)
+	remove_observer_verbs()
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -258,12 +260,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	setDir(direct)
 	ghostimage.setDir(dir)
 
-	var/oldloc = loc
-
 	if(NewLoc)
-		forceMove(NewLoc)
+		forceMove(NewLoc, direct)
 	else
-		forceMove(get_turf(src))  //Get out of closets and such as a ghost
+		forceMove(get_turf(src), direct)  //Get out of closets and such as a ghost
 		if((direct & NORTH) && y < world.maxy)
 			y++
 		else if((direct & SOUTH) && y > 1)
@@ -272,8 +272,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			x++
 		else if((direct & WEST) && x > 1)
 			x--
-
-	Moved(oldloc, direct)
 
 /mob/dead/observer/can_use_hands()	return 0
 
@@ -444,8 +442,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	orbit_menu.ui_interact(src)
 
+/mob/dead/observer/proc/add_observer_verbs()
+	verbs.Add(/mob/dead/observer/proc/ManualFollow)
+
+/mob/dead/observer/proc/remove_observer_verbs()
+	verbs.Remove(/mob/dead/observer/proc/ManualFollow)
+
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(atom/movable/target)
+	set name = "\[Observer\] Orbit"
+	set desc = "Orbits the specified movable atom."
+	set category = null
+
 	if(!target || !isobserver(usr))
 		return
 
@@ -486,16 +494,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
 
-/mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
-	set category = "Ghost"
-	set name = "Jump to Mob"
-	set desc = "Teleport to a mob"
-
-	if(isobserver(usr)) //Make sure they're an observer!
-		var/list/dest = getpois(mobs_only=TRUE) //Fill list, prompt user with list
-		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
-		A.on_close(CALLBACK(src, PROC_REF(jump_to_mob)))
-
 /mob/dead/observer/proc/jump_to_mob(mob/M)
 	if(!M || !isobserver(usr))
 		return
@@ -508,21 +506,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	to_chat(A, "This mob is not located in the game world.")
 
-/* Now a spell.  See spells.dm
-/mob/dead/observer/verb/boo()
-	set category = "Ghost"
-	set name = "Boo!"
-	set desc= "Scare your crew members because of boredom!"
-
-	if(bootime > world.time) return
-	bootime = world.time + 600
-	var/obj/machinery/light/L = locate(/obj/machinery/light) in view(1, src)
-	if(L)
-		L.flicker()
-	//Maybe in the future we can add more <i>spooky</i> code here!
-	return
-*/
-
 /mob/dead/observer/memory()
 	set hidden = 1
 	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
@@ -530,7 +513,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/add_memory()
 	set hidden = 1
 	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
-
 
 /mob/dead/observer/verb/toggle_health_scan()
 	set name = "Toggle Health Scan"
@@ -748,10 +730,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/run_pointed(atom/A as mob|obj|turf in view())
 	if(!..())
 		return FALSE
-	var/follow_link
-	if(invisibility) // Only show the button if the ghost is not visible to the living
-		follow_link = " ([ghost_follow_link(A, src)])"
-	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>")
+
+	for(var/mob/M in range(7, src))
+		if(M.see_invisible < invisibility)
+			continue //can't view the invisible
+		var/follow_link
+		if(invisibility) // Only show the button if the ghost is not visible to the living
+			follow_link = " ([ghost_follow_link(A, M)])" // Ghost needs to be link clicker, otherwise it breaks
+		M.show_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>", EMOTE_VISIBLE)
+
 	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost()

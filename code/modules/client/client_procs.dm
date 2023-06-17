@@ -172,6 +172,18 @@
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
+			return
+
+		if("silenceSound")
+			usr.stop_sound_channel(CHANNEL_ADMIN)
+			return
+
+		if("muteAdmin")
+			usr.stop_sound_channel(CHANNEL_ADMIN)
+			prefs.admin_sound_ckey_ignore |= href_list["a"]
+			to_chat(usr, "You will no longer hear admin playsounds from <code>[href_list["a"]]</code>. To remove them, go to Preferences --&gt; <code>Manage Admin Sound Mutes</code>.")
+			prefs.save_preferences(src)
+			return
 
 	//fun fact: Topic() acts like a verb and is executed at the end of the tick like other verbs. So we have to queue it if the server is
 	//overloaded
@@ -204,6 +216,8 @@
 
 	if(GLOB.configuration.general.enable_auto_mute && !check_rights(R_ADMIN, 0) && last_message == message)
 		last_message_count++
+		if(SEND_SIGNAL(mob, COMSIG_MOB_AUTOMUTE_CHECK, src, last_message, mute_type) & WAIVE_AUTOMUTE_CHECK)
+			return FALSE
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
 			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
 			cmd_admin_mute(mob, mute_type, 1)
@@ -308,6 +322,9 @@
 		// ToS accepted
 		tos_consent = TRUE
 
+	// Setup widescreen
+	view = prefs.viewrange
+
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
@@ -357,6 +374,10 @@
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
+	// Try doing this before mob login
+	generate_clickcatcher()
+	apply_clickcatcher()
+
 	. = ..()	//calls mob.Login()
 
 	mob.update_client_colour(0) // Activate colourblind mode if they have one set
@@ -379,15 +400,6 @@
 	else
 		// activate_darkmode() calls the CL update button proc, so we dont want it double called
 		SSchangelog.UpdatePlayerChangelogButton(src)
-
-
-	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
-		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
-	else
-		to_chat(src,"<span class='notice'>You have enabled karma gains.")
-
-	generate_clickcatcher()
-	apply_clickcatcher()
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -421,13 +433,10 @@
 	if(_2fa_alert)
 		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 
-	// This happens "asyncronously"
-	if(karmaholder)
-		karmaholder.processRefunds(mob)
-
 	// Tell client about their connection
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
+
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -1246,6 +1255,11 @@
 
 	winset(src, null, "command=\".configure graphics-hwmode off\"")
 	winset(src, null, "command=\".configure graphics-hwmode on\"")
+
+/// Returns the biggest number from client.view so we can do easier maths
+/client/proc/maxview()
+	var/list/screensize = getviewsize(view)
+	return max(screensize[1], screensize[2])
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

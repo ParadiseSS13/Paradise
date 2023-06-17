@@ -1,7 +1,9 @@
 /obj/item/stack/sheet/animalhide
-	name = "hide"
+	name = "sheet-hide"
+	icon = 'icons/obj/stacks/organic.dmi'
 	desc = "Something went wrong."
 	origin_tech = "biotech=3"
+	dynamic_icon_state = FALSE
 
 /obj/item/stack/sheet/animalhide/human
 	name = "human skin"
@@ -62,7 +64,8 @@ GLOBAL_LIST_INIT(lizard_recipes, list(
 	name = "pile of fur"
 	desc = "Vulp remains."
 	singular_name = "fur piece"
-	icon_state = "sheet-fur"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-hide"
 	origin_tech = "materials=2"
 	max_amount = 50
 
@@ -88,6 +91,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "chitin"
 	origin_tech = ""
+	dynamic_icon_state = FALSE
 
 /obj/item/xenos_claw
 	name = "alien claw"
@@ -107,6 +111,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	name = "hairless hide"
 	desc = "This hide was stripped of it's hair, but still needs tanning."
 	singular_name = "hairless hide piece"
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-hairlesshide"
 	item_state = "sheet-leather"
 	origin_tech = ""
@@ -115,6 +120,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	name = "wet leather"
 	desc = "This leather has been cleaned but still needs to be dried."
 	singular_name = "wet leather piece"
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-wetleather"
 	item_state = "sheet-leather"
 	origin_tech = ""
@@ -125,6 +131,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	name = "leather"
 	desc = "The by-product of mob grinding."
 	singular_name = "leather piece"
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-leather"
 	item_state = "sheet-leather"
 	origin_tech = "materials=2"
@@ -152,12 +159,13 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 
 /obj/item/stack/sheet/sinew
 	name = "watcher sinew"
-	icon = 'icons/obj/mining.dmi'
+	icon = 'icons/obj/stacks/organic.dmi'
 	desc = "Long stringy filaments which presumably came from a watcher's wings."
 	singular_name = "watcher sinew"
 	icon_state = "sinew"
 	item_state = "sinew"
 	origin_tech = "biotech=4"
+	dynamic_icon_state = FALSE
 
 GLOBAL_LIST_INIT(sinew_recipes, list (
 	new /datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1),
@@ -170,13 +178,14 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
 	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
-	icon = 'icons/obj/mining.dmi'
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "goliath_hide"
 	item_state = "goliath_hide"
 	singular_name = "hide plate"
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	dynamic_icon_state = TRUE
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
 			/obj/item/clothing/suit/space/hardsuit/mining,
 			/obj/item/clothing/head/helmet/space/hardsuit/mining,
@@ -225,13 +234,14 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"
 	desc = "The strong, scaled hide of an ash drake."
-	icon = 'icons/obj/mining.dmi'
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "dragon_hide"
 	item_state = "dragon_hide"
 	singular_name = "drake plate"
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	dynamic_icon_state = TRUE
 
 //Step one - dehairing.
 

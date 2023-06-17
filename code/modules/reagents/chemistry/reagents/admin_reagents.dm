@@ -24,6 +24,7 @@
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			E.mend_fracture()
 			E.fix_internal_bleeding()
+			E.fix_burn_wound(update_health = FALSE)
 	M.SetEyeBlind(0)
 	M.cure_nearsighted(null, FALSE)
 	M.cure_blind(null, FALSE)
@@ -38,6 +39,7 @@
 	M.SetStunned(0)
 	M.SetImmobilized(0)
 	M.SetKnockDown(0)
+	M.adjustStaminaLoss(-60)
 	M.SetParalysis(0)
 	M.SetSilence(0)
 	M.SetHallucinate(0)
@@ -55,6 +57,12 @@
 			continue
 		D.cure(0)
 	..()
+	if(M.dna?.species)
+		// Set the temperature to the species's preferred temperature
+		// For things like drasks, for example
+		M.bodytemperature = M.dna.species.body_temperature
+	else
+		M.bodytemperature = BODYTEMP_NORMAL
 	return STATUS_UPDATE_ALL
 
 /datum/reagent/medicine/adminordrazine/nanites

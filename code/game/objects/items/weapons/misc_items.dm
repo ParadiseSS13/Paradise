@@ -39,7 +39,7 @@
 /obj/item/c_tube
 	name = "cardboard tube"
 	desc = "A tube... of cardboard."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "c_tube"
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
@@ -145,10 +145,3 @@
 	if(cooldown < world.time - 20)
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
 		cooldown = world.time
-
-/obj/item/phone/pos
-	name = "point of sale"
-	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only."
-	icon = 'icons/obj/machines/pos.dmi'
-	icon_state = "pos"
-	attack_verb = list("bounced a check off", "checked-out", "tipped")

@@ -204,8 +204,8 @@
 /obj/item/scrying
 	name = "scrying orb"
 	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means."
-	icon = 'icons/obj/projectiles.dmi'
-	icon_state ="bluespace"
+	icon = 'icons/obj/wizard.dmi'
+	icon_state ="scrying_orb"
 	throw_speed = 7
 	throw_range = 15
 	throwforce = 15
@@ -593,12 +593,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("soviet")
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/hgpiratecap(M), slot_head)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/sovietofficerhat(M), slot_head)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/hgpirate(M), slot_wear_suit)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/soviet(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/sovietcoat(M), slot_wear_suit)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/new_soviet/sovietofficer(M), slot_w_uniform)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("officer")
@@ -704,7 +704,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(heresy)
 		spawnheresy(M)//oh god why
 	else
-		M.set_species(/datum/species/skeleton)
+		M.set_species(/datum/species/skeleton) // OP skellybones
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
 		M.grab_ghost() // yoinks the ghost if its not in the body
 		M.revive()
@@ -819,3 +819,38 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25
+
+/obj/item/reagent_containers/food/drinks/everfull
+	name = "everfull mug"
+	desc = "An enchanted mug which can be filled with any of various liquids on command."
+	icon_state = "evermug"
+
+/obj/item/reagent_containers/food/drinks/everfull/attack_self(mob/user)
+	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
+							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
+							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
+							"Holy Water" = image(icon = 'icons/obj/drinks.dmi', icon_state = "holyflask"),
+							"Welder Fuel" = image(icon = 'icons/obj/objects.dmi', icon_state = "fuel"),
+							"Vomit" = image(icon = 'icons/effects/blood.dmi', icon_state = "vomit_1"))
+	var/static/list/options_to_reagent = list("Omnizine" = "omnizine",
+									"Ale" = "ale",
+									"Wine" = "wine",
+									"Holy Water" = "holywater",
+									"Welder Fuel" = "fuel",
+									"Vomit" = "vomit")
+	var/static/list/options_to_descriptions = list("Omnizine" = "a strange pink-white liquid",
+												"Ale" = "foamy amber ale",
+												"Wine" = "deep red wine",
+												"Holy Water" = "sparkling clear water",
+												"Welder Fuel" = "a dark, pungent, oily substance",
+												"Vomit" = "warm chunky vomit")
+
+	var/choice = show_radial_menu(user, src, options)
+	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
+		return
+	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")
+	magic_fill(options_to_reagent[choice])
+
+/obj/item/reagent_containers/food/drinks/everfull/proc/magic_fill(reagent_choice)
+	reagents.clear_reagents()
+	reagents.add_reagent(reagent_choice, volume)

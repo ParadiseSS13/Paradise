@@ -228,9 +228,9 @@
 
 /obj/item/reagent_containers/food/drinks/weightloss
 	name = "weight-loss shake"
-	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
+	desc = "A shake designed to cause weight loss, now in a berry-flavored formulation. The package proudly proclaims that it is 'tapeworm free.'"
 	icon_state = "weightshake"
-	list_reagents = list("lipolicide" = 30, "chocolate" = 5)
+	list_reagents = list("lipolicide" = 30, "berryjuice" = 5)
 
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"

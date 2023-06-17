@@ -330,8 +330,6 @@
 	name = "cable layer"
 	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
 	icon_state = "mecha_wire"
-	var/datum/event/event
-	var/turf/old_turf
 	var/obj/structure/cable/last_piece
 	var/obj/item/stack/cable_coil/cable
 	var/max_cable = 1000
@@ -436,11 +434,11 @@
 		return reset()
 	var/obj/structure/cable/NC = new(new_turf)
 	NC.cable_color("red")
-	NC.d1 = 0
+	NC.d1 = NO_DIRECTION
 	NC.d2 = fdirn
 	NC.update_icon()
 
-	var/datum/powernet/PN
+	var/datum/regional_powernet/PN
 	if(last_piece && last_piece.d2 != Dir)
 		last_piece.d1 = min(last_piece.d2, Dir)
 		last_piece.d2 = max(last_piece.d2, Dir)
@@ -451,7 +449,7 @@
 		PN = new()
 	NC.powernet = PN
 	PN.cables += NC
-	NC.mergeConnectedNetworks(NC.d2)
+	NC.merge_connected_networks(NC.d2)
 
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC

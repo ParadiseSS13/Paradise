@@ -327,7 +327,7 @@
 	mob_name = "ashen skeleton"
 	mob_gender = NEUTER
 	husk = FALSE
-	mob_species = /datum/species/skeleton
+	mob_species = /datum/species/skeleton/brittle
 	mob_color = "#454545"
 
 //Legion infested mobs

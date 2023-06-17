@@ -94,6 +94,12 @@
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
 
+/mob/living/carbon/human/skeleton/lich/Initialize(mapload)
+	. = ..(mapload, /datum/species/skeleton/lich)
+
+/mob/living/carbon/human/skeleton/brittle/Initialize(mapload)
+	. = ..(mapload, /datum/species/skeleton/brittle)
+
 /mob/living/carbon/human/kidan/Initialize(mapload)
 	. = ..(mapload, /datum/species/kidan)
 
@@ -1253,7 +1259,7 @@
 
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
-		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE)
+		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
 	if (include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
@@ -1268,7 +1274,19 @@
 	sec_hud_set_ID()
 
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE)
+/**
+ * Change a mob's species.
+ *
+ * Arguments:
+ * * new_species - The user's new species.
+ * * use_default_color - If true, use the species' default color for the new mob.
+ * * delay_icon_update - If true, UpdateAppearance() won't be called in this proc.
+ * * skip_same_check - If true, don't bail out early if we would be changing to our current species and run through everything anyway.
+ * * retain_damage - If true, damage on the mob will be re-applied post-transform. Otherwise, the mob will have its organs healed.
+ * * transformation - If true, don't apply new species traits to the mob. A false value should be used when creating a new mob instead of transforming into a new species.
+ * * keep_missing_bodyparts - If true, any bodyparts (legs, head, etc.) that were missing on the mob before species change will be missing post-change as well.
+ */
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE, keep_missing_bodyparts = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1326,9 +1344,16 @@
 	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
 
+	var/list/missing_bodyparts = list()  // should line up here to pop out only what's missing
+	if(keep_missing_bodyparts)
+		for(var/organ_name as anything in bodyparts_by_name)
+			if(isnull(bodyparts_by_name[organ_name]))
+				missing_bodyparts |= organ_name
+
 	if(retain_damage)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
 		var/bodypart_damages = list()
+
 		//Loop through all external organs and save the damage states for brute and burn
 		for(var/obj/item/organ/external/E as anything in bodyparts)
 			if(E.brute_dam == 0 && E.burn_dam == 0 && !(E.status & ORGAN_INT_BLEEDING)) //If there's no damage we don't bother remembering it.
@@ -1352,7 +1377,7 @@
 			internal_damages += list(stats)
 
 		//Create the new organs for the species change
-		dna.species.create_organs(src)
+		dna.species.create_organs(src, missing_bodyparts)
 
 		//Apply relevant damages and variables to the new organs.
 		for(var/obj/item/organ/external/E as anything in bodyparts)
@@ -1387,7 +1412,7 @@
 					qdel(part)
 
 	else
-		dna.species.create_organs(src)
+		dna.species.create_organs(src, missing_bodyparts)
 
 	for(var/obj/item/thing in kept_items)
 		var/equipped = equip_to_slot_if_possible(thing, kept_items[thing])
@@ -1578,7 +1603,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return threatcount
 
 	//Check for ID
-	var/obj/item/card/id/idcard = get_idcard()
+	var/obj/item/card/id/idcard = get_idcard(TRUE)
 	if(judgebot.idcheck && !idcard)
 		threatcount += 4
 
@@ -1792,8 +1817,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	return ..()
 
-/mob/living/carbon/human/proc/get_age_pitch()
-	return 1.0 + 0.5*(30 - age)/80
+/mob/living/carbon/human/proc/get_age_pitch(species_pitch = 85)
+	return 1.0 + 0.5 * ((species_pitch * 0.35) - age) / (0.94 * species_pitch)
 
 /mob/living/carbon/human/get_access()
 	. = ..()
@@ -1986,8 +2011,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		O.toggle_biolum(TRUE)
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
 
-/mob/living/carbon/human/proc/get_perceived_trauma()
-	return min(health, maxHealth - getStaminaLoss())
+/mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
+	return min(health, maxHealth - getStaminaLoss()) + shock_reduction
 
 /mob/living/carbon/human/WakeUp(updating = TRUE)
 	if(dna.species.spec_WakeUp(src))
@@ -2019,7 +2044,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(client)
 			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.active_character.metadata)]")
 		else
-			to_chat(usr, "[src] does not have any stored infomation!")
+			to_chat(usr, "[src] does not have any stored information!")
 	else
 		to_chat(usr, "OOC Metadata is not supported by this server!")
 
@@ -2040,3 +2065,107 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set category = "IC"
 
 	update_flavor_text()
+
+// Behavior for deadchat control
+
+/mob/living/carbon/human/proc/dchat_emote()
+	var/list/possible_emotes = list("scream", "clap", "snap", "crack", "dap", "burp")
+	emote(pick(possible_emotes), intentional = TRUE)
+
+/mob/living/carbon/human/proc/dchat_attack(intent)
+	var/turf/ahead = get_turf(get_step(src, dir))
+	var/atom/victim = locate(/mob/living) in ahead
+	var/obj/item/in_hand = get_active_hand()
+	var/implement = "[isnull(in_hand) ? "[p_their()] fists" : in_hand]"
+	if(!victim)
+		victim = locate(/obj/structure) in ahead
+	if(!victim)
+		switch(intent)
+			if(INTENT_HARM)
+				visible_message("<span class='warning'>[src] swings [implement] wildly!</span>")
+			if(INTENT_HELP)
+				visible_message("<span class='notice'>[src] seems to take a deep breath.</span>")
+		return
+	if(isLivingSSD(victim))
+		visible_message("<span class='notice'>[src] [intent == INTENT_HARM ? "reluctantly " : ""]lowers [p_their()] [implement].</span>")
+		return
+
+	var/original_intent = a_intent
+	a_intent = intent
+	if(in_hand)
+		in_hand.melee_attack_chain(src, victim)
+	else
+		UnarmedAttack(victim, TRUE)
+	a_intent = original_intent
+
+/mob/living/carbon/human/proc/dchat_resist()
+	if(!can_resist())
+		visible_message("<span class='warning'>[src] seems to be unable to do anything!</span>")
+		return
+	if(!restrained())
+		visible_message("<span class='notice'>[src] seems to be doing nothing in particular.</span>")
+		return
+
+	visible_message("<span class='warning'>[src] is trying to break free!</span>")
+	resist()
+
+/mob/living/carbon/human/proc/dchat_pickup()
+	var/turf/ahead = get_step(src, dir)
+	var/obj/item/thing = locate(/obj/item) in ahead
+	if(!thing)
+		return
+
+	var/old_loc = thing.loc
+	var/obj/item/in_hand = get_active_hand()
+
+	if(in_hand)
+		visible_message("<span class='notice'>[src] drops [in_hand] and picks up [thing] instead!</span>")
+		unEquip(in_hand)
+		in_hand.forceMove(old_loc)
+	else
+		visible_message("<span class='notice'>[src] picks up [thing]!</span>")
+	put_in_active_hand(thing)
+
+/mob/living/carbon/human/proc/dchat_throw()
+	var/in_hand = get_active_hand()
+	if(!in_hand)
+		visible_message("<span class='notice'>[src] makes a throwing motion!</span>")
+		return
+	var/atom/possible_target
+	var/cur_turf = get_turf(src)
+	for(var/i in 1 to 5)
+		cur_turf = get_step(cur_turf, dir)
+		possible_target = locate(/mob/living) in cur_turf
+		if(possible_target)
+			break
+
+		possible_target = locate(/obj/structure) in cur_turf
+		if(possible_target)
+			break
+
+	if(!possible_target)
+		throw_item(cur_turf)
+	else
+		throw_item(possible_target)
+
+/mob/living/carbon/human/proc/dchat_shove()
+	var/turf/ahead = get_turf(get_step(src, dir))
+	var/mob/living/carbon/human/H = locate(/mob/living/carbon/human) in ahead
+	if(!H)
+		visible_message("<span class='notice'>[src] tries to shove something away!</span>")
+		return
+	dna?.species.disarm(src, H)
+
+
+/mob/living/carbon/human/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 7 SECONDS)
+	var/list/inputs = list(
+		"emote" = CALLBACK(src, PROC_REF(dchat_emote)),
+		"attack" = CALLBACK(src, PROC_REF(dchat_attack), INTENT_HARM),
+		"help" = CALLBACK(src, PROC_REF(dchat_attack), INTENT_HELP),
+		"pickup" = CALLBACK(src, PROC_REF(dchat_pickup)),
+		"throw" = CALLBACK(src, PROC_REF(dchat_throw)),
+		"disarm" = CALLBACK(src, PROC_REF(dchat_shove)),
+		"resist" = CALLBACK(src, PROC_REF(dchat_resist)),
+	)
+
+	AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, inputs, cooldown)

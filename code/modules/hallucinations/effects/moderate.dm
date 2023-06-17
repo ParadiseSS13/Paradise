@@ -349,7 +349,7 @@
 		turfs += T
 
 	var/turf/T = pick(turfs)
-	target.playsound_local(T, 'sound/weapons/Egloves.ogg', 25, TRUE)
+	target.playsound_local(T, 'sound/weapons/egloves.ogg', 25, TRUE)
 	target.playsound_local(T, get_sfx("bodyfall"), 25, TRUE)
 	target.playsound_local(T, "sparks", 50, TRUE)
 

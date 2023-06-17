@@ -28,7 +28,7 @@
 
 /datum/action/guardian/communicate/Trigger()
 	var/input = stripped_input(owner, "Enter a message to tell your guardian:", "Message", "")
-	if(!input)
+	if(!input || !guardian)
 		return
 
 	// Show the message to our guardian and to host.

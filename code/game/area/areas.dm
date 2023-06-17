@@ -436,6 +436,7 @@
 
 	var/mob/living/L = A
 	if(!L.ckey)	return
+	SEND_SIGNAL(L, COMSIG_AREA_ENTERED, newarea)
 	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == MOVE_INTENT_RUN)) // Being ready when you change areas gives you a chance to avoid falling all together.
 		thunk(L)
 
@@ -452,6 +453,10 @@
 	if(gravitystate)
 		for(var/mob/living/carbon/human/M in A)
 			thunk(M)
+		for(var/obj/effect/decal/cleanable/blood/B in A)
+			B.splat(B)
+		for(var/obj/effect/decal/cleanable/vomit/V in A)
+			V.splat(V)
 
 /area/proc/thunk(mob/living/carbon/human/M)
 	if(!istype(M)) // Rather not have non-humans get hit with a THUNK

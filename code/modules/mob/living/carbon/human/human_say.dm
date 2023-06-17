@@ -6,38 +6,6 @@
 		return " (as [get_id_name("Unknown")])"
 	return ..()
 
-/mob/living/carbon/human/proc/forcesay(list/append)
-	if(stat == CONSCIOUS)
-		if(client)
-			var/modified = FALSE	//has the text been modified yet?
-			var/temp = winget(client, "input", "text")
-			if(findtextEx(temp, "Say \"", 1, 7) && length(temp) > 5)	//case sensitive means
-
-				temp = replacetext(temp, ";", "")	//general radio
-
-				if(findtext(trim_left(temp), ":", 6, 7))	//dept radio
-					temp = copytext(trim_left(temp), 8)
-					modified = TRUE
-
-				if(!modified)
-					temp = copytext(trim_left(temp), 6)	//normal speech
-					modified = TRUE
-
-				while(findtext(trim_left(temp), ":", 1, 2))	//dept radio again (necessary)
-					temp = copytext(trim_left(temp), 3)
-
-				if(findtext(temp, "*", 1, 2))	//emotes
-					return
-				temp = copytext(trim_left(temp), 1, rand(5,8))
-
-				var/trimmed = trim_left(temp)
-				if(length(trimmed))
-					if(append)
-						temp += pick(append)
-
-					say(temp)
-				winset(client, "input", "text=[null]")
-
 /mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
 	if(dna.species.can_understand(other))
 		return 1
@@ -147,7 +115,8 @@ GLOBAL_LIST_INIT(soapy_words, list(
 /mob/living/carbon/human/handle_speech_problems(list/message_pieces, verb)
 	var/span = ""
 	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
-	if(translator)
+
+	if(translator && !HAS_TRAIT(src, TRAIT_MUTE))
 		if(translator.active)
 			span = translator.speech_span
 			for(var/datum/multilingual_say_piece/S in message_pieces)
@@ -204,6 +173,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 	return list("verb" = verb)
 
 /mob/living/carbon/human/proc/replace_speech(matched)
+	REGEX_REPLACE_HANDLER
 	return GLOB.soapy_words[lowertext(matched)]
 
 /mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
@@ -268,7 +238,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 	if(dna.species.speech_sounds && prob(dna.species.speech_chance))
 		returns[1] = sound(pick(dna.species.speech_sounds))
 		returns[2] = 50
-		returns[3] = get_age_pitch()
+		returns[3] = get_age_pitch(dna.species.max_age)
 	return returns
 
 /mob/living/carbon/human/binarycheck()

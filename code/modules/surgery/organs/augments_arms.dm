@@ -233,15 +233,15 @@
 		return TRUE
 	return FALSE
 
-/obj/item/organ/internal/cyberimp/arm/hacking
-	name = "hacking arm implant"
-	desc = "A small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
-	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4;abductor=3"
-	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/abductor)
-	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
-	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "hacktool")
+/obj/item/organ/internal/cyberimp/arm/toolset_abductor
+	name = "Alien Toolset implant"
+	desc = "An alien toolset, designed to be installed on subject's arm."
+	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=3"
+	contents = newlist(/obj/item/screwdriver/abductor, /obj/item/wirecutters/abductor, /obj/item/crowbar/abductor, /obj/item/wrench/abductor, /obj/item/weldingtool/abductor, /obj/item/multitool/abductor)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
 
-/obj/item/organ/internal/cyberimp/arm/hacking/l
+/obj/item/organ/internal/cyberimp/arm/toolset_abductor/l
 	parent_organ = "l_arm"
 
 /obj/item/organ/internal/cyberimp/arm/esword
@@ -340,6 +340,7 @@
 	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment"
 	origin_tech = "materials=3;biotech=2;powerstorage=3"
 	contents = newlist(/obj/item/apc_powercord)
+	requires_robotic_bodypart = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/power_cord/emp_act(severity)
 	// To allow repair via nanopaste/screwdriver

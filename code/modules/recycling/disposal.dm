@@ -9,13 +9,13 @@
 
 /obj/machinery/disposal
 	name = "disposal unit"
-	desc = "A pneumatic waste disposal unit."
+	desc = "A pneumatic waste disposal unit. Alt-click to manually eject its contents."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "disposal"
 	anchored = TRUE
 	density = TRUE
 	on_blueprints = TRUE
-	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
 	max_integrity = 200
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	resistance_flags = FIRE_PROOF
@@ -178,6 +178,7 @@
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals", target.ckey ? null : ATKLOG_ALL)
 	playsound(src, "sound/effects/bang.ogg")
+	update()
 	return TRUE
 
 // mouse drop another mob or self
@@ -328,6 +329,20 @@
 		AM.forceMove(loc)
 		AM.pipe_eject(0)
 	update()
+
+/obj/machinery/disposal/AltClick(mob/user)
+	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	user.visible_message(
+		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
+		"<span class='notice'>You operate the manual ejection lever on [src].</span>"
+	)
+	if(do_after(user, 5 SECONDS, target = src))
+		user.visible_message(
+			"<span class='notice'>[user] ejects the contents of [src].</span>",
+			"<span class='notice'>You eject the contents of [src].</span>"
+		)
+		eject()
 
 // update the icon & overlays to reflect mode & status
 /obj/machinery/disposal/proc/update()
@@ -709,7 +724,7 @@
 	dir = 0				// dir will contain dominant direction for junction pipes
 	var/health = 10 	// health points 0-10
 	max_integrity = 200
-	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
 	damage_deflection = 10
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	plane = FLOOR_PLANE
@@ -1030,7 +1045,7 @@
 /obj/structure/disposalpipe/sortjunction
 	name = "disposal sort junction"
 	icon_state = "pipe-j1s"
-	var/list/sort_type = list(1)	
+	var/list/sort_type = list(1)
 	var/sort_type_txt //Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0
@@ -1400,7 +1415,7 @@
 	add_fingerprint(user)
 
 	if(mode == FALSE)
-		to_chat(user, "<span class='notice'>You remove the screws around the power connection</span>.")
+		to_chat(user, "<span class='notice'>You remove the screws around the power connection.</span>")
 	else if(mode == TRUE)
 		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
 	I.play_tool_sound(src)

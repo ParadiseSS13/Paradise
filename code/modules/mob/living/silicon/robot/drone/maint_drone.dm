@@ -77,6 +77,9 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
+	// Give us our action button
+	var/datum/action/innate/hide/drone_hide/hide = new()
+	hide.Grant(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
@@ -123,15 +126,11 @@
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
-/mob/living/silicon/robot/drone/detailed_examine()
-	return "Drones are player-controlled synthetics which are lawed to maintain the station and not \
-			interact with anyone else, except for other drones. They hold a wide array of tools to build, repair, maintain, and clean. \
-			They function similarly to other synthetics, in that they require recharging regularly, have laws, and are resilient to many hazards, \
-			such as fire, radiation, vacuum, and more. Ghosts can join the round as a maintenance drone by using the appropriate verb in the 'ghost' tab. \
-			An inactive drone can be rebooted by swiping an ID card on it with engineering or robotics access."
-
-/mob/living/silicon/robot/drone/detailed_examine_antag()
-	return "An Electromagnetic Sequencer can be used to subvert the drone to your cause."
+/mob/living/silicon/robot/drone/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The ever-loyal workers of Nanotrasen facilities. Known for their small and cute look, these drones seek only to repair damaged parts of the station, being lawed against hurting even a spiderling. These fine drones are programmed against interfering with any business of anyone, so they won't do anything you don't want them to.</span>"
+	if(isAntag(user))
+		. += "<span class='warning'>Clearly they're not loyal enough however, use of an emag will slave them to you for 5 minutes... until they explode in a shower of sparks.</span>"
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/I, mob/user, params)
@@ -195,6 +194,8 @@
 	QDEL_NULL(stack_wood)
 	QDEL_NULL(stack_plastic)
 	QDEL_NULL(decompiler)
+	for(var/datum/action/innate/hide/drone_hide/hide in actions)
+		hide.Remove(src)
 
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)

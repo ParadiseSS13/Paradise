@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
+	see_invisible = SEE_INVISIBLE_LIVING_AI
 	see_in_dark = 8
 	can_strip = FALSE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
@@ -56,7 +57,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//var/list/laws = list()
 	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
 	var/viewalerts = FALSE
-	var/icon/holo_icon//Default is assigned when AI is created.
+	var/icon/holo_icon //Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/pda/silicon/ai/aiPDA = null
 	var/obj/item/multitool/aiMulti = null
@@ -705,7 +706,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(href_list["track"])
 		var/mob/living/target = locate(href_list["track"]) in GLOB.mob_list
-		if(target && target.can_track())
+		if(istype(target) && target.can_track())
 			ai_actual_track(target)
 		else
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
@@ -713,7 +714,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(href_list["trackbot"])
 		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.bots_list
-		if(target)
+		if(istype(target))
 			ai_actual_track(target)
 		else
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
@@ -1222,7 +1223,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
 	for(var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
-		for(var/obj/machinery/camera/C in CC.cameras)
+		for(var/obj/machinery/camera/C in CC.active_cameras)
 			if(!C.can_use() || get_dist(C, eyeobj) > 7)
 				continue
 			visible |= C
@@ -1350,10 +1351,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(!istype(apc) || QDELETED(apc) || apc.stat & BROKEN)
 		to_chat(src, "<span class='danger'>Hack aborted. The designated APC no longer exists on the power network.</span>")
-		playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1)
+		SEND_SOUND(src, sound('sound/machines/buzz-two.ogg'))
 	else if(apc.aidisabled)
 		to_chat(src, "<span class='danger'>Hack aborted. [apc] is no longer responding to our systems.</span>")
-		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 1)
+		SEND_SOUND(src, sound('sound/machines/buzz-sigh.ogg'))
 	else
 		malf_picker.processing_time += 10
 
@@ -1361,7 +1362,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 
-		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1)
+		SEND_SOUND(src, sound('sound/machines/ding.ogg'))
 		to_chat(src, "Hack complete. [apc] is now under your exclusive control.")
 		apc.update_icon()
 

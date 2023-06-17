@@ -3,6 +3,7 @@
 	// Check ../login_processing/10-load_preferences.dm
 
 	//general preferences
+	var/raw_muted_admins
 	while(query.NextRow())
 		ooccolor = query.item[1]
 		UI_style = query.item[2]
@@ -27,6 +28,8 @@
 		colourblind_mode = query.item[21]
 		keybindings = init_keybindings(raw = query.item[22])
 		server_region = query.item[23]
+		raw_muted_admins = query.item[24]
+		viewrange = query.item[25]
 
 	lastchangelog_2 = lastchangelog // Clone please
 
@@ -49,6 +52,12 @@
 	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
 	ghost_darkness_level = sanitize_integer(ghost_darkness_level, 0, 255, initial(ghost_darkness_level))
 	colourblind_mode = sanitize_inlist(colourblind_mode, list(COLOURBLIND_MODE_NONE, COLOURBLIND_MODE_DEUTER, COLOURBLIND_MODE_PROT, COLOURBLIND_MODE_TRIT), COLOURBLIND_MODE_NONE)
+
+	if(length(raw_muted_admins))
+		try
+			admin_sound_ckey_ignore = json_decode(raw_muted_admins)
+		catch
+			admin_sound_ckey_ignore = list() // Invalid JSON, handle safely please
 
 	// Sanitize the region
 	if(!(server_region in GLOB.configuration.system.region_map))
@@ -89,7 +98,9 @@
 		ghost_darkness_level=:ghost_darkness_level,
 		colourblind_mode=:colourblind_mode,
 		keybindings=:keybindings,
-		server_region=:server_region
+		server_region=:server_region,
+		muted_adminsounds_ckeys=:muted_adminsounds_ckeys,
+		viewrange=:viewrange
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -115,6 +126,8 @@
 			"keybindings" = json_encode(keybindings_overrides),
 			"ckey" = C.ckey,
 			"server_region" = server_region,
+			"muted_adminsounds_ckeys" = json_encode(admin_sound_ckey_ignore),
+			"viewrange" = viewrange,
 		))
 
 	if(!query.warn_execute())

@@ -323,6 +323,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	name = "Detective"
 	icon_state = "Det"
 
+/obj/effect/landmark/start/explorer
+	name = "Explorer"
+	icon_state = "Explorer"
+
 /obj/effect/landmark/start/engineer
 	name = "Station Engineer"
 	icon_state = "Engi"

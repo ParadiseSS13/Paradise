@@ -4,6 +4,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	blood_volume = BLOOD_VOLUME_NORMAL
 	can_collar = TRUE
+	speed = 0 // same speed as a person.
 
 /mob/living/simple_animal/pet/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/newspaper))

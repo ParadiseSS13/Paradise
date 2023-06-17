@@ -9,6 +9,8 @@
 	start_length = 130
 	end_sound = 'sound/weather/ashstorm/outside/active_end.ogg'
 	volume = 80
+	area_sound = TRUE
+	channel = CHANNEL_ASH_STORM
 
 /datum/looping_sound/active_inside_ashstorm
 	mid_sounds = list(
@@ -21,6 +23,8 @@
 	start_length = 130
 	end_sound = 'sound/weather/ashstorm/inside/active_end.ogg'
 	volume = 60
+	area_sound = TRUE
+	channel = CHANNEL_ASH_STORM
 
 /datum/looping_sound/weak_outside_ashstorm
 	mid_sounds = list(
@@ -33,6 +37,8 @@
 	start_length = 130
 	end_sound = 'sound/weather/ashstorm/outside/weak_end.ogg'
 	volume = 50
+	area_sound = TRUE
+	channel = CHANNEL_ASH_STORM
 
 /datum/looping_sound/weak_inside_ashstorm
 	mid_sounds = list(
@@ -45,3 +51,5 @@
 	start_length = 130
 	end_sound = 'sound/weather/ashstorm/inside/weak_end.ogg'
 	volume = 30
+	area_sound = TRUE
+	channel = CHANNEL_ASH_STORM

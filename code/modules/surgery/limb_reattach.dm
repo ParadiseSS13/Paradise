@@ -8,6 +8,7 @@
 	steps = list(/datum/surgery_step/generic/amputate)
 	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
 	requires_organic_bodypart = TRUE
+	cancel_on_organ_change = FALSE  // don't stop the surgery when removing limbs
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -25,6 +26,7 @@
 		/datum/surgery_step/limb/attach,
 		/datum/surgery_step/limb/connect
 	)
+	cancel_on_organ_change = FALSE
 	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
@@ -74,7 +76,7 @@
 	steps = list(
 		/datum/surgery_step/proxy/robo_limb_attach
 	)
-
+	cancel_on_organ_change = FALSE
 	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
 
 
@@ -104,7 +106,10 @@
 		return SURGERY_BEGINSTEP_ABORT
 	var/list/organ_data = target.dna.species.has_limbs["[user.zone_selected]"]
 	if(isnull(organ_data))
-		to_chat(user, "<span class='warning'>[target.dna.species] don't have the anatomy for [E.name]!")
+		to_chat(user, "<span class='warning'>[target.dna.species] don't have the anatomy for [E.name]!</span>")
+		return SURGERY_BEGINSTEP_ABORT
+	if(length(E.search_contents_for(/obj/item/organ/internal/brain)) && target.get_int_organ(/obj/item/organ/internal/brain))
+		to_chat(user, "<span class='warning'>Both [target] and [E.name] contain a brain, and [target] can't have two brains!</span>")
 		return SURGERY_BEGINSTEP_ABORT
 
 	user.visible_message(

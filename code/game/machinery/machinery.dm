@@ -5,8 +5,9 @@
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
-	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
 	atom_say_verb = "beeps"
+	pull_speed = 0.5
 	var/stat = 0
 
 	/// How is this machine currently passively consuming power?
@@ -150,7 +151,7 @@
 	power_state = use_type
 
 /obj/machinery/proc/update_idle_power_consumption(channel = power_channel, amount)
-	if(power_state == ACTIVE_POWER_USE)
+	if(power_state == IDLE_POWER_USE)
 		machine_powernet.adjust_static_power(power_channel, amount - idle_power_consumption)
 	idle_power_consumption = amount
 
@@ -284,8 +285,8 @@
 		deconstruct(TRUE)
 		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 		I.play_tool_sound(user, I.tool_volume)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(I.tool_behaviour != TOOL_SCREWDRIVER)

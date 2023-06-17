@@ -104,7 +104,7 @@
 		germ_level = 0
 		return
 
-	if(!owner)
+	if(!owner || ((status & ORGAN_BURNT) && !(status & ORGAN_SALVED)))
 		if(is_preserved())
 			return
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
@@ -126,6 +126,9 @@
 /obj/item/organ/proc/is_preserved()
 	if(istype(loc,/obj/item/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
+		return TRUE
+	if(istype(loc, /mob/living/simple_animal/hostile/headslug) || istype(loc, /obj/item/organ/internal/body_egg/changeling_egg))
+		germ_level = 0 // weird stuff might happen, best to be safe
 		return TRUE
 	if(is_found_within(/obj/structure/closet/crate/freezer))
 		return TRUE
@@ -243,6 +246,8 @@
 /obj/item/organ/proc/remove(mob/living/user, special = 0)
 	if(!istype(owner))
 		return
+
+	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	owner.internal_organs -= src
 
