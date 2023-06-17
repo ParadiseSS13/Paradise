@@ -682,6 +682,13 @@
 	if(isliving(A))
 		var/mob/living/L = A
 		try_attack_mob(L)
+	else if(isitem(A) && !is_under_tile())
+		var/obj/item/O = A
+		var/obj/item/stock_parts/cell/C = O.get_cell()
+		if(C && C.charge)
+			C.use(min(C.charge, power_drain_rate))
+			adjust_charge(min(C.charge, power_drain_rate))
+			visible_message("<span class='notice'>[src] touches the [O] and drains its power!</span>", "<span class='notice'>You touch the [O] and drain its power!</span>")
 
 /mob/living/simple_animal/pulse_demon/attack_hand(mob/living/carbon/human/M)
 	if(is_under_tile())
