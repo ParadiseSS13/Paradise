@@ -264,13 +264,12 @@
 		overlays += icon(icon, "redspace")
 		set_light(15, 5, "#ff0000")
 		return
+	if(stat & (BROKEN|NOPOWER))
+		set_light(0)
 	else
-		if(stat & (BROKEN|NOPOWER))
-			set_light(0)
-		else
-			set_light(1, 1, "#353535")
+		set_light(1, 1, "#353535")
 
-	if(!powernet || powernet.available_power <= 0)
+	if(get_available_power() <= 0)
 		icon_state = base_icon_state
 	else
 		icon_state = "[base_icon_state][get_icon_state_number()]"
@@ -497,14 +496,18 @@
 	spawn_time = 30 SECONDS
 	max_mobs = 5		//Dont' want them overrunning the station
 	max_integrity = 250
-	var/obj/machinery/power/bluespace_tap/linked_source_object //this is the BSH that caused it
+	/// the BSH that spawned this portal
+	var/obj/machinery/power/bluespace_tap/linked_source_object
 
 /obj/structure/spawner/nether/bluespace_tap/deconstruct(disassembled)
 	new /obj/item/stack/ore/bluespace_crystal(loc)	//have a reward
+	return ..()
+
+/obj/structure/spawner/nether/bluespace_tap/Destroy()
+	. = ..()
 	if(linked_source_object)
 		linked_source_object.active_nether_portals -= src
 		linked_source_object.update_icon(UPDATE_ICON)
-	return ..()
 
 /obj/item/paper/bluespace_tap
 	name = "paper- 'The Experimental NT Bluespace Harvester - Mining other universes for science and profit!'"
