@@ -49850,7 +49850,7 @@
 "dbV" = (
 /obj/structure/rack,
 /obj/item/extinguisher,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/storage/box/mousetraps,/obj/item/storage/box/lights/tubes,/obj/item/storage/box/lights/mixed,/obj/item/storage/box/lights/bulbs);
 	name = "Janitor Supplies Spawner"
