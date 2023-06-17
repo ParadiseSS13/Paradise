@@ -4430,7 +4430,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/item/desk_bell{
 	pixel_y = 12;
-	pixel_x = 10
+	pixel_x = 10;
+	anchored = 1
 	},
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -5923,10 +5924,9 @@
 	},
 /area/chapel/main)
 "blX" = (
-/obj/structure/chair/wood/wings{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
+/obj/structure/table/wood/poker,
+/obj/item/dice/d6,
+/turf/simulated/floor/carpet/lone,
 /area/crew_quarters/bar/atrium)
 "bme" = (
 /obj/machinery/door/airlock/maintenance{
@@ -7074,8 +7074,8 @@
 	},
 /obj/structure/cable/blue{
 	d1 = 1;
-	d2 = 6;
-	icon_state = "1-6"
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
@@ -9359,11 +9359,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/cable/blue{
-	d1 = 5;
-	d2 = 8;
-	icon_state = "5-8"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -11759,9 +11754,6 @@
 	},
 /obj/structure/table,
 /obj/item/storage/box/bodybags,
-/obj/item/assembly/signaler{
-	code = 6
-	},
 /obj/machinery/camera{
 	c_tag = "Prison Execution Chamber";
 	dir = 6;
@@ -11773,6 +11765,10 @@
 /obj/machinery/firealarm{
 	name = "north bump";
 	pixel_y = 24
+	},
+/obj/item/assembly/signaler{
+	code = 6;
+	frequency = 1445
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11896,31 +11892,6 @@
 "cpU" = (
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
-"cpZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/cable/blue{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/blue{
-	d1 = 5;
-	d2 = 8;
-	icon_state = "5-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluecorner"
-	},
-/area/hallway/primary/central/north)
 "cqc" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -12516,12 +12487,20 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastright{
 	name = "Chemistry Desk";
-	req_access_txt = "33"
+	req_access_txt = "33";
+	dir = 8
 	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	desc = "You have the public fridge, pal, lube off.";
+	icon_state = "left";
+	name = "Anti-Theft Shield";
+	req_access_txt = "5"
+	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "ctW" = (
@@ -13581,14 +13560,15 @@
 /turf/space,
 /area/space/nearstation)
 "cGm" = (
-/obj/structure/table/wood/poker,
-/obj/item/dice/d6,
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "1-2";
 	d1 = 1
 	},
-/turf/simulated/floor/carpet/lone,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
 "cGu" = (
 /obj/structure/plasticflaps{
@@ -13950,6 +13930,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/bluespace_beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -14831,13 +14812,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/cable/green{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
@@ -15892,7 +15873,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/item/desk_bell{
 	pixel_y = -3;
-	pixel_x = -10
+	pixel_x = -10;
+	anchored = 1
 	},
 /turf/simulated/floor/plating,
 /area/engine/controlroom)
@@ -17270,9 +17252,9 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable/blue{
-	d1 = 5;
+	d1 = 1;
 	d2 = 8;
-	icon_state = "5-8"
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "botblue"
@@ -19445,29 +19427,6 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
-"dMt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/cable/blue{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/blue{
-	d1 = 5;
-	d2 = 8;
-	icon_state = "5-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluecorner"
-	},
-/area/hallway/primary/central/north)
 "dMu" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -28892,7 +28851,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/item/desk_bell{
 	pixel_y = 12;
-	pixel_x = -10
+	pixel_x = -10;
+	anchored = 1
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -51751,6 +51711,11 @@
 	pixel_x = 32;
 	pixel_y = 32
 	},
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -52103,6 +52068,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
+	},
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -68279,14 +68249,6 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/dorms)
-"nnD" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/hallway/primary/port)
 "nnH" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -72565,6 +72527,10 @@
 "ofl" = (
 /obj/machinery/power/turbine{
 	dir = 4
+	},
+/obj/structure/cable/white{
+	icon_state = "0-8";
+	d2 = 8
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -78409,7 +78375,6 @@
 	},
 /area/crew_quarters/dorms)
 "plG" = (
-/obj/structure/chair/wood/wings,
 /obj/structure/sign/poster/official/high_class_martini{
 	pixel_y = 32
 	},
@@ -79693,6 +79658,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/cable/white{
+	icon_state = "0-8";
+	d2 = 8
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -87677,10 +87646,6 @@
 	pixel_y = -5
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
-/obj/machinery/atmospherics/unary/portables_connector{
-	name = "Vacuum Port";
-	dir = 1
-	},
 /turf/simulated/floor/plasteel,
 /area/medical/sleeper)
 "rbe" = (
@@ -93566,6 +93531,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -94719,15 +94689,13 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/chair/wood/wings{
-	dir = 1
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "1-2";
 	d1 = 1
 	},
-/turf/simulated/floor/carpet/lone,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
 "swc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -104596,7 +104564,8 @@
 	},
 /obj/item/desk_bell{
 	pixel_y = 12;
-	pixel_x = 10
+	pixel_x = 10;
+	anchored = 1
 	},
 /turf/simulated/floor/plating,
 /area/medical/reception)
@@ -111184,7 +111153,8 @@
 /obj/machinery/door/firedoor,
 /obj/item/desk_bell{
 	pixel_y = 12;
-	pixel_x = -10
+	pixel_x = -10;
+	anchored = 1
 	},
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
@@ -116325,7 +116295,8 @@
 /obj/machinery/door/firedoor,
 /obj/item/desk_bell{
 	pixel_y = 12;
-	pixel_x = 10
+	pixel_x = 10;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
@@ -119333,11 +119304,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/cable/blue{
-	d1 = 5;
-	d2 = 8;
-	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -123087,7 +123053,8 @@
 	},
 /obj/item/desk_bell{
 	pixel_y = 12;
-	pixel_x = -10
+	pixel_x = -10;
+	anchored = 1
 	},
 /turf/simulated/floor/plating,
 /area/medical/genetics)
@@ -123889,6 +123856,11 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -152111,7 +152083,7 @@ tnw
 ubO
 tnw
 tnw
-nnD
+tnw
 jwN
 jwN
 kGx
@@ -152368,7 +152340,7 @@ fBi
 fBi
 fBi
 fBi
-gIz
+fBi
 jwN
 rCK
 dVF
@@ -159047,7 +159019,7 @@ qJO
 vyQ
 lGT
 bxd
-dMt
+pIm
 pKO
 hAr
 fET
@@ -162131,7 +162103,7 @@ ufH
 ivg
 iLc
 sLa
-cpZ
+dbh
 tGA
 vaF
 qsr
@@ -166784,9 +166756,9 @@ iXL
 xhp
 bHe
 kns
-cYv
-hwc
-blX
+tgH
+mqr
+kns
 kns
 nMn
 fBi
@@ -167040,9 +167012,9 @@ gXo
 ykW
 mmO
 kns
-tgH
+cYv
+xIn
 mqr
-kns
 kns
 idW
 nMn
@@ -167297,9 +167269,9 @@ dAn
 yfN
 xhp
 plG
-xIn
-mqr
 sGs
+blX
+mqr
 bmL
 hwc
 nMn
