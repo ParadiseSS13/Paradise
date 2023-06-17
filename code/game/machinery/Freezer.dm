@@ -11,6 +11,7 @@
 	current_heat_capacity = 1000
 	layer = 3
 	plane = GAME_PLANE
+	resistance_flags = null
 	max_integrity = 300
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
