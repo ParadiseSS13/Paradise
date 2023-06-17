@@ -329,7 +329,7 @@
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
 		if(possible_port)
-			var/obj/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /obj/screen/alert/mech_port_available, override = TRUE)
+			var/obj/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /obj/screen/alert/mech_port_available)
 			if(A)
 				A.target = possible_port
 		else
@@ -1160,6 +1160,8 @@
 			occupant << sound(nominalsound, volume = 50)
 		if(state)
 			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
+		if(connected_port)
+			H.throw_alert("mechaport_d", /obj/screen/alert/mech_port_disconnect)
 		return TRUE
 	else
 		return FALSE
