@@ -220,7 +220,7 @@
 	if(isliving(has_suit.loc))
 		var/mob/living/M = has_suit.loc
 		M.remove_status_effect(STATUS_EFFECT_HOPE)
-	. = ..()
+	return ..()
 
 #undef CHASER_BURST
 #undef MAGIC_BOX
