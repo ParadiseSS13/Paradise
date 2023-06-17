@@ -57,10 +57,11 @@
 
 		if(ispath(I,/obj/item/reagent_containers/food))
 			var/obj/item/tempCheck = I
-			if(!(I in blocked_items))
-				if(initial(tempCheck.icon_state) != null) //check it's an actual usable item, in a hacky way
-					valid_items += rand(1,max(2,35-probWeight))
-					valid_items += I
+			if(I in blocked_items)
+			    return
+			if(initial(tempCheck.icon_state) != null) //check it's an actual usable item, in a hacky way
+				valid_items += rand(1,max(2,35-probWeight))
+				valid_items += I
 
 		if(ispath(I,/obj/item/rcd) || ispath(I,/obj/item/grenade) || ispath(I,/obj/item/aicard) || ispath(I,/obj/item/storage/backpack/holding) || ispath(I,/obj/item/slime_extract) || ispath(I,/obj/item/onetankbomb) || ispath(I,/obj/item/transfer_valve))
 			var/obj/item/tempCheck = I
