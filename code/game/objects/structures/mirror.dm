@@ -8,6 +8,7 @@
 	anchored = 1
 	max_integrity = 200
 	integrity_failure = 100
+	flags_2 = CHECK_RICOCHET_2
 	var/list/ui_users = list()
 
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
@@ -81,6 +82,26 @@
 		if(BURN)
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 
+/obj/structure/mirror/handle_ricochet(obj/item/projectile/P)
+	if(!anchored)
+		return FALSE
+
+	if(broken)
+		if(prob(90))
+			return FALSE
+	else if(prob(70))
+		return FALSE
+
+	var/turf/p_turf = get_turf(P)
+	var/face_direction = get_dir(get_turf(src), p_turf)
+	var/face_angle = dir2angle(face_direction)
+	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
+	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
+		return FALSE
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
+	P.setAngle(new_angle_s)
+	visible_message("<span class='warning'>[P] reflects off [src]!</span>")
+	return TRUE
 
 /obj/item/mounted/mirror
 	name = "mirror"
