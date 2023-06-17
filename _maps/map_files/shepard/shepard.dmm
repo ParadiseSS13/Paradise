@@ -5991,11 +5991,25 @@
 /turf/simulated/floor/carpet,
 /area/security/courtroomdandp)
 "bmQ" = (
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/area/hallway/primary/central/nw)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable/blue{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/hallway/primary/central/north)
 "bmV" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6140,9 +6154,9 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluecorner"
+	icon_state = "deliveryblue"
 	},
 /area/hallway/primary/central/north)
 "bod" = (
@@ -12196,9 +12210,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
+	icon_state = "deliveryblue"
 	},
 /area/hallway/primary/central/north)
 "crD" = (
@@ -14287,8 +14301,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluefull"
+	dir = 0;
+	icon_state = "blue"
 	},
 /area/assembly/showroom)
 "cLG" = (
@@ -16883,8 +16897,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "blue"
+	dir = 1;
+	icon_state = "bluecorner"
 	},
 /area/assembly/showroom)
 "dls" = (
@@ -17399,8 +17413,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluecorner"
+	dir = 4;
+	icon_state = "bluefull"
 	},
 /area/hallway/primary/central/north)
 "dqi" = (
@@ -24305,8 +24319,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluefull"
+	dir = 8;
+	icon_state = "blue"
 	},
 /area/assembly/showroom)
 "eMT" = (
@@ -26476,12 +26490,14 @@
 	},
 /area/medical/research)
 "fjm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "deliveryblue"
 	},
-/area/assembly/showroom)
+/area/hallway/primary/central/north)
 "fjn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
@@ -27506,7 +27522,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/hallway/primary/central/nw)
 "fto" = (
@@ -32567,8 +32583,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluecorner"
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/hallway/primary/central/north)
 "gue" = (
@@ -33621,7 +33637,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "bluecorner"
+	icon_state = "blue"
 	},
 /area/hallway/primary/central/north)
 "gFD" = (
@@ -39771,9 +39787,9 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluecorner"
+	icon_state = "deliveryblue"
 	},
 /area/hallway/primary/central/north)
 "hOK" = (
@@ -40770,7 +40786,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "blue"
+	icon_state = "bluecorner"
 	},
 /area/assembly/showroom)
 "hYI" = (
@@ -44656,8 +44672,8 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluecorner"
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/hallway/primary/central/north)
 "iKK" = (
@@ -48513,7 +48529,9 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
 /area/hallway/primary/central/north)
 "jvw" = (
 /obj/structure/disposalpipe/segment,
@@ -55695,6 +55713,11 @@
 	id_tag = "Singularity";
 	name = "Singularity Blast Doors"
 	},
+/obj/structure/cable/white{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58878,7 +58901,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "bluecorner"
+	icon_state = "blue"
 	},
 /area/hallway/primary/central/north)
 "luh" = (
@@ -60478,8 +60501,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluecorner"
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/hallway/primary/central/north)
 "lKv" = (
@@ -73604,7 +73627,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "bluecorner"
+	icon_state = "blue"
 	},
 /area/hallway/primary/central/north)
 "ooZ" = (
@@ -85611,7 +85634,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "bluecorner"
+	icon_state = "blue"
 	},
 /area/hallway/primary/central/north)
 "qHH" = (
@@ -89281,7 +89304,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "bluecorner"
+	icon_state = "bluefull"
 	},
 /area/hallway/primary/central/north)
 "rqP" = (
@@ -92750,6 +92773,26 @@
 	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
+"rZK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/cable/blue{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluefull"
+	},
+/area/hallway/primary/central/north)
 "rZZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -94115,7 +94158,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "bluefull"
+	icon_state = "bluecorner"
 	},
 /area/assembly/showroom)
 "spe" = (
@@ -95038,7 +95081,8 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/hallway/primary/central/north)
 "sAv" = (
@@ -103819,7 +103863,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
 /area/hallway/primary/central/north)
 "uit" = (
 /obj/structure/closet,
@@ -104800,8 +104847,8 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "blue"
+	dir = 4;
+	icon_state = "bluefull"
 	},
 /area/assembly/showroom)
 "urV" = (
@@ -107596,14 +107643,14 @@
 "uTR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "deliveryblue"
+	dir = 8;
+	icon_state = "blue"
 	},
 /area/assembly/showroom)
 "uTS" = (
@@ -110288,8 +110335,8 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluecorner"
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/hallway/primary/central/north)
 "vtd" = (
@@ -112289,7 +112336,7 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/hallway/primary/central/ne)
 "vKG" = (
@@ -113966,7 +114013,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/hallway/primary/central/ne)
 "waE" = (
@@ -117272,8 +117319,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluefull"
+	dir = 8;
+	icon_state = "blue"
 	},
 /area/assembly/showroom)
 "wHo" = (
@@ -123919,7 +123966,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "bluecorner"
+	icon_state = "bluefull"
 	},
 /area/hallway/primary/central/north)
 "xUw" = (
@@ -155217,7 +155264,7 @@ rap
 mvs
 fFs
 cpu
-bmQ
+gFN
 rho
 lFA
 wWj
@@ -158044,7 +158091,7 @@ aDF
 aDF
 gFv
 wkS
-fjm
+rwB
 rwB
 rwB
 rwB
@@ -158556,7 +158603,7 @@ mNI
 wPD
 oHC
 dIv
-loe
+bmQ
 kVm
 fjW
 pJn
@@ -159070,7 +159117,7 @@ qJO
 vyQ
 lGT
 bxd
-pIm
+rZK
 pKO
 hAr
 fET
@@ -160871,7 +160918,7 @@ abt
 uDj
 rqM
 kQB
-uTR
+jkv
 vNs
 nHB
 jkv
@@ -161128,7 +161175,7 @@ pZO
 wim
 dqd
 jvp
-fjm
+cXD
 qUB
 sWZ
 cXD
@@ -161384,7 +161431,7 @@ iTq
 efW
 aDF
 hOH
-tVu
+fjm
 jMr
 vaF
 rgP
