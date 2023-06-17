@@ -4293,7 +4293,6 @@
 /area/security/seceqstorage)
 "aVf" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/pink{
 	d1 = 4;
 	icon_state = "0-4"
@@ -4303,6 +4302,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "aVg" = (
@@ -5923,6 +5923,11 @@
 	icon_state = "delivery"
 	},
 /area/chapel/main)
+"blX" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/firedoor/heavy,
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry/south)
 "bme" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -10686,11 +10691,11 @@
 /area/hallway/secondary/entry/south)
 "cfn" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/pink{
 	d1 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "cfo" = (
@@ -10713,7 +10718,7 @@
 	})
 "cfC" = (
 /obj/effect/spawner/window/shuttle,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/north)
 "cfF" = (
@@ -11893,23 +11898,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "cpZ" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/cable/white{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Courtroom"
 	},
-/obj/structure/cable/blue{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "podfloor_dark"
-	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/obj/machinery/door/firedoor/heavy,
+/turf/simulated/floor/plating,
+/area/security/courtroomdandp)
 "cqc" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -13013,7 +13007,6 @@
 /area/medical/reception)
 "czN" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/pink{
 	d1 = 4;
 	icon_state = "0-4"
@@ -13028,6 +13021,7 @@
 	d2 = 10;
 	icon_state = "8-10"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "czU" = (
@@ -15799,7 +15793,6 @@
 	dir = 2;
 	id_tag = "heads_meeting"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue{
 	d2 = 8;
 	icon_state = "0-8"
@@ -15809,6 +15802,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "cZG" = (
@@ -19441,25 +19435,14 @@
 	},
 /area/chapel/main)
 "dMt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/door/airlock/external{
+	name = "Arrival Airlock"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/cable/blue{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluecorner"
+	icon_state = "delivery"
 	},
-/area/hallway/primary/central/north)
+/area/hallway/secondary/entry/north)
 "dMu" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -20582,11 +20565,11 @@
 /area/maintenance/fsmaint)
 "ebi" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/pink{
 	d1 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "ebn" = (
@@ -20798,7 +20781,7 @@
 /area/hallway/primary/central/sw)
 "ecT" = (
 /obj/effect/spawner/window/shuttle,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/nw)
 "ecU" = (
@@ -23075,7 +23058,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/green,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/east)
 "eAU" = (
@@ -23281,7 +23264,7 @@
 /area/medical/sleeper)
 "eDa" = (
 /obj/effect/spawner/window/shuttle,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/sw)
 "eDc" = (
@@ -24811,7 +24794,7 @@
 "eRF" = (
 /obj/effect/spawner/window/reinforced,
 /obj/effect/spawner/airlock,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/south)
 "eRT" = (
@@ -25847,7 +25830,7 @@
 "fbC" = (
 /obj/effect/spawner/window/reinforced,
 /obj/effect/spawner/airlock,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "fbR" = (
@@ -27016,6 +26999,7 @@
 	name = "Quarantine Lockdown";
 	id_tag = "Biohazard_medi"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/sw)
 "foo" = (
@@ -27140,13 +27124,13 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "heads_meeting"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue,
 /obj/structure/cable/blue{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "fpJ" = (
@@ -29754,11 +29738,11 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "heads_meeting"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue{
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "fQK" = (
@@ -31823,7 +31807,7 @@
 /area/hallway/primary/central/se)
 "gmp" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "gmw" = (
@@ -32156,7 +32140,7 @@
 /area/engine/lockerroom)
 "gpr" = (
 /obj/effect/spawner/window/shuttle,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/east)
 "gpx" = (
@@ -33436,7 +33420,7 @@
 "gDE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/green,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/east)
 "gDH" = (
@@ -35470,7 +35454,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/east)
 "gXo" = (
@@ -36390,7 +36374,7 @@
 /area/maintenance/fsmaint2)
 "hgk" = (
 /obj/effect/spawner/window/shuttle,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/se)
 "hgn" = (
@@ -37886,11 +37870,11 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "heads_meeting"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue{
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "huR" = (
@@ -38983,7 +38967,7 @@
 /area/security/courtroomdandp)
 "hEX" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
@@ -42907,7 +42891,6 @@
 /area/crew_quarters/heads/hop)
 "isB" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/pink{
 	d1 = 8;
 	icon_state = "0-8"
@@ -42917,6 +42900,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "isJ" = (
@@ -47136,13 +47120,13 @@
 	id_tag = "captainoffice";
 	name = "Privacy Shutters"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue,
 /obj/structure/cable/blue{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain)
 "jiB" = (
@@ -49714,7 +49698,7 @@
 /area/assembly/chargebay)
 "jGJ" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/ne)
 "jGK" = (
@@ -50295,7 +50279,7 @@
 /area/crew_quarters/heads/hop)
 "jMs" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/port/north)
 "jMv" = (
@@ -52941,11 +52925,11 @@
 	name = "Bridge Blast Doors";
 	id_tag = "bridge blast north"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge)
 "knD" = (
@@ -53161,6 +53145,7 @@
 	name = "Quarantine Lockdown";
 	id_tag = "Biohazard_medi"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "kpy" = (
@@ -53738,8 +53723,8 @@
 	id_tag = "captainoffice";
 	name = "Privacy Shutters"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain)
 "kud" = (
@@ -53938,7 +53923,6 @@
 /area/maintenance/storage)
 "kvO" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-2"
@@ -53948,6 +53932,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/east)
 "kvS" = (
@@ -54365,11 +54350,11 @@
 	dir = 2;
 	id_tag = "heads_meeting"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue{
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "kAw" = (
@@ -55545,18 +55530,9 @@
 	})
 "kMB" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable/green{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/cable/green{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
-/area/hallway/primary/central/east)
+/area/medical/reception)
 "kMC" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -56392,7 +56368,7 @@
 /area/maintenance/fsmaint2)
 "kVH" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/crew_quarters/courtroom)
 "kVN" = (
@@ -67807,7 +67783,6 @@
 	dir = 2;
 	id_tag = "heads_meeting"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue{
 	d2 = 8;
 	icon_state = "0-8"
@@ -67822,6 +67797,7 @@
 	d2 = 5;
 	icon_state = "4-5"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "nhD" = (
@@ -68283,10 +68259,10 @@
 	},
 /area/crew_quarters/dorms)
 "nnD" = (
-/obj/structure/table/wood/poker,
-/obj/item/dice/d6,
-/turf/simulated/floor/carpet/lone,
-/area/crew_quarters/bar/atrium)
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/firedoor/heavy,
+/turf/simulated/floor/plating,
+/area/hallway/primary/port)
 "nnH" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -68521,7 +68497,6 @@
 	name = "Bridge Blast Doors";
 	id_tag = "bridge blast north"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -68536,6 +68511,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge)
 "nqb" = (
@@ -69396,7 +69372,7 @@
 /area/maintenance/fsmaint2)
 "nyl" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/louge)
 "nyp" = (
@@ -72462,7 +72438,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/east)
 "oeu" = (
@@ -75003,7 +74979,6 @@
 	name = "Bridge Blast Doors";
 	id_tag = "bridge blast north"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -75018,6 +74993,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge)
 "oEP" = (
@@ -76607,7 +76583,7 @@
 /area/medical/virology/lab)
 "oSS" = (
 /obj/effect/spawner/window/shuttle,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/west)
 "oSU" = (
@@ -76678,11 +76654,11 @@
 	id_tag = "captainoffice";
 	name = "Privacy Shutters"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue{
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain)
 "oTW" = (
@@ -80528,18 +80504,25 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "pIm" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
 /obj/structure/cable/blue{
-	d1 = 1;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "podfloor_dark"
+	dir = 1;
+	icon_state = "bluecorner"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/hallway/primary/central/north)
 "pIt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -81423,7 +81406,7 @@
 /area/hallway/primary/starboard/north)
 "pRE" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "pRL" = (
@@ -83631,7 +83614,6 @@
 /area/medical/genetics)
 "qmY" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/pink{
 	d1 = 4;
 	icon_state = "0-4"
@@ -83641,6 +83623,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "qmZ" = (
@@ -90677,6 +90660,24 @@
 	icon_state = "long"
 	},
 /area/security/main)
+"rEt" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/cable/white{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "podfloor_dark"
+	},
+/area/engine/supermatter{
+	name = "\improper Engine Containment"
+	})
 "rEu" = (
 /obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel{
@@ -93960,7 +93961,7 @@
 /area/bridge)
 "snS" = (
 /obj/effect/spawner/window/shuttle,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/ne)
 "snX" = (
@@ -98962,10 +98963,10 @@
 	},
 /area/maintenance/apmaint)
 "tnw" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
-/area/hallway/primary/port)
+/obj/structure/table/wood/poker,
+/obj/item/dice/d6,
+/turf/simulated/floor/carpet/lone,
+/area/crew_quarters/bar/atrium)
 "tny" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -99269,7 +99270,6 @@
 /area/hallway/primary/central/south)
 "tqp" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/pink{
 	d1 = 8;
 	icon_state = "0-8"
@@ -99284,6 +99284,7 @@
 	d2 = 9;
 	icon_state = "8-9"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "tqu" = (
@@ -100394,8 +100395,8 @@
 	name = "Bridge Blast Doors";
 	id_tag = "bridge blast north"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/yellow,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge)
 "tAV" = (
@@ -106188,11 +106189,11 @@
 	dir = 2;
 	id_tag = "heads_meeting"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "uFa" = (
@@ -106489,9 +106490,9 @@
 /area/crew_quarters/servicehall)
 "uIZ" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
-/area/maintenance/storage)
+/area/hallway/secondary/entry/north)
 "uJb" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -109063,6 +109064,19 @@
 	icon_state = "long"
 	},
 /area/hallway/primary/starboard/north)
+"vgs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "podfloor_dark"
+	},
+/area/engine/supermatter{
+	name = "\improper Engine Containment"
+	})
 "vgw" = (
 /obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
@@ -109954,7 +109968,6 @@
 /area/turret_protected/aisat_interior)
 "vpv" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/green{
 	d1 = 1;
 	d2 = 2;
@@ -109969,6 +109982,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/east)
 "vpx" = (
@@ -112452,7 +112466,6 @@
 	id_tag = "captainoffice";
 	name = "Privacy Shutters"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue,
 /obj/structure/cable/blue{
 	d1 = 1;
@@ -112464,6 +112477,7 @@
 	d2 = 9;
 	icon_state = "1-9"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain)
 "vMm" = (
@@ -112551,7 +112565,6 @@
 /area/maintenance/maintcentral2)
 "vMS" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	name = "Bridge Blast Doors";
 	id_tag = "bridge blast west"
@@ -112560,6 +112573,7 @@
 	id_tag = "heads_meeting"
 	},
 /obj/structure/cable/blue,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "vMU" = (
@@ -114941,11 +114955,11 @@
 /area/aisat/service)
 "wjM" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/pink{
 	d1 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "wjQ" = (
@@ -118040,7 +118054,7 @@
 /area/crew_quarters/fitness)
 "wNV" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/nw)
 "wOn" = (
@@ -120349,13 +120363,13 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "heads_meeting"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue,
 /obj/structure/cable/blue{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "xkk" = (
@@ -122189,7 +122203,6 @@
 	dir = 2;
 	id_tag = "heads_meeting"
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/blue{
 	d2 = 4;
 	icon_state = "0-4"
@@ -122199,6 +122212,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "xCi" = (
@@ -131771,7 +131785,7 @@ fBi
 fBi
 fBi
 fBi
-jKG
+pRE
 nnp
 dHK
 ulB
@@ -132028,7 +132042,7 @@ fBi
 fBi
 fBi
 fBi
-jKG
+pRE
 sGS
 wxL
 mxx
@@ -132285,7 +132299,7 @@ fBi
 fBi
 fBi
 wxL
-jKG
+pRE
 vAY
 wxL
 wxL
@@ -137196,15 +137210,15 @@ fBi
 fBi
 iyO
 fBi
-ezx
+blX
 twE
-ezx
+blX
 fBi
 iyO
 fBi
-ezx
+blX
 jZl
-ezx
+blX
 fBi
 iyO
 fBi
@@ -137440,8 +137454,8 @@ kOy
 xgc
 lPq
 qhX
-kff
-kff
+uIZ
+uIZ
 qhX
 fBi
 fBi
@@ -137449,20 +137463,20 @@ fBi
 fBi
 fBi
 qhX
-kff
-kff
+uIZ
+uIZ
 xRz
-ezx
-ezx
+blX
+blX
 hLB
-ezx
-ezx
+blX
+blX
 xRz
-ezx
-ezx
+blX
+blX
 hLB
-ezx
-ezx
+blX
+blX
 xRz
 fBi
 fBi
@@ -137700,11 +137714,11 @@ dtK
 pWg
 pCZ
 qhX
-kff
-kff
-kff
-kff
-kff
+uIZ
+uIZ
+uIZ
+uIZ
+uIZ
 qhX
 sCi
 pWg
@@ -137720,8 +137734,8 @@ avI
 iVq
 avI
 ouI
-ezx
-ezx
+blX
+blX
 eRF
 uhN
 fBi
@@ -138234,9 +138248,9 @@ ylo
 feI
 lRe
 hgn
-ezx
-ezx
-ezx
+blX
+blX
+blX
 uhN
 scF
 scF
@@ -138471,11 +138485,11 @@ dtK
 vIE
 vIE
 qhX
-kff
-kff
-kff
-kff
-kff
+uIZ
+uIZ
+uIZ
+uIZ
+uIZ
 qhX
 uPL
 vIE
@@ -138491,7 +138505,7 @@ sDW
 dIP
 ppb
 whI
-ezx
+blX
 fBi
 fBi
 vgg
@@ -138725,8 +138739,8 @@ lPq
 xgc
 lPq
 qhX
-kff
-kff
+uIZ
+uIZ
 qhX
 fBi
 fBi
@@ -138734,8 +138748,8 @@ fBi
 fBi
 fBi
 qhX
-kff
-kff
+uIZ
+uIZ
 xRz
 hjd
 pnD
@@ -138981,7 +138995,7 @@ pWg
 aPz
 ilE
 mnI
-kff
+uIZ
 fBi
 fBi
 fBi
@@ -138993,7 +139007,7 @@ fBi
 fBi
 fBi
 fBi
-ezx
+blX
 eUs
 vKZ
 fBH
@@ -139238,7 +139252,7 @@ vjw
 vaM
 ilE
 ePe
-kff
+uIZ
 fBi
 fBi
 fBi
@@ -139250,7 +139264,7 @@ wOt
 fBi
 fBi
 fBi
-ezx
+blX
 hRB
 ifk
 nvy
@@ -139752,7 +139766,7 @@ ykq
 rdN
 vFn
 ePe
-kff
+uIZ
 fBi
 fBi
 fBi
@@ -139764,7 +139778,7 @@ wOt
 fBi
 fBi
 fBi
-ezx
+blX
 jxI
 eUW
 hgn
@@ -140009,7 +140023,7 @@ xYp
 lBP
 rfa
 oKi
-kff
+uIZ
 fBi
 fBi
 wOt
@@ -140021,7 +140035,7 @@ wOt
 wOt
 fBi
 fBi
-ezx
+blX
 eUs
 bAG
 gOe
@@ -140266,9 +140280,9 @@ qhX
 smv
 olG
 dtK
-kff
-kff
-kff
+uIZ
+uIZ
+uIZ
 wOt
 qSJ
 sQg
@@ -140276,9 +140290,9 @@ sQg
 sQg
 sQg
 wOt
-ezx
-ezx
-ezx
+blX
+blX
+blX
 avI
 csx
 hgn
@@ -140497,8 +140511,8 @@ oMV
 uQq
 mXc
 gQS
-cpZ
-pIm
+rEt
+vgs
 dZp
 kEF
 bsL
@@ -140525,7 +140539,7 @@ rsZ
 gKu
 gnG
 gnG
-gKu
+dMt
 bYq
 rZk
 lUb
@@ -140781,8 +140795,8 @@ mZd
 fPF
 dtK
 dtK
-kff
-kff
+uIZ
+uIZ
 wOt
 azP
 rZk
@@ -140790,8 +140804,8 @@ rZk
 rZk
 ptj
 wOt
-ezx
-ezx
+blX
+blX
 avI
 avI
 eab
@@ -141038,7 +141052,7 @@ smv
 ahy
 rLR
 nXa
-kff
+uIZ
 fBi
 wOt
 qHw
@@ -141048,7 +141062,7 @@ lUb
 leb
 wOt
 fBi
-ezx
+blX
 shH
 wZn
 bAG
@@ -141295,7 +141309,7 @@ vTE
 gUn
 lYC
 rTC
-kff
+uIZ
 fBi
 fML
 pmi
@@ -141305,7 +141319,7 @@ rZk
 sQg
 fML
 fBi
-ezx
+blX
 fRM
 lRe
 bAG
@@ -141552,7 +141566,7 @@ fnM
 jFV
 vXo
 cmJ
-kff
+uIZ
 fBi
 fML
 nfu
@@ -141562,7 +141576,7 @@ lUb
 sQg
 fML
 fBi
-ezx
+blX
 dHW
 lRe
 bAG
@@ -141809,7 +141823,7 @@ qtI
 hTa
 gQu
 mKg
-kff
+uIZ
 fBi
 wOt
 ccG
@@ -141819,7 +141833,7 @@ rZk
 dJB
 wOt
 fBi
-ezx
+blX
 liQ
 qwS
 bAG
@@ -142066,8 +142080,8 @@ wjz
 olG
 dtK
 dtK
-kff
-kff
+uIZ
+uIZ
 wOt
 xTB
 lUb
@@ -142075,8 +142089,8 @@ lUb
 lUb
 eum
 wOt
-ezx
-ezx
+blX
+blX
 avI
 avI
 hbk
@@ -142324,7 +142338,7 @@ rsZ
 gKu
 gnG
 gnG
-gKu
+dMt
 jdU
 sQg
 sQg
@@ -142579,9 +142593,9 @@ qhX
 smv
 fPF
 dtK
-kff
-kff
-kff
+uIZ
+uIZ
+uIZ
 wOt
 wOt
 cZa
@@ -142589,9 +142603,9 @@ cZa
 cZa
 wOt
 wOt
-ezx
-ezx
-ezx
+blX
+blX
+blX
 avI
 eab
 vYb
@@ -143672,7 +143686,7 @@ fBi
 fBi
 fBi
 fBi
-oel
+kMB
 ehy
 iZN
 mCQ
@@ -143929,7 +143943,7 @@ fBi
 fBi
 fBi
 fBi
-oel
+kMB
 bms
 isu
 dsb
@@ -144701,7 +144715,7 @@ fBi
 fBi
 fBi
 fBi
-oel
+kMB
 tYP
 viC
 jkt
@@ -144958,7 +144972,7 @@ fBi
 fBi
 fBi
 fBi
-oel
+kMB
 tYP
 dsb
 rxd
@@ -146500,7 +146514,7 @@ fBi
 fBi
 fBi
 fBi
-oel
+kMB
 tYP
 dsb
 tsq
@@ -146757,7 +146771,7 @@ fBi
 fBi
 fBi
 fBi
-oel
+kMB
 tYP
 aEn
 tnb
@@ -147527,7 +147541,7 @@ fBi
 fBi
 fBi
 fBi
-oel
+kMB
 eix
 isu
 fIa
@@ -147784,7 +147798,7 @@ fBi
 fBi
 fBi
 fBi
-oel
+kMB
 nrz
 aWk
 tRp
@@ -152103,24 +152117,24 @@ fBi
 unS
 unS
 unS
-tnw
-tnw
-tnw
-tnw
+nnD
+nnD
+nnD
+nnD
 ubO
-tnw
-tnw
-tnw
-tnw
+nnD
+nnD
+nnD
+nnD
 ubO
-tnw
-tnw
-tnw
-tnw
+nnD
+nnD
+nnD
+nnD
 ubO
-tnw
-tnw
-tnw
+nnD
+nnD
+nnD
 jwN
 jwN
 kGx
@@ -152140,11 +152154,11 @@ viT
 kVH
 kVH
 uQt
-hwu
-hwu
+cpZ
+cpZ
 uQt
-hwu
-hwu
+cpZ
+cpZ
 uQt
 uQt
 fBi
@@ -152607,7 +152621,7 @@ cpU
 iwB
 gFe
 ngE
-uIZ
+ndx
 fBi
 fBi
 fBi
@@ -152864,7 +152878,7 @@ nRz
 iwB
 paH
 ivn
-uIZ
+ndx
 fBi
 fBi
 fBi
@@ -153121,7 +153135,7 @@ iwB
 iwB
 hcs
 slW
-uIZ
+ndx
 fBi
 fBi
 fBi
@@ -153378,7 +153392,7 @@ jho
 pmz
 nUh
 slW
-uIZ
+ndx
 fBi
 fBi
 fBi
@@ -153635,7 +153649,7 @@ uvE
 xML
 fQK
 aOE
-uIZ
+ndx
 fBi
 fBi
 fBi
@@ -153892,7 +153906,7 @@ uaJ
 tBn
 wLY
 inl
-uIZ
+ndx
 fBi
 fBi
 fBi
@@ -159056,7 +159070,7 @@ qJO
 vyQ
 lGT
 bxd
-dMt
+pIm
 pKO
 hAr
 fET
@@ -162654,7 +162668,7 @@ dVk
 nte
 hlW
 sLa
-dMt
+pIm
 pHD
 vaF
 dwr
@@ -167307,7 +167321,7 @@ yfN
 xhp
 plG
 sGs
-nnD
+tnw
 mqr
 bmL
 hwc
@@ -171926,7 +171940,7 @@ tYD
 scx
 scx
 gXm
-kMB
+kvO
 kvO
 vpv
 fEk
