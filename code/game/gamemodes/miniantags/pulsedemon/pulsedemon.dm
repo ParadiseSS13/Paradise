@@ -153,7 +153,7 @@
 	else
 		forceMove(current_power)
 	update_glow()
-	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 50, TRUE)
+	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 30, TRUE)
 	give_spells()
 
 /mob/living/simple_animal/pulse_demon/proc/deleted_handler(src, force)
@@ -251,7 +251,7 @@
 	var/heavy_radius = min(charge / 50000, 20)
 	var/light_radius = min(charge / 25000, 25)
 	empulse(T, heavy_radius, light_radius)
-	playsound(T, pick(hurt_sounds), 50, TRUE)
+	playsound(T, pick(hurt_sounds), 30, TRUE)
 
 /mob/living/simple_animal/pulse_demon/proc/exit_to_turf()
 	var/turf/T = get_turf(src)
@@ -334,7 +334,7 @@
 		current_power = new_power
 		current_cable = null
 		forceMove(current_power) // we go inside the machine
-		playsound(src, 'sound/effects/eleczap.ogg', 50, TRUE)
+		playsound(src, 'sound/effects/eleczap.ogg', 30, TRUE)
 		do_sparks(rand(2, 4), FALSE, src)
 		if(isapc(current_power))
 			if(current_power in hijacked_apcs)
@@ -363,7 +363,7 @@
 	var/turf/T = get_turf(src)
 	var/turf/T2 = get_step(T, dir)
 	if(demon.can_exit_cable || locate(/obj/structure/cable) in T2)
-		playsound(src, 'sound/effects/eleczap.ogg', 50, TRUE)
+		playsound(src, 'sound/effects/eleczap.ogg', 30, TRUE)
 		do_sparks(rand(2, 4), FALSE, src)
 		user.forceMove(T)
 		if(isapc(src))
@@ -517,7 +517,7 @@
 
 	create_log(SAY_LOG, "[message_mode ? "([message_mode])" : ""] '[message]'")
 
-	playsound(get_turf(src), pick(speech_sounds), 50, TRUE)
+	playsound(get_turf(src), pick(speech_sounds), 30, TRUE)
 	if(istype(loc, /obj/item/radio))
 		var/obj/item/radio/R = loc
 		name = gen_speech_name()
@@ -663,7 +663,7 @@
 /mob/living/simple_animal/pulse_demon/emp_act(severity)
 	. = ..()
 	visible_message("<span class ='danger'>[src] [pick("fizzles", "wails", "flails")] in anguish!</span>")
-	playsound(get_turf(src), pick(hurt_sounds), 50, TRUE)
+	playsound(get_turf(src), pick(hurt_sounds), 30, TRUE)
 	throw_alert(ALERT_CATEGORY_NOREGEN, /obj/screen/alert/pulse_noregen)
 	switch(severity)
 		if(EMP_LIGHT)
