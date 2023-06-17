@@ -187,12 +187,20 @@
 			update_glow()
 
 /mob/living/simple_animal/pulse_demon/forceMove(atom/destination)
+	var/old = loc
 	. = ..()
 	current_weapon = null
 	current_robot = null
 	if(current_bot)
 		current_bot.hijacked = FALSE
 	current_bot = null
+	if(old && istype(old, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = old
+		// only set rigged if there are no remaining demons in the cell
+		C.rigged = !(locate(/mob/living/simple_animal/pulse_demon) in old)
+	if(loc && istype(loc, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = loc
+		C.rigged = FALSE
 
 /mob/living/simple_animal/pulse_demon/proc/give_objectives()
 	if(!mind)

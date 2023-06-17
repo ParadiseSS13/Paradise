@@ -76,9 +76,8 @@
 // recharge the cell
 /obj/item/stock_parts/cell/proc/give(amount)
 	if(rigged && amount > 0)
-		if(!((locate(/mob/living/simple_animal/pulse_demon) in src) && istype(loc, /obj/machinery/cell_charger)))
-			explode()
-			return 0
+		explode()
+		return 0
 	if(maxcharge < amount)
 		amount = maxcharge
 	var/power_used = min(maxcharge - charge, amount)

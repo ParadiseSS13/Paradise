@@ -276,9 +276,10 @@
 			for(var/mob/living/simple_animal/pulse_demon/demon in cell)
 				demon.forceMove(src)
 				demon.current_power = src
-				if(cell.rigged) // first come first serve
+				if(!being_hijacked) // first come first serve
 					demon.try_hijack_apc(src)
-					cell.rigged = FALSE // don't blow the demon up
+			if(being_hijacked)
+				cell.rigged = FALSE // don't blow the demon up
 
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [name]!",\

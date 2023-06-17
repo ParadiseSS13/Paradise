@@ -165,7 +165,6 @@
 /mob/living/simple_animal/pulse_demon/proc/finish_hijack_cell_charger(obj/machinery/cell_charger/C)
 	to_chat(src, "<span class='notice'>You are now inside [C.charging]. Click on a hijacked APC to return.</span>")
 	forceMove(C.charging)
-	C.charging.rigged = TRUE
 
 /obj/machinery/recharge_station/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
 	user.forceMove(src)

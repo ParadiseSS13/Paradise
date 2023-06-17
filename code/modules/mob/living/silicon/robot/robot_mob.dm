@@ -796,12 +796,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			C.brute_damage = 0
 			C.electronics_damage = 0
 
+			var/been_hijacked = FALSE
 			for(var/mob/living/simple_animal/pulse_demon/demon in cell)
-				if(cell.rigged)
+				if(!been_hijacked)
 					demon.do_hijack_robot(src)
-					cell.rigged = FALSE
+					been_hijacked = TRUE
 				else
 					demon.exit_to_turf()
+			if(been_hijacked)
+				cell.rigged = FALSE
 
 			module?.update_cells()
 			diag_hud_set_borgcell()
