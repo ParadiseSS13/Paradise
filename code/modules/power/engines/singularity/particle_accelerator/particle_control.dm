@@ -224,6 +224,7 @@
 	data["assembled"] = assembled
 	data["power"] = active
 	data["strength"] = strength
+	data["max_strength"] = strength_upper_limit
 	return data
 
 /obj/machinery/particle_accelerator/control_box/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

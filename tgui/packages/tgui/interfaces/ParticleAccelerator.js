@@ -38,14 +38,14 @@ export const ParticleAccelerator = (props, context) => {
             <LabeledList.Item label="Strength">
               <Button
                 icon="backward"
-                disabled={!assembled}
+                disabled={!assembled || strength === 0}
                 onClick={() => act('remove_strength')} />
               <Box px="5px>
                   {strength}
               </Box>
               <Button
                 icon="forward"
-                disabled={!assembled}
+                disabled={!assembled || strength === max_strength}
                 onClick={() => act('add_strength')} />
             </LabeledList.Item>
           </LabeledList>
