@@ -5,6 +5,7 @@
 	icon_state = "table2-idle"
 	density = TRUE
 	anchored = TRUE
+	interact_offline = TRUE
 	idle_power_consumption = 1
 	active_power_consumption = 5
 	can_buckle = TRUE // you can buckle someone if they have cuffs
