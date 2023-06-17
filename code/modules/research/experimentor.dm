@@ -30,6 +30,8 @@
 	var/list/item_reactions = list()
 	var/list/valid_items = list() //valid items for special reactions like transforming
 	var/list/critical_items = list() //items that can cause critical reactions
+	var/list/blocked_items = list(/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath,
+									/obj/item/reagent_containers/food/drinks/bottle/immortality)
 	/// Used for linking with rnd consoles
 	var/range = 5
 
@@ -40,6 +42,7 @@
 	return temp_list
 
 /obj/machinery/r_n_d/experimentor/proc/SetTypeReactions()
+	var/blocked_items_typecache = typecacheof(blocked_items)
 	var/probWeight = 0
 	for(var/I in typesof(/obj/item))
 		if(istype(I,/obj/item/relic)) //does istype even work here
@@ -55,9 +58,10 @@
 
 		if(ispath(I,/obj/item/reagent_containers/food))
 			var/obj/item/tempCheck = I
-			if(initial(tempCheck.icon_state) != null) //check it's an actual usable item, in a hacky way
-				valid_items += rand(1,max(2,35-probWeight))
-				valid_items += I
+			if(!(I in blocked_items))
+				if(initial(tempCheck.icon_state) != null) //check it's an actual usable item, in a hacky way
+					valid_items += rand(1,max(2,35-probWeight))
+					valid_items += I
 
 		if(ispath(I,/obj/item/rcd) || ispath(I,/obj/item/grenade) || ispath(I,/obj/item/aicard) || ispath(I,/obj/item/storage/backpack/holding) || ispath(I,/obj/item/slime_extract) || ispath(I,/obj/item/onetankbomb) || ispath(I,/obj/item/transfer_valve))
 			var/obj/item/tempCheck = I
