@@ -1,0 +1,32 @@
+name: 'Generate Changelog'
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate_changelog:
+    permissions:
+      contents: write  # for Git to git push
+    name: 'Generate Changelog'
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Update Branch'
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 1000
+
+    - name: 'Install Dependencies'
+      run: pip3 install GitPython
+
+    - name: 'Generate Changelog'
+      run: 'python3 tools/changelog/gen_changelog.py'
+
+    - name: 'Commit Changelog'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "Changelog Generation"
+        git add html/changelogs/archive/\*.yml
+        git commit -m "Automatic changelog generation"
+        git push
