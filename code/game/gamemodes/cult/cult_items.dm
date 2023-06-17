@@ -338,8 +338,9 @@
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
 		var/turf/turf_behind = get_turf(get_step(T, turn(C.dir, 180)))
-		pulled.forceMove(turf_behind)
-		. = pulled
+		if(!pulled.anchored)
+			pulled.forceMove(turf_behind)
+			. = pulled
 
 /obj/item/cult_shift/attack_self(mob/user)
 
