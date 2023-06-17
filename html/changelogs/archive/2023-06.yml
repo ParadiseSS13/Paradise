@@ -67,6 +67,7 @@
   captainnelly:
   - add: new mime clothes (#2930)
   - tweak: disable sentience potion for gigant spider-nurse (#2931)
+  - bugfix: mime clothings (#2958)
 '2023-06-09':
   FindingHeMo:
   - add: 22 types of soap (#2933)
@@ -81,8 +82,6 @@
   - bugfix: Stack Weight Class Fix (#2960)
   - bugfix: Welding Goggles Correct Tint Update (#2962)
   - bugfix: PDA Drop and Mining Satchel Fix (#2965)
-  captainnelly:
-  - bugfix: mime clothings (#2958)
   Сиротка:
   - bugfix: borgo GPS upgrade (#2945)
   - tweak: Syndie lockermech (#2943)
@@ -140,3 +139,28 @@
   - bugfix: Stop Xenos From Catching Disallowed Items (#2991)
   mqopi:
   - add: box with spare tapes for magistrate, IIA (#2986)
+'2023-06-16':
+  NightDawnFox:
+  - add: brains description show player status (#2939)
+  Vladisvell:
+  - tweak: Thunderdome for ghosts, patch 1 (#3004)
+  Zwei:
+  - bugfix: Hancuff icon update (#3001)
+  aeternaclose:
+  - add: CereImprovement-pt2 (#2994)
+  captainnelly:
+  - tweak: disable legion core heal not on lavaland (#2969)
+  - tweak: armblade buff (#2997)
+  Сиротка:
+  - tweak: NV helmet not really give nightvision (#2995)
+'2023-06-17':
+  Dimach:
+  - add: changelog generation action (#3022)
+  - bugfix: changelog bot token (#3023)
+  Rerik007:
+  - add: ants caltrop component (#3006)
+  - add: mirrors can reflect projs (#3007)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3011)
+  Сиротка:
+  - bugfix: Undestructiable Cryopod and Freezer (#3013)

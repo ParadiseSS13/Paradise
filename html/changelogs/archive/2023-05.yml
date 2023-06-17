@@ -47,13 +47,22 @@
   - bugfix: Morph Open Vent Range Fix (#2767)
   - bugfix: No Insta Sleep For Unathi (#2765)
 '2023-05-05':
-  Daeberdir:
-  - bugfix: 'reagent id for #2144. (#2781)'
-  Rerik007:
-  - bugfix: missing wooden bucket sprite (#2785)
-'2023-05-06':
   ArtemDerp:
   - add: add shredders and office toys on maps (#2709)
+  Daeberdir:
+  - bugfix: 'reagent id for #2144. (#2781)'
+  ItsMeJaba:
+  - bugfix: ussp alarm on atmospherics console (#2778)
+  Rerik007:
+  - bugfix: missing wooden bucket sprite (#2785)
+  SAAD:
+  - refactor: Shuttles not take space/lava/chasms with them on transit (#2624)
+  Vladisvell:
+  - bugfix: 'Mecha directional protection fix + ADD: take_damage attack direction
+      (#2783)'
+  Zwei:
+  - bugfix: Mecha Facing Check (#2763)
+'2023-05-06':
   Bizzonium:
   - add: bump ubuntu-20.04 to ubuntu-22.04 in workflows
   - add: update rust_g from 1.0.4-ss220 to 1.2.0-ss220
@@ -63,41 +72,30 @@
   - bugfix: libssl1.1:i386 on Ubuntu 22.04 (4th try)
   - bugfix: libssl1.1:i386 on Ubuntu 22.04 (5th try)
   - server: Implement map tests for catching common errors (ParadiseSS13#19204)
-  - server: GitHub action to check for DMI5 (ParadiseSS13#17881)
   - add: Launch all maps on CI
+  - server: GitHub action to check for DMI5 (ParadiseSS13#17881)
   - add: Add CI script for verifying tickedness of files
   - add: miltibuild on CI
-  Dimach:
-  - bugfix: shuttle camera now point to first docking port if exists, and on observer
-      start otherwise (#2793)
-  - refactor: byond 515 proc references compat (#2790)
-  ItsMeJaba:
-  - bugfix: ussp alarm on atmospherics console (#2778)
-  SAAD:
-  - refactor: Shuttles not take space/lava/chasms with them on transit (#2624)
-  Vladisvell:
-  - bugfix: 'Mecha directional protection fix + ADD: take_damage attack direction
-      (#2783)'
-  - bugfix: Healer Guardian doesn't heal. (#2789)
-  Zwei:
-  - bugfix: Mecha Facing Check (#2763)
-  github-actions[bot]:
-  - server: Automatic NanoMap Update (#2792)
-'2023-05-07':
-  Bizzonium:
   - tweak: disable multibuild
   - bugfix: remove unticked files
   - bugfix: ooc tag icon
   Dimach:
+  - bugfix: shuttle camera now point to first docking port if exists, and on observer
+      start otherwise (#2793)
+  - refactor: byond 515 proc references compat (#2790)
   - bugfix: adminzone level space area (#2796)
   - bugfix: cerestation grille (#2797)
   - bugfix: remove broken icon (#2798)
   NightDawnFox:
   - tweak: correct hook chain display time (#2788)
+  Vladisvell:
+  - bugfix: Healer Guardian doesn't heal. (#2789)
+  - bugfix: God summoning message grammar  (#2787)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#2792)
+'2023-05-07':
   Rerik007:
   - bugfix: all donuts have initial icon (#2804)
-  Vladisvell:
-  - bugfix: God summoning message grammar  (#2787)
   captainnelly:
   - tweak: add unathi to ashwalker (#2801)
   - bugfix: unathi sprites (#2799)
@@ -108,6 +106,7 @@
   - bugfix: Slaving AI via Borg Panel (#2806)
   Dimach:
   - bugfix: Bedokur holder icon (#2815)
+  - bugfix: Bedokur inhands icon (#2816)
   Honker9999999:
   - add: add honkputer craft (#2803)
   ItsMeJaba:
@@ -120,9 +119,6 @@
   - tweak: RnD illegal researches designs (#2794)
   - tweak: plasmaman diet (#2807)
   - tweak: terrorspider balance patch (#2795)
-'2023-05-09':
-  Dimach:
-  - bugfix: Bedokur inhands icon (#2816)
 '2023-05-10':
   BeebBeebBoob:
   - tweak: Clockwork patch (Cogscarab, Marauder, Beacon) (#2811)
@@ -139,19 +135,13 @@
   captainnelly:
   - add: blobbernaut ignore lack of gravity (#2812)
   - add: asclepius rod translation (#2810)
-'2023-05-12':
+'2023-05-11':
   Albonix:
   - tweak: Better color layer laying for cloak (#2762)
-  Bizzonium:
-  - add: 'new TTS voices: LOL (11), Skyrim (2), Hearthstone (19)'
   Daeberdir:
   - add: QM drip (#2784)
   - bugfix: pet holders devouring. (#2824)
   - bugfix: Bioguardian text correction. (#2825)
-  Den109G:
-  - bugfix: thermite effect (#2820)
-  Dimach:
-  - bugfix: Cloak fix front sprite (#2838)
   Rerik007:
   - bugfix: paper_bundle fire (#2823)
   Vladisvell:
@@ -161,6 +151,13 @@
       (#2829)
   Сиротка:
   - tweak: sort fabricator designs (#2821)
+'2023-05-12':
+  Bizzonium:
+  - add: 'new TTS voices: LOL (11), Skyrim (2), Hearthstone (19)'
+  Den109G:
+  - bugfix: thermite effect (#2820)
+  Dimach:
+  - bugfix: Cloak fix front sprite (#2838)
 '2023-05-15':
   Daeberdir:
   - bugfix: infinity feeding and sound loc logic on "item_eat" proc. (#2852)
@@ -194,13 +191,13 @@
   Daeberdir:
   - bugfix: emagged sybil typo. (#2862)
 '2023-05-17':
+  LiquidPotroh:
+  - add: Xenomorph Up (#2818)
   Zwei:
   - add: Xenomorph Queen Mech Resistant (#2859)
   aeternaclose:
   - add: Cere improvement (#2835)
 '2023-05-18':
-  LiquidPotroh:
-  - add: Xenomorph Up (#2818)
   NightDawnFox:
   - add: health bar now less accurate when painkiller in blood (#2819)
   Pavel Lysenko:
@@ -223,19 +220,18 @@
       (#2860)
   - add: Cheaper paintkits (#2868)
 '2023-05-20':
-  Bizzonium:
-  - bugfix: show blob messages in journalctl in deploy action
-  Zwei:
-  - bugfix: Adjacency Check For Storage Insertion (#2873)
-'2023-05-21':
   Aziz Chynaliev:
   - del: Adjacency Check For Storage Insertion" (#2876)
+  Bizzonium:
+  - bugfix: show blob messages in journalctl in deploy action
   LiquidPotroh:
   - add: Piercing viral injector (#2874)
   Rerik007:
   - bugfix: morph invisibility (#2872)
   Vladisvell:
   - add: add Pneumatic Rifle (#2864)
+  Zwei:
+  - bugfix: Adjacency Check For Storage Insertion (#2873)
   Сиротка:
   - tweak: Mech buff p.1 (#2856)
   - tweak: Mech buff p3. Rover (#2869)
