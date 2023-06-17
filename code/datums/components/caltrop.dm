@@ -5,12 +5,14 @@
 	var/flags
 
 	var/cooldown = 0
+	var/list/protected_species = list()
 
-/datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100,  _flags = NONE)
+/datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100,  _flags = NONE, _protected_species = list())
 	min_damage = _min_damage
 	max_damage = max(_min_damage, _max_damage)
 	probability = _probability
 	flags = _flags
+	protected_species = _protected_species
 
 	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED), PROC_REF(Crossed))
 
@@ -25,6 +27,9 @@
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if(PIERCEIMMUNE in H.dna.species.species_traits)
+			return
+
+		if(H.dna.species.name in protected_species)
 			return
 
 		if(!(flags & CALTROP_BYPASS_WALKERS) && H.m_intent == MOVE_INTENT_WALK)

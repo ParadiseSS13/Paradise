@@ -70,3 +70,7 @@
 	var/scale = (rand(2, 10) / 10) + (rand(0, 5) / 100)
 	transform = matrix(transform, scale, scale, MATRIX_SCALE)
 	setDir(pick(NORTH, SOUTH, EAST, WEST))
+
+/obj/effect/decal/ants/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/caltrop, 5, 5, 100, CALTROP_BYPASS_WALKERS, list("Kidan", "Wryn"))
