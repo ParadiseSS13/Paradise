@@ -40,9 +40,9 @@ export const ParticleAccelerator = (props, context) => {
                 icon="backward"
                 disabled={!assembled}
                 onClick={() => act('remove_strength')} />
-              {' '}
-              {String(strength).padStart(1, '0')}
-              {' '}
+              <Box px="5px>
+                  {strength}
+              </Box>
               <Button
                 icon="forward"
                 disabled={!assembled}
