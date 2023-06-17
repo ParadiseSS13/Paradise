@@ -42,7 +42,6 @@
 	return temp_list
 
 /obj/machinery/r_n_d/experimentor/proc/SetTypeReactions()
-	var/blocked_items_typecache = typecacheof(blocked_items)
 	var/probWeight = 0
 	for(var/I in typesof(/obj/item))
 		if(istype(I,/obj/item/relic)) //does istype even work here
