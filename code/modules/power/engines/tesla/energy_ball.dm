@@ -110,19 +110,21 @@
 		find_the_basket()
 		return
 	else
-		var/turf/target_turf = pick(where_to_move)
+		var/list/target_area_turfs = get_area_turfs(where_to_move)
+		var/turf/target_turf = pick(target_area_turfs)
+		message_admins("The turf is [target_turf]")
 		for(var/i in 0 to 8)
-			var/movement_dir = get_dir(src, target_turf)
-			var/turf/T = get_step(src, movement_dir)
-			forceMove(T)
+			var/movement_dir = get_dir(src,target_turf)
+			step(src,movement_dir)
 			for(var/mob/living/carbon/C in loc)
 				dust_mobs(C)
 
 /obj/singularity/energy_ball/proc/find_the_basket()
-	var/turf/where_to_move = findEventArea()
+	var/area/where_to_move = findEventArea()
 	message_admins("The target is [where_to_move]")
 	has_a_target = 1
 	return
+
 
 /obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
