@@ -51,7 +51,9 @@
 		. = ..()
 
 /mob/living/simple_animal/hostile/illusion/proc/fake_huds()
-	if(!parent_mob || !ishuman(parent_mob))
+	if(SSticker.current_state != GAME_STATE_PLAYING)
+		return
+	if(!ishuman(parent_mob))
 		return
 	var/mob/living/carbon/human/H = parent_mob
 	var/image/holder = hud_list[ID_HUD]
@@ -64,18 +66,17 @@
 		holder2.icon_state = null
 	for(var/obj/item/implant/I in H)
 		if(I.implanted)
-			if(istype(I,/obj/item/implant/tracking))
+			if(istype(I, /obj/item/implant/tracking))
 				holder2 = hud_list[IMPTRACK_HUD]
 				holder2.icon_state = "hud_imp_tracking"
-			else if(istype(I,/obj/item/implant/mindshield))
+			else if(istype(I, /obj/item/implant/mindshield))
 				holder2 = hud_list[IMPMINDSHIELD_HUD]
 				holder2.icon_state = "hud_imp_loyal"
-			else if(istype(I,/obj/item/implant/chem))
+			else if(istype(I, /obj/item/implant/chem))
 				holder2 = hud_list[IMPCHEM_HUD]
 				holder2.icon_state = "hud_imp_chem"
 	var/image/holder3 = hud_list[WANTED_HUD]
 	var/perpname = H.get_visible_name(TRUE) //gets the name of the perp, works if they have an id or if their face is uncovered
-	if(!SSticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R)
