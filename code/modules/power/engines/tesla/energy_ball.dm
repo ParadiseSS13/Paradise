@@ -111,10 +111,15 @@
 		return
 	else
 		var/list/target_area_turfs = get_area_turfs(where_to_move)
-		var/turf/target_turf = pick(target_area_turfs)
-		message_admins("The turf is [target_turf]")
+		message_admins("[target_area_turfs]")
+		while(length(target_area_turfs))
+			var/turf/candidate = pick_n_take(target_area_turfs)
+			if(!is_blocked_turf(candidate,TRUE))
+				var/turf/target_turf = candidate
+				break
 		for(var/i in 0 to 8)
 			var/movement_dir = get_dir(src,target_turf)
+			message_admins("The move dir is [movement_dir]")
 			step(src,movement_dir)
 			for(var/mob/living/carbon/C in loc)
 				dust_mobs(C)
