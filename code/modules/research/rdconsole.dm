@@ -499,12 +499,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return TRUE
 
 		// You should only be able to link if its not linked, to prevent weirdness
-		#warn zlevel lock this
 		if("linktonetworkcontroller")
 			if(network_manager_uid)
 				return
 			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
 			if(istype(C, /obj/machinery/computer/rnd_network_controller))
+				if(!atoms_share_level(C, src))
+					return
 				var/user_pass = input(usr, "Please enter network password", "Password Entry")
 				// Check the password
 				if(user_pass == C.network_password)
@@ -842,7 +843,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		var/list/controllers = list()
 		for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
-			controllers += list(list("addr" = RNC.UID(), "net_id" = RNC.network_name))
+			if(atoms_share_level(RNC, src))
+				controllers += list(list("addr" = RNC.UID(), "net_id" = RNC.network_name))
 		data["controllers"] = controllers
 
 		return data
