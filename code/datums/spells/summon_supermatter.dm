@@ -10,6 +10,5 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter/cast(list/targets, mob/living/user = usr)
 	var/list/summoned_objects = ..()
-	to_chat(world, "[length(summoned_objects)]")
 	for(var/obj/machinery/atmospherics/supermatter_crystal/our_crystal in summoned_objects)
 		addtimer(CALLBACK(our_crystal, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, manual_start), 3000), 3 SECONDS)
