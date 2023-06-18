@@ -27,6 +27,7 @@ jobs:
           tools/ci/check_json.sh
           tools/ci/build_tgui.sh
           python3 tools/ci/check_grep2.py
+          tools/bootstrap/python -m tools.maplint.source --github
           python3 tools/ci/check_line_endings.py
           python3 tools/ci/check_file_names.py
           python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
