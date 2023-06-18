@@ -22,15 +22,19 @@ jobs:
         run: |
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
+      - uses: actions/setup-python@v4
+        with:
+          cache: 'pip'
+      - run: pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
           tools/ci/check_json.sh
           tools/ci/build_tgui.sh
-          python3 tools/ci/check_grep2.py
-          tools/bootstrap/python -m tools.maplint.source --github
-          python3 tools/ci/check_line_endings.py
-          python3 tools/ci/check_file_names.py
-          python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/check_grep2.py
+          python -m tools.maplint.source --github
+          python tools/ci/check_line_endings.py
+          python tools/ci/check_file_names.py
+          python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
       - name: Annotate Lints
         uses: yogstation13/DreamAnnotate@v2
