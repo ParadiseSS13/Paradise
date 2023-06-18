@@ -32,10 +32,10 @@ jobs:
           tools/ci/check_json.sh
           tools/ci/build_tgui.sh
           python tools/ci/check_grep2.py
-          python -m tools.maplint.source --github
           python tools/ci/check_line_endings.py
           python tools/ci/check_file_names.py
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
+          python -m tools.maplint.source --github
           ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
       - name: Annotate Lints
         uses: yogstation13/DreamAnnotate@v2
