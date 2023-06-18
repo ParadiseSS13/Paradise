@@ -382,10 +382,6 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
-"bD" = (
-/obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior,
-/turf/simulated/wall/mineral/plastitanium,
-/area/shuttle/syndicate)
 "bE" = (
 /obj/machinery/optable/abductor,
 /turf/simulated/floor/plating/abductor,
@@ -4590,6 +4586,9 @@
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"qa" = (
+/turf/simulated/wall/r_wall,
+/area/space)
 "qb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -5105,6 +5104,15 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"rP" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -28
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "rQ" = (
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -5384,6 +5392,10 @@
 /area/syndicate_mothership)
 "tf" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/syndicate)
+"tg" = (
+/obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
 "tj" = (
 /obj/structure/flora/bush,
@@ -11339,15 +11351,6 @@
 /obj/machinery/pdapainter,
 /turf/simulated/floor/wood,
 /area/centcom/control)
-"RN" = (
-/obj/machinery/light/spot{
-	dir = 8
-	},
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -28
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "RO" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -13460,21 +13463,21 @@ aN
 aN
 aN
 aN
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-am
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
 aN
 aN
 aN
@@ -13717,21 +13720,21 @@ aN
 aN
 aN
 aN
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
 aN
 aN
 aN
@@ -13988,7 +13991,7 @@ rE
 rE
 rE
 rE
-rE
+am
 aN
 aN
 aN
@@ -15266,7 +15269,7 @@ rE
 rE
 rE
 rE
-ad
+rE
 rE
 rE
 rE
@@ -15780,7 +15783,7 @@ rE
 rE
 rE
 rE
-rE
+ad
 rE
 rE
 rE
@@ -17315,21 +17318,21 @@ ck
 ck
 ck
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
 aN
 aN
 aN
@@ -17572,21 +17575,21 @@ ck
 ck
 ck
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
 aN
 aN
 aN
@@ -17829,21 +17832,21 @@ ck
 ck
 ck
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
 aN
 aN
 aN
@@ -18086,21 +18089,21 @@ ck
 ck
 ck
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
 aN
 aN
 aN
@@ -59236,7 +59239,7 @@ tf
 KY
 tP
 ub
-bD
+tg
 KY
 KY
 KY
@@ -59480,13 +59483,13 @@ lA
 lQ
 KX
 KX
-bD
+tg
 nx
 gx
 gx
 gx
 gx
-RN
+rP
 KX
 KX
 KX
@@ -59994,7 +59997,7 @@ lA
 lS
 KX
 mH
-bD
+tg
 nA
 iS
 iS
@@ -60264,7 +60267,7 @@ tf
 KY
 tT
 ue
-bD
+tg
 KY
 KY
 KY

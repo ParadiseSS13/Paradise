@@ -66,7 +66,7 @@
 	name = "Holo Strecher"
 	desc = "A hardlight projector for transporting patients."
 	id = "holo_stretcher"
-	req_tech = list("magnets" = 6, "powerstorage" = 4)
+	req_tech = list("magnets" = 5, "powerstorage" = 4)
 	build_path = /obj/item/roller/holo
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
@@ -334,7 +334,7 @@
 
 /datum/design/cyberimp_toolset
 	name = "Toolset Arm Implant"
-	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm."
+	desc = "A stripped-down version of an engineering cyborg toolset, designed to be installed on subject's arm."
 	id = "ci-toolset"
 	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4, "powerstorage" = 4)
 	build_type = PROTOLATHE | MECHFAB
@@ -365,15 +365,15 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/botanical
 	category = list("Medical")
 
-/datum/design/cyberimp_hacking
-	name = "Hacking Arm Implant"
-	desc = "A small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
+/datum/design/cyberimp_toolset_abductor
+	name = "Abductor Toolset Implant"
+	desc = "An alien toolset, designed to be installed on subject's arm."
 	id = "ci-hacking"
-	req_tech = list("materials" = 3, "engineering" = 5, "biotech" = 4, "programming" = 4, "abductor" = 4)
+	req_tech = list("materials" = 6, "engineering" = 6, "plasmatech" = 6, "abductor" = 4)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
 	construction_time = 200
-	build_path = /obj/item/organ/internal/cyberimp/arm/hacking
+	build_path = /obj/item/organ/internal/cyberimp/arm/toolset_abductor
 	category = list("Medical")
 
 /datum/design/cyberimp_diagnostic_hud

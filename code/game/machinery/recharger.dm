@@ -231,6 +231,9 @@
 	else
 		recharge_cell(C, RECHARGER_POWER_USAGE_MISC)
 
+	if(!check_cell_needs_recharging(C)) // we recharged cell, does it still need power? If no, recharger should blink yellow
+		return FALSE
+
 	return TRUE
 
 /obj/machinery/recharger/examine(mob/user)

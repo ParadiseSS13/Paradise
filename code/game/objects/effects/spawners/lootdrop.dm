@@ -82,6 +82,7 @@
 				/obj/item/stack/cable_coil = 40,
 				/obj/item/stack/cable_coil{amount = 5} = 60,
 				/obj/item/stack/medical/bruise_pack/advanced = 10,
+				/obj/item/stack/medical/ointment/advanced = 10,
 				/obj/item/stack/rods{amount = 10} = 80,
 				/obj/item/stack/rods{amount = 23} = 20,
 				/obj/item/stack/rods{amount = 50} = 10,

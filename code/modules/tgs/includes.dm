@@ -13,5 +13,9 @@
 
 #include "v5\_v5_defines.dm"
 #include "v5\v5_api.dm"
+#include "v5\v5_bridge.dm"
+#include "v5\v5_chunking.dm"
 #include "v5\v5_commands.dm"
+#include "v5\v5_serializers.dm"
+#include "v5\v5_topic.dm"
 #include "v5\v5_undefs.dm"

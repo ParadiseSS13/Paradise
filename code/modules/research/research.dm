@@ -85,6 +85,8 @@ research holder datum.
 //Checks to see if design has all the required pre-reqs.
 //Input: datum/design; Output: 0/1 (false/true)
 /datum/research/proc/DesignHasReqs(datum/design/D)
+	if(D.id in blacklisted_designs)
+		return FALSE
 	if(D.req_tech.len == 0)
 		return TRUE
 	for(var/req in D.req_tech)
@@ -105,6 +107,8 @@ research holder datum.
 
 /datum/research/proc/CanAddDesign2Known(datum/design/D)
 	if (D.id in known_designs)
+		return FALSE
+	if(D.id in blacklisted_designs)
 		return FALSE
 	return TRUE
 
@@ -127,6 +131,8 @@ research holder datum.
 		if(DesignHasReqs(PD))
 			if(!AddDesign2Known(PD))
 				stack_trace("Game attempted to add a null design to list of known designs! Design: [PD] with ID: [PD.id]")
+	if(length(blacklisted_designs)) //No need to run this unless there are blacklisted designs
+		known_designs -= blacklisted_designs
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
 		T.level = clamp(T.level, 0, 20)
@@ -161,6 +167,12 @@ research holder datum.
 // Arguments:
 // `other` - The research datum to send designs and techs to
 /datum/research/proc/push_data(datum/research/other)
+	other.blacklisted_designs += (blacklisted_designs - other.blacklisted_designs)
+	for(var/v in unblacklisted_designs)
+		blacklisted_designs -= v
+		other.blacklisted_designs -= v
+		unblacklisted_designs -= v
+		other.unblacklisted_designs += v //Needed so the main rnd console actually removes the rest of the blacklists in the fucking world
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
 		other.AddTech2Known(T)

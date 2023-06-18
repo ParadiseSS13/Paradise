@@ -407,7 +407,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_GLASS_TABLES)
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 100)
 	var/list/debris = list()
 	var/shardtype = /obj/item/shard
 
@@ -511,7 +511,7 @@
 	max_integrity = 100
 	integrity_failure = 50
 	deconstruction_ready = FALSE
-	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, RAD = 0, FIRE = 80, ACID = 70)
 	smoothing_groups = list(SMOOTH_GROUP_REINFORCED_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_REINFORCED_TABLES)
 
@@ -707,7 +707,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_REINFORCED_TABLES)
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, RAD = 0, FIRE = 80, ACID = 70)
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
@@ -763,6 +763,7 @@
 	icon_state = "tray"
 	buildstack = /obj/item/stack/sheet/mineral/titanium
 	buildstackamount = 2
+	pull_speed = 0
 	var/list/typecache_can_hold = list(/mob, /obj/item)
 	var/list/held_items = list()
 
@@ -805,8 +806,8 @@
 		var/mob/living/M = user
 		if(M.UID() in held_items)
 			return FALSE
-	return ..()	
-	
+	return ..()
+
 /obj/structure/table/tray/item_placed(atom/movable/item)
 	. = ..()
 	if(is_type_in_typecache(item, typecache_can_hold))
@@ -815,7 +816,7 @@
 			var/mob/living/M = item
 			if(M.pulling == src)
 				M.stop_pulling()
-			
+
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
