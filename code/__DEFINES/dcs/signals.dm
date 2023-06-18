@@ -347,6 +347,8 @@
 #define COMSIG_MOB_THROW "mob_throw"
 ///called when a user willingly drops something (i.e. keybind, or UI action)
 #define COMSIG_MOB_WILLINGLY_DROP "mob_willingly_drop"
+///called when a user is getting new weapon and we want to remove previous weapon to clear hands
+#define COMSIG_MOB_WEAPON_APPEARS "mob_weapon_appears"
 ///from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_EXAMINATE "mob_examinate"
 ///from base of /mob/update_sight(): ()
