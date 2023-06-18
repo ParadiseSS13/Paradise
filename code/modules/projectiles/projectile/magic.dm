@@ -182,10 +182,12 @@
 
 		var/mob/living/new_mob
 		var/briefing_msg
+		var/is_new_mind = FALSE
 
 		var/randomize = pick("РОБОТ", "СЛАЙМ", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ")
 		switch(randomize)
 			if("РОБОТ")
+				is_new_mind = TRUE
 				var/path
 				if(prob(30))
 					path = pick(typesof(/mob/living/silicon/robot/syndicate))
@@ -214,11 +216,13 @@
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
 			if("СЛАЙМ")
+				is_new_mind = TRUE
 				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
 				new_mob.universal_speak = TRUE
 
 				briefing_msg = "Вы простой, не отличающийся сообразительностью, слайм. Основная ваша задача - выживать, питаться, расти и делиться."
 			if("КСЕНОМОРФ")
+				is_new_mind = TRUE
 				if(prob(50))
 					new_mob = new /mob/living/carbon/alien/humanoid/hunter(M.loc)
 				else
@@ -230,6 +234,7 @@
 				Прежде всего вам лучше обнаружить других себеподобных, готовить место для возможного улья и верить, \
 				что однажды ваш рой возглавит королева."
 			if("ЖИВОТНОЕ")
+				is_new_mind = TRUE
 				if(prob(50))
 					var/beast = pick("carp","bear","mushroom","statue", "bat", "goat", "tomato")
 					switch(beast)
@@ -293,14 +298,20 @@
 					A.species = get_random_species(TRUE)
 					A.copy_to(new_mob)
 					randomize = H.dna.species.name
-
-					briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
-					но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
+					if(ishuman(M))
+						briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
+						но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
+					else
+						is_new_mind = TRUE
+						briefing_msg = "Вы превратились в разумного гуманоида, знакомым с устройством мира и НТ."
 				else
 					new_mob = new /mob/living/carbon/human/lesser/monkey(M.loc)
-
-					briefing_msg = "Вы разумная мартышка, вам хоть и хочется бананов, \
-					но у вас по прежнему память о своей прошлой жизни..."
+					if(ishuman(M))
+						briefing_msg = "Вы разумная мартышка, вам хоть и хочется бананов, \
+						но у вас по прежнему память о своей прошлой жизни..."
+					else
+						is_new_mind = TRUE
+						briefing_msg = "Вы разумная мартышка, и вам хочется бананов."
 
 			else
 				return
@@ -310,12 +321,18 @@
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)
 			M.mind.transfer_to(new_mob)
+			if(is_new_mind)
+				new_mob.mind.wipe_memory()
+				if(briefing_msg)
+					new_mob.mind.store_memory(briefing_msg)
 		else
 			new_mob.key = M.key
 
-		to_chat(new_mob, "<span class='danger'><FONT size = 5><B>ТЕПЕРЬ ВЫ [uppertext(randomize)].</B></FONT></span>")
+		if(is_new_mind)
+			to_chat(new_mob, span_danger("Вы потеряли свою личность и память! Отыгрывайте новое существо!"))
+		to_chat(new_mob, span_danger("ТЕПЕРЬ ВЫ [uppertext(randomize)]"))
 		if(briefing_msg)
-			to_chat(new_mob, "<B>[briefing_msg]</B>")
+			to_chat(new_mob, span_notice("[briefing_msg]"))
 
 		qdel(M)
 		return new_mob
