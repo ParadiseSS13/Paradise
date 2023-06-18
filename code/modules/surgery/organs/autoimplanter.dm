@@ -14,11 +14,12 @@
 /obj/item/autoimplanter/attack_self(mob/user)//when the object it used...
 	if(!storedorgan)
 		to_chat(user, "<span class='notice'>[src] currently has no implant stored.</span>")
-		return
+		return FALSE
 	storedorgan.insert(user)//insert stored organ into the user
 	user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your body.</span>")
 	playsound(get_turf(user), usesound, 50, 1)
 	storedorgan = null
+	return TRUE
 
 /obj/item/autoimplanter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/organ/internal/cyberimp))
@@ -68,3 +69,22 @@
 /obj/item/autoimplanter/oneuse/mantisblade/l
 	name = "autoimplanter(mantis blade left)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
+
+/obj/item/autoimplanter/traitor
+	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. This model is capable of implanting up to three implants before destroing."
+	var/uses = 3
+
+/obj/item/autoimplanter/traitor/attack_self(mob/user)
+	if(!..())
+		return
+	uses--
+	if(uses == 0)
+		user.drop_from_active_hand()
+		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		qdel(src)
+
+/obj/item/autoimplanter/traitor/examine(mob/user)
+	. = ..()
+	if(uses)
+		. += "<span class = 'notice'>There are [uses] uses left.</span>"
