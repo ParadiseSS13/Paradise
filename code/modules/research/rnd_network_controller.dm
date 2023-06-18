@@ -30,6 +30,28 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 	research_files = new
 	network_password = GenerateKey()
 
+	// Make sure that name isnt already in use
+	if(network_name)
+		network_name = trim(network_name)
+
+		if(NameCheck(network_name))
+			var/myuid = UID()
+			stack_trace("[src] at [x],[y],[z] tried to init with a network name of [network_name] when its already in use. Name has been randomised to [myuid]")
+			network_name = myuid
+
+	if(!network_name)
+		network_name = UID()
+
+/obj/machinery/computer/rnd_network_controller/proc/NameCheck(pending_name)
+	var/list/all_names = list()
+
+	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+		if(RNC == src)
+			continue
+		all_names += RNC.network_name
+
+	return (pending_name in all_names)
+
 /obj/machinery/computer/rnd_network_controller/Destroy()
 	GLOB.rnd_network_managers -= src
 
@@ -150,8 +172,14 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 		// Set network name
 		if("network_name")
 			var/new_name = input(usr, "Please enter a new network ID", "Network ID", network_name)
-			if(!Adjacent(usr))
+			if(!Adjacent(usr) || !new_name)
 				return
+
+			new_name = trim(new_name)
+			if(NameCheck(new_name))
+				to_chat(usr, "<span class='warning'>Error, network name <code>[new_name]</code> already in use.</span>")
+				return
+
 			to_chat(usr, "<span class='notice'>Network name changed from <code>[network_name]</code> to <code>[new_name]</code>.</span>")
 			network_name = new_name
 
@@ -239,5 +267,3 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 
 /obj/machinery/computer/rnd_network_controller/golems
 	network_name = "golems_rnd"
-
-#warn AA todo - need a UI showing connected servers, fabricators, consoles, and aux machines (chem consumer, etc)
