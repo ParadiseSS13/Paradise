@@ -6,7 +6,7 @@
 	step_in = 5
 	max_integrity = 500
 	deflect_chance = 25
-	armor = list(MELEE = 50, BULLET = 55, LASER = 40, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 60, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 55, LASER = 40, ENERGY = 30, BOMB = 30, RAD = 60, FIRE = 100, ACID = 100)
 	max_temperature = 60000
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	infra_luminosity = 3
@@ -52,7 +52,7 @@
 	initial_icon = "ares"
 	operation_req_access = list(ACCESS_SECURITY)
 	max_integrity = 450
-	armor = list(melee = 50, bullet = 40, laser = 20, energy = 20, bomb = 20, bio = 100, rad = 60, fire = 100, acid = 100)
+	armor = list(melee = 50, bullet = 40, laser = 20, energy = 20, bomb = 20, rad = 60, fire = 100, acid = 100)
 	max_temperature = 40000
 	wreckage = /obj/structure/mecha_wreckage/ares
 	max_equip = 5

@@ -163,10 +163,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Highly Visible and Dangerous Weapons"
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol"
+	name = "FK-69 Pistol Kit"
 	reference = "SPI"
-	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
-	item = /obj/item/gun/projectile/automatic/pistol
+	desc = "A box containing a small, easily concealable handgun and two eight-round magazines chambered in 10mm auto rounds. Compatible with suppressors."
+	item = /obj/item/storage/box/syndie_kit/stechkin
 	cost = 4
 
 /datum/uplink_item/dangerous/revolver
@@ -318,6 +318,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "RSG"
 	item = /obj/item/gun/syringe/rapidsyringe/preloaded/half
 	cost = 8
+
+/datum/uplink_item/stealthy_weapons/poisonbottle
+	name = "Poison Bottle"
+	desc = "The Syndicate will ship a bottle containing 40 units of a randomly selected poison. The poison can range from highly irritating to incredibly lethal."
+	reference = "TPB"
+	item = /obj/item/reagent_containers/glass/bottle/traitor
+	cost = 2
 
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Universal Suppressor"
@@ -536,7 +543,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
 			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
 			but if that emergency teleport fails, it will kill you. \
-			Has 4 charges, recharges, warranty voided if exposed to EMP."
+			Has 4 charges, recharges, warranty voided if exposed to EMP. \
+			Comes with free chameleon mesons, to help you stay stylish while seeing through walls."
 	reference = "TELE"
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 8

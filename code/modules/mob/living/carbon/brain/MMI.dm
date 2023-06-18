@@ -272,7 +272,7 @@
 // As a synthetic, the only limit on visibility is view range
 /obj/item/mmi/contents_ui_distance(src_object, mob/living/user)
 	. = ..()
-	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
+	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.maxview())
 		return STATUS_INTERACTIVE	// interactive (green visibility)
 	return user.shared_living_ui_distance()
 
