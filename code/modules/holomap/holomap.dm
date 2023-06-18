@@ -4,6 +4,9 @@
 	then show an icon like YouAreHere there
 */
 
+///this will hold images rendered at roundstart
+GLOBAL_LIST_EMPTY(holomaps)
+
 /obj/machinery/holomap
 	name = "Holomap"
 	desc = "It displays a holographic map of the station."
@@ -12,23 +15,41 @@
 	anchored = TRUE
 	idle_power_consumption = 5
 	active_power_consumption = 15
-	var/display_map //for mappers who want to add holomaps for off station locations, otherwise it gets set in Initialize()
+	///this is so you can have holomap display other zlevels, default is the one its on
+	var/zlevel_rendered
+	//for mappers who want to add holomaps for off station locations, otherwise it defaults to the entire zlevel in Initialize()
+	//use sparingly, dont make regions different only by a few values, just make it a single one across both instances (they are very costly to make and store)
+	///should be a list {start x, start y, end x, end y} start should be bottom left corner; end should be top right... everything inside gets rendered (out of 255)
+	var/list/region_selection = list(1,1,255,255)
+	///this holds all the people it is currently displaying to
 	var/list/display_targets = list()
-	var/image/holomap_projection
+	///this is set in Initialize with the correct offsets of the machine's position in the zlevel
 	var/image/YouAreHere
+	//this is the conditioned icon from the cache that will be displayed to users
+	var/image/holomap_projection
 
 /obj/machinery/holomap/Initialize(mapload)
 	. = ..()
-	if(!display_map)
-		display_map = SSmapping.map_datum.technical_name
-	var/icon/base_icon = make_map()
-	var/icon/alpha_mask = icon('icons/effects/480x480.dmi', "scanline") //Scanline effect.
-	base_icon.AddAlphaMask(alpha_mask)
+
+	zlevel_rendered = z
+
+	var/icon/base_icon
+	var/icon_key = "[zlevel_rendered]_[region_selection[1]]-[region_selection[2]]-[region_selection[3]]-[region_selection[4]]"
+
+	if(GLOB.holomaps[icon_key])
+		base_icon = GLOB.holomaps[icon_key]
+	else
+		base_icon = make_map()
+		var/icon/alpha_mask = icon('icons/effects/480x480.dmi', "scanline") //Scanline effect.
+		base_icon.AddAlphaMask(alpha_mask)
+		GLOB.holomaps[icon_key] = base_icon
+
 	holomap_projection = image(base_icon, loc = src, layer = ABOVE_HUD_PLANE, pixel_x = -240, pixel_y = -240)
 	holomap_projection.plane = ABOVE_HUD_PLANE
-	holomap_projection.filters = filter(type = "drop_shadow", size = 8, color = "#ffffff65")
+	holomap_projection.filters = filter(type = "drop_shadow", size = 8, color = "#ffffffd4")
 	YouAreHere = image('icons/effects/holomap_icons.dmi', src, "YouAreHere", 22.1 , 2, -256+(x*2), -256+(y*2))
-	YouAreHere.plane = 22.1
+	YouAreHere.plane = ABOVE_HUD_PLANE + 0.1
+	CHECK_TICK //hopefully Im using this correctly
 
 /obj/machinery/holomap/attack_hand(mob/user)
 	. = ..()
@@ -42,7 +63,7 @@
 	if(emagged)
 		var/mob/living/carbon/M = user
 		M.flash_eyes(2, 1)
-	if(locate(user) in display_targets)
+	if(user in display_targets)
 		stopdisplaymap(user)
 	else
 		displaymap(user)
@@ -50,18 +71,18 @@
 /obj/machinery/holomap/proc/displaymap(mob/M)
 	if(!M.client)
 		return
-	display_targets.Add(M)
+	display_targets |= M
 	M.client.images += YouAreHere
 	M.client.images += holomap_projection
 	update_icon()
 	if(do_after(M, 5 MINUTES, FALSE, src, FALSE))
-		atom_say("Maximum display time reached, shutting down session.")
+		atom_say("<span class='warning'>Maximum display time reached, shutting down session.</span>")
 		stopdisplaymap(M)
 	else
 		stopdisplaymap(M)
 
 /obj/machinery/holomap/proc/stopdisplaymap(mob/user)
-	display_targets.Remove(user)
+	display_targets -= user
 	user.client.images -= holomap_projection
 	user.client.images -= YouAreHere
 	update_icon()
@@ -92,52 +113,156 @@
 
 /obj/machinery/holomap/proc/make_map()
 	var/icon/bigassicon = icon('icons/effects/480x480.dmi',"blank")
-	for(var/x_index in 1 to 240)
-		for(var/y_index in 1 to 240)
-			var/turf/T = locate(x_index, y_index, 2)
-			var/area/A = get_area(T)
-			var/icon_to_use = 'icons/effects/holomap_parts.dmi'
-			var/icon_state_to_use
-			var/dir_to_use = 2
-			var/list/directions_to_aliens = list()
+	/*
+		We're using a 480x480 icon since thats 15x15 32x32 tiles (default view range)
+		Since maps aren't that (they are 255x255) the compromise is defaulting to render
+		starting from [9,9] up to [248,248] which is the center portion of the map with
+		a border of 8 tiles that get culled. This can be changed with `region_selection`;
+		Any region larger than 240 will have its edges culled to fit, regardless of the
+		region size it will be centered in the `bigassicon`. Happy Viewing.
+	*/
+	var/region_width = (region_selection[3] - region_selection[1]) + 1
+	var/region_height = (region_selection[4] - region_selection[2]) + 1
 
-			if(isfloorturf(T) && !locate(/obj/structure/window) in T)
+	var/region_x_start = (region_width > 240) ? 9 : region_selection[1]
+	var/region_y_start = (region_height > 240) ? 9 : region_selection[2]
+
+	var/region_x_finish = (region_width > 240) ? region_x_start + 239 : region_selection[3]
+	var/region_y_finish = (region_width > 240) ? region_y_start + 239 : region_selection[4]
+
+	var/render_x_start = 128 - (region_width / 2)
+	var/render_y_start = 128 - (region_height / 2)
+
+	var/icon_to_use = 'icons/effects/holomap_parts.dmi'
+
+	for(var/x_index in region_x_start to region_x_finish)
+		for(var/y_index in region_y_start to region_y_finish)
+			var/turf/T = locate(x_index, y_index, zlevel_rendered)
+			var/area/A = get_area(T)
+
+			/*
+				This works by using 2x2 sprites from 'icons/effects/holomap_parts.dmi' to construct the holomap;
+				We use different colors that we will swap later on for floors and walls (BLACK-->floor;WHITE-->wall)
+				The walls can either be a full 2x2 pixel box, 1x2 pixel wall, or a 3/4 pixel corner depending on their surroundings...
+				All the following logic is to determine what icon to use.
+			*/
+			//this is what all the logic is for, setting this variable
+			var/icon_state_to_use
+			//as well as this since it modifies the wall sprite
+			var/dir_to_use = 2
+			//this will store the directions that we find alien areas (areas that arent the one we are in)
+			//walls will go along the outside edges of areas where possible as a 1 pixel wide border
+			var/list/directions_to_aliens = list()
+			//this is for interior walls so they can get rendered nicely
+			var/list/directions_to_solids = list()
+
+			if(isfloorturf(T) && !(locate(/obj/structure/window) in T))
 				icon_state_to_use = "floor"
 
-			else if(iswallturf(T) || istype(T, /turf/simulated/mineral) || locate(/obj/structure/window) in T)
-				var/list/cardinals = list(NORTH, SOUTH, EAST, WEST)
-				var/number_of_solid_turfs_neighbors = 0
+			else if(iswallturf(T) || istype(T, /turf/simulated/mineral) || (locate(/obj/structure/window) in T))
+				//this will be a flag so we can skip the logic that runs for interior walls as soon as we know we are bordering space (dont need to set direction on a 2x2)
 				var/space_found = FALSE
+				//we default to 2x2 sprite here since lone walls or walls that run through the middle of areas shouldnt be 1 wide and directional
 				icon_state_to_use = "full"
-				for(var/i in 1 to 4)
-					var/turf/found_turf = get_step(T, cardinals[i])
+
+				//time to check whats around us
+				for(var/i in GLOB.cardinal)
+					var/turf/found_turf = get_step(T, i)
 					var/area/found_area = get_area(found_turf)
+
 					if(found_area == /area/space || isspaceturf(found_turf))
-						icon_state_to_use = "full" //repeated since we might have set it to be "wall" already
+						//if the area borders space then it will be represented as a 2x2 pixel box
+						icon_state_to_use = "full"
 						space_found = TRUE
 						break
-					if(found_area != A || locate(/obj/machinery/door/airlock) in found_turf)
+
+					if(found_area != A || (locate(/obj/machinery/door/airlock) in found_turf))
+						//this makes walls that border doorways have cornered appearences (looks nice)
 						icon_state_to_use = "wall"
-						directions_to_aliens += cardinals[i] //this will work right... surely
+						directions_to_aliens += i
 
-					if(iswallturf(found_turf) || istype(found_turf, /turf/simulated/mineral) || locate(/obj/structure/window) in found_turf)
-						number_of_solid_turfs_neighbors++
-
-				if(number_of_solid_turfs_neighbors >= 3)
-					icon_state_to_use = "full"
-					space_found = TRUE
+					if(iswallturf(found_turf) || istype(found_turf, /turf/simulated/mineral) || (locate(/obj/structure/window) in found_turf))
+						directions_to_solids += i
 
 				if(!space_found)
+					if((locate(/obj/structure/window) in T) && length(directions_to_aliens) == 0)
+						message_admins("sadfsdf")
+					//only if we still havent determined to be a full 2x2 will we do all the costly checks
 					switch(length(directions_to_aliens))
 						if(0)
-							icon_state_to_use = "full"
+							icon_state_to_use = "wall"
+							switch(length(directions_to_solids))
+								if(0)
+									icon_state_to_use = "full"
+								if(1)
+									dir_to_use = (directions_to_solids[1] == NORTH || directions_to_solids[1] == SOUTH) ? WEST : NORTH
+								if(2)
+									if((directions_to_solids[1] == NORTH && directions_to_solids[2] == SOUTH) || (directions_to_solids[1] == SOUTH && directions_to_solids[2] == NORTH))
+										dir_to_use = WEST
+									else if((directions_to_solids[1] == EAST && directions_to_solids[2] == WEST) || (directions_to_solids[1] == WEST && directions_to_solids[2] == EAST))
+										dir_to_use = NORTH
+									else
+										if(directions_to_solids[1] == NORTH)
+											if(directions_to_solids[2] == EAST)
+												dir_to_use = SOUTHWEST
+											else
+												dir_to_use = SOUTHEAST
+										else if(directions_to_solids[1] == SOUTH)
+											if(directions_to_solids[2] == EAST)
+												dir_to_use = NORTHWEST
+											else
+												dir_to_use = NORTHEAST
+										else if(directions_to_solids[1] == EAST)
+											if(directions_to_solids[2] == NORTH)
+												dir_to_use = SOUTHWEST
+											else
+												dir_to_use = NORTHWEST
+										else
+											if(directions_to_solids[2] == NORTH)
+												dir_to_use = SOUTHEAST
+											else
+												dir_to_use = NORTHEAST
+								if(3)
+									if(!(locate(NORTH) in directions_to_solids))
+										dir_to_use = NORTHWEST
+									else if(!(locate(SOUTH) in directions_to_solids))
+										dir_to_use = NORTH
+									else if(!(locate(EAST) in directions_to_solids))
+										dir_to_use = WEST
+									else
+										dir_to_use = NORTHWEST
+								if(4 to INFINITY)
+									icon_state_to_use = "full"
 						if(1)
-							dir_to_use = directions_to_aliens[1]
+							if(length(directions_to_solids))
+								switch(directions_to_aliens[1])
+									if(NORTH)
+										if(locate(SOUTH) in directions_to_solids)
+											dir_to_use = NORTHWEST
+										else
+											dir_to_use = directions_to_aliens[1]
+									if(SOUTH)
+										if(locate(NORTH) in directions_to_solids)
+											dir_to_use = SOUTHWEST
+										else
+											dir_to_use = directions_to_aliens[1]
+									if(EAST)
+										if(locate(WEST) in directions_to_solids)
+											dir_to_use = NORTHEAST
+										else
+											dir_to_use = directions_to_aliens[1]
+									if(WEST)
+										if(locate(EAST) in directions_to_solids)
+											dir_to_use = NORTHWEST
+										else
+											dir_to_use = directions_to_aliens[1]
+							else
+								dir_to_use = directions_to_aliens[1]
 						if(2)
 							if((directions_to_aliens[1] == NORTH && directions_to_aliens[2] == SOUTH) || (directions_to_aliens[1] == SOUTH && directions_to_aliens[2] == NORTH))
-								dir_to_use = NORTH
+								dir_to_use = WEST
 							else if((directions_to_aliens[1] == EAST && directions_to_aliens[2] == WEST) || (directions_to_aliens[1] == WEST && directions_to_aliens[2] == EAST))
-								dir_to_use = EAST
+								dir_to_use = NORTH
 							else
 								if(directions_to_aliens[1] == NORTH)
 									if(directions_to_aliens[2] == EAST)
@@ -149,7 +274,7 @@
 										dir_to_use = SOUTHEAST
 									else
 										dir_to_use = SOUTHWEST
-								else if(directions_to_aliens[1] == EAST )
+								else if(directions_to_aliens[1] == EAST)
 									if(directions_to_aliens[2] == NORTH)
 										dir_to_use = NORTHEAST
 									else
@@ -164,20 +289,19 @@
 						if(4)
 							icon_state_to_use = "full"
 
-			else //if its space then nothing
+			else //if its actually space then nothing need be rendered
 				continue
 
+			//finally we can create the icon we are gonna use
 			var/icon/I = icon(icon_to_use, icon_state_to_use, dir_to_use)
 
+			//replace the black and white with the appropriate colors of the area
 			I.SwapColor(COLOR_WHITE, get_area_color(A))
 			I.SwapColor(COLOR_BLACK, get_area_color(A, TRUE))
 
-			bigassicon.Blend(I, ICON_OVERLAY, x_index*2, y_index*2)
+			bigassicon.Blend(I, ICON_OVERLAY, ((render_x_start + x_index) - 1) * 2, ((render_y_start + y_index) - 1) * 2)
 
 	return bigassicon
-
-
-
 
 
 /obj/machinery/holomap/proc/get_area_color(area/A, floor_varient=FALSE)

@@ -25923,9 +25923,6 @@
 	c_tag = "Arrivals Hallway";
 	dir = 8
 	},
-/obj/machinery/holomap{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "boX" = (
@@ -68405,18 +68402,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"fXI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/holomap{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/hallway/secondary/exit)
 "fXL" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -75563,6 +75548,15 @@
 	icon_state = "whitehall"
 	},
 /area/medical/genetics)
+"lsn" = (
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/dorms)
 "lsx" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -81283,15 +81277,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"pOM" = (
-/obj/machinery/holomap{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/crew_quarters/dorms)
 "pOY" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -85822,6 +85807,18 @@
 /obj/item/clothing/head/soft/rainbow,
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
+"tnT" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/hallway/secondary/exit)
 "tpP" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -86213,15 +86210,6 @@
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
-"tGK" = (
-/obj/machinery/holomap{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
-	},
-/area/hallway/primary/aft)
 "tGO" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -87532,6 +87520,15 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery2)
+"uwK" = (
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "uxB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
@@ -90057,6 +90054,12 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
+"wpC" = (
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "wpH" = (
 /turf/simulated/floor/noslip,
 /area/engine/engineering)
@@ -107006,7 +107009,7 @@ aMs
 aMs
 aMs
 brn
-aSf
+wpC
 bqr
 bvb
 btA
@@ -120671,7 +120674,7 @@ cBp
 cAL
 cDY
 cvx
-tGK
+uwK
 mqV
 ePP
 ePP
@@ -128832,7 +128835,7 @@ aKO
 aMJ
 aOg
 aFI
-pOM
+lsn
 aSM
 aVp
 aWT
@@ -144028,7 +144031,7 @@ bEF
 cXs
 bHV
 bmm
-fXI
+tnT
 ciY
 csL
 cga
