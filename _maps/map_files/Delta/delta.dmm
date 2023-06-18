@@ -1275,11 +1275,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/fore2)
-"alW" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "alX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow,
@@ -75534,8 +75529,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/chapel/main)
 "dKm" = (
-/obj/structure/window/full/reinforced/tinted,
-/obj/structure/grille,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/chapel/main)
 "dKn" = (
@@ -81533,10 +81527,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"ePS" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/security/securearmoury)
 "eQg" = (
 /obj/machinery/biogenerator,
 /obj/structure/cable{
@@ -89096,10 +89086,6 @@
 	icon_state = "dark"
 	},
 /area/security/execution)
-"nQk" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/space/nearstation)
 "nQF" = (
 /turf/simulated/floor/plasteel/white,
 /area/medical/reception)
@@ -108885,7 +108871,7 @@ aaa
 bkt
 bJP
 brr
-alW
+abj
 abj
 abj
 btd
@@ -125920,7 +125906,7 @@ dYo
 dYH
 bDp
 abj
-alW
+abj
 aaa
 abj
 aaa
@@ -148686,7 +148672,7 @@ aaa
 aaa
 aaa
 abj
-alW
+abj
 abj
 aaa
 eNt
@@ -148944,7 +148930,7 @@ aaa
 aaa
 aaa
 abj
-alW
+abj
 abj
 eNt
 bWr
@@ -153882,10 +153868,10 @@ bbm
 boI
 bEr
 qBV
-alW
 abj
 abj
-alW
+abj
+abj
 abj
 aaa
 aaa
@@ -154634,7 +154620,7 @@ bsY
 bpc
 boN
 ixV
-ePS
+ngg
 mqS
 xom
 wIT
@@ -154891,7 +154877,7 @@ kTO
 bPw
 bmk
 bmk
-ePS
+ngg
 rSe
 dJI
 bqW
@@ -155148,7 +155134,7 @@ bta
 beI
 bzq
 nvc
-ePS
+ngg
 xUI
 fEF
 eDh
@@ -155405,7 +155391,7 @@ btb
 bpd
 njQ
 boM
-ePS
+ngg
 bFS
 bhi
 boZ
@@ -157729,7 +157715,7 @@ bPS
 oEG
 oEG
 abj
-nQk
+bPS
 abj
 oEG
 oEG
