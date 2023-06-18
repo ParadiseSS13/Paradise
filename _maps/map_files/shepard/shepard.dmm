@@ -28,7 +28,9 @@
 	name = "Emergency Field Supplies"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/curtain/medical,
+/obj/structure/curtain/medical{
+	pixel_x = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -6857,8 +6859,6 @@
 	},
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/dropper/precision,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
@@ -12873,12 +12873,23 @@
 	req_access_txt = "33"
 	},
 /obj/structure/table/glass,
-/obj/item/clothing/glasses/science{
-	pixel_y = 3
-	},
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science{
 	pixel_y = -3
+	},
+/obj/item/storage/box/patch_packs{
+	pixel_x = 9;
+	pixel_y = 15
+	},
+/obj/item/storage/box/pillbottles{
+	pixel_x = -6;
+	pixel_y = 15
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
+	name = "Chemistry Cleaner";
+	pixel_x = -3;
+	pixel_y = -16
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowchecker"
@@ -19344,10 +19355,6 @@
 "dLr" = (
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
 	},
 /obj/machinery/chem_dispenser,
 /turf/simulated/floor/plasteel,
@@ -40716,24 +40723,48 @@
 	},
 /area/crew_quarters/toilet)
 "hXJ" = (
-/obj/structure/table,
-/obj/item/tank/internals/emergency_oxygen/nitrogen{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/tank/internals/emergency_oxygen/nitrogen{
-	pixel_x = 5
-	},
-/obj/item/tank/internals/emergency_oxygen/plasma{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/tank/internals/emergency_oxygen/plasma{
-	pixel_x = -5
+/obj/machinery/ai_status_display{
+	pixel_x = 32;
+	step_size = 0
 	},
 /obj/machinery/ai_status_display{
 	pixel_x = 32;
 	step_size = 0
+	},
+/obj/machinery/ai_status_display{
+	pixel_x = 32;
+	step_size = 0
+	},
+/obj/machinery/ai_status_display{
+	pixel_x = 32;
+	step_size = 0
+	},
+/obj/machinery/ai_status_display{
+	pixel_x = 32;
+	step_size = 0
+	},
+/obj/structure/table,
+/obj/item/clothing/head/helmet/space/plasmaman{
+	pixel_x = -13;
+	pixel_y = 12
+	},
+/obj/item/clothing/under/plasmaman{
+	pixel_x = -1
+	},
+/obj/item/clothing/under/plasmaman/medical{
+	pixel_x = 9
+	},
+/obj/item/clothing/under/plasmaman{
+	pixel_x = -12;
+	pixel_y = -1
+	},
+/obj/item/clothing/head/helmet/space/plasmaman{
+	pixel_x = -2;
+	pixel_y = 11
+	},
+/obj/item/clothing/head/helmet/space/plasmaman/medical{
+	pixel_x = 9;
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -41836,12 +41867,14 @@
 /obj/structure/table/glass,
 /obj/item/storage/box/beakers{
 	pixel_x = 2;
-	pixel_y = 2
+	pixel_y = 5
 	},
-/obj/item/storage/box/syringes,
+/obj/item/storage/box/syringes{
+	pixel_x = -15
+	},
 /obj/item/storage/box/iv_bags{
-	pixel_x = 4;
-	pixel_y = 4
+	pixel_x = 19;
+	pixel_y = 10
 	},
 /obj/machinery/light,
 /obj/structure/sign/poster/random{
@@ -42135,10 +42168,6 @@
 /turf/simulated/wall,
 /area/maintenance/aft)
 "imi" = (
-/obj/item/wirecutters{
-	desc = "This cuts gloves.";
-	name = "Glove Snippers"
-	},
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_y = 32
 	},
@@ -49070,7 +49099,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	name = "Medbay Maintenance";
+	req_access_txt = "5"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -50662,11 +50692,9 @@
 	},
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/stack/spacecash/c1000{
-	amount = 100000
-	},
 /obj/item/instrument/violin/golden,
 /obj/item/folder/documents,
+/obj/item/stack/spacecash/c1000,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -54251,6 +54279,12 @@
 "kyH" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/chem_heater,
+/obj/machinery/requests_console{
+	department = "Medbay";
+	departmentType = 1;
+	name = "Chemistry Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel,
 /area/medical/chemistry)
 "kyK" = (
@@ -62060,7 +62094,9 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/structure/curtain/medical,
+/obj/structure/curtain/medical{
+	pixel_x = 6
+	},
 /obj/structure/cable/cyan{
 	d2 = 8;
 	icon_state = "0-8"
@@ -63915,13 +63951,16 @@
 	},
 /area/medical/reception)
 "msM" = (
-/obj/machinery/economy/vending/snack{
-	pixel_x = 4;
-	pixel_y = -6;
-	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar=0,/obj/item/reagent_containers/food/drinks/dry_ramen=2,/obj/item/reagent_containers/food/snacks/chips=0,/obj/item/reagent_containers/food/snacks/sosjerky=0,/obj/item/reagent_containers/food/snacks/no_raisin=0,/obj/item/reagent_containers/food/snacks/pistachios=0,/obj/item/reagent_containers/food/snacks/spacetwinkie=0,/obj/item/reagent_containers/food/snacks/cheesiehonkers=2,/obj/item/reagent_containers/food/snacks/tastybread=1,/obj/item/reagent_containers/food/snacks/stroopwafel=0)
+/obj/machinery/door/airlock/maintenance{
+	name = "Medbay Maintenance";
+	req_access_txt = "45"
+	},
+/obj/machinery/door/poddoor/preopen{
+	name = "Quarantine Lockdown";
+	id_tag = "Biohazard_medi"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/atmos_control)
+/area/maintenance/apmaint)
 "msV" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -67586,7 +67625,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/curtain/medical,
+/obj/structure/curtain/medical{
+	pixel_x = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -67878,10 +67919,11 @@
 	pixel_x = -24
 	},
 /obj/machinery/photocopier,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
+/obj/machinery/requests_console{
+	department = "Medbay";
+	departmentType = 1;
+	name = "Medbay Requests Console";
+	pixel_y = -31
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -69253,8 +69295,6 @@
 	},
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/dropper/precision,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
@@ -69486,12 +69526,6 @@
 	icon_state = "whitepurplechecker"
 	},
 /area/medical/research)
-"nzc" = (
-/obj/machinery/economy/vending/cola{
-	products = list(/obj/item/reagent_containers/food/drinks/cans/cola=3,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=0,/obj/item/reagent_containers/food/drinks/cans/dr_gibb=3,/obj/item/reagent_containers/food/drinks/cans/starkist=7,/obj/item/reagent_containers/food/drinks/cans/space_up=2,/obj/item/reagent_containers/food/drinks/cans/grape_juice=0,/obj/item/reagent_containers/glass/beaker/waterbottle=3)
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/atmos_control)
 "nzh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -77437,6 +77471,9 @@
 	dir = 8
 	},
 /obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper{
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowchecker"
 	},
@@ -78194,10 +78231,6 @@
 	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
-"piO" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/wall,
-/area/medical/biostorage)
 "piS" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/storage)
@@ -82749,6 +82782,10 @@
 	layer = 2.9
 	},
 /obj/machinery/economy/vending/chemdrobe,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowchecker"
 	},
@@ -87415,7 +87452,9 @@
 /obj/structure/table,
 /obj/item/soap/nanotrasen,
 /obj/machinery/recharger,
-/obj/structure/curtain/medical,
+/obj/structure/curtain/medical{
+	pixel_x = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -90304,7 +90343,6 @@
 /area/medical/reception)
 "rAx" = (
 /obj/structure/table/glass,
-/obj/item/reagent_scanner/adv,
 /obj/item/stack/packageWrap,
 /obj/machinery/light_switch{
 	dir = 1;
@@ -94495,6 +94533,10 @@
 /area/security/vacantoffice2)
 "ssq" = (
 /obj/structure/closet/radiation,
+/obj/item/wirecutters{
+	desc = "This cuts gloves.";
+	name = "Glove Snippers"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -100795,10 +100837,23 @@
 	},
 /area/medical/surgery1)
 "tEE" = (
-/obj/structure/closet/radiation,
-/obj/machinery/light{
-	dir = 1
+/obj/structure/table,
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
+	pixel_x = 5;
+	pixel_y = 5
 	},
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
+	pixel_x = 5
+	},
+/obj/item/tank/internals/emergency_oxygen/plasma{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/tank/internals/emergency_oxygen/plasma{
+	pixel_x = -5
+	},
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -110291,10 +110346,7 @@
 /area/turret_protected/aisat_interior/secondary)
 "vsM" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chinese/rice{
-	list_reagents = list();
-	bitecount = 5
-	},
+/obj/item/reagent_containers/food/snacks/chinese/rice,
 /turf/simulated/floor/plating,
 /area/crew_quarters/mrchangs)
 "vsQ" = (
@@ -111313,6 +111365,7 @@
 	layer = 2.9
 	},
 /obj/structure/closet/secure_closet/reagents,
+/obj/item/reagent_scanner/adv,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowchecker"
 	},
@@ -125432,7 +125485,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/medical{
 	name = "Surgery Hallway";
-	req_access_txt = "45"
+	req_access_txt = "45;5"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/unres,
@@ -140180,7 +140233,7 @@ sDK
 fUu
 oUP
 fwB
-frI
+msM
 dKk
 aza
 hwx
@@ -143255,8 +143308,8 @@ wPa
 wPa
 iKh
 wPa
-piO
-piO
+bZV
+bZV
 vut
 wAM
 wAM
@@ -151350,7 +151403,7 @@ fBi
 fBi
 mYF
 aVT
-cpU
+aVT
 jLJ
 inw
 mYF
@@ -151867,7 +151920,7 @@ gzA
 aVT
 tZg
 mYF
-nzc
+aVT
 ydY
 rxQ
 mYF
@@ -152124,7 +152177,7 @@ gzA
 jLJ
 iXJ
 mYF
-msM
+aVT
 xck
 iiq
 mYF
