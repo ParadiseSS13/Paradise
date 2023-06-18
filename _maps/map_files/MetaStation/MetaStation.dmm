@@ -8612,6 +8612,9 @@
 /area/hallway/primary/central)
 "aKK" = (
 /obj/item/radio/beacon,
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -22183,6 +22186,9 @@
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
 	icon_state = "map-right-MS";
 	pixel_y = 32
+	},
+/obj/machinery/holomap{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -59792,6 +59798,15 @@
 	icon_state = "dark"
 	},
 /area/toxins/server)
+"hHn" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "hHA" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -92982,6 +92997,15 @@
 	},
 /turf/simulated/floor/grass/no_creep,
 /area/medical/virology)
+"yid" = (
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cautioncorner"
+	},
+/area/hallway/primary/starboard)
 "yif" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 10
@@ -118710,7 +118734,7 @@ bZU
 cXK
 cQo
 bZU
-cQM
+hHn
 cTg
 cSk
 gnZ
@@ -132010,7 +132034,7 @@ bnM
 bam
 bnr
 boY
-bqx
+yid
 aoG
 aMh
 asJ

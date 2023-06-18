@@ -3557,6 +3557,14 @@
 	icon_state = "bcircuit"
 	},
 /area/turret_protected/aisat_interior/secondary)
+"atQ" = (
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry/south)
 "atT" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -39814,6 +39822,17 @@
 	icon_state = "darkgreen"
 	},
 /area/teleporter/quantum/docking)
+"eJg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/holomap{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "redcorner"
+	},
+/area/security/lobby)
 "eJF" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -49923,6 +49942,19 @@
 	icon_state = "whiteyellow"
 	},
 /area/assembly/chargebay)
+"ixS" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "purplecorner"
+	},
+/area/hallway/primary/aft/west)
 "ixW" = (
 /obj/machinery/biogenerator,
 /turf/simulated/floor/grass/jungle,
@@ -68280,6 +68312,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	color = "#954535"
+	},
+/obj/machinery/holomap{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -111695,7 +111730,7 @@ xEd
 xEd
 xEd
 vdZ
-qTc
+ixS
 uRf
 xRh
 kBz
@@ -112348,7 +112383,7 @@ qro
 cgh
 lyS
 cnz
-lyS
+eJg
 lyS
 lyS
 cBN
@@ -138169,7 +138204,7 @@ drE
 xSo
 vwi
 cjs
-vjb
+atQ
 sHm
 rNK
 rNK

@@ -48382,9 +48382,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/courtroom)
 "cqv" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -30
+/obj/machinery/holomap{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74280,6 +74279,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/machinery/holomap{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/aft)
 "dGl" = (
@@ -82494,6 +82496,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
+"fQH" = (
+/obj/machinery/holomap{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/port)
 "fQU" = (
 /obj/machinery/power/smes{
 	charge = 2e+006
@@ -92496,6 +92507,14 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"rKl" = (
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/secondary/entry)
 "rLK" = (
 /obj/machinery/r_n_d/experimentor,
 /turf/simulated/floor/engine,
@@ -94123,6 +94142,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
 /area/medical/research)
+"tAJ" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/crew_quarters/locker)
 "tAO" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -127397,7 +127424,7 @@ byH
 bAf
 bfG
 brV
-brV
+fQH
 bGR
 brV
 brV
@@ -138405,7 +138432,7 @@ aea
 aeJ
 aea
 awo
-ayy
+rKl
 ayA
 azx
 aAJ
@@ -146435,7 +146462,7 @@ cga
 ckR
 cjb
 cnP
-coR
+tAJ
 cqv
 kGm
 cqw

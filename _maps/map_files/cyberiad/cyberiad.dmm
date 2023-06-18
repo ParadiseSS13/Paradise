@@ -25923,6 +25923,9 @@
 	c_tag = "Arrivals Hallway";
 	dir = 8
 	},
+/obj/machinery/holomap{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "boX" = (
@@ -68402,6 +68405,18 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"fXI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/holomap{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/hallway/secondary/exit)
 "fXL" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -81268,6 +81283,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"pOM" = (
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/dorms)
 "pOY" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -86189,6 +86213,15 @@
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
+"tGK" = (
+/obj/machinery/holomap{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "tGO" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -120638,7 +120671,7 @@ cBp
 cAL
 cDY
 cvx
-dpR
+tGK
 mqV
 ePP
 ePP
@@ -128799,7 +128832,7 @@ aKO
 aMJ
 aOg
 aFI
-aZs
+pOM
 aSM
 aVp
 aWT
@@ -143995,7 +144028,7 @@ bEF
 cXs
 bHV
 bmm
-oMz
+fXI
 ciY
 csL
 cga
