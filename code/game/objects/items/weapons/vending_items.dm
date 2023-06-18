@@ -175,3 +175,7 @@
 /obj/item/vending_refill/robotics
 	machine_name = "Robotech Deluxe"
 	icon_state = "refill_engi"
+
+/obj/item/vending_refill/nta
+	machine_name = "NT Ammunition"
+	icon_state = "refill_nta"

@@ -336,4 +336,56 @@
 		"Neara" = 'icons/mob/species/monkey/suit.dmi',
 		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 	)
+/obj/item/clothing/suit/space/ert_eva_amber
+	name = "ERT Amber Spacesuit"
+	icon_state = "ert_eva_amber"
+	item_state = "ert_evasuit"
+	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during peacemaker's mission."
+	w_class = WEIGHT_CLASS_NORMAL
+	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, rad = 20, fire = 50, acid = 65)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
+	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
+	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
+	/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
+	strip_delay = 130
+	species_restricted = list("exclude", "Wryn", "lesser form", "Vox")
 
+/obj/item/clothing/head/helmet/space/ert_eva_amber
+	name = "ERT Amber Space helmet"
+	icon_state = "ert_eva_amber"
+	item_state = "ert_eva_helmet"
+	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during mission. Has camera module inside, can be activated."
+	w_class = WEIGHT_CLASS_NORMAL
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
+	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, rad = 20, fire = 50, acid = 65)
+	flash_protect = 0
+	var/obj/machinery/camera/camera
+	var/has_camera = TRUE
+	species_restricted = list("exclude", "Wryn", "lesser form", "Vox")
+
+/obj/item/clothing/head/helmet/space/ert_eva_amber/Initialize()
+	if(loc)
+		var/mob/living/carbon/human/wearer = loc.loc	//loc is the hardsuit, so its loc is the wearer
+		if(ishuman(wearer))
+			register_camera(wearer)
+	..()
+
+/obj/item/clothing/head/helmet/space/ert_eva_amber/attack_self(mob/user)
+	if(camera || !has_camera)
+		..(user)
+	else
+		register_camera(user)
+
+/obj/item/clothing/head/helmet/space/ert_eva_amber/proc/register_camera(mob/wearer)
+	if(camera || !has_camera)
+		return
+	camera = new /obj/machinery/camera(src)
+	camera.network = list("ERT")
+	GLOB.cameranet.removeCamera(camera)
+	camera.c_tag = wearer.name
+	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
+
+/obj/item/clothing/head/helmet/space/ert_eva_amber/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) && has_camera)
+		. += "<span class='notice'>This helmet has a built-in camera. It's [camera ? "" : "in"]active.</span>"

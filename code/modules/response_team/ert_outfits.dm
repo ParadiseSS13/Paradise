@@ -525,7 +525,8 @@
 		/obj/item/storage/bag/trash = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/holosign_creator/janitor = 1,
-		/obj/item/flashlight = 1)
+		/obj/item/flashlight = 1,
+		/obj/item/melee/flyswatter = 1)
 
 /datum/outfit/job/centcom/response_team/janitorial/amber
 	name = "RT Janitor (Amber)"

@@ -290,17 +290,20 @@
 
 //Commander
 /obj/item/clothing/head/helmet/ert/command
+	flags = BLOCKHAIR
 	name = "emergency response team commander helmet"
 	desc = "An in-atmosphere helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights."
 	icon_state = "erthelmet_cmd"
 
 //Security
 /obj/item/clothing/head/helmet/ert/security
+	flags = BLOCKHAIR
 	name = "emergency response team security helmet"
 	desc = "An in-atmosphere helmet worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "erthelmet_sec"
 
 /obj/item/clothing/head/helmet/ert/security/paranormal
+	flags = BLOCKHAIR
 	name = "paranormal emergency response team helmet"
 	desc = "An in-atmosphere helmet worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
 	icon_state = "knight_templar"
@@ -308,18 +311,21 @@
 
 //Engineer
 /obj/item/clothing/head/helmet/ert/engineer
+	flags = BLOCKHAIR
 	name = "emergency response team engineer helmet"
 	desc = "An in-atmosphere helmet worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights."
 	icon_state = "erthelmet_eng"
 
 //Medical
 /obj/item/clothing/head/helmet/ert/medical
+	flags = BLOCKHAIR
 	name = "emergency response team medical helmet"
 	desc = "A set of armor worn by medical members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_med"
 
 //Janitorial
 /obj/item/clothing/head/helmet/ert/janitor
+	flags = BLOCKHAIR
 	name = "emergency response team janitor helmet"
 	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_jan"
