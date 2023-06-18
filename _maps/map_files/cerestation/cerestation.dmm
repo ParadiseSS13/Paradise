@@ -11133,7 +11133,6 @@
 /area/crew_quarters/bar)
 "bjB" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
@@ -46881,7 +46880,6 @@
 /area/maintenance/disposal/west)
 "hvW" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "hwf" = (
@@ -59291,7 +59289,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "lEk" = (
@@ -59530,10 +59527,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/library)
-"lID" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/wall,
-/area/ntrep)
 "lIN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -130874,7 +130867,7 @@ gch
 gch
 gch
 gch
-lID
+gch
 rNK
 rNK
 rNK
