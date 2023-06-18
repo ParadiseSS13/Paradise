@@ -187,6 +187,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		if((T.intact && level == 1) || T.transparent_floor) //fire can't damage things hidden below the floor.
 			return
 	..()
+	if(QDELETED(src)) // no taking damage after deletion
+		return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
 		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, "fire", 0)
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
