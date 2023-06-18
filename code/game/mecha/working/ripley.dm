@@ -10,7 +10,7 @@
 	max_integrity = 200
 	lights_power = 7
 	deflect_chance = 15
-	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/list/cargo = new
@@ -42,24 +42,34 @@
 
 /obj/mecha/working/ripley/go_out()
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/working/ripley/moved_inside(mob/living/carbon/human/H)
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/working/ripley/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/mecha/working/ripley/update_icon()
-	..()
-	if(hides)
-		cut_overlays()
-		if(hides < 3)
-			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
-		else
-			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
+/obj/mecha/working/ripley/update_desc()
+	. = ..()
+	if(!hides) // Just in case if hides are somehow removed
+		desc = initial(desc)
+		return
+	if(hides == 3)
+		desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
+	else
+		desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+
+/obj/mecha/working/ripley/update_overlays()
+	. = ..()
+	if(!hides)
+		return
+	if(hides == 3)
+		. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+	else
+		. += occupant ? "ripley-g" : "ripley-g-open"
 
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
@@ -70,7 +80,7 @@
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	lights_power = 7
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, RAD = 70, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
 
@@ -85,13 +95,13 @@
 	max_temperature = 65000
 	max_integrity = 300
 	lights_power = 7
-	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, RAD = 0, FIRE = 100, ACID = 100)
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 	normal_step_energy_drain = 0
 
-/obj/mecha/working/ripley/deathripley/New()
-	..()
+/obj/mecha/working/ripley/deathripley/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
 	return
@@ -101,8 +111,8 @@
 	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
-/obj/mecha/working/ripley/mining/New()
-	..()
+/obj/mecha/working/ripley/mining/Initialize(mapload)
+	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
 	//Attach drill
@@ -124,7 +134,7 @@
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
 	HC.attach(src)
-	QDEL_LIST(trackers) //Deletes the beacon so it can't be found easily
+	QDEL_LIST_CONTENTS(trackers) //Deletes the beacon so it can't be found easily
 
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
@@ -185,6 +195,9 @@
 			O.forceMove(drop_location())
 
 /obj/mecha/working/ripley/proc/update_pressure()
+	if(thrusters_active)
+		return // Don't calculate this if they have thrusters on, this is calculated right after domove because of course it is
+
 	var/turf/T = get_turf(loc)
 
 	if(lavaland_equipment_pressure_check(T))
@@ -199,8 +212,5 @@
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You slide the card through [src]'s ID slot.</span>")
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
-	else
-		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+	return ..()

@@ -4,9 +4,7 @@
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	burnt_states = list("floorscorched1", "floorscorched2")
 
-/turf/simulated/floor/plasteel/update_icon()
-	if(!..())
-		return 0
+/turf/simulated/floor/plasteel/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
 
@@ -27,9 +25,25 @@
 	return
 
 /turf/simulated/floor/plasteel/goonplaque
-	icon_state = "plaque"
 	name = "Commemorative Plaque"
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."
+	icon_state = "plaque"
+
+/turf/simulated/floor/plasteel/goonplaque/memorial
+	name = "Memorial Plaque"
+	desc = "\"This is a plaque in honour of those who died in the great space lube airlock incident.\" Scratched in beneath that is a crude image of a clown and a spaceman. The spaceman is slipping. The clown is laughing."
+
+/turf/simulated/floor/plasteel/goonplaque/commission
+	name = "Commission Plaque"
+	desc = "Epsilon Eridani Sector - 'Meta' Class Outpost - Commissioned 11/03/2557 - NSS Cerebron"
+
+/turf/simulated/floor/plasteel/goonplaque/nosey
+	name = "Nosey little bastard aren't you?"
+	desc = "Nosey little bastard aren't you?"
+
+/turf/simulated/floor/plasteel/goonplaque/violence
+	name = "Violence Free Area"
+	desc = "Violence Free Area"
 
 //TODO: Make subtypes for all normal turf icons
 /turf/simulated/floor/plasteel/white

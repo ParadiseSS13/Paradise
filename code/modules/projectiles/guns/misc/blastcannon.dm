@@ -22,18 +22,28 @@
 		user.put_in_hands(bomb)
 		user.visible_message("<span class='warning'>[user] detaches [bomb] from [src].</span>")
 		bomb = null
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 	return ..()
 
-/obj/item/gun/blastcannon/update_icon()
+/obj/item/gun/blastcannon/update_name()
+	. = ..()
 	if(bomb)
-		icon_state = icon_state_loaded
 		name = "blast cannon"
+	else
+		name = initial(name)
+
+/obj/item/gun/blastcannon/update_desc()
+	. = ..()
+	if(bomb)
 		desc = "A makeshift device used to concentrate a bomb's blast energy to a narrow wave."
 	else
-		icon_state = initial(icon_state)
-		name = initial(name)
 		desc = initial(desc)
+
+/obj/item/gun/blastcannon/update_icon_state()
+	if(bomb)
+		icon_state = icon_state_loaded
+	else
+		icon_state = initial(icon_state)
 
 /obj/item/gun/blastcannon/attackby(obj/O, mob/user)
 	if(istype(O, /obj/item/transfer_valve))
@@ -47,7 +57,7 @@
 		user.visible_message("<span class='warning'>[user] attaches [T] to [src]!</span>")
 		T.forceMove(src)
 		bomb = T
-		update_icon()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 		return TRUE
 	return ..()
 
@@ -71,7 +81,7 @@
 		return ..()
 	var/power = calculate_bomb()
 	QDEL_NULL(bomb)
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 	var/heavy = power * 0.2
 	var/medium = power * 0.5
 	var/light = power
@@ -90,7 +100,7 @@
 	icon_state = "blastwave"
 	damage = 0
 	nodamage = FALSE
-	forcedodge = TRUE
+	forcedodge = -1
 	range = 150
 	var/heavyr = 0
 	var/mediumr = 0

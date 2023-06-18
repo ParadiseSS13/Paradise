@@ -3,9 +3,7 @@
 	desc = "We change into a human. Costs 5 chemicals."
 	button_icon_state = "human_form"
 	chemical_cost = 5
-	genetic_damage = 3
 	req_dna = 1
-	max_genetic_damage = 3
 
 //Transform into a human.
 /datum/action/changeling/humanform/sting_action(mob/living/carbon/human/user)
@@ -16,7 +14,7 @@
 	user.dna.SetSEState(GLOB.monkeyblock,0,1)
 	singlemutcheck(user,GLOB.monkeyblock, MUTCHK_FORCED)
 	if(istype(user))
-		user.set_species(chosen_dna.species.type)
+		user.set_species(chosen_dna.species.type, keep_missing_bodyparts = TRUE)
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
 	domutcheck(user, MUTCHK_FORCED)

@@ -31,6 +31,20 @@ if grep -P '^/*var/' code/**/*.dm; then
     echo "ERROR: Unmanaged global var use detected in code, please use the helpers."
     st=1
 fi;
+# Check for merge conflict markers and their associated description text.
+if grep -P 'Merge Conflict Marker' _maps/**/*.dmm; then
+    echo "ERROR: Merge conflict markers detected in map, please resolve all merge failures!"
+    st=1
+fi;
+if grep -P '/obj/merge_conflict_marker' _maps/**/*.dmm; then
+    echo "ERROR: Merge conflict markers detected in map, please resolve all merge failures!"
+    st=1
+fi;
+# Check for non-515 compatable .proc/ syntax
+if grep -P --exclude='__byond_version_compat.dm' '(\.proc\/)|(CALLBACK\(.*proc\/)|(INVOKE_ASYNC\(.*proc\/)' code/**/*.dm; then
+    echo "ERROR: Outdated proc reference use detected in code, please use proc reference helpers."
+    st=1
+fi;
 nl='
 '
 nl=$'\n'

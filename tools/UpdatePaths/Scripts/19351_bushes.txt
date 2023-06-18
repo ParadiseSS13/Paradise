@@ -1,0 +1,3 @@
+/obj/structure/flora/grass/jungle/b : /obj/structure/flora/grass/jungle
+/obj/structure/flora/junglebush/b : /obj/structure/flora/junglebush
+/obj/structure/flora/junglebush/c : /obj/structure/flora/junglebush

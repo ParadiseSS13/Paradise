@@ -44,15 +44,16 @@
 		tot_rating += SP.rating
 	heat_gen /= max(1, tot_rating)
 
-/obj/machinery/r_n_d/server/update_icon()
+/obj/machinery/r_n_d/server/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "RD-server-off"
 	else
 		icon_state = "RD-server-on"
 
 /obj/machinery/r_n_d/server/power_change()
-	. = ..()
-	update_icon()
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/r_n_d/server/proc/initialize_serv()
 	if(!files)
@@ -140,16 +141,6 @@
 				air_update_turf()
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(disabled)
-		return
-
-	if(shocked)
-		shock(user,50)
-
-	if(istype(O, /obj/item/screwdriver))
-		default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", O)
-		return 1
-
 	if(exchange_parts(user, O))
 		return 1
 
@@ -161,13 +152,9 @@
 	else
 		return ..()
 
-/obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
-	if(disabled)
-		return
-
-	if(shocked)
-		shock(user,50)
-	return
+/obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", I)
+	return TRUE
 
 /obj/machinery/r_n_d/server/centcom
 	name = "CentComm. Central R&D Database"
@@ -272,13 +259,21 @@
 		temp_server.files.RefreshResearch()
 
 	else if(href_list["reset_design"])
-		var/choice = alert("Design Data Deletion", "Are you sure you want to delete this design? Data lost cannot be recovered.", "Continue", "Cancel")
+		var/choice = alert("Design Data Deletion", "Are you sure you want to blacklist this design? Ensure you sync servers after this decision.", "Continue", "Cancel")
 		if(choice == "Continue")
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
 				if(D.id == href_list["reset_design"])
 					temp_server.files.known_designs -= D.id
+					temp_server.files.blacklisted_designs += D.id
 					break
+		temp_server.files.RefreshResearch()
+
+	else if(href_list["restore_design"])
+		var/choice = alert("Design Data Restoration", "Are you sure you want to restore this design? Ensure you sync servers after this decision.", "Continue", "Cancel")
+		if(choice == "Continue")
+			temp_server.files.blacklisted_designs -= href_list["restore_design"]
+			temp_server.files.unblacklisted_designs += href_list["restore_design"]
 		temp_server.files.RefreshResearch()
 
 	updateUsrDialog()
@@ -336,7 +331,12 @@
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
 				dat += "* [D.name] "
-				dat += "<A href='?src=[UID()];reset_design=[D.id]'>(Delete)</A><BR>"
+				dat += "<A href='?src=[UID()];reset_design=[D.id]'>(Blacklist)</A><BR>"
+			if(length(temp_server.files.blacklisted_designs))
+				dat += "Blacklisted Designs<br>"
+				for(var/I in temp_server.files.blacklisted_designs)
+					dat += "* [I] "
+					dat += "<a href='?src=[UID()];restore_design=[I]'>(Restore design)</a><br>"
 			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
 
 		if(3) //Server Data Transfer

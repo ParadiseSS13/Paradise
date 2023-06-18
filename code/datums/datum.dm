@@ -22,6 +22,9 @@
 	SHOULD_CALL_PARENT(TRUE)
 	tag = null
 
+	// Close our open TGUIs
+	SStgui.close_uis(src)
+
 	var/list/timers = active_timers
 	active_timers = null
 	for(var/thing in timers)

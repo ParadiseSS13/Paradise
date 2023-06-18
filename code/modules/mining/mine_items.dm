@@ -29,15 +29,19 @@
 	new /obj/item/storage/backpack/duffel(src)
 	new /obj/item/storage/backpack/explorer(src)
 	new /obj/item/storage/backpack/satchel/explorer(src)
-	new /obj/item/clothing/under/rank/miner/lavaland(src)
-	new /obj/item/clothing/under/rank/miner/lavaland(src)
-	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/suit/jacket/miningbomber(src)
+	new /obj/item/clothing/suit/jacket/miningbomber(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"

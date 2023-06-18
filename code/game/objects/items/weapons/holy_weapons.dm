@@ -31,7 +31,7 @@
 				variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
 
 /obj/item/nullrod/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
+	user.visible_message("<span class='suicide'>[user] is killing [user.p_themselves()] with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
@@ -73,7 +73,7 @@
 		variant_names[initial(rod.name)] = rod
 		variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
 	var/mob/living/carbon/human/H = user
-	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, .proc/radial_check, H), TRUE)
+	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, PROC_REF(radial_check), H), TRUE)
 	if(!choice || !radial_check(H))
 		return
 
@@ -130,7 +130,10 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = SLOT_BACK
-	block_chance = 50
+
+/obj/item/nullrod/staff/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/staff/blue
 	name = "blue holy staff"
@@ -144,10 +147,13 @@
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK|SLOT_BELT
-	block_chance = 30
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+
+/obj/item/nullrod/claymore/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
 /obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
@@ -229,7 +235,7 @@
 	item_state = "scythe0"
 	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
-	armour_penetration = 35
+	armour_penetration_flat = 30
 	slot_flags = SLOT_BACK
 	sharp = TRUE
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -257,6 +263,10 @@
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
 	attack_verb = list("chopped", "sliced", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
+	force = 12
+	can_be_hit = TRUE // be a shit and you can get your ass beat
+	max_integrity = 100
+	obj_integrity = 100
 	var/possessed = FALSE
 
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
@@ -294,6 +304,63 @@
 		S.ghostize()
 		qdel(S)
 	return ..()
+
+/obj/item/nullrod/scythe/talking/attackby(obj/item/I, mob/user, params)
+	if(!istype(I, /obj/item/soulstone) || !possessed)
+		return ..()
+	if(obj_integrity >= max_integrity)
+		to_chat(user, "<span class='notice'>You have no reason to replace a perfectly good soulstone with a new one.</span>")
+		return
+	to_chat(user, "<span class='notice'>You load a new soulstone into the possessed blade.</span>")
+	playsound(user, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
+	obj_integrity = max_integrity
+	for(var/mob/living/simple_animal/shade/sword/sword_shade in contents)
+		sword_shade.health = sword_shade.maxHealth
+	qdel(I)
+
+/obj/item/nullrod/scythe/talking/take_damage(damage_amount)
+	if(possessed)
+		for(var/mob/living/simple_animal/shade/sword/sword_shade in contents)
+			sword_shade.take_overall_damage(damage_amount)
+	return ..()
+
+/obj/item/nullrod/scythe/talking/proc/click_actions(atom/attacking_atom, mob/living/simple_animal/attacking_shade)
+	if(world.time <= attacking_shade.next_move) // yea we gotta check
+		return
+	if(!ismovable(attacking_atom))
+		return
+	attacking_shade.changeNext_move(CLICK_CD_MELEE)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/our_location = loc
+		if(istype(our_location))
+			if(src != our_location.l_hand && src != our_location.r_hand)
+				return
+			if(our_location.Adjacent(attacking_atom)) // with a buddy we deal 12 damage :D
+				our_location.do_attack_animation(attacking_atom, used_item = src)
+				melee_attack_chain(attacking_shade, attacking_atom)
+			return
+	if(Adjacent(attacking_atom)) // without a buddy we only deal 7 damage :c
+		force -= 5
+		var/mob/living/simple_animal/hostile/hostile_target = attacking_atom
+		if(istype(hostile_target) && prob(40)) // Cheese reduction, non sentient animals have a hard time attacking things in objects
+			attack_animal(hostile_target)
+		do_attack_animation(attacking_atom, used_item = src)
+		melee_attack_chain(attacking_shade, attacking_atom)
+		force += 5
+
+/mob/living/simple_animal/shade/sword/create_mob_hud()
+	hud_used = new /datum/hud/sword(src)
+
+/datum/hud/sword/New(mob/user)
+	..()
+
+	mymob.healths = new /obj/screen/healths()
+	infodisplay += mymob.healths
+
+/mob/living/simple_animal/shade/sword/ClickOn(atom/A, params)
+	if(..() && istype(loc, /obj/item/nullrod/scythe/talking))
+		var/obj/item/nullrod/scythe/talking/host_sword = loc
+		return host_sword.click_actions(A, src)
 
 /obj/item/nullrod/hammmer
 	name = "relic war hammer"
@@ -358,7 +425,7 @@
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
-	desc = "An adorable stuffed toy that resembles the god of all carp. The teeth look pretty sharp. Activate it to recieve the blessing of Carp-Sie."
+	desc = "An adorable stuffed toy that resembles the god of all carp. The teeth look pretty sharp. Activate it to receive the blessing of Carp-Sie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 	item_state = "carp_plushie"
@@ -381,13 +448,16 @@
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
 	w_class = WEIGHT_CLASS_BULKY
 	force = 13
-	block_chance = 40
 	slot_flags = SLOT_BACK
 	sharp = FALSE
 	hitsound = "swing_hit"
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
+
+/obj/item/nullrod/claymore/bostaff/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // will remove the other component, 0.666667 seconds for 60% uptime.
 
 /obj/item/nullrod/tribal_knife
 	name = "arrhythmic knife"
@@ -531,15 +601,17 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = SLOT_BACK
-	block_chance = 50
 
 	var/team_color = "red"
 	var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robes = null		//the robes linked with this staff
 	var/faith = 99	//a conversion requires 100 faith to attempt. faith recharges over time while you are wearing missionary robes that have been linked to the staff.
 
-/obj/item/nullrod/missionary_staff/detailed_examine_antag()
-	return "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
-			Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them."
+/obj/item/nullrod/missionary_staff/examine(mob/living/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='warning'>This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
+			<b>Use the staff in hand</b> while wearing robes to link them both, then aim the staff at your victim to try and convert them.</span>"
+
 
 /obj/item/nullrod/missionary_staff/New()
 	..()
@@ -547,6 +619,7 @@
 	icon_state = "godstaff-[team_color]"
 	item_state = "godstaff-[team_color]"
 	name = "[team_color] holy staff"
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/missionary_staff/Destroy()
 	if(robes)		//delink on destruction

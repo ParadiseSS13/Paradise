@@ -5,7 +5,6 @@
 	button_icon_state = "lesser_form"
 	chemical_cost = 5
 	dna_cost = 1
-	genetic_damage = 3
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 

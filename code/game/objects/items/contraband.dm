@@ -23,8 +23,8 @@
 	name = "pill"
 	desc = "A cocktail of illicit designer drugs, who knows what might be in here."
 
-/obj/item/reagent_containers/food/pill/random_drugs/New()
-	..()
+/obj/item/reagent_containers/food/pill/random_drugs/Initialize(mapload)
+	. = ..()
 	icon_state = "pill" + pick("2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20")
 
 	name = "[pick_list("chemistry_tools.json", "CYBERPUNK_drug_prefixes")] [pick_list("chemistry_tools.json", "CYBERPUNK_drug_suffixes")]"

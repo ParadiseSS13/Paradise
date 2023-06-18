@@ -7,13 +7,14 @@
 	var/brightness_on = 4 //luminosity when on
 	var/on = FALSE
 	item_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
-	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 10, RAD = 20, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = 50)
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
 /obj/item/clothing/head/hardhat/attack_self(mob/living/user)
@@ -25,9 +26,9 @@
 		turn_on(user)
 	else
 		turn_off(user)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/clothing/head/hardhat/update_icon()
+/obj/item/clothing/head/hardhat/update_icon_state()
 	icon_state = "hardhat[on]_[item_color]"
 	item_state = "hardhat[on]_[item_color]"
 	if(ishuman(loc))
@@ -36,7 +37,6 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
-	..()
 
 /obj/item/clothing/head/hardhat/proc/turn_on(mob/user)
 	set_light(brightness_on)
@@ -44,11 +44,11 @@
 /obj/item/clothing/head/hardhat/proc/turn_off(mob/user)
 	set_light(0)
 
-/obj/item/clothing/head/hardhat/extinguish_light(mob/living/user)
+/obj/item/clothing/head/hardhat/extinguish_light(force = FALSE)
 	if(on)
 		on = FALSE
-		turn_off(user)
-		update_icon()
+		turn_off()
+		update_icon(UPDATE_ICON_STATE)
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/clothing/head/hardhat/orange
@@ -101,5 +101,6 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)

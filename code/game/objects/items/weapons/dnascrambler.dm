@@ -6,7 +6,7 @@
 	icon_state = "lepopen"
 	var/used = FALSE
 
-/obj/item/dnascrambler/update_icon()
+/obj/item/dnascrambler/update_icon_state()
 	if(used)
 		icon_state = "lepopen0"
 	else
@@ -27,7 +27,7 @@
 		return
 
 	if(M == user)
-		user.visible_message("<span class='danger'>[user] injects [user.p_them()]self with [src]!</span>")
+		user.visible_message("<span class='danger'>[user] injects [user.p_themselves()] with [src]!</span>")
 		injected(user, user)
 	else
 		user.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>")
@@ -52,5 +52,5 @@
 
 	add_attack_logs(user, target, "injected with [src]")
 	used = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	name = "used " + name

@@ -21,6 +21,8 @@
 	var/dat
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
+	var/times_eaten = 0 //How many times this crayon has been gnawed on
+	var/max_bites = 4 //How many times a crayon can be bitten before being depleted. You eated it
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -108,17 +110,25 @@
 			if(!H.check_has_mouth())
 				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
 				return
+		times_eaten++
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
-		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
 		user.adjust_nutrition(5)
-		if(uses)
-			uses -= 5
-			if(uses <= 0)
-				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
-				qdel(src)
+		if(times_eaten < max_bites)
+			to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
+		else
+			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+			qdel(src)
 	else
 		..()
 
+/obj/item/toy/crayon/examine(mob/user)
+	. = ..()
+	if(!user.Adjacent(src) || !times_eaten)
+		return
+	if(times_eaten == 1)
+		. += "<span class='notice'>[src] was bitten by someone!</span>"
+	else
+		. += "<span class='notice'>[src] was bitten multiple times!</span>"
 
 /obj/item/toy/crayon/red
 	name = "red crayon"
@@ -255,8 +265,8 @@
 	name = "\improper Nanotrasen-brand Rapid Paint Applicator"
 	desc = "A metallic container containing tasty paint."
 	icon_state = "spraycan_cap"
-	var/capped = 1
-	instant = 1
+	var/capped = TRUE
+	instant = TRUE
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
 /obj/item/toy/crayon/spraycan/New()
@@ -269,7 +279,6 @@
 		if("Toggle Cap")
 			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")
 			capped = !capped
-			icon_state = "spraycan[capped ? "_cap" : ""]"
 			update_icon()
 		if("Change Drawing")
 			..()
@@ -284,24 +293,29 @@
 		return
 	else
 		if(iscarbon(target))
-			if(uses-10 > 0)
+			if(uses - 10 > 0)
 				uses = uses - 10
-				var/mob/living/carbon/human/C = target
+				var/mob/living/carbon/C = target
 				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(2 SECONDS)
-					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
-						C.Confused(6 SECONDS)
-						C.Weaken(6 SECONDS)
-				C.lip_style = "spray_face"
-				C.lip_color = colour
-				C.update_body()
-		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+					if(ishuman(target))
+						var/mob/living/carbon/human/H = target
+						if(H.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
+							H.Confused(6 SECONDS)
+							H.KnockDown(6 SECONDS)
+						H.lip_style = "spray_face"
+						H.lip_color = colour
+						H.update_body()
+		playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		..()
 
-/obj/item/toy/crayon/spraycan/update_icon()
-	overlays.Cut()
+/obj/item/toy/crayon/spraycan/update_icon_state()
+	icon_state = "spraycan[capped ? "_cap" : ""]"
+
+/obj/item/toy/crayon/spraycan/update_overlays()
+	. = ..()
 	var/image/I = image('icons/obj/crayons.dmi',icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
-	overlays += I
+	. += I

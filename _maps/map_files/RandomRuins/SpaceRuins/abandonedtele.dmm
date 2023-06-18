@@ -74,7 +74,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "s" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "t" = (

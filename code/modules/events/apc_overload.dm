@@ -21,7 +21,7 @@
 		SEND_SOUND(M, S)
 
 /datum/event/apc_overload/announce()
-	GLOB.event_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please check all underfloor APC terminals.", "Critical Power Failure", 'sound/AI/power_overload.ogg')
+	GLOB.minor_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please check all underfloor APC terminals.", "Critical Power Failure", 'sound/AI/power_overload.ogg')
 
 /datum/event/apc_overload/end()
 	return TRUE
@@ -33,7 +33,7 @@
 		/area/turret_protected/ai)
 
 	if(announce)
-		GLOB.event_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please check all underfloor APC terminals.", "Critical Power Failure", 'sound/AI/power_overload.ogg')
+		GLOB.minor_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please check all underfloor APC terminals.", "Critical Power Failure", 'sound/AI/power_overload.ogg')
 
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0
@@ -58,7 +58,7 @@
 			if(C.operating)
 				C.toggle_breaker()
 			// no matter what, ensure the area knows something happened to the power
-			current_area.power_change()
+			current_area.powernet.power_change()
 			affected_apc_count++
 	log_and_message_admins("APC Overload event deleted [affected_apc_count] underfloor APC terminals.")
 

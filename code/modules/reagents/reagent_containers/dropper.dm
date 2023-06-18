@@ -4,11 +4,11 @@
 
 /obj/item/reagent_containers/dropper
 	name = "dropper"
-	desc = "A dropper. Transfers 5 units."
+	desc = "A dropper. Transfers up to 5 units."
 	icon_state = "dropper"
 	item_state = "dropper"
 	belt_icon = "dropper"
-	amount_per_transfer_from_this = 5
+	amount_per_transfer_from_this = 1
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
 
@@ -72,7 +72,7 @@
 			return
 
 		if(reagents.total_volume)
-			if(!target.is_open_container() && !(istype(target, /obj/item/reagent_containers/food) && !istype(target, /obj/item/reagent_containers/food/pill)) && !istype(target, /obj/item/clothing/mask/cigarette))
+			if(!target.is_open_container() && !(istype(target, /obj/item/reagent_containers/food) && !ispill(target)) && !istype(target, /obj/item/clothing/mask/cigarette))
 				to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
 				return
 
@@ -98,16 +98,15 @@
 
 /obj/item/reagent_containers/dropper/cyborg
 	name = "Industrial Dropper"
-	desc = "A larger dropper. Transfers 10 units."
+	desc = "A larger dropper. Transfers up to 10 units."
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 	volume = 10
 
 /obj/item/reagent_containers/dropper/precision
 	name = "pipette"
-	desc = "A high precision pippette. Holds 1 unit."
+	desc = "A high precision pipette. Transfers up to 1 unit."
 	icon_state = "pipette"
-	amount_per_transfer_from_this = 1
 	possible_transfer_amounts = list(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
 	volume = 1
 

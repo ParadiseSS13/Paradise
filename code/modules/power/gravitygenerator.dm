@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	icon = 'icons/obj/machines/gravity_generator.dmi'
 	anchored = TRUE
 	density = TRUE
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/gravity_generator/ex_act(severity)
@@ -65,6 +65,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = ..()
 	setup_parts()
 	update_gen_list()
+	set_power()
 
 //
 // Main Generator with the main code
@@ -73,9 +74,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/main
 	icon_state = "generator_body"
 	layer = MOB_LAYER + 0.1
-	active_power_usage = 3000
-	power_channel = ENVIRON
-	use_power = IDLE_POWER_USE
+	active_power_consumption = 3000
+	power_channel = PW_CHANNEL_ENVIRONMENT
+	power_state = IDLE_POWER_USE
 	interact_offline = TRUE
 	/// Is the generator producing gravity
 	var/on = TRUE
@@ -238,7 +239,8 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 // Power and Icon States
 
 /obj/machinery/gravity_generator/main/power_change()
-	..()
+	if(!..())
+		return
 	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", "gravity")
 	set_power()
 
@@ -250,15 +252,14 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	else
 		return "off"
 
-/obj/machinery/gravity_generator/main/update_icon()
-	..()
-	cut_overlays()
+/obj/machinery/gravity_generator/main/update_overlays()
+	. = ..()
 	if(get_status() != "generator_welding" && get_status() != "generator_plasteel")
-		add_overlay("generator_part")
+		. += "generator_part"
 	if(get_status() == "off")
 		return
-	add_overlay("[get_status()]")
-	add_overlay("[overlay_state]")
+	. += "[get_status()]"
+	. += "[overlay_state]"
 
 /**
   * Set the charging state based on external power and the breaker state.
@@ -281,7 +282,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	var/alert = FALSE // Sound the alert if gravity was just enabled or disabled.
 	var/area/src_area = get_area(src)
 	on = gravity
-	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
+	change_power_mode(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 
 	if(gravity) // If we turned on
 		if(generators_in_level() == FALSE) // And there's no gravity
@@ -351,13 +352,16 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 
 /obj/machinery/gravity_generator/main/proc/pulse_radiation()
-	radiation_pulse(src, 200)
+	radiation_pulse(src, 600, 2)
+	for(var/mob/living/L in view(7, src)) //Windows kinda make it a non threat, no matter how much I amp it up, so let us cheat a little
+		radiation_pulse(get_turf(L), 600, 2)
 
 /**
   * Shake everyone on the z level and play an alarm to let them know that gravity was enagaged/disenagaged.
   */
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
 	var/turf/our_turf = get_turf(src)
+	new /obj/effect/warp_effect/gravity_generator(our_turf)
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/shaken in GLOB.mob_list)
 		var/mob/M = shaken
@@ -388,6 +392,16 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 			GLOB.gravity_generators["[T.z]"] -= src
 
 // Misc
+
+/obj/effect/warp_effect/gravity_generator
+
+/obj/effect/warp_effect/gravity_generator/Initialize(mapload)
+	. = ..()
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * 40, time = 0.8 SECONDS, alpha = 128)
+	QDEL_IN(src, 0.8 SECONDS)
+
 
 /obj/item/paper/gravity_gen
 	name = "paper - 'Generate your own gravity!'"

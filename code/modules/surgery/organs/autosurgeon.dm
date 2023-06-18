@@ -88,14 +88,19 @@
 	uses = 1
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/gun/laser
 
+/obj/item/autosurgeon/organ/syndicate/meson_eyes
+	desc = "A single use autosurgeon that contains a pair of cybernetic meson eyes. A screwdriver can be used to remove it, but implants can't be placed back in."
+	uses = 1
+	starting_organ = /obj/item/organ/internal/eyes/cybernetic/meson
+
 /obj/item/autosurgeon/organ/syndicate/thermal_eyes
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/thermals/hardened
 
 /obj/item/autosurgeon/organ/syndicate/xray_eyes
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/xray/hardened
 
-/obj/item/autosurgeon/organ/syndicate/anti_stun
-	starting_organ = /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+/obj/item/autosurgeon/organ/syndicate/anti_stam
+	starting_organ = /obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 
 /obj/item/autosurgeon/organ/syndicate/reviver
 	starting_organ = /obj/item/organ/internal/cyberimp/chest/reviver/hardened

@@ -11,6 +11,7 @@ FIRE ALARM
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "firealarm_on"
+	/// Whether or not the fire alarm will sound the alarm if its temperature rises above 200C
 	var/detecting = TRUE
 	var/working = TRUE
 	var/time = 10.0
@@ -18,14 +19,13 @@ FIRE ALARM
 	anchored = TRUE
 	max_integrity = 250
 	integrity_failure = 100
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 6
-	power_channel = ENVIRON
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 100, fire = 90, acid = 30)
+	idle_power_consumption = 2
+	active_power_consumption = 6
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	resistance_flags = FIRE_PROOF
 
-	light_power = 0
+	light_power = LIGHTING_MINIMUM_POWER
 	light_range = 7
 	light_color = "#ff3232"
 
@@ -44,24 +44,40 @@ FIRE ALARM
 	report_fire_alarms = FALSE
 	show_alert_level = FALSE
 
-/obj/machinery/firealarm/update_icon()
-	underlays.Cut()
-	if(light)
-		if(overlays)
-			underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
-		if(!wiresexposed)
-			underlays += emissive_appearance(icon, "firealarm_lightmask")
+/obj/machinery/firealarm/update_icon_state()
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
 		return
 	if(stat & BROKEN)
 		icon_state = "firealarm_broken"
-	else if(stat & NOPOWER)
+		return
+	if(stat & NOPOWER)
 		icon_state = "firealarm_off"
-	else if(!detecting)
+		return
+
+	var/area/area = get_area(src)
+	if(area.fire)
+		icon_state = "firealarm_alarming"
+		return
+	if(!detecting)
 		icon_state = "firealarm_detect"
+		return
 	else
 		icon_state = "firealarm_on"
+
+/obj/machinery/firealarm/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(is_station_contact(z) && show_alert_level)
+		. += "overlay_[get_security_level()]"
+		underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
+
+	if(!wiresexposed)
+		underlays += emissive_appearance(icon, "firealarm_lightmask")
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)
@@ -193,7 +209,7 @@ FIRE ALARM
 /obj/machinery/firealarm/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
 		stat |= BROKEN
-		LAZYREMOVE(myArea.firealarms, src)
+		LAZYREMOVE(get_area(src).firealarms, src)
 		update_icon()
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
@@ -207,19 +223,33 @@ FIRE ALARM
 	qdel(src)
 
 /obj/machinery/firealarm/proc/update_fire_light(fire)
-	if(fire == !!light_power)
+	if(stat & NOPOWER)
+		set_light(0)
+		return
+	else if(GLOB.security_level == SEC_LEVEL_EPSILON)
+		set_light(2, 1, COLOR_WHITE)
+		return
+	else if(fire == !!light_power || fire == !!(light_power - 0.1))
 		return  // do nothing if we're already active
+
 	if(fire)
 		set_light(l_power = 0.8)
 	else
-		set_light(l_power = 0)
+		set_light(l_power = LIGHTING_MINIMUM_POWER)
+
+/obj/machinery/firealarm/proc/update_fire_sound(fire)
+	var/area/A = get_area(src)
+	if(stat & NOPOWER)
+		GLOB.firealarm_soundloop.stop(src, TRUE)
+	else if(A.fire)
+		GLOB.firealarm_soundloop.start(src)
 
 /obj/machinery/firealarm/power_change()
-	if(powered(ENVIRON))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
+	update_fire_light()
 	update_icon()
+	update_fire_sound()
 
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN) || buildstage != 2)
@@ -247,6 +277,16 @@ FIRE ALARM
 
 /obj/machinery/firealarm/examine(mob/user)
 	. = ..()
+	switch(buildstage)
+		if(FIRE_ALARM_FRAME)
+			. += "<span class='notice'>It's missing a <i>circuit board<i> and the <b>bolts</b> are exposed.</span>"
+		if(FIRE_ALARM_UNWIRED)
+			. += "<span class='notice'>The control board needs <i>wiring</i> and can be <b>pried out</b>.</span>"
+		if(FIRE_ALARM_READY)
+			if(wiresexposed)
+				. += "<span class='notice'>The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.</span>"
+				. += "<span class='notice'>The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.</span>"
+
 	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
 
 /obj/machinery/firealarm/proc/reset()
@@ -260,7 +300,6 @@ FIRE ALARM
 		return
 	var/area/A = get_area(src)
 	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
-	update_icon()
 
 /obj/machinery/firealarm/New(location, direction, building)
 	. = ..()
@@ -271,23 +310,17 @@ FIRE ALARM
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
-	if(is_station_contact(z) && show_alert_level)
-		if(GLOB.security_level)
-			overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
-		else
-			overlays += image('icons/obj/monitors.dmi', "overlay_green")
-
-	myArea = get_area(src)
-	LAZYADD(myArea.firealarms, src)
+	LAZYADD(get_area(src).firealarms, src)
 
 /obj/machinery/firealarm/Initialize(mapload)
 	. = ..()
 	name = "fire alarm"
+	set_light(1, LIGHTING_MINIMUM_POWER) //for emissives
 	update_icon()
 
 /obj/machinery/firealarm/Destroy()
 	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
-	LAZYREMOVE(myArea.firealarms, src)
+	LAZYREMOVE(get_area(src).firealarms, src)
 	return ..()
 
 /*
@@ -300,7 +333,7 @@ Just a object used in constructing fire alarms
 	icon_state = "door_electronics"
 	desc = "A circuit. It has a label on it, it says \"Can handle heat levels up to 40 degrees celsius!\""
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'

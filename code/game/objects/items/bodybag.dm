@@ -29,7 +29,7 @@
 
 
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		var/t = rename_interactive(user, I)
 		if(isnull(t))
 			return
@@ -56,7 +56,7 @@
 /obj/structure/closet/body_bag/update_overlays()
 	..()
 	if(name != initial(name))
-		add_overlay("bodybag_label")
+		. += "bodybag_label"
 
 /obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
 	. = ..()
@@ -75,3 +75,7 @@
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
+
+/obj/structure/closet/body_bag/shove_impact(mob/living/target, mob/living/attacker)
+	// no, you can't shove people into a body bag
+	return FALSE

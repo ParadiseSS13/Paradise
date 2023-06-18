@@ -81,16 +81,16 @@
 			return
 		if(H == user)
 			user.visible_message("<span class='notice'>[user] does [user.p_their()] lips with [src].</span>", \
-								 "<span class='notice'>You take a moment to apply [src]. Perfect!</span>")
+								"<span class='notice'>You take a moment to apply [src]. Perfect!</span>")
 			H.lip_style = "lipstick"
 			H.lip_color = lipstick_colors[colour]
 			H.update_body()
 		else
 			user.visible_message("<span class='warning'>[user] begins to do [H]'s lips with \the [src].</span>", \
-								 "<span class='notice'>You begin to apply \the [src].</span>")
+								"<span class='notice'>You begin to apply \the [src].</span>")
 			if(do_after(user, 20, target = H))
 				user.visible_message("<span class='notice'>[user] does [H]'s lips with \the [src].</span>", \
-									 "<span class='notice'>You apply \the [src].</span>")
+									"<span class='notice'>You apply \the [src].</span>")
 				H.lip_style = "lipstick"
 				H.lip_color = lipstick_colors[colour]
 				H.update_body()
@@ -111,6 +111,9 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/C = H.get_organ("head")
+		if(!istype(C))
+			to_chat(user, "<span class='warning'>There's nothing to cut, [M] [M.p_are()] missing [M.p_their()] head!</span>")
+			return ..()
 		var/datum/robolimb/robohead = GLOB.all_robolimbs[C.model]
 		if(user.zone_selected == "mouth")
 			if(!get_location_accessible(H, "mouth"))

@@ -2,7 +2,7 @@
 	name = "Open Vents"
 	desc = "Spit out acidic puke on nearby vents or scrubbers. Will take a little while for the acid to take effect. Not usable from inside a vent."
 	action_icon_state = "acid_vent"
-	charge_max = 10 SECONDS
+	base_cooldown = 10 SECONDS
 	hunger_cost = 10
 
 /obj/effect/proc_holder/spell/morph_spell/open_vent/create_new_targeting()
@@ -33,7 +33,7 @@
 	for(var/thing in targets)
 		var/obj/machinery/atmospherics/unary/U = thing
 		U.add_overlay(GLOB.acid_overlay, TRUE)
-		addtimer(CALLBACK(src, .proc/unweld_vent, U), 2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(unweld_vent), U), 2 SECONDS)
 		playsound(U, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/effect/proc_holder/spell/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/unary/U)

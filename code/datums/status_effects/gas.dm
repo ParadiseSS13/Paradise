@@ -12,7 +12,7 @@
 	icon_state = "frozen"
 
 /datum/status_effect/freon/on_apply()
-	RegisterSignal(owner, COMSIG_LIVING_RESIST, .proc/owner_resist)
+	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(owner_resist))
 	if(!owner.stat)
 		to_chat(owner, "<span class='userdanger'>You become frozen in a cube!</span>")
 	cube = icon('icons/effects/freeze.dmi', "ice_cube")

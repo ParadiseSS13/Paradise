@@ -10,11 +10,10 @@
 	. = ..()
 	update_icon()
 
-/obj/structure/largecrate/update_icon()
-	..()
-	overlays.Cut()
+/obj/structure/largecrate/update_overlays()
+	. = ..()
 	if(manifest)
-		overlays += "manifest"
+		. += "manifest"
 
 /obj/structure/largecrate/attack_hand(mob/user as mob)
 	if(manifest)
@@ -42,8 +41,8 @@
 			var/atom/movable/A = O
 			A.forceMove(T)
 		user.visible_message("<span class='notice'>[user] pries \the [src] open.</span>", \
-							 "<span class='notice'>You pry open \the [src].</span>", \
-							 "<span class='notice'>You hear splitting wood.</span>")
+							"<span class='notice'>You pry open \the [src].</span>", \
+							"<span class='notice'>You hear splitting wood.</span>")
 		qdel(src)
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)

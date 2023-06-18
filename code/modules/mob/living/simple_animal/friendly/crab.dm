@@ -14,11 +14,11 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stomps"
-	stop_automated_movement = 1
+	stop_automated_movement = TRUE
 	friendly = "pinches"
 	ventcrawler = 2
-	can_hide = 1
-	can_collar = 1
+	can_hide = TRUE
+	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/crab/handle_automated_movement()

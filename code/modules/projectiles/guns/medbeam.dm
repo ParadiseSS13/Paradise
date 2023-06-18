@@ -15,8 +15,8 @@
 
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/gun/medbeam/New()
-	..()
+/obj/item/gun/medbeam/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/gun/medbeam/Destroy()
@@ -27,6 +27,10 @@
 	return
 
 /obj/item/gun/medbeam/dropped(mob/user)
+	..()
+	LoseTarget()
+
+/obj/item/gun/medbeam/equipped(mob/user, slot, initial)
 	..()
 	LoseTarget()
 
@@ -50,7 +54,7 @@
 	active = TRUE
 	var/datum/beam/current_beam = new(user,current_target,time=6000,beam_icon_state="medbeam",btype=/obj/effect/ebeam/medical)
 	beam_UID = current_beam.UID()
-	INVOKE_ASYNC(current_beam, /datum/beam.proc/Start)
+	INVOKE_ASYNC(current_beam, TYPE_PROC_REF(/datum/beam, Start))
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
@@ -81,25 +85,25 @@
 	var/turf/user_turf = user.loc
 	var/datum/beam/current_beam = locateUID(beam_UID)
 	if(!istype(user_turf))
-		return 0
+		return FALSE
 	var/obj/dummy = new(user_turf)
-	dummy.pass_flags |= PASSTABLE & PASSGLASS & PASSGRILLE & PASSFENCE //Grille/Glass so it can be used through common windows
+	dummy.pass_flags |= PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE //Grille/Glass so it can be used through common windows
 	for(var/turf/turf in getline(user_turf,target))
 		if(turf.density)
 			qdel(dummy)
-			return 0
+			return FALSE
 		for(var/atom/movable/AM in turf)
 			if(!AM.CanPass(dummy,turf,1))
 				qdel(dummy)
-				return 0
+				return FALSE
 		for(var/obj/effect/ebeam/medical/B in turf)// Don't cross the str-beams!
 			if(B.owner != current_beam)
 				turf.visible_message("<span class='userdanger'>The medbeams cross and EXPLODE!</span>")
 				explosion(B.loc,0,3,5,8)
 				qdel(dummy)
-				return 0
+				return FALSE
 	qdel(dummy)
-	return 1
+	return TRUE
 
 /obj/item/gun/medbeam/proc/on_beam_hit(mob/living/target)
 	return

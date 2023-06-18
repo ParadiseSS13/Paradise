@@ -37,7 +37,7 @@ export const SlotMachine = (props, context) => {
               <LabeledList.Item label="Credits Remaining">
                 <AnimatedNumber value={data.money} />
               </LabeledList.Item>
-              <LabeledList.Item label="50 credits to spin">
+              <LabeledList.Item label="10 credits to spin">
                 <Button
                   icon="coins"
                   disabled={data.working}

@@ -48,7 +48,7 @@
 /obj/effect/hallucination/chaser/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 	name = "\proper monkey ([rand(100, 999)])"
-	think_timer = addtimer(CALLBACK(src, .proc/think), think_interval, TIMER_LOOP | TIMER_STOPPABLE)
+	think_timer = addtimer(CALLBACK(src, PROC_REF(think)), think_interval, TIMER_LOOP | TIMER_STOPPABLE)
 
 /obj/effect/hallucination/chaser/Destroy()
 	deltimer(think_timer)
@@ -129,4 +129,4 @@
   */
 /obj/effect/hallucination/chaser/attacker/proc/on_knockdown()
 	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-					  	   "<span class='userdanger'>[src]'s blow was too much for you, causing you to collapse!</span>")
+						"<span class='userdanger'>[src]'s blow was too much for you, causing you to collapse!</span>")

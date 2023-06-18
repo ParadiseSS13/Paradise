@@ -59,10 +59,10 @@
 /mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
-/mob/living/simple_animal/hostile/poison/bees/New()
-	..()
-	generate_bee_visuals()
+/mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/swarming)
+	generate_bee_visuals()
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	beegent = null
@@ -148,7 +148,7 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/poison/bees/AttackingTarget()
- 	//Pollinate
+	//Pollinate
 	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/Hydro = target
 		pollinate(Hydro)
@@ -248,11 +248,11 @@
 
 //Botany Queen Bee
 /mob/living/simple_animal/hostile/poison/bees/queen
- 	name = "queen bee"
- 	desc = "She's the queen of bees, BZZ BZZ"
- 	icon_base = "queen"
- 	isqueen = TRUE
- 	mouse_opacity = MOUSE_OPACITY_OPAQUE
+	name = "queen bee"
+	desc = "She's the queen of bees, BZZ BZZ"
+	icon_base = "queen"
+	isqueen = TRUE
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 
 //the Queen doesn't leave the box on her own, and she CERTAINLY doesn't pollinate by herself
@@ -346,9 +346,9 @@
 	var/list/master_and_friends = list()
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
-/mob/living/simple_animal/hostile/poison/bees/syndi/New()
+/mob/living/simple_animal/hostile/poison/bees/syndi/Initialize(mapload)
+	. = ..()
 	beegent = GLOB.chemical_reagents_list["facid"] //Prepare to die
-	..()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/Destroy()
 	master_and_friends.Cut()

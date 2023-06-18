@@ -55,7 +55,7 @@ if(!result || result.ckey != __ckey){\
 		for(var/i in invalid_mobs)
 			selected_mobs -= i // Cleanup
 
-	log_records = sortTim(log_records, /proc/compare_log_record)
+	log_records = sortTim(log_records, GLOBAL_PROC_REF(compare_log_record))
 
 /** Binary search like implementation to find the earliest log
  * Returns the index of the earliest log using the time_from value for the given list of logs.
@@ -252,12 +252,12 @@ if(!result || result.ckey != __ckey){\
 	if(href_list["add_mob"])
 		var/list/mobs = getpois(TRUE, TRUE)
 		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
-		A.on_close(CALLBACK(src, .proc/add_mob, usr))
+		A.on_close(CALLBACK(src, PROC_REF(add_mob), usr))
 		return
 	if(href_list["add_ckey"])
 		var/list/ckeys = GLOB.logging.get_ckeys_logged()
 		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a ckey: ", ckeys)
-		A.on_close(CALLBACK(src, .proc/add_ckey, usr))
+		A.on_close(CALLBACK(src, PROC_REF(add_ckey), usr))
 		return
 	if(href_list["remove_mob"])
 		var/mob/M = locate(href_list["remove_mob"])

@@ -1,20 +1,21 @@
 /obj/machinery/optable
-	name = "Operating Table"
+	name = "operating table"
 	desc = "Used for advanced medical procedures."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "table2-idle"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 1
-	active_power_usage = 5
-	var/mob/living/carbon/human/patient
+	idle_power_consumption = 1
+	active_power_consumption = 5
+	can_buckle = TRUE // you can buckle someone if they have cuffs
+	buckle_lying = TRUE
+	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
-	buckle_lying = -1
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
+
 
 /obj/machinery/optable/Initialize(mapload)
 	. = ..()
@@ -31,13 +32,14 @@
 	patient = null
 	return ..()
 
-/obj/machinery/optable/detailed_examine()
-	return "Click your target and drag them onto the table to place them onto it."
+/obj/machinery/optable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Click-drag</b> someone to the table to place them on top of the table.</span>"
 
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		..(user, TRUE)
-		visible_message("<span class='warning'>[user] destroys the operating table!</span>")
+		visible_message("<span class='warning'>[user] destroys [src]!</span>")
 		qdel(src)
 		return TRUE
 
@@ -58,19 +60,21 @@
 		return
 	if(!ismob(O) || !iscarbon(O)) //Only Mobs and Carbons can go on this table (no syptic patches please)
 		return
+	if(!user_buckle_mob(O, user, check_loc = FALSE))
+		return
 	take_patient(O, user)
 
 /**
   * Updates the `patient` var to be the mob occupying the table
   */
 /obj/machinery/optable/proc/update_patient()
-	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(M && IS_HORIZONTAL(M))
-		patient = M
+	var/mob/living/carbon/C = locate(/mob/living/carbon, loc)
+	if(C && IS_HORIZONTAL(C))
+		patient = C
 	else
 		patient = null
 	if(!no_icon_updates)
-		if(patient && patient.pulse)
+		if(C && C.pulse)
 			icon_state = "table2-active"
 		else
 			icon_state = "table2-idle"
@@ -84,20 +88,18 @@
 	update_patient()
 	if(LAZYLEN(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
+			if(C.stat == DEAD)
+				continue
 			var/datum/reagents/R = C.reagents
 			for(var/chemical in injected_reagents)
 				R.check_and_add(chemical,reagent_target_amount,inject_amount)
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
 	if(new_patient == user)
-		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
+		user.visible_message("[user] climbs on [src].","You climb on [src].")
 	else
-		visible_message("<span class='alert'>[new_patient] has been laid on the operating table by [user].</span>")
+		visible_message("<span class='alert'>[new_patient] has been laid on [src] by [user].</span>")
 	new_patient.resting = TRUE
-	new_patient.lay_down()
-	new_patient.forceMove(loc)
-	if(user.pulling == new_patient)
-		user.stop_pulling()
 	if(new_patient.s_active) //Close the container opened
 		new_patient.s_active.close(new_patient)
 	add_fingerprint(user)
@@ -107,7 +109,7 @@
 	set name = "Climb On Table"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table())
+	if(usr.stat || !iscarbon(usr) || usr.restrained() || !check_table())
 		return
 	take_patient(usr, usr)
 

@@ -78,8 +78,7 @@
 "p" = (
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
 	dir = 4;
@@ -119,7 +118,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "x" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "y" = (

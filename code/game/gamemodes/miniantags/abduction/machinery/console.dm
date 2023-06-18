@@ -38,6 +38,15 @@
 	// delaying linkage until after.
 	Link_Abduction_Equipment()
 
+/obj/machinery/abductor/console/Destroy()
+	gizmo = null
+	vest = null
+	experiment = null
+	pad = null
+	camera = null
+	disguises.Cut()
+	return ..()
+
 /obj/machinery/abductor/console/attack_hand(mob/user)
 	if(..())
 		return
@@ -227,4 +236,4 @@
 		else
 			new item(src.loc)
 	else
-		atom_say("Insufficent data!")
+		atom_say("Insufficient data!")

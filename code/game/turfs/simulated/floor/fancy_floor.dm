@@ -110,9 +110,7 @@
 	. = ..()
 	update_icon()
 
-/turf/simulated/floor/carpet/update_icon()
-	if(!..())
-		return 0
+/turf/simulated/floor/carpet/update_icon_state()
 	if(!broken && !burnt)
 		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH(src)

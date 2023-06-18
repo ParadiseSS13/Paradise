@@ -14,15 +14,15 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10
 	var/datum/icon_snapshot/disguise
-	var/stealth_armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70)
-	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 90, ACID = 90)
+	var/stealth_armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
+	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 450, ACID = 450)
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
@@ -272,7 +272,7 @@
 	var/list/all_items = M.GetAllContents()
 
 	for(var/obj/I in all_items)
-		if(istype(I, /obj/item/radio))
+		if(isradio(I))
 			var/obj/item/radio/R = I
 			R.listening = FALSE // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
 			R.emp_act(1)
@@ -384,7 +384,7 @@
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
-/obj/item/paper/abductor/update_icon()
+/obj/item/paper/abductor/update_icon_state()
 	return
 
 /obj/item/paper/abductor/AltClick()
@@ -422,12 +422,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			txt = "probing"
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/abductor_baton/update_icon()
+/obj/item/abductor_baton/update_icon_state()
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"
@@ -491,10 +491,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
 							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
-
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.forcesay(GLOB.hit_appends)
 
 	add_attack_logs(user, L, "Stunned with [src]")
 
@@ -688,36 +684,34 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	framestackamount = 1
 	density = TRUE
+	anchored = TRUE
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
-		var/obj/item/stack/sheet/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
-			P.use(1)
-			new /obj/structure/table/abductor(loc)
-			qdel(src)
-		return
-	if(istype(I, /obj/item/stack/sheet/mineral/silver))
-		var/obj/item/stack/sheet/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
-			P.use(1)
-			new /obj/machinery/optable/abductor(loc)
-			qdel(src)
-		return
-	return ..()
+/obj/structure/table_frame/abductor/try_make_table(obj/item/stack/stack, mob/user)
+	if(!istype(stack, /obj/item/stack/sheet/mineral/abductor) && !istype(stack, /obj/item/stack/sheet/mineral/silver))
+		return FALSE
+
+	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
+		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
+		return TRUE
+
+	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
+
+	if(!(do_after(user, 50, target = src) && stack.use(1)))
+		return TRUE
+
+	if(istype(stack, /obj/item/stack/sheet/mineral/abductor)) //if it's not this then it's silver, so no need for an else afterwards
+		make_new_table(stack.table_type)
+		return TRUE
+
+	new /obj/machinery/optable/abductor(loc)
+	qdel(src)
+	return TRUE
 
 /obj/structure/table/abductor
 	name = "alien table"
 	desc = "Advanced flat surface technology at work!"
-	icon = 'icons/obj/smooth_structures/alien_table.dmi'
+	icon = 'icons/obj/smooth_structures/tables/alien_table.dmi'
 	icon_state = "alien_table-0"
 	base_icon_state = "alien_table"
 	buildstack = /obj/item/stack/sheet/mineral/abductor

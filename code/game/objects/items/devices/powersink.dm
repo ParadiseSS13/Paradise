@@ -30,7 +30,7 @@
 	attached = null
 	return ..()
 
-/obj/item/powersink/update_icon()
+/obj/item/powersink/update_icon_state()
 	icon_state = "powersink[mode == OPERATING]"
 
 /obj/item/powersink/proc/set_mode(value)
@@ -60,7 +60,7 @@
 			density = TRUE
 
 	mode = value
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	set_light(0)
 
 /obj/item/powersink/screwdriver_act(mob/user, obj/item/I)
@@ -113,14 +113,14 @@
 		set_mode(DISCONNECTED)
 		return
 
-	var/datum/powernet/PN = attached.powernet
+	var/datum/regional_powernet/PN = attached.powernet
 	if(PN)
 		set_light(5)
 
 		// found a powernet, so drain up to max power from it
 
-		var/drained = min (drain_rate, attached.newavail())
-		attached.add_delayedload(drained)
+		var/drained = min(drain_rate, attached.get_queued_surplus())
+		attached.add_queued_power_demand(drained)
 		power_drained += drained
 
 		// if tried to drain more than available on powernet

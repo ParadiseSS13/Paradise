@@ -40,7 +40,7 @@
 
 /obj/structure/mecha_wreckage/Destroy()
 	QDEL_NULL(AI)
-	QDEL_LIST(crowbar_salvage)
+	QDEL_LIST_CONTENTS(crowbar_salvage)
 	return ..()
 
 /obj/structure/mecha_wreckage/examine(mob/user)

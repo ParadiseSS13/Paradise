@@ -2,9 +2,7 @@
 	name = "Curse of the Horseman"
 	desc = "This spell triggers a curse on a target, causing them to wield an unremovable horse head mask. They will speak like a horse! Any masks they are wearing will be disintegrated. This spell does not require robes."
 	school = "transmutation"
-	charge_type = "recharge"
-	charge_max = 150
-	charge_counter = 0
+	base_cooldown = 150
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"

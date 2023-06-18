@@ -55,6 +55,7 @@
 	if((!can_buckle && !force) || M.buckled || (length(buckled_mobs) >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
 		return FALSE
 	M.buckling = src
+
 	if(!M.can_buckle() && !force)
 		if(M == usr)
 			to_chat(M, "<span class='warning'>You are unable to buckle yourself to [src]!</span>")
@@ -77,6 +78,10 @@
 		M.set_body_position(STANDING_UP)
 	else
 		M.set_body_position(LYING_DOWN)
+
+	if(M.pulling && M.pulling == src)
+		M.stop_pulling()
+
 	M.buckling = null
 	M.buckled = src
 	M.setDir(dir)
@@ -138,7 +143,7 @@
 	. = buckle_mob(M, check_loc = check_loc)
 	if(.)
 		if(M == user)
-			M.visible_message("<span class='notice'>[M] buckles [M.p_them()]self to [src].</span>",\
+			M.visible_message("<span class='notice'>[M] buckles [M.p_themselves()] to [src].</span>",\
 				"<span class='notice'>You buckle yourself to [src].</span>",\
 				"<span class='italics'>You hear metal clanking.</span>")
 		else
@@ -154,7 +159,7 @@
 				"<span class='notice'>[user] unbuckles you from [src].</span>",\
 				"<span class='italics'>You hear metal clanking.</span>")
 		else
-			M.visible_message("<span class='notice'>[M] unbuckles [M.p_them()]self from [src].</span>",\
+			M.visible_message("<span class='notice'>[M] unbuckles [M.p_themselves()] from [src].</span>",\
 				"<span class='notice'>You unbuckle yourself from [src].</span>",\
 				"<span class='italics'>You hear metal clanking.</span>")
 		add_fingerprint(user)

@@ -21,8 +21,9 @@
 	alpha = 255
 	icon = null
 
-/obj/machinery/atmospherics/pipe/manifold4w/detailed_examine()
-	return "This is a four-way pipe."
+/obj/machinery/atmospherics/pipe/manifold4w/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a normal pipe with 4 connecting ends.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold4w/pipeline_expansion()
 	return list(node1, node2, node3, node4)
@@ -91,16 +92,14 @@
 	if(node4)
 		node4.update_underlays()
 
-/obj/machinery/atmospherics/pipe/manifold4w/update_icon(safety = 0)
-	..()
-
-	if(!check_icon_cache())
-		return
-
+/obj/machinery/atmospherics/pipe/manifold4w/update_overlays()
+	. = ..()
 	alpha = 255
-	overlays.Cut()
-	overlays += SSair.icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
-	overlays += SSair.icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
+	. += SSair.icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
+	. += SSair.icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
+	update_underlays()
+
+/obj/machinery/atmospherics/pipe/manifold4w/update_underlays()
 	underlays.Cut()
 
 	var/turf/T = get_turf(src)
@@ -121,11 +120,6 @@
 	for(var/D in directions)
 		add_underlay(T,,D,icon_connect_type)
 
-/obj/machinery/atmospherics/pipe/manifold4w/update_underlays()
-	..()
-	update_icon()
-
-
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/manifold4w/check_nodes_exist()
 	if(!node1 && !node2 && !node3 && !node4)
@@ -135,7 +129,7 @@
 	return 1
 
 /obj/machinery/atmospherics/pipe/manifold4w/hide(i)
-	if(level == 1 && istype(loc, /turf/simulated))
+	if(level == 1 && issimulatedturf(loc))
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 
 /obj/machinery/atmospherics/pipe/manifold4w/atmos_init()
@@ -172,32 +166,38 @@
 /obj/machinery/atmospherics/pipe/manifold4w/visible
 	icon_state = "map_4way"
 	level = 2
+	plane = GAME_PLANE
+	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers
 	name="4-way scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map_4way-scrubbers"
-	connect_types = list(3)
-	layer = 2.38
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
+	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
-/obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers/detailed_examine()
-	return "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
-			a Universal Adapter pipe."
+/obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a special 'scrubber' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/supply
 	name="4-way air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map_4way-supply"
-	connect_types = list(2)
-	layer = 2.39
+	connect_types = list(CONNECT_TYPE_SUPPLY)
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET
+	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
-/obj/machinery/atmospherics/pipe/manifold4w/visible/supply/detailed_examine()
-	return "This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe."
+/obj/machinery/atmospherics/pipe/manifold4w/visible/supply/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a special 'supply' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/yellow
 	color = PIPE_COLOR_YELLOW
@@ -215,32 +215,38 @@
 	icon_state = "map_4way"
 	level = 1
 	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers
 	name="4-way scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map_4way-scrubbers"
-	connect_types = list(3)
-	layer = 2.38
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
+	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
+	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers/detailed_examine()
-	return "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
-			a Universal Adapter pipe."
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a special 'scrubber' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply
 	name="4-way air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map_4way-supply"
-	connect_types = list(2)
-	layer = 2.39
+	connect_types = list(CONNECT_TYPE_SUPPLY)
+	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
+	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply/detailed_examine()
-	return "This is a special 'supply' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
-			a Universal Adapter pipe."
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a special 'supply' pipe, which does not connect to 'normal' pipes.  If you want to connect it, use \
+	a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/yellow
 	color = PIPE_COLOR_YELLOW

@@ -38,37 +38,33 @@
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
 		toggle(user)
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/living/silicon/user)
 	set_max(user)
-
-/obj/machinery/atmospherics/trinary/filter/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
 	flipped = TRUE
 
-/obj/machinery/atmospherics/trinary/filter/update_icon()
-	..()
-
+/obj/machinery/atmospherics/trinary/filter/update_icon_state()
 	if(flipped)
 		icon_state = "m"
 	else
 		icon_state = ""
 
-	if(!powered())
+	if(!has_power())
 		icon_state += "off"
 	else if(node2 && node3 && node1)
 		icon_state += on ? "on" : "off"
@@ -93,10 +89,9 @@
 		add_underlay(T, node3, dir)
 
 /obj/machinery/atmospherics/trinary/filter/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
 	..()
@@ -165,10 +160,6 @@
 
 	return 1
 
-/obj/machinery/atmospherics/trinary/filter/atmos_init()
-	set_frequency(frequency)
-	..()
-
 /obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user)
 	ui_interact(user)
 
@@ -232,7 +223,7 @@
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 		return
 	else

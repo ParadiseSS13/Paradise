@@ -29,19 +29,18 @@
 	desc = "A white folder."
 	icon_state = "folder_white"
 
-/obj/item/folder/update_icon()
-	overlays.Cut()
+/obj/item/folder/update_overlays()
+	. = ..()
 	if(contents.len)
-		overlays += "folder_paper"
-	..()
+		. += "folder_paper"
 
 /obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
 		user.drop_item()
 		W.loc = src
 		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
-		update_icon()
-	else if(istype(W, /obj/item/pen))
+		update_icon(UPDATE_OVERLAYS)
+	else if(is_pen(W))
 		rename_interactive(user, W)
 	else
 		return ..()
@@ -54,7 +53,7 @@
 	for(var/obj/item/photo/Ph in src)
 		dat += "<A href='?src=[UID()];remove=\ref[Ph]'>Remove</A> - <A href='?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
 	for(var/obj/item/paper_bundle/Pa in src)
-		dat += "<A href='?src=[UID()];remove=\ref[Pa]'>Remove</A> - <A href='?src=[UID()];look=\ref[Pa]'>[Pa.name]</A><BR>"
+		dat += "<A href='?src=[UID()];remove=\ref[Pa]'>Remove</A> - <A href='?src=[UID()];browse=\ref[Pa]'>[Pa.name]</A><BR>"
 	for(var/obj/item/documents/doc in src)
 		dat += "<A href='?src=[UID()];remove=\ref[doc]'>Remove</A> - <A href='?src=[UID()];look=\ref[doc]'>[doc.name]</A><BR>"
 	user << browse(dat, "window=folder")
@@ -91,7 +90,7 @@
 
 		//Update everything
 		attack_self(usr)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/item/folder/documents
@@ -101,7 +100,7 @@
 /obj/item/folder/documents/New()
 	..()
 	new /obj/item/documents/nanotrasen(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate
 	name = "folder- 'TOP SECRET'"
@@ -113,7 +112,7 @@
 /obj/item/folder/syndicate/red/New()
 	..()
 	new /obj/item/documents/syndicate/red(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/blue
 	icon_state = "folder_sblue"
@@ -121,7 +120,7 @@
 /obj/item/folder/syndicate/blue/New()
 	..()
 	new /obj/item/documents/syndicate/blue(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/yellow
 	icon_state = "folder_syellow"
@@ -129,11 +128,11 @@
 /obj/item/folder/syndicate/yellow/full/New()
 	..()
 	new /obj/item/documents/syndicate/yellow(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/mining/New()
 	. = ..()
 	new /obj/item/documents/syndicate/mining(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 

@@ -6,7 +6,7 @@
 
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
-	var/total_depletion_rate = (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio // Cache it
+	var/total_depletion_rate = metabolization_rate / M.metabolism_efficiency // Cache it
 
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)
@@ -22,6 +22,10 @@
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 	taste_description = "numbness"
+
+/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
+	var/update_flags = STATUS_UPDATE_HEALTH
+	return ..() | update_flags
 
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
@@ -120,24 +124,28 @@
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+
 	var/external_temp
 	if(istype(M.loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = M.loc
-		external_temp = C.temperature_archived
+		external_temp = C.air_contents.temperature
 	else
 		var/turf/T = get_turf(M)
 		external_temp = T.temperature
+
 	if(external_temp < TCRYO)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
 		update_flags |= M.adjustBruteLoss(-12, FALSE)
 		update_flags |= M.adjustFireLoss(-12, FALSE)
+
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ("head")
 			if(head)
 				head.status &= ~ORGAN_DISFIGURED
+
 	return ..() | update_flags
 
 /datum/reagent/medicine/rezadone
@@ -152,10 +160,10 @@
 
 /datum/reagent/medicine/rezadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.setCloneLoss(0, FALSE) //Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that.
-	update_flags |= M.adjustCloneLoss(-1, FALSE) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate. // why don't you fix the code instead
+	update_flags |= M.setCloneLoss(0, FALSE) // Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that.
 	update_flags |= M.adjustBruteLoss(-1, FALSE)
 	update_flags |= M.adjustFireLoss(-1, FALSE)
+
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head = H.get_organ("head")
@@ -285,20 +293,22 @@
 	description = "A resorbable microfibrillar collagen and protein mixture that can rapidly heal injuries when applied topically."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
+	penetrates_skin = TRUE
 	taste_description = "blood"
 
 /datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
-			M.adjustBruteLoss(-1.5*volume)
-			M.adjustFireLoss(-1.5*volume)
+			M.adjustBruteLoss(-1.5 * volume)
+			M.adjustFireLoss(-1.5 * volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
-					H.cure_husk(BURN)
-					H.visible_message("<span class='nicegreen'>The squishy liquid coats [H]'s burns. [H] looks a lot healthier!") //we're avoiding using the phrases "burnt flesh" and "burnt skin" here because humans could be a skeleton or a golem or something
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
+				H.cure_husk(BURN)
+				// Could be a skeleton or a golem or sth, avoid phrases like "burnt flesh" and "burnt skin"
+				H.visible_message("<span class='nicegreen'>The squishy liquid coats [H]'s burns. [H] looks a lot healthier!</span>")
 	..()
 
 /datum/reagent/medicine/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
@@ -412,8 +422,7 @@
 	taste_description = "cleansing"
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
-	if(prob(80))
-		M.radiation = max(0, M.radiation-10)
+	M.radiation = max(0, M.radiation - 25)
 	return ..()
 
 /datum/reagent/medicine/pen_acid
@@ -497,6 +506,8 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
+	overdose_threshold = 4
+	allowed_overdose_process = TRUE
 	addiction_chance = 1
 	addiction_chance_additional = 20
 	addiction_threshold = 10
@@ -505,13 +516,17 @@
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
+
 	update_flags |= M.adjustOxyLoss(-25*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(volume >= 4)
-		M.LoseBreath(12 SECONDS)
 	if(prob(33))
 		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+
 	return ..() | update_flags
+
+/datum/reagent/medicine/perfluorodecalin/overdose_process(mob/living/M)
+	M.LoseBreath(12 SECONDS)
+	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
@@ -601,9 +616,11 @@
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 15
+	metabolization_rate = 0.25 //Lasts for 120 seconds
 	shock_reduction = 50
 	harmless = FALSE
 	taste_description = "a delightful numbing"
+	allowed_overdose_process = TRUE
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -730,10 +747,10 @@
 			M.emote("collapse")
 	return list(effect, update_flags)
 
-/datum/reagent/medicine/strange_reagent
-	name = "Strange Reagent"
-	id = "strange_reagent"
-	description = "A glowing green fluid highly reminiscent of nuclear waste."
+/datum/reagent/medicine/lazarus_reagent
+	name = "Lazarus Reagent"
+	id = "lazarus_reagent"
+	description = "A bioluminescent green fluid that seems to move on its own."
 	reagent_state = LIQUID
 	color = "#A0E85E"
 	metabolization_rate = 0.2
@@ -741,14 +758,14 @@
 	harmless = FALSE
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
-/datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
+/datum/reagent/medicine/lazarus_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		update_flags |= M.adjustBruteLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+/datum/reagent/medicine/lazarus_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
@@ -758,13 +775,15 @@
 			return
 		if(SM.stat == DEAD)
 			SM.revive()
-			SM.loot.Cut() //no abusing strange reagent for farming unlimited resources
+			SM.loot.Cut() //no abusing Lazarus Reagent for farming unlimited resources
 			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
+					if(ischangeling(M))
+						return
 					M.delayed_gib()
 					return
 				if(!M.ghost_can_reenter())
@@ -796,7 +815,8 @@
 
 					M.grab_ghost()
 					M.update_revive()
-					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
+					add_attack_logs(M, M, "Revived with lazarus reagent") //Yes, the logs say you revived yourself.
+					SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 	..()
 
 /datum/reagent/medicine/mannitol
@@ -928,6 +948,15 @@
 		M.AdjustLoseBreath(2 SECONDS)
 	return list(0, update_flags)
 
+/datum/reagent/medicine/stimulative_agent/changeling
+	id = "stimulative_cling"
+
+/datum/reagent/medicine/stimulative_agent/changeling/on_mob_add(mob/living/L)
+	return
+
+/datum/reagent/medicine/stimulative_agent/changeling/on_mob_delete(mob/living/L)
+	return
+
 /datum/reagent/medicine/insulin
 	name = "Insulin"
 	id = "insulin"
@@ -1015,8 +1044,10 @@
 	M.AdjustDruggy(-10 SECONDS)
 	M.AdjustHallucinate(-5 SECONDS)
 	M.AdjustJitter(-10 SECONDS)
-	if(prob(50))
-		M.Drowsy(6 SECONDS)
+	if(prob(40))
+		M.EyeBlurry(10 SECONDS)
+	if(prob(75))
+		M.Confused(6 SECONDS)
 	if(prob(10))
 		M.emote("drool")
 	if(prob(20))
@@ -1250,12 +1281,12 @@
 /datum/reagent/medicine/nanocalcium
 	name = "Nano-Calcium"
 	id = "nanocalcium"
-	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
+	description = "Highly advanced nanites equipped with an unknown payload designed to repair a body. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 0.5
 	can_synth = FALSE
 	harmless = FALSE
-	taste_description = "wholeness"
+	taste_description = "2 minutes of suffering"
 	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
@@ -1270,28 +1301,48 @@
 			M.AdjustJitter(8 SECONDS)
 			if(prob(10))
 				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
+				update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+			for(var/datum/reagent/R in M.reagents.reagent_list)
+				if(stimulant_list.Find(R.id))
+					M.reagents.remove_reagent(R.id, 0.5) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
 		if(20 to 43)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
 			if(has_stimulant == TRUE)
 				update_flags |= M.adjustToxLoss(10, FALSE)
 			else //apply debilitating effects
 				if(prob(75))
-					M.AdjustConfused(10 SECONDS)
+					M.AdjustConfused(4 SECONDS)
 				else
-					M.AdjustWeakened(10 SECONDS)
+					M.AdjustKnockDown(10 SECONDS) //You can still crawl around a bit for now, but soon suffering kicks in.
 		if(44)
 			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
-			M.AdjustWeakened(30 SECONDS)
+			M.AdjustWeakened(15 SECONDS)
 		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
 			if(has_stimulant == TRUE)
 				return ..()
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)
-					if(E.is_broken())
-						if(prob(50)) // Each tick has a 50% chance of repearing a bone.
-							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
-							E.rejuvenate() //Repair it completely.
-							break
+					if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED | ORGAN_BURNT)) //I can't just check for !E.status
+						to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
+						E.rejuvenate() //Repair it completely.
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.
+						I.heal_internal_damage(4)
+					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.7)// If below 70% blood, regenerate 150 units total
+						H.blood_volume += 10
+					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
+						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
+				if(M.health < 40)
+					update_flags |= M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+					update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+					update_flags |= M.adjustBruteLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+					update_flags |= M.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+				else
+					if(prob(25))
+						to_chat(M, "<span class='warning'>Your skin feels like it is ripping apart and your veins are on fire!</span>") //It is experimental and does cause scars, after all.
+						update_flags |= M.adjustBruteLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+						update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/lavaland_extract

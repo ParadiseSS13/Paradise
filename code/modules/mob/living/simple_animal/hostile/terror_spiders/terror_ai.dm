@@ -181,7 +181,7 @@
 			var/mob/living/M = A
 			if(!("terrorspiders" in M.faction))
 				enemies |= M
-		else if(istype(A, /obj/mecha))
+		else if(ismecha(A))
 			var/obj/mecha/M = A
 			if(M.occupant)
 				enemies |= M
@@ -225,7 +225,7 @@
 	for(var/obj/O in can_see)
 		if(O.anchored)
 			continue
-		if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
+		if(isitem(O) || isstructure(O) || ismachinery(O))
 			if(!istype(O, /obj/item/paper))
 				cocoon_target = O
 				stop_automated_movement = TRUE
@@ -279,7 +279,7 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			visible_message("<B>[src] scrambles into the ventillation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+			visible_message("<B>[src] scrambles into the ventilation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 			spawn(rand(20,60))
 				var/original_location = loc
 				forceMove(exit_vent)
@@ -345,12 +345,3 @@
 	if(!target)
 		return
 	. = ..()
-
-// --------------------------------------------------------------------------------
-// --------------------- TERROR SPIDERS: MISC AI CODE -----------------------------
-// --------------------------------------------------------------------------------
-
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/UnlockBlastDoors(target_id_tag)
-	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
-		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
-			P.open()

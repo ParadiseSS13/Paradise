@@ -11,9 +11,7 @@
 
 	var/oxygen_content = 10
 
-/obj/machinery/atmospherics/unary/oxygen_generator/update_icon()
-	..()
-
+/obj/machinery/atmospherics/unary/oxygen_generator/update_icon_state()
 	if(node)
 		icon_state = "intact_[on?("on"):("off")]"
 	else

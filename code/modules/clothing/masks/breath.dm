@@ -5,6 +5,7 @@
 	item_state = "breath"
 	flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
+	can_toggle = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50

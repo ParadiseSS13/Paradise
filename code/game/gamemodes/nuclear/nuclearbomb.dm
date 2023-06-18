@@ -14,26 +14,39 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb
 	name = "\improper Nuclear Fission Explosive"
 	desc = "Uh oh. RUN!!!!"
-	icon = 'icons/obj/stationobjs.dmi'
+	icon = 'icons/obj/nuclearbomb.dmi'
 	icon_state = "nuclearbomb0"
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	flags_2 = NO_MALF_EFFECT_2
+	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
 	anchored = TRUE
+	power_state = NO_POWER_USE
+	requires_power = FALSE
+	pull_speed = 0
+
+	/// Are our bolts *supposed* to be in the floor, may not actually cause anchoring if the bolts are cut
 	var/extended = TRUE
+	/// If true, prevents the lights on the nuke
 	var/lighthack = FALSE
+	/// Countdown to boom
 	var/timeleft = 120
+	/// Are we counting down?
 	var/timing = FALSE
+	/// Have we gone boom yet?
 	var/exploded = FALSE
+	/// Random code between 10000 and 99999
 	var/r_code = "ADMIN"
+	/// Code entered by user
 	var/code
+	/// Is the most recently inputted code correct?
 	var/yes_code = FALSE
 	var/safety = TRUE
 	var/obj/item/disk/nuclear/auth = null
 	var/obj/item/nuke_core/plutonium/core = null
 	var/lastentered
 	var/is_syndicate = FALSE
-	use_power = NO_POWER_USE
+	/// If this is true you cannot unbolt the NAD with tools, only the NAD
+	var/requires_NAD_to_unbolt = FALSE
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
 	var/removal_stage = NUKE_INTACT
@@ -41,9 +54,12 @@ GLOBAL_VAR(bomb_set)
 	var/anchor_stage = NUKE_INTACT
 	///This is so that we can check if the internal components are sealed up properly when the outer hatch is closed.
 	var/core_stage = NUKE_CORE_EVERYTHING_FINE
+	///How many sheets of various metals we need to fix it
+	var/sheets_to_fix = 5
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
+	requires_NAD_to_unbolt = TRUE
 
 /obj/machinery/nuclearbomb/undeployed
 	extended = FALSE
@@ -53,10 +69,12 @@ GLOBAL_VAR(bomb_set)
 	. = ..()
 	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
+	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
 	previous_level = get_security_level()
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/Destroy()
 	SStgui.close_uis(wires)
@@ -70,8 +88,59 @@ GLOBAL_VAR(bomb_set)
 		GLOB.bomb_set = TRUE // So long as there is one nuke timing, it means one nuke is armed.
 		timeleft = max(timeleft - 2, 0) // 2 seconds per process()
 		if(timeleft <= 0)
-			INVOKE_ASYNC(src, .proc/explode)
+			INVOKE_ASYNC(src, PROC_REF(explode))
 	return
+
+/obj/machinery/nuclearbomb/examine(mob/user)
+	. = ..()
+	if(!panel_open)
+		. += "<span class='notice'>The outer panel is <b>screwed shut</b>.</span>"
+	switch(removal_stage)
+		if(NUKE_INTACT)
+			. += "<span class='notice'>The anchoring bolt covers are <b>welded shut</b>.</span>"
+		if(NUKE_COVER_OFF)
+			. += "<span class='notice'>The cover plate is <b>pried into</b> place.</span>"
+		if(NUKE_COVER_OPEN)
+			. += "<span class='notice'>The anchoring system sealant is <b>welded shut</b>.</span>"
+		if(NUKE_SEALANT_OPEN)
+			. += "<span class='notice'>The bolts are <b>wrenched</b> in place.</span>"
+		if(NUKE_UNWRENCHED)
+			. += "<span class='notice'>The device can be <b>pried off</b> its anchors.</span>"
+		if(NUKE_CORE_EVERYTHING_FINE)
+			. += "<span class='notice'>The outer panel can be <b>pried open</b> or it can be <i>screwed</i> back on.</span>"
+		if(NUKE_CORE_PANEL_EXPOSED)
+			. += "<span class='notice'>The outer plate can be fixed by <b>[sheets_to_fix] metal sheets</b>, while the inner core plate is <i>welded shut</i>.</span>"
+		if(NUKE_CORE_PANEL_UNWELDED)
+			. += "<span class='notice'>The inner core plate can be <b>welded shut</b> or it can be <i>pried open</i>.</span>"
+		if(NUKE_CORE_FULLY_EXPOSED)
+			. += "<span class='notice'>The inner core plate can be fixed by <b>[sheets_to_fix] titanium sheets</b>, [core ? "or the plutonium core can be <i>removed</i>" : "though the plutonium core is <i>missing</i>"].</span>"
+
+/obj/machinery/nuclearbomb/update_overlays()
+	. = ..()
+	underlays.Cut()
+	set_light(0)
+
+	if(!lighthack)
+		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
+		set_light(1, LIGHTING_MINIMUM_POWER)
+
+	if(panel_open)
+		. += "hackpanel_open"
+
+	if(anchored) // Using anchored due to removal_stage deanchoring having multiple steps
+		. += "nukebolts"
+
+	// Selected stage lets us show the open core, even if the front panel is closed
+	var/selected_stage = removal_stage
+	if(removal_stage < NUKE_CORE_EVERYTHING_FINE) // Because we need to show the core
+		selected_stage = core_stage
+	switch(selected_stage)
+		if(NUKE_CORE_PANEL_EXPOSED)
+			. += "nukecore1"
+		if(NUKE_CORE_PANEL_UNWELDED)
+			. += "nukecore2"
+		if(NUKE_CORE_FULLY_EXPOSED)
+			. += core ? "nukecore3" : "nukecore4"
 
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
@@ -87,24 +156,34 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
 		return
 	if(istype(O, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
+		var/obj/item/stack/S = O
+		if(S.get_amount() < sheets_to_fix)
+			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!</span>")
+			return
 		if(do_after(user, 2 SECONDS, target = src))
-			var/obj/item/stack/S = O
-			if(!loc || !S || S.get_amount() < 5)
+			if(!loc || !S || S.get_amount() < sheets_to_fix)
 				return
-			S.use(5)
-			user.visible_message("<span class='notice'>[user] repairs [src]'s inner core plate.</span>", "<span class='notice'>You repair [src]'s inner core plate. The radiation is contained.</span>")
+			S.use(sheets_to_fix)
+			user.visible_message("<span class='notice'>[user] repairs [src]'s inner core plate.</span>", \
+								"<span class='notice'>You repair [src]'s inner core plate. The radiation is contained.</span>")
 			removal_stage = NUKE_CORE_PANEL_UNWELDED
 			if(core)
 				STOP_PROCESSING(SSobj, core)
+			update_icon(UPDATE_OVERLAYS)
 			return
 	if(istype(O, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
 		var/obj/item/stack/S = O
+		if(S.get_amount() < sheets_to_fix)
+			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of metal to repair [src]'s outer core plate!</span>")
+			return
 		if(do_after(user, 2 SECONDS, target = src))
-			if(!loc || !S || S.get_amount() < 5)
+			if(!loc || !S || S.get_amount() < sheets_to_fix)
 				return
-			S.use(5)
-			user.visible_message("<span class='notice'>[user] repairs [src]'s outer core plate.</span>", "<span class='notice'>You repair [src]'s outer core plate.</span>")
+			S.use(sheets_to_fix)
+			user.visible_message("<span class='notice'>[user] repairs [src]'s outer core plate.</span>", \
+								"<span class='notice'>You repair [src]'s outer core plate.</span>")
 			removal_stage = NUKE_CORE_EVERYTHING_FINE
+			update_icon(UPDATE_OVERLAYS)
 			return
 	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
 		if(do_after(user, 2 SECONDS, target = src))
@@ -114,6 +193,8 @@ GLOBAL_VAR(bomb_set)
 			user.visible_message("<span class='notice'>[user] puts [O] back in [src].</span>", "<span class='notice'>You put [O] back in [src].</span>")
 			O.forceMove(src)
 			core = O
+			update_icon(UPDATE_OVERLAYS)
+			return
 
 	else if(istype(O, /obj/item/disk/plantgene))
 		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
@@ -154,6 +235,7 @@ GLOBAL_VAR(bomb_set)
 		user.visible_message("[user] crowbars [src] off of the anchors. It can now be moved.", "You jam the crowbar under the nuclear device and lift it off its anchors. You can now move it!")
 		anchored = FALSE
 		removal_stage = NUKE_MOBILE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/wrench_act(mob/user, obj/item/I)
 	if(!anchored)
@@ -168,6 +250,7 @@ GLOBAL_VAR(bomb_set)
 		return
 	user.visible_message("[user] unwrenches the anchoring bolts on [src].", "You unwrench the anchoring bolts.")
 	removal_stage = NUKE_UNWRENCHED
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/multitool_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -181,16 +264,14 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(auth || (istype(I, /obj/item/screwdriver/nuke)))
+	if(auth || (istype(I, /obj/item/screwdriver/nuke) && !is_syndicate))
 		if(!panel_open)
 			panel_open = TRUE
-			overlays += image(icon, "npanel_open")
 			to_chat(user, "You unscrew the control panel of [src].")
 			anchor_stage = removal_stage
 			removal_stage = core_stage
 		else
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
@@ -199,11 +280,11 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
 		if(panel_open == TRUE)
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
 		flick("nuclearbombc", src)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -216,6 +297,9 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
+		return
+	if(requires_NAD_to_unbolt)
+		to_chat(user, "<span class='warning'>This device seems to have additional safeguards, and cannot be forcibly moved without using the NAD!</span>")
 		return
 	if(removal_stage == NUKE_INTACT)
 		visible_message("<span class='notice'>[user] starts cutting loose the anchoring bolt covers on [src].</span>",\
@@ -248,6 +332,7 @@ GLOBAL_VAR(bomb_set)
 		visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
 		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
 		removal_stage = NUKE_SEALANT_OPEN
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
 	attack_hand(user)
@@ -265,6 +350,7 @@ GLOBAL_VAR(bomb_set)
 		user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
 		core.forceMove(loc)
 		core = null
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -319,6 +405,7 @@ GLOBAL_VAR(bomb_set)
 			if(!lighthack)
 				flick("nuclearbombc", src)
 				icon_state = "nuclearbomb1"
+			update_icon(UPDATE_OVERLAYS)
 			extended = TRUE
 			return
 		if("auth")
@@ -357,19 +444,26 @@ GLOBAL_VAR(bomb_set)
 		if("toggle_anchor")
 			if(removal_stage == NUKE_MOBILE)
 				anchored = FALSE
+				update_icon(UPDATE_OVERLAYS)
 				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
-			else if(isinspace())
+				return
+
+			if(!anchored && isinspace())
 				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 				return FALSE
-			else
-				if(!yes_code && anchored && timing)
-					to_chat(usr, "<span class='warning'>The code is required to unanchor [src] when armed!</span>")
-					return
-				anchored = !(anchored)
-				if(anchored)
-					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
-				else
-					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
+
+			if(!yes_code && anchored && timing)
+				to_chat(usr, "<span class='warning'>The code is required to unanchor [src] when armed!</span>")
+				return
+
+			anchored = !(anchored)
+			update_icon(UPDATE_OVERLAYS)
+			if(anchored)
+				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
+				return
+
+			requires_NAD_to_unbolt = FALSE
+			visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
 			return
 
 	if(!yes_code) // All requests below here require both NAD inserted AND code correct
@@ -398,6 +492,7 @@ GLOBAL_VAR(bomb_set)
 			if(timing)
 				if(!lighthack)
 					icon_state = "nuclearbomb2"
+					update_icon(UPDATE_OVERLAYS)
 				if(!safety)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
@@ -411,16 +506,17 @@ GLOBAL_VAR(bomb_set)
 				GLOB.bomb_set = FALSE
 				if(!lighthack)
 					icon_state = "nuclearbomb1"
+					update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
 	if(exploded)
 		return
 	if(timing)	//boom
-		INVOKE_ASYNC(src, .proc/explode)
+		INVOKE_ASYNC(src, PROC_REF(explode))
 		return
 
-    //if no boom then we need to let the blob capture our nuke
+	//if no boom then we need to let the blob capture our nuke
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -445,6 +541,7 @@ GLOBAL_VAR(bomb_set)
 	safety = TRUE
 	if(!lighthack)
 		icon_state = "nuclearbomb3"
+		update_icon(UPDATE_OVERLAYS)
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = TRUE
@@ -499,6 +596,8 @@ GLOBAL_VAR(bomb_set)
 		if(!lighthack)
 			if(icon_state == "nuclearbomb2")
 				icon_state = "nuclearbomb1"
+				update_icon(UPDATE_OVERLAYS)
+
 	else
 		visible_message("<span class='notice'>[src] emits a quiet whirling noise!</span>")
 
@@ -508,18 +607,26 @@ GLOBAL_VAR(bomb_set)
 	desc = "Better keep this safe."
 	icon_state = "nucleardisk"
 	max_integrity = 250
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	/// Is the disk restricted to the station? If true, also respawns the disk when deleted
+	var/restricted_to_station = TRUE
 
 /obj/item/disk/nuclear/unrestricted
+	name = "unrestricted nuclear authentication disk"
 	desc = "Seems to have been stripped of its safeties, you better not lose it."
+	restricted_to_station = FALSE
 
 /obj/item/disk/nuclear/New()
 	..()
-	START_PROCESSING(SSobj, src)
+	if(restricted_to_station)
+		START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 
 /obj/item/disk/nuclear/process()
+	if(!restricted_to_station)
+		stack_trace("An unrestricted NAD ([src]) was processing.")
+		return PROCESS_KILL
 	if(!check_disk_loc())
 		var/holder = get(src, /mob)
 		if(holder)
@@ -528,6 +635,8 @@ GLOBAL_VAR(bomb_set)
 
  //station disk is allowed on the station level, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise
 /obj/item/disk/nuclear/proc/check_disk_loc()
+	if(!restricted_to_station)
+		return TRUE
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
 	if(is_station_level(T.z))
@@ -535,9 +644,6 @@ GLOBAL_VAR(bomb_set)
 	if(A.nad_allowed)
 		return TRUE
 	return FALSE
-
-/obj/item/disk/nuclear/unrestricted/check_disk_loc()
-	return TRUE
 
 /obj/item/disk/nuclear/Destroy(force)
 	var/turf/diskturf = get_turf(src)
@@ -549,16 +655,36 @@ GLOBAL_VAR(bomb_set)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
-	if(length(GLOB.nukedisc_respawn))
+	if(!restricted_to_station) // Non-restricted NADs should be allowed to be deleted, otherwise it becomes a restricted NAD when teleported
+		message_admins("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]). It will not respawn.")
+		log_game("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]). It will not respawn.")
 		GLOB.poi_list.Remove(src)
-		var/obj/item/disk/nuclear/NEWDISK = new(pick(GLOB.nukedisc_respawn))
+		STOP_PROCESSING(SSobj, src)
+		return ..()
+
+	var/turf/new_spawn = find_respawn()
+	if(new_spawn)
+		GLOB.poi_list.Remove(src)
+		var/obj/item/disk/nuclear/NEWDISK = new(new_spawn)
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
 		log_game("[src] has been destroyed in ([diskturf.x], [diskturf.y], [diskturf.z]). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z]).")
-		return QDEL_HINT_HARDDEL_NOW
+		..()
+		return QDEL_HINT_HARDDEL_NOW // We want this to be deleted ASAP, but we want refs properly cleared too
 	else
-		error("[src] was supposed to be destroyed, but we were unable to locate a nukedisc_respawn landmark to spawn a new one.")
+		error("[src] was supposed to be destroyed, but we were unable to locate a nukedisc_respawn landmark or open surroundings to spawn a new one.")
 	return QDEL_HINT_LETMELIVE // Cancel destruction unless forced.
+
+/obj/item/disk/nuclear/proc/find_respawn()
+	var/list/possible_spawns = GLOB.nukedisc_respawn
+	while(length(possible_spawns))
+		var/turf/current_spawn = pick_n_take(possible_spawns)
+		if(!current_spawn.density)
+			return current_spawn
+		// Someone built a wall over it, check the surroundings
+		var/list/open_turfs = current_spawn.AdjacentTurfs(open_only = TRUE)
+		if(length(open_turfs))
+			return pick(open_turfs)
 
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF

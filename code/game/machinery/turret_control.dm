@@ -88,8 +88,8 @@
 		else
 			control_area = null
 
-	power_change() //Checks power and initial settings
-	return
+	updateTurrets()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(isrobot(user) || isAI(user))
@@ -215,15 +215,15 @@
 			if(faction == aTurret.faction)
 				aTurret.setState(TC)
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/power_change()
-	..()
+	if(!..())
+		return
 	updateTurrets()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/turretid/update_icon()
-	..()
+/obj/machinery/turretid/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "control_off"
 		set_light(0)

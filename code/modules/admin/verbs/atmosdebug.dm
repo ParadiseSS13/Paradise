@@ -10,11 +10,6 @@
 		return
 
 	to_chat(usr, "Checking for disconnected pipes...")
-	//all plumbing - yes, some things might get stated twice, doesn't matter.
-	for(var/thing in SSair.atmos_machinery)
-		var/obj/machinery/atmospherics/plumbing = thing
-		if(plumbing.nodealert)
-			to_chat(usr, "Unconnected [plumbing.name] located at [plumbing.x],[plumbing.y],[plumbing.z] ([get_area(plumbing.loc)])")
 
 	//Manifolds
 	for(var/obj/machinery/atmospherics/pipe/manifold/pipe in SSair.atmos_machinery)
@@ -51,7 +46,7 @@
 		return
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Power") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-	for(var/datum/powernet/PN in SSmachines.powernets)
+	for(var/datum/regional_powernet/PN in SSmachines.powernets)
 		if(!PN.nodes || !PN.nodes.len)
 			if(PN.cables && (PN.cables.len > 1))
 				var/obj/structure/cable/C = PN.cables[1]

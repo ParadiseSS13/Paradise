@@ -10,6 +10,12 @@
 	flags = CONDUCT
 	origin_tech = "programming=2;materials=2;engineering=2"
 
+/obj/item/mecha_parts/core
+	name = "mech power core"
+	icon = 'icons/obj/assemblies/new_assemblies.dmi'
+	icon_state = "mech_core"
+	desc = "A complex piece of electronics used to regulate the large amounts of power used by a combat mech's delicate components."
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/mecha_parts/chassis
 	name = "mecha chassis"
@@ -80,7 +86,7 @@
 
 /obj/item/mecha_parts/part/gygax_head
 	name = "\improper Gygax head"
-	desc = "A Gygax head. Houses advanced surveilance and targeting sensors."
+	desc = "A Gygax head. Houses advanced surveillance and targeting sensors."
 	icon_state = "gygax_head"
 	origin_tech = "programming=2;materials=4;magnets=3;engineering=3"
 

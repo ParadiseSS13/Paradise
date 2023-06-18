@@ -23,14 +23,25 @@
 	owner.adjustFireLoss(0.1)
 	owner.adjustToxLoss(0.2)
 
-/datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
+/datum/status_effect/cultghost //is a cult ghost and can't use manifest runes, can see ghosts and dies if too far from summoner
 	id = "cult_ghost"
 	duration = -1
 	alert_type = null
+	var/damage = 7.5
+	var/source_UID
+
+/datum/status_effect/cultghost/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
 
 /datum/status_effect/cultghost/tick()
 	if(owner.reagents)
 		owner.reagents.del_reagent("holywater") //can't be deconverted
+	var/mob/living/summoner = locateUID(source_UID)
+	if(get_dist_euclidian(summoner, owner) < 21)
+		return
+	owner.adjustBruteLoss(damage)
+	to_chat(owner, "<span class='userdanger'>You are too far away from the summoner!</span>")
 
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"
@@ -77,6 +88,7 @@
 	var/delay_before_decay = 5
 	var/bleed_damage = 200
 	var/needs_to_bleed = FALSE
+	var/bleed_cap = 10
 
 /datum/status_effect/saw_bleed/Destroy()
 	if(owner)
@@ -113,7 +125,7 @@
 	owner.underlays -= bleed_underlay
 	bleed_amount += amount
 	if(bleed_amount)
-		if(bleed_amount >= 10)
+		if(bleed_amount >= bleed_cap)
 			needs_to_bleed = TRUE
 			qdel(src)
 		else
@@ -136,6 +148,39 @@
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
+
+/datum/status_effect/saw_bleed/bloodletting
+	id = "bloodletting"
+	bleed_cap = 7
+	bleed_damage = 25 //Seems weak (it is) but it also works on humans and bypasses armor SOOOO
+	bleed_amount = 6
+
+/datum/status_effect/stacking/ground_pound
+	id = "ground_pound"
+	tick_interval = 5 SECONDS
+	stack_threshold = 3
+	max_stacks = 3
+	reset_ticks_on_stack = TRUE
+	var/mob/living/simple_animal/hostile/asteroid/big_legion/latest_attacker
+
+/datum/status_effect/stacking/ground_pound/on_creation(mob/living/new_owner, stacks_to_apply, mob/living/attacker)
+	. = ..()
+	if(.)
+		latest_attacker = attacker
+
+/datum/status_effect/stacking/ground_pound/add_stacks(stacks_added, mob/living/attacker)
+	. = ..()
+	if(.)
+		latest_attacker = attacker
+	if(stacks != stack_threshold)
+		return TRUE
+
+/datum/status_effect/stacking/ground_pound/stacks_consumed_effect()
+	flick("legion-smash", latest_attacker)
+	addtimer(CALLBACK(latest_attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/big_legion, throw_mobs)), 1 SECONDS)
+
+/datum/status_effect/stacking/ground_pound/on_remove()
+	latest_attacker = null
 
 /datum/status_effect/teleport_sickness
 	id = "teleportation sickness"
@@ -178,6 +223,29 @@
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
 
+// used to track if hitting someone with a cult dagger/sword should stamina crit.
+/datum/status_effect/cult_stun_mark
+	id = "cult_stun"
+	duration = 10 SECONDS // when the knockdown ends, the mark disappears.
+	alert_type = null
+	var/mutable_appearance/overlay
+
+/datum/status_effect/cult_stun_mark/on_apply()
+	. = ..()
+	if(!ishuman(owner))
+		return
+	overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
+	var/mob/living/carbon/human/H = owner
+	H.add_overlay(overlay)
+
+/datum/status_effect/cult_stun_mark/on_remove()
+	owner.cut_overlay(overlay)
+
+/datum/status_effect/cult_stun_mark/proc/trigger()
+	owner.adjustStaminaLoss(60)
+	owner.Silence(6 SECONDS) // refresh the silence
+	qdel(src)
+
 /datum/status_effect/bluespace_slowdown
 	id = "bluespace_slowdown"
 	alert_type = null
@@ -189,6 +257,37 @@
 
 /datum/status_effect/bluespace_slowdown/on_remove()
 	owner.next_move_modifier /= 2
+
+/datum/status_effect/shadow_boxing
+	id = "shadow barrage"
+	alert_type = null
+	duration = 10 SECONDS
+	tick_interval = 0.4 SECONDS
+	var/damage = 8
+	var/source_UID
+
+/datum/status_effect/shadow_boxing/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+
+/datum/status_effect/shadow_boxing/tick()
+	var/mob/living/attacker = locateUID(source_UID)
+	if(attacker in view(owner, 2))
+		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
+		owner.apply_damage(damage, BRUTE)
+		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+
+/datum/status_effect/cling_tentacle
+	id = "cling_tentacle"
+	alert_type = null
+	duration = 3 SECONDS
+
+/datum/status_effect/cling_tentacle/on_apply()
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	return ..()
+
+/datum/status_effect/cling_tentacle/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
 // start of `living` level status procs.
 
@@ -271,7 +370,7 @@
 	if(!.)
 		return
 	owner.EyeBlurry(4 SECONDS)
-	if(prob(5))
+	if(prob(0.5))
 		owner.AdjustSleeping(2 SECONDS)
 		owner.Paralyse(10 SECONDS)
 
@@ -305,6 +404,8 @@
 		alert_thrown = FALSE
 		owner.clear_alert("drunk")
 		owner.sound_environment_override = SOUND_ENVIRONMENT_NONE
+	if(owner.mind && istype(owner.mind.martial_art, DRUNK_BRAWLING))
+		owner.mind.martial_art.remove(owner)
 	return ..()
 
 /datum/status_effect/transient/drunkenness/tick()
@@ -342,28 +443,28 @@
 	if(M)
 		if(actual_strength >= THRESHOLD_BRAWLING)
 			if(!istype(M.martial_art, DRUNK_BRAWLING))
-				var/datum/martial_art/MA = new
+				var/datum/martial_art/drunk_brawling/MA = new
 				MA.teach(owner, TRUE)
 		else if(istype(M.martial_art, DRUNK_BRAWLING))
-			M.martial_art.remove(src)
+			M.martial_art.remove(owner)
 	// THRESHOLD_CONFUSION (80 SECONDS)
-	if(actual_strength >= THRESHOLD_CONFUSION && prob(3.3))
+	if(actual_strength >= THRESHOLD_CONFUSION && prob(0.33))
 		owner.AdjustConfused(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
 	// THRESHOLD_SPARK (100 SECONDS)
-	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(2.5))
+	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(0.25))
 		do_sparks(3, 1, owner)
 	// THRESHOLD_VOMIT (120 SECONDS)
-	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.8))
+	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.08))
 		owner.fakevomit()
 	// THRESHOLD_BLUR (150 SECONDS)
 	if(actual_strength >= THRESHOLD_BLUR)
 		owner.EyeBlurry(20 SECONDS / alcohol_resistance)
 	// THRESHOLD_COLLAPSE (150 SECONDS)
-	if(actual_strength >= THRESHOLD_COLLAPSE && prob(1))
+	if(actual_strength >= THRESHOLD_COLLAPSE && prob(0.1))
 		owner.emote("collapse")
 		do_sparks(3, 1, src)
 	// THRESHOLD_FAINT (180 SECONDS)
-	if(actual_strength >= THRESHOLD_FAINT && prob(1))
+	if(actual_strength >= THRESHOLD_FAINT && prob(0.1))
 		owner.Paralyse(10 SECONDS / alcohol_resistance)
 		owner.Drowsy(60 SECONDS / alcohol_resistance)
 		if(L)
@@ -371,7 +472,7 @@
 		if(!is_ipc)
 			owner.adjustToxLoss(1)
 	// THRESHOLD_BRAIN_DAMAGE (240 SECONDS)
-	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(1))
+	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(0.1))
 		owner.adjustBrainLoss(1)
 
 #undef THRESHOLD_SLUR
@@ -514,10 +615,10 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(src, TRAIT_KNOCKEDOUT, "[id]")
+	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
 
 /datum/status_effect/incapacitating/sleeping/on_remove()
-	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, "[id]")
+	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, "[id]")
 	return ..()
 
 /datum/status_effect/incapacitating/sleeping/tick()
@@ -573,6 +674,12 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_MUTE, id)
 
+/datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
+	id = "abssilenced"
+
+/datum/status_effect/transient/no_oxy_heal
+	id = "no_oxy_heal"
+
 /datum/status_effect/transient/jittery
 	id = "jittering"
 
@@ -603,7 +710,7 @@
 /// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
 #define HALLUCINATE_COOLDOWN_FACTOR 0.003
 /// Percentage defining the chance at which an hallucination may spawn past the cooldown.
-#define HALLUCINATE_CHANCE 8
+#define HALLUCINATE_CHANCE 80
 // Severity weights, should sum up to 100!
 #define HALLUCINATE_MINOR_WEIGHT 60
 #define HALLUCINATE_MODERATE_WEIGHT 30
@@ -720,3 +827,101 @@
 
 /datum/status_effect/transient/drugged/on_remove()
 	owner.update_druggy_effects()
+
+#define FAKE_COLD 1
+#define FAKE_FOOD_POISONING 2
+#define FAKE_RETRO_VIRUS 3
+#define FAKE_TURBERCULOSIS 4
+
+/datum/status_effect/fake_virus
+	id = "fake_virus"
+	duration = 3 MINUTES
+	status_type = STATUS_EFFECT_REPLACE
+	tick_interval = 2
+	alert_type = null
+	/// So you dont get the most intense messages immediately
+	var/msg_stage = 0
+	/// Which disease we are going to fake?
+	var/current_fake_disease
+	/// Fake virus messages by with three stages
+	var/list/fake_msg
+	/// Fake virus emotes with three stages
+	var/list/fake_emote
+
+/datum/status_effect/fake_virus/on_creation()
+	current_fake_disease = pick(FAKE_COLD, FAKE_FOOD_POISONING, FAKE_RETRO_VIRUS, FAKE_TURBERCULOSIS)
+	switch(current_fake_disease)
+		if(FAKE_COLD)
+			fake_msg = list(
+						list("<span class='danger'>Your throat feels sore.</span>", "<span class='danger'>Mucous runs down the back of your throat.</span>"),
+						list("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>"),
+						list("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>")
+			)
+			fake_emote = list(
+						list("sneeze", "cough"),
+						list("sneeze", "cough"),
+						list("sneeze", "cough")
+			)
+		if(FAKE_FOOD_POISONING)
+			fake_msg = list(
+						list("<span class='danger'>Your stomach feels weird.</span>", "<span class='danger'>You feel queasy.</span>"),
+						list("<span class='danger'>Your stomach aches.</span>", "<span class='danger'>You feel nauseous.</span>"),
+						list("<span class='danger'>Your stomach hurts.</span>", "<span class='danger'>You feel sick.</span>")
+			)
+			fake_emote = list(
+						list(),
+						list("groan"),
+						list("groan", "moan")
+			)
+		if(FAKE_RETRO_VIRUS)
+			fake_msg = list(
+						list("<span class='danger'>Your head hurts.</span>", "You feel a tingling sensation in your chest.", "<span class='danger'>You feel angry.</span>"),
+						list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>"),
+						list("<span class='danger'>Your entire body vibrates.</span>")
+			)
+		else
+			fake_msg = list(
+						list("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>"),
+						list("<span class='danger'>You feel a sharp pain from your lower chest!</span>", "<span class='danger'>You feel air escape from your lungs painfully.</span>"),
+						list("<span class='danger'>You feel uncomfortably hot...</span>", "<span class='danger'>You feel like unzipping your jumpsuit</span>", "<span class='danger'>You feel like taking off some clothes...</span>")
+			)
+			fake_emote = list(
+						list("cough"),
+						list("gasp"),
+						list()
+			)
+	. = ..()
+
+/datum/status_effect/fake_virus/tick()
+	var/selected_fake_msg
+	var/selected_fake_emote
+	switch(msg_stage)
+		if(0 to 300)
+			if(prob(1)) // First stage starts slow, stage 2 and 3 trigger fake msgs/emotes twice as often
+				if(prob(50) || !length(fake_emote[1])) // 50% chance to trigger either a msg or emote, 100% if it doesnt have an emote
+					selected_fake_msg = safepick(fake_msg[1])
+				else
+					selected_fake_emote = safepick(fake_emote[1])
+		if(301 to 600)
+			if(prob(2))
+				if(prob(50) || !length(fake_emote[2]))
+					selected_fake_msg = safepick(fake_msg[2])
+				else
+					selected_fake_emote = safepick(fake_emote[2])
+		else
+			if(prob(2))
+				if(prob(50) || !length(fake_emote[3]))
+					selected_fake_msg = safepick(fake_msg[3])
+				else
+					selected_fake_emote = safepick(fake_emote[3])
+
+	if(selected_fake_msg)
+		to_chat(owner, selected_fake_msg)
+	else if(selected_fake_emote)
+		owner.emote(selected_fake_emote)
+	msg_stage++
+
+#undef FAKE_COLD
+#undef FAKE_FOOD_POISONING
+#undef FAKE_RETRO_VIRUS
+#undef FAKE_TURBERCULOSIS

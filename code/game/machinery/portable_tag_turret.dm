@@ -1,6 +1,3 @@
-#define TURRET_PRIORITY_TARGET 2
-#define TURRET_SECONDARY_TARGET 1
-#define TURRET_NOT_TARGET 0
 
 /obj/machinery/porta_turret/tag
 	// Reasonable defaults, in case someone manually spawns us
@@ -37,14 +34,14 @@
 	)
 	return data
 
-/obj/machinery/porta_turret/tag/update_icon()
+/obj/machinery/porta_turret/tag/update_icon_state()
 	if(!anchored)
 		icon_state = "turretCover"
 		return
 	if(stat & BROKEN)
 		icon_state = "[lasercolor]destroyed_target_prism"
 	else
-		if(powered())
+		if(has_power())
 			if(enabled)
 				if(iconholder)
 					//lasers have a orange icon
@@ -93,7 +90,7 @@
 		if((istype(L.r_hand, target_weapon)) || (istype(L.l_hand, target_weapon)))
 			return TURRET_PRIORITY_TARGET
 
-		if(istype(L, /mob/living/carbon/human))
+		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
 			if(istype(H.wear_suit, target_suit))
 				return TURRET_PRIORITY_TARGET

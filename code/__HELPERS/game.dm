@@ -162,7 +162,7 @@
 			L |= M
 			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 
-		else if(include_radio && istype(A, /obj/item/radio))
+		else if(include_radio && isradio(A))
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= A
@@ -191,7 +191,7 @@
 			if(M.client || include_clientless)
 				hear += M
 			//log_world("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-		else if(istype(A, /obj/item/radio))
+		else if(isradio(A))
 			hear += A
 
 		if(isobj(A) || ismob(A))
@@ -229,7 +229,7 @@
 			var/turf/ear = get_turf(M)
 			if(ear)
 				// Ghostship is magic: Ghosts can hear radio chatter from anywhere
-				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO)))
+				if(speaker_coverage[ear] || (isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO)))
 					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 	return .
 
@@ -346,7 +346,7 @@
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/remove_images_from_clients, I, show_to), duration, TIMER_CLIENT_TIME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), I, show_to), duration, TIMER_CLIENT_TIME)
 
 /proc/flick_overlay_view(image/I, atom/target, duration) //wrapper for the above, flicks to everyone who can see the target atom
 	var/list/viewing = list()
@@ -382,7 +382,7 @@
 	var/dest_y
 
 /datum/projectile_data/New(var/src_x, var/src_y, var/time, var/distance, \
-						   var/power_x, var/power_y, var/dest_x, var/dest_y)
+						var/power_x, var/power_y, var/dest_x, var/dest_y)
 	src.src_x = src_x
 	src.src_y = src_y
 	src.time = time

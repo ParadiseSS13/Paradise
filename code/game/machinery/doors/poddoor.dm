@@ -9,7 +9,7 @@
 	heat_proof = TRUE
 	safe = FALSE
 	max_integrity = 600
-	armor = list(MELEE = 50, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 50, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 50, RAD = 100, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
 	var/id_tag = 1.0
@@ -24,6 +24,16 @@
 	name = "reinforced blast door"
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	move_resist = INFINITY
+
+/obj/machinery/door/poddoor/impassable/gamma
+	name = "gamma armory hatch"
+
+/obj/machinery/door/poddoor/impassable/hostile_lockdown()
+	return
+
+/obj/machinery/door/poddoor/impassable/disable_lockdown()
+	return
 
 /obj/machinery/door/poddoor/impassable/emag_act(mob/user)
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
@@ -50,19 +60,19 @@
 			flick("closing", src)
 			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
 
-/obj/machinery/door/poddoor/update_icon()
+/obj/machinery/door/poddoor/update_icon_state()
 	if(density)
 		icon_state = "closed"
 	else
 		icon_state = "open"
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
- 	return
+	return
 
 /obj/machinery/door/poddoor/try_to_crowbar(mob/user, obj/item/I)
 	if(!density)
 		return
-	if(!hasPower())
+	if(!hasPower() && !(resistance_flags & INDESTRUCTIBLE))
 		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
 		if(do_after(user, 50 * I.toolspeed, target = src))
 			if(!hasPower())
@@ -137,6 +147,13 @@
 /obj/machinery/door/poddoor/multi_tile/impassable
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	move_resist = INFINITY
+
+/obj/machinery/door/poddoor/multi_tile/impassable/hostile_lockdown()
+	return
+
+/obj/machinery/door/poddoor/multi_tile/impassable/disable_lockdown()
+	return
 
 /obj/machinery/door/poddoor/multi_tile/impassable/emag_act(mob/user)
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")

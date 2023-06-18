@@ -4,7 +4,6 @@
 	icon = 'icons/effects/crayondecal.dmi'
 	icon_state = "rune1"
 	layer = MID_TURF_LAYER
-	plane = GAME_PLANE //makes the graffiti visible over a wall.
 	mergeable_decal = FALSE // Allows crayon drawings to overlap one another.
 
 

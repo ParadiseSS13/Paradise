@@ -2,7 +2,7 @@
 	name = "Bind Soul"
 	desc = "A dark necromantic pact that can forever bind your soul to an item of your choosing. So long as both your body and the item remain intact and on the same plane you can revive from death, though the time between reincarnations grows steadily with use."
 	school = "necromancy"
-	charge_max = 10
+	base_cooldown = 10
 	clothes_req = FALSE
 	centcom_cancast = FALSE
 	invocation = "NECREM IMORTIUM!"
@@ -47,7 +47,7 @@
 			if(M.stat == CONSCIOUS && iscarbon(M))
 				to_chat(M, "<span class='notice'>You aren't dead enough to revive!</span>")//Usually a good problem to have
 
-				charge_counter = charge_max
+				cooldown_handler.revert_cast()
 				return
 
 			if(!marked_item || QDELETED(marked_item)) //Wait nevermind
@@ -69,9 +69,9 @@
 
 			lich.real_name = M.mind.name
 			M.mind.transfer_to(lich)
-			lich.set_species(/datum/species/skeleton)
+			lich.set_species(/datum/species/skeleton/lich) // Wizard variant
 			to_chat(lich, "<span class='warning'>Your bones clatter and shutter as they're pulled back into this world!</span>")
-			charge_max += 600
+			cooldown_handler.recharge_duration += 1 MINUTES
 			var/mob/old_body = current_body
 			var/turf/body_turf = get_turf(old_body)
 			current_body = lich
@@ -111,8 +111,8 @@
 					return
 				name = "RISE!"
 				desc = "Rise from the dead! You will reform at the location of your phylactery and your old body will crumble away."
-				charge_max = 1800 //3 minute cooldown, if you rise in sight of someone and killed again, you're probably screwed.
-				charge_counter = 1800
+				cooldown_handler.recharge_duration = 3 MINUTES
+				cooldown_handler.revert_cast()
 				stat_allowed = UNCONSCIOUS
 				marked_item.name = "Ensouled [marked_item.name]"
 				marked_item.desc = "A terrible aura surrounds this item, its very existence is offensive to life itself..."
@@ -121,7 +121,7 @@
 				current_body = M.mind.current
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					H.set_species(/datum/species/skeleton)
+					H.set_species(/datum/species/skeleton/lich)
 					H.unEquip(H.wear_suit)
 					H.unEquip(H.head)
 					H.unEquip(H.shoes)

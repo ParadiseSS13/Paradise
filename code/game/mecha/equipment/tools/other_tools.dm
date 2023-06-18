@@ -122,7 +122,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	name = "armor booster module (Ranged weaponry)"
-	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
+	desc = "Boosts exosuit armor against ranged attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_proj"
 	origin_tech = "materials=4;combat=3;engineering=3"
 	equip_cooldown = 10
@@ -233,7 +233,7 @@
 	energy_drain = 0
 	range = 0
 	var/coeff = 100
-	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
+	var/list/use_channels = list(PW_CHANNEL_EQUIPMENT, PW_CHANNEL_ENVIRONMENT, PW_CHANNEL_LIGHTING)
 	selectable = 0
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Destroy()
@@ -257,7 +257,7 @@
 	var/pow_chan
 	if(A)
 		for(var/c in use_channels)
-			if(A.powered(c))
+			if(A.powernet.has_power(c))
 				pow_chan = c
 				break
 	return pow_chan
@@ -294,14 +294,14 @@
 		var/area/A = get_area(chassis)
 		if(A)
 			var/pow_chan
-			for(var/c in list(EQUIP,ENVIRON,LIGHT))
-				if(A.powered(c))
+			for(var/c in use_channels)
+				if(A.powernet.has_power(c))
 					pow_chan = c
 					break
 			if(pow_chan)
 				var/delta = min(20, chassis.cell.maxcharge-cur_charge)
 				chassis.give_power(delta)
-				A.use_power(delta*coeff, pow_chan)
+				A.powernet.use_active_power(pow_chan, delta * coeff)
 
 /////////////////////////////////////////// GENERATOR /////////////////////////////////////////////
 
@@ -434,6 +434,41 @@
 	if(..())
 		radiation_pulse(get_turf(src), rad_per_cycle)
 
+/obj/item/mecha_parts/mecha_equipment/thrusters
+	name = "exosuit ion thrusters"
+	desc = "Ion thrusters to be attached to an exosuit. Drains power even while not in flight."
+	icon_state = "tesla"
+	origin_tech = "powerstorage=4;engineering=4"
+	range = 0
+	energy_drain = 20
+	selectable = FALSE
+
+/obj/item/mecha_parts/mecha_equipment/thrusters/attach(obj/mecha/M)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+	M.add_thrusters()
+	M.thruster_count++
+
+/obj/item/mecha_parts/mecha_equipment/thrusters/detach(atom/moveto)
+	chassis.thruster_count--
+	chassis.remove_thrusters()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/mecha_parts/mecha_equipment/thrusters/process()
+	if(!chassis)
+		STOP_PROCESSING(SSobj, src)
+	if(!energy_drain || !chassis.thrusters_active)
+		return
+	chassis.use_power(energy_drain)
+
+/obj/mecha/proc/add_thrusters()
+	if(occupant)
+		thrusters_action.Grant(occupant, src)
+
+/obj/mecha/proc/remove_thrusters()
+	if(occupant && !thruster_count)
+		thrusters_action.Remove(occupant)
 
 #undef MECH_GRAVCAT_MODE_GRAVSLING
 #undef MECH_GRAVCAT_MODE_GRAVPUSH

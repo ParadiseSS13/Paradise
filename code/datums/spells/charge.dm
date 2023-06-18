@@ -2,7 +2,7 @@
 	name = "Charge"
 	desc = "This spell can be used to recharge a variety of things in your hands, from magical artifacts to electrical components. A creative wizard can even use it to grant magical power to a fellow magic user."
 	school = "transmutation"
-	charge_max = 600
+	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
 	invocation = "DIRI CEL"
 	invocation_type = "whisper"
@@ -18,14 +18,14 @@
 		var/charged_item = null
 		var/burnt_out = FALSE
 
-		if(L.pulling && (istype(L.pulling, /mob/living)))
+		if(L.pulling && (isliving(L.pulling)))
 			var/mob/living/M =	L.pulling
 			if(M.mob_spell_list.len != 0 || (M.mind && M.mind.spell_list.len != 0))
 				for(var/obj/effect/proc_holder/spell/S in M.mob_spell_list)
-					S.charge_counter = S.charge_max
+					S.cooldown_handler.revert_cast()
 				if(M.mind)
 					for(var/obj/effect/proc_holder/spell/S in M.mind.spell_list)
-						S.charge_counter = S.charge_max
+						S.cooldown_handler.revert_cast()
 				to_chat(M, "<span class='notice'>You feel raw magical energy flowing through you, it feels good!</span>")
 			else
 				to_chat(M, "<span class='notice'>You feel very strange for a moment, but then it passes.</span>")

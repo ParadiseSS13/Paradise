@@ -44,13 +44,6 @@
 	if(jumpto_ports.len)
 		jump_action = new /datum/action/innate/camera_jump/shuttle_docker
 	..()
-	/* 	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
-		//namely shuttle walls, shuttle windows, shuttle engines and buckled mobs
-	if(rotate_action)
-		rotate_action.target = user
-		rotate_action.Grant(user)
-		actions += rotate_action
-	*/
 	if(place_action)
 		place_action.target = user
 		place_action.Grant(user)
@@ -62,7 +55,7 @@
 		shuttle_port = null
 		return
 
-	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(null, src)
+	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(get_turf(locate("landmark*Observer-Start")), src) // There should always be an observer start landmark
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	the_eye.setDir(shuttle_port.dir)
 	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.z)
@@ -104,7 +97,7 @@
 			to_remove += SSshuttle.hidden_shuttle_turf_images
 
 		user.client.images -= to_remove
-		user.client.SetView(7)
+		user.client.SetView(user.client.prefs.viewrange)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/placeLandingSpot()
 	if(designating_target_loc || !current_user)
@@ -115,7 +108,7 @@
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
 		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
 		designating_target_loc = the_eye.loc
-		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget))
+		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, PROC_REF(canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
@@ -147,7 +140,7 @@
 	if(current_user.client)
 		current_user.client.images -= the_eye.placed_images
 
-	QDEL_LIST(the_eye.placed_images)
+	QDEL_LIST_CONTENTS(the_eye.placed_images)
 
 	for(var/V in the_eye.placement_images)
 		var/image/I = V
@@ -274,7 +267,7 @@
 	return ..()
 
 /mob/camera/aiEye/remote/shuttle_docker/setLoc(T)
-	if(istype(get_turf(T), /turf/space) || istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle))
+	if(isspaceturf(get_turf(T)) || istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 		console.checkLandingSpot()

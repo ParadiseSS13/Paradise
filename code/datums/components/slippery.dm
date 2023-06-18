@@ -36,7 +36,7 @@
 	slip_verb = _slip_verb
 
 /datum/component/slippery/RegisterWithParent()
-	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), .proc/Slip)
+	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(Slip))
 
 /datum/component/slippery/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED))
@@ -48,6 +48,9 @@
 	Additionally calls the parent's `after_slip()` proc on the `victim`.
 */
 /datum/component/slippery/proc/Slip(datum/source, mob/living/carbon/human/victim)
-	if(istype(victim) && !victim.flying && prob(slip_chance) && victim.slip(description, knockdown, slip_tiles, walking_is_safe, slip_always, slip_verb))
+	if(istype(victim) && !victim.flying)
 		var/atom/movable/owner = parent
-		owner.after_slip(victim)
+		if(!isturf(owner.loc))
+			return
+		if(prob(slip_chance) && victim.slip(description, knockdown, slip_tiles, walking_is_safe, slip_always, slip_verb))
+			owner.after_slip(victim)

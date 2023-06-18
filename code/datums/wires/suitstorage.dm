@@ -55,7 +55,7 @@
 			A.shocked = !A.shocked
 			if(A.shocked)
 				A.shock(usr, 100)
-				addtimer(CALLBACK(A, /obj/machinery/suit_storage_unit/.proc/check_electrified_callback), 5 SECONDS)
+				addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/suit_storage_unit, check_electrified_callback)), 5 SECONDS)
 
 		if(WIRE_SSU_UV)
 			A.uv_super = !A.uv_super

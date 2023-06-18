@@ -26,7 +26,7 @@
 /obj/effect/proc_holder/spell/charge_up/Click()
 	if(cast_check(TRUE, FALSE, usr))
 		if(!start_time)
-			INVOKE_ASYNC(src, .proc/StartChargeup, usr)
+			INVOKE_ASYNC(src, PROC_REF(StartChargeup), usr)
 		else
 			if(!try_stop_buildup(usr))
 				return // Don't remove the click intercept
@@ -36,10 +36,9 @@
 /obj/effect/proc_holder/spell/charge_up/proc/try_stop_buildup(mob/user)
 	var/energy_perc = get_energy_charge() / max_charge_time
 	if(energy_perc < 0.5)
-		charge_counter = (1 - energy_perc) * charge_max // Give them some charge back
+		cooldown_handler.start_recharge((1 - energy_perc) * cooldown_handler.recharge_duration) // Shorten the cooldown based on how long it was charged for.
 		to_chat(user, "<span class='notice'>[stop_charging_text]</span>")
 		Reset(user)
-		start_recharge()
 		return TRUE
 	else
 		to_chat(user, "<span class='danger'>[stop_charging_fail_text]</span>")
@@ -53,7 +52,7 @@
 	user.add_overlay(charge_up_overlay)
 	playsound(user, charge_sound, 50, FALSE, channel = charge_sound.channel)
 	start_time = world.time
-	if(do_mob(user, user, max_charge_time, extra_checks = list(CALLBACK(src, .proc/stopped_casting)), only_use_extra_checks = TRUE))
+	if(do_mob(user, user, max_charge_time, extra_checks = list(CALLBACK(src, PROC_REF(stopped_casting))), only_use_extra_checks = TRUE))
 		if(start_time)
 			Discharge(user)
 
@@ -74,7 +73,7 @@
 	to_chat(user, "<span class='danger'>You lose control over the spell!</span>")
 	Reset(user)
 	spend_spell_cost(user)
-	start_recharge()
+	cooldown_handler.start_recharge()
 
 /obj/effect/proc_holder/spell/charge_up/after_cast(list/targets, mob/user)
 	..()

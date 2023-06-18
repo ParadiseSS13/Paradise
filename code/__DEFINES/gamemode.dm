@@ -8,9 +8,9 @@
 #define TARGET_INVALID_EVENT		7
 #define TARGET_INVALID_IS_TARGET	8
 #define TARGET_INVALID_BLACKLISTED	9
+#define TARGET_INVALID_CHANGELING	10
 
 //gamemode istype helpers
-#define GAMEMODE_IS_BLOB		(SSticker && istype(SSticker.mode, /datum/game_mode/blob))
 #define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))
 #define GAMEMODE_IS_HEIST		(SSticker && istype(SSticker.mode, /datum/game_mode/heist))
 #define GAMEMODE_IS_NUCLEAR		(SSticker && istype(SSticker.mode, /datum/game_mode/nuclear))
@@ -37,7 +37,7 @@
 #define SPECIAL_ROLE_NUKEOPS "Syndicate"
 #define SPECIAL_ROLE_PYROCLASTIC_SLIME 	"Pyroclastic Anomaly Slime"
 #define SPECIAL_ROLE_REVENANT "Revenant"
-#define SPECIAL_ROLE_SLAUGHTER_DEMON "Slaughter Demon"
+#define SPECIAL_ROLE_DEMON "Demon"
 #define SPECIAL_ROLE_SUPER "Super"
 #define SPECIAL_ROLE_SYNDICATE_DEATHSQUAD "Syndicate Commando"
 #define SPECIAL_ROLE_TRAITOR "Traitor"

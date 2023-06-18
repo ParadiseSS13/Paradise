@@ -29,14 +29,14 @@
 	return // thanks inheritance again
 
 /obj/item/reagent_containers/food/pill/patch/styptic
-	name = "healing patch"
+	name = "brute patch"
 	desc = "Helps with brute injuries."
 	icon_state = "bandaid_brute"
 	instant_application = 1
 	list_reagents = list("styptic_powder" = 30)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small
-	name = "healing mini-patch"
+	name = "brute mini-patch"
 	list_reagents = list("styptic_powder" = 15)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf
@@ -67,3 +67,9 @@
 	desc = "Helps with brute injuries if the affected person is a clown, otherwise inflicts various annoying effects."
 	icon_state = "bandaid_clown"
 	list_reagents = list("jestosterone" = 20)
+
+/obj/item/reagent_containers/food/pill/patch/perfluorodecalin
+	name = "perfluorodecalin patch"
+	desc = "Incredibly potent respiratory aid drug, may cause shortness of breath if used in large amounts."
+	icon_state = "bandaid_med"
+	list_reagents = list("perfluorodecalin" = 10)

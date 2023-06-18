@@ -22,17 +22,21 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	var/job = null
 	var/temp_category
-	var/uplink_type = "traitor"
+	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
 
 /obj/item/uplink/ui_host()
 	return loc
 
+/obj/item/uplink/proc/update_uplink_type(new_uplink_type)
+	uplink_type = new_uplink_type
+	uplink_items = get_uplink_items(src)
+
 /obj/item/uplink/New()
 	..()
 	uses = SSticker.mode.uplink_uses
-	uplink_items = get_uplink_items()
+	uplink_items = get_uplink_items(src)
 
 	GLOB.world_uplinks += src
 
@@ -58,9 +62,15 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		cats[++cats.len] = list("cat" = category, "items" = list())
 		for(var/datum/uplink_item/I in uplink_items[category])
 			if(I.job && I.job.len)
-				if(!(I.job.Find(job)))
+				if(!(I.job.Find(job)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
-			cats[cats.len]["items"] += list(list("name" = sanitize(I.name), "desc" = sanitize(I.description()),"cost" = I.cost, "hijack_only" = I.hijack_only, "obj_path" = I.reference, "refundable" = I.refundable))
+			cats[cats.len]["items"] += list(list(
+				"name" = sanitize(I.name),
+				"desc" = sanitize(I.description()),
+				"cost" = I.cost,
+				"hijack_only" = I.hijack_only,
+				"obj_path" = I.reference,
+				"refundable" = I.refundable))
 			uplink_items[I.reference] = I
 
 	uplink_cats = cats
@@ -253,7 +263,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/nuclear/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = "nuclear"
+		hidden_uplink.update_uplink_type(UPLINK_TYPE_NUCLEAR)
 	GLOB.nuclear_uplink_list += src
 
 /obj/item/radio/uplink/nuclear/Destroy()
@@ -263,7 +273,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/sst/New()
 	..()
 	if(hidden_uplink)
-		hidden_uplink.uplink_type = "sst"
+		hidden_uplink.update_uplink_type(UPLINK_TYPE_SST)
+
+/obj/item/radio/uplink/admin/New()
+	..()
+	if(hidden_uplink)
+		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
+		hidden_uplink.uses = 500
 
 /obj/item/multitool/uplink/New()
 	..()

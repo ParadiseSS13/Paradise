@@ -8,10 +8,10 @@
 	slot_flags = SLOT_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
 
-/obj/item/grenade/smokebomb/New()
-	..()
-	src.smoke = new /datum/effect_system/smoke_spread/bad
-	src.smoke.attach(src)
+/obj/item/grenade/smokebomb/Initialize(mapload)
+	. = ..()
+	smoke = new /datum/effect_system/smoke_spread/bad
+	smoke.attach(src)
 
 /obj/item/grenade/smokebomb/Destroy()
 	QDEL_NULL(smoke)
@@ -19,7 +19,7 @@
 
 /obj/item/grenade/smokebomb/prime()
 	playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
-	smoke.set_up(10, 0)
+	smoke.set_up(10, FALSE)
 	spawn(0)
 		src.smoke.start()
 		sleep(10)

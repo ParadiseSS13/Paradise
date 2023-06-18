@@ -1,23 +1,21 @@
 /obj/machinery/bodyscanner
 	name = "body scanner"
+	desc = "A sophisticated device which reports most internal and external injuries."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
 	dir = WEST
 	anchored = TRUE
-	idle_power_usage = 1250
-	active_power_usage = 2500
+	idle_power_consumption = 1250
+	active_power_consumption = 2500
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 
-/obj/machinery/bodyscanner/detailed_examine()
-	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
-			This is useful if you are about to perform surgery.<br>\
-			<br>\
-			Click your target and drag them onto the scanner to place them inside. Click the body scanner in order to operate it. \
-			Right-click the scanner and click 'Eject Occupant' to remove them. You can enter the scanner yourself in a similar way, using the 'Enter Body Scanner' \
-			verb."
+/obj/machinery/bodyscanner/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the scanner to place them inside.</span>"
 
 
 /obj/machinery/bodyscanner/Destroy()
@@ -25,7 +23,8 @@
 	return ..()
 
 /obj/machinery/bodyscanner/power_change()
-	..()
+	if(!..())
+		return
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
@@ -47,6 +46,12 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
+
+/obj/machinery/bodyscanner/update_icon_state()
+	if(occupant)
+		icon_state = "bodyscanner"
+	else
+		icon_state = "bodyscanner-open"
 
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
 	if(exchange_parts(user, I))
@@ -71,7 +76,8 @@
 			return
 		M.forceMove(src)
 		occupant = M
-		icon_state = "bodyscanner"
+		playsound(src, 'sound/machines/podclose.ogg', 5)
+		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
 		SStgui.update_uis(src)
@@ -97,10 +103,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
-	if(dir == EAST)
-		setDir(WEST)
-	else
-		setDir(EAST)
+
+	setDir(turn(dir, -90))
 
 /obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))
@@ -135,7 +139,8 @@
 
 	H.forceMove(src)
 	occupant = H
-	icon_state = "bodyscanner"
+	playsound(src, 'sound/machines/podclose.ogg', 5)
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 	SStgui.update_uis(src)
 
@@ -163,22 +168,25 @@
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
-/obj/machinery/bodyscanner/verb/eject()
-	set src in oview(1)
-	set category = "Object"
-	set name = "Eject Body Scanner"
-
-	if(usr.incapacitated())
+/obj/machinery/bodyscanner/AltClick(mob/user)
+	if(issilicon(user))
+		eject()
 		return
+	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	eject()
+
+/obj/machinery/bodyscanner/proc/eject(mob/user)
 	go_out()
-	add_fingerprint(usr)
+	add_fingerprint(user)
 
 /obj/machinery/bodyscanner/proc/go_out()
 	if(!occupant)
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	icon_state = "bodyscanner-open"
+	playsound(src, 'sound/machines/podopen.ogg', 5)
+	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
 		A.forceMove(loc)
@@ -197,7 +205,7 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/bodyscanner/narsie_act()
 	go_out()
@@ -218,7 +226,7 @@
 	var/occupantData[0]
 	if(occupant)
 		occupantData["name"] = occupant.name
-		occupantData["stat"] = occupant.stat
+		occupantData["stat"] = HAS_TRAIT(occupant, TRAIT_FAKEDEATH) ? DEAD : occupant.stat
 		occupantData["health"] = occupant.health
 		occupantData["maxHealth"] = occupant.maxHealth
 
@@ -241,8 +249,7 @@
 		occupantData["radLoss"] = occupant.radiation
 		occupantData["cloneLoss"] = occupant.getCloneLoss()
 		occupantData["brainLoss"] = occupant.getBrainLoss()
-		occupantData["paralysis"] = occupant.AmountParalyzed()
-		occupantData["paralysisSeconds"] = round(occupant.AmountParalyzed() * 0.25)
+		occupantData["drunkenness"] = (occupant.get_drunkenness() / 10)
 		occupantData["bodyTempC"] = occupant.bodytemperature-T0C
 		occupantData["bodyTempF"] = (((occupant.bodytemperature-T0C) * 1.8) + 32)
 
@@ -306,6 +313,9 @@
 
 			if(E.status & ORGAN_INT_BLEEDING)
 				organData["internalBleeding"] = TRUE
+
+			if(E.status & ORGAN_BURNT)
+				organData["burnWound"] = TRUE
 
 			extOrganData.Add(list(organData))
 
@@ -405,13 +415,12 @@
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]<br>"
 
-		dat += "Paralysis Summary %: [occupant.IsParalyzed()] ([round(occupant.AmountParalyzed() / 10)] seconds left!)<br>"
+		dat += "Inebriation Severity: [round(occupant.get_drunkenness() / 10)] seconds<br>"
 		dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 		dat += "<hr>"
 
-		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))
-		blood_percent *= 100
+		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 1)
 
 		extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
@@ -448,6 +457,8 @@
 			var/bled = ""
 			var/splint = ""
 			var/internal_bleeding = ""
+			var/burn_wound = ""
+			var/ointment = ""
 			var/lung_ruptured = ""
 			if(e.status & ORGAN_INT_BLEEDING)
 				internal_bleeding = "<br>Internal bleeding"
@@ -457,6 +468,10 @@
 				splint = "Splinted:"
 			if(e.status & ORGAN_BROKEN)
 				AN = "[e.broken_description]:"
+			if(e.status & ORGAN_SALVED)
+				ointment = "Salved:"
+			if(e.status & ORGAN_BURNT)
+				burn_wound = "Critical Burn:"
 			if(e.status & ORGAN_DEAD)
 				dead = "DEAD:"
 			if(e.is_robotic())
@@ -487,7 +502,7 @@
 				imp += "Unknown body present:"
 			if(!AN && !open && !infected && !imp)
 				AN = "None:"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
+			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][burn_wound][ointment][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
 			var/mech = i.desc

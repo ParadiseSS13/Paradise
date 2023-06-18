@@ -1,107 +1,95 @@
 /obj/item/implantpad
-	name = "implantpad"
-	desc = "Used to modify implants."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "implantpad-0"
+	name = "bio-chip pad"
+	desc = "Used to modify bio-chips."
+	icon = 'icons/obj/implants.dmi'
+	icon_state = "implantpad-off"
 	item_state = "electronic"
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	var/obj/item/implantcase/case = null
+
+	var/obj/item/implantcase/case
 
 /obj/item/implantpad/Destroy()
 	if(case)
-		dropcase()
+		eject_case()
 	return ..()
 
-/obj/item/implantpad/update_icon()
+/obj/item/implantpad/update_icon_state()
 	if(case)
-		src.icon_state = "implantpad-1"
+		icon_state = "implantpad-on"
 	else
-		src.icon_state = "implantpad-0"
-	return
+		icon_state = "implantpad-off"
 
-/obj/item/implantpad/proc/addcase(mob/user as mob, obj/item/implantcase/C as obj)
+/obj/item/implantpad/attack_self(mob/user)
+	ui_interact(user)
+
+/obj/item/implantpad/attackby(obj/item/implantcase/C, mob/user)
+	if(istype(C))
+		addcase(user, C)
+	else
+		return ..()
+
+/obj/item/implantpad/proc/addcase(mob/user, obj/item/implantcase/C)
 	if(!user || !C)
 		return
 	if(case)
-		to_chat(user, "<span class='warning'>There's already an implant in the pad!</span>")
+		to_chat(user, "<span class='warning'>There's already a bio-chip in the pad!</span>")
 		return
 	user.unEquip(C)
 	C.forceMove(src)
 	case = C
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/implantpad/proc/dropcase(mob/user as mob)
+/obj/item/implantpad/proc/eject_case(mob/user)
 	if(!case)
-		to_chat(user, "<span class='warning'>There's no implant in the pad!</span>")
 		return
 	if(user)
 		if(user.put_in_hands(case))
 			add_fingerprint(user)
 			case.add_fingerprint(user)
 			case = null
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			return
 
 	case.forceMove(get_turf(src))
 	case = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/implantpad/verb/remove_implant()
 	set category = "Object"
-	set name = "Remove Implant"
+	set name = "Remove Bio-chip"
 	set src in usr
 
 	if(usr.stat || usr.restrained())
 		return
 
-	dropcase(usr)
+	eject_case(usr)
 
-/obj/item/implantpad/attackby(obj/item/implantcase/C as obj, mob/user as mob, params)
-	if(istype(C, /obj/item/implantcase))
-		addcase(user, C)
-	else
-		return ..()
+/obj/item/implantpad/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "ImplantPad", name, 410, 400, master_ui, state)
+		ui.open()
 
-/obj/item/implantpad/attack_self(mob/user as mob)
-	add_fingerprint(user)
-	user.set_machine(src)
-	var/dat = "<B>Implant Mini-Computer:</B><HR>"
-	if(case)
-		if(case.imp)
-			if(istype(case.imp, /obj/item/implant))
-				dat += "<A href='byond://?src=[UID()];removecase=1'>Remove Case</A><HR>"
-				dat += case.imp.get_data()
-				if(istype(case.imp, /obj/item/implant/tracking))
-					var/obj/item/implant/tracking/T = case.imp
-					dat += {"ID (1-100):
-					<A href='byond://?src=[UID()];tracking_id=-10'>-</A>
-					<A href='byond://?src=[UID()];tracking_id=-1'>-</A> [T.id]
-					<A href='byond://?src=[UID()];tracking_id=1'>+</A>
-					<A href='byond://?src=[UID()];tracking_id=10'>+</A><BR>"}
-		else
-			dat += "The implant casing is empty."
-	else
-		dat += "Please insert an implant casing!"
-	user << browse(dat, "window=implantpad")
-	onclose(user, "implantpad")
-	return
+/obj/item/implantpad/ui_data(mob/user)
+	var/list/data = list()
+	data["contains_case"] = case ? TRUE : FALSE
+	if(case && case.imp)
+		var/datum/implant_fluff/implant_data = case.imp.implant_data
+		data["implant"] = list(
+			"name" = implant_data.name,
+			"life" = implant_data.life,
+			"notes" = implant_data.notes,
+			"function" = implant_data.function,
+			"image" = "[icon2base64(icon(initial(case.imp.icon), initial(case.imp.icon_state), SOUTH, 1))]",
+		)
+	return data
 
-
-/obj/item/implantpad/Topic(href, href_list)
+/obj/item/implantpad/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
-		return 1
+		return
 
-	var/mob/living/user = usr
-	if(href_list["tracking_id"])
-		if(case && case.imp)
-			var/obj/item/implant/tracking/T = case.imp
-			T.id += text2num(href_list["tracking_id"])
-			T.id = min(100, T.id)
-			T.id = max(1, T.id)
-	else if(href_list["removecase"])
-		dropcase(user)
-
-	attack_self(user)
-	return 1
+	switch(action)
+		if("eject_case")
+			eject_case(ui.user)

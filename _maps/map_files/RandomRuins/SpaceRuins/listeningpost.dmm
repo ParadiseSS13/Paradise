@@ -149,7 +149,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "F" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "G" = (
@@ -157,7 +157,7 @@
 /turf/simulated/mineral,
 /area/ruin/space/powered)
 "H" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "I" = (

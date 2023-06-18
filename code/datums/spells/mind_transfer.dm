@@ -3,7 +3,7 @@
 	desc = "This spell allows the user to switch bodies with a target."
 
 	school = "transmutation"
-	charge_max = 600
+	base_cooldown = 600
 	clothes_req = FALSE
 	invocation = "GIN'YU CAPAN"
 	invocation_type = "whisper"
@@ -42,7 +42,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 		to_chat(user, "Their mind is resisting your spell.")
 		return
 
-	if(istype(target, /mob/living/silicon))
+	if(issilicon(target))
 		to_chat(user, "You feel this enslaved being is just as dead as its cold, hard exoskeleton.")
 		return
 

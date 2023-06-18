@@ -2,10 +2,10 @@
 	name = "waterfall effect"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "extinguish"
-	opacity = 0
+	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	invisibility = 101
 
 	var/water_frequency = 15
@@ -13,7 +13,7 @@
 
 /obj/effect/waterfall/New()
 	. = ..()
-	water_timer = addtimer(CALLBACK(src, .proc/drip), water_frequency, TIMER_STOPPABLE)
+	water_timer = addtimer(CALLBACK(src, PROC_REF(drip)), water_frequency, TIMER_STOPPABLE)
 
 /obj/effect/waterfall/Destroy()
 	if(water_timer)
@@ -26,7 +26,7 @@
 	W.dir = dir
 	spawn(1)
 		W.loc = get_step(W, dir)
-	water_timer = addtimer(CALLBACK(src, .proc/drip), water_frequency, TIMER_STOPPABLE)
+	water_timer = addtimer(CALLBACK(src, PROC_REF(drip)), water_frequency, TIMER_STOPPABLE)
 
 /turf/simulated/floor/beach/away
 	name = "Beach"
@@ -88,6 +88,10 @@
 	heavyfootstep = FOOTSTEP_WATER
 	smoothing_groups = list(SMOOTH_GROUP_BEACH_WATER)
 
+/turf/simulated/floor/beach/away/water/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(InitializedOn))
+
 /turf/simulated/floor/beach/away/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
 	if(!linkedcontroller)
@@ -102,7 +106,7 @@
 	if(ismob(AM))
 		linkedcontroller.mobinpool -= AM
 
-/turf/simulated/floor/beach/away/water/InitializedOn(atom/A)
+/turf/simulated/floor/beach/away/water/proc/InitializedOn(atom/A)
 	if(!linkedcontroller)
 		return
 	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
@@ -144,7 +148,7 @@
 	layer = MOB_LAYER + 0.1
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = list(SMOOTH_GROUP_BEACH_WATER)
-	anchored = 1
+	anchored = TRUE
 
 /turf/simulated/floor/beach/away/water/drop/dense
 	density = TRUE

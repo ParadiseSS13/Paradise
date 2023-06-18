@@ -8,8 +8,7 @@
 	icon_state = "biogen-empty"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_consumption = 40
 	/// Is the biogenerator curretly grinding up plants?
 	var/processing = FALSE
 	/// The container that is used to store reagents from certain products.
@@ -45,7 +44,7 @@
 /obj/machinery/biogenerator/Destroy()
 	QDEL_NULL(container)
 	QDEL_NULL(files)
-	QDEL_LIST(stored_plants)
+	QDEL_LIST_CONTENTS(stored_plants)
 	return ..()
 
 /obj/machinery/biogenerator/ex_act(severity)
@@ -57,7 +56,7 @@
 	if(A != container)
 		return
 	container = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 /obj/machinery/biogenerator/RefreshParts()
@@ -75,7 +74,7 @@
 	if(effeciency_prev != efficiency)
 		update_ui_product_list() // We have have a higher `efficiency` now, and need to re-calc the product costs.
 
-/obj/machinery/biogenerator/update_icon()
+/obj/machinery/biogenerator/update_icon_state()
 	if(panel_open)
 		icon_state = "biogen-empty-o"
 	else if(!container)
@@ -93,7 +92,7 @@
 		container = null
 	return TRUE
 
-/obj/machinery/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/biogenerator/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
 /obj/machinery/biogenerator/attackby(obj/item/O, mob/user, params)
@@ -118,7 +117,7 @@
 		O.forceMove(src)
 		container = O
 		to_chat(user, "<span class='notice'>You add the [container] to [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 		return TRUE
 
@@ -260,7 +259,7 @@
 
 	processing = TRUE
 	SStgui.update_uis(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/plants_processed = length(stored_plants)
 	for(var/obj/plant as anything in stored_plants)
@@ -271,12 +270,12 @@
 	stored_plants.Cut()
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(plants_processed * 150)
-	addtimer(CALLBACK(src, .proc/end_processing), (plants_processed * 5) / productivity)
+	addtimer(CALLBACK(src, PROC_REF(end_processing)), (plants_processed * 5) / productivity)
 
 /obj/machinery/biogenerator/proc/end_processing()
 	processing = FALSE
 	SStgui.update_uis(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
  * Ejects the biogenerator's stored plants
@@ -346,7 +345,7 @@
 
 	biomass -= (D.materials[MAT_BIOMASS] / efficiency) * amount
 	SStgui.update_uis(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
  * Detach the `container` from the biogenerator.
@@ -356,6 +355,6 @@
 		return
 	container.forceMove(get_turf(src))
 	container = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 #undef BASE_MAX_STORABLE_PLANTS

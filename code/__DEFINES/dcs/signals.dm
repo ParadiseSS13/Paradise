@@ -70,13 +70,29 @@
 	#define EXAMINE_POSITION_BEFORE (1<<1)
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED (1<<0)
-///from base of atom/update_icon(): ()
+	///from base of [/atom/proc/update_appearance]: (updates)
+	#define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
+	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its name.
+	#define COMSIG_ATOM_NO_UPDATE_NAME UPDATE_NAME
+	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its desc.
+	#define COMSIG_ATOM_NO_UPDATE_DESC UPDATE_DESC
+	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its icon.
+	#define COMSIG_ATOM_NO_UPDATE_ICON UPDATE_ICON
+///from base of [/atom/proc/update_name]: (updates)
+#define COMSIG_ATOM_UPDATE_NAME "atom_update_name"
+///from base of [/atom/proc/update_desc]: (updates)
+#define COMSIG_ATOM_UPDATE_DESC "atom_update_desc"
+///from base of [/atom/update_icon]: ()
 #define COMSIG_ATOM_UPDATE_ICON "atom_update_icon"
-	#define COMSIG_ATOM_NO_UPDATE_ICON_STATE	(1<<0)
-	#define COMSIG_ATOM_NO_UPDATE_OVERLAYS		(1<<1)
-///from base of atom/update_overlays(): (list/new_overlays)
+	/// If returned from [COMSIG_ATOM_UPDATE_ICON] it prevents the atom from updating its icon state.
+	#define COMSIG_ATOM_NO_UPDATE_ICON_STATE UPDATE_ICON_STATE
+	/// If returned from [COMSIG_ATOM_UPDATE_ICON] it prevents the atom from updating its overlays.
+	#define COMSIG_ATOM_NO_UPDATE_OVERLAYS UPDATE_OVERLAYS
+///Sent after [atom/update_icon_state] is called by [/atom/update_icon]: ()
+#define COMSIG_ATOM_UPDATE_ICON_STATE "atom_update_icon_state"
+///Sent after [atom/update_overlays] is called by [/atom/update_icon]: (list/new_overlays)
 #define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"
-///from base of atom/update_icon(): (signalOut, did_anything)
+///from base of [/atom/update_icon]: (signalOut, did_anything)
 #define COMSIG_ATOM_UPDATED_ICON "atom_updated_icon"
 ///from base of atom/Entered(): (atom/movable/entering, /atom)
 #define COMSIG_ATOM_ENTERED "atom_entered"
@@ -128,7 +144,7 @@
 	#define COMPONENT_BLOCK_CONTAMINATION (1<<0)
 ///from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)
 #define COMSIG_ATOM_RAD_WAVE_PASSING "atom_rad_wave_pass"
-  #define COMPONENT_RAD_WAVE_HANDLED (1<<0)
+	#define COMPONENT_RAD_WAVE_HANDLED (1<<0)
 ///from internal loop in atom/movable/proc/CanReach(): (list/next)
 #define COMSIG_ATOM_CANREACH "atom_can_reach"
 	#define COMPONENT_BLOCK_REACH (1<<0)
@@ -158,6 +174,18 @@
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
+/// Called when an atom is sharpened or dulled.
+#define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+
+// Attack signals. These should share the returned flags, to standardize the attack chain.
+// The chain currently works like:
+// tool_act -> pre_attack -> target.attackby (item.attack) -> afterattack
+// You can use these signal responses to cancel the attack chain at a certain point from most attack signal types.
+	/// This response cancels the attack chain entirely. If sent early, it might cause some later effects to be skipped.
+	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
+
+/// Called from atom/Initialize() of target: (atom/target)
+#define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"
 
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
@@ -199,10 +227,11 @@
 ///from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
 
-// /area signals
 
-///from base of area/proc/power_change(): ()
-#define COMSIG_AREA_POWER_CHANGE "area_power_change"
+///from base of /datum/local_powernet/proc/power_change()
+#define COMSIG_POWERNET_POWER_CHANGE "powernet_power_change"
+
+// /area signals
 ///from base of area/Entered(): (atom/movable/M)
 #define COMSIG_AREA_ENTERED "area_entered"
 ///from base of area/Exited(): (atom/movable/M)
@@ -316,6 +345,10 @@
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
 ///from base of /mob/throw_item(): (atom/target)
 #define COMSIG_MOB_THROW "mob_throw"
+///called when a user willingly drops something (i.e. keybind, or UI action)
+#define COMSIG_MOB_WILLINGLY_DROP "mob_willingly_drop"
+///called when a user is getting new weapon and we want to remove previous weapon to clear hands
+#define COMSIG_MOB_WEAPON_APPEARS "mob_weapon_appears"
 ///from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_EXAMINATE "mob_examinate"
 ///from base of /mob/update_sight(): ()
@@ -358,7 +391,8 @@
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
 	#define COMPONENT_BLOCK_SWAP (1<<0)
 
-
+#define COMSIG_MOB_AUTOMUTE_CHECK "automute_check"
+	#define WAIVE_AUTOMUTE_CHECK (1<<0)
 
 // /mob/living signals
 
@@ -374,6 +408,14 @@
 #define COMSIG_LIVING_SHOCK_PREVENTED "living_shock_prevented"
 ///sent by stuff like stunbatons and tasers: ()
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"
+///Sent from defibrillators when everything seems good and the user will be shocked: (defibber, defib_item, ghost)
+#define COMSIG_LIVING_PRE_DEFIB "living_pre_defib"
+	/// If returned from LIVING_BEFORE_DEFIB or LIVING_DEFIBBED, the defibrillation will fail
+	#define COMPONENT_BLOCK_DEFIB (1<<0)
+	/// If returned, don't even show the "failed" message, defer to the signal handler to do that.
+	#define COMPONENT_DEFIB_OVERRIDE (1<<1)
+///send from defibs on ressurection: (defibber, defib_item, ghost)
+#define COMSIG_LIVING_DEFIBBED "living_defibbed"
 ///from base of mob/living/revive() (full_heal, admin_revive)
 #define COMSIG_LIVING_REVIVE "living_revive"
 ///from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)
@@ -431,6 +473,13 @@
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
 /// From /mob/living/carbon/swap_hand(): Called when the user swaps their active hand
 #define COMSIG_CARBON_SWAP_HANDS "carbon_swap_hands"
+/// From /mob/living/carbon/toggle_throw_mode()
+#define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
+/// From /mob/living/carbon/human/hitby()
+#define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
+/// From /mob/living/carbon/flash_eyes()
+#define COMSIG_CARBON_FLASH_EYES "carbon_flash_eyes"
+
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
@@ -457,6 +506,11 @@
 #define COMSIG_MACHINERY_POWER_LOST "machinery_power_lost"
 ///from base power_change() when power is restored
 #define COMSIG_MACHINERY_POWER_RESTORED "machinery_power_restored"
+
+// /obj/machinery/camera signals
+#define COMSIG_CAMERA_ON "camera_on"
+#define COMSIG_CAMERA_OFF "camera_off"
+#define COMSIG_CAMERA_MOVED "camera_moved"
 
 // /obj/item signals
 
@@ -490,6 +544,8 @@
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1<<0)
 ///from base of obj/item/hit_reaction(): (list/args)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
+	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)
+	#define COMPONENT_BLOCK_PERFECT (1 << 2)
 ///called on item when crossed by something (): (/atom/movable, mob/living/crossed)
 #define COMSIG_ITEM_WEARERCROSSED "wearer_crossed"
 ///called on item when microwaved (): (obj/machinery/microwave/M)
@@ -508,6 +564,25 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
+
+/// Defib-specific signals
+
+/// Called when a defibrillator is first applied to someone. (mob/living/user, mob/living/target, harmful)
+#define COMSIG_DEFIB_PADDLES_APPLIED "defib_paddles_applied"
+	/// Defib is out of power.
+	#define COMPONENT_BLOCK_DEFIB_DEAD (1<<0)
+	/// Something else: we won't have a custom message for this and should let the defib handle it.
+	#define COMPONENT_BLOCK_DEFIB_MISC (1<<1)
+	/// If our safeties are on, turn them off for this shock.
+	#define COMPONENT_DEFIB_BECOME_THE_DANGER (1<<2)
+	/// If our safeties are off, turn them on for this shock.
+	#define COMPONENT_DEFIB_BECOME_SAFE (1<<3)
+/// Called when a defib has been successfully used, and a shock has been applied. (mob/living/user, mob/living/target, harmful, successful)
+#define COMSIG_DEFIB_SHOCK_APPLIED "defib_zap"
+/// Called when a defib is aborted and no shock was applied. (mob/living/user, mob/living/target, harmful)
+#define COMSIG_DEFIB_ABORTED "defib_aborted"
+/// Called when a defib's cooldown has run its course and it is once again ready. ()
+#define COMSIG_DEFIB_READY "defib_ready"
 
 // /obj/item signals for economy
 ///called when an item is sold by the exports subsystem
@@ -618,6 +693,8 @@
 	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)
 /// From mob/living/carbon/human/change_head_accessory(): (mob/living/carbon/human/H, head_accessory_style)
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
+//sent from living mobs when they parry
+#define COMSIG_HUMAN_PARRY "human_parry"
 
 // /datum/species signals
 
@@ -773,9 +850,9 @@
 ///from monkey CtrlClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"
 
-///SSalarm signals
-#define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
-#define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"
+/// Alarm manager signals
+#define COMSIG_TRIGGERED_ALARM "alarmmanager_triggered"
+#define COMSIG_CANCELLED_ALARM "alarmmanager_cancelled"
 
 // /obj/machinery/door signals
 #define COMSIG_DOOR_OPEN "door_open"
@@ -784,3 +861,13 @@
 // /obj/machinery/door/airlock signals
 #define COMSIG_AIRLOCK_OPEN "airlock_open"
 #define COMSIG_AIRLOCK_CLOSE "airlock_close"
+
+// /datum/objective signals
+///from datum/objective/proc/find_target()
+#define COMSIG_OBJECTIVE_TARGET_FOUND "objective_target_found"
+///from datum/objective/is_invalid_target()
+#define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"
+	#define OBJECTIVE_VALID_TARGET		(1<<0)
+	#define OBJECTIVE_INVALID_TARGET	(1<<1)
+
+#define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"

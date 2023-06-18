@@ -166,7 +166,7 @@
 	return ..()
 
 /obj/effect/hotspot/proc/DestroyTurf()
-	if(istype(loc, /turf/simulated))
+	if(issimulatedturf(loc))
 		var/turf/simulated/T = loc
 		if(T.to_be_destroyed && !T.changing_turf)
 			var/chance_of_deletion

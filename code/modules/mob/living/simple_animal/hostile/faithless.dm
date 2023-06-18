@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/faithless
 	name = "Faithless"
-	desc = "The Wish Granter's faith in humanity, incarnate"
+	desc = "The Wish Granter's faith in humanity, incarnate."
 	icon_state = "faithless"
 	icon_living = "faithless"
 	icon_dead = "faithless_dead"
@@ -32,12 +32,3 @@
 
 /mob/living/simple_animal/hostile/faithless/Process_Spacemove(movement_dir = 0)
 	return 1
-
-/mob/living/simple_animal/hostile/faithless/AttackingTarget()
-	. = ..()
-	if(. && iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(prob(12))
-			C.Weaken(6 SECONDS)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
-					"<span class='userdanger'>\The [src] knocks you down!</span>")

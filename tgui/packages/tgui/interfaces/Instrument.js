@@ -47,7 +47,7 @@ const InstrumentHelp = (properties, context) => {
             <Box as="span" color="highlight">
               (,)
             </Box>
-            , each with notes seperated by hyphens&nbsp;
+            , each with notes separated by hyphens&nbsp;
             <Box as="span" color="highlight">
               (-)
             </Box>
@@ -152,7 +152,7 @@ const InstrumentHelp = (properties, context) => {
             <Box as="span" color="highlight">
               (,)
             </Box>
-            , each with notes seperated by hyphens&nbsp;
+            , each with notes separated by hyphens&nbsp;
             <Box as="span" color="highlight">
               (-)
             </Box>

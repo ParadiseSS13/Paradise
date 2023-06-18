@@ -238,6 +238,7 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+	pull_speed = 0
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
@@ -360,6 +361,7 @@
 	desc = "Rigid and uncomfortable, perfect for keeping you awake and alert."
 	icon_state = "pewmiddle"
 	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
 	color = null
 	colorable = FALSE
 
@@ -510,7 +512,7 @@
 
 	user.visible_message("<span class='notice'>[user] rights [src].</span>", "<span class='notice'>You right [src].</span>")
 	var/obj/structure/chair/C = new origin_type(get_turf(loc))
-	C.setDir(dir)
+	C.setDir(user.dir)
 	qdel(src)
 
 /obj/item/chair/proc/smash(mob/living/user)
@@ -545,7 +547,7 @@
 		smash(user)
 
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
-	if(prob(5) && istype(M,/mob/living))
+	if(prob(5) && isliving(M))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
 		user.unEquip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal

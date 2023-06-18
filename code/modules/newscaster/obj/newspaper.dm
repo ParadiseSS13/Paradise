@@ -132,7 +132,7 @@
 	var/mob/living/M = usr
 	if(!Adjacent(M))
 		return
-	M.set_machine(src)
+
 	if(href_list["next_page"])
 		if(curr_page == pages + 1)
 			return //Don't need that at all, but anyway.
@@ -142,6 +142,7 @@
 			screen = SCREEN_PAGE_INNER
 		curr_page++
 		playsound(loc, "pageturn", 50, TRUE)
+
 	else if(href_list["prev_page"])
 		if(curr_page == 0)
 			return
@@ -155,7 +156,7 @@
 		attack_self(M)
 
 /obj/item/newspaper/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		if(rolled)
 			to_chat(user, "<span class='warning'>Unroll it first!</span>")
 			return
@@ -169,7 +170,7 @@
 			scribble_page = curr_page
 			scribble = s
 			user.visible_message("<span class='notice'>[user] scribbles something on [src].</span>",\
-								 "<span class='notice'>You scribble on page number [curr_page] of [src].</span>")
+								"<span class='notice'>You scribble on page number [curr_page] of [src].</span>")
 			attack_self(user)
 		return
 	return ..()

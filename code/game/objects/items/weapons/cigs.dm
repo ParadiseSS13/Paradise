@@ -40,8 +40,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi')
 
 
-/obj/item/clothing/mask/cigarette/New()
-	..()
+/obj/item/clothing/mask/cigarette/Initialize(mapload)
+	. = ..()
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
@@ -51,6 +51,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	QDEL_NULL(reagents)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/clothing/mask/cigarette/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["wood"] += 1
+	qdel(src)
+	return TRUE
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
@@ -176,6 +181,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				C.wear_mask_update(src)
 		set_light(2, 0.25, "#E38F46")
 		START_PROCESSING(SSobj, src)
+		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 
 /obj/item/clothing/mask/cigarette/process()
@@ -188,6 +194,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	smoke()
 
+
+/obj/item/clothing/mask/cigarette/extinguish_light(force)
+	if(!force)
+		return
+	die()
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
@@ -261,13 +272,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 	throw_speed = 0.5
 	item_state = "spliffoff"
 
-/obj/item/clothing/mask/cigarette/rollie/New()
-	..()
+/obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/clothing/mask/cigarette/rollie/nicotine
-	list_reagents = list("nicotine" = 40)
+/obj/item/clothing/mask/cigarette/rollie/custom
+	list_reagents = list()
 
 
 /obj/item/cigbutt/roach
@@ -275,8 +286,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A manky old roach, or for non-stoners, a used rollup."
 	icon_state = "roach"
 
-/obj/item/cigbutt/roach/New()
-	..()
+/obj/item/cigbutt/roach/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -322,8 +333,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 1
 
-/obj/item/cigbutt/New()
-	..()
+/obj/item/cigbutt/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	transform = turn(transform,rand(0,360))
@@ -342,7 +353,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/cigar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers))
 		return
-	if(istype(I, /obj/item/match))
+	if(istype(I, /obj/item/match) || istype(I, /obj/item/lighter/zippo))
 		..()
 	else
 		to_chat(user, "<span class='notice'>[src] straight out REFUSES to be lit by such uncivilized means.</span>")
@@ -361,6 +372,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 500
 	chem_volume = 200
 	list_reagents = list("nicotine" = 200)
+
+/obj/item/clothing/mask/cigarette/pipe/die()
+	return
 
 /obj/item/clothing/mask/cigarette/pipe/light(flavor_text = null)
 	if(!lit)
@@ -440,7 +454,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(O.dry)
 			user.unEquip(target, 1)
 			user.unEquip(src, 1)
-			var/obj/item/clothing/mask/cigarette/rollie/R = new /obj/item/clothing/mask/cigarette/rollie(user.loc)
+			var/obj/item/clothing/mask/cigarette/rollie/custom/R = new /obj/item/clothing/mask/cigarette/rollie/custom(user.loc)
 			R.chem_volume = target.reagents.total_volume
 			target.reagents.trans_to(R, R.chem_volume)
 			user.put_in_active_hand(R)

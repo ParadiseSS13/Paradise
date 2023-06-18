@@ -51,15 +51,21 @@
 	// if given a multi-z template
 	// it might need to be adapted for that when that time comes
 	GLOB.space_manager.add_dirt(placement.z)
-	var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
-	if(!bounds)
-		return 0
-	if(bot_left == null || top_right == null)
-		log_runtime(EXCEPTION("One of the late setup corners is bust"), src)
+	try
+		var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
+		if(!bounds)
+			return 0
+		if(bot_left == null || top_right == null)
+			stack_trace("One of the late setup corners is bust")
 
-	if(ST_bot_left == null || ST_top_right == null)
-		log_runtime(EXCEPTION("One of the smoothing corners is bust"), src)
-
+		if(ST_bot_left == null || ST_top_right == null)
+			stack_trace("One of the smoothing corners is bust")
+	catch(var/exception/e)
+		GLOB.space_manager.remove_dirt(placement.z)
+		late_setup_level(block(bot_left, top_right), block(ST_bot_left, ST_top_right))
+		message_admins("Map template [name] threw an error while loading. Safe exit attempted, but check for errors at [ADMIN_COORDJMP(placement)].")
+		log_admin("Map template [name] threw an error while loading. Safe exit attempted.")
+		throw e
 	GLOB.space_manager.remove_dirt(placement.z)
 	late_setup_level(
 		block(bot_left, top_right),
@@ -72,10 +78,10 @@
 	if(mapfile)
 		. = mapfile
 	else if(mappath)
-		. = file(mappath)
+		. = wrap_file(mappath)
 
 	if(!.)
-		log_runtime(EXCEPTION("  The file of [src] appears to be empty/non-existent."), src)
+		stack_trace("  The file of [src] appears to be empty/non-existent.")
 
 /datum/map_template/proc/get_affected_turfs(turf/T, centered = 0)
 	var/turf/placement = T

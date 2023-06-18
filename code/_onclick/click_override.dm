@@ -14,7 +14,7 @@
 
 /datum/middleClickOverride/proc/onClick(atom/A, mob/living/user)
 	user.middleClickOverride = null
-	return 1
+	return TRUE
 	/* Note, when making a new click override it is ABSOLUTELY VITAL that you set the source's clickOverride to null at some point if you don't want them to be stuck with it forever.
 	Calling the super will do this for you automatically, but if you want a click override to NOT clear itself after the first click, you must do it at some other point in the code*/
 
@@ -46,20 +46,23 @@
 
 /datum/middleClickOverride/power_gloves/onClick(atom/A, mob/living/carbon/human/user)
 	if(A == user || user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
-		return
+		return FALSE
 	if(user.incapacitated())
-		return
+		return FALSE
 	var/obj/item/clothing/gloves/color/yellow/power/P = user.gloves
 	if(world.time < P.last_shocked + P.shock_delay)
 		to_chat(user, "<span class='warning'>The gloves are still recharging.</span>")
-		return
+		return FALSE
 	var/turf/T = get_turf(user)
 	var/obj/structure/cable/C = locate() in T
 	if(!P.unlimited_power)
 		if(!C || !istype(C))
 			to_chat(user, "<span class='warning'>There is no cable here to power the gloves.</span>")
-			return
+			return FALSE
 	var/turf/target_turf = get_turf(A)
+	if(get_dist(T, target_turf) > P.shock_range)
+		to_chat(user, "<span class='warning'>The target is too far away.</span>")
+		return FALSE
 	target_turf.hotspot_expose(2000, 400)
 	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, 1)
 
@@ -70,9 +73,13 @@
 		beam_from.Beam(target_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 6)
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
+			var/surplus_power = C.get_surplus()
 			if(user.a_intent == INTENT_DISARM)
-				add_attack_logs(user, L, "shocked and weakened with power gloves")
-				L.Weaken(6 SECONDS)
+				add_attack_logs(user, L, "shocked with power gloves.")
+				L.adjustStaminaLoss(60)
+				L.Jitter(10 SECONDS)
+				var/atom/throw_target = get_edge_target_turf(user, get_dir(user, get_step_away(L, user)))
+				L.throw_at(throw_target, surplus_power / 100000, surplus_power / 100000) //100 kW surplus throws 1 tile, 200 throws 2, etc.
 			else
 				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power gloves")
 				if(P.unlimited_power)
@@ -82,7 +89,7 @@
 			break
 		var/list/next_shocked = list()
 		for(var/atom/movable/AM in orange(3, target_atom))
-			if(AM == user || istype(AM, /obj/effect) || isobserver(AM))
+			if(AM == user || iseffect(AM) || isobserver(AM))
 				continue
 			next_shocked.Add(AM)
 
@@ -92,6 +99,7 @@
 		next_shocked.Cut()
 
 	P.last_shocked = world.time
+	return TRUE
 
 /**
  * # Callback invoker middle click override datum
@@ -107,4 +115,5 @@
 	callback = _callback
 
 /datum/middleClickOverride/callback_invoker/onClick(atom/A, mob/living/user)
-	callback.Invoke(user, A)
+	if(callback.Invoke(user, A))
+		return TRUE

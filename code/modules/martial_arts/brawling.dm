@@ -1,5 +1,6 @@
 /datum/martial_art/boxing
 	name = "Boxing"
+	weight = 1
 
 /datum/martial_art/boxing/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	to_chat(A, "<span class='warning'>Can't disarm while boxing!</span>")
@@ -39,13 +40,11 @@
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.Weaken(10 SECONDS)
-			D.forcesay(GLOB.hit_appends)
-		else if(IS_HORIZONTAL(D))
-			D.forcesay(GLOB.hit_appends)
 	return 1
 
 /datum/martial_art/drunk_brawling
 	name = "Drunken Brawling"
+	weight = 2
 
 /datum/martial_art/drunk_brawling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(prob(70))
@@ -97,7 +96,4 @@
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.Paralyse(10 SECONDS)
-			D.forcesay(GLOB.hit_appends)
-		else if(IS_HORIZONTAL(D))
-			D.forcesay(GLOB.hit_appends)
 	return 1

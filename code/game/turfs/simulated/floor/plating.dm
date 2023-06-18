@@ -12,6 +12,7 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
+	real_layer = PLATING_LAYER
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
@@ -26,9 +27,7 @@
 	. = ..()
 	burn_tile()
 
-/turf/simulated/floor/plating/update_icon()
-	if(!..())
-		return
+/turf/simulated/floor/plating/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
 
@@ -100,12 +99,20 @@
 				new /obj/item/stack/sheet/metal(src, 2)
 			return TRUE
 
+	else if(istype(C, /obj/item/storage/backpack/satchel_flat)) //if you click plating with a smuggler satchel, place it on the plating please
+		if(user.drop_item())
+			C.forceMove(src)
+
+		return TRUE
+
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
 	. = TRUE
+	if(locate(/obj/structure/cable) in src)
+		to_chat(user, "<span class='notice'>There is a cable still attached to [src]. Remove it first!</span>")
+		return
+	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
@@ -116,6 +123,8 @@
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
+		return
+	if(user.a_intent == INTENT_HARM) // no repairing on harm intent, so you can use the welder in a fight near damaged paneling without welding your eyes out
 		return
 	if(unfastened)
 		to_chat(user, "<span class='warning'>You start removing [src], exposing space after you're done!</span>")
@@ -321,7 +330,7 @@
 	icon_state = "ironfoam"
 	metal = MFOAM_IRON
 
-/turf/simulated/floor/plating/metalfoam/update_icon()
+/turf/simulated/floor/plating/metalfoam/update_icon_state()
 	switch(metal)
 		if(MFOAM_ALUMINUM)
 			icon_state = "metalfoam"

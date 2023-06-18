@@ -47,7 +47,7 @@
 	open = !open
 	update_icon()
 
-/obj/structure/toilet/update_icon()
+/obj/structure/toilet/update_icon_state()
 	icon_state = "toilet[open][cistern]"
 	if(!anchored)
 		pixel_x = 0
@@ -251,7 +251,7 @@
 	icon_state = "shower"
 	density = FALSE
 	anchored = TRUE
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	///Is the shower on or off?
 	var/on = FALSE
 	///What temperature the shower reagents are set to.
@@ -340,21 +340,21 @@
 		transfer_prints_to(S, TRUE)
 		qdel(src)
 
-/obj/machinery/shower/update_icon()
-	cut_overlays()
+/obj/machinery/shower/update_overlays()
+	. = ..()
 	if(on)
 		var/mutable_appearance/water_falling = mutable_appearance('icons/obj/watercloset.dmi', "water", ABOVE_MOB_LAYER)
-		add_overlay(water_falling)
+		. += water_falling
 
 /obj/machinery/shower/proc/handle_mist()
 	// If there is no mist, and the shower was turned on (on a non-freezing temp): make mist in 5 seconds
 	// If there was already mist, and the shower was turned off (or made cold): remove the existing mist in 25 sec
 	var/obj/effect/mist/mist = locate() in loc
 	if(!mist && on && current_temperature != SHOWER_FREEZING)
-		addtimer(CALLBACK(src, .proc/make_mist), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(make_mist)), 5 SECONDS)
 
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
-		addtimer(CALLBACK(src, .proc/clear_mist), 25 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(clear_mist)), 25 SECONDS)
 
 
 /obj/machinery/shower/proc/make_mist()
@@ -441,6 +441,11 @@
 	item_state = "rubberducky"
 	honk_sounds = list('sound/items/squeaktoy.ogg' = 1)
 	attack_verb = list("quacked", "squeaked")
+
+/obj/item/bikehorn/rubberducky/captainducky
+	name = "captain rubber ducky"
+	desc = "Captain's favorite rubber ducky. This one squeaks with power."
+	icon_state = "cap_rubber_ducky"
 
 /obj/structure/sink
 	name = "sink"
@@ -565,8 +570,7 @@
 			dir = dir_choices[selected]
 	update_icon()	//is this necessary? probably not
 
-/obj/structure/sink/update_icon()
-	..()
+/obj/structure/sink/update_icon_state()
 	layer = OBJ_LAYER
 	if(!anchored)
 		pixel_x = 0
@@ -598,6 +602,7 @@
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
+	desc = "A puddle of clean water. Looks refreshing."
 	icon_state = "puddle"
 	can_move = 0
 	can_rotate = 0

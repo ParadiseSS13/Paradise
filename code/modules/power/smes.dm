@@ -12,7 +12,6 @@
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
 	density = TRUE
-	use_power = NO_POWER_USE
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -83,17 +82,17 @@
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
 
-/obj/machinery/power/smes/update_icon()
-	cut_overlays()
+/obj/machinery/power/smes/update_overlays()
+	. = ..()
 	if(stat & BROKEN)
 		return
 
-	add_overlay("smes-op[outputting ? 1 : 0]")
-	add_overlay("smes-oc[inputting ? 1 : 0]")
+	. += "smes-op[outputting ? 1 : 0]"
+	. += "smes-oc[inputting ? 1 : 0]"
 
-	var/clevel = chargedisplay()
-	if(clevel > 0)
-		add_overlay("smes-og[clevel]")
+	var/charge_level = chargedisplay()
+	if(charge_level > 0)
+		. += "smes-og[charge_level]"
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
@@ -158,7 +157,7 @@
 			if(NORTHWEST, SOUTHWEST)
 				tempDir = WEST
 		var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
-		if(istype(tempLoc, /turf/space))
+		if(isspaceturf(tempLoc))
 			to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
 			return
 		else if(istype(tempLoc))
@@ -255,7 +254,7 @@
 
 	//inputting
 	if(terminal && input_attempt)
-		input_available = terminal.surplus()
+		input_available = terminal.get_power_balance()
 
 		if(inputting)
 			if(input_available > 0)		// if there's power available, try to charge
@@ -264,7 +263,7 @@
 
 				charge += load * SMESRATE	// increase the charge
 
-				terminal.add_load(load) // add the load to the terminal side network
+				terminal.consume_direct_power(load) // add the load to the terminal side network
 
 			else					// if not enough capcity
 				inputting = FALSE		// stop inputting
@@ -279,8 +278,7 @@
 	if(output_attempt)
 		if(outputting)
 			output_used = min( charge/SMESRATE, output_level)		//limit output to that stored
-
-			if (add_avail(output_used))				// add output to powernet if it exists (smes side)
+			if(produce_direct_power(output_used))				// add output to powernet if it exists (smes side)
 				charge -= output_used*SMESRATE		// reduce the storage (may be recovered in /restore() if excessive)
 			else
 				outputting = FALSE
@@ -311,7 +309,7 @@
 		output_used = 0
 		return
 
-	var/excess = powernet.netexcess		// this was how much wasn't used on the network last ptick, minus any removed by other SMESes
+	var/excess = powernet.excess_power		// this was how much wasn't used on the network last ptick, minus any removed by other SMESes
 
 	excess = min(output_used, excess)				// clamp it to how much was actually output by this SMES last ptick
 
@@ -322,7 +320,7 @@
 	var/clev = chargedisplay()
 
 	charge += excess * SMESRATE			// restore unused power
-	powernet.netexcess -= excess		// remove the excess from the powernet, so later SMESes don't try to use it
+	powernet.excess_power -= excess		// remove the excess from the powernet, so later SMESes don't try to use it
 
 	output_used -= excess
 
@@ -425,7 +423,7 @@
 				M.show_message("<span class='warning'>[src] is making strange noises!</span>", 3, "<span class='warning'>You hear sizzling electronics.</span>", 2)
 			sleep(10*pick(4,5,6,7,10,14))
 			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(3, 0, src.loc)
+			smoke.set_up(3, FALSE, loc)
 			smoke.attach(src)
 			smoke.start()
 			explosion(src.loc, -1, 0, 1, 3, 1, 0)
@@ -439,7 +437,7 @@
 				emp_act(2)
 		if(prob(5)) //smoke only
 			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(3, 0, src.loc)
+			smoke.set_up(3, FALSE, loc)
 			smoke.attach(src)
 			smoke.start()
 

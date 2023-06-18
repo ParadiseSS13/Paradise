@@ -1,4 +1,4 @@
-/obj/item/clothing/glasses/New()
+/obj/item/clothing/glasses/Initialize(mapload)
 	. = ..()
 	if(prescription_upgradable && prescription)
 		// Pre-upgraded upgradable glasses
@@ -21,16 +21,24 @@
 		name = "prescription [initial(name)]"
 
 	// Removing prescription glasses
-	else if(prescription && istype(I, /obj/item/screwdriver))
-		var/obj/item/clothing/glasses/regular/G = locate() in src
-		if(!G)
-			G = new(src)
-		to_chat(H, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
-		prescription = FALSE
-		name = initial(name)
-		H.put_in_hands(G)
-
 	H.update_nearsighted_effects()
+
+/obj/item/clothing/glasses/screwdriver_act(mob/living/user, obj/item/I)
+	if(!prescription)
+		return
+	var/obj/item/clothing/glasses/regular/G = locate() in src
+	if(!G)
+		G = new(src)
+	to_chat(user, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
+	prescription = FALSE
+	name = initial(name)
+	user.put_in_hands(G)
+	user.update_nearsighted_effects()
+	return TRUE
+
+/obj/item/clothing/glasses/update_icon_state()
+	if(..())
+		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
 
 /obj/item/clothing/glasses/visor_toggling()
 	..()
@@ -74,7 +82,8 @@
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/meson/night
@@ -119,11 +128,12 @@
 	prescription_upgradable = TRUE
 	scan_reagents = 1 //You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
@@ -162,7 +172,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/eyepatch
@@ -174,7 +185,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/monocle
@@ -187,7 +199,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/material
@@ -201,7 +214,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/material/cyber
@@ -231,7 +245,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/regular/hipster
@@ -249,7 +264,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/gglasses
@@ -261,7 +277,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 	prescription_upgradable = TRUE
 
@@ -272,13 +289,14 @@
 	item_state = "sunglasses"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
-	tint = 1
+	tint = FLASH_PROTECTION_FLASH
 	prescription_upgradable = TRUE
 	dog_fashion = /datum/dog_fashion/head
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/sunglasses_fake
@@ -288,11 +306,12 @@
 	item_state = "sunglasses"
 	see_in_dark = 0
 	flash_protect = FLASH_PROTECTION_NONE
-	tint = 0
+	tint = FLASH_PROTECTION_NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/sunglasses/noir
@@ -341,12 +360,13 @@
 	item_state = "sunglasses"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
-	tint = 1
+	tint = FLASH_PROTECTION_FLASH
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/sunglasses/lasers
@@ -367,12 +387,14 @@
 	item_state = "welding-g"
 	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = FLASH_PROTECTION_WELDER
-	tint = 2
+	tint = FLASH_PROTECTION_WELDER
+	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/welding/attack_self(mob/user)
@@ -384,7 +406,7 @@
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
 	flash_protect = FLASH_PROTECTION_WELDER
-	tint = 0
+	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
@@ -399,7 +421,7 @@
 	name = "tattered blindfold"
 	desc = "A see-through blindfold perfect for cheating at games like pin the stunbaton on the clown."
 	flash_protect = FLASH_PROTECTION_NONE
-	tint = 0
+	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = 1
@@ -422,7 +444,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
@@ -454,40 +477,6 @@
 	item_state = "eyepatch"
 	flags = NODROP
 
-
-/obj/item/clothing/glasses/godeye
-	name = "eye of god"
-	desc = "A strange eye, said to have been torn from an omniscient creature that used to roam the wastes."
-	icon_state = "godeye"
-	item_state = "godeye"
-	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	see_in_dark = 8
-	scan_reagents = 1
-	prescription = TRUE
-	flags = NODROP
-	flags_cover = null
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, src) && W != src && W.loc == user)
-		if(W.icon_state == "godeye")
-			W.icon_state = "doublegodeye"
-			W.item_state = "doublegodeye"
-			W.desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
-			if(iscarbon(user))
-				var/mob/living/carbon/C = user
-				C.update_inv_wear_mask()
-		else
-			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
-		qdel(src)
-	..()
-
 /obj/item/clothing/glasses/tajblind
 	name = "embroidered veil"
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."
@@ -496,7 +485,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = FALSE
-	tint = 0
+	tint = FLASH_PROTECTION_NONE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -525,15 +514,12 @@
 /obj/item/clothing/glasses/proc/toggle_veil()
 	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.incapacitated())
 		return
-
+	up = !up
 	if(up)
-		up = !up
-		tint = initial(tint)
-		to_chat(usr, "You activate [src], allowing you to see.")
-	else
-		up = !up
 		tint = 3
-		to_chat(usr, "You deactivate [src], obscuring your vision.")
+	else
+		tint = initial(tint)
+	to_chat(usr, up ? "You deactivate [src], obscuring your vision." : "You activate [src], allowing you to see.")
 	var/mob/living/carbon/user = usr
 	user.update_tint()
 	user.update_inv_glasses()

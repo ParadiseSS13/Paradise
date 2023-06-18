@@ -33,12 +33,11 @@
 	var/life_regen_amount = -10 // negative, because negative = healing
 	var/smoke_lastuse = 0
 	var/smoke_freq = 300 // 30 seconds
-	var/datum/action/innate/demon/whisper/whisper_action
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/hostile/hellhound/New()
+/mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()
-	whisper_action = new()
+	var/datum/action/innate/demon/whisper/whisper_action = new
 	whisper_action.Grant(src)
 	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
@@ -116,7 +115,7 @@
 	melee_damage_upper = 30
 	environment_smash = 2
 
-/mob/living/simple_animal/hostile/hellhound/greater/New()
+/mob/living/simple_animal/hostile/hellhound/greater/Initialize(mapload)
 	. = ..()
 	// Movement
 	AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
@@ -124,17 +123,17 @@
 	telespell.clothes_req = FALSE
 	telespell.invocation_type = "none"
 	AddSpell(telespell)
-	var/obj/effect/proc_holder/spell/aoe_turf/knock/knockspell = new
+	var/obj/effect/proc_holder/spell/aoe/knock/knockspell = new
 	knockspell.invocation_type = "none"
 	AddSpell(knockspell)
 	// Defense
-	var/obj/effect/proc_holder/spell/forcewall/greater/wallspell = new
+	var/obj/effect/proc_holder/spell/forcewall/wallspell = new
 	wallspell.clothes_req = FALSE
 	wallspell.invocation_type = "none"
 	AddSpell(wallspell)
 	// Offense
-	var/obj/effect/proc_holder/spell/aoe_turf/conjure/creature/summonspell = new
-	summonspell.charge_max = 1
+	var/obj/effect/proc_holder/spell/aoe/conjure/creature/summonspell = new
+	summonspell.base_cooldown = 1
 	summonspell.invocation_type = "none"
 	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
 	summonspell.summon_amt = 1
@@ -150,7 +149,7 @@
 		return
 	smoke_lastuse = world.time
 	var/datum/effect_system/smoke_spread/sleeping/smoke = new
-	smoke.set_up(10, 0, loc)
+	smoke.set_up(10, FALSE, loc)
 	smoke.start()
 
 /mob/living/simple_animal/hostile/hellhound/tear

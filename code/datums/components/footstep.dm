@@ -24,7 +24,7 @@
 		if(FOOTSTEP_MOB_HUMAN)
 			if(!ishuman(parent))
 				return COMPONENT_INCOMPATIBLE
-			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_humanstep)
+			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_humanstep))
 			return
 		if(FOOTSTEP_MOB_CLAW)
 			footstep_sounds = GLOB.clawfootstep
@@ -38,13 +38,13 @@
 			footstep_sounds = 'sound/effects/footstep/slime1.ogg'
 		if(FOOTSTEP_OBJ_MACHINE)
 			footstep_sounds = 'sound/effects/bang.ogg'
-			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep_machine) //Note that this doesn't get called for humans.
+			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_simplestep_machine)) //Note that this doesn't get called for humans.
 			return
 		if(FOOTSTEP_OBJ_ROBOT)
 			footstep_sounds = 'sound/effects/tank_treads.ogg'
-			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep_machine) //Note that this doesn't get called for humans.
+			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_simplestep_machine)) //Note that this doesn't get called for humans.
 			return
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep) //Note that this doesn't get called for humans.
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_simplestep)) //Note that this doesn't get called for humans.
 
 ///Prepares a footstep. Determines if it should get played. Returns the turf it should get played on. Note that it is always a /turf/simulated/floor (eventually /turf/open)
 /datum/component/footstep/proc/prepare_step()
@@ -53,15 +53,9 @@
 		return
 
 	var/mob/living/LM = parent
-	if(!T.footstep || IS_HORIZONTAL(LM) || !(LM.mobility_flags & MOBILITY_MOVE) || LM.buckled || LM.throwing || LM.flying || istype(LM.loc, /obj/machinery/atmospherics))
+	if(!T.footstep || !(LM.mobility_flags & MOBILITY_MOVE) || LM.buckled || LM.throwing || LM.flying || istype(LM.loc, /obj/machinery/atmospherics))
 		return
 
-	if(ishuman(LM))
-		var/mob/living/carbon/human/H = LM
-		if(!H.get_organ(BODY_ZONE_L_LEG) && !H.get_organ(BODY_ZONE_R_LEG))
-			return
-		if(H.m_intent == MOVE_INTENT_WALK)
-			return// stealth
 	steps++
 
 	if(steps >= 6)
@@ -72,6 +66,18 @@
 
 	if(steps != 0 && !has_gravity(LM, T)) // don't need to step as often when you hop around
 		return
+
+	if(IS_HORIZONTAL(LM)) //play crawling sound if we're lying
+		playsound(T, 'sound/effects/footstep/crawl1.ogg', 15 * volume, falloff_distance = 1, vary = sound_vary)
+		return
+
+	if(ishuman(LM))
+		var/mob/living/carbon/human/H = LM
+		if(!H.get_organ(BODY_ZONE_L_LEG) && !H.get_organ(BODY_ZONE_R_LEG))
+			return
+		if(H.m_intent == MOVE_INTENT_WALK)
+			return// stealth
+
 	return T
 
 /datum/component/footstep/proc/play_simplestep()

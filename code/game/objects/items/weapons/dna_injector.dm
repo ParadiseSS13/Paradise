@@ -70,14 +70,14 @@
 /obj/item/dnainjector/proc/inject(mob/living/M, mob/user)
 	if(used)
 		return
-	if(istype(M,/mob/living))
+	if(isliving(M))
 		M.apply_effect(rand(20 / (damage_coeff ** 2), 50 / (damage_coeff ** 2)), IRRADIATE)
 	var/mob/living/carbon/human/H
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		H = M
 
 	if(!buf)
-		log_runtime(EXCEPTION("[src] used by [user] on [M] failed to initialize properly."), src)
+		stack_trace("[src] used by [user] on [M] failed to initialize properly.")
 		return
 
 	spawn(0) //Some mutations have sleeps in them, like monkey

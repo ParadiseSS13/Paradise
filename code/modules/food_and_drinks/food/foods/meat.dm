@@ -5,12 +5,14 @@
 
 /obj/item/reagent_containers/food/snacks/meat
 	name = "meat"
-	desc = "A slab of meat"
+	desc = "A slab of meat."
 	icon_state = "meat"
 	filling_color = "#FF1C1C"
 	bitesize = 3
 	list_reagents = list("protein" = 3)
 	tastes = list("meat" = 1)
+	ingredient_name = "slab of meat"
+	ingredient_name_plural = "slabs of meat"
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
@@ -39,12 +41,17 @@
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."
 
+/obj/item/reagent_containers/food/snacks/meat/slab/gorilla
+	name = "gorilla meat"
+	desc = "Much meatier than monkey meat."
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+
 /obj/item/reagent_containers/food/snacks/meat/monkey
 	//same as plain meat
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "corgi meat"
-	desc = "Tastes like the Head of Personnel's hopes and dreams"
+	desc = "Tastes like the Head of Personnel's hopes and dreams."
 
 /obj/item/reagent_containers/food/snacks/meat/pug
 	name = "pug meat"
@@ -77,8 +84,13 @@
 			"<span class ='notice'>[user] cuts the raw cutlet with [W]!</span>", \
 			"<span class ='notice'>You cut the raw cutlet with [W]!</span>" \
 			)
-		new /obj/item/reagent_containers/food/snacks/raw_bacon(loc)
-		qdel(src)
+		var/obj/item/reagent_containers/food/snacks/raw_bacon/bacon = new(get_turf(src))
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			qdel(src)
+			H.put_in_hands(bacon)
+		else
+			qdel(src)
 
 //////////////////////////
 //		Monster Meat	//
@@ -192,9 +204,13 @@
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
 	tastes = list("bacon" = 1)
 
-/obj/item/reagent_containers/food/snacks/telebacon/New()
-	..()
+/obj/item/reagent_containers/food/snacks/telebacon/Initialize(mapload)
+	. = ..()
 	baconbeacon = new /obj/item/radio/beacon/bacon(src)
+
+/obj/item/reagent_containers/food/snacks/telebacon/Destroy()
+	QDEL_NULL(baconbeacon)
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -349,7 +365,6 @@
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
 
-
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
 	..()
 	var/turf/T = get_turf(hit_atom)
@@ -408,8 +423,8 @@
 /obj/item/reagent_containers/food/snacks/egg/gland
 	desc = "An egg! It looks weird..."
 
-/obj/item/reagent_containers/food/snacks/egg/gland/New()
-	..()
+/obj/item/reagent_containers/food/snacks/egg/gland/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent(get_random_reagent_id(), 15)
 
 	var/reagent_color = mix_color_from_reagents(reagents.reagent_list)

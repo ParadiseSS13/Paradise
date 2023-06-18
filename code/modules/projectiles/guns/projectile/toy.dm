@@ -6,10 +6,10 @@
 	item_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
+	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	force = 0
 	throwforce = 0
 	burst_size = 3
-	can_suppress = FALSE
 	clumsy_check = FALSE
 	needs_permit = FALSE
 
@@ -24,24 +24,16 @@
 	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	can_suppress = FALSE
+	suppressed_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	burst_size = 1
 	fire_delay = 0
 	can_holster = TRUE
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/toy/pistol/update_icon()
-	..()
-	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
-
 /obj/item/gun/projectile/automatic/toy/pistol/riot
 	name = "foam force riot pistol"
 	desc = "RIOT! Ages 8 and up."
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol/riot
-
-/obj/item/gun/projectile/automatic/toy/pistol/riot/New()
-	magazine = new /obj/item/ammo_box/magazine/toy/pistol/riot(src)
-	..()
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
 	name = "foam Enforcer"
@@ -50,18 +42,18 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE
 
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
-	..()
-	overlays.Cut()
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_overlays()
+	. = ..()
+	if(suppressed)
+		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "enforcer_supp", pixel_x = 5)
 	if(gun_light)
-		var/iconF = "Enforcer_light"
+		var/flashlight = "Enforcer_light"
 		if(gun_light.on)
-			iconF = "Enforcer_light-on"
-		overlays += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = iconF, pixel_x = 0)
+			flashlight = "Enforcer_light-on"
+		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = flashlight, pixel_x = 0)
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
 	toggle_gunlight()
@@ -82,6 +74,10 @@
 	if(chambered && !chambered.BB)
 		qdel(chambered)
 
+/obj/item/gun/projectile/shotgun/toy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
+	. = ..()
+	chambered = null
+
 /obj/item/gun/projectile/shotgun/toy/crossbow
 	name = "foam force crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
@@ -100,7 +96,7 @@
 	name = "donksoft SMG"
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
-	can_suppress = FALSE
+	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
 

@@ -50,8 +50,8 @@
 		charges--//... drain a charge
 	return
 
-/obj/item/gun/magic/New()
-	..()
+/obj/item/gun/magic/Initialize(mapload)
+	. = ..()
 	charges = max_charges
 	chambered = new ammo_type(src)
 	if(can_charge)
@@ -72,7 +72,7 @@
 	charges++
 	return 1
 
-/obj/item/gun/magic/update_icon()
+/obj/item/gun/magic/update_icon_state()
 	return
 
 /obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)

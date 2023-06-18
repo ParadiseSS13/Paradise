@@ -1,5 +1,6 @@
 /datum/martial_art/mimejutsu
 	name = "Mimejutsu"
+	weight = 6
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/mimejutsu/mimechucks, /datum/martial_combo/mimejutsu/smokebomb, /datum/martial_combo/mimejutsu/silent_palm)
 
@@ -17,7 +18,7 @@
 	desc =	"Its a beret with a note stapled to it..."
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "beret"
-	var/used = 0
+	var/used = FALSE
 
 /obj/item/mimejutsu_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
@@ -27,7 +28,7 @@
 		var/datum/martial_art/mimejutsu/F = new/datum/martial_art/mimejutsu(null)
 		F.teach(H)
 		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of mimes.</span>")
-		used = 1
+		used = TRUE
 		desc = "It used to have something stapled to it..the staple is still there."
 		name = "beret with staple"
 		icon_state = "beret"

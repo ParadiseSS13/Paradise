@@ -257,7 +257,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 	var/turf/T = mob.loc
 
-	if(!( istype(T, /turf) ))
+	if(!isturf(T))
 		return
 
 	var/datum/gas_mixture/env = T.return_air()
@@ -281,7 +281,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!SSticker)
 		alert("Wait until the game starts")
 		return
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		log_admin("[key_name(src)] has robotized [M.key].")
 		spawn(10)
 			M:Robotize()
@@ -328,7 +328,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	var/mob/choice = input("Choose a player to play the pAI", "Spawn pAI") in available
 	if(!choice)
 		return 0
-	if(!istype(choice, /mob/dead/observer))
+	if(!isobserver(choice))
 		var/confirm = input("[choice.key] isn't ghosting right now. Are you sure you want to yank [choice.p_them()] out of [choice.p_their()] body and place [choice.p_them()] in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
 		if(confirm != "Yes")
 			return 0
@@ -452,7 +452,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!SSticker)
 		alert("Wait until the game starts")
 		return
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.wear_id)
 			var/obj/item/card/id/id = H.wear_id
@@ -665,7 +665,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))
 			outfits[initial(O.name)] = path
-	outfits = special_outfits + sortTim(outfits, /proc/cmp_text_asc)
+	outfits = special_outfits + sortTim(outfits, GLOBAL_PROC_REF(cmp_text_asc))
 
 	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
 	if(isnull(dresscode))
@@ -681,7 +681,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			var/datum/outfit/O = path
 			if(initial(O.can_be_admin_equipped))
 				job_outfits[initial(O.name)] = path
-		job_outfits = sortTim(job_outfits, /proc/cmp_text_asc)
+		job_outfits = sortTim(job_outfits, GLOBAL_PROC_REF(cmp_text_asc))
 
 		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in job_outfits
 		dresscode = job_outfits[dresscode]
@@ -712,14 +712,14 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	for(var/obj/machinery/power/emitter/E in GLOB.machines)
 		if(E.anchored)
-			E.active = 1
+			E.active = TRUE
 
 	for(var/obj/machinery/field/generator/F in GLOB.machines)
-		if(F.active == 0)
-			F.active = 1
+		if(!F.active)
+			F.active = TRUE
 			F.state = 2
 			F.power = 250
-			F.anchored = 1
+			F.anchored = TRUE
 			F.warming_up = 3
 			F.start_fields()
 			F.update_icon()
@@ -784,7 +784,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	var/list/dellog = list("<B>List of things that have gone through qdel this round</B><BR><BR><ol>")
-	sortTim(SSgarbage.items, cmp=/proc/cmp_qdel_item_time, associative = TRUE)
+	sortTim(SSgarbage.items, GLOBAL_PROC_REF(cmp_qdel_item_time), TRUE)
 	for(var/path in SSgarbage.items)
 		var/datum/qdel_item/I = SSgarbage.items[path]
 		dellog += "<li><u>[path]</u><ul>"
@@ -905,21 +905,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]", 1)
 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Ruin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/toggle_medal_disable()
-	set category = "Debug"
-	set name = "Toggle Medal Disable"
-	set desc = "Toggles the safety lock on trying to contact the medal hub."
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	SSmedals.hub_enabled = !SSmedals.hub_enabled
-
-	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Medal Disable") // If...
-	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
-
 
 /client/proc/visualise_active_turfs()
 	set category = "Debug"

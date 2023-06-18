@@ -6,7 +6,6 @@
 	power_type = CHANGELING_INNATE_POWER
 	req_dna = 1
 	req_human = TRUE
-	max_genetic_damage = 3
 
 //Change our DNA to that of somebody we've absorbed.
 /datum/action/changeling/transform/sting_action(mob/living/carbon/human/user)

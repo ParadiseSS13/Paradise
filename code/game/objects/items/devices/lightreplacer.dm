@@ -39,10 +39,8 @@
 
 
 /obj/item/lightreplacer
-
 	name = "light replacer"
 	desc = "A device to automatically replace lights. Refill with broken or working light bulbs, or sheets of glass."
-
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "lightreplacer0"
 	item_state = "electronic"
@@ -52,20 +50,19 @@
 	slot_flags = SLOT_BELT
 	origin_tech = "magnets=3;engineering=4"
 	force = 8
-
 	var/max_uses = 20
 	var/uses = 10
-	// How much to increase per each glass?
+	/// How much to increase per each glass?
 	var/increment = 5
-	// How much to take from the glass?
+	/// How much to take from the glass?
 	var/decrement = 1
 	var/charge = 1
-
-	// Eating used bulbs gives us bulb shards
+	/// Eating used bulbs gives us bulb shards
 	var/bulb_shards = 0
-	// when we get this many shards, we get a free bulb.
+	/// when we get this many shards, we get a free bulb.
 	var/shards_required = 4
-
+	/// It can replace lights at a distance?
+	var/bluespace_toggle = FALSE
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
@@ -112,7 +109,7 @@
 			qdel(L)
 		return
 
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
 		var/found_lightbulbs = FALSE
 		var/replaced_something = TRUE
@@ -147,14 +144,23 @@
 
 /obj/item/lightreplacer/emag_act(user as mob)
 	if(!emagged)
-		Emag()
+		emagged = !emagged
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 /obj/item/lightreplacer/attack_self(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
 		ReplaceLight(target, user)
 	to_chat(user, status_string())
 
-/obj/item/lightreplacer/update_icon()
+/obj/item/lightreplacer/update_name()
+	. = ..()
+	if(emagged)
+		name = "shortcircuited [initial(name)]"
+	else
+		name = initial(name)
+
+/obj/item/lightreplacer/update_icon_state()
 	icon_state = "lightreplacer[emagged]"
 
 /obj/item/lightreplacer/proc/status_string()
@@ -214,15 +220,6 @@
 		to_chat(U, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
 		return
 
-/obj/item/lightreplacer/proc/Emag()
-	emagged = !emagged
-	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	if(emagged)
-		name = "shortcircuited [initial(name)]"
-	else
-		name = initial(name)
-	update_icon()
-
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)
 	if(uses > 0)
@@ -232,9 +229,11 @@
 
 /obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity)
 	. = ..()
-	if(!proximity)
+	if(!proximity && !bluespace_toggle)
 		return
 	if(!isturf(T))
+		return
+	if(get_dist(src, T) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
 		return
 
 	var/used = FALSE
@@ -243,15 +242,17 @@
 			break
 		used = TRUE
 		if(istype(A, /obj/machinery/light))
+			if(!proximity)  // only beams if at a distance
+				U.Beam(A, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+				playsound(src, 'sound/items/pshoom.ogg', 40, 1)
 			ReplaceLight(A, U)
 
 	if(!used)
 		to_chat(U, "[src]'s refill light blinks red.")
 
 /obj/item/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.put_in_cart(src, user)
 	J.myreplacer = src
-	J.update_icon()
+	J.put_in_cart(src, user)
 
 /obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
@@ -259,6 +260,15 @@
 /obj/item/lightreplacer/cyborg/cyborg_recharge(coeff, emagged)
 	for(var/I in 1 to coeff)
 		Charge()
+
+/obj/item/lightreplacer/bluespace
+	name = "bluespace light replacer"
+	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
+	icon_state = "lightreplacer_blue0"
+	bluespace_toggle = TRUE
+
+/obj/item/lightreplacer/bluespace/emag_act()
+	return  // long range explosions are stupid
 
 #undef LIGHT_OK
 #undef LIGHT_EMPTY

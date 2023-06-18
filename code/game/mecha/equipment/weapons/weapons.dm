@@ -96,13 +96,21 @@
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
-	equip_cooldown = 40
-	name = "mkIV Ion Heavy Cannon"
+	equip_cooldown = 4 SECONDS
+	name = "mkIV Ion Heavy Scatter Cannon"
+	desc = "An ion shotgun, that when fired gives the mecha a second of EMP shielding with the excess energy from the discharge."
 	icon_state = "mecha_ion"
 	origin_tech = "materials=4;combat=5;magnets=4"
-	energy_drain = 120
-	projectile = /obj/item/projectile/ion
-	fire_sound = 'sound/weapons/laser.ogg'
+	energy_drain = 300 // This is per shot + 1x cost, so 1500 per shotgun shot
+	projectile = /obj/item/projectile/ion/weak
+	projectiles_per_shot = 4
+	variance = 35
+	fire_sound = 'sound/weapons/ionrifle.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion/action()
+	chassis.emp_proof = TRUE
+	addtimer(VARSET_CALLBACK(chassis, emp_proof, FALSE), 1 SECONDS)
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	equip_cooldown = 35
@@ -111,7 +119,7 @@
 	icon_state = "mecha_laser"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 500
-	projectile = /obj/item/projectile/energy/shock_revolver
+	projectile = /obj/item/projectile/energy/tesla_bolt
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	harmful = TRUE
 
@@ -163,7 +171,7 @@
 	life -= 10
 	if(ismob(A))
 		var/mob/M = A
-		if(istype(firer, /mob))
+		if(ismob(firer))
 			add_attack_logs(firer, M, "Mecha-shot with <b>[src]</b>")
 		else
 			add_attack_logs(src, M, "Mecha-shot with <b>[src]</b> (no firer)")
@@ -205,7 +213,7 @@
 	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
 	chassis.occupant_message("<font color='red' size='5'>HONK</font>")
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
@@ -213,14 +221,10 @@
 		M.SetSleeping(0)
 		M.Stuttering(40 SECONDS)
 		M.AdjustEarDamage(0, 30)
-		M.Weaken(6 SECONDS)
-		if(prob(30))
-			M.Stun(20 SECONDS)
-			M.Paralyse(8 SECONDS)
-		else
-			M.Jitter(1000 SECONDS)
+		M.KnockDown(6 SECONDS)
+		M.Jitter(40 SECONDS)
 		///else the mousetraps are useless
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
@@ -242,7 +246,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
-	name = "general ballisic weapon"
+	name = "general ballistic weapon"
 	size = 2
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/action_checks(atom/target)
 	if(..())
@@ -285,7 +289,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 15
-	projectile = /obj/item/projectile/bullet/mime
+	projectile = /obj/item/projectile/bullet/mime/nonlethal
 	projectiles = 20
 	projectile_energy_cost = 50
 

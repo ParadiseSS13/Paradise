@@ -15,6 +15,7 @@
 	speak_chance = 0
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
+	faction = list("hostile", "jungle")
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
@@ -36,11 +37,3 @@
 	layer = 3.1		//so they can stay hidde under the /obj/structure/bush
 	var/stalk_tick_delay = 3
 	gold_core_spawnable = HOSTILE_SPAWN
-
-/mob/living/simple_animal/hostile/panther/AttackingTarget()
-	. = ..()
-	if(.)
-		if(prob(15) && iscarbon(target))
-			var/mob/living/carbon/C = target
-			C.Weaken(6 SECONDS)
-			C.visible_message("<span class='danger'>\the [src] knocks down \the [C]!</span>")

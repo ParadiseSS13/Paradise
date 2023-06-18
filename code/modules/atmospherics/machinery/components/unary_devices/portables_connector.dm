@@ -6,17 +6,17 @@
 	desc = "For connecting portables devices related to atmospherics control."
 
 	can_unwrench = TRUE
-	layer = GAS_FILTER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_FILTER_OFFSET
+	layer_offset = GAS_FILTER_OFFSET
 
-	var/obj/machinery/portable_atmospherics/connected_device
+	var/obj/machinery/atmospherics/portable/connected_device
 
 /obj/machinery/atmospherics/unary/portables_connector/Destroy()
 	if(connected_device)
 		connected_device.disconnect()
 	return ..()
 
-/obj/machinery/atmospherics/unary/portables_connector/update_icon()
-	..()
+/obj/machinery/atmospherics/unary/portables_connector/update_icon_state()
 	icon_state = "connector"
 
 /obj/machinery/atmospherics/unary/portables_connector/update_underlays()

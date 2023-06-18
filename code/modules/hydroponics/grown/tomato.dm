@@ -134,14 +134,14 @@
 	..()
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack_self(mob/user)
-	if(awakening || istype(user.loc, /turf/space))
+	if(awakening || isspaceturf(user.loc))
 		return
 	to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
 	awakening = 1
 
 	spawn(30)
 		if(!QDELETED(src))
-			var/turf/T = get_turf(user)
+			var/turf/T = get_turf(src)
 			var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(T)
 			K.maxHealth += round(seed.endurance / 3)
 			K.melee_damage_lower += round(seed.potency / 10)

@@ -33,7 +33,7 @@
 	for(var/jokers in 1 to 2)
 		cards += new /datum/playingcard("Joker", "sc_Joker_[card_style]", "singlecard_down_[card_style]")
 
-/obj/item/deck/cards/update_icon()
+/obj/item/deck/cards/update_icon_state()
 	if(!length(cards))
 		icon_state = "deck_[card_style]_empty"
 		return
@@ -78,7 +78,7 @@
 	card_style = "simple"
 	simple_deck = TRUE
 
-/obj/item/deck/cards/tiny/update_icon()
+/obj/item/deck/cards/tiny/update_icon_state()
 	return
 
 /obj/item/deck/cards/tiny/doublecards

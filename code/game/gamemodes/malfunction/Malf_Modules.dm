@@ -244,7 +244,7 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, "<span class='notice'>Nuclear device armed.</span>")
-	GLOB.event_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", 'sound/AI/aimalf.ogg')
+	GLOB.major_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", 'sound/AI/aimalf.ogg')
 	set_security_level("delta")
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
@@ -276,7 +276,7 @@
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
 		SSshuttle.emergency.timer = world.time
-		GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/eshuttle_dock.ogg')
+		GLOB.major_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/eshuttle_dock.ogg')
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
@@ -291,12 +291,12 @@
 /obj/machinery/doomsday_device/process()
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
-		GLOB.minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+		GLOB.major_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
 		SSshuttle.emergencyNoEscape = 0
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
 			SSshuttle.emergency.timer = world.time
-			GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/eshuttle_dock.ogg')
+			GLOB.major_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/eshuttle_dock.ogg')
 		qdel(src)
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)
@@ -309,7 +309,7 @@
 	else
 		if(!(sec_left % 60) && !announced)
 			var/message = "[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!"
-			GLOB.minor_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+			GLOB.major_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
 			announced = 10
 		announced = max(0, announced-1)
 
@@ -447,7 +447,7 @@
 		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = TRUE
-	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode.")
+	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overridden. Air alarms may now use the Flood environmental mode.")
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
 
@@ -503,7 +503,7 @@
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/overload_machine.proc/detonate_machine, target), 50) //kaboom!
+	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/overload_machine, detonate_machine), target), 50) //kaboom!
 	remove_ranged_ability(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
 	return TRUE
 
@@ -558,7 +558,7 @@
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/override_machine.proc/animate_machine, target), 50) //kabeep!
+	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine), target), 50) //kabeep!
 	remove_ranged_ability(ranged_ability_user, "<span class='danger'>Sending override signal...</span>")
 	return TRUE
 
@@ -632,7 +632,7 @@
 		I.loc = T
 		client.images += I
 		I.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
-		addtimer(CALLBACK(src, .proc/remove_transformer_image, client, I, T), 30)
+		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, T), 30)
 	if(!success)
 		to_chat(src, "<span class='warning'>[alert_msg]</span>")
 	return success
@@ -662,7 +662,7 @@
 	for(var/thing in GLOB.apcs)
 		var/obj/machinery/power/apc/apc = thing
 		if(prob(30 * apc.overload))
-			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
+			INVOKE_ASYNC(apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
 		else
 			apc.overload++
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
@@ -726,8 +726,6 @@
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/upgrade_cameras/upgrade(mob/living/silicon/ai/AI)
-	AI.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //Night-vision, without which X-ray would be very limited in power.
-	AI.update_sight()
 	var/upgraded_cameras = 0
 
 	for(var/V in GLOB.cameranet.cameras)
@@ -737,8 +735,6 @@
 
 			if(!C.isXRay())
 				C.upgradeXRay()
-				//Update what it can see.
-				GLOB.cameranet.updateVisibility(C, 0)
 				upgraded = TRUE
 
 			if(!C.isEmpProof())
@@ -747,6 +743,7 @@
 
 			if(upgraded)
 				upgraded_cameras++
+		C.update_remote_sight(AI)
 
 	unlock_text = replacetext(unlock_text, "CAMSUPGRADED", "<b>[upgraded_cameras]</b>") //This works, since unlock text is called after upgrade()
 

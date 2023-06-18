@@ -8,7 +8,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
 		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
 		) //We read you loud and skree-er.
-	materials = list(MAT_METAL=75)
+	materials = list(MAT_METAL = 200)
 	canhear_range = 0 // can't hear headsets from very far away
 
 	slot_flags = SLOT_EARS
@@ -43,6 +43,7 @@
 /obj/item/radio/headset/Destroy()
 	QDEL_NULL(keyslot1)
 	QDEL_NULL(keyslot2)
+	QDEL_NULL(syndiekey)
 	return ..()
 
 /obj/item/radio/headset/examine(mob/user)
@@ -120,6 +121,16 @@
 /obj/item/radio/headset/syndicate/alt/nocommon/New()
 	. = ..()
 	set_frequency(SYND_FREQ)
+
+/obj/item/radio/headset/soviet
+	name = "soviet bowman headset"
+	desc = "Used by U.S.S.P forces. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	origin_tech = "syndicate=3"
+	icon_state = "soviet_headset"
+	item_state = "soviet_headset"
+	ks1type = /obj/item/encryptionkey/soviet
+	requires_tcomms = FALSE
 
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
@@ -359,7 +370,7 @@
 
 /obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/encryptionkey/))
-		user.set_machine(src)
+
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
 			return
@@ -372,15 +383,17 @@
 			user.drop_item()
 			W.loc = src
 			keyslot2 = W
+
 		recalculateChannels()
-	else
-		return ..()
+		return
+
+	return ..()
 
 /obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	user.set_machine(src)
+
 	if(keyslot1 || keyslot2)
 
 		for(var/ch_name in channels)

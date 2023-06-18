@@ -1,6 +1,7 @@
 /obj/item/melee/classic_baton/telescopic/contractor
 	name = "contractor baton"
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
+	icon_state = "contractor_baton_0" // For telling what it is when mapping
 	// Overrides
 	affect_silicon = TRUE
 	knockdown_duration = 4 SECONDS

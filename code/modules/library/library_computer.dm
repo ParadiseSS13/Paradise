@@ -76,7 +76,7 @@
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='warning'>ERROR: No Connection Established!</span>")
 			return
-		to_chat(user, "<span class='notice'>Barcode Scanner Succesfully Connected to Computer.</span>")
+		to_chat(user, "<span class='notice'>Barcode Scanner Successfully Connected to Computer.</span>")
 		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
 		playsound(B, 'sound/machines/terminal_select.ogg', 10, TRUE)
 		return
@@ -290,7 +290,7 @@
 					return
 				if(GLOB.library_catalog.remove_book_by_id(params["bookid"])) //this doesn't need to be logged
 					playsound(loc, 'sound/machines/ping.ogg', 25, 0)
-					atom_say("Deletion Succesful!")
+					atom_say("Deletion Successful!")
 					return
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 				atom_say("Deletion Failed!")
@@ -303,7 +303,7 @@
 		if("rate_book")
 			if(GLOB.library_catalog.rate_book(params["user_ckey"], params["bookid"], user_data.selected_rating))
 				playsound(loc, 'sound/machines/ping.ogg', 25, 0)
-				atom_say("Rating Succesful!")
+				atom_say("Rating Successful!")
 			populate_booklist()
 		//Report Acts
 		if("submit_report")
@@ -444,7 +444,7 @@
 					user_data.search_rating["max"] = clamp(text2num(answer), user_data.search_rating["min"], 10)
 					populate_booklist()
 				if("edit_search_ratingmin")
-					if(!text2num(answer))
+					if(isnull(text2num(answer)))
 						return
 					user_data.search_rating["min"] = clamp(text2num(answer), 0, user_data.search_rating["max"])
 					populate_booklist()
@@ -463,8 +463,8 @@
 				if("setpagenumber")
 					if(!text2num(answer))
 						return
-					archive_page_num = clamp(text2num(answer), 1, getmaxpages())
 					populate_booklist()
+					archive_page_num = clamp(text2num(answer), 1, getmaxpages())
 				else
 					return FALSE
 		else
@@ -580,6 +580,12 @@
 
 	new newbook.book_type(loc)
 	visible_message("<span class='notice'>[src]'s printer hums as it produces a completely bound book. How did it do that?</span>")
+
+/obj/machinery/computer/library/emag_act(mob/user)
+	if(print_cooldown <= world.time)
+		new /obj/item/storage/bible/syndi(loc)
+		visible_message("<span class='notice'>[src]'s printer ominously hums as it produces a completely bound book. How did it do that?</span>")
+		print_cooldown = world.time + PRINTING_COOLDOWN
 
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL

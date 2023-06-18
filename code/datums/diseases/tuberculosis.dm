@@ -14,7 +14,8 @@
 	bypasses_immunity = TRUE //Fungal and bacterial in nature; also infects the lungs
 
 /datum/disease/tuberculosis/stage_act() //it begins
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(2)
 			if(prob(2))

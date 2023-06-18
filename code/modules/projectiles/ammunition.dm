@@ -35,12 +35,14 @@
 	pixel_x = rand(-10.0, 10)
 	pixel_y = rand(-10.0, 10)
 	dir = pick(GLOB.alldirs)
-	update_icon()
+	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
-/obj/item/ammo_casing/update_icon()
-	..()
-	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
+/obj/item/ammo_casing/update_desc()
+	. = ..()
 	desc = "[initial(desc)][BB ? "" : " This one is spent."]"
+
+/obj/item/ammo_casing/update_icon_state()
+	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 
 /obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
 	if(!BB)
@@ -50,6 +52,8 @@
 /obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/ammo_box))
 		var/obj/item/ammo_box/box = I
+		if(box.slow_loading)
+			return
 		if(isturf(loc))
 			var/boolets = 0
 			for(var/obj/item/ammo_casing/bullet in loc)
@@ -61,32 +65,39 @@
 				else
 					continue
 			if(boolets > 0)
-				box.update_icon()
+				box.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [length(box.stored_ammo)] shell\s.</span>")
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
 				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
 	else
-		if(istype(I, /obj/item/screwdriver))
-			if(BB)
-				if(initial(BB.name) == "bullet")
-					var/tmp_label = ""
-					var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
-					if(length(label_text) > 20)
-						to_chat(user, "<span class='warning''>The inscription can be at most 20 characters long.</span>")
-					else
-						if(label_text == "")
-							to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
-							BB.name = initial(BB.name)
-						else
-							to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
-							BB.name = "[initial(BB.name)] \"[label_text]\""
-				else
-					to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
-
-			else
-				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
 		..()
+
+/obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!BB)
+		to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
+		return
+	if(!initial(BB.name) == "bullet")
+		to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
+		return
+
+	var/tmp_label = ""
+	var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]", "Inscription", tmp_label))
+
+	if(length(label_text) > 20)
+		to_chat(user, "<span class='warning'>The inscription can be at most 20 characters long.</span>")
+		return
+
+	if(label_text == "")
+		to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
+		BB.name = initial(BB.name)
+	else
+		to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
+		BB.name = "[initial(BB.name)] \"[label_text]\""
+
+
+
 
 /obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!BB)
@@ -94,6 +105,9 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/obj/item/ammo_casing/emp_act(severity)
+	BB?.emp_act(severity)
 
 #define AMMO_MULTI_SPRITE_STEP_NONE null
 #define AMMO_MULTI_SPRITE_STEP_ON_OFF -1
@@ -115,19 +129,20 @@
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
-	var/multi_sprite_step = AMMO_MULTI_SPRITE_STEP_NONE // see update_icon() for details
+	var/multi_sprite_step = AMMO_MULTI_SPRITE_STEP_NONE // see update_icon_state() for details
 	var/caliber
 	var/multiload = 1
+	var/slow_loading = FALSE
 	var/list/initial_mats //For calculating refund values.
 
-/obj/item/ammo_box/New()
-	..()
+/obj/item/ammo_box/Initialize(mapload)
+	. = ..()
 	for(var/i in 1 to max_ammo)
 		stored_ammo += new ammo_type(src)
-	update_icon()
+	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/ammo_box/Destroy()
-	QDEL_LIST(stored_ammo)
+	QDEL_LIST_CONTENTS(stored_ammo)
 	stored_ammo = null
 	return ..()
 
@@ -142,8 +157,12 @@
 		if(!initial_mats)
 			initial_mats = materials.Copy()
 		update_mat_value()
-		update_icon()
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return b
+
+/obj/item/ammo_box/emp_act(severity)
+	for(var/obj/item/ammo_casing/A in stored_ammo)
+		A.emp_act(severity)
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
@@ -178,7 +197,7 @@
 	var/num_loaded = 0
 	if(!can_load(user))
 		return
-	if(istype(A, /obj/item/ammo_box))
+	if(istype(A, /obj/item/ammo_box) && !istype(A, /obj/item/ammo_box/b357))
 		var/obj/item/ammo_box/AM = A
 		for(var/obj/item/ammo_casing/AC in AM.stored_ammo)
 			var/did_load = give_round(AC, replace_spent)
@@ -197,8 +216,8 @@
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
 		playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
-		A.update_icon()
-		update_icon()
+		A.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 	return num_loaded
 
@@ -208,7 +227,7 @@
 		user.put_in_hands(A)
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
-		update_icon()
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 // `multi_sprite_step` governs whether there are different sprites for different degrees of being loaded.
 // AMMO_MULTI_SPRITE_STEP_NONE - just a single `icon_state`, no shenanigans
@@ -216,7 +235,7 @@
 // (positive integer) - sprites for intermediate degrees of being loaded are present in the .dmi
 //   and are named `[icon_state]-[ammo_count]`, with `ammo_count` being incremented in steps of `multi_sprite_step`
 //   ... except the very final full mag sprite with is just `[icon_state]`
-/obj/item/ammo_box/update_icon()
+/obj/item/ammo_box/update_icon_state()
 	var/icon_base = initial(icon_state)
 	switch(multi_sprite_step)
 		if(AMMO_MULTI_SPRITE_STEP_NONE)
@@ -229,6 +248,9 @@
 				icon_state = icon_base
 			else
 				icon_state = "[icon_base]-[shown_ammo]"
+
+/obj/item/ammo_box/update_desc()
+	. = ..()
 	desc = "[initial(desc)] There are [length(stored_ammo)] shell\s left!"
 
 /obj/item/ammo_box/proc/update_mat_value()

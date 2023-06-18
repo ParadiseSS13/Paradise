@@ -40,8 +40,6 @@
 
 	optional_body_accessory = FALSE
 
-	var/datum/action/innate/cocoon/cocoon
-
 	suicide_messages = list(
 		"is attempting to nibble their antenna off!",
 		"is twisting their own abdomen!",
@@ -53,16 +51,17 @@
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
-	cocoon = new()
+	var/datum/action/innate/cocoon/cocoon = new()
 	cocoon.Grant(H)
-	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, .proc/check_burn_wings)
-	RegisterSignal(H, COMSIG_LIVING_AHEAL, .proc/on_aheal)
-	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, .proc/on_change_body_accessory)
-	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, .proc/on_change_head_accessory)
+	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, PROC_REF(check_burn_wings))
+	RegisterSignal(H, COMSIG_LIVING_AHEAL, PROC_REF(on_aheal))
+	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, PROC_REF(on_change_body_accessory))
+	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, PROC_REF(on_change_head_accessory))
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
-	cocoon.Remove(H)
+	for(var/datum/action/innate/cocoon/cocoon in H.actions)
+		cocoon.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY)
@@ -148,7 +147,8 @@
 		C.preparing_to_emerge = TRUE
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)
 		H.KnockOut()
-		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
+		H.create_log(MISC_LOG, "has woven a cocoon")
+		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
 
@@ -190,6 +190,7 @@
 		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
 		H.WakeUp()
 		H.forceMove(loc)
+		H.create_log(MISC_LOG, "has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
 	return ..()
 
 /datum/status_effect/burnt_wings

@@ -54,7 +54,7 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 		var/temp = d1
 		d1 = d2
 		d2 = temp
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/shuttle/engine/shuttleRotate(rotation, params)
 	setDir(angle2dir(rotation+dir2angle(dir)))
@@ -82,11 +82,6 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 	return ..()
 
 /************************************Machine rotate procs************************************/
-
-//prevents shuttles attempting to rotate this since it messes up sprites
-/obj/machinery/gateway/shuttleRotate(rotation, params)
-	params = NONE
-	return ..()
 
 //prevents shuttles attempting to rotate this since it messes up sprites
 /obj/machinery/gravity_generator/shuttleRotate(rotation, params)

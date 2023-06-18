@@ -28,7 +28,7 @@
 
 /datum/action/guardian/communicate/Trigger()
 	var/input = stripped_input(owner, "Enter a message to tell your guardian:", "Message", "")
-	if(!input)
+	if(!input || !guardian)
 		return
 
 	// Show the message to our guardian and to host.
@@ -81,7 +81,7 @@
 		return
 
 	// Do this immediately, so the user can't spam a bunch of polls.
-	cooldown_timer = addtimer(CALLBACK(src, .proc/reset_cooldown), 5 MINUTES)
+	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 5 MINUTES)
 	UpdateButtonIcon()
 
 	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")

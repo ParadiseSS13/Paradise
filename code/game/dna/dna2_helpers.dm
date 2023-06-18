@@ -28,6 +28,10 @@
 	var/block = pick(GLOB.bad_blocks)
 	M.dna.SetSEState(block, 1)
 
+	var/mob/living/carbon/C = M
+	if(prob(RAD_MOB_GORILLIZE_PROB) && istype(C))
+		C.gorillize() // OH SHIT A GORILLA
+
 // Give Random Good Mutation to M
 /proc/randmutg(mob/living/M)
 	if(!M || !M.dna)
@@ -128,7 +132,7 @@
 
 // Simpler. Don't specify UI in order for the mob to use its own.
 /mob/proc/UpdateAppearance(list/UI = null)
-	if(istype(src, /mob/living/carbon/human)) // WHY?!
+	if(ishuman(src)) // WHY?!
 		if(UI!=null)
 			dna.UI = UI
 			dna.UpdateUI()
@@ -215,7 +219,7 @@
 		if(!(head_organ.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
 			continue
 		available += head_accessory
-	var/list/sorted = sortTim(available, /proc/cmp_text_asc)
+	var/list/sorted = sortTim(available, GLOBAL_PROC_REF(cmp_text_asc))
 
 	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE, length(sorted))
 	if(headacc > 0 && headacc <= length(sorted))
@@ -241,8 +245,7 @@
 
 /datum/dna/proc/head_traits_to_dna(mob/living/carbon/human/character, obj/item/organ/external/head/head_organ)
 	if(!head_organ)
-		log_runtime(EXCEPTION("Attempting to reset DNA from a missing head!"), src)
-		return
+		CRASH("Attempting to reset DNA from a missing head!")
 	if(!head_organ.h_style)
 		head_organ.h_style = "Skinhead"
 	var/hair = GLOB.hair_styles_full_list.Find(head_organ.h_style)

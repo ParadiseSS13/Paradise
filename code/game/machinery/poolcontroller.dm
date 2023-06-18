@@ -30,6 +30,7 @@
 	deep_water = TRUE
 
 /obj/machinery/poolcontroller/Initialize(mapload)
+	. = ..()
 	var/contents_loop = linked_area
 	if(!linked_area)
 		contents_loop = range(srange, src)
@@ -44,7 +45,17 @@
 			W.linkedcontroller = src
 			linkedturfs += T
 
-	. = ..()
+/obj/machinery/poolcontroller/Destroy()
+	for(var/T in linkedturfs)
+		if(istype(T, /turf/simulated/floor/beach/water))
+			var/turf/simulated/floor/beach/water/W = T
+			if(W.linkedcontroller == src)
+				W.linkedcontroller = null
+		else if(istype(T, /turf/simulated/floor/beach/away/water))
+			var/turf/simulated/floor/beach/away/water/W = T
+			if(W.linkedcontroller == src)
+				W.linkedcontroller = null
+	return ..()
 
 /obj/machinery/poolcontroller/invisible/Initialize(mapload)
 	linked_area = get_area(src)

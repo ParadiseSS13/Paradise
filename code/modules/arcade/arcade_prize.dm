@@ -71,12 +71,12 @@
 
 /obj/item/stack/tickets/New(loc, amount=null)
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/tickets/attack_self(mob/user as mob)
 	return
 
-/obj/item/stack/tickets/update_icon()
+/obj/item/stack/tickets/update_icon_state()
 	switch(get_amount())
 		if(1 to 3)
 			icon_state = "tickets_1"	// One ticket

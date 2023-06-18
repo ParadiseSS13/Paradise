@@ -19,31 +19,33 @@
 /obj/machinery/atmospherics/trinary/mixer/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
 		toggle(user)
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/mixer/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/mixer/AIAltClick(mob/living/silicon/user)
 	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"
 	flipped = TRUE
 
-/obj/machinery/atmospherics/trinary/mixer/update_icon(safety = 0)
-	..()
-
+/obj/machinery/atmospherics/trinary/mixer/update_icon_state()
 	if(flipped)
 		icon_state = "m"
 	else
 		icon_state = ""
 
-	if(!powered())
+	if(!has_power())
 		icon_state += "off"
 	else if(node2 && node3 && node1)
 		icon_state += on ? "on" : "off"
@@ -68,10 +70,9 @@
 		add_underlay(T, node3, dir)
 
 /obj/machinery/atmospherics/trinary/mixer/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/trinary/mixer/New()
 	..()
@@ -199,7 +200,7 @@
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 		return
 	else

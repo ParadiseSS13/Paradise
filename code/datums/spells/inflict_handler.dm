@@ -5,6 +5,7 @@
 	var/amt_weakened = 0
 	var/amt_paralysis = 0
 	var/amt_stunned = 0
+	var/amt_knockdown = 0
 
 	//set to negatives for healing
 	var/amt_dam_fire = 0
@@ -52,6 +53,7 @@
 		target.Weaken(amt_weakened)
 		target.Paralyse(amt_paralysis)
 		target.Stun(amt_stunned)
+		target.KnockDown(amt_knockdown)
 
 		target.AdjustEyeBlind(amt_eye_blind)
 		target.AdjustEyeBlurry(amt_eye_blurry)

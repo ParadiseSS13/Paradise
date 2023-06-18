@@ -3,6 +3,11 @@
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 
+	/// Minimum age this species can have
+	var/min_age = AGE_MIN
+	/// Maximum age this species can have
+	var/max_age = 85
+
 	// Damage overlay and masks.
 	var/damage_overlays = 'icons/mob/human_races/masks/dam_human.dmi'
 	var/damage_mask = 'icons/mob/human_races/masks/dam_mask_human.dmi'
@@ -34,7 +39,6 @@
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
 	var/hunger_drain = HUNGER_FACTOR
-	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
 	var/hunger_type
@@ -56,7 +60,7 @@
 	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
-	///Percentage modifier for overall defense of the race, or less defense, if it's negative.
+	///Additional armour value for the species.
 	var/armor = 0
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
@@ -80,6 +84,7 @@
 
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
+	var/own_species_blood = FALSE // Can it only use blood from it's species?
 	var/skinned_type
 	var/list/no_equip = list()	// slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
@@ -150,8 +155,8 @@
 	//Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()
 
-                              // Determines the organs that the species spawns with and
-	var/list/has_organ = list(    // which required-organ checks are conducted.
+								// Determines the organs that the species spawns with and
+	var/list/has_organ = list(  // which required-organ checks are conducted.
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
 		"liver" =    /obj/item/organ/internal/liver,
@@ -190,29 +195,49 @@
 	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
-/datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
-	QDEL_LIST(H.internal_organs)
-	QDEL_LIST(H.bodyparts)
+
+/**
+ * Handles creation of mob organs.
+ *
+ * Arguments:
+ * * H: The human to create organs inside of
+ * * bodyparts_to_omit: Any bodyparts in this list (and organs within them) should not be added.
+ */
+/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit) //Handles creation of mob organs.
+	QDEL_LIST_CONTENTS(H.internal_organs)
+	QDEL_LIST_CONTENTS(H.bodyparts)
 
 	LAZYREINITLIST(H.bodyparts)
 	LAZYREINITLIST(H.bodyparts_by_name)
 	LAZYREINITLIST(H.internal_organs)
 
-	for(var/limb_type in has_limbs)
-		var/list/organ_data = has_limbs[limb_type]
+	for(var/limb_name in has_limbs)
+		if(bodyparts_to_omit && (limb_name in bodyparts_to_omit))
+			H.bodyparts_by_name[limb_name] = null  // Null it out, but leave the name here so it's still "there"
+			continue
+		var/list/organ_data = has_limbs[limb_name]
 		var/limb_path = organ_data["path"]
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
 	for(var/index in has_organ)
-		var/organ = has_organ[index]
-		// organ new code calls `insert` on its own
-		new organ(H)
+		var/obj/item/organ/internal/organ_path = has_organ[index]
+		if(initial(organ_path.parent_organ) in bodyparts_to_omit)
+			continue
+
+		// heads up for any brave future coders:
+		// it's essential that a species' internal organs are intialized with the mob, instead of just creating them and calling insert() separately.
+		// not doing so (as of now) causes weird issues for some organs like posibrains, which need a mob on init or they'll qdel themselves.
+		// for the record: this caused every single IPC's brain to be deleted randomly throughout a round, killing them instantly.
+
+		new organ_path(H)
 
 	create_mutant_organs(H)
 
 	for(var/name in H.bodyparts_by_name)
-		H.bodyparts |= H.bodyparts_by_name[name]
+		var/part_type = H.bodyparts_by_name[name]
+		if(!isnull(part_type))
+			H.bodyparts |= part_type  // we do not want nulls here, even though it's alright to have them in bodyparts_by_name
 
 	for(var/obj/item/organ/external/E as anything in H.bodyparts)
 		E.owner = H
@@ -221,10 +246,14 @@
 /datum/species/proc/create_mutant_organs(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(ears)
+		if(istype(ears, mutantears))
+			// if they're the same, just heal them and don't bother replacing them
+			ears.rejuvenate()
+			return
 		qdel(ears)
 
-	if(mutantears)
-		ears = new mutantears(H)
+	if(mutantears && !isnull(H.bodyparts_by_name[initial(mutantears.parent_organ)]))
+		new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
@@ -234,66 +263,79 @@
 // MOVE SPEED //
 ////////////////
 #define ADD_SLOWDOWN(__value) if(!ignoreslow || __value < 0) . += __value
+#define SLOWDOWN_INCREMENT 0.5
+#define SLOWDOWN_MULTIPLIER (1 / SLOWDOWN_INCREMENT)
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
 
-	if(has_gravity(H))
-		if(!IS_HORIZONTAL(H))
-			if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
-				. -= 1
-			else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
-				. -= 0.5
+	if(!has_gravity(H))
+		return
+	if(!IS_HORIZONTAL(H))
+		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
+			. -= 1
+		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
+			. -= 0.5
+	else
+		. += GLOB.configuration.movement.crawling_speed_reduction
+
+	var/ignoreslow = FALSE
+	if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
+		ignoreslow = TRUE
+
+	var/flight = H.flying	//Check for flight and flying items
+
+	ADD_SLOWDOWN(speed_mod)
+
+	if(H.wear_suit)
+		ADD_SLOWDOWN(H.wear_suit.slowdown)
+	if(!H.buckled && H.shoes)
+		ADD_SLOWDOWN(H.shoes.slowdown)
+	if(H.back)
+		ADD_SLOWDOWN(H.back.slowdown)
+	if(H.l_hand && (H.l_hand.flags & HANDSLOW))
+		ADD_SLOWDOWN(H.l_hand.slowdown)
+	if(H.r_hand && (H.r_hand.flags & HANDSLOW))
+		ADD_SLOWDOWN(H.r_hand.slowdown)
+
+	if(ignoreslow)
+		return . // Only malusses after here
+
+	if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
+		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
+
+	var/hungry = (500 - H.nutrition) / 5 // So overeat would be 100 and default level would be 80
+	if((hungry >= 70) && !flight)
+		. += hungry/50
+	if(HAS_TRAIT(H, TRAIT_FAT))
+		. += (1.5 - flight)
+
+	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !(HAS_TRAIT(H, TRAIT_RESISTCOLD)))
+		. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
+
+	var/leftover = .
+	. = round_down(. * SLOWDOWN_MULTIPLIER) / SLOWDOWN_MULTIPLIER //This allows us to round in values of 0.5 A slowdown of 0.55 becomes 1.10, which is rounded to 1, then reduced to 0.5
+	leftover -= .
+
+	var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
+	if(H.reagents)
+		for(var/datum/reagent/R in H.reagents.reagent_list)
+			if(R.shock_reduction)
+				health_deficiency -= R.shock_reduction
+	if(HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
+		return
+	if(health_deficiency >= 40 - (40 * leftover * SLOWDOWN_MULTIPLIER)) //If we have 0.25 slowdown, or halfway to the threshold of 0.5, we reduce the health threshold by that 50%
+		if(flight)
+			. += (health_deficiency / 75)
 		else
-			. += GLOB.configuration.movement.crawling_speed_reduction
-
-		var/ignoreslow = FALSE
-		if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
-			ignoreslow = TRUE
-
-		var/flight = H.flying	//Check for flight and flying items
-
-		ADD_SLOWDOWN(speed_mod)
-
-		if(H.wear_suit)
-			ADD_SLOWDOWN(H.wear_suit.slowdown)
-		if(!H.buckled && H.shoes)
-			ADD_SLOWDOWN(H.shoes.slowdown)
-		if(H.back)
-			ADD_SLOWDOWN(H.back.slowdown)
-		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
-			ADD_SLOWDOWN(H.l_hand.slowdown)
-		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
-			ADD_SLOWDOWN(H.r_hand.slowdown)
-
-		if(ignoreslow)
-			return . // Only malusses after here
-
-		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
-		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
-		if(H.reagents)
-			for(var/datum/reagent/R in H.reagents.reagent_list)
-				if(R.shock_reduction)
-					health_deficiency -= R.shock_reduction
-		if(!HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
 			if(health_deficiency >= 40)
-				if(flight)
-					. += (health_deficiency / 75)
-				else
-					. += (health_deficiency / 25)
-		if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
-			. += 2 * H.stance_damage //damaged/missing feet or legs is slow
-
-		if((hungry >= 70) && !flight)
-			. += hungry/50
-		if(HAS_TRAIT(H, TRAIT_FAT))
-			. += (1.5 - flight)
-		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !(HAS_TRAIT(H, TRAIT_RESISTCOLD)))
-			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
-
-	return .
+				. += (health_deficiency / 25) //Once damage is over 40, you get the harsh formula
+			else
+				. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
 
 #undef ADD_SLOWDOWN
+#undef SLOWDOWN_INCREMENT
+#undef SLOWDOWN_MULTIPLIER
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
 	for(var/slot_id in no_equip)
@@ -357,9 +399,7 @@
 	return
 
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
-	var/hit_percent = (100 - (blocked + armor)) / 100
-	hit_percent = (hit_percent * (100 - H.physiology.damage_resistance)) / 100
-	if(!damage || (hit_percent <= 0))
+	if(!damage)
 		return FALSE
 
 	var/obj/item/organ/external/organ = null
@@ -373,9 +413,11 @@
 			if(!organ)
 				organ = H.bodyparts[1]
 
+	var/total_armour = blocked + armor
+
 	switch(damagetype)
 		if(BRUTE)
-			var/damage_amount = damage * hit_percent * brute_mod * H.physiology.brute_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, brute_mod * H.physiology.brute_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -385,7 +427,7 @@
 			else //no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount)
 		if(BURN)
-			var/damage_amount = damage * hit_percent * burn_mod * H.physiology.burn_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, burn_mod * H.physiology.burn_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -395,19 +437,19 @@
 			else
 				H.adjustFireLoss(damage_amount)
 		if(TOX)
-			var/damage_amount = damage * hit_percent * H.physiology.tox_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.tox_mod)
 			H.adjustToxLoss(damage_amount)
 		if(OXY)
-			var/damage_amount = damage * hit_percent * H.physiology.oxy_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.oxy_mod)
 			H.adjustOxyLoss(damage_amount)
 		if(CLONE)
-			var/damage_amount = damage * hit_percent * H.physiology.clone_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.clone_mod)
 			H.adjustCloneLoss(damage_amount)
 		if(STAMINA)
-			var/damage_amount = damage * hit_percent * H.physiology.stamina_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.stamina_mod)
 			H.adjustStaminaLoss(damage_amount)
 		if(BRAIN)
-			var/damage_amount = damage * hit_percent * H.physiology.brain_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.brain_mod)
 			H.adjustBrainLoss(damage_amount)
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
@@ -507,9 +549,6 @@
 			target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
 							"<span class='userdanger'>[user] has knocked down [target]!</span>")
 			target.KnockDown(4 SECONDS)
-			target.forcesay(GLOB.hit_appends)
-		else if(IS_HORIZONTAL(target))
-			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
@@ -578,7 +617,7 @@
 								"You hear a loud thud.")
 		if(!HAS_TRAIT(target, TRAIT_FLOORED))
 			target.KnockDown(3 SECONDS)
-			addtimer(CALLBACK(target, /mob/living.proc/SetKnockDown, 0), 3 SECONDS) // so you cannot chain stun someone
+			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, SetKnockDown), 0), 3 SECONDS) // so you cannot chain stun someone
 		else if(!user.IsStunned())
 			target.Stun(0.5 SECONDS)
 	else
@@ -783,11 +822,11 @@
 				if(!disable_warning)
 					to_chat(H, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
 				return FALSE
-			if(I.w_class > WEIGHT_CLASS_BULKY)
+			if(I.w_class > H.wear_suit.max_suit_w)
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>[I] is too big to attach.</span>")
 				return FALSE
-			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
+			if(istype(I, /obj/item/pda) || is_pen(I) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
 			return FALSE
 		if(slot_handcuffed)
@@ -847,11 +886,11 @@
 
 	if(radiation > RAD_MOB_HAIRLOSS)
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		if(!head_organ || (NO_HAIR in species_traits))
+		if(!istype(head_organ) || (NO_HAIR in species_traits))
 			return
 		if(prob(15) && head_organ.h_style != "Bald")
 			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps...</span>")
-			addtimer(CALLBACK(src, .proc/go_bald, H), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(go_bald), H), 5 SECONDS)
 
 /datum/species/proc/go_bald(mob/living/carbon/human/H)
 	if(QDELETED(H))	//may be called from a timer
@@ -918,7 +957,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(G.invis_override)
 			H.see_invisible = G.invis_override
 		else
-			H.see_invisible = min(G.invis_view, H.see_invisible)
+			H.see_invisible = max(G.invis_view, H.see_invisible) //Max, whichever is better
 
 		if(!isnull(G.lighting_alpha))
 			H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
@@ -1002,6 +1041,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
 	return FALSE
 
+/datum/species/proc/handle_brain_death(mob/living/carbon/human/H)
+	H.AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
+	H.Weaken(60 SECONDS)
+
 /**
   * Species-specific runechat colour handler
   *
@@ -1015,4 +1058,4 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return H.skin_colour
 	else
 		var/obj/item/organ/external/head/HD = H.get_organ("head")
-		return HD.hair_colour
+		return HD?.hair_colour

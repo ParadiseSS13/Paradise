@@ -20,8 +20,21 @@
 
 
 /obj/item/camera_assembly/Destroy()
-	QDEL_LIST(upgrades)
+	QDEL_LIST_CONTENTS(upgrades)
 	return ..()
+
+/obj/item/camera_assembly/examine(mob/user)
+	. = ..()
+	switch(state)
+		if(ASSEMBLY_UNBUILT)
+			. += "<span class='notice'>The camera assembly's <i>bolts</i> need to be secured in a wall.</span>"
+		if(ASSEMBLY_WRENCHED)
+			. += "<span class='notice'>The camera assembly is <b>bolted</b>, but it needs to be <i>welded</i> into place.</span>"
+		if(ASSEMBLY_WELDED)
+			. += "<span class='notice'>The camera assembly is <b>welded</b> to the wall, it's lacking <i>wires</i>.</span>"
+		if(ASSEMBLY_WIRED)
+			. += "<span class='notice'>The camera assembly is <b>wired</b>, but the maintenence panel needs to be <i>screwed shut</i>.</span>"
+			. += "<span class='notice'>Upgrades can be added to the camera assembly, and removed with a crowbar.</span>"
 
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
 	if(state == ASSEMBLY_WELDED && iscoil(I))
@@ -55,7 +68,7 @@
 		return
 	var/obj/U = locate(/obj) in upgrades
 	if(U)
-		to_chat(user, "<span class='notice'>You unattach an upgrade from the assembly.</span>")
+		to_chat(user, "<span class='notice'>You detach an upgrade from the assembly.</span>")
 		playsound(loc, I.usesound, 50, 1)
 		U.loc = get_turf(src)
 		upgrades -= U
@@ -67,7 +80,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	state = HEY_IM_WORKING_HERE
-	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Seperate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
+	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
 	if(!input)
 		state = ASSEMBLY_WIRED
 		to_chat(usr, "<span class='warning'>No input found please hang up and try your call again.</span>")
@@ -83,16 +96,15 @@
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/C = new(loc)
+	var/list/network_list = uniquelist(tempnetwork)
+	var/list/visible_networks = difflist(network_list, GLOB.restricted_camera_networks)
+	var/obj/machinery/camera/C = new(loc, length(visible_networks) > 0)
 	loc = C
 	C.assembly = src
 
 	C.auto_turn()
 
-	C.network = uniquelist(tempnetwork)
-	tempnetwork = difflist(C.network,GLOB.restricted_camera_networks)
-	if(!tempnetwork.len) // Camera isn't on any open network - remove its chunk from AI visibility.
-		GLOB.cameranet.removeCamera(C)
+	C.network = network_list
 
 	C.c_tag = input
 
@@ -127,12 +139,12 @@
 		WRENCH_ANCHOR_TO_WALL_MESSAGE
 		anchored = TRUE
 		state = ASSEMBLY_WRENCHED
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		auto_turn()
 	else if(state == ASSEMBLY_WRENCHED)
 		WRENCH_UNANCHOR_WALL_MESSAGE
 		anchored = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		state = ASSEMBLY_UNBUILT
 	else
 		to_chat(user, "<span class='warning'>[src] can't fit here!</span>")
@@ -155,7 +167,7 @@
 		to_chat(user, "<span class='notice'>You unweld [src] from its place.</span>")
 		state = ASSEMBLY_WRENCHED
 
-/obj/item/camera_assembly/update_icon()
+/obj/item/camera_assembly/update_icon_state()
 	if(anchored)
 		icon_state = "camera1"
 	else

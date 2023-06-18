@@ -14,7 +14,7 @@
 	taste_description = "metal"
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
-	if(isturf(M.loc) && !istype(M.loc, /turf/space))
+	if(isturf(M.loc) && !isspaceturf(M.loc))
 		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(5))
@@ -50,7 +50,7 @@
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Druggy(30 SECONDS)
-	if(isturf(M.loc) && !istype(M.loc, /turf/space))
+	if(isturf(M.loc) && !isspaceturf(M.loc))
 		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
@@ -263,7 +263,7 @@
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.vomit(lost_nutrition = 0, blood = TRUE, stun = FALSE)
-				M.Weaken(1 SECONDS) // change to knockdown after crawling
+				M.KnockDown(1 SECONDS)
 			else
 				update_flags |= M.adjustStaminaLoss(10, FALSE)
 		if(2)
@@ -283,6 +283,7 @@
 	addiction_chance = 10
 	addiction_threshold = 10
 	taste_description = "very poor life choices"
+	allowed_overdose_process = TRUE
 
 
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
@@ -360,6 +361,7 @@
 	addiction_decay_rate = 0.1 // very low, to prevent people from abusing the massive speed boost for too long. forces them to take long downtimes to not die from brain damage.
 	heart_rate_increase = 1
 	taste_description = "speed"
+	allowed_overdose_process = TRUE //Requested by balance.
 	/// modifier to the stun time of the mob taking the drug
 	var/tenacity = 1.5
 
@@ -431,8 +433,6 @@
 	metabolization_rate = 0.6
 	addiction_decay_rate = 0.2
 	taste_description = "WAAAAGH"
-	/// timer until we can start rolling for reducing a mobs strength again.
-	var/next_remove_strength
 	var/bonus_damage = 2
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/L)
@@ -444,13 +444,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/recent_consumption = holder.addiction_threshold_accumulated[type]
 		for(var/obj/item/organ/internal/I in H.internal_organs)
 			I.receive_damage(0.8, TRUE) //double the rate of mitocholide
-		if(world.time > next_remove_strength && recent_consumption > 5 && prob(0.1 * DRAWBACK_CHANCE_MODIFIER(recent_consumption))) // tiny chance to make their muscles waste away, cannot happen instantly. I don't want people to get *that* unlucky
-			H.physiology.melee_bonus--
-			to_chat(H, "<span class='biggerdanger'>You feel your muscles wasting away!</span>")
-			next_remove_strength = world.time + 100 SECONDS
 	M.SetParalysis(0)
 	M.SetStunned(0)
 	M.SetWeakened(0)

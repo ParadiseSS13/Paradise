@@ -3,7 +3,7 @@
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
 	req_access = list(ACCESS_ENGINE)
 	toolspeed = 1
@@ -50,7 +50,7 @@
 	var/list/data = list()
 	data["selected_accesses"] = selected_accesses
 	data["one_access"] = one_access
-	data["unrestricted_dir"] = dir2text(unres_access_from)
+	data["unrestricted_dir"] = unres_access_from
 	return data
 
 /obj/item/airlock_electronics/ui_static_data(mob/user)
@@ -67,11 +67,8 @@
 	// Mostly taken from the RCD code
 	switch(action)
 		if("unrestricted_access")
-			var/direction = text2dir(params["unres_dir"])
-			if(direction == unres_access_from)
-				unres_access_from = null // Deselecting
-				return
-			unres_access_from = direction
+			var/direction = text2num(params["unres_dir"])
+			unres_access_from ^= direction
 
 		if("set_one_access")
 			one_access = params["access"] == "one" ? TRUE : FALSE

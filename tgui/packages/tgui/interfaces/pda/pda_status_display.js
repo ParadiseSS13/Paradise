@@ -6,6 +6,8 @@ export const pda_status_display = (props, context) => {
 
   const { records } = data;
 
+  // The magic number values for the statdisp entry can be found in code\__DEFINES\machines.dm
+
   return (
     <Box>
       <LabeledList>
@@ -14,19 +16,19 @@ export const pda_status_display = (props, context) => {
             color="transparent"
             icon="trash"
             content="Clear"
-            onClick={() => act('Status', { statdisp: 'blank' })}
+            onClick={() => act('Status', { statdisp: 0 })}
           />
           <Button
             color="transparent"
             icon="clock"
             content="Evac ETA"
-            onClick={() => act('Status', { statdisp: 'shuttle' })}
+            onClick={() => act('Status', { statdisp: 1 })}
           />
           <Button
             color="transparent"
             icon="edit"
             content="Message"
-            onClick={() => act('Status', { statdisp: 'message' })}
+            onClick={() => act('Status', { statdisp: 2 })}
           />
           <Button
             color="transparent"
@@ -34,7 +36,7 @@ export const pda_status_display = (props, context) => {
             content="Red Alert"
             onClick={() =>
               act('Status', {
-                statdisp: 'alert',
+                statdisp: 3,
                 alert: 'redalert',
               })
             }
@@ -45,7 +47,7 @@ export const pda_status_display = (props, context) => {
             content="NT Logo"
             onClick={() =>
               act('Status', {
-                statdisp: 'alert',
+                statdisp: 3,
                 alert: 'default',
               })
             }
@@ -56,7 +58,7 @@ export const pda_status_display = (props, context) => {
             content="Lockdown"
             onClick={() =>
               act('Status', {
-                statdisp: 'alert',
+                statdisp: 3,
                 alert: 'lockdown',
               })
             }
@@ -67,7 +69,7 @@ export const pda_status_display = (props, context) => {
             content="Biohazard"
             onClick={() =>
               act('Status', {
-                statdisp: 'alert',
+                statdisp: 3,
                 alert: 'biohazard',
               })
             }
@@ -77,14 +79,14 @@ export const pda_status_display = (props, context) => {
           <Button
             content={records.message1 + ' (set)'}
             icon="pen"
-            onClick={() => act('Status', { statdisp: 'setmsg1' })}
+            onClick={() => act('SetMessage', { msgnum: 1 })}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Message line 2">
           <Button
             content={records.message2 + ' (set)'}
             icon="pen"
-            onClick={() => act('Status', { statdisp: 'setmsg2' })}
+            onClick={() => act('SetMessage', { msgnum: 2 })}
           />
         </LabeledList.Item>
       </LabeledList>

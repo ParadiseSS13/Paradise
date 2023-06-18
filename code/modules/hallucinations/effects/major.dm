@@ -43,7 +43,7 @@
 
 /obj/effect/hallucination/chaser/attacker/terror_spider/on_knockdown()
 	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-						   "<span class='userdanger'>[name] bites you!</span>")
+						"<span class='userdanger'>[name] bites you!</span>")
 
 /**
   * # Hallucination - Spider Web
@@ -66,7 +66,7 @@
 
 /obj/effect/hallucination/tripper/spider_web/on_crossed()
 	target.visible_message("<span class='warning'>[target] trips over nothing.</span>",
-					  	   "<span class='userdanger'>You get stuck in [src]!</span>")
+						"<span class='userdanger'>You get stuck in [src]!</span>")
 
 /obj/effect/hallucination/tripper/spider_web/attackby(obj/item/I, mob/user, params)
 	if(user != target)
@@ -75,7 +75,7 @@
 	step_towards(target, get_turf(src))
 	target.Weaken(4 SECONDS)
 	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [I.name] as if striking something, only to trip!</span>",
-					  	   "<span class='userdanger'>[src] vanishes as you strike it with [I], causing you to stumble forward!</span>")
+						"<span class='userdanger'>[src] vanishes as you strike it with [I], causing you to stumble forward!</span>")
 	qdel(src)
 
 /**
@@ -139,7 +139,7 @@
 	teleport.plane = GAME_PLANE
 	add_icon(teleport)
 	clear_icon_in(teleport, 4 SECONDS)
-	addtimer(CALLBACK(src, .proc/do_spawn_scientist, T), 4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_spawn_scientist), T), 4 SECONDS)
 	playsound(T, "sparks", 100, TRUE)
 
 /**
@@ -183,7 +183,7 @@
 
 /obj/effect/hallucination/chaser/attacker/abductor/on_knockdown()
 	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-						   "<span class='userdanger'>[name] has stunned you with the advanced baton!</span>")
+						"<span class='userdanger'>[name] has stunned you with the advanced baton!</span>")
 	if(!QDELETED(owning_hallucination))
 		owning_hallucination.spawn_scientist()
 	else
@@ -206,8 +206,8 @@
 /obj/effect/hallucination/loose_energy_ball/Initialize(mapload)
 	. = ..()
 	phase_1()
-	addtimer(CALLBACK(src, .proc/phase_2), length_phase_1)
-	addtimer(CALLBACK(src, .proc/phase_3), length_phase_1 + length_phase_2)
+	addtimer(CALLBACK(src, PROC_REF(phase_2)), length_phase_1)
+	addtimer(CALLBACK(src, PROC_REF(phase_3)), length_phase_1 + length_phase_2)
 
 /**
   * First phase of the hallucination: intermittent, far-away explosion sounds.
@@ -238,7 +238,7 @@
 
 	var/steps = (length_phase_3 / 20) - 1
 	for(var/i in 0 to steps)
-		addtimer(CALLBACK(src, .proc/phase_3_inner, ball, steps - i, i), i * 2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(phase_3_inner), ball, steps - i, i), i * 2 SECONDS)
 
 /**
   * Called during phase 3 to approach the energy ball towards the target.
@@ -327,7 +327,7 @@
 
 /obj/effect/hallucination/chaser/attacker/assaulter/on_knockdown()
 	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-						   "<span class='userdanger'>[name] has [attack_verb] [target]!</span>")
+						"<span class='userdanger'>[name] has [attack_verb] [target]!</span>")
 	QDEL_IN(src, 3 SECONDS)
 
 /**
@@ -359,7 +359,7 @@
 	var/turf/T = get_turf(pick(vents))
 	xeno = new(T, target)
 	xeno.dir = get_dir(T, target)
-	addtimer(CALLBACK(src, .proc/do_pounce), pounce_interval)
+	addtimer(CALLBACK(src, PROC_REF(do_pounce)), pounce_interval)
 
 /obj/effect/hallucination/xeno_pounce/proc/do_pounce()
 	if(QDELETED(xeno) || QDELETED(target))
@@ -367,7 +367,7 @@
 
 	xeno.leap_to(target)
 	if(--num_pounces > 0)
-		addtimer(CALLBACK(src, .proc/do_pounce), pounce_interval)
+		addtimer(CALLBACK(src, PROC_REF(do_pounce)), pounce_interval)
 
 /obj/effect/hallucination/xeno_pouncer
 	hallucination_icon = 'icons/mob/alien.dmi'
@@ -383,7 +383,7 @@
 		forceMove(get_turf(target))
 		target.Weaken(10 SECONDS)
 		target.visible_message("<span class='danger'>[target] recoils backwards and falls flat!</span>",
-							   "<span class='userdanger'>[name] pounces on you!</span>")
+							"<span class='userdanger'>[name] pounces on you!</span>")
 
 		to_chat(target, "<span class='notice'>[name] begins climbing into the ventilation system...</span>")
 		QDEL_IN(src, 2 SECONDS)
@@ -399,7 +399,7 @@
 		images[1].icon = 'icons/mob/alienleap.dmi'
 		images[1].icon_state = "alienh_leap"
 	dir = get_dir(get_turf(src), dest)
-	throw_at(dest, 7, 1, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, .proc/reset_icon))
+	throw_at(dest, 7, 1, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, PROC_REF(reset_icon)))
 
 /**
   * Resets the xeno's icon to a resting state.

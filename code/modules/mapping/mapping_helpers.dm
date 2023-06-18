@@ -94,6 +94,18 @@
 /obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
 	return
 
+/obj/effect/mapping_helpers/airlock/polarized
+	name = "polarized door helper"
+	icon_state = "polarized_helper"
+	var/id
+
+/obj/effect/mapping_helpers/airlock/polarized/payload(obj/machinery/door/door)
+	if(!door.glass)
+		log_world("[src] at [AREACOORD(src)] tried to make a non-glass door polarized!")
+		return
+	door.polarized_glass = TRUE
+	door.id = id
+
 /obj/effect/mapping_helpers/airlock/locked
 	name = "airlock lock helper"
 	icon_state = "airlock_locked_helper"
@@ -110,6 +122,7 @@
 
 /obj/effect/mapping_helpers/airlock/unres/payload(obj/machinery/door/airlock)
 	airlock.unres_sides ^= dir
+	airlock.update_icon()
 
 /obj/effect/mapping_helpers/airlock/autoname
 	name = "airlock autoname helper"

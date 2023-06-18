@@ -12,7 +12,7 @@
 
 	var/turf/T = get_turf(O)
 
-	var/confirm = alert("Are you sure you want to possess [O]?", "Confirm posession", "Yes", "No")
+	var/confirm = alert("Are you sure you want to possess [O]?", "Confirm possession", "Yes", "No")
 
 	if(confirm != "Yes")
 		return

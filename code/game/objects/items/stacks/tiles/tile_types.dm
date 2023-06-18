@@ -32,8 +32,8 @@
 	if (mineralType == "metal")
 		var/obj/item/stack/sheet/metal/new_item = new(user.loc)
 		user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
-					 "<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
-					 "<span class='italics'>You hear welding.</span>")
+					"<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
+					"<span class='italics'>You hear welding.</span>")
 		var/obj/item/stack/rods/R = src
 		src = null
 		var/replace = (user.get_inactive_hand()==R)
@@ -46,7 +46,7 @@
 	name = "grass tiles"
 	gender = PLURAL
 	singular_name = "grass floor tile"
-	desc = "A patch of grass like they often use on golf courses"
+	desc = "A patch of grass like they often use on golf courses."
 	icon_state = "tile_grass"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/grass
@@ -57,7 +57,7 @@
 	name = "wood floor tiles"
 	gender = PLURAL
 	singular_name = "wood floor tile"
-	desc = "an easy to fit wood floor tile"
+	desc = "An easy to fit wood floor tile."
 	icon_state = "tile-wood"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
@@ -72,11 +72,11 @@
 /obj/item/stack/tile/carpet
 	name = "carpet"
 	singular_name = "carpet"
-	desc = "A piece of carpet. It is the same size as a floor tile"
+	desc = "A piece of carpet. It is the same size as a floor tile."
 	icon_state = "tile-carpet"
 	turf_type = /turf/simulated/floor/carpet
 	resistance_flags = FLAMMABLE
-	var/fancy_table_type = /obj/structure/table/wood/fancy //Decides what table will be built with what carpet tile
+	table_type = /obj/structure/table/wood/fancy //Decides what table will be built with what carpet tile
 
 /obj/item/stack/tile/carpet/twenty
 	amount = 20
@@ -85,7 +85,7 @@
 	name = "black carpet"
 	icon_state = "tile-carpet-black"
 	turf_type = /turf/simulated/floor/carpet/black
-	fancy_table_type = /obj/structure/table/wood/fancy/black
+	table_type = /obj/structure/table/wood/fancy/black
 
 /obj/item/stack/tile/carpet/black/twenty
 	amount = 20
@@ -94,7 +94,7 @@
 	name = "blue carpet"
 	icon_state = "tile-carpet-blue"
 	turf_type = /turf/simulated/floor/carpet/blue
-	fancy_table_type = /obj/structure/table/wood/fancy/blue
+	table_type = /obj/structure/table/wood/fancy/blue
 
 /obj/item/stack/tile/carpet/blue/twenty
 	amount = 20
@@ -103,7 +103,7 @@
 	name = "cyan carpet"
 	icon_state = "tile-carpet-cyan"
 	turf_type = /turf/simulated/floor/carpet/cyan
-	fancy_table_type = /obj/structure/table/wood/fancy/cyan
+	table_type = /obj/structure/table/wood/fancy/cyan
 
 /obj/item/stack/tile/carpet/cyan/twenty
 	amount = 20
@@ -112,7 +112,7 @@
 	name = "green carpet"
 	icon_state = "tile-carpet-green"
 	turf_type = /turf/simulated/floor/carpet/green
-	fancy_table_type = /obj/structure/table/wood/fancy/green
+	table_type = /obj/structure/table/wood/fancy/green
 
 /obj/item/stack/tile/carpet/green/twenty
 	amount = 20
@@ -121,7 +121,7 @@
 	name = "orange carpet"
 	icon_state = "tile-carpet-orange"
 	turf_type = /turf/simulated/floor/carpet/orange
-	fancy_table_type = /obj/structure/table/wood/fancy/orange
+	table_type = /obj/structure/table/wood/fancy/orange
 
 /obj/item/stack/tile/carpet/orange/twenty
 	amount = 20
@@ -130,7 +130,7 @@
 	name = "purple carpet"
 	icon_state = "tile-carpet-purple"
 	turf_type = /turf/simulated/floor/carpet/purple
-	fancy_table_type = /obj/structure/table/wood/fancy/purple
+	table_type = /obj/structure/table/wood/fancy/purple
 
 /obj/item/stack/tile/carpet/purple/twenty
 	amount = 20
@@ -139,7 +139,7 @@
 	name = "red carpet"
 	icon_state = "tile-carpet-red"
 	turf_type = /turf/simulated/floor/carpet/red
-	fancy_table_type = /obj/structure/table/wood/fancy/red
+	table_type = /obj/structure/table/wood/fancy/red
 
 /obj/item/stack/tile/carpet/red/twenty
 	amount = 20
@@ -148,7 +148,7 @@
 	name = "royal black carpet"
 	icon_state = "tile-carpet-royalblack"
 	turf_type = /turf/simulated/floor/carpet/royalblack
-	fancy_table_type = /obj/structure/table/wood/fancy/royalblack
+	table_type = /obj/structure/table/wood/fancy/royalblack
 
 /obj/item/stack/tile/carpet/royalblack/ten
 	amount = 10
@@ -159,7 +159,7 @@
 	name = "royal blue carpet"
 	icon_state = "tile-carpet-royalblue"
 	turf_type = /turf/simulated/floor/carpet/royalblue
-	fancy_table_type = /obj/structure/table/wood/fancy/royalblue
+	table_type = /obj/structure/table/wood/fancy/royalblue
 
 /obj/item/stack/tile/carpet/royalblue/ten
 	amount = 10
@@ -182,7 +182,7 @@
 	flags = CONDUCT
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/plasteel/cyborg
@@ -260,3 +260,14 @@
 
 /obj/item/stack/tile/arcade_carpet/loaded
 	amount = 20
+
+/obj/item/stack/tile/disco_light
+	name = "disco light tiles"
+	singular_name = "disco light tile"
+	desc = "A sheet of disco light tile."
+	icon_state = "tile_disco"
+	turf_type = /turf/simulated/floor/light/disco
+	merge_type = /obj/item/stack/tile/disco_light
+
+/obj/item/stack/tile/disco_light/thirty
+	amount = 30

@@ -4,6 +4,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
+	cuffed_state = "legcuff"
 	flags = CONDUCT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
@@ -20,13 +21,12 @@
 	origin_tech = "engineering=4"
 	var/armed = FALSE
 	var/trap_damage = 20
+	///Do we want the beartrap not to make a visable message on arm? Use when a beartrap is applied by something else.
+	var/silent_arming = FALSE
 	var/obj/item/grenade/iedcasing/IED = null
 	var/obj/item/assembly/signaler/sig = null
 
-/obj/item/restraints/legcuffs/beartrap/New()
-	..()
-
-/obj/item/restraints/legcuffs/beartrap/update_icon()
+/obj/item/restraints/legcuffs/beartrap/update_icon_state()
 	icon_state = "beartrap[armed]"
 
 /obj/item/restraints/legcuffs/beartrap/Destroy()
@@ -43,7 +43,7 @@
 	..()
 	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
@@ -70,35 +70,39 @@
 			return
 		sig = I
 		if(sig.secured)
-			to_chat(user, "<span class='notice'>The signaler is secured.</span>")
+			to_chat(user, "<span class='warning'>The signaler is secured.</span>")
 			sig = null
 			return
 		user.drop_item()
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You sneak [sig] underneath the pressure plate and connect the trigger wire.</span>")
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
-	if(istype(I, /obj/item/screwdriver))
-		if(IED)
-			IED.forceMove(get_turf(src))
-			IED = null
-			to_chat(user, "<span class='notice'>You remove the IED from [src].</span>")
-			return
-		if(sig)
-			sig.forceMove(get_turf(src))
-			sig = null
-			to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
-			return
 	..()
+
+/obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/living/user, obj/item/I)
+	if(!IED && !sig)
+		return
+
+	if(IED)
+		IED.forceMove(get_turf(src))
+		IED = null
+		to_chat(user, "<span class='notice'>You remove the IED from [src].</span>")
+	if(sig)
+		sig.forceMove(get_turf(src))
+		sig = null
+		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
+	return TRUE
 
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
 	if(armed && isturf(src.loc))
-		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/hostile/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
+		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
 			armed = FALSE
 			update_icon()
 			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
-					"<span class='userdanger'>You trigger \the [src]!</span>")
+			if(!silent_arming)
+				L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
+						"<span class='userdanger'>You trigger \the [src]!</span>")
 
 			if(IED && isturf(src.loc))
 				IED.active = TRUE
@@ -136,7 +140,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/energy/New()
 	..()
-	addtimer(CALLBACK(src, .proc/dissipate), 100)
+	addtimer(CALLBACK(src, PROC_REF(dissipate)), 100)
 
 /obj/item/restraints/legcuffs/beartrap/energy/proc/dissipate()
 	if(!ismob(loc))
@@ -154,12 +158,76 @@
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
 	icon_state = "bola"
 	item_state = "bola"
-	breakouttime = 35//easy to apply, easy to break out of
+	breakouttime = 3.5 SECONDS
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
+	throw_range = 0 // increased when throw mode is enabled
+	/// is the bola reuseable?
+	var/reuseable = TRUE
 	///the duration of the knockdown in seconds
 	var/knockdown_duration = 0
+	/// the number of spins till the bola gets the maximum throw distance. each spin takes 1 second
+	var/max_spins = 3
+	/// the max range after the bola fully spins up. if your value for this isn't divisable by the value of `max_spins` it will be lower than the max
+	var/max_range = 7
+	/// the max speed after the bola fully spins up. if your value for this isn't divisable by the value of `max_spins` it will be lower than the max
+	var/max_speed = 2
+	/// are we currently spinning the bola
+	var/spinning = FALSE
+
+/obj/item/restraints/legcuffs/bola/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CARBON_TOGGLE_THROW, PROC_REF(spin_up_wrapper))
+
+/obj/item/restraints/legcuffs/bola/proc/spin_up_wrapper(datum/source, throw_mode_state) // so that signal handler works
+	SIGNAL_HANDLER
+	if(throw_mode_state) // if we actually turned throw mode on
+		INVOKE_ASYNC(src, PROC_REF(spin_up))
+
+/obj/item/restraints/legcuffs/bola/proc/spin_up()
+	if(spinning)
+		return
+	var/mob/living/L = loc // can only be called if the mob is holding the bola.
+	var/range_increment = round(max_range / max_spins)
+	var/speed_increment = round(max_speed / max_spins)
+	RegisterSignal(L, COMSIG_CARBON_SWAP_HANDS, PROC_REF(reset_values), override = TRUE)
+	item_state = "[initial(item_state)]_spin"
+	L.update_inv_r_hand()
+	L.update_inv_l_hand()
+	spinning = TRUE
+	for(var/i in 1 to max_spins)
+		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L))))
+			reset_values(L)
+			break
+		throw_range += range_increment
+		throw_speed += speed_increment
+
+/obj/item/restraints/legcuffs/bola/end_throw()
+	reset_values()
+
+/obj/item/restraints/legcuffs/bola/equipped(mob/user, slot, initial) // switching hands with it or putting it into/out of a bag resets it.
+	. = ..()
+	reset_values()
+
+/obj/item/restraints/legcuffs/bola/proc/reset_values(mob/living/user)
+	throw_range = initial(throw_range)
+	throw_speed = initial(throw_speed)
+	item_state = initial(item_state)
+	spinning = FALSE
+	if(user)
+		user.update_inv_r_hand()
+		user.update_inv_l_hand()
+
+/// if it returns TRUE, it breaks the loop, returning FALSE, continues the loop
+/obj/item/restraints/legcuffs/bola/proc/can_spin_check(mob/living/user)
+	if(user.get_active_hand() != src)
+		return TRUE
+	if(!user.in_throw_mode)
+		return TRUE
+	return FALSE
+
+
 
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
 	playsound(loc,'sound/weapons/bolathrow.ogg', 50, TRUE)
@@ -167,6 +235,7 @@
 		return
 
 /obj/item/restraints/legcuffs/bola/throw_impact(atom/hit_atom)
+	reset_values()
 	if(..() || !iscarbon(hit_atom))//if it gets caught or the target can't be cuffed,
 		return//abort
 	var/mob/living/carbon/C = hit_atom
@@ -179,13 +248,15 @@
 		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
 		C.KnockDown(knockdown_duration)
 		playsound(loc, hitsound, 50, TRUE)
+		if(!reuseable)
+			flags |= DROPDEL
 
 /obj/item/restraints/legcuffs/bola/tactical //traitor variant
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
 	item_state = "bola_r"
-	breakouttime = 70
+	breakouttime = 7 SECONDS
 	origin_tech = "engineering=4;combat=3"
 	knockdown_duration = 2 SECONDS
 
@@ -196,14 +267,5 @@
 	item_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	breakouttime = 60
-
-/obj/item/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom)
-	if(iscarbon(hit_atom))
-		var/mob/living/carbon/C = hit_atom
-		if(C.legcuffed)
-			return
-		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy(get_turf(hit_atom))
-		B.Crossed(hit_atom, null)
-		qdel(src)
-	..()
+	breakouttime = 4 SECONDS
+	reuseable = FALSE

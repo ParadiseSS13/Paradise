@@ -13,8 +13,8 @@
 
 	var/list/my_collection = list()
 	var/current_index = 0
-	var/connected = 0
-	var/hacked = 0		//if set, this cartridge is able to spawn trap mobs from its collection (set via emag_act on the cartridge)
+	var/connected = FALSE
+	var/hacked = FALSE		//if set, this cartridge is able to spawn trap mobs from its collection (set via emag_act on the cartridge)
 	var/catch_mod = 0	//used to adjust the likelihood of a mob running from this client, a negative value means it is less likely to run (support for temporary bonuses)
 	var/wild_captures = 0		//used to track the total number of mobs captured from the wild (does not count card mobs) by this client
 	var/scan_range = 3			//maximum distance (in tiles) from which the client can reveal nearby mobs
@@ -51,7 +51,7 @@
 		//show a message about the server being unavailable (because it doesn't exist / didn't get set to the global var / is offline)
 		return 0
 	SSmob_hunt.connected_clients += src
-	connected = 1
+	connected = TRUE
 	if(pda)
 		pda.atom_say("Connection established. Capture all of the mobs, [pda.owner ? pda.owner : "hunter"]!")
 	return 1
@@ -70,7 +70,7 @@
 	SSmob_hunt.connected_clients -= src
 	for(var/obj/effect/nanomob/N in (SSmob_hunt.normal_spawns + SSmob_hunt.trap_spawns))
 		N.conceal(list(get_player()))
-	connected = 0
+	connected = FALSE
 	//show a disconnect message if we were disconnected involuntarily (reason argument provided)
 	if(pda && reason)
 		pda.atom_say("Disconnected from server. Reason: [reason].")
@@ -84,7 +84,7 @@
 	if(!captured)
 		return FALSE
 	my_collection += captured
-	RegisterSignal(captured, COMSIG_PARENT_QDELETING, .proc/remove_mob)
+	RegisterSignal(captured, COMSIG_PARENT_QDELETING, PROC_REF(remove_mob))
 	if(wild)
 		wild_captures++
 	return TRUE

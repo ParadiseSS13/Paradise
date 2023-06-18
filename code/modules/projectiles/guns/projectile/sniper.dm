@@ -25,17 +25,7 @@
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
 	origin_tech = "combat=7;syndicate=6"
 
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator
-	name = "syndicate penetrator sniper rifle"
-
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator/Initialize(mapload)
-	. = ..()
-	desc += " It comes loaded with a penetrator magazine, but can use different magazines."
-
-	QDEL_NULL(magazine)
-	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
-
-/obj/item/gun/projectile/automatic/sniper_rifle/update_icon()
+/obj/item/gun/projectile/automatic/sniper_rifle/update_icon_state()
 	if(magazine)
 		icon_state = "sniper-mag"
 	else
@@ -50,7 +40,7 @@
 	max_ammo = 6
 	caliber = ".50"
 
-/obj/item/ammo_box/magazine/sniper_rounds/update_icon()
+/obj/item/ammo_box/magazine/sniper_rounds/update_icon_state()
 	if(ammo_count())
 		icon_state = "[initial(icon_state)]-ammo"
 	else
@@ -67,7 +57,7 @@
 /obj/item/projectile/bullet/sniper
 	damage = 70
 	weaken = 10 SECONDS
-	armour_penetration = 50
+	armour_penetration_flat = 70
 
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
 	name = "sniper rounds (Antimatter)"
@@ -108,12 +98,12 @@
 	harmful = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific
-	armour_penetration = 0
+	armour_penetration_flat = 0
 	nodamage = 1
 	weaken = 0
 
 /obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
-	if((blocked != 100) && istype(target, /mob/living))
+	if((blocked != 100) && isliving(target))
 		var/mob/living/L = target
 		L.SetSleeping(40 SECONDS)
 
@@ -136,7 +126,7 @@
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/haemorrhage
-	armour_penetration = 25
+	armour_penetration_flat = 25
 	damage = 45
 	weaken = 6 SECONDS
 
@@ -166,7 +156,7 @@
 	icon_state = "gauss"
 	name = "penetrator round"
 	damage = 60
-	forcedodge = 1
+	forcedodge = -1
 	dismemberment = 0
 	weaken = 0
 
@@ -178,13 +168,13 @@
 	max_ammo = 6
 	caliber = "foam_force_sniper"
 
-/obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon()
-	overlays.Cut()
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon_state()
+	return
 
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
-		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-r")
+		. += ".50mag-r"
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-f")
-	else
-		icon_state = "[initial(icon_state)]"
+		. += ".50mag-f"

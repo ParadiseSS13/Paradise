@@ -71,13 +71,50 @@
 /datum/gear/suit/coat/job/miner
 	display_name = "Winter coat, mining"
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
-	allowed_roles = list("Shaft Miner")
+	allowed_roles = list("Quartermaster", "Shaft Miner")
 
 //LABCOATS
 /datum/gear/suit/labcoat_emt
 	display_name = "Labcoat, paramedic"
 	path = /obj/item/clothing/suit/storage/labcoat/emt
 	allowed_roles = list("Chief Medical Officer", "Paramedic")
+
+//BOMBER JACKETS
+/datum/gear/suit/bomber
+	main_typepath = /datum/gear/suit/bomber
+
+/datum/gear/suit/bomber/basic
+	display_name = "Bomber jacket"
+	path = /obj/item/clothing/suit/jacket
+
+/datum/gear/suit/bomber/job
+	main_typepath = /datum/gear/suit/bomber/job
+	subtype_selection_cost = FALSE
+
+/datum/gear/suit/bomber/job/sec
+	display_name = "Bomber jacket, security"
+	path = /obj/item/clothing/suit/jacket/secbomber
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
+
+/datum/gear/suit/bomber/job/cargo
+	display_name = "Bomber jacket, cargo"
+	path = /obj/item/clothing/suit/jacket/cargobomber
+	allowed_roles = list("Quartermaster", "Cargo Technician")
+
+/datum/gear/suit/bomber/job/miner
+	display_name = "Bomber jacket, mining"
+	path = /obj/item/clothing/suit/jacket/miningbomber
+	allowed_roles = list("Quartermaster", "Shaft Miner")
+
+/datum/gear/suit/bomber/job/engi
+	display_name = "Bomber jacket, engineering"
+	path = /obj/item/clothing/suit/jacket/engibomber
+	allowed_roles = list("Chief Engineer", "Station Engineer")
+
+/datum/gear/suit/bomber/job/atmos
+	display_name = "Bomber jacket, atmospherics"
+	path = /obj/item/clothing/suit/jacket/atmosbomber
+	allowed_roles = list("Chief Engineer", "Life Support Specialist")
 
 //JACKETS
 /datum/gear/suit/leather_jacket
@@ -95,10 +132,6 @@
 /datum/gear/suit/bl_tcoat
 	display_name = "Trenchcoat, black"
 	path = /obj/item/clothing/suit/blacktrenchcoat
-
-/datum/gear/suit/bomber_jacket
-	display_name = "Bomber jacket"
-	path = /obj/item/clothing/suit/jacket
 
 /datum/gear/suit/ol_miljacket
 	display_name = "Military jacket, olive"
@@ -119,11 +152,6 @@
 /datum/gear/suit/secjacket
 	display_name = "Security jacket"
 	path = /obj/item/clothing/suit/armor/secjacket
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
-
-/datum/gear/suit/secbomberjacket
-	display_name = "Security bomber jacket"
-	path = /obj/item/clothing/suit/jacket/secbomber
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/ianshirt

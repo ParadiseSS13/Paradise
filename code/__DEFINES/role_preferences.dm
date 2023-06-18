@@ -28,7 +28,7 @@
 #define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
 // Role tags for EVERYONE!
-#define ROLE_DEMON				"slaughter demon"
+#define ROLE_DEMON				"demon"
 #define ROLE_SENTIENT			"sentient animal"
 #define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"
@@ -41,6 +41,7 @@
 #define ROLE_DEATHSQUAD			"deathsquad"
 #define ROLE_EVENTMISC			"eventmisc"
 #define ROLE_GHOST				"ghost role"
+#define ROLE_ELITE				"lavaland elite"
 
 // Misc jobban categories
 #define ROLEBAN_AHUD			"AntagHUD"
@@ -51,7 +52,7 @@
 //(in game days played) to play that role
 GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ABDUCTOR = /datum/game_mode/abduction, 		// Abductor
-	ROLE_BLOB = /datum/game_mode/blob, 					// Blob
+	ROLE_BLOB, 											// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
 	ROLE_GSPIDER, 										// Giant spider
@@ -64,6 +65,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_REV = /datum/game_mode/revolution, 			// Revolutionary
 	ROLE_SENTIENT, 										// Sentient animal
 	ROLE_DEMON, 										// Slaguther demon
+	ROLE_ELITE,											// Lavaland Elite
 	ROLE_NINJA, 										// Space ninja
 	ROLE_TRADER, 										// Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, 			// Traitor

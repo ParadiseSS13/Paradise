@@ -5,7 +5,7 @@
  */
 
 /proc/animate_fade_grayscale(atom/A, time = 5)
-	if(!istype(A) && !istype(A, /client))
+	if(!istype(A) && !isclient(A))
 		return
 	A.color = null
 	animate(A, color = MATRIX_GREYSCALE, time = time, easing = SINE_EASING)

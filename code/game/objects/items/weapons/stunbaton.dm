@@ -10,7 +10,7 @@
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 0, FIRE = 80, ACID = 80)
 	/// How many seconds does the knockdown last for?
 	var/knockdown_duration = 10 SECONDS
 	/// how much stamina damage does this baton do?
@@ -59,7 +59,7 @@
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return FIRELOSS
 
-/obj/item/melee/baton/update_icon()
+/obj/item/melee/baton/update_icon_state()
 	if(turned_on)
 		icon_state = "[base_icon]_active"
 	else if(!cell)
@@ -74,14 +74,24 @@
 		. += "<span class='notice'>The baton is [round(cell.percent())]% charged.</span>"
 	else
 		. += "<span class='warning'>The baton does not have a power source installed.</span>"
+	. += "<span class='notice'>When turned on this item will knockdown anyone it hits after a short delay. While on harm intent, this item will also do some brute damage, even if turned on.</span>"
+	. += "<span class='notice'>This item can be recharged in a recharger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.</span>"
 
-/obj/item/melee/baton/detailed_examine()
-	return "The baton needs to be turned on to apply the stunning effect. Use it in your hand to toggle it on or off.  If your intent is \
-			set to 'harm', you will inflict damage when using it, regardless if it is on or not. Each stun reduces the baton's charge, which can be replenished by \
-			putting it inside a weapon recharger."
 
 /obj/item/melee/baton/get_cell()
 	return cell
+
+/obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE)
+	if(turned_on && (slot == slot_belt || slot == slot_s_store))
+		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
+		return FALSE
+	return ..(user, slot, disable_warning = TRUE) // call parent but disable warning
+
+/obj/item/melee/baton/can_enter_storage(obj/item/storage/S, mob/user)
+	if(turned_on)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's active!</span>")
+		return FALSE
+	return TRUE
 
 /**
   * Removes the specified amount of charge from the batons power cell.
@@ -97,7 +107,7 @@
 	if(cell.rigged)
 		cell = null
 		turned_on = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()
@@ -117,7 +127,7 @@
 		I.forceMove(src)
 		cell = I
 		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
@@ -131,7 +141,7 @@
 	cell.update_icon()
 	cell = null
 	turned_on = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell?.charge >= hitcost)
@@ -152,7 +162,7 @@
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		if(baton_stun(user, user, skip_cooldown = TRUE)) // for those super edge cases where you clumsy baton yourself in quick succession
-			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
+			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		return
 
@@ -162,11 +172,6 @@
 	if(!isliving(M))
 		return
 	var/mob/living/L = M
-
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(check_martial_counter(H, user))
-			return
 
 	if(user.a_intent == INTENT_HARM)
 		if(turned_on)
@@ -196,13 +201,14 @@
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FALSE
-		H.forcesay(GLOB.hit_appends)
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)
+		H.SetStuttering(10 SECONDS)
 
-	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user.UID()) // so one person cannot hit the same person with two separate batons
-	addtimer(CALLBACK(src, .proc/baton_knockdown, L, user_UID, knockdown_duration), knockdown_delay)
+	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
+	L.apply_status_effect(STATUS_EFFECT_DELAYED, knockdown_delay, CALLBACK(L, TYPE_PROC_REF(/mob/living/, KnockDown), knockdown_duration), COMSIG_LIVING_CLEAR_STUNS)
+	addtimer(CALLBACK(src, PROC_REF(baton_delay), L, user_UID), knockdown_delay)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
@@ -216,8 +222,7 @@
 	deductcharge(hitcost)
 	return TRUE
 
-/obj/item/melee/baton/proc/baton_knockdown(mob/living/target, user_UID, knockdown_duration)
-	target.KnockDown(knockdown_duration)
+/obj/item/melee/baton/proc/baton_delay(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
 /obj/item/melee/baton/emp_act(severity)
@@ -229,7 +234,7 @@
 	if(turned_on && cell?.charge)
 		flick("baton_active", source)
 		baton_stun(user, user, skip_cooldown = TRUE)
-		user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>",
+		user.visible_message("<span class='warning'>[user] shocks [user.p_themselves()] while attempting to wash the active [src]!</span>",
 							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 		return TRUE
 	..()
@@ -243,9 +248,9 @@
 	force = 3
 	throwforce = 5
 	knockdown_duration = 6 SECONDS
-	stam_damage = 40 // three hits to crit
+	w_class = WEIGHT_CLASS_BULKY
 	hitcost = 2000
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_BACK | SLOT_BELT
 	var/obj/item/assembly/igniter/sparkler = null
 
 /obj/item/melee/baton/cattleprod/Initialize(mapload)

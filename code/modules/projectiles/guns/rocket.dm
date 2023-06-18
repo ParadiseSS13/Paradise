@@ -20,12 +20,9 @@
 	. += "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>"
 
 /obj/item/gun/rocketlauncher/Destroy()
-	QDEL_LIST(rockets)
+	QDEL_LIST_CONTENTS(rockets)
 	rockets = null
 	return ..()
-
-/obj/item/gun/rocketlauncher/update_icon()
-	return
 
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))

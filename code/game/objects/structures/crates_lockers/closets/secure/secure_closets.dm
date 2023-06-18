@@ -8,7 +8,7 @@
 	locked = TRUE
 	can_be_emaged = TRUE
 	max_integrity = 250
-	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 20
 
 /obj/structure/closet/secure_closet/can_open()
@@ -73,7 +73,7 @@
 		locked = FALSE
 		add_overlay("sparking")
 		to_chat(user, "<span class='notice'>You break the lock on [src].</span>")
-		addtimer(CALLBACK(src, .proc/update_icon), 1 SECONDS)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
 	add_fingerprint(user)

@@ -213,6 +213,9 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/process()
 	if(..())
 		return
+	if(!chassis)
+		STOP_PROCESSING(SSobj, src)
+		return
 	if(!chassis.has_charge(energy_drain))
 		set_ready_state(1)
 		log_message("Deactivated.")
@@ -281,7 +284,7 @@
 		return
 	if(istype(target,/obj/item/reagent_containers/syringe))
 		return load_syringe(target)
-	if(istype(target,/obj/item/storage))//Loads syringes from boxes
+	if(isstorage(target))//Loads syringes from boxes
 		for(var/obj/item/reagent_containers/syringe/S in target.contents)
 			load_syringe(S)
 		return
@@ -462,7 +465,7 @@
 	if(get_dist(src,A) >= 4)
 		occupant_message("The object is too far away.")
 		return FALSE
-	if(!A.reagents || istype(A,/mob))
+	if(!A.reagents || ismob(A))
 		occupant_message("<span class=\"alert\">No reagent info gained from [A].</span>")
 		return FALSE
 	occupant_message("Analyzing reagents...")
@@ -516,7 +519,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target)
 	if(!action_checks(target))
 		return
-	if(istype(target, /obj))
+	if(isobj(target))
 		if(!istype(target, /obj/machinery/door))//early return if we're not trying to open a door
 			return
 		var/obj/machinery/door/D = target	//the door we want to open

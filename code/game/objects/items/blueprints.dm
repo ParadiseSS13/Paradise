@@ -134,19 +134,22 @@
 		set_viewer(usr)
 
 	attack_self(usr)
-/obj/item/areaeditor/blueprints/proc/get_images(turf/T, viewsize)
+
+/obj/item/areaeditor/blueprints/proc/get_images(turf/central_turf, viewsize)
 	. = list()
-	for(var/tt in RANGE_TURFS(viewsize, T))
-		var/turf/TT = tt
-		if(TT.blueprint_data)
-			. += TT.blueprint_data
+	var/list/dimensions = getviewsize(viewsize)
+	var/horizontal_radius = dimensions[1] / 2
+	var/vertical_radius = dimensions[2] / 2
+	for(var/turf/nearby_turf as anything in RECT_TURFS(horizontal_radius, vertical_radius, central_turf))
+		if(nearby_turf.blueprint_data)
+			. += nearby_turf.blueprint_data
 
 /obj/item/areaeditor/blueprints/proc/set_viewer(mob/user, message = "")
 	if(user && user.client)
 		if(viewing)
 			clear_viewer()
 		viewing = user.client
-		showing = get_images(get_turf(user), viewing.view)
+		showing = get_images(get_turf(viewing.eye || user), viewing.view)
 		viewing.images |= showing
 		if(message)
 			to_chat(user, message)
@@ -209,9 +212,9 @@
 		return area_created
 	var/area/A = new
 	A.name = str
-	A.power_equip = FALSE
-	A.power_light = FALSE
-	A.power_environ = FALSE
+	A.powernet.equipment_powered = FALSE
+	A.powernet.lighting_powered = FALSE
+	A.powernet.environment_powered = FALSE
 	A.always_unpowered = FALSE
 	A.set_dynamic_lighting()
 
@@ -271,15 +274,15 @@
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 
 /obj/item/areaeditor/proc/check_tile_is_border(turf/T2, dir)
-	if(istype(T2, /turf/space))
+	if(isspaceturf(T2))
 		return BORDER_SPACE //omg hull breach we all going to die here
 	if(get_area_type(T2.loc)!=AREA_SPACE)
 		return BORDER_BETWEEN
-	if(istype(T2, /turf/simulated/wall))
+	if(iswallturf(T2))
 		return BORDER_2NDTILE
-	if(istype(T2, /turf/simulated/mineral))
+	if(ismineralturf(T2))
 		return BORDER_2NDTILE
-	if(!istype(T2, /turf/simulated))
+	if(!issimulatedturf(T2))
 		return BORDER_BETWEEN
 
 	for(var/obj/structure/window/W in T2)
@@ -341,3 +344,8 @@
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
 
 /obj/item/areaeditor/blueprints/ce
+
+/obj/item/areaeditor/blueprints/ce/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))

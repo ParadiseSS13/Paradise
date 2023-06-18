@@ -9,28 +9,26 @@
 /obj/item/multitool
 	name = "multitool"
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "multitool"
 	belt_icon = "multitool"
 	flags = CONDUCT
 	force = 0
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 0
 	throw_range = 7
 	throw_speed = 3
 	drop_sound = 'sound/items/handling/multitool_drop.ogg'
 	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
-	materials = list(MAT_METAL=50, MAT_GLASS=20)
+	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=2"
 	toolspeed = 1
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
-	var/obj/machinery/buffer // simple machine buffer for device linkage
-
-/obj/item/multitool/proc/IsBufferA(typepath)
-	if(!buffer)
-		return 0
-	return istype(buffer,typepath)
+	/// Reference to whatever machine is held in the buffer
+	var/obj/machinery/buffer // TODO - Make this a soft ref to tie into whats below
+	/// Soft-ref for linked stuff. This should be used over the above var.
+	var/buffer_uid
 
 /obj/item/multitool/multitool_check_buffer(user, silent = FALSE)
 	return TRUE
@@ -55,9 +53,10 @@
 	var/rangealert = 8	//Glows red when inside
 	var/rangewarning = 20 //Glows yellow when inside
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
+	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/multitool/ai_detect/New()
-	..()
+/obj/item/multitool/ai_detect/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/multitool/ai_detect/Destroy()
@@ -70,7 +69,11 @@
 	detect_state = PROXIMITY_NONE
 	multitool_detect()
 	icon_state = "[initial(icon_state)][detect_state]"
+	belt_icon = "[initial(icon_state)][detect_state]"
 	track_cooldown = world.time + track_delay
+	if(istype(loc, /obj/item/storage/belt))
+		var/obj/item/storage/belt/B = loc
+		B.update_icon()
 
 /obj/item/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)
@@ -94,6 +97,50 @@
 					if(get_dist(our_turf, detect_turf) < rangewarning)
 						detect_state = PROXIMITY_NEAR
 						break
+
+/obj/item/multitool/red
+	name = "suspicious multitool"
+	desc = "A sinister-looking multitool, used for pulsing wires to test which to cut."
+	icon_state = "multitool_syndi"
+	item_state = "multitool_syndi"
+	belt_icon = "multitool_syndi"
+	toolspeed = 0.95 // dangerously fast... not like multitools use speed anyways
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "magnets=1;engineering=2;syndicate=1"
+
+/obj/item/multitool/command
+	name = "command multitool"
+	desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain."
+	icon_state = "multitool_command"
+	item_state = "multitool_command"
+	belt_icon = "multitool_command"
+	toolspeed = 0.95 //command those wires / that fireaxe cabinet!
+	var/list/victims = list()
+
+/obj/item/multitool/command/suicide_act(mob/living/user)
+	user.visible_message("<span class='suicide'>[user] is attempting to command the command multitool! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+    //basically just cleaned up and copied from the medical wrench code
+	if(!user)
+		return
+
+	user.Immobilize(10 SECONDS)
+	sleep(20)
+	add_fingerprint(user)
+
+	var/base_desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain. Its screen displays the text \""
+	victims += user.name
+
+	if(length(victims) < 3)
+		desc = base_desc + english_list(victims) + ": executed for mutiny.\""
+	else
+		desc = base_desc + english_list(victims) + ", all executed for mutiny. Impressive.\""
+
+	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
+	for(var/obj/item/W in user)
+		user.unEquip(W)
+
+	user.dust()
+	return OBLITERATION
 
 /obj/item/multitool/ai_detect/admin
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?
@@ -130,6 +177,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
 	toolspeed = 0.1
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 
 /obj/item/multitool/abductor/Initialize(mapload)

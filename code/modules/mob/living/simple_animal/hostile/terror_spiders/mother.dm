@@ -12,6 +12,11 @@
 	name = "Mother of Terror spider"
 	desc = "An enormous spider. Tiny spiderlings are crawling all over it. Their beady little eyes all stare at you. The horror!"
 	spider_role_summary = "Carries spiderlings to protect them. Creates royal jelly that heals other spiders."
+	spider_intro_text = "As a Mother of Terror Spider, your role is to support other spiders and spiderlings. \
+	You can pickup and incubate spiderlings to ensure they mature safely and at a faster rate, and your webs cannot be passed by spiderlings to keep them closer to nests. \
+	You can also produce royal jelly for other spiders to consume for faster health regeneration. \
+	Both of these require you to expend your own regeneration, though you gain much more from webbing corpses than other spiders. \
+	While you can open powered doors and bust open vents like a brown spider, you have low health and deal low damage, so you should avoid fights wherever possible."
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_mother"
 	icon_living = "terror_mother"
@@ -28,26 +33,22 @@
 	loudspeaker = TRUE
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/mother
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
-	var/datum/action/innate/terrorspider/remoteview/remoteview_action
-	var/datum/action/innate/terrorspider/mother/royaljelly/royaljelly_action
-	var/datum/action/innate/terrorspider/mother/gatherspiderlings/gatherspiderlings_action
-	var/datum/action/innate/terrorspider/mother/incubateeggs/incubateeggs_action
+
 	var/jelly_cost = 100
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/mother/New()
-	..()
-	ventsmash_action = new()
-	ventsmash_action.Grant(src)
-	remoteview_action = new()
-	remoteview_action.Grant(src)
-	royaljelly_action = new()
-	royaljelly_action.Grant(src)
-	gatherspiderlings_action = new()
-	gatherspiderlings_action.Grant(src)
-	incubateeggs_action = new()
-	incubateeggs_action.Grant(src)
+/mob/living/simple_animal/hostile/poison/terror_spider/mother/Initialize(mapload)
+	. = ..()
+	var/static/list/action_paths = list(
+		/datum/action/innate/terrorspider/ventsmash,
+		/datum/action/innate/terrorspider/remoteview,
+		/datum/action/innate/terrorspider/mother/royaljelly,
+		/datum/action/innate/terrorspider/mother/gatherspiderlings,
+		/datum/action/innate/terrorspider/mother/incubateeggs,
+	)
+	for(var/action_path in action_paths)
+		var/datum/action/act = new action_path
+		act.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)
 	DropSpiderlings()
@@ -81,8 +82,11 @@
 		to_chat(src, "<span class='danger'>Cannot secrete jelly in space.</span>")
 		return
 	visible_message("<span class='notice'>[src] begins to secrete royal jelly.</span>")
-	if(do_after(src, 100, target = loc))
+	if(do_after_once(src, 100, target = loc, attempt_cancel_message = "You stop producing jelly."))
 		if(loc != mylocation)
+			return
+		if(regen_points < jelly_cost)
+			to_chat(src, "<span class='danger'>You only have [regen_points] of the [jelly_cost] regeneration points you need to do this.</span>")
 			return
 		new /obj/structure/spider/royaljelly(loc)
 		regen_points -= jelly_cost

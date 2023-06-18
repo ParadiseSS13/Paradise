@@ -15,7 +15,7 @@
 	Nanotrasen Science Directorate"}
 
 /datum/station_goal/bluespace_tap/on_report()
-	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
+	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_tap/check_completion()
@@ -43,6 +43,7 @@
 
 /obj/item/circuitboard/machine/bluespace_tap
 	board_name = "Bluespace Harvester"
+	icon_state = "command"
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(
@@ -133,7 +134,7 @@
 		/mob/living/simple_animal/pet/dog/corgi/ = 5,
 		/mob/living/simple_animal/pet/cat = 5,
 		/mob/living/simple_animal/pet/dog/fox/ = 5,
-		/mob/living/simple_animal/pet/penguin = 5,
+		/mob/living/simple_animal/pet/penguin/baby = 5,
 		/mob/living/simple_animal/pig = 5,
 		/obj/item/slimepotion/sentience = 5,
 		/obj/item/clothing/mask/cigarette/cigar/havana = 3,
@@ -191,7 +192,7 @@
 	pixel_y = -64
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
-	use_power = NO_POWER_USE	// power usage is handelled manually
+	power_state = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -222,7 +223,7 @@
 	var/actual_power_usage = 0
 
 
-	// Tweak these and active_power_usage to balance power generation
+	// Tweak these and active_power_consumption to balance power generation
 
 	/// Max power input level, I don't expect this to be ever reached
 	var/max_level = 20
@@ -255,7 +256,7 @@
 		connect_to_network()
 
 /obj/machinery/power/bluespace_tap/Destroy()
-	QDEL_LIST(fillers)
+	QDEL_LIST_CONTENTS(fillers)
 	return ..()
 
 /**
@@ -312,21 +313,21 @@
 
 /obj/machinery/power/bluespace_tap/process()
 	actual_power_usage = get_power_use(input_level)
-	if(surplus() < actual_power_usage)	//not enough power, so turn down a level
+	if(get_surplus() < actual_power_usage)	//not enough power, so turn down a level
 		input_level--
 		return	// and no mining gets done
 	if(actual_power_usage)
-		add_load(actual_power_usage)
+		consume_direct_power(actual_power_usage)
 		var/points_to_add = (input_level + emagged) * base_points
 		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
 	// actual input level changes slowly
-	if(input_level < desired_level && (surplus() >= get_power_use(input_level + 1)))
+	if(input_level < desired_level && (get_surplus() >= get_power_use(input_level + 1)))
 		input_level++
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
+		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0
@@ -344,7 +345,7 @@
 	data["points"] = points
 	data["totalPoints"] = total_points
 	data["powerUse"] = actual_power_usage
-	data["availablePower"] = surplus()
+	data["availablePower"] = get_surplus()
 	data["maxLevel"] = max_level
 	data["emagged"] = emagged
 	data["safeLevels"] = safe_levels

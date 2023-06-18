@@ -17,6 +17,6 @@
 		target.drop_r_hand()
 		target.visible_message("<span class='warning'>[user] kicks [target] in the head, leaving them reeling in pain!</span>",
 							"<span class='userdanger'>You are kicked in the head by [user], and you reel in pain!</span>")
-	target.apply_damage(40, STAMINA)
+	target.apply_damage(60, STAMINA)
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Keelhaul", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

@@ -1,27 +1,26 @@
 /obj/machinery/computer/brigcells
-    name = "cell management computer"
-    desc = "Used to manage prison cells."
-    icon_keyboard = "security_key"
-    icon_screen = "cell_monitor"
-    use_power = IDLE_POWER_USE
-    idle_power_usage = 250
-    active_power_usage = 500
-    circuit = /obj/item/circuitboard/brigcells
-    light_color = LIGHT_COLOR_DARKRED
-    req_access = list(ACCESS_BRIG)
+	name = "cell management computer"
+	desc = "Used to manage prison cells."
+	icon_keyboard = "security_key"
+	icon_screen = "cell_monitor"
+	idle_power_consumption = 250
+	active_power_consumption = 500
+	circuit = /obj/item/circuitboard/brigcells
+	light_color = LIGHT_COLOR_DARKRED
+	req_access = list(ACCESS_BRIG)
 
 /obj/machinery/computer/brigcells/attack_ai(mob/user)
-    attack_hand(user)
-    ui_interact(user)
+	attack_hand(user)
+	ui_interact(user)
 
 /obj/machinery/computer/brigcells/attack_hand(mob/user)
-    add_fingerprint(user)
-    if(stat & (BROKEN|NOPOWER))
-        return
-    if(!allowed(user))
-        to_chat(user, "<span class='warning'>Access denied.</span>")
-        return
-    ui_interact(user)
+	add_fingerprint(user)
+	if(stat & (BROKEN|NOPOWER))
+		return
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+	ui_interact(user)
 
 /obj/machinery/computer/brigcells/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

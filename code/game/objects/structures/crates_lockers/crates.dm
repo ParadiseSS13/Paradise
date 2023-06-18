@@ -12,14 +12,15 @@
 	open_sound_volume = 35
 	close_sound_volume = 50
 	var/obj/item/paper/manifest/manifest
-	// A list of beacon names that the crate will announce the arrival of, when delivered.
+	/// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
+	/// How much this crate is worth if you sell it via the cargo shuttle, needed for balance :)
+	var/crate_value = DEFAULT_CRATE_VALUE
 
-/obj/structure/closet/crate/update_icon()
-	..()
-	cut_overlays()
+/obj/structure/closet/crate/update_overlays()
+	. = ..()
 	if(manifest)
-		add_overlay("manifest")
+		. += "manifest"
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -41,7 +42,7 @@
 					return FALSE
 				break
 
-	if(rigged && locate(/obj/item/radio/electropack) in src)
+	if(rigged && locate(/obj/item/electropack) in src)
 		if(isliving(usr))
 			var/mob/living/L = usr
 			if(L.electrocute_act(17, src))
@@ -104,9 +105,9 @@
 			to_chat(user, "<span class='notice'>You rig [src].</span>")
 			rigged = TRUE
 		else
-			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
+			to_chat(user, "<span class='warning'>You need at least 15 wires to rig [src]!</span>")
 		return TRUE
-	if(istype(W, /obj/item/radio/electropack))
+	if(istype(W, /obj/item/electropack))
 		if(rigged)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
@@ -141,7 +142,7 @@
 		update_icon()
 		return
 	else
-		if(rigged && locate(/obj/item/radio/electropack) in src)
+		if(rigged && locate(/obj/item/electropack) in src)
 			if(isliving(user))
 				var/mob/living/L = user
 				if(L.electrocute_act(17, src))
@@ -149,6 +150,9 @@
 					return
 		add_fingerprint(user)
 		toggle(user, by_hand = TRUE)
+
+/obj/structure/closet/crate/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)
@@ -164,26 +168,29 @@
 	icon_state = "securecrate"
 	icon_opened = "securecrate_open"
 	icon_closed = "securecrate"
-	var/redlight = "securecrater"
-	var/greenlight = "securecrateg"
-	var/emag = "securecrateemag"
 	max_integrity = 500
-	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
-	var/tamperproof = FALSE
 	broken = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
+	crate_value = 25 // rarer and cannot be crafted, bonus credits for exporting them
 
-/obj/structure/closet/crate/secure/update_icon()
-	..()
+	var/redlight = "securecrater"
+	var/greenlight = "securecrateg"
+	var/emag = "securecrateemag"
+
+	var/tamperproof = FALSE
+
+/obj/structure/closet/crate/secure/update_overlays()
+	. = ..()
 	if(broken)
-		add_overlay(emag)
+		. += emag
 		return
 	if(locked)
-		add_overlay(redlight)
+		. += redlight
 	else
-		add_overlay(greenlight)
+		. += greenlight
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
@@ -217,6 +224,13 @@
 		update_icon()
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
+
+/obj/structure/closet/crate/secure/AltClick(mob/user)
+	if(Adjacent(user) && !opened)
+		verb_togglelock()
+		return
+
+	. = ..()
 
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
 	set src in oview(1) // One square distance
@@ -282,6 +296,9 @@
 	icon_state = "plasticcrate"
 	icon_opened = "plasticcrate_open"
 	icon_closed = "plasticcrate"
+	material_drop = /obj/item/stack/sheet/plastic
+	material_drop_amount = 4
+	crate_value = 3 // You can mass produce plastic crates, this is needed to prevent cargo from making tons of money too easily
 
 /obj/structure/closet/crate/internals
 	desc = "A internals crate."
@@ -296,22 +313,6 @@
 	icon_state = "trashcart"
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
-
-/*these aren't needed anymore
-/obj/structure/closet/crate/hat
-	desc = "A crate filled with Valuable Collector's Hats!."
-	name = "Hat Crate"
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
-
-/obj/structure/closet/crate/contraband
-	name = "Poster crate"
-	desc = "A random assortment of posters manufactured by providers NOT listed under Nanotrasen's whitelist."
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
-*/
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
@@ -340,6 +341,7 @@
 	var/cooling_power = 40
 
 /obj/structure/closet/crate/freezer/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/gas = (..())
 	if(!gas)	return null
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
@@ -373,6 +375,7 @@
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/salglu(src)
 	new /obj/item/reagent_containers/iv_bag/slime(src)
+	new /obj/item/reagent_containers/iv_bag/blood/vox(src)
 
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."
@@ -436,64 +439,6 @@
 	emag = "largebinemag"
 	open_sound = 'sound/effects/bin_open.ogg'
 	close_sound = 'sound/effects/bin_close.ogg'
-
-/obj/structure/closet/crate/large
-	name = "large crate"
-	desc = "A hefty metal crate."
-	icon_state = "largemetal"
-	icon_opened = "largemetal_open"
-	icon_closed = "largemetal"
-	integrity_failure = 0 //Makes the crate break when integrity reaches 0, instead of opening and becoming an invisible sprite.
-
-/obj/structure/closet/crate/large/close()
-	. = ..()
-	if(.)//we can hold up to one large item
-		var/found = 0
-		for(var/obj/structure/S in loc)
-			if(S == src)
-				continue
-			if(!S.anchored)
-				found = 1
-				S.forceMove(src)
-				break
-		if(!found)
-			for(var/obj/machinery/M in loc)
-				if(!M.anchored)
-					M.forceMove(src)
-					break
-
-/obj/structure/closet/crate/secure/large
-	name = "large crate"
-	desc = "A hefty metal crate with an electronic locking system."
-	icon_state = "largemetal"
-	icon_opened = "largemetal_open"
-	icon_closed = "largemetal"
-	redlight = "largemetalr"
-	greenlight = "largemetalg"
-
-/obj/structure/closet/crate/secure/large/close()
-	. = ..()
-	if(.)//we can hold up to one large item
-		var/found = 0
-		for(var/obj/structure/S in loc)
-			if(S == src)
-				continue
-			if(!S.anchored)
-				found = 1
-				S.forceMove(src)
-				break
-		if(!found)
-			for(var/obj/machinery/M in loc)
-				if(!M.anchored)
-					M.forceMove(src)
-					break
-
-//fluff variant
-/obj/structure/closet/crate/secure/large/reinforced
-	desc = "A hefty, reinforced metal crate with an electronic locking system."
-	icon_state = "largermetal"
-	icon_opened = "largermetal_open"
-	icon_closed = "largermetal"
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"

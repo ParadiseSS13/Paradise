@@ -27,7 +27,7 @@
 	tastes = list("banana" = 1)
 
 /obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
 	sleep(25)
 	if(!user)
@@ -56,6 +56,11 @@
 
 /obj/item/grown/bananapeel/proc/choose_icon_state()
 	icon_state = "[icon_state]_[rand(1, 3)]"
+
+/obj/item/grown/bananapeel/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["wood"] += 1
+	qdel(src)
+	return TRUE
 
 /obj/item/grown/bananapeel/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -126,7 +131,8 @@
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
 
-/obj/item/grown/bananapeel/specialpeel/ComponentInitialize()
+/obj/item/grown/bananapeel/specialpeel/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/slippery, src, 4 SECONDS, 100, 0, FALSE)
 
 /obj/item/grown/bananapeel/specialpeel/after_slip(mob/living/carbon/human/H)

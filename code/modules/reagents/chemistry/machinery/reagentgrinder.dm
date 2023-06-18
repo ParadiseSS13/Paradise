@@ -3,13 +3,12 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9
-	anchored = 1
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
+	anchored = TRUE
+	idle_power_consumption = 5
+	active_power_consumption = 100
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
-	var/operating = 0
+	var/operating = FALSE
 	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
 	var/limit = null
 	var/efficiency = null
@@ -52,8 +51,7 @@
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 		/obj/item/slime_extract = list(),
-		/obj/item/reagent_containers/food = list(),
-		/obj/item/reagent_containers/honeycomb = list()
+		/obj/item/reagent_containers/food = list()
 	)
 
 	var/list/juice_items = list (
@@ -73,7 +71,7 @@
 		/obj/item/reagent_containers/food/snacks/watermelonslice = list("watermelonjuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/berries/poison = list("poisonberryjuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/pumpkin = list("pumpkinjuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/blumpkin = list("blumpkinjuice" = 0),
+		/obj/item/reagent_containers/food/snacks/grown/pumpkin/blumpkin = list("blumpkinjuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
@@ -126,9 +124,9 @@
 /obj/machinery/reagentgrinder/handle_atom_del(atom/A)
 	if(A == beaker)
 		beaker = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/reagentgrinder/update_icon()
+/obj/machinery/reagentgrinder/update_icon_state()
 	if(beaker)
 		icon_state = "juicer1"
 	else
@@ -142,7 +140,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_crowbar(I)
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -163,7 +161,7 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
+	if((istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
 		if(beaker)
 			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
 		else if(panel_open)
@@ -173,7 +171,7 @@
 				return FALSE
 			beaker =  I
 			beaker.loc = src
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			updateUsrDialog()
 		return TRUE //no afterattack
 
@@ -310,7 +308,7 @@
 		return
 	beaker.loc = src.loc
 	beaker = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
 
 /obj/machinery/reagentgrinder/proc/eject()
@@ -375,11 +373,11 @@
 	playsound(src.loc, 'sound/machines/juicer.ogg', 20, 1)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
-	operating = 1
+	operating = TRUE
 	updateUsrDialog()
 	spawn(50)
 		pixel_x = initial(pixel_x) //return to its spot after shaking
-		operating = 0
+		operating = FALSE
 		updateUsrDialog()
 
 	//Snacks
@@ -413,11 +411,11 @@
 	playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
-	operating = 1
+	operating = TRUE
 	updateUsrDialog()
 	spawn(60)
 		pixel_x = initial(pixel_x) //return to its spot after shaking
-		operating = 0
+		operating = FALSE
 		updateUsrDialog()
 
 	//Snacks and Plants

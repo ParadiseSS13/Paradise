@@ -15,8 +15,8 @@
 	var/parent_organ = "chest"
 
 	var/list/datum/autopsy_data/autopsy_data = list()
-	var/list/trace_chemicals = list() // traces of chemicals in the organ,
-									  // links chemical IDs to number of ticks for which they'll stay in the blood
+	var/list/trace_chemicals = list()	// traces of chemicals in the organ,
+										// links chemical IDs to number of ticks for which they'll stay in the blood
 	germ_level = 0
 	var/datum/dna/dna
 
@@ -31,11 +31,14 @@
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
 
+	///Should this organ be destroyed on removal?
+	var/destroy_on_removal = FALSE
+
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	if(owner)
-		remove(owner, 1)
+		remove(owner, TRUE)
 	QDEL_LIST_ASSOC_VAL(autopsy_data)
 	QDEL_NULL(dna)
 	return ..()
@@ -51,7 +54,7 @@
 		if(holder.dna)
 			dna = holder.dna.Clone()
 		else
-			log_runtime(EXCEPTION("[holder] spawned without a proper DNA."), holder)
+			stack_trace("[holder] spawned without a proper DNA.")
 		var/mob/living/carbon/human/H = holder
 		if(istype(H))
 			if(dna)
@@ -101,7 +104,7 @@
 		germ_level = 0
 		return
 
-	if(!owner)
+	if(!owner || ((status & ORGAN_BURNT) && !(status & ORGAN_SALVED)))
 		if(is_preserved())
 			return
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
@@ -123,6 +126,9 @@
 /obj/item/organ/proc/is_preserved()
 	if(istype(loc,/obj/item/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
+		return TRUE
+	if(istype(loc, /mob/living/simple_animal/hostile/headslug) || istype(loc, /obj/item/organ/internal/body_egg/changeling_egg))
+		germ_level = 0 // weird stuff might happen, best to be safe
 		return TRUE
 	if(is_found_within(/obj/structure/closet/crate/freezer))
 		return TRUE
@@ -229,9 +235,19 @@
 	status &= ~ORGAN_SPLINTED
 	status |= ORGAN_ROBOT
 
+/*
+  * remove
+  *
+  * Removes the organ from the user properly.
+  * If the organ is vital, it will kill the user.
+  * The proc returns the organ removed (i.e. `src`) assuming it was removed successfully;
+* otherwise, or if the organ gets destroyed in the process, it returns null.
+*/
 /obj/item/organ/proc/remove(mob/living/user, special = 0)
 	if(!istype(owner))
 		return
+
+	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	owner.internal_organs -= src
 
@@ -245,6 +261,9 @@
 		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user ? ATKLOG_FEW : ATKLOG_ALL)
 		owner.death()
 	owner = null
+	if(destroy_on_removal && !QDELETED(src))
+		qdel(src)
+		return
 	return src
 
 /obj/item/organ/proc/replaced(mob/living/carbon/human/target)
@@ -277,13 +296,8 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 
 /obj/item/organ/serialize()
 	var/data = ..()
-	if(status != 0)
+	if(status)
 		data["status"] = status
-
-	// Save the DNA datum if: The owner doesn't exist, or the dna doesn't match the owner
-	// Don't save when the organ has no initialized DNA. Happens when you spawn it in as admin
-	if(dna.unique_enzymes && !(owner && dna.unique_enzymes == owner.dna.unique_enzymes))
-		data["dna"] = dna.serialize()
 	return data
 
 /obj/item/organ/deserialize(data)
@@ -291,8 +305,4 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		if(data["status"] & ORGAN_ROBOT)
 			robotize()
 		status = data["status"]
-	if(islist(data["dna"]))
-		// The only thing the official proc does is
-	 	//instantiate the list and call this proc
-		dna.deserialize(data["dna"])
-		..()
+	..()

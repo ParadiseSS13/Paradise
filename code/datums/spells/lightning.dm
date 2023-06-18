@@ -1,8 +1,7 @@
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning
 	name = "Lightning Bolt"
 	desc = "Throws a lightning bolt at your enemies. Classic. When clicked will start to charge in power. Then click on a mob to send the bolt before it overloads with power."
-	charge_type = "recharge"
-	charge_max	= 30 SECONDS
+	base_cooldown	= 30 SECONDS
 	clothes_req = TRUE
 	invocation = "UN'LTD P'WAH!"
 	invocation_type = "shout"
@@ -45,4 +44,4 @@
 		target.AdjustJitter(2000 SECONDS) //High numbers for violent convulsions
 		target.AdjustStuttering(4 SECONDS)
 		target.Slowed(6 SECONDS)
-		addtimer(CALLBACK(target, /mob/living.proc/AdjustJitter, -2000 SECONDS, 10), 2 SECONDS) //Still jittery, but vastly less
+		addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, AdjustJitter), -2000 SECONDS, 10), 2 SECONDS) //Still jittery, but vastly less

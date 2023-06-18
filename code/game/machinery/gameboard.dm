@@ -5,9 +5,9 @@
 	desc = "A holographic table allowing the crew to have fun(TM) on boring shifts! One player per board."
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	var/cooling_down = 0
 	light_color = LIGHT_COLOR_LIGHTBLUE
+
+	var/cooling_down = 0
 
 /obj/machinery/gameboard/Initialize(mapload)
 	. = ..()
@@ -19,14 +19,15 @@
 	RefreshParts()
 
 /obj/machinery/gameboard/power_change()
-	. = ..()
-	update_icon()
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 	if(stat & NOPOWER)
 		set_light(0)
 	else
 		set_light(3, 3)
 
-/obj/machinery/gameboard/update_icon()
+/obj/machinery/gameboard/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "gboard_off"
 	else

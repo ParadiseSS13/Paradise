@@ -156,6 +156,8 @@
 			direct = newdir
 			n = get_step(mob, direct)
 
+	mob.last_movement_dir = direct
+
 	var/prev_pulling_loc = null
 	if(mob.pulling)
 		prev_pulling_loc = mob.pulling.loc
@@ -290,9 +292,9 @@
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & NOJAUNT)
 				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
-				L.notransform = 1
+				L.notransform = TRUE
 				spawn(2)
-					L.notransform = 0
+					L.notransform = FALSE
 			else
 				L.forceMove(get_step(L, direct))
 				L.dir = direct
@@ -321,7 +323,7 @@
 			continue
 		else if(isturf(A))
 			var/turf/turf = A
-			if(istype(turf, /turf/space))
+			if(isspaceturf(turf))
 				continue
 			if(!turf.density && !mob_negates_gravity())
 				continue
@@ -507,4 +509,4 @@
 	if(hud_used && hud_used.move_intent && hud_used.static_inventory)
 		hud_used.move_intent.icon_state = icon_toggle
 		for(var/obj/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon(src)
+			selector.update_icon()

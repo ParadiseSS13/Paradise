@@ -22,7 +22,7 @@
 /obj/item/clothing/glasses/meson/engine/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/clothing/glasses/meson/engine/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -46,7 +46,7 @@
 		if(H.glasses == src)
 			H.update_sight()
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -71,7 +71,7 @@
 	var/mob/living/carbon/human/user = loc
 	user.show_rads(range * 5) // Rads are easier to see than wires under the floor
 
-/obj/item/clothing/glasses/meson/engine/update_icon()
+/obj/item/clothing/glasses/meson/engine/update_icon_state()
 	icon_state = "trayson-[mode]"
 	update_mob()
 

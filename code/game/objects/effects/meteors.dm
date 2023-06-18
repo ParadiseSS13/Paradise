@@ -3,13 +3,13 @@
 
 //Meteors probability of spawning during a given wave
 GLOBAL_LIST_INIT(meteors_normal, list(/obj/effect/meteor/dust = 3, /obj/effect/meteor/medium = 8, /obj/effect/meteor/big = 3,
-						  /obj/effect/meteor/flaming = 1, /obj/effect/meteor/irradiated = 3)) //for normal meteor event
+						/obj/effect/meteor/flaming = 1, /obj/effect/meteor/irradiated = 3)) //for normal meteor event
 
 GLOBAL_LIST_INIT(meteors_threatening, list(/obj/effect/meteor/medium = 4, /obj/effect/meteor/big = 8,
-						  /obj/effect/meteor/flaming = 3, /obj/effect/meteor/irradiated = 3)) //for threatening meteor event
+						/obj/effect/meteor/flaming = 3, /obj/effect/meteor/irradiated = 3, /obj/effect/meteor/bananium = 1)) //for threatening meteor event
 
 GLOBAL_LIST_INIT(meteors_catastrophic, list(/obj/effect/meteor/medium = 5, /obj/effect/meteor/big = 75,
-						  /obj/effect/meteor/flaming = 10, /obj/effect/meteor/irradiated = 10, /obj/effect/meteor/tunguska = 1)) //for catastrophic meteor event
+						/obj/effect/meteor/flaming = 10, /obj/effect/meteor/irradiated = 10, /obj/effect/meteor/bananium = 3, /obj/effect/meteor/tunguska = 1)) //for catastrophic meteor event
 
 GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/meteor/meaty/xeno = 1)) //for meaty ore event
 
@@ -255,6 +255,22 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
 	radiation_pulse(src, 500)
 
+/obj/effect/meteor/bananium
+	name = "bananium meteor"
+	desc = "Well this would be just an awful way to die."
+	icon_state = "clownish"
+	heavy = TRUE
+	meteordrop = list(/obj/item/stack/ore/bananium)
+
+/obj/effect/meteor/bananium/meteor_effect()
+	..()
+	explosion(loc, 0, 0, 3, 2, 0)
+	var/turf/current_turf = get_turf(src)
+	new /obj/item/grown/bananapeel(current_turf)
+	for(var/obj/target in range(4, current_turf))
+		if(prob(15))
+			target.cmag_act()
+
 //Station buster Tunguska
 /obj/effect/meteor/tunguska
 	name = "tunguska meteor"
@@ -311,7 +327,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	meteorgibs = /obj/effect/gibspawner/xeno
 
 /obj/effect/meteor/meaty/xeno/Initialize(mapload, target)
-	meteordrop += subtypesof(/obj/item/organ/internal/xenos)
+	meteordrop += subtypesof(/obj/item/organ/internal/alien)
 	return ..()
 
 /obj/effect/meteor/meaty/xeno/ram_turf(turf/T)

@@ -81,7 +81,6 @@
 /obj/item/storage/box/survival_mining/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
@@ -91,6 +90,7 @@
 /obj/item/storage/box/survival_syndi/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
@@ -257,7 +257,7 @@
 
 
 /obj/item/storage/box/trackimp
-	name = "tracking implant kit"
+	name = "tracking bio-chip kit"
 	desc = "Box full of scum-bag tracking utensils."
 	icon_state = "implant"
 
@@ -268,10 +268,10 @@
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/minertracker
-	name = "boxed tracking implant kit"
+	name = "boxed tracking bio-chip kit"
 	desc = "For finding those who have died on the accursed lavaworld."
 	icon_state = "implant"
 
@@ -281,11 +281,11 @@
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/mining(src)
 
 /obj/item/storage/box/chemimp
-	name = "chemical implant kit"
-	desc = "Box of stuff used to implant chemicals."
+	name = "chemical bio-chip kit"
+	desc = "Box of stuff used to bio-chip chemicals."
 	icon_state = "implant"
 
 /obj/item/storage/box/chemimp/populate_contents()
@@ -295,8 +295,8 @@
 	new /obj/item/implantpad(src)
 
 /obj/item/storage/box/exileimp
-	name = "boxed exile implant kit"
-	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."
+	name = "boxed exile bio-chip kit"
+	desc = "Box of exile bio-chips. It has a picture of a clown being booted through the Gateway."
 	icon_state = "implant"
 
 /obj/item/storage/box/exileimp/populate_contents()
@@ -305,8 +305,8 @@
 	new /obj/item/implanter(src)
 
 /obj/item/storage/box/deathimp
-	name = "death alarm implant kit"
-	desc = "Box of life sign monitoring implants."
+	name = "death alarm bio-chip kit"
+	desc = "Box of life sign monitoring bio-chips."
 	icon_state = "implant"
 
 /obj/item/storage/box/deathimp/populate_contents()
@@ -321,7 +321,7 @@
 
 /obj/item/storage/box/tapes/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/tape(src)
+		new /obj/item/tape/random(src)
 
 /obj/item/storage/box/rxglasses
 	name = "prescription glasses"
@@ -358,17 +358,26 @@
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
+	desc = "A heavy, insulated box that reads, <b>Instructions:</b> <i>Heat in microwave. Product will cool if not eaten within seven minutes. Store product in box to keep warm.</i>"
+	storage_slots = 6
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/donkpocket,
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket,
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak,
+		/obj/item/reagent_containers/food/snacks/syndidonkpocket)
 	icon_state = "donk_kit"
 
 /obj/item/storage/box/donkpockets/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
 
+/obj/item/storage/box/donkpockets/empty/populate_contents()
+	return
+
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
 	desc = "This box feels slightly warm"
-	icon_state = "donk_kit"
+	icon_state = "donk_kit_synd"
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
 	for(var/I in 1 to 6)
@@ -609,6 +618,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
 	item_state = "matchbox"
+	base_icon_state = "matchbox"
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
@@ -626,6 +636,18 @@
 		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 	return
+
+/obj/item/storage/box/matches/update_icon_state()
+	. = ..()
+	switch(length(contents))
+		if(10)
+			icon_state = base_icon_state
+		if(5 to 9)
+			icon_state = "[base_icon_state]_almostfull"
+		if(1 to 4)
+			icon_state = "[base_icon_state]_almostempty"
+		if(0)
+			icon_state = "[base_icon_state]_e"
 
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
@@ -724,13 +746,29 @@
 	foldable = null
 	var/design = NODESIGN
 
-/obj/item/storage/box/papersack/update_icon()
-	if(!contents.len)
+/obj/item/storage/box/papersack/update_desc()
+	. = ..()
+	switch(design)
+		if(NODESIGN)
+			desc = "A sack neatly crafted out of paper."
+		if(NANOTRASEN)
+			desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
+		if(SYNDI)
+			desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
+		if(HEART)
+			desc = "A paper sack with a heart etched onto the side."
+		if(SMILE)
+			desc = "A paper sack with a crude smile etched onto the side."
+
+/obj/item/storage/box/papersack/update_icon_state()
+	item_state = "paperbag_[design]"
+	if(!length(contents))
 		icon_state = "[item_state]"
-	else icon_state = "[item_state]_closed"
+	else
+		icon_state = "[item_state]_closed"
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
@@ -746,19 +784,7 @@
 			return
 		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
 		design = switchDesign
-		icon_state = "paperbag_[design]"
-		item_state = "paperbag_[design]"
-		switch(design)
-			if(NODESIGN)
-				desc = "A sack neatly crafted out of paper."
-			if(NANOTRASEN)
-				desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
-			if(SYNDI)
-				desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
-			if(HEART)
-				desc = "A paper sack with a heart etched onto the side."
-			if(SMILE)
-				desc = "A paper sack with a crude smile etched onto the side."
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
 	else if(is_sharp(W))
 		if(!contents.len)
@@ -803,8 +829,8 @@
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
@@ -816,16 +842,31 @@
 
 /obj/item/storage/box/deathsquad/populate_contents()
 	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 	new /obj/item/ammo_box/a357(src)
 	new /obj/item/ammo_box/a357(src)
 
+/obj/item/storage/box/soviet
+	name = "boxed survival kit"
+	desc = "A standard issue Soviet military survival kit."
+	icon_state = "box_soviet"
+
+/obj/item/storage/box/soviet/populate_contents()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+
 /obj/item/storage/box/clown
 	name = "clown box"
-	desc = "A colorful cardboard box for the clown"
+	desc = "A colorful cardboard box for the clown."
 	icon_state = "box_clown"
 	var/robot_arm // This exists for bot construction
 
@@ -912,6 +953,19 @@
 	for(var/I in 1 to 3)
 		new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implanter/mindshield(src)
+
+/obj/item/storage/box/dish_drive
+	name = "DIY Dish Drive Kit"
+	desc = "Contains everything you need to build your own Dish Drive!"
+
+/obj/item/storage/box/dish_drive/populate_contents()
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	new /obj/item/circuitboard/dish_drive(src)
+	new /obj/item/stack/sheet/glass(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/screwdriver(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

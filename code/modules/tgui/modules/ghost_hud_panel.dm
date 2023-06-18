@@ -78,4 +78,4 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 		if("ahud_off")
 			ghost.antagHUD = FALSE
 			for(var/datum/atom_hud/antag/H in GLOB.huds)
-				H.add_hud_to(ghost)
+				H.remove_hud_from(ghost)

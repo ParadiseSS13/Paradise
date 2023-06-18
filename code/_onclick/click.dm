@@ -112,7 +112,7 @@
 	if(!modifiers["catcher"] && A.IsObscured())
 		return
 
-	if(istype(loc,/obj/mecha))
+	if(ismecha(loc))
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc
@@ -155,7 +155,7 @@
 		return
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
-		return
+		return TRUE
 
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
 	sdepth = A.storage_depth_turf()
@@ -223,7 +223,8 @@
 	animals lunging, etc.
 */
 /mob/proc/RangedAttack(atom/A, params)
-	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
+	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 /*
 	Restrained ClickOn
 
@@ -318,7 +319,6 @@
 
 /*
 	Alt click
-	Unused except for AI
 */
 /mob/proc/AltClickOn(atom/A)
 	A.AltClick(src)
@@ -326,10 +326,9 @@
 
 // See click_override.dm
 /mob/living/AltClickOn(atom/A)
-	if(middleClickOverride)
-		middleClickOverride.onClick(A, src)
-	else
-		..()
+	if(middleClickOverride && middleClickOverride.onClick(A, src))
+		return
+	..()
 
 /atom/proc/AltClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_ALT, user)
@@ -440,7 +439,7 @@
 
 /obj/screen/click_catcher/Click(location, control, params)
 	var/list/modifiers = params2list(params)
-	if(modifiers["middle"] && istype(usr, /mob/living/carbon))
+	if(modifiers["middle"] && iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		C.swap_hand()
 	else

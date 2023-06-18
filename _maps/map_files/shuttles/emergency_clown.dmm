@@ -73,7 +73,9 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "as" = (
-/obj/machinery/computer/robotics,
+/obj/machinery/computer/robotics{
+	dir = 4
+	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "at" = (
@@ -92,9 +94,6 @@
 	},
 /area/shuttle/escape)
 "av" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -270,7 +269,7 @@
 	},
 /area/shuttle/escape)
 "bc" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bd" = (
@@ -294,7 +293,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "be" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28
@@ -335,7 +334,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bk" = (
-/obj/machinery/vending/autodrobe,
+/obj/machinery/economy/vending/autodrobe,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bl" = (
@@ -378,6 +377,12 @@
 /area/shuttle/escape)
 "Dr" = (
 /turf/simulated/wall/indestructible/syndicate,
+/area/shuttle/escape)
+"Uo" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/noslip,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -620,7 +625,7 @@ aa
 ab
 ac
 ab
-aw
+Uo
 ab
 aD
 aD

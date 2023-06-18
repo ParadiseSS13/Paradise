@@ -10,7 +10,9 @@ LINEN BINS
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet"
 	item_state = "bedsheet"
-	layer = 4.0
+	lefthand_file = 'icons/mob/inhands/bedsheet_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/bedsheet_righthand.dmi'
+	layer = 4
 	throwforce = 1
 	throw_speed = 1
 	throw_range = 2
@@ -23,8 +25,6 @@ LINEN BINS
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5
-
-
 
 /obj/item/bedsheet/attack_self(mob/user as mob)
 	user.drop_item()
@@ -108,7 +108,7 @@ LINEN BINS
 /obj/item/bedsheet/black
 	icon_state = "sheetblack"
 	item_state = "bedsheetblack"
-	item_color = "sheetblack"
+	item_color = "black"
 	dream_messages = list("black")
 	nightmare_messages = list("the void of space")
 
@@ -180,7 +180,6 @@ LINEN BINS
 	dream_messages = list("authority", "a silvery ID", "handcuffs", "a baton", "a flashbang", "sunglasses", "the head of security")
 	nightmare_messages = list("the clown", "a toolbox", "sHiTcUrItY", "why did you put them in for 50 minutes")
 
-
 /obj/item/bedsheet/hop
 	name = "head of personnel's bedsheet"
 	desc = "It is decorated with a key emblem.  For those rare moments when you can rest and cuddle with Ian without someone screaming for you over the radio."
@@ -242,7 +241,6 @@ LINEN BINS
 	dream_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 	nightmare_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 
-
 /obj/item/bedsheet/wiz
 	name = "wizard's bedsheet"
 	desc = "A special fabric enchanted with magic so you can have an enchanted night.  It even glows!"
@@ -251,8 +249,6 @@ LINEN BINS
 	item_color = "wiz"
 	dream_messages = list("a book", "an explosion", "lightning", "a staff", "a skeleton", "a robe", "magic")
 	nightmare_messages = list("a toolbox", "solars")
-
-
 
 /obj/structure/bedsheetbin
 	name = "linen bin"
@@ -267,7 +263,7 @@ LINEN BINS
 	var/obj/item/hidden = null
 
 /obj/structure/bedsheetbin/Destroy()
-	QDEL_LIST(sheets)
+	QDEL_LIST_CONTENTS(sheets)
 	if(hidden)
 		hidden.forceMove(get_turf(src))
 		hidden = null
@@ -284,15 +280,16 @@ LINEN BINS
 		. += "There are [amount] bed sheets in the bin."
 
 
-/obj/structure/bedsheetbin/update_icon()
+/obj/structure/bedsheetbin/update_icon_state()
 	switch(amount)
 		if(0)
 			icon_state = "linenbin-empty"
-		if(1 to 10)
+		if(1 to 6)
+			icon_state = "linenbin-few"
+		if(7 to 15)
 			icon_state = "linenbin-half"
 		else
 			icon_state = "linenbin-full"
-
 
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
@@ -305,6 +302,11 @@ LINEN BINS
 	extinguish()
 	update_icon()
 
+/obj/structure/bedsheetbin/wrench_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		default_unfasten_wrench(user, I, time = 20)
+		return TRUE
+
 /obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
 		if(!user.drop_item())
@@ -313,6 +315,7 @@ LINEN BINS
 		I.forceMove(src)
 		sheets.Add(I)
 		amount++
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 		if(I.flags & ABSTRACT)
@@ -346,7 +349,7 @@ LINEN BINS
 			hidden.loc = user.loc
 			to_chat(user, "<span class='notice'>[hidden] falls out of [B]!</span>")
 			hidden = null
-
+		update_icon(UPDATE_ICON_STATE)
 
 	add_fingerprint(user)
 
@@ -365,7 +368,7 @@ LINEN BINS
 
 		B.loc = loc
 		to_chat(user, "<span class='notice'>You telekinetically remove [B] from [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 		if(hidden)
 			hidden.loc = loc

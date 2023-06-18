@@ -4,65 +4,64 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 50
+	idle_power_consumption = 2
+	active_power_consumption = 50
 
-	var/power = 1.0
-	var/code = 1.0
+	/// Throw power
+	var/power = 1
+	/// ID tag, used for buttons
 	var/id_tag = "default"
-	settagwhitelist = list("id_tag")
-	var/drive_range = 50 //this is mostly irrelevant since current mass drivers throw into space, but you could make a lower-range mass driver for interstation transport or something I guess.
+	/// This is mostly irrelevant since current mass drivers throw into space, but you could make a lower-range mass driver for interstation transport or something I guess.
+	var/drive_range = 50
 
-/obj/machinery/mass_driver/attackby(obj/item/W, mob/user as mob)
+/obj/machinery/mass_driver/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+		return
 
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
+	var/obj/machinery/mass_driver_frame/F = new (get_turf(src))
+	F.dir = dir
+	F.anchored = TRUE
+	F.build = 4
+	F.update_icon()
+	qdel(src)
 
-	if(istype(W, /obj/item/screwdriver))
-		to_chat(user, "<span class='notice'>You begin to unscrew the bolts off [src]...</span>")
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
-			F.dir = src.dir
-			F.anchored = TRUE
-			F.build = 4
-			F.update_icon()
-			qdel(src)
-		return 1
+/obj/machinery/mass_driver/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
 
-	return ..()
+	var/new_tag = clean_input("Enter a new ID tag", "ID Tag", id_tag, user)
 
-/obj/machinery/mass_driver/multitool_menu(mob/user, obj/item/multitool/P)
-	return {"
-	<ul>
-	<li>[format_tag("ID Tag","id_tag","set_id")]</li>
-	</ul>"}
+	if(new_tag && Adjacent(user))
+		id_tag = new_tag
 
 /obj/machinery/mass_driver/proc/drive(amount)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	use_power(500*power)
+
+	use_power(500 * power)
 	var/O_limit = 0
 	var/atom/target = get_edge_target_turf(src, dir)
 	for(var/atom/movable/O in loc)
-		if((!O.anchored && O.move_resist != INFINITY) || istype(O, /obj/mecha)) //Mechs need their launch platforms. Also checks if something is anchored or has move resist INFINITY, which should stop ghost flinging.
+		if((!O.anchored && O.move_resist != INFINITY) || ismecha(O)) //Mechs need their launch platforms. Also checks if something is anchored or has move resist INFINITY, which should stop ghost flinging.
 			O_limit++
+
 			if(O_limit >= 20)//so no more than 20 items are sent at a time, probably for counter-lag purposes
 				break
+
 			use_power(500)
-			spawn()
-				var/coef = 1
-				if(emagged)
-					coef = 5
-				O.throw_at(target, drive_range * power * coef, power * coef)
+			var/coef = 1
+			if(emagged)
+				coef = 5
+			INVOKE_ASYNC(O, TYPE_PROC_REF(/atom/movable, throw_at), target, (drive_range * power * coef), (power * coef))
+
 	flick("mass_driver1", src)
-	return
 
 /obj/machinery/mass_driver/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
 	drive()
 	..(severity)
 
@@ -70,22 +69,8 @@
 	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "You hack the Mass Driver, radically increasing the force at which it'll throw things. Better not stand in its way.")
-		return 1
-	return -1
+		return TRUE
 
-////////////////MASS BUMPER///////////////////
-
-/obj/machinery/mass_driver/bumper
-	name = "mass bumper"
-	desc = "Now you're here, now you're over there."
-	density = TRUE
-
-/obj/machinery/mass_driver/bumper/Bumped(M as mob|obj)
-	density = FALSE
-	step(M, get_dir(M,src))
-	spawn(1)
-		density = TRUE
-	drive()
 	return
 
 ////////////////MASS DRIVER FRAME///////////////////
@@ -108,8 +93,9 @@
 					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
 					anchored = TRUE
 					build++
-				return 1
-			return
+				return TRUE
+			return FALSE
+
 		if(1) // Fixed to the floor
 			if(istype(W, /obj/item/wrench))
 				to_chat(user, "You begin to de-anchor \the [src] from the floor.")
@@ -118,7 +104,9 @@
 					build--
 					anchored = FALSE
 					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
-				return 1
+				return TRUE
+			return FALSE
+
 		if(2) // Welded to the floor
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = W
@@ -128,7 +116,9 @@
 					C.use(2)
 					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
 					build++
-			return
+				return TRUE
+			return FALSE
+
 		if(3) // Wired
 			if(istype(W, /obj/item/wirecutters))
 				to_chat(user, "You begin to remove the wiring from \the [src].")
@@ -137,7 +127,8 @@
 					playsound(get_turf(src), W.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
 					build--
-				return 1
+				return TRUE
+
 			if(istype(W, /obj/item/stack/rods))
 				var/obj/item/stack/rods/R = W
 				to_chat(user, "You begin to complete \the [src]...")
@@ -146,8 +137,10 @@
 					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					build++
-				return 1
-			return
+				return TRUE
+
+			return FALSE
+
 		if(4) // Grille in place
 			if(istype(W, /obj/item/crowbar))
 				to_chat(user, "You begin to pry off the grille from \the [src]...")
@@ -155,34 +148,44 @@
 				if(do_after(user, 30 * W.toolspeed, target = src) && (build == 4))
 					new /obj/item/stack/rods(loc,2)
 					build--
-				return 1
-			if(istype(W, /obj/item/screwdriver))
-				to_chat(user, "You finalize the Mass Driver...")
-				playsound(get_turf(src), W.usesound, 50, 1)
-				var/obj/machinery/mass_driver/M = new(get_turf(src))
-				M.dir = src.dir
-				qdel(src)
-				return 1
-			return
+				return TRUE
+			return FALSE
+
 	return ..()
+
+/obj/machinery/mass_driver_frame/screwdriver_act(mob/living/user, obj/item/I)
+	if(build != 4)
+		return
+
+	to_chat(user, "<span class='notice'>You finalize the Mass Driver.</span>")
+	I.play_tool_sound(src)
+	var/obj/machinery/mass_driver/M = new(get_turf(src))
+	M.dir = dir
+	qdel(src)
+	return TRUE
 
 /obj/machinery/mass_driver_frame/welder_act(mob/user, obj/item/I)
 	if(build != 0 && build != 1 && build != 2)
 		return
+
 	. = TRUE
+
 	if(!I.tool_use_check(user, 0))
 		return
+
 	if(build == 0) //can deconstruct
 		WELDER_ATTEMPT_SLICING_MESSAGE
 		if(I.use_tool(src, user, 30, volume = I.tool_volume))
 			WELDER_SLICING_SUCCESS_MESSAGE
 			new /obj/item/stack/sheet/plasteel(drop_location(),3)
 			qdel(src)
+
 	else if(build == 1) //wrenched but not welded down
 		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
 		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 1)
 			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 			build = 2
+
 	else if(build == 2) //welded down
 		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 2)
@@ -194,8 +197,7 @@
 	set name = "Rotate Frame"
 	set src in view(1)
 
-	if( usr.stat || usr.restrained()  || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
+	if(usr.stat || usr.restrained()  || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
 		return
 
-	src.dir = turn(src.dir, -90)
-	return
+	dir = turn(dir, -90)

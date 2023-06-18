@@ -2,7 +2,7 @@
 	name = "Mimic"
 	desc =  "Learn a new form to mimic or become one of your known forms"
 	clothes_req = FALSE
-	charge_max = 3 SECONDS
+	base_cooldown = 3 SECONDS
 	action_icon_state = "genetic_morph"
 	selection_activated_message = "<span class='sinister'>Click on a target to remember it's form. Click on yourself to change form.</span>"
 	create_attack_logs = FALSE
@@ -18,8 +18,19 @@
 	/// If a message is shown when somebody examines the user from close range
 	var/perfect_disguise = FALSE
 
-	var/static/list/black_listed_form_types = list(/obj/screen, /obj/singularity, /obj/effect, /mob/living/simple_animal/hostile/megafauna, /atom/movable/lighting_object, /obj/machinery/dna_vault,
-													/obj/machinery/power/bluespace_tap, /obj/structure/sign/barsign, /obj/machinery/atmospherics/unary/cryo_cell)
+	var/static/list/black_listed_form_types = list(
+		/obj/screen,
+		/obj/singularity,
+		/obj/effect,
+		/mob/living/simple_animal/hostile/megafauna,
+		/atom/movable/lighting_object,
+		/obj/machinery/dna_vault,
+		/obj/machinery/power/bluespace_tap,
+		/obj/structure/sign/barsign,
+		/obj/machinery/atmospherics/unary/cryo_cell,
+		/obj/machinery/gravity_generator
+	)
+
 
 /obj/effect/proc_holder/spell/mimic/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -36,17 +47,17 @@
 		var/atom/movable/AM = target
 		if(AM.bound_height > world.icon_size || AM.bound_width > world.icon_size)
 			return FALSE // No multitile structures
-	if(user != target && istype(target, /mob/living/simple_animal/hostile/morph))
+	if(user != target && ismorph(target))
 		return FALSE
 	return ..()
 
 /obj/effect/proc_holder/spell/mimic/cast(list/targets, mob/user)
 	var/atom/movable/A = targets[1]
 	if(A == user)
-		INVOKE_ASYNC(src, .proc/pick_form, user)
+		INVOKE_ASYNC(src, PROC_REF(pick_form), user)
 		return
 
-	INVOKE_ASYNC(src, .proc/remember_form, A, user)
+	INVOKE_ASYNC(src, PROC_REF(remember_form), A, user)
 
 /obj/effect/proc_holder/spell/mimic/proc/remember_form(atom/movable/A, mob/user)
 	if(A.name in available_forms)
@@ -116,8 +127,8 @@
 	user.create_log(MISC_LOG, "Mimicked into [user]")
 
 	if(!selected_form)
-		RegisterSignal(user, COMSIG_PARENT_EXAMINE, .proc/examine_override)
-		RegisterSignal(user, COMSIG_MOB_DEATH, .proc/on_death)
+		RegisterSignal(user, COMSIG_PARENT_EXAMINE, PROC_REF(examine_override))
+		RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
 	selected_form = form
 
@@ -186,7 +197,7 @@
 	return H
 
 /obj/effect/proc_holder/spell/mimic/morph/valid_target(atom/target, user)
-	if(target != user && istype(target, /mob/living/simple_animal/hostile/morph))
+	if(target != user && ismorph(target))
 		return FALSE
 	return ..()
 

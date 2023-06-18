@@ -10,7 +10,7 @@
 	selection_color = "#ffdddd"
 	access = list()
 	minimal_access = list()
-	admin_only = 1
+	admin_only = TRUE
 	outfit = /datum/outfit/job/ntnavyofficer
 
 /datum/job/ntnavyofficer/get_access()
@@ -59,7 +59,7 @@
 	selection_color = "#ffdddd"
 	access = list()
 	minimal_access = list()
-	admin_only = 1
+	admin_only = TRUE
 	spawn_ert = 1
 	outfit = /datum/outfit/job/ntspecops
 
@@ -94,7 +94,7 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/eyes/cybernetic/xray/hardened,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)

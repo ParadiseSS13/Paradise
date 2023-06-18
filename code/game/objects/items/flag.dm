@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_integrity = 40
 	resistance_flags = FLAMMABLE
+	custom_fire_overlay = "fire"
 	var/rolled = FALSE
 
 /obj/item/flag/attackby(obj/item/W, mob/user, params)
@@ -29,18 +30,16 @@
 	..()
 	update_icon()
 
-/obj/item/flag/update_icon()
-	overlays.Cut()
+/obj/item/flag/update_icon_state()
 	updateFlagIcon()
 	item_state = icon_state
 	if(rolled)
 		icon_state = "[icon_state]_rolled"
+		custom_fire_overlay = "fire_rolled"
+	else
+		custom_fire_overlay = initial(custom_fire_overlay)
 	if(resistance_flags & ON_FIRE)
 		item_state = "[item_state]_fire"
-	if((resistance_flags & ON_FIRE) && rolled)
-		overlays += image('icons/obj/flag.dmi', src , "fire_rolled")
-	else if((resistance_flags & ON_FIRE) && !rolled)
-		overlays += image('icons/obj/flag.dmi', src , "fire")
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_r_hand()
@@ -196,6 +195,16 @@
 	desc = "A flag proudly boasting the logo of the cultists, sworn enemies of NT."
 	icon_state = "cultflag"
 
+/obj/item/flag/ussp
+	name = "\improper USSP flag"
+	desc = "A flag proudly boasting the logo of the USSP, a noticeable faction in the galaxy."
+	icon_state = "usspflag"
+
+/obj/item/flag/solgov
+	name = "\improper Trans-Solar Federation flag"
+	desc = "A flag proudly boasting the logo of the SolGov, allied to NT government originated from Earth."
+	icon_state = "solgovflag"
+
 //Chameleon
 
 /obj/item/flag/chameleon
@@ -274,7 +283,7 @@
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)
 		fire_act()
-		addtimer(CALLBACK(src, .proc/prime_boobytrap), boobytrap.det_time)
+		addtimer(CALLBACK(src, PROC_REF(prime_boobytrap)), boobytrap.det_time)
 	else
 		..()
 

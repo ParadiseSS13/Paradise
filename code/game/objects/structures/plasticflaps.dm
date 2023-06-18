@@ -6,7 +6,7 @@
 	density = FALSE
 	anchored = TRUE
 	layer = 4
-	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100, fire = 50, acid = 50)
+	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, rad = 100, fire = 50, acid = 50)
 	var/state = PLASTIC_FLAPS_NORMAL
 
 /obj/structure/plasticflaps/examine(mob/user)
@@ -76,7 +76,7 @@
 	return ..()
 
 
-/obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
+/obj/structure/plasticflaps/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	if(isliving(caller))
 		if(isbot(caller))
 			return TRUE
@@ -86,7 +86,7 @@
 			return FALSE
 	var/atom/movable/M = caller
 	if(M && M.pulling)
-		return CanAStarPass(ID, to_dir, M.pulling)
+		return CanPathfindPass(ID, to_dir, M.pulling)
 	return TRUE //diseases, stings, etc can pass
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)

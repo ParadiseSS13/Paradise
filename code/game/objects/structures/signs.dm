@@ -5,9 +5,25 @@
 	density = FALSE
 	layer = 3.5
 	max_integrity = 100
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	var/does_emissive = FALSE
+
+/obj/structure/sign/Initialize(mapload)
+	. = ..()
+	if(does_emissive)
+		update_icon()
+		set_light(1, LIGHTING_MINIMUM_POWER)
+
+/obj/structure/sign/update_overlays()
+	. = ..()
+
+	underlays.Cut()
+	if(!does_emissive)
+		return
+
+	underlays += emissive_appearance(icon,"[icon_state]_lightmask")
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -35,7 +51,6 @@
 	S.sign_state = icon_state
 	qdel(src)
 
-
 /obj/item/sign
 	name = "sign"
 	desc = ""
@@ -44,32 +59,34 @@
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
-/obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
-	if(istype(tool, /obj/item/screwdriver) && isturf(user.loc))
-		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
-		if(direction == "Cancel")
-			return
-		if(QDELETED(src))
-			return
-		var/obj/structure/sign/S = new(user.loc)
-		switch(direction)
-			if("North")
-				S.pixel_y = 32
-			if("East")
-				S.pixel_x = 32
-			if("South")
-				S.pixel_y = -32
-			if("West")
-				S.pixel_x = -32
-			else
-				return
-		S.name = name
-		S.desc = desc
-		S.icon_state = sign_state
-		to_chat(user, "You fasten \the [S] with your [tool].")
-		qdel(src)
-	else
-		return ..()
+/obj/item/sign/screwdriver_act(mob/living/user, obj/item/I)
+	if(!isturf(user.loc)) // Why does this use user? This should just be loc.
+		return
+
+	var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
+	if(direction == "Cancel")
+		return TRUE // These gotta be true or we stab the sign
+	if(QDELETED(src))
+		return TRUE // Unsure about this, but stabbing something that doesnt exist seems like a bad idea
+
+	var/obj/structure/sign/S = new(user.loc) //This is really awkward to use user.loc
+	switch(direction)
+		if("North")
+			S.pixel_y = 32
+		if("East")
+			S.pixel_x = 32
+		if("South")
+			S.pixel_y = -32
+		if("West")
+			S.pixel_x = -32
+		else
+			return TRUE // We dont want to stab it or place it, so we return
+	S.name = name
+	S.desc = desc
+	S.icon_state = sign_state
+	to_chat(user, "<span class='notice'>You fasten [S] with your [I].</span>")
+	qdel(src)
+	return TRUE
 
 /obj/structure/sign/double/map
 	name = "station map"
@@ -86,6 +103,11 @@
 	name = "\improper SECURE AREA"
 	desc = "A warning sign which reads 'SECURE AREA'"
 	icon_state = "securearea"
+
+/obj/structure/sign/monkey_paint
+	name = "Mr. Deempisi portrait"
+	desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste...You were delicious."
+	icon_state = "monkey_painting"
 
 /obj/structure/sign/biohazard
 	name = "\improper BIOHAZARD"
@@ -169,10 +191,26 @@
 	desc = "To be Robust is not an action or a way of life, but a mental state. Only those with the force of Will strong enough to act during a crisis, saving friend from foe, are truly Robust. Stay Robust my friends."
 	icon_state = "goldenplaque"
 
+/obj/structure/sign/goldenplaque/medical
+	name = "The Hippocratic Award for Excellence in Medicine"
+	desc = "A golden plaque commemorating excellence in medical care. God only knows how this ended up in this medbay."
+
 /obj/structure/sign/kiddieplaque
 	name = "AI developers plaque"
 	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child's eyes are crossed, and is drooling. Beneath the image, someone has scratched the word \"PACKETS\"."
 	icon_state = "kiddieplaque"
+
+/obj/structure/sign/kiddieplaque/remembrance
+	name = "Remembrance Plaque"
+	desc = "A plaque commemorating the fallen, may they rest in peace, forever asleep amongst the stars. Someone has drawn a picture of a crying badger at the bottom."
+
+/obj/structure/sign/kiddieplaque/perfect_man
+	name = "\improper 'Perfect Man' sign"
+	desc = "A guide to the exhibit, explaining how recent developments in mindshield implant and cloning technologies by Nanotrasen Corporation have led to the development and the effective immortality of the 'perfect man', the loyal Nanotrasen Employee."
+
+/obj/structure/sign/kiddieplaque/perfect_drone
+	name = "\improper 'Perfect Drone' sign"
+	desc = "A guide to the drone shell dispenser, detailing the constructive and destructive applications of modern repair drones, as well as the development of the incorruptible cyborg servants of tomorrow, available today."
 
 /obj/structure/sign/atmosplaque
 	name = "\improper ZAS Atmospherics Division plaque"
@@ -186,12 +224,12 @@
 
 /obj/structure/sign/mech
 	name = "\improper mech painting"
-	desc = "A painting of a mech"
+	desc = "A painting of a mech."
 	icon_state = "mech"
 
 /obj/structure/sign/nuke
 	name = "\improper nuke painting"
-	desc = "A painting of a nuke"
+	desc = "A painting of a nuke."
 	icon_state = "nuke"
 
 /obj/structure/sign/clown
@@ -213,11 +251,15 @@
 	name = "\improper barber shop sign"
 	desc = "A spinning sign indicating a barbershop is near."
 	icon_state = "barber"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
 
 /obj/structure/sign/chinese
 	name = "\improper chinese restaurant sign"
 	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
 
 /obj/structure/sign/science
 	name = "\improper SCIENCE!"
@@ -315,7 +357,7 @@
 	icon_state = "direction_evac"
 
 /obj/structure/sign/directions/cargo
-	desc = "A direction sign, pointing out which way the Cargo Department is."
+	desc = "A direction sign, pointing out which way the Supply Department is."
 	icon_state = "direction_supply"
 
 /obj/structure/sign/explosives

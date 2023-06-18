@@ -353,7 +353,7 @@
 /turf/simulated/floor/mineral/silver,
 /area/ruin/powered/snow_biodome)
 "AM" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "BF" = (

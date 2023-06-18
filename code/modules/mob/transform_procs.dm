@@ -1,10 +1,10 @@
 /mob/living/carbon/human/proc/monkeyize()
 	var/mob/H = src
-	H.dna.SetSEState(GLOB.monkeyblock,1)
+	H.dna.SetSEState(GLOB.monkeyblock, 1)
 	singlemutcheck(H, GLOB.monkeyblock, MUTCHK_FORCED)
 
 /mob/new_player/AIize()
-	spawning = 1
+	spawning = TRUE
 	return ..()
 
 /mob/living/carbon/AIize()
@@ -35,9 +35,9 @@
 
 	O.add_ai_verbs()
 
-	O.rename_self("AI",1)
+	O.rename_self("AI", TRUE)
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src) // To prevent the proc from returning null. Todo: Convert to QDEL_IN
 	return O
 
 
@@ -107,9 +107,10 @@
 
 	O.update_pipe_vision()
 
+	O.check_custom_sprite()
 	O.Namepick()
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src) // To prevent the proc from returning null. Todo: Convert to QDEL_IN
 	return O
 
 //human -> alien
@@ -259,4 +260,35 @@
 
 	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
 	pai.update_pipe_vision()
+	qdel(src)
+
+/mob/living/carbon/proc/gorillize(rage = FALSE)
+	if(notransform)
+		return
+
+	if(stat == DEAD)
+		return
+
+	for(var/obj/item/W in src)
+		unEquip(W)
+
+	regenerate_icons()
+	notransform = TRUE
+	icon = null
+	invisibility = INVISIBILITY_MAXIMUM
+	visible_message("<span class='warning'>[src] transforms into a gorilla!</span>", "<span class='warning'>You transform into a gorilla! Ooga ooga!</span>", "<span class='warning'>You hear a loud roar!</span>")
+	var/mob/living/simple_animal/hostile/gorilla/new_gorilla
+	if(rage)
+		var/mob/living/simple_animal/hostile/gorilla/rampaging/rampaging_gorilla = new (get_turf(src))
+		new_gorilla = rampaging_gorilla
+	else
+		new_gorilla = new (get_turf(src))
+
+	playsound(new_gorilla, 'sound/creatures/gorilla.ogg', 50)
+
+	if(mind)
+		mind.transfer_to(new_gorilla)
+	else
+		new_gorilla.key = key
+
 	qdel(src)

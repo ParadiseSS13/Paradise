@@ -21,7 +21,7 @@
 	if(!ckey)
 		return
 
-	var/datum/callback/cb = CALLBACK(src, /datum/admins/.proc/ccbdb_lookup_callback, usr, ckey)
+	var/datum/callback/cb = CALLBACK(src, TYPE_PROC_REF(/datum/admins, ccbdb_lookup_callback), usr, ckey)
 	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "[GLOB.configuration.url.centcom_ban_db_url][ckey]", proc_callback=cb)
 
 /**

@@ -26,13 +26,15 @@
 	del_on_death = TRUE
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
+	/// The body/brain of the player inside this construct, transferred over from the soulstone.
+	var/mob/living/held_body
 	var/list/construct_spells = list()
 	/// Is this a holy/purified construct?
 	var/holy = FALSE
 	/// Message to send to the construct when they are created, containing information about their role.
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 
-/mob/living/simple_animal/hostile/construct/New()
+/mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
 	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		name = "[construct_type] ([rand(1, 1000)])"
@@ -50,9 +52,34 @@
 
 	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
+/mob/living/simple_animal/hostile/construct/Destroy()
+	remove_held_body()
+	return ..()
+
 /mob/living/simple_animal/hostile/construct/death(gibbed)
+	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
+	if(held_body) // Null check for empty bodies
+		held_body.forceMove(get_turf(src))
+		SSticker.mode.add_cult_immunity(held_body)
+		if(ismob(held_body)) // Check if the held_body is a mob
+			held_body.key = key
+		else if(istype(held_body, /obj/item/organ/internal/brain)) // Check if the held_body is a brain
+			var/obj/item/organ/internal/brain/brain = held_body
+			if(brain.brainmob) // Check if the brain has a brainmob
+				brain.brainmob.key = key // Set the key to the brainmob
+				brain.brainmob.mind.transfer_to(brain.brainmob) // Transfer the mind to the brainmob
+		held_body.cancel_camera()
+	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
+	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	. = ..()
-	SSticker.mode.remove_cultist(mind, FALSE)
+
+/mob/living/simple_animal/hostile/construct/proc/add_held_body(atom/movable/body)
+	held_body = body
+	RegisterSignal(body, COMSIG_PARENT_QDELETING, PROC_REF(remove_held_body))
+
+/mob/living/simple_animal/hostile/construct/proc/remove_held_body()
+	SIGNAL_HANDLER
+	held_body = null
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
@@ -76,10 +103,10 @@
 			if(src != M)
 				Beam(M,icon_state="sendbeam",time=4)
 				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
-						   "<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
+						"<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
 			else
 				M.visible_message("<span class='danger'>[M] repairs some of its own dents.</span>", \
-						   "<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
+						"<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
 		else
 			if(src != M)
 				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
@@ -130,10 +157,10 @@
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
 	move_resist = MOVE_FORCE_STRONG
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/build/lesserforcewall)
+	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
-						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</b>"
+						create shield walls, rip apart enemies and walls.</b>"
 
 /mob/living/simple_animal/hostile/construct/armoured/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -141,20 +168,11 @@
 
 /mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/item/projectile/P)
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
-		var/reflectchance = 80 - round(P.damage/3)
-		if(prob(reflectchance))
-			if((P.damage_type == BRUTE || P.damage_type == BURN))
-				adjustBruteLoss(P.damage * 0.5)
-			visible_message("<span class='danger'>[P] gets reflected by [src]'s shell!</span>", \
-							"<span class='userdanger'>[P] gets reflected by [src]'s shell!</span>")
-
-			P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
-
-			return -1 // complete projectile permutation
-
-	return (..(P))
-
-
+		if(P.damage_type == BRUTE || P.damage_type == BURN)
+			adjustBruteLoss(P.damage * 0.6) // 21 hit with security laser gun
+			P.on_hit(src)
+			return FALSE
+	return ..()
 
 ////////////////////////Wraith/////////////////////////////////////////////
 
@@ -205,11 +223,11 @@
 	construct_type = "builder"
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
 							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/floor,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/pylon,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone)
+							/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/pylon,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
@@ -298,17 +316,17 @@
 	desc = "A harbinger of enlightenment. It'll be all over soon."
 	icon_state = "harvester"
 	icon_living = "harvester"
-	maxHealth = 60
-	health = 60
-	melee_damage_lower = 1
-	melee_damage_upper = 5
+	maxHealth = 40
+	health = 40
+	melee_damage_lower = 20
+	melee_damage_upper = 25
 	attacktext = "prods"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/floor,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
 							/obj/effect/proc_holder/spell/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \

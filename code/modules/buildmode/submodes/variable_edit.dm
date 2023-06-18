@@ -45,7 +45,7 @@
 			to_chat(user, "<span class='warning'>[initial(object.name)] does not have a var called '[varholder]'</span>")
 	if(right_click)
 		if(object.vars.Find(varholder))
-			var/reset_value = object.vars[varholder] // Can't use initial() on a list index so just hope for the best I guess
+			var/reset_value = initial(object.vars[varholder])
 			if(!object.vv_edit_var(varholder, reset_value))
 				to_chat(user, "<span class='warning'>Your edit was rejected by [object].</span>")
 				return

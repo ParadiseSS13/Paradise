@@ -32,7 +32,7 @@
 
 /obj/item/organ/internal/regenerative_core/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/inert_check), 2400)
+	addtimer(CALLBACK(src, PROC_REF(inert_check)), 2400)
 
 /obj/item/organ/internal/regenerative_core/proc/inert_check()
 	if(!preserved)
@@ -120,11 +120,13 @@
 	. = ..()
 	update_icon()
 
-/obj/item/organ/internal/regenerative_core/legion/update_icon()
+/obj/item/organ/internal/regenerative_core/legion/update_icon_state()
 	icon_state = inert ? "legion_soul_inert" : "legion_soul"
-	cut_overlays()
+
+/obj/item/organ/internal/regenerative_core/legion/update_overlays()
+	. = ..()
 	if(!inert && !preserved)
-		add_overlay("legion_soul_crackle")
+		. += "legion_soul_crackle"
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()

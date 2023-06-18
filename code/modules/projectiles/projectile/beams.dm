@@ -17,6 +17,17 @@
 
 /obj/item/projectile/beam/laser
 
+
+/obj/item/projectile/beam/laser/ik
+
+/obj/item/projectile/beam/laser/ik/emp_act(severity)
+	if(prob(40 / severity))
+		range = 0
+
+/obj/item/projectile/beam/laser/ik/on_range() //Should spark out of the gun. Theoretically, one could emp projectiles out of the air. However, its more practical to EMP the guns, rather than projectiles in flight
+	do_sparks(1, 1, src)
+	..()
+
 /obj/item/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
@@ -39,7 +50,7 @@
 	damage = 15
 	tile_dropoff = 0.75
 	irradiate = 30
-	forcedodge = 1
+	forcedodge = -1
 	range = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
@@ -63,7 +74,7 @@
 	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
-	if(istype(target,/turf/)||istype(target,/obj/structure/))
+	if(isturf(target) || isstructure(target))
 		target.ex_act(2)
 	..()
 
@@ -141,6 +152,7 @@
 	name = "instagib laser"
 	icon_state = "purple_laser"
 	damage = 200
+	armour_penetration_percentage = 100
 	damage_type = BURN
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PURPLE
@@ -227,3 +239,15 @@
 		to_chat(firer, "<span class='danger'>Weapon Alert: unable to generate warrant on [target]!</span>")
 		return
 	to_chat(firer, "<span class='danger'>Weapon Alert: unable to track [target]!</span>")
+
+/obj/item/projectile/beam/silencer
+	name = "energy beam" //Keep it vague? It's not a laser, but it's silenced, does a person know what it is?
+	icon_state = "omnilaser"
+	stamina = 30
+	damage = 15
+	damage_type = OXY
+	flag = "energy"
+	hitsound = 'sound/weapons/tap.ogg'
+	eyeblur = 0
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_CYAN

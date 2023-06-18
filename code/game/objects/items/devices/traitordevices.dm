@@ -1,98 +1,11 @@
-/*
-		The radioactive microlaser, a device disguised as a health analyzer used to irradiate people.
-
-		The strength of the radiation is determined by the 'intensity' setting, while the delay between
-	the scan and the irradiation kicking in is determined by the wavelength.
-
-		Each scan will cause the microlaser to have a brief cooldown period. Higher intensity will increase
-	the cooldown, while higher wavelength will decrease it.
-
-		Wavelength is also slightly increased by the intensity as well.
-*/
-
-/obj/item/rad_laser
-	name = "health analyzer"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "health2"
-	item_state = "healthanalyzer"
-	belt_icon = "health_analyzer"
-	desc = "A hand-held body scanner able to distinguish vital signs of the subject. A strange microlaser is hooked on to the scanning end."
-	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_BELT
-	throwforce = 3
-	w_class = WEIGHT_CLASS_TINY
-	throw_speed = 3
-	throw_range = 7
-	materials = list(MAT_METAL=400)
-	origin_tech = "magnets=3;biotech=5;syndicate=3"
-	var/intensity = 5 // how much damage the radiation does
-	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
-	var/used = FALSE // is it cooling down?
-
-/obj/item/rad_laser/attack(mob/living/M, mob/living/user)
-	if(!used)
-		add_attack_logs(user, M, "Irradiated by [src]")
-		user.visible_message("<span class='notice'>[user] analyzes [M]'s vitals.</span>")
-		var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
-		used = TRUE
-		icon_state = "health1"
-		handle_cooldown(cooldown) // splits off to handle the cooldown while handling wavelength
-		spawn((wavelength+(intensity*4))*10)
-			if(M)
-				if(intensity >= 5)
-					M.Paralyse(intensity * 40/3)
-				M.rad_act(intensity * 10)
-	else
-		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
-
-/obj/item/rad_laser/proc/handle_cooldown(cooldown)
-	spawn(cooldown)
-		used = FALSE
-		icon_state = "health2"
-
-/obj/item/rad_laser/attack_self(mob/user)
-	..()
-	interact(user)
-
-/obj/item/rad_laser/interact(mob/user)
-	user.set_machine(src)
-
-	var/cooldown = round(max(10,((intensity*8)-(wavelength/2))+(intensity*2)))
-	var/dat = {"
-	Radiation Intensity: <A href='?src=[UID()];radint=-5'>-</A><A href='?src=[UID()];radint=-1'>-</A> [intensity] <A href='?src=[UID()];radint=1'>+</A><A href='?src=[UID()];radint=5'>+</A><BR>
-	Radiation Wavelength: <A href='?src=[UID()];radwav=-5'>-</A><A href='?src=[UID()];radwav=-1'>-</A> [(wavelength+(intensity*4))] <A href='?src=[UID()];radwav=1'>+</A><A href='?src=[UID()];radwav=5'>+</A><BR>
-	Laser Cooldown: [cooldown] Seconds<BR>
-	"}
-
-	var/datum/browser/popup = new(user, "radlaser", "Radioactive Microlaser Interface", 400, 240)
-	popup.set_content(dat)
-	popup.open()
-
-/obj/item/rad_laser/Topic(href, href_list)
-	if(..())
-		return 1
-
-	usr.set_machine(src)
-
-	if(href_list["radint"])
-		var/amount = text2num(href_list["radint"])
-		amount += intensity
-		intensity = max(1,(min(10,amount)))
-
-	else if(href_list["radwav"])
-		var/amount = text2num(href_list["radwav"])
-		amount += wavelength
-		wavelength = max(1,(min(120,amount)))
-
-	attack_self(usr)
-	add_fingerprint(usr)
-	return
-
 /obj/item/jammer
 	name = "radio jammer"
-	desc = "Device used to disrupt nearby radio communication."
+	desc = "Fog of war that fits your pocket. Flicking the switch and extending the antenna will scramble nearby radio comms, making outgoing messages hard to understand."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
+	item_state = "jammer"
+	w_class = WEIGHT_CLASS_TINY
+	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
 	var/active = FALSE
 	var/range = 12
 
@@ -100,17 +13,26 @@
 	GLOB.active_jammers -= src
 	return ..()
 
+/obj/item/jammer/update_icon_state()
+	if(active)
+		icon_state = "[initial(icon_state)]-on"
+	else
+		icon_state = "[initial(icon_state)]"
+
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You [active ? "deactivate" : "activate"] [src].</span>")
+	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."] </span>")
 	active = !active
+	update_icon(UPDATE_ICON_STATE)
 	if(active)
 		GLOB.active_jammers |= src
 	else
 		GLOB.active_jammers -= src
+	for(var/datum/action/item_action/toggle_radio_jammer/A in actions)
+		A.UpdateButtonIcon()
 
 /obj/item/teleporter
 	name = "syndicate teleporter"
-	desc = "A strange syndicate version of a cult veil shifter. Warrenty voided if exposed to EMP."
+	desc = "A strange syndicate version of a cult veil shifter. Warranty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-tele"
 	throwforce = 5
@@ -149,7 +71,7 @@
 /obj/item/teleporter/emp_act(severity)
 	var/teleported_something = FALSE
 	if(prob(50 / severity))
-		if(istype(loc, /mob/living/carbon/human))
+		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='userdanger'>[src] buzzes and activates!</span>")
 			attempt_teleport(user, TRUE)
@@ -215,7 +137,7 @@
 		to_chat(M, "<span class='danger'>[src] will not work here!</span>")
 
 /obj/item/teleporter/proc/tile_check(turf/T)
-	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space))
+	if(isfloorturf(T) || isspaceturf(T))
 		return TRUE
 
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first
@@ -307,19 +229,22 @@
 	<b>Warning:</b> Teleporting into walls will activate a failsafe teleport parallel up to 3 meters, but the user will be ripped apart and gibbed in a wall if it fails.<br>
 	<br>
 	Do not expose the teleporter to electromagnetic pulses or attempt to use with a bag of holding, unwanted malfunctions may occur.
+	<br><hr>
+	<font size =\"1\">Comes with free chameleon mesons, to help you stay stylish while seeing through walls.</font>
 "}
 /obj/item/storage/box/syndie_kit/teleporter
 	name = "syndicate teleporter kit"
 
 /obj/item/storage/box/syndie_kit/teleporter/populate_contents()
 	new /obj/item/teleporter(src)
+	new /obj/item/clothing/glasses/meson/chameleon(src)
 	new /obj/item/paper/teleporter(src)
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
 
 /obj/item/teleporter/admin
-	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better saftey protocols."
+	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better safety protocols."
 	charges = 8
 	max_charges = 8
 	flawless = TRUE

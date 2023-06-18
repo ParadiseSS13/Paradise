@@ -112,7 +112,7 @@
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
 	for(var/obj/item/I in user.contents) //searchs the inventory of the mob
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				if(SI.tool_behaviour) //filters for tool behaviours
 					possible_tools += SI
@@ -137,7 +137,7 @@
 		return TRUE
 	var/list/other_possible_tools = list()
 	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				other_possible_tools += SI.type	// filters type paths
 		other_possible_tools += I.type
@@ -247,7 +247,12 @@
 
 		else
 			for(var/i in 1 to needed_amount)
-				var/atom/movable/part_atom = locate(thing) in (surroundings - parts_used)
+				var/atom/movable/part_atom
+				for(var/atom/movable/candidate as anything in (surroundings - parts_used))
+					if(istype(candidate, thing) && !is_type_in_list(candidate, recipe.blacklist))
+						part_atom = candidate
+						break
+
 				if(!part_atom)
 					stack_trace("While crafting [recipe], the [thing] went missing!")
 					continue
@@ -278,7 +283,7 @@
 				stack_trace("Part [part_path] went missing")
 			parts_returned += part
 			parts_used -= part
-	QDEL_LIST(parts_used)
+	QDEL_LIST_CONTENTS(parts_used)
 
 	return parts_returned
 

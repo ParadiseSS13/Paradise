@@ -33,6 +33,9 @@
 /datum/proc/p_theyre(capitalized, temp_gender)
 	. = p_they(capitalized, temp_gender) + "'" + copytext(p_are(temp_gender), 2)
 
+/datum/proc/p_themselves(capitalized, temp_gender)
+	. = "itself"
+
 // For help conjugating verbs, eg they look, but she looks
 /datum/proc/p_s(temp_gender)
 	. = "s"
@@ -76,6 +79,18 @@
 			. = "her"
 		if(MALE)
 			. = "him"
+	if(capitalized)
+		. = capitalize(.)
+
+/client/p_themselves(capitalized, temp_gender)
+	if(!temp_gender)
+		temp_gender = gender
+	. = p_them(capitalized, temp_gender)
+	switch(temp_gender)
+		if(MALE, FEMALE)
+			. += "self"
+		if(NEUTER, PLURAL)
+			. += "selves"
 	if(capitalized)
 		. = capitalize(.)
 
@@ -156,6 +171,18 @@
 	if(capitalized)
 		. = capitalize(.)
 
+/mob/p_themselves(capitalized, temp_gender)
+	if(!temp_gender)
+		temp_gender = gender
+	. = p_them(capitalized, temp_gender)
+	switch(temp_gender)
+		if(MALE, FEMALE, NEUTER)
+			. += "self"
+		if(PLURAL)
+			. += "selves"
+	if(capitalized)
+		. = capitalize(.)
+
 /mob/p_have(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
@@ -200,6 +227,10 @@
 	return ..()
 
 /mob/living/carbon/human/p_them(capitalized, temp_gender)
+	temp_gender = get_visible_gender()
+	return ..()
+
+/mob/living/carbon/human/p_themselves(capitalized, temp_gender)
 	temp_gender = get_visible_gender()
 	return ..()
 

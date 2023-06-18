@@ -43,7 +43,7 @@ Notes:
 /datum/tooltip/New(client/C)
 	if(C)
 		owner = C
-		owner << browse(file2text(file), "window=[control]")
+		owner << browse(wrap_file2text(file), "window=[control]")
 
 	..()
 
@@ -70,7 +70,8 @@ Notes:
 	params = {"{ "cursor": "[params]", "screenLoc": "[thing.screen_loc]" }"}
 
 	//Send stuff to the tooltip
-	owner << output(list2params(list(params, owner.view, "[title][content]", theme, special)), "[control]:tooltip.update")
+	var/view_size = getviewsize(owner.view)
+	owner << output(list2params(list(params, view_size[1] , view_size[2], "[title][content]", theme, special)), "[control]:tooltip.update")
 
 	//If a hide() was hit while we were showing, run hide() again to avoid stuck tooltips
 	showing = 0
@@ -105,6 +106,9 @@ Notes:
 				theme = lowertext(user.client.prefs.UI_style)
 			if(!theme)
 				theme = "default"
+			// Strip macros from item names
+			title = replacetext(title, "\proper", "")
+			title = replacetext(title, "\improper", "")
 			user.client.tooltips.show(tip_src, params, title, content, theme)
 
 
