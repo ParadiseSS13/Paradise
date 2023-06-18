@@ -164,3 +164,20 @@
   - server: Automatic NanoMap Update (#3011)
   Сиротка:
   - bugfix: Undestructiable Cryopod and Freezer (#3013)
+'2023-06-18':
+  LiquidPotroh:
+  - tweak: nerf diona nymph damage (#3010)
+  NightDawnFox:
+  - add: three use autoimplanter for traitors (#3020)
+  ReloadKey:
+  - add: Centcomm Update and add ERT Vendings, Amber EVAs and some fixes for ERT (#3000)
+  Rerik007:
+  - add: sight blurry chance for toolbox's attack  (#3014)
+  - bugfix: take damage after deletion runtime in fire_act (#3031)
+  Vladisvell:
+  - qol: maintenance drones can now enter robotic storages (#3024)
+  Zwei:
+  - bugfix: Welding Mask Correct Update (#3028)
+  Сиротка:
+  - bugfix: memories changes when mind/body changes  (#3012)
+  - tweak: yum baton can be stored in belts (#3019)
