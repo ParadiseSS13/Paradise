@@ -53,6 +53,8 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_head(src, forced = TRUE)
+		if(H.wear_mask == src)
+			H.wear_mask_update(src)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
