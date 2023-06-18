@@ -7205,10 +7205,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
-"BM" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/wall/indestructible/fakeglass,
-/area/centcom/control)
 "BO" = (
 /obj/machinery/light/spot{
 	dir = 4
@@ -37962,7 +37958,7 @@ We
 We
 We
 od
-BM
+sm
 QI
 Kb
 Hm
@@ -38219,7 +38215,7 @@ We
 We
 We
 od
-BM
+sm
 ZC
 EV
 MB
