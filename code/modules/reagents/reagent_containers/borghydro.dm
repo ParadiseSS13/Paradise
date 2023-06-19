@@ -36,9 +36,9 @@
 							"mannitol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill19"),
 							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"),
 							"corazone" = image(icon = 'icons/obj/abductor.dmi', icon_state = "bed"),
-							"perfluorodecalin" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"),
-							"pancuronium" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"),
-							"sarin" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"))
+							"perfluorodecalin" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bandaid"),
+							"pancuronium" = image(icon = 'icons/obj/aibots.dmi', icon_state = "medibot1"),
+							"sarin" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill21"))
 
 /obj/item/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
