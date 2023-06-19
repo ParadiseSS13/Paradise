@@ -258,7 +258,7 @@
 
 /datum/supply_packs/engineering/canister/toxins
 	name = "Plasma canister"
-	contains = list(/obj/machinery/atmospherics/portable/canister/carbon_dioxide)
+	contains = list(/obj/machinery/atmospherics/portable/canister/toxins)
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "Plasma canister crate"
