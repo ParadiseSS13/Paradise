@@ -181,3 +181,21 @@
   Сиротка:
   - bugfix: memories changes when mind/body changes  (#3012)
   - tweak: yum baton can be stored in belts (#3019)
+'2023-06-19':
+  Daeberdir:
+  - bugfix: '"Roll Down"ed ver. for Durathread Jumpsuit. (#3029)'
+  NightDawnFox:
+  - add: new megafauna - "Vetus Speculator" (#2934)
+  ReloadKey:
+  - bugfix: Some fixes for PR "Major Centcomm.dmm Update" (#3039)
+  Rerik007:
+  - refactor: mecha atmos module (#2996)
+  - bugfix: no fracture after saw step (#3037)
+  Zwei:
+  - refactor: Radioactivity Component (#3021)
+  captainnelly:
+  - add: new rig sounds (#3030)
+  - tweak: change nicotine and coffee effects (#3027)
+  Сиротка:
+  - refactor: Heal aura (#3009)
+  - add: DNA TTS (#3008)
