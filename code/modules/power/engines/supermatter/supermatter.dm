@@ -1196,11 +1196,6 @@
 	heat_penalty_threshold = -73
 	return
 
-//type 4
-/obj/machinery/atmospherics/supermatter_crystal/proc/event_c4()
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 5 SECONDS)
-	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-4. Operator intervention may be required!", name, "Engineering", list(z))
-
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
 #undef FLUX_ANOMALY
