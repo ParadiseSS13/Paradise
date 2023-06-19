@@ -68,7 +68,7 @@
 	damage_type = TOX
 	stamina = 40
 	nodamage = 0
-	weaken = 2
+	weaken = 3
 	stutter = 1
 	shockbull = TRUE
 
