@@ -17,8 +17,6 @@
 	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/C = owner
-	if(damage < 100)
-		AdjustEarDamage(-0.1)
 
 	// if we have non-damage related deafness like mutations, quirks or clothing (earmuffs), don't bother processing here. Ear healing from earmuffs or chems happen elsewhere
 	if(HAS_TRAIT_NOT_FROM(C, TRAIT_DEAF, EAR_DAMAGE))
