@@ -307,7 +307,7 @@
 /obj/item/paper/proc/topic_href_write(id, input_element)
 	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
-	if(!istype(item_write, /obj/item/pen) && !istype(item_write, /obj/item/toy/crayon))
+	if(!is_pen(item_write) && !istype(item_write, /obj/item/toy/crayon))
 		return
 	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && (usr in get_turf(src) || loc.Adjacent(usr))))
 		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
