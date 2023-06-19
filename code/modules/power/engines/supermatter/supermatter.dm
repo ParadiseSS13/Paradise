@@ -86,8 +86,6 @@
 #define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"
 
 
-GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)
-
 /obj/machinery/atmospherics/supermatter_crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
