@@ -1,3 +1,5 @@
+#define ALWAYS_IN_GRAVITY 3
+
 /obj/effect/decal/cleanable/generic
 	name = "clutter"
 	desc = "Someone should clean that up."
@@ -141,11 +143,73 @@
 	gender = PLURAL
 	density = FALSE
 	layer = TURF_LAYER
+	plane = FLOOR_PLANE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
 	no_clear = TRUE
 	scoop_reagents = list("vomit" = 5)
+
+
+/obj/effect/decal/cleanable/vomit/Initialize(mapload)
+	. = ..()
+	var/turf/T = get_turf(src)
+	gravity_check = has_gravity(src, T)
+	if(loc != T)
+		forceMove(T)
+	if(!gravity_check)
+		layer = MOB_LAYER
+		plane = GAME_PLANE
+		if(prob(50))
+			animate_float(src, -1, rand(30, 120))
+		else
+			animate_levitate(src, -1, rand(30, 120))
+		icon = 'icons/effects/blood_weightless.dmi'
+
+/obj/effect/decal/cleanable/vomit/Bump(atom/A, yes)
+	. = ..()
+	if(A.density)
+		splat(A)
+
+/obj/effect/decal/cleanable/vomit/Crossed(atom/movable/AM, oldloc)
+	if(!gravity_check)
+		splat(AM)
+	..()
+
+/obj/effect/decal/cleanable/vomit/proc/splat(atom/A)
+	if(gravity_check)
+		return
+	var/turf/T = get_turf(A)
+	if(try_merging_decal(T))
+		return
+	if(loc != T)
+		forceMove(T)
+	icon = initial(icon)
+	gravity_check = ALWAYS_IN_GRAVITY
+	if(T.density || locate(/obj/structure/window) in T)
+		layer = ABOVE_WINDOW_LAYER
+		plane = GAME_PLANE
+	else
+		layer = initial(layer)
+		plane = initial(plane)
+	animate(src)
+
+/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir)
+	if(gravity_check)
+		return 1
+
+	if(has_gravity(src))
+		if(!gravity_check)
+			splat(get_step(src, movement_dir))
+		return 1
+
+	if(pulledby && !pulledby.pulling)
+		return 1
+
+	if(throwing)
+		return 1
+
+	return 0
 
 /obj/effect/decal/cleanable/vomit/green
 	name = "green vomit"
@@ -229,3 +293,5 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+
+#undef ALWAYS_IN_GRAVITY

@@ -133,7 +133,7 @@
 			break
 		if(isobserver(M))
 			continue
-		if(istype(M, /mob/living/simple_animal/bot/mulebot) || istype(M, /mob/camera))
+		if(istype(M, /mob/living/simple_animal/bot/mulebot) || iscameramob(M))
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue
@@ -408,6 +408,7 @@
 	icon_state = "bluespace"
 	open_door_sprite = "bluespace_door"
 	storage_capacity = 60
+	pull_speed = 0
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 
 /obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
