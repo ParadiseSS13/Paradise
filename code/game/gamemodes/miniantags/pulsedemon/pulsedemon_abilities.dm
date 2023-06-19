@@ -139,8 +139,10 @@
 	playsound(T, 'sound/magic/lightningshock.ogg', 50, TRUE)
 	O.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 1 SECONDS)
 	for(var/turf/working in getline(O, T))
-		for(var/mob/living/M in working)
-			electrocute_mob(M, C.powernet, user)
+		for(var/mob/living/L in working)
+			if(electrocute_mob(L, C.powernet, user) == 0) // give a little bit of non-lethal counterplay against insuls
+				L.Jitter(5 SECONDS)
+				L.apply_status_effect(STATUS_EFFECT_DELAYED, 1 SECONDS, CALLBACK(L, TYPE_PROC_REF(/mob/living/, KnockDown), 5 SECONDS), COMSIG_LIVING_CLEAR_STUNS)
 	user.forceMove(T)
 	user.Move(T)
 	return TRUE
