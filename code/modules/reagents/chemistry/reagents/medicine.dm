@@ -249,9 +249,13 @@
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-volume)
-			if(show_message && !(NO_PAIN in M.dna.species.species_traits))
+			var/has_pain = TRUE
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				has_pain = H.has_pain()
+			if(show_message && has_pain)
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
-		if(method == REAGENT_INGEST)
+		else if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You feel gross!</span>")

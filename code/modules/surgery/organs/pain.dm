@@ -1,19 +1,24 @@
+#define MIN_SHOCK_REDUCTION 50 //The minimum amount of shock reduction in reagents for absence of pain
+
 /mob/living/carbon/human
 	var/last_pain_message = ""
 	var/next_pain_time = 0
 
+/mob/living/carbon/human/proc/has_pain()
+	if(stat)
+		return FALSE
+	if(NO_PAIN in dna.species.species_traits)
+		return FALSE
+	if(shock_reduction() >= MIN_SHOCK_REDUCTION)
+		return FALSE
+	return TRUE
+
 // partname is the name of a body part
 // amount is a num from 1 to 100
 /mob/living/carbon/human/proc/pain(partname, amount)
-	if(stat >= UNCONSCIOUS)
+	if(reagents.has_reagent("sal_acid"))
 		return
-	if(reagents?.has_reagent("sal_acid"))
-		return
-	if(reagents?.has_reagent("morphine"))
-		return
-	if(reagents?.has_reagent("syntmorphine"))
-		return
-	if(reagents?.has_reagent("hydrocodone"))
+	if(!has_pain())
 		return
 	if(world.time < next_pain_time)
 		return
@@ -33,16 +38,7 @@
 
 // message is the custom message to be displayed
 /mob/living/carbon/human/proc/custom_pain(message)
-	if(stat >= UNCONSCIOUS)
-		return
-
-	if(NO_PAIN in dna.species.species_traits)
-		return
-	if(reagents?.has_reagent("morphine"))
-		return
-	if(reagents?.has_reagent("syntmorphine"))
-		return
-	if(reagents?.has_reagent("hydrocodone"))
+	if(!has_pain())
 		return
 
 	var/msg = "<span class='userdanger'>[message]</span>"
@@ -56,15 +52,7 @@
 /mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
-	if(stat >= UNCONSCIOUS)
-		return
-	if(NO_PAIN in dna.species.species_traits)
-		return
-	if(reagents?.has_reagent("morphine"))
-		return
-	if(reagents?.has_reagent("syntmorphine"))
-		return
-	if(reagents?.has_reagent("hydrocodone"))
+	if(!has_pain())
 		return
 
 	var/maxdam = 0
@@ -88,3 +76,5 @@
 		if(I.damage > 2 && prob(2))
 			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
 			custom_pain("You feel a sharp pain in your [parent.limb_name]")
+
+#undef MIN_SHOCK_REDUCTION

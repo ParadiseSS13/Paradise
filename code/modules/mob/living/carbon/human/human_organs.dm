@@ -67,7 +67,7 @@
 	// standing is poor
 	if(stance_damage >= 8)
 		if(!(lying || resting))
-			if(!(NO_PAIN in dna.species.species_traits))
+			if(has_pain())
 				emote("scream")
 			custom_emote(1, "падает!")
 		Weaken(5) //can't emote while weakened, apparently.
@@ -95,7 +95,7 @@
 					continue
 
 			var/emote_scream = pick("крич[pluralize_ru(src.gender,"ит","ат")] от боли и ", "изда[pluralize_ru(src.gender,"ёт","ют")] резкий крик и ", "вскрикива[pluralize_ru(src.gender,"ет","ют")] и ")
-			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] в [E.declent_ru(PREPOSITIONAL)]!")
+			custom_emote(1, "[(has_pain()) ? emote_scream :  "" ]броса[pluralize_ru(src.gender,"ет","ют")] предмет, который держал[genderize_ru(src.gender,"","а","о","и")] в [E.declent_ru(PREPOSITIONAL)]!")
 
 		else if(E.is_malfunctioning())
 
