@@ -113,8 +113,8 @@
 /obj/singularity/energy_ball/Bump(atom/A)
 	dust_mobs(A)
 
-/obj/singularity/energy_ball/Bumped(atom/A)
-	dust_mobs(A)
+/obj/singularity/energy_ball/Bumped(atom/movable/moving_atom)
+	dust_mobs(moving_atom)
 
 /obj/singularity/energy_ball/attack_tk(mob/user)
 	if(iscarbon(user))

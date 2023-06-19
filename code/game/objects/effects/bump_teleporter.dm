@@ -25,8 +25,10 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 /obj/effect/bump_teleporter/singularity_pull()
 	return
 
-/obj/effect/bump_teleporter/Bumped(atom/user)
-	if(!ismob(user))
+/obj/effect/bump_teleporter/Bumped(atom/movable/moving_atom)
+	..()
+
+	if(!ismob(moving_atom))
 		//user.loc = src.loc	//Stop at teleporter location
 		return
 

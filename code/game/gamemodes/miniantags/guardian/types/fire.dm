@@ -40,9 +40,9 @@
 	..()
 	collision_ignite(AM)
 
-/mob/living/simple_animal/hostile/guardian/fire/Bumped(AM as mob|obj)
+/mob/living/simple_animal/hostile/guardian/fire/Bumped(atom/movable/moving_atom)
 	..()
-	collision_ignite(AM)
+	collision_ignite(moving_atom)
 
 /mob/living/simple_animal/hostile/guardian/fire/Bump(AM as mob|obj)
 	..()

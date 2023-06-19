@@ -92,7 +92,8 @@
 	if(AM)
 		Bumped(AM)
 
-/obj/machinery/recycler/Bumped(atom/movable/AM)
+/obj/machinery/recycler/Bumped(atom/movable/moving_atom)
+	..()
 
 	if(stat & (BROKEN|NOPOWER))
 		return
@@ -101,9 +102,9 @@
 	if(emergency_mode)
 		return
 
-	var/move_dir = get_dir(loc, AM.loc)
+	var/move_dir = get_dir(loc, moving_atom.loc)
 	if(move_dir == eat_dir)
-		eat(AM)
+		eat(moving_atom)
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)

@@ -94,8 +94,8 @@
 /obj/effect/space_dust/proc/on_shatter(turf/where)
 	return
 
-/obj/effect/space_dust/Bumped(atom/A)
-	Bump(A)
+/obj/effect/space_dust/Bumped(atom/movable/moving_atom)
+	Bump(moving_atom)
 	return
 
 /obj/effect/space_dust/ex_act(severity)

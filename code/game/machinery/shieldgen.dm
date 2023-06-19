@@ -659,7 +659,7 @@
 		spawn(20)
 			alpha = 0
 
-/obj/machinery/shieldwall/syndicate/Bumped(atom/user)
+/obj/machinery/shieldwall/syndicate/Bumped(atom/movable/moving_atom)
 	phaseout()
 	return ..()
 

@@ -738,6 +738,7 @@ About the new airlock wires panel:
 		H.attack_hulk(src)
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	if(shock_user(user, 100))
 		add_fingerprint(user)
 		return

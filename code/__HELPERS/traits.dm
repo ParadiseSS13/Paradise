@@ -60,6 +60,10 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
+//atom traits
+/// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
+#define TRAIT_BLOCK_RADIATION	"block_radiation"
+
 //mob traits
 #define TRAIT_PACIFISM			"pacifism"
 #define TRAIT_WATERBREATH		"waterbreathing"

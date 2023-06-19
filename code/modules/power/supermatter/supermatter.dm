@@ -386,20 +386,20 @@
 
 		user.apply_effect(150, IRRADIATE)
 
-/obj/machinery/power/supermatter_shard/Bumped(atom/AM as mob|obj)
-	if(istype(AM, /mob/living))
-		AM.visible_message("<span class='danger'>\The [AM] slams into \the [src] inducing a resonance... [AM.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
+/obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
+	if(istype(moving_atom, /mob/living))
+		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
-	else if(isobj(AM) && !istype(AM, /obj/effect))
-		AM.visible_message("<span class='danger'>\The [AM] smacks into \the [src] and rapidly flashes to ash.</span>",\
+	else if(isobj(moving_atom) && !istype(moving_atom, /obj/effect))
+		moving_atom.visible_message("<span class='danger'>\The [moving_atom] smacks into \the [src] and rapidly flashes to ash.</span>",\
 		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 	else
 		return
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 
-	Consume(AM)
+	Consume(moving_atom)
 
 
 /obj/machinery/power/supermatter_shard/proc/Consume(atom/movable/AM)

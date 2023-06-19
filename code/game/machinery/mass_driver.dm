@@ -72,9 +72,11 @@
 	desc = "Now you're here, now you're over there."
 	density = 1
 
-/obj/machinery/mass_driver/bumper/Bumped(M as mob|obj)
+/obj/machinery/mass_driver/bumper/Bumped(atom/movable/moving_atom)
+	..()
+
 	density = 0
-	step(M, get_dir(M,src))
+	step(moving_atom, get_dir(moving_atom, src))
 	spawn(1)
 		density = 1
 	drive()

@@ -125,8 +125,8 @@
 /obj/effect/anomaly/grav/Bump(atom/A)
 	gravShock(A)
 
-/obj/effect/anomaly/grav/Bumped(atom/movable/AM)
-	gravShock(AM)
+/obj/effect/anomaly/grav/Bumped(atom/movable/moving_atom)
+	gravShock(moving_atom)
 
 /obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
 	if(boing && isliving(A) && !A.stat)
@@ -164,8 +164,8 @@
 /obj/effect/anomaly/flux/Bump(atom/A)
 	mobShock(A)
 
-/obj/effect/anomaly/flux/Bumped(atom/movable/AM)
-	mobShock(AM)
+/obj/effect/anomaly/flux/Bumped(atom/movable/moving_atom)
+	mobShock(moving_atom)
 
 /obj/effect/anomaly/flux/proc/mobShock(mob/living/M)
 	if(canshock && istype(M))
@@ -198,10 +198,10 @@
 		do_teleport(M, M, 4)
 		investigate_log("teleported [key_name_log(M)] to [COORD(M)]", INVESTIGATE_TELEPORTATION)
 
-/obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
-	if(isliving(AM))
-		do_teleport(AM, AM, 8)
-		investigate_log("teleported [key_name_log(AM)] to [COORD(AM)]", INVESTIGATE_TELEPORTATION)
+/obj/effect/anomaly/bluespace/Bumped(atom/movable/moving_atom)
+	if(isliving(moving_atom))
+		do_teleport(moving_atom, moving_atom, 8)
+		investigate_log("teleported [key_name_log(moving_atom)] to [COORD(moving_atom)]", INVESTIGATE_TELEPORTATION)
 
 /obj/effect/anomaly/bluespace/detonate()
 	if(!mass_teleporting)

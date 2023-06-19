@@ -29,7 +29,8 @@
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
 	return
 
-/obj/machinery/door/poddoor/Bumped(atom/AM)
+/obj/machinery/door/poddoor/Bumped(atom/movable/moving_atom)
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
 	if(density)
 		return
 	else

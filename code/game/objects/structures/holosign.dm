@@ -161,14 +161,16 @@
 			shockcd = TRUE
 			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
-/obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/AM)
+/obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(shockcd)
 		return
 
-	if(!isliving(AM))
+	if(!isliving(moving_atom))
 		return
 
-	var/mob/living/M = AM
+	var/mob/living/M = moving_atom
 	M.electrocute_act(15, "Energy Barrier", safety = TRUE)
 	shockcd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)

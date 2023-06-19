@@ -22,6 +22,7 @@
 
 
 /atom/proc/attack_hand(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	return
 
 /*

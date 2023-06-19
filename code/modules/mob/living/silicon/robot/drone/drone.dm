@@ -349,8 +349,8 @@
 	if(is_type_in_list(AM, allowed_bumpable_objects))
 		return ..()
 
-/mob/living/silicon/robot/drone/Bumped(atom/movable/AM)
-	return
+/mob/living/silicon/robot/drone/Bumped(atom/movable/moving_atom)
+	return ..()
 
 /mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 

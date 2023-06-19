@@ -130,8 +130,8 @@
 /obj/item/guardian_bomb/MouseDrop(mob/living/user)
 	detonate(user)
 
-/obj/item/guardian_bomb/Bumped(mob/living/user)
-	detonate(user)
+/obj/item/guardian_bomb/Bumped(atom/movable/moving_atom)
+	detonate(moving_atom)
 
 /obj/item/guardian_bomb/can_be_pulled(mob/living/user)
 	detonate(user)

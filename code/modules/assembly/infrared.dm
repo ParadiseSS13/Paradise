@@ -269,8 +269,8 @@
 /obj/effect/beam/i_beam/Bump()
 	qdel(src)
 
-/obj/effect/beam/i_beam/Bumped(atom/movable/AM)
-	hit(AM)
+/obj/effect/beam/i_beam/Bumped(atom/movable/moving_atom)
+	hit(moving_atom)
 
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
 	if(!isobj(AM) && !isliving(AM))

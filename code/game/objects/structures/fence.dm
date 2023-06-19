@@ -143,12 +143,14 @@
 		return
 	. = ..()
 
-/obj/structure/fence/Bumped(atom/user)
-	if(!ismob(user))
+/obj/structure/fence/Bumped(atom/movable/moving_atom)
+	..()
+
+	if(!ismob(moving_atom))
 		return
 	if(shock_cooldown)
 		return
-	shock(user, 70)
+	shock(moving_atom, 70)
 	shock_cooldown = TRUE // We do not want bump shock spam!
 	addtimer(CALLBACK(src, PROC_REF(shock_cooldown)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 

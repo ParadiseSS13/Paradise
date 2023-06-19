@@ -72,12 +72,13 @@
 		sleep(20)
 	close()
 
-/obj/machinery/door/window/Bumped(atom/movable/AM)
+/obj/machinery/door/window/Bumped(atom/movable/moving_atom)
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
 	if(operating || !density)
 		return
-	if(!ismob(AM))
-		if(ismecha(AM))
-			var/obj/mecha/mecha = AM
+	if(!ismob(moving_atom))
+		if(ismecha(moving_atom))
+			var/obj/mecha/mecha = moving_atom
 			if(mecha.occupant && allowed(mecha.occupant))
 				if(HAS_TRAIT(src, TRAIT_CMAGGED))
 					cmag_switch(FALSE)
@@ -91,7 +92,7 @@
 		return
 	if(!SSticker)
 		return
-	var/mob/living/M = AM
+	var/mob/living/M = moving_atom
 	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
 		bumpopen(M)
 

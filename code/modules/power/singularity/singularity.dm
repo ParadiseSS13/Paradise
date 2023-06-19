@@ -104,8 +104,8 @@
 	return
 
 
-/obj/singularity/Bumped(atom/A)
-	consume(A)
+/obj/singularity/Bumped(atom/movable/moving_atom)
+	consume(moving_atom)
 	return
 
 

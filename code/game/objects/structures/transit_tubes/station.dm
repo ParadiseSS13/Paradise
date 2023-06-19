@@ -34,17 +34,17 @@
 /obj/structure/transit_tube/station/should_stop_pod(pod, from_dir)
 	return TRUE
 
-/obj/structure/transit_tube/station/Bumped(mob/living/L)
-	if(!pod_moving && hatch_state == TRANSIT_TUBE_OPEN && isliving(L) && !is_type_in_list(L, disallowed_mobs))
+/obj/structure/transit_tube/station/Bumped(atom/movable/moving_atom)
+	if(!pod_moving && hatch_state == TRANSIT_TUBE_OPEN && isliving(moving_atom) && !is_type_in_list(moving_atom, disallowed_mobs))
 		var/failed = FALSE
 		for(var/obj/structure/transit_tube_pod/pod in loc)
 			if(pod.contents.len)
 				failed = TRUE
 			else if(!pod.moving && (pod.dir in directions()))
-				pod.move_into(L)
+				pod.move_into(moving_atom)
 				return
 		if(failed)
-			to_chat(L, "<span class='warning'>The pod is already occupied.</span>")
+			to_chat(moving_atom, "<span class='warning'>The pod is already occupied.</span>")
 
 
 

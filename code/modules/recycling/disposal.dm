@@ -578,23 +578,25 @@
 /obj/machinery/disposal/deliveryChute/update()
 	return
 
-/obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
-	if(istype(AM, /obj/item/projectile))  return
+/obj/machinery/disposal/deliveryChute/Bumped(atom/movable/moving_atom) //Go straight into the chute
+	..()
+
+	if(istype(moving_atom, /obj/item/projectile))  return
 	switch(dir)
 		if(NORTH)
-			if(AM.loc.y != src.loc.y+1) return
+			if(moving_atom.loc.y != src.loc.y+1) return
 		if(EAST)
-			if(AM.loc.x != src.loc.x+1) return
+			if(moving_atom.loc.x != src.loc.x+1) return
 		if(SOUTH)
-			if(AM.loc.y != src.loc.y-1) return
+			if(moving_atom.loc.y != src.loc.y-1) return
 		if(WEST)
-			if(AM.loc.x != src.loc.x-1) return
+			if(moving_atom.loc.x != src.loc.x-1) return
 
-	if(istype(AM, /obj))
-		var/obj/O = AM
+	if(istype(moving_atom, /obj))
+		var/obj/O = moving_atom
 		O.loc = src
-	else if(istype(AM, /mob))
-		var/mob/M = AM
+	else if(istype(moving_atom, /mob))
+		var/mob/M = moving_atom
 		M.loc = src
 	if(mode != OFF)
 		flush()

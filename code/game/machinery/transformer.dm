@@ -69,12 +69,14 @@
 	is_on_cooldown = FALSE
 	update_icon()
 
-/obj/machinery/transformer/Bumped(atom/movable/AM)
+/obj/machinery/transformer/Bumped(atom/movable/moving_atom)
+	..()
+
 	// They have to be human to be transformed.
-	if(is_on_cooldown || !ishuman(AM))
+	if(is_on_cooldown || !ishuman(moving_atom))
 		return
 
-	var/mob/living/carbon/human/H = AM
+	var/mob/living/carbon/human/H = moving_atom
 	var/move_dir = get_dir(loc, H.loc)
 
 	if((transform_standing || H.lying) && move_dir == acceptdir)
@@ -119,16 +121,18 @@
 	name = "Mimetech Greyscaler"
 	desc = "Turns anything placed inside black and white."
 
-/obj/machinery/transformer/mime/Bumped(atom/movable/AM)
+/obj/machinery/transformer/mime/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(is_on_cooldown)
 		return
 
 	// Crossed didn't like people lying down.
-	if(istype(AM))
-		AM.forceMove(drop_location())
-		do_transform_mime(AM)
+	if(istype(moving_atom))
+		moving_atom.forceMove(drop_location())
+		do_transform_mime(moving_atom)
 	else
-		to_chat(AM, "Only items can be greyscaled.")
+		to_chat(moving_atom, "Only items can be greyscaled.")
 		return
 
 /obj/machinery/transformer/proc/do_transform_mime(obj/item/I)
@@ -179,23 +183,25 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/machinery/transformer/xray/Bumped(atom/movable/AM)
+/obj/machinery/transformer/xray/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(is_on_cooldown)
 		return
 
 	// Crossed didn't like people lying down.
-	if(ishuman(AM))
+	if(ishuman(moving_atom))
 		// Only humans can enter from the west side, while lying down.
-		var/mob/living/carbon/human/H = AM
+		var/mob/living/carbon/human/H = moving_atom
 		var/move_dir = get_dir(loc, H.loc)
 
 		if(H.lying && move_dir == acceptdir)
 			H.forceMove(drop_location())
 			irradiate(H)
 
-	else if(istype(AM))
-		AM.forceMove(drop_location())
-		scan(AM)
+	else if(istype(moving_atom))
+		moving_atom.forceMove(drop_location())
+		scan(moving_atom)
 
 /obj/machinery/transformer/xray/proc/irradiate(mob/living/carbon/human/H)
 	if(stat & (BROKEN|NOPOWER))

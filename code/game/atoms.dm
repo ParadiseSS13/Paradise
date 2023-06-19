@@ -253,7 +253,8 @@
 /atom/proc/on_reagent_change()
 	return
 
-/atom/proc/Bumped(atom/movable/AM)
+/atom/proc/Bumped(atom/movable/moving_atom)
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling

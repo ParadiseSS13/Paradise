@@ -141,7 +141,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 //okay, here's the good teleporting stuff
-/obj/machinery/gateway/centerstation/Bumped(atom/movable/M as mob|obj)
+/obj/machinery/gateway/centerstation/Bumped(atom/movable/moving_atom)
 	if(!ready)
 		return
 	if(!active)
@@ -150,14 +150,14 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 
 	if(awaygate.calibrated)
-		M.forceMove(get_step(awaygate.loc, SOUTH))
-		M.dir = SOUTH
+		moving_atom.forceMove(get_step(awaygate.loc, SOUTH))
+		moving_atom.dir = SOUTH
 		return
 	else
 		var/obj/effect/landmark/dest = pick(GLOB.awaydestinations)
 		if(dest)
-			M.forceMove(dest.loc)
-			M.dir = SOUTH
+			moving_atom.forceMove(dest.loc)
+			moving_atom.dir = SOUTH
 			use_power(5000)
 		return
 
@@ -255,30 +255,30 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	toggleoff()
 
 
-/obj/machinery/gateway/centeraway/Bumped(atom/movable/AM)
+/obj/machinery/gateway/centeraway/Bumped(atom/movable/moving_atom)
 	if(!ready)
 		return
 	if(!active)
 		return
 	if(!stationgate || QDELETED(stationgate))
 		return
-	if(isliving(AM))
-		if(exilecheck(AM))
+	if(isliving(moving_atom))
+		if(exilecheck(moving_atom))
 			return
 	else
-		for(var/mob/living/L in AM.contents)
+		for(var/mob/living/L in moving_atom.contents)
 			if(exilecheck(L))
-				atom_say("Rejecting [AM]: Exile implant detected in contained lifeform.")
+				atom_say("Rejecting [moving_atom]: Exile implant detected in contained lifeform.")
 				return
-	if(AM.has_buckled_mobs())
-		for(var/mob/living/L in AM.buckled_mobs)
+	if(moving_atom.has_buckled_mobs())
+		for(var/mob/living/L in moving_atom.buckled_mobs)
 			if(exilecheck(L))
-				atom_say("Rejecting [AM]: Exile implant detected in close proximity lifeform.")
+				atom_say("Rejecting [moving_atom]: Exile implant detected in close proximity lifeform.")
 				return
-	AM.forceMove(get_step(stationgate.loc, SOUTH))
-	AM.setDir(SOUTH)
-	if(ismob(AM))
-		var/mob/M = AM
+	moving_atom.forceMove(get_step(stationgate.loc, SOUTH))
+	moving_atom.setDir(SOUTH)
+	if(ismob(moving_atom))
+		var/mob/M = moving_atom
 		if(M.client)
 			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 

@@ -95,6 +95,7 @@
 	..()
 
 /turf/attack_hand(mob/user as mob)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	user.Move_Pulled(src)
 
 /turf/ex_act(severity)
@@ -444,6 +445,7 @@
 		GLOB.cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
+	SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params)
 	if(can_lay_cable())
 		if(istype(I, /obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/C = I

@@ -68,10 +68,10 @@
 	playsound(user, activation_sound, 100, 1)
 	return 1
 
-/obj/machinery/anomalous_crystal/Bumped(atom/AM as mob|obj)
+/obj/machinery/anomalous_crystal/Bumped(atom/movable/moving_atom)
 	..()
-	if(ismob(AM))
-		ActivationReaction(AM,"mob_bump")
+	if(ismob(moving_atom))
+		ActivationReaction(moving_atom,"mob_bump")
 
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")

@@ -88,15 +88,17 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
-/obj/machinery/door/Bumped(atom/AM)
+/obj/machinery/door/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(operating || emagged)
 		return
-	if(ismob(AM))
-		var/mob/B = AM
+	if(ismob(moving_atom))
+		var/mob/B = moving_atom
 		if((isrobot(B)) && B.stat)
 			return
-		if(isliving(AM))
-			var/mob/living/M = AM
+		if(isliving(moving_atom))
+			var/mob/living/M = moving_atom
 			if(world.time - M.last_bumped <= 10)
 				return	//Can bump-open one airlock per second. This is to prevent shock spam.
 			M.last_bumped = world.time
@@ -106,8 +108,8 @@
 				bumpopen(M)
 			return
 
-	if(ismecha(AM))
-		var/obj/mecha/mecha = AM
+	if(ismecha(moving_atom))
+		var/obj/mecha/mecha = moving_atom
 		if(density)
 			if(mecha.occupant)
 				if(world.time - mecha.occupant.last_bumped <= 10)

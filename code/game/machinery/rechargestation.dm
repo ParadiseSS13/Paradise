@@ -98,9 +98,11 @@
 	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(loc))
 	qdel(src)
 
-/obj/machinery/recharge_station/Bumped(var/mob/AM)
-	if(ismob(AM))
-		move_inside(AM)
+/obj/machinery/recharge_station/Bumped(atom/movable/moving_atom)
+	..()
+
+	if(ismob(moving_atom))
+		move_inside(moving_atom)
 
 /obj/machinery/recharge_station/AllowDrop()
 	return FALSE

@@ -41,8 +41,8 @@
 
 
 /obj/structure/statue/attack_hand(mob/living/user)
+	. = ..()
 	user.changeNext_move(CLICK_CD_MELEE)
-	add_fingerprint(user)
 	user.visible_message("[user] rubs some dust off from the [name]'s surface.", \
 						 "<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
 
@@ -76,26 +76,14 @@
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
 
-/obj/structure/statue/uranium/attackby(obj/item/W, mob/user, params)
-	radiate()
-	return ..()
+/obj/structure/statue/uranium/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/radioactivity, \
+				rad_per_interaction = 12, \
+				rad_interaction_radius = 3, \
+				rad_interaction_cooldown = 1.5 SECONDS \
+	)
 
-/obj/structure/statue/uranium/Bumped(atom/user)
-	radiate()
-	..()
-
-/obj/structure/statue/uranium/attack_hand(mob/user)
-	radiate()
-	..()
-
-/obj/structure/statue/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(12,IRRADIATE,0)
-			last_event = world.time
-			active = null
 
 /obj/structure/statue/plasma
 	max_integrity = 200
@@ -232,7 +220,7 @@
 	name = "statue of a clown"
 	icon_state = "clown"
 
-/obj/structure/statue/bananium/Bumped(atom/user)
+/obj/structure/statue/bananium/Bumped(atom/movable/moving_atom)
 	honk()
 	..()
 

@@ -53,3 +53,17 @@
 			// E.g. medals.
 			if(I.vars[var_name] == src)
 				I.vars[var_name] = null
+
+
+/**
+ * Proc that collects all atoms of passed `path` in our atom contents
+ * and returns it in a list()
+ */
+/atom/proc/collect_all_atoms_of_type(path)
+	var/list/atoms = list()
+	for(var/atom/check in contents)
+		if(istype(check, path))
+			atoms += check
+		if(length(check.contents))
+			check.collect_all_atoms_of_type(path)
+	return atoms

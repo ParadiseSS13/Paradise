@@ -69,8 +69,8 @@
 	godsmack(A)
 	return
 
-/obj/singularity/ratvar/Bumped(atom/A)
-	godsmack(A)
+/obj/singularity/ratvar/Bumped(atom/movable/moving_atom)
+	godsmack(moving_atom)
 	return
 
 /obj/singularity/ratvar/proc/godsmack(atom/A)

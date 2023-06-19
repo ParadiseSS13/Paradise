@@ -61,30 +61,13 @@
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	canSmoothWith = list(/turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium, /turf/simulated/wall/indestructible/uranium)
 
-/turf/simulated/wall/mineral/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(12,IRRADIATE,0)
-			for(var/turf/simulated/wall/mineral/uranium/T in range(3,src))
-				T.radiate()
-			last_event = world.time
-			active = null
-			return
-	return
-
-/turf/simulated/wall/mineral/uranium/attack_hand(mob/user as mob)
-	radiate()
-	..()
-
-/turf/simulated/wall/mineral/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
-	radiate()
-	..()
-
-/turf/simulated/wall/mineral/uranium/Bumped(AM as mob|obj)
-	radiate()
-	..()
+/turf/simulated/wall/mineral/uranium/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/radioactivity, \
+				rad_per_interaction = 12, \
+				rad_interaction_radius = 3, \
+				rad_interaction_cooldown = 1.5 SECONDS \
+	)
 
 /turf/simulated/wall/mineral/plasma
 	name = "plasma wall"

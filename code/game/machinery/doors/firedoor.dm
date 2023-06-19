@@ -71,8 +71,9 @@
 	affecting_areas.Cut()
 	return ..()
 
-/obj/machinery/door/firedoor/Bumped(atom/AM)
+/obj/machinery/door/firedoor/Bumped(atom/movable/moving_atom)
 	if(panel_open || operating)
+		SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
 		return
 	if(!density)
 		return ..()
