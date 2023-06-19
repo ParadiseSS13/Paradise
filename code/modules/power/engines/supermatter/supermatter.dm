@@ -154,6 +154,8 @@
 	var/dynamic_heat_resistance = 1
 	///Uses powerloss_dynamic_scaling and combined_gas to lessen the effects of our powerloss functions
 	var/powerloss_inhibitor = 1
+	///value plus T0C = temp at which the SM starts to take damage. Variable for event usage
+	var/heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
 	///Based on co2 percentage, slowly moves between 0 and 1. We use it to calc the powerloss_inhibitor
 	var/powerloss_dynamic_scaling= 0
 	///Affects the amount of radiation the sm makes. We multiply this with power to find the rads.
@@ -200,6 +202,11 @@
 	var/power_changes = TRUE
 	///Disables the sm's proccessing totally.
 	var/processes = TRUE
+
+	//vars used for supermatter events (Anomalous  crystal activityw)
+	///no events should occur while the SM is offline. This also allows admins to easily disable them
+	var/events_possible = FALSE
+
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
@@ -430,7 +437,7 @@
 			//((((some value between 0.5 and 1 * temp - ((273.15 + 40) * some values between 1 and 10)) * some number between 0.25 and knock your socks off / 150) * 0.25
 			//Heat and mols account for each other, a lot of hot mols are more damaging then a few
 			//Mols start to have a positive effect on damage after 350
-			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.temperature - ((T0C + HEAT_PENALTY_THRESHOLD)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.temperature - ((T0C + heat_penalty_threshold)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			//Power only starts affecting damage when it is above 5000
 			damage = max(damage + (max(power - POWER_PENALTY_THRESHOLD, 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			//Molar count only starts affecting damage when it is above 1800
@@ -440,7 +447,7 @@
 			//healing damage
 			if(combined_gas < MOLE_PENALTY_THRESHOLD)
 				//Only has a net positive effect when the temp is below 313.15, heals up to 2 damage. Psycologists increase this temp min by up to 45
-				damage = max(damage + (min(removed.temperature - (T0C + HEAT_PENALTY_THRESHOLD), 0) / 150 ), 0)
+				damage = max(damage + (min(removed.temperature - (T0C + heat_penalty_threshold), 0) / 150 ), 0)
 
 			//Check for holes in the SM inner chamber
 			for(var/t in RANGE_TURFS(1, loc))
@@ -1133,6 +1140,66 @@
 	has_been_powered = TRUE
 	power += amount
 	message_admins("[src] has been activated and given an increase EER of [amount] at [ADMIN_JMP(src)]")
+
+
+// Below this are procs used for the SM events, in order of severity
+//return to normal
+/obj/machinery/atmospherics/supermatter_crystal/proc/end_event()
+	src.radio.autosay("Anomalous crystal activity has ended.", name, "Engineering", list(z))
+	heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
+
+//D class events
+//type 1
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_d1()
+	var/turf/T = loc
+	var/datum/gas_mixture/env = T.return_air()
+	env.sleeping_agent += 200
+	return
+
+//type 2
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_d2()
+	var/turf/T = loc
+	var/datum/gas_mixture/env = T.return_air()
+	env.nitrogen += 200
+	return
+
+//type 3
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_d3()
+	var/turf/T = loc
+	var/datum/gas_mixture/env = T.return_air()
+	env.carbon_dioxide += 250
+	return
+
+//C class events
+//type 1
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_c1()
+	var/turf/T = loc
+	var/datum/gas_mixture/env = T.return_air()
+	env.oxygen += 250
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 30 SECONDS)
+	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-1. Operator intervention may be required!", name, "Engineering", list(z))
+	return
+
+//type 2
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_c2()
+	var/turf/T = loc
+	var/datum/gas_mixture/env = T.return_air()
+	env.toxins += 200
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 30 SECONDS)
+	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-2. Operator intervention may be required!", name, "Engineering", list(z))
+	return
+
+//type 3
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_c3()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 30 SECONDS)
+	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-3. Operator intervention may be required!", name, "Engineering", list(z))
+	heat_penalty_threshold = -73
+	return
+
+//type 4
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_c4()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 5 SECONDS)
+	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-4. Operator intervention may be required!", name, "Engineering", list(z))
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
