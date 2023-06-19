@@ -45,3 +45,10 @@
 
 /datum/status_effect/high_five/on_remove()
 	owner.visible_message("[owner.name] не дождал[genderize_ru(owner.gender,"ся","ась","ось","ись")] ответа…")
+
+/datum/status_effect/adaptive_learning
+	id = "adaptive_learning"
+	duration = 300
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+	var/bonus_damage = 0

@@ -98,6 +98,7 @@
 	icon_state = "shield2"
 	density = FALSE
 	var/boing = FALSE
+	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
 
 /obj/effect/anomaly/grav/anomalyEffect()
@@ -112,7 +113,7 @@
 		if(!M.mob_negates_gravity())
 			step_towards(M,src)
 	for(var/obj/O in range(0, src))
-		if(!O.anchored)
+		if(!O.anchored && O.loc != src && O.move_resist < MOVE_FORCE_OVERPOWERING) // so it cannot throw the anomaly core or super big things)
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
@@ -129,7 +130,8 @@
 
 /obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
 	if(boing && isliving(A) && !A.stat)
-		A.Weaken(2)
+		if(!knockdown) //no hurdstuns with megafauna
+			A.Weaken(2)
 		var/atom/target = get_edge_target_turf(A, get_dir(src, get_step_away(A, src)))
 		A.throw_at(target, 5, 1)
 		boing = FALSE
@@ -183,7 +185,12 @@
 	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
+	var/mass_teleporting = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/bluespace
+
+/obj/effect/anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE)
+	. = ..()
+	mass_teleporting = _mass_teleporting
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
@@ -197,6 +204,8 @@
 		investigate_log("teleported [key_name_log(AM)] to [COORD(AM)]", INVESTIGATE_TELEPORTATION)
 
 /obj/effect/anomaly/bluespace/detonate()
+	if(!mass_teleporting)
+		return
 	var/turf/T = pick(get_area_turfs(impact_area))
 	if(T)
 		// Calculate new position (searches through beacons in world)
@@ -260,7 +269,12 @@
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
 	var/ticks = 0
+	var/produces_slime = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/pyro
+
+/obj/effect/anomaly/pyro/Initialize(mapload, new_lifespan, drops_core = TRUE, _produces_slime = TRUE)
+	. = ..()
+	produces_slime = _produces_slime
 
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
@@ -274,7 +288,8 @@
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
 
 /obj/effect/anomaly/pyro/detonate()
-	INVOKE_ASYNC(src, PROC_REF(makepyroslime))
+	if(produces_slime)
+		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)

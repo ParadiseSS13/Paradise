@@ -121,3 +121,15 @@
 
 /datum/status_effect/stamina_dot/tick()
 	owner.adjustStaminaLoss(10)
+
+/datum/status_effect/bluespace_slowdown
+	id = "bluespace_slowdown"
+	duration = 150
+	alert_type = null
+
+/datum/status_effect/bluespace_slowdown/on_apply()
+	owner.next_move_modifier *= 2
+	return ..()
+
+/datum/status_effect/bluespace_slowdown/on_remove()
+	owner.next_move_modifier /= 2

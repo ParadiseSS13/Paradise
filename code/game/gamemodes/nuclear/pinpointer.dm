@@ -7,6 +7,7 @@
 #define MODE_CREW 	6
 #define MODE_NINJA 	7
 #define MODE_THIEF 	8
+#define MODE_TENDRIL 9
 #define SETTING_DISK 		0
 #define SETTING_LOCATION 	1
 #define SETTING_OBJECT 		2
@@ -88,6 +89,8 @@
 			return "You turn on the pinpointer."
 		if(MODE_THIEF)
 			return "Вы включили спец-пинпоинтер."
+		if(MODE_TENDRIL)
+			return "High energy scanner active."
 
 
 /obj/item/pinpointer/proc/activate_mode(mode, mob/user) //for crew pinpointer
@@ -679,6 +682,50 @@
 
 			return attack_self(user)
 
+/obj/item/pinpointer/tendril
+	name = "ancient scanning unit"
+	desc = "Convenient that the scanning unit for the robot survived. Seems to point to the tendrils around here."
+	icon_state = "pinoff_ancient"
+	icon_off = "pinoff_ancient"
+	icon_null = "pinonnull_ancient"
+	icon_direct = "pinondirect_ancient"
+	icon_close = "pinonclose_ancient"
+	icon_medium = "pinonmedium_ancient"
+	icon_far = "pinonfar_ancient"
+	modes = list(MODE_TENDRIL)
+	var/obj/structure/spawner/lavaland/target
+
+/obj/item/pinpointer/tendril/process()
+	if(mode == MODE_TENDRIL)
+		find_tendril()
+		point_at(target, FALSE)
+	else
+		icon_state = icon_off
+
+/obj/item/pinpointer/tendril/proc/find_tendril()
+	if(mode == MODE_TENDRIL)
+		scan_for_tendrils()
+		point_at(target)
+	else
+		return FALSE
+
+/obj/item/pinpointer/tendril/proc/scan_for_tendrils()
+	if(mode == MODE_TENDRIL)
+		target = null //Resets nearest_op every time it scans
+		var/closest_distance = 1000
+		for(var/obj/structure/spawner/lavaland/T as anything in GLOB.tendrils)
+			var/temp_distance = get_dist(T, get_turf(src))
+			if(temp_distance < closest_distance)
+				target = T
+				closest_distance = temp_distance
+
+/obj/item/pinpointer/tendril/examine(mob/user)
+	. = ..()
+	if(mode == MODE_TENDRIL)
+		. += "Number of high energy signatures remaining: [length(GLOB.tendrils)]"
+
+
+
 #undef MODE_OFF
 #undef MODE_DISK
 #undef MODE_NUKE
@@ -688,6 +735,7 @@
 #undef MODE_CREW
 #undef MODE_NINJA
 #undef MODE_THIEF
+#undef MODE_TENDRIL
 #undef SETTING_DISK
 #undef SETTING_LOCATION
 #undef SETTING_OBJECT
