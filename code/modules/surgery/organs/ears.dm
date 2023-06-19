@@ -22,7 +22,7 @@
 	if(HAS_TRAIT_NOT_FROM(C, TRAIT_DEAF, EAR_DAMAGE))
 		return
 
-	if(damage >= 100)
+	if(status & ORGAN_DEAD)
 		deaf = max(deaf, 1) // if we're failing we always have at least 1 deaf stack (and thus deafness)
 	else
 		deaf = max(deaf - 1, 0)
@@ -41,7 +41,7 @@
 	damage = 0
 
 /obj/item/organ/internal/ears/proc/AdjustEarDamage(ddmg, ddeaf)
-	damage = clamp(damage + (ddmg * damage_multiplier), 0, 100)
+	receive_damage(ddmg * damage_multiplier)
 	deaf = max(deaf + (ddeaf * damage_multiplier), 0)
 
 /obj/item/organ/internal/ears/surgeryize()
