@@ -342,7 +342,7 @@
 		current_power = new_power
 		current_cable = null
 		forceMove(current_power) // we go inside the machine
-		playsound(src, 'sound/effects/eleczap.ogg', 30, TRUE)
+		playsound(src, 'sound/effects/eleczap.ogg', 15, TRUE)
 		do_sparks(rand(2, 4), FALSE, src)
 		if(isapc(current_power))
 			if(current_power in hijacked_apcs)
@@ -371,7 +371,7 @@
 	var/turf/T = get_turf(src)
 	var/turf/T2 = get_step(T, dir)
 	if(demon.can_exit_cable || locate(/obj/structure/cable) in T2)
-		playsound(src, 'sound/effects/eleczap.ogg', 30, TRUE)
+		playsound(src, 'sound/effects/eleczap.ogg', 15, TRUE)
 		do_sparks(rand(2, 4), FALSE, src)
 		user.forceMove(T)
 		if(isapc(src))
