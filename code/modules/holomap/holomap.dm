@@ -49,7 +49,6 @@ GLOBAL_LIST_EMPTY(holomaps)
 	holomap_projection.filters = filter(type = "drop_shadow", size = 8, color = "#ffffffd4")
 	YouAreHere = image('icons/effects/holomap_icons.dmi', src, "YouAreHere", 22.1 , 2, -256+(x*2), -256+(y*2))
 	YouAreHere.plane = ABOVE_HUD_PLANE + 0.1
-	CHECK_TICK //hopefully Im using this correctly
 
 /obj/machinery/holomap/attack_hand(mob/user)
 	. = ..()
@@ -72,6 +71,8 @@ GLOBAL_LIST_EMPTY(holomaps)
 	if(!M.client)
 		return
 	display_targets |= M
+	M.vis_contents += YouAreHere
+	M.vis_contents += holomap_projection
 	M.client.images += YouAreHere
 	M.client.images += holomap_projection
 	update_icon()
@@ -139,6 +140,13 @@ GLOBAL_LIST_EMPTY(holomaps)
 		for(var/y_index in region_y_start to region_y_finish)
 			var/turf/T = locate(x_index, y_index, zlevel_rendered)
 			var/area/A = get_area(T)
+			var/W = FALSE
+			for(var/obj/structure/window/full/WW in T.contents)
+				W = TRUE
+				break
+			for(var/obj/effect/spawner/window/WW in T.contents)
+				W = TRUE
+				break
 
 			/*
 				This works by using 2x2 sprites from 'icons/effects/holomap_parts.dmi' to construct the holomap;
@@ -150,147 +158,99 @@ GLOBAL_LIST_EMPTY(holomaps)
 			var/icon_state_to_use
 			//as well as this since it modifies the wall sprite
 			var/dir_to_use = 2
-			//this will store the directions that we find alien areas (areas that arent the one we are in)
-			//walls will go along the outside edges of areas where possible as a 1 pixel wide border
-			var/list/directions_to_aliens = list()
-			//this is for interior walls so they can get rendered nicely
-			var/list/directions_to_solids = list()
 
-			if(isfloorturf(T) && !(locate(/obj/structure/window) in T))
-				icon_state_to_use = "floor"
+			//the following variables are set conditionally on the state of the turf
+			//so we can render the right sprite for this turf
+			var/neighbor_space = FALSE
+			var/list/neighbors_alien = list()
+			var/list/neighbors_solid = list()
 
-			else if(iswallturf(T) || istype(T, /turf/simulated/mineral) || (locate(/obj/structure/window) in T))
-				//this will be a flag so we can skip the logic that runs for interior walls as soon as we know we are bordering space (dont need to set direction on a 2x2)
-				var/space_found = FALSE
-				//we default to 2x2 sprite here since lone walls or walls that run through the middle of areas shouldnt be 1 wide and directional
-				icon_state_to_use = "full"
+			for(var/i in GLOB.cardinal)
+				var/turf/found_turf = get_step(T, i)
+				var/area/found_area = get_area(found_turf)
+				var/found_window = FALSE
 
-				//time to check whats around us
-				for(var/i in GLOB.cardinal)
-					var/turf/found_turf = get_step(T, i)
-					var/area/found_area = get_area(found_turf)
+				for(var/obj/structure/window/full/WW in found_turf.contents)
+					found_window = TRUE
+					break
+				for(var/obj/effect/spawner/window/WW in found_turf.contents)
+					found_window = TRUE
+					break
 
-					if(found_area == /area/space || isspaceturf(found_turf))
-						//if the area borders space then it will be represented as a 2x2 pixel box
-						icon_state_to_use = "full"
-						space_found = TRUE
+				for(var/j in GLOB.diagonals)
+					var/turf/found_s_turf = get_step(T, j)
+					var/area/found_s_area = get_area(found_s_turf)
+					if(found_s_area == /area/space || isspaceturf(found_s_turf))
+						neighbor_space = TRUE
 						break
 
-					if(found_area != A || (locate(/obj/machinery/door/airlock) in found_turf))
-						//this makes walls that border doorways have cornered appearences (looks nice)
-						icon_state_to_use = "wall"
-						directions_to_aliens += i
+				if(neighbor_space || found_area == /area/space || isspaceturf(found_turf))
+					neighbor_space = TRUE
+					break
 
-					if(iswallturf(found_turf) || istype(found_turf, /turf/simulated/mineral) || (locate(/obj/structure/window) in found_turf))
-						directions_to_solids += i
+				if(found_area != A || locate(/obj/machinery/door/airlock) in found_turf)
+					neighbors_alien += i
 
-				if(!space_found)
-					if((locate(/obj/structure/window) in T) && length(directions_to_aliens) == 0)
-						message_admins("sadfsdf")
-					//only if we still havent determined to be a full 2x2 will we do all the costly checks
-					switch(length(directions_to_aliens))
+				if(iswallturf(found_turf) || istype(found_turf, /turf/simulated/mineral) || found_window)
+					neighbors_solid += i
+
+			if(neighbor_space || length(neighbors_solid) >= 3)
+				if(iswallturf(T) || istype(T, /turf/simulated/mineral) || W)
+					icon_state_to_use = "full"
+				else if(isfloorturf(T))
+					icon_state_to_use = "floor"
+
+
+			//--> (not next to space; not surrounded; less than 3 solid neighbors)
+			else if(iswallturf(T) || istype(T, /turf/simulated/mineral) || W)
+				if(length(neighbors_alien) == 1)
+					icon_state_to_use = "wall"
+					dir_to_use = neighbors_alien[1]
+				else if(length(neighbors_alien) == 2)
+					icon_state_to_use = "wall"
+					if((neighbors_alien[1] == NORTH && neighbors_alien[2] == SOUTH))
+						icon_state_to_use = "full"
+					else if((neighbors_alien[1] == NORTH && neighbors_alien[2] == EAST))
+						dir_to_use = NORTHEAST
+					else if(neighbors_alien[1] == NORTH && neighbors_alien[2] == WEST)
+						dir_to_use = NORTHWEST
+					else if(neighbors_alien[1] == SOUTH && neighbors_alien[2] == EAST)
+						dir_to_use = SOUTHEAST
+					else if(neighbors_alien[1] == SOUTH && neighbors_alien[2] == WEST)
+						dir_to_use = SOUTHWEST
+				else
+					switch(length(neighbors_solid))
 						if(0)
-							icon_state_to_use = "wall"
-							switch(length(directions_to_solids))
-								if(0)
-									icon_state_to_use = "full"
-								if(1)
-									dir_to_use = (directions_to_solids[1] == NORTH || directions_to_solids[1] == SOUTH) ? WEST : NORTH
-								if(2)
-									if((directions_to_solids[1] == NORTH && directions_to_solids[2] == SOUTH) || (directions_to_solids[1] == SOUTH && directions_to_solids[2] == NORTH))
-										dir_to_use = WEST
-									else if((directions_to_solids[1] == EAST && directions_to_solids[2] == WEST) || (directions_to_solids[1] == WEST && directions_to_solids[2] == EAST))
-										dir_to_use = NORTH
-									else
-										if(directions_to_solids[1] == NORTH)
-											if(directions_to_solids[2] == EAST)
-												dir_to_use = SOUTHWEST
-											else
-												dir_to_use = SOUTHEAST
-										else if(directions_to_solids[1] == SOUTH)
-											if(directions_to_solids[2] == EAST)
-												dir_to_use = NORTHWEST
-											else
-												dir_to_use = NORTHEAST
-										else if(directions_to_solids[1] == EAST)
-											if(directions_to_solids[2] == NORTH)
-												dir_to_use = SOUTHWEST
-											else
-												dir_to_use = NORTHWEST
-										else
-											if(directions_to_solids[2] == NORTH)
-												dir_to_use = SOUTHEAST
-											else
-												dir_to_use = NORTHEAST
-								if(3)
-									if(!(locate(NORTH) in directions_to_solids))
-										dir_to_use = NORTHWEST
-									else if(!(locate(SOUTH) in directions_to_solids))
-										dir_to_use = NORTH
-									else if(!(locate(EAST) in directions_to_solids))
-										dir_to_use = WEST
-									else
-										dir_to_use = NORTHWEST
-								if(4 to INFINITY)
-									icon_state_to_use = "full"
+							icon_state_to_use =  "full"
 						if(1)
-							if(length(directions_to_solids))
-								switch(directions_to_aliens[1])
-									if(NORTH)
-										if(locate(SOUTH) in directions_to_solids)
-											dir_to_use = NORTHWEST
-										else
-											dir_to_use = directions_to_aliens[1]
-									if(SOUTH)
-										if(locate(NORTH) in directions_to_solids)
-											dir_to_use = SOUTHWEST
-										else
-											dir_to_use = directions_to_aliens[1]
-									if(EAST)
-										if(locate(WEST) in directions_to_solids)
-											dir_to_use = NORTHEAST
-										else
-											dir_to_use = directions_to_aliens[1]
-									if(WEST)
-										if(locate(EAST) in directions_to_solids)
-											dir_to_use = NORTHWEST
-										else
-											dir_to_use = directions_to_aliens[1]
+							if(length(neighbors_alien))
+								icon_state_to_use =  "full"
 							else
-								dir_to_use = directions_to_aliens[1]
+								icon_state_to_use = "wall"
+								if(neighbors_solid[1] == SOUTH || neighbors_solid[1] == NORTH)
+									dir_to_use = WEST
+								else if(neighbors_solid[1] == EAST || neighbors_solid[1] == WEST)
+									dir_to_use = NORTH
 						if(2)
-							if((directions_to_aliens[1] == NORTH && directions_to_aliens[2] == SOUTH) || (directions_to_aliens[1] == SOUTH && directions_to_aliens[2] == NORTH))
-								dir_to_use = WEST
-							else if((directions_to_aliens[1] == EAST && directions_to_aliens[2] == WEST) || (directions_to_aliens[1] == WEST && directions_to_aliens[2] == EAST))
-								dir_to_use = NORTH
+							if(length(neighbors_alien))
+								icon_state_to_use =  "full"
 							else
-								if(directions_to_aliens[1] == NORTH)
-									if(directions_to_aliens[2] == EAST)
-										dir_to_use = NORTHEAST
-									else
-										dir_to_use = NORTHWEST
-								else if(directions_to_aliens[1] == SOUTH)
-									if(directions_to_aliens[2] == EAST)
-										dir_to_use = SOUTHEAST
-									else
-										dir_to_use = SOUTHWEST
-								else if(directions_to_aliens[1] == EAST)
-									if(directions_to_aliens[2] == NORTH)
-										dir_to_use = NORTHEAST
-									else
-										dir_to_use = SOUTHEAST
-								else
-									if(directions_to_aliens[2] == NORTH)
-										dir_to_use = NORTHWEST
-									else
-										dir_to_use = SOUTHWEST
-						if(3)
-							icon_state_to_use = "full"
-						if(4)
-							icon_state_to_use = "full"
+								icon_state_to_use = "wall"
+								if(neighbors_solid[1] == NORTH && neighbors_solid[2] == SOUTH)
+									dir_to_use = WEST
+								else if((neighbors_solid[1] == NORTH && neighbors_solid[2] == EAST))
+									dir_to_use = NORTH
+								else if(neighbors_solid[1] == NORTH && neighbors_solid[2] == WEST)
+									dir_to_use = NORTH
+								else if(neighbors_solid[1] == SOUTH && neighbors_solid[2] == EAST)
+									dir_to_use = NORTHWEST
+								else if(neighbors_solid[1] == SOUTH && neighbors_solid[2] == WEST)
+									dir_to_use = WEST
+								else if(neighbors_solid[1] == EAST && neighbors_solid[2] == WEST)
+									dir_to_use = NORTH
+			else if(isfloorturf(T))
+				icon_state_to_use = "floor"
 
-			else //if its actually space then nothing need be rendered
-				continue
 
 			//finally we can create the icon we are gonna use
 			var/icon/I = icon(icon_to_use, icon_state_to_use, dir_to_use)
@@ -312,7 +272,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 		return floor_varient ? "#bdbdbd" : "#FFFFFF"
 
 	//AI SAT
-	if(istype(A, /area/turret_protected) || istype(A, /area/aisat))
+	if(istype(A, /area/turret_protected) || istype(A, /area/aisat) || istype(A, /area/tcommsat))
 		return floor_varient ? "#144640": "#009180"
 
 	//COMMAND
