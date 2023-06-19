@@ -20,21 +20,19 @@
 
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
 	var/list/safe_areas = typecacheof(list(
-	/area/turret_protected/ai,
-	/area/turret_protected/ai_upload,
-	/area/engine,
-	/area/solar,
+	/area/station/turret_protected/ai,
+	/area/station/turret_protected/ai_upload,
+	/area/station/engineering,
 	/area/holodeck,
 	/area/shuttle,
-	/area/maintenance,
-	/area/toxins/test_area))
+	/area/station/maintenance,
+	/area/station/science/test_area))
 
 	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
 	var/list/danger_areas = list(
-	/area/engine/break_room,
-	/area/engine/equipmentstorage,
-	/area/engine/chiefs_office,
-	/area/engine/controlroom)
+	/area/station/engineering/break_room,
+	/area/station/engineering/equipmentstorage,
+	/area/station/engineering/controlroom)
 
 	var/list/allowed_areas = list()
 
