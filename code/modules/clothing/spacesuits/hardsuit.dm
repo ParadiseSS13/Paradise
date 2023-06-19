@@ -316,7 +316,7 @@
 		flags_inv &= ~visor_flags_inv
 		cold_protection &= ~HEAD
 	update_icon()
-	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(src.loc, 'sound/items/rig_deploy.ogg', 50, 1)
 	toggle_hardsuit_mode(user)
 	user.update_inv_head()
 	if(ishuman(user))
