@@ -255,6 +255,15 @@
 		/obj/item/reagent_containers/borghypo = /obj/item/reagent_containers/borghypo/abductor
 	)
 
+/obj/item/borg/upgrade/abductor_medi/after_install(mob/living/silicon/robot/R)
+	if(R.emagged) // Emagged Mediborgs that are upgraded need the evil chems.
+		addtimer(CALLBACK(src, PROC_REF(emag_after_upgrade), R), 0.1 SECONDS)
+	..()
+
+/obj/item/borg/upgrade/abductor_medi/proc/emag_after_upgrade(mob/living/silicon/robot/R)
+	for(var/obj/item/reagent_containers/borghypo/F in R.module.modules)
+		F.emag_act()
+
 /obj/item/borg/upgrade/syndicate
 	name = "safety override module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg."
