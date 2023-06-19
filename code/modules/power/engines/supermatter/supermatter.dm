@@ -1214,7 +1214,7 @@
 
 //type 2
 /obj/machinery/atmospherics/supermatter_crystal/proc/event_b2()
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 1 MI	NUTES)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 1 MINUTES)
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-2. Operator intervention is required!", name, "Engineering", list(z))
 	heat_multiplier = 1.25
 	return
@@ -1225,6 +1225,36 @@
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-1. Operator intervention is required!", name, "Engineering", list(z))
 	power_additive = 2000
 	return
+
+//A class events
+//type 1
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_a1()
+	src.radio.autosay("ALERT: Critical anomalous crystal activity detected! Activity class: A-1. IMMEDIATE Operator intervention is REQUIRED!", name, "Engineering", list(z))
+	var/area/current_area = get_area(src)
+	var/obj/machinery/power/apc/A = current_area.get_apc()
+	if(A.wires)
+		if(!A.wires.is_cut(WIRE_MAIN_POWER1))
+			A.wires.cut(WIRE_MAIN_POWER1)
+		if(A.wires.is_cut(WIRE_MAIN_POWER2))
+			A.wires.cut(WIRE_MAIN_POWER2)
+	if(A.operating)
+		A.toggle_breaker()
+	return
+
+//type 2
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_a2()
+	src.radio.autosay("ALERT: Critical anomalous crystal activity detected! Activity class: A-2. IMMEDIATE Operator intervention is REQUIRED!", name, "Engineering", list(z))
+	var/area/current_area = get_area(src)
+	var/obj/machinery/alarm/engine/A = current_area.master_air_alarm
+	A.apply_mode(AALARM_MODE_SCRUBBING)
+
+//type 3
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_a3()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 2 MINUTES)
+	src.radio.autosay("ALERT: Critical anomalous crystal activity detected! Activity class: A-3. IMMEDIATE Operator intervention is REQUIRED!", name, "Engineering", list(z))
+	gas_multiplier = 4
+	return
+
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
