@@ -206,6 +206,12 @@
 	//vars used for supermatter events (Anomalous  crystal activityw)
 	///no events should occur while the SM is offline. This also allows admins to easily disable them
 	var/events_possible = FALSE
+	///flat multiplies the amount of gas released by the SM.
+	var/gas_multiplier = 1
+	///flat multiplies the heat released by the SM
+	var/heat_multiplier = 1
+	///amount of EER to ADD
+	var/power_additive = 0
 
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
@@ -519,7 +525,7 @@
 
 
 		if(power_changes)
-			power = max((removed.temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
+			power = max(((removed.temperature * temp_factor / T0C) * gasmix_power_ratio + power) + power_additive, 0)
 
 		if(prob(50))
 
@@ -536,15 +542,15 @@
 		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
 		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
 		//Power * 0.55 * (some value between 1.5 and 23) / 5
-		removed.temperature += ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER)
+		removed.temperature += (((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER)*heat_multiplier)
 		//We can only emit so much heat, that being 57500
 		removed.temperature = max(0, min(removed.temperature, 2500 * dynamic_heat_modifier))
 
 		//Calculate how much gas to release
 		//Varies based on power and gas content
-		removed.toxins += max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0)
+		removed.toxins += max(((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER)*gas_multiplier, 0)
 		//Varies based on power, gas content, and heat
-		removed.oxygen += max(((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
+		removed.oxygen += max((((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER)*gas_multiplier, 0)
 
 		if(produces_gas)
 			env.merge(removed)
@@ -1147,6 +1153,8 @@
 /obj/machinery/atmospherics/supermatter_crystal/proc/end_event()
 	src.radio.autosay("Anomalous crystal activity has ended.", name, "Engineering", list(z))
 	heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
+	gas_multiplier = 1
+	power_additive = 0
 
 //D class events
 //type 1
@@ -1191,9 +1199,31 @@
 
 //type 3
 /obj/machinery/atmospherics/supermatter_crystal/proc/event_c3()
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 30 SECONDS)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 5 MINUTES)
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-3. Operator intervention may be required!", name, "Engineering", list(z))
 	heat_penalty_threshold = -73
+	return
+
+//Class B events
+//type 1
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_b1()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 1 MINUTES)
+	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-1. Operator intervention is required!", name, "Engineering", list(z))
+	gas_multiplier = 1.5
+	return
+
+//type 2
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_b2()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 1 MI	NUTES)
+	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-2. Operator intervention is required!", name, "Engineering", list(z))
+	heat_multiplier = 1.25
+	return
+
+//type 3
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_b3()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 1 MINUTES)
+	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-1. Operator intervention is required!", name, "Engineering", list(z))
+	power_additive = 2000
 	return
 
 #undef HALLUCINATION_RANGE
