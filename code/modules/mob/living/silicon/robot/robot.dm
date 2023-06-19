@@ -1488,7 +1488,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		sync()
 
-/mob/living/silicon/robot/adjustOxyLoss(var/amount)
+/mob/living/silicon/robot/adjustOxyLoss(amount, updating_health)
 	if(suiciding)
 		return ..()
 	else

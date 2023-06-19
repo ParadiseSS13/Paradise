@@ -276,7 +276,7 @@
  *
  * optional force bool If the UI should be forced to update.
  */
-/datum/tgui/process(force = FALSE)
+/datum/tgui/process(seconds_per_tick, force = FALSE)
 	var/datum/host = src_object.ui_host(user)
 	if(!src_object || !host || !user) // If the object or user died (or something else), abort.
 		close()

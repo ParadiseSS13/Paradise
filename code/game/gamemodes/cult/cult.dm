@@ -184,6 +184,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
 		cult_mind.special_role = SPECIAL_ROLE_CULTIST
+		ADD_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
@@ -265,6 +266,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		for(var/datum/objective/servecult/O in cult_mind.objectives)
 			cult_mind.objectives -= O
 			qdel(O)
+		REMOVE_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 		for(var/datum/action/innate/cult/C in cultist.actions)
 			qdel(C)
 		update_cult_icons_removed(cult_mind)

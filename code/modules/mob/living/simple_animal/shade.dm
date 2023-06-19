@@ -52,6 +52,7 @@
 /mob/living/simple_animal/shade/cult/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.shade_icon_state
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
 
 /mob/living/simple_animal/shade/holy
 	holy = TRUE

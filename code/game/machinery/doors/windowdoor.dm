@@ -405,7 +405,7 @@
 	take_damage(rand(30, 60), BRUTE)
 	if(src)
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 
 /obj/machinery/door/window/northleft

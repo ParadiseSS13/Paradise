@@ -638,7 +638,7 @@
 	take_damage(rand(15, 45), BRUTE)
 	if(src) //do we still exist?
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/table/reinforced/brass/ratvar_act()

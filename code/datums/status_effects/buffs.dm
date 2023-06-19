@@ -107,10 +107,30 @@
 	tick_interval = 25
 	examine_text = "<span class='notice'>They seem to have an aura of healing and helpfulness about them.</span>"
 	alert_type = null
+
+	var/datum/component/aura_healing/aura_healing
 	var/hand
 	var/deathTick = 0
 
 /datum/status_effect/hippocraticOath/on_apply()
+	var/static/list/organ_healing = list(
+		"brain" = 1.4,
+	)
+
+	aura_healing = owner.AddComponent( \
+		/datum/component/aura_healing, \
+		range = 7, \
+		brute_heal = 1.4, \
+		burn_heal = 1.4, \
+		toxin_heal = 1.4, \
+		suffocation_heal = 1.4, \
+		stamina_heal = 1.4, \
+		clone_heal = 0.4, \
+		simple_heal = 1.4, \
+		organ_healing = organ_healing, \
+		healing_color = "#375637", \
+	)
+
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
@@ -118,6 +138,7 @@
 	return ..()
 
 /datum/status_effect/hippocraticOath/on_remove()
+	QDEL_NULL(aura_healing)
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.remove_hud_from(owner)
@@ -177,30 +198,6 @@
 			itemUser.adjustStaminaLoss(-1.5)
 			itemUser.adjustBrainLoss(-1.5)
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
-		//Heal all those around you, unbiased
-		for(var/mob/living/L in view(7, owner))
-			if(L.health < L.maxHealth)
-				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
-			if(iscarbon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-				L.adjustToxLoss(-3.5)
-				L.adjustOxyLoss(-3.5)
-				L.adjustStaminaLoss(-3.5)
-				L.adjustBrainLoss(-3.5)
-				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
-				if(ishuman(L))
-					var/mob/living/carbon/human/H = L
-					for(var/obj/item/organ/external/E in H.bodyparts)
-						if(prob(10))
-							E.mend_fracture()
-							E.internal_bleeding = FALSE
-			else if(issilicon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-			else if(isanimal(L))
-				var/mob/living/simple_animal/SM = L
-				SM.adjustHealth(-3.5)
 
 /obj/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"

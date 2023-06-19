@@ -812,7 +812,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	take_damage(rand(25, 75), BRUTE)
 	if(src)
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/window/reinforced/clockwork/fulltile

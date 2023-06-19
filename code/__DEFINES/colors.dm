@@ -2,6 +2,7 @@
 #define COLOR_INPUT_DISABLED "#F0F0F0"
 #define COLOR_INPUT_ENABLED "#D3B5B5"
 #define COLOR_RED 			   "#FF0000"
+#define COLOR_CULT_RED			"#960000"
 #define COLOR_GREEN 		   "#00FF00"
 #define COLOR_BLUE 			   "#0000FF"
 #define COLOR_CYAN 			   "#00FFFF"

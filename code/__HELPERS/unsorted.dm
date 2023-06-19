@@ -1887,7 +1887,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return pois
 
-/proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)
+/proc/flash_color(mob_or_client, flash_color=COLOR_CULT_RED, flash_time=20)
 	var/client/C
 	if(istype(mob_or_client, /mob))
 		var/mob/M = mob_or_client

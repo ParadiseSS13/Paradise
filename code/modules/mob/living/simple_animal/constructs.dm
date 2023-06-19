@@ -48,6 +48,10 @@
 
 	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
+/mob/living/simple_animal/hostile/construct/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
+
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	. = ..()
 	SSticker.mode.remove_cultist(mind, FALSE)
