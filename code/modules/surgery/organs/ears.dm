@@ -28,7 +28,7 @@
 		deaf = max(deaf, 1) // if we're failing we always have at least 1 deaf stack (and thus deafness)
 	else
 		deaf = max(deaf - 1, 0)
-		if((damage > 10) && prob(ear_damage / 30))
+		if((damage > 10) && prob(damage / 30))
 			AdjustEarDamage(0, 4)
 			SEND_SOUND(owner, sound('sound/weapons/flash_ring.ogg'))
 
