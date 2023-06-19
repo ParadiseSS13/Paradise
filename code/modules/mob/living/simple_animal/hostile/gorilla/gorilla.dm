@@ -36,9 +36,11 @@
 	var/list/carriable_cache
 	/// A lazylist of all crates we are carrying
 	var/list/atom/movable/crates_in_hand
+	/// Chance to dismember while unconcious
 	var/dismember_chance = 10
+	/// Amount of stamina lost on a successful hit
 	var/stamina_damage = 20
-	///5 hits to stam crit
+	/// Chance of doing the throw or stamina damage, along with the flat damage amount
 	var/throw_onhit = 50
 
 /mob/living/simple_animal/hostile/gorilla/Initialize()
