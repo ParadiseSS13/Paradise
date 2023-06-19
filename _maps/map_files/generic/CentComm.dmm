@@ -5912,14 +5912,14 @@
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/a40mm,
 /obj/structure/rack,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28314,12 +28314,16 @@
 	},
 /area/centcom/zone2)
 "oaa" = (
-/obj/machinery/light,
+/obj/structure/rack/gunrack,
+/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/projectile/automatic/sfg,
+/obj/item/gun/projectile/automatic/sfg,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellowalt"
+	icon_state = "dark"
 	},
-/area/centcom/zone3)
+/area/centcom/specops)
 "oaS" = (
 /obj/machinery/door_control/alt{
 	emagged = 1;
@@ -34714,9 +34718,10 @@
 /area/syndicate_mothership/outside)
 "qYE" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 8;
+	tag = "icon-bulb1 (WEST)"
 	},
-/turf/simulated/floor/carpet/arcade,
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "qYO" = (
 /obj/structure/lattice/catwalk,
@@ -42034,15 +42039,10 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "uoR" = (
-/obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "uoZ" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -43203,15 +43203,11 @@
 	},
 /area/shuttle/ninja)
 "uNq" = (
-/obj/structure/window/reinforced{
-	dir = 4
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowalt"
 	},
-/obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/centcom/specops)
+/area/centcom/zone3)
 "uNx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -90820,8 +90816,8 @@ fCa
 pUa
 oNa
 kWm
-oaa
-ueN
+tLO
+uNq
 kWm
 jle
 nRs
@@ -99804,7 +99800,7 @@ nAN
 nAN
 nAN
 nAN
-uoR
+nAN
 jed
 xPf
 fQU
@@ -100061,7 +100057,7 @@ fpg
 mvP
 nAN
 nve
-oIc
+qYE
 oIc
 oIc
 oIc
@@ -100308,7 +100304,7 @@ jbJ
 afP
 rFp
 xOe
-qYE
+xOe
 xOe
 xsw
 xOe
@@ -100872,7 +100868,7 @@ fAg
 fAg
 qWa
 vFy
-nIL
+oaa
 nAN
 pDG
 mVX
@@ -101089,7 +101085,7 @@ nnM
 mYz
 nAN
 uQg
-oIc
+uoR
 oIc
 oIc
 oIc
@@ -101346,7 +101342,7 @@ afP
 afP
 nAN
 nAN
-uNq
+nAN
 mnX
 ixP
 wEo
