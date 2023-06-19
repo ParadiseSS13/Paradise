@@ -229,12 +229,15 @@
 	<b>Warning:</b> Teleporting into walls will activate a failsafe teleport parallel up to 3 meters, but the user will be ripped apart and gibbed in a wall if it fails.<br>
 	<br>
 	Do not expose the teleporter to electromagnetic pulses or attempt to use with a bag of holding, unwanted malfunctions may occur.
+	<br><hr>
+	<font size =\"1\">Comes with free chameleon mesons, to help you stay stylish while seeing through walls.</font>
 "}
 /obj/item/storage/box/syndie_kit/teleporter
 	name = "syndicate teleporter kit"
 
 /obj/item/storage/box/syndie_kit/teleporter/populate_contents()
 	new /obj/item/teleporter(src)
+	new /obj/item/clothing/glasses/meson/chameleon(src)
 	new /obj/item/paper/teleporter(src)
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
