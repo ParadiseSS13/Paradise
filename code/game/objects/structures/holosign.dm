@@ -7,17 +7,27 @@
 	anchored = TRUE
 	max_integrity = 1
 	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)
-	var/obj/item/holosign_creator/projector
+	var/obj/item/projector
 
 /obj/structure/holosign/Initialize(mapload, source_projector)
 	. = ..()
-	if(source_projector)
-		projector = source_projector
-		projector.signs += src
+	if(istype(source_projector, /obj/item/holosign_creator))
+		var/obj/item/holosign_creator/holosign = source_projector
+		holosign.signs += src
+		projector = holosign
+	else if(istype(source_projector, /obj/item/mecha_parts/mecha_equipment/holowall))
+		var/obj/item/mecha_parts/mecha_equipment/holowall/holoproj = source_projector
+		holoproj.barriers += src
+		projector = holoproj
 
 /obj/structure/holosign/Destroy()
-	if(projector)
-		projector.signs -= src
+	if(istype(projector, /obj/item/holosign_creator))
+		var/obj/item/holosign_creator/holosign = projector
+		holosign.signs -= src
+		projector = null
+	else if(istype(projector, /obj/item/mecha_parts/mecha_equipment/holowall))
+		var/obj/item/mecha_parts/mecha_equipment/holowall/holoproj = projector
+		holoproj.barriers -= src
 		projector = null
 	return ..()
 

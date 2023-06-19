@@ -155,11 +155,9 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/extinguisher
+	ME = new /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/rcd
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/cable_layer
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/wormhole_generator
 	ME.attach(src)

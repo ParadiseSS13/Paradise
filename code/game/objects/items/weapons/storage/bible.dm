@@ -142,17 +142,20 @@
 			airlock.cult_reveal()
 
 	if(user.mind?.isholy && target.reagents)
-		if(target.reagents.has_reagent("water")) //blesses all the water in the holder
-			to_chat(user, "<span class='notice'>You bless [target].</span>")
-			var/water2holy = target.reagents.get_reagent_amount("water")
-			target.reagents.del_reagent("water")
-			target.reagents.add_reagent("holywater", water2holy)
+		add_holy_water(user, target)
 
-		if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
-			to_chat(user, "<span class='notice'>You purify [target].</span>")
-			var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
-			target.reagents.del_reagent("unholywater")
-			target.reagents.add_reagent("holywater", unholy2clean)
+/obj/item/storage/bible/proc/add_holy_water(mob/user, atom/target)
+	if(target.reagents.has_reagent("water")) //blesses all the water in the holder
+		to_chat(user, "<span class='notice'>You bless [target].</span>")
+		var/water2holy = target.reagents.get_reagent_amount("water")
+		target.reagents.del_reagent("water")
+		target.reagents.add_reagent("holywater", water2holy)
+
+	if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
+		to_chat(user, "<span class='notice'>You purify [target].</span>")
+		var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
+		target.reagents.del_reagent("unholywater")
+		target.reagents.add_reagent("holywater", unholy2clean)
 
 /obj/item/storage/bible/attack_self(mob/user)
 	. = ..()

@@ -859,20 +859,11 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_extinguisher
-	name = "Exosuit Engineering Equipment (Extinguisher)"
-	id = "mech_extinguisher"
+/datum/design/mech_atmos_module
+	name = "Exosuit Engineering Module (ATMOS module)"
+	id = "mech_atmos_module"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/extinguisher
-	materials = list(MAT_METAL=10000)
-	construction_time = 100
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_cable_layer
-	name = "Exosuit Engineering Equipment (Cable Layer)"
-	id = "mech_cable_layer"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/cable_layer
+	build_path = /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
