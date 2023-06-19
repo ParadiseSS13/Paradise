@@ -38,6 +38,7 @@
 	total_health = 75
 	brute_mod = 1.5
 	burn_mod = 1.5
+	hunger_drain = HUNGER_FACTOR / 2 // twice has slow as normal
 
 /datum/species/monkey/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	. = ..()
