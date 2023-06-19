@@ -202,6 +202,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNREVIVABLE 		"unrevivable" // Prevents changeling revival
 #define TRAIT_CULT_IMMUNITY		"cult_immunity"
 #define TRAIT_FLATTENED			"flattened"
+#define SM_HALLUCINATION_IMMUNE "supermatter_hallucination_immune"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
