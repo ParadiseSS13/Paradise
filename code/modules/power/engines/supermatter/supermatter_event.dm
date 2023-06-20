@@ -1,15 +1,8 @@
-#define SM_EVENT_CLASS_ANOMALY "Class Anomaly"
-#define SM_EVENT_THREAT_D 0
-#define SM_EVENT_THREAT_C 1
-#define SM_EVENT_THREAT_B 2
-#define SM_EVENT_THREAT_A 3
-#define SM_EVENT_THREAT_S 4
-
 /datum/supermatter_event
-	name = "Unknown XK-Class Anomaly (Report this to coders)"
+	name = "Unknown X-K (Report this to coders)"
 	var/obj/machinery/atmospherics/supermatter_crystal/supermatter
 	var/datum/gas_mixture/environment
-	// Possibly useful for the console, remove if not used by the end of the PR
+	// Probability of the event not running, higher tiers being rarer
 	var/threat_level
 	var/duration
 
@@ -20,7 +13,7 @@
 		stack_trace("a /datum/supermatter_event was called without an involved supermatter.")
 		return
 	if(!istype(supermatter))
-		stack_trace("a /datum/supermatter_event was called with (name: [supermatter], type: [supermatter.type]) instead!")
+		stack_trace("a /datum/supermatter_event was called with (name: [supermatter], type: [supermatter.type]) instead of a supermatter!")
 		return
 	var/turf/T = get_turf(supermatter)
 	environment = T.return_air()
@@ -44,7 +37,8 @@
 	supermatter.gas_multiplier = 1
 	supermatter.power_additive = 0
 	supermatter.event_active = null
-	supermatter.last_event = world.time
+	supermatter.last_events += src
+	supermatter.make_next_event_time()
 
 /datum/supermatter_event/proc/sm_radio_say(text)
 	if(!text)
@@ -55,7 +49,7 @@
 
 //D class events
 
-/datum/supermatter_event/delta_tier/
+/datum/supermatter_event/delta_tier
 	threat = SM_EVENT_THREAT_D
 
 // sleeping gas
@@ -112,32 +106,32 @@
 	supermatter.heat_penalty_threshold = -73
 
 //Class B events
-/datum/supermatter_event/beta_tier
+/datum/supermatter_event/bravo_tier
 	threat = SM_EVENT_THREAT_B
 	duration = 1 MINUTES
 
-/datum/supermatter_event/beta_tier/alert_engi()
+/datum/supermatter_event/bravo_tier/alert_engi()
 	sm_radio_say("Anomalous crystal activity detected! Activity class: [name]. Operator intervention is required!")
 
 
 // more gas
-/datum/supermatter_event/beta_tier/gas_multiply
+/datum/supermatter_event/bravo_tier/gas_multiply
 	name = "B-1"
 
-/datum/supermatter_event/beta_tier/gas_multiply/on_start()
+/datum/supermatter_event/bravo_tier/gas_multiply/on_start()
 	supermatter.gas_multiplier = 1.5
 
 
-/datum/supermatter_event/beta_tier/heat_multiplier
+/datum/supermatter_event/bravo_tier/heat_multiplier
 	name = "B-2"
 
-/datum/supermatter_event/beta_tier/heat_multiplier/on_start()
+/datum/supermatter_event/bravo_tier/heat_multiplier/on_start()
 	supermatter.heat_multiplier = 1.25
 
-/datum/supermatter_event/beta_tier/power_additive
+/datum/supermatter_event/bravo_tier/power_additive
 	name = "B-3"
 
-/datum/supermatter_event/beta_tier/power_additive/on_start()
+/datum/supermatter_event/bravo_tier/power_additive/on_start()
 	supermatter.power_additive = 2000
 
 //A class events
@@ -181,6 +175,7 @@
 
 /datum/supermatter_event/sierra_tier/on_start()
 	addtimer(CALLBACK(src, PROC_REF(start_sierra_event)), 5 MINUTES)
+	supermatter.has_run_sclass = TRUE
 
 /datum/supermatter_event/sierra_tier/proc/start_sierra_event()
 	sm_radio_say("ALERT: ANOMALOUS SUPERMATTER STATE DETECTED!", name, null, list(z))
