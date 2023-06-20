@@ -141,7 +141,7 @@
 					to_chat(user, "<span class='notice'>Core screwed.</span>")
 				step = SCREWED_CORE_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					core.forceMove(drop_location())
 					to_chat(user, "<span class='notice'>Core removed.</span>")
 				step = START_STEP
@@ -156,7 +156,7 @@
 				helmet.forceMove(src)
 				step = HELMET_STEP
 			else if(part.tool_behaviour == TOOL_SCREWDRIVER) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					to_chat(user, "<span class='notice'>Core unscrewed.</span>")
 					step = CORE_STEP
 		if(HELMET_STEP)
@@ -171,7 +171,7 @@
 				chestplate.forceMove(src)
 				step = CHESTPLATE_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					helmet.forceMove(drop_location())
 					to_chat(user, "<span class='notice'>Helmet removed.</span>")
 					helmet = null
@@ -187,7 +187,7 @@
 				gauntlets.forceMove(src)
 				step = GAUNTLETS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					chestplate.forceMove(drop_location())
 					to_chat(user, "<span class='notice'>Chestplate removed.</span>")
 					chestplate = null
@@ -203,7 +203,7 @@
 				boots.forceMove(src)
 				step = BOOTS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					gauntlets.forceMove(drop_location())
 					to_chat(user, "<span class='notice'>Gauntlets removed.</span>")
 					gauntlets = null

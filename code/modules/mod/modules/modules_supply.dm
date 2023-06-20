@@ -513,7 +513,7 @@
 
 /obj/item/projectile/bullet/reusable/mining_bomb
 	name = "mining bomb"
-	desc = "A bomb. Why are you examining this?"
+	desc = "A bomb. Why are you staring at this?"
 	icon_state = "mine_bomb"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	damage = 0
@@ -526,7 +526,7 @@
 
 /obj/structure/mining_bomb
 	name = "mining bomb"
-	desc = "A bomb. Why are you examining this?"
+	desc = "A bomb. Why are you staring at this?"
 	icon_state = "mine_bomb"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	anchored = TRUE

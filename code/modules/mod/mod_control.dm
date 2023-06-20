@@ -316,8 +316,6 @@
 				continue
 			removable_modules += module
 		var/obj/item/mod/module/module_to_remove = input(user, "Which module do you want to pry out?", "Module Removal") as null|anything in removable_modules
-		if(!module_to_remove)
-			return FALSE
 		if(!module_to_remove?.mod)
 			return FALSE
 		uninstall(module_to_remove)
@@ -400,8 +398,7 @@
 /obj/item/mod/control/GetAccess()
 	if(locate(/mob/living/silicon/ai) in src)
 		return req_access.Copy()
-	else
-		return ..()
+	return ..()
 
 /obj/item/mod/control/emag_act(mob/user)
 	locked = !locked
@@ -420,7 +417,7 @@
 	if(wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")
 	core.emp_act(severity)
-	if(prob(50/severity))
+	if(prob(50 / severity))
 		wires.emp_pulse() //3 wires get pulsed. Dangerous to a mod user.
 
 
@@ -443,13 +440,13 @@
 	return ..()
 
 /obj/item/mod/control/proc/set_wearer(mob/living/carbon/human/user)
-	if (wearer == user)
+	if(wearer == user)
 		// This should also not happen.
 		// This path is hit when equipping an outfit with visualsOnly, but only sometimes, and this eventually gets called twice.
 		// I'm not sure this proc should ever be being called by visualsOnly, but it is,
 		// and this was an emergency patch.
 		return
-	else if (!isnull(wearer))
+	else if(!isnull(wearer))
 		stack_trace("set_wearer() was called with a new wearer without unset_wearer() being called")
 
 	wearer = user
