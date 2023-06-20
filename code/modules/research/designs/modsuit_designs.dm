@@ -314,13 +314,6 @@
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/pathfinder
 
-/datum/design/module/disposal
-	name = "Disposal Connector Module"
-	id = "mod_disposal"
-	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 5)
-	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
-	build_path = /obj/item/mod/module/disposal_connector
-
 /datum/design/module/plate_compression
 	name = "Plate Compression Module"
 	id = "mod_compression"

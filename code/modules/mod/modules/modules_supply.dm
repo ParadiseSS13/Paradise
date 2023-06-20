@@ -42,7 +42,7 @@
 	if(!mod.wearer.Adjacent(target))
 		return
 	if(istype(target, /obj/structure/closet/crate))
-		var/atom/movable/picked_crate = target
+		var/obj/structure/closet/crate/picked_crate = target
 		if(!check_crate_pickup(picked_crate))
 			return
 		playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
@@ -62,7 +62,7 @@
 			return
 		if(target_turf.density)
 			return
-		var/atom/movable/dropped_crate = pop(stored_crates)
+		var/obj/structure/closet/crate/dropped_crate = pop(stored_crates)
 		dropped_crate.forceMove(target_turf)
 		drain_power(use_power_cost)
 	else
@@ -71,7 +71,7 @@
 /obj/item/mod/module/clamp/on_suit_deactivation(deleting = FALSE)
 	if(deleting)
 		return
-	for(var/atom/movable/crate as anything in stored_crates)
+	for(var/obj/structure/closet/crate/crate as anything in stored_crates)
 		crate.forceMove(drop_location())
 		stored_crates -= crate
 
@@ -240,43 +240,6 @@
 		return
 	user.transform = user.transform.Turn(angle)
 	user.cut_overlay(charge_up_overlay)
-
-/obj/item/mod/module/disposal_connector
-	name = "MOD disposal selector module"
-	desc = "A module that connects to the disposal pipeline, causing the user to go into their config selected disposal. \
-		Only seems to work when the suit is on."
-	icon_state = "disposal"
-	complexity = 2
-	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
-	incompatible_modules = list(/obj/item/mod/module/disposal_connector)
-	var/disposal_tag = NONE
-
-/obj/item/mod/module/disposal_connector/Initialize(mapload)
-	. = ..()
-	disposal_tag = pick(GLOB.TAGGERLOCATIONS)
-
-/obj/item/mod/module/disposal_connector/on_suit_activation()
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
-
-/obj/item/mod/module/disposal_connector/on_suit_deactivation(deleting = FALSE)
-	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_DISPOSING)
-
-/obj/item/mod/module/disposal_connector/get_configuration()
-	. = ..()
-	.["disposal_tag"] = add_ui_configuration("Disposal Tag", "list", GLOB.TAGGERLOCATIONS[disposal_tag], GLOB.TAGGERLOCATIONS)
-
-/obj/item/mod/module/disposal_connector/configure_edit(key, value)
-	switch(key)
-		if("disposal_tag")
-			for(var/tag in 1 to length(GLOB.TAGGERLOCATIONS))
-				if(GLOB.TAGGERLOCATIONS[tag] == value)
-					disposal_tag = tag
-					break
-
-/obj/item/mod/module/disposal_connector/proc/disposal_handling(datum/disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
-	SIGNAL_HANDLER
-
-	disposal_holder.destinationTag = disposal_tag
 
 /obj/item/mod/module/magnet
 	name = "MOD loader hydraulic magnet module"

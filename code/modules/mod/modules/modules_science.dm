@@ -41,6 +41,7 @@
 	. = ..()
 	if(!.)
 		return
+	GLOB.doppler_arrays -= src
 
 /obj/item/mod/module/reagent_scanner/advanced/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
 		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)

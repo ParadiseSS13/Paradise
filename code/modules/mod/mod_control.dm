@@ -145,27 +145,18 @@
 		uninstall(module, deleting = TRUE)
 	for(var/obj/item/part as anything in mod_parts)
 		overslotting_parts -= part
-	var/atom/deleting_atom
 	if(!QDELETED(helmet))
-		deleting_atom = helmet
-		helmet = null
-		mod_parts -= deleting_atom
-		qdel(deleting_atom)
+		mod_parts -= helmet
+		QDEL_NULL(helmet)
 	if(!QDELETED(chestplate))
-		deleting_atom = chestplate
-		chestplate = null
-		mod_parts -= deleting_atom
-		qdel(deleting_atom)
+		mod_parts -= chestplate
+		QDEL_NULL(chestplate)
 	if(!QDELETED(gauntlets))
-		deleting_atom = gauntlets
-		gauntlets = null
-		mod_parts -= deleting_atom
-		qdel(deleting_atom)
+		mod_parts -= gauntlets
+		QDEL_NULL(gauntlets)
 	if(!QDELETED(boots))
-		deleting_atom = boots
-		boots = null
-		mod_parts -= deleting_atom
-		qdel(deleting_atom)
+		mod_parts -= boots
+		QDEL_NULL(boots)
 	if(core)
 		QDEL_NULL(core)
 	QDEL_NULL(wires)
@@ -222,10 +213,11 @@
 		return TRUE
 
 /obj/item/mod/control/on_mob_move(direction, mob/user)
-	if(jetpack_active)
-		var/turf/T = get_step(src, GetOppositeDir(direction))
-		if(!has_gravity(T))
-			new /obj/effect/particle_effect/ion_trails(T, direction)
+	if(!jetpack_active)
+		return
+	var/turf/T = get_step(src, GetOppositeDir(direction))
+	if(!has_gravity(T))
+		new /obj/effect/particle_effect/ion_trails(T, direction)
 
 /obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
@@ -254,7 +246,7 @@
 						return
 				M.put_in_active_hand(src)
 			else if(bag)
-				bag.loc = usr
+				bag.forceMove(usr)
 				bag.attack_hand(usr)
 
 			add_fingerprint(M)
@@ -374,7 +366,7 @@
 			return FALSE
 		core.on_attackby(attacking_item, user, params)
 	else if(bag && !istype(attacking_item))
-		bag.loc = user
+		bag.forceMove(user)
 		bag.attackby(attacking_item, user, params)
 
 	return ..()
@@ -384,7 +376,7 @@
 		return
 	if(loc == user && user.back && user.back == src)
 		if(bag)
-			bag.loc = user
+			bag.forceMove(user)
 			bag.attack_hand(user)
 	else
 		..()
@@ -541,7 +533,6 @@
 	modules += new_module
 	complexity += new_module.complexity
 	new_module.mod = src
-//	new_module.RegisterSignal(src, COMSIG_ITEM_GET_WORN_OVERLAYS, TYPE_PROC_REF(/obj/item/mod/module, add_module_overlay)) //look into this
 	new_module.on_install()
 	if(wearer)
 		new_module.on_equip()
@@ -560,7 +551,6 @@
 		old_module.on_suit_deactivation(deleting = deleting)
 		if(old_module.active)
 			old_module.on_deactivation(display_message = !deleting, deleting = deleting)
-//	old_module.UnregisterSignal(src, COMSIG_ITEM_GET_WORN_OVERLAYS)
 	old_module.on_uninstall(deleting = deleting)
 	QDEL_LIST_ASSOC_VAL(old_module.pinned_to)
 	old_module.mod = null
@@ -712,4 +702,3 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
-

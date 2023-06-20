@@ -19,7 +19,7 @@
 	else if(istype(wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/C = wear_suit
 		thrust = C.jetpack
-	else if(istype(back, /obj/item/mod/control))
+	else if(ismodcontrol(back))
 		var/obj/item/mod/control/C = back
 		thrust = locate(/obj/item/mod/module/jetpack) in C
 	if(thrust)

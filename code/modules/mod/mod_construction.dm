@@ -95,12 +95,12 @@
 	var/obj/item/chestplate
 	var/obj/item/gauntlets
 	var/obj/item/boots
-	var/step = START_STEP
+	var/construction_step = START_STEP
 
 /obj/item/mod/construction/shell/examine(mob/user)
 	. = ..()
 	var/display_text
-	switch(step)
+	switch(construction_step)
 		if(START_STEP)
 			display_text = "It looks like it's missing a <b>MOD core</b>..."
 		if(CORE_STEP)
@@ -123,7 +123,7 @@
 
 /obj/item/mod/construction/shell/attackby(obj/item/part, mob/user, params)
 	. = ..()
-	switch(step)
+	switch(construction_step)
 		if(START_STEP)
 			if(!istype(part, /obj/item/mod/core))
 				return
@@ -134,17 +134,17 @@
 			to_chat(user, "<span class='notice'>Core inserted.</span>")
 			core = part
 			core.forceMove(src)
-			step = CORE_STEP
+			construction_step = CORE_STEP
 		if(CORE_STEP)
 			if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
 					to_chat(user, "<span class='notice'>Core screwed.</span>")
-				step = SCREWED_CORE_STEP
+				construction_step = SCREWED_CORE_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					core.forceMove(drop_location())
 					to_chat(user, "<span class='notice'>Core removed.</span>")
-				step = START_STEP
+				construction_step = START_STEP
 		if(SCREWED_CORE_STEP)
 			if(istype(part, /obj/item/mod/construction/helmet)) //Construct
 				if(!user.drop_item())
@@ -154,11 +154,11 @@
 				to_chat(user, "<span class='notice'>Helmet added.</span>")
 				helmet = part
 				helmet.forceMove(src)
-				step = HELMET_STEP
+				construction_step = HELMET_STEP
 			else if(part.tool_behaviour == TOOL_SCREWDRIVER) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					to_chat(user, "<span class='notice'>Core unscrewed.</span>")
-					step = CORE_STEP
+					construction_step = CORE_STEP
 		if(HELMET_STEP)
 			if(istype(part, /obj/item/mod/construction/chestplate)) //Construct
 				if(!user.drop_item())
@@ -169,13 +169,13 @@
 				forceMove(src)
 				chestplate = part
 				chestplate.forceMove(src)
-				step = CHESTPLATE_STEP
+				construction_step = CHESTPLATE_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					helmet.forceMove(drop_location())
 					to_chat(user, "<span class='notice'>Helmet removed.</span>")
 					helmet = null
-					step = SCREWED_CORE_STEP
+					construction_step = SCREWED_CORE_STEP
 		if(CHESTPLATE_STEP)
 			if(istype(part, /obj/item/mod/construction/gauntlets)) //Construct
 				if(!user.drop_item())
@@ -185,13 +185,13 @@
 				to_chat(user, "<span class='notice'>Gauntlets added.</span>")
 				gauntlets = part
 				gauntlets.forceMove(src)
-				step = GAUNTLETS_STEP
+				construction_step = GAUNTLETS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					chestplate.forceMove(drop_location())
 					to_chat(user, "<span class='notice'>Chestplate removed.</span>")
 					chestplate = null
-					step = HELMET_STEP
+					construction_step = HELMET_STEP
 		if(GAUNTLETS_STEP)
 			if(istype(part, /obj/item/mod/construction/boots)) //Construct
 				if(!user.drop_item())
@@ -201,33 +201,33 @@
 				to_chat(user, "<span class='notice'>Boots added.</span>")
 				boots = part
 				boots.forceMove(src)
-				step = BOOTS_STEP
+				construction_step = BOOTS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					gauntlets.forceMove(drop_location())
 					to_chat(user, "<span class='notice'>Gauntlets removed.</span>")
 					gauntlets = null
-					step = CHESTPLATE_STEP
+					construction_step = CHESTPLATE_STEP
 		if(BOOTS_STEP)
 			if(part.tool_behaviour == TOOL_WRENCH) //Construct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					to_chat(user, "<span class='notice'>Assembly secured.</span>")
-					step = WRENCHED_ASSEMBLY_STEP
+					construction_step = WRENCHED_ASSEMBLY_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					boots.forceMove(drop_location())
 					to_chat(user, "<span class='notice'>Boots removed.</span>")
 					boots = null
-					step = GAUNTLETS_STEP
+					construction_step = GAUNTLETS_STEP
 		if(WRENCHED_ASSEMBLY_STEP)
 			if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					to_chat(user, "<span class='notice'>Assembly screwed.</span>")
-					step = SCREWED_ASSEMBLY_STEP
+					construction_step = SCREWED_ASSEMBLY_STEP
 			else if(part.tool_behaviour == TOOL_WRENCH) //Deconstruct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					to_chat(user, "<span class='notice'>Assembly unsecured.</span>")
-					step = BOOTS_STEP
+					construction_step = BOOTS_STEP
 		if(SCREWED_ASSEMBLY_STEP)
 			if(istype(part, /obj/item/mod/construction/plating)) //Construct
 				var/obj/item/mod/construction/plating/external_plating = part
@@ -241,14 +241,14 @@
 				user.put_in_hands(mod)
 				to_chat(user, "<span class='notice'>Suit finished!</span>")
 			else if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					to_chat(user, "<span class='notice'>Assembly unscrewed.</span>")
-					step = SCREWED_ASSEMBLY_STEP
+					construction_step = SCREWED_ASSEMBLY_STEP
 	update_icon_state()
 
 /obj/item/mod/construction/shell/update_icon_state()
 	. = ..()
-	icon_state = "mod-construction_[step]"
+	icon_state = "mod-construction_[construction_step]"
 
 /obj/item/mod/construction/shell/Destroy()
 	QDEL_NULL(core)
