@@ -583,8 +583,9 @@ in the SQL/updates folder.
     * Fire alarms should not be placed next to expected heat sources.
     * Use the following "on" subtype of vents and scrubbers as opposed to var-editing: `/obj/machinery/atmospherics/unary/vent_scrubber/on` and `/obj/machinery/atmospherics/unary/vent_pump/on`
   * Head of staff offices should contain a requests console.
-  * Electrochromic windows (`/obj/structure/window/reinforced/polarized`) are preferred over shutters and regular windows as the method of restricting view to a room through windows. Shutters are sill appropriate in industrial areas of the station.
-    * Electrochromic window sets require a unique ID var, and a window tint button (`/obj/machinery/button/windowtint`) with a matching ID var. The default `range` of the button is 7 tiles but can be amended with a var edit.
+  * Electrochromic windows (`/obj/structure/window/reinforced/polarized`) and doors/windoors (using the `/obj/effect/mapping_helpers/airlock/polarized` helper) are preferred over shutters as the method of restricting view to a room through windows. Shutters are sill appropriate in industrial/hazardous areas of the station (engine rooms, HoP line, science test chamber, etc.).
+    * Electrochromic window/windoor/door sets require a unique ID var, and a window tint button (`/obj/machinery/button/windowtint`) with a matching ID var. The default `range` of the button is 7 tiles but can be amended with a var edit.
+  * Tiny fans (`/obj/structure/fans/tiny`) can be used to block airflow into problematic areas, but are not a substitute for proper door and firelock combinations. They are useful under blast doors that lead to space when opened.
   * Firelocks should be used at area boundaries over doors and windoors, but not windows. Firelocks can also be used to break up hallways at reasonable intervals.
     * Double firelocks are not permitted.
     * Maintenance access doors should never have firelocks placed over them.
