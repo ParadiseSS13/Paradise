@@ -87,6 +87,8 @@
 	var/health_regen_rate = 3
 	/// Lock health regeneration while this is not 0, decreases by 1 every Life tick.
 	var/regen_lock = 0
+	/// Tracking to prevent multiple EMPs in the same tick from instakilling a demon.
+	var/emp_debounce = FALSE
 
 	/// Controls whether the demon can move outside of cables. Toggled by a spell.
 	var/can_exit_cable = FALSE
@@ -700,17 +702,22 @@
 		client.images += apc_image
 
 /mob/living/simple_animal/pulse_demon/emp_act(severity)
+	if(emp_debounce)
+		return
+
 	. = ..()
 	visible_message("<span class ='danger'>[src] [pick("fizzles", "wails", "flails")] in anguish!</span>")
 	playsound(get_turf(src), pick(hurt_sounds), 30, TRUE)
 	throw_alert(ALERT_CATEGORY_NOREGEN, /obj/screen/alert/pulse_noregen)
 	switch(severity)
 		if(EMP_LIGHT)
-			adjustHealth(round(max(initial(health) / 3, round(maxHealth / 6))))
+			adjustHealth(round(max(initial(health) / 4, round(maxHealth / 8))))
 			regen_lock = 3
 		if(EMP_HEAVY)
-			adjustHealth(round(max(initial(health) / 2, round(maxHealth / 4))))
+			adjustHealth(round(max(initial(health) / 3, round(maxHealth / 6))))
 			regen_lock = 5
+	emp_debounce = TRUE
+	addtimer(VARSET_CALLBACK(src, emp_debounce, FALSE), 0.1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /mob/living/simple_animal/pulse_demon/proc/try_attack_mob(mob/living/L)
 	if(!is_under_tile() && L != src)
