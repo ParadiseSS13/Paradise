@@ -11,7 +11,7 @@
 	name = "MOD [skin] skin applier"
 
 /obj/item/mod/skin_applier/pre_attack(atom/attacked_atom, mob/living/user, params)
-	if(!istype(attacked_atom, /obj/item/mod/control))
+	if(!ismodcontrol(attacked_atom))
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom
 	if(mod.active || mod.activating)

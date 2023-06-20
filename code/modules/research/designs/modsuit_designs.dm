@@ -325,7 +325,7 @@
 	name = "Plate Compression Module"
 	id = "mod_compression"
 	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6, "syndicate" = 2)
-	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000) //While you are not EMP proof with this, your modules / cell are, and that is quite strong.
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/plate_compression
 
 /datum/design/module/mod_teleporter

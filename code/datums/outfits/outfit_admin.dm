@@ -268,7 +268,9 @@
 	box = /obj/item/storage/box/deathsquad
 	back = /obj/item/mod/control/pre_equipped/apocryphal
 	belt = /obj/item/gun/projectile/revolver/mateba
+	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/rank/centcom/deathsquad
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/thermal
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
@@ -314,7 +316,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Deathsquad Commando"), "Deathsquad")
 	H.sec_hud_set_ID()
-	if(istype(H.back, /obj/item/mod/control))
+	if(ismodcontrol(H.back))
 		var/obj/item/mod/control/C = H.back
 		C.quick_activation()
 

@@ -223,7 +223,7 @@
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(!istype(H.back, /obj/item/mod/control))
+		if(ismodcontrol(H.back))
 			if(!H.get_int_organ(/obj/item/organ/internal/cell))
 				return
 		can_accept_user = 1

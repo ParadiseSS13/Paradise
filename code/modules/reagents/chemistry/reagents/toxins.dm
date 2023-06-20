@@ -355,7 +355,7 @@
 					if(H.head && !(H.head.resistance_flags & ACID_PROOF))
 						melted_something = TRUE
 						if(istype(H.head, /obj/item/clothing/head/mod))
-							if(istype(H.back, /obj/item/mod/control))
+							if(ismodcontrol(H.back))
 								var/obj/item/mod/control/C = H.back
 								var/name = H.head.name
 								C.seal_part(H.head, FALSE)

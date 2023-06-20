@@ -18,6 +18,7 @@
 	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
+	///If this variable is true, the syringe will work through hardsuits / modsuits / biosuits.
 	var/penetrates_thick = FALSE
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)

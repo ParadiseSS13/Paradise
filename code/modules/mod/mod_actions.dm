@@ -8,7 +8,7 @@
 
 /datum/action/item_action/mod/New(Target, custom_icon, custom_icon_state)
 	..()
-	if(!istype(Target, /obj/item/mod/control))
+	if(!ismodcontrol(Target))
 		qdel(src)
 
 /datum/action/item_action/mod/Trigger(left_click, attack_self)

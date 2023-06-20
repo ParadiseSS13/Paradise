@@ -254,7 +254,7 @@
 			//Now, S represents a container we can insert W into.
 			S.handle_item_insertion(W, TRUE, TRUE)
 			return S
-		if(istype(back, /obj/item/mod/control))
+		if(ismodcontrol(back))
 			var/obj/item/mod/control/C = back
 			if(C.bag)
 				C.bag.handle_item_insertion(W, TRUE, TRUE)

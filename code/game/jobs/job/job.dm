@@ -226,7 +226,7 @@
 
 		gear_leftovers.Cut()
 
-	if(istype(H.back, /obj/item/mod/control))
+	if(ismodcontrol(H.back))
 		var/obj/item/mod/control/C = H.back
 		C.quick_activation()
 
