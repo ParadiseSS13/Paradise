@@ -489,8 +489,8 @@
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
-		to_chat(usr, "<span class='notice'>Активирована высвобождающая последовательность. Время ожидания: две минуты.</span>")
-		sleep(600)
+		to_chat(usr, "<span class='notice'>Активирована высвобождающая последовательность. Время ожидания: одна минута.</span>")
+		sleep(60 SECONDS)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
 		go_out()//and release him from the eternal prison.
