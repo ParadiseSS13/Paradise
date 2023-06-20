@@ -739,6 +739,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Alternate Construction Area"
 	icon_state = "construction"
 
+/area/maintenance/vacant_detectives
+	name = "\improper Vacant Office"
+	icon_state = "vacantoffice"
+	apc_starts_off = TRUE
+
 
 //Hallway
 
@@ -1821,6 +1826,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/storage/eva/exterior/charging
 	name = "Exterior Charging"
 	icon_state = "spacecharging"
+	apc_starts_off = TRUE
 
 /area/storage/secure
 	name = "Engineering Secure Storage"
