@@ -37,7 +37,7 @@
 							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"),
 							"corazone" = image(icon = 'icons/obj/abductor.dmi', icon_state = "bed"),
 							"perfluorodecalin" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bandaid"),
-							"pancuronium" = image(icon = 'icons/obj/aibots.dmi', icon_state = "medibot1"),
+							"pancuronium" = image(icon = 'icons/obj/aibots.dmi', icon_state = "pancbot"),
 							"sarin" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill21"))
 
 /obj/item/reagent_containers/borghypo/surgeon
