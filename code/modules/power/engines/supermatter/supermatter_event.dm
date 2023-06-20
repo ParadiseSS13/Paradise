@@ -37,9 +37,8 @@
 	supermatter.gas_multiplier = 1
 	supermatter.power_additive = 0
 	supermatter.event_active = null
-	supermatter.last_event = name
+	supermatter.last_events += src
 	supermatter.make_next_event_time()
-	qdel(src)
 
 /datum/supermatter_event/proc/sm_radio_say(text)
 	if(!text)
