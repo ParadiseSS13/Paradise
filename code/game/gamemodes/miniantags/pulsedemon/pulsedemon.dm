@@ -137,6 +137,7 @@
 		real_name = name
 
 	remove_from_all_data_huds()
+	ADD_TRAIT(src, TRAIT_AI_UNTRACKABLE, PULSEDEMON_TRAIT)
 	flags_2 |= RAD_NO_CONTAMINATE_2
 
 	// don't step on me
