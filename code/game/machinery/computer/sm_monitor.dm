@@ -147,13 +147,13 @@
 
 //Anomaly alert (event) computer
 /obj/machinery/computer/sm_events_monitor
-name = "supermatter anomaly monitoring console"
+	name = "supermatter anomaly monitoring console"
 	desc = "Used to monitor supermatter engines for anomalous behavior."
 	icon_keyboard = "power_key"
 	icon_screen = "area_atmos"
-	circuit = /obj/item/circuitboard/sm_anomaly
+	circuit = /obj/item/circuitboard/sm_events_monitor
 	light_color = LIGHT_COLOR_YELLOW
-	req_one_access = list(ACCESS_ENGINEERING, ACCESS_ATMOSPHERICS)
+	//req_one_access = list(ACCESS_ENGINEERING, ACCESS_ATMOSPHERICS)
 	var/printing = null
 	/// Cache-list of all supermatter shards
 	var/list/supermatters
@@ -163,26 +163,26 @@ name = "supermatter anomaly monitoring console"
 	var/obj/machinery/atmospherics/supermatter_crystal/active
 
 
-/obj/machinery/computer/sm_monitor/Destroy()
+/obj/machinery/computer/sm_events_monitor/Destroy()
 	active = null
 	return ..()
 
-/obj/machinery/computer/sm_monitor/attack_ai(mob/user)
+/obj/machinery/computer/sm_events_monitor/attack_ai(mob/user)
 	attack_hand(user)
 
-/obj/machinery/computer/sm_monitor/attack_hand(mob/user)
+/obj/machinery/computer/sm_events_monitor/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	ui_interact(user)
 
-/obj/machinery/computer/sm_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/sm_events_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SupermatterAnomalyMonitor", name, 600, 350, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/sm_monitor/ui_data(mob/user)
+/obj/machinery/computer/sm_events_monitor/ui_data(mob/user)
 	var/list/data = list()
 	ui_login_data(data, user)
 	if(istype(active))
@@ -202,7 +202,7 @@ name = "supermatter anomaly monitoring console"
 		data["SM_power"] = active.power
 		data["SM_ambienttemp"] = air.temperature
 		data["SM_ambientpressure"] = air.return_pressure()
-		data["last_event"] = active.last_event
+		//data["last_event"] = active.last_event
 		//data["SM_EPR"] = round((air.total_moles / air.group_multiplier) / 23.1, 0.01)
 		var/list/gasdata = list()
 		var/TM = air.total_moles()
@@ -245,7 +245,7 @@ name = "supermatter anomaly monitoring console"
   *
   * This proc loops through the list of supermatters in the atmos SS and adds them to this console's cache list
   */
-/obj/machinery/computer/sm_monitor/proc/refresh()
+/obj/machinery/computer/sm_events_monitor/proc/refresh()
 	supermatters = list()
 	var/turf/T = get_turf(ui_host()) // Get the UI host incase this ever turned into a supermatter monitoring module for AIs to use or something
 	if(!T)
@@ -259,7 +259,7 @@ name = "supermatter anomaly monitoring console"
 	if(!(active in supermatters))
 		active = null
 
-/obj/machinery/computer/sm_monitor/process()
+/obj/machinery/computer/sm_events_monitor/process()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 
@@ -274,7 +274,7 @@ name = "supermatter anomaly monitoring console"
 
 	return TRUE
 
-/obj/machinery/computer/sm_monitor/ui_act(action, params)
+/obj/machinery/computer/sm_events_monitor/ui_act(action, params)
 	if(..())
 		return
 
