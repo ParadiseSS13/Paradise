@@ -246,6 +246,7 @@
 		mind.objectives += objective_to_give
 		to_chat(src, "<b>Objective #[i++]</b>: [objective_to_give.explanation_text]")
 	SSticker.mode.traitors |= mind
+	return i
 
 /mob/living/simple_animal/pulse_demon/proc/give_spells()
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
