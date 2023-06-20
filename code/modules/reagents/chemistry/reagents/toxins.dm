@@ -354,14 +354,13 @@
 
 					if(H.head && !(H.head.resistance_flags & ACID_PROOF))
 						melted_something = TRUE
-						if(istype(H.head, /obj/item/clothing/head/mod))
-							if(ismodcontrol(H.back))
-								var/obj/item/mod/control/C = H.back
-								var/name = H.head.name
-								C.seal_part(H.head, FALSE)
-								C.retract(null, H.head)
-								C.finish_activation(on = FALSE)
-								to_chat(H, "<span class='danger'>Your [name] melts away as your [C.name] performs emergency cleaning on the helmet, deactivating the suit!</span>")
+						if(istype(H.head, /obj/item/clothing/head/mod) && ismodcontrol(H.back))
+							var/obj/item/mod/control/C = H.back
+							var/name = H.head.name
+							C.seal_part(H.head, FALSE)
+							C.retract(null, H.head)
+							C.finish_activation(on = FALSE)
+							to_chat(H, "<span class='danger'>Your [name] melts away as your [C.name] performs emergency cleaning on the helmet, deactivating the suit!</span>")
 						else
 							to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
 							qdel(H.head)

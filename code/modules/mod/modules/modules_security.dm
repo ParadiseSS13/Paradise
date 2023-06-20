@@ -67,6 +67,7 @@
 		return
 	var/obj/item/grenade/mirage/grenade = .
 	grenade.attack_self(mod.wearer)
+
 /obj/item/grenade/mirage
 	name = "mirage grenade"
 	desc = "A special device that, when activated, produces a holographic copy of the user."
