@@ -17,9 +17,9 @@
 		return
 	var/turf/T = get_turf(supermatter)
 	environment = T.return_air()
-	supermatter.event_active = src
 
 /datum/supermatter_event/proc/start_event()
+	supermatter.event_active = src
 	on_start()
 	alert_engi()
 	if(duration)
