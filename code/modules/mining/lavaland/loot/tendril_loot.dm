@@ -319,17 +319,20 @@
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
+	if(do_after(user, 1.5 SECONDS, target = user))
+		var/datum/effect_system/smoke_spread/smoke = new
+		smoke.set_up(1, 0, user.loc)
+		smoke.start()
 
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1, 0, user.loc)
-	smoke.start()
+		user.forceMove(get_turf(linked))
+		SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
-	user.forceMove(get_turf(linked))
-	SSblackbox.record_feedback("tally", "warp_cube", 1, type)
+		var/datum/effect_system/smoke_spread/smoke2 = new
+		smoke2.set_up(1, 0, user.loc)
+		smoke2.start()
+	else
+		to_chat(user, "<span class='notice'>You need to hold still to use [src].</span>")
 
-	var/datum/effect_system/smoke_spread/smoke2 = new
-	smoke2.set_up(1, 0, user.loc)
-	smoke2.start()
 
 /obj/item/warp_cube/red
 	name = "red cube"
