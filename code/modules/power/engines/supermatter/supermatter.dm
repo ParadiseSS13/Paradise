@@ -214,6 +214,8 @@
 	var/heat_multiplier = 1
 	///amount of EER to ADD
 	var/power_additive = 0
+	///last event ran
+	var/last_event = null
 
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
@@ -616,8 +618,9 @@
 			supermatter_anomaly_gen(src, FLUX_ANOMALY, rand(5, 10))
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
 			supermatter_anomaly_gen(src, GRAVITATIONAL_ANOMALY, rand(5, 10))
-		if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD))
-			supermatter_anomaly_gen(src, PYRO_ANOMALY, rand(5, 10))
+		//commented out due to the rather damanging nature of these. I expect /lots/ of delams after the events are TM/merged, and I feel these being around for every EER spike is a bit too punishing (also they just suck to deal with)
+		//if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD))
+		//	supermatter_anomaly_gen(src, PYRO_ANOMALY, rand(5, 10))
 
 	if(prob(15))
 		supermatter_pull(loc, min(power / 850, 3)) //850, 1700, 2550
@@ -1165,6 +1168,7 @@
 	var/turf/T = loc
 	var/datum/gas_mixture/env = T.return_air()
 	env.sleeping_agent += 200
+	last_event = "D-1 Class Anomaly"
 	return
 
 //type 2
@@ -1172,6 +1176,7 @@
 	var/turf/T = loc
 	var/datum/gas_mixture/env = T.return_air()
 	env.nitrogen += 200
+	last_event = "D-2 Class Anomaly"
 	return
 
 //type 3
@@ -1179,6 +1184,7 @@
 	var/turf/T = loc
 	var/datum/gas_mixture/env = T.return_air()
 	env.carbon_dioxide += 250
+	last_event = "D-3 Class Anomaly"
 	return
 
 //C class events
@@ -1190,6 +1196,7 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 30 SECONDS)
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-1. Operator intervention may be required!", name, "Engineering", list(z))
 	event_active = TRUE
+	last_event = "C-1 Class Anomaly"
 	return
 
 //type 2
@@ -1199,6 +1206,7 @@
 	env.toxins += 200
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 30 SECONDS)
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-2. Operator intervention may be required!", name, "Engineering", list(z))
+	last_event = "C-2 Class Anomaly"
 	return
 
 //type 3
@@ -1207,6 +1215,7 @@
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-3. Operator intervention may be required!", name, "Engineering", list(z))
 	heat_penalty_threshold = -73
 	event_active = TRUE
+	last_event = "C-3 Class Anomaly"
 	return
 
 //Class B events
@@ -1216,6 +1225,7 @@
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-1. Operator intervention is required!", name, "Engineering", list(z))
 	gas_multiplier = 1.5
 	event_active = TRUE
+	last_event = "B-1 Class Anomaly"
 	return
 
 //type 2
@@ -1224,6 +1234,7 @@
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-2. Operator intervention is required!", name, "Engineering", list(z))
 	heat_multiplier = 1.25
 	event_active = TRUE
+	last_event = "B-3 Class Anomaly"
 	return
 
 //type 3
@@ -1232,6 +1243,7 @@
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-1. Operator intervention is required!", name, "Engineering", list(z))
 	power_additive = 2000
 	event_active = TRUE
+	last_event = "B-2 Class Anomaly"
 	return
 
 //A class events
@@ -1248,6 +1260,7 @@
 	if(A.operating)
 		A.toggle_breaker()
 	event_active = TRUE
+	last_event = "A-1 Class Anomaly"
 	return
 
 //type 2
@@ -1257,6 +1270,7 @@
 	var/obj/machinery/alarm/engine/A = current_area.master_air_alarm
 	A.apply_mode(AALARM_MODE_SCRUBBING)
 	event_active = TRUE
+	last_event = "A-2 Class Anomaly"
 	return
 
 //type 3
@@ -1265,6 +1279,7 @@
 	src.radio.autosay("ALERT: Critical anomalous crystal activity detected! Activity class: A-3. IMMEDIATE Operator intervention is REQUIRED!", name, "Engineering", list(z))
 	gas_multiplier = 4
 	event_active = TRUE
+	last_event = "A-3 Class Anomaly"
 	return
 
 //S class events
@@ -1280,6 +1295,7 @@
 	src.radio.autosay("EMERGENCY ALERT: Class S-ARC anomalous behavior in progress!", name, "Engineering", list(z))
 	power_additive = 6000
 	event_active = TRUE
+	last_event = "S-ARC Class Anomaly"
 	return
 
 //Laminate Rejection-type
@@ -1294,6 +1310,7 @@
 	src.radio.autosay("EMERGENCY ALERT: Class S-LAMINATE REJECTION anomalous behavior in progress!", name, "Engineering", list(z))
 	heat_multiplier = 10
 	event_active = TRUE
+	last_event = "S-LAMINATE REJECTION Class Anomaly"
 	return
 
 #undef HALLUCINATION_RANGE
