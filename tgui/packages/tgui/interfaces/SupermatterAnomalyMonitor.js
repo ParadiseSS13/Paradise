@@ -38,9 +38,9 @@ export const SupermatterAnomalyMonitor = (properties, context) => {
     );
   } else {
     if (currentPage === 1) {
-      body = <SupermatterAnomalyPageList />;
+      body = <SupermatterAnomalyPageView/>;
     } else if (currentPage ===2){
-      body = <SupermatterAnomalyPageView />;
+      body = <SupermatterAnomalyPageList />;
     }
   }
 
@@ -61,8 +61,28 @@ export const SupermatterAnomalyMonitor = (properties, context) => {
 
 const SupermatterAnomalyNavigation = (properties, context) => {
   const { act, data } = useBackend(context);
-  const { currentPage, general } = data;
+  const { currentPage, } = data;
   return (
-
+    <Tabs>
+      <Tabs.Tab
+        selected={currentPage === 1}
+        onClick={() => act('page',{ page: 1})}
+      >
+       <Icon name="folder" />
+        Current Event
+      </Tabs.Tab>
+      {currentPage === 2 (
+        <Tabs.Tab selected={currentPage === 2}>
+          <Icon name="list" />
+           Event List
+        </Tabs.Tab>
+      )}
+    </Tabs>
   );
 };
+
+const SupermatterAnomalyPageView = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const {  } = data;
+
+}
