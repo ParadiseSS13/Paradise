@@ -1,5 +1,5 @@
 /datum/supermatter_event
-	name = "Unknown X-K (Report this to coders)"
+	var/name = "Unknown X-K (Report this to coders)"
 	var/obj/machinery/atmospherics/supermatter_crystal/supermatter
 	var/datum/gas_mixture/environment
 	// Probability of the event not running, higher tiers being rarer
@@ -43,14 +43,14 @@
 /datum/supermatter_event/proc/sm_radio_say(text)
 	if(!text)
 		return
-	supermatter.radio.autosay(text, supermatter, "Engineering", list(z))
+	supermatter.radio.autosay(text, supermatter, "Engineering", list(supermatter.z))
 
 // Below this are procs used for the SM events, in order of severity
 
 //D class events
 
 /datum/supermatter_event/delta_tier
-	threat = SM_EVENT_THREAT_D
+	threat_level = SM_EVENT_THREAT_D
 
 // sleeping gas
 /datum/supermatter_event/delta_tier/sleeping_gas
@@ -77,7 +77,7 @@
 // C class events
 
 /datum/supermatter_event/charlie_tier
-	threat = SM_EVENT_THREAT_C
+	threat_level = SM_EVENT_THREAT_C
 
 /datum/supermatter_event/charlie_tier/alert_engi()
 	sm_radio_say("Anomalous crystal activity detected. Activity class: [name]. Operator intervention may be required.")
@@ -96,8 +96,7 @@
 /datum/supermatter_event/charlie_tier/plasma/on_start()
 	environment.toxins += 200
 
-// make it bad to the cold? idk what the fuck this does
-# warn add a better comment here
+// makes heat do more damage or something
 /datum/supermatter_event/charlie_tier/heat_penalty_threshold
 	name = "C-3"
 	duration = 5 MINUTES
@@ -107,7 +106,7 @@
 
 //Class B events
 /datum/supermatter_event/bravo_tier
-	threat = SM_EVENT_THREAT_B
+	threat_level = SM_EVENT_THREAT_B
 	duration = 1 MINUTES
 
 /datum/supermatter_event/bravo_tier/alert_engi()
@@ -136,7 +135,7 @@
 
 //A class events
 /datum/supermatter_event/alpha_tier
-	threat = SM_EVENT_THREAT_A
+	threat_level = SM_EVENT_THREAT_A
 
 /datum/supermatter_event/alpha_tier/alert_engi()
 	sm_radio_say("ALERT: Critical anomalous crystal activity detected! Activity class: [name]. IMMEDIATE Operator intervention is REQUIRED!")
@@ -162,24 +161,24 @@
 	duration = 2 MINUTES
 
 /datum/supermatter_event/alpha_tier/gas_multiplier/on_start()
-	gas_multiplier = 4
+	supermatter.gas_multiplier = 4
 
 // S-tier events are special. They are very dangerous, but give a 5 minute warning to the engis.
 /datum/supermatter_event/sierra_tier
-	threat = SM_EVENT_THREAT_S
+	threat_level = SM_EVENT_THREAT_S
 	duration = 7 MINUTES // 2 MINUTES of s-tier anomaly
 
 /datum/supermatter_event/sierra_tier/alert_engi()
-	sm_radio_say("ALERT: Anomalous supermatter state expected in: 5 minutes.", name, null, list(z))
-	sm_radio_say("EMERGENCY ALERT: 5 MINUTES UNTIL [src] EXHIBITS [name] CLASS ANOMALOUS ACTIVITY!", name, "Engineering", list(z))
+	sm_radio_say("ALERT: Anomalous supermatter state expected in: 5 minutes.")
+	sm_radio_say("EMERGENCY ALERT: 5 MINUTES UNTIL [src] EXHIBITS [name] CLASS ANOMALOUS ACTIVITY!")
 
 /datum/supermatter_event/sierra_tier/on_start()
 	addtimer(CALLBACK(src, PROC_REF(start_sierra_event)), 5 MINUTES)
 	supermatter.has_run_sclass = TRUE
 
 /datum/supermatter_event/sierra_tier/proc/start_sierra_event()
-	sm_radio_say("ALERT: ANOMALOUS SUPERMATTER STATE DETECTED!", name, null, list(z))
-	sm_radio_say("EMERGENCY ALERT: Class [name] anomalous behavior in progress!", name, "Engineering", list(z))
+	sm_radio_say("ALERT: ANOMALOUS SUPERMATTER STATE DETECTED!")
+	sm_radio_say("EMERGENCY ALERT: Class [name] anomalous behavior in progress!")
 
 //S class events
 //Arc-type
@@ -188,7 +187,7 @@
 
 /datum/supermatter_event/sierra_tier/arc/start_sierra_event()
 	..()
-	power_additive = 6000
+	supermatter.power_additive = 6000
 
 // Laminate type
 /datum/supermatter_event/sierra_tier/laminate
@@ -196,4 +195,4 @@
 
 /datum/supermatter_event/sierra_tier/laminate/start_sierra_event()
 	..()
-	heat_multiplier = 10
+	supermatter.heat_multiplier = 10
