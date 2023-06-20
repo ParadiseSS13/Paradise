@@ -1,0 +1,5 @@
+#define SM_EVENT_THREAT_D "Delta"
+#define SM_EVENT_THREAT_C "Charlie"
+#define SM_EVENT_THREAT_B "Bravo"
+#define SM_EVENT_THREAT_A "Alpha"
+#define SM_EVENT_THREAT_S "Sierra"

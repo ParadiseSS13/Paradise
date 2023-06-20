@@ -206,16 +206,20 @@
 	//vars used for supermatter events (Anomalous crystal activityw)
 	///no events should occur while the SM is offline. This also allows admins to easily disable them
 	var/events_possible = FALSE
-	///Defaults to false, Only one event should be triggered at a time
-	var/event_active = FALSE
+	/// Do we have an active event?
+	var/datum/supermatter_event/event_active
 	///flat multiplies the amount of gas released by the SM.
 	var/gas_multiplier = 1
 	///flat multiplies the heat released by the SM
 	var/heat_multiplier = 1
 	///amount of EER to ADD
 	var/power_additive = 0
-	///last event ran
-	var/last_event = null
+	/// A list of all previous events
+	var/list/last_event
+	/// Time of next event
+	var/next_event_time
+	/// Run S-Class event? So we can only run one S-class event per round per crystal
+	var/has_run_sclass = FALSE
 
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
@@ -406,6 +410,8 @@
 		if(!did_it_melt.density) //In case some joker finds way to place these on indestructible walls
 			visible_message("<span class='warning'>[src] melts through [T]!</span>")
 		return
+
+	try_events()
 
 	//We vary volume by power, and handle OH FUCK FUSION IN COOLING LOOP noises.
 	if(power)
@@ -1151,6 +1157,45 @@
 	has_been_powered = TRUE
 	power += amount
 	message_admins("[src] has been activated and given an increase EER of [amount] at [ADMIN_JMP(src)]")
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/make_next_event_time()
+	// Some completely random bullshit to make a "bell curve"
+	var/fake_time = rand(5 MINUTES, 25 MINUTES)
+	if(fake_time < 15 MINUTES && prob(30))
+		fake_time += rand(2 MINUTES, 10 MINUTES)
+	else if(fake_time > 15 MINUTES && prob(30))
+		fake_time -= rand(2 MINUTES, 10 MINUTES)
+	next_event_time = fake_time
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
+	if(!next_event_time) // for when the SM starts
+		make_next_event_time()
+		return
+	if(world.time < next_event_time)
+		return
+	if(event_active)
+		return
+	if(!events_possible)
+		return
+	var/static/list/events = list(/datum/supermatter_event/delta_tier = 50,
+								/datum/supermatter_event/charlie_tier = 30,
+								/datum/supermatter_event/bravo_tier = 15,
+								/datum/supermatter_event/alpha_tier = 5,
+								/datum/supermatter_event/sierra_tier = 1)
+
+	var/datum/supermatter_event/event = pick(subtypesof(pickweight(events)))
+	if(event.threat_level == SM_EVENT_THREAT_S && has_run_sclass)
+		make_next_event_time()
+		return // We're only gonna have one s-class per round, take a break engineers
+	run_event(event)
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/run_event(datum/supermatter_event/event) // mostly admin testing and stuff
+	if(ispath(event))
+		event = new event(src)
+	if(!istype(event))
+		return "not is type" // mostly for debugging when proc calling, maybe remove this later
+	event.start_event()
+
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
