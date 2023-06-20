@@ -58,13 +58,20 @@
 
 /mob/living/simple_animal/shade/sword
 	faction = list("neutral")
+	a_intent = INTENT_HARM // scuffed sword mechanics bad
+	can_change_intents = FALSE // same here
+	health = 100
+	maxHealth = 100
 
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
-	status_flags |= GODMODE
+	AddSpell(new /obj/effect/proc_holder/spell/sentient_sword_lunge)
+	var/obj/item/nullrod/scythe/talking/host_sword = loc
+	if(istype(host_sword))
+		health = host_sword.obj_integrity
 
 /mob/living/simple_animal/shade/update_runechat_msg_location()
-	if(istype(loc, /obj/item/soulstone))
+	if(istype(loc, /obj/item/soulstone) || istype(loc, /obj/item/nullrod/scythe/talking))
 		runechat_msg_location = loc.UID()
 	else
 		return ..()

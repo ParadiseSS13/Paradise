@@ -347,6 +347,8 @@
 #define COMSIG_MOB_THROW "mob_throw"
 ///called when a user willingly drops something (i.e. keybind, or UI action)
 #define COMSIG_MOB_WILLINGLY_DROP "mob_willingly_drop"
+///called when a user is getting new weapon and we want to remove previous weapon to clear hands
+#define COMSIG_MOB_WEAPON_APPEARS "mob_weapon_appears"
 ///from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_EXAMINATE "mob_examinate"
 ///from base of /mob/update_sight(): ()
@@ -389,7 +391,8 @@
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
 	#define COMPONENT_BLOCK_SWAP (1<<0)
 
-
+#define COMSIG_MOB_AUTOMUTE_CHECK "automute_check"
+	#define WAIVE_AUTOMUTE_CHECK (1<<0)
 
 // /mob/living signals
 
@@ -866,3 +869,5 @@
 #define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
+
+#define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"
