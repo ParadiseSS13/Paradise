@@ -367,3 +367,8 @@
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
 	materials = list(MAT_GLASS = 60)
+
+/obj/item/stock_parts/cell/emittergun // 11 emitter shots
+	name = "emitter gun power cell"
+	maxcharge = 2200
+	chargerate = 100

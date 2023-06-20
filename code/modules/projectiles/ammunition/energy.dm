@@ -342,3 +342,18 @@
 	fire_sound = 'sound/weapons/marauder.ogg'
 	e_cost = 250
 	delay = 30
+
+/obj/item/ammo_casing/energy/emittergun
+	projectile_type = /obj/item/projectile/beam/emitter
+	e_cost = 200
+	fire_sound = 'sound/weapons/emitter.ogg'
+	delay = 25
+	muzzle_flash_color = LIGHT_COLOR_GREEN
+	select_name  = "emitter"
+/obj/item/ammo_casing/energy/emittergunborg
+	projectile_type = /obj/item/projectile/beam/emitter
+	fire_sound = 'sound/weapons/emitter.ogg'
+	delay = 30
+	muzzle_flash_color = LIGHT_COLOR_GREEN
+	select_name  = "emitter"
+	e_cost = 750

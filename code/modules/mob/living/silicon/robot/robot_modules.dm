@@ -327,7 +327,7 @@
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
-	emag = new /obj/item/borg/stun(src)
+	emag = new /obj/item/gun/energy/emittercannon(src)
 
 	fix_modules()
 	handle_storages()

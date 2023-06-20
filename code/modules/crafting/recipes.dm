@@ -65,6 +65,22 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/emittergun
+	name = "Handicraft Emitter Rifle"
+	result = /obj/item/gun/energy/emittergun
+	reqs = list(/obj/item/stack/tape_roll = 1,
+				/obj/item/stack/cable_coil  = 10,
+				/obj/item/light/tube = 1,
+				/obj/item/stock_parts/cell  = 2,
+				/obj/item/stock_parts/capacitor = 1,
+				/obj/item/pipe = 1,
+				/obj/item/circuitboard/emitter = 1,
+				/obj/item/stack/sheet/plasteel = 10)
+	time = 120
+	tools = list(TOOL_WIRECUTTER, TOOL_WELDER)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/ed209
 	name = "ED209"
 	result = /mob/living/simple_animal/bot/ed209

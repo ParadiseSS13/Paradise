@@ -622,3 +622,17 @@
 		icon_state += "_unlock"
 	else
 		icon_state += "_lock"
+
+/obj/item/gun/energy/emittergun
+	name = "Handicraft Emitter Rifle"
+	desc = "A rifle constructed of some trash materials. Looks rough but very powerful."
+	icon_state = "emittercannonvgovne"
+	item_state = null
+	origin_tech = "combat=3;materials=3;powerstorage=2;magnets=2"
+	weapon_weight = WEAPON_HEAVY
+	slot_flags = SLOT_BACK
+	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
+	cell_type = /obj/item/stock_parts/cell/emittergun
+	ammo_type = list(/obj/item/ammo_casing/energy/emittergun)
+	can_charge = TRUE

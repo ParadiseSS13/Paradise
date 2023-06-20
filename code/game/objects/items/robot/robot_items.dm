@@ -32,6 +32,13 @@
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 	add_attack_logs(user, M, "Stunned with [src] ([uppertext(user.a_intent)])")
 
+/obj/item/gun/energy/emittercannon
+	name = "Emitter Cannon"
+	desc = "Looks clean and very powerful."
+	ammo_type = list(/obj/item/ammo_casing/energy/emittergunborg)
+	icon_state = "emittercannon"
+	var/charge_cost = 750
+
 /obj/item/borg/overdrive
 	name = "Overdrive"
 	icon = 'icons/obj/decals.dmi'
