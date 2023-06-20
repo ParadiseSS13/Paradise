@@ -104,8 +104,7 @@
 	new /obj/item/flashlight/flare/glowstick/red(src)
 	new /obj/item/crowbar/red/sec(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
-	new /obj/item/radio(src)
-	new /obj/item/book/manual/security_space_law(src)
+	new /obj/item/radio/sec(src)
 
 /obj/item/storage/box/survival_security/hos
 	icon_state = "box_hos"

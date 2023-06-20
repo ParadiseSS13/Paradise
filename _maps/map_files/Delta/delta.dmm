@@ -47925,17 +47925,17 @@
 /area/maintenance/engineering)
 "eVO" = (
 /obj/structure/table/reinforced,
-/obj/item/radio{
+/obj/item/radio/sec{
 	pixel_x = -4
 	},
-/obj/item/radio{
+/obj/item/radio/sec{
 	pixel_x = 4
 	},
-/obj/item/radio{
+/obj/item/radio/sec{
 	pixel_x = -4;
 	pixel_y = 5
 	},
-/obj/item/radio{
+/obj/item/radio/sec{
 	pixel_x = 4;
 	pixel_y = 5
 	},
@@ -48611,7 +48611,7 @@
 "fdB" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/security_space_law,
-/obj/item/radio,
+/obj/item/radio/sec,
 /obj/machinery/requests_console{
 	department = "Security";
 	departmentType = 5;
@@ -57558,7 +57558,7 @@
 /obj/item/taperecorder{
 	pixel_x = -5
 	},
-/obj/item/radio{
+/obj/item/radio/sec{
 	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -72378,7 +72378,7 @@
 "kNl" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/security_space_law,
-/obj/item/radio,
+/obj/item/radio/sec,
 /obj/machinery/requests_console{
 	department = "Security";
 	departmentType = 5;
@@ -76822,7 +76822,7 @@
 	},
 /obj/item/flashlight,
 /obj/item/gps,
-/obj/item/radio{
+/obj/item/radio/sec{
 	pixel_y = 6
 	},
 /obj/machinery/firealarm{
@@ -114295,18 +114295,18 @@
 /area/maintenance/brig)
 "usy" = (
 /obj/structure/table/reinforced,
-/obj/item/radio{
+/obj/item/radio/sec{
 	pixel_x = -4;
 	pixel_y = 5
 	},
-/obj/item/radio{
+/obj/item/radio/sec{
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/obj/item/radio{
+/obj/item/radio/sec{
 	pixel_x = -4
 	},
-/obj/item/radio{
+/obj/item/radio/sec{
 	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
