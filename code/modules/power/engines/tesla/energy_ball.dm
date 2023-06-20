@@ -113,7 +113,6 @@
 		var/turf/T = get_step(src,pick(GLOB.alldirs))
 		if(can_move(T))
 			forceMove(T)
-			setDir(move_dir)
 			return
 	else
 		if(!has_a_target)
