@@ -1018,7 +1018,7 @@
 				return
 
 		if(AIR_ALARM_UNWIRED)
-			if(iscoil(I))
+			if(islvcoil(I))
 				var/obj/item/stack/cable_coil/low_voltage/coil = I
 				if(coil.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need more cable for this!</span>")

@@ -391,7 +391,7 @@
 					reinforced = 1
 				return
 		if(CONSTRUCTION_GUTTED)
-			if(iscoil(C))
+			if(islvcoil(C))
 				var/obj/item/stack/cable_coil/low_voltage/B = C
 				if(B.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need more wires to add wiring to [src].</span>")

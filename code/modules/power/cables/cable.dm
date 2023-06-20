@@ -188,10 +188,11 @@ By design, d1 is the smallest direction and d2 is the highest
 			continue
 		if(C.d1 != flipped_direction && C.d2 != flipped_direction)
 			continue //no match! Continue the search
-		// if the matching cable somehow got no powernet, make it one
 		if(!C.powernet)
-			var/datum/regional_powernet/new_powernet = new()
-			new_powernet.add_cable(C)
+			var/datum/regional_powernet/new_powernet = new(C)
+		if(C.power_voltage_type != power_voltage_type)
+			continue // voltage incompatibility, do not merge these powernets
+		// if the matching cable somehow got no powernet, make it one
 		if(!powernet)
 			C.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
 		else //if we already have a powernet, then merge the two powernets
@@ -252,8 +253,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		//we've got a diagonally matching cable
 		if(C.d1 == FLIP_DIR_VERTICALLY(direction) || C.d2 == FLIP_DIR_VERTICALLY(direction))
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
-				var/datum/regional_powernet/new_powernet = new()
-				new_powernet.add_cable(C)
+				var/datum/regional_powernet/new_powernet = new(C)
 			if(powernet) //if we already have a powernet, then merge the two powernets
 				merge_powernets(powernet, C.powernet)
 			else
@@ -265,8 +265,7 @@ By design, d1 is the smallest direction and d2 is the highest
 			continue
 		if(C.d1 == FLIP_DIR_HORIZONTALLY(direction) || C.d2 == FLIP_DIR_HORIZONTALLY(direction)) //we've got a diagonally matching cable
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
-				var/datum/regional_powernet/new_powernet = new()
-				new_powernet.add_cable(C)
+				var/datum/regional_powernet/new_powernet = new(C)
 			if(powernet) //if we already have a powernet, then merge the two powernets
 				merge_powernets(powernet, C.powernet)
 			else
@@ -279,67 +278,68 @@ By design, d1 is the smallest direction and d2 is the highest
 	*
 	* Builds a list of cables in neighboring procs that form a cable connection with src and returns it
 */
-/obj/structure/cable/proc/get_connections()
-	. = list()	// this will be a list of all connected power objects
+/obj/structure/cable/proc/get_connections(voltage_filter)
 	var/turf/T
-
+	// A list of all connected power objects
+	var/connections = list()
 	//get matching cables from the first direction
+
 	if(d1) //if not a node cable
 		T = get_step(src, d1)
 		if(T)
-			. += T.power_list(src, turn(d1, 180)) //get adjacents matching cables
+			connections += T.power_list(src, turn(d1, 180), voltage_filter) //get adjacents matching cables
 	if(IS_DIR_DIAGONAL(d1)) //diagonal direction, must check the 4 possibles adjacents tiles
 		T = get_step(src, d1 & (NORTH|SOUTH)) // go north/south
 		if(T)
-			. += T.power_list(src, FLIP_DIR_VERTICALLY(d1)) //get diagonally matching cables
+			connections += T.power_list(src, FLIP_DIR_VERTICALLY(d1), voltage_filter) //get diagonally matching cables
 		T = get_step(src, d1 & (EAST|WEST)) // go east/west
 		if(T)
-			. += T.power_list(src, FLIP_DIR_HORIZONTALLY(d1)) //get diagonally matching cables
+			connections += T.power_list(src, FLIP_DIR_HORIZONTALLY(d1), voltage_filter) //get diagonally matching cables
 	T = get_turf(src)
-	. += T.power_list(src, d1) //get on turf matching cables
+	connections += T.power_list(src, d1, voltage_filter) //get on turf matching cables
 
 	//do the same on the second direction (which can't be 0)
 	T = get_step(src, d2)
 	if(T)
-		. += T.power_list(src, turn(d2, 180)) //get adjacents matching cables
+		connections += T.power_list(src, turn(d2, 180), voltage_filter) //get adjacents matching cables
 
-	if(d2&(d2-1)) //diagonal direction, must check the 4 possibles adjacents tiles
+	if(IS_DIR_DIAGONAL(d2)) //diagonal direction, must check the 4 possibles adjacents tiles
 		T = get_step(src, d2 & (NORTH|SOUTH)) // go north/south
 		if(T)
-			. += T.power_list(src, FLIP_DIR_VERTICALLY(d1)) //get diagonally matching cables
+			connections += T.power_list(src, FLIP_DIR_VERTICALLY(d1), voltage_filter) //get diagonally matching cables
 		T = get_step(src, d2 & (EAST|WEST)) // go east/west
 		if(T)
-			. += T.power_list(src, FLIP_DIR_HORIZONTALLY(d1)) //get diagonally matching cables
+			connections += T.power_list(src, FLIP_DIR_HORIZONTALLY(d1), voltage_filter) //get diagonally matching cables
 	T = get_turf(src)
-	. += T.power_list(src, d2) //get on turf matching cables
+	connections += T.power_list(src, d2, voltage_filter) //get on turf matching cables
 
-	return .
+	return connections
 
 //should be called after placing a cable which extends another cable, creating a "smooth" cable that no longer terminates in the centre of a turf.
 //needed as this can, unlike other placements, disconnect cables
 /obj/structure/cable/proc/denode()
-	var/turf/T1 = loc
-	if(!T1)
+	var/turf/T = loc
+	if(!istype(T))
 		return
 
-	var/list/powerlist = T1.power_list(src, 0) //find the other cables that ended in the centre of the turf, with or without a powernet
+	var/list/powerlist = T.power_list(src, 0, power_voltage_type) //find the other cables that ended in the centre of the turf, with or without a powernet
 	if(length(powerlist))
 		var/datum/regional_powernet/PN = new()
-		propagate_network(powerlist[1], PN) //propagates the new powernet beginning at the source cable
+		PN.propagate_network(powerlist[1]) //propagates the new powernet beginning at the source cable
 		if(PN.is_empty()) //can happen with machines made nodeless when smoothing cables
 			qdel(PN)
 
 // cut the cable's powernet at this cable and updates the powergrid
-/obj/structure/cable/proc/cut_cable_from_powernet(remove = TRUE)
+/obj/structure/cable/proc/cut_cable_from_powernet()
 	var/turf/T1 = get_turf(src)
 	var/list/P_list
 	if(!T1)
 		return
 	if(d1) //if d1 is not a node
 		T1 = get_step(T1, d1)
-		P_list = T1.power_list(src, turn(d1, 180), cable_only = TRUE)	// what adjacently joins on to cut cable...
-	P_list += T1.power_list(loc, d1, cable_only = TRUE) //... and on turf
-	if(!length(P_list))//if nothing in both list, then the cable was a lone cable, just delete it and its powernet
+		P_list = T1.power_list(src, turn(d1, 180), power_voltage_type, cable_only = TRUE)	// what adjacently joins on to cut cable...
+	P_list += T1.power_list(loc, d1, power_voltage_type, cable_only = TRUE) //... and on turf
+	if(!length(P_list)) //if nothing in both list, then the cable was a lone cable, just delete it and its powernet
 		powernet.remove_cable(src)
 
 		for(var/obj/machinery/power/P in T1)//check if it was powering a machine
@@ -347,16 +347,12 @@ By design, d1 is the smallest direction and d2 is the highest
 				P.disconnect_from_network() //remove from current network (and delete powernet)
 		return
 
-	var/obj/O = P_list[1]
-	// remove the cut cable from its turf and powernet, so that it doesn't get count in propagate_network worklist
-	if(remove)
-		loc = null
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 	// queue it to rebuild
-	SSmachines.deferred_powernet_rebuilds += O
+	SSmachines.deferred_powernet_rebuilds += P_list[1]
 
 	// Disconnect machines connected to nodes
-	if(d1 == 0) // if we cut a node (O-X) cable
+	if(!d1) // if we cut a node (O-X) cable
 		for(var/obj/machinery/power/P in T1)
 			if(!P.connect_to_network()) //can't find a node cable on a the turf to connect to
 				P.disconnect_from_network() //remove from current network
@@ -382,8 +378,10 @@ By design, d1 is the smallest direction and d2 is the highest
 
 //
 //	This ASCII art represents my brain after looking at cable
-//  code for too long, half of this was written before I was even
-//  in 3rd grade
+//  code for too long, I pretend like coding all of this really
+//  well is somehow going to be helpful to someone else down the
+//  road when really I know this game is going to sink into the abyss
+//  long before someone ever opens these files again for more than 5 seconds
 //				~~Sirryan
 //
 //			     _.-^^---....,,--

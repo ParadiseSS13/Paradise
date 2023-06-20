@@ -15,6 +15,8 @@
 	idle_power_consumption = 10
 	active_power_consumption = 300
 
+	power_voltage_type = VOLTAGE_HIGH
+
 	/// Is the emitter turned on
 	var/active = FALSE
 	/// Is the emitter powered

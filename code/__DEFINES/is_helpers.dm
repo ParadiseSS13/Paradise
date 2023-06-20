@@ -39,8 +39,6 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
-#define ismachinery(A) (istype(A, /obj/machinery))
-
 #define ismecha(A) (istype(A, /obj/mecha))
 
 #define iseffect(A) (istype(A, /obj/effect))
@@ -56,6 +54,32 @@
 #define isstorage(A) (istype(A, /obj/item/storage))
 
 #define isstack(I) (istype(I, /obj/item/stack))
+
+// tools
+//Quick type checks for some tools
+
+#define iswrench(A)			(istype(A, /obj/item/wrench))
+#define iswelder(A)			(istype(A, /obj/item/weldingtool))
+#define iswirecutter(A)		(istype(A,  /obj/item/wirecutters))
+#define isscrewdriver(A)	(istype(A, /obj/item/screwdriver))
+#define ismultitool(A) 		(istype(A, /obj/item/multitool))
+#define iscrowbar(A)		(istype(A, /obj/item/crowbar))
+#define iscoil(A)		(istype(A, /obj/item/stack/cable_coil))
+#define islvcoil(A)		(istype(A, /obj/item/stack/cable_coil/low_voltage))
+#define ishvcoil(A)		(istype(A, /obj/item/stack/cable_coil/high_voltage))
+#define islvcable(A)		(istype(A, /obj/structure/cable/low_voltage))
+#define ishvcable(A)		(istype(A, /obj/structure/cable/high_voltage))
+#define ispowertool(A)		(istype(A, /obj/item/crowbar/power) || istype(A, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
+
+	// Objects - Machinery
+#define ismachinery(A) (istype(A, /obj/machinery))
+
+#define ispowermachine(A) (istype(A, /obj/machinery/power))
+
+#define is_apc(A) (istype(A, /obj/machinery/power/apc))
+
+#define iscable(A)  (istype(A, /obj/structure/cable))
+
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,

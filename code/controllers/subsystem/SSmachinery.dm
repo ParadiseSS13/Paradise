@@ -35,8 +35,10 @@ SUBSYSTEM_DEF(machines)
 	for(var/obj/structure/cable/PC in GLOB.cable_list)
 		if(!PC.powernet)
 			var/datum/regional_powernet/new_pn = new()
-			new_pn.add_cable(PC)
-			propagate_network(PC, PC.powernet)
+			// we don't pass the cable in the new params here because we need to first propagate the powernet using the cable as the root node
+			// regional powernet will terminate propagation immediately if it tries to start with a root node that is already connected to iteself
+			new_pn.power_voltage_type = PC.power_voltage_type // we need to manually set this here
+			new_pn.propagate_network(PC)
 
 /datum/controller/subsystem/machines/get_stat_details()
 	return "Machines: [processing.len] | Powernets: [powernets.len] | Deferred: [deferred_powernet_rebuilds.len]"
@@ -47,13 +49,14 @@ SUBSYSTEM_DEF(machines)
 	//cache for sanid speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/O = currentrun[currentrun.len]
+		// we know that the deffered powernet rebuilds will only ever be cables
+		var/obj/structure/cable/C = currentrun[currentrun.len]
 		currentrun.len--
-		if(O && !QDELETED(O))
-			var/datum/regional_powernet/newPN = new() // create a new powernet...
-			propagate_network(O, newPN)//... and propagate it to the other side of the cable
+		if(!QDELETED(C))
+			var/datum/regional_powernet/newPN = new(C) // create a new powernet...
+			newPN.propagate_network()//... and propagate it to the other side of the cable
 
-		deferred_powernet_rebuilds.Remove(O)
+		deferred_powernet_rebuilds.Remove(C)
 		if(MC_TICK_CHECK)
 			return
 
@@ -71,6 +74,8 @@ SUBSYSTEM_DEF(machines)
 			powernets.Remove(P)
 		if(MC_TICK_CHECK)
 			return
+
+
 
 /datum/controller/subsystem/machines/proc/process_machines(resumed = 0)
 	var/seconds = wait * 0.1
@@ -118,9 +123,8 @@ SUBSYSTEM_DEF(machines)
 	for(var/A in cables)
 		var/obj/structure/cable/PC = A
 		if(!PC.powernet)
-			var/datum/regional_powernet/NewPN = new()
-			NewPN.add_cable(PC)
-			propagate_network(PC,PC.powernet)
+			var/datum/regional_powernet/NewPN = new(PC)
+			NewPN.propagate_network(PC)
 
 /datum/controller/subsystem/machines/Recover()
 	if(istype(SSmachines.processing))

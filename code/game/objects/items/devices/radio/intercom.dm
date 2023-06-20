@@ -154,7 +154,7 @@
 /obj/item/radio/intercom/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
 		return
-	else if(iscoil(W) && buildstage == 1)
+	else if(islvcoil(W) && buildstage == 1)
 		var/obj/item/stack/cable_coil/low_voltage/coil = W
 		if(coil.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need more cable for this!</span>")

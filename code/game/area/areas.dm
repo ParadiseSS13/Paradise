@@ -507,3 +507,10 @@
 
 /area/drop_location()
 	CRASH("Bad op: area/drop_location() called")
+
+/area/proc/get_apc()
+	for(var/thing in GLOB.apcs)
+		var/obj/machinery/power/apc/APC = thing
+		if(APC.apc_area == src)
+			return APC
+

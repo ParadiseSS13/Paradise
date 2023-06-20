@@ -11,6 +11,10 @@
 	var/list/cables = list()
 	/// All Power Machines that are connected to this powernet
 	var/list/nodes = list()
+	/// All transformers currently removing power from this regional powernet
+	var/list/output_transformers = list()
+	/// All transformers currently adding power to this regional powernet
+	var/list/input_transformers = list()
 
 	/// the current available power in the powernet
 	var/available_power = 0
@@ -28,15 +32,14 @@
 	/// the load as it appears on the power console (gradually updated)
 	var/smoothed_demand = 0
 	/// The voltage type on this powernet, determines special behaviour like transfer efficiency and merge'ing of powernets
-	var/power_voltage_type = VOLTAGE_LOW
+	var/power_voltage_type = null
 
 /datum/regional_powernet/New(obj/structure/cable/root_cable)
 	. = ..()
 	SSmachines.powernets += src
 	if(root_cable)
 		add_cable(root_cable)
-		power_voltage_type = root_cable.power_voltage_type // might as well set this here
-		return
+		update_voltage(root_cable.power_voltage_type) // might as well set this here
 	//stack_trace("[UID()] Regional Powernet Instantiated without a root_cable")
 
 /datum/regional_powernet/Destroy()
@@ -98,6 +101,19 @@
 
 /datum/regional_powernet/proc/calculate_queued_surplus()
 	return clamp(queued_power_production - queued_power_demand, 0, queued_power_production)
+
+/// Sets a new voltage type for the powernet, handles special behaviour when setting a new voltage
+/datum/regional_powernet/proc/update_voltage(new_voltage)
+	if(!new_voltage)
+		stack_trace("update_voltage called with a null new_voltage type")
+	if(!isnull(power_voltage_type) && new_voltage != power_voltage_type)
+		bzzzt(new_voltage)
+		return FALSE
+	power_voltage_type = new_voltage
+	return TRUE
+
+/datum/regional_powernet/proc/bzzzt(new_voltage)
+	return "fuck!"
 /*
 	* # process_power()
 	*
@@ -115,6 +131,7 @@
 		for(var/obj/machinery/power/smes/S in nodes)	// find the SMESes in the network
 			S.restore()									// and restore some of the power that was used
 
+	process_transformers()
 	// update power consoles, the reason we use 80% old value and 20% new value is to give the illusion of smoothness
 	smoothed_available_power = round(0.8 * smoothed_available_power + 0.2 * available_power)
 	smoothed_demand = round(0.8 * smoothed_demand + 0.2 * power_demand)
@@ -124,6 +141,28 @@
 	queued_power_demand = 0
 	available_power = queued_power_production
 	queued_power_production = 0
+
+/*
+	* # process_transformers()
+	*
+	* called during process_power() after power is given out to the immediate load on the powernet (i.g. the machines hooked directly into wire nodes)
+	* power is given out based on a weight system to transformers. The higher wattage setting a transformer has, the more watts that are allocated to it
+	*
+	* called every tick by the powernet controller through process_power()
+*/
+/datum/regional_powernet/proc/process_transformers()
+	var/list/transformer_weights = list()
+	var/total_wattage_load = 0
+	// first run around to get total load being demanded by the transformers
+	for(var/obj/machinery/power/transformer/transformer as anything in output_transformers)
+		total_wattage_load += transformer.wattage_setting
+	// second run to get load weights based on total wattage load and doll out power to the transformers
+	for(var/obj/machinery/power/transformer/transformer as anything in output_transformers)
+		// will give each transformer it's own slice of the pie, enough power or too much power it don't matter
+		var/power_to_give_out = (transformer.wattage_setting / total_wattage_load) * excess_power
+		transformer.produce_direct_power(power_to_give_out)
+		power_demand += power_to_give_out // only matters this cycle if something else demands power on the net magically while we're dolling out power
+
 
 #define MINIMUM_PW_SHOCK 1000
 #define MINIMUM_SHOCK_DAMAGE 20

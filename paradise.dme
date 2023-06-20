@@ -2301,6 +2301,7 @@
 #include "code\modules\power\breaker_box.dm"
 #include "code\modules\power\cell.dm"
 #include "code\modules\power\gravitygenerator.dm"
+#include "code\modules\power\hv_connector.dm"
 #include "code\modules\power\lights.dm"
 #include "code\modules\power\power_machine.dm"
 #include "code\modules\power\smes.dm"

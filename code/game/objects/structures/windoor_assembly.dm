@@ -129,7 +129,7 @@
 						name = "secure windoor assembly"
 
 			//Adding cable to the assembly. Step 5 complete.
-			else if(iscoil(W) && anchored)
+			else if(islvcoil(W) && anchored)
 				user.visible_message("[user] wires the windoor assembly.", "You start to wire the windoor assembly...")
 
 				if(do_after(user, 40 * W.toolspeed, target = src))

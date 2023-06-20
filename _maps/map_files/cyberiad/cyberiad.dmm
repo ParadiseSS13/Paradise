@@ -946,7 +946,7 @@
 	},
 /obj/machinery/computer/security{
 	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4693,7 +4693,7 @@
 "apk" = (
 /obj/machinery/computer/security{
 	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -5421,7 +5421,7 @@
 "arl" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -10809,7 +10809,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /obj/machinery/button/windowtint{
 	id = "Detective";
@@ -17785,7 +17785,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26761,7 +26761,7 @@
 	c_tag = "Bridge West"
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -40652,6 +40652,16 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
+"bZI" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/engine,
+/area/engine/engineering)
 "bZJ" = (
 /obj/machinery/light{
 	dir = 1
@@ -54877,11 +54887,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/structure/cable/low_voltage/yellow,
+/obj/machinery/power/transformer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -54928,9 +54935,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engine_smes)
 "cOc" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 8;
+/obj/structure/cable/high_voltage{
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -55982,15 +55987,14 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cRh" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
 	pixel_x = -24
+	},
+/obj/machinery/power/hv_connector,
+/obj/structure/cable/high_voltage{
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -56063,13 +56067,11 @@
 	},
 /area/engine/engineering)
 "cRq" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cRr" = (
@@ -56508,6 +56510,9 @@
 	name = "Supermatter Chamber";
 	req_access_txt = "10"
 	},
+/obj/structure/cable/high_voltage{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "cSE" = (
@@ -56523,15 +56528,13 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cSF" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/green{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cSG" = (
@@ -56599,9 +56602,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
+/obj/structure/cable/high_voltage{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
@@ -56948,20 +56949,16 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cTE" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cTF" = (
@@ -58802,12 +58799,10 @@
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "cZM" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/structure/cable/high_voltage{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "cZP" = (
@@ -60496,14 +60491,12 @@
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "dft" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -61685,17 +61678,15 @@
 	},
 /area/turret_protected/aisat_interior)
 "djq" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
 "djr" = (
@@ -64753,11 +64744,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "dyH" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -64765,6 +64751,9 @@
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -66021,11 +66010,6 @@
 	},
 /area/mimeoffice)
 "eqs" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/airlock_controller/access_controller{
 	name = "Supermatter Access Console";
@@ -66040,6 +66024,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -66057,9 +66044,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "erU" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
+/obj/structure/cable/high_voltage{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
@@ -66313,11 +66298,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "eDs" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
@@ -66325,6 +66305,9 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
 "eDB" = (
@@ -66474,21 +66457,17 @@
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "eJr" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
 	},
 /obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "eKd" = (
@@ -66666,11 +66645,6 @@
 	},
 /area/engine/engineering)
 "eQo" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
@@ -66679,6 +66653,9 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
 "eRa" = (
@@ -67615,7 +67592,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon  Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous  Oxide","waste_sensor"="Gas  Mix  Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -69243,11 +69220,6 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "gHg" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/camera{
 	c_tag = "Supermatter Chamber";
 	network = list("engine");
@@ -69255,6 +69227,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
 	dir = 5
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
@@ -69970,13 +69945,11 @@
 	},
 /area/medical/morgue)
 "hbq" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "hbu" = (
@@ -70927,19 +70900,15 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "hJA" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -71668,16 +71637,14 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "ihW" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1;
 	name = "Mix Bypass"
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "ihX" = (
@@ -71859,14 +71826,10 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/machinery/power/rad_collector{
-	anchored = 1
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/supply{
 	dir = 4
 	},
-/obj/structure/cable/low_voltage/yellow{
-	d2 = 4;
+/obj/structure/cable/high_voltage{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/engine,
@@ -73658,12 +73621,11 @@
 /obj/machinery/power/rad_collector{
 	anchored = 1
 	},
-/obj/structure/cable/low_voltage/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers{
 	dir = 1
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
@@ -73679,18 +73641,6 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
-"jVj" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
-/area/engine/engineering)
 "jVt" = (
 /obj/machinery/computer/crew{
 	dir = 1
@@ -74057,11 +74007,6 @@
 /turf/simulated/floor/carpet,
 /area/maintenance/asmaint)
 "kjN" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/clothing/gloves/color/black,
@@ -74072,6 +74017,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -75188,11 +75136,6 @@
 	},
 /area/hallway/secondary/exit)
 "lbX" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
@@ -75208,6 +75151,9 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -75521,8 +75467,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers{
 	dir = 8
 	},
-/obj/structure/cable/low_voltage/yellow{
-	d2 = 8;
+/obj/structure/cable/high_voltage{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/engine,
@@ -76256,18 +76201,14 @@
 	},
 /area/security/permabrig)
 "lXg" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "lXi" = (
@@ -76383,7 +76324,7 @@
 	dir = 1;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed  Air  In","air_sensor"="Mixed  Air  Supply  Tank","mair_out_meter"="Mixed  Air  Out","dloop_atm_meter"="Distribution  Loop","wloop_atm_meter"="Waste  Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -77263,11 +77204,6 @@
 	},
 /area/crew_quarters/hor)
 "mNd" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/radiation,
@@ -77278,6 +77214,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -77483,11 +77422,6 @@
 	},
 /area/medical/sleeper)
 "mXy" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/radiation,
 /obj/item/clothing/head/radiation,
@@ -77500,6 +77434,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -77522,15 +77459,13 @@
 	},
 /area/medical/morgue)
 "mYL" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 6
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "mZf" = (
@@ -78585,11 +78520,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "nSm" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -78597,6 +78527,9 @@
 	name = "Cooling Loop Bypass"
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "nSQ" = (
@@ -79530,13 +79463,11 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "oDT" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "oEu" = (
@@ -80057,7 +79988,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed  Air  In","air_sensor"="Mixed  Air  Supply  Tank","mair_out_meter"="Mixed  Air  Out","dloop_atm_meter"="Distribution  Loop","wloop_atm_meter"="Waste  Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -80411,11 +80342,6 @@
 	},
 /area/maintenance/asmaint2)
 "piF" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/item/tank/internals/plasma,
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
@@ -80424,6 +80350,9 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
 "pji" = (
@@ -81376,8 +81305,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 9
 	},
-/obj/structure/cable/low_voltage/yellow{
-	d2 = 4;
+/obj/structure/cable/high_voltage{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/engine,
@@ -81869,7 +81797,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix")
+	autolink_sensors = list("burn_sensor"="Burn  Mix")
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -82184,11 +82112,6 @@
 	},
 /area/chapel/main)
 "qyM" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable/low_voltage{
 	d1 = 1;
@@ -82197,6 +82120,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "qzh" = (
@@ -82257,17 +82183,15 @@
 	},
 /area/maintenance/aft)
 "qBw" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -82289,17 +82213,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "qCB" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
 "qCH" = (
@@ -83021,7 +82943,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon  Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous  Oxide","waste_sensor"="Gas  Mix  Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -83239,16 +83161,14 @@
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "rhs" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "rhG" = (
@@ -84218,15 +84138,13 @@
 	},
 /area/quartermaster/miningdock)
 "scM" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "scP" = (
@@ -85267,14 +85185,12 @@
 	},
 /area/maintenance/aft)
 "sSb" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -88001,12 +87917,11 @@
 /obj/machinery/power/rad_collector{
 	anchored = 1
 	},
-/obj/structure/cable/low_voltage/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/supply{
 	dir = 1
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
@@ -88417,8 +88332,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
 	dir = 5
 	},
-/obj/structure/cable/low_voltage/yellow{
-	d2 = 8;
+/obj/structure/cable/high_voltage{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/engine,
@@ -88561,11 +88475,6 @@
 	},
 /area/medical/medbay2)
 "vmA" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
@@ -88573,6 +88482,9 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter)
 "vns" = (
@@ -89593,13 +89505,11 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "vWF" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 9
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
@@ -90384,18 +90294,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "wGI" = (
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/low_voltage/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/structure/cable/high_voltage{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/high_voltage{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "wGJ" = (
@@ -122440,7 +122346,7 @@ cSU
 tQJ
 cVp
 cSU
-jVj
+bZI
 cSx
 hQW
 mWa
@@ -122954,7 +122860,7 @@ uVt
 uVt
 uVt
 cYQ
-jVj
+bZI
 hXT
 gRE
 cRb

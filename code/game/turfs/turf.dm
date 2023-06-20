@@ -447,24 +447,25 @@
 
 /turf/attackby(obj/item/I, mob/user, params)
 	#warn IMPLEMENT_NEW_BEHAVIOUR_HERE
-	if(can_lay_cable())
-		if(istype(I, /obj/item/stack/cable_coil))
-			var/obj/item/stack/cable_coil/C = I
+	if(!can_lay_cable())
+		return FALSE
+	if(iscoil(I))
+		var/obj/item/stack/cable_coil/C = I
+		for(var/obj/structure/cable/LC in src)
+			if(LC.d1 == 0 || LC.d2 == 0)
+				LC.attackby(C, user)
+				return
+		C.place_turf(src, user)
+		return TRUE
+	else if(istype(I, /obj/item/twohanded/rcl))
+		var/obj/item/twohanded/rcl/R = I
+		if(R.loaded)
 			for(var/obj/structure/cable/LC in src)
 				if(LC.d1 == 0 || LC.d2 == 0)
-					LC.attackby(C, user)
+					LC.attackby(R, user)
 					return
-			C.place_turf(src, user)
-			return TRUE
-		else if(istype(I, /obj/item/twohanded/rcl))
-			var/obj/item/twohanded/rcl/R = I
-			if(R.loaded)
-				for(var/obj/structure/cable/LC in src)
-					if(LC.d1 == 0 || LC.d2 == 0)
-						LC.attackby(R, user)
-						return
-				R.loaded.place_turf(src, user)
-				R.is_empty(user)
+			R.loaded.place_turf(src, user)
+			R.is_empty(user)
 
 	return FALSE
 
@@ -474,6 +475,16 @@
 /turf/proc/can_lay_cable()
 	return can_have_cabling() && !intact
 
+// return a knot cable (O-X) if one is present in the turf
+// null if there's none
+/turf/proc/get_cable_node()
+	if(!can_have_cabling())
+		return null
+	for(var/obj/structure/cable/C in src)
+		if(C.d1 == NO_DIRECTION)
+			return C
+	return null
+
 /*
 	* # power_list()
 	* returns a list power machinery on the turf and cables on the turf that have a direction equal to the one supplied in params and are currently connected to a powernet
@@ -481,23 +492,29 @@
 	* Arguments:
 	* source - the atom that is calling this proc
 	* direction - the direction that a cable must have in order to be returned in this proc i.e. d1 or d2 must equal direction
+	* voltage_filter - if not null, the voltage type to filter our connections by, will only return connections with this voltage
 	* cable_only - if TRUE, power_list will only return cables, if FALSE it will also return power machinery
 */
-/turf/proc/power_list(atom/source, direction, cable_only = FALSE)
-	#warn IMPLEMENT_NEW_BEHAVIOUR_HERE
+/turf/proc/power_list(atom/source, direction, voltage_filter, cable_only = FALSE)
 	. = list()
-	for(var/obj/AM in src)
-		if(AM == source)
+	for(var/obj/O in src)
+		if(O == source)
 			continue	//we don't want to return source
-		if(istype(AM, /obj/structure/cable))
-
-			var/obj/structure/cable/C = AM
+		if(iscable(O))
+			var/obj/structure/cable/C = O
+			// checking to see if cable connects to our direction
 			if(C.d1 == direction || C.d2 == direction)
-				. += C // one of the cables ends matches the supplied direction, add it to connnections
+				// checking to make sure we do not have a voltage incompatability
+				if(!voltage_filter || C.power_voltage_type == voltage_filter)
+					. += C // one of the cables ends matches the supplied direction, add it to connnections
 		if(cable_only || direction)
 			continue
-		if(istype(AM, /obj/machinery/power) && !istype(AM, /obj/machinery/power/apc))
-			. += AM
+		if(ispowermachine(O))
+			var/obj/machinery/power/PM = O
+			if(PM.powernet_connection_type & PW_CONNECTION_CONNECTOR)
+				continue // machine uses a connector, so a node connection doesn't work
+			if(!voltage_filter || PM.power_voltage_type == voltage_filter)
+				. += O
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon

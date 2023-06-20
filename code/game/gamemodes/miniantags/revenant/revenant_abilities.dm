@@ -461,7 +461,7 @@
 /obj/machinery/power/apc/rev_malfunction(cause_emp = TRUE)
 	return
 
-/obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE)
+/obj/machinery/power/low_voltage/smes/rev_malfunction(cause_emp = TRUE)
 	return
 
 /mob/living/silicon/robot/rev_malfunction(cause_emp = TRUE)

@@ -10,7 +10,10 @@
 	level = 1
 	plane = FLOOR_PLANE
 	layer = WIRE_TERMINAL_LAYER //a bit above wires
+	power_voltage_type = VOLTAGE_LOW
+
 	var/obj/machinery/power/master = null
+
 
 
 /obj/machinery/power/terminal/Initialize(mapload)

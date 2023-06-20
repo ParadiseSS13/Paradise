@@ -17,6 +17,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	max_integrity = 350
 	integrity_failure = 80
 	rad_insulation = RAD_EXTREME_INSULATION
+	power_voltage_type = VOLTAGE_HIGH
+
 	var/obj/item/tank/internals/plasma/loaded_tank = null
 	var/stored_energy = 0
 	var/active = FALSE

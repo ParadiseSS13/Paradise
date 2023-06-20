@@ -37,7 +37,7 @@
 			. += "<span class='notice'>Upgrades can be added to the camera assembly, and removed with a crowbar.</span>"
 
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
-	if(state == ASSEMBLY_WELDED && iscoil(I))
+	if(state == ASSEMBLY_WELDED && islvcoil(I))
 		var/obj/item/stack/cable_coil/low_voltage/C = I
 		if(C.use(2))
 			to_chat(user, "<span class='notice'>You add wires to the assembly.</span>")

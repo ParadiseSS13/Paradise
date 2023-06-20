@@ -326,7 +326,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/smes
 	board_name = "SMES"
 	icon_state = "engineering"
-	build_path = /obj/machinery/power/smes
+	build_path = /obj/machinery/power/low_voltage/smes
 	board_type = "machine"
 	origin_tech = "programming=3;powerstorage=3;engineering=3"
 	req_components = list(
@@ -351,7 +351,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=4;powerstorage=4;engineering=4"
 	req_components = list(
-							/obj/item/stack/cable_coil/low_voltage = 5,
+							/obj/item/stack/cable_coil/high_voltage = 5,
 							/obj/item/stock_parts/manipulator = 6)
 
 /obj/item/circuitboard/power_turbine

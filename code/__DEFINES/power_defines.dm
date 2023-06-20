@@ -39,6 +39,14 @@
 /// APC battery is at 100%
 #define APC_FULLY_CHARGED 2
 
+// Power ERROR Codes
+#define PW_ERROR_WRONG_VOLTAGE	-1
+#define PW_ERROR_DISCONNECTED	-2
 
 #define VOLTAGE_LOW 	1
 #define VOLTAGE_HIGH	2
+/// Uses both types of voltage in this machine
+#define VOLTAGE_BOTH	3
+
+#define PW_CONNECTION_NODE 1
+#define PW_CONNECTION_CONNECTOR 2

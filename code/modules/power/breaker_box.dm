@@ -6,6 +6,7 @@
 	icon_state = "breakerbox"
 	anchored = TRUE
 	power_state = NO_POWER_USE
+	power_voltage_type = null // breaker box's don't connect to powernets so they don't have a voltage type, but their terminals do!
 	/// The power terminal connected to this breakerbox
 	var/obj/machinery/power/terminal/terminal = null
 

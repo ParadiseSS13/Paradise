@@ -48,7 +48,7 @@
 
 	// set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
 	powernet = 0
-
+	power_voltage_type = VOLTAGE_LOW
 	/*** APC Area/Powernet vars ***/
 	/// the area that this APC is in
 	var/area/apc_area

@@ -22,7 +22,7 @@
 	var/turf/T = get_turf(src)
 	if(!(flags & NODECONSTRUCT))
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new cable_coil_type(T, 2, paramcolor = color)
+			new cable_coil_type(T, 2)
 		else
-			new cable_coil_type(T, 1, paramcolor = color)
+			new cable_coil_type(T, 1)
 	return ..()

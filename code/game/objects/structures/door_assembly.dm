@@ -63,7 +63,7 @@
 			created_name = t
 		return
 
-	else if(iscoil(W) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored)
+	else if(islvcoil(W) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored)
 		var/obj/item/stack/cable_coil/low_voltage/coil = W
 		if(coil.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one length of cable to wire the airlock assembly!</span>")

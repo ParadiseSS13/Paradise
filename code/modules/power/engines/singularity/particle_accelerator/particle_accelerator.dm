@@ -191,7 +191,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return 0
 
 /obj/structure/particle_accelerator/attackby(obj/item/W, mob/user, params)
-	if(!iscoil(W))
+	if(!islvcoil(W))
 		return ..()
 	if(construction_state == ACCELERATOR_WRENCHED)
 		var/obj/item/stack/cable_coil/low_voltage/C = W
@@ -288,7 +288,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return 1
 
 /obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
-	if(!iscoil(W))
+	if(!islvcoil(W))
 		return ..()
 	if(construction_state == ACCELERATOR_WRENCHED)
 		var/obj/item/stack/cable_coil/low_voltage/C = W

@@ -3,30 +3,34 @@
 //////////////////////////////////////////
 
 /// remove the old powernet and replace it with a new one throughout the network.
-/proc/propagate_network(obj/O, datum/regional_powernet/PN)
-	var/list/worklist = list()
+/datum/regional_powernet/proc/propagate_network(obj/root_node)
+	// A full list of cables that we are iterating through, contains visited and unvisited objects
+	var/list/worklist = list(root_node) //start propagating from the passed object
+	// All power machines that connect to one of our nodes in the worklist, built throughout propagation and will be revisted at the end of the proc
 	var/list/found_machines = list()
+	// The current index we are at in our worklist
 	var/index = 1
-	var/obj/P = null
+	// The object we're current working with -> worklist[index]
+	var/obj/current_object = null
 
-	worklist += O //start propagating from the passed object
-
-	while(index <= length(worklist)) //until we've exhausted all power objects
-		P = worklist[index] //get the next power object found
+	while(index <= length(worklist))
+		current_object = worklist[index] // get the next power object found and increment index
 		index++
+		if(iscable(current_object))
+			var/obj/structure/cable/C = current_object
+			if(C.powernet == src)
+				continue
+			if(C.power_voltage_type != power_voltage_type)
+				log_debug("[C.UID()] Voltage Incompatibility")
+				continue
+			add_cable(C)
+			worklist |= C.get_connections(power_voltage_type) //get adjacents power objects, with or without a powernet
+		else if(current_object.anchored && ispowermachine(current_object))
+			// we wait until the powernet is fully propagates to connect the machines
+			found_machines |= current_object
 
-		if(istype(P, /obj/structure/cable))
-			var/obj/structure/cable/C = P
-			if(C.powernet != PN) //add it to the powernet, if it isn't already there
-				PN.add_cable(C)
-			worklist |= C.get_connections() //get adjacents power objects, with or without a powernet
-
-		else if(P.anchored && istype(P, /obj/machinery/power))
-			var/obj/machinery/power/M = P
-			found_machines |= M //we wait until the powernet is fully propagates to connect the machines
-
-	//now that the powernet is set, connect found machines to it
-	for(var/obj/machinery/power/PM in found_machines)
+	// now that the powernet is set, connect found machines to it
+	for(var/obj/machinery/power/PM as anything in found_machines)
 		if(!PM.connect_to_network()) //couldn't find a node on its turf...
 			PM.disconnect_from_network() //... so disconnect if already on a powernet
 

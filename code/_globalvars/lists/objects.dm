@@ -23,6 +23,7 @@ GLOBAL_LIST_INIT(machines, list())
 GLOBAL_LIST_INIT(rcd_list, list()) //list of Rapid Construction Devices.
 
 GLOBAL_LIST_INIT(apcs, list())
+GLOBAL_LIST_INIT(transformers, list())
 GLOBAL_LIST_INIT(air_alarms, list())
 GLOBAL_LIST_INIT(power_monitors, list())
 GLOBAL_LIST_INIT(all_vent_pumps, list())
