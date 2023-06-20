@@ -47,17 +47,17 @@
 	var/capacity = 1e6
 	var/comp_id = 0
 	var/efficiency
-	///value that dertermines the amount of overheat "damage" on the turbine.
+	/// value that dertermines the amount of overheat "damage" on the turbine.
 	var/overheat = 0
-	///Required overheat "damage" to proc an overheat event. By default, this is seconds of overdrive required for an overheat event.
+	/// Required overheat "damage" to proc an overheat event. By default, this is seconds of overdrive required for an overheat event.
 	var/overheat_threshold = 300
-	///This value needs to be zero. It represents seconds since the last overheat event
+	/// This value needs to be zero. It represents seconds since the last overheat event
 	var/last_overheat = 0
-	//Internal radio, used to alert engineers of turbine trip!
+	/// Internal radio, used to alert engineers of turbine trip!
 	var/obj/item/radio/radio
-	///overheat message
+	/// overheat message
 	var/overheat_message = "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
-	///expresses time until next bearing overheat as a percentile
+	/// expresses time until next bearing overheat as a percentile
 	var/bearing_heat = null
 
 /obj/machinery/power/turbine
@@ -75,7 +75,7 @@
 	/// If the turbine is outputing enough to visibly affect its sprite
 	var/generator_threshold = FALSE
 	var/productivity = 1
-	///Used to form the turbine power generation curve
+	/// Used to form the turbine power generation curve
 	var/power_curve_mod = 1.7
 
 
