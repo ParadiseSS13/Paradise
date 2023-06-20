@@ -119,8 +119,10 @@
 	/// A cyborg that has already been hijacked can be re-entered instantly.
 	var/list/hijacked_robots
 
-	/// Images currently being shown on the client.
-	var/list/images_shown = list()
+	/// Images of cables currently being shown on the client.
+	var/list/cable_images = list()
+	/// Images of APCs currently being shown on the client.
+	var/list/apc_images = list()
 	/// List of all previously hijacked APCs.
 	var/list/hijacked_apcs = list()
 	/// Reference to the APC currently being hijacked.
@@ -144,6 +146,8 @@
 	// drop demon onto ground if its loc is a non-turf and gets deleted
 	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(deleted_handler))
 
+	RegisterSignal(SSdcs, COMSIG_GLOB_CABLE_UPDATED, PROC_REF(cable_updated_handler))
+
 	pb_helper = new()
 
 	current_power = locate(/obj/machinery/power) in loc
@@ -166,6 +170,26 @@
 		return FALSE
 	exit_to_turf()
 	return TRUE
+
+/mob/living/simple_animal/pulse_demon/proc/cable_updated_handler(SSdcs, turf/T)
+	SIGNAL_HANDLER
+	if(cable_images[T])
+		var/list/turf_images = cable_images[T]
+		for(var/image/current_image in turf_images)
+			client?.images -= current_image
+		turf_images.Cut()
+	else
+		cable_images[T] = list()
+
+	for(var/obj/structure/cable/C in T)
+		var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
+		cable_image.plane = ABOVE_LIGHTING_PLANE
+		cable_images[T] += cable_image
+		client?.images += cable_image
+
+/mob/living/simple_animal/pulse_demon/proc/apc_deleted_handler(obj/machinery/power/apc/A, force)
+	SIGNAL_HANDLER
+	hijacked_apcs -= A
 
 /mob/living/simple_animal/pulse_demon/Destroy()
 	SSticker.mode.traitors -= mind
@@ -592,10 +616,11 @@
 /mob/living/simple_animal/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
 	apc_image.plane = ABOVE_LIGHTING_PLANE
-	images_shown += apc_image
+	LAZYADD(apc_images[get_turf(A)], apc_image)
 	client.images += apc_image
 
 	hijacked_apcs += A
+	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(apc_deleted_handler))
 	if(!remote)
 		update_controlling_area()
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
@@ -641,23 +666,27 @@
 		return
 
 	// clear out old images
-	for(var/image/current_image in images_shown)
+	for(var/image/current_image in cable_images + apc_images)
 		client.images -= current_image
-	images_shown.Cut()
 
 	var/turf/T = get_turf(src)
+
 	// regenerate for all cables on our (or our holder's) z-level
-	for(var/obj/structure/cable/C in GLOB.cable_list)
-		var/turf/cable_turf = get_turf(C)
-		if(T.z != cable_turf.z)
-			continue
-		var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
-		// good visibility here
-		cable_image.plane = ABOVE_LIGHTING_PLANE
-		images_shown += cable_image
-		client.images += cable_image
+	cable_images.Cut()
+	for(var/datum/regional_powernet/P in SSmachines.powernets)
+		for(var/obj/structure/cable/C in P.cables)
+			var/turf/cable_turf = get_turf(C)
+			if(T.z != cable_turf.z)
+				break // skip entire powernet if it's off z-level
+
+			var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
+			// good visibility here
+			cable_image.plane = ABOVE_LIGHTING_PLANE
+			LAZYADD(cable_images[cable_turf], cable_image)
+			client.images += cable_image
 
 	// same for hijacked APCs
+	apc_images.Cut()
 	for(var/obj/machinery/power/apc/A in hijacked_apcs)
 		var/turf/apc_turf = get_turf(A)
 		if(T.z != apc_turf.z)
@@ -665,7 +694,7 @@
 		// parent of image is the APC, not the turf because of how clicking on images works
 		var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
 		apc_image.plane = ABOVE_LIGHTING_PLANE
-		images_shown += apc_image
+		LAZYADD(apc_images[apc_turf], apc_image)
 		client.images += apc_image
 
 /mob/living/simple_animal/pulse_demon/emp_act(severity)
