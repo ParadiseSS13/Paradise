@@ -34,10 +34,10 @@
 	var/energy_to_lower = -20
 	var/list/shocked_things = list()
 	var/obj/singularity/energy_ball/parent_energy_ball
-	var/has_a_target = 0
-	var/list/target_area_turfs
-	var/turf/target_turf
-	var/list/tesla_line
+	var/has_a_target = FALSE // Variable to determine if it has a target
+	var/list/target_area_turfs = list() // All the turfs in the chosen area
+	var/turf/target_turf // Turf where the tesla will move to if it's loose
+	var/list/tesla_line = list() // List with the turfs in the line towards the target turf
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
@@ -109,33 +109,34 @@
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(where_to_move)
-	if(!has_a_target)
-		find_the_basket()
-		return
+	if(locate(/obj/machinery/field/containment) in urange(15, src, 1)) // If there's a field in the closest 15 turfs we're sticking with a simple moving pattern
+		var/turf/T = get_step(src,pick(GLOB.alldirs))
+		if(can_move(T))
+			forceMove(T)
+			setDir(move_dir)
+			return
 	else
-		for(var/i in 0 to 8)
-			//var/movement_dir = get_dir(src,target_turf)
-			//message_admins("The move dir is [movement_dir]")
-			//step(src,movement_dir)
-			forceMove(tesla_line[1])
-			tesla_line.Cut(End = 2)
-			for(var/mob/living/carbon/C in loc)
-				dust_mobs(C)
+		if(!has_a_target)
+			find_the_basket()
+			return
+		else
+			for(var/i in 0 to 8)
+				forceMove(tesla_line[1])
+				tesla_line.Cut(1,2)
+				if(get_turf(src) == target_turf)
+					has_a_target = FALSE
+				for(var/mob/living/carbon/C in loc)
+					dust_mobs(C)
+
 
 /obj/singularity/energy_ball/proc/find_the_basket()
-	var/area/where_to_move = findEventArea()
-	message_admins("The target is [where_to_move]")
-	target_area_turfs = get_area_turfs(where_to_move)
-	message_admins("[target_area_turfs]")
-	target_turf = pick(target_area_turfs)
-	tesla_line = getline(src,target_turf)
-	has_a_target = 1
+	var/area/where_to_move = findEventArea() // Grabs a random area that isn't restricted
+	message_admins("The target area is [where_to_move]")
+	target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
+	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
+	tesla_line = getline(src,target_turf) // Constructs a line between the tesla and the target turf
+	has_a_target = TRUE
 	return
-	//while(length(target_area_turfs))
-	//	var/turf/candidate = pick_n_take(target_area_turfs)
-	//	if(!is_blocked_turf(candidate,TRUE))
-	//		has_a_target = 1
-	//		return candidate
 
 
 /obj/singularity/energy_ball/proc/handle_energy()
