@@ -73980,6 +73980,16 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/qm)
+"khB" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door_control{
+	id = "teleshutter";
+	name = "Teleporter Shutters Access Control";
+	pixel_x = -24;
+	req_access_txt = "62"
+	},
+/turf/simulated/floor/plasteel,
+/area/teleporter)
 "khK" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 1;
@@ -85146,6 +85156,16 @@
 	icon_state = "darkblue"
 	},
 /area/medical/surgeryobs)
+"sMZ" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "teleshutter";
+	name = "Teleport Access Shutters"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/teleporter)
 "sNJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -123165,8 +123185,8 @@ bUD
 bSi
 bVP
 bXx
-bXl
-cbl
+khB
+bZc
 bSi
 ceF
 cgj
@@ -123423,7 +123443,7 @@ bSi
 bTO
 bXw
 bXl
-bZa
+cbl
 bSi
 cdN
 cgj
@@ -123680,7 +123700,7 @@ bSi
 bTS
 bXz
 bXl
-bZb
+bZa
 bSi
 ccm
 cgp
@@ -123937,8 +123957,8 @@ bSi
 bTR
 bXy
 bXl
-bZc
-bSi
+bZb
+sMZ
 bFO
 cgo
 cfB
