@@ -196,6 +196,23 @@
 
 /mob/living/simple_animal/pulse_demon/Destroy()
 	SSticker.mode.traitors -= mind
+
+	pb_helper.cancel() // just making sure nothing started between death() and here
+	QDEL_NULL(pb_helper)
+
+	QDEL_LIST_CONTENTS(cable_images)
+	QDEL_LIST_CONTENTS(apc_images)
+
+	controlling_area = null
+	current_bot = null
+	current_cable = null
+	current_power = null
+	current_robot = null
+	current_weapon = null
+	apc_being_hijacked = null
+	hijacked_apcs = null
+	hijacked_robots = null
+
 	return ..()
 
 /mob/living/simple_animal/pulse_demon/Login()
