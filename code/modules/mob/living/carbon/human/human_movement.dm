@@ -21,8 +21,7 @@
 		thrust = C.jetpack
 	else if(istype(back, /obj/item/mod/control))
 		var/obj/item/mod/control/C = back
-		var/obj/item/mod/module/jetpack/J = locate(/obj/item/mod/module/jetpack) in C
-		thrust = J
+		thrust = locate(/obj/item/mod/module/jetpack) in C
 	if(thrust)
 		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
 			return TRUE

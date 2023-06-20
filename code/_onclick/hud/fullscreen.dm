@@ -174,7 +174,7 @@
 		return
 	var/x_offset = source.loc.x - oldloc.x
 	var/y_offset = source.loc.y - oldloc.y
-	given_turf = locate(given_turf.x+x_offset, given_turf.y+y_offset, given_turf.z)
+	given_turf = locate(given_turf.x + x_offset, given_turf.y + y_offset, given_turf.z)
 
 
 /obj/screen/fullscreen/cursor_catcher/MouseEntered(location, control, params)
@@ -194,7 +194,7 @@
 	var/icon_y = text2num(modifiers["icon-y"])
 	var/our_x = round(icon_x / world.icon_size)
 	var/our_y = round(icon_y / world.icon_size)
-	given_turf = locate(owner.x + our_x - round(view_list[1]/2), owner.y + our_y - round(view_list[2]/2), owner.z)
+	given_turf = locate(owner.x + our_x - round(view_list[1] / 2), owner.y + our_y - round(view_list[2] / 2), owner.z)
 	given_x = round(icon_x - world.icon_size * our_x, 1)
 	given_y = round(icon_y - world.icon_size * our_y, 1)
 

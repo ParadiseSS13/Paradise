@@ -239,7 +239,6 @@
 	Only used for swapping hands
 */
 /mob/proc/MiddleClickOn(atom/A)
-
 	pointed(A)
 	return
 
