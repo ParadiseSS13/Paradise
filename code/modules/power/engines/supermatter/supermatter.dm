@@ -203,9 +203,11 @@
 	///Disables the sm's proccessing totally.
 	var/processes = TRUE
 
-	//vars used for supermatter events (Anomalous  crystal activityw)
+	//vars used for supermatter events (Anomalous crystal activityw)
 	///no events should occur while the SM is offline. This also allows admins to easily disable them
 	var/events_possible = FALSE
+	///Defaults to false, Only one event should be triggered at a time
+	var/event_active = FALSE
 	///flat multiplies the amount of gas released by the SM.
 	var/gas_multiplier = 1
 	///flat multiplies the heat released by the SM
@@ -525,7 +527,7 @@
 
 
 		if(power_changes)
-			power = max(((removed.temperature * temp_factor / T0C) * gasmix_power_ratio + power) + power_additive, 0)
+			power = max((removed.temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
 		if(prob(50))
 
@@ -653,7 +655,7 @@
 		//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()
-
+	power += power_additive
 	return 1
 
 /obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/item/projectile/Proj)
@@ -1155,6 +1157,7 @@
 	heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
 	gas_multiplier = 1
 	power_additive = 0
+	event_active = FALSE
 
 //D class events
 //type 1
@@ -1186,6 +1189,7 @@
 	env.oxygen += 250
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 30 SECONDS)
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-1. Operator intervention may be required!", name, "Engineering", list(z))
+	event_active = TRUE
 	return
 
 //type 2
@@ -1202,6 +1206,7 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 5 MINUTES)
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: C-3. Operator intervention may be required!", name, "Engineering", list(z))
 	heat_penalty_threshold = -73
+	event_active = TRUE
 	return
 
 //Class B events
@@ -1210,6 +1215,7 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 1 MINUTES)
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-1. Operator intervention is required!", name, "Engineering", list(z))
 	gas_multiplier = 1.5
+	event_active = TRUE
 	return
 
 //type 2
@@ -1217,6 +1223,7 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 1 MINUTES)
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-2. Operator intervention is required!", name, "Engineering", list(z))
 	heat_multiplier = 1.25
+	event_active = TRUE
 	return
 
 //type 3
@@ -1224,6 +1231,7 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 1 MINUTES)
 	src.radio.autosay("Anomalous crystal activity detected! Activity class: B-1. Operator intervention is required!", name, "Engineering", list(z))
 	power_additive = 2000
+	event_active = TRUE
 	return
 
 //A class events
@@ -1239,6 +1247,7 @@
 			A.wires.cut(WIRE_MAIN_POWER2)
 	if(A.operating)
 		A.toggle_breaker()
+	event_active = TRUE
 	return
 
 //type 2
@@ -1247,14 +1256,45 @@
 	var/area/current_area = get_area(src)
 	var/obj/machinery/alarm/engine/A = current_area.master_air_alarm
 	A.apply_mode(AALARM_MODE_SCRUBBING)
+	event_active = TRUE
+	return
 
 //type 3
 /obj/machinery/atmospherics/supermatter_crystal/proc/event_a3()
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 2 MINUTES)
 	src.radio.autosay("ALERT: Critical anomalous crystal activity detected! Activity class: A-3. IMMEDIATE Operator intervention is REQUIRED!", name, "Engineering", list(z))
 	gas_multiplier = 4
+	event_active = TRUE
 	return
 
+//S class events
+//Arc-type
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_arctimer()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, event_arc)), 5 MINUTES)
+	src.radio.autosay("ALERT: Anomalous supermatter state expected in: 5 minutes", name, null, list(z))
+	src.radio.autosay("EMERGENCY ALERT: 5 MINUTES UNTIL [src] EXHIBITS S-ARC CLASS ANOMALOUS ACTIVITY!", name, "Engineering", list(z))
+	return
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_arc()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 2 MINUTES)
+	src.radio.autosay("ALERT: ANOMALOUS SUPERMATTER STATE DETECTED!", name, null, list(z))
+	src.radio.autosay("EMERGENCY ALERT: Class S-ARC anomalous behavior in progress!", name, "Engineering", list(z))
+	power_additive = 6000
+	event_active = TRUE
+	return
+
+//Laminate Rejection-type
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_ejectiontimer()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, event_ejection)), 5 MINUTES)
+	src.radio.autosay("ALERT: Anomalous supermatter state expected in: 5 minutes", name, null, list(z))
+	src.radio.autosay("EMERGENCY ALERT: 5 MINUTES UNTIL [src] EXHIBITS S-LAMINATE REJECTION CLASS ANOMALOUS ACTIVITY!", name, "Engineering", list(z))
+	return
+/obj/machinery/atmospherics/supermatter_crystal/proc/event_ejection()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, end_event)), 2 MINUTES)
+	src.radio.autosay("ALERT: ANOMALOUS SUPERMATTER STATE DETECTED!", name, null, list(z))
+	src.radio.autosay("EMERGENCY ALERT: Class S-LAMINATE REJECTION anomalous behavior in progress!", name, "Engineering", list(z))
+	heat_multiplier = 10
+	event_active = TRUE
+	return
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
