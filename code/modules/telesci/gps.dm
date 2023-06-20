@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	var/emped = FALSE
 	/// Turf reference. If set, it will appear in the UI. Used by [/obj/machinery/computer/telescience].
 	var/turf/locked_location
-	///What state the GPS uses for tgui. Set to deep for the modsuit gps.
+	/// What state the GPS uses for tgui. Set to deep for the modsuit gps.
 	var/tgui_state = "inventory_state"
 
 /obj/item/gps/Initialize(mapload)
