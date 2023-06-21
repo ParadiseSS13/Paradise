@@ -624,6 +624,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
 				. += "Its wires are exposed!"
+				if(get_dist(user, src) <= 1)
+					wires.Interact(user)
 			if(AIRLOCK_SECURITY_METAL)
 				. += "Its wires are hidden behind a welded metal cover."
 			if(AIRLOCK_SECURITY_PLASTEEL_I_S)
@@ -761,20 +763,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(shock_user(user, 100))
 		return
-
 	if(headbutt_airlock(user))
 		return // Smack that head against that airlock
 	if(remove_airlock_note(user, FALSE))
 		return
-
-	if(panel_open)
-		if(security_level)
-			to_chat(user, "<span class='warning'>Wires are protected!</span>")
-			return
-		wires.Interact(user)
-	else
-		..()
-
+	..()
 
 //Checks if the user can headbutt the airlock and does it if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/headbutt_airlock(mob/user)
