@@ -345,15 +345,15 @@
 	verbs -=/obj/structure/table/verb/do_flip
 	verbs +=/obj/structure/table/proc/do_put
 
+	dir = direction
+	if(dir != NORTH)
+		layer = 5
 	var/list/targets = list(get_step(src,dir),get_step(src,turn(dir, 45)),get_step(src,turn(dir, -45)))
 	for(var/atom/movable/A in get_turf(src))
 		if(!A.anchored)
 			spawn(0)
 				A.throw_at(pick(targets),1,1)
 
-	dir = direction
-	if(dir != NORTH)
-		layer = 5
 	flipped = TRUE
 	smoothing_flags = NONE
 	flags |= ON_BORDER
@@ -381,7 +381,8 @@
 
 	layer = initial(layer)
 	flipped = FALSE
-	smoothing_flags = initial(smoothing_flags)
+	// Initial smoothing flags doesn't add the required SMOOTH_OBJ flag, thats done on init
+	smoothing_flags = initial(smoothing_flags) | SMOOTH_OBJ
 	flags &= ~ON_BORDER
 	for(var/D in list(turn(dir, 90), turn(dir, -90)))
 		if(locate(/obj/structure/table,get_step(src,D)))
