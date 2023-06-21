@@ -34261,7 +34261,6 @@
 	},
 /area/medical/reception)
 "bKb" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
