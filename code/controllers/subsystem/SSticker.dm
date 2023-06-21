@@ -596,6 +596,9 @@ SUBSYSTEM_DEF(ticker)
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()
 
+	// Save the data before end of the round griefing
+	SSpersistent_data.save()
+
 	//make big obvious note in game logs that round ended
 	log_game("///////////////////////////////////////////////////////")
 	log_game("///////////////////// ROUND ENDED /////////////////////")

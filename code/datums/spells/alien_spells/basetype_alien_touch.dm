@@ -25,10 +25,6 @@
 		to_chat(user, "<span class='noticealien'>You withdraw your [src].</span>")
 	..()
 
-/obj/effect/proc_holder/spell/touch/alien_spell/cast(list/targets, mob/living/carbon/user)
-	user.add_plasma(plasma_cost)
-	..()
-
 /obj/effect/proc_holder/spell/touch/alien_spell/write_custom_logs(list/targets, mob/user)
 	user.create_log(ATTACK_LOG, "Cast the spell [name]")
 
