@@ -8,7 +8,7 @@
 	attacktext = "shocks"
 	melee_damage_type = BURN
 	attack_sound = 'sound/machines/defib_zap.ogg'
-	damage_transfer = 0.6
+	damage_transfer = 0.5
 	range = 7
 	playstyle_string = "As a <b>Lightning</b> type, you will apply lightning chains to targets on attack and have a lightning chain to your summoner. Lightning chains will shock anyone near them."
 	magic_fluff_string = "..And draw the Tesla, a shocking, lethal source of power."
@@ -113,7 +113,7 @@
 						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
 						"<span class='italics'>You hear a heavy electrical crack.</span>" \
 					)
-				L.adjustFireLoss(1.2) //adds up very rapidly
+				L.adjustFireLoss(2.4) //adds up very rapidly
 				. = 1
 
 /mob/living/simple_animal/hostile/guardian/beam/death(gibbed)

@@ -316,8 +316,8 @@
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 	switch(guardian_type)
 
-		if("Chaos")
-			pickedtype = /mob/living/simple_animal/hostile/guardian/fire
+		if("Gaseous")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/gaseous
 
 		if("Standard")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/punch
