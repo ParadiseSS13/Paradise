@@ -382,19 +382,6 @@
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
-			if(istype(affecting, /mob/living/simple_animal/hostile/poison/bees)) //Eating a bee will end up damaging you
-				var/obj/item/organ/external/mouth = user.get_organ(BODY_ZONE_PRECISE_MOUTH)
-				var/mob/living/simple_animal/hostile/poison/bees/B = affecting
-				mouth.receive_damage(1)
-				if(B.beegent)
-					B.beegent.reaction_mob(assailant, REAGENT_INGEST)
-					assailant.reagents.add_reagent(B.beegent.id, rand(1, 5))
-				else
-					assailant.reagents.add_reagent("spidertoxin", 5)
-				user.visible_message("<span class='warning'>[user]'s mouth became bloated.</span>", "<span class='danger'>Your mouth has been stung, it's now bloating!</span>")
-			affecting.forceMove(user)
-			LAZYADD(attacker.stomach_contents, affecting)
-			qdel(src)
 
 /obj/item/grab/proc/checkvalid(mob/attacker, mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
