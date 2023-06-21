@@ -25282,18 +25282,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central)
-"bqy" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/bridge)
 "bqA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -27643,183 +27631,8 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
-"bwc" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/bridge)
-"bwd" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/bridge)
-"bwe" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/bridge)
 "bwf" = (
 /turf/simulated/wall/r_wall,
-/area/bridge)
-"bwg" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/bridge)
-"bwh" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/bridge)
-"bwi" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/bridge)
-"bwj" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/bridge)
-"bwk" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/bridge)
-"bwl" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
 /area/bridge)
 "bwm" = (
 /turf/simulated/floor/plasteel{
@@ -28260,11 +28073,6 @@
 /area/bridge)
 "bxo" = (
 /obj/machinery/computer/med_data,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -28288,11 +28096,6 @@
 /area/bridge)
 "bxr" = (
 /obj/machinery/computer/security,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -29093,26 +28896,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
-"byZ" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast north";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/bridge)
 "bza" = (
 /obj/machinery/light{
 	dir = 8
@@ -29630,11 +29413,6 @@
 /area/bridge)
 "bAx" = (
 /obj/machinery/computer/supplycomp,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
@@ -29642,19 +29420,9 @@
 /area/bridge)
 "bAy" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "bAz" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
@@ -29683,11 +29451,6 @@
 /area/bridge)
 "bAD" = (
 /obj/machinery/computer/shuttle/mining,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
@@ -30413,11 +30176,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -30435,11 +30193,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -30487,11 +30240,6 @@
 /area/bridge)
 "bCt" = (
 /obj/structure/window/reinforced,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -30545,28 +30293,6 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/bridge)
-"bCw" = (
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -135617,7 +135343,7 @@ btH
 aaa
 abj
 aaa
-bwg
+bwf
 bAw
 bCx
 byU
@@ -135874,7 +135600,7 @@ bsv
 abj
 abj
 abj
-bwe
+bwf
 bAx
 bCp
 bAB
@@ -136129,8 +135855,8 @@ bqu
 bIX
 btH
 aaa
-bwc
-bqy
+bwf
+bwf
 bwf
 aos
 bCl
@@ -136386,7 +136112,7 @@ bqu
 bIX
 btH
 aaa
-bwd
+bwf
 bxm
 byR
 wGL
@@ -136643,7 +136369,7 @@ bqu
 bIX
 btH
 aaa
-bwd
+bwf
 bxn
 byS
 byU
@@ -136900,9 +136626,9 @@ bqu
 bIX
 btH
 aaa
-bwe
+bwf
 bxo
-byT
+byV
 bAz
 bCq
 bEd
@@ -137414,7 +137140,7 @@ bqu
 bsm
 btH
 aaa
-bwg
+bwf
 bxq
 byV
 byU
@@ -137671,9 +137397,9 @@ bqt
 bsl
 btH
 aaa
-bwh
+bwf
 bxr
-bAB
+byU
 bAy
 bCt
 bEg
@@ -137928,7 +137654,7 @@ aXY
 bsm
 btH
 aaa
-bwi
+bwf
 bxs
 byV
 byU
@@ -138442,7 +138168,7 @@ aXY
 bwm
 btH
 aaa
-bwj
+bwf
 bxu
 byT
 bAA
@@ -138699,7 +138425,7 @@ aXY
 bwm
 btH
 aaa
-bwk
+bwf
 bxv
 byX
 byU
@@ -138956,7 +138682,7 @@ aXY
 bwm
 btH
 aaa
-bwk
+bwf
 bxw
 byY
 bAB
@@ -139213,8 +138939,8 @@ aXY
 bwm
 btH
 aaa
-bwl
-bqy
+bwf
+bwf
 bwf
 bAC
 bCl
@@ -139472,9 +139198,9 @@ bsv
 abj
 abj
 abj
-byZ
+bwf
 bAD
-bCw
+bCx
 byU
 bFN
 bWX
@@ -139729,7 +139455,7 @@ btH
 aaa
 abj
 aaa
-bwi
+bwf
 bAE
 bCx
 byU

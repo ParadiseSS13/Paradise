@@ -5700,40 +5700,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
-"aBV" = (
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
-"aBY" = (
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
 "aBZ" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/fsmaint)
@@ -5963,28 +5929,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/locker/locker_toilet)
-"aCV" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
 "aCW" = (
 /obj/structure/sign/chinese{
 	pixel_x = -32
@@ -6226,18 +6170,6 @@
 	icon_state = "darkgrey"
 	},
 /area/security/nuke_storage)
-"aDK" = (
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
 "aDL" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -6283,18 +6215,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
-"aEh" = (
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
 "aEj" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
@@ -6405,23 +6325,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
-"aEt" = (
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
 "aEv" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -7528,15 +7431,6 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
-"aIb" = (
-/obj/structure/cable/yellow,
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
 "aIc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -7789,23 +7683,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
-"aIH" = (
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
 "aIJ" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/emcloset,
@@ -8354,18 +8231,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"aJY" = (
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
 "aKd" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4;
@@ -19224,28 +19089,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/library)
-"bmf" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
 "bmg" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -19998,23 +19841,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
-"boe" = (
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors"
-	},
-/turf/simulated/floor/plating,
-/area/bridge)
 "bof" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -20168,19 +19994,6 @@
 	},
 /area/bridge)
 "boE" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/bridge)
-"boF" = (
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20818,11 +20631,6 @@
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/heads)
 "bqd" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/computer/monitor{
 	name = "Bridge Power Monitoring Console"
 	},
@@ -20872,11 +20680,6 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -20902,11 +20705,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "bql" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/machinery/computer/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -21670,11 +21468,6 @@
 /obj/item/folder/red{
 	pixel_y = 3
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -22329,11 +22122,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -22370,11 +22158,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -118645,7 +118428,7 @@ aYx
 abq
 abq
 abq
-aJY
+bkW
 bub
 bur
 bwg
@@ -118900,8 +118683,8 @@ bek
 bdb
 aYx
 abq
-aBV
-aIb
+bkW
+bkW
 bkW
 btY
 boE
@@ -119157,7 +118940,7 @@ bek
 bdb
 aYx
 abq
-aCV
+bkW
 boB
 bsb
 btT
@@ -119414,7 +119197,7 @@ bwn
 bdb
 aYx
 abq
-aBY
+bkW
 bop
 boC
 teE
@@ -119671,7 +119454,7 @@ svH
 oeP
 aYx
 abq
-aDK
+bkW
 bpV
 boD
 gDB
@@ -120185,7 +119968,7 @@ ber
 bdb
 aYx
 abq
-aEh
+bkW
 bqf
 boD
 gDB
@@ -120442,9 +120225,9 @@ bes
 bfU
 aYx
 abq
-bmf
+bkW
 bqd
-boF
+boD
 bqi
 bwe
 btV
@@ -120699,7 +120482,7 @@ tyF
 bfV
 aYx
 abq
-aDK
+bkW
 bqh
 boD
 hht
@@ -121213,7 +120996,7 @@ mFG
 jGr
 aYx
 abq
-aEh
+bkW
 cfh
 boD
 hht
@@ -121470,7 +121253,7 @@ bek
 bfV
 aYx
 abq
-boe
+bkW
 bqj
 boG
 mAa
@@ -121727,7 +121510,7 @@ bek
 bfV
 aYx
 abq
-boe
+bkW
 bql
 bsc
 btZ
@@ -121984,8 +121767,8 @@ bek
 bfV
 aYx
 abq
-aEt
-aIH
+bkW
+bkW
 bkW
 bum
 boE
@@ -122243,7 +122026,7 @@ aYx
 abq
 abq
 abq
-aJY
+bkW
 buE
 bvr
 cbY
