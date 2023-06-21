@@ -65,6 +65,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general
 	access = ACCESS_ENGINE
 
+/obj/effect/mapping_helpers/airlock/access/any/engineering/equipment
+	access = ACCESS_ENGINE_EQUIP
+
 /obj/effect/mapping_helpers/airlock/access/any/engineering/construction
 	access = ACCESS_CONSTRUCTION
 
@@ -152,6 +155,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/security/general
 	access = ACCESS_SECURITY
 
+/obj/effect/mapping_helpers/airlock/access/any/security/forensics
+	access = ACCESS_FORENSICS_LOCKERS
+
 /obj/effect/mapping_helpers/airlock/access/any/security/doors
 	access = ACCESS_SEC_DOORS
 
@@ -195,7 +201,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/service/library
 	access = ACCESS_LIBRARY
 
-/obj/effect/mapping_helpers/airlock/access/any/service/library
+/obj/effect/mapping_helpers/airlock/access/any/service/theatre
 	access = ACCESS_THEATRE
 
 /obj/effect/mapping_helpers/airlock/access/any/service/clown
@@ -273,6 +279,9 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general
 	access = ACCESS_ENGINE
+
+/obj/effect/mapping_helpers/airlock/access/all/engineering/equipment
+	access = ACCESS_ENGINE_EQUIP
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction
 	access = ACCESS_CONSTRUCTION
@@ -361,6 +370,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/general
 	access = ACCESS_SECURITY
 
+/obj/effect/mapping_helpers/airlock/access/all/security/forensics
+	access = ACCESS_FORENSICS_LOCKERS
+
 /obj/effect/mapping_helpers/airlock/access/all/security/doors
 	access = ACCESS_SEC_DOORS
 
@@ -407,7 +419,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/service/library
 	access = ACCESS_LIBRARY
 
-/obj/effect/mapping_helpers/airlock/access/all/service/library
+/obj/effect/mapping_helpers/airlock/access/all/service/theatre
 	access = ACCESS_THEATRE
 
 /obj/effect/mapping_helpers/airlock/access/all/service/clown
