@@ -400,10 +400,6 @@
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
-	var/mob/living/carbon/human/H = attacker
-	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
-		return 1
-
 	return 0
 
 /obj/item/grab/proc/checktime(mob/attacker, mob/prey) //Returns the time the attacker has to wait before they eat the prey

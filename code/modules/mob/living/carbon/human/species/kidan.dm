@@ -34,8 +34,6 @@
 		"lantern" =  /obj/item/organ/internal/lantern
 		)
 
-	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
-
 	suicide_messages = list(
 		"is attempting to bite their antenna off!",
 		"is jamming their claws into their eye sockets!",
