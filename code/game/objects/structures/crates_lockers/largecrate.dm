@@ -50,9 +50,9 @@
 		return ..()
 
 /obj/structure/largecrate/Destroy()
-	for (var/obj/O in contents)
-		var/atom/movable/A = O
-		A.forceMove(get_turf(src))
+	var/src_turf = get_turf(src)
+	for(var/obj/O in contents)
+		O.forceMove(src_turf )
 	return ..()
 
 /obj/structure/largecrate/mule
