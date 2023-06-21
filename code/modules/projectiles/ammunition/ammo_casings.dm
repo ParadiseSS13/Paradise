@@ -326,7 +326,7 @@
 	name = "rocket shell"
 	desc = "A high explosive designed to be fired from a launcher."
 	icon_state = "rocketshell"
-	projectile_type = /obj/item/missile
+	projectile_type = /obj/item/projectile/missile
 	caliber = "rocket"
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
