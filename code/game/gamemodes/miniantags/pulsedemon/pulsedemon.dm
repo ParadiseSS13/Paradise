@@ -195,8 +195,6 @@
 	hijacked_apcs -= A
 
 /mob/living/simple_animal/pulse_demon/Destroy()
-	SSticker.mode.traitors -= mind
-
 	pb_helper.cancel() // just making sure nothing started between death() and here
 	QDEL_NULL(pb_helper)
 
