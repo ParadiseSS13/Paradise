@@ -40515,6 +40515,7 @@
 "eZY" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/lighter/zippo/black,
 /turf/simulated/floor/carpet/black,
 /area/chapel/main)
 "fav" = (
