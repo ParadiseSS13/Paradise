@@ -7288,7 +7288,9 @@
 	},
 /area/quartermaster/office)
 "aSk" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+	name = "Forklift"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28811,7 +28813,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cOa" = (
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -49903,6 +49905,10 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/hallway)
+"izl" = (
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/carpet,
+/area/lawoffice)
 "izC" = (
 /turf/simulated/mineral/ancient,
 /area/hallway/primary/aft/east)
@@ -110306,7 +110312,7 @@ qCk
 cph
 vFG
 aUo
-aUo
+izl
 aUo
 cYg
 qCk
