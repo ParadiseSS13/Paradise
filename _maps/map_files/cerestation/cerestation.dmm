@@ -15421,15 +15421,15 @@
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "bAP" = (
-/obj/machinery/door/airlock/engineering/glass{
-	heat_proof = 1;
-	name = "Supermatter Chamber";
-	req_access_txt = "10"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	heat_proof = 1;
+	name = "Supermatter Chamber";
+	req_one_access_txt = "24; 10"
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
@@ -79616,7 +79616,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	heat_proof = 1;
 	name = "Supermatter Chamber";
-	req_access_txt = "10"
+	req_one_access_txt = "24; 10"
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
