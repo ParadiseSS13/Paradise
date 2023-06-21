@@ -42,7 +42,7 @@
 	pixel_y = initial(pixel_y)
 	pixel_x = initial(pixel_x)
 	fake_huds()
-	add_to_all_human_data_huds() //For testing the spawn no shooting
+	add_to_all_human_data_huds()
 
 /mob/living/simple_animal/hostile/illusion/examine(mob/user)
 	if(parent_mob)
