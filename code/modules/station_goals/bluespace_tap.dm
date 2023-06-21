@@ -255,27 +255,41 @@
 	if(!powernet)
 		connect_to_network()
 
-/obj/machinery/power/bluespace_tap/update_icon(updates)
+/obj/machinery/power/bluespace_tap/update_icon_state()
 	. = ..()
-	overlays.Cut()
-	underlays.Cut()
+
 	if(length(active_nether_portals))
 		icon_state = "redspace_tap"
-		overlays += icon(icon, "redspace")
-		set_light(15, 5, "#ff0000")
 		return
-	if(stat & (BROKEN|NOPOWER))
-		set_light(0)
-	else
-		set_light(1, 1, "#353535")
 
 	if(get_available_power() <= 0)
 		icon_state = base_icon_state
 	else
 		icon_state = "[base_icon_state][get_icon_state_number()]"
+
+
+/obj/machinery/power/bluespace_tap/update_overlays()
+	. = ..()
+
+	overlays.Cut()
+	underlays.Cut()
+
+	if(length(active_nether_portals))
+
+		overlays += icon(icon, "redspace")
+		set_light(15, 5, "#ff0000")
+		return
+
+	if(stat & (BROKEN|NOPOWER))
+		set_light(0)
+	else
+		set_light(1, 1, "#353535")
+
+	if(get_available_power())
 		overlays += icon(icon, "screen")
 		if(light)
 			underlays += emissive_appearance(icon, "light_mask")
+
 
 /obj/machinery/power/bluespace_tap/proc/get_icon_state_number()
 	switch(input_level)
@@ -299,16 +313,16 @@
 	else
 		set_light(1, 1, "#353535")
 	if(.)
-		update_icon(UPDATE_OVERLAYS)
+		update_icon(UPDATE_ICON)
 
 
 /obj/machinery/power/bluespace_tap/connect_to_network()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON)
 
 /obj/machinery/power/bluespace_tap/disconnect_from_network()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON)
 
 /obj/machinery/power/bluespace_tap/Destroy()
 	QDEL_LIST_CONTENTS(fillers)
@@ -370,6 +384,7 @@
 	actual_power_usage = get_power_use(input_level)
 	if(get_surplus() < actual_power_usage)	//not enough power, so turn down a level
 		input_level--
+		update_icon(UPDATE_ICON)
 		return	// and no mining gets done
 	if(actual_power_usage)
 		consume_direct_power(actual_power_usage)
@@ -377,6 +392,7 @@
 		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
 	// actual input level changes slowly
+	//holy shit every proccess this
 	if(input_level < desired_level && (get_surplus() >= get_power_use(input_level + 1)))
 		input_level++
 		update_icon(UPDATE_ICON)
