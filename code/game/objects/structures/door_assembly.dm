@@ -23,7 +23,7 @@
 	var/noglass = FALSE //airlocks with no glass version, also cannot be modified with sheets
 	var/material_type = /obj/item/stack/sheet/metal
 	var/material_amt = 4
-	var/heat_resistance = 50
+	var/heat_resistance = 1000
 
 /obj/structure/door_assembly/Initialize(mapload)
 	. = ..()

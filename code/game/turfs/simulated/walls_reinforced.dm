@@ -17,6 +17,7 @@
 	can_dismantle_with_welder = FALSE
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
+	heat_resistance = 20000 // Ain't getting through this soon
 
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1

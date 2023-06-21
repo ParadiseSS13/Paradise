@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
-	var/heat_resistance = 50
+	var/heat_resistance = 1500
 
 	var/mutable_appearance/old_buttons_underlay
 	var/mutable_appearance/old_lights_underlay
