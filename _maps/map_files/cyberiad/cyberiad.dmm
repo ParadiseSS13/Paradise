@@ -8548,7 +8548,6 @@
 	},
 /area/security/brig)
 "ayH" = (
-/obj/machinery/economy/vending/coffee,
 /obj/machinery/button/windowtint{
 	dir = 4;
 	id = "IAA";
@@ -8556,6 +8555,7 @@
 	pixel_y = 6;
 	req_access_txt = "38"
 	},
+/obj/machinery/economy/vending/lawdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -41760,12 +41760,7 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ccR" = (
-/obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/item/key/janitor,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
+/obj/machinery/economy/vending/janidrobe,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ccW" = (
@@ -45187,6 +45182,12 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/key/janitor,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cmV" = (
