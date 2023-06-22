@@ -46,6 +46,14 @@
 	surplus = 25
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/dangerous/rocket_launcher
+	name = "Rocket Launcher"
+	desc = "Not many things can survive a direct hit from this. (Ammunition sold separately, keep away from children.)"
+	reference = "RL"
+	item = /obj/item/gun/rocketlauncher
+	cost = 8
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/dangerous/flamethrower
 	name = "Flamethrower"
 	desc = "A flamethrower, fuelled by a portion of highly flammable bio-toxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
@@ -254,6 +262,14 @@
 	reference = "40MM"
 	item = /obj/item/ammo_box/a40mm
 	cost = 4
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/rocket
+	name = "Rocket Launcher Shell"
+	desc = "An extra shell for your RPG. Make sure your bestie isn't standing in front of you."
+	reference = "HE"
+	item = /obj/item/ammo_casing/rocket
+	cost = 6
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/machinegun

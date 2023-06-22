@@ -140,11 +140,6 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/alien/resin/door/Crossed(mob/living/L, oldloc)
-	..()
-	if(!state_open)
-		return try_to_operate(L)
-
 /obj/structure/alien/resin/door/attack_ai(mob/user)
 	return
 
