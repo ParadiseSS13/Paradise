@@ -85,7 +85,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 	invocation = "CRYO`ENTH VOUTH"
 	invocation_type = "whisper"
 	cooldown_min = 1 MINUTES
-	action_icon_state = "mindswap"
+	action_icon_state = "mass_mindswap"
 	aoe_range = 30 // normally 2 screens
 	smoke_type = SMOKE_HARMLESS
 	smoke_amt = 1
