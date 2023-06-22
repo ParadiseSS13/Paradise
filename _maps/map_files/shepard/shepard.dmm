@@ -8432,6 +8432,10 @@
 	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/port/north)
+"bKY" = (
+/obj/machinery/economy/vending/chinese/free,
+/turf/simulated/floor/wood,
+/area/bridge/meeting_room)
 "bLa" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1;
@@ -19144,6 +19148,7 @@
 	d2 = 5;
 	icon_state = "2-5"
 	},
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluefull"
@@ -37797,10 +37802,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Central North Hallway 1";
-	dir = 5
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bluecorner"
@@ -39093,6 +39094,10 @@
 	icon_state = "dark"
 	},
 /area/toxins/storage)
+"hQD" = (
+/obj/machinery/economy/vending/snack/free,
+/turf/simulated/floor/wood,
+/area/bridge/meeting_room)
 "hQP" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -72166,17 +72171,37 @@
 /area/medical/morgue)
 "osr" = (
 /obj/structure/table,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
+/obj/item/flash/synthetic{
+	pixel_x = 11;
+	pixel_y = -13
+	},
 /obj/item/mmi/robotic_brain{
 	pixel_y = 14
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/item/mecha_parts/core{
+	pixel_y = -4
+	},
+/obj/item/flash/synthetic{
+	pixel_x = 11;
+	pixel_y = -13
+	},
+/obj/item/flash/synthetic{
+	pixel_x = 11;
+	pixel_y = -13
+	},
+/obj/item/flash/synthetic{
+	pixel_x = 11;
+	pixel_y = -13
+	},
+/obj/item/flash/synthetic{
+	pixel_x = 11;
+	pixel_y = -13
+	},
+/obj/item/flash/synthetic{
+	pixel_x = 11;
+	pixel_y = -13
+	},
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "osC" = (
@@ -74131,6 +74156,10 @@
 	icon_state = "yellow"
 	},
 /area/engine/engine_smes)
+"oME" = (
+/obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/wood,
+/area/bridge/meeting_room)
 "oMG" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -79480,6 +79509,10 @@
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
+	},
+/obj/machinery/camera{
+	c_tag = "Central North Hallway 1";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -85489,7 +85522,7 @@
 	},
 /area/engine/engineering)
 "rbl" = (
-/obj/structure/closet/firecloset,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluefull"
@@ -152776,9 +152809,9 @@ odL
 xdZ
 ioK
 eUK
-nGm
-nGm
-nGm
+hQD
+bKY
+oME
 qmQ
 trS
 muo
