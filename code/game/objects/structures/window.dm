@@ -183,7 +183,7 @@
 	else
 		to_chat(M, "<span class='notice'>You smash against the window.</span>")
 		take_damage(rand(25, 75))
-		return
+
 
 /obj/structure/window/attackby(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
