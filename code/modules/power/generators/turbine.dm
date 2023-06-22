@@ -27,7 +27,7 @@
 #define SLOW 1
 
 //below defines the time between an overheat event and next startup
-#define OVERHEAT_TIME 120
+#define OVERHEAT_TIME 120 //mesaured in seconds
 
 /obj/machinery/power/compressor
 	name = "gas turbine compressor"
