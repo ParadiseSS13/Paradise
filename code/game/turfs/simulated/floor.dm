@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/icon_plating = "plating"
 	thermal_conductivity = 0.020
-	heat_capacity = 100000 // These two should make floors melt at 20.000 Kelvin
+	heat_capacity = 100000
 	flags = NO_SCREENTIPS
 	var/lava = 0
 	var/broken = FALSE
