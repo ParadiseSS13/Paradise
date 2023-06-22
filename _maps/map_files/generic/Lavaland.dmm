@@ -609,7 +609,6 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Labor Camp APC";
-	pixel_x = 1;
 	pixel_y = 24
 	},
 /obj/machinery/computer/cryopod{

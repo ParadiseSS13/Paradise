@@ -64,6 +64,7 @@
 	if(!user_buckle_mob(O, user, check_loc = FALSE))
 		return
 	take_patient(O, user)
+	return TRUE
 
 /**
   * Updates the `patient` var to be the mob occupying the table
