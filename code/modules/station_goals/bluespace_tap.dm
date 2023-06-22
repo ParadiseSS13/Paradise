@@ -271,12 +271,10 @@
 /obj/machinery/power/bluespace_tap/update_overlays()
 	. = ..()
 
-	overlays.Cut()
 	underlays.Cut()
 
 	if(length(active_nether_portals))
-
-		overlays += icon(icon, "redspace")
+		. += "redspace"
 		set_light(15, 5, "#ff0000")
 		return
 
@@ -286,7 +284,7 @@
 		set_light(1, 1, "#353535")
 
 	if(get_available_power())
-		overlays += icon(icon, "screen")
+		. += "screen"
 		if(light)
 			underlays += emissive_appearance(icon, "light_mask")
 
@@ -313,16 +311,16 @@
 	else
 		set_light(1, 1, "#353535")
 	if(.)
-		update_icon(UPDATE_ICON)
+		update_icon()
 
 
 /obj/machinery/power/bluespace_tap/connect_to_network()
 	..()
-	update_icon(UPDATE_ICON)
+	update_icon()
 
 /obj/machinery/power/bluespace_tap/disconnect_from_network()
 	..()
-	update_icon(UPDATE_ICON)
+	update_icon()
 
 /obj/machinery/power/bluespace_tap/Destroy()
 	QDEL_LIST_CONTENTS(fillers)
@@ -384,7 +382,7 @@
 	actual_power_usage = get_power_use(input_level)
 	if(get_surplus() < actual_power_usage)	//not enough power, so turn down a level
 		input_level--
-		update_icon(UPDATE_ICON)
+		update_icon()
 		return	// and no mining gets done
 	if(actual_power_usage)
 		consume_direct_power(actual_power_usage)
@@ -395,10 +393,10 @@
 	//holy shit every proccess this
 	if(input_level < desired_level && (get_surplus() >= get_power_use(input_level + 1)))
 		input_level++
-		update_icon(UPDATE_ICON)
+		update_icon()
 	else if(input_level > desired_level)
 		input_level--
-		update_icon(UPDATE_ICON)
+		update_icon()
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
 		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
 		if(!emagged)
@@ -412,7 +410,7 @@
 	amount--
 	active_nether_portals += P
 	P.linked_source_object = src
-	update_icon(UPDATE_ICON)
+	update_icon()
 	if(amount)
 		addtimer(CALLBACK(src, PROC_REF(start_nether_portaling), amount), rand(3,5) SECONDS)
 
@@ -523,7 +521,7 @@
 	. = ..()
 	if(linked_source_object)
 		linked_source_object.active_nether_portals -= src
-		linked_source_object.update_icon(UPDATE_ICON)
+		linked_source_object.update_icon()
 
 /obj/item/paper/bluespace_tap
 	name = "paper- 'The Experimental NT Bluespace Harvester - Mining other universes for science and profit!'"
