@@ -86,6 +86,7 @@
 		obj_break()
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
 	else
+		take_damage(rand(5, 10), BRUTE, MELEE, 1)
 		return ..()
 
 /obj/structure/grille/hulk_damage()
