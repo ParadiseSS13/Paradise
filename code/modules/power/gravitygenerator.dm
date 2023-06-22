@@ -319,9 +319,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	if(on_cmag_cooldown)
-		to_chat(user, "<span class='danger'>Some of the ooze is still sticking around from the last time it was slathered, you should probably wait a bit.</span>")
+		to_chat(user, "<span class='danger'>[src] still smells faintly of burned banana, you should probably wait a bit.</span>")
 		return
-	to_chat(user, "<span class='warning'>You slap the card around the gravity generator, and it seems to draw some of the ooze off of it by itself! Looks like it'll take effect shortly.</span>")
+	to_chat(user, "<span class='warning'>You slap the card around [src], and its gravity draws some ooze off of the card and into its core! Looks like it'll take effect shortly.</span>")
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	add_attack_logs(user, src, "cmagged, making everyone flippery.")
