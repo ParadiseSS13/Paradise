@@ -341,11 +341,6 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
-"wD" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "wO" = (
 /obj/structure/lattice,
 /obj/structure/grille/broken,
@@ -547,10 +542,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"LU" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/ruin/space/tcommsat)
 "Mt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing{
@@ -603,10 +594,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"Pf" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
 "Pn" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -808,8 +795,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Worn-out APC";
-	pixel_x = 1;
-	pixel_y = 26
+	pixel_y = 24
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -1194,7 +1180,7 @@ nX
 PO
 zE
 zE
-Pf
+zE
 zE
 nX
 nX
@@ -1410,12 +1396,12 @@ nX
 Jr
 Jr
 PO
-wD
 PO
 PO
 PO
 PO
-wD
+PO
+PO
 Ac
 rs
 TW
@@ -1761,14 +1747,14 @@ FK
 PO
 PO
 PO
-LU
+Wr
 Wr
 Vh
 kP
 PP
 ad
 ot
-LU
+Wr
 nX
 nX
 nX
@@ -2085,14 +2071,14 @@ Qd
 PO
 PO
 PO
-LU
+Wr
 Wr
 ab
 KD
 Za
 vl
 ot
-LU
+Wr
 nX
 nX
 nX
@@ -2382,7 +2368,7 @@ Jr
 Jr
 Jr
 PO
-wD
+PO
 PO
 PO
 PO
@@ -2761,7 +2747,7 @@ zE
 nX
 nX
 nX
-Pf
+zE
 nX
 nX
 nX

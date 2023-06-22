@@ -24,7 +24,7 @@
 /obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, flag, params)
 	if(!flag && works_from_distance && istype(M))
 		// Make sure its in range
-		if(get_dist(src, M) <= (user.client.view + 2))
+		if(get_dist(src, M) <= (user.client.maxview() + 2))
 			if(M.component_parts)
 				M.exchange_parts(user, src)
 				user.Beam(M,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)

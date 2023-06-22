@@ -285,13 +285,6 @@
 		return
 	. += image(icon, "turb-o", FLY_LAYER)
 
-/obj/machinery/power/turbine/attack_hand(mob/user)
-
-	if(..())
-		return
-
-	interact(user)
-
 /obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return
@@ -315,55 +308,47 @@
 		return
 	return ..()
 
-/obj/machinery/power/turbine/interact(mob/user)
+/obj/machinery/power/turbine/attack_hand(mob/user)
+	. = ..()
+	ui_interact(user)
 
-	if( !Adjacent(user)  || (stat & (NOPOWER|BROKEN)) && (!issilicon(user)) )
-		user.unset_machine(src)
-		user << browse(null, "window=turbine")
-		return
+/obj/machinery/power/turbine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "TurbineComputer", name, 400, 150, master_ui, state)
+		ui.open()
 
-	var/t = "<TT><B>Gas Turbine Generator</B><HR><PRE>"
+/obj/machinery/power/turbine/ui_data(mob/user)
+	var/list/data = list()
+	data["compressor"] = !isnull(compressor)
+	data["compressor_broken"] = (!compressor || (compressor.stat & BROKEN))
+	data["turbine"] = !isnull(compressor?.turbine)
+	data["turbine_broken"] = (compressor?.turbine?.stat & BROKEN)
 
-	t += "Generated power : [round(lastgen)] W<BR><BR>"
+	if(compressor && compressor.turbine)
+		data["online"] = compressor.starter
+		data["power"] = compressor.turbine.lastgen
+		data["rpm"] = compressor.rpm
+		data["temperature"] = compressor.gas_contained.return_temperature()
+	return data
 
-	t += "Turbine: [round(compressor.rpm)] RPM<BR>"
-
-	t += "Starter: [ compressor.starter ? "<A href='?src=[UID()];str=1'>Off</A> <B>On</B>" : "<B>Off</B> <A href='?src=[UID()];str=1'>On</A>"]"
-
-	t += "</PRE><HR><A href='?src=[UID()];close=1'>Close</A>"
-
-	t += "</TT>"
-	var/datum/browser/popup = new(user, "turbine", name)
-	popup.set_content(t)
-	popup.open()
-
-	return
-
-/obj/machinery/power/turbine/Topic(href, href_list)
+/obj/machinery/power/turbine/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	if( href_list["close"] )
-		usr << browse(null, "window=turbine")
-		usr.unset_machine(src)
-		return
+	switch(action)
+		if("toggle_power")
+			if(compressor?.turbine)
+				compressor.starter = !compressor.starter
+				. = TRUE
 
-	else if( href_list["str"] )
-		if(compressor)
-			compressor.starter = !compressor.starter
+		if("reconnect")
+			locate_machinery()
+			. = TRUE
 
-	updateDialog()
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// COMPUTER NEEDS A SERIOUS REWRITE.
-
-
+//////////////////
+/////COMPUTER/////
+/////////////////
 
 /obj/machinery/computer/turbine_computer/Initialize()
 	..()
@@ -373,54 +358,43 @@
 /obj/machinery/computer/turbine_computer/locate_machinery()
 	compressor = locate(/obj/machinery/power/compressor) in range(5, src)
 
-/obj/machinery/computer/turbine_computer/attack_hand(mob/user as mob)
+/obj/machinery/computer/turbine_computer/attack_hand(mob/user)
+	. = ..()
+	ui_interact(user)
+
+/obj/machinery/computer/turbine_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "TurbineComputer", name, 400, 150, master_ui, state)
+		ui.open()
+
+/obj/machinery/computer/turbine_computer/ui_data(mob/user)
+	var/list/data = list()
+	data["compressor"] = !isnull(compressor)
+	data["compressor_broken"] = (compressor?.stat & BROKEN)
+	data["turbine"] = !isnull(compressor?.turbine)
+	data["turbine_broken"] = (compressor?.turbine?.stat & BROKEN)
+
+	if(compressor?.turbine)
+		data["online"] = compressor.starter
+		data["power"] = compressor.turbine.lastgen
+		data["rpm"] = compressor.rpm
+		data["temperature"] = compressor.gas_contained.return_temperature()
+	return data
+
+/obj/machinery/computer/turbine_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	interact(user)
+	switch(action)
+		if("toggle_power")
+			if(compressor?.turbine)
+				compressor.starter = !compressor.starter
+				. = TRUE
 
-/obj/machinery/computer/turbine_computer/interact(mob/user)
-
-	var/dat
-	if(compressor && compressor.turbine)
-		dat += "<BR><B>Gas turbine remote control system</B><HR>"
-		if(compressor.stat || compressor.turbine.stat)
-			dat += "[compressor.stat ? "<B>Compressor is inoperable</B><BR>" : "<B>Turbine is inoperable</B>"]"
-		else
-			dat += {"Turbine status: [ src.compressor.starter ? "<A href='?src=[UID()];str=1'>Off</A> <B>On</B>" : "<B>Off</B> <A href='?src=[UID()];str=1'>On</A>"]
-			\n<BR>
-			\nTurbine speed: [src.compressor.rpm]rpm<BR>
-			\nPower currently being generated: [src.compressor.turbine.lastgen]W<BR>
-			\nInternal gas temperature: [src.compressor.gas_contained.temperature]K<BR>
-			\n</PRE><HR><A href='?src=[UID()];close=1'>Close</A>
-			\n<BR>
-			\n"}
-	else
-		dat += "<B>There is [!compressor ? "no compressor" : " compressor[!compressor.turbine ? " but no turbine" : ""]"].</B><BR>"
-		if(!compressor)
-			dat += "<A href='?src=[UID()];search=1'>Search for compressor</A>"
-
-	var/datum/browser/popup = new(user, "turbinecomputer", name)
-	popup.set_content(dat)
-	popup.open()
-	return
-
-/obj/machinery/computer/turbine_computer/Topic(href, href_list)
-	if(..())
-		return
-
-	else if( href_list["str"] )
-		if(compressor && compressor.turbine)
-			compressor.starter = !compressor.starter
-	else if( href_list["close"] )
-		usr << browse(null, "window=turbinecomputer")
-		usr.unset_machine(src)
-		return
-	else if(href_list["search"])
-		locate_machinery()
-
-	src.updateUsrDialog()
-	return
+		if("reconnect")
+			locate_machinery()
+			. = TRUE
 
 /obj/machinery/computer/turbine_computer/process()
 	src.updateDialog()

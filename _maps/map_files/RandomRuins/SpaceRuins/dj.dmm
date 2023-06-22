@@ -70,11 +70,6 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
-"ak" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "al" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -880,7 +875,7 @@ aa
 aa
 aa
 ab
-ak
+ad
 ad
 ae
 aa

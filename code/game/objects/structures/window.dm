@@ -499,6 +499,31 @@
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
+/obj/structure/window/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	var/shattered = FALSE
+	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
+		shattered = TRUE
+		var/obj/item/S = new shardtype(loc)
+		S.embedded_ignore_throwspeed_threshold = TRUE
+		S.throw_impact(C)
+		S.embedded_ignore_throwspeed_threshold = FALSE
+		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
+		var/turf/T = get_turf(src)
+		for(var/obj/structure/grille/G in T.contents)
+			var/obj/structure/cable/SC = T.get_cable_node()
+			if(SC)
+				playsound(G, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+				tesla_zap(G, 3, SC.get_queued_available_power() * 0.05, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) //Zap for 1/20 of the amount of power, because I am evil.
+				SC.add_queued_power_demand(SC.get_queued_available_power() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
+			qdel(G) //We don't want the grille to block the way, we want rule of cool of throwing people into space!
+
+	if(!self_hurt)
+		take_damage(damage * 2, BRUTE) //Makes windows more vunerable to being thrown so they'll actually shatter in a reasonable ammount of time.
+		self_hurt = TRUE
+	..()
+	if(shattered)
+		C.throw_at(throwingdatum.target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
 
@@ -510,7 +535,7 @@
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
 	icon_state = "rwindow"
 	reinf = TRUE
-	heat_resistance = 1600
+	heat_resistance = 1300
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	max_integrity = 50
@@ -651,8 +676,8 @@
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS, SMOOTH_GROUP_AIRLOCK) //they are not walls but this lets walls smooth with them
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_AIRLOCK)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."

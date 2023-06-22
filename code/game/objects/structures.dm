@@ -3,6 +3,7 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	face_while_pulling = TRUE
+	pull_speed = 0.5
 	var/climbable
 	var/mob/living/climber
 	var/broken = FALSE
@@ -45,9 +46,10 @@
 
 /obj/structure/MouseDrop_T(atom/movable/C, mob/user as mob)
 	if(..())
-		return
+		return TRUE
 	if(C == user)
-		do_climb(user)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure, do_climb), user)
+		return TRUE
 
 /obj/structure/proc/density_check()
 	for(var/obj/O in orange(0, src))

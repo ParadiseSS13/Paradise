@@ -23,6 +23,7 @@
 	var/noglass = FALSE //airlocks with no glass version, also cannot be modified with sheets
 	var/material_type = /obj/item/stack/sheet/metal
 	var/material_amt = 4
+	var/heat_resistance = 1000
 
 /obj/structure/door_assembly/Initialize(mapload)
 	. = ..()
@@ -306,3 +307,8 @@
 			else
 				new /obj/item/shard(T)
 	qdel(src)
+
+/obj/structure/door_assembly/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)

@@ -105,6 +105,17 @@
 	..(gibbed)
 	regenerate_icons()
 
+/mob/living/simple_animal/pet/dog/corgi/RangedAttack(atom/A, params)
+	if(inventory_back)
+		inventory_back.afterattack(A, src)
+
+/mob/living/simple_animal/pet/dog/corgi/UnarmedAttack(atom/A)
+	if(istype(inventory_back, /obj/item/extinguisher))
+		var/obj/item/extinguisher/E = inventory_back
+		if(E.AttemptRefill(A, src))
+			return
+	return ..()
+
 /mob/living/simple_animal/pet/dog/corgi/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
 	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(
 		"speak" = CALLBACK(src, PROC_REF(handle_automated_speech), TRUE),
