@@ -265,29 +265,56 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return cultists + constructs
 
 /datum/game_mode/proc/check_cult_size()
-	if(cult_ascendant)
-		return
 	var/cult_players = get_cultists()
 
+	if(cult_ascendant)
+		// The cult only falls if below 1/2 of the rising, usually pretty low. e.g. 5% on highpop, 10% on lowpop
+		if(cult_players < rise_number / 2)
+			cult_fall()
+		return
+
 	if((cult_players >= rise_number) && !cult_risen)
-		cult_risen = TRUE
-		for(var/datum/mind/M in cult)
-			if(!M.current || !ishuman(M.current))
-				continue
-			SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
-			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
-			addtimer(CALLBACK(src, PROC_REF(rise), M.current), 20 SECONDS)
+		cult_rise()
+		return
 
-	else if(cult_players >= ascend_number)
-		cult_ascendant = TRUE
-		for(var/datum/mind/M in cult)
-			if(!M.current || !ishuman(M.current))
-				continue
-			SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
-			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
-			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
-		GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+	if(cult_players >= ascend_number)
+		cult_ascend()
 
+/datum/game_mode/proc/cult_rise()
+	cult_risen = TRUE
+	for(var/datum/mind/M in cult)
+		if(!M.current || !ishuman(M.current))
+			continue
+		SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
+		to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
+		addtimer(CALLBACK(src, PROC_REF(rise), M.current), 20 SECONDS)
+
+
+/datum/game_mode/proc/cult_ascend()
+	cult_ascendant = TRUE
+	for(var/datum/mind/M in cult)
+		if(!M.current || !ishuman(M.current))
+			continue
+		SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
+		to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
+		addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
+	GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+
+/datum/game_mode/proc/cult_fall()
+	cult_ascendant = FALSE
+	for(var/datum/mind/M in cult)
+		if(!M.current || !ishuman(M.current))
+			continue
+		SEND_SOUND(M.current, sound('sound/hallucinations/wail.ogg'))
+		to_chat(M.current, "<span class='cultlarge'>The veil grows stronger, your power growing weaker...")
+		addtimer(CALLBACK(src, PROC_REF(descend), M.current), 20 SECONDS)
+	GLOB.major_announcement.Announce("Paranormal activity has returned to minimal levels. \
+									Security staff should minimize lethal force against cultists, using non-lethals where possible. \
+									All dead cultists should be taken to medbay or robotics for immediate revival and deconversion. \
+									Non-security staff may defend themselves, but should prioritize leaving any areas with cultists and reporting the cultists to security. \
+									Self defense permits non-security staff to use lethal force as a last resort. Hunting down cultists may make you liable for a manslaughter charge. \
+									All security gear that was handed out, should be returned. Access reset where needed, and weapons (including improvised) removed from the crew.",
+									"Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 /datum/game_mode/proc/rise(cultist)
 	if(ishuman(cultist) && iscultist(cultist))
@@ -304,6 +331,14 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		H.update_halo_layer()
+
+/datum/game_mode/proc/descend(cultist)
+	if(ishuman(cultist) && iscultist(cultist))
+		var/mob/living/carbon/human/H = cultist
+		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
+		H.update_halo_layer()
+		to_chat(cultist, "<span class='userdanger'>The halo above your head shatters!")
+		playsound(cultist, "shatter", 50, TRUE)
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
