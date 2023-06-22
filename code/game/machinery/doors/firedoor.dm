@@ -30,7 +30,7 @@
 	/// Whether the "bolts" are "screwed". Used for deconstruction sequence. Has nothing to do with airlock bolting.
 	var/boltslocked = TRUE
 	var/active_alarm = FALSE
-	var/heat_resistance = 7000
+	var/heat_resistance = 15000
 	var/list/affecting_areas
 
 /obj/machinery/door/firedoor/Initialize(mapload)
@@ -334,7 +334,7 @@
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
 	max_integrity = 550
-	heat_resistance = 10000
+	heat_resistance = 20000
 
 /obj/item/firelock_electronics
 	name = "firelock electronics"

@@ -41,7 +41,7 @@
 		active_hotspot.just_spawned = (current_cycle < SSair.times_fired)
 			//remove just_spawned protection if no longer processing this cell
 		SSair.add_to_active(src, 0)
-	var/list/adjacent_dense_turfs = AdjacentTurfs(FALSE, TRUE, TRUE) //Checks adjacent  turfs for non-dense turfs, only in the 4 cardinal directions
+	var/list/adjacent_dense_turfs = AdjacentTurfs(FALSE, TRUE, TRUE) //Checks adjacent turfs for dense turfs, only in the 4 cardinal directions
 	if(active_hotspot == null)
 		return igniting
 	for(var/turf/simulated/wall/W in adjacent_dense_turfs)
