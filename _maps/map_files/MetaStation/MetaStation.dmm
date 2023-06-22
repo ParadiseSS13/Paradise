@@ -30496,7 +30496,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/maintenance/turbine)
 "bQB" = (
-/obj/structure/closet/secure_closet/exile,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31663,7 +31663,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/exile,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34707,7 +34707,7 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "ccl" = (
-/obj/structure/closet/secure_closet/exile,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -37965,6 +37965,9 @@
 /area/toxins/test_area)
 "clS" = (
 /obj/machinery/r_n_d/destructive_analyzer,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -49869,7 +49872,7 @@
 "dbV" = (
 /obj/structure/rack,
 /obj/item/extinguisher,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/storage/box/mousetraps,/obj/item/storage/box/lights/tubes,/obj/item/storage/box/lights/mixed,/obj/item/storage/box/lights/bulbs);
 	name = "Janitor Supplies Spawner"
@@ -60487,6 +60490,12 @@
 /obj/machinery/computer/rdconsole/core,
 /obj/machinery/camera{
 	c_tag = "Science - Research Fore"
+	},
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71108,6 +71117,9 @@
 /area/space/nearstation)
 "mZe" = (
 /obj/machinery/r_n_d/protolathe,
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -82127,9 +82139,6 @@
 "sEM" = (
 /obj/structure/table,
 /obj/item/storage/backpack/duffel/security{
-	contents = newlist(/obj/item/scalpel,/obj/item/hemostat,/obj/item/retractor,/obj/item/cautery,/obj/item/circular_saw,/obj/item/surgical_drapes,/obj/item/clothing/mask/surgical);
-	desc = "A large duffelbag for holding extra supplies - this one has a material inlay with space for various sharp-looking tools.";
-	name = "duffelbag";
 	pixel_y = 5
 	},
 /obj/item/clothing/mask/balaclava,
@@ -85346,10 +85355,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"uiw" = (
-/obj/machinery/recharger/wallcharger,
-/turf/simulated/wall/r_wall,
-/area/maintenance/starboard2)
 "uiK" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -89577,14 +89582,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
-"wwn" = (
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console"
-	},
-/turf/simulated/wall/r_wall,
-/area/toxins/lab)
 "wwo" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/structure/disposalpipe/segment,
@@ -89608,10 +89605,6 @@
 	icon_state = "white"
 	},
 /area/security/permabrig)
-"wwx" = (
-/obj/machinery/computer/guestpass,
-/turf/simulated/wall/r_wall,
-/area/toxins/lab)
 "wwI" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
@@ -124018,7 +124011,7 @@ caM
 nWH
 bdb
 dbb
-wwx
+cmo
 mZe
 bVZ
 lVF
@@ -124275,7 +124268,7 @@ cPD
 uhY
 bdb
 dbb
-wwn
+cmo
 hYA
 pho
 bYq
@@ -124790,7 +124783,7 @@ cMh
 cdE
 cte
 cmB
-uiw
+cmB
 cmB
 cmB
 cmB

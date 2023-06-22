@@ -119,18 +119,18 @@
 		return FALSE //not a borg or human
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-		return FALSE //panel open
+		return TRUE //panel open
 	if(occupant)
 		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
-		return FALSE //occupied
+		return TRUE //occupied
 	if(H.buckled)
 		return FALSE
 	if(H.abiotic())
 		to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
-		return FALSE
+		return TRUE
 	if(H.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head.</span>")
-		return
+		return TRUE
 
 	if(H == user)
 		visible_message("[user] climbs into [src].")
@@ -143,6 +143,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 	SStgui.update_uis(src)
+	return TRUE
 
 /obj/machinery/bodyscanner/attack_ai(user)
 	return attack_hand(user)
