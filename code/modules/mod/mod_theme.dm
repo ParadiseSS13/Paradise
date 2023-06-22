@@ -175,7 +175,7 @@
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown_inactive = 1.5
-	slowdown_active = 1
+	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
 		/obj/item/twohanded/fireaxe/,
