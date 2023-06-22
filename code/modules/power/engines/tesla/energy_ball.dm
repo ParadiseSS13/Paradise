@@ -70,6 +70,8 @@
 		GLOB.poi_list -= src
 
 	QDEL_LIST_CONTENTS(orbiting_balls)
+	QDEL_LIST_CONTENTS(target_area_turfs)
+	QDEL_LIST_CONTENTS(tesla_line)
 	shocked_things.Cut()
 	return ..()
 
@@ -114,23 +116,20 @@
 		if(can_move(T))
 			forceMove(T)
 			return
-	else
-		if(!has_a_target)
-			find_the_basket()
-			return
-		else
-			for(var/i in 0 to 8)
-				forceMove(tesla_line[1])
-				tesla_line.Cut(1,2)
-				if(get_turf(src) == target_turf)
-					has_a_target = FALSE
-				for(var/mob/living/carbon/C in loc)
-					dust_mobs(C)
+	if(!has_a_target)
+		find_the_basket()
+		return
+	for(var/i in 0 to 8)
+		forceMove(tesla_line[1])
+		tesla_line.Cut(1,2)
+		if(get_turf(src) == target_turf)
+			has_a_target = FALSE
+		for(var/mob/living/carbon/C in loc)
+			dust_mobs(C)
 
 
 /obj/singularity/energy_ball/proc/find_the_basket()
 	var/area/where_to_move = findEventArea() // Grabs a random area that isn't restricted
-	message_admins("The target area is [where_to_move]")
 	target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
 	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
 	tesla_line = getline(src,target_turf) // Constructs a line between the tesla and the target turf
