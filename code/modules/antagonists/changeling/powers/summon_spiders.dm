@@ -48,6 +48,7 @@
 	/// Handles the spider's behavior
 	var/current_order = IDLE_AGGRESSIVE
 	var/list/enemies = list()
+	sentience_type = SENTIENCE_OTHER
 	venom_per_bite = 3
 	speak_chance = 0
 	wander = 0
