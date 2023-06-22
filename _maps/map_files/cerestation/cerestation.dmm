@@ -23051,7 +23051,6 @@
 	name = "Privacy Bolts";
 	normaldoorcontrol = 1;
 	specialfunctions = 4;
-	plane = 1;
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/freezer,
