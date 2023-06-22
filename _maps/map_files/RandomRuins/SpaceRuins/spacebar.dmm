@@ -177,10 +177,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
-"aR" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/wall,
-/area/ruin/space/powered/bar)
 "aS" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
@@ -1095,7 +1091,7 @@ ai
 ai
 ag
 ag
-aR
+aQ
 aT
 aQ
 ag

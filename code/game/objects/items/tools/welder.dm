@@ -138,6 +138,12 @@
 	remove_fuel(amount)
 	return TRUE
 
+/obj/item/weldingtool/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!tool_enabled)
+		return
+	remove_fuel(0.5)
+
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)
 	var/did_thing = ..()

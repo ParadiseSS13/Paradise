@@ -70,7 +70,8 @@ Notes:
 	params = {"{ "cursor": "[params]", "screenLoc": "[thing.screen_loc]" }"}
 
 	//Send stuff to the tooltip
-	owner << output(list2params(list(params, owner.view, "[title][content]", theme, special)), "[control]:tooltip.update")
+	var/view_size = getviewsize(owner.view)
+	owner << output(list2params(list(params, view_size[1] , view_size[2], "[title][content]", theme, special)), "[control]:tooltip.update")
 
 	//If a hide() was hit while we were showing, run hide() again to avoid stuck tooltips
 	showing = 0
@@ -100,7 +101,7 @@ Notes:
 //Includes sanity.checks
 /proc/openToolTip(mob/user = null, atom/movable/tip_src = null, params = null, title = "", content = "", theme = "")
 	if(istype(user))
-		if(user.client && user.client.tooltips)
+		if(user.client && user.client.tooltips && !(user.client.prefs.toggles2 & PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS))
 			if(!theme && user.client.prefs && user.client.prefs.UI_style)
 				theme = lowertext(user.client.prefs.UI_style)
 			if(!theme)

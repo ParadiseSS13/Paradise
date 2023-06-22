@@ -176,7 +176,8 @@
 	return 1
 
 /obj/structure/table/MouseDrop_T(obj/O, mob/user)
-	..()
+	if(..())
+		return TRUE
 	if((!( isitem(O) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
@@ -185,7 +186,7 @@
 		return
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
-	return
+		return TRUE
 
 /obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -345,15 +346,15 @@
 	verbs -=/obj/structure/table/verb/do_flip
 	verbs +=/obj/structure/table/proc/do_put
 
+	dir = direction
+	if(dir != NORTH)
+		layer = 5
 	var/list/targets = list(get_step(src,dir),get_step(src,turn(dir, 45)),get_step(src,turn(dir, -45)))
 	for(var/atom/movable/A in get_turf(src))
 		if(!A.anchored)
 			spawn(0)
 				A.throw_at(pick(targets),1,1)
 
-	dir = direction
-	if(dir != NORTH)
-		layer = 5
 	flipped = TRUE
 	smoothing_flags = NONE
 	flags |= ON_BORDER
@@ -381,7 +382,8 @@
 
 	layer = initial(layer)
 	flipped = FALSE
-	smoothing_flags = initial(smoothing_flags)
+	// Initial smoothing flags doesn't add the required SMOOTH_OBJ flag, thats done on init
+	smoothing_flags = initial(smoothing_flags) | SMOOTH_OBJ
 	flags &= ~ON_BORDER
 	for(var/D in list(turn(dir, 90), turn(dir, -90)))
 		if(locate(/obj/structure/table,get_step(src,D)))
@@ -763,6 +765,7 @@
 	icon_state = "tray"
 	buildstack = /obj/item/stack/sheet/mineral/titanium
 	buildstackamount = 2
+	pull_speed = 0
 	var/list/typecache_can_hold = list(/mob, /obj/item)
 	var/list/held_items = list()
 
@@ -882,6 +885,7 @@
 		return
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
+		return TRUE
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
 	if(isrobot(user))

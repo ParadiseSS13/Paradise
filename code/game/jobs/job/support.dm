@@ -407,6 +407,7 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/janitor
 	pda = /obj/item/pda/janitor
+	r_pocket = /obj/item/door_remote/janikeyring
 
 
 //More or less assistants

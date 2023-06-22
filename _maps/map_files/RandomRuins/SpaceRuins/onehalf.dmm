@@ -404,7 +404,7 @@
 	dir = 4;
 	keep_preset_name = 1;
 	name = "Crew Quarters APC";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -419,7 +419,7 @@
 	dir = 1;
 	keep_preset_name = 1;
 	name = "Mining Drone Bay APC";
-	pixel_y = 26
+	pixel_y = 24
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -762,7 +762,7 @@
 	dir = 1;
 	keep_preset_name = 1;
 	name = "Bridge APC";
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)

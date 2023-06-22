@@ -13,7 +13,7 @@
 /obj/item/projectile/ion/on_hit(atom/target, blocked = 0)
 	..()
 	empulse(target, strong_emp, weak_emp, TRUE, cause = "[type] fired by [key_name(firer)]")
-	return 1
+	return TRUE
 
 /obj/item/projectile/ion/weak
 	strong_emp = 0
@@ -29,7 +29,7 @@
 /obj/item/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
-	return 1
+	return TRUE
 
 /obj/item/projectile/bullet/a40mm
 	name ="40mm grenade"
@@ -42,7 +42,7 @@
 /obj/item/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 2, 1, 0, flame_range = 3, cause = "[type] fired by [key_name(firer)]")
-	return 1
+	return TRUE
 
 /obj/item/projectile/temp
 	name = "temperature beam"
@@ -122,6 +122,25 @@
 		if(!M.stat)
 			shake_camera(M, 3, 1)
 	qdel(src)
+
+/obj/item/projectile/missile
+	icon = 'icons/obj/grenade.dmi'
+	icon_state = "missile"
+	damage = 50
+	///If the missile will have a heavy, or light explosion.
+	var/heavy = TRUE
+
+/obj/item/projectile/missile/on_hit(atom/target, blocked, hit_zone)
+	..()
+	if(heavy)
+		explosion(target, 1, 2, 3, cause = "[type] fired by [key_name(firer)]")
+	else
+		explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
+	return TRUE
+
+/obj/item/projectile/missile/light
+	damage = 15
+	heavy = FALSE
 
 /obj/item/projectile/energy/floramut
 	name = "alpha somatoray"
