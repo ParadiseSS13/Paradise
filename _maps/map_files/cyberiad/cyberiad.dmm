@@ -45665,7 +45665,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
 "coF" = (
@@ -51779,7 +51783,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel,
 /area/maintenance/apmaint2)
 "cGo" = (
 /obj/structure/cable{
@@ -53651,15 +53657,15 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
 "cLB" = (
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
-	},
-/obj/machinery/light{
-	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
@@ -54686,10 +54692,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/equipmentstorage)
-"cOz" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/apmaint2)
 "cOA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
@@ -64308,7 +64310,9 @@
 /area/toxins/storage)
 "dDy" = (
 /obj/structure/door_assembly/door_assembly_mai{
-	anchored = 1
+	anchored = 1;
+	move_force = 10000;
+	move_resist = 10000
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -64404,6 +64408,17 @@
 	icon_state = "blue"
 	},
 /area/maintenance/aft)
+"dGD" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/window/reinforced/tinted,
+/turf/simulated/floor/plating,
+/area/assembly/assembly_line)
 "dGR" = (
 /obj/structure/chair{
 	dir = 4
@@ -67552,6 +67567,25 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
+"fFF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/assembly/assembly_line)
 "fFY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -67648,7 +67682,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/maintenance/apmaint2)
 "fJa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
@@ -69932,6 +69967,15 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"hjy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/assembly/assembly_line)
 "hjH" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light{
@@ -70283,7 +70327,6 @@
 	},
 /area/maintenance/aft)
 "hvQ" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 8
 	},
@@ -70292,6 +70335,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint2)
 "hvS" = (
@@ -71773,6 +71817,7 @@
 /obj/structure/chair/sofa/right{
 	dir = 4
 	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "isK" = (
@@ -71790,6 +71835,7 @@
 /area/maintenance/apmaint)
 "itl" = (
 /obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "itF" = (
@@ -74826,7 +74872,7 @@
 /area/quartermaster/miningdock)
 "kMw" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/eight,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "kNq" = (
@@ -76084,9 +76130,14 @@
 /area/maintenance/apmaint)
 "lNi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/door_assembly/door_assembly_silver,
-/obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/door_assembly/door_assembly_silver{
+	anchored = 1;
+	density = 100;
+	move_force = 10000;
+	move_resist = 10000
+	},
+/obj/structure/barricade/wooden/crude,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -76437,6 +76488,11 @@
 	dir = 4
 	},
 /obj/structure/closet,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "lXi" = (
@@ -81345,6 +81401,15 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
+"pxW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/assembly/assembly_line)
 "pya" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -82062,6 +82127,11 @@
 	dir = 4
 	},
 /obj/structure/table,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
 "qcl" = (
@@ -82590,6 +82660,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
+"qrl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/hardsuitstorage)
 "qrr" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "maint_house"
@@ -83670,8 +83754,7 @@
 /area/maintenance/asmaint)
 "raP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
-/turf/simulated/floor/plating,
+/turf/simulated/wall,
 /area/maintenance/apmaint2)
 "raV" = (
 /obj/structure/cable{
@@ -86568,6 +86651,11 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "tfv" = (
@@ -88582,6 +88670,11 @@
 	},
 /obj/structure/computerframe,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "uwJ" = (
@@ -88634,8 +88727,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/grille,
 /obj/structure/barricade/wooden,
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
 "uzh" = (
@@ -92604,6 +92697,11 @@
 	dir = 8;
 	icon_state = "pipe-j2"
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
 "xuz" = (
@@ -92669,6 +92767,11 @@
 	},
 /obj/structure/table,
 /obj/item/clothing/glasses/welding,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "xwb" = (
@@ -93535,6 +93638,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "ybL" = (
@@ -116254,7 +116359,7 @@ reE
 qyy
 gwb
 uWp
-ryN
+tGO
 cgQ
 jQI
 xRm
@@ -117805,7 +117910,7 @@ iFh
 cGn
 xRm
 cNB
-cOz
+cLi
 tmS
 cZw
 bKD
@@ -119340,7 +119445,7 @@ gzN
 cng
 cng
 cgQ
-coC
+dGD
 cKb
 cKb
 cLC
@@ -119855,8 +119960,8 @@ cCM
 aaa
 rEZ
 uwB
-cLG
-cJx
+xnn
+pxW
 cJx
 cMz
 cJx
@@ -120113,7 +120218,7 @@ aaa
 rMq
 cqO
 vPC
-xnn
+fFF
 ifN
 cMD
 cLG
@@ -120369,8 +120474,8 @@ cCN
 aaa
 rEZ
 teT
-cJx
-cJx
+xnn
+hjy
 cJx
 tUH
 cLG
@@ -122956,7 +123061,7 @@ cUw
 cId
 cIw
 uku
-cXJ
+qrl
 kpx
 cSU
 ntt
