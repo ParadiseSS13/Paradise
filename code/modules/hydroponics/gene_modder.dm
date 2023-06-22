@@ -205,7 +205,7 @@
 			disk_name = "[disk_name] (Read Only)"
 		var/can_insert = FALSE
 		if(seed)
-			can_insert = disk.gene?.can_add(seed),
+			can_insert = disk.gene?.can_add(seed)
 		data["disk"] = list(
 			"name" = disk_name,
 			"can_insert" = can_insert,
