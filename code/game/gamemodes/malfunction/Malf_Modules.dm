@@ -795,3 +795,66 @@
 		R.module.malfhacked = TRUE
 		R.module.rebuild_modules()
 		to_chat(R, "<span class='notice'>New firmware downloaded. Emitter is now online.</span>")
+
+/datum/AI_Module/small/repair_cyborg
+	module_name = "Repair Cyborgs"
+	mod_pick_name = "repair_borg"
+	description = "Causes an electrical surge in the targeted cyborg, rebooting it's subsystems and repairing most of it's subsystems. Requires two uses on a cyborg with broken armor"
+	cost = 20
+	power_type = /datum/action/innate/ai/ranged/repair_cyborg
+	unlock_text = "<span class='notice'>TLB exception on load: Error pointing to address 0000001H, Proceed with execution anywa- SURGE protocalls installed, welcome to open APC!</span>"
+	unlock_sound = 'sound/items/rped.ogg'
+
+/datum/action/innate/ai/ranged/repair_cyborg
+	name = "Repair Cyborg"
+	desc = "Shocks a cyborg back to 'life' after a short delay."
+	button_icon_state = "overload_machine"
+	uses = 2
+	linked_ability_type = /obj/effect/proc_holder/ranged_ai/repair_cyborg
+
+/datum/action/innate/ai/ranged/repair_cyborg/New()
+	..()
+	desc = "[desc] It has [uses] use\s remaining."
+	button.desc = desc
+
+/datum/action/innate/ai/ranged/repair_cyborg/proc/fix_borg(mob/living/silicon/robot/to_repair)
+	for(var/datum/robot_component/component in to_repair.components)
+		component.brute_damage = 0
+		component.electronics_damage = 0
+		component.component_disabled = FALSE
+	to_repair.revive()
+
+/obj/effect/proc_holder/ranged_ai/repair_cyborg
+	active = FALSE
+	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
+	enable_text = "<span class='notice'>Call to address 0FFFFFFF in APC logic thread, awaiting user response.</span>"
+	disable_text = "<span class='notice'>APC logic thread restarting...</span>"
+	var/is_active = FALSE
+
+/obj/effect/proc_holder/ranged_ai/repair_cyborg/InterceptClickOn(mob/living/caller, params, mob/living/silicon/robot/robot_target)
+	if(..())
+		return
+	if(ranged_ability_user.incapacitated())
+		remove_ranged_ability()
+		return
+	if(!istype(robot_target))
+		to_chat(ranged_ability_user, "<span class='warning'>You can only repair robots with this ability!</span>")
+		return
+	if(is_active)
+		to_chat(ranged_ability_user, "<span class='warning'>You can only repair one robot at a time!</span>")
+		return
+	is_active = TRUE
+	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
+	attached_action.adjust_uses(-1)
+	if(attached_action && attached_action.uses)
+		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
+		attached_action.UpdateButtonIcon()
+	robot_target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [robot_target]!</span>")
+	if(!do_mob(caller, robot_target, 10 SECONDS))
+		is_active = FALSE
+		return
+	is_active = FALSE
+	var/datum/action/innate/ai/ranged/repair_cyborg/actual_action = attached_action
+	actual_action.fix_borg(robot_target)
+	remove_ranged_ability(ranged_ability_user, "<span class='warning'>[robot_target] successfully rebooted.</span>")
+	return TRUE
