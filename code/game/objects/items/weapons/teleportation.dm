@@ -174,7 +174,7 @@ Frequency:
 /obj/item/hand_tele/examine(mob/user)
 	. = ..()
 	if(emp_timer > world.time)
-		. += "<span class='warning'>Currently looks inactive.</span>"
+		. += "<span class='warning'>It looks inactive.</span>"
 
 /obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
 	active_portals--
