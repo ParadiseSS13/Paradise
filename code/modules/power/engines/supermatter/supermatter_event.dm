@@ -36,6 +36,7 @@
 	supermatter.heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
 	supermatter.gas_multiplier = 1
 	supermatter.power_additive = 0
+	supermatter.heat_multiplier = 1
 	supermatter.event_active = null
 	supermatter.last_events += src
 	supermatter.make_next_event_time()
@@ -45,12 +46,21 @@
 		return
 	supermatter.radio.autosay(text, supermatter, "Engineering", list(supermatter.z))
 
+/datum/supermatter_event/proc/general_radio_say(text)
+	if(!text)
+		return
+	supermatter.radio.autosay(text, supermatter, null, list(supermatter.z))
+
 // Below this are procs used for the SM events, in order of severity
 
 //D class events
 
 /datum/supermatter_event/delta_tier
 	threat_level = SM_EVENT_THREAT_D
+	duration = 10 SECONDS
+
+/datum/supermatter_event/delta_tier/alert_engi()
+	sm_radio_say("Abnormal crystal activity detected! Activity class: [name].")
 
 // sleeping gas
 /datum/supermatter_event/delta_tier/sleeping_gas
@@ -78,6 +88,7 @@
 
 /datum/supermatter_event/charlie_tier
 	threat_level = SM_EVENT_THREAT_C
+	duration = 15 SECONDS
 
 /datum/supermatter_event/charlie_tier/alert_engi()
 	sm_radio_say("Anomalous crystal activity detected. Activity class: [name]. Operator intervention may be required.")
@@ -96,13 +107,13 @@
 /datum/supermatter_event/charlie_tier/plasma/on_start()
 	environment.toxins += 200
 
-// makes heat do more damage or something
+// lowers the temp required for the SM to take damage.
 /datum/supermatter_event/charlie_tier/heat_penalty_threshold
 	name = "C-3"
 	duration = 5 MINUTES
 
 /datum/supermatter_event/charlie_tier/heat_penalty_threshold/on_start()
-	supermatter.heat_penalty_threshold = -73
+	supermatter.heat_penalty_threshold -= -73
 
 //Class B events
 /datum/supermatter_event/bravo_tier
@@ -136,6 +147,7 @@
 //A class events
 /datum/supermatter_event/alpha_tier
 	threat_level = SM_EVENT_THREAT_A
+	duration = 10 SECONDS
 
 /datum/supermatter_event/alpha_tier/alert_engi()
 	sm_radio_say("ALERT: Critical anomalous crystal activity detected! Activity class: [name]. IMMEDIATE Operator intervention is REQUIRED!")
@@ -169,15 +181,15 @@
 	duration = 7 MINUTES // 2 MINUTES of s-tier anomaly
 
 /datum/supermatter_event/sierra_tier/alert_engi()
-	sm_radio_say("ALERT: Anomalous supermatter state expected in: 5 minutes.")
-	sm_radio_say("EMERGENCY ALERT: 5 MINUTES UNTIL [src] EXHIBITS [name] CLASS ANOMALOUS ACTIVITY!")
+	general_radio_say("ALERT: Anomalous supermatter state expected in: 5 minutes.")
+	sm_radio_say("EMERGENCY ALERT: 5 MINUTES UNTIL [supermatter] EXHIBITS [name] CLASS ANOMALOUS ACTIVITY!")
 
 /datum/supermatter_event/sierra_tier/on_start()
 	addtimer(CALLBACK(src, PROC_REF(start_sierra_event)), 5 MINUTES)
 	supermatter.has_run_sclass = TRUE
 
 /datum/supermatter_event/sierra_tier/proc/start_sierra_event()
-	sm_radio_say("ALERT: ANOMALOUS SUPERMATTER STATE DETECTED!")
+	general_radio_say("ALERT: ANOMALOUS SUPERMATTER STATE DETECTED!")
 	sm_radio_say("EMERGENCY ALERT: Class [name] anomalous behavior in progress!")
 
 //S class events

@@ -204,8 +204,6 @@
 	var/processes = TRUE
 
 	//vars used for supermatter events (Anomalous crystal activityw)
-	///no events should occur while the SM is offline. This also allows admins to easily disable them
-	var/events_possible = FALSE
 	/// Do we have an active event?
 	var/datum/supermatter_event/event_active
 	///flat multiplies the amount of gas released by the SM.
@@ -1175,8 +1173,6 @@
 		return
 	if(event_active)
 		return
-	if(!events_possible)
-		return
 	var/static/list/events = list(/datum/supermatter_event/delta_tier = 50,
 								/datum/supermatter_event/charlie_tier = 30,
 								/datum/supermatter_event/bravo_tier = 15,
@@ -1184,7 +1180,7 @@
 								/datum/supermatter_event/sierra_tier = 1)
 
 	var/datum/supermatter_event/event = pick(subtypesof(pickweight(events)))
-	if(event.threat_level == SM_EVENT_THREAT_S && has_run_sclass)
+	if(initial(event.threat_level) == SM_EVENT_THREAT_S && has_run_sclass)
 		make_next_event_time()
 		return // We're only gonna have one s-class per round, take a break engineers
 	run_event(event)
