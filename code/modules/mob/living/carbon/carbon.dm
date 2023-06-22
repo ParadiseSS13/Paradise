@@ -15,7 +15,14 @@
 	QDEL_LIST_CONTENTS(stomach_contents)
 	QDEL_LIST_CONTENTS(processing_patches)
 	GLOB.carbon_list -= src
+	if(in_throw_mode)
+		toggle_throw_mode()
 	return ..()
+
+/mob/living/carbon/ghostize(can_reenter_corpse)
+	if(in_throw_mode)
+		toggle_throw_mode()
+	. = ..()
 
 /mob/living/carbon/handle_atom_del(atom/A)
 	LAZYREMOVE(processing_patches, A)
