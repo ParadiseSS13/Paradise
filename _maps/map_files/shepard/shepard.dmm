@@ -8432,10 +8432,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/port/north)
-"bKY" = (
-/obj/machinery/economy/vending/chinese/free,
-/turf/simulated/floor/wood,
-/area/bridge/meeting_room)
 "bLa" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1;
@@ -34934,7 +34930,7 @@
 "gYv" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Supermatter Engine Room";
+	name = "Engine Room";
 	req_one_access_txt = "10"
 	},
 /obj/structure/cable/yellow{
@@ -39094,10 +39090,6 @@
 	icon_state = "dark"
 	},
 /area/toxins/storage)
-"hQD" = (
-/obj/machinery/economy/vending/snack/free,
-/turf/simulated/floor/wood,
-/area/bridge/meeting_room)
 "hQP" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -57369,6 +57361,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
+"lsV" = (
+/obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/wood,
+/area/bridge/meeting_room)
 "lsX" = (
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/structure/grille,/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
@@ -74156,10 +74152,6 @@
 	icon_state = "yellow"
 	},
 /area/engine/engine_smes)
-"oME" = (
-/obj/machinery/economy/vending/cigarette/free,
-/turf/simulated/floor/wood,
-/area/bridge/meeting_room)
 "oMG" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -103221,6 +103213,10 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
+"uzV" = (
+/obj/machinery/economy/vending/chinese/free,
+/turf/simulated/floor/wood,
+/area/bridge/meeting_room)
 "uAh" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
@@ -113974,6 +113970,10 @@
 	icon_state = "yellow"
 	},
 /area/engine/controlroom)
+"wCr" = (
+/obj/machinery/economy/vending/snack/free,
+/turf/simulated/floor/wood,
+/area/bridge/meeting_room)
 "wCt" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -122437,7 +122437,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/medical{
 	name = "Surgery Hallway";
-	req_access_txt = "45;5"
+	req_access_txt = "45;5;33"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/unres,
@@ -152809,9 +152809,9 @@ odL
 xdZ
 ioK
 eUK
-hQD
-bKY
-oME
+wCr
+uzV
+lsV
 qmQ
 trS
 muo
