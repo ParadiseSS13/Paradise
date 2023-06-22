@@ -1239,7 +1239,7 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "ef" = (
-/obj/machinery/power/smes/magical{
+/obj/machinery/power/battery/smes/magical{
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
 	name = "power storage unit";
 	outputting = 0
@@ -1563,7 +1563,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "fa" = (
-/obj/machinery/power/smes/magical{
+/obj/machinery/power/battery/smes/magical{
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
 	name = "power storage unit";
 	outputting = 0

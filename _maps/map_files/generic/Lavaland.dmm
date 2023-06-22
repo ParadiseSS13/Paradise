@@ -523,7 +523,7 @@
 	},
 /area/mine/eva)
 "bu" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /obj/structure/cable/low_voltage{
@@ -916,7 +916,7 @@
 	},
 /area/mine/laborcamp)
 "ce" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /obj/structure/cable/low_voltage{

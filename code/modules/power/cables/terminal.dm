@@ -52,7 +52,7 @@
 	if(opened)
 		. = 1
 
-/obj/machinery/power/smes/can_terminal_dismantle()
+/obj/machinery/power/battery/smes/can_terminal_dismantle()
 	. = 0
 	if(panel_open)
 		. = 1

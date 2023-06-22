@@ -588,7 +588,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bu" = (

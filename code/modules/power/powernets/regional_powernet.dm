@@ -11,10 +11,14 @@
 	var/list/cables = list()
 	/// All Power Machines that are connected to this powernet
 	var/list/nodes = list()
-	/// All transformers currently removing power from this regional powernet
-	var/list/output_transformers = list()
-	/// All transformers currently adding power to this regional powernet
-	var/list/input_transformers = list()
+
+	/// All the batteries on the powernet (Accumulators, SMES', etc)
+	var/list/batteries = list()
+	/// All devices that add load to this powernet which pull power over to another neighboring powernet
+	var/list/subnet_connectors = list()
+
+	/// All the places where a HV wire is attached to a LV cable/device (**hint** it fucking explodes!)
+	var/list/short_circuit_events = list()
 
 	/// the current available power in the powernet
 	var/available_power = 0
@@ -124,25 +128,37 @@
 	* called every tick by the powernet controller
 */
 /datum/regional_powernet/proc/process_power()
-	//Calculate excess power in the net, so the difference between how much is used vs. how much is sent into the powernet
+	// # Power all of the devices hooked directly into the net and figure out how much power we have left
 	excess_power = calculate_surplus()
-
-	if(excess_power > 100 && length(nodes))
-		for(var/obj/machinery/power/smes/S in nodes)	// find the SMESes in the network
-			S.restore()									// and restore some of the power that was used
-
-	process_transformers()
+	switch(power_voltage_type)
+		if(VOLTAGE_LOW)
+			process_lv_power()
+		if(VOLTAGE_HIGH)
+			process_hv_power()
+	// # update all of our power metrics
 	// update power consoles, the reason we use 80% old value and 20% new value is to give the illusion of smoothness
 	smoothed_available_power = round(0.8 * smoothed_available_power + 0.2 * available_power)
 	smoothed_demand = round(0.8 * smoothed_demand + 0.2 * power_demand)
-
 	// reset the powernet
 	power_demand = queued_power_demand
 	queued_power_demand = 0
 	available_power = queued_power_production
 	queued_power_production = 0
 
+/datum/regional_powernet/proc/process_hv_power()
+	// # Divy up remaining power among our subnets (i.e. load limiters & transformers)
+	feed_the_subnets()
+	// # Check for shit to blow up, i.e. where there are cable voltage incompatibilities
+	process_short_circuits()
+
+/datum/regional_powernet/proc/process_lv_power()
+	if(excess_power < power_demand)
+		bleed_the_batteries(power_demand - available_power)
+	else
+		feed_the_batteries(excess_power)
+
 /*
+
 	* # process_transformers()
 	*
 	* called during process_power() after power is given out to the immediate load on the powernet (i.g. the machines hooked directly into wire nodes)
@@ -150,19 +166,86 @@
 	*
 	* called every tick by the powernet controller through process_power()
 */
-/datum/regional_powernet/proc/process_transformers()
-	var/list/transformer_weights = list()
+/datum/regional_powernet/proc/feed_the_subnets()
 	var/total_wattage_load = 0
 	// first run around to get total load being demanded by the transformers
-	for(var/obj/machinery/power/transformer/transformer as anything in output_transformers)
+	for(var/obj/machinery/power/transformer/transformer in subnet_connectors)
 		total_wattage_load += transformer.wattage_setting
-	// second run to get load weights based on total wattage load and doll out power to the transformers
-	for(var/obj/machinery/power/transformer/transformer as anything in output_transformers)
-		// will give each transformer it's own slice of the pie, enough power or too much power it don't matter
-		var/power_to_give_out = (transformer.wattage_setting / total_wattage_load) * excess_power
-		transformer.produce_direct_power(power_to_give_out)
-		power_demand += power_to_give_out // only matters this cycle if something else demands power on the net magically while we're dolling out power
+	for(var/obj/machinery/power/load_limiter/limiter in subnet_connectors)
+		total_wattage_load += limiter.wattage_setting
 
+	if(excess_power < total_wattage_load)
+		// we need power, time to bleed the batteries if we have them
+		bleed_the_batteries(total_wattage_load - available_power) // SUCK EM DRY
+		excess_power = calculate_surplus()
+		if(excess_power < total_wattage_load) // check again
+			// since there's more load than supply on the net, we need to be picky about how we give out power
+			for(var/obj/machinery/power/transformer/transformer in subnet_connectors)
+				// will give each transformer it's own slice of the pie, enough power or too much power it don't matter
+				var/power_to_give_out = round((transformer.wattage_setting / total_wattage_load) * excess_power)
+				transformer.produce_direct_power(power_to_give_out)
+			for(var/obj/machinery/power/load_limiter/limiter in subnet_connectors)
+				// will give each transformer it's own slice of the pie, enough power or too much power it don't matter
+				var/power_to_give_out = round((limiter.wattage_setting / total_wattage_load) * excess_power)
+				limiter.produce_direct_power(power_to_give_out)
+		else
+			for(var/obj/machinery/power/transformer/transformer in subnet_connectors)
+				transformer.produce_direct_power(transformer.wattage_setting)
+			for(var/obj/machinery/power/load_limiter/limiter in subnet_connectors)
+				limiter.produce_direct_power(limiter.wattage_setting)
+		power_demand = available_power // ALL THE POWER HAS BEEN CONSUMED!!!!!!!
+	else // we have more than enough power so we can fully power each subnet connector!
+		for(var/obj/machinery/power/transformer/transformer in subnet_connectors)
+			transformer.produce_direct_power(transformer.wattage_setting)
+			power_demand += transformer.wattage_setting
+		for(var/obj/machinery/power/load_limiter/limiter in subnet_connectors)
+			limiter.produce_direct_power(limiter.wattage_setting)
+			power_demand += limiter.wattage_setting
+		feed_the_batteries(calculate_surplus())
+
+/datum/regional_powernet/proc/bleed_the_batteries(john_madden)
+	var/power_per_battery = john_madden / length(batteries)
+	switch(power_voltage_type)
+		if(VOLTAGE_LOW)
+			for(var/obj/machinery/power/battery/smes/battery in batteries)
+				battery.produce_direct_power()
+		if(VOLTAGE_HIGH)
+			var/left_over_demand = 0
+			var/list/depleted_batteries = list()
+			// round 1, try and grab roughly equal amounts of power from each battery
+			for(var/obj/machinery/power/battery/accumulator/battery in batteries)
+				var/power_bled = battery.consume_charge(power_per_battery + left_over_demand)
+				battery.produce_direct_power(power_bled)
+				left_over_demand = (power_per_battery + left_over_demand) - power_bled
+				if(left_over_demand)
+					depleted_batteries |= battery
+			if(left_over_demand)
+				// round 2, now we just start grabbing as much power as possible to fill our leftover power demand from each battery we hit
+				for(var/obj/machinery/power/battery/accumulator/battery in (batteries - depleted_batteries))
+					var/power_bled = battery.consume_charge(left_over_demand)
+					battery.produce_direct_power(power_bled)
+					left_over_demand -= power_bled
+
+					if(!left_over_demand)
+						break
+
+/datum/regional_powernet/proc/feed_the_batteries(john_madden)
+	switch(power_voltage_type)
+		if(VOLTAGE_LOW)
+			return 0
+		if(VOLTAGE_HIGH)
+			var/amount_to_restore = round(john_madden / length(batteries))
+			var/left_over_charge = 0
+			for(var/obj/machinery/power/battery/accumulator/battery in batteries)
+				// our left over charge is equal to the different between what charge we were able to add and what we actually added
+				left_over_charge = (amount_to_restore + left_over_charge) - battery.add_charge(amount_to_restore + left_over_charge)
+			return left_over_charge
+
+/datum/regional_powernet/proc/process_short_circuits()
+	return
+
+/datum/regional_powernet/proc/process_powernet_overload() // UNLIMITED POWAAAA (not actually, just way too much)
+	return
 
 #define MINIMUM_PW_SHOCK 1000
 #define MINIMUM_SHOCK_DAMAGE 20

@@ -1108,7 +1108,7 @@
 	},
 /area/maintenance/gambling_den)
 "agQ" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006;
 	output_level = 150000
 	},
@@ -6731,7 +6731,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "aOT" = (
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/battery/smes/engineering,
 /obj/structure/cable/low_voltage/orange,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
@@ -9522,7 +9522,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/port)
 "bco" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 95000;
 	output_level = 90000
 	},
@@ -18732,7 +18732,7 @@
 	},
 /area/atmos)
 "bOD" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 200000;
 	output_level = 190000
 	},
@@ -18751,7 +18751,7 @@
 	},
 /area/engine/engine_smes)
 "bOE" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 200000;
 	output_level = 190000
 	},
@@ -18773,7 +18773,7 @@
 	},
 /area/engine/engine_smes)
 "bOF" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 200000;
 	output_level = 190000
 	},
@@ -22248,7 +22248,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "cef" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/cable/low_voltage/orange{
 	d2 = 4;
 	icon_state = "0-4"
@@ -29832,7 +29832,7 @@
 	},
 /area/medical/virology)
 "cSh" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 95000;
 	output_level = 90000
 	},
@@ -30623,7 +30623,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/turbine)
 "cUJ" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	capacity = 9e+006;
 	charge = 10000
 	},
@@ -32843,7 +32843,7 @@
 	},
 /area/teleporter)
 "diP" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 95000;
 	output_level = 90000
 	},
@@ -49714,7 +49714,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/south)
 "itW" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/cable/low_voltage/orange{
 	d2 = 2;
 	icon_state = "0-2"
@@ -53989,7 +53989,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/hallway/primary/fore/west)
 "jRK" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/cable/low_voltage/orange,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
@@ -61541,7 +61541,7 @@
 	},
 /area/turret_protected/aisat_interior)
 "mwy" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 95000;
 	output_level = 90000
 	},
@@ -68143,7 +68143,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "oPK" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 95000;
 	output_level = 90000
 	},
@@ -68744,7 +68744,7 @@
 	},
 /area/hallway/primary/port/south)
 "oYv" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/cable/low_voltage/orange{
 	d2 = 8;
 	icon_state = "0-8"
@@ -69435,7 +69435,7 @@
 /turf/simulated/wall/r_wall,
 /area/hallway/spacebridge/comeng)
 "pnb" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/cable/low_voltage/orange{
 	d2 = 2;
 	icon_state = "0-2"
@@ -69524,7 +69524,7 @@
 	},
 /area/engine/gravitygenerator)
 "pnZ" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 95000;
 	output_level = 90000
 	},
@@ -71496,7 +71496,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "pXv" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 95000;
 	output_level = 90000
 	},
@@ -88040,7 +88040,7 @@
 /turf/simulated/wall,
 /area/maintenance/fore2)
 "vPy" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /obj/structure/cable/low_voltage{
@@ -91554,7 +91554,7 @@
 /turf/simulated/wall,
 /area/maintenance/starboardsolar)
 "wVD" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 95000;
 	output_level = 90000
 	},
@@ -92371,7 +92371,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	input_level = 200000;
 	output_level = 190000
 	},

@@ -22,7 +22,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "ae" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "af" = (

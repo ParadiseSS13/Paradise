@@ -15,7 +15,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "h" = (
-/obj/machinery/power/smes/magical{
+/obj/machinery/power/battery/smes/magical{
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
 	name = "power storage unit"
 	},

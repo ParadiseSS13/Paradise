@@ -3838,7 +3838,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/battery/smes/engineering,
 /obj/structure/cable/low_voltage/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -4416,7 +4416,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	charge = 0
 	},
 /obj/structure/cable/low_voltage/yellow,

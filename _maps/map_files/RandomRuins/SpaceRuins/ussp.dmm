@@ -1804,7 +1804,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "ex" = (
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	charge = 1e+006;
 	input_attempt = 0;
 	input_level = 0;

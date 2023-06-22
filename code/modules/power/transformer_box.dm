@@ -24,12 +24,11 @@
 	GLOB.transformers -= src
 	return ..()
 
+#warn fix shit here maybe?
 /obj/machinery/power/transformer/connect_to_node()
 	. = ..()
 	if(!.)
 		return
-	powernet.input_transformers |= src
 
 /obj/machinery/power/transformer/disconnect_from_network()
-	powernet.input_transformers -= src
 	return ..()

@@ -11424,7 +11424,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "aFS" = (
@@ -12462,7 +12462,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "aID" = (
@@ -17044,7 +17044,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "aUh" = (
@@ -17078,7 +17078,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "aUk" = (
@@ -37421,7 +37421,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /turf/simulated/floor/plasteel,
@@ -56675,7 +56675,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "cSU" = (
@@ -57884,7 +57884,7 @@
 	},
 /area/toxins/xenobiology)
 "cWx" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	capacity = 9e+006;
 	charge = 10000
 	},
@@ -60370,7 +60370,7 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "deZ" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
@@ -64260,7 +64260,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /turf/simulated/floor/bluegrid,
@@ -71141,7 +71141,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "hPB" = (
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/battery/smes/engineering,
 /obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
@@ -76721,7 +76721,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/maintenance/apmaint)
 "mtc" = (
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/battery/smes/engineering,
 /obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"

@@ -5,16 +5,15 @@
 #define SMESMAXOUTPUT 200000
 #define SMESRATE 0.05			// rate of internal charge to external power
 
-
-#warn CONVERT_THIS_TO_HV?
-/obj/machinery/power/smes
+#warn Replace Var-edited SMES's with subtypes
+#warn Make this work with the battery base type
+/obj/machinery/power/battery/smes
 	name = "power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
 	density = TRUE
 
 	var/capacity = 5e6 // maximum charge
-	var/charge = 0 // actual charge
 
 	var/input_attempt = TRUE 		// 1 = attempting to charge, 0 = not attempting to charge
 	var/inputting = TRUE 			// 1 = actually inputting, 0 = not inputting
@@ -31,7 +30,7 @@
 	var/name_tag = null
 	var/obj/machinery/power/terminal/terminal = null
 
-/obj/machinery/power/smes/Initialize(mapload)
+/obj/machinery/power/battery/smes/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/smes(null)
@@ -58,7 +57,7 @@
 	terminal.master = src
 	update_icon()
 
-/obj/machinery/power/smes/upgraded/Initialize(mapload)
+/obj/machinery/power/battery/smes/upgraded/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/smes(null)
@@ -71,7 +70,7 @@
 	component_parts += new /obj/item/stack/cable_coil/low_voltage(null, 5)
 	RefreshParts()
 
-/obj/machinery/power/smes/RefreshParts()
+/obj/machinery/power/battery/smes/RefreshParts()
 	var/IO = 0
 	var/C = 0
 	for(var/obj/item/stock_parts/capacitor/CP in component_parts)
@@ -82,7 +81,7 @@
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
 
-/obj/machinery/power/smes/update_overlays()
+/obj/machinery/power/battery/smes/update_overlays()
 	. = ..()
 	if(stat & BROKEN)
 		return
@@ -94,7 +93,7 @@
 	if(charge_level > 0)
 		. += "smes-og[charge_level]"
 
-/obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/battery/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		update_icon()
@@ -215,21 +214,21 @@
 		return
 	return ..()
 
-/obj/machinery/power/smes/disconnect_terminal()
+/obj/machinery/power/battery/smes/disconnect_terminal()
 	if(terminal)
 		terminal.master = null
 		terminal = null
 		return TRUE
 	return FALSE
 
-/obj/machinery/power/smes/proc/make_terminal(user, tempDir, tempLoc)
+/obj/machinery/power/battery/smes/proc/make_terminal(user, tempDir, tempLoc)
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
 	terminal = new /obj/machinery/power/terminal(tempLoc)
 	terminal.dir = tempDir
 	terminal.master = src
 
-/obj/machinery/power/smes/Destroy()
+/obj/machinery/power/battery/smes/Destroy()
 	if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 		var/area/area = get_area(src)
 		if(area)
@@ -240,10 +239,10 @@
 		disconnect_terminal()
 	return ..()
 
-/obj/machinery/power/smes/proc/chargedisplay()
+/obj/machinery/power/battery/smes/proc/chargedisplay()
 	return clamp(round(5.5 * charge / capacity), 0, 5)
 
-/obj/machinery/power/smes/process()
+/obj/machinery/power/battery/smes/process()
 	if(stat & BROKEN)
 		return
 
@@ -301,7 +300,7 @@
 
 // called after all power processes are finished
 // restores charge level to smes if there was excess this ptick
-/obj/machinery/power/smes/proc/restore()
+/obj/machinery/power/battery/smes/proc/restore()
 	if(stat & BROKEN)
 		return
 
@@ -328,18 +327,18 @@
 		update_icon()
 	return
 
-/obj/machinery/power/smes/attack_ai(mob/user)
+/obj/machinery/power/battery/smes/attack_ai(mob/user)
 	add_hiddenprint(user)
 	ui_interact(user)
 
-/obj/machinery/power/smes/attack_ghost(mob/user)
+/obj/machinery/power/battery/smes/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/power/smes/attack_hand(mob/user)
+/obj/machinery/power/battery/smes/attack_hand(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/power/battery/smes/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & BROKEN)
 		return
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -347,7 +346,7 @@
 		ui = new(user, src, ui_key, "Smes",  name, 340, 350, master_ui, state)
 		ui.open()
 
-/obj/machinery/power/smes/ui_data(mob/user)
+/obj/machinery/power/battery/smes/ui_data(mob/user)
 	var/list/data = list(
 		"capacity" = capacity,
 		"capacityPercent" = round(100*charge/capacity, 0.1),
@@ -367,7 +366,7 @@
 	)
 	return data
 
-/obj/machinery/power/smes/ui_act(action, params)
+/obj/machinery/power/battery/smes/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE
@@ -413,10 +412,10 @@
 	if(.)
 		log_smes(usr)
 
-/obj/machinery/power/smes/proc/log_smes(mob/user)
+/obj/machinery/power/battery/smes/proc/log_smes(mob/user)
 		investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", "singulo")
 
-/obj/machinery/power/smes/proc/ion_act()
+/obj/machinery/power/battery/smes/proc/ion_act()
 	if(is_station_level(src.z))
 		if(prob(1)) //explosion
 			for(var/mob/M in viewers(src))
@@ -442,17 +441,17 @@
 			smoke.start()
 
 
-/obj/machinery/power/smes/proc/inputting(do_input)
+/obj/machinery/power/battery/smes/proc/inputting(do_input)
 	input_attempt = do_input
 	if(!input_attempt)
 		inputting = 0
 
-/obj/machinery/power/smes/proc/outputting(do_output)
+/obj/machinery/power/battery/smes/proc/outputting(do_output)
 	output_attempt = do_output
 	if(!output_attempt)
 		outputting = 0
 
-/obj/machinery/power/smes/emp_act(severity)
+/obj/machinery/power/battery/smes/emp_act(severity)
 	inputting(rand(0, 1))
 	outputting(rand(0, 1))
 	output_level = rand(0, output_level_max)
@@ -464,16 +463,16 @@
 	log_smes()
 	..()
 
-/obj/machinery/power/smes/engineering
+/obj/machinery/power/battery/smes/engineering
 	charge = 2e6 // Engineering starts with some charge for singulo
 
-/obj/machinery/power/smes/magical
+/obj/machinery/power/battery/smes/magical
 	name = "magical power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit. Magically produces power."
 	capacity = 9000000
 	output_level = 250000
 
-/obj/machinery/power/smes/magical/process()
+/obj/machinery/power/battery/smes/magical/process()
 	capacity = INFINITY
 	charge = INFINITY
 	..()

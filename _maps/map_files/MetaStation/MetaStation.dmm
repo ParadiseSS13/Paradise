@@ -1450,7 +1450,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "alx" = (
@@ -3967,7 +3967,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "avN" = (
@@ -4611,7 +4611,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/medical/virology)
 "axM" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /obj/structure/cable/low_voltage{
@@ -13338,7 +13338,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /turf/simulated/floor/plasteel{
@@ -13766,7 +13766,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/battery/smes/engineering,
 /obj/structure/cable/low_voltage/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -13781,7 +13781,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/battery/smes/engineering,
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "custom placement";
@@ -25307,7 +25307,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/battery/smes/engineering,
 /obj/structure/cable/low_voltage/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -26127,7 +26127,7 @@
 	},
 /area/turret_protected/aisat_interior)
 "bDb" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /obj/structure/cable/low_voltage/yellow{
@@ -36422,7 +36422,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "chf" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	capacity = 9e+006;
 	charge = 10000
 	},
@@ -45046,7 +45046,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "cJm" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/cable/low_voltage/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -46130,7 +46130,7 @@
 	},
 /area/toxins/explab)
 "cNv" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/cable/low_voltage/yellow,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)

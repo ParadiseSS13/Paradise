@@ -2,9 +2,6 @@
 // The cable coil object, used for laying cable
 ///////////////////////////////////////////////
 
-#define HEALPERCABLE 3
-#define MAXCABLEPERHEAL 8
-
 /obj/item/stack/cable_coil
 	name = "cable coil"
 	singular_name = "cable"

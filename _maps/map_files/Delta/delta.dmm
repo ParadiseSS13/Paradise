@@ -503,7 +503,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "afx" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -10362,7 +10362,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "aIr" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -10463,7 +10463,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/incinerator)
 "aIA" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 1e+006
 	},
 /obj/structure/sign/electricshock{
@@ -12192,7 +12192,7 @@
 /area/engine/controlroom)
 "aMT" = (
 /obj/machinery/light/small,
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
@@ -12205,7 +12205,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/engine/controlroom)
 "aMU" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
 	},
@@ -27959,7 +27959,7 @@
 	},
 /area/security/interrogation)
 "bwF" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /obj/structure/sign/electricshock{
@@ -29362,7 +29362,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "bzK" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /obj/structure/extinguisher_cabinet{
@@ -36852,7 +36852,7 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 5e+006
 	},
 /obj/structure/cable/low_voltage{
@@ -41345,7 +41345,7 @@
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "bZD" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 2e+006
 	},
 /obj/structure/cable/low_voltage{
@@ -41360,7 +41360,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/engine/engine_smes)
 "bZE" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 2e+006
 	},
 /obj/structure/cable/low_voltage{
@@ -47320,7 +47320,7 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "coh" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 2e+006
 	},
 /obj/structure/cable/low_voltage/yellow{
@@ -59462,7 +59462,7 @@
 	},
 /area/crew_quarters/fitness)
 "cRC" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -60150,7 +60150,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "cTl" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/machinery/light/small,
 /obj/machinery/status_display{
 	pixel_y = -32
@@ -60159,7 +60159,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "cTm" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/machinery/light/small,
 /obj/machinery/status_display{
 	pixel_y = -32
@@ -77704,7 +77704,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "dQa" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -82495,7 +82495,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "fQU" = (
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 2e+006
 	},
 /obj/structure/cable/low_voltage{

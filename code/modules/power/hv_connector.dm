@@ -36,13 +36,13 @@
 	if(linked_machine)
 		disconnect_power_machine()
 	if(powernet && istype(power_machine, /obj/machinery/power/transformer))
-		powernet.output_transformers |= power_machine
+		powernet.subnet_connectors |= power_machine
 	linked_machine = power_machine
 	RegisterSignal(power_machine, COMSIG_PARENT_QDELETING)
 
 /obj/machinery/power/hv_connector/proc/disconnect_power_machine()
 	if(powernet && istype(linked_machine, /obj/machinery/power/transformer))
-		powernet.output_transformers -= linked_machine
+		powernet.subnet_connectors -= linked_machine
 	UnregisterSignal(linked_machine, COMSIG_PARENT_QDELETING)
 	linked_machine = null
 

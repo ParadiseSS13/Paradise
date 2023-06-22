@@ -3,8 +3,6 @@
 //////////////////////////////
 #warn UPDATE_ALL_OF_THIS_FOR_HV
 
-
-
 /obj/machinery/power
 	name = null
 	icon = 'icons/obj/power.dmi'
@@ -23,7 +21,6 @@
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
 	return ..()
-
 
 /*
 	* # Power Value Getter/Setter Procs
@@ -50,7 +47,7 @@
 /obj/machinery/power/proc/get_surplus()
 	return powernet ? powernet.calculate_surplus() : 0
 
-/// Gets surplus power available on this machines powernet, machines should use this proc
+/// Gets surplus power or power debt on this machines powernet, machines should use this proc
 /obj/machinery/power/proc/get_power_balance()
 	return powernet ? powernet.calculate_power_balance() : 0
 

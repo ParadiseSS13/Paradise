@@ -32,8 +32,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	plane = GAME_PLANE //is set to FLOOR_PLANE when spawned
 	layer = LOW_OBJ_LAYER //isset to WIRE_LAYER when spawned
 
-	/// Can the cable be laid diagonally?
-	var/allow_diagonal_cable = FALSE
 	/// The coil item type that this will turn into when deconstructed
 	var/cable_coil_type
 	/// The type of voltage that this cable supports, can either be low or high voltage
@@ -253,7 +251,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		//we've got a diagonally matching cable
 		if(C.d1 == FLIP_DIR_VERTICALLY(direction) || C.d2 == FLIP_DIR_VERTICALLY(direction))
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
-				var/datum/regional_powernet/new_powernet = new(C)
+				new /datum/regional_powernet(C)
 			if(powernet) //if we already have a powernet, then merge the two powernets
 				merge_powernets(powernet, C.powernet)
 			else

@@ -1688,7 +1688,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	charge = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2679,7 +2679,7 @@
 /area/ruin/ancientstation/engi)
 "gD" = (
 /obj/structure/cable/low_voltage,
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	charge = 0
 	},
 /turf/simulated/floor/plasteel,
@@ -3542,7 +3542,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/smes/engineering{
+/obj/machinery/power/battery/smes/engineering{
 	charge = 0
 	},
 /obj/effect/decal/cleanable/dirt,

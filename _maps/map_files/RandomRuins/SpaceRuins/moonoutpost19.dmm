@@ -440,7 +440,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/smes{
+/obj/machinery/power/battery/smes{
 	charge = 1.5e+006;
 	input_level = 10000;
 	inputting = 0;

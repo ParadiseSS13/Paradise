@@ -743,7 +743,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(!Rad.active)
 				Rad.toggle_power()
 
-	for(var/obj/machinery/power/smes/SMES in GLOB.machines)
+	for(var/obj/machinery/power/battery/smes/SMES in GLOB.machines)
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 

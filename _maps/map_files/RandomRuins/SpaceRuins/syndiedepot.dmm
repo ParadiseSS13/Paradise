@@ -759,7 +759,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/smes/upgraded{
+/obj/machinery/power/battery/smes/upgraded{
 	charge = 5e+006;
 	input_level = 20000;
 	output_level = 100000

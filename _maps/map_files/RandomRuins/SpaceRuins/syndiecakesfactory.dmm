@@ -415,7 +415,7 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "Nw" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/battery/smes,
 /obj/structure/cable/low_voltage/blue{
 	d2 = 2;
 	icon_state = "0-2"
