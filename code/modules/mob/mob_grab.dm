@@ -382,6 +382,9 @@
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
+			affecting.forceMove(user)
+			LAZYADD(attacker.stomach_contents, affecting)
+			qdel(src)
 
 /obj/item/grab/proc/checkvalid(mob/attacker, mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
