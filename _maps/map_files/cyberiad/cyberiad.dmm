@@ -8548,7 +8548,6 @@
 	},
 /area/security/brig)
 "ayH" = (
-/obj/machinery/economy/vending/coffee,
 /obj/machinery/button/windowtint{
 	dir = 4;
 	id = "IAA";
@@ -8556,6 +8555,7 @@
 	pixel_y = 6;
 	req_access_txt = "38"
 	},
+/obj/machinery/economy/vending/lawdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -34261,7 +34261,6 @@
 	},
 /area/medical/reception)
 "bKb" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -40791,7 +40790,6 @@
 /area/ntrep)
 "cas" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
 	name = "Mining Dock";
 	req_access_txt = "48"
@@ -41761,12 +41759,7 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ccR" = (
-/obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/item/key/janitor,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
+/obj/machinery/economy/vending/janidrobe,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ccW" = (
@@ -45188,6 +45181,12 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/key/janitor,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cmV" = (
@@ -60362,11 +60361,6 @@
 /obj/item/caution,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"dhc" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "dhf" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
@@ -65096,7 +65090,7 @@
 "ecZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/r_wall,
-/area/toxins/xenobiology)
+/area/maintenance/asmaint)
 "edf" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 1;
@@ -72989,10 +72983,6 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/secondary/exit)
-"jxh" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/engine/engineering)
 "jxj" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -80146,6 +80136,9 @@
 	icon_state = "purple"
 	},
 /area/toxins/hallway)
+"oJr" = (
+/turf/simulated/wall/r_wall,
+/area/maintenance/asmaint)
 "oJO" = (
 /obj/machinery/light/small,
 /obj/structure/closet/firecloset/full,
@@ -82587,9 +82580,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
-"qrl" = (
-/turf/space,
-/area/engine/hardsuitstorage)
 "qrr" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "maint_house"
@@ -83030,10 +83020,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
-"qFv" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/maintenance/fsmaint)
 "qFw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -83623,6 +83609,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
+"qZN" = (
+/turf/simulated/wall/r_wall,
+/area/maintenance/asmaint2)
 "rac" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -121034,7 +121023,7 @@ aaa
 afO
 afO
 afO
-dhc
+aab
 ahF
 ahF
 ahF
@@ -122953,7 +122942,7 @@ cUw
 cId
 cIw
 uku
-qrl
+cXJ
 kpx
 cSU
 ntt
@@ -125541,7 +125530,7 @@ cTA
 cTA
 cUo
 cPX
-jxh
+cSU
 aaa
 aab
 aaa
@@ -134432,7 +134421,7 @@ aaa
 aab
 aab
 aab
-qFv
+aGX
 aSi
 oHO
 aRX
@@ -136567,22 +136556,22 @@ cDg
 cuQ
 chf
 chf
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
 cVD
 nMU
 cmt
@@ -136824,7 +136813,7 @@ soR
 cuQ
 bGG
 uCK
-cBR
+qZN
 cJK
 cJK
 cJK
@@ -136839,7 +136828,7 @@ cBP
 cMk
 cMk
 dbR
-cBR
+cxO
 hqx
 lWE
 chf
@@ -137081,7 +137070,7 @@ cuQ
 cuQ
 jxu
 dbg
-cBR
+qZN
 gGQ
 taM
 cJK
@@ -137096,7 +137085,7 @@ hLC
 cJK
 cJK
 gIp
-cBR
+cxO
 cVD
 dfM
 chf
@@ -137338,7 +137327,7 @@ cEE
 xsC
 bGG
 cEE
-cBR
+qZN
 cJL
 cMk
 cMk
@@ -137353,7 +137342,7 @@ ilj
 cJK
 cJK
 cJK
-cBR
+cxO
 hqx
 scP
 chf
@@ -137595,7 +137584,7 @@ hGb
 hFn
 fog
 qkC
-cBR
+qZN
 cxN
 smP
 cIb
@@ -137610,7 +137599,7 @@ rSo
 gyS
 wkX
 cxN
-cBR
+cxO
 cVD
 nMU
 dhQ
@@ -137852,7 +137841,7 @@ cuQ
 cuQ
 upd
 cuQ
-cBR
+qZN
 cJK
 cJK
 cJK
@@ -137867,7 +137856,7 @@ muq
 cMk
 cMk
 pRE
-cBR
+cxO
 fnP
 iTs
 iGL
@@ -138109,7 +138098,7 @@ cKQ
 lqd
 cLQ
 dbg
-cBR
+qZN
 gGQ
 taM
 cJK
@@ -138124,7 +138113,7 @@ twx
 cJK
 cJK
 gIp
-cBR
+cxO
 cep
 lWE
 dhQ
@@ -138366,7 +138355,7 @@ cKQ
 cuQ
 pUR
 bGG
-cBR
+qZN
 dQM
 cMk
 cMk
@@ -138381,7 +138370,7 @@ gbw
 cJK
 cJK
 cJK
-cBR
+cxO
 cep
 dfM
 chf
@@ -138623,7 +138612,7 @@ cEE
 cQx
 cLQ
 dgy
-cBR
+qZN
 cxN
 cRY
 cMj
@@ -138638,7 +138627,7 @@ vfc
 wmr
 jEQ
 cxN
-cBR
+cxO
 gmu
 dfM
 cDm
@@ -138880,7 +138869,7 @@ cLc
 cuQ
 cLQ
 cLR
-cBR
+qZN
 cJK
 cJK
 cJK
@@ -138895,7 +138884,7 @@ tdd
 cMk
 cMk
 kUv
-cBR
+cxO
 cAu
 dfM
 chf
@@ -139137,7 +139126,7 @@ cLc
 cuQ
 mRD
 cuQ
-cBR
+qZN
 gGQ
 taM
 cJK
@@ -139152,7 +139141,7 @@ pKP
 cJK
 cJK
 gIp
-cBR
+cxO
 gmu
 dfM
 chf
@@ -139394,7 +139383,7 @@ cJQ
 lqd
 cLQ
 bKl
-cBR
+qZN
 iGI
 cMk
 cMk
@@ -139409,7 +139398,7 @@ jtc
 cJK
 cJK
 cJK
-cBR
+cxO
 cyJ
 nMU
 cDm
@@ -139651,7 +139640,7 @@ cuQ
 lqd
 cLQ
 oVH
-cBR
+qZN
 cBR
 cBR
 cBR
@@ -139666,7 +139655,7 @@ cBR
 cBR
 cBR
 cBR
-cBR
+cxO
 chf
 jdP
 chf
@@ -139908,8 +139897,8 @@ bGG
 cuQ
 cLQ
 bGG
-cBR
-cBR
+qZN
+qZN
 tAp
 xUK
 hqo
@@ -140166,7 +140155,7 @@ cOp
 cOR
 bGG
 cQs
-cBR
+qZN
 cSf
 cEH
 cEH
@@ -140180,7 +140169,7 @@ iun
 fpG
 fMb
 cJK
-cBR
+oJr
 cQC
 dhR
 csL
@@ -140423,7 +140412,7 @@ lqd
 cLQ
 jxu
 cQr
-cBR
+qZN
 cSH
 cXA
 cEH
@@ -140437,7 +140426,7 @@ xUX
 tMx
 qKZ
 jIE
-cBR
+oJr
 jrt
 dMD
 aPn
@@ -140680,7 +140669,7 @@ cuQ
 cLQ
 cuQ
 cuQ
-cBR
+qZN
 cSh
 weM
 cNc
@@ -140694,7 +140683,7 @@ iun
 dvM
 tQn
 cJK
-cBR
+oJr
 sFy
 dhR
 nMd
@@ -140937,7 +140926,7 @@ lqd
 cLQ
 cuQ
 cQu
-cBR
+qZN
 fTy
 oSt
 qOs
@@ -141193,22 +141182,22 @@ rKV
 rKV
 mRD
 rKV
-cBR
-cBR
+qZN
+qZN
 cBR
 uPe
 cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
 kMc
 kdc
 csL
@@ -141455,7 +141444,7 @@ lCQ
 cWr
 kdP
 cNl
-cBR
+oJr
 tlI
 vum
 ojz
@@ -141712,7 +141701,7 @@ aoo
 vJv
 cWw
 xFt
-cBR
+oJr
 eKA
 ijg
 hra
@@ -141969,7 +141958,7 @@ miN
 xTZ
 qyf
 osm
-cBR
+oJr
 ksj
 mdX
 cga
@@ -142221,12 +142210,12 @@ rKV
 rKV
 uMj
 rKV
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
 mhm
 pAl
 kdh
@@ -149147,7 +149136,7 @@ aab
 aaa
 cxm
 aaa
-dhc
+aab
 aaa
 aab
 aab
@@ -149404,7 +149393,7 @@ aab
 doE
 cxm
 doE
-dhc
+aab
 aab
 aab
 aaa
