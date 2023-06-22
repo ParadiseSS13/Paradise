@@ -53591,7 +53591,7 @@
 "cCK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /obj/item/radio,
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
