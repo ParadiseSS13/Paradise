@@ -27,7 +27,10 @@
 #define SLOW 1
 
 //below defines the time between an overheat event and next startup
-#define OVERHEAT_TIME 120 //mesaured in seconds
+#define OVERHEAT_TIME 60 //measured in cycles of 2 seconds
+#define OVERHEAT_THRESHOLD 150 //measured in cycles of 2 seconds
+#define POWER_CURVE_MOD 1.7 // Used to form the turbine power generation curve
+#define OVERHEAT_MESSAGE "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
 
 /obj/machinery/power/compressor
 	name = "gas turbine compressor"
@@ -49,16 +52,10 @@
 	var/efficiency
 	/// value that dertermines the amount of overheat "damage" on the turbine.
 	var/overheat = 0
-	/// Required overheat "damage" to proc an overheat event. By default, this is seconds of overdrive required for an overheat event.
-	var/overheat_threshold = 300
 	/// This value needs to be zero. It represents seconds since the last overheat event
 	var/last_overheat = 0
 	/// Internal radio, used to alert engineers of turbine trip!
 	var/obj/item/radio/radio
-	/// overheat message
-	var/overheat_message = "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
-	/// expresses time until next bearing overheat as a percentile
-	var/bearing_heat = null
 
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
@@ -75,9 +72,6 @@
 	/// If the turbine is outputing enough to visibly affect its sprite
 	var/generator_threshold = FALSE
 	var/productivity = 1
-	/// Used to form the turbine power generation curve
-	var/power_curve_mod = 1.7
-
 
 /obj/machinery/computer/turbine_computer
 	name = "gas turbine control computer"
@@ -87,7 +81,6 @@
 	circuit = /obj/item/circuitboard/turbine_computer
 	var/obj/machinery/power/compressor/compressor
 	var/id = 0
-	var/linked_compressor = null
 
 // the inlet stage of the gas turbine electricity generator
 
@@ -181,8 +174,8 @@
 /obj/machinery/power/compressor/proc/trigger_overheat()
 	starter = FALSE
 	last_overheat = OVERHEAT_TIME
-	overheat = 0
-	radio.autosay("[overheat_message]", name, "Engineering", list(z))
+	overheat -= 50
+	radio.autosay(OVERHEAT_MESSAGE, name, "Engineering", list(z))
 	playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 /obj/machinery/power/compressor/process()
@@ -191,20 +184,18 @@
 	if(stat & BROKEN || panel_open)
 		return
 	if(last_overheat > 0)
-		last_overheat -= 1 //second
+		last_overheat -= 2 // 2 seconds
 		return
 	if(!starter)
 		return
 
 	if(rpm_threshold == OVERDRIVE)
 		//UI update here
-		overheat += 1
-		if(overheat >= overheat_threshold)
+		overheat += 2
+		if(overheat >= OVERHEAT_THRESHOLD)
 			trigger_overheat()
-	if(!(rpm_threshold == OVERDRIVE) && overheat > 0)
-		overheat -= 1
-
-	bearing_heat = (overheat / overheat_threshold)*100
+	else if(overheat > 0)
+		overheat -= 2
 	rpm = 0.9* rpm + 0.1 * rpmtarget
 	var/datum/gas_mixture/environment = inturf.return_air()
 
@@ -255,7 +246,6 @@
 // These are crucial to working of a turbine - the stats modify the power output. TurbGenQ modifies how much raw energy can you get from
 // rpms, TurbGenG modifies the shape of the curve - the lower the value the less straight the curve is.
 
-#define TURBPRES 9000000
 #define TURBGENQ 500000
 #define TURBGENG 0.5
 
@@ -307,7 +297,7 @@
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBGENQ and TURBGENG values
 
-	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * power_curve_mod * productivity
+	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity * POWER_CURVE_MOD
 
 	produce_direct_power(lastgen)
 
@@ -396,7 +386,7 @@
 				playsound(src, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 			if(compressor.last_overheat > 0)
 				compressor.starter = FALSE
-				to_chat(usr,"<span class='alert'>The turbine was overheated, please wait [compressor.last_overheat] seconds for cooldown procedures to complete.</span>")
+				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [compressor.last_overheat] seconds for cooldown procedures to complete.</span>")
 				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 		if("reconnect")
@@ -412,8 +402,9 @@
 	spawn(10)
 		locate_machinery()
 
-/obj/machinery/computer/turbine_computer/locate_machinery()
-	compressor = linked_compressor
+/obj/machinery/computer/turbine_computer/proc/disconnect()
+	//this disconnects the computer from the turbine, good for resets.
+	compressor = null
 
 /obj/machinery/computer/turbine_computer/attack_hand(mob/user)
 	. = ..()
@@ -422,7 +413,7 @@
 /obj/machinery/computer/turbine_computer/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
 	var/obj/item/multitool/M = I
-	linked_compressor = M.buffer
+	compressor = M.buffer
 	to_chat(user, "<span class='notice'>You link [src] to the turbine compressor in [I]'s buffer.</span>")
 
 /obj/machinery/computer/turbine_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -443,7 +434,7 @@
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
 		data["temperature"] = compressor.gas_contained.return_temperature()
-		data["bearing_heat"] = compressor.bearing_heat
+		data["bearing_heat"] = clamp((compressor.overheat / OVERHEAT_THRESHOLD) * 100, 0, 100)
 	return data
 
 /obj/machinery/computer/turbine_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -459,11 +450,11 @@
 				. = TRUE
 			if(compressor.last_overheat > 0)
 				compressor.starter = FALSE
-				to_chat(usr,"<span class='alert'>The turbine was overheated, please wait [compressor.last_overheat] seconds for cooldown procedures to complete.</span>")
+				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [compressor.last_overheat] seconds for cooldown procedures to complete.</span>")
 				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
-		if("reconnect")
-			locate_machinery()
+		if("disconnect")
+			disconnect()
 			. = TRUE
 
 /obj/machinery/computer/turbine_computer/process()

@@ -28,8 +28,8 @@ export const TurbineComputer = (props, context) => {
               />
               <Button
                 icon="sync"
-                content="Reconnect"
-                onClick={() => act('reconnect')}
+                content="Disconnect"
+                onClick={() => act('disconnect')}
               />
             </>
           )}>
