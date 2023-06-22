@@ -513,6 +513,7 @@
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 	atom_say("Attention: Posterior Placed on Printing Plaque!")
 	SStgui.update_uis(src)
+	return TRUE
 
 /obj/machinery/photocopier/Destroy()
 	QDEL_LIST_CONTENTS(saved_documents)

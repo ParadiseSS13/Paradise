@@ -102,7 +102,7 @@
 	return machine_powernet.has_power(channel)	// return power status of the area
 
 // use active power from the local powernet
-/obj/machinery/proc/use_power(channel, amount)
+/obj/machinery/proc/use_power(amount, channel)
 	if(!has_power())
 		return FALSE
 	if(!channel)

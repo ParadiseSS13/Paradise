@@ -216,7 +216,6 @@
 	return
 
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
-	..()
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr) || usr.incapacitated())
 			return
@@ -225,6 +224,8 @@
 		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 		new folded(get_turf(src))
 		qdel(src)
+		return
+	..()
 
 /obj/item/roller_holder
 	name = "roller bed rack"

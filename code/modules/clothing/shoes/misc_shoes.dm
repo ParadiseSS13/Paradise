@@ -134,17 +134,17 @@
 		user.pass_flags = prev_flags
 
 /obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/living/user, action)
-    if(recharging_time > world.time)
-        to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
-        return
-    var/prev_dir = user.dir
-    var/old_pass = user.pass_flags
-    user.pass_flags |= (PASSMOB | PASSTABLE)
-    playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE, 1)
-    recharging_time = world.time + recharging_rate
-    user.lay_down()
-    for(var/crossed in 1 to slide_distance)
-        addtimer(CALLBACK(src, PROC_REF(slide_one), user, crossed, prev_dir, old_pass), crossed)
+	if(recharging_time > world.time)
+		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		return
+	var/prev_dir = user.dir
+	var/old_pass = user.pass_flags
+	user.pass_flags |= (PASSMOB | PASSTABLE)
+	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE, 1)
+	recharging_time = world.time + recharging_rate
+	user.lay_down()
+	for(var/crossed in 1 to slide_distance)
+		addtimer(CALLBACK(src, PROC_REF(slide_one), user, crossed, prev_dir, old_pass), crossed)
 
 
 /obj/item/clothing/shoes/clown_shoes/slippers/toggle_waddle(mob/living/user)
