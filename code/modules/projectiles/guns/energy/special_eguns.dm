@@ -890,7 +890,7 @@
     name = "alloy spike"
     desc = "It's about a foot of weird silvery metal with a wicked point."
     damage = 25
-    knockdown = 10
+    knockdown = 2
     armour_penetration_flat = 30
     icon_state = "magspear"
 
