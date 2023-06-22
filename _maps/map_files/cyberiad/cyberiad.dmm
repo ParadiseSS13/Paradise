@@ -54016,6 +54016,11 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "cME" = (
@@ -54188,6 +54193,11 @@
 /obj/structure/table/reinforced,
 /obj/structure/barricade/wooden,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "cMW" = (
@@ -54742,6 +54752,11 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cOG" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating{
 	desc = "<br>There is some old writing on this floor. You are barely able to read out a few lines from a tangled scribble.<br><br>In a chamber a great mirror lies, cut away it solemn cries. Travel bold as thou might, piercing vastness as a kite.<br><br>HONK!<br>";
 	name = "Old Note #6"
@@ -64808,6 +64823,11 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -68808,6 +68828,15 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
 /area/maintenance/apmaint)
+"gzV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/assembly/assembly_line)
 "gAk" = (
 /obj/effect/landmark/start/shaft_miner,
 /obj/effect/decal/cleanable/dirt,
@@ -72052,6 +72081,7 @@
 /area/medical/surgeryobs)
 "izV" = (
 /obj/structure/reagent_dispensers/fueltank,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "iBI" = (
@@ -79991,6 +80021,14 @@
 	icon_state = "white"
 	},
 /area/maintenance/asmaint)
+"oEE" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/assembly/assembly_line)
 "oEF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -84393,6 +84431,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -89164,6 +89207,15 @@
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
+"uON" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/assembly/assembly_line)
 "uPe" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
@@ -91401,7 +91453,6 @@
 	input_dir = 1;
 	stack_amt = 10
 	},
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "wnU" = (
@@ -110443,7 +110494,7 @@ yjC
 coL
 tGO
 sXJ
-hoJ
+bGQ
 wnR
 ciI
 oYC
@@ -110700,7 +110751,7 @@ nPE
 rEa
 saV
 eMs
-bGQ
+hoJ
 uly
 gsg
 cmK
@@ -120221,8 +120272,8 @@ vPC
 fFF
 ifN
 cMD
-cLG
-cNG
+gzV
+oEE
 cLf
 cKb
 cNB
@@ -120736,7 +120787,7 @@ cLG
 cLG
 aGm
 cJx
-cJx
+uON
 cOQ
 cKb
 cNB
@@ -120993,7 +121044,7 @@ cJx
 tPe
 cJg
 cJx
-cJx
+uON
 cLD
 cOr
 cZw
@@ -121250,7 +121301,7 @@ cJx
 cLH
 unM
 cNw
-cNG
+cMz
 cNG
 cKb
 nLf
