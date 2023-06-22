@@ -82590,9 +82590,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
-"qrl" = (
-/turf/space,
-/area/engine/hardsuitstorage)
 "qrr" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "maint_house"
@@ -122959,7 +122956,7 @@ cUw
 cId
 cIw
 uku
-qrl
+cXJ
 kpx
 cSU
 ntt
