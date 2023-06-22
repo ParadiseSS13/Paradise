@@ -108,7 +108,7 @@
 	if(isnull(organ_data))
 		to_chat(user, "<span class='warning'>[target.dna.species] don't have the anatomy for [E.name]!</span>")
 		return SURGERY_BEGINSTEP_ABORT
-	if(E.search_contents_for(/obj/item/organ/internal/brain) && target.get_int_organ(/obj/item/organ/internal/brain))
+	if(length(E.search_contents_for(/obj/item/organ/internal/brain)) && target.get_int_organ(/obj/item/organ/internal/brain))
 		to_chat(user, "<span class='warning'>Both [target] and [E.name] contain a brain, and [target] can't have two brains!</span>")
 		return SURGERY_BEGINSTEP_ABORT
 
