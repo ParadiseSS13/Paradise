@@ -22,7 +22,7 @@
 	var/choosen_reagent = "salglu_solution"
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone", "mannitol", "salbutamol")
-	var/list/reagent_ids_emagged = list("perfluorodecalin", "pancuronium","sarin")
+	var/list/reagent_ids_emagged = list("tirizene")
 	var/static/list/reagent_icons = list("salglu_solution" = image(icon = 'icons/goonstation/objects/iv.dmi', icon_state = "ivbag"),
 							"epinephrine" = image(icon = 'icons/obj/hypo.dmi', icon_state = "autoinjector"),
 							"spaceacillin" = image(icon = 'icons/obj/decals.dmi', icon_state = "bio"),
@@ -36,9 +36,7 @@
 							"mannitol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill19"),
 							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"),
 							"corazone" = image(icon = 'icons/obj/abductor.dmi', icon_state = "bed"),
-							"perfluorodecalin" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bandaid"),
-							"pancuronium" = image(icon = 'icons/obj/aibots.dmi', icon_state = "pancbot"),
-							"sarin" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill21"))
+							"tirizene" = image(icon = 'icons/obj/aibots.dmi', icon_state = "pancbot"))
 
 /obj/item/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
