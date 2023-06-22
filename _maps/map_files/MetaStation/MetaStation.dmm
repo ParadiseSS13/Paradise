@@ -82139,9 +82139,6 @@
 "sEM" = (
 /obj/structure/table,
 /obj/item/storage/backpack/duffel/security{
-	contents = newlist(/obj/item/scalpel,/obj/item/hemostat,/obj/item/retractor,/obj/item/cautery,/obj/item/circular_saw,/obj/item/surgical_drapes,/obj/item/clothing/mask/surgical);
-	desc = "A large duffelbag for holding extra supplies - this one has a material inlay with space for various sharp-looking tools.";
-	name = "duffelbag";
 	pixel_y = 5
 	},
 /obj/item/clothing/mask/balaclava,
