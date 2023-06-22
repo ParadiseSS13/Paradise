@@ -201,6 +201,7 @@
 		hack_speed = rand(5, 20) SECONDS
 
 	if(!do_after(user, hack_speed, target = D, progress = 0))
+		busy = FALSE
 		return
 	busy = FALSE
 
