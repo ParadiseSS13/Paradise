@@ -297,7 +297,10 @@
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBGENQ and TURBGENG values
 
-	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity * POWER_CURVE_MOD
+	if(compressor.gas_contained.temperature < 500)
+		lastgen = 0
+	else
+		lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity * POWER_CURVE_MOD
 
 	produce_direct_power(lastgen)
 
