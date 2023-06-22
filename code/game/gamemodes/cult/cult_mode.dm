@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		if(!M.current || !ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/wail.ogg'))
-		to_chat(M.current, "<span class='cultlarge'>The veil grows stronger, your power growing weaker...")
+		to_chat(M.current, "<span class='cultlarge'>The veil grows stronger, your power grows weaker...")
 		addtimer(CALLBACK(src, PROC_REF(descend), M.current), 20 SECONDS)
 	GLOB.major_announcement.Announce("Paranormal activity has returned to minimal levels. \
 									Security staff should minimize lethal force against cultists, using non-lethals where possible. \
