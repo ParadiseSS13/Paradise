@@ -221,6 +221,9 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_SIMULATED_TURFS)
 	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
+	footstep = FOOTSTEP_CATWALK
+	barefootstep = FOOTSTEP_CATWALK
+	clawfootstep = FOOTSTEP_CATWALK
 	keep_dir = FALSE
 	intact = FALSE
 	transparent_floor = TRUE
@@ -231,13 +234,16 @@
 	I.layer = PLATING_LAYER
 	underlays += I
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
-	icon_state = "" //Prevents default icon appearing behind the glass
+	icon_state = "" //Prevents default icon appearing behind the catwalk
 
 /turf/simulated/floor/catwalk/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	pry_tile(I, user, TRUE)
+
+/turf/simulated/floor/transparent/glass/can_lay_cable()
+	return FALSE // Pry the catwalk up if you want to apply cables underneath
 
 /turf/simulated/floor/catwalk/ex_act(severity)
 	if(is_shielded())
