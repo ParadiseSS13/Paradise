@@ -40790,7 +40790,6 @@
 /area/ntrep)
 "cas" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
 	name = "Mining Dock";
 	req_access_txt = "48"
@@ -60362,11 +60361,6 @@
 /obj/item/caution,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"dhc" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "dhf" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
@@ -72989,10 +72983,6 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/secondary/exit)
-"jxh" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/engine/engineering)
 "jxj" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -83030,10 +83020,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
-"qFv" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/maintenance/fsmaint)
 "qFw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -121037,7 +121023,7 @@ aaa
 afO
 afO
 afO
-dhc
+aab
 ahF
 ahF
 ahF
@@ -125544,7 +125530,7 @@ cTA
 cTA
 cUo
 cPX
-jxh
+cSU
 aaa
 aab
 aaa
@@ -134435,7 +134421,7 @@ aaa
 aab
 aab
 aab
-qFv
+aGX
 aSi
 oHO
 aRX
@@ -149150,7 +149136,7 @@ aab
 aaa
 cxm
 aaa
-dhc
+aab
 aaa
 aab
 aab
@@ -149407,7 +149393,7 @@ aab
 doE
 cxm
 doE
-dhc
+aab
 aab
 aab
 aaa
