@@ -104,5 +104,6 @@
 		to_chat(user, "<span class='warning'>You go to short out [src], but it's covered in yellow ooze! You don't want to gunk up your emag!</span>")
 		return
 	to_chat(user, "<span class='danger'>You short out [src]'s dampener circuits.</span>")
+	emagged = TRUE
 	span = "reallybig userdanger"  // really obvious, but also really loud
 
