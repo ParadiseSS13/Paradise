@@ -74187,7 +74187,14 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "klN" = (
-/mob/living/simple_animal/hostile/feral_cat,
+/mob/living/simple_animal/hostile/feral_cat{
+	desc = "This cat is waiting for its owner, it hisses at you...";
+	name = "forsaken cat";
+	speak = list("Meow!","Esp!","HSSSSS");
+	melee_damage_upper = 10;
+	melee_damage_lower = 15;
+	maxHealth = 30
+	},
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "kmA" = (
