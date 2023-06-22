@@ -101,6 +101,7 @@
 	name = "guardian's shield"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-grey"
+	can_be_hit = TRUE
 	var/mob/living/simple_animal/hostile/guardian/protector/linked_guardian
 	var/left_if_false_right_otherwise = FALSE //Needs a better name, but bools feels better than LEFT and RIGHT being passed
 
