@@ -28,7 +28,7 @@
 
 //below defines the time between an overheat event and next startup
 #define OVERHEAT_TIME 60 //measured in cycles of 2 seconds
-#define OVERHEAT_THRESHOLD 150 //measured in cycles of 2 seconds
+#define OVERHEAT_THRESHOLD  //measured in cycles of 2 seconds
 #define POWER_CURVE_MOD 1.7 // Used to form the turbine power generation curve
 #define OVERHEAT_MESSAGE "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
 

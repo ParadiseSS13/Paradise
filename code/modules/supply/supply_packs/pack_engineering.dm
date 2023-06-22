@@ -209,7 +209,7 @@
 	containername = "supermatter shard crate"
 	access = ACCESS_CE
 
-/* Commented out until turbine is in a good spot to replace it in syndie space base
+/* Commented out as the TEG is fully problematic. If the syndie base is changed to be dependant on another powersource, we can look at a rework.
 /datum/supply_packs/engineering/engine/teg
 	name = "Thermo-Electric Generator Crate"
 	contains = list(
