@@ -156,7 +156,7 @@
 /obj/effect/portal/hand_tele/examine(mob/user, infix, suffix)
 	. = ..()
 	if(unstable_time > world.time)
-		. += "<span class='warning'>[src] is shaking, looks very unstable!</span>"
+		. += "<span class='warning'>[src] is shaking, it looks very unstable!</span>"
 
 /obj/effect/portal/hand_tele/can_teleport(atom/movable/M)
 	if(inactive)
