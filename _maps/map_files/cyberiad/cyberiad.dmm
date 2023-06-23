@@ -33100,10 +33100,10 @@
 	},
 /area/hallway/primary/central/west)
 "bHb" = (
-/obj/machinery/light/small{
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "bHc" = (
@@ -44382,7 +44382,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/access/all/command/blueshield,
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/wood,
 /area/blueshield)
 "ckO" = (
 /obj/structure/disposalpipe/segment,
@@ -66983,6 +66984,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
+"fnU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "fnV" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
@@ -69940,12 +69946,6 @@
 	icon_state = "white"
 	},
 /area/toxins/mixing)
-"hhL" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "hhX" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Prison Cafeteria"
@@ -70331,7 +70331,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -71115,11 +71115,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
-"hQr" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "hQW" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
@@ -77719,6 +77714,10 @@
 	icon_state = "wood-broken7"
 	},
 /area/maintenance/asmaint2)
+"mPR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "mPX" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81245,7 +81244,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/ntrep,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/wood,
 /area/ntrep)
 "prd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -84357,10 +84356,6 @@
 	icon_state = "bar"
 	},
 /area/security/permabrig)
-"ryN" = (
-/obj/structure/girder,
-/turf/simulated/wall,
-/area/maintenance/apmaint)
 "ryQ" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/insulated,
@@ -86066,9 +86061,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "sJC" = (
@@ -86227,6 +86219,7 @@
 	},
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "sPb" = (
@@ -87440,7 +87433,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -93783,9 +93776,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ygr" = (
@@ -117680,9 +117670,9 @@ bvr
 cnX
 cgW
 tKi
-coL
+mPR
 sOK
-hhL
+mIu
 yfY
 sCW
 cgQ
@@ -117937,9 +117927,9 @@ bKs
 bBf
 cgW
 sJw
-hQr
-hQr
-mIu
+cqs
+coL
+fnU
 htY
 coL
 cgQ
@@ -118198,7 +118188,7 @@ jWV
 cqs
 cwl
 qFN
-ryN
+tGO
 gYs
 cgQ
 cgQ
