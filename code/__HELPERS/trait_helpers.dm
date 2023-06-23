@@ -127,6 +127,9 @@
 		: FALSE)
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (length(target.status_traits[trait] - source) > 0) : FALSE) : FALSE)
 
+/// Gives a unique trait source for any given datum
+#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
+
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
@@ -222,6 +225,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
 #define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
+
+/// Prevent mobs on the turf being shocked by a pulse demon crossing under. Added by a /obj/structure with creates_cover set to TRUE
+#define TRAIT_TURF_COVERED "turf_covered"
 
 
 //
