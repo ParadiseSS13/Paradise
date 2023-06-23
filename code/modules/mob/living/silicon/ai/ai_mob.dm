@@ -172,7 +172,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
 	verbs -= /mob/living/verb/rest
 	verbs -= /mob/living/verb/mob_sleep
-	verbs -= /mob/living/verb/resist
 	verbs -= /mob/living/verb/stop_pulling1
 	verbs -= /mob/living/silicon/verb/pose
 	verbs -= /mob/living/silicon/verb/set_flavor
@@ -1466,5 +1465,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		runechat_msg_location = loc.UID()
 	else
 		return ..()
+
+/mob/living/silicon/ai/run_resist()
+	if(!istype(loc, /obj/item/aicard))
+		return..()
+
+	var/obj/item/aicard/card = loc
+	var/datum/component/ducttape/ducttapecomponent = card.GetComponent(/datum/component/ducttape)
+	if(!ducttapecomponent)
+		return
+	to_chat(src, "<span class='notice'>The tiny fan that could begins to work against the tape to remove it.</span>")
+	if(!do_after(src, 2 MINUTES, target = card))
+		return
+	to_chat(src, "<span class='notice'>The tiny in built fan finally removes the tape!</span>")
+	ducttapecomponent.remove_tape(card, src)
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN
