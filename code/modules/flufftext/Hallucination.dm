@@ -310,7 +310,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 /obj/effect/hallucination/oh_yeah/proc/bubble_attack(turf/landing)
 	var/charged = FALSE //only get hit once
-	while(get_turf(bubblegum) != landing && target && target.stat != DEAD)
+	while(get_turf(bubblegum) != landing && target && target.stat != DEAD && get_dist(landing, get_turf(bubblegum)) <= 7)
 		bubblegum.forceMove(get_step_towards(bubblegum, landing))
 		bubblegum.setDir(get_dir(bubblegum, landing))
 		target.playsound_local(get_turf(bubblegum), 'sound/effects/meteorimpact.ogg', 150, 1)
