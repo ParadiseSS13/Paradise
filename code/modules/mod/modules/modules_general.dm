@@ -35,6 +35,9 @@
 	qdel(bag)
 	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
 
+/obj/item/mod/module/storage/on_suit_deactivation(deleting)
+	. = ..()
+	bag.forceMove(src) //So the pinpointer doesnt lie.
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
