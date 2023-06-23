@@ -51,7 +51,9 @@
 		visible_message("<span class='danger'>[R] is ready!</span>")
 		R.throwforce = 33
 		R.superheated = 1 //guess this useless now...
-		armour_penetration = 15
+		R.armour_penetration = 15
+		R.embed_chance = 50
+		R.embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/gun/throw/crossbow/get_throwspeed()
 	return tension * speed_multiplier
@@ -164,7 +166,7 @@
 	item_state = "bolt"
 	throwforce = 20
 	w_class = WEIGHT_CLASS_NORMAL
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/arrow/proc/removed() //Helper for metal rods falling apart.
 	return
