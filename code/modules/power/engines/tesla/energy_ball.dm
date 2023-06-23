@@ -70,8 +70,8 @@
 		GLOB.poi_list -= src
 
 	QDEL_LIST_CONTENTS(orbiting_balls)
-	QDEL_LIST_CONTENTS(target_area_turfs)
-	QDEL_LIST_CONTENTS(tesla_line)
+	target_area_turfs.Cut()
+	tesla_line.Cut()
 	shocked_things.Cut()
 	return ..()
 
