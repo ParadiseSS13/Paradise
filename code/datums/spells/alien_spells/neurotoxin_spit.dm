@@ -25,6 +25,10 @@
 	if(!istype(U) || !istype(T))
 		return FALSE
 
+	if(!do_after(user, 0.5 SECONDS, FALSE, user))
+		to_chat(user, "<span class='danger'><B>Neurotoxin is leaking out of your mouth!</B></span>")
+		return FALSE
+
 	var/obj/item/projectile/bullet/neurotoxin/neurotoxin = new neurotoxin_type(user.loc)
 	neurotoxin.current = get_turf(user)
 	neurotoxin.original = target

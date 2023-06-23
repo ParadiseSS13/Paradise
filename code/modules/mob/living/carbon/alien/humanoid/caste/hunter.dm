@@ -4,7 +4,7 @@
 	maxHealth = 125
 	health = 125
 	icon_state = "alienh_s"
-	alien_movement_delay = -1 //hunters are faster than normal xenomorphs, and people
+	var/leap_mode_slowdown = 1
 
 /mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
 	. = ..()
@@ -29,6 +29,10 @@
 /mob/living/carbon/alien/humanoid/hunter/proc/toggle_leap(message = 1)
 	leap_on_click = !leap_on_click
 	leap_icon.icon_state = "leap_[leap_on_click ? "on":"off"]"
+	if(leap_on_click)
+		alien_movement_delay += leap_mode_slowdown
+	else
+		alien_movement_delay -= leap_mode_slowdown
 	if(message)
 		to_chat(src, "<span class='noticealien'>You will now [leap_on_click ? "leap at":"slash at"] enemies!</span>")
 	else
@@ -64,6 +68,7 @@
 		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, spin = 0, diagonals_first = 1, callback = CALLBACK(src, PROC_REF(leap_end)))
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_end()
+	pounce_cooldown = world.time + pounce_cooldown_time
 	leaping = 0
 	update_icons()
 
@@ -90,13 +95,9 @@
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src,L)
 			else
-				Weaken(4 SECONDS, TRUE)
+				Weaken(2 SECONDS, TRUE)
 
 			toggle_leap(0)
-			pounce_cooldown = world.time + pounce_cooldown_time
-		else if(A.density && !A.CanPass(src))
-			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
-			Weaken(4 SECONDS, TRUE)
 
 		if(leaping)
 			leaping = 0
