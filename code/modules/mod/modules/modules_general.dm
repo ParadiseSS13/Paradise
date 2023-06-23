@@ -32,6 +32,8 @@
 	if(!deleting)
 		for(var/obj/I in bag.contents)
 			I.forceMove(get_turf(loc))
+		bag.forceMove(src)
+		return
 	qdel(bag)
 	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
 
