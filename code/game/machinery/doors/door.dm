@@ -22,6 +22,7 @@
 	// Whether the door is bolted or not.
 	var/locked = FALSE
 	var/glass = FALSE
+	var/reinforced_glass = FALSE
 	var/welded = FALSE
 	var/normalspeed = TRUE
 	var/auto_close_time = 150
