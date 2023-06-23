@@ -116,6 +116,7 @@
 		if(can_move(T))
 			forceMove(T)
 			return
+		return
 	if(!has_a_target)
 		find_the_basket()
 		return
