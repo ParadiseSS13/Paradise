@@ -7,8 +7,8 @@
 #define ACCESS_TOX 7
 #define ACCESS_TOX_STORAGE 8
 #define ACCESS_GENETICS 9
-#define ACCESS_ENGINE 10
-#define ACCESS_ENGINE_EQUIP 11
+#define ACCESS_ENGINE 10 // Access to station engineer specific areas of the engineering department
+#define ACCESS_ENGINE_EQUIP 11 //Access to station power control areas (substations, central SMES)
 #define ACCESS_MAINT_TUNNELS 12
 #define ACCESS_EXTERNAL_AIRLOCKS 13
 #define ACCESS_EMERGENCY_STORAGE 14
@@ -21,7 +21,7 @@
 #define ACCESS_ALL_PERSONAL_LOCKERS 21
 #define ACCESS_CHAPEL_OFFICE 22
 #define ACCESS_TECH_STORAGE 23
-#define ACCESS_ATMOSPHERICS 24
+#define ACCESS_ATMOSPHERICS 24 //Access to the stations central atmospheric system, and atmos checkpoints located around the station
 #define ACCESS_BAR 25
 #define ACCESS_JANITOR 26
 #define ACCESS_CREMATORIUM 27
@@ -53,7 +53,7 @@
 #define ACCESS_HEADS_VAULT 53
 #define ACCESS_MINING_STATION 54
 #define ACCESS_XENOBIOLOGY 55
-#define ACCESS_CE 56
+#define ACCESS_CE 56 //CE exclusive areas, including the Office, department management consoles, etc
 #define ACCESS_HOP 57
 #define ACCESS_HOS 58
 #define ACCESS_RC_ANNOUNCE 59 //Request console announcements
@@ -73,6 +73,8 @@
 #define ACCESS_MINISAT 75
 #define ACCESS_MINERAL_STOREROOM 76
 #define ACCESS_NETWORK 77
+#define ACCESS_MAINTENANCE_TECH 78 //Access for Maintence Tech specific areas of the engineering department
+#define ACCESS_CONTROL_ROOM 79 //access for Engine Tech specific areas of the engineering department
 
 #define ACCESS_WEAPONS 99 //Weapon authorization for secbots
 
