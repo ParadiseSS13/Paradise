@@ -23352,6 +23352,20 @@
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
 	})
+"eHK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/blue{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/bridge)
 "eHL" = (
 /obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -39954,8 +39968,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/dorms)
 "hZI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/blue{
 	d1 = 1;
 	d2 = 2;
@@ -90969,14 +90981,6 @@
 	icon_state = "botblue"
 	},
 /area/hallway/primary/starboard/north)
-"sfA" = (
-/obj/structure/cable/blue{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "sfQ" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -116817,20 +116821,6 @@
 	icon_state = "white"
 	},
 /area/medical/genetics)
-"xdM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/blue{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "xdT" = (
 /obj/structure/cable/green{
 	d1 = 2;
@@ -116881,10 +116871,10 @@
 	dir = 1
 	},
 /obj/machinery/airlock_controller/access_controller{
-	name = "Engine Access Console";
-	req_one_access_txt = "10";
+	name = "Turbine Chambers";
+	req_one_access_txt = "24";
 	ext_door_link_id = "gas_turbine_exterior";
-	int_door_link_id = "Turbine Interior Airlock";
+	int_door_link_id = "gas_turbine_interior";
 	ext_button_link_id = "gas_turbine_ext_btn";
 	int_button_link_id = "gas_turbine_int_btn";
 	pixel_x = 25
@@ -121170,6 +121160,16 @@
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
 	})
+"xWf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/bridge)
 "xWj" = (
 /obj/machinery/kitchen_machine/oven,
 /obj/machinery/light{
@@ -155853,7 +155853,7 @@ wDC
 dmf
 sDO
 huR
-sfA
+hZI
 snO
 fdC
 hGG
@@ -156108,7 +156108,7 @@ vQK
 bQS
 qVZ
 oCy
-xdM
+eHK
 bHW
 ngv
 xVe
@@ -156363,7 +156363,7 @@ rWT
 jec
 bGh
 opP
-hZI
+xWf
 eUS
 mWa
 mDB
