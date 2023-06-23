@@ -864,11 +864,17 @@
 	icon_state = "engineering"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
 
-/obj/item/card/id/atmostech
-	name = "Life Support Specialist ID"
-	registered_name = "Life Support Specialist"
-	icon_state = "atmostech"
-	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
+/obj/item/card/id/enginetech
+	name = "Engine Technician ID"
+	registered_name = "Engine Technician"
+	icon_state = "engineering"
+	access = list(ACCESS_EVA, ACCESS_CONTROL_ROOM, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/mainttech
+	name = "Maintenance Technician ID"
+	registered_name = "Maintenance Technician"
+	icon_state = "engineering"
+	access = list(ACCESS_EVA, ACCESS_MAINTENANCE_TECH, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/captains_spare/assigned
 	name = "Captain ID"

@@ -82,3 +82,22 @@
 	icon_state = "enginef"
 	item_color = "enginef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/under/rank/engineering/enginetech
+	desc = "It's an orange and red high visibility jumpsuit worn by engine techs. It has decent radiation shielding."
+	name = "engine tech's jumpsuit"
+	icon_state = "engine_tech_s"
+	item_state = "engi_suit"
+	item_color = "engine"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 15, FIRE = 75, ACID = 10)
+	resistance_flags = NONE
+
+/obj/item/clothing/under/rank/engineering/mainttech
+	desc = "It's an orange and red high visibility jumpsuit worn by engine techs."
+	name = "maintenance tech's jumpsuit"
+	icon_state = "maint_tech_s"
+	item_state = "engi_suit"
+	item_color = "engine"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 75, ACID = 10)
+	resistance_flags = NONE
+
