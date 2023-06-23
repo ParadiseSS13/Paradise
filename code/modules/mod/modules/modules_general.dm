@@ -294,7 +294,7 @@
 	name = "MOD DNA lock module"
 	desc = "A module which engages with the various locks and seals tied to the suit's systems, \
 		enabling it to only be worn by someone corresponding with the user's exact DNA profile; \
-		however, this incredibly sensitive module is shorted out by EMPs. Luckily, cloning has been outlawed."
+		however, this incredibly sensitive module is shorted out by EMPs. Luckily, stable mutagen has been outlawed."
 	icon_state = "dnalock"
 	origin_tech = "materials=6;bluespace=5;syndicate=1"
 	module_type = MODULE_USABLE
@@ -339,7 +339,7 @@
 		return FALSE
 	if(!dna)
 		return TRUE
-	if(dna == user)
+	if(dna == mod.wearer.dna.unique_enzymes)
 		return TRUE
 	return FALSE
 

@@ -50,11 +50,11 @@
 		return
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	to_chat(mod.wearer, "<span class='notice'>Armor deployed, EVA disabled, speed increased.</span>")
-	actual_speed_added = max(0, min(mod.slowdown_active, speed_added))
-	mod.slowdown -= actual_speed_added
+	actual_speed_added = max(0, min(mod.slowdown_active, speed_added / 5))
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
 		part.armor = part.armor.attachArmor(armor_mod_2.armor)
+		part.slowdown -= actual_speed_added
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
@@ -69,10 +69,10 @@
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	to_chat(mod.wearer, "<span class='notice'>Armor retracted, EVA enabled, speed decreased.</span>")
-	mod.slowdown += actual_speed_added
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
 		part.armor = part.armor.detachArmor(armor_mod_2.armor)
+		part.slowdown += actual_speed_added
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part

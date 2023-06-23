@@ -340,16 +340,18 @@
 	if(!traveled_tiles)
 		return
 	var/list/parts = mod.mod_parts + mod
+	var/speed_up = FALSE
+	if(traveled_tiles == max_traveled_tiles)
+		speed_up = TRUE
 	for(var/obj/item/part as anything in parts)
 		part.armor = part.armor.detachArmor(part.armor = part.armor)
 		var/obj/item/mod/armor/mod_theme_mining/A = new(src)
 		part.armor = part.armor.attachArmor(A.armor) //TODO: ANYTHING BUT FUCKING THIS
+		if(speed_up)
+			part.slowdown += speed_added / 5
 		qdel(A)
-	if(traveled_tiles == max_traveled_tiles)
-		mod.slowdown += speed_added
 	traveled_tiles = 0
 	mod.wearer.weather_immunities -= "ash"
-	mod.wearer.weather_immunities -= "lava"
 
 /obj/item/mod/module/ash_accretion/generate_worn_overlay(mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
@@ -365,32 +367,36 @@
 			return
 		traveled_tiles++
 		var/list/parts = mod.mod_parts + mod
-		for(var/obj/item/part as anything in parts)
-			part.armor = part.armor.attachArmor(armor_mod_2.armor)
+		var/speed_up = FALSE
 		if(traveled_tiles >= max_traveled_tiles)
 			to_chat(mod.wearer, "<span class='notice'>You are fully covered in ash!</span>")
 			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
 			animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
 			playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
-			actual_speed_added = max(0, min(mod.slowdown_active, speed_added))
-			mod.slowdown -= actual_speed_added
+			actual_speed_added = max(0, min(mod.slowdown_active, speed_added / 5))
 			mod.wearer.weather_immunities |= "ash"
-			mod.wearer.weather_immunities |= "lava"
+			speed_up = TRUE
+		for(var/obj/item/part as anything in parts)
+			part.armor = part.armor.attachArmor(armor_mod_2.armor)
+			if(speed_up)
+				part.slowdown -= speed_added / 5
 	else if(is_type_in_typecache(mod.wearer.loc, keep_turfs))
 		return
 	else
 		if(traveled_tiles <= 0)
 			return
+		var/speed_up = FALSE
 		if(traveled_tiles == max_traveled_tiles)
-			mod.slowdown += actual_speed_added
+			speed_up = TRUE
 		traveled_tiles--
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
 			part.armor = part.armor.detachArmor(armor_mod_2.armor)
+			if(speed_up)
+				part.slowdown += actual_speed_added
 		if(traveled_tiles <= 0)
 			to_chat(mod.wearer, "<span class='warning'>You have ran out of ash!</span>")
 			mod.wearer.weather_immunities -= "ash"
-			mod.wearer.weather_immunities -= "lava"
 
 /obj/effect/temp_visual/light_ash
 	icon_state = "light_ash"
@@ -401,18 +407,19 @@
 /obj/item/mod/module/sphere_transform
 	name = "MOD sphere transform module"
 	desc = "A module able to move the suit's parts around, turning it and the user into a sphere. \
-		The sphere can move quickly, even through lava, and launch mining bombs to decimate terrain."
+		The sphere can move quickly, and launch mining bombs to decimate terrain."
 	icon_state = "sphere"
 	module_type = MODULE_ACTIVE
 	removable = FALSE
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	incompatible_modules = list(/obj/item/mod/module/sphere_transform)
-	cooldown_time = 1.25 SECONDS
+	cooldown_time = 2 SECONDS
 	allow_flags = MODULE_ALLOW_INCAPACITATED //Required so hands blocked doesnt block bombs
 	/// Time it takes us to complete the animation.
 	var/animate_time = 0.25 SECONDS
-	/// List of traits to add/remove from our subject as needed.
+	// A second cooldown to keep people from breaking animation
+	var/on_second_cooldown = FALSE
 
 /obj/item/mod/module/sphere_transform/on_activation()
 	if(!has_gravity(get_turf(src)))
@@ -421,12 +428,16 @@
 	. = ..()
 	if(!.)
 		return
+	if(on_second_cooldown)
+		return
 	playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE)
 	mod.wearer.add_filter("mod_ball", 1, alpha_mask_filter(icon = icon('icons/mob/clothing/modsuit/mod_modules.dmi', "ball_mask"), flags = MASK_INVERSE))
 	mod.wearer.add_filter("mod_blur", 2, angular_blur_filter(size = 15))
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
 	animate(mod.wearer, animate_time, pixel_y = mod.wearer.pixel_y - 4, flags = ANIMATION_PARALLEL)
 	mod.wearer.SpinAnimation(1.5)
+	on_second_cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, on_second_cooldown, FALSE), 2 SECONDS)
 	ADD_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, "metriod[UID()]")
 	ADD_TRAIT(mod.wearer, TRAIT_GOTTAGOFAST, "metroid[UID()]")
 	RegisterSignal(mod.wearer, COMSIG_MOB_STATCHANGE, PROC_REF(on_statchange))
@@ -435,10 +446,14 @@
 	. = ..()
 	if(!.)
 		return
+	if(on_second_cooldown)
+		return
 	if(!deleting)
 		playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE, frequency = -1)
-	animate(mod.wearer, animate_time, pixel_y = mod.wearer.pixel_y + 4)
+	animate(mod.wearer, animate_time, pixel_y = 0)
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, remove_filter), list("mod_ball", "mod_blur", "mod_outline")), animate_time)
+	on_second_cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, on_second_cooldown, FALSE), 2 SECONDS)
 	REMOVE_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, "metriod[UID()]")
 	REMOVE_TRAIT(mod.wearer, TRAIT_GOTTAGOFAST, "metroid[UID()]")
 	UnregisterSignal(mod.wearer, COMSIG_MOB_STATCHANGE)

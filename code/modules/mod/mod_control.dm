@@ -247,7 +247,7 @@
 				M.put_in_active_hand(src)
 			else if(bag)
 				bag.forceMove(usr)
-				bag.attack_hand(usr)
+				bag.show_to(usr)
 
 			add_fingerprint(M)
 
@@ -262,6 +262,8 @@
 			return TRUE
 		wrench.play_tool_sound(src, 100)
 		if(!wrench.use_tool(src, user, 3 SECONDS) || !open)
+			return TRUE
+		if(!core)
 			return TRUE
 		wrench.play_tool_sound(src, 100)
 		core.forceMove(drop_location())
@@ -363,7 +365,7 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		core.on_attackby(attacking_item, user, params)
-	else if(bag && !istype(attacking_item))
+	else if(bag && istype(attacking_item))
 		bag.forceMove(user)
 		bag.attackby(attacking_item, user, params)
 
@@ -375,9 +377,26 @@
 	if(loc == user && user.back && user.back == src)
 		if(bag)
 			bag.forceMove(user)
-			bag.attack_hand(user)
+			bag.show_to(user)
 	else
 		..()
+
+/obj/item/mod/control/AltClick(mob/user)
+	. = ..()
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+		bag.forceMove(user)
+		bag.show_to(user)
+		playsound(loc, "rustle", 50, TRUE, -5)
+		add_fingerprint(user)
+
+/obj/item/mod/control/proc/can_be_inserted(I, stop_messages)
+	if(bag)
+		return bag.can_be_inserted(I, stop_messages)
+	return FALSE
+
+/obj/item/mod/control/proc/handle_item_insertion(I, prevent_warning)
+	if(bag)
+		bag.handle_item_insertion(I, prevent_warning)
 
 /obj/item/mod/control/get_cell()
 	if(!open)

@@ -53,9 +53,9 @@
 		break
 	for(var/obj/item/part as anything in mod_parts)
 		if(deploy && part.loc == src)
-			deploy(null, part)
+			deploy(null, part, TRUE)
 		else if(!deploy && part.loc != src)
-			retract(null, part)
+			retract(null, part, TRUE)
 	wearer.visible_message("<span class='notice'>[wearer]'s [src] [deploy ? "deploys" : "retracts"] its' parts with a mechanical hiss.</span>",
 		"<span class='notice'>[src] [deploy ? "deploys" : "retracts"] its' parts with a mechanical hiss.</span>",
 		"You hear a mechanical hiss.")
@@ -67,7 +67,7 @@
 	return TRUE
 
 /// Deploys a part of the suit onto the user.
-/obj/item/mod/control/proc/deploy(mob/user, obj/item/part)
+/obj/item/mod/control/proc/deploy(mob/user, obj/item/part, mass = FALSE)
 	if(part.loc != src)
 		if(!user)
 			return FALSE
@@ -82,7 +82,7 @@
 			RegisterSignal(part, COMSIG_ATOM_EXITED, PROC_REF(on_overslot_exit))
 	if(wearer.equip_to_slot_if_possible(part, slot_bitfield_to_slot(part.slot_flags), disable_warning = TRUE))
 		part.flags |= NODROP
-		if(!user)
+		if(mass)
 			return TRUE
 		wearer.visible_message("<span class='notice'>[wearer]'s [part.name] deploy[part.p_s()] with a mechanical hiss.</span>",
 			"<span class='notice'>[part] deploy[part.p_s()] with a mechanical hiss.</span>",
@@ -97,7 +97,7 @@
 	return FALSE
 
 /// Retract a part of the suit from the user.
-/obj/item/mod/control/proc/retract(mob/user, obj/item/part)
+/obj/item/mod/control/proc/retract(mob/user, obj/item/part, mass = FALSE)
 	if(part.loc == src)
 		if(!user)
 			return FALSE
@@ -112,7 +112,7 @@
 		if(!wearer.equip_to_slot_if_possible(overslot, slot_bitfield_to_slot(overslot.slot_flags), disable_warning = TRUE))
 			overslot.forceMove(get_turf(wearer))
 		overslotting_parts[part] = null
-	if(!user)
+	if(mass)
 		return
 	wearer.visible_message("<span class='notice'>[wearer]'s [part.name] retract[part.p_s()] back into [src] with a mechanical hiss.</span>",
 		"<span class='notice'>[part] retract[part.p_s()] back into [src] with a mechanical hiss.</span>",
@@ -157,27 +157,27 @@
 		module.on_deactivation(display_message = FALSE)
 	activating = TRUE
 	to_chat(wearer, "<span class='notice'>MODsuit [active ? "shutting down" : "starting up"].</span>")
-	if(do_after(wearer, activation_step_time, target = wearer))
+	if(do_after(wearer, activation_step_time, target = wearer, allow_moving = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>[boots] [active ? "relax their grip on your legs" : "seal around your feet"].</span>")
 			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			seal_part(boots, seal = !active)
-	if(do_after(wearer, activation_step_time, target = wearer))
+	if(do_after(wearer, activation_step_time, target = wearer, allow_moving = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>[gauntlets] [active ? "become loose around your fingers" : "tighten around your fingers and wrists"].</span>")
 			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			seal_part(gauntlets, seal = !active)
-	if(do_after(wearer, activation_step_time, target = wearer))
+	if(do_after(wearer, activation_step_time, target = wearer, allow_moving = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>[chestplate] [active ? "releases your chest" : "cinches tightly against your chest"].</span>")
 			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			seal_part(chestplate, seal = !active)
-	if(do_after(wearer, activation_step_time, target = wearer))
+	if(do_after(wearer, activation_step_time, target = wearer, allow_moving = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>[helmet] hisses [active ? "open" : "closed"].</span>")
 			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			seal_part(helmet, seal = !active)
-	if(do_after(wearer, activation_step_time, target = wearer))
+	if(do_after(wearer, activation_step_time, target = wearer, allow_moving = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>Systems [active ? "shut down. Parts unsealed. Goodbye" : "started up. Parts sealed. Welcome"], [wearer].</span>")
 			finish_activation(on = !active)

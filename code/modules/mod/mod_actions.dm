@@ -22,7 +22,7 @@
 
 /datum/action/item_action/mod/deploy
 	name = "Deploy MODsuit"
-	desc = "LMB: Deploy/Undeploy part. MMB: Deploy/Undeploy full suit."
+	desc = "LMB: Deploy/Undeploy full suit. MMB: Deploy/Undeploy part."
 	button_icon_state = "deploy"
 
 /datum/action/item_action/mod/deploy/Trigger(left_click, attack_self)
@@ -101,9 +101,7 @@
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
 		// clears check hands
 		check_flags = AB_CHECK_CONSCIOUS
-	name = "Activate [capitalize(linked_module.name)]"
-	desc = "Quickly activate [linked_module]."
-	Grant(user)
+	Grant(user, linked_module, user)
 
 /datum/action/item_action/mod/pinned_module/Destroy()
 	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))
@@ -111,11 +109,13 @@
 	module = null
 	return ..()
 
-/datum/action/item_action/mod/pinned_module/Grant(mob/user)
+/datum/action/item_action/mod/pinned_module/Grant(mob/user, obj/item/mod/module/linked_module, mob/user)
 	var/user_uid = UID(user)
 	if(!pinner_uid)
 		pinner_uid = user_uid
 		module.pinned_to[pinner_uid] = src
+		name = "Activate [capitalize(linked_module.name)]"
+		desc = "Quickly activate [linked_module]."
 	else if(pinner_uid != user_uid)
 		return
 	return ..()

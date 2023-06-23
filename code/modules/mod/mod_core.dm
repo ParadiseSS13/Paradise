@@ -146,7 +146,7 @@
 			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/emptycell)
 
 /obj/item/mod/core/standard/emp_act(severity)
-	cell.emp_act(severity)
+	cell?.emp_act(severity)
 
 /obj/item/mod/core/standard/proc/install_cell(new_cell)
 	cell = new_cell
@@ -241,8 +241,8 @@
 	var/maxcharge = 10000
 	/// How much charge we are currently storing.
 	var/charge = 10000
-	/// Associated list of charge sources and how much they charge, only stacks allowed.
-	var/list/charger_list = list(/obj/item/stack/ore/plasma = 1000, /obj/item/stack/sheet/mineral/plasma = 2000)
+	/// Associated list of charge sources, only stacks allowed.
+	var/list/charger_list = list(/obj/item/stack/ore/plasma, /obj/item/stack/sheet/mineral/plasma)
 
 /obj/item/mod/core/plasma/attackby(obj/item/attacking_item, mob/user, params)
 	if(charge_plasma(attacking_item, user))
@@ -287,12 +287,12 @@
 	charge_plasma(attacking_item, user)
 
 /obj/item/mod/core/plasma/proc/charge_plasma(obj/item/stack/plasma, mob/user)
-	var/charge_given = is_type_in_list(plasma, charger_list)
+	var/charge_given = charge_source(plasma, charger_list)
 	if(!charge_given)
 		return FALSE
-	var/uses_needed = min(plasma.amount, ((max_charge_amount() - charge_amount()) / charge_given))
+	var/uses_needed = min(plasma.amount, ((max_charge_amount() - charge_amount()) / 2000))
 	if(!plasma.use(uses_needed))
 		return FALSE
-	add_charge(uses_needed * charge_given)
+	add_charge(uses_needed * 2000)
 	to_chat(user, "<span class='notice'>You insert [plasma] in [src], recharging it.</span>")
 	return TRUE

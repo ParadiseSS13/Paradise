@@ -289,6 +289,10 @@
 
 	if(H.wear_suit)
 		ADD_SLOWDOWN(H.wear_suit.slowdown)
+	if(H.head)
+		ADD_SLOWDOWN(H.head.slowdown)
+	if(H.gloves)
+		ADD_SLOWDOWN(H.gloves.slowdown)
 	if(!H.buckled && H.shoes)
 		ADD_SLOWDOWN(H.shoes.slowdown)
 	if(H.back)
