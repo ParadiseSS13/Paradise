@@ -7894,6 +7894,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bGn" = (
@@ -9785,6 +9790,11 @@
 	d1 = 1;
 	d2 = 10;
 	icon_state = "1-10"
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 10;
+	icon_state = "4-10"
 	},
 /turf/simulated/floor/plating,
 /area/aisat/service)
@@ -12760,7 +12770,8 @@
 /obj/machinery/access_button{
 	name = "Gas Turbine Airlock Control";
 	pixel_x = -23;
-	pixel_y = -10
+	pixel_y = -10;
+	autolink_id = "gas_turbine_int_btn"
 	},
 /obj/structure/sign/fire{
 	pixel_y = 32
@@ -13132,6 +13143,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 5;
+	d2 = 8;
+	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
@@ -13796,10 +13812,11 @@
 /area/crew_quarters/fitness)
 "cKY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cLa" = (
@@ -17476,12 +17493,8 @@
 	},
 /area/hallway/primary/starboard)
 "dvM" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/carpet/green,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dvP" = (
 /obj/structure/cable{
@@ -23341,12 +23354,18 @@
 	name = "\improper Engine Containment"
 	})
 "eHK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "blue"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/blue{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
 /area/bridge)
 "eHL" = (
 /obj/effect/turf_decal/catwalk,
@@ -24553,6 +24572,11 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "deliveryblue"
 	},
@@ -25276,8 +25300,7 @@
 /area/maintenance/fsmaint2)
 "fbU" = (
 /obj/structure/bed,
-/obj/item/bedsheet/blue,
-/turf/simulated/floor/carpet/royalblue,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "fbV" = (
 /obj/structure/table/reinforced,
@@ -25390,6 +25413,11 @@
 	pixel_x = 28
 	},
 /obj/item/flash,
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "yellowcorner"
@@ -29519,9 +29547,6 @@
 /turf/space,
 /area/space/nearstation)
 "fUT" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/machinery/door_control{
 	id = "secmaintdorm3";
 	name = "Door Bolt Control";
@@ -29529,7 +29554,7 @@
 	pixel_x = 25;
 	specialfunctions = 4
 	},
-/turf/simulated/floor/carpet/royalblue,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "fUV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -37057,16 +37082,17 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "huR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/command/glass{
-	name = "Bridge";
-	req_access_txt = "19"
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "deliveryblue"
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
+/turf/simulated/floor/plasteel,
 /area/bridge)
 "huV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -38289,10 +38315,7 @@
 	dir = 1;
 	name = "Bridge Power Monitoring Computer"
 	},
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
+/obj/structure/cable/blue,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowfull"
@@ -39945,11 +39968,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/dorms)
-"hZI" = (
-/obj/structure/bed,
-/obj/item/bedsheet/green,
-/turf/simulated/floor/carpet/green,
-/area/maintenance/asmaint2)
 "hZX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -45354,15 +45372,11 @@
 /turf/simulated/floor/plating,
 /area/security/vacantoffice2)
 "jbt" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/obj/structure/table/wood,
 /obj/item/toy/pet_rock,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "jbu" = (
 /obj/structure/girder,
@@ -46075,14 +46089,6 @@
 "jjg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
-	},
-/obj/machinery/door_control{
-	id = "servicebed3";
-	name = "Door Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = -25;
-	pixel_y = 6;
-	specialfunctions = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -48736,14 +48742,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/machinery/door_control{
-	id = "servicebed2";
-	name = "Door Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = -25;
-	pixel_y = 6;
-	specialfunctions = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -50084,11 +50082,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/structure/cable/yellow{
-	d1 = 5;
-	d2 = 8;
-	icon_state = "5-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50171,17 +50164,12 @@
 	},
 /area/hallway/primary/central/se)
 "jYx" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "jYy" = (
@@ -54423,12 +54411,6 @@
 	},
 /area/quartermaster/storage)
 "kND" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/door/airlock{
 	id_tag = "secmaintdorm1";
 	name = "Room 1"
@@ -54436,7 +54418,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "kNG" = (
 /obj/structure/table,
@@ -59725,7 +59707,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "lRb" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "lRd" = (
@@ -61693,8 +61675,8 @@
 "mmz" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
-	d2 = 10;
-	icon_state = "4-10"
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/greengrid,
 /area/aisat/service)
@@ -65065,6 +65047,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -65522,11 +65509,6 @@
 /obj/machinery/computer/security/engineering{
 	dir = 1;
 	name = "Alerts camera monitor"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -66335,16 +66317,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
 "nkW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/carpet/green,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "nkX" = (
 /obj/machinery/hologram/holopad,
@@ -66664,17 +66640,11 @@
 	},
 /area/security/range)
 "noS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/door/airlock{
 	id_tag = "secmaintdorm3";
 	name = "Room 3"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "noX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -69271,6 +69241,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/economy/vending/atmosdrobe,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blueyellow"
@@ -71939,6 +71910,11 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "opY" = (
@@ -73525,11 +73501,6 @@
 "oHm" = (
 /obj/machinery/computer/station_alert{
 	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -76931,7 +76902,8 @@
 	layer = 3.1;
 	name = "Gas Turbine Airlock Control";
 	pixel_x = 23;
-	pixel_y = 10
+	pixel_y = 10;
+	autolink_id = "gas_turbine_ext_btn"
 	},
 /obj/structure/sign/fire{
 	pixel_y = -32
@@ -77510,6 +77482,11 @@
 	d1 = 4;
 	d2 = 6;
 	icon_state = "4-6"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 6;
+	icon_state = "1-6"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral2)
@@ -78728,17 +78705,11 @@
 	},
 /area/hallway/primary/central/north)
 "pIt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/door/airlock{
 	id_tag = "secmaintdorm2";
 	name = "Room 2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "pIz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden{
@@ -80737,13 +80708,12 @@
 	},
 /area/hallway/primary/starboard/north)
 "qdf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
@@ -81365,19 +81335,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "qjw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/item/storage/secure/safe{
 	pixel_y = 25
 	},
-/turf/simulated/floor/carpet/royalblue,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "qjy" = (
 /turf/simulated/floor/plasteel,
@@ -82552,6 +82516,11 @@
 	d1 = 1;
 	d2 = 10;
 	icon_state = "1-10"
+	},
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83814,11 +83783,6 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
 	d1 = 5;
 	d2 = 8;
 	icon_state = "5-8"
@@ -83945,7 +83909,7 @@
 /area/crew_quarters/sleep)
 "qLe" = (
 /obj/machinery/light/small,
-/obj/structure/dresser,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
 "qLj" = (
@@ -86850,6 +86814,9 @@
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -30
+	},
+/obj/item/reagent_containers/food/drinks/shaker{
+	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar)
@@ -91007,14 +90974,13 @@
 	},
 /area/hallway/primary/starboard/north)
 "sfA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/asmaint2)
+/area/bridge)
 "sfQ" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -91683,6 +91649,11 @@
 	pixel_y = 4
 	},
 /obj/item/storage/secure/briefcase,
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "snS" = (
@@ -92675,7 +92646,6 @@
 /turf/simulated/wall/r_wall,
 /area/security/hos)
 "sAb" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -92686,7 +92656,7 @@
 	pixel_x = 25;
 	specialfunctions = 4
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "sAe" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -93014,6 +92984,11 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Bridge East"
+	},
+/obj/structure/cable/blue{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -98343,21 +98318,21 @@
 /turf/simulated/floor/plating,
 /area/security/hos)
 "tDy" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 5;
-	icon_state = "2-5"
-	},
-/obj/structure/cable/yellow{
-	d1 = 5;
-	d2 = 8;
-	icon_state = "5-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
@@ -99481,14 +99456,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/machinery/door_control{
-	id = "servicebed1";
-	name = "Door Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = -25;
-	pixel_y = 6;
-	specialfunctions = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -100274,11 +100241,6 @@
 "tWy" = (
 /obj/machinery/computer/shuttle/mining{
 	dir = 1
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 9;
-	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -103739,11 +103701,11 @@
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "uFF" = (
-/obj/structure/rack{
-	dir = 1
+/obj/machinery/computer/monitor,
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
 	},
-/obj/item/multitool,
-/obj/item/aicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -105020,7 +104982,7 @@
 "uTq" = (
 /obj/structure/bed,
 /obj/item/bedsheet/patriot,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "uTr" = (
 /obj/machinery/light,
@@ -116867,10 +116829,15 @@
 	},
 /area/medical/genetics)
 "xdM" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/bridge)
 "xdT" = (
 /obj/structure/cable/green{
 	d1 = 2;
@@ -116919,6 +116886,15 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
+	},
+/obj/machinery/airlock_controller/access_controller{
+	name = "Engine Access Console";
+	req_one_access_txt = "10";
+	ext_door_link_id = "gas_turbine_exterior";
+	int_door_link_id = "Turbine Interior Airlock";
+	ext_button_link_id = "gas_turbine_ext_btn";
+	int_button_link_id = "gas_turbine_int_btn";
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
@@ -117887,11 +117863,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 6;
-	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -121151,12 +121122,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "xVx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/carpet/royalblue,
+/obj/structure/table,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "xVF" = (
 /turf/simulated/floor/plasteel{
@@ -121209,18 +121177,6 @@
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
 	})
-"xWf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/maintenance/asmaint2)
 "xWj" = (
 /obj/machinery/kitchen_machine/oven,
 /obj/machinery/light{
@@ -121348,9 +121304,6 @@
 /turf/simulated/floor/plating,
 /area/engine/controlroom)
 "xYo" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/machinery/door_control{
 	id = "secmaintdorm2";
 	name = "Door Bolt Control";
@@ -121358,7 +121311,7 @@
 	pixel_x = -24;
 	specialfunctions = 4
 	},
-/turf/simulated/floor/carpet/green,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "xYB" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -122533,6 +122486,10 @@
 /obj/machinery/power/terminal{
 	dir = 8
 	},
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/aicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -155902,8 +155859,8 @@ wys
 wDC
 dmf
 sDO
-bHW
-nZe
+huR
+sfA
 snO
 fdC
 hGG
@@ -156158,7 +156115,7 @@ vQK
 bQS
 qVZ
 oCy
-jzb
+eHK
 bHW
 ngv
 xVe
@@ -156409,11 +156366,11 @@ phC
 rWT
 puz
 qwa
-eHK
-huR
+rWT
+jec
 bGh
 opP
-qFi
+xdM
 eUS
 mWa
 mDB
@@ -160061,7 +160018,7 @@ veY
 jIn
 fYO
 sAb
-xWf
+gSr
 heu
 qjw
 fUT
@@ -160577,7 +160534,7 @@ klk
 cKY
 jYx
 qdf
-xdM
+sbU
 lRb
 fYO
 fBi
@@ -160834,7 +160791,7 @@ wPJ
 tkP
 sbU
 upo
-sfA
+wPJ
 qLe
 fYO
 fBi
@@ -161606,7 +161563,7 @@ heu
 sbU
 caP
 dvM
-hZI
+sbU
 fYO
 fBi
 fBi
