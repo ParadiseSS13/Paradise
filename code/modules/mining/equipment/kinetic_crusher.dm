@@ -101,7 +101,7 @@
 		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
 		D.firer = user
 		D.hammer_synced = src
-		playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, 1)
+		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, 1)
 		D.fire()
 		charged = FALSE
 		update_icon()
@@ -129,7 +129,7 @@
 				if(!QDELETED(C))
 					C.total_damage += detonation_damage + backstab_bonus //cheat a little and add the total before killing it, so certain mobs don't have much lower chances of giving an item
 				L.apply_damage(detonation_damage + backstab_bonus, BRUTE, blocked = def_check)
-				playsound(user, 'sound/weapons/kenetic_accel.ogg', 100, 1) //Seriously who spelled it wrong
+				playsound(user, 'sound/weapons/crusher_backstab.ogg', 130) //Seriously who spelled it wrong
 			else
 				if(!QDELETED(C))
 					C.total_damage += detonation_damage
@@ -139,7 +139,7 @@
 	if(!charged)
 		charged = TRUE
 		update_icon()
-		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+		playsound(src.loc, 'sound/weapons/crusher_reload.ogg', 135)
 
 /obj/item/twohanded/kinetic_crusher/ui_action_click(mob/user, actiontype)
 	light_on = !light_on
