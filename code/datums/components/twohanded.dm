@@ -203,9 +203,11 @@
 		return
 
 	if(user.l_arm_broken() || user.r_arm_broken())
+		if(require_twohands)
+			user.drop_item_ground(parent, force = TRUE)
 		if(world.time > antispam_timer + 0.1 SECONDS)
 			antispam_timer = world.time
-			to_chat(user, SPAN_WARNING("Вы чувствуете как двигаются кости, когда пытаетесь взять [parent]."))
+			to_chat(user, SPAN_WARNING("Вы чувствуете как двигаются кости, когда пытаетесь взять [parent] в обе руки."))
 		return
 
 	if(!user.has_left_hand() || !user.has_right_hand())
