@@ -25,7 +25,6 @@
 		/obj/item/pen,
 		/obj/item/photo,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/screwdriver,
 		/obj/item/stamp,
 		/obj/item/encryptionkey,
 		/obj/item/clothing/gloves/ring)
