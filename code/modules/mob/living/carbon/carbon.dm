@@ -22,7 +22,7 @@
 /mob/living/carbon/ghostize(can_reenter_corpse)
 	if(in_throw_mode)
 		toggle_throw_mode()
-	. = ..()
+	return ..()
 
 /mob/living/carbon/handle_atom_del(atom/A)
 	LAZYREMOVE(processing_patches, A)
