@@ -447,7 +447,7 @@
 	hunt_changelings.owner = ninja_mind
 	hunt_changelings.find_target()
 	ninja_mind.objectives += hunt_changelings
-	if(!length(SSticker.mode.changelings))//Если нет генокрадов, просто не даём цель
+	if(length(SSticker.mode.changelings) < hunt_changelings.req_kills) //If not enough changeling don't give target
 		GLOB.all_objectives -= hunt_changelings
 		ninja_mind.objectives -= hunt_changelings
 		qdel(hunt_changelings)
