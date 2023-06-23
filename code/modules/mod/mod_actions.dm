@@ -95,13 +95,15 @@
 	var/pinner_uid
 
 /datum/action/item_action/mod/pinned_module/New(Target, custom_icon, custom_icon_state, obj/item/mod/module/linked_module, mob/user)
+	name = "Activate [capitalize(linked_module.name)]"
+	desc = "Quickly activate [linked_module]."
 	..()
 	module = linked_module
 	button_icon_state = module.icon_state
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
 		// clears check hands
 		check_flags = AB_CHECK_CONSCIOUS
-	Grant(user, linked_module, user)
+	Grant(user)
 
 /datum/action/item_action/mod/pinned_module/Destroy()
 	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))
@@ -109,13 +111,11 @@
 	module = null
 	return ..()
 
-/datum/action/item_action/mod/pinned_module/Grant(mob/user, obj/item/mod/module/linked_module, mob/user)
+/datum/action/item_action/mod/pinned_module/Grant(mob/user)
 	var/user_uid = UID(user)
 	if(!pinner_uid)
 		pinner_uid = user_uid
 		module.pinned_to[pinner_uid] = src
-		name = "Activate [capitalize(linked_module.name)]"
-		desc = "Quickly activate [linked_module]."
 	else if(pinner_uid != user_uid)
 		return
 	return ..()

@@ -13,7 +13,7 @@
 	new /obj/item/areaeditor/blueprints/ce(src)
 	new /obj/item/storage/box/permits(src)
 	new /obj/item/storage/bag/garment/chief_engineer(src)
-	new /obj/item/tank/jetpack/suit(src)
+	new /obj/item/mod/module/jetpack/advanced(src)
 	new /obj/item/cartridge/ce(src)
 	new /obj/item/radio/headset/heads/ce(src)
 	new /obj/item/storage/toolbox/mechanical(src)

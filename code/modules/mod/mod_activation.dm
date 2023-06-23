@@ -113,7 +113,7 @@
 			overslot.forceMove(get_turf(wearer))
 		overslotting_parts[part] = null
 	if(mass)
-		return
+		return TRUE
 	wearer.visible_message("<span class='notice'>[wearer]'s [part.name] retract[part.p_s()] back into [src] with a mechanical hiss.</span>",
 		"<span class='notice'>[part] retract[part.p_s()] back into [src] with a mechanical hiss.</span>",
 		"You hear a mechanical hiss.")

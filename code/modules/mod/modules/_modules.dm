@@ -306,7 +306,10 @@
 	if(module_type == MODULE_PASSIVE)
 		return
 	if(length(pinned_to))
-		QDEL_LIST_CONTENTS(pinned_to)
+		for(var/datum/action/item_action/mod/pinned_module/M in user.actions)
+			if(M.module == src)
+				M.Remove(user)
+		pinned_to = list()
 		return
 	var/datum/action/item_action/mod/pinned_module/new_action = new(Target = mod, custom_icon = src.icon, custom_icon_state = src.icon_state, linked_module = src, user = user)
 	to_chat(user, "[new_action] is now pinned to the UI!")

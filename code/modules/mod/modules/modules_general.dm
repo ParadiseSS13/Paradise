@@ -29,10 +29,10 @@
 	bag.forceMove(mod)
 
 /obj/item/mod/module/storage/on_uninstall(deleting = FALSE)
-	qdel(bag)
 	if(!deleting)
 		for(var/obj/I in bag.contents)
 			I.forceMove(get_turf(loc))
+	qdel(bag)
 	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
 
 
@@ -141,6 +141,7 @@
 	overlay_state_active = "module_jetpackadv_on"
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.25
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
+	origin_tech = "materials=4;magnets=4;engineering=5" //To replace the old hardsuit upgrade jetpack levels.
 
 ///EMP Shield - Protects the suit from EMPs.
 /obj/item/mod/module/emp_shield
