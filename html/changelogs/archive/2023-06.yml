@@ -188,6 +188,7 @@
   - add: new megafauna - "Vetus Speculator" (#2934)
   ReloadKey:
   - bugfix: Some fixes for PR "Major Centcomm.dmm Update" (#3039)
+  - bugfix: Return clothes vendings icons in vending.dmi (#3043)
   Rerik007:
   - refactor: mecha atmos module (#2996)
   - bugfix: no fracture after saw step (#3037)
@@ -199,3 +200,32 @@
   Сиротка:
   - refactor: Heal aura (#3009)
   - add: DNA TTS (#3008)
+'2023-06-20':
+  Albonix:
+  - add: new sprites for aps and uzi (#3046)
+  NightDawnFox:
+  - add: security radio, sprites for security crowbar (#3026)
+  - tweak: 1.5 seconds use charge for lavaland cubes (#3034)
+  ReloadKey:
+  - add: Emitter Cannon and for emagged engi borgs (#3015)
+  Rerik007:
+  - bugfix: typo in cryo go_out verb (#3040)
+'2023-06-23':
+  DeDerevce:
+  - tweak: no more screwdrivers in wallet (#3045)
+  NightDawnFox:
+  - tweak: blob overmind icon now opaque (#3044)
+  - add: blob captures nuke instead of deleting (#2998)
+  - add: add null crate order limit in cargo (#3056)
+  - add: ghosts visible after GT (#3050)
+  Rerik007:
+  - bugfix: spacedragon.dmi metadata (#3065)
+  Zwei:
+  - qol: Equip PDA To Appropriate Slot (#3055)
+  - bugfix: Ninja's Vermit Hunt (#3049)
+  - bugfix: Bubblegum Hallucination (#3047)
+  captainnelly:
+  - tweak: increase hardsuit equip sould volume (#3054)
+  - add: new crusher sounds (#3052)
+  Сиротка:
+  - tweak: Sharp bolts (#3053)
