@@ -28,7 +28,6 @@
 	log_game("[key_name_admin(demon)] was spawned as a [initial(demon.name)] by an event.")
 
 /datum/event/spawn_pulsedemon/proc/get_spawn_loc()
-	RETURN_TYPE(/turf)
 	var/list/spawn_centers = list()
 	for(var/datum/regional_powernet/P in SSmachines.powernets)
 		for(var/obj/structure/cable/C in P.cables)
