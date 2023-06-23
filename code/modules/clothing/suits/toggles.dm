@@ -46,7 +46,7 @@
 		H.transfer_item_to_loc(helmet, src, TRUE)
 		H.update_inv_wear_suit()
 		to_chat(H, "<span class='notice'>The helmet on the hardsuit disengages.</span>")
-		playsound(src.loc, 'sound/items/rig_retract.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/rig_retract.ogg', 110, 1)
 	else
 		helmet.forceMove(src)
 
@@ -60,7 +60,7 @@
 		to_chat(H, "<span class='notice'>You engage the helmet on the hardsuit.</span>")
 		suittoggled = TRUE
 		H.update_inv_wear_suit()
-		playsound(src.loc, 'sound/items/rig_deploy.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/rig_deploy.ogg', 110, 1)
 
 /obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet()
 	var/mob/living/carbon/human/H = src.loc
