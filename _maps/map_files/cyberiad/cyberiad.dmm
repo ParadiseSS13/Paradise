@@ -43870,6 +43870,11 @@
 "cjd" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "cjf" = (
@@ -56916,6 +56921,11 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "cVo" = (
@@ -57200,12 +57210,22 @@
 "cWm" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "cWn" = (
 /obj/structure/closet/crate,
 /obj/item/vending_refill/cargodrobe,
 /obj/item/vending_refill/boozeomat,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "cWo" = (
@@ -67245,6 +67265,21 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"fwx" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint2)
 "fwy" = (
 /obj/item/chair/stool,
 /obj/effect/decal/cleanable/dirt,
@@ -67375,6 +67410,11 @@
 "fzF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint2)
 "fAw" = (
@@ -79421,6 +79461,15 @@
 	icon_state = "dark"
 	},
 /area/medical/cmo)
+"ogW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/apmaint2)
 "ohJ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 4
@@ -79856,6 +79905,15 @@
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"oxk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/apmaint2)
 "oxp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -81565,6 +81623,11 @@
 	id_tag = "maint_house"
 	},
 /obj/structure/barricade/wooden,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "pAH" = (
@@ -116922,7 +116985,7 @@ aaa
 aaa
 cUc
 iZq
-cUh
+ogW
 cVn
 cLi
 rEZ
@@ -117180,7 +117243,7 @@ cOx
 cQy
 cLi
 cZw
-cUh
+ogW
 cWn
 cLi
 aaa
@@ -118209,7 +118272,7 @@ xSq
 cNB
 rMq
 tEU
-cNB
+cUf
 cLi
 aaa
 aab
@@ -118723,7 +118786,7 @@ nVM
 rNN
 cRG
 tfD
-cNB
+cUf
 xsP
 cOx
 cOx
@@ -118980,7 +119043,7 @@ qWJ
 cNB
 cUh
 cNB
-cUh
+oxk
 tdf
 cZw
 cmg
@@ -119237,7 +119300,7 @@ gST
 vLT
 bkr
 pUZ
-vLT
+fwx
 vjx
 lmM
 pon
