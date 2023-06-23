@@ -67,7 +67,7 @@
 		return FALSE
 
 	var/priority_list = list( \
-		slot_back, slot_wear_id, slot_wear_pda, \
+		slot_back, slot_wear_pda, slot_wear_id, \
 		slot_w_uniform, slot_wear_suit, slot_wear_mask, \
 		slot_neck, slot_glasses, slot_l_ear, \
 		slot_r_ear, slot_head, slot_belt, \
