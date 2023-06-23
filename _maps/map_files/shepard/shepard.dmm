@@ -13813,7 +13813,6 @@
 "cKY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -17494,7 +17493,7 @@
 /area/hallway/primary/starboard)
 "dvM" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
 "dvP" = (
 /obj/structure/cable{
@@ -23353,20 +23352,6 @@
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
 	})
-"eHK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/blue{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "eHL" = (
 /obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -29554,7 +29539,7 @@
 	pixel_x = 25;
 	specialfunctions = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
 "fUV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -39968,6 +39953,16 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/dorms)
+"hZI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/blue{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/bridge)
 "hZX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -66320,7 +66315,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
 "nkX" = (
 /obj/machinery/hologram/holopad,
@@ -81341,6 +81336,7 @@
 /obj/item/storage/secure/safe{
 	pixel_y = 25
 	},
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "qjy" = (
@@ -92648,13 +92644,6 @@
 "sAb" = (
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/machinery/door_control{
-	id = "secmaintdorm1";
-	name = "Door Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = 25;
-	specialfunctions = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -116829,12 +116818,16 @@
 	},
 /area/medical/genetics)
 "xdM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /obj/structure/cable/blue{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -121311,7 +121304,7 @@
 	pixel_x = -24;
 	specialfunctions = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
 "xYB" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -156115,7 +156108,7 @@ vQK
 bQS
 qVZ
 oCy
-eHK
+xdM
 bHW
 ngv
 xVe
@@ -156370,7 +156363,7 @@ rWT
 jec
 bGh
 opP
-xdM
+hZI
 eUS
 mWa
 mDB
@@ -160274,7 +160267,7 @@ qvo
 veY
 wPJ
 heu
-heu
+fYO
 kND
 fYO
 noS
@@ -161563,7 +161556,7 @@ heu
 sbU
 caP
 dvM
-sbU
+wPJ
 fYO
 fBi
 fBi
