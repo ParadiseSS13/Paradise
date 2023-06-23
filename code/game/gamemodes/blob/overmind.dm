@@ -8,6 +8,7 @@
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	invisibility = INVISIBILITY_OBSERVER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 	pass_flags = PASSBLOB
 	faction = list(ROLE_BLOB)
