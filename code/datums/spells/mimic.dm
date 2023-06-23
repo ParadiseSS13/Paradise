@@ -121,6 +121,7 @@
 		user.pixel_y = initial(user.pixel_y)
 		user.pixel_x = initial(user.pixel_x)
 		user.layer = MOB_LAYER // Avoids weirdness when mimicing something below the vent layer
+		user.density = form.density
 
 	playsound(user, "bonebreak", 75, TRUE)
 	show_change_form_message(user, old_name, "[user]")
@@ -150,6 +151,7 @@
 		user.name = initial(user.name)
 		user.desc = initial(user.desc)
 		user.color = initial(user.color)
+		user.density = initial(user.density)
 
 	playsound(user, "bonebreak", 150, TRUE)
 	if(show_message)
@@ -182,12 +184,16 @@
 	var/examine_text
 	/// What the name of the form is
 	var/name
+	/// What's the density of this form?
+	var/density
+	/// What's the special abilities of this form?
+	var/special_abilites
 
 /datum/mimic_form/New(atom/movable/form, mob/user)
 	appearance = form.appearance
 	examine_text = form.examine(user)
 	name = form.name
-
+	density = form.density
 
 /obj/effect/proc_holder/spell/mimic/morph
 	action_background_icon_state = "bg_morph"

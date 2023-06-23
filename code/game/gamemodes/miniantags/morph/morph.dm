@@ -210,6 +210,11 @@
 	if(!.)
 		return FALSE
 
+/mob/living/simple_animal/hostile/morph/CanPass(atom/movable/mover, turf/target, height)
+	. = ..()
+	if(istype(mover, /obj/item/projectile)) // You're getting shot no matter what
+		return FALSE
+
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/M)
 	if(ambush_prepared)
 		to_chat(M, "<span class='warning'>[src] feels a bit different from normal... it feels more.. </span><span class='userdanger'>SLIMEY?!</span>")
@@ -220,15 +225,21 @@
 #define MORPH_ATTACKED if((. = ..()) && morphed) mimic_spell.restore_form(src)
 
 /mob/living/simple_animal/hostile/morph/attackby(obj/item/O, mob/living/user)
-	if(user.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(user, "<span class='warning'>You try to use [O] on [src]... it seems different than no-</span>")
+	if(ambush_prepared)
+		if(user.a_intent == INTENT_HELP)
+			to_chat(user, "<span class='warning'>You try to use [O] on [src]... it seems different than no-</span>")
+		else
+			to_chat(user, "<span class='warning'>You strike [src], but [src] strikes back!</span>")
 		ambush_attack(user, TRUE)
 		return TRUE
 	MORPH_ATTACKED
 
 /mob/living/simple_animal/hostile/morph/attack_animal(mob/living/simple_animal/M)
-	if(M.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(M, "<span class='notice'>You nuzzle [src].</span><span class='danger'> And [src] nuzzles back!</span>")
+	if(ambush_prepared)
+		if(M.a_intent == INTENT_HELP)
+			to_chat(M, "<span class='notice'>You nuzzle [src].</span><span class='danger'> And [src] nuzzles back!</span>")
+		else
+			to_chat(M, "<span class='notice'>[M] [M.attacktext] [src].</span><span class='danger'> And [src] [M.attacktext] back!</span>")
 		ambush_attack(M, TRUE)
 		return TRUE
 	MORPH_ATTACKED
