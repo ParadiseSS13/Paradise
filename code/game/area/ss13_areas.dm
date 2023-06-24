@@ -1194,6 +1194,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Engineering Control Room"
 	icon_state = "engine_monitoring"
 
+/area/engine/enginetech
+	name = "\improper Engine Tech Locker room"
+	icon_state = "engilocker"
+
+/area/engine/mainttech
+	name = "\improper Maintenance Tech Locker room"
+	icon_state = "engilocker"
 /area/engine/gravitygenerator
 	name = "\improper Gravity Generator"
 	icon_state = "gravgen"

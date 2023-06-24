@@ -122,3 +122,49 @@
 	new /obj/item/clothing/glasses/meson/engine/tray(src)
 	new /obj/item/rpd(src)
 	new /obj/item/destTagger(src)
+
+/obj/structure/closet/secure_closet/mainttech_personal
+	name = "maintenance tech's locker"
+	req_access = list(ACCESS_MAINTENANCE_TECH)
+	icon_state = "eng_secure"
+	open_door_sprite = "eng_secure_door"
+
+/obj/structure/closet/secure_closet/engineering_personal/populate_contents()
+	if(prob(50))
+		new /obj/item/storage/backpack/industrial(src)
+	else
+		new /obj/item/storage/backpack/satchel_eng(src)
+	new /obj/item/storage/backpack/duffel/engineering(src)
+	new /obj/item/storage/toolbox/mechanical(src)
+	new /obj/item/holosign_creator/engineering(src)
+	new /obj/item/radio/headset/headset_eng(src)
+	new /obj/item/clothing/under/rank/engineering/mainttech(src)
+	new /obj/item/clothing/under/rank/engineering/engineer/skirt(src)
+	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/clothing/head/beret/eng(src)
+
+/obj/structure/closet/secure_closet/enginetechtech_personal
+	name = "maintenance tech's locker"
+	req_access = list(ACCESS_CONTROL_ROOM)
+	icon_state = "eng_secure"
+	open_door_sprite = "eng_secure_door"
+
+/obj/structure/closet/secure_closet/engineering_personal/populate_contents()
+	new /obj/item/storage/backpack/industrial(src)
+	new /obj/item/storage/backpack/satchel_eng(src)
+	new /obj/item/storage/backpack/duffel/engineering(src)
+	new /obj/item/holosign_creator/engineering(src)
+	new /obj/item/holosign_creator/atmos(src)
+	new /obj/item/radio/headset/headset_eng(src)
+	new /obj/item/clothing/under/rank/engineering/enginetech(src)
+	new /obj/item/clothing/under/rank/engineering/engineer/skirt(src)
+	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/geiger_counter(src)
+	new /obj/item/clothing/suit/radiation(src)
+	new /obj/item/clothing/head/radiation(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
