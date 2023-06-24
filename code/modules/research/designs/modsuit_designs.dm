@@ -307,7 +307,7 @@
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/active_sonar
 
-/datum/design/module/mod_sonar
+/datum/design/module/pathfinder
 	name = "Pathfinder Module"
 	id = "mod_pathfinder"
 	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 5)
