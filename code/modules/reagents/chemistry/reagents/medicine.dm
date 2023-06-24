@@ -829,20 +829,23 @@
 	overdose_threshold = 15
 
 /datum/reagent/medicine/sanguine_reagent/on_mob_life(mob/living/M)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+	if(!ishuman(M))
+		return
 
-		if(NO_BLOOD in H.dna.species.species_traits)
-			return ..()
+	var/mob/living/carbon/human/H = M
 
-		if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-			switch(current_cycle)
-				if(1)
-					H.blood_volume += 1
-				if(2 to 25)
-					H.blood_volume += 3
-				else
-					H.blood_volume += 5
+	if(NO_BLOOD in H.dna.species.species_traits)
+		return ..()
+
+	if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+		switch(current_cycle)
+			if(1)
+				H.blood_volume += 1
+			if(2 to 25)
+				H.blood_volume += 3
+			else
+				H.blood_volume += 5
+
 	return ..()
 
 /datum/reagent/medicine/sanguine_reagent/overdose_process(mob/living/M, severity)
