@@ -165,6 +165,8 @@
 #define ui_ghost_respawn_mob "SOUTH:6+1,CENTER+1.5"
 #define ui_ghost_respawn_pai "SOUTH:6+2,CENTER+1.5"
 
+#define ui_holomap "CENTER-7,CENTER-7"
+
 //HUD styles. Please ensure HUD_VERSIONS is the same as the maximum index. Index order defines how they are cycled in F12.
 #define HUD_STYLE_STANDARD 1
 #define HUD_STYLE_REDUCED 2
