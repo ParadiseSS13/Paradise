@@ -213,8 +213,8 @@
 /turf/simulated/floor/catwalk
 	name = "catwalk"
 	desc = "A catwalk for easier inspection of cable and pipe installations."
-	icon = 'icons/obj/smooth_structures/catwalk.dmi'
-	icon_state = "catwalk-0"
+	icon = 'icons/turf/floors/catwalk_floor.dmi'
+	icon_state = "catwalk"
 	base_icon_state = "catwalk"
 	baseturf = /turf/simulated/floor/plating
 	floor_tile = /obj/item/stack/tile/catwalk
