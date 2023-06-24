@@ -27,7 +27,7 @@
 	// By default, while inside a box, we move at walk speed times the speed multipler of the box.
 	var/delay = GLOB.configuration.movement.base_walk_speed * move_speed_multiplier
 	if(IS_DIR_DIAGONAL(direction))
-		delay *= 2 // Moving diagonal counts as moving 2 tiles, we need to slow them down accordingly.
+		delay *= SQRT_2 // Moving diagonal counts as moving 2 tiles, we need to slow them down accordingly.
 	if(oldloc != loc)
 		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), delay)
 	else

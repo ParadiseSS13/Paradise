@@ -83,7 +83,7 @@
 	if(!istype(owner.loc, /obj/structure/closet/cardboard/agent))
 		return
 	var/obj/structure/closet/cardboard/agent/box = owner.loc
-	owner.visible_message("<span class='danger'>[owner] falls out of [box]! It looks like [owner.p_they()] committed suicide!</span>")
+	owner.visible_message("<span class='suicide'>[owner] falls out of [box]! It looks like [owner.p_they()] committed suicide!</span>")
 	owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
 	INVOKE_ASYNC(box, TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, open))
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/atom/movable, throw_at), get_turf(owner))
@@ -105,9 +105,8 @@
 	var/image/box_img
 
 /obj/structure/closet/cardboard/agent/Destroy()
-	if(implant_user_UID)
-		var/mob/living/implant_user = locateUID(implant_user_UID)
-		implant_user.client?.images -= box_img
+	var/mob/living/implant_user = locateUID(implant_user_UID)
+	implant_user?.client?.images -= box_img
 	QDEL_NULL(fake_box)
 	QDEL_NULL(box_img)
 	return ..()
