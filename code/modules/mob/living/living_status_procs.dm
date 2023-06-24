@@ -437,6 +437,19 @@ STATUS EFFECTS
 /mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSilence(directional_bounded_sum(AmountSilenced(), amount, bound_lower, bound_upper))
 
+//DEAFNESS
+/mob/living/proc/AmountDeaf()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DEAF)
+
+/mob/living/proc/Deaf(amount)
+	SetDeaf(max(amount, AmountDeaf()))
+
+/mob/living/proc/SetDeaf(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DEAF, amount)
+
+/mob/living/proc/AdjustDeaf(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDeaf(directional_bounded_sum(AmountDeaf(), amount, bound_lower, bound_upper))
+
 // SLEEPING
 /mob/living/proc/IsSleeping()
 	return has_status_effect(STATUS_EFFECT_SLEEPING)

@@ -652,11 +652,10 @@
 				E.heal_internal_damage(1)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
-				ears.AdjustEarDamage(-1)
+				ears.heal_internal_damage(1)
 				if(ears.damage < 25 && prob(30))
-					ears.deaf = 0
+					C.SetDeaf(0)
 		M.AdjustEyeBlurry(-2 SECONDS)
-		update_flags |= M.AdjustEarDamage(-1)
 	if(prob(50))
 		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
 	if(prob(30))

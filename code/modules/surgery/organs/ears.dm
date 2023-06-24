@@ -4,14 +4,6 @@
 	gender = PLURAL
 	organ_tag = "ears"
 	parent_organ = "head"
-	slot = "ears"
-
-	// `deaf` measures "ticks" of deafness. While > 0, the person is deaf.
-	var/deaf = 0
-
-
-	// Multiplier for both long term and short term ear damage
-	var/damage_multiplier = 1
 
 /obj/item/organ/internal/ears/on_life()
 	if(!iscarbon(owner))
@@ -23,40 +15,17 @@
 		return
 
 	if(status & ORGAN_DEAD)
-		deaf = max(deaf, 1) // if we're failing we always have at least 1 deaf stack (and thus deafness)
+		C.Deaf(2 SECONDS)
 	else
-		deaf = max(deaf - 1, 0)
 		if((damage > 10) && prob(damage / 30))
-			AdjustEarDamage(0, 4)
+			C.Deaf(4 SECONDS)
 			SEND_SOUND(owner, sound('sound/weapons/flash_ring.ogg'))
 
-	if(deaf)
-		ADD_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
-	else
-		REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
 
-
-/obj/item/organ/internal/ears/proc/RestoreEars()
-	deaf = 0
-	damage = 0
-
-/obj/item/organ/internal/ears/proc/AdjustEarDamage(ddmg, ddeaf)
-	receive_damage(ddmg * damage_multiplier)
-	deaf = max(deaf + (ddeaf * damage_multiplier), 0)
 
 /obj/item/organ/internal/ears/surgeryize()
-	RestoreEars()
-
-// Mob procs
-/mob/living/carbon/RestoreEars()
-	var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
-	if(ears)
-		ears.RestoreEars()
-
-/mob/living/carbon/AdjustEarDamage(ddmg, ddeaf)
-	var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
-	if(ears)
-		ears.AdjustEarDamage(ddmg, ddeaf)
+	owner.SetDeaf(0)
+	heal_internal_damage(100)
 
 /obj/item/organ/internal/ears/cybernetic
 	name = "cybernetic ears"
@@ -64,7 +33,6 @@
 	desc = "a basic cybernetic designed to mimic the operation of ears."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
-	damage_multiplier = 0.9
 
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)
 	if(emp_proof)

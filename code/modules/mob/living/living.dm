@@ -483,7 +483,7 @@
 	CureNervous()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
-	RestoreEars()
+	SetDeaf(0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	SEND_SIGNAL(src, COMSIG_LIVING_CLEAR_STUNS)

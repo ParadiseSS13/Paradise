@@ -62,11 +62,12 @@
 				M.KnockDown(10 SECONDS)
 			if(!ear_safety)
 				M.KnockDown(status_duration)
-				M.AdjustEarDamage(5, 15)
+				M.Deaf(30 SECONDS)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
 					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 					if(istype(ears))
+						ears.receive_damage(5)
 						if(ears.damage >= 15)
 							to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 							if(prob(ears.damage - 5))
