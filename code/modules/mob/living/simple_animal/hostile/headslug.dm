@@ -106,6 +106,7 @@
 
 		cling.give_power(new /datum/action/changeling/humanform)
 		M.key = origin.key
+		M.revive() // better make sure some weird shit doesn't happen, because it has in the past
 	owner.gib()
 
 #undef EGG_INCUBATION_DEAD_TIME

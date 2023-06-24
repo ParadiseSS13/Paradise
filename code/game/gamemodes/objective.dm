@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!target.current || !isbrain(target.current))
 		return FALSE
 	for(var/datum/mind/M in get_owners())
-		if(QDELETED(M.current) || M.current.stat == DEAD)
+		if(QDELETED(M.current))
 			continue // Maybe someone who's alive has the brain.
 		if(target.current in M.current.GetAllContents())
 			return TRUE
@@ -506,6 +506,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				has_invalid_owner = TRUE
 				break
 		if(has_invalid_owner)
+			continue
+		if(!O.check_objective_conditions())
 			continue
 		if(O.flags & 2) // THEFT_FLAG_UNIQUE
 			continue

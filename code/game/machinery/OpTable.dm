@@ -5,6 +5,7 @@
 	icon_state = "table2-idle"
 	density = TRUE
 	anchored = TRUE
+	interact_offline = TRUE
 	idle_power_consumption = 1
 	active_power_consumption = 5
 	can_buckle = TRUE // you can buckle someone if they have cuffs
@@ -63,6 +64,7 @@
 	if(!user_buckle_mob(O, user, check_loc = FALSE))
 		return
 	take_patient(O, user)
+	return TRUE
 
 /**
   * Updates the `patient` var to be the mob occupying the table
