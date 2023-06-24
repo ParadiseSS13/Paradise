@@ -389,10 +389,12 @@
 	SIGNAL_HANDLER
 
 	if(!dna_check(user))
+		atom_say("ERROR: User not match owner DNA")
 		return MOD_CANCEL_ACTIVATE
 
 /obj/item/mod/module/dna_lock/proc/on_mod_removal(datum/source, mob/user)
 	SIGNAL_HANDLER
 
 	if(!dna_check(user))
+		atom_say("ERROR: User not match owner DNA")
 		return MOD_CANCEL_REMOVAL
