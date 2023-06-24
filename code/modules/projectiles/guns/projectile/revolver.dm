@@ -159,7 +159,7 @@
 /obj/item/gun/projectile/revolver/overgrown
 	name = "Overgrown revolver"
 	desc = "A bulky revolver that seems to be made out of a plant."
-	icon_state = "revolver"
+	icon_state = "pea_shooter"
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=3;biotech=5"
 	can_holster = TRUE
