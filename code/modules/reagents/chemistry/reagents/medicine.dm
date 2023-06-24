@@ -832,7 +832,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 
-		if(!(NO_BLOOD in H.dna.species.species_traits))
+		if(NO_BLOOD in H.dna.species.species_traits)
 			return ..()
 
 		if(H.blood_volume < BLOOD_VOLUME_NORMAL)
