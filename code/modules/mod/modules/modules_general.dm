@@ -33,6 +33,7 @@
 		for(var/obj/I in bag.contents)
 			I.forceMove(get_turf(loc))
 		bag.forceMove(src)
+		mod.bag = null
 		return
 	qdel(bag)
 	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
