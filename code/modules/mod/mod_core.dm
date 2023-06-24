@@ -287,7 +287,7 @@
 	charge_plasma(attacking_item, user)
 
 /obj/item/mod/core/plasma/proc/charge_plasma(obj/item/stack/plasma, mob/user)
-	var/charge_given = charge_source(plasma, charger_list)
+	var/charge_given = is_type_in_list(plasma, charger_list)
 	if(!charge_given)
 		return FALSE
 	var/uses_needed = min(plasma.amount, ((max_charge_amount() - charge_amount()) / 2000))

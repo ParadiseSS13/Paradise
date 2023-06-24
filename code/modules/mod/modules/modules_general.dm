@@ -23,6 +23,7 @@
 	bag.max_w_class = max_w_class
 	bag.max_combined_w_class = max_combined_w_class
 	bag.storage_slots = max_items
+	bag.source = src
 
 /obj/item/mod/module/storage/on_install()
 	mod.bag = bag
@@ -41,6 +42,10 @@
 /obj/item/mod/module/storage/on_suit_deactivation(deleting)
 	. = ..()
 	bag.forceMove(src) //So the pinpointer doesnt lie.
+
+/obj/item/mod/module/storage/on_unequip()
+	. = ..()
+	bag.forceMove(src)
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
@@ -77,7 +82,7 @@
 	name = "MOD bluespace storage module"
 	desc = "A storage system developed by Nanotrasen, these compartments employ \
 		miniaturized bluespace pockets for the ultimate in storage technology; regardless of the weight of objects put inside."
-	icon_state = "storage_large"
+	icon_state = "storage_bluespace"
 	max_w_class = WEIGHT_CLASS_GIGANTIC
 	max_combined_w_class = 60
 	max_items = 21
@@ -87,8 +92,28 @@
 /obj/item/storage/backpack/modstorage
 	name = "mod's storage"
 	desc = "Either you tried to spawn a storage mod, or someone fucked up. Unless you are an admin that just tried to spawn something, issue report."
+	var/obj/item/mod/module/storage/source
 
-///Ion Jetpack - Lets the user fly freely through space using battery charge. //Battery? Are you insane? Anyway, disabled to compile
+/obj/item/storage/backpack/modstorage/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/storage/backpack/modstorage/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/storage/backpack/modstorage/process()
+	update_viewers()
+
+/obj/item/storage/backpack/modstorage/update_viewers()
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)) && (source.mod.loc == _M || (M in range(1, source.mod)))) //This ensures someone isn't taking it away from the mod unit
+			continue
+		hide_from(M)
+
+
+///Ion Jetpack - Lets the user fly freely through space using battery charge.
 /obj/item/mod/module/jetpack
 	name = "MOD ion jetpack module"
 	desc = "A series of electric thrusters installed across the suit, this is a module highly anticipated by trainee Engineers. \
