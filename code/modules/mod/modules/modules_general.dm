@@ -398,3 +398,23 @@
 	if(!dna_check(user))
 		atom_say("ERROR: User does not match owner DNA")
 		return MOD_CANCEL_REMOVAL
+
+///Plasma Stabilizer - Prevents plasmamen from igniting in the suit
+/obj/item/mod/module/plasma_stabilizer
+	name = "MOD plasma stabilizer module"
+	desc = "This system essentially forms an atmosphere of its own, within the suit, \
+		efficiently and quickly preventing oxygen from causing the user's head to burst into flame. \
+		This allows plasmamen to safely remove their helmet, allowing for easier \
+		equipping of any MODsuit-related equipment, or otherwise. \
+		The purple glass of the visor seems to be constructed for nostalgic purposes."
+	icon_state = "plasma_stabilizer"
+	complexity = 1
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
+	incompatible_modules = list(/obj/item/mod/module/plasma_stabilizer)
+	overlay_state_inactive = "module_plasma"
+
+/obj/item/mod/module/plasma_stabilizer/on_equip()
+	ADD_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION_HEAD_ONLY, "mod_trait")
+
+/obj/item/mod/module/plasma_stabilizer/on_unequip()
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION_HEAD_ONLY, "mod_trait")

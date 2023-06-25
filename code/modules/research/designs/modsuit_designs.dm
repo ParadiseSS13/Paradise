@@ -314,6 +314,12 @@
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/pathfinder
 
+/datum/design/module/plasma_stabilizer
+	id = "mod_plasmastable"
+	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 3)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
+	build_path = /obj/item/mod/module/plasma_stabilizer
+
 /datum/design/module/plate_compression
 	name = "Plate Compression Module"
 	id = "mod_compression"
