@@ -586,6 +586,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MSNV"
 	item = /obj/item/mod/module/visor/night
 	cost = 1 // It's night vision, rnd pumps out those goggles for anyone man.
+	surplus = 10 //You don't need more than one
 
 /datum/uplink_item/suits/plate_compression
 	name = "MODsuit Plate Compression Module"
@@ -601,6 +602,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MSNS"
 	item = /obj/item/mod/module/noslip
 	cost = 1
+
+/datum/uplink_item/suits/springlock_module
+	name = "Heavily Modified Springlock MODsuit Module"
+	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
+		This mechanical exoskeleton pushes out of the way when the user enters and it helps in booting \
+		up, but was taken out of modern suits because of the springlock's tendency to \"snap\" back \
+		into place when exposed to humidity. You know what it's like to have an entire exoskeleton enter you? \
+		This version of the module has been modified to allow for near instant activation of the MODsuit. \
+		Useful for quickly getting your MODsuit on/off, or for taking care of a target via a tragic accident. \
+		It is hidden as a DNA lock module."
+	reference = "FNAF"
+	item = /obj/item/mod/module/springlock/bite_of_87
+	cost = 1
+	surplus = 10
 
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
