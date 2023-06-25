@@ -388,6 +388,7 @@
 		to_chat(user, "<span class='notice'>You install [item].</span>")
 		playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 		update_icon_state()
+		core.forceMove(src)
 	else
 		return ..()
 

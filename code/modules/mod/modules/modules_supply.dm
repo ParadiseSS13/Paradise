@@ -418,8 +418,6 @@
 	allow_flags = MODULE_ALLOW_INCAPACITATED //Required so hands blocked doesnt block bombs
 	/// Time it takes us to complete the animation.
 	var/animate_time = 0.25 SECONDS
-	// A second cooldown to keep people from breaking animation
-	var/on_second_cooldown = FALSE
 
 /obj/item/mod/module/sphere_transform/on_activation()
 	if(!has_gravity(get_turf(src)))
@@ -428,16 +426,12 @@
 	. = ..()
 	if(!.)
 		return
-	if(on_second_cooldown)
-		return
 	playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE)
 	mod.wearer.add_filter("mod_ball", 1, alpha_mask_filter(icon = icon('icons/mob/clothing/modsuit/mod_modules.dmi', "ball_mask"), flags = MASK_INVERSE))
 	mod.wearer.add_filter("mod_blur", 2, angular_blur_filter(size = 15))
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
 	animate(mod.wearer, animate_time, pixel_y = mod.wearer.pixel_y - 4, flags = ANIMATION_PARALLEL)
 	mod.wearer.SpinAnimation(1.5)
-	on_second_cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, on_second_cooldown, FALSE), 2 SECONDS)
 	ADD_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, "metriod[UID()]")
 	ADD_TRAIT(mod.wearer, TRAIT_GOTTAGOFAST, "metroid[UID()]")
 	RegisterSignal(mod.wearer, COMSIG_MOB_STATCHANGE, PROC_REF(on_statchange))
@@ -446,14 +440,10 @@
 	. = ..()
 	if(!.)
 		return
-	if(on_second_cooldown)
-		return
 	if(!deleting)
 		playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE, frequency = -1)
 	animate(mod.wearer, animate_time, pixel_y = 0)
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, remove_filter), list("mod_ball", "mod_blur", "mod_outline")), animate_time)
-	on_second_cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, on_second_cooldown, FALSE), 2 SECONDS)
 	REMOVE_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, "metriod[UID()]")
 	REMOVE_TRAIT(mod.wearer, TRAIT_GOTTAGOFAST, "metroid[UID()]")
 	UnregisterSignal(mod.wearer, COMSIG_MOB_STATCHANGE)
