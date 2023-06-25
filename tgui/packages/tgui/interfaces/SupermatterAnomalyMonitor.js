@@ -1,88 +1,86 @@
 import { Window } from '../layouts';
-import { flow } from 'common/fp';
-import { toFixed } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { sortBy } from 'common/collections';
+import { TableCell } from '../components/Table';
 import {
   Section,
-  Box,
-  Flex,
-  Button,
-  Table,
-  LabeledList,
-  ProgressBar,
-  Tabs,
-  Input,
   Icon,
-} from '../components'
-import { LoginInfo } from './common/LoginInfo';
-import { LoginScreen } from './common/LoginScreen';
-import { FlexItem } from '../components/Flex';
-import { complexModal, modalOpen } from './common/ComplexModal';
-import { TemporaryNotice } from './common/TemporaryNotice';
+  Button,
+  Divider,
+  Flex,
+  LabeledList,
+  Box,
+  Tabs,
+  Table,
+} from '../components';
+import { LabeledListItem } from '../components/LabeledList';
 
-
-export const SupermatterAnomalyMonitor = (properties, context) => {
+export const SupermatterAnomalyMonitor = (props, context) => {
   const { act, data } = useBackend(context);
-  const { loginState, currentPage } = data;
-
-  let body;
-  if(!loginState.logged_in) {
-    return (
-      <Window resizable>
-        <Window.Content>
-          <LoginScreen />
-        </Window.Content>
-      </Window>
-    );
-  } else {
-    if (currentPage === 1) {
-      body = <SupermatterAnomalyPageView/>;
-    } else if (currentPage ===2){
-      body = <SupermatterAnomalyPageList />;
+  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const decideTab = (index) => {
+    switch (index) {
+      case 0:
+        return <SupermatterAnomalyView />;
+      case 1:
+        return <SupermatterAnomalyRecord />;
+      default:
+        return "ERROR!";
     }
-  }
+  };
 
   return (
     <Window resizable>
-      <complexModal />
-      <Window.Content scrollable classname="Layout__content--flexcolumn">
-        <LoginInfo />
-        <TemporaryNotice />
-        <SupermatterAnomalyNavigation />
-        <Section height="100%" flexGrow="1">
-          {body}
-        </Section>
+      <Window.Content>
+        <Box fillPositionParent>
+          <Tabs>
+            <Tabs.Tab
+              key="AnomalyView"
+              selected={0 === tabIndex}
+              onClick={() => setTabIndex (0)}
+            >
+              <Icon name="table" /> Monitor
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="RecordView"
+              selected={1 === tabIndex}
+              onClick={() => setTabIndex(1)}
+            >
+              <Icon name="folder" /> Records
+            </Tabs.Tab>
+          </Tabs>
+          {decideTab(tabIndex)}
+        </Box>
       </Window.Content>
     </Window>
   );
 };
 
-const SupermatterAnomalyNavigation = (properties, context) => {
+
+const SupermatterAnomalyView = (props, context) => {
   const { act, data } = useBackend(context);
-  const { currentPage, } = data;
+  const { event_active } = data;
   return (
-    <Tabs>
-      <Tabs.Tab
-        selected={currentPage === 1}
-        onClick={() => act('page',{ page: 1})}
-      >
-       <Icon name="folder" />
-        Current Event
-      </Tabs.Tab>
-      {currentPage === 2 (
-        <Tabs.Tab selected={currentPage === 2}>
-          <Icon name="list" />
-           Event List
-        </Tabs.Tab>
-      )}
-    </Tabs>
+    <Box>
+      <LabeledList>
+        <LabeledList.Item label="Current Events">
+          {event_active}
+        </LabeledList.Item>
+      </LabeledList>
+    </Box>
+  );
+ };
+
+
+const SupermatterAnomalyRecord = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { last_events } = data;
+  return (
+    <Box>
+      <LabeledList>
+        <LabeledList.Item label="Recorded Events">
+          {last_events}
+        </LabeledList.Item>
+      </LabeledList>
+    </Box>
   );
 };
-
-const SupermatterAnomalyPageView = (properties, context) => {
-  const { act, data } = useBackend(context);
-  const {  } = data;
-
-}
