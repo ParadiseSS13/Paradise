@@ -423,13 +423,17 @@
 	if(emp_proof)
 		return
 	selected_module?.on_deactivation(display_message = TRUE)
-	wearer.apply_damage(5 / severity, BURN, spread_damage = TRUE) //Test this with ion shotguns.
+	wearer.apply_damage(10 / severity, BURN, spread_damage = TRUE) //Test this with ion shotguns.
 	to_chat(wearer, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly!")
 	if(wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")
 	core.emp_act(severity)
 	if(prob(50 / severity))
 		wires.emp_pulse() //3 wires get pulsed. Dangerous to a mod user.
+	for(var/obj/item/mod/module/holster/H in modules)
+		H.holstered.emp_act(severity)
+	if(bag)
+		bag.emp_act()
 
 
 /obj/item/mod/control/dropped(mob/user)
