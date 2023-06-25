@@ -244,6 +244,7 @@
 
 	if(user != O)
 		user.visible_message("<span class='warning'>[user] stuffs [O] into [src]!</span>")
+	return TRUE
 
 
 /obj/structure/m_tray/Destroy()
@@ -527,7 +528,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(user != O)
 		user.visible_message("<span class='warning'>[user] stuffs [O] into [src]!</span>")
 			//Foreach goto(99)
-	return
+	return TRUE
 
 /obj/structure/c_tray/Destroy()
 	if(connected && connected.connected == src)

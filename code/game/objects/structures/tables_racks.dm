@@ -176,7 +176,8 @@
 	return 1
 
 /obj/structure/table/MouseDrop_T(obj/O, mob/user)
-	..()
+	if(..())
+		return TRUE
 	if((!( isitem(O) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
@@ -185,7 +186,7 @@
 		return
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
-	return
+		return TRUE
 
 /obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -878,6 +879,7 @@
 		return
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
+		return TRUE
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
 	if(isrobot(user))
