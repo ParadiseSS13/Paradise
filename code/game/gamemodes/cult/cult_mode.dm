@@ -296,7 +296,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		if(!M.current || !ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
-		to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
+		to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!</span>")
 		addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
 	GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
@@ -306,14 +306,15 @@ GLOBAL_LIST_EMPTY(all_cults)
 		if(!M.current || !ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/wail.ogg'))
-		to_chat(M.current, "<span class='cultlarge'>The veil repairs itself, your power grows weaker...")
+		to_chat(M.current, "<span class='cultlarge'>The veil repairs itself, your power grows weaker...</span>")
 		addtimer(CALLBACK(src, PROC_REF(descend), M.current), 20 SECONDS)
 	GLOB.major_announcement.Announce("Paranormal activity has returned to minimal levels. \
 									Security staff should minimize lethal force against cultists, using non-lethals where possible. \
 									All dead cultists should be taken to medbay or robotics for immediate revival and deconversion. \
 									Non-security staff may defend themselves, but should prioritize leaving any areas with cultists and reporting the cultists to security. \
 									Self defense permits non-security staff to use lethal force as a last resort. Hunting down cultists may make you liable for a manslaughter charge. \
-									All security gear that was handed out, should be returned. Access reset where needed, and weapons (including improvised) removed from the crew.",
+									Any access granted in response to the paranormal threat should be reset. \
+									Any and all security gear that was handed out should be returned. Finally, all weapons (including improvised) should be removed from the crew.",
 									"Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 /datum/game_mode/proc/rise(cultist)
@@ -337,7 +338,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		H.update_halo_layer()
-		to_chat(cultist, "<span class='userdanger'>The halo above your head shatters!")
+		to_chat(cultist, "<span class='userdanger'>The halo above your head shatters!</span>")
 		playsound(cultist, "shatter", 50, TRUE)
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
