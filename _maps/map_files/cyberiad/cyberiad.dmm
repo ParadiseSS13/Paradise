@@ -18844,8 +18844,6 @@
 	dir = 1
 	},
 /obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/mop,
 /obj/item/mop,
 /obj/machinery/light_switch{
 	dir = 1;
@@ -46986,7 +46984,6 @@
 	},
 /area/toxins/server_coldroom)
 "csG" = (
-/obj/structure/janitorialcart,
 /obj/machinery/power/apc{
 	cell_type = 25000;
 	dir = 1;
@@ -46997,6 +46994,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/structure/mopbucket/full,
+/obj/item/mop,
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "csH" = (
