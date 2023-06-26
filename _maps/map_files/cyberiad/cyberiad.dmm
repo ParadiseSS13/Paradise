@@ -35616,9 +35616,9 @@
 /area/assembly/robotics)
 "bNP" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "bNQ" = (
@@ -74974,7 +74974,7 @@
 /area/quartermaster/miningdock)
 "kMw" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/lootdrop/maintenance/three,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "kNq" = (
@@ -78973,7 +78973,7 @@
 "nNx" = (
 /obj/structure/rack,
 /obj/item/melee/baton/cattleprod,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "nNB" = (
@@ -88426,13 +88426,6 @@
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology)
-"umJ" = (
-/obj/machinery/space_heater,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
-/area/hallway/primary/central/nw)
 "uno" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -119758,7 +119751,7 @@ bmb
 aaa
 aaa
 bmb
-umJ
+bgP
 bmV
 bAB
 bxl
