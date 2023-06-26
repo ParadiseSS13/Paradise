@@ -225,11 +225,11 @@
 	range = 3
 
 /obj/item/projectile/bullet/confetti/on_range()
-	confettisize(src,7,3)
+	confettisize(src, 7, 3)
 	..()
 
 /obj/item/projectile/bullet/confetti/on_hit(atom/target, blocked, hit_zone)
-	confettisize(src,7,3)
+	confettisize(src, 7, 3)
 	..()
 
 

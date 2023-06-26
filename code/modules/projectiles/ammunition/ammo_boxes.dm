@@ -113,9 +113,9 @@
 
 /obj/item/ammo_box/shotgun/confetti
 	name = "shotgun speedloader (Confetti)"
-	icon_state = "buckloader"
+	icon_state = "partyloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/confetti
-
+	multi_sprite_step = 1
 
 /obj/item/ammo_box/shotgun/dragonsbreath
 	name = "shotgun speedloader (Dragonsbreath)"

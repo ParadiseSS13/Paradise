@@ -680,3 +680,14 @@
 	reference = "DEPCN"
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+// ---------------------------------
+// NUKIE ONLY POINTLESS BADASSERY
+// ---------------------------------
+
+/datum/uplink_item/badass/confettidrum
+	name = "Bulldog - 12g Confetti Magazine"
+	desc = "An alternative 12-round confetti magazine for use in the Bulldog shotgun. Why? Because we can - Honkco Industries"
+	item = /obj/item/ammo_box/magazine/m12g/confetti
+	reference = "12CS"
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
