@@ -92,14 +92,7 @@
 		return FALSE
 	if(ismachineperson(src)) //IPCs do not vomit particulates
 		return FALSE
-	if(is_muzzled())
-		if(message)
-			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
-		return FALSE
-	if(is_facehugged())
-		if(message)
-			to_chat(src, "<span class='warning'>You try to throw up, but the alien's proboscis obstructs your throat!</span>") //Sorry
-		return FALSE
+
 	if(stun)
 		Stun(8 SECONDS)
 	if(nutrition < 100 && !blood)
