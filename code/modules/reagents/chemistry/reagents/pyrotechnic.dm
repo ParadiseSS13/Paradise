@@ -465,3 +465,16 @@
 		M.adjust_fire_stacks(volume / 5)
 		return
 	..()
+
+/datum/reagent/confetti
+	name = "Confetti"
+	id = "confetti"
+	description = "Pure, liquid confetti. Explodes into a colorful bomb when exposed to heat"
+	color = "#500064" // rgb: 80, 0, 100
+	taste_description = "the tears of janitors"
+
+/datum/reagent/confetti/reaction_temperature(src, exposed_temperature, exposed_volume)
+	if(exposed_temperature >= T0C + 300)
+		var/confetti_size = exposed_volume / 10
+		var/confetti_range = confetti_size / 10
+		confettisize(confetti_size, confetti_size)

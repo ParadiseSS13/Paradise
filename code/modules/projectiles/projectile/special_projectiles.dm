@@ -225,15 +225,13 @@
 	range = 3
 
 /obj/item/projectile/bullet/confetti/on_range()
-	var/spawner_type = /obj/effect/decal/cleanable/confetti
-	var/turf/T = get_turf(src)
-	playsound(T, 'sound/effects/confetti_partywhistle.ogg', 100, 1)
-	for(var/i in 1 to 7)
-		var/atom/movable/x = new spawner_type
-		x.loc = T
-		for(var/j in 1 to rand(1, 3))
-			step(x, pick(NORTH,SOUTH,EAST,WEST))
+	confettisize(src,7,3)
 	..()
+
+/obj/item/projectile/bullet/confetti/on_hit(atom/target, blocked, hit_zone)
+	confettisize(src,7,3)
+	..()
+
 
 /obj/item/projectile/plasma
 	name = "plasma blast"
