@@ -63,10 +63,14 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/t_ray,
+		/obj/item/mod/module/magboot,
 	)
+	default_pins = list(
+		/obj/item/mod/module/magboot,
+	)
+
 
 /obj/item/mod/control/pre_equipped/advanced
 	theme = /datum/mod_theme/advanced
