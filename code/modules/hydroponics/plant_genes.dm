@@ -282,6 +282,14 @@
 	..()
 	G.set_light(glow_range(G.seed), glow_power(G.seed), glow_color)
 
+/datum/plant_gene/trait/glow/blue
+	name = "Blue Bioluminescence"
+	glow_color = "#6699FF"
+
+/datum/plant_gene/trait/glow/purple
+	name = "Purple Bioluminescence"
+	glow_color = "#b434df"
+
 /datum/plant_gene/trait/glow/shadow
 	//makes plant emit slightly purple shadows
 	//adds -potency*rate light power to products
@@ -468,3 +476,22 @@
 
 /datum/plant_gene/trait/plant_type/alien_properties
 	name ="?????"
+
+//laughter gene
+
+/**
+ * Plays a laughter sound when someone slips on it.
+ * Like the sitcom component but for plants.
+ * Just like slippery skin, if we have a trash type this only functions on that. (Banana peels)
+ */
+/datum/plant_gene/trait/plant_laughter
+	name = "Hallucinatory Feedback"
+	//description = "Makes sounds when people slip on it."
+	/// Sounds that play when this trait triggers
+	var/list/sounds = list('sound/items/SitcomLaugh1.ogg', 'sound/items/SitcomLaugh2.ogg', 'sound/items/SitcomLaugh3.ogg')
+
+/datum/plant_gene/trait/plant_laughter/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+
+	if(C.stunned)
+		playsound(G, pick(sounds), 100, 1)
+		C.visible_message("<span class='notice'>[G] lets out burst of laughter.</span>")

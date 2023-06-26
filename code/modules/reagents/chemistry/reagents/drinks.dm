@@ -542,3 +542,18 @@
 	drink_name = "Non-alcoholic beer"
 	color = "#572c13"
 	taste_description = "beer"
+
+/datum/reagent/consumable/drink/laughsyrup
+	name = "Laughin' Syrup"
+	description = "The product of juicing Laughin' Peas. Fizzy, and seems to change flavour based on what it's used with!"
+	id = "laughsyrup"
+	color = "#803280"
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	taste_mult = 2
+	taste_description = "fizzy sweetness"
+
+/datum/reagent/consumable/drink/laughsyrup/on_mob_life(mob/living/M)
+	if(prob(5))
+		M.emote(pick("laugh", "giggle", "smile"))
+	else if(prob(2))
+		M.say(pick(list("Ха-ха!", "Хе-хе")))

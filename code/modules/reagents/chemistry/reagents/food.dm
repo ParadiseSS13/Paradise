@@ -1043,3 +1043,6 @@
 		update_flags |= M.adjustBruteLoss(-0.5, FALSE)
 		update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	return ..() | update_flags
+
+
+

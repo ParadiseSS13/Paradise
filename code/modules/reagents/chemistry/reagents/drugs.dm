@@ -729,6 +729,142 @@
 	..()
 
 //////////////////////////////
+//		   laughter         //
+//////////////////////////////
+
+/datum/reagent/consumable/laughter
+	name = "Laughter"
+	description = "Some say that this is the best medicine, but recent studies have proven that to be untrue."
+	id = "laughter"
+	metabolization_rate = 0.8 * REAGENTS_METABOLISM
+	addiction_chance = 15
+	addiction_threshold = 20
+	color = "#FF4DD2"
+	taste_description = "laugh"
+	can_synth = TRUE
+	reagent_state = LIQUID
+	harmless = TRUE
+
+/datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/chance = rand(1,200)
+	switch(volume)
+		if(0 to 9)
+			switch(chance)
+				if(1 to 20)
+					M.emote(pick("giggle", "smile"))
+				if(30 to 35)
+					to_chat(M, "<span class='notice'>He he! You can't hold your smile!</span>")
+		if(10 to 19)
+			switch(chance)
+				if(1 to 20)
+					M.emote(pick("laugh", "giggle", "smile"))
+				if(30 to 35)
+					to_chat(M, "<span class='notice'>You feel great! HAHAHAHAH!</span>")
+				if(40 to 55)
+					M.say(pick(list("Ааххаха!", "Ххаахах!")))
+		if(20 to 39)
+			switch(chance)
+				if(1 to 20)
+					M.emote(pick("laugh", "giggle", "smile", "grin"))
+				if(30 to 33)
+					to_chat(M, "<span class='notice'>So funny! AAAAAAAAAHAHAHHAHAAHAHAH! FUUUUUUN!</span>")
+				if(40 to 55)
+					M.say(pick(list("Ааххааахахаха!", "Уааххаахаха!", "Иииххихихии!", "Оооххохохох!", "Кьяяхахаха!", "Ваахахахах!")))
+		if(40 to 69)
+			switch(chance)
+				if(1 to 20)
+					M.emote(pick("laugh", "giggle", "smile", "grin"))
+				if(30 to 35)
+					to_chat(M, "<span class='notice'>You feel sooo great! HAHAHAHAH!</span>")
+				if(40 to 50)
+					M.say(pick(list("АААААААХАХАХАХ!", "ИХИХИХИХИХИХХИХИ!", "УАААААХАХАХ!", "МЬЯХАХАХАХАХАХАХАА!", "НЬЯЯЯХАХАХАХАХА!")))
+		if(70 to INFINITY)
+			switch(chance)
+				if(1 to 25)
+					M.emote(pick("laugh", "cry", "smile", "grin"))
+				if(30 to 35)
+					M.say(pick(list("ААААААХХАААА!", "ЫАААААЫЫЫААААА!", "УАААААХАХАХАААААА!", "КХХХАААААААААААААА!")))
+				if(40 to 49)
+					M.say(pick(list("УАААААХАХАХ!", "КХХХААААААААА!", "АХАХАХАХ ААААА АХАХАХАХА!")))
+				if(50 to 55)
+					update_flags |= M.Weaken(2)
+					update_flags |= M.Jitter(5)
+					M.emote(pick("laugh"))
+				if(60 to 69)
+					M.bodytemperature += rand(1, 5)
+					M.vomit()
+					update_flags |= M.adjustBrainLoss(rand(1, 5))
+				if(70 to 74)
+					to_chat(M, "<span class='warning'>You are literally bursting with laughter</span>")
+	return ..() | update_flags
+
+/datum/reagent/consumable/laughter/addiction_act_stage4(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/chance = rand(1,1000)
+	switch(chance)
+		if(1 to 80)
+			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+			M.emote(pick("twitch", "sigh", "cry", "groan"))
+		if(81 to 160)
+			to_chat(M, "<span class='notice'>Your life has lost all colours</span>")
+			update_flags |= M.AdjustEyeBlind(8)
+			M.emote(pick("twitch", "sigh", "cry", "groan"))
+		if(161 to 240)
+			M.emote("whimper")
+			update_flags |= M.Jitter(5)
+		if(241 to 320)
+			M.emote("cry")
+			update_flags |= M.Jitter(3)
+		if(321 to 370)
+			to_chat(M, "<span class='warning'>You have a really sad thoughts.</span>")
+			M.emote(pick("twitch", "sigh", "cry", "sniff"))
+		if(371 to 420)
+			to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
+			M.emote(pick("twitch", "sigh", "cry", "sniff"))
+		if(421 to 470)
+			to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
+			M.emote(pick("twitch", "sigh", "cry", "sniff"))
+		else return
+	return STATUS_UPDATE_NONE
+
+/datum/reagent/consumable/laughter/addiction_act_stage5(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/chance = rand(1,1600)
+	switch(chance)
+		if(1 to 50)
+			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
+		if(51 to 100)
+			M.emote(pick("whimper", "glare", "cry", "sniff"))
+			update_flags |= M.Jitter(5)
+		if(101 to 150)
+			to_chat(M, "<span class='warning'>Your life has lost all colours</span>")
+			update_flags |= M.EyeBlind(8)
+			update_flags |= M.adjustBrainLoss(rand(1, 7))
+		if(151 to 200)
+			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
+			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
+			update_flags |= M.Stun(3)
+			update_flags |= M.Weaken(3)
+		if(201 to 280)
+			M.emote(pick("twitch", "glare", "cry", "groan"))
+			update_flags |= M.Jitter(5)
+		if(281 to 330)
+			to_chat(M, "<span class='warning'>You are really sad! Find more fun!</span>")
+			M.emote(pick("twitch", "sigh", "cry"))
+			update_flags |= M.adjustBrainLoss(rand(1, 5))
+		if(331 to 380)
+			to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
+			M.emote(pick("twitch", "sigh", "cry", "groan"))
+		if(381 to 420)
+			to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
+			M.emote(pick("twitch", "sigh", "cry", "groan"))
+			update_flags |= M.adjustBrainLoss(rand(1, 5))
+		else
+			return
+	return update_flags
+
+//////////////////////////////
 //		Synth-Drugs			//
 //////////////////////////////
 
