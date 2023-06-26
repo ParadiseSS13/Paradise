@@ -222,7 +222,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone
 	name = "hydrocodone bottle"
 	desc = "A reagent bottle. Contains hydrocodone."
-	list_reagents = list("hydrocodone" = 50)
+	list_reagents = list("hydrocodone" = 30)
 
 /obj/item/reagent_containers/glass/bottle/reagent/insulin
 	name = "insulin bottle"
