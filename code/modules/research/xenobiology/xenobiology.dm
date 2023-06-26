@@ -489,6 +489,9 @@
 		if(I.slowdown <= 0 || I.is_speedslimepotioned)
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return ..()
+		if(I.cant_be_faster)
+			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+			return
 		I.is_speedslimepotioned = TRUE
 
 	if(istype(O, /obj/vehicle))
