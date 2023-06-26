@@ -432,8 +432,10 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		steal_target = O
 
 		explanation_text = "Украсть [steal_target]. Последнее местоположение было в [get_location()]. "
-		if(islist(O.protected_jobs) && O.protected_jobs.len)
+		if(islist(O.protected_jobs) && O.protected_jobs.len && O.job_possession)
 			explanation_text += "Оно также может находиться у [jointext(O.protected_jobs, ", ")]."
+		if(steal_target.special_equipment)
+			give_kit(steal_target.special_equipment)
 		return TRUE
 
 	explanation_text = "Free Objective."
@@ -460,6 +462,8 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	else
 		steal_target = new new_target
 		explanation_text = "Украсть [steal_target.name]."
+		if(steal_target.special_equipment)
+			give_kit(steal_target.special_equipment)
 	if(steal_target)
 		return TRUE
 	return FALSE
@@ -479,6 +483,24 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		if(I.type in steal_target.altitems)
 			return steal_target.check_special_completion(I)
 
+
+/datum/objective/steal/proc/give_kit(obj/item/item_path)
+	var/mob/living/carbon/human/mob = owner.current
+	var/I = new item_path
+	var/list/slots = list(
+		"backpack" = slot_in_backpack,
+		"left pocket" = slot_l_store,
+		"right pocket" = slot_r_store,
+		"left hand" = slot_l_hand,
+		"right hand" = slot_r_hand,
+	)
+	var/where = mob.equip_in_one_of_slots(I, slots)
+	if(where)
+		to_chat(mob, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+	else
+		to_chat(mob, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
+		message_admins("[ADMIN_LOOKUPFLW(mob)] Failed to spawn with their [item_path] theft kit.")
+		qdel(I)
 
 /datum/objective/steal/exchange
 	martyr_compatible = 0

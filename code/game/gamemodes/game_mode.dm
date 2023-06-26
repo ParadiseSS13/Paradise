@@ -1,3 +1,6 @@
+#define NUKE_INTACT 0
+#define NUKE_CORE_MISSING 1
+#define NUKE_MISSING 2
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -420,6 +423,15 @@
 			nukecode = bomb.r_code
 	return nukecode
 
+/proc/get_nuke_status()
+	var/nuke_status = NUKE_MISSING
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		if(is_station_level(bomb.z))
+			nuke_status = NUKE_CORE_MISSING
+			if(bomb.core)
+				nuke_status = NUKE_INTACT
+	return nuke_status
+
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/M, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
 	var/mob/dead/observer/theghost = null
@@ -517,3 +529,7 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
+
+#undef NUKE_INTACT
+#undef NUKE_CORE_MISSING
+#undef NUKE_MISSING
