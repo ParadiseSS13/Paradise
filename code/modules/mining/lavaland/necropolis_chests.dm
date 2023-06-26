@@ -12,7 +12,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 27)
+	var/loot = rand(1, 26)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -50,7 +50,8 @@
 		if(15)
 			new /obj/item/nullrod/armblade(src)
 		if(16)
-			new /obj/item/guardiancreator(src)
+			new /obj/item/borg/upgrade/modkit/lifesteal(src)
+			new /obj/item/bedsheet/cult(src)
 		if(17)
 			if(prob(50))
 				new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
@@ -79,9 +80,6 @@
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(26)
 			new /obj/item/book_of_babel(src)
-		if(27)
-			new /obj/item/borg/upgrade/modkit/lifesteal(src)
-			new /obj/item/bedsheet/cult(src)
 
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
