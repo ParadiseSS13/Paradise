@@ -224,8 +224,33 @@
   - qol: Equip PDA To Appropriate Slot (#3055)
   - bugfix: Ninja's Vermit Hunt (#3049)
   - bugfix: Bubblegum Hallucination (#3047)
+  - bugfix: Twohaned Fracture Fix (#3036)
   captainnelly:
   - tweak: increase hardsuit equip sould volume (#3054)
   - add: new crusher sounds (#3052)
   Сиротка:
   - tweak: Sharp bolts (#3053)
+'2023-06-26':
+  ArtemDerp:
+  - add: new plan - peas (#2633)
+  NightDawnFox:
+  - tweak: two 10mm mag and .357 speedloader in uplink instead of one (#3073)
+  - add: 'new antag targets: noke core and suppermatter sliver (#2957)'
+  - tweak: replace staff of slipping with wand of slipping in clowns biodome (#3048)
+  - add: animations for paper printing (#3074)
+  - unknown: taro cards from lavaland loot (#3072)
+  - add: contractor tablet now show dir to extraction location (#3075)
+  - tweak: cutter don't gib head, spellblade don gib limbs (#3051)
+  - bugfix: contractor button stop work (#3078)
+  ReloadKey:
+  - refactor: cleanup vendings sprites (#3069)
+  Rerik007:
+  - add: mecha eng_toolset (#3070)
+  Zwei:
+  - bugfix: Shadowling Nutrition (#3061)
+  - bugfix: Transparent Floor Replacing (#3067)
+  - add: Hypospray Upgrade (#3060)
+  Сиротка:
+  - add: More flammable cigs (#3058)
+  - add: new lavaland armor (#3032)
+  - add: Knuckles (#3059)
