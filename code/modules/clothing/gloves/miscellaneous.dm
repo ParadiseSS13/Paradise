@@ -250,3 +250,68 @@
 		user.visible_message("<span class='danger'>[user] has hit [obj] with razor gloves!</span>", "<span class='danger'>You hit [obj] with razor gloves!</span>")
 		obj.take_damage(damage, BRUTE, "melee", 1, get_dir(src, user))
 		return TRUE
+
+/obj/item/clothing/gloves/knuckles
+	name = "knuckles"
+	desc = "The choice of the professional to beat the shit out of some jerk!"
+	icon_state = "knuckles"
+	item_state = "knuckles"
+	sharp = FALSE
+	extra_knock_chance = 15 //20% overall
+	var/knuckle_damage = 5 //additional fists damage
+	var/knock_damage_low = 5 // stamina damage
+	var/knock_damage_high = 10 // min and max
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 0)
+	species_exception = list(/datum/species/monkey)
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/gloves.dmi',
+		"Monkey" = 'icons/mob/species/monkey/gloves.dmi',)
+
+/obj/item/clothing/gloves/knuckles/Touch(atom/A, proximity)
+	. = FALSE
+	if(!ishuman(loc))
+		return FALSE
+
+	var/mob/living/carbon/human/user = loc
+	if(!user.mind || user.mind.martial_art)
+		return FALSE
+
+	if(!(user.a_intent == INTENT_HARM) || !proximity || isturf(A))
+		return FALSE
+
+	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow,user.dna.species.punchdamagehigh)
+	var/staminadamage = rand(knock_damage_low, knock_damage_high)
+	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage
+	if(ishuman(A))
+		user.do_attack_animation(A, "kick")
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		var/mob/living/carbon/human/target = A
+		add_attack_logs(user, target, "Melee attacked with knuckles")
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
+
+		target.visible_message("<span class='danger'>[user] smash [target] with knuckles!</span>")
+
+		if(target.mind && user?.mind?.objectives)
+			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+				if(target.mind == objective.target)
+					objective.take_damage(damage, BRUTE)
+
+		target.apply_damage(damage, BRUTE, affecting)
+		target.apply_damage(staminadamage, STAMINA, affecting)
+		return TRUE
+
+	if(isliving(A))
+		var/mob/living/living = A
+		user.do_attack_animation(A, "kick")
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		living.visible_message("<span class='danger'>[user] smash [living] with knuckles!</span>")
+		living.apply_damage(damage, BRUTE)
+		return TRUE
+
+	if(isobj(A) && !isitem(A))
+		var/obj/obj = A
+		user.do_attack_animation(A, "kick")
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.visible_message("<span class='danger'>[user] has hit [obj] with knuckles!</span>", "<span class='danger'>You hit [obj] with knuckles!</span>")
+		obj.take_damage(knobj_damage, BRUTE, "melee", 1, get_dir(src, user))
+		return TRUE

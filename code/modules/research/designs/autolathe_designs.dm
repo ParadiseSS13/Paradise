@@ -928,6 +928,14 @@
 	build_path = /obj/item/ammo_box/c9mm
 	category = list("hacked", "Security")
 
+/datum/design/knuckles
+	name = "Knuckles"
+	id = "knuckles"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 18000)
+	build_path = /obj/item/clothing/gloves/knuckles
+	category = list("hacked", "Security")
+
 /datum/design/cleaver
 	name = "Butcher's cleaver"
 	id = "cleaver"

@@ -126,6 +126,7 @@
 				/obj/item/wrench = 40,
 				/obj/item/relic = 35,
 				/obj/item/weaponcrafting/receiver = 2,
+				/obj/item/clothing/gloves/knuckles = 1,
 				/obj/item/clothing/shoes/brown = 30,
 				/obj/item/seeds/ambrosia/deus = 10,
 				/obj/item/seeds/ambrosia = 20,
