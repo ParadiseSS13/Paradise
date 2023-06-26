@@ -122,6 +122,22 @@ LIGHTERS ARE IN LIGHTERS.DM
 				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 			F.charges--
 
+	else if(istype(I, /obj/item/flashlight/flare))
+		var/obj/item/flashlight/flare/J = I
+		if(J.on && J.can_fire_cigs)
+			light("<span class='notice'>[user] can't find other flame than [J] just for light [user.p_their()] [name], someone help this dude.</span>")
+
+	else if(istype(I, /obj/item/candle))
+		var/obj/item/candle/K = I
+		if(K.lit)
+			light("<span class='notice'>[user] lights [user.p_their()] [name] with [user.p_their()] [K].</span>")
+
+	else if(istype(I, /obj/item/clothing/mask/cigarette))
+		var/obj/item/clothing/mask/cigarette/N = I
+		if(N.lit)
+			light("<span class='notice'>[user] lights [user.p_their()] [name] with [N]. Someone please give [user.p_their()] zippo..</span>")
+
+
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()
 	user.update_inv_l_hand()

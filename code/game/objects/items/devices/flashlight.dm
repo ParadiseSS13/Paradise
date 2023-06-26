@@ -164,6 +164,7 @@
 	icon_state = "flare"
 	item_state = "flare"
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
+	var/can_fire_cigs = TRUE
 	var/fuel = 0
 	var/on_damage = 7
 	var/produce_heat = 1500
@@ -234,6 +235,7 @@
 	icon_state = "glowstick"
 	item_state = "glowstick"
 	togglesound = 'sound/effects/bone_break_1.ogg'
+	can_fire_cigs = FALSE
 	produce_heat = 0
 	fuel_lower = 1600
 	fuel_upp = 2000
