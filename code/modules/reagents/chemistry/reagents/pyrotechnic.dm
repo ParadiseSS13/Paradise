@@ -477,4 +477,4 @@
 	if(exposed_temperature >= T0C + 300)
 		var/confetti_size = exposed_volume / 10
 		var/confetti_range = confetti_size / 10
-		confettisize(confetti_size, confetti_size)
+		confettisize(confetti_size, confetti_range)
