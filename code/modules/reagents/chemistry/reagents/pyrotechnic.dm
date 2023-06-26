@@ -469,6 +469,6 @@
 /datum/reagent/confetti
 	name = "Confetti"
 	id = "confetti"
-	description = "Pure, liquid confetti. Explodes into a colorful bomb when exposed to heat"
+	description = "Pure, liquid confetti. Explodes into a colorful bomb when exposed to heat."
 	color = "#500064" // rgb: 80, 0, 100
 	taste_description = "the tears of janitors"
