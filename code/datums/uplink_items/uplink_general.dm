@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
 	reference = "PF"
 	item = /obj/item/melee/powerfist
-	cost = 8
+	cost = 10
 
 /datum/uplink_item/dangerous/chainsaw
 	name = "Chainsaw"
