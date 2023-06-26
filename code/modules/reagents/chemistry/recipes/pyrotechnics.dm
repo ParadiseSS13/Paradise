@@ -404,7 +404,7 @@
 	required_reagents = list("confetti" = 1)
 	min_temp = T0C + 300
 	result = null
-	mix_sound = null
+	mix_sound = 'sound/effects/confetti_partywhistle.ogg'
 	mix_message = "The powder starts vibrating quickly!"
 
 /datum/chemical_reaction/confetti/confettibomb/on_reaction(datum/reagents/holder, created_volume)
