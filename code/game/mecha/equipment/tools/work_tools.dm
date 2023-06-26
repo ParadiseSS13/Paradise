@@ -1,4 +1,4 @@
-//Hydraulic clamp, Kill clamp, Extinguisher, RCD, Mime RCD, Cable layer.
+//Hydraulic clamp, Kill clamp, RCD, Mime RCD, ATMOS module(Extinguisher, Cable layer, Holowall), Engineering toolset.
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
 	name = "hydraulic clamp"
@@ -13,8 +13,8 @@
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/M)
 	if(..())
 		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/attach_act(obj/mecha/M)
 	cargo_holder = M
@@ -172,6 +172,44 @@
 	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can move again
 		chassis.can_move = 0
 
+/obj/item/mecha_parts/mecha_equipment/rcd/proc/check_menu(mob/living/carbon/user)
+	return (user && chassis.occupant == user && user.stat != DEAD)
+
+/obj/item/mecha_parts/mecha_equipment/rcd/self_occupant_attack()
+	radial_menu(chassis.occupant)
+
+/obj/item/mecha_parts/mecha_equipment/rcd/proc/radial_menu(mob/living/carbon/user)
+	if(!check_menu(user))
+		return
+	var/list/choices = list(
+		RCD_MODE_AIRLOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "airlock"),
+		RCD_MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "delete"),
+		RCD_MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
+		RCD_MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
+		RCD_MODE_FIRELOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "firelock"),
+	)
+	choices -= rcd_holder.mode // Get rid of the current mode, clicking it won't do anything.
+	var/choice = show_radial_menu(user, chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	if(!check_menu(user))
+		return
+	switch(choice)
+		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF, RCD_MODE_FIRELOCK)
+			rcd_holder.mode = choice
+		else
+			return
+	switch(rcd_holder.mode)
+		if(RCD_MODE_DECON)
+			occupant_message("Switched RCD to Deconstruct.")
+		if(RCD_MODE_TURF)
+			occupant_message("Switched RCD to Construct.")
+		if(RCD_MODE_AIRLOCK)
+			occupant_message("Switched RCD to Construct Airlock.")
+		if(RCD_MODE_WINDOW)
+			occupant_message("Switched RCD to Construct Windows.")
+		if(RCD_MODE_FIRELOCK)
+			occupant_message("Switched RCD to Construct Firelock.")
+	playsound(get_turf(chassis), 'sound/effects/pop.ogg', 50, 0)
+
 /obj/item/mecha_parts/mecha_equipment/rcd/Topic(href,href_list)
 	..()
 	if(href_list["mode"])
@@ -264,6 +302,30 @@
 	targeted_module.action(target)
 	update_equip_info()
 
+/obj/item/mecha_parts/mecha_equipment/multimodule/self_occupant_attack()
+	radial_menu(chassis.occupant)
+
+/obj/item/mecha_parts/mecha_equipment/multimodule/proc/check_menu(mob/living/carbon/user)
+	return (user && chassis.occupant == user && user.stat != DEAD)
+
+/obj/item/mecha_parts/mecha_equipment/multimodule/proc/radial_menu(mob/living/carbon/user)
+	var/list/choices = list()
+	for(var/thing in modules)
+		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
+		choices["[module.name]"] = image(icon = module.icon, icon_state = module.icon_state)
+	var/choice = show_radial_menu(user, chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	if(!check_menu(user))
+		return
+	var/obj/item/mecha_parts/mecha_equipment/selected
+	for(var/thing in modules)
+		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
+		if(module.name == choice)
+			selected = module
+			break
+	if(selected)
+		targeted_module = selected
+		update_equip_info()
+		occupant_message("Switched to [targeted_module]")
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/get_equip_info()
 	. = "<dt>[..()]"
@@ -558,3 +620,97 @@
 		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
 			return TRUE
 	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset
+	name = "Engineering toolset"
+	desc = "Equipment for engineering exosuits. Gives a set of good tools."
+	icon_state = "mecha_toolset"
+	item_state = "toolbox_green"
+	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
+	force = 10
+	equip_cooldown = 15
+	energy_drain = 100
+	harmful = TRUE
+	var/list/items_list = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/experimental/mecha,
+		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
+	var/obj/item/selected_item
+	var/emag_item = /obj/item/kitchen/knife/combat/cyborg/mecha
+	var/emagged = FALSE
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/New()
+	..()
+	for(var/obj/item/item as anything in items_list)
+		item.flags |= NODROP
+		item.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+		item.slot_flags = null
+		item.w_class = WEIGHT_CLASS_HUGE
+		item.materials = null
+		item.tool_enabled = TRUE
+	selected_item = pick(items_list)
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/can_attach(obj/mecha/M)
+	if(..())
+		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/get_module_equip_info()
+	for(var/obj/item/item as anything in items_list)
+		var/short_name = uppertext(item.name[1])
+		if(item == selected_item)
+			. += "|<b>[short_name]</b> "
+		else
+			. += "|<a href='?src=[UID()];select=[item.UID()]'>[short_name]</a>"
+	. += "|"
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/Topic(href,href_list)
+	..()
+	if(href_list["select"])
+		selected_item = locateUID(href_list["select"])
+		occupant_message("Switched to [selected_item]")
+		update_equip_info()
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/action(atom/target)
+	if(!action_checks(target))
+		return
+	selected_item.melee_attack_chain(chassis.occupant, target)
+	if(isliving(target))
+		chassis.do_attack_animation(target)
+	chassis.use_power(energy_drain)
+	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/self_occupant_attack()
+	radial_menu(chassis.occupant)
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/check_menu(mob/living/carbon/user)
+	return (user && chassis.occupant == user && user.stat != DEAD)
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/radial_menu(mob/living/carbon/user)
+	var/list/choices = list()
+	for(var/obj/item/I as anything in items_list)
+		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
+	var/choice = show_radial_menu(user, chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	if(!check_menu(user))
+		return
+	var/obj/item/selected
+	for(var/obj/item/item as anything in items_list)
+		if(item.name == choice)
+			selected = item
+			break
+	if(selected)
+		extend(selected)
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/extend(obj/item/selected)
+	if(selected in items_list)
+		selected_item = selected
+		occupant_message("Switched to [selected_item]")
+		update_equip_info()
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/emag_act(mob/user)
+	if(!emagged)
+		items_list.Add(new emag_item)
+		emagged = TRUE
+		user.visible_message("<span class='warning'>Sparks fly out of [src.name]!</span>", "<span class='notice'>You short out the safeties on [src.name].</span>")
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		update_equip_info()

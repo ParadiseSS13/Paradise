@@ -197,6 +197,15 @@
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	origin_tech = null
 
+/obj/item/kitchen/knife/combat/cyborg/mecha
+	force = 25
+	armour_penetration = 20
+	flags = NODROP
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	slot_flags = null
+	w_class = WEIGHT_CLASS_HUGE
+	materials = null
+
 /obj/item/kitchen/knife/carrotshiv
 	name = "carrot shiv"
 	icon_state = "carrotshiv"

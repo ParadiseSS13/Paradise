@@ -879,6 +879,17 @@
 	construction_time = 300
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_eng_toolset
+	name = "Exosuit Engineering Equipment (Engineering Toolset)"
+	desc = "Exosuit toolset. Gives a set of good tools."
+	id = "mech_eng_toolset"
+	build_type = MECHFAB
+	req_tech = list("materials" = 6, "engineering" = 4)
+	build_path = /obj/item/mecha_parts/mecha_equipment/eng_toolset
+	materials = list(MAT_METAL=10000,MAT_TITANIUM =2000,MAT_PLASMA=2000)
+	construction_time = 20 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_gravcatapult
 	name = "Exosuit Common Equipment (Gravitational Catapult Module)"
 	desc = "An exosuit mounted Gravitational Catapult."
@@ -913,8 +924,8 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_servo_hydra_actuator
-	name = "Exosuit Common Equipment (Strafe module)"
-	desc = "Exosuit servo-motors. Allows strafe mode"
+	name = "Exosuit Common Equipment (Strafe Module)"
+	desc = "Exosuit servo-motors. Allows strafe mode."
 	id = "mech_servo_hydra_actuator"
 	build_type = MECHFAB
 	req_tech = list("powerstorage" = 7, "programming" = 7, "engineering" = 7,"combat" = 7)

@@ -369,7 +369,11 @@
 	set category = null
 	set src = usr
 
-	if(istype(loc,/obj/mecha)) return
+	if(ismecha(loc))
+		var/obj/mecha/mecha = loc
+		if(src == mecha.occupant)
+			mecha.selected?.self_occupant_attack()
+		return
 
 	var/obj/item/I = get_active_hand()
 	if(I)

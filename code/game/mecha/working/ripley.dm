@@ -169,6 +169,8 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/eng_toolset
+	ME.attach(src)
 
 /obj/mecha/working/ripley/full_load/add_cell()
 	cell = new /obj/item/stock_parts/cell/bluespace(src)

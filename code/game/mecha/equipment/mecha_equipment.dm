@@ -146,13 +146,24 @@
 		M.selected = src
 	update_chassis_page()
 	attach_act(M)
+	if(M.occupant)
+		give_targeted_action()
 
 /obj/item/mecha_parts/mecha_equipment/proc/attach_act(obj/mecha/M)
 	return
 
+/obj/item/mecha_parts/mecha_equipment/proc/give_targeted_action()
+	if(!selectable)
+		return
+	var/datum/action/innate/mecha/select_module/select_action = new
+	select_action.Grant(chassis.occupant, chassis, src)
+	chassis.select_actions[name] = select_action
+
 /obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto = null)
 	if(!can_detach())
 		return
+	if(chassis.occupant)
+		remove_targeted_action()
 	detach_act()
 	moveto = moveto || get_turf(chassis)
 	if(Move(moveto))
@@ -166,6 +177,13 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach_act()
 	return
+
+/obj/item/mecha_parts/mecha_equipment/proc/remove_targeted_action()
+	if(!selectable)
+		return
+	if(chassis.select_actions[name])
+		var/datum/action/innate/mecha/select_module/select_action = chassis.select_actions[name]
+		select_action.Remove(chassis.occupant)
 
 /obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
 	if(href_list["detach"])
@@ -183,3 +201,6 @@
 /obj/item/mecha_parts/mecha_equipment/proc/log_message(message)
 	if(chassis)
 		chassis.log_message("<i>[src]:</i> [message]")
+
+/obj/item/mecha_parts/mecha_equipment/proc/self_occupant_attack()
+	return
