@@ -274,6 +274,7 @@ REAGENT SCANNER
 		return
 
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	flick("health_anim", src)
 	sleep(3 SECONDS)
 	var/obj/item/paper/P = new(drop_location())
 	P.name = scan_title
@@ -646,6 +647,10 @@ REAGENT SCANNER
 	if(!scanning)
 		usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+		if(!details)
+			flick("spectrometer_anim", src)
+		else
+			flick("adv_spectrometer_anim", src)
 		sleep(50)
 
 		var/obj/item/paper/P = new(drop_location())
@@ -777,8 +782,6 @@ REAGENT SCANNER
 	overlayid = "bodyanalyzer_charge[overlayid]"
 	overlays += icon(icon, overlayid)
 
-	if(printing)
-		overlays += icon(icon, "bodyanalyzer_printing")
 
 /obj/item/bodyanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
 	if(user.incapacitated() || !user.Adjacent(M))
@@ -817,6 +820,8 @@ REAGENT SCANNER
 			printout.info = report
 			printout.name = "Scan report - [M.name]"
 			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+			flick("bodyanalyzer_anim", src)
+			sleep(3 SECONDS)
 			user.put_in_hands(printout, ignore_anim = FALSE)
 			time_to_use = world.time + scan_cd
 			if(isrobot(user))

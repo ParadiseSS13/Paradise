@@ -70,7 +70,8 @@
 		scanning = TRUE
 		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-
+		flick("Detective_anim", src)
+		sleep(3 SECONDS)
 		addtimer(CALLBACK(src, PROC_REF(make_paper), log), 10 SECONDS) // Create our paper
 		log = list() // Clear the logs
 		scanning = FALSE

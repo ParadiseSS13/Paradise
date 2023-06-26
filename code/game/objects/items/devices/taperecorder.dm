@@ -273,6 +273,8 @@
 
 	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	flick("taperecorder_anim", src)
+	sleep(3 SECONDS) //prevent paper from being printed until the end of the animation
 	var/obj/item/paper/P = new /obj/item/paper(drop_location())
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	var/datum/tape_piece/piece

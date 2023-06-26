@@ -2,7 +2,7 @@
 	name = "autopsy scanner"
 	desc = "Extracts information on wounds."
 	icon = 'icons/obj/autopsy_scanner.dmi'
-	icon_state = ""
+	icon_state = "autopsy_scanner"
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=1;biotech=1"
@@ -140,7 +140,8 @@
 	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	sleep(10)
+	flick("autopsy_scanner_anim", src)
+	sleep(3 SECONDS)
 
 	var/obj/item/paper/P = new(drop_location())
 	P.name = "Autopsy Data ([target_name])"
