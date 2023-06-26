@@ -414,3 +414,17 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/chameleon_counterfeiter(src)
 	new /obj/item/chameleon_counterfeiter(src)
 	new /obj/item/chameleon_counterfeiter(src)
+
+/obj/item/storage/box/syndie_kit/pistol_ammo
+	name = "additional 10mm ammunition kit"
+
+/obj/item/storage/box/syndie_kit/pistol_ammo/populate_contents()
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+
+/obj/item/storage/box/syndie_kit/revolver_ammo
+	name = "additional .357 ammunition kit"
+
+/obj/item/storage/box/syndie_kit/revolver_ammo/populate_contents()
+	new /obj/item/ammo_box/a357(src)
+	new /obj/item/ammo_box/a357(src)
