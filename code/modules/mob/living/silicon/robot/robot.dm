@@ -833,11 +833,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			if(!user.drop_transfer_item_to_loc(W, src))
 				return
-			if(U.action(src))
+			if(U.action(src, user))
 				user.visible_message("<span class = 'notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
 				install_upgrade(U)
 			else
-				to_chat(user, "<span class='danger'>Upgrade error.</span>")
+				W.forceMove(drop_location())
 
 	else if(istype(W, /obj/item/mmi_radio_upgrade))
 		if(!opened)

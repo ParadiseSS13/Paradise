@@ -13,7 +13,7 @@
 	var/charge_cost = 50
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
-	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
+	var/bypass_protection = FALSE //If the hypospray can go through armor or thick material
 
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list( \
@@ -37,7 +37,8 @@
 		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
 		"potass_iodide" = list('icons/obj/decals.dmi', "radiation"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
-	bypass_protection = 1
+	bypass_protection = TRUE
+
 
 /obj/item/reagent_containers/borghypo/upgraded
 	name = "upgraded cyborg hypospray"
@@ -57,6 +58,7 @@
 /obj/item/reagent_containers/borghypo/empty()
 	set hidden = TRUE
 
+
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	for(var/R in reagent_ids)
 		add_reagent(R)
@@ -64,9 +66,11 @@
 
 	START_PROCESSING(SSobj, src)
 
+
 /obj/item/reagent_containers/borghypo/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
 
 /obj/item/reagent_containers/borghypo/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	charge_tick++
@@ -93,6 +97,7 @@
 	//update_icon()
 	return TRUE
 
+
 // Use this to add more chemicals for the borghypo to produce.
 /obj/item/reagent_containers/borghypo/proc/add_reagent(reagent)
 	reagent_ids |= reagent
@@ -103,6 +108,7 @@
 	var/datum/reagents/R = reagent_list[reagent_list.len]
 	R.add_reagent(reagent, 30)
 
+
 /obj/item/reagent_containers/borghypo/proc/refill_borghypo(datum/reagents/RG, reagent_id, mob/living/silicon/robot/R)
 	if(RG.total_volume < RG.maximum_volume)
 		RG.add_reagent(reagent_id, BORGHYPO_REFILL_VALUE)
@@ -110,16 +116,17 @@
 		return TRUE
 	return FALSE
 
+
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
-		to_chat(user, "<span class='warning'>The injector is empty.</span>")
+		to_chat(user, SPAN_WARNING("The injector is empty."))
 		return
 	if(!istype(M))
 		return
-	if(R.total_volume && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick = bypass_protection))
-		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
-		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
+	if(R.total_volume && M.can_inject(user, TRUE, user.zone_selected, bypass_protection, bypass_protection))
+		to_chat(user, SPAN_NOTICE("You inject [M] with the injector."))
+		to_chat(M, SPAN_NOTICE("You feel a tiny prick!"))
 
 		R.add_reagent(M)
 		if(M.reagents)
@@ -127,10 +134,12 @@
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
+			to_chat(user, SPAN_NOTICE("[trans] units injected. [R.total_volume] units remaining."))
+
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	radial_menu(user)
+
 
 /obj/item/reagent_containers/borghypo/proc/radial_menu(mob/user)
 	var/list/choices = list()
@@ -144,21 +153,27 @@
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
 	amount_per_transfer_from_this  = (reagent_ids[mode] == "perfluorodecalin") ? 3 : 5
-	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
+	to_chat(user, SPAN_NOTICE("Synthesizer is now producing '[R.name]'."))
+
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
 	. = ..()
+
+	if(bypass_protection)
+		. += SPAN_NOTICE_BOLD("Advanced injector is installed on this module, allowing it to pierce thick tissue and materials.")
+
 	if(get_dist(user, src) <= 2)
 		var/empty = TRUE
 
 		for(var/datum/reagents/RS in reagent_list)
 			var/datum/reagent/R = locate() in RS.reagent_list
 			if(R)
-				. += "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>"
+				. += SPAN_NOTICE("It currently has [R.volume] units of [R.name] stored.")
 				empty = FALSE
 
 		if(empty)
-			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"
+			. += SPAN_NOTICE("It is currently empty. Allow some time for the internal syntheszier to produce more.")
+
 
 /obj/item/reagent_containers/borghypo/basic
 	name = "Basic Medical Hypospray"
@@ -166,6 +181,7 @@
 	reagent_ids = list( \
 		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
 		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"))
+
 
 /obj/item/reagent_containers/borghypo/basic/upgraded
 	name = "Upgraded Basic Medical Hypospray"
@@ -176,5 +192,6 @@
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"sal_acid" = list('icons/mob/actions/actions.dmi', "fleshmend"), \
 		"salbutamol" = list('icons/obj/surgery.dmi', "lungs"))
+
 
 #undef BORGHYPO_REFILL_VALUE

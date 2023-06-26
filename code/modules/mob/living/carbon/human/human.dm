@@ -954,7 +954,7 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
+/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, ignore_pierceimmune = FALSE)
 	. = TRUE
 
 	if(!target_zone)
@@ -964,7 +964,7 @@
 		else
 			target_zone = user.zone_selected
 
-	if(PIERCEIMMUNE in dna.species.species_traits)
+	if((PIERCEIMMUNE in dna.species.species_traits) && !ignore_pierceimmune)
 		. = FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)

@@ -1385,6 +1385,16 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_hypospray_pierce
+	name = "Medical Cyborg Upgrade (Hypospray Advanced Injector)"
+	id = "borg_upgrade_hypospray_pierce"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/hypospray_pierce
+	req_tech = list("materials" = 5, "biotech" = 6, "engineering" = 6)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_DIAMOND = 500, MAT_TITANIUM = 10000)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_abductor_medi
 	name = "Medical Cyborg Upgrade (Abductor Medical Equipment)"
 	id = "borg_upgade_abductor_medi"
