@@ -61,6 +61,9 @@
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary. example: laser tag or practice lasers
 
+	var/dismember_limbs = FALSE //if true, projectile with dismemberment will cut limbs instead of gib them
+	var/dismember_head = FALSE  //if true, projectile with dismemberment will forcefully cut head instead of gibbing them
+
 /obj/item/projectile/New()
 	permutated = list()
 	return ..()

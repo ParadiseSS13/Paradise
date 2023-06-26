@@ -128,12 +128,14 @@ emp_act
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		var/damtype = DROPLIMB_SHARP
-		switch(P.damage_type)
-			if(BRUTE)
-				damtype = DROPLIMB_BLUNT
-			if(BURN)
-				damtype = DROPLIMB_BURN
-
+		if(!P.dismember_limbs)
+			switch(P.damage_type)
+				if(BRUTE)
+					damtype = DROPLIMB_BLUNT
+				if(BURN)
+					damtype = DROPLIMB_BURN
+		if(P.dismember_head && istype(affecting, /obj/item/organ/external/head))
+			damtype = DROPLIMB_SHARP
 		affecting.droplimb(FALSE, damtype)
 
 /mob/living/carbon/human/getarmor(var/def_zone, var/type)

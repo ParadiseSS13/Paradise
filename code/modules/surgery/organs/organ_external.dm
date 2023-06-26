@@ -559,6 +559,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
 			return null
 
+
 /obj/item/organ/external/proc/disembowel(spillage_zone = "chest")
 	if(!owner)
 		return

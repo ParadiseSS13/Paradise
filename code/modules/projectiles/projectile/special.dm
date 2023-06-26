@@ -249,6 +249,7 @@
 	hitsound = "bullet"
 	range = 3
 	dismemberment = 20
+	dismember_limbs = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 
 /obj/item/projectile/plasma/on_hit(atom/target, pointblank = 0)
