@@ -1336,8 +1336,7 @@
 					var/list/organs_list = list()
 					organs_list += H.internal_organs
 					organs_list += H.bodyparts
-					for(var/X in organs_list)
-						var/obj/item/organ/O = X
+					for(var/obj/item/organ/O as anything in organs_list)
 						O.germ_level = 0
 					organs_list.Cut()
 				if(M.health < 40)
