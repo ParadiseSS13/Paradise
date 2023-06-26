@@ -95,31 +95,21 @@
 
 
 /obj/structure/closet/secure_closet/atmos_personal
-	name = "technician's locker"
+	name = "Atmospherics Supply locker"
 	req_access = list(ACCESS_ATMOSPHERICS)
 	icon_state = "atmos"
 	open_door_sprite = "eng_secure_door"
 
 /obj/structure/closet/secure_closet/atmos_personal/populate_contents()
-	new /obj/item/radio/headset/headset_eng(src)
 	new /obj/item/cartridge/atmos(src)
-	new /obj/item/storage/toolbox/mechanical(src)
-	if(prob(50))
-		new /obj/item/storage/backpack/industrial/atmos(src)
-	else
-		new /obj/item/storage/backpack/satchel_atmos(src)
 	new /obj/item/storage/backpack/duffel/atmos(src)
-	new /obj/item/extinguisher(src)
 	new /obj/item/grenade/gas/oxygen(src)
 	new /obj/item/grenade/gas/oxygen(src)
 	new /obj/item/clothing/suit/storage/hazardvest(src)
-	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/holosign_creator/atmos(src)
 	new /obj/item/watertank/atmos(src)
 	new /obj/item/clothing/suit/fire/atmos(src)
 	new /obj/item/clothing/head/hardhat/atmos(src)
-	new /obj/item/clothing/glasses/meson/engine/tray(src)
 	new /obj/item/rpd(src)
 	new /obj/item/destTagger(src)
 
