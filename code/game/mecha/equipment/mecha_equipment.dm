@@ -157,7 +157,7 @@
 		return
 	var/datum/action/innate/mecha/select_module/select_action = new
 	select_action.Grant(chassis.occupant, chassis, src)
-	chassis.select_actions[name] = select_action
+	chassis.select_actions[src] = select_action
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto = null)
 	if(!can_detach())
@@ -181,8 +181,8 @@
 /obj/item/mecha_parts/mecha_equipment/proc/remove_targeted_action()
 	if(!selectable)
 		return
-	if(chassis.select_actions[name])
-		var/datum/action/innate/mecha/select_module/select_action = chassis.select_actions[name]
+	if(chassis.select_actions[src])
+		var/datum/action/innate/mecha/select_module/select_action = chassis.select_actions[src]
 		select_action.Remove(chassis.occupant)
 
 /obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
