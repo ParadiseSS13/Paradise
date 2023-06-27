@@ -573,7 +573,7 @@
 	// Strong combined with another drug, but frankly I could do meth crank hydro for a better mix. Will be interesting with batons?
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
 	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
-		update_flags |= M.adjustToxLoss(2, FALSE) //This does toxin damage. This kills any chem mixes, which could be considered a good thing, but it is a drug that MUST be combined with other drugs. Tuning it down should still force people to get off it but not to soon.
+		update_flags |= M.adjustToxLoss(4, FALSE) //This does toxin damage. This kills any chem mixes, which could be considered a good thing, but it is a drug that MUST be combined with other drugs. I want to turn this down, but someone will just iv drip a certian bar drink
 	if(prob(5))
 		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
 	if(prob(8))
