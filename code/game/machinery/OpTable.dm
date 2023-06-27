@@ -45,6 +45,11 @@
 	else
 		return FALSE
 
+/obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(iscarbon(AM) && LAZYLEN(injected_reagents))
+		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
+
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
 	if(!ishuman(user) && !isrobot(user)) // Only Humanoids and Cyborgs can put things on this table
 		return
@@ -57,9 +62,7 @@
 	take_patient(O, user)
 	return TRUE
 
-/**
-  * Updates the `patient` var to be the mob occupying the table
-  */
+/// Updates the `patient` var to be the mob occupying the table
 /obj/machinery/optable/proc/update_patient()
 	if(patient in buckled_mobs)
 		return // Current patient is still here, no need to look
@@ -76,20 +79,14 @@
 		else
 			icon_state = "table2-idle"
 
-/obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(iscarbon(AM) && LAZYLEN(injected_reagents))
-		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
-
-/obj/machinery/optable/process()
+/// Returns `FALSE` if table is occupied
+/obj/machinery/optable/proc/check_table()
 	update_patient()
-	if(LAZYLEN(injected_reagents))
-		for(var/mob/living/carbon/C in get_turf(src))
-			if(C.stat == DEAD)
-				continue
-			var/datum/reagents/R = C.reagents
-			for(var/chemical in injected_reagents)
-				R.check_and_add(chemical,reagent_target_amount,inject_amount)
+	if(patient != null)
+		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
+		return FALSE
+	else
+		return TRUE
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
 	if(new_patient == user)
@@ -101,6 +98,16 @@
 	add_fingerprint(user)
 	update_patient()
 
+/obj/machinery/optable/process()
+	update_patient()
+	if(LAZYLEN(injected_reagents))
+		for(var/mob/living/carbon/C in get_turf(src))
+			if(C.stat == DEAD)
+				continue
+			var/datum/reagents/R = C.reagents
+			for(var/chemical in injected_reagents)
+				R.check_and_add(chemical,reagent_target_amount,inject_amount)
+
 /obj/machinery/optable/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
@@ -109,11 +116,3 @@
 		to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
 		new /obj/item/stack/sheet/plasteel(loc, 5)
 		qdel(src)
-
-/obj/machinery/optable/proc/check_table()
-	update_patient()
-	if(patient != null)
-		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
-		return FALSE
-	else
-		return TRUE
