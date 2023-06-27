@@ -37,13 +37,6 @@
 	. = ..()
 	. += "<span class='notice'><b>Click-drag</b> someone to the table to place them on top of the table.</span>"
 
-/obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(user.a_intent == INTENT_HARM)
-		..(user, TRUE)
-		visible_message("<span class='warning'>[user] destroys [src]!</span>")
-		qdel(src)
-		return TRUE
-
 /obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return TRUE
@@ -53,13 +46,11 @@
 		return FALSE
 
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
-	if(!ishuman(user) && !isrobot(user)) //Only Humanoids and Cyborgs can put things on this table
+	if(!ishuman(user) && !isrobot(user)) // Only Humanoids and Cyborgs can put things on this table
 		return
 	if(!check_table()) //If the Operating Table is occupied, you cannot put someone else on it
 		return
-	if(user.buckled || user.incapacitated()) //Is the person trying to use the table incapacitated or restrained?
-		return
-	if(!ismob(O) || !iscarbon(O)) //Only Mobs and Carbons can go on this table (no syptic patches please)
+	if(!iscarbon(O))
 		return
 	if(!user_buckle_mob(O, user, check_loc = FALSE))
 		return
