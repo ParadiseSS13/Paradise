@@ -91,7 +91,7 @@
 	/// Is the jetpack on so we should make ion effects?
 	var/jetpack_active = FALSE
 
-/obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
+/obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core, new_access = null)
 	. = ..()
 	if(new_theme)
 		theme = new_theme
@@ -104,6 +104,8 @@
 	ui_theme = theme.ui_theme
 	charge_drain = theme.charge_drain
 	wires = new/datum/wires/mod(src)
+	if(new_access)
+		req_access = new_access
 	if(length(req_access))
 		locked = TRUE
 	new_core?.install(src)

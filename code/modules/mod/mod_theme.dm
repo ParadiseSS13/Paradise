@@ -42,7 +42,7 @@
 	/// Slowdown of the MOD when not active.
 	var/slowdown_inactive = 1.25
 	/// Slowdown of the MOD when active.
-	var/slowdown_active = 0.75
+	var/slowdown_active = 0.45
 	/// Theme used by the MOD TGUI.
 	var/ui_theme = "ntos"
 	/// List of inbuilt modules. These are different from the pre-equipped suits, you should mainly use these for unremovable modules with 0 complexity.
@@ -426,7 +426,7 @@
 		and weak against fingers tapping the glass."
 	default_skin = "medical"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_medical
-	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
+	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	slowdown_inactive = 1
 	slowdown_active = 0.45
 	allowed_suit_storage = list(
@@ -1005,7 +1005,7 @@
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	slowdown_inactive = 2
-	slowdown_active = 1.5
+	slowdown_active = 0.95
 	ui_theme = "hackerman"
 	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype)
 	allowed_suit_storage = list(

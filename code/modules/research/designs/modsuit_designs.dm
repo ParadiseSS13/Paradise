@@ -123,6 +123,13 @@
 	materials = list(MAT_METAL = 2500, MAT_URANIUM = 10000)
 	build_path = /obj/item/mod/module/storage/large_capacity
 
+/datum/design/module/mod_storage_syndicate
+	name = "Syndicate Storage Module"
+	id = "mod_storage_syndicate"
+	req_tech = list("materials" = 7, "powerstorage" = 7, "engineering" = 7, "syndicate" = 4) // 3 felt too low.
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) //Requires Evidence Raid  to function.
+	build_path = /obj/item/mod/module/storage/syndicate
+
 /datum/design/module/mod_visor_medhud
 	name = "Medical Visor Module"
 	id = "mod_visor_medhud"
@@ -315,6 +322,7 @@
 	build_path = /obj/item/mod/module/pathfinder
 
 /datum/design/module/plasma_stabilizer
+	name = "Plasma Stabilizer Module"
 	id = "mod_plasmastable"
 	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 3)
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
@@ -326,6 +334,13 @@
 	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6, "syndicate" = 2)
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/plate_compression
+
+/datum/design/module/status_readout
+	name = "Status Readout Module"
+	id = "mod_status_readout"
+	req_tech = list("materials" = 5, "powerstorage" = 5, "biotech" = 6, "syndicate" = 2)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
+	build_path = /obj/item/mod/module/status_readout
 
 /datum/design/module/mod_teleporter
 	name = "Teleporter Module"

@@ -10,7 +10,7 @@
 	/// Modules that we pin when the suit is installed for the first time, for convenience, can be applied or theme inbuilt modules.
 	var/list/default_pins = list()
 
-/obj/item/mod/control/pre_equipped/Initialize(mapload, new_theme, new_skin, new_core)
+/obj/item/mod/control/pre_equipped/Initialize(mapload, new_theme, new_skin, new_core, new_access)
 	for(var/module_to_pin in default_pins)
 		default_pins[module_to_pin] = list()
 	new_skin = applied_skin
