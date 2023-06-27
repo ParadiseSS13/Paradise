@@ -20,8 +20,8 @@
 
 /obj/machinery/optable/Initialize(mapload)
 	. = ..()
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-		computer = locate(/obj/machinery/computer/operating, get_step(src, dir))
+	for(var/direction in list(NORTH,EAST,SOUTH,WEST))
+		computer = locate(/obj/machinery/computer/operating, get_step(src, direction))
 		if(computer)
 			computer.table = src
 			break
