@@ -82,18 +82,11 @@
 		return
 	if(is_occupied())
 		return
-	if(!user_buckle_mob(O, user, check_loc = FALSE)) // Is the user incapacitated, the patient already buckled to something, etc.?
-		return
 
-	if(new_patient == user)
-		user.visible_message("[user] climbs on [src].","You climb on [src].")
-	else
-		visible_message("<span class='alert'>[new_patient] has been laid on [src] by [user].</span>")
+	// Attempt to settle the patient in
+	if(!user_buckle_mob(new_patient, user, check_loc = FALSE))
+		return // User is incapacitated, patient is already buckled to something else, etc.
 
-	if(new_patient.s_active) //Close the container opened
-		new_patient.s_active.close(new_patient)
-
-	add_fingerprint(user)
 	update_patient()
 	return TRUE
 
