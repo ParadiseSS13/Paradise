@@ -86,8 +86,6 @@
  // Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
-	layer = CLOSED_DOOR_LAYER
-	closingLayer = CLOSED_DOOR_LAYER
 
 /obj/machinery/door/poddoor/multi_tile/Initialize(mapload)
 	. = ..()
