@@ -53,7 +53,7 @@
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
 	if(!ishuman(user) && !isrobot(user)) // Only Humanoids and Cyborgs can put things on this table
 		return
-	if(!check_table()) //If the Operating Table is occupied, you cannot put someone else on it
+	if(is_occupied())
 		return
 	if(!iscarbon(O))
 		return
@@ -79,13 +79,11 @@
 		else
 			icon_state = "table2-idle"
 
-/// Returns `FALSE` if table is occupied
-/obj/machinery/optable/proc/check_table()
+/// Returns `TRUE` if table is occupied
+/obj/machinery/optable/proc/is_occupied()
 	update_patient()
-	if(patient != null)
+	if(patient)
 		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
-		return FALSE
-	else
 		return TRUE
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
