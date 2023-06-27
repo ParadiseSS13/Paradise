@@ -101,7 +101,6 @@
 		user.visible_message("[user] climbs on [src].","You climb on [src].")
 	else
 		visible_message("<span class='alert'>[new_patient] has been laid on [src] by [user].</span>")
-	new_patient.resting = TRUE
 	if(new_patient.s_active) //Close the container opened
 		new_patient.s_active.close(new_patient)
 	add_fingerprint(user)
