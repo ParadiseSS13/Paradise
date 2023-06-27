@@ -47,7 +47,7 @@
 
 /obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(iscarbon(AM) && LAZYLEN(injected_reagents))
+	if(iscarbon(AM) && length(injected_reagents))
 		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
 
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
@@ -88,7 +88,7 @@
 
 /obj/machinery/optable/process()
 	update_patient()
-	if(LAZYLEN(injected_reagents))
+	if(length(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
 			if(C.stat == DEAD)
 				continue
