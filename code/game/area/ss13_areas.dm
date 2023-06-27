@@ -1233,6 +1233,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/engine/containment
+	name = "\improper Engine Containment"
+	icon_state = "engine"
+	sound_environment = SOUND_AREA_SPACE
+
+/area/engine/lobby
+	name = "\improper Engineering Lobby"
+	icon_state = "engine"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 //Solars
 
 /area/solar

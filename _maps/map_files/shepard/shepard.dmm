@@ -260,7 +260,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/tools)
+/area/engine/lobby)
 "add" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -598,9 +598,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "agW" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -625,9 +623,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ahd" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1248,7 +1244,7 @@
 	req_access_txt = "5"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/medbay2)
 "aoc" = (
@@ -1873,9 +1869,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "auV" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -1938,9 +1932,7 @@
 "avF" = (
 /obj/structure/lattice,
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "avJ" = (
 /obj/structure/closet,
 /obj/random/tool,
@@ -2003,9 +1995,7 @@
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "awX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -2137,8 +2127,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
+	dir = 8;
+	icon_state = "whitehall"
 	},
 /area/medical/sleeper)
 "ays" = (
@@ -2377,9 +2367,7 @@
 /obj/machinery/light/small,
 /obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "aBx" = (
 /obj/machinery/light_switch{
 	name = "north bump";
@@ -2565,7 +2553,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/cryo)
 "aCP" = (
@@ -2645,9 +2633,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "aDo" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -2781,12 +2767,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/chair/light,
 /obj/structure/cable/cyan{
 	d2 = 8;
 	icon_state = "4-8";
 	d1 = 4
 	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2810,7 +2796,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/reception)
 "aEW" = (
@@ -2821,9 +2807,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "aFd" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4;
@@ -2838,7 +2822,7 @@
 	dir = 5;
 	icon_state = "yellow"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "aFs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3477,14 +3461,14 @@
 /turf/simulated/floor/plating,
 /area/security/processing)
 "aNb" = (
-/obj/structure/chair{
-	dir = 8
+/obj/structure/chair/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
+	dir = 1;
+	icon_state = "whitegreen"
 	},
-/area/security/lobby)
+/area/medical/reception)
 "aNg" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
@@ -3677,10 +3661,23 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "aPw" = (
-/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/cyan{
+	d2 = 8;
+	icon_state = "4-8";
+	d1 = 4
+	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverdecorner";
-	dir = 8
+	icon_state = "white"
 	},
 /area/medical/reception)
 "aPP" = (
@@ -4168,9 +4165,7 @@
 	icon_state = "4-9"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "aVA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/floor/plating,
@@ -4243,8 +4238,8 @@
 /area/maintenance/maintcentral)
 "aWk" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde";
-	dir = 4
+	dir = 4;
+	icon_state = "whitegreen"
 	},
 /area/medical/reception)
 "aWn" = (
@@ -4672,9 +4667,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "baG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5086,9 +5079,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "bew" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
@@ -5243,7 +5234,7 @@
 	dir = 4;
 	icon_state = "bluecorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "bhb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5373,7 +5364,7 @@
 	dir = 4;
 	icon_state = "bluecorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "biR" = (
 /obj/structure/cable/green{
 	d1 = 1;
@@ -5741,9 +5732,7 @@
 	icon_state = "darkyellow";
 	dir = 4
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "blv" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -5828,14 +5817,14 @@
 /area/hallway/primary/central/ne)
 "bmr" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+	icon_state = "whiteblue"
 	},
 /area/medical/reception)
 "bms" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde";
-	dir = 1
+	dir = 1;
+	icon_state = "whitegreen"
 	},
 /area/medical/reception)
 "bmw" = (
@@ -5883,7 +5872,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/sleeper)
 "bmV" = (
@@ -6089,9 +6078,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "boH" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -6478,9 +6465,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "bsN" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "kill_sensor";
@@ -6504,9 +6489,7 @@
 "bsQ" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "bsS" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/green,
@@ -6615,9 +6598,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "btD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -6736,9 +6717,10 @@
 /obj/machinery/economy/atm{
 	pixel_y = 32
 	},
+/obj/structure/chair/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde";
-	dir = 1
+	dir = 1;
+	icon_state = "whitegreen"
 	},
 /area/medical/reception)
 "buU" = (
@@ -6771,9 +6753,7 @@
 	icon_state = "0-9"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "bvf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7060,7 +7040,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "bxJ" = (
 /obj/structure/railing{
 	dir = 1
@@ -7134,9 +7114,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "byt" = (
 /obj/item/toy/figure/crew/warden,
 /obj/structure/falsewall/reinforced,
@@ -7357,9 +7335,7 @@
 	},
 /obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "bAF" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai_upload)
@@ -9863,9 +9839,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "bZU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -10110,9 +10084,7 @@
 	icon_state = "darkyellow";
 	dir = 8
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "cbY" = (
 /mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/carpet,
@@ -10410,9 +10382,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "cfC" = (
 /obj/effect/spawner/window/shuttle,
 /obj/machinery/door/firedoor/heavy,
@@ -11232,7 +11202,6 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitehall"
 	},
 /area/medical/sleeper)
@@ -12088,9 +12057,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ctQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -12614,14 +12581,14 @@
 	},
 /area/maintenance/disposal)
 "czL" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/area/medical/reception)
+/turf/simulated/floor/plasteel,
+/area/engine/lobby)
 "czU" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 9
@@ -12756,7 +12723,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/arrows/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -13053,8 +13019,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "cET" = (
@@ -13137,9 +13102,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "cFv" = (
 /obj/structure/cable/yellow{
 	d1 = 5;
@@ -13383,9 +13346,7 @@
 /obj/item/rpd,
 /obj/effect/turf_decal/stripes/full,
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "cHF" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -13474,9 +13435,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "cIr" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/item/radio/intercom{
@@ -13955,7 +13914,7 @@
 /obj/machinery/door/airlock/virology/glass,
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliverygreen"
 	},
 /area/medical/virology/lab)
 "cLU" = (
@@ -14051,9 +14010,7 @@
 "cMI" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/r_wall,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "cML" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "waste_sensor";
@@ -14251,9 +14208,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "cOX" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -14323,7 +14278,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/medbay2)
 "cPE" = (
@@ -14498,11 +14453,12 @@
 	},
 /area/medical/research)
 "cRv" = (
-/obj/structure/flora/tree/palm{
-	pixel_x = 0
+/obj/structure/table/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteverde";
+	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid,
-/area/hallway/primary/starboard)
+/area/medical/reception)
 "cRw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -14842,10 +14798,7 @@
 	pixel_x = -28;
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/sleeper)
 "cUO" = (
 /obj/machinery/door/airlock/maintenance{
@@ -15387,9 +15340,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "cZu" = (
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
@@ -15838,7 +15789,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "deQ" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 9
@@ -15907,10 +15858,7 @@
 	icon_state = "map-left-SH";
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/lobby)
 "dfG" = (
 /obj/structure/transit_tube{
@@ -15928,7 +15876,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "dfO" = (
 /obj/machinery/door/airlock/security{
 	name = "Prisoner Processing";
@@ -16029,7 +15977,7 @@
 	pixel_y = -20
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliverygreen"
 	},
 /area/medical/virology/lab)
 "dhc" = (
@@ -16127,9 +16075,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "div" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -16216,9 +16162,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "djI" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -16550,7 +16494,7 @@
 "dms" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/sleeper)
 "dmA" = (
@@ -17304,7 +17248,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "duN" = (
 /obj/machinery/access_button{
 	autolink_id = "sspcbrg_btn_ext";
@@ -17670,7 +17614,7 @@
 	dir = 4;
 	icon_state = "bluecorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "dyC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -18227,7 +18171,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/reception)
 "dDP" = (
@@ -18278,10 +18222,10 @@
 /area/hallway/primary/starboard)
 "dEA" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/greencross,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/sign/lifestar,
 /turf/simulated/floor/plating,
 /area/medical/reception)
 "dEM" = (
@@ -18448,9 +18392,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "dGw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -18623,9 +18565,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "dIE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -18905,9 +18845,7 @@
 	dir = 8;
 	icon_state = "darkyellowcorners"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "dMf" = (
 /obj/machinery/door_control{
 	id = "janidoor";
@@ -19227,9 +19165,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "dQt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -19291,8 +19227,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
+	icon_state = "white"
 	},
 /area/medical/sleeper)
 "dQU" = (
@@ -19383,7 +19318,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/medbay2)
 "dSd" = (
@@ -19641,9 +19576,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/cable/blue,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "dWr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -19886,9 +19819,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "elevatorshaft"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "dZq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -20091,8 +20022,9 @@
 	icon_state = "4-8";
 	d1 = 4
 	},
+/obj/structure/chair/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+	icon_state = "white"
 	},
 /area/medical/reception)
 "ebI" = (
@@ -20303,9 +20235,7 @@
 	icon_state = "darkyellowcorners";
 	dir = 1
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "edz" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/structure/closet/firecloset,
@@ -20336,7 +20266,7 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 9;
 	icon_state = "whitehall"
 	},
 /area/medical/reception)
@@ -20568,7 +20498,8 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+	dir = 1;
+	icon_state = "whitegreen"
 	},
 /area/medical/reception)
 "egC" = (
@@ -20770,8 +20701,8 @@
 "eix" = (
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde";
-	dir = 1
+	dir = 1;
+	icon_state = "whitegreen"
 	},
 /area/medical/reception)
 "eiB" = (
@@ -20973,7 +20904,7 @@
 	id_tag = "Biohazard_medi"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/reception)
 "ela" = (
@@ -21046,7 +20977,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "elP" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
@@ -21271,7 +21202,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "enX" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
@@ -21742,9 +21673,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "esx" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4
@@ -21844,9 +21773,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "etn" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -21997,7 +21924,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/patients_rooms)
 "euG" = (
@@ -22456,9 +22383,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ezP" = (
 /obj/machinery/light{
 	dir = 1
@@ -22750,16 +22675,11 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "eCV" = (
-/obj/structure/cable/cyan{
-	d2 = 2;
-	icon_state = "1-2";
-	d1 = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/sleeper)
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/firedoor/heavy,
+/obj/structure/sign/lifestar,
+/turf/simulated/floor/plating,
+/area/medical/reception)
 "eDa" = (
 /obj/effect/spawner/window/shuttle,
 /obj/machinery/door/firedoor/heavy,
@@ -22865,7 +22785,7 @@
 	d2 = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde"
+	icon_state = "white"
 	},
 /area/medical/reception)
 "eDQ" = (
@@ -23208,7 +23128,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde"
+	icon_state = "white"
 	},
 /area/medical/reception)
 "eGQ" = (
@@ -23283,9 +23203,7 @@
 "eHH" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "eHL" = (
 /obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -23659,7 +23577,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliverygreen"
 	},
 /area/medical/cryo)
 "eLT" = (
@@ -23774,7 +23692,7 @@
 	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/sleeper)
 "eMP" = (
@@ -23903,7 +23821,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "eOm" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -24057,9 +23975,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ePV" = (
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = -28
@@ -24200,8 +24116,10 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/structure/chair/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+	icon_state = "whiteverde";
+	dir = 1
 	},
 /area/medical/reception)
 "eSm" = (
@@ -24535,9 +24453,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "eVc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -24842,9 +24758,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "eYq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -25147,7 +25061,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/tools)
+/area/engine/lobby)
 "faS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
@@ -25381,7 +25295,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "fei" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -25633,7 +25547,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde"
+	icon_state = "white"
 	},
 /area/medical/reception)
 "fhz" = (
@@ -26068,7 +25982,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/cmostore)
 "flb" = (
@@ -26319,7 +26233,7 @@
 	id_tag = "Biohazard_medi"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/surgery)
 "fnl" = (
@@ -26749,6 +26663,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -27101,9 +27016,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "fvp" = (
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -27418,9 +27331,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "fyH" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -27444,9 +27355,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "fyQ" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
@@ -27540,9 +27449,7 @@
 "fzQ" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "fzY" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -27647,12 +27554,12 @@
 /area/space)
 "fBk" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/multi_tile/three_tile_ver{
-	opacity = 0;
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+	name = "Atmos Lockdown";
+	id_tag = "atmos";
 	density = 0;
-	icon_state = "open";
-	name = "Atmospherics Lockdown";
-	id_tag = "atmos"
+	opacity = 0;
+	icon_state = "open"
 	},
 /turf/simulated/floor/plating,
 /area/atmos/control)
@@ -27965,7 +27872,7 @@
 "fDX" = (
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/hydroponics)
+/area/hallway/secondary/garden)
 "fEg" = (
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
 /turf/simulated/wall/r_wall,
@@ -29028,7 +28935,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "fPZ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -29604,7 +29511,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/surgeryobs)
 "fWl" = (
@@ -29722,6 +29629,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
+"fXu" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitehall"
+	},
+/area/medical/reception)
 "fXv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -29849,9 +29762,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "fXY" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "escapefull"
@@ -30083,9 +29994,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "gaH" = (
 /obj/machinery/light_switch{
 	name = "north bump";
@@ -30174,7 +30083,7 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/tools)
+/area/engine/lobby)
 "gbL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
@@ -30228,7 +30137,7 @@
 	pixel_y = -32
 	},
 /obj/effect/overlay/coconut,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/hallway/primary/starboard)
 "gcp" = (
 /obj/structure/disposalpipe/segment{
@@ -30722,6 +30631,13 @@
 	icon_state = "delivery"
 	},
 /area/library)
+"ghN" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/sleeper)
 "gia" = (
 /obj/machinery/light{
 	dir = 4
@@ -31194,7 +31110,7 @@
 	d2 = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/sleeper)
 "gnI" = (
@@ -31569,7 +31485,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "grq" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowchecker"
@@ -31885,9 +31801,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "guO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/disposalpipe/segment{
@@ -32082,6 +31996,17 @@
 "gwL" = (
 /turf/simulated/wall,
 /area/engine/equipmentstorage)
+"gwN" = (
+/obj/structure/cable/cyan{
+	d2 = 2;
+	icon_state = "1-2";
+	d1 = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/medical/sleeper)
 "gwP" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -32497,9 +32422,7 @@
 	},
 /obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "gBb" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -32546,7 +32469,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "gBA" = (
 /obj/structure/disposalpipe/junction{
 	icon_state = "pipe-y"
@@ -33250,8 +33173,7 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde";
-	dir = 6
+	icon_state = "whiteblue"
 	},
 /area/medical/reception)
 "gJl" = (
@@ -33496,7 +33418,7 @@
 /area/maintenance/auxsolarstarboard)
 "gLa" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde"
+	icon_state = "whiteyellow"
 	},
 /area/medical/reception)
 "gLj" = (
@@ -34099,9 +34021,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "gRb" = (
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/dorms)
@@ -34632,7 +34552,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliverygreen"
 	},
 /area/medical/cryo)
 "gWK" = (
@@ -34864,9 +34784,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "gYv" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -35590,9 +35508,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/sleeper)
 "hhb" = (
 /obj/structure/cable/green{
@@ -35626,19 +35542,8 @@
 	},
 /area/medical/research)
 "hhm" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/multi_tile/three_tile_hor{
-	name = "Atmos Lockdown";
-	id_tag = "atmos";
-	density = 0;
-	opacity = 0;
-	icon_state = "open"
-	},
-/turf/simulated/floor/plating,
-/area/atmos)
+/turf/simulated/floor/wood,
+/area/maintenance/apmaint)
 "hho" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -35700,9 +35605,7 @@
 	},
 /obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "hhS" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on,
 /turf/simulated/floor/plating/airless,
@@ -35916,9 +35819,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "hjQ" = (
 /obj/structure/barricade/wooden{
 	layer = 3.5
@@ -36015,8 +35916,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "hkI" = (
@@ -36385,7 +36285,7 @@
 	dir = 8;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "hoy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -36396,7 +36296,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 5;
 	icon_state = "whitehall"
 	},
 /area/medical/reception)
@@ -36783,9 +36683,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "hsD" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
@@ -37252,9 +37150,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "hxx" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -37388,9 +37284,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "hyI" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -37562,10 +37456,7 @@
 	d2 = 8;
 	icon_state = "6-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "orangecorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "hAv" = (
 /obj/structure/lattice/catwalk,
@@ -37678,9 +37569,7 @@
 	anchored = 1
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "hBS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/yellow{
@@ -38163,7 +38052,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "hGh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -38587,7 +38476,7 @@
 /obj/machinery/door/airlock/virology/glass,
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliverygreen"
 	},
 /area/medical/virology/lab)
 "hMs" = (
@@ -39103,9 +38992,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable/white,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "hRN" = (
 /obj/item/radio/intercom/department/security{
 	pixel_x = 28
@@ -39343,9 +39230,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "hUr" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -39844,6 +39729,13 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet/black,
 /area/chapel/main)
+"hYZ" = (
+/obj/structure/chair/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteverde";
+	dir = 1
+	},
+/area/medical/reception)
 "hZB" = (
 /obj/machinery/door_control{
 	id = "dormshop2";
@@ -39971,9 +39863,7 @@
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "iaR" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "Interrogation"
@@ -40115,9 +40005,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "idg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -40159,7 +40047,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/storage/tools)
+/area/engine/lobby)
 "idu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor_switch/oneway{
@@ -40350,8 +40238,10 @@
 	name = "north bump";
 	pixel_y = 30
 	},
+/obj/structure/chair/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+	dir = 1;
+	icon_state = "whitegreen"
 	},
 /area/medical/reception)
 "ieX" = (
@@ -40615,9 +40505,7 @@
 /area/storage/tools)
 "ihP" = (
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ihT" = (
 /obj/structure/flora/tree/palm{
 	pixel_x = 0
@@ -40730,9 +40618,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "iiW" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
@@ -40903,7 +40789,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/surgery2)
 "iki" = (
@@ -41446,7 +41332,7 @@
 	dir = 8;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "ioK" = (
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/cigar/havana,
@@ -41689,7 +41575,7 @@
 	dir = 4;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "iqP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -41751,9 +41637,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "elevatorshaft"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "irv" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
@@ -42481,9 +42365,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "iyt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -43076,9 +42958,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "iFJ" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/white{
@@ -43626,9 +43506,7 @@
 /area/maintenance/fsmaint2)
 "iLA" = (
 /turf/simulated/wall/r_wall,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "iLK" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -44160,9 +44038,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "iQH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -44779,9 +44655,7 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/item/wrench,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "iWg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -45031,7 +44905,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "iYN" = (
 /turf/space,
 /area/maintenance/fsmaint)
@@ -45045,10 +44919,9 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "iZe" = (
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "iZn" = (
@@ -45082,9 +44955,11 @@
 	},
 /area/security/warden)
 "iZv" = (
-/obj/structure/table/glass,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/chair/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -45109,8 +44984,8 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde";
-	dir = 8
+	dir = 8;
+	icon_state = "whitegreen"
 	},
 /area/medical/reception)
 "iZO" = (
@@ -45253,9 +45128,7 @@
 "jbn" = (
 /obj/machinery/the_singularitygen/tesla,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "jbp" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -45597,9 +45470,7 @@
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "jfc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -46144,7 +46015,6 @@
 /area/crew_quarters/sleep)
 "jkt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/table/glass,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -46278,7 +46148,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "jlP" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -46968,7 +46838,7 @@
 	dir = 5;
 	icon_state = "arrival"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "jse" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -47013,7 +46883,7 @@
 	},
 /obj/structure/cable/cyan,
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 9;
 	icon_state = "whitehall"
 	},
 /area/medical/reception)
@@ -47170,7 +47040,7 @@
 	dir = 9;
 	icon_state = "arrival"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "juy" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -47626,9 +47496,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/structure/chair/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -47796,7 +47663,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/genetics_cloning)
 "jBo" = (
@@ -47922,7 +47789,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/storage/tools)
+/area/engine/lobby)
 "jCl" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -48047,13 +47914,9 @@
 	},
 /area/maintenance/asmaint)
 "jDL" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/toxins/explab)
 "jDV" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -48517,9 +48380,7 @@
 	icon_state = "6-9"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "jHI" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -48725,9 +48586,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "jKq" = (
 /obj/structure/table/wood,
 /obj/structure/table/wood,
@@ -48750,8 +48609,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde";
-	dir = 10
+	icon_state = "whiteyellow"
 	},
 /area/medical/reception)
 "jKC" = (
@@ -48936,9 +48794,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "jMp" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -48999,7 +48855,7 @@
 	req_access_txt = "66"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/paramedic)
 "jNh" = (
@@ -49443,9 +49299,7 @@
 "jRa" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "jRc" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -49751,10 +49605,7 @@
 	icon_state = "map-right-SH";
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/lobby)
 "jUz" = (
 /obj/machinery/light_switch{
@@ -50203,14 +50054,13 @@
 	},
 /area/security/lobby)
 "jZO" = (
-/obj/machinery/light/small{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "vault"
-	},
-/area/medical/morgue)
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/atmos)
 "jZS" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Departures"
@@ -50439,7 +50289,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "kbT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -50496,10 +50346,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/lobby)
 "kcs" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -50895,7 +50742,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "khg" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics";
@@ -51335,9 +51182,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "klt" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/structure/cable/yellow{
@@ -51521,9 +51366,7 @@
 "knj" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "knm" = (
 /obj/effect/spawner/random_spawners/grille_often,
 /turf/simulated/floor/plasteel,
@@ -52460,7 +52303,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/surgeryobs)
 "kuD" = (
@@ -53250,6 +53093,7 @@
 /obj/structure/sign/directions/security{
 	pixel_y = -20
 	},
+/obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53512,9 +53356,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "kEO" = (
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/medical/research)
@@ -53994,9 +53836,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "kKC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -54401,9 +54241,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "kOg" = (
 /obj/structure/chair{
 	dir = 1
@@ -54472,10 +54310,16 @@
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "kOH" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/multi_tile/three_tile_ver{
+	opacity = 0;
+	density = 0;
+	icon_state = "open";
+	name = "Atmospherics Lockdown";
+	id_tag = "atmos"
 	},
-/area/maintenance/apmaint)
+/turf/simulated/floor/plating,
+/area/atmos/control)
 "kOI" = (
 /mob/living/simple_animal/pig,
 /obj/effect/decal/straw/light,
@@ -54617,9 +54461,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "kQn" = (
 /obj/effect/decal/cleanable/insectguts,
 /obj/machinery/recycler,
@@ -54906,9 +54748,7 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "kUc" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -54942,9 +54782,7 @@
 	id_tag = "Singularity"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "kUl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -55154,7 +54992,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "kXt" = (
 /obj/machinery/camera{
 	c_tag = "Tech Storage"
@@ -55398,9 +55236,7 @@
 "kZt" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "kZu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/warning_stripes/south,
@@ -55860,9 +55696,7 @@
 	icon_state = "2-5"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ldW" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 0;
@@ -55947,9 +55781,7 @@
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "leQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -56184,9 +56016,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "elevatorshaft"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "lib" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/power/apc{
@@ -56270,10 +56100,7 @@
 "liZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/sleeper)
 "ljc" = (
 /obj/effect/turf_decal/stripes/line{
@@ -56406,7 +56233,7 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/cryo)
 "lkg" = (
@@ -56810,9 +56637,7 @@
 	dir = 8;
 	icon_state = "darkyellowcorners"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "lon" = (
 /turf/simulated/floor/plasteel,
 /area/security/warden)
@@ -57024,7 +56849,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 8;
 	icon_state = "whitebluecorner"
 	},
 /area/medical/sleeper)
@@ -57311,9 +57136,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ltn" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
@@ -58195,9 +58018,7 @@
 "lBK" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "lBQ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -58950,6 +58771,9 @@
 	icon_state = "4-8";
 	d1 = 4
 	},
+/obj/structure/chair/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -59598,9 +59422,7 @@
 "lQu" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "lQy" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/closet/secure_closet/security,
@@ -59930,16 +59752,14 @@
 	},
 /area/toxins/xenobiology)
 "lUQ" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
-	name = "Atmos Lockdown";
-	id_tag = "atmos";
-	density = 0;
-	opacity = 0;
-	icon_state = "open"
+/obj/machinery/light/small{
+	dir = 1
 	},
-/turf/simulated/floor/plating,
-/area/atmos/control)
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "vault"
+	},
+/area/medical/morgue)
 "lUU" = (
 /obj/structure/table,
 /obj/item/paper_bin/nanotrasen,
@@ -60089,9 +59909,10 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
 "lVU" = (
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitebluecorner"
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/medical/sleeper)
 "lVV" = (
@@ -60269,7 +60090,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "lXW" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -60319,9 +60140,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "lYT" = (
 /obj/structure/closet/secure_closet/detective,
 /obj/item/restraints/handcuffs,
@@ -61101,9 +60920,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/economy/vending/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitecorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/sleeper)
 "mhV" = (
 /obj/structure/disposalpipe/segment,
@@ -61159,9 +60976,7 @@
 	name = "RADIOACTIVE AREA"
 	},
 /turf/simulated/wall/r_wall,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "mjd" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/structure/cable/yellow{
@@ -61464,9 +61279,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "mlC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -62120,7 +61933,8 @@
 	d2 = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner"
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "mrP" = (
@@ -62203,7 +62017,7 @@
 	d1 = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 5;
 	icon_state = "whitehall"
 	},
 /area/medical/reception)
@@ -62312,7 +62126,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/morgue)
 "muo" = (
@@ -62676,7 +62490,6 @@
 	},
 /area/quartermaster/office)
 "mxo" = (
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -63240,8 +63053,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverdecorner";
-	dir = 1
+	icon_state = "white"
 	},
 /area/medical/reception)
 "mCU" = (
@@ -63578,11 +63390,11 @@
 /area/engine/hallways)
 "mGX" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/greencross,
 /obj/machinery/door/poddoor/preopen{
 	name = "Quarantine Lockdown";
 	id_tag = "Biohazard_medi"
 	},
+/obj/structure/sign/lifestar,
 /turf/simulated/floor/plating,
 /area/medical/reception)
 "mHa" = (
@@ -63691,9 +63503,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "mII" = (
 /obj/item/newton,
 /obj/structure/table,
@@ -64322,7 +64132,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "mOi" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -64444,8 +64254,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+	icon_state = "white"
 	},
 /area/medical/sleeper)
 "mPK" = (
@@ -64477,9 +64286,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "mQa" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -64556,9 +64363,7 @@
 	},
 /obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "mRQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -64568,7 +64373,7 @@
 "mSf" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+	icon_state = "whiteblue"
 	},
 /area/medical/reception)
 "mSg" = (
@@ -64814,9 +64619,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/sleeper)
 "mUB" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -64995,9 +64798,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "mWu" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -65005,9 +64806,7 @@
 	},
 /obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "mWB" = (
 /obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/plasteel{
@@ -65080,9 +64879,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "mXw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -65255,8 +65052,8 @@
 "mZl" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+	dir = 1;
+	icon_state = "whitebluecorner"
 	},
 /area/medical/sleeper)
 "mZp" = (
@@ -65320,9 +65117,6 @@
 /area/crew_quarters/fitness)
 "naf" = (
 /obj/effect/decal/warning_stripes/white/hollow,
-/obj/effect/turf_decal/arrows/white{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"
@@ -65407,9 +65201,7 @@
 "naN" = (
 /obj/effect/turf_decal/stripes/full,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "naP" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 1
@@ -65569,9 +65361,7 @@
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ndj" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -65848,9 +65638,7 @@
 	network = list("SS13","Singularity","Engineering","Engine")
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ngs" = (
 /obj/structure/cable{
 	d1 = 5;
@@ -66225,9 +66013,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "nlf" = (
 /turf/simulated/wall,
 /area/assembly/chargebay)
@@ -66308,8 +66094,12 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
 "nlS" = (
-/turf/simulated/floor/plating/asteroid,
-/area/hallway/primary/starboard)
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/sleeper)
 "nlW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -66389,9 +66179,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "nnv" = (
 /obj/machinery/ai_status_display{
 	pixel_x = -32
@@ -66659,9 +66447,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "nqa" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -66753,9 +66539,7 @@
 	icon_state = "darkyellowcorners";
 	dir = 4
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "nqB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -67783,9 +67567,7 @@
 	d2 = 2
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "nAK" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/glass,
@@ -68229,9 +68011,7 @@
 "nEM" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "nEP" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light{
@@ -68247,7 +68027,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "nEV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/floor/plasteel{
@@ -68268,9 +68048,7 @@
 "nFe" = (
 /obj/effect/turf_decal/stripes/full,
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "nFm" = (
 /obj/structure/sign/explosives,
 /turf/simulated/wall,
@@ -68419,16 +68197,9 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "nGk" = (
-/obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/door/poddoor/multi_tile/three_tile_ver{
-	opacity = 0;
-	density = 0;
-	icon_state = "open";
-	name = "Biohazard Shutter";
-	id_tag = "Biohazard"
-	},
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/toxins/explab)
+/area/hydroponics)
 "nGm" = (
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
@@ -68708,9 +68479,7 @@
 "nKu" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "nKv" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "ai_outer";
@@ -68829,9 +68598,8 @@
 /turf/space,
 /area/solar/port)
 "nLo" = (
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebot"
+	icon_state = "whitebluefull"
 	},
 /area/medical/sleeper)
 "nLu" = (
@@ -69009,9 +68777,8 @@
 /obj/structure/sign/nosmoking_1{
 	pixel_y = 32
 	},
-/obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "botblue"
 	},
 /area/medical/sleeper)
 "nNx" = (
@@ -69050,7 +68817,8 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde"
+	dir = 9;
+	icon_state = "whitehall"
 	},
 /area/medical/reception)
 "nOx" = (
@@ -69319,7 +69087,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "nRm" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -69371,9 +69139,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "elevatorshaft"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "nRU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light{
@@ -69421,7 +69187,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "nSw" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/engineering{
@@ -69508,19 +69274,13 @@
 	},
 /area/hallway/primary/port)
 "nTD" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
+/obj/machinery/door/window/northleft{
+	dir = 4;
+	name = "Containment Pen";
+	req_access_txt = "55"
 	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/multi_tile/four_tile_hor{
-	id_tag = "atmos";
-	name = "Atmos Lockdown";
-	icon_state = "open";
-	density = 0;
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
-/area/atmos)
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology)
 "nTF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -69671,9 +69431,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "nUX" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -70580,7 +70338,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "ofl" = (
 /obj/machinery/power/turbine{
 	dir = 4
@@ -70660,9 +70418,7 @@
 	id_tag = "Singularity"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ofW" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -70890,6 +70646,7 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
+	dir = 8;
 	icon_state = "whitehall"
 	},
 /area/medical/sleeper)
@@ -70996,9 +70753,7 @@
 	icon_state = "1-6"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "oiM" = (
 /obj/structure/reagent_dispensers/spacecleanertank{
 	pixel_y = 30
@@ -71826,7 +71581,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 5;
 	icon_state = "whitehall"
 	},
 /area/medical/reception)
@@ -72060,7 +71815,6 @@
 "osj" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whitehall"
 	},
 /area/medical/sleeper)
@@ -72235,7 +71989,7 @@
 	dir = 8;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "otK" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -72443,9 +72197,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ovP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -72584,7 +72336,6 @@
 /area/crew_quarters/toilet)
 "owX" = (
 /obj/effect/decal/warning_stripes/white/hollow,
-/obj/effect/turf_decal/arrows/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -72745,13 +72496,19 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "oyP" = (
-/obj/machinery/door/window/northleft{
-	dir = 4;
-	name = "Containment Pen";
-	req_access_txt = "55"
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
 	},
-/turf/simulated/floor/engine,
-/area/toxins/xenobiology)
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/multi_tile/four_tile_hor{
+	id_tag = "atmos";
+	name = "Atmos Lockdown";
+	icon_state = "open";
+	density = 0;
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/atmos)
 "ozg" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "gameroom"
@@ -72849,9 +72606,7 @@
 /area/ntrep)
 "oAM" = (
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "oAO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -73027,9 +72782,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "oCE" = (
 /obj/structure/transit_tube/station{
 	dir = 1
@@ -73248,9 +73001,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "oFr" = (
 /obj/structure/toilet{
 	dir = 8
@@ -73674,9 +73425,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "oJW" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -73890,9 +73639,7 @@
 	state = 2
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "oLu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -74105,9 +73852,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "oMY" = (
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -74158,6 +73903,10 @@
 	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/camera{
+	c_tag = "Brig Security Equipment Lockers";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/security/seceqstorage)
 "oNn" = (
@@ -74344,9 +74093,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcorners"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "oPp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -74501,7 +74248,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverdecorner"
+	icon_state = "white"
 	},
 /area/medical/reception)
 "oRm" = (
@@ -75177,9 +74924,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "elevatorshaft"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "oWu" = (
 /obj/machinery/light_construct{
 	dir = 4
@@ -75339,9 +75084,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "oXN" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -75716,7 +75459,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "pcl" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -76608,8 +76351,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+	icon_state = "white"
 	},
 /area/medical/reception)
 "pme" = (
@@ -77086,7 +76830,8 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+	icon_state = "whiteverde";
+	dir = 1
 	},
 /area/medical/reception)
 "prJ" = (
@@ -77256,7 +77001,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "whitebluecorner"
 	},
 /area/medical/sleeper)
 "pts" = (
@@ -77275,9 +77020,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ptB" = (
 /obj/structure/transit_tube{
 	icon_state = "N-SW"
@@ -77407,9 +77150,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "pvg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -78094,14 +77835,15 @@
 	},
 /area/security/range)
 "pBI" = (
-/obj/machinery/door/window/northleft{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Containment Pen";
-	req_access_txt = "55"
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/multi_tile/three_tile_ver{
+	opacity = 0;
+	density = 0;
+	icon_state = "open";
+	name = "Biohazard Shutter";
+	id_tag = "Biohazard"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "pBO" = (
 /obj/structure/disposalpipe/segment{
@@ -78159,9 +77901,7 @@
 "pCx" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "pCC" = (
 /obj/effect/landmark/start/engineer,
 /obj/structure/chair/comfy/red{
@@ -78685,12 +78425,10 @@
 	},
 /area/hallway/primary/central/south)
 "pIR" = (
-/obj/effect/decal/warning_stripes/blue/hollow,
-/obj/machinery/suit_storage_unit/standard_unit,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5"
 	},
-/area/expedition)
+/area/maintenance/apmaint)
 "pIU" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -78857,9 +78595,7 @@
 	icon_state = "darkyellow";
 	dir = 4
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "pKM" = (
 /obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
@@ -79222,7 +78958,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/biostorage)
 "pOW" = (
@@ -79861,7 +79597,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/medbay2)
 "pVw" = (
@@ -80225,7 +79961,7 @@
 	dir = 9;
 	icon_state = "escape"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "pZV" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -80810,7 +80546,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "qeD" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -80831,9 +80567,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "qeL" = (
 /obj/structure/bookcase{
 	name = "bookcase (Adult)"
@@ -81122,9 +80856,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "qiq" = (
 /obj/structure/closet/wardrobe/xenos,
 /obj/machinery/light_switch{
@@ -82177,7 +81909,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "qta" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/two{
@@ -82595,7 +82327,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/reception)
 "qxT" = (
@@ -82843,9 +82575,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "qBc" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/door/window/westleft,
@@ -82867,7 +82597,7 @@
 "qBl" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde"
+	icon_state = "whiteyellow"
 	},
 /area/medical/reception)
 "qBm" = (
@@ -83206,7 +82936,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "qFE" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -83285,9 +83015,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "qGt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -83379,7 +83107,7 @@
 /obj/machinery/door/airlock/virology/glass,
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliverygreen"
 	},
 /area/medical/virology/lab)
 "qHg" = (
@@ -83676,9 +83404,7 @@
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "qJh" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -83695,9 +83421,7 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/warning_stripes/blue,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/sleeper)
 "qJz" = (
 /obj/machinery/airlock_controller/air_cycler{
@@ -83716,9 +83440,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "qJF" = (
 /turf/simulated/floor/plasteel,
 /area/maintenance/fsmaint2)
@@ -83938,7 +83660,7 @@
 "qLT" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/cryo)
 "qLW" = (
@@ -84113,9 +83835,7 @@
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "qNA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -84502,9 +84222,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "qRN" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -85252,7 +84970,7 @@
 	name = "Medbay"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/cryo)
 "qZX" = (
@@ -85313,14 +85031,11 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "raw" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
+	dir = 1;
+	icon_state = "whitegreen"
 	},
-/area/security/lobby)
+/area/medical/reception)
 "raz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -85355,7 +85070,7 @@
 	dir = 8;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "raP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -85504,7 +85219,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/tools)
+/area/engine/lobby)
 "rcD" = (
 /obj/machinery/newscaster{
 	dir = 8;
@@ -85586,6 +85301,12 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/primary/central/north)
+"rdz" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/medical/sleeper)
 "rdK" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -85655,9 +85376,7 @@
 	network = list("SS13","Singularity","Engineering","Engine")
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "rew" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -85780,7 +85499,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/medbreak)
 "rfQ" = (
@@ -86219,7 +85938,7 @@
 	dir = 8;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "rka" = (
 /obj/structure/sign/fire{
 	pixel_y = 32
@@ -87446,6 +87165,9 @@
 	icon_state = "delivery"
 	},
 /area/security/customs)
+"rvP" = (
+/turf/simulated/wall,
+/area/engine/lobby)
 "rvU" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -87529,9 +87251,7 @@
 	pixel_y = -32;
 	step_size = 0
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/sleeper)
 "rwB" = (
 /obj/structure/disposalpipe/segment,
@@ -87671,9 +87391,7 @@
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "rxI" = (
 /obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
@@ -87965,7 +87683,7 @@
 /area/crew_quarters/fitness)
 "rAv" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/greencross,
+/obj/structure/sign/lifestar,
 /turf/simulated/floor/plating,
 /area/medical/reception)
 "rAx" = (
@@ -88380,9 +88098,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "rEu" = (
 /obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel{
@@ -88614,15 +88330,14 @@
 	},
 /area/quartermaster/storage)
 "rGH" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/multi_tile/three_tile_ver{
-	opacity = 0;
-	density = 0;
-	icon_state = "open";
-	name = "Biohazard Shutter";
-	id_tag = "Biohazard"
+/obj/machinery/door/window/northleft{
+	base_state = "right";
+	dir = 8;
+	icon_state = "right";
+	name = "Containment Pen";
+	req_access_txt = "55"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "rGK" = (
 /obj/structure/chair/stool,
@@ -88798,7 +88513,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/genetics_cloning)
 "rIH" = (
@@ -89775,17 +89490,13 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/lobby)
 "rSh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "rSy" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/camera{
@@ -90112,9 +89823,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "rVV" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
@@ -90782,7 +90491,7 @@
 	dir = 8;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "sdU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -90972,9 +90681,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "elevatorshaft"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "sgx" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer{
@@ -91715,9 +91422,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "spa" = (
 /obj/machinery/requests_console{
 	department = "AI";
@@ -91807,7 +91512,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 8;
 	icon_state = "whitehall"
 	},
 /area/medical/sleeper)
@@ -92318,9 +92023,7 @@
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "svK" = (
 /turf/simulated/wall,
 /area/storage/eva/exterior)
@@ -92392,7 +92095,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "swG" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/cleanable/dirt,
@@ -93310,7 +93013,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/medical/sleeper)
 "sGJ" = (
@@ -93629,9 +93333,7 @@
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "sJI" = (
 /obj/machinery/door/window/southright{
 	dir = 1;
@@ -93956,9 +93658,12 @@
 	},
 /area/security/securearmoury)
 "sNW" = (
-/obj/effect/spawner/window,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/garden)
+/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/expedition)
 "sNX" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -95177,7 +94882,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "sZW" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/sop_supply,
@@ -95367,7 +95072,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/tools)
+/area/engine/lobby)
 "tbI" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth (Chaplain)";
@@ -95486,8 +95191,8 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "tcg" = (
@@ -95887,6 +95592,13 @@
 /area/hallway/primary/fore/east)
 "tgZ" = (
 /obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/door/poddoor/multi_tile/three_tile_ver{
+	opacity = 0;
+	density = 0;
+	icon_state = "open";
+	name = "Biohazard Shutter";
+	id_tag = "Biohazard"
+	},
 /turf/simulated/floor/plating,
 /area/toxins/explab)
 "tha" = (
@@ -95988,9 +95700,7 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "thH" = (
 /turf/simulated/wall/r_wall,
 /area/tcommsat/chamber)
@@ -96501,15 +96211,8 @@
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
 "tnb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/table/glass,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/reception)
+/turf/simulated/floor/plasteel,
+/area/engine/lobby)
 "tnj" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -96825,16 +96528,11 @@
 	},
 /area/aisat/hall)
 "tpU" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
+	dir = 4;
+	icon_state = "whitehall"
 	},
-/area/security/lobby)
+/area/medical/sleeper)
 "tpV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -97206,7 +96904,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "ttg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -97651,7 +97349,6 @@
 "twH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/table/glass,
 /obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -97827,9 +97524,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "tzn" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/hallway/primary/starboard/north)
@@ -98048,7 +97743,7 @@
 	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliverygreen"
 	},
 /area/medical/virology/lab)
 "tBB" = (
@@ -98992,9 +98687,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "tLK" = (
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
@@ -99508,10 +99201,7 @@
 	d2 = 5;
 	icon_state = "2-5"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/security/lobby)
 "tQM" = (
 /obj/structure/closet/emcloset,
@@ -99582,8 +99272,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverdecorner";
-	dir = 4
+	icon_state = "white"
 	},
 /area/medical/reception)
 "tRA" = (
@@ -99721,9 +99410,7 @@
 	icon_state = "4-10"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "tSC" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical{
@@ -100035,9 +99722,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "tWc" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/cardboard,
@@ -100108,7 +99793,8 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner"
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "tWr" = (
@@ -100200,15 +99886,13 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/surgery1)
 "tWJ" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "tWL" = (
 /obj/machinery/firealarm{
 	name = "north bump";
@@ -100226,7 +99910,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/grass,
 /area/hallway/primary/starboard)
 "tXB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -100443,9 +100127,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "tZI" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "stairs-r"
@@ -100655,9 +100337,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/turf_decal/stripes/full,
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ucu" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -100984,9 +100664,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "ugf" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -101137,9 +100815,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "uhB" = (
 /obj/machinery/conveyor/south{
 	dir = 6;
@@ -101659,7 +101335,7 @@
 	dir = 5;
 	icon_state = "escape"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "umv" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -101727,7 +101403,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/surgery)
 "umZ" = (
@@ -101928,9 +101604,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "uoV" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/newscaster{
@@ -102176,7 +101850,7 @@
 	dir = 8;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "urx" = (
 /obj/machinery/newscaster{
 	dir = 1;
@@ -102338,7 +102012,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/reception)
 "usy" = (
@@ -102438,8 +102112,19 @@
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedbar)
 "utv" = (
-/turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
+	},
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/multi_tile/three_tile_hor{
+	name = "Atmos Lockdown";
+	id_tag = "atmos";
+	density = 0;
+	opacity = 0;
+	icon_state = "open"
+	},
+/turf/simulated/floor/plating,
+/area/atmos)
 "utB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -102669,9 +102354,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "uwv" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -102757,9 +102440,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcorners"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "uwT" = (
 /obj/machinery/chem_dispenser,
 /obj/machinery/light{
@@ -102983,7 +102664,7 @@
 	dir = 4;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "uzG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -103338,7 +103019,7 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
+	icon_state = "bot"
 	},
 /area/medical/sleeper)
 "uCI" = (
@@ -103447,9 +103128,7 @@
 	d2 = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "uEb" = (
 /obj/machinery/porta_turret,
 /turf/simulated/floor/mech_bay_recharge_floor{
@@ -104121,19 +103800,8 @@
 	},
 /area/crew_quarters/kitchen)
 "uLk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/cyan{
-	d2 = 2;
-	icon_state = "1-2";
-	d1 = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitehall"
-	},
-/area/medical/reception)
+/turf/simulated/floor/plasteel,
+/area/medical/sleeper)
 "uLl" = (
 /obj/structure/closet/firecloset,
 /obj/structure/sign/nosmoking_2{
@@ -104209,7 +103877,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "uLW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -104387,9 +104055,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "uOo" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -104435,9 +104101,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "uOz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/maintenance{
@@ -104615,9 +104279,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "uQr" = (
 /turf/simulated/wall,
 /area/civilian/barber)
@@ -105072,7 +104734,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "uVs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -105279,9 +104941,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "uXl" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -105628,7 +105288,7 @@
 	dir = 4;
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "vam" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
@@ -106386,9 +106046,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "vgw" = (
 /obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
@@ -106458,7 +106116,7 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/sleeper)
 "vhm" = (
@@ -106615,9 +106273,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "vis" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -106656,12 +106312,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/chair/light,
 /obj/structure/cable/cyan{
 	d2 = 8;
 	icon_state = "4-8";
 	d1 = 4
 	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -106680,7 +106336,8 @@
 	d2 = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/medical/sleeper)
 "viN" = (
@@ -107452,8 +107109,8 @@
 "vse" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+	dir = 4;
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "vsf" = (
@@ -107700,9 +107357,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "vug" = (
 /obj/effect/turf_decal/catwalk,
 /obj/structure/rack,
@@ -107746,7 +107401,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/biostorage)
 "vuA" = (
@@ -108053,7 +107708,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "vxu" = (
 /obj/structure/sign/chemistry,
 /turf/simulated/wall/r_wall,
@@ -108119,9 +107774,9 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/medical/sleeper)
 "vxT" = (
@@ -108165,9 +107820,7 @@
 	dir = 8;
 	icon_state = "darkyellowcorners"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "vyk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -108315,9 +107968,7 @@
 "vzs" = (
 /obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "vzt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
@@ -108613,9 +108264,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "vCq" = (
 /turf/simulated/floor/engine/o2,
 /area/atmos)
@@ -108936,9 +108585,12 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
 	},
+/obj/structure/chair/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteverde";
-	dir = 1
+	dir = 1;
+	icon_state = "whitegreen"
 	},
 /area/medical/reception)
 "vFg" = (
@@ -109391,9 +109043,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "vJr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -109619,9 +109269,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "vLv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -109779,7 +109427,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/reception)
 "vMO" = (
@@ -109860,7 +109508,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/cryo)
 "vNr" = (
@@ -110124,9 +109772,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "vQv" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'SERVER ROOM'.";
@@ -110751,7 +110397,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "vWu" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/door/poddoor/preopen{
@@ -111349,7 +110995,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/cmo)
 "wbY" = (
@@ -111741,7 +111387,7 @@
 	id_tag = "Biohazard_medi"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/paramedic)
 "wfX" = (
@@ -111874,9 +111520,7 @@
 	icon_state = "darkyellow";
 	dir = 8
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "whs" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
@@ -112182,9 +111826,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "wko" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -112274,9 +111916,7 @@
 	dir = 1;
 	icon_state = "darkyellow"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "wlu" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/green,
@@ -112445,7 +112085,6 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/effect/turf_decal/arrows/white,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"
@@ -112789,7 +112428,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "wqz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -112962,10 +112601,7 @@
 	icon_state = "4-9";
 	d1 = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/sleeper)
 "wtp" = (
 /turf/simulated/floor/plasteel{
@@ -113437,9 +113073,7 @@
 	dir = 1;
 	icon_state = "darkyellow"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "wyS" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/westright{
@@ -114179,7 +113813,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/genetics_cloning)
 "wGd" = (
@@ -114464,9 +114098,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "wIm" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/orange{
@@ -114719,9 +114351,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "wKH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -115212,11 +114842,13 @@
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
-/obj/structure/chair/light,
 /obj/structure/cable/cyan{
 	d2 = 8;
 	icon_state = "4-8";
 	d1 = 4
+	},
+/obj/structure/chair/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -115922,7 +115554,7 @@
 	dir = 8;
 	icon_state = "long"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "wWA" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
@@ -116098,7 +115730,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "wXL" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -116683,9 +116315,7 @@
 	},
 /obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "xdp" = (
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
@@ -117200,9 +116830,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "xil" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -117805,9 +117433,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "xoW" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -117828,9 +117454,7 @@
 	icon_state = "darkyellowcorners";
 	dir = 4
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "xpg" = (
 /obj/structure/computerframe{
 	dir = 1
@@ -118496,6 +118120,28 @@
 	icon_state = "yellowfull"
 	},
 /area/engine/hardsuitstorage)
+"xvr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/cyan{
+	d2 = 8;
+	icon_state = "4-8";
+	d1 = 4
+	},
+/obj/structure/chair/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/reception)
 "xvt" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Kitchen Pasture";
@@ -118540,7 +118186,7 @@
 	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/sleeper)
 "xvS" = (
@@ -118610,7 +118256,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/medical/sleeper)
 "xww" = (
@@ -119071,9 +118718,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "xBx" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -119412,9 +119057,7 @@
 	icon_state = "6-9"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "xEY" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -119610,9 +119253,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "xGS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -119821,7 +119462,7 @@
 	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/sleeper)
 "xJC" = (
@@ -120081,9 +119722,7 @@
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "xLB" = (
 /turf/simulated/wall,
 /area/maintenance/starboard2)
@@ -120404,7 +120043,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/cmo)
 "xPp" = (
@@ -121064,17 +120703,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "podfloor_dark"
 	},
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "xWf" = (
 /obj/machinery/power/grounding_rod{
 	anchored = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Engine Containment"
-	})
+/area/engine/containment)
 "xWj" = (
 /obj/machinery/kitchen_machine/oven,
 /obj/machinery/light{
@@ -121528,8 +121163,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "ybt" = (
@@ -121806,7 +121440,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "botblue"
 	},
-/area/storage/tools)
+/area/engine/lobby)
 "yeR" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -122263,7 +121897,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/genetics_cloning)
 "yjE" = (
@@ -122285,8 +121919,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "yjW" = (
@@ -122304,7 +121937,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "delivery"
+	icon_state = "deliveryblue"
 	},
 /area/medical/medbay2)
 "ykf" = (
@@ -134996,9 +134629,9 @@ edf
 lsd
 xaH
 dKk
-utv
+hhm
 nPa
-utv
+hhm
 nmo
 fBi
 fBi
@@ -135254,7 +134887,7 @@ jeJ
 lZH
 nHa
 kZY
-kOH
+pIR
 nzu
 nmo
 fBi
@@ -135512,7 +135145,7 @@ vWc
 lsd
 iEp
 yaX
-utv
+hhm
 nmo
 fBi
 fBi
@@ -139076,7 +138709,7 @@ kMB
 ehy
 iZN
 mCQ
-aPw
+gJl
 xHm
 jKw
 txk
@@ -139329,7 +138962,7 @@ fBi
 fBi
 fBi
 fBi
-kMB
+eCV
 bms
 isu
 dsb
@@ -139846,9 +139479,9 @@ fBi
 cKW
 cKW
 buP
-dsb
+aPw
 iZv
-gSa
+isu
 gLa
 lHl
 grq
@@ -140102,7 +139735,7 @@ fBi
 fBi
 fBi
 kMB
-tYP
+hYZ
 viC
 jkt
 jzx
@@ -140359,9 +139992,9 @@ fBi
 fBi
 fBi
 kMB
-tYP
+raw
 dsb
-rxd
+tsq
 isu
 fhv
 wPa
@@ -140617,9 +140250,9 @@ unE
 kxj
 cKW
 eSl
-ebF
+aPw
 plW
-bmr
+gSa
 bmr
 mGX
 wEw
@@ -140628,8 +140261,8 @@ nhT
 cKW
 mhU
 sGz
-xrr
-lVU
+uLk
+tpU
 uCE
 vxL
 cUC
@@ -140874,9 +140507,9 @@ juE
 bTO
 cKW
 ieR
-ebF
-pLV
-czL
+aPw
+plW
+sip
 mSf
 tFW
 pcZ
@@ -140885,10 +140518,10 @@ eoh
 agq
 oZp
 ptr
-els
-dzO
 vse
-iZe
+vse
+vse
+usW
 bGz
 wcl
 hcA
@@ -141130,9 +140763,9 @@ jNC
 lBC
 mYI
 hxy
-bmr
-dsb
-pLV
+tYP
+xvr
+rxd
 pLV
 bmr
 gxe
@@ -141143,9 +140776,9 @@ vMJ
 liZ
 hkH
 dQL
-lVU
-lVU
-lVU
+xrr
+xrr
+iZe
 lVU
 dms
 ttg
@@ -141389,8 +141022,8 @@ bTO
 cKW
 egq
 ebF
-pLV
 plW
+iZv
 bmr
 upX
 rok
@@ -141399,11 +141032,11 @@ eSU
 oel
 osj
 yjT
-rgg
+mxo
 nLo
-xrr
-xrr
-xrr
+rgg
+iZe
+uLk
 gnE
 oin
 wDM
@@ -141647,7 +141280,7 @@ cKW
 prE
 ebF
 plW
-plW
+pLV
 bmr
 iEk
 evq
@@ -141656,10 +141289,10 @@ sTC
 cKW
 nNn
 cEQ
-usW
-els
-els
-els
+dzO
+rdz
+nlS
+ghN
 viI
 vhg
 hRs
@@ -141901,9 +141534,9 @@ fBi
 fBi
 fBi
 kMB
-tYP
+aNb
 dsb
-tsq
+rxd
 pLV
 eGM
 cKW
@@ -141914,8 +141547,8 @@ cKW
 cmh
 ybs
 mPF
-mxo
-mxo
+els
+els
 mrN
 mUy
 szC
@@ -142158,20 +141791,20 @@ fBi
 fBi
 fBi
 kMB
-tYP
+cRv
 aEn
-tnb
+oRl
 bXR
-gLa
+fXu
 ekX
 msL
 hoy
 opx
 qxR
-eCV
+kUz
 lqc
 tWn
-kUz
+gwN
 tce
 mZl
 xwn
@@ -142421,7 +142054,7 @@ twH
 wii
 nOw
 usx
-uLk
+nOw
 jsp
 edP
 aEz
@@ -142596,8 +142229,8 @@ fPY
 gBz
 gBz
 lXP
-tNt
-lor
+tnb
+czL
 raL
 ivV
 qeS
@@ -142933,7 +142566,7 @@ isu
 fIa
 pLV
 pLV
-gLa
+bmr
 ftR
 lnf
 dbw
@@ -144486,7 +144119,7 @@ dkE
 jOJ
 pbm
 wIf
-jZO
+lUQ
 osn
 jBV
 jBV
@@ -144697,12 +144330,12 @@ spA
 jYy
 ntW
 tcT
-mjQ
-aNb
+ssh
 rSe
-aNb
 rSe
-dMu
+rSe
+rSe
+ssh
 epZ
 mfi
 cMl
@@ -144954,12 +144587,12 @@ vUG
 spA
 ceq
 fca
-cUy
+ssh
 inQ
 hKx
 rNB
 mzY
-laU
+ssh
 epZ
 eVh
 viT
@@ -145211,12 +144844,12 @@ amH
 rqf
 hUu
 fca
-mjQ
+ssh
 kgM
 tdo
 vov
 twI
-dMu
+ssh
 epZ
 mjQ
 viT
@@ -145257,7 +144890,7 @@ gVw
 tGW
 vtp
 wIf
-jZO
+lUQ
 jBV
 osn
 jBV
@@ -145418,7 +145051,7 @@ eMP
 emN
 acp
 iqV
-ivV
+rvP
 dee
 bgU
 nSv
@@ -145468,7 +145101,7 @@ wPU
 kmu
 awX
 fca
-cUy
+ssh
 kgM
 oVy
 rWI
@@ -145678,7 +145311,7 @@ wSY
 jjH
 bPh
 rEH
-fBk
+kOH
 jjH
 wur
 gbz
@@ -145725,7 +145358,7 @@ wPU
 rqf
 teo
 fca
-mjQ
+ssh
 nTc
 tdo
 nmD
@@ -145982,12 +145615,12 @@ pku
 spA
 cHw
 fca
-cUy
+ssh
 aoP
 tdo
 cPE
 fxF
-laU
+ssh
 epZ
 cUy
 oTi
@@ -146239,12 +145872,12 @@ spA
 xEJ
 qAz
 fca
-mjQ
+ssh
 nZk
 bfS
 tXZ
 jKZ
-dMu
+ssh
 epZ
 ssh
 jls
@@ -146496,12 +146129,12 @@ doh
 oCV
 laU
 fca
-cUy
+ssh
 kck
-raw
+kck
 kck
 tQL
-tpU
+fLd
 bUh
 fLd
 cwL
@@ -146939,7 +146572,7 @@ kxm
 lXr
 chy
 scF
-nTD
+oyP
 qfC
 xqT
 aIR
@@ -147196,7 +146829,7 @@ aCC
 cxb
 wus
 mVH
-jDL
+jZO
 vFi
 htv
 tII
@@ -147475,7 +147108,7 @@ dEM
 lKc
 dEM
 rbt
-lUQ
+fBk
 scF
 fBi
 fBi
@@ -147967,7 +147600,7 @@ dLi
 hsV
 chy
 scF
-nTD
+oyP
 nVP
 xqT
 xwE
@@ -148224,7 +147857,7 @@ vga
 pkz
 wus
 mVH
-jDL
+jZO
 oYQ
 eYW
 rzF
@@ -148995,7 +148628,7 @@ vjj
 viB
 chy
 scF
-hhm
+utv
 bXc
 xqT
 pAi
@@ -149252,7 +148885,7 @@ eyZ
 wXD
 wus
 mVH
-jDL
+jZO
 bJd
 qVW
 lIk
@@ -152903,7 +152536,7 @@ fBi
 fBi
 fBi
 mJi
-pIR
+sNW
 spS
 txR
 xgo
@@ -153417,7 +153050,7 @@ dSK
 mJi
 mJi
 gZZ
-pIR
+sNW
 spS
 emj
 sYn
@@ -163636,7 +163269,7 @@ dYh
 oIc
 eUg
 eUg
-rGH
+pBI
 eIz
 qWv
 aPb
@@ -163654,7 +163287,7 @@ qWv
 eIz
 eUg
 eUg
-rGH
+pBI
 eIz
 dis
 dis
@@ -164154,15 +163787,15 @@ krn
 xBK
 qWv
 saM
-pBI
+rGH
 kic
 qWv
 saM
-pBI
+rGH
 bvl
 qWv
 saM
-pBI
+rGH
 fpY
 qWv
 rpO
@@ -164944,9 +164577,9 @@ lXi
 rkp
 vBN
 rkp
+jDL
+jDL
 tgZ
-tgZ
-nGk
 rkp
 uHt
 rkp
@@ -166210,15 +165843,15 @@ aNK
 qWv
 qWv
 saM
-oyP
+nTD
 mck
 qWv
 saM
-oyP
+nTD
 wLi
 qWv
 saM
-oyP
+nTD
 eLT
 qWv
 dax
@@ -166779,14 +166412,14 @@ ufI
 ufI
 ufI
 ufI
-fDX
+nGk
 hGz
-fDX
+nGk
 nnJ
 aaY
-fDX
+nGk
 wyS
-fDX
+nGk
 tjt
 bIu
 tjt
@@ -167556,7 +167189,7 @@ hGK
 crB
 iyg
 hGK
-nlS
+jbX
 tXy
 tjt
 mVt
@@ -167808,7 +167441,7 @@ aEk
 lhp
 ufI
 fDy
-cRv
+ihT
 hGK
 ads
 amU
@@ -169349,10 +168982,10 @@ iQM
 iQM
 xmp
 xmp
-sNW
+fDX
 wow
 ovG
-sNW
+fDX
 xmp
 fON
 fMH
