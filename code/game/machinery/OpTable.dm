@@ -53,10 +53,10 @@
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
 	return take_patient(O, user)
 
-/// Updates the `patient` var to be the mob occupying the table
+/// Updates `patient` to be a carbon mob occupying the table, and returns it
 /obj/machinery/optable/proc/update_patient()
 	if(patient in buckled_mobs)
-		return // Current patient is still here, no need to look
+		return patient // Current patient is still here, no need to look
 
 	patient = null
 	if(length(buckled_mobs))
@@ -70,17 +70,13 @@
 		else
 			icon_state = "table2-idle"
 
-/// Returns `TRUE` if table is occupied
-/obj/machinery/optable/proc/is_occupied()
-	update_patient()
-	if(patient)
-		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
-		return TRUE
+	return patient
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
 	if((!ishuman(user) && !isrobot(user)) || !istype(new_patient))
 		return
-	if(is_occupied())
+	if(update_patient())
+		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
 		return
 
 	// Attempt to settle the patient in
