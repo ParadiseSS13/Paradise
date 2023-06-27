@@ -45,11 +45,6 @@
 	else
 		return FALSE
 
-/obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(iscarbon(AM) && length(injected_reagents))
-		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
-
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
 	return take_patient(O, user)
 
@@ -59,9 +54,14 @@
 		return patient // Current patient is still here, no need to look
 
 	patient = null
+
 	if(length(buckled_mobs))
 		for(var/mob/living/carbon/C in buckled_mobs)
 			patient = C
+
+			if(length(injected_reagents))
+				to_chat(C, "<span class='danger'>You feel a series of tiny pricks!</span>")
+
 			break
 
 	if(!no_icon_updates)
