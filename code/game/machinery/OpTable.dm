@@ -51,16 +51,7 @@
 		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
 
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
-	if(!ishuman(user) && !isrobot(user)) // Only Humanoids and Cyborgs can put things on this table
-		return
-	if(is_occupied())
-		return
-	if(!iscarbon(O))
-		return
-	if(!user_buckle_mob(O, user, check_loc = FALSE))
-		return
-	take_patient(O, user)
-	return TRUE
+	return take_patient(O, user)
 
 /// Updates the `patient` var to be the mob occupying the table
 /obj/machinery/optable/proc/update_patient()
@@ -87,14 +78,24 @@
 		return TRUE
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
+	if((!ishuman(user) && !isrobot(user)) || !istype(new_patient))
+		return
+	if(is_occupied())
+		return
+	if(!user_buckle_mob(O, user, check_loc = FALSE)) // Is the user incapacitated, the patient already buckled to something, etc.?
+		return
+
 	if(new_patient == user)
 		user.visible_message("[user] climbs on [src].","You climb on [src].")
 	else
 		visible_message("<span class='alert'>[new_patient] has been laid on [src] by [user].</span>")
+
 	if(new_patient.s_active) //Close the container opened
 		new_patient.s_active.close(new_patient)
+
 	add_fingerprint(user)
 	update_patient()
+	return TRUE
 
 /obj/machinery/optable/process()
 	update_patient()
