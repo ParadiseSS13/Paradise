@@ -88,13 +88,12 @@
 
 /obj/machinery/optable/process()
 	update_patient()
-	if(length(injected_reagents))
-		for(var/mob/living/carbon/C in get_turf(src))
-			if(C.stat == DEAD)
-				continue
-			var/datum/reagents/R = C.reagents
-			for(var/chemical in injected_reagents)
-				R.check_and_add(chemical,reagent_target_amount,inject_amount)
+
+	if(!length(injected_reagents) || patient.stat == DEAD)
+		return
+
+	for(var/chemical in injected_reagents)
+		patient.reagents.check_and_add(chemical, reagent_target_amount, inject_amount)
 
 /obj/machinery/optable/wrench_act(mob/user, obj/item/I)
 	. = TRUE
