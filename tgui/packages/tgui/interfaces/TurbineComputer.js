@@ -27,7 +27,7 @@ export const TurbineComputer = (props, context) => {
                 onClick={() => act('toggle_power')}
               />
               <Button
-                icon="sync"
+                icon="times"
                 content="Disconnect"
                 onClick={() => act('disconnect')}
               />

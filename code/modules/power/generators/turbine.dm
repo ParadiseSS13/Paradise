@@ -27,7 +27,7 @@
 #define SLOW 1
 
 //below defines the time between an overheat event and next startup
-#define OVERHEAT_TIME 60 //measured in cycles of 2 seconds
+#define OVERHEAT_TIME 1200 //measured in deciseconds (two minutes)
 #define OVERHEAT_THRESHOLD 200 //measured in cycles of 2 seconds
 #define POWER_CURVE_MOD 1.7 // Used to form the turbine power generation curve
 #define OVERHEAT_MESSAGE "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
@@ -173,18 +173,18 @@
 
 /obj/machinery/power/compressor/proc/trigger_overheat()
 	starter = FALSE
-	last_overheat = OVERHEAT_TIME
+	last_overheat = world.time
 	overheat -= 50
 	radio.autosay(OVERHEAT_MESSAGE, name, "Engineering", list(z))
 	playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+
+/obj/machinery/power/compressor/proc/time_until_overheat_done()
+    return max(last_overheat + OVERHEAT_TIME - world.time, 0)
 
 /obj/machinery/power/compressor/process()
 	if(!turbine)
 		stat = BROKEN
 	if(stat & BROKEN || panel_open)
-		return
-	if(last_overheat > 0)
-		last_overheat -= 2 // 2 seconds
 		return
 	if(!starter)
 		return
@@ -383,14 +383,15 @@
 
 	switch(action)
 		if("toggle_power")
-			if(compressor?.turbine && compressor.last_overheat <= 0)
+			var/time_until_done =  compressor.time_until_overheat_done()
+			if(time_until_done)
+				compressor.starter = FALSE
+				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [time_until_done/10] seconds for cooldown procedures to complete.</span>")
+				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+			else if(compressor?.turbine)
 				compressor.starter = !compressor.starter
 				. = TRUE
 				playsound(src, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
-			if(compressor.last_overheat > 0)
-				compressor.starter = FALSE
-				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [compressor.last_overheat] seconds for cooldown procedures to complete.</span>")
-				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 		if("reconnect")
 			locate_machinery()
@@ -446,15 +447,16 @@
 
 	switch(action)
 		if("toggle_power")
-			if(compressor?.turbine && compressor.last_overheat <= 0)
+			var/time_until_done = compressor.time_until_overheat_done()
+			if(time_until_done)
+				compressor.starter = FALSE
+				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [time_until_done/10] seconds for cooldown procedures to complete.</span>")
+				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+			else if(compressor?.turbine)
 				if(compressor.starter == FALSE)
 					playsound(compressor, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 				compressor.starter = !compressor.starter
 				. = TRUE
-			if(compressor.last_overheat > 0)
-				compressor.starter = FALSE
-				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [compressor.last_overheat] seconds for cooldown procedures to complete.</span>")
-				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 		if("disconnect")
 			disconnect()
