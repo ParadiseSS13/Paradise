@@ -857,8 +857,6 @@
 		return 1
 	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
-	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return TRUE
 	if(istype(mover))
 		if(mover.checkpass(PASSTABLE))
 			return TRUE
