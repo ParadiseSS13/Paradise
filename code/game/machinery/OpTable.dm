@@ -61,13 +61,17 @@
   * Updates the `patient` var to be the mob occupying the table
   */
 /obj/machinery/optable/proc/update_patient()
-	var/mob/living/carbon/C = locate(/mob/living/carbon, loc)
-	if(C && IS_HORIZONTAL(C))
-		patient = C
-	else
-		patient = null
+	if(patient in buckled_mobs)
+		return // Current patient is still here, no need to look
+
+	patient = null
+	if(length(buckled_mobs))
+		for(var/mob/living/carbon/C in buckled_mobs)
+			patient = C
+			break
+
 	if(!no_icon_updates)
-		if(C && C.pulse)
+		if(patient && patient.pulse)
 			icon_state = "table2-active"
 		else
 			icon_state = "table2-idle"
