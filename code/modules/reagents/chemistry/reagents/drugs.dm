@@ -246,7 +246,7 @@
 
 /datum/reagent/pump_up/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(-21) // one cycle to get out of stam crit ~1 second
+	update_flags |= M.adjustStaminaLoss(-21) // one cycle to get out of stam crit ~2 second
 	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
