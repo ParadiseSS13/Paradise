@@ -171,8 +171,7 @@
 /obj/structure/window/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)	//used by attack_alien, attack_animal, and attack_slime
 	if(!can_be_reached(user))
 		return
-	..()
-
+	return ..()
 /obj/structure/window/attack_animal(mob/living/simple_animal/M)
 	if(!can_be_reached(M))
 		return
