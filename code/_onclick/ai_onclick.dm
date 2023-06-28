@@ -208,7 +208,7 @@
 	if(!ai_control_check(user))
 		return
 	if(!user.mind.special_role)
-		if(do_after(user, 2.5 SECONDS, target = src, allow_moving = TRUE))
+		if(do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
 			toggle_bolt(user)
 		return
 	toggle_bolt(user)
@@ -223,7 +223,7 @@
 		electrify(0, user, TRUE) // un-shock
 	else
 		if(!user.mind.special_role)
-			if(do_after(user, 2.5 SECONDS, target = src, allow_moving = TRUE))
+			if(do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
 				electrify(-1, user, TRUE) // permanent shock
 				return
 		electrify(-1, user, TRUE)// permanent shock
