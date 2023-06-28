@@ -127,7 +127,7 @@
 /datum/uplink_item/jobspecific/titaniumbroom
 	name = "Titanium Push Broom"
 	desc = "A push broom with a reinforced handle and a metal wire brush, perfect for giving yourself more work by beating up assistants."
-	reference = "TPB"
+	reference = "TPBR"
 	item = /obj/item/twohanded/push_broom/traitor
 	cost = 12
 	job = list("Janitor")
