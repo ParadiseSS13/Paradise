@@ -23,7 +23,7 @@
 
 /obj/structure/railing/attack_animal(mob/living/simple_animal/M)
 	. = ..()
-	if(M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] tears apart [src]!</span>", "<span class='notice'>You tear apart [src]!</span>")
 
