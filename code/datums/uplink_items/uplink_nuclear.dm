@@ -410,10 +410,10 @@
 // DEVICES AND TOOLS
 
 /datum/uplink_item/device_tools/diamond_drill
-	name = "Diamond Tipped Thermal Safe Drill"
-	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Guaranteed 100% jam proof."
+	name = "Amplifying Diamond Tipped Thermal Safe Drill"
+	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
 	reference = "DDRL"
-	item = /obj/item/thermal_drill/diamond_drill
+	item = /obj/item/thermal_drill/diamond_drill/syndicate
 	cost = 1
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
