@@ -25437,7 +25437,7 @@
 	},
 /area/toxins/hallway)
 "cuU" = (
-/obj/structure/disposalpipe/segment{
+/objs/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
