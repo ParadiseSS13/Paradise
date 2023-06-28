@@ -262,7 +262,6 @@
 	for(var/obj/item/reagent_containers/borghypo/F in R.module.modules)
 		F.emag_act()
 
-
 /obj/item/borg/upgrade/syndicate
 	name = "safety override module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg."
