@@ -1055,12 +1055,12 @@
 
 /obj/item/twohanded/push_broom/traitor/wield(mob/user)
 	. = ..()
-	ADD_TRAIT(user, TRAIT_DEFLECTING_PROJECTILES, TRAIT_GENERIC)
+	ADD_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, TRAIT_GENERIC)
 	to_chat(user, "<span class='warning'>Your sweeping stance allows you to deflect projectiles.</span>")
 
 /obj/item/twohanded/push_broom/traitor/unwield(mob/user)
 	. = ..()
-	REMOVE_TRAIT(user, TRAIT_DEFLECTING_PROJECTILES, TRAIT_GENERIC)
+	REMOVE_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, TRAIT_GENERIC)
 	to_chat(user, "<span class='warning'>You stop reflecting projectiles.</span>")
 
 /obj/item/twohanded/push_broom/traitor/attack(mob/target, mob/living/user)

@@ -60,7 +60,7 @@ emp_act
 			else
 				return FALSE
 
-	if(HAS_TRAIT(src, TRAIT_DEFLECTING_PROJECTILES))
+	if(HAS_TRAIT(src, TRAIT_DEFLECTS_PROJECTILES))
 
 		add_attack_logs(P.firer, src, "Hit by [P.type], but deflected by something other than martial arts")
 		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
