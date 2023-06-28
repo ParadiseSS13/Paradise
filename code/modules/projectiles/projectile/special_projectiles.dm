@@ -232,7 +232,6 @@
 	confettisize(src, 7, 3)
 	..()
 
-
 /obj/item/projectile/plasma
 	name = "plasma blast"
 	icon_state = "plasmacutter"
