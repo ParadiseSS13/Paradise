@@ -78,10 +78,16 @@
 		shock(user, 70)
 		shockcooldown = world.time + my_shockcooldown
 
-/obj/structure/grille/attack_animal(mob/user)
-	. = ..()
-	if(. && !QDELETED(src) && !shock(user, 70))
-		take_damage(rand(5,10), BRUTE, MELEE, 1)
+/obj/structure/grille/attack_animal(mob/living/simple_animal/user)
+	if(QDELETED(src) || shock(user, 70))
+		return
+	if(user.environment_smash >= ENVIRONMENT_SMASH_STRUCTURES)
+		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
+		obj_break()
+		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
+	else
+		take_damage(rand(5, 10), BRUTE, MELEE, 1)
+		return ..()
 
 /obj/structure/grille/hulk_damage()
 	return 60

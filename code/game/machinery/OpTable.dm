@@ -49,6 +49,10 @@
 		return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
+	if(isliving(mover))
+		var/mob/living/our_mover = mover
+		if(IS_HORIZONTAL(our_mover) && HAS_TRAIT(our_mover, TRAIT_CONTORTED_BODY))
+			return TRUE
 	else
 		return FALSE
 
@@ -101,7 +105,6 @@
 		user.visible_message("[user] climbs on [src].","You climb on [src].")
 	else
 		visible_message("<span class='alert'>[new_patient] has been laid on [src] by [user].</span>")
-	new_patient.resting = TRUE
 	if(new_patient.s_active) //Close the container opened
 		new_patient.s_active.close(new_patient)
 	add_fingerprint(user)

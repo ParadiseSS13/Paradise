@@ -203,6 +203,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CULT_IMMUNITY		"cult_immunity"
 #define TRAIT_FLATTENED			"flattened"
 #define SM_HALLUCINATION_IMMUNE "supermatter_hallucination_immune"
+#define TRAIT_CONTORTED_BODY	"contorted_body"
 #define TRAIT_DEFLECTING_PROJECTILES "trait_deflecting_projectiles"
 
 //***** ITEM AND MOB TRAITS *****//
