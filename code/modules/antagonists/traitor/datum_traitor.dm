@@ -101,16 +101,16 @@
 		forge_single_human_objective()
 
 	// Are they required to stay alive for their objectives?
-	var/martyr_compatibility = FALSE
+	var/martyr_compatibility = TRUE
 	if(prob(20))
 		for(var/objective in owner.get_all_objectives())
 			var/datum/objective/O = objective
 			if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
-				martyr_compatibility = TRUE
+				martyr_compatibility = FALSE
 				break
 
 	// Give them an escape objective if they don't have one already.
-	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && !martyr_compatibility)
+	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && martyr_compatibility)
 		add_objective(/datum/objective/escape)
 
 /**
