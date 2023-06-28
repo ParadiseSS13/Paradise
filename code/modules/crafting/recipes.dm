@@ -423,7 +423,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/improvisedslug
+/datum/crafting_recipe/confettishot
 	name = "Confetti Shot"
 	result = list(/obj/item/ammo_casing/shotgun/confetti)
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
