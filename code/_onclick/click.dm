@@ -329,6 +329,9 @@
 
 // See click_override.dm
 /mob/living/AltClickOn(atom/A)
+	. = SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON, A, src)
+	if(. & COMSIG_MOB_CANCEL_CLICKON)
+		return
 	if(middleClickOverride && middleClickOverride.onClick(A, src))
 		return
 	..()

@@ -112,8 +112,10 @@
 				return FALSE
 		else
 			var/used_button = "Middle Click"
+			if(!mod.wearer || !(mod.wearer.client.prefs.toggles2 & PREFTOGGLE_2_MOD_ACTIVATION_METHOD))
+				used_button = "Alt Click"
 			update_signal(used_button)
-			to_chat(mod.wearer, "<span class='notice'>[src] activated, middle click to use.</span>")
+			to_chat(mod.wearer, "<span class='notice'>[src] activated, [used_button] to use.</span>")
 	else
 		COOLDOWN_START(src, cooldown_timer, cooldown_time) //We don't want to put active modules on cooldown when selected
 	active = TRUE
@@ -297,8 +299,8 @@
 	switch(value)
 		if("Middle Click")
 			mod.selected_module.used_signal = COMSIG_MOB_MIDDLECLICKON
-//		if("Alt Click") // We may wish to make a preference for this
-//			mod.selected_module.used_signal = COMSIG_MOB_ALTCLICKON
+		if("Alt Click")
+			mod.selected_module.used_signal = COMSIG_MOB_ALTCLICKON
 	RegisterSignal(mod.wearer, mod.selected_module.used_signal, TYPE_PROC_REF(/obj/item/mod/module, on_special_click))
 
 /// Pins the module to the user's action buttons
