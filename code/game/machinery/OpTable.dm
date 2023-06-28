@@ -5,6 +5,7 @@
 	icon_state = "table2-idle"
 	density = TRUE
 	anchored = TRUE
+	interact_offline = TRUE
 	idle_power_consumption = 1
 	active_power_consumption = 5
 	can_buckle = TRUE // you can buckle someone if they have cuffs
@@ -63,6 +64,7 @@
 	if(!user_buckle_mob(O, user, check_loc = FALSE))
 		return
 	take_patient(O, user)
+	return TRUE
 
 /**
   * Updates the `patient` var to be the mob occupying the table
@@ -99,7 +101,6 @@
 		user.visible_message("[user] climbs on [src].","You climb on [src].")
 	else
 		visible_message("<span class='alert'>[new_patient] has been laid on [src] by [user].</span>")
-	new_patient.resting = TRUE
 	if(new_patient.s_active) //Close the container opened
 		new_patient.s_active.close(new_patient)
 	add_fingerprint(user)

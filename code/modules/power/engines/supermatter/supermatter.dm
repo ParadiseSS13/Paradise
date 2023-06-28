@@ -85,6 +85,7 @@
 #define SUPERMATTER_SINGULARITY_RAYS_COLOUR "#750000"
 #define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"
 
+
 /obj/machinery/atmospherics/supermatter_crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -92,6 +93,7 @@
 	icon_state = "darkmatter"
 	density = TRUE
 	anchored = TRUE
+	layer = ABOVE_MOB_LAYER + 0.01
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 | IMMUNE_TO_SHUTTLECRUSH_2 | NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
@@ -212,7 +214,8 @@
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 	investigate_log("has been created.", "supermatter")
-
+	if(is_main_engine)
+		GLOB.main_supermatter_engine = src
 	soundloop = new(list(src), TRUE)
 
 /obj/machinery/atmospherics/supermatter_crystal/Destroy()
@@ -226,6 +229,8 @@
 	if(!processes)
 		GLOB.frozen_atom_list -= src
 	QDEL_NULL(countdown)
+	if(is_main_engine && GLOB.main_supermatter_engine == src)
+		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
 	return ..()
 
@@ -236,8 +241,8 @@
 		var/immune = istype(H.glasses, /obj/item/clothing/glasses/meson)
 		if(!immune && !HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 			. += "<span class='danger'>You get headaches just from looking at it.</span>"
-	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of use the psudo-perpetual energy source, the supermatter crystal.</span>"
-	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or simple as a metal rod. These burts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
+	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of the use of the pseudo-perpetual energy source, the supermatter crystal.</span>"
+	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
 	if(isAntag(user))
 		. += "<span class='warning'>Although a T.E.G. is more costly, there's a damn good reason the syndicate doesn't use this. If the integrity of [src] dips to 0%, perhaps from overheating, the supermatter will violently explode destroying nearly everything even somewhat close to it and releasing massive amounts of radiation.</span>"
 
@@ -544,7 +549,7 @@
 
 	//Makes em go mad and accumulate rads.
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
-		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION))
+		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION) && !HAS_TRAIT(l, SM_HALLUCINATION_IMMUNE))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			var/hallucination_amount = power * hallucination_power * D
 			l.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
@@ -1127,6 +1132,11 @@
 			if(zap_count > 1)
 				targets_hit = targets_hit.Copy() //Pass by ref begone
 			supermatter_zap(target, new_range, zap_str, zap_flags, targets_hit)
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/manual_start(amount)
+	has_been_powered = TRUE
+	power += amount
+	message_admins("[src] has been activated and given an increase EER of [amount] at [ADMIN_JMP(src)]")
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY

@@ -7,7 +7,7 @@
 
 	density = TRUE
 	max_integrity = 300
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 80, ACID = 30)
 	layer = OBJ_LAYER
 
 	idle_power_consumption = 500
@@ -26,8 +26,8 @@
 	var/base_heating = 140
 	var/base_cooling = 170
 
-/obj/machinery/atmospherics/unary/thermomachine/New()
-	..()
+/obj/machinery/atmospherics/unary/thermomachine/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/thermomachine(null)

@@ -293,20 +293,22 @@
 	description = "A resorbable microfibrillar collagen and protein mixture that can rapidly heal injuries when applied topically."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
+	penetrates_skin = TRUE
 	taste_description = "blood"
 
 /datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
-			M.adjustBruteLoss(-1.5*volume)
-			M.adjustFireLoss(-1.5*volume)
+			M.adjustBruteLoss(-1.5 * volume)
+			M.adjustFireLoss(-1.5 * volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
-					H.cure_husk(BURN)
-					H.visible_message("<span class='nicegreen'>The squishy liquid coats [H]'s burns. [H] looks a lot healthier!") //we're avoiding using the phrases "burnt flesh" and "burnt skin" here because humans could be a skeleton or a golem or something
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
+				H.cure_husk(BURN)
+				// Could be a skeleton or a golem or sth, avoid phrases like "burnt flesh" and "burnt skin"
+				H.visible_message("<span class='nicegreen'>The squishy liquid coats [H]'s burns. [H] looks a lot healthier!</span>")
 	..()
 
 /datum/reagent/medicine/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
@@ -931,7 +933,7 @@
 	M.AdjustStunned(-6 SECONDS)
 	M.AdjustWeakened(-6 SECONDS)
 	M.AdjustKnockDown(-6 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-20*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustStaminaLoss(-40 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
@@ -1314,16 +1316,15 @@
 					M.AdjustKnockDown(10 SECONDS) //You can still crawl around a bit for now, but soon suffering kicks in.
 		if(44)
 			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
-			M.AdjustWeakened(30 SECONDS)
+			M.AdjustWeakened(15 SECONDS)
 		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
 			if(has_stimulant == TRUE)
 				return ..()
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)
-					if(prob(25)) // Each tick has a 25% chance of repearing a bone.
-						if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED | ORGAN_BURNT)) //I can't just check for !E.status
-							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
-							E.rejuvenate() //Repair it completely.
+					if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED | ORGAN_BURNT)) //I can't just check for !E.status
+						to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
+						E.rejuvenate() //Repair it completely.
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.

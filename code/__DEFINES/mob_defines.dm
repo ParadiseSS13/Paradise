@@ -251,6 +251,7 @@
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
 #define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))
 #define isgorilla(A) 		(istype((A), /mob/living/simple_animal/hostile/gorilla))
+#define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -268,6 +269,7 @@
 
 #define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
 
+#define iscameramob(A)	(istype((A), /mob/camera))
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 

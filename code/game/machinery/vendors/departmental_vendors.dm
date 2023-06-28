@@ -185,7 +185,7 @@
 	contraband = list(/obj/item/reagent_containers/syringe/insulin = 4,
 					/obj/item/reagent_containers/glass/bottle/sulfonal = 1,
 					/obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 
@@ -221,3 +221,5 @@
 					/obj/item/clothing/mask/muzzle/safety = 4)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2, /obj/item/storage/fancy/donut_box = 2, /obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
+	prices = list(/obj/item/reagent_containers/food/snacks/donut = 40,
+					/obj/item/storage/fancy/donut_box = 200) //Bulk discount

@@ -171,7 +171,8 @@
 		/obj/item/reagent_containers/food/snacks/deepfryholder,
 		/obj/item/reagent_containers/food/snacks/chinese,
 		/obj/item/reagent_containers/food/snacks/human,
-		/obj/item/reagent_containers/food/snacks/monstermeat
+		/obj/item/reagent_containers/food/snacks/monstermeat,
+		/obj/item/reagent_containers/food/snacks/meatsteak/stimulating
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
@@ -215,6 +216,9 @@
 							/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 							/obj/item/reagent_containers/food/drinks/drinkingglass,
 							/obj/item/reagent_containers/food/drinks/bottle,
+							/obj/item/reagent_containers/food/drinks/everfull,
+							/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath,
+							/obj/item/reagent_containers/food/drinks/bottle/immortality,
 							/obj/item/reagent_containers/food/drinks/mushroom_bowl
 							)
 	blocked += typesof(/obj/item/reagent_containers/food/drinks/flask)

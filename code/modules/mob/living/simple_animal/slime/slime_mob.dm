@@ -263,6 +263,7 @@
 		var/mob/living/Food = A
 		if(CanFeedon(Food))
 			Feedon(Food)
+			return
 	return ..()
 
 /mob/living/simple_animal/slime/unEquip(obj/item/I, force, silent = FALSE)
