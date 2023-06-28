@@ -204,9 +204,15 @@
 	open_close(user)
 
 /obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
+
 	if(!ai_control_check(user))
 		return
+	if(!user.mind.special_role)
+		if(do_after(user, 2.5 SECONDS, target = src, allow_moving = TRUE))
+		toggle_bolt(user)
+		return
 	toggle_bolt(user)
+
 
 /obj/machinery/door/airlock/AIAltClick(mob/living/silicon/user) // Electrifies doors.
 	if(!ai_control_check(user))
@@ -216,7 +222,11 @@
 	if(isElectrified())
 		electrify(0, user, TRUE) // un-shock
 	else
-		electrify(-1, user, TRUE) // permanent shock
+		if(!user.mind.special_role)
+			if(do_after(user, 2.5 SECONDS, target = src, allow_moving = TRUE))
+				electrify(-1, user, TRUE) // permanent shock
+				return
+		electrify(-1, user, TRUE)// permanent shock
 
 
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
