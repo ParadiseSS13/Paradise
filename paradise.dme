@@ -1315,6 +1315,7 @@
 #include "code\modules\antagonists\changeling\powers\become_headslug.dm"
 #include "code\modules\antagonists\changeling\powers\biodegrade.dm"
 #include "code\modules\antagonists\changeling\powers\chameleon_skin.dm"
+#include "code\modules\antagonists\changeling\powers\contort_body.dm"
 #include "code\modules\antagonists\changeling\powers\digitalcamo.dm"
 #include "code\modules\antagonists\changeling\powers\epinephrine.dm"
 #include "code\modules\antagonists\changeling\powers\fakedeath.dm"

@@ -3,7 +3,7 @@
 	. += ..()
 	. += GLOB.configuration.movement.human_delay
 	. += dna.species.movement_delay(src)
-	if(mob_has_gravity() && isobj(pulling))
+	if(isobj(pulling) && has_gravity(pulling))
 		var/obj/pulled = pulling
 		. += pulled.pull_speed
 

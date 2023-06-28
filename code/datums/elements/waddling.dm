@@ -23,6 +23,3 @@
 	var/prev_trans = matrix(target.transform)
 	animate(pixel_z = 0, transform = turn(target.transform, pick(-12, 0, 12)), time = 2)
 	animate(pixel_z = 0, transform = prev_trans, time = 0)
-
-/datum/element/waddling/clown_gravity
-	// alternate element so we don't go removing the existing one.
