@@ -1034,4 +1034,72 @@
 	cart.mybroom = src
 	cart.put_in_cart(src, user)
 
+/obj/item/twohanded/push_broom/traitor
+	name = "titanium push broom"
+	desc = "This is my BROOMSTICK! All of the functionality of a normal broom, but at least half again more robust."
+	attack_verb = list("smashed", "slammed", "whacked", "thwacked", "swept")
+	force = 10
+	force_unwielded = 10
+	force_wielded = 25
+
+/obj/item/twohanded/push_broom/traitor/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+
+/obj/item/twohanded/push_broom/traitor/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='warning'>When wielded, the broom has different effects depending on your intent, similar to a martial art. \
+		      Help intent will sweep foes away from you, disarm intent will sweep their legs from under them, grab intent will confuse \
+			  and minorly fatigue them, and harm intent will hit them normally.</span>"
+
+/obj/item/twohanded/push_broom/traitor/attack(mob/target, mob/living/user)
+
+	if(!wielded || !ishuman(target))
+		return ..()
+
+	var/mob/living/carbon/human/H = target
+
+	switch(user.a_intent)
+		if(INTENT_HELP)
+			H.visible_message("<span class='danger'>[user] sweeps [H] away!</span>", \
+							  "<span class='userdanger'>[user] sweeps you away!</span>", \
+							  "<span class='italics'>You hear sweeping.</span>")
+			playsound(loc, 'sound/weapons/sweeping.ogg', 70, TRUE, -1)
+
+			var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)))
+			H.throw_at(throw_target, 3, 1)
+
+			add_attack_logs(user, H, "Swept away with titanium push broom", ATKLOG_ALL)
+
+		if(INTENT_DISARM)
+			if(H.stat || IS_HORIZONTAL(H))
+				return ..()
+
+			H.visible_message("<span class='danger'>[user] sweeps [H]'[H.p_s()] legs out from under them!</span>", \
+							  "<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
+							  "<span class='italics'>You hear sweeping.</span>")
+
+			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
+			playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, 1, -1)
+			H.apply_damage(5, BRUTE)
+			H.KnockDown(4 SECONDS)
+
+			add_attack_logs(user, H, "Leg swept with titanium push broom", ATKLOG_ALL)
+
+		if(INTENT_GRAB)
+			H.visible_message("<span class='danger'>[user] smacks [H] with the brush of the broom!</span>", \
+							  "<span class='userdanger'>[user] smacks you with the brush of [user.p_their()] broom!</span>", \
+							  "<span class='italics'>You hear a smacking noise.</span>")
+
+			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
+			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 50, 1, -1)
+			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS) //no stacking infinitely
+			H.adjustStaminaLoss(15)
+
+			add_attack_logs(user, H, "Swept with the brush of the titanium push broom", ATKLOG_ALL)
+
+		if(INTENT_HARM)
+			return ..()
+
 #undef BROOM_PUSH_LIMIT

@@ -124,6 +124,14 @@
 	cost = 2
 	job = list("Janitor")
 
+/datum/uplink_item/jobspecific/titaniumbroom
+	name = "Titanium Push Broom"
+	desc = "A push broom with a reinforced handle and a metal wire brush, perfect for giving yourself more work by beating up assistants."
+	reference = "TPB"
+	item = /obj/item/twohanded/push_broom/traitor
+	cost = 12
+	job = list("Janitor")
+
 //Virology
 
 /datum/uplink_item/jobspecific/viral_injector
