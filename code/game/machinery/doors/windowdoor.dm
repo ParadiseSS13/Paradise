@@ -251,6 +251,13 @@
 /obj/machinery/door/window/attack_ai(mob/user)
 	return attack_hand(user)
 
+/obj/machinery/door/window/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
+
 /obj/machinery/door/window/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
