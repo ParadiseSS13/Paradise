@@ -177,7 +177,7 @@
 	if(!can_be_reached(M))
 		return
 	. = ..()
-	if(M.environment_smash >= env_smash_level)
+	if(. && M.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
 
