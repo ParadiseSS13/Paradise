@@ -49,6 +49,10 @@
 		return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
+	if(isliving(mover))
+		var/mob/living/our_mover = mover
+		if(IS_HORIZONTAL(our_mover) && HAS_TRAIT(our_mover, TRAIT_CONTORTED_BODY))
+			return TRUE
 	else
 		return FALSE
 

@@ -45,6 +45,9 @@
 		if(H.flying || H.floating || H.buckled)
 			return
 
+		if(IS_HORIZONTAL(H) && HAS_TRAIT(H, TRAIT_CONTORTED_BODY))
+			return TRUE
+
 		var/damage = rand(min_damage, max_damage)
 
 		H.apply_damage(damage, BRUTE, picked_def_zone)
