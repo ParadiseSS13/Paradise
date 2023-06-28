@@ -180,10 +180,6 @@
 	if(M.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
-	else
-		to_chat(M, "<span class='notice'>You smash against the window.</span>")
-		take_damage(rand(25, 75))
-
 
 /obj/structure/window/attackby(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
