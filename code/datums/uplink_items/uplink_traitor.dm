@@ -131,6 +131,7 @@
 	item = /obj/item/twohanded/push_broom/traitor
 	cost = 12
 	job = list("Janitor")
+	surplus = 0 //no reflect memes
 
 //Virology
 
