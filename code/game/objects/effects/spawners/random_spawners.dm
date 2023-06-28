@@ -55,7 +55,7 @@
 	/datum/nothing = 20,
 	/obj/effect/decal/cleanable/blood/oil = 1)
 
-/obj/effect/spawner/random_spawners/oil_maybe
+/obj/effect/spawner/random_spawners/oil_often
 	name = "oil often"
 	icon_state = "oil"
 	result = list(
@@ -128,11 +128,18 @@
 	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/dirt = 1)
 
-/obj/effect/spawner/random_spawners/dirt_rare
-	name = "dirt rare"
+/obj/effect/spawner/random_spawners/dirt_often
+	name = "dirt often"
 	icon_state = "dirt"
 	result = list(
-	/datum/nothing = 10,
+	/datum/nothing = 5,
+	/obj/effect/decal/cleanable/dirt = 1)
+
+/obj/effect/spawner/random_spawners/dirt_maybe
+	name = "dirt maybe"
+	icon_state = "dirt"
+	result = list(
+	/datum/nothing = 7,
 	/obj/effect/decal/cleanable/dirt = 1)
 
 /obj/effect/spawner/random_spawners/fungus_maybe
