@@ -490,7 +490,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/ammo_box/magazine/m12g/confetti
-	name = "\improper XL shotgun magazine (12g dragon's breath)"
+	name = "\improper XL shotgun magazine (12g confetti)"
 	icon_state = "party_drum"
 	ammo_type = /obj/item/ammo_casing/shotgun/confetti
 
