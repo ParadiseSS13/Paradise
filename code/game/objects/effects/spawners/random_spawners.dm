@@ -115,7 +115,7 @@
 	/obj/effect/decal/cleanable/cobweb = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_right_rare
-	name = "cobweb right rare
+	name = "cobweb right rare"
 	icon_state = "cobwebr"
 	result = list(
 	/datum/nothing = 10,
