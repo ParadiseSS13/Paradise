@@ -134,7 +134,11 @@
 
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
+		return TRUE
+	if(isliving(mover))
+		var/mob/living/living_mover = mover
+		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
+			return TRUE
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
 		return !density
 	if(istype(mover, /obj/structure/window))
@@ -162,7 +166,11 @@
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
+		return TRUE
+	if(isliving(mover))
+		var/mob/living/living_mover = mover
+		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
+			return TRUE
 	if(get_dir(loc, target) == dir)
 		return !density
 	else
