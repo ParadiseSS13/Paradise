@@ -133,6 +133,8 @@
 	implant_user.client?.images += box_img
 
 /obj/structure/closet/cardboard/agent/proc/move_fake_box(datum/source, oldloc, move_dir)
+	SIGNAL_HANDLER
+
 	// For non-standard movement such as teleports.
 	if(!move_dir)
 		fake_box.loc = get_turf(src)
