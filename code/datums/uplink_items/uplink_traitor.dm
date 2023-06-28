@@ -214,6 +214,7 @@
 	job = list("Roboticist")
 	surplus = 0
 
+
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
@@ -372,10 +373,10 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/thermal_drill // Nukies get Diamond Tipped Thermal Safe Drill instead
-	name = "Thermal Safe Drill"
-	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
+	name = "Amplifying Thermal Safe Drill"
+	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
 	reference = "DRL"
-	item = /obj/item/thermal_drill
+	item = /obj/item/thermal_drill/syndicate
 	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -518,8 +519,7 @@
 			Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
-	cost = 13
-	cant_discount = TRUE
+	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/syndicate_bomb

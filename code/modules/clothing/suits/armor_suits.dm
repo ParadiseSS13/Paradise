@@ -518,12 +518,13 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby) && use_power())
-		var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
+		var/mob/living/simple_animal/hostile/illusion/escape/stealth/E = new(owner.loc)
 		E.Copy_Parent(owner, 50)
 		E.GiveTarget(owner) //so it starts running right away
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
 		owner.make_invisible()
+		disable(rand(4, 5)) //No blocking while invisible
 		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living, reset_visibility)), 4 SECONDS)
 		return TRUE
 

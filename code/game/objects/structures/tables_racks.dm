@@ -36,6 +36,8 @@
 	var/framestackamount = 2
 	var/deconstruction_ready = TRUE
 	var/flipped = FALSE
+	/// The minimum level of environment_smash required for simple animals to be able to one-shot this.
+	var/minimum_env_smash = ENVIRONMENT_SMASH_WALLS
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
@@ -120,8 +122,8 @@
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
 	if(ismob(mover))
-		var/mob/M = mover
-		if(M.flying)
+		var/mob/living/M = mover
+		if(M.flying || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
@@ -176,7 +178,8 @@
 	return 1
 
 /obj/structure/table/MouseDrop_T(obj/O, mob/user)
-	..()
+	if(..())
+		return TRUE
 	if((!( isitem(O) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
@@ -185,7 +188,7 @@
 		return
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
-	return
+		return TRUE
 
 /obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -235,6 +238,12 @@
 			item_placed(I)
 	else
 		return ..()
+
+/obj/structure/table/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && M.environment_smash >= minimum_env_smash)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] smashes [src]!</span>", "<span class='notice'>You smash [src].</span>")
 
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
 	if(locate(/obj/structure/table) in get_turf(target))
@@ -345,15 +354,15 @@
 	verbs -=/obj/structure/table/verb/do_flip
 	verbs +=/obj/structure/table/proc/do_put
 
+	dir = direction
+	if(dir != NORTH)
+		layer = 5
 	var/list/targets = list(get_step(src,dir),get_step(src,turn(dir, 45)),get_step(src,turn(dir, -45)))
 	for(var/atom/movable/A in get_turf(src))
 		if(!A.anchored)
 			spawn(0)
 				A.throw_at(pick(targets),1,1)
 
-	dir = direction
-	if(dir != NORTH)
-		layer = 5
 	flipped = TRUE
 	smoothing_flags = NONE
 	flags |= ON_BORDER
@@ -381,7 +390,8 @@
 
 	layer = initial(layer)
 	flipped = FALSE
-	smoothing_flags = initial(smoothing_flags)
+	// Initial smoothing flags doesn't add the required SMOOTH_OBJ flag, thats done on init
+	smoothing_flags = initial(smoothing_flags) | SMOOTH_OBJ
 	flags &= ~ON_BORDER
 	for(var/D in list(turn(dir, 90), turn(dir, -90)))
 		if(locate(/obj/structure/table,get_step(src,D)))
@@ -408,6 +418,7 @@
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 100)
+	minimum_env_smash = ENVIRONMENT_SMASH_STRUCTURES
 	var/list/debris = list()
 	var/shardtype = /obj/item/shard
 
@@ -500,6 +511,7 @@
 	buildstack = /obj/item/stack/sheet/plasmaglass
 	max_integrity = 140
 	shardtype = /obj/item/shard/plasma
+	minimum_env_smash = ENVIRONMENT_SMASH_RWALLS
 
 /obj/structure/table/glass/reinforced
 	name = "reinforced glass table"
@@ -513,6 +525,7 @@
 	deconstruction_ready = FALSE
 	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, RAD = 0, FIRE = 80, ACID = 70)
 	smoothing_groups = list(SMOOTH_GROUP_REINFORCED_TABLES)
+	minimum_env_smash = ENVIRONMENT_SMASH_RWALLS
 	canSmoothWith = list(SMOOTH_GROUP_REINFORCED_TABLES)
 
 /obj/structure/table/glass/reinforced/deconstruction_hints(mob/user) //look, it was either copy paste these 4 procs, or copy paste all of the glass stuff
@@ -855,8 +868,12 @@
 		return 1
 	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
-	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return 1
+	if(istype(mover))
+		if(mover.checkpass(PASSTABLE))
+			return TRUE
+		var/mob/living/living_mover = mover
+		if(istype(living_mover) && IS_HORIZONTAL(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY))
+			return TRUE
 	if(mover.throwing)
 		return 1
 	else
@@ -877,6 +894,7 @@
 		return
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
+		return TRUE
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
 	if(isrobot(user))
