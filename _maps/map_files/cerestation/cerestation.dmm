@@ -1605,7 +1605,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -1632,7 +1632,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "akf" = (
@@ -2545,7 +2545,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -6243,6 +6243,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -6653,7 +6654,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbrowncorners"
@@ -7058,7 +7059,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -8105,6 +8106,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fpmaint)
 "aVy" = (
@@ -8201,6 +8203,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fpmaint)
 "aVM" = (
@@ -8261,7 +8264,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -9615,7 +9618,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/port)
 "bcn" = (
@@ -10187,7 +10190,7 @@
 	dir = 4
 	},
 /obj/item/reagent_containers/glass/bucket,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreenfull"
@@ -10712,7 +10715,7 @@
 /area/security/range)
 "bgv" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "bgx" = (
@@ -17753,7 +17756,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -21791,6 +21794,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fpmaint)
 "caN" = (
@@ -21932,7 +21936,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
 "cbN" = (
@@ -22601,7 +22605,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -23734,7 +23738,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -28286,6 +28290,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -28595,12 +28600,11 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "cLX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/mixing)
 "cMa" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor/preopen{
@@ -31506,7 +31510,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -34269,6 +34273,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fpmaint)
 "dpc" = (
@@ -34961,7 +34966,7 @@
 	dir = 1;
 	name = "Mix To Turbine"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -36207,7 +36212,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -36303,7 +36308,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -37516,6 +37521,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fpmaint)
 "dIS" = (
@@ -37545,6 +37551,13 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/south)
+"dJf" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/secondary/entry/north)
 "dJk" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -37704,6 +37717,22 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
+"dLM" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Security SMES Access";
+	req_access_txt = "10"
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "dLO" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Port Asteroid Maintenance";
@@ -38175,7 +38204,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -39410,7 +39439,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -39655,7 +39684,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -40260,7 +40289,7 @@
 /turf/simulated/wall,
 /area/maintenance/fsmaint)
 "eIZ" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -41466,7 +41495,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -42273,7 +42302,7 @@
 /area/library)
 "fCV" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -44079,7 +44108,7 @@
 "glZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44862,6 +44891,14 @@
 "gzv" = (
 /turf/simulated/wall/r_wall,
 /area/engine/gravitygenerator)
+"gAc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay)
 "gAr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -45345,7 +45382,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -46338,7 +46375,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -47079,7 +47116,7 @@
 /area/engine/engineering)
 "hlI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology)
 "hlM" = (
@@ -48094,7 +48131,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -54354,7 +54391,7 @@
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -54620,7 +54657,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -54939,12 +54976,21 @@
 	},
 /area/crew_quarters/bar)
 "jPQ" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
 	},
 /area/hallway/secondary/exit)
+"jPR" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/crew_quarters/kitchen)
 "jPS" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -56298,8 +56344,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_regular_floor = "yellowsiding";
@@ -58055,7 +58100,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -58191,7 +58236,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -59156,7 +59201,7 @@
 "lky" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
 "lkA" = (
@@ -59339,6 +59384,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -62066,7 +62112,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fsmaint)
 "mhJ" = (
@@ -64636,6 +64682,7 @@
 	name = "Aft Asteroid Maintenance";
 	req_access_txt = "7"
 	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "nfW" = (
@@ -65325,7 +65372,7 @@
 	},
 /area/turret_protected/ai_upload)
 "ntt" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "ntA" = (
@@ -68878,6 +68925,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -69369,6 +69417,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/closet/secure_closet/engineering_electrical,
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/port)
 "oMD" = (
@@ -70523,7 +70572,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -70713,7 +70762,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -72686,7 +72735,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -73917,6 +73966,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -77065,7 +77115,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/apmaint)
 "rtt" = (
@@ -77263,7 +77313,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -78338,7 +78388,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -80165,7 +80215,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81300,7 +81350,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -83513,6 +83563,15 @@
 	icon_state = "darkbrown"
 	},
 /area/quartermaster/office)
+"tEK" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plasteel{
+	icon_state = "redyellowfull"
+	},
+/area/crew_quarters/bar)
 "tEV" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -83861,6 +83920,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -84903,7 +84963,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -85220,7 +85280,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/lobby)
 "ujR" = (
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -90377,6 +90437,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
+"vUy" = (
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkgreenfull"
+	},
+/area/hydroponics)
 "vUJ" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -90923,6 +90990,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -91597,7 +91665,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -92476,7 +92544,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/assembly/mousetrap/armed,
-/obj/effect/spawner/random_spawners/dirt_often,
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/port)
 "wBp" = (
@@ -93575,6 +93643,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -95395,6 +95464,12 @@
 "xEp" = (
 /turf/space,
 /area/shuttle/gamma/station)
+"xEI" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/genetics)
 "xEJ" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/shieldwallgen,
@@ -96424,6 +96499,10 @@
 "xYZ" = (
 /turf/simulated/wall,
 /area/bridge)
+"xZb" = (
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/arcade)
 "xZe" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -96856,9 +96935,12 @@
 	},
 /area/maintenance/asmaint)
 "yhn" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/starboard/north)
 "yhs" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -110211,7 +110293,7 @@ enx
 okt
 lRZ
 nDQ
-qll
+cLX
 uCu
 ftr
 ftr
@@ -110861,7 +110943,7 @@ dkp
 cSV
 dkq
 dkq
-doO
+dLM
 uuj
 uuj
 uuj
@@ -117111,7 +117193,7 @@ mgV
 mgV
 mgV
 btd
-cwA
+vUy
 cwA
 btd
 sbn
@@ -118371,12 +118453,12 @@ ujE
 wzA
 mHO
 iPY
-qnZ
+tEK
 tvI
 vxE
 baF
 nJR
-qfr
+jPR
 nRM
 uzY
 gGj
@@ -126516,7 +126598,7 @@ sAw
 wDs
 tXQ
 gXD
-kxP
+xZb
 bip
 boF
 aGc
@@ -142317,7 +142399,7 @@ pQa
 pQa
 pQa
 rUz
-pQa
+dJf
 fwt
 bqi
 pQa
@@ -146129,7 +146211,7 @@ bIQ
 tKq
 wRo
 vWn
-hyj
+gAc
 hyj
 wfR
 kIo
@@ -147385,7 +147467,7 @@ beB
 bcQ
 bcS
 hzz
-hzz
+yhn
 pTl
 hsv
 ulG
@@ -148953,7 +149035,7 @@ naI
 yhU
 vFy
 mTp
-xhG
+xEI
 fKo
 bDA
 vZh
@@ -150166,7 +150248,7 @@ rNK
 wtU
 aCo
 cIv
-yhn
+cIv
 xRJ
 aCo
 iss
@@ -150936,7 +151018,7 @@ alc
 alc
 hWG
 lqP
-cLX
+gta
 gta
 cbI
 cIv

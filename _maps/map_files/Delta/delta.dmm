@@ -85645,7 +85645,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_rare,
+/obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "jIs" = (
@@ -96726,7 +96726,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_rare,
+/obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
