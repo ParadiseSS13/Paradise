@@ -18,6 +18,9 @@
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
 	desc = "An armored vest that protects against some damage."
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+	)
 	icon_state = "armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
