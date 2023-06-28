@@ -88,48 +88,44 @@
 
 
 /mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1)
-	if(stat == DEAD)
+	. = TRUE
+
+	if(stat == DEAD || ismachineperson(src)) // Dead people and IPCs do not vomit particulates
 		return FALSE
-	if(ismachineperson(src)) //IPCs do not vomit particulates
-		return FALSE
-	if(is_muzzled())
-		if(message)
-			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
-		return FALSE
-	if(is_facehugged())
-		if(message)
-			to_chat(src, "<span class='warning'>You try to throw up, but the alien's proboscis obstructs your throat!</span>") //Sorry
-		return FALSE
+
 	if(stun)
 		Stun(8 SECONDS)
-	if(nutrition < 100 && !blood)
+
+	if(!blood && nutrition < 100) // Nutrition vomiting while already starving
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
 							"<span class='userdanger'>You try to throw up, but there's nothing your stomach!</span>")
 		if(stun)
 			Weaken(20 SECONDS)
-	else
-		if(message)
-			visible_message("<span class='danger'>[src] throws up!</span>", \
-							"<span class='userdanger'>You throw up!</span>")
-		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
-		var/turf/T = get_turf(src)
-		for(var/i=0 to distance)
-			if(blood)
-				if(T)
-					add_splatter_floor(T)
-				if(stun)
-					adjustBruteLoss(3)
-			else
-				if(T)
-					T.add_vomit_floor()
-				adjust_nutrition(-lost_nutrition)
-				if(stun)
-					adjustToxLoss(-3)
-			T = get_step(T, dir)
-			if(is_blocked_turf(T))
-				break
-	return TRUE
+		return
+
+	if(message)
+		visible_message("<span class='danger'>[src] throws up!</span>", \
+						"<span class='userdanger'>You throw up!</span>")
+
+	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
+	var/turf/T = get_turf(src)
+	for(var/i = 0 to distance)
+		if(blood)
+			if(T)
+				add_splatter_floor(T)
+			if(stun)
+				adjustBruteLoss(3)
+		else
+			if(T)
+				T.add_vomit_floor()
+			adjust_nutrition(-lost_nutrition)
+			if(stun)
+				adjustToxLoss(-3)
+
+		T = get_step(T, dir)
+		if(is_blocked_turf(T))
+			break
 
 /mob/living/carbon/gib()
 	. = death(1)

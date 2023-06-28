@@ -294,7 +294,8 @@
 	select_name = "emitter"
 
 /obj/item/ammo_casing/energy/emitter/cyborg
-	e_cost = 500 // about 28 shots on an engineering borg from a borging machine, assuming some power is used for lights / movement. May need to change.
+	e_cost = 350 // about 42 shots on an engineering borg from a borging machine, Reads a lot better than it actually is because people miss shots and often your better abilities require charge as well
+	delay = 1 SECONDS
 
 /obj/item/ammo_casing/energy/bsg
 	projectile_type = /obj/item/projectile/energy/bsg
