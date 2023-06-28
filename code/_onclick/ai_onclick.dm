@@ -209,7 +209,7 @@
 		return
 	if(!user.mind.special_role)
 		if(do_after(user, 2.5 SECONDS, target = src, allow_moving = TRUE))
-		toggle_bolt(user)
+			toggle_bolt(user)
 		return
 	toggle_bolt(user)
 
