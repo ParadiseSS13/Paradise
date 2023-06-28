@@ -60,6 +60,24 @@ emp_act
 			else
 				return FALSE
 
+	if(HAS_TRAIT(src, TRAIT_DEFLECTING_PROJECTILES))
+
+		add_attack_logs(P.firer, src, "Hit by [P.type], but deflected by something other than martial arts")
+		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+
+		if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL))
+			// Pacifism and unreflectables hitting the ground logic. Copied from above
+			var/turf/T = get_turf(src)
+			P.firer = src
+			T.bullet_act(P)
+			visible_message("<span class='danger'>[src] deflects the projectile into the ground!</span>", "<span class='userdanger'>You deflect the projectile towards the ground beneath your feet!</span>")
+			return FALSE
+
+		visible_message("<span class='danger'>[src] deflects the projectile!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+		P.firer = src
+		P.set_angle(rand(0, 360))
+		return -1
+
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
 		return bullet_act(P, "chest") //act on chest instead
