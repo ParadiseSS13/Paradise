@@ -56,7 +56,7 @@
 
 /obj/item/thermal_drill/syndicate
 	name = "amplified thermal safe drill"
-	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with an inbuilt moral booster and security detector, to assist in drilling."
+	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with an inbuilt morale booster and security detector, to assist in drilling."
 	payback = TRUE
 
 /obj/item/thermal_drill/diamond_drill
@@ -67,5 +67,5 @@
 
 /obj/item/thermal_drill/diamond_drill/syndicate
 	name = "amplified diamond tipped thermal safe drill"
-	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Comes with an inbuilt moral booster and security detector, to assist in drilling."
+	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Comes with an inbuilt morale booster and security detector, to assist in drilling."
 	payback = TRUE
