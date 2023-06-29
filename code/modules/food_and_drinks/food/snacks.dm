@@ -264,7 +264,7 @@
 //	icon_state = "xburger"												//Refers to an icon in food/food.dmi
 //	New()																//Don't mess with this.
 //		..()															//Same here.
-//		reagents.add_reagent("xenomicrobes", 10)						//This is what is in the food item. you may copy/paste
+//		reagents.add_reagent("nanomachines", 10)						//This is what is in the food item. you may copy/paste
 //		reagents.add_reagent("nutriment", 2)							//	this line of code for all the contents.
 //		bitesize = 3													//This is the amount each bite consumes.
 

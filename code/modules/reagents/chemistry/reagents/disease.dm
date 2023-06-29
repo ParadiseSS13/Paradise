@@ -28,20 +28,6 @@
 		M.ForceContractDisease(new /datum/disease/transformation/robot(0))
 	return ..()
 
-
-/datum/reagent/xenomicrobes
-	name = "Xenomicrobes"
-	id = "xenomicrobes"
-	description = "Microbes with an entirely alien cellular structure."
-	color = "#535E66" // rgb: 83, 94, 102
-	can_synth = FALSE
-	taste_mult = 0
-
-/datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
-	if(volume > 1.5)
-		M.ContractDisease(new /datum/disease/transformation/xeno(0))
-	return ..()
-
 /datum/reagent/fungalspores
 	name = "Tubercle bacillus Cosmosis microbes"
 	id = "fungalspores"
