@@ -110,7 +110,7 @@
 				break
 
 	// Give them an escape objective if they don't have one already.
-	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && martyr_compatibility)
+	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && !martyr_compatibility)
 		add_objective(/datum/objective/escape)
 
 /**
