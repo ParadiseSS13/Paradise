@@ -8710,7 +8710,6 @@
 	layer = 2.6;
 	name = "Engineering Lockdown"
 	},
-/obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
@@ -21558,7 +21557,6 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "ailockdown";
 	layer = 2.6;
@@ -21594,7 +21592,6 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "ailockdown";
 	layer = 2.6;
@@ -21614,7 +21611,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "ailockdown";
@@ -21634,7 +21630,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 1
 	},
@@ -23765,7 +23760,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 4
 	},
@@ -31388,7 +31382,6 @@
 	layer = 2.6;
 	name = "Engineering Lockdown"
 	},
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -31571,7 +31564,6 @@
 	layer = 2.6;
 	name = "Engineering Lockdown"
 	},
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red,
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -31683,7 +31675,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -34535,7 +34526,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "medlockdown";
 	layer = 2.6;
@@ -35695,7 +35685,6 @@
 	layer = 2.6;
 	name = "Engineering Lockdown"
 	},
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 4
 	},
@@ -36163,7 +36152,6 @@
 	layer = 2.6;
 	name = "Engineering Lockdown"
 	},
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 8
 	},
@@ -36348,7 +36336,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -36522,7 +36509,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "cargolockdown";
 	layer = 2.6;
@@ -38177,7 +38163,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 8
 	},
@@ -38207,7 +38192,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "cargolockdown";
 	layer = 2.6;
@@ -39722,7 +39706,6 @@
 	layer = 2.6;
 	name = "Engineering Lockdown"
 	},
-/obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -40562,7 +40545,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "scilockdown";
 	layer = 2.6;
@@ -41592,7 +41574,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
 	},
@@ -41953,7 +41934,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 8
 	},
@@ -42030,7 +42010,6 @@
 	layer = 2.6;
 	name = "Engineering Lockdown"
 	},
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 4
 	},
@@ -42364,7 +42343,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "medlockdown";
 	layer = 2.6;
@@ -44842,7 +44820,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "cargolockdown";
 	layer = 2.6;
@@ -46038,7 +46015,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "medlockdown";
 	layer = 2.6;
@@ -47262,7 +47238,6 @@
 	color = "#954535"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "scilockdown";
 	layer = 2.6;
@@ -47627,7 +47602,6 @@
 	color = "#954535"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "servlockdown";
 	layer = 2.6;
@@ -49013,7 +48987,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "scilockdown";
 	layer = 2.6;
@@ -49073,7 +49046,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "medlockdown";
 	layer = 2.6;
@@ -50782,7 +50754,6 @@
 	layer = 2.6;
 	name = "Engineering Lockdown"
 	},
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 8
 	},
@@ -51230,7 +51201,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -52503,7 +52473,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "scilockdown";
 	layer = 2.6;
@@ -57732,7 +57701,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 1
 	},
@@ -57759,7 +57727,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 1
 	},
@@ -58329,7 +58296,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 1
 	},
@@ -58388,7 +58354,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 1
 	},
@@ -59415,7 +59380,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "scilockdown";
 	layer = 2.6;
@@ -60710,7 +60674,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -61083,7 +61046,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 4
 	},
@@ -61178,7 +61140,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "cargolockdown";
 	layer = 2.6;
@@ -61293,7 +61254,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "cargolockdown";
 	layer = 2.6;
@@ -64362,7 +64322,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "medlockdown";
 	layer = 2.6;
@@ -64379,7 +64338,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "medlockdown";
 	layer = 2.6;
@@ -65026,7 +64984,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -65114,7 +65071,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "cargolockdown";
 	layer = 2.6;
@@ -65138,7 +65094,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "servlockdown";
 	layer = 2.6;
@@ -70193,7 +70148,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "scilockdown";
 	layer = 2.6;
@@ -70981,7 +70935,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "servlockdown";
 	layer = 2.6;
@@ -72668,7 +72621,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "servlockdown";
 	layer = 2.6;
@@ -74442,7 +74394,6 @@
 	layer = 2.6;
 	name = "Engineering Lockdown"
 	},
-/obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -80469,7 +80420,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "servlockdown";
 	layer = 2.6;
@@ -81176,7 +81126,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "servlockdown";
 	layer = 2.6;
@@ -81484,7 +81433,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "medlockdown";
 	layer = 2.6;
@@ -81925,7 +81873,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "servlockdown";
 	layer = 2.6;
@@ -82744,7 +82691,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "servlockdown";
 	layer = 2.6;
@@ -82847,7 +82793,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "medlockdown";
 	layer = 2.6;
@@ -90077,7 +90022,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "medlockdown";
 	layer = 2.6;
@@ -90663,7 +90607,6 @@
 	name = "Walkway"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "servlockdown";
 	layer = 2.6;
