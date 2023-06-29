@@ -39521,22 +39521,6 @@
 	pixel_x = 32;
 	step_size = 0
 	},
-/obj/machinery/ai_status_display{
-	pixel_x = 32;
-	step_size = 0
-	},
-/obj/machinery/ai_status_display{
-	pixel_x = 32;
-	step_size = 0
-	},
-/obj/machinery/ai_status_display{
-	pixel_x = 32;
-	step_size = 0
-	},
-/obj/machinery/ai_status_display{
-	pixel_x = 32;
-	step_size = 0
-	},
 /obj/structure/table,
 /obj/item/clothing/head/helmet/space/plasmaman{
 	pixel_x = -13;
