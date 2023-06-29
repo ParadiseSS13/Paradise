@@ -111,7 +111,10 @@ STATUS EFFECTS
 
 /mob/living/proc/on_lying_down(new_lying_angle)
 	if(layer == initial(layer)) //to avoid things like hiding larvas.
-		layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
+		if(HAS_TRAIT(src, TRAIT_CONTORTED_BODY))
+			layer = TURF_LAYER + 0.2
+		else
+			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	pixel_y = PIXEL_Y_OFFSET_LYING
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	ADD_TRAIT(src, TRAIT_CANNOT_PULL, LYING_DOWN_TRAIT)
@@ -120,7 +123,7 @@ STATUS EFFECTS
 	set_lying_angle(pick(90, 270))
 
 /mob/living/proc/on_standing_up()
-	if(layer == LYING_MOB_LAYER)
+	if(layer == LYING_MOB_LAYER || HAS_TRAIT(src, TRAIT_CONTORTED_BODY))
 		layer = initial(layer)
 	set_density(initial(density))
 	REMOVE_TRAITS_IN(src, LYING_DOWN_TRAIT)
