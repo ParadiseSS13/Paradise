@@ -39001,10 +39001,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/mob/living/simple_animal/parrot/Poly,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/chief)
 "bUh" = (
+/mob/living/simple_animal/parrot/Poly,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -39986,8 +39986,9 @@
 /area/engine/break_room)
 "bWj" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Engineer's Office"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/chief)
 "bWk" = (
@@ -39997,9 +39998,8 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/machinery/photocopier/faxmachine{
-	department = "Chief Engineer's Office"
-	},
+/obj/item/hand_labeler,
+/obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/chief)
 "bWl" = (
