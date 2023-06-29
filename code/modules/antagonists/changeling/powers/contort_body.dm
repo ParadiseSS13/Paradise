@@ -2,7 +2,7 @@
 	name = "Contort Body"
 	desc = "We contort our body, allowing us to fit in and under things we normally wouldn't be able to. Costs 5 chemicals."
 	button_icon_state = "contort_body"
-	chemical_cost = 5
+	chemical_cost = 25
 	dna_cost = 2
 	power_type = CHANGELING_PURCHASABLE_POWER
 
