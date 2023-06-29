@@ -129,8 +129,6 @@
 #include "code\__HELPERS\global_lists.dm"
 #include "code\__HELPERS\icon_helpers.dm"
 #include "code\__HELPERS\iconprocs.dm"
-#include "code\__HELPERS\iconprocs.dm"
-#include "code\__HELPERS\iconprocs.dm"
 #include "code\__HELPERS\heap.dm"
 #include "code\__HELPERS\icon_smoothing.dm"
 #include "code\__HELPERS\lighting_helpers.dm"
