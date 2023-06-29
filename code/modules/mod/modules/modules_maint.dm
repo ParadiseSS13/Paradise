@@ -47,7 +47,7 @@
 	mod.wearer.emote("scream")
 	playsound(mod.wearer, 'sound/effects/snap.ogg', 75, TRUE, frequency = 0.5)
 	playsound(mod.wearer, 'sound/effects/splat.ogg', 50, TRUE, frequency = 0.5)
-	mod.wearer.adjustBruteLoss(1000) //boggers, bogchamp, etc //why not just poggers
+	mod.wearer.adjustBruteLoss(1987) //boggers, bogchamp, etc //why not just poggers, also this caps at 595 damage but comedy
 
 ///Balloon Blower - Blows a balloon.
 /obj/item/mod/module/balloon
