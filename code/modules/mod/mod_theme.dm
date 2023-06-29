@@ -174,6 +174,7 @@
 	armor_type_1 = /obj/item/mod/armor/mod_theme_atmospheric
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
 	slowdown_inactive = 1.5
 	slowdown_active = 0.75
 	allowed_suit_storage = list(
