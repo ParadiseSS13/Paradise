@@ -42,12 +42,12 @@
 
 /datum/gear/suit/coat/job/sci
 	display_name = "winter coat, science"
-	path = /obj/item/clothing/suit/hooded/wintercoat/science
+	path = /obj/item/clothing/suit/hooded/wintercoat/medical/science
 	allowed_roles = list("Scientist", "Research Director", "Student Scientist")
 
 /datum/gear/suit/coat/job/rd
 	display_name = "winter coat, research director"
-	path = /obj/item/clothing/suit/hooded/wintercoat/science/rd
+	path = /obj/item/clothing/suit/hooded/wintercoat/medical/science/rd
 	allowed_roles = list("Research Director")
 
 /datum/gear/suit/coat/job/engi
@@ -77,7 +77,7 @@
 
 /datum/gear/suit/coat/job/qm
 	display_name = "winter coat, quartermaster"
-	path = /obj/item/clothing/suit/hooded/wintercoat/qm
+	path = /obj/item/clothing/suit/hooded/wintercoat/cargo/qm
 	allowed_roles = list("Quartermaster")
 
 /datum/gear/suit/coat/job/miner

@@ -314,7 +314,7 @@
 /area/ruin/powered/snow_biodome)
 "Dd" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/hooded/wintercoat/science,
+/obj/item/clothing/suit/hooded/wintercoat/medical/science,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/gloves/fingerless,
 /turf/simulated/floor/pod/dark,
