@@ -49,6 +49,8 @@
 		return
 	if(user.incapacitated())
 		return
+	if(!(A in view(user)))
+		return
 	var/obj/item/clothing/gloves/color/yellow/power/P = user.gloves
 	if(world.time < P.last_shocked + P.shock_delay)
 		to_chat(user, "<span class='warning'>The gloves are still recharging.</span>")
