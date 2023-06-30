@@ -447,18 +447,12 @@
 		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
+		if(usr && config.item_animations_enabled)
+			W.loc = get_turf(src)
+			W.do_pickup_animation(usr)
 		W.forceMove(new_location)
 
 	if(usr)
-		if(config.item_animations_enabled)
-			// This bullshit is required since /image/ registered only when in turf contents
-			var/obj/item/dummy = new (drop_location())
-			dummy.icon = W.icon
-			dummy.icon_state = W.icon_state
-			dummy.copy_overlays(W)
-			dummy.do_pickup_animation(usr)
-			qdel(dummy)
-
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)

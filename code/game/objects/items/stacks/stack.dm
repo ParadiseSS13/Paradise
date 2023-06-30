@@ -327,6 +327,7 @@
 
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
 	if(can_merge(W, inhand = TRUE))
+		do_pickup_animation(user)
 		var/obj/item/stack/S = W
 		if(merge(S))
 			to_chat(user, SPAN_NOTICE("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
