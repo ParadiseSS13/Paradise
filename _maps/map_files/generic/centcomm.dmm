@@ -10,7 +10,7 @@
 /area/ninja/outpost)
 "ad" = (
 /obj/effect/landmark/newplayer_start,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/splashscreen,
 /area/start)
 "ae" = (
 /turf/simulated/wall/indestructible/fakeglass,
@@ -61,9 +61,6 @@
 	icon_state = "cult"
 	},
 /area/holodeck/source_theatre)
-"am" = (
-/turf/simulated/wall/indestructible/splashscreen,
-/area/start)
 "an" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -4610,7 +4607,7 @@
 /area/centcom/specops)
 "qf" = (
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/start)
 "qg" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/storage/secure/safe{
@@ -6553,7 +6550,7 @@
 /area/admin)
 "xf" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -8335,7 +8332,7 @@
 "Gs" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost")
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -9339,7 +9336,7 @@
 "Kd" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -9600,7 +9597,7 @@
 "Lb" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -12938,7 +12935,7 @@
 "Yu" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -13998,7 +13995,7 @@ rE
 rE
 rE
 rE
-am
+rE
 aN
 aN
 aN

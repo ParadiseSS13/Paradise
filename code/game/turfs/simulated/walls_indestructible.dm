@@ -110,6 +110,9 @@
 	icon_state = ""
 	layer = FLY_LAYER
 	flags = NO_SCREENTIPS
+	// Pixel shifts below are needed to centrally position the lobby art within the start area for all screen sizes
+	pixel_x = -288
+	pixel_y = -224
 
 /turf/simulated/wall/indestructible/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'
