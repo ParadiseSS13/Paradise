@@ -10,6 +10,7 @@ LINEN BINS
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet"
 	item_state = "sheet"
+	flags = NO_PIXEL_RANDOM_DROP
 	layer = 4.0
 	throwforce = 1
 	throw_speed = 1

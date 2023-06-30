@@ -11,7 +11,7 @@
 	icon_state = "powersink0"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_BULKY
-	flags = CONDUCT
+	flags = CONDUCT | NO_PIXEL_RANDOM_DROP
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2

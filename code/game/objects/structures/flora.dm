@@ -223,6 +223,7 @@
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
+	flags = NO_PIXEL_RANDOM_DROP
 	anchored = 0
 	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE

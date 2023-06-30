@@ -162,6 +162,7 @@
 	desc = "\"Singulo\" brand spinning toy."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_s1"
+	flags = NO_PIXEL_RANDOM_DROP
 
 /*
  * Toy swords
