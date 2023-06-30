@@ -258,3 +258,13 @@
 	reqs = list(/obj/item/reagent_containers/glass/bucket = 3)
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/guitarbag
+	name = "Guitar Bag"
+	result = /obj/item/storage/backpack/guitarbag
+	time = 6 SECONDS
+	reqs = list(/obj/item/bodybag = 1,
+				/obj/item/stack/tape_roll = 10,
+				/obj/item/stack/sheet/cardboard = 2)
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_CLOTHING

@@ -17,6 +17,8 @@
 	var/list/cant_hold = new/list()
 	///Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL
+	///Min size of objects that this object can store (in effect only if can_hold isn't set)
+	var/min_w_class
 	///The sum of the w_classes of all the items in this storage item.
 	var/max_combined_w_class = 14
 	var/storage_slots = 7
@@ -350,6 +352,11 @@
 	if(W.w_class > max_w_class)
 		if(!stop_messages)
 			to_chat(usr, "<span class='notice'>[W] is too big for [src].</span>")
+		return FALSE
+
+	if(W.w_class < min_w_class)
+		if(!stop_messages)
+			to_chat(usr, "<span class='notice'>[W] is too small for [src].</span>")
 		return FALSE
 
 	var/sum_w_class = W.w_class
