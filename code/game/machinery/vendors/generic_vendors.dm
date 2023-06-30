@@ -944,6 +944,7 @@
 					/obj/item/storage/box/matches = 10,
 					/obj/item/lighter/zippo = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)
+	contraband = list()
 	prices = list()
 
 /obj/machinery/economy/vending/wallmed
