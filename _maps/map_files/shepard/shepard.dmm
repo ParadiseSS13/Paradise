@@ -3990,10 +3990,6 @@
 /turf/simulated/wall,
 /area/maintenance/disposal)
 "aUe" = (
-/obj/machinery/camera{
-	c_tag = "Cargo Break Room East";
-	dir = 9
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
@@ -5418,7 +5414,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/bar)
+/area/maintenance/starboard2)
 "bju" = (
 /obj/machinery/door_control{
 	id = "Secure Gate";
@@ -14859,8 +14855,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "cVh" = (
-/turf/simulated/floor/plating,
-/area/crew_quarters/bar)
+/obj/machinery/door/airlock/external{
+	id_tag = "admin_home";
+	locked = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
+/area/hallway/secondary/entry/north)
 "cVl" = (
 /obj/structure/cable/pink{
 	d1 = 1;
@@ -15026,8 +15029,10 @@
 	},
 /area/maintenance/electrical_shop)
 "cWB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
@@ -17744,7 +17749,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/bar)
+/area/maintenance/starboard2)
 "dzF" = (
 /obj/machinery/turretid/stun{
 	control_area = "\improper AI Upload Chamber";
@@ -26310,7 +26315,7 @@
 /obj/item/toy/figure/crew/bartender,
 /obj/structure/falsewall/reinforced,
 /turf/simulated/floor/plating,
-/area/crew_quarters/bar)
+/area/maintenance/starboard2)
 "fow" = (
 /turf/simulated/wall,
 /area/security/customs)
@@ -26931,10 +26936,6 @@
 "fuy" = (
 /obj/structure/table,
 /obj/item/storage/box,
-/obj/machinery/camera{
-	c_tag = "Cargo Dress Room East";
-	dir = 9
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -35919,7 +35920,7 @@
 "hkN" = (
 /obj/structure/sign/barsign,
 /turf/simulated/wall,
-/area/crew_quarters/bar)
+/area/maintenance/starboard2)
 "hkP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -43515,7 +43516,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/bar)
+/area/maintenance/starboard2)
 "iMe" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -49120,9 +49121,17 @@
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "jPK" = (
-/obj/structure/closet/firecloset,
-/turf/simulated/floor/plating,
-/area/crew_quarters/bar)
+/obj/machinery/door/airlock/external{
+	id_tag = "ferry_home";
+	locked = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
+/area/hallway/secondary/entry/north)
 "jPM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -63891,8 +63900,17 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "mMx" = (
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/bar)
+/obj/machinery/door/airlock/external{
+	id_tag = "admin_home";
+	locked = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
+/area/hallway/secondary/entry/north)
 "mMz" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -65142,7 +65160,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/crew_quarters/bar)
+/area/maintenance/starboard2)
 "naH" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -92074,10 +92092,6 @@
 	},
 /area/security/securearmoury)
 "swN" = (
-/obj/machinery/camera{
-	c_tag = "Cargo Break Room West";
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -102127,6 +102141,10 @@
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 30
+	},
+/obj/machinery/camera{
+	c_tag = "Cargo Break Room East";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brownfull"
@@ -164605,7 +164623,7 @@ tyv
 sOL
 dzA
 iMa
-sOL
+xLB
 fBi
 fBi
 fBi
@@ -165117,9 +165135,9 @@ fFW
 vhC
 ykW
 kyS
-cVh
-jPK
-sOL
+oHY
+lWz
+xLB
 fBi
 fBi
 fBi
@@ -165374,9 +165392,9 @@ aWy
 gKc
 cPp
 sOL
-mMx
+vog
 fov
-mMx
+vog
 scF
 scF
 scF
@@ -165631,9 +165649,9 @@ jie
 cCP
 sOL
 sOL
-mMx
-mMx
-mMx
+vog
+vog
+vog
 fBi
 fBi
 fBi
@@ -179969,7 +179987,7 @@ idF
 idF
 kvX
 vfA
-idF
+gvX
 oJp
 ecK
 ebB
@@ -180212,7 +180230,7 @@ eAB
 eAB
 eAB
 eAB
-tfi
+jPK
 ecY
 cgD
 eAB
@@ -180225,8 +180243,8 @@ kLW
 lUJ
 qbG
 poC
-jjw
-jjw
+mMx
+cVh
 eAB
 eAB
 eAB
