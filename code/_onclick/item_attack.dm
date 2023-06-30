@@ -82,6 +82,7 @@
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
 
+	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(target)
 	. = target.attacked_by(src, user, def_zone)
 
