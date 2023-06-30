@@ -171,19 +171,14 @@
 /obj/structure/window/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)	//used by attack_alien, attack_animal, and attack_slime
 	if(!can_be_reached(user))
 		return
-	..()
-
+	return ..()
 /obj/structure/window/attack_animal(mob/living/simple_animal/M)
 	if(!can_be_reached(M))
 		return
 	. = ..()
-	if(M.environment_smash >= env_smash_level)
+	if(. && M.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
-	else
-		to_chat(M, "<span class='notice'>You smash against the window.</span>")
-		take_damage(rand(25, 75))
-
 
 /obj/structure/window/attackby(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))

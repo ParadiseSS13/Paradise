@@ -361,7 +361,7 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		O.clear_fullscreen("payback")
 		O.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
-	addtimer(CALLBACK(src, PROC_REF(ghost_payback_phase_2)), 2 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(clear_payback)), 2 MINUTES)
 
 /obj/structure/safe/proc/clear_payback()
 	for(var/mob/dead/observer/O in GLOB.player_list)

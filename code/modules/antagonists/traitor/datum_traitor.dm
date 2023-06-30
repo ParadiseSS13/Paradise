@@ -100,21 +100,17 @@
 	for(var/i in 1 to GLOB.configuration.gamemode.traitor_objectives_amount)
 		forge_single_human_objective()
 
-	// Die a glorious death objective.
+	// Are they required to stay alive for their objectives?
+	var/martyr_compatibility = TRUE
 	if(prob(20))
-		var/martyr_compatibility = TRUE
 		for(var/objective in owner.get_all_objectives())
 			var/datum/objective/O = objective
 			if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
 				martyr_compatibility = FALSE
 				break
 
-		if(martyr_compatibility)
-			add_objective(/datum/objective/die)
-			return
-
 	// Give them an escape objective if they don't have one already.
-	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
+	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && !martyr_compatibility)
 		add_objective(/datum/objective/escape)
 
 /**

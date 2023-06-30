@@ -241,7 +241,7 @@
 
 /obj/structure/table/attack_animal(mob/living/simple_animal/M)
 	. = ..()
-	if(M.environment_smash >= minimum_env_smash)
+	if(. && M.environment_smash >= minimum_env_smash)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes [src]!</span>", "<span class='notice'>You smash [src].</span>")
 
