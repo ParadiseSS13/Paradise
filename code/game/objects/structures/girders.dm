@@ -59,6 +59,12 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
+	else if(istype(W, /obj/item/twohanded/required/pyro_claws))
+		playsound(loc, W.usesound, 100, 1)
+		to_chat(user, "<span class='notice'>You melt the girder!</span>")
+		refundMetal(metalUsed)
+		qdel(src)
+
 	else if(istype(W, /obj/item/stack))
 		if(iswallturf(loc))
 			to_chat(user, "<span class='warning'>There is already a wall present!</span>")

@@ -438,6 +438,15 @@
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 			return TRUE
 
+	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
+		to_chat(user, "<span class='notice'>You begin to melt the wall.</span>")
+
+		if(do_after(user, isdiamond ? 60 * I.toolspeed : 30 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
+			to_chat(user, "<span class='notice'>Your [I.name] melts the reinforced plating.</span>")
+			dismantle_wall()
+			visible_message("<span class='warning'>[user] melts [src]!</span>","<span class='warning'>You hear the hissing of steam.</span>")
+			return TRUE
+
 	return FALSE
 
 /turf/simulated/wall/proc/try_wallmount(obj/item/I, mob/user, params)

@@ -9,6 +9,7 @@
  *		Singularity hammer
  * 		Mjolnnir
  *		Knighthammer
+ *      Pyro Claws
  */
 
 /*##################################################################
@@ -862,3 +863,125 @@
 
 /obj/item/twohanded/bamboospear/update_icon()
 	icon_state = "bamboo_spear[wielded]"
+
+//pyro claws
+/obj/item/twohanded/required/pyro_claws
+	name = "hardplasma energy claws"
+	desc = "The power of the sun, in the claws of your hand."
+	icon_state = "pyro_claws"
+	flags = ABSTRACT | NODROP | DROPDEL
+	force = 25
+	force_wielded = 25
+	damtype = BURN
+	armour_penetration = 40
+	block_chance = 50
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
+	toolspeed = 0.5
+
+/obj/item/twohanded/required/pyro_claws/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/twohanded/required/pyro_claws/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/twohanded/required/pyro_claws/process()
+	if(prob(15))
+		do_sparks(rand(1,6), 1, loc)
+
+/obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
+		return
+	if(prob(60))
+		do_sparks(rand(1,6), 1, loc)
+	if(istype(target, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/A = target
+
+		if(!A.requiresID() || A.allowed(user))
+			return
+
+		if(A.locked)
+			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
+			return
+
+		if(A.arePowerSystemsOn())
+			user.visible_message("<span class='warning'>[user] jams [user.p_their()] [name] into the airlock and starts prying it open!</span>", "<span class='warning'>You start forcing the airlock open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+			if(!do_after(user, 25, target = A))
+				return
+		user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+		A.open(2)
+
+/obj/item/clothing/gloves/color/black/pyro_claws
+	name = "Fusion gauntlets"
+	desc = "Cybersun Industries developed these gloves after a grifter fought one of their soldiers, who attached a pyro core to an energy sword, and found it mostly effective."
+	item_state = "pyro"
+	item_color = "pyro"
+	icon_state = "pyro"
+	can_be_cut = FALSE
+	actions_types = list(/datum/action/item_action/toggle)
+	var/on_cooldown = FALSE
+	var/used = FALSE
+	var/obj/item/assembly/signaler/anomaly/pyro/core
+
+/obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
+	QDEL_NULL(core)
+	return ..()
+
+/obj/item/clothing/gloves/color/black/pyro_claws/examine(mob/user)
+	. = ..()
+	if(core)
+		. += "<span class='notice'>[src] are fully operational!</span>"
+	else
+		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
+
+/obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
+	if(slot == slot_gloves)
+		return TRUE
+
+/obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
+	if(!core)
+		to_chat(user, "<span class='notice'>[src] has no core to power it!</span>")
+		return
+	if(on_cooldown)
+		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
+		do_sparks(rand(1,6), 1, loc)
+		return
+	if(used)
+		visible_message("<span class='warning'>[user.get_active_hand()] slides back into the depths of [loc]'s wrists.</span>")
+		user.drop_from_active_hand(force = TRUE)//dropdel stuff. only ui act, without hotkeys
+		do_sparks(rand(1,6), 1, loc)
+		on_cooldown = TRUE
+		addtimer(CALLBACK(src, PROC_REF(reboot)), 1 MINUTES)
+		return
+	if(user.get_active_hand() && !user.drop_from_active_hand())
+		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
+		return
+	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
+	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
+	user.put_in_hands(W)
+	flags |= NODROP
+	used = TRUE
+	do_sparks(rand(1,6), 1, loc)
+
+/obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
+		if(core)
+			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
+			return
+		if(!user.drop_from_active_hand())
+			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			return
+		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
+		I.forceMove(src)
+		core = I
+	else
+		return ..()
+
+/obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
+	on_cooldown = FALSE
+	used = FALSE
+	flags &= ~NODROP
+	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")

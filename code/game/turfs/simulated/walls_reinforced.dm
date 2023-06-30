@@ -219,6 +219,13 @@
 			dismantle_wall()
 		return TRUE
 
+	if(istype(I, /obj/item/twohanded/required/pyro_claws))
+		to_chat(user, "<span class='notice'>You begin to melt the wall...</span>")
+		if(do_after(user, 150 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 7.5 seconds
+			to_chat(user, "<span class='notice'>Your [I] melt the reinforced plating.</span>")
+			dismantle_wall()
+		return TRUE
+
 
 /turf/simulated/wall/r_wall/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
