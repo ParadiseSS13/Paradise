@@ -659,15 +659,19 @@
 
 	var/obj/item/reagent_containers/borghypo/basic/borghypo_basic = locate() in robot.module.modules
 	if(borghypo_basic)
+		var/obj/item/reagent_containers/borghypo/basic/upgraded/hypo = new /obj/item/reagent_containers/borghypo/basic/upgraded(robot.module)
+		robot.module.modules += hypo
+		hypo.bypass_protection = borghypo_basic.bypass_protection
 		qdel(borghypo_basic)
-		robot.module.modules += new /obj/item/reagent_containers/borghypo/basic/upgraded(robot.module)
 		robot.module.rebuild()
 		return TRUE
 
 	var/obj/item/reagent_containers/borghypo/borghypo = locate() in robot.module.modules
 	if(borghypo)
+		var/obj/item/reagent_containers/borghypo/upgraded/hypo = new /obj/item/reagent_containers/borghypo/upgraded(robot.module)
+		robot.module.modules += hypo
+		hypo.bypass_protection = borghypo.bypass_protection
 		qdel(borghypo)
-		robot.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(robot.module)
 		robot.module.rebuild()
 		return TRUE
 
@@ -678,18 +682,21 @@
 /obj/item/borg/upgrade/hypospray/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
-
 	var/obj/item/reagent_containers/borghypo/basic/upgraded/borghypo_basic = locate() in robot.module.modules
 	if(borghypo_basic)
+		var/obj/item/reagent_containers/borghypo/basic/hypo = new /obj/item/reagent_containers/borghypo/basic(robot.module)
+		robot.module.modules += hypo
+		hypo.bypass_protection = borghypo_basic.bypass_protection
 		qdel(borghypo_basic)
-		robot.module.modules += new /obj/item/reagent_containers/borghypo/basic(robot.module)
 		robot.module.rebuild()
 		return TRUE
 
 	var/obj/item/reagent_containers/borghypo/upgraded/borghypo = locate() in robot.module.modules
 	if(borghypo)
+		var/obj/item/reagent_containers/borghypo/hypo = new /obj/item/reagent_containers/borghypo(robot.module)
+		robot.module.modules += hypo
+		hypo.bypass_protection = borghypo.bypass_protection
 		qdel(borghypo)
-		robot.module.modules += new /obj/item/reagent_containers/borghypo(robot.module)
 		robot.module.rebuild()
 		return TRUE
 
@@ -728,7 +735,6 @@
 	var/obj/item/reagent_containers/borghypo/hypospray = locate() in robot.module.modules
 	if(!hypospray)
 		return FALSE
-
 	hypospray.bypass_protection = FALSE
 	return TRUE
 
