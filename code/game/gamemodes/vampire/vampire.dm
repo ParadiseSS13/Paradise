@@ -457,7 +457,7 @@
 	handle_vampire_cloak()
 	if(istype(owner.loc, /turf/space))
 		check_sun()
-	if(istype(owner.loc.loc, /area/chapel) || istype(owner.loc.loc, /area/maintenance/chapel) && !get_ability(/datum/vampire_passive/full))
+	if((istype(get_area(owner), /area/chapel) || istype(get_area(owner), /area/maintenance/chapel)) && !get_ability(/datum/vampire_passive/full))
 		vamp_burn(7)
 	nullified = max(0, nullified - 1)
 
