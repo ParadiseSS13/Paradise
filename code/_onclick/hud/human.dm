@@ -21,7 +21,11 @@
 
 /obj/screen/human/equip/Click()
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
-		return 1
+		return TRUE
+
+	if(is_ventcrawling(usr)) // stops inventory actions in vents
+		return TRUE
+
 	var/mob/living/carbon/human/H = usr
 	H.quick_equip()
 

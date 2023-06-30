@@ -143,6 +143,14 @@
 	if(statpanel("Status"))
 		stat("Resources:",resources)
 
+
+/mob/living/simple_animal/hostile/swarmer/handle_ventcrawl(atom/clicked_on)
+	. = ..()
+
+	if(. && light_range)
+		ToggleLight()
+
+
 /mob/living/simple_animal/hostile/swarmer/emp_act()
 	if(health > 1)
 		adjustHealth(health-1)

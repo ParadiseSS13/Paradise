@@ -950,8 +950,14 @@
 /mob/shuttleRotate(rotation)
 	dir = angle2dir(rotation+dir2angle(dir))
 
-/mob/proc/handle_ventcrawl()
-	return // Only living mobs can ventcrawl
+
+/mob/proc/can_ventcrawl(atom/clicked_on, override = FALSE)
+	return FALSE
+
+
+/mob/proc/handle_ventcrawl(atom/clicked_on)
+	return FALSE // Only living mobs can ventcrawl
+
 
 /**
   * Buckle to another mob

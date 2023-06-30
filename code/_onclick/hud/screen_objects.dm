@@ -168,6 +168,9 @@
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 
+	if(is_ventcrawling(usr)) // stops inventory actions in vents
+		return TRUE
+
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
@@ -195,6 +198,9 @@
 
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
 	if(!I ||!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || ismecha(user.loc) || !master)
+		return FALSE
+
+	if(is_ventcrawling(user))
 		return FALSE
 
 	var/obj/item/storage/S = master
@@ -445,6 +451,9 @@
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 
+	if(is_ventcrawling(usr)) // stops inventory actions in vents
+		return TRUE
+
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
@@ -499,6 +508,9 @@
 		return TRUE
 
 	if(ismecha(user.loc)) // stops inventory actions in a mech
+		return TRUE
+
+	if(is_ventcrawling(user)) // stops inventory actions in vents
 		return TRUE
 
 	if(ismob(user))

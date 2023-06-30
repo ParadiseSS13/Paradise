@@ -1206,3 +1206,103 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+
+
+GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
+
+/mob/living/can_ventcrawl(atom/clicked_on, override = FALSE)
+	if(QDELETED(src))
+		return FALSE
+
+	if(!ventcrawler)
+		return FALSE
+
+	if(!clicked_on || QDELETED(clicked_on))
+		return FALSE
+
+	if(!Adjacent(clicked_on))
+		return FALSE
+
+	if(incapacitated())
+		to_chat(src, span_warning("Вы не можете сделать этого в текущем состоянии!"))
+		return FALSE
+
+	if(has_buckled_mobs())
+		to_chat(src, span_warning("Пока на вас другие существа, вы не можете заползти в вентиляцию!"))
+		return FALSE
+
+	if(buckled)
+		to_chat(src, span_warning("Пока вы пристегнуты, вы не можете заползти в вентиляцию!"))
+		return FALSE
+
+	var/obj/machinery/atmospherics/unary/vent_found = clicked_on
+
+	if(!is_type_in_list(vent_found, GLOB.ventcrawl_machinery) || !vent_found.can_crawl_through())
+		return FALSE
+
+	if(!vent_found.parent)
+		return FALSE
+
+	if(!length(vent_found.parent.members))
+		to_chat(src, span_warning("Эта вентиляция ни к чему не подключена!"))
+		return FALSE
+
+	return TRUE
+
+
+/mob/living/handle_ventcrawl(atom/clicked_on)
+
+	if(!can_ventcrawl(clicked_on))
+		return FALSE
+
+	visible_message(span_notice("[src.name] начина[pluralize_ru(src.gender,"ет","ют")] лезть в вентиляцию..."), \
+					span_notice("Вы начинаете лезть в вентиляцию..."))
+
+	if(!do_after(src, 4.5 SECONDS, target = src))
+		return FALSE
+
+	if(!can_ventcrawl(clicked_on))
+		return FALSE
+
+	visible_message("<b>[src.name] залез[genderize_ru(src.gender,"","ла","ло","ли")] в вентиляцию!</b>", \
+					"Вы залезли в вентиляцию.")
+	loc = clicked_on
+	add_ventcrawl(clicked_on)
+	return TRUE
+
+
+/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
+	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
+		return
+	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
+	var/list/totalMembers = list()
+	totalMembers |= pipeline.members
+	totalMembers |= pipeline.other_atmosmch
+	for(var/obj/machinery/atmospherics/A in totalMembers)
+		if(!A.pipe_image)
+			A.update_pipe_image()
+		pipes_shown += A.pipe_image
+		client.images += A.pipe_image
+
+
+/mob/living/proc/remove_ventcrawl()
+	if(client)
+		for(var/image/current_image in pipes_shown)
+			client.images -= current_image
+		client.eye = src
+
+	pipes_shown.len = 0
+
+
+/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
+	if(!client)
+		pipes_shown.Cut()
+		return
+	if(length(pipes_shown) && !target_move)
+		if(!is_ventcrawling(src))
+			remove_ventcrawl()
+	else
+		if(is_ventcrawling(src))
+			if(target_move)
+				remove_ventcrawl()
+			add_ventcrawl(loc, target_move)

@@ -1153,3 +1153,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name
+
+
+//OOP
+/atom/proc/update_pipe_vision()
+	return

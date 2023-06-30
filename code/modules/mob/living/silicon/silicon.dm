@@ -193,6 +193,15 @@
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE
 
+
+/mob/living/silicon/handle_ventcrawl(atom/clicked_on)
+	. = ..()
+
+	if(. && inventory_head)
+		drop_hat()
+		visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
+
+
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
 		return

@@ -1948,3 +1948,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(arm)
 		arm.attack_self(src)
 	return ..()
+
+
+/mob/living/carbon/human/can_ventcrawl(atom/clicked_on, override = FALSE)
+
+	if(!override && w_uniform && istype(w_uniform, /obj/item/clothing/under/contortionist))
+
+		var/obj/item/clothing/under/contortionist/uniform = w_uniform
+		if(!uniform.check_clothing(src))
+			return FALSE
+
+		return ..(clicked_on, override = TRUE)
+
+	return ..()
