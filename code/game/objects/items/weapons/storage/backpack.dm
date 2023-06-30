@@ -19,7 +19,6 @@
 	max_integrity = 300
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/back.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
 		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 

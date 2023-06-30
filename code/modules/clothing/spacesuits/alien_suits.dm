@@ -82,9 +82,7 @@
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	species_restricted = list("Vox", "Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/suit.dmi',
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/head/helmet/space/vox
 	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
@@ -93,9 +91,7 @@
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/head.dmi',
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/helmet/space/vox/pressure
 	name = "alien helmet"
@@ -170,9 +166,7 @@
 	item_state = "vox-casual-2"
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/suit.dmi'
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi')
 
 /obj/item/clothing/gloves/color/yellow/vox
 	name = "insulated gauntlets"
@@ -185,9 +179,7 @@
 	icon = 'icons/obj/clothing/species/vox/gloves.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/gloves.dmi',
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi')
 
 /obj/item/clothing/shoes/magboots/vox
 	name = "vox magclaws"
@@ -197,9 +189,7 @@
 	icon = 'icons/obj/clothing/species/vox/shoes.dmi'
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/feet.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/feet.dmi'
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/feet.dmi')
 
 /obj/item/clothing/shoes/magboots/vox/attack_self(mob/user)
 	if(magpulse)

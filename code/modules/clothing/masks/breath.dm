@@ -13,7 +13,6 @@
 	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',

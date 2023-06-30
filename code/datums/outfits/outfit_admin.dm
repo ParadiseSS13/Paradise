@@ -370,8 +370,7 @@
 	backpack_contents = list(
 		/obj/item/flashlight = 1,
 		/obj/item/restraints/handcuffs/cable/zipties = 1,
-		/obj/item/flash = 1,
-		/obj/item/gun/energy/noisecannon = 1
+		/obj/item/flash = 1
 	)
 
 /datum/outfit/admin/vox/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

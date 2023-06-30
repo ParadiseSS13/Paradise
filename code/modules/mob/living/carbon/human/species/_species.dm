@@ -709,10 +709,6 @@
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_BITE
 
-/datum/unarmed_attack/claws/armalis
-	attack_verb = list("slash", "claw")
-	damage = 6
-
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/H)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
