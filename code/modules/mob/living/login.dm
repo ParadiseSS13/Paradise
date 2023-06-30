@@ -1,5 +1,7 @@
 /mob/living/Login()
 	..()
+	//Should update regardless of if we can ventcrawl, since we can end up in pipes in other ways.
+	update_pipe_vision(loc)
 	//Mind updates
 	sync_mind()
 	update_stat("mob login")
@@ -25,8 +27,5 @@
 			var/datum/action/changeling/S = power
 			if(istype(S) && S.needs_button)
 				S.Grant(src)
-
-	//Should update regardless of if we can ventcrawl, since we can end up in pipes in other ways.
-	update_pipe_vision(loc)
 
 	return .
