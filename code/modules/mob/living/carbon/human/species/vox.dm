@@ -119,7 +119,7 @@
 		internal_tank = new /obj/item/tank/internals/nitrogen(H)
 	else
 		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
-	if(!internal_tank.equip_to_best_slot(H))
+	if(!H.equip_to_appropriate_slot(internal_tank, silent = TRUE))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.drop_item_ground(H.l_hand)
 			H.equip_or_collect(internal_tank, slot_l_hand)
