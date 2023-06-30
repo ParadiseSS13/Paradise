@@ -24,9 +24,9 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	reagent_tag = PROCESS_ORG
 	blood_color = "#FF5AFF"
-	female_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
+	female_scream_sound = list('sound/goonstation/voice/male_scream.ogg')
 	female_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
-	female_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg' //Abductors always scream like guys
+	female_sneeze_sound = list('sound/effects/mob_effects/sneeze.ogg') //Abductors always scream like guys
 	var/team = 1
 	var/scientist = FALSE // vars to not pollute spieces list with castes
 

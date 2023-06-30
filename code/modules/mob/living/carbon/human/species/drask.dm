@@ -8,12 +8,12 @@
 
 	speech_sounds = list('sound/voice/drasktalk.ogg')
 	speech_chance = 20
-	male_scream_sound = 'sound/voice/drasktalk2.ogg'
-	female_scream_sound = 'sound/voice/drasktalk2.ogg'
-	male_cough_sounds = 'sound/voice/draskcough.ogg'
-	female_cough_sounds = 'sound/voice/draskcough.ogg'
-	male_sneeze_sound = 'sound/voice/drasksneeze.ogg'
-	female_sneeze_sound = 'sound/voice/drasksneeze.ogg'
+	male_scream_sound = list('sound/voice/drasktalk2.ogg')
+	female_scream_sound = list('sound/voice/drasktalk2.ogg')
+	male_cough_sounds = list('sound/voice/draskcough.ogg')
+	female_cough_sounds = list('sound/voice/draskcough.ogg')
+	male_sneeze_sound = list('sound/voice/drasksneeze.ogg')
+	female_sneeze_sound = list('sound/voice/drasksneeze.ogg')
 
 	burn_mod = 1.5
 	oxy_mod = 2

@@ -281,7 +281,11 @@
 /mob/living/carbon/human/verb/emote_signal()
 	set name = "~ Показать несколько пальцев "
 	set category = "Эмоции"
-	var/Cnt = input("Руки должны быть свободны", "Показать несколько пальцев", 1) in list(1,2,3,4,5,6,7,8,9,10)
+	var/list/fingers = list()
+	var/fingers_count = src.dna?.species?.fingers_count
+	for(var/i = 1, i <= fingers_count, i++)
+		fingers += i
+	var/Cnt = input("Руки должны быть свободны", "Показать несколько пальцев", 1) in fingers
 	usr.user_triggered_emote("signal-[Cnt]")
 
 /mob/living/carbon/human/verb/emote_shiver()
@@ -424,6 +428,16 @@
 	set name = "< Трещать >"
 	set category = "Эмоции"
 	usr.user_triggered_emote("clack")
+
+/mob/living/carbon/human/proc/emote_wiggle()
+	set name = "< Шевелить усиками >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("wiggle")
+
+/mob/living/carbon/human/proc/emote_waves_antennae()
+	set name = "< Взмахнуть усиками >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("waves_antennae")
 
 /mob/living/carbon/human/proc/emote_hum()
 	set name = "< Гудеть >"

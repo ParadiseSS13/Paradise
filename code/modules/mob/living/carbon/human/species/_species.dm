@@ -70,6 +70,7 @@
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
+	var/fingers_count = 10
 
 	///Sounds to override barefeet walking
 	var/list/special_step_sounds
@@ -126,18 +127,29 @@
 	var/scream_verb = "кричит"
 	var/female_giggle_sound = list('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg')
 	var/male_giggle_sound = list('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg')
-	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
-	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
+	var/male_scream_sound = list('sound/goonstation/voice/male_scream.ogg')
+	var/female_scream_sound = list('sound/goonstation/voice/female_scream.ogg')
 	var/female_laugh_sound = list('sound/voice/laugh_female_1.ogg','sound/voice/laugh_female_2.ogg','sound/voice/laugh_female_3.ogg')
 	var/male_laugh_sound = list('sound/voice/laugh_male_1.ogg','sound/voice/laugh_male_2.ogg','sound/voice/laugh_male_3.ogg')
 	var/list/death_sounds = list('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg')
 	var/list/male_dying_gasp_sounds = list('sound/goonstation/voice/male_dying_gasp_1.ogg', 'sound/goonstation/voice/male_dying_gasp_2.ogg', 'sound/goonstation/voice/male_dying_gasp_3.ogg', 'sound/goonstation/voice/male_dying_gasp_4.ogg', 'sound/goonstation/voice/male_dying_gasp_5.ogg', 'sound/voice/gasp_male1.ogg','sound/voice/gasp_male2.ogg','sound/voice/gasp_male3.ogg','sound/voice/gasp_male4.ogg','sound/voice/gasp_male5.ogg','sound/voice/gasp_male6.ogg','sound/voice/gasp_male7.ogg')
 	var/list/female_dying_gasp_sounds = list('sound/goonstation/voice/female_dying_gasp_1.ogg', 'sound/goonstation/voice/female_dying_gasp_2.ogg', 'sound/goonstation/voice/female_dying_gasp_3.ogg', 'sound/goonstation/voice/female_dying_gasp_4.ogg', 'sound/goonstation/voice/female_dying_gasp_5.ogg', 'sound/voice/gasp_female1.ogg','sound/voice/gasp_female2.ogg','sound/voice/gasp_female3.ogg','sound/voice/gasp_female4.ogg','sound/voice/gasp_female5.ogg','sound/voice/gasp_female6.ogg','sound/voice/gasp_female7.ogg')
-	var/gasp_sound = 'sound/goonstation/voice/gasp.ogg'
+	var/gasp_sound = list('sound/goonstation/voice/gasp.ogg')
 	var/male_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
 	var/female_cough_sounds = list('sound/effects/mob_effects/f_cougha.ogg','sound/effects/mob_effects/f_coughb.ogg')
-	var/male_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg'
-	var/female_sneeze_sound = 'sound/effects/mob_effects/f_sneeze.ogg'
+	var/male_sneeze_sound = list('sound/effects/mob_effects/sneeze.ogg')
+	var/female_sneeze_sound = list('sound/effects/mob_effects/f_sneeze.ogg')
+	var/female_cry_sound = list('sound/voice/cry_female_1.ogg','sound/voice/cry_female_2.ogg','sound/voice/cry_female_3.ogg')
+	var/male_cry_sound = list('sound/voice/cry_male_1.ogg','sound/voice/cry_male_2.ogg')
+	var/female_grumble_sound = list()
+	var/male_grumble_sound = list()
+	var/female_moan_sound = list('sound/voice/moan_female_1.ogg','sound/voice/moan_female_2.ogg','sound/voice/moan_female_3.ogg')
+	var/male_moan_sound = list('sound/voice/moan_male_1.ogg','sound/voice/moan_male_2.ogg','sound/voice/moan_male_3.ogg')
+	var/female_sigh_sound = list('sound/voice/sigh_female.ogg')
+	var/male_sigh_sound = list('sound/voice/sigh_male.ogg')
+	var/female_choke_sound = list('sound/voice/gasp_female1.ogg','sound/voice/gasp_female2.ogg','sound/voice/gasp_female3.ogg','sound/voice/gasp_female4.ogg','sound/voice/gasp_female5.ogg','sound/voice/gasp_female6.ogg','sound/voice/gasp_female7.ogg')
+	var/male_choke_sound = list('sound/voice/gasp_male1.ogg','sound/voice/gasp_male2.ogg','sound/voice/gasp_male3.ogg','sound/voice/gasp_male4.ogg','sound/voice/gasp_male5.ogg','sound/voice/gasp_male6.ogg','sound/voice/gasp_male7.ogg')
+
 
 	//Default hair/headacc style vars.
 	var/default_hair				//Default hair style for newly created humans unless otherwise set.

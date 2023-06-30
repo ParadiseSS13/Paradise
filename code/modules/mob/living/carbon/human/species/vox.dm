@@ -40,12 +40,12 @@
 
 	reagent_tag = PROCESS_ORG | PROCESS_SYN
 	scream_verb = "скрипит"
-	male_scream_sound = 'sound/voice/shriek1.ogg'
-	female_scream_sound = 'sound/voice/shriek1.ogg'
+	male_scream_sound = list('sound/voice/shriek1.ogg')
+	female_scream_sound = list('sound/voice/shriek1.ogg')
 	male_cough_sounds = list('sound/voice/shriekcough.ogg')
 	female_cough_sounds = list('sound/voice/shriekcough.ogg')
-	male_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
-	female_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
+	male_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
+	female_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
 
 	icon_skin_tones = list(
 		1 = "Default Green",

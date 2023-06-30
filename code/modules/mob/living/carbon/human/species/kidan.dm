@@ -12,6 +12,7 @@
 	species_traits = list(IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
+	fingers_count = 6
 	eyes = "kidan_eyes_s"
 	flesh_color = "#ba7814"
 	blood_species = "Kidan"
@@ -56,6 +57,33 @@
 		"протыкает себя челюстями!",
 		"задерживает дыхание!")
 
+	speech_sounds = list('sound/voice/kidan/speak1.ogg', 'sound/voice/kidan/speak2.ogg', 'sound/voice/kidan/speak3.ogg' )
+	speech_chance = 35
+	scream_verb = "визжит"
+	female_giggle_sound = list('sound/voice/kidan/giggles1.ogg', 'sound/voice/kidan/giggles2.ogg')
+	male_giggle_sound = list('sound/voice/kidan/giggles1.ogg', 'sound/voice/kidan/giggles2.ogg')
+	male_scream_sound = list('sound/voice/kidan/scream1.ogg', 'sound/voice/kidan/scream2.ogg', 'sound/voice/kidan/scream3.ogg')
+	female_scream_sound = list('sound/voice/kidan/scream1.ogg', 'sound/voice/kidan/scream2.ogg', 'sound/voice/kidan/scream3.ogg')
+	female_laugh_sound = list('sound/voice/kidan/laugh1.ogg', 'sound/voice/kidan/laugh2.ogg', 'sound/voice/kidan/laugh3.ogg', 'sound/voice/kidan/laugh4.ogg')
+	male_laugh_sound = list('sound/voice/kidan/laugh1.ogg', 'sound/voice/kidan/laugh2.ogg', 'sound/voice/kidan/laugh3.ogg', 'sound/voice/kidan/laugh4.ogg')
+	death_sounds = list('sound/voice/kidan/deathgasp1.ogg', 'sound/voice/kidan/deathgasp2.ogg')
+	male_dying_gasp_sounds = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
+	female_dying_gasp_sounds = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
+	male_cough_sounds = list('sound/voice/kidan/cough1.ogg')
+	female_cough_sounds = list('sound/voice/kidan/cough1.ogg')
+	male_sneeze_sound = list('sound/voice/kidan/sneeze1.ogg', 'sound/voice/kidan/sneeze2.ogg', 'sound/voice/kidan/sneeze3.ogg', 'sound/voice/kidan/sneeze4.ogg')
+	female_sneeze_sound = list('sound/voice/kidan/sneeze1.ogg', 'sound/voice/kidan/sneeze2.ogg', 'sound/voice/kidan/sneeze3.ogg', 'sound/voice/kidan/sneeze4.ogg')
+	female_cry_sound = list('sound/voice/kidan/cry1.ogg', 'sound/voice/kidan/cry2.ogg')
+	male_cry_sound = list('sound/voice/kidan/cry1.ogg', 'sound/voice/kidan/cry2.ogg')
+	female_grumble_sound = list('sound/voice/kidan/grumble1.ogg', 'sound/voice/kidan/grumble2.ogg', 'sound/voice/kidan/grumble3.ogg')
+	male_grumble_sound = list('sound/voice/kidan/grumble1.ogg', 'sound/voice/kidan/grumble2.ogg', 'sound/voice/kidan/grumble3.ogg')
+	male_moan_sound = list('sound/voice/kidan/moan1.ogg')
+	female_moan_sound = list('sound/voice/kidan/moan1.ogg')
+	female_sigh_sound = list('sound/voice/kidan/sigh1.ogg', 'sound/voice/kidan/sigh2.ogg')
+	male_sigh_sound = list('sound/voice/kidan/sigh1.ogg', 'sound/voice/kidan/sigh2.ogg')
+	female_choke_sound = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
+	male_choke_sound = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
+
 	disliked_food = FRIED | DAIRY
 	liked_food = SUGAR | ALCOHOL | GROSS | FRUIT
 
@@ -67,9 +95,37 @@
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_click
 	H.verbs |= /mob/living/carbon/human/proc/emote_clack
+	H.verbs |= /mob/living/carbon/human/proc/emote_wiggle
+	H.verbs |= /mob/living/carbon/human/proc/emote_waves_antennae
+	H.verbs -= /mob/living/carbon/human/verb/emote_pale
+	H.verbs -= /mob/living/carbon/human/verb/emote_blink
+	H.verbs -= /mob/living/carbon/human/verb/emote_blink_r
+	H.verbs -= /mob/living/carbon/human/verb/emote_blush
+	H.verbs -= /mob/living/carbon/human/verb/emote_wink
+	H.verbs -= /mob/living/carbon/human/verb/emote_smile
+	H.verbs -= /mob/living/carbon/human/verb/emote_snuffle
+	H.verbs -= /mob/living/carbon/human/verb/emote_grin
+	H.verbs -= /mob/living/carbon/human/verb/emote_eyebrow
+	H.verbs -= /mob/living/carbon/human/verb/emote_frown
+	H.verbs -= /mob/living/carbon/human/verb/emote_sniff
+	H.verbs -= /mob/living/carbon/human/verb/emote_glare
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_click
 	H.verbs -= /mob/living/carbon/human/proc/emote_clack
+	H.verbs -= /mob/living/carbon/human/proc/emote_wiggle
+	H.verbs -= /mob/living/carbon/human/proc/emote_waves_antennae
+	H.verbs |= /mob/living/carbon/human/verb/emote_pale
+	H.verbs |= /mob/living/carbon/human/verb/emote_blink
+	H.verbs |= /mob/living/carbon/human/verb/emote_blink_r
+	H.verbs |= /mob/living/carbon/human/verb/emote_blush
+	H.verbs |= /mob/living/carbon/human/verb/emote_wink
+	H.verbs |= /mob/living/carbon/human/verb/emote_smile
+	H.verbs |= /mob/living/carbon/human/verb/emote_snuffle
+	H.verbs |= /mob/living/carbon/human/verb/emote_grin
+	H.verbs |= /mob/living/carbon/human/verb/emote_eyebrow
+	H.verbs |= /mob/living/carbon/human/verb/emote_frown
+	H.verbs |= /mob/living/carbon/human/verb/emote_sniff
+	H.verbs |= /mob/living/carbon/human/verb/emote_glare
 
