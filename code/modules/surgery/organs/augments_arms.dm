@@ -102,7 +102,7 @@
 		"<span class='notice'>[active_item] snaps back into your [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 
-	owner.drop_item_ground(active_item, force = TRUE)
+	owner.drop_item_ground(active_item, force = TRUE, silent = TRUE)
 	active_item.forceMove(src)
 	active_item = null
 	playsound(get_turf(owner), src.sound_off, 50, 1)
