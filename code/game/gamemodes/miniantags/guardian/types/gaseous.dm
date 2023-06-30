@@ -18,7 +18,8 @@
 		"Nitrogen" = 750, //overpressurizing is hard!.
 		"N2O" = 15,
 		"CO2" = 50,
-		"Plasma" = 3,
+		"Plasma" = 5,
+		"Agent B" = 5
 	)
 
 /mob/living/simple_animal/hostile/guardian/gaseous/Initialize(mapload, mob/living/host)
@@ -67,6 +68,8 @@
 		if("CO2")
 			linda_flags = LINDA_SPAWN_CO2 | LINDA_SPAWN_20C
 		if("Plasma")
+			linda_flags = LINDA_SPAWN_TOXINS | LINDA_SPAWN_20C
+		if("Agent B")
 			linda_flags = LINDA_SPAWN_TOXINS | LINDA_SPAWN_20C
 
 /mob/living/simple_animal/hostile/guardian/gaseous/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta)
