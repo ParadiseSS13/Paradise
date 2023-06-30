@@ -229,3 +229,8 @@
 			/obj/item/mecha_parts/part/odysseus_right_arm,
 			/obj/item/mecha_parts/part/odysseus_left_leg,
 			/obj/item/mecha_parts/part/odysseus_right_leg)
+
+/obj/structure/mecha_wreckage/sidewinder
+	name = "\improper Обломки Сайдвиндера"
+	desc = "Корпорация будет ОЧЕНЬ недовольна этим. Вы хоть знаете СКОЛЬКО он стоит?!"
+	icon_state = "sidewinder-broken"
