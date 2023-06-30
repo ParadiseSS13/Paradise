@@ -16,9 +16,9 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		if(M.move_resist < INFINITY)
-			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(firer, M)))
-			M.throw_at(throw_target, 1, 2)
+		if(L.move_resist < INFINITY)
+			var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, starting)))
+			L.throw_at(throw_target, 1, 2)
 
 /obj/item/projectile/bullet/weakbullet/booze
 
