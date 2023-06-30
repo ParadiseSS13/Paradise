@@ -2252,7 +2252,7 @@
 	req_access = list(ACCESS_CENT_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(/obj/item/gun/projectile/automatic/ar = 3, /obj/item/ammo_box/magazine/m556 = 6, /obj/item/gun/energy/sniperrifle = 1, /obj/item/gun/energy/lasercannon = 3,
-					/obj/item/gun/energy/immolator = 3, /obj/item/gun/energy/gun/nuclear = 3, /obj/item/gun/projectile/shotgun/automatic/combat = 3, /obj/item/storage/box/slug = 4,
+					/obj/item/gun/energy/xray = 2, /obj/item/gun/energy/immolator/multi = 2, /obj/item/gun/energy/gun/nuclear = 3, /obj/item/gun/projectile/shotgun/automatic/combat = 3, /obj/item/storage/box/slug = 4,
 					/obj/item/storage/box/buck = 4, /obj/item/storage/box/dragonsbreath = 2, /obj/item/ammo_box/shotgun/universal = 4, /obj/item/storage/lockbox/t4 = 3,
 					/obj/item/grenade/smokebomb = 3, /obj/item/grenade/frag = 4,
 					)
@@ -2281,8 +2281,8 @@
 	req_access = list(ACCESS_CENT_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(/obj/item/gun/projectile/automatic/gyropistol = 8, /obj/item/ammo_box/magazine/m75 = 12, /obj/item/gun/projectile/automatic/l6_saw = 6, /obj/item/ammo_box/magazine/mm556x45/ap = 12,
-					/obj/item/gun/projectile/automatic/shotgun/bulldog = 6, /obj/item/storage/backpack/duffel/syndie/ammo/shotgun = 12, /obj/item/gun/energy/xray = 8, /obj/item/gun/energy/pulse/destroyer/annihilator = 8,
-					/obj/item/gun/energy/immolator/multi = 8, /obj/item/grenade/clusterbuster/inferno = 3, /obj/item/grenade/clusterbuster/emp = 3,
+					/obj/item/gun/projectile/automatic/shotgun/bulldog = 6, /obj/item/gun/energy/immolator = 6, /obj/item/storage/backpack/duffel/syndie/ammo/shotgun = 12, /obj/item/gun/energy/xray = 8, /obj/item/gun/energy/pulse/destroyer/annihilator = 8,
+					/obj/item/grenade/clusterbuster/inferno = 3, /obj/item/grenade/clusterbuster/emp = 3,
 					)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta

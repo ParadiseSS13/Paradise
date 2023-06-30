@@ -4540,17 +4540,15 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/pod_2)
 "clC" = (
-/obj/machinery/door_control{
-	id = "CC_Armory_ARG";
-	name = "ARG";
-	pixel_x = 24;
-	pixel_y = -24;
-	req_access = list(114);
-	wires = 1
-	},
+/obj/structure/rack,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "navyblue"
+	icon_state = "dark"
 	},
 /area/centcom/specops)
 "cme" = (
@@ -5907,19 +5905,17 @@
 /turf/simulated/floor/wood,
 /area/centcom/specops)
 "cWR" = (
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/a40mm,
-/obj/item/ammo_box/a40mm,
 /obj/structure/rack,
-/obj/item/ammo_box/magazine/sfg9mm,
-/obj/item/ammo_box/magazine/sfg9mm,
-/obj/item/ammo_box/magazine/sfg9mm,
-/obj/item/ammo_box/magazine/sfg9mm,
-/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/a40mm,
+/obj/item/ammo_box/a40mm,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6967,13 +6963,17 @@
 	},
 /area/vox_station)
 "dCD" = (
-/obj/effect/decal/warning_stripes/red,
-/obj/machinery/door/poddoor/shutters/invincible{
-	dir = 1;
-	id_tag = "CC_Armory_DAE"
+/obj/machinery/door_control{
+	id = "CC_Armory_SFG";
+	name = "SFG";
+	pixel_x = 24;
+	pixel_y = -24;
+	req_access = list(114);
+	wires = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "navybluefull"
 	},
 /area/centcom/specops)
 "dCG" = (
@@ -15335,18 +15335,14 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "ifB" = (
-/obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	check_borgs = 1;
-	check_synth = 1;
-	color = "#666666";
-	damtype = "burn";
-	health = 1250;
-	region_max = 12;
-	scan_range = 12;
-	shot_delay = 8
+/obj/effect/decal/warning_stripes/red,
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 1;
+	id_tag = "CC_Armory_SFG"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/centcom/specops)
 "ifS" = (
 /obj/machinery/photocopier,
@@ -19493,8 +19489,6 @@
 "kom" = (
 /obj/machinery/porta_turret/centcom/pulse{
 	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	check_borgs = 1;
-	check_synth = 1;
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -27651,27 +27645,27 @@
 	},
 /area/syndicate_mothership)
 "nIL" = (
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_y = 4
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_y = 4
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_y = 4
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_y = 4
-	},
-/obj/item/gun/projectile/automatic/m90{
-	name = "DAE 5.56 Compact GL";
-	pixel_y = 4
-	},
 /obj/structure/rack/gunrack,
+/obj/item/gun/projectile/automatic/m90{
+	name = "DAE 5.56 Compact GL";
+	pixel_y = 4
+	},
+/obj/item/gun/projectile/automatic/m90{
+	name = "DAE 5.56 Compact GL";
+	pixel_y = 4
+	},
+/obj/item/gun/projectile/automatic/m90{
+	name = "DAE 5.56 Compact GL";
+	pixel_y = 4
+	},
+/obj/item/gun/projectile/automatic/m90{
+	name = "DAE 5.56 Compact GL";
+	pixel_y = 4
+	},
+/obj/item/gun/projectile/automatic/m90{
+	name = "DAE 5.56 Compact GL";
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39913,6 +39907,20 @@
 /obj/item/pizzabox/vegetable,
 /obj/machinery/light{
 	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
+"trp" = (
+/obj/machinery/light,
+/obj/machinery/door_control{
+	id = "CC_Armory_ARG";
+	name = "ARG";
+	pixel_x = 24;
+	pixel_y = -24;
+	req_access = list(114);
+	wires = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -99582,8 +99590,8 @@ rwv
 sEU
 fAg
 fAg
-lto
-cqv
+fim
+wWh
 nAN
 qBi
 mVX
@@ -99838,9 +99846,9 @@ oTI
 rwv
 fWh
 fAg
-phc
-nAN
-nAN
+trp
+xAy
+uLw
 nAN
 uua
 mVX
@@ -100096,8 +100104,8 @@ rwv
 qrg
 wYx
 rZo
-fim
-wWh
+nAN
+nAN
 nAN
 pDG
 mVX
@@ -100352,9 +100360,9 @@ dvS
 nAN
 kmM
 fAg
-clC
-xAy
-uLw
+qWa
+ifB
+oaa
 nAN
 qBi
 mVX
@@ -100609,9 +100617,9 @@ cuu
 sub
 fAg
 blT
-pBp
-nAN
-nAN
+dCD
+ifB
+clC
 nAN
 uua
 mVX
@@ -100867,8 +100875,8 @@ fAg
 fAg
 fAg
 qWa
-vFy
-oaa
+nAN
+nAN
 nAN
 pDG
 mVX
@@ -101124,7 +101132,7 @@ pZY
 fAg
 njW
 fAg
-dCD
+vFy
 cWR
 nAN
 qBi
@@ -101381,7 +101389,7 @@ nAN
 xin
 fAg
 dEr
-dCD
+vFy
 nIL
 nAN
 nAN
@@ -101896,7 +101904,7 @@ nAN
 nAN
 nAN
 nAN
-nAN
+cqv
 nAN
 eSL
 eSL
@@ -102153,7 +102161,7 @@ efU
 xnh
 efU
 nAN
-nAN
+lto
 nAN
 eSL
 nAN
@@ -103411,7 +103419,7 @@ vwu
 sfT
 njh
 nAN
-ifB
+kom
 oON
 omz
 fAg
@@ -103925,7 +103933,7 @@ asI
 asI
 kXF
 nAN
-ifB
+kom
 oON
 omz
 fAg
