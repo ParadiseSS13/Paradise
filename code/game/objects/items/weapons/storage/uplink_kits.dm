@@ -78,7 +78,7 @@
 		/obj/item/clothing/gloves/color/latex/nitrile, // 0 TC
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
-		/obj/item/thermal_drill/diamond_drill, // 1TC
+		/obj/item/thermal_drill/diamond_drill/syndicate, // 1TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/implant = list( // 40TC
@@ -365,3 +365,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/revolver/populate_contents()
 	new /obj/item/gun/projectile/revolver(src)
 	new /obj/item/ammo_box/a357(src)
+
+/obj/item/storage/box/syndie_kit/stechkin
+	name = "\improper FK-69 Stechkin kit"
+	desc = "A box marked with Neo-Russkiyan characters. It appears to contain a 10mm pistol and two magazines."
+
+/obj/item/storage/box/syndie_kit/stechkin/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)

@@ -133,7 +133,7 @@
 			break
 		if(isobserver(M))
 			continue
-		if(istype(M, /mob/living/simple_animal/bot/mulebot) || istype(M, /mob/camera))
+		if(istype(M, /mob/living/simple_animal/bot/mulebot) || iscameramob(M))
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue
@@ -255,6 +255,7 @@
 	if(user != O)
 		user.visible_message("<span class='danger'>[user] stuffs [O] into [src]!</span>", "<span class='danger'>You stuff [O] into [src]!</span>")
 	add_fingerprint(user)
+	return TRUE
 
 /obj/structure/closet/attack_ai(mob/user)
 	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI

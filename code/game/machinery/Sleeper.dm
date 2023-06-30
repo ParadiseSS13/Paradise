@@ -490,6 +490,10 @@
 		visible_message("[user] starts climbing into the sleeper.")
 	else
 		visible_message("[user] starts putting [L.name] into the sleeper.")
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/sleeper, put_in), O, user, L)
+	return TRUE
+
+/obj/machinery/sleeper/proc/put_in(atom/movable/O, mob/user, mob/living/L) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	if(do_after(user, 20, target = L))
 		if(!permitted_check(O, user))
 			return
@@ -504,8 +508,6 @@
 		if(user.pulling == L)
 			user.stop_pulling()
 		SStgui.update_uis(src)
-		return
-	return
 
 /obj/machinery/sleeper/proc/permitted_check(atom/movable/O, mob/user)
 	if(O.loc == user) //no you can't pull things out of your ass

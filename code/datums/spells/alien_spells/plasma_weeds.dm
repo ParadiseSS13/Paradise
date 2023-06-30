@@ -21,5 +21,10 @@
 		revert_cast()
 		return
 
+	if(!isturf(T))
+		to_chat(user, "<span class='noticealien'>You cannot plant [weed_name]s inside something!</span>")
+		revert_cast()
+		return
+
 	user.visible_message("<span class='alertalien'>[user] has planted a [weed_name]!</span>")
 	new weed_type(T)
