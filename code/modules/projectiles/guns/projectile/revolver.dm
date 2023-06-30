@@ -154,6 +154,16 @@
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
+	
+/obj/item/gun/projectile/revolver/ga12
+	name = "\improper Tkach Ya-Sui GA 12 revolver"
+	desc = "An outdated sidearm rarely seen in use by certain PMCs that operate throughout the frontier systems, featuring a three-shell cylinder. Thats right, shell, this one shoots twelve gauge."
+	icon_state = "12garevolver"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
+	fire_sound = 'sound/weapons/gunshots/1rev12.ogg'
+	spread = 15
+	recoil = 1
+	fire_delay = 5
 
 /obj/item/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"
