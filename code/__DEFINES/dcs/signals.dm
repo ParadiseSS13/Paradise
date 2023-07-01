@@ -697,6 +697,8 @@
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
 //sent from living mobs when they parry
 #define COMSIG_HUMAN_PARRY "human_parry"
+///From mob/living/carbon/human/do_suicide()
+#define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 
 // /datum/species signals
 
