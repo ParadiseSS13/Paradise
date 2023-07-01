@@ -911,18 +911,17 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return FALSE
 
 /mob/living/carbon/resist_fire()
-	if(HAS_TRAIT(src, TRAIT_FIRE_ROLLING))
+	if(IsKnockedDown())
 		return
 	fire_stacks -= 5
-	ADD_TRAIT(src, TRAIT_FIRE_ROLLING, TRAIT_GENERIC)
-	KnockDown(6 SECONDS, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken (2 SECONDS, TRUE) //Your busy dying from fire, no way you could be able to roll and reach for a snack in your bag
+	KnockDown(6 SECONDS, TRUE) //Ok now you can have that snack if you want
 	spin(32, 2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_themselves()] out!</span>",
 		"<span class='notice'>You stop, drop, and roll!</span>")
 	addtimer(CALLBACK(src, PROC_REF(extinguish_roll), 3 SECONDS))
 
 /mob/living/carbon/proc/extinguish_roll()
-	REMOVE_TRAIT(src, TRAIT_FIRE_ROLLING, TRAIT_GENERIC)
 	if(fire_stacks <= 0)
 		visible_message("<span class='danger'>[src] has successfully extinguished [p_themselves()]!</span>","<span class='notice'>You extinguish yourself.</span>")
 		ExtinguishMob()
