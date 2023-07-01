@@ -283,7 +283,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/proc/cult_rise()
 	cult_risen = TRUE
 	for(var/datum/mind/M in cult)
-		if(!M.current || !ishuman(M.current))
+		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/proc/cult_ascend()
 	cult_ascendant = TRUE
 	for(var/datum/mind/M in cult)
-		if(!M.current || !ishuman(M.current))
+		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!</span>")
@@ -303,7 +303,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/proc/cult_fall()
 	cult_ascendant = FALSE
 	for(var/datum/mind/M in cult)
-		if(!M.current || !ishuman(M.current))
+		if(!ishuman(M.current))
 			continue
 		SEND_SOUND(M.current, sound('sound/hallucinations/wail.ogg'))
 		to_chat(M.current, "<span class='cultlarge'>The veil repairs itself, your power grows weaker...</span>")
@@ -318,28 +318,31 @@ GLOBAL_LIST_EMPTY(all_cults)
 									"Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 /datum/game_mode/proc/rise(cultist)
-	if(ishuman(cultist) && iscultist(cultist))
-		var/mob/living/carbon/human/H = cultist
-		if(!H.original_eye_color)
-			H.original_eye_color = H.get_eye_color()
-		H.change_eye_color(BLOODCULT_EYE, FALSE)
-		H.update_eyes()
-		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
-		H.update_body()
+	if(!ishuman(cultist) || !iscultist(cultist))
+		return
+	var/mob/living/carbon/human/H = cultist
+	if(!H.original_eye_color)
+		H.original_eye_color = H.get_eye_color()
+	H.change_eye_color(BLOODCULT_EYE, FALSE)
+	H.update_eyes()
+	ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
+	H.update_body()
 
 /datum/game_mode/proc/ascend(cultist)
-	if(ishuman(cultist) && iscultist(cultist))
-		var/mob/living/carbon/human/H = cultist
-		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
-		H.update_halo_layer()
+	if(!ishuman(cultist) || !iscultist(cultist))
+		return
+	var/mob/living/carbon/human/H = cultist
+	new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
+	H.update_halo_layer()
 
 /datum/game_mode/proc/descend(cultist)
-	if(ishuman(cultist) && iscultist(cultist))
-		var/mob/living/carbon/human/H = cultist
-		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
-		H.update_halo_layer()
-		to_chat(cultist, "<span class='userdanger'>The halo above your head shatters!</span>")
-		playsound(cultist, "shatter", 50, TRUE)
+	if(!ishuman(cultist) || !iscultist(cultist))
+		return
+	var/mob/living/carbon/human/H = cultist
+	new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
+	H.update_halo_layer()
+	to_chat(cultist, "<span class='userdanger'>The halo above your head shatters!</span>")
+	playsound(cultist, "shatter", 50, TRUE)
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
