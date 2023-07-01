@@ -65,6 +65,7 @@
 		for(var/mob/O in viewers(host, null))
 			O.show_message(text("<span class=notice'><B>[host] has laid an egg!</B></span>"), 1)
 		new /obj/structure/alien/egg(host.loc)
+		playsound_xenobuild(host)
 	return
 
 /mob/living/carbon/alien/humanoid/queen/large

@@ -63,6 +63,7 @@
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
+	playsound(T, 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
 	. = ..()
 	T.air_update_turf(TRUE)
 
@@ -300,6 +301,7 @@
 
 /obj/structure/alien/egg/proc/Burst(kill = TRUE)	//drops and kills the hugger if any is remaining
 	if(status == GROWN || status == GROWING)
+		playsound(get_turf(src), 'sound/creatures/alien/xeno_egg_crack.ogg', 50)
 		icon_state = "egg_hatched"
 		flick("egg_opening", src)
 		status = BURSTING

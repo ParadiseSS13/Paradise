@@ -14,6 +14,12 @@
 	. = ..()
 	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
 
+
+/obj/structure/bed/nest/Destroy()
+	playsound(get_turf(src), 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
+	. = ..()
+
+
 /obj/structure/bed/nest/has_prints()
 	return FALSE
 

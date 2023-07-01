@@ -69,4 +69,5 @@
 		for(var/mob/O in viewers(owner, null))
 			O.show_message(text("<span class=notice'><B>[src] has laid an egg!</B></span>"), 1)
 		new /obj/structure/alien/egg(owner.loc)
+		playsound_xenobuild(owner)
 	return
