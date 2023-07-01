@@ -57,19 +57,19 @@
 		else if(istype(robouser.module_state_3, /obj/item/stack/sheet/metal))
 			R = robouser.module_state_3
 
-	if(istype(R, /obj/item/stack/sheet/metal))
-		if(R.get_amount() < 2) //not enough metal in the stack
-			to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle [src]!</span>")
-			return
-		else
-			to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
-			playsound(src, I.usesound, 80, TRUE)
-			if(do_after(user, 3 SECONDS * I.toolspeed, target = src))
-				if(R.get_amount() < 2 || !transparent_floor)
-					return
-	else //not holding metal at all
+	if(!istype(R, /obj/item/stack/sheet/metal) || R.get_amount() < 2)
 		to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle \the [src]!</span>")
 		return
+
+	to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
+	playsound(src, I.usesound, 80, TRUE)
+
+	if(do_after(user, 3 SECONDS * I.toolspeed, target = src))
+		if(R.get_amount() < 2 || !transparent_floor)
+			return
+	else
+		return
+
 	switch(type) //What material is returned? Depends on the turf
 		if(/turf/simulated/floor/transparent/glass/reinforced)
 			new /obj/item/stack/sheet/rglass(src, 2)

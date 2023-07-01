@@ -873,3 +873,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/GetID()
 	return null
 
+/obj/item/proc/add_tape()
+	return
+
+/obj/item/proc/remove_tape()
+	return
