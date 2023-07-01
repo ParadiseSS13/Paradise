@@ -19,6 +19,7 @@
 // Core plant genes store 5 main variables: lifespan, endurance, production, yield, potency
 /datum/plant_gene/core
 	var/value
+	var/use_max = FALSE
 
 /datum/plant_gene/core/get_name()
 	return "[name] [value]"
@@ -41,12 +42,23 @@
 		return FALSE
 	return S.get_gene(type)
 
+/datum/plant_gene/core/proc/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder)
+		stack_trace("A plant gene ([get_name()]) tried to get a genemod variable without being in a genemodder.")
+		return
+	stack_trace("A plant gene ([get_name()]) tried to get a genemod variable, but had no override.")
+
 /datum/plant_gene/core/lifespan
 	name = "Lifespan"
 	value = 25
 
 /datum/plant_gene/core/lifespan/apply_stat(obj/item/seeds/S)
 	S.lifespan = value
+
+/datum/plant_gene/core/lifespan/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.max_endurance // Yes, this is intended. It is used for both lifespan and endurance
 
 
 /datum/plant_gene/core/endurance
@@ -56,14 +68,24 @@
 /datum/plant_gene/core/endurance/apply_stat(obj/item/seeds/S)
 	S.endurance = value
 
+/datum/plant_gene/core/endurance/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.max_endurance
+
 
 /datum/plant_gene/core/production
 	name = "Production Speed"
 	value = 6
+	use_max = TRUE
 
 /datum/plant_gene/core/production/apply_stat(obj/item/seeds/S)
 	S.production = value
 
+/datum/plant_gene/core/production/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.min_production
 
 /datum/plant_gene/core/yield
 	name = "Yield"
@@ -71,6 +93,11 @@
 
 /datum/plant_gene/core/yield/apply_stat(obj/item/seeds/S)
 	S.yield = value
+
+/datum/plant_gene/core/yield/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.max_yield
 
 
 /datum/plant_gene/core/potency
@@ -80,21 +107,38 @@
 /datum/plant_gene/core/potency/apply_stat(obj/item/seeds/S)
 	S.potency = value
 
+/datum/plant_gene/core/potency/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.max_potency
+
 
 /datum/plant_gene/core/weed_rate
 	name = "Weed Growth Rate"
 	value = 1
+	use_max = TRUE
 
 /datum/plant_gene/core/weed_rate/apply_stat(obj/item/seeds/S)
 	S.weed_rate = value
+
+/datum/plant_gene/core/weed_rate/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.min_weed_rate
 
 
 /datum/plant_gene/core/weed_chance
 	name = "Weed Vulnerability"
 	value = 5
+	use_max = TRUE
 
 /datum/plant_gene/core/weed_chance/apply_stat(obj/item/seeds/S)
 	S.weed_chance = value
+
+/datum/plant_gene/core/weed_chance/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.min_weed_chance
 
 
 // Reagent genes store reagent ID and reagent ratio. Amount of reagent in the plant = 1 + (potency * rate)
