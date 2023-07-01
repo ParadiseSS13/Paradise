@@ -33,7 +33,7 @@
 
 	var/obj/item/card/id/front_id = null
 
-	// allows for clicking of stuff on our person/on the ground to put in th wallet, easy to stick your ID in your wallet
+	// allows for clicking of stuff on our person/on the ground to put in the wallet, so easy to stick your ID in your wallet
 	use_to_pickup = TRUE
 	pickup_all_on_tile = FALSE
 
