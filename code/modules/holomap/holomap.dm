@@ -322,334 +322,67 @@ GLOBAL_LIST_EMPTY(holomaps)
 
 	return bigassicon
 
-	//Lists for the coloration
-	//first list is whitelist
-	//seconds list is blacklist
+	#define DEPARTMENTAL_AREAS_MASTERLIST list(DEPARTMENTAL_AREAS_SHUTTLE, DEPARTMENTAL_AREAS_AISAT, DEPARTMENTAL_AREAS_COMMAND, DEPARTMENTAL_AREAS_SECURITY, DEPARTMENTAL_AREAS_RESEARCH, DEPARTMENTAL_AREAS_MEDICAL, DEPARTMENTAL_AREAS_ENGINEERING, DEPARTMENTAL_AREAS_CARGO, DEPARTMENTAL_AREAS_SERVICE, DEPARTMENTAL_AREAS_DORMS, DEPARTMENTAL_AREAS_ROCK)
 
-	#define DEPARTMENTAL_AREAS_SHUTTLE list(list(/area/shuttle), list())
+	//-----first list is whitelist
+	//-----second list is blacklist
+	//-----third is for floor color
+	//-----fourth is for wall color
 
-	#define DEPARTMENTAL_AREAS_AISAT list(list(/area/turret_protected, /area/aisat, /area/tcommsat), list())
+	#define DEPARTMENTAL_AREAS_SHUTTLE list(list(/area/shuttle), list(), "#bdbdbd",  "#FFFFFF")
 
-	#define DEPARTMENTAL_AREAS_COMMAND list(list(/area/bridge, /area/teleporter, /area/crew_quarters/heads, /area/crew_quarters/chief, /area/crew_quarters/captain, /area/ntrep, /area/blueshield, /area/ai_monitored, /area/security/nuke_storage, /area/server, /area/crew_quarters/hor, /area/solar,	/area/engine/chiefs_office,	/area/medical/cmo, /area/security/hos), list(/area/teleporter/quantum))
+	#define DEPARTMENTAL_AREAS_AISAT list(list(/area/turret_protected, /area/aisat, /area/tcommsat), list(), "#144640", "#009180")
 
-	#define DEPARTMENTAL_AREAS_SECURITY list(list(/area/security, /area/security/vacantoffice2, /area/lawoffice, /area/crew_quarters/courtroom, /area/magistrateoffice), list(/area/security/vacantoffice))
+	#define DEPARTMENTAL_AREAS_COMMAND list(list(/area/bridge, /area/teleporter, /area/crew_quarters/heads, /area/crew_quarters/chief, /area/crew_quarters/captain, /area/ntrep, /area/blueshield, /area/ai_monitored, /area/security/nuke_storage, /area/server, /area/crew_quarters/hor, /area/solar,	/area/engine/chiefs_office,	/area/medical/cmo, /area/security/hos), list(/area/teleporter/quantum), "#1e1a5e", "#08009f")
 
-	#define DEPARTMENTAL_AREAS_RESEARCH list(list(/area/toxins, /area/medical/research,	/area/assembly/robotics, /area/assembly/chargebay), list())
+	#define DEPARTMENTAL_AREAS_SECURITY list(list(/area/security, /area/security/vacantoffice2, /area/lawoffice, /area/crew_quarters/courtroom, /area/magistrateoffice), list(/area/security/vacantoffice), "#7c090d", "#d00000")
 
-	#define DEPARTMENTAL_AREAS_MEDICAL list(list(/area/medical), list())
+	#define DEPARTMENTAL_AREAS_RESEARCH list(list(/area/toxins, /area/medical/research,	/area/assembly/robotics, /area/assembly/chargebay), list(), "#6a0b79", "#9e00dd")
 
-	#define DEPARTMENTAL_AREAS_ENGINEERING list(list(/area/engine, /area/storage/tech, /area/storage/secure, /area/atmos, /area/maintenance/electrical,	/area/maintenance/turbine, /area/maintenance/incinerator, /area/maintenance/portsolar, /area/maintenance/starboardsolar, /area/maintenance/auxsolarport, /area/maintenance/auxsolarstarboard), list())
+	#define DEPARTMENTAL_AREAS_MEDICAL list(list(/area/medical), list(), "#1d849e", "#3ad8ff")
 
-	#define DEPARTMENTAL_AREAS_CARGO list(list(/area/quartermaster, /area/maintenance/disposal), list(/area/maintenance/disposal/external))
+	#define DEPARTMENTAL_AREAS_ENGINEERING list(list(/area/engine, /area/storage/tech, /area/storage/secure, /area/atmos, /area/maintenance/electrical,	/area/maintenance/turbine, /area/maintenance/incinerator, /area/maintenance/portsolar, /area/maintenance/starboardsolar, /area/maintenance/auxsolarport, /area/maintenance/auxsolarstarboard), list(),"#766e00", "#f1d100")
 
-	#define DEPARTMENTAL_AREAS_SERVICE list(list(/area/crew_quarters/bar, /area/crew_quarters/theatre, /area/crew_quarters/kitchen,	/area/crew_quarters/cafe, /area/mimeoffice, /area/clownoffice, /area/hydroponics, /area/library, /area/chapel, /area/janitor, /area/expedition), list(/area/hydroponics/abandoned_garden))
+	#define DEPARTMENTAL_AREAS_CARGO list(list(/area/quartermaster, /area/maintenance/disposal), list(/area/maintenance/disposal/external), "#5c4429", "#a27749")
 
-	#define DEPARTMENTAL_AREAS_DORMS list(list(/area/hallway, /area/crew_quarters, /area/civilian, /area/teleporter/quantum, /area/storage, /area/holodeck), list())
+	#define DEPARTMENTAL_AREAS_SERVICE list(list(/area/crew_quarters/bar, /area/crew_quarters/theatre, /area/crew_quarters/kitchen,	/area/crew_quarters/cafe, /area/mimeoffice, /area/clownoffice, /area/hydroponics, /area/library, /area/chapel, /area/janitor, /area/expedition), list(/area/hydroponics/abandoned_garden), "#0b5916", "#23940d")
 
-	#define DEPARTMENTAL_AREAS_ROCK list(list(/area/mine/unexplored/cere), list())
+	#define DEPARTMENTAL_AREAS_DORMS list(list(/area/hallway, /area/crew_quarters, /area/civilian, /area/teleporter/quantum, /area/storage, /area/holodeck), list(), "#6c6c6c", "#b6b6b6")
+
+	#define DEPARTMENTAL_AREAS_ROCK list(list(/area/mine/unexplored/cere), list(), "#51473c", "#715c51")
 
 
 /obj/screen/holomap/proc/get_area_color(area_type, is_floor=FALSE)
 	var/found_it = FALSE
-	//SHUTTLES
-	for(var/i in DEPARTMENTAL_AREAS_SHUTTLE[1])
-		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_SHUTTLE[2])
-			if(!found_it)
+	for(var/list/k in DEPARTMENTAL_AREAS_MASTERLIST)
+		for(var/i in k[1])
+			if(found_it)
 				break
 			if(area_type == i)
-				found_it = FALSE
+				found_it = TRUE
 				break
 			var/list/types_to_compare = typesof(i)
 			for(var/j in types_to_compare)
 				if(area_type == j)
-					found_it = FALSE
+					found_it = TRUE
 					break
-	if(found_it)
-		return is_floor ? "#bdbdbd" : "#FFFFFF"
-
-	//AI SAT
-	for(var/i in DEPARTMENTAL_AREAS_AISAT[1])
 		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_AISAT[2])
-			if(!found_it)
-				break
-			if(area_type == i)
-				found_it = FALSE
-				break
-			var/list/types_to_compare = typesof(i)
-			for(var/j in types_to_compare)
-				if(area_type == j)
+			for(var/i in k[2])
+				if(!found_it)
+					break
+				if(area_type == i)
 					found_it = FALSE
 					break
-	if(found_it)
-		return is_floor ? "#144640": "#009180"
-
-	//COMMAND
-	for(var/i in DEPARTMENTAL_AREAS_COMMAND[1])
+				var/list/types_to_compare = typesof(i)
+				for(var/j in types_to_compare)
+					if(area_type == j)
+						found_it = FALSE
+						break
 		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_COMMAND[2])
-			if(!found_it)
-				break
-			if(area_type == i)
-				found_it = FALSE
-				break
-			var/list/types_to_compare = typesof(i)
-			for(var/j in types_to_compare)
-				if(area_type == j)
-					found_it = FALSE
-					break
-	if(found_it)
-		return is_floor ? "#1e1a5e": "#08009f"
-
-	//SECURITY
-	for(var/i in DEPARTMENTAL_AREAS_SECURITY[1])
-		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_SECURITY[2])
-			if(!found_it)
-				break
-			if(area_type == i)
-				found_it = FALSE
-				break
-			var/list/types_to_compare = typesof(i)
-			for(var/j in types_to_compare)
-				if(area_type == j)
-					found_it = FALSE
-					break
-	if(found_it)
-		return is_floor ? "#7c090d": "#d00000"
-
-	//RESEARCH
-	for(var/i in DEPARTMENTAL_AREAS_RESEARCH[1])
-		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_RESEARCH[2])
-			if(!found_it)
-				break
-			if(area_type == i)
-				found_it = FALSE
-				break
-			var/list/types_to_compare = typesof(i)
-			for(var/j in types_to_compare)
-				if(area_type == j)
-					found_it = FALSE
-					break
-	if(found_it)
-		return is_floor ? "#6a0b79": "#9e00dd"
-
-	//MEDBAY
-	for(var/i in DEPARTMENTAL_AREAS_MEDICAL[1])
-		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_MEDICAL[2])
-			if(!found_it)
-				break
-			if(area_type == i)
-				found_it = FALSE
-				break
-			var/list/types_to_compare = typesof(i)
-			for(var/j in types_to_compare)
-				if(area_type == j)
-					found_it = FALSE
-					break
-	if(found_it)
-		return is_floor ? "#1d849e": "#3ad8ff"
-
-	//ENGINEERING
-	for(var/i in DEPARTMENTAL_AREAS_ENGINEERING[1])
-		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_ENGINEERING[2])
-			if(!found_it)
-				break
-			if(area_type == i)
-				found_it = FALSE
-				break
-			var/list/types_to_compare = typesof(i)
-			for(var/j in types_to_compare)
-				if(area_type == j)
-					found_it = FALSE
-					break
-	if(found_it)
-		return is_floor ? "#766e00": "#f1d100"
-
-	//CARGO
-	for(var/i in DEPARTMENTAL_AREAS_CARGO[1])
-		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_CARGO[2])
-			if(!found_it)
-				break
-			if(area_type == i)
-				found_it = FALSE
-				break
-			var/list/types_to_compare = typesof(i)
-			for(var/j in types_to_compare)
-				if(area_type == j)
-					found_it = FALSE
-					break
-	if(found_it)
-		return is_floor ? "#5c4429": "#a27749"
-
-	//SERVICE
-	for(var/i in DEPARTMENTAL_AREAS_SERVICE[1])
-		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_SERVICE[2])
-			if(!found_it)
-				break
-			if(area_type == i)
-				found_it = FALSE
-				break
-			var/list/types_to_compare = typesof(i)
-			for(var/j in types_to_compare)
-				if(area_type == j)
-					found_it = FALSE
-					break
-	if(found_it)
-		return is_floor ? "#0b5916": "#23940d"
-
-	//DORMS + HALLS
-	for(var/i in DEPARTMENTAL_AREAS_DORMS[1])
-		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_DORMS[2])
-			if(!found_it)
-				break
-			if(area_type == i)
-				found_it = FALSE
-				break
-			var/list/types_to_compare = typesof(i)
-			for(var/j in types_to_compare)
-				if(area_type == j)
-					found_it = FALSE
-					break
-	if(found_it)
-		return is_floor ? "#6c6c6c": "#b6b6b6"
-
-	//ROCK
-	for(var/i in DEPARTMENTAL_AREAS_ROCK[1])
-		if(found_it)
-			break
-		if(area_type == i)
-			found_it = TRUE
-			break
-		var/list/types_to_compare = typesof(i)
-		for(var/j in types_to_compare)
-			if(area_type == j)
-				found_it = TRUE
-				break
-	if(found_it)
-		for(var/i in DEPARTMENTAL_AREAS_ROCK[2])
-			if(!found_it)
-				break
-			if(area_type == i)
-				found_it = FALSE
-				break
-			var/list/types_to_compare = typesof(i)
-			for(var/j in types_to_compare)
-				if(area_type == j)
-					found_it = FALSE
-					break
-	if(found_it)
-		return is_floor ? "#51473c": "#715c51"
+			return is_floor ? k[3] : k[4]
 
 	//maints + unspecified
-	return is_floor ? "#171e16": "#373a2a"
+	return is_floor ? "#171e16" : "#373a2a"
 
 
 
