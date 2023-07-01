@@ -94,6 +94,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 	..()
 	owner = my_creator
 	lookatme = image('icons/effects/holomap_icons.dmi', "location_lookatme")
+	lookatme.layer = layer+1
 
 /obj/screen/this_is_there/proc/recalculate_appearance(area/A_in, x_in, y_in)
 	var/obj/machinery/holomap/my_machine = owner.target
@@ -476,7 +477,3 @@ GLOBAL_LIST_EMPTY(holomaps)
 
 	//maints + unspecified
 	return is_floor ? "#171e16" : "#373a2a"
-
-
-
-
