@@ -287,6 +287,7 @@ Doesn't work on other aliens/AI.*/
 
 /// Defines include required plasma in brackets
 #define ALIEN_RESIN_WALL		"Resin Wall (60)"
+#define ALIEN_RESIN_DOOR		"Resin Door (50)"
 #define ALIEN_RESIN_MEMBRANE	"Resin Membrane (40)"
 #define ALIEN_RESIN_NEST		"Resin Nest (30)"
 
@@ -315,30 +316,35 @@ Doesn't work on other aliens/AI.*/
 
 	resin_params["Plasma Amount"] = list(
 		ALIEN_RESIN_WALL 		= 60,
+		ALIEN_RESIN_DOOR 		= 50,
 		ALIEN_RESIN_MEMBRANE 	= 40,
 		ALIEN_RESIN_NEST 		= 30
 	)
 
 	resin_params["Process Time"] = list(
 		ALIEN_RESIN_WALL 		= 2 SECONDS,
+		ALIEN_RESIN_DOOR 		= 5 SECONDS,
 		ALIEN_RESIN_MEMBRANE 	= 2 SECONDS,
 		ALIEN_RESIN_NEST 		= 1 SECONDS
 	)
 
 	resin_params["Cooldown"] = list(
 		ALIEN_RESIN_WALL 		= 3 SECONDS,
+		ALIEN_RESIN_DOOR 		= 10 SECONDS,
 		ALIEN_RESIN_MEMBRANE 	= 3 SECONDS,
 		ALIEN_RESIN_NEST 		= 2 SECONDS
 	)
 
 	resin_params["Structure"] = list(
 		ALIEN_RESIN_WALL 		= /obj/structure/alien/resin/wall,
+		ALIEN_RESIN_DOOR 		= /obj/structure/alien/resin/door,
 		ALIEN_RESIN_MEMBRANE 	= /obj/structure/alien/resin/membrane,
 		ALIEN_RESIN_NEST 		= /obj/structure/bed/nest
 	)
 
 	resin_params["Image"] = list(
 		ALIEN_RESIN_WALL		= image(icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi', icon_state = "resin"),
+		ALIEN_RESIN_DOOR		= image(icon = 'icons/obj/smooth_structures/alien/resin_door.dmi', icon_state = "resin_door_closed"),
 		ALIEN_RESIN_MEMBRANE 	= image(icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi', icon_state = "membrane"),
 		ALIEN_RESIN_NEST 		= image(icon = 'icons/mob/alien.dmi', icon_state = "nest")
 	)
@@ -367,8 +373,8 @@ Doesn't work on other aliens/AI.*/
 	var/obj/alien_structure = new build_path(host.loc)
 
 	playsound_xenobuild(alien_structure)
-	host.visible_message(span_warning("[host] vomits up a thick purple substance and shapes it into [alien_structure.name]!"), \
-		span_alertalien("You finished shaping vomited resin into [alien_structure.name]."))
+	host.visible_message(span_warning("[host] vomits up a thick purple substance and shapes it into the [alien_structure.name]!"), \
+		span_alertalien("You finished shaping vomited resin into the [alien_structure.name]."))
 
 
 /datum/action/innate/xeno_action/resin/proc/check_availability(mob/living/carbon/user, plasma_amount)
@@ -405,6 +411,7 @@ Doesn't work on other aliens/AI.*/
 
 
 #undef ALIEN_RESIN_WALL
+#undef ALIEN_RESIN_DOOR
 #undef ALIEN_RESIN_MEMBRANE
 #undef ALIEN_RESIN_NEST
 
