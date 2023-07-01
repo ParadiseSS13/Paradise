@@ -111,7 +111,6 @@
 		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/m_tray( loc )
 		step(connected, dir)
-		connected.layer = OBJ_LAYER
 		var/turf/T = get_step(src, dir)
 		if(T.contents.Find(connected))
 			connected.connected = src
@@ -143,7 +142,6 @@
 		return
 	connected = new /obj/structure/m_tray( loc )
 	step(connected, dir)
-	connected.layer = OBJ_LAYER
 	var/turf/T = get_step(src, dir)
 	if(T.contents.Find(connected))
 		connected.connected = src
@@ -188,7 +186,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morguet"
 	density = 1
-	layer = 2.0
+	layer = BELOW_OBJ_LAYER
 	var/obj/structure/morgue/connected = null
 	anchored = 1.0
 	pass_flags = LETPASSTHROW
@@ -309,7 +307,6 @@
 		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/c_tray( loc )
 		step(connected, SOUTH)
-		connected.layer = OBJ_LAYER
 		var/turf/T = get_step(src, SOUTH)
 		if(T.contents.Find(connected))
 			connected.connected = src
@@ -334,7 +331,6 @@
 		return
 	connected = new /obj/structure/c_tray( loc )
 	step(connected, SOUTH)
-	connected.layer = OBJ_LAYER
 	var/turf/T = get_step(src, SOUTH)
 	if(T.contents.Find(connected))
 		connected.connected = src
