@@ -1333,12 +1333,8 @@
 						H.blood_volume += 10
 					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
-					var/list/organs_list = list()
-					organs_list += H.internal_organs
-					organs_list += H.bodyparts
-					for(var/obj/item/organ/O as anything in organs_list)
+					for(var/obj/item/organ/O as anything in (H.internal_organs + H.bodyparts))
 						O.germ_level = 0
-					organs_list.Cut()
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 					update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
