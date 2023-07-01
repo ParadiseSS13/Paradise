@@ -175,7 +175,7 @@
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "gloves of the North Star"
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
-	var/accepted_intents = list(INTENT_HARM)
+	var/accepted_intents = list(INTENT_DISARM, INTENT_HARM)
 	var/click_speed_modifier = CLICK_CD_RAPID
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
