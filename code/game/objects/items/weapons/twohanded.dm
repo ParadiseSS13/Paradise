@@ -334,9 +334,23 @@
 		sleep(1)
 
 /obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
-		return ..()
-	return FALSE
+	if(!wielded)
+		return FALSE
+	. = ..()
+	if(!.) // they did not block the attack
+		return
+
+	if(attack_type == THROWN_PROJECTILE_ATTACK)
+		if(!isitem(hitby))
+			return TRUE
+		var/obj/item/TT = hitby
+		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
+		return TRUE
+	if(isitem(hitby))
+		melee_attack_chain(owner, hitby.loc)
+	else
+		melee_attack_chain(owner, hitby)
+	return TRUE
 
 /obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(wielded)
