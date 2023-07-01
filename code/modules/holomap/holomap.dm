@@ -427,11 +427,11 @@ GLOBAL_LIST_EMPTY(holomaps)
 
 	#define DEPARTMENTAL_AREAS_AISAT list(list(/area/turret_protected, /area/aisat, /area/tcommsat), list(), "#144640", "#009180")
 
-	#define DEPARTMENTAL_AREAS_COMMAND list(list(/area/bridge, /area/teleporter, /area/crew_quarters/heads, /area/crew_quarters/chief, /area/crew_quarters/captain, /area/ntrep, /area/blueshield, /area/ai_monitored, /area/security/nuke_storage, /area/server, /area/crew_quarters/hor, /area/solar,	/area/engine/chiefs_office,	/area/medical/cmo, /area/security/hos), list(/area/teleporter/quantum), "#1e1a5e", "#08009f")
+	#define DEPARTMENTAL_AREAS_COMMAND list(list(/area/bridge, /area/teleporter, /area/crew_quarters/heads, /area/crew_quarters/chief, /area/crew_quarters/captain, /area/ntrep, /area/blueshield, /area/ai_monitored, /area/security/nuke_storage, /area/server, /area/crew_quarters/hor, /area/solar,	/area/engine/chiefs_office,	/area/medical/cmo, /area/security/hos, /area/assembly/showroom), list(/area/teleporter/quantum), "#1e1a5e", "#08009f")
 
 	#define DEPARTMENTAL_AREAS_SECURITY list(list(/area/security, /area/security/vacantoffice2, /area/lawoffice, /area/crew_quarters/courtroom, /area/magistrateoffice), list(/area/security/vacantoffice), "#7c090d", "#d00000")
 
-	#define DEPARTMENTAL_AREAS_RESEARCH list(list(/area/toxins, /area/medical/research,	/area/assembly/robotics, /area/assembly/chargebay), list(), "#6a0b79", "#9e00dd")
+	#define DEPARTMENTAL_AREAS_RESEARCH list(list(/area/toxins, /area/medical/research,	/area/assembly/robotics, /area/assembly/chargebay, /area/medical/scibreak), list(), "#6a0b79", "#9e00dd")
 
 	#define DEPARTMENTAL_AREAS_MEDICAL list(list(/area/medical), list(), "#1d849e", "#3ad8ff")
 
