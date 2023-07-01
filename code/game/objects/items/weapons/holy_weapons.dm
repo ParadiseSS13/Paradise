@@ -424,7 +424,7 @@
 
 /obj/item/nullrod/armblade/mining/dropped(mob/living/user)
 	..()
-	flags -= ABSTRACT
+	flags ^= ABSTRACT
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
