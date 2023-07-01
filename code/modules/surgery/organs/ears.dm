@@ -18,7 +18,7 @@
 		C.Deaf(2 SECONDS)
 	else
 		if((damage > 10) && prob(damage / 30))
-			C.Deaf(4 SECONDS)
+			C.Deaf(8 SECONDS)
 			SEND_SOUND(owner, sound('sound/weapons/flash_ring.ogg'))
 
 
