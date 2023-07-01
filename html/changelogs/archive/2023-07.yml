@@ -1,0 +1,17 @@
+'2023-07-01':
+  Rerik007:
+  - add: pai encryptionkeys (#3102)
+  - bugfix: wires for mecha noninteractive (#3104)
+  - bugfix: jacob ladder ignore safed zones (#3103)
+  Vladisvell:
+  - bugfix: now light replacer can be filled without dropping material (#3105)
+  Zwei:
+  - bugfix: Diablo Pizza Typo (#3113)
+  - tweak: Tray Layer Fix (#3108)
+  - refactor: Xeno Secrete Resin (#3063)
+  - add: Xeno Door (#3062)
+  Сиротка:
+  - add: Gibtonite can be defused by mecha scanner (#3101)
+  - bugfix: Brain damage for diona, nucleation and vox (#3079)
+  - tweak: Mannitol not heal brain with damage above 100 (#3110)
+  - tweak: Mech recharge rate (#3109)
