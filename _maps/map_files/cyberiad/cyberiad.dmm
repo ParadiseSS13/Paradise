@@ -12359,20 +12359,14 @@
 /turf/simulated/wall,
 /area/magistrateoffice)
 "aIn" = (
-/obj/structure/disposalpipe/segment,
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/machinery/camera{
-	c_tag = "Aft Primary Hallway 1";
-	dir = 4
+/obj/machinery/newscaster{
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cautioncorner"
+	icon_state = "barber"
 	},
-/area/hallway/primary/aft)
+/area/civilian/barber)
 "aIo" = (
 /turf/simulated/wall,
 /area/lawoffice)
@@ -12427,10 +12421,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15113,12 +15103,16 @@
 	},
 /area/atmos)
 "aPe" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
+/obj/structure/disposalpipe/segment,
+/obj/machinery/camera{
+	c_tag = "Aft Primary Hallway 1";
+	dir = 4
 	},
-/area/crew_quarters/dorms)
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cautioncorner"
+	},
+/area/hallway/primary/aft)
 "aPf" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -16627,11 +16621,6 @@
 	},
 /area/hallway/secondary/entry)
 "aSZ" = (
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	dir = 8;
-	location = "Janitor"
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/mapping_helpers/airlock/access/any/service/janitor,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
@@ -16639,7 +16628,11 @@
 	opacity = 1
 	},
 /obj/machinery/door/window/eastright{
-	dir = 2
+	dir = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	location = "Janitor"
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -18203,11 +18196,6 @@
 	},
 /area/crew_quarters/dorms)
 "aWQ" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -20243,16 +20231,16 @@
 	},
 /area/crew_quarters/dorms)
 "bca" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
+/obj/structure/disposalpipe/segment,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "barber"
+	dir = 8;
+	icon_state = "cautioncorner"
 	},
-/area/civilian/barber)
+/area/hallway/primary/aft)
 "bcc" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -21687,6 +21675,11 @@
 /obj/structure/disposalpipe/junction{
 	dir = 4;
 	icon_state = "pipe-j2"
+	},
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -23491,8 +23484,8 @@
 /obj/machinery/camera{
 	c_tag = "Barber Shop"
 	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_y = 32
+/obj/structure/mirror{
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -32675,9 +32668,6 @@
 	},
 /area/civilian/barber)
 "bFS" = (
-/obj/structure/chair/barber{
-	dir = 1
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -34025,6 +34015,9 @@
 "bJz" = (
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/chair/barber{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -41715,8 +41708,8 @@
 /area/blueshield)
 "ccN" = (
 /obj/structure/table/reinforced,
-/obj/structure/mirror{
-	pixel_y = 28
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -45162,8 +45155,8 @@
 "cmU" = (
 /obj/structure/table/reinforced,
 /obj/item/razor,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_y = 32
+/obj/structure/mirror{
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -46984,12 +46977,6 @@
 	},
 /area/toxins/server_coldroom)
 "csG" = (
-/obj/machinery/power/apc{
-	cell_type = 25000;
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -46997,6 +46984,11 @@
 /obj/structure/mopbucket/full,
 /obj/item/mop,
 /obj/item/reagent_containers/glass/bucket,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "csH" = (
@@ -60453,17 +60445,23 @@
 	pixel_y = 5
 	},
 /obj/item/pen,
-/obj/machinery/light{
-	dir = 8
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
 /area/civilian/barber)
 "dhu" = (
-/obj/machinery/door_control,
-/turf/simulated/wall,
-/area/civilian/barber)
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "dhv" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -76434,6 +76432,10 @@
 	icon_state = "darkred"
 	},
 /area/hallway/secondary/exit)
+"lWc" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/janitor)
 "lWE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -85607,7 +85609,11 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -88474,6 +88480,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
+"unZ" = (
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "uor" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -122869,11 +122882,11 @@ clO
 ckO
 ckO
 cpi
+bca
 ckO
 ckO
-aIn
 cua
-ckO
+aPe
 cwJ
 crX
 czA
@@ -125390,11 +125403,11 @@ aYI
 aSZ
 aQf
 aSh
-aRc
+lWc
 aRc
 aRc
 lZo
-aPe
+aRx
 bea
 bgX
 biW
@@ -125910,11 +125923,11 @@ chc
 bbi
 aPm
 aIt
-aDP
+dhu
 aDP
 aDP
 aMw
-dhu
+aDP
 aDP
 bhg
 bnn
@@ -126167,8 +126180,8 @@ aZs
 aZs
 aGL
 bec
+unZ
 aDP
-bca
 srV
 bBO
 dht
@@ -126425,8 +126438,8 @@ aTF
 aJf
 beT
 aDP
-ccN
-aVC
+aDP
+aIn
 cUr
 bhs
 aDP
@@ -126683,7 +126696,7 @@ bbv
 igo
 aDP
 cmU
-bFR
+aVC
 cUr
 bFR
 cfp
@@ -127197,7 +127210,7 @@ bbv
 beV
 aDP
 biX
-bFR
+aVC
 beE
 aJu
 cfp
@@ -127454,7 +127467,7 @@ bbv
 bef
 aDP
 ccN
-aVC
+bFR
 beE
 aKG
 aDP
