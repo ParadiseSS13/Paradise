@@ -24114,8 +24114,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/research{
 	name = "Research Division Access";
-	req_access_txt = "47";
-	req_one_access_txt = null
+	req_access_txt = "47"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
