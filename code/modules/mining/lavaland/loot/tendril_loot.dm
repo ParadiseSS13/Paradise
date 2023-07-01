@@ -149,6 +149,9 @@
 		if(is_admin_level(i) || is_away_level(i) || is_taipan(i))
 			continue
 		var/turf/T2 = locate(ladder_x, ladder_y, i)
+		var/area/new_area = get_area(T2)
+		if(new_area.tele_proof)
+			continue
 		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
 	qdel(src)
 
