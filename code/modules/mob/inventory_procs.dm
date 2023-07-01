@@ -233,9 +233,9 @@
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_hand())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
-		return
+		return 0
 
-	if(M.equip_to_appropriate_slot(src)) // try putting it in other slots
+	if(M.equip_to_appropriate_slot(src)
 		if(M.hand)
 			M.update_inv_l_hand()
 		else
