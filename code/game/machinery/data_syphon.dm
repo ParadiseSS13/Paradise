@@ -1,6 +1,6 @@
 /obj/machinery/computer/data_syphon
 	name = "data syphon"
-	desc = "!!Placeholder!!"
+	desc = "A Cybersun branded Data Siphon terminal, with the siphon scratched out and written in red paint with the words-- SYPHON. This machine will lock the shuttle in place and brute force all security protocols in an attempt to steal station valuables. Credits will be siphoned from all accounts, data levels will be stolen and destroyed, and cargo shuttles will be unable to dock. Once the machine is powered, all ship engines will be dead to force power to the siphons ludicrous power demand."
 	anchored = TRUE
 	density = TRUE
 	icon_screen = "pirate"
@@ -24,6 +24,8 @@
 	return ..()
 
 /obj/machinery/computer/data_syphon/attack_hand(mob/user)
+	if(..())
+		return
 	if(active)
 		drop_loot(user)
 		return
@@ -57,10 +59,12 @@
 	var/decision = alert(user, "Do you want to send a taunting message to the station?", "Taunting message?", "Yes", "No")
 	if(decision == "Yes")
 		taunting_message = stripped_input(user, "Insert your taunting message", "Message")
-	if(taunting_message)
-		GLOB.major_announcement.Announce(taunting_message, "Data Syphon Alert", 'sound/effects/siren.ogg', msg_sanitized = TRUE)
-	else
-		GLOB.major_announcement.Announce("ALERT! Data theft detected. All crew, be advised.", "Data Syphon Alert", 'sound/effects/siren.ogg')
+
+	if(check_allowed(user))
+		if(taunting_message)
+			GLOB.major_announcement.Announce(taunting_message, "Data Syphon Alert", 'sound/effects/siren.ogg', msg_sanitized = TRUE)
+		else
+			GLOB.major_announcement.Announce("ALERT! Data theft detected. All crew, be advised.", "Data Syphon Alert", 'sound/effects/siren.ogg')
 
 /obj/machinery/computer/data_syphon/proc/activate_syphon(mob/user)
 	to_chat(user, "<span class='notice'>You enable [src].</span>")
