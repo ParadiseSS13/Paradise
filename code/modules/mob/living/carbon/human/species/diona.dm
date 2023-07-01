@@ -36,13 +36,13 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
-		"filtrating vacuoles" =   /obj/item/organ/internal/kidneys/diona,
-		"neural strata" =   /obj/item/organ/internal/brain/diona,
-		"receptor node" =   /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
-		"gas bladder" =   /obj/item/organ/internal/lungs/diona,
-		"polyp segment" =   /obj/item/organ/internal/appendix/diona,
-		"anchoring ligament" = /obj/item/organ/internal/heart/diona
+		"liver" =   /obj/item/organ/internal/liver/diona,
+		"kidneys" =   /obj/item/organ/internal/kidneys/diona,
+		"brain" =   /obj/item/organ/internal/brain/diona,
+		"eyes" =   /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
+		"lungs" =   /obj/item/organ/internal/lungs/diona,
+		"appendix" =   /obj/item/organ/internal/appendix/diona,
+		"heart" = /obj/item/organ/internal/heart/diona
 		)
 
 	mutantears = /obj/item/organ/internal/ears/diona
