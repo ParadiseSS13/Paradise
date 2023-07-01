@@ -44,7 +44,7 @@
 	if(isdrone(L)) //same with poor maint drones who just wanna have fun
 		return FALSE
 	. = ..()
-	if(!.) //If true the mob is already affected, no need to keep processing
+	if(!.) // If false the mob is not currently a valid target, no need to keep processing
 		return FALSE
 	for(var/turf/T in oview(get_turf(L)))
 		if(isspaceturf(T) || istransparentturf(T))
