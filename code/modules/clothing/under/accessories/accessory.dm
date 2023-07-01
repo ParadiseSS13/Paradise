@@ -264,8 +264,8 @@
 	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
 
 /obj/item/clothing/accessory/medal/supply
-	name = "efficient supply medal"
-	desc = "An award issued by the Quartermaster to supply staff who make sure everything is running smoothly."
+	name = "speedy supply medal"
+	desc = "An award issued by the Quartermaster to supply staff with dedication to fast deliveries."
 
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"
