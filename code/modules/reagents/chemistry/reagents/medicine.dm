@@ -842,7 +842,8 @@
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBrainLoss(-3, FALSE)
+	if(M.getBrainLoss() <= 100)
+		update_flags |= M.adjustBrainLoss(-3, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/fomepizole
