@@ -222,7 +222,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	item_state = "Gibtonite ore"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_range = 0
-	anchored = 1 //Forces people to carry it by hand, no pulling!
 	var/primed = 0
 	var/det_time = 100
 	var/quality = GIBTONITE_QUALITY_LOW //How pure this gibtonite is, determines the explosion produced by it and is derived from the det_time of the rock wall it was taken from, higher value = better
@@ -234,6 +233,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		SStgui.close_uis(wires)
 		QDEL_NULL(wires)
 	return ..()
+
+/obj/item/twohanded/required/gibtonite/can_be_pulled(user)
+	to_chat(user, "<span class='warning'>It's too heavy to be pulled!</span>")
+	return FALSE // must be carried in two hands or be picked up with ripley
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
 	if(!wires && istype(I, /obj/item/assembly/igniter))
@@ -253,7 +256,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		GibtoniteReaction(user)
 		return
 	if(primed)
-		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool))
+		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool) || istype(I, /obj/item/mecha_parts/mecha_equipment/mining_scanner))
 			primed = 0
 			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
 			icon_state = "Gibtonite ore"
