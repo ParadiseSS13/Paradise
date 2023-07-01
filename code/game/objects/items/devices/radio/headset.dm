@@ -74,7 +74,7 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..()
-	else if(isanimal(loc) || isAI(loc))
+	else if(isanimal(loc) || isAI(loc) || istype(loc, /obj/item/paicard))
 		return ..()
 
 	return FALSE

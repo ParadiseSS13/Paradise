@@ -47,7 +47,13 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 			card.setPersonality(pai)
 			card.looking_for_personality = 0
-			card.upgrade?.used = TRUE
+			if(card.upgrade)
+				card.upgrade.used = TRUE
+				if(!istype(card.upgrade, /obj/item/paicard_upgrade/protolate))
+					card.radio.keyslot2 = new /obj/item/encryptionkey/syndicate(card.radio)
+					if(card.radio.keyslot2.syndie)
+						card.radio.syndiekey = card.radio.keyslot2
+					card.radio.recalculateChannels(TRUE)
 
 			SSticker.mode.update_cult_icons_removed(card.pai.mind)
 			SSticker.mode.update_rev_icons_removed(card.pai.mind)

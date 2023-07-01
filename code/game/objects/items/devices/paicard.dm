@@ -8,7 +8,7 @@
 	origin_tech = "programming=2"
 	var/request_cooldown = 5 // five seconds
 	var/last_request
-	var/obj/item/radio/radio
+	var/obj/item/radio/headset/radio
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
@@ -363,16 +363,45 @@
 		is_syndicate_type = TRUE
 		return
 
+	if(istype(I, /obj/item/encryptionkey))
+		if(!radio)
+			return
+
+		if(radio.keyslot1)
+			to_chat(user, "The headset can't hold another key!")
+			return
+		else
+			user.drop_transfer_item_to_loc(I, radio)
+			radio.keyslot1 = I
+
+		radio.recalculateChannels()
+		return
+
 /obj/item/paicard/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(pai)
+
+	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	if(!upgrade)
-		return
-	extra_memory -= upgrade.extra_memory
-	is_syndicate_type = FALSE
-	upgrade.forceMove(get_turf(src))
-	upgrade = null
+	var/turf/T = get_turf(user)
+
+	if(upgrade && !pai)
+		extra_memory -= upgrade.extra_memory
+		is_syndicate_type = FALSE
+		if(T)
+			upgrade.forceMove(T)
+			upgrade = null
+		to_chat(user, span_notice("You remove paicard upgrade."))
+
+	if(radio?.keyslot1)
+		for(var/ch_name in radio.channels)
+			SSradio.remove_object(radio, SSradio.radiochannels[ch_name])
+			radio.secure_radio_connections[ch_name] = null
+		if(T)
+			radio.keyslot1.forceMove(T)
+			radio.keyslot1 = null
+		radio.recalculateChannels()
+		to_chat(user, span_notice("You pop out the encryption key in the headset!"))
+		I.play_tool_sound(user, I.tool_volume)
 
 /obj/item/paicard/attack_ghost(mob/dead/observer/user)
 	if(pai)
@@ -403,6 +432,8 @@
 
 /obj/item/paicard_upgrade/unused
 	used = FALSE
+
+/obj/item/paicard_upgrade/protolate
 
 /obj/item/paper/pai_upgrade
 	name = "Инструкция по применению"
