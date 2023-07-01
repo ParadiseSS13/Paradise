@@ -7,13 +7,13 @@
 ///this will hold images rendered at roundstart
 GLOBAL_LIST_EMPTY(holomaps)
 
-/datum/hud/holomap
-	inventory_shown = FALSE
-
-/datum/hud/holomap/New(list/r, zed, x_in, y_in, z_in)
-	..()
+/datum/holomap
 	var/obj/screen/holomap/using
 	var/obj/screen/you_are_here/arrow
+
+/datum/holomap/New(list/r, zed, x_in, y_in, z_in)
+	..()
+
 	var/icon_key = "[zed]_[r[1]]-[r[2]]-[r[3]]-[r[4]]"
 
 	if(GLOB.holomaps[icon_key])
@@ -23,14 +23,8 @@ GLOBAL_LIST_EMPTY(holomaps)
 		using.screen_loc = ui_holomap
 		GLOB.holomaps[icon_key] = using
 
-	static_inventory += using
-
 	if(zed == z_in)
 		arrow = new/obj/screen/you_are_here(x_in, y_in)
-		static_inventory += arrow
-
-	for(var/obj/screen/S in (static_inventory))
-		S.hud = src
 
 /obj/screen/holomap
 	var/image/holomap_projection
@@ -93,7 +87,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 	/// this holds all the people it is currently displaying to
 	var/list/display_targets = list()
 	/// the screen obj that holds the image for your viewing pleasure
-	var/datum/hud/holomap/my_map
+	var/datum/holomap/my_map
 
 /obj/machinery/holomap/Initialize(mapload)
 	. = ..()
@@ -101,7 +95,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 	if(!zlevel_rendered)
 		zlevel_rendered = z
 
-	my_map = new /datum/hud/holomap(region_selection, zlevel_rendered, x, y, z)
+	my_map = new /datum/holomap(region_selection, zlevel_rendered, x, y, z)
 
 /obj/machinery/holomap/attack_hand(mob/user)
 	. = ..()
@@ -124,7 +118,8 @@ GLOBAL_LIST_EMPTY(holomaps)
 	if(!M.client)
 		return
 	display_targets |= M
-	M.client.screen += my_map.static_inventory
+	M.client.screen += my_map.using
+	M.client.screen += my_map.arrow
 	update_icon(UPDATE_ICON)
 	if(do_after(M, 5 MINUTES, FALSE, src, FALSE))
 		atom_say("<span class='warning'>Maximum display time reached, shutting down session.</span>")
@@ -134,7 +129,8 @@ GLOBAL_LIST_EMPTY(holomaps)
 
 /obj/machinery/holomap/proc/stopdisplaymap(mob/user)
 	display_targets -= user
-	user.client.screen -= my_map.static_inventory
+	user.client.screen -= my_map.using
+	user.client.screen -= my_map.arrow
 	update_icon(UPDATE_ICON)
 
 /obj/machinery/holomap/update_icon()
