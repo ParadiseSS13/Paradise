@@ -479,6 +479,8 @@
 #define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
 /// From /mob/living/carbon/flash_eyes()
 #define COMSIG_CARBON_FLASH_EYES "carbon_flash_eyes"
+/// From /mob/living/carbon/regenerate_icons()
+#define COMSIG_CARBON_REGENERATE_ICONS "carbon_regen_icons"
 
 
 // /mob/living/simple_animal/hostile signals
