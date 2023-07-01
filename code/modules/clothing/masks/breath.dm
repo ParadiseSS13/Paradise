@@ -44,7 +44,7 @@
 	icon_state = "voxmask"
 	item_state = "voxmask"
 	permeability_coefficient = 0.01
-	species_restricted = list("Vox", "Vox Armalis") //These should fit the "Mega Vox" just fine.
+	species_restricted = list("Vox")
 	actions_types = list()
 
 /obj/item/clothing/mask/breath/vox/attack_self(mob/user)
