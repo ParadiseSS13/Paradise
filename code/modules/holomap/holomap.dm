@@ -1,7 +1,7 @@
 /*
 	Somone should totally add an action button to select a location when observing the map
 	and it display a list to select from (TGUI maybe!? color coded !? YES?)
-	then show an icon like YouAreHere there
+	then show an icon like you_are_here there
 */
 
 ///this will hold images rendered at roundstart
@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 /datum/hud/holomap/New(list/r, zed, x_in, y_in, z_in)
 	..()
 	var/obj/screen/holomap/using
-	var/obj/screen/YouAreHere/arrow
+	var/obj/screen/you_are_here/arrow
 	var/icon_key = "[zed]_[r[1]]-[r[2]]-[r[3]]-[r[4]]"
 
 	if(GLOB.holomaps[icon_key])
@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 	static_inventory += using
 
 	if(zed == z_in)
-		arrow = new/obj/screen/YouAreHere(x_in, y_in)
+		arrow = new/obj/screen/you_are_here(x_in, y_in)
 		static_inventory += arrow
 
 	for(var/obj/screen/S in (static_inventory))
@@ -55,14 +55,14 @@ GLOBAL_LIST_EMPTY(holomaps)
 
 	appearance = holomap_projection
 
-/obj/screen/YouAreHere
+/obj/screen/you_are_here
 	name = "You are here!"
 	icon = 'icons/effects/holomap_icons.dmi'
-	icon_state = "YouAreHere"
+	icon_state = "you_are_here"
 	layer = ABOVE_HUD_LAYER + 0.1
 	plane = ABOVE_HUD_PLANE
 
-/obj/screen/YouAreHere/New(x_in, y_in)
+/obj/screen/you_are_here/New(x_in, y_in)
 	..()
 	//these are the tile position from center 0 upto +7 and -7)
 	var/big_x = round((x_in - 128) / 16, 1)
@@ -88,11 +88,11 @@ GLOBAL_LIST_EMPTY(holomaps)
 	var/zlevel_rendered
 	//for mappers who want to add holomaps for off station locations, otherwise it defaults to the entire zlevel in Initialize()
 	//use sparingly, dont make regions different only by a few values, just make it a single one across both instances (they are very costly to make and store)
-	///should be a list {start x, start y, end x, end y} start should be bottom left corner; end should be top right... everything inside gets rendered (out of 255)
+	/// should be a list {start x, start y, end x, end y} start should be bottom left corner; end should be top right... everything inside gets rendered (out of 255)
 	var/list/region_selection = list(1, 1, 255, 255)
-	///this holds all the people it is currently displaying to
+	/// this holds all the people it is currently displaying to
 	var/list/display_targets = list()
-	//the screen obj that holds the image for your viewing pleasure
+	/// the screen obj that holds the image for your viewing pleasure
 	var/datum/hud/holomap/my_map
 
 /obj/machinery/holomap/Initialize(mapload)
@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 	if(!zlevel_rendered)
 		zlevel_rendered = z
 
-	my_map = new/datum/hud/holomap(region_selection, zlevel_rendered, x, y, z)
+	my_map = new /datum/hud/holomap(region_selection, zlevel_rendered, x, y, z)
 
 /obj/machinery/holomap/attack_hand(mob/user)
 	. = ..()
@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 	var/region_x_finish = (region_width > 240) ? region_x_start + 239 : region_selection[3]
 	var/region_y_finish = (region_width > 240) ? region_y_start + 239 : region_selection[4]
 
-	var/render_x_start =  (region_width > 240) ? -8 : 128 - (region_width / 2)
+	var/render_x_start = (region_width > 240) ? -8 : 128 - (region_width / 2)
 	var/render_y_start = (region_width > 240) ? -8 : 128 - (region_height / 2)
 
 	var/icon_to_use = 'icons/effects/holomap_parts.dmi'
@@ -318,62 +318,343 @@ GLOBAL_LIST_EMPTY(holomaps)
 			var/icon/I = icon(icon_to_use, icon_state_to_use, dir_to_use)
 
 			//replace the black and white with the appropriate colors of the area
-			I.SwapColor(COLOR_WHITE, get_area_color(A))
-			I.SwapColor(COLOR_BLACK, get_area_color(A, TRUE))
+			if(icon_state_to_use) //no point in running the checks without any pixels to color
+				I.SwapColor(COLOR_WHITE, get_area_color(A.type))
+				I.SwapColor(COLOR_BLACK, get_area_color(A.type, TRUE))
 
 			bigassicon.Blend(I, ICON_OVERLAY, ((render_x_start + x_index) * 2) - 1, ((render_y_start + y_index) * 2) - 1)
 
 	return bigassicon
 
+	//Lists for the coloration
+	//first list is whitelist
+	//seconds list is blacklist
 
-/obj/screen/holomap/proc/get_area_color(area/A, floor_varient=FALSE)
-	//don't look too closely at this, I blame the mappers
+	#define DEPARTMENTAL_AREAS_SHUTTLE list(list(/area/shuttle), list())
 
+	#define DEPARTMENTAL_AREAS_AISAT list(list(/area/turret_protected, /area/aisat, /area/tcommsat), list())
+
+	#define DEPARTMENTAL_AREAS_COMMAND list(list(/area/bridge, /area/teleporter, /area/crew_quarters/heads, /area/crew_quarters/chief, /area/crew_quarters/captain, /area/ntrep, /area/blueshield, /area/ai_monitored, /area/security/nuke_storage, /area/server, /area/crew_quarters/hor, /area/solar,	/area/engine/chiefs_office,	/area/medical/cmo, /area/security/hos), list(/area/teleporter/quantum))
+
+	#define DEPARTMENTAL_AREAS_SECURITY list(list(/area/security, /area/security/vacantoffice2, /area/lawoffice, /area/crew_quarters/courtroom, /area/magistrateoffice), list(/area/security/vacantoffice))
+
+	#define DEPARTMENTAL_AREAS_RESEARCH list(list(/area/toxins, /area/medical/research,	/area/assembly/robotics, /area/assembly/chargebay), list())
+
+	#define DEPARTMENTAL_AREAS_MEDICAL list(list(/area/medical), list())
+
+	#define DEPARTMENTAL_AREAS_ENGINEERING list(list(/area/engine, /area/storage/tech, /area/storage/secure, /area/atmos, /area/maintenance/electrical,	/area/maintenance/turbine, /area/maintenance/incinerator, /area/maintenance/portsolar, /area/maintenance/starboardsolar, /area/maintenance/auxsolarport, /area/maintenance/auxsolarstarboard), list())
+
+	#define DEPARTMENTAL_AREAS_CARGO list(list(/area/quartermaster, /area/maintenance/disposal), list(/area/maintenance/disposal/external))
+
+	#define DEPARTMENTAL_AREAS_SERVICE list(list(/area/crew_quarters/bar, /area/crew_quarters/theatre, /area/crew_quarters/kitchen,	/area/crew_quarters/cafe, /area/mimeoffice, /area/clownoffice, /area/hydroponics, /area/library, /area/chapel, /area/janitor, /area/expedition), list(/area/hydroponics/abandoned_garden))
+
+	#define DEPARTMENTAL_AREAS_DORMS list(list(/area/hallway, /area/crew_quarters, /area/civilian, /area/teleporter/quantum, /area/storage, /area/holodeck), list())
+
+	#define DEPARTMENTAL_AREAS_ROCK list(list(/area/mine/unexplored/cere), list())
+
+
+/obj/screen/holomap/proc/get_area_color(area_type, is_floor=FALSE)
+	var/found_it = FALSE
 	//SHUTTLES
-	if(istype(A, /area/shuttle))
-		return floor_varient ? "#bdbdbd" : "#FFFFFF"
+	for(var/i in DEPARTMENTAL_AREAS_SHUTTLE[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_SHUTTLE[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#bdbdbd" : "#FFFFFF"
 
 	//AI SAT
-	if(istype(A, /area/turret_protected) || istype(A, /area/aisat) || istype(A, /area/tcommsat))
-		return floor_varient ? "#144640": "#009180"
+	for(var/i in DEPARTMENTAL_AREAS_AISAT[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_AISAT[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#144640": "#009180"
 
 	//COMMAND
-	if(istype(A, /area/bridge) || (istype(A, /area/teleporter) && !istype(A, /area/teleporter/quantum)) || istype(A, /area/crew_quarters/heads) || istype(A, /area/crew_quarters/chief) || istype(A, /area/crew_quarters/captain) || istype(A, /area/ntrep) || istype(A, /area/blueshield) || istype(A, /area/ai_monitored) || istype(A, /area/security/nuke_storage) || istype(A, /area/server) || istype(A, /area/crew_quarters/hor) || istype(A, /area/solar)/*not a mistake, hijacking the color*/ || istype(A, /area/engine/chiefs_office) || istype(A, /area/medical/cmo) || istype(A, /area/security/hos))
-		return floor_varient ? "#1e1a5e": "#08009f"
+	for(var/i in DEPARTMENTAL_AREAS_COMMAND[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_COMMAND[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#1e1a5e": "#08009f"
 
 	//SECURITY
-	if((istype(A, /area/security) && !(istype(A, /area/security/vacantoffice) || istype(A, /area/security/vacantoffice2)))|| istype(A, /area/lawoffice) || istype(A, /area/crew_quarters/courtroom) || istype(A, /area/magistrateoffice))
-		return floor_varient ? "#7c090d": "#d00000"
+	for(var/i in DEPARTMENTAL_AREAS_SECURITY[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_SECURITY[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#7c090d": "#d00000"
 
 	//RESEARCH
-	if(istype(A, /area/toxins) || istype(A, /area/medical/research) || istype(A, /area/assembly/robotics) || istype(A, /area/assembly/chargebay))
-		return floor_varient ? "#6a0b79": "#9e00dd"
+	for(var/i in DEPARTMENTAL_AREAS_RESEARCH[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_RESEARCH[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#6a0b79": "#9e00dd"
 
 	//MEDBAY
-	if(istype(A, /area/medical))
-		return floor_varient ? "#1d849e": "#3ad8ff"
+	for(var/i in DEPARTMENTAL_AREAS_MEDICAL[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_MEDICAL[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#1d849e": "#3ad8ff"
 
 	//ENGINEERING
-	if(istype(A, /area/engine) || istype(A, /area/storage/tech) || istype(A, /area/storage/secure) || istype(A, /area/atmos) || istype(A, /area/maintenance/electrical) || istype(A, /area/maintenance/turbine) || istype(A, /area/maintenance/incinerator) || istype(A, /area/maintenance/portsolar) || istype(A, /area/maintenance/starboardsolar) || istype(A, /area/maintenance/auxsolarport) || istype(A, /area/maintenance/auxsolarstarboard))
-		return floor_varient ? "#766e00": "#f1d100"
+	for(var/i in DEPARTMENTAL_AREAS_ENGINEERING[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_ENGINEERING[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#766e00": "#f1d100"
 
 	//CARGO
-	if(istype(A, /area/quartermaster) || (istype(A, /area/maintenance/disposal) && !istype(A, /area/maintenance/disposal/external)))
-		return floor_varient ? "#5c4429": "#a27749"
+	for(var/i in DEPARTMENTAL_AREAS_CARGO[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_CARGO[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#5c4429": "#a27749"
 
 	//SERVICE
-	if(istype(A, /area/crew_quarters/bar) || istype(A, /area/crew_quarters/theatre) || istype(A, /area/crew_quarters/kitchen) || istype(A, /area/crew_quarters/cafe) || istype(A, /area/mimeoffice) || istype(A, /area/clownoffice) || (istype(A, /area/hydroponics) && !istype(A, /area/hydroponics/abandoned_garden))|| istype(A, /area/library) || istype(A, /area/chapel) || istype(A, /area/janitor))
-		return floor_varient ? "#0b5916": "#23940d"
+	for(var/i in DEPARTMENTAL_AREAS_SERVICE[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_SERVICE[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#0b5916": "#23940d"
 
 	//DORMS + HALLS
-	if(istype(A, /area/hallway) || istype(A, /area/crew_quarters) || istype(A, /area/civilian) || istype(A, /area/expedition) || istype(A, /area/teleporter/quantum) || istype(A, /area/storage) || istype(A, /area/holodeck))
-		return floor_varient ? "#6c6c6c": "#b6b6b6"
+	for(var/i in DEPARTMENTAL_AREAS_DORMS[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_DORMS[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#6c6c6c": "#b6b6b6"
 
 	//ROCK
-	if(istype(A, /area/mine/unexplored/cere))
-		return floor_varient ? "#51473c": "#715c51"
+	for(var/i in DEPARTMENTAL_AREAS_ROCK[1])
+		if(found_it)
+			break
+		if(area_type == i)
+			found_it = TRUE
+			break
+		var/list/types_to_compare = typesof(i)
+		for(var/j in types_to_compare)
+			if(area_type == j)
+				found_it = TRUE
+				break
+	if(found_it)
+		for(var/i in DEPARTMENTAL_AREAS_ROCK[2])
+			if(!found_it)
+				break
+			if(area_type == i)
+				found_it = FALSE
+				break
+			var/list/types_to_compare = typesof(i)
+			for(var/j in types_to_compare)
+				if(area_type == j)
+					found_it = FALSE
+					break
+	if(found_it)
+		return is_floor ? "#51473c": "#715c51"
 
 	//maints + unspecified
-	return floor_varient ? "#171e16": "#373a2a"
+	return is_floor ? "#171e16": "#373a2a"
+
+
 
 
