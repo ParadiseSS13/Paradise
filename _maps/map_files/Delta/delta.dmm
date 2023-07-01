@@ -23185,8 +23185,7 @@
 "bmf" = (
 /obj/machinery/door/airlock/security{
 	name = "Interrogation Monitoring";
-	req_access_txt = "63";
-	req_one_access_txt = null
+	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -79700,8 +79699,7 @@
 "dWh" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Engineering Maintenance";
-	req_access_txt = "10";
-	req_one_access_txt = null
+	req_access_txt = "10"
 	},
 /obj/structure/cable{
 	d1 = 1;
