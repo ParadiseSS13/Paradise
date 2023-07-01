@@ -4,9 +4,6 @@
 /area/space)
 "ab" = (
 /obj/structure/rack,
-/obj/item/gun/energy/noisecannon,
-/obj/item/gun/energy/noisecannon,
-/obj/item/gun/energy/noisecannon,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "ac" = (
