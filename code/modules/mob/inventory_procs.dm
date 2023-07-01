@@ -233,14 +233,7 @@
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_hand())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
-		return 0
-
-	if(M.equip_to_appropriate_slot(src))
-		if(M.hand)
-			M.update_inv_l_hand()
-		else
-			M.update_inv_r_hand()
-		return 1
+		return
 
 	if(M.s_active && M.s_active.can_be_inserted(src, 1))	//if storage active insert there
 		M.s_active.handle_item_insertion(src)
@@ -251,9 +244,21 @@
 		S.handle_item_insertion(src)
 		return 1
 
+	S = M.get_item_by_slot(slot_wear_id)
+	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in a wallet
+		S.handle_item_insertion(src)
+		return 1
+
 	S = M.get_item_by_slot(slot_belt)
 	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in belt
 		S.handle_item_insertion(src)
+		return 1
+
+	if(M.equip_to_appropriate_slot(src)) // try putting it in other slots
+		if(M.hand)
+			M.update_inv_l_hand()
+		else
+			M.update_inv_r_hand()
 		return 1
 
 	S = M.get_item_by_slot(slot_back)	//else we put in backpack
