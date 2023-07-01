@@ -30,6 +30,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 	var/image/holomap_projection
 	var/list/region_selection = list()
 	var/zlevel_rendered
+	var/list/location_areas = list()
 
 /obj/screen/holomap/New(list/region, rendered)
 	..()
@@ -43,17 +44,28 @@ GLOBAL_LIST_EMPTY(holomaps)
 	base_icon = make_map()
 	var/icon/alpha_mask = icon('icons/effects/480x480.dmi', "scanline") //Scanline effect.
 	base_icon.AddAlphaMask(alpha_mask)
-	holomap_projection = image(base_icon, loc = vis_contents, layer = ABOVE_HUD_PLANE)
-	holomap_projection.plane = ABOVE_HUD_PLANE
+	holomap_projection = image(base_icon, loc = vis_contents, layer = HUD_LAYER+0.1)
+	holomap_projection.plane = HUD_PLANE
 	holomap_projection.filters = filter(type = "drop_shadow", size = 8, color = "#ffffffd4")
 
 	appearance = holomap_projection
+
+	for(var/area/A in location_areas)
+		var/new_x
+		var/new_y
+		var/tally = length(location_areas[A][2])
+		for(var/turf/T in location_areas[A][2])
+			new_x += T.x
+			new_y += T.y
+		new_x = new_x/tally
+		new_y = new_y/tally
+		location_areas[A] = list(A, new_x, new_y)
 
 /obj/screen/you_are_here
 	name = "You are here!"
 	icon = 'icons/effects/holomap_icons.dmi'
 	icon_state = "you_are_here"
-	layer = ABOVE_HUD_LAYER + 0.1
+	layer = ABOVE_HUD_LAYER
 	plane = ABOVE_HUD_PLANE
 
 /obj/screen/you_are_here/New(x_in, y_in)
@@ -69,6 +81,64 @@ GLOBAL_LIST_EMPTY(holomaps)
 	big_y = big_y == 0 ? "" : big_y > 0 ? "+[big_y]" : big_y
 
 	screen_loc = "CENTER[big_x][small_x == "" ? "" : ":[small_x]"],CENTER[big_y][small_y == "" ? "" : ":[small_y]"]"
+
+/obj/screen/this_is_there
+	icon = 'icons/effects/holomap_icons.dmi'
+	icon_state = "location"
+	layer = ABOVE_HUD_LAYER+1
+	plane = ABOVE_HUD_PLANE
+	var/datum/action/show_location/owner
+	var/image/lookatme
+
+/obj/screen/this_is_there/New(my_creator)
+	..()
+	owner = my_creator
+	lookatme = image('icons/effects/holomap_icons.dmi', "location_lookatme")
+
+/obj/screen/this_is_there/proc/recalculate_appearance(area/A_in, x_in, y_in)
+	var/obj/machinery/holomap/my_machine = owner.target
+	name = A_in.name
+	overlays -= lookatme
+	lookatme.color = my_machine.my_map.using.get_area_color(A_in.type)
+	overlays += lookatme
+
+	//these are the tile position from center 0 upto +7 and -7)
+	var/big_x = round((x_in - 128) / 16, 1)
+	var/big_y = round((y_in - 128) / 16, 1)
+	//these are the pixel position from the tile position anywhere from 0 upto +16 and -16)
+	var/small_x = (((x_in - 8) * 2) % 32) - 16
+	var/small_y = (((y_in - 8) * 2) % 32) - 16
+	//we have to put the correct sign infrot of them for the screen_loc system to recognise it
+	big_x = big_x == 0 ? "" : big_x > 0 ? "+[big_x]" : big_x
+	big_y = big_y == 0 ? "" : big_y > 0 ? "+[big_y]" : big_y
+
+	screen_loc = "CENTER[big_x][small_x == "" ? "" : ":[small_x]"],CENTER[big_y][small_y == "" ? "" : ":[small_y]"]"
+
+/datum/action/show_location
+	name = "Show Location"
+	desc = "This will indicate where someplace is on the map when used."
+	check_flags = 0
+	button_icon_state = "show_location"
+	var/showing = FALSE
+	var/obj/screen/this_is_there/location_displayed
+
+/datum/action/show_location/New(Target)
+	. = ..()
+
+	location_displayed = new /obj/screen/this_is_there(src)
+
+/datum/action/show_location/Trigger()
+	. = ..()
+	var/obj/machinery/holomap/my_machine = target
+
+	var/area/A = input("What location would you like shown?") as null|anything in my_machine.my_map.using.location_areas
+
+	location_displayed.recalculate_appearance(A, my_machine.my_map.using.location_areas[A][2], my_machine.my_map.using.location_areas[A][3])
+
+	if(target && istype(target, /obj/machinery/holomap) && !showing)
+		var/obj/machinery/holomap/HM =  target
+		HM.show_location(owner)
+		showing = TRUE
 
 /obj/machinery/holomap
 	name = "Holomap"
@@ -88,6 +158,8 @@ GLOBAL_LIST_EMPTY(holomaps)
 	var/list/display_targets = list()
 	/// the screen obj that holds the image for your viewing pleasure
 	var/datum/holomap/my_map
+	///action for displaying a location to the user
+	var/list/actions_users = list()
 
 /obj/machinery/holomap/Initialize(mapload)
 	. = ..()
@@ -96,6 +168,11 @@ GLOBAL_LIST_EMPTY(holomaps)
 		zlevel_rendered = z
 
 	my_map = new /datum/holomap(region_selection, zlevel_rendered, x, y, z)
+
+/obj/machinery/holomap/proc/show_location(mob/user)
+	if(user.client && actions_users[user.key])
+		var/datum/action/show_location/SL = actions_users[user.key]
+		user.client.screen += SL.location_displayed
 
 /obj/machinery/holomap/attack_hand(mob/user)
 	. = ..()
@@ -120,6 +197,9 @@ GLOBAL_LIST_EMPTY(holomaps)
 	display_targets |= M
 	M.client.screen += my_map.using
 	M.client.screen += my_map.arrow
+	var/datum/action/show_location/SL = new /datum/action/show_location(src)
+	actions_users[M.key] = SL
+	SL.Grant(M)
 	update_icon(UPDATE_ICON)
 	if(do_after(M, 5 MINUTES, FALSE, src, FALSE))
 		atom_say("<span class='warning'>Maximum display time reached, shutting down session.</span>")
@@ -131,6 +211,14 @@ GLOBAL_LIST_EMPTY(holomaps)
 	display_targets -= user
 	user.client.screen -= my_map.using
 	user.client.screen -= my_map.arrow
+	var/datum/action/show_location/SL
+	if(actions_users[user.key])
+		SL = actions_users[user.key]
+		user.client.screen -= SL.location_displayed
+		SL.Remove(user)
+	actions_users -= user.key
+	if(SL)
+		qdel(SL)
 	update_icon(UPDATE_ICON)
 
 /obj/machinery/holomap/update_icon()
@@ -185,6 +273,11 @@ GLOBAL_LIST_EMPTY(holomaps)
 		for(var/y_index in region_y_start to region_y_finish)
 			var/turf/T = locate(x_index, y_index, zlevel_rendered)
 			var/area/A = get_area(T)
+			if(A.type != /area/space && A.type != /area/space/nearstation)
+				if(location_areas[A])
+					location_areas[A][2] += T
+				else
+					location_areas[A] = list(A, list(T))
 			var/W = FALSE
 			for(var/obj/structure/window/full/WW in T.contents)
 				W = TRUE
@@ -227,11 +320,11 @@ GLOBAL_LIST_EMPTY(holomaps)
 				for(var/j in GLOB.diagonals)
 					var/turf/found_s_turf = get_step(T, j)
 					var/area/found_s_area = get_area(found_s_turf)
-					if(found_s_area == /area/space || isspaceturf(found_s_turf))
+					if(found_s_area == /area/space || found_s_area == /area/space/nearstation || isspaceturf(found_s_turf))
 						neighbor_space = TRUE
 						break
 
-				if(neighbor_space || found_area == /area/space || isspaceturf(found_turf))
+				if(neighbor_space || found_area == /area/space || found_area == /area/space/nearstation || isspaceturf(found_turf))
 					neighbor_space = TRUE
 					break
 
@@ -341,7 +434,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 
 	#define DEPARTMENTAL_AREAS_MEDICAL list(list(/area/medical), list(), "#1d849e", "#3ad8ff")
 
-	#define DEPARTMENTAL_AREAS_ENGINEERING list(list(/area/engine, /area/storage/tech, /area/storage/secure, /area/atmos, /area/maintenance/electrical,	/area/maintenance/turbine, /area/maintenance/incinerator, /area/maintenance/portsolar, /area/maintenance/starboardsolar, /area/maintenance/auxsolarport, /area/maintenance/auxsolarstarboard), list(),"#766e00", "#f1d100")
+	#define DEPARTMENTAL_AREAS_ENGINEERING list(list(/area/engine, /area/storage/tech, /area/storage/secure, /area/atmos, /area/maintenance/electrical,	/area/maintenance/turbine, /area/maintenance/incinerator, /area/maintenance/portsolar, /area/maintenance/starboardsolar, /area/maintenance/auxsolarport, /area/maintenance/auxsolarstarboard, /area/construction), list(),"#766e00", "#f1d100")
 
 	#define DEPARTMENTAL_AREAS_CARGO list(list(/area/quartermaster, /area/maintenance/disposal), list(/area/maintenance/disposal/external), "#5c4429", "#a27749")
 
