@@ -9,7 +9,7 @@
 
 /proc/confettisize(turf/simulated/T, volume, range)
 	var/spawner_type = /obj/effect/decal/cleanable/confetti
-	playsound(T, 'sound/effects/confetti_partywhistle.ogg', 100, 1)
+	playsound(T, 'sound/effects/confetti_partywhistle.ogg', 70, 1)
 	for(var/i in 1 to volume)
 		var/atom/movable/x = new spawner_type(T)
 		for(var/j in 1 to rand(1, range))
