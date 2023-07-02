@@ -5,6 +5,7 @@
 	icon_state = "ntflag"
 	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
+	flags = NO_PIXEL_RANDOM_DROP
 	w_class = WEIGHT_CLASS_BULKY
 	max_integrity = 40
 	resistance_flags = FLAMMABLE
