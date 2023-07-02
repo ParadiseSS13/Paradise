@@ -283,6 +283,10 @@
  */
 /mob/proc/put_in_hand(obj/item/I, hand_id, force = FALSE, ignore_anim = TRUE)
 
+	// Its always 'TRUE' if there is no item, since we are using helpers with this proc in 'if()' statements
+	if(!I)
+		return TRUE
+
 	if(!force && !put_in_hand_check(I, hand_id))
 		return FALSE
 

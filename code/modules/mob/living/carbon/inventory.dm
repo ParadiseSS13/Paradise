@@ -334,6 +334,11 @@
  * * 'ignore_anime' set to `TRUE` to prevent pick up animation.
  */
 /mob/living/carbon/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
+
+	// Its always TRUE if there is no item, since we are using this proc in 'if()' statements
+	if(!I)
+		return TRUE
+
 	if(QDELETED(I))
 		return FALSE
 
