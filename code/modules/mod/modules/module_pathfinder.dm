@@ -105,7 +105,7 @@
 	if(ismob(get_atom_on_turf(module.mod)))
 		to_chat(imp_in, "<span class='warning'>Suit is being worn!</span>")
 		return FALSE
-	if(loc != get_turf(src))
+	if(module.mod.loc != get_turf(module.mod))
 		to_chat(imp_in, "<span class='warning'>Suit contained inside of something!</span>")
 		return FALSE
 	if(module.z != z || get_dist(imp_in, module.mod) > 150)
