@@ -17,7 +17,7 @@ GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","c
 								"lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin",
 								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin", "jestosterone"))
 // Rare chemicals
-GLOBAL_LIST_INIT(rare_chemicals, list("minttoxin","syndicate_nanites"))
+GLOBAL_LIST_INIT(rare_chemicals, list("minttoxin","syndicate_nanites", "xenomicrobes"))
 // Standard medicines
 GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine","epinephrine","space_drugs",
 								"mutadone","mutagen","teporone","lexorin","silver_sulfadiazine",
@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine
 								"diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin",
 								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin"))
 // Rare medicines
-GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood"))
+GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "xenomicrobes"))
 // Drinks
 GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","limejuice","carrotjuice",
 					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana",
