@@ -357,12 +357,12 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = tot_rating * 3
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		prod_coeff += M.rating - 1
+		prod_coeff += 1 + (M.rating - 1) / 3
 	recipiecache = list()
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 
 /obj/machinery/autolathe/proc/get_coeff(datum/design/D)
-	var/coeff = (ispath(D.build_path,/obj/item/stack) ? 1 : 2 ** prod_coeff)//stacks are unaffected by production coefficient
+	var/coeff = (ispath(D.build_path,/obj/item/stack) ? 1 : prod_coeff)//stacks are unaffected by production coefficient
 	return coeff
 
 /obj/machinery/autolathe/proc/build_item(datum/design/D, multiplier)
