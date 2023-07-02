@@ -426,7 +426,7 @@
 /datum/crafting_recipe/confettishot
 	name = "Confetti Shot"
 	result = list(/obj/item/ammo_casing/shotgun/confetti)
-	reqs = list(/obj/item/grenade/chem_grenade = 1,
+	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/datum/reagent/confetti = 10)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 5

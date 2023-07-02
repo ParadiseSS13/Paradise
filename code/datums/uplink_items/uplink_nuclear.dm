@@ -692,3 +692,11 @@
 	reference = "12CS"
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 1
+
+/datum/uplink_item/badass/confetti_party_pack
+	name = "Nuclear party pack"
+	desc = "A dufflebag filled with hilarious equipment! Comes with free confetti grenades and a cap gun!"
+	item = /obj/item/storage/backpack/duffel/syndie/party
+	reference = "SPP"
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	cost = 10
