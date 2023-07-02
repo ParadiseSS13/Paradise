@@ -731,7 +731,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам#.D0.95.D0.B4.D0.B0" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -899,7 +899,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам#.D0.9D.D0.B0.D0.BF.D0.B8.D1.82.D0.BA.D0.B8" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_напиткам" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
