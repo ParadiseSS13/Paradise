@@ -261,7 +261,7 @@
 
 /obj/machinery/door/window/attack_animal(mob/living/simple_animal/M)
 	. = ..()
-	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+	if(M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
 		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
@@ -391,6 +391,44 @@
 			flick("[base_state]closing", src)
 		if("deny")
 			flick("[base_state]deny", src)
+
+/obj/machinery/door/window/reinforced
+	name = "secure door"
+	icon_state = "leftsecure"
+	base_state = "leftsecure"
+	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
+	reinf = TRUE
+	explosion_block = 1
+
+/obj/machinery/door/window/reinforced/normal
+	name = "secure door"
+	icon_state = "leftsecure"
+	base_state = "leftsecure"
+	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
+	reinf = TRUE
+	explosion_block = 1
+
+/obj/machinery/door/window/reinforced/reversed
+	name = "secure door"
+	icon_state = "rightsecure"
+	base_state = "rightsecure"
+	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
+	reinf = TRUE
+	explosion_block = 1
+
+/obj/machinery/door/window/classic
+	name = "interior door"
+	dir = EAST
+
+/obj/machinery/door/window/classic/normal
+	name = "interior door"
+	dir = EAST
+
+/obj/machinery/door/window/classic/reversed
+	name = "interior door"
+	dir = EAST
+	icon_state = "right"
+	base_state = "right"
 
 /obj/machinery/door/window/brigdoor
 	name = "secure door"
