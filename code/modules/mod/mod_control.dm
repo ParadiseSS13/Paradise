@@ -189,7 +189,7 @@
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
 		seconds_electrified--
-	if(!get_charge() && active && !activating)
+	if(get_charge() <= 10 && active && !activating) //Sometimes we get power being funky, this should fix it.
 		power_off()
 		return PROCESS_KILL
 	var/malfunctioning_charge_drain = 0
