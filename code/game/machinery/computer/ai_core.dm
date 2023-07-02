@@ -316,6 +316,11 @@ That prevents a few funky behaviors.
 		AI.forceMove(loc)//To replace the terminal.
 		to_chat(AI, "You have been uploaded to a stationary terminal. Remote device connection restored.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.</span>")
+		if(!AI.builtInCamera && GetComponent(/datum/component/ducttape))
+			AI.builtInCamera = new /obj/machinery/camera/portable(AI)
+			AI.builtInCamera.c_tag = AI.name
+			AI.builtInCamera.network = list("SS13")
 		qdel(src)
 	else //If for some reason you use an empty card on an empty AI terminal.
 		to_chat(user, "There is no AI loaded on this terminal!")
+
