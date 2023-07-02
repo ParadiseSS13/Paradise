@@ -15,3 +15,18 @@
   - bugfix: Brain damage for diona, nucleation and vox (#3079)
   - tweak: Mannitol not heal brain with damage above 100 (#3110)
   - tweak: Mech recharge rate (#3109)
+'2023-07-02':
+  NightDawnFox:
+  - add: '"prevent from escape" target now can be completed if target handcuffed (#3111)'
+  - add: emergency light activation when power out (#2972)
+  Rerik007:
+  - bugfix: add updated wiki links for drinks guide (#3122)
+  Zwei:
+  - bugfix: No Random Pixel Shift When Dropping Flags (#3120)
+  - tweak: Put In Hand Null Item (#3117)
+  Сиротка:
+  - tweak: Upgrade Leg Upgrade (#3107)
+  - tweak: increase rescue jaw airlock open speed (#3116)
+  - tweak: reduce rezadone heal (#3115)
+  - tweak: nerf autolathe resource coef (#3114)
+  - add: Space dragon (#3041)
