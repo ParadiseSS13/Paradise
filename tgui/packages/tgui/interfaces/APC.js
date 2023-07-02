@@ -188,6 +188,16 @@ const ApcContent = (props, context) => {
                 selected={data.nightshiftLights}
                 onClick={() => act('toggle_nightshift')} />
             )} />
+          <LabeledList.Item
+            label="Emergency Light Fallback"
+            buttons={(
+              <Button
+                icon={data.coverLocked ? 'lock' : 'unlock'}
+                content={data.emergencyLights ? 'Engaged' : 'Disengaged'}
+                selected={data.emergencyLights}
+                disabled={locked}
+                onClick={() => act('emergency_lighting')} />
+            )} />
         </LabeledList>
       </Section>
     </Fragment>

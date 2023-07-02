@@ -35,7 +35,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			if(SEC_LEVEL_GREEN)
 				GLOB.security_announcement_down.Announce("Все угрозы для станции устранены. Все оружие должно быть в кобуре, и законы о конфиденциальности вновь полностью соблюдаются.","ВНИМАНИЕ! Уровень угрозы понижен до ЗЕЛЁНОГО.")
 				GLOB.security_level = SEC_LEVEL_GREEN
-
+				unset_stationwide_emergency_lighting()
 				post_status("alert", "outline")
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
@@ -52,7 +52,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				GLOB.security_level = SEC_LEVEL_BLUE
 
 				post_status("alert", "default")
-
+				unset_stationwide_emergency_lighting()
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
@@ -64,8 +64,8 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					GLOB.security_announcement_up.Announce("Станции грозит серьёзная опасность. Службе Безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены.","ВНИМАНИЕ! КОД КРАСНЫЙ!")
 				else
 					GLOB.security_announcement_down.Announce("Механизм самоуничтожения станции деактивирован, но станции по-прежнему грозит серьёзная опасность. Службе Безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены.","ВНИМАНИЕ! КОД КРАСНЫЙ!")
+					unset_stationwide_emergency_lighting()
 				GLOB.security_level = SEC_LEVEL_RED
-
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
 				if(R && is_station_level(R.z))
 					R.locked = 0
@@ -98,29 +98,15 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
-				GLOB.security_announcement_up.Announce("Центральным командованием был установлен код ЭПСИЛОН. Все контракты расторгнуты.","ВНИМАНИЕ! КОД ЭПСИЛОН", new_sound = sound('sound/effects/epsilon.ogg'))
-				GLOB.security_level = SEC_LEVEL_EPSILON
-
-				post_status("alert", "epsilonalert")
-
-				for(var/obj/machinery/firealarm/FA in GLOB.machines)
-					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_epsilon")
-						FA.update_icon()
-				// Empty the manifest
-				GLOB.PDA_Manifest = list(\
-					"heads" = list(),\
-					"pro" = list(),\
-					"sec" = list(),\
-					"eng" = list(),\
-					"med" = list(),\
-					"sci" = list(),\
-					"ser" = list(),\
-					"sup" = list(),\
-					"bot" = list(),\
-					"misc" = list()\
-					)
+				for(var/mob/M in GLOB.player_list)
+					var/turf/T = get_turf(M)
+					if(!M.client || !is_station_level(T.z))
+						continue
+					SEND_SOUND(M, sound('sound/effects/powerloss.ogg'))
+				set_stationwide_emergency_lighting()
+				addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(epsilon_process)), 15 SECONDS)
+				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
+				return
 
 			if(SEC_LEVEL_DELTA)
 				GLOB.security_announcement_up.Announce("Механизм самоуничтожения станции задействован. Все члены экипажа обязан подчиняться всем указаниям, данными Главами отделов. Любые нарушения этих приказов наказуемы уничтожением на месте. Это не учебная тревога.","ВНИМАНИЕ! КОД ДЕЛЬТА!", new_sound = sound('sound/effects/deltaalarm.ogg'))
@@ -133,6 +119,9 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_delta")
 						FA.update_icon()
+				set_stationwide_emergency_lighting()
+				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
+				return
 
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
@@ -278,3 +267,67 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return COLOR_WHITE
 		if(SEC_LEVEL_DELTA)
 			return COLOR_PURPLE
+
+/proc/set_stationwide_emergency_lighting()
+	for(var/obj/machinery/power/apc/A in GLOB.apcs)
+		var/area/AR = get_area(A)
+		if(!is_station_level(A.z))
+			continue
+		A.emergency_lights = FALSE
+		AR.area_emergency_mode = TRUE
+		for(var/obj/machinery/light/L in A.area)
+			if(L.status)
+				continue
+			if(GLOB.security_level == SEC_LEVEL_DELTA)
+				L.fire_mode = TRUE
+			L.on = FALSE
+			L.emergency_mode = TRUE
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
+
+/proc/unset_stationwide_emergency_lighting()
+	for(var/area/A as anything in GLOB.all_areas)
+		if(!is_station_level(A.z))
+			continue
+		if(!A.area_emergency_mode)
+			continue
+		A.area_emergency_mode = FALSE
+		for(var/obj/machinery/light/L in A)
+			if(A.fire)
+				continue
+			if(L.status)
+				continue
+			L.fire_mode = FALSE
+			L.emergency_mode = FALSE
+			L.on = TRUE
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
+
+
+/proc/epsilon_process()
+	GLOB.security_announcement_up.Announce("Центральным командованием был установлен код ЭПСИЛОН. Все контракты расторгнуты.","ВНИМАНИЕ! КОД ЭПСИЛОН", new_sound = sound('sound/effects/epsilon.ogg'))
+	GLOB.security_level = SEC_LEVEL_EPSILON
+	post_status("alert", "epsilonalert")
+	for(var/area/A as anything in GLOB.all_areas)
+		if(!is_station_level(A.z))
+			continue
+		for(var/obj/machinery/light/L in A)
+			if(L.status)
+				continue
+			L.fire_mode = TRUE
+			L.update()
+	for(var/obj/machinery/firealarm/FA in GLOB.machines)
+		if(is_station_contact(FA.z))
+			FA.overlays.Cut()
+			FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_epsilon")
+			FA.update_icon()
+	GLOB.PDA_Manifest = list(\
+					"heads" = list(),\
+					"pro" = list(),\
+					"sec" = list(),\
+					"eng" = list(),\
+					"med" = list(),\
+					"sci" = list(),\
+					"ser" = list(),\
+					"sup" = list(),\
+					"bot" = list(),\
+					"misc" = list()\
+					)
