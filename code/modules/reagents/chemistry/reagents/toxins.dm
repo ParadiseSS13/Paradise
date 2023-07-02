@@ -972,6 +972,7 @@
 	penetrates_skin = TRUE
 	overdose_threshold = 25
 	taste_mult = 0
+	allowed_overdose_process = TRUE
 
 /datum/reagent/sarin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
