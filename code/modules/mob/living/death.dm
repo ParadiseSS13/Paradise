@@ -109,6 +109,7 @@
 	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
 		mind.devilinfo.beginResurrectionCheck(src)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
 	// u no we dead
 	return TRUE
 

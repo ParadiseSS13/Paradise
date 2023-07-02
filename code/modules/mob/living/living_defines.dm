@@ -76,3 +76,6 @@
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_paralyzed = FALSE //knocks you down
 	var/blood_nutrients = 10 //nutrition for devour this creature by vampire
+
+	///if this exists AND the normal sprite is bigger than 32x32, this is the replacement icon state (because health doll size limitations). the icon will always be screen_gen.dmi
+	var/health_doll_icon

@@ -619,19 +619,14 @@
 					M.makeTrail(dest)
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/H = pulling
-					var/obj/item/organ/external/head
 					if(!H.lying)
 						if(H.confused > 0 && prob(4))
-							H.setStaminaLoss(100)
-							head = H.get_organ("head")
-							head?.receive_damage(5, 0, FALSE)
+							H.Stun(2)
 							pulling.stop_pulling()
-							visible_message("<span class='danger'>Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол, сильно ударяясь головой!</span>")
+							visible_message(span_danger("Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол!"))
 						if(H.m_intent == MOVE_INTENT_WALK && prob(4))
-							H.setStaminaLoss(100)
-							head = H.get_organ("head")
-							head?.receive_damage(5, 0, FALSE)
-							visible_message("<span class='danger'>[H] не поспевает за [src] и с грохотом падает на пол, сильно ударяясь головой!</span>")
+							H.Stun(2)
+							visible_message(span_danger("[H] не поспевает за [src] и с грохотом падает на пол!"))
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
 				pulling.pixel_y = initial(pulling.pixel_y)

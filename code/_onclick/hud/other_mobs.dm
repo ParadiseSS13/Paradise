@@ -1,11 +1,12 @@
 /mob/living/simple_animal/create_mob_hud()
-	hud_used = new /datum/hud/simple_animal(src)
+	if(client && !hud_used)
+		hud_used = new /datum/hud/simple_animal(src)
 
 /datum/hud/simple_animal/New(mob/user)
 	..()
 
-	mymob.healths = new /obj/screen/healths()
-	infodisplay += mymob.healths
+	mymob.healthdoll = new /obj/screen/healthdoll/living()
+	infodisplay += mymob.healthdoll
 
 	var/obj/screen/using
 	using = new /obj/screen/act_intent/simple_animal()
@@ -13,8 +14,8 @@
 	static_inventory += using
 	action_intent = using
 
-
-/mob/living/simple_animal/pet/create_mob_hud()
+//Ians
+/mob/living/simple_animal/pet/dog/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/corgi(src)
 
@@ -29,13 +30,6 @@
 	mymob.pullin.update_icon(mymob)
 	mymob.pullin.screen_loc = ui_construct_pull
 	static_inventory += mymob.pullin
-
-	//adding intents hud for pets
-	var/obj/screen/using
-	using = new /obj/screen/act_intent/simple_animal()
-	using.icon_state = mymob.a_intent
-	static_inventory += using
-	action_intent = using
 
 //spiders
 /mob/living/simple_animal/hostile/poison/giant_spider/create_mob_hud()

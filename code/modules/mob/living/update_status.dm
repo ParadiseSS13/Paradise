@@ -140,8 +140,8 @@
 	if(client?.screen)
 		var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
 		var/obj/screen/plane_master/floor/F = locate(/obj/screen/plane_master/floor) in client.screen
-		GW.add_filter(EYE_BLUR_FILTER_KEY, FILTER_EYE_BLUR)
-		F.add_filter(EYE_BLUR_FILTER_KEY, FILTER_EYE_BLUR)
+		GW.add_screen_filter(EYE_BLUR_FILTER_KEY, FILTER_EYE_BLUR)
+		F.add_screen_filter(EYE_BLUR_FILTER_KEY, FILTER_EYE_BLUR)
 		animate(GW.filters[GW.filters.len], size = 3, time = 5)
 		animate(F.filters[F.filters.len], size = 3, time = 5)
 
@@ -149,5 +149,5 @@
 	if(client?.screen)
 		var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
 		var/obj/screen/plane_master/floor/F = locate(/obj/screen/plane_master/floor) in client.screen
-		GW.remove_filter(EYE_BLUR_FILTER_KEY)
-		F.remove_filter(EYE_BLUR_FILTER_KEY)
+		GW.remove_screen_filter(EYE_BLUR_FILTER_KEY)
+		F.remove_screen_filter(EYE_BLUR_FILTER_KEY)

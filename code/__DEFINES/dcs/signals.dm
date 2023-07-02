@@ -378,6 +378,10 @@
 #define COMSIG_LIVING_FIRE_TICK "living_fire_tick"
 //sent from living mobs when they are ahealed
 #define COMSIG_LIVING_AHEAL "living_aheal"
+///From living/Life(). (deltatime, times_fired)
+#define COMSIG_LIVING_LIFE "living_life"
+///from base of mob/living/death(): (gibbed)
+#define COMSIG_LIVING_DEATH "living_death"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 

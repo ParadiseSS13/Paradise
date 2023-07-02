@@ -585,6 +585,9 @@
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
 
+/obj/screen/healthdoll/living
+	var/filtered = FALSE //so we don't repeatedly create the mask of the mob every update
+
 /obj/screen/component_button
 	var/obj/screen/parent
 

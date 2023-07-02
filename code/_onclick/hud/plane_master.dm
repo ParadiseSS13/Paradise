@@ -13,14 +13,14 @@
 /obj/screen/plane_master/proc/Hide(override)
 	alpha = override || hide_alpha
 
-/obj/screen/plane_master/proc/add_filter(key, filter)
+/obj/screen/plane_master/proc/add_screen_filter(key, filter)
 	if(current_filters[key])
 		filters -= current_filters[key]
 
 	filters += filter
 	current_filters[key] = filters[filters.len] //assigning `filter` will not allow it to work later while animating removal
 
-/obj/screen/plane_master/proc/remove_filter(key)
+/obj/screen/plane_master/proc/remove_screen_filter(key)
 	if(current_filters[key])
 		animate(current_filters[key], size=0, time=5) //not all filters have a size param, but this is good enough for the general case
 		addtimer(CALLBACK(src, PROC_REF(remove_callback), key), 5)
@@ -47,7 +47,7 @@
 
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
 	if(istype(mymob) && mymob.client && mymob.client.prefs && (mymob.client.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
-		add_filter(AMBIENT_OCCLUSION_FILTER_KEY, FILTER_AMBIENT_OCCLUSION)
+		add_screen_filter(AMBIENT_OCCLUSION_FILTER_KEY, FILTER_AMBIENT_OCCLUSION)
 
 /obj/screen/plane_master/lighting
 	name = "lighting plane master"
