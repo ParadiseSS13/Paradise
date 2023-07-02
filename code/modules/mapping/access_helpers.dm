@@ -133,9 +133,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/science/tox_storage
 	access = ACCESS_TOX_STORAGE
 
-/obj/effect/mapping_helpers/airlock/access/any/science/genetics
-	access = ACCESS_GENETICS
-
 /obj/effect/mapping_helpers/airlock/access/any/science/robotics
 	access = ACCESS_ROBOTICS
 
@@ -347,9 +344,6 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/science/tox_storage
 	access = ACCESS_TOX_STORAGE
-
-/obj/effect/mapping_helpers/airlock/access/all/science/genetics
-	access = ACCESS_GENETICS
 
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics
 	access = ACCESS_ROBOTICS
