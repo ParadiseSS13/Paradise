@@ -175,13 +175,21 @@
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "gloves of the North Star"
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
-	var/accepted_intents = list(INTENT_HARM)
+	var/accepted_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	var/click_speed_modifier = CLICK_CD_RAPID
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
-	var/mob/living/M = loc
+	if(HAS_TRAIT(target, TRAIT_HULK))
+		return FALSE
 
-	if((M.a_intent in accepted_intents) && !M.mind.martial_art?.can_use(M) && !HAS_TRAIT(M, TRAIT_HULK))
+	var/mob/living/M = loc
+	// We don't use defines here so admingloves can work
+	if(M.mind.martial_art?.can_use(M))
+		click_speed_modifier = initial(click_speed_modifier) * 2 // 4
+	else
+		click_speed_modifier = initial(click_speed_modifier) // 2
+
+	if((M.a_intent in accepted_intents))
 		M.changeNext_move(click_speed_modifier)
 
 	return FALSE
@@ -189,7 +197,6 @@
 /obj/item/clothing/gloves/fingerless/rapid/admin
 	name = "advanced interactive gloves"
 	desc = "The gloves are covered in indecipherable buttons and dials, your mind warps by merely looking at them."
-	accepted_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	click_speed_modifier = 0
 	siemens_coefficient = 0
 
