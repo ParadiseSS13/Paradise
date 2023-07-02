@@ -80,7 +80,7 @@
 			clothing_part.flags |= STOPSPRESSUREDMAGE
 	spaceproofed = list()
 
-/obj/item/mod/module/armor_booster/generate_worn_overlay(mutable_appearance/standing)
+/obj/item/mod/module/armor_booster/generate_worn_overlay(user, mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
 	overlay_state_active = "[initial(overlay_state_active)]-[mod.skin]"
 	return ..()
@@ -97,7 +97,7 @@
 	incompatible_modules = list(/obj/item/mod/module/insignia)
 	overlay_state_inactive = "module_insignia"
 
-/obj/item/mod/module/insignia/generate_worn_overlay(mutable_appearance/standing)
+/obj/item/mod/module/insignia/generate_worn_overlay(user, mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
 	. = ..()
 	for(var/mutable_appearance/appearance as anything in .)
@@ -273,7 +273,7 @@
 	if(bumpoff)
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
-	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
+	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act)) //TODO QWERTY: A LOT OF THESE SIGNALS AINT TRIGGERING. or at least this one.
 	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
 	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
 	drain_power(use_power_cost)

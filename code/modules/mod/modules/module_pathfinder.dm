@@ -105,6 +105,9 @@
 	if(ismob(get_atom_on_turf(module.mod)))
 		to_chat(imp_in, "<span class='warning'>Suit is being worn!</span>")
 		return FALSE
+	if(loc != get_turf(src))
+		to_chat(imp_in, "<span class='warning'>Suit contained inside of something!</span>")
+		return FALSE
 	if(module.z != z || get_dist(imp_in, module.mod) > 150)
 		to_chat(imp_in, "<span class='warning'>Suit is too far away!</span>")
 		return FALSE
@@ -136,6 +139,7 @@
 	UnregisterSignal(module.mod, COMSIG_MOVABLE_MOVED)
 	if(!successful)
 		to_chat(imp_in, "<span class='warning'>Lost connection to suit!</span>")
+		path = list() //Stopping endless end_recall with luck.
 
 /obj/item/implant/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER

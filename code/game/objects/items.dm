@@ -119,6 +119,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/list/sprite_sheets = null
 	var/list/sprite_sheets_inhand = null //Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
 	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
+	var/prioritize_species_over_icon_overide = FALSE //Do we want to overide the icon_overide and use species instead?
 	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
 
 	//Tooltip vars

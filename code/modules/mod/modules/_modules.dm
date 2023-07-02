@@ -49,6 +49,9 @@
 	COOLDOWN_DECLARE(cooldown_timer) //sohtgdoiuduhnfipguhndshnfigdnghd
 	///The UID of the module. Don't ask.
 	var/module_UID = null
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
+		)
 
 /obj/item/mod/module/Initialize(mapload)
 	. = ..()
@@ -57,6 +60,11 @@
 		return
 	if(ispath(device))
 		device = new device(src)
+		device.flags |= NODROP
+		device.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+		device.slot_flags = null
+		device.w_class = WEIGHT_CLASS_HUGE
+		device.materials = null
 		RegisterSignal(device, COMSIG_PARENT_QDELETING, PROC_REF(on_device_deletion))
 		RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 
@@ -135,7 +143,7 @@
 			to_chat(mod.wearer, "<span class='notice'>[src] deactivated.</span>")
 
 		if(device)
-			mod.wearer.drop_item()
+			mod.wearer.unEquip(device, 1)
 			device.forceMove(src)
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
 			UnregisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP)
@@ -272,10 +280,10 @@
 
 /// Adds the worn overlays to the suit.
 /obj/item/mod/module/proc/add_module_overlay(mob/living/user)
-	user.add_overlay(generate_worn_overlay())
+	user.add_overlay(generate_worn_overlay(user))
 
 /// Generates an icon to be used for the suit's worn overlays
-/obj/item/mod/module/proc/generate_worn_overlay()
+/obj/item/mod/module/proc/generate_worn_overlay(mob/living/carbon/human/user)
 	. = list()
 	if(!mod.active)
 		return
@@ -288,7 +296,11 @@
 		used_overlay = overlay_state_inactive
 	else
 		return
-	var/image/final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
+	var/image/final_overlay
+	if(sprite_sheets && sprite_sheets[user.dna.species.name])
+		final_overlay = image(icon = sprite_sheets[user.dna.species.name], icon_state = used_overlay, layer = EFFECTS_LAYER)
+	else
+		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
 	if(mod_color_overide)
 		final_overlay.color = mod_color_overide
 	. += final_overlay

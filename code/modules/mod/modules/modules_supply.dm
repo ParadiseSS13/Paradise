@@ -154,8 +154,6 @@
 	incompatible_modules = list(/obj/item/mod/module/orebag)
 	cooldown_time = 0.5 SECONDS
 	allow_flags = MODULE_ALLOW_INACTIVE
-	/// The ores stored in the bag.
-	var/list/ores = list()
 
 /obj/item/mod/module/orebag/on_equip()
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(ore_pickup))
@@ -172,22 +170,14 @@
 		INVOKE_ASYNC(src, PROC_REF(move_ore), ore)
 
 /obj/item/mod/module/orebag/proc/move_ore(obj/item/stack/ore)
-	for(var/obj/item/stack/stored_ore as anything in ores)
-		if(!ore.merge(stored_ore))
-			continue
-		if(QDELETED(ore))
-			return
-		break
 	ore.forceMove(src)
-	ores += ore
 
 /obj/item/mod/module/orebag/on_use()
 	. = ..()
 	if(!.)
 		return
-	for(var/obj/item/ore as anything in ores)
+	for(var/obj/item/ore as anything in contents)
 		ore.forceMove(drop_location())
-		ores -= ore
 	drain_power(use_power_cost)
 
 /obj/item/mod/module/hydraulic
@@ -353,7 +343,7 @@
 	traveled_tiles = 0
 	mod.wearer.weather_immunities -= "ash"
 
-/obj/item/mod/module/ash_accretion/generate_worn_overlay(mutable_appearance/standing)
+/obj/item/mod/module/ash_accretion/generate_worn_overlay(user, mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
 	return ..()
 
