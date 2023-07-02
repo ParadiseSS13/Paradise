@@ -94,13 +94,13 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/assassinate/check_completion()
 	if(target && target.current)
 		if(target.current.stat == DEAD)
-			return 1
+			return TRUE
 		if(issilicon(target.current) || isbrain(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
-			return 1
+			return TRUE
 		if(!target.current.ckey)
-			return 1
-		return 0
-	return 1
+			return TRUE
+		return FALSE
+	return TRUE
 
 
 
@@ -118,18 +118,18 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/mutiny/check_completion()
 	if(target && target.current)
 		if(target.current.stat == DEAD)
-			return 1
+			return TRUE
 		if(!target.current.ckey)
-			return 1
+			return TRUE
 		if(issilicon(target.current))
-			return 1
+			return TRUE
 		if(isbrain(target.current))
-			return 1
+			return TRUE
 		var/turf/T = get_turf(target.current)
 		if(is_admin_level(T.z))
-			return 0
-		return 1
-	return 1
+			return FALSE
+		return TRUE
+	return TRUE
 
 /datum/objective/mutiny/on_target_cryo()
 	// We don't want revs to get objectives that aren't for heads of staff. Letting
@@ -143,7 +143,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/maroon/find_target()
 	..()
 	if(target && target.current)
-		explanation_text = "Prevent from escaping alive or assassinate [target.current.real_name], the [target.assigned_role]."
+		explanation_text = "Prevent from escaping alive or free [target.current.real_name], the [target.assigned_role]."
 		if (!(target in SSticker.mode.victims))
 			SSticker.mode.victims.Add(target)
 	else
@@ -153,20 +153,23 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/maroon/check_completion()
 	if(target && target.current)
 		if(target.current.stat == DEAD)
-			return 1
+			return TRUE
 		if(!target.current.ckey)
-			return 1
+			return TRUE
 		if(issilicon(target.current))
-			return 1
+			return TRUE
 		if(isbrain(target.current))
-			return 1
+			return TRUE
 		if(isalien(target.current))
-			return 1
+			return TRUE
+		var/mob/living/carbon/human/H = target.current
+		if(istype(H) && H.handcuffed)
+			return TRUE
 		var/turf/T = get_turf(target.current)
 		if(is_admin_level(T.z))
-			return 0
-		return 1
-	return 1
+			return FALSE
+		return TRUE
+	return TRUE
 
 
 /datum/objective/debrain //I want braaaainssss
@@ -185,17 +188,17 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/debrain/check_completion()
 	if(!target)//If it's a free objective.
-		return 1
+		return TRUE
 	if(!owner.current || owner.current.stat == DEAD)
-		return 0
+		return FALSE
 	if(!target.current || !(isbrain(target.current) || isnymph(target.current)))
-		return 0
+		return FALSE
 	var/atom/A = target.current
 	while(A.loc)			//check to see if the brainmob is on our person
 		A = A.loc
 		if(A == owner.current)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 
 /datum/objective/protect //The opposite of killing a dude.
@@ -242,15 +245,15 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)
-		return 0
+		return FALSE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
+		return FALSE
 	if(issilicon(owner.current))
-		return 0
+		return FALSE
 
 	var/area/A = get_area(owner.current)
 	if(SSshuttle.emergency.areaInstance != A)
-		return 0
+		return FALSE
 
 	return SSshuttle.emergency.is_hijacked()
 
@@ -260,9 +263,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/hijackclone/check_completion()
 	if(!owner.current)
-		return 0
+		return FALSE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
+		return FALSE
 
 	var/area/A = SSshuttle.emergency.areaInstance
 
@@ -273,7 +276,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 					continue
 				if(get_area(player) == A)
 					if(player.real_name != owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/floor/shuttle/objective_check))
-						return 0
+						return FALSE
 
 	for(var/mob/living/player in GLOB.player_list) //Make sure at least one of you is onboard
 		if(player.mind && player.mind != owner)
@@ -282,8 +285,8 @@ GLOBAL_LIST_EMPTY(all_objectives)
 					continue
 				if(get_area(player) == A)
 					if(player.real_name == owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/floor/shuttle/objective_check))
-						return 1
-	return 0
+						return TRUE
+	return FALSE
 
 /datum/objective/block
 	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, Maintenance drones, and pAIs are not considered alive."
@@ -291,13 +294,13 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/block/check_completion()
 	if(!istype(owner.current, /mob/living/silicon))
-		return 0
+		return FALSE
 	if(SSticker.mode.station_was_nuked)
 		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
+		return FALSE
 	if(!owner.current)
-		return 0
+		return FALSE
 
 	var/area/A = SSshuttle.emergency.areaInstance
 
@@ -307,37 +310,37 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 		if(player.mind && player.stat != DEAD)
 			if(get_area(player) == A)
-				return 0 // If there are any other organic mobs on the shuttle, you failed the objective.
+				return FALSE // If there are any other organic mobs on the shuttle, you failed the objective.
 
-	return 1
+	return TRUE
 
 /datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 
 /datum/objective/escape/check_completion()
 	if(issilicon(owner.current))
-		return 0
+		return FALSE
 	if(isbrain(owner.current))
-		return 0
+		return FALSE
 	if(!owner.current || owner.current.stat == DEAD)
-		return 0
+		return FALSE
 	if(SSticker.force_ending) //This one isn't their fault, so lets just assume good faith
-		return 1
+		return TRUE
 	if(SSticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
-		return 1
+		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
+		return FALSE
 	var/turf/location = get_turf(owner.current)
 	if(!location)
-		return 0
+		return FALSE
 
 	if(istype(location, /turf/simulated/floor/shuttle/objective_check) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
-		return 0
+		return FALSE
 
 	if(location.onCentcom() || location.onSyndieBase())
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 
 /datum/objective/escape/escape_with_identity
@@ -362,25 +365,25 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/escape/escape_with_identity/check_completion()
 	if(!target_real_name)
-		return 1
+		return TRUE
 	if(!ishuman(owner.current))
-		return 0
+		return FALSE
 	var/mob/living/carbon/human/H = owner.current
 	if(..())
 		if(H.dna.real_name == target_real_name)
 			if(H.get_id_name()== target_real_name)
-				return 1
-	return 0
+				return TRUE
+	return FALSE
 
 /datum/objective/die
 	explanation_text = "Die a glorious death."
 
 /datum/objective/die/check_completion()
 	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
-		return 1
+		return TRUE
 	if(issilicon(owner.current) && owner.current != owner.original)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 
@@ -389,10 +392,10 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/survive/check_completion()
 	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
-		return 0		//Brains no longer win survive objectives. --NEO
+		return FALSE		//Brains no longer win survive objectives. --NEO
 	if(issilicon(owner.current) && owner.current != owner.original)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/objective/nuclear
 	explanation_text = "Destroy the station with a nuclear device."
@@ -533,7 +536,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 
 /datum/objective/download/check_completion()
-	return 0
+	return FALSE
 
 
 
@@ -545,7 +548,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 
 /datum/objective/capture/check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
-	return 0
+	return FALSE
 
 
 
@@ -574,9 +577,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/absorb/check_completion()
 	if(owner && owner.changeling && owner.changeling.absorbed_dna && (owner.changeling.absorbedcount >= target_amount))
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /datum/objective/destroy
 	martyr_compatible = 1
@@ -596,9 +599,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/destroy/check_completion()
 	if(target && target.current)
 		if(target.current.stat == DEAD || is_away_level(target.current.z) || !target.current.ckey)
-			return 1
-		return 0
-	return 1
+			return TRUE
+		return FALSE
+	return TRUE
 
 /datum/objective/steal_five_of_type
 	explanation_text = "Steal at least five items!"
@@ -657,9 +660,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/blood/check_completion()
 	if(owner && owner.vampire && owner.vampire.bloodtotal && owner.vampire.bloodtotal >= target_amount)
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 // /vg/; Vox Inviolate for humans :V
 /datum/objective/minimize_casualties
@@ -703,19 +706,19 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/heist/kidnap/check_completion()
 	if(target && target.current)
 		if(target.current.stat == DEAD)
-			return 0
+			return FALSE
 
 		var/area/shuttle/vox/A = locate() //stupid fucking hardcoding
 		var/area/vox_station/B = locate() //but necessary
 
 		for(var/mob/living/carbon/human/M in A)
 			if(target.current == M)
-				return 1
+				return TRUE
 		for(var/mob/living/carbon/human/M in B)
 			if(target.current == M)
-				return 1
+				return TRUE
 	else
-		return 0
+		return FALSE
 
 /datum/objective/heist/loot
 /datum/objective/heist/loot/choose_target()
@@ -766,7 +769,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 			if(istype(I, target))
 				total_amount++
 			if(total_amount >= target_amount)
-				return 1
+				return TRUE
 
 	for(var/obj/O in locate(/area/vox_station))
 		if(istype(O, target))
@@ -775,7 +778,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 			if(istype(I, target))
 				total_amount++
 			if(total_amount >= target_amount)
-				return 1
+				return TRUE
 
 	var/datum/game_mode/heist/H = SSticker.mode
 	for(var/datum/mind/raider in H.raiders)
@@ -784,9 +787,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 				if(istype(O,target))
 					total_amount++
 				if(total_amount >= target_amount)
-					return 1
+					return TRUE
 
-	return 0
+	return FALSE
 
 /datum/objective/heist/salvage
 /datum/objective/heist/salvage/choose_target()
@@ -850,8 +853,8 @@ GLOBAL_LIST_EMPTY(all_objectives)
 						var/obj/item/stack/sheet/S = O
 						total_amount += S.get_amount()
 
-	if(total_amount >= target_amount) return 1
-	return 0
+	if(total_amount >= target_amount) return TRUE
+	return FALSE
 
 
 /datum/objective/heist/inviolate_crew
@@ -860,8 +863,8 @@ GLOBAL_LIST_EMPTY(all_objectives)
 /datum/objective/heist/inviolate_crew/check_completion()
 	var/datum/game_mode/heist/H = SSticker.mode
 	if(H.is_raider_crew_safe())
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/objective/heist/inviolate_death
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
@@ -1107,27 +1110,27 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/set_up/check_completion()
 	if(issilicon(target.current))
-		return 0
+		return FALSE
 	if(isbrain(target.current))
-		return 0
+		return FALSE
 	if(!target.current || target.current.stat == DEAD)
-		return 0
+		return FALSE
 	// Проверка по наличию криминального статуса в консоли
 	var/datum/data/record/target_record = find_security_record("name", target.name)
 	if(target_record)
 		if(target_record.fields["criminal"] == SEC_RECORD_STATUS_INCARCERATED || target_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE || target_record.fields["criminal"] == SEC_RECORD_STATUS_PAROLLED || target_record.fields["criminal"] == SEC_RECORD_STATUS_RELEASED)
-			return 1
+			return TRUE
 	// Находится ли цель в карцере/камере/перме в конце раунда
 	if(istype(target.current.lastarea, /area/security/prison/cell_block) || istype(target.current.lastarea, /area/security/permabrig) || istype(target.current.lastarea, /area/security/processing))
-		return 1
+		return TRUE
 	// Зона СБ на шатле эвакуации
 	var/turf/location = get_turf(target.current)
 	if(!location)
-		return 0
+		return FALSE
 	if(istype(location, /turf/simulated/floor/shuttle/objective_check) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 // Цель на то, чтобы найти обладающего информацией человека. Всё что известно ниндзя - его предполагаемая профессия.
 // Для выполнения этой цели - ниндзя должен похищать людей определённой профессии пока не найдёт ТОГО САМОГО засранца обладающего инфой.
