@@ -261,7 +261,7 @@
 
 /obj/machinery/door/window/attack_animal(mob/living/simple_animal/M)
 	. = ..()
-	if(M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
 		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")

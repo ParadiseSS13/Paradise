@@ -453,22 +453,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				return TRUE
 	return FALSE
 
-/datum/objective/die
-	name = "Die a glorious death"
-	explanation_text = "Die a glorious death."
-	needs_target = FALSE
-
-/datum/objective/die/check_completion()
-	for(var/datum/mind/M in get_owners())
-		if(QDELETED(M.current) || M.current.stat == DEAD || is_special_dead(M.current, check_silicon = FALSE))
-			continue
-		if(issilicon(M.current) && !M.is_original_mob(M.current))
-			continue
-		return FALSE // Some owner didn't meet the above criteria.
-	return TRUE
-
-
-
 /datum/objective/survive
 	name = "Survive"
 	explanation_text = "Stay alive until the end."

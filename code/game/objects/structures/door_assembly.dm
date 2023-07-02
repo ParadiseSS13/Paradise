@@ -152,10 +152,7 @@
 		return
 	to_chat(user, "<span class='notice'>You finish the airlock.</span>")
 	var/obj/machinery/door/airlock/door
-	if(glass)
-		door = new glass_type(loc)
-		door.polarized_glass = polarized_glass
-	if(reinforced_glass)
+	if(glass || reinforced_glass)
 		door = new glass_type(loc)
 		door.polarized_glass = polarized_glass
 	else
