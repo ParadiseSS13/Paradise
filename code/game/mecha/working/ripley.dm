@@ -4,8 +4,8 @@
 	icon_state = "ripley"
 	initial_icon = "ripley"
 	step_in = 4 //Move speed, lower is faster.
-	var/fast_pressure_step_in = 2 //step_in while in normal pressure conditions
-	var/slow_pressure_step_in = 4 //step_in while in better pressure conditions
+	fast_pressure_step_in = 2 //step_in while in normal pressure conditions
+	slow_pressure_step_in = 4 //step_in while in better pressure conditions
 	max_temperature = 20000
 	max_integrity = 200
 	lights_power = 7
@@ -14,10 +14,6 @@
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/hides = 0
-
-/obj/mecha/working/ripley/Move()
-	. = ..()
-	update_pressure()
 
 /obj/mecha/working/ripley/update_icon()
 	..()
@@ -108,18 +104,6 @@
 		if(prob(30 / severity))
 			cargo -= O
 			O.forceMove(drop_location())
-
-/obj/mecha/working/ripley/proc/update_pressure()
-	var/turf/T = get_turf(loc)
-
-	if(lavaland_equipment_pressure_check(T))
-		step_in = fast_pressure_step_in
-		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
-			drill.equip_cooldown = initial(drill.equip_cooldown)/2
-	else
-		step_in = slow_pressure_step_in
-		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
-			drill.equip_cooldown = initial(drill.equip_cooldown)
 
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)

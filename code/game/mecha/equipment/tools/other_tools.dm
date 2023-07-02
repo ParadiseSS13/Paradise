@@ -536,3 +536,51 @@
 		if(chassis.occupant)
 			chassis.strafe_action.Remove(chassis.occupant)
 	. = ..()
+
+//LEG UPGRADE
+
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system
+	name = "improved exosuit control system"
+	desc = "Equipment for exosuits. A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
+	icon_state = "move_plating"
+	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
+	energy_drain = 20
+	selectable = 0
+	var/ripley_step_in = 2.5
+	var/odyss_step_in = 1.8
+	var/clarke_step_in = 1.5
+	var/durand_step_in = 3.3
+	var/locker_step_in = 2
+
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/M)
+	if(..())
+		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/durand))
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/attach_act()
+	if(istype(src.loc, /obj/mecha/working/ripley)) // for ripley/firefighter
+		var/obj/mecha/working/ripley/R = src.loc
+		R.slow_pressure_step_in = ripley_step_in
+	if(istype(src.loc, /obj/mecha/medical/odysseus)) // odyss
+		var/obj/mecha/medical/odysseus/O = src.loc
+		O.step_in = odyss_step_in
+	if(istype(src.loc, /obj/mecha/working/clarke)) // clerke
+		var/obj/mecha/working/clarke/K = src.loc
+		K.fast_pressure_step_in = clarke_step_in  // that's why
+	if(istype(src.loc, /obj/mecha/combat/durand)) // dura
+		var/obj/mecha/combat/durand/D = src.loc
+		D.step_in = durand_step_in
+	if(istype(src.loc, /obj/mecha/combat/lockersyndie)) // syndilocker
+		var/obj/mecha/combat/lockersyndie/L = src.loc
+		L.step_in = locker_step_in
+
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/detach_act()
+	if(istype(src.loc, /obj/mecha))
+		var/obj/mecha/O = src.loc
+		O.step_in = initial(O.step_in)
+	if(istype(src.loc, /obj/mecha/working))
+		var/obj/mecha/working/W = src.loc
+		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
+		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)

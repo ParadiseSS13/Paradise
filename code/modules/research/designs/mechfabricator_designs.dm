@@ -975,12 +975,12 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/improved_exosuit_control_system
-    name = "Exosuit Medical Equipment (Control System Upgrade)"
+    name = "Exosuit Common Equipment (Control System Upgrade)"
     id = "mech_improved_exosuit_control_system"
     build_type = MECHFAB
-    build_path = /obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
+    build_path = /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system
     req_tech = list("engineering" = 7, "materials" = 6, "magnets" = 5, "powerstorage"= 5)
-    materials = list(MAT_METAL=15000,MAT_TITANIUM=2000,MAT_GOLD=1000)
+    materials = list(MAT_METAL=20000,MAT_TITANIUM=10000,MAT_SILVER=2000,MAT_URANIUM=2000)
     construction_time = 200
     category = list("Exosuit Equipment")
 
