@@ -474,6 +474,8 @@
 	SEND_SIGNAL(src, COMSIG_MOD_WEARER_SET, wearer)
 	RegisterSignal(wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 	update_charge_alert()
+	for(var/obj/item/clothing/C in mod_parts)
+		C.refit_for_species(wearer.dna.species.name)
 	update_mod_overlays()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.on_equip()

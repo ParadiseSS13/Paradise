@@ -112,13 +112,6 @@
 	return 1
 
 /obj/item/clothing/proc/refit_for_species(target_species)
-	//Set species_restricted list
-	switch(target_species)
-		if("Human", "Skrell")	//humanoid bodytypes
-			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Drask")
-		else
-			species_restricted = list(target_species)
-
 	//Set icon
 	if(sprite_sheets && (target_species in sprite_sheets))
 		icon_override = sprite_sheets[target_species]

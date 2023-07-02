@@ -10,7 +10,6 @@
 	body_parts_covered = HEAD
 	heat_protection = HEAD
 	cold_protection = HEAD
-	prioritize_species_over_icon_overide = TRUE
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_helmets.dmi',
 		)
@@ -33,7 +32,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
-	prioritize_species_over_icon_overide = TRUE
 
 
 /obj/item/clothing/gloves/mod
@@ -48,7 +46,6 @@
 	body_parts_covered = HANDS|ARMS
 	heat_protection = HANDS|ARMS
 	cold_protection = HANDS|ARMS
-	prioritize_species_over_icon_overide = TRUE
 
 
 /obj/item/clothing/shoes/mod
@@ -63,7 +60,6 @@
 	body_parts_covered = FEET|LEGS
 	heat_protection = FEET|LEGS
 	cold_protection = FEET|LEGS
-	prioritize_species_over_icon_overide = TRUE
 	var/magbooted
 
 /obj/item/clothing/shoes/mod/negates_gravity()

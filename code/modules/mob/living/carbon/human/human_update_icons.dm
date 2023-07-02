@@ -610,7 +610,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				var/tie_color = A.item_color
 				if(!tie_color)
 					tie_color = A.icon_state
-				if(A.icon_override && !(A.prioritize_species_over_icon_overide && A.sprite_sheets && A.sprite_sheets[dna.species.name]))
+				if(A.icon_override)
 					standing.overlays += image("icon" = A.icon_override, "icon_state" = "[A.icon_state]")
 				else if(A.sprite_sheets && A.sprite_sheets[dna.species.name])
 					standing.overlays += image("icon" = A.sprite_sheets[dna.species.name], "icon_state" = "[A.icon_state]")
@@ -681,7 +681,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!t_state)	t_state = gloves.icon_state
 
 		var/mutable_appearance/standing
-		if(gloves.icon_override && !(gloves.prioritize_species_over_icon_overide && gloves.sprite_sheets && gloves.sprite_sheets[dna.species.name]))
+		if(gloves.icon_override)
 			standing = mutable_appearance(gloves.icon_override, "[gloves.icon_state]", layer = -GLOVES_LAYER)
 		else if(gloves.sprite_sheets && gloves.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(gloves.sprite_sheets[dna.species.name], "[t_state]", layer = -GLOVES_LAYER)
@@ -719,7 +719,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
 			client.screen += glasses				//Either way, add the item to the HUD
 
-		if(glasses.icon_override && !(glasses.prioritize_species_over_icon_overide && glasses.sprite_sheets && glasses.sprite_sheets[head_organ.dna.species.name]))
+		if(glasses.icon_override)
 			new_glasses = mutable_appearance(glasses.icon_override, "[glasses.icon_state]", layer = -GLASSES_LAYER)
 		else if(glasses.sprite_sheets && glasses.sprite_sheets[head_organ.dna.species.name])
 			new_glasses = mutable_appearance(glasses.sprite_sheets[head_organ.dna.species.name], "[glasses.icon_state]", layer = -GLASSES_LAYER)
@@ -764,7 +764,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/t_type = l_ear.item_state
 			if(!t_type)
 				t_type = l_ear.icon_state
-			if(l_ear.icon_override && !(l_ear.prioritize_species_over_icon_overide && l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.name]))
+			if(l_ear.icon_override)
 				t_type = "[t_type]_l"
 				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
 			else if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.name])
@@ -781,7 +781,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/t_type = r_ear.item_state
 			if(!t_type)
 				t_type = r_ear.icon_state
-			if(r_ear.icon_override && !(r_ear.prioritize_species_over_icon_overide && r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.name]))
+			if(r_ear.icon_override)
 				t_type = "[t_type]_r"
 				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
 			else if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.name])
@@ -804,7 +804,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			client.screen += shoes					//Either way, add the item to the HUD
 
 		var/mutable_appearance/standing
-		if(shoes.icon_override && !(shoes.prioritize_species_over_icon_overide && shoes.sprite_sheets && shoes.sprite_sheets[dna.species.name]))
+		if(shoes.icon_override)
 			standing = mutable_appearance(shoes.icon_override, "[shoes.icon_state]", layer = -SHOES_LAYER)
 		else if(shoes.sprite_sheets && shoes.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(shoes.sprite_sheets[dna.species.name], "[shoes.icon_state]", layer = -SHOES_LAYER)
@@ -856,7 +856,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(head)
 		var/mutable_appearance/standing
-		if(head.icon_override && !(head.prioritize_species_over_icon_overide && head.sprite_sheets && head.sprite_sheets[dna.species.name]))
+		if(head.icon_override)
 			standing = mutable_appearance(head.icon_override, "[head.icon_state]", layer = -HEAD_LAYER)
 		else if(head.sprite_sheets && head.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(head.sprite_sheets[dna.species.name], "[head.icon_state]", layer = -HEAD_LAYER)
@@ -892,7 +892,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!t_state)
 			t_state = belt.icon_state
 
-		if(belt.icon_override && !(belt.prioritize_species_over_icon_overide && belt.sprite_sheets && belt.sprite_sheets[dna.species.name]))
+		if(belt.icon_override)
 			t_state = "[t_state]_be"
 			overlays_standing[BELT_LAYER] = mutable_appearance(belt.icon_override, "[t_state]", layer = -BELT_LAYER)
 		else if(belt.sprite_sheets && belt.sprite_sheets[dna.species.name])
@@ -916,7 +916,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			client.screen += wear_suit						//Either way, add the item to the HUD
 
 		var/mutable_appearance/standing
-		if(wear_suit.icon_override && !(wear_suit.prioritize_species_over_icon_overide && wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name]))
+		if(wear_suit.icon_override)
 			standing = mutable_appearance(wear_suit.icon_override, "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(wear_suit.sprite_sheets[dna.species.name], "[wear_suit.icon_state]", layer = -SUIT_LAYER)
@@ -996,7 +996,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 			var/mutable_appearance/standing
 			var/icon/mask_icon = new(wear_mask.icon)
-			if(wear_mask.icon_override && !(wear_mask.prioritize_species_over_icon_overide && wear_mask.sprite_sheets && wear_mask.sprite_sheets[dna.species.name]))
+			if(wear_mask.icon_override)
 				mask_icon = new(wear_mask.icon_override)
 				standing = mutable_appearance(wear_mask.icon_override, "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
 			else if(wear_mask.sprite_sheets && wear_mask.sprite_sheets[dna.species.name])
@@ -1025,7 +1025,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!t_state)
 			t_state = back.icon_state
 		var/mutable_appearance/standing
-		if(back.icon_override && !(back.prioritize_species_over_icon_overide && back.sprite_sheets && back.sprite_sheets[dna.species.name]))
+		if(back.icon_override)
 			standing = mutable_appearance(back.icon_override, "[back.icon_state]", layer = -BACK_LAYER)
 		else if(back.sprite_sheets && back.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[t_state]", layer = -BACK_LAYER)
@@ -1321,7 +1321,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/mutable_appearance/standing = null
 
 	if(wear_suit)
-		if(wear_suit.icon_override && !(wear_suit.prioritize_species_over_icon_overide && wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name]))
+		if(wear_suit.icon_override)
 			var/icon_path = "[wear_suit.icon_override]"
 			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty).
 			if(fexists(icon_path)) //Just ensuring the nonexistance of a file with the above path won't cause a runtime.
