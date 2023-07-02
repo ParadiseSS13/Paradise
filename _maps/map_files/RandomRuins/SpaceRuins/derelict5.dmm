@@ -36,10 +36,6 @@
 /area/ruin/space/unpowered)
 "fi" = (
 /obj/structure/closet/cabinet,
-/obj/item/paper{
-	name = "The Bunker Key";
-	info = "In a game of direction I hold the key, to find your way solve this riddle for me,<br>Three tiles east from the front door, stand still turn right and look straight forth,<br>Continue onward, touch the wall and you'll see, the bunker entrance is where you will be."
-	},
 /obj/item/clothing/under/suit/charcoal,
 /obj/item/clothing/shoes/laceup,
 /obj/item/clothing/glasses/sunglasses,
@@ -50,10 +46,6 @@
 /obj/item/clothing/suit/armor/vest,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"gW" = (
-/obj/effect/decal/cleanable/blood/innards,
-/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "hG" = (
 /obj/structure/kitchenspike,
@@ -1358,7 +1350,7 @@ Qx
 Qx
 Qx
 kO
-gW
+kO
 Gx
 Wy
 Se
