@@ -81,7 +81,7 @@ const ContentsModal = (_properties, context) => {
 
 const StatusPane = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { is_public, timeleft, moving, at_station } = data;
+  const { is_public, timeleft, moving, at_station, active_syphon } = data;
 
   // Shuttle status text
   let statusText;
@@ -110,7 +110,7 @@ const StatusPane = (_properties, context) => {
           <LabeledList.Item label="Controls">
             <Button
               content={shuttleButtonText}
-              disabled={moving}
+              disabled={moving || active_syphon}
               onClick={() => act('moveShuttle')}
             />
             <Button
@@ -342,7 +342,7 @@ const GetRequestNotice = (_properties, context) => {
 
 const DetailsPane = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { requests, orders, shipments } = data;
+  const { requests, orders, shipments, active_syphon } = data;
   return (
     <Section title="Orders">
       <Box maxHeight={15} overflowY="auto" overflowX="hidden">
@@ -361,7 +361,7 @@ const DetailsPane = (_properties, context) => {
                 <Button
                   content="Approve"
                   color="green"
-                  disabled={!r.can_approve}
+                  disabled={!r.can_approve || active_syphon}
                   onClick={() =>
                     act('approve', {
                       ordernum: r.ordernum,

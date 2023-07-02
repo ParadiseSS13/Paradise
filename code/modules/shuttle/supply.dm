@@ -50,7 +50,7 @@
 	if(is_station_level(z))
 		if(active_syphon) // Check if there's an active data_syphon
 			to_chat(usr, "<span class='warning'>Cargo Shuttle is blocked by unknown Data Syphon!</span>")
-			return FALSE
+			return TRUE
 		return forbidden_atoms_check(areaInstance)
 	return ..()
 
