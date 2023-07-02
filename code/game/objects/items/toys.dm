@@ -130,7 +130,6 @@
 
 	user.visible_message("<span class='suicide'>[user] ties [src] around their neck and starts to float away! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 
-	// playsound(get_turf(user), 'sound/magic/tail_swing.ogg', 80, TRUE)
 	playsound(get_turf(user),'sound/magic/fleshtostone.ogg', 80, TRUE)
 
 	user.Immobilize(10 SECONDS)
@@ -141,6 +140,9 @@
 
 	user.forceMove(holder_obj)
 	animate(holder_obj, pixel_z = 1000, time = 50)
+
+	for(var/obj/item/W in user)
+		user.unEquip(W)
 
 	user.notransform = TRUE
 	icon = null
