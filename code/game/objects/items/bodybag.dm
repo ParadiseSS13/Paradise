@@ -59,13 +59,14 @@
 		. += "bodybag_label"
 
 /obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
-	. = ..()
 	if(over_object == usr && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr) || opened || length(contents))
 			return FALSE
 		visible_message("<span class='notice'>[usr] folds up [src].</span>")
 		new item_path(get_turf(src))
 		qdel(src)
+		return
+	. = ..()
 
 /obj/structure/closet/body_bag/relaymove(mob/user)
 	if(user.stat)
