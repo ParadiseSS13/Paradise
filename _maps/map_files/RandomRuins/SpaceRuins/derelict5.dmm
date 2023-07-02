@@ -39,6 +39,7 @@
 /obj/item/clothing/under/suit/charcoal,
 /obj/item/clothing/shoes/laceup,
 /obj/item/clothing/glasses/sunglasses,
+/obj/item/paper/fluff/ruins/derelict5,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "fV" = (
