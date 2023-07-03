@@ -124,22 +124,15 @@
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-
-	var/external_temp
-	if(istype(M.loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		var/obj/machinery/atmospherics/unary/cryo_cell/C = M.loc
-		external_temp = C.air_contents.temperature
-	else
-		var/turf/T = get_turf(M)
-		external_temp = T.temperature
-
-	if(external_temp < TCRYO)
+	if(M.bodytemperature < TCRYO - 50) //Experiment with this, perhaps a little colder, or ensure someone has been cold for a certain ammount of cycles.
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
 		update_flags |= M.adjustBruteLoss(-12, FALSE)
 		update_flags |= M.adjustFireLoss(-12, FALSE)
-
+		M.Stun(4 SECONDS) //You freeze up, but get good healing. Stops use as a combat drug, or for meming on blobs in space.
+		if(M.stat == CONSCIOUS && prob(25)) //So people know what is going on outside cryo tubes, in the event someone weaponises this.
+			to_chat(M, "<span class='warning'>Your veins and muscles are freezing!</span>")
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ("head")
