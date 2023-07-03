@@ -355,9 +355,9 @@
 			bible.add_holy_water(user, extinguisher)
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
-	name = "Atmos module"
+	name = "ATMOS module"
 	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
-	icon_state = "mecha_wire"
+	icon_state = "mecha_atmos"
 	modules = list(/obj/item/mecha_parts/mecha_equipment/cable_layer,
 					/obj/item/mecha_parts/mecha_equipment/extinguisher,
 					/obj/item/mecha_parts/mecha_equipment/holowall)

@@ -128,7 +128,7 @@
 	equip_cooldown = 10
 	name = "S-1 X-Ray Projector"
 	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
-	icon_state = "mecha_laser"
+	icon_state = "mecha_xray"
 	origin_tech = "combat=6;materials=4;programming=6"
 	energy_drain = 120
 	projectile = /obj/item/projectile/beam/xray
