@@ -19,7 +19,6 @@
 /obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		var/list/hand_items = list(target.get_active_hand(),target.get_inactive_hand())
-		var/butterfingers = 0
 		var/message
 
 		if(!marked_item) //linking item to the spell
@@ -38,17 +37,17 @@
 
 			if(!marked_item)
 				if(hand_items)
-					message = "<span class='caution'>You aren't holding anything that can be marked for recall.</span>"
+					message = span_caution("You aren't holding anything that can be marked for recall.")
 				else
-					message = "<span class='notice'>You must hold the desired item in your hands to mark it for recall.</span>"
+					message = span_notice("You must hold the desired item in your hands to mark it for recall.")
 
 		else if(marked_item && (marked_item in hand_items)) //unlinking item to the spell
-			message = "<span class='notice'>You remove the mark on [marked_item] to use elsewhere.</span>"
+			message = span_notice("You remove the mark on [marked_item] to use elsewhere.")
 			name = "Instant Summons"
 			marked_item = 		null
 
 		else if(marked_item && !marked_item.loc) //the item was destroyed at some point
-			message = "<span class='warning'>You sense your marked item has been destroyed!</span>"
+			message = span_warning("You sense your marked item has been destroyed!")
 			name = "Instant Summons"
 			marked_item = 		null
 
@@ -61,9 +60,13 @@
 					var/mob/M = item_to_retrieve.loc
 
 					if(issilicon(M) || !M.drop_item_ground(item_to_retrieve)) //Items in silicons warp the whole silicon
-						M.visible_message("<span class='warning'>[M] suddenly disappears!</span>", "<span class='danger'>A force suddenly pulls you away!</span>")
-						M.forceMove(target.loc)
-						M.loc.visible_message("<span class='caution'>[M] suddenly appears!</span>")
+						var/turf/target_turf = get_turf(target)
+						if(!target_turf)
+							return
+
+						M.visible_message(span_warning("[M] suddenly disappears!"), span_danger("A force suddenly pulls you away!"))
+						M.forceMove(target_turf)
+						M.loc.visible_message(span_caution("[M] suddenly appears!"))
 						item_to_retrieve = null
 						break
 
@@ -80,7 +83,7 @@
 							var/obj/item/organ/external/part = X
 							if(item_to_retrieve in part.embedded_objects)
 								part.embedded_objects -= item_to_retrieve
-								to_chat(C, "<span class='warning'>The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
+								to_chat(C, span_warning("The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!"))
 								if(!C.has_embedded_objects())
 									C.clear_alert("embeddedobject")
 								break
@@ -99,24 +102,18 @@
 			if(!item_to_retrieve)
 				return
 
-			item_to_retrieve.loc.visible_message("<span class='warning'>The [item_to_retrieve.name] suddenly disappears!</span>")
+			var/turf/target_turf = get_turf(target)
+			if(!target_turf)
+				return
 
+			item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly disappears!"))
+			playsound(target_turf, 'sound/magic/summonitems_generic.ogg', 50, TRUE)
 
-			if(target.hand) //left active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, disable_warning = TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, disable_warning = TRUE))
-						butterfingers = 1
-			else			//right active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, disable_warning = TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, disable_warning = TRUE))
-						butterfingers = 1
-			if(butterfingers)
-				item_to_retrieve.loc = target.loc
-				item_to_retrieve.loc.visible_message("<span class='caution'>The [item_to_retrieve.name] suddenly appears!</span>")
-				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
+			if(!target.put_in_active_hand(item_to_retrieve) && !target.put_in_inactive_hand(item_to_retrieve))
+				item_to_retrieve.loc = target_turf
+				item_to_retrieve.loc.visible_message(span_caution("The [item_to_retrieve.name] suddenly appears!"))
 			else
-				item_to_retrieve.loc.visible_message("<span class='caution'>The [item_to_retrieve.name] suddenly appears in [target]'s hand!</span>")
-				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
+				item_to_retrieve.loc.visible_message(span_caution("The [item_to_retrieve.name] suddenly appears in [target]'s hand!"))
 
 		if(message)
 			to_chat(target, message)
