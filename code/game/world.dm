@@ -237,7 +237,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		s += "<br>[config.server_tag_line]"
 
 	if(SSticker && ROUND_TIME > 0)
-		s += "<br>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)], " + capitalize(get_security_level())
+		s += "<br>[ROUND_TIME_TEXT()], " + capitalize(get_security_level())
 	else
 		s += "<br><b>STARTING</b>"
 

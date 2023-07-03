@@ -331,7 +331,7 @@ SUBSYSTEM_DEF(tickets)
 	raw_title = raw_tit
 	content = list()
 	content += cont
-	timeOpened = worldtime2text()
+	timeOpened = ROUND_TIME_TEXT()
 	timeUntilStale = world.time + TICKET_TIMEOUT
 	setCooldownPeriod()
 	ticketNum = num
@@ -344,7 +344,7 @@ SUBSYSTEM_DEF(tickets)
 //Set the last staff who responded as the client passed as an arguement.
 /datum/ticket/proc/setLastStaffResponse(client/C)
 	lastStaffResponse = C
-	lastResponseTime = worldtime2text()
+	lastResponseTime = ROUND_TIME_TEXT()
 
 //Return the ticket state as a colour coded text string.
 /datum/ticket/proc/state2text()

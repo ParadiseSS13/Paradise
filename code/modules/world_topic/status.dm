@@ -12,7 +12,7 @@
 	status_info["ai"] = config.allow_ai
 	status_info["host"] = world.host ? world.host : null
 	status_info["players"] = list()
-	status_info["roundtime"] = worldtime2text()
+	status_info["roundtime"] = ROUND_TIME_TEXT()
 	status_info["stationtime"] = station_time_timestamp()
 	status_info["oldstationtime"] = classic_worldtime2text() // more "consistent" indication of the round's running time
 	status_info["listed"] = "Public"
