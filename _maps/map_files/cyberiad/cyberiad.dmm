@@ -74252,14 +74252,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "klN" = (
-/mob/living/simple_animal/hostile/feral_cat{
-	desc = "This cat is waiting for its owner, it hisses at you...";
-	name = "forsaken cat";
-	speak = list("Meow!","Esp!","HSSSSS");
-	melee_damage_upper = 10;
-	melee_damage_lower = 15;
-	maxHealth = 30
-	},
+/mob/living/simple_animal/hostile/feral_cat/forsaken,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "kmA" = (
@@ -76611,7 +76604,6 @@
 	},
 /area/toxins/lab)
 "lXG" = (
-/mob/living/simple_animal/mouse,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/north,
 /mob/living/simple_animal/hostile/scarybat,
@@ -77490,6 +77482,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"mHw" = (
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "mHO" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -117984,7 +117980,7 @@ bBf
 cgW
 sJw
 cqs
-coL
+mHw
 fnU
 htY
 coL
