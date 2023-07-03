@@ -1426,20 +1426,6 @@
 /obj/item/melee/energy/sword/saber/red,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
-"fP" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomegen";
-	name = "General Supply"
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
-"fQ" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door"
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
 "fR" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/turf_decal/bot,
@@ -1464,13 +1450,6 @@
 /obj/machinery/flasher{
 	id = "tdomeflash";
 	name = "Thunderdome Flash"
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
-"fW" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomehea";
-	name = "Heavy Supply"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
@@ -9782,9 +9761,9 @@
 	},
 /area/shuttle/escape)
 "LQ" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomehea";
-	name = "Heavy Supply"
+/obj/machinery/door/poddoor/impassable{
+	name = "Heavy Supply";
+	id_tag = "thunderdomehea"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -10508,9 +10487,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Ox" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomegen";
-	name = "General Supply"
+/obj/machinery/door/poddoor/impassable{
+	name = "General Supply";
+	id_tag = "thunderdomegen"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -10666,9 +10645,9 @@
 	},
 /area/centcom/specops)
 "OW" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door"
+/obj/machinery/door/poddoor/impassable{
+	name = "Thunderdome Blast Door";
+	id_tag = "thunderdome"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -71005,11 +70984,11 @@ an
 an
 aa
 fI
-fP
-fP
-fP
-fP
-fP
+fM
+fM
+fM
+fM
+fM
 fI
 fI
 fI
@@ -71267,7 +71246,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -71524,7 +71503,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -71781,7 +71760,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -72038,7 +72017,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -72295,7 +72274,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -72547,11 +72526,11 @@ an
 an
 aa
 fI
-fQ
-fQ
-fQ
-fQ
-fQ
+fM
+fM
+fM
+fM
+fM
 fI
 aa
 aa
@@ -76659,11 +76638,11 @@ eN
 IK
 cc
 fI
-fQ
-fQ
-fQ
-fQ
-fQ
+fM
+fM
+fM
+fM
+fM
 fI
 aa
 aa
@@ -76921,7 +76900,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77178,7 +77157,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77435,7 +77414,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77692,7 +77671,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77949,7 +77928,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -78201,11 +78180,11 @@ eQ
 eH
 cc
 fI
-fP
-fP
-fP
-fP
-fP
+fM
+fM
+fM
+fM
+fM
 fI
 fI
 fI
