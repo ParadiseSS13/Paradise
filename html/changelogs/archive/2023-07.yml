@@ -30,3 +30,17 @@
   - tweak: reduce rezadone heal (#3115)
   - tweak: nerf autolathe resource coef (#3114)
   - add: Space dragon (#3041)
+'2023-07-03':
+  Daeberdir:
+  - bugfix: spider bomb planting. (#3112)
+  Den109G:
+  - bugfix: Vox's icon in riot and Crusader armor (#3119)
+  Roman:
+  - add: PowerFist 2.0 (#3033)
+  Vladisvell:
+  - tweak: terror spiders are no more on lowpop (#3121)
+  - bugfix: time stat now doesn't go zero when 24h of round have passed (#3126)
+  Zwei:
+  - refactor: Immortality Talisman Consume (#3118)
+  Сиротка:
+  - unknown: ATMOS module & X-ray (#3083)
