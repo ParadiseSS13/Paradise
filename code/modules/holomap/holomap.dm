@@ -7,8 +7,11 @@
 ///this will hold images rendered at roundstart
 GLOBAL_LIST_EMPTY(holomaps)
 
+// this is what every machine holds
 /datum/holomap
+	/// this is the actual map that we generated and colored
 	var/obj/screen/holomap/using
+	/// this is the map icon, unique to each machine, that shows its location on the map
 	var/obj/screen/you_are_here/arrow
 
 /datum/holomap/New(list/r, zed, x_in, y_in, z_in)
@@ -19,17 +22,22 @@ GLOBAL_LIST_EMPTY(holomaps)
 	if(GLOB.holomaps[icon_key])
 		using = GLOB.holomaps[icon_key]
 	else
-		using = new/obj/screen/holomap(r, zed)
+		using = new /obj/screen/holomap(r, zed)
 		using.screen_loc = ui_holomap
 		GLOB.holomaps[icon_key] = using
 
 	if(zed == z_in)
-		arrow = new/obj/screen/you_are_here(x_in, y_in)
+		arrow = new /obj/screen/you_are_here(x_in, y_in)
 
+//This is the map thats shown to users, and that we generate at round start
 /obj/screen/holomap
+	/// This holds the image thats generated
 	var/image/holomap_projection
+	/// This is a list that contains the parameters that we will generate the map using (gets set by the machine whom holds this obj)
 	var/list/region_selection = list()
+	/// This is a number that will be the zlevel that we apply the parameters to for rendering the map (also gets set by the machine that holds this obj)
 	var/zlevel_rendered
+	/// This is a list that holds lists for each area that rendered for making location arrows, list( list(/area/storage/example, x_center, y_center), etc, etc, etc )
 	var/list/location_areas = list()
 
 /obj/screen/holomap/New(list/region, rendered)
@@ -477,3 +485,16 @@ GLOBAL_LIST_EMPTY(holomaps)
 
 	//maints + unspecified
 	return is_floor ? "#171e16" : "#373a2a"
+
+#undef DEPARTMENTAL_AREAS_MASTERLIST
+#undef DEPARTMENTAL_AREAS_SHUTTLE
+#undef DEPARTMENTAL_AREAS_AISAT
+#undef DEPARTMENTAL_AREAS_COMMAND
+#undef DEPARTMENTAL_AREAS_SECURITY
+#undef DEPARTMENTAL_AREAS_RESEARCH
+#undef DEPARTMENTAL_AREAS_MEDICAL
+#undef DEPARTMENTAL_AREAS_ENGINEERING
+#undef DEPARTMENTAL_AREAS_CARGO
+#undef DEPARTMENTAL_AREAS_SERVICE
+#undef DEPARTMENTAL_AREAS_DORMS
+#undef DEPARTMENTAL_AREAS_ROCK
