@@ -91,7 +91,7 @@
 	/// Is the jetpack on so we should make ion effects?
 	var/jetpack_active = FALSE
 
-/obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core, new_access = null)
+/obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
 	if(new_theme)
 		theme = new_theme
@@ -104,8 +104,6 @@
 	ui_theme = theme.ui_theme
 	charge_drain = theme.charge_drain
 	wires = new/datum/wires/mod(src)
-	if(new_access)
-		req_access = new_access
 	if(length(req_access))
 		locked = TRUE
 	new_core?.install(src)
@@ -278,10 +276,6 @@
 		return TRUE
 	if(active || activating || locate(/mob/living/silicon/ai) in src)
 		to_chat(user, "<span class='warning'>Deactivate the suit first!</span>")
-		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
-	if(locked)
-		to_chat(user, "<span class='warning'>Suit is locked, unlock it!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	to_chat(user, "<span class='notice'>[open ? "Closing" : "Opening"] cover...</span>")

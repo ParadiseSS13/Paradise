@@ -66,31 +66,41 @@
 	name = "MOD Engineering Plating"
 	id = "mod_plating_engineering"
 	build_path = /obj/item/mod/construction/plating/engineering
-	 materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_GOLD = 2000, MAT_PLASMA = 1000)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_GOLD = 2000, MAT_PLASMA = 1000)
+	locked = TRUE
+	access_requirement = list(ACCESS_ENGINE)
 
 /datum/design/mod_plating/atmospheric
 	name = "MOD Atmospheric Plating"
 	id = "mod_plating_atmospheric"
 	build_path = /obj/item/mod/construction/plating/atmospheric
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_TITANIUM = 2000, MAT_PLASMA = 1000)
+	locked = TRUE
+	access_requirement = list(ACCESS_ATMOSPHERICS)
 
 /datum/design/mod_plating/medical
 	name = "MOD Medical Plating"
 	id = "mod_plating_medical"
 	build_path = /obj/item/mod/construction/plating/medical
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_SILVER = 2000, MAT_PLASMA = 1000)
+	locked = TRUE
+	access_requirement = list(ACCESS_MEDICAL)
 
 /datum/design/mod_plating/security
 	name = "MOD Security Plating"
 	id = "mod_plating_security"
 	build_path = /obj/item/mod/construction/plating/security
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
+	locked = TRUE
+	access_requirement = list(ACCESS_SECURITY)
 
 /datum/design/mod_plating/cosmohonk
 	name = "MOD Cosmohonk Plating"
 	id = "mod_plating_cosmohonk"
 	build_path = /obj/item/mod/construction/plating/cosmohonk
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_BANANIUM = 2000, MAT_PLASMA = 1000)
+	locked = TRUE
+	access_requirement = list(ACCESS_CLOWN)
 
 /datum/design/mod_skin
 	name = "MOD Civilian Skin"

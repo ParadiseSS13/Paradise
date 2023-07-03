@@ -399,6 +399,22 @@
 		atom_say("ERROR: User does not match owner DNA")
 		return MOD_CANCEL_REMOVAL
 
+/obj/item/mod/module/dna_lock/emp_shield
+	name = "MOD DN-MP shield lock"
+	desc = "This syndicate module is a combination EMP shield and DNA lock. Provides the best of both worlds, with the weakness of niether."
+	icon_state = "dnalock"
+	origin_tech = "materials=6;bluespace=5;syndicate=3"
+	complexity = 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+
+/obj/item/mod/module/emp_shield/on_install()
+	. = ..()
+	mod.emp_proof = TRUE
+
+/obj/item/mod/module/emp_shield/on_uninstall(deleting = FALSE)
+	. = ..()
+	mod.emp_proof = FALSE
+
 ///Plasma Stabilizer - Prevents plasmamen from igniting in the suit
 /obj/item/mod/module/plasma_stabilizer
 	name = "MOD plasma stabilizer module"

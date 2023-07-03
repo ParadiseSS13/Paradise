@@ -234,7 +234,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/noslip,
@@ -250,7 +250,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
@@ -384,7 +384,7 @@
 	req_access = list(ACCESS_CENT_SPECOPS)
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,
 	)

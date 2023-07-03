@@ -215,7 +215,7 @@
 		var/obj/item/I = A
 		I.materials = final_cost
 		if(D.locked)
-			var/obj/item/storage/lockbox/research/large/L = new(get_step(src, output_dir))
+			var/obj/item/storage/lockbox/research/modsuit/L = new(get_step(src, output_dir))
 			I.forceMove(L)
 			L.name += " ([I.name])"
 			L.origin_tech = I.origin_tech

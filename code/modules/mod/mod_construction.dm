@@ -41,8 +41,6 @@
 	desc = "External plating used to finish a MOD control unit."
 	icon_state = "standard-plating"
 	var/datum/mod_theme/theme = /datum/mod_theme/standard
-	///Access required to unlock the suit. Used on constructed suits so robotics needs to get emag / emp instead of constantly giving out sec suits or medical ones.
-	var/plating_access = null
 
 /obj/item/mod/construction/plating/Initialize(mapload)
 	. = ..()
@@ -53,20 +51,15 @@
 
 /obj/item/mod/construction/plating/engineering
 	theme = /datum/mod_theme/engineering
-	plating_access = list(ACCESS_ENGINE)
 
 /obj/item/mod/construction/plating/atmospheric
 	theme = /datum/mod_theme/atmospheric
-	plating_access = list(ACCESS_ATMOSPHERICS)
 
 /obj/item/mod/construction/plating/medical
 	theme = /datum/mod_theme/medical
-	plating_access = list(ACCESS_MEDICAL)
 
 /obj/item/mod/construction/plating/security
 	theme = /datum/mod_theme/security
-	plating_access = list(ACCESS_BRIG)
-
 /obj/item/mod/construction/plating/cosmohonk
 	theme = /datum/mod_theme/cosmohonk
 
@@ -240,7 +233,7 @@
 				if(!user.drop_item())
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-				var/obj/item/mod = new /obj/item/mod/control(drop_location(), external_plating.theme, null, core, external_plating.plating_access)
+				var/obj/item/mod = new /obj/item/mod/control(drop_location(), external_plating.theme, null, core)
 				core = null
 				qdel(external_plating)
 				qdel(src)
