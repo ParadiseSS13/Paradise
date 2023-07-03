@@ -393,7 +393,7 @@
 			flick("[base_state]deny", src)
 
 /obj/machinery/door/window/reinforced
-	name = "secure door"
+	name = "main category"
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
@@ -401,7 +401,7 @@
 	explosion_block = 1
 
 /obj/machinery/door/window/reinforced/normal
-	name = "secure door"
+	name = ".custom placement"
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
@@ -409,23 +409,38 @@
 	explosion_block = 1
 
 /obj/machinery/door/window/reinforced/reversed
-	name = "secure door"
+	name = ".custom placement"
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
 	reinf = TRUE
 	explosion_block = 1
 
+/obj/machinery/door/window/antitheft
+	name = "main category"
+	desc = "Don't think about stealing, pal, lube off."
+	dir = EAST
+
+/obj/machinery/door/window/antitheft/normal
+	name = ".custom placement"
+	dir = EAST
+
+/obj/machinery/door/window/antitheft/reversed
+	name = ".custom placement"
+	dir = EAST
+	icon_state = "right"
+	base_state = "right"
+
 /obj/machinery/door/window/classic
-	name = "interior door"
+	name = "main category"
 	dir = EAST
 
 /obj/machinery/door/window/classic/normal
-	name = "interior door"
+	name = ".custom placement"
 	dir = EAST
 
 /obj/machinery/door/window/classic/reversed
-	name = "interior door"
+	name = ".custom placement"
 	dir = EAST
 	icon_state = "right"
 	base_state = "right"
