@@ -194,6 +194,12 @@
 	put_on_delay = 60
 	hide_tail_by_species = list("Vox")
 	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
