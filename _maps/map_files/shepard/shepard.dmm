@@ -2337,9 +2337,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aAM" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -17612,7 +17610,7 @@
 /area/maintenance/starboard)
 "dAh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "dAj" = (
 /obj/structure/disposalpipe/segment{
@@ -21971,7 +21969,7 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/freezer,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "exd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -23857,7 +23855,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "eRp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -24826,7 +24824,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "faZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
@@ -26054,7 +26052,7 @@
 /area/hallway/secondary/garden)
 "foE" = (
 /obj/structure/closet/secure_closet/freezer/meat,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "foJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -30635,7 +30633,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "gli" = (
 /obj/machinery/ai_status_display{
@@ -30912,9 +30910,7 @@
 	dir = 8
 	},
 /obj/machinery/economy/vending/chefdrobe,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "goo" = (
 /obj/item/gun/projectile/revolver/capgun,
@@ -31747,7 +31743,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "gxX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -36603,9 +36599,7 @@
 	dir = 4
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "deliverygreen"
-	},
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "hwm" = (
 /obj/effect/landmark/start/botanist,
@@ -37919,7 +37913,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "hKg" = (
 /obj/item/storage/box/beakers{
@@ -42049,7 +42043,7 @@
 /area/crew_quarters/pool)
 "izI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "izK" = (
 /obj/structure/cable{
@@ -56214,7 +56208,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "lpJ" = (
 /turf/simulated/floor/carpet,
@@ -57082,7 +57076,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "lyf" = (
 /obj/machinery/shieldwallgen,
@@ -61032,9 +61026,7 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "moT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -64106,7 +64098,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "mVy" = (
 /turf/simulated/floor/plasteel{
@@ -64574,7 +64566,7 @@
 	req_one_access_txt = "28;24";
 	name = "Freezer Conditioning"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "nak" = (
 /obj/machinery/photocopier,
@@ -64656,7 +64648,7 @@
 /obj/structure/window/reinforced/tinted/frosted{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "nbe" = (
 /obj/machinery/light{
@@ -65424,7 +65416,7 @@
 /area/crew_quarters/dorms)
 "nlp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "nlr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -69100,9 +69092,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "nYr" = (
 /obj/machinery/light/small{
@@ -74410,7 +74400,7 @@
 	})
 "oYs" = (
 /obj/structure/kitchenspike,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "oYu" = (
 /obj/machinery/hologram/holopad,
@@ -79670,9 +79660,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/machinery/light/small,
 /obj/structure/rack,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "qel" = (
 /obj/structure/rack,
@@ -82055,7 +82043,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "qFB" = (
 /turf/simulated/wall/r_wall,
@@ -84661,9 +84649,7 @@
 	dir = 8;
 	target_temperature = 255.15
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "rfU" = (
 /obj/structure/disposalpipe/segment,
@@ -87759,7 +87745,7 @@
 	d2 = 9;
 	icon_state = "4-9"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "rKe" = (
 /obj/structure/sign/poster/contraband/eat{
@@ -89457,7 +89443,7 @@
 	d2 = 6;
 	icon_state = "0-6"
 	},
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "scw" = (
 /obj/structure/closet/crate,
@@ -90558,7 +90544,7 @@
 	name = "Pete"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "spl" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -93969,7 +93955,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/passive_vent,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "sZD" = (
 /obj/structure/disposalpipe/segment{
@@ -118518,9 +118504,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plasteel/freezer/cold,
 /area/crew_quarters/kitchen/freezer)
 "xKR" = (
 /obj/structure/cable/yellow{

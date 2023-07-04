@@ -67,6 +67,8 @@
 
 /turf/simulated/floor/plasteel/freezer
 	icon_state = "freezerfloor"
+
+/turf/simulated/floor/plasteel/freezer/cold
 	temperature = 255
 
 /turf/simulated/floor/plasteel/stairs
