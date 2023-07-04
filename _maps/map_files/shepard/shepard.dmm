@@ -3582,6 +3582,14 @@
 	icon_state = "dark"
 	},
 /area/medical/cmo)
+"aOC" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/turf/simulated/floor/plating,
+/area/maintenance/storage)
 "aOD" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -15974,6 +15982,11 @@
 	icon_state = "brownfull"
 	},
 /area/bridge)
+"diT" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "diY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -40847,6 +40860,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
 	},
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
 "ioo" = (
@@ -43329,6 +43343,10 @@
 	icon_state = "delivery"
 	},
 /area/library)
+"iOb" = (
+/obj/machinery/space_heater,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "iOq" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
@@ -45028,16 +45046,23 @@
 /turf/simulated/floor/grass/no_creep,
 /area/bridge)
 "jfv" = (
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/window/southright{
+	dir = 8;
+	name = "Atmospherics Deliveries";
+	req_access_txt = "24"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "delivery"
+	},
 /area/atmos)
 "jfA" = (
 /obj/effect/spawner/window/reinforced,
@@ -48969,6 +48994,10 @@
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -62894,6 +62923,7 @@
 "mIf" = (
 /obj/item/circuitboard/mecha/ripley/peripherals,
 /obj/structure/closet/crate,
+/obj/item/reagent_containers/glass/bottle/nutrient/empty,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "mIs" = (
@@ -63411,6 +63441,7 @@
 /area/maintenance/gambling_den)
 "mMN" = (
 /obj/structure/closet/crate,
+/obj/item/newspaper,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "mMU" = (
@@ -64780,11 +64811,7 @@
 /area/maintenance/turbine)
 "ndw" = (
 /obj/structure/closet,
-/obj/item/pipe,
-/obj/item/pipe,
-/obj/item/pipe,
-/obj/item/pipe,
-/obj/item/pipe,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "ndx" = (
@@ -68781,11 +68808,6 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
 "nVb" = (
-/obj/machinery/door/window/southright{
-	dir = 1;
-	name = "Atmospherics Deliveries";
-	req_access_txt = "24"
-	},
 /obj/machinery/door/poddoor/preopen{
 	name = "Atmos Lockdown";
 	id_tag = "atmos"
@@ -68794,6 +68816,17 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/machinery/door/window/southleft,
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 1;
+	location = "Atmospherics"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -76451,6 +76484,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/permasolitary)
+"pvS" = (
+/obj/machinery/atmospherics/portable/canister,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "pwj" = (
 /turf/simulated/wall/r_wall,
 /area/magistrateoffice)
@@ -76578,6 +76615,7 @@
 /area/engine/engineering)
 "pxl" = (
 /obj/structure/table,
+/obj/item/newspaper,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "pxJ" = (
@@ -84502,6 +84540,7 @@
 /area/chapel/main)
 "rem" = (
 /obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "reo" = (
@@ -92815,6 +92854,12 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
+"sOH" = (
+/obj/structure/sign/pods{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "sOL" = (
 /turf/simulated/wall,
 /area/crew_quarters/bar)
@@ -93764,6 +93809,7 @@
 /area/maintenance/engimaint)
 "sXG" = (
 /obj/structure/rack,
+/obj/item/newspaper,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "sXI" = (
@@ -112733,6 +112779,8 @@
 /area/hallway/secondary/exit)
 "wFl" = (
 /obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/paper,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "wFp" = (
@@ -117827,9 +117875,10 @@
 /turf/simulated/floor/wood,
 /area/security/courtroomdandp)
 "xCL" = (
-/obj/machinery/economy/vending/engineering,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/fsmaint)
 "xCO" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -132945,7 +132994,7 @@ gOH
 lzV
 pnU
 lsd
-hGQ
+diT
 dKk
 dKk
 dKk
@@ -148530,7 +148579,7 @@ pxl
 anE
 cpU
 ndw
-wFl
+ndw
 wFl
 iwB
 fhO
@@ -149297,11 +149346,11 @@ jYM
 iwB
 iwB
 iwB
+ndx
 iwB
 iwB
 iwB
-iwB
-iwB
+ndx
 iwB
 iwB
 iwB
@@ -149552,7 +149601,7 @@ xHV
 rcH
 bqx
 wMR
-rvB
+aOC
 tAQ
 vkc
 vyW
@@ -158398,7 +158447,7 @@ rnF
 sbU
 jIn
 fYO
-xCL
+sbU
 ofJ
 lyL
 fbV
@@ -159329,7 +159378,7 @@ ePE
 hJC
 nRm
 sgA
-fQw
+sOH
 fQw
 opg
 qCV
@@ -166743,7 +166792,7 @@ mbe
 tfE
 xyV
 tfE
-tfE
+xYI
 tfE
 tfE
 tfE
@@ -167001,7 +167050,7 @@ xyV
 xyV
 tfE
 tfE
-rcq
+tfE
 vFk
 qPL
 tfE
@@ -167257,7 +167306,7 @@ iDf
 fRe
 tfE
 tfE
-xYI
+rcq
 xyV
 xyV
 eTf
@@ -172711,9 +172760,9 @@ uSP
 twX
 twX
 iTs
-twX
-twX
-mMN
+pvS
+iOb
+xCL
 uSP
 wYx
 fGV
