@@ -37646,12 +37646,6 @@
 	desc = "You have the public fridge, pal, lube off."
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2;
-	name = "Anti-Theft Shield";
-	req_one_access_txt = "33;5";
-	desc = "You have the public fridge, pal, lube off."
-	},
-/obj/machinery/door/window/classic/normal{
 	dir = 1;
 	name = "Security Shield";
 	desc = "You have the public fridge, pal, lube off.";
