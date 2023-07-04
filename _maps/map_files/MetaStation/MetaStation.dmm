@@ -2310,11 +2310,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "aoY" = (
-/obj/machinery/door/window/brigdoor{
-	dir = 2;
-	name = "Justice Chamber";
-	req_access_txt = "2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2322,16 +2317,21 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/door/window/brigdoor{
-	dir = 1;
-	name = "Justice Chamber";
-	req_access_txt = "2"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "executionfireblast"
+	},
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 1;
+	name = "Justice Chamber";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 2;
+	name = "Justice Chamber";
+	req_access_txt = "2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -18276,7 +18276,8 @@
 /area/turret_protected/ai)
 "bjV" = (
 /obj/machinery/hologram/holopad,
-/obj/machinery/door/window/brigdoor/westleft{
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
 	name = "Secondary AI Core Access";
 	req_access_txt = "16"
 	},
@@ -18305,10 +18306,6 @@
 	},
 /area/turret_protected/ai)
 "bjX" = (
-/obj/machinery/door/window/brigdoor/westleft{
-	name = "Primary AI Core Access";
-	req_access_txt = "16"
-	},
 /obj/machinery/turretid/lethal{
 	check_synth = 1;
 	name = "AI Chamber Turret Control";
@@ -18320,6 +18317,11 @@
 	id = "AI";
 	pixel_x = -8;
 	pixel_y = -24
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "Primary AI Core Access";
+	req_access_txt = "16"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -18946,7 +18948,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/door/window/brigdoor/eastright{
+/obj/machinery/door/window/reinforced/reversed{
 	name = "Primary AI Core Access";
 	req_access_txt = "16"
 	},
@@ -18970,7 +18972,7 @@
 /area/turret_protected/ai)
 "blG" = (
 /obj/machinery/hologram/holopad,
-/obj/machinery/door/window/brigdoor/eastright{
+/obj/machinery/door/window/reinforced/reversed{
 	name = "Tertiary AI Core Access";
 	req_access_txt = "16"
 	},
@@ -19176,11 +19178,6 @@
 "bma" = (
 /obj/item/paper,
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor{
-	dir = 2;
-	name = "Arrivals Security Checkpoint";
-	pixel_y = -8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -20223,11 +20220,11 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "boK" = (
-/obj/machinery/door/window{
+/obj/effect/mapping_helpers/airlock/access/all/command/captain,
+/obj/machinery/door/window/classic/normal{
 	dir = 1;
 	name = "Captain's Bedroom"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain/bedroom)
 "boL" = (
@@ -21275,6 +21272,10 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 1;
+	name = "Arrivals Security Checkpoint"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint2)
 "brm" = (
@@ -21877,13 +21878,6 @@
 "bsO" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window/brigdoor{
-	base_state = "rightsecure";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "Head of Personnel's Desk";
-	req_access_txt = "57"
-	},
 /obj/machinery/door/window/northleft{
 	dir = 2;
 	name = "Reception Window"
@@ -21891,6 +21885,11 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "hop";
 	name = "privacy shutters"
+	},
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 1;
+	name = "Head of Personnel's Desk";
+	req_access_txt = "57"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
@@ -23407,11 +23406,11 @@
 	},
 /area/bridge)
 "bwf" = (
-/obj/machinery/door/window/brigdoor{
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/window/reinforced/normal{
 	dir = 2;
 	name = "Command Desk"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -50239,16 +50238,16 @@
 	icon_state = "right";
 	name = "Outer Window"
 	},
-/obj/machinery/door/window/brigdoor{
-	name = "Security Desk";
-	req_access_txt = "1"
-	},
 /obj/item/folder/red,
 /obj/item/pen{
 	pixel_x = -3;
 	pixel_y = 5
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/reinforced/normal{
+	name = "Security Desk";
+	req_access_txt = "1"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "dep" = (
@@ -53575,11 +53574,6 @@
 /area/quartermaster/storage)
 "eFc" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor{
-	dir = 1;
-	name = "Warden's Desk";
-	req_access_txt = "3"
-	},
 /obj/machinery/door/window/westleft{
 	base_state = "right";
 	dir = 2;
@@ -53602,6 +53596,11 @@
 	icon_state = "1-8"
 	},
 /obj/item/storage/fancy/donut_box,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1;
+	name = "Warden's Desk";
+	req_access_txt = "3"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/warden)
 "eFw" = (
@@ -57376,15 +57375,16 @@
 /area/toxins/lab)
 "gvV" = (
 /obj/machinery/smartfridge/medbay,
-/obj/machinery/door/window/westright{
-	name = "Anti-Theft Shield";
-	req_one_access_txt = "5;33"
-	},
 /obj/machinery/door/window/eastleft{
 	name = "Chemistry Desk";
 	req_access_txt = "33"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/antitheft{
+	dir = 8;
+	name = "Anti-Theft Shield";
+	req_one_access_txt = "33;5"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellowfull"
@@ -60099,11 +60099,6 @@
 	},
 /area/medical/morgue)
 "hMS" = (
-/obj/machinery/door/window/brigdoor/eastleft{
-	id = "Cell 4";
-	name = "Cell 4";
-	req_access_txt = "2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -60114,6 +60109,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door/window/reinforced/reversed{
+	id = "Cell 4";
+	name = "Cell 4";
+	req_access_txt = "2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -62784,12 +62784,6 @@
 /turf/simulated/floor/plating,
 /area/medical/psych)
 "iZo" = (
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	id = "Cell 1";
-	name = "Cell 1";
-	req_access_txt = "2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -62800,6 +62794,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 8;
+	id = "Cell 1";
+	name = "Cell 1";
+	req_access_txt = "2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -63423,14 +63423,6 @@
 /turf/space,
 /area/space/nearstation)
 "jvz" = (
-/obj/machinery/door/window/brigdoor{
-	base_state = "rightsecure";
-	dir = 8;
-	icon_state = "rightsecure";
-	id = "Cell 3";
-	name = "Cell 3";
-	req_access_txt = "2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -63441,6 +63433,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	id = "Cell 3";
+	name = "Cell 3";
+	req_access_txt = "2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -64154,9 +64152,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/door/window/brigdoor/westright,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "Experimentator Door";
+	req_access_txt = s
+	},
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
 "jMs" = (
@@ -78285,17 +78287,17 @@
 /area/security/main)
 "qFe" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor{
-	dir = 1;
-	name = "Weapon Distribution";
-	req_access_txt = "3"
-	},
 /obj/machinery/door/window/southleft{
 	name = "Request Window"
 	},
 /obj/item/pen,
 /obj/item/paper,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1;
+	name = "Weapon Distribution";
+	req_access_txt = "3"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80819,12 +80821,6 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "rSF" = (
-/obj/machinery/door/window/brigdoor/westright{
-	dir = 4;
-	id = "Cell 2";
-	name = "Cell 2";
-	req_access_txt = "2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -80835,6 +80831,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door/window/reinforced/normal{
+	id = "Cell 2";
+	name = "Cell 2";
+	req_access_txt = "2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -83731,13 +83732,11 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/door/window/brigdoor{
-	base_state = "rightsecure";
-	icon_state = "rightsecure";
-	id = "Cell 5";
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 1;
 	name = "Cell 5";
-	req_access_txt = "2";
-	dir = 1
+	id = "Cell 5";
+	req_access_txt = "2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -84355,16 +84354,16 @@
 /area/assembly/showroom)
 "tDB" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	name = "Warden's Desk";
-	req_access_txt = "3"
-	},
 /obj/machinery/door/window/westleft{
 	base_state = "right";
 	dir = 4;
 	icon_state = "right";
 	name = "Outer Window"
+	},
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 8;
+	name = "Warden's Desk";
+	req_access_txt = "3"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/warden)
