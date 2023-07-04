@@ -37626,9 +37626,13 @@
 	},
 /obj/machinery/door/window/classic/reversed{
 	name = "Security Shield";
-	req_access_txt = "33";
+	dir = 1;
+	desc = "You have the public fridge, pal, lube off."
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteyellowfull"
@@ -37638,15 +37642,20 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/window/classic/normal{
-	dir = 1;
-	name = "Security Shield";
-	req_access_txt = "33"
-	},
-/obj/machinery/door/window/antitheft/normal{
 	dir = 2;
 	name = "Anti-Theft Shield";
-	req_one_access_txt = "33;5"
+	req_one_access_txt = "33;5";
+	desc = "You have the public fridge, pal, lube off."
 	},
+/obj/machinery/door/window/classic/normal{
+	dir = 1;
+	name = "Security Shield";
+	desc = "You have the public fridge, pal, lube off."
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "bSQ" = (

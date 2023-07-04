@@ -16183,9 +16183,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/smartfridge/secure/medbay,
-/obj/machinery/door/window/antitheft/normal{
-	name = "Anti-Theft Shield";
-	req_one_access_txt = "33;5"
+/obj/machinery/door/window/classic/normal{
+	name = "Medbay Fridge";
+	req_one_access_txt = "5;33"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
