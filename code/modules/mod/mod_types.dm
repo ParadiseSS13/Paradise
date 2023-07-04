@@ -358,9 +358,11 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/status_readout,
+		/obj/item/mod/module/magboot/advanced,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/magboot/advanced,
 	)
 
 /obj/item/mod/control/pre_equipped/apocryphal/officer
@@ -370,16 +372,18 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/status_readout,
+		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/power_kick,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/power_kick, //If you are not drop kicking a xenomorph, what are you doing as an DS commander?
 	)
 
 
 /obj/item/mod/control/pre_equipped/corporate
-	theme = /datum/mod_theme/corporate
+	theme = /datum/mod_theme/corporatewhen
 	applied_core = /obj/item/mod/core/infinite
 	req_access = list(ACCESS_CENT_SPECOPS)
 	applied_modules = list(
@@ -387,9 +391,11 @@
 		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,
+		/obj/item/mod/module/magboot/advanced,
 	)
 	default_pins = list(
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,
+		/obj/item/mod/module/magboot/advanced,
 	)
 
 /obj/item/mod/control/pre_equipped/debug
