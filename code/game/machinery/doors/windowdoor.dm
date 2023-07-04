@@ -261,7 +261,7 @@
 
 /obj/machinery/door/window/attack_animal(mob/living/simple_animal/M)
 	. = ..()
-	if(M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
 		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
@@ -416,6 +416,20 @@
 	reinf = TRUE
 	explosion_block = 1
 
+/obj/machinery/door/window/classic
+	name = "main category"
+	dir = EAST
+
+/obj/machinery/door/window/classic/normal
+	name = ".custom placement"
+	dir = EAST
+
+/obj/machinery/door/window/classic/reversed
+	name = ".custom placement"
+	dir = EAST
+	icon_state = "right"
+	base_state = "right"
+
 /obj/machinery/door/window/antitheft
 	name = "main category"
 	desc = "Don't think about stealing, pal, lube off."
@@ -426,20 +440,6 @@
 	dir = EAST
 
 /obj/machinery/door/window/antitheft/reversed
-	name = ".custom placement"
-	dir = EAST
-	icon_state = "right"
-	base_state = "right"
-
-/obj/machinery/door/window/classic
-	name = "main category"
-	dir = EAST
-
-/obj/machinery/door/window/classic/normal
-	name = ".custom placement"
-	dir = EAST
-
-/obj/machinery/door/window/classic/reversed
 	name = ".custom placement"
 	dir = EAST
 	icon_state = "right"
