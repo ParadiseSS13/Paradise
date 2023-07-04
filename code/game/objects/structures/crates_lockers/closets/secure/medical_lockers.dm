@@ -107,8 +107,8 @@
 	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
 	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
 	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
-	new /obj/item/reagent_containers/food/pill/morphine(src)
-	new /obj/item/reagent_containers/food/pill/morphine(src)
+	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
+	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
