@@ -37626,11 +37626,9 @@
 	},
 /obj/machinery/door/window/classic/reversed{
 	name = "Security Shield";
+	req_access_txt = "33";
 	dir = 1;
 	desc = "You have the public fridge, pal, lube off."
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
-	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /turf/simulated/floor/plasteel{
@@ -37648,14 +37646,17 @@
 	desc = "You have the public fridge, pal, lube off."
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 1;
-	name = "Security Shield";
+	dir = 2;
+	name = "Anti-Theft Shield";
+	req_one_access_txt = "33;5";
 	desc = "You have the public fridge, pal, lube off."
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
-	dir = 1
+/obj/machinery/door/window/classic/normal{
+	dir = 1;
+	name = "Security Shield";
+	desc = "You have the public fridge, pal, lube off.";
+	req_access_txt = "33"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "bSQ" = (
