@@ -87,6 +87,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
+	var/heat_resistance = 1500
 
 	var/mutable_appearance/old_buttons_underlay
 	var/mutable_appearance/old_lights_underlay
@@ -747,8 +748,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			attack_ai(user)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSDOOR) && !locked) // We really dont want mice/drones to get shocked on a door they're passing through
-		return TRUE
+	if(istype(mover) && !locked)
+		if(mover.checkpass(PASSDOOR))
+			return TRUE
+		var/mob/living/living_mover = mover
+		if((istype(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))) // We really dont want people to get shocked on a door they're passing through
+			return TRUE
 	if(isElectrified() && density && isitem(mover))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
@@ -1484,7 +1489,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		else
 			DA = new /obj/structure/door_assembly(loc)
 			//If you come across a null assemblytype, it will produce the default assembly instead of disintegrating.
-		DA.heat_proof_finished = heat_proof //tracks whether there's rglass in
+		DA.reinforced_glass = src.reinforced_glass //tracks whether there's rglass in
 		DA.anchored = TRUE
 		DA.glass = src.glass
 		DA.polarized_glass = polarized_glass
@@ -1656,6 +1661,13 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		execute_current_command()
 	else
 		return PROCESS_KILL
+
+/obj/machinery/door/airlock/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	if(heat_proof)
+		return
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING
