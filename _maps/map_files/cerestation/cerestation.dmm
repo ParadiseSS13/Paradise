@@ -60773,6 +60773,15 @@
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/north)
+"mgo" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/expedition)
 "mgu" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -92179,6 +92188,11 @@
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /obj/item/pickaxe,
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -134478,10 +134492,10 @@ aXR
 oVI
 mmn
 oQn
+mgo
 uot
 uot
-uot
-uot
+mgo
 vId
 xgO
 oVI
