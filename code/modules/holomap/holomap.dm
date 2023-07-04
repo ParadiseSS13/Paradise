@@ -58,15 +58,17 @@ GLOBAL_LIST_EMPTY(holomaps)
 
 	appearance = holomap_projection
 
+	//This is where we get the average x and y of every area rendered; for location arrows
 	for(var/area/A in location_areas)
 		var/new_x
 		var/new_y
 		var/tally = length(location_areas[A][2])
+
 		for(var/turf/T in location_areas[A][2])
 			new_x += T.x
 			new_y += T.y
-		new_x = new_x/tally
-		new_y = new_y/tally
+		new_x = new_x / tally
+		new_y = new_y / tally
 		location_areas[A] = list(A, new_x, new_y)
 
 /obj/screen/you_are_here
@@ -93,7 +95,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 /obj/screen/this_is_there
 	icon = 'icons/effects/holomap_icons.dmi'
 	icon_state = "location"
-	layer = ABOVE_HUD_LAYER+1
+	layer = ABOVE_HUD_LAYER + 1
 	plane = ABOVE_HUD_PLANE
 	var/datum/action/show_location/owner
 	var/image/lookatme
@@ -102,7 +104,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 	..()
 	owner = my_creator
 	lookatme = image('icons/effects/holomap_icons.dmi', "location_lookatme")
-	lookatme.layer = layer+1
+	lookatme.layer = layer + 1
 
 /obj/screen/this_is_there/proc/recalculate_appearance(area/A_in, x_in, y_in)
 	var/obj/machinery/holomap/my_machine = owner.target
@@ -138,16 +140,17 @@ GLOBAL_LIST_EMPTY(holomaps)
 
 /datum/action/show_location/Trigger()
 	. = ..()
+
 	var/obj/machinery/holomap/my_machine = target
+	var/area/A = input("What location would you like shown?") as null|area in my_machine.my_map.using.location_areas
 
-	var/area/A = input("What location would you like shown?") as null|anything in my_machine.my_map.using.location_areas
+	if(A)
+		location_displayed.recalculate_appearance(A, my_machine.my_map.using.location_areas[A][2], my_machine.my_map.using.location_areas[A][3])
 
-	location_displayed.recalculate_appearance(A, my_machine.my_map.using.location_areas[A][2], my_machine.my_map.using.location_areas[A][3])
-
-	if(target && istype(target, /obj/machinery/holomap) && !showing)
-		var/obj/machinery/holomap/HM =  target
-		HM.show_location(owner)
-		showing = TRUE
+		if(target && istype(target, /obj/machinery/holomap) && !showing)
+			var/obj/machinery/holomap/HM =  target
+			HM.show_location(owner)
+			showing = TRUE
 
 /obj/machinery/holomap
 	name = "Holomap"
@@ -258,7 +261,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 	var/icon/bigassicon = icon('icons/effects/480x480.dmi',"blank")
 	/*
 		We're using a 480x480 icon since thats 15x15 32x32 tiles (default view range)
-		Since maps aren't that (they are 255x255) the compromise is defaulting to render
+		Since maps aren't that (255x255 doubled is 510x510) the compromise is defaulting to render
 		starting from [9,9] up to [248,248] which is the center portion of the map with
 		a border of 8 tiles that get culled. This can be changed with `region_selection`;
 		Any region larger than 240 will have its edges culled to fit, regardless of the
@@ -281,19 +284,16 @@ GLOBAL_LIST_EMPTY(holomaps)
 	for(var/x_index in region_x_start to region_x_finish)
 		for(var/y_index in region_y_start to region_y_finish)
 			var/turf/T = locate(x_index, y_index, zlevel_rendered)
-			var/area/A = get_area(T)
+			var/area/A = T.loc  // don't use get_area(), we can skip 3 proccals per iteration just by going to the source
+			var/W = ((locate(/obj/structure/window/full) in T) || (locate(/obj/effect/spawner/window) in T)) ? TRUE : FALSE // W for windoww in my T YO!
+			if(W)
+				message_admins("BUG")
+
 			if(A.type != /area/space && A.type != /area/space/nearstation)
 				if(location_areas[A])
 					location_areas[A][2] += T
 				else
 					location_areas[A] = list(A, list(T))
-			var/W = FALSE
-			for(var/obj/structure/window/full/WW in T.contents)
-				W = TRUE
-				break
-			for(var/obj/effect/spawner/window/WW in T.contents)
-				W = TRUE
-				break
 
 			/*
 				This works by using 2x2 sprites from 'icons/effects/holomap_parts.dmi' to construct the holomap;
@@ -304,7 +304,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 			//this is what all the logic is for, setting this variable
 			var/icon_state_to_use
 			//as well as this since it modifies the wall sprite
-			var/dir_to_use = 2
+			var/dir_to_use = SOUTH
 
 			//the following variables are set conditionally on the state of the turf
 			//so we can render the right sprite for this turf
@@ -314,24 +314,17 @@ GLOBAL_LIST_EMPTY(holomaps)
 
 	//--------------{{{ DISCOVERY PHASE }}}------------------------------
 
+			for(var/j in GLOB.diagonals)
+				var/turf/found_s_turf = get_step(T, j)
+				var/area/found_s_area = found_s_turf.loc
+				if(found_s_area == /area/space || found_s_area == /area/space/nearstation || isspaceturf(found_s_turf))
+					neighbor_space = TRUE
+					break
+
 			for(var/i in GLOB.cardinal)
 				var/turf/found_turf = get_step(T, i)
-				var/area/found_area = get_area(found_turf)
-				var/found_window = FALSE
-
-				for(var/obj/structure/window/full/WW in found_turf.contents)
-					found_window = TRUE
-					break
-				for(var/obj/effect/spawner/window/WW in found_turf.contents)
-					found_window = TRUE
-					break
-
-				for(var/j in GLOB.diagonals)
-					var/turf/found_s_turf = get_step(T, j)
-					var/area/found_s_area = get_area(found_s_turf)
-					if(found_s_area == /area/space || found_s_area == /area/space/nearstation || isspaceturf(found_s_turf))
-						neighbor_space = TRUE
-						break
+				var/area/found_area = found_turf.loc
+				var/found_window = ((locate(/obj/structure/window/full) in found_turf) || (locate(/obj/effect/spawner/window) in found_turf)) ? TRUE : FALSE
 
 				if(neighbor_space || found_area == /area/space || found_area == /area/space/nearstation || isspaceturf(found_turf))
 					neighbor_space = TRUE
@@ -341,19 +334,19 @@ GLOBAL_LIST_EMPTY(holomaps)
 					neighbors_alien += i
 					continue
 
-				if(iswallturf(found_turf) || istype(found_turf, /turf/simulated/mineral) || found_window)
+				if(found_window ||found_turf.density)
 					neighbors_solid += i
 
 	//-----------------{{{ RENDERING PHASE }}}----------------------------
 
 			if(neighbor_space || length(neighbors_solid) >= 3)
-				if(iswallturf(T) || istype(T, /turf/simulated/mineral) || W)
+				if( W || T.density)
 					icon_state_to_use = "full"
 				else if(isfloorturf(T))
 					icon_state_to_use = "floor"
 
 			//--> (not next to space; not surrounded; less than 3 solid neighbors)
-			else if(iswallturf(T) || istype(T, /turf/simulated/mineral) || W)
+			else if(W || T.density)
 				if(length(neighbors_alien) == 1)
 					icon_state_to_use = "wall"
 					if(length(neighbors_solid) == 1)
@@ -454,7 +447,7 @@ GLOBAL_LIST_EMPTY(holomaps)
 	#define DEPARTMENTAL_AREAS_ROCK list(list(/area/mine/unexplored/cere), list(), "#51473c", "#715c51")
 
 
-/obj/screen/holomap/proc/get_area_color(area_type, is_floor=FALSE)
+/obj/screen/holomap/proc/get_area_color(area_type, is_floor = FALSE)
 	var/found_it = FALSE
 	for(var/list/k in DEPARTMENTAL_AREAS_MASTERLIST)
 		for(var/i in k[1])
