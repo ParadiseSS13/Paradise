@@ -286,8 +286,6 @@ GLOBAL_LIST_EMPTY(holomaps)
 			var/turf/T = locate(x_index, y_index, zlevel_rendered)
 			var/area/A = T.loc  // don't use get_area(), we can skip 3 proccals per iteration just by going to the source
 			var/W = ((locate(/obj/structure/window/full) in T) || (locate(/obj/effect/spawner/window) in T)) ? TRUE : FALSE // W for windoww in my T YO!
-			if(W)
-				message_admins("BUG")
 
 			if(A.type != /area/space && A.type != /area/space/nearstation)
 				if(location_areas[A])
