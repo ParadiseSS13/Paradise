@@ -44,3 +44,10 @@
   - refactor: Immortality Talisman Consume (#3118)
   Сиротка:
   - unknown: ATMOS module & X-ray (#3083)
+'2023-07-05':
+  Rerik007:
+  - bugfix: big ruins create infinity loop (#3128)
+  - qol: configurable loading taipan and lavaland (#3129)
+  - bugfix: holster logic and dupe naming cryopod (#3131)
+  captainnelly:
+  - tweak: replace TSF traders autoimplanter by old one (#3132)
