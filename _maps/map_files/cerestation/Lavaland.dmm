@@ -98,8 +98,8 @@
 "as" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/mineral/mint{
-	output_dir = 1;
-	input_dir = 8
+	input_dir = 8;
+	output_dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -310,6 +310,7 @@
 	},
 /area/mine/living_quarters)
 "aT" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -675,14 +676,14 @@
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	tag = "icon-whiteblue (NORTHWEST)"
 	},
 /area/mine/living_quarters)
 "cg" = (
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 1;
 	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
+	tag = "icon-whiteblue (NORTH)"
 	},
 /area/mine/living_quarters)
 "ci" = (
@@ -795,8 +796,8 @@
 	},
 /obj/machinery/button/windowtint{
 	dir = 1;
-	pixel_y = 24;
-	id = "inf"
+	id = "inf";
+	pixel_y = 24
 	},
 /obj/machinery/light{
 	dir = 1
@@ -1370,8 +1371,8 @@
 	id = "miningdorm1";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_y = 24
+	pixel_y = 24;
+	specialfunctions = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1421,8 +1422,8 @@
 	id = "miningdorm2";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_y = -24
+	pixel_y = -24;
+	specialfunctions = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2213,8 +2214,8 @@
 "jM" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Infirmary";
-	network = list("Labor Camp");
-	dir = 4
+	dir = 4;
+	network = list("Labor Camp")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -3992,7 +3993,8 @@
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -24
+	pixel_x = -25;
+	pixel_y = -4
 	},
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -4925,7 +4927,7 @@
 /area/mine/laborcamp)
 "Db" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -5334,8 +5336,8 @@
 "Gt" = (
 /obj/machinery/camera{
 	c_tag = "Mining Bar";
-	network = list("Mining Outpost");
-	dir = 4
+	dir = 4;
+	network = list("Mining Outpost")
 	},
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
@@ -5373,7 +5375,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue"
 	},
 /area/mine/living_quarters)
 "GF" = (
@@ -5873,13 +5876,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
-"KB" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
-	},
-/area/mine/production)
 "KE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
@@ -6260,7 +6256,8 @@
 "NZ" = (
 /obj/item/radio/intercom{
 	dir = 8;
-	pixel_x = 28
+	pixel_x = 26;
+	pixel_y = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -7315,8 +7312,8 @@
 "Yh" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
-	network = list("Labor Camp");
-	dir = 4
+	dir = 4;
+	network = list("Labor Camp")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
@@ -63019,13 +63016,13 @@ FN
 ei
 aJ
 QE
-KB
+QE
 nr
 Db
 bY
-Db
-QE
 aT
+QE
+QE
 nr
 ar
 aR
