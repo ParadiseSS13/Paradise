@@ -430,6 +430,8 @@
 #define PLACE_SPACE_RUIN "space"
 #define PLACE_LAVA_RUIN "lavaland"
 
+#define MAX_RUIN_SIZE_VALUE 170 // Which ruin should be considered large and create a separate level of space for it.
+
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined
 #define CLEAN_WEAK 			2

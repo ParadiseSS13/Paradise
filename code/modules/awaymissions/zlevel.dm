@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	return potentialMaps
 
 
-/datum/map_template/ruin/proc/try_to_place(z,allowed_areas)
+/datum/map_template/ruin/proc/try_to_place(z, allowed_areas)
 	var/sanity = PLACEMENT_TRIES
 	while(sanity > 0)
 		sanity--
@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 		var/turf/central_turf = locate(rand(width_border, world.maxx - width_border), rand(height_border, world.maxy - height_border), z)
 		var/valid = TRUE
 
-		for(var/turf/check in get_affected_turfs(central_turf,1))
+		for(var/turf/check as anything in get_affected_turfs(central_turf,1))
 			var/area/new_area = get_area(check)
 			if(!(istype(new_area, allowed_areas)) || check.flags & NO_RUINS)
 				valid = FALSE
@@ -168,7 +168,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 		load(central_turf,centered = TRUE)
 		loaded++
 
-		for(var/turf/T in get_affected_turfs(central_turf, 1))
+		for(var/turf/T as anything in get_affected_turfs(central_turf, 1))
 			T.flags |= NO_RUINS
 
 		new /obj/effect/landmark/ruin(central_turf, src)
