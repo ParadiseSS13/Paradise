@@ -383,7 +383,7 @@
 
 
 /obj/item/mod/control/pre_equipped/corporate
-	theme = /datum/mod_theme/corporatewhen
+	theme = /datum/mod_theme/corporate
 	applied_core = /obj/item/mod/core/infinite
 	req_access = list(ACCESS_CENT_SPECOPS)
 	applied_modules = list(
