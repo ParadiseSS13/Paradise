@@ -5,7 +5,6 @@
 	name = "Cerestation"
 	map_path = "_maps/map_files/cerestation/cerestation.dmm"
 	lavaland_path = "_maps/map_files/cerestation/Lavaland.dmm"
-	admin_only = TRUE
 
 	station_name  = "NSS Farragus"
 	station_short = "Farragus"
