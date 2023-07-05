@@ -369,7 +369,7 @@
 /obj/item/mod/module/ert_camera
 	name = "MOD camera module"
 	desc = "This combination camera and broadcasting module grants the modsuit a camera that tracks what the user see, and sends it to the nearest station and \
-	CC blackbox. This is used for ERT commander tracking, performance review, Nanotrasens Funnniest Home Videos, \
+	CC blackbox. This is used for ERT commander tracking, performance review, Nanotrasen's Funniest Home Videos, \
 	and used for reference for their Deathsquad Cartoon Series."
 	icon_state = "eradicationlock" //looks like a bluespace transmitter or something, probably could use an actual camera look.
 	complexity = 1
