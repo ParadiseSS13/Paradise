@@ -28,9 +28,9 @@
 	gender = NEUTER
 	maxHealth = 400
 	health = 400
-	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0.5, OXY = 1)
+	damage_coeff = list(BRUTE = 0.4, BURN = 0.5, TOX = 0.6, CLONE = 0.6, STAMINA = 0, OXY = 0)
 	a_intent = INTENT_HARM
-	speed = 0
+	speed = -0.2
 	flying = TRUE
 	attacktext = "кусает"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
@@ -40,28 +40,29 @@
 	icon_living = "spacedragon"
 	icon_dead = "spacedragon_dead"
 	health_doll_icon = "spacedragon"
-	obj_damage = 50
-	environment_smash = ENVIRONMENT_SMASH_NONE
+	obj_damage = 90
+	environment_smash = ENVIRONMENT_SMASH_WALLS
 	melee_damage_upper = 35
-	melee_damage_lower = 35
+	melee_damage_lower = 45
 	mob_size = MOB_SIZE_LARGE
-	armour_penetration = 30
+	armour_penetration = 40 // do you really expect some tiny riot armour can hadle dragon size bites?
 	pixel_x = -16
 	maptext_height = 64
 	maptext_width = 64
 	turns_per_move = 5
 	ranged = TRUE
 	mouse_opacity = MOUSE_OPACITY_ICON
-	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
+	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30, /obj/item/reagent_containers/food/snacks/carpmeat = 15)
 	deathmessage = "визжит, крылья превращаются в пыль, а в глазах угасает жизнь, после чего дракон падает замертво."
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	maxbodytemp = 1500
+	maxbodytemp = 3500
 	faction = list("carp")
 	pressure_resistance = 200
 	sentience_type = SENTIENCE_BOSS
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	/// How much endlag using Wing Gust should apply.  Each use of wing gust increments this, and it decreases over time.
 	var/tiredness = 0
 	/// A multiplier to how much each use of wing gust should add to the tiredness variable.  Set to 5 if the current rift is destroyed.
@@ -81,9 +82,9 @@
 	/// The color of the space dragon.
 	var/chosen_color
 	/// Minimum devastation damage dealt coefficient based on max health
-	var/devastation_damage_min_percentage = 40
+	var/devastation_damage_min_percentage = 10
 	/// Maximum devastation damage dealt coefficient based on max health
-	var/devastation_damage_max_percentage = 75
+	var/devastation_damage_max_percentage = 25
 	/// Movement speed changes
 	var/dragon_depression = FALSE
 	var/dragon_rage = FALSE
@@ -122,7 +123,7 @@
 
 /mob/living/simple_animal/hostile/space_dragon/Life(seconds_per_tick, times_fired)
 	. = ..()
-	tiredness = max(tiredness - (0.5 * seconds_per_tick), 0)
+	tiredness = max(tiredness - (1 * seconds_per_tick), 0)
 	for(var/mob/living/consumed_mob in src)
 		if(consumed_mob.stat == DEAD)
 			continue
@@ -153,9 +154,9 @@
 		var/turf/simulated/wall/thewall = target
 		to_chat(src, span_warning("Вы начинаете рвать стену на части..."))
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-		var/timetotear = 4 SECONDS
+		var/timetotear = 2 SECONDS
 		if(istype(target, /turf/simulated/wall/r_wall))
-			timetotear = 12 SECONDS
+			timetotear = 4 SECONDS
 		if(do_after(src, timetotear, target = thewall))
 			if(!iswallturf(thewall))
 				return
@@ -167,10 +168,10 @@
 		var/mob/living/L = target
 		if(L.stat == DEAD)
 			to_chat(src, span_warning("Вы начинаете глотать [L] целиком..."))
-			if(!do_after(src, 3 SECONDS, target = L))
+			if(!do_after(src, 2 SECONDS, target = L))
 				return
 			if(eat(L))
-				adjustHealth(-L.maxHealth * 0.25)
+				adjustHealth(-L.maxHealth * 0.5)
 			return
 		if("carp" in L.faction)
 			to_chat(src, span_warning("Вы почти укусили своего сородича, но вовремя остановились."))
@@ -178,7 +179,7 @@
 	. = ..()
 	if(ismecha(target))
 		var/obj/mecha/M = target
-		M.take_damage(50, BRUTE, "melee", 1)
+		M.take_damage(90, BRUTE, "melee", 1)
 
 /mob/living/simple_animal/hostile/space_dragon/proc/try_gust()
 	if(using_special)
@@ -326,21 +327,21 @@
 	var/list/hit_list = list()
 	hit_list += src
 	new /obj/effect/hotspot(T)
-	T.hotspot_expose(700,50,1)
+	T.hotspot_expose(2000,50,1)
 	for(var/mob/living/L in T.contents)
 		if(L in hit_list)
 			continue
 		if("carp" in L.faction)
 			continue
 		hit_list += L
-		L.adjustFireLoss(30)
+		L.adjustFireLoss(45)
 		to_chat(L, span_userdanger("Вы попали под огненное дыхание [src]!"))
 	// deals damage to mechs
 	for(var/obj/mecha/M in T.contents)
 		if(M in hit_list)
 			continue
 		hit_list += M
-		M.take_damage(50, BRUTE, "melee", 1)
+		M.take_damage(90, BRUTE, "melee", 1)
 
 /**
  * Handles consuming and storing consumed things inside Space Dragon

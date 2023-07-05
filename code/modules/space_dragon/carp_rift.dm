@@ -29,7 +29,7 @@
 		to_chat(owner, span_warning("Вы не можете открыть разлом здесь! Для него нужна поверхность!"))
 		return
 	to_chat(owner, span_notice("Вы начинаете открывать разлом..."))
-	if(!do_after(owner, 10 SECONDS, target = owner))
+	if(!do_after(owner, 8 SECONDS, target = owner))
 		return
 	if(locate(/obj/structure/carp_rift) in owner.loc)
 		return
@@ -55,7 +55,7 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "Разлом, позвляющий космическим карпам перемещаться на огромные расстояния."
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 80, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
 	max_integrity = 300
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
@@ -86,7 +86,7 @@
 
 	AddComponent( \
 		/datum/component/aura_healing, \
-		range = 0, \
+		range = 6, \
 		simple_heal = 5, \
 		limit_to_trait = TRAIT_HEALS_FROM_CARP_RIFTS, \
 		healing_color = COLOR_BLUE, \
@@ -164,14 +164,14 @@
 		if(light_color != LIGHT_COLOR_PURPLE)
 			light_color = LIGHT_COLOR_PURPLE
 			update_light()
-		notify_ghosts("Разлом может призвать дополнительного карпа!", source = src, action = NOTIFY_FOLLOW, flashwindow = FALSE, title = "Доступен космический карп")
+		notify_ghosts("Разлом может призвать дополнительного карпа! Нажмите ЛКМ на разлом, чтобы им стать!", source = src, action = NOTIFY_FOLLOW, flashwindow = FALSE, title = "Доступен космический карп")
 		last_carp_inc -= carp_interval
 
 	// Is the rift now fully charged?
 	if(time_charged >= max_charge)
 		charge_state = CHARGE_COMPLETED
 		var/area/A = get_area(src)
-		GLOB.command_announcement.Announce("Простраственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.", "Отдел Изучения Дикой Природы")
+		GLOB.command_announcement.Announce("Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.", "Отдел Изучения Дикой Природы")
 		max_integrity = INFINITY
 		obj_integrity = INFINITY
 		icon_state = "carp_rift_charged"
@@ -213,8 +213,8 @@
 			to_chat(user, span_warning("Вы уже появлялись карпом из этого разлома! Пожалуйста, ожидайте избытка карпов или следующего разлома!"))
 			return FALSE
 		is_listed = TRUE
-	var/carp_ask = alert(user, "Стать карпом?", "Разлом карпов", "Yes", "No")
-	if(carp_ask != "Yes" || QDELETED(src) || QDELETED(user))
+	var/carp_ask = alert(user, "Стать карпом?", "Разлом карпов", "Да", "Нет")
+	if(carp_ask != "Да" || QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(carp_stored <= 0)
 		to_chat(user, span_warning("Разлом уже призвал достаточно карпов!"))

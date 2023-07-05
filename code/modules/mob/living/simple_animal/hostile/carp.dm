@@ -13,12 +13,12 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 2)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm = "hits"
+	response_harm = list("hits", "gnawing", "bites")
 	emote_taunt = list("gnashes")
 	taunt_chance = 30
-	speed = 0
-	maxHealth = 25
-	health = 25
+	speed = -0.1
+	maxHealth = 60
+	health = 60
 
 	harm_intent_damage = 8
 	obj_damage = 50
@@ -36,6 +36,7 @@
 	faction = list("carp")
 	flying = TRUE
 	pressure_resistance = 200
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	gold_core_spawnable = HOSTILE_SPAWN
 
 	var/random_color = TRUE //if the carp uses random coloring
@@ -135,8 +136,6 @@
 	icon_living = "megacarp"
 	icon_dead = "megacarp_dead"
 	icon_gib = "megacarp_gib"
-	maxHealth = 20
-	health = 20
 	pixel_x = -16
 	mob_size = MOB_SIZE_LARGE
 	random_color = FALSE
