@@ -1663,6 +1663,32 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
 
+/datum/supply_packs/misc/patriotic
+	name = "Patriotic Crate"
+	cost = 111
+	containertype = /obj/structure/closet/crate/trashcart
+	contains = list(/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/flag/nt,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/book/manual/security_space_law,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official
+					)
+
+	containername = "patriotic crate"
+
 
 ///////////// Paper Work
 
