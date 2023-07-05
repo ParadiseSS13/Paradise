@@ -66473,6 +66473,11 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -67159,6 +67164,11 @@
 	},
 /obj/machinery/status_display{
 	pixel_x = -32
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -67886,24 +67896,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
-"fSz" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology)
 "fSH" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -68500,27 +68492,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
-"gqE" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology)
 "gqN" = (
 /obj/structure/morgue{
 	dir = 8
@@ -73304,6 +73275,11 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -75997,11 +75973,6 @@
 /area/maintenance/port)
 "lKO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -76287,11 +76258,6 @@
 	},
 /area/security/permabrig)
 "lUp" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -77946,6 +77912,11 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79575,11 +79546,6 @@
 	},
 /area/toxins/xenobiology)
 "osI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -93174,6 +93140,11 @@
 	},
 /area/maintenance/aft)
 "xRU" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -137076,7 +137047,7 @@ taM
 cJK
 vXT
 vLF
-cVf
+cEH
 osI
 eoT
 cEH
@@ -137590,7 +137561,7 @@ smP
 cIb
 qKN
 icn
-qKu
+vTk
 eYK
 cVf
 hlo
@@ -137847,8 +137818,8 @@ cJK
 cJK
 tif
 cJz
-vTk
-fSz
+qKu
+cNr
 dGR
 cNh
 ljA
@@ -138618,7 +138589,7 @@ cRY
 cMj
 cMI
 cZq
-qKu
+vTk
 ndV
 sen
 hlo
@@ -138875,8 +138846,8 @@ cJK
 cJK
 cMQ
 cZs
-vTk
-gqE
+qKu
+qEJ
 umH
 cNh
 ljA
@@ -139389,7 +139360,7 @@ cMk
 cMk
 cNa
 fig
-qKu
+vTk
 jKB
 xbd
 hlo
