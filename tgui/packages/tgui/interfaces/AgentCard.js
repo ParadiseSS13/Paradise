@@ -10,6 +10,8 @@ export const AgentCard = (props, context) => {
         return <AgentCardInfo />;
       case 1:
         return <AgentCardAppearances />;
+      case 2:
+        return <AgentCardSLSlots />;
       default:
         return <AgentCardInfo />;
     }
@@ -31,6 +33,12 @@ export const AgentCard = (props, context) => {
               selected={1 === tabIndex}
               onClick={() => setTabIndex(1)}>
               <Icon name="id-card" /> Appearance
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Save/Load Card Info"
+              selected={2 === tabIndex}
+              onClick={() => setTabIndex(2)}>
+              <Icon name="arrow-down" /> Save/Load Card Info
             </Tabs.Tab>
           </Tabs>
           {decideTab(tabIndex)}
@@ -62,7 +70,7 @@ export const AgentCardInfo = (props, context) => {
           <LabeledList.Item
             label="Name">
             <Button
-              content={registered_name ? registered_name : '[UNSET]'}
+              content={registered_name || '[UNSET]'}
               onClick={() => act('change_name')}
             />
           </LabeledList.Item>
@@ -70,53 +78,49 @@ export const AgentCardInfo = (props, context) => {
             label="Sex">
             <Button
               iconRight={false}
-              content={sex ? sex : '[UNSET]'}
+              content={sex || '[UNSET]'}
               onClick={() => act('change_sex')}
             />
           </LabeledList.Item>
           <LabeledList.Item
             label="Age">
             <Button
-              content={age ? age : '[UNSET]'}
+              content={age || '[UNSET]'}
               onClick={() => act('change_age')}
             />
           </LabeledList.Item>
           <LabeledList.Item
             label="Rank">
             <Button
-              content={assignment ? assignment : '[UNSET]'}
+              content={assignment || '[UNSET]'}
               onClick={() => act('change_occupation')}
             />
           </LabeledList.Item>
           <LabeledList.Item
             label="Fingerprints">
             <Button
-              content={fingerprint_hash ? fingerprint_hash : '[UNSET]'}
+              content={fingerprint_hash || '[UNSET]'}
               onClick={() => act('change_fingerprints')}
             />
           </LabeledList.Item>
           <LabeledList.Item
             label="Blood Type">
             <Button
-              content={blood_type ? blood_type : '[UNSET]'}
+              content={blood_type || '[UNSET]'}
               onClick={() => act('change_blood_type')}
             />
           </LabeledList.Item>
           <LabeledList.Item
             label="DNA Hash">
             <Button
-              content={dna_hash ? dna_hash : '[UNSET]'}
+              content={dna_hash || '[UNSET]'}
               onClick={() => act('change_dna_hash')}
             />
           </LabeledList.Item>
           <LabeledList.Item
             label="Money Account">
             <Button
-              content={
-                associated_account_number
-                  ? associated_account_number
-                  : '[UNSET]'
-              }
+              content={associated_account_number || '[UNSET]'}
               onClick={() => act('change_money_account')}
             />
           </LabeledList.Item>
@@ -179,6 +183,43 @@ export const AgentCardAppearances = (props, context) => {
           onclick={() => act('change_appearance_new', { new_appearance: appearance_unit.name })}
         />
       ))}
+    </Section>
+  );
+};
+
+export const AgentCardSLSlots = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    saved_info,
+  } = data;
+  return (
+    <Section
+      title="Save/Load Manager"
+      style={{ 'line-height': '25px' }}>
+      <LabeledList>
+        {saved_info.map(save_slot => (
+          <LabeledList.Item
+            key={save_slot.id}
+            label={save_slot.registered_name ? save_slot.registered_name + ", " + save_slot.assignment : "Slot " + save_slot.id}
+            buttons={
+              <Fragment >
+                <Button
+                  content="Clear"
+                  onClick={() => act('clear_slot', { slot: save_slot.id })}
+                />
+                <Button
+                  content="Save"
+                  onClick={() => act('save_slot', { slot: save_slot.id })}
+                />
+                <Button
+                  content="Load"
+                  disabled={!save_slot.registered_name}
+                  onClick={() => act('load_slot', { slot: save_slot.id })}
+                />
+              </Fragment>
+            } />
+        ))}
+      </LabeledList>
     </Section>
   );
 };

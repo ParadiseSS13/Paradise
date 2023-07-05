@@ -354,6 +354,8 @@
 	untrackable = 1
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 	var/list/card_images
+	var/list/save_slots = list()
+	var/num_of_save_slots = 3
 	var/list/appearances = list(
 							"data",
 							"id",
@@ -397,6 +399,10 @@
 /obj/item/card/id/syndicate/New()
 	access = initial_access.Copy()
 	..()
+	save_slots.len = num_of_save_slots
+	for(var/i = 1 to num_of_save_slots)
+		save_slots[i] = list()
+
 
 /obj/item/card/id/syndicate/vox
 	name = "agent card"
@@ -521,6 +527,17 @@
 				fingerprint_hash = initial(fingerprint_hash)
 				photo = null
 				registered_user = null
+		if("save_slot")
+			save_slot(params["slot"])
+			to_chat(registered_user, "<span class='notice'>You have successfully saved the card data to slot [params["slot"]].</span>")
+		if("load_slot")
+			load_slot(params["slot"])
+			UpdateName()
+			registered_user.sec_hud_set_ID()
+			to_chat(registered_user, "<span class='notice'>You have successfully loaded the card data from slot [params["slot"]].</span>")
+		if("clear_slot")
+			clear_slot(params["slot"])
+			to_chat(registered_user, "<span class='notice'>You have successfully cleared slot [params["slot"]].</span>")
 		if("clear_access")
 			var/response = alert(registered_user, "Are you sure you want to reset access saved on the card?","Reset Access", "No", "Yes")
 			if(response == "Yes")
@@ -708,6 +725,11 @@
 	data["fingerprint_hash"] = fingerprint_hash
 	data["photo"] = photo
 	data["ai_tracking"] = untrackable
+	var/list/saved_info = list()
+	for(var/I = 1 to length(save_slots))
+		var/list/editing_list = save_slots[I]
+		saved_info.Add(list(list("id" = I, "registered_name" = editing_list["registered_name"], "assignment" = editing_list["assignment"])))
+	data["saved_info"] = saved_info
 	return data
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
@@ -743,6 +765,43 @@
 		if("Edit")
 			ui_interact(user)
 			return
+
+/obj/item/card/id/syndicate/proc/save_slot(number)
+	number = text2num(number)
+	var/list/editing_list = list()
+	editing_list["registered_name"] = registered_name
+	editing_list["sex"] = sex
+	editing_list["age"] = age
+	editing_list["rank"] = rank
+	editing_list["assignment"] = assignment
+	editing_list["associated_account_number"] = associated_account_number
+	editing_list["blood_type"] = blood_type
+	editing_list["dna_hash"] = dna_hash
+	editing_list["fingerprint_hash"] = fingerprint_hash
+	editing_list["photo"] = photo
+	editing_list["ai_tracking"] = untrackable
+	editing_list["icon_state"] = icon_state
+	save_slots[number] = editing_list
+
+/obj/item/card/id/syndicate/proc/load_slot(number)
+	number = text2num(number)
+	var/list/editing_list = save_slots[number]
+	registered_name = editing_list["registered_name"]
+	sex = editing_list["sex"]
+	age = editing_list["age"]
+	rank = editing_list["rank"]
+	assignment = editing_list["assignment"]
+	associated_account_number = editing_list["associated_account_number"]
+	blood_type = editing_list["blood_type"]
+	dna_hash = editing_list["dna_hash"]
+	fingerprint_hash = editing_list["fingerprint_hash"]
+	photo = editing_list["photo"]
+	untrackable = editing_list["ai_tracking"]
+	icon_state = editing_list["icon_state"]
+
+/obj/item/card/id/syndicate/proc/clear_slot(number)
+	number = text2num(number)
+	save_slots[number] = list()
 
 /obj/item/card/id/syndicate_command
 	name = "syndicate ID card"
