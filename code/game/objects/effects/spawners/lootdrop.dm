@@ -301,7 +301,7 @@
 		/obj/item/assembly/signaler/anomaly = 50,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 50,
 		/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 50,
-		/obj/item/autoimplanter = 50,
+		/obj/item/autoimplanter/old = 50,
 		/obj/item/paper/researchnotes = 100,
 		/obj/item/slimepotion/clothing/fireproof = 50,
 		/obj/item/slimepotion/speed = 50,
