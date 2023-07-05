@@ -37,23 +37,30 @@
 			icon_state = "[initial(icon_state)]-nocked"
 	else
 		icon_state = "[initial(icon_state)]-drawn"
+	overlays.Cut()
+	var/bolt_type = "bolt"
+	if(to_launch)
+		if(tension)
+			bolt_type += "_tighten"
+		else
+			bolt_type += "_untighten"
+		var/obj/item/arrow/bolt = to_launch
+		bolt_type += "_[bolt.overlay_prefix]"
+		overlays += image('icons/obj/weapons/crossbow_rod.dmi', bolt_type)
+
 
 /obj/item/gun/throw/crossbow/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]"
+		. += span_notice("\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]")
 	else
-		. += "<span class='notice'>It has an empty mount for a battery cell.</span>"
+		. += span_notice("It has an empty mount for a battery cell.")
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
 		var/obj/item/arrow/rod/R = I
-		visible_message("<span class='danger'>[R] is ready!</span>")
-		R.throwforce = 33
-		R.superheated = 1 //guess this useless now...
-		R.armour_penetration = 15
-		R.embed_chance = 50
-		R.embedded_ignore_throwspeed_threshold = TRUE
+		visible_message(span_danger("[R] is ready!"))
+		R.modify_rod()
 
 /obj/item/gun/throw/crossbow/get_throwspeed()
 	return tension * speed_multiplier
@@ -70,14 +77,14 @@
 /obj/item/gun/throw/crossbow/attack_self(mob/living/user)
 	if(tension)
 		if(to_launch)
-			user.visible_message("<span class='notice'>[user] relaxes the tension on [src]'s string and removes [to_launch].</span>","<span class='notice'>You relax the tension on [src]'s string and remove [to_launch].</span>")
+			user.visible_message(span_notice("[user] relaxes the tension on [src]'s string and removes [to_launch]."), span_notice("You relax the tension on [src]'s string and remove [to_launch]."))
 			to_launch.forceMove(get_turf(src))
 			var/obj/item/arrow/A = to_launch
 			to_launch = null
 			A.removed()
 			process_chamber()
 		else
-			user.visible_message("<span class='notice'>[user] relaxes the tension on [src]'s string.</span>","<span class='notice'>You relax the tension on [src]'s string.</span>")
+			user.visible_message(span_notice("[user] relaxes the tension on [src]'s string."), span_notice("You relax the tension on [src]'s string."))
 		tension = 0
 		update_icon()
 	else
@@ -87,7 +94,7 @@
 	if(user.incapacitated())
 		return
 	if(!to_launch)
-		to_chat(user, "<span class='warning'>You can't draw [src] without a bolt nocked.</span>")
+		to_chat(user, span_warning("You can't draw [src] without a bolt nocked."))
 		return
 
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")
@@ -105,22 +112,22 @@
 		return ..()
 
 	if(cell)
-		to_chat(user, "<span class='notice'>[src] already has a cell installed.</span>")
+		to_chat(user, span_notice("[src] already has a cell installed."))
 		return
 
 	user.drop_transfer_item_to_loc(I, src)
 	cell = I
-	to_chat(user, "<span class='notice'>You jam [cell] into [src] and wire it to the firing coil.</span>")
+	to_chat(user, span_notice("You jam [cell] into [src] and wire it to the firing coil."))
 	process_chamber()
 
 /obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
 	. = ..()
 	if(!cell)
-		to_chat(user, "<span class='notice'>[src] doesn't have a cell installed.</span>")
+		to_chat(user, span_notice("[src] doesn't have a cell installed."))
 		return
 
 	cell.forceMove(get_turf(src))
-	to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [I].</span>")
+	to_chat(user, span_notice("You jimmy [cell] out of [src] with [I]."))
 	cell = null
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
@@ -167,6 +174,7 @@
 	throwforce = 20
 	w_class = WEIGHT_CLASS_NORMAL
 	sharp = TRUE
+	var/overlay_prefix = "" //used for crossbow bolt overlay render. Don't override it in children if you don't have an overlay icon for your bolt
 
 /obj/item/arrow/proc/removed() //Helper for metal rods falling apart.
 	return
@@ -178,10 +186,90 @@
 	throwforce = 10
 	var/superheated = 0
 
+/obj/item/arrow/rod/proc/modify_rod()
+	throwforce = 33
+	superheated = 1 //guess this useless now...
+	armour_penetration = 15
+	embed_chance = 50
+	embedded_ignore_throwspeed_threshold = TRUE
+
+/obj/item/arrow/rod/proc/reset_rod() //Doing this in case rod was not destroyed in process.
+	throwforce = initial(throwforce)
+	superheated = initial(superheated)
+	armour_penetration = initial(armour_penetration)
+	embed_chance = initial(embed_chance)
+	embedded_ignore_throwspeed_threshold = initial(embedded_ignore_throwspeed_threshold)
+
+/obj/item/arrow/rod/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	reset_rod()
+
 /obj/item/arrow/rod/removed()
 	if(superheated) // The rod has been superheated - we don't want it to be useable when removed from the bow.
 		visible_message("[src] shatters into a scattering of overstressed metal shards as it leaves the crossbow.")
 		qdel(src)
+
+/obj/item/arrow/rod/fire
+	name = "Oiled bolt"
+	desc = "A sharpened metal rod that can be fired out of a crossbow. You can see cloth with oil substance on it."
+	throwforce = 10
+	icon = 'icons/obj/weapons/crossbow_rod.dmi'
+	icon_state = "oiled_rod"
+	resistance_flags = FIRE_PROOF
+	var/flamed = FALSE
+	var/fire_duration = 3 MINUTES
+	overlay_prefix = "oiled"
+
+/obj/item/arrow/rod/fire/examine(mob/user)
+	. = ..()
+	if(flamed)
+		. += span_notice("The bolt is on fire!")
+
+/datum/crafting_recipe/oiled_makeshift_rod
+	name = "Oiled makeshift rod"
+	result = /obj/item/arrow/rod/fire
+	reqs = list(/datum/reagent/fuel = 10,
+				/obj/item/stack/sheet/cloth = 1,
+				/obj/item/arrow/rod = 1)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+
+/obj/item/arrow/rod/fire/modify_rod()
+	throwforce = 25
+	armour_penetration = 15
+	embed_chance = 30
+	embedded_pain_multiplier = 0.5
+	embedded_ignore_throwspeed_threshold = TRUE
+	superheated = 1
+
+/obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(istype(I, /obj/item/lighter) || istype(I, /obj/item/weldingtool))
+		fire_up()
+
+/obj/item/arrow/rod/fire/proc/fire_up(mob/user)
+	icon_state = "flame_rod_act"
+	overlay_prefix = "flame"
+	w_class = WEIGHT_CLASS_BULKY
+	if(user)
+		to_chat(user, span_warning("You fire up a rod!"))
+	flamed = TRUE
+	addtimer(CALLBACK(src, PROC_REF(fire_down)), fire_duration)
+
+/obj/item/arrow/rod/fire/proc/fire_down() //burn it!
+	qdel(src)
+
+/obj/item/arrow/rod/fire/throw_impact(atom/A)
+	. = ..()
+	if(ishuman(A) && flamed)
+		var/mob/living/carbon/human = A
+		human.fire_act()
+
+/obj/item/arrow/rod/fire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	. = ..()
+	fire_up(user = null)
 
 #undef XBOW_TENSION_20
 #undef XBOW_TENSION_40
