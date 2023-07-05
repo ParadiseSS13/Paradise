@@ -66,6 +66,8 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 
 /proc/level_name_to_num(name)
 	var/datum/space_level/S = GLOB.space_manager.get_zlev_by_name(name)
+	if(!S)
+		CRASH("Unknown z-level name: [name]")
 	return S.zpos
 
 /**

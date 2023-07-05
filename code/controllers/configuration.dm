@@ -317,6 +317,9 @@
 	var/override_map = null
 	var/item_animations_enabled = FALSE
 
+	var/disable_taipan = FALSE
+	var/disable_lavaland = FALSE
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -908,6 +911,12 @@
 
 				if("item_animations_enabled")
 					config.item_animations_enabled = TRUE
+
+				if("disable_taipan")
+					config.disable_taipan = TRUE
+
+				if("disable_lavaland")
+					config.disable_lavaland = TRUE
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")
