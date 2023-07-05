@@ -364,3 +364,33 @@
 		virus_data["cure"] = virus.cure_text
 		viruses += list(virus_data)
 	.["statusviruses"] = viruses
+
+///Camera Module - Puts a camera in the modsuit that the ERT commander can see
+/obj/item/mod/module/ert_camera
+	name = "MOD camera module"
+	desc = "This combination camera and broadcasting module grants the modsuit a camera that tracks what the user see, and sends it to the nearest station and \
+	CC blackbox. This is used for ERT commander tracking, performance review, Nanotrasens Funnniest Home Videos, \
+	and used for reference for their Deathsquad Cartoon Series."
+	icon_state = "eradicationlock" //looks like a bluespace transmitter or something, probably could use an actual camera look.
+	complexity = 1
+	incompatible_modules = list(/obj/item/mod/module/ert_camera)
+	var/obj/machinery/camera/portable/camera
+
+/obj/item/mod/module/ert_camera/on_suit_activation()
+	if(ishuman(mod.wearer))
+		register_camera(mod.wearer)
+
+/obj/item/mod/module/ert_camera/proc/register_camera(mob/wearer)
+	if(camera)
+		return
+	camera = new /obj/machinery/camera/portable(src, FALSE)
+	camera.network = list("ERT")
+	camera.c_tag = wearer.name
+	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
+
+/obj/item/mod/module/ert_camera/Destroy()
+	QDEL_NULL(camera)
+	return ..()
+
+/obj/item/mod/module/ert_camera/on_suit_deactivation(deleting = FALSE)
+	QDEL_NULL(camera)
