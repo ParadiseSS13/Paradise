@@ -407,11 +407,11 @@
 	complexity = 3
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 
-/obj/item/mod/module/emp_shield/on_install()
+/obj/item/mod/module/dna_lock/emp_shield/on_install()
 	. = ..()
 	mod.emp_proof = TRUE
 
-/obj/item/mod/module/emp_shield/on_uninstall(deleting = FALSE)
+/obj/item/mod/module/dna_lock/emp_shield/on_uninstall(deleting = FALSE)
 	. = ..()
 	mod.emp_proof = FALSE
 
