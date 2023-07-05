@@ -178,7 +178,7 @@
 	icon_state = "immobilized"
 	duration = 1 SECONDS
 
-/obj/effect/proc_holder/spell/vampire/charge
+/obj/effect/proc_holder/spell/vampire/arena
 	name = "Charge (30)"
 	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
@@ -186,18 +186,47 @@
 	base_cooldown = 30 SECONDS
 	action_icon_state = "vampire_charge"
 
-/obj/effect/proc_holder/spell/vampire/charge/create_new_targeting()
-	return new /datum/spell_targeting/clicked_atom
+/obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
+	var/turf/tumor_turf = get_turf(src)
+	if(loc == null)
+		return
+	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
+		var/obj/effect/temp_visual/elite_tumor_wall/newwall
+		newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
+		newwall.activator = activator
+		newwall.ourelite = mychild
 
-/obj/effect/proc_holder/spell/vampire/charge/can_cast(mob/user, charge_check, show_message)
-	var/mob/living/L = user
-	if(IS_HORIZONTAL(L))
-		return FALSE
-	return ..()
+/obj/effect/proc_holder/spell/vampire/arena/proc/border_check()
+	if(activator != null && get_dist(src, activator) >= ARENA_RADIUS)
+		activator.forceMove(loc)
+		visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
+		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+	if(mychild != null && get_dist(src, mychild) >= ARENA_RADIUS)
+		mychild.forceMove(loc)
+		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
+		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
-/obj/effect/proc_holder/spell/vampire/charge/cast(list/targets, mob/user)
-	var/target = targets[1]
-	if(isliving(user))
-		var/mob/living/L = user
-		L.apply_status_effect(STATUS_EFFECT_CHARGING)
-		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
+/obj/effect/proc_holder/spell/vampire/arena/HasProximity(atom/movable/AM)
+	if(!ishuman(AM) && !isrobot(AM))
+		return
+	var/mob/living/M = AM
+	if(M == activator)
+		return
+	if(M in invaders)
+		to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
+		for(var/i in 1 to 4)
+			M.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
+	else
+		to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
+		invaders += M
+	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src) // extra safety
+	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
+	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+
+/obj/structure/elite_tumor/proc/arena_checks()
+	if(activity != TUMOR_ACTIVE || QDELETED(src))
+		return
+	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
+	INVOKE_ASYNC(src, PROC_REF(arena_trap))  //Gets another arena trap queued up for when this one runs out.
+	INVOKE_ASYNC(src, PROC_REF(border_check))  //Checks to see if our fighters got out of the arena somehow.
+	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
