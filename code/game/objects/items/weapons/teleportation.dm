@@ -159,17 +159,19 @@ Frequency:
 	add_fingerprint(user)
 
 /obj/item/hand_tele/emp_act(severity)
-	var/time = rand(25 SECONDS, 30 SECONDS) * severity
-	emp_timer = world.time + time
-	emp_update_icon()
-	addtimer(CALLBACK(src, PROC_REF(emp_update_icon)), time)
+	make_inactive(severity)
 	return ..()
 
-/obj/item/hand_tele/proc/emp_update_icon()
-	if(emp_timer - world.time > 0.1 SECONDS)
-		icon_state = icon_state_inactive
-	else
-		icon_state = initial(icon_state)
+/obj/item/hand_tele/proc/make_inactive(severity)
+	icon_state = icon_state_inactive
+	var/time = rand(25 SECONDS, 30 SECONDS) * severity
+	emp_timer = world.time + time
+	addtimer(CALLBACK(src, PROC_REF(check_inactive), emp_timer), time)
+
+/obj/item/hand_tele/proc/check_inactive(current_emp_timer)
+	if(emp_timer != current_emp_timer)
+		return
+	icon_state = initial(icon_state)
 
 /obj/item/hand_tele/examine(mob/user)
 	. = ..()

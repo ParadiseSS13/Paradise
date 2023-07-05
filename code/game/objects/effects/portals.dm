@@ -172,11 +172,11 @@
 	icon_state = fail_icon
 	failchance = 33
 	inactive = TRUE
-	addtimer(CALLBACK(src, PROC_REF(check_unstable)), UNSTABLE_TIME_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(check_unstable), unstable_time), UNSTABLE_TIME_DELAY)
 	addtimer(VARSET_CALLBACK(src, inactive, FALSE), 0.5 SECONDS) // after unstable is setted you have 0.5 safe seconds to think if you want to use it
 
-/obj/effect/portal/hand_tele/proc/check_unstable()
-	if(unstable_time - world.time > 0.1 SECONDS)
+/obj/effect/portal/hand_tele/proc/check_unstable(current_unstable_time)
+	if(current_unstable_time != unstable_time)
 		return
 	icon_state = initial(icon_state)
 	failchance = 0
