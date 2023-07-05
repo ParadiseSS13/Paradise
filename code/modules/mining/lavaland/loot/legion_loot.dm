@@ -58,7 +58,8 @@
 		return
 	var/turf/target_turf = get_turf(target)
 	var/area/target_area = get_area(target)
-	if(!target_turf || !target_area || (is_type_in_list(target_area, excluded_areas)))
+	var/area/user_area = get_area(user)
+	if(!target_turf || !target_area || (is_type_in_list(target_area, excluded_areas)) || !user_area || (is_type_in_list(user_area, excluded_areas)))
 		to_chat(user, "<span class='warning'>The staff will not work here.</span>")
 		return
 	if(target_turf in targeted_turfs)
@@ -105,7 +106,7 @@
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 	target.visible_message("<span class='userdanger'>A thunderbolt strikes [target]!</span>")
-	explosion(target, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
+	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
 
 
 /obj/effect/temp_visual/thunderbolt_targeting
