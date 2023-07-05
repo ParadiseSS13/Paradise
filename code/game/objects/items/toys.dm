@@ -128,7 +128,7 @@
 	if(!user)
 		return
 
-	user.visible_message("<span class='suicide'>[user] ties [src] around their neck and starts to float away! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] ties [src] around [user.p_their()] neck and starts to float away! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 
 	playsound(get_turf(user),'sound/magic/fleshtostone.ogg', 80, TRUE)
 
