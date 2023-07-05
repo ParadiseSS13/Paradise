@@ -106,7 +106,7 @@
 	if(!blood && nutrition < 100) // Nutrition vomiting while already starving
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
-							"<span class='userdanger'>You try to throw up, but there's nothing your stomach!</span>")
+							"<span class='userdanger'>You try to throw up, but there's nothing in your stomach!</span>")
 		if(stun)
 			Weaken(20 SECONDS)
 		return
