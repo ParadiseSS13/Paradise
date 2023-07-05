@@ -64962,7 +64962,7 @@
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/maintenance/fpmaint2)
 "dZA" = (
 /obj/machinery/door/airlock/wood{
 	req_access_txt = "12"
@@ -78728,7 +78728,7 @@
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/maintenance/fpmaint2)
 "nKO" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/pestspray,
