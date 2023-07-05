@@ -23,7 +23,7 @@
 
 /obj/structure/railing/attack_animal(mob/living/simple_animal/M)
 	. = ..()
-	if(M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] tears apart [src]!</span>", "<span class='notice'>You tear apart [src]!</span>")
 
@@ -81,7 +81,7 @@
 		return TRUE
 	if(ismob(mover))
 		var/mob/living/M = mover
-		if(M.flying || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
+		if(M.flying || (istype(M) && IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(mover.throwing)
 		return TRUE
