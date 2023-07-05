@@ -45,9 +45,22 @@
   Сиротка:
   - unknown: ATMOS module & X-ray (#3083)
 '2023-07-05':
+  Dimach:
+  - tweak: add cerestation to map rotation (#3141)
   Rerik007:
   - bugfix: big ruins create infinity loop (#3128)
   - qol: configurable loading taipan and lavaland (#3129)
   - bugfix: holster logic and dupe naming cryopod (#3131)
+  - bugfix: aoe KAmods for borgs don't install (#3139)
+  - add: agent card save slots (#2951)
+  Vladisvell:
+  - bugfix: indestructible tiles can't be pried, screwdrivered, weldered. (#3127)
+  - add: fire makeshift bolts (#3133)
+  aeternaclose:
+  - add: Cere improvements part 3 (#3097)
   captainnelly:
   - tweak: replace TSF traders autoimplanter by old one (#3132)
+  mqopi:
+  - add: patriotic-crate (cargo) (#3017)
+  Сиротка:
+  - balance: Space dragon (#3134)
