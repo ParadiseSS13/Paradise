@@ -157,16 +157,12 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 
 /obj/item/gun/projectile/revolver/overgrown
-	name = "Overgrown revolver"
+	name = "overgrown revolver"
 	desc = "A bulky revolver that seems to be made out of a plant."
 	icon_state = "pea_shooter"
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=3;biotech=5"
-	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/overgrown
-	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
-	actions_types = list()
-
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.
