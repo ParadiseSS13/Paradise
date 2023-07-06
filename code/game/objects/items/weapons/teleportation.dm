@@ -120,7 +120,7 @@ Frequency:
 	var/turf/current_location = get_turf(user)//What turf is the user on?
 	if(emp_timer > world.time)
 		do_sparks(5, 0, loc)
-		to_chat(user, "<span class='warning'>[src] attempts to create portal, but abruptly shuts off.</span>")
+		to_chat(user, "<span class='warning'>[src] attempts to create a portal, but abruptly shuts off.</span>")
 		return
 	if(!current_location||!is_teleport_allowed(current_location.z))//If turf was not found or they're somewhere teleproof
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
