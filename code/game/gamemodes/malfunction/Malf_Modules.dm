@@ -799,7 +799,7 @@
 /datum/AI_Module/small/repair_cyborg
 	module_name = "Repair Cyborgs"
 	mod_pick_name = "repair_borg"
-	description = "Causes an electrical surge in the targeted cyborg, rebooting it's subsystems and repairing most of it's subsystems. Requires two uses on a cyborg with broken armor"
+	description = "Causes an electrical surge in the targeted cyborg, rebooting and repairing most of its subsystems. Requires two uses on a cyborg with broken armor."
 	cost = 20
 	power_type = /datum/action/innate/ai/ranged/repair_cyborg
 	unlock_text = "<span class='notice'>TLB exception on load: Error pointing to address 0000001H, Proceed with execution anywa- SURGE protocalls installed, welcome to open APC!</span>"
