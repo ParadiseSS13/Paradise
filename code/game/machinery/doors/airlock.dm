@@ -77,7 +77,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/aiHacking = FALSE
 	var/obj/machinery/door/airlock/closeOther
 	var/closeOtherId
-	var/justzap = FALSE
 	var/obj/item/airlock_electronics/electronics
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
 	var/obj/item/note //Any papers pinned to the airlock
@@ -190,11 +189,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))
 		if(isElectrified())
-			if(!justzap)
+			if(!shockCooldown <= world.time)
 				if(shock(user, 100))
-					justzap = TRUE
-					spawn (10)
-						justzap = FALSE
 					return
 			else
 				return
@@ -310,14 +306,25 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(shockCooldown > world.time)
 		return FALSE	//Already shocked someone recently?
 	if(..())
-		shockCooldown = world.time + 2 SECONDS
+		shockCooldown = world.time + 1 SECONDS //Time must be lowered from 2 seconds due to bump, bump was only 1 second.
 		return TRUE
 	else
 		return FALSE
 
 //Checks if the user can get shocked and shocks him if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/shock_user(mob/user, prob)
-	return (!issilicon(user) && isElectrified() && shock(user, prob))
+	var/output = !issilicon(user) && isElectrified() && shock(user, prob)
+	if(output)
+		return TRUE //We got shocked, end of story
+	if(issilicon(user))
+		return TRUE //Borgs don't get door shocked
+	if(ishuman(user) && isElectrified()) //We don't want people without insulated gloves able to open doors.
+		var/mob/living/carbon/human/H = user
+		if(H.gloves)
+			var/obj/item/clothing/gloves/G = H.gloves
+			if(G.siemens_coefficient == 0)
+				return FALSE
+	return TRUE
 
 /obj/machinery/door/airlock/toggle_polarization()
 	polarized_on = !polarized_on
