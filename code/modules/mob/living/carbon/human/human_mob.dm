@@ -2122,6 +2122,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(in_hand.flags & NODROP)
 			visible_message("<span class='warning'>[src] attempts to drop [in_hand], but it seems to be stuck to [p_their()] hand!</span>")
 			return
+		if(in_hand.flags & ABSTRACT)
+			visible_message("<span class='notice'>[src] seems to have [p_their()] hands full!</span>")
+			return
 		visible_message("<span class='notice'>[src] drops [in_hand] and picks up [thing] instead!</span>")
 		unEquip(in_hand)
 		in_hand.forceMove(old_loc)
@@ -2131,7 +2134,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/dchat_throw()
 	var/obj/item/in_hand = get_active_hand()
-	if(!in_hand)
+	if(!in_hand || in_hand.flags & ABSTRACT)
 		visible_message("<span class='notice'>[src] makes a throwing motion!</span>")
 		return
 	var/atom/possible_target
