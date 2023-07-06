@@ -238,7 +238,7 @@
   - add: 'new antag targets: noke core and suppermatter sliver (#2957)'
   - tweak: replace staff of slipping with wand of slipping in clowns biodome (#3048)
   - add: animations for paper printing (#3074)
-  - unknown: taro cards from lavaland loot (#3072)
+  - del: taro cards from lavaland loot (#3072)
   - add: contractor tablet now show dir to extraction location (#3075)
   - tweak: cutter don't gib head, spellblade don gib limbs (#3051)
   - bugfix: contractor button stop work (#3078)

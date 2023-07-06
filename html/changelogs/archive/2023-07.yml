@@ -64,3 +64,9 @@
   - add: patriotic-crate (cargo) (#3017)
   Сиротка:
   - balance: Space dragon (#3134)
+'2023-07-06':
+  Rerik007:
+  - qol: html-tgui links(f.e. in changelog) send you into your browser (#3140)
+  - bugfix: puppy collars don't remove (#3137)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3142)
