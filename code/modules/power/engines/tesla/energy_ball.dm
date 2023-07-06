@@ -34,10 +34,14 @@
 	var/energy_to_lower = -20
 	var/list/shocked_things = list()
 	var/obj/singularity/energy_ball/parent_energy_ball
-	var/has_a_target = FALSE // Variable to determine if it has a target
-	var/list/target_area_turfs = list() // All the turfs in the chosen area
-	var/turf/target_turf // Turf where the tesla will move to if it's loose
-	var/list/tesla_line = list() // List with the turfs in the line towards the target turf
+	/// Variable to determine if it has a target
+	var/has_a_target = FALSE
+	/// All the turfs in the chosen area
+	var/list/target_area_turfs = list()
+	/// Turf where the tesla will move to if it's loose
+	var/turf/target_turf
+	// List with the turfs in the line towards the target turf
+	var/list/tesla_line = list()
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
@@ -112,7 +116,7 @@
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(where_to_move)
 	if(locate(/obj/machinery/field/containment) in urange(15, src, 1)) // If there's a field in the closest 15 turfs we're sticking with a simple moving pattern
-		var/turf/T = get_step(src,pick(GLOB.alldirs))
+		var/turf/T = get_step(src, pick(GLOB.alldirs))
 		if(can_move(T))
 			forceMove(T)
 			return
@@ -122,7 +126,7 @@
 		return
 	for(var/i in 0 to 8)
 		forceMove(tesla_line[1])
-		tesla_line.Cut(1,2)
+		tesla_line.Cut(1, 2)
 		if(get_turf(src) == target_turf)
 			has_a_target = FALSE
 		for(var/mob/living/carbon/C in loc)
