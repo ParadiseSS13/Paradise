@@ -42,5 +42,5 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 	GLOB.changelog_tgui.ui_interact(mob)
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
-		prefs.save_preferences()
+		prefs.save_preferences(src)
 		winset(src, "rpane.changelog", "font-style=;")

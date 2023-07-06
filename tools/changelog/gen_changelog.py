@@ -22,6 +22,7 @@ validPrefixes = [
     "bugfix",
     "code_imp",
     "config",
+    "del",
     "expansion",
     "experiment",
     "image",

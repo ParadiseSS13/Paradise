@@ -14,6 +14,7 @@ const icons = {
   bugfix: { icon: 'bug', color: 'green' },
   code_imp: { icon: 'code', color: 'green' },
   config: { icon: 'cogs', color: 'purple' },
+  del: { icon: 'minus', color: 'red' },
   expansion: { icon: 'check-circle', color: 'green' },
   experiment: { icon: 'radiation', color: 'yellow' },
   image: { icon: 'image', color: 'green' },
