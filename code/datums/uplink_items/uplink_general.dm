@@ -163,10 +163,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Highly Visible and Dangerous Weapons"
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol"
+	name = "FK-69 Pistol Kit"
 	reference = "SPI"
-	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
-	item = /obj/item/gun/projectile/automatic/pistol
+	desc = "A box containing a small, easily concealable handgun and two eight-round magazines chambered in 10mm auto rounds. Compatible with suppressors."
+	item = /obj/item/storage/box/syndie_kit/stechkin
 	cost = 4
 
 /datum/uplink_item/dangerous/revolver
@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
 	reference = "PF"
 	item = /obj/item/melee/powerfist
-	cost = 8
+	cost = 10
 
 /datum/uplink_item/dangerous/chainsaw
 	name = "Chainsaw"
@@ -207,6 +207,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CH"
 	item = /obj/item/twohanded/chainsaw
 	cost = 13
+
+/datum/uplink_item/dangerous/universal_gun_kit
+	name = "Universal Self Assembling Gun Kit"
+	desc = "A universal gun kit, that can be combined with any weapon kit to make a functioning RND gun of your own. Uses built in allen keys to self assemble, just combine the kits by hitting them together."
+	reference = "IKEA"
+	item = /obj/item/weaponcrafting/gunkit/universal_gun_kit
+	cost = 8
 
 
 // Ammunition
@@ -543,7 +550,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
 			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
 			but if that emergency teleport fails, it will kill you. \
-			Has 4 charges, recharges, warranty voided if exposed to EMP."
+			Has 4 charges, recharges, warranty voided if exposed to EMP. \
+			Comes with free chameleon mesons, to help you stay stylish while seeing through walls."
 	reference = "TELE"
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 8
@@ -662,6 +670,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "AI"
 	item = /obj/item/implanter/adrenalin
+	cost = 8
+
+/datum/uplink_item/implants/stealthimplant
+	name = "Stealth Bio-chip"
+	desc = "This one-of-a-kind implant will make you almost invisible if you play your cards right. \
+			On activation, it will conceal you inside a chameleon cardboard box that is only revealed once someone bumps into it."
+	reference = "SI"
+	item = /obj/item/implanter/stealth
 	cost = 8
 
 // POINTLESS BADASSERY

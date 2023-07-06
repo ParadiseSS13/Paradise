@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
+	see_invisible = SEE_INVISIBLE_LIVING_AI
 	see_in_dark = 8
 	can_strip = FALSE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
@@ -56,7 +57,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//var/list/laws = list()
 	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
 	var/viewalerts = FALSE
-	var/icon/holo_icon//Default is assigned when AI is created.
+	var/icon/holo_icon //Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/pda/silicon/ai/aiPDA = null
 	var/obj/item/multitool/aiMulti = null
@@ -171,7 +172,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
 	verbs -= /mob/living/verb/rest
 	verbs -= /mob/living/verb/mob_sleep
-	verbs -= /mob/living/verb/resist
 	verbs -= /mob/living/verb/stop_pulling1
 	verbs -= /mob/living/silicon/verb/pose
 	verbs -= /mob/living/silicon/verb/set_flavor
@@ -1306,6 +1306,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
+		if(GetComponent(/datum/component/ducttape))
+			QDEL_NULL(builtInCamera)
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
@@ -1350,10 +1352,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(!istype(apc) || QDELETED(apc) || apc.stat & BROKEN)
 		to_chat(src, "<span class='danger'>Hack aborted. The designated APC no longer exists on the power network.</span>")
-		playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1)
+		SEND_SOUND(src, sound('sound/machines/buzz-two.ogg'))
 	else if(apc.aidisabled)
 		to_chat(src, "<span class='danger'>Hack aborted. [apc] is no longer responding to our systems.</span>")
-		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 1)
+		SEND_SOUND(src, sound('sound/machines/buzz-sigh.ogg'))
 	else
 		malf_picker.processing_time += 10
 
@@ -1361,7 +1363,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 
-		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1)
+		SEND_SOUND(src, sound('sound/machines/ding.ogg'))
 		to_chat(src, "Hack complete. [apc] is now under your exclusive control.")
 		apc.update_icon()
 
@@ -1463,5 +1465,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		runechat_msg_location = loc.UID()
 	else
 		return ..()
+
+/mob/living/silicon/ai/run_resist()
+	if(!istype(loc, /obj/item/aicard))
+		return..()
+
+	var/obj/item/aicard/card = loc
+	var/datum/component/ducttape/ducttapecomponent = card.GetComponent(/datum/component/ducttape)
+	if(!ducttapecomponent)
+		return
+	to_chat(src, "<span class='notice'>The tiny fan that could begins to work against the tape to remove it.</span>")
+	if(!do_after(src, 2 MINUTES, target = card))
+		return
+	to_chat(src, "<span class='notice'>The tiny in built fan finally removes the tape!</span>")
+	ducttapecomponent.remove_tape(card, src)
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN

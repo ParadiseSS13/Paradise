@@ -33,6 +33,8 @@
 		if(overflow.type in blacklisted_jobs)
 			continue
 		overflow.total_positions = max(overflow.total_positions + random_change, 0)
-		affected_jobs += "[overflow.title] slot changed by [random_change]."
+		affected_jobs += "[overflow.title] slot changed by [random_change]"
 		errors++
-	log_and_message_admins(affected_jobs.Join("\n"))
+	log_and_message_admins(affected_jobs.Join(".\n"))
+	for(var/mob/M as anything in GLOB.dead_mob_list)
+		to_chat(M, "<span class='deadsay'><b>Bureaucratic Error:</b> The following job slots have changed: [affected_jobs.Join(", ")].</span>")
