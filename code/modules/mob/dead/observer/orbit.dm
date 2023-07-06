@@ -80,7 +80,7 @@
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
-				if(mind && (mind.special_role == SPECIAL_ROLE_ERT || mind.special_role == SPECIAL_ROLE_DEATHSQUAD || mind.special_role == SPECIAL_ROLE_SYNDICATE_DEATHSQUAD))
+				if(mind.special_role in list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD, SPECIAL_ROLE_SYNDICATE_DEATHSQUAD)))
 					response_teams += list(serialized)
 
 				if(user.antagHUD)
