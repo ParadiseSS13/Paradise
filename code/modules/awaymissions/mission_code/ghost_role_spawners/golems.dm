@@ -106,12 +106,14 @@
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
 		if(owner.mind.special_role)
+			if(owner.mind.special_role == "Response Team")
+				return
 			new_spawn.mind.store_memory("<b>[owner.real_name], your creator, is also an antagonist.</b>")
 			to_chat(new_spawn, "<b>[owner.real_name], your creator, is also an antagonist.</b>")
 			SSticker.mode.traitors.Add(new_spawn.mind)
-		if(locate(/datum/objective/hijack) in owner.mind.get_all_objectives())
-			new_spawn.mind.store_memory("<b>They must hijack the shuttle.</b>")
-			to_chat(new_spawn, "<b>They are also a hijacker.</b>")
+			if(locate(/datum/objective/hijack) in owner.mind.get_all_objectives())
+				new_spawn.mind.store_memory("<b>They must hijack the shuttle.</b>")
+				to_chat(new_spawn, "<b>They are also a hijacker.</b>")
 		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 		log_admin("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 	if(ishuman(new_spawn))
