@@ -181,14 +181,13 @@ export const Orbit = (props, context) => {
             color={'teal'}
           />
           )}
-          {response_teams.length > 0 && (
-            <BasicSection
-              title="Response Teams"
-              source={response_teams}
-              searchText={searchText}
-              color={'purple'}
-            />
-          )}
+
+        <BasicSection
+          title="Response Teams"
+          source={response_teams}
+          searchText={searchText}
+          color={'purple'}
+        />
 
         <BasicSection
           title="Alive"
