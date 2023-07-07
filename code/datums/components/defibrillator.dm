@@ -279,7 +279,7 @@
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No brain detected within patient.</span>")
 		defib_success = FALSE
 	else if(ghost)
-		if(!ghost.can_reenter_corpse) // DNR or AntagHUD
+		if(!ghost.can_reenter_corpse || target.suiciding) // DNR or AntagHUD
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected.</span>")
 		else
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>")
