@@ -44,20 +44,17 @@
 		target_turf.air_update_turf()
 
 /mob/living/simple_animal/hostile/guardian/gaseous/ToggleMode()
-	var/list/gases = list("None")
-	for(var/gas as anything in possible_gases)
-		gases[gas] = gas
-	var/picked_gas = input("Select a gas to expel.", "Gas Producer") in gases
-	if(picked_gas == "None")
+	var/picked_gas = input("Select a gas to expel.", "Gas Producer") as null|anything in possible_gases
+	if(!picked_gas)
 		moles_of_gas = null
 		to_chat(src, "<span class='notice'>You stopped expelling gas.</span>")
 		return
-	var/gas_type = gases[picked_gas]
+	var/gas_type = picked_gas
 	if(!picked_gas || !gas_type)
 		return
 	to_chat(src, "<span class='bolddanger'>You are now expelling [picked_gas]</span>.")
 	investigate_log("set their gas type to [picked_gas].", "atmos")
-	moles_of_gas = possible_gases[gas_type]
+	moles_of_gas = possible_gases[picked_gas]
 	switch(gas_type)
 		if("Oxygen")
 			linda_flags = LINDA_SPAWN_OXYGEN | LINDA_SPAWN_20C
