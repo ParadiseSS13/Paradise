@@ -53,7 +53,7 @@
 							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 600,
 							/obj/effect/proc_holder/spell/fireball/demonic_grasp = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
-								/obj/effect/proc_holder/spell/vampire/charge)
+								/obj/effect/proc_holder/spell/vampire/arena)
 	improved_rejuv_healing = TRUE
 
 /datum/vampire_subclass/dantalion
@@ -101,7 +101,7 @@
 							/obj/effect/proc_holder/spell/vampire/shadow_boxing,
 							/datum/vampire_passive/full,
 							/obj/effect/proc_holder/spell/vampire/self/blood_spill,
-							/obj/effect/proc_holder/spell/vampire/charge,
+							/obj/effect/proc_holder/spell/vampire/arena,
 							/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
 							/obj/effect/proc_holder/spell/vampire/hysteria,
 							/obj/effect/proc_holder/spell/vampire/raise_vampires,

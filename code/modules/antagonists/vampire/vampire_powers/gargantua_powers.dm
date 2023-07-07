@@ -1,3 +1,5 @@
+#define ARENA_SIZE 12
+
 /obj/effect/proc_holder/spell/vampire/self/blood_swell
 	name = "Blood Swell (30)"
 	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage. However, this makes you unable to fire ranged weapons while it is active."
@@ -185,23 +187,41 @@
 	required_blood = 30
 	base_cooldown = 30 SECONDS
 	action_icon_state = "vampire_charge"
+	var/activator
+	var/mychild
+	var/list/invaders = list()
+	var/list/targets = list()
+
+/obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/user)
+	for(var/mob/living/M in range(10, user))
+		targets += M
+	if(!targets)
+		return
+	mychild = user
+	make_activator(targets)
+
+/obj/effect/proc_holder/spell/vampire/arena/proc/make_activator(list/targets)
+	for(length(targets))
+		ADD_TRAIT(targets[1], TRAIT_ELITE_CHALLENGER, "activation")
+		targets.Cut(1,2)
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_activator))
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
 	var/turf/tumor_turf = get_turf(src)
 	if(loc == null)
 		return
-	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
+	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_SIZE, tumor_turf))
 		var/obj/effect/temp_visual/elite_tumor_wall/newwall
 		newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
 		newwall.activator = activator
 		newwall.ourelite = mychild
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/border_check()
-	if(activator != null && get_dist(src, activator) >= ARENA_RADIUS)
+	if(activator != null && get_dist(src, activator) >= ARENA_SIZE)
 		activator.forceMove(loc)
 		visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
-	if(mychild != null && get_dist(src, mychild) >= ARENA_RADIUS)
+	if(mychild != null && get_dist(src, mychild) >= ARENA_SIZE)
 		mychild.forceMove(loc)
 		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
@@ -210,7 +230,7 @@
 	if(!ishuman(AM) && !isrobot(AM))
 		return
 	var/mob/living/M = AM
-	if(M == activator)
+	if(M in activator)
 		return
 	if(M in invaders)
 		to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
@@ -219,11 +239,11 @@
 	else
 		to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
 		invaders += M
-	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src) // extra safety
+	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_SIZE + 2, src) // extra safety
 	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
 	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
-/obj/structure/elite_tumor/proc/arena_checks()
+/obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
 	if(activity != TUMOR_ACTIVE || QDELETED(src))
 		return
 	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
