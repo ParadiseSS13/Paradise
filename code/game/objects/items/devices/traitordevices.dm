@@ -270,7 +270,7 @@
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>Using this item in quick succession may cause fatigue to the user!</span>"
+	. += "<span class='warning'>A little label on the side reads: \"Warning: Using this item in quick succession may cause fatigue to the user!\"</span>"
 	if(times_used >= max_uses)
 		. += "<span class='notice'>[src] is out of charge.</span>"
 	if(times_used < max_uses)
