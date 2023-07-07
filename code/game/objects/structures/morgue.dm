@@ -66,7 +66,7 @@
 
 	var/mob/dead/observer/G = M.get_ghost()
 
-	if(M.mind && !M.mind.suicided)
+	if(M.mind && !M.mind.suicided && !M.suiciding)
 		if(M.client)
 			status = REVIVABLE
 			return
