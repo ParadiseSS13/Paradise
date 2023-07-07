@@ -54,6 +54,8 @@
 
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
+#define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback // Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -137,6 +139,7 @@
 #define STATUS_EFFECT_BLURRY_EYES /datum/status_effect/transient/eye_blurry
 #define STATUS_EFFECT_BLINDED /datum/status_effect/transient/blindness
 #define STATUS_EFFECT_DRUGGED /datum/status_effect/transient/drugged
+#define STATUS_EFFECT_DEAF /datum/status_effect/transient/deaf
 
 /////////////
 // NEUTRAL //

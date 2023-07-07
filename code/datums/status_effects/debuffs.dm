@@ -677,6 +677,17 @@
 /datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
 	id = "abssilenced"
 
+/datum/status_effect/transient/deaf
+	id = "deafened"
+
+/datum/status_effect/transient/deaf/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+
+/datum/status_effect/transient/deaf/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+
 /datum/status_effect/transient/no_oxy_heal
 	id = "no_oxy_heal"
 
