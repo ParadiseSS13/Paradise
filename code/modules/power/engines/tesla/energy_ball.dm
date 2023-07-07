@@ -43,7 +43,7 @@
 	/// List with the turfs in the line towards the target turf
 	var/list/tesla_line = list()
 	/// Variable that defines whether it has a field generator close enough
-	var/has_close_field = TRUE
+	var/has_close_field = FALSE
 	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
 	var/list/all_possible_areas = list()
 
@@ -121,15 +121,17 @@
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(where_to_move)
 	for(var/i in 1 to length(GLOB.field_generator_fields))
-		var/list/temporarylist = list(getline(src, GLOB.field_generator_fields[i]))
-		if(length(temporarylist) >= 15)
-			has_close_field = FALSE
-			temporarylist.Cut()
+		var/temp_distance = get_dist(src, GLOB.field_generator_fields[i])
+		if(temp_distance <= 15)
+			has_close_field = TRUE
 			break
 	if(has_close_field)
 		var/turf/T = get_step(src, pick(GLOB.alldirs))
 		if(can_move(T))
 			forceMove(T)
+			has_close_field = FALSE
+			for(var/mob/living/carbon/C in loc)
+				dust_mobs(C)
 			return
 		return
 	if(!has_a_target)
@@ -142,6 +144,7 @@
 			has_a_target = FALSE
 		for(var/mob/living/carbon/C in loc)
 			dust_mobs(C)
+		has_close_field = FALSE
 
 
 /obj/singularity/energy_ball/proc/find_the_basket()
