@@ -86,7 +86,7 @@
 			vermstring = "spiders"
 		if(VERM_MONKEY)
 			//The gorilla has to be the first entry in the list or it'll spawn them too often
-			spawn_types = list(/mob/living/simple_animal/hostile/gorilla, /mob/living/carbon/human/monkey)
+			spawn_types = list(/mob/living/simple_animal/hostile/gorilla/domesticated, /mob/living/carbon/human/monkey)
 			max_number = 6
 			vermstring = "monkeys"
 	var/amount_to_spawn = rand(2, max_number)

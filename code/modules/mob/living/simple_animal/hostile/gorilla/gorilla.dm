@@ -265,3 +265,7 @@
 	. = ..()
 	add_overlay(mutable_appearance('icons/effects/effects.dmi', "electricity"))  // I wanna be Winston
 
+/mob/living/simple_animal/hostile/gorilla/domesticated
+	name = "domesticated gorilla"
+	faction = list("neutral", "monkey", "jungle")
+	stat_attack = CONSCIOUS
