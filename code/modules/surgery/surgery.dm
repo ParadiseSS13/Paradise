@@ -211,12 +211,9 @@
  * Returns TRUE if the tool can be used, or FALSE otherwise
  */
 /datum/surgery_step/proc/is_valid_tool(mob/living/user, obj/item/tool)
-
 	var/success = FALSE
 	if(accept_hand)
 		if(!tool)
-			success = TRUE
-		if(isrobot(user) && istype(tool, /obj/item/gripper_medical))
 			success = TRUE
 
 	if(accept_any_item)

@@ -1151,3 +1151,33 @@
 	C.take_organ_damage(damage)
 	C.KnockDown(3 SECONDS)
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
+
+
+/**
+  * Handles patting out a fire on someone.
+  *
+  * Removes 0.5 fire stacks per pat, with a 30% chance of the user burning their hand if they don't have adequate heat resistance.
+  * Arguments:
+  * * src - The mob doing the patting
+  * * target - The mob who is currently on fire
+  */
+/mob/living/proc/pat_out(mob/living/target)
+	if(target == src) // stop drop and roll, no trying to put out fire on yourself for free.
+		to_chat(src, "<span class='warning'>Stop drop and roll!</span>")
+		return
+	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
+	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
+		var/mob/living/carbon/human/H = src
+		var/protected = FALSE // Protected from the fire
+		if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESISTHEAT) || HAS_TRAIT(H, TRAIT_RESISTHEATHANDS))
+			protected = TRUE
+
+		var/obj/item/organ/external/active_hand = H.get_active_hand()
+		if(active_hand && !protected) // Wouldn't really work without a hand
+			active_hand.receive_damage(0, 5)
+			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
+			H.update_icons()
+
+	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
+	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	target.adjust_fire_stacks(-0.5)

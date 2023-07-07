@@ -38,7 +38,7 @@
 /obj/item/borg/cyborghug
 	name = "hugging module"
 	icon_state = "hugmodule"
-	desc = "For when a someone really needs a hug."
+	desc = "For when someone really needs a hug, or helping people to stand up."
 	var/mode = CYBORG_HUGS //0 = Hugs 1 = "Hug" 2 = Shock 3 = CRUSH
 	var/ccooldown = 0
 	var/scooldown = 0
@@ -71,32 +71,24 @@
 		return
 	switch(mode)
 		if(CYBORG_HUGS)
-			if(M.health >= 0)
+			if(ishuman(M))
+				var mob/living/carbon/human/H = M
+				if(H.on_fire)
+					user.pat_out(H)
+				else
+					H.help_shake_act(user)
+			else if(M.health >= 0)
 				if(isanimal(M) && !M.holder_type) // checks if holder_type exists to prevent picking up animals like mice
 					var/list/modifiers = params2list(params)
 					M.attack_hand(user, modifiers) //This enables borgs to get the floating heart icon and mob emote from simple_animal's that have petbonus == true.
 					return
-				if(user.zone_selected == BODY_ZONE_HEAD)
-					user.visible_message("<span class='notice'>[user] playfully boops [M] on the head!</span>", "<span class='notice'>You playfully boop [M] on the head!</span>")
-					user.do_attack_animation(M, ATTACK_EFFECT_BOOP)
-					playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
-				else if(ishuman(M))
-					if(M.resting)
-						user.visible_message("<span class='notice'>[user] shakes [M] trying to get [M.p_them()] up!</span>", "<span class='notice'>You shake [M] trying to get [M.p_them()] up!</span>")
-						M.stand_up()
-					else
-						user.visible_message("<span class='notice'>[user] hugs [M] to make [M.p_them()] feel better!</span>", "<span class='notice'>You hug [M] to make [M.p_them()] feel better!</span>")
 				else
 					user.visible_message("<span class='notice'>[user] pets [M]!</span>", "<span class='notice'>You pet [M]!</span>")
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		if(CYBORG_HUG)
 			if(M.health >= 0)
 				if(ishuman(M))
-					if(M.resting)
-						user.visible_message("<span class='notice'>[user] shakes [M] trying to get [M.p_them()] up!</span>", "<span class='notice'>You shake [M] trying to get [M.p_them()] up!</span>")
-						M.resting = FALSE
-						M.stand_up()
-					else if(user.zone_selected == BODY_ZONE_HEAD)
+					if(user.zone_selected == BODY_ZONE_HEAD)
 						user.visible_message("<span class='warning'>[user] bops [M] on the head!</span>", "<span class='warning'>You bop [M] on the head!</span>")
 						user.do_attack_animation(M, ATTACK_EFFECT_PUNCH)
 					else

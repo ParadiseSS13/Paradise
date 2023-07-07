@@ -324,8 +324,7 @@
 		/obj/item/stack/medical/bruise_pack/advanced/cyborg,
 		/obj/item/stack/medical/ointment/advanced/cyborg,
 		/obj/item/stack/medical/splint/cyborg,
-		/obj/item/stack/nanopaste/cyborg,
-		/obj/item/gripper_medical
+		/obj/item/stack/nanopaste/cyborg
 	)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
@@ -638,8 +637,7 @@
 		/obj/item/stack/medical/splint/cyborg/syndicate,
 		/obj/item/stack/nanopaste/cyborg/syndicate,
 		/obj/item/gun/medbeam,
-		/obj/item/extinguisher/mini,
-		/obj/item/gripper_medical
+		/obj/item/extinguisher/mini
 	)
 	special_rechargables = list(/obj/item/extinguisher/mini)
 

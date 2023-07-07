@@ -216,21 +216,32 @@
 	if(selhand != hand)
 		swap_hand()
 
-/mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
+/mob/living/carbon/proc/help_shake_act(mob/living/M)
+	if(src == M)
+		if (ishuman(src))
+			check_self_for_injuries()
+		return
+
+	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.wear_suit)
+			H.wear_suit.add_fingerprint(M)
+		else if(H.w_uniform)
+			H.w_uniform.add_fingerprint(M)
+
 	if(stat == DEAD)
-		if(M != src)
-			M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
-			"<span class='notice'>You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!</span>")
-		return
-	if(health < HEALTH_THRESHOLD_CRIT)
-		return
-	if(src == M && ishuman(src))
-		check_self_for_injuries()
-		return
-	if(player_logged)
+		M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
+		"<span class='notice'>You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!</span>")
+	else if(health < HEALTH_THRESHOLD_CRIT)
+		// In most cases this won't be reached as it'll trigger CPR instead
+		if (IS_HORIZONTAL(src))
+			M.visible_message("<span class='notice'>[M] shakes [src] trying to wake [p_them()] up, but there is no response!</span>", \
+		"<span class='notice'>You shake [src] trying to wake [p_them()], but there is no response!</span>")
+	else if(player_logged)
 		M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.</span>", \
 		"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
-	if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+	else if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 		add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
@@ -244,65 +255,29 @@
 		adjustStaminaLoss(-10)
 		resting = FALSE
 		stand_up() // help them up if possible
-		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		if(!player_logged)
 			M.visible_message( \
 				"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
 				"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
 				)
-		return
-	// BEGIN HUGCODE - N3X
-	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-	if(M.zone_selected == "head")
+	else if(M.zone_selected == "head")
 		M.visible_message(\
 		"<span class='notice'>[M] pats [src] on the head.</span>",\
 		"<span class='notice'>You pat [src] on the head.</span>",\
 		)
-		return
-	// If it has any of the highfive statuses, dap, handshake, etc
-	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
-	if(effect)
-		M.apply_status_effect(effect.type)
-		return
-	M.visible_message(\
-	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-	"<span class='notice'>You hug [src].</span>",\
-	)
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if(H.wear_suit)
-			H.wear_suit.add_fingerprint(M)
-		else if(H.w_uniform)
-			H.w_uniform.add_fingerprint(M)
+	else
+		// If it has any of the highfive statuses, dap, handshake, etc
+		var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
+		if(effect)
+			M.apply_status_effect(effect.type)
+			return
 
-/**
-  * Handles patting out a fire on someone.
-  *
-  * Removes 0.5 fire stacks per pat, with a 30% chance of the user burning their hand if they don't have adequate heat resistance.
-  * Arguments:
-  * * src - The mob doing the patting
-  * * target - The mob who is currently on fire
-  */
-/mob/living/carbon/proc/pat_out(mob/living/target)
-	if(target == src) // stop drop and roll, no trying to put out fire on yourself for free.
-		to_chat(src, "<span class='warning'>Stop drop and roll!</span>")
-		return
-	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
-	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
-		var/mob/living/carbon/human/H = src
-		var/protected = FALSE // Protected from the fire
-		if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESISTHEAT) || HAS_TRAIT(H, TRAIT_RESISTHEATHANDS))
-			protected = TRUE
+		// BEGIN HUGCODE - N3X
+		M.visible_message(\
+		"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
+		"<span class='notice'>You hug [src].</span>",\
+		)
 
-		var/obj/item/organ/external/active_hand = H.get_active_hand()
-		if(active_hand && !protected) // Wouldn't really work without a hand
-			active_hand.receive_damage(0, 5)
-			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
-			H.update_icons()
-
-	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
-	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-	target.adjust_fire_stacks(-0.5)
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
