@@ -6,7 +6,7 @@
 /datum/action/changeling/spiders
 	name = "Spread Infestation"
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend. Costs 45 chemicals."
-	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 7 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift click)."
+	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 7 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift+Click)."
 	button_icon_state = "spread_infestation"
 	chemical_cost = 45
 	dna_cost = 2
@@ -77,7 +77,7 @@
 		if(FOLLOW_AGGRESSIVE)
 			. += "<span class='notice'>The giant spider is following us, but will attack anyone on sight.</span>"
 		if(FOLLOW_RETALIATE)
-			. += "<span class='notice'>The giant spider is following us and staying calm, only attacking it is attacked.</span>"
+			. += "<span class='notice'>The giant spider is following us and staying calm, only attacking if it is attacked.</span>"
 		if(IDLE_RETALIATE)
 			. += "<span class='notice'>The giant spider will remain idle and calm, only attacking if it is attacked.</span>"
 
@@ -95,7 +95,7 @@
 			current_order = FOLLOW_AGGRESSIVE
 			handle_automated_movement()
 		if(FOLLOW_AGGRESSIVE)
-			to_chat(user, "<span class='notice'>We order the giant spider to follow us and but remain calm, only attacking if it is attacked.</span>")
+			to_chat(user, "<span class='notice'>We order the giant spider to follow us and to remain calm, only attacking if it is attacked.</span>")
 			current_order = FOLLOW_RETALIATE
 			handle_automated_movement()
 		if(FOLLOW_RETALIATE)
