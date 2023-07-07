@@ -136,7 +136,6 @@
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
-	pull_speed = 0
 	var/icon_up = "up"
 	var/icon_down = "down"
 	var/folded = /obj/item/roller

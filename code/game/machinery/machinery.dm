@@ -7,7 +7,6 @@
 	layer = BELOW_OBJ_LAYER
 	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
 	atom_say_verb = "beeps"
-	pull_speed = 0.5
 	var/stat = 0
 
 	/// How is this machine currently passively consuming power?

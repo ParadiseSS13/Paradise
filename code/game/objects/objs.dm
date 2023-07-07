@@ -32,8 +32,6 @@
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 	/// Is it emagged or not?
 	var/emagged = FALSE
-	/// slowndown on pulling by human. Bigger value = slower pulling
-	var/pull_speed = 0
 
 /obj/New()
 	..()
