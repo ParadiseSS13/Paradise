@@ -40,8 +40,12 @@
 	var/list/target_area_turfs = list()
 	/// Turf where the tesla will move to if it's loose
 	var/turf/target_turf
-	// List with the turfs in the line towards the target turf
+	/// List with the turfs in the line towards the target turf
 	var/list/tesla_line = list()
+	/// Variable that defines whether it has a field generator close enough
+	var/has_close_field = TRUE
+	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
+	var/list/all_possible_areas = list()
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
@@ -54,6 +58,7 @@
 	else
 		// This gets added by the parent call
 		GLOB.poi_list -= src
+	all_possible_areas = findUnrestrictedEventArea()
 
 /obj/singularity/energy_ball/ex_act(severity, target)
 	return
@@ -115,7 +120,13 @@
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(where_to_move)
-	if(locate(/obj/machinery/field/containment) in urange(15, src, 1)) // If there's a field in the closest 15 turfs we're sticking with a simple moving pattern
+	for(var/i in 1 to length(GLOB.field_generator_fields))
+		var/list/temporarylist = list(getline(src, GLOB.field_generator_fields[i]))
+		if(length(temporarylist) >= 15)
+			has_close_field = FALSE
+			temporarylist.Cut()
+			break
+	if(has_close_field)
 		var/turf/T = get_step(src, pick(GLOB.alldirs))
 		if(can_move(T))
 			forceMove(T)
@@ -134,7 +145,7 @@
 
 
 /obj/singularity/energy_ball/proc/find_the_basket()
-	var/area/where_to_move = findUnrestrictedEventArea() // Grabs a random area that isn't restricted
+	var/area/where_to_move = pick(all_possible_areas) // Grabs a random area that isn't restricted
 	target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
 	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
 	tesla_line = getline(src,target_turf) // Constructs a line between the tesla and the target turf
@@ -277,7 +288,7 @@
 
 	//Darkness fucks oview up hard. I've tried dview() but it doesn't seem to work
 	//I hate existance
-	for(var/a in typecache_filter_multi_list_exclusion(oview(zap_range + 2, source), things_to_shock, blacklisted_tesla_types))
+	for(var/a in typecache_filter_multi_list_exclusion(range(zap_range + 2, source), things_to_shock, blacklisted_tesla_types))
 		var/atom/A = a
 		if(!(zap_flags & ZAP_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A))
 			continue
