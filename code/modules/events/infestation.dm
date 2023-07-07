@@ -12,6 +12,7 @@
 #define VERM_MICE 0
 #define VERM_LIZARDS 1
 #define VERM_SPIDERS 2
+#define VERM_MONKEY 3
 
 /datum/event/infestation
 	announceWhen = 10
@@ -66,7 +67,10 @@
 
 	var/list/spawn_types = list()
 	var/max_number
-	vermin = rand(0,2)
+	if(prob(10))
+		vermin = VERM_MONKEY
+	else
+		vermin = rand(0,2)
 	switch(vermin)
 		if(VERM_MICE)
 			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
@@ -80,6 +84,11 @@
 			spawn_types = list(/obj/structure/spider/spiderling)
 			max_number = 3
 			vermstring = "spiders"
+		if(VERM_MONKEY)
+			//The gorilla has to be the first entry in the list or it'll spawn them too often
+			spawn_types = list(/mob/living/simple_animal/hostile/gorilla, /mob/living/carbon/human/monkey)
+			max_number = 6
+			vermstring = "monkeys"
 	var/amount_to_spawn = rand(2, max_number)
 	while(length(turfs) && amount_to_spawn > 0)
 		var/turf/simulated/floor/T = pick_n_take(turfs)
@@ -88,13 +97,23 @@
 		if(vermin == VERM_SPIDERS)
 			var/obj/structure/spider/spiderling/S = new(T)
 			S.amount_grown = -1
+		else if(vermin == VERM_MONKEY)
+			var/spawn_type
+			if(prob(10))
+				spawn_type = spawn_types[1]
+			else
+				spawn_type = pick(spawn_types[rand(2, length(spawn_types))])
+			new spawn_type(T)
 		else
 			var/spawn_type = pick(spawn_types)
 			new spawn_type(T)
 
 
 /datum/event/infestation/announce()
-	GLOB.minor_announcement.Announce("Bioscans indicate that [vermstring] have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+	if(vermin == VERM_MONKEY)
+		GLOB.minor_announcement.Announce("Bioscans indicate that [vermstring] have escaped from an illegaly created bluespace pocket in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+	else
+		GLOB.minor_announcement.Announce("Bioscans indicate that [vermstring] have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
 
 #undef LOC_KITCHEN
 #undef LOC_ATMOS
