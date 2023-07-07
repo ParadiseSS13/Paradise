@@ -89,7 +89,7 @@
 /obj/machinery/optable/process()
 	update_patient()
 
-	if(!length(injected_reagents) || patient.stat == DEAD)
+	if(!length(injected_reagents) || !patient || patient.stat == DEAD)
 		return
 
 	for(var/chemical in injected_reagents)
