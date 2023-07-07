@@ -111,7 +111,7 @@
 
 /datum/event/infestation/announce()
 	if(vermin == VERM_MONKEY)
-		GLOB.minor_announcement.Announce("Bioscans indicate that [vermstring] have escaped from an illegaly created bluespace pocket in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+		GLOB.minor_announcement.Announce("Bioscans indicate that [vermstring] have escaped from an illegally created bluespace pocket in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
 	else
 		GLOB.minor_announcement.Announce("Bioscans indicate that [vermstring] have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
 
