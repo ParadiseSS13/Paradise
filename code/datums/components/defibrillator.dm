@@ -284,7 +284,7 @@
 		else
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>")
 		defib_success = FALSE
-	else if((signal_result & COMPONENT_BLOCK_DEFIB) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || HAS_TRAIT(target, TRAIT_BADDNA))  // these are a bit more arbitrary
+	else if((signal_result & COMPONENT_BLOCK_DEFIB) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || HAS_TRAIT(target, TRAIT_BADDNA) || target.suiciding)  // these are a bit more arbitrary
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>")
 		defib_success = FALSE
 
