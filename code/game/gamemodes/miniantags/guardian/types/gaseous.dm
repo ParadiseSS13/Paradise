@@ -4,7 +4,7 @@
 	melee_damage_upper = 10
 	damage_transfer = 0.7
 	range = 7
-	playstyle_string = "As a <b>gaseous</b> type, you have only light damage resistance, but you can expel expelled_gasgas in an area. In addition, your punches cause sparks, and you make your summoner heat resistant."
+	playstyle_string = "As a <b>gaseous</b> type, you have only light damage resistance, but you can expel gas in an area. In addition, your punches cause sparks, and you make your summoner heat resistant."
 	magic_fluff_string = "..And draw the Atmospheric Technician, flooding the area with gas!"
 	tech_fluff_string = "Boot sequence complete. Atmospheric modules activated. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of spewing out many gases."
@@ -70,7 +70,7 @@
 		if("Plasma")
 			linda_flags = LINDA_SPAWN_TOXINS | LINDA_SPAWN_20C
 		if("Agent B")
-			linda_flags = LINDA_SPAWN_TOXINS | LINDA_SPAWN_20C
+			linda_flags = LINDA_SPAWN_AGENT_B | LINDA_SPAWN_20C
 
 /mob/living/simple_animal/hostile/guardian/gaseous/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta)
 	. = ..()

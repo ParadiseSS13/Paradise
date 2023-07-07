@@ -94,7 +94,7 @@
 
 /mob/living/simple_animal/hostile/guardian/protector/Destroy()
 	QDEL_LIST_CONTENTS(connected_shields)
-	..()
+	return ..()
 
 /obj/effect/guardianshield
 	desc = "A guardian's defencive wall."
@@ -130,4 +130,4 @@
 
 /obj/effect/guardianshield/Destroy()
 	linked_guardian = null
-	..()
+	return ..()
