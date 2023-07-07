@@ -317,7 +317,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(output)
 		return TRUE //We got shocked, end of story
 	if(issilicon(user))
-		return TRUE //Borgs don't get door shocked
+		return FALSE //Borgs don't get door shocked
 	if(ishuman(user) && isElectrified()) //We don't want people without insulated gloves able to open doors.
 		var/mob/living/carbon/human/H = user
 		if(H.gloves)
