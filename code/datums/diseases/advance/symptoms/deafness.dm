@@ -36,4 +36,4 @@ Bonus
 				to_chat(M, "<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>")
 			if(5)
 				to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
-				ears.deaf = min(20, ears.deaf + 15)
+				M.Deaf(40 SECONDS)

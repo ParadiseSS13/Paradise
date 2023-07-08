@@ -300,6 +300,12 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	materials = list(MAT_METAL=250)
 
+/obj/item/ammo_casing/shotgun/confetti
+	name = "confettishot"
+	desc = "It's party time!"
+	icon_state = "partyshell"
+	projectile_type = /obj/item/projectile/bullet/confetti
+
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."
 	caliber = "a556"
