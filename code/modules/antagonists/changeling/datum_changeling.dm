@@ -191,7 +191,7 @@
 		genetic_damage = max(0, genetic_damage - 1)
 	update_chem_charges_ui(H)
 
-/datum/antagonist/changeling/proc/update_chem_charges_ui(var/mob/living/carbon/human/H = owner.current)
+/datum/antagonist/changeling/proc/update_chem_charges_ui(mob/living/carbon/human/H = owner.current)
 	if(H.hud_used?.lingchemdisplay)
 		H.hud_used.lingchemdisplay.invisibility = 0
 		H.hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(chem_charges)]</font></div>"
