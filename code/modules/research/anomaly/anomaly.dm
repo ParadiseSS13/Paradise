@@ -27,7 +27,7 @@
 /obj/item/assembly/signaler/anomaly/cryo
 	name = "\improper cryogenic anomaly core"
 	desc = "The neutralized core of a cryogenic anomaly. Rime is forming on its cold surface. It'd probably be valuable for research."
-	icon_state = "pyro_core" //temp
+	icon_state = "cryo_core"
 	anomaly_type = /obj/effect/anomaly/cryo
 	origin_tech = "biotech=7"
 
