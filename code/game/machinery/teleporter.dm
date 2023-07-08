@@ -98,6 +98,7 @@
 	data["calibrating"] = calibrating
 	data["locked"] = locked ? TRUE : FALSE
 	data["targetsTeleport"] = null
+	data["accuracy"] = power_station.teleporter_hub.accurate
 	switch(regime)
 		if(REGIME_TELEPORT)
 			data["targetsTeleport"] = targets_teleport()

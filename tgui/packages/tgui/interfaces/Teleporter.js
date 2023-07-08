@@ -17,6 +17,7 @@ export const Teleporter = (props, context) => {
     teleporterhub,
     target,
     locked,
+    accuracy,
   } = data;
   return (
     <Window>
@@ -110,7 +111,7 @@ export const Teleporter = (props, context) => {
                         <Box color="average">
                           In Progress
                         </Box>
-                      ) || (calibrated
+                      ) || ((calibrated || (accuracy >= 3))
                       && (
                         <Box color="good">
                           Optimal
