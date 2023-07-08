@@ -253,7 +253,6 @@
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
 	armour_penetration = 0
-	var/chain
 	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 

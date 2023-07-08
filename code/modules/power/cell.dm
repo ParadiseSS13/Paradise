@@ -368,6 +368,12 @@
 	maxcharge = 10000
 	materials = list(MAT_GLASS = 60)
 
+/obj/item/stock_parts/cell/bsg
+	name = "\improper B.S.G power cell"
+	desc = "A high capacity, slow charging cell for the B.S.G."
+	maxcharge = 40000
+	chargerate = 2600 // about 30 seconds to charge with a default recharger
+
 /obj/item/stock_parts/cell/emittergun // 11 emitter shots
 	name = "emitter gun power cell"
 	maxcharge = 2200

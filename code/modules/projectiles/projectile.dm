@@ -59,6 +59,9 @@
 	var/ricochets_max = 2
 	var/ricochet_chance = 30
 
+	/// For when you want your projectile to have a chain coming out of the gun
+	var/chain = null
+
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary. example: laser tag or practice lasers
 
 	var/dismember_limbs = FALSE //if true, projectile with dismemberment will cut limbs instead of gib them

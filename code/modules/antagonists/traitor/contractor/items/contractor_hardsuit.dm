@@ -147,7 +147,6 @@
 	weaken = 1
 	ricochet_chance = 0
 	range = 7
-	var/chain
 
 /obj/item/projectile/contractor_hook/fire(setAngle)
 	if(firer)
