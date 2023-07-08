@@ -9005,6 +9005,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "NT Representative";
+	departmentType = 5;
+	name = "NT Representative Requests Console";
+	pixel_y = -30
+	},
+/obj/item/clipboard,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "bSz" = (
@@ -57754,6 +57762,7 @@
 "lEP" = (
 /obj/structure/closet/firecloset,
 /obj/item/crowbar/red,
+/obj/item/wirecutters,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "lEV" = (
@@ -112335,6 +112344,13 @@
 	icon_state = "white"
 	},
 /area/maintenance/maintcentral)
+"wBA" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/mixing)
 "wBC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -120346,13 +120362,12 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/southwestcorner,
 /obj/structure/cable/pink{
 	d1 = 2;
 	d2 = 5;
 	icon_state = "2-5"
 	},
+/obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -173664,7 +173679,7 @@ nIt
 vaH
 vvu
 kpT
-pyA
+wBA
 rME
 xYQ
 jaX
