@@ -24,6 +24,13 @@
 	anomaly_type = /obj/effect/anomaly/pyro
 	origin_tech = "plasmatech=7"
 
+/obj/item/assembly/signaler/anomaly/cryo
+	name = "\improper cryogenic anomaly core"
+	desc = "The neutralized core of a cryogenic anomaly. Rime is forming on its cold surface. It'd probably be valuable for research."
+	icon_state = "pyro_core" //temp
+	anomaly_type = /obj/effect/anomaly/cryo
+	origin_tech = "biotech=7"
+
 /obj/item/assembly/signaler/anomaly/grav
 	name = "\improper gravitational anomaly core"
 	desc = "The neutralized core of a gravitational anomaly. It feels much heavier than it looks. It'd probably be valuable for research."
@@ -57,7 +64,7 @@
 
 /obj/item/assembly/signaler/anomaly/random/New()
 	..()
-	var/list/types = list(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
+	var/list/types = list(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/cryo, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
 	var/A = pick(types)
 	new A(loc)
 	qdel(src)

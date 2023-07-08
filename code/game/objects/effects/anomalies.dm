@@ -353,6 +353,54 @@
 
 /////////////////////
 
+/obj/effect/anomaly/cryo
+	name = "cryogenic anomaly"
+	icon_state = "shield-old" //temp probably
+	desc = "Hope you brought a jacket!"
+	aSignal = /obj/item/assembly/signaler/anomaly/cryo
+
+/obj/effect/anomaly/cryo/anomalyEffect()
+	..()
+
+	var/list/turf_targets = list()
+	for(var/turf/T in oview(get_turf(src), 7))
+		turf_targets += T
+
+	for(var/I in 1 to rand(1,3))
+		var/turf/target = pick(turf_targets)
+		shootAt(target)
+
+	if(prob(50))
+		var/turf/simulated/T = get_turf(src)
+		if(istype(T))
+			T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20)
+
+	if(prob(10))
+		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
+		for(var/a=0, a<5, a++)
+			step_towards(A, pick(turf_targets))
+			sleep(2)
+		A.Smoke()
+
+/obj/effect/anomaly/cryo/proc/shootAt(atom/movable/target)
+    var/turf/T = get_turf(src)
+    var/turf/U = get_turf(target)
+    if(!T || !U)
+        return
+    var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+    playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, 1)
+    O.current = T
+    O.yo = U.y - T.y
+    O.xo = U.x - T.x
+    O.fire()
+
+/obj/effect/anomaly/cryo/detonate()
+	var/turf/simulated/T = get_turf(src)
+	if(istype(T))
+		T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_CO2, 1000)
+
+/////////////////////
+
 /obj/effect/anomaly/bhole
 	name = "vortex anomaly"
 	icon_state = "bhole3"
