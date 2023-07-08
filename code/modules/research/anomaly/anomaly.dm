@@ -100,7 +100,7 @@
 			armour_path = /obj/item/clothing/suit/armor/reactive/cryo
 		if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
 			armour_path = /obj/item/clothing/suit/armor/reactive/stealth // Vortex needs one, this is just temporary(TM) till one is coded for them.
-		to_chat(user, "<span class='notice'>You insert [A] into the chest plate, and the armour gently hums to life.</span>")
+		to_chat(user, "<span class='notice'>You insert [A] into the chest plate, and the armor gently hums to life.</span>")
 		new armour_path(get_turf(src))
 		qdel(src)
 		qdel(A)
