@@ -380,7 +380,7 @@
 
 	if(prob(10))
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
-		for(var/a=0, a<5, a++)
+		for(var/i in 1 to 5)
 			step_towards(A, pick(turf_targets))
 			sleep(2)
 		A.Smoke()
