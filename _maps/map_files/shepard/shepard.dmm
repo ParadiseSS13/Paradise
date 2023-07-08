@@ -53975,7 +53975,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "kQG" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/maintenance{
 	name = "Atmospherics Maintenance";
