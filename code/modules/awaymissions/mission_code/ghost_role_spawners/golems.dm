@@ -111,6 +111,8 @@
 			new_spawn.mind.store_memory("<b>[owner.real_name], your creator, is also an antagonist.</b>")
 			to_chat(new_spawn, "<b>[owner.real_name], your creator, is also an antagonist.</b>")
 			SSticker.mode.traitors.Add(new_spawn.mind)
+			var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_TRAITOR]
+			hud.join_hud(new_spawn)
 			if(locate(/datum/objective/hijack) in owner.mind.get_all_objectives())
 				new_spawn.mind.store_memory("<b>They must hijack the shuttle.</b>")
 				to_chat(new_spawn, "<b>They are also a hijacker.</b>")
