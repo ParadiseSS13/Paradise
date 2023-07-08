@@ -327,8 +327,8 @@
 
 	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
-	I.pixel_x = initial(pixel_x)
-	I.pixel_y = initial(pixel_y)
+	I.pixel_x = initial(I.pixel_x)
+	I.pixel_y = initial(I.pixel_y)
 
 	return TRUE
 
@@ -376,7 +376,7 @@
  * * 'force' overrides flag NODROP and clothing obscuration.
  * * 'qdel_on_fail' qdels item if failed to pick in both hands.
  * * 'merge_stacks' set to `TRUE` to allow stack auto-merging even when both hands are full.
- * * 'ignore_anime' set to `TRUE` to prevent pick up animation.
+ * * 'ignore_anim' set to `TRUE` to prevent pick up animation.
  */
 /mob/proc/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
 	return FALSE
@@ -435,7 +435,7 @@
 	. = do_unEquip(I, force, drop_location(), FALSE, invdrop, silent)
 
 	if(!. || !I)
-		return FALSE
+		return
 
 	I.do_pickup_animation(newloc)
 	I.forceMove(newloc)
@@ -457,11 +457,11 @@
 	. = do_unEquip(I, force, drop_location(), FALSE, invdrop, silent)
 
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
-		return FALSE
+		return
 
 	if(!(I.flags & NO_PIXEL_RANDOM_DROP))
-		I.pixel_x += rand(-6, 6)
-		I.pixel_y += rand(-6, 6)
+		I.pixel_x = clamp(rand(-6, 6), -(world.icon_size / 2), world.icon_size / 2)
+		I.pixel_y = clamp(rand(-6, 6), -(world.icon_size / 2), world.icon_size / 2)
 	I.do_drop_animation(src)
 
 

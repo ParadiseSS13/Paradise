@@ -275,6 +275,8 @@
 
 /mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
 	I.forceMove(drop_location())
+	I.pixel_x = initial(I.pixel_x)
+	I.pixel_y = initial(I.pixel_y)
 	I.layer = initial(I.layer)
 	I.plane = initial(I.plane)
 	I.dropped()

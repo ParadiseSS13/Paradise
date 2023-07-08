@@ -21,23 +21,6 @@
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
 
-/obj/item/storage/belt/MouseDrop(obj/over_object as obj, src_location, over_location)
-	var/mob/M = usr
-	if(!istype(over_object, /obj/screen))
-		return ..()
-	playsound(src.loc, "rustle", 50, 1, -5)
-	if(!M.restrained() && !M.stat && can_use())
-		switch(over_object.name)
-			if("r_hand")
-				if(!remove_item_from_storage(drop_location()))
-					M.drop_item_ground(src)
-				M.put_in_r_hand(src, ignore_anim = FALSE)
-			if("l_hand")
-				if(!remove_item_from_storage(drop_location()))
-					M.drop_item_ground(src)
-				M.put_in_l_hand(src, ignore_anim = FALSE)
-		src.add_fingerprint(usr)
-		return
 
 /obj/item/storage/belt/deserialize(list/data)
 	..()

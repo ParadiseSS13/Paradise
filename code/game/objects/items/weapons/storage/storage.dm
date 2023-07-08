@@ -129,28 +129,8 @@
 			update_icon() // For content-sensitive icons
 			return
 
-		if(!(istype(over_object, /obj/screen)))
-			return ..()
-		if(!(loc == usr) || (loc && loc.loc == usr))
-			return
-		playsound(loc, "rustle", 50, TRUE, -5)
-		if(!(M.restrained()) && !(M.stat))
-			switch(over_object.name)
-				if("r_hand")
-					if(!M.drop_item_ground(src))
-						return
-					M.put_in_r_hand(src, ignore_anim = FALSE)
-				if("l_hand")
-					if(!M.drop_item_ground(src))
-						return
-					M.put_in_l_hand(src, ignore_anim = FALSE)
-			add_fingerprint(usr)
-			return
-		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
-			if(usr.s_active)
-				usr.s_active.close(usr)
-			open(usr)
-			return
+		return ..()
+
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
@@ -377,6 +357,13 @@
 	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
 		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
 		return FALSE
+
+	// item unequip delay
+	if(usr && W.equip_delay_self && W.in_inventory && !W.in_storage && !usr.is_general_slot(usr.get_slot_by_item(W)))
+		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
+							span_notice("Вы начинаете снимать [W.name]..."))
+		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))
+			return FALSE
 
 	return TRUE
 

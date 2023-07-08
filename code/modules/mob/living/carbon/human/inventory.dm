@@ -306,6 +306,8 @@
 	if(I.pulledby)
 		I.pulledby.stop_pulling()
 
+	I.pixel_x = initial(I.pixel_x)
+	I.pixel_y = initial(I.pixel_y)
 	I.screen_loc = null
 	I.forceMove(src)
 	I.equipped(src, slot, initial)

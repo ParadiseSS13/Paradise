@@ -331,7 +331,7 @@
  * * 'force' overrides flag NODROP and clothing obscuration.
  * * 'qdel_on_fail' qdels item if failed to pick in both hands.
  * * 'merge_stacks' set to `TRUE` to allow stack auto-merging even when both hands are full.
- * * 'ignore_anime' set to `TRUE` to prevent pick up animation.
+ * * 'ignore_anim' set to `TRUE` to prevent pick up animation.
  */
 /mob/living/carbon/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
 
@@ -344,6 +344,8 @@
 
 	if(!real_human_being())	// Not a real hero :'(
 		I.forceMove(drop_location())
+		I.pixel_x = initial(I.pixel_x)
+		I.pixel_y = initial(I.pixel_y)
 		I.layer = initial(I.layer)
 		I.plane = initial(I.plane)
 		I.dropped(src)

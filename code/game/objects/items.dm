@@ -129,7 +129,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/nutritional_value = 20 	// How much nutrition add
 	var/is_only_grab_intent = FALSE	//Grab if help_intent was used
 
-	///In deciseconds, how long an item takes to equip; counts only for normal clothing slots, not pockets, hands etc.
+	///In deciseconds, how long an item takes to equip/unequip; counts only for normal clothing slots, not pockets, hands etc.
 	var/equip_delay_self = 0 SECONDS
 
 
@@ -332,7 +332,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(istype(src.loc, /obj/item/storage))
 		//If the item is in a storage item, take it out
 		var/obj/item/storage/S = src.loc
-		S.remove_from_storage(src, user)
+		S.remove_from_storage(src, drop_location())
 	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
 		return
 
@@ -340,8 +340,22 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		throwing.finalize(FALSE)
 
 	if(loc == user)
-		if(!allow_attack_hand_drop(user) || !user.temporarily_remove_item_from_inventory(src))
+		if(!allow_attack_hand_drop(user))
 			return
+
+		// inventory unequip delay
+		if(equip_delay_self && in_inventory && !in_storage && !user.is_general_slot(user.get_slot_by_item(src)))
+			user.visible_message(span_notice("[user] начинает снимать [name]..."), \
+							span_notice("Вы начинаете снимать [name]..."))
+			if(!do_after_once(user, equip_delay_self, target = user, attempt_cancel_message = "Снятие [name] было прервано!"))
+				return
+
+			if(user.get_active_hand())
+				return
+
+		if(!user.temporarily_remove_item_from_inventory(src))
+			return
+
 	else if(isliving(loc))
 		return
 
@@ -349,12 +363,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	pickup(user)
 	add_fingerprint(user)
 
-	if(!user.put_in_active_hand(src, force = FALSE, ignore_anim = FALSE))
+	if(!user.put_in_active_hand(src, ignore_anim = FALSE))
 		user.drop_item_ground(src)
 		return FALSE
 
 
-// If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
+/**
+ * If we want to stop manual unequipping of item by hands, but only for user himself (almost NODROP)
+ */
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
 
