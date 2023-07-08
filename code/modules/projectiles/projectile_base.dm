@@ -55,7 +55,7 @@
 	var/stamina = 0
 	var/jitter = 0
 	/// Number of times an object can pass through an object. -1 is infinite
-	var/forcedodge = 0 
+	var/forcedodge = 0
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/ricochets = 0
@@ -78,6 +78,7 @@
 
 	/// Does this projectile do extra damage to / break shields?
 	var/shield_buster = FALSE
+	var/forced_accuracy = FALSE
 
 /obj/item/projectile/New()
 	return ..()
@@ -212,7 +213,11 @@
 			return 0
 
 	var/distance = get_dist(get_turf(A), starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
-	def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+	if(!forced_accuracy)
+		if(get_dist(A, original) <= 1)
+			def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+		else
+			def_zone = pick(list("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg")) // If we were aiming at one target but another one got hit, no accuracy is applied
 
 	if(isturf(A) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
