@@ -70,3 +70,16 @@
   - bugfix: puppy collars don't remove (#3137)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#3142)
+'2023-07-08':
+  Rerik007:
+  - bugfix: chasm can be pried (#3144)
+  Vladisvell:
+  - bugfix: now teleporter console shows correct calibration state (#3125)
+  Zwei:
+  - refactor: Inventory Code Tweaks (#3124)
+  captainnelly:
+  - bugfix: wrong sniper ammo type in traitor uplink (#3145)
+  Сиротка:
+  - balance: Space Dragon (#3146)
+  - tweak: Increase laugh threshold for N2O (#3143)
+  - add: new weapon - B.S.G (#3138)
