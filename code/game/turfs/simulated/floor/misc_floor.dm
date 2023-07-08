@@ -242,7 +242,7 @@
 		return
 	pry_tile(I, user, TRUE)
 
-/turf/simulated/floor/transparent/glass/can_lay_cable()
+/turf/simulated/floor/catwalk/can_lay_cable()
 	return FALSE // Pry the catwalk up if you want to apply cables underneath
 
 /turf/simulated/floor/catwalk/ex_act(severity)
