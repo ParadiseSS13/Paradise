@@ -28,7 +28,7 @@
 	gender = NEUTER
 	maxHealth = 400
 	health = 400
-	damage_coeff = list(BRUTE = 0.4, BURN = 0.5, TOX = 0.6, CLONE = 0.6, STAMINA = 0, OXY = 0)
+	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 1, CLONE = 1, STAMINA = 1, OXY = 0)
 	a_intent = INTENT_HARM
 	speed = -0.2
 	flying = TRUE
@@ -40,12 +40,12 @@
 	icon_living = "spacedragon"
 	icon_dead = "spacedragon_dead"
 	health_doll_icon = "spacedragon"
-	obj_damage = 90
+	obj_damage = 80
 	environment_smash = ENVIRONMENT_SMASH_WALLS
-	melee_damage_upper = 35
-	melee_damage_lower = 45
+	melee_damage_upper = 25
+	melee_damage_lower = 40
 	mob_size = MOB_SIZE_LARGE
-	armour_penetration = 40 // do you really expect some tiny riot armour can hadle dragon size bites?
+	armour_penetration = 25 // do you really expect some tiny riot armour can hadle dragon size bites? you're right
 	pixel_x = -16
 	maptext_height = 64
 	maptext_width = 64
@@ -168,7 +168,7 @@
 		var/mob/living/L = target
 		if(L.stat == DEAD)
 			to_chat(src, span_warning("Вы начинаете глотать [L] целиком..."))
-			if(!do_after(src, 2 SECONDS, target = L))
+			if(!do_after(src, 3 SECONDS, target = L))
 				return
 			if(eat(L))
 				adjustHealth(-L.maxHealth * 0.5)
@@ -179,7 +179,7 @@
 	. = ..()
 	if(ismecha(target))
 		var/obj/mecha/M = target
-		M.take_damage(90, BRUTE, "melee", 1)
+		M.take_damage(80, BRUTE, "melee", 1)
 
 /mob/living/simple_animal/hostile/space_dragon/proc/try_gust()
 	if(using_special)
