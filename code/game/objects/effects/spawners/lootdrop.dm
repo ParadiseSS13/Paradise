@@ -133,6 +133,7 @@
 				/obj/item/storage/wallet = 20,
 				/obj/item/storage/wallet/random = 5,
 				/obj/item/caution = 10,
+				/obj/item/pda/clear = 2,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,
 				/obj/item/grenade/smokebomb = 3,
