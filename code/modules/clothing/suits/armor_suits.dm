@@ -536,16 +536,9 @@
 		return FALSE
 	if(reaction_check(hitby) && use_power())
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out freezing bolts!</span>")
-		shootAt(hitby) //always hit the attacker
 
-		if(prob(50)) //sometimes send out more bolts (copied from the anomaly's code)
-			var/list/turf_targets = list()
-			for(var/turf/T in oview(get_turf(src), 7))
-				turf_targets += T
-
-			for(var/I in 1 to rand(1,2))
-				var/turf/target = pick(turf_targets)
-				shootAt(target)
+		for(var/mob/M in oview(get_turf(src), 7))
+			shootAt(M)
 
 		if(prob(10)) //rarely vent gasses
 			owner.visible_message("<span class='warning'>[src] vents excess coolant!</span>")
@@ -554,6 +547,8 @@
 			var/turf/simulated/T = get_turf(src)
 			if(istype(T))
 				T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20)
+
+		disable(rand(1, 3))
 
 		return TRUE
 	return FALSE
