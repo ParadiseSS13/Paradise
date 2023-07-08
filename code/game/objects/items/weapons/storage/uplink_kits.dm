@@ -99,8 +99,8 @@
 
 	var/static/list/professional = list( // 34TC + two 0TC
 		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator, // 16TC
-		/obj/item/ammo_box/magazine/sniper_rounds/penetrator, // 5TC
-		/obj/item/ammo_box/magazine/sniper_rounds/soporific, // 3TC
+		/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator, // 5TC
+		/obj/item/ammo_box/magazine/sniper_rounds/compact/soporific, // 3TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/clothing/gloves/combat, // 0 TC
 		/obj/item/clothing/under/suit_jacket/really_black, // 0 TC
