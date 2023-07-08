@@ -82,24 +82,15 @@
 		/obj/item/assembly/signaler/anomaly/flux = /obj/item/clothing/suit/armor/reactive/tesla,
 		/obj/item/assembly/signaler/anomaly/bluespace = /obj/item/clothing/suit/armor/reactive/teleport,
 		/obj/item/assembly/signaler/anomaly/pyro = /obj/item/clothing/suit/armor/reactive/fire,
-		/obj/item/assembly/signaler/anomaly/cryo = /obj/item/clothing/suit/armor/reactive/cryo
+		/obj/item/assembly/signaler/anomaly/cryo = /obj/item/clothing/suit/armor/reactive/cryo,
+		/obj/item/assembly/signaler/anomaly/vortex = /obj/item/clothing/suit/armor/reactive/stealth
 		)
 
 	if(istype(I, /obj/item/assembly/signaler/anomaly))
 		var/obj/item/assembly/signaler/anomaly/A = I
-		var/armour_path = /obj/item/clothing/suit/armor/reactive/stealth //Fallback
-		if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
-			armour_path = /obj/item/clothing/suit/armor/reactive/repulse
-		if(istype(I, /obj/item/assembly/signaler/anomaly/flux))
-			armour_path = /obj/item/clothing/suit/armor/reactive/tesla
-		if(istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
-			armour_path = /obj/item/clothing/suit/armor/reactive/teleport
-		if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
-			armour_path = /obj/item/clothing/suit/armor/reactive/fire
-		if(istype(I, /obj/item/assembly/signaler/anomaly/cryo))
-			armour_path = /obj/item/clothing/suit/armor/reactive/cryo
-		if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
-			armour_path = /obj/item/clothing/suit/armor/reactive/stealth // Vortex needs one, this is just temporary(TM) till one is coded for them.
+		var/armour_path = anomaly_armour_types[A.type]
+		if(!armour_path)
+			armour_path = /obj/item/clothing/suit/armor/reactive/stealth //Fallback
 		to_chat(user, "<span class='notice'>You insert [A] into the chest plate, and the armor gently hums to life.</span>")
 		new armour_path(get_turf(src))
 		qdel(src)
