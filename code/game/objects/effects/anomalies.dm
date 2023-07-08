@@ -371,6 +371,9 @@
 		shootAt(target)
 
 	if(prob(50))
+		for(var/turf/simulated/floor/nearby_floor in oview(get_turf(src), 2))
+			nearby_floor.MakeSlippery(TURF_WET_PERMAFROST)
+
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
 			T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20)
