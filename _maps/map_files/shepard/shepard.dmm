@@ -841,11 +841,10 @@
 	},
 /area/assembly/robotics)
 "ajs" = (
-/obj/effect/turf_decal/catwalk,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "ajy" = (
 /obj/structure/disposalpipe/segment,
@@ -1403,11 +1402,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "apI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1551,7 +1549,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "aqW" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
@@ -2393,8 +2390,7 @@
 /area/hallway/primary/port)
 "aBk" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "aBx" = (
 /obj/machinery/light_switch{
@@ -3777,11 +3773,10 @@
 	autolink_id = "mine1brg_vent";
 	dir = 1
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/asmaint)
 "aRw" = (
 /turf/simulated/floor/plasteel,
@@ -5288,10 +5283,12 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "bip" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/bed,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/fore)
 "biB" = (
 /turf/simulated/floor/plating,
 /area/maintenance/engimaint)
@@ -5325,8 +5322,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/portsolar)
 "biZ" = (
 /obj/machinery/firealarm{
@@ -6687,13 +6683,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "pspcbrg_vent"
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "bvi" = (
 /obj/machinery/door/poddoor/preopen{
@@ -7248,8 +7243,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "bAF" = (
 /turf/simulated/wall/r_wall,
@@ -8046,13 +8040,13 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/kitchen/freezer)
 "bIC" = (
-/obj/effect/turf_decal/stripes/corner{
+/obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
-/obj/effect/turf_decal/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
-/area/ai_monitored/storage/eva)
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/maintenance/fore)
 "bIF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -8738,6 +8732,9 @@
 "bQB" = (
 /obj/machinery/ai_slipper,
 /obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -9914,7 +9911,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboardsolar)
 "cbM" = (
 /obj/structure/disposalpipe/segment{
@@ -10510,8 +10507,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "chL" = (
 /obj/structure/table/wood,
@@ -11187,9 +11183,8 @@
 /area/maintenance/apmaint)
 "cnP" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "cnR" = (
 /turf/simulated/floor/engine/air,
@@ -12083,7 +12078,7 @@
 "cvw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/turret_protected/aisat_interior/secondary)
 "cvy" = (
 /obj/machinery/door/poddoor/shutters{
@@ -12483,8 +12478,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/apmaint)
 "czF" = (
 /obj/machinery/door/airlock/maintenance{
@@ -13850,6 +13844,12 @@
 	icon_state = "dark"
 	},
 /area/medical/morgue)
+"cLW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/maintenance/fore)
 "cMc" = (
 /obj/structure/table/glass,
 /obj/structure/window/reinforced{
@@ -14242,7 +14242,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
 "cPT" = (
-/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
 "cQb" = (
@@ -15165,7 +15164,6 @@
 	},
 /area/hallway/primary/central/nw)
 "cYI" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -15177,7 +15175,7 @@
 	d2 = 10;
 	icon_state = "1-10"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "cYJ" = (
 /obj/structure/chair/office/light{
@@ -15386,11 +15384,10 @@
 /turf/simulated/wall/r_wall,
 /area/medical/research)
 "daP" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/expedition)
 "daT" = (
 /obj/structure/cable/yellow{
@@ -16355,11 +16352,10 @@
 	},
 /area/crew_quarters/hor)
 "dlZ" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/turret_protected/aisat_interior/secondary)
 "dmf" = (
 /turf/simulated/wall,
@@ -16501,12 +16497,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "dmV" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "brig_vent";
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/security/seceqstorage)
 "dmW" = (
 /obj/structure/disposalpipe/segment{
@@ -16805,11 +16800,10 @@
 	pixel_y = -1;
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard)
 "dqN" = (
 /obj/item/clothing/head/mailman,
@@ -17256,8 +17250,7 @@
 /area/maintenance/port)
 "dwf" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard)
 "dwi" = (
 /obj/structure/lattice/catwalk,
@@ -20481,8 +20474,7 @@
 	},
 /area/crew_quarters/dorms)
 "ehW" = (
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/expedition)
 "eii" = (
 /obj/machinery/cryopod{
@@ -20650,11 +20642,10 @@
 	autolink_id = "mine1brg_vent";
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/asmaint)
 "ejW" = (
 /obj/effect/spawner/window/reinforced,
@@ -20788,9 +20779,8 @@
 /turf/simulated/floor/plating/airless,
 /area/maintenance/maintcentral)
 "elA" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "elH" = (
 /obj/structure/disposalpipe/segment{
@@ -21401,8 +21391,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/security/prisonershuttle)
 "erR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -23048,7 +23037,7 @@
 	id_tag = "eva2_door_in";
 	locked = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "eHT" = (
 /obj/machinery/light,
@@ -23118,8 +23107,7 @@
 /area/atmos)
 "eIE" = (
 /obj/structure/closet/walllocker/emerglocker/west,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/apmaint)
 "eIJ" = (
 /obj/structure/disposalpipe/segment,
@@ -26236,16 +26224,12 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "fqc" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/blue{
 	d1 = 5;
 	d2 = 6;
 	icon_state = "5-6"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "fqi" = (
 /obj/machinery/door/airlock/external/glass{
@@ -26407,8 +26391,7 @@
 	pixel_y = 29;
 	req_access_txt = "13"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard2)
 "frY" = (
 /obj/machinery/alarm{
@@ -26458,7 +26441,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "fsD" = (
 /obj/structure/window/reinforced{
@@ -27729,8 +27712,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "fEQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -30970,8 +30952,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard2)
 "goH" = (
 /obj/effect/landmark/start/engineer,
@@ -31950,8 +31931,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/auxsolarport)
 "gzV" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -32087,8 +32067,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "gBb" = (
 /obj/structure/disposalpipe/segment{
@@ -33456,13 +33435,12 @@
 	},
 /area/medical/surgeryobs)
 "gNO" = (
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/blue{
 	d1 = 5;
 	d2 = 10;
 	icon_state = "5-10"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/expedition)
 "gNS" = (
 /obj/structure/cable/white{
@@ -33620,6 +33598,10 @@
 	icon_state = "yellow"
 	},
 /area/engine/hallways)
+"gPx" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "gPy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -35147,8 +35129,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_y = -32
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/apmaint)
 "hgF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -35276,8 +35257,7 @@
 	d2 = 9;
 	icon_state = "4-9"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "hhS" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on,
@@ -35661,8 +35641,7 @@
 	},
 /area/engine/break_room)
 "hls" = (
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard2)
 "hlx" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -36222,13 +36201,8 @@
 /turf/simulated/floor/plating,
 /area/medical/surgery1)
 "hrc" = (
-/obj/effect/spawner/lootdrop{
-	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
-	name = "normal or broken grille spawner"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/turf/simulated/floor/catwalk,
+/area/maintenance/aft)
 "hrd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -36898,11 +36872,10 @@
 	int_button_link_id = "sspcbrg_btn_int";
 	pixel_y = 29
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "hyH" = (
 /obj/machinery/camera/emp_proof{
@@ -38901,14 +38874,13 @@
 	},
 /area/hallway/primary/central/se)
 "hUJ" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "hUP" = (
 /obj/effect/spawner/window/reinforced/polarized{
@@ -39630,8 +39602,7 @@
 	},
 /area/hallway/secondary/entry/south)
 "idm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/watertank,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "ids" = (
@@ -39882,7 +39853,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -39892,7 +39862,7 @@
 	dir = 9;
 	pixel_y = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "ifM" = (
 /obj/machinery/door/airlock/maintenance{
@@ -42157,6 +42127,15 @@
 /obj/structure/lattice,
 /turf/simulated/wall/mineral/wood,
 /area/crew_quarters/pool)
+"iBl" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "iBp" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
@@ -42259,8 +42238,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "mine2brg_vent"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard)
 "iCR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -44004,7 +43982,6 @@
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "iUF" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/airlock_controller/air_cycler{
 	name = "Starboard Space Bridge";
 	req_one_access_txt = "18";
@@ -44021,7 +43998,7 @@
 	d2 = 9;
 	icon_state = "2-9"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "iUH" = (
 /obj/structure/lattice,
@@ -44613,7 +44590,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8
 	},
-/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
 "jay" = (
@@ -45362,11 +45338,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "jiN" = (
 /obj/machinery/light_switch{
@@ -48123,8 +48098,7 @@
 	req_access_txt = "48"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/quartermaster/miningdock)
 "jKG" = (
 /obj/effect/decal/warning_stripes,
@@ -48444,8 +48418,7 @@
 /turf/simulated/floor/plating,
 /area/aisat/service)
 "jNC" = (
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/port2)
 "jNG" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
@@ -51338,8 +51311,7 @@
 	autolink_id = "incnbrg_vent";
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "kqH" = (
 /turf/simulated/floor/wood,
@@ -51468,11 +51440,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "ksd" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -52494,14 +52465,13 @@
 	req_access_txt = "13";
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "kBS" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
@@ -52509,8 +52479,7 @@
 /area/maintenance/atmos_control)
 "kBV" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/hallways)
 "kCa" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -53021,7 +52990,6 @@
 	},
 /area/bridge)
 "kHW" = (
-/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "kHY" = (
@@ -54798,19 +54766,7 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "kZQ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "pspcbrg_vent"
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "kZY" = (
 /obj/structure/table,
@@ -56194,7 +56150,6 @@
 	},
 /area/hallway/primary/central/nw)
 "lpg" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/airlock_controller/air_cycler{
 	name = "Brig Airlock";
 	req_one_access_txt = "1";
@@ -56209,7 +56164,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/security/seceqstorage)
 "lph" = (
 /obj/structure/window/reinforced{
@@ -56401,8 +56356,7 @@
 /area/medical/genetics)
 "lrg" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/hallways)
 "lrh" = (
 /obj/machinery/door/airlock/multi_tile/glass{
@@ -57383,12 +57337,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	pixel_y = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "lAY" = (
 /obj/structure/chair/comfy/shuttle{
@@ -57458,8 +57411,7 @@
 	autolink_id = "medbrg_vent";
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/port2)
 "lBD" = (
 /obj/item/stack/spacecash/c500,
@@ -57564,6 +57516,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
+"lCz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "lCB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -58659,7 +58615,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/turret_protected/aisat_interior/secondary)
 "lOi" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -59038,9 +58994,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "lSF" = (
-/obj/effect/turf_decal/catwalk,
 /obj/item/radio/beacon,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/expedition)
 "lSK" = (
 /obj/effect/turf_decal/stripes/full,
@@ -59605,8 +59560,7 @@
 	},
 /area/security/detectives_office)
 "lYV" = (
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/apmaint)
 "lYW" = (
 /turf/simulated/floor/plasteel/stairs/right,
@@ -59688,8 +59642,7 @@
 /area/maintenance/fsmaint2)
 "lZT" = (
 /obj/structure/closet/walllocker/emerglocker/south,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/hallways)
 "maf" = (
 /obj/machinery/light/small{
@@ -60371,6 +60324,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -60696,13 +60650,12 @@
 	ext_button_link_id = "engines_btn_ext";
 	int_button_link_id = "engines_btn_int"
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/white{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "mlC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -62354,7 +62307,6 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "mBb" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	pixel_y = 0
@@ -62365,7 +62317,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "mBf" = (
 /obj/machinery/door/window/brigdoor{
@@ -63824,8 +63776,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "mRQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -64256,8 +64207,7 @@
 	dir = 1;
 	autolink_id = "engines_vent"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "mWz" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
@@ -64315,9 +64265,8 @@
 /turf/simulated/floor/plating,
 /area/security/seceqstorage)
 "mWY" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/unary/passive_vent/high_volume,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "mXb" = (
 /obj/structure/lattice,
@@ -64438,8 +64387,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/port2)
 "mYP" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -64809,6 +64757,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/turbine)
+"ndu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "ndw" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -66021,7 +65978,6 @@
 /turf/simulated/wall,
 /area/maintenance/electrical)
 "nri" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "atm_vent";
 	dir = 8
@@ -66101,7 +66057,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -66110,7 +66065,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "nsu" = (
 /obj/machinery/light{
@@ -66513,13 +66468,12 @@
 /turf/simulated/floor/plasteel,
 /area/medical/chemistry)
 "nwo" = (
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/blue{
 	d1 = 2;
 	d2 = 9;
 	icon_state = "2-9"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "nwr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -66926,6 +66880,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/fore)
@@ -67592,8 +67549,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "nGI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -69953,14 +69909,13 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "ohG" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "ohR" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -72727,7 +72682,6 @@
 	},
 /area/quartermaster/storage)
 "oKm" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -72739,7 +72693,7 @@
 	icon_state = "2-5"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/expedition)
 "oKp" = (
 /obj/effect/landmark/start/ai,
@@ -73395,8 +73349,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "eng2_vent"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/hallways)
 "oPD" = (
 /obj/effect/landmark/start/explorer,
@@ -73814,8 +73767,7 @@
 	dir = 4;
 	autolink_id = "sci_vent"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "oTQ" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -75252,8 +75204,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "sspcbrg_vent"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "piE" = (
 /obj/machinery/light{
@@ -76504,12 +76455,11 @@
 /area/hallway/primary/starboard/north)
 "pwu" = (
 /obj/effect/decal/warning_stripes/southwest,
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5;
 	level = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "pwx" = (
 /obj/structure/disposalpipe/segment{
@@ -78474,7 +78424,6 @@
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedbar)
 "pSN" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "atm_vent"
 	},
@@ -78919,7 +78868,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -78928,7 +78876,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "pXg" = (
 /obj/structure/cable/yellow{
@@ -79337,14 +79285,13 @@
 	},
 /area/medical/research)
 "qbe" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "qbk" = (
 /obj/machinery/door/airlock/command{
@@ -80681,6 +80628,21 @@
 	},
 /turf/simulated/wall,
 /area/maintenance/turbine)
+"qoA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/green{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "qoI" = (
 /obj/machinery/light_switch{
 	dir = 8;
@@ -80939,9 +80901,8 @@
 /turf/simulated/floor/wood,
 /area/library)
 "qrs" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "qrv" = (
 /obj/structure/table/reinforced,
@@ -80975,7 +80936,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/auxsolarstarboard)
 "qrX" = (
 /obj/structure/sign/barsign,
@@ -81218,15 +81179,11 @@
 	},
 /area/quartermaster/miningdock)
 "quA" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "quM" = (
 /obj/structure/chair,
@@ -81422,6 +81379,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
+"qwV" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "qwX" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/alarm{
@@ -81549,11 +81515,10 @@
 	int_button_link_id = "mine1brg_btn_int";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/asmaint)
 "qyC" = (
 /obj/structure/cable/yellow{
@@ -82390,8 +82355,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/portable/canister/air,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "qHY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -82592,13 +82556,12 @@
 	ext_button_link_id = "enginen_btn_ext";
 	int_button_link_id = "enginen_btn_int"
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/blue{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "qJF" = (
 /turf/simulated/floor/plasteel,
@@ -84635,12 +84598,11 @@
 /turf/simulated/floor/plating,
 /area/medical/cmo)
 "rfy" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "ai__vent";
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/turret_protected/aisat_interior/secondary)
 "rfE" = (
 /obj/effect/spawner/window/reinforced,
@@ -86717,11 +86679,10 @@
 	pixel_y = -1;
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/port2)
 "rzj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -87761,7 +87722,6 @@
 	},
 /area/hallway/primary/central/ne)
 "rJQ" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/airlock_controller/air_cycler{
 	name = "Atmospherics Large Airlock";
 	req_one_access_txt = "24";
@@ -88751,8 +88711,7 @@
 /area/maintenance/starboard)
 "rUu" = (
 /obj/item/shard,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/engimaint)
 "rUz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -90186,11 +90145,10 @@
 	dir = 4;
 	autolink_id = "sci_vent"
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "slb" = (
 /obj/structure/cable/yellow{
@@ -90726,8 +90684,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "sqJ" = (
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/port)
 "sqL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -91289,8 +91246,7 @@
 /area/storage/primary)
 "sxK" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/quartermaster/miningdock)
 "syc" = (
 /obj/machinery/hologram/holopad,
@@ -93135,8 +93091,7 @@
 	},
 /area/hallway/primary/port)
 "sRC" = (
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/security/prisonershuttle)
 "sRD" = (
 /obj/effect/decal/warning_stripes/south,
@@ -93175,7 +93130,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/turret_protected/aisat_interior/secondary)
 "sRK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -94689,8 +94644,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "tgW" = (
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "tgZ" = (
 /obj/effect/spawner/window/reinforced/plasma,
@@ -95338,11 +95292,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard2)
 "tnr" = (
 /obj/effect/landmark/damageturf,
@@ -95480,8 +95433,7 @@
 	c_tag = "Engineering Loading Airlock";
 	dir = 1
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/hallways)
 "toU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -95713,7 +95665,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "tqL" = (
-/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating/airless,
 /area/storage/eva/exterior/charging)
 "tqM" = (
@@ -96023,8 +95974,7 @@
 	autolink_id = "incnbrg_vent";
 	dir = 1
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "ttp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -97890,8 +97840,7 @@
 	},
 /area/quartermaster/miningstorage)
 "tNi" = (
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "tNl" = (
 /obj/structure/grille/broken,
@@ -97979,7 +97928,6 @@
 /turf/simulated/wall,
 /area/quartermaster/office)
 "tOv" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/blue{
@@ -97988,7 +97936,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/expedition)
 "tOx" = (
 /obj/machinery/power/apc{
@@ -99985,8 +99933,7 @@
 	autolink_id = "scibrg_vent";
 	dir = 8
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "uig" = (
 /obj/machinery/field/generator,
@@ -100204,8 +100151,7 @@
 	autolink_id = "mine2brg_vent";
 	dir = 8
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard)
 "ukp" = (
 /obj/effect/spawner/airlock/long/square/wide,
@@ -100644,11 +100590,10 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "uoJ" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/security/seceqstorage)
 "uoN" = (
 /obj/structure/lattice/catwalk,
@@ -101103,8 +101048,7 @@
 	autolink_id = "servbrg_vent";
 	dir = 8
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fsmaint)
 "usC" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -101230,8 +101174,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "uuo" = (
 /obj/effect/decal/warning_stripes/southwest,
@@ -105570,8 +105513,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "vkG" = (
 /obj/structure/table/wood,
@@ -106035,12 +105977,11 @@
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room)
 "vqo" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/asmaint)
 "vqF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -106214,12 +106155,11 @@
 /turf/simulated/wall,
 /area/storage/tools)
 "vsC" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "ai__vent";
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/turret_protected/aisat_interior/secondary)
 "vsM" = (
 /obj/structure/table/wood,
@@ -106395,11 +106335,10 @@
 	},
 /area/engine/containment)
 "vug" = (
-/obj/effect/turf_decal/catwalk,
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
 /obj/item/radio/off,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/expedition)
 "vuj" = (
 /turf/simulated/floor/plasteel{
@@ -106562,13 +106501,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "vvW" = (
 /obj/effect/turf_decal/stripes/full,
@@ -107015,8 +106953,7 @@
 	},
 /area/medical/research)
 "vzs" = (
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "vzt" = (
 /turf/simulated/floor/plasteel{
@@ -107061,8 +106998,7 @@
 	int_button_link_id = "sci_btn_int";
 	pixel_y = 29
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/medical/research)
 "vzQ" = (
 /obj/machinery/economy/atm{
@@ -107191,7 +107127,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_y = -32
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/aft)
 "vBr" = (
 /obj/structure/window/reinforced{
@@ -107329,7 +107265,6 @@
 	int_button_link_id = "pspcbrg_btn_int";
 	pixel_y = 29
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -107338,7 +107273,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fore)
 "vCt" = (
 /obj/structure/sign/directions/engineering{
@@ -107421,7 +107356,7 @@
 	pixel_y = 20;
 	pixel_x = 5
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/turret_protected/aisat_interior/secondary)
 "vDr" = (
 /turf/simulated/floor/plasteel{
@@ -107571,8 +107506,7 @@
 /area/bridge)
 "vEr" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/security/prisonershuttle)
 "vEs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -107840,6 +107774,10 @@
 	icon_state = "dark"
 	},
 /area/toxins/xenobiology)
+"vGQ" = (
+/obj/machinery/atmospherics/unary/tank/air,
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "vGW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -108091,8 +108029,7 @@
 	autolink_id = "medbrg_vent";
 	dir = 1
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/port2)
 "vJq" = (
 /obj/effect/decal/warning_stripes/south,
@@ -108520,17 +108457,13 @@
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "vMU" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ai_monitored/storage/eva)
 "vMW" = (
 /obj/machinery/ai_status_display{
@@ -110369,11 +110302,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/maintcentral)
 "wfT" = (
 /obj/structure/disposalpipe/segment,
@@ -110855,8 +110787,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "wkU" = (
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/security/seceqstorage)
 "wkZ" = (
 /obj/structure/chair/stool{
@@ -111305,8 +111236,7 @@
 	pixel_y = 1;
 	pixel_x = -25
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/hallways)
 "wpi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -112098,8 +112028,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard2)
 "wyB" = (
 /obj/structure/disposalpipe/segment,
@@ -112863,14 +112792,13 @@
 /area/medical/genetics_cloning)
 "wGd" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard)
 "wGp" = (
 /obj/machinery/door/airlock/security/glass{
@@ -113285,8 +113213,7 @@
 	autolink_id = "btybrg_vent";
 	dir = 4
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard2)
 "wJE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -113358,7 +113285,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "wKA" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
@@ -113367,7 +113293,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "wKH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -114013,6 +113939,12 @@
 	icon_state = "darkgreencorners"
 	},
 /area/crew_quarters/fitness)
+"wRl" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "wRr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -114245,11 +114177,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engimaint)
 "wTO" = (
-/obj/effect/turf_decal/catwalk,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/asmaint)
 "wTP" = (
 /obj/machinery/door/airlock/atmos{
@@ -115319,8 +115250,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "enginen_vent"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "xdo" = (
 /obj/item/toy/plushie/slimeplushie,
@@ -117534,14 +117464,13 @@
 	pixel_y = -1;
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fsmaint)
 "xzB" = (
 /turf/simulated/floor/bluegrid,
@@ -118202,7 +118131,6 @@
 /turf/simulated/floor/carpet,
 /area/security/courtroomdandp)
 "xGQ" = (
-/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
@@ -118211,7 +118139,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/engine/containment)
 "xGS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -118326,8 +118254,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "btybrg_vent"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/starboard2)
 "xIH" = (
 /obj/structure/disposalpipe/segment{
@@ -118693,8 +118620,7 @@
 	name = "Mining Dock Airlock";
 	req_access_txt = "48"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/quartermaster/miningdock)
 "xMj" = (
 /obj/structure/disposalpipe/segment{
@@ -120060,8 +119986,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/catwalk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/maintenance/fsmaint)
 "ybs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -152126,7 +152051,7 @@ fBi
 fBi
 fBi
 onc
-kZQ
+bvf
 vdc
 fBi
 fBi
@@ -152711,7 +152636,7 @@ wwX
 bMi
 udT
 vMU
-bIC
+qrs
 cgj
 rnk
 akH
@@ -155720,10 +155645,10 @@ qXX
 nJY
 nUB
 ocT
-tSU
-oCB
-oCB
-oCB
+iBl
+kZQ
+kZQ
+kZQ
 uhN
 uhN
 uhN
@@ -156234,10 +156159,10 @@ hce
 nkJ
 nUB
 wie
-tSU
-oCB
-oCB
-oCB
+ndu
+kZQ
+kZQ
+kZQ
 uhN
 uhN
 uhN
@@ -156491,7 +156416,7 @@ nUV
 mbc
 nUB
 ocT
-tSU
+qwV
 xBN
 nUB
 nUB
@@ -156748,7 +156673,7 @@ cnp
 cKc
 xBN
 gLw
-tSU
+qwV
 xBN
 fBi
 scF
@@ -157005,7 +156930,7 @@ nUV
 oCB
 xBN
 wie
-tSU
+qwV
 xBN
 xBN
 nUB
@@ -157256,11 +157181,11 @@ fBi
 fBi
 fBi
 nUB
-oCB
-nUV
-nUV
-oCB
-cnp
+vGQ
+bIC
+cLW
+lCz
+wRl
 miJ
 nAm
 hHj
@@ -157513,8 +157438,8 @@ fBi
 fBi
 fBi
 xBN
-oCB
-jkQ
+vGQ
+bip
 jkQ
 qGt
 xBN
@@ -158665,8 +158590,8 @@ fBi
 fBi
 fBi
 ewy
-ewy
-ewy
+lSg
+lSg
 ewy
 oHw
 ruB
@@ -159183,7 +159108,7 @@ fBi
 fBi
 fBi
 lSg
-tJY
+hrc
 lSg
 fBi
 idv
@@ -159440,7 +159365,7 @@ fBi
 fBi
 fBi
 lSg
-tJY
+hrc
 lSg
 fBi
 idv
@@ -162148,7 +162073,7 @@ fBi
 fBi
 fBi
 xyV
-xyV
+tfE
 ltP
 xql
 mnn
@@ -162405,7 +162330,7 @@ fBi
 fBi
 fBi
 qsa
-xyV
+tfE
 qEJ
 usC
 kne
@@ -162662,7 +162587,7 @@ fBi
 fBi
 fBi
 qsa
-xyV
+tfE
 oAW
 myf
 mgs
@@ -171743,12 +171668,12 @@ inU
 inU
 inU
 lBX
-hhZ
-hhZ
 tLK
-idm
-bip
-eRT
+tLK
+tLK
+sLx
+tLK
+tLK
 pWj
 oOe
 fGV
@@ -171987,11 +171912,11 @@ uSP
 uSP
 uSP
 uNK
-hrc
-mMN
 twX
 twX
-hrc
+twX
+twX
+twX
 twX
 jWN
 fGV
@@ -172757,7 +172682,7 @@ hcr
 ydV
 dbx
 uSP
-twX
+mMN
 twX
 iTs
 pvS
@@ -173278,7 +173203,7 @@ hMm
 eGp
 fMX
 nrg
-wYx
+qoA
 fGV
 fGV
 fGV
@@ -175082,15 +175007,15 @@ tLK
 fGV
 sLx
 sLx
-dkp
-dkp
-dkp
-dkp
-dkp
-dkp
-dkp
-tYs
-dkp
+fGV
+fGV
+fGV
+fGV
+fGV
+fGV
+fGV
+fGV
+fGV
 uPi
 wYc
 wng
@@ -175335,20 +175260,20 @@ uSP
 prx
 twX
 twX
-dkp
-dkp
-dkp
-dkp
-dkp
-ees
-eLn
-npA
-dkp
-nRd
-tzq
-spD
-dkp
+tLK
+fGV
+fGV
+fGV
+fGV
+tLK
 vWc
+wEG
+idm
+tLK
+tLK
+idm
+tLK
+tLK
 vtK
 fGV
 kZY
@@ -175592,20 +175517,20 @@ twX
 twX
 fZz
 twX
-dkp
-tQQ
-mMJ
-wot
-rYO
-kZd
-dJA
-nyJ
-kZd
-xFd
-vTb
-mjB
-dkp
-wEG
+tLK
+tLK
+tLK
+tLK
+gTN
+tLK
+tLK
+tLK
+tLK
+tLK
+tLK
+tLK
+tLK
+tLK
 oYC
 fGV
 fGV
@@ -175849,18 +175774,18 @@ twX
 twX
 fwC
 twX
+tLK
+tLK
+tLK
+tLK
 dkp
-fbn
-cnJ
-gKJ
 dkp
-ggW
-kZd
-gFd
-oQr
-oQr
-ejK
-lmr
+dkp
+dkp
+dkp
+dkp
+dkp
+tYs
 dkp
 uPi
 hKi
@@ -176105,19 +176030,19 @@ uSP
 uSP
 uSP
 fwC
-twX
+xCL
 dkp
-gib
-skI
-xLz
 dkp
-tGw
-bda
-cXu
-kaX
-jms
-cjN
-bek
+dkp
+dkp
+dkp
+ees
+eLn
+npA
+dkp
+nRd
+tzq
+spD
 dkp
 oOe
 tLK
@@ -176362,19 +176287,19 @@ uSP
 nax
 aol
 ubI
-twX
-inA
-bsS
-qvR
-ebI
-inA
-tHr
+gPx
+dkp
+tQQ
 mMJ
-cXu
-aMM
-tLk
-cjN
-sQq
+wot
+rYO
+kZd
+dJA
+nyJ
+kZd
+xFd
+vTb
+mjB
 dkp
 ajI
 ajI
@@ -176620,18 +176545,18 @@ uSP
 uSP
 tzF
 uSP
-inA
-inA
-inA
-inA
-inA
-inA
+dkp
+fbn
+cnJ
+gKJ
+dkp
+ggW
 kZd
-ier
-iHn
-ksz
-twF
-gUk
+gFd
+oQr
+oQr
+ejK
+lmr
 dkp
 fBi
 fBi
@@ -176877,18 +176802,18 @@ fBi
 fBi
 fBi
 fBi
-inA
-oLX
-kZd
-kZd
-rpx
-kZd
-mMJ
-wot
-uGu
-mMJ
-kZd
-fLP
+dkp
+gib
+skI
+xLz
+dkp
+tGw
+bda
+cXu
+kaX
+jms
+cjN
+bek
 dkp
 fBi
 fBi
@@ -177135,17 +177060,17 @@ fBi
 fBi
 fBi
 inA
-tKz
-ogy
-kMW
+bsS
+qvR
+ebI
 inA
-dkp
-dkp
-dkp
-dkp
-dkp
-dkp
-dkp
+tHr
+mMJ
+cXu
+aMM
+tLk
+cjN
+sQq
 dkp
 fBi
 fBi
@@ -177391,19 +177316,19 @@ fBi
 fBi
 fBi
 fBi
-iUH
-inA
-iUH
 inA
 inA
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
+inA
+inA
+inA
+inA
+kZd
+ier
+iHn
+ksz
+twF
+gUk
+dkp
 fBi
 fBi
 fBi
@@ -177648,19 +177573,19 @@ fBi
 fBi
 fBi
 fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
+inA
+oLX
+kZd
+kZd
+rpx
+kZd
+mMJ
+wot
+uGu
+mMJ
+kZd
+fLP
+dkp
 fBi
 fBi
 fBi
@@ -177905,19 +177830,19 @@ fBi
 fBi
 fBi
 fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
-fBi
+inA
+tKz
+ogy
+kMW
+inA
+dkp
+dkp
+dkp
+dkp
+dkp
+dkp
+dkp
+dkp
 fBi
 fBi
 fBi
@@ -178162,10 +178087,10 @@ fBi
 fBi
 fBi
 fBi
-fBi
-fBi
-fBi
-fBi
+iUH
+inA
+iUH
+inA
 fBi
 fBi
 fBi
