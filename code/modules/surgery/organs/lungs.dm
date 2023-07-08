@@ -240,7 +240,7 @@
 			H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
 			if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
 				H.AdjustSleeping(8, bound_lower = 0, bound_upper = 10)
-		else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
+		else if(SA_pp > 0.3)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 			if(prob(20))
 				H.emote(pick("giggle", "laugh"))
 
