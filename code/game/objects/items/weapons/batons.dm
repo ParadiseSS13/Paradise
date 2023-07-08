@@ -67,7 +67,7 @@
   */
 /obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
 	if(user.mind?.martial_art?.no_baton)
-		user.visible_message("<span class='warning'>The baton feels off balance in your hand due to your judo training!</span>")
+		to_chat(user, "<span class='warning'>The baton feels off balance in your hand due to your judo training!</span>")
 		return
 	if(issilicon(target))
 		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\

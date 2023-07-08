@@ -1,6 +1,6 @@
 /datum/martial_combo/judo/armbar
 	name = "Armbar"
-	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM,MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)
+	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "place an opponent on the ground into an armbar, immobilizing them"
 	combo_text_override = "Grab, disarm, grab, harm"
 
