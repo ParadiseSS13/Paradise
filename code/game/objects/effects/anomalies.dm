@@ -355,8 +355,8 @@
 
 /obj/effect/anomaly/cryo
 	name = "cryogenic anomaly"
-	icon_state = "cryoanomaly"
 	desc = "Hope you brought a jacket!"
+	icon_state = "cryoanomaly"
 	aSignal = /obj/item/assembly/signaler/anomaly/cryo
 
 /obj/effect/anomaly/cryo/anomalyEffect()
