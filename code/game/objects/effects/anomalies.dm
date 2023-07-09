@@ -386,7 +386,7 @@
 		A.Smoke()
 
 /obj/effect/anomaly/cryo/proc/shootAt(atom/movable/target)
-    var/turf/T = get_turf(src)
+	var/turf/T = get_turf(src)
     var/turf/U = get_turf(target)
     if(!T || !U)
         return
