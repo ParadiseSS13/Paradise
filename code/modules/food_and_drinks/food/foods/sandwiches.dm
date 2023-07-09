@@ -62,8 +62,8 @@
 
 /obj/item/reagent_containers/food/snacks/roburger
 	name = "roburger"
-	desc = "The lettuce is the only organic component. Beep."
-	icon_state = "roburger"
+	desc = "Looking at this makes your flesh feel like weakness."
+	icon_state = "Hamborger"
 	filling_color = "#CCCCCC"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
