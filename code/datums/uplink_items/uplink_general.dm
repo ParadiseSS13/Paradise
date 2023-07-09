@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
 	reference = "PF"
 	item = /obj/item/melee/powerfist
-	cost = 8
+	cost = 10
 
 /datum/uplink_item/dangerous/chainsaw
 	name = "Chainsaw"
@@ -543,7 +543,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
 	reference = "NCAI"
 	item = /obj/item/storage/box/syndie_kit/bonerepair
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/device_tools/syndicate_teleporter
 	name = "Experimental Syndicate Teleporter"
@@ -670,6 +670,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "AI"
 	item = /obj/item/implanter/adrenalin
+	cost = 8
+
+/datum/uplink_item/implants/stealthimplant
+	name = "Stealth Bio-chip"
+	desc = "This one-of-a-kind implant will make you almost invisible if you play your cards right. \
+			On activation, it will conceal you inside a chameleon cardboard box that is only revealed once someone bumps into it."
+	reference = "SI"
+	item = /obj/item/implanter/stealth
 	cost = 8
 
 // POINTLESS BADASSERY

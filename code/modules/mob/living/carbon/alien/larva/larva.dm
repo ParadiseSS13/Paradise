@@ -60,12 +60,12 @@
 		if(2.0)
 			brute_loss += 60
 			fire_loss += 60
-			AdjustEarDamage(30, 120)
+			Deaf(2 MINUTES)
 		if(3.0)
 			brute_loss += 30
 			if(prob(50))
 				Paralyse(2 SECONDS)
-			AdjustEarDamage(15, 60)
+			Deaf(1 MINUTES)
 
 	adjustBruteLoss(brute_loss)
 	adjustFireLoss(fire_loss)

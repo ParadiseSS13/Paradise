@@ -172,7 +172,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
 	verbs -= /mob/living/verb/rest
 	verbs -= /mob/living/verb/mob_sleep
-	verbs -= /mob/living/verb/resist
 	verbs -= /mob/living/verb/stop_pulling1
 	verbs -= /mob/living/silicon/verb/pose
 	verbs -= /mob/living/silicon/verb/set_flavor
@@ -1307,6 +1306,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
+		if(GetComponent(/datum/component/ducttape))
+			QDEL_NULL(builtInCamera)
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
@@ -1464,5 +1465,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		runechat_msg_location = loc.UID()
 	else
 		return ..()
+
+/mob/living/silicon/ai/run_resist()
+	if(!istype(loc, /obj/item/aicard))
+		return..()
+
+	var/obj/item/aicard/card = loc
+	var/datum/component/ducttape/ducttapecomponent = card.GetComponent(/datum/component/ducttape)
+	if(!ducttapecomponent)
+		return
+	to_chat(src, "<span class='notice'>The tiny fan that could begins to work against the tape to remove it.</span>")
+	if(!do_after(src, 2 MINUTES, target = card))
+		return
+	to_chat(src, "<span class='notice'>The tiny in built fan finally removes the tape!</span>")
+	ducttapecomponent.remove_tape(card, src)
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN
