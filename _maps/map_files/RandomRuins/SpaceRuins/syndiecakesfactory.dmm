@@ -419,7 +419,7 @@
 	icon_state = "corgi";
 	name = "angry corgi";
 	retreat_distance = 2;
-	icon_dead = corgi_dead
+	icon_dead = "corgi_dead"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -1113,7 +1113,7 @@
 	icon_state = "corgi";
 	name = "angry corgi";
 	retreat_distance = 2;
-	icon_dead = corgi_dead
+	icon_dead = "corgi_dead"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -1313,7 +1313,7 @@
 	icon_state = "corgi";
 	name = "angry corgi";
 	retreat_distance = 2;
-	icon_dead = corgi_dead
+	icon_dead = "corgi_dead"
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
