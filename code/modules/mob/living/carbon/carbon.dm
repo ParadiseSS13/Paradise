@@ -251,6 +251,11 @@
 				"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
 				)
 		return
+	// If it has any of the highfive statuses, dap, handshake, etc
+	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
+	if(effect)
+		M.apply_status_effect(effect.type)
+		return
 	// BEGIN HUGCODE - N3X
 	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	if(M.zone_selected == "head")
@@ -258,11 +263,6 @@
 		"<span class='notice'>[M] pats [src] on the head.</span>",\
 		"<span class='notice'>You pat [src] on the head.</span>",\
 		)
-		return
-	// If it has any of the highfive statuses, dap, handshake, etc
-	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
-	if(effect)
-		M.apply_status_effect(effect.type)
 		return
 	M.visible_message(\
 	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
