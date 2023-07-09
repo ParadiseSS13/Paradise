@@ -366,7 +366,7 @@
 	for(var/turf/T in oview(get_turf(src), 7))
 		turf_targets += T
 
-	for(var/I in 1 to rand(1,3))
+	for(var/I in 1 to rand(1, 3))
 		var/turf/target = pick(turf_targets)
 		shootAt(target)
 
