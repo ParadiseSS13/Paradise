@@ -391,7 +391,7 @@
 	if(!T || !U)
 		return
 	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
-	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, 1)
+	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
 	O.current = T
 	O.yo = U.y - T.y
 	O.xo = U.x - T.x
