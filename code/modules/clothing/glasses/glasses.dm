@@ -84,11 +84,11 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
-	var/active_on_pickup = TRUE
+	var/active_on_equip = TRUE
 
 /obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(active_on_pickup && slot == slot_glasses)
+	if(active_on_equip && slot == slot_glasses)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/meson/dropped(mob/user)
