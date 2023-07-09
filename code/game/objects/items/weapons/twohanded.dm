@@ -1050,8 +1050,8 @@
 	. = ..()
 	if(isAntag(user))
 		. += "<span class='warning'>When wielded, the broom has different effects depending on your intent, similar to a martial art. \
-		      Help intent will sweep foes away from you, disarm intent sweeps their legs from under them, grab intent confuses \
-			  and minorly fatigues them, and harm intent hits them normally.</span>"
+			Help intent will sweep foes away from you, disarm intent sweeps their legs from under them, grab intent confuses \
+			and minorly fatigues them, and harm intent hits them normally.</span>"
 
 /obj/item/twohanded/push_broom/traitor/wield(mob/user)
 	. = ..()
@@ -1073,8 +1073,8 @@
 	switch(user.a_intent)
 		if(INTENT_HELP)
 			H.visible_message("<span class='danger'>[user] sweeps [H] away!</span>", \
-							  "<span class='userdanger'>[user] sweeps you away!</span>", \
-							  "<span class='italics'>You hear sweeping.</span>")
+							"<span class='userdanger'>[user] sweeps you away!</span>", \
+							"<span class='italics'>You hear sweeping.</span>")
 			playsound(loc, 'sound/weapons/sweeping.ogg', 70, TRUE, -1)
 
 			var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)))
@@ -1087,8 +1087,8 @@
 				return ..()
 
 			H.visible_message("<span class='danger'>[user] sweeps [H]'[H.p_s()] legs out from under them!</span>", \
-							  "<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
-							  "<span class='italics'>You hear sweeping.</span>")
+							"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
+							"<span class='italics'>You hear sweeping.</span>")
 
 			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
 			playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
@@ -1099,8 +1099,8 @@
 
 		if(INTENT_GRAB)
 			H.visible_message("<span class='danger'>[user] smacks [H] with the brush of the broom!</span>", \
-							  "<span class='userdanger'>[user] smacks you with the brush of [user.p_their()] broom!</span>", \
-							  "<span class='italics'>You hear a smacking noise.</span>")
+							"<span class='userdanger'>[user] smacks you with the brush of [user.p_their()] broom!</span>", \
+							"<span class='italics'>You hear a smacking noise.</span>")
 
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 50, TRUE, -1)
