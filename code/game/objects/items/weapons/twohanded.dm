@@ -1064,7 +1064,6 @@
 	to_chat(user, "<span class='warning'>You stop reflecting projectiles.</span>")
 
 /obj/item/twohanded/push_broom/traitor/attack(mob/target, mob/living/user)
-
 	if(!wielded || !ishuman(target))
 		return ..()
 
@@ -1091,7 +1090,7 @@
 							  "<span class='italics'>You hear sweeping.</span>")
 
 			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
-			playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, 1, -1)
+			playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 			H.apply_damage(5, BRUTE)
 			H.KnockDown(4 SECONDS)
 
@@ -1103,7 +1102,7 @@
 							  "<span class='italics'>You hear a smacking noise.</span>")
 
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
-			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 50, 1, -1)
+			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 50, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS) //no stacking infinitely
 			H.adjustStaminaLoss(15)
 
