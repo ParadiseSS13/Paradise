@@ -1050,8 +1050,8 @@
 	. = ..()
 	if(isAntag(user))
 		. += "<span class='warning'>When wielded, the broom has different effects depending on your intent, similar to a martial art. \
-		      Help intent will sweep foes away from you, disarm intent will sweep their legs from under them, grab intent will confuse \
-			  and minorly fatigue them, and harm intent will hit them normally.</span>"
+		      Help intent will sweep foes away from you, disarm intent sweeps their legs from under them, grab intent confuses \
+			  and minorly fatigues them, and harm intent hits them normally.</span>"
 
 /obj/item/twohanded/push_broom/traitor/wield(mob/user)
 	. = ..()
