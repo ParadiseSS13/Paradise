@@ -133,4 +133,4 @@
 
 //part responsible for windoors (thanks S34N)
 /obj/effect/mapping_helpers/airlock/windoor
-    blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)
+	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)
