@@ -387,15 +387,15 @@
 
 /obj/effect/anomaly/cryo/proc/shootAt(atom/movable/target)
 	var/turf/T = get_turf(src)
-    var/turf/U = get_turf(target)
-    if(!T || !U)
-        return
-    var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
-    playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, 1)
-    O.current = T
-    O.yo = U.y - T.y
-    O.xo = U.x - T.x
-    O.fire()
+	var/turf/U = get_turf(target)
+	if(!T || !U)
+		return
+	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, 1)
+	O.current = T
+	O.yo = U.y - T.y
+	O.xo = U.x - T.x
+	O.fire()
 
 /obj/effect/anomaly/cryo/detonate()
 	var/turf/simulated/T = get_turf(src)
