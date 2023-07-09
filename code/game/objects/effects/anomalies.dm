@@ -371,7 +371,7 @@
 		shootAt(target)
 
 	if(prob(50))
-		for(var/turf/simulated/floor/nearby_floor in oview(get_turf(src), 2))
+		for(var/turf/simulated/floor/nearby_floor in oview(get_turf(src), (drops_core ? 2 : 1)))
 			nearby_floor.MakeSlippery(TURF_WET_PERMAFROST)
 
 		var/turf/simulated/T = get_turf(src)
@@ -399,7 +399,7 @@
 
 /obj/effect/anomaly/cryo/detonate()
 	var/turf/simulated/T = get_turf(src)
-	if(istype(T))
+	if(istype(T) && drops_core)
 		T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_CO2, 1000)
 
 /////////////////////
