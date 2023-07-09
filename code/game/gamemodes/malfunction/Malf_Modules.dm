@@ -369,7 +369,7 @@
 	desc = "Detonate all non-cyborg RCDs on the station."
 	button_icon_state = "detonate_rcds"
 	uses = 1
-	cooldown_period = 100
+	cooldown_period = 10 SECONDS
 
 /datum/action/innate/ai/destroy_rcds/Activate()
 	for(var/obj/item/rcd/RCD in GLOB.rcd_list)
@@ -656,7 +656,6 @@
 	mod_pick_name = "recam"
 	description = "Runs a network-wide diagnostic on the camera network, resetting focus and re-routing power to failed cameras. Can be used to repair up to 30 cameras."
 	cost = 10
-	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/reactivate_cameras
 	unlock_text = "<span class='notice'>You deploy nanomachines to the cameranet.</span>"
 
@@ -664,27 +663,30 @@
 	name = "Reactivate Cameras"
 	desc = "Reactivates disabled cameras across the station; remaining uses can be used later."
 	button_icon_state = "reactivate_cameras"
-	uses = 30
+	uses = 10
 	auto_use_uses = FALSE
-	cooldown_period = 30
+	cooldown_period = 3 SECONDS
 
 /datum/action/innate/ai/reactivate_cameras/Activate()
-	var/fixed_cameras = 0
-	for(var/V in GLOB.cameranet.cameras)
+	var/mob/living/silicon/ai/user = usr
+	var/repaired_cameras = 0
+	if(!istype(user))
+		return
+	for(var/obj/machinery/camera/camera_to_repair in get_area(user.eyeobj)) // replace with the camera list on areas when that list actually works, the UIDs change right now so it (almost) always fails
 		if(!uses)
 			break
-		var/obj/machinery/camera/C = V
-		if(!C.status || C.view_range != initial(C.view_range))
-			C.toggle_cam(owner_AI, 0) //Reactivates the camera based on status. Badly named proc.
-			C.view_range = initial(C.view_range)
-			fixed_cameras++
-			uses-- //Not adjust_uses() so it doesn't automatically delete or show a message
-	to_chat(owner, "<span class='notice'>Diagnostic complete! Cameras reactivated: <b>[fixed_cameras]</b>. Reactivations remaining: <b>[uses]</b>.</span>")
+		if(!camera_to_repair.status || camera_to_repair.view_range != initial(camera_to_repair.view_range))
+			camera_to_repair.toggle_cam(owner_AI, 0)
+			camera_to_repair.view_range = initial(camera_to_repair.view_range)
+			camera_to_repair.wires.cut_wires.Cut()
+			repaired_cameras++
+			uses--
+	to_chat(owner, "<span class='notice'>Diagnostic complete! Cameras reactivated: <b>[repaired_cameras]</b>. Reactivations remaining: <b>[uses]</b>.</span>")
 	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, FALSE, use_reverb = FALSE)
-	adjust_uses(0, TRUE) //Checks the uses remaining
-	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
+	if(uses)
 		desc = "[initial(desc)] It has [uses] use\s remaining."
 		UpdateButtonIcon()
+	adjust_uses(0, TRUE)
 
 //Upgrade Camera Network: EMP-proofs all cameras, in addition to giving them X-ray vision.
 /datum/AI_Module/upgrade_cameras
