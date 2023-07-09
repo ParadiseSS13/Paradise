@@ -542,7 +542,7 @@
 
 		if(prob(10)) //rarely vent gasses
 			owner.visible_message("<span class='warning'>[src] vents excess coolant!</span>")
-			playsound(loc, 'sound/effects/refill.ogg', 50, 1)
+			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE)
 
 			var/turf/simulated/T = get_turf(src)
 			if(istype(T))
