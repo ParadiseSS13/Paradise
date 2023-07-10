@@ -219,6 +219,10 @@
 			I.forceMove(L)
 			L.name += " ([I.name])"
 			L.origin_tech = I.origin_tech
+			L.req_access = D.access_requirement
+			var/list/lockbox_access
+			for(var/A in L.req_access)
+				lockbox_access += "[get_access_desc(A)] "
 
 	// Clean up
 	being_built = null
