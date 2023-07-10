@@ -8,10 +8,6 @@
 "ac" = (
 /turf/simulated/wall/indestructible/wood,
 /area/ninja/outpost)
-"ad" = (
-/obj/effect/landmark/newplayer_start,
-/turf/simulated/floor/plating,
-/area/start)
 "ae" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/holding)
@@ -61,9 +57,6 @@
 	icon_state = "cult"
 	},
 /area/holodeck/source_theatre)
-"am" = (
-/turf/simulated/wall/indestructible/splashscreen,
-/area/start)
 "an" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1066,6 +1059,9 @@
 "eo" = (
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
+"ep" = (
+/turf/simulated/wall/r_wall,
+/area/start)
 "ev" = (
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
@@ -1482,34 +1478,6 @@
 /obj/item/coin/uranium,
 /turf/simulated/floor/wood,
 /area/wizard_station)
-"fY" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 3;
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
-"fZ" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 3;
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
 "ga" = (
 /obj/machinery/economy/vending/snack/free{
 	name = "\improper Wizmore Chocolate Corp"
@@ -4049,20 +4017,6 @@
 /obj/structure/table,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"nR" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 3;
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena)
 "nS" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plating/airless,
@@ -4586,9 +4540,6 @@
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
-"qa" = (
-/turf/simulated/wall/r_wall,
-/area/space)
 "qb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -5011,14 +4962,6 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
-"rB" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 4;
-	pixel_y = 32
-	},
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/specops)
 "rC" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "ferry_away";
@@ -5801,6 +5744,14 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"uw" = (
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 4;
+	pixel_y = 32
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
 "ux" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
@@ -6147,18 +6098,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"vI" = (
-/obj/structure/rack,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 30
-	},
-/obj/item/gun/energy/xray,
-/obj/item/gun/energy/xray{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
 "vJ" = (
 /obj/structure/table,
 /obj/random/toolbox,
@@ -6346,18 +6285,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"ww" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 30
-	},
-/obj/structure/rack,
-/obj/item/gun/energy/pulse/pistol/m1911,
-/obj/item/gun/energy/pulse/pistol/m1911{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
 "wx" = (
 /obj/structure/table,
 /obj/item/tank/internals/oxygen/yellow,
@@ -6435,18 +6362,6 @@
 /obj/structure/rack,
 /obj/item/gun/energy/kinetic_accelerator/crossbow,
 /obj/item/gun/energy/kinetic_accelerator/crossbow{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"wS" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 30
-	},
-/obj/structure/rack,
-/obj/item/gun/energy/pulse,
-/obj/item/gun/energy/pulse{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -6727,6 +6642,12 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
+"yz" = (
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 32
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "yH" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -6842,6 +6763,20 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"zZ" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 3;
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena)
 "Aa" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/dark,
@@ -6902,6 +6837,18 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"Aq" = (
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 30
+	},
+/obj/structure/rack,
+/obj/item/gun/energy/pulse,
+/obj/item/gun/energy/pulse{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "As" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
@@ -7070,6 +7017,18 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"Bj" = (
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 30
+	},
+/obj/structure/rack,
+/obj/item/gun/energy/pulse/pistol/m1911,
+/obj/item/gun/energy/pulse/pistol/m1911{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "Bl" = (
 /obj/machinery/conveyor/east{
 	id = "QMLoad2"
@@ -7194,10 +7153,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
-"BM" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/wall/indestructible/fakeglass,
-/area/centcom/control)
 "BO" = (
 /obj/machinery/light/spot{
 	dir = 4
@@ -7905,20 +7860,6 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/escape)
-"Eu" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/head/helmet/swat,
-/obj/item/gun/energy/laser,
-/obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 3;
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena)
 "Ev" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/adv,
@@ -8828,19 +8769,7 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
-"Ip" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_x = -24
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma/space)
 "Iq" = (
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/gamma/space)
-"Ir" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 32
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "Is" = (
@@ -9315,6 +9244,20 @@
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
+"Ka" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 3;
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena_source)
 "Kb" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
@@ -9663,6 +9606,17 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"Lq" = (
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 4;
+	pixel_y = 32
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
 "Ls" = (
 /obj/machinery/door_control/no_emag{
 	id = "ASSAULT";
@@ -11560,6 +11514,20 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"SI" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 3;
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena_source)
 "SJ" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
@@ -11572,6 +11540,12 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"SM" = (
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = -24
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/gamma/space)
 "SN" = (
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = -32
@@ -11615,6 +11589,20 @@
 /obj/machinery/computer/scan_consolenew,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"Tc" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/brown,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/clothing/head/helmet/swat,
+/obj/item/gun/energy/laser,
+/obj/item/shield/energy,
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 3;
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena)
 "Te" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/gamma)
@@ -11721,17 +11709,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "TC" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/specops)
-"TF" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 4;
-	pixel_y = 32
-	},
-/obj/machinery/light/spot{
-	dir = 1
-	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -11984,6 +11961,10 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"UC" = (
+/obj/effect/landmark/newplayer_start,
+/turf/simulated/wall/indestructible/splashscreen,
+/area/start)
 "UE" = (
 /obj/machinery/computer/operating,
 /turf/simulated/floor/plasteel/freezer,
@@ -12919,6 +12900,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Yr" = (
+/obj/structure/rack,
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 30
+	},
+/obj/item/gun/energy/xray,
+/obj/item/gun/energy/xray{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "Yt" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -13463,21 +13456,21 @@ aN
 aN
 aN
 aN
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
 aN
 aN
 aN
@@ -13720,21 +13713,21 @@ aN
 aN
 aN
 aN
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
 aN
 aN
 aN
@@ -13991,7 +13984,7 @@ rE
 rE
 rE
 rE
-am
+rE
 aN
 aN
 aN
@@ -15783,7 +15776,7 @@ rE
 rE
 rE
 rE
-ad
+UC
 rE
 rE
 rE
@@ -17832,21 +17825,21 @@ ck
 ck
 ck
 aN
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
 aN
 aN
 aN
@@ -18089,21 +18082,21 @@ ck
 ck
 ck
 aN
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
-qa
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
+ep
 aN
 aN
 aN
@@ -28707,7 +28700,7 @@ NQ
 Ps
 Te
 Rp
-rB
+uw
 Rs
 Sq
 Rp
@@ -28964,7 +28957,7 @@ Hi
 Pv
 Te
 Rp
-TF
+Lq
 Rs
 Sq
 Rp
@@ -30756,7 +30749,7 @@ aN
 aN
 DB
 HB
-Ip
+SM
 JM
 Iq
 DD
@@ -31527,7 +31520,7 @@ aN
 aN
 DB
 HM
-Ir
+yz
 Iq
 Mo
 DY
@@ -34903,7 +34896,7 @@ rQ
 rQ
 rQ
 LQ
-Eu
+zZ
 Ta
 aN
 aN
@@ -35160,7 +35153,7 @@ rQ
 NA
 rQ
 LQ
-Eu
+zZ
 Ta
 aN
 aN
@@ -35417,7 +35410,7 @@ NA
 rQ
 rQ
 LQ
-Eu
+zZ
 Ta
 aN
 aN
@@ -35674,7 +35667,7 @@ rQ
 NA
 rQ
 LQ
-Eu
+zZ
 Ta
 aN
 aN
@@ -35931,7 +35924,7 @@ rQ
 rQ
 rQ
 LQ
-Eu
+zZ
 Ta
 aN
 aN
@@ -37951,7 +37944,7 @@ We
 We
 We
 od
-BM
+sm
 QI
 Kb
 Hm
@@ -38208,7 +38201,7 @@ We
 We
 We
 od
-BM
+sm
 ZC
 EV
 MB
@@ -40557,7 +40550,7 @@ rQ
 rQ
 rQ
 LQ
-nR
+Tc
 Ta
 aN
 aN
@@ -40814,7 +40807,7 @@ rQ
 pW
 rQ
 LQ
-nR
+Tc
 Ta
 aN
 aN
@@ -41071,7 +41064,7 @@ pW
 rQ
 rQ
 LQ
-nR
+Tc
 Ta
 aN
 aN
@@ -41328,7 +41321,7 @@ rQ
 pW
 rQ
 LQ
-nR
+Tc
 Ta
 aN
 aN
@@ -41585,7 +41578,7 @@ rQ
 rQ
 rQ
 LQ
-nR
+Tc
 Ta
 aN
 aN
@@ -68512,9 +68505,9 @@ lZ
 lZ
 lZ
 vg
-vI
-ww
-wS
+Yr
+Bj
+Aq
 wk
 xl
 lZ
@@ -71257,7 +71250,7 @@ fM
 fM
 fM
 fW
-fY
+Ka
 fI
 aN
 aN
@@ -71514,7 +71507,7 @@ fM
 fM
 fM
 fW
-fY
+Ka
 fI
 aN
 aN
@@ -71771,7 +71764,7 @@ fM
 fM
 fM
 fW
-fY
+Ka
 fI
 aN
 aN
@@ -72028,7 +72021,7 @@ fM
 fM
 fM
 fW
-fY
+Ka
 fI
 aN
 aN
@@ -72285,7 +72278,7 @@ fM
 fM
 fM
 fW
-fY
+Ka
 fI
 aN
 aN
@@ -76911,7 +76904,7 @@ fM
 fM
 fM
 fW
-fZ
+SI
 fI
 aN
 aN
@@ -77168,7 +77161,7 @@ fM
 fM
 fM
 fW
-fZ
+SI
 fI
 aN
 aN
@@ -77425,7 +77418,7 @@ fM
 fM
 fM
 fW
-fZ
+SI
 fI
 aN
 aN
@@ -77682,7 +77675,7 @@ fM
 fM
 fM
 fW
-fZ
+SI
 fI
 aN
 aN
@@ -77939,7 +77932,7 @@ fM
 fM
 fM
 fW
-fZ
+SI
 fI
 aN
 aN

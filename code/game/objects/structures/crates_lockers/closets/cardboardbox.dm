@@ -12,8 +12,10 @@
 	open_sound_volume = 35
 	close_sound_volume = 35
 	material_drop = /obj/item/stack/sheet/cardboard
+	/// How fast a mob can move inside this box.
+	var/move_speed_multiplier = 1
 	var/amt = 4
-	var/move_delay = 0
+	var/move_delay = FALSE
 	var/egged = 0
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
@@ -22,8 +24,12 @@
 	move_delay = TRUE
 	var/oldloc = loc
 	step(src, direction)
+	// By default, while inside a box, we move at walk speed times the speed multipler of the box.
+	var/delay = GLOB.configuration.movement.base_walk_speed * move_speed_multiplier
+	if(IS_DIR_DIAGONAL(direction))
+		delay *= SQRT_2 // Moving diagonal counts as moving 2 tiles, we need to slow them down accordingly.
 	if(oldloc != loc)
-		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), GLOB.configuration.movement.base_walk_speed)
+		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), delay)
 	else
 		move_delay = FALSE
 
@@ -46,7 +52,7 @@
 						L.do_alert_animation(L)
 						egged = 1
 				alerted << sound('sound/machines/chime.ogg')
-	..()
+	return ..()
 
 /mob/living/proc/do_alert_animation(atom/A)
 	var/image/I

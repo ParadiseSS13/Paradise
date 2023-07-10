@@ -654,11 +654,10 @@
 				E.heal_internal_damage(1)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
-				ears.AdjustEarDamage(-1)
-				if(ears.ear_damage < 25 && prob(30))
-					ears.deaf = 0
+				ears.heal_internal_damage(1)
+				if(ears.damage < 25 && prob(30))
+					C.SetDeaf(0)
 		M.AdjustEyeBlurry(-2 SECONDS)
-		update_flags |= M.AdjustEarDamage(-1)
 	if(prob(50))
 		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
 	if(prob(30))
@@ -933,7 +932,7 @@
 	M.AdjustStunned(-6 SECONDS)
 	M.AdjustWeakened(-6 SECONDS)
 	M.AdjustKnockDown(-6 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-20*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustStaminaLoss(-40 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
@@ -1333,6 +1332,8 @@
 						H.blood_volume += 10
 					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
+					for(var/obj/item/organ/O as anything in (H.internal_organs + H.bodyparts))
+						O.germ_level = 0
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 					update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)

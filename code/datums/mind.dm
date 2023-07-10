@@ -677,10 +677,6 @@
 				new_objective = new /datum/objective/survive
 				new_objective.owner = src
 
-			if("die")
-				new_objective = new /datum/objective/die
-				new_objective.owner = src
-
 			if("nuclear")
 				new_objective = new /datum/objective/nuclear
 				new_objective.owner = src
