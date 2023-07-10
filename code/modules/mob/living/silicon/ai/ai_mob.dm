@@ -1486,6 +1486,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 //Stores the location of the AI to the value of stored_locations associated with location_number.
 /mob/living/silicon/ai/proc/store_location(location_number)
+	if(!isturf(eyeobj.loc)) //i.e., inside a mech or other shenanigans
+		to_chat(src, "<span class='warning'>Failed to set location [location_number].</span>")
+		return FALSE
+
 	stored_locations[location_number] = eyeobj.loc
+	return TRUE
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN

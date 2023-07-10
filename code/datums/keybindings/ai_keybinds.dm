@@ -20,8 +20,8 @@
 /datum/keybinding/ai/store_location/down(client/C)
 	. = ..()
 	var/mob/living/silicon/ai/AI = C.mob
-	AI.store_location(location_number)
-	to_chat(AI, "<span class='notice'>Successfully set location [location_number].</span>")
+	if(AI.store_location(location_number))
+		to_chat(AI, "<span class='notice'>Successfully set location [location_number].</span>")
 
 /datum/keybinding/ai/store_location/one
 	name = "Store Location One"
