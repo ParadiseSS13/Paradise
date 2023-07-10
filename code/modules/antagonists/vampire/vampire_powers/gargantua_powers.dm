@@ -190,20 +190,19 @@
 	var/activator
 	var/mychild
 	var/list/invaders = list()
-	var/list/targets = list()
+	var/list/enemy_targets = list()
 
 /obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/user)
-	for(var/mob/living/M in range(10, user))
-		targets += M
-	if(!targets)
+	if(enemy_targets == 1)
 		return
+	enemy_targets = targets
 	mychild = user
 	make_activator(targets)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/make_activator(list/targets)
-	for(length(targets))
-		ADD_TRAIT(targets[1], TRAIT_ELITE_CHALLENGER, "activation")
-		targets.Cut(1,2)
+	for(length(enemy_targets))
+		ADD_TRAIT(enemy_targets[1], TRAIT_ELITE_CHALLENGER, "activation")
+		enemy_targets.Cut(1,2)
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_activator))
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
