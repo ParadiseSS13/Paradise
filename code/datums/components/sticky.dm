@@ -21,9 +21,10 @@
 			return
 	if(target.GetComponent(/datum/component/sticky))
 		return
-	if(!user.unEquip(I))
+	if(!user.canUnEquip(I))
 		return
-	// these checks are broken!
+
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, unEquip), I)
 
 	var/list/click_params = params2list(params)
 	//Center the icon where the user clicked.
@@ -48,8 +49,7 @@
 	RegisterSignal(attached_to, COMSIG_PARENT_QDELETING, PROC_REF(destroy_item))
 	if(ismovable(attached_to))
 		RegisterSignal(attached_to, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
-
-	START_PROCESSING(SSobj, src)
+		START_PROCESSING(SSobj, src)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/sticky/proc/pick_up(atom/A, mob/living/carbon/human/user)
@@ -66,7 +66,7 @@
 	I.pixel_x = initial(I.pixel_x)
 	I.pixel_y = initial(I.pixel_y)
 	move_to_the_thing(parent)
-	user.put_in_hands(I)
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), I)
 	if(user)
 		to_chat(user, "<span class='notice'>You take [parent] off of [attached_to].</span>")
 
