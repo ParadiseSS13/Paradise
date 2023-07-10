@@ -187,10 +187,14 @@
 	required_blood = 30
 	base_cooldown = 30 SECONDS
 	action_icon_state = "vampire_charge"
-	var/activator
-	var/mychild
+	/// The garg vampire
+	var/mob/mychild
+	/// List of people who tried to interfere in the glorious fight
 	var/list/invaders = list()
+	/// List of the people who have to fight in the arena
 	var/list/enemy_targets = list()
+	/// Is our spell active?
+	var/spell_active
 
 /obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/user)
 	if(enemy_targets == 1)
@@ -198,12 +202,25 @@
 	enemy_targets = targets
 	mychild = user
 	make_activator(targets)
+	spell_active = TRUE
+
+/obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
+	if(spell_active == FALSE || QDELETED(src))
+		return
+	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
+	INVOKE_ASYNC(src, PROC_REF(arena_trap))  //Gets another arena trap queued up for when this one runs out.
+	INVOKE_ASYNC(src, PROC_REF(border_check))  //Checks to see if our fighters got out of the arena somehow.
+	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/make_activator(list/targets)
-	for(length(enemy_targets))
-		ADD_TRAIT(enemy_targets[1], TRAIT_ELITE_CHALLENGER, "activation")
-		enemy_targets.Cut(1,2)
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_activator))
+	if(!enemy_targets)
+		return // Sanity check
+	var/list/temporary_list = enemy_targets
+	for(var/i in 1 to length(enemy_targets))
+		var/mob/apply_challenger = temporary_list[1]
+		ADD_TRAIT(apply_challenger, TRAIT_ELITE_CHALLENGER, "activation")
+		temporary_list.Cut(1,2)
+	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(clear_activator))
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
 	var/turf/tumor_turf = get_turf(src)
@@ -212,24 +229,26 @@
 	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_SIZE, tumor_turf))
 		var/obj/effect/temp_visual/elite_tumor_wall/newwall
 		newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
-		newwall.activator = activator
-		newwall.ourelite = mychild
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/border_check()
-	if(activator != null && get_dist(src, activator) >= ARENA_SIZE)
-		activator.forceMove(loc)
-		visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
-		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
-	if(mychild != null && get_dist(src, mychild) >= ARENA_SIZE)
-		mychild.forceMove(loc)
-		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
-		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+	var/list/temporary_targets = enemy_targets
+	for(var/j in 1 to length(enemy_targets))
+		var/mob/activator = temporary_targets[1]
+		if(activator != null && get_dist(src, activator) >= ARENA_SIZE)
+			activator.forceMove(loc)
+			visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
+			playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+		if(mychild != null && get_dist(src, mychild) >= ARENA_SIZE)
+			mychild.forceMove(loc)
+			visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
+			playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+		temporary_targets.Cut(1,2)
 
 /obj/effect/proc_holder/spell/vampire/arena/HasProximity(atom/movable/AM)
 	if(!ishuman(AM) && !isrobot(AM))
 		return
 	var/mob/living/M = AM
-	if(M in activator)
+	if(M in enemy_targets)
 		return
 	if(M in invaders)
 		to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
@@ -242,10 +261,21 @@
 	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
 	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
-	if(activity != TUMOR_ACTIVE || QDELETED(src))
+/obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check()
+	if(QDELETED(mychild) || mychild.stat == DEAD)
+		onEliteLoss()
 		return
-	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
-	INVOKE_ASYNC(src, PROC_REF(arena_trap))  //Gets another arena trap queued up for when this one runs out.
-	INVOKE_ASYNC(src, PROC_REF(border_check))  //Checks to see if our fighters got out of the arena somehow.
-	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
+
+/obj/effect/proc_holder/spell/vampire/arena/proc/clear_activator(mob/source)
+	SIGNAL_HANDLER
+	if(source == activator)
+		activator = null
+	else
+		mychild = null
+	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "clear activation")
+	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+
+/obj/effect/proc_holder/spell/vampire/arena/proc/onEliteLoss()
+	spell_active = FALSE
+	visible_message("<span class='warning'>[src] begins to convulse violently before falling lifeless to the ground.</span>")
+	visible_message("<span class='warning'>The arena begins to slowly dissipate.</span>")
