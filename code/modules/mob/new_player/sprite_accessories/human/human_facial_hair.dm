@@ -78,6 +78,70 @@
 	name = "Dwarf Beard"
 	icon_state = "dwarf"
 
+/datum/sprite_accessory/facial_hair/square
+	name = "Square Beard"
+	icon_state = "square"
+
+/datum/sprite_accessory/facial_hair/prospector
+	name = "Prospector Mustache"
+	icon_state = "prospector"
+
+/datum/sprite_accessory/facial_hair/old_man
+	name = "Old Man Beard"
+	icon_state = "old_man"
+
+/datum/sprite_accessory/facial_hair/mcs
+	name = "Mutton Chops And Short Moustache"
+	icon_state = "mcs"
+
+/datum/sprite_accessory/facial_hair/mcb
+	name = "Mutton Chops And Big Moustache"
+	icon_state = "mcb"
+
+/datum/sprite_accessory/facial_hair/lumbers
+	name = "Lumberjack Short Beard"
+	icon_state = "lumbers"
+
+/datum/sprite_accessory/facial_hair/gtp
+	name = "Goat Patch"
+	icon_state = "gtp"
+
+/datum/sprite_accessory/facial_hair/fishhook
+	name = "Fish Hook"
+	icon_state = "fishhook"
+
+/datum/sprite_accessory/facial_hair/brush
+	name = "Brush Mustache"
+	icon_state = "brush"
+
+/datum/sprite_accessory/facial_hair/gtb
+	name = "Biker Goat"
+	icon_state = "gtb"
+
+/datum/sprite_accessory/facial_hair/doubleb
+	name = "Biker Double"
+	icon_state = "doubleb"
+
+/datum/sprite_accessory/facial_hair/biker
+	name = "Biker Beard"
+	icon_state = "biker"
+
+/datum/sprite_accessory/facial_hair/bigbeard
+	name = "Big Beard"
+	icon_state = "bigbeard"
+
+/datum/sprite_accessory/facial_hair/bandholz
+	name = "Bandholz Beard"
+	icon_state = "bandholz"
+
+/datum/sprite_accessory/facial_hair/balbo
+	name = "Balbo"
+	icon_state = "balbo"
+
+/datum/sprite_accessory/facial_hair/anchor
+	name = "Anchor"
+	icon_state = "anchor"
+
 //////////////////////////////
 //////START VG HAIRSTYLES/////
 //////////////////////////////
