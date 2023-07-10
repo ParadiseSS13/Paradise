@@ -316,6 +316,7 @@
 		A.robot_arm = W.type
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
 		user.unEquip(src, 1)
+		new /mob/living/simple_animal/bot/floorbot(get_turf(src))
 		qdel(src)
 	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
