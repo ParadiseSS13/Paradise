@@ -510,8 +510,6 @@
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
 						H.adjustToxLoss(tobehealed)
-						H.adjustFireLoss(tobehealed)
-						H.adjustBruteLoss(tobehealed)
 						user.visible_message("<span class='boldnotice'>[defib || src] pings: Resuscitation successful.</span>")
 						playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 						H.update_revive()
