@@ -311,12 +311,11 @@
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		qdel(W)
-		var/mob/living/simple_animal/bot/floorbot/A = new(drop_location(), toolbox_color)
+		var/mob/living/simple_animal/bot/floorbot/A = new(get_turf(src), toolbox_color)
 		A.name = created_name
 		A.robot_arm = W.type
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
 		user.unEquip(src, 1)
-		new /mob/living/simple_animal/bot/floorbot(get_turf(src))
 		qdel(src)
 	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
