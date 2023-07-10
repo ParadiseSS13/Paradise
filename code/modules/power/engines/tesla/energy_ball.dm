@@ -150,7 +150,6 @@
 	target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
 	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
 	tesla_line = getline(src,target_turf) // Constructs a line between the tesla and the target turf
-	has_a_target = TRUE
 	return
 
 
