@@ -460,7 +460,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Camera Bug"
 	desc = "Enables you to view all cameras on the network to track a target."
 	reference = "CB"
-	item = /obj/item/camera_bug
+	item = /obj/item/storage/box/syndie_kit/camera_bug
 	cost = 1
 	surplus = 90
 
