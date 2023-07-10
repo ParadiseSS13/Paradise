@@ -3373,6 +3373,14 @@
 	icon_state = "purplefull"
 	},
 /area/hallway/primary/starboard/north)
+"aLW" = (
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 9;
+	icon_state = "2-9"
+	},
+/turf/simulated/floor/catwalk,
+/area/maintenance/engimaint)
 "aMb" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/navbeacon{
@@ -4411,6 +4419,18 @@
 	icon_state = "barneutral"
 	},
 /area/crew_quarters/cafe)
+"aXQ" = (
+/obj/structure/table/wood,
+/obj/machinery/button/windowtint{
+	id = "public-meeting";
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/item/book/manual/random{
+	pixel_x = 7
+	},
+/turf/simulated/floor/wood,
+/area/assembly/showroom)
 "aXT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -10147,6 +10167,16 @@
 	icon_state = "white"
 	},
 /area/medical/genetics)
+"cdT" = (
+/obj/structure/sign/double/map/left{
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
+	icon_state = "map-left-SH"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "public-meeting"
+	},
+/turf/simulated/floor/plating,
+/area/assembly/showroom)
 "cdW" = (
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
@@ -11186,13 +11216,21 @@
 /turf/simulated/floor/carpet/cyan,
 /area/hallway/secondary/entry/louge)
 "cnM" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 9;
-	icon_state = "2-9"
+/obj/structure/cable/green{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/catwalk,
-/area/maintenance/engimaint)
+/obj/structure/sign/double/map/left{
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
+	icon_state = "map-left-SH";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/east)
 "cnP" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -15751,13 +15789,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "dfE" = (
-/obj/structure/sign/double/map/left{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
-	icon_state = "map-left-SH";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/security/lobby)
+/turf/simulated/floor/catwalk,
+/area/maintenance/engimaint)
 "dfG" = (
 /obj/structure/transit_tube{
 	dir = 1;
@@ -17346,6 +17379,22 @@
 	icon_state = "grimy"
 	},
 /area/turret_protected/aisat_interior)
+"dwY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 8;
+	name = "Disposals Maint";
+	sort_type_txt = "1"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "brownfull"
+	},
+/area/quartermaster/office)
 "dxf" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -19174,10 +19223,6 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
-"dTc" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/wood,
-/area/maintenance/gambling_den)
 "dTH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -22012,6 +22057,14 @@
 	icon_state = "titanium_white"
 	},
 /area/hallway/primary/starboard/north)
+"exp" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/sign/double/map/left{
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
+	icon_state = "map-left-SH"
+	},
+/turf/simulated/floor/plating,
+/area/security/lobby)
 "exq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -22587,18 +22640,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
-"eDM" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/structure/cable/blue{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/maintcentral)
 "eDN" = (
 /obj/structure/sign/poster/official/healthy{
 	pixel_y = -32
@@ -33982,13 +34023,9 @@
 	},
 /area/janitor)
 "gUg" = (
-/obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
-	icon_state = "map-right-SH";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/break_room)
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "gUj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -37082,7 +37119,9 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "hAr" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "public-meeting"
+	},
 /turf/simulated/floor/plating,
 /area/assembly/showroom)
 "hAu" = (
@@ -37874,6 +37913,26 @@
 	icon_state = "delivery"
 	},
 /area/medical/paramedic)
+"hJn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	d2 = 8;
+	icon_state = "4-8";
+	d1 = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "brownfull"
+	},
+/area/quartermaster/office)
 "hJC" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/wall/mineral/titanium,
@@ -49146,13 +49205,9 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fore2)
 "jUu" = (
-/obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
-	icon_state = "map-right-SH";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/security/lobby)
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "jUz" = (
 /obj/machinery/light_switch{
 	dir = 4;
@@ -59999,6 +60054,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "public-meeting"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "deliveryblue"
 	},
@@ -64965,6 +65023,13 @@
 	icon_state = "whitepurplechecker"
 	},
 /area/medical/scibreak)
+"nfj" = (
+/obj/structure/sign/double/map/left{
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
+	icon_state = "map-left-SH"
+	},
+/turf/simulated/wall,
+/area/engine/break_room)
 "nfn" = (
 /obj/machinery/status_display{
 	dir = 4;
@@ -67544,6 +67609,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "public-meeting"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "deliveryblue"
 	},
@@ -67551,11 +67619,6 @@
 "nGj" = (
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/structure/sign/double/map/left{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
-	icon_state = "map-left-SH";
-	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
@@ -67983,22 +68046,6 @@
 	icon_state = "dark"
 	},
 /area/aisat/service)
-"nLv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 8;
-	name = "Disposals Maint";
-	sort_type_txt = "1"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brownfull"
-	},
-/area/quartermaster/office)
 "nLC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -68211,19 +68258,19 @@
 	},
 /area/turret_protected/ai_upload)
 "nOD" = (
-/obj/structure/sign/double/map/left{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
-	icon_state = "map-left-SH";
-	pixel_y = 32;
-	pixel_x = -16
-	},
+/obj/machinery/economy/merch,
 /obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
 	icon_state = "map-right-SH";
 	pixel_y = 32;
-	pixel_x = 16
+	pixel_x = 15
 	},
-/obj/machinery/economy/merch,
+/obj/structure/sign/double/map/left{
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
+	icon_state = "map-left-SH";
+	pixel_y = 32;
+	pixel_x = -17
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -70189,6 +70236,10 @@
 /area/crew_quarters/arcade)
 "ojA" = (
 /obj/effect/spawner/window/reinforced,
+/obj/structure/sign/double/map/right{
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
+	icon_state = "map-right-SH"
+	},
 /turf/simulated/floor/plating,
 /area/security/lobby)
 "ojK" = (
@@ -70552,9 +70603,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
 "onl" = (
-/mob/living/simple_animal/mouse,
+/obj/structure/sign/double/map/right{
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
+	icon_state = "map-right-SH"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "public-meeting"
+	},
 /turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
+/area/assembly/showroom)
 "ono" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/full,
@@ -72587,26 +72644,6 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/locker)
-"oII" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d2 = 8;
-	icon_state = "4-8";
-	d1 = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brownfull"
-	},
-/area/quartermaster/office)
 "oIL" = (
 /obj/machinery/optable{
 	name = "Robotics Operating Table"
@@ -76346,6 +76383,11 @@
 	d2 = 8;
 	icon_state = "6-8"
 	},
+/obj/structure/sign/double/map/right{
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
+	icon_state = "map-right-SH";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -77856,12 +77898,9 @@
 /turf/simulated/floor/wood,
 /area/library)
 "pKT" = (
-/obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
-	icon_state = "map-right-SH"
-	},
-/turf/simulated/wall,
-/area/crew_quarters/cafe)
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/wood,
+/area/maintenance/gambling_den)
 "pKV" = (
 /obj/machinery/power/grounding_rod{
 	anchored = 1
@@ -78210,9 +78249,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/medical/cryo)
-"pPA" = (
-/turf/simulated/floor/catwalk,
-/area/maintenance/engimaint)
 "pPQ" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
@@ -78389,6 +78425,16 @@
 	icon_state = "dark"
 	},
 /area/security/execution)
+"pRi" = (
+/obj/structure/table,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "long"
+	},
+/area/quartermaster/office)
 "pRt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -78588,10 +78634,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
-"pTS" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "pTW" = (
 /obj/item/toy/figure/crew/wizard,
 /obj/structure/falsewall,
@@ -86813,6 +86855,9 @@
 	name = "Public Meeting Room"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "public-meeting"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "deliveryblue"
 	},
@@ -87998,18 +88043,6 @@
 	icon_state = "redcorner"
 	},
 /area/hallway/primary/port)
-"rMs" = (
-/obj/structure/cable/orange{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/electrical_shop)
 "rMB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -92793,6 +92826,18 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/brig)
+"sOh" = (
+/obj/structure/cable/orange{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/electrical_shop)
 "sOk" = (
 /obj/machinery/kitchen_machine/grill,
 /obj/machinery/status_display{
@@ -94484,6 +94529,9 @@
 	name = "Public Meeting Room"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "public-meeting"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "deliveryblue"
 	},
@@ -96665,6 +96713,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
+"tAz" = (
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/structure/cable/blue{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "tAF" = (
 /obj/machinery/power/apc{
 	cell_type = 5000;
@@ -104876,18 +104936,12 @@
 /turf/simulated/floor/plating,
 /area/library)
 "vet" = (
-/obj/structure/chair/comfy/brown{
-	dir = 1
+/obj/structure/sign/double/map/right{
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
+	icon_state = "map-right-SH"
 	},
-/obj/machinery/door_control{
-	id = "pub_room";
-	name = "Door Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_y = 34;
-	specialfunctions = 4
-	},
-/turf/simulated/floor/carpet,
-/area/assembly/showroom)
+/turf/simulated/wall,
+/area/engine/break_room)
 "veu" = (
 /obj/structure/closet/walllocker/emerglocker/east,
 /turf/simulated/floor/plating,
@@ -106226,7 +106280,7 @@
 /area/mimeoffice)
 "vsU" = (
 /obj/structure/sign/double/map/left{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
 	icon_state = "map-left-SH";
 	pixel_y = 32
 	},
@@ -108166,6 +108220,9 @@
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/book/manual/nuclear,
+/obj/item/book/manual/random,
+/obj/item/book/manual/random,
+/obj/item/book/manual/random,
 /turf/simulated/floor/wood,
 /area/assembly/showroom)
 "vKi" = (
@@ -109564,7 +109621,7 @@
 /area/assembly/assembly_line)
 "vXS" = (
 /obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
+	desc = "A framed picture of the station. Its a single hallway shaped like a U, Arrivals is at the end of the right side, Departures is at the end of the left. Research is top right, Service middle right, Cargo bottom right. Engineering is top left, Security middle left, Medbay bottom left. The AI satellite is top middle, Command direct center, and Dorms bottom middle.";
 	icon_state = "map-right-SH";
 	pixel_y = 32
 	},
@@ -118869,16 +118926,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/expedition)
-"xNR" = (
-/obj/structure/table,
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "long"
-	},
-/area/quartermaster/office)
 "xNS" = (
 /obj/structure/table/glass,
 /obj/structure/window/reinforced{
@@ -120267,12 +120314,16 @@
 /turf/simulated/floor/wood,
 /area/maintenance/fore2)
 "yeb" = (
-/obj/structure/sign/double/map/left{
-	desc = "A framed picture of the station. You can see Engineering fore-port, AI satelite fore, Science fore-starboard, Security port, Command in center, Service starboard, Medbay aft-port, Dorms aft, and Cargo aft-starboard.";
-	icon_state = "map-left-SH"
+/obj/machinery/door_control{
+	id = "pub_room";
+	name = "Door Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_y = 34;
+	specialfunctions = 4;
+	pixel_x = 6
 	},
-/turf/simulated/wall,
-/area/crew_quarters/cafe)
+/turf/simulated/floor/carpet,
+/area/assembly/showroom)
 "yee" = (
 /turf/simulated/wall,
 /area/chapel/main)
@@ -139801,7 +139852,7 @@ lZT
 jdc
 vgO
 gFI
-qxA
+nfj
 nGj
 kcP
 pCC
@@ -140058,8 +140109,8 @@ lZT
 jdc
 wlT
 uhO
-qxA
-gUg
+vet
+bDE
 kcP
 dca
 qRl
@@ -143414,8 +143465,8 @@ wHP
 nsN
 rAk
 rAk
-pPA
-pPA
+dfE
+dfE
 amq
 gBz
 fPY
@@ -143917,8 +143968,8 @@ leo
 iyD
 xBQ
 xwG
-pPA
-cnM
+dfE
+aLW
 dvy
 rNF
 oqj
@@ -143984,8 +144035,8 @@ ssh
 kgM
 oVy
 rWI
-ojA
-dfE
+exp
+ssh
 epZ
 pZk
 viT
@@ -144242,7 +144293,7 @@ nTc
 tdo
 nmD
 ojA
-jUu
+ssh
 epZ
 mjQ
 oTi
@@ -153227,12 +153278,12 @@ eSO
 eFJ
 xUn
 cpu
-hAr
+cdT
 rTb
-jLk
+yeb
 oeS
 hzt
-vet
+hFt
 mOs
 qFZ
 hAr
@@ -153484,8 +153535,8 @@ cno
 aDF
 ooS
 gnZ
-hAr
-rTb
+onl
+aXQ
 hTv
 nDY
 dzL
@@ -157078,7 +157129,7 @@ iRg
 fQw
 fQw
 sid
-eDM
+tAz
 sgA
 bRW
 dUO
@@ -164542,8 +164593,8 @@ ezs
 eOm
 ezs
 ezs
-yeb
-lEp
+syX
+cnM
 sTf
 paO
 bRm
@@ -164799,7 +164850,7 @@ ezs
 ezs
 ezs
 ezs
-pKT
+syX
 puB
 eFv
 thc
@@ -166134,7 +166185,7 @@ cle
 tzs
 wND
 swN
-oII
+hJn
 bZZ
 dqN
 ecP
@@ -167160,7 +167211,7 @@ bZZ
 pZV
 dus
 tuN
-xNR
+pRi
 oYk
 fuk
 bZZ
@@ -167676,7 +167727,7 @@ taK
 uCu
 uCu
 wSs
-nLv
+dwY
 yhc
 biE
 ubk
@@ -171924,7 +171975,7 @@ afL
 euG
 iwZ
 afL
-onl
+gUg
 iwZ
 afL
 hgF
@@ -172053,7 +172104,7 @@ wjQ
 wjQ
 xYT
 wjQ
-pTS
+jUu
 hOE
 xYT
 fBi
@@ -172795,7 +172846,7 @@ xYT
 kND
 aWn
 cUV
-rMs
+sOh
 wtJ
 nEA
 cUV
@@ -177131,7 +177182,7 @@ qvR
 ebI
 inA
 tHr
-dTc
+pKT
 cXu
 aMM
 tLk
