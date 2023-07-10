@@ -221,8 +221,9 @@
 			L.origin_tech = I.origin_tech
 			L.req_access = D.access_requirement
 			var/list/lockbox_access
-			for(var/A in L.req_access)
-				lockbox_access += "[get_access_desc(A)] "
+			for(var/access in L.req_access)
+				lockbox_access += "[get_access_desc(access)] "
+				L.desc = "A locked box. It is locked to [lockbox_access]access."
 
 	// Clean up
 	being_built = null
