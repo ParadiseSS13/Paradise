@@ -6,6 +6,10 @@
 	if(hand)	return l_hand
 	else		return r_hand
 
+/// Specal proc for special mobs that use "hands" in weird ways
+/mob/proc/special_get_hands_check()
+	return
+
 /mob/verb/quick_equip()
 	set name = "quick-equip"
 	set hidden = 1
@@ -121,7 +125,7 @@
 	return unEquip(r_hand, force) //Why was this not calling unEquip in the first place jesus fuck.
 
 //Drops the item in our active hand.
-/mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.
+/mob/proc/drop_item()
 	if(hand)
 		return drop_l_hand()
 	else
@@ -244,6 +248,11 @@
 
 	var/obj/item/storage/S = M.get_inactive_hand()
 	if(istype(S) && S.can_be_inserted(src, 1))	//see if we have box in other hand
+		S.handle_item_insertion(src)
+		return 1
+
+	S = M.get_item_by_slot(slot_wear_id)
+	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in a wallet
 		S.handle_item_insertion(src)
 		return 1
 

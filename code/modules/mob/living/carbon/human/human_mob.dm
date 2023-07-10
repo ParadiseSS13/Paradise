@@ -222,6 +222,7 @@
 	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
 	var/limbs_amount = 1
 	var/limb_loss_chance = 50
+	var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
@@ -243,7 +244,8 @@
 				brute_loss = 30 * (2 - round(bomb_armor * 0.01, 0.05))
 				burn_loss = brute_loss				//Damage gets reduced from 120 to up to 60 combined brute+burn
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustEarDamage(30, 120)
+				Deaf(2 MINUTES)
+				ears.receive_damage(30)
 			Weaken(stuntime)
 			KnockDown(stuntime * 3) //Up to 15 seconds of knockdown
 
@@ -252,7 +254,8 @@
 			if(bomb_armor)
 				brute_loss = 15 * (2 - round(bomb_armor * 0.01, 0.05)) //Reduced from 30 to up to 15
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustEarDamage(15, 60)
+				Deaf(1 MINUTES)
+				ears.receive_damage(15)
 			KnockDown(10 SECONDS - bomb_armor) //Between no knockdown to 10 seconds of knockdown depending on bomb armor
 			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
 			limb_loss_chance = 25
@@ -2070,22 +2073,44 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/dchat_emote()
 	var/list/possible_emotes = list("scream", "clap", "snap", "crack", "dap", "burp")
-	emote(pick(possible_emotes))
+	emote(pick(possible_emotes), intentional = TRUE)
 
-/mob/living/carbon/human/proc/dchat_attack()
+/mob/living/carbon/human/proc/dchat_attack(intent)
 	var/turf/ahead = get_turf(get_step(src, dir))
-	var/mob/living/victim = locate(/mob/living) in ahead
-	var/in_hand = get_active_hand()
-	if(victim)
-		victim.attacked_by(in_hand, src, BODY_ZONE_CHEST)
+	var/atom/victim = locate(/mob/living) in ahead
+	var/obj/item/in_hand = get_active_hand()
+	var/implement = "[isnull(in_hand) ? "[p_their()] fists" : in_hand]"
+	if(!victim)
+		victim = locate(/obj/structure) in ahead
+	if(!victim)
+		switch(intent)
+			if(INTENT_HARM)
+				visible_message("<span class='warning'>[src] swings [implement] wildly!</span>")
+			if(INTENT_HELP)
+				visible_message("<span class='notice'>[src] seems to take a deep breath.</span>")
 		return
-	var/obj/structure/other_victim = locate(/obj/structure) in ahead
-	if(other_victim)
-		do_attack_animation(other_victim, used_item = in_hand)
-		other_victim.attacked_by(in_hand, src)
+	if(isLivingSSD(victim))
+		visible_message("<span class='notice'>[src] [intent == INTENT_HARM ? "reluctantly " : ""]lowers [p_their()] [implement].</span>")
 		return
 
-	visible_message("<span class='warning'>[src] swings [isnull(in_hand) ? "[p_their()] fists" : in_hand] wildly!")
+	var/original_intent = a_intent
+	a_intent = intent
+	if(in_hand)
+		in_hand.melee_attack_chain(src, victim)
+	else
+		UnarmedAttack(victim, TRUE)
+	a_intent = original_intent
+
+/mob/living/carbon/human/proc/dchat_resist()
+	if(!can_resist())
+		visible_message("<span class='warning'>[src] seems to be unable to do anything!</span>")
+		return
+	if(!restrained())
+		visible_message("<span class='notice'>[src] seems to be doing nothing in particular.</span>")
+		return
+
+	visible_message("<span class='warning'>[src] is trying to break free!</span>")
+	resist()
 
 /mob/living/carbon/human/proc/dchat_pickup()
 	var/turf/ahead = get_step(src, dir)
@@ -2138,10 +2163,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 7 SECONDS)
 	var/list/inputs = list(
 		"emote" = CALLBACK(src, PROC_REF(dchat_emote)),
-		"attack" = CALLBACK(src, PROC_REF(dchat_attack)),
+		"attack" = CALLBACK(src, PROC_REF(dchat_attack), INTENT_HARM),
+		"help" = CALLBACK(src, PROC_REF(dchat_attack), INTENT_HELP),
 		"pickup" = CALLBACK(src, PROC_REF(dchat_pickup)),
 		"throw" = CALLBACK(src, PROC_REF(dchat_throw)),
 		"disarm" = CALLBACK(src, PROC_REF(dchat_shove)),
+		"resist" = CALLBACK(src, PROC_REF(dchat_resist)),
 	)
 
 	AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, inputs, cooldown)

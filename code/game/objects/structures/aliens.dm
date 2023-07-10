@@ -109,7 +109,7 @@
 	icon_state = "resin"
 	base_icon_state = "resin"
 	max_integrity = 100
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
@@ -139,11 +139,6 @@
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
-
-/obj/structure/alien/resin/door/Crossed(mob/living/L, oldloc)
-	..()
-	if(!state_open)
-		return try_to_operate(L)
 
 /obj/structure/alien/resin/door/attack_ai(mob/user)
 	return

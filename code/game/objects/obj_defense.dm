@@ -90,7 +90,7 @@
 /obj/blob_act(obj/structure/blob/B)
 	if(isturf(loc))
 		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor) //the blob doesn't destroy thing below the floor
+		if(level == 1 && (T.intact||T.transparent_floor)) //the blob doesn't destroy thing below the floor
 			return
 	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
 
@@ -111,12 +111,13 @@
 		var/play_soundeffect = 1
 		if(M.environment_smash)
 			play_soundeffect = 0
+		var/obj_turf = get_turf(src)  // play from the turf in case the object gets deleted mid attack
 		if(M.obj_damage)
 			. = attack_generic(M, M.obj_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration_flat, M.armour_penetration_percentage)
 		else
 			. = attack_generic(M, rand(M.melee_damage_lower,M.melee_damage_upper), M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration_flat, M.armour_penetration_percentage)
 		if(. && !play_soundeffect)
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+			playsound(QDELETED(src) ? obj_turf : src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
 /obj/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return TRUE
@@ -199,7 +200,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(isturf(loc))
 		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor) //fire can't damage things hidden below the floor.
+		if(level == 1 && (T.intact||T.transparent_floor)) //fire can't damage things hidden below the floor.
 			return
 	..()
 	if(QDELETED(src))  // Some items, like patches, might get qdeled in the parent call

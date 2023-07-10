@@ -39,6 +39,7 @@
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 	var/datum/martial_art/martial_art
+	var/list/known_martial_arts = list()
 
 	var/role_alt_title
 
@@ -674,10 +675,6 @@
 
 			if("survive")
 				new_objective = new /datum/objective/survive
-				new_objective.owner = src
-
-			if("die")
-				new_objective = new /datum/objective/die
 				new_objective.owner = src
 
 			if("nuclear")

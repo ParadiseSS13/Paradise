@@ -214,6 +214,7 @@
 	job = list("Roboticist")
 	surplus = 0
 
+
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
@@ -258,6 +259,17 @@
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 8
 	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
+
+// Genetics
+
+/datum/uplink_item/jobspecific/magillitis_serum
+	name = "Magillitis Serum Bio-chip"
+	desc = "A single-use bio-chip which contains an experimental serum that causes rapid muscular growth in Hominidae. \
+			Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
+	reference = "MAG"
+	item = /obj/item/implanter/gorilla_rampage
+	cost = 5
+	job = list("Research Director", "Geneticist")
 
 // Paper contact poison pen
 
@@ -361,10 +373,10 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/thermal_drill // Nukies get Diamond Tipped Thermal Safe Drill instead
-	name = "Thermal Safe Drill"
-	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
+	name = "Amplifying Thermal Safe Drill"
+	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
 	reference = "DRL"
-	item = /obj/item/thermal_drill
+	item = /obj/item/thermal_drill/syndicate
 	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -507,8 +519,7 @@
 			Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
-	cost = 13
-	cant_discount = TRUE
+	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/syndicate_bomb

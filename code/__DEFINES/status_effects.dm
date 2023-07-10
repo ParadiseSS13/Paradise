@@ -54,6 +54,8 @@
 
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
+#define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback // Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -73,6 +75,8 @@
 #define STATUS_EFFECT_HISWRATH /datum/status_effect/his_wrath //His Wrath.
 
 #define STATUS_EFFECT_SUMMONEDGHOST /datum/status_effect/cultghost //is a cult ghost: can see dead people, can't manifest more ghosts
+
+#define STATUS_EFFECT_DELAYED /datum/status_effect/delayed //delayed status effect: gets /datum/callback to call on expire, signal if we want to prevent and duration
 
 #define STATUS_EFFECT_CRUSHERMARK /datum/status_effect/crusher_mark //if struck with a proto-kinetic crusher, takes a ton of damage
 
@@ -125,6 +129,7 @@
 #define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
 #define STATUS_EFFECT_SILENCED /datum/status_effect/transient/silence
 #define STATUS_EFFECT_ABSSILENCED /datum/status_effect/transient/silence/absolute
+#define STATUS_EFFECT_NO_OXY_HEAL /datum/status_effect/transient/no_oxy_heal
 #define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
 #define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
 #define STATUS_EFFECT_STAMMER /datum/status_effect/transient/stammering
@@ -134,6 +139,7 @@
 #define STATUS_EFFECT_BLURRY_EYES /datum/status_effect/transient/eye_blurry
 #define STATUS_EFFECT_BLINDED /datum/status_effect/transient/blindness
 #define STATUS_EFFECT_DRUGGED /datum/status_effect/transient/drugged
+#define STATUS_EFFECT_DEAF /datum/status_effect/transient/deaf
 
 /////////////
 // NEUTRAL //
@@ -160,4 +166,4 @@
 /// gives you fluff messages for cough, sneeze, headache, etc but without an actual virus
 #define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
 /// This status effect lets the user see the lwap dots.
-#define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope 
+#define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope
