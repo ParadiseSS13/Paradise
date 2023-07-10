@@ -1,5 +1,14 @@
 GLOBAL_LIST_EMPTY(ai_displays)
 
+/proc/post_ai_status(alert_in)
+	var/obj/machinery/ai_status_display/first_ai_display = GLOB.ai_displays[1]
+	if(!first_ai_display)
+		return
+	var/mode_to_set = (alert_in == SEC_LEVEL_DELTA && first_ai_display.mode != AI_DISPLAY_MODE_DELTA) ? AI_DISPLAY_MODE_DELTA : AI_DISPLAY_MODE_EMOTE
+	for(var/obj/machinery/ai_status_display/SD as anything in GLOB.ai_displays)
+		SD.mode = mode_to_set
+		SD.emotion = "Blank"
+		SD.update_icon()
 
 /obj/machinery/ai_status_display
 	icon = 'icons/obj/status_display.dmi'
@@ -25,6 +34,12 @@ GLOBAL_LIST_EMPTY(ai_displays)
 /obj/machinery/ai_status_display/Destroy()
 	GLOB.ai_displays -= src
 	return ..()
+
+/obj/machinery/ai_status_display/examine(mob/user)
+	. = ..()
+	if(mode == AI_DISPLAY_MODE_DELTA)
+		var/message = GLOB.bomb_set ? "<span class='boldwarning'>Its a countdown, and going down rapidly!!!</span>" : "<span class='notice'>Its a warning signal of some kind, this cannot be good.</span>"
+		. += message
 
 /obj/machinery/ai_status_display/attack_ai(mob/living/silicon/ai/user)
 	if(isAI(user))
@@ -108,6 +123,9 @@ GLOBAL_LIST_EMPTY(ai_displays)
 		// BSOD
 		if(AI_DISPLAY_MODE_BSOD)
 			new_display = "ai_bsod"
+
+		if(AI_DISPLAY_MODE_DELTA)
+			new_display = "ai_delta"
 
 	. += new_display
 	underlays += emissive_appearance(icon, "lightmask")

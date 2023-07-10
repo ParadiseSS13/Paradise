@@ -26,6 +26,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 	if(level != SEC_LEVEL_DELTA)
 		stop_delta_alarm()
+		post_ai_status()
 
 	//Will not be announced if you try to set to the same level as it already is
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != GLOB.security_level)
@@ -103,6 +104,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 				GLOB.security_announcement.config.sound = temp_sound
 				GLOB.security_level = SEC_LEVEL_DELTA
 				post_status(STATUS_DISPLAY_ALERT, "deltaalert")
+				post_ai_status(SEC_LEVEL_DELTA)
 				update_firealarms()
 				set_stationwide_emergency_lighting()
 				delta_alarm()
