@@ -302,6 +302,8 @@
 		drop_item_ground(hand_item, force = TRUE)
 
 	I.forceMove(src)
+	I.pixel_x = initial(I.pixel_x)
+	I.pixel_y = initial(I.pixel_y)
 
 	if(hand_id == "HAND_LEFT")
 		l_hand = I
@@ -327,8 +329,6 @@
 
 	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
-	I.pixel_x = initial(I.pixel_x)
-	I.pixel_y = initial(I.pixel_y)
 
 	return TRUE
 

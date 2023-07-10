@@ -329,13 +329,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
 					H.UpdateDamageIcon()
 
-	if(istype(src.loc, /obj/item/storage))
-		//If the item is in a storage item, take it out
-		var/obj/item/storage/S = src.loc
-		S.remove_from_storage(src, drop_location())
-	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
-		return
-
 	if(throwing)
 		throwing.finalize(FALSE)
 
@@ -344,7 +337,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return
 
 		// inventory unequip delay
-		if(equip_delay_self && in_inventory && !in_storage && !user.is_general_slot(user.get_slot_by_item(src)))
+		if(equip_delay_self && !user.is_general_slot(user.get_slot_by_item(src)))
 			user.visible_message(span_notice("[user] начинает снимать [name]..."), \
 							span_notice("Вы начинаете снимать [name]..."))
 			if(!do_after_once(user, equip_delay_self, target = user, attempt_cancel_message = "Снятие [name] было прервано!"))
@@ -631,12 +624,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Returns `TRUE` if the item is equipped by a mob, `FALSE` otherwise.
  * This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
  */
-/obj/item/proc/is_equipped()
+/obj/item/proc/is_equipped(include_pockets = FALSE)
 	if(!ismob(loc))
 		return FALSE
 
 	var/mob/M = loc
-	if(src in M.get_equipped_items())
+	if(src in M.get_equipped_items(include_pockets))
 		return TRUE
 	else
 		return FALSE

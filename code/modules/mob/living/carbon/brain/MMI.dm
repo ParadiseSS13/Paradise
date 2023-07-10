@@ -253,6 +253,7 @@
 		radio_action.Grant(A)
 
 /obj/item/mmi/Exited(atom/movable/A)
+	..()
 	if(radio && istype(A, /mob/living/carbon/brain))
 		radio_action.Remove(A)
 

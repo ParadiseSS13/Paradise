@@ -1327,6 +1327,7 @@
 	return
 
 /obj/mecha/Exited(atom/movable/M, atom/newloc)
+	..()
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		go_out(1, newloc)
 
