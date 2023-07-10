@@ -115,7 +115,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/all_eyes = list()
 	var/next_text_announcement
 
-	//Used with the hotkeys on 2-5 to store locations. Initialized to the AI core's location.
+	//Used with the hotkeys on 2-5 to store locations.
 	var/list/stored_locations = list()
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
