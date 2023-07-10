@@ -56,7 +56,7 @@
 /obj/item/wall_bug/Initialize(mapload, obj/item/camera_bug/the_bug)
 	. = ..()
 	link_to_camera(the_bug)
-	AddComponent(/datum/component/sticky, src)
+	AddComponent(/datum/component/sticky)
 
 /obj/item/wall_bug/Destroy()
 	QDEL_NULL(camera)

@@ -1,11 +1,14 @@
 // kinda like duct tape but not shit (just kidding, its shit but in a different way)
 /datum/component/sticky
+	/// The atom we are stickied to
 	var/atom/attached_to
+	/// Our priority overlay put on top of attached_to
 	var/icon/overlay
 
-/datum/component/sticky/Initialize(obj/item/I)
+/datum/component/sticky/Initialize()
 	if(!isitem(parent))
 		stack_trace("/datum/component/sticky's parent is not an item, its [parent.type]")
+		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(stick_to_it))
 
 /datum/component/sticky/proc/stick_to_it(obj/item/I, atom/target, mob/user, params)
