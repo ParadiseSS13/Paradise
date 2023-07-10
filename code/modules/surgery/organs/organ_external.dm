@@ -268,9 +268,9 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
-			if(brute_dam >= max_damage && owner.health <= HEALTH_THRESHOLD_CRIT && prob(brute))
+			if(brute_dam >= max_damage && prob(brute))
 				droplimb(0, DROPLIMB_SHARP)
-			if(burn_dam >= max_damage && owner.health <= HEALTH_THRESHOLD_CRIT && prob(burn))
+			if(burn_dam >= max_damage && prob(burn))
 				droplimb(0, DROPLIMB_BURN)
 
 	if(owner_old)
