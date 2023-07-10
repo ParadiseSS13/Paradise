@@ -34,8 +34,6 @@
 	var/energy_to_lower = -20
 	var/list/shocked_things = list()
 	var/obj/singularity/energy_ball/parent_energy_ball
-	/// Variable to determine if it has a target
-	var/has_a_target = FALSE
 	/// All the turfs in the chosen area
 	var/list/target_area_turfs = list()
 	/// Turf where the tesla will move to if it's loose
@@ -134,14 +132,14 @@
 				dust_mobs(C)
 			return
 		return
-	if(!has_a_target)
+	if(target_turf == null)
 		find_the_basket()
 		return
 	for(var/i in 0 to 8)
 		forceMove(tesla_line[1])
 		tesla_line.Cut(1, 2)
 		if(get_turf(src) == target_turf)
-			has_a_target = FALSE
+			target_turf = null
 		for(var/mob/living/carbon/C in loc)
 			dust_mobs(C)
 		has_close_field = FALSE
