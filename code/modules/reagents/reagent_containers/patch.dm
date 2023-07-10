@@ -30,29 +30,31 @@
 /obj/item/reagent_containers/food/pill/patch/styptic
 	name = "healing patch"
 	desc = "Helps with brute injuries."
-	icon_state = "bandaid_brute"
+	icon_state = "bandaid2"
 	instant_application = 1
 	list_reagents = list("styptic_powder" = 20)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small
 	name = "healing mini-patch"
+	icon_state = "bandaid1"
 	list_reagents = list("styptic_powder" = 10)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf
 	name = "burn patch"
 	desc = "Helps with burn injuries."
-	icon_state = "bandaid_burn"
+	icon_state = "bandaid4"
 	instant_application = 1
 	list_reagents = list("silver_sulfadiazine" = 20)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small
 	name = "burn mini-patch"
+	icon_state = "bandaid3"
 	list_reagents = list("silver_sulfadiazine" = 10)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh
 	name = "synthflesh patch"
 	desc = "Helps with brute and burn injuries."
-	icon_state = "bandaid_med"
+	icon_state = "bandaid8"
 	instant_application = 1
 	list_reagents = list("synthflesh" = 10)
 
@@ -64,5 +66,5 @@
 /obj/item/reagent_containers/food/pill/patch/jestosterone
 	name = "jestosterone patch"
 	desc = "Helps with brute injuries if the affected person is a clown, otherwise inflicts various annoying effects."
-	icon_state = "bandaid_clown"
+	icon_state = "bandaid20"
 	list_reagents = list("jestosterone" = 20)

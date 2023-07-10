@@ -3,7 +3,7 @@ import { useBackend } from "../backend";
 import { Box, Button, Flex, Icon, LabeledList, Section } from "../components";
 import { Window } from "../layouts";
 import { BeakerContents } from './common/BeakerContents';
-import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
+import { ComplexModal, modalOpen, modalAnswer, modalRegisterBodyOverride } from './common/ComplexModal';
 
 const transferAmounts = [1, 5, 10];
 const bottleStyles = [
@@ -12,13 +12,6 @@ const bottleStyles = [
   "wide_bottle.png",
   "round_bottle.png",
   "reagent_bottle.png",
-];
-const patchStyles = [
-  "bandaid_med.png", 
-  "bandaid_brute.png", 
-  "bandaid_burn.png", 
-  "bandaid.png", 
-  "bandaid_clown.png",
 ];
 
 const analyzeModalBodyOverride = (modal, context) => {
@@ -66,6 +59,34 @@ const analyzeModalBodyOverride = (modal, context) => {
         </LabeledList>
       </Box>
     </Section>
+  );
+};
+
+const changePatchStyleModalBodyOverride = (modal, context) => {
+  const { data } = useBackend(context);
+  return (
+    <Flex
+      spacingPrecise="1"
+      wrap="wrap"
+      my="0.5rem"
+      maxHeight="1%">
+      {data.modal.choices.map((c, i) => (
+        <Flex.Item key={i} flex="1 1 auto">
+          <Button
+            selected={(i + 1) === parseInt(data.modal.value, 10)}
+            onClick={() => modalAnswer(context, modal.id, i + 1)}>
+            <div style={
+              "display: inline-block;"
+              + "width: 32px;"
+              + "height: 32px;"
+              + "background: url(bandaid" + (i + 1) + ".png);"
+              + "background-size: 160%;"
+              + "background-position: left -9px bottom -14px;"
+            } />
+          </Button>
+        </Flex.Item>
+      ))}
+    </Flex>
   );
 };
 
@@ -338,7 +359,7 @@ const ChemMasterProductionChemical = (props, context) => {
             + "width: 20px;"
             + "height: 16px;"
             + "vertical-align: middle;"
-            + "background: url(" + patchStyles[data.patchsprite - 1] + ");"
+            + "background: url(bandaid" + data.patchsprite + ".png);"
             + "background-size: 200%;"
             + "background-position: left -12px bottom -12px;"
           } />
@@ -426,3 +447,4 @@ const ChemMasterCustomization = (props, context) => {
 };
 
 modalRegisterBodyOverride('analyze', analyzeModalBodyOverride);
+modalRegisterBodyOverride('change_patch_style', changePatchStyleModalBodyOverride);
