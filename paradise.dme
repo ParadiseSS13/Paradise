@@ -2571,6 +2571,7 @@
 #include "code\modules\surgery\organs\autosurgeon.dm"
 #include "code\modules\surgery\organs\blood.dm"
 #include "code\modules\surgery\organs\body_egg.dm"
+#include "code\modules\surgery\organs\bone_tumor.dm"
 #include "code\modules\surgery\organs\brain.dm"
 #include "code\modules\surgery\organs\ears.dm"
 #include "code\modules\surgery\organs\eyes.dm"
