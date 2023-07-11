@@ -187,8 +187,6 @@
 		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
-	mode = MODE_OFF
-	icon_state = icon_off
 	target = null
 	location = null
 
@@ -209,12 +207,11 @@
 
 			to_chat(usr, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
 
-
-			return attack_self(usr)
+			toggle_on()
 
 		if("Disk Recovery")
 			setting = SETTING_DISK
-			return attack_self(usr)
+			toggle_on()
 
 		if("Other Signature")
 			setting = SETTING_OBJECT
@@ -233,20 +230,18 @@
 
 					var/priority
 					var/backup
-					var/counter
 					var/list/target_candidates = get_all_of_type(item_paths[targetitem], subtypes = TRUE)
 					for(var/obj/item/candidate in target_candidates)
 						var/cand_z = (get_turf(candidate)).z
 						if(is_admin_level(cand_z))
 							continue
-						if(!usr.z == cand_z)
+						if(usr.z != cand_z)
 							if(!backup)
 								backup = candidate
 							continue
 						// no candidate set yet, or check if there is a closer one
 						if(!priority || (get_dist(usr, candidate) < get_dist(usr, priority)))
 							priority = candidate
-						counter++
 
 					if(priority)
 						target = priority
@@ -259,10 +254,7 @@
 						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
 						return
 
-					if(counter <= 1)
-						to_chat(usr, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
-					else
-						to_chat(usr, "<span class='notice'>You set the pinpointer to track the closest [targetitem].</span>")
+					to_chat(usr, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
 
 				if("DNA")
 					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
@@ -275,8 +267,12 @@
 							target = C
 							break
 
-			mode = MODE_OFF
-			return attack_self(usr)
+			toggle_on()
+
+/obj/item/pinpointer/advpinpointer/proc/toggle_on()
+	if(mode == MODE_OFF)
+		cur_index = 1
+		cycle(usr)
 
 ///////////////////////
 //nuke op pinpointers//
