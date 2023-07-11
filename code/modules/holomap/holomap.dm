@@ -332,13 +332,13 @@ GLOBAL_LIST_EMPTY(holomaps)
 					neighbors_alien += i
 					continue
 
-				if(found_window ||found_turf.density)
+				if(found_window || found_turf.density)
 					neighbors_solid += i
 
 	//-----------------{{{ RENDERING PHASE }}}----------------------------
 
 			if(neighbor_space || length(neighbors_solid) >= 3)
-				if( W || T.density)
+				if(W || T.density)
 					icon_state_to_use = "full"
 				else if(isfloorturf(T))
 					icon_state_to_use = "floor"
