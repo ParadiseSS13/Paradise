@@ -159,6 +159,8 @@
 		M.IgniteMob()
 
 /obj/item/projectile/bullet/midbullet3/overgrown
+	icon = 'icons/obj/ammo.dmi'
+	icon_state = "peashooter_bullet"
 	damage = 25
 
 /obj/item/projectile/bullet/heavybullet
