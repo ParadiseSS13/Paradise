@@ -280,12 +280,15 @@
 	activate_batterer(user)
 
 /obj/item/batterer/proc/activate_batterer(mob/user)
+	times_used++
 	if(user)
 		if(times_used >= max_uses)
 			to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
 			return
 		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later."))
+			times_used--
 			return
+		to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
 
 	for(var/mob/living/M in oview(7, get_turf(src)))
 		if(issilicon(M))
@@ -319,8 +322,6 @@
 		add_attack_logs(user, M, "Mind battered with [src]")
 
 	playsound(get_turf(src), 'sound/misc/interference.ogg', 50, TRUE)
-	times_used++
-	to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
 	if(times_used >= max_uses)
 		icon_state = "battererburnt"
 
@@ -343,6 +344,6 @@
 	visible_message("<span class='notice'>[src] explodes into a light show of colors!</span>")
 	if(severity == EMP_HEAVY)
 		activate_batterer()
-		
+
 	times_used = max_uses - 1
 	activate_batterer()
