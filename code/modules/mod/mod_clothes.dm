@@ -33,7 +33,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
-	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
+	hide_tail_by_species = list("modsuit")
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp modsuits.dmi'
 		)
