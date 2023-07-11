@@ -50,6 +50,8 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+	RegisterSignal(src, COMSIG_TOOL_ATTACK, PROC_REF(OnToolAttack))
+
 	wires = new(src)
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
@@ -76,6 +78,12 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 	return ..()
+
+/obj/machinery/autolathe/proc/OnToolAttack(datum/source, atom/tool, mob/user)
+	// Allows screwdrivers to be recycled on harm intent
+	if (istype(tool, /obj/item/screwdriver) && user.a_intent == INTENT_HARM)
+		return COMPONENT_CANCEL_TOOLACT
+	return
 
 /obj/machinery/autolathe/interact(mob/user)
 	if(shocked && !(stat & NOPOWER))

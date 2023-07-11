@@ -27,11 +27,6 @@
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
 
-/obj/item/screwdriver/tool_attack_chain(mob/user, atom/target)
-	if(istype(target, /obj/machinery/autolathe) && (user.a_intent == INTENT_HARM))
-		return FALSE
-	return ..()
-
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
 	desc = "A screwdriver with an ultra thin tip."
