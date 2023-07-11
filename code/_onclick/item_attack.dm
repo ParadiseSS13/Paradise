@@ -10,7 +10,7 @@
 /obj/item/proc/tool_attack_chain(mob/user, atom/target)
 	if(!tool_behaviour)
 		return FALSE
-	if (SEND_SIGNAL(target, COMSIG_TOOL_ATTACK, src, user) & COMPONENT_CANCEL_TOOLACT)
+	if(SEND_SIGNAL(target, COMSIG_TOOL_ATTACK, src, user) & COMPONENT_CANCEL_TOOLACT)
 		return FALSE
 
 	return target.tool_act(user, src, tool_behaviour)
