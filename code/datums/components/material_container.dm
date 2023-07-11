@@ -65,10 +65,10 @@
 	var/list/tc = allowed_typecache
 	if(disable_attackby)
 		return
-	// Allow screwdrivers to be recycled in the autolathe on harm intent
-	if(!(istype(source, /obj/machinery/autolathe) && istype(I, /obj/item/screwdriver) && user.a_intent == INTENT_HARM))
-		if(user.a_intent != INTENT_HELP)
-			return
+	// Allow tools to be inserted on harm intent since they might be used for construction
+	// otherwise user needs to be on help intent
+	if(!(I.tool_behaviour && user.a_intent == INTENT_HARM || user.a_intent == INTENT_HELP))
+		return
 	if(I.flags & ABSTRACT)
 		return
 	if((I.flags_2 & (HOLOGRAM_2 | NO_MAT_REDEMPTION_2)) || (tc && !is_type_in_typecache(I, tc)))
