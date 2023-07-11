@@ -113,9 +113,11 @@
 			SSticker.mode.traitors.Add(new_spawn.mind)
 			var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_TRAITOR]
 			hud.join_hud(new_spawn)
+			set_antag_hud(new_spawn.mind.current, "hudsyndicate")
 			if(locate(/datum/objective/hijack) in owner.mind.get_all_objectives())
 				new_spawn.mind.store_memory("<b>They must hijack the shuttle.</b>")
 				to_chat(new_spawn, "<b>They are tasked with hijacking the shuttle.</b>")
+				set_antag_hud(new_spawn.mind.current, "hudhijack")
 		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 		log_admin("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 	if(ishuman(new_spawn))
