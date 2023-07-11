@@ -343,8 +343,6 @@
 	visible_message("<span class='notice'>[src] explodes into a light show of colors!</span>")
 	if(severity == EMP_HEAVY)
 		activate_batterer()
-		times_used = max_uses - 1
-		activate_batterer()
-	else
-		times_used = max_uses - 1
-		activate_batterer()
+		
+	times_used = max_uses - 1
+	activate_batterer()
