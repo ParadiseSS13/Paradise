@@ -15771,6 +15771,11 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
+/obj/machinery/alarm{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aQQ" = (
@@ -71163,11 +71168,11 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "hRN" = (
-/obj/machinery/washing_machine,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/grey_tide{
 	pixel_y = 30
 	},
+/obj/structure/dresser,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -81827,6 +81832,10 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "pMj" = (
@@ -89953,6 +89962,13 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/qm)
+"vod" = (
+/obj/structure/dresser,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/crew_quarters/locker)
 "voo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
@@ -112041,7 +112057,7 @@ bqx
 bvZ
 bzU
 msU
-bzA
+vod
 blM
 wRz
 wRz
