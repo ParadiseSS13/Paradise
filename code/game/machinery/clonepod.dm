@@ -1,3 +1,5 @@
+#define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent", "mutadone", "rezadone")
+
 /obj/machinery/clonepod
 	anchored = TRUE
 	name = "cloning pod"
@@ -5,6 +7,11 @@
 	density = TRUE
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_idle"
+
+	//So that chemicals can be loaded into the pod.
+	container_type = OPENCONTAINER
+	//The linked cloning console
+	var/obj/machinery/computer/cloning/console
 
 /obj/machinery/clonepod/Initialize(mapload)
 	. = ..()
@@ -17,7 +24,8 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	RefreshParts()
+	component_parts += new /obj/item/reagent_containers/glass/beaker/large/(null)
+	create_reagents()
 	update_icon()
 
 /obj/machinery/clonepod/biomass/Initialize(mapload)
@@ -34,7 +42,8 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	RefreshParts()
+	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace/(null)
+	update_icon()
 
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
@@ -42,11 +51,24 @@
 /obj/machinery/clonepod/attack_ai(mob/user)
 	return examine(user)
 
+//Process
 /obj/machinery/clonepod/process()
+	//Basically just isolate_reagent() with extra functionality.
+	for(var/A in reagents.reagent_list)
+		var/datum/reagent/R = A
+		if(!(R.id in VALID_REAGENTS))
+			reagents.del_reagent(R.id)
+			reagents.update_total()
+			atom_say("Purged contaminant \"[R.name]\" from chemical storage.")
 
+//Clonepod-specific procs
 
+//Attackby and x_acts
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
+		return
+
+	if(is_open_container(I))
 		return
 
 	return ..()
@@ -89,6 +111,14 @@
 	to_chat(user, "<span class='warning'>A droplet of bananium ooze seeps into the synthmeat storage chamber...</span>")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
+/obj/machinery/clonepod/emp_act(severity)
+	..()
+
+/obj/machinery/clonepod/ex_act(severity)
+	..()
+
+
+//Icon stuff
 /obj/machinery/clonepod/update_icon_state()
 	//TODO: this logic. lol
 
@@ -97,15 +127,7 @@
 	if(panel_open)
 		. += "panel_open"
 
-/obj/machinery/clonepod/emp_act(severity)
-	..()
-
-/obj/machinery/clonepod/ex_act(severity)
-	..()
-
-/obj/machinery/clonepod/deconstruct(disassembled = TRUE)
-	..()
-
+#undef VALID_REAGENTS
 /*
  *	Manual -- A big ol' manual. jimkil TODO: rewrite this
  */

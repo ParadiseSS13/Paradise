@@ -6,6 +6,9 @@
 	density = TRUE
 	anchored = TRUE
 
+	//The linked cloning console.
+	var/obj/machinery/computer/cloning/console
+
 /obj/machinery/clonescanner/Initialize(mapload)
 	. = ..()
 	component_parts = list()

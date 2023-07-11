@@ -29,25 +29,42 @@
 	if(!M.buffer)
 		to_chat(user, "<span class='warning'>[M]'[M.p_s()] buffer is empty!</span>")
 		return
+
 	if(istype(M.buffer, /obj/machinery/clonepod))
+		var/obj/machinery/clonepod/buffer_pod = M.buffer
+		if(buffer_pod.console == src)
+			to_chat(user, "<span class='warning'>[M.buffer] is already linked!</span>")
+
 		pods += M.buffer
+		buffer_pod.console = src
 		to_chat(user, "<span class='notice'>[M.buffer] was successfully added to the cloning pod array.</span>")
 		return
+
 	if(istype(M.buffer, /obj/machinery/clonescanner))
-		scanner = M.buffer
+		var/obj/machinery/clonescanner/buffer_scanner = M.buffer
+		if(scanner)
+			to_chat(user, "<span class='warning'>There's already a linked scanner!</span>")
+			return
+
+		scanner = buffer_scanner
+		buffer_scanner.console = src
 		to_chat(user, "<span class='notice'>[M.buffer] was successfully linked.</span>")
 		return
+
 	to_chat(user, "<span class='warning'>[M.buffer] cannot be linked to [src].</span>")
 	return
 
-/obj/machinery/computer/cloning/attack_ai(mob/user as mob)
+/obj/machinery/computer/cloning/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/computer/cloning/attack_hand(mob/user as mob)
+/obj/machinery/computer/cloning/attack_hand(mob/user)
 	add_fingerprint(user)
 
 	if(stat & (BROKEN|NOPOWER))
 		return
+
+	switch(alert(user, "What machine to interact with?", "TGUI Stand-In", "Cloning Pod", "Action 2"))
+		if("Cloning Pod")
 	//ui_interact(user)
 
 /*
