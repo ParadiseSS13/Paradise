@@ -162,11 +162,12 @@
 		boing = FALSE
 
 /obj/effect/anomaly/grav/detonate()
-	if(drops_core)
-		var/turf/T = get_turf(src)
-		if(T && GLOB.gravity_generators["[T.z]"])
-			var/obj/machinery/gravity_generator/main/G = pick(GLOB.gravity_generators["[T.z]"])
-			G.set_broken() //Requires engineering to fix the gravity generator, as it gets overloaded by the anomaly.
+	if(!drops_core)
+		return
+	var/turf/T = get_turf(src)
+	if(T && GLOB.gravity_generators["[T.z]"])
+		var/obj/machinery/gravity_generator/main/G = pick(GLOB.gravity_generators["[T.z]"])
+		G.set_broken() //Requires engineering to fix the gravity generator, as it gets overloaded by the anomaly.
 
 /////////////////////
 
