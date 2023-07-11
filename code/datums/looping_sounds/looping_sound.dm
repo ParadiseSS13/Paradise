@@ -48,11 +48,13 @@
 		start()
 
 /datum/looping_sound/Destroy()
+	GLOB.looping_sounds -= src
 	stop()
 	output_atoms = null
 	return ..()
 
 /datum/looping_sound/proc/start(atom/add_thing)
+	GLOB.looping_sounds += src
 	if(add_thing)
 		LAZYADDOR(output_atoms, add_thing)
 	if(!muted)
@@ -61,6 +63,7 @@
 	on_start()
 
 /datum/looping_sound/proc/stop(atom/remove_thing, do_not_mute)
+	GLOB.looping_sounds -= src
 	if(remove_thing)
 		LAZYREMOVE(output_atoms, remove_thing)
 		if(do_not_mute && length(output_atoms)) //if there are no output_atoms then we mute regardless of your preferance
@@ -115,3 +118,23 @@
 /datum/looping_sound/proc/on_stop(looped)
 	if(end_sound)
 		play(end_sound)
+
+/// Looping sounds that decrease volume by a specified % each loop until it reaches a specified total % volume.
+/datum/looping_sound/decreasing
+	/// What volume level, as a % of original, to eventually decrease to
+	var/decrease_to_amount = 50
+	/// How much, as a % of original, to decrease the volume by each loop
+	var/decrease_by_amount = 1
+
+/datum/looping_sound/decreasing/sound_loop(looped = 0)
+	. = ..()
+	if(decrease_by_amount && decrease_to_amount && decrease_to_amount < volume)
+		volume = max(volume - decrease_by_amount, decrease_to_amount)
+
+/datum/looping_sound/decreasing/delta_alarm
+	mid_sounds = 'sound/effects/delta_alarm.ogg'
+	volume = 50
+	mid_length = 80
+	decrease_to_amount = 10
+	decrease_by_amount = 5
+	channel = CHANNEL_DELTA_ALARM

@@ -818,6 +818,86 @@
 					SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 	..()
 
+/datum/reagent/medicine/sanguine_reagent
+	name = "Sanguine Reagent"
+	id = "sanguine_reagent"
+	description = "A deeply crimson almost-gel that can mimic blood, regardless of type."
+	color = "#770101"
+	taste_description = "coppery fuel"
+	harmless = FALSE
+	overdose_threshold = 15
+
+/datum/reagent/medicine/sanguine_reagent/on_mob_life(mob/living/M)
+	if(!ishuman(M))
+		return
+
+	var/mob/living/carbon/human/H = M
+
+	if(NO_BLOOD in H.dna.species.species_traits)
+		return ..()
+
+	if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+		switch(current_cycle)
+			if(1)
+				H.blood_volume += 1
+			if(2 to 25)
+				H.blood_volume += 3
+			else
+				H.blood_volume += 5
+
+	return ..()
+
+/datum/reagent/medicine/sanguine_reagent/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!ishuman(M))
+		return
+	var/mob/living/carbon/human/H = M
+	if(volume < 20)
+		if(prob(10))
+			to_chat(H, "<span class='warning>You cough up some congealed blood.</span>")
+			H.vomit(blood = TRUE, stun = FALSE) //mostly visual
+		else if(prob(10))
+			var/overdose_message = pick("Your vision is tinted red for a moment.", "You can hear your heart beating.")
+			to_chat(H, "<span class='warning'>[overdose_message]</span>")
+	else
+		if(prob(10))
+			to_chat(H, "<span class='danger'>You choke on congealed blood!</span>")
+			H.AdjustLoseBreath(2 SECONDS)
+			H.vomit(blood = TRUE, stun = FALSE)
+		else if(prob(10))
+			var/overdose_message = pick("You're seeing red!", "Your heartbeat thunders in your ears!", "Your veins writhe under your skin!")
+			to_chat(H, "<span class='danger'>[overdose_message]</span>")
+			H.adjustBruteLoss(6)
+			if(H.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
+				H.client.color = "red"
+				addtimer(VARSET_CALLBACK(H.client, color, ""), 6 SECONDS)
+	return list(0, update_flags)
+
+/datum/reagent/medicine/osseous_reagent
+	name = "Osseous Reagent"
+	id = "osseous_reagent"
+	description = "A solution of pinkish gel with white shards floating in it, which is supposedly able to be processed into bone gel."
+	color = "#c9abab"
+	taste_description = "chunky marrow"
+	harmless = FALSE
+	overdose_threshold = 30 //so a single shotgun dart can't cause the tumor effect
+
+/datum/reagent/medicine/osseous_reagent/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/osseous_reagent/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+
+	if(ishuman(M) && prob(5))
+		var/mob/living/carbon/human/H = M
+		if(!H.get_int_organ(/obj/item/organ/internal/bone_tumor))
+			new/obj/item/organ/internal/bone_tumor(H)
+
+	return ..()
+
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	id = "mannitol"
