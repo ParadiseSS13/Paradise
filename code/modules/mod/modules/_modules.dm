@@ -51,6 +51,7 @@
 	var/module_UID = null
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/modules vulp.dmi'
 		)
 
 /obj/item/mod/module/Initialize(mapload)

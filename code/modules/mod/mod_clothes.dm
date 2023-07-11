@@ -12,6 +12,7 @@
 	cold_protection = HEAD
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_helmets.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp modsuits.dmi'
 		)
 
 /obj/item/clothing/suit/mod
@@ -32,6 +33,10 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
+	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp modsuits.dmi'
+		)
 
 
 /obj/item/clothing/gloves/mod
@@ -46,6 +51,9 @@
 	body_parts_covered = HANDS|ARMS
 	heat_protection = HANDS|ARMS
 	cold_protection = HANDS|ARMS
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp modsuits.dmi'
+		)
 
 
 /obj/item/clothing/shoes/mod
@@ -60,6 +68,9 @@
 	body_parts_covered = FEET|LEGS
 	heat_protection = FEET|LEGS
 	cold_protection = FEET|LEGS
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp modsuits.dmi'
+		)
 	var/magbooted
 
 /obj/item/clothing/shoes/mod/negates_gravity()
