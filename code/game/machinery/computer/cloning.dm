@@ -8,6 +8,11 @@
 	icon_screen = "dna"
 	circuit = /obj/item/circuitboard/cloning
 
+	//A list of linked cloning pods.
+	var/list/pods = list()
+	//Our linked cloning scanner.
+	var/obj/machinery/clonescanner/scanner
+
 /obj/machinery/computer/cloning/Initialize(mapload)
 	. = ..()
 
@@ -15,15 +20,25 @@
 	return ..()
 
 /obj/machinery/computer/cloning/process()
+	. = ..()
 
-/obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		if(M.buffer && istype(M.buffer, /obj/machinery/clonepod))
-			var/obj/machinery/clonepod/P = M.buffer
-			//todo: linkage logic. later
-	else
+/obj/machinery/computer/cloning/attackby(obj/item/W, mob/user, params)
+	if(!ismultitool(W))
 		return ..()
+	var/obj/item/multitool/M = W
+	if(!M.buffer)
+		to_chat(user, "<span class='warning'>[M]'[M.p_s()] buffer is empty!</span>")
+		return
+	if(istype(M.buffer, /obj/machinery/clonepod))
+		pods += M.buffer
+		to_chat(user, "<span class='notice'>[M.buffer] was successfully added to the cloning pod array.</span>")
+		return
+	if(istype(M.buffer, /obj/machinery/clonescanner))
+		scanner = M.buffer
+		to_chat(user, "<span class='notice'>[M.buffer] was successfully linked.</span>")
+		return
+	to_chat(user, "<span class='warning'>[M.buffer] cannot be linked to [src].</span>")
+	return
 
 /obj/machinery/computer/cloning/attack_ai(mob/user as mob)
 	return attack_hand(user)
@@ -35,6 +50,7 @@
 		return
 	//ui_interact(user)
 
+/*
 /obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -238,6 +254,6 @@
 
 	src.add_fingerprint(usr)
 
-
+*/
 #undef MENU_MAIN
 #undef MENU_RECORDS

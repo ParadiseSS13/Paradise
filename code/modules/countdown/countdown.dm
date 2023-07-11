@@ -89,6 +89,7 @@
 	name = "cloning pod countdown"
 	text_size = 1
 
+/* jimkil TODO: this shit
 /obj/effect/countdown/clonepod/get_value()
 	var/obj/machinery/clonepod/C = attached_to
 	if(!istype(C))
@@ -96,6 +97,7 @@
 	else if(C.occupant)
 		var/completion = round(C.get_completion())
 		return completion
+*/
 
 /obj/effect/countdown/supermatter
 	name = "supermatter damage"

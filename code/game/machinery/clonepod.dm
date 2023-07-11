@@ -20,6 +20,9 @@
 	RefreshParts()
 	update_icon()
 
+/obj/machinery/clonepod/biomass/Initialize(mapload)
+	. = ..()
+
 /obj/machinery/clonepod/upgraded/Initialize(mapload)
 	. = ..()
 	component_parts = list()
@@ -73,8 +76,6 @@
 	if(anchored)
 		WRENCH_UNANCHOR_MESSAGE
 		anchored = FALSE
-		connected.pods -= src
-		connected = null
 	else
 		WRENCH_ANCHOR_MESSAGE
 		anchored = TRUE
@@ -89,12 +90,7 @@
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 /obj/machinery/clonepod/update_icon_state()
-	if(FALSE) //TODO: this logic. lol
-		icon_state = "pod_cloning"
-	else if(FALSE)
-		icon_state = "pod_mess"
-	else
-		icon_state = "pod_idle"
+	//TODO: this logic. lol
 
 /obj/machinery/clonepod/update_overlays()
 	. = ..()
