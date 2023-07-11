@@ -13,7 +13,7 @@
 	density = FALSE
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF
-	heat_proof = TRUE
+	heat_proof = FALSE
 	glass = TRUE
 	explosion_block = 1
 	safe = FALSE
@@ -288,6 +288,14 @@
 			F.obj_integrity = F.max_integrity * 0.5
 		F.update_icon()
 	qdel(src)
+
+/obj/machinery/door/firedoor/CanPass(atom/movable/mover, turf/target)
+	if(..())
+		return TRUE
+	if(isliving(mover) && !locked)
+		var/mob/living/living_mover = mover
+		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
+			return TRUE
 
 /obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/edge_doorfire.dmi'

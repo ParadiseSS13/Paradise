@@ -24,6 +24,9 @@
 		floating = FALSE
 		animate(src, transform = ntransform, time = (lying_prev == 0 || lying_angle == 0) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
 
+/mob/living/carbon/regenerate_icons()
+	SEND_SIGNAL(src, COMSIG_CARBON_REGENERATE_ICONS, src)
+	return ..()
 
 /mob/living/carbon/proc/handle_transform_change()
 	return
