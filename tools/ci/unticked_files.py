@@ -41,7 +41,7 @@ def get_unticked_files(root:Path):
         with open(root / includer, 'r') as f:
             lines = [line for line in f.readlines() if line.startswith('#include')]
             included = [line.replace('#include ', '').rstrip('\r\n').strip('"') for line in lines]
-            nested_dmes = ["/".join(list(includer.split('/')[0:-1])) + file for file in included if ".dme" in file]
+            nested_dmes = ["/".join(list(includer.split('/')[0:-1])) + "/" + file for file in included if ".dme" in file]
             print(f'Found {len(included)} includes and {len(nested_dmes)} nested .dme\'s in {root / includer}')
             ticked_files.update([root / Path(includer).parent / Path(PureWindowsPath(i)) for i in included])
             if nested_dmes: print(f"Additional include files: {nested_dmes}")
