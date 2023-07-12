@@ -50,7 +50,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-	RegisterSignal(src, COMSIG_TOOL_ATTACK, PROC_REF(OnToolAttack))
+	RegisterSignal(src, COMSIG_TOOL_ATTACK, PROC_REF(on_tool_attack))
 
 	wires = new(src)
 	files = new /datum/research/autolathe(src)
