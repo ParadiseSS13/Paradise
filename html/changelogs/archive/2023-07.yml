@@ -83,3 +83,30 @@
   - balance: Space Dragon (#3146)
   - tweak: Increase laugh threshold for N2O (#3143)
   - add: new weapon - B.S.G (#3138)
+'2023-07-10':
+  Daeberdir:
+  - imageadd: Pack of new facial hair sprites for humans. (#3123)
+  NightDawnFox:
+  - bugfix: Nuke core container ex_act() fixes (#3152)
+  Vladisvell:
+  - bugfix: now loading crossbow doesn't invoke crash (#3147)
+  Zwei:
+  - bugfix: Runtime On Storage Exit (#3148)
+  - add: New Patch Styles (#3099)
+  Сиротка:
+  - imageadd: Mech guns (#3156)
+  - imageadd: Medical Belt (#3158)
+  - tweak: defib no longer heal BruteBurn damage (#3151)
+'2023-07-11':
+  dependabot[bot]:
+  - unknown: bump semver from 5.7.1 to 5.7.2 in /tgui (#3162)
+'2023-07-12':
+  Rerik007:
+  - bugfix: boosting person pulled by you (#3166)
+  Vladisvell:
+  - bugfix: raising modules on mechas now shows correct message (#3163)
+  WolfLox:
+  - balance: mantis blade tweaks (#3161)
+  - add: vulp sprites (#3160)
+  Сиротка:
+  - bugfix: Jetpack installing (#3164)
