@@ -22,7 +22,7 @@
 //this is mostly an example
 /datum/cloning_data/healthy
 
-	var/limbs = list(
+	limbs = list(
 		"head"   = HEALTHY_LIMB,
 		"torso"  = HEALTHY_LIMB,
 		"groin"  = HEALTHY_LIMB,
@@ -36,7 +36,7 @@
 		"l_foot" = HEALTHY_LIMB
 	)
 
-	var/organs = list(
+	organs = list(
 		"heart"    = HEALTHY_ORGAN,
 		"lungs"    = HEALTHY_ORGAN,
 		"liver"    = HEALTHY_ORGAN,
@@ -57,6 +57,8 @@
 
 	//The linked cloning console.
 	var/obj/machinery/computer/cloning/console
+	//The scanner's occupant.
+	var/mob/living/carbon/human/occupant
 
 /obj/machinery/clonescanner/Initialize(mapload)
 	. = ..()
@@ -68,6 +70,43 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	update_icon()
+
+
+/obj/machinery/clonescanner/MouseDrop_T(atom/movable/O, mob/user)
+	if(!(ishuman(user) || issilicon(user)) || user.incapacitated())
+		return
+	if(!ishuman(O))
+		return
+	var/mob/living/carbon/human/H = O
+	if(!(H.stat == DEAD))
+		to_chat(user, "<span class='warning'>You don't think it'd be wise to scan a living being.</span>")
+		return TRUE
+	if(occupant)
+		to_chat(user, "<span class='warning'>[src] is already occupied!</span>")
+		return TRUE
+
+	to_chat(user, "<span class='notice'>You put [H] into the cloning scanner.</span>")
+	insert(H)
+	return TRUE
+
+/obj/machinery/clonescanner/AltClick(mob/user)
+	if(!occupant)
+		return
+	if(issilicon(user))
+		remove(occupant)
+		return
+	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	remove(occupant)
+
+/obj/machinery/clonescanner/proc/insert(mob/living/carbon/human/inserted)
+	inserted.forceMove(src)
+	occupant = inserted
+	occupant.notify_ghost_cloning()
+
+/obj/machinery/clonescanner/proc/remove(mob/living/carbon/human/removed)
+	removed.forceMove(loc)
+	occupant = null
 
 /obj/machinery/clonescanner/multitool_act(mob/user, obj/item/I)
 	. = TRUE
