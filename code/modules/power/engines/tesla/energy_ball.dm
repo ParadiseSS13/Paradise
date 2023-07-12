@@ -40,8 +40,6 @@
 	var/turf/target_turf
 	/// Direction we have to go to go towards the target turf
 	var/movement_dir
-	/// Turf that we have to move to to go towards the target turf
-	var/step_loc
 	/// Variable that defines whether it has a field generator close enough
 	var/has_close_field = FALSE
 	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
@@ -138,8 +136,7 @@
 		return
 	for(var/i in 0 to 8)
 		movement_dir = get_dir(get_turf(src), target_turf)
-		step_loc = get_step(src, movement_dir)
-		forceMove(step_loc)
+		forceMove(get_step(src, movement_dir))
 		if(get_turf(src) == target_turf)
 			target_turf = null
 		for(var/mob/living/carbon/C in loc)
