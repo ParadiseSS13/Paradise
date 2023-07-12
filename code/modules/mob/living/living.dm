@@ -159,6 +159,9 @@
 			now_pushing = FALSE
 			return TRUE
 
+	if(pulledby == M && !(a_intent == INTENT_HELP && M.a_intent == INTENT_HELP)) //prevents boosting the person pulling you, but you can still move through them on help or grab intent (see above)
+		return TRUE
+
 	// okay, so we didn't switch. but should we push?
 	// not if he's not CANPUSH of course
 	if(!(M.status_flags & CANPUSH))
