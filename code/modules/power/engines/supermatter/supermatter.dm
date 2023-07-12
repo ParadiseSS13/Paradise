@@ -838,7 +838,7 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/sm_filters()
 	var/new_filter = isnull(get_filter("ray"))
-	ray_helper(1, power ? clamp((damage/100) * power, 50, 125) : 1, (gasmix_power_ratio> 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR), clamp(damage/600, 1, 10), clamp(damage/10, 12, 100))
+	ray_filter_helper(1, power ? clamp((damage/100) * power, 50, 125) : 1, (gasmix_power_ratio> 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR), clamp(damage/600, 1, 10), clamp(damage/10, 12, 100))
 	// Filter animation persists even if the filter itself is changed externally.
 	// Probably prone to breaking. Treat with suspicion.
 	if(new_filter)
@@ -846,7 +846,7 @@
 		animate(offset = 0, time = 10 SECONDS)
 
 	if(power > POWER_PENALTY_THRESHOLD)
-		ray_helper(1, power ? clamp((damage/100) * power, 50, 175) : 1, SUPERMATTER_TESLA_COLOUR, clamp(damage/300, 1, 20), clamp(damage/5, 12, 200))
+		ray_filter_helper(1, power ? clamp((damage/100) * power, 50, 175) : 1, SUPERMATTER_TESLA_COLOUR, clamp(damage/300, 1, 20), clamp(damage/5, 12, 200))
 		if(prob(25))
 			new /obj/effect/warp_effect/bsg(get_turf(src)) //Some extra visual effect to the shocking sm which is a bit less interesting.
 		if(final_countdown)
@@ -859,7 +859,7 @@
 			remove_filter("icon")
 
 	if(combined_gas > MOLE_PENALTY_THRESHOLD)
-		ray_helper(1, power ? clamp((damage/100) * power, 50, 125) : 1, SUPERMATTER_SINGULARITY_RAYS_COLOUR, clamp(damage / 300, 1, 30), clamp(damage / 5, 12, 300))
+		ray_filter_helper(1, power ? clamp((damage/100) * power, 50, 125) : 1, SUPERMATTER_SINGULARITY_RAYS_COLOUR, clamp(damage / 300, 1, 30), clamp(damage / 5, 12, 300))
 
 		add_filter(name = "outline", priority = 2, params = list(
 			type = "outline",
