@@ -122,9 +122,17 @@
 	heart_rate_decrease = 1
 	taste_description = "a safe refuge"
 
+/datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
+	if(iscarbon(M))
+		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
+			data = "Ingested"
+			if(show_message)
+				to_chat(M, "<span class='warning'>[src] freezes solid in your mouth!</span>") //Burn damage already happens on ingesting
+	..()
+
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.bodytemperature < TCRYO)
+	if(M.bodytemperature < TCRYO && data != "Ingested")
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
