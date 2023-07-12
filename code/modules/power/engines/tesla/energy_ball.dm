@@ -32,7 +32,6 @@
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
-	var/list/shocked_things = list()
 	var/obj/singularity/energy_ball/parent_energy_ball
 	/// All the turfs in the chosen area
 	var/list/target_area_turfs = list()
@@ -78,7 +77,6 @@
 
 	QDEL_LIST_CONTENTS(orbiting_balls)
 	target_area_turfs.Cut()
-	shocked_things.Cut()
 	return ..()
 
 /obj/singularity/energy_ball/admin_investigate_setup()
@@ -95,7 +93,6 @@
 
 		pixel_x = 0
 		pixel_y = 0
-		shocked_things.Cut(1, length(shocked_things) / 1.3)
 		tesla_zap(src, 3, TESLA_DEFAULT_POWER)
 
 		pixel_x = -32
