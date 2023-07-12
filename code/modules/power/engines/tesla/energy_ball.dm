@@ -38,8 +38,10 @@
 	var/list/target_area_turfs = list()
 	/// Turf where the tesla will move to if it's loose
 	var/turf/target_turf
-	/// List with the turfs in the line towards the target turf
-	var/list/tesla_line = list()
+	/// Direction we have to go to go towards the target turf
+	var/movement_dir
+	/// Turf that we have to move to to go towards the target turf
+	var/step_loc
 	/// Variable that defines whether it has a field generator close enough
 	var/has_close_field = FALSE
 	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
@@ -78,7 +80,6 @@
 
 	QDEL_LIST_CONTENTS(orbiting_balls)
 	target_area_turfs.Cut()
-	tesla_line.Cut()
 	shocked_things.Cut()
 	return ..()
 
@@ -136,8 +137,9 @@
 		find_the_basket()
 		return
 	for(var/i in 0 to 8)
-		forceMove(tesla_line[1])
-		tesla_line.Cut(1, 2)
+		movement_dir = get_dir(get_turf(src), target_turf)
+		step_loc = get_step(src, movement_dir)
+		forceMove(step_loc)
 		if(get_turf(src) == target_turf)
 			target_turf = null
 		for(var/mob/living/carbon/C in loc)
@@ -149,7 +151,6 @@
 	var/area/where_to_move = pick(all_possible_areas) // Grabs a random area that isn't restricted
 	target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
 	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
-	tesla_line = getline(src,target_turf) // Constructs a line between the tesla and the target turf
 	return
 
 
@@ -287,7 +288,7 @@
 	//This also means we have no need to track distance, as the doview() proc does it all for us.
 
 	//Darkness fucks oview up hard. I've tried dview() but it doesn't seem to work
-	//I hate existance
+	//I hate existance // Range() lets us see through walls, please direct all screaming players to me - DGL
 	for(var/a in typecache_filter_multi_list_exclusion(range(zap_range + 2, source), things_to_shock, blacklisted_tesla_types))
 		var/atom/A = a
 		if(!(zap_flags & ZAP_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A))
