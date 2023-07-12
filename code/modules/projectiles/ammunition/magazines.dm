@@ -489,6 +489,11 @@
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
+/obj/item/ammo_box/magazine/m12g/confetti
+	name = "\improper XL shotgun magazine (12g confetti)"
+	icon_state = "party_drum"
+	ammo_type = /obj/item/ammo_casing/shotgun/confetti
+
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart

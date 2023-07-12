@@ -421,7 +421,10 @@
 /obj/item/nullrod/armblade/mining/pickup(mob/living/user)
 	..()
 	flags += ABSTRACT
-	return FALSE
+
+/obj/item/nullrod/armblade/mining/dropped(mob/living/user)
+	..()
+	flags ^= ABSTRACT
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
