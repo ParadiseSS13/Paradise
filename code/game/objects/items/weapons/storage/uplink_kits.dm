@@ -137,7 +137,7 @@
 	icon_state = "box_of_doom"
 
 /obj/item/storage/box/syndie_kit/mantisblade
-	name = "Boxed Space Suit and Helmet"
+	name = "Horlex Mantis blade set"
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/mantisblade/populate_contents()

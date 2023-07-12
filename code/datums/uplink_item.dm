@@ -1876,7 +1876,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A box containing a set of two Gorlex Hidden Blade Implants comes with self-destructing auto-implanters. After the EMP, they return to service to show that it's too early to write you off."
 	reference = "MABI"
 	item = /obj/item/storage/box/syndie_kit/mantisblade
-	cost = 13
+	cost = 12
 	surplus = 90
 
 // Cybernetics

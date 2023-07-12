@@ -74,11 +74,6 @@
 	else
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
-/obj/item/melee/mantisblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
-
 /obj/item/melee/mantisblade/attack(mob/living/M, mob/living/user, secondattack = FALSE)
 	. = ..()
 	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
@@ -98,6 +93,11 @@
 	block_chance = 20
 	icon_state = "mantis"
 	item_state = "mantis"
+
+/obj/item/melee/mantisblade/shellguard/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	return ..()
 
 /obj/item/melee/icepick
 	name = "ice pick"

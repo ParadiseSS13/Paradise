@@ -339,8 +339,8 @@
 	id = "ci-mantisblade"
 	req_tech = list("materials" = 7, "combat" = 7, "biotech" = 7, "programming" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_TITANIUM = 3000, MAT_DIAMOND = 3000)
-	build_path = /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard
+	materials = list(MAT_METAL = 10000, MAT_TITANIUM = 6000, MAT_DIAMOND = 6000)
+	build_path = /obj/item/storage/lockbox/research/mantis
 	category = list("Medical")
 
 /datum/design/cyberimp_atmostoolset

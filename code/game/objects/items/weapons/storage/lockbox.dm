@@ -142,3 +142,11 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 4 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 1
+
+/obj/item/storage/lockbox/research/mantis
+	name = "lockbox(hidden blade implant)"
+	req_access = list(ACCESS_ARMORY)
+
+/obj/item/storage/lockbox/research/mantis/populate_contents()
+	new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard(src)
+	new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard/l(src)
