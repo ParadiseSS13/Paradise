@@ -255,6 +255,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"
 	belt_icon = "pill_bottle"
+	use_sound = "pillbottle"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(/obj/item/reagent_containers/food/pill)
 	cant_hold = list(/obj/item/reagent_containers/food/pill/patch)
