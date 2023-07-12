@@ -189,6 +189,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 /proc/get_sfx(soundin)
 	if(istext(soundin))
 		switch(soundin)
+			if("patchpack")
+				soundin = pick('sound/effects/patchpack1.ogg', 'sound/effects/patchpack2.ogg', 'sound/effects/patchpack3.ogg', 'sound/effects/patchpack4.ogg', 'sound/effects/patchpack5.ogg')
 			if("pillbottle")
 				soundin = pick('sound/effects/pillbottle1.ogg', 'sound/effects/pillbottle2.ogg', 'sound/effects/pillbottle3.ogg', 'sound/effects/pillbottle4.ogg')
 			if("shatter")

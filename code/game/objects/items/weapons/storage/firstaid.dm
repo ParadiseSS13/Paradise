@@ -362,6 +362,7 @@
 	desc = "It's a container for storing medical patches."
 	icon_state = "patch_pack"
 	belt_icon = "patch_pack"
+	use_sound = "patchpack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"
