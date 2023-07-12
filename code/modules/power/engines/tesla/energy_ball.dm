@@ -96,18 +96,14 @@
 		pixel_x = 0
 		pixel_y = 0
 		shocked_things.Cut(1, length(shocked_things) / 1.3)
-		var/list/shocking_info = list()
-		tesla_zap(src, 3, TESLA_DEFAULT_POWER, shocked_targets = shocking_info)
+		tesla_zap(src, 3, TESLA_DEFAULT_POWER)
 
 		pixel_x = -32
 		pixel_y = -32
 		for(var/ball in orbiting_balls)
 			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
-			var/list/temp_shock = list()
 			//We zap off the main ball instead of ourselves to make things looks proper
-			tesla_zap(src, range, TESLA_MINI_POWER / 7 * range, shocked_targets = temp_shock)
-			shocking_info += temp_shock
-		shocked_things += shocking_info
+			tesla_zap(src, range, TESLA_MINI_POWER / 7 * range)
 	else
 		energy = 0 // ensure we dont have miniballs of miniballs //But it'll be cool broooooooooooooooo
 
@@ -386,12 +382,10 @@
 	else
 		power = closest_atom.zap_act(power, zap_flags)
 	if(prob(20)) //I know I know
-		var/list/shocked_copy = shocked_targets.Copy()
-		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_copy) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
-		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_targets)
-		shocked_targets += shocked_copy
+		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
+		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags)
 	else
-		tesla_zap(closest_atom, next_range, power, zap_flags, shocked_targets)
+		tesla_zap(closest_atom, next_range, power, zap_flags)
 
 #undef COIL
 #undef ROD
