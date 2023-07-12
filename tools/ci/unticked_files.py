@@ -29,6 +29,10 @@ IGNORE_FILES = {
     'code/modules/tgs/v5/v5_interop_version.dm',
     # Included as part of OD lints
     'tools/ci/lints.dm'
+    'code/modules/tgs/v5/v5_interop_version.dm',
+    # Example files. They should not be included in the build
+    'modular_ss220/example/code/example.dm',
+    'modular_ss220/example/_example.dm'
 }
 
 def get_unticked_files(root:Path):
@@ -37,8 +41,11 @@ def get_unticked_files(root:Path):
         with open(root / includer, 'r') as f:
             lines = [line for line in f.readlines() if line.startswith('#include')]
             included = [line.replace('#include ', '').rstrip('\r\n').strip('"') for line in lines]
-            print(f'Found {len(included)} includes in {root / includer}')
+            nested_dmes = [file for file in included if ".dme" in file]
+            print(f'Found {len(included)} includes and {len(nested_dmes)} nested .dme\'s in {root / includer}')
             ticked_files.update([root / Path(includer).parent / Path(PureWindowsPath(i)) for i in included])
+            if nested_dmes: print(f"Additional include files: {nested_dmes}")
+            INCLUDER_FILES.extend([file.replace("\\", "/") for file in nested_dmes])
 
     all_dm_files = {f for f in root.glob('**/*.dm')}
     return all_dm_files - ticked_files - {root / f for f in IGNORE_FILES}
