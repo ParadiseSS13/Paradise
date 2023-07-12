@@ -6,4 +6,4 @@
 
 /obj/item/paper/fluff/ruins/syndiecakesfactory/teleporter
 	name = "PLEASE READ"
-	info = "For fuck sake I can't believe I have to write this to remind you. Stop teleporting BREAD. We need you to ship syndi cakes. Not BREAD."
+	info = "For fuck's sake I can't believe I have to write this to remind you. Stop teleporting BREAD. We need you to ship syndi cakes. Not BREAD."
