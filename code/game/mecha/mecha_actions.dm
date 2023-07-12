@@ -317,5 +317,5 @@
 		return
 	chassis.selected = equipment
 	chassis.occupant_message("<span class='notice'>You switch to [equipment.name].</span>")
-	chassis.visible_message("[src] raises [equipment.name]")
+	chassis.visible_message("[chassis] raises [equipment.name]")
 	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())
