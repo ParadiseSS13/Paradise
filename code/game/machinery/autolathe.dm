@@ -86,7 +86,6 @@
 	// Allows screwdrivers to be recycled on harm intent
 	if(I.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent == INTENT_HARM)
 		return COMPONENT_CANCEL_TOOLACT
-	return
 
 /obj/machinery/autolathe/interact(mob/user)
 	if(shocked && !(stat & NOPOWER))
