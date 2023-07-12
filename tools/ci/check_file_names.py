@@ -5,6 +5,8 @@ from pathlib import Path
 file_name_map = defaultdict(list)
 
 for file in Path(".").glob("**/*.dm"):
+  if "modular_ss220" in str(file):
+    continue
   file_name_map[file.name].append(file)
 
 def main():
