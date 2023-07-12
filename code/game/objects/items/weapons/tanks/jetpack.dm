@@ -171,8 +171,6 @@
 	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank = null
 	var/mob/living/carbon/human/cur_user
-	var/req_suit_type = /obj/item/clothing/suit/space/hardsuit
-	var/req_suit_name = "hardsuit"
 
 /obj/item/tank/jetpack/suit/New()
 	..()
@@ -186,10 +184,9 @@
 	. = ..(user, show_contents_info = FALSE)
 
 /obj/item/tank/jetpack/suit/cycle(mob/user)
-	if(!istype(loc, req_suit_type))
-		to_chat(user, "<span class='warning'>[src] must be connected to a [req_suit_name]!</span>")
+	if(!istype(loc, /obj/item/clothing/suit/space))
+		to_chat(user, "<span class='warning'>[src] must be connected to your suit!</span>")
 		return
-
 	var/mob/living/carbon/human/H = user
 	if(!istype(H.s_store, /obj/item/tank))
 		to_chat(user, "<span class='warning'>You need a tank in your suit storage!</span>")
@@ -197,7 +194,7 @@
 	..(user, must_be_on_back = FALSE)
 
 /obj/item/tank/jetpack/suit/turn_on(mob/user)
-	if(!istype(loc, req_suit_type) || !ishuman(loc.loc) || loc.loc != user)
+	if(!ishuman(loc.loc) || loc.loc != user)
 		return
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
@@ -214,7 +211,7 @@
 	..()
 
 /obj/item/tank/jetpack/suit/process()
-	if(!istype(loc, req_suit_type) || !ishuman(loc.loc))
+	if(!ishuman(loc.loc))
 		turn_off(cur_user)
 		return
 	var/mob/living/carbon/human/H = loc.loc
@@ -229,8 +226,6 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "ninja_jetpack"
 	actions_types = list(/datum/action/item_action/toggle_jetpack/ninja, /datum/action/item_action/jetpack_stabilization/ninja)
-	req_suit_type = /obj/item/clothing/suit/space/space_ninja
-	req_suit_name = "ninja suit"
 
 /obj/item/tank/jetpack/suit/ninja/New()
 	. = ..()
