@@ -80,8 +80,11 @@
 	return ..()
 
 /obj/machinery/autolathe/proc/on_tool_attack(datum/source, atom/tool, mob/user)
+	var/obj/item/I = tool
+	if(!istype(I))
+		return
 	// Allows screwdrivers to be recycled on harm intent
-	if(istype(tool, /obj/item/screwdriver) && user.a_intent == INTENT_HARM)
+	if(I.tool_behaviour == TOOL_SCREWDRIVER && user.a_intent == INTENT_HARM)
 		return COMPONENT_CANCEL_TOOLACT
 	return
 
