@@ -161,15 +161,7 @@
 /obj/item/nuke_core/supermatter_sliver/process()
 	. = ..()
 	var/new_filter = isnull(get_filter("ray"))
-
-	add_filter(name = "ray", priority = 1, params = list(
-		type = "rays",
-		size = 40,
-		color = "#ffd04f",
-		factor = 6,
-		density = 20
-	))
-
+	ray_helper(1, 40,"#ffd04f", 6, 20)
 	if(new_filter)
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
