@@ -58,6 +58,9 @@
 	magical = FALSE
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/head/wizard/marisa
 	name = "Witch Hat"

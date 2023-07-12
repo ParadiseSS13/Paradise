@@ -117,6 +117,9 @@
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 	magical = TRUE
 	species_restricted = null
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -130,6 +133,9 @@
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	magical = TRUE
 	species_restricted = null
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+	)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robes"
@@ -144,6 +150,10 @@
 	var/current_charges = 3
 	var/shield_state = "shield-cult"
 	var/shield_on = "shield-cult"
+	species_restricted = null
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist hood"

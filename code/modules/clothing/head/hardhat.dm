@@ -110,6 +110,7 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/species/monkey/head.dmi',

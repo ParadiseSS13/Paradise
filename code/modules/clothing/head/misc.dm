@@ -117,6 +117,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/species/monkey/head.dmi',
@@ -287,6 +288,7 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/species/monkey/head.dmi',
@@ -486,6 +488,7 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/species/monkey/head.dmi',
@@ -525,6 +528,7 @@
 	flags_inv = HIDENAME|HIDEHEADSETS
 
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/species/monkey/head.dmi',
@@ -541,6 +545,7 @@
 	flags_inv = HIDENAME|HIDEHEADSETS
 
 	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/species/monkey/head.dmi',

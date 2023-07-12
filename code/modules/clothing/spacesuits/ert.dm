@@ -13,7 +13,8 @@
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
@@ -66,7 +67,8 @@
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
 		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/gamma
@@ -80,6 +82,9 @@
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma/commander
 	name = "elite emergency response team commander helmet"
@@ -298,6 +303,9 @@
 	see_in_dark = 8
 	HUDType = MEDHUD
 	strip_delay = 130
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+	)
 
 /obj/item/clothing/suit/space/hardsuit/deathsquad
 	name = "deathsquad suit"
@@ -320,7 +328,8 @@
 		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
 		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
 		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Stok" = 'icons/mob/species/monkey/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
 	)
 /obj/item/clothing/suit/space/ert_eva_amber
 	name = "ERT Amber Spacesuit"

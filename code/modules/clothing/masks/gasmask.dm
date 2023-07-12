@@ -161,6 +161,9 @@
 	desc = "A colorful clown mask for the clown that loves to dazzle and impress. Its form can be changed by using it in your hand."
 	icon_state = "rainbow"
 	item_state = "rainbow"
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+	)
 
 /obj/item/clothing/mask/gas/clownwiz
 	name = "wizard clown wig and mask"
