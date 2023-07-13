@@ -263,8 +263,10 @@
 	if(!ishuman(M))
 		return
 
-	if(over_object == M || istype(over_object, /obj/screen))
-		if(!remove_item_from_storage(M))
+	if(over_object == M)
+		M.put_in_hands(src)
+	if(istype(over_object, /obj/screen))
+		if(!remove_item_from_storage(get_turf(M)))
 			M.unEquip(src)
 		if(over_object != M)
 			switch(over_object.name)
@@ -272,11 +274,8 @@
 					M.put_in_r_hand(src)
 				if("l_hand")
 					M.put_in_l_hand(src)
-		else
-			M.put_in_hands(src)
-
-		add_fingerprint(M)
-		usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+	add_fingerprint(M)
+	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/pack
 	name = "card pack"
