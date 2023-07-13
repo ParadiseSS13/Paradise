@@ -317,6 +317,7 @@
 	. = ..()
 	stored_ammo.Cut()
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
+	update_mat_value()
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
@@ -495,6 +496,7 @@
 
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"
+	materials = list(MAT_METAL = 500)
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	caliber = "foam_force"
 
