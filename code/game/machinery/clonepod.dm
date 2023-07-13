@@ -15,6 +15,10 @@
 
 /obj/machinery/clonepod/Initialize(mapload)
 	. = ..()
+
+	if(!console && mapload)
+		console = pick(locate(/obj/machinery/computer/cloning, orange(5, src))) //again, there shouldn't be multiple consoles, mappers
+
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)

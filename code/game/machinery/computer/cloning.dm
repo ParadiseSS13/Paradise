@@ -16,6 +16,17 @@
 /obj/machinery/computer/cloning/Initialize(mapload)
 	. = ..()
 
+	if(pods && scanner)
+		return
+
+	if(!mapload)
+		return //cloning setups built by players need to be linked manually
+
+	for(var/pod in locate(/obj/machinery/clonepod, orange(5, src)))
+		pods += pod
+
+	scanner = pick(locate(/obj/machinery/clonescanner, orange(5, src)))
+
 /obj/machinery/computer/cloning/Destroy()
 	return ..()
 
@@ -63,7 +74,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
-	switch(alert(user, "What machine to interact with?", "TGUI Stand-In", "Cloning Pod", "Action 2"))
+	switch(alert(user, "What machine to interact with?", "TGUI Stand-In", "Cloning Pod", "Cloning Scanner"))
 		if("Cloning Pod")
 	//ui_interact(user)
 

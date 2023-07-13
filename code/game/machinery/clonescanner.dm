@@ -64,6 +64,10 @@
 
 /obj/machinery/clonescanner/Initialize(mapload)
 	. = ..()
+
+	if(!console && mapload) //this could be varedited in in mapping, maybe?
+		console = pick(locate(/obj/machinery/computer/cloning, orange(5, src))) //yes, it's random, but there shouldn't be multiple consoles anyways
+
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -100,6 +104,11 @@
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	remove(occupant)
+
+/obj/machinery/clonescanner/relaymove(mob/user)
+	if(user.stat)
+		return
+	remove(user)
 
 /obj/machinery/clonescanner/proc/can_scan(mob/living/carbon/human/scanned)
 	if(HAS_TRAIT(scanned, TRAIT_BADDNA) || HAS_TRAIT(scanned, TRAIT_GENELESS)) //jimkil TODO: upgraded scanners able to scan husks
@@ -141,11 +150,15 @@
 	return scan_result
 
 /obj/machinery/clonescanner/proc/insert(mob/living/carbon/human/inserted)
+	if(!istype(inserted))
+		return
 	inserted.forceMove(src)
 	occupant = inserted
 	occupant.notify_ghost_cloning()
 
 /obj/machinery/clonescanner/proc/remove(mob/living/carbon/human/removed)
+	if(!istype(removed))
+		return
 	removed.forceMove(loc)
 	occupant = null
 
