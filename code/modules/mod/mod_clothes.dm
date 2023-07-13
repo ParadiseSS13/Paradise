@@ -12,7 +12,8 @@
 	cold_protection = HEAD
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_helmets.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
+		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi'
 		)
 
 /obj/item/clothing/suit/mod
@@ -35,7 +36,8 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	hide_tail_by_species = list("modsuit")
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
+		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi'
 		)
 
 
@@ -52,7 +54,8 @@
 	heat_protection = HANDS|ARMS
 	cold_protection = HANDS|ARMS
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
+		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi'
 		)
 
 
@@ -69,7 +72,8 @@
 	heat_protection = FEET|LEGS
 	cold_protection = FEET|LEGS
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
+		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi'
 		)
 	var/magbooted
 
