@@ -255,6 +255,11 @@
 		S.handle_item_insertion(src)
 		return 1
 
+	S = M.get_item_by_slot(slot_wear_id)
+	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in a wallet
+		S.handle_item_insertion(src)
+		return 1
+
 	S = M.get_item_by_slot(slot_belt)
 	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in belt
 		S.handle_item_insertion(src)

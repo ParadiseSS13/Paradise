@@ -34,7 +34,7 @@
 	name = "syndicate teleporter"
 	desc = "A strange syndicate version of a cult veil shifter. Warranty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "syndi-tele"
+	icon_state = "syndi-tele-4"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 4
@@ -42,6 +42,13 @@
 	flags = CONDUCT
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
+	var/list/icons_charges = list(
+		"syndi-tele-0",
+		"syndi-tele-1",
+		"syndi-tele-2",
+		"syndi-tele-3",
+		"syndi-tele-4",
+	)
 	var/tp_range = 8
 	var/inner_tp_range = 3
 	var/charges = 4
@@ -67,6 +74,7 @@
 /obj/item/teleporter/process()
 	if(prob(10) && charges < max_charges)
 		charges++
+		update_icon_charges()
 
 /obj/item/teleporter/emp_act(severity)
 	var/teleported_something = FALSE
@@ -86,6 +94,12 @@
 				visible_message("<span class='danger'>[src] activates and blinks out of existence!</span>")
 				do_sparks(2, 1, src)
 				qdel(src)
+
+/obj/item/teleporter/proc/update_icon_charges()
+	if(charges + 1 > length(icons_charges))
+		icon_state = initial(icon_state)
+		return
+	icon_state = icons_charges[charges + 1]
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	dir_correction(user)
@@ -119,6 +133,7 @@
 			to_chat(M, "<span class='danger'>[src] will not work here!</span>")
 		if(charges > 0) //While we want EMP triggered teleports to drain charge, we also do not want it to go negative charge, as such we need this check here
 			charges--
+			update_icon_charges()
 		var/turf/destination = pick(turfs)
 		if(tile_check(destination) || flawless) // Why is there so many bloody floor types
 			var/turf/fragging_location = destination
