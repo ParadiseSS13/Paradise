@@ -53,7 +53,7 @@
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")
 	else if(!message)
-		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
+		input = sanitize(copytext_char(input(src,"Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
 	else
 		input = message
 

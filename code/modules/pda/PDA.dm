@@ -393,7 +393,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "The PDA softly beeps.")
 		close(user)
 		return TRUE
-	ttone = sanitize(copytext(new_tone, 1, 20))
+	ttone = sanitize(copytext_char(new_tone, 1, 20))
 	return TRUE
 
 /obj/item/pda/process()

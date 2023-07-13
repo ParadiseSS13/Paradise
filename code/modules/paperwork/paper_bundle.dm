@@ -201,7 +201,7 @@
 	. = ..()
 
 /obj/item/paper_bundle/proc/rename(mob/user)
-	var/n_name = sanitize(copytext(input(user, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	var/n_name = sanitize(copytext_char(input(user, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	if((loc == user && !user.stat))
 		name = "[(n_name ? "[n_name]" : "paper bundle")]"
 

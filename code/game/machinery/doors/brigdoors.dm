@@ -371,7 +371,7 @@
 			update_icon(UPDATE_ICON_STATE)
 		if("restart_timer")
 			if(timing)
-				var/reset_reason = sanitize(copytext(input(usr, "Reason for resetting timer:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
+				var/reset_reason = sanitize(copytext_char(input(usr, "Reason for resetting timer:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
 				if(!reset_reason)
 					to_chat(usr, "<span class='warning'>Cancelled reset: reason field is required.</span>")
 					return FALSE

@@ -106,7 +106,7 @@
 	onclose(usr, "Photo[UID()]")
 
 /obj/item/photo/proc/rename(mob/user)
-	var/n_name = sanitize(copytext(input(user, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	var/n_name = sanitize(copytext_char(input(user, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	//loc.loc check is for making possible renaming photos in clipboards
 	if(( (loc == user || (loc.loc && loc.loc == user)) && !user.stat))
 		name = "[(n_name ? "[n_name]" : "photo")]"
