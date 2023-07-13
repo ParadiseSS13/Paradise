@@ -10458,6 +10458,8 @@
 /area/medical/surgeryobs)
 "cgW" = (
 /obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/table,
+/obj/item/pen/gray,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -19785,10 +19787,10 @@
 /area/crew_quarters/kitchen)
 "eax" = (
 /obj/structure/table/reinforced,
-/obj/item/circuitboard/mecha/pod,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/broken_device,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -20627,6 +20629,15 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/pool)
+"ejp" = (
+/obj/structure/chair/sofa/bench{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/hallway/primary/port)
 "ejt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -23355,6 +23366,7 @@
 	layer = 4;
 	pixel_x = -32
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -38565,6 +38577,13 @@
 	icon_state = "dark"
 	},
 /area/toxins/storage)
+"hQI" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/hallway/primary/port)
 "hQP" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -42469,6 +42488,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "iDF" = (
@@ -50521,6 +50541,15 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/storage)
+"kiB" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
+	},
+/area/hallway/primary/port)
 "kiF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -59850,6 +59879,7 @@
 	name = "west bump";
 	pixel_x = -30
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -61366,6 +61396,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -70926,15 +70957,14 @@
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "opt" = (
-/obj/structure/closet{
-	name = "Evidence Closet"
+/obj/structure/chair/sofa/bench/left{
+	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 1
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
 	},
-/obj/effect/spawner/lootdrop/armory_contraband,
-/turf/simulated/floor/plating,
-/area/security/evidence)
+/area/hallway/primary/port)
 "opx" = (
 /obj/structure/cable/cyan{
 	d2 = 2;
@@ -74033,6 +74063,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "oVi" = (
@@ -88038,6 +88069,8 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cans/cola,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -104517,6 +104550,15 @@
 	icon_state = "delivery"
 	},
 /area/hallway/primary/starboard)
+"vaN" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/hallway/primary/port)
 "vaO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -114733,12 +114775,9 @@
 	},
 /area/library)
 "wXw" = (
-/obj/structure/closet{
-	name = "Evidence Closet"
-	},
-/obj/effect/spawner/lootdrop/armory_contraband,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
-/area/security/evidence)
+/area/maintenance/port2)
 "wXD" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	external_pressure_bound = 0;
@@ -137624,7 +137663,7 @@ uKj
 rzS
 vwX
 cCz
-wXw
+rXn
 nBh
 uTk
 wYH
@@ -137884,7 +137923,7 @@ qxZ
 qxZ
 nBh
 iQm
-lNm
+wXw
 xkL
 rWM
 kxj
@@ -138650,7 +138689,7 @@ xNe
 nBh
 uBC
 lxT
-opt
+vwX
 cQH
 rXn
 nBh
@@ -145044,14 +145083,14 @@ iDD
 oVf
 rMm
 eLg
-jjP
-doh
-jjP
-doh
+hQI
+opt
+ejp
+kiB
 cgW
 mbN
-jjP
-doh
+vaN
+kiB
 mre
 doh
 jjP
