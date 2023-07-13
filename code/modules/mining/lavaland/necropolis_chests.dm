@@ -441,7 +441,7 @@
 	return
 
 /obj/item/organ/internal/cyberimp/arm/katana/Retract()
-	var/obj/item/cursed_katana/katana = holder
+	var/obj/item/cursed_katana/katana = active_item
 	if(!katana || katana.shattered)
 		return FALSE
 	if(!katana.drew_blood)
@@ -678,7 +678,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/organ/internal/cyberimp/arm/katana/O in H.internal_organs)
-			if(O.holder == src)
+			if(O.active_item == src)
 				O.Retract()
 	shattered = TRUE
 	addtimer(CALLBACK(src, PROC_REF(coagulate), user), 45 SECONDS)

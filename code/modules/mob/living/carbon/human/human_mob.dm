@@ -2172,3 +2172,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, inputs, cooldown)
+
+/mob/living/carbon/human/limb_attack_self()
+	var/obj/item/organ/external/arm = hand ? get_organ(BODY_ZONE_L_ARM) : get_organ(BODY_ZONE_R_ARM)
+	if(arm)
+		arm.attack_self(src)
+	return ..()
