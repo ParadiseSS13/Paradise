@@ -48,12 +48,6 @@
 	. = ..()
 	. += "<span class='notice'>This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.</span>"
 
-/obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/analyzer))
-		atmosanalyzer_scan(parent.air, user)
-		return
-	return ..()
-
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null
 
@@ -71,6 +65,11 @@
 
 /obj/machinery/atmospherics/pipe/return_air()
 	RETURN_TYPE(/datum/gas_mixture)
+	if(!parent)
+		return 0
+	return parent.air
+
+/obj/machinery/atmospherics/pipe/return_analyzable_air()
 	if(!parent)
 		return 0
 	return parent.air

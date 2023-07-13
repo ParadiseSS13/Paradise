@@ -101,6 +101,9 @@
 	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
+/obj/machinery/atmospherics/portable/scrubber/return_analyzable_air()
+	return air_contents
+
 /obj/machinery/atmospherics/portable/scrubber/attack_ai(mob/user)
 	add_hiddenprint(user)
 	return attack_hand(user)
@@ -182,12 +185,6 @@
 
 /obj/machinery/atmospherics/portable/scrubber/huge/update_icon_state()
 	icon_state = "scrubber:[on]"
-
-/obj/machinery/atmospherics/portable/scrubber/huge/attackby(obj/item/W, mob/user, params)
-	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
-		atmosanalyzer_scan(air_contents, user)
-		return
-	return ..()
 
 /obj/machinery/atmospherics/portable/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE
