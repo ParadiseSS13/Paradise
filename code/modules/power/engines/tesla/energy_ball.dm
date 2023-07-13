@@ -32,9 +32,8 @@
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
+	var/list/shocked_things = list()
 	var/obj/singularity/energy_ball/parent_energy_ball
-	/// All the turfs in the chosen area
-	var/list/target_area_turfs = list()
 	/// Turf where the tesla will move to if it's loose
 	var/turf/target_turf
 	/// Direction we have to go to go towards the target turf
@@ -76,7 +75,6 @@
 		GLOB.poi_list -= src
 
 	QDEL_LIST_CONTENTS(orbiting_balls)
-	target_area_turfs.Cut()
 	return ..()
 
 /obj/singularity/energy_ball/admin_investigate_setup()
@@ -93,14 +91,19 @@
 
 		pixel_x = 0
 		pixel_y = 0
-		tesla_zap(src, 3, TESLA_DEFAULT_POWER)
+		shocked_things.Cut(1, length(shocked_things) / 1.3)
+		var/list/shocking_info = list()
+		tesla_zap(src, 3, TESLA_DEFAULT_POWER, shocked_targets = shocking_info)
 
 		pixel_x = -32
 		pixel_y = -32
 		for(var/ball in orbiting_balls)
 			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
 			//We zap off the main ball instead of ourselves to make things looks proper
-			tesla_zap(src, range, TESLA_MINI_POWER / 7 * range)
+			var/list/temp_shock = list()
+			tesla_zap(src, range, TESLA_MINI_POWER / 7 * range, shocked_targets = temp_shock)
+			shocking_info += temp_shock
+		shocked_things += shocking_info
 	else
 		energy = 0 // ensure we dont have miniballs of miniballs //But it'll be cool broooooooooooooooo
 
@@ -109,7 +112,7 @@
 	if(length(orbiting_balls))
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
-/obj/singularity/energy_ball/proc/move_the_basket_ball(where_to_move)
+/obj/singularity/energy_ball/proc/move_the_basket_ball()
 	for(var/i in 1 to length(GLOB.field_generator_fields))
 		var/temp_distance = get_dist(src, GLOB.field_generator_fields[i])
 		if(temp_distance <= 15)
@@ -139,7 +142,7 @@
 
 /obj/singularity/energy_ball/proc/find_the_basket()
 	var/area/where_to_move = pick(all_possible_areas) // Grabs a random area that isn't restricted
-	target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
+	var/turf/target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
 	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
 	return
 
@@ -379,8 +382,10 @@
 	else
 		power = closest_atom.zap_act(power, zap_flags)
 	if(prob(20)) //I know I know
-		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
-		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags)
+		var/list/shocked_copy = shocked_targets.Copy()
+		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_copy) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
+		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_targets)
+		shocked_targets += shocked_copy
 	else
 		tesla_zap(closest_atom, next_range, power, zap_flags)
 
