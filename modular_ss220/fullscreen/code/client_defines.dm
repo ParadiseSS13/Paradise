@@ -1,0 +1,2 @@
+/client
+	var/fullscreen = FALSE
