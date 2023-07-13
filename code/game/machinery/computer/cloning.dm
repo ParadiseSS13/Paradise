@@ -102,9 +102,14 @@
 
 	switch(alert(user, "What machine to interact with?", "TGUI Stand-In", "Cloning Pod", "Cloning Scanner"))
 		if("Cloning Pod")
-			var/obj/machinery/clonepod/pod = pick(pods)
-			var/list/cost = pod.get_cloning_cost(scanner.scan(scanner.occupant), healthy_data)
-			to_chat(user, "Biomass: [cost[1]], Sanguine Reagent: [cost[2]], Osseous Reagent: [cost[3]]")
+			switch(alert(user, "What proc to test?", "TGUI Stand-In", "get_cloning_cost()", "start_cloning()"))
+				if("get_cloning_cost()")
+					var/obj/machinery/clonepod/pod = pick(pods)
+					var/list/cost = pod.get_cloning_cost(scanner.scan(scanner.occupant), healthy_data)
+					to_chat(user, "Biomass: [cost[1]], Sanguine Reagent: [cost[2]], Osseous Reagent: [cost[3]]")
+				if("start_cloning()")
+					var/obj/machinery/clonepod/pod = pick(pods)
+					pod.start_cloning(scanner.scan(scanner.occupant), healthy_data)
 	//ui_interact(user)
 
 /*

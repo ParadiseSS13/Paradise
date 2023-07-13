@@ -39,6 +39,8 @@
 	var/datum/cloning_data/patient_data
 	//The cloning_data datum which shows the status we want the patient to be in.
 	var/datum/cloning_data/desired_data
+	//A list of limbs which have not yet been grown by the cloner.
+	var/list/limbs_to_grow = list()
 
 /obj/machinery/clonepod/Initialize(mapload)
 	. = ..()
@@ -84,14 +86,28 @@
 
 //Process
 /obj/machinery/clonepod/process()
-	//Basically just isolate_reagent() with extra functionality.
-	for(var/A in reagents.reagent_list)
-		var/datum/reagent/R = A
-		if(!(R.id in VALID_REAGENTS))
-			reagents.del_reagent(R.id)
-			reagents.update_total()
-			atom_say("Purged contaminant from chemical storage.")
 
+	//If we're cloning someone, we haven't generated a list of limbs to grow, and we're before any possibility of not having any limbs left to grow.
+	if(currently_cloning && !length(limbs_to_grow) && clone_progress < 20)
+		limb_loop:
+			for(var/limb in desired_data.limbs)
+				if(desired_data.limbs[limb][4])
+					continue //We're not growing this limb, since in the desired state it's missing.
+
+				var/obj/item/organ/external/limb_typepath = patient_data.genetic_info.species.has_limbs[limb]["path"]
+				if(initial(limb_typepath.vital)) //I hate everything about this check, but it sees if the current organ is vital..
+					continue //and continues if it is, since the proc that creates the clone mob will make these all at once.
+
+				for(var/organ in desired_data.organs)
+					var/obj/item/organ/external/organ_typepath = patient_data.genetic_info.species.has_organ[organ]
+					if(!initial(organ_typepath.vital)) //I hate this check too. We loop through all the organs the cloned species should have.
+						continue //If it's not a vital organ, continue looping through the organs.
+					if(initial(organ_typepath.parent_organ) == limb)
+						continue limb_loop //If it's a vital organ, and belongs to the current limb, we don't want this limb.
+
+				limbs_to_grow += limb //It's not supposed to be missing and it's not vital - so we'll be growing it.
+
+	//Actually grow clones (this is the fun part of the proc!)
 	if(currently_cloning)
 		clone_progress += speed_modifier
 		switch(clone_progress)
@@ -102,9 +118,17 @@
 			if(31 to 40)
 				return
 
+	//Basically just isolate_reagent() with extra functionality.
+	for(var/A in reagents.reagent_list)
+		var/datum/reagent/R = A
+		if(!(R.id in VALID_REAGENTS))
+			reagents.del_reagent(R.id)
+			reagents.update_total()
+			atom_say("Purged contaminant from chemical storage.")
+
 //Clonepod-specific procs
 //This just begins the cloning process. Called by the cloning console.
-/obj/machinery/clonepod/proc/begin_cloning(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
+/obj/machinery/clonepod/proc/start_cloning(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
 	currently_cloning = TRUE
 	patient_data = _patient_data
 	desired_data = _desired_data
