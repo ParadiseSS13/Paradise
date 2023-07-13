@@ -12,20 +12,45 @@
 	var/list/pods = list()
 	//Our linked cloning scanner.
 	var/obj/machinery/clonescanner/scanner
+	//datum for testing
+	var/datum/cloning_data/healthy_data = new /datum/cloning_data/
 
 /obj/machinery/computer/cloning/Initialize(mapload)
 	. = ..()
 
-	if(pods && scanner)
+	if(length(pods) && scanner)
 		return
 
 	if(!mapload)
 		return //cloning setups built by players need to be linked manually
 
-	for(var/pod in locate(/obj/machinery/clonepod, orange(5, src)))
-		pods += pod
+	pods += locate(/obj/machinery/clonepod, orange(5, src))
 
-	scanner = pick(locate(/obj/machinery/clonescanner, orange(5, src)))
+	scanner = locate(/obj/machinery/clonescanner, orange(5, src))
+
+	healthy_data.limbs = list(
+		"head"   = list(0, 0, 0, FALSE),
+		"chest"  = list(0, 0, 0, FALSE),
+		"groin"  = list(0, 0, 0, FALSE),
+		"r_arm"  = list(0, 0, 0, FALSE),
+		"r_hand" = list(0, 0, 0, FALSE),
+		"l_arm"  = list(0, 0, 0, FALSE),
+		"l_hand" = list(0, 0, 0, FALSE),
+		"r_leg"  = list(0, 0, 0, FALSE),
+		"r_foot" = list(0, 0, 0, FALSE),
+		"l_leg"  = list(0, 0, 0, FALSE),
+		"l_foot" = list(0, 0, 0, FALSE)
+	)
+
+	healthy_data.organs = list(
+		"heart"    = list(0, 0, FALSE),
+		"lungs"    = list(0, 0, FALSE),
+		"liver"    = list(0, 0, FALSE),
+		"kidneys"  = list(0, 0, FALSE),
+		"brain"    = list(0, 0, FALSE),
+		"appendix" = list(0, 0, FALSE),
+		"eyes"     = list(0, 0, FALSE)
+	)
 
 /obj/machinery/computer/cloning/Destroy()
 	return ..()
@@ -45,6 +70,7 @@
 		var/obj/machinery/clonepod/buffer_pod = M.buffer
 		if(buffer_pod.console == src)
 			to_chat(user, "<span class='warning'>[M.buffer] is already linked!</span>")
+			return
 
 		pods += M.buffer
 		buffer_pod.console = src
@@ -76,6 +102,9 @@
 
 	switch(alert(user, "What machine to interact with?", "TGUI Stand-In", "Cloning Pod", "Cloning Scanner"))
 		if("Cloning Pod")
+			var/obj/machinery/clonepod/pod = pick(pods)
+			var/list/cost = pod.get_cloning_cost(scanner.scan(scanner.occupant), healthy_data)
+			to_chat(user, "Biomass: [cost[1]], Sanguine Reagent: [cost[2]], Osseous Reagent: [cost[3]]")
 	//ui_interact(user)
 
 /*

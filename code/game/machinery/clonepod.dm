@@ -1,5 +1,19 @@
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent", "mutadone", "rezadone")
 
+//Balance tweaks go here vv
+#define BIOMASS_BASE_COST 250
+//These ones are also used for dead limbs/organs
+#define BIOMASS_NEW_LIMB_COST 200 //A limb can have 100 brute damage and 100 burn damage, so 100*the values for those gets 200
+#define BIOMASS_NEW_ORGAN_COST 100
+#define BIOMASS_BURN_WOUND_COST 25
+//These 3 are for every point of the respective damage type
+#define BIOMASS_BRUTE_COST 0.5
+#define BIOMASS_BURN_COST 0.5
+#define BIOMASS_ORGAN_DAMAGE_COST 1
+#define SANGUINE_IB_COST 5
+#define OSSEOUS_BONE_COST 5
+
+
 /obj/machinery/clonepod
 	anchored = TRUE
 	name = "cloning pod"
@@ -10,8 +24,21 @@
 
 	//So that chemicals can be loaded into the pod.
 	container_type = OPENCONTAINER
-	//The linked cloning console
+	//The linked cloning console.
 	var/obj/machinery/computer/cloning/console
+	//Whether or not we're cloning someone.
+	var/currently_cloning = FALSE
+	//The progress on the current clone.
+	//Measured from 0-100, where 0-20 has no body, and 21-100 gradually builds on limbs every 10. (r_arm, r_hand, l_arm, l_hand, r_leg, r_foot, l_leg, l_foot)
+	var/clone_progress = 0
+	//The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
+	var/speed_modifier = 1
+	//Our price modifier, multiplied with the base cost to get the true cost.
+	var/price_modifier = 1
+	//The cloning_data datum which shows the patient's current status.
+	var/datum/cloning_data/patient_data
+	//The cloning_data datum which shows the status we want the patient to be in.
+	var/datum/cloning_data/desired_data
 
 /obj/machinery/clonepod/Initialize(mapload)
 	. = ..()
@@ -63,9 +90,86 @@
 		if(!(R.id in VALID_REAGENTS))
 			reagents.del_reagent(R.id)
 			reagents.update_total()
-			atom_say("Purged contaminant \"[R.name]\" from chemical storage.")
+			atom_say("Purged contaminant from chemical storage.")
+
+	if(currently_cloning)
+		clone_progress += speed_modifier
+		switch(clone_progress)
+			if(0 to 20)
+				return
+			if(21 to 30)
+				return
+			if(31 to 40)
+				return
 
 //Clonepod-specific procs
+//This just begins the cloning process. Called by the cloning console.
+/obj/machinery/clonepod/proc/begin_cloning(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
+	currently_cloning = TRUE
+	patient_data = _patient_data
+	desired_data = _desired_data
+
+//This gets the cost of cloning, in a list with the form (biomass, sanguine reagent, osseous reagent).
+/obj/machinery/clonepod/proc/get_cloning_cost(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
+	var/datum/cloning_data/p_data = _patient_data
+	var/datum/cloning_data/d_data = _desired_data
+	//Biomass, sanguine reagent, osseous reagent
+	var/list/cloning_cost = list((price_modifier*BIOMASS_BASE_COST), 0, 0)
+
+	if(!istype(p_data) || !istype(d_data))
+		return //this shouldn't happen but whatever
+
+	for(var/limb in p_data.limbs)
+		var/list/patient_limb_info = p_data.limbs[limb]
+		var/patient_limb_status = patient_limb_info[3]
+
+		var/list/desired_limb_info = d_data.limbs[limb]
+		var/desired_limb_status = desired_limb_info[3]
+
+		if(p_data.limbs[limb][4] && !d_data.limbs[limb][4]) //if the limb is missing on the patient and we want it to not be
+			cloning_cost[1] += BIOMASS_NEW_LIMB_COST * price_modifier
+			continue //then continue - since we're replacing the limb, we don't need to fix its damages
+
+		if((patient_limb_status & ORGAN_DEAD) && !(desired_limb_status & ORGAN_DEAD)) //if the patient's limb is dead and we don't want it to be
+			cloning_cost[1] += BIOMASS_NEW_LIMB_COST * price_modifier
+			continue //as above
+
+		var/brute_damage_diff = patient_limb_info[1] - desired_limb_info[1]
+		cloning_cost[1] += BIOMASS_BRUTE_COST * brute_damage_diff * price_modifier
+
+		var/burn_damage_diff = patient_limb_info[2] - desired_limb_info[2]
+		cloning_cost[1] += BIOMASS_BURN_COST * burn_damage_diff * price_modifier
+
+		if((patient_limb_status & ORGAN_BURNT) && !(desired_limb_status & ORGAN_BURNT)) //if the patient's limb has a burn wound and we don't want it to
+			cloning_cost[1] += BIOMASS_BURN_WOUND_COST * price_modifier
+
+		if((patient_limb_status & ORGAN_INT_BLEEDING) && !(desired_limb_status & ORGAN_INT_BLEEDING)) //if the patient's limb has IB and we want it to not be
+			cloning_cost[2] += SANGUINE_IB_COST * price_modifier
+
+		if((patient_limb_status & ORGAN_BROKEN) && !(desired_limb_status & ORGAN_BROKEN)) //if the patient's limb is broken and we want it to not be
+			cloning_cost[3] += OSSEOUS_BONE_COST * price_modifier
+
+	for(var/organ in p_data.organs)
+		var/list/patient_organ_info = p_data.organs[organ]
+		var/patient_organ_status = patient_organ_info[2]
+
+		var/list/desired_organ_info = d_data.organs[organ]
+		var/desired_organ_status = desired_organ_info[2]
+
+		if(organ == "heart")
+			continue //The heart is always replaced in cloning because heart necrosis is why defibs stop working after 5 minutes.
+					 //The cost of this is factored into BIOMASS_BASE_COST, so we don't account for it here.
+
+		if((desired_organ_status & ORGAN_DEAD) && !(patient_organ_status & ORGAN_DEAD)) //if the patient's organ is dead and we want it to not be
+			cloning_cost[1] += BIOMASS_NEW_ORGAN_COST * price_modifier
+			continue //.. then continue, because if we replace the organ we don't need to fix its damages
+
+		var/organ_damage_diff = patient_organ_info[1] - desired_organ_info[1]
+		cloning_cost[1] += BIOMASS_ORGAN_DAMAGE_COST * organ_damage_diff * price_modifier
+
+	cloning_cost[1] = round(cloning_cost[1]) //no decimal-point amounts of biomass!
+
+	return cloning_cost
 
 //Attackby and x_acts
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
@@ -132,6 +236,16 @@
 		. += "panel_open"
 
 #undef VALID_REAGENTS
+
+#undef BIOMASS_BASE_COST
+#undef BIOMASS_NEW_LIMB_COST
+#undef BIOMASS_NEW_ORGAN_COST
+#undef BIOMASS_BURN_WOUND_COST
+#undef BIOMASS_BRUTE_COST
+#undef BIOMASS_BURN_COST
+#undef BIOMASS_ORGAN_DAMAGE_COST
+#undef SANGUINE_IB_COST
+#undef OSSEOUS_BONE_COST
 /*
  *	Manual -- A big ol' manual. jimkil TODO: rewrite this
  */
