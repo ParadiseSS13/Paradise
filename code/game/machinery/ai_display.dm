@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 /obj/machinery/ai_status_display/examine(mob/user)
 	. = ..()
 	if(mode == AI_DISPLAY_MODE_DELTA)
-		var/message = GLOB.bomb_set ? "<span class='boldwarning'>Its a countdown, and going down rapidly!!!</span>" : "<span class='notice'>Its a warning signal of some kind, this cannot be good.</span>"
+		var/message = GLOB.bomb_set ? "<span class='boldwarning'>It's a countdown, and going down rapidly!!!</span>" : "<span class='notice'>It's a warning signal of some kind, this cannot be good.</span>"
 		. += message
 
 /obj/machinery/ai_status_display/attack_ai(mob/living/silicon/ai/user)
