@@ -130,12 +130,20 @@
 	if(!data || !mix_data)
 		return
 
-	data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc coagulated
-	if(data["species"] != mix_data["species"] && (data["species_only"] || mix_data["species_only"]))
+	var/same_species = data["species"] == mix_data["species"]
+	var/species_unique = data["species_only"] || mix_data["species_only"]
+	var/species_mismatch = species_unique && !same_species
+	var/type_mismatch = data["blood_type"] != mix_data["blood_type"]
+
+	if(mix_data["blood_color"])
+		color = mix_data["blood_color"]
+	data["cloneable"] = 0 // On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned
+
+	if(type_mismatch || species_mismatch)
 		data["species"] = "Coagulated blood"
 		data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
-		data["species_only"] = TRUE
-	else if(data["species"] != mix_data["species"])
+		data["species_only"] = species_unique
+	else if(!same_species) // Same blood type, species-agnostic, but we're still mixing blood of different species
 		data["species"] = "Mixed humanoid blood"
 
 	if(data["viruses"] || mix_data["viruses"])
@@ -157,9 +165,6 @@
 				if(!istype(D, /datum/disease/advance))
 					preserve += D
 			data["viruses"] = preserve
-
-	if(mix_data["blood_color"])
-		color = mix_data["blood_color"]
 
 /datum/reagent/blood/on_update(atom/A)
 	if(data["blood_color"])
