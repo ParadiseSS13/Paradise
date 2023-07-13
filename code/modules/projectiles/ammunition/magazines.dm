@@ -184,6 +184,9 @@
 
 ///////////EXTERNAL MAGAZINES////////////////
 
+/obj/item/ammo_box/magazine
+	materials = list(MAT_METAL = 2000)
+
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
 	desc = "A gun magazine."
@@ -329,23 +332,19 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 21
-	materials = list(MAT_METAL = 2000)
 	multi_sprite_step = 4
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
 	name = "\improper SMG magazine (Armour Piercing 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/ap
-	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/toxin
 	name = "\improper SMG magazine (Toxin Tipped 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/tox
-	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/fire
 	name = "\improper SMG Magazine (Incendiary 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
-	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/apsm10mm
 	name = "stechkin aps magazine (10mm)"

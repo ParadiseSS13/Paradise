@@ -454,17 +454,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
 
 	var/key = usr.key
-	addtimer(CALLBACK(src, PROC_REF(finish_machine), key, amount, enough_materials, machine, being_built, efficient_mats), time_to_construct)
+	addtimer(CALLBACK(src, PROC_REF(finish_machine), key, amount, enough_materials, machine, being_built, coeff), time_to_construct)
 
-/obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials,  obj/machinery/r_n_d/machine, datum/design/being_built, list/efficient_mats)
+/obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
 	if(machine)
 		if(enough_materials && being_built)
 			for(var/i in 1 to amount)
-				var/obj/item/new_item = new being_built.build_path(src)
+				var/obj/new_item = new being_built.build_path(src)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
-				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
-					new_item.materials = efficient_mats.Copy()
+				if(isitem(new_item) && !istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
+					var/obj/item/new_item_item = new_item
+					new_item_item.update_materials_coeff(coeff)
 				if(being_built.locked)
 					var/obj/item/storage/lockbox/research/L = new/obj/item/storage/lockbox/research(machine.loc)
 					new_item.forceMove(L)

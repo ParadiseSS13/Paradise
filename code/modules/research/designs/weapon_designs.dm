@@ -152,7 +152,7 @@
 	id = "mag_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 10000)
+	materials = list(MAT_METAL = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/empty
 	category = list("Weapons")
 
@@ -162,7 +162,7 @@
 	id = "box_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 20500)
 	build_path = /obj/item/ammo_box/wt550
 	category = list("Weapons")
 
@@ -170,7 +170,7 @@
 	name = "WT-550 Auto Gun Armour Piercing Ammo Box (4.6x30mm AP)"
 	desc = "A box of 20 armour piercing rounds for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg_ap"
-	materials = list(MAT_METAL = 6000, MAT_SILVER = 600)
+	materials = list(MAT_METAL = 30500, MAT_SILVER = 3000)
 	build_path = /obj/item/ammo_box/wt550/wtap
 	category = list("Weapons")
 
@@ -178,7 +178,7 @@
 	name = "WT-550 Auto Gun Incendiary Ammo Box (4.6x30mm IC)"
 	desc = "A box of 20 armour piercing rounds for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg_ic"
-	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_GLASS = 1000)
+	materials = list(MAT_METAL = 30500, MAT_SILVER = 3000, MAT_GLASS = 4000)
 	build_path = /obj/item/ammo_box/wt550/wtic
 	category = list("Weapons")
 
@@ -186,7 +186,7 @@
 	name = "WT-550 Auto Gun Uranium Ammo Box (4.6x30mm TX)"
 	desc = "A box of 20 uranium tipped rounds for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg_tx"
-	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
+	materials = list(MAT_METAL = 30500, MAT_SILVER = 3000, MAT_URANIUM = 4000)
 	build_path = /obj/item/ammo_box/wt550/wttx
 	category = list("Weapons")
 
@@ -196,7 +196,7 @@
 	id = "mag_laser"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL = 4000, MAT_PLASMA = 600)
+	materials = list(MAT_METAL = 42000, MAT_PLASMA = 4000)
 	build_path = /obj/item/ammo_box/magazine/laser
 	category = list("Weapons")
 
@@ -206,7 +206,7 @@
 	id = "mag_laser"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL = 4000, MAT_PLASMA = 600)
+	materials = list(MAT_METAL = 40500, MAT_PLASMA = 4000)
 	build_path = /obj/item/ammo_box/laser
 	category = list("Weapons")
 

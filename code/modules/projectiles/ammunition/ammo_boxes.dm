@@ -1,7 +1,7 @@
 /obj/item/ammo_box/a357
 	name = "speed loader (.357)"
 	desc = "Designed to quickly reload revolvers."
-	materials = list()
+	materials = list(MAT_METAL = 2000)
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 7
 	multi_sprite_step = 1 // see: /obj/item/ammo_box/update_icon()
@@ -100,10 +100,10 @@
 /obj/item/ammo_box/shotgun
 	name = "shotgun speedloader (Slug)"
 	icon_state = "slugloader"
+	materials = list(MAT_METAL = 2000)
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 7
-	materials = list(MAT_METAL=28000)
 	multi_sprite_step = 1
 
 /obj/item/ammo_box/shotgun/buck
@@ -131,20 +131,16 @@
 	name = "shotgun speedloader (Beanbag shells)"
 	icon_state = "beanbagloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
-	materials = list(MAT_METAL=1750)
 
 /obj/item/ammo_box/shotgun/rubbershot
 	name = "shotgun speedloader (Rubbershot shells)"
 	icon_state = "rubbershotloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
-	materials = list(MAT_METAL=1750)
 
 /obj/item/ammo_box/shotgun/tranquilizer
 	name = "shotgun speedloader (Tranquilizer darts)"
 	icon_state = "tranqloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
-	materials = list(MAT_METAL=1750)
-
 
 //FOAM DARTS
 /obj/item/ammo_box/foambox
@@ -153,12 +149,10 @@
 	icon_state = "foambox"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 40
-	materials = list(MAT_METAL = 500)
 
 /obj/item/ammo_box/foambox/riot
 	icon_state = "foambox_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	materials = list(MAT_METAL = 50000)
 
 /obj/item/ammo_box/foambox/sniper
 	name = "ammo box (Foam Sniper Darts)"
@@ -166,13 +160,10 @@
 	icon_state = "foambox_sniper"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
 	max_ammo = 40
-	materials = list(MAT_METAL = 900)
 
 /obj/item/ammo_box/foambox/sniper/riot
 	icon_state = "foambox_sniper_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
-	materials = list(MAT_METAL = 90000)
-
 
 /obj/item/ammo_box/caps
 	name = "speed loader (caps)"

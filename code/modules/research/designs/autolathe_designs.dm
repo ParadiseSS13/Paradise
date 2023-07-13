@@ -443,7 +443,7 @@
 	name = "Beanbag Slug"
 	id = "beanbag_slug"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 250)
+	materials = list(MAT_METAL = 1000)
 	build_path = /obj/item/ammo_casing/shotgun/beanbag
 	category = list("initial", "Security")
 
@@ -451,7 +451,7 @@
 	name = "Rubber Shot"
 	id = "rubber_shot"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 1000)
 	build_path = /obj/item/ammo_casing/shotgun/rubbershot
 	category = list("initial", "Security")
 
@@ -651,7 +651,7 @@
 	name = "Box of Foam Darts"
 	id = "foam_dart"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 500)
+	materials = list(MAT_METAL = 900)
 	build_path = /obj/item/ammo_box/foambox
 	category = list("initial", "Miscellaneous")
 
@@ -659,7 +659,7 @@
 	name = "Box of Sniper Foam Darts"
 	id = "foam_dart_sniper"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 900)
+	materials = list(MAT_METAL = 1300)
 	build_path = /obj/item/ammo_box/foambox/sniper
 	category = list("initial", "Miscellaneous")
 
@@ -734,7 +734,7 @@
 	name = "Shotgun Dart"
 	id = "shotgun_dart"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 200)
 	build_path = /obj/item/ammo_casing/shotgun/dart
 	category = list("hacked", "Security")
 
@@ -758,7 +758,7 @@
 	name = "Foam Riot Dart"
 	id = "riot_dart"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1000) //Discount for making individually - no box = less metal!
+	materials = list(MAT_METAL = 1000)
 	build_path = /obj/item/ammo_casing/caseless/foam_dart/riot
 	category = list("hacked", "Security")
 
@@ -766,7 +766,7 @@
 	name = "Foam Riot Sniper Dart"
 	id = "riot_dart_sniper"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1800) //Discount for making individually - no box = less metal!
+	materials = list(MAT_METAL = 1800)
 	build_path = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	category = list("hacked", "Security")
 
@@ -774,7 +774,7 @@
 	name = "Foam Riot Dart Box"
 	id = "riot_darts"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50000) //Comes with 40 darts
+	materials = list(MAT_METAL = 26500)
 	build_path = /obj/item/ammo_box/foambox/riot
 	category = list("hacked", "Security")
 
@@ -782,7 +782,7 @@
 	name = "Foam Riot Sniper Dart Box"
 	id = "riot_darts_sniper"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 90000) //Comes with 40 darts
+	materials = list(MAT_METAL = 72500)
 	build_path = /obj/item/ammo_box/foambox/sniper/riot
 	category = list("hacked", "Security")
 
@@ -790,7 +790,7 @@
 	name = "Ammo Box (.357)"
 	id = "b357"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 28500)
 	build_path = /obj/item/ammo_box/b357
 	category = list("hacked", "Security")
 
@@ -798,7 +798,7 @@
 	name = "Ammo Box (10mm)"
 	id = "c10mm"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c10mm
 	category = list("hacked", "Security")
 
@@ -806,7 +806,7 @@
 	name = "Ammo Box (.45)"
 	id = "c45"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c45
 	category = list("hacked", "Security")
 
@@ -814,7 +814,7 @@
 	name = "Ammo Box (9mm)"
 	id = "c9mm"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c9mm
 	category = list("hacked", "Security")
 
