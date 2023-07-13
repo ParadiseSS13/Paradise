@@ -3,4 +3,6 @@
 
 // #include "example/_example.dme"
 
+#include "_span/_span.dme"
 #include "fullscreen/_fullscreen.dme"
+#include "title_screen/_title_screen.dme"
