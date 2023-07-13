@@ -59,6 +59,8 @@
 	var/obj/machinery/computer/cloning/console
 	//The scanner's occupant.
 	var/mob/living/carbon/human/occupant
+	//The scanner's latest scan result
+	var/datum/cloning_data/last_scan
 
 /obj/machinery/clonescanner/Initialize(mapload)
 	. = ..()
@@ -98,6 +100,45 @@
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	remove(occupant)
+
+/obj/machinery/clonescanner/proc/can_scan(mob/living/carbon/human/scanned)
+	if(HAS_TRAIT(scanned, TRAIT_BADDNA) || HAS_TRAIT(scanned, TRAIT_GENELESS)) //jimkil TODO: upgraded scanners able to scan husks
+		return FALSE
+	if(!scanned.dna)
+		return FALSE
+	if(NO_CLONESCAN in scanned.dna.species.species_traits)
+		return FALSE
+
+	return TRUE
+
+/obj/machinery/clonescanner/proc/scan(mob/living/carbon/human/scanned)
+	var/datum/cloning_data/scan_result = new /datum/cloning_data
+
+	scan_result.name = scanned.dna.real_name
+	scan_result.mind = scanned.mind
+	scan_result.genetic_info = scanned.dna.Clone()
+
+	for(var/limb in scanned.dna.species.has_limbs)
+		if(scanned.bodyparts_by_name[limb])
+			var/obj/item/organ/external/active_limb = scanned.bodyparts_by_name[limb]
+			scan_result.limbs[limb] = list(active_limb.brute_dam,
+										   active_limb.burn_dam,
+										   active_limb.status,
+										   FALSE)
+		else
+			scan_result.limbs[limb] = list(0, 0, 0, TRUE) //no damage if it's missing!
+
+	for(var/organ in scanned.dna.species.has_organ)
+		var/obj/item/organ/internal/active_organ = scanned.get_int_organ(scanned.dna.species.has_organ[organ]) //this is icky
+		if(istype(active_organ))
+			scan_result.organs[organ] = list(active_organ.damage,
+											 active_organ.status,
+											 FALSE)
+		else
+			scan_result.organs[organ] = list(0, 0, TRUE)
+
+	last_scan = scan_result
+	return scan_result
 
 /obj/machinery/clonescanner/proc/insert(mob/living/carbon/human/inserted)
 	inserted.forceMove(src)
