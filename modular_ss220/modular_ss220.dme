@@ -6,4 +6,5 @@
 #include "_span/_span.dme"
 #include "fullscreen/_fullscreen.dme"
 #include "keybindings/_keybindings.dme"
+#include "screentip_change/_screentip_change.dme"
 #include "title_screen/_title_screen.dme"
