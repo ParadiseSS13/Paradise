@@ -121,7 +121,7 @@
 	var/t = input(U, "Please enter message", name, null) as text|null
 	if(!t)
 		return
-	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
+	t = sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
 	if(!t || !istype(P))
 		return
 	if(!in_range(pda, U) && pda.loc != U)
