@@ -425,10 +425,10 @@
 		owner.adjustOxyLoss(-3)
 		revive_cost += 5
 	if(prob(75) && owner.getBruteLoss())
-		owner.adjustBruteLoss(-1.5)
+		owner.adjustBruteLoss(-2)
 		revive_cost += 15
 	if(prob(75) && owner.getFireLoss())
-		owner.adjustFireLoss(-1.5)
+		owner.adjustFireLoss(-2)
 		revive_cost += 15
 	if(prob(40) && owner.getToxLoss())
 		owner.adjustToxLoss(-1)
