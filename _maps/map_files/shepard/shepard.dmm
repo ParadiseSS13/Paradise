@@ -20629,15 +20629,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/pool)
-"ejp" = (
-/obj/structure/chair/sofa/bench{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
-/area/hallway/primary/port)
 "ejt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -28241,6 +28232,15 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/expedition)
+"fJE" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
+	},
+/area/hallway/primary/port)
 "fJU" = (
 /turf/simulated/wall,
 /area/security/vacantoffice)
@@ -38577,13 +38577,6 @@
 	icon_state = "dark"
 	},
 /area/toxins/storage)
-"hQI" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
-/area/hallway/primary/port)
 "hQP" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -50541,15 +50534,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/storage)
-"kiB" = (
-/obj/structure/chair/sofa/bench/right{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
-/area/hallway/primary/port)
 "kiF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -70957,11 +70941,9 @@
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "opt" = (
-/obj/structure/chair/sofa/bench/left{
-	dir = 4
-	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 1;
 	icon_state = "redcorner"
 	},
 /area/hallway/primary/port)
@@ -72072,6 +72054,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
+"oBT" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/hallway/primary/port)
 "oBU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -104446,6 +104437,10 @@
 	icon_state = "redcorner"
 	},
 /area/hallway/primary/central/west)
+"var" = (
+/obj/effect/landmark/spawner/nukedisc_respawn,
+/turf/simulated/floor/plating,
+/area/maintenance/port2)
 "vas" = (
 /obj/structure/sign/barber{
 	pixel_y = 30
@@ -104550,15 +104545,6 @@
 	icon_state = "delivery"
 	},
 /area/hallway/primary/starboard)
-"vaN" = (
-/obj/structure/chair/sofa/bench/left{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
-/area/hallway/primary/port)
 "vaO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -114775,9 +114761,14 @@
 	},
 /area/library)
 "wXw" = (
-/obj/effect/landmark/spawner/nukedisc_respawn,
-/turf/simulated/floor/plating,
-/area/maintenance/port2)
+/obj/structure/chair/sofa/bench/right{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
+	},
+/area/hallway/primary/port)
 "wXD" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	external_pressure_bound = 0;
@@ -120177,6 +120168,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"ybE" = (
+/obj/structure/chair/sofa/bench{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/hallway/primary/port)
 "ybI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -137923,7 +137923,7 @@ qxZ
 qxZ
 nBh
 iQm
-wXw
+var
 xkL
 rWM
 kxj
@@ -145083,14 +145083,14 @@ iDD
 oVf
 rMm
 eLg
-hQI
 opt
-ejp
-kiB
+fJE
+ybE
+wXw
 cgW
 mbN
-vaN
-kiB
+oBT
+wXw
 mre
 doh
 jjP
