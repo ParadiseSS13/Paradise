@@ -425,8 +425,7 @@
 	if(jobban_isbanned(target, ROLE_CULTIST))
 		return
 	var/mob/living/simple_animal/hostile/construct/C = new c_type(get_turf(target))
-	if(istype(c_type, /mob/living/simple_animal/hostile/construct/harvester))
-		new /obj/effect/particle_effect/smoke/sleeping(target.loc)
+	new /obj/effect/particle_effect/smoke/sleeping(target.loc)
 	C.faction |= "\ref[user]"
 	C.key = target.key
 	if(user && iscultist(user) || cult_override)
