@@ -55,7 +55,7 @@
 	icon_state = "xenobio"
 	xenobiology_compatible = TRUE
 
-/xenobiology/xenoflora_storage
+/area/station/science/xenobiology/xenoflora_storage
 	name = "Xenoflora Storage"
 	icon_state = "scilab"
 
@@ -64,7 +64,7 @@
 	icon_state = "scilab"
 
 /area/station/science/storage
-	name = "Toxins Storage"
+	name = "\improper Science Toxins Storage"
 	icon_state = "toxstorage"
 
 /area/station/science/toxins/test

@@ -30,7 +30,7 @@
 /area/centcomdocks : /area/centcom/docks
 /area/crew_quarters : ???
 /area/crew_quarters/toilet : /area/station/public/toilet
-/area/crew_quarters/sleep : /area/station/public/sleep
+/area/crew_quarters/sleep/@SUBTYPES : /area/station/public/sleep/@SUBTYPES
 /area/crew_quarters/sleep_male : /area/station/public/sleep_male
 /area/crew_quarters/sleep_male/toilet_male : /area/station/public/toilet/male
 /area/crew_quarters/sleep_female : /area/station/public/sleep_female
@@ -170,3 +170,5 @@
 /area/aisat/entrance : /area/station/aisat/entrance
 /area/aisat/maintenance : /area/station/aisat/maintenance
 /area/turret_protected/aisat_interior : /area/station/turret_protected/aisat_interior
+
+/area/bridge/hall : /area/station/hallway/secondary/bridge{@OLD}

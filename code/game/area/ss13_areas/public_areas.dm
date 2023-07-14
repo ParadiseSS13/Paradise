@@ -16,11 +16,32 @@
 	icon_state = "hallS"
 
 /area/station/hallway/primary/starboard/west
+	name = "\improper Starboard West Hallway"
+
 /area/station/hallway/primary/starboard/east
+	name = "\improper Starboard East Hallway"
+
+/area/station/hallway/primary/starboard/north
+	name = "\improper Starboard North Hallway"
+
+/area/station/hallway/primary/starboard/south
+	name = "\improper Starboard South Hallway"
 
 /area/station/hallway/primary/aft
 	name = "\improper Aft Primary Hallway"
 	icon_state = "hallA"
+
+/area/station/hallway/primary/aft/west
+	name = "\improper Aft West Hallway"
+
+/area/station/hallway/primary/aft/east
+	name = "\improper Aft East Hallway"
+
+/area/station/hallway/primary/aft/north
+	name = "\improper Aft North Hallway"
+
+/area/station/hallway/primary/aft/south
+	name = "\improper Aft South Hallway"
 
 
 /area/station/hallway/primary/port
@@ -32,6 +53,12 @@
 
 /area/station/hallway/primary/port/east
 	name = "\improper Port East Hallway"
+
+/area/station/hallway/primary/port/north
+	name = "\improper Port North Hallway"
+
+/area/station/hallway/primary/port/south
+	name = "\improper Port South Hallway"
 
 /area/station/hallway/primary/central
 	name = "\improper Central Primary Hallway"
@@ -45,6 +72,37 @@
 /area/station/hallway/primary/central/ne
 /area/station/hallway/primary/central/sw
 /area/station/hallway/primary/central/se
+
+/area/station/hallway/spacebridge
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+	icon_state = "hall_space"
+
+/area/station/hallway/spacebridge/dockmed
+	name = "Docking-Medical Bridge"
+
+/area/station/hallway/spacebridge/scidock
+	name = "Science-Docking Bridge"
+
+/area/station/hallway/spacebridge/servsci
+	name = "Service-Science Bridge"
+
+/area/station/hallway/spacebridge/serveng
+	name = "Service-Engineering Bridge"
+
+/area/station/hallway/spacebridge/engmed
+	name = "Engineering-Medical Bridge"
+
+/area/station/hallway/spacebridge/medcargo
+	name = "Medical-Cargo Bridge"
+
+/area/station/hallway/spacebridge/cargocom
+	name = "Cargo-AI-Command Bridge"
+
+/area/station/hallway/spacebridge/sercom
+	name = "Command-Service Bridge"
+
+/area/station/hallway/spacebridge/comeng
+	name = "Command-Engineering Bridge"
 
 /area/station/hallway/secondary/exit
 	name = "\improper Escape Shuttle Hallway"
@@ -69,6 +127,7 @@
 /area/station/hallway/secondary/entry/lounge
 	name = "\improper Arrivals Lounge"
 
+/area/station/hallway/secondary/bridge
 
 // Other public areas
 
@@ -79,10 +138,17 @@
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 
+/area/crew_quarters/toilet/aux
+	name = "\improper Auxiliary Toilets"
+
 /area/station/public/sleep
-	name = "\improper Dormitories"
+	name = "\improper Primary Cryogenic Dormitories"
 	icon_state = "Sleep"
 	valid_territory = FALSE
+
+/area/station/public/sleep/secondary
+	name = "\improper Secondary Cryogenic Dormitories"
+	icon_state = "Sleep"
 
 /area/station/public/sleep_male
 	name = "\improper Male Dorm"
@@ -175,3 +241,18 @@
 /area/station/public/storage/office
 	name = "Office Supplies"
 	icon_state = "office_supplies"
+
+/area/station/public/recreation
+	name = "\improper Recreation Area"
+
+/area/station/public/quantum/security
+	name = "Security Quantum Pad"
+
+/area/station/public/quantum/docking
+	name = "Docking Quantum Pad"
+
+/area/station/public/quantum/science
+	name = "Science Quantum Pad"
+
+/area/station/public/quantum/cargo
+	name = "Cargo Quantum Pad"

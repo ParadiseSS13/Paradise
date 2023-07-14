@@ -116,9 +116,7 @@
 /area/station/maintenance/abandonedbar
 	name = "Maintenance Bar"
 	icon_state = "oldbar"
-	power_equip = FALSE
-	power_light = FALSE
-	power_environ = FALSE
+	apc_starts_off = TRUE
 
 /area/station/maintenance/library
 	name = "Abandoned Library"
@@ -127,9 +125,7 @@
 /area/station/maintenance/spacehut
 	name = "Space Hut"
 	icon_state = "spacehut"
-	power_equip = FALSE
-	power_light = FALSE
-	power_environ = FALSE
+	apc_starts_off = TRUE
 
 /area/station/maintenance/electrical_shop
 	name ="Electronics Den"
@@ -148,6 +144,10 @@
 	icon_state = "FPctrl"
 
 /area/station/maintenance/starboardsolar
+	name = "\improper Starboard Solar Maintenance"
+	icon_state = "ASctrl"
+
+/area/station/maintenance/starboardsolar/aft
 	name = "\improper Aft Starboard Solar Maintenance"
 	icon_state = "ASctrl"
 
@@ -162,11 +162,56 @@
 /area/station/maintenance/assembly_line //Derelict Assembly Line
 	name = "\improper Assembly Line"
 	icon_state = "ass_line"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	apc_starts_off = TRUE
 
 /area/station/maintenance/abandoned_garden
 	name = "\improper Abandoned Garden"
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/maintenance/xenobio_north
+	name = "Xenobiology North Maintenance"
+	icon_state = "xenobio_north_maint"
+
+/area/maintenance/xenobio_south
+	name = "Xenobiology South Maintenance"
+	icon_state = "xenobio_south_maint"
+
+
+// CERE
+
+/area/maintenance/disposal/southwest
+	name = "South Western Disposals"
+
+/area/maintenance/disposal/south
+	name = "Southern Disposals"
+
+/area/maintenance/disposal/east
+	name = "Eastern Disposals"
+
+/area/maintenance/disposal/northeast
+	name = "North Eastern Disposals"
+
+/area/maintenance/disposal/north
+	name = "Northern Disposals"
+
+/area/maintenance/disposal/northwest
+	name = "North Western Disposals"
+
+/area/maintenance/disposal/west
+	name = "Western Disposals"
+
+/area/maintenance/disposal/westalt
+	name = "Western Secondary Disposals"
+
+/area/maintenance/disposal/external/southwest
+	name = "South-Western External Waste Belt"
+
+/area/maintenance/disposal/external/southeast
+	name = "South-Eastern External Waste Belt"
+
+/area/maintenance/disposal/external/east
+	name="Eastern External Waste Belt"
+
+/area/maintenance/disposal/external/north
+	name = "Northern External Waste Belt"

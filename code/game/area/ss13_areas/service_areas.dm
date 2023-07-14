@@ -1,5 +1,5 @@
 /area/station/service/cafeteria
-	name = "\improper Cafeteria"
+	name = "\improper Cafe"
 	icon_state = "cafeteria"
 
 
@@ -43,6 +43,9 @@
 	name = "\improper Clown's Office"
 	icon_state = "clown_office"
 
+/area/station/service/clown/secret
+	name = "\improper Top Secret Clown HQ"
+
 /area/station/service/mime
 	name = "\improper Mime's Office"
 	icon_state = "mime_office"
@@ -59,4 +62,10 @@
 /area/station/service/hydroponics
 	name = "Hydroponics"
 	icon_state = "hydro"
+	sound_environment = SOUND_AREA_STANDARD_STATION
+
+/area/station/service/expedition
+	name = "\improper Expedition room"
+	icon_state = "expedition"
+	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION

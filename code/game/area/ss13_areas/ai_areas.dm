@@ -34,10 +34,22 @@
 	name = "\improper AI Satellite Maintenance"
 	icon_state = "ai"
 
+/area/station/aisat/atmos
+	name = "\improper AI Satellite Atmospherics"
+
+/area/station/aisat/hall
+	name = "\improper AI Satellite Hallway"
+
+/area/station/aisat/service
+	name = "\improper AI Satellite Service"
+
 /area/station/turret_protected/aisat_interior
 	name = "\improper AI Satellite Antechamber"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+
+/area/station/turret_protected/aisat_interior/secondary
+	name = "\improper AI Satellite Secondary Antechamber"
 
 // Telecommunications Satellite
 

@@ -4,14 +4,14 @@
 	icon_state = "quart"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
-///////////WORK IN PROGRESS//////////
+/area/station/supply/lobby
+	name = "\improper Cargo Lobby"
+	icon_state = "cargooffice"
 
 /area/station/supply/sorting
 	name = "\improper Delivery Office"
 	icon_state = "cargobay"
 	sound_environment = SOUND_AREA_STANDARD_STATION
-
-////////////WORK IN PROGRESS//////////
 
 /area/station/supply/office
 	name = "\improper Cargo Office"
