@@ -275,6 +275,25 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
 
+/obj/item/projectile/bullet/dart/syringe/pierce_ignore
+	piercing = TRUE
+
+/obj/item/projectile/bullet/dart/syringe/pierce_ignore/on_hit(atom/target, blocked = 0, hit_zone)
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		if(blocked != INFINITY)
+			..()
+			reagents.trans_to(M, reagents.total_volume)
+			return 1
+		else
+			blocked = INFINITY
+			target.visible_message("<span class='danger'>[src] was deflected!</span>", \
+								"<span class='userdanger'>You were protected against [src]!</span>")
+	..(target, blocked, hit_zone)
+	reagents.set_reacting(TRUE)
+	reagents.handle_reactions()
+	return 1
+
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
