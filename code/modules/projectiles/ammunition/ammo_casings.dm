@@ -55,7 +55,7 @@
 
 /obj/item/ammo_casing/overgrown
 	projectile_type = /obj/item/projectile/bullet/midbullet3/overgrown
-	icon_state = "peashooter"
+	icon_state = "peashooter_bullet"
 
 /obj/item/ammo_casing/c9mm
 	desc = "A 9mm bullet casing."
