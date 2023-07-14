@@ -109,7 +109,7 @@
 	var/turf/T = get_turf(source)
 	if(!T)
 		T = get_turf(I)
-	I.forcemove(T)
+	I.forceMove(T)
 
 /datum/component/sticky/proc/move_to_the_thing(obj/item/I)
 	if(!istype(I))
