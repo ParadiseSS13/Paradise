@@ -181,12 +181,6 @@
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
-"aD" = (
-/obj/effect/spawner/window/reinforced{
-	color = "red"
-	},
-/turf/simulated/wall/cult,
-/area/shuttle/escape)
 "aE" = (
 /obj/docking_port/mobile/emergency{
 	dwidth = 11;
@@ -691,14 +685,14 @@ aa
 ab
 ab
 ab
-aD
+ac
 ab
 ab
 ab
 ac
 ac
 ac
-aD
+ac
 ac
 ab
 ab

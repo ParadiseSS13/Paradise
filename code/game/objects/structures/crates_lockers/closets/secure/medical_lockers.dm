@@ -117,6 +117,7 @@
 	open_door_sprite = "white_secure_door"
 
 /obj/structure/closet/secure_closet/psychiatrist/populate_contents()
+	new /obj/item/storage/bag/garment/psychologist(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/reagent_containers/syringe(src)
 	new /obj/item/reagent_containers/glass/bottle/ether(src)

@@ -347,6 +347,8 @@
 #define COMSIG_MOB_THROW "mob_throw"
 ///called when a user willingly drops something (i.e. keybind, or UI action)
 #define COMSIG_MOB_WILLINGLY_DROP "mob_willingly_drop"
+///called when a user is getting new weapon and we want to remove previous weapon to clear hands
+#define COMSIG_MOB_WEAPON_APPEARS "mob_weapon_appears"
 ///from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_EXAMINATE "mob_examinate"
 ///from base of /mob/update_sight(): ()
@@ -477,6 +479,8 @@
 #define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
 /// From /mob/living/carbon/flash_eyes()
 #define COMSIG_CARBON_FLASH_EYES "carbon_flash_eyes"
+/// From /mob/living/carbon/regenerate_icons()
+#define COMSIG_CARBON_REGENERATE_ICONS "carbon_regen_icons"
 
 
 // /mob/living/simple_animal/hostile signals
@@ -693,6 +697,8 @@
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
 //sent from living mobs when they parry
 #define COMSIG_HUMAN_PARRY "human_parry"
+///From mob/living/carbon/human/do_suicide()
+#define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 
 // /datum/species signals
 

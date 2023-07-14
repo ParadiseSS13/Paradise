@@ -385,7 +385,7 @@
 		if(ismob(AM))
 			to_chat(AM, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(AM))
+	if(power_station && power_station.engaged && !panel_open && !blockAI(AM) && !iseffect(AM))
 		if(!teleport(AM) && isliving(AM)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
