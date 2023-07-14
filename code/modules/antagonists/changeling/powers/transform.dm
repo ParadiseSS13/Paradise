@@ -6,7 +6,6 @@
 	power_type = CHANGELING_INNATE_POWER
 	req_dna = 1
 	req_human = TRUE
-	var/keep_cuffs
 
 //Change our DNA to that of somebody we've absorbed.
 /datum/action/changeling/transform/sting_action(mob/living/carbon/human/user)
@@ -15,9 +14,10 @@
 	if(!chosen_dna)
 		return FALSE
 
+	var/keep_cuffs
 	if(user.handcuffed)
 		keep_cuffs = user.handcuffed
-		user.handcuffed = null
+		user.handcuffed = FALSE
 	else
 		keep_cuffs = FALSE
 	transform_dna(user, chosen_dna)
