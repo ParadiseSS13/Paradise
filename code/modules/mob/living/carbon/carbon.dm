@@ -222,13 +222,20 @@
 			check_self_for_injuries()
 		return
 
-	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.wear_suit)
 			H.wear_suit.add_fingerprint(M)
 		else if(H.w_uniform)
 			H.w_uniform.add_fingerprint(M)
+
+	// If it has any of the highfive statuses, dap, handshake, etc
+	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
+	if(effect)
+		M.apply_status_effect(effect.type)
+		return
+
+	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 	if(stat == DEAD)
 		M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
@@ -266,12 +273,6 @@
 		"<span class='notice'>You pat [src] on the head.</span>",\
 		)
 	else
-		// If it has any of the highfive statuses, dap, handshake, etc
-		var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
-		if(effect)
-			M.apply_status_effect(effect.type)
-			return
-
 		// BEGIN HUGCODE - N3X
 		M.visible_message(\
 		"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
