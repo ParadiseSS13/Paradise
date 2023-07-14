@@ -110,3 +110,13 @@
   - add: vulp sprites (#3160)
   Сиротка:
   - bugfix: Jetpack installing (#3164)
+'2023-07-14':
+  Albonix:
+  - tweak: lower fiber wire garrote cost (#3170)
+  ArtemDerp:
+  - bugfix: language, textures, description and more for ussp ghost role (#3066)
+  UEDCommander:
+  - bugfix: Drask naval uniform (#3169)
+  Сиротка:
+  - add: Hunter belt (#3150)
+  - tweak: Nerf RCD (#3155)
