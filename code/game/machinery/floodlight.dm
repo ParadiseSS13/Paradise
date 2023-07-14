@@ -71,6 +71,9 @@
 		if(cell.charge <= 0)
 			to_chat(user, "<span class='warning'>[src] hardly glows at all! Seems like the <b>power cell is empty</b>.</span>")
 			return
+		if(!anchored)
+			visible_message("<span class='warning'>[src] must be anchored first!</span>")
+			return
 		on = TRUE
 		to_chat(user, "<span class='notice'>You turn on the light.</span>")
 		set_light(brightness_on)
@@ -140,6 +143,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	if(anchored)
+		on = FALSE
+		set_light(0)
+		update_icon(UPDATE_ICON_STATE)
 	default_unfasten_wrench(user, I)
 
 /obj/machinery/floodlight/extinguish_light(force = FALSE)
