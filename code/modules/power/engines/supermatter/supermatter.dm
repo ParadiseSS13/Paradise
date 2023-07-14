@@ -173,6 +173,8 @@
 	var/obj/item/radio/radio
 	///Reference to the warp effect
 	var/obj/effect/warp_effect/supermatter/warp
+	///A variable to have the warp effect for singulo SM work properly
+	var/pulse_stage = 0
 
 	///Boolean used for logging if we've been powered
 	var/has_been_powered = FALSE
@@ -840,15 +842,7 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/sm_filters()
 	var/new_filter = isnull(get_filter("ray"))
-
-	add_filter(name = "ray", priority = 1, params = list(
-		type = "rays",
-		size = power ? clamp((damage/100) * power, 50, 125) : 1,
-		color = (gasmix_power_ratio> 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR),
-		factor = clamp(damage/600, 1, 10),
-		density = clamp(damage/10, 12, 100)
-	))
-
+	ray_filter_helper(1, power ? clamp((damage/100) * power, 50, 125) : 1, (gasmix_power_ratio> 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR), clamp(damage/600, 1, 10), clamp(damage/10, 12, 100))
 	// Filter animation persists even if the filter itself is changed externally.
 	// Probably prone to breaking. Treat with suspicion.
 	if(new_filter)
@@ -856,13 +850,7 @@
 		animate(offset = 0, time = 10 SECONDS)
 
 	if(power > POWER_PENALTY_THRESHOLD)
-		add_filter(name = "ray", priority = 1, params = list(
-			type = "rays",
-			size = power ? clamp((damage/100) * power, 50, 175) : 1, //Higher power
-			color = SUPERMATTER_TESLA_COLOUR,
-			factor = clamp(damage/300, 1, 20),
-			density = clamp(damage/5, 12, 200)
-		))
+		ray_filter_helper(1, power ? clamp((damage/100) * power, 50, 175) : 1, SUPERMATTER_TESLA_COLOUR, clamp(damage/300, 1, 20), clamp(damage/5, 12, 200))
 		if(prob(25))
 			new /obj/effect/warp_effect/bsg(get_turf(src)) //Some extra visual effect to the shocking sm which is a bit less interesting.
 		if(final_countdown)
@@ -875,13 +863,7 @@
 			remove_filter("icon")
 
 	if(combined_gas > MOLE_PENALTY_THRESHOLD)
-		add_filter(name = "ray", priority = 1, params=list(
-			type = "rays",
-			size = power ? clamp((damage/100) * power, 50, 125) : 1,
-			color = SUPERMATTER_SINGULARITY_RAYS_COLOUR,
-			factor = clamp(damage / 300, 1, 30),
-			density = clamp(damage / 5, 12, 300) //More compressed due to gravity
-		))
+		ray_filter_helper(1, power ? clamp((damage/100) * power, 50, 125) : 1, SUPERMATTER_SINGULARITY_RAYS_COLOUR, clamp(damage / 300, 1, 30), clamp(damage / 5, 12, 300))
 
 		add_filter(name = "outline", priority = 2, params = list(
 			type = "outline",
@@ -891,8 +873,12 @@
 		if(!warp)
 			warp = new(src)
 			vis_contents += warp
-		animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
-		animate(time = 14, transform = matrix())
+		if(pulse_stage == 4)
+			animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
+			animate(time = 14, transform = matrix())
+			pulse_stage = 0
+		else
+			pulse_stage++
 		if(final_countdown)
 			add_filter(name = "icon", priority = 3, params = list(
 				type = "layer",

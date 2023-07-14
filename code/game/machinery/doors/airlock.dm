@@ -753,6 +753,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			return TRUE
 		var/mob/living/living_mover = mover
 		if((istype(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))) // We really dont want people to get shocked on a door they're passing through
+			if(density && !do_mob(living_mover, living_mover, 2 SECONDS, requires_upright = FALSE))
+				return FALSE
+			living_mover.forceMove(get_turf(src))
 			return TRUE
 	if(isElectrified() && density && isitem(mover))
 		var/obj/item/I = mover
