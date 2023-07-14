@@ -6,7 +6,6 @@
 /area/crew_quarters/recruit : @DELETE
 /area/mint : @DELETE
 /area/comms : @DELETE
-/area/security/courtroomdandp : @DELETE
 
 /area/atmos : /area/station/engineering/atmos
 /area/atmos/control : /area/station/engineering/atmos/control
@@ -127,7 +126,7 @@
 /area/security/vacantoffice2 : /area/station/public/vacant_office
 /area/security/customs : /area/station/command/customs
 /area/security/customs2 : /area/station/command/customs2
-
+/area/security/courtroomdandp : /area/station/legal/courtroom/dap
 
 /area/janitor : /area/station/service/janitor
 /area/hydroponics : /area/station/service/hydroponics
