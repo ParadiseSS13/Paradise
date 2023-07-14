@@ -2,7 +2,7 @@
 	name = "AI Monitored Area"
 	var/list/motioncameras = list()
 	var/list/motionTargets = list()
-	sound_environment = SOUND_AREA_STANDARD_STATION
+	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/station/ai_monitored/Initialize(mapload)
 	. = ..()

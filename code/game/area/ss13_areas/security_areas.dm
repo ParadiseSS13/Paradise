@@ -114,10 +114,6 @@
 	name = "\improper Brig Secure Hallway"
 	icon_state = "securehall"
 
-// /area/station/security/hos
-// 	name = "\improper Head of Security's Office"
-// 	icon_state = "hos"
-
 /area/station/security/detective
 	name = "\improper Detective's Office"
 	icon_state = "detective"

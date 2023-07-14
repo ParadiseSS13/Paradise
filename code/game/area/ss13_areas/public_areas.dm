@@ -253,6 +253,12 @@
 /area/station/public/recreation
 	name = "\improper Recreation Area"
 
+/area/station/public/construction
+	name = "\improper Construction Area"
+	icon_state = "construction"
+	ambientsounds = ENGINEERING_SOUNDS
+	sound_environment = SOUND_AREA_STANDARD_STATION
+
 /area/station/public/quantum/security
 	name = "Security Quantum Pad"
 

@@ -64,3 +64,8 @@
 /area/mint
 	name = "\improper Mint"
 	icon_state = "green"
+
+//GAYBAR
+/area/secret/gaybar
+	name = "\improper Dance Bar"
+	icon_state = "dancebar"
