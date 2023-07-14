@@ -4,11 +4,15 @@
 	var/atom/attached_to
 	/// Our priority overlay put on top of attached_to
 	var/icon/overlay
+	/// Do we drop on attached_to's destroy? If not, we qdel
+	var/drop_on_attached_destroy = FALSE
 
-/datum/component/sticky/Initialize()
+/datum/component/sticky/Initialize(_drop_on_attached_destroy = FALSE)
 	if(!isitem(parent))
 		stack_trace("/datum/component/sticky's parent is not an item, its [parent.type]")
 		return COMPONENT_INCOMPATIBLE
+
+	drop_on_attached_destroy = _drop_on_attached_destroy
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(stick_to_it))
 
 /datum/component/sticky/proc/stick_to_it(obj/item/I, atom/target, mob/user, params)
@@ -46,7 +50,7 @@
 
 	RegisterSignal(attached_to, COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, PROC_REF(pick_up))
 	RegisterSignal(attached_to, COMSIG_PARENT_EXAMINE, PROC_REF(add_sticky_text))
-	RegisterSignal(attached_to, COMSIG_PARENT_QDELETING, PROC_REF(destroy_item))
+	RegisterSignal(attached_to, COMSIG_PARENT_QDELETING, PROC_REF(on_attached_destroy))
 	if(ismovable(attached_to))
 		RegisterSignal(attached_to, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 		START_PROCESSING(SSobj, src)
@@ -95,9 +99,17 @@
 		return PROCESS_KILL
 	move_to_the_thing(parent)
 
-/datum/component/sticky/proc/destroy_item(datum/source)
+/datum/component/sticky/proc/on_attached_destroy(datum/source)
 	SIGNAL_HANDLER
-	qdel(parent)
+	if(!drop_on_attached_destroy)
+		qdel(parent)
+		return
+
+	var/obj/item/I = parent
+	var/turf/T = get_turf(source)
+	if(!T)
+		T = get_turf(I)
+	I.forcemove(T)
 
 /datum/component/sticky/proc/move_to_the_thing(obj/item/I)
 	if(!istype(I))
