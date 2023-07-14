@@ -793,10 +793,6 @@
 	else if(isobj(AM) && !iseffect(AM))
 		AM.visible_message("<span class='danger'>[AM] smacks into [src] and rapidly flashes to ash.</span>", null,\
 		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
-	else if(istype(A, /obj/machinery/economy/vending))
-		var/obj/machinery/economy/vending/V = A
-		V.tilt(src)
-		AddElement(/datum/element/squish, 80 SECONDS)
 	else
 		return
 
