@@ -11,6 +11,16 @@
 	build_path = /obj/item/weldingtool/experimental
 	category = list("Equipment")
 
+/datum/design/rcd
+	name = "Rapid Construction Device (RCD)"
+	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
+	id = "rcd"
+	req_tech = list("materials" = 1, "engineering" = 3, "programming" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 30000)
+	build_path = /obj/item/rcd
+	category = list("Equipment")
+
 /datum/design/health_hud
 	name = "Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
