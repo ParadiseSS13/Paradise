@@ -100,10 +100,11 @@
 		return TRUE
 
 /obj/machinery/mineral/equipment_vendor/power_change()
-	if(!..())
-		update_icon(UPDATE_ICON_STATE)
-		if(remove_id())
-			visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+	if(inserted_id && !(stat & NOPOWER))
+		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
+		remove_id()
 
 /obj/machinery/mineral/equipment_vendor/update_icon_state()
 	if(has_power())
