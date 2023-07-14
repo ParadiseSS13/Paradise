@@ -1,0 +1,3 @@
+#include "_prime_combat.dm"
+
+#include "code/weapons.dm"
