@@ -65,12 +65,18 @@
 
 
 /obj/item/gun/magic/process()
-	charge_tick++
-	if(charge_tick < recharge_rate || charges >= max_charges)
+	// Don't start recharging until we lose a charge
+	if (charges >= max_charges)
+		charge_tick = 0
 		return 0
-	charge_tick = 0
-	charges++
-	return 1
+
+	charge_tick++
+	if(charge_tick >= recharge_rate)
+		charge_tick = 0
+		charges++
+		return 1
+	else
+		return 0
 
 /obj/item/gun/magic/update_icon_state()
 	return
