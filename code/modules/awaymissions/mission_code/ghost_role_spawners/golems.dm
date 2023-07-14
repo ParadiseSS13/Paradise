@@ -117,7 +117,7 @@
 			if(locate(/datum/objective/hijack) in owner.mind.get_all_objectives())
 				new_spawn.mind.store_memory("<b>They must hijack the shuttle.</b>")
 				to_chat(new_spawn, "<b>They are tasked with hijacking the shuttle.</b>")
-				set_antag_hud(new_spawn.mind.current, "hudhijack")
+				set_antag_hud(new_spawn.mind.current, "hudslavehijack")
 		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 		log_admin("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 	if(ishuman(new_spawn))
