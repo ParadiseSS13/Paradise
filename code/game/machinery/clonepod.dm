@@ -11,7 +11,7 @@
 //Balance tweaks go here vv
 #define BIOMASS_BASE_COST 250
 //These ones are also used for dead limbs/organs
-#define BIOMASS_NEW_LIMB_COST 200 //A limb can have 100 brute damage and 100 burn damage, so 100*the values for those gets 200
+#define BIOMASS_NEW_LIMB_COST 200
 #define BIOMASS_NEW_ORGAN_COST 100
 #define BIOMASS_BURN_WOUND_COST 25
 //These 3 are for every point of the respective damage type
