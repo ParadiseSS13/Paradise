@@ -1,15 +1,15 @@
 // Atmos
 /area/station/engineering/atmos
 	name = "Atmospherics"
- 	icon_state = "atmos"
+	icon_state = "atmos"
 
 /area/station/engineering/atmos/control
- 	name = "Atmospherics Control Room"
- 	icon_state = "atmosctrl"
+	name = "Atmospherics Control Room"
+	icon_state = "atmosctrl"
 
 /area/station/engineering/atmos/distribution
- 	name = "Atmospherics Distribution Loop"
- 	icon_state = "atmos"
+	name = "Atmospherics Distribution Loop"
+	icon_state = "atmos"
 
 // general engineering
 /area/station/engineering

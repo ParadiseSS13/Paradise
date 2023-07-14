@@ -63,9 +63,6 @@
 	name = "Cold Room"
 	icon_state = "coldroom"
 
-// /area/station/medical/cmo
-// 	name = "\improper Chief Medical Officer's office"
-// 	icon_state = "CMO"
 
 /area/station/medical/storage/secondary
 	name = "Medical Secondary Storage"

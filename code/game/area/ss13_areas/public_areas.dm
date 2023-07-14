@@ -230,14 +230,6 @@
 	name = "Art Supply Storage"
 	icon_state = "storage"
 
-// /area/station/public/storage/auxillary
-// 	name = "Auxillary Storage"
-// 	icon_state = "auxstorage"
-
-// /area/station/public/storage/eva
-// 	name = "EVA Storage"
-// 	icon_state = "eva"
-
 /area/station/public/storage/emergency
 	name = "Starboard Emergency Storage"
 	icon_state = "emergencystorage"
