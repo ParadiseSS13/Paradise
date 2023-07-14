@@ -604,7 +604,6 @@
 #include "code\game\area\ss13_areas\science_areas.dm"
 #include "code\game\area\ss13_areas\security_areas.dm"
 #include "code\game\area\ss13_areas\service_areas.dm"
-#include "code\game\area\ss13_areas\ss13_areas.dm"
 #include "code\game\area\ss13_areas\supply_areas.dm"
 #include "code\game\dna\dna2.dm"
 #include "code\game\dna\dna2_domutcheck.dm"
