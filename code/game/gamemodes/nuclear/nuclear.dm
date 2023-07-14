@@ -458,7 +458,7 @@
 		var/list/fiftythousand_penalty = list(
 			/area/station/security/main,
 			/area/station/security/brig,
-			/area/station/security/armoury,
+			/area/station/security/armory,
 			/area/station/security/checkpoint/secondary
 			)
 

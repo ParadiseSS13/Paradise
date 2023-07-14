@@ -23,7 +23,7 @@
 					TYPE_ICE,
 					TYPE_STEEL)
 	area_blacklist = list(/area/station/public/toilet,
-						/area/station/science/server_coldroom)
+						/area/station/science/server/coldroom)
 	area_whitelist = list(/area/station/maintenance/turbine,
 						/area/station/maintenance/incinerator,
 						/area/station/service/kitchen)
@@ -56,7 +56,7 @@
 					TYPE_GROUND)
 	area_blacklist = list(/area/station/science)
 	area_whitelist = list(/area/station/service/hydroponics,
-						/area/station/hallway/secondary/construction)
+						/area/station/public/construction) // dont ask me why grass types can appear in construction sites, I'm just migrating areas
 	turf_whitelist = list(/turf/simulated/floor/grass)
 
 /datum/mob_type/electric
@@ -110,7 +110,7 @@
 					TYPE_FIGHTING)
 	area_blacklist = list(/area/station/science)
 	area_whitelist = list(/area/station/service/hydroponics,
-						/area/station/hallway/secondary/construction)
+						/area/station/public/construction) // dont ask me why bug types can appear in construction sites, I'm just migrating areas
 	turf_whitelist = list(/turf/simulated/floor/grass)
 
 /datum/mob_type/poison
@@ -184,7 +184,7 @@
 	area_blacklist = list(/area/station/maintenance/turbine,
 						/area/station/maintenance/incinerator,
 						/area/station/service/kitchen)
-	area_whitelist = list(/area/station/science/server_coldroom)
+	area_whitelist = list(/area/station/science/server/coldroom)
 
 /datum/mob_type/flying
 	name = "Flying"

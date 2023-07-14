@@ -46,7 +46,7 @@
 			spawn_area_type = /area/station/service/hydroponics
 			locstring = "hydroponics"
 		if(LOC_VAULT)
-			spawn_area_type = /area/station/command/nuke_storage
+			spawn_area_type = /area/station/command/vault
 			locstring = "the vault"
 		if(LOC_CONSTR)
 			spawn_area_type = /area/station/public/construction
@@ -55,7 +55,7 @@
 			spawn_area_type = /area/station/engineering/tech_storage
 			locstring = "technical storage"
 		if(LOC_ARMORY)
-			spawn_area_type = /area/station/security/securearmoury
+			spawn_area_type = /area/station/security/armory/secure
 			locstring = "armory"
 
 	for(var/areapath in typesof(spawn_area_type))
