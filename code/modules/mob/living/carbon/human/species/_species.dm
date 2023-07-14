@@ -1,6 +1,9 @@
 /datum/species
 	var/name                     // Species name.
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
+	/// Article to use when referring to an individual of the species, if pronunciation is different from expected.
+	/// Because it's unathi's turn to be special snowflakes.
+	var/article_override
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 
 	/// Minimum age this species can have
