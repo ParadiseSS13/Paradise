@@ -222,6 +222,14 @@
 			check_self_for_injuries()
 		return
 
+	// If it has any of the highfive statuses, dap, handshake, etc
+	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
+	if(effect)
+		M.apply_status_effect(effect.type)
+		return
+
+	// Any of the cases below involve M touching the src suit/uniform
+	// so we add a corresponding fingerprint
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.wear_suit)
@@ -229,12 +237,7 @@
 		else if(H.w_uniform)
 			H.w_uniform.add_fingerprint(M)
 
-	// If it has any of the highfive statuses, dap, handshake, etc
-	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
-	if(effect)
-		M.apply_status_effect(effect.type)
-		return
-
+	// Currently the same sound for hugs, pats, shaking etc
 	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 	if(stat == DEAD)
