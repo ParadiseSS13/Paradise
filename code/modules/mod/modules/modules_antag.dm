@@ -144,8 +144,11 @@
 /obj/item/mod/module/noslip/on_suit_deactivation(deleting = FALSE)
 	mod.boots.flags ^= NOSLIP
 
-//Bite of 87 Springlock - Equips faster, disguised as DNA lock.
+//Bite of 87 Springlock - Equips faster, disguised as DNA lock, can block retracting for 10 seconds.
 /obj/item/mod/module/springlock/bite_of_87
+	activation_step_time_booster = 10
+	ninetine_eighty_seven_edition = TRUE
+	dont_let_you_come_back = TRUE
 
 /obj/item/mod/module/springlock/bite_of_87/Initialize(mapload)
 	. = ..()
@@ -155,12 +158,6 @@
 	icon_state = initial(the_dna_lock_behind_the_slaughter.icon_state)
 	complexity = initial(the_dna_lock_behind_the_slaughter.complexity)
 	use_power_cost = initial(the_dna_lock_behind_the_slaughter.use_power_cost)
-
-/obj/item/mod/module/springlock/bite_of_87/on_install()
-	mod.activation_step_time *= 0.1
-
-/obj/item/mod/module/springlock/bite_of_87/on_uninstall(deleting = FALSE)
-	mod.activation_step_time *= 10
 
 ///Power kick - Lets the user launch themselves at someone to kick them.
 /obj/item/mod/module/power_kick

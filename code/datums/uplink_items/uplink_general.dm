@@ -611,7 +611,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		into place when exposed to humidity. You know what it's like to have an entire exoskeleton enter you? \
 		This version of the module has been modified to allow for near instant activation of the MODsuit. \
 		Useful for quickly getting your MODsuit on/off, or for taking care of a target via a tragic accident. \
-		It is hidden as a DNA lock module."
+		It is hidden as a DNA lock module. It will block retraction for 10 seconds by default to allow you to follow \
+		up with smoke, but you can multitool the module to disable that."
 	reference = "FNAF"
 	item = /obj/item/mod/module/springlock/bite_of_87
 	cost = 1
