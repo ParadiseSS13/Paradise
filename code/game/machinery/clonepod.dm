@@ -59,6 +59,8 @@
 	var/clone_progress = 0
 	//A list of limbs which have not yet been grown by the cloner.
 	var/list/limbs_to_grow = list()
+	//Flavor text to show on examine.
+	var/desc_flavor = "It doesn't seem to be doing anything right now."
 
 	//The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
 	var/speed_modifier = 1
@@ -78,6 +80,8 @@
 	var/datum/cloning_data/patient_data
 	//The cloning_data datum which shows the status we want the patient to be in.
 	var/datum/cloning_data/desired_data
+	//Our patient.
+	var/mob/living/carbon/human/clone
 
 /obj/machinery/clonepod/Initialize(mapload)
 	. = ..()
@@ -119,6 +123,7 @@
 
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>[desc_flavor]</span>"
 
 /obj/machinery/clonepod/attack_ai(mob/user)
 	return examine(user)
@@ -170,10 +175,25 @@
 		clone_progress += speed_modifier
 		switch(clone_progress)
 			if(0 to 20)
+				desc_flavor = "You see muscle quickly growing on a ribcage and skull inside [src]."
 				return
 			if(21 to 30)
 				return
 			if(31 to 40)
+				return
+			if(41 to 50)
+				return
+			if(51 to 60)
+				return
+			if(61 to 70)
+				return
+			if(71 to 80)
+				return
+			if(81 to 90)
+				return
+			if(91 to 100)
+				return
+			if(101 to INFINITY) //this state can be reached with an upgraded cloner
 				return
 
 	//Basically just isolate_reagent() with extra functionality.
@@ -190,6 +210,31 @@
 	currently_cloning = TRUE
 	patient_data = _patient_data
 	desired_data = _desired_data
+
+//Creates the clone! Used once the cloning pod reaches ~20% completion.
+/obj/machinery/clonepod/proc/create_clone()
+	clone = new /mob/living/carbon/human(src)
+
+	clone.change_dna(patient_data.genetic_info, FALSE, TRUE)
+	clone.mind = patient_data.mind //surely this works perfectly (clueless)
+
+	for(var/obj/item/organ/external/limb in clone.bodyparts)
+		if(!(limb.limb_name in limbs_to_grow)) //if the limb was determined to be vital
+			var/active_limb_name = limb.limb_name
+			limb.brute_dam = desired_data.limbs[active_limb_name][1]
+			limb.burn_dam = desired_data.limbs[active_limb_name][2]
+			continue
+		if(length(limb.children)) //This doesn't support having a vital organ inside a child of a limb that itself isn't vital.
+			for(var/obj/item/organ/external/child in limb.children) //Future coders, if you want to add a species with its brain in its hand or something, change this
+				child.remove(null, TRUE)
+				qdel(child)
+		limb.remove(null, TRUE)
+		qdel(limb)
+
+	clone.updatehealth("droplimb")
+	clone.UpdateDamageIcon()
+	clone.regenerate_icons()
+	clone.update_body(TRUE)
 
 //This gets the cost of cloning, in a list with the form (biomass, sanguine reagent, osseous reagent).
 /obj/machinery/clonepod/proc/get_cloning_cost(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)

@@ -29,8 +29,8 @@
 	scanner = locate(/obj/machinery/clonescanner, orange(5, src))
 
 	healthy_data.limbs = list(
-		"head"   = list(0, 0, 0, FALSE),
-		"chest"  = list(0, 0, 0, FALSE),
+		"head"   = list(0, 5, 0, FALSE),
+		"chest"  = list(5, 0, 0, FALSE),
 		"groin"  = list(0, 0, 0, FALSE),
 		"r_arm"  = list(0, 0, 0, FALSE),
 		"r_hand" = list(0, 0, 0, FALSE),
