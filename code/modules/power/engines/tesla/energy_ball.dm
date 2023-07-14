@@ -32,7 +32,6 @@
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
-	var/list/shocked_things = list()
 	var/obj/singularity/energy_ball/parent_energy_ball
 	/// Turf where the tesla will move to if it's loose
 	var/turf/target_turf
@@ -75,7 +74,6 @@
 		GLOB.poi_list -= src
 
 	QDEL_LIST_CONTENTS(orbiting_balls)
-	shocked_things.Cut()
 	return ..()
 
 /obj/singularity/energy_ball/admin_investigate_setup()
@@ -92,7 +90,6 @@
 
 		pixel_x = 0
 		pixel_y = 0
-		shocked_things.Cut(1, length(shocked_things) / 1.3)
 		var/list/shocking_info = list()
 		tesla_zap(src, 3, TESLA_DEFAULT_POWER, shocked_targets = shocking_info)
 
@@ -101,10 +98,7 @@
 		for(var/ball in orbiting_balls)
 			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
 			//We zap off the main ball instead of ourselves to make things looks proper
-			var/list/temp_shock = list()
-			tesla_zap(src, range, TESLA_MINI_POWER / 7 * range, shocked_targets = temp_shock)
-			shocking_info += temp_shock
-		shocked_things += shocking_info
+			tesla_zap(src, range, TESLA_MINI_POWER / 7 * range)
 	else
 		energy = 0 // ensure we dont have miniballs of miniballs //But it'll be cool broooooooooooooooo
 
