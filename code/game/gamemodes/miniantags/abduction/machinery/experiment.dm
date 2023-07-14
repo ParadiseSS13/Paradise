@@ -229,7 +229,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/abductor/experiment/broken
-	stat = 1
+	stat = BROKEN
 
 /obj/machinery/abductor/experiment/broken/MouseDrop_T(mob/living/carbon/human/target, mob/user)
 	return
