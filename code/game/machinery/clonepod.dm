@@ -1,4 +1,12 @@
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent", "mutadone", "rezadone")
+#define FORBIDDEN_INTERNAL_ORGANS list(/obj/item/organ/internal/heart/gland, \
+									   /obj/item/organ/internal/heart/demon, \
+									   /obj/item/organ/internal/heart/cursed, \
+									   /obj/item/organ/internal/regenerative_core, \
+									   /obj/item/organ/internal/alien, \
+									   /obj/item/organ/internal/body_egg, \
+									   /obj/item/organ/internal/cyberimp)
+
 
 //Balance tweaks go here vv
 #define BIOMASS_BASE_COST 250
@@ -26,21 +34,33 @@
 	container_type = OPENCONTAINER
 	//The linked cloning console.
 	var/obj/machinery/computer/cloning/console
+
 	//Whether or not we're cloning someone.
 	var/currently_cloning = FALSE
 	//The progress on the current clone.
 	//Measured from 0-100, where 0-20 has no body, and 21-100 gradually builds on limbs every 10. (r_arm, r_hand, l_arm, l_hand, r_leg, r_foot, l_leg, l_foot)
 	var/clone_progress = 0
+	//A list of limbs which have not yet been grown by the cloner.
+	var/list/limbs_to_grow = list()
+
 	//The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
 	var/speed_modifier = 1
 	//Our price modifier, multiplied with the base cost to get the true cost.
-	var/price_modifier = 1
+	var/price_modifier = 1.1
+	//Our storage modifier, which is used in calculating organ and biomass storage.
+	var/storage_modifier = 1
+
+	//The cloner's biomass count.
+	var/biomass = 0
+	//How many organs we can store. This is calculated with the storage modifier in RefreshParts().
+	var/organ_storage_capacity
+	//How much biomass we can store. This is calculated at the same time as organ_storage_capacity.
+	var/biomass_storage_capacity
+
 	//The cloning_data datum which shows the patient's current status.
 	var/datum/cloning_data/patient_data
 	//The cloning_data datum which shows the status we want the patient to be in.
 	var/datum/cloning_data/desired_data
-	//A list of limbs which have not yet been grown by the cloner.
-	var/list/limbs_to_grow = list()
 
 /obj/machinery/clonepod/Initialize(mapload)
 	. = ..()
@@ -51,15 +71,16 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
-	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/large/(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	create_reagents()
 	update_icon()
+	RefreshParts()
 
 /obj/machinery/clonepod/biomass/Initialize(mapload)
 	. = ..()
@@ -68,21 +89,42 @@
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
-	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
-	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/triphasic(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace/(null)
 	update_icon()
+	RefreshParts()
 
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 
 /obj/machinery/clonepod/attack_ai(mob/user)
 	return examine(user)
+
+/obj/machinery/clonepod/RefreshParts()
+	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
+	for(var/part in component_parts)
+		var/obj/item/stock_parts/SP = part
+		if(istype(SP, /obj/item/stock_parts/matter_bin/)) //Matter bins for storage modifier
+			storage_modifier = round(10 * (SP.rating / 2)) //5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
+		if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
+			price_modifier = round(-(SP.rating / 10) + 1.2) //1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
+		if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
+			speed_modifier += SP.rating / 2 //1 at tier 1, 2 at tier 2, et cetera
+
+		var/obj/item/reagent_containers/glass/beaker/B = part
+		if(istype(B))
+			reagents.maximum_volume = B.volume //The default cloning pod has a large beaker in it, so 100u.
+
+		organ_storage_capacity = storage_modifier
+		biomass_storage_capacity = storage_modifier * 400
+
+
 
 //Process
 /obj/machinery/clonepod/process()
@@ -195,12 +237,33 @@
 
 	return cloning_cost
 
+//insert an organ into storage
+/obj/machinery/clonepod/proc/insert_organ(obj/item/organ/inserted, mob/inserter)
+	if(is_int_organ(inserted))
+		if(is_type_in_list(inserted, FORBIDDEN_INTERNAL_ORGANS))
+			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
+			return
+	if(ismob(inserted.loc))
+		var/mob/M = inserted.loc
+		if((!M.get_active_hand() == inserted))
+			return //not sure how this would happen, but smartfridges check for it so
+		if(!M.drop_item())
+			to_chat(inserter, "<span class='warning'>[inserted] is stuck to you!</span>")
+			return
+		M.unEquip(inserted)
+	inserted.forceMove(src)
+	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s internal organ storage.</span>")
+
 //Attackby and x_acts
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
 		return
 
-	if(is_open_container(I))
+	if(I.is_open_container())
+		return
+
+	if(is_int_organ(I) || isorgan(I))
+		insert_organ(I, user)
 		return
 
 	return ..()
@@ -260,6 +323,7 @@
 		. += "panel_open"
 
 #undef VALID_REAGENTS
+#undef FORBIDDEN_INTERNAL_ORGANS
 
 #undef BIOMASS_BASE_COST
 #undef BIOMASS_NEW_LIMB_COST
