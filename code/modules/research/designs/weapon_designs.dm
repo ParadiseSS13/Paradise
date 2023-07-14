@@ -178,7 +178,7 @@
 	name = "WT-550 Auto Gun Incendiary Ammo Box (4.6x30mm IC)"
 	desc = "A box of 20 armour piercing rounds for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg_ic"
-	materials = list(MAT_METAL = 30500, MAT_SILVER = 3000, MAT_GLASS = 4000)
+	materials = list(MAT_METAL = 30500, MAT_SILVER = 3000, MAT_PLASMA = 4000)
 	build_path = /obj/item/ammo_box/wt550/wtic
 	category = list("Weapons")
 
