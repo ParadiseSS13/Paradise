@@ -17,14 +17,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Security
 
-// /area/station/command/customs
-// 	name = "Customs"
-// 	icon_state = "checkpoint1"
-
-// /area/station/command/customs2
-// 	name = "Customs"
-// 	icon_state = "security"
-
 // /area/station/engineering/solar/derelict_starboard
 // 	name = "\improper Derelict Starboard Solar Array"
 // 	icon_state = "GENsolar"

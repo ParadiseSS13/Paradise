@@ -30,7 +30,7 @@
 	name = "\improper Psych Room"
 	icon_state = "medbaypsych"
 
-/area/station/medical/medbreak
+/area/station/medical/break_room
 	name = "\improper Medbay Break Room"
 	icon_state = "medbaybreak"
 

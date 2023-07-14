@@ -169,49 +169,49 @@
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-/area/maintenance/xenobio_north
+/area/station/maintenance/xenobio_north
 	name = "Xenobiology North Maintenance"
 	icon_state = "xenobio_north_maint"
 
-/area/maintenance/xenobio_south
+/area/station/maintenance/xenobio_south
 	name = "Xenobiology South Maintenance"
 	icon_state = "xenobio_south_maint"
 
 
 // CERE
 
-/area/maintenance/disposal/southwest
+/area/station/maintenance/disposal/southwest
 	name = "South Western Disposals"
 
-/area/maintenance/disposal/south
+/area/station/maintenance/disposal/south
 	name = "Southern Disposals"
 
-/area/maintenance/disposal/east
+/area/station/maintenance/disposal/east
 	name = "Eastern Disposals"
 
-/area/maintenance/disposal/northeast
+/area/station/maintenance/disposal/northeast
 	name = "North Eastern Disposals"
 
-/area/maintenance/disposal/north
+/area/station/maintenance/disposal/north
 	name = "Northern Disposals"
 
-/area/maintenance/disposal/northwest
+/area/station/maintenance/disposal/northwest
 	name = "North Western Disposals"
 
-/area/maintenance/disposal/west
+/area/station/maintenance/disposal/west
 	name = "Western Disposals"
 
-/area/maintenance/disposal/westalt
+/area/station/maintenance/disposal/westalt
 	name = "Western Secondary Disposals"
 
-/area/maintenance/disposal/external/southwest
+/area/station/maintenance/disposal/external/southwest
 	name = "South-Western External Waste Belt"
 
-/area/maintenance/disposal/external/southeast
+/area/station/maintenance/disposal/external/southeast
 	name = "South-Eastern External Waste Belt"
 
-/area/maintenance/disposal/external/east
+/area/station/maintenance/disposal/external/east
 	name="Eastern External Waste Belt"
 
-/area/maintenance/disposal/external/north
+/area/station/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"

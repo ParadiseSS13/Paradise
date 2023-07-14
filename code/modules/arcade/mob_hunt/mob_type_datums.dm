@@ -70,7 +70,7 @@
 						/area/station/maintenance,
 						/area/station/turret_protected/ai,
 						/area/station/turret_protected/ai_upload,
-						/area/station/turret_protected/aisat_interior,
+						/area/station/turret_protected/aisat/interior,
 						/area/station/aisat,
 						/area/station/science/robotics)
 	turf_whitelist = list(/turf/simulated/floor/bluegrid)

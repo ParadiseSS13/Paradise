@@ -43,21 +43,21 @@
 /area/station/aisat/service
 	name = "\improper AI Satellite Service"
 
-/area/station/turret_protected/aisat_interior
+/area/station/turret_protected/aisat/interior
 	name = "\improper AI Satellite Antechamber"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
-/area/station/turret_protected/aisat_interior/secondary
+/area/station/turret_protected/aisat/interior/secondary
 	name = "\improper AI Satellite Secondary Antechamber"
 
 // Telecommunications Satellite
 
-/area/tcommsat
+/area/station/telecomms
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
 
-/area/tcommsat/chamber
+/area/station/telecomms/chamber
 	name = "\improper Telecoms Central Compartment"
 	icon_state = "tcomms"
 
@@ -72,16 +72,11 @@
 	icon_state = "tcomms"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
-/area/tcommsat/computer
+/area/station/telecomms/computer
 	name = "\improper Telecoms Control Room"
 	icon_state = "tcomms"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
-/area/tcommsat/server
+/area/station/telecomms/server
 	name = "\improper Telecoms Server Room"
 	icon_state = "tcomms"
-
-/area/server
-	name = "\improper Messaging Server Room"
-	icon_state = "server"
-	sound_environment = SOUND_AREA_STANDARD_STATION

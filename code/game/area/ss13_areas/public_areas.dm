@@ -11,6 +11,18 @@
 	name = "\improper Fore Primary Hallway"
 	icon_state = "hallF"
 
+/area/station/hallway/primary/fore/west
+	name = "\improper Fore West Hallway"
+
+/area/station/hallway/primary/fore/east
+	name = "\improper Fore East Hallway"
+
+/area/station/hallway/primary/fore/north
+	name = "\improper Fore North Hallway"
+
+/area/station/hallway/primary/fore/south
+	name = "\improper Fore South Hallway"
+
 /area/station/hallway/primary/starboard
 	name = "\improper Starboard Primary Hallway"
 	icon_state = "hallS"
@@ -107,10 +119,6 @@
 /area/station/hallway/secondary/exit
 	name = "\improper Escape Shuttle Hallway"
 	icon_state = "escape"
-
-/area/station/hallway/secondary/construction
-	name = "\improper Construction Area"
-	icon_state = "construction"
 
 /area/station/hallway/secondary/garden
 	name = "\improper Garden"
