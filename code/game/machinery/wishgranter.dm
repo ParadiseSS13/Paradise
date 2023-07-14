@@ -4,7 +4,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	anchored = TRUE
 	density = TRUE
 

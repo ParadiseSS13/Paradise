@@ -39,7 +39,12 @@
 
 #define STATUS_EFFECT_DASH /datum/status_effect/dash // Grants the ability to dash, expiring after a few secodns
 
+/// Rapid burn/brute/oxy/blood healing from the cling ability
+#define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend
+
 #define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs //Handles cling speed boost and chemical cost.
+
+#define STATUS_EFFECT_PANACEA /datum/status_effect/panacea
 
 #define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell //stun resistance and halved damage for gargantua vampires
 
@@ -48,6 +53,8 @@
 #define STATUS_EFFECT_CHAINSAW_SLAYING /datum/status_effect/chainsaw_slaying // Stun immunity, very slight damage resistance
 
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
+
+#define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback // Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
 
 /////////////
 // DEBUFFS //
@@ -69,6 +76,8 @@
 
 #define STATUS_EFFECT_SUMMONEDGHOST /datum/status_effect/cultghost //is a cult ghost: can see dead people, can't manifest more ghosts
 
+#define STATUS_EFFECT_DELAYED /datum/status_effect/delayed //delayed status effect: gets /datum/callback to call on expire, signal if we want to prevent and duration
+
 #define STATUS_EFFECT_CRUSHERMARK /datum/status_effect/crusher_mark //if struck with a proto-kinetic crusher, takes a ton of damage
 
 #define STATUS_EFFECT_SAWBLEED /datum/status_effect/saw_bleed //if the bleed builds up enough, takes a ton of damage
@@ -84,6 +93,8 @@
 #define STATUS_EFFECT_BLUESPACESLOWDOWN /datum/status_effect/bluespace_slowdown //Halfs victims next move modifier
 
 #define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
+
+#define STATUS_EFFECT_CLINGTENTACLE /datum/status_effect/cling_tentacle //Imobilises target for 3 seconds
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -117,6 +128,8 @@
 #define STATUS_EFFECT_DROWSINESS /datum/status_effect/transient/drowsiness
 #define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
 #define STATUS_EFFECT_SILENCED /datum/status_effect/transient/silence
+#define STATUS_EFFECT_ABSSILENCED /datum/status_effect/transient/silence/absolute
+#define STATUS_EFFECT_NO_OXY_HEAL /datum/status_effect/transient/no_oxy_heal
 #define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
 #define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
 #define STATUS_EFFECT_STAMMER /datum/status_effect/transient/stammering
@@ -126,12 +139,15 @@
 #define STATUS_EFFECT_BLURRY_EYES /datum/status_effect/transient/eye_blurry
 #define STATUS_EFFECT_BLINDED /datum/status_effect/transient/blindness
 #define STATUS_EFFECT_DRUGGED /datum/status_effect/transient/drugged
+#define STATUS_EFFECT_DEAF /datum/status_effect/transient/deaf
 
 /////////////
 // NEUTRAL //
 /////////////
 
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
+#define STATUS_EFFECT_DAP /datum/status_effect/high_five/dap
+#define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
@@ -144,3 +160,10 @@
 #define STATUS_EFFECT_ADAPTIVELEARNING /datum/status_effect/adaptive_learning //tracks the total bonus damage needed to be done to target
 /// Status effect given when someone uses the Give Item command to offer an item to another player.
 #define STATUS_EFFECT_OFFERING_ITEM /datum/status_effect/offering_item
+
+#define STATUS_EFFECT_BLOB_BURST /datum/status_effect/blob_burst
+
+/// gives you fluff messages for cough, sneeze, headache, etc but without an actual virus
+#define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
+/// This status effect lets the user see the lwap dots.
+#define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope

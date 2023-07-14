@@ -100,7 +100,7 @@
 					/obj/item/circuitboard/solar_control,
 					/obj/item/tracker_electronics,
 					/obj/item/paper/solar)
-	cost = 250
+	cost = 100
 	containername = "solar pack crate"
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -194,7 +194,7 @@
 	access = ACCESS_EVA
 
 /datum/supply_packs/engineering/inflatable
-	name = "Inflatable barriers Crate"
+	name = "Inflatable Barriers Crate"
 	contains = list(/obj/item/storage/briefcase/inflatable,
 					/obj/item/storage/briefcase/inflatable,
 					/obj/item/storage/briefcase/inflatable)
@@ -212,7 +212,7 @@
 /datum/supply_packs/engineering/engine/teg
 	name = "Thermo-Electric Generator Crate"
 	contains = list(
-		/obj/machinery/power/generator,
+		/obj/machinery/power/teg,
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator)
 	cost = 250
@@ -221,16 +221,44 @@
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
 
-/datum/supply_packs/engineering/conveyor
-	name = "Conveyor Assembly Crate"
-	contains = list(/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_switch_construct,
-					/obj/item/paper/conveyor)
-	cost = 100
-	containername = "conveyor assembly crate"
-	department_restrictions = list() //anyone should be able to order conveyors (especially since they can just be made at an autolathe)
+/datum/supply_packs/engineering/canister/nitrogen
+	name = "Nitrogen canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/nitrogen)
+	cost = 50
+	containertype = /obj/structure/largecrate
+	containername = "nitrogen canister crate"
+
+/datum/supply_packs/engineering/canister/oxygen
+	name = "Oxygen canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/oxygen)
+	cost = 50
+	containertype = /obj/structure/largecrate
+	containername = "oxygen canister crate"
+
+/datum/supply_packs/engineering/canister/air
+	name = "Air canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/air)
+	cost = 50
+	containertype = /obj/structure/largecrate
+	containername = "Air canister crate"
+
+/datum/supply_packs/engineering/canister/sleeping_agent
+	name = "Nitrous oxide canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/sleeping_agent)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "Nitrous oxide canister crate"
+
+/datum/supply_packs/engineering/canister/carbon_dioxide
+	name = "Carbon dioxide canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/carbon_dioxide)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "Carbon dioxide canister crate"
+
+/datum/supply_packs/engineering/canister/toxins
+	name = "Plasma canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/toxins)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "Plasma canister crate"

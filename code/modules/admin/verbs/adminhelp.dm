@@ -44,11 +44,11 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 			var/active_admins = admincount[1]
 
 			log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [active_admins] non-AFK admins.")
-			SSdiscord.send2discord_simple_noadmins("**\[Adminhelp]** [key_name(src)]: [msg]", check_send_always = TRUE)
+			GLOB.discord_manager.send2discord_simple_noadmins("**\[Adminhelp]** [key_name(src)]: [msg]", check_send_always = TRUE)
 
 		if("Mentorhelp")
 			var/list/mentorcount = staff_countup(R_MENTOR)
 			var/active_mentors = mentorcount[1]
 
 			log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [active_mentors] non-AFK mentors.")
-			SSdiscord.send2discord_simple_mentor("[key_name(src)]: [msg]")
+			GLOB.discord_manager.send2discord_simple_mentor("[key_name(src)]: [msg]")

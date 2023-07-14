@@ -118,6 +118,9 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 				if(floor.density)
 					continue
 				flooring_near_beacon += floor
+			if(!length(flooring_near_beacon))
+				to_chat(user, "<span class='notice'>Your fulton pack slowly brings you back down, it seems that the linked beacon has stopped functioning!</span>")
+				flooring_near_beacon = get_turf(user)
 			holder_obj.forceMove(pick(flooring_near_beacon))
 			animate(holder_obj, pixel_z = 10, time = 50)
 			sleep(50)

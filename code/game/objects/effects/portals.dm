@@ -2,7 +2,7 @@
 
 /obj/effect/portal
 	name = "portal"
-	desc = "Looks unstable. Best to test it with the clown."
+	desc = "Result of bluespace high tech development."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
 
@@ -12,10 +12,11 @@
 	/// The ckey of the mob which was responsible for the creation of the portal. For example, the mob who used a wormhole jaunter.
 	var/creation_mob_ckey
 
-	var/failchance = 5
+	var/failchance = 0
 	var/fail_icon = "portal1"
 
-	var/precision = TRUE // how close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
+	/// How close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
+	var/precision = FALSE
 	var/can_multitool_to_remove = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
 	var/one_use = FALSE // Does this portal go away after one teleport?
@@ -43,6 +44,7 @@
 	if(!QDELETED(O))
 		O.portal_destroyed(src)
 	target = null
+	do_sparks(5, 0, loc)
 	return ..()
 
 /obj/effect/portal/singularity_pull()
@@ -142,6 +144,44 @@
 	visible_message("<span class='warning'>[src] flickers and fails due to bluespace interference!</span>")
 	do_sparks(5, 0, loc)
 	qdel(src)
+
+#define UNSTABLE_TIME_DELAY 2 SECONDS
+
+/obj/effect/portal/hand_tele
+	/// After you touch the portal, it will be unstable with high bad teleport chance, this variable contains time when it will be fine again
+	var/unstable_time = 0
+	/// If this is TRUE, you will not be able to teleport with that portal
+	var/inactive = FALSE
+
+/obj/effect/portal/hand_tele/examine(mob/user, infix, suffix)
+	. = ..()
+	if(unstable_time > world.time)
+		. += "<span class='warning'>[src] is shaking, it looks very unstable!</span>"
+
+/obj/effect/portal/hand_tele/can_teleport(atom/movable/M)
+	if(inactive)
+		return FALSE
+	return ..()
+
+/obj/effect/portal/hand_tele/teleport(atom/movable/M)
+	. = ..()
+	adjust_unstable()
+
+/obj/effect/portal/hand_tele/proc/adjust_unstable()
+	unstable_time = world.time + UNSTABLE_TIME_DELAY
+	icon_state = fail_icon
+	failchance = 33
+	inactive = TRUE
+	addtimer(CALLBACK(src, PROC_REF(check_unstable), unstable_time), UNSTABLE_TIME_DELAY)
+	addtimer(VARSET_CALLBACK(src, inactive, FALSE), 0.5 SECONDS) // after unstable is setted you have 0.5 safe seconds to think if you want to use it
+
+/obj/effect/portal/hand_tele/proc/check_unstable(current_unstable_time)
+	if(current_unstable_time != unstable_time)
+		return
+	icon_state = initial(icon_state)
+	failchance = 0
+
+#undef UNSTABLE_TIME_DELAY
 
 /obj/effect/portal/redspace
 	name = "redspace portal"

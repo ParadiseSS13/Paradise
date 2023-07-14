@@ -14,12 +14,11 @@
 	max_amount = MAX_STACKABLE_CASH
 	merge_type = /obj/item/stack/spacecash
 
-/obj/item/stack/spacecash/Initialize(mapload, uncompensated = TRUE)
+/obj/item/stack/spacecash/Initialize(mapload)
 	. = ..()
-	if(uncompensated)
-		SSeconomy.space_credits_created += amount
+	SSeconomy.space_credits_created += amount
 	SSeconomy.total_space_cash += amount
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/spacecash/Destroy()
 	SSeconomy.total_space_cash -= amount
@@ -28,11 +27,14 @@
 
 /obj/item/stack/spacecash/merge(obj/item/stack/S)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/spacecash/change_stack(mob/living/user)
 	. = ..()
-	update_icon()
+	var/obj/item/stack/spacecash/new_dosh = .
+	if(istype(new_dosh))
+		new_dosh.update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/spacecash/update_icon_state()
 	name = "[amount == max_amount ? "10000" : amount] Credit[amount > 1 ? "s" : ""]"

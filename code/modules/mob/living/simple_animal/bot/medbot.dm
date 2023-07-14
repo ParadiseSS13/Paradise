@@ -19,7 +19,6 @@
 	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 	window_id = "automed"
 	window_name = "Automatic Medical Unit v1.1"
-	path_image_color = "#DDDDFF"
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 
 	var/obj/item/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.

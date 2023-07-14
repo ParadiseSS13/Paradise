@@ -29,6 +29,7 @@
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+	var/heat_resistance = 5000
 
 	var/can_dismantle_with_welder = TRUE
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
@@ -80,10 +81,7 @@
 
 	if(rotting)
 		. += "<span class='warning'>There is fungus growing on [src].</span>"
-
-/turf/simulated/wall/detailed_examine()
-	return "You can deconstruct this by welding it, and then wrenching the girder.<br>\
-			You can build a wall by using metal sheets and making a girder, then adding more metal or plasteel."
+	. += "<span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
 /// Apply rust effects to the wall
 /turf/simulated/wall/proc/rust()
@@ -343,7 +341,7 @@
 	if(try_wallmount(I, user, params))
 		return
 	// The magnetic gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper))
+	if(istype(I, /obj/item/gripper_engineering))
 		return
 
 	return ..()

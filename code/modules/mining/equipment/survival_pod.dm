@@ -242,7 +242,7 @@
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)
 
-/obj/machinery/smartfridge/survival_pod/default_unfasten_wrench()
+/obj/machinery/smartfridge/survival_pod/default_unfasten_wrench(mob/user, obj/item/I, time)
 	return FALSE
 
 /obj/machinery/smartfridge/survival_pod/empty
@@ -284,7 +284,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
-							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
+							"<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			deconstruct()
 			return ..()
@@ -327,7 +327,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+							"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			new /obj/item/stack/rods(loc)
 			qdel(src)

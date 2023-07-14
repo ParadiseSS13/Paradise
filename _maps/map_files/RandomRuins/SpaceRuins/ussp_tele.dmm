@@ -54,6 +54,7 @@
 /area/ruin/space/derelict/teleporter)
 "l" = (
 /obj/item/rack_parts,
+/obj/item/clothing/under/new_soviet,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "m" = (
@@ -168,7 +169,7 @@
 /turf/simulated/wall,
 /area/ruin/space/derelict/teleporter)
 "B" = (
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	name = "Worn-out APC";
 	pixel_y = -24
 	},

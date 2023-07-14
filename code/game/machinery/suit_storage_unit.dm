@@ -1,7 +1,7 @@
 // SUIT STORAGE UNIT /////////////////
 /obj/machinery/suit_storage_unit
 	name = "suit storage unit"
-	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\"."
+	desc = "An industrial U-Stor-It Storage unit designed to accommodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\"."
 	icon = 'icons/obj/machines/suit_storage.dmi'
 	icon_state = "classic"
 	base_icon_state = "classic"
@@ -64,7 +64,7 @@
 
 /obj/machinery/suit_storage_unit/captain
 	name = "captain's suit storage unit"
-	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
+	desc = "An industrial U-Stor-It Storage unit designed to accommodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
 	suit_type	= /obj/item/clothing/suit/space/captain
 	helmet_type	= /obj/item/clothing/head/helmet/space/capspace
 	mask_type	= /obj/item/clothing/mask/gas
@@ -402,7 +402,7 @@
 
 
 /obj/machinery/suit_storage_unit/power_change()
-	..()
+	..() //we don't check parent return here because `is_operational` cares about other flags in stat
 	if(!is_operational() && state_open)
 		open_machine()
 		dump_contents()
@@ -431,19 +431,22 @@
 	var/mob/living/target = A
 	if(!state_open)
 		to_chat(user, "<span class='warning'>[src]'s doors are shut!</span>")
-		return
+		return TRUE
 	if(!is_operational())
 		to_chat(user, "<span class='warning'>[src] is not operational!</span>")
-		return
+		return TRUE
 	if(occupant || helmet || suit || storage)
 		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message("<span class='warning'>[user] starts squeezing into [src]!</span>", "<span class='notice'>You start working your way into [src]...</span>")
 	else
 		target.visible_message("<span class='warning'>[user] starts shoving [target] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/suit_storage_unit, put_in), user, target)
+	return TRUE
 
+/obj/machinery/suit_storage_unit/proc/put_in(mob/user, mob/living/target)
 	if(do_mob(user, target, 30))
 		if(occupant || helmet || suit || storage)
 			return

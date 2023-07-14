@@ -114,9 +114,9 @@
 		SSair.add_to_active(src,command)
 
 /atom/movable/proc/move_update_air(turf/T)
-    if(isturf(T))
-        T.air_update_turf(1)
-    air_update_turf(1)
+	if(isturf(T))
+		T.air_update_turf(1)
+	air_update_turf(1)
 
 
 

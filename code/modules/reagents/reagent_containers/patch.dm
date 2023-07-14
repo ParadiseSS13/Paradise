@@ -67,3 +67,9 @@
 	desc = "Helps with brute injuries if the affected person is a clown, otherwise inflicts various annoying effects."
 	icon_state = "bandaid_clown"
 	list_reagents = list("jestosterone" = 20)
+
+/obj/item/reagent_containers/food/pill/patch/perfluorodecalin
+	name = "perfluorodecalin patch"
+	desc = "Incredibly potent respiratory aid drug, may cause shortness of breath if used in large amounts."
+	icon_state = "bandaid_med"
+	list_reagents = list("perfluorodecalin" = 10)

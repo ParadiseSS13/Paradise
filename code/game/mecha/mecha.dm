@@ -12,7 +12,7 @@
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
 	max_integrity = 300 //max_integrity is base health
-	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 100)
 	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
@@ -83,6 +83,9 @@
 
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
+
+	/// How many ion thrusters we got on this bad boy
+	var/thruster_count = 0
 
 	// Action vars
 	var/defence_mode = FALSE
@@ -252,6 +255,8 @@
 	if(.)
 		return 1
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
+		step_in = initial(step_in) / thruster_count
+		new /obj/effect/particle_effect/ion_trails(get_turf(src), dir)
 		return 1
 
 	var/atom/movable/backup = get_spacemove_backup()
@@ -297,6 +302,10 @@
 			last_message = world.time
 		return 0
 
+	if(thrusters_active && has_gravity(src))
+		thrusters_active = FALSE
+		to_chat(occupant, "<span class='notice'>Thrusters automatically disabled.</span>")
+		step_in = initial(step_in)
 	var/move_result = 0
 	var/move_type = 0
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
@@ -320,7 +329,7 @@
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
 		if(possible_port)
-			var/obj/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /obj/screen/alert/mech_port_available, override = TRUE)
+			var/obj/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /obj/screen/alert/mech_port_available)
 			if(A)
 				A.target = possible_port
 		else
@@ -640,7 +649,7 @@
 	connected_port = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
-	QDEL_LIST(trackers)
+	QDEL_LIST_CONTENTS(trackers)
 	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
@@ -1013,6 +1022,7 @@
 			return T.remove_air(amount)
 
 /obj/mecha/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(use_internal_tank)
 		return cabin_air
 	return get_turf_air()
@@ -1063,14 +1073,20 @@
 /obj/mecha/portableConnectorReturnAir()
 	return internal_tank.return_air()
 
-/obj/mecha/proc/toggle_lights()
+/obj/mecha/proc/toggle_lights(show_message = TRUE)
 	lights = !lights
 	if(lights)
 		set_light(light_range + lights_power)
 	else
 		set_light(light_range - lights_power)
-	occupant_message("Toggled lights [lights ? "on" : "off"].")
-	log_message("Toggled lights [lights ? "on" : "off"].")
+	if(show_message)
+		occupant_message("Toggled lights [lights ? "on" : "off"].")
+		log_message("Toggled lights [lights ? "on" : "off"].")
+
+/obj/mecha/extinguish_light(force)
+	if(!lights)
+		return
+	toggle_lights(show_message = FALSE)
 
 /obj/mecha/proc/toggle_internal_tank()
 	use_internal_tank = !use_internal_tank
@@ -1080,7 +1096,7 @@
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if(frozen)
 		to_chat(user, "<span class='warning'>Do not enter Admin-Frozen mechs.</span>")
-		return
+		return TRUE
 	if(user.incapacitated())
 		return
 	if(user != M)
@@ -1089,7 +1105,7 @@
 	if(occupant)
 		to_chat(user, "<span class='warning'>[src] is already occupied!</span>")
 		log_append_to_last("Permission denied.")
-		return
+		return TRUE
 	var/passed
 	if(dna)
 		if(ishuman(user))
@@ -1100,17 +1116,20 @@
 	if(!passed)
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		log_append_to_last("Permission denied.")
-		return
+		return TRUE
 	if(user.buckled)
 		to_chat(user, "<span class='warning'>You are currently buckled and cannot move.</span>")
 		log_append_to_last("Permission denied.")
-		return
+		return TRUE
 	if(user.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
-		return
+		return TRUE
 
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/mecha, put_in), user)
+	return TRUE
 
+/obj/mecha/proc/put_in(mob/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	if(do_after(user, 40, target = src))
 		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
@@ -1144,6 +1163,8 @@
 			occupant << sound(nominalsound, volume = 50)
 		if(state)
 			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
+		if(connected_port)
+			H.throw_alert("mechaport_d", /obj/screen/alert/mech_port_disconnect)
 		return TRUE
 	else
 		return FALSE

@@ -329,10 +329,12 @@
 	name = "teleporter hub"
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
+	density = FALSE
+	layer = HOLOPAD_LAYER //Preventing mice and drones from sneaking under them.
+	plane = FLOOR_PLANE
 	var/accurate = 0
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 2000
+	idle_power_consumption = 10
+	active_power_consumption = 2000
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
 	var/admin_usage = FALSE // if 1, works on CC level. If 0, doesn't. Used for admin room teleport.
@@ -378,13 +380,13 @@
 			break
 	return power_station
 
-/obj/machinery/teleport/hub/Bumped(M as mob|obj)
+/obj/machinery/teleport/hub/Crossed(atom/movable/AM, oldloc)
 	if(!is_teleport_allowed(z) && !admin_usage)
-		if(ismob(M))
-			to_chat(M, "You can't use this here.")
+		if(ismob(AM))
+			to_chat(AM, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(M))
-		if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
+	if(power_station && power_station.engaged && !panel_open && !blockAI(AM) && !iseffect(AM))
+		if(!teleport(AM) && isliving(AM)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			power_station.toggle() // turn off the portal.
@@ -449,11 +451,13 @@
 	name = "permanent teleporter"
 	desc = "A teleporter with the target pre-set on the circuit board."
 	icon_state = "tele0"
-	var/recalibrating = FALSE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 2000
+	density = FALSE
+	layer = HOLOPAD_LAYER
+	plane = FLOOR_PLANE
+	idle_power_consumption = 10
+	active_power_consumption = 2000
 
+	var/recalibrating = FALSE
 	var/target
 	var/tele_delay = 50
 
@@ -470,29 +474,30 @@
 	tele_delay = max(A, 0)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/teleport/perma/Bumped(atom/A)
+/obj/machinery/teleport/perma/Crossed(atom/movable/AM, oldloc)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!is_teleport_allowed(z))
-		to_chat(A, "You can't use this here.")
+		to_chat(AM, "You can't use this here.")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(A))
-		do_teleport(A, target)
+	if(target && !recalibrating && !panel_open && !blockAI(AM))
+		do_teleport(AM, target)
 		use_power(5000)
 		if(tele_delay)
 			recalibrating = TRUE
 			update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 			update_lighting()
-			addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
+			addtimer(CALLBACK(src, PROC_REF(CrossedCallback)), tele_delay)
 
-/obj/machinery/teleport/perma/proc/BumpedCallback()
+/obj/machinery/teleport/perma/proc/CrossedCallback()
 	recalibrating = FALSE
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_lighting()
 
 /obj/machinery/teleport/perma/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_lighting()
 
@@ -534,14 +539,14 @@
 	name = "station"
 	desc = "The power control station for a bluespace teleporter."
 	icon_state = "controller"
-	var/engaged = FALSE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 2000
+	idle_power_consumption = 10
+	active_power_consumption = 2000
+
 	var/obj/machinery/computer/teleporter/teleporter_console
 	var/obj/machinery/teleport/hub/teleporter_hub
 	var/list/linked_stations = list()
 	var/efficiency = 0
+	var/engaged = FALSE
 
 /obj/machinery/teleport/station/Initialize(mapload)
 	. = ..()
@@ -588,9 +593,12 @@
 	if(exchange_parts(user, I))
 		return
 	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+		if(!teleporter_console)
+			to_chat(user, "<span class='caution'>[src] is not linked to a teleporter console.</span>")
+			return
 		var/obj/item/circuitboard/teleporter_perma/C = I
 		C.target = teleporter_console.target
-		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
+		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C].</span>")
 		return
 	return ..()
 
@@ -658,7 +666,8 @@
 		add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 	if(teleporter_hub)

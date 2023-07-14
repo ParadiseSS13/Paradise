@@ -32,7 +32,7 @@
 		/obj/item/stack/sheet/mineral/plastitanium		= /datum/species/golem/plastitanium,
 		/obj/item/stack/sheet/mineral/abductor			= /datum/species/golem/alloy,
 		/obj/item/stack/sheet/wood						= /datum/species/golem/wood,
-		/obj/item/stack/sheet/bluespace_crystal			= /datum/species/golem/bluespace,
+		/obj/item/stack/ore/bluespace_crystal/refined	= /datum/species/golem/bluespace,
 		/obj/item/stack/medical/bruise_pack	        	= /datum/species/golem/cloth,
 		/obj/item/stack/medical/bruise_pack/improvised	= /datum/species/golem/cloth,
 		/obj/item/stack/sheet/cloth	                	= /datum/species/golem/cloth,
@@ -102,7 +102,7 @@
 		Adamantine golems are the only golems that can resonate to all golems.</span>")
 		to_chat(new_spawn, "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked.")
 		to_chat(new_spawn, "<span class='warning'>You may interact or trade with crew you come across, aswell as defend yourself and your ship \
-        but avoid actively interfering with the station, you are required to adminhelp and request permission to board the main station.</span>")
+		but avoid actively interfering with the station, you are required to adminhelp and request permission to board the main station.</span>")
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
 		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")

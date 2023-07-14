@@ -47,7 +47,7 @@
 /datum/component/proximity_monitor/Destroy(force, silent)
 	hasprox_receiver = null
 	nested_receiver_locs.Cut()
-	QDEL_LIST(proximity_checkers)
+	QDEL_LIST_CONTENTS(proximity_checkers)
 	return ..()
 
 /datum/component/proximity_monitor/RegisterWithParent()
@@ -286,8 +286,8 @@
 
 /datum/component/proximity_monitor/advanced/Destroy(force, silent)
 	STOP_PROCESSING(SSfields, src)
-	QDEL_LIST(field_checkers)
-	QDEL_LIST(edge_checkers)
+	QDEL_LIST_CONTENTS(field_checkers)
+	QDEL_LIST_CONTENTS(edge_checkers)
 	return ..()
 
 /datum/component/proximity_monitor/advanced/create_prox_checkers()

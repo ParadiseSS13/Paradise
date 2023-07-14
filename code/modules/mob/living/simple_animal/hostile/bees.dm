@@ -148,7 +148,7 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/poison/bees/AttackingTarget()
- 	//Pollinate
+	//Pollinate
 	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/Hydro = target
 		pollinate(Hydro)
@@ -248,11 +248,11 @@
 
 //Botany Queen Bee
 /mob/living/simple_animal/hostile/poison/bees/queen
- 	name = "queen bee"
- 	desc = "She's the queen of bees, BZZ BZZ"
- 	icon_base = "queen"
- 	isqueen = TRUE
- 	mouse_opacity = MOUSE_OPACITY_OPAQUE
+	name = "queen bee"
+	desc = "She's the queen of bees, BZZ BZZ"
+	icon_base = "queen"
+	isqueen = TRUE
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 
 //the Queen doesn't leave the box on her own, and she CERTAINLY doesn't pollinate by herself

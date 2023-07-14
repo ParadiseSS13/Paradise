@@ -142,7 +142,7 @@
 	var/locked = FALSE
 
 /obj/machinery/shieldgen/Destroy()
-	QDEL_LIST(deployed_shields)
+	QDEL_LIST_CONTENTS(deployed_shields)
 	deployed_shields = null
 	return ..()
 
@@ -172,7 +172,7 @@
 	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-	QDEL_LIST(deployed_shields)
+	QDEL_LIST_CONTENTS(deployed_shields)
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
@@ -305,12 +305,13 @@
 	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
+	flags = CONDUCT
+	power_state = NO_POWER_USE
+
 	var/activated = FALSE
 	var/locked = TRUE
 	var/list/active_shields
 	var/stored_power = 0
-	flags = CONDUCT
-	use_power = NO_POWER_USE
 
 /obj/machinery/shieldwallgen/Initialize(mapload)
 	. = ..()
@@ -327,20 +328,20 @@
 	var/turf/T = loc
 
 	var/obj/structure/cable/C = T.get_cable_node()
-	var/datum/powernet/PN = C?.powernet // find the powernet of the connected cable
+	var/datum/regional_powernet/PN = C?.powernet // find the powernet of the connected cable
 
 	if(!PN)
 		deactivate()
 		return FALSE
 
-	var/surplus = max(PN.avail - PN.load, 0)
+	var/surplus = max(PN.available_power - PN.power_demand, 0)
 	var/shieldload = min(rand(50, 200), surplus)
 	if(!shieldload && stored_power <= 0)		// no cable or no power, and no power stored
 		deactivate()
 		return FALSE
 
 	stored_power += min(shieldload, MAX_STORED_POWER - stored_power)
-	PN.load += shieldload //uses powernet power.
+	PN.power_demand += shieldload //uses powernet power.
 	return TRUE
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user)
@@ -411,7 +412,7 @@
 	STOP_PROCESSING(SSmachines, src)
 	for(var/direction in GLOB.cardinal)
 		var/list/L = active_shields["[direction]"]
-		QDEL_LIST(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
+		QDEL_LIST_CONTENTS(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
 
 /obj/machinery/shieldwallgen/proc/remove_active_shield(obj/machinery/shieldwall/SW, direction)
 	var/list/L = active_shields["[direction]"]

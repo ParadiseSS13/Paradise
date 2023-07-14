@@ -12,7 +12,6 @@
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
 	density = TRUE
-	use_power = NO_POWER_USE
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -255,7 +254,7 @@
 
 	//inputting
 	if(terminal && input_attempt)
-		input_available = terminal.surplus()
+		input_available = terminal.get_power_balance()
 
 		if(inputting)
 			if(input_available > 0)		// if there's power available, try to charge
@@ -264,7 +263,7 @@
 
 				charge += load * SMESRATE	// increase the charge
 
-				terminal.add_load(load) // add the load to the terminal side network
+				terminal.consume_direct_power(load) // add the load to the terminal side network
 
 			else					// if not enough capcity
 				inputting = FALSE		// stop inputting
@@ -279,8 +278,7 @@
 	if(output_attempt)
 		if(outputting)
 			output_used = min( charge/SMESRATE, output_level)		//limit output to that stored
-
-			if (add_avail(output_used))				// add output to powernet if it exists (smes side)
+			if(produce_direct_power(output_used))				// add output to powernet if it exists (smes side)
 				charge -= output_used*SMESRATE		// reduce the storage (may be recovered in /restore() if excessive)
 			else
 				outputting = FALSE
@@ -311,7 +309,7 @@
 		output_used = 0
 		return
 
-	var/excess = powernet.netexcess		// this was how much wasn't used on the network last ptick, minus any removed by other SMESes
+	var/excess = powernet.excess_power		// this was how much wasn't used on the network last ptick, minus any removed by other SMESes
 
 	excess = min(output_used, excess)				// clamp it to how much was actually output by this SMES last ptick
 
@@ -322,7 +320,7 @@
 	var/clev = chargedisplay()
 
 	charge += excess * SMESRATE			// restore unused power
-	powernet.netexcess -= excess		// remove the excess from the powernet, so later SMESes don't try to use it
+	powernet.excess_power -= excess		// remove the excess from the powernet, so later SMESes don't try to use it
 
 	output_used -= excess
 

@@ -21,15 +21,16 @@
 			SSredis.publish("byond.asay", json_encode(data))
 
 		for(var/client/C in GLOB.admins)
+			var/temp_message = msg
 			if(R_ADMIN & C.holder.rights)
 				// Lets see if this admin was pinged in the asay message
-				if(findtext(msg, "@[C.ckey]") || findtext(msg, "@[C.key]")) // Check ckey and key, so you can type @AffectedArc07 or @affectedarc07
+				if(findtext(temp_message, "@[C.ckey]") || findtext(temp_message, "@[C.key]")) // Check ckey and key, so you can type @AffectedArc07 or @affectedarc07
 					SEND_SOUND(C, sound('sound/misc/ping.ogg'))
-					msg = replacetext(msg, "@[C.ckey]", "<font color='red'>@[C.ckey]</font>")
-					msg = replacetext(msg, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
+					temp_message = replacetext(temp_message, "@[C.ckey]", "<font color='red'>@[C.ckey]</font>")
+					temp_message = replacetext(temp_message, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
-				msg = "<span class='emoji_enabled'>[msg]</span>"
-				to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>")
+				temp_message = "<span class='emoji_enabled'>[temp_message]</span>"
+				to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>[temp_message]</span></span>")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

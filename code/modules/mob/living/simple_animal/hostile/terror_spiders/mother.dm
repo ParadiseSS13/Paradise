@@ -82,8 +82,11 @@
 		to_chat(src, "<span class='danger'>Cannot secrete jelly in space.</span>")
 		return
 	visible_message("<span class='notice'>[src] begins to secrete royal jelly.</span>")
-	if(do_after(src, 100, target = loc))
+	if(do_after_once(src, 100, target = loc, attempt_cancel_message = "You stop producing jelly."))
 		if(loc != mylocation)
+			return
+		if(regen_points < jelly_cost)
+			to_chat(src, "<span class='danger'>You only have [regen_points] of the [jelly_cost] regeneration points you need to do this.</span>")
 			return
 		new /obj/structure/spider/royaljelly(loc)
 		regen_points -= jelly_cost

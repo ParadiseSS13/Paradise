@@ -9,7 +9,7 @@
 	item_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 60, ACID = 50)
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
 	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
@@ -19,7 +19,7 @@
 
 /obj/item/pneumatic_cannon/Destroy()
 	QDEL_NULL(tank)
-	QDEL_LIST(loadedItems)
+	QDEL_LIST_CONTENTS(loadedItems)
 	return ..()
 
 /obj/item/pneumatic_cannon/examine(mob/user)
@@ -118,7 +118,7 @@
 		discharge = 1
 	if(!discharge)
 		user.visible_message("<span class='danger'>[user] fires \the [src]!</span>", \
-				    		 "<span class='danger'>You fire \the [src]!</span>")
+							"<span class='danger'>You fire \the [src]!</span>")
 	add_attack_logs(user, target, "Fired [src]")
 	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
 	for(var/obj/item/ITD in loadedItems) //Item To Discharge

@@ -56,7 +56,7 @@ What are the archived variables for?
 	return moles
 
 /datum/gas_mixture/proc/total_trace_moles()
-	var/moles = sleeping_agent + agent_b
+	var/moles = agent_b
 	return moles
 
 	/// Calculate pressure in kilopascals
@@ -110,6 +110,12 @@ What are the archived variables for?
 	agent_b += giver.agent_b
 
 	return TRUE
+
+	/// Only removes the gas if we have more than the amount
+/datum/gas_mixture/proc/boolean_remove(amount)
+	if(amount > total_moles())
+		return FALSE
+	return remove(amount)
 
 	///Proportionally removes amount of gas from the gas_mixture.
 	///Returns: gas_mixture with the gases removed

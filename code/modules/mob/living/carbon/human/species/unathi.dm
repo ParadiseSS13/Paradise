@@ -48,7 +48,7 @@
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
-								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot)
+								/mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/hostile/poison/bees)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -114,6 +114,7 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
+	species_traits = list(LIPS, NOT_SELECTABLE)
 	inherent_traits = list(TRAIT_CHUNKYFINGERS)
 
 	has_organ = list( // same as unathi's organs, aside for the lungs as they need to be able to breathe on lavaland.

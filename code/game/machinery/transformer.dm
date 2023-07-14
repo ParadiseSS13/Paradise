@@ -11,7 +11,7 @@
 	/// TRUE if the mob can be standing and still be transformed.
 	var/transform_standing = TRUE
 	/// Cooldown between each transformation, in deciseconds.
-	var/cooldown_duration = 1 MINUTES
+	var/cooldown_duration = 30 SECONDS
 	/// If the factory is currently on cooldown from its last transformation.
 	var/is_on_cooldown = FALSE
 	/// The type of cell that newly created borgs get.
@@ -47,7 +47,8 @@
 		new /obj/machinery/conveyor/auto(west, WEST)
 
 /obj/machinery/transformer/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/transformer/update_icon_state()
@@ -165,7 +166,8 @@
 			new /obj/machinery/conveyor/auto(west2, EAST)
 
 /obj/machinery/transformer/xray/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/transformer/xray/update_icon_state()

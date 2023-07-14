@@ -41,7 +41,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "k" = (
-/obj/machinery/economy/vending/assist,
+/obj/machinery/economy/vending/assist/free,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "l" = (

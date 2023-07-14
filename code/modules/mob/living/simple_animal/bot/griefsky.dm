@@ -8,7 +8,7 @@
 	window_name = "Automatic Security Unit v3.0"
 
 	var/spin_icon = "griefsky-c"  // griefsky and griefsky junior have dif icons
-	var/weapon = /obj/item/melee/energy/sword
+	var/weapon = /obj/item/melee/energy/sword/saber
 	var/block_chance = 50   //block attacks
 	var/reflect_chance = 80 // chance to reflect projectiles
 	var/dmg = 30 //esword dmg
@@ -59,9 +59,6 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-/mob/living/simple_animal/bot/secbot/griefsky/Destroy()
-	QDEL_NULL(weapon)
-	return ..()
 
 /mob/living/simple_animal/bot/secbot/griefsky/UnarmedAttack(atom/A) //like secbots its only possible with admin intervention
 	if(!on)

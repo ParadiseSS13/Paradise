@@ -15,7 +15,8 @@
 	virus_heal_resistant = TRUE
 
 /datum/disease/kuru/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(1)
 			if(prob(50))

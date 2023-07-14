@@ -26,15 +26,16 @@
 	/area/holodeck,
 	/area/shuttle,
 	/area/station/maintenance,
-	/area/station/science/test_area))
+	/area/station/science/test_area
+	/area/station/public/sleep))
 
-	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
+	//These are needed because /area/station/engineering has to be removed from the list, but we still want these areas to get fucked up.
 	var/list/allowed_areas = list(
-	/area/station/engineering/break_room,
-	/area/station/engineering/equipmentstorage,
-	/area/station/engineering/controlroom)
+		/area/station/engineering/break_room,
+		/area/station/engineering/equipmentstorage,
+		/area/station/engineering/controlroom)
 
-	var/list/remove_these_areas = safe_areas - danger_areas
+	var/list/remove_these_areas = safe_areas - allowed_areas
 	var/list/possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, remove_these_areas)
 
 	return pick(possible_areas)

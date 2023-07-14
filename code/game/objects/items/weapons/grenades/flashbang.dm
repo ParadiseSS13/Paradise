@@ -45,8 +45,9 @@
 		if(M.stat == DEAD)
 			continue
 		M.show_message("<span class='warning'>BANG</span>", 2)
+		var/mobturf = get_turf(M)
 
-		var/distance = max(1, get_dist(source_turf, get_turf(M)))
+		var/distance = max(1, get_dist(source_turf, mobturf))
 		var/status_duration = max(10 SECONDS / distance, 4 SECONDS)
 
 		// Flash
@@ -57,18 +58,19 @@
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
-			if(!distance || A.loc == M || A.loc == M.loc) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
+			if(source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
 				M.KnockDown(10 SECONDS)
 			if(!ear_safety)
 				M.KnockDown(status_duration)
-				M.AdjustEarDamage(5, 15)
+				M.Deaf(30 SECONDS)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
 					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 					if(istype(ears))
-						if(ears.ear_damage >= 15)
+						ears.receive_damage(5)
+						if(ears.damage >= 15)
 							to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-							if(prob(ears.ear_damage - 5))
+							if(prob(ears.damage - 5))
 								to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-						else if(ears.ear_damage >= 5)
+						else if(ears.damage >= 5)
 							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")

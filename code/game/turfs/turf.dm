@@ -6,7 +6,12 @@
 	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
-	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
+	/// used to check if pipes should be visible under the turf or not
+	var/transparent_floor = FALSE
+
+	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
+	var/real_layer = TURF_LAYER
+	layer = MAP_EDITOR_TURF_LAYER
 
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
@@ -48,6 +53,9 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+
+	if(layer == MAP_EDITOR_TURF_LAYER)
+		layer = real_layer
 
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()
@@ -98,7 +106,7 @@
 		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
 	visibilityChanged()
-	QDEL_LIST(blueprint_data)
+	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
 	..()
 
@@ -202,7 +210,7 @@
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
 	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-	if(L)
+	if(L && !(L.resistance_flags & INDESTRUCTIBLE))
 		qdel(L)
 
 /turf/proc/dismantle_wall(devastated = FALSE, explode = FALSE)
@@ -279,10 +287,15 @@
 
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
-	for(var/I in turfs_to_check)
-		var/turf/T = I
+	for(var/turf/T in turfs_to_check)
 		for(var/obj/machinery/door/firedoor/FD in T)
 			FD.CalculateAffectingAreas()
+
+	// Check for weeds and either update, create or delete wall weeds
+	turfs_to_check = AdjacentTurfs(open_only = TRUE, cardinal_only = FALSE)
+	for(var/turf/T in turfs_to_check)
+		for(var/obj/structure/alien/weeds/W in T)
+			W.check_surroundings()
 
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
@@ -372,106 +385,24 @@
 /turf/proc/burn_down()
 	return
 
-/////////////////////////////////////////////////////////////////////////
-// Navigation procs
-// Used for A-star pathfinding
-////////////////////////////////////////////////////////////////////////
-
-///////////////////////////
-//Cardinal only movements
-///////////////////////////
-
-// Returns the surrounding cardinal turfs with open links
-// Including through doors openable with the ID
-/turf/proc/CardinalTurfsWithAccess(obj/item/card/id/ID)
-	var/list/L = new()
-	var/turf/simulated/T
-
-	for(var/dir in GLOB.cardinal)
-		T = get_step(src, dir)
-		if(istype(T) && !T.density)
-			if(!LinkBlockedWithAccess(src, T, ID))
-				L.Add(T)
-	return L
-
-// Returns the surrounding cardinal turfs with open links
-// Don't check for ID, doors passable only if open
-/turf/proc/CardinalTurfs()
-	var/list/L = new()
-	var/turf/simulated/T
-
-	for(var/dir in GLOB.cardinal)
-		T = get_step(src, dir)
-		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T))
-				L.Add(T)
-	return L
-
-///////////////////////////
-//All directions movements
-///////////////////////////
-
-// Returns the surrounding simulated turfs with open links
-// Including through doors openable with the ID
-/turf/proc/AdjacentTurfsWithAccess(obj/item/card/id/ID = null, list/closed)//check access if one is passed
-	var/list/L = new()
-	var/turf/simulated/T
-	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
-		T = get_step(src, dir)
-		if(T in closed) //turf already proceeded in A*
-			continue
-		if(istype(T) && !T.density)
-			if(!LinkBlockedWithAccess(src, T, ID))
-				L.Add(T)
-	return L
-
-//Idem, but don't check for ID and goes through open doors
-/turf/proc/AdjacentTurfs(list/closed)
-	var/list/L = new()
-	var/turf/simulated/T
-	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
-		T = get_step(src, dir)
-		if(T in closed) //turf already proceeded by A*
-			continue
-		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T))
-				L.Add(T)
-	return L
-
-// check for all turfs, including space ones
-/turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
+/// Returns the adjacent turfs. Can check for density or cardinal directions only instead of all 8, or just dense turfs entirely. dense_only takes precedence over open_only.
+/turf/proc/AdjacentTurfs(open_only = FALSE, cardinal_only = FALSE, dense_only = FALSE)
 	var/list/L = new()
 	var/turf/T
-	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+	var/list/directions = cardinal_only ? GLOB.cardinal : GLOB.alldirs
+	for(var/dir in directions)
 		T = get_step(src, dir)
-		if(T in closed) //turf already proceeded by A*
+		if(!istype(T))
 			continue
-		if(istype(T) && !T.density)
-			if(!ID)
-				if(!CanAtmosPass(T))
-					L.Add(T)
-			else
-				if(!LinkBlockedWithAccess(src, T, ID))
-					L.Add(T)
+		if(dense_only && !T.density)
+			continue
+		if((open_only && T.density) && !dense_only)
+			continue
+		L.Add(T)
 	return L
 
-//////////////////////////////
-//Distance procs
-//////////////////////////////
-
-//Distance associates with all directions movement
 /turf/proc/Distance(turf/T)
 	return get_dist(src, T)
-
-//  This Distance proc assumes that only cardinal movement is
-//  possible. It results in more efficient (CPU-wise) pathing
-//  for bots and anything else that only moves in cardinal dirs.
-/turf/proc/Distance_cardinal(turf/T)
-	if(!src || !T)
-		return 0
-	return abs(src.x - T.x) + abs(src.y - T.y)
-
-////////////////////////////////////////////////////
 
 /turf/acid_act(acidpwr, acid_volume)
 	. = TRUE
@@ -538,7 +469,31 @@
 	return TRUE
 
 /turf/proc/can_lay_cable()
-	return can_have_cabling() & !intact
+	return can_have_cabling() && !intact
+
+/*
+	* # power_list()
+	* returns a list power machinery on the turf and cables on the turf that have a direction equal to the one supplied in params and are currently connected to a powernet
+	*
+	* Arguments:
+	* source - the atom that is calling this proc
+	* direction - the direction that a cable must have in order to be returned in this proc i.e. d1 or d2 must equal direction
+	* cable_only - if TRUE, power_list will only return cables, if FALSE it will also return power machinery
+*/
+/turf/proc/power_list(atom/source, direction, cable_only = FALSE)
+	. = list()
+	for(var/obj/AM in src)
+		if(AM == source)
+			continue	//we don't want to return source
+		if(istype(AM, /obj/structure/cable))
+
+			var/obj/structure/cable/C = AM
+			if(C.d1 == direction || C.d2 == direction)
+				. += C // one of the cables ends matches the supplied direction, add it to connnections
+		if(cable_only || direction)
+			continue
+		if(istype(AM, /obj/machinery/power) && !istype(AM, /obj/machinery/power/apc))
+			. += AM
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
@@ -548,6 +503,8 @@
 
 /turf/proc/add_blueprints(atom/movable/AM)
 	var/image/I = new
+	I.plane = GAME_PLANE
+	I.layer = OBJ_LAYER
 	I.appearance = AM.appearance
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	I.loc = src
@@ -603,3 +560,27 @@
 		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID, no_id = no_id))
 			continue
 		. += turf_to_check
+
+// Makes an image of up to 20 things on a turf + the turf
+/turf/proc/photograph(limit = 20)
+	var/image/I = new()
+	I.add_overlay(src)
+	for(var/V in contents)
+		var/atom/A = V
+		if(A.invisibility)
+			continue
+		I.add_overlay(A)
+		if(limit)
+			limit--
+		else
+			return I
+	return I
+
+
+/turf/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(mob_hurt || !density)
+		return
+	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
+	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+	C.take_organ_damage(damage)
+	C.KnockDown(3 SECONDS)

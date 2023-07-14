@@ -59,7 +59,7 @@
 	name = "Engineering Voidsuit"
 	icon_state = "void-red"
 	item_state = "void"
-	desc = "A CentCom engineering dark red space suit. Age has degraded the suit making is difficult to move around in."
+	desc = "A CentCom engineering dark red space suit. Age has degraded the suit making it difficult to move around in."
 	slowdown = 4
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
 
@@ -157,7 +157,7 @@
 	desc = "Early prototype RIG hardsuit helmet, designed to quickly shift over a user's head. Design constraints of the helmet mean it has no inbuilt cameras, thus it restricts the users visability."
 	icon_state = "hardsuit0-ancient"
 	item_state = "anc_helm"
-	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	item_color = "ancient"
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = null
@@ -167,7 +167,7 @@
 	desc = "Prototype powered RIG hardsuit. Provides excellent protection from the elements of space while being comfortable to move around in, thanks to the powered locomotives. Remains very bulky however."
 	icon_state = "hardsuit-ancient"
 	item_state = "anc_hardsuit"
-	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	slowdown = 3
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = null

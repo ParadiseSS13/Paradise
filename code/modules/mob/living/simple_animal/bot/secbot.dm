@@ -20,7 +20,6 @@
 	req_access = list(ACCESS_SECURITY)
 	window_id = "autosec"
 	window_name = "Automatic Security Unit v1.6"
-	path_image_color = "#FF0000"
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 
 	var/base_icon = "secbot"
@@ -248,14 +247,14 @@
 
 /mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
 	if(do_after(src, 60, target = C))
-		if(!C.handcuffed)
+		if(!C.handcuffed && on)
 			C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
 			C.update_handcuffed()
 			playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
 			back_to_idle()
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
-	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 	if(harmbaton)
 		playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1)
 	do_attack_animation(C)
@@ -267,7 +266,7 @@
 	C.SetStuttering(10 SECONDS)
 	C.adjustStaminaLoss(60)
 	baton_delayed = TRUE
-	addtimer(CALLBACK(C, PROC_REF(KnockDown), 10 SECONDS), 2.5 SECONDS)
+	C.apply_status_effect(STATUS_EFFECT_DELAYED, 2.5 SECONDS, CALLBACK(C, TYPE_PROC_REF(/mob/living/, KnockDown), 10 SECONDS), COMSIG_LIVING_CLEAR_STUNS)
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "batoned")
 	if(declare_arrests)
@@ -460,12 +459,12 @@
 		if(!istype(C) || !C || in_range(src, target))
 			return
 		C.visible_message("<span class='warning'>[pick( \
-						  "[C] dives out of [src]'s way!", \
-						  "[C] stumbles over [src]!", \
-						  "[C] jumps out of [src]'s path!", \
-						  "[C] trips over [src] and falls!", \
-						  "[C] topples over [src]!", \
-						  "[C] leaps out of [src]'s way!")]</span>")
+						"[C] dives out of [src]'s way!", \
+						"[C] stumbles over [src]!", \
+						"[C] jumps out of [src]'s path!", \
+						"[C] trips over [src] and falls!", \
+						"[C] topples over [src]!", \
+						"[C] leaps out of [src]'s way!")]</span>")
 		C.KnockDown(4 SECONDS)
 		return
 	..()

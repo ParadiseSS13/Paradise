@@ -56,7 +56,7 @@
 /obj/item/clothing/head/collectable/police
 	name = "collectable police officer's hat"
 	desc = "A Collectable Police Officer's Hat. This hat emphasizes that you are THE LAW."
-	icon_state = "policehelm"
+	icon_state = "policehat"
 	dog_fashion = /datum/dog_fashion/head/warden
 
 /obj/item/clothing/head/collectable/beret
@@ -87,7 +87,7 @@
 
 /obj/item/clothing/head/collectable/flatcap
 	name = "collectable flat cap"
-	desc = "A Collectible farmer's Flat Cap!"
+	desc = "A Collectable farmer's Flat Cap!"
 	icon_state = "flat_cap"
 	item_state = "detective"
 
@@ -128,7 +128,7 @@
 /obj/item/clothing/head/collectable/HoS
 	name = "collectable HoS hat"
 	desc = "Now you can beat prisoners, set silly sentences and arrest for no reason too!"
-	icon_state = "hoscap"
+	icon_state = "hos_cap"
 
 /obj/item/clothing/head/collectable/HoP
 	name = "collectable HoP hat"

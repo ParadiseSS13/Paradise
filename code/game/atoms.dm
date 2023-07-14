@@ -180,6 +180,7 @@
 			qdel(AA)
 		alternate_appearances = null
 
+	REMOVE_FROM_SMOOTH_QUEUE(src)
 	QDEL_NULL(reagents)
 	invisibility = INVISIBILITY_MAXIMUM
 	LAZYCLEARLIST(overlays)
@@ -257,6 +258,7 @@
 	return null
 
 /atom/proc/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(loc)
 		return loc.return_air()
 	else
@@ -304,7 +306,7 @@
  * severity - The severity of the EMP. Either EMP_HEAVY or EMP_LIGHT
  */
 /atom/proc/emp_act(severity)
-	return
+	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
 
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 	return TRUE
@@ -511,13 +513,13 @@
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/emag_act()
-	return
+/atom/proc/emag_act(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
 
 /atom/proc/unemag()
 	return
 
-/atom/proc/cmag_act()
+/atom/proc/cmag_act(mob/user)
 	return
 
 /atom/proc/uncmag()
@@ -544,6 +546,10 @@
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
+
+/// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
+/atom/proc/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
+	return
 
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))
@@ -975,6 +981,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 				return
 
 		var/obj/effect/decal/cleanable/vomit/this = new type(src)
+		if(!this.gravity_check)
+			this.newtonian_move(dir)
 
 		// Make toxins vomit look different
 		if(toxvomit)
@@ -1167,7 +1175,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /** Call this when you want to present a renaming prompt to the user.
 
-    It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
+	It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
 	or being able to rename stuff remotely.
 
 	Arguments:
@@ -1224,6 +1232,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 
 	t = sanitize(copytext(t, 1, MAX_NAME_LEN))
+
+	// Logging
+	var/logged_name = initial(name)
+	if(t)
+		logged_name = "[use_prefix ? "[prefix][t]" : t]"
+	investigate_log("[key_name(user)] ([ADMIN_FLW(user,"FLW")]) renamed \"[src]\" ([ADMIN_VV(src, "VV")]) as \"[logged_name]\".", INVESTIGATE_RENAME)
+
 	if(actually_rename)
 		if(t == "")
 			name = "[initial(name)]"

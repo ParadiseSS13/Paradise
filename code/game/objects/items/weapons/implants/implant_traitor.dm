@@ -11,7 +11,7 @@
 
 /obj/item/implant/traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user)
 	// Check `activated` here so you can't just keep taking it out and putting it back into other people.
-	if(!..() || activated || !istype(mindslave_target) || !istype(user)) // Both the target and the user need to be human.
+	if(activated || !istype(mindslave_target) || !istype(user)) // Both the target and the user need to be human.
 		return FALSE
 
 	// If the target is catatonic or doesn't have a mind, return.
@@ -24,7 +24,6 @@
 		mindslave_target.visible_message(
 			"<span class='warning'>[mindslave_target] seems to resist the bio-chip!</span>", \
 			"<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
-		removed(mindslave_target)
 		qdel(src)
 		return FALSE
 
@@ -32,7 +31,6 @@
 	if(mindslave_target == user)
 		to_chat(user, "<span class='notice'>Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot.</span>")
 		user.adjustBrainLoss(20)
-		removed(mindslave_target)
 		qdel(src)
 		return FALSE
 
@@ -40,7 +38,7 @@
 	mindslave_target.mind.add_antag_datum(new /datum/antagonist/mindslave(user.mind))
 	mindslave_UID = mindslave_target.mind.UID()
 	log_admin("[key_name_admin(user)] has mind-slaved [key_name_admin(mindslave_target)].")
-	return TRUE
+	return ..()
 
 /obj/item/implant/traitor/removed(mob/target)
 	. = ..()

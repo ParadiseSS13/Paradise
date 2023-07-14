@@ -49,7 +49,8 @@
 	. += "The safety sensor light is [emagged ? "<b>off</b>!" : "<b>on</b>."]</span>"
 
 /obj/machinery/recycler/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
@@ -63,11 +64,19 @@
 		return TRUE
 
 /obj/machinery/recycler/screwdriver_act(mob/user, obj/item/I)
-	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
-		return TRUE
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	panel_open = !panel_open
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/recycler/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += "grinder-oOpen"
 
 /obj/machinery/recycler/wrench_act(mob/user, obj/item/I)
-	if(default_unfasten_wrench(user, I))
+	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
 		return TRUE
 
 

@@ -11,7 +11,7 @@
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
+	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 70, ACID = 100)
 	glass = TRUE // Used by polarized helpers. Windoors are always glass.
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
@@ -134,7 +134,11 @@
 
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
+		return TRUE
+	if(isliving(mover))
+		var/mob/living/living_mover = mover
+		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
+			return TRUE
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
 		return !density
 	if(istype(mover, /obj/structure/window))
@@ -162,7 +166,11 @@
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
+		return TRUE
+	if(isliving(mover))
+		var/mob/living/living_mover = mover
+		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
+			return TRUE
 	if(get_dir(loc, target) == dir)
 		return !density
 	else
@@ -251,6 +259,13 @@
 /obj/machinery/door/window/attack_ai(mob/user)
 	return attack_hand(user)
 
+/obj/machinery/door/window/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
+
 /obj/machinery/door/window/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
@@ -312,7 +327,7 @@
 		return
 	if(panel_open && !density && !operating)
 		user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
-							 "You start to remove electronics from the [name]...")
+							"You start to remove electronics from the [name]...")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
 				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)

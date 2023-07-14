@@ -48,6 +48,7 @@
 #define STATIONLOVING_2			16
 #define INFORM_ADMINS_ON_RELOCATE_2	32
 #define BANG_PROTECT_2			64
+#define BLOCKS_LIGHT_2          128 // Light sources placed in anything with that flag will not emit light through them.
 
 // A mob with OMNITONGUE has no restriction in the ability to speak
 // languages that they know. So even if they wouldn't normally be able to
@@ -78,6 +79,8 @@
 #define NO_MALF_EFFECT_2		(1<<17)
 /// Use when this shouldn't be obscured by large icons.
 #define CRITICAL_ATOM_2			(1<<18)
+/// Use this flag for items that can block randomly
+#define RANDOM_BLOCKER_2		(1<<19)
 
 //Reagent flags
 #define REAGENT_NOREACT			1

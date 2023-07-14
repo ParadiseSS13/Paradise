@@ -61,9 +61,8 @@
 	icon_state = "scanner_open"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 50
-	active_power_usage = 300
+	idle_power_consumption = 50
+	active_power_consumption = 300
 	interact_offline = TRUE
 	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
@@ -134,9 +133,9 @@
 	go_out(user, force)
 	for(var/obj/O in src)
 		if(!istype(O,/obj/item/circuitboard/clonescanner) && \
-		   !istype(O,/obj/item/stock_parts) && \
-		   !istype(O,/obj/item/stack/cable_coil) && \
-		   O != beaker)
+			!istype(O,/obj/item/stock_parts) && \
+			!istype(O,/obj/item/stack/cable_coil) && \
+			O != beaker)
 			O.forceMove(get_turf(src))//Ejects items that manage to get in there (exluding the components and beaker)
 	if(!occupant)
 		for(var/mob/M in src)//Failsafe so you can get mobs out
@@ -195,16 +194,16 @@
 		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
-		return
+		return TRUE
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
 		to_chat(user, "<span class='danger'>Subject may not hold anything in their hands.</span>")
-		return
+		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
-		return
+		return TRUE
 	if(L == user)
 		visible_message("<span class='notice'>[user] climbs into [src].</span>")
 	else
@@ -212,6 +211,7 @@
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
+	return TRUE
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -262,7 +262,7 @@
 		return
 	for(var/obj/thing in contents) // in case there is something in the scanner
 		thing.forceMove(loc)
-	default_deconstruction_crowbar(user, I)	
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
@@ -356,9 +356,8 @@
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = PAGE_UI
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 400
+	idle_power_consumption = 10
+	active_power_consumption = 400
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
@@ -784,7 +783,7 @@
 						return
 					var/datum/dna2/record/buf = buffers[bufferId]
 					disk.buf = buf.copy()
-					disk.name = "data disk - '[buf.dna.real_name]'"
+					disk.name = "data disk - '[buf.name]'"
 		if("wipeDisk")
 			if(isnull(disk) || disk.read_only)
 				return

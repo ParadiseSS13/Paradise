@@ -7,9 +7,9 @@
 	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	max_integrity = 350
-	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
@@ -22,6 +22,7 @@
 	// Whether the door is bolted or not.
 	var/locked = FALSE
 	var/glass = FALSE
+	var/reinforced_glass = FALSE
 	var/welded = FALSE
 	var/normalspeed = TRUE
 	var/auto_close_time = 150
@@ -45,22 +46,22 @@
 	var/polarized_glass = FALSE
 	var/polarized_on
 
-/obj/machinery/door/New()
-	..()
-	GLOB.airlocks += src
-	update_freelook_sight()
-
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
 	update_dir()
+	update_freelook_sight()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
+	// Yes I know this isnt an airlock but its required because of the dumb reason of
+	// pod doors and shutters similar using this list as well
+	GLOB.airlocks += src
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
+	update_icon()
 	air_update_turf(1)
 
 /obj/machinery/door/proc/set_init_door_layer()
@@ -74,7 +75,8 @@
 	update_dir()
 
 /obj/machinery/door/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/door/proc/update_dir()
@@ -256,12 +258,12 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return
 
-	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
+	if(user.a_intent != INTENT_HARM && HAS_TRAIT(I, TRAIT_FORCES_OPEN_DOORS_ITEM))
 		try_to_crowbar(user, I)
-		return 1
+		return TRUE
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
-		return 1
+		return TRUE
 	return ..()
 
 /obj/machinery/door/crowbar_act(mob/user, obj/item/I)
@@ -457,30 +459,31 @@
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
 
-/obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
-	if(opacity || heat_proof)
+/obj/machinery/door/BlockSuperconductivity() // Only heatproof airlocks block heat, currently only varedited doors have this
+	if(heat_proof)
 		return 1
 	return 0
 
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)
+		. = list()
 		set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 		if(unres_sides & NORTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
 			I.pixel_y = 32
-			add_overlay(I)
+			. += I
 		if(unres_sides & SOUTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
 			I.pixel_y = -32
-			add_overlay(I)
+			. += I
 		if(unres_sides & EAST)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
 			I.pixel_x = 32
-			add_overlay(I)
+			. += I
 		if(unres_sides & WEST)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
 			I.pixel_x = -32
-			add_overlay(I)
+			. += I
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'

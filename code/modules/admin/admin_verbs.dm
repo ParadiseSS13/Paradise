@@ -68,7 +68,10 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/list_ssds_afks,
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/view_instances,
-	/client/proc/start_vote
+	/client/proc/start_vote,
+	/client/proc/toggle_mctabs,
+	/client/proc/ping_all_admins,
+	/client/proc/show_watchlist
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -89,6 +92,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
+	/client/proc/economy_manager,
 	/client/proc/make_sound,
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_random_events,
@@ -112,7 +116,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawn_character,
-	/client/proc/admin_deserialize
+	/client/proc/admin_deserialize,
+	/client/proc/create_crate
 	))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
@@ -160,7 +165,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
-	/client/proc/toggle_medal_disable,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
@@ -174,6 +178,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/dmapi_log,
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
+	/client/proc/force_verb_bypass,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -230,6 +235,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	/client/proc/debugNatureMapGenerator, // This lags like hell, and is very easy to nuke half the server with
 	/client/proc/vv_by_ref, // This allows you to lookup **ANYTHING** in the server memory by spamming refs. Locked for security.
 	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
+	/client/proc/throw_runtime, // Do I even need to explain why this is locked?
 ))
 
 /client/proc/on_holder_add()
@@ -631,14 +637,17 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	set name = "De-admin self"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 
 	log_admin("[key_name(usr)] deadmined themself.")
 	message_admins("[key_name_admin(usr)] deadmined themself.")
+	if(check_rights(R_ADMIN, FALSE))
+		GLOB.de_admins += ckey
+	else
+		GLOB.de_mentors += ckey
 	deadmin()
 	verbs += /client/proc/readmin
-	GLOB.deadmins += ckey
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -730,13 +739,15 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		D.associate(C)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
-		GLOB.deadmins -= ckey
+		GLOB.de_admins -= ckey
+		GLOB.de_mentors -= ckey
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return
 	else
 		to_chat(src, "You are already an admin.")
 		verbs -= /client/proc/readmin
-		GLOB.deadmins -= ckey
+		GLOB.de_admins -= ckey
+		GLOB.de_mentors -= ckey
 		return
 
 /client/proc/toggle_log_hrefs()
@@ -989,3 +1000,45 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+
+/client/proc/show_watchlist()
+	set name = "Show Watchlist"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	watchlist_show()
+
+/client/proc/cmd_admin_alert_message(mob/about_to_be_banned)
+	set name = "Send Alert Message"
+	set category = "Admin"
+
+	if(!ismob(about_to_be_banned))
+		return
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/alert_type = alert(src, "Do you wish to send an admin alert to [key_name(about_to_be_banned, FALSE)]?",,"Yes", "No", "Custom Message")
+
+	switch(alert_type)
+		if("Yes")
+			var/message = "An admin is trying to talk to you!\nCheck your chat window and click their name to respond or you may be banned!"
+			show_blurb(about_to_be_banned, 15, message, null, "center", "center", COLOR_RED, null, null, 1)
+			log_admin("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+			message_admins("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+
+		if("Custom Message")
+			var/message = input(src, "Input your custom admin alert text:", "Message") as text|null
+			if(!message)
+				return
+			message = strip_html(message, 500)
+
+			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
+			if(!message_color)
+				return
+
+			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
+			log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+			message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")

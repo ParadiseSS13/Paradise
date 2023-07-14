@@ -63,7 +63,6 @@
 	..()
 
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
-	. = ..()
 	if(over_object == usr && Adjacent(usr))
 		if(!item_chair || has_buckled_mobs())
 			return
@@ -82,6 +81,8 @@
 		var/C = new item_chair(loc)
 		usr.put_in_hands(C)
 		qdel(src)
+		return
+	. = ..()
 
 /obj/structure/chair/attack_tk(mob/user as mob)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
@@ -238,6 +239,7 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+	pull_speed = 0
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
@@ -360,6 +362,7 @@
 	desc = "Rigid and uncomfortable, perfect for keeping you awake and alert."
 	icon_state = "pewmiddle"
 	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
 	color = null
 	colorable = FALSE
 

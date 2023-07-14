@@ -9,11 +9,10 @@
 	icon_state = "turretCover"
 	anchored = TRUE
 	density = FALSE
-	use_power = IDLE_POWER_USE				//this turret uses and requires power
-	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
-	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
-	power_channel = EQUIP	//drains power from the EQUIPMENT channel
-	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
+	idle_power_consumption = 50		//when inactive, this turret takes up constant 50 Equipment power
+	active_power_consumption = 300	//when active, this turret takes up constant 300 Equipment power
+	power_channel = PW_CHANNEL_EQUIPMENT	//drains power from the EQUIPMENT channel
+	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, rad = 0, fire = 90, acid = 90)
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
 	var/health = 80			//the turret's health
@@ -158,7 +157,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & BROKEN)
 		icon_state = "destroyed_target_prism"
 	else if(raised || raising)
-		if(powered() && enabled)
+		if(has_power() && enabled)
 			if(iconholder)
 				//lasers have a orange icon
 				icon_state = "orange_target_prism"
@@ -317,10 +316,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				one_access = !one_access
 
 /obj/machinery/porta_turret/power_change()
-	if(powered() || !use_power)
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -383,7 +380,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	else
 		//if the turret was attacked with the intention of harming it:
 		user.changeNext_move(CLICK_CD_MELEE)
-		take_damage(I.force * 0.5)
 		playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
 		if(I.force * 0.5 > 1) //if the force of impact dealt at least 1 damage, the turret gets pissed off
 			if(!attacked && !emagged)
@@ -400,7 +396,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	if(!(stat & BROKEN))
 		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
-		take_damage(M.melee_damage_upper)
+		..()
 	else
 		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
 	return
@@ -430,14 +426,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 		enabled = TRUE //turns it back on. The cover pop_up() pop_down() are automatically called in process(), no need to define it here
 
-/obj/machinery/porta_turret/take_damage(force)
+
+/obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration_flat, armour_penetration_percentage)
 	if(!raised && !raising)
-		force = force / 8
-		if(force < 5)
+		damage_amount = damage_amount / 8
+		if(damage_amount < 5)
 			return
 
-	health -= force
-	if(force > 5 && prob(45) && spark_system)
+	health -= damage_amount
+	if(damage_amount > 5 && prob(45) && spark_system && damage_flag != FIRE)
 		spark_system.start()
 	if(health <= 0)
 		die()	//the death process :(
@@ -452,10 +450,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			spawn(60)
 				attacked = FALSE
 
-	..()
-
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		take_damage(Proj.damage)
+	return ..()
 
 /obj/machinery/porta_turret/emp_act(severity)
 	if(enabled && emp_vulnerable)
@@ -512,7 +507,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	var/list/targets = list()			//list of primary targets
 	var/list/secondarytargets = list()	//targets that are least important
-	var/static/things_to_scan = typecacheof(list(/obj/mecha, /obj/vehicle, /mob/living))
+	var/static/things_to_scan = typecacheof(list(/obj/mecha, /obj/vehicle, /mob/living, /obj/structure/blob))
 
 	for(var/A in typecache_filter_list(view(scan_range, src), things_to_scan))
 		var/atom/AA = A
@@ -524,16 +519,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			var/obj/mecha/ME = A
 			assess_and_assign(ME.occupant, targets, secondarytargets)
 
-		if(istype(A, /obj/vehicle))
+		else if(istype(A, /obj/vehicle))
 			var/obj/vehicle/T = A
 			if(T.has_buckled_mobs())
 				for(var/m in T.buckled_mobs)
 					var/mob/living/buckled_mob = m
 					assess_and_assign(buckled_mob, targets, secondarytargets)
 
-		if(isliving(A))
-			var/mob/living/C = A
-			assess_and_assign(C, targets, secondarytargets)
+		else
+			// Handles living and obj cases
+			assess_and_assign(A, targets, secondarytargets)
 
 	if(!tryToShootAt(targets))
 		if(!tryToShootAt(secondarytargets)) // if no valid targets, go for secondary targets
@@ -545,18 +540,37 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return 0
 	return 1
 
-/obj/machinery/porta_turret/proc/assess_and_assign(mob/living/L, list/targets, list/secondarytargets)
-	switch(assess_living(L))
+/obj/machinery/porta_turret/proc/assess_and_assign(atom/movable/AM, list/targets, list/secondarytargets)
+	var/target_priority
+	if(isliving(AM))
+		target_priority = assess_living(AM)
+	else if(isobj(AM))
+		target_priority = assess_obj(AM)
+	else
+		CRASH("A non-living and non-obj atom (name:[AM], type:[AM.type]) was considered for turret assessment.")
+	switch(target_priority)
 		if(TURRET_PRIORITY_TARGET)
-			targets += L
+			targets += AM
 		if(TURRET_SECONDARY_TARGET)
-			secondarytargets += L
+			secondarytargets += AM
+
+/obj/machinery/porta_turret/proc/pre_assess_checks(atom/movable/AM)
+	if(!AM)
+		return TURRET_PREASSESS_INVALID
+
+	if(get_turf(AM) == get_turf(src))
+		return TURRET_PREASSESS_INVALID
+
+	if(get_dist(src, AM) > scan_range)	//if it's too far away, why bother?
+		return TURRET_PREASSESS_INVALID
+
+	if(lethal && locate(/mob/living/silicon/ai) in get_turf(AM))		//don't accidentally kill the AI!
+		return TURRET_PREASSESS_INVALID
+
+	return TURRET_PREASSESS_VALID
 
 /obj/machinery/porta_turret/proc/assess_living(mob/living/L)
-	if(!L)
-		return TURRET_NOT_TARGET
-
-	if(get_turf(L) == get_turf(src))
+	if(pre_assess_checks(L) == TURRET_PREASSESS_INVALID)
 		return TURRET_NOT_TARGET
 
 	if(!emagged && !syndicate && (issilicon(L) || isbot(L)))
@@ -565,16 +579,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really
 		return TURRET_NOT_TARGET	//move onto next potential victim!
 
-	if(get_dist(src, L) > scan_range)	//if it's too far away, why bother?
-		return TURRET_NOT_TARGET
-
 	if(emagged)		// If emagged not even the dead get a rest
 		return L.stat ? TURRET_SECONDARY_TARGET : TURRET_PRIORITY_TARGET
 
 	if(in_faction(L))
-		return TURRET_NOT_TARGET
-
-	if(lethal && locate(/mob/living/silicon/ai) in get_turf(L))		//don't accidentally kill the AI!
 		return TURRET_NOT_TARGET
 
 	if(check_synth)	//If it's set to attack all non-silicons, target them!
@@ -602,6 +610,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			return TURRET_NOT_TARGET
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee
+
+/obj/machinery/porta_turret/proc/assess_obj(obj/O)
+	if(pre_assess_checks(O) == TURRET_PREASSESS_INVALID)
+		return TURRET_NOT_TARGET
+
+	if(istype(O, /obj/structure/blob))
+		return check_anomalies ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
+
+	return TURRET_NOT_TARGET
 
 /obj/machinery/porta_turret/proc/tryToShootAt(list/mob/living/targets)
 	if(targets.len && last_target && (last_target in targets) && target(last_target))
@@ -736,6 +753,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		A.current = T
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x
+		A.starting = loc
 		A.fire()
 	else
 		A.throw_at(target, scan_range, 1)
@@ -1021,7 +1039,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	syndicate = TRUE
 	installation = null
 	always_up = TRUE
-	use_power = NO_POWER_USE
+	requires_power = FALSE
+	power_state = NO_POWER_USE
 	has_cover = FALSE
 	raised = TRUE
 	scan_range = 9
@@ -1042,7 +1061,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/area/syndicate_depot/core/depotarea
 
 /obj/machinery/porta_turret/syndicate/CanPass(atom/A)
-    return ((stat & BROKEN) || !isliving(A))
+	return ((stat & BROKEN) || !isliving(A))
+
+/obj/machinery/porta_turret/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return ((stat & BROKEN) || !isliving(caller))
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()
@@ -1105,3 +1127,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	health = 100
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
+
+/obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior
+	health = 100

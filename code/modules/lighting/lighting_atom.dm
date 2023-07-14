@@ -54,7 +54,7 @@
 		else
 			light = new/datum/light_source(src, .)
 
-/atom/proc/extinguish_light()
+/atom/proc/extinguish_light(force = FALSE)
 	return
 
 // If we have opacity, make sure to tell (potentially) affected light sources.

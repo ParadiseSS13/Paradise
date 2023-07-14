@@ -328,9 +328,12 @@
 
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
-	if(M.client && !(M.client.prefs.sound & SOUND_DISCO)) //We have a client that doesn't want to dance.
-		rangers -= M //Doing that here as it'll be checked less often than in processing.
-		return
+	if(M.client)
+		if(!(M.client.prefs.sound & SOUND_DISCO)) //they dont want music or dancing
+			rangers -= M //Doing that here as it'll be checked less often than in processing.
+			return
+		if(!(M.client.prefs.toggles2 & PREFTOGGLE_2_DANCE_DISCO)) //they just dont wanna dance
+			return
 	switch(rand(0,9))
 		if(0 to 1)
 			dance2(M)
@@ -410,7 +413,7 @@
 				M.stand_up()
 			else
 				M.lay_down()
-		 time--
+		time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
 	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
@@ -454,8 +457,8 @@
 	lying_prev = 0
 
 /obj/machinery/disco/proc/dance_over()
-	QDEL_LIST(spotlights)
-	QDEL_LIST(sparkles)
+	QDEL_LIST_CONTENTS(spotlights)
+	QDEL_LIST_CONTENTS(sparkles)
 	for(var/mob/living/L in rangers)
 		if(!L || !L.client)
 			continue

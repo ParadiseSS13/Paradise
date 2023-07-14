@@ -22,7 +22,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
-	id = /obj/item/card/id/supply
+	id = /obj/item/card/id/quartermaster
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
 
@@ -79,7 +79,7 @@
 	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 	l_pocket = /obj/item/reagent_containers/hypospray/autoinjector/survival
 	r_pocket = /obj/item/storage/bag/ore
-	id = /obj/item/card/id/supply
+	id = /obj/item/card/id/shaftminer
 	pda = /obj/item/pda/shaftminer
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
@@ -149,10 +149,11 @@
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	id = /obj/item/card/id/bartender
 	pda = /obj/item/pda/bar
 	backpack_contents = list(
-		/obj/item/toy/russian_revolver = 1
-	)
+		/obj/item/toy/russian_revolver = 1,
+		/obj/item/eftpos = 1)
 
 /datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -191,6 +192,7 @@
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
+	id = /obj/item/card/id/chef
 	pda = /obj/item/pda/chef
 	backpack_contents = list(
 		/obj/item/eftpos=1,\
@@ -231,7 +233,7 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	suit_store = /obj/item/plant_analyzer
 	pda = /obj/item/pda/botanist
-
+	id = /obj/item/card/id/botanist
 	backpack = /obj/item/storage/backpack/botany
 	satchel = /obj/item/storage/backpack/satchel_hyd
 	dufflebag = /obj/item/storage/backpack/duffel/hydro
@@ -403,7 +405,9 @@
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
+	id = /obj/item/card/id/janitor
 	pda = /obj/item/pda/janitor
+	r_pocket = /obj/item/door_remote/janikeyring
 
 
 //More or less assistants
@@ -432,9 +436,10 @@
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/barcodescanner
 	l_hand = /obj/item/storage/bag/books
+	id = /obj/item/card/id/librarian
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
-		/obj/item/videocam = 1)
+		/obj/item/videocam/advanced = 1)
 
 /datum/job/barber
 	title = "Barber"
@@ -458,6 +463,7 @@
 	uniform = /obj/item/clothing/under/rank/civilian/barber
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
+	id = /obj/item/card/id/barber
 	backpack_contents = list(
 		/obj/item/storage/box/lip_stick = 1,
 		/obj/item/storage/box/barber = 1
@@ -467,20 +473,22 @@
 	title = "Explorer"
 	flag = JOB_EXPLORER
 	department_flag = JOBCAT_SUPPORT
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 4
+	spawn_positions = 4
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	outfit = /datum/outfit/job/explorer
-	hidden_from_job_prefs = TRUE
 
 /datum/outfit/job/explorer
-	// This outfit is never used, because there are no slots for this job.
-	// To get it, you have to go to the HOP and ask for a transfer to it.
 	name = "Explorer"
 	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/color/random
-	shoes = /obj/item/clothing/shoes/black
+	uniform = /obj/item/clothing/under/color/orange
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/workboots
+	glasses = /obj/item/clothing/glasses/welding
+	belt = /obj/item/storage/belt/utility
+	l_pocket = /obj/item/gps
+	id = /obj/item/card/id/explorer

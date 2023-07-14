@@ -6,6 +6,7 @@
 
 /obj/machinery/sleeper
 	name = "sleeper"
+	desc = "Injects chemicals into the bloodstream of the occupant, can remove chemicals from the bloodstream of the occupant through dialysis."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
@@ -25,25 +26,23 @@
 	var/min_health = -25
 	var/controls_inside = FALSE
 	var/auto_eject_dead = FALSE
-	idle_power_usage = 1250
-	active_power_usage = 2500
+	idle_power_consumption = 1250
+	active_power_consumption = 2500
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/sleeper/detailed_examine()
-	return "The sleeper allows you to clean the blood by means of dialysis, and to administer medication in a controlled environment.<br>\
-			<br>\
-			Click on your target then drag their sprite onto the sleeper to put them into it. Click the sleeper, with an empty hand, to open the menu. \
-			Click 'Start Dialysis' to begin filtering unwanted chemicals from the occupant's blood. The beaker contained will begin to fill with their \
-			contaminated blood, and will need to be emptied when full.<br>\
-			<br>\
-			You can also inject common medicines directly into their bloodstream.\
-			<br>\
-			Right-click the cell and click 'Eject Occupant' to remove them. You can enter the cell yourself by right clicking and selecting 'Enter Sleeper'. \
-			Note that you cannot control the sleeper while inside of it."
+/obj/machinery/sleeper/examine(mob/user)
+	. = ..()
+	if(occupant)
+		if(occupant.is_dead())
+			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
+		else
+			. += "<span class='notice'>You see [occupant.name] inside.</span>"
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
 
 /obj/machinery/sleeper/power_change()
-	..()
+	..() //we don't check parent return here because we also care about BROKEN
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
@@ -307,7 +306,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(!beaker)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
@@ -432,6 +431,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
+	playsound(src, 'sound/machines/podopen.ogg', 5)
 	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
@@ -459,19 +459,17 @@
 	else
 		to_chat(user, "There's no occupant in the sleeper!")
 
-/obj/machinery/sleeper/verb/eject()
-	set name = "Eject Sleeper"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+/obj/machinery/sleeper/AltClick(mob/user)
+	if(issilicon(user))
+		eject()
 		return
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+	eject()
 
+/obj/machinery/sleeper/proc/eject(mob/user)
 	go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/sleeper/verb/remove_beaker()
 	set name = "Remove Beaker"
@@ -497,6 +495,10 @@
 		visible_message("[user] starts climbing into the sleeper.")
 	else
 		visible_message("[user] starts putting [L.name] into the sleeper.")
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/sleeper, put_in), O, user, L)
+	return TRUE
+
+/obj/machinery/sleeper/proc/put_in(atom/movable/O, mob/user, mob/living/L) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	if(do_after(user, 20, target = L))
 		if(!permitted_check(O, user))
 			return
@@ -504,14 +506,13 @@
 			return
 		L.forceMove(src)
 		occupant = L
+		playsound(src, 'sound/machines/podclose.ogg', 5)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 		add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
 		SStgui.update_uis(src)
-		return
-	return
 
 /obj/machinery/sleeper/proc/permitted_check(atom/movable/O, mob/user)
 	if(O.loc == user) //no you can't pull things out of your ass
@@ -575,6 +576,7 @@
 		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
+		playsound(src, 'sound/machines/podclose.ogg', 5)
 		update_icon(UPDATE_ICON_STATE)
 
 		for(var/obj/O in src)

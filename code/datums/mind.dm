@@ -39,6 +39,7 @@
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 	var/datum/martial_art/martial_art
+	var/list/known_martial_arts = list()
 
 	var/role_alt_title
 
@@ -53,7 +54,6 @@
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
-	var/linglink
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -143,7 +143,6 @@
 			martial_art.remove(current)
 		else
 			martial_art.teach(current)
-
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
@@ -678,10 +677,6 @@
 				new_objective = new /datum/objective/survive
 				new_objective.owner = src
 
-			if("die")
-				new_objective = new /datum/objective/die
-				new_objective.owner = src
-
 			if("nuclear")
 				new_objective = new /datum/objective/nuclear
 				new_objective.owner = src
@@ -706,12 +701,6 @@
 					return
 
 				switch(new_obj_type)
-					if("download")
-						new_objective = new /datum/objective/download
-						new_objective.explanation_text = "Download [target_number] research levels."
-					if("capture")
-						new_objective = new /datum/objective/capture
-						new_objective.explanation_text = "Accumulate [target_number] capture points."
 					if("absorb")
 						new_objective = new /datum/objective/absorb
 						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
@@ -841,6 +830,7 @@
 				special_role = SPECIAL_ROLE_REV
 				log_admin("[key_name(usr)] has rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has rev'd [key_name_admin(current)]")
+				current.create_log(MISC_LOG, "[current] was made into a revolutionary by [key_name_admin(usr)]")
 
 			if("headrev")
 				if(src in SSticker.mode.revolutionaries)
@@ -867,6 +857,7 @@
 				special_role = SPECIAL_ROLE_HEAD_REV
 				log_admin("[key_name(usr)] has head-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has head-rev'd [key_name_admin(current)]")
+				current.create_log(MISC_LOG, "[current] was made into a head revolutionary by [key_name_admin(usr)]")
 
 			if("autoobjectives")
 				SSticker.mode.forge_revolutionary_objectives(src)
@@ -961,6 +952,7 @@
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
+					current.create_log(MISC_LOG, "[current] was made into a wizard by [key_name_admin(usr)]")
 			if("lair")
 				current.forceMove(pick(GLOB.wizardstart))
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the wizard's lair")
@@ -1190,6 +1182,7 @@
 				SSticker.mode.update_eventmisc_icons_added(src)
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
+				current.create_log(MISC_LOG, "[current] was made into an event antagonist by [key_name_admin(usr)]")
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
@@ -1201,10 +1194,7 @@
 
 			if("traitor")
 				if(!(has_antag_datum(/datum/antagonist/traitor)))
-					var/datum/antagonist/traitor/T = new()
-					T.give_objectives = FALSE
-					T.give_uplink = FALSE
-					add_antag_datum(T)
+					add_antag_datum(/datum/antagonist/traitor)
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
 
@@ -1433,6 +1423,7 @@
 				make_Abductor()
 				log_admin("[key_name(usr)] turned [current] into abductor.")
 				SSticker.mode.update_abductor_icons_added(src)
+				current.create_log(MISC_LOG, "[current] was made into an abductor by [key_name_admin(usr)]")
 			if("equip")
 				if(!ishuman(current))
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
@@ -1548,10 +1539,10 @@
 /**
  * Removes all antag datums from the src mind.
  *
- * Use this over doing `QDEL_LIST(antag_datums)`.
+ * Use this over doing `QDEL_LIST_CONTENTS(antag_datums)`.
  */
 /datum/mind/proc/remove_all_antag_datums()
-	// This is not `QDEL_LIST(antag_datums)`because it's possible for the `antag_datums` list to be set to null during deletion of an antag datum.
+	// This is not `QDEL_LIST_CONTENTS(antag_datums)`because it's possible for the `antag_datums` list to be set to null during deletion of an antag datum.
 	// Then `QDEL_LIST` would runtime because it would be doing `null.Cut()`.
 	for(var/datum/antagonist/A as anything in antag_datums)
 		qdel(A)
@@ -1741,6 +1732,7 @@
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
 		SEND_SOUND(H, sound('sound/ambience/antag/abductors.ogg'))
+	H.create_log(MISC_LOG, "[H] was made into an abductor")
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S

@@ -103,7 +103,7 @@
 	path = /obj/item/clothing/under/color/darkred
 
 /datum/gear/uniform/suit/soviet
-	display_name = "USSP uniform"
+	display_name = "Old USSP uniform"
 	path = /obj/item/clothing/under/costume/soviet
 
 /datum/gear/uniform/suit/kilt
@@ -202,6 +202,11 @@
 	display_name = "Skirt, hos"
 	path = /obj/item/clothing/under/rank/security/head_of_security/skirt
 	allowed_roles = list("Head of Security")
+
+/datum/gear/uniform/skirt/job/magistrate
+	display_name = "Skirt, magistrate"
+	path = /obj/item/clothing/under/rank/centcom/magistrate/skirt
+	allowed_roles = list("Magistrate")
 
 /datum/gear/uniform/skirt/job/ntrep
 	display_name = "Skirt, nt rep"

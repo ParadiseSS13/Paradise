@@ -103,7 +103,6 @@
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
-	randomise()
 	real_name = random_name(gender, species)
 
 /datum/character_save/proc/save(client/C)
@@ -458,11 +457,15 @@
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
+	if(!SP)
+		stack_trace("Couldn't find a species matching [species], character name is [real_name].")
+
 	metadata = sanitize_text(metadata, initial(metadata))
 	real_name = reject_bad_name(real_name, TRUE)
 
 	if(isnull(species))
 		species = "Human"
+		stack_trace("Character doesn't have a species, character name is [real_name]. Defaulting to human.")
 
 	if(isnull(language))
 		language = "None"
@@ -478,7 +481,7 @@
 
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
-	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
+	age				= sanitize_integer(age, SP.min_age, SP.max_age, initial(age))
 	h_colour		= sanitize_hexcolor(h_colour)
 	h_sec_colour	= sanitize_hexcolor(h_sec_colour)
 	f_colour		= sanitize_hexcolor(f_colour)
@@ -593,7 +596,7 @@
 	if(S.bodyflags & HAS_SKIN_COLOR)
 		randomize_skin_color()
 	backbag = 2
-	age = rand(AGE_MIN, AGE_MAX)
+	age = rand(S.min_age, S.max_age)
 
 
 /datum/character_save/proc/randomize_hair_color(target = "hair")
@@ -823,9 +826,6 @@
 		else
 			preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
 
-	var/icon/hands_icon = icon(preview_icon)
-	hands_icon.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "hands_mask"), ICON_MULTIPLY)
-
 	// Body accessory
 	if(current_species && (current_species.bodyflags & HAS_BODY_ACCESSORY))
 		var/icon
@@ -890,6 +890,8 @@
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
 				preview_icon.Blend(h_marking_s, ICON_OVERLAY)
 
+	var/icon/hands_icon = icon(preview_icon)
+	hands_icon.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask"), ICON_MULTIPLY)
 
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(current_species.bodyflags & NO_EYES))
@@ -1147,7 +1149,18 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-
+			if(JOB_EXPLORER)
+				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "orange_s")
+				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "workboots"), ICON_UNDERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
+				has_gloves = TRUE
+				switch(backbag)
+					if(2)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
+					if(3)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
+					if(4)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 	else if(job_medsci_high)
 		switch(job_medsci_high)
 			if(JOB_RD)
@@ -1647,10 +1660,10 @@
 	popup.open(0)
 
 /datum/character_save/proc/GetPlayerAltTitle(datum/job/job)
-    if(player_alt_titles.Find(job.title) > 0) // Does it exist in the list
-        if(player_alt_titles[job.title] in job.alt_titles) // Is it valid
-            return player_alt_titles[job.title]
-    return job.title // Use default
+	if(player_alt_titles.Find(job.title) > 0) // Does it exist in the list
+		if(player_alt_titles[job.title] in job.alt_titles) // Is it valid
+			return player_alt_titles[job.title]
+	return job.title // Use default
 
 /datum/character_save/proc/SetPlayerAltTitle(datum/job/job, new_title)
 	// remove existing entry
@@ -1827,6 +1840,8 @@
 	if(!l_foot && !r_foot)
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)
+	else if(!l_foot || !r_foot)
+		character.put_in_r_hand(new /obj/item/cane)
 
 	character.underwear = underwear
 	character.undershirt = undershirt

@@ -127,7 +127,7 @@
 /datum/mutation/disability/colourblindness
 	name = "Colourblindness"
 	activation_messages = list("You feel a peculiar prickling in your eyes while your perception of colour changes.")
-	deactivation_messages = list("Your eyes tingle unsettlingly, though everything seems to become alot more colourful.")
+	deactivation_messages = list("Your eyes tingle unsettlingly, though everything seems to become a lot more colourful.")
 	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_COLORBLIND)
 
@@ -305,6 +305,7 @@
 	desc = "Forces the language center of the subject's brain to construct sentences in a more rudimentary manner."
 	activation_messages = list("Ye feel like a rite prat like, innit?")
 	deactivation_messages = list("You no longer feel like being rude and sassy.")
+	traits_to_add = list(TRAIT_CHAV)
 	//List of swappable words. Normal word first, chav word second.
 	var/static/list/chavlinks = list(
 	"arrest" = "nick",
@@ -380,6 +381,7 @@
 	return message
 
 /datum/mutation/disability/speech/chav/proc/replace_speech(matched)
+	REGEX_REPLACE_HANDLER
 	return chavlinks[matched]
 
 // WAS: /datum/bioEffect/swedish

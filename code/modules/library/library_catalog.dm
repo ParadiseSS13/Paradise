@@ -5,17 +5,17 @@
 
 /*
  * # Library Catalog
-
-  This datum forms the basis for the entire library system, one is created at roundstart and stored to a global variable
- It holds lists for all predefined report and book categories, books flagged during the round, and all programmatic
- books.
-
- Additionally, ALL library SQL queries are handled in this datum. This is intentional so that we do not have multiple SQL
- queries trying to do the same thing but in 4-5 different dm files. This file is split/organized into a specific
- structure:
- TOP    - Defining Library Lists
- MIDDLE - Get Procs that get information from the catalog or DB
- BOTTOM - Send/Update procs that perform changes to the Database. Don't mix their functionalities together.
+ *
+ * This datum forms the basis for the entire library system, one is created at roundstart and stored to a global variable
+ * It holds lists for all predefined report and book categories, books flagged during the round, and all programmatic
+ * books.
+ *
+ * Additionally, ALL library SQL queries are handled in this datum. This is intentional so that we do not have multiple SQL
+ * queries trying to do the same thing but in 4-5 different dm files. This file is split/organized into a specific
+ * structure:
+ * TOP    - Defining Library Lists
+ * MIDDLE - Get Procs that get information from the catalog or DB
+ * BOTTOM - Send/Update procs that perform changes to the Database. Don't mix their functionalities together.
  */
 /datum/library_catalog
 	///Lists of all reported books in the current round
@@ -55,7 +55,7 @@
 
 		DEFINE_CATEGORY(LIB_CATEGORY_PHILOSOPHY, "Philosophy"),
 		DEFINE_CATEGORY(LIB_CATEGORY_DRAMA, "Drama and Thriller"),
-    	DEFINE_CATEGORY(LIB_CATEGORY_EXPERIMENT, "Experiment Notes"),
+		DEFINE_CATEGORY(LIB_CATEGORY_EXPERIMENT, "Experiment Notes"),
 		DEFINE_CATEGORY(LIB_CATEGORY_LEGAL, "Legal Document"),
 		DEFINE_CATEGORY(LIB_CATEGORY_BIOGRAPHY, "Biography"),
 		DEFINE_CATEGORY(LIB_CATEGORY_GUIDE, "Guides and References"),
@@ -67,7 +67,7 @@
 		DEFINE_CATEGORY(LIB_CATEGORY_THEATRE, "Theatre"),
 		DEFINE_CATEGORY(LIB_CATEGORY_POETRY, "Poetry"),
 
-    	DEFINE_CATEGORY(LIB_CATEGORY_LAW, "Law"),
+		DEFINE_CATEGORY(LIB_CATEGORY_LAW, "Law"),
 		DEFINE_CATEGORY(LIB_CATEGORY_SECURITY, "Security"),
 		DEFINE_CATEGORY(LIB_CATEGORY_SUPPLY, "Supply"),
 		DEFINE_CATEGORY(LIB_CATEGORY_ENGINEERING, "Engineering"),
@@ -427,7 +427,7 @@
 		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but it does not exist in the Database, please investigate further.")
 		return FALSE
 	if(!SSdbcore.IsConnected()) //check our connection to the DB
-		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but the flag was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but the flag was not successfully saved to the Database. Please investigate further.")
 		alert("Connection to Archive has been severed. Aborting.")
 		return FALSE
 
@@ -462,7 +462,7 @@
 		"report" = json_encode(flag_json),
 	))
 	if(!query.warn_execute())
-		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for \"[report_type.description]\" but the flag was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for \"[report_type.description]\" but the flag was not successfully saved to the Database. Please investigate further.")
 		qdel(query)
 		return FALSE
 	message_admins("[ckey] has flagged book #[bookid] as inappropriate for \"[report_type.description]\".")
@@ -486,7 +486,7 @@
 		return FALSE //it don't exist
 
 	if(!SSdbcore.IsConnected()) //check our connection to the DB
-		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not successfully saved to the Database. Please investigate further.")
 		return FALSE
 
 	//uploading our report to the library
@@ -495,7 +495,7 @@
 		"report" = json_encode(list()),
 	))
 	if(!query.warn_execute())
-		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not successfully saved to the Database. Please investigate further.")
 		qdel(query)
 		return FALSE
 	qdel(query)
@@ -639,15 +639,15 @@
 #undef MAX_PLAYER_UPLOADS
 
 /*     here be dragons~~~
-                __        _
-              _/  \    _(\(o
-             /     \  /  _  ^^^o
-            /   !   \/  ! '!!!v'
-           !  !  \ _' ( \____
-           ! . \ _!\   \===^\)
-            \ \_!  / __!
-             \!   /    \
-       (\_      _/   _\ )
-        \ ^^--^^ __-^ /(__
-         ^^----^^    "^--v'
+ *                __        _
+ *              _/  \    _(\(o
+ *             /     \  /  _  ^^^o
+ *            /   !   \/  ! '!!!v'
+ *           !  !  \ _' ( \____
+ *           ! . \ _!\   \===^\)
+ *            \ \_!  / __!
+ *             \!   /    \
+ *       (\_      _/   _\ )
+ *        \ ^^--^^ __-^ /(__
+ *         ^^----^^    "^--v'
 */

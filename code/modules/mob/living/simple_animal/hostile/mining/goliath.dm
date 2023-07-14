@@ -1,7 +1,7 @@
 //A slow but strong beast that tries to stun using its tentacles
 /mob/living/simple_animal/hostile/asteroid/goliath
 	name = "goliath"
-	desc = "A massive beast that uses long tentacles to ensare its prey, threatening them is not advised under any conditions."
+	desc = "A massive beast that uses long tentacles to ensnare its prey, threatening them is not advised under any conditions."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath"
 	icon_living = "Goliath"
@@ -96,11 +96,6 @@
 	stat_attack = UNCONSCIOUS
 	robust_searching = TRUE
 
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)
-	. = ..()
-	if(prob(1))
-		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(loc)
-		return INITIALIZE_HINT_QDEL
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
 	name = "ancient goliath"

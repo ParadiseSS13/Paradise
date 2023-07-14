@@ -208,7 +208,6 @@
 
 /obj/machinery/washing_machine/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(default_unfasten_wrench(user, W))
-		power_change()
 		return
 	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/stamp))
 		if( state in list(	1, 3, 6 ) )

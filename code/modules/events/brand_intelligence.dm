@@ -6,15 +6,15 @@
 	var/list/obj/machinery/economy/vending/infectedMachines = list()
 	var/obj/machinery/economy/vending/originMachine
 	var/list/rampant_speeches = list("Try our aggressive new marketing strategies!", \
-									 "You should buy products to feed your lifestyle obession!", \
-									 "Consume!", \
-									 "Your money can buy happiness!", \
-									 "Engage direct marketing!", \
-									 "Advertising is legalized lying! But don't let that put you off our great deals!", \
-									 "You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
+									"You should buy products to feed your lifestyle obsession!", \
+									"Consume!", \
+									"Your money can buy happiness!", \
+									"Engage direct marketing!", \
+									"Advertising is legalized lying! But don't let that put you off our great deals!", \
+									"You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
 
 /datum/event/brand_intelligence/announce()
-	GLOB.event_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
+	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
 
 /datum/event/brand_intelligence/start()
 	for(var/obj/machinery/economy/vending/V in GLOB.machines)
@@ -42,7 +42,10 @@
 		for(var/thing in infectedMachines)
 			var/obj/machinery/economy/vending/upriser = thing
 			if(prob(70))
-				var/mob/living/simple_animal/hostile/mimic/copy/M = new(upriser.loc, upriser, null, 1) // it will delete upriser on creation and override any machine checks
+				// let them become "normal" after turning
+				upriser.shoot_inventory = FALSE
+				upriser.aggressive = FALSE
+				var/mob/living/simple_animal/hostile/mimic/copy/vendor/M = new(upriser.loc, upriser, null)
 				M.faction = list("profit")
 				M.speak = rampant_speeches.Copy()
 				M.speak_chance = 15
@@ -59,6 +62,10 @@
 		infectedMachines.Add(rebel)
 		rebel.shut_up = FALSE
 		rebel.shoot_inventory = TRUE
+		rebel.aggressive = TRUE
+		if(rebel.tiltable)
+			// add proximity monitor so they can tilt over
+			rebel.AddComponent(/datum/component/proximity_monitor)
 
 		if(ISMULTIPLE(activeFor, 8))
 			originMachine.speak(pick(rampant_speeches))
@@ -67,6 +74,9 @@
 	for(var/thing in infectedMachines)
 		var/obj/machinery/economy/vending/saved = thing
 		saved.shoot_inventory = FALSE
+		saved.aggressive = FALSE
+		if(saved.tiltable)
+			qdel(saved.GetComponent(/datum/component/proximity_monitor))
 	if(originMachine)
 		originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
 		originMachine.visible_message("[originMachine] beeps and seems lifeless.")

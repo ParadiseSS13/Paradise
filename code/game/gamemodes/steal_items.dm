@@ -28,6 +28,11 @@
 			return 1
 	return 0
 
+//This proc is to be used for not granting objectives if a special requirement other than job is not met.
+
+/datum/theft_objective/proc/check_objective_conditions()
+	return TRUE
+
 /datum/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
 	return 1
 
@@ -92,7 +97,7 @@
 	altitems = list(/obj/item/photo)
 	location_override = "the Chief Engineer's Office"
 
-/datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
+/datum/theft_objective/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints/ce))
 		return 1
 	if(istype(I, /obj/item/photo))
@@ -125,7 +130,7 @@
 	location_override = "the Vault"
 
 /datum/theft_objective/hypospray
-	name = "the Chief Medical Officer's hypospray"
+	name = "the chief medical officer's advanced hypospray"
 	typepath = /obj/item/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 	location_override = "the Chief Medical Officer's Office"
@@ -143,6 +148,9 @@
 	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver"
 	special_equipment = /obj/item/storage/box/syndie_kit/supermatter
 	job_possession = FALSE //The CE / engineers / atmos techs do not carry around supermater slivers.
+
+/datum/theft_objective/supermatter_sliver/check_objective_conditions() //If there is no supermatter, you don't get the objective. Yes, one could order it from cargo, but I don't think that is fair, especially if we get a map without a supermatter
+	return !isnull(GLOB.main_supermatter_engine)
 
 /datum/theft_objective/plutonium_core
 	name = "the plutonium core from the station's nuclear device"

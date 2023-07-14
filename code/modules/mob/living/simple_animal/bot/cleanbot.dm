@@ -17,7 +17,6 @@
 	window_id = "autoclean"
 	window_name = "Automatic Station Cleaner v1.1"
 	pass_flags = PASSMOB
-	path_image_color = "#993299"
 
 
 	var/blood = TRUE

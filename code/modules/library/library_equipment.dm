@@ -16,8 +16,20 @@
 	opacity = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
+
+/obj/structure/bookcase/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		// same reasoning as closets
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+
+/obj/structure/bookcase/proc/take_contents()
+	for(var/obj/item/I in get_turf(src))
+		if(is_type_in_list(I, allowed_books))
+			I.forceMove(src)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/attackby(obj/item/O, mob/user)
 	if(is_type_in_list(O, allowed_books))
@@ -407,14 +419,14 @@
 				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked out to [computer.user_data.patron_name].'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'</span>")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'</span>")
 		if(BARCODE_MODE_CHECKIN)
 			if(computer.checkin(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked back into general inventory.'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'</span>")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'</span>")
 
 /obj/item/barcodescanner/proc/check_connection(mob/user as mob) //fuck you null references!
 	if(computer)

@@ -12,7 +12,7 @@
 		to_chat(A, "<br>")
 
 	if(prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
-		GLOB.event_announcement.Announce(alert)
+		GLOB.minor_announcement.Announce(alert)
 
 /datum/event/communications_blackout/start()
 	// This only affects the cores, relays should be unaffected imo

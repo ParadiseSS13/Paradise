@@ -268,6 +268,10 @@
 /proc/rustg_unix_timestamp()
 	return text2num(RUSTG_CALL(RUST_G, "unix_timestamp")())
 
+// Toast Operations //
+
+#define rustg_create_toast(title, body) RUSTG_CALL(RUST_G, "create_toast")(title, body)
+
 // TOML Operations //
 
 #define rustg_raw_read_toml_file(path) json_decode(RUSTG_CALL(RUST_G, "toml_file_to_json")(path) || "null")

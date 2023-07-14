@@ -33,6 +33,8 @@
 	var/falloff_distance
 	/// Channel of the audio, random otherwise
 	var/channel
+	/// If this sound is based off of an area
+	var/area_sound = FALSE
 
 /datum/looping_sound/New(list/_output_atoms = list(), start_immediately = FALSE, _direct = FALSE)
 	if(!mid_sounds)
@@ -52,7 +54,7 @@
 
 /datum/looping_sound/proc/start(atom/add_thing)
 	if(add_thing)
-		LAZYADD(output_atoms, add_thing)
+		LAZYADDOR(output_atoms, add_thing)
 	if(!muted)
 		return
 	muted = FALSE
@@ -78,6 +80,12 @@
 /datum/looping_sound/proc/play(soundfile)
 	var/list/atoms_cache = output_atoms
 	var/sound/S = sound(soundfile)
+	if(area_sound)
+		for(var/area/sound_outputs in atoms_cache)
+			for(var/mob/listener in mobs_in_area(sound_outputs, TRUE))
+				S.volume = volume * (USER_VOLUME(listener, channel))
+				SEND_SOUND(listener, S)
+		return
 	if(direct)
 		S.channel = channel || SSsounds.random_available_channel()
 	for(var/atom/thing in atoms_cache)

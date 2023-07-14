@@ -494,12 +494,12 @@
 /area/syndicate_depot/core)
 "by" = (
 /obj/machinery/door_control{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	id = "syndi_depot_rear";
-	idle_power_usage = 0;
+	idle_power_consumption = 0;
 	name = "mysterious button";
 	pixel_x = 24;
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -736,11 +736,11 @@
 /area/syndicate_depot/core)
 "cf" = (
 /obj/machinery/door_control{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	id = "syndi_depot_rear";
-	idle_power_usage = 0;
+	idle_power_consumption = 0;
 	name = "mysterious button";
-	use_power = 0
+	power_state = 0
 	},
 /obj/structure/sign/poster/contraband/syndicate_recruitment,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -980,7 +980,7 @@
 /area/syndicate_depot/core)
 "cJ" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 4;
 	pixel_x = 24;
 	req_access = list(150)
@@ -1149,7 +1149,7 @@
 	},
 /area/syndicate_depot/core)
 "de" = (
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 4;
 	pixel_x = 24
 	},

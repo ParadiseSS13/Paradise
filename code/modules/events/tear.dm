@@ -33,7 +33,7 @@
 	TE = new /obj/effect/tear(location)
 
 /datum/event/tear/announce()
-	GLOB.event_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly.ogg')
+	GLOB.minor_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly.ogg')
 
 /datum/event/tear/end()
 	if(TE)
@@ -50,7 +50,8 @@
 	// Huge sprite, we shift it to make it look more natural.
 	pixel_x = -106
 	pixel_y = -96
-
+	/// What the leader of the dimensional tear will be
+	var/leader = /mob/living/simple_animal/hostile/hellhound/tear
 	var/list/possible_mobs = list(
 		/mob/living/simple_animal/hostile/netherworld,
 		/mob/living/simple_animal/hostile/netherworld/migo,
@@ -82,6 +83,8 @@
 
 // We spawn a leader mob to make the portal actually dangerous.
 /obj/effect/tear/proc/spawn_leader()
-	var/mob/M = new /mob/living/simple_animal/hostile/hellhound/tear(get_turf(src))
+	if(!leader)
+		return
+	var/mob/M = new leader(get_turf(src))
 	playsound(M, 'sound/goonstation/voice/growl2.ogg', 100)
 	visible_message("<span class='danger'>With a terrifying growl, \a [M] steps out of the portal!</span>")

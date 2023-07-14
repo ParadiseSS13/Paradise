@@ -37,6 +37,27 @@
 	cost = 500
 	containername = "Pizza crate"
 
+/datum/supply_packs/misc/randomised/ingredients // its a bit hacky...
+	num_contained = 25
+	contains = list(/obj/item/reagent_containers/food/snacks/grown/wheat,
+					/obj/item/reagent_containers/food/snacks/grown/tomato,
+					/obj/item/reagent_containers/food/snacks/grown/potato,
+					/obj/item/reagent_containers/food/snacks/grown/carrot,
+					/obj/item/reagent_containers/food/snacks/grown/pumpkin,
+					/obj/item/reagent_containers/food/snacks/grown/chili,
+					/obj/item/reagent_containers/food/snacks/grown/cocoapod,
+					/obj/item/reagent_containers/food/snacks/grown/corn,
+					/obj/item/reagent_containers/food/snacks/grown/eggplant,
+					/obj/item/reagent_containers/food/snacks/grown/apple,
+					/obj/item/reagent_containers/food/snacks/grown/banana,
+					/obj/item/reagent_containers/food/snacks/grown/cherries)
+	name = "Ingredient Crate"
+	cost = 300
+	containername = "ingredient crate"
+	group = SUPPLY_ORGANIC
+	containertype = /obj/structure/closet/crate/freezer
+	department_restrictions = list(DEPARTMENT_SERVICE)
+
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
 	contains = list (/obj/item/storage/box/monkeycubes)
@@ -177,7 +198,22 @@
 	name = "Bunny Crate"
 	cost = 200
 	containertype = /obj/structure/closet/critter/bunny
+	contains = list(/obj/item/petcollar)
 	containername = "bunny crate"
+
+/datum/supply_packs/organic/gorilla
+	name = "Gorilla Crate"
+	cost = 1000
+	containertype = /obj/structure/closet/critter/gorilla
+	containername = "gorilla crate"
+	department_restrictions = list(DEPARTMENT_SCIENCE)
+
+/datum/supply_packs/organic/gorilla/cargo
+	name = "Cargorilla Crate"
+	cost = 250
+	containertype = /obj/structure/closet/critter/gorilla/cargo
+	containername = "cargorilla crate"
+	department_restrictions = list(DEPARTMENT_SUPPLY)
 
 ////// hippy gear
 
@@ -267,18 +303,10 @@
 	containername = "beekeeping starter kit"
 
 /datum/supply_packs/organic/hydroponics/beekeeping_suits
-	name = "2 Beekeeper suits"
+	name = "Beekeeper Suits"
 	contains = list(/obj/item/clothing/head/beekeeper_head,
 					/obj/item/clothing/suit/beekeeper_suit,
 					/obj/item/clothing/head/beekeeper_head,
 					/obj/item/clothing/suit/beekeeper_suit)
 	cost = 150
 	containername = "beekeeper suits"
-
-//Bottler
-/datum/supply_packs/organic/bottler
-	name = "Brewing Buddy Bottler Unit"
-	contains = list(/obj/machinery/bottler,
-					/obj/item/wrench)
-	cost = 200
-	containername = "bottler crate"

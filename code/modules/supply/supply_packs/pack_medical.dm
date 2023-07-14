@@ -22,9 +22,9 @@
 					/obj/item/reagent_containers/iv_bag/salglu,
 					/obj/item/storage/box/beakers,
 					/obj/item/storage/box/syringes,
-				    /obj/item/storage/box/bodybags,
-				    /obj/item/storage/box/iv_bags,
-				    /obj/item/vending_refill/medical)
+					/obj/item/storage/box/bodybags,
+					/obj/item/storage/box/iv_bags,
+					/obj/item/vending_refill/medical)
 	cost = 400
 	containertype = /obj/structure/closet/crate/medical
 	containername = "medical supplies crate"
@@ -136,18 +136,11 @@
 					/obj/item/reagent_containers/iv_bag/blood/OPlus,
 					/obj/item/reagent_containers/iv_bag/blood/OMinus,
 					/obj/item/reagent_containers/iv_bag/slime,
-					/obj/item/reagent_containers/iv_bag/blood/vox)
+					/obj/item/reagent_containers/iv_bag/blood/vox,
+					/obj/machinery/iv_drip)
 	cost = 500
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "blood pack crate"
-
-/datum/supply_packs/medical/iv_drip
-	name = "IV Drip Crate"
-	contains = list(/obj/machinery/iv_drip)
-	cost = 300
-	containertype = /obj/structure/closet/crate/secure
-	containername = "IV drip crate"
-	access = ACCESS_MEDICAL
 
 /datum/supply_packs/medical/surgery
 	name = "Surgery Crate"

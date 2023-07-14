@@ -6,7 +6,7 @@
 	var/account_starting_balance = DEPARTMENT_BALANCE_MEDIUM
 	///The amount this department will be payed every payday at a minimum (unless deducted otherwise)
 	var/account_base_pay = DEPARTMENT_BASE_PAY_MEDIUM
-	///The access need to get into this department account, this is a one req access list
+	///The access need to get into this department account, this is a one req access list, used especialy for supply computer
 	var/account_access = list()
 	///The money account tied to this department
 	var/datum/money_account/department_account
@@ -31,6 +31,15 @@
 	var/can_approve_crates = FALSE
 	///This department members money account
 	var/datum/money_account/member_account
+
+
+/datum/department_member/proc/set_member_account(datum/money_account/account)
+	member_account = account
+	RegisterSignal(account, COMSIG_PARENT_QDELETING, PROC_REF(clear_member_account))
+
+/datum/department_member/proc/clear_member_account(datum/money_account/account)
+	UnregisterSignal(account, COMSIG_PARENT_QDELETING)
+	member_account = null
 
 /datum/station_department/can_vv_delete()
 	message_admins("An admin attempted to VV delete a station_department datum, please stop doing this it will break cargo")
@@ -91,6 +100,10 @@
 		"Research Director",
 		"Scientist",
 		"Xenobiologist",
+		"Xenoarcheologist",
+		"Anomalist",
+		"Plasma Researcher",
+		"Chemical Researcher",
 		"Geneticist",	//Part of both medical and science
 		"Roboticist",
 	)
@@ -129,12 +142,13 @@
 
 	account_starting_balance = DEPARTMENT_BALANCE_LOW
 	account_base_pay = DEPARTMENT_BASE_PAY_LOW
-	account_access = list(ACCESS_HOP, ACCESS_QM)
+	account_access = list(ACCESS_HOP, ACCESS_QM, ACCESS_CARGO) //Supply account is a lot less "secure", CT's need to access it aswell on the supply comp
 	department_roles = list(
 		"Head of Personnel",
 		"Quartermaster",
 		"Cargo Technician",
-		"Shaft Miner"
+		"Shaft Miner",
+		"Spelunker"
 	)
 	head_of_staff = "Head of Personnel"
 
@@ -148,6 +162,10 @@
 		"Chief Engineer",
 		"Station Engineer",
 		"Life Support Specialist",
+		"Atmospheric Technician",
+		"Maintenance Technician",
+		"Engine Technician",
+		"Electrician",
 	)
 	head_of_staff = "Chief Engineer"
 
@@ -160,6 +178,8 @@
 	department_roles = list(
 		"Chief Medical Officer",
 		"Medical Doctor",
+		"Surgeon",
+		"Nurse",
 		"Geneticist",
 		"Psychiatrist",
 		"Chemist",

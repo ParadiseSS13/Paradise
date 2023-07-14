@@ -153,6 +153,7 @@
 	stop_playing()
 	SSinstruments.on_song_del(src)
 	lines = null
+	using_instrument.songs_using -= src
 	using_instrument = null
 	allowed_instrument_ids = null
 	parent = null
@@ -217,7 +218,7 @@
 	if(playing)
 		return
 	if(!using_instrument?.is_ready())
-		to_chat(user, "<span class='warning'>An error has occured with [src]. Please reset the instrument.</span>")
+		to_chat(user, "<span class='warning'>An error has occurred with [src]. Please reset the instrument.</span>")
 		return
 	compile_chords()
 	if(!length(compiled_chords))
@@ -413,3 +414,12 @@
 	var/obj/structure/musician/M = parent
 	return M.should_stop_playing(user)
 
+// subtype for thermal drills
+/datum/song/thermal_drill
+
+/datum/song/thermal_drill/should_stop_playing(mob/user)
+	. = ..()
+	if(.)
+		return TRUE
+	var/obj/item/thermal_drill/D = parent
+	return D.should_stop_playing(user)

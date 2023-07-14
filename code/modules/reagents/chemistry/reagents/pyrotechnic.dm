@@ -168,7 +168,7 @@
 		holder.remove_reagent("epinephrine", 2)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustPlasma(10)
+		C.add_plasma(10)
 	return ..() | update_flags
 
 /datum/reagent/plasma/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)//Splashing people with plasma is stronger than fuel!
@@ -457,7 +457,7 @@
 	update_flags |= M.adjustToxLoss(3, FALSE)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustPlasma(20)
+		C.add_plasma(20)
 	return ..() | update_flags
 
 /datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
@@ -465,3 +465,14 @@
 		M.adjust_fire_stacks(volume / 5)
 		return
 	..()
+
+/datum/reagent/confetti
+	name = "Confetti"
+	id = "confetti"
+	description = "Pure, liquid confetti. Explodes into a colorful bomb when exposed to heat."
+	color = "#500064" // rgb: 80, 0, 100
+	taste_description = "the tears of janitors"
+
+/datum/reagent/confetti/reaction_turf(turf/T, volume)
+	var/confetti = /obj/effect/decal/cleanable/confetti
+	new confetti(T)

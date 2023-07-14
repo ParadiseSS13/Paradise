@@ -48,7 +48,7 @@
 	finished = TRUE
 
 /datum/beam/proc/Reset()
-	QDEL_LIST(elements)
+	QDEL_LIST_CONTENTS(elements)
 
 /datum/beam/Destroy()
 	Reset()

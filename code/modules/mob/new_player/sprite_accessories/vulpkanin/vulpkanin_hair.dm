@@ -1,6 +1,6 @@
 /datum/sprite_accessory/hair/vulpkanin
-    icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_hair.dmi'
-    species_allowed = list("Vulpkanin")
+	icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_hair.dmi'
+	species_allowed = list("Vulpkanin")
 
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_kajam
 	name = "Kajam"

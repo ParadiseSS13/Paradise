@@ -1,8 +1,7 @@
-import { filter } from 'common/collections';
+import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from "../../backend";
 import { Box, Button, Dropdown, Icon, Input, LabeledList, Section, Tabs, Table, Divider, Flex } from "../../components";
 import { FlexItem } from '../../components/Flex';
-import { TableRow } from '../../components/Table';
 
 export const pda_nanobank = (props, context) => {
   const { act, data } = useBackend(context);
@@ -91,6 +90,7 @@ const Transfer = (props, context) => {
   const { requests, available_accounts, money } = data;
   const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
   const [transferAmount, setTransferAmount] = useLocalState(context, 'transferAmount');
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   let accountMap = []
   available_accounts.map(account => (
@@ -101,10 +101,22 @@ const Transfer = (props, context) => {
     <>
       <LabeledList>
         <LabeledList.Item label="Account">
+          <Input
+            placeholder="Search by account name"
+            onInput={(e, value) => setSearchText(value)}
+          />
           <Dropdown
             mt={0.6}
             width="190px"
-            options={available_accounts.map((account) => account.name)}
+            options={available_accounts
+              .filter(
+                createSearch(searchText, (account) => {
+                  return (
+                    account.name
+                  );
+                })
+              )
+              .map((account) => account.name)}
             selected={available_accounts.filter(account => account.UID === selectedAccount)[0]?.name}
             onSelected={(val) => setSelectedAccount(accountMap[val])} />
         </LabeledList.Item>
@@ -180,13 +192,15 @@ const AccountActions = (props, context) => {
             icon="user-lock"
             selected={security_level === 1}
             content="Account Number Only"
+            tooltip="Set Account security so that only having the account number is required for transactions"
             onClick={() => act('set_security', {
               new_security_level: 1
             })} />
           <Button
             icon="user-lock"
             selected={security_level === 2}
-            content="Pin Entry Required"
+            content="Require Pin Entry"
+            tooltip="Set Account security so that pin entry is required for transactions"
             onClick={() => act('set_security', {
               new_security_level: 2
             })} />

@@ -333,11 +333,15 @@
 	colour = "abductor"
 	key = "^"
 	flags = RESTRICTED | HIVEMIND
+	follow = TRUE
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
 	..(speaker,message,speaker.real_name)
 
 /datum/language/grey/check_can_speak(mob/living/speaker)
+	if(speaker.mind?.miming) // Because its a hivemind, mimes would be able to speak otherwise
+		to_chat(speaker,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
+		return FALSE
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/S = speaker
 		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
@@ -386,10 +390,10 @@
 	flags = RESTRICTED | WHITELISTED
 	join_override = "-"
 	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
-					 "lit", "ygg", "van", "dår", "næ", "møt", "idd", "hvo", "ja", "på", "han",
-					 "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
-					 "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
-					 "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+					"lit", "ygg", "van", "dår", "næ", "møt", "idd", "hvo", "ja", "på", "han",
+					"så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
+					"må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
+					"huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
 
 /datum/language/moth/get_random_name()
 	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
@@ -429,13 +433,13 @@
 	key = "2"
 	space_chance = 100
 	syllables = list("lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
-					 "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
-					 "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
-					 "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
-					 "consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
-					 "voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
-					 "pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
-					 "in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
+					"sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
+					"magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
+					"exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
+					"consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
+					"voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
+					"pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
+					"in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
 
 /datum/language/gutter
 	name = "Gutter"
@@ -468,14 +472,14 @@
 	space_chance = 65
 	english_names = 1
 	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
-					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
-					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
-					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
-					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
-					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
-					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
-					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+					"nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
+					"comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
+					"ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
+					"key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
+					"tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
+					"odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
+					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
+					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
 /datum/language/xenocommon
 	name = "Xenomorph"
@@ -498,6 +502,13 @@
 	key = "a"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
+
+/datum/language/xenos/broadcast(mob/living/speaker, message, speaker_mask)
+	if(isalien(speaker))
+		var/mob/living/carbon/alien/humanoid/alienspeaker = speaker
+		if(alienspeaker.loudspeaker)
+			return ..(speaker, "<font size=3><b>[message]</b></font>")
+	return ..()
 
 /datum/language/terrorspider
 	name = "Spider Hivemind"
@@ -531,8 +542,6 @@
 	var/datum/antagonist/changeling/cling = speaker.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(cling)
 		..(speaker, message, cling.changelingID)
-	else if(speaker.mind?.linglink)
-		..()
 	else
 		..(speaker,message)
 

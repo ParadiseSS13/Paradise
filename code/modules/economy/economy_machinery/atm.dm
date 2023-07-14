@@ -12,8 +12,7 @@
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_consumption = 10
 	density = FALSE
 	restricted_bypass = TRUE
 
@@ -52,7 +51,8 @@
 	underlays += emissive_appearance(icon, "atm_lightmask")
 
 /obj/machinery/economy/atm/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -78,13 +78,13 @@
 	ui_interact(user)
 
 /obj/machinery/economy/atm/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card))
-		if(powered())
+	if(istype(I, /obj/item/card/id))
+		if(has_power())
 			handle_id_insert(I, user)
 			return TRUE
 	else if(authenticated_account)
 		if(istype(I, /obj/item/stack/spacecash))
-			if(!powered())
+			if(!has_power())
 				return
 			insert_cash(I, user)
 			return TRUE
@@ -124,6 +124,8 @@
 
 ///ensures proper GC of money account
 /obj/machinery/economy/atm/proc/clear_account()
+	if(!authenticated_account) // In some situations there will be no authenticated account, such as removing your ID without inputting account information
+		return
 	UnregisterSignal(authenticated_account, COMSIG_PARENT_QDELETING)
 	authenticated_account = null
 
@@ -208,17 +210,6 @@
 
 	. = TRUE
 
-/obj/machinery/economy/atm/proc/authenticate_account(account_number, account_pin, mob/user, silent = TRUE)
-	var/datum/money_account/target_account = account_database.find_user_account(account_number, include_departments = TRUE)
-	if(attempt_account_authentification(target_account, account_pin, user))
-		if(!silent)
-			to_chat(user, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.account_name].'</span>")
-		return TRUE
-	if(!silent)
-		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
-		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure, incorrect credentials or insufficient permissions.</span>")
-	return FALSE
-
 /obj/machinery/economy/atm/proc/attempt_login(account_number, account_pin, mob/user)
 
 	var/account_to_attempt = account_number ? account_number : held_card?.associated_account_number
@@ -234,6 +225,10 @@
 	if(attempt_account_authentification(user_account, account_pin, user))
 		authenticated_account = user_account
 		RegisterSignal(authenticated_account, COMSIG_PARENT_QDELETING, PROC_REF(clear_account))
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			var/shoutname = uppertext(user_account.account_name)
+			atom_say("HELLO '[shoutname]'! YOU'VE SUCCESSFULLY LOGGED IN WITH ACCOUNT NUMBER '[user_account.account_number]' AND PIN NUMBER '[user_account.account_pin]'! HAVE A PARADISE DAY!")
+			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 		return TRUE
 
 	//else failed login
@@ -303,6 +298,18 @@
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 
+/obj/machinery/economy/atm/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(user, "<span class='warning'>Yellow ooze seeps into the [src]'s card slot...</span>")
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+
+/obj/machinery/economy/atm/examine(mob/user)
+	. = ..()
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	. += "<span class='warning'>Yellow ooze is dripping from the card slot!</span>"
 
 #undef ATM_SCREEN_DEFAULT
 #undef ATM_SCREEN_SECURITY

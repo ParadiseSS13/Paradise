@@ -21,7 +21,7 @@
 	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
 
 /datum/supply_packs/science/mechcore
-	name = "Mech power core crate"
+	name = "Mech Power Core Crate"
 	contains = list(/obj/item/mecha_parts/core)
 	cost = 1500
 	containertype = /obj/structure/closet/crate/secure/scisec

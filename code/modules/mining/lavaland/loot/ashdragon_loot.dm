@@ -37,6 +37,7 @@
 	throwforce = 1
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
+	flags_2 = RANDOM_BLOCKER_2
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
 
@@ -233,13 +234,13 @@
 	if(is_type_in_typecache(target, banned_turfs))
 		return
 
-	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
+	if(!is_mining_level(user.z) && !iswizard(user)) //Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
 		timer = world.time + create_delay + 1
 		user.visible_message("<span class='danger'>[user]'s [src] malfunctions!</span>")
 		do_sparks(5, FALSE, user)
 		return
 
-	if(target in view(user.client.view, get_turf(user)))
+	if(target in view(user.client.maxview(), get_turf(user)))
 
 		var/turf/simulated/T = get_turf(target)
 		if(!istype(T))

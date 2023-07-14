@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.event_announcement.Announce("What the fuck was that?!", "General Alert")
+	GLOB.minor_announcement.Announce("What the fuck was that?!", "General Alert")
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
@@ -102,3 +102,16 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			T.ex_act(EXPLODE_HEAVY)
 	if(loc == destination)
 		qdel(src)
+
+/obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)
+	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)
+
+/**
+ * Rod will walk towards edge turf in the specified direction.
+ *
+ * Arguments:
+ * * direction - The direction to walk the rod towards: NORTH, SOUTH, EAST, WEST.
+ */
+/obj/effect/immovablerod/proc/walk_in_direction(direction)
+	destination = get_edge_target_turf(src, direction)
+	walk_towards(src, destination)

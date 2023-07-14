@@ -368,7 +368,7 @@
 	return sanitize(input, allow_lines ? list("\t" = " ") : list("\n" = " ", "\t" = " "))
 
 /proc/trim_strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
-    return trim(strip_html_properly(input, max_length, allow_lines))
+	return trim(strip_html_properly(input, max_length, allow_lines))
 
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
@@ -399,8 +399,8 @@
 	return text_macro.Replace(rest, /proc/replace_text_macro)
 
 /proc/macro2html(text)
-    var/static/regex/text_macro = new("(\\xFF.)(.*)$")
-    return text_macro.Replace(text, /proc/replace_text_macro)
+	var/static/regex/text_macro = new("(\\xFF.)(.*)$")
+	return text_macro.Replace(text, /proc/replace_text_macro)
 
 /proc/dmm_encode(text)
 	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
@@ -462,6 +462,10 @@
 	text = replacetext(text, "\[/i\]",		"</I>")
 	text = replacetext(text, "\[u\]",		"<U>")
 	text = replacetext(text, "\[/u\]",		"</U>")
+	if(findtext(text, "\[signfont\]") || findtext(text, "\[/signfont\]")) // Make sure the text is there before giving off an error
+		if(check_rights(R_EVENT))
+			text = replacetext(text, "\[signfont\]",		"<font face=\"[signfont]\"><i>")
+			text = replacetext(text, "\[/signfont\]",		"</i></font>")
 	if(sign)
 		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
 	if(fields)
@@ -729,3 +733,8 @@
 		return "#e67e22" // Patreon orange
 	return null
 
+
+// Removes HTML tags, preserving text
+/proc/strip_html_tags(the_text)
+	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
+	return html_replacer.Replace(the_text, "")

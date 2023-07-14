@@ -8,7 +8,7 @@
 
 /obj/structure/falsewall
 	name = "wall"
-	desc = "A huge chunk of metal used to seperate rooms."
+	desc = "A huge chunk of metal used to separate rooms."
 	anchored = TRUE
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall-0"
@@ -21,6 +21,8 @@
 	var/walltype = /turf/simulated/wall
 	var/girder_type = /obj/structure/girder/displaced
 	var/opening = FALSE
+	/// Minimum environment smash level (found on simple animals) to break through this instantly
+	var/env_smash_level = ENVIRONMENT_SMASH_STRUCTURES
 
 	density = TRUE
 	opacity = TRUE
@@ -38,13 +40,14 @@
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(100)
-			return "<span class='notice'>It looks fully intact.</span>"
+			. += "<span class='notice'>It looks fully intact.</span>"
 		if(70 to 99)
-			return  "<span class='warning'>It looks slightly damaged.</span>"
+			. +=  "<span class='warning'>It looks slightly damaged.</span>"
 		if(40 to 70)
-			return  "<span class='warning'>It looks moderately damaged.</span>"
+			. +=  "<span class='warning'>It looks moderately damaged.</span>"
 		if(0 to 40)
-			return "<span class='danger'>It looks heavily damaged.</span>"
+			. += "<span class='danger'>It looks heavily damaged.</span>"
+	. += "<br><span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
 /obj/structure/falsewall/Destroy()
 	density = FALSE
@@ -96,7 +99,7 @@
 	if(!density)
 		icon_state = "fwall_open"
 		return
-	smoothing_flags = SMOOTH_BITMASK
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_OBJ
 	icon_state = initial(icon_state)
 	icon_state = "[base_icon_state]-[smoothing_junction]"
 	QUEUE_SMOOTH(src)
@@ -115,6 +118,12 @@
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/twohanded/required/pyro_claws))
 		dismantle(user, TRUE)
+
+/obj/structure/falsewall/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && M.environment_smash >= env_smash_level)
+		deconstruct(FALSE)
+		to_chat(M, "<span class='info'>You smash through the wall.</span>")
 
 /obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
 	if(opening)
@@ -163,7 +172,7 @@
 
 /obj/structure/falsewall/reinforced
 	name = "reinforced wall"
-	desc = "A huge chunk of reinforced metal used to seperate rooms."
+	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
@@ -263,7 +272,7 @@
 
 /obj/structure/falsewall/plasma
 	name = "plasma wall"
-	desc = "A wall with plasma plating. This is definately a bad idea."
+	desc = "A wall with plasma plating. This is definitely a bad idea."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
 	icon_state = "plasma_wall-0"
 	base_icon_state = "plasma_wall"
@@ -410,3 +419,16 @@
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/ratvar/wall/false(T)
 	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)
+
+/obj/structure/falsewall/rock_ancient
+	name = "ancient rock"
+	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+	icon = 'icons/turf/walls/smoothrocks.dmi'
+	icon_state = "smoothrocks-0"
+	base_icon_state = "smoothrocks"
+	color = COLOR_ANCIENT_ROCK
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_ASTEROID_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ASTEROID_WALLS)
+	mineral = /obj/item/stack/ore/glass/basalt/ancient
+	walltype = /turf/simulated/mineral/ancient

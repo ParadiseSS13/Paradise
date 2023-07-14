@@ -253,7 +253,7 @@
 	icon_state = "lshell"
 	projectile_type = /obj/item/projectile/beam/scatter
 	pellets = 8
-	variance = 35
+	variance = 25
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
@@ -300,10 +300,23 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	materials = list(MAT_METAL=250)
 
+/obj/item/ammo_casing/shotgun/confetti
+	name = "confettishot"
+	desc = "It's party time!"
+	icon_state = "partyshell"
+	projectile_type = /obj/item/projectile/bullet/confetti
+
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."
 	caliber = "a556"
 	projectile_type = /obj/item/projectile/bullet/heavybullet
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/ammo_casing/a545
+	desc = "A 5.45x39mm bullet casing."
+	caliber = "a545"
+	projectile_type = /obj/item/projectile/bullet/midbullet3
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
@@ -319,7 +332,7 @@
 	name = "rocket shell"
 	desc = "A high explosive designed to be fired from a launcher."
 	icon_state = "rocketshell"
-	projectile_type = /obj/item/missile
+	projectile_type = /obj/item/projectile/missile
 	caliber = "rocket"
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
@@ -329,10 +342,9 @@
 
 /obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
 	if(..())
-		loc = null
-		return 1
-	else
-		return 0
+		qdel(src)
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_casing/caseless/a75
 	desc = "A .75 bullet casing."
@@ -466,10 +478,10 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
-/obj/item/ammo_casing/laser
-	desc = "An experimental laser casing."
+/obj/item/ammo_casing/caseless/laser
+	desc = "An experimental laser casing, designed to vaporize when fired."
 	caliber = "laser"
-	projectile_type = /obj/item/projectile/beam/laser
+	projectile_type = /obj/item/projectile/beam/laser/ik //Subtype that breaks on firing if emp'd
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL

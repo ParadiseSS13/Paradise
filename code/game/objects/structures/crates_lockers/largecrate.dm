@@ -41,13 +41,19 @@
 			var/atom/movable/A = O
 			A.forceMove(T)
 		user.visible_message("<span class='notice'>[user] pries \the [src] open.</span>", \
-							 "<span class='notice'>You pry open \the [src].</span>", \
-							 "<span class='notice'>You hear splitting wood.</span>")
+							"<span class='notice'>You pry open \the [src].</span>", \
+							"<span class='notice'>You hear splitting wood.</span>")
 		qdel(src)
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 	else
 		return ..()
+
+/obj/structure/largecrate/Destroy()
+	var/turf/src_turf = get_turf(src)
+	for(var/obj/O in contents)
+		O.forceMove(src_turf)
+	return ..()
 
 /obj/structure/largecrate/mule
 

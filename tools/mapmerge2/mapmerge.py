@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
 import shutil
 from collections import defaultdict
-from . import frontend
-from .dmm import *
+
+# Import hacks to make this work as a normal script again
+try:
+    from . import frontend
+except:
+    import frontend
+
+try:
+    from .dmm import *
+except:
+    from dmm import *
 
 def merge_map(new_map, old_map, delete_unused=False):
     if new_map.key_length != old_map.key_length:
@@ -88,7 +97,7 @@ def main(settings):
         shutil.copyfile(fname, fname + ".before")
         old_map = DMM.from_file(fname + ".backup")
         new_map = DMM.from_file(fname)
-        merge_map(new_map, old_map).to_file(fname, settings.tgm)
+        merge_map(new_map, old_map).to_file(fname, tgm=settings.tgm)
 
 if __name__ == '__main__':
     main(frontend.read_settings())

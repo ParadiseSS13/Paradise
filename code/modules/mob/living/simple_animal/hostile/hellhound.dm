@@ -127,7 +127,7 @@
 	knockspell.invocation_type = "none"
 	AddSpell(knockspell)
 	// Defense
-	var/obj/effect/proc_holder/spell/forcewall/greater/wallspell = new
+	var/obj/effect/proc_holder/spell/forcewall/wallspell = new
 	wallspell.clothes_req = FALSE
 	wallspell.invocation_type = "none"
 	AddSpell(wallspell)

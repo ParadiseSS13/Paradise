@@ -31,6 +31,10 @@
 	var/last_hit = 0
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
+	/// If the martial art allows parrying.
+	var/can_parry = FALSE
+	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
+	var/weight = 0
 
 /datum/martial_art/New()
 	. = ..()
@@ -129,45 +133,55 @@
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(8 SECONDS, WEAKEN, armor_block)
-		D.forcesay(GLOB.hit_appends)
-	else if(IS_HORIZONTAL(D))
-		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(!H.mind)
 		return
+	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
+		if(istype(MA, src))
+			return
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
-	if(make_temporary)
-		temporary = TRUE
-	if(temporary)
-		if(H.mind.martial_art)
-			base = H.mind.martial_art.base
-	else
-		base = src
-	H.mind.martial_art = src
+	H.mind.known_martial_arts.Add(src)
+	H.mind.martial_art = get_highest_weight(H)
 
 /datum/martial_art/proc/remove(mob/living/carbon/human/H)
+	var/datum/martial_art/MA = src
 	if(!H.mind)
 		return
-	if(H.mind.martial_art != src)
-		return
-	H.mind.martial_art = null // Remove reference
+	H.mind.known_martial_arts.Remove(MA)
+	H.mind.martial_art = get_highest_weight(H)
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
-	if(base)
-		base.teach(H)
-		base = null
+
+///	Returns the martial art with the highest weight from all the ones someone knows.
+/datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/H)
+	var/datum/martial_art/highest_weight = null
+	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
+		if(!highest_weight || MA.weight > highest_weight.weight)
+			highest_weight = MA
+	return highest_weight
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
 	set desc = "Gives information about the martial arts you know."
 	set category = "Martial Arts"
 	var/mob/living/carbon/human/H = usr
-	if(!istype(H))
+	if(istype(H))
+		H.mind.martial_art.give_explaination(H)
+		return
+	if(isobserver(H) || iscameramob(H))
 		to_chat(usr, "<span class='warning'>You shouldn't have access to this verb. Report this as a bug to the github please.</span>")
 		return
-	H.mind.martial_art.give_explaination(H)
+	if(isanimal(H))
+		to_chat(usr, "<span class='notice'>Your beastial form isn't compatible with any martial arts you know.</span>")
+		return
+	if(issilicon(H))
+		to_chat(usr, "<span class='notice'>Your malformed steel body can barely perform basic tasks, let alone complex martial arts.</span>")
+		return
+	if(isalien(H))
+		to_chat(usr, "<span class='notice'>The hivemind's fighting style has been blessed upon you, you have no need for this useless style.</span>")
+		return
 
 /datum/martial_art/proc/give_explaination(user = usr)
 	explaination_header(user)
@@ -192,6 +206,25 @@
 /datum/martial_art/proc/try_deflect(mob/user)
 		return prob(deflection_chance)
 
+/datum/action/defensive_stance
+	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
+	button_icon_state = "block"
+
+/datum/action/defensive_stance/Trigger()
+	var/mob/living/carbon/human/H = owner
+	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial-arts users anyway
+	if(!MA.can_parry)
+		to_chat(H, "<span class='warning'>You can't parry right now.</span>")
+		return
+	if(H.incapacitated())
+		to_chat(H, "<span class='warning'>You can't defend yourself while you're incapacitated.</span>")
+		return
+	var/obj/item/slapper/parry/slap = new(H)
+	if(H.put_in_hands(slap))
+		H.visible_message("<span class='danger'>[H] assumes a defensive stance!</span>", "<b><i>You drop back into a defensive stance.</i></b>")
+	else
+		to_chat(H, "<span class='warning'>Your hands are full.</span>")
+
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
@@ -202,7 +235,7 @@
 		return
 	if(slot == slot_gloves)
 		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
+		style.teach(H, TRUE)
 	return
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
@@ -223,9 +256,9 @@
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat("<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
+			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
 			return
-		style.teach(H,1)
+		style.teach(H, TRUE)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
 	return
 
@@ -362,24 +395,24 @@
 
 			var/mob/living/carbon/human/H = target
 			var/list/fluffmessages = list("[user] clubs [H] with [src]!", \
-										  "[user] smacks [H] with the butt of [src]!", \
-										  "[user] broadsides [H] with [src]!", \
-										  "[user] smashes [H]'s head with [src]!", \
-										  "[user] beats [H] with front of [src]!", \
-										  "[user] twirls and slams [H] with [src]!")
+										"[user] smacks [H] with the butt of [src]!", \
+										"[user] broadsides [H] with [src]!", \
+										"[user] smashes [H]'s head with [src]!", \
+										"[user] beats [H] with front of [src]!", \
+										"[user] twirls and slams [H] with [src]!")
 			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
-								   "<span class='userdanger'>[pick(fluffmessages)]</span>")
+								"<span class='userdanger'>[pick(fluffmessages)]</span>")
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
 			H.adjustStaminaLoss(rand(13,20))
 			if(prob(10))
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
-									   "<span class='userdanger'>Your legs give out!</span>")
+									"<span class='userdanger'>Your legs give out!</span>")
 				H.Weaken(8 SECONDS)
 			if(H.staminaloss && !H.IsSleeping())
 				var/total_health = (H.health - H.staminaloss)
 				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
 					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
-										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
+										"<span class='userdanger'>[user] knocks you unconscious!</span>")
 					H.SetSleeping(60 SECONDS)
 					H.adjustBrainLoss(25)
 			return

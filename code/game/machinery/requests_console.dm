@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp0"
 	max_integrity = 300
-	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90)
+	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, RAD = 0, FIRE = 90, ACID = 90)
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/message_log = list() //List of all messages
 	var/departmentType = 0 		//Bitflag. Zero is reply-only. Map currently uses raw numbers instead of defines.
@@ -72,7 +72,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/radiochannel = ""
 
 /obj/machinery/requests_console/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -117,6 +118,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(departmentType & RC_INFO)
 		GLOB.req_console_information |= department
 
+	update_icon()
 	// NOT BOOLEAN. DO NOT CONVERT.
 	set_light(1)
 

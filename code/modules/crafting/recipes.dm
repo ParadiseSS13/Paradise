@@ -42,6 +42,7 @@
 	result = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
 	reqs = list(/obj/item/reagent_containers/glass/rag = 1,
 				/obj/item/reagent_containers/food/drinks/bottle = 1)
+	blacklist = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
 	parts = list(/obj/item/reagent_containers/food/drinks/bottle = 1)
 	time = 40
 	category = CAT_WEAPONRY
@@ -73,7 +74,7 @@
 	reqs = list(/obj/item/gun/energy/gun = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/nuclear = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -88,7 +89,7 @@
 	reqs = list(/obj/item/gun/energy/gun = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/temperature = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -104,7 +105,7 @@
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/decloner = 1,
 				/datum/reagent/mutagen = 40)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -119,7 +120,7 @@
 	reqs = list(/obj/item/gun/energy/gun = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/ion = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -135,7 +136,7 @@
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/ebow = 1,
 				/datum/reagent/radium = 15)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -150,7 +151,7 @@
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/xray = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -165,7 +166,7 @@
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/immolator = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -180,7 +181,7 @@
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/plasma = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -189,13 +190,13 @@
 	blacklist += subtypesof(/obj/item/gun/energy/laser)
 
 /datum/crafting_recipe/teslarevolver
-	name = "Tesla Revolver"
+	name = "Arc Revolver"
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = list(/obj/item/gun/energy/shock_revolver)
+	result = list(/obj/item/gun/energy/arc_revolver)
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/tesla = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -210,11 +211,26 @@
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/accelerator = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/accelerator/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/laser)
+
+/datum/crafting_recipe/lwap
+	name = "LWAP Laser Sniper"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/lwap)
+	reqs = list(/obj/item/gun/energy/laser = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/lwap = 1)
+	time = 10 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/lwap/New()
 	..()
 	blacklist += subtypesof(/obj/item/gun/energy/laser)
 
@@ -225,7 +241,7 @@
 	reqs = list(/obj/item/gun/energy/disabler = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/u_ionsilencer = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -407,6 +423,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
+/datum/crafting_recipe/confettishot
+	name = "Confetti Shot"
+	result = list(/obj/item/ammo_casing/shotgun/confetti)
+	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
+				/datum/reagent/confetti = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
 /datum/crafting_recipe/ishotgun
 	name = "Improvised Shotgun"
 	result = list(/obj/item/gun/projectile/revolver/doublebarrel/improvised)
@@ -418,6 +444,7 @@
 	time = 100
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
@@ -455,6 +482,15 @@
 	result = list(/obj/item/storage/box/papersack)
 	time = 10
 	reqs = list(/obj/item/paper = 5)
+	category = CAT_MISC
+
+/datum/crafting_recipe/donk_box
+	name = "Donk Pocket Box"
+	result = list(/obj/item/storage/box/donkpockets/empty)
+	time = 10
+	reqs = list(/obj/item/storage/box = 1,
+				/obj/item/stack/sheet/plastic = 1,
+				/obj/item/stack/sheet/metal = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/flashlight_eyes
@@ -667,7 +703,7 @@
 	result = list(/obj/item/clothing/accessory/necklace/talisman)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bonecodpiece
@@ -675,7 +711,7 @@
 	result = list(/obj/item/clothing/accessory/necklace/skullcodpiece)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/animalhide/goliath_hide = 1)
+				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bracers
@@ -683,7 +719,7 @@
 	result = list(/obj/item/clothing/gloves/bracer)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/skullhelm
@@ -738,7 +774,7 @@
 	result = list(/obj/item/twohanded/spear/bonespear)
 	time = 30
 	reqs = list(/obj/item/stack/sheet/bone = 4,
-				 /obj/item/stack/sheet/sinew = 1)
+				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bonepickaxe
@@ -746,7 +782,7 @@
 	result = list(/obj/item/pickaxe/bone)
 	time = 40
 	reqs = list(/obj/item/stack/sheet/bone = 4,
-				 /obj/item/stack/sheet/sinew = 2)
+				/obj/item/stack/sheet/sinew = 2)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bonescythe
@@ -754,7 +790,7 @@
 	result = list(/obj/item/scythe/bone)
 	time = 40
 	reqs = list(/obj/item/stack/sheet/bone = 5,
-				 /obj/item/stack/sheet/sinew = 2)
+				/obj/item/stack/sheet/sinew = 2)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boneaxe
@@ -762,7 +798,7 @@
 	result = list(/obj/item/twohanded/fireaxe/boneaxe)
 	time = 50
 	reqs = list(/obj/item/stack/sheet/bone = 6,
-				 /obj/item/stack/sheet/sinew = 3)
+				/obj/item/stack/sheet/sinew = 3)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bonfire
@@ -792,8 +828,8 @@
 	result = list(/obj/structure/guillotine)
 	time = 150 // Building a functioning guillotine takes time
 	reqs = list(/obj/item/stack/sheet/plasteel = 3,
-		        /obj/item/stack/sheet/wood = 20,
-		        /obj/item/stack/cable_coil = 10)
+				/obj/item/stack/sheet/wood = 20,
+				/obj/item/stack/cable_coil = 10)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
 
@@ -810,10 +846,10 @@
 	result = list(/obj/item/thermal_drill)
 	time = 60
 	reqs = list(/obj/item/stack/cable_coil = 5,
-		        /obj/item/mecha_parts/mecha_equipment/drill = 1,
-		        /obj/item/stock_parts/cell = 1,
-		        /obj/item/stack/rods = 2,
-		        /obj/item/assembly/timer = 1)
+				/obj/item/mecha_parts/mecha_equipment/drill = 1,
+				/obj/item/stock_parts/cell = 1,
+				/obj/item/stack/rods = 2,
+				/obj/item/assembly/timer = 1)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
 
@@ -822,10 +858,10 @@
 	result = list(/obj/item/thermal_drill/diamond_drill)
 	time = 60
 	reqs = list(/obj/item/stack/cable_coil = 5,
-		        /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
-		        /obj/item/stock_parts/cell = 1,
-		        /obj/item/stack/rods = 2,
-		        /obj/item/assembly/prox_sensor = 1) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
+				/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
+				/obj/item/stock_parts/cell = 1,
+				/obj/item/stack/rods = 2,
+				/obj/item/assembly/prox_sensor = 1) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
 

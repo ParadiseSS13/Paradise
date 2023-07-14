@@ -17,7 +17,6 @@
 	window_id = "autohonk"
 	window_name = "Honkomatic Bike Horn Unit v1.0.7"
 	data_hud_type = DATA_HUD_SECURITY_BASIC // show jobs
-	path_image_color = "#FF69B4"
 
 	var/honksound = 'sound/items/bikehorn.ogg' //customizable sound
 	var/spam_flag = FALSE
@@ -176,7 +175,7 @@
 			if(H.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
 				return
 			C.SetStuttering(40 SECONDS) //stammer
-			C.AdjustEarDamage(0, 5) //far less damage than the H.O.N.K.
+			C.Deaf(5 SECONDS) //far less damage than the H.O.N.K.
 			C.Jitter(100 SECONDS)
 			C.Weaken(10 SECONDS)
 			if(client) //prevent spam from players..
@@ -311,12 +310,12 @@
 			if(!istype(C) || !C || in_range(src, target))
 				return
 			C.visible_message("<span class='warning'>[pick( \
-						  	"[C] dives out of [src]'s way!", \
-						  	"[C] stumbles over [src]!", \
-						  	"[C] jumps out of [src]'s path!", \
-						  	"[C] trips over [src] and falls!", \
-						  	"[C] topples over [src]!", \
-						  	"[C] leaps out of [src]'s way!")]</span>")
+							"[C] dives out of [src]'s way!", \
+							"[C] stumbles over [src]!", \
+							"[C] jumps out of [src]'s path!", \
+							"[C] trips over [src] and falls!", \
+							"[C] topples over [src]!", \
+							"[C] leaps out of [src]'s way!")]</span>")
 			C.KnockDown(10 SECONDS)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
 			if(!client)

@@ -4,9 +4,8 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 50
+	idle_power_consumption = 2
+	active_power_consumption = 50
 
 	/// Throw power
 	var/power = 1

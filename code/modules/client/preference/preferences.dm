@@ -87,6 +87,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1018" = 100, // CHANNEL_AMBIENCE
 		"1017" = 100, // CHANNEL_ENGINE
 		"1016" = 100, // CHANNEL_FIREALARM
+		"1015" = 100, // CHANNEL_ASH_STORM
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -125,6 +126,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/keybindings_overrides = null
 	/// Player's region override for routing optimisation
 	var/server_region = null
+	/// List of admin ckeys this player wont hear sounds from
+	var/list/admin_sound_ckey_ignore = list()
+	/// View range preference for this client
+	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
@@ -158,7 +163,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	user << browse_rsc(active_character.preview_icon_front, "previewicon.png")
 	user << browse_rsc(active_character.preview_icon_side, "previewicon2.png")
 
-	var/dat = ""
+	var/list/dat = list()
 	dat += "<center>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
@@ -428,6 +433,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Thought Bubble:</b> <a href='?_src_=prefs;preference=thought_bubble'>[(toggles2 & PREFTOGGLE_2_THOUGHT_BUBBLE) ? "Yes" : "No"]</a><br>"
+			dat += "<b>View Range:</b> <a href='?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='300px' height='300px' valign='top'>"
@@ -504,7 +510,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<a href='?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
 			dat += "<a href='?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
-			dat += "<tr><td colspan=4><div align='center'><b>Please note, some keybinds are overriden by other categories.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Please note, some keybinds are overridden by other categories.</b></div></td></tr>"
 			dat += "<tr><td colspan=4><div align='center'><b>Ensure you bind all of them, or the specific one you want.</b></div></td></tr>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td colspan=4><div align='center'><b>Users of legacy mode can only rebind and use the following keys:</b></div></td></tr>"
@@ -525,6 +531,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<tr><td colspan=3><h2>[cat]</h2></td></tr>"
 				for(var/kb in keybindings_by_cat["[GLOB.keybindings_groups[cat]]"])
 					var/datum/keybinding/KB = kb
+					var/kb_uid = KB.UID() // Cache this to reduce proc jumps
 					var/override_keys = (keybindings_overrides && keybindings_overrides[KB.name])
 					var/list/keys = override_keys || KB.keys
 					var/keys_buttons = ""
@@ -532,11 +539,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						var/disp_key = key
 						if(override_keys)
 							disp_key = "<b>[disp_key]</b>"
-						keys_buttons += "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
+						keys_buttons += "<a href='?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
 					dat += "<tr>"
 					dat += "<td style='width: 25%'>[KB.name]</td>"
-					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>" : "</td>"]"
-					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[KB.UID()]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[KB.UID()]'>Clear</a></td>"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[kb_uid];'><span class='good'>+</span></a></td>" : "</td>"]"
+					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Clear</a></td>"
 					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
 						var/datum/keybinding/custom/custom_emote_keybind = kb
 						if(custom_emote_keybind.donor_exclusive && !(user.client.donator_level || user.client.holder || unlock_content))
@@ -552,8 +559,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							dat += "<td style='width: 25%'>[custom_emote_keybind.default_emote_text]</td>"
 						else
 							dat += "<td style='width: 25%'><i>\"[active_character.real_name] [emote_text]\"</i></td>"
-						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote_keybind.UID()];'>Change Text</a></td>"
-						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote_keybind.UID()];'>Reset to Default</a></td>"
+						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[kb_uid];'>Change Text</a></td>"
+						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[kb_uid];'>Reset to Default</a></td>"
 						dat += "<tr><td colspan=4><br></td></tr>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
@@ -569,9 +576,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 720)
-	popup.set_content(dat)
-	popup.open(0)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 770)
+	popup.set_content(dat.Join(""))
+	popup.open(FALSE)
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 	var/dat = "<body>"

@@ -64,6 +64,8 @@
 	U.SetSleeping(0)
 	U.SetConfused(0)
 	U.adjustStaminaLoss(-100)
+	U.stand_up(TRUE)
+	SEND_SIGNAL(U, COMSIG_LIVING_CLEAR_STUNS)
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/rejuv_bonus = V.get_rejuv_bonus()
@@ -153,7 +155,7 @@
 
 /obj/effect/proc_holder/spell/vampire/glare
 	name = "Glare"
-	desc = "Your eyes flash, stunning and silencing anyone infront of you. It has lesser effects for those around you."
+	desc = "Your eyes flash, stunning and silencing anyone in front of you. It has lesser effects for those around you."
 	action_icon_state = "vampire_glare"
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
@@ -304,6 +306,7 @@
 			if(prob(25))
 				E.mend_fracture()
 				E.fix_internal_bleeding()
+				E.fix_burn_wound()
 
 		return
 	if(H.stat != DEAD)

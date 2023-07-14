@@ -3,12 +3,14 @@
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
 	input_focus = null
+	if(s_active)
+		s_active.close(src)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
-	QDEL_LIST(viruses)
-	QDEL_LIST(actions)
+	QDEL_LIST_CONTENTS(viruses)
+	QDEL_LIST_CONTENTS(actions)
 	for(var/alert in alerts)
 		clear_alert(alert)
 	ghostize()
@@ -249,8 +251,8 @@
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
 		if(isstorage(back))
 			var/obj/item/storage/S = back
-			//Now, B represents a container we can insert W into.
-			S.handle_item_insertion(W,1)
+			//Now, S represents a container we can insert W into.
+			S.handle_item_insertion(W, TRUE, TRUE)
 			return S
 
 		var/turf/T = get_turf(src)
@@ -459,7 +461,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(usr, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
 					return 0
-				if(src.w_class > WEIGHT_CLASS_BULKY)
+				if(w_class > H.wear_suit.max_suit_w)
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
@@ -597,13 +599,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set name = "Examine"
 	set category = "IC"
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
+
+/mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
-
-	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
-	if(client)
-		client.update_description_holders(A, is_antag)
 
 	face_atom(A)
 	var/list/result = A.examine(src)
@@ -649,6 +650,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = null
 	set src = usr
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_mode)))
+
+///proc version to finish /mob/verb/mode() execution. used in case the proc needs to be queued for the tick after its first called
+/mob/proc/run_mode()
 	if(ismecha(loc)) return
 
 	if(hand)
@@ -905,9 +910,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/stripPanelEquip(obj/item/what, mob/who)
 	return
 
-/mob/MouseDrop(mob/M as mob)
-	..()
-	if(M != usr) return
+/mob/MouseDrop(mob/M as mob, src_location, over_location, src_control, over_control, params)
+	if((M != usr) || !istype(M))
+		..()
+		return
 	if(isliving(M))
 		var/mob/living/L = M
 		if(L.mob_size <= MOB_SIZE_SMALL)
@@ -978,8 +984,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			add_spell_to_statpanel(S)
 
 	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
-	if(is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE))
-		if(statpanel("MC")) //looking at that panel
+	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)) && client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS)
+		// Below are checks to see which MC panel you are looking at
+
+		// Shows MC Metadata
+		if(statpanel("MC|M"))
+			stat("Info", "Showing MC metadata")
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
 			stat("CPU:", "[Master.formatcpu(world.cpu)]")
@@ -987,7 +997,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
 			stat("Server Time:", time_stamp())
-			stat(null)
 			if(Master)
 				Master.stat_entry()
 			else
@@ -996,10 +1005,38 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				Failsafe.stat_entry()
 			else
 				stat("Failsafe Controller:", "ERROR")
+
+		// Shows subsystems with SS_NO_FIRE
+		if(statpanel("MC|N"))
+			stat("Info", "Showing subsystems that do not fire")
 			if(Master)
-				stat(null)
-				for(var/datum/controller/subsystem/SS in Master.subsystems)
-					SS.stat_entry()
+				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+					if(SS.flags & SS_NO_FIRE)
+						SS.stat_entry()
+
+		// Shows subsystems with the SS_CPUDISPLAY_LOW flag
+		if(statpanel("MC|L"))
+			stat("Info", "Showing subsystems marked as low intensity")
+			if(Master)
+				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+					if((SS.cpu_display == SS_CPUDISPLAY_LOW) && !(SS.flags & SS_NO_FIRE))
+						SS.stat_entry()
+
+		// Shows subsystems with the SS_CPUDISPLAY_DEFAULT flag
+		if(statpanel("MC|D"))
+			stat("Info", "Showing subsystems marked as default intensity")
+			if(Master)
+				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+					if((SS.cpu_display == SS_CPUDISPLAY_DEFAULT) && !(SS.flags & SS_NO_FIRE))
+						SS.stat_entry()
+
+		// Shows subsystems with the SS_CPUDISPLAY_HIGH flag
+		if(statpanel("MC|H"))
+			stat("Info", "Showing subsystems marked as high intensity")
+			if(Master)
+				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+					if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
+						SS.stat_entry()
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
@@ -1129,13 +1166,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if((usr in GLOB.respawnable_list) && (stat == DEAD || isobserver(usr)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
+			if(!(is_station_level(L.z) || is_admin_level(L.z))) // Prevents players from spawning in space
+				continue
 			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")
-				remove_from_respawnable_list()
-				become_mouse()
+				if(become_mouse()) // Only remove respawnability if the player successfully becomes a mouse
+					remove_from_respawnable_list()
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
@@ -1145,24 +1184,30 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return
 
-
+/**
+ * Returns true if the player successfully becomes a mouse
+ */
 /mob/proc/become_mouse()
 	var/timedifference = world.time - client.time_died_as_mouse
 	if(client.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
-		var/timedifference_text
-		timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
+		var/timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
 		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>")
-		return
+		return FALSE
 
 	//find a viable mouse candidate
-	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0)
-	if(length(found_vents))
-		var/obj/vent_found = pick(found_vents)
-		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
-		host.ckey = src.ckey
-		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
-	else
-		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
+	var/list/found_vents = get_valid_vent_spawns()
+	if(!length(found_vents))
+		found_vents = get_valid_vent_spawns(min_network_size = 0)
+		if(!length(found_vents))
+			to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
+			return FALSE
+	var/obj/vent_found = pick(found_vents)
+	var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
+	host.ckey = src.ckey
+	to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
+	host.forceMove(vent_found)
+	host.add_ventcrawl(vent_found)
+	return TRUE
 
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return 5
@@ -1191,11 +1236,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(green)
 			if(!no_text)
 				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
-			location.add_vomit_floor(FALSE, TRUE)
+			add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
-			location.add_vomit_floor(TRUE)
+				visible_message("<span class='warning'>[src] pukes all over [p_themselves()]!</span>","<span class='warning'>You puke all over yourself!</span>")
+			add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	mob_spell_list += S
@@ -1528,7 +1573,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	add_to_all_human_data_huds()
 
 /mob/proc/make_invisible()
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_LEVEL_TWO
 	alpha = 128
 	remove_from_all_data_huds()
 
@@ -1538,3 +1583,13 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
+
+///Makes a call in the context of a different usr. Use sparingly
+/world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
+	var/temp = usr
+	usr = user_mob
+	if (length(args) > 2)
+		. = invoked_callback.Invoke(arglist(args.Copy(3)))
+	else
+		. = invoked_callback.Invoke()
+	usr = temp

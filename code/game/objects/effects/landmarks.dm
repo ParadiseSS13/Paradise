@@ -214,14 +214,19 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	name = "Holocarp Spawn"
 
 /obj/effect/landmark/spawner/nuclear_bomb
-	name = "Nuclear-Bomb"
+	icon_state = "Nuke_bomb"
+
+/obj/effect/landmark/spawner/nuclear_bomb/syndicate
+	name = "Syndicate Nuclear Bomb"
+
+/obj/effect/landmark/spawner/nuclear_bomb/death_squad
+	name = "Death Squad Nuclear Bomb"
 
 /obj/effect/landmark/spawner/teleport_scroll
 	name = "Teleport-Scroll"
 
 /obj/effect/landmark/spawner/nuke_code
 	name = "nukecode"
-
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
@@ -230,7 +235,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/proc/set_tag()
 	tag = text("landmark*[]", name)
-
 
 /obj/effect/landmark/singularity_act()
 	return
@@ -318,6 +322,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/start/detective
 	name = "Detective"
 	icon_state = "Det"
+
+/obj/effect/landmark/start/explorer
+	name = "Explorer"
+	icon_state = "Explorer"
 
 /obj/effect/landmark/start/engineer
 	name = "Station Engineer"
@@ -587,6 +595,53 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	GLOB.ruin_landmarks -= src
 	ruin_template = null
 	. = ..()
+
+
+/// Mob spawners, spawns a mob and deletes the landmark
+
+/obj/effect/landmark/mob_spawner
+	///The mob we use for the spawner
+	var/mobtype = null
+	icon = 'icons/effects/spawner_icons.dmi'
+
+/obj/effect/landmark/mob_spawner/Initialize(mapload)
+	. = ..()
+	new mobtype(loc)
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/mob_spawner/goliath
+	mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast
+	icon_state = "questionmark"
+
+/obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
+	if(prob(1))
+		mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
+	. = ..()
+
+/obj/effect/landmark/mob_spawner/legion
+	mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
+	icon_state = "questionmark"
+
+/obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
+	if(prob(5))
+		mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
+	. = ..()
+
+/obj/effect/landmark/mob_spawner/watcher
+	mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	icon_state = "questionmark"
+
+/obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
+	if(prob(1))
+		if(prob(25)) /// 75% chance to get a magmawing watcher, and 25% chance to get a icewing watcher (1/133, 1/400 respectively)
+			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
+		else
+			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
+	. = ..()
+
+/obj/effect/landmark/mob_spawner/goldgrub
+	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
+	icon_state = "questionmark"
 
 // Damage tiles
 /obj/effect/landmark/damageturf

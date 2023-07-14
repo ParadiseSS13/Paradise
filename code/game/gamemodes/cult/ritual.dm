@@ -41,9 +41,7 @@
 			else // Targeting someone else
 				to_chat(user, "<span class='cult'>You remove the taint from [M].</span>")
 				to_chat(M, "<span class='cult'>[user] removes the taint from your body.</span>")
-				var/amount = M.reagents.get_reagent_amount("holywater")
 				M.reagents.del_reagent("holywater")
-				M.reagents.add_reagent("unholywater", amount)
 				add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
 		return FALSE
 	else
@@ -186,7 +184,7 @@
 		return
 
 	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
-						 "<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
+						"<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
 
 	var/obj/effect/rune/R = new rune(runeturf, keyword)
 	if(narsie_rune)

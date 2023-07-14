@@ -247,7 +247,12 @@
 
 		else
 			for(var/i in 1 to needed_amount)
-				var/atom/movable/part_atom = locate(thing) in (surroundings - parts_used)
+				var/atom/movable/part_atom
+				for(var/atom/movable/candidate as anything in (surroundings - parts_used))
+					if(istype(candidate, thing) && !is_type_in_list(candidate, recipe.blacklist))
+						part_atom = candidate
+						break
+
 				if(!part_atom)
 					stack_trace("While crafting [recipe], the [thing] went missing!")
 					continue
@@ -278,7 +283,7 @@
 				stack_trace("Part [part_path] went missing")
 			parts_returned += part
 			parts_used -= part
-	QDEL_LIST(parts_used)
+	QDEL_LIST_CONTENTS(parts_used)
 
 	return parts_returned
 

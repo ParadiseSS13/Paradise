@@ -665,7 +665,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))
 			outfits[initial(O.name)] = path
-	outfits = special_outfits + sortTim(outfits, /proc/cmp_text_asc)
+	outfits = special_outfits + sortTim(outfits, GLOBAL_PROC_REF(cmp_text_asc))
 
 	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
 	if(isnull(dresscode))
@@ -681,7 +681,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			var/datum/outfit/O = path
 			if(initial(O.can_be_admin_equipped))
 				job_outfits[initial(O.name)] = path
-		job_outfits = sortTim(job_outfits, /proc/cmp_text_asc)
+		job_outfits = sortTim(job_outfits, GLOBAL_PROC_REF(cmp_text_asc))
 
 		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in job_outfits
 		dresscode = job_outfits[dresscode]
@@ -784,7 +784,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	var/list/dellog = list("<B>List of things that have gone through qdel this round</B><BR><BR><ol>")
-	sortTim(SSgarbage.items, cmp=/proc/cmp_qdel_item_time, associative = TRUE)
+	sortTim(SSgarbage.items, GLOBAL_PROC_REF(cmp_qdel_item_time), TRUE)
 	for(var/path in SSgarbage.items)
 		var/datum/qdel_item/I = SSgarbage.items[path]
 		dellog += "<li><u>[path]</u><ul>"
@@ -905,21 +905,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]", 1)
 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Ruin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/toggle_medal_disable()
-	set category = "Debug"
-	set name = "Toggle Medal Disable"
-	set desc = "Toggles the safety lock on trying to contact the medal hub."
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	SSmedals.hub_enabled = !SSmedals.hub_enabled
-
-	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Medal Disable") // If...
-	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
-
 
 /client/proc/visualise_active_turfs()
 	set category = "Debug"

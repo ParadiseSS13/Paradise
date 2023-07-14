@@ -36,6 +36,10 @@
 	..()
 	return TRUE
 
+
+/obj/structure/closet/critter/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
+
 /obj/structure/closet/critter/random
 	name = "unmarked crate"
 	desc = "A crate designed for safe transport of animals. The contents are a mystery."
@@ -112,3 +116,11 @@
 /obj/structure/closet/critter/bunny
 	name = "bunny crate"
 	content_mob = /mob/living/simple_animal/bunny
+
+/obj/structure/closet/critter/gorilla
+	name = "gorilla crate"
+	content_mob = /mob/living/simple_animal/hostile/gorilla
+
+/obj/structure/closet/critter/gorilla/cargo
+	name = "cargorilla crate"
+	content_mob = /mob/living/simple_animal/hostile/gorilla/cargo_domestic

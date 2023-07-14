@@ -10,7 +10,7 @@
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 4
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 80, ACID = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
@@ -122,7 +122,7 @@
 
 	if(!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
 		var/obj/item/organ/external/head/head = H.get_organ("head")
-		head.disfigure()
+		head?.disfigure()
 		H.inflate_gib()
 		return OBLITERATION
 
@@ -209,6 +209,7 @@
 	return air_contents.remove(amount)
 
 /obj/item/tank/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/item/tank/assume_air(datum/gas_mixture/giver)

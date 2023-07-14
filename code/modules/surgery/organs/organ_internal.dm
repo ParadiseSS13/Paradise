@@ -87,7 +87,7 @@
 			receive_damage(7, 1)
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target)
-    insert(target)
+	insert(target)
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
 	return
@@ -100,7 +100,7 @@
 
 //abstract proc called by carbon/death()
 /obj/item/organ/internal/proc/on_owner_death()
- 	return
+	return
 
 /obj/item/organ/internal/proc/prepare_eat()
 	if(is_robotic())
@@ -236,7 +236,7 @@
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
 		owner.SetSleeping(0)
 		owner.Stuttering(40 SECONDS)
-		owner.AdjustEarDamage(0, 30)
+		owner.Deaf(30 SECONDS)
 		owner.Weaken(6 SECONDS)
 		SEND_SOUND(owner, sound('sound/items/airhorn.ogg'))
 		if(prob(30))
@@ -301,7 +301,7 @@
 
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")  // damn well better have a head if you have a beard
 		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))
 			if(prob(10))
 				head_organ.h_style = "Mohawk"

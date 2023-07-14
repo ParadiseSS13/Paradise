@@ -12,7 +12,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 24)
+	var/loot = rand(1, 23)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -24,7 +24,7 @@
 		if(4)
 			new /obj/item/organ/internal/cyberimp/arm/katana(src)
 		if(5)
-			new /obj/item/clothing/glasses/godeye(src)
+			new /obj/item/book_of_babel(src)
 		if(6)
 			new /obj/item/pickaxe/diamond(src)
 		if(7)
@@ -67,8 +67,6 @@
 		if(22)
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(23)
-			new /obj/item/book_of_babel(src)
-		if(24)
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 
@@ -165,7 +163,7 @@
 	desc = "Voices echo from the hardsuit, driving the user insane. Is not space-proof."
 	icon_state = "hardsuit-berserker"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
-	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	hoodtype = /obj/item/clothing/head/hooded/berserker
 	flags_inv = HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT | HIDETAIL
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
@@ -189,7 +187,7 @@
 	light_color = BERSERK_COLOUR
 	light_power = 4
 	actions_types = list(/datum/action/item_action/berserk_mode)
-	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF

@@ -263,7 +263,7 @@
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.vomit(lost_nutrition = 0, blood = TRUE, stun = FALSE)
-				M.Weaken(1 SECONDS) // change to knockdown after crawling
+				M.KnockDown(1 SECONDS)
 			else
 				update_flags |= M.adjustStaminaLoss(10, FALSE)
 		if(2)
@@ -283,6 +283,7 @@
 	addiction_chance = 10
 	addiction_threshold = 10
 	taste_description = "very poor life choices"
+	allowed_overdose_process = TRUE
 
 
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
@@ -360,6 +361,7 @@
 	addiction_decay_rate = 0.1 // very low, to prevent people from abusing the massive speed boost for too long. forces them to take long downtimes to not die from brain damage.
 	heart_rate_increase = 1
 	taste_description = "speed"
+	allowed_overdose_process = TRUE //Requested by balance.
 	/// modifier to the stun time of the mob taking the drug
 	var/tenacity = 1.5
 
