@@ -49,6 +49,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 		log_debug("Starting event '[next_event.name]' of severity [GLOB.severity_to_string[severity]].")
 		SSblackbox.record_feedback("nested tally", "events", 1, list(GLOB.severity_to_string[severity], next_event.name))
+		GLOB.event_last_fired[next_event] = world.time
 		next_event = null						// When set to null, a random event will be selected next time
 	else
 		// If not, wait for one minute, instead of one tick, before checking again.
@@ -68,9 +69,10 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 	for(var/event_meta in last_event_time) if(possible_events[event_meta])
 		var/time_passed = world.time - GLOB.event_last_fired[event_meta]
-		var/weight_modifier = max(0, (GLOB.configuration.event.expected_round_length - time_passed) / 300)
-		var/new_weight = max(possible_events[event_meta] - weight_modifier, 0)
-
+		var/half_of_round = GLOB.configuration.event.expected_round_length / 2
+		var/weight_modifier = min(1, 1 - ((half_of_round - time_passed) / half_of_round)) 
+		//With this formula, an event ran 30 minutes ago has half weight, and an event ran an hour ago, has 100 % weight. This works better in general for events, as super high weight events are impacted in a meaningful way.
+		var/new_weight = max(possible_events[event_meta] * weight_modifier, 0)
 		if(new_weight)
 			possible_events[event_meta] = new_weight
 		else

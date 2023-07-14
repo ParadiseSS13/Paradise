@@ -175,7 +175,7 @@
 			if(H.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
 				return
 			C.SetStuttering(40 SECONDS) //stammer
-			C.AdjustEarDamage(0, 5) //far less damage than the H.O.N.K.
+			C.Deaf(5 SECONDS) //far less damage than the H.O.N.K.
 			C.Jitter(100 SECONDS)
 			C.Weaken(10 SECONDS)
 			if(client) //prevent spam from players..

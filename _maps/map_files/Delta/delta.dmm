@@ -807,7 +807,7 @@
 "ahw" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Auxiliary Storage";
-	req_one_access_txt = "65;12"
+	req_one_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -28343,7 +28343,7 @@
 "bxx" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Auxiliary Storage";
-	req_one_access_txt = "65;12"
+	req_one_access_txt = "12"
 	},
 /obj/structure/cable{
 	d1 = 1;

@@ -15,6 +15,13 @@
 	QDEL_LIST_CONTENTS(stomach_contents)
 	QDEL_LIST_CONTENTS(processing_patches)
 	GLOB.carbon_list -= src
+	if(in_throw_mode)
+		toggle_throw_mode()
+	return ..()
+
+/mob/living/carbon/ghostize(can_reenter_corpse)
+	if(in_throw_mode)
+		toggle_throw_mode()
 	return ..()
 
 /mob/living/carbon/handle_atom_del(atom/A)
@@ -99,7 +106,7 @@
 	if(!blood && nutrition < 100) // Nutrition vomiting while already starving
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
-							"<span class='userdanger'>You try to throw up, but there's nothing your stomach!</span>")
+							"<span class='userdanger'>You try to throw up, but there's nothing in your stomach!</span>")
 		if(stun)
 			Weaken(20 SECONDS)
 		return
@@ -618,6 +625,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	hit_atom.hit_by_thrown_carbon(src, throwingdatum, damage, FALSE, FALSE)
 
 /mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	for(var/obj/item/twohanded/dualsaber/D in contents)
+		if(D.wielded && D.force)
+			visible_message("<span class='danger'>[src] impales [C] with [D], before dropping them on the ground!</span>")
+			C.apply_damage(100, BRUTE, "chest", sharp = TRUE, used_weapon = "Impaled on [D].")
+			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
+			C.KnockDown(6 SECONDS)
+			D.melee_attack_chain(src, C) //attack animation / jedi spin
+			C.emote("scream")
+			return
 	. = ..()
 	KnockDown(3 SECONDS)
 
@@ -907,17 +923,20 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return FALSE
 
 /mob/living/carbon/resist_fire()
+	if(IsKnockedDown())
+		return
 	fire_stacks -= 5
-	Weaken(6 SECONDS, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken (2 SECONDS, TRUE) //Your busy dying from fire, no way you could be able to roll and reach for a snack in your bag
+	KnockDown(6 SECONDS, TRUE) //Ok now you can have that snack if you want
 	spin(32, 2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_themselves()] out!</span>",
 		"<span class='notice'>You stop, drop, and roll!</span>")
-	sleep(3 SECONDS)
-	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src] has successfully extinguished [p_themselves()]!</span>",
-			"<span class='notice'>You extinguish yourself.</span>")
-		ExtinguishMob()
+	addtimer(CALLBACK(src, PROC_REF(extinguish_roll), 3 SECONDS))
 
+/mob/living/carbon/proc/extinguish_roll()
+	if(fire_stacks <= 0)
+		visible_message("<span class='danger'>[src] has successfully extinguished [p_themselves()]!</span>","<span class='notice'>You extinguish yourself.</span>")
+		ExtinguishMob()
 
 /mob/living/carbon/resist_restraints()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))

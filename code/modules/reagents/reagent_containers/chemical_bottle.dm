@@ -219,6 +219,11 @@
 	desc = "A reagent bottle. Contains morphine."
 	list_reagents = list("morphine" = 50)
 
+/obj/item/reagent_containers/glass/bottle/reagent/hydrocodone
+	name = "hydrocodone bottle"
+	desc = "A reagent bottle. Contains hydrocodone."
+	list_reagents = list("hydrocodone" = 30)
+
 /obj/item/reagent_containers/glass/bottle/reagent/insulin
 	name = "insulin bottle"
 	desc = "A reagent bottle. Contains insulin."
