@@ -24,8 +24,6 @@
 		icon_state = "experiment-open"
 
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user)
-	if(stat)
-		return
 	if(user.stat || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
 		return
 	if(isabductor(target))
@@ -229,3 +227,9 @@
 	occupant.forceMove(get_turf(src))
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/abductor/experiment/broken
+	stat = 1
+
+/obj/machinery/abductor/experiment/broken/MouseDrop_T(mob/living/carbon/human/target, mob/user)
+	return
