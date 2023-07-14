@@ -28,7 +28,7 @@
 //Balance tweaks go here vv
 #define BIOMASS_BASE_COST 250
 //These ones are also used for dead limbs/organs
-#define BIOMASS_NEW_LIMB_COST 200
+#define BIOMASS_NEW_LIMB_COST 100
 #define BIOMASS_NEW_ORGAN_COST 100
 #define BIOMASS_BURN_WOUND_COST 25
 //These 3 are for every point of the respective damage type
@@ -202,6 +202,10 @@
 		return //this shouldn't happen but whatever
 
 	for(var/limb in p_data.limbs)
+
+		if(get_stored_organ(limb))
+			continue //if we have a stored organ, we'll be replacing it - so no biomass or sanguine/osseous cost
+
 		var/list/patient_limb_info = p_data.limbs[limb]
 		var/patient_limb_status = patient_limb_info[3]
 
@@ -232,15 +236,21 @@
 			cloning_cost[3] += OSSEOUS_BONE_COST * price_modifier
 
 	for(var/organ in p_data.organs)
+
+		if(organ == "heart") //The heart is always replaced in cloning. This is factored into the base biomass cost, so we don't add more here.
+			if(get_stored_organ(organ))
+				cloning_cost[1] -= BIOMASS_NEW_ORGAN_COST //the cost of a new organ should ALWAYS be below the base cloning cost
+				continue
+			continue
+
+		if(get_stored_organ(organ))
+			continue //if we can replace it, we will, so no need to do the rest of the loop
+
 		var/list/patient_organ_info = p_data.organs[organ]
 		var/patient_organ_status = patient_organ_info[2]
 
 		var/list/desired_organ_info = d_data.organs[organ]
 		var/desired_organ_status = desired_organ_info[2]
-
-		if(organ == "heart")
-			continue //The heart is always replaced in cloning because heart necrosis is why defibs stop working after 5 minutes.
-					 //The cost of this is factored into BIOMASS_BASE_COST, so we don't account for it here.
 
 		if((desired_organ_status & ORGAN_DEAD) && !(patient_organ_status & ORGAN_DEAD)) //if the patient's organ is dead and we want it to not be
 			cloning_cost[1] += BIOMASS_NEW_ORGAN_COST * price_modifier
@@ -255,6 +265,7 @@
 
 //insert an organ into storage
 /obj/machinery/clonepod/proc/insert_organ(obj/item/organ/inserted, mob/inserter)
+	var/has_children = FALSE //Used for arms and legs
 	var/stored_organs
 	for(var/obj/item/organ/O in contents)
 		stored_organs++
@@ -272,13 +283,28 @@
 		if(is_type_in_list(inserted, UPGRADE_LOCKED_ORGANS) && speed_modifier < 4) //if our manipulators aren't fully upgraded
 			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 			return
+		if(inserted.status & ORGAN_ROBOT && speed_modifier == 1) //if our manipulators aren't upgraded at all
+			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
+			return
+
 	if(isorgan(inserted))
 		if(is_type_in_list(inserted, FORBIDDEN_LIMBS))
 			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 			return
+		var/obj/item/organ/external/EO = inserted
+		if(length(EO.children))
+			if((stored_organs + 1 + length(EO.children)) > organ_storage_capacity)
+				to_chat(inserter, "<span class='warning'>You can't fit all of [inserted] into [src]'s organ storage!</span>")
+				return
+			has_children = TRUE
+			for(var/obj/item/organ/external/child in EO.children)
+				new child.type(src)
+				EO.children.Remove(child)
+
 	if(is_type_in_list(inserted, ALLOWED_ROBOT_PARTS) && speed_modifier == 1) //if our manipulators aren't upgraded at all
 		to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 		return
+
 	if(ismob(inserted.loc))
 		var/mob/M = inserted.loc
 		if((!M.get_active_hand() == inserted))
@@ -289,6 +315,20 @@
 		M.unEquip(inserted)
 	inserted.forceMove(src)
 	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s organ storage.</span>")
+	if(has_children)
+		visible_message("There's a crunching sound as [src] breaks down [inserted] into discrete parts.", "You hear a crunching noise.")
+
+/obj/machinery/clonepod/proc/get_stored_organ(organ)
+	for(var/obj/item/organ/external/EO in contents)
+		if(EO.limb_name == organ)
+			return EO
+	for(var/obj/item/organ/internal/IO in contents)
+		if(IO.organ_tag == organ)
+			return IO
+	for(var/obj/item/robot_parts/RP in contents)
+		if(organ in RP.part)
+			return RP
+	return FALSE
 
 //Attackby and x_acts
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
