@@ -75,6 +75,7 @@
 		GLOB.poi_list -= src
 
 	QDEL_LIST_CONTENTS(orbiting_balls)
+	shocked_things.Cut()
 	return ..()
 
 /obj/singularity/energy_ball/admin_investigate_setup()
