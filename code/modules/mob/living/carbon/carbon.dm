@@ -258,11 +258,10 @@
 		adjustStaminaLoss(-10)
 		resting = FALSE
 		stand_up() // help them up if possible
-		if(!player_logged)
-			M.visible_message( \
-				"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
-				"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
-				)
+		M.visible_message( \
+			"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
+			"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
+			)
 	else if(M.zone_selected == "head")
 		M.visible_message(\
 		"<span class='notice'>[M] pats [src] on the head.</span>",\
