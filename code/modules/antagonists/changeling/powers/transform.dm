@@ -6,6 +6,7 @@
 	power_type = CHANGELING_INNATE_POWER
 	req_dna = 1
 	req_human = TRUE
+	var/keep_cuffs
 
 //Change our DNA to that of somebody we've absorbed.
 /datum/action/changeling/transform/sting_action(mob/living/carbon/human/user)
@@ -14,7 +15,15 @@
 	if(!chosen_dna)
 		return FALSE
 
+	if(user.handcuffed)
+		keep_cuffs = user.handcuffed
+		user.handcuffed = null
+	else
+		keep_cuffs = FALSE
 	transform_dna(user, chosen_dna)
+	if(keep_cuffs)
+		user.handcuffed = keep_cuffs
+		user.update_handcuffed()
 	cling.update_languages()
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
