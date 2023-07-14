@@ -105,13 +105,14 @@
 		qdel(parent)
 		return
 
-	var/obj/item/I = parent
 	var/turf/T = get_turf(source)
 	if(!T)
-		T = get_turf(I)
-	I.forceMove(T)
+		T = get_turf(parent)
+	move_to_the_thing(parent, T)
 
-/datum/component/sticky/proc/move_to_the_thing(obj/item/I)
+/datum/component/sticky/proc/move_to_the_thing(obj/item/I, turf/target)
 	if(!istype(I))
 		return // only items should be able to have the sticky component
-	INVOKE_ASYNC(I, TYPE_PROC_REF(/atom/movable, forceMove), get_turf(attached_to))
+	if(!target)
+		target = get_turf(attached_to)
+	INVOKE_ASYNC(I, TYPE_PROC_REF(/atom/movable, forceMove), target)
