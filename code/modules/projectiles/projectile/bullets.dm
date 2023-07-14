@@ -251,7 +251,7 @@
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 				reagents.trans_to(M, reagents.total_volume)
-				return 1
+				return TRUE
 			else
 				blocked = INFINITY
 				target.visible_message("<span class='danger'>[src] was deflected!</span>", \
@@ -259,7 +259,7 @@
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
-	return 1
+	return TRUE
 
 /obj/item/projectile/bullet/dart/metalfoam
 
@@ -284,7 +284,7 @@
 		if(blocked != INFINITY)
 			..()
 			reagents.trans_to(M, reagents.total_volume)
-			return 1
+			return TRUE
 		else
 			blocked = INFINITY
 			target.visible_message("<span class='danger'>[src] was deflected!</span>", \
@@ -292,7 +292,7 @@
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
-	return 1
+	return TRUE
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
 
