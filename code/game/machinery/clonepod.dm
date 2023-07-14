@@ -255,6 +255,16 @@
 
 //insert an organ into storage
 /obj/machinery/clonepod/proc/insert_organ(obj/item/organ/inserted, mob/inserter)
+	var/stored_organs
+	for(var/obj/item/organ/O in contents)
+		stored_organs++
+	for(var/obj/item/robot_parts/R in contents)
+		stored_organs++
+
+	if(stored_organs >= organ_storage_capacity)
+		to_chat(inserter, "<span class='warning'>[src]'s organ storage is full!</span>")
+		return
+
 	if(is_int_organ(inserted))
 		if(is_type_in_list(inserted, FORBIDDEN_INTERNAL_ORGANS))
 			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
@@ -266,7 +276,7 @@
 		if(is_type_in_list(inserted, FORBIDDEN_LIMBS))
 			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 			return
-	if(is_type_in_list(inserted, ALLOWED_ROBOT_PARTS) && speed_modifier = 1) //if our manipulators aren't upgraded at all
+	if(is_type_in_list(inserted, ALLOWED_ROBOT_PARTS) && speed_modifier == 1) //if our manipulators aren't upgraded at all
 		to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 		return
 	if(ismob(inserted.loc))
