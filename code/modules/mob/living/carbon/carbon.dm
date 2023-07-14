@@ -250,10 +250,6 @@
 		"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
 	else if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 		add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			if(H.w_uniform)
-				H.w_uniform.add_fingerprint(M)
 		AdjustSleeping(-10 SECONDS)
 		AdjustParalysis(-6 SECONDS)
 		AdjustStunned(-6 SECONDS)
