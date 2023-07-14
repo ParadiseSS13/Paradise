@@ -60,8 +60,3 @@
 	name = "Hydroponics"
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_STANDARD_STATION
-
-/area/station/service/hydroponics/abandoned_garden // TODO: move this to maintenance
-	name = "\improper Abandoned Garden"
-	icon_state = "hydro"
-	sound_environment = SOUND_AREA_SMALL_ENCLOSED

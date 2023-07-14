@@ -29,15 +29,13 @@
 	/area/station/science/test_area))
 
 	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
-	var/list/danger_areas = list(
+	var/list/allowed_areas = list(
 	/area/station/engineering/break_room,
 	/area/station/engineering/equipmentstorage,
 	/area/station/engineering/controlroom)
 
-	var/list/allowed_areas = list()
-
-	allowed_areas = typecacheof(GLOB.the_station_areas) - safe_areas + danger_areas
-	var/list/possible_areas = typecache_filter_list(SSmapping.existing_station_areas, allowed_areas)
+	var/list/remove_these_areas = safe_areas - danger_areas
+	var/list/possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, remove_these_areas)
 
 	return pick(possible_areas)
 

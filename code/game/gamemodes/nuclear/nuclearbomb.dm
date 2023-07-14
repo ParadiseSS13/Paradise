@@ -470,7 +470,7 @@ GLOBAL_VAR(bomb_set)
 	var/turf/bomb_location = get_turf(src)
 	var/area/A = get_area(src)
 	if( bomb_location && is_station_level(bomb_location.z) )
-		if( (bomb_location.x < (128 - NUKERANGE)) || (bomb_location.x > (128 + NUKERANGE)) || (bomb_location.y < (128 - NUKERANGE)) || (bomb_location.y > (128 + NUKERANGE)) && (!(A in GLOB.the_station_areas)))
+		if( (bomb_location.x < (128 - NUKERANGE)) || (bomb_location.x > (128 + NUKERANGE)) || (bomb_location.y < (128 - NUKERANGE)) || (bomb_location.y > (128 + NUKERANGE)) && (!(A in SSmapping.existing_station_areas)))
 			off_station = 1
 	else
 		off_station = 2

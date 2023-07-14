@@ -165,3 +165,8 @@
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
+
+/area/station/maintenance/abandoned_garden
+	name = "\improper Abandoned Garden"
+	icon_state = "hydro"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED

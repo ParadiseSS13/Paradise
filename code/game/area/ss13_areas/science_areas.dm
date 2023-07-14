@@ -46,10 +46,6 @@
 	name = "\improper Research Lab"
 	icon_state = "sci"
 
-// /area/station/science/rdoffice
-// 	name = "\improper Research Director's Office"
-// 	icon_state = "head_quarters"
-
 /area/station/science/supermatter
 	name = "\improper Supermatter Lab"
 	icon_state = "scilab"
@@ -59,7 +55,7 @@
 	icon_state = "xenobio"
 	xenobiology_compatible = TRUE
 
-/area/station/science/xenobiology/xenoflora_storage
+/xenobiology/xenoflora_storage
 	name = "Xenoflora Storage"
 	icon_state = "scilab"
 
@@ -99,7 +95,3 @@
 /area/station/science/server/coldroom
 	name = "\improper Server Coldroom"
 	icon_state = "servercold"
-
-// /area/station/science/explab
-// 	name = "\improper Experimentation Lab"
-// 	icon_state = "scilab"
