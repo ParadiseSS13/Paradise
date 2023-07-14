@@ -13383,14 +13383,15 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aKS" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -44362,7 +44363,6 @@
 	id = "BS"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/access/all/command/blueshield,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -64427,13 +64427,17 @@
 	},
 /area/medical/medbay2)
 "dKb" = (
-/obj/structure/cable,
 /obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint)
+/area/maintenance/fsmaint)
 "dKh" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/bottle/morphine{
@@ -78550,19 +78554,6 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
-"nHq" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "nHv" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
@@ -79340,6 +79331,14 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
+"olO" = (
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "omx" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/hologram/holopad,
@@ -134276,7 +134275,7 @@ aRX
 aRX
 naU
 qhT
-aKS
+dKb
 mxZ
 knB
 aMz
@@ -134790,7 +134789,7 @@ aGY
 aOF
 aHP
 aVA
-nHq
+aKS
 aZQ
 aZQ
 aZQ
@@ -146411,7 +146410,7 @@ uDR
 cgs
 qCZ
 rfn
-dKb
+olO
 ciY
 csL
 fmn
