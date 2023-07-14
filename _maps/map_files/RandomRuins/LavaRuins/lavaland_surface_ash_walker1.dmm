@@ -1039,7 +1039,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/twohanded/spear,
-/obj/item/storage/belt,
+/obj/item/storage/belt/mining/primitive,
 /turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "cI" = (

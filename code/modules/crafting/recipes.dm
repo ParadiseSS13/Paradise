@@ -526,6 +526,14 @@
 	reqs = list(/obj/item/stack/sheet/bone = 4)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/beltprimitive
+	name = "Hunter's Belt"
+	result = /obj/item/storage/belt/mining/primitive
+	time = 30
+	reqs = list(/obj/item/stack/sheet/sinew = 4,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 2)
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/goliathcloak
 	name = "Goliath Cloak"
 	result = /obj/item/clothing/suit/hooded/goliath

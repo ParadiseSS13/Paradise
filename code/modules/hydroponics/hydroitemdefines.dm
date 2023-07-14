@@ -108,6 +108,7 @@
 	attack_verb = list("ripped", "torn", "cut")
 
 /obj/item/hatchet/wooden
+	name = "wooden hatchet"
 	desc = "A crude axe blade upon a short wooden handle."
 	icon_state = "woodhatchet"
 	materials = null
