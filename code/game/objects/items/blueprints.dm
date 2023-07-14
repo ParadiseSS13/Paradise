@@ -411,3 +411,20 @@
 	popup.set_content(.)
 	popup.open()
 	onclose(usr, "blueprints")
+
+//Blueprint for USSP station
+
+/obj/item/areaeditor/ussp
+	name = "USSP Station blueprints"
+	desc = "Used to define new areas in space."
+	fluffnotice = "В случае поломки - смотри сюда"
+
+/obj/item/areaeditor/ussp/attack_self(mob/user)
+	. = ..()
+	var/area/A = get_area(user)
+	if(get_area_type() == AREA_STATION)
+		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
+	popup.set_content(.)
+	popup.open()
+	onclose(usr, "blueprints")

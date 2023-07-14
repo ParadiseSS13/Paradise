@@ -96,7 +96,7 @@
 	/// List of SolGov Marine jobs
 	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Marine")
 	//  List of USSP jobs
-	var/list/soviet_jobs = list("Soviet Tourist", "Soviet Conscript", "Soviet Soldier", "Soviet Officer", "Soviet Marine", "Soviet Marine Captain")
+	var/list/soviet_jobs = list("Soviet Tourist", "Soviet Conscript", "Soviet Soldier", "Soviet Officer", "Soviet Marine", "Soviet Marine Captain", "Soviet General", "Soviet Engineer", "Soviet Scientist", "Soviet Medic")
 	// Defined so code compiles and incase someone has a non-standard job
 	var/job_class = "radio"
 	// NOW FOR ACTUAL TOGGLES

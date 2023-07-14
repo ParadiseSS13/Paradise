@@ -2271,6 +2271,48 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Derelict Arrival Centre"
 	icon_state = "yellow"
 
+/area/derelict/church
+	name = "\improper Derelict Church"
+	icon_state = "chapel"
+
+/area/derelict/common
+	name = "\improper Derelict Common Area"
+	icon_state = "crew_quarters"
+
+/area/derelict/asteroidbelt
+	name = "\improper Derelict Asteroids"
+	icon_state = "mining"
+	requires_power = FALSE
+	has_gravity = FALSE
+
+/area/derelict/med
+	name = "\improper Derelict Medbay"
+	icon_state = "medbay"
+
+/area/derelict/garden
+	name = "\improper Derelict Hydroponics"
+	icon_state = "hydro"
+
+/area/derelict/dining
+	name = "\improper Derelict Dining room"
+	icon_state = "kitchen"
+
+/area/derelict/dock
+	name = "\improper Derelict Docking Area"
+	icon_state = "ntrep"
+
+/area/derelict/security
+	name = "\improper Derelict Security Area"
+	icon_state = "blue"
+
+/area/derelict/rnd
+	name = "\improper Derelict Research Area"
+	icon_state = "purple"
+
+/area/derelict/engineer_area
+	name = "\improper Derelict Engineering Area"
+	icon_state = "engine_control"
+
 /area/derelict/storage/equipment
 	name = "Derelict Equipment Storage"
 

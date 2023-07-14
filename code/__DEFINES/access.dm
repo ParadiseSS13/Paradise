@@ -92,7 +92,7 @@
 #define ACCESS_CENT_BRIDGE 113//Bridge.
 #define ACCESS_CENT_COMMANDER 114//Commander's Office/ID computer.
 
-	// USSP ACCESS
+// USSP ACCESS
 #define ACCESS_USSP_TOURIST 120
 #define ACCESS_USSP_CONSCRIPT 121
 #define ACCESS_USSP_SOLDIER 122
@@ -100,6 +100,11 @@
 #define ACCESS_USSP_MARINE 124
 #define ACCESS_USSP_MARINE_CAPTAIN 125
 #define ACCESS_USSP_MARINE_ADMIRAL 126
+#define ACCESS_USSP_MEDICAL 127
+#define ACCESS_USSP_SECURITY 128 // Ghost role 'USSP'
+#define ACCESS_USSP_COMAND 129 // Ghost role 'USSP'
+#define ACCESS_USSP_ENGINEERING 130 // Ghost role 'USSP'
+#define ACCESS_USSP_SCIENTIST 131 // Ghost role 'USSP'
 
 //The Syndicate
 #define ACCESS_SYNDICATE 150//General Syndicate Access
@@ -125,10 +130,6 @@
 
 //Awaymissions
 #define ACCESS_AWAY01 271
-#define USSP_BAR 201
-#define USSP_SECURITY 202
-#define USSP_COMAND 203
-#define USSP_ENGINEERING 204
 
 //Ghost roles
 #define ACCESS_FREE_GOLEMS 300

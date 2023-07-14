@@ -453,7 +453,7 @@
 	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
 
 /proc/get_all_soviet_jobs()
-	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral")
+	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral","Soviet General","Soviet Engineer","Soviet Scientist","Soviet Medic")
 
 /proc/get_all_special_jobs()
 	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")

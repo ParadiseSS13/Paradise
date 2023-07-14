@@ -400,6 +400,15 @@
 	qdel(stamp)
 	..()
 
+/obj/item/paper/gorky17/report
+	name = "Доклад Центральному Комитету СССП"
+	header = "<font face=\"Verdana\" color=black><center>&ZeroWidthSpace;<img src = ussplogo.png></center>"
+	info = "<font face=\"Verdana\" color=black><BR><center><B>Доклад Центральному Комитету СССП</B></center><BR>Я <B><span class=\"paper_field\"></span></B>, в звании <B><span class=\"paper_field\"></span></B> и должности <B><span class=\"paper_field\"></span></B>, докладываю: <span class=\"paper_field\"></span> <BR><BR><BR><font size = \"1\"> Подпись: <span class=\"paper_field\"></span></font><BR><font size = \"1\"> Дата: <span class=\"paper_field\"></span></font><BR><HR><font size = \"1\">*Данный факс, обязательно должен подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, факс считается скомпрометированным.<BR>*Нарушение субординации и уставных отношений повлечет наказание.</font></font>"
+
+/obj/item/paper/gorky17/report/New()
+	. = ..()
+	populatefields()
+
 ////// CURSED TALISMAN
 /obj/item/paper/poisonedtalisman
 	info = "<font face=\"Verdana\" color=black>\

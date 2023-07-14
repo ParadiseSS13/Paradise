@@ -143,3 +143,48 @@
 /obj/item/trash/broken_ashtray/Initialize(mapload)
 	. = ..()
 	icon_state = "ashtray_bork_" + pick(list("bl","br","gl"))
+
+/obj/item/spentcasing
+	icon = 'icons/obj/weapons/ammo.dmi'
+	icon_state = "gshell"
+	name = "Old bullet casing"
+	desc = "A spent bullet casing. Smells like rusty metal."
+
+	flags = CONDUCT
+	slot_flags = SLOT_BELT
+	throwforce = 1
+	w_class = WEIGHT_CLASS_TINY
+	materials = list(MAT_METAL = 100)
+
+/obj/item/spentcasing/Initialize()
+	..()
+	pixel_x = rand(-10.0, 10)
+	pixel_y = rand(-10.0, 10)
+	dir = pick(GLOB.alldirs)
+
+/obj/effect/spawner/lootdrop/spentcasing
+	name = "Old 12 gauge spent casings"
+	icon_state ="spentcasing_12"
+	lootcount = 2
+
+	loot = list(/obj/item/spentcasing)
+
+/obj/item/spentcasing/pistol
+	icon_state = "s-casing"
+
+/obj/effect/spawner/lootdrop/spentcasing/pistol
+	name = "Old pistol spent casings"
+	icon_state ="spentcasing_9"
+	lootcount = 3
+
+	loot = list(/obj/item/spentcasing/pistol)
+
+/obj/item/spentcasing/rifle
+	icon_state = "762-casing"
+
+/obj/effect/spawner/lootdrop/spentcasing/rifle
+	name = "Old rifle spent casings"
+	icon_state ="spentcasing_762"
+	lootcount = 5
+
+	loot = list(/obj/item/spentcasing/rifle)
