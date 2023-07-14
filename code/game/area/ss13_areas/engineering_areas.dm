@@ -1,6 +1,6 @@
 // Atmos
 /area/station/engineering/atmos
- 	name = "Atmospherics"
+	name = "Atmospherics"
  	icon_state = "atmos"
 
 /area/station/engineering/atmos/control
