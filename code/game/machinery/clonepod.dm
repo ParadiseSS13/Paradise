@@ -1,11 +1,28 @@
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent", "mutadone", "rezadone")
-#define FORBIDDEN_INTERNAL_ORGANS list(/obj/item/organ/internal/heart/gland, \
-									   /obj/item/organ/internal/heart/demon, \
-									   /obj/item/organ/internal/heart/cursed, \
-									   /obj/item/organ/internal/regenerative_core, \
+#define FORBIDDEN_INTERNAL_ORGANS list(/obj/item/organ/internal/regenerative_core, \
 									   /obj/item/organ/internal/alien, \
 									   /obj/item/organ/internal/body_egg, \
-									   /obj/item/organ/internal/cyberimp)
+									   /obj/item/organ/internal/adamantine_resonator, \
+									   /obj/item/organ/internal/vocal_cords/colossus, \
+									   /obj/item/organ/internal/cyberimp, \
+									   /obj/item/organ/internal/brain, \
+									   /obj/item/organ/internal/cell, \
+									   /obj/item/organ/internal/eyes/optical_sensor, \
+									   /obj/item/organ/internal/ears/microphone)
+
+#define UPGRADE_LOCKED_ORGANS list(/obj/item/organ/internal/heart/gland, \
+								   /obj/item/organ/internal/heart/demon, \
+								   /obj/item/organ/internal/heart/cursed, \
+								   /obj/item/organ/internal/eyes/cybernetic/eyesofgod)
+
+#define FORBIDDEN_LIMBS list(/obj/item/organ/external/head, \
+							 /obj/item/organ/external/chest, \
+							 /obj/item/organ/external/groin) //you can't even get chests and groins normally
+
+#define ALLOWED_ROBOT_PARTS list(/obj/item/robot_parts/r_arm, \
+								 /obj/item/robot_parts/l_arm, \
+								 /obj/item/robot_parts/r_leg, \
+								 /obj/item/robot_parts/l_leg)
 
 
 //Balance tweaks go here vv
@@ -128,7 +145,6 @@
 
 //Process
 /obj/machinery/clonepod/process()
-
 	//If we're cloning someone, we haven't generated a list of limbs to grow, and we're before any possibility of not having any limbs left to grow.
 	if(currently_cloning && !length(limbs_to_grow) && clone_progress < 20)
 		limb_loop:
@@ -243,6 +259,16 @@
 		if(is_type_in_list(inserted, FORBIDDEN_INTERNAL_ORGANS))
 			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
 			return
+		if(is_type_in_list(inserted, UPGRADE_LOCKED_ORGANS) && speed_modifier < 4) //if our manipulators aren't fully upgraded
+			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
+			return
+	if(isorgan(inserted))
+		if(is_type_in_list(inserted, FORBIDDEN_LIMBS))
+			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
+			return
+	if(is_type_in_list(inserted, ALLOWED_ROBOT_PARTS) && speed_modifier = 1) //if our manipulators aren't upgraded at all
+		to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
+		return
 	if(ismob(inserted.loc))
 		var/mob/M = inserted.loc
 		if((!M.get_active_hand() == inserted))
@@ -252,7 +278,7 @@
 			return
 		M.unEquip(inserted)
 	inserted.forceMove(src)
-	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s internal organ storage.</span>")
+	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s organ storage.</span>")
 
 //Attackby and x_acts
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
@@ -262,7 +288,7 @@
 	if(I.is_open_container())
 		return
 
-	if(is_int_organ(I) || isorgan(I))
+	if(is_int_organ(I) || isorgan(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
 		insert_organ(I, user)
 		return
 
@@ -324,6 +350,9 @@
 
 #undef VALID_REAGENTS
 #undef FORBIDDEN_INTERNAL_ORGANS
+#undef UPGRADE_LOCKED_ORGANS
+#undef FORBIDDEN_LIMBS
+#undef ALLOWED_ROBOT_PARTS
 
 #undef BIOMASS_BASE_COST
 #undef BIOMASS_NEW_LIMB_COST
