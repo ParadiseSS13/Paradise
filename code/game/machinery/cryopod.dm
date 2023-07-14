@@ -344,7 +344,7 @@
 			if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.
 				var/obj/item/storage/backpack/modstorage/M = I
 				M.forceMove(M.source)
-				contine
+				continue
 
 		var/preserve = should_preserve_item(I)
 		if(preserve == CRYO_DESTROY)
