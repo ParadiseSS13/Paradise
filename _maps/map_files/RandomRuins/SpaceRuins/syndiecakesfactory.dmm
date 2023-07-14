@@ -74,8 +74,8 @@
 /area/ruin/space/unpowered)
 "bY" = (
 /obj/structure/girder,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "co" = (
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/plasteel{
@@ -274,9 +274,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
-"jv" = (
-/turf/simulated/floor/plating/burnt,
-/area/ruin/space/unpowered)
 "jx" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/grass,
@@ -291,11 +288,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/space/unpowered)
-"kk" = (
-/obj/structure/lattice,
-/obj/item/stack/sheet/metal,
-/turf/space,
 /area/ruin/space/unpowered)
 "ky" = (
 /obj/structure/window/reinforced{
@@ -348,8 +340,8 @@
 /area/ruin/space/unpowered)
 "oo" = (
 /obj/item/stack/rods/ten,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "oB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -375,7 +367,7 @@
 /area/ruin/space/unpowered)
 "pd" = (
 /turf/template_noop,
-/area/space)
+/area/template_noop)
 "pz" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -449,17 +441,6 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/unpowered)
-"ro" = (
-/obj/machinery/door/poddoor{
-	id_tag = "securearea"
-	},
-/obj/machinery/door/airlock/hatch/syndicate{
-	name = "Secure Area"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/ruin/space/unpowered)
 "rJ" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/light/small{
@@ -526,10 +507,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
-"tK" = (
-/obj/structure/closet/walllocker/emerglocker/west,
-/turf/simulated/floor/engine,
-/area/ruin/space/unpowered)
 "tX" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/machinery/light/small{
@@ -584,8 +561,8 @@
 "vo" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/metal,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "vE" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/kitchen_machine/microwave,
@@ -676,6 +653,13 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
+"yV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
 "zc" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/stack/packageWrap,
@@ -745,8 +729,8 @@
 /area/ruin/space/unpowered)
 "Cu" = (
 /obj/item/stack/ore/glass/basalt,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "CR" = (
 /obj/structure/chair/office/dark,
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
@@ -766,9 +750,6 @@
 /obj/item/trash/tray,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unpowered)
-"Da" = (
-/turf/space,
-/area/space)
 "Do" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/reagent_containers/food/snacks/meat/corgi,
@@ -785,9 +766,6 @@
 	},
 /area/ruin/space/unpowered)
 "DP" = (
-/obj/machinery/door/airlock/hatch/syndicate{
-	name = "Secure Area"
-	},
 /obj/machinery/door/poddoor{
 	id_tag = "securearea"
 	},
@@ -805,6 +783,12 @@
 	pixel_y = 5;
 	pixel_x = -5
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"EB" = (
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -872,8 +856,8 @@
 /area/ruin/space/unpowered)
 "Ha" = (
 /obj/item/stack/sheet/metal,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Hh" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/syndicate,
@@ -920,10 +904,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
-"Jd" = (
-/obj/structure/girder,
-/turf/space,
-/area/ruin/space/unpowered)
 "Jt" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -955,9 +935,6 @@
 "KY" = (
 /obj/machinery/door/poddoor{
 	id_tag = "securearea"
-	},
-/obj/machinery/door/airlock/hatch/syndicate{
-	name = "Secure Area"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1037,6 +1014,12 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/unpowered)
+"Nq" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
 "Nx" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/stack/packageWrap,
@@ -1049,8 +1032,8 @@
 /area/ruin/space/unpowered)
 "NQ" = (
 /obj/structure/lattice,
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Ov" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/reagent_containers/food/snacks/donkpocket{
@@ -1748,7 +1731,7 @@ uA
 OA
 bn
 bn
-wC
+EB
 bn
 vO
 bn
@@ -1791,7 +1774,7 @@ bn
 Cm
 bn
 EH
-bn
+Nq
 bn
 gu
 bG
@@ -1833,7 +1816,7 @@ bn
 bn
 Kr
 bn
-oB
+yV
 OU
 oB
 RO
@@ -1842,8 +1825,8 @@ oH
 OK
 OK
 OK
-Da
-Da
+pd
+pd
 Cu
 pd
 pd
@@ -1886,7 +1869,7 @@ OK
 Cu
 Cu
 Cu
-Da
+pd
 pd
 pd
 pd
@@ -1926,9 +1909,9 @@ EJ
 OK
 Cu
 Cu
-Da
+pd
 Cu
-Da
+pd
 pd
 pd
 pd
@@ -1945,7 +1928,7 @@ OK
 TG
 UR
 sh
-tK
+sh
 sh
 wv
 TG
@@ -1966,11 +1949,11 @@ tX
 EJ
 OK
 OK
-Jd
-Da
+bY
+pd
 Ha
-Da
-Da
+pd
+pd
 Cu
 pd
 pd
@@ -2008,12 +1991,12 @@ YE
 EJ
 OK
 EJ
-Jd
-jv
-Da
+bY
+pd
+pd
 Ha
-Da
-Da
+pd
+pd
 pd
 pd
 pd
@@ -2051,10 +2034,10 @@ oH
 OK
 oH
 OP
-kk
+vo
 oo
-Da
-Da
+pd
+pd
 oo
 pd
 pd
@@ -2095,9 +2078,9 @@ EJ
 hF
 zt
 NQ
-Da
+pd
 vo
-Da
+pd
 pd
 pd
 pd
@@ -2406,7 +2389,7 @@ OK
 OK
 TG
 TG
-ro
+DP
 KY
 DP
 TG
