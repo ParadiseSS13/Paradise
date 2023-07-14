@@ -8,7 +8,8 @@
 	var/event
 	var/swiping = FALSE // on swiping screen?
 	var/confirm_delay = 20 SECONDS // time allowed for a second person to confirm a swipe.
-	var/busy = FALSE // Busy when waiting for authentication or an event request has been sent from this device. So someone on the other end can't just close the ERT menu while someone is typing
+	/// True when a request is sent from another device. So someone on the other end can't just close the ERT menu while someone is typing
+	var/busy = FALSE
 	var/obj/machinery/keycard_auth/event_source
 	var/mob/triggered_by
 	var/mob/confirmed_by
@@ -202,6 +203,7 @@
 
 /obj/machinery/keycard_auth/proc/remind_admins(old_reason, the_triggerer) // im great at naming variables
 	if(GLOB.ert_request_answered)
+		GLOB.ert_request_answered = FALSE // For ERT requests that may come later
 		return
 	ERT_Announce(old_reason, the_triggerer, repeat_warning = TRUE)
 
