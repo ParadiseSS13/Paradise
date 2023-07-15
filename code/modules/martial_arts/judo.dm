@@ -8,7 +8,7 @@
 //Corporate Judo Belt
 
 /obj/item/judobelt
-	name = "Corporate Judo Belt"
+	name = "\improper Corporate Judo Belt"
 	desc = "Teaches the wearer NT Corporate Judo."
 	icon = 'icons/obj/clothing/belts.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
