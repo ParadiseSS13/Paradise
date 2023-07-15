@@ -80,6 +80,7 @@
 	return ..()
 
 /obj/machinery/autolathe/proc/on_tool_attack(datum/source, atom/tool, mob/user)
+	SIGNAL_HANDLER
 	var/obj/item/I = tool
 	if(!istype(I))
 		return
