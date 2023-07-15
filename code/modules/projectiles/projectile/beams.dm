@@ -7,7 +7,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	flag = "laser"
-	eyeblur = 2
+	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	is_reflectable = TRUE
 	light_range = 2
@@ -134,9 +134,8 @@
 	icon_state = "sniperlaser"
 	damage = 60
 	hitsound = 'sound/weapons/resonator_blast.ogg'
-	stun = 2
-	weaken = 2
-	stutter = 2
+	weaken = 4 SECONDS
+	stutter = 4 SECONDS
 	stamina = 40
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PINK

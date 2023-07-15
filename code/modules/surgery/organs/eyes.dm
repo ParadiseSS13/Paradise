@@ -89,5 +89,5 @@
 			var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
 				E.heal_internal_damage(G.heal_rate)
-		update_flags |= owner.AdjustEyeBlurry(-1, FALSE)
+				update_flags |= owner.AdjustEyeBlurry(-2 SECONDS)
 	return ..() | update_flags

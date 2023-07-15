@@ -208,3 +208,4 @@
 
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
+	var/last_emote = null

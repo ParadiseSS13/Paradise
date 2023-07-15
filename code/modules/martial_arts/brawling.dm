@@ -38,8 +38,8 @@
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
-			D.apply_effect(10,WEAKEN,armor_block)
-			D.Weaken(3)
+			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
+			D.Weaken(6 SECONDS)
 			D.forcesay(GLOB.hit_appends)
 		else if(D.lying)
 			D.forcesay(GLOB.hit_appends)
@@ -93,14 +93,14 @@
 	D.apply_damage(damage, BRUTE, null, armor_block)
 	objective_damage(A, D, damage, BRUTE)
 
-	D.apply_effect(damage, STAMINA, armor_block)
+	D.apply_damage(damage, STAMINA, armor_block)
 	if(D.getStaminaLoss() > 50)
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
-			D.apply_effect(10,WEAKEN,armor_block)
-			D.Paralyse(5)
+			D.Paralyse(10 SECONDS)
+			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
 			D.forcesay(GLOB.hit_appends)
 		else if(D.lying)
 			D.forcesay(GLOB.hit_appends)

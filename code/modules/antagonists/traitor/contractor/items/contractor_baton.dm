@@ -3,7 +3,7 @@
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
 	// Overrides
 	affect_silicon = TRUE
-	stun_time = 1
+	stun_time = 2 SECONDS
 	cooldown = 2.5 SECONDS
 	force_off = 5
 	force_on = 20
@@ -17,9 +17,9 @@
 	/// Stamina damage to deal on stun.
 	var/stamina_damage = 70
 	/// Jitter to deal on stun.
-	var/jitter_amount = 5 SECONDS_TO_JITTER
+	var/jitter_amount = 5 SECONDS
 	/// Stutter to deal on stun.
-	var/stutter_amount = 10 SECONDS_TO_LIFE_CYCLES
+	var/stutter_amount = 10 SECONDS
 	//Upgrade stuff
 	var/list/upgrades = list()
 	var/muteupgrade = 0
@@ -140,10 +140,10 @@
 	target.Jitter(jitter_amount)
 	target.AdjustStuttering(stutter_amount)
 	if(muteupgrade)
-		target.Silence (5)
+		target.Silence(10 SECONDS)
 	if(cuffupgrade)//check for cuff
 		if(cuffs > 0)
-			if(target.getStaminaLoss() > 90 || target.health <= HEALTH_THRESHOLD_CRIT || target.sleeping)
+			if(target.getStaminaLoss() > 90 || target.health <= HEALTH_THRESHOLD_CRIT || target.IsSleeping())
 				CuffAttack(target, user)
 			else
 				user.visible_message("<span class='warning'>This victim is still resisting!</span>")
@@ -151,7 +151,7 @@
 		for(var/datum/antagonist/traitor/contractor/C in user.mind.antag_datums)
 			if(target == C?.contractor_uplink?.hub?.current_contract?.contract?.target.current)//pain
 				target.adjustStaminaLoss(30) //one punch to stun, if target. Prevents from onepunchcuff
-				target.Jitter(10)
+				target.Jitter(20 SECONDS)
 
 //cuff module
 

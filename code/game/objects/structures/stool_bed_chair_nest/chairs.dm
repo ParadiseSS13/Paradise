@@ -263,9 +263,8 @@
 			var/mob/living/buckled_mob = m
 			unbuckle_mob(buckled_mob)
 			buckled_mob.throw_at(A, 3, propelled)
-			buckled_mob.apply_effect(6, STUN, 0)
-			buckled_mob.apply_effect(6, WEAKEN, 0)
-			buckled_mob.apply_effect(6, STUTTER, 0)
+			buckled_mob.Weaken(12 SECONDS)
+			buckled_mob.Stuttering(12 SECONDS)
 			buckled_mob.take_organ_damage(10)
 			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 			buckled_mob.visible_message("<span class='danger'>[buckled_mob] crashed into [A]!</span>")
@@ -457,21 +456,20 @@
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
 			if(C.health < C.maxHealth*0.5)
-				C.apply_effect(6, STUN, 0)
-				C.apply_effect(6, WEAKEN, 0)
-				C.apply_effect(6, STUTTER, 0)
+				C.Weaken(12 SECONDS)
+				C.Stuttering(12 SECONDS)
 				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 		smash(user)
 
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
-	if(prob(5) && istype(M,/mob/living))
+	if(prob(5) && isliving(M))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
 		user.drop_item_ground(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)
 		qdel(src)
 		var/mob/living/T = M
-		T.Weaken(3)
+		T.Weaken(6 SECONDS)
 		return
 	..()
 

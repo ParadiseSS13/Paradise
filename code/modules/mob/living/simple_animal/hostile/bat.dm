@@ -58,7 +58,7 @@
 	var/mob/living/L = .
 	if(istype(L))
 		if(prob(15))
-			L.Stun(1)
+			L.Stun(2 SECONDS)
 			L.visible_message("<span class='danger'>\the [src] scares \the [L]!</span>")
 
 

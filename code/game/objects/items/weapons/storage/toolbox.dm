@@ -32,7 +32,7 @@
 		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
 		return
 
-	H.AdjustEyeBlurry(4)
+	H.AdjustEyeBlurry(8 SECONDS)
 	to_chat(H, SPAN_DANGER("You feel a buzz in your head and your vision gets blurry."))
 
 /obj/item/storage/toolbox/emergency

@@ -90,7 +90,7 @@
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
-	if(owner.weakened)
+	if(owner.IsWeakened())
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
 		owner.custom_emote(1, "не может встать, [owner.p_their()] [name] выходя из строя!")
 	else
@@ -98,9 +98,9 @@
 		owner.custom_emote(1, "упал на пол, [owner.p_their()] [name] выходя из строя!")
 	switch(severity)
 		if(1)
-			owner.AdjustWeakened(4)
+			owner.AdjustWeakened(8 SECONDS)
 		if(2)
-			owner.AdjustWeakened(2)
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/leg/right
 	limb_name = "r_leg"
@@ -128,7 +128,7 @@
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
-	if(owner.weakened)
+	if(owner.IsWeakened())
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
 		owner.custom_emote(1, "не может встать, [owner.p_their()] [name] выходя из строя")
 	else
@@ -136,9 +136,9 @@
 		owner.custom_emote(1, "падая на пол, [owner.p_their()] [name] выходя из строя")
 	switch(severity)
 		if(1)
-			owner.AdjustWeakened(4)
+			owner.AdjustWeakened(8 SECONDS)
 		if(2)
-			owner.AdjustWeakened(2)
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/foot/remove()
 	if(owner && owner.shoes) owner.drop_item_ground(owner.shoes)
@@ -291,13 +291,13 @@
 
 /obj/item/organ/external/head/emp_act(severity)
 	..()
-	if(!is_robotic() || emp_proof || !tough) // Augmented head confuses the user on EMP.
+	if(!is_robotic() || emp_proof || !tough || !owner) // Augmented head confuses the user on EMP.
 		return
 	switch(severity)
 		if(1)
-			owner?.AdjustConfused(30)
+			owner.AdjustConfused(60 SECONDS)
 		if(2)
-			owner?.AdjustConfused(20)
+			owner.AdjustConfused(40 SECONDS)
 	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, перегружая ваше управление!</span>")
 
 /obj/item/organ/external/tail

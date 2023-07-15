@@ -576,9 +576,8 @@
 	spawn(2)
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = C.assess_threat(src)
-	C.SetStuttering(5)
-	C.Stun(2)
-	C.Weaken(2)
+	C.SetStuttering(10 SECONDS)
+	C.Weaken(4 SECONDS)
 	C.adjustStaminaLoss(45)
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)

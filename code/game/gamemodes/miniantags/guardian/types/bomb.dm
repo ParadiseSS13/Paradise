@@ -99,7 +99,7 @@
 	playsound(get_turf(src),'sound/effects/bomb_activate.ogg', 200, 1)
 	playsound(get_turf(src),'sound/effects/explosion1.ogg', 200, 1)
 	user.ex_act(3)
-	user.Weaken(3)
+	user.Weaken(6 SECONDS)
 	if(ishuman(user))
 		dead_legs(user)
 	user.adjustBruteLoss(40)

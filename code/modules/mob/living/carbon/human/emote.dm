@@ -682,13 +682,13 @@
 								message = "пыта[pluralize_ru(src.gender,"ет","ют")]ся кувыркнуться и с грохотом пада[pluralize_ru(src.gender,"ет","ют")] на пол!"
 								SpinAnimation(5,1)
 								sleep(3)
-								Weaken(2)
+								Weaken(4 SECONDS)
 							else
 								if(prob(5))
 									message = "пыта[pluralize_ru(src.gender,"ет","ют")]ся кувыркнуться и с грохотом пада[pluralize_ru(src.gender,"ет","ют")] на пол!"
 									SpinAnimation(5,1)
 									sleep(3)
-									Weaken(2)
+									Weaken(4 SECONDS)
 								else
 									message = "дела[pluralize_ru(src.gender,"ет","ют")] кувырок!"
 									SpinAnimation(5,1)
@@ -731,9 +731,9 @@
 
 		if("faint", "faints")
 			message = "пада[pluralize_ru(src.gender,"ет","ют")] в обморок!"
-			if(sleeping)
+			if(IsSleeping())
 				return //Can't faint while asleep
-			AdjustSleeping(2)
+			AdjustSleeping(4 SECONDS)
 			m_type = 1
 
 		if("cough", "coughs")
@@ -1113,7 +1113,7 @@
 					m_type = 2
 
 		if("collapse", "collapses")
-			Paralyse(2)
+			Paralyse(4 SECONDS)
 			message = "пада[pluralize_ru(src.gender,"ет","ют")]!"
 			m_type = 2
 			if(miming)

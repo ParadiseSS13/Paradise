@@ -171,7 +171,7 @@
 
 
 /obj/machinery/abductor/experiment/proc/SendBack(mob/living/carbon/human/H)
-	H.Sleeping(8)
+	H.Sleeping(16 SECONDS)
 	if(console && console.pad && console.pad.teleport_target)
 		H.forceMove(console.pad.teleport_target)
 		H.uncuff()

@@ -124,7 +124,7 @@
 		if(emagged <= 1)
 			honk_attack(A)
 		else
-			if(!C.stunned || arrest_type) //originaly was paralisysed in tg ported as stun
+			if(!C.IsStunned() || arrest_type)
 				stun_attack(A)
 		..()
 	else if(!spam_flag) //honking at the ground
@@ -167,11 +167,16 @@
 		sensor_blink()
 	if(!spam_flag)
 		if(ishuman(C))
-			C.stuttering = 20 //stammer
-			C.MinimumDeafTicks(0, 5) //far less damage than the H.O.N.K.
-			C.Jitter(50)
-			C.Weaken(5)
-			C.Stun(5)      // Paralysis from tg ported as stun
+			var/mob/living/carbon/human/H = C
+			if(H.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
+				return
+			C.SetStuttering(40 SECONDS) //stammer
+			C.AdjustDeaf(10 SECONDS) //far less damage than the H.O.N.K.
+			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+			if(istype(ears))
+				ears.receive_damage(5)
+			C.Jitter(100 SECONDS)
+			C.Weaken(10 SECONDS)
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
 			if(emagged <= 1) //HONK once, then leave
@@ -184,8 +189,8 @@
 			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
 					"<span class='userdanger'>[src] has honked you!</span>")
 		else
-			C.stuttering = 20
-			C.Stun(10)
+			C.Stuttering(40 SECONDS)
+			C.Stun(20 SECONDS)
 			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
 
 
@@ -309,7 +314,7 @@
 						  	"[C] trips over [src] and falls!", \
 						  	"[C] topples over [src]!", \
 						  	"[C] leaps out of [src]'s way!")]</span>")
-			C.Weaken(5)
+			C.Weaken(10 SECONDS)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
 			if(!client)
 				speak("Honk!")

@@ -16,7 +16,7 @@
 
 	switch(act) //Alphabetical please
 		if("me")
-			if(silent)
+			if(HAS_TRAIT(src, TRAIT_MUTE))
 				return
 			if(src.client)
 				if(client.prefs.muted & MUTE_IC)

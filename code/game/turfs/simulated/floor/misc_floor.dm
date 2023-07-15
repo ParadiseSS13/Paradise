@@ -150,7 +150,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
-		H.slip("the floor", 0, 5, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
+		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.

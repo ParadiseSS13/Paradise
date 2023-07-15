@@ -53,7 +53,7 @@
 		armour_penetration = initial(armour_penetration) * 25
 		visible_message("<span class='danger'>[src] suddenly attacks and savagely mauls [target]!</span>")
 		L.adjustStaminaLoss(45)
-		L.AdjustSilence(5)
+		L.AdjustSilence(10 SECONDS)
 	else
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
@@ -76,6 +76,6 @@
 
 /obj/structure/spider/terrorweb/gray/web_special_ability(mob/living/carbon/C) //super deadly web
 	if(istype(C))
-		C.AdjustSilence(7)
-		C.Weaken(3)
-		C.slowed = 5
+		C.AdjustSilence(14 SECONDS)
+		C.Weaken(6 SECONDS)
+		C.Slowed(10 SECONDS)

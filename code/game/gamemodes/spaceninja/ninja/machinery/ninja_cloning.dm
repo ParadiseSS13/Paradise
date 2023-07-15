@@ -71,7 +71,7 @@
 	SSticker.mode.give_ninja_datum(ninja.mind)
 	ninja.faction = list(ROLE_NINJA)
 	ninja.forceMove(src)
-	ninja.Sleeping(7.5)
+	ninja.Sleeping(15 SECONDS)
 	playsound(src, 'sound/machines/initialisation.ogg', 50, FALSE)
 	//Перенос скопированных данных в новый костюм
 	var/obj/item/clothing/suit/space/space_ninja/n_suit = ninja.wear_suit

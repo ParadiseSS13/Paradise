@@ -710,7 +710,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
 			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			M.adjustFireLoss(75)
-			M.Weaken(5)
+			M.Weaken(10 SECONDS)
 			to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
 			logmsg = "a lightning bolt."
 		if("Fire Death")
@@ -734,7 +734,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				organ.insert(H)
 			logmsg = "a honk tumor."
 		if("Hallucinate")
-			H.Hallucinate(1000)
+			H.Hallucinate(1000 SECONDS)
 			H.last_hallucinator_log = "Hallucination smite"
 			logmsg = "hallucinations."
 		if("Cold")

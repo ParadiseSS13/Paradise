@@ -86,7 +86,7 @@
 	name = "stun gloves"
 	desc = "Horrendous and awful. It smells like cancer. The fact it has wires attached to it is incidental."
 	var/obj/item/stock_parts/cell/cell = null
-	var/stun_strength = 1
+	var/stun_strength = 2 SECONDS
 	var/stun_cost = 1500
 
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
@@ -117,9 +117,8 @@
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")
-				C.Stun(stun_strength)
 				C.Weaken(stun_strength)
-				C.apply_effect(STUTTER, 5 SECONDS)
+				C.Stuttering(stun_strength)
 				C.adjustStaminaLoss(20)
 			else
 				to_chat(H, "<span class='notice'>Not enough charge!</span>")
@@ -162,7 +161,7 @@
 		return ..()
 	var/mob/living/carbon/human/H = loc
 	if(cell?.use(stun_cost))
-		H.Weaken(4)
+		H.Weaken(8 SECONDS)
 		H.adjustFireLoss(rand(10, 25))
 		H.apply_effect(STUTTER, 5 SECONDS)
 

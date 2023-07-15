@@ -36,7 +36,7 @@
 	. = ..()
 	for(var/mob/living/carbon/human/L in view(2, src))
 		if(L.stat != DEAD && L != summoner)
-			L.Slowed(2)
+			L.Slowed(4 SECONDS)
 
 /mob/living/simple_animal/hostile/guardian/punch/sealpunch
 	name = "Seal Sprit"

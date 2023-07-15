@@ -280,9 +280,8 @@
 	var/threat = C.assess_threat(src)
 	if(ishuman(C) && harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
 		C.apply_damage(10, BRUTE)
-	C.SetStuttering(5)
-	C.Stun(2)
-	C.Weaken(2)
+	C.SetStuttering(10 SECONDS)
+	C.Weaken(4 SECONDS)
 	C.adjustStaminaLoss(45)
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
@@ -481,7 +480,7 @@
 						  "[C] trips over [src] and falls!", \
 						  "[C] topples over [src]!", \
 						  "[C] leaps out of [src]'s way!")]</span>")
-		C.Weaken(2)
+		C.Weaken(4 SECONDS)
 		return
 	..()
 

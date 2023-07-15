@@ -142,7 +142,7 @@
 		if(IS_PLANT in H.dna.species.species_traits)
 			if(prob(15))
 				M.apply_effect((rand(30,80)),IRRADIATE)
-				M.Weaken(5)
+				M.Weaken(10 SECONDS)
 				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 				if(prob(80))
 					randmutb(M)
@@ -188,7 +188,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
 		M.adjustBrainLoss(20)
-		M.AdjustHallucinate(20)
+		M.AdjustHallucinate(20 SECONDS)
 		M.last_hallucinator_log = name
 
 /obj/item/projectile/clown
@@ -234,7 +234,7 @@
 /obj/item/projectile/bullet/frag12
 	name ="explosive slug"
 	damage = 25
-	weaken = 5
+	weaken = 10 SECONDS
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()

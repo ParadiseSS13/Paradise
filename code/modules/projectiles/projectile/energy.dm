@@ -13,11 +13,10 @@
 	color = "#FFFF00"
 	shockbull = TRUE
 	nodamage = 1
-	stun = 1
-	weaken = 1
+	weaken = 2 SECONDS
 	stamina = 33
-	stutter = 5
-	jitter = 20
+	stutter = 8 SECONDS
+	jitter = 30 SECONDS
 	hitsound = 'sound/weapons/tase.ogg'
 	range = 7
 	//Damage will be handled on the MOB side, to prevent window shattering.
@@ -32,7 +31,7 @@
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		else if(C.status_flags & CANWEAKEN)
 			spawn(5)
-				C.do_jitter_animation(jitter)
+				C.Jitter(jitter)
 
 /obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, 1, src)
@@ -55,7 +54,7 @@
 	icon_state = "toxin"
 	damage = 1
 	damage_type = TOX
-	weaken = 2
+	weaken = 4 SECONDS
 	stamina = 40
 	range = 7
 	shockbull = TRUE
@@ -68,13 +67,13 @@
 	damage_type = TOX
 	stamina = 40
 	nodamage = 0
-	weaken = 3
-	stutter = 1
+	weaken = 5 SECONDS
+	stutter = 2 SECONDS
 	shockbull = TRUE
 
 /obj/item/projectile/energy/bolt/large
 	damage = 20
-	weaken = 1
+	weaken = 2 SECONDS
 	stamina = 30
 
 /obj/item/projectile/energy/shock_revolver

@@ -41,5 +41,5 @@
 	if(.)
 		if(prob(15) && iscarbon(target))
 			var/mob/living/carbon/C = target
-			C.Weaken(3)
+			C.Weaken(6 SECONDS)
 			C.visible_message("<span class='danger'>\the [src] knocks down \the [C]!</span>")

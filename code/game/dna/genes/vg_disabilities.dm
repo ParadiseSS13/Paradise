@@ -35,7 +35,7 @@
 	if(!istype(M))
 		return
 	if(DIZZY in M.mutations)
-		M.Dizzy(300)
+		M.Dizzy(600 SECONDS)
 
 /datum/dna/gene/disability/dizzy/deactivate(mob/living/M, connected, flags)
 	..()

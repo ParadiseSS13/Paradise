@@ -4,7 +4,7 @@
 	explaination_text = "Use mime energy to throw someone back."
 
 /datum/martial_combo/mimejutsu/silent_palm/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(!target.stat && !target.stunned && !target.IsWeakened())
+	if(!target.stat && !target.IsStunned() && !target.IsWeakened())
 		target.visible_message("<span class='danger'>[user] has barely touched [target] with [user.p_their()] palm!</span>", \
 						"<span class='userdanger'>[user] hovers [user.p_their()] palm over your face!</span>")
 

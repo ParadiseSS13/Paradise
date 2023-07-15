@@ -16,12 +16,12 @@
 	// Settings
 	/// Whether the baton can stun silicon mobs
 	var/affect_silicon = FALSE
-	/// The stun time (in life cycles) for non-silicons
-	var/stun_time = 2 SECONDS_TO_LIFE_CYCLES
+	/// The stun time (in seconds) for non-silicons
+	var/stun_time = 2 SECONDS
 	/// Stamina damage
 	var/staminaforce = 15
-	/// The stun time (in life cycles) for silicons
-	var/stun_time_silicon = 10 SECONDS_TO_LIFE_CYCLES
+	/// The stun time (in seconds) for silicons
+	var/stun_time_silicon = 10 SECONDS
 	/// Cooldown in deciseconds between two knockdowns
 	var/cooldown = 2 SECONDS
 	/// Sound to play when knocking someone down
@@ -40,7 +40,7 @@
 	if((CLUMSY in user.mutations) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_them()]self with [src]!</span>", \
 							 "<span class='userdanger'>You accidentally club yourself with [src]!</span>")
-		user.Weaken(force * 3)
+		user.Weaken(stun_time)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(force * 2, BRUTE, "head")
@@ -90,7 +90,7 @@
 	if(prob(75))
 		target.Weaken(stun_time)
 	else
-		target.Weaken(stun_time + 1)
+		target.Weaken(stun_time + 2 SECONDS)
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cooldown_finished)), cooldown)
 	return TRUE

@@ -46,15 +46,14 @@
 		M.show_message("<span class='warning'>BANG</span>", 2)
 
 		var/distance = max(1, get_dist(source_turf, get_turf(M)))
-		var/stun_amount = max(4 / distance, 3)
+		var/stun_amount = max(8 SECONDS / distance, 6 SECONDS)
 
 		// Flash
 		if(flash)
 			if(M.weakeyes)
 				M.visible_message("<span class='disarm'><b>[M]</b> screams and collapses!</span>")
 				to_chat(M, "<span class='userdanger'><font size=3>AAAAGH!</font></span>")
-				M.Weaken(15) //hella stunned
-				M.Stun(15)
+				M.Weaken(30 SECONDS) //hella stunned
 				if(ishuman(M))
 					M.emote("scream")
 					var/mob/living/carbon/human/H = M
@@ -62,23 +61,21 @@
 					if(E)
 						E.receive_damage(8, TRUE)
 			if(M.flash_eyes(affect_silicon = TRUE))
-				M.Stun(stun_amount)
 				M.Weaken(stun_amount)
 
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
 			if(!distance || A.loc == M || A.loc == M.loc) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
-				M.Stun(10)
-				M.Weaken(10)
+				M.Weaken(20 SECONDS)
 			if(!ear_safety)
-				M.Stun(stun_amount)
 				M.Weaken(stun_amount)
-				M.AdjustEarDamage(rand(0, 5), 15)
+				M.Deaf(30 SECONDS)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
 					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 					if(istype(ears))
+						ears.receive_damage(5)
 						if(ears.damage >= 15)
 							to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 							if(prob(ears.damage - 5))

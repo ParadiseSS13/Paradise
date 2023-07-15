@@ -24,11 +24,11 @@
 	idle_power_usage = 2
 	active_power_usage = 500
 
-/obj/machinery/gibber/suicide_act(mob/user)
+/obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
 	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
-	user.Stun(10)
+	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
 	update_icon()

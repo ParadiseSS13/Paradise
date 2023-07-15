@@ -53,7 +53,7 @@
 		if(L.stat != DEAD) //no dismemberment for dead carbons, less griefy
 			do_attack_animation(L)
 			L.adjustBruteLoss(25)
-			L.Weaken(1)
+			L.Weaken(2 SECONDS)
 			playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 100, 1)
 			var/obj/item/organ/external/NB = pick(L.bodyparts)
 			visible_message("<span class='warning'>[src] Tears appart the [NB.name] of [L] with his razor sharp jaws!</span>")

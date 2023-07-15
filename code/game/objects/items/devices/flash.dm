@@ -22,7 +22,7 @@
 
 /obj/item/flash/proc/clown_check(mob/user)
 	if(user && (CLUMSY in user.mutations) && prob(50))
-		flash_carbon(user, user, 15, FALSE)
+		flash_carbon(user, user, 30 SECONDS, 0)
 		return FALSE
 	return TRUE
 
@@ -84,20 +84,20 @@
 	return TRUE
 
 
-/obj/item/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
+/obj/item/flash/proc/flash_carbon(mob/living/carbon/M, mob/user = null, power = 10 SECONDS, targeted = 1)
 	if(user)
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(targeted)
 			if(M.weakeyes)
-				M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
+				M.Weaken(6 SECONDS) //quick weaken bypasses eye protection but has no eye flash
 			if(M.flash_eyes(1, 1))
 				M.AdjustConfused(power)
-				M.Stun(1)
+				M.Stun(2 SECONDS)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 				to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
 				if(M.weakeyes)
-					M.Stun(2)
+					M.Stun(4 SECONDS)
 					M.visible_message("<span class='disarm'>[M] gasps and shields [M.p_their()] eyes!</span>", "<span class='userdanger'>You gasp and shield your eyes!</span>")
 			else
 				visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
@@ -112,7 +112,7 @@
 	if(!try_use_flash(user))
 		return FALSE
 	if(iscarbon(M))
-		flash_carbon(M, user, 5, 1)
+		flash_carbon(M, user, 10 SECONDS, 1)
 		if(overcharged)
 			M.adjust_fire_stacks(6)
 			M.IgniteMob()
@@ -121,7 +121,7 @@
 	else if(issilicon(M))
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(M.flash_eyes(affect_silicon = TRUE))
-			M.Weaken(rand(5,10))
+			M.Weaken(rand(10 SECONDS, 20 SECONDS))
 			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
 		return TRUE
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the [src.name]!</span>", "<span class='warning'>You fail to blind [M] with the [src.name]!</span>")
@@ -132,14 +132,14 @@
 		return FALSE
 	user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
 	for(var/mob/living/carbon/M in oviewers(3, null))
-		flash_carbon(M, user, 3, FALSE)
+		flash_carbon(M, user, 6 SECONDS, FALSE)
 
 
 /obj/item/flash/emp_act(severity)
 	if(!try_use_flash())
 		return FALSE
 	for(var/mob/living/carbon/M in viewers(3, null))
-		flash_carbon(M, null, 10, FALSE)
+		flash_carbon(M, null, 20 SECONDS, FALSE)
 	burn_out()
 	..()
 

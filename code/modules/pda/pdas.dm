@@ -40,7 +40,7 @@
 	ttone = "honk"
 
 /obj/item/pda/clown/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 5, 5, 100)
+	AddComponent(/datum/component/slippery, src, 10 SECONDS, 100)
 
 /obj/item/pda/mime
 	default_cartridge = /obj/item/cartridge/mime

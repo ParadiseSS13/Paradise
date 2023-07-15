@@ -295,7 +295,7 @@
 	var/obj/item/grab/G = C.grabbedby(firer, 1)
 	if(istype(G))
 		G.state = GRAB_PASSIVE
-		C.Weaken(2)
+		C.Weaken(4 SECONDS)
 
 /obj/item/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/C)
 	if(!firer || !C)

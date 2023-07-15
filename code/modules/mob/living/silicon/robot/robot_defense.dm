@@ -8,7 +8,7 @@
 				visible_message("<span class='danger'>[M] disarmed [src]!</span>", "<span class='userdanger'>[M] has disabled [src]'s active module!</span>")
 				add_attack_logs(M, src, "alien disarmed")
 			else
-				Stun(2)
+				Stun(4 SECONDS)
 				step(src, get_dir(M,src))
 				add_attack_logs(M, src, "Alien pushed over")
 				visible_message("<span class='danger'>[M] forces back [src]!</span>", "<span class='userdanger'>[M] forces back [src]!</span>")

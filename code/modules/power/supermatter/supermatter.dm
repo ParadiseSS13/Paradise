@@ -190,7 +190,7 @@
 						if(ishuman(mob))
 							//Hilariously enough, running into a closet should make you get hit the hardest.
 							var/mob/living/carbon/human/H = mob
-							H.AdjustHallucinate(max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)))))
+							H.AdjustHallucinate(max(100 SECONDS, min(300 SECONDS, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)))))
 							H.last_hallucinator_log = "Supermatter explosion"
 						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
 						mob.apply_effect(rads, IRRADIATE)
@@ -268,7 +268,7 @@
 		var/obj/item/organ/internal/eyes/eyes = l.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(eyes))
 			continue
-		l.Hallucinate(min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
+		l.Hallucinate(min(200 SECONDS, l.AmountHallucinate() + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
 		l.last_hallucinator_log = "seeing SM without mesons"
 
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))

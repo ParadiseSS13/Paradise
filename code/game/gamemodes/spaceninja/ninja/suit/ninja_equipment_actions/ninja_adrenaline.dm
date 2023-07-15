@@ -32,7 +32,7 @@
 	ninja.adjustStaminaLoss(-75)
 	ninja.lying = 0
 	ninja.update_canmove()
-	ninja.SetStuttering(0, force)
+	ninja.SetStuttering(0)
 	ninja.reagents.add_reagent("synaptizine", 20)
 	ninja.reagents.add_reagent("stimulative_agent", 20)
 	add_attack_logs(ninja, null, "Activated ninja-boost(adrenaline).")

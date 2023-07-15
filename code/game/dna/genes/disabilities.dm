@@ -50,7 +50,7 @@
 
 /datum/dna/gene/disability/hallucinate/OnMobLife(mob/living/carbon/human/H)
 	if(prob(1))
-		H.AdjustHallucinate(45)
+		H.AdjustHallucinate(45 SECONDS)
 		H.last_hallucinator_log = "Hallucination Gene"
 
 /datum/dna/gene/disability/epilepsy
@@ -65,10 +65,10 @@
 	block = GLOB.epilepsyblock
 
 /datum/dna/gene/disability/epilepsy/OnMobLife(mob/living/carbon/human/H)
-	if((prob(1) && H.paralysis < 1))
+	if((prob(1) && H.AmountParalyzed() < 2 SECONDS))
 		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
-		H.Paralyse(10)
-		H.Jitter(1000)
+		H.Paralyse(20 SECONDS)
+		H.Jitter(2000 SECONDS)
 
 /datum/dna/gene/disability/cough
 	name = "Coughing"
@@ -82,7 +82,7 @@
 	block = GLOB.coughblock
 
 /datum/dna/gene/disability/cough/OnMobLife(mob/living/carbon/human/H)
-	if((prob(5) && H.paralysis <= 1))
+	if((prob(5) && H.AmountParalyzed() <= 2 SECONDS))
 		H.drop_from_active_hand()
 		H.emote("cough")
 
@@ -109,8 +109,8 @@
 	block = GLOB.twitchblock
 
 /datum/dna/gene/disability/tourettes/OnMobLife(mob/living/carbon/human/H)
-	if((prob(10) && H.paralysis <= 1))
-		H.Stun(10)
+	if((prob(10) && H.AmountParalyzed() <= 2 SECONDS))
+		H.Stun(20 SECONDS)
 		switch(rand(1, 3))
 			if(1)
 				H.emote("twitch")
@@ -135,7 +135,7 @@
 
 /datum/dna/gene/disability/nervousness/OnMobLife(mob/living/carbon/human/H)
 	if(prob(10))
-		H.Stuttering(10)
+		H.Stuttering(20 SECONDS)
 
 /datum/dna/gene/disability/blindness
 	name = "Blindness"
@@ -189,9 +189,13 @@
 	..()
 	block = GLOB.deafblock
 
-/datum/dna/gene/disability/deaf/activate(mob/M, connected, flags)
-	..()
-	M.MinimumDeafTicks(1)
+/datum/dna/gene/disability/deaf/activate(mob/living/carbon/M, connected, flags)
+	. = ..()
+	ADD_TRAIT(M, TRAIT_DEAF, "dna")
+
+/datum/dna/gene/disability/deaf/deactivate(mob/living/M, connected, flags)
+	. = ..()
+	REMOVE_TRAIT(M, TRAIT_DEAF, "dna")
 
 /datum/dna/gene/disability/nearsighted
 	name = "Nearsightedness"

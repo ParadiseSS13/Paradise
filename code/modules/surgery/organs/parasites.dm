@@ -110,8 +110,8 @@
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
 	owner.adjustBruteLoss(80)
-	owner.Paralyse(10)
-	owner.SetConfused(20)
+	owner.Paralyse(20 SECONDS)
+	owner.SetConfused(40 SECONDS)
 	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
 
 	if(infection_completed && !QDELETED(src))

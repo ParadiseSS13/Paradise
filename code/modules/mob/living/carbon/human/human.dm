@@ -257,9 +257,13 @@
 				else valid_limbs -= processing_dismember
 
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustEarDamage(30, 120)
+				AdjustDeaf(120 SECONDS)
+				var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
+				if(istype(ears))
+					ears.receive_damage(30)
+
 			if(prob(70) && !shielded)
-				Paralyse(10)
+				Paralyse(20 SECONDS)
 
 		if(3)
 			b_loss += 30
@@ -281,9 +285,9 @@
 					else valid_limbs -= processing_dismember
 
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
-				AdjustEarDamage(15, 60)
+				AdjustDeaf(60 SECONDS)
 			if(prob(50) && !shielded)
-				Paralyse(10)
+				Paralyse(20 SECONDS)
 
 	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
 
@@ -1597,7 +1601,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
 			H.adjustOxyLoss(-15)
 			H.SetLoseBreath(0)
-			H.AdjustParalysis(-1)
+			H.AdjustParalysis(-2 SECONDS)
 			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 

@@ -160,7 +160,7 @@
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
 		to_chat(summoner, "<span class='danger'>Ваш [src] взорвался!</span>")
-		summoner.Weaken(10)// your fermillier has died! ROLL FOR CON LOSS!
+		summoner.Weaken(20 SECONDS)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
 

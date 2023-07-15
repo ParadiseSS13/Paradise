@@ -57,8 +57,8 @@
 /datum/reagent/blob/envenomed_filaments/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
 		volume = ..()
-		M.apply_damage(0.6*volume, TOX)
-		M.hallucination += 0.6*volume
+		M.apply_damage(0.6 * volume, TOX)
+		M.AdjustHallucinate(1.2 SECONDS * volume)
 		if(M.reagents)
 			M.reagents.add_reagent("spore", 0.4*volume)
 
@@ -75,7 +75,7 @@
 		volume = ..()
 		M.apply_damage(0.4*volume, BRUTE)
 		M.apply_damage(1*volume, OXY)
-		M.AdjustLoseBreath(round(0.3*volume))
+		M.AdjustLoseBreath(round(0.6 SECONDS * volume))
 
 
 /datum/reagent/blob/kinetic //does semi-random brute damage

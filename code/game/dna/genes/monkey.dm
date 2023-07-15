@@ -21,7 +21,7 @@
 		H.drop_item_ground(W)
 
 	H.regenerate_icons()
-	H.SetStunned(1)
+	H.SetStunned(2 SECONDS)
 	H.canmove = FALSE
 	H.icon = null
 	H.invisibility = 101
@@ -57,7 +57,7 @@
 			continue
 		H.drop_item_ground(W)
 	H.regenerate_icons()
-	H.SetStunned(1)
+	H.SetStunned(2 SECONDS)
 	H.canmove = 0
 	H.icon = null
 	H.invisibility = 101

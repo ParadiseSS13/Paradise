@@ -19,7 +19,7 @@
 	if(adj_drowsy)
 		M.AdjustDrowsy(adj_drowsy)
 	if(adj_sleepy)
-		update_flags |= M.AdjustSleeping(adj_sleepy, FALSE)
+		M.AdjustSleeping(adj_sleepy)
 	if(adj_temp_hot)
 		if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 			M.bodytemperature = min(310, M.bodytemperature + (adj_temp_hot * TEMPERATURE_DAMAGE_COEFFICIENT))

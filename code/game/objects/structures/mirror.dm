@@ -174,7 +174,10 @@
 				if("Староимперский")
 					voice_mutation = GLOB.auld_imperial_block
 				if("Mute")
-					voice_mutation = GLOB.muteblock
+					if(HAS_TRAIT_FROM(user, TRAIT_MUTE, "mirror"))
+						REMOVE_TRAIT(user, TRAIT_MUTE, "mirror")
+					else
+						ADD_TRAIT(user, TRAIT_MUTE, "mirror")
 			if(voice_mutation)
 				if(H.dna.GetSEState(voice_mutation))
 					H.dna.SetSEState(voice_mutation, FALSE)

@@ -156,7 +156,7 @@
 		backstab_cooldown = (world.time + 10 SECONDS)
 		force += backstab_damage
 		extra_force_applied = TRUE
-		M.Weaken(1)
+		M.Weaken(2 SECONDS)
 		M.adjustStaminaLoss(40)
 		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
 		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")

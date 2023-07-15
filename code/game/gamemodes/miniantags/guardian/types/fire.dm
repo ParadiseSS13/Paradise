@@ -34,7 +34,7 @@
 				do_teleport(M, M, 10)
 				investigate_log("[key_name_log(src)] teleported [key_name_log(target)] from [COORD(T)] to [COORD(M)].", INVESTIGATE_TELEPORTATION)
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
-				summoner.AdjustHallucinate(10)
+				summoner.AdjustHallucinate(10 SECONDS)
 
 /mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj, oldloc)
 	..()
@@ -77,15 +77,15 @@
 			if(iscarbon(target) && target != summoner)
 				var/mob/living/carbon/M = target
 				var/random_hallucination = pick(stunning_hallucinations)
-				M.hallucinate(random_hallucination)
-				M.AdjustHallucinate(50)
+				M.AdjustHallucinate(50 SECONDS)
+				M.hallucinate_living(random_hallucination)
 			else if(issilicon(target))
 				var/mob/living/silicon/silicon = target
 				to_chat(silicon, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
 				silicon << 'sound/misc/interference.ogg'
 				playsound(silicon, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, silicon)
-				silicon.Weaken(3)
+				silicon.Weaken(6 SECONDS)
 
 /obj/effect/proc_holder/spell/aoe_turf/guardian/fire/hallucination/New(var/mob/living/summoned_by)
 	. = ..()

@@ -291,12 +291,12 @@
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-5)
+	M.AdjustJitter(-10 SECONDS)
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
-		M.Dizzy(5)
+		M.AdjustStuttering(8 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
+		M.Dizzy(10 SECONDS)
 		if(isclocker(M) && prob(5))
-			M.AdjustClockSlur(5)
+			M.AdjustClockSlur(10 SECONDS)
 			M.say(pick("Via Ra'var!", "P'res Ni", "Nu'nce te Ren'", "Et Def'Fre", "RELO'JE AR SAGE", "Ric'gui'nea", "Uy'a Rad kos", "Uo Rom'tis!", "Rup'ru ge"))
 		if(iscultist(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
@@ -304,10 +304,10 @@
 					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
 					qdel(BS)
 			if(prob(5))
-				M.AdjustCultSlur(5)//5 seems like a good number...
+				M.AdjustCultSlur(10 SECONDS)//5 seems like a good number...
 				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
-		M.AdjustConfused(3)
+		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))
 			SSticker.mode.remove_vampire_mind(M.mind)
 			holder.remove_reagent(id, volume)
@@ -342,8 +342,8 @@
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
 		if(M.mind.vampire.bloodusable)
-			M.Stuttering(1)
-			M.Jitter(30)
+			M.Stuttering(2 SECONDS)
+			M.Jitter(60 SECONDS)
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
@@ -363,20 +363,19 @@
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
-					M.Stuttering(1)
-					M.Jitter(20)
+					M.Stuttering(2 SECONDS)
+					M.Jitter(40 SECONDS)
 					if(prob(20))
 						M.emote("scream")
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 				if(13 to INFINITY)
-					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
-					for(var/mob/O in viewers(M, null))
-						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!</span>", M), 1)
+					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
+									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
 					M.fire_stacks = min(5,M.fire_stacks + 3)
 					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
 					update_flags |= M.adjustFireLoss(3, FALSE)		//Hence the other damages... ain't I a bastard?
-					M.Stuttering(1)
-					M.Jitter(30)
+					M.Stuttering(2 SECONDS)
+					M.Jitter(60 SECONDS)
 					if(prob(40))
 						M.emote("scream")
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
@@ -418,10 +417,10 @@
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(iscultist(M))
-		M.AdjustDrowsy(-5)
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-2, FALSE)
-		update_flags |= M.AdjustWeakened(-2, FALSE)
+		M.AdjustDrowsy(-10 SECONDS)
+		M.AdjustParalysis(-2 SECONDS)
+		M.AdjustStunned(-4 SECONDS)
+		M.AdjustWeakened(-4 SECONDS)
 		update_flags |= M.adjustToxLoss(-2, FALSE)
 		update_flags |= M.adjustFireLoss(-2, FALSE)
 		update_flags |= M.adjustOxyLoss(-2, FALSE)
@@ -432,7 +431,7 @@
 		update_flags |= M.adjustFireLoss(2, FALSE)
 		update_flags |= M.adjustOxyLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(2, FALSE)
-		M.AdjustCultSlur(10)//CUASE WHY THE HELL NOT
+		M.AdjustCultSlur(20 SECONDS) //CUASE WHY THE HELL NOT
 	return ..() | update_flags
 
 /datum/reagent/hellwater

@@ -455,17 +455,17 @@
 
 /obj/spacepod/attack_hand(mob/user as mob)
 	if(user.a_intent == INTENT_GRAB && unlocked)
-		var/mob/target
+		var/mob/living/target
 		if(pilot)
 			target = pilot
 		else if(passengers.len > 0)
 			target = passengers[1]
 
-		if(target && istype(target))
+		if(istype(target))
 			src.visible_message("<span class='warning'>[user] is trying to rip the door open and pull [target] out of the [src]!</span>",
 				"<span class='warning'>You see [user] outside the door trying to rip it open!</span>")
 			if(do_after(user, 50, target = src))
-				target.Stun(1)
+				target.Stun(2 SECONDS)
 				if(pilot)
 					eject_pilot()
 				else

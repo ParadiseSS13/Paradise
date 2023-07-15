@@ -138,7 +138,7 @@
 		switch(M.damtype)
 			if("brute")
 				if(!is_strong())
-					Paralyse(1)
+					Paralyse(2 SECONDS)
 				take_overall_damage(rand(M.force/2, M.force))
 				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 			if("fire")

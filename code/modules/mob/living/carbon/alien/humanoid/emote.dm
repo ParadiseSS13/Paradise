@@ -116,7 +116,7 @@
 			message = "jumps!"
 			m_type = 1
 		if("collapse")
-			Paralyse(2)
+			Paralyse(4 SECONDS)
 			message = "collapses!"
 			m_type = 2
 		if("flip")

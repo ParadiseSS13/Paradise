@@ -243,16 +243,16 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
-				M.AdjustConfused(10)
-				M.slowed = 1
-				M.Jitter(300)
+				M.AdjustConfused(20 SECONDS)
+				M.Slowed(2 SECONDS)
+				M.Jitter(600 SECONDS)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, S)
-				S.Weaken(6)
+				S.Weaken(12 SECONDS)
 
 //TIER 3
 
@@ -276,15 +276,15 @@
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 				M.adjustStaminaLoss(30)
-				M.Jitter(300)
-				M.slowed = 5
+				M.Jitter(300 SECONDS)
+				M.Slowed(10 SECONDS)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, S)
-				S.Weaken(6)
+				S.Weaken(12 SECONDS)
 
 //PRINCE//
 
@@ -304,9 +304,9 @@
 		for(var/mob/target in T.contents)
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
-				M.AdjustWeakened(1)
+				M.AdjustWeakened(2 SECONDS)
 				M.adjustBruteLoss(20)
-				M.slowed = 4
+				M.Slowed(8 SECONDS)
 		var/turf/simulated/floor/tile = user.loc
 		for(tile in range(2, user))
 			tile.break_tile()
@@ -372,17 +372,17 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
-				M.AdjustWeakened(2)
+				M.AdjustWeakened(4 SECONDS)
 				M.adjustStaminaLoss(50)
-				M.Jitter(500)
-				M.slowed = 7
+				M.Jitter(1000 SECONDS)
+				M.Slowed(14 SECONDS)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, S)
-				S.Weaken(8)
+				S.Weaken(16 SECONDS)
 		for(var/obj/machinery/light/L in T.contents)
 			L.break_light_tube()
 

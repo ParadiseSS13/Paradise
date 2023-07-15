@@ -58,7 +58,7 @@
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
 		objective_damage(A, D, 10, BRUTE)
-		D.Weaken(1)
+		D.Weaken(2 SECONDS)
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 
@@ -68,7 +68,7 @@
 	if(restraining && istype(G) && G.affecting == D)
 		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
 							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
-		D.SetSleeping(10)
+		D.SetSleeping(20 SECONDS)
 		restraining = FALSE
 		if(G.state < GRAB_NECK)
 			G.state = GRAB_NECK
@@ -86,7 +86,7 @@
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 			if(I && D.drop_from_active_hand())
 				A.put_in_hands(I, ignore_anim = FALSE)
-			D.Jitter(2)
+			D.Jitter(4 SECONDS)
 			D.apply_damage(5, BRUTE)
 			objective_damage(A, D, 5, BRUTE)
 	else

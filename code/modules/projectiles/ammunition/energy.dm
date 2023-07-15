@@ -238,8 +238,8 @@
 	damage = 60
 	damage_type = BURN
 	range = 9
-	weaken  = 4 //This is going to knock you off your feet
-	eyeblur = 10
+	weaken  = 8 SECONDS //This is going to knock you off your feet
+	eyeblur = 20 SECONDS
 	speed   = 2
 
 /obj/item/ammo_casing/energy/bsg/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
@@ -278,7 +278,7 @@
 			add_attack_logs(src, M, "Hit heavily by [src]")
 			if(floored)
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
-				M.Weaken(4)
+				M.Weaken(8 SECONDS)
 			else
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
 		else

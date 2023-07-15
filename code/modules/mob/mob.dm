@@ -92,7 +92,7 @@
 				if(type & 1 && !has_vision(information_only=TRUE))
 					return
 	// Added voice muffling for Issue 41.
-	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
+	if(stat == UNCONSCIOUS)
 		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
 	else
 		to_chat(src, msg)

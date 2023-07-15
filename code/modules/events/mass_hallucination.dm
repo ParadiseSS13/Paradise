@@ -12,7 +12,7 @@
 		var/armor = H.getarmor(type = "rad")
 		if((RADIMMUNE in H.dna.species.species_traits) || armor >= 75) // Leave radiation-immune species/rad armored players completely unaffected
 			continue
-		H.AdjustHallucinate(rand(50, 100))
+		H.AdjustHallucinate(rand(100 SECONDS, 200 SECONDS))
 		H.last_hallucinator_log = "Mass hallucination event"
 
 /datum/event/mass_hallucination/announce()

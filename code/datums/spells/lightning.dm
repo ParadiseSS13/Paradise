@@ -99,23 +99,19 @@
 		if(damaging)
 			current.electrocute_act(bolt_energy, "Lightning Bolt", safety = TRUE)
 		else
-			current.AdjustJitter(1000) //High numbers for violent convulsions
-			current.do_jitter_animation(current.jitteriness)
-			current.AdjustStuttering(2)
-			current.Slowed(3)
-			spawn(20)
-				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
+			current.AdjustJitter(2000 SECONDS) //High numbers for violent convulsions
+			current.AdjustStuttering(4 SECONDS)
+			current.Slowed(6 SECONDS)
+			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, AdjustJitter), -2000 SECONDS, 10), 2 SECONDS) //Still jittery, but vastly less
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 	else
 		if(damaging)
 			current.electrocute_act(bolt_energy, "Lightning Bolt", safety = TRUE)
 		else
-			current.AdjustJitter(1000) //High numbers for violent convulsions
-			current.do_jitter_animation(current.jitteriness)
-			current.AdjustStuttering(2)
-			current.Slowed(3)
-			spawn(20)
-				current.AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
+			current.AdjustJitter(2000 SECONDS) //High numbers for violent convulsions
+			current.AdjustStuttering(4 SECONDS)
+			current.Slowed(6 SECONDS)
+			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, AdjustJitter), -2000 SECONDS, 10), 2 SECONDS) //Still jittery, but vastly less
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))

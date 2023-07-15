@@ -390,8 +390,9 @@
 		return
 	if(occupant)
 		if(occupant.bodytemperature < T0C)
-			occupant.Sleeping(max(5/efficiency, (1/occupant.bodytemperature)*2000/efficiency))
-			occupant.Paralyse(max(5/efficiency, (1/occupant.bodytemperature)*3000/efficiency))
+			var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000/efficiency)) STATUS_EFFECT_CONSTANT
+			occupant.Sleeping(stun_time)
+			occupant.Paralyse(stun_time)
 			if(air_contents.oxygen > 2)
 				if(occupant.getOxyLoss())
 					occupant.adjustOxyLoss(-6)
@@ -472,7 +473,7 @@
 		return
 	M.stop_pulling()
 	M.forceMove(src)
-	if(M.health > -100 && (M.health < 0 || M.sleeping))
+	if(M.health > -100 && (M.health < 0 || M.IsSleeping()))
 		to_chat(M, "<span class='boldnotice'>Вас окружает холодная жидкость. Кожа начинает замерзать.</span>")
 	occupant = M
 //	M.metabslow = 1

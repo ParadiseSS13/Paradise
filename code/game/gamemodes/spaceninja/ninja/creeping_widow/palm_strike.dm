@@ -4,7 +4,7 @@
 	explaination_text = "Sends enemies flying backwards if you are focused."
 
 /datum/martial_combo/ninja_martial_art/palm_strike/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/ninja_martial_art/creeping_widow)
-	if(!target.stat && !target.weakened && !target.resting)
+	if(!target.stat && !target.IsWeakened() && !target.resting)
 		if(creeping_widow.has_focus)
 			user.say("クモのキック!")
 			creeping_widow.has_focus = 0
@@ -17,7 +17,7 @@
 
 			var/atom/throw_target = get_ranged_target_turf(target, get_dir(target, get_step_away(target, user)), 3) // Get a turf 3 tiles away from the target relative to our direction from him.
 			target.throw_at(throw_target, 200, 4) // Throw the poor bastard at the target we just gabbed.
-			target.Weaken(2)
+			target.Weaken(4 SECONDS)
 			add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] : [name]")
 			playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 			addtimer(CALLBACK(creeping_widow, TYPE_PROC_REF(/datum/martial_art/ninja_martial_art, regain_focus), user), 50)

@@ -32,8 +32,7 @@
 	..()
 
 /mob/living/carbon/human/proc/mimetouched()
-	Weaken(7)
-	Stun(7)
+	Weaken(14 SECONDS)
 	if(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)) //Wizards get non-cursed mime outfit. Replace with mime robes if we add those.
 		drop_item_ground(wear_mask, force = TRUE)
 		drop_item_ground(w_uniform, force = TRUE)
@@ -41,7 +40,7 @@
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime, slot_wear_mask)
 		equip_to_slot_or_del(new /obj/item/clothing/under/mime, slot_w_uniform)
 		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders, slot_wear_suit)
-		Silence(7)
+		Silence(14 SECONDS)
 	else
 		qdel(wear_mask)
 		qdel(w_uniform)

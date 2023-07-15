@@ -820,9 +820,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				if(M.stat != DEAD)
 					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
 					M.drop_from_active_hand()
-				M.AdjustEyeBlurry(10)
-				M.Paralyse(1)
-				M.Weaken(2)
+				M.AdjustEyeBlurry(20 SECONDS)
+				M.Paralyse(2 SECONDS)
+				M.Weaken(4 SECONDS)
 			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
@@ -831,7 +831,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)
-	M.AdjustEyeBlurry(rand(3,4))
+	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
 	return
 
 

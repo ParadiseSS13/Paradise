@@ -95,7 +95,7 @@
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
 	if(climber)
-		climber.Weaken(2)
+		climber.Weaken(4 SECONDS)
 		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
 	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
@@ -144,7 +144,14 @@
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
 
-//checks if projectile 'P' from turf 'from' can hit whatever is behind the table. Returns 1 if it can, 0 if bullet stops.
+/**
+ * Determines whether a projectile crossing our turf should be stopped.
+ * Return FALSE to stop the projectile.
+ *
+ * Arguments:
+ * * P - The projectile trying to cross.
+ * * from - Where the projectile is located.
+ */
 /obj/structure/table/proc/check_cover(obj/item/projectile/P, turf/from)
 	var/turf/cover = flipped ? get_turf(src) : get_step(loc, get_dir(from, loc))
 	if(get_dist(P.starting, loc) <= 1) //Tables won't help you if people are THIS close
@@ -212,7 +219,7 @@
 			to_chat(user, "<span class='warning'>You cannot do this there is \a [blocking_object] in the way!</span>")
 			return FALSE
 		G.affecting.forceMove(get_turf(src))
-		G.affecting.Weaken(2)
+		G.affecting.Weaken(4 SECONDS)
 		item_placed(G.affecting)
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
@@ -449,7 +456,7 @@
 		debris -= AM
 		if(istype(AM, /obj/item/shard))
 			AM.throw_impact(L)
-	L.Weaken(5)
+	L.Weaken(10 SECONDS)
 	qdel(src)
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)

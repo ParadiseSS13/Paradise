@@ -88,7 +88,7 @@
 		if(M.stat == CONSCIOUS)
 			if(!isclocker(M))
 				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
-				M.apply_effect(3, STUN)
+				M.Stun(6 SECONDS)
 
 /obj/singularity/ratvar/consume(atom/A)
 	A.ratvar_act()

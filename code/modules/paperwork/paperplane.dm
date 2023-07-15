@@ -32,9 +32,9 @@
 	return ..()
 
 /obj/item/paperplane/suicide_act(mob/living/user)
-	user.Stun(10)
+	user.Stun(20 SECONDS)
 	user.visible_message("<span class='suicide'>[user] jams [name] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	user.EyeBlurry(6)
+	user.EyeBlurry(12 SECONDS)
 	var/obj/item/organ/internal/eyes/E = user.get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
 		E.take_damage(8, 1)
@@ -102,8 +102,8 @@
 		if(H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES)
 			return
 		visible_message("<span class='danger'>[src] hits [H] in the eye!</span>")
-		H.EyeBlurry(6)
-		H.Weaken(2)
+		H.EyeBlurry(12 SECONDS)
+		H.Weaken(4 SECONDS)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(E)
 			E.take_damage(8, 1)

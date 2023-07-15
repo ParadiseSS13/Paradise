@@ -425,7 +425,7 @@
 	name = "light immolation beam"
 	damage = 8
 	icon_state = "scatterlaser"
-	eyeblur = 1
+	eyeblur = 2 SECONDS
 
 /mob/living/simple_animal/hostile/malf_drone/spacebattle/drop_loot()
 	do_sparks(3, 1, src)

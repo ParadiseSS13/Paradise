@@ -29,7 +29,7 @@
 	sound = 'sound/magic/magic_missile.ogg'
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
-	amt_weakened = 3
+	amt_weakened = 6 SECONDS
 	sound = 'sound/magic/mm_hit.ogg'
 
 
@@ -66,7 +66,7 @@
 	sound = 'sound/items/bikehorn.ogg'
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/honk_missile
-	amt_weakened = 3
+	amt_weakened = 6 SECONDS
 	sound = 'sound/items/bikehorn.ogg'
 
 /obj/effect/proc_holder/spell/noclothes
@@ -368,7 +368,7 @@
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	action_icon_state = "repulse"
 
-/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr, stun_amt = 2)
+/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr, stun_amt = 3 SECONDS)
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster
@@ -387,7 +387,7 @@
 		if(distfromcaster == 0)
 			if(isliving(AM))
 				var/mob/living/M = AM
-				M.Weaken(5)
+				M.Weaken(10 SECONDS)
 				M.adjustBruteLoss(5)
 				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
 		else

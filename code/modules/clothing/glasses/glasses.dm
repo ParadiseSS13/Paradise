@@ -504,16 +504,15 @@
 		)
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
-	if(istype(src.loc, /mob/living/carbon/human))
-		var/mob/living/carbon/human/M = src.loc
-		to_chat(M, "<span class='warning'>The Optical Thermal Scanner overloads and blinds you!</span>")
-		if(M.glasses == src)
-			M.EyeBlind(3)
-			M.EyeBlurry(5)
-			if(!(NEARSIGHTED in M.mutations))
-				M.BecomeNearsighted()
-				spawn(100)
-					M.CureNearsighted()
+	if(ishuman(src.loc))
+		var/mob/living/carbon/human/H = src.loc
+		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot("eyes")
+		if(eyes && H.glasses == src)
+			to_chat(H, "<span class='warning'>[src] overloads and blinds you!</span>")
+			H.flash_eyes(visual = TRUE)
+			H.EyeBlind(6 SECONDS)
+			H.EyeBlurry(10 SECONDS)
+			eyes.receive_damage(5)
 	..()
 
 /obj/item/clothing/glasses/thermal/sunglasses

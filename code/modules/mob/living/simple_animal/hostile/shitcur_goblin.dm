@@ -22,9 +22,8 @@
 	playsound(src, 'sound/misc/Wild_Griefer_Appeared.ogg', 50, 1, -1)
 
 /mob/living/simple_animal/hostile/shitcur_goblin/proc/stun_attack(mob/living/carbon/griefer)
-	griefer.SetStuttering(5)
-	griefer.Stun(5)
-	griefer.Weaken(5)
+	griefer.SetStuttering(10 SECONDS)
+	griefer.Weaken(10 SECONDS)
 	griefer.visible_message("<span class='danger'>[src] dealing with [griefer]!</span>",\
 							"<span class='userdanger'>You have been BANNED FOR NO REASON</span>")
 

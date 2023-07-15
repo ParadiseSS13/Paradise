@@ -120,7 +120,7 @@
 	desc = "A synthetic banana peel."
 
 /obj/item/grown/bananapeel/specialpeel/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 2, 2, 100, 0, FALSE)
+	AddComponent(/datum/component/slippery, src, 4 SECONDS, 100, 0, FALSE)
 
 /obj/item/grown/bananapeel/specialpeel/after_slip(mob/living/carbon/human/H)
 	. = ..()

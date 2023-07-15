@@ -9,7 +9,7 @@
 						"<span class='userdanger'>[user] shocked you!</span>")
 	target.apply_damage(10, BRUTE)
 	objective_damage(user, target, 10, BRUTE)
-	target.Weaken(1)
+	target.Weaken(2 SECONDS)
 	target.apply_damage(20, BURN)
 	objective_damage(user, target, 20, BURN)
 	user.adjust_nutrition(-125)

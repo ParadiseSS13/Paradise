@@ -116,7 +116,7 @@
 			add_attack_logs(user, C, "tail whipped")
 			if(user.restrained())
 				if(prob(50))
-					user.Weaken(2)
+					user.Weaken(4 SECONDS)
 					user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!</span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
@@ -200,15 +200,15 @@
 		H.reagents.add_reagent("zessulblood", 1)
 	switch(H.bodytemperature)
 		if(200 to 260)
-			H.EyeBlurry(3)
+			H.EyeBlurry(6 SECONDS)
 			if(prob(5))
 				to_chat(H, "<span class='danger'>Здесь холодно, голова раскалывается...</span>")
 		if(0 to 200)
-			H.AdjustDrowsy(3)
+			H.AdjustDrowsy(6 SECONDS)
 			//"anabiosis. unathi falls asleep if body temp is too low" (с) captainnelly
 			//sorry Nelly, no anabiosis for ya without proper temperature regulation system
 			if(prob(5) && H.bodytemperature <= 170)
-				H.AdjustSleeping(2)
+				H.AdjustSleeping(4 SECONDS)
 				to_chat(H, "<span class='danger'>Слишком холодно, я засыпаю...</span>")
 		else
 			return

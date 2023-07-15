@@ -28,7 +28,7 @@
 				A.update_icon()
 			if(prob(3))
 				to_chat(affected_mob, "<span class='warning'>You feel a stabbing pain in your abdomen!</span>")
-				affected_mob.Stun(rand(2,3))
+				affected_mob.Stun(rand(4 SECONDS, 6 SECONDS))
 				affected_mob.adjustToxLoss(1)
 		if(3)
 			if(prob(1))

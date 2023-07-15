@@ -52,7 +52,7 @@
 		do_attack_animation(L)
 		visible_message("<span class='danger'>[src] rams into [L], knocking [L.p_them()] to the floor!</span>")
 		L.adjustBruteLoss(20)
-		L.Weaken(2)
+		L.Weaken(4 SECONDS)
 	else
 		..()
 

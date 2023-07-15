@@ -47,7 +47,7 @@
 				H.heal_overall_damage(5, 7)
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
-			H.AdjustEyeBlurry(-1)
+			H.AdjustEyeBlurry(-2 SECONDS)
 			H.CureNearsighted()
 			H.CureBlind()
 			H.adjustCloneLoss(-1)

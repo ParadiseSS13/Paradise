@@ -39,6 +39,11 @@
 
 #define MOVEMENT_DELAY_BUFFER 0.75
 #define MOVEMENT_DELAY_BUFFER_DELTA 1.25
+#define CONFUSION_LIGHT_COEFFICIENT		0.15
+#define CONFUSION_HEAVY_COEFFICIENT		0.075
+#define CONFUSION_MAX					80 SECONDS
+
+
 /client/Move(n, direct)
 	if(world.time < move_delay)
 		return
@@ -135,17 +140,20 @@
 
 	if(locate(/obj/item/grab, mob))
 		current_move_delay += 7
-	else if(mob.confused)
-		var/newdir = NONE
-		if(mob.confused > 40)
-			newdir = pick(GLOB.alldirs)
-		else if(prob(mob.confused * 1.5))
-			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-		else if(prob(mob.confused * 3))
-			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
-		if(newdir)
-			direct = newdir
-			n = get_step(mob, direct)
+	else if(isliving(mob))
+		var/mob/living/L = mob
+		if(L.get_confusion())
+			var/newdir = NONE
+			var/confusion = L.get_confusion()
+			if(confusion > CONFUSION_MAX)
+				newdir = pick(GLOB.alldirs)
+			else if(prob(confusion * CONFUSION_HEAVY_COEFFICIENT))
+				newdir = angle2dir(dir2angle(direct) + pick(90, -90))
+			else if(prob(confusion * CONFUSION_LIGHT_COEFFICIENT))
+				newdir = angle2dir(dir2angle(direct) + pick(45, -45))
+			if(newdir)
+				direct = newdir
+				n = get_step(mob, direct)
 
 	. = mob.SelfMove(n, direct, current_move_delay)
 	mob.setDir(direct)
@@ -165,6 +173,10 @@
 
 	for(var/obj/O in mob)
 		O.on_mob_move(direct, mob)
+
+#undef CONFUSION_LIGHT_COEFFICIENT
+#undef CONFUSION_HEAVY_COEFFICIENT
+#undef CONFUSION_MAX
 
 
 /mob/proc/SelfMove(turf/n, direct, movetime)

@@ -72,7 +72,7 @@
 	if(grab_item)
 		grab_item.state = GRAB_AGGRESSIVE //Instant aggressive grab
 		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed")
-	if(!defender.stat && !defender.weakened)
+	if(!defender.stat && !defender.IsWeakened())
 		if(attacker.dir == defender.dir && has_focus)
 			has_focus = FALSE
 			var/hold_name = "[pick(attack_names)] [pick("grip", "hold", "vise", "press")]"
@@ -80,7 +80,7 @@
 			attacker.do_attack_animation(defender, ATTACK_EFFECT_PUNCH)
 			defender.visible_message("<span class='warning'>[attacker] comes from behind, punches the [defender] in their neck and puts [defender] in a [hold_name]!</span>", \
 							"<span class='userdanger'>[attacker]\ punches you in the neck and puts you in a [hold_name]! You are unable to speak!</span>")
-			defender.silent += 20
+			defender.AdjustSilence(40 SECONDS)
 			defender.adjustOxyLoss(20)
 			defender.apply_damage(5, BRUTE, pick("head", "mouth"))
 			addtimer(CALLBACK(src, PROC_REF(regain_focus), attacker), 300)

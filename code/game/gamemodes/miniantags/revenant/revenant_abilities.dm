@@ -233,10 +233,10 @@
 	unlock_amount = 75
 	cast_amount = 30
 	action_icon_state = "defile"
-	var/stamdamage= 25
+	var/stamdamage = 25
 	var/toxdamage = 5
-	var/confusion = 20
-	var/maxconfusion = 30
+	var/confusion = 40 SECONDS
+	var/maxconfusion = 60 SECONDS
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
@@ -288,29 +288,50 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
-			spawn(0)
-				for(var/mob/living/simple_animal/bot/bot in T.contents)
-					if(!bot.emagged)
-						new/obj/effect/temp_visual/revenant(bot.loc)
-						bot.locked = 0
-						bot.open = 1
-						bot.emag_act(null)
-				for(var/mob/living/carbon/human/human in T.contents)
-					to_chat(human, "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>")
-					new/obj/effect/temp_visual/revenant(human.loc)
-					human.emp_act(1)
-				for(var/obj/thing in T.contents)
-					if(istype(thing, /obj/machinery/power/apc) || istype(thing, /obj/machinery/power/smes)) //Doesn't work on dominators, SMES and APCs, to prevent kekkery
-						continue
-					if(prob(20))
-						if(prob(50))
-							new/obj/effect/temp_visual/revenant(thing.loc)
-						thing.emag_act(null)
-					else
-						if(!istype(thing, /obj/machinery/clonepod)) //I hate everything but mostly the fact there's no better way to do this without just not affecting it at all
-							thing.emp_act(1)
-				for(var/mob/living/silicon/robot/S in T.contents) //Only works on cyborgs, not AI
-					playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
-					new/obj/effect/temp_visual/revenant(S.loc)
-					S.spark_system.start()
-					S.emp_act(1)
+			INVOKE_ASYNC(src, PROC_REF(effect), user, T)
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
+	T.rev_malfunction(TRUE)
+	for(var/atom/A in T.contents)
+		A.rev_malfunction(TRUE)
+
+/atom/proc/rev_malfunction(cause_emp = TRUE)
+	return
+
+/mob/living/carbon/human/rev_malfunction(cause_emp = TRUE)
+	to_chat(src, "<span class='warning'>You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")].</span>")
+	new /obj/effect/temp_visual/revenant(loc)
+	if(cause_emp)
+		emp_act(1)
+
+/mob/living/simple_animal/bot/rev_malfunction(cause_emp = TRUE)
+	if(!emagged)
+		new /obj/effect/temp_visual/revenant(loc)
+		locked = FALSE
+		open = TRUE
+		emag_act(null)
+
+/obj/rev_malfunction(cause_emp = TRUE)
+	if(prob(20))
+		if(prob(50))
+			new /obj/effect/temp_visual/revenant(loc)
+		emag_act(null)
+	else if(cause_emp)
+		emp_act(1)
+
+/obj/machinery/clonepod/rev_malfunction(cause_emp = TRUE)
+	..(cause_emp = FALSE)
+
+/obj/machinery/power/apc/rev_malfunction(cause_emp = TRUE)
+	return
+
+/obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE)
+	return
+
+/mob/living/silicon/robot/rev_malfunction(cause_emp = TRUE)
+	playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 1)
+	new /obj/effect/temp_visual/revenant(loc)
+	spark_system.start()
+	if(cause_emp)
+		emp_act(1)
+

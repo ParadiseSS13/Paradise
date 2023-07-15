@@ -19,8 +19,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if((MUTE in H.mutations) || H.silent)
+		if(HAS_TRAIT(src, TRAIT_MUTE))
 			overlays -= GLOB.typing_indicator[bubble_icon]
 			return
 

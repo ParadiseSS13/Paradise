@@ -61,14 +61,14 @@
 	item_state = "fleshtostone"
 
 /obj/item/melee/touch_attack/fleshtostone/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //getting hard after touching yourself would also be bad
+	if(!proximity || target == user || !isliving(target) || !iscarbon(user) || user.lying || user.handcuffed) //getting hard after touching yourself would also be bad
 		return
 	if(user.lying || user.handcuffed)
 		to_chat(user, "<span class='warning'>You can't reach out!</span>")
 		return
-	var/mob/M = target
-	M.Stun(2)
-	new /obj/structure/closet/statue(M.loc, M)
+	var/mob/living/L = target
+	L.Stun(4 SECONDS)
+	new /obj/structure/closet/statue(L.loc, L)
 	..()
 
 /obj/item/melee/touch_attack/fake_disintegrate

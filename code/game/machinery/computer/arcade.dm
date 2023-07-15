@@ -447,7 +447,7 @@
 				if(ORION_TRAIL_RAIDERS)
 					if(prob(50))
 						to_chat(usr, "<span class='userdanger'>You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?</span>")
-						M.AdjustHallucinate(30)
+						M.AdjustHallucinate(30 SECONDS)
 						M.last_hallucinator_log = "Emagged Orion Trail"
 					else
 						to_chat(usr, "<span class='userdanger'>Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there...</span>")
@@ -460,10 +460,10 @@
 
 					if(severity == 2)
 						to_chat(usr, "<span class='userdanger'>You suddenly feel extremely nauseous and hunch over until it passes.</span>")
-						M.Stun(3)
+						M.Stun(6 SECONDS)
 					if(severity >= 3) //you didn't pray hard enough
 						to_chat(M, "<span class='warning'>An overpowering wave of nausea consumes over you. You hunch over, your stomach's contents preparing for a spectacular exit.</span>")
-						M.Stun(5)
+						M.Stun(10 SECONDS)
 						sleep(30)
 						atom_say("[M] violently throws up!")
 						playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
@@ -473,7 +473,7 @@
 							location.add_vomit_floor(TRUE)
 				if(ORION_TRAIL_FLUX)
 					if(prob(75))
-						M.Weaken(3)
+						M.Weaken(6 SECONDS)
 						atom_say("A sudden gust of powerful wind slams [M] into the floor!")
 						M.take_organ_damage(25)
 						playsound(src.loc, 'sound/weapons/genhit.ogg', 100, TRUE)
@@ -556,7 +556,9 @@
 			if(emagged) //has to be here because otherwise it doesn't work
 				playsound(loc, 'sound/effects/supermatter.ogg', 100, TRUE)
 				atom_say("A miniature black hole suddenly appears in front of [src], devouring [usr] alive!")
-				usr.Stun(10) //you can't run :^)
+				if(isliving(usr))
+					var/mob/living/L = usr
+					L.Stun(20 SECONDS) //you can't run :^)
 				var/S = new /obj/singularity/academy(usr.loc)
 				emagged = 0 //immediately removes emagged status so people can't kill themselves by sprinting up and interacting
 				sleep(50)

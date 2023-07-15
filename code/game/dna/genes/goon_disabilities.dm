@@ -19,6 +19,14 @@
 	..()
 	block = GLOB.muteblock
 
+/datum/dna/gene/disability/mute/activate(mob/living/M, connected, flags)
+	. = ..()
+	ADD_TRAIT(M, TRAIT_MUTE, "dna")
+
+/datum/dna/gene/disability/mute/deactivate(mob/living/M, connected, flags)
+	. = ..()
+	REMOVE_TRAIT(M, TRAIT_MUTE, "dna")
+
 /datum/dna/gene/disability/mute/OnSay(mob/M, message)
 	return ""
 

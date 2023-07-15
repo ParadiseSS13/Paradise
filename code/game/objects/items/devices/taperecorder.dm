@@ -102,7 +102,7 @@
 		piece.message_verb = "says"
 		piece.tts_seed = M.tts_seed
 
-		if(M.stuttering)
+		if(M.AmountStuttering())
 			piece.message_verb = "stammers"
 		else if(M.getBrainLoss() >= 60)
 			piece.message_verb = "gibbers"

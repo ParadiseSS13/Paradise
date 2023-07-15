@@ -122,13 +122,14 @@
 		return 0.99
 	if(M.reagents.has_reagent("syntmorphine"))
 		return 0.99
-	if(M.drunk >= 80)//really damn drunk
+	var/drunk = M.get_drunkenness()
+	if(drunk >= 80)//really damn drunk
 		return 0.95
-	if(M.drunk >= 40)//pretty drunk
+	if(drunk >= 40)//pretty drunk
 		return 0.9
 	if(M.reagents.has_reagent("sal_acid")) //it's better than nothing, as far as painkillers go.
 		return 0.85
-	if(M.drunk >= 15)//a little drunk
+	if(drunk >= 15)//a little drunk
 		return 0.85
 	return 0.8 //20% failure chance
 
@@ -147,9 +148,9 @@
 /proc/can_operate(mob/living/carbon/M)
 	if(locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting))
 		return TRUE
-	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
+	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsWeakened() || M.IsStunned() || M.IsParalyzed() || M.IsSleeping() || M.stat))
 		return TRUE
-	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
+	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsWeakened() || M.IsStunned() || M.IsParalyzed() || M.IsSleeping()  || M.stat))
 		return TRUE
 	return FALSE
 

@@ -34,9 +34,9 @@
 
 		for(var/mob/M in viewers(5, location))
 			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
-		for(var/mob/M in viewers(1, location))
+		for(var/mob/living/L in viewers(1, location))
 			if(prob(50 * amount))
-				to_chat(M, "<span class='warning'>The explosion pushes you.</span>")
+				to_chat(L, "<span class='warning'>The explosion pushes you.</span>")
 				goonchem_vortex_weak(location, 0, amount)
 		return
 	else

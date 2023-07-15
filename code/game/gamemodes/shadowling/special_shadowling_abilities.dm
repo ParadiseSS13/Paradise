@@ -164,7 +164,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				to_chat(H, "<i><b><span class='reallybig'>YE--</span></b></i>")
 				sleep(1)
 				for(var/mob/living/M in orange(7, H))
-					M.Weaken(10)
+					M.Weaken(20 SECONDS)
 					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
 				for(var/thing in GLOB.apcs)
 					var/obj/machinery/power/apc/A = thing

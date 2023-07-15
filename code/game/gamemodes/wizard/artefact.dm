@@ -679,12 +679,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 			GiveHint(target)
 		else if(is_pointed(I))
 			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_selected)]!</span>")
-			target.Weaken(2)
+			target.Weaken(4 SECONDS)
 			GiveHint(target)
 		else if(istype(I,/obj/item/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
 			target << 'sound/items/airhorn.ogg'
-			target.MinimumDeafTicks(3)
+			target.Deaf(6 SECONDS)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return
@@ -747,7 +747,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					GiveHint(target)
 			if("head")
 				to_chat(user, "<span class='notice'>You smack the doll's head with your hand.</span>")
-				target.Dizzy(10)
+				target.Dizzy(20 SECONDS)
 				to_chat(target, "<span class='warning'>You suddenly feel as if your head was hit with a hammer!</span>")
 				GiveHint(target,user)
 		cooldown = world.time + cooldown_time

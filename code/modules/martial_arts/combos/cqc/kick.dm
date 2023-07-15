@@ -20,14 +20,14 @@
 		target.visible_message("<span class='warning'>[user] kicks [target]'s head, knocking [target.p_them()] out!</span>", \
 					  		"<span class='userdanger'>[user] kicks your head, knocking you out!</span>")
 		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
-		target.SetSleeping(4)
+		target.SetSleeping(8 SECONDS)
 		target.adjustBrainLoss(5)
 		add_attack_logs(user, target, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
 
 /datum/martial_combo/cqc/kick/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
 	if(target && !iscarbon(hit_atom) && hit_atom.density)
-		target.Weaken(1)
+		target.Weaken(2 SECONDS)
 		target.take_organ_damage(10)
 
 /datum/martial_combo/cqc/kick/proc/unregister_bump_impact(mob/living/target)

@@ -16,7 +16,7 @@
 			death()
 			return
 
-		if(paralysis || sleeping || getOxyLoss() > 50 || (health <= HEALTH_THRESHOLD_CRIT && check_death_method()))
+		if(IsParalyzed() || IsSleeping() || getOxyLoss() > 50 || (health <= HEALTH_THRESHOLD_CRIT && check_death_method()))
 			if(stat == CONSCIOUS)
 				KnockOut()
 		else

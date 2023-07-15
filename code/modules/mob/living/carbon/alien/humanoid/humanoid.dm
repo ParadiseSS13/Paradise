@@ -57,12 +57,12 @@
 
 			f_loss += 60
 
-			AdjustEarDamage(30, 120)
+			AdjustDeaf(120 SECONDS)
 		if(3.0)
 			b_loss += 30
 			if(prob(50) && !shielded)
-				Paralyse(1)
-			AdjustEarDamage(15, 60)
+				Paralyse(2 SECONDS)
+			AdjustDeaf(60 SECONDS)
 
 	take_overall_damage(b_loss, f_loss)
 

@@ -155,7 +155,7 @@
 	possible_occupant.forceMove(src)
 	to_chat(possible_occupant, span_notice("[on_enter_occupant_message]"))
 	occupant = possible_occupant
-	occupant.SetSleeping(60)
+	occupant.SetSleeping(120 SECONDS)
 	update_state_icon()
 	desc = "[initial(desc)] ([occupant.name])"
 	if(findtext("[possible_occupant.key]","@",1,2))

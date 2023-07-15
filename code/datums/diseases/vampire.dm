@@ -20,15 +20,14 @@
 
 	if(prob(10))
 		affected_mob.emote(pick("cough","groan", "gasp"))
-		affected_mob.AdjustLoseBreath(1)
+		affected_mob.AdjustLoseBreath(2 SECONDS)
 
 	if(prob(15))
 		if(prob(33))
 			to_chat(affected_mob, "<span class='danger'>You feel sickly and weak.</span>")
-			affected_mob.AdjustSlowed(3)
+			affected_mob.Slowed(6 SECONDS)
 		affected_mob.adjustToxLoss(toxdamage)
 
 	if(prob(5))
 		to_chat(affected_mob, "<span class='danger'>Your joints ache horribly!</span>")
-		affected_mob.Weaken(stuntime)
-		affected_mob.Stun(stuntime)
+		affected_mob.Weaken(stuntime STATUS_EFFECT_CONSTANT)

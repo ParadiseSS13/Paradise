@@ -11,7 +11,7 @@
 	act = lowertext(act)
 	switch(act)
 		if("me")
-			if(silent)
+			if(HAS_TRAIT(src, TRAIT_MUTE))
 				return
 			if(src.client)
 				if(client.prefs.muted & MUTE_IC)
@@ -106,7 +106,7 @@
 			message = "hisses softly."
 			m_type = 1
 		if("collapse")
-			Paralyse(2)
+			Paralyse(4 SECONDS)
 			message = "collapses!"
 			m_type = 2
 		if("help")

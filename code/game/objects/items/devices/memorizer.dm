@@ -77,7 +77,7 @@
 	return TRUE
 
 
-/obj/item/memorizer/proc/memorize_carbon(mob/living/carbon/fucking_target, mob/user = null, power = 5, targeted = TRUE)
+/obj/item/memorizer/proc/memorize_carbon(mob/living/carbon/fucking_target, mob/user = null, power = 10 SECONDS, targeted = TRUE)
 	if(user)
 		add_attack_logs(user, fucking_target, "memorized with [src]")
 		if(targeted)
@@ -85,12 +85,12 @@
 				fucking_target.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
 			if(fucking_target.flash_eyes(1, 1))
 				fucking_target.AdjustConfused(power)
-				fucking_target.Stun(1)
+				fucking_target.Stun(2 SECONDS)
 				visible_message("<span class='disarm'>[user] erases [fucking_target] memory with the memorizer!</span>")
 				to_chat(user, "<span class='danger'>You erased [fucking_target] memory with the memorizer!</span>")
 				to_chat(fucking_target, "<span class='danger'><span class='reallybig'>Your memory about last events has been erased!</span>")
 				if(fucking_target.weakeyes)
-					fucking_target.Stun(2)
+					fucking_target.Stun(4 SECONDS)
 					fucking_target.visible_message("<span class='disarm'>[fucking_target] gasps and shields [fucking_target.p_their()] eyes!</span>", "<span class='userdanger'>You gasp and shield your eyes!</span>")
 			else
 				visible_message("<span class='disarm'>[user] fails to erase [fucking_target] memory with the memorizer!</span>")
@@ -114,7 +114,7 @@
 	else if(issilicon(fucking_target))
 		add_attack_logs(user, fucking_target, "Flashed with [src]")
 		if(fucking_target.flash_eyes(affect_silicon = TRUE))
-			fucking_target.Weaken(rand(5,10))
+			fucking_target.Weaken(rand(10 SECONDS, 20 SECONDS))
 			user.visible_message("<span class='disarm'>[user] overloads [fucking_target]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [fucking_target]'s sensors with the [src.name]!</span>")
 		return TRUE
 	user.visible_message("<span class='disarm'>[user] fails to blind [fucking_target] with the [src.name]!</span>", "<span class='warning'>You fail to blind [fucking_target] with the [src.name]!</span>")
@@ -140,7 +140,7 @@
 	desc = "Если перед вами сработает это устройство, скорее всего вы не сможете об этом вспомнить!"
 	origin_tech = "abductor=3;syndicate=2"
 
-/obj/item/memorizer/syndicate/memorize_carbon(mob/living/carbon/fucking_target, mob/user = null, power = 5, targeted = TRUE)
+/obj/item/memorizer/syndicate/memorize_carbon(mob/living/carbon/fucking_target, mob/user = null, power = 10 SECONDS, targeted = TRUE)
 	if(user)
 		add_attack_logs(user, fucking_target, "[user] стёр память [fucking_target] с помощью [src]а")
 		if(targeted)
@@ -148,10 +148,10 @@
 				to_chat(user, "<span class='danger'>[fucking_target] кататоник! Стирание памяти бесполезно против тех, кто не осознаёт ничего вокруг себя!</span>")
 				return
 			if(fucking_target.weakeyes)
-				fucking_target.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
+				fucking_target.Weaken(6 SECONDS) //quick weaken bypasses eye protection but has no eye flash
 			if(fucking_target.flash_eyes(1, 1))
 				fucking_target.AdjustConfused(power)
-				fucking_target.Stun(1)
+				fucking_target.Stun(2 SECONDS)
 				visible_message("<span class='disarm'>[user] стирает память [fucking_target] с помощью Нейрализатора!</span>")
 				to_chat(user, "<span class='danger'>Вы стёрли память [fucking_target] с помощью Нейрализатора!</span>")
 				to_chat(fucking_target, "<span class='danger'><span class='reallybig'>Ваша память о последних недавних событиях была стёрта!</span>")
@@ -165,7 +165,7 @@
 					fucking_target.mind.announce_objectives()
 				last_used = world.time
 				if(fucking_target.weakeyes)
-					fucking_target.Stun(2)
+					fucking_target.Stun(4 SECONDS)
 					fucking_target.visible_message("<span class='disarm'>[fucking_target] моргает, тем самым защищая свои глаза!!</span>", "<span class='userdanger'>Вы моргнули и защитили свои глаза!</span>")
 			else
 				visible_message("<span class='disarm'>У [user] не получилось стереть память [fucking_target] с помощью \"Нейрализатора\"!</span>")

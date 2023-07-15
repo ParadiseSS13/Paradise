@@ -92,7 +92,7 @@
 	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='warning'>The [src] slips out of your hand and hits your head.</span>")
 		user.take_organ_damage(10)
-		user.Paralyse(20)
+		user.Paralyse(40 SECONDS)
 		return
 
 	if(M.stat != DEAD && ishuman(M))
@@ -118,7 +118,7 @@
 			chaplain.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
 			playsound(get_turf(chaplain), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			chaplain.adjustFireLoss(65)
-			chaplain.Weaken(5)
+			chaplain.Weaken(10 SECONDS)
 			to_chat(chaplain, "<span class='userdanger'>Вы злоупотребили волей бога и за что были наказаны!</span>")
 
 	else

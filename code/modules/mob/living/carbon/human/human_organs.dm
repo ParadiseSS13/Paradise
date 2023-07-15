@@ -70,7 +70,7 @@
 			if(has_pain())
 				emote("scream")
 			custom_emote(1, "падает!")
-		Weaken(5) //can't emote while weakened, apparently.
+		Weaken(10 SECONDS) //can't emote while weakened, apparently.
 
 
 /mob/living/carbon/human/proc/handle_grasp()

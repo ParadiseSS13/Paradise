@@ -8,7 +8,7 @@
 					visible_message("<span class='danger'>[M] ударил[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>", \
 							"<span class='userdanger'>[M] ударил[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>")
 					if((stat != DEAD) && (damage > 9||prob(5)))//Regular humans have a very small chance of weakening an alien.
-						Paralyse(2)
+						Paralyse(4 SECONDS)
 						visible_message("<span class='danger'>[M] ослабил[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>", \
 								"<span class='userdanger'>[M] ослабил[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>", \
 								"<span class='danger'>Вы слышите, как кто-то упал.</span>")
@@ -21,7 +21,7 @@
 			if(INTENT_DISARM)
 				if(!lying)
 					if(prob(5))//Very small chance to push an alien down.
-						Paralyse(2)
+						Paralyse(4 SECONDS)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "Pushed over")
 						visible_message("<span class='danger'>[M] опрокинул[genderize_ru(M.gender,"","а","о","и")] [src.name]!</span>", \

@@ -43,14 +43,14 @@ effective or pretty fucking useless.
 
 	for(var/mob/living/carbon/human/M in orange (10, user))
 		if(prob(50))
-			M.Weaken(rand(1,3))
+			M.Weaken(rand(2,6) SECONDS)
 			M.adjustStaminaLoss(rand(35, 60))
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else
 			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
-			M.Slowed(5)
-			M.Confused(3)
+			M.Slowed(10 SECONDS)
+			M.Confused(6 SECONDS)
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
 	charges--
@@ -103,8 +103,8 @@ effective or pretty fucking useless.
 		spawn((wavelength+(intensity*4))*10)
 			if(M)
 				if(intensity >= 5)
-					M.apply_effect(round(intensity/1.5), PARALYZE)
-				M.apply_effect(intensity*10, IRRADIATE)
+					M.Paralyse(intensity * 40/3 SECONDS)
+					M.apply_effect(intensity * 10, IRRADIATE)
 	else
 		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
 
@@ -345,9 +345,8 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
 		M.apply_damage(20, BRUTE)
-		M.Stun(3)
-		M.Weaken(3)
-		to_chat(M, "<span_class='warning'> [user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		M.Weaken(6 SECONDS)
+		to_chat(M, "<span_class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"

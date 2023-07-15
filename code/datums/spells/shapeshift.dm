@@ -21,7 +21,7 @@
 /obj/effect/proc_holder/spell/targeted/shapeshift/can_cast(mob/user, charge_check, show_message)
 	if(isliving(user))
 		var/mob/living/target = user
-		if(target.weakened || target.stunned)
+		if(target.IsWeakened() || target.IsStunned())
 			return FALSE
 	if(!isturf(user.loc) && !length(current_casters)) //Can't use inside of things, such as a mecha
 		return FALSE

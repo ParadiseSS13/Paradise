@@ -151,7 +151,7 @@
 
 /datum/action/changeling/sting/mute/sting_action(var/mob/user, var/mob/living/carbon/target)
 	add_attack_logs(user, target, "Mute sting (changeling)")
-	target.AdjustSilence(30)
+	target.AdjustSilence(60 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
@@ -168,8 +168,8 @@
 	add_attack_logs(user, target, "Blind sting (changeling)")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
 	target.BecomeNearsighted()
-	target.EyeBlind(20)
-	target.EyeBlurry(40)
+	target.EyeBlind(40 SECONDS)
+	target.EyeBlurry(80 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
@@ -186,7 +186,7 @@
 	add_attack_logs(user, target, "LSD sting (changeling)")
 	spawn(rand(300,600))
 		if(target)
-			target.Hallucinate(400)
+			target.Hallucinate(400 SECONDS)
 			target.last_hallucinator_log = "Hallucination sting (changeling)"
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

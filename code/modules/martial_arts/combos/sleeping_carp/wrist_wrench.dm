@@ -4,7 +4,7 @@
 	explaination_text = "Forces opponent to drop item in hand."
 
 /datum/martial_combo/sleeping_carp/wrist_wrench/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(!target.stat && !target.stunned && !target.IsWeakened())
+	if(!target.stat && !target.IsStunned() && !target.IsWeakened())
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		target.visible_message("<span class='warning'>[user] grabs [target]'s wrist and wrenches it sideways!</span>", \
 						  "<span class='userdanger'>[user] grabs your wrist and violently wrenches it to the side!</span>")
@@ -16,6 +16,6 @@
 		target.drop_from_active_hand()
 		target.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
 		objective_damage(user, target, 5, BRUTE)
-		target.Weaken(2)
+		target.Weaken(4 SECONDS)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT

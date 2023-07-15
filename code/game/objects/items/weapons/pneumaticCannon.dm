@@ -145,7 +145,7 @@
 			ITD.throw_at(target, pressure_setting * 5, pressure_setting * 2,user)
 	if(pressure_setting >= HIGH_PRESSURE && user)
 		user.visible_message(span_warning("[user] is thrown down by the force of the cannon!"), span_userdanger("[src] slams into your shoulder, knocking you down!"))
-		user.Weaken(3)
+		user.Weaken(6 SECONDS)
 
 /obj/item/pneumatic_cannon/ghetto //Obtainable by improvised methods; more gas per use, less capacity, but smaller
 	name = "improvised pneumatic cannon"

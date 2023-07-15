@@ -150,7 +150,7 @@
 	charge_max = 200
 	stat_allowed = 1
 
-/obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/living/user = usr)
 	var/mob/living/U = user
 
 	user.SetWeakened(0)
@@ -185,7 +185,7 @@
 			else
 				to_chat(user, "<span class='warning'>Ваш пронзающий взгляд завораживает [target].</span>")
 				to_chat(target, "<span class='warning'>Вы чувствуете сильную слабость.</span>")
-				target.SetSleeping(20)
+				target.SetSleeping(40 SECONDS)
 		else
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>Вы смотрите в никуда.</span>")
@@ -228,9 +228,8 @@
 			if(istype(ninja_visor) && ninja_visor.vamp_protection_active && ninja_visor.current_mode == "flashprotection")
 				to_chat(target, span_warning("Глаза [user] засветились, но ваш визор защитил вас."))
 				continue
-		target.Stun(2)
-		target.Weaken(2)
-		target.stuttering = 20
+		target.Weaken(4 SECONDS)
+		target.AdjustStuttering(40 SECONDS)
 		target.adjustStaminaLoss(20)
 		to_chat(target, "<span class='warning'>Вы ослеплены вспышкой из глаз [user].</span>")
 		add_attack_logs(user, target, "(Vampire) слепит")
@@ -279,16 +278,15 @@
 			var/obj/item/clothing/suit/space/space_ninja/ninja_suit = C.wear_suit
 			if(istype(ninja_suit) && ninja_suit.vamp_protection_active && ninja_suit.s_initialized)
 				to_chat(C, span_warning("<b>Вы начали слышать жуткий визг!</b> Но ваш костюм отреагировал на него и временно прикрыл вам уши, минимизируя урон"))
-				C.MinimumDeafTicks(10)
-				C.Jitter(50)
+				C.Deaf(20 SECONDS)
+				C.Jitter(100 SECONDS)
 				C.adjustStaminaLoss(20)
 				continue
 		to_chat(C, "<span class='warning'><font size='3'><b>Вы слышите ушераздирающий визг и ваши чувства притупляются!</font></b></span>")
-		C.Weaken(2)
-		C.MinimumDeafTicks(20)
-		C.Stuttering(20)
-		C.Stun(2)
-		C.Jitter(150)
+		C.Weaken(4 SECONDS)
+		C.Deaf(40 SECONDS)
+		C.Stuttering(40 SECONDS)
+		C.Jitter(300 SECONDS)
 		C.adjustStaminaLoss(60)
 	for(var/obj/structure/window/W in view(4))
 		W.deconstruct(FALSE)
@@ -381,7 +379,7 @@
 
 	to_chat(H, "<span class='biggerdanger'>Вы были порабощены [user.real_name]. Выполняйте все [user.p_their()] приказы.</span>")
 	to_chat(user, "<span class='warning'>Вы успешно поработили [H]. <i>Если [H.p_they()] откажется вас слушаться, используйте adminhelp.</i></span>")
-	H.Stun(2)
+	H.Stun(4 SECONDS)
 	add_attack_logs(user, H, "Vampire-thralled")
 
 
@@ -610,7 +608,7 @@
 			adjustBrainLoss(60)
 		else
 			visible_message("<span class='warning'>Кажется, энергия оглушает [src]!</span>")
-			Weaken(20)
+			Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in src)
 		if(L && L.implanted)
@@ -627,4 +625,4 @@
 	add_attack_logs(M, src, "Vampire-sired")
 	mind.make_Vampire()
 	revive()
-	Weaken(20)
+	Weaken(40 SECONDS)

@@ -131,7 +131,7 @@
 			if(prob(15))
 				emote("me",1,"gasps!")
 
-	weakened = 0
+	SetWeakened(0)
 	if(health > 0)
 		health = min(health + health_regen, maxHealth)
 		adjustBruteLoss(-health_regen)
@@ -159,7 +159,7 @@
 		M.status_flags &= ~GODMODE
 		if(istype(M, /mob/living))
 			var/mob/living/L = M
-			L.Paralyse(15)
+			L.Paralyse(30 SECONDS)
 			L.update_canmove()
 
 	if(mind && original_body)

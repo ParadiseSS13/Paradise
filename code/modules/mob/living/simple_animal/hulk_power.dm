@@ -53,7 +53,7 @@
 	clothes_req = 0
 	range = 5
 
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_dash/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_dash/cast(list/targets, mob/living/user)
 	var/turf/T = get_turf(get_step(user,user.dir))
 	for(var/mob/living/M in T.contents)
 		to_chat(user, "<span class='warning'>Something right in front of you!</span>")
@@ -64,7 +64,7 @@
 		return
 
 	var/failure = 0
-	if (istype(user.loc,/mob) || user.lying || user.stunned || user.buckled || user.stat)
+	if (istype(user.loc,/mob) || user.lying || user.IsStunned() || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't dash right now!</span>")
 		return
 
@@ -77,8 +77,7 @@
 		user.visible_message("<span class='warning'><b>[user.name]</b> dashes forward!</span>")
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
-			user.Weaken(2)
-			user.Stun(2)
+			user.Weaken(4 SECONDS)
 			user.visible_message("<span class='warning'> \the [user] attempts to dash away but was interrupted!</span>",
 								"<span class='warning'>You attempt to dash but suddenly interrupted!</span>",
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
@@ -117,7 +116,7 @@
 					if(istype(T,/turf/simulated/wall/r_wall))
 						playsound(H, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
 						hit = 1
-						H.Weaken(3)
+						H.Weaken(6 SECONDS)
 						H.take_overall_damage(25, used_weapon = "reinforced wall")
 					else
 						playsound(H, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
@@ -128,11 +127,11 @@
 							else
 								hit = 1
 								W.take_damage(50)
-								H.Weaken(2)
+								H.Weaken(4 SECONDS)
 						else
 							hit = 1
 							W.take_damage(25)
-							H.Weaken(2)
+							H.Weaken(4 SECONDS)
 			if(i > 20)
 				user.canmove = 0
 				user.density = 0
@@ -149,18 +148,16 @@
 							var/obj/item/organ/external/BP = H.bodyparts_by_name[bodypart_name]
 							H.apply_damage(20,BRUTE,BP)
 							BP.fracture()
-							M.Weaken(2)
-							M.Stun(2)
+							M.Weaken(4 SECONDS)
 						else
-							M.Weaken(2)
-							M.Stun(2)
+							M.Weaken(4 SECONDS)
 							M.take_overall_damage(40, used_weapon = "Hulk Foot")
 						M.throw_at(target, 200, 100)
 						break
 			else if(i > 6)
 				for(var/mob/living/M in T.contents)
 					playsound(M, 'sound/misc/slip.ogg', CHANNEL_BUZZ)
-					M.Weaken(2)
+					M.Weaken(4 SECONDS)
 			if(user.lying)
 				break
 			if(hit)
@@ -193,8 +190,8 @@
 	if (istype(user.loc,/obj))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You dash and slam your head against the inside of [container]! Ouch!</span>")
-		user.paralysis += 3
-		user.weakened += 5
+		user.Paralyse(6 SECONDS)
+		user.Weaken(10 SECONDS)
 		container.visible_message("<span class='warning'><b>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
 		playsound(user, 'sound/effects/bang.ogg', CHANNEL_BUZZ)
 		var/wiggle = 6
@@ -219,10 +216,10 @@
 	clothes_req = 0
 	range = 5
 
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_jump/cast(list/targets , mob/user)
+/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_jump/cast(list/targets , mob/living/user)
 	//for(var/turf/T in targets)
 	var/failure = 0
-	if (istype(user.loc,/mob) || user.lying || user.stunned || user.buckled || user.stat)
+	if (istype(user.loc,/mob) || user.lying || user.IsStunned() || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 
@@ -235,8 +232,7 @@
 		user.visible_message("<span class='warning'><b>[user.name]</b> takes a huge leap!</span>")
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
-			user.Weaken(5)
-			user.Stun(5)
+			user.Weaken(10 SECONDS)
 			user.visible_message("<span class='warning'> \the [user] attempts to leap away but is slammed back down to the ground!</span>",
 								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
@@ -273,12 +269,10 @@
 					var/obj/item/organ/external/BP = H.bodyparts_by_name[bodypart_name]
 					H.apply_damage(20,BRUTE,BP)
 					BP.fracture()
-					H.Stun(5)
-					H.Weaken(2)
+					H.Weaken(10 SECONDS)
 				else
 					playsound(M, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
-					M.Stun(2)
-					M.Weaken(2)
+					M.Weaken(4 SECONDS)
 					M.take_overall_damage(35, used_weapon = "Hulk Foot")
 		var/snd = 1
 		for(var/direction in GLOB.alldirs)
@@ -288,7 +282,7 @@
 					if(snd)
 						snd = 0
 						playsound(M, 'sound/misc/slip.ogg', CHANNEL_BUZZ)
-					M.Weaken(2)
+					M.Weaken(4 SECONDS)
 					for(var/i=0, i<6, i++)
 						spawn(i)
 							if(i < 3) M.pixel_y += 8
@@ -303,8 +297,8 @@
 	if (istype(user.loc,/obj))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
-		user.paralysis += 3
-		user.weakened += 5
+		user.Paralyse(6 SECONDS)
+		user.Weaken(10 SECONDS)
 		container.visible_message("<span class='warning'><b>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
 		playsound(user, 'sound/effects/bang.ogg', CHANNEL_BUZZ)
 		var/wiggle = 6
@@ -340,16 +334,16 @@
 			M.adjustBruteLoss(-10)
 			M.adjustToxLoss(-10)
 			M.adjustOxyLoss(-10)
-			M.AdjustWeakened(-1)
-			M.AdjustStunned(-1)
+			M.AdjustWeakened(-2 SECONDS)
+			M.AdjustStunned(-2 SECONDS)
 		else
 			if(istype(M))
 				var/mob/living/carbon/human/H = M
 				if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
 					continue
-			M.stuttering += 2
-			M.AdjustEarDamage(rand(0, 2))
-			M.Weaken(2)
+			M.AdjustStuttering(4 SECONDS)
+			M.AdjustDeaf(4 SECONDS)
+			M.Weaken(4 SECONDS)
 			var /turf/simulated/victim_loc = M.loc
 			victim_loc.MakeSlippery(TURF_WET_LUBE, 5 SECONDS)
 
@@ -373,8 +367,8 @@
 	clown_hulk.adjustBruteLoss(-50)
 	clown_hulk.adjustToxLoss(-10)
 	clown_hulk.adjustOxyLoss(-10)
-	clown_hulk.AdjustWeakened(-1)
-	clown_hulk.AdjustStunned(-1)
+	clown_hulk.AdjustWeakened(-2 SECONDS)
+	clown_hulk.AdjustStunned(-2 SECONDS)
 
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(10,0, user.loc)
@@ -419,7 +413,7 @@
 				M.apply_damage(2, used_weapon = "Tail")
 			playsound(M, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
 			if(prob(3))
-				M.Weaken(2)
+				M.Weaken(4 SECONDS)
 		sleep(1)
 
 //Harchok
@@ -433,7 +427,7 @@
 /obj/item/projectile/energy/hulkspit/on_hit(atom/target, def_zone = BODY_ZONE_CHEST, blocked = 0)
 	if(istype(target, /mob/living/carbon))
 		var/mob/living/carbon/M = target
-		M.Weaken(2)
+		M.Weaken(4 SECONDS)
 		M.adjust_fire_stacks(20)
 		M.IgniteMob()
 

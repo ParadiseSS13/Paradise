@@ -187,7 +187,7 @@
 	if(iscarbon(target) && target.reagents)
 		var/inject_target = pick("chest", "head")
 		var/mob/living/carbon/C = target
-		if(C.stunned || C.can_inject(null, FALSE, inject_target, FALSE))
-			if(C.eye_blurry < 60)
-				C.AdjustEyeBlurry(10)
+		if(C.IsStunned() || C.can_inject(null, FALSE, inject_target, FALSE))
+			if(C.AmountEyeBlurry() < 120 SECONDS)
+				C.AdjustEyeBlurry(20 SECONDS)
 				visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")

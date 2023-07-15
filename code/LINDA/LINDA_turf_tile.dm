@@ -378,7 +378,7 @@
 		// Feature disabled until issue with effect stacking will be resolved
 		// if (iscarbon(src) && pressure_difference > 50)
 		// 	var/mob/living/carbon/carbon = src
-		// 	carbon.AdjustWeakened(3)
+		// 	carbon.AdjustWeakened(6 SECONDS)
 		step(src, direction)
 		last_high_pressure_movement_air_cycle = SSair.times_fired
 

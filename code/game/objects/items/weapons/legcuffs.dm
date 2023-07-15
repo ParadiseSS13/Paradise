@@ -150,6 +150,7 @@
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
+	///the duration of the stun in seconds
 	var/weaken = 0
 	throw_speed = 4
 
@@ -178,7 +179,7 @@
 	icon_state = "bola_r"
 	breakouttime = 100
 	origin_tech = "engineering=4;combat=3"
-	weaken = 1
+	weaken = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/energy //For Security
 	name = "energy bola"

@@ -130,8 +130,8 @@
 
 /obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
 	if(boing && isliving(A) && !A.stat)
-		if(!knockdown) //no hurdstuns with megafauna
-			A.Weaken(2)
+		if(!knockdown) // no hardstuns with megafauna
+			A.Weaken(4 SECONDS)
 		var/atom/target = get_edge_target_turf(A, get_dir(src, get_step_away(A, src)))
 		A.throw_at(target, 5, 1)
 		boing = FALSE

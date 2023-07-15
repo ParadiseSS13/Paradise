@@ -144,7 +144,7 @@
 	damage = 0
 	stamina = 25
 	hitsound = 'sound/weapons/whip.ogg'
-	weaken = 1
+	weaken = 2 SECONDS
 	ricochet_chance = 0
 	range = 7
 

@@ -135,12 +135,12 @@
 	. = ..()
 	var/obj/item/organ/external/organ = owner.get_organ("head")
 	if(!istype(organ))
-		owner.Slowed(20)
-		owner.Confused(40)
-		owner.Silence(20)
-		owner.Stuttering(40)
-		owner.EyeBlind(5)
-		owner.EyeBlurry(20)
+		owner.Slowed(40 SECONDS)
+		owner.Confused(80 SECONDS)
+		owner.Silence(40 SECONDS)
+		owner.Stuttering(80 SECONDS)
+		owner.EyeBlind(10 SECONDS)
+		owner.EyeBlurry(40 SECONDS)
 
 /obj/item/organ/internal/lungs/kidan
 	species_type = /datum/species/kidan

@@ -205,7 +205,7 @@
 /obj/effect/particle_effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
 	if(..())
 		M.drop_from_active_hand()
-		M.Sleeping(max(M.sleeping,10))
+		M.Sleeping(20 SECONDS)
 		M.emote("cough")
 		return 1
 

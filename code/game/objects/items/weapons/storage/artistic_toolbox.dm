@@ -178,8 +178,8 @@
 		affected_mob.setStaminaLoss(0)
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
 		affected_mob.status_flags &= ~status
-		affected_mob.AdjustDizzy(-10)
-		affected_mob.AdjustDrowsy(-10)
+		affected_mob.AdjustDizzy(-20 SECONDS)
+		affected_mob.AdjustDrowsy(-20 SECONDS)
 		affected_mob.SetSleeping(0)
 		affected_mob.SetSlowed(0)
 		affected_mob.SetConfused(0)

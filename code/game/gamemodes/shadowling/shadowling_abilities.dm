@@ -49,15 +49,15 @@
 		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>", \
 			"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
 
-		H.Weaken(2)
-		H.AdjustSilence(10)
+		H.Weaken(4 SECONDS)
+		H.AdjustSilence(20 SECONDS)
 		H.adjustStaminaLoss(20)
 		H.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 	else //Distant glare
-		H.Stun(1)
-		H.slowed = 5
-		H.AdjustSilence(5)
+		H.Stun(2 SECONDS)
+		H.Slowed(10 SECONDS)
+		H.AdjustSilence(10 SECONDS)
 		to_chat(H, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
 		H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>")
 
@@ -199,7 +199,7 @@
 					to_chat(M, "<span class='danger'>You feel a blast of paralyzingly cold air wrap around you and flow past, but you are unaffected!</span>")
 					continue
 			to_chat(M, "<span class='userdanger'>A wave of shockingly cold air engulfs you!</span>")
-			M.Stun(1)
+			M.Stun(2 SECONDS)
 			M.apply_damage(10, BURN)
 			if(M.bodytemperature)
 				M.bodytemperature -= 200 //Extreme amount of initial cold
@@ -254,7 +254,7 @@
 				to_chat(user, "<span class='notice'>You begin preparing [target]'s mind as a blank slate...</span>")
 				user.visible_message("<span class='warning'>[user]'s palms flare a bright red against [target]'s temples!</span>")
 				to_chat(target, "<span class='danger'>A terrible red light floods your mind. You collapse as conscious thought is wiped away.</span>")
-				target.Weaken(12)
+				target.Weaken(24 SECONDS)
 			if(3)
 				to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 				user.visible_message("<span class='warning'>A strange energy passes from [user]'s hands into [target]'s head!</span>")
@@ -431,7 +431,7 @@
 		update_flags |= M.EyeBlind(5, FALSE)
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at [M.p_their()] eyes!")
-			M.Stun(2)
+			M.Stun(4 SECONDS)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
 		update_flags |= M.heal_organ_damage(10, 10, updating_health = FALSE)
@@ -470,15 +470,15 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
-				M.AdjustConfused(10)
-				M.AdjustEarDamage(3)
+				M.AdjustConfused(20 SECONDS)
+				M.AdjustDeaf(6 SECONDS)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, S)
-				S.Weaken(6)
+				S.Weaken(12 SECONDS)
 		for(var/obj/structure/window/W in T.contents)
 			W.take_damage(rand(80, 100))
 
@@ -596,7 +596,7 @@
 		playsound(thrallToRevive, 'sound/weapons/egloves.ogg', 50, 1)
 		playsound(thrallToRevive, 'sound/machines/defib_zap.ogg', 50, 1)
 		user.Beam(thrallToRevive,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
-		thrallToRevive.Weaken(5)
+		thrallToRevive.Weaken(10 SECONDS)
 		thrallToRevive.visible_message("<span class='warning'><b>[thrallToRevive] collapses, [thrallToRevive.p_their()] skin and face distorting!</span>", \
 										"<span class='userdanger'><i>AAAAAAAAAAAAAAAAAAAGH-</i></span>")
 		sleep(20)
@@ -624,7 +624,7 @@
 		if(thrallToRevive.revive())
 			thrallToRevive.visible_message("<span class='boldannounce'>[thrallToRevive] heaves in breath, dim red light shining in [thrallToRevive.p_their()] eyes.</span>", \
 										"<span class='shadowling'><b><i>You have returned. One of your masters has brought you from the darkness beyond.</b></i></span>")
-			thrallToRevive.Weaken(4)
+			thrallToRevive.Weaken(8 SECONDS)
 			thrallToRevive.emote("gasp")
 			playsound(thrallToRevive, "bodyfall", 50, 1)
 	else
@@ -821,7 +821,7 @@
 				continue
 			to_chat(target, "<span class='userdanger'>You are struck by a bolt of lightning!</span>")
 			playsound(target, 'sound/magic/lightningshock.ogg', 50, 1)
-			target.Weaken(8)
+			target.Weaken(16 SECONDS)
 			target.take_organ_damage(0,50)
 			user.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 

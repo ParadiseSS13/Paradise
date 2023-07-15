@@ -6,7 +6,7 @@
 	target.visible_message("<span class='warning'>[user] pounds [target] on the chest!</span>", \
 				  	"<span class='userdanger'>[user] slams your chest! You can't breathe!</span>")
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
-	target.AdjustLoseBreath(5)
+	target.AdjustLoseBreath(10 SECONDS)
 	target.adjustOxyLoss(10)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Lung Punch", ATKLOG_ALL)
 	user.mind.martial_art.in_stance = FALSE

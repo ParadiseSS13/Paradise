@@ -28,7 +28,7 @@
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	if(!owner || emp_proof)
 		return
-	var/stun_amount = 2 + (severity-1 ? 0 : 5)
+	var/stun_amount = (5 + (severity-1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
 	owner.Stun(stun_amount)
 	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
 	return stun_amount
@@ -170,8 +170,8 @@
 	if(crit_fail)
 		return
 	if(owner.stat == UNCONSCIOUS && cooldown == FALSE)
-		owner.AdjustSleeping(-100, FALSE)
-		owner.AdjustParalysis(-100, FALSE)
+		owner.AdjustSleeping(-200 SECONDS)
+		owner.AdjustParalysis(-200 SECONDS)
 		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
 		cooldown = TRUE
 		addtimer(CALLBACK(src, PROC_REF(sleepy_timer_end)), 50)
@@ -185,7 +185,7 @@
 	if(crit_fail || emp_proof)
 		return
 	crit_fail = TRUE
-	owner.AdjustSleeping(200)
+	owner.AdjustSleeping(400 SECONDS)
 	cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
 
@@ -261,7 +261,7 @@
 		return
 	if(prob(60/severity) && owner)
 		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
-		owner.AdjustLoseBreath(2)
+		owner.AdjustLoseBreath(4 SECONDS)
 
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
@@ -350,6 +350,8 @@
 	reviving = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
+	if(QDELETED(owner))
+		return
 	if(prob(90) && owner.getOxyLoss())
 		owner.adjustOxyLoss(-3)
 		revive_cost += 5

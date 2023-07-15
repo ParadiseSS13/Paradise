@@ -361,8 +361,8 @@
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
 	if(use_default_checks)
-		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob, IsWeakened))
-		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob, IsStunned))
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsWeakened))
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsStunned))
 		if(istype(holding, /obj/item/gripper/))
 			var/obj/item/gripper/gripper = holding
 			if(!(gripper.isEmpty()))

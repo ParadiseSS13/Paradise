@@ -162,7 +162,7 @@
 			if(affecting.loc != assailant.loc)
 				force_down = 0
 			else
-				affecting.Weaken(3) //This is being left in the code as an example of adding a new variable to do something in grab code.
+				affecting.Weaken(6 SECONDS) //This is being left in the code as an example of adding a new variable to do something in grab code.
 
 */
 
@@ -175,10 +175,10 @@
 
 	if(state >= GRAB_KILL)
 		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
-		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
-		affecting.Weaken(5)	//Should keep you down unless you get help.
+		affecting.Stuttering(10 SECONDS) //It will hamper your voice, being choked and all.
+		affecting.Weaken(10 SECONDS)	//Should keep you down unless you get help.
 		if(!breathing_tube)
-			affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
+			affecting.AdjustLoseBreath(4 SECONDS, bound_lower = 0, bound_upper = 6 SECONDS)
 
 	adjust_position()
 
@@ -258,7 +258,7 @@
 		/* else
 			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
 			force_down = 1
-			affecting.Weaken(3)
+			affecting.Weaken(6 SECONDS)
 			step_to(assailant, affecting)
 			assailant.setDir(EAST) //face the victim
 			affecting.setDir(SOUTH) //face up  //This is an example of a new feature based on the context of the location of the victim.
@@ -283,7 +283,7 @@
 			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
-		affecting.Stun(10) //10 ticks of ensured grab
+		affecting.Stun(20 SECONDS) //20 seconds of ensured grab
 	else if(state < GRAB_UPGRADING)
 		assailant.visible_message("<span class='danger'>[assailant] начина[pluralize_ru(assailant.gender,"ет","ют")] сдавливать шею [affecting]!</span>") //[assailant.p_their()]
 		hud.icon_state = "kill1"
@@ -294,7 +294,7 @@
 
 		assailant.next_move = world.time + 10
 		if(!affecting.get_organ_slot("breathing_tube"))
-			affecting.AdjustLoseBreath(1)
+			affecting.AdjustLoseBreath(2 SECONDS)
 
 	adjust_position()
 
@@ -375,7 +375,7 @@
 					if(!force_down)
 						assailant.visible_message("<span class='danger'>[user] is forcing [affecting] to the ground!</span>")
 						force_down = 1
-						affecting.Weaken(3)
+						affecting.Weaken(6 SECONDS)
 						affecting.lying = 1
 						step_to(assailant, affecting)
 						assailant.setDir(EAST) //face the victim

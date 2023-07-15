@@ -26,7 +26,7 @@
 		return FALSE
 	if(istype(mech, /obj/mecha/combat/honker) && user)
 		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but you somehow trip before you get it in!</span>")
-		user.slip("your own foot", 8, 5, 0, FALSE, TRUE, TRUE, "trip")
+		user.slip("your own foot", 16 SECONDS, 0, FALSE, TRUE, TRUE, "trip")
 		return FALSE
 	mech.nominalsound = nominalsound
 	mech.zoomsound = zoomsound

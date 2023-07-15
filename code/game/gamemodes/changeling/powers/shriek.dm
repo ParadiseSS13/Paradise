@@ -15,16 +15,17 @@
 				var/mob/living/carbon/human/H = M
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
+				H.Deaf(60 SECONDS)
 			if(!M.mind || !M.mind.changeling)
-				M.MinimumDeafTicks(30)
-				M.AdjustConfused(20)
-				M.Jitter(50)
+
+				M.AdjustConfused(40 SECONDS)
+				M.Jitter(100 SECONDS)
 			else
 				SEND_SOUND(M, sound('sound/effects/screech.ogg'))
 
 		if(issilicon(M))
 			SEND_SOUND(M, sound('sound/weapons/flash.ogg'))
-			M.Weaken(rand(5,10))
+			M.Weaken(rand(10 SECONDS, 20 SECONDS))
 
 	for(var/obj/machinery/light/L in range(4, user))
 		L.on = 1

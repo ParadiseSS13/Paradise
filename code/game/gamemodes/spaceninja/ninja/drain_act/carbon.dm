@@ -12,5 +12,5 @@
 		spark_system.set_up(5, 0, loc)
 		playsound(src, 'sound/machines/defib_zap.ogg', 50, TRUE, 5)
 		visible_message(span_danger("[ninja] electrocutes [src] with [ninja.p_their()] touch!"), span_userdanger("[ninja] electrocutes you with [ninja.p_their()] touch!"))
-		Weaken(3)
+		Weaken(6 SECONDS)
 		add_attack_logs(ninja, src, "zap-touched with ninja-gloves")

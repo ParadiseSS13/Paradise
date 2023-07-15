@@ -99,7 +99,7 @@
 				if(prob(20))
 					visible_message("<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>")
 					if(C.weakeyes)
-						C.Stun(1)
+						C.Stun(2 SECONDS)
 				else
 					visible_message("<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>")
 			else
@@ -112,7 +112,7 @@
 				//20% chance to actually hit the sensors
 				if(prob(20))
 					S.flash_eyes(affect_silicon = 1)
-					S.Weaken(rand(5,10))
+					S.Weaken(rand(10 SECONDS,20 SECONDS))
 					to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
 					visible_message("<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>")
 

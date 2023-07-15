@@ -37,13 +37,13 @@
 	spider_intro_text = "Будучи Дроном Ужаса, ваша задача - постройка и защита гнезда. Плетите паутину, используйте свои замедляющие плевки и замораживающие укусы для защиты яиц и гнезда. Помните, вы не регенерируете и двигаетесь медленно вне паутины!."
 
 /mob/living/simple_animal/hostile/poison/terror_spider/builder/spider_specialattack(mob/living/carbon/human/L, poisonable)
-	L.slowed = 2
+	L.Slowed(4 SECONDS)
 	if(!poisonable)
 		return ..()
 	if(L.reagents.has_reagent("frostoil", 100))
 		return ..()
 	var/inject_target = pick("chest", "head")
-	if(L.stunned || L.can_inject(null, FALSE, inject_target, FALSE))
+	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.reagents.add_reagent("frostoil", 20)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else
@@ -77,6 +77,6 @@
 /obj/item/projectile/terrorspider/drone/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
-		C.slowed = 1
+		C.Slowed(2 SECONDS)
 
 	return ..()

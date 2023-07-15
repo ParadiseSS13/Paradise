@@ -213,21 +213,21 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	if(findtext(message, GLOB.stun_words))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.Stun(3 * power_multiplier)
+			L.Stun(6 SECONDS * power_multiplier)
 		next_command = world.time + cooldown_stun
 
 	//WEAKEN
 	else if(findtext(message, GLOB.weaken_words))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.Weaken(3 * power_multiplier)
+			L.Weaken(6 SECONDS * power_multiplier)
 		next_command = world.time + cooldown_stun
 
 	//SLEEP
 	else if((findtext(message, GLOB.sleep_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.Sleeping(2 * power_multiplier)
+			L.Sleeping(4 SECONDS * power_multiplier)
 		next_command = world.time + cooldown_stun
 
 	//VOMIT
@@ -241,7 +241,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		for(var/mob/living/carbon/C in listeners)
 			if(owner.mind && (owner.mind.assigned_role == "Librarian" || owner.mind.assigned_role == "Mime"))
 				power_multiplier *= 3
-			C.silent += (10 * power_multiplier)
+			C.AdjustSilence(20 SECONDS * power_multiplier)
 		next_command = world.time + cooldown_stun
 
 	//HALLUCINATE
@@ -466,7 +466,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 			playsound(get_turf(owner), 'sound/items/bikehorn.ogg', 300, 1)
 		if(owner.mind && owner.mind.assigned_role == "Clown")
 			for(var/mob/living/carbon/C in listeners)
-				C.slip("your feet", 0, 7 * power_multiplier)
+				C.slip("your feet", 14 SECONDS * power_multiplier)
 			next_command = world.time + cooldown_stun
 		else
 			next_command = world.time + cooldown_meme

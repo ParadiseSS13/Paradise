@@ -16,41 +16,15 @@ Gunshots/explosions/opening doors/less rare audio (done)
 #define SCREWYHUD_DEAD 2
 #define SCREWYHUD_HEALTHY 3
 
-/mob/living/carbon
+GLOBAL_LIST_INIT(minor_hallutinations, list("sounds"=25,"bolts_minor"=5,"whispers"=15,"message"=10,"hudscrew"=15))
+GLOBAL_LIST_INIT(medium_hallutinations, list("fake_alert"=15,"items"=10,"items_other"=10,"dangerflash"=10,"bolts"=5,"flood"=5,"husks"=10,"battle"=15,"self_delusion"=10))
+GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"singulo"=10,"borer"=10,"delusion"=20,"koolaid"=10))
+
+/mob/living
 	var/image/halimage
 	var/image/halbody
 	var/obj/halitem
 	var/hal_screwyhud = SCREWYHUD_NONE
-	var/handling_hal = FALSE
-
-/mob/living/carbon/proc/handle_hallucinations()
-	if(handling_hal)
-		return
-
-	//Least obvious
-	var/list/minor = list("sounds"=25,"bolts_minor"=5,"whispers"=15,"message"=10,"hudscrew"=15)
-	//Something's wrong here
-	var/list/medium = list("fake_alert"=15,"items"=10,"items_other"=10,"dangerflash"=10,"bolts"=5,"flood"=5,"husks"=10,"battle"=15,"self_delusion"=10)
-	//AAAAHg
-	var/list/major = list("fake"=20,"death"=10,"xeno"=10,"singulo"=10,"borer"=10,"delusion"=20,"koolaid"=10)
-
-	handling_hal = TRUE
-	while(hallucination > 20)
-		sleep(rand(200, 500) / (hallucination * 0.04))
-		if(prob(20))
-			continue
-		var/list/current = list()
-		switch(rand(100))
-			if(0 to 50)
-				current = minor
-			if(51 to 85)
-				current = medium
-			if(86 to 100)
-				current = major
-
-		hallucinate(pickweight(current))
-	handling_hal = FALSE
-
 
 /obj/effect/hallucination
 	invisibility = INVISIBILITY_OBSERVER
@@ -157,7 +131,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			return
 		Expand()
 		if((get_turf(target) in flood_turfs) && !target.internal)
-			target.hallucinate("fake_alert", "too_much_tox")
+			target.hallucinate_living("fake_alert", "too_much_tox")
 		next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
 
 /obj/effect/hallucination/fake_flood/proc/Expand()
@@ -191,7 +165,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/simple/xeno/throw_impact(A)
 	update_icon("alienh_pounce")
 	if(A == target)
-		target.Weaken(5)
+		target.Weaken(10 SECONDS)
 		target.visible_message("<span class='danger'>[target] flails around wildly.</span>","<span class ='userdanger'>[name] pounces on you!</span>")
 
 /obj/effect/hallucination/xeno_attack
@@ -262,7 +236,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			walk_to(borer, get_step(borer, get_cardinal_dir(borer, T)))
 			if(borer.Adjacent(T))
 				to_chat(T, "<span class='userdanger'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
-				T.Stun(4)
+				T.Stun(8 SECONDS)
 				sleep(50)
 				qdel(borer)
 				sleep(rand(60, 90))
@@ -317,7 +291,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		shake_camera(target, 2, 1)
 		if(bubblegum.Adjacent(target) && !charged)
 			charged = TRUE
-			target.Weaken(4)
+			target.Weaken(8 SECONDS)
 			target.adjustStaminaLoss(40)
 			step_away(target, bubblegum)
 			shake_camera(target, 4, 3)
@@ -367,7 +341,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/target_dist = get_dist(src, target)
 	if(target_dist <= 3) //"Eaten"
 		target.hal_screwyhud = SCREWYHUD_CRIT
-		target.SetSleeping(8, no_alert = TRUE)
+		target.SetSleeping(16 SECONDS)
 
 /obj/effect/hallucination/battle
 
@@ -663,7 +637,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
 					my_target.adjustStaminaLoss(30)
 					if(prob(20))
-						my_target.AdjustEyeBlurry(3)
+						my_target.AdjustEyeBlurry(6 SECONDS)
 					if(prob(33))
 						if(!locate(/obj/effect/overlay) in my_target.loc)
 							fake_blood(my_target)
@@ -788,7 +762,14 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	to_chat(target, chosen)
 	qdel(src)
 
-/mob/living/carbon/proc/hallucinate(hal_type, specific) // specific is used to specify a particular hallucination
+/**
+  * Spawns an hallucination for the mob.
+  *
+  * Arguments:
+  * * H - The name of the hallucination. "xeno", etc.
+  * * specific - used to specify a particular hallucination
+  */
+/mob/living/proc/hallucinate_living(hal_type, specific) // specific is used to specify a particular hallucination
 	investigate_log("was afflicted with a hallucination of type [hal_type] by [last_hallucinator_log ? last_hallucinator_log : "Unknown source"].", INVESTIGATE_HALLUCINATIONS)
 	switch(hal_type)
 		if("xeno")
@@ -1032,7 +1013,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					halimage = null
 		if("death")
 			hal_screwyhud = SCREWYHUD_DEAD
-			SetSleeping(20, no_alert = TRUE)
+			SetSleeping(40 SECONDS)
 			if(prob(50))
 				var/list/dead_people = list()
 				for(var/mob/dead/observer/G in GLOB.player_list)
