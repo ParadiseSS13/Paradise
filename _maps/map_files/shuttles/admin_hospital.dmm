@@ -89,29 +89,19 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
 "av" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aw" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "ax" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/camera{
 	dir = 8;
 	name = "NHV Asclepius Lobby";
 	network = list("NHV Asclepius")
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "ay" = (
@@ -120,13 +110,15 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "az" = (
-/obj/machinery/clonepod{
-	biomass = 300
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aA" = (
-/obj/machinery/computer/cloning,
+/obj/machinery/clonepod{
+	biomass = 300
+	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -252,7 +244,6 @@
 	name = "NHV Asclepius Cloning";
 	network = list("NHV Asclepius")
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aX" = (
@@ -268,8 +259,8 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -298,8 +289,8 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bf" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -596,7 +587,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cf" = (
-/obj/structure/table/glass,
+/obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
 /turf/simulated/floor/mineral/titanium,
@@ -712,6 +703,12 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"jm" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
 "qa" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -742,6 +739,10 @@
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"UG" = (
+/obj/machinery/computer/cloning,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 
@@ -889,9 +890,9 @@ ab
 ah
 av
 aw
-av
+jm
 aw
-av
+jm
 bc
 aP
 aw
@@ -949,9 +950,9 @@ ab
 ah
 ax
 aI
-aR
+az
 aw
-aR
+az
 bd
 aP
 bv
@@ -1007,11 +1008,11 @@ ab
 "}
 (14,1,1) = {"
 ad
-az
-aw
-aw
-aw
-aw
+aC
+aK
+aK
+aK
+cu
 bg
 ab
 bx
@@ -1031,7 +1032,7 @@ aA
 aw
 aw
 aw
-aw
+cw
 bh
 ab
 by
@@ -1047,7 +1048,7 @@ qa
 "}
 (16,1,1) = {"
 ad
-aB
+UG
 aw
 aw
 aw
@@ -1067,9 +1068,9 @@ qa
 "}
 (17,1,1) = {"
 ab
-aC
-aK
-aK
+aB
+aw
+aw
 aV
 bf
 ce

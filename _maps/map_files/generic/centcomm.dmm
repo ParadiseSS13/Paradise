@@ -11725,7 +11725,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "TC" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "TF" = (
