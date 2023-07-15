@@ -43,8 +43,6 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider
 	/// References to the owner changeling
 	var/mob/owner_UID
-	/// To check if the spider died via gib or if it still needs to be gibbed, to prevent post-death revival skipping the limit
-	var/gibbed = FALSE
 	/// Handles the spider's behavior
 	var/current_order = IDLE_AGGRESSIVE
 	var/list/enemies = list()
@@ -53,19 +51,15 @@
 	speak_chance = 0
 	wander = 0
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/gib()
-	gibbed = TRUE
-	return ..()
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/death()
-	if(!gibbed)
-		gib()
-		return
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/death(gibbed)
 	var/mob/owner_mob = locateUID(owner_UID)
 	var/datum/action/changeling/spiders/S = locate() in owner_mob.actions
 	if(!isnull(S))
 		S.spider_counter--
-	return ..()
+	if(!gibbed)
+		gib()
+	return ..(TRUE)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/examine(mob/user)
 	. = ..()
