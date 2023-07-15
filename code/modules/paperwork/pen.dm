@@ -146,10 +146,10 @@
 
 
 /obj/item/pen/sleepy/love/attack(mob/living/M, mob/user)
-    var/can_transfer = reagents.total_volume && M.reagents
-    . = ..()
-    if (can_transfer && .)
-        M.apply_status_effect(STATUS_EFFECT_PACIFIED) //pacifies for 40 seconds
+	var/can_transfer = reagents.total_volume && M.reagents
+	. = ..()
+	if(can_transfer && .)
+		M.apply_status_effect(STATUS_EFFECT_PACIFIED) //pacifies for 40 seconds
 	return TRUE
 
 
