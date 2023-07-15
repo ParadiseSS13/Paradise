@@ -50,6 +50,7 @@
 	venom_per_bite = 3
 	speak_chance = 0
 	wander = 0
+	/// To check and gib the spider when dead, then remove only one of the counter for the changeling owner
 	var/gibbed = FALSE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/gib()
