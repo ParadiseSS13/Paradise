@@ -120,9 +120,8 @@
 			has_close_field = FALSE
 			for(var/mob/living/carbon/C in loc)
 				dust_mobs(C)
-			return
 		return
-	if(target_turf == null)
+	if(!target_turf)
 		find_the_basket()
 		return
 	for(var/i in 0 to 8)
