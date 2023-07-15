@@ -189,3 +189,8 @@
 		return
 	if(!faction_check_mob(H))
 		enemies |= H
+
+#undef IDLE_AGGRESSIVE
+#undef FOLLOW_AGGRESSIVE
+#undef FOLLOW_RETALIATE
+#undef IDLE_RETALIATE
