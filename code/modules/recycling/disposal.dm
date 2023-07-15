@@ -464,7 +464,7 @@
 		H.tomail = 1
 
 	sleep(10)
-	if(last_sound < world.time + 1)
+	if(last_sound + 0.1 SECONDS < world.time)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
@@ -499,7 +499,10 @@
 /obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)
 
 	var/turf/target
-	playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+	if(last_sound + 0.1 SECONDS < world.time)
+		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		last_sound = world.time
+
 	if(H) // Somehow, someone managed to flush a window which broke mid-transit and caused the disposal to go in an infinite loop trying to expel null, hopefully this fixes it
 		for(var/atom/movable/AM in H)
 			target = get_offset_target_turf(src.loc, rand(5)-rand(5), rand(5)-rand(5))
@@ -733,6 +736,8 @@
 	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	base_icon_state	// initial icon state on map
+	/// The last time a sound was played from this
+	var/last_sound
 
 	// new pipe, set the icon_state as on map
 /obj/structure/disposalpipe/Initialize(mapload)
@@ -841,7 +846,10 @@
 		else						// otherwise limit to 10 tiles
 			target = get_ranged_target_turf(T, direction, 10)
 
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(last_sound + 0.1 SECONDS < world.time)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+			last_sound = world.time
+
 		if(H)
 			for(var/atom/movable/AM in H)
 				AM.forceMove(T)
@@ -856,7 +864,9 @@
 
 	else	// no specified direction, so throw in random direction
 
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(last_sound + 0.1 SECONDS < world.time)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+			last_sound = world.time
 		if(H)
 			for(var/atom/movable/AM in H)
 				target = get_offset_target_turf(T, rand(5)-rand(5), rand(5)-rand(5))
@@ -1378,6 +1388,8 @@
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
 	var/mode = FALSE // Is the maintenance panel open? Different than normal disposal's mode
+	/// The last time a sound was played
+	var/last_sound
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
@@ -1401,9 +1413,15 @@
 /obj/structure/disposaloutlet/proc/expel(animation = TRUE)
 	if(animation)
 		flick("outlet-open", src)
-		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
+		var/play_sound = FALSE
+		if(last_sound + 0.1 SECONDS < world.time)
+			play_sound = TRUE
+			last_sound = world.time
+		if(play_sound)
+			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
 		sleep(20)	//wait until correct animation frame
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(play_sound)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(loc)
 		AM.pipe_eject(dir)
