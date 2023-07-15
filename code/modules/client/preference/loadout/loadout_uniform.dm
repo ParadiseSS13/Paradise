@@ -336,7 +336,7 @@
 
 /datum/gear/uniform/suit/assistantformal
 	display_name = "Assistant's Formal Uniform"
-	description = "Formal attire fit for an Assistant"
+	description = "Formal attire fit for an Assistant."
 	path = /obj/item/clothing/under/misc/assistantformal
 
 /datum/gear/uniform/suit/redhawaiianshirt
