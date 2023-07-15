@@ -37,7 +37,7 @@
 	. = ..()
 	for(var/obj/effect/guardianshield/G in connected_shields)
 		var/dir_chosen
-		if(G.left_if_false_right_otherwise)
+		if(G.shield_orientation)
 			dir_chosen = turn(dir, 90)
 		else
 			dir_chosen = turn(dir, -90)
@@ -57,6 +57,7 @@
 		damage_transfer = 0.4
 		to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
 		toggle = FALSE
+		QDEL_LIST_CONTENTS(connected_shields)
 	else
 		var/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
 		shield_overlay *= name_color
@@ -69,6 +70,10 @@
 		damage_transfer = 0.1 //damage? what's damage?
 		to_chat(src, "<span class='danger'>You switch to protection mode.</span>")
 		toggle = TRUE
+		var/dir_left = turn(dir, -90)
+		var/dir_right = turn(dir, 90)
+		connected_shields += new /obj/effect/guardianshield(get_step(src, dir_left), src, FALSE)
+		connected_shields += new /obj/effect/guardianshield(get_step(src, dir_right), src, TRUE)
 
 /mob/living/simple_animal/hostile/guardian/protector/snapback() //snap to what? snap to the guardian!
 	// If the summoner dies instantly, the summoner's ghost may be drawn into null space as the protector is deleted. This check should prevent that.
@@ -97,19 +102,20 @@
 	return ..()
 
 /obj/effect/guardianshield
-	desc = "A guardian's defencive wall."
+	desc = "A guardian's defensive wall."
 	name = "guardian's shield"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-grey"
 	can_be_hit = TRUE
 	var/mob/living/simple_animal/hostile/guardian/protector/linked_guardian
-	var/left_if_false_right_otherwise = FALSE //Needs a better name, but bools feels better than LEFT and RIGHT being passed
+	///If false, the guardian shield is the left shield, otherwise it is the right shield.
+	var/shield_orientation = FALSE
 
 /obj/effect/guardianshield/Initialize(mapload, mob/living/simple_animal/hostile/guardian/protector/creator, left_or_right)
 	. = ..()
 	linked_guardian = creator
 	color = linked_guardian.name_color
-	left_if_false_right_otherwise = left_or_right
+	shield_orientation = left_or_right
 
 /obj/effect/guardianshield/CanPass(atom/movable/mover, turf/target)
 	if(mover == linked_guardian || mover == linked_guardian.summoner)
