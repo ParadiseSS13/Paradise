@@ -905,32 +905,24 @@
 		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
 		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, 1)
 		//Lightning effect for electrical discharge visualization
-		var/icon/I=new('icons/obj/zap.dmi',"lightningend")
+		var/icon/I = new('icons/obj/zap.dmi', "lightningend")
 		I.Turn(-135)
 		var/obj/effect/overlay/beam/B = new(get_turf(M))
 		B.pixel_x = rand(-20, 0)
 		B.pixel_y = rand(-20, 0)
 		B.icon = I
-		update_flags |= M.adjustFireLoss(rand(1,5)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustBruteLoss(rand(1,5)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(rand(1, 5) * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(rand(1, 5) * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
 
 //Servo Lube, supercharge
-/datum/reagent/lube/combat
+/datum/reagent/lube/ultra/combat
 	name = "Combat-Lube"
 	id = "combatlube"
 	description = "Combat-Lube is a refined and enhanced lubricant which induces effect stronger than Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
-	reagent_state = LIQUID
-	color = "#1BB1FF"
-	process_flags = SYNTHETIC
 	overdose_threshold = 30
 	addiction_chance = 1
 	addiction_chance_additional = 20
-	addiction_threshold = 5
-	metabolization_rate = 0.6
-	addiction_decay_rate = 0.1 //very low to force them to take time off of meth
-	taste_description = "wiper fluid"
-	var/tenacity = 1.5 // higher is worse
 
 /datum/reagent/lube/combat/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)

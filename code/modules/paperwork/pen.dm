@@ -140,36 +140,22 @@
 
 
 
-/obj/item/pen/love
+/obj/item/pen/sleepy/love
 	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
 	origin_tech = "engineering=4;syndicate=2"
 
 
-/obj/item/pen/love/attack(mob/living/M, mob/user)
-	if(!istype(M))
-		return
-
-	if(!M.can_inject(user, TRUE))
-		return
-	var/transfered = 0
-	var/contained = list()
-
-	for(var/R in reagents.reagent_list)
-		var/datum/reagent/reagent = R
-		contained += "[round(reagent.volume, 0.01)]u [reagent]"
-
-	if(reagents.total_volume && M.reagents)
-		transfered = reagents.trans_to(M, 25) //injects 25u of love, forcing help intent
-		M.apply_status_effect(STATUS_EFFECT_PACIFIED) //pacifies for 40 seconds
-
-	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
-	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
+/obj/item/pen/sleepy/love/attack(mob/living/M, mob/user)
+    var/can_transfer = reagents.total_volume && M.reagents
+    . = ..()
+    if (can_transfer && .)
+        M.apply_status_effect(STATUS_EFFECT_PACIFIED) //pacifies for 40 seconds
 	return TRUE
 
 
-/obj/item/pen/love/Initialize(mapload)
+/obj/item/pen/sleepy/love/Initialize(mapload)
 	. = ..()
-	create_reagents(100)
+	reagents.remove_reagent("ketamine", 100)
 	reagents.add_reagent("love", 100)
 
 

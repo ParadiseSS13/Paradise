@@ -310,7 +310,7 @@
 	species = list("Skrell")
 
 //Slime people
-// no idea
+// TO-DO: Contort body with a longer timer, also a heavy pricetag of around 10 TC
 
 //Vox
 /datum/uplink_item/species_restricted/spikethrower
@@ -326,9 +326,6 @@
 
 //Grey
 //Psionics Starter Kit: Get TK, psy resist, one spell
-
-//Diona
-//no idea
 
 //IPC:
 //Positonic supercharge implant: stims, 3 uses, IPC adrenals
@@ -352,8 +349,6 @@
 	cost = 5
 	species = list("Plasmaman")
 
-//vulp
-//no idea
 
 //Nian
 //Small loan of a million credits

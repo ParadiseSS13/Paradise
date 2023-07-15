@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 // You can change the order of the list by putting datums before/after one another OR
 // you can use the last variable to make sure it appears last, well have the category appear last.
-w
+
 /datum/uplink_item
 	var/name = "item name"
 	var/category = "item category"
@@ -74,6 +74,7 @@ w
 	var/list/uplinktypes = list() // Empty list means it is in all the uplink types. Otherwise place the uplink type here.
 	var/list/excludefrom = list() // Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
 	var/list/job = null
+	/// This makes an item on the uplink only show up to the specified species
 	var/list/species = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/cant_discount = FALSE

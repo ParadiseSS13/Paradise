@@ -25,7 +25,7 @@
 /datum/implant_fluff/supercharge
 	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
 	life = "Known to last for up to a year"
-	notes = "One of Cybersun Industries simplest implants, its rumored that synthetic rights groups maintain stockpiles of these."
+	notes = "One of Cybersun Industries simplest implants, it's rumored that synthetic rights groups maintain stockpiles of these."
 	function = "Synthetic subjects injected with this bio-chip can activate an injeciton of lubricants, coolants, and positronic patching fluid"
 
 /datum/implant_fluff/chem

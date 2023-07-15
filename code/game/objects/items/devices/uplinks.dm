@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
-			if(I.species && I.species.len)
+			if(length(I.species))
 				if(!(I.species.Find(species)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
 			cats[cats.len]["items"] += list(list(
