@@ -59,6 +59,8 @@
 	var/clone_progress = 0
 	//A list of limbs which have not yet been grown by the cloner.
 	var/list/limbs_to_grow = list()
+	//The limb we're currently growing.
+	var/current_limb
 	//Flavor text to show on examine.
 	var/desc_flavor = "It doesn't seem to be doing anything right now."
 
@@ -177,20 +179,36 @@
 			if(0 to 20)
 				desc_flavor = "You see muscle quickly growing on a ribcage and skull inside [src]."
 				return
-			if(21 to 30)
-				return
-			if(31 to 40)
-				return
-			if(41 to 50)
-				return
-			if(51 to 60)
-				return
-			if(61 to 70)
-				return
-			if(71 to 80)
-				return
-			if(81 to 90)
-				return
+			if(21 to 90)
+				if(!clone)
+					create_clone()
+					return
+
+				if(!current_limb)
+					current_limb = pick(limbs_to_grow)
+					limbs_to_grow -= current_limb
+					return
+
+				if(clone.cloneloss >= 25)
+					clone.adjustCloneLoss(-speed_modifier)
+					return
+
+				if(!(current_limb in clone.bodyparts))
+					if(get_stored_organ(current_limb))
+						var/obj/item/organ/external/EO = get_stored_organ(current_limb)
+						desc_flavor = "You see [src] attaching \a [EO.name] to [clone]."
+						EO.replaced(clone)
+						current_limb = null
+						clone.adjustCloneLoss(10)
+						return
+
+					var/obj/item/organ/external/EO = new clone.species.has_limbs[current_limb]["path"]
+					desc_flavor = "You see \a [EO.name] growing from [clone]'[clone.p_s()] [EO.amputation_point]."
+					EO.replaced(clone)
+					current_limb = null
+					clone.adjustCloneLoss(10)
+					return
+
 			if(91 to 100)
 				return
 			if(101 to INFINITY) //this state can be reached with an upgraded cloner
@@ -231,10 +249,31 @@
 		limb.remove(null, TRUE)
 		qdel(limb)
 
+	for(var/candidate_for_insertion in desired_data.organs)
+		var/obj/item/organ/internal/organ = clone.get_int_organ(clone.dna.species.has_organ[candidate_for_insertion])
+
+		if(desired_data.organs[candidate_for_insertion][3]) //if it's desired for the organ to be missing..
+			qdel(organ) //make it so
+			continue
+
+		if(get_stored_organ(candidate_for_insertion))
+			var/obj/item/organ/internal/IO = get_stored_organ(candidate_for_insertion)
+			qdel(organ)
+			IO.insert(clone) //hotswap
+			continue
+
+		if(candidate_for_insertion == "heart")
+			continue //The heart is always cloned or replaced, remember? If we're not inserting a new one, we don't need to touch it.
+
+		organ.damage = desired_data.organs[candidate_for_insertion][1]
+		organ.status = desired_data.organs[candidate_for_insertion][2]
+
 	clone.updatehealth("droplimb")
 	clone.UpdateDamageIcon()
 	clone.regenerate_icons()
 	clone.update_body(TRUE)
+
+	clone.adjustCloneLoss(25) //to punish early ejects
 
 //This gets the cost of cloning, in a list with the form (biomass, sanguine reagent, osseous reagent).
 /obj/machinery/clonepod/proc/get_cloning_cost(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
