@@ -1103,7 +1103,7 @@
 
 	var/mob/M = usr
 
-	if(M.stat || !in_range(M,src))
+	if(M.stat || !in_range(M, src))
 		return
 
 	to_chat(M, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
@@ -1125,7 +1125,7 @@
 		to_chat(user, "<span class='warning'>You go to load a bullet into [src].. and it goes off in your face!</span>")
 		shoot_gun(user)
 	if(istype(I, /obj/item/ammo_box/a357))
-		to_chat(user, "<span class='warning'>You go to load speedloader into [src].. and it goes off in your face!</span>")
+		to_chat(user, "<span class='warning'>You go to speedload [src].. and it goes off in your face!</span>")
 		shoot_gun(user)
 	return ..()
 
