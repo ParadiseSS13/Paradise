@@ -47,7 +47,7 @@
 //Increased harm damage
 /datum/martial_art/judo/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
-	var/picked_hit_type = pick("chops", "slices", "strikes", "jabs", "hooks", "uppercuts")
+	var/picked_hit_type = pick("chops", "slices", "strikes")
 	var/attack_damage = 7
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	D.apply_damage(attack_damage, BRUTE)
