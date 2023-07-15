@@ -120,3 +120,6 @@
   Сиротка:
   - add: Hunter belt (#3150)
   - tweak: Nerf RCD (#3155)
+'2023-07-15':
+  Rerik007:
+  - refactor: Moves stuns and weakens etc. to status effects (#3135)
