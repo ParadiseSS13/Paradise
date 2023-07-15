@@ -6,7 +6,7 @@
 /datum/action/changeling/spiders
 	name = "Spread Infestation"
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend. Costs 45 chemicals."
-	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 7 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift+Click)."
+	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 7 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift click)."
 	button_icon_state = "spread_infestation"
 	chemical_cost = 45
 	dna_cost = 2
@@ -50,13 +50,18 @@
 	venom_per_bite = 3
 	speak_chance = 0
 	wander = 0
+	var/gibbed = FALSE
 
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/gib()
+	gibbed = TRUE
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/death(gibbed)
 	var/mob/owner_mob = locateUID(owner_UID)
 	var/datum/action/changeling/spiders/S = locate() in owner_mob.actions
 	if(!isnull(S))
-		S.spider_counter--
+		if(gibbed)
+			S.spider_counter--
 	if(!gibbed)
 		gib()
 	return ..(TRUE)
@@ -87,11 +92,9 @@
 		if(IDLE_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to follow us but attack anyone on sight.</span>")
 			current_order = FOLLOW_AGGRESSIVE
-			handle_automated_movement()
 		if(FOLLOW_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to follow us and to remain calm, only attacking if it is attacked.</span>")
 			current_order = FOLLOW_RETALIATE
-			handle_automated_movement()
 		if(FOLLOW_RETALIATE)
 			to_chat(user, "<span class='notice'>We order the giant spider to remain idle and calm, only attacking if it is attacked.</span>")
 			current_order = IDLE_RETALIATE
@@ -152,33 +155,33 @@
 			enemies |= M
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attackby(obj/item/W, mob/user, params)
-	..()
+	. = ..()
 	if(W.force == 0)
 		return
 	if(!faction_check_mob(user))
 		enemies |= user
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/bullet_act(obj/item/projectile/P)
-	..()
+	. = ..()
 	if(!faction_check_mob(P.firer))
 		enemies |= P.firer
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_alien(mob/living/carbon/alien/user)
-	..()
+	. = ..()
 	if(user.a_intent == INTENT_HELP)
 		return
 	if(!faction_check_mob(user))
 		enemies |= user
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_animal(mob/living/simple_animal/M)
-	..()
+	. = ..()
 	if(M.a_intent == INTENT_HELP)
 		return
 	if(!faction_check_mob(M))
 		enemies |= M
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_hand(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	if(H.a_intent == INTENT_HELP)
 		return
 	if(!faction_check_mob(H))
