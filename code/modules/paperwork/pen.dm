@@ -136,9 +136,10 @@
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
+	fill_pen()
+
+/obj/item/pen/sleepy/proc/fill_pen()
 	reagents.add_reagent("ketamine", 100)
-
-
 
 /obj/item/pen/sleepy/love
 	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
@@ -153,11 +154,9 @@
 	return TRUE
 
 
-/obj/item/pen/sleepy/love/Initialize(mapload)
+/obj/item/pen/sleepy/love/fill_pen()
 	. = ..()
-	reagents.remove_reagent("ketamine", 100)
 	reagents.add_reagent("love", 100)
-
 
 /*
  * (Alan) Edaggers

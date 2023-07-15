@@ -247,7 +247,7 @@
 	flawless = TRUE
 
 /obj/item/fireproofing_injector
-	desc = "It contains alien nanoswarm of created by the technomancers of boron. Through  near sorcerous feats via use of nanomachines, it enables its user to become fully fireproof."
+	desc = "It contains an alien nanoswarm created by the technomancers of boron. Through near sorcerous feats via use of nanomachines, it enables its user to become fully fireproof."
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
 	var/used = FALSE
@@ -269,5 +269,4 @@
 		used = FALSE
 		return
 	to_chat(user, "You inject yourself with the nanites!")
-	ADD_TRAIT(user, TRAIT_RESISTHEAT, "fireproof_injector")
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, "fireproof_injector")

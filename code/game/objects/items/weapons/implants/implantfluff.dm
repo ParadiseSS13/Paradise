@@ -26,7 +26,7 @@
 	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
 	life = "Known to last for up to a year"
 	notes = "One of Cybersun Industries simplest implants, it's rumored that synthetic rights groups maintain stockpiles of these."
-	function = "Synthetic subjects injected with this bio-chip can activate an injeciton of lubricants, coolants, and positronic patching fluid"
+	function = "Synthetic subjects injected with this bio-chip can activate an injection of lubricants, coolants, and positronic patching fluid"
 
 /datum/implant_fluff/chem
 	name = "BioTech Solutions MJ-420 Prisoner Management Bio-chip" //ah yes, MJ-420, old coders are FUNNY

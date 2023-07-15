@@ -924,12 +924,6 @@
 	addiction_chance = 1
 	addiction_chance_additional = 20
 
-/datum/reagent/lube/ultra/combat/on_mob_add(mob/living/L)
-	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.physiology.stun_mod *= tenacity
-
 /datum/reagent/lube/ultra/combat/on_mob_life(mob/living/M)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)

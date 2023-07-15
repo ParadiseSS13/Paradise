@@ -291,15 +291,6 @@
 	cant_discount = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
-//human
-//NONE! Add me!
-
-//Tajaran
-//TO-DO: retrectable claws
-
-//Unathi
-//TO-DO: Dueling Energy Sword
-
 //skrell
 /datum/uplink_item/species_restricted/lovepen
 	name = "Aggression Supression Pen"
@@ -309,8 +300,6 @@
 	cost = 4
 	species = list("Skrell")
 
-//Slime people
-// TO-DO: Contort body with a longer timer, also a heavy pricetag of around 10 TC
 
 //Vox
 /datum/uplink_item/species_restricted/spikethrower
@@ -320,12 +309,6 @@
 	item = /obj/item/gun/energy/spikethrower
 	cost = 12
 	species = list("Vox")
-
-//Drask
-//Book of elders, contains a random (one of like 5) spells, nothing wiz tier
-
-//Grey
-//Psionics Starter Kit: Get TK, psy resist, one spell
 
 //IPC:
 //Positonic supercharge implant: stims, 3 uses, IPC adrenals
@@ -337,8 +320,6 @@
 	cost = 8
 	species = list("Machine")
 
-//Kidan:
-//Royal Jelly: provides a perminant physical change as well as a significant physical buff. Weaker to pest spray.
 
 //plasmeme
 /datum/uplink_item/species_restricted/fireproofing_nanites
@@ -349,9 +330,6 @@
 	cost = 5
 	species = list("Plasmaman")
 
-
-//Nian
-//Small loan of a million credits
 
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
