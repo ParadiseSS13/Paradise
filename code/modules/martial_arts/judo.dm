@@ -48,9 +48,9 @@
 /datum/martial_art/judo/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	var/picked_hit_type = pick("chops", "slices", "strikes", "jabs", "hooks", "uppercuts")
-	var/bonus_damage = 10
+	var/attack_damage = 7
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	D.apply_damage(bonus_damage, BRUTE)
+	D.apply_damage(attack_damage, BRUTE)
 	playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
