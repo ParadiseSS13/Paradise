@@ -34,7 +34,7 @@
 
 /obj/machinery/power/compressor
 	name = "gas turbine compressor"
-	desc = "The compressor stage of a gas turbine generator."
+	desc = "The compressor stage of a gas turbine generator. A data panel for linking with a to a computer can be accessed with a screwdriver."
 	icon = 'icons/obj/pipes.dmi'
 	icon_state = "compressor"
 	anchored = TRUE
@@ -75,7 +75,7 @@
 
 /obj/machinery/computer/turbine_computer
 	name = "gas turbine control computer"
-	desc = "A computer to remotely control a gas turbine"
+	desc = "A computer to remotely control a gas turbine. Link it to a turbine via use of a multitool"
 	icon_screen = "turbinecomp"
 	icon_keyboard = "tech_key"
 	circuit = /obj/item/circuitboard/turbine_computer

@@ -207,7 +207,6 @@
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
 			I.receive_damage(brute * 0.5)
-			brute -= brute * 0.5
 
 	if(status & ORGAN_BROKEN && prob(40) && brute && !owner.stat)
 		owner.emote("scream")	//getting hit on broken hand hurts
@@ -269,9 +268,9 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
-			if(brute_dam >= max_damage && prob(brute / 2))
+			if(brute_dam >= max_damage && prob(brute))
 				droplimb(0, DROPLIMB_SHARP)
-			if(burn_dam >= max_damage && prob(burn / 2))
+			if(burn_dam >= max_damage && prob(burn))
 				droplimb(0, DROPLIMB_BURN)
 
 	if(owner_old)

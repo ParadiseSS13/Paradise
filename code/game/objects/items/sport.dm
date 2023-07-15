@@ -12,6 +12,18 @@
 	throw_speed = 1
 	throw_range = 20
 	flags = CONDUCT
+	/// Whether `attack_self` will move ("dribble") it to the other hand
+	var/dribbleable = FALSE // Most balls do not have a dribble animation
+
+/obj/item/beach_ball/attack_self(mob/user)
+	if(!dribbleable)
+		return
+
+	if(!user.get_inactive_hand()) // We ballin
+		user.unEquip(src)
+		user.put_in_inactive_hand(src)
+	else
+		to_chat(user, "<span class='warning'>You can't dribble to an occupied hand!</span>")
 
 /obj/item/beach_ball/baseball
 	name = "baseball"
@@ -27,6 +39,7 @@
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
 	item_state = "dodgeball"
+	dribbleable = TRUE
 	var/list/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 
 /obj/item/beach_ball/dodgeball/throw_impact(atom/hit_atom)
@@ -44,6 +57,7 @@
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "basketball"
 	item_state = "basketball"
+	dribbleable = TRUE
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
 
 /obj/structure/holohoop
