@@ -18,9 +18,9 @@
 	slot_flags = SLOT_BELT
 	var/datum/martial_art/judo/style
 
-/obj/item/judobelt/New()
+/obj/item/judobelt/Initialize()
+	. = ..()
 	style = new()
-	..()
 
 /obj/item/judobelt/equipped(mob/user, slot)
 	if(!ishuman(user))
@@ -47,7 +47,7 @@
 //Increased harm damage
 /datum/martial_art/judo/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
-	var/picked_hit_type = pick("punches", "slugs", "strikes", "jabs", "hooks", "uppercuts")
+	var/picked_hit_type = pick("chops", "slices", "strikes", "jabs", "hooks", "uppercuts")
 	var/bonus_damage = 10
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	D.apply_damage(bonus_damage, BRUTE)

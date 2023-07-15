@@ -1,7 +1,7 @@
 /datum/martial_combo/judo/eyepoke
 	name = "Eye Poke"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Jab your opponent in the eye, damaging and blinding them"
+	explaination_text = "Jab your opponent in the eye, damaging and blinding them. Minimally effective on people with eye protection."
 	combo_text_override = "Disarm, Harm"
 
 /datum/martial_combo/judo/eyepoke/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
@@ -11,6 +11,7 @@
 						"<span class='userdanger'>[user] jabs you in the eyes!</span>")
 	playsound(get_turf(user), 'sound/weapons/whip.ogg', 40, TRUE, -1)
 	target.apply_damage(10, BRUTE)
-	target.SetEyeBlurry(10 SECONDS)
+	target.AdjustEyeBlurry(50, 0, 30 SECONDS)
+	target.flash_eyes(affect_silicon = FALSE)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Eye Poke", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
