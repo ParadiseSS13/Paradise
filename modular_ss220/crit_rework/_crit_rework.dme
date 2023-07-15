@@ -1,0 +1,5 @@
+#include "_crit_rework.dm"
+
+#include "code/_crit_rework_defines.dm"
+#include "code/crit_rework_component.dm"
+#include "code/crit_rework_mob.dm"

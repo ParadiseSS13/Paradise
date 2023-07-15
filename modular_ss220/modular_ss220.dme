@@ -4,6 +4,7 @@
 // #include "example/_example.dme"
 
 #include "_span/_span.dme"
+#include "crit_rework/_crit_rework.dme"
 #include "fullscreen/_fullscreen.dme"
 #include "keybindings/_keybindings.dme"
 #include "prime_combat/_prime_combat.dme"
