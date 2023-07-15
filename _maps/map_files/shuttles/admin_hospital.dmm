@@ -57,6 +57,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
+"ak" = (
+/obj/machinery/computer/cloning,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
 "ap" = (
 /obj/machinery/chem_master,
 /turf/simulated/floor/mineral/titanium,
@@ -111,7 +115,7 @@
 /area/shuttle/administration)
 "az" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -207,9 +211,6 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "aR" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -344,9 +345,6 @@
 	c_tag = "Tech Storage";
 	name = "NHV Asclepius Command Center";
 	network = list("NHV Asclepius")
-	},
-/obj/structure/chair{
-	dir = 8
 	},
 /obj/machinery/door_control{
 	dir = 4;
@@ -497,9 +495,6 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bM" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -703,12 +698,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
-"jm" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
 "qa" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -739,10 +728,6 @@
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"UG" = (
-/obj/machinery/computer/cloning,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 
@@ -890,9 +875,9 @@ ab
 ah
 av
 aw
-jm
+az
 aw
-jm
+az
 bc
 aP
 aw
@@ -950,9 +935,9 @@ ab
 ah
 ax
 aI
-az
+aR
 aw
-az
+aR
 bd
 aP
 bv
@@ -1048,7 +1033,7 @@ qa
 "}
 (16,1,1) = {"
 ad
-UG
+ak
 aw
 aw
 aw
