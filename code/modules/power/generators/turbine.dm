@@ -179,7 +179,7 @@
 	playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 /obj/machinery/power/compressor/proc/time_until_overheat_done()
-    return max(last_overheat + OVERHEAT_TIME - world.time, 0)
+	return max(last_overheat + OVERHEAT_TIME - world.time, 0)
 
 /obj/machinery/power/compressor/process()
 	if(!turbine)
