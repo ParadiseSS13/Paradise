@@ -19,6 +19,8 @@
 	var/item_recycle_sound = 'sound/machines/recycler.ogg'
 	/// For admin fun, var edit always_gib to TRUE (1)
 	var/always_gib = FALSE
+	/// The last time we played a consumption sound.
+	var/last_consumption_sound
 
 /obj/machinery/recycler/Initialize(mapload)
 	. = ..()
@@ -137,8 +139,9 @@
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			AM.forceMove(loc)
 
-	if(items_recycled && sound)
+	if(items_recycled && sound && (last_consumption_sound + 0.5 SECONDS) < world.time)
 		playsound(loc, item_recycle_sound, 100, 0)
+		last_consumption_sound = world.time
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
 	I.forceMove(loc)
