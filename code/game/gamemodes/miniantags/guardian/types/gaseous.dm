@@ -49,13 +49,12 @@
 		moles_of_gas = null
 		to_chat(src, "<span class='notice'>You stopped expelling gas.</span>")
 		return
-	var/gas_type = picked_gas
-	if(!picked_gas || !gas_type)
+	if(!picked_gas)
 		return
 	to_chat(src, "<span class='bolddanger'>You are now expelling [picked_gas]</span>.")
 	investigate_log("set their gas type to [picked_gas].", "atmos")
 	moles_of_gas = possible_gases[picked_gas]
-	switch(gas_type)
+	switch(picked_gas)
 		if("Oxygen")
 			linda_flags = LINDA_SPAWN_OXYGEN | LINDA_SPAWN_20C
 		if("Nitrogen")
