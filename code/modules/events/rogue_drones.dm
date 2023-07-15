@@ -15,6 +15,7 @@
 		drones_list.Add(D)
 
 /datum/event/rogue_drone/proc/remove_drone(mob/living/simple_animal/hostile/malf_drone/D)
+	SIGNAL_HANDLER
 	drones_list -= D
 
 /datum/event/rogue_drone/announce()
