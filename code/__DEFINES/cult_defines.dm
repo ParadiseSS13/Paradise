@@ -66,3 +66,8 @@
 #define NARSIE_NEEDS_SUMMONING 2
 #define NARSIE_HAS_RISEN 3
 #define NARSIE_HAS_FALLEN -1
+
+// Used in determining which cinematic to play when cult ends
+#define CULT_VICTORY_MASS_CONVERSION 2
+#define CULT_FAILURE_NARSIE_KILLED 1
+#define CULT_VICTORY_NUKE 0

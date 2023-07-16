@@ -52,8 +52,6 @@ SUBSYSTEM_DEF(ticker)
 	var/triai = FALSE
 	/// Holder for inital autotransfer vote timer
 	var/next_autotransfer = 0
-	/// Used for station explosion cinematic
-	var/obj/screen/cinematic = null
 	/// Spam Prevention. Announce round end only once.
 	var/round_end_announced = FALSE
 	/// Is the ticker currently processing? If FALSE, roundstart is delayed
@@ -340,32 +338,33 @@ SUBSYSTEM_DEF(ticker)
 	return TRUE
 
 
+<<<<<<< HEAD
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(nuke_site = NUKE_SITE_ON_STATION, override = null)
 	if(cinematic)
 		return	//already a cinematic in progress!
 
+=======
+/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
+>>>>>>> 953faf7429 (refactor: Cinematics)
 	auto_toggle_ooc(TRUE) // Turn it on
-	//initialise our cinematic screen object
-	cinematic = new /obj/screen(src)
-	cinematic.icon = 'icons/effects/station_explosion.dmi'
-	cinematic.icon_state = "station_intact"
-	cinematic.layer = 21
-	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	cinematic.screen_loc = "1,1"
 
+<<<<<<< HEAD
 	if(nuke_site == NUKE_SITE_ON_STATION)
 		// Kill everyone on z-level 1 except for mobs in freezers and
 		// malfunctioning AIs.
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD)
+=======
+	if(!station_missed) //nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
+		for(var/mob/M in GLOB.mob_list)
+			if(M.stat != DEAD && !(issilicon(M) && override == "AI malfunction"))
+>>>>>>> 953faf7429 (refactor: Cinematics)
 				var/turf/T = get_turf(M)
-				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer) && !(issilicon(M) && override == "AI malfunction"))
-					to_chat(M, "<span class='danger'><B>The blast wave from the explosion tears you atom from atom!</B></span>")
-					var/mob/ghost = M.ghostize()
+				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
+					M.ghostize()
 					M.dust() //no mercy
-					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
-						ghost.client.screen += cinematic
 					CHECK_TICK
+<<<<<<< HEAD
 			if(M && M.client) //Play the survivors a cinematic.
 				M.client.screen += cinematic
 	else
@@ -377,22 +376,37 @@ SUBSYSTEM_DEF(ticker)
 		//Now animate the cinematic
 		if(NUKE_SITE_ON_STATION)
 			// station was destroyed
+=======
+
+	//Now animate the cinematic
+	switch(station_missed)
+		//nuke was nearby but (mostly) missed
+		if(1)
+			if(mode && !override)
+				override = mode.name
+			switch(override)
+				if("nuclear emergency") //Nuke wasn't on station when it blew up
+					play_cinematic(/datum/cinematic/nuke/ops_miss, world)
+				if("fake") //The round isn't over, we're just freaking people out for fun
+					play_cinematic(/datum/cinematic/nuke/fake, world)
+				else
+					play_cinematic(/datum/cinematic/nuke/self_destruct_miss, world)
+		//nuke was nowhere nearby	//TODO: a really distant explosion animation
+		if(2)
+			play_cinematic(/datum/cinematic/nuke/far_explosion, world)
+		else	//station was destroyed
+>>>>>>> 953faf7429 (refactor: Cinematics)
 			if(mode && !override)
 				override = mode.name
 			switch(override)
 				if("nuclear emergency") //Nuke Ops successfully bombed the station
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_nukewin"
+					play_cinematic(/datum/cinematic/nuke/ops_victory, world)
 				if("AI malfunction") //Malf (screen,explosion,summary)
-					flick("intro_malf", cinematic)
-					sleep(76)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_malf"
+					play_cinematic(/datum/cinematic/malf, world)
+				if("blob") //Station nuked (nuke,explosion,summary)
+					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
 				else //Station nuked (nuke,explosion,summary)
+<<<<<<< HEAD
 					flick("intro_nuke", cinematic)
 					sleep(35)
 					flick("station_explode_fade_red", cinematic)
@@ -432,6 +446,9 @@ SUBSYSTEM_DEF(ticker)
 		QDEL_NULL(cinematic)		//end the cinematic
 
 
+=======
+					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
+>>>>>>> 953faf7429 (refactor: Cinematics)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)

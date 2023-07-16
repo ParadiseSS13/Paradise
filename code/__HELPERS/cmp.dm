@@ -54,3 +54,6 @@
 
 /proc/cmp_login_processor_priority(datum/client_login_processor/A, datum/client_login_processor/B)
 	return A.priority - B.priority
+
+/proc/cmp_typepaths_asc(A, B)
+	return sorttext("[B]","[A]")

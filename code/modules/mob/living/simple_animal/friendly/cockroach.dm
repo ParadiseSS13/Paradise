@@ -23,7 +23,7 @@
 	del_on_death = TRUE
 
 /mob/living/simple_animal/cockroach/can_die()
-	return ..() && !SSticker.cinematic //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
+	return ..()
 
 /mob/living/simple_animal/cockroach/Initialize(mapload) //Lizards are a great way to deal with cockroaches
 	. = ..()

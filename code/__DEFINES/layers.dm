@@ -140,6 +140,9 @@
 #define SPLASHSCREEN_LAYER 23
 #define SPLASHSCREEN_PLANE 23
 
+///cinematics are "below" the splash screen
+#define CINEMATIC_LAYER -1
+
 #define HUD_PLANE_BUILDMODE 30
 
 // This should always be on top. No exceptions.

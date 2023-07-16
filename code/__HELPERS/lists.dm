@@ -866,3 +866,7 @@
 // Pick something else from a list than we last picked
 /proc/pick_excluding(list/l, exclude)
 	return pick(l - exclude)
+
+///sort any value in a list
+/proc/sort_list(list/list_to_sort, cmp=/proc/cmp_text_asc)
+	return sortTim(list_to_sort.Copy(), cmp)
