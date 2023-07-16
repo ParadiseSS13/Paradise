@@ -58,7 +58,7 @@
 /turf/space,
 /area/template_noop)
 "t" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -97,7 +97,7 @@
 /turf/space,
 /area/space)
 "D" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
@@ -133,7 +133,7 @@
 /obj/machinery/power/apc/worn_out{
 	pixel_y = -24
 	},
-/obj/structure/cable,
+/obj/structure/cable/low_voltage,
 /turf/simulated/floor/plating,
 /area/space)
 "Q" = (

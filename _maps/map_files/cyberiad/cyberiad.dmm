@@ -23,7 +23,7 @@
 /area/maintenance/fpmaint)
 "aaf" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -896,7 +896,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -3873,7 +3873,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -9848,7 +9848,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "aBG" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -9862,7 +9862,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -14888,7 +14888,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -23999,7 +23999,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -24067,7 +24067,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "bkr" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -24541,7 +24541,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -24559,7 +24559,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -24602,7 +24602,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -24743,7 +24743,7 @@
 /area/bridge)
 "blV" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -25370,7 +25370,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -25412,7 +25412,7 @@
 	c_tag = "Arrivals Hallway";
 	dir = 8
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -25443,7 +25443,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -25506,7 +25506,7 @@
 /area/maintenance/port)
 "bnL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -26037,7 +26037,7 @@
 	},
 /area/hydroponics)
 "boW" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -26142,7 +26142,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -27321,7 +27321,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -27332,7 +27332,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/atmospherics/meter,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -27537,7 +27537,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -27566,7 +27566,7 @@
 /turf/simulated/wall/r_wall,
 /area/hallway/primary/central/ne)
 "bsM" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -27599,7 +27599,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -27869,7 +27869,7 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "btH" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -27916,7 +27916,7 @@
 	},
 /area/crew_quarters/kitchen)
 "btL" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -28954,7 +28954,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -28966,7 +28966,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -29139,7 +29139,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -29199,7 +29199,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -29759,7 +29759,7 @@
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bye" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -29839,7 +29839,7 @@
 	pixel_x = 11
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -30360,7 +30360,7 @@
 /area/hallway/secondary/exit)
 "bzz" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -30731,7 +30731,7 @@
 "bAu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -31195,7 +31195,7 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "bBH" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -31206,7 +31206,7 @@
 /turf/simulated/floor/carpet,
 /area/security/vacantoffice)
 "bBI" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -31214,7 +31214,7 @@
 /turf/simulated/floor/carpet,
 /area/security/vacantoffice)
 "bBJ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -31253,7 +31253,7 @@
 	c_tag = "Locker Room Toilets";
 	dir = 9
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -31783,7 +31783,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -31867,12 +31867,12 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -32173,7 +32173,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -32282,7 +32282,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -32644,7 +32644,7 @@
 "bFM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -33147,7 +33147,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -33518,7 +33518,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -33632,7 +33632,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -34000,7 +34000,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -34261,7 +34261,7 @@
 	},
 /area/medical/reception)
 "bKb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -34397,7 +34397,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bKD" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -34414,7 +34414,7 @@
 "bKE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -34493,7 +34493,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -34544,7 +34544,7 @@
 /area/assembly/robotics)
 "bKU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -34570,7 +34570,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 9
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -34734,7 +34734,7 @@
 	},
 /area/medical/reception)
 "bLA" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -34746,7 +34746,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -34823,7 +34823,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -34920,7 +34920,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -34935,12 +34935,12 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -35524,7 +35524,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -35554,7 +35554,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -40778,7 +40778,7 @@
 	pixel_x = -24
 	},
 /obj/item/twohanded/required/kirbyplants,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -42019,7 +42019,7 @@
 	},
 /area/assembly/robotics)
 "cdE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -42114,7 +42114,7 @@
 	},
 /area/toxins/hallway)
 "cdQ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -42528,7 +42528,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -42578,7 +42578,7 @@
 	},
 /area/quartermaster/miningdock)
 "cfd" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -42593,7 +42593,7 @@
 /turf/simulated/floor/wood,
 /area/ntrep)
 "cfg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -42607,7 +42607,7 @@
 	codes_txt = "patrol;next_patrol=AIW";
 	location = "QM"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -42632,17 +42632,17 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "cfj" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -42732,7 +42732,7 @@
 /area/janitor)
 "cfq" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -43635,7 +43635,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -43950,7 +43950,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "cji" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -43960,7 +43960,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -44267,7 +44267,7 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -44426,7 +44426,7 @@
 	name = "Blueshield's Office";
 	req_access_txt = "67"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -44658,7 +44658,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cls" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -45115,7 +45115,7 @@
 /area/maintenance/aft)
 "cmK" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -45132,7 +45132,7 @@
 	},
 /area/medical/medbay)
 "cmM" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -45278,7 +45278,7 @@
 /turf/simulated/wall,
 /area/toxins/test_area)
 "cnm" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -45501,7 +45501,7 @@
 	},
 /area/quartermaster/miningdock)
 "cnU" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -45612,7 +45612,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "col" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -45764,7 +45764,7 @@
 /turf/simulated/floor/wood,
 /area/blueshield)
 "coV" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -46265,7 +46265,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "cqJ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -46285,7 +46285,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -46349,7 +46349,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -48438,7 +48438,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -48564,7 +48564,7 @@
 /area/storage/tech)
 "cwV" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -49062,12 +49062,12 @@
 	dir = 4
 	},
 /obj/structure/grille/broken,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -49693,7 +49693,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -50194,7 +50194,7 @@
 /area/maintenance/asmaint)
 "cBh" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -51696,7 +51696,7 @@
 /area/toxins/misc_lab)
 "cFX" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -51748,7 +51748,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "cGf" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -51782,7 +51782,7 @@
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cGn" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -51913,7 +51913,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cGE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -52340,7 +52340,7 @@
 	},
 /area/toxins/explab)
 "cHB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -52362,7 +52362,7 @@
 /area/hallway/primary/aft)
 "cHE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -52461,7 +52461,7 @@
 /area/engine/break_room)
 "cHR" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -53232,7 +53232,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -53263,7 +53263,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cKe" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -53462,7 +53462,7 @@
 /area/maintenance/asmaint2)
 "cKR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -53693,7 +53693,7 @@
 /turf/simulated/wall,
 /area/ntrep)
 "cLF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -54013,7 +54013,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "cMD" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -54364,7 +54364,7 @@
 /obj/machinery/atmospherics/binary/valve/open{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -55992,7 +55992,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -56234,7 +56234,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -56602,7 +56602,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "cUf" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -56910,7 +56910,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -56988,7 +56988,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -58585,7 +58585,7 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -59925,7 +59925,7 @@
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "dfr" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -63282,7 +63282,7 @@
 /area/aisat/atmos)
 "dqi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -63427,7 +63427,7 @@
 /turf/simulated/floor/plating,
 /area/aisat/hall)
 "dra" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -64038,7 +64038,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -64297,7 +64297,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -64351,7 +64351,7 @@
 "dET" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -64730,7 +64730,7 @@
 	},
 /area/medical/surgery2)
 "dSe" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -64895,7 +64895,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -64936,7 +64936,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -65316,7 +65316,7 @@
 /area/security/brig)
 "ehg" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -65395,7 +65395,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -65794,7 +65794,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "exN" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -65827,7 +65827,7 @@
 /area/maintenance/disposal)
 "ezn" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -65874,12 +65874,12 @@
 /area/medical/cmostore)
 "eAq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -65899,7 +65899,7 @@
 /turf/simulated/floor/plating,
 /area/medical/coldroom)
 "eAw" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -66169,7 +66169,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -66502,7 +66502,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/meter,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -66606,7 +66606,7 @@
 /area/maintenance/asmaint)
 "fcQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -66837,7 +66837,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "fkr" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -66938,7 +66938,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -67471,7 +67471,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -67565,7 +67565,7 @@
 /area/maintenance/fsmaint)
 "fHB" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -67609,12 +67609,12 @@
 	},
 /area/crew_quarters/dorms)
 "fIO" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -68249,7 +68249,7 @@
 	amount = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -68470,7 +68470,7 @@
 "gqA" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -68699,7 +68699,7 @@
 	},
 /area/security/permabrig)
 "gxl" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -68896,7 +68896,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -68930,7 +68930,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "gId" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -69137,7 +69137,7 @@
 	},
 /area/medical/virology)
 "gNx" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -69198,7 +69198,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -69294,7 +69294,7 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -69350,12 +69350,12 @@
 	},
 /area/toxins/hallway)
 "gST" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -69768,7 +69768,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 9
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -70208,7 +70208,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "htY" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -70254,7 +70254,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 8
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -70273,7 +70273,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/grille_maybe,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -70672,7 +70672,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "hHk" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -71421,7 +71421,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "ifN" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -71541,7 +71541,7 @@
 /area/toxins/mixing)
 "ilh" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -71567,7 +71567,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -71781,12 +71781,12 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -72041,7 +72041,7 @@
 /area/maintenance/asmaint2)
 "iEo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -72147,7 +72147,7 @@
 "iHI" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/grille/broken,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -72354,7 +72354,7 @@
 /area/medical/medbay)
 "iUo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -72457,7 +72457,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -72559,7 +72559,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -72667,7 +72667,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
 "jix" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -72723,7 +72723,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "jnc" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -73081,7 +73081,7 @@
 /area/security/prisonlockers)
 "jDv" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -73105,7 +73105,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -73121,7 +73121,7 @@
 	name = "Maintenance Airlock"
 	},
 /obj/structure/barricade/wooden,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -73724,7 +73724,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -74723,7 +74723,7 @@
 	},
 /area/toxins/mixing)
 "kLd" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -74884,7 +74884,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -74906,7 +74906,7 @@
 /area/security/permabrig)
 "kSP" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -75241,7 +75241,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -75427,7 +75427,7 @@
 	},
 /area/medical/surgery1)
 "lmM" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -75578,7 +75578,7 @@
 "lsS" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -75765,7 +75765,7 @@
 	},
 /area/toxins/xenobiology)
 "lDe" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -75774,7 +75774,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -76073,7 +76073,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -76106,7 +76106,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -76179,7 +76179,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -76464,7 +76464,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -76515,7 +76515,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "mcW" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -76587,7 +76587,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "mfv" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -76857,7 +76857,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -77345,7 +77345,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "mJb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -77395,7 +77395,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "mKq" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -77622,7 +77622,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "mSb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -77723,7 +77723,7 @@
 /area/engine/engineering)
 "mXJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -77924,7 +77924,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -78776,7 +78776,7 @@
 /area/maintenance/apmaint2)
 "nOz" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -78818,7 +78818,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -78869,7 +78869,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -78923,7 +78923,7 @@
 	},
 /area/engine/engineering)
 "nVM" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -79241,7 +79241,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -79442,7 +79442,7 @@
 /obj/item/seeds/potato,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -80105,7 +80105,7 @@
 /turf/simulated/floor/engine/o2,
 /area/atmos)
 "oLJ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -80454,7 +80454,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -80584,7 +80584,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -80954,7 +80954,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "ppo" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -81021,7 +81021,7 @@
 	name = "NT Representative's Office";
 	req_access_txt = "73"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -81482,12 +81482,12 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "pGh" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -81506,7 +81506,7 @@
 /turf/simulated/floor/plating/airless,
 /area/maintenance/asmaint)
 "pIR" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -81872,7 +81872,7 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "pUZ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -81905,7 +81905,7 @@
 	},
 /area/maintenance/asmaint)
 "pYT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -81986,7 +81986,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -82056,7 +82056,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -82271,12 +82271,12 @@
 /area/maintenance/asmaint)
 "qlY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -82415,7 +82415,7 @@
 	},
 /area/security/permabrig)
 "qod" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -82536,7 +82536,7 @@
 "qsB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -82790,7 +82790,7 @@
 /turf/simulated/floor/plating,
 /area/security/brig)
 "qBT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -82966,7 +82966,7 @@
 /area/medical/sleeper)
 "qFN" = (
 /obj/structure/grille/broken,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -82979,7 +82979,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "qGb" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -83012,7 +83012,7 @@
 /area/turret_protected/aisat_interior)
 "qGT" = (
 /obj/structure/closet/firecloset,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -83180,7 +83180,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/glasses/sunglasses/blindfold,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -83441,7 +83441,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/aft)
 "qUZ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -83452,7 +83452,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "qWJ" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -83748,7 +83748,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -83791,7 +83791,7 @@
 /area/maintenance/asmaint)
 "rgb" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -84319,7 +84319,7 @@
 "rEa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -84340,7 +84340,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -84434,7 +84434,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -84503,7 +84503,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "rMp" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -84745,7 +84745,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -84796,7 +84796,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "rVV" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -84883,7 +84883,7 @@
 /area/maintenance/apmaint2)
 "rZE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -84893,7 +84893,7 @@
 "saV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -84939,7 +84939,7 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "NT"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -84985,7 +84985,7 @@
 	},
 /area/medical/morgue)
 "seV" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -84999,7 +84999,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -85765,7 +85765,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -85819,7 +85819,7 @@
 /obj/machinery/door/airlock/welded,
 /obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -86218,12 +86218,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "sXR" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -86432,7 +86432,7 @@
 /area/maintenance/apmaint2)
 "tdj" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -86549,7 +86549,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -86695,7 +86695,7 @@
 	},
 /area/medical/morgue)
 "tst" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -86865,12 +86865,12 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -86895,7 +86895,7 @@
 	req_access_txt = "12"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -86922,7 +86922,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "tzE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -87046,7 +87046,7 @@
 /area/engine/engineering)
 "tEt" = (
 /obj/effect/spawner/random_spawners/grille_maybe,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -87137,7 +87137,7 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -87169,7 +87169,7 @@
 	},
 /area/toxins/server)
 "tIs" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -87290,7 +87290,7 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -87920,7 +87920,7 @@
 /area/toxins/hallway)
 "ueC" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -88441,7 +88441,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -88531,7 +88531,7 @@
 	},
 /area/assembly/robotics)
 "uyl" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -88561,7 +88561,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "uAa" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -88668,7 +88668,7 @@
 /area/toxins/mixing)
 "uEr" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -88677,7 +88677,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "uEF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -88812,7 +88812,7 @@
 /area/medical/medbay)
 "uIo" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -89012,7 +89012,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -89040,12 +89040,12 @@
 /area/medical/genetics)
 "uRo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -89173,7 +89173,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -89581,7 +89581,7 @@
 /area/maintenance/asmaint2)
 "vjs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -89590,7 +89590,7 @@
 /area/maintenance/apmaint)
 "vjx" = (
 /obj/structure/girder,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -89607,7 +89607,7 @@
 /area/maintenance/apmaint)
 "vkG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -89851,7 +89851,7 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -89885,7 +89885,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "vwg" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -90412,7 +90412,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "vLT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -90479,7 +90479,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -90529,7 +90529,7 @@
 	name = "HoP Office";
 	sort_type_txt = "15"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -90558,7 +90558,7 @@
 /area/security/permabrig)
 "vPC" = (
 /obj/item/mounted/frame/apc_frame,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -90731,7 +90731,7 @@
 	},
 /area/medical/virology)
 "vVB" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -90791,7 +90791,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -90840,7 +90840,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "vYD" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -90955,7 +90955,7 @@
 /area/hallway/primary/port)
 "weq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -91156,7 +91156,7 @@
 /area/toxins/xenobiology)
 "wlv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -91328,7 +91328,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -91445,7 +91445,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "wye" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -91796,7 +91796,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -91970,7 +91970,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -92358,7 +92358,7 @@
 /area/engine/hardsuitstorage)
 "xnn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -92505,7 +92505,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -92584,7 +92584,7 @@
 /area/medical/virology)
 "xwY" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -92687,7 +92687,7 @@
 	},
 /area/toxins/mixing)
 "xAK" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -92815,7 +92815,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -93096,7 +93096,7 @@
 	},
 /area/maintenance/aft)
 "xSq" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -93166,7 +93166,7 @@
 	},
 /area/toxins/xenobiology)
 "xUW" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -93188,12 +93188,12 @@
 /area/toxins/xenobiology)
 "xVy" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -93422,7 +93422,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "yav" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -93519,7 +93519,7 @@
 	},
 /area/security/hos)
 "yfY" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -93683,7 +93683,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"

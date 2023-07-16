@@ -7,7 +7,7 @@
 	activated = 1;
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -15,7 +15,7 @@
 /area/ruin/space/unpowered)
 "ac" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -27,11 +27,11 @@
 	activated = 1;
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -43,13 +43,13 @@
 	activated = 1;
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -60,7 +60,7 @@
 	activated = 1;
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -82,7 +82,7 @@
 /area/ruin/space/unpowered)
 "ak" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -188,7 +188,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "aD" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -206,21 +206,21 @@
 	activated = 1;
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4";
@@ -229,7 +229,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aF" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -238,7 +238,7 @@
 /area/ruin/space/unpowered)
 "aG" = (
 /obj/structure/table/reinforced,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -249,7 +249,7 @@
 	},
 /area/ruin/space/unpowered)
 "aH" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -259,7 +259,7 @@
 "aI" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/med_data/laptop,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -273,18 +273,18 @@
 	activated = 1;
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -302,7 +302,7 @@
 	},
 /area/ruin/space/unpowered)
 "aM" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -349,7 +349,7 @@
 	dir = 8;
 	pixel_x = -24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -361,12 +361,12 @@
 	},
 /area/ruin/space/unpowered)
 "aT" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -451,7 +451,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bc" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -460,7 +460,7 @@
 /area/ruin/space/unpowered)
 "bd" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -479,7 +479,7 @@
 	name = "power storage unit"
 	},
 /obj/structure/cable,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -555,19 +555,19 @@
 	activated = 1;
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/structure/cable,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -594,7 +594,7 @@
 "br" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -604,17 +604,17 @@
 	},
 /area/ruin/space/unpowered)
 "bs" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -622,7 +622,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bt" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -754,7 +754,7 @@
 	activated = 1;
 	anchored = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8";
@@ -771,7 +771,7 @@
 /turf/simulated/floor/plating,
 /area/space/nearstation)
 "bS" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"

@@ -535,7 +535,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "KX" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -797,7 +797,7 @@
 	name = "Worn-out APC";
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-2"
 	},

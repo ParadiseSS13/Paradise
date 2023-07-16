@@ -24,17 +24,17 @@
 	},
 /area/ruin/space/djstation/solars)
 "af" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -51,7 +51,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "ah" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -71,7 +71,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "al" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -80,7 +80,7 @@
 /area/ruin/space/djstation)
 "am" = (
 /obj/effect/spawner/window/shuttle,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -89,7 +89,7 @@
 /area/ruin/space/djstation)
 "an" = (
 /obj/effect/spawner/window/shuttle,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -101,7 +101,7 @@
 /area/ruin/space/djstation)
 "ap" = (
 /obj/effect/spawner/window/shuttle,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -109,7 +109,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aq" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -118,7 +118,7 @@
 /area/ruin/space/djstation)
 "as" = (
 /obj/effect/spawner/window/shuttle,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -147,17 +147,17 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "ax" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -166,7 +166,7 @@
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
 "ay" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -191,17 +191,17 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aC" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -210,7 +210,7 @@
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
 "aE" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -222,7 +222,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aG" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},
@@ -239,13 +239,13 @@
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
 "aI" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -254,7 +254,7 @@
 /area/ruin/space/djstation)
 "aJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -263,12 +263,12 @@
 /area/ruin/space/djstation)
 "aK" = (
 /obj/effect/spawner/window/shuttle,
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -280,7 +280,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aM" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 4;
 	icon_state = "0-4"
 	},
@@ -292,7 +292,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aN" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
@@ -304,7 +304,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aO" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"

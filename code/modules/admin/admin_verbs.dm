@@ -147,6 +147,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/cmd_debug_make_powernets,
+	/client/proc/powernet_debugger,
 	/client/proc/debug_controller,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,

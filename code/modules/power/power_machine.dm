@@ -3,24 +3,36 @@
 //////////////////////////////
 #warn UPDATE_ALL_OF_THIS_FOR_HV
 
+
+
 /obj/machinery/power
 	name = null
 	icon = 'icons/obj/power.dmi'
 	anchored = TRUE
 	on_blueprints = TRUE
 	power_state = NO_POWER_USE
+	interact_offline = TRUE // by default, most power machines should be interactable without power :)
 
+	/// The voltage type this machine can properly interface with on powernets
 	var/power_voltage_type = VOLTAGE_LOW
-
+	/// The default method that this power machine will use to connect to the powernet
 	var/powernet_connection_type = PW_CONNECTION_NODE
 
 	var/list/linked_connectors = list()
 	/// The regional powernet this power machine is hooked into
 	var/datum/regional_powernet/powernet = null
 
+	///
+	var/electrified = MACHINE_ELECTRIFIED_NONE
+
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
 	return ..()
+
+
+/obj/machinery/power/attack_hand(mob/user)
+	. = ..()
+	attack_zap_check(user)
 
 /*
 	* # Power Value Getter/Setter Procs
@@ -95,10 +107,12 @@
 	return TRUE
 
 /obj/machinery/power/proc/connect_to_hv_connectors()
+	. = FALSE
 	for(var/obj/machinery/power/hv_connector/connector in range(src, 1))
 		if(connector.Adjacent(src) && connector.dir == get_dir(get_turf(connector), get_turf(src)))
 			connector.link_power_machine(src)
 			linked_connectors |= connector
+			. = TRUE
 
 // remove and disconnect the machine from its current powernet
 /obj/machinery/power/proc/disconnect_from_network()
@@ -133,6 +147,8 @@
 ///////////////////////////////////////////////
 
 
-
-
-
+/// Electricity fucking hurts! Let's make sure players understand that
+/obj/machinery/power/proc/attack_zap_check(mob/living/user)
+	if(!istype(user))
+		return MACHINE_ELECTRIFIED_NONE
+	return MACHINE_ELECTRIFIED_NONE

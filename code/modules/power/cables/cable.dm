@@ -263,7 +263,7 @@ By design, d1 is the smallest direction and d2 is the highest
 			continue
 		if(C.d1 == FLIP_DIR_HORIZONTALLY(direction) || C.d2 == FLIP_DIR_HORIZONTALLY(direction)) //we've got a diagonally matching cable
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
-				var/datum/regional_powernet/new_powernet = new(C)
+				new /datum/regional_powernet(C)
 			if(powernet) //if we already have a powernet, then merge the two powernets
 				merge_powernets(powernet, C.powernet)
 			else

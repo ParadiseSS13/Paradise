@@ -76,7 +76,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "p" = (
-/obj/structure/cable{
+/obj/structure/cable/low_voltage{
 	d2 = 2;
 	icon_state = "0-2"
 	},

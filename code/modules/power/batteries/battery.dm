@@ -1,3 +1,9 @@
+#define BATTERY_STATUS_CHARGING		"Battery Charging"
+#define BATTERY_STATUS_DRAINING		"Battery Draining"
+#define BATTERY_STATUS_DISCHARGING 	"Battery Discharging"
+#define BATTERY_STATUS_OVERCHARGING "Battery Overcharging"
+#define BATTERY_STATUS_IDLE			"Battery Idle"
+#define BATTERY_STATUS_DISABLED		"Battery Disabled"
 
 /obj/machinery/power/battery
 	name = "power battery"
@@ -5,8 +11,27 @@
 	icon_state = "smes"
 	density = TRUE
 
+
+	powernet_connection_type = PW_CONNECTION_NODE
+	//
 	var/charge = 0 // actual charge
 	var/max_capacity = DEFAULT_SAFE_CAPACITY * 2
+	var/battery_status = "FUCK"
+
+/obj/machinery/power/battery/Initialize(mapload)
+	. = ..()
+	connect_to_network()
+
+/obj/machinery/power/battery/connect_to_network(connection_method = powernet_connection_type)
+	. = ..()
+	if(!.)
+		return
+	powernet.batteries |= src
+
+/obj/machinery/power/battery/disconnect_from_network()
+	powernet.batteries -= src
+	return ..()
+
 
 /// will remove charge from the battery equal to the amount specified or up to what charge is left in the battery, returns amount of energy consumed
 /obj/machinery/power/battery/proc/consume_charge(amount)

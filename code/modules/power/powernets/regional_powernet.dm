@@ -193,7 +193,6 @@
 				transformer.produce_direct_power(transformer.wattage_setting)
 			for(var/obj/machinery/power/load_limiter/limiter in subnet_connectors)
 				limiter.produce_direct_power(limiter.wattage_setting)
-		power_demand = available_power // ALL THE POWER HAS BEEN CONSUMED!!!!!!!
 	else // we have more than enough power so we can fully power each subnet connector!
 		for(var/obj/machinery/power/transformer/transformer in subnet_connectors)
 			transformer.produce_direct_power(transformer.wattage_setting)
@@ -202,9 +201,10 @@
 			limiter.produce_direct_power(limiter.wattage_setting)
 			power_demand += limiter.wattage_setting
 		feed_the_batteries(calculate_surplus())
+	power_demand += total_wattage_load
 
 /datum/regional_powernet/proc/bleed_the_batteries(john_madden)
-	var/power_per_battery = john_madden / length(batteries)
+	var/power_per_battery = length(batteries) ? john_madden / length(batteries) : john_madden
 	switch(power_voltage_type)
 		if(VOLTAGE_LOW)
 			for(var/obj/machinery/power/battery/smes/battery in batteries)
@@ -238,7 +238,9 @@
 			var/left_over_charge = 0
 			for(var/obj/machinery/power/battery/accumulator/battery in batteries)
 				// our left over charge is equal to the different between what charge we were able to add and what we actually added
+				var/previous_left_over = left_over_charge
 				left_over_charge = (amount_to_restore + left_over_charge) - battery.add_charge(amount_to_restore + left_over_charge)
+				battery.consume_direct_power(amount_to_restore - (previous_left_over - left_over_charge))
 			return left_over_charge
 
 /datum/regional_powernet/proc/process_short_circuits()

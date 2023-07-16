@@ -1,0 +1,63 @@
+@use '../colors.scss';
+@use '../components/Button.scss';
+@use '../base.scss';
+
+.WirePanel-wires-container {
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+.WirePanel-wires-wire {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  justify-content: space-between;
+  // make it look like a physical wire
+  background-image: linear-gradient(
+    rgba(0,0,0, 1),
+    rgba(0,0,0, 0.8),
+    rgba(200,200,200, 0.2),
+    rgba(100,100,100, 0.1),
+    rgba(100,100,100, 0.1),
+    rgba(50,50,50, 0.2),
+    rgba(25,25,25, 0.7),
+    rgba(0,0,0, 0.8),
+    rgba(0,0,0, 1),
+  )
+  //background-color set from data
+}
+.WirePanel-wires-name {
+  font-weight: bold;
+  flex: flex-grow;
+  justify-content: center;
+  width: 70%;
+}
+
+// .WirePanel-wires-generic-button {
+//   background-color: colors.bg(colors.$average) !important;
+// }
+.breakerOn {
+  left: 30em;
+}
+
+.wirePanel-wires-buttons {
+  margin: 0.3em 0.5em 0.2em;
+  height: 2.2em;
+  padding: 0.2em 0.5em;
+  background-color: rgba(30,30,30,0.6);
+  display: flex;
+  align-items: center;
+}
+
+.WirePanel-wires-label {
+  display: inline-block;
+  height: 1.7em;
+  min-width: 8em;
+  padding: 0.3em 0.5em;
+  margin: 0.5em;
+  letter-spacing: 0.1em;
+  background-color: rgba(30,25,26, 0.95);
+  font-family: monospace;
+  text-align: center;
+  text-transform: uppercase;
+}

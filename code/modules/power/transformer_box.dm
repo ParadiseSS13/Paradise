@@ -1,4 +1,4 @@
-#define TRANSFORMER_WATTAGE_DEFAULT 50000
+#define TRANSFORMER_WATTAGE_DEFAULT 40000
 
 /obj/machinery/power/transformer
 	name = "Transformer Box"
@@ -9,8 +9,10 @@
 	density = TRUE
 	power_state = NO_POWER_USE
 
-	powernet_connection_type = PW_CONNECTION_CONNECTOR
+	power_voltage_type = VOLTAGE_LOW
+	powernet_connection_type = PW_CONNECTION_NODE
 
+	var/last_output = 0
 	var/wattage_setting = TRANSFORMER_WATTAGE_DEFAULT
 
 /obj/machinery/power/transformer/Initialize(mapload)
@@ -24,11 +26,8 @@
 	GLOB.transformers -= src
 	return ..()
 
-#warn fix shit here maybe?
-/obj/machinery/power/transformer/connect_to_node()
+/obj/machinery/power/transformer/produce_direct_power(amount)
 	. = ..()
 	if(!.)
 		return
-
-/obj/machinery/power/transformer/disconnect_from_network()
-	return ..()
+	last_output = amount

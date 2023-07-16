@@ -33,7 +33,8 @@
 // controls power to devices in that area
 // may be opened to change power cell
 // three different channels (lighting/equipment/environ) - may each be set to on, off, or auto
-
+#warn Implement power outage countdowns for channels on power loss
+#warn implement battery upgrades
 /obj/machinery/power/apc
 	name = "area power controller"
 	desc = "A control terminal for the area electrical systems."
@@ -912,6 +913,10 @@
 			L.nightshift_enabled = nightshift_lights
 			L.update(FALSE, play_sound = FALSE)
 		CHECK_TICK
+
+/obj/machinery/power/apc/proc/power_shutoff()
+	#warn implement fancy APC shutdowns
+	return
 
 /obj/machinery/power/apc/proc/relock_callback()
 	locked = TRUE

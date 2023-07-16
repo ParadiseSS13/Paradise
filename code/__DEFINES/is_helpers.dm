@@ -61,6 +61,7 @@
 #define iswrench(A)			(istype(A, /obj/item/wrench))
 #define iswelder(A)			(istype(A, /obj/item/weldingtool))
 #define iswirecutter(A)		(istype(A,  /obj/item/wirecutters))
+#define isboltcutter(A)		(istype(A,  /obj/item/boltcutters))
 #define isscrewdriver(A)	(istype(A, /obj/item/screwdriver))
 #define ismultitool(A) 		(istype(A, /obj/item/multitool))
 #define iscrowbar(A)		(istype(A, /obj/item/crowbar))
