@@ -641,3 +641,8 @@
 /datum/status_effect/thrall_net/on_remove()
 	. = ..()
 	vamp = null
+
+/datum/status_effect/rev_protection
+	// revs are paralyzed for 10 seconds when they're deconverted, same duration
+	duration = 10 SECONDS
+	alert_type = null

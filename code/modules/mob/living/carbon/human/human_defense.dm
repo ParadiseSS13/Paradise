@@ -511,7 +511,7 @@ emp_act
 							KnockDown(10 SECONDS)
 							AdjustConfused(30 SECONDS)
 						if(mind && prob(I.force + ((100 - health) / 2)) && src != user && I.damtype == BRUTE)
-							SSticker.mode.remove_revolutionary(mind)
+							SSticker.mode.remove_revolutionary(mind, activate_protection = TRUE)
 
 					if(bloody)//Apply blood
 						if(wear_mask)
@@ -739,6 +739,12 @@ emp_act
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	dna.species.water_act(src, volume, temperature, source, method)
+
+/mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
+	if((user.a_intent in list(INTENT_DISARM, INTENT_HARM)) && try_protection(user))
+		user.changeNext_move(CLICK_CD_MELEE)
+		return TRUE
+	return ..()
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))
