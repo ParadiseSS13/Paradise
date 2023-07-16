@@ -91,7 +91,7 @@
 		pixel_x = 0
 		pixel_y = 0
 		var/list/shocking_info = list()
-		tesla_zap(src, 3, TESLA_DEFAULT_POWER, shocked_targets = shocking_info)
+		tesla_zap(src, 3, TESLA_DEFAULT_POWER, shocked_targets = shocking_info, is_energy_ball = TRUE)
 
 		pixel_x = -32
 		pixel_y = -32
@@ -231,7 +231,7 @@
 	var/mob/living/carbon/C = A
 	C.dust()
 
-/proc/tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
+/proc/tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list(), is_energy_ball = FALSE)
 	if(QDELETED(source))
 		return
 	if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
@@ -296,9 +296,10 @@
 			closest_type = ROD
 			closest_atom = A
 
-		else if(istype(A, /obj/machinery/power/apc))
-			closest_type = APC
-			closest_atom = A
+		else if(is_energy_ball)
+			if(istype(A, /obj/machinery/power/apc))
+				closest_type = APC
+				closest_atom = A
 
 		else if(closest_type >= RIDE)
 			continue
@@ -377,11 +378,11 @@
 		power = closest_atom.zap_act(power, zap_flags)
 	if(prob(20)) //I know I know
 		var/list/shocked_copy = shocked_targets.Copy()
-		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_copy) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
-		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_targets)
+		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_copy, is_energy_ball = TRUE) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
+		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_targets, is_energy_ball = TRUE)
 		shocked_targets += shocked_copy
 	else
-		tesla_zap(closest_atom, next_range, power, zap_flags)
+		tesla_zap(closest_atom, next_range, power, zap_flags, is_energy_ball = TRUE)
 
 #undef COIL
 #undef ROD
