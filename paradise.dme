@@ -2459,6 +2459,7 @@
 #include "code\modules\redis\callbacks\asay_callback.dm"
 #include "code\modules\redis\callbacks\msay_callback.dm"
 #include "code\modules\redis\callbacks\server_messages_callback.dm"
+#include "code\modules\research\backup.dm"
 #include "code\modules\research\circuitprinter.dm"
 #include "code\modules\research\designs.dm"
 #include "code\modules\research\destructive_analyzer.dm"
