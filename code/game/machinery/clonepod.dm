@@ -176,22 +176,29 @@
 	if(currently_cloning)
 		clone_progress += speed_modifier
 		switch(clone_progress)
-			if(0 to 20)
+			if(0 to 10)
 				desc_flavor = "You see muscle quickly growing on a ribcage and skull inside [src]."
 				return
-			if(21 to 90)
+			if(11 to 90)
 				if(!clone)
 					create_clone()
 					return
 
-				if(!current_limb)
-					current_limb = pick(limbs_to_grow)
-					limbs_to_grow -= current_limb
+				if(clone.cloneloss >= 25)
+					clone.adjustCloneLoss(-2)
 					return
 
-				if(clone.cloneloss >= 25)
-					clone.adjustCloneLoss(-speed_modifier)
-					return
+				if(!current_limb)
+					if(!length(limbs_to_grow)) //if there's no current limb, we have no limbs left to grow, and there's <25 clone damage, we don't have anything left to do in this 'chunk' of clone_progress
+						desc_flavor = "You see skin and fat filling out on [clone]'s body."
+						return
+					for(var/limb_candidate in limbs_to_grow)
+						var/obj/item/organ/external/LC = clone.dna.species.has_limbs[limb_candidate]["path"]
+						if(initial(LC.parent_organ) in limbs_to_grow)
+							continue //If we haven't grown this limb's parent organ yet, we don't want to grow it now.
+						current_limb = limb_candidate //If we have grown it, then we're good to grow it now.
+						limbs_to_grow -= limb_candidate
+						return
 
 				if(!(current_limb in clone.bodyparts))
 					if(get_stored_organ(current_limb))
@@ -199,14 +206,16 @@
 						desc_flavor = "You see [src] attaching \a [EO.name] to [clone]."
 						EO.replaced(clone)
 						current_limb = null
-						clone.adjustCloneLoss(10)
+						clone.adjustCloneLoss(8/speed_modifier) //4 cycles to repair this normally, 2 at tier 2, 1 at tier 4. tier 3 is a decimal so essentially 2
+						clone.regenerate_icons()
 						return
 
-					var/obj/item/organ/external/EO = new clone.species.has_limbs[current_limb]["path"]
+					var/list/EO_path = clone.dna.species.has_limbs[current_limb]["path"]
+					var/obj/item/organ/external/EO = new EO_path(clone) //Passing a human to a limb's New() proc automatically attaches it
 					desc_flavor = "You see \a [EO.name] growing from [clone]'[clone.p_s()] [EO.amputation_point]."
-					EO.replaced(clone)
 					current_limb = null
-					clone.adjustCloneLoss(10)
+					clone.adjustCloneLoss(8/speed_modifier)
+					clone.regenerate_icons()
 					return
 
 			if(91 to 100)
@@ -269,10 +278,9 @@
 		organ.status = desired_data.organs[candidate_for_insertion][2]
 
 	clone.updatehealth("droplimb")
-	clone.UpdateDamageIcon()
 	clone.regenerate_icons()
-	clone.update_body(TRUE)
 
+	clone.set_heartattack(FALSE) //you are not allowed to die
 	clone.adjustCloneLoss(25) //to punish early ejects
 
 //This gets the cost of cloning, in a list with the form (biomass, sanguine reagent, osseous reagent).
