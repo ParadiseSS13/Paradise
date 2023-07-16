@@ -72,7 +72,7 @@
 			to_chat(user, "<span class='warning'>[src] hardly glows at all! Seems like the <b>power cell is empty</b>.</span>")
 			return
 		if(!anchored)
-			visible_message("<span class='warning'>[src] must be anchored first!</span>")
+			to_chat(user, "<span class='warning'>[src] must be anchored first!</span>")
 			return
 		on = TRUE
 		to_chat(user, "<span class='notice'>You turn on the light.</span>")
