@@ -16,6 +16,7 @@
 	icon_state = "judobelt"
 	item_state = "judo"
 	slot_flags = SLOT_BELT
+	w_class = WEIGHT_CLASS_BULKY
 	var/datum/martial_art/judo/style
 
 /obj/item/judobelt/Initialize()
