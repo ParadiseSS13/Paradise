@@ -6,6 +6,7 @@
 #include "_span/_span.dme"
 #include "crit_rework/_crit_rework.dme"
 #include "fullscreen/_fullscreen.dme"
+#include "gunhud/_gunhud.dme"
 #include "keybindings/_keybindings.dme"
 #include "prime_combat/_prime_combat.dme"
 #include "screentip_change/_screentip_change.dme"
