@@ -31,11 +31,6 @@
 /obj/effect/proc_holder/spell/vampire/self/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/vampire/after_cast(list/targets, mob/user)
-	. = ..()
-	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	cooldown_handler.start_recharge(cooldown_handler.recharge_duration * (vampire.cooldown_efficency / 100))
-
 /datum/vampire_passive
 	var/gain_desc
 	var/mob/living/owner = null
