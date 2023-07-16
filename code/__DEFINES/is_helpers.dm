@@ -1,5 +1,3 @@
-#define isdatum(thing) (istype(thing, /datum))
-
 // Atoms
 #define isatom(A) (isloc(A))
 
