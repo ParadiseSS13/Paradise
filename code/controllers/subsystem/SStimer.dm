@@ -547,6 +547,8 @@ SUBSYSTEM_DEF(timer)
 	if (callBack.object == GLOBAL_PROC)
 		. = "GLOBAL_PROC"
 	else
+		if(isnull(callBack.object))
+			CRASH("this timer is attached to no object, the attempted proc to call was [callBack.delegate]")
 		. = "[callBack.object.type]"
 
 GLOBAL_LIST_EMPTY(timers_by_type)
