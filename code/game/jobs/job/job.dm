@@ -57,7 +57,11 @@
 	// Assoc list of EXP_TYPE_ defines and the amount of time needed in those departments
 	var/list/exp_map = list()
 
-	var/disabilities_allowed = 1
+	/// Cannot pick this job if the character has these disabilities
+	var/list/blacklisted_disabilities = list()
+	/// If this job could have any amputated limbs
+	var/missing_limbs_allowed = TRUE
+
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
 
@@ -114,17 +118,28 @@
 
 	return max(0, minimal_player_age - C.player_age)
 
+/// Returns true if the character has a disability the selected job doesn't allow
 /datum/job/proc/barred_by_disability(client/C)
-	if(!C)
-		return 0
-	if(disabilities_allowed)
-		return 0
-	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
-	for(var/i = 1, i < prohibited_disabilities.len, i++)
-		var/this_disability = prohibited_disabilities[i]
-		if(C.prefs.active_character.disabilities & this_disability)
-			return 1
-	return 0
+	if(!C || !length(blacklisted_disabilities))
+		return FALSE
+	for(var/disability in blacklisted_disabilities)
+		if(C.prefs.active_character.disabilities & disability)
+			return TRUE
+	return FALSE
+
+/// Returns true if the character has amputated limbs when their selected job doesn't allow it
+/datum/job/proc/barred_by_missing_limbs(client/C)
+	if(!C || missing_limbs_allowed)
+		return FALSE
+
+	var/organ_status
+	var/list/active_character_organs = C.prefs.active_character.organ_data
+
+	for(var/organ_name in active_character_organs)
+		organ_status = active_character_organs[organ_name]
+		if(organ_status == "amputated")
+			return TRUE
+	return FALSE
 
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)

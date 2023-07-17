@@ -240,8 +240,7 @@
 	. = ..()
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
-		var/immune = istype(H.glasses, /obj/item/clothing/glasses/meson)
-		if(!immune && !HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+		if(!HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 			. += "<span class='danger'>You get headaches just from looking at it.</span>"
 	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of the use of the pseudo-perpetual energy source, the supermatter crystal.</span>"
 	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
@@ -551,7 +550,7 @@
 
 	//Makes em go mad and accumulate rads.
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
-		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION) && !HAS_TRAIT(l, SM_HALLUCINATION_IMMUNE))
+		if(!HAS_TRAIT(l, TRAIT_MESON_VISION) && !HAS_TRAIT(l, SM_HALLUCINATION_IMMUNE))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			var/hallucination_amount = power * hallucination_power * D
 			l.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)

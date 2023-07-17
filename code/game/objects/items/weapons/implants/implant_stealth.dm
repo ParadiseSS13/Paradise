@@ -95,7 +95,8 @@
 	desc = "It's so normal that you didn't notice it before."
 	icon_state = "agentbox"
 	max_integrity = 1
-	move_speed_multiplier = 0.5 // You can move at normal walk speed while in this box.
+	move_speed_multiplier = 0.5 // You can move at run speed while in this box.
+	material_drop = null
 	/// UID of the person who summoned this box with an implant.
 	var/implant_user_UID
 	// This has to be a separate object and not just an image because the image will inherit the box's 0 alpha while it is stealthed.

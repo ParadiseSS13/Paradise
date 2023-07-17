@@ -105,6 +105,19 @@
 		but avoid actively interfering with the station, you are required to adminhelp and request permission to board the main station.</span>")
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
+		if(owner.mind.special_role)
+			if(owner.mind.special_role == "Response Team")
+				return
+			new_spawn.mind.store_memory("<b>[owner.real_name], your creator, is an antagonist.</b>")
+			to_chat(new_spawn, "<b>[owner.real_name], your creator, is an antagonist.</b>")
+			SSticker.mode.traitors.Add(new_spawn.mind)
+			var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_TRAITOR]
+			hud.join_hud(new_spawn)
+			set_antag_hud(new_spawn.mind.current, "hudmindslave")
+			if(locate(/datum/objective/hijack) in owner.mind.get_all_objectives())
+				new_spawn.mind.store_memory("<b>They must hijack the shuttle.</b>")
+				to_chat(new_spawn, "<b>They are tasked with hijacking the shuttle.</b>")
+				set_antag_hud(new_spawn.mind.current, "hudslavehijack")
 		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 		log_admin("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 	if(ishuman(new_spawn))
