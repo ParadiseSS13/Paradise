@@ -127,38 +127,44 @@
 		SetViruses(src, data)
 
 /datum/reagent/blood/on_merge(list/mix_data)
-	if(data && mix_data)
-		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc coagulated
-		if(data["species"] != mix_data["species"] && (data["species_only"] == TRUE || mix_data["species_only"] == TRUE))
-			data["species"] = "Cogulated blood"
-			data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
-			data["species_only"] = TRUE
-		else if(data["species"] != mix_data["species"])
-			data["species"] = "Mixed Humanoid blood"
-		if(data["viruses"] || mix_data["viruses"])
+	if(!data || !mix_data)
+		return
 
-			var/list/mix1 = data["viruses"]
-			var/list/mix2 = mix_data["viruses"]
+	var/same_species = data["species"] == mix_data["species"]
+	var/species_unique = data["species_only"] || mix_data["species_only"]
+	var/species_mismatch = species_unique && !same_species
+	var/type_mismatch = data["blood_type"] != mix_data["blood_type"]
 
-			// Stop issues with the list changing during mixing.
-			var/list/to_mix = list()
+	if(mix_data["blood_color"])
+		color = mix_data["blood_color"]
+	data["cloneable"] = 0 // On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned
 
-			for(var/datum/disease/advance/AD in mix1)
-				to_mix += AD
-			for(var/datum/disease/advance/AD in mix2)
-				to_mix += AD
+	if(type_mismatch || species_mismatch)
+		data["species"] = "Coagulated blood"
+		data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
+		data["species_only"] = species_unique
+	else if(!same_species) // Same blood type, species-agnostic, but we're still mixing blood of different species
+		data["species"] = "Mixed humanoid blood"
 
-			var/datum/disease/advance/AD = Advance_Mix(to_mix)
-			if(AD)
-				var/list/preserve = list(AD)
-				for(var/D in data["viruses"])
-					if(!istype(D, /datum/disease/advance))
-						preserve += D
-				data["viruses"] = preserve
+	if(data["viruses"] || mix_data["viruses"])
+		var/list/mix1 = data["viruses"]
+		var/list/mix2 = mix_data["viruses"]
 
-		if(mix_data["blood_color"])
-			color = mix_data["blood_color"]
-	return 1
+		// Stop issues with the list changing during mixing.
+		var/list/to_mix = list()
+
+		for(var/datum/disease/advance/AD in mix1)
+			to_mix += AD
+		for(var/datum/disease/advance/AD in mix2)
+			to_mix += AD
+
+		var/datum/disease/advance/AD = Advance_Mix(to_mix)
+		if(AD)
+			var/list/preserve = list(AD)
+			for(var/D in data["viruses"])
+				if(!istype(D, /datum/disease/advance))
+					preserve += D
+			data["viruses"] = preserve
 
 /datum/reagent/blood/on_update(atom/A)
 	if(data["blood_color"])
@@ -197,9 +203,9 @@
 				D.cure()
 		M.resistances |= data
 
-/datum/reagent/vaccine/on_merge(list/data)
-	if(istype(data))
-		data |= data.Copy()
+/datum/reagent/vaccine/on_merge(list/incoming_data)
+	if(islist(incoming_data))
+		data |= incoming_data.Copy()
 
 /datum/reagent/fishwater
 	name = "Fish Water"
