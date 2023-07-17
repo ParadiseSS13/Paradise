@@ -161,7 +161,7 @@
  * 	0 if there's no room for the implant.
  */
 /obj/item/implant/proc/implant(mob/source, mob/user, force)
-	if(!force && cancel_implant(source, user))
+	if(!force && !can_implant(source, user))
 		return
 	var/obj/item/implant/imp_e = locate(type) in source
 	if(!allow_multiple && imp_e && imp_e != src)
@@ -208,11 +208,11 @@
  * * user - The person doing the implanting
  *
  * Returns
- * TRUE - Don't implant!
- * FALSE - I could care less, implant it, maybe don't. I don't care.
+ * TRUE - I could care less, implant it, maybe don't. I don't care.
+ * FALSE - Don't implant!
  */
-/obj/item/implant/proc/cancel_implant(mob/source, mob/user)
-	return FALSE
+/obj/item/implant/proc/can_implant(mob/source, mob/user)
+	return TRUE
 
 
 /**
