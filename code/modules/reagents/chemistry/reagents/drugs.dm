@@ -634,7 +634,7 @@
 		return list(effect, update_flags)
 
 	var/static/list/good_messages = list("YES! YES!! YES!!", "I AM UNSTOPPABLE", "THIS IS GREAT", "THERE WILL NEVER BE ANYONE BETTER",
-		 "GLORY IS MINE", "WE'RE SO BACK", "I AM FUCKING INVINCIBLE", "I'M HANGING IN THERE")
+		"GLORY IS MINE", "WE'RE SO BACK", "I AM FUCKING INVINCIBLE", "I'M HANGING IN THERE")
 	var/static/list/bad_messages = list("NO! NO!! NO!!", "OH MY GOD", "THEY'RE LOOKING AT ME", "KILLLL MEEE, KILLLLL ME",
 		"I CAN'T FUCKING TAKE IT ANYMORE", "ARRGH, IT'S OVER")
 
