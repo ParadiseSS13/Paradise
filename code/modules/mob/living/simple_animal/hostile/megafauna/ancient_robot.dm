@@ -530,7 +530,7 @@ Difficulty: Hard
 			if(mode == CRYO)
 				var/turf/simulated/S = get_turf(src)
 				S.MakeSlippery(TURF_WET_ICE)
-				for(var/turf/T in range (1,src))
+				for(var/turf/T in range (1, src))
 					new /obj/effect/snowcloud(T)
 					for(var/mob/living/carbon/C in T.contents)
 						C.bodytemperature = max(0, C.bodytemperature - 300) //Take a chill pill.
