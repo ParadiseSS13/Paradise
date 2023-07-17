@@ -121,6 +121,12 @@
 /turf/simulated/floor/transparent/glass/can_lay_cable()
 	return FALSE // this turf isn't "intact" but you also can't lay cable on it
 
+/turf/simulated/floor/transparent/glass/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	var/obj/item/thing = user.get_inactive_hand()
+	if(!thing || !prying_tool_list.Find(thing.tool_behaviour))
+		return
+	to_chat(user, "<span class='danger'>You need to hold two sheets of metal to dismantle \the [src]!</span>")
+
 /turf/simulated/floor/transparent/glass/reinforced
 	name = "reinforced glass floor"
 	desc = "Jump on it, it can cope. Promise..."
