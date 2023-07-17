@@ -951,13 +951,14 @@
 
 /datum/status_effect/cryo_beam/tick()
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacker = locateUID(source_UID)
-	if(owner in view(attacker, 8))
-		owner.apply_damage(damage, BURN)
-		owner.bodytemperature = max(0, owner.bodytemperature - 20)
-		owner.Beam(attacker.beam, icon_state = "medbeam", time = 0.5 SECONDS)
-		for(var/datum/reagent/R in owner.reagents.reagent_list)
-			owner.reagents.remove_reagent(R.id, 0.75)
-		if(prob(10))
-			to_chat(owner, "<span class='userdanger'>Your blood freezes in your veins, get away!</span>")
-	else
+	if(!(owner in view(attacker, 8)))
 		qdel(src)
+		return
+
+	owner.apply_damage(damage, BURN)
+	owner.bodytemperature = max(0, owner.bodytemperature - 20)
+	owner.Beam(attacker.beam, icon_state = "medbeam", time = 0.5 SECONDS)
+	for(var/datum/reagent/R in owner.reagents.reagent_list)
+		owner.reagents.remove_reagent(R.id, 0.75)
+	if(prob(10))
+		to_chat(owner, "<span class='userdanger'>Your blood freezes in your veins, get away!</span>")
