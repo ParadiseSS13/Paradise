@@ -8,15 +8,18 @@
 	density = FALSE
 	anchored = TRUE
 	var/obj/machinery/mineral/stacking_machine/machine
-	var/machinedir = SOUTHEAST
 
 /obj/machinery/mineral/stacking_unit_console/Initialize(mapload)
 	. = ..()
-	machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
+	for(var/obj/machinery/mineral/stacking_machine/found_machine in range(1, src))
+		machine = found_machine
+		break
+
 	if(machine)
 		machine.console = src
-	else
-		return INITIALIZE_HINT_QDEL
+		return
+
+	return INITIALIZE_HINT_QDEL
 
 /obj/machinery/mineral/stacking_unit_console/Destroy()
 	if(machine)
