@@ -627,7 +627,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/hidden_holster
 	name = "Hiden Holster Module"
 	desc = "A holster module disguised to look like a tether module. Requires a modsuit to put it in of course. Gun not included."
-	reference = "FNAF"
+	reference = "HHM"
 	item = /obj/item/mod/module/holster/hidden
 	cost = 1
 	surplus = 10
