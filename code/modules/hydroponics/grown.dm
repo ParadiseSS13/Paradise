@@ -178,6 +178,8 @@
 
 // For item-containing growns such as eggy or gatfruit
 /obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)
+	if(!do_after(user, 1.5 SECONDS, target = user))
+		return
 	user.unEquip(src)
 	if(trash)
 		var/obj/item/T = generate_trash()
