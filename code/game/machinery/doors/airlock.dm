@@ -326,7 +326,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			var/obj/item/clothing/gloves/G = H.gloves
 			if(G.siemens_coefficient == 0)
 				return FALSE
-	return TRUE
+
+	else if(isElectrified())
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/airlock/toggle_polarization()
 	polarized_on = !polarized_on
