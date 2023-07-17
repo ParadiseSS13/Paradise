@@ -110,7 +110,7 @@
 	desc = "It smells like burning."
 	icon_state = "gatfruit"
 	origin_tech = "combat=6"
-	trash = /obj/item/gun/projectile/revolver
+	trash = /obj/item/gun/projectile/revolver/overgrown
 	tastes = list("2nd amendment" = 1, "freedom" = 1)
 	bitesize_mod = 2
 	wine_power = 0.9 //It burns going down, too.

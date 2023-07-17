@@ -271,3 +271,20 @@
 
 /obj/item/stack/tile/disco_light/thirty
 	amount = 30
+
+/obj/item/stack/tile/catwalk
+	name = "catwalk tiles"
+	gender = PLURAL
+	singular_name = "catwalk tile"
+	desc = "A catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk"
+	force = 6
+	materials = list(MAT_METAL=500)
+	throwforce = 10
+	throw_speed = 3
+	throw_range = 7
+	flags = CONDUCT
+	turf_type = /turf/simulated/floor/catwalk
+	mineralType = "metal"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
+	resistance_flags = FIRE_PROOF

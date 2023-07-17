@@ -17,17 +17,20 @@
 	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
 
 /datum/event/brand_intelligence/start()
-	for(var/obj/machinery/economy/vending/V in GLOB.machines)
-		if(!is_station_level(V.z))
+	var/list/obj/machinery/economy/vending/leaderables = list()
+	for(var/obj/machinery/economy/vending/candidate in GLOB.machines)
+		if(!is_station_level(candidate.z))
 			continue
-		RegisterSignal(V, COMSIG_PARENT_QDELETING, PROC_REF(vendor_destroyed))
-		vendingMachines.Add(V)
+		RegisterSignal(candidate, COMSIG_PARENT_QDELETING, PROC_REF(vendor_destroyed))
+		vendingMachines.Add(candidate)
+		if(candidate.refill_canister)
+			leaderables.Add(candidate)
 
-	if(!length(vendingMachines))
+	if(!length(leaderables))
 		kill()
 		return
 
-	originMachine = pick(vendingMachines)
+	originMachine = pick(leaderables)
 	vendingMachines.Remove(originMachine)
 	originMachine.shut_up = FALSE
 	originMachine.shoot_inventory = TRUE
