@@ -123,6 +123,34 @@
 	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
 	lastused = world.time
 
+/obj/item/toy/syndicateballoon/suicide_act(mob/living/user)
+	. = ..()
+	if(!user)
+		return
+
+	user.visible_message("<span class='suicide'>[user] ties [src] around [user.p_their()] neck and starts to float away! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
+	playsound(get_turf(user), 'sound/magic/fleshtostone.ogg', 80, TRUE)
+
+	user.Immobilize(10 SECONDS)
+
+	// yes im stealing fulton code
+	var/obj/effect/extraction_holder/holder_obj = new(get_turf(user))
+	holder_obj.appearance = user.appearance
+
+	user.forceMove(holder_obj)
+	animate(holder_obj, pixel_z = 1000, time = 50)
+
+	for(var/obj/item/W in user)
+		user.unEquip(W)
+
+	user.notransform = TRUE
+	icon = null
+	invisibility = 101
+	QDEL_IN(user, 2 SECONDS)
+	QDEL_IN(src, 2 SECONDS)
+	return OBLITERATION
+
 /*
  * Fake telebeacon
  */
