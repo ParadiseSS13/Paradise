@@ -77,9 +77,12 @@
 	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
 
+	if(length(GLOB.configuration.system.region_map))
+		output += "<p><a href='byond://?src=[UID()];setregion=1'>Set region (reduces ping)</A></p>"
+
 	output += "</center>"
 
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 330)
+	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 340)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
 	popup.open(0)
@@ -213,6 +216,10 @@
 		return FALSE
 	if(href_list["tos"])
 		privacy_consent()
+		return FALSE
+
+	if(href_list["setregion"])
+		usr.client.change_region()
 		return FALSE
 
 	if(href_list["late_join"])

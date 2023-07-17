@@ -137,4 +137,5 @@
 	mid_length = 80
 	decrease_to_amount = 10
 	decrease_by_amount = 5
+	direct = TRUE
 	channel = CHANNEL_DELTA_ALARM
