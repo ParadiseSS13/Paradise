@@ -170,17 +170,17 @@
 		)
 	var/vision_organ = /obj/item/organ/internal/eyes // If set, this organ is required for vision.
 	var/list/has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
+		"chest" =  list("path" = /obj/item/organ/external/chest, "descriptor" = "chest"),
+		"groin" =  list("path" = /obj/item/organ/external/groin, "descriptor" = "groin"),
+		"head" =   list("path" = /obj/item/organ/external/head, "descriptor" = "head"),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm, "descriptor" = "left arm"),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right, "descriptor" = "right arm"),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg, "descriptor" = "left leg"),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right, "descriptor" = "right leg"),
+		"l_hand" = list("path" = /obj/item/organ/external/hand, "descriptor" = "left hand"),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right, "descriptor" = "right hand"),
+		"l_foot" = list("path" = /obj/item/organ/external/foot, "descriptor" = "left foot"),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right, "descriptor" = "right foot"))
 
 	// Mutant pieces
 	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears
