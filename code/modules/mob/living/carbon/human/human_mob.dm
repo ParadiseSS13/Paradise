@@ -2180,12 +2180,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/obj/item/gun/held_gun = get_active_hand()
 	if(!held_gun)
 		visible_message("<span class='warning'>[src] makes fingerguns towards [possible_target]!</span>")
-	else if(!istype(held_gun))
+		return
+	if(!istype(held_gun))
 		visible_message("<span class='warning'>[src] points [held_gun] towards [possible_target]!</span>")
-	else
-		// for his neutral special, he wields a Gun
-		held_gun.afterattack(possible_target, src)
-		visible_message("<span class='danger'>[src] fires [held_gun][isturf(possible_target) ? "" : " towards [possible_target]!"]</span>")
+		return
+	// for his neutral special, he wields a Gun
+	held_gun.afterattack(possible_target, src)
+	visible_message("<span class='danger'>[src] fires [held_gun][isturf(possible_target) ? "" : " towards [possible_target]!"]</span>")
 
 /mob/living/carbon/human/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 7 SECONDS)
 	var/list/inputs = list(
