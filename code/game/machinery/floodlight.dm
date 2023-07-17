@@ -144,9 +144,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(anchored)
-		on = FALSE
-		set_light(0)
-		update_icon(UPDATE_ICON_STATE)
+		extinguish_light()
 	default_unfasten_wrench(user, I)
 
 /obj/machinery/floodlight/extinguish_light(force = FALSE)
