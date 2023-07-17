@@ -256,6 +256,8 @@
 		if(blocked != INFINITY)
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
+				var/fraction = 5 / reagents.total_volume
+				reagents.reaction(M, REAGENT_INGEST, fraction)
 				reagents.trans_to(M, reagents.total_volume)
 				return 1
 			else
