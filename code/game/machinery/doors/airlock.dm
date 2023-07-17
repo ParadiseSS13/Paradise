@@ -88,6 +88,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
 	var/heat_resistance = 1500
+	/// Have we created sparks too recently?
+	var/on_spark_cooldown = FALSE
 
 	var/mutable_appearance/old_buttons_underlay
 	var/mutable_appearance/old_lights_underlay
@@ -757,10 +759,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				return FALSE
 			living_mover.forceMove(get_turf(src))
 			return TRUE
-	if(isElectrified() && density && isitem(mover))
+	if(isElectrified() && density && isitem(mover) && !on_spark_cooldown)
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
+			on_spark_cooldown = TRUE
 			do_sparks(5, 1, src)
+			addtimer(VARSET_CALLBACK(src, on_spark_cooldown, FALSE), 1 SECONDS)
 	return ..()
 
 /obj/machinery/door/airlock/attack_animal(mob/user)

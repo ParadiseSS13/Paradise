@@ -23,7 +23,7 @@
 				WakeUp()
 				create_debug_log("woke up, trigger reason: [reason]")
 	else
-		if(health > 0)
+		if(health > 0 && !suiciding)
 			update_revive()
 			var/mob/dead/observer/ghost = get_ghost()
 			if(ghost)
