@@ -313,7 +313,7 @@
 	if(stat & BROKEN)
 		return
 	if(!anchored)
-		visible_message("<span class='warning'>[src] must be anchored first!</span>")
+		to_chat("<span class='warning'>[src] must be anchored first!</span>")
 		return
 	ui_interact(user)
 
