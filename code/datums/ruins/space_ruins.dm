@@ -4,6 +4,12 @@
 	cost = 1
 	ci_exclude = /datum/map_template/ruin/space
 
+/datum/map_template/ruin/space/abandonedtele
+	id = "abandonedtele"
+	suffix = "abandonedtele.dmm"
+	name = "Abandoned Teleporter"
+	description = "An old teleporter, seemingly part of what used to be a larger satellite."
+
 /datum/map_template/ruin/space/zoo
 	id = "zoo"
 	suffix = "abandonedzoo.dmm"
@@ -48,6 +54,38 @@
 	suffix = "asteroid5.dmm"
 	name = "Asteroid 5"
 	description = "Oh my god, another giant rock!"
+
+/datum/map_template/ruin/space/blowntcommsat
+	id = "blowntcommsat"
+	suffix = "blowntcommsat.dmm"
+	name = "Blown-out Telecommunications Satellite"
+	description = "The remains of an old telecommunications satellite once utilised by NanoTrasen. It lays derelict, with quite a few pieces missing."
+	cost = 5 // This is a chonky boy
+	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
+
+/datum/map_template/ruin/space/clownmime
+	id = "clownmime"
+	suffix = "clownmime.dmm"
+	name = "Clown & Mime Mineral Deposits"
+	description = "A crash site of two opposing factions, both trying to complete mining trips for their own valuable minerals. While all the crew have long perished, the minerals are likely intact."
+
+/datum/map_template/ruin/space/debris1
+	id = "debris1"
+	suffix = "debris1.dmm"
+	name = "Debris field 1"
+	description = "A bunch of metal chunks, wires and space waste"
+
+/datum/map_template/ruin/space/debris2
+	id = "debris2"
+	suffix = "debris2.dmm"
+	name = "Debris field 2"
+	description = "A bunch of metal chunks, wires and space waste that used to be some kind of secure storage facility"
+
+/datum/map_template/ruin/space/debris3
+	id = "debris3"
+	suffix = "debris3.dmm"
+	name = "Debris field 3"
+	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
 
 /datum/map_template/ruin/space/deep_storage
 	id = "deep-storage"
@@ -100,12 +138,18 @@
 		treasure in this disused warehouse, launch it into space, and then \
 		ignore it. Forever."
 
-/datum/map_template/ruin/space/listeningpost
-	id = "listeningpost"
-	suffix = "listeningpost.dmm"
-	name = "Syndie Listening Post"
-	description = "What happens to Nuclear Operatives that fail in their mission? \
-		Certainly not assignment to a backwater listening post..."
+/datum/map_template/ruin/space/dj
+	id = "dj"
+	suffix = "dj.dmm"
+	name = "Russian DJ Station"
+	description = "An old russian listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
+	cost = 2
+
+/datum/map_template/ruin/space/druglab
+	id = "druglab"
+	suffix = "druglab.dmm"
+	name = "Drug Lab"
+	description = "An old abandoned \"Chemistry\" site, which has a strong aura of amphetamines around it."
 
 /datum/map_template/ruin/space/empty_shell
 	id = "empty-shell"
@@ -114,12 +158,36 @@
 	description = "Cosy, rural property available for young professional \
 		couple. Only twelve parsecs from the nearest hyperspace lane!"
 
+/datum/map_template/ruin/space/golem_destination
+	id = "golemtarget"
+	suffix = "golemtarget.dmm"
+	name = "Golem Shuttle Destination"
+	description = "Just a handful of rocks floating in space. Guaranteed space destination for the Golem shuttle in case other destinations don't spawn."
+	allow_duplicates = FALSE
+	always_place = TRUE
+	cost = 0
+
 /datum/map_template/ruin/space/intact_empty_ship
 	id = "intact-empty-ship"
 	suffix = "intactemptyship.dmm"
 	name = "Authorship"
 	description = "Just somewhere quiet, where I can focus on my work with \
 		no interruptions."
+
+/datum/map_template/ruin/space/listeningpost
+	id = "listeningpost"
+	suffix = "listeningpost.dmm"
+	name = "Syndie Listening Post"
+	description = "What happens to Nuclear Operatives that fail in their mission? \
+		Certainly not assignment to a backwater listening post..."
+
+/datum/map_template/ruin/space/meatpackers
+	id = "meatpackers"
+	suffix = "meatpackers.dmm"
+	name = "Meat Packers"
+	description = "An old transport ship, possibly with a dubious past. It smells faintly of meat."
+	allow_duplicates = FALSE
+	cost = 2 // Pretty big
 
 /datum/map_template/ruin/space/mech_transport
 	id = "mech-transport"
@@ -128,6 +196,23 @@
 	description = "Well, when is it getting here? I have bills to pay; very \
 		well-armed clients who want their shipments as soon as possible! I \
 		don't care, just find it!"
+
+/datum/map_template/ruin/space/mo19
+	id = "mo19"
+	suffix = "moonoutpost19.dmm"
+	name = "Moon Outpost 19"
+	description = "A now-defunct outpost, with the last received signal being that of distress."
+	allow_duplicates = FALSE
+	cost = 2 // Also pretty big
+
+/datum/map_template/ruin/space/oldstation
+	id = "oldstation"
+	suffix = "oldstation.dmm"
+	name = "Ancient Space Station"
+	description = "The crew of a space station awaken one hundred years after a crisis. Awaking to a derelict space station on the verge of collapse, and a hostile force of invading \
+	hivebots. Can the surviving crew overcome the odds and survive and rebuild, or will the cold embrace of the stars become their new home?"
+	cost = 2
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/onehalf
 	id = "onehalf"
@@ -148,6 +233,14 @@
 		Rampant Golem and Yellow Hound. Can I take your order?"
 	cost = 2
 
+/datum/map_template/ruin/space/syndicatedruglab
+	id = "syndicatedruglab"
+	suffix = "syndicatedruglab.dmm"
+	name = "Suspicious Station"
+	description = "A syndicate drug laboratory hidden on an asteroid. It is strangely well-protected."
+	allow_duplicates = FALSE
+	cost = 3
+
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"
 	suffix = "turretedoutpost.dmm"
@@ -161,63 +254,6 @@
 	name = "Salvation"
 	description = "In the darkest times, we will find our way home."
 
-/datum/map_template/ruin/space/oldstation
-	id = "oldstation"
-	suffix = "oldstation.dmm"
-	name = "Ancient Space Station"
-	description = "The crew of a space station awaken one hundred years after a crisis. Awaking to a derelict space station on the verge of collapse, and a hostile force of invading \
-	hivebots. Can the surviving crew overcome the odds and survive and rebuild, or will the cold embrace of the stars become their new home?"
-	cost = 2
-	allow_duplicates = FALSE
-
-/datum/map_template/ruin/space/wizardcrash
-	id = "wizardcrash"
-	suffix = "wizardcrash.dmm"
-	name = "Crashed Wizard Shuttle"
-	description = "A shuttle of the Wizard Federation, sent out to crush some wandless scum. Unfortunately, the pilot suffered a magic-related accident and the shuttle crashed into a nearby asteroid."
-	cost = 2
-
-/datum/map_template/ruin/space/abandonedtele
-	id = "abandonedtele"
-	suffix = "abandonedtele.dmm"
-	name = "Abandoned Teleporter"
-	description = "An old teleporter, seemingly part of what used to be a larger satellite."
-
-/datum/map_template/ruin/space/blowntcommsat
-	id = "blowntcommsat"
-	suffix = "blowntcommsat.dmm"
-	name = "Blown-out Telecommunications Satellite"
-	description = "The remains of an old telecommunications satellite once utilised by NanoTrasen. It lays derelict, with quite a few pieces missing."
-	cost = 5 // This is a chonky boy
-	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
-
-/datum/map_template/ruin/space/clownmime
-	id = "clownmime"
-	suffix = "clownmime.dmm"
-	name = "Clown & Mime Mineral Deposits"
-	description = "A crash site of two opposing factions, both trying to complete mining trips for their own valuable minerals. While all the crew have long perished, the minerals are likely intact."
-
-/datum/map_template/ruin/space/dj
-	id = "dj"
-	suffix = "dj.dmm"
-	name = "Russian DJ Station"
-	description = "An old russian listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
-	cost = 2
-
-/datum/map_template/ruin/space/druglab
-	id = "druglab"
-	suffix = "druglab.dmm"
-	name = "Drug Lab"
-	description = "An old abandoned \"Chemistry\" site, which has a strong aura of amphetamines around it."
-
-/datum/map_template/ruin/space/syndicatedruglab
-	id = "syndicatedruglab"
-	suffix = "syndicatedruglab.dmm"
-	name = "Suspicious Station"
-	description = "A syndicate drug laboratory hidden on an asteroid. It is strangely well-protected."
-	allow_duplicates = FALSE
-	cost = 3
-
 /datum/map_template/ruin/space/syndiedepot
 	id = "syndiedepot"
 	suffix = "syndiedepot.dmm"
@@ -226,38 +262,6 @@
 	allow_duplicates = FALSE // One of these is enough
 	always_place = TRUE // This is on the always spawn list because of the shielding chance
 	cost = 0 // Force spawned so shouldnt have a cost
-
-/datum/map_template/ruin/space/ussp_tele
-	id = "ussp_tele"
-	suffix = "ussp_tele.dmm"
-	name = "USSP Teleporter"
-	description = "An old, almost fully destroyed teleporter, seemingly part of what used to be a much larger structure."
-
-/datum/map_template/ruin/space/ussp
-	id = "ussp"
-	suffix = "ussp.dmm"
-	name = "USSP"
-	description = "A decript station of seemingly russian origin. The last contact had with this station was a distress signal, and the rest was dark."
-	allow_duplicates = FALSE // One of these has enough loot
-	cost = 5 // This ruin is 100x100 tiles, so we dont want it to be treated like a 10x10 meteor
-
-/datum/map_template/ruin/space/whiteship
-	id = "whiteship"
-	suffix = "whiteship.dmm"
-	name = "NT Medical Ship"
-	description = "An old, abandoned NT medical ship. Its computer can navigate to other landmarks within space with ease."
-	allow_duplicates = FALSE // I dont even want to think about what happens if you have 2 shuttles with the same ID. Likely scary stuff.
-	always_place = TRUE // Its designed to make exploring other space ruins more accessible
-	cost = 0 // Force spawned so shouldnt have a cost
-
-/datum/map_template/ruin/space/golem_destination
-	id = "golemtarget"
-	suffix = "golemtarget.dmm"
-	name = "Golem Shuttle Destination"
-	description = "Just a handful of rocks floating in space. Guaranteed space destination for the Golem shuttle in case other destinations don't spawn."
-	allow_duplicates = FALSE
-	always_place = TRUE
-	cost = 0
 
 /datum/map_template/ruin/space/syndicate_space_base
 	name = "Syndicate Space Base"
@@ -276,39 +280,19 @@
 	allow_duplicates = FALSE
 	cost = 2 //telecomms + multiple mobs
 
-/datum/map_template/ruin/space/debris1
-	id = "debris1"
-	suffix = "debris1.dmm"
-	name = "Debris field 1"
-	description = "A bunch of metal chunks, wires and space waste"
+/datum/map_template/ruin/space/ussp
+	id = "ussp"
+	suffix = "ussp.dmm"
+	name = "USSP"
+	description = "A decript station of seemingly russian origin. The last contact had with this station was a distress signal, and the rest was dark."
+	allow_duplicates = FALSE // One of these has enough loot
+	cost = 5 // This ruin is 100x100 tiles, so we dont want it to be treated like a 10x10 meteor
 
-/datum/map_template/ruin/space/debris2
-	id = "debris2"
-	suffix = "debris2.dmm"
-	name = "Debris field 2"
-	description = "A bunch of metal chunks, wires and space waste that used to be some kind of secure storage facility"
-
-/datum/map_template/ruin/space/debris3
-	id = "debris3"
-	suffix = "debris3.dmm"
-	name = "Debris field 3"
-	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
-
-/datum/map_template/ruin/space/meatpackers
-	id = "meatpackers"
-	suffix = "meatpackers.dmm"
-	name = "Meat Packers"
-	description = "An old transport ship, possibly with a dubious past. It smells faintly of meat."
-	allow_duplicates = FALSE
-	cost = 2 // Pretty big
-
-/datum/map_template/ruin/space/mo19
-	id = "mo19"
-	suffix = "moonoutpost19.dmm"
-	name = "Moon Outpost 19"
-	description = "A now-defunct outpost, with the last received signal being that of distress."
-	allow_duplicates = FALSE
-	cost = 2 // Also pretty big
+/datum/map_template/ruin/space/ussp_tele
+	id = "ussp_tele"
+	suffix = "ussp_tele.dmm"
+	name = "USSP Teleporter"
+	description = "An old, almost fully destroyed teleporter, seemingly part of what used to be a much larger structure."
 
 /datum/map_template/ruin/space/voyager
 	id = "voyager"
@@ -317,3 +301,19 @@
 	description = "A relic of old times, you don't know what it hide inside."
 	allow_duplicates = FALSE
 	cost = 1 // Gives research levels and it should be hard-to-find
+
+/datum/map_template/ruin/space/whiteship
+	id = "whiteship"
+	suffix = "whiteship.dmm"
+	name = "NT Medical Ship"
+	description = "An old, abandoned NT medical ship. Its computer can navigate to other landmarks within space with ease."
+	allow_duplicates = FALSE // I dont even want to think about what happens if you have 2 shuttles with the same ID. Likely scary stuff.
+	always_place = TRUE // Its designed to make exploring other space ruins more accessible
+	cost = 0 // Force spawned so shouldnt have a cost
+
+/datum/map_template/ruin/space/wizardcrash
+	id = "wizardcrash"
+	suffix = "wizardcrash.dmm"
+	name = "Crashed Wizard Shuttle"
+	description = "A shuttle of the Wizard Federation, sent out to crush some wandless scum. Unfortunately, the pilot suffered a magic-related accident and the shuttle crashed into a nearby asteroid."
+	cost = 2
