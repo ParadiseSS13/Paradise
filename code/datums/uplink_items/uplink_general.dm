@@ -624,6 +624,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 10
 
+/datum/uplink_item/suits/hidden_holster
+	name = "Hiden Holster Module"
+	desc = "A holster module disguised to look like a tether module. Requires a modsuit to put it in of course. Gun not included."
+	reference = "FNAF"
+	item = /obj/item/mod/module/holster/hidden
+	cost = 1
+	surplus = 10
+
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary. To talk on the binary channel, type :+ before your radio message."

@@ -159,6 +159,15 @@
 	complexity = initial(the_dna_lock_behind_the_slaughter.complexity)
 	use_power_cost = initial(the_dna_lock_behind_the_slaughter.use_power_cost)
 
+/obj/item/mod/module/holster/hidden/Initialize(mapload)
+	. = ..()
+	var/obj/item/mod/module/tether/fake = /obj/item/mod/module/tether
+	name = initial(fake.name)
+	desc = initial(fake.desc)
+	icon_state = initial(fake.icon_state)
+	complexity = initial(fake.complexity) //This is 1 less complex than a holster, but that is fine tbh, paying tc for it.
+	use_power_cost = initial(fake.use_power_cost)
+
 ///Power kick - Lets the user launch themselves at someone to kick them.
 /obj/item/mod/module/power_kick
 	name = "MOD power kick module"
