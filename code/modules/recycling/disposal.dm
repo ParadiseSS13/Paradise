@@ -6,6 +6,8 @@
 // Can hold items and human size things, no other draggables
 // Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
 #define SEND_PRESSURE 0.05*ONE_ATMOSPHERE
+/// How frequently disposals can make sounds, to prevent huge sound stacking
+#define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
 
 /obj/machinery/disposal
 	name = "disposal unit"
@@ -464,7 +466,7 @@
 		H.tomail = 1
 
 	sleep(10)
-	if(last_sound + 0.1 SECONDS < world.time)
+	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
@@ -499,7 +501,7 @@
 /obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)
 
 	var/turf/target
-	if(last_sound + 0.1 SECONDS < world.time)
+	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
 		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 		last_sound = world.time
 
@@ -846,7 +848,7 @@
 		else						// otherwise limit to 10 tiles
 			target = get_ranged_target_turf(T, direction, 10)
 
-		if(last_sound + 0.1 SECONDS < world.time)
+		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
 			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 			last_sound = world.time
 
@@ -864,7 +866,7 @@
 
 	else	// no specified direction, so throw in random direction
 
-		if(last_sound + 0.1 SECONDS < world.time)
+		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
 			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 			last_sound = world.time
 		if(H)
@@ -1414,7 +1416,7 @@
 	if(animation)
 		flick("outlet-open", src)
 		var/play_sound = FALSE
-		if(last_sound + 0.1 SECONDS < world.time)
+		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
 			play_sound = TRUE
 			last_sound = world.time
 		if(play_sound)

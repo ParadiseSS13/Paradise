@@ -1,4 +1,5 @@
 #define SAFETY_COOLDOWN 100
+#define SOUND_COOLDOWN (0.5 SECONDS)
 
 /obj/machinery/recycler
 	name = "recycler"
@@ -139,7 +140,7 @@
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			AM.forceMove(loc)
 
-	if(items_recycled && sound && (last_consumption_sound + 0.5 SECONDS) < world.time)
+	if(items_recycled && sound && (last_consumption_sound + SOUND_COOLDOWN) < world.time)
 		playsound(loc, item_recycle_sound, 100, 0)
 		last_consumption_sound = world.time
 
@@ -246,3 +247,5 @@
 /obj/item/paper/recycler
 	name = "paper - 'garbage duty instructions'"
 	info = "<h2>New Assignment</h2> You have been assigned to collect garbage from trash bins, located around the station. The crewmembers will put their trash into it and you will collect the said trash.<br><br>There is a recycling machine near your closet, inside maintenance; use it to recycle the trash for a small chance to get useful minerals. Then deliver these minerals to cargo or engineering. You are our last hope for a clean station, do not screw this up!"
+
+#undef SOUND_COOLDOWN
