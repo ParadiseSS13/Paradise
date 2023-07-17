@@ -5,7 +5,7 @@
 	combo_text_override = "Grab, Disarm, Harm"
 
 /datum/martial_combo/judo/wheelthrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(!IS_HORIZONTAL(target) || !(target.IsImmobilized() || user.IsKnockedDown()))
+	if(!IS_HORIZONTAL(target) || !target.IsImmobilized())
 		return MARTIAL_COMBO_FAIL
 	target.visible_message("<span class='warning'>[user] raises [target] over [user.p_their()] shoulder, and slams them into the ground!</span>", \
 						"<span class='userdanger'>[user] throws you over [user.p_their()] shoulder, slamming you into the ground!</span>")
