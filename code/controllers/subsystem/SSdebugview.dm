@@ -54,8 +54,9 @@ SUBSYSTEM_DEF(debugview)
 	qdel(C.debug_text_overlay)
 
 /obj/screen/debugtextholder
-	icon = null // just like screentips!
-	screen_loc = "CENTER-7,CENTER-7"
+	icon = 'icons/mob/screen_full.dmi'
+	icon_state = "empty"
+	screen_loc = "TOP,LEFT"
 	plane = HUD_PLANE_DEBUGVIEW
 	maptext_height = 480 // 15 * 32 (15 tiles, 32 pixels each)
 	maptext_width = 480 // changes with prefs
@@ -67,7 +68,6 @@ SUBSYSTEM_DEF(debugview)
 /obj/screen/debugtextholder/proc/update_view(client/C)
 	var/list/viewsizes = getviewsize(C.view)
 	maptext_width = viewsizes[1] * world.icon_size
-	maptext_x = -0.5 * (maptext_width - initial(maptext_width)) // because its centered, we need to adjust the maptext_x
 
 // Make a verb for dumping full SS stats
 /client/proc/ss_breakdown()
