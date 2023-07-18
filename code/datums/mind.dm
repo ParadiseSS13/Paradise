@@ -74,7 +74,7 @@
 	var/list/learned_recipes //List of learned recipe TYPES.
 
 	/// List of people who we've received kudos from.
-	var/list/kudos_recieved_from = list()
+	var/list/kudos_received_from = list()
 
 /datum/mind/New(new_key)
 	key = new_key
@@ -83,7 +83,7 @@
 	SSticker.minds -= src
 	remove_all_antag_datums()
 	current = null
-	kudos_recieved_from.Cut()
+	kudos_received_from.Cut()
 	return ..()
 
 /datum/mind/proc/set_original_mob(mob/original)

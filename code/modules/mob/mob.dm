@@ -1610,6 +1610,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(!client || !target.mind)
 		return
 
-	target.mind.kudos_recieved_from |= ckey
+	target.mind.kudos_received_from |= ckey
 
 

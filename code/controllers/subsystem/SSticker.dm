@@ -610,8 +610,8 @@ SUBSYSTEM_DEF(ticker)
 	// Tell people how many kudos they got this round
 	// Besides, what's another loop over the /entire player list/
 	for(var/mob/M in GLOB.player_list)
-		if(length(M.mind?.kudos_recieved_from))
-			to_chat(M, "<span class='green big'>You recieved [length(M.mind?.kudos_recieved_from)] kudos this round! Keep up the good work!</span>")
+		if(length(M.mind?.kudos_received_from))
+			to_chat(M, "<span class='green big'>You received [length(M.mind?.kudos_received_from)] kudos this round! Keep up the good work!</span>")
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()
