@@ -746,15 +746,16 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
-	switch(sensor_mode)
-		if(0)
-			. += "<span class='notice'>Its sensors appear to be disabled.</span>"
-		if(1)
-			. += "<span class='notice'>Its binary life sensors appear to be enabled.</span>"
-		if(2)
-			. += "<span class='notice'>Its vital tracker appears to be enabled.</span>"
-		if(3)
-			. += "<span class='notice'>Its vital tracker and tracking beacon appear to be enabled.</span>"
+	if(has_sensor)
+		switch(sensor_mode)
+			if(0)
+				. += "<span class='notice'>Its sensors appear to be disabled.</span>"
+			if(1)
+				. += "<span class='notice'>Its binary life sensors appear to be enabled.</span>"
+			if(2)
+				. += "<span class='notice'>Its vital tracker appears to be enabled.</span>"
+			if(3)
+				. += "<span class='notice'>Its vital tracker and tracking beacon appear to be enabled.</span>"
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "<span class='notice'>\A [A] is attached to it.</span>"
