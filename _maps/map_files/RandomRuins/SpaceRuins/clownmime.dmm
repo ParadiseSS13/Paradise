@@ -148,8 +148,14 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
+"H" = (
+/obj/effect/mob_spawn/human/corpse/clown{
+	name = "Clown Pilot"
+	},
 "I" = (
 /obj/item/paper/clownship,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unpowered)
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "J" = (

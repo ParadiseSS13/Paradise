@@ -532,7 +532,9 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "fP" = (
-/obj/effect/mob_spawn/human/alive/spacebase_syndicate,
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -1151,7 +1153,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "lM" = (
-/obj/effect/mob_spawn/human/alive/spacebase_syndicate,
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -1449,7 +1453,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "pa" = (
-/obj/effect/mob_spawn/human/alive/spacebase_syndicate,
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -3750,7 +3756,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "MV" = (
-/obj/effect/mob_spawn/human/alive/spacebase_syndicate,
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -4062,7 +4070,9 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/mob_spawn/human/alive/spacebase_syndicate,
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -4425,7 +4435,9 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "VP" = (
 /obj/machinery/light,
-/obj/effect/mob_spawn/human/alive/spacebase_syndicate,
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
