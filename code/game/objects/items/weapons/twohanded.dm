@@ -1086,7 +1086,7 @@
 			if(H.stat || IS_HORIZONTAL(H))
 				return ..()
 
-			H.visible_message("<span class='danger'>[user] sweeps [H]'[H.p_s()] legs out from under them!</span>", \
+			H.visible_message("<span class='danger'>[user] sweeps [H]'s legs out from under [H.p_them()]!</span>", \
 							"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
 							"<span class='italics'>You hear sweeping.</span>")
 
@@ -1098,7 +1098,7 @@
 			add_attack_logs(user, H, "Leg swept with titanium push broom", ATKLOG_ALL)
 
 		if(INTENT_GRAB)
-			H.visible_message("<span class='danger'>[user] smacks [H] with the brush of the broom!</span>", \
+			H.visible_message("<span class='danger'>[user] smacks [H] with the brush of [user.p_their()] broom!</span>", \
 							"<span class='userdanger'>[user] smacks you with the brush of [user.p_their()] broom!</span>", \
 							"<span class='italics'>You hear a smacking noise.</span>")
 
