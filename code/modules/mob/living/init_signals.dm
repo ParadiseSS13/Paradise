@@ -130,7 +130,6 @@
 	ADD_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH)
 
 /mob/living/carbon/human/on_fakedeath_trait_gain(datum/source)
-	SIGNAL_HANDLER
 	. = ..()
 	stop_tail_wagging()
 
