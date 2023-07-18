@@ -304,7 +304,7 @@
 //////////Alive ones, used as "core" for ghost roles now and in future.//////////
 
 //Lavaland Bartender (ghost role).
-/obj/effect/mob_spawn/human/bartender/alive
+/obj/effect/mob_spawn/human/alive/bartender
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
@@ -316,8 +316,8 @@
 	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
 	assignedrole = "Space Bartender"
 
-//Lavaland Bar Turist(?) (ghost role).
-/obj/effect/mob_spawn/human/beach/alive
+//Lavaland Beach Turist(?) (ghost role).
+/obj/effect/mob_spawn/human/alive/beach
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
@@ -330,8 +330,8 @@
 	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
 	assignedrole = "Beach Bum"
 
-//Lavaland Bar Guard (ghost role).
-/obj/effect/mob_spawn/human/beach/alive/lifeguard
+//Lavaland Beach Guard (ghost role).
+/obj/effect/mob_spawn/human/alive/beach/lifeguard
 	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell. \
 	You aren't trained for this, but you'll still keep your guests alive!"
 	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
@@ -340,7 +340,7 @@
 	id_job = "Lifeguard"
 	uniform = /obj/item/clothing/under/pants/shorts/red
 
-//Lavaland Bar Patron (ghost role).
+//Space(?) Bar Patron (ghost role).
 /obj/effect/mob_spawn/human/alive/space_bar_patron
 	name = "Bar cryogenics"
 	mob_name = "Bar patron"
@@ -385,12 +385,12 @@
 		qdel(I)
 
 //Spooky Scary Skeleton...
-/obj/effect/mob_spawn/human/skeleton/alive
+/obj/effect/mob_spawn/human/alive/skeleton
 	death = FALSE
 	roundstart = FALSE
-	icon = 'icons/effects/blood.dmi'
+	icon = 'icons/mob/simple_human.dmi'
 	mob_species = /datum/species/skeleton
-	icon_state = "remains"
+	icon_state = "skeleton"
 	description = "Be a spooky scary skeleton."	//not mapped in anywhere so admin spawner, who knows what they'll use this for.
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
@@ -609,7 +609,7 @@
 	r_pocket = /obj/item/flashlight/seclite
 
 //Scientist corpse.
-/obj/effect/mob_spawn/human/scientist
+/obj/effect/mob_spawn/human/corpse/scientist
 	name = "Scientist"
 	mob_name = "Scientist"
 	id_job = "Scientist"

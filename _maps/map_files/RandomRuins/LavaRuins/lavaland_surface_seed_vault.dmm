@@ -131,7 +131,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "t" = (
-/obj/effect/mob_spawn/human/seed_vault,
+/obj/effect/mob_spawn/human/alive/seed_vault,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "u" = (

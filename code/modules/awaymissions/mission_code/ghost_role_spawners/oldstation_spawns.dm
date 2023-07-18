@@ -1,6 +1,6 @@
 //Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
 
-/obj/effect/mob_spawn/human/oldsec
+/obj/effect/mob_spawn/human/alive/old/sec
 	name = "old cryogenics pod"
 	desc = "A humming cryo pod. You can barely recognise a security uniform underneath the built up ice. The machine is attempting to wake up its occupant."
 	mob_name = "a security officer"
@@ -22,11 +22,11 @@
 	l_pocket = /obj/item/flash
 	assignedrole = "Ancient Crew"
 
-/obj/effect/mob_spawn/human/oldsec/Destroy()
+/obj/effect/mob_spawn/human/alive/old/sec/Destroy()
 	new /obj/structure/showcase/machinery/oldpod/used(drop_location())
 	return ..()
 
-/obj/effect/mob_spawn/human/oldmed
+/obj/effect/mob_spawn/human/alive/old/med
 	name = "old cryogenics pod"
 	desc = "A humming cryo pod. You can barely recognise a medical uniform underneath the built up ice. The machine is attempting to wake up its occupant."
 	mob_name = "a medical doctor"
@@ -48,11 +48,11 @@
 	r_pocket = /obj/item/stack/medical/ointment
 	assignedrole = "Ancient Crew"
 
-/obj/effect/mob_spawn/human/oldmed/Destroy()
+/obj/effect/mob_spawn/human/alive/old/med/Destroy()
 	new /obj/structure/showcase/machinery/oldpod/used(drop_location())
 	return ..()
 
-/obj/effect/mob_spawn/human/oldeng
+/obj/effect/mob_spawn/human/alive/old/eng
 	name = "old cryogenics pod"
 	desc = "A humming cryo pod. You can barely recognise an engineering uniform underneath the built up ice. The machine is attempting to wake up its occupant."
 	mob_name = "an engineer"
@@ -74,11 +74,11 @@
 	l_pocket = /obj/item/tank/internals/emergency_oxygen
 	assignedrole = "Ancient Crew"
 
-/obj/effect/mob_spawn/human/oldeng/Destroy()
+/obj/effect/mob_spawn/human/alive/old/eng/Destroy()
 	new /obj/structure/showcase/machinery/oldpod/used(drop_location())
 	return ..()
 
-/obj/effect/mob_spawn/human/oldsci
+/obj/effect/mob_spawn/human/alive/old/sci
 	name = "old cryogenics pod"
 	desc = "A humming cryo pod. You can barely recognise a science uniform underneath the built up ice. The machine is attempting to wake up its occupant."
 	mob_name = "a scientist"
@@ -99,7 +99,7 @@
 	l_pocket = /obj/item/stack/medical/bruise_pack
 	assignedrole = "Ancient Crew"
 
-/obj/effect/mob_spawn/human/oldsci/Destroy()
+/obj/effect/mob_spawn/human/alive/old/sci/Destroy()
 	new /obj/structure/showcase/machinery/oldpod/used(drop_location())
 	return ..()
 

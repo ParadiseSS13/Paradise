@@ -107,7 +107,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 "x" = (
-/obj/effect/mob_spawn/human/hermit,
+/obj/effect/mob_spawn/human/alive/hermit,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 "y" = (
