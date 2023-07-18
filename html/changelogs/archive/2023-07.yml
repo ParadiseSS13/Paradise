@@ -123,3 +123,19 @@
 '2023-07-15':
   Rerik007:
   - refactor: Moves stuns and weakens etc. to status effects (#3135)
+'2023-07-18':
+  NightDawnFox:
+  - bugfix: epsilon aren't working (#3181)
+  - add: new posters! (#3174)
+  Rerik007:
+  - bugfix: abductor baton not sleeping you (#3186)
+  Zwei:
+  - bugfix: Package Wrapper Now Works With Gigantic Items (#3183)
+  - bugfix: Lights Removing Duping (#3182)
+  - tweak: Default Screen Filtering (#3173)
+  - imageadd: Shadowling Clothes (#3176)
+  - tweak: Asclepius Heal Fractures and Internal Bleedings Again (#3184)
+  dontbetank:
+  - bugfix: bees now work (#3172)
+  Сиротка:
+  - add: Cargo expansion upgrade (#3153)
