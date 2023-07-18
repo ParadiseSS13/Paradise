@@ -508,7 +508,7 @@
 	I.appearance = AM.appearance
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	I.loc = src
-	I.setDir(AM.dir)
+	I.dir = AM.dir
 	I.alpha = 128
 	LAZYADD(blueprint_data, I)
 
