@@ -741,8 +741,7 @@ emp_act
 	dna.species.water_act(src, volume, temperature, source, method)
 
 /mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
-	if((user.a_intent in list(INTENT_DISARM, INTENT_HARM)) && try_protection(user))
-		user.changeNext_move(CLICK_CD_MELEE)
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	return ..()
 

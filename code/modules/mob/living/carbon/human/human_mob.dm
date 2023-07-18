@@ -2172,8 +2172,3 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, inputs, cooldown)
-
-/mob/living/carbon/human/proc/try_protection(mob/living/carbon/human/user)
-	if(has_status_effect(STATUS_EFFECT_REVOLUTION_PROTECT) && !is_any_revolutionary(user)) // protect from non-revs. Revs dont care about deconverted people
-		to_chat(user, "<span class='biggerdanger'>[src] was just deconverted! You don't feel like harming them!</span>")
-		return TRUE
