@@ -743,8 +743,7 @@
 		target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
 			var/turf/T = get_turf(person_to_cryo)
-			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40)
-			SP.name = "NT SSD Teleportation Portal"
+			var/obj/effect/portal/cryo = new /obj/effect/portal(T, null, null, 40)
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return 1
 	return 0
