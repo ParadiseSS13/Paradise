@@ -81,7 +81,7 @@
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user)
 	user.remove_from_mob(AM)
 	magazine = AM
-	magazine.loc = src
+	magazine.forceMove(src)
 	playsound(src, magin_sound, 50, 1)
 	chamber_round()
 	AM.update_icon()
