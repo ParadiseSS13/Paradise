@@ -386,7 +386,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Pack of 5 Fragmentation Grenades"
 	desc = "A box of 5 frag grenades. Upon detonation, releases shrapnel that can embed in nearby victims. And it seems you'll have a LOT of victims."
 	reference = "FGP"
-	item = /obj/item/grenade/frag
+	item = /obj/item/storage/box/syndie_kit/frag_grenades
 	cost = 8
 
 /datum/uplink_item/explosives/pizza_bomb
