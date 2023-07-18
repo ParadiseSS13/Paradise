@@ -4,6 +4,7 @@
 // #include "example/_example.dme"
 
 #include "_span/_span.dme"
+#include "barsigns/_barsigns.dme"
 #include "crit_rework/_crit_rework.dme"
 #include "fullscreen/_fullscreen.dme"
 #include "gunhud/_gunhud.dme"
