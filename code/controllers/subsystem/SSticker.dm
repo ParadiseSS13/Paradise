@@ -611,7 +611,6 @@ SUBSYSTEM_DEF(ticker)
 	// Besides, what's another loop over the /entire player list/
 	for(var/mob/M in GLOB.player_list)
 		if(length(M.mind?.kudos_recieved_uids))
-			to_chat(world, "[M] got [length(M.mind?.kudos_recieved_uids)]")
 			to_chat(M, "<span class='green big'>You recieved [length(M.mind?.kudos_recieved_uids)] kudos this round! Keep up the good work!</span>")
 
 	// Seal the blackbox, stop collecting info
