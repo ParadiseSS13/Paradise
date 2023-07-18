@@ -16,6 +16,8 @@
 
 #define isstack(A) (istype(A, /obj/item/stack))
 
+#define isstorage(A) (istype(A, /obj/item/storage))
+
 #define ispda(A) (istype(A, /obj/item/pda))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
