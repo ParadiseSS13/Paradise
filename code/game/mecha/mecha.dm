@@ -41,6 +41,7 @@
 	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
+	var/cargo_expanded = FALSE // for wide cargo module
 
 	//inner atmos
 	var/use_internal_tank = 0

@@ -32,11 +32,11 @@
 		if(!O.anchored)
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-				O.anchored = 1
+				O.anchored = TRUE
 				if(do_after_cooldown(target))
 					cargo_holder.cargo += O
 					O.loc = chassis
-					O.anchored = 0
+					O.anchored = FALSE
 					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 				else
@@ -50,15 +50,18 @@
 		var/mob/living/M = target
 		if(M.stat == DEAD && !issilicon(M))
 			return
-		if(M.stat == DEAD && issilicon(M))
+		if(M.stat == DEAD && issilicon(M) || chassis.cargo_expanded == TRUE)
+			if(ismegafauna(M))
+				occupant_message(SPAN_WARNING("БЕГИ, ИДИОТ, НЕ ВРЕМЯ ДЛЯ ОБНИМАШЕК!!!"))
+				return
 			if(!M.anchored)
 				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 					chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-					M.anchored = 1
+					M.anchored = TRUE
 					if(do_after_cooldown(target))
 						cargo_holder.cargo += M
 						M.loc = chassis
-						M.anchored = 0
+						M.anchored = FALSE
 						occupant_message("<span class='notice'>[target] successfully loaded.</span>")
 						log_message("Loaded [M]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 					else
@@ -78,7 +81,7 @@
 			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
 		else
-			if(issilicon(M) && M.stat == DEAD)
+			if(M.stat == DEAD && issilicon(M) || chassis.cargo_expanded == TRUE)
 				return
 			step_away(M,chassis)
 			occupant_message("<span class='notice'>You push [target] out of the way.</span>")
@@ -129,6 +132,31 @@
 			step_away(M,chassis)
 			target.visible_message("[chassis] tosses [target] like a piece of paper.")
 			return 1
+
+/obj/item/mecha_parts/mecha_equipment/cargo_upgrade
+	name = "Cargo expansion upgrade"
+	desc = "A working exosuit module that allows you to turn your Ripley into a hearse, zoo, or armored personnel carrier."
+	icon_state = "tesla"
+	origin_tech = "materials=5;bluespace=6;"
+	selectable = FALSE
+
+/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/can_attach(obj/mecha/M)
+	if(..())
+		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/attach_act()
+	if(istype(src.loc, /obj/mecha/working))
+		var/obj/mecha/working/W = src.loc
+		W.cargo_expanded = TRUE
+		W.cargo_capacity = 40
+
+/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/detach_act()
+	if(istype(src.loc, /obj/mecha/working))
+		var/obj/mecha/working/R = src.loc
+		R.cargo_expanded = FALSE
+		R.cargo_capacity = initial(R.cargo_capacity)
 
 /obj/item/mecha_parts/mecha_equipment/rcd
 	name = "Mounted RCD"

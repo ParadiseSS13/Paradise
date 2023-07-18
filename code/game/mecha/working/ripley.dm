@@ -118,7 +118,7 @@
 /obj/mecha/working/ripley/full_load
 	name = "Тестовый Рипли"
 	desc = "Рипли, который несет в себе все возможные модули, предназначенные для рабочих мехов, с целью их испытания в индивидуальном порядке. Конструкция надежна как Nokia 3310, скорость как у гоночного болида, но стоимость производства настолько высока, что в массовое производство он никогда не пойдет. Специально для ведущих гениев робототехники."
-	max_equip = 11
+	max_equip = 40
 	strafe_allowed = TRUE
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0) // для тестов урона
 	max_integrity = 1000
@@ -154,6 +154,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/eng_toolset
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
 	ME.attach(src)
 
 /obj/mecha/working/ripley/full_load/add_cell()

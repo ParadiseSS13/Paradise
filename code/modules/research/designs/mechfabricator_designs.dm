@@ -811,7 +811,7 @@
 //Exosuit Equipment
 
 /datum/design/mech_drill
-	name = "Exosuit Mining Equipment (Drill)"
+	name = "Exosuit Working Equipment (Drill)"
 	id = "mech_drill"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/drill
@@ -820,7 +820,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_diamond_drill
-	name = "Exosuit Mining Equipment (Diamond Mining Drill)"
+	name = "Exosuit Working Equipment (Diamond Mining Drill)"
 	desc = "An upgraded version of the standard drill."
 	id = "mech_diamond_drill"
 	build_type = MECHFAB
@@ -831,7 +831,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_plasma_cutter
-	name = "Exosuit Mining Equipment (217-D Plasma Cutter)"
+	name = "Exosuit Working Equipment (217-D Plasma Cutter)"
 	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
 	id = "mech_plasma_cutter"
 	build_type = MECHFAB
@@ -842,7 +842,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_mining_scanner
-	name = "Exosuit Mining Equipment (Mining Scanner)"
+	name = "Exosuit Working Equipment (Mining Scanner)"
 	id = "mech_mscanner"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/mining_scanner
@@ -851,7 +851,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_hydraulic_clamp
-	name = "Exosuit Mining Equipment (Hydraulic Clamp)"
+	name = "Exosuit Working Equipment (Hydraulic Clamp)"
 	id = "mech_hydraulic_clamp"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
@@ -860,7 +860,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_atmos_module
-	name = "Exosuit Engineering Module (ATMOS module)"
+	name = "Exosuit Working Module (ATMOS module)"
 	id = "mech_atmos_module"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
@@ -869,7 +869,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_rcd
-	name = "Exosuit Engineering Equipment (RCD Module)"
+	name = "Exosuit Working Equipment (RCD Module)"
 	desc = "An exosuit-mounted Rapid Construction Device."
 	id = "mech_rcd"
 	build_type = MECHFAB
@@ -880,7 +880,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_eng_toolset
-	name = "Exosuit Engineering Equipment (Engineering Toolset)"
+	name = "Exosuit Working Equipment (Engineering Toolset)"
 	desc = "Exosuit toolset. Gives a set of good tools."
 	id = "mech_eng_toolset"
 	build_type = MECHFAB
@@ -888,6 +888,17 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/eng_toolset
 	materials = list(MAT_METAL=10000,MAT_TITANIUM =2000,MAT_PLASMA=2000)
 	construction_time = 20 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_cargo_update
+	name = "Exosuit Working Equipment (Cargo Capacity Upgrade)"
+	desc = "Cargo capacity upgrade module for working mecha, allow you carry more stuffs and even living beings. Turn your Ripley into walking hearse!"
+	id = "mech_cargo_update"
+	build_type = MECHFAB
+	req_tech = list("materials" = 6, "programming" = 6, "bluespace" = 7)
+	build_path = /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
+	materials = list(MAT_METAL=15000,MAT_TITANIUM =5000,MAT_BLUESPACE=3000)
+	construction_time = 15 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_gravcatapult
