@@ -169,6 +169,7 @@
 		if(!qb.queen.beegent || (qb.queen.beegent && qb.queen.beegent.can_synth))
 			if(!user.drop_transfer_item_to_loc(qb, src))
 				return
+			qb.queen.forceMove(src)
 			bees += qb.queen
 			queen_bee = qb.queen
 			qb.queen = null
