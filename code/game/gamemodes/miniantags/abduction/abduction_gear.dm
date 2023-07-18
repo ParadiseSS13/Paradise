@@ -484,6 +484,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	L.lastattackerckey = user.ckey
 
 	L.Weaken(14 SECONDS)
+	L.Stun(14 SECONDS)
 	L.Stuttering(14 SECONDS)
 
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
@@ -497,7 +498,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
-	if(L.IsStunned() || L.IsSleeping())
+	if(L.IsStunned() || L.IsSleeping() || L.IsWeakened())
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
