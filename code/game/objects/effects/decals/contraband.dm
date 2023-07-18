@@ -195,6 +195,7 @@
 	never_random = TRUE
 	random_basetype = /obj/structure/sign/poster
 
+//contraband posters
 /obj/structure/sign/poster/contraband
 	poster_item_name = "contraband poster"
 	poster_item_desc = "This poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
@@ -371,6 +372,22 @@
 	desc = "The Griffin commands you to be the worst you can be. Will you?"
 	icon_state = "poster33"
 
+/obj/structure/sign/poster/contraband/pinup_syn
+	name = "Pinup Girl Cindy Kate"
+	desc = "This particular one is of Cindy Kate, a seductive performer well known among less savoury circles."
+	icon_state = "poster34"
+
+/obj/structure/sign/poster/contraband/wanted
+	name = "Water Potassuimovich"
+	desc = "On the poster you can see: a bald, black-eyed men, age 30, and he is wanted in the vastness of the entire space. What did he do to be so wanted... "
+	icon_state = "poster35"
+
+/obj/structure/sign/poster/contraband/very_robust
+	name = "Very Robust"
+	desc = "You see a slightly battered poster, which shows a RED toolbox and the inscription \"Danger, very robust!\", some people say that this red paint on the poster is made of real blood."
+	icon_state = "poster36"
+
+//official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
 	poster_item_desc = "An official Nanotrasen-issued poster to foster a compliant and obedient workforce. It comes with state-of-the-art adhesive backing, for easy pinning to any vertical surface."
@@ -581,6 +598,71 @@
 	name = "Stay Healthy!"
 	desc = "A healthy crew is a happy crew!"
 	icon_state = "poster40_legit"
+
+/obj/structure/sign/poster/official/vodka
+	name = "Bodka"
+	desc = "Advertising poster of vodka, drink from real men for real men. Feel like a space bear."
+	icon_state = "poster41_legit"
+
+/obj/structure/sign/poster/official/tsf_emblem
+	name = "TSF Emblem"
+	desc = "Patriotic poster with an emblem of TSF and some dull text for marine honor on it."
+	icon_state = "poster42_legit"
+
+/obj/structure/sign/poster/official/wetskrell
+	name = "WetSkrell"
+	desc = "You can see a pretty skrell in red dress and with long headtails, which have decorative bands. It is advertising a site with \"adult recreation procedures\", the wetskrell.nt."
+	icon_state = "poster43_legit"
+
+/obj/structure/sign/poster/official/keepcalm
+	name = "Keep Calm"
+	desc = "This particular one is of a famous New Earth design, although a bit modified. Someone has scribbled an O over the A on the poster."
+	icon_state = "poster44_legit"
+
+/obj/structure/sign/poster/official/pinup_a
+	name = "Pinup Girl Cindy"
+	desc = "This particular one is of a historical corporate PR girl, Cindy, in a particularly feminine pose."
+	icon_state = "poster45_legit"
+
+/obj/structure/sign/poster/official/pinup_b
+	name = "Pinup Girl Amy"
+	desc = "This particular one is of Amy, the nymphomaniac urban legend of deep space. How this photograph came to be is not known."
+	icon_state = "poster46_legit"
+
+/obj/structure/sign/poster/official/insp_law
+	name = "Inspirational Lawyer"
+	desc = "An inspirational poster depicting a Skrellian lawyer. He seems to be shouting something, while pointing fiercely to the right."
+	icon_state = "poster47_legit"
+
+/obj/structure/sign/poster/official/space_a
+	name = "Space Appreciation Poster"
+	desc = "This is a poster produced by the Generic Space Company, as a part of a series of commemorative posters on the wonders of space. One of three."
+	icon_state = "poster48_legit"
+
+/obj/structure/sign/poster/official/space_b
+	name = "Mars Appreciation Poster"
+	desc = "This is a poster produced by the Generic Space Company, as a part of a series of commemorative posters on the wonders of space. Three of three."
+	icon_state = "poster49_legit"
+
+/obj/structure/sign/poster/official/wild_west
+	name = "Wild Cargo"
+	desc = "The beautiful wild place with their own sheriff."
+	icon_state = "poster50_legit"
+
+/obj/structure/sign/poster/official/razumause
+	name = "Razumause"
+	desc = "Hey hey! What`s can go wrong, yeah?"
+	icon_state = "poster51_legit"
+
+/obj/structure/sign/poster/official/assist_pride
+	name = "Assistant pride"
+	desc = "Even in space, the profession of assistant is in demand. And this poster shows you their beauty."
+	icon_state = "poster52_legit"
+
+/obj/structure/sign/poster/official/mr_cheng
+	name = "Mr. Cheng!"
+	desc = "Stunning discounts! The best product quality! Good prices for lots and lots of goods! Only Mr. Cheng."
+	icon_state = "poster53_legit"
 
 /obj/structure/sign/poster/secret
 	poster_item_name = "Secret poster"
