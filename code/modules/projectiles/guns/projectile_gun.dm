@@ -78,7 +78,7 @@
 /obj/item/gun/projectile/proc/can_reload()
 	return !magazine
 
-/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)
+/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user)
 	user.remove_from_mob(AM)
 	magazine = AM
 	magazine.loc = src
