@@ -1603,13 +1603,14 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		to_chat(src, "<span class='warning'>You cannot give kudos to yourself!</span>")
 		return
 
-	var/our_uid = mind.UID()
-
-	target.mind.kudos_recieved_uids |= our_uid
+	to_chat(src, "<span class='notice'>You've given kudos to [target]!</span>")
 
 	// Pretend we've always succeeded when we might not have.
 	// This should prevent people from using it to suss anything out about mobs' states
 	if(!mind || !target.mind)
 		return
 
-	to_chat(src, "<span class='notice'>You've given kudos to [target]!</span>")
+	var/our_uid = mind.UID()
+	target.mind.kudos_recieved_uids |= our_uid
+
+
