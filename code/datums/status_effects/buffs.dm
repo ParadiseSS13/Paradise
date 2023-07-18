@@ -127,6 +127,8 @@
 		stamina_heal = 1.4, \
 		clone_heal = 0.4, \
 		simple_heal = 1.4, \
+		mend_fractures_chance = 5, \
+		stop_internal_bleeding_chance = 5, \
 		organ_healing = organ_healing, \
 		healing_color = "#375637", \
 	)
