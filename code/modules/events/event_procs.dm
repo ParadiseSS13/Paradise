@@ -40,6 +40,7 @@
 
 	return pick(possible_areas)
 
+
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.
 // Note that this isn't sorted by department, because e.g. having a roboticist shouldn't make meteors spawn.
