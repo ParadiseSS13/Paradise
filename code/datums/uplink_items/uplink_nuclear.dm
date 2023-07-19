@@ -423,7 +423,7 @@
 	and other medical supplies helpful for a medical field operative."
 	reference = "SCMK"
 	item = /obj/item/storage/firstaid/tactical
-	cost = 20
+	cost = 30
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/vtec
