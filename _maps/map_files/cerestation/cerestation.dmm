@@ -7727,8 +7727,8 @@
 	id = "b2";
 	name = "Privacy Bolts";
 	normaldoorcontrol = 1;
-	pixel_x = -24;
-	specialfunctions = 4
+	specialfunctions = 4;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker)
@@ -11135,7 +11135,6 @@
 	},
 /area/crew_quarters/bar)
 "bjB" = (
-/obj/structure/lattice,
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -23050,8 +23049,8 @@
 	id = "b1";
 	name = "Privacy Bolts";
 	normaldoorcontrol = 1;
-	pixel_x = -24;
-	specialfunctions = 4
+	specialfunctions = 4;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker)
@@ -33714,6 +33713,13 @@
 	icon_state = "dark"
 	},
 /area/security/brig)
+"dno" = (
+/obj/item/mounted/mirror{
+	icon_state = "mirror_broke";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "dnw" = (
 /obj/structure/chair{
 	dir = 1
@@ -46889,7 +46895,6 @@
 /area/maintenance/disposal/west)
 "hvW" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "hwf" = (
@@ -53186,6 +53191,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"jDk" = (
+/obj/structure/closet,
+/obj/item/clothing/suit/poncho,
+/obj/item/clothing/shoes/black,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "jDv" = (
 /obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/plating,
@@ -59291,7 +59302,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "lEk" = (
@@ -59530,10 +59540,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/library)
-"lID" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/wall,
-/area/ntrep)
 "lIN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -90945,6 +90951,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"wJe" = (
+/obj/structure/table,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "wJk" = (
 /obj/machinery/camera{
 	c_tag = "Research Director's Office";
@@ -92862,6 +92873,10 @@
 	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
+"xwo" = (
+/obj/structure/falsewall/rock_ancient,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "xwI" = (
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -120312,8 +120327,8 @@ wDs
 wDs
 wDs
 wDs
-wDs
-wDs
+jDk
+wJe
 wDs
 wBG
 chV
@@ -120569,8 +120584,8 @@ wDs
 wDs
 wDs
 wDs
-wDs
-wDs
+dno
+qSK
 wDs
 dsP
 dIS
@@ -120827,7 +120842,7 @@ avS
 avS
 avS
 avS
-avS
+xwo
 avS
 wBG
 chV
@@ -130864,7 +130879,7 @@ gch
 gch
 gch
 gch
-lID
+gch
 rNK
 rNK
 rNK
