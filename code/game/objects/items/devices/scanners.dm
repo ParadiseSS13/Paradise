@@ -155,7 +155,7 @@ REAGENT SCANNER
 		var/tdelta = round(world.time - H.timeofdeath)
 		if(H.under_defib_timer() && !DNR)
 			to_chat(user, "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>")
-			if(H.revive_timer_postponement && advanced)
+			if(advanced)
 				var/time_left = round(H.defib_time_left() / 10)
 				to_chat(user, "<span class='red'>Estimated time before unrecoverable tissue damage: [time_left] seconds.</span>")
 		else

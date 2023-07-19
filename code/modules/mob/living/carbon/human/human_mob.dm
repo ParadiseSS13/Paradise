@@ -1701,6 +1701,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(H.receiving_cpr) // To prevent spam stacking
 		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
 		return
+	if(!can_use_hands() || !has_both_hands())
+		to_chat(src, "<span class='warning'>You need two hands available to do CPR!</span>")
+		return
+	if(l_hand || r_hand)
+		to_chat(src, "<span class='warning'>You can't perform effective CPR with your hands full!</span>")
+		return
 	H.receiving_cpr = TRUE
 	var/cpr_modifier = get_cpr_mod(H)
 	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
@@ -1781,6 +1787,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 #undef CPR_RESCUE_BREATHS
 #undef CPR_CHEST_COMPRESSION_RESTORATION
 #undef CPR_BREATHS_RESTORATION
+#undef CPR_MAXIMUM_DEFIB_TIME_EXTENSION
 
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms() >= 2)
