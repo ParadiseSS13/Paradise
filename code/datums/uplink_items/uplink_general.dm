@@ -748,16 +748,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/stack/telecrystal/twenty
 	cost = 20
 
-/datum/uplink_item/bundles_TC/telecrystal/twenty
+/datum/uplink_item/bundles_TC/telecrystal/fifty
 	name = "50 Raw Telecrystals"
 	desc = "Fifty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
 	reference = "RTCV"
 	item = /obj/item/stack/telecrystal/fifty
 	cost = 50
 
-/datum/uplink_item/bundles_TC/telecrystal/twenty
+/datum/uplink_item/bundles_TC/telecrystal/hundred
 	name = "20 Raw Telecrystals"
-	desc = "Twenty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
+	desc = "One-hundred telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
 	reference = "RTCH"
 	item = /obj/item/stack/telecrystal/hundred
 	cost = 100
