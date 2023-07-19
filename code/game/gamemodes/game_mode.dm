@@ -35,7 +35,7 @@
 	var/newscaster_announcements = null
 	var/ert_disabled = FALSE
 	var/uplink_welcome = "Syndicate Uplink Console:"
-	var/uplink_uses = 20
+	var/uplink_uses = 100
 
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
