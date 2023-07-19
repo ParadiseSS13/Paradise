@@ -42,7 +42,8 @@
 	var/TX = L.getToxLoss() > 50 	? 	"<b>[L.getToxLoss()]</b>" 		: L.getToxLoss()
 	var/BU = L.getFireLoss() > 50 	? 	"<b>[L.getFireLoss()]</b>" 		: L.getFireLoss()
 	var/BR = L.getBruteLoss() > 50 	? 	"<b>[L.getBruteLoss()]</b>" 	: L.getBruteLoss()
-	return " ([L.health]: <font color='deepskyblue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>)"
+	var/ST = L.getStaminaLoss() > 50 	? 	"<b>[L.getStaminaLoss()]</b>" 	: L.getStaminaLoss()
+	return " ([L.health]: <font color='deepskyblue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font> - <font color='cyan'>[ST]</font>)"
 
 /datum/log_record/proc/should_log_health(log_type)
 	if(log_type == ATTACK_LOG || log_type == DEFENSE_LOG)
