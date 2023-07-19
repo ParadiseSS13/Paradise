@@ -378,6 +378,10 @@
 		victim_belongings += C.held_item
 		C.held_item = null
 
+	if(M.back) //Lets not bork modsuits in funny ways.
+		var/obj/modsuit_safety = M.back
+		M.unEquip(modsuit_safety)
+		stuff_to_transfer += modsuit_safety
 	// Regular items get removed in second
 	for(var/obj/item/I in M)
 		// Any items we don't want to take from them?
