@@ -360,7 +360,7 @@
 
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Outfitted with an apparatus to scan individual reagents, and machines internal components."
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Outfitted with an apparatus to scan individual reagents, tech potentials, and machines internal components."
 	scan_reagents = 1
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
