@@ -236,7 +236,7 @@
 	// Run through some quick failure states after shocking.
 	var/time_dead = world.time - target.timeofdeath
 
-	if(time_dead > DEFIB_TIME_LIMIT)
+	if(time_dead > BASE_DEFIB_TIME_LIMIT)
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180)
@@ -273,7 +273,7 @@
 		target.adjustBruteLoss(-heal_amount)
 
 		// Inflict some brain damage scaling with time spent dead
-		var/defib_time_brain_damage = min(100 * time_dead / DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
+		var/defib_time_brain_damage = min(100 * time_dead / BASE_DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
 		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
 			target.setBrainLoss(defib_time_brain_damage)
 

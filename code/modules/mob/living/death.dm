@@ -74,7 +74,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
-		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), DEFIB_TIME_LIMIT + 1)
+		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), BASE_DEFIB_TIME_LIMIT + 1)
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src

@@ -80,3 +80,10 @@
 
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"
+
+	/// How much extra time (beyond the defib timer) to give someone before they can't be defibrillated
+	var/revive_timer_postponement = 0
+
+	/// By how long can the defib timer be extended past the current time?
+	/// In other words, if CPR gives a mob some extra time on their defib timer that outpaces the amount of time they're CPRed for, how high should we cap that?
+	var/maximum_free_time_extension = 1 MINUTES
