@@ -1,12 +1,13 @@
 /mob/proc/add_pixel_shift_component()
 	return
 
-/mob/Initialize(mapload)
+/mob/living/Login()
 	. = ..()
 	add_pixel_shift_component()
 
 /mob/living/add_pixel_shift_component()
-	AddComponent(/datum/component/pixel_shift)
+	if(!GetComponent(/datum/component/pixel_shift))
+		AddComponent(/datum/component/pixel_shift)
 
 /mob/living/silicon/ai/add_pixel_shift_component()
 	return
@@ -23,4 +24,3 @@
 		if(SEND_SIGNAL(src, COMSIG_MOB_PIXEL_SHIFT_PASSABLE, get_dir(src, mover)) & COMPONENT_LIVING_PASSABLE)
 			return TRUE
 	return ..()
-
