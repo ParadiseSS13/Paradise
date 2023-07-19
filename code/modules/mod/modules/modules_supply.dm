@@ -334,7 +334,7 @@
 	if(traveled_tiles == max_traveled_tiles)
 		speed_up = TRUE
 	for(var/obj/item/part as anything in parts)
-		part.armor = part.armor.detachArmor(part.armor = part.armor)
+		part.armor = part.armor.detachArmor(part.armor)
 		var/obj/item/mod/armor/mod_theme_mining/A = new(src)
 		part.armor = part.armor.attachArmor(A.armor) //TODO: ANYTHING BUT FUCKING THIS
 		if(speed_up)
