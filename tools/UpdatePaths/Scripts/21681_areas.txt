@@ -4,7 +4,6 @@
 
 # ----- Deleted areas! -----
 /area/crew_quarters/recruit : @DELETE
-/area/mint : @DELETE
 /area/comms : @DELETE
 
 /area/atmos : /area/station/engineering/atmos
