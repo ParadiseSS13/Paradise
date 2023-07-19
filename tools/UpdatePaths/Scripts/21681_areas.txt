@@ -10,7 +10,6 @@
 /area/atmos/control : /area/station/engineering/atmos/control
 /area/atmos/distribution : /area/station/engineering/atmos/distribution
 
-
 /area/bridge : /area/station/command/bridge
 /area/bridge/meeting_room : /area/station/command/meeting_room
 /area/crew_quarters/captain : /area/station/command/office/captain
