@@ -273,6 +273,13 @@
 	cost = 300
 	containername = "laser rifle ammo crate"
 
+/datum/supply_packs/security/armory/tranqammo
+	name = "Tranquilizer Shell Crate"
+	contains = list(/obj/item/storage/box/tranquilizer,
+					/obj/item/storage/box/tranquilizer)
+	cost = 400
+	containername = "tranquilizer shell crate"
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield

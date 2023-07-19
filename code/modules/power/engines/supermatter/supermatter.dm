@@ -85,6 +85,7 @@
 #define SUPERMATTER_SINGULARITY_RAYS_COLOUR "#750000"
 #define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"
 
+
 /obj/machinery/atmospherics/supermatter_crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -172,6 +173,8 @@
 	var/obj/item/radio/radio
 	///Reference to the warp effect
 	var/obj/effect/warp_effect/supermatter/warp
+	///A variable to have the warp effect for singulo SM work properly
+	var/pulse_stage = 0
 
 	///Boolean used for logging if we've been powered
 	var/has_been_powered = FALSE
@@ -213,7 +216,8 @@
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 	investigate_log("has been created.", "supermatter")
-
+	if(is_main_engine)
+		GLOB.main_supermatter_engine = src
 	soundloop = new(list(src), TRUE)
 
 /obj/machinery/atmospherics/supermatter_crystal/Destroy()
@@ -227,6 +231,8 @@
 	if(!processes)
 		GLOB.frozen_atom_list -= src
 	QDEL_NULL(countdown)
+	if(is_main_engine && GLOB.main_supermatter_engine == src)
+		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
 	return ..()
 
@@ -234,8 +240,7 @@
 	. = ..()
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
-		var/immune = istype(H.glasses, /obj/item/clothing/glasses/meson)
-		if(!immune && !HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+		if(!HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 			. += "<span class='danger'>You get headaches just from looking at it.</span>"
 	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of the use of the pseudo-perpetual energy source, the supermatter crystal.</span>"
 	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
@@ -545,7 +550,7 @@
 
 	//Makes em go mad and accumulate rads.
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
-		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION))
+		if(!HAS_TRAIT(l, TRAIT_MESON_VISION) && !HAS_TRAIT(l, SM_HALLUCINATION_IMMUNE))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			var/hallucination_amount = power * hallucination_power * D
 			l.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
@@ -836,15 +841,7 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/sm_filters()
 	var/new_filter = isnull(get_filter("ray"))
-
-	add_filter(name = "ray", priority = 1, params = list(
-		type = "rays",
-		size = power ? clamp((damage/100) * power, 50, 125) : 1,
-		color = (gasmix_power_ratio> 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR),
-		factor = clamp(damage/600, 1, 10),
-		density = clamp(damage/10, 12, 100)
-	))
-
+	ray_filter_helper(1, power ? clamp((damage/100) * power, 50, 125) : 1, (gasmix_power_ratio> 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR), clamp(damage/600, 1, 10), clamp(damage/10, 12, 100))
 	// Filter animation persists even if the filter itself is changed externally.
 	// Probably prone to breaking. Treat with suspicion.
 	if(new_filter)
@@ -852,13 +849,7 @@
 		animate(offset = 0, time = 10 SECONDS)
 
 	if(power > POWER_PENALTY_THRESHOLD)
-		add_filter(name = "ray", priority = 1, params = list(
-			type = "rays",
-			size = power ? clamp((damage/100) * power, 50, 175) : 1, //Higher power
-			color = SUPERMATTER_TESLA_COLOUR,
-			factor = clamp(damage/300, 1, 20),
-			density = clamp(damage/5, 12, 200)
-		))
+		ray_filter_helper(1, power ? clamp((damage/100) * power, 50, 175) : 1, SUPERMATTER_TESLA_COLOUR, clamp(damage/300, 1, 20), clamp(damage/5, 12, 200))
 		if(prob(25))
 			new /obj/effect/warp_effect/bsg(get_turf(src)) //Some extra visual effect to the shocking sm which is a bit less interesting.
 		if(final_countdown)
@@ -871,13 +862,7 @@
 			remove_filter("icon")
 
 	if(combined_gas > MOLE_PENALTY_THRESHOLD)
-		add_filter(name = "ray", priority = 1, params=list(
-			type = "rays",
-			size = power ? clamp((damage/100) * power, 50, 125) : 1,
-			color = SUPERMATTER_SINGULARITY_RAYS_COLOUR,
-			factor = clamp(damage / 300, 1, 30),
-			density = clamp(damage / 5, 12, 300) //More compressed due to gravity
-		))
+		ray_filter_helper(1, power ? clamp((damage/100) * power, 50, 125) : 1, SUPERMATTER_SINGULARITY_RAYS_COLOUR, clamp(damage / 300, 1, 30), clamp(damage / 5, 12, 300))
 
 		add_filter(name = "outline", priority = 2, params = list(
 			type = "outline",
@@ -887,8 +872,12 @@
 		if(!warp)
 			warp = new(src)
 			vis_contents += warp
-		animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
-		animate(time = 14, transform = matrix())
+		if(pulse_stage == 4)
+			animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
+			animate(time = 14, transform = matrix())
+			pulse_stage = 0
+		else
+			pulse_stage++
 		if(final_countdown)
 			add_filter(name = "icon", priority = 3, params = list(
 				type = "layer",
@@ -1128,6 +1117,11 @@
 			if(zap_count > 1)
 				targets_hit = targets_hit.Copy() //Pass by ref begone
 			supermatter_zap(target, new_range, zap_str, zap_flags, targets_hit)
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/manual_start(amount)
+	has_been_powered = TRUE
+	power += amount
+	message_admins("[src] has been activated and given an increase EER of [amount] at [ADMIN_JMP(src)]")
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY

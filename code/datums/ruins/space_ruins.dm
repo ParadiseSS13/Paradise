@@ -309,3 +309,11 @@
 	description = "A now-defunct outpost, with the last received signal being that of distress."
 	allow_duplicates = FALSE
 	cost = 2 // Also pretty big
+
+/datum/map_template/ruin/space/voyager
+	id = "voyager"
+	suffix = "voyager.dmm"
+	name = "Voyager"
+	description = "A relic of old times, you don't know what it hide inside."
+	allow_duplicates = FALSE
+	cost = 1 // Gives research levels and it should be hard-to-find

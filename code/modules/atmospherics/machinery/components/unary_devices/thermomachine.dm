@@ -26,8 +26,8 @@
 	var/base_heating = 140
 	var/base_cooling = 170
 
-/obj/machinery/atmospherics/unary/thermomachine/New()
-	..()
+/obj/machinery/atmospherics/unary/thermomachine/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/thermomachine(null)

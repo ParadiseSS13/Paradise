@@ -41,7 +41,6 @@
 	var/pickup_all_on_tile = TRUE
 	/// Sound played when used. `null` for no sound.
 	var/use_sound = "rustle"
-
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
 	/// How much of the stack item do you get.
@@ -141,7 +140,6 @@
 		return ..()
 	if(!(loc == M) || (loc && loc.loc == M))
 		return
-	playsound(loc, "rustle", 50, 1, -5)
 	if(!M.restrained() && !M.stat)
 		switch(over_object.name)
 			if("r_hand")
@@ -163,7 +161,7 @@
 	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
 		show_to(user)
-		playsound(loc, "rustle", 50, TRUE, -5)
+		playsound(loc, use_sound, 50, TRUE, -5)
 		add_fingerprint(user)
 	else if(isobserver(user))
 		show_to(user)
@@ -549,7 +547,7 @@
 
 
 /obj/item/storage/attack_hand(mob/user)
-	playsound(loc, "rustle", 50, TRUE, -5)
+	playsound(loc, use_sound, 50, TRUE, -5)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
