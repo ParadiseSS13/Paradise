@@ -1693,23 +1693,22 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	H.receiving_cpr = TRUE
 	var/cpr_modifier = get_cpr_mod(H)
 	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
+	if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
+		to_chat(src, "<span class='warning'>You can't get to [H]'s mouth, so your CPR will be less effective!</span>")
+	while(do_mob(src, H, 4 SECONDS) && H.health <= HEALTH_THRESHOLD_CRIT)
+		H.adjustOxyLoss(-15 * cpr_modifier)
+		H.SetLoseBreath(0)
+		H.AdjustParalysis(-2 SECONDS)
+		H.updatehealth("cpr")
+		visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 
-	if(do_mob(src, H, 4 SECONDS))
-		if(H.health <= HEALTH_THRESHOLD_CRIT)
-			H.adjustOxyLoss(-15 * cpr_modifier)
-			H.SetLoseBreath(0)
-			H.AdjustParalysis(-2 SECONDS)
-			H.updatehealth("cpr")
-			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
+		if(cpr_modifier == CPR_RESCUE_BREATHS)
+			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
+		add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 
-			if(cpr_modifier == CPR_RESCUE_BREATHS)
-				to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
-			H.receiving_cpr = FALSE
-			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
-			return TRUE
-	else
-		H.receiving_cpr = FALSE
-		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
+	H.receiving_cpr = FALSE
+	visible_message("<span class='notice'>[src] stops performing CPR on [H].</span>", "<span class='notice'>You stop performing CPR on [H].</span>")
+	to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 /mob/living/carbon/human/proc/get_cpr_mod(mob/living/carbon/human/H)
 	if(is_mouth_covered() || H.is_mouth_covered())
