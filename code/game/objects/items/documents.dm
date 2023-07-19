@@ -13,7 +13,7 @@
 
 /obj/item/documents/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/documents/nanotrasen
 	desc = "\"Top Secret\" Nanotrasen documents printed on special copy-protected paper. It is filled with complex diagrams and lists of names, dates and coordinates."

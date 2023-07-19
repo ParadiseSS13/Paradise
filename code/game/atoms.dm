@@ -389,7 +389,7 @@
 	. = build_base_description(infix, suffix)
 	. += build_reagent_description(user)
 
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /**
  * Updates the appearence of the icon

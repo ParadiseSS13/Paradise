@@ -27,10 +27,10 @@
 
 /datum/job_objective/proc/set_owner_account(datum/money_account/account) //needed for GC'ing
 	owner_account = account
-	RegisterSignal(owner_account, COMSIG_PARENT_QDELETING, PROC_REF(clear_owner_account))
+	RegisterSignal(owner_account, COMSIG_QDELETING, PROC_REF(clear_owner_account))
 
 /datum/job_objective/proc/clear_owner_account() //needed for GC'ing
-	UnregisterSignal(owner_account, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(owner_account, COMSIG_QDELETING)
 	owner_account = null
 
 /datum/job_objective/proc/is_completed()

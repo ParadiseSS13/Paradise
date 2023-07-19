@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	if(C.id != id)
 		return
 	conveyors += C
-	RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(unlink_conveyer)) // so it GCs properly
+	RegisterSignal(C, COMSIG_QDELETING, PROC_REF(unlink_conveyer)) // so it GCs properly
 
 /obj/machinery/conveyor_switch/proc/unlink_conveyer(obj/machinery/conveyor/C)
 	conveyors -= C

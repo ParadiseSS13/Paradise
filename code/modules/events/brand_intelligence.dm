@@ -21,7 +21,7 @@
 	for(var/obj/machinery/economy/vending/candidate in GLOB.machines)
 		if(!is_station_level(candidate.z))
 			continue
-		RegisterSignal(candidate, COMSIG_PARENT_QDELETING, PROC_REF(vendor_destroyed))
+		RegisterSignal(candidate, COMSIG_QDELETING, PROC_REF(vendor_destroyed))
 		vendingMachines.Add(candidate)
 		if(candidate.refill_canister)
 			leaderables.Add(candidate)
@@ -87,7 +87,7 @@
 
 /datum/event/brand_intelligence/kill()
 	for(var/V in infectedMachines + vendingMachines)
-		UnregisterSignal(V, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(V, COMSIG_QDELETING)
 	infectedMachines.Cut()
 	vendingMachines.Cut()
 	. = ..()

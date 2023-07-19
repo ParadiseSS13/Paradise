@@ -30,7 +30,7 @@
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(orbit_begin))
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_STOP, PROC_REF(orbit_stop))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	deadchat_mode = _deadchat_mode
 	inputs = _inputs
 	input_cooldown = _input_cooldown
@@ -186,7 +186,7 @@
 
 /// Informs any examiners to the inputs available as part of deadchat control, as well as the current operating mode and cooldowns.
 /datum/component/deadchat_control/proc/on_examine(atom/A, mob/user, list/examine_list)
-	SIGNAL_HANDLER  // COMSIG_PARENT_EXAMINE
+	SIGNAL_HANDLER  // COMSIG_ATOM_EXAMINE
 
 	if(!isobserver(user))
 		return

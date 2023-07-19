@@ -104,7 +104,7 @@
 /datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, lifespan, italics, size, symbol)
 	// Register client who owns this message
 	owned_by = owner.client
-	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_qdel))
+	RegisterSignal(owned_by, COMSIG_QDELETING, PROC_REF(on_parent_qdel))
 
 	// Clip message
 	var/maxlen = CHAT_MESSAGE_MAX_LENGTH

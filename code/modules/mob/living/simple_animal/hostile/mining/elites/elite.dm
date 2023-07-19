@@ -236,7 +236,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.sentience_act()
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	icon_state = "tumor_popped"
-	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(onEliteLoss))
+	RegisterSignal(mychild, COMSIG_QDELETING, PROC_REF(onEliteLoss))
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS) //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 
@@ -273,7 +273,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return
 	activator = user
 	ADD_TRAIT(user, TRAIT_ELITE_CHALLENGER, "activation")
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_activator))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(clear_activator))
 
 /obj/structure/elite_tumor/proc/clear_activator(mob/source)
 	SIGNAL_HANDLER
@@ -282,7 +282,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		mychild = null
 	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "clear activation")
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /obj/structure/elite_tumor/process()
 	if(!isturf(loc))

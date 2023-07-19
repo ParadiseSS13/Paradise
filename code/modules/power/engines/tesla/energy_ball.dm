@@ -46,7 +46,7 @@
 	miniball = is_miniball
 	RegisterSignal(src, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(on_start_orbit))
 	RegisterSignal(src, COMSIG_ATOM_ORBIT_STOP, PROC_REF(on_stop_orbit))
-	RegisterSignal(parent_energy_ball, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_delete))
+	RegisterSignal(parent_energy_ball, COMSIG_QDELETING, PROC_REF(on_parent_delete))
 	. = ..()
 	if(!is_miniball)
 		set_light(10, 7, "#5e5edd")
@@ -65,7 +65,7 @@
 	UnregisterSignal(src, COMSIG_ATOM_ORBIT_BEGIN)
 	UnregisterSignal(src, COMSIG_ATOM_ORBIT_STOP)
 	if(parent_energy_ball && !QDELETED(parent_energy_ball))
-		UnregisterSignal(parent_energy_ball, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(parent_energy_ball, COMSIG_QDELETING)
 		parent_energy_ball.on_stop_orbit(src, TRUE)
 		parent_energy_ball.orbiting_balls -= src
 		parent_energy_ball = null

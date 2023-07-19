@@ -2,7 +2,7 @@
 	var/current_paint
 
 /datum/component/spraycan_paintable/Initialize()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(Repaint))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(Repaint))
 
 /datum/component/spraycan_paintable/Destroy()
 	RemoveCurrentCoat()

@@ -22,10 +22,10 @@
 	if(cleanable)
 		RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_react))
 	if(description)
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
+		RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 
 /datum/component/decal/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ATOM_DIR_CHANGE, COMSIG_COMPONENT_CLEAN_ACT, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_ATOM_DIR_CHANGE, COMSIG_COMPONENT_CLEAN_ACT, COMSIG_ATOM_EXAMINE))
 
 /datum/component/decal/Destroy()
 	remove()

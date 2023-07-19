@@ -72,7 +72,7 @@
 	..()
 	holder.mouse_pointer_icon = 'icons/mouse_icons/give_item.dmi'
 	to_chat(holder, "<span class='info'>You can now left click on someone to give them your held item.</span>")
-	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
+	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
 	RegisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), PROC_REF(signal_qdel))
 
 
@@ -134,8 +134,8 @@
 	add_overlay(icon(I.icon, I.icon_state, SOUTH))
 	add_overlay("alert_flash")
 	// If either of these atoms are deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
-	RegisterSignal(I, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
-	RegisterSignal(giver, list(COMSIG_PARENT_QDELETING, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), PROC_REF(cancel_give))
+	RegisterSignal(I, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
+	RegisterSignal(giver, list(COMSIG_QDELETING, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), PROC_REF(cancel_give))
 
 
 /obj/screen/alert/take_item/Destroy()

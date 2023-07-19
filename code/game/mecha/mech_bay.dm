@@ -65,14 +65,14 @@
 		if(recharging_mecha.loc == recharging_turf)
 			return  // no need to update anything
 		// it wandered away
-		UnregisterSignal(recharging_mecha, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(recharging_mecha, COMSIG_QDELETING)
 		recharging_mecha = null
 	// try to find a new mecha if we don't have any
 	if(!recharging_mecha)
 		recharging_mecha = locate(/obj/mecha) in recharging_turf
 		if(recharging_mecha)
 			// so that we don't hold references to it after it's gone, and not causing GC issues
-			RegisterSignal(recharging_mecha, COMSIG_PARENT_QDELETING, PROC_REF(on_mecha_qdel))
+			RegisterSignal(recharging_mecha, COMSIG_QDELETING, PROC_REF(on_mecha_qdel))
 
 /obj/machinery/mech_bay_recharge_port/proc/on_mecha_qdel()
 	recharging_mecha = null

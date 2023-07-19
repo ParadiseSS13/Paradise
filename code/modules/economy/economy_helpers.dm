@@ -10,10 +10,10 @@
 
 /datum/mind/proc/set_initial_account(datum/money_account/account) //needed for GC'ing
 	initial_account = account
-	RegisterSignal(initial_account, COMSIG_PARENT_QDELETING, PROC_REF(clear_initial_account))
+	RegisterSignal(initial_account, COMSIG_QDELETING, PROC_REF(clear_initial_account))
 
 /datum/mind/proc/clear_initial_account() //needed for GC'ing
-	UnregisterSignal(initial_account, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(initial_account, COMSIG_QDELETING)
 	initial_account = null
 
 

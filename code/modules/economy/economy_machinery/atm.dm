@@ -104,7 +104,7 @@
 	user.drop_item()
 	id.forceMove(src)
 	held_card = id
-	RegisterSignal(held_card, COMSIG_PARENT_QDELETING, PROC_REF(clear_held_card))
+	RegisterSignal(held_card, COMSIG_QDELETING, PROC_REF(clear_held_card))
 	if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 		clear_account()
 
@@ -119,14 +119,14 @@
 
 ///ensures proper GC of ID card
 /obj/machinery/economy/atm/proc/clear_held_card()
-	UnregisterSignal(held_card, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(held_card, COMSIG_QDELETING)
 	held_card = null
 
 ///ensures proper GC of money account
 /obj/machinery/economy/atm/proc/clear_account()
 	if(!authenticated_account) // In some situations there will be no authenticated account, such as removing your ID without inputting account information
 		return
-	UnregisterSignal(authenticated_account, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(authenticated_account, COMSIG_QDELETING)
 	authenticated_account = null
 
 /obj/machinery/economy/atm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -224,7 +224,7 @@
 
 	if(attempt_account_authentification(user_account, account_pin, user))
 		authenticated_account = user_account
-		RegisterSignal(authenticated_account, COMSIG_PARENT_QDELETING, PROC_REF(clear_account))
+		RegisterSignal(authenticated_account, COMSIG_QDELETING, PROC_REF(clear_account))
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			var/shoutname = uppertext(user_account.account_name)
 			atom_say("HELLO '[shoutname]'! YOU'VE SUCCESSFULLY LOGGED IN WITH ACCOUNT NUMBER '[user_account.account_number]' AND PIN NUMBER '[user_account.account_pin]'! HAVE A PARADISE DAY!")

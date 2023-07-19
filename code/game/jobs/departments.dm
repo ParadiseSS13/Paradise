@@ -35,10 +35,10 @@
 
 /datum/department_member/proc/set_member_account(datum/money_account/account)
 	member_account = account
-	RegisterSignal(account, COMSIG_PARENT_QDELETING, PROC_REF(clear_member_account))
+	RegisterSignal(account, COMSIG_QDELETING, PROC_REF(clear_member_account))
 
 /datum/department_member/proc/clear_member_account(datum/money_account/account)
-	UnregisterSignal(account, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(account, COMSIG_QDELETING)
 	member_account = null
 
 /datum/station_department/can_vv_delete()

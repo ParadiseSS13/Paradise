@@ -16,7 +16,7 @@
 	if(!new_info)
 		return INITIALIZE_HINT_QDEL
 	mob_info = new_info
-	RegisterSignal(mob_info, COMSIG_PARENT_QDELETING, PROC_REF(delete_wrapper))
+	RegisterSignal(mob_info, COMSIG_QDELETING, PROC_REF(delete_wrapper))
 	update_self()
 	forceMove(mob_info.spawn_point)
 	if(!mob_info.is_trap)

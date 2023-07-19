@@ -9,7 +9,7 @@
 		return
 	if(!hide_tape) //if TRUE this hides the tape overlay and added examine text
 		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_tape_overlay))
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(add_tape_text))
+		RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(add_tape_text))
 	x_offset = x
 	y_offset = y
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(afterattack))

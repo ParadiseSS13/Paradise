@@ -401,11 +401,11 @@
 	activated = TRUE
 
 	owner.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
-	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(deactivate))
+	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(deactivate))
 
 /obj/item/rod_of_asclepius/proc/deactivate()
 	if(owner)
-		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(owner, COMSIG_QDELETING)
 		owner = null
 
 	flags = NONE

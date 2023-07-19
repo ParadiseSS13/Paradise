@@ -21,13 +21,13 @@
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(equipped))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(dropped))
 	RegisterSignal(parent, COMSIG_ITEM_HIT_REACT, PROC_REF(attempt_parry))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_parent_examined))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_parent_examined))
 
 /datum/component/parry/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED)
 	UnregisterSignal(parent, COMSIG_ITEM_DROPPED)
 	UnregisterSignal(parent, COMSIG_ITEM_HIT_REACT)
-	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(parent, COMSIG_ATOM_EXAMINE)
 	var/obj/item/I = parent
 	if(ismob(I.loc))
 		UnregisterSignal(I.loc, COMSIG_HUMAN_PARRY)
@@ -116,8 +116,8 @@
 	owner.adjustStaminaLoss(stamina_damage)
 	if(owner.getStaminaLoss() < 100)
 		if(!was_perfect)
-			return COMPONENT_BLOCK_SUCCESSFUL
-		return (COMPONENT_BLOCK_SUCCESSFUL | COMPONENT_BLOCK_PERFECT)
+			return COMPONENT_HIT_REACTION_BLOCK
+		return (COMPONENT_HIT_REACTION_BLOCK | COMPONENT_HIT_REACTION_BLOCK_PERFECT)
 
 /datum/component/parry/proc/on_parent_examined(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER

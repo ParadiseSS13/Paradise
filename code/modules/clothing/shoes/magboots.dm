@@ -60,7 +60,7 @@
 
 /obj/item/clothing/shoes/magboots/advance/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/clothing/shoes/magboots/syndie
 	name = "blood-red magboots"

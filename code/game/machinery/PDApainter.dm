@@ -151,7 +151,7 @@
 	if(istype(P))
 		if(user.drop_item())
 			storedpda = P
-			RegisterSignal(P, COMSIG_PARENT_QDELETING, PROC_REF(on_pda_qdel))
+			RegisterSignal(P, COMSIG_QDELETING, PROC_REF(on_pda_qdel))
 			P.forceMove(src)
 			P.add_fingerprint(usr)
 			update_icon()
@@ -166,7 +166,7 @@
 		var/mob/living/carbon/human/H = user
 		H.put_in_hands(storedpda)
 
-	UnregisterSignal(storedpda, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(storedpda, COMSIG_QDELETING)
 	storedpda = null
 	update_icon()
 
@@ -188,7 +188,7 @@
 /obj/machinery/pdapainter/proc/on_pda_qdel()
 	if(!storedpda)
 		return
-	UnregisterSignal(storedpda, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(storedpda, COMSIG_QDELETING)
 	storedpda = null
 	update_icon()
 

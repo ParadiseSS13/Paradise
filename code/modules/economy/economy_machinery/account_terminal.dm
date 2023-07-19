@@ -102,7 +102,7 @@
 			var/account_num = text2num(params["account_num"])
 			if(account_num)
 				detailed_account_view = GLOB.station_money_database.find_user_account(account_num, include_departments = TRUE)
-				RegisterSignal(detailed_account_view, COMSIG_PARENT_QDELETING, PROC_REF(clear_viewed_account))
+				RegisterSignal(detailed_account_view, COMSIG_QDELETING, PROC_REF(clear_viewed_account))
 				current_page = AUT_ACCINF
 		if("back")
 			clear_viewed_account()
@@ -137,7 +137,7 @@
 			current_page = AUT_ACCLST
 
 /obj/machinery/computer/account_database/proc/clear_viewed_account()
-	UnregisterSignal(detailed_account_view, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(detailed_account_view, COMSIG_QDELETING)
 	detailed_account_view = null
 	current_page = AUT_ACCLST
 

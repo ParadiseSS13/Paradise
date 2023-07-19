@@ -198,7 +198,7 @@
 	if(account_database.try_authenticate_login(attempt_account, tried_pin, TRUE, FALSE, FALSE))
 		user_account = attempt_account
 		//lets make sure to logout if the account gets deleted somehow (such as cryo'ing)
-		RegisterSignal(user_account, COMSIG_PARENT_QDELETING, PROC_REF(logout))
+		RegisterSignal(user_account, COMSIG_QDELETING, PROC_REF(logout))
 		if(!LAZYLEN(user_account.associated_nanobank_programs) || !(src in user_account.associated_nanobank_programs))
 			LAZYADD(user_account.associated_nanobank_programs, src)
 		return TRUE
@@ -208,7 +208,7 @@
 		return
 	//even though this is a LAZYLIST, we know it has a single entry on it because we're connected to the account
 	LAZYREMOVE(user_account.associated_nanobank_programs, src)
-	UnregisterSignal(user_account, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(user_account, COMSIG_QDELETING)
 	user_account = null
 
 

@@ -359,13 +359,13 @@
 
 	disconnect() //clear references to old computer, we have to unregister signals
 	computer = library_computer
-	RegisterSignal(library_computer, COMSIG_PARENT_QDELETING, PROC_REF(disconnect))
+	RegisterSignal(library_computer, COMSIG_QDELETING, PROC_REF(disconnect))
 	return TRUE
 
 /obj/item/barcodescanner/proc/disconnect()
 	if(!computer)
 		return //proc will runtime if computer is null
-	UnregisterSignal(computer, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(computer, COMSIG_QDELETING)
 	computer = null
 
 /obj/item/barcodescanner/proc/scanID(obj/item/card/id/ID, mob/user)

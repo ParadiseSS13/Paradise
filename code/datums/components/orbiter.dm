@@ -103,7 +103,7 @@
 	orbiter_list += orbiter
 
 	// make sure orbits get cleaned up nicely if the parent qdels
-	RegisterSignal(orbiter, COMSIG_PARENT_QDELETING, PROC_REF(end_orbit))
+	RegisterSignal(orbiter, COMSIG_QDELETING, PROC_REF(end_orbit))
 
 	var/orbit_flags = 0
 	if(lock_in_orbit)
@@ -168,7 +168,7 @@
 		orbiter.layer = get_orbiter_layer(orbiter)
 
 		UnregisterSignal(orbiter, COMSIG_MOVABLE_MOVED)
-		UnregisterSignal(orbiter, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(orbiter, COMSIG_QDELETING)
 
 		orbiter.orbiting_uid = null
 

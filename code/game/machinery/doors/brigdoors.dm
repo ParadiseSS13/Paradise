@@ -128,22 +128,22 @@
 	for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
 		if(M.id == id)
 			targets += M
-			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
+			RegisterSignal(M, COMSIG_QDELETING, PROC_REF(on_target_qdel))
 
 	for(var/obj/machinery/flasher/F in GLOB.machines)
 		if(F.id == id)
 			targets += F
-			RegisterSignal(F, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
+			RegisterSignal(F, COMSIG_QDELETING, PROC_REF(on_target_qdel))
 
 	for(var/obj/structure/closet/secure_closet/brig/C in world)
 		if(C.id == id)
 			targets += C
-			RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
+			RegisterSignal(C, COMSIG_QDELETING, PROC_REF(on_target_qdel))
 
 	for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
 		if(T.id == id)
 			targets += T
-			RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
+			RegisterSignal(T, COMSIG_QDELETING, PROC_REF(on_target_qdel))
 
 	if(!length(targets))
 		stat |= BROKEN

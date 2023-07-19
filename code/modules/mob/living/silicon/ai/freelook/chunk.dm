@@ -23,7 +23,7 @@
 	// Register all even though it is active/inactive. Won't get called incorrectly
 	RegisterSignal(cam, COMSIG_CAMERA_OFF, PROC_REF(deactivate_camera))
 	RegisterSignal(cam, COMSIG_CAMERA_ON, PROC_REF(activate_camera))
-	RegisterSignal(cam, COMSIG_PARENT_QDELETING, PROC_REF(remove_camera))
+	RegisterSignal(cam, COMSIG_QDELETING, PROC_REF(remove_camera))
 	RegisterSignal(cam, COMSIG_CAMERA_MOVED, PROC_REF(camera_moved))
 	if(cam.can_use())
 		active_cameras[cam] = cam
@@ -38,7 +38,7 @@
 		remove_camera(cam)
 
 /datum/camerachunk/proc/remove_camera(obj/machinery/camera/cam)
-	UnregisterSignal(cam, list(COMSIG_CAMERA_OFF, COMSIG_CAMERA_ON, COMSIG_PARENT_QDELETING, COMSIG_CAMERA_MOVED))
+	UnregisterSignal(cam, list(COMSIG_CAMERA_OFF, COMSIG_CAMERA_ON, COMSIG_QDELETING, COMSIG_CAMERA_MOVED))
 	active_cameras -= cam
 	inactive_cameras -= cam
 	SScamera.queue(src)
@@ -61,7 +61,7 @@
 			client.images += obscured
 	eye.visibleCameraChunks += src
 	seenby += eye
-	RegisterSignal(eye, COMSIG_PARENT_QDELETING, PROC_REF(aiEye_destroyed))
+	RegisterSignal(eye, COMSIG_QDELETING, PROC_REF(aiEye_destroyed))
 	if(changed)
 		SScamera.queue(src)
 
@@ -76,7 +76,7 @@
 			client.images -= obscured
 	eye.visibleCameraChunks -= src
 	seenby -= eye
-	UnregisterSignal(eye, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(eye, COMSIG_QDELETING)
 
 // Called when a chunk has changed. I.E: A wall was deleted.
 

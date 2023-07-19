@@ -320,7 +320,7 @@
 
 	user.drop_item()
 	I.forceMove(src)
-	RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(clear_stored_item)) //ensure proper GC'ing
+	RegisterSignal(I, COMSIG_QDELETING, PROC_REF(clear_stored_item)) //ensure proper GC'ing
 	store = I
 	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
 	return TRUE
@@ -338,7 +338,7 @@
 		to_chat(user, "<span class='notice'>You carefully remove [store] from [name]!</span>")
 	store.forceMove(get_turf(store.loc))
 	clear_stored_item()
-	UnregisterSignal(store, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(store, COMSIG_QDELETING)
 
 	return TRUE
 

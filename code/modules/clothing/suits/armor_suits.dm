@@ -391,7 +391,7 @@
 /obj/item/clothing/suit/armor/reactive/Initialize(mapload, ...)
 	. = ..()
 	cell = new(src)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/clothing/suit/armor/reactive/Destroy()
 	QDEL_NULL(cell)
@@ -608,7 +608,7 @@
 	. = ..()
 	var/spawnpath = pick(subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random)
 	new spawnpath(loc)
-	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(src, COMSIG_QDELETING)
 	return INITIALIZE_HINT_QDEL
 
 //All of the armor below is mostly unused

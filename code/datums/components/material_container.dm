@@ -37,8 +37,8 @@
 	precondition = _precondition
 	after_insert = _after_insert
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(OnExamine))
 
 	var/list/possible_mats = list()
 	for(var/mat_type in subtypesof(/datum/material))

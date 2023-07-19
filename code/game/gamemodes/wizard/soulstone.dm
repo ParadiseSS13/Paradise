@@ -28,7 +28,7 @@
 
 /obj/item/soulstone/proc/add_held_body(atom/movable/body)
 	held_body = body
-	RegisterSignal(body, COMSIG_PARENT_QDELETING, PROC_REF(remove_held_body))
+	RegisterSignal(body, COMSIG_QDELETING, PROC_REF(remove_held_body))
 
 /obj/item/soulstone/proc/remove_held_body()
 	SIGNAL_HANDLER

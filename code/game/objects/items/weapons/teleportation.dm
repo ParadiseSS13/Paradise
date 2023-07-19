@@ -114,7 +114,7 @@ Frequency:
 
 /obj/item/hand_tele/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/hand_tele/attack_self(mob/user)
 	var/turf/current_location = get_turf(user)//What turf is the user on?

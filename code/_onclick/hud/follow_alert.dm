@@ -55,12 +55,12 @@
 	followers = null
 
 	for(var/atom/movable/target in next_targets)
-		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(target, COMSIG_QDELETING)
 	next_targets = null
 
 	if(follow_target)
 		UnregisterSignal(follow_target, COMSIG_ATOM_ORBIT_STOP)
-		UnregisterSignal(follow_target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(follow_target, COMSIG_QDELETING)
 	follow_target = null
 
 	return ..()
@@ -69,7 +69,7 @@
 /// Don't immediately kill ourselves, since it's possible that we might want to move somewhere else
 /// (for example, after a meteor strike)
 /obj/screen/alert/augury/proc/on_following_qdel(atom/movable/A)
-	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	SIGNAL_HANDLER  // COMSIG_QDELETING
 	for(var/atom/movable/follower in followers)
 		follower.stop_orbit()
 
@@ -92,9 +92,9 @@
 		return
 	if(follow_target)
 		UnregisterSignal(follow_target, COMSIG_ATOM_ORBIT_STOP)
-		UnregisterSignal(follow_target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(follow_target, COMSIG_QDELETING)
 	follow_target = next_to
-	RegisterSignal(follow_target, COMSIG_PARENT_QDELETING, PROC_REF(on_following_qdel), override = TRUE)  // override our qdeleting signal
+	RegisterSignal(follow_target, COMSIG_QDELETING, PROC_REF(on_following_qdel), override = TRUE)  // override our qdeleting signal
 	for(var/atom/movable/M in followers)
 		M.orbit(follow_target)
 

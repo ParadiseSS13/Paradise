@@ -327,10 +327,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/proc/add_pen(obj/item/P)
 	P.forceMove(src)
 	held_pen = P
-	RegisterSignal(held_pen, COMSIG_PARENT_QDELETING, PROC_REF(clear_pen))
+	RegisterSignal(held_pen, COMSIG_QDELETING, PROC_REF(clear_pen))
 
 /obj/item/pda/proc/clear_pen()
-	UnregisterSignal(held_pen, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(held_pen, COMSIG_QDELETING)
 	held_pen = null
 
 /obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)

@@ -148,19 +148,19 @@
 	clear_potion()
 	potion.forceMove(src)
 	current_potion = potion
-	RegisterSignal(current_potion, COMSIG_PARENT_QDELETING, PROC_REF(clear_potion))
+	RegisterSignal(current_potion, COMSIG_QDELETING, PROC_REF(clear_potion))
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/clear_potion()
 	if(!QDELETED(current_potion))
 		current_potion.forceMove(drop_location())
-		UnregisterSignal(current_potion, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(current_potion, COMSIG_QDELETING)
 	current_potion = null
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/capture_slime(mob/living/simple_animal/slime/slime)
 	slime.visible_message("<span class='notice'>[slime] vanishes in a flash of light!</span>")
 	slime.forceMove(src)
 	stored_slimes += slime
-	RegisterSignal(slime, COMSIG_PARENT_QDELETING, PROC_REF(clear_slime))
+	RegisterSignal(slime, COMSIG_QDELETING, PROC_REF(clear_slime))
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/release_slime(mob/living/simple_animal/slime/slime, release_spot)
 	slime.visible_message("<span class='notice'>[slime] warps in!</span>")
@@ -168,7 +168,7 @@
 	slime.forceMove(release_spot)
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/clear_slime(mob/living/simple_animal/slime/slime)
-	UnregisterSignal(slime, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(slime, COMSIG_QDELETING)
 	stored_slimes -= slime
 
 /obj/machinery/computer/camera_advanced/xenobio/attack_hand(mob/user)

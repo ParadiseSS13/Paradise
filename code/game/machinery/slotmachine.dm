@@ -32,10 +32,10 @@
 		clear_user_account()
 	user_account = account
 	if(user_account)
-		RegisterSignal(account, COMSIG_PARENT_QDELETING, PROC_REF(clear_user_account))
+		RegisterSignal(account, COMSIG_QDELETING, PROC_REF(clear_user_account))
 
 /obj/machinery/economy/slot_machine/proc/clear_user_account()
-	UnregisterSignal(user_account, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(user_account, COMSIG_QDELETING)
 	user_account = null
 
 /obj/machinery/economy/slot_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

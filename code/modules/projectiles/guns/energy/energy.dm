@@ -61,7 +61,7 @@
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced energy revolver"

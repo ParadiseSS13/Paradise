@@ -364,7 +364,7 @@
 			++Friends[user]
 		else
 			Friends[user] = 1
-			RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_friend))
+			RegisterSignal(user, COMSIG_QDELETING, PROC_REF(clear_friend))
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
@@ -387,7 +387,7 @@
 	..()
 
 /mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
-	UnregisterSignal(friend, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(friend, COMSIG_QDELETING)
 	Friends -= friend
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
