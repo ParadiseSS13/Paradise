@@ -4,20 +4,14 @@
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_ATOM_ATTACKBY "atom_attackby"
-/// From base of [atom/proc/attacby_secondary()]: (/obj/item/weapon, /mob/user, params)
-#define COMSIG_ATOM_ATTACKBY_SECONDARY "atom_attackby_secondary"
 ///from [/item/afterattack()], sent by an atom which was just attacked by an item: (/obj/item/weapon, /mob/user, proximity_flag, click_parameters)
 #define COMSIG_ATOM_AFTER_ATTACKEDBY "atom_after_attackby"
-/// From base of [/atom/proc/attack_hand_secondary]: (mob/user, list/modifiers) - Called when the atom receives a secondary unarmed attack.
-#define COMSIG_ATOM_ATTACK_HAND_SECONDARY "atom_attack_hand_secondary"
 ///Return this in response if you don't want afterattack to be called
 	#define COMPONENT_NO_AFTERATTACK (1<<0)
 ///from base of atom/attack_hulk(): (/mob/living/carbon/human)
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
-//from base of atom/attack_basic_mob(): (/mob/user)
-#define COMSIG_ATOM_ATTACK_BASIC_MOB "attack_basic_mob"
 /// from /atom/proc/atom_break: (damage_flag)
 #define COMSIG_ATOM_BREAK "atom_break"
 /// from base of [/atom/proc/atom_fix]: ()
@@ -48,8 +42,6 @@
 #define COMSIG_ATOM_ATTACK_MECH "atom_attack_mech"
 /// from base of atom/attack_robot(): (mob/user)
 #define COMSIG_ATOM_ATTACK_ROBOT "atom_attack_robot"
-/// from base of atom/attack_robot_secondary(): (mob/user)
-#define COMSIG_ATOM_ATTACK_ROBOT_SECONDARY "atom_attack_robot_secondary"
 ///from relay_attackers element: (atom/attacker, attack_flags)
 #define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
 	///The damage type of the weapon projectile is non-lethal stamina
