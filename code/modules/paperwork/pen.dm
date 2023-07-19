@@ -155,7 +155,6 @@
 
 
 /obj/item/pen/sleepy/love/fill_pen()
-	. = ..()
 	reagents.add_reagent("love", 100)
 
 /*

@@ -56,7 +56,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/proc/generate_item_lists(mob/user)
 	if(!job)
 		job = user.mind.assigned_role
-	var/species
 	if(!species)
 		species = user.dna.species.name
 
