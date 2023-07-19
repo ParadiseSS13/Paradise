@@ -236,7 +236,7 @@
 	// Run through some quick failure states after shocking.
 	var/time_dead = world.time - target.timeofdeath
 
-	if(time_dead > BASE_DEFIB_TIME_LIMIT)
+	if(!target.under_defib_timer())
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180)

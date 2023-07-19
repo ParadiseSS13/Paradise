@@ -402,7 +402,8 @@
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
-#define BASE_DEFIB_TIME_LIMIT (300 SECONDS)
+#warn this timer needs to be set back to 300 seconds
+#define BASE_DEFIB_TIME_LIMIT (60 SECONDS)
 /// Brain damage starts setting in on the patient after some time left rotting.
 #define DEFIB_TIME_LOSS (60 SECONDS)
 
