@@ -186,8 +186,8 @@
 	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
 		return
 	else
-		if(issilicon(usr))
-			to_chat(user, "<span class='danger'>You try to touch [src] with one of your modules. Error!</span>")
+		if(issilicon(user))
+			to_chat(user, "<span class='userdanger'>You try to touch [src] with one of your modules. Error!</span>")
 			radiation_pulse(user, 500, 2)
 			playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 			user.dust()
