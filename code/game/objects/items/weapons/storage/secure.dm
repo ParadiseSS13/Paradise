@@ -72,10 +72,10 @@
 /obj/item/storage/secure/emag_act(user as mob, weapon as obj)
 	if(!emagged)
 		emagged = TRUE
-		overlays += image('icons/obj/storage.dmi', icon_sparking)
+		overlays += image(icon, icon_sparking)
 		sleep(6)
 		overlays = null
-		overlays += image('icons/obj/storage.dmi', icon_locking)
+		overlays += image(icon, icon_locking)
 		locked = FALSE
 		if(istype(weapon, /obj/item/melee/energy/blade))
 			do_sparks(5, 0, loc)
@@ -143,7 +143,7 @@
 			else if(code == l_code && !emagged && l_set)
 				locked = FALSE
 				overlays = null
-				overlays += image('icons/obj/storage.dmi', icon_opened)
+				overlays += image(icon, icon_opened)
 				code = null
 			else
 				code = "ERROR"
