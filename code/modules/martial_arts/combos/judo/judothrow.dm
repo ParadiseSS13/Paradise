@@ -1,9 +1,8 @@
 /datum/martial_combo/judo/judothrow
 	name = "Throw"
-	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM)
+	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM)
 	explaination_text = "Establish a gripset on your opponent and throw them to the floor, inflicting stamina damage"
-	combo_text_override = "Grab, switch hands, grab, disarm"
-
+	combo_text_override = "Grab, Disarm"
 /datum/martial_combo/judo/judothrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(user.IsKnockedDown() || IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL
