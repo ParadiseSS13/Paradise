@@ -4,6 +4,9 @@
 /obj/structure/chair/comfy/corp
 	icon = 'icons/obj/chairs.dmi'
 
+/obj/structure/chair/comfy/shuttle
+	icon = 'icons/obj/chairs.dmi'
+
 /obj/structure/chair/stool/bar
 	icon = 'modular_ss220/aesthetics/chairs/icons/chairs.dmi'
 

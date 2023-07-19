@@ -4,7 +4,7 @@
 
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species)
 	. = ..()
-	AddComponent(/datum/component/softcrit)
+	//AddComponent(/datum/component/softcrit) //Disabled for now
 
 /mob/living/carbon/human/handle_critical_condition()
 	. = ..()
