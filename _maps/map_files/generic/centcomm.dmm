@@ -10,7 +10,7 @@
 /area/ninja/outpost)
 "ad" = (
 /obj/effect/landmark/newplayer_start,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/splashscreen,
 /area/start)
 "ae" = (
 /turf/simulated/wall/indestructible/fakeglass,
@@ -61,9 +61,6 @@
 	icon_state = "cult"
 	},
 /area/holodeck/source_theatre)
-"am" = (
-/turf/simulated/wall/indestructible/splashscreen,
-/area/start)
 "an" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -4610,7 +4607,7 @@
 /area/centcom/specops)
 "qf" = (
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/start)
 "qg" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/storage/secure/safe{
@@ -13998,7 +13995,7 @@ rE
 rE
 rE
 rE
-am
+rE
 aN
 aN
 aN

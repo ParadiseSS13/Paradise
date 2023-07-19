@@ -123,6 +123,34 @@
 	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
 	lastused = world.time
 
+/obj/item/toy/syndicateballoon/suicide_act(mob/living/user)
+	. = ..()
+	if(!user)
+		return
+
+	user.visible_message("<span class='suicide'>[user] ties [src] around [user.p_their()] neck and starts to float away! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
+	playsound(get_turf(user), 'sound/magic/fleshtostone.ogg', 80, TRUE)
+
+	user.Immobilize(10 SECONDS)
+
+	// yes im stealing fulton code
+	var/obj/effect/extraction_holder/holder_obj = new(get_turf(user))
+	holder_obj.appearance = user.appearance
+
+	user.forceMove(holder_obj)
+	animate(holder_obj, pixel_z = 1000, time = 50)
+
+	for(var/obj/item/W in user)
+		user.unEquip(W)
+
+	user.notransform = TRUE
+	icon = null
+	invisibility = 101
+	QDEL_IN(user, 2 SECONDS)
+	QDEL_IN(src, 2 SECONDS)
+	return OBLITERATION
+
 /*
  * Fake telebeacon
  */
@@ -1087,12 +1115,47 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
+	. += "<span class='info'>Use a pen on it to rename it.</span>"
 	. += "Has [fake_bullets] round\s remaining."
+	. += "<span class='info'>Use in hand to empty the gun's ammo reserves.</span>"
 	. += "[fake_bullets] of those are live rounds."
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
 	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
+
+/obj/item/toy/russian_revolver/trick_revolver/verb/trick_spin()
+	set name = "Spin Chamber"
+	set category = "Object"
+	set desc = "Click to spin your revolver's chamber."
+
+	var/mob/M = usr
+
+	if(M.stat || !in_range(M, src))
+		return
+
+	to_chat(M, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
+	shoot_gun(M)
+
+/obj/item/toy/russian_revolver/trick_revolver/attack_self(mob/user)
+	if(!bullets_left) //You can re-arm the trap...
+		user.visible_message("<span class='warning'>[user] loads a bullet into [src]'s cylinder before spinning it.</span>")
+		spin_cylinder()
+	else //But if you try to spin it to see if it was fake...
+		user.visible_message("<span class='warning'>[user] tries to empty [src], but it goes off in their face!</span>")
+		shoot_gun(user)
+
+/obj/item/toy/russian_revolver/trick_revolver/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		to_chat(user, "<span class='warning'>You go to write on [src].. and it goes off in your face!</span>")
+		shoot_gun(user)
+	if(istype(I, /obj/item/ammo_casing/a357))
+		to_chat(user, "<span class='warning'>You go to load a bullet into [src].. and it goes off in your face!</span>")
+		shoot_gun(user)
+	if(istype(I, /obj/item/ammo_box/a357))
+		to_chat(user, "<span class='warning'>You go to speedload [src].. and it goes off in your face!</span>")
+		shoot_gun(user)
+	return ..()
 
 /*
  * Rubber Chainsaw

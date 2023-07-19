@@ -40,6 +40,15 @@
 
 	return pick(possible_areas)
 
+/proc/findUnrestrictedEventArea() //Does almost the same as findEventArea() but hits a few more areas including maintenance and the AI sat, and also returns a list of all the areas, instead of just one area
+	var/list/safe_areas = typecacheof(list(
+	/area/station/engineering/solar,
+	/area/station/science/toxins/test,
+	/area/station/public/sleep))
+
+	var/list/possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, safe_areas)
+
+	return possible_areas
 
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.
