@@ -81,6 +81,8 @@
 
 //Called when we bump into a mob
 /mob/living/proc/MobBump(mob/M)
+	if(m_intent == MOVE_INTENT_WALK)
+		return TRUE
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
