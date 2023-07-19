@@ -190,7 +190,7 @@
 
 				if(!current_limb)
 					if(!length(limbs_to_grow)) //if there's no current limb, we have no limbs left to grow, and there's <25 clone damage, we don't have anything left to do in this 'chunk' of clone_progress
-						desc_flavor = "You see skin and fat filling out on [clone]'s body."
+						desc_flavor = "You see muscle and fat filling out on [clone]'s body."
 						return
 					for(var/limb_candidate in limbs_to_grow)
 						var/obj/item/organ/external/LC = clone.dna.species.has_limbs[limb_candidate]["path"]
@@ -219,8 +219,15 @@
 					return
 
 			if(91 to 100)
+				if(eject_clone())
+					return
+				clone.adjustCloneLoss(-5*speed_modifier) //rapidly heal clone damage
+				desc_flavor = "You see [src] finalizing the cloning process."
 				return
 			if(101 to INFINITY) //this state can be reached with an upgraded cloner
+				if(eject_clone())
+					return
+				clone.setCloneLoss(0) //get out of the pod!!
 				return
 
 	//Basically just isolate_reagent() with extra functionality.
@@ -282,6 +289,35 @@
 
 	clone.set_heartattack(FALSE) //you are not allowed to die
 	clone.adjustCloneLoss(25) //to punish early ejects
+
+//Ejects a clone. The force var ejects even if there's still clone damage.
+/obj/machinery/clonepod/proc/eject_clone(force = FALSE)
+	if(!clone)
+		return FALSE
+
+	if(clone.cloneloss)
+		if(force)
+			clone.forceMove(src.loc)
+			var/obj/effect/gibspawner/gibs = new /obj/effect/gibspawner(src)
+			gibs.spawn_gibs(src.loc, clone.dna)
+			currently_cloning = FALSE
+			clone = null
+			patient_data = null
+			desired_data = null
+			clone_progress = 0
+			desc_flavor = initial(desc_flavor)
+			return TRUE
+		else
+			return FALSE
+	else
+		clone.forceMove(src.loc)
+		currently_cloning = FALSE
+		clone = null
+		patient_data = null
+		desired_data = null
+		clone_progress = 0
+		desc_flavor = initial(desc_flavor)
+		return TRUE
 
 //This gets the cost of cloning, in a list with the form (biomass, sanguine reagent, osseous reagent).
 /obj/machinery/clonepod/proc/get_cloning_cost(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
@@ -466,6 +502,8 @@
 		anchored = TRUE
 
 /obj/machinery/clonepod/emag_act(user)
+	. = ..()
+	eject_clone(TRUE)
 
 /obj/machinery/clonepod/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
