@@ -59,6 +59,20 @@
 			return FALSE
 	return TRUE
 
+/datum/team/revolution/proc/check_heads_victory()
+	for(var/datum/mind/rev_mind in head_revolutionaries())
+		if(!ishuman(rev_mind?.current))
+			continue
+		if(rev_mind.current.stat == DEAD)
+			continue
+		var/turf/T = get_turf(rev_mind.current)
+		if(!T || !is_station_level(T.z))
+			continue
+		return FALSE // there is still a headrev left alive!
+
+	SSshuttle.clearHostileEnvironment(src)
+	return TRUE
+
 /datum/team/revolution/proc/head_revolutionaries() // I eventually want to nuke SSticker.mode.head_revolutionaries/revolutionaries if possible
 	. = list()
 	for(var/datum/mind/M in members)

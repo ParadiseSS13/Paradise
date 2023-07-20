@@ -6,6 +6,9 @@
 // this will also check they're not a head, so it can just be called freely
 // If the game somtimes isn't registering a win properly, then ticker.mode.check_win() isn't being called somewhere.
 
+#define REV_VICTORY 1
+#define STATION_VICTORY 2
+
 /datum/game_mode
 	var/list/datum/mind/head_revolutionaries = list()
 	var/list/datum/mind/revolutionaries = list()
@@ -19,7 +22,7 @@
 	required_enemies = 1
 	recommended_enemies = 3
 
-	var/finished = 0
+	var/finished
 	var/check_counter = 0
 	var/list/pre_revolutionaries = list()
 
@@ -58,16 +61,16 @@
 	// var/list/sec = get_living_sec()
 	// var/weighted_score = min(max(round(heads.len - ((8 - sec.len) / 3)),1),max_headrevs) // some magic bullshit idk contra todo
 
-	rev_team = new /datum/team/revolution(head_revolutionaries)
+	rev_team = new /datum/team/revolution()
 
-	for(var/i in 1 to rev_team.need_another_headrev(1)) //das vi danya
+	for(var/i in 1 to rev_team.need_another_headrev(1)) // yes this is a ONE, not a true
 		if(!length(pre_revolutionaries))
 			break
 		var/datum/mind/new_headrev = pick_n_take(pre_revolutionaries)
 		new_headrev.add_antag_datum(/datum/antagonist/rev/head)
+		rev_team.add_member(new_headrev)
 
 	modePlayer += head_revolutionaries
-	SSshuttle.registerHostileEnvironment(src)
 
 	..()
 
@@ -82,9 +85,9 @@
 /datum/game_mode/revolution/proc/check_heads()
 	rev_team.update_team_objectives()
 
-/datum/game_mode/proc/get_rev_team(list/head_revolutionaries)
+/datum/game_mode/proc/get_rev_team()
 	if(!rev_team)
-		rev_team = new /datum/team/revolution(head_revolutionaries)
+		rev_team = new /datum/team/revolution()
 	return rev_team
 
 //////////////////////////////////////
@@ -92,9 +95,9 @@
 //////////////////////////////////////
 /datum/game_mode/revolution/check_win()
 	if(check_rev_victory())
-		finished = 1
+		finished = REV_VICTORY
 	else if(check_heads_victory())
-		finished = 2
+		finished = STATION_VICTORY
 	return
 
 ///////////////////////////////
@@ -102,14 +105,14 @@
 ///////////////////////////////
 /datum/game_mode/revolution/check_finished()
 	if(GLOB.configuration.gamemode.disable_certain_round_early_end)
-		if(finished != 0)
+		if(finished)
 			SSshuttle.clearHostileEnvironment(src)
 			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 				SSshuttle.emergency.mode = SHUTTLE_DOCKED
 				SSshuttle.emergency.timer = world.time
 				GLOB.major_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/eshuttle_dock.ogg')
 		return ..()
-	if(finished != 0)
+	if(finished)
 		return TRUE
 	else
 		return ..()
@@ -123,7 +126,7 @@
 		return FALSE
 	if(ismindshielded(conversion_target))
 		return FALSE
-	if((rev_mind in revolutionaries) || (rev_mind in head_revolutionaries))
+	if(rev_mind.has_antag_datum(/datum/antagonist/rev))
 		return FALSE
 	if(!conversion_target)
 		return FALSE
@@ -136,13 +139,10 @@
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.
 //////////////////////////////////////////////////////////////////////////////
 /datum/game_mode/proc/remove_revolutionary(datum/mind/rev_mind , beingborged)
-	var/remove_head = FALSE
 	var/mob/revolutionary = rev_mind.current
-	if(beingborged && (rev_mind in head_revolutionaries))
-		head_revolutionaries -= rev_mind
-		remove_head = TRUE
+	var/remove_head = (beingborged && rev_mind.has_antag_datum(/datum/antagonist/rev/head))
 
-	if((rev_mind in revolutionaries) || remove_head)
+	if(rev_mind.has_antag_datum(/datum/antagonist/rev, FALSE) || remove_head)
 		rev_team.remove_member(rev_mind)
 		if(beingborged)
 			revolutionary.visible_message(
@@ -165,23 +165,16 @@
 //Checks for a head victory//
 /////////////////////////////
 /datum/game_mode/revolution/proc/check_heads_victory()
-	for(var/datum/mind/rev_mind in head_revolutionaries)
-		var/turf/T = get_turf(rev_mind.current)
-		if((rev_mind) && (rev_mind.current) && (rev_mind.current.stat != DEAD) && rev_mind.current.client && T && is_station_level(T.z))
-			if(ishuman(rev_mind.current))
-				return FALSE
-
-	SSshuttle.clearHostileEnvironment(rev_team)
-	return TRUE
+	return rev_team.check_heads_victory()
 
 //////////////////////////////////////////////////////////////////////
 //Announces the end of the game with all relavent information stated//
 //////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/declare_completion()
-	if(finished == 1)
+	if(finished == REV_VICTORY)
 		SSticker.mode_result = "revolution win - heads killed"
 		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
-	else if(finished == 2)
+	else if(finished == STATION_VICTORY)
 		SSticker.mode_result = "revolution loss - rev heads killed"
 		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")
 	..()
@@ -189,7 +182,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_revolution()
 	var/list/targets = list()
-	if(length(rev_team.members) || GAMEMODE_IS_REVOLUTION)
+	if(length(rev_team?.members) || GAMEMODE_IS_REVOLUTION)
 		var/num_revs = 0
 		var/num_survivors = 0
 		for(var/mob/living/carbon/human/survivor in GLOB.player_list)
