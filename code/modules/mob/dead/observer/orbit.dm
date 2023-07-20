@@ -90,6 +90,7 @@
 					- mindslaves/vampire thralls
 					- vampire
 					- changelings
+					- revolutionaries/headrevs
 					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
