@@ -250,7 +250,7 @@
 	. = _memory_edit_header("revolution")
 	if(ismindshielded(H))
 		. += "<b>NO</b>|headrev|rev"
-	else if(src in SSticker.mode.head_revolutionaries)
+	else if(has_antag_datum(/datum/antagonist/rev/head))
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='?src=[UID()];revolution=rev'>rev</a>"
 		. += "<br>Flash: <a href='?src=[UID()];revolution=flash'>give</a>"
 
@@ -267,7 +267,7 @@
 		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives flash/cham sec hud)."
 		if(objectives.len==0) // this is lying, it checks the mind instead of antag datum
 			. += "<br>Objectives are empty! <a href='?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
-	else if(src in SSticker.mode.revolutionaries)
+	else if(has_antag_datum(/datum/antagonist/rev))
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<a href='?src=[UID()];revolution=rev'>rev</a>"
@@ -440,8 +440,7 @@
 
 /datum/mind/proc/memory_edit_uplink()
 	. = ""
-	if(ishuman(current) && ((src in SSticker.mode.head_revolutionaries) || \
-		(has_antag_datum(/datum/antagonist/traitor)) || \
+	if(ishuman(current) && ((has_antag_datum(/datum/antagonist/traitor)) || \
 		(src in SSticker.mode.syndicates)))
 		. = "Uplink: <a href='?src=[UID()];common=uplink'>give</a>"
 		var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()

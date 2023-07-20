@@ -278,7 +278,7 @@
 				if(player.stat != DEAD)
 					comcount++
 				continue
-			if(player.mind in SSticker.mode.revolutionaries)
+			if(player.mind.has_antag_datum(/datum/antagonist/rev))
 				continue
 			loycount++
 
