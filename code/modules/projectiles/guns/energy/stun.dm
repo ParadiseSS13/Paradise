@@ -54,7 +54,7 @@
 	flight_y_offset = 10
 	can_holster = TRUE
 
-/obj/item/gun/energy/disabler/Initialize(mapload, ...)
+/obj/item/gun/energy/disabler/Initialize(mapload)
 	. = ..()
 	cell.maxcharge = 800
 	cell.charge = 800
