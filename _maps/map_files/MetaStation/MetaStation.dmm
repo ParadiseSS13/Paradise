@@ -21900,14 +21900,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"bsQ" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "bsS" = (
 /obj/structure/transit_tube{
 	icon_state = "W-SE"
@@ -51755,11 +51747,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"dKY" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "dLg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -51780,11 +51767,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
-"dLs" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
 "dLU" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -60054,10 +60036,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
-"hLL" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/crew_quarters/recreation)
 "hLT" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/harebell,
@@ -131393,7 +131371,7 @@ aaa
 aaa
 aaa
 aaa
-hLL
+afb
 afH
 ajD
 afH
@@ -140155,7 +140133,7 @@ abq
 abq
 aaa
 abq
-dKY
+abq
 aCg
 aOd
 vCR
@@ -140730,8 +140708,8 @@ bCX
 bCX
 bCX
 bCX
-dLs
-dLs
+bre
+bCX
 abq
 abq
 abq
@@ -141242,7 +141220,7 @@ bCX
 bCX
 bCX
 aup
-dLs
+bCX
 bCX
 bCX
 abq
@@ -144291,7 +144269,7 @@ abq
 aef
 aef
 ahv
-bsQ
+bFk
 abq
 aef
 abq
