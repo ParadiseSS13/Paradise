@@ -107,9 +107,7 @@
 							"Wizard" = (mind in SSticker.mode.wizards),
 							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
-							"Abductor" = (mind in SSticker.mode.abductors),
-							"Revolutionary" = (mind.has_antag_datum(/datum/antagonist/rev, FALSE)),
-							"Head Revolutionary" = (mind.has_antag_datum(/datum/antagonist/rev/head))
+							"Abductor" = (mind in SSticker.mode.abductors)
 						)
 
 					for(var/antag_name in other_antags)
