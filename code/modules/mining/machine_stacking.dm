@@ -16,6 +16,8 @@
 		machine.console = src
 		return
 
+	CRASH("[src] failed to link to a stacking machine!")
+
 /obj/machinery/mineral/stacking_unit_console/Destroy()
 	if(machine)
 		machine.console = null

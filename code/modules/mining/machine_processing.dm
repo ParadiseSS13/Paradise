@@ -28,6 +28,8 @@
 		machine.console = src
 		return //needed to break for loop
 
+	CRASH("[src] failed to link to a mineral processing unit!")
+
 /obj/machinery/mineral/processing_unit_console/attack_ghost(mob/user)
 	return open_ui(user)
 
