@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		I.refundable = FALSE
 		A.refundable = FALSE
 		if(A.cost >= 100)
-			discount *= 0.5 // If the item costs 20TC or more, it's only 25% off.
+			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
 		A.cost = max(round(A.cost * (1-discount)),1)
 		A.category = "Discounted Gear"
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
