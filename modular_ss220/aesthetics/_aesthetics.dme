@@ -7,7 +7,6 @@
 #include "better_ids\code\better_ids.dm"
 #include "blastdoor\code\blastdoor.dm"
 #include "boxes\code\boxes.dm"
-#include "briefcases\code\briefcases.dm"
 #include "cameras\code\cameras.dm"
 #include "chairs\code\chairs.dm"
 #include "defib\code\defib.dm"
@@ -34,3 +33,4 @@
 #include "windoor\code\windoor.dm"
 #include "windowtint\code\windowtint.dm"
 #include "zippo\code\zippo.dm"
+#include "intercom\code\intercom.dm"
