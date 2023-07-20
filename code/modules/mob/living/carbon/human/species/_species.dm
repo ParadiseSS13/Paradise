@@ -946,6 +946,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.sight |= SEE_MOBS
 			H.see_in_dark += 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		else if(V.get_ability(/datum/vampire_passive/adv_vision))
+			H.sight |= SEE_MOBS
+			H.see_in_dark += 5
+			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 		else if(V.get_ability(/datum/vampire_passive/vision))
 			H.sight |= SEE_MOBS
 			H.see_in_dark += 1 // base of 2, 2+1 is 3

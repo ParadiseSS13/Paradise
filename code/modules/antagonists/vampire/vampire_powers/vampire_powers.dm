@@ -257,6 +257,9 @@
 /datum/vampire_passive/vision
 	gain_desc = "Your vampiric vision has improved."
 
+/datum/vampire_passive/adv_vision
+	gain_desc = "Your vampiric vision now allows you to see in the dark!"
+
 /datum/vampire_passive/full
 	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy and your vision has improved greatly."
 
