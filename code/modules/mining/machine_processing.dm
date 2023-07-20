@@ -26,10 +26,7 @@
 	for(var/obj/machinery/mineral/processing_unit/found_machine in range(1, src))
 		machine = found_machine
 		machine.console = src
-		return
-
-	if(machine)
-		machine.console = src
+		return //needed to break for loop
 
 /obj/machinery/mineral/processing_unit_console/attack_ghost(mob/user)
 	return open_ui(user)

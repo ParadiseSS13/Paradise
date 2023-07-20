@@ -13,13 +13,8 @@
 	. = ..()
 	for(var/obj/machinery/mineral/stacking_machine/found_machine in range(1, src))
 		machine = found_machine
-		break
-
-	if(machine)
 		machine.console = src
 		return
-
-	return INITIALIZE_HINT_QDEL
 
 /obj/machinery/mineral/stacking_unit_console/Destroy()
 	if(machine)
