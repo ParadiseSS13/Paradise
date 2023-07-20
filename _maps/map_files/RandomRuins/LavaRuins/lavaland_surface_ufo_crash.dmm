@@ -8,11 +8,11 @@
 "c" = (
 /obj/machinery/abductor/experiment/broken,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/unpowered/misc_lavaruin)ss
 "d" = (
 /turf/simulated/wall/mineral/abductor,
 /area/ruin/unpowered/misc_lavaruin)
-"e" = (
+"e" = (ss
 /turf/simulated/floor/plating/abductor,
 /area/ruin/unpowered/misc_lavaruin)
 "g" = (
