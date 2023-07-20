@@ -1,7 +1,7 @@
 
 /obj/machinery/power/hv_connector
 	name = "high-voltage power connector"
-	desc = "a large plug which handles the transfer of high-voltage power from engines into cabling"
+	desc = "A large plug which handles the transfer of high-voltage power from engines into cabling"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "powerconnector"
 	anchored = TRUE

@@ -149,7 +149,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	* connected together. It will check for two things, the amount of power in each cable and the Voltage type of the cables and if there's
 	* a difference in voltage and a significant amount of power in both cables this proc will return FAKSE, otherwise it will return TRUE
 */
-/obj/structure/cable/proc/is_voltage_compatabile(obj/structure/cable/connection)
+/obj/structure/cable/proc/is_voltage_compatible(obj/structure/cable/connection)
 	if(powernet.power_voltage_type == connection.powernet.power_voltage_type)
 		return TRUE // they have the same voltage running through them, they're compatabile
 	if(powernet.power_voltage_type == VOLTAGE_HIGH && get_available_power() >= SIGNFICANT_WATT_AMOUNT)
@@ -174,6 +174,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	* To check mergeability, we flip our original direction because in perfectly opposite directions, the inverse of one is equal to the other
 	* if the cable we find on the next turf has atleast one direction equal to the inverse of our new cables direction, we know it connects
 */
+#warn refactor  merge_powernets stuff potentially? Lots of repeat code here
 /obj/structure/cable/proc/merge_connected_networks(direction)
 	if(d1 != direction && d2 != direction)
 		return //if the cable is not pointed in this direction, do nothing
@@ -188,7 +189,7 @@ By design, d1 is the smallest direction and d2 is the highest
 			continue //no match! Continue the search
 		if(!C.powernet)
 			var/datum/regional_powernet/new_powernet = new(C)
-		if(C.power_voltage_type != power_voltage_type)
+		if(short_circuit_check(C.powernet, C))
 			continue // voltage incompatibility, do not merge these powernets
 		// if the matching cable somehow got no powernet, make it one
 		if(!powernet)
@@ -214,6 +215,8 @@ By design, d1 is the smallest direction and d2 is the highest
 			if(C.d1 == d1 || C.d2 == d1 || C.d1 == d2 || C.d2 == d2) //only connected if they have a common direction
 				if(C.powernet == powernet)
 					continue
+				if(short_circuit_check(C.powernet, C))
+					continue // voltage incompatibility, skip
 				if(C.powernet)
 					merge_powernets(powernet, C.powernet)
 				else
@@ -250,8 +253,10 @@ By design, d1 is the smallest direction and d2 is the highest
 			continue
 		//we've got a diagonally matching cable
 		if(C.d1 == FLIP_DIR_VERTICALLY(direction) || C.d2 == FLIP_DIR_VERTICALLY(direction))
-			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
+			if(!C.powernet) //if the matching cable somehow got no powernet, make it one (should not happen for cables)
 				new /datum/regional_powernet(C)
+			if(short_circuit_check(C.powernet, C))
+				continue // voltage incompatibility, do not merge these powernets
 			if(powernet) //if we already have a powernet, then merge the two powernets
 				merge_powernets(powernet, C.powernet)
 			else
@@ -264,11 +269,27 @@ By design, d1 is the smallest direction and d2 is the highest
 		if(C.d1 == FLIP_DIR_HORIZONTALLY(direction) || C.d2 == FLIP_DIR_HORIZONTALLY(direction)) //we've got a diagonally matching cable
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
 				new /datum/regional_powernet(C)
+			if(short_circuit_check(C.powernet, C))
+				continue // voltage incompatibility, do not merge these powernets
 			if(powernet) //if we already have a powernet, then merge the two powernets
 				merge_powernets(powernet, C.powernet)
 			else
 				C.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
 
+/obj/structure/cable/proc/short_circuit_check(other_powernet, other_node)
+	. = FALSE
+	if(iscable(other_node))
+		var/obj/structure/cable/other_cable = other_node
+		if(other_cable.power_voltage_type != power_voltage_type)
+			if(power_voltage_type == VOLTAGE_HIGH)
+				powernet.short_circuit(other_cable.powernet, other_cable)
+			else
+				other_cable.powernet.short_circuit(powernet, src)
+			return TRUE
+	if(ismachinery(other_node))
+		var/obj/machinery/power/machine_node = other_node
+		if(machine_node.power_voltage_type != power_voltage_type && power_voltage_type == VOLTAGE_HIGH)
+			powernet.short_circuit(powernet, machine_node)
 
 /* ===Powernets handling helpers=== */
 /*

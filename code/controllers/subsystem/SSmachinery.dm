@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(machines)
 
 	for(var/obj/structure/cable/PC in GLOB.cable_list)
 		if(!PC.powernet)
-			var/datum/regional_powernet/new_pn = new()
+			var/datum/regional_powernet/new_pn = new(null, no_root = TRUE)
 			// we don't pass the cable in the new params here because we need to first propagate the powernet using the cable as the root node
 			// regional powernet will terminate propagation immediately if it tries to start with a root node that is already connected to iteself
 			new_pn.power_voltage_type = PC.power_voltage_type // we need to manually set this here

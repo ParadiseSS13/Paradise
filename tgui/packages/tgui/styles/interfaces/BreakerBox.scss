@@ -2,6 +2,19 @@
 @use '../components/Button.scss';
 @use '../base.scss';
 
+.BreakerBox-window-interior {
+  background-color: #7f888d ;
+  background-image: none;
+  .Section__content {
+    background-color: #5C6872 !important;
+    padding-left: 5px;
+    padding-top: 5px;
+    box-shadow: 1px 1px 5px #555 inset;
+    margin: 2em;
+  }
+
+}
+
 .WirePanel-wires-container {
   padding-top: 0.1em;
   padding-bottom: 0.1em;

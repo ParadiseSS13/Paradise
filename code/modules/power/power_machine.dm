@@ -22,7 +22,7 @@
 	/// The regional powernet this power machine is hooked into
 	var/datum/regional_powernet/powernet = null
 
-	///
+	/// How electrified this machine is, value determines the way/severity of zapping for players who interact with it
 	var/electrified = MACHINE_ELECTRIFIED_NONE
 
 /obj/machinery/power/Destroy()
@@ -101,7 +101,9 @@
 
 	var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
 
-	if(isnull(C) || C.power_voltage_type != power_voltage_type || !C.powernet)
+	if(isnull(C) || !C.powernet)
+		return FALSE
+	if(short_circuit_check(C))
 		return FALSE
 	C.powernet.add_machine(src)
 	return TRUE
@@ -138,17 +140,28 @@
 	else
 		return ..()
 
-
+/// Disconnects a connected terminal from the power machine
 /obj/machinery/power/proc/disconnect_terminal() // machines without a terminal will just return, no harm no fowl.
+	return
+
+/// Called when a terminal is updated by a powernet propagation
+/obj/machinery/power/proc/terminal_update()
 	return
 
 ////////////////////////////////////////////////
 // Misc.
 ///////////////////////////////////////////////
 
+/obj/machinery/power/proc/short_circuit_check(obj/structure/cable/connecting_node)
+	. = FALSE
+	if(connecting_node.power_voltage_type == VOLTAGE_LOW)
+		return
+	if(connecting_node.power_voltage_type != power_voltage_type)
+		return TRUE
 
 /// Electricity fucking hurts! Let's make sure players understand that
 /obj/machinery/power/proc/attack_zap_check(mob/living/user)
+	#warn Finish Implementation
 	if(!istype(user))
 		return MACHINE_ELECTRIFIED_NONE
 	return MACHINE_ELECTRIFIED_NONE

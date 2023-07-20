@@ -16,14 +16,14 @@ export const PowernetDebugger = (props, context) => {
   return (
     <Window resizable>
       <Window.Content scrollable>
-        <LibraryComputerNavigation/>
+        <DebuggerNavigation/>
         <DebuggerContent />
       </Window.Content>
     </Window>
   );
 };
 
-const LibraryComputerNavigation = (properties, context) => {
+const DebuggerNavigation = (properties, context) => {
   const { data, act } = useBackend(context);
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', "powernets");
   const { selected_nets } = data
@@ -250,6 +250,41 @@ const TransformerList = (properties, context) => {
   );
 };
 
+const ShortCircuitList = (properties, context) => {
+  const { act, data } = useBackend(context);
+
+  const { selected_net } = data;
+
+  return (
+    <Collapsible title="Short Circuits">
+      <Table className="Library__Booklist">
+          <Table.Row bold>
+            <Table.Cell>PW-UID</Table.Cell>
+            <Table.Cell>Name</Table.Cell>
+            <Table.Cell>Event Type</Table.Cell>
+            <Table.Cell>Duration</Table.Cell>
+          </Table.Row>
+          {selected_net.short_circuits
+              .map(short_circuit => (
+                <Table.Row key={short_circuit.PW_UID}>
+                  <Button
+                    content={`${short_circuit.PW_UID} (VV)`}
+                    onClick={() => act('open_vv', { "PW_UID" : short_circuit.PW_UID })}
+                  />
+                  <Button
+                    content="JMP"
+                    onClick={() => act('jmp', { "PW_UID" : short_circuit.PW_UID })}
+                  />
+                  <Table.Cell>{short_circuit.name}</Table.Cell>
+                  <Table.Cell>{short_circuit.type}</Table.Cell>
+                  <Table.Cell>{short_circuit.duration}</Table.Cell>
+                </Table.Row>
+              ))}
+        </Table>
+      </Collapsible>
+  );
+};
+
 const PowernetImage = (props, context) => {
   const { data } = useBackend(context);
   return (
@@ -304,6 +339,7 @@ const DetailedPowernet = (properties, context) => {
         <TransformerList/>
         <BatteryList/>
         <PowerMachineList/>
+        <ShortCircuitList/>
       </Section>
     </Section>
   );

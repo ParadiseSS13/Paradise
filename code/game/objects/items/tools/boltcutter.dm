@@ -21,18 +21,13 @@
 	tool_behaviour = TOOL_WIRECUTTER
 
 
-/obj/item/wirecutters/New(loc, param_color = null)
+/obj/item/boltcutters/New(loc, param_color = null)
 	..()
-	if(random_color)
-		if(!param_color)
-			param_color = pick("yellow", "red")
-		belt_icon = "wirecutters_[param_color]"
-		icon_state = "cutters_[param_color]"
 
 #warn Add custom animation for using the tool
 #warn Add sounds for boltcutters
 #warn Add Ability for people to cut off fingers when targetting the hands
-/obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
+/obj/item/boltcutters/attack(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
 		QDEL_NULL(C.handcuffed)
@@ -44,7 +39,7 @@
 
 	return ..()
 
-/obj/item/wirecutters/suicide_act(mob/user)
+/obj/item/boltcutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, usesound, 50, 1, -1)
 	return BRUTELOSS

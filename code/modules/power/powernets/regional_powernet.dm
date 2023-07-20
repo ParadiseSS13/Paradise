@@ -1,3 +1,5 @@
+#define MINIMUM_KW_SHORT_CIRCUIT 100
+
 /*
 	* # /datum/regional_powernet
 	*
@@ -38,13 +40,14 @@
 	/// The voltage type on this powernet, determines special behaviour like transfer efficiency and merge'ing of powernets
 	var/power_voltage_type = null
 
-/datum/regional_powernet/New(obj/structure/cable/root_cable)
+/datum/regional_powernet/New(obj/structure/cable/root_cable, no_root = FALSE)
 	. = ..()
 	SSmachines.powernets += src
 	if(root_cable)
 		add_cable(root_cable)
 		update_voltage(root_cable.power_voltage_type) // might as well set this here
-	//stack_trace("[UID()] Regional Powernet Instantiated without a root_cable")
+	else if(!no_root)
+		stack_trace("[UID()] Regional Powernet Instantiated without a root_cable")
 
 /datum/regional_powernet/Destroy()
 	//Go away references, you suck!
@@ -111,13 +114,10 @@
 	if(!new_voltage)
 		stack_trace("update_voltage called with a null new_voltage type")
 	if(!isnull(power_voltage_type) && new_voltage != power_voltage_type)
-		bzzzt(new_voltage)
 		return FALSE
 	power_voltage_type = new_voltage
 	return TRUE
 
-/datum/regional_powernet/proc/bzzzt(new_voltage)
-	return "fuck!"
 /*
 	* # process_power()
 	*
@@ -234,7 +234,7 @@
 		if(VOLTAGE_LOW)
 			return 0
 		if(VOLTAGE_HIGH)
-			var/amount_to_restore = round(john_madden / length(batteries))
+			var/amount_to_restore = round(john_madden / max(1, length(batteries)))
 			var/left_over_charge = 0
 			for(var/obj/machinery/power/battery/accumulator/battery in batteries)
 				// our left over charge is equal to the different between what charge we were able to add and what we actually added
@@ -243,7 +243,29 @@
 				battery.consume_direct_power(amount_to_restore - (previous_left_over - left_over_charge))
 			return left_over_charge
 
+/datum/regional_powernet/proc/short_circuit(datum/regional_powernet/trgt_powernet, obj/src_node)
+	message_admins("Short Circuit Detected: HV: [UID()] LV: [trgt_powernet.UID()] at [ADMIN_COORDJMP(src_node)]")
+	if(available_power < MINIMUM_KW_SHORT_CIRCUIT)
+		return FALSE
+	if(iscable(src_node))
+		for(var/datum/short_circuit_event/wire/event in short_circuit_events)
+			if(src_node in event.affected_cables)
+				return FALSE // already shortcircuiting
+		short_circuit_events += new /datum/short_circuit_event/wire(src, trgt_powernet, src_node, 5)
+		return TRUE
+	if(ispowermachine(src_node))
+		for(var/datum/short_circuit_event/machine/event in short_circuit_events)
+			if(src_node == event.affected_machine)
+				return FALSE // already shortcircuiting
+		short_circuit_events += new /datum/short_circuit_event/machine(src, trgt_powernet, src_node)
+		return TRUE
+	return FALSE
+
 /datum/regional_powernet/proc/process_short_circuits()
+	for(var/datum/short_circuit_event/event in short_circuit_events)
+		event.process_short_circuit()
+
+/datum/regional_powernet/proc/powernet_overload()
 	return
 
 /datum/regional_powernet/proc/process_powernet_overload() // UNLIMITED POWAAAA (not actually, just way too much)

@@ -78,16 +78,30 @@
 		data["selected_net"]["batteries"] = list()
 		for(var/obj/machinery/power/battery/battery in selected_net.batteries)
 			var/obj/machinery/power/battery/accumulator/accumulator = battery
-			var/list/battery_data = list(
-				"PW_UID" = battery.UID(),
-				"name" = battery.name,
-				"type" = battery.type,
-				"dir" = dir2text(battery.dir),
-				"status" = battery.battery_status,
-				"charge" = battery.charge,
-				"max_charge" = battery.max_capacity,
-				"safe_capacity" = istype(accumulator) ? accumulator.safe_capacity : "N/A"
-			)
+			var/list/battery_data = list()
+			if(istype(accumulator))
+				var/datum/accumulator_block/block = accumulator.accumulator_block
+				battery_data = list(
+					"PW_UID" = battery.UID(),
+					"name" = battery.name,
+					"type" = battery.type,
+					"dir" = dir2text(battery.dir),
+					"status" = battery.battery_status,
+					"charge" = block.current_charge,
+					"max_charge" = block.max_capacity,
+					"safe_capacity" = istype(accumulator) ? accumulator.safe_capacity : "N/A"
+				)
+			else
+				battery_data = list(
+					"PW_UID" = battery.UID(),
+					"name" = battery.name,
+					"type" = battery.type,
+					"dir" = dir2text(battery.dir),
+					"status" = battery.battery_status,
+					"charge" = battery.charge,
+					"max_charge" = battery.max_capacity,
+					"safe_capacity" = "N/A"
+				)
 			data["selected_net"]["batteries"] += list(battery_data)
 		data["selected_net"]["transformers"] = list()
 		for(var/obj/machinery/power/transformer/transformer in selected_net.subnet_connectors)
@@ -114,6 +128,15 @@
 			)
 			data["selected_net"]["power_machines"] += list(transformer_data)
 			get_power_icon(power_machine, power_machine.dir)
+		data["selected_net"]["short_circuits"] = list()
+		for(var/datum/short_circuit_event/event in selected_net.short_circuit_events)
+			var/list/event_data = list(
+				"PW_UID" = event.UID(),
+				"name" = event.event_name,
+				"type" = event.type,
+				"duration" = event.duration
+			)
+			data["selected_net"]["short_circuits"] += list(event_data)
 		data["power_images"] = power_icon_cache
 	else if(debug_screen == PW_DEBUG_SCREEN_DETAILS)
 		debug_screen = PW_DEBUG_SCREEN_POWERNETS // powernets can be remade at a moments notice, kick them out of the menu

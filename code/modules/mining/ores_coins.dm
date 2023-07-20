@@ -450,7 +450,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			..()
 			return
 
-		var/obj/item/stack/cable_coil/low_voltage/CC = new/obj/item/stack/cable_coil/low_voltage(user.loc)
+		var/obj/item/stack/cable_coil/low_voltage/CC = new /obj/item/stack/cable_coil/low_voltage(user.loc)
 		CC.amount = 1
 		CC.update_icon()
 		overlays = list()

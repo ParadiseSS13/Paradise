@@ -103,7 +103,7 @@
 // /obj/machinery/power/compressor/CanPass(atom/movable/mover, turf/target, height=0)
 // 		return !density
 
-/obj/machinery/power/compressor/locate_machinery()
+/obj/machinery/power/compressor/proc/locate_machinery()
 	if(turbine)
 		return
 	turbine = locate() in get_step(src, get_dir(inturf, src))
@@ -232,7 +232,7 @@
 		P += C.rating
 	productivity = P / 6
 
-/obj/machinery/power/turbine/locate_machinery()
+/obj/machinery/power/turbine/proc/locate_machinery()
 	if(compressor)
 		return
 	compressor = locate() in get_step(src, get_dir(outturf, src))
@@ -355,7 +355,7 @@
 	spawn(10)
 		locate_machinery()
 
-/obj/machinery/computer/turbine_computer/locate_machinery()
+/obj/machinery/computer/turbine_computer/proc/locate_machinery()
 	compressor = locate(/obj/machinery/power/compressor) in range(5, src)
 
 /obj/machinery/computer/turbine_computer/attack_hand(mob/user)

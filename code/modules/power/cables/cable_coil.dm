@@ -24,6 +24,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 
+	/// The type path of cabling that this cable coil will create when used to construct cabling on turfs
 	var/cable_structure_type = null
 
 /obj/item/stack/cable_coil/Initialize(mapload)
@@ -169,7 +170,7 @@
 				NC.deconstruct()
 
 	// exisiting cable doesn't point at our position, so see if it's a stub
-	else if(C.d1 == 0)
+	else if(C.d1 == NO_DIRECTION)
 							// if so, make it a full cable pointing from it's old direction to our new_direction
 		var/nd1 = C.d2	// these will be the new directions
 		var/nd2 = new_direction

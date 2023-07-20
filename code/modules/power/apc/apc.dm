@@ -1,4 +1,4 @@
-// main_status var
+// main_status varopened
 #define APC_EXTERNAL_POWER_NOTCONNECTED 0
 #define APC_EXTERNAL_POWER_NOENERGY 1
 #define APC_EXTERNAL_POWER_GOOD 2

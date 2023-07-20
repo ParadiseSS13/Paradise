@@ -1,6 +1,7 @@
 #define MASTER_BREAKER_
 
 #define BREAKER_DELAY (1 SECONDS)
+
 /obj/machinery/power/breaker_box
 	name = "breaker box"
 	desc = "a wall box panel which contains many small switch and one large switch which turn APCs on and off on the local network"
@@ -29,7 +30,6 @@
 	set_pixel_offsets_from_dir(24, -24, 24, -24)
 	update_icon()
 	make_terminal()
-	remake_breaker_list()
 
 /obj/machinery/power/breaker_box/proc/remake_breaker_list()
 	breakers = list()
@@ -44,6 +44,9 @@
 	terminal.setDir(dir)
 	terminal.master = src
 	terminal.connect_to_network()
+
+/obj/machinery/power/breaker_box/terminal_update()
+	remake_breaker_list()
 
 /obj/machinery/power/breaker_box/attack_hand(mob/user)
 	. = ..()
@@ -149,9 +152,10 @@
 
 
 /obj/machinery/power/breaker_box/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	remake_breaker_list()
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "BreakerBox", name, 1000, 300, master_ui, state)
+		ui = new(user, src, ui_key, "BreakerBox", name, 500, 750, master_ui, state)
 		ui.autoupdate = TRUE
 		ui.open()
 
@@ -178,6 +182,9 @@
 		if("flip_breaker")
 			message_admins("detected")
 			var/obj/machinery/power/apc/apc = locateUID(params["breaker_uid"])
+			message_admins(apc.UID())
+			message_admins(apc.type)
+			message_admins(breakers[params["breaker_uid"]])
 			if(!istype(apc) || isnull(breakers[params["breaker_uid"]]))
 				return
 			attempt_flip_breaker(ui.user, apc)

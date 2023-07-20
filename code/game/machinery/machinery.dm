@@ -83,10 +83,6 @@
 		STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-// This needs to die
-/obj/machinery/proc/locate_machinery()
-	return
-
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
@@ -471,6 +467,8 @@
 	return threatcount
 
 
+
+#warn Revisit this :D
 /obj/machinery/proc/shock(mob/living/user, prb)
 	if(!istype(user) || inoperable())
 		return FALSE

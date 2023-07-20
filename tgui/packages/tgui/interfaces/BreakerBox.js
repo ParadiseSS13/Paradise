@@ -9,8 +9,8 @@ export const BreakerBox = (props, context) => {
   const { breaker_list } = data;
   return (
     <Window resizable>
-      <Window.Content scrollable>
-        <Section>
+      <Window.Content scrollable className="BreakerBox-window-interior">
+        <Section className="BreakerBox-window-interior">
           <Box className="WirePanel-wires-container">
             {breaker_list.map((breaker) => {
               return (
