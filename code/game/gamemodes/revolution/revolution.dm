@@ -98,11 +98,10 @@
 //Checks if the revs have won or not//
 //////////////////////////////////////
 /datum/game_mode/revolution/check_win()
-	if(check_rev_victory())
+	if(rev_team.check_rev_victory())
 		finished = REV_VICTORY
-	else if(check_heads_victory())
+	else if(rev_team.check_heads_victory())
 		finished = STATION_VICTORY
-	return
 
 ///////////////////////////////
 //Checks if the round is over//
@@ -158,18 +157,6 @@
 				"<span class='userdanger'>[rev_mind.current] looks like [rev_mind.current.p_they()] just remembered [rev_mind.current.p_their()] real allegiance!</span>",
 				"<span class='userdanger'>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel... the only thing you remember is the name of the one who brainwashed you...</span>")
 			rev_mind.current.Paralyse(10 SECONDS)
-
-//////////////////////////
-//Checks for rev victory//
-//////////////////////////
-/datum/game_mode/revolution/proc/check_rev_victory()
-	return rev_team.check_rev_victory()
-
-/////////////////////////////
-//Checks for a head victory//
-/////////////////////////////
-/datum/game_mode/revolution/proc/check_heads_victory()
-	return rev_team.check_heads_victory()
 
 //////////////////////////////////////////////////////////////////////
 //Announces the end of the game with all relavent information stated//

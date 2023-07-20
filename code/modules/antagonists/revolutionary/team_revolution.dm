@@ -53,6 +53,10 @@
 			remove_objective_from_team(O)
 			. = TRUE
 
+/datum/team/revolution/proc/check_all_victory()
+	check_rev_victory()
+	check_heads_victory()
+
 /datum/team/revolution/proc/check_rev_victory()
 	for(var/datum/objective/mutiny/objective in objectives)
 		if(!(objective.check_completion()))
