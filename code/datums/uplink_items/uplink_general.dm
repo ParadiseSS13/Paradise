@@ -659,7 +659,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/implants/protofreedom
 	name = "Prototype Freedom Bio-chip"
-	desc = "A bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
+	desc = "A prototype bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can only be activated a singular time."
 	reference = "PFI"
 	item = /obj/item/implanter/freedom/prototype
 	cost = 2
