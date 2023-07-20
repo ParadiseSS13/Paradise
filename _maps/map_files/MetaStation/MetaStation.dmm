@@ -51746,12 +51746,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore)
-"dKY" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
+/area/station/maintenance/fore)
 "dLg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -51771,12 +51766,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
-/area/security/brig)
-"dLs" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
+/area/station/security/brig)
 "dLU" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -60045,11 +60035,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/bluegrid,
-/area/turret_protected/ai)
-"hLL" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/crew_quarters/recreation)
+/area/station/turret_protected/ai)
 "hLT" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/harebell,
