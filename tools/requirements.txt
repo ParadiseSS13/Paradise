@@ -4,5 +4,5 @@ Pillow==9.3.0
 json5==0.9.14
 
 # changelogs
-PyYaml==5.4 # maplint also
+PyYaml==6.0.1 # maplint also
 beautifulsoup4==4.9.3
