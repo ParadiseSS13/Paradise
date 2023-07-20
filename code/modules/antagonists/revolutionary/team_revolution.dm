@@ -81,7 +81,7 @@
 		for(var/datum/mind/khrushchev in shuffle_inplace(non_heads))
 			if(!khrushchev.current || !khrushchev.current.client)
 				return
-			if(khrushchev.current.incapacitated() || HAS_TRAIT(khrushchev.current, TRAIT_HANDS_BLOCKED)) // contra todo, check this
+			if(khrushchev.current.incapacitated() || HAS_TRAIT(khrushchev.current, TRAIT_HANDS_BLOCKED))
 				return
 			if(khrushchev.current.stat)
 				return

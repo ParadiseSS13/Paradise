@@ -1,5 +1,4 @@
 
-// Syndicate Traitors.
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"
 	roundend_category = "revs"
@@ -13,7 +12,7 @@
 		equip_revolutionary()
 
 /datum/antagonist/rev/head/greet()
-	to_chat(owner.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership! Assasinate </span>")
+	to_chat(owner.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!</span>")
 
 /datum/antagonist/rev/head/add_owner_to_gamemode()
 	SSticker.mode.head_revolutionaries |= owner
