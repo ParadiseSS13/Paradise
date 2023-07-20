@@ -34,7 +34,7 @@
 	for(var/datum/objective/O in objectives)
 		. |= O.target
 
-/datum/team/revolution/proc/sanitize_objectives() // contra todo use somewhere
+/datum/team/revolution/proc/sanitize_objectives() // contra todo use somewhere, even more todo, make the objectives autoremove on cryo
 	for(var/datum/objective/O in objectives)
 		if(!O.target) // revs shouldnt have free objectives
 			remove_objective_from_members(O)
@@ -81,7 +81,7 @@
 		for(var/datum/mind/khrushchev in shuffle_inplace(non_heads))
 			if(!khrushchev.current || !khrushchev.current.client)
 				return
-			if(khrushchev.current.incapacitated() || HAS_TRAIT(khrushchev.current, TRAIT_RESTRAINED)) // contra todo, check this
+			if(khrushchev.current.incapacitated() || HAS_TRAIT(khrushchev.current, TRAIT_HANDS_BLOCKED)) // contra todo, check this
 				return
 			if(khrushchev.current.stat)
 				return

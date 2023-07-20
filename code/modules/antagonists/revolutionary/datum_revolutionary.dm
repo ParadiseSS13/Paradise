@@ -32,29 +32,10 @@
 /datum/antagonist/rev/get_team()
 	return SSticker.mode.get_rev_team()
 
-// /datum/antagonist/rev/add_antag_hud(mob/living/antag_mob) // contra todo remove?
-// 	var/is_contractor = LAZYACCESS(GLOB.contractors, owner)
-// 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
-// 		antag_hud_name = is_contractor ? "hudhijackcontractor" : "hudhijack"
-// 	else
-// 		antag_hud_name = is_contractor ? "hudcontractor" : "hudsyndicate"
-// 	return ..()
 
-// /datum/antagonist/rev/give_objectives()
-// 	return ..() // for now
-
-// /datum/antagonist/rev/finalize_antag()
-// 	if(give_codewords)
-// 		give_codewords()
-// 	if(isAI(owner.current))
-// 		add_law_zero()
-// 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-// 		var/mob/living/silicon/ai/A = owner.current
-// 		A.show_laws()
-// 	else
-// 		if(give_uplink)
-// 			give_uplink()
-// 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+/datum/antagonist/rev/give_objectives()
+	var/datum/team/revolution/revolting = get_team()
+	revolting.update_team_objectives()
 
 /datum/antagonist/rev/proc/promote()
 	var/datum/mind/old_owner = owner
