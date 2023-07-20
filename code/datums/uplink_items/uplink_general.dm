@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The energy sword is an edged weapon with a blade of pure energy. The sword is small enough to be pocketed when inactive. Activating it produces a loud, distinctive noise."
 	reference = "ES"
 	item = /obj/item/melee/energy/sword/saber
-	cost = 30
+	cost = 35
 
 /datum/uplink_item/dangerous/powerfist
 	name = "Power Fist"
