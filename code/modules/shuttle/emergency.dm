@@ -382,7 +382,7 @@
 */
 		if(SHUTTLE_DOCKED)
 
-			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
+			if(time_left <= 0 && length(SSshuttle.hostile_environments))
 				GLOB.major_announcement.Announce(
 					"Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.",
 					new_title = "Priority Announcement"
@@ -396,7 +396,7 @@
 				for(var/area/shuttle/escape/E in world)
 					SEND_SOUND(E, hyperspace_sound)
 
-			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
+			if(time_left <= 0 && !length(SSshuttle.hostile_environments))
 				//move each escape pod to its corresponding transit dock
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
