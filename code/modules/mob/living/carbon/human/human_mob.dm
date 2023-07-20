@@ -1735,8 +1735,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			// make sure that it never gets more than a minute ahead of the number of seconds since death
 
 			H.revive_timer_postponement = clamp(new_time + H.revive_timer_postponement, 0, seconds_since_death + CPR_MAXIMUM_DEFIB_TIME_EXTENSION)
-			to_chat(world, "new time: [new_time]; new defib time for [H] is [H.revive_timer_postponement]")
-			to_chat(world, "[H] will now die in [H.defib_time_left()] seconds")
 
 		if(!H.under_defib_timer())
 			to_chat(src, "<span class='notice'>You feel [H]'s body is already starting to stiffen beneath you...it's too late for CPR now.</span>")
@@ -1776,7 +1774,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/time_since_original_death = round(world.time - timeofdeath) / 10
 	// this looks good on desmos I guess
 	// goal here is that you'll get some surplus time added regardless of method if you catch them early
-	var/adjustment_time = max(round(-20 * log(time_since_original_death / 120)), 0)
+	var/adjustment_time = max(round(-60 * log((12 + time_since_original_death) / 240)), 0)
 	if(cpr_mod == CPR_CHEST_COMPRESSION_ONLY)
 		// you just won't get as much if you're late
 		adjustment_time /= 2
