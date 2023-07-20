@@ -282,6 +282,12 @@
 	var/max_uses = 5
 	/// Is this item on cooldown from being thrown
 	var/on_throwing_cooldown = FALSE
+	/// How many SSobj ticks have passed (Roughly 2 seconds of in game time), used to see when to recharge a use on this item
+	var/recharge_ticks = 0
+
+/obj/item/batterer/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
@@ -291,14 +297,23 @@
 	if(times_used < max_uses)
 		. += "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>"
 
+/obj/item/batterer/process()
+	if(times_used)
+		recharge_ticks++
+	if(recharge_ticks >= 10) // recharges one use after around 20 seconds
+		recharge_ticks = initial(recharge_ticks)
+		times_used--
+		icon_state = "batterer"
+
 /obj/item/batterer/attack_self(mob/living/carbon/user)
 	activate_batterer(user)
 
 /obj/item/batterer/proc/activate_batterer(mob/user)
 	times_used++
 	if(user)
-		if(times_used >= max_uses)
+		if(times_used > max_uses)
 			to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
+			times_used--
 			return
 		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later."))
 			times_used--
@@ -306,15 +321,17 @@
 		to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
 
 	for(var/mob/living/M in oview(7, get_turf(src)))
+		if(!M.client)
+			continue
 		if(issilicon(M))
 			M.Weaken(10 SECONDS)
 		else
-			M.Confused(30 SECONDS)
+			M.Confused(45 SECONDS)
 		M.adjustBrainLoss(10)
 		to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through yourself,</span>")
 		switch(rand(1, 10))
 			if(1)
-				M.apply_status_effect(STATUS_EFFECT_CLINGTENTACLE_BATTERER)
+				M.Immobilize(7 SECONDS)
 				to_chat(M, "<span class='warning'>and your legs lock up for a moment!</span>")
 			if(2)
 				M.apply_status_effect(STATUS_EFFECT_PACIFIED_BATTERER)

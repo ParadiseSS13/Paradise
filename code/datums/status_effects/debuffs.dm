@@ -294,10 +294,6 @@
 /datum/status_effect/cling_tentacle/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
-/datum/status_effect/cling_tentacle/batterer
-	id = "cling_tentacle_batterer"
-	alert_type = null
-	duration = 7 SECONDS
 // start of `living` level status procs.
 
 /**
