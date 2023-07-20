@@ -20,7 +20,8 @@
 						ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_WEAPONS)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 1200)
-	disabilities_allowed = 0
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
+	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/hos
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Security), Space Law, basic job duties, and act professionally (roleplay)."
 
@@ -65,6 +66,8 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 600)
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
+	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/warden
 
 /datum/outfit/job/warden
@@ -110,6 +113,8 @@
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
+	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/detective
 	important_information = "Track, investigate, and look cool while doing it."
 
@@ -166,6 +171,8 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
+	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/officer
 	important_information = "Space Law is the law, not a suggestion."
 
