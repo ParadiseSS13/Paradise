@@ -424,7 +424,6 @@
 					//Enter message
 					if("Message")
 						custommessage	= clean_input("Please enter your message.")
-						custommessage	= sanitize(copytext(custommessage, 1, MAX_MESSAGE_LEN))
 
 					//Send message
 					if("Send")
@@ -454,11 +453,13 @@
 							if(P.owner == customsender)
 								PDARec = P
 								break
+
+						var/sender_identity
 						//Sender isn't faking as someone who exists
 						if(isnull(PDARec))
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[customsender]","[custommessage]")
 							recipient_messenger.notify("<b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='?src=[UID()];choice=Message;target=\ref[src]'>Reply</a>)")
-							log_pda("(PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]", usr)
+							sender_identity = customsender
 						//Sender is faking as someone who exists
 						else
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[PDARec.owner]","[custommessage]")
@@ -468,7 +469,12 @@
 								recipient_messenger.conversations.Add("\ref[PDARec]")
 
 							recipient_messenger.notify("<b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='?src=[recipient_messenger.UID()];choice=Message;target=\ref[PDARec]'>Reply</a>)")
-							log_pda("(PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]", usr)
+							sender_identity = PDARec.owner
+
+						// Logging
+						log_pda("(PDA: [sender_identity]) sent \"[custommessage]\" to [customrecepient.owner]", usr)
+						investigate_log("PDA Message - Custom Name: \"[sender_identity]\", Custom Job: \"[customjob]\", Real Sender: \"[key_name(usr)]\" ([ADMIN_PP(usr,"PP")]) -> [customrecepient.owner] ([ADMIN_VV(customrecepient, "VV")]), Message: \"[custommessage]\"", "pda")
+
 						var/log_message = "sent PDA message \"[custommessage]\" using [src] as [customsender] ([customjob])"
 						var/receiver
 						if(ishuman(customrecepient.loc))
