@@ -29,7 +29,6 @@
 
 	if(machine)
 		machine.console = src
-		return
 
 /obj/machinery/mineral/processing_unit_console/attack_ghost(mob/user)
 	return open_ui(user)
