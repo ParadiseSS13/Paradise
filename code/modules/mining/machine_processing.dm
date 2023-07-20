@@ -25,7 +25,8 @@
 	. = ..()
 	for(var/obj/machinery/mineral/processing_unit/found_machine in range(1, src))
 		machine = found_machine
-		break
+		machine.console = src
+		return
 
 	if(machine)
 		machine.console = src
