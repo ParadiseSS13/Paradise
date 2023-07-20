@@ -1707,18 +1707,30 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(l_hand || r_hand)
 		to_chat(src, "<span class='warning'>You can't perform effective CPR with your hands full!</span>")
 		return
+
 	H.receiving_cpr = TRUE
 	var/cpr_modifier = get_cpr_mod(H)
 	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
+		if(ismachineperson(H) && do_mob(src, H, 4 SECONDS))  // hehe
+			visible_message(
+				"<span class='warning'>[src] bangs [p_their()] head on [H]'s chassis by accident!</span>",
+				"<span class='danger'>You go in for a rescue breath, and bang your head on [H]'s <i>machine</i> chassis. CPR's not going to work.</span>"
+				)
+			playsound(H, 'sound/weapons/ringslam.ogg', 50, TRUE)
+			adjustBruteLossByPart(2, "head")
+			H.receiving_cpr = FALSE
+			return
+
 		if(HAS_TRAIT(H, TRAIT_FAKEDEATH) || !H.under_defib_timer())
 			to_chat(src, "<span class='warning'>[H] is already too far gone for CPR...</span>")
 			H.receiving_cpr = FALSE
 			return
+
 		visible_message("<span class='danger'>[src] is trying to perform CPR on [H]'s lifeless body!</span>", "<span class='danger'>You start trying to perform CPR on [H]'s lifeless body!</span>")
 		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD) && H.under_defib_timer())
 			var/timer_restored
 			if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
-				visible_message("<span class='notice'>[src] gives [H] chest compressions, though they do not seem to respond.</span>", "<span class='notice'>You can't reach [H]'s mouth, so you do your best to give chest compressions.</span>")
+				visible_message("<span class='notice'>[src] gives [H] chest compressions, though [H] do[H.p_es()] not seem to respond.</span>", "<span class='notice'>You can't make rescue breaths work, so you do your best to give chest compressions.</span>")
 				timer_restored = CPR_CHEST_COMPRESSION_RESTORATION  // without rescue breaths, it won't stave off the death timer forever
 			else
 				visible_message("<span class='notice'>[src] gives [H] chest compressions and rescue breaths, hopefully postponing the inevitable.</span>", "<span class='notice'>You give [H] chest compressions and rescue breaths.</span>")
@@ -1766,6 +1778,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(is_mouth_covered() || H.is_mouth_covered())
 		return CPR_CHEST_COMPRESSION_ONLY
 	if(!H.check_has_mouth() || !check_has_mouth())
+		return CPR_CHEST_COMPRESSION_ONLY
+	if(HAS_TRAIT(src, TRAIT_NOBREATH) || HAS_TRAIT(H, TRAIT_NOBREATH))
 		return CPR_CHEST_COMPRESSION_ONLY
 	return CPR_RESCUE_BREATHS
 
