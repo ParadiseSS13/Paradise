@@ -50,7 +50,8 @@
 	var/list/datum/objective/special_verbs = list()
 	var/list/targets = list()
 
-	var/has_been_rev = 0//Tracks if this mind has been a rev or not
+	/// Tracks if this mind has been a rev or not
+	var/has_been_rev = FALSE
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
@@ -1519,10 +1520,12 @@
  *
  * Use this over doing `QDEL_LIST_CONTENTS(antag_datums)`.
  */
-/datum/mind/proc/remove_all_antag_datums()
+/datum/mind/proc/remove_all_antag_datums(handle_target_cryo = FALSE)
 	// This is not `QDEL_LIST_CONTENTS(antag_datums)`because it's possible for the `antag_datums` list to be set to null during deletion of an antag datum.
 	// Then `QDEL_LIST` would runtime because it would be doing `null.Cut()`.
 	for(var/datum/antagonist/A as anything in antag_datums)
+		if(handle_target_cryo)
+			A.on_cryo()
 		qdel(A)
 	antag_datums?.Cut()
 	antag_datums = null

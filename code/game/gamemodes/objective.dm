@@ -171,6 +171,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = "Free Objective"
 	return target
 
+/datum/objective/mutiny/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
+	if(!(possible_target in SSticker.mode.get_all_heads()))
+		return TARGET_INVALID_NOTHEAD
+
 /datum/objective/mutiny/check_completion()
 	if(target && target.current)
 		if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
@@ -184,6 +191,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/mutiny/on_target_cryo()
 	// We don't want revs to get objectives that aren't for heads of staff. Letting
 	// them win or lose based on cryo is silly so we remove the objective.
+	if(team)
+		team.remove_objective_from_team(src)
+		return
 	qdel(src)
 
 /datum/objective/maroon

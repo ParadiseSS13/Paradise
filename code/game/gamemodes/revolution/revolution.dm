@@ -170,6 +170,8 @@
 		if((rev_mind) && (rev_mind.current) && (rev_mind.current.stat != DEAD) && rev_mind.current.client && T && is_station_level(T.z))
 			if(ishuman(rev_mind.current))
 				return FALSE
+
+	SSshuttle.clearHostileEnvironment(rev_team)
 	return TRUE
 
 //////////////////////////////////////////////////////////////////////
@@ -187,14 +189,15 @@
 
 /datum/game_mode/proc/auto_declare_completion_revolution()
 	var/list/targets = list()
-	if(length(head_revolutionaries) || GAMEMODE_IS_REVOLUTION)
+	if(length(rev_team.members) || GAMEMODE_IS_REVOLUTION)
 		var/num_revs = 0
 		var/num_survivors = 0
-		for(var/mob/living/carbon/survivor in GLOB.alive_mob_list)
-			if(survivor.ckey)
-				num_survivors++
-				if(survivor?.mind.has_antag_datum(/datum/antagonist/rev))
-					num_revs++
+		for(var/mob/living/carbon/human/survivor in GLOB.player_list)
+			if(!istype(survivor) || survivor.stat == DEAD)
+				return
+			num_survivors++
+			if(survivor?.mind.has_antag_datum(/datum/antagonist/rev))
+				num_revs++
 		if(num_survivors)
 			to_chat(world, "[TAB]Command's Approval Rating: <B>[100 - round((num_revs/num_survivors)*100, 0.1)]%</B>") // % of loyal crew
 		var/text = "<br><font size=3><b>The head revolutionaries were:</b></font>"
@@ -203,15 +206,9 @@
 		text += "<br>"
 		to_chat(world, text)
 
-	// if(revolutionaries.len || GAMEMODE_IS_REVOLUTION)
-	// 	var/text = "<br><font size=3><b>The revolutionaries were:</b></font>"
-	// 	for(var/datum/mind/rev in revolutionaries)
-	// 		text += printplayer(rev, 1)
-	// 	text += "<br>"
-	// 	to_chat(world, text)
+		// we dont show the revolutionaries because there are a LOT of them
 
-	if(length(head_revolutionaries) || length(revolutionaries) || GAMEMODE_IS_REVOLUTION )
-		var/text = "<br><font size=3><b>The heads of staff were:</b></font>"
+		text = "<br><font size=3><b>The heads of staff were:</b></font>"
 		var/list/heads = get_all_heads()
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
@@ -221,7 +218,7 @@
 		text += "<br>"
 		to_chat(world, text)
 
-/datum/game_mode/revolution/set_scoreboard_vars()
+/datum/game_mode/revolution/set_scoreboard_vars() // is this ever even called?
 	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
 

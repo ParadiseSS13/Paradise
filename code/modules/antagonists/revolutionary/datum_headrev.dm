@@ -11,6 +11,10 @@
 	if(should_equip)
 		equip_revolutionary()
 
+/datum/antagonist/rev/head/on_cryo()
+	var/datum/team/revolution/revolting = get_team()
+	addtimer(CALLBACK(revolting, PROC_REF(process_promotion)), 10 SECONDS) // let the headrev finish cryoing
+
 /datum/antagonist/rev/head/greet()
 	to_chat(owner.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!</span>")
 

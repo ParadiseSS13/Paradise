@@ -10,34 +10,48 @@
 
 /datum/team/revolution/Destroy(force, ...)
 	SSticker.mode.rev_team = null
-	SSshuttle.clearHostileEnvironment(src)
+	SSshuttle.clearHostileEnvironment(src) // contra todo, clear this somewhere else
 	. = ..()
 
 
-/datum/team/revolution/proc/update_team_objectives()
+/datum/team/revolution/get_target_excludes()
+	return ..() + get_targetted_head_minds()
+
+
+/datum/team/revolution/remove_member(datum/mind/member)
+	. = ..()
+	var/datum/antagonist/rev/revolting = member.has_antag_datum(/datum/antagonist/rev) // maybe this should be get_antag_datum_from_member(member)
+	if(!QDELETED(revolting))
+		member.remove_antag_datum(/datum/antagonist/rev)
+
+/datum/team/revolution/admin_add_objective(mob/user)
 	sanitize_objectives()
+	. = ..()
+	if(sanitize_objectives())
+		message_admins("[key_name_admin(user)] added a mutiny objective to the team '[name]', and no target was found, removing.")
+		log_admin("[key_name_admin(user)] added a mutiny objective to the team '[name]', and no target was found, removing.")
+
+/datum/team/revolution/proc/update_team_objectives()
 	var/list/heads = SSticker.mode.get_all_heads() - get_targetted_head_minds()
 
 	for(var/datum/mind/head_mind in heads)
 		// add_objective(datum/objective/mutiny)
 		var/datum/objective/mutiny/rev_obj = new
 		rev_obj.target = head_mind
-		rev_obj.team = src
 		rev_obj.explanation_text = "Assassinate or exile [head_mind.name], the [head_mind.assigned_role]."
-		add_objective_to_members(rev_obj)
-
-/datum/team/revolution/get_target_excludes()
-	return ..() + get_targetted_head_minds()
+		add_objective_to_team(rev_obj)
+	sanitize_objectives()
 
 /datum/team/revolution/proc/get_targetted_head_minds()
 	. = list()
-	for(var/datum/objective/O in objectives)
+	for(var/datum/objective/mutiny/O in objectives)
 		. |= O.target
 
-/datum/team/revolution/proc/sanitize_objectives() // contra todo use somewhere, even more todo, make the objectives autoremove on cryo
-	for(var/datum/objective/O in objectives)
+/datum/team/revolution/proc/sanitize_objectives() // contra todo, is this really needed?
+	for(var/datum/objective/mutiny/O in objectives)
 		if(!O.target) // revs shouldnt have free objectives
-			remove_objective_from_members(O)
+			remove_objective_from_team(O)
+			. = TRUE
 
 /datum/team/revolution/proc/check_rev_victory()
 	for(var/datum/objective/mutiny/objective in objectives)
@@ -45,13 +59,7 @@
 			return FALSE
 	return TRUE
 
-/datum/team/revolution/remove_member(datum/mind/member)
-	. = ..()
-	var/datum/antagonist/rev/revolting = member.has_antag_datum(/datum/antagonist/rev)
-	if(!QDELETED(revolting))
-		member.remove_antag_datum(/datum/antagonist/rev)
-
-/datum/team/revolution/proc/head_revolutionaries()
+/datum/team/revolution/proc/head_revolutionaries() // I eventually want to nuke SSticker.mode.head_revolutionaries/revolutionaries if possible
 	. = list()
 	for(var/datum/mind/M in members)
 		if(M.has_antag_datum(/datum/antagonist/rev/head))
@@ -88,4 +96,4 @@
 			// shuffled so its random, we can just pick here and now
 			var/datum/antagonist/rev/rev = khrushchev.has_antag_datum(/datum/antagonist/rev)
 			rev.promote()
-			return
+			return // return is needed to break the loop, otherwise we'd get a helluva lot of headrevs

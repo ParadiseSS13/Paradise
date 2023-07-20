@@ -74,17 +74,18 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /**
  * Adds a team objective to each member's matching antag datum.
  */
-/datum/team/proc/add_objective_to_members(datum/objective/O)
+/datum/team/proc/add_objective_to_team(datum/objective/O)
+	O.team = src
 	for(var/datum/mind/M as anything in members)
 		var/datum/antagonist/A = get_antag_datum_from_member(M)
 		A.objectives |= O
 	objectives |= O
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective_from_members)) // contra todo make sure this works
+	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective_from_team)) // contra todo make sure this works
 
 /**
  * Remove a team objective from each member's matching antag datum.
  */
-/datum/team/proc/remove_objective_from_members(datum/objective/O)
+/datum/team/proc/remove_objective_from_team(datum/objective/O)
 	for(var/datum/mind/M as anything in members)
 		var/datum/antagonist/A = get_antag_datum_from_member(M)
 		A.objectives -= O
@@ -128,7 +129,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/objective_type = GLOB.admin_objective_list[selected]
 	var/datum/objective/O = new objective_type(team_to_join = src)
 	O.find_target(get_target_excludes()) // Blacklist any team members from being the target.
-	add_objective_to_members(O)
+	add_objective_to_team(O)
 
 	message_admins("[key_name_admin(user)] added objective [O.type] to the team '[name]'.")
 	log_admin("[key_name(user)] added objective [O.type] to the team '[name]'.")
@@ -140,7 +141,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * Allows admins to remove a team objective.
  */
 /datum/team/proc/admin_remove_objective(mob/user, datum/objective/O)
-	remove_objective_from_members(O)
+	remove_objective_from_team(O)
 	message_admins("[key_name_admin(user)] removed objective [O.type] from the team '[name]'.")
 	log_admin("[key_name(user)] removed objective [O.type] from the team '[name]'.")
 

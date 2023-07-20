@@ -13,6 +13,7 @@
 
 /datum/antagonist/rev/on_gain()
 	create_team() // make sure theres a global rev team
+	owner.has_been_rev = TRUE
 	..()
 
 /datum/antagonist/rev/greet()
