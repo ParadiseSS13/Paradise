@@ -1,11 +1,6 @@
 /area/hallway/secondary/construction : /area/station/public/construction
 /area/construction : /area/station/public/construction
 
-
-# ----- Deleted areas! -----
-/area/crew_quarters/recruit : @DELETE
-/area/comms : @DELETE
-
 /area/atmos : /area/station/engineering/atmos
 /area/atmos/control : /area/station/engineering/atmos/control
 /area/atmos/distribution : /area/station/engineering/atmos/distribution
