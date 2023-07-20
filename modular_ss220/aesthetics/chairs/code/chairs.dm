@@ -1,14 +1,14 @@
 /obj/structure/chair/comfy
 	icon = 'modular_ss220/aesthetics/chairs/icons/chairs.dmi'
 
+/obj/structure/chair/comfy/GetArmrest()
+	return mutable_appearance('modular_ss220/aesthetics/chairs/icons/chairs.dmi', "[icon_state]_armrest")
+
 /obj/structure/chair/comfy/corp
 	icon = 'icons/obj/chairs.dmi'
 
 /obj/structure/chair/comfy/shuttle
 	icon = 'icons/obj/chairs.dmi'
-
-/obj/structure/chair/stool/bar
-	icon = 'modular_ss220/aesthetics/chairs/icons/chairs.dmi'
 
 /obj/structure/chair/office/dark
 	icon = 'modular_ss220/aesthetics/chairs/icons/chairs.dmi'
@@ -20,3 +20,16 @@
 	icon = 'modular_ss220/aesthetics/chairs/icons/chairs.dmi'
 
 //TODO: Support or chairs
+
+/obj/item/chair/stool/bar/dark
+	icon = 'modular_ss220/aesthetics/chairs/icons/chairs.dmi'
+	icon_state = "bar_toppled_dark"
+	item_state = "stool_bar_dark"
+	origin_type = /obj/structure/chair/stool/bar/dark
+	lefthand_file = 'modular_ss220/aesthetics/chairs/icons/chairs_lefthand.dmi'
+	righthand_file = 'modular_ss220/aesthetics/chairs/icons/chairs_righthand.dmi'
+
+/obj/structure/chair/stool/bar/dark
+	icon = 'modular_ss220/aesthetics/chairs/icons/chairs.dmi'
+	icon_state = "bar_dark"
+	item_chair = /obj/item/chair/stool/bar/dark
