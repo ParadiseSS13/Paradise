@@ -74,6 +74,10 @@
 
 	..()
 
+/datum/game_mode/revolution/Destroy(force, ...)
+	pre_revolutionaries.Cut()
+	. = ..()
+
 /datum/game_mode/revolution/process() // to anyone who thinks "why don't we use a normal actually sane check here instead of process for checking Z level changes" It's because equip code is dogshit and you change z levels upon spawning in
 	check_counter++
 	if(check_counter >= 5)
@@ -138,7 +142,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.
 //////////////////////////////////////////////////////////////////////////////
-/datum/game_mode/proc/remove_revolutionary(datum/mind/rev_mind , beingborged)
+/datum/game_mode/proc/remove_revolutionary(datum/mind/rev_mind, beingborged)
 	var/mob/revolutionary = rev_mind.current
 	var/remove_head = (beingborged && rev_mind.has_antag_datum(/datum/antagonist/rev/head))
 

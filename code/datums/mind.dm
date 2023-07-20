@@ -1637,9 +1637,6 @@
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
 
-/datum/mind/proc/make_Rev()
-	add_antag_datum(/datum/antagonist/rev/head)
-
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
 	var/team = input("Abductor Team ?","Team ?") in list(1,2,3,4)
