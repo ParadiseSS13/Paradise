@@ -161,12 +161,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/mutiny
 	name = "Mutiny"
-	martyr_compatible = 1
+	martyr_compatible = TRUE
 
 /datum/objective/mutiny/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
-		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+		explanation_text = "Assassinate or exile [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
 	return target

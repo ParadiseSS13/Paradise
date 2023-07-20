@@ -245,6 +245,10 @@
 
 
 /datum/game_mode/proc/latespawn(mob)
+	if(rev_team)
+		rev_team.update_team_objectives()
+		rev_team.process_promotion()
+
 
 /*
 /datum/game_mode/proc/check_player_role_pref(role, mob/player)
@@ -282,7 +286,7 @@
 ////////////////////////////
 /datum/game_mode/proc/get_all_heads()
 	. = list()
-	for(var/mob/player in GLOB.mob_list)
+	for(var/mob/player in GLOB.human_list)
 		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind

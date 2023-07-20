@@ -78,6 +78,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	for(var/datum/mind/M as anything in members)
 		var/datum/antagonist/A = get_antag_datum_from_member(M)
 		A.objectives |= O
+	objectives |= O
+	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective_from_members)) // contra todo make sure this works
 
 /**
  * Remove a team objective from each member's matching antag datum.
@@ -99,7 +101,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		return A
 	// If no matching antag datum was found, give them one.
 	if(antag_datum_type)
-		member.add_antag_datum(antag_datum_type, src)
+		return member.add_antag_datum(antag_datum_type, src)
 
 /**
  * Allows admins to send a message to all members of this team.
@@ -125,12 +127,14 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 	var/objective_type = GLOB.admin_objective_list[selected]
 	var/datum/objective/O = new objective_type(team_to_join = src)
-	O.find_target(members) // Blacklist any team members from being the target.
-	objectives |= O
+	O.find_target(get_target_excludes()) // Blacklist any team members from being the target.
 	add_objective_to_members(O)
 
 	message_admins("[key_name_admin(user)] added objective [O.type] to the team '[name]'.")
 	log_admin("[key_name(user)] added objective [O.type] to the team '[name]'.")
+
+/datum/team/proc/get_target_excludes()
+	return members
 
 /**
  * Allows admins to remove a team objective.
@@ -202,6 +206,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		content += "<a href='?_src_=holder;team_command=rename_team;team=[T.UID()]'>Rename Team</a>"
 		content += "<a href='?_src_=holder;team_command=delete_team;team=[T.UID()]'>Delete Team</a>"
 		content += "<a href='?_src_=holder;team_command=communicate;team=[T.UID()]'>Message Team</a>"
+		content += ADMIN_VV(T, "View Variables")
 		for(var/command in T.get_admin_commands())
 			// _src_ is T.UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
 			content += "<a href='?_src_=[T.UID()];command=[command]'>[command]</a>"
