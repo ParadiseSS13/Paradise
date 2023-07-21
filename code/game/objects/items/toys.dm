@@ -1407,6 +1407,29 @@
 
 	add_fingerprint(M)
 
+/obj/item/toy/plushie/bubblegumplushie
+	name = "bubblegum plushie"
+	desc = "In what passes for a heirarchy among slaughter demon plushies, this one is king."
+	icon_state = "plushie_bubblegum"
+	item_state = "plushie_bubblegum"
+	attack_verb = list("attacks", "strikes")
+	var/cooldown = FALSE
+	var/bubblestep = 'sound/effects/meteorimpact.ogg'
+	var/bubbleattack = 'sound/misc/demon_attack1.ogg'
+
+/obj/item/toy/plushie/bubblegumplushie/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, pick(bubblestep, bubbleattack), 40, 1)
+	return ..()
+
+/obj/item/toy/plushie/bubblegumplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, bubblestep, 40, 1)
+	visible_message("<span class='danger'>Bubblegum stomps...</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
 /*
  * Foam Armblade
  */

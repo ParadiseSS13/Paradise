@@ -77,6 +77,11 @@
 	display_name = "Nian plushie"
 	path = /obj/item/toy/plushie/nianplushie
 
+/datum/gear/bubblegumplushie
+	display_name = "Bubblegum plushie"
+	path = /obj/item/toy/plushie/bubblegumplushie
+	cost = 1
+
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
