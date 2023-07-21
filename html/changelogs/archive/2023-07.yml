@@ -139,3 +139,26 @@
   - bugfix: bees now work (#3172)
   Сиротка:
   - add: Cargo expansion upgrade (#3153)
+'2023-07-21':
+  Albonix:
+  - tweak: give cmo sunglasses hud (#3190)
+  Dimach:
+  - bugfix: belts not show overlay for some items (#3193)
+  Ksaikok46:
+  - add: plushie bubblegum toy (#3187)
+  Rerik007:
+  - tweak: remove confusion effect for stunbatons (#3195)
+  WolfLox:
+  - balance: ert soap, amber ERT equip, PDW9, ammo vend, cargo AP ammo (#3180)
+  Zwei:
+  - add: Skin Update and Webmap Button (#3194)
+  - bugfix: Wooden Door Assembly Deconstruction (#3191)
+  aeternaclose:
+  - bugfix: CereImprovement-pt4 (#3179)
+  dependabot[bot]:
+  - unknown: bump word-wrap from 1.2.3 to 1.2.4 in /tgui (#3189)
+  dontbetank:
+  - tweak: ERT can be requested after disease outbreak  (#3188)
+  - bugfix: getting wrong materials on machine deconstruct (#3167)
+  mqopi:
+  - tweak: add tape boxes for IIA, magistrate (cere, box, delta) (#3177)
