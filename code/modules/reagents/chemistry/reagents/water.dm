@@ -120,6 +120,7 @@
 		var/mob/living/carbon/C = M
 		if(C.mind?.has_antag_datum(/datum/antagonist/vampire))
 			C.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, C.nutrition + 10))
+			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 	..()
 
 /datum/reagent/blood/on_new(list/data)

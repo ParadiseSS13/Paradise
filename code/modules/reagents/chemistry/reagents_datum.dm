@@ -72,7 +72,8 @@
 		if(can_become_addicted)
 			if(is_type_in_list(src, M.reagents.addiction_list))
 				to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
-
+	if(C.mind?.has_antag_datum(/datum/antagonist/vampire))
+		return
 	var/mob/living/carbon/C = M
 	if(method == REAGENT_INGEST && istype(C) && C.get_blood_id() == id)
 		if(id == "blood" && !(data?["blood_type"] in get_safe_blood(C.dna?.blood_type)) || C.dna?.species.name != data?["species"] && (data?["species_only"] || C.dna?.species.own_species_blood))
