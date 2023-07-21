@@ -72,7 +72,7 @@
 /datum/reagent/slimejelly/reaction_mob(mob/living/M, method, volume)
 	if(method == REAGENT_INGEST && iscarbon(M) && M.mind?.has_antag_datum(/datum/antagonist/vampire))
 		M.reagents.remove_reagent("slimejelly", 1)
-		volume += 1 // Bit higher than base, wish it could be higher, but this stops slimes from gaming to get more blood out of their blood
+		volume++ // Bit higher than base, wish it could be higher, but this stops slimes from gaming to get more blood out of their blood
 		M.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, M.nutrition + 10))
 		M.blood_volume = min(M.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
