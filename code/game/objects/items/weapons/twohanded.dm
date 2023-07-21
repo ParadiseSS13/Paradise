@@ -1049,3 +1049,123 @@
 	cart.put_in_cart(src, user)
 
 #undef BROOM_PUSH_LIMIT
+
+/obj/item/twohanded/sledgehammer
+	name = "sledgehammer"
+	desc = "A large heavy hammer for demolition of walls or optionally foes"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "sledgehammer"
+	force = 3
+	force_wielded = 15
+	attack_verb = list("crushed", "smashed", "pulped", "slammed")
+	var/bonus_force = 5
+	var/wallsmash_time = 3
+	var/can_miss = FALSE
+	var/missed = FALSE
+
+/obj/item/twohanded/sledgehammer/attack(mob/living/M, mob/user)
+	if(!wielded)
+		return ..()
+	if(missed)
+		to_chat(user, "<span class='notice'>You are still recovering after missing!</span>")
+		return
+	if(M.buckled == TRUE && M == /mob/living/carbon/human && user.a_intent == INTENT_HARM)
+	if(M != IS_HORIZONTAL)
+		return ..()
+	else
+		force += bonus_force
+		return ..()
+
+/obj/item/twohanded/sledgehammer/afterattack(atom/target, mob/living/user, 1, params)
+	if(!isturf(target) || target != /turf/simulated/wall)
+		if(can_miss)
+			missed = TRUE
+			addtimer(CALLBACK(src, PROC_REF(recover)), 1 SECONDS)
+		return ..()
+	if(target.hardness >= 40)
+		return ..()
+	if(do_after(user, 1 SECONDS * wallsmash_time))
+		var/turf/AT = target
+		AT.ChangeTurf(/turf/simulated/floor/plating)
+		if(cell)
+			cell.use(2000)
+
+
+
+/obj/item/twohanded/sledgehammer/proc/recover()
+	missed = FALSE
+	to_chat(user, "<span class='notice'>You regain your posture and are ready to swing with [src] again!</span>")
+
+/obj/item/twohanded/sledgehammer/nt
+	name = "sonic sledgehammer"
+	desc = "by increasing the velocity using a small jet propulsion system, and incorporating the technology used in sonic jackhammers NT has created a devestating breaching tool and armor piercing weapon. It is even more effective on knocked down targets"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "ntsledge0"
+	force = 0
+	force_wielded = 20
+	armour_penetration_percentage = 70
+	var/hitcost = 1000
+	var/obj/item/stock_parts/cell/high/cell = null
+
+/obj/item/twohanded/sledgehammer/nt/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/twohanded/sledgehammer/nt/loaded/Initialize(mapload) //this one starts with a cell pre-installed.
+	link_new_cell()
+	return ..()
+
+/obj/item/twohanded/sledgehammer/nt/Destroy()
+	if(cell?.loc == src)
+		QDEL_NULL(cell)
+	return ..()
+
+/obj/item/twohanded/sledgehammer/nt/proc/link_new_cell(unlink = FALSE)
+	if(unlink)
+		cell = null
+	else
+		cell = new(src)
+
+/obj/item/twohanded/sledgehammer/nt/examine(mob/user)
+	. = ..()
+	if(cell)
+		. += "<span class='notice'>The hammer is [round(cell.percent())]% charged.</span>"
+	else
+		. += "<span class='warning'>The hammer does not have a power source installed.</span>"
+
+/obj/item/twohanded/sledgehammer/nt/get_cell
+	return cell
+ /obj/item/twohanded/sledgehammer/nt/proc/use_charge(used_amt)
+	if(!cell)
+		return
+	cell.use(used_amt)
+	if(cell.charge < hitcost)
+		unwield()
+
+/obj/item/twohanded/sledgehammer/nt/attackby(obj/item/H, mob/user, params)
+	if(istype(H, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = H
+		if(cell)
+			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
+			return
+		if(H.maxcharge < hitcost)
+			to_chat(user, "<span class='warning'>[src] needs a higher power than [H] has!</span>")
+			return
+		if(!user.unEquip(H))
+			return
+		H.forceMove(src)
+		cell = H
+		to_chat(user, "<span class='notice'>You install [H] into the [src].</span>")
+
+/obj/item/twohanded/sledgehammer/nt/screwdriver_act(mob/living/user, obj/item/H)
+	if(!cell)
+		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
+		return
+	if(!H.use_tool(src, user, volume = H.tool_volume))
+		return
+	user.put_in_hands(cell)
+	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
+	cell.update_icon()
+	cell = null
+
+/obj/item/twohanded/sledgehammer/nt/wield(mob/living/carbon/user)
