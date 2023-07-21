@@ -502,7 +502,7 @@
 
 	var/turf/target
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
 		last_sound = world.time
 
 	if(H) // Somehow, someone managed to flush a window which broke mid-transit and caused the disposal to go in an infinite loop trying to expel null, hopefully this fixes it
@@ -849,7 +849,7 @@
 			target = get_ranged_target_turf(T, direction, 10)
 
 		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
 			last_sound = world.time
 
 		if(H)
@@ -867,7 +867,7 @@
 	else	// no specified direction, so throw in random direction
 
 		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
 			last_sound = world.time
 		if(H)
 			for(var/atom/movable/AM in H)
@@ -1420,10 +1420,10 @@
 			play_sound = TRUE
 			last_sound = world.time
 		if(play_sound)
-			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
+			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, FALSE)
 		sleep(20)	//wait until correct animation frame
 		if(play_sound)
-			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(loc)
 		AM.pipe_eject(dir)
