@@ -2905,7 +2905,6 @@
 /area/maintenance/port)
 "arO" = (
 /obj/machinery/mineral/stacking_unit_console{
-	machinedir = 8;
 	pixel_x = 32
 	},
 /obj/structure/cable/yellow{
@@ -21901,14 +21900,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"bsQ" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "bsS" = (
 /obj/structure/transit_tube{
 	icon_state = "W-SE"
@@ -32664,7 +32655,7 @@
 /area/assembly/showroom)
 "bWM" = (
 /obj/structure/table/wood,
-/obj/item/toy/carpplushie{
+/obj/item/toy/plushie/carpplushie{
 	name = "\improper Nanotrasen wildlife department space carp plushie"
 	},
 /turf/simulated/floor/carpet,
@@ -38094,7 +38085,7 @@
 /area/maintenance/port)
 "cmt" = (
 /obj/structure/lattice/catwalk,
-/obj/item/toy/carpplushie,
+/obj/item/toy/plushie/carpplushie,
 /turf/space,
 /area/space/nearstation)
 "cmu" = (
@@ -51756,11 +51747,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"dKY" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "dLg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -51781,11 +51767,6 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
-"dLs" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
 "dLU" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -60055,10 +60036,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
-"hLL" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/crew_quarters/recreation)
 "hLT" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/harebell,
@@ -68608,6 +68585,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/crowbar/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -76121,6 +76099,7 @@
 /obj/structure/rack,
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
+/obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "pEF" = (
@@ -82346,6 +82325,8 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/screwdriver,
+/obj/item/wirecutters,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "sJE" = (
@@ -131390,7 +131371,7 @@ aaa
 aaa
 aaa
 aaa
-hLL
+afb
 afH
 ajD
 afH
@@ -140152,7 +140133,7 @@ abq
 abq
 aaa
 abq
-dKY
+abq
 aCg
 aOd
 vCR
@@ -140727,8 +140708,8 @@ bCX
 bCX
 bCX
 bCX
-dLs
-dLs
+bre
+bCX
 abq
 abq
 abq
@@ -141239,7 +141220,7 @@ bCX
 bCX
 bCX
 aup
-dLs
+bCX
 bCX
 bCX
 abq
@@ -144288,7 +144269,7 @@ abq
 aef
 aef
 ahv
-bsQ
+bFk
 abq
 aef
 abq

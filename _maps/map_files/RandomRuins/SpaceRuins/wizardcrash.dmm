@@ -268,10 +268,6 @@
 	icon_state = "wood-broken6"
 	},
 /area/ruin/space/unpowered)
-"aX" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/wood,
-/area/ruin/space/unpowered)
 "aY" = (
 /obj/machinery/light{
 	dir = 1
@@ -947,10 +943,10 @@ aC
 aC
 aC
 aW
-aX
+aU
 bh
-aX
-aX
+aU
+aU
 ae
 aS
 aS
@@ -983,7 +979,7 @@ aH
 aK
 aP
 aS
-aX
+aU
 ba
 bi
 bn
@@ -1020,7 +1016,7 @@ aI
 aL
 aQ
 aT
-aX
+aU
 bb
 bj
 bo

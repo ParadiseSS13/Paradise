@@ -326,7 +326,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			var/obj/item/clothing/gloves/G = H.gloves
 			if(G.siemens_coefficient == 0)
 				return FALSE
-	return TRUE
+
+	else if(isElectrified())
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/airlock/toggle_polarization()
 	polarized_on = !polarized_on
@@ -387,7 +390,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				state = AIRLOCK_CLOSED
 			else
 				state = AIRLOCK_OPEN
-		if(AIRLOCK_OPEN, AIRLOCK_CLOSED)
 		if(AIRLOCK_DENY, AIRLOCK_OPENING, AIRLOCK_CLOSING, AIRLOCK_EMAG)
 			icon_state = "nonexistenticonstate" //MADNESS
 
