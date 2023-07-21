@@ -274,6 +274,9 @@
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
 
+/obj/structure/m_tray/Process_Spacemove(movement_dir)
+	return TRUE
+
 /*
  * Crematorium
  */
@@ -538,6 +541,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		connected.connected = null
 	connected = null
 	return ..()
+
+/obj/structure/c_tray/Process_Spacemove(movement_dir)
+	return TRUE
 
 // Crematorium switch
 /obj/machinery/crema_switch
