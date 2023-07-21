@@ -459,6 +459,15 @@
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	update_icon()
 
+/obj/item/storage/belt/janitor/ert/populate_contents()
+	new /obj/item/lightreplacer(src)
+	new /obj/item/holosign_creator/janitor(src)
+	new /obj/item/reagent_containers/spray/cleaner(src)
+	new /obj/item/soap/ert(src)
+	new /obj/item/grenade/chem_grenade/cleaner(src)
+	new /obj/item/grenade/chem_grenade/cleaner(src)
+	update_icon()
+
 /obj/item/storage/belt/lazarus
 	name = "trainer's belt"
 	desc = "For the mining master, holds your lazarus capsules."

@@ -79,6 +79,15 @@
 	ammo_x_offset = 1
 	shaded_charge = 1
 
+/obj/item/gun/energy/gun/pdw9/ert
+
+/obj/item/gun/energy/gun/pdw9/ert/can_shoot()
+    . = ..()
+    if (. && !isertmindshielded(usr))
+        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
+        return FALSE
+    return .
+
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"
 	desc = "A heavy hybrid energy cannon with two settings: Stun and kill."

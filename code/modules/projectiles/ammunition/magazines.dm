@@ -87,7 +87,7 @@
 	ammo_type = /obj/item/ammo_casing/cap
 	caliber = "cap"
 	max_ammo = 7
-	
+
 /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	name = ".12 revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/shotgun
@@ -582,7 +582,7 @@
 	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/20, 1)*20]"
 
 /obj/item/ammo_box/magazine/lr30mag
-	name = "encased laser projector magazine"
+	name = "small encased laser projector magazine"
 	desc = "Fits experimental laser ammo casings."
 	icon_state = "lmag-12"
 	ammo_type = /obj/item/ammo_casing/laser

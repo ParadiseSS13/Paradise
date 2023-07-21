@@ -185,3 +185,9 @@
 	ammo_type = /obj/item/ammo_casing/cap
 	max_ammo = 7
 	multiple_sprites = 1
+
+/obj/item/ammo_box/laserammobox
+	name = "laser ammo box"
+	icon_state = "laserbox"
+	ammo_type = /obj/item/ammo_casing/laser
+	max_ammo = 40

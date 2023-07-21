@@ -514,7 +514,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/gun/projectile/automatic/wt550)
 	cost = 35
 	containername = "auto rifle crate"
-	
+
 /datum/supply_packs/security/armory/ga12
 	name = "Tkach Ya-Sui GA 12 Crate"
 	contains = list(/obj/item/gun/projectile/revolver/ga12,
@@ -547,6 +547,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30
 	containername = "auto rifle ammo crate"
 
+/datum/supply_packs/security/armory/wt550apammo
+	name = "WT-550 Rifle Armor-Piercing Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap,
+					/obj/item/ammo_box/magazine/wt550m9/wtap)
+	cost = 40
+	containername = "auto rifle armor-piercing ammo crate"
+
 /datum/supply_packs/security/armory/wt550ammobox
 	name = "WT-550 Rifle Ammobox Crate"
 	contains = list(/obj/item/ammo_box/c46x30mm,
@@ -555,6 +564,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/ammo_box/c46x30mm)
 	cost = 60
 	containername = "auto rifle ammobox crate"
+
+/datum/supply_packs/security/armory/wt550apammobox
+	name = "WT-550 Rifle Armor-Piercing Ammobox Crate"
+	contains = list(/obj/item/ammo_box/ap46x30mm,
+					/obj/item/ammo_box/ap46x30mm,
+					/obj/item/ammo_box/ap46x30mm,
+					/obj/item/ammo_box/ap46x30mm)
+	cost = 80
+	containername = "auto rifle armor-piercing ammobox crate"
 
 /////// Implants & etc
 
