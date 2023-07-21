@@ -9287,6 +9287,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/item/storage/box/tapes{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "axV" = (
@@ -10550,6 +10553,9 @@
 	pixel_x = 24
 	},
 /obj/item/paper_bin/nanotrasen,
+/obj/item/storage/box/tapes{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},

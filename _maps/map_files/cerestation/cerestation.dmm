@@ -50754,11 +50754,17 @@
 /area/crew_quarters/locker)
 "jHo" = (
 /obj/structure/table,
-/obj/item/taperecorder,
 /obj/machinery/button/windowtint{
 	dir = 1;
 	id = "process";
 	pixel_y = -24
+	},
+/obj/item/storage/box/tapes{
+	pixel_y = 3
+	},
+/obj/item/taperecorder{
+	pixel_x = 5;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -73158,6 +73164,9 @@
 	},
 /obj/item/folder/blue{
 	pixel_x = 5
+	},
+/obj/item/storage/box/tapes{
+	pixel_y = 3
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
