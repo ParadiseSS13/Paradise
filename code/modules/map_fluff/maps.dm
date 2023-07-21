@@ -10,3 +10,5 @@
 	var/company_name  = "BadMan"
 	var/company_short = "BM"
 	var/starsys_name  = "Dull Star"
+	/// URL to the maps webmap
+	var/webmap_url

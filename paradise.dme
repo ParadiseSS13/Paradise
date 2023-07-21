@@ -1372,6 +1372,7 @@
 #include "code\game\verbs\randomtip.dm"
 #include "code\game\verbs\suicide.dm"
 #include "code\game\verbs\who.dm"
+#include "code\game\verbs\webmap.dm"
 #include "code\LINDA\LINDA_fire.dm"
 #include "code\LINDA\LINDA_system.dm"
 #include "code\LINDA\LINDA_turf_tile.dm"
