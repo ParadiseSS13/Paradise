@@ -57,9 +57,6 @@
 
 
 /datum/game_mode/revolution/post_setup()
-	// var/list/heads = get_living_heads()
-	// var/list/sec = get_living_sec()
-	// var/weighted_score = min(max(round(heads.len - ((8 - sec.len) / 3)),1),max_headrevs) // some magic bullshit idk contra todo
 
 	rev_team = new /datum/team/revolution()
 

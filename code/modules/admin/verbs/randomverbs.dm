@@ -893,7 +893,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!SSticker)
 		return
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN)) // contra todo, test this verb
 		return
 
 	var/alert = alert(usr, "Do you want to ALLOW or DENY shuttle calls?", "Toggle Deny Shuttle", "Allow", "Deny", "Cancel")

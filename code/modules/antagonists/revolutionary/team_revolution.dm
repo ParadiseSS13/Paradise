@@ -10,7 +10,7 @@
 
 /datum/team/revolution/Destroy(force, ...)
 	SSticker.mode.rev_team = null
-	SSshuttle.clearHostileEnvironment(src) // contra todo, clear this somewhere else
+	SSshuttle.clearHostileEnvironment(src)
 	. = ..()
 
 
@@ -47,7 +47,7 @@
 	for(var/datum/objective/mutiny/O in objectives)
 		. |= O.target
 
-/datum/team/revolution/proc/sanitize_objectives() // contra todo, is this really needed?
+/datum/team/revolution/proc/sanitize_objectives()
 	for(var/datum/objective/mutiny/O in objectives)
 		if(!O.target) // revs shouldnt have free objectives
 			remove_objective_from_team(O)

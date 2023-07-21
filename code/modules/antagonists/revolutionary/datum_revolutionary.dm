@@ -6,8 +6,8 @@
 	give_objectives = FALSE
 	antag_hud_name = "hudrevolutionary"
 	antag_hud_type = ANTAG_HUD_REV
-	clown_gain_text = "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
-	// clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self." // contra todo
+	clown_gain_text = "Your newfound purpose has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
+	clown_removal_text = "As you feel your sense of purpose fade, you return to your own clumsy, clownish self."
 	wiki_page_name = "Revolution"
 	var/converted = TRUE
 
