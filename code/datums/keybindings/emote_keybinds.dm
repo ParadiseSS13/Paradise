@@ -502,8 +502,8 @@
 	name = "Growl"
 
 /datum/keybinding/emote/carbon/human/meow
-    linked_emote = /datum/emote/living/carbon/human/meow
-    name = "Meow"
+	linked_emote = /datum/emote/living/carbon/human/meow
+	name = "Meow"
 
 /datum/keybinding/emote/carbon/human/hiss/tajaran
     linked_emote = /datum/emote/living/carbon/human/hiss/tajaran
