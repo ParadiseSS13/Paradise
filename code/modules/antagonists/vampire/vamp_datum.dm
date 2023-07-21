@@ -64,7 +64,6 @@
 	SSticker.mode.vampires -= owner
 
 /datum/antagonist/vampire/add_antag_hud(mob/living/antag_mob)
-	var/is_contractor = LAZYACCESS(GLOB.contractors, owner)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		antag_hud_name = "hudhijackv"
 	else
