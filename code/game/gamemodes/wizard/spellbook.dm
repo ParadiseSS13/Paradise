@@ -222,6 +222,24 @@
 	REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
+/datum/spellbook_entry/summon_supermatter
+	name = "Summon Supermatter Crystal"
+	spell_type = /obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter
+	cost = 3
+	category = "Defensive"
+
+/datum/spellbook_entry/summon_supermatter/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
+	to_chat(user, "<span class='notice'>You feel a little bit of supermatter enter your body.</span>")
+	ADD_TRAIT(user, TRAIT_RADIMMUNE, MAGIC_TRAIT)
+	ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, MAGIC_TRAIT)
+	return ..()
+
+/datum/spellbook_entry/summon_supermatter/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
+	to_chat(user, "<span class='warning'>A little bit of supermatter leaves your body. So does that metallic taste in your mouth.</span>")
+	REMOVE_TRAIT(user, TRAIT_RADIMMUNE, MAGIC_TRAIT)
+	REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, MAGIC_TRAIT)
+	return ..()
+
 //Mobility
 /datum/spellbook_entry/knock
 	name = "Knock"
@@ -452,7 +470,7 @@
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
 	desc = "An ensorceled suit of armour, protected by a powerful shield. The shield can completely negate sixteen attacks before being permanently depleted. Despite appearance it is NOT spaceproof."
-	item_path = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
+	item_path = /obj/item/storage/box/wizard/hardsuit
 	limit = 1
 	category = "Weapons and Armors"
 

@@ -402,9 +402,9 @@
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
-#define DEFIB_TIME_LIMIT 300 SECONDS
+#define DEFIB_TIME_LIMIT (300 SECONDS)
 /// Brain damage starts setting in on the patient after some time left rotting.
-#define DEFIB_TIME_LOSS 60 SECONDS
+#define DEFIB_TIME_LOSS (60 SECONDS)
 
 //different types of atom colorations
 #define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color

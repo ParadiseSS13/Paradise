@@ -220,7 +220,7 @@
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
 		M.Stuttering(40 SECONDS)
-		M.AdjustEarDamage(0, 30)
+		M.Deaf(30 SECONDS)
 		M.KnockDown(6 SECONDS)
 		M.Jitter(40 SECONDS)
 		///else the mousetraps are useless
@@ -334,53 +334,18 @@
 	name = "\improper SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack"
 	origin_tech = "combat=5;materials=4;engineering=4"
-	projectile = /obj/item/missile
+	projectile = /obj/item/projectile/missile/light
 	fire_sound = 'sound/effects/bang.ogg'
 	projectiles = 8
 	projectile_energy_cost = 1000
 	equip_cooldown = 60
 	var/missile_speed = 2
 	var/missile_range = 30
-	var/heavy_missile = 0
 	harmful = TRUE
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
-	if(!action_checks(target))
-		return
-	set_ready_state(0)
-	var/obj/item/missile/M = new projectile(chassis.loc)
-	M.primed = 1
-	if(heavy_missile)
-		M.heavy_missile = 1
-	playsound(chassis, fire_sound, 50, 1)
-	M.throw_at(target, missile_range, missile_speed, spin = FALSE)
-	projectiles--
-	log_message("Fired from [name], targeting [target].")
-	var/turf/T = get_turf(src)
-	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
-	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
-	do_after_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "\improper SRX-13 Heavy Missile Launcher"
-	heavy_missile = 1
-
-/obj/item/missile
-	icon = 'icons/obj/grenade.dmi'
-	icon_state = "missile"
-	var/primed = null
-	var/heavy_missile = 0
-	throwforce = 15
-
-/obj/item/missile/throw_impact(atom/hit_atom)
-	if(primed)
-		if(heavy_missile)
-			explosion(hit_atom, 2, 3, 4, 6, 0)
-		else
-			explosion(hit_atom, 0, 0, 2, 4, 0)
-		qdel(src)
-	else
-		..()
+	projectile = /obj/item/projectile/missile
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	name = "\improper SGL-6 Flashbang Launcher"

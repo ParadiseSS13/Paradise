@@ -807,7 +807,7 @@
 "ahw" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Auxiliary Storage";
-	req_one_access_txt = "65;12"
+	req_one_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -1275,11 +1275,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/fore2)
-"alW" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "alX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow,
@@ -7555,12 +7550,13 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/janitorialcart,
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "aBx" = (
-/obj/structure/janitorialcart,
-/obj/item/reagent_containers/glass/bucket,
 /obj/machinery/light,
+/obj/machinery/economy/vending/janidrobe,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "aBy" = (
@@ -15435,6 +15431,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/theatre)
 "aUG" = (
+/obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -19223,6 +19220,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bcL" = (
+/obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
@@ -22681,7 +22679,7 @@
 	},
 /area/hydroponics)
 "bkY" = (
-/obj/item/toy/carpplushie/pink,
+/obj/item/toy/plushie/carpplushie/pink,
 /turf/space,
 /area/space)
 "bkZ" = (
@@ -28345,7 +28343,7 @@
 "bxx" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Auxiliary Storage";
-	req_one_access_txt = "65;12"
+	req_one_access_txt = "12"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -53588,7 +53586,7 @@
 "cCK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /obj/item/radio,
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -75534,8 +75532,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/chapel/main)
 "dKm" = (
-/obj/structure/window/full/reinforced/tinted,
-/obj/structure/grille,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/chapel/main)
 "dKn" = (
@@ -81105,7 +81102,8 @@
 /area/security/execution)
 "eqY" = (
 /obj/structure/closet/firecloset,
-/obj/item/crowbar/red,
+/obj/item/wirecutters,
+/obj/item/screwdriver,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "erA" = (
@@ -81533,10 +81531,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"ePS" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/security/securearmoury)
 "eQg" = (
 /obj/machinery/biogenerator,
 /obj/structure/cable{
@@ -84932,6 +84926,7 @@
 /area/security/securearmoury)
 "iMM" = (
 /obj/structure/closet/emcloset,
+/obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "iNa" = (
@@ -85652,7 +85647,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_rare,
+/obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "jIs" = (
@@ -86540,7 +86535,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/xenobiology)
+/area/maintenance/port)
 "kTw" = (
 /obj/machinery/fishtank/tank,
 /turf/simulated/floor/plating,
@@ -89096,10 +89091,6 @@
 	icon_state = "dark"
 	},
 /area/security/execution)
-"nQk" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/space/nearstation)
 "nQF" = (
 /turf/simulated/floor/plasteel/white,
 /area/medical/reception)
@@ -92791,6 +92782,25 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
+"see" = (
+/obj/structure/closet/crate/trashcart{
+	desc = "A heavy, metal laundrycart with wheels.";
+	name = "laundry cart"
+	},
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/crowbar/large,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/security/permabrig)
 "seH" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -96169,9 +96179,7 @@
 	},
 /area/security/execution)
 "vSO" = (
-/obj/machinery/mineral/stacking_unit_console{
-	machinedir = 5
-	},
+/obj/machinery/mineral/stacking_unit_console,
 /turf/simulated/wall,
 /area/maintenance/disposal)
 "vSU" = (
@@ -96737,7 +96745,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_rare,
+/obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -97555,8 +97563,8 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab)
 "xKd" = (
-/obj/machinery/economy/vending/coffee,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/lawdrobe,
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "xKC" = (
@@ -108885,7 +108893,7 @@ aaa
 bkt
 bJP
 brr
-alW
+abj
 abj
 abj
 btd
@@ -124093,15 +124101,15 @@ cHl
 cHr
 dtU
 dlM
-cIH
-cIH
-cIH
-cIH
-cIH
-cIH
-cIH
-cIH
-cIH
+dmq
+dmq
+dmq
+dmq
+dmq
+dmq
+dmq
+dmq
+dmq
 drn
 dap
 dbL
@@ -124350,7 +124358,7 @@ cGe
 dhG
 drn
 cKf
-cIH
+dmq
 cNi
 cNi
 cIM
@@ -124358,7 +124366,7 @@ cVG
 cIM
 cIM
 cIM
-cIH
+dmq
 drn
 daq
 bDp
@@ -124607,7 +124615,7 @@ cGe
 dhG
 dhG
 cKg
-cIH
+dmq
 cNj
 cOI
 cKo
@@ -124615,7 +124623,7 @@ cKo
 cKo
 cKo
 cWy
-cIH
+dmq
 cZm
 dap
 dbL
@@ -124864,7 +124872,7 @@ cGf
 cHr
 dhG
 ddh
-cIH
+dmq
 cIM
 cNi
 cIM
@@ -124872,7 +124880,7 @@ cIM
 cIM
 cIM
 cIM
-cIH
+dmq
 dHk
 dap
 bDp
@@ -125121,7 +125129,7 @@ cGg
 drn
 drn
 drn
-cIH
+dmq
 cIH
 cOJ
 cIM
@@ -125129,7 +125137,7 @@ cIM
 cTp
 cOJ
 cIH
-cIH
+dmq
 cWn
 dar
 bDp
@@ -125378,7 +125386,7 @@ cGh
 cHs
 cIG
 cKi
-cIH
+dmq
 cNk
 cOK
 cQE
@@ -125386,7 +125394,7 @@ cRP
 cTq
 cUT
 cVh
-cIH
+dmq
 dlM
 daq
 dbM
@@ -125632,10 +125640,10 @@ cCu
 cDM
 byr
 cGi
-cIH
-cIH
+dmq
+dmq
 kTo
-cIH
+dmq
 cNm
 cOO
 cRQ
@@ -125643,7 +125651,7 @@ cTs
 cUV
 cWC
 cNm
-cIH
+dmq
 cZn
 daq
 bDp
@@ -125889,7 +125897,7 @@ cCt
 cED
 byr
 cGi
-cIH
+dmq
 cII
 cKk
 cIL
@@ -125900,7 +125908,7 @@ cTt
 cRR
 dWl
 dWt
-cIH
+dmq
 cWn
 daq
 bDp
@@ -125920,7 +125928,7 @@ dYo
 dYH
 bDp
 abj
-alW
+abj
 aaa
 abj
 aaa
@@ -126146,7 +126154,7 @@ cDC
 cGb
 byr
 cGi
-cIH
+dmq
 cIJ
 cKm
 cNo
@@ -126157,7 +126165,7 @@ cRS
 cUX
 cUW
 dWu
-cIH
+dmq
 cWn
 dar
 drn
@@ -126403,7 +126411,7 @@ byr
 byr
 byr
 cGj
-cIH
+dmq
 cIK
 cLQ
 cIL
@@ -126414,7 +126422,7 @@ cTu
 cWA
 dWm
 dWv
-cIH
+dmq
 dhG
 das
 ddf
@@ -126660,7 +126668,7 @@ cCw
 cly
 cAS
 cGk
-cIH
+dmq
 cIL
 cIL
 cIL
@@ -126671,10 +126679,10 @@ cTw
 cVb
 cOP
 cIL
-cIH
-cIH
-cIH
-cIH
+dmq
+dmq
+dmq
+dmq
 ddg
 deO
 dhG
@@ -126917,7 +126925,7 @@ cCx
 cHA
 cHA
 cGi
-cIH
+dmq
 cIM
 cIM
 cIM
@@ -126931,7 +126939,7 @@ cWD
 cYi
 cIM
 cIM
-cIH
+dmq
 ddh
 deP
 dfZ
@@ -127174,7 +127182,7 @@ cCy
 cDN
 cCx
 cGl
-cIH
+dmq
 cSi
 cKn
 cIM
@@ -127188,7 +127196,7 @@ cWE
 cIM
 cKo
 doQ
-cIH
+ddi
 ddi
 ddi
 ddi
@@ -127431,7 +127439,7 @@ cCz
 cEO
 cHA
 cGe
-cIH
+dmq
 cIM
 cIM
 cLR
@@ -127445,7 +127453,7 @@ cNw
 cIM
 cIM
 cIM
-cIH
+ddi
 kQt
 wDU
 dQd
@@ -127688,7 +127696,7 @@ cCA
 cDP
 cHA
 cGe
-cIH
+dmq
 cIL
 cIL
 cIL
@@ -127702,7 +127710,7 @@ cIL
 cIL
 daD
 cIL
-cIH
+ddi
 tGY
 kNC
 dng
@@ -127945,7 +127953,7 @@ drn
 cDQ
 cHA
 cGl
-cIH
+dmq
 cIM
 cIM
 cIM
@@ -127959,7 +127967,7 @@ cWD
 cYi
 cIM
 cIM
-cIH
+ddi
 syO
 dng
 dng
@@ -128202,7 +128210,7 @@ cHA
 cHA
 cHA
 cGm
-cIH
+dmq
 cSl
 cKo
 cIM
@@ -128216,7 +128224,7 @@ cWF
 cIM
 cKn
 dpP
-cIH
+ddi
 nmA
 gJT
 mOW
@@ -128459,7 +128467,7 @@ cAS
 cDR
 cly
 cGn
-cIH
+dmq
 cIM
 cIM
 cLR
@@ -128473,7 +128481,7 @@ cNw
 cIM
 cIM
 cIM
-cIH
+ddi
 syO
 dng
 dng
@@ -128716,7 +128724,7 @@ bYj
 drn
 dhG
 cGo
-cIH
+dmq
 cIL
 cIL
 cIL
@@ -128730,7 +128738,7 @@ cIL
 cIL
 cIL
 cIL
-cIH
+ddi
 tGY
 juA
 dng
@@ -128973,7 +128981,7 @@ bYj
 dhG
 dlM
 cGe
-cIH
+dmq
 cIM
 cIM
 cIM
@@ -128987,7 +128995,7 @@ cWD
 cYi
 cIM
 cIM
-cIH
+ddi
 kQt
 xXt
 wRc
@@ -129230,7 +129238,7 @@ bYj
 czF
 drn
 cGi
-cIH
+dmq
 cSq
 cKn
 cIM
@@ -129244,7 +129252,7 @@ cWG
 cIM
 cKo
 dpZ
-cIH
+ddi
 ddi
 ddi
 ddi
@@ -129487,7 +129495,7 @@ bYj
 drn
 drn
 cGi
-cIH
+dmq
 cIM
 cIM
 cLR
@@ -129501,7 +129509,7 @@ cNw
 cIM
 cIM
 cIM
-cIH
+cKr
 hYv
 cPn
 cPn
@@ -129744,7 +129752,7 @@ bYj
 drn
 drs
 cGi
-cIH
+dmq
 cIL
 cIL
 cIL
@@ -129756,9 +129764,9 @@ cSb
 cOY
 cIL
 cIL
-cIH
-cIH
-cIH
+cKr
+cKr
+cKr
 gtR
 hqk
 lID
@@ -130001,7 +130009,7 @@ bYj
 drn
 dlM
 cGi
-cIH
+dmq
 cIO
 cIO
 cIO
@@ -130258,7 +130266,7 @@ bYj
 dhG
 dmy
 cGp
-cIH
+dmq
 cIO
 cKp
 cLS
@@ -130515,7 +130523,7 @@ bYj
 cDV
 cHA
 cGq
-cIH
+dmq
 cSC
 cKq
 cLT
@@ -130772,7 +130780,7 @@ bYj
 drn
 dlM
 cGe
-cIH
+dmq
 cIO
 cKq
 cLT
@@ -131029,7 +131037,7 @@ bYj
 dhG
 drn
 cGi
-cIH
+dmq
 cIO
 bQx
 cLU
@@ -131286,7 +131294,7 @@ cCB
 cDW
 cDW
 jIA
-cIH
+dmq
 cIO
 cIO
 cIO
@@ -131543,13 +131551,13 @@ dhG
 cDX
 dhG
 cGs
-cIH
-cIH
-cIH
-cIH
-cIH
-cIH
-cIH
+dmq
+dmq
+dmq
+dmq
+dmq
+dmq
+dmq
 ddi
 ddi
 ddi
@@ -148686,7 +148694,7 @@ aaa
 aaa
 aaa
 abj
-alW
+abj
 abj
 aaa
 eNt
@@ -148944,7 +148952,7 @@ aaa
 aaa
 aaa
 abj
-alW
+abj
 abj
 eNt
 bWr
@@ -152297,7 +152305,7 @@ npj
 eCs
 aIo
 aJA
-aKU
+see
 aPe
 aNM
 aQD
@@ -153882,10 +153890,10 @@ bbm
 boI
 bEr
 qBV
-alW
 abj
 abj
-alW
+abj
+abj
 abj
 aaa
 aaa
@@ -154634,7 +154642,7 @@ bsY
 bpc
 boN
 ixV
-ePS
+ngg
 mqS
 xom
 wIT
@@ -154891,7 +154899,7 @@ kTO
 bPw
 bmk
 bmk
-ePS
+ngg
 rSe
 dJI
 bqW
@@ -155148,7 +155156,7 @@ bta
 beI
 bzq
 nvc
-ePS
+ngg
 xUI
 fEF
 eDh
@@ -155405,7 +155413,7 @@ btb
 bpd
 njQ
 boM
-ePS
+ngg
 bFS
 bhi
 boZ
@@ -157729,7 +157737,7 @@ bPS
 oEG
 oEG
 abj
-nQk
+bPS
 abj
 oEG
 oEG

@@ -113,6 +113,7 @@
 		M.SetStunned(0)
 		M.SetWeakened(0)
 		M.SetKnockDown(0)
+		M.stand_up(TRUE)
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 

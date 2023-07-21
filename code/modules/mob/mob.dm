@@ -910,9 +910,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/stripPanelEquip(obj/item/what, mob/who)
 	return
 
-/mob/MouseDrop(mob/M as mob)
-	..()
-	if(M != usr) return
+/mob/MouseDrop(mob/M as mob, src_location, over_location, src_control, over_control, params)
+	if((M != usr) || !istype(M))
+		..()
+		return
 	if(isliving(M))
 		var/mob/living/L = M
 		if(L.mob_size <= MOB_SIZE_SMALL)
@@ -1235,11 +1236,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(green)
 			if(!no_text)
 				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
-			location.add_vomit_floor(FALSE, TRUE)
+			add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
 				visible_message("<span class='warning'>[src] pukes all over [p_themselves()]!</span>","<span class='warning'>You puke all over yourself!</span>")
-			location.add_vomit_floor(TRUE)
+			add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	mob_spell_list += S

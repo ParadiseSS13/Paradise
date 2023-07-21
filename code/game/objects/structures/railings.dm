@@ -21,6 +21,13 @@
 	..()
 	add_fingerprint(user)
 
+/obj/structure/railing/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] tears apart [src]!</span>", "<span class='notice'>You tear apart [src]!</span>")
+
+
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
 	if(user.intent != INTENT_HELP)
 		return
@@ -73,8 +80,8 @@
 	if(istype(mover, /obj/item/projectile))
 		return TRUE
 	if(ismob(mover))
-		var/mob/M = mover
-		if(M.flying)
+		var/mob/living/M = mover
+		if(M.flying || (istype(M) && IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(mover.throwing)
 		return TRUE
@@ -100,8 +107,8 @@
 		return TRUE
 	if(istype(O, /obj/item/projectile))
 		return TRUE
-	if(ismob(O))
-		if(M.flying || M.floating)
+	if(istype(M))
+		if(M.flying || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(O.throwing)
 		return TRUE
