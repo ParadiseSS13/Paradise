@@ -32,6 +32,8 @@
 	var/datum/robot_energy_storage/source
 	/// Related to above. How much energy it costs from storage to use stack items
 	var/cost = 1
+	/// Related to above. Determines what stack will actually be put in machine when using cyborg stacks on construction to avoid spawning those on deconstruction.
+	var/cyborg_construction_stack
 
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)

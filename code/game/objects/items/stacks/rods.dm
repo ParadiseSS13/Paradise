@@ -77,6 +77,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 /obj/item/stack/rods/cyborg
 	materials = list()
 	is_cyborg = 1
+	cyborg_construction_stack = /obj/item/stack/rods
 
 /obj/item/stack/rods/cyborg/update_icon()
 	return

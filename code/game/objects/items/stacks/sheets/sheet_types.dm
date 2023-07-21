@@ -123,6 +123,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
 	is_cyborg = 1
+	cyborg_construction_stack = /obj/item/stack/sheet/metal
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
@@ -247,6 +248,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 
 /obj/item/stack/sheet/wood/cyborg
 	is_cyborg = 1
+	cyborg_construction_stack = /obj/item/stack/sheet/wood
 
 /obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -535,6 +537,7 @@ GLOBAL_LIST_INIT(brass_recipes, list(
 /obj/item/stack/sheet/brass/cyborg
 	materials = list()
 	is_cyborg = 1
+	cyborg_construction_stack = /obj/item/stack/sheet/brass
 
 
 /*

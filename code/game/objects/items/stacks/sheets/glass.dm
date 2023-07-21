@@ -45,6 +45,7 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 /obj/item/stack/sheet/glass/cyborg
 	materials = list()
 	is_cyborg = 1
+	cyborg_construction_stack = /obj/item/stack/sheet/glass
 
 /obj/item/stack/sheet/glass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

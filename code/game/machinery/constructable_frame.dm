@@ -218,7 +218,11 @@
 						if(istype(P, /obj/item/stack))
 							var/obj/item/stack/S = P
 							var/camt = min(S.get_amount(), req_components[I])
-							var/obj/item/stack/NS = new P.type(src, camt)
+							var/obj/item/stack/NS
+							if (S.is_cyborg && S.cyborg_construction_stack)
+								NS = new S.cyborg_construction_stack(src, camt)
+							else
+								NS = new P.type(src, camt)
 							NS.update_icon()
 							S.use(camt)
 							components += NS
