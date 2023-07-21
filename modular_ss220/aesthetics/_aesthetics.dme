@@ -34,3 +34,5 @@
 #include "windowtint\code\windowtint.dm"
 #include "zippo\code\zippo.dm"
 #include "intercom\code\intercom.dm"
+#include "walls\code\walls.dm"
+#include "windows\code\windows.dm"
