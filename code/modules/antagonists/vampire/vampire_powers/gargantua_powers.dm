@@ -1,4 +1,4 @@
-#define ARENA_SIZE 12
+#define ARENA_SIZE 9
 
 /obj/effect/proc_holder/spell/vampire/self/blood_swell
 	name = "Blood Swell (30)"
@@ -270,10 +270,6 @@
 
 /obj/effect/proc_holder/spell/vampire/self/arena/proc/clear_activator(mob/source)
 	SIGNAL_HANDLER
-	if(source == activator)
-		activator = null
-	else
-		mychild = null
 	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "clear activation")
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
