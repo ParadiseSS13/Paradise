@@ -64,7 +64,7 @@
 			var/obj/item/stack/tile/W = C
 			if(!W.use(1))
 				return
-			ChangeTurf(W.turf_type)
+			ChangeTurf(W.turf_type, keep_icon = FALSE)
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")

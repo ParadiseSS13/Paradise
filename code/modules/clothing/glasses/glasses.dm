@@ -74,8 +74,6 @@
 	icon_state = "meson"
 	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
-	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
@@ -85,6 +83,18 @@
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
+
+	var/active_on_equip = TRUE
+
+/obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
+	. = ..()
+	if(active_on_equip && slot == slot_glasses)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+
+/obj/item/clothing/glasses/meson/dropped(mob/user)
+	. = ..()
+	if(user)
+		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/meson/night
 	name = "night vision optical meson scanner"
