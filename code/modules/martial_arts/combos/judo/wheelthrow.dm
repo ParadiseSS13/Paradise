@@ -7,7 +7,7 @@
 /datum/martial_combo/judo/wheelthrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!IS_HORIZONTAL(target) || !target.IsImmobilized())
 		return MARTIAL_COMBO_FAIL
-	target.visible_message("<span class='warning'>[user] raises [target] over [user.p_their()] shoulder, and slams them into the ground!</span>", \
+	target.visible_message("<span class='warning'>[user] raises [target] over [user.p_their()] shoulder, and slams [target.p_them()] into the ground!</span>", \
 						"<span class='userdanger'>[user] throws you over [user.p_their()] shoulder, slamming you into the ground!</span>")
 	playsound(get_turf(user), 'sound/magic/tail_swing.ogg', 40, TRUE, -1)
 	target.SpinAnimation(10, 1)
