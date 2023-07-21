@@ -166,6 +166,7 @@
 	name = "combat knife"
 	icon_state = "combatknife"
 	item_state = "knife"
+	belt_icon = "combat_knife"
 	desc = "A military combat utility survival knife."
 	force = 20
 	throwforce = 20
@@ -177,6 +178,7 @@
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"
 	icon_state = "survivalknife"
+	belt_icon = "survival_knife"
 	desc = "A hunting grade survival knife."
 	force = 15
 	throwforce = 15
@@ -185,6 +187,7 @@
 	name = "bone dagger"
 	item_state = "bone_dagger"
 	icon_state = "bone_dagger"
+	belt_icon = "bone_dagger"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	desc = "A sharpened bone. The bare minimum in survival."

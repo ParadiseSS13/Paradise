@@ -172,6 +172,7 @@
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
+	belt_icon = "advanced_trauma_kit"
 	heal_brute = 25
 	stop_bleeding = 0
 
@@ -223,6 +224,7 @@
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
 	icon_state = "burnkit"
+	belt_icon = "advanced_burn_kit"
 	heal_burn = 25
 
 /obj/item/stack/medical/ointment/advanced/cyborg

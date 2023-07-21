@@ -11,6 +11,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+	var/belt_icon = null
+
 	//Dimensions of the lefthand_file and righthand_file vars
 	//eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_x_dimension = 32

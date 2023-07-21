@@ -4,6 +4,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
 	item_state = "cleaner"
+	belt_icon = "cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
@@ -131,6 +132,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"
+	belt_icon = "pepperspray"
 	volume = 40
 	spray_maxrange = 4
 	amount_per_transfer_from_this = 5

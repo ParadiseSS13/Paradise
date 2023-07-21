@@ -5,6 +5,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
+	belt_icon = "plant_analyzer"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
@@ -57,6 +58,7 @@
 	desc = "It's used for removing weeds or scratching your back."
 	icon_state = "cultivator"
 	item_state = "cultivator"
+	belt_icon = "cultivator"
 	origin_tech = "engineering=2;biotech=2"
 	flags = CONDUCT
 	force = 5
@@ -69,6 +71,7 @@
 /obj/item/cultivator/rake
 	name = "rake"
 	icon_state = "rake"
+	belt_icon = null
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "sliced", "bashed", "clawed")
 	hitsound = null
@@ -81,6 +84,7 @@
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
 	icon_state = "hatchet"
 	item_state = "hatchet"
+	belt_icon = "hatchet"
 	flags = CONDUCT
 	force = 12
 	w_class = WEIGHT_CLASS_TINY
@@ -105,12 +109,14 @@
 	desc = "A length of leather-bound wood studded with razor-sharp teeth. How crude."
 	icon_state = "unathiknife"
 	item_state = "unathiknife"
+	belt_icon = null
 	attack_verb = list("ripped", "torn", "cut")
 
 /obj/item/hatchet/wooden
 	name = "wooden hatchet"
 	desc = "A crude axe blade upon a short wooden handle."
 	icon_state = "woodhatchet"
+	belt_icon = "wooden_hatchet"
 	materials = null
 	flags = NONE
 

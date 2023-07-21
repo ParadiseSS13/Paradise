@@ -185,6 +185,7 @@ REAGENT SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
+	belt_icon = "health_analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = SLOT_BELT

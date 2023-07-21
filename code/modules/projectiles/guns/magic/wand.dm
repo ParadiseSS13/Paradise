@@ -1,5 +1,6 @@
 /obj/item/gun/magic/wand/
 	name = "wand of nothing"
+	belt_icon = "wand of nothing"
 	desc = "It's not just a stick, it's a MAGIC stick!"
 	ammo_type = /obj/item/ammo_casing/magic
 	icon_state = "nothingwand"
@@ -58,6 +59,7 @@
 
 /obj/item/gun/magic/wand/death
 	name = "wand of death"
+	belt_icon = "wand of death"
 	desc = "This deadly wand overwhelms the victim's body with pure energy, slaying them without fail."
 	fire_sound = 'sound/magic/wandodeath.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/death
@@ -78,6 +80,7 @@
 
 /obj/item/gun/magic/wand/resurrection
 	name = "wand of resurrection"
+	belt_icon = "wand of resurrection"
 	desc = "This wand uses healing magics to heal and revive. They are rarely utilized within the Wizard Federation for some reason."
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
@@ -96,6 +99,7 @@
 
 /obj/item/gun/magic/wand/polymorph
 	name = "wand of polymorph"
+	belt_icon = "wand of polymorph"
 	desc = "This wand is attuned to chaos and will radically alter the victim's form."
 	ammo_type = /obj/item/ammo_casing/magic/change
 	fire_sound = 'sound/magic/staff_change.ogg'
@@ -113,6 +117,7 @@
 
 /obj/item/gun/magic/wand/teleport
 	name = "wand of teleportation"
+	belt_icon = "wand of teleportation"
 	desc = "This wand will wrench targets through space and time to move them somewhere else."
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	icon_state = "telewand"
@@ -134,6 +139,7 @@
 
 /obj/item/gun/magic/wand/door
 	name = "wand of door creation"
+	belt_icon = "wand of door creation"
 	desc = "This particular wand can create doors in any wall for the unscrupulous wizard who shuns teleportation magics."
 	ammo_type = /obj/item/ammo_casing/magic/door
 	fire_sound = 'sound/magic/staff_door.ogg'
@@ -152,6 +158,7 @@
 
 /obj/item/gun/magic/wand/fireball
 	name = "wand of fireball"
+	belt_icon = "wand of fireball"
 	desc = "This wand shoots scorching balls of fire that explode into destructive flames."
 	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/fireball

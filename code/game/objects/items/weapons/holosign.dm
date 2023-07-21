@@ -61,6 +61,7 @@
 /obj/item/holosign_creator/janitor
 	name = "Janitorial Holosign projector"
 	desc = "A handy-dandy holographic projector that displays a janitorial sign."
+	belt_icon = "sign_projector"
 	holosign_type = /obj/structure/holosign/wetsign
 	var/wet_enabled = FALSE
 
@@ -93,6 +94,7 @@
 	name = "security holobarrier projector"
 	desc = "A holographic projector that creates holographic security barriers."
 	icon_state = "signmaker_sec"
+	belt_icon = "security_sign_projector"
 	holosign_type = /obj/structure/holosign/barrier
 	creation_time = 30
 	max_signs = 6

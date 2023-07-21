@@ -48,6 +48,7 @@
 	name = "silver-plated pickaxe"
 	icon_state = "spickaxe"
 	item_state = "spickaxe"
+	belt_icon = "silver-plated pickaxe"
 	origin_tech = "materials=3;engineering=4"
 	toolspeed = 0.5 //mines faster than a normal pickaxe, bought from mining vendor
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
@@ -57,6 +58,7 @@
 	name = "golden pickaxe"
 	icon_state = "gpickaxe"
 	item_state = "gpickaxe"
+	belt_icon = "golden pickaxe"
 	origin_tech = "materials=4;engineering=4"
 	toolspeed = 0.4
 	desc = "A gold-plated pickaxe that mines faster than standard-issue."
@@ -66,6 +68,7 @@
 	name = "diamond-tipped pickaxe"
 	icon_state = "dpickaxe"
 	item_state = "dpickaxe"
+	belt_icon = "diamond-tipped pickaxe"
 	origin_tech = "materials=5;engineering=4"
 	toolspeed = 0.3
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
@@ -132,6 +135,7 @@
 	desc = "A small tool for digging and moving dirt."
 	icon_state = "spade"
 	item_state = "spade"
+	belt_icon = "spade"
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL

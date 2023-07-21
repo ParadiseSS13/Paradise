@@ -27,6 +27,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	suffix = "\[3\]"
 	icon_state = "walkietalkie"
 	item_state = "walkietalkie"
+	belt_icon = "radio"
 	/// boolean for radio enabled or not
 	var/on = TRUE
 	var/last_transmission

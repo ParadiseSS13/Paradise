@@ -207,6 +207,7 @@
 	desc = "Cheap sterile gloves made from latex."
 	icon_state = "latex"
 	item_state = "lgloves"
+	belt_icon = "latex_gloves"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
 	item_color="white"

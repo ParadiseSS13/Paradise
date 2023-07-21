@@ -4,6 +4,7 @@
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "mender"
 	item_state = "mender"
+	belt_icon = "automender"
 	volume = 200
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE

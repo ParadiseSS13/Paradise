@@ -6,6 +6,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
+	belt_icon = "handheld_defibrillator"
 	var/shield_ignore = FALSE
 	var/icon_base = "defib"
 	var/cooldown = FALSE

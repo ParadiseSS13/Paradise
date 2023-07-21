@@ -11,6 +11,7 @@
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
+	belt_icon = "multitool"
 	flags = CONDUCT
 	force = 5.0
 	w_class = WEIGHT_CLASS_SMALL
@@ -124,6 +125,7 @@
 	desc = "An omni-technological interface."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
+	belt_icon = "alien_multitool"
 	toolspeed = 0.1
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 	shows_wire_information = TRUE

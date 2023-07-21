@@ -15,7 +15,8 @@
 	if(use_item_overlays)
 		overlays.Cut()
 		for(var/obj/item/I in contents)
-			overlays += "[I.name]"
+			if(I.belt_icon)
+				overlays += "[I.belt_icon]"
 	..()
 
 /obj/item/storage/belt/proc/can_use()

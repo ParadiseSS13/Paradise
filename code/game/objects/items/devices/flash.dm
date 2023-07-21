@@ -4,6 +4,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "flash"
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
+	belt_icon = "flash"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -160,6 +161,7 @@
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
 	item_state = "electropack" //spelling, a coders worst enemy. This part gave me trouble for a while.
+	belt_icon = null
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	can_overcharge = FALSE

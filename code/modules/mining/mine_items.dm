@@ -78,6 +78,7 @@
 	name = "lantern"
 	icon_state = "lantern"
 	item_state = "lantern"
+	belt_icon = "lantern"
 	desc = "A mining lantern."
 	brightness_on = 6			// luminosity when on
 
