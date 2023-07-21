@@ -193,7 +193,7 @@
 				var/list/excludemodes = list(/datum/game_mode/nuclear, /datum/game_mode/blob)
 				if(SSticker.mode.type in excludemodes)
 					return
-				var/list/excludeevents = list(/datum/event/blob, /datum/event/disease_outbreak)
+				var/list/excludeevents = list(/datum/event/blob)
 				for(var/datum/event/E in SSevents.active_events|SSevents.finished_events)
 					if(E.type in excludeevents)
 						return
