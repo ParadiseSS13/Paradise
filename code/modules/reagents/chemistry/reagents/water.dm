@@ -103,7 +103,7 @@
 	taste_description = "<span class='warning'>blood</span>"
 	taste_mult = 1.3
 
-/datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/blood/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(data && data["viruses"])
 		for(var/thing in data["viruses"])
 			var/datum/disease/D = thing
