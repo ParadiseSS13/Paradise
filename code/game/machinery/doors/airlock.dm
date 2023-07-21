@@ -343,12 +343,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	polarized_image.dir = dir
 
 	if(!polarized_on)
-		polarized_image.color = "#222222"
+		polarized_image.color = "#2A3A45" //SS220 EDIT - ORIGINAL: #222222
 		animate_color = "#FFFFFF"
 		set_opacity(FALSE)
 	else
 		polarized_image.color = "#FFFFFF"
-		animate_color = "#222222"
+		animate_color = "#2A3A45" //SS220 EDIT - ORIGINAL: #222222
 		set_opacity(TRUE)
 
 	overlays -= polarized_image
@@ -556,7 +556,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				note_overlay = get_airlock_overlay("[notetype]_opening", note_overlay_file)
 
 	if(polarized_on)
-		filling_overlay.color = "#222222"
+		filling_overlay.color = "#2A3A45" //SS220 EDIT - ORIGINAL: #222222
 	else
 		filling_overlay.color = "#FFFFFF"
 
