@@ -1,0 +1,2 @@
+/obj/item/toy/carpplushie : /obj/item/toy/plushie/carpplushie
+/obj/item/toy/carpplushie/pink : /obj/item/toy/plushie/carpplushie/pink
