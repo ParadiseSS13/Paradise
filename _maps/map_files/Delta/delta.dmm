@@ -99730,8 +99730,8 @@
 /obj/item/radio/intercom{
 	pixel_y = 22
 	},
-/obj/item/clothing/glasses/hud/health,
 /obj/item/stamp/cmo,
+/obj/item/clothing/glasses/hud/health/sunglasses,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},

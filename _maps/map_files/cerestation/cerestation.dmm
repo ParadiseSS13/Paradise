@@ -67180,13 +67180,13 @@
 /area/maintenance/gambling_den2)
 "oLQ" = (
 /obj/structure/table/glass,
-/obj/item/clothing/glasses/hud/health,
 /obj/machinery/door_control{
 	id = "Biohazard_medi";
 	name = "Emergency Medbay Quarantine";
 	pixel_y = 7
 	},
 /obj/effect/spawner/lootdrop/officetoys,
+/obj/item/clothing/glasses/hud/health/sunglasses,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
