@@ -10805,6 +10805,10 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
+"Pz" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
+/turf/space,
+/area/space)
 "PA" = (
 /obj/effect/landmark/shuttle_import,
 /turf/space,
@@ -68177,7 +68181,7 @@ aN
 aN
 aN
 aN
-aN
+Pz
 aN
 aN
 aN

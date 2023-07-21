@@ -1016,6 +1016,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
+"Ke" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 aa
@@ -1588,7 +1592,7 @@ aa
 aa
 "}
 (20,1,1) = {"
-aa
+Ke
 aa
 aa
 ab

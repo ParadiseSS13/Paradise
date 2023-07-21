@@ -54923,6 +54923,10 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/atmos)
+"fnc" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
+/turf/space,
+/area/space)
 "fno" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -158544,7 +158548,7 @@ aaa
 aaa
 "}
 (255,1,1) = {"
-aaa
+fnc
 aaa
 aaa
 aaa

@@ -64753,6 +64753,10 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/medbay)
+"def" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
+/turf/space,
+/area/space)
 "deh" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1
@@ -163271,7 +163275,7 @@ aaa
 aaa
 "}
 (255,1,1) = {"
-aaa
+def
 aaa
 aaa
 aaa
