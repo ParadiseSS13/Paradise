@@ -1163,7 +1163,7 @@
 		fake_time += rand(2 MINUTES, 10 MINUTES)
 	else if(fake_time > 15 MINUTES && prob(30))
 		fake_time -= rand(2 MINUTES, 10 MINUTES)
-	next_event_time = fake_time
+	next_event_time += fake_time
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
 	if(!next_event_time) // for when the SM starts
