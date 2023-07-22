@@ -340,12 +340,6 @@
 	build_path = /obj/machinery/computer/sm_monitor
 	origin_tech = "programming=2;powerstorage=2"
 
-/obj/item/circuitboard/sm_events_monitor
-	board_name = "Supermatter Anomaly Monitoring Console"
-	icon_state = "engineering"
-	build_path = /obj/machinery/computer/sm_events_monitor
-	origin_tech = "programming=2;powerstorage=2"
-
 // RD console circuits, so that de/reconstructing one of the special consoles doesn't ruin everything forever
 /obj/item/circuitboard/rdconsole
 	board_name = "RD Console"
