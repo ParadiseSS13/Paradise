@@ -1176,7 +1176,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "TG" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/unpowered)
 "TM" = (
 /obj/machinery/recycler/deathtrap,
