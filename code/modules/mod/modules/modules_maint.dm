@@ -27,8 +27,9 @@
 
 /obj/item/mod/module/springlock/on_suit_activation()
 	RegisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_wearer_exposed))
-	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_activate_spring_block))
-	addtimer(CALLBACK(src, PROC_REF(remove_retraction_block)), 10 SECONDS)
+	if(dont_let_you_come_back)
+		RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_activate_spring_block))
+		addtimer(CALLBACK(src, PROC_REF(remove_retraction_block)), 10 SECONDS)
 
 /obj/item/mod/module/springlock/on_suit_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS)

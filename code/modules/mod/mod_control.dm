@@ -244,6 +244,8 @@
 						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
 						playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 						return
+				if(!M.unEquip(src, silent = TRUE))
+					return
 				M.put_in_active_hand(src)
 			else if(bag)
 				bag.forceMove(usr)
@@ -365,6 +367,8 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		core.on_attackby(attacking_item, user, params)
+	else if(istype(attacking_item, /obj/item/mod/skin_applier))
+		return ..()
 	else if(bag && istype(attacking_item))
 		bag.forceMove(user)
 		bag.attackby(attacking_item, user, params)
