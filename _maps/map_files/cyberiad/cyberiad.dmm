@@ -56793,8 +56793,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance{
 	name = "Engineering Maintenance";
-	req_access_txt = "10";
-	req_one_access_txt = null
+	req_access_txt = "10"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -57167,8 +57166,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering";
-	req_access_txt = "10";
-	req_one_access_txt = null
+	req_access_txt = "10"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -93529,8 +93527,7 @@
 "xPo" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Atmospherics Maintenance";
-	req_access_txt = "10";
-	req_one_access_txt = null
+	req_access_txt = "10"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
@@ -94346,8 +94343,7 @@
 "ykt" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Atmospherics Maintenance";
-	req_access_txt = "10";
-	req_one_access_txt = null
+	req_access_txt = "10"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
