@@ -147,7 +147,8 @@
 	name = "treat necrosis"
 	allowed_tools = list(
 		/obj/item/stack/medical/ointment/advanced = 100,
-		/obj/item/stack/medical/ointment = 90
+		/obj/item/stack/medical/ointment = 90,
+		/obj/item/stack/medical/ointment/aloe = 90
 	)
 
 	can_infect = FALSE
