@@ -146,29 +146,15 @@
 /datum/surgery_step/treat_necrosis
 	name = "treat necrosis"
 	allowed_tools = list(
-		/obj/item/reagent_containers/dropper = 100,
-		/obj/item/reagent_containers/glass/bottle = 90,
-		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
-		/obj/item/reagent_containers/food/drinks/bottle = 80,
-		/obj/item/reagent_containers/glass/beaker = 75,
-		/obj/item/reagent_containers/spray = 60,
-		/obj/item/reagent_containers/glass/bucket = 50
+		/obj/item/stack/medical/ointment/advanced = 100,
+		/obj/item/stack/medical/bruise_pack = 90,
+		/obj/item/stack/medical/bruise_pack/improvised = 65
 	)
 
 	can_infect = FALSE
 	blood_level = SURGERY_BLOODSPREAD_NONE
 
 	time = 2.4 SECONDS
-
-
-/datum/surgery_step/treat_necrosis/tool_check(mob/user, obj/item/tool)
-	. = ..()
-	var/obj/item/reagent_containers/container = tool
-	if(!container.reagents.has_reagent("mitocholide"))
-		user.visible_message(
-			"[user] looks at \the [tool] and ponders.",
-			"You are not sure if \the [tool] contains the mitocholide necessary to treat the necrosis.")
-		return FALSE
 
 /datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
@@ -179,8 +165,8 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		"[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
-		"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]."
+		"[user] starts to wrap affected tissue in [target]'s [affected.name] with \the [tool].",
+		"You start to wrap affected tissue in [target]'s [affected.name] with \the [tool]."
 	)
 	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
 	return ..()
@@ -188,43 +174,32 @@
 /datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	var/obj/item/reagent_containers/container = tool
-	var/mitocholide = FALSE
+	var/obj/item/stack/stack = tool
 
-	if(container.reagents.has_reagent("mitocholide"))
-		mitocholide = TRUE
+	stack.use(1)
 
-	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
-	if(trans > 0)
-		container.reagents.reaction(target, REAGENT_INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
+	affected.status &= ~ORGAN_DEAD
+	affected.fix_burn_wound()
+	affected.germ_level = 0
+	target.update_body()
 
-		if(mitocholide)
-			affected.status &= ~ORGAN_DEAD
-			affected.fix_burn_wound()
-			affected.germ_level = 0
-			target.update_body()
-
-		user.visible_message(
-			"<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>",
-			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>"
-		)
+	user.visible_message(
+		"<span class='notice'> [user] finishes wrapping affected tissue in [target]'s [affected.name]</span>",
+		"<span class='notice'> You finish wrapping affected tissue in [target]'s [affected.name] with \the [tool].</span>"
+	)
 
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/treat_necrosis/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if(!istype(tool, /obj/item/reagent_containers))
-		return SURGERY_STEP_INCOMPLETE
+	var/obj/item/stack/stack = tool
 
-	var/obj/item/reagent_containers/container = tool
-
-	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
-	container.reagents.reaction(target, REAGENT_INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
+	stack.use(1)
 
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>",
-		"<span class='warning'> Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>"
+		"<span class='warning'> [user]'s hand slips, ineffectively wrapping [target]'s [affected.name] with the [tool]!</span>",
+		"<span class='warning'> Your hand slips, ineffectively wrapping [target]'s [affected.name] with the [tool]!</span>"
 	)
 
 	//no damage or anything, just wastes medicine
