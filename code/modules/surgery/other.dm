@@ -147,8 +147,7 @@
 	name = "treat necrosis"
 	allowed_tools = list(
 		/obj/item/stack/medical/ointment/advanced = 100,
-		/obj/item/stack/medical/bruise_pack = 90,
-		/obj/item/stack/medical/bruise_pack/improvised = 65
+		/obj/item/stack/medical/ointment = 90
 	)
 
 	can_infect = FALSE
@@ -165,8 +164,8 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		"[user] starts to wrap affected tissue in [target]'s [affected.name] with \the [tool].",
-		"You start to wrap affected tissue in [target]'s [affected.name] with \the [tool]."
+		"[user] starts to treat affected tissue in [target]'s [affected.name] with \the [tool].",
+		"You start to treat affected tissue in [target]'s [affected.name] with \the [tool]."
 	)
 	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
 	return ..()
@@ -184,8 +183,8 @@
 	target.update_body()
 
 	user.visible_message(
-		"<span class='notice'> [user] finishes wrapping affected tissue in [target]'s [affected.name]</span>",
-		"<span class='notice'> You finish wrapping affected tissue in [target]'s [affected.name] with \the [tool].</span>"
+		"<span class='notice'> [user] finishes treating affected tissue in [target]'s [affected.name]</span>",
+		"<span class='notice'> You finish treating affected tissue in [target]'s [affected.name] with \the [tool].</span>"
 	)
 
 	return SURGERY_STEP_CONTINUE
@@ -198,8 +197,8 @@
 	stack.use(1)
 
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, ineffectively wrapping [target]'s [affected.name] with the [tool]!</span>",
-		"<span class='warning'> Your hand slips, ineffectively wrapping [target]'s [affected.name] with the [tool]!</span>"
+		"<span class='warning'> [user]'s hand slips, ineffectively treating [target]'s [affected.name] with the [tool]!</span>",
+		"<span class='warning'> Your hand slips, ineffectively treating [target]'s [affected.name] with the [tool]!</span>"
 	)
 
 	//no damage or anything, just wastes medicine
