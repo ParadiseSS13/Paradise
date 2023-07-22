@@ -1019,7 +1019,7 @@
 	dizzy_adj = 10 SECONDS
 	drink_icon = "dublindrop"
 	drink_name = "Dublin Drop"
-	drink_desc = "Dublin Drop"
+	drink_desc = "A Dublin drop. Pub legends say one of the ingredients can bring back the dead."
 	taste_description = "belt in the gob"
 
 /datum/reagent/consumable/ethanol/syndicatebomb
