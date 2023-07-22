@@ -16647,9 +16647,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aTd" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
@@ -20215,6 +20212,10 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
+	},
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -48068,8 +48069,8 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cvE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -48096,28 +48097,15 @@
 /turf/simulated/floor/plating,
 /area/construction)
 "cvL" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cvM" = (
-/obj/machinery/disposal,
 /obj/machinery/camera{
 	c_tag = "Atmospherics Monitoring";
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
 /obj/structure/cable{
@@ -48404,6 +48392,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cwN" = (
@@ -48607,6 +48596,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cxr" = (
@@ -49539,6 +49529,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "czC" = (
@@ -49547,6 +49541,9 @@
 	name = "south bump Engineering";
 	pixel_y = -24;
 	shock_proof = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -80799,6 +80796,13 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"oXX" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/controlroom)
 "oYb" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -84013,6 +84017,9 @@
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
 	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -124918,10 +124925,10 @@ cts
 csD
 csD
 bcc
-cvE
+ctY
 cxe
 cxr
-ctY
+oXX
 cvB
 cAR
 cBJ
