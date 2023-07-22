@@ -319,7 +319,7 @@
 		unwield()
 		return
 	..()
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && prob(40))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && prob(40) && force)
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
