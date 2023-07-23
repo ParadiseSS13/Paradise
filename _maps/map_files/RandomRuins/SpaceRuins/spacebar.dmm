@@ -799,15 +799,6 @@
 	icon_state = "blackcorner"
 	},
 /area/ruin/space/powered/bar)
-"Mu" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/marker_beacon/dock_marker/collision,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/template_noop,
-/area/ruin/space/powered)
 "Ni" = (
 /obj/machinery/kitchen_machine/microwave,
 /obj/structure/table/wood,
@@ -2945,7 +2936,7 @@ aD
 aa
 aa
 aa
-Mu
+st
 aM
 XS
 aM
