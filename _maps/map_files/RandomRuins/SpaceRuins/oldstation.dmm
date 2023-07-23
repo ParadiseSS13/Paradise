@@ -326,7 +326,9 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/machinery/door/window/westright,
+/obj/machinery/door/window/classic/reversed{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation)
 "bc" = (
@@ -417,7 +419,9 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/machinery/door/window/westleft,
+/obj/machinery/door/window/classic/normal{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation)
 "bn" = (
