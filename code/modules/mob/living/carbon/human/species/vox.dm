@@ -102,7 +102,7 @@
 	H.update_icons()
 
 /datum/species/vox/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
-	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
+	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
 			if(6) //Azure Vox.
@@ -126,54 +126,9 @@
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
 /datum/species/vox/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "oxygen") //Armalis are above such petty things.
+	if(R.id == "oxygen")
 		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 		return FALSE //Handling reagent removal on our own.
 
 	return ..()
-
-/datum/species/vox/armalis
-	name = "Vox Armalis"
-	name_plural = "Vox Armalis"
-	icobase = 'icons/mob/human_races/r_armalis.dmi'
-	unarmed_type = /datum/unarmed_attack/claws/armalis
-	blacklisted = TRUE
-
-	brute_mod = 0.2
-	burn_mod = 0.2
-
-	eyes = "blank_eyes"
-
-	species_traits = list(NO_CLONESCAN, NO_BLOOD)
-	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_NOPAIN, TRAIT_NOGERMS, TRAIT_NODECAY)
-	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
-	bodyflags = HAS_TAIL
-	dies_at_threshold = TRUE
-
-	blood_color = "#2299FC"
-	flesh_color = "#808D11"
-
-	reagent_tag = PROCESS_ORG
-
-	tail = "armalis_tail"
-	icon_template = 'icons/mob/human_races/r_armalis.dmi'
-
-	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs/vox,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"cortical stack" =    /obj/item/organ/internal/brain/vox,
-		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
-		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
-
-	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!",
-		"is huffing oxygen!")
-
-/datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
-	return TRUE
