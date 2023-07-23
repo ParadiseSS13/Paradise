@@ -172,7 +172,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
 	verbs -= /mob/living/verb/rest
 	verbs -= /mob/living/verb/mob_sleep
-	verbs -= /mob/living/verb/resist
 	verbs -= /mob/living/verb/stop_pulling1
 	verbs -= /mob/living/silicon/verb/pose
 	verbs -= /mob/living/silicon/verb/set_flavor
@@ -967,6 +966,23 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		AISD.emotion = emote
 		AISD.update_icon()
 
+// I would love to scope this locally to the AI class, however its used by holopads as well
+// I wish we had nice OOP -aa07
+/proc/getHologramIcon(icon/A, safety = TRUE) // If safety is on, a new icon is not created.
+	var/icon/flat_icon = safety ? A : new(A) // Has to be a new icon to not constantly change the same icon.
+	var/icon/alpha_mask
+	flat_icon.ColorTone(rgb(125,180,225)) // Let's make it bluish.
+	flat_icon.ChangeOpacity(0.5) // Make it half transparent.
+
+	if(A.Height() == 64)
+		alpha_mask = new('icons/mob/ancient_machine.dmi', "scanline2") //Scaline for tall icons.
+	else
+		alpha_mask = new('icons/effects/effects.dmi', "scanline") //Scanline effect.
+	flat_icon.AddAlphaMask(alpha_mask) //Finally, let's mix in a distortion effect.
+
+	return flat_icon
+
+
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
 	set name = "Change Hologram"
@@ -1307,6 +1323,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
+		if(GetComponent(/datum/component/ducttape))
+			QDEL_NULL(builtInCamera)
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
@@ -1464,5 +1482,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		runechat_msg_location = loc.UID()
 	else
 		return ..()
+
+/mob/living/silicon/ai/run_resist()
+	if(!istype(loc, /obj/item/aicard))
+		return..()
+
+	var/obj/item/aicard/card = loc
+	var/datum/component/ducttape/ducttapecomponent = card.GetComponent(/datum/component/ducttape)
+	if(!ducttapecomponent)
+		return
+	to_chat(src, "<span class='notice'>The tiny fan that could begins to work against the tape to remove it.</span>")
+	if(!do_after(src, 2 MINUTES, target = card))
+		return
+	to_chat(src, "<span class='notice'>The tiny in built fan finally removes the tape!</span>")
+	ducttapecomponent.remove_tape(card, src)
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN

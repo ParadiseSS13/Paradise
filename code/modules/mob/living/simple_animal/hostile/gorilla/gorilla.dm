@@ -36,6 +36,12 @@
 	var/list/carriable_cache
 	/// A lazylist of all crates we are carrying
 	var/list/atom/movable/crates_in_hand
+	/// Chance to dismember while unconcious
+	var/dismember_chance = 10
+	/// Amount of stamina lost on a successful hit
+	var/stamina_damage = 20
+	/// Chance of doing the throw or stamina damage, along with the flat damage amount
+	var/throw_onhit = 50
 
 /mob/living/simple_animal/hostile/gorilla/Initialize()
 	. = ..()
@@ -123,18 +129,18 @@
 		oogaooga()
 
 	var/list/parts = get_target_bodyparts(target)
-	if(length(parts))
+	if(length(parts) && prob(dismember_chance))
 		var/obj/item/organ/external/to_dismember = pick(parts)
 		to_dismember.droplimb()
 		return
 
 	if(isliving(target))
 		var/mob/living/living_target = target
-		if(prob(80))
+		if(prob(throw_onhit))
 			living_target.throw_at(get_edge_target_turf(living_target, dir), rand(1, 2), 7, src)
 			return
 
-		living_target.adjustStaminaLoss(40)
+		living_target.adjustStaminaLoss(stamina_damage)
 		visible_message("<span class='warning'>[src] knocks [living_target] down!</span>")
 
 /mob/living/simple_animal/hostile/gorilla/update_icon_state()
@@ -251,6 +257,9 @@
 	melee_damage_upper = 35
 	obj_damage = 40
 	damage_coeff = list(BRUTE = 1.25, BURN = 1, TOX = 1.5, CLONE = 0, STAMINA = 0, OXY = 1)
+	dismember_chance = 100
+	stamina_damage = 40
+	throw_onhit = 80
 
 /mob/living/simple_animal/hostile/gorilla/rampaging/Initialize(mapload)
 	. = ..()

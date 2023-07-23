@@ -807,7 +807,7 @@
 "ahw" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Auxiliary Storage";
-	req_one_access_txt = "65;12"
+	req_one_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -22679,7 +22679,7 @@
 	},
 /area/hydroponics)
 "bkY" = (
-/obj/item/toy/carpplushie/pink,
+/obj/item/toy/plushie/carpplushie/pink,
 /turf/space,
 /area/space)
 "bkZ" = (
@@ -28343,7 +28343,7 @@
 "bxx" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Auxiliary Storage";
-	req_one_access_txt = "65;12"
+	req_one_access_txt = "12"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -81102,7 +81102,8 @@
 /area/security/execution)
 "eqY" = (
 /obj/structure/closet/firecloset,
-/obj/item/crowbar/red,
+/obj/item/wirecutters,
+/obj/item/screwdriver,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "erA" = (
@@ -81406,6 +81407,25 @@
 	icon_state = "dark"
 	},
 /area/aisat)
+"eIL" = (
+/obj/structure/closet/crate/trashcart{
+	desc = "A heavy, metal laundrycart with wheels.";
+	name = "laundry cart"
+	},
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/crowbar/large,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/security/permabrig)
 "eJp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -84925,6 +84945,7 @@
 /area/security/securearmoury)
 "iMM" = (
 /obj/structure/closet/emcloset,
+/obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "iNa" = (
@@ -85645,7 +85666,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_rare,
+/obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "jIs" = (
@@ -96158,9 +96179,7 @@
 	},
 /area/security/execution)
 "vSO" = (
-/obj/machinery/mineral/stacking_unit_console{
-	machinedir = 5
-	},
+/obj/machinery/mineral/stacking_unit_console,
 /turf/simulated/wall,
 /area/maintenance/disposal)
 "vSU" = (
@@ -96726,7 +96745,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/dirt_rare,
+/obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -152286,7 +152305,7 @@ npj
 eCs
 aIo
 aJA
-aKU
+eIL
 aPe
 aNM
 aQD
