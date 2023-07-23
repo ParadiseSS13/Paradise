@@ -9,7 +9,7 @@
 #include "aesthetics/_aesthetics.dme"
 #include "barsigns/_barsigns.dme"
 #include "crawl_speed/_crawl_speed.dme"
-// #include "crit_rework/_crit_rework.dme" // Disabled for now
+// #include "crit_rework/_crit_rework.dme"
 #include "fullscreen/_fullscreen.dme"
 #include "gunhud/_gunhud.dme"
 #include "food/_food.dme"
