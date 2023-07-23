@@ -4,9 +4,6 @@
 /area/space)
 "ab" = (
 /obj/structure/rack,
-/obj/item/gun/energy/noisecannon,
-/obj/item/gun/energy/noisecannon,
-/obj/item/gun/energy/noisecannon,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "ac" = (
@@ -238,10 +235,6 @@
 	req_access_txt = "152"
 	},
 /turf/simulated/wall/mineral/plastitanium,
-/area/shuttle/administration)
-"bQ" = (
-/obj/structure/rack,
-/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "bR" = (
 /obj/structure/chair/comfy/shuttle{
@@ -754,7 +747,7 @@ wk
 bv
 ab
 MT
-bQ
+ab
 cb
 ci
 eP
