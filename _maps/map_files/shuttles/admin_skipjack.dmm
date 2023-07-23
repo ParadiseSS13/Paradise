@@ -236,10 +236,6 @@
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
-"bQ" = (
-/obj/structure/rack,
-/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
-/area/shuttle/administration)
 "bR" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -751,7 +747,7 @@ wk
 bv
 ab
 MT
-bQ
+ab
 cb
 ci
 eP

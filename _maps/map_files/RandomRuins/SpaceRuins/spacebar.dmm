@@ -110,7 +110,9 @@
 "az" = (
 /obj/structure/table/reinforced,
 /obj/structure/fans/tiny,
-/obj/machinery/door/window,
+/obj/machinery/door/window{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "aA" = (
