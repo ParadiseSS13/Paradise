@@ -138,7 +138,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aw" = (
-/obj/machinery/door/window/northright{
+/obj/machinery/door/window/classic/reversed{
 	name = "bar";
 	dir = 2
 	},
@@ -407,9 +407,10 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "bq" = (
-/obj/machinery/door/window/brigdoor/westleft{
+/obj/machinery/door/window/reinforced/normal{
 	color = "#d70000";
-	req_access_txt = "104"
+	req_access_txt = "104";
+	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)

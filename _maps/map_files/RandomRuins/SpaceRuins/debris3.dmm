@@ -81,10 +81,6 @@
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plating/damaged,
 /area/template_noop)
-"y" = (
-/obj/item/storage/pill_bottle/random_meds/labelled,
-/turf/space,
-/area/template_noop)
 "z" = (
 /turf/simulated/floor/plating/damaged,
 /area/template_noop)
@@ -454,7 +450,7 @@ a
 A
 n
 A
-y
+A
 f
 B
 A
