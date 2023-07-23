@@ -32050,6 +32050,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/structure/reagent_dispensers/beerkeg/nuke,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "bVi" = (
@@ -74628,10 +74629,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "oPK" = (
-/obj/structure/reagent_dispensers/beerkeg/nuke{
-	pixel_x = 2;
-	pixel_y = 6
-	},
+/obj/structure/reagent_dispensers/beerkeg/nuke,
 /obj/structure/table/wood,
 /obj/structure/cable/yellow{
 	d1 = 1;
