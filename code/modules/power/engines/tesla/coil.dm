@@ -112,7 +112,7 @@
 	power = min(get_surplus(), power) //Take the smaller of the two
 	consume_direct_power(power)
 	playsound(loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-	tesla_zap(src, 10, power, zap_flags)
+	basic_tesla_zap(src, 10, power, zap_flags)
 	zap_buckle_check(power)
 
 /obj/machinery/power/grounding_rod

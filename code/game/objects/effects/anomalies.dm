@@ -185,7 +185,7 @@
 	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
 	if(explosive && prob(50)) //Let us not fuck up the sm that much
-		tesla_zap(src, zap_range, power, zap_flags)
+		basic_tesla_zap(src, zap_range, power, zap_flags)
 
 
 /obj/effect/anomaly/flux/Crossed(atom/movable/AM)

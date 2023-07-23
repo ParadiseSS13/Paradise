@@ -717,7 +717,7 @@ Difficulty: Hard
 
 /obj/item/projectile/energy/tesla_bolt/on_hit(atom/target)
 	. = ..()
-	tesla_zap(src, zap_range, power, zap_flags)
+	basic_tesla_zap(src, zap_range, power, zap_flags)
 	qdel(src)
 
 /obj/item/projectile/energy/tesla_bolt/Bump(atom/A, yes) // Don't want the projectile hitting the legs

@@ -522,7 +522,7 @@
 			var/obj/structure/cable/SC = T.get_cable_node()
 			if(SC)
 				playsound(G, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-				tesla_zap(G, 3, SC.get_queued_available_power() * 0.05, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) //Zap for 1/20 of the amount of power, because I am evil.
+				basic_tesla_zap(G, 3, SC.get_queued_available_power() * 0.05, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) //Zap for 1/20 of the amount of power, because I am evil.
 				SC.add_queued_power_demand(SC.get_queued_available_power() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 			qdel(G) //We don't want the grille to block the way, we want rule of cool of throwing people into space!
 
