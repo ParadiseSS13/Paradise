@@ -366,18 +366,18 @@
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
-	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
+	desc = "This implant will synthesize a small amount of nutriment and pump it into your bloodstream when you are hungry."
 	icon_state = "chest_implant"
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
-	name = "hardened nutrient pump implant"
+	name = "hardened nutriment pump implant"
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened
-	name = "hardened nutrient pump implant PLUS"
+	name = "hardened nutriment pump implant PLUS"
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver
