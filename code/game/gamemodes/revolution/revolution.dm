@@ -177,7 +177,7 @@
 /datum/game_mode/revolution/latespawn(mob/living/carbon/human/player)
 	..()
 	var/datum/mind/player_mind = player.mind
-	var/static/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+	var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
 	if(player_mind && (player_mind.assigned_role in real_command_positions))
 		for(var/datum/mind/rev_mind in head_revolutionaries)
 			mark_for_death(rev_mind, player_mind)

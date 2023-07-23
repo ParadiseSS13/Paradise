@@ -134,7 +134,11 @@
 
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
+		return TRUE
+	if(isliving(mover))
+		var/mob/living/living_mover = mover
+		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
+			return TRUE
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
 		return !density
 	if(istype(mover, /obj/structure/window))
@@ -162,7 +166,11 @@
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
+		return TRUE
+	if(isliving(mover))
+		var/mob/living/living_mover = mover
+		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
+			return TRUE
 	if(get_dir(loc, target) == dir)
 		return !density
 	else
@@ -250,6 +258,13 @@
 
 /obj/machinery/door/window/attack_ai(mob/user)
 	return attack_hand(user)
+
+/obj/machinery/door/window/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
 
 /obj/machinery/door/window/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
