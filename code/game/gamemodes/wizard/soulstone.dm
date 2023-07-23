@@ -79,7 +79,20 @@
 	for(var/mob/living/simple_animal/shade/A in src)
 		A.death()
 	remove_held_body()
+	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/soulstone/process()
+	. = ..()
+	if(held_body)
+		var/new_filter = isnull(get_filter("ray"))
+		if(!purified)
+			ray_filter_helper(1, 40,"#c926ae", 6, 20)
+		else
+			ray_filter_helper(1, 40,"#268dc9", 6, 20)
+		if(new_filter)
+			animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+			animate(offset = 0, time = 10 SECONDS)
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
@@ -162,6 +175,7 @@
 
 	add_attack_logs(user, M, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", M, user)
+	START_PROCESSING(SSobj, src)
 	return
 
 /obj/item/soulstone/attackby(obj/item/O, mob/user)
@@ -171,6 +185,7 @@
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
 		if(do_after(user, 40, target = src))
+			remove_filter("ray")
 			usability = TRUE
 			purified = TRUE
 			optional = TRUE
@@ -197,6 +212,7 @@
 			return
 		to_chat(user, "<span class='notice'>You begin to cleanse [src] of holy magic.</span>")
 		if(do_after(user, 40, target = src))
+			remove_filter("ray")
 			usability = FALSE
 			purified = FALSE
 			optional = FALSE
@@ -259,6 +275,8 @@
 		else
 			to_chat(A, "<span class='userdanger'>You have been released from your prison, but you are still bound to your [purified ? "saviour" : "creator"]'s will.</span>")
 		was_used()
+		remove_filter("ray")
+		STOP_PROCESSING(SSobj, src)
 
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
 /obj/structure/constructshell
@@ -343,6 +361,7 @@
 					name = "soulstone : [T.name]"
 					to_chat(T, "<span class='notice'>Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form</span>")
 					to_chat(user, "<span class='notice'>Capture successful!</span> [T.name]'s has been recaptured and stored within the soul stone.")
+					START_PROCESSING(SSobj, src)
 
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/shell = target

@@ -89,7 +89,7 @@
 	if(!tank)
 		to_chat(user, "<span class='warning'>[src] can't operate without a source of gas!</span>")
 		return
-	if(tank && !tank.air_contents.remove(gasperfist * fisto_setting))
+	if(tank && !tank.air_contents.boolean_remove(gasperfist * fisto_setting))
 		to_chat(user, "<span class='warning'>[src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
 		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
 		return
