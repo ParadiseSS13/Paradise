@@ -2,11 +2,11 @@
 #define PASSABLE_SHIFT_THRESHOLD 8
 
 /datum/component/pixel_shift
-	var/mob/living/owner
+	dupe_mode = COMPONENT_DUPE_UNIQUE
 	/// Whether the mob is pixel shifted or not
 	var/is_shifted = FALSE
 	/// If we are in the shifting setting.
-	var/shifting = FALSE
+	var/shifting = TRUE
 	/// Takes the four cardinal direction defines. Any atoms moving into this atom's tile will be allowed to from the added directions.
 	var/passthroughable = NONE
 
@@ -14,47 +14,55 @@
 	. = ..()
 	if(!isliving(parent) || isAI(parent))
 		return COMPONENT_INCOMPATIBLE
-	owner = parent
 
 /datum/component/pixel_shift/RegisterWithParent()
-	. = ..()
-	RegisterSignal(owner, COMSIG_MOB_PIXEL_SHIFT_KEYBIND, PROC_REF(on_pixel_shift))
-	RegisterSignal(owner, COMSIG_MOB_UNPIXEL_SHIFT, PROC_REF(unpixel_shift))
-	RegisterSignal(owner, COMSIG_MOB_PIXEL_SHIFT, PROC_REF(pixel_shift))
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(unpixel_shift))
-	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), PROC_REF(unpixel_shift))
-	RegisterSignal(owner, COMSIG_MOB_PIXEL_SHIFT_PASSABLE, PROC_REF(check_passable))
-	RegisterSignal(owner, COMSIG_MOB_PIXEL_SHIFTING, PROC_REF(check_shifting))
+	RegisterSignal(parent, COMSIG_KB_MOB_PIXEL_SHIFT_DOWN, PROC_REF(pixel_shift_down))
+	RegisterSignal(parent, COMSIG_KB_MOB_PIXEL_SHIFT_UP, PROC_REF(pixel_shift_up))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(unpixel_shift))
+	RegisterSignal(parent, SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), PROC_REF(unpixel_shift))
+	RegisterSignal(parent, COMSIG_LIVING_PROCESS_SPACEMOVE, PROC_REF(pre_move_check))
+	RegisterSignal(parent, COMSIG_LIVING_CAN_PASS, PROC_REF(check_passable))
 
 /datum/component/pixel_shift/UnregisterFromParent()
-	. = ..()
-	UnregisterSignal(owner, COMSIG_MOB_PIXEL_SHIFT_KEYBIND)
-	UnregisterSignal(owner, COMSIG_MOB_UNPIXEL_SHIFT)
-	UnregisterSignal(owner, COMSIG_MOB_PIXEL_SHIFT)
-	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED))
-	UnregisterSignal(owner, COMSIG_MOB_PIXEL_SHIFT_PASSABLE)
-	UnregisterSignal(owner, COMSIG_MOB_PIXEL_SHIFTING)
+	UnregisterSignal(parent, COMSIG_KB_MOB_PIXEL_SHIFT_DOWN)
+	UnregisterSignal(parent, COMSIG_KB_MOB_PIXEL_SHIFT_UP)
+	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(parent, SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED))
+	UnregisterSignal(parent, COMSIG_LIVING_PROCESS_SPACEMOVE)
+	UnregisterSignal(parent, COMSIG_LIVING_CAN_PASS)
 
-/datum/component/pixel_shift/proc/check_passable(mob/target, dir)
-	if(passthroughable & dir)
+/datum/component/pixel_shift/proc/pre_move_check(mob/source, movement_dir)
+	SIGNAL_HANDLER
+	if(shifting)
+		pixel_shift(source, movement_dir)
+		return COMPONENT_BLOCK_SPACEMOVE
+
+/datum/component/pixel_shift/proc/check_passable(mob/source, atom/movable/mover, target, height)
+	SIGNAL_HANDLER
+	var/mob/living/carbon/human/owner = parent
+	if(!istype(mover, /obj/item/projectile) && !mover.throwing && passthroughable & get_dir(owner, mover))
 		return COMPONENT_LIVING_PASSABLE
 
-/datum/component/pixel_shift/proc/check_shifting()
-	if(shifting)
-		return COMPONENT_LIVING_PIXEL_SHIFTING
+/datum/component/pixel_shift/proc/pixel_shift_down()
+	SIGNAL_HANDLER
+	shifting = TRUE
+	return COMSIG_KB_ACTIVATED
 
-/datum/component/pixel_shift/proc/on_pixel_shift(mob/target, active)
-	shifting = active
+/datum/component/pixel_shift/proc/pixel_shift_up()
+	SIGNAL_HANDLER
+	shifting = FALSE
 
 /datum/component/pixel_shift/proc/unpixel_shift()
+	SIGNAL_HANDLER
 	passthroughable = NONE
 	if(is_shifted)
-		is_shifted = FALSE
+		var/mob/living/owner = parent
 		owner.pixel_x = owner.get_standard_pixel_x_offset()
 		owner.pixel_y = owner.get_standard_pixel_y_offset()
+	qdel(src)
 
 /datum/component/pixel_shift/proc/pixel_shift(mob/target, direction)
+	var/mob/living/owner = parent
 	if(HAS_TRAIT(owner, TRAIT_RESTRAINED) || HAS_TRAIT(owner, TRAIT_IMMOBILIZED) || length(owner.grabbed_by) || owner.stat != CONSCIOUS)
 		return
 	passthroughable = NONE
