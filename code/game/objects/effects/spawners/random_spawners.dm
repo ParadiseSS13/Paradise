@@ -315,7 +315,7 @@
 		/obj/item/ammo_box/magazine/m10mm/fire = 1,
 		/obj/item/ammo_box/magazine/m10mm/hp = 1,
 		/obj/item/storage/box/syndie_kit/emp = 1,
-		/obj/item/toy/carpplushie/dehy_carp = 1,
+		/obj/item/toy/plushie/carpplushie/dehy_carp = 1,
 		/obj/item/clothing/glasses/hud/security/chameleon = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4

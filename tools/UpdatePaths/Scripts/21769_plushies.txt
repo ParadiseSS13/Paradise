@@ -1,0 +1,1 @@
+/obj/item/toy/carpplushie/@SUBTYPES : /obj/item/toy/plushie/carpplushie/@SUBTYPES{@OLD}

@@ -9553,7 +9553,7 @@
 "KQ" = (
 /obj/structure/table,
 /obj/item/toy/katana,
-/obj/item/toy/carpplushie,
+/obj/item/toy/plushie/carpplushie,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
