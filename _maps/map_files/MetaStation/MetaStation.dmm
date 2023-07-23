@@ -32655,7 +32655,7 @@
 /area/assembly/showroom)
 "bWM" = (
 /obj/structure/table/wood,
-/obj/item/toy/carpplushie{
+/obj/item/toy/plushie/carpplushie{
 	name = "\improper Nanotrasen wildlife department space carp plushie"
 	},
 /turf/simulated/floor/carpet,
@@ -38085,7 +38085,7 @@
 /area/maintenance/port)
 "cmt" = (
 /obj/structure/lattice/catwalk,
-/obj/item/toy/carpplushie,
+/obj/item/toy/plushie/carpplushie,
 /turf/space,
 /area/space/nearstation)
 "cmu" = (
