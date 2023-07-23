@@ -516,7 +516,7 @@
 	name = "CQC Manual"
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. \
 			Changes your unarmed damage to deal non-lethal stamina damage. \
-			Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
+			Does not restrict weapon usage, and can be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
 	cost = 10
