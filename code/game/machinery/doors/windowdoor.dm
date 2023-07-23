@@ -8,7 +8,6 @@
 	resistance_flags = ACID_PROOF
 	flags = ON_BORDER
 	opacity = FALSE
-	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
 	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 70, ACID = 100)
@@ -31,6 +30,14 @@
 	. = ..()
 	if(req_access && req_access.len)
 		base_state = icon_state
+
+	if(name != initial(name))
+		return
+	var/new_name = get_area_name(src)
+	if(!new_name)
+		name = "Windoor"
+		return
+	name = new_name
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
@@ -392,18 +399,60 @@
 		if("deny")
 			flick("[base_state]deny", src)
 
-/obj/machinery/door/window/brigdoor
-	name = "secure door"
+/obj/machinery/door/window/reinforced
+	name = "Branch, do not add stuff here"
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
 	reinf = TRUE
 	explosion_block = 1
 
-/obj/machinery/door/window/brigdoor/security/cell
-	name = "cell door"
-	desc = "For keeping in criminal scum."
-	req_access = list(ACCESS_BRIG)
+/obj/machinery/door/window/reinforced/normal
+	name = ".custom placement"
+	icon_state = "leftsecure"
+	base_state = "leftsecure"
+	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
+	reinf = TRUE
+	explosion_block = 1
+
+/obj/machinery/door/window/reinforced/reversed
+	name = ".custom placement"
+	icon_state = "rightsecure"
+	base_state = "rightsecure"
+	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
+	reinf = TRUE
+	explosion_block = 1
+
+/obj/machinery/door/window/classic
+	name = "Branch, do not add stuff here"
+
+/obj/machinery/door/window/classic/normal
+	name = ".custom placement"
+
+/obj/machinery/door/window/classic/reversed
+	name = ".custom placement"
+	icon_state = "right"
+	base_state = "right"
+
+/obj/machinery/door/window/antitheft
+	desc = "Better do not try to steal, pal, lube off."
+	name = "Branch, do not add stuff here"
+
+/obj/machinery/door/window/antitheft/normal
+	name = ".custom placement"
+
+/obj/machinery/door/window/antitheft/reversed
+	name = ".custom placement"
+	icon_state = "right"
+	base_state = "right"
+
+/obj/machinery/door/window/brigdoor
+	name = "Do not make stuff here, its needed for code to not collapse"
+	icon_state = "leftsecure"
+	base_state = "leftsecure"
+	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
+	reinf = TRUE
+	explosion_block = 1
 
 /obj/machinery/door/window/clockwork
 	name = "brass windoor"
@@ -471,98 +520,3 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 
-/obj/machinery/door/window/northleft
-	dir = NORTH
-
-/obj/machinery/door/window/eastleft
-	dir = EAST
-
-/obj/machinery/door/window/westleft
-	dir = WEST
-
-/obj/machinery/door/window/southleft
-	dir = SOUTH
-
-/obj/machinery/door/window/northright
-	dir = NORTH
-	icon_state = "right"
-	base_state = "right"
-
-/obj/machinery/door/window/eastright
-	dir = EAST
-	icon_state = "right"
-	base_state = "right"
-
-/obj/machinery/door/window/westright
-	dir = WEST
-	icon_state = "right"
-	base_state = "right"
-
-/obj/machinery/door/window/southright
-	dir = SOUTH
-	icon_state = "right"
-	base_state = "right"
-
-/obj/machinery/door/window/brigdoor/northleft
-	dir = NORTH
-
-/obj/machinery/door/window/brigdoor/eastleft
-	dir = EAST
-
-/obj/machinery/door/window/brigdoor/westleft
-	dir = WEST
-
-/obj/machinery/door/window/brigdoor/southleft
-	dir = SOUTH
-
-/obj/machinery/door/window/brigdoor/northright
-	dir = NORTH
-	icon_state = "rightsecure"
-	base_state = "rightsecure"
-
-/obj/machinery/door/window/brigdoor/eastright
-	dir = EAST
-	icon_state = "rightsecure"
-	base_state = "rightsecure"
-
-/obj/machinery/door/window/brigdoor/westright
-	dir = WEST
-	icon_state = "rightsecure"
-	base_state = "rightsecure"
-
-/obj/machinery/door/window/brigdoor/southright
-	dir = SOUTH
-	icon_state = "rightsecure"
-	base_state = "rightsecure"
-
-/obj/machinery/door/window/brigdoor/security/cell/northleft
-	dir = NORTH
-
-/obj/machinery/door/window/brigdoor/security/cell/eastleft
-	dir = EAST
-
-/obj/machinery/door/window/brigdoor/security/cell/westleft
-	dir = WEST
-
-/obj/machinery/door/window/brigdoor/security/cell/southleft
-	dir = SOUTH
-
-/obj/machinery/door/window/brigdoor/security/cell/northright
-	dir = NORTH
-	icon_state = "rightsecure"
-	base_state = "rightsecure"
-
-/obj/machinery/door/window/brigdoor/security/cell/eastright
-	dir = EAST
-	icon_state = "rightsecure"
-	base_state = "rightsecure"
-
-/obj/machinery/door/window/brigdoor/security/cell/westright
-	dir = WEST
-	icon_state = "rightsecure"
-	base_state = "rightsecure"
-
-/obj/machinery/door/window/brigdoor/security/cell/southright
-	dir = SOUTH
-	icon_state = "rightsecure"
-	base_state = "rightsecure"
