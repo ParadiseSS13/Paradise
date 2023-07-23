@@ -16,4 +16,5 @@
 #include "keybindings/_keybindings.dme"
 #include "pixel_shift/_pixel_shift.dme"
 #include "screentip_change/_screentip_change.dme"
+#include "smart_equip_targeted/_smart_equip_targeted.dme"
 #include "title_screen/_title_screen.dme"
