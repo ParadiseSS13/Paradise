@@ -37,6 +37,7 @@
 	new /obj/item/clothing/mask/breath/medical(src)
 	new /obj/item/clothing/mask/breath/medical(src)
 	new /obj/item/clothing/mask/breath/medical(src)
+	new /obj/item/reagent_containers/glass/beaker/vial/mitocholide(src)
 
 
 /obj/structure/closet/secure_closet/medical3

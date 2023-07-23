@@ -278,9 +278,12 @@
 /obj/item/reagent_containers/glass/beaker/sulphuric
 	list_reagents = list("sacid" = 50)
 
-
 /obj/item/reagent_containers/glass/beaker/slime
 	list_reagents = list("slimejelly" = 50)
+
+/obj/item/reagent_containers/glass/beaker/vial/mitocholide
+	name = "mitocholide vial"
+	list_reagents = list("mitocholide" = 5)
 
 /obj/item/reagent_containers/glass/beaker/drugs/meth
 	list_reagents = list("methamphetamine" = 10)
