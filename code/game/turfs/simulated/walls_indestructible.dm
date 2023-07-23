@@ -110,6 +110,9 @@
 	icon_state = ""
 	layer = FLY_LAYER
 	flags = NO_SCREENTIPS
+	// Pixel shifts below are needed to centrally position the black placeholder icon within the start area at compile-time. This is overridden when a "real" lobby art image is chosen by SStitlescreen
+	pixel_x = -288
+	pixel_y = -224
 
 /turf/simulated/wall/indestructible/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'

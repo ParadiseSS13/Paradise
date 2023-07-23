@@ -54,7 +54,16 @@
 	name = "meson visor helmet"
 	desc = "A helmet with a built-in meson scanning visor."
 	icon_state = "helmetmesons"
-	vision_flags = SEE_TURFS
+
+/obj/item/clothing/head/helmet/meson/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == slot_head)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_helmet[UID()]")
+
+/obj/item/clothing/head/helmet/meson/dropped(mob/user)
+	. = ..()
+	if(user)
+		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_helmet[UID()]")
 
 /obj/item/clothing/head/helmet/material
 	name = "material visor helmet"

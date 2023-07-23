@@ -8,6 +8,7 @@
 #define FOOTSTEP_LAVA "lava"
 #define FOOTSTEP_MEAT "meat"
 #define FOOTSTEP_GLASS "glass"
+#define FOOTSTEP_CATWALK "catwalk"
 //barefoot sounds
 #define FOOTSTEP_WOOD_BAREFOOT "woodbarefoot"
 #define FOOTSTEP_WOOD_CLAW "woodclaw"
@@ -90,6 +91,12 @@ GLOBAL_LIST_INIT(footstep, list(
 		'sound/effects/footstep/glass1.ogg',
 		'sound/effects/footstep/glass2.ogg',
 		'sound/effects/footstep/glass3.ogg'), 100, 1),
+	FOOTSTEP_CATWALK = list(list(
+		'sound/effects/footstep/catwalk1.ogg',
+		'sound/effects/footstep/catwalk2.ogg',
+		'sound/effects/footstep/catwalk3.ogg',
+		'sound/effects/footstep/catwalk4.ogg',
+		'sound/effects/footstep/catwalk5.ogg'), 100, 1),
 ))
 //bare footsteps lists
 GLOBAL_LIST_INIT(barefootstep, list(
@@ -137,6 +144,12 @@ GLOBAL_LIST_INIT(barefootstep, list(
 		'sound/effects/footstep/glassbarefoot1.ogg',
 		'sound/effects/footstep/glassbarefoot2.ogg',
 		'sound/effects/footstep/glassbarefoot3.ogg'), 100, 1),
+	FOOTSTEP_CATWALK = list(list(
+		'sound/effects/footstep/catwalk1.ogg',
+		'sound/effects/footstep/catwalk2.ogg',
+		'sound/effects/footstep/catwalk3.ogg',
+		'sound/effects/footstep/catwalk4.ogg',
+		'sound/effects/footstep/catwalk5.ogg'), 100, 1),
 ))
 
 //claw footsteps lists
@@ -185,6 +198,12 @@ GLOBAL_LIST_INIT(clawfootstep, list(
 		'sound/effects/footstep/glassbarefoot1.ogg',
 		'sound/effects/footstep/glassbarefoot2.ogg',
 		'sound/effects/footstep/glassbarefoot3.ogg'), 100, 1),
+	FOOTSTEP_CATWALK = list(list(
+		'sound/effects/footstep/catwalk1.ogg',
+		'sound/effects/footstep/catwalk2.ogg',
+		'sound/effects/footstep/catwalk3.ogg',
+		'sound/effects/footstep/catwalk4.ogg',
+		'sound/effects/footstep/catwalk5.ogg'), 100, 1),
 ))
 
 //heavy footsteps list

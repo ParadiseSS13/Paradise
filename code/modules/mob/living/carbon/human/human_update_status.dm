@@ -6,7 +6,7 @@
 		if(dna.species && dna.species.can_revive_by_healing)
 			var/obj/item/organ/internal/brain/B = get_int_organ(/obj/item/organ/internal/brain)
 			if(B)
-				if((health >= (HEALTH_THRESHOLD_DEAD + HEALTH_THRESHOLD_CRIT) * 0.5) && getBrainLoss() < 120)
+				if((health >= (HEALTH_THRESHOLD_DEAD + HEALTH_THRESHOLD_CRIT) * 0.5) && getBrainLoss() < 120 && !suiciding)
 					update_revive()
 					create_debug_log("revived from healing, trigger reason: [reason]")
 

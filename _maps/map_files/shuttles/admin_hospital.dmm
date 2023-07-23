@@ -154,8 +154,9 @@
 /area/shuttle/administration)
 "aH" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor/westleft{
-	req_access_txt = "33"
+/obj/machinery/door/window/reinforced/normal{
+	req_access_txt = "33";
+	dir = 8
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
