@@ -374,11 +374,11 @@
 	pixel_y = -3
 	},
 /obj/item/clothing/suit/hgpirate,
-/obj/item/toy/carpplushie/gold,
 /obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer,
 /obj/item/clothing/gloves/ring/gold,
 /obj/item/id_decal/gold,
 /obj/item/screwdriver,
+/obj/item/toy/plushie/carpplushie/gold,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "eG" = (
