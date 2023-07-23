@@ -55,16 +55,16 @@ GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanid
 //General chem blacklist // This is for the really good stuff that we just want to restrict for things like bees and smoke
 GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_initro",
 							"sodium_thiopental", "ketamine", "coniine",
-							"adminordrazine", "nanites", "hellwater",
+							"adminordrazine", "nanites", "hell_water",
 							"mutationtoxin", "amutationtoxin", "venom",
 							"spore", "stimulants", "stimulative_agent",
 							"syndicate_nanites", "ripping_tendrils", "boiling_oil",
 							"envenomed_filaments", "lexorin_jelly", "kinetic",
-							"cryogenic_liquid", "dark_matter", "b_sorium",
+							"cryogenic_liquid", "liquid_dark_matter", "b_sorium",
 							"reagent", "life","dragonsbreath", "nanocalcium",
 							"xenomicrobes", "nanomachines", "gibbis", "prions",
 							"spidereggs", "heartworms", "bacon_grease", "histamine",
 							"fungalspores", "jagged_crystals", "salmonella",
 							"lavaland_extract", "stable_mutagen", "beer2", "curare",
-							"gluttonytoxin", "hell_water", "smoke"))
+							"gluttonytoxin", "smoke", "smoke_powder"))
 

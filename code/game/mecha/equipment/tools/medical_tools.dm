@@ -470,7 +470,7 @@
 		return FALSE
 	occupant_message("Analyzing reagents...")
 	for(var/datum/reagent/R in A.reagents.reagent_list)
-		if(R.can_synth && add_known_reagent(R.id, R.name))
+		if(!R in GLOB.blocked_chems && add_known_reagent(R.id, R.name))
 			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
 			send_byjax(chassis.occupant,"msyringegun.browser","reagents_form",get_reagents_form())
 	occupant_message("Analysis complete.")

@@ -166,16 +166,12 @@
 			return
 
 		var/obj/item/queen_bee/qb = I
-		if(!qb.queen.beegent || (qb.queen.beegent && qb.queen.beegent.can_synth))
-			if(!user.unEquip(qb))
-				return
-			qb.queen.forceMove(src)
-			bees += qb.queen
-			queen_bee = qb.queen
-			qb.queen = null
-		else
-			visible_message("<span class='notice'>[qb] refuses to settle down. Maybe it's something to do with its reagent?</span>")
+		if(!user.unEquip(qb))
 			return
+		qb.queen.forceMove(src)
+		bees += qb.queen
+		queen_bee = qb.queen
+		qb.queen = null
 
 		if(queen_bee)
 			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [qb.p_their()] new home.</span>")
