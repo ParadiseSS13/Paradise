@@ -32050,7 +32050,6 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/reagent_dispensers/beerkeg/nuke,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "bVi" = (
