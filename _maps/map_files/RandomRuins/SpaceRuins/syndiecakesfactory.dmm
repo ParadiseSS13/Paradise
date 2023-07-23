@@ -611,7 +611,9 @@
 	},
 /area/ruin/space/unpowered)
 "wE" = (
-/obj/machinery/door/window/eastleft,
+/obj/machinery/door/window/classic/normal{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "wI" = (
@@ -944,7 +946,7 @@
 /turf/template_noop,
 /area/ruin/space/unpowered)
 "Lr" = (
-/obj/machinery/door/window/eastleft{
+/obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
 /turf/simulated/floor/grass,
