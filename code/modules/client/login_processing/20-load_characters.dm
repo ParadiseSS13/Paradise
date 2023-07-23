@@ -58,7 +58,8 @@
 		hair_gradient_offset,
 		hair_gradient_colour,
 		hair_gradient_alpha,
-		custom_emotes
+		custom_emotes,
+		tts_seed
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

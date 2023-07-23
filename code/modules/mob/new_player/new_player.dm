@@ -157,6 +157,8 @@
 			ready = FALSE
 			return FALSE
 
+		check_tts_seed_ready() // SS220 ADDITION
+
 		ready = !ready
 		new_player_panel_proc()
 
@@ -228,6 +230,8 @@
 		if(!can_use_species(src, client.prefs.active_character.species))
 			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
 			return FALSE
+
+		check_tts_seed_ready()
 
 		LateChoices()
 
