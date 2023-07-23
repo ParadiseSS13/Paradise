@@ -2903,20 +2903,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"arO" = (
-/obj/machinery/mineral/stacking_unit_console{
-	pixel_x = 32
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal)
 "arP" = (
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -32653,13 +32639,6 @@
 /obj/item/stock_parts/cell/crap,
 /turf/simulated/floor/carpet,
 /area/assembly/showroom)
-"bWM" = (
-/obj/structure/table/wood,
-/obj/item/toy/plushie/carpplushie{
-	name = "\improper Nanotrasen wildlife department space carp plushie"
-	},
-/turf/simulated/floor/carpet,
-/area/assembly/showroom)
 "bWN" = (
 /turf/simulated/floor/wood,
 /area/assembly/showroom)
@@ -38083,11 +38062,6 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"cmt" = (
-/obj/structure/lattice/catwalk,
-/obj/item/toy/plushie/carpplushie,
-/turf/space,
-/area/space/nearstation)
 "cmu" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
@@ -57890,6 +57864,29 @@
 	icon_state = "darkgrey"
 	},
 /area/security/securearmoury)
+"gLt" = (
+/obj/structure/closet/crate/trashcart{
+	desc = "A heavy, metal laundrycart with wheels.";
+	name = "laundry cart"
+	},
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/crowbar/large,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cmo"
+	},
+/area/security/permabrig)
 "gLu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -58788,6 +58785,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"hiQ" = (
+/obj/machinery/mineral/stacking_unit_console{
+	pixel_x = 32
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal)
 "hjj" = (
 /obj/effect/turf_decal/arrows/red{
 	dir = 4
@@ -68568,29 +68579,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/quartermaster/lobby)
-"lOk" = (
-/obj/structure/closet/crate/trashcart{
-	desc = "A heavy, metal laundrycart with wheels.";
-	name = "laundry cart"
-	},
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/shoes/orange,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/crowbar/large,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "cmo"
-	},
-/area/security/permabrig)
 "lOv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -69324,6 +69312,13 @@
 	icon_state = "whiteblue"
 	},
 /area/security/permabrig)
+"mgf" = (
+/obj/structure/table/wood,
+/obj/item/toy/plushie/carpplushie{
+	name = "\improper Nanotrasen wildlife department space carp plushie"
+	},
+/turf/simulated/floor/carpet,
+/area/assembly/showroom)
 "mgK" = (
 /obj/structure/table,
 /obj/item/retractor{
@@ -70457,6 +70452,22 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
+"mOn" = (
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop{
+	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
+	name = "trash spawner"
+	},
+/obj/effect/spawner/lootdrop{
+	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
+	name = "trash spawner"
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/screwdriver,
+/obj/item/wirecutters,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "mOs" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -74627,19 +74638,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
-"oPK" = (
-/obj/structure/reagent_dispensers/beerkeg/nuke{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/structure/table/wood,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/carpet,
-/area/assembly/showroom)
 "oPO" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /obj/machinery/atmospherics/meter{
@@ -76095,13 +76093,6 @@
 	icon_state = "dark"
 	},
 /area/toxins/misc_lab)
-"pEs" = (
-/obj/structure/rack,
-/obj/item/tank/internals/emergency_oxygen,
-/obj/item/clothing/mask/breath,
-/obj/item/wrench,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "pEF" = (
 /obj/machinery/atmospherics/binary/pump,
 /obj/effect/decal/cleanable/dirt,
@@ -77285,6 +77276,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
+"qdK" = (
+/obj/structure/lattice/catwalk,
+/obj/item/toy/plushie/carpplushie,
+/turf/space,
+/area/space/nearstation)
 "qdT" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -78218,6 +78214,13 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/exam_room)
+"qDe" = (
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/clothing/mask/breath,
+/obj/item/wrench,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "qDl" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -82313,22 +82316,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"sJC" = (
-/obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
-	name = "trash spawner"
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/item/screwdriver,
-/obj/item/wirecutters,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "sJE" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall,
@@ -89389,6 +89376,19 @@
 	icon_state = "dark"
 	},
 /area/aisat)
+"wrj" = (
+/obj/structure/reagent_dispensers/beerkeg/nuke{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/structure/table/wood,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/carpet,
+/area/assembly/showroom)
 "wrW" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 8
@@ -111337,7 +111337,7 @@ akI
 alt
 apx
 anA
-arO
+hiQ
 aqk
 atd
 akt
@@ -114395,7 +114395,7 @@ laH
 abq
 abW
 fLK
-lOk
+gLt
 rNQ
 vSm
 adi
@@ -115433,7 +115433,7 @@ jsI
 laU
 fwY
 aOB
-sJC
+mOn
 adY
 vkd
 aOB
@@ -115692,7 +115692,7 @@ kLT
 aOB
 tsm
 mYt
-pEs
+qDe
 aOB
 pPA
 naU
@@ -120645,7 +120645,7 @@ cwr
 uPy
 hYz
 cKR
-oPK
+wrj
 oej
 car
 cbE
@@ -120901,7 +120901,7 @@ bQr
 bSc
 bSd
 ejG
-bWM
+mgf
 bYg
 tDA
 car
@@ -145092,7 +145092,7 @@ aaa
 aaa
 aaa
 aaa
-cmt
+qdK
 aaa
 aaa
 aaa

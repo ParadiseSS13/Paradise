@@ -804,14 +804,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry)
-"ahw" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Auxiliary Storage";
-	req_one_access_txt = "12"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/maintenance/fore)
 "ahy" = (
 /obj/machinery/door/airlock/glass{
 	name = "Vacant Office";
@@ -22678,10 +22670,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hydroponics)
-"bkY" = (
-/obj/item/toy/plushie/carpplushie/pink,
-/turf/space,
-/area/space)
 "bkZ" = (
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
@@ -28340,18 +28328,6 @@
 	icon_state = "darkyellow"
 	},
 /area/bridge)
-"bxx" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Auxiliary Storage";
-	req_one_access_txt = "12"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/starboard2)
 "bxy" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/alarm{
@@ -65454,6 +65430,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"dgb" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Auxiliary Storage";
+	req_one_access_txt = "12"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/maintenance/fore)
 "dgc" = (
 /turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
@@ -81100,12 +81084,6 @@
 	icon_state = "dark"
 	},
 /area/security/execution)
-"eqY" = (
-/obj/structure/closet/firecloset,
-/obj/item/wirecutters,
-/obj/item/screwdriver,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
 "erA" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/science,
@@ -81407,25 +81385,6 @@
 	icon_state = "dark"
 	},
 /area/aisat)
-"eIL" = (
-/obj/structure/closet/crate/trashcart{
-	desc = "A heavy, metal laundrycart with wheels.";
-	name = "laundry cart"
-	},
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/shoes/orange,
-/obj/item/crowbar/large,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/security/permabrig)
 "eJp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -83160,6 +83119,25 @@
 	icon_state = "darkred"
 	},
 /area/security/brig)
+"gKj" = (
+/obj/structure/closet/crate/trashcart{
+	desc = "A heavy, metal laundrycart with wheels.";
+	name = "laundry cart"
+	},
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/crowbar/large,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/security/permabrig)
 "gKF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -84480,6 +84458,15 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
+"ihI" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "ihK" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
@@ -84659,6 +84646,25 @@
 	icon_state = "darkredfull"
 	},
 /area/security/prison/cell_block)
+"iuR" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "iuU" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -84943,11 +84949,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/security/securearmoury)
-"iMM" = (
-/obj/structure/closet/emcloset,
-/obj/item/wrench,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
 "iNa" = (
 /obj/item/relic,
 /turf/simulated/floor/engine,
@@ -85660,15 +85661,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/wood,
 /area/clownoffice)
-"jHq" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "jIs" = (
 /turf/simulated/wall/r_wall,
 /area/security/evidence)
@@ -85972,6 +85964,11 @@
 	},
 /turf/space,
 /area/space)
+"jXz" = (
+/obj/structure/closet/emcloset,
+/obj/item/wrench,
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "jYi" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating,
@@ -92326,6 +92323,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit)
+"rwl" = (
+/obj/structure/closet/firecloset,
+/obj/item/wirecutters,
+/obj/item/screwdriver,
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "rwU" = (
 /turf/simulated/wall,
 /area/civilian/barber)
@@ -92697,6 +92700,10 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel/dark,
 /area/atmos)
+"rZb" = (
+/obj/item/toy/plushie/carpplushie/pink,
+/turf/space,
+/area/space)
 "rZD" = (
 /obj/machinery/camera{
 	c_tag = "Rec Room Aft";
@@ -94009,6 +94016,10 @@
 	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/port)
+"tup" = (
+/obj/machinery/mineral/stacking_unit_console,
+/turf/simulated/wall,
+/area/maintenance/disposal)
 "tvq" = (
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
@@ -94053,6 +94064,18 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
+"twB" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Auxiliary Storage";
+	req_one_access_txt = "12"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/starboard2)
 "twD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -96178,10 +96201,6 @@
 	icon_state = "dark"
 	},
 /area/security/execution)
-"vSO" = (
-/obj/machinery/mineral/stacking_unit_console,
-/turf/simulated/wall,
-/area/maintenance/disposal)
 "vSU" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -96730,25 +96749,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/civilian/pet_store)
-"wDm" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/structure/flora/junglebush,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "wDU" = (
 /obj/machinery/chem_dispenser,
 /obj/item/reagent_containers/glass/beaker/large,
@@ -131464,7 +131464,7 @@ aaa
 acC
 ant
 anJ
-ahw
+dgb
 apJ
 apI
 arI
@@ -139234,7 +139234,7 @@ iDU
 fUl
 bOU
 bWX
-bkY
+rZb
 abj
 aaa
 bQI
@@ -143598,7 +143598,7 @@ btL
 abj
 bgs
 buY
-bxx
+twB
 bLk
 bNk
 bPf
@@ -144064,7 +144064,7 @@ abj
 asc
 asc
 asc
-vSO
+tup
 avs
 awB
 axz
@@ -146668,8 +146668,8 @@ bNH
 saC
 bsU
 iSy
-jHq
-wDm
+ihI
+iuR
 pYb
 vrH
 pjK
@@ -148707,7 +148707,7 @@ fLZ
 eNt
 abj
 tgE
-iMM
+jXz
 voo
 qZI
 fgM
@@ -149222,7 +149222,7 @@ abj
 abj
 tgE
 oBE
-eqY
+rwl
 boG
 fgM
 vsy
@@ -152305,7 +152305,7 @@ npj
 eCs
 aIo
 aJA
-eIL
+gKj
 aPe
 aNM
 aQD
