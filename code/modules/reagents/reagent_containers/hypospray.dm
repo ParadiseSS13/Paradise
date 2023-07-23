@@ -17,6 +17,10 @@
 	slot_flags = SLOT_BELT
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
+	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
+									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
+									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
+									"mitocholide", "rezadone", "menthol")
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
@@ -53,7 +57,7 @@
 	if(safety_hypo && !emagged)
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/R in reagents.reagent_list)
-			if(!GLOB.safe_chem_list.Find(R.id))
+			if(!safe_chem_list.Find(R.id))
 				reagents.del_reagent(R.id)
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)

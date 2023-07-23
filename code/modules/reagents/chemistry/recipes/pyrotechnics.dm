@@ -259,9 +259,11 @@
 	required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
 	result_amount = 1
 	mix_message = "The mixture quickly turns into a pall of smoke!"
-	var/forbidden_reagents = list("sugar", "phosphorus", "potassium", "stimulants") //Do not transfer this stuff through smoke.
+	var/forbidden_reagents = list("sugar", "phosphorus", "potassium") //Do not transfer this stuff through smoke.
 
 /datum/chemical_reaction/smoke/on_reaction(datum/reagents/holder, created_volume)
+	for(var/b_reagent in GLOB.blocked_chems) // I hate using smoke to dupe literally everything
+		holder.del_reagent(b_reagent)
 	for(var/f_reagent in forbidden_reagents)
 		holder.del_reagent(f_reagent)
 	var/location = get_turf(holder.my_atom)
@@ -284,7 +286,6 @@
 	required_reagents = list("smoke_powder" = 1)
 	min_temp = T0C + 100
 	result_amount = 1
-	forbidden_reagents = list("stimulants")
 	mix_sound = null
 
 /datum/chemical_reaction/sonic_powder

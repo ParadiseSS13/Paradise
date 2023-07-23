@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))
 
-//Random chem blacklist
+//General chem blacklist // This is for the really good stuff that we just want to restrict for things like bees and smoke
 GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_initro",
 							"sodium_thiopental", "ketamine", "coniine",
 							"adminordrazine", "nanites", "hellwater",
@@ -61,11 +61,10 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"syndicate_nanites", "ripping_tendrils", "boiling_oil",
 							"envenomed_filaments", "lexorin_jelly", "kinetic",
 							"cryogenic_liquid", "dark_matter", "b_sorium",
-							"reagent", "life","dragonsbreath", "nanocalcium"))
+							"reagent", "life","dragonsbreath", "nanocalcium",
+							"xenomicrobes", "nanomachines", "gibbis", "prions",
+							"spidereggs", "heartworms", "bacon_grease", "histamine",
+							"fungalspores", "jagged_crystals", "salmonella",
+							"lavaland_extract", "stable_mutagen", "beer2", "curare",
+							"gluttonytoxin", "hell_water", "smoke"))
 
-GLOBAL_LIST_INIT(safe_chem_list, list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
-									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
-									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
-									"mitocholide", "rezadone", "menthol"))
-
-GLOBAL_LIST_INIT(safe_chem_applicator_list, list("silver_sulfadiazine", "styptic_powder", "synthflesh"))
