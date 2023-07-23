@@ -220,7 +220,7 @@
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
 		M.Stuttering(40 SECONDS)
-		M.AdjustEarDamage(0, 30)
+		M.Deaf(30 SECONDS)
 		M.KnockDown(6 SECONDS)
 		M.Jitter(40 SECONDS)
 		///else the mousetraps are useless

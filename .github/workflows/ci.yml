@@ -26,7 +26,7 @@ jobs:
         run: |
           tools/ci/check_json.sh
           tools/ci/build_tgui.sh
-          tools/ci/check_grep.sh
+          python3 tools/ci/check_grep2.py
           python3 tools/ci/check_line_endings.py
           python3 tools/ci/check_file_names.py
           python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
@@ -36,6 +36,18 @@ jobs:
         if: always()
         with:
           outputFile: output-annotations.txt
+
+  odlint:
+    name: Lint with OpenDream
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup OD
+        run: |
+          bash tools/ci/setup_od.sh
+      - name: Run OD
+        run: |
+          bash tools/ci/run_od.sh
 
   compile_all_maps:
     name: Compile All Maps

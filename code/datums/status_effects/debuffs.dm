@@ -223,6 +223,11 @@
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
 
+/datum/status_effect/pacifism/batterer
+	id = "pacifism_debuff_batterer"
+	alert_type = null
+	duration = 10 SECONDS
+
 // used to track if hitting someone with a cult dagger/sword should stamina crit.
 /datum/status_effect/cult_stun_mark
 	id = "cult_stun"
@@ -289,6 +294,10 @@
 /datum/status_effect/cling_tentacle/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
+/datum/status_effect/cling_tentacle/batterer
+	id = "cling_tentacle_batterer"
+	alert_type = null
+	duration = 7 SECONDS
 // start of `living` level status procs.
 
 /**
@@ -676,6 +685,17 @@
 
 /datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
 	id = "abssilenced"
+
+/datum/status_effect/transient/deaf
+	id = "deafened"
+
+/datum/status_effect/transient/deaf/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+
+/datum/status_effect/transient/deaf/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
 
 /datum/status_effect/transient/no_oxy_heal
 	id = "no_oxy_heal"
