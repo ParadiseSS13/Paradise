@@ -397,3 +397,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/gun/projectile/automatic/pistol(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
+
+/obj/item/storage/box/syndie_kit/camera_bug
+	name = "\improper Camera Bug kit"
+
+/obj/item/storage/box/syndie_kit/camera_bug/populate_contents()
+	var/camera = new /obj/item/camera_bug(src)
+	new /obj/item/paper/camera_bug(src)
+	for(var/i in 1 to 5)
+		new /obj/item/wall_bug(src, camera)

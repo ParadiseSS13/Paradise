@@ -252,7 +252,7 @@
 				/obj/item/storage/toolbox/syndicate,
 				/obj/item/storage/backpack/clown/syndie,
 				/obj/item/storage/backpack/satchel_flat,
-				/obj/item/camera_bug,
+				/obj/item/storage/box/syndie_kit/camera_bug,
 				/obj/item/storage/belt/military/traitor,
 				/obj/item/clothing/glasses/chameleon/thermal,
 				/obj/item/borg/upgrade/modkit/indoors,
