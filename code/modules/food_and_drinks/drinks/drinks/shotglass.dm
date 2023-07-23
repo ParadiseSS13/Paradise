@@ -47,19 +47,6 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/bluespace/update_overlays()
-	. = ..()
-	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]1")
-
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(50 to INFINITY)
-				filling.icon_state = "[icon_state]25"
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		. += filling
-
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
 	if(!(resistance_flags & ON_FIRE))
 		return
