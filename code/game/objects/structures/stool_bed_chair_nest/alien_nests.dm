@@ -65,14 +65,16 @@
 		M.visible_message("<span class='notice'>[user.name] secretes a thick vile goo, securing [M.name] into [src]!</span>",\
 			"<span class='danger'>[user.name] drenches you in a foul-smelling resin, trapping you in [src]!</span>",\
 			"<span class='italics'>You hear squelching...</span>")
-	ghost_timer = addtimer(CALLBACK(src, PROC_REF(ghost_check)), 15 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
+	ghost_timer = addtimer(CALLBACK(src, PROC_REF(ghost_check), user), 15 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 
-/obj/structure/bed/nest/proc/ghost_check()
+/obj/structure/bed/nest/proc/ghost_check(mob/user)
 	if(!length(buckled_mobs))
 		return
 	for(var/mob/living/carbon/human/buckled_mob in buckled_mobs)
 		var/obj/item/clothing/mask/facehugger/hugger_mask = buckled_mob.wear_mask
 		if(istype(hugger_mask) && !hugger_mask.sterile && (locate(/obj/item/organ/internal/body_egg/alien_embryo) in buckled_mob.internal_organs))
+			if(user && !isalien(user))
+				return
 			buckled_mob.throw_alert("ghost_nest", /obj/screen/alert/ghost)
 			to_chat(buckled_mob, "<span class='ghostalert'>You may now ghost, you keep respawnability in this state. You will be alerted when you're removed from the nest.</span>")
 
