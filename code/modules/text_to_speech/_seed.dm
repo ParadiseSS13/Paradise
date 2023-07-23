@@ -19,6 +19,10 @@
 #define TTS_CATEGORY_HEARTHSTONE "Hearthstone"
 #define TTS_CATEGORY_VALORANT "Valorant"
 #define TTS_CATEGORY_EVILISLANDS "Evil Islands"
+#define TTS_CATEGORY_WITCHER "Witcher"
+#define TTS_CATEGORY_LEFT4DEAD "Left 4 Dead"
+#define TTS_CATEGORY_SPONGEBOB "SpongeBob"
+#define TTS_CATEGORY_TINYBUNNY "Tiny Bunny"
 
 #define TTS_GENDER_ANY "Любой"
 #define TTS_GENDER_MALE "Мужской"
