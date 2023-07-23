@@ -81,14 +81,14 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(distance <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
-/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE)
+/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE) // SS220 EDIT
 	if(!client || !can_hear())
 		return
 
 	if(!S)
 		S = sound(get_sfx(soundin))
 
-	S.wait = 0 //No queue
+	S.wait = wait // SS220 EDIT
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
 

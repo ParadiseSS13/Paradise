@@ -2031,6 +2031,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Ash Storms"
 		if(CHANNEL_DELTA_ALARM)
 			return "Delta Alarm"
+		// SS220 ADDITON START
+		if(CHANNEL_TTS_LOCAL)
+			return "TTS Local"
+		if(CHANNEL_TTS_RADIO)
+			return "TTS Radio"
+		// SS220 ADDITION END
 
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)
