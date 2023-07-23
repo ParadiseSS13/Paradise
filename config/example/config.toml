@@ -144,7 +144,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 49
+sql_version = 492201
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -818,3 +818,23 @@ map_vote_day_types = [
 ################################################################
 
 # Congratulations. You reached the end. heres a cookie.
+
+# And some SS220 configs ratge.
+
+################################################################
+
+
+[tts_configuration]
+# This section contains all settings relating to the TTS system
+
+# Is TTS enabled
+tts_enabled = false
+# If enabled, what token does it use for API
+tts_token_silero = ""
+# Are the audio files saved after usage
+tts_cache_enabled = false
+# What CPU threads are used for ffmpeg. Example valid values: "0-3" or "1,4-7"
+ffmpeg_cpuaffinity = ""
+
+
+################################################################
