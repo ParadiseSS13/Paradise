@@ -139,6 +139,7 @@
 #define STATUS_EFFECT_BLURRY_EYES /datum/status_effect/transient/eye_blurry
 #define STATUS_EFFECT_BLINDED /datum/status_effect/transient/blindness
 #define STATUS_EFFECT_DRUGGED /datum/status_effect/transient/drugged
+#define STATUS_EFFECT_DEAF /datum/status_effect/transient/deaf
 
 /////////////
 // NEUTRAL //
@@ -166,3 +167,13 @@
 #define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
 /// This status effect lets the user see the lwap dots.
 #define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope
+
+//////////////////////////
+// Mind batter variants //
+//////////////////////////
+// Basically variants with differing effect times to their parent datums, nothing special
+
+#define STATUS_EFFECT_PACIFIED_BATTERER /datum/status_effect/pacifism/batterer
+
+#define STATUS_EFFECT_CLINGTENTACLE_BATTERER /datum/status_effect/cling_tentacle/batterer
+
