@@ -81,6 +81,8 @@
 
 //Called when we bump into a mob
 /mob/living/proc/MobBump(mob/M)
+	if(m_intent == MOVE_INTENT_WALK)
+		return TRUE
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
@@ -269,6 +271,11 @@
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
 		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
 		return TRUE
+	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && A != hand_item)
+		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
+		visible_message("<span class='danger'>[src] points [trick] at- and [trick] goes off in their hand!</span>")
+		trick.shoot_gun(src)
+
 	visible_message("<b>[src]</b> points to [pointed_object]")
 	return TRUE
 

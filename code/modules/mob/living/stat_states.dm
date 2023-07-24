@@ -57,6 +57,9 @@
 	set_stat(UNCONSCIOUS) // this is done as `WakeUp` early returns if they are `stat = DEAD`
 	WakeUp()
 
+	if(suiciding)
+		message_admins("[key_name(src)] was revived after having committed suicide. This is likely a bug.")
+
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list |= src
 
