@@ -157,6 +157,7 @@
 	desc = "A tiny, highly volatile sliver of a supermatter crystal. Do not handle without protection!"
 	icon_state = "supermatter_sliver"
 	pulseicon = "supermatter_sliver_pulse"
+	layer = ABOVE_MOB_LAYER + 0.02
 
 /obj/item/nuke_core/supermatter_sliver/process()
 	. = ..()
