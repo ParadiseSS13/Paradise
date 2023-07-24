@@ -56,6 +56,8 @@
 
 #define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback // Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
 
+#define STATUS_EFFECT_REVOLUTION_PROTECT /datum/status_effect/rev_protection
+
 /////////////
 // DEBUFFS //
 /////////////
