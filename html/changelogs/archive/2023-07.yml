@@ -162,3 +162,39 @@
   - bugfix: getting wrong materials on machine deconstruct (#3167)
   mqopi:
   - tweak: add tape boxes for IIA, magistrate (cere, box, delta) (#3177)
+'2023-07-23':
+  Aziz Chynaliev:
+  - add: add new 94 TTS voices from Witcher (27), Evil Islands (27), L4D (4), SpongeBob
+      (4), Tiny Bunny (10), Dota 2 (13), STALKER (7), Warcraft 3 (1), Portal 2 (1)
+      (#3219)
+'2023-07-24':
+  Daeberdir:
+  - add: Ashwalker Plushie on Mining Outpost. (#3218)
+  DeDerevce:
+  - add: Holy Floor resprite (#3202)
+  JoharDude:
+  - bugfix: durathread jumpsuit hand sprite (#3203)
+  - bugfix: sheath-rapier left side sprite fix (#3205)
+  LiquidPotroh:
+  - bugfix: Hardsuit's helmets don't wash with cleaner (#3222)
+  NightDawnFox:
+  - tweak: squash plants cooldown (#3209)
+  - add: species gib colors (#3208)
+  - tweak: Sibyl voice is disabled by default (#3214)
+  - add: HL deathsound for security gas masks (#3212)
+  - add: new detective outfit (#3215)
+  Zwei:
+  - bugfix: Ctrl Click on Alien Pulls Again (#3201)
+  - refactor: Jetpack Dupe Code Removal (#3216)
+  - bugfix: Emote Fixes (#3217)
+  - tweak: Put In Any Hand Remade (#3213)
+  - bugfix: Defib Phys Damage Threshold (#3207)
+  aeternaclose:
+  - bugfix: Shuttle Fix (#3198)
+  captainnelly:
+  - bugfix: handheld defib sound (#3199)
+  dontbetank:
+  - bugfix: dragon destroyng own portals (#3206)
+  - bugfix: MMIs dying to ash storms and robotic brains not reviving after death (#3196)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3200)
