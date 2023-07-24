@@ -541,7 +541,7 @@ GLOBAL_VAR(bomb_set)
 			return NUKE_SITE_OFF_STATION_ZLEVEL
 
 		var/area/bomb_area = get_area(src)
-		for(var/A in GLOB.the_station_areas)
+		for(var/A in SSmapping.existing_station_areas)
 			if(istype(bomb_area, A))
 				return NUKE_SITE_ON_STATION
 
