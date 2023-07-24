@@ -422,8 +422,6 @@
 #define COMSIG_ITEM_ATTACK_SELF_SECONDARY "item_attack_self_secondary"
 ///from base of obj/item/attack_atom(): (/atom, /mob)
 #define COMSIG_ITEM_ATTACK_ATOM "item_attack_atom"
-///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_PRE_ATTACK "item_pre_attack"
 /// From base of [/obj/item/proc/pre_attack_secondary()]: (atom/target, mob/user, params)
 #define COMSIG_ITEM_PRE_ATTACK_SECONDARY "item_pre_attack_secondary"
 	#define COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN (1<<0)
