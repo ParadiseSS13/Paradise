@@ -277,9 +277,8 @@
 /obj/item/gun/projectile/revolver/russian/soul/shoot_self(mob/living/user)
 	..()
 	var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
-	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
-		qdel(SS)
-		return
+	SS.transfer_soul("FORCE", user)
+	user.death(FALSE)
 	user.visible_message("<span class='danger'>[user.name]'s soul is captured by \the [src]!</span>", "<span class='userdanger'>You've lost the gamble! Your soul is forfeit!</span>")
 
 /obj/item/gun/projectile/revolver/capgun
