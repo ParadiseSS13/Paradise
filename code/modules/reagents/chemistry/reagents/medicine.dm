@@ -127,7 +127,7 @@
 		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
 			data = "Ingested"
 			if(show_message)
-				to_chat(M, "<span class='warning'>[src] freezes solid in your mouth!</span>") //Burn damage already happens on ingesting
+				to_chat(M, "<span class='warning'>[src] freezes solid as it enters your body!</span>") //Burn damage already happens on ingesting
 	..()
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
