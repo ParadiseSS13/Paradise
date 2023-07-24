@@ -456,7 +456,7 @@
 					/obj/item/clothing/head/wizard/mime = 1,
 					/obj/item/clothing/mask/gas/mime/wizard = 1,
 					/obj/item/clothing/shoes/sandal/marisa = 1,
-					/obj/item/twohanded/staff = 2)
+					/obj/item/staff = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
@@ -516,10 +516,10 @@
 					/obj/item/clothing/suit/wizrobe/marisa/fake = 1,
 					/obj/item/clothing/under/dress/sundress = 1,
 					/obj/item/clothing/head/witchwig = 1,
-					/obj/item/twohanded/staff/broom = 1,
+					/obj/item/staff/broom = 1,
 					/obj/item/clothing/suit/wizrobe/fake = 1,
 					/obj/item/clothing/head/wizard/fake = 1,
-					/obj/item/twohanded/staff = 3,
+					/obj/item/staff = 3,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 1,
 					/obj/item/clothing/mask/gas/sexymime = 1,
@@ -629,10 +629,10 @@
 					/obj/item/clothing/suit/wizrobe/marisa/fake = 100,
 					/obj/item/clothing/under/dress/sundress = 75,
 					/obj/item/clothing/head/witchwig = 50,
-					/obj/item/twohanded/staff/broom = 50,
+					/obj/item/staff/broom = 50,
 					/obj/item/clothing/suit/wizrobe/fake = 75,
 					/obj/item/clothing/head/wizard/fake = 75,
-					/obj/item/twohanded/staff = 50,
+					/obj/item/staff = 50,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 100,
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 100,
 					/obj/item/clothing/mask/gas/sexymime = 100,
@@ -891,16 +891,20 @@
 	icon_state = "cigs"
 	icon_lightmask = "cigs"
 	products = list(
-		/obj/item/storage/fancy/cigarettes/cigpack_robust = 12,
+		/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
+		/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
 		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 		/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
 		/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
+		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+		/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 		/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
 		/obj/item/storage/box/matches = 10,
 		/obj/item/lighter/random = 4,
-		/obj/item/storage/fancy/rollingpapers = 5)
-	contraband = list(/obj/item/lighter/zippo = 4, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1, /obj/item/clothing/mask/cigarette/cigar/havana = 2)
+		/obj/item/lighter/zippo = 2)
+	contraband = list(/obj/item/storage/fancy/rollingpapers = 5)
 	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 25,
+		/obj/item/storage/fancy/cigarettes/cigpack_carp = 25,
 		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 35,
 		/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,
 		/obj/item/storage/fancy/cigarettes/cigpack_random = 80,
@@ -908,6 +912,7 @@
 		/obj/item/reagent_containers/food/pill/patch/nicotine = 70,
 		/obj/item/storage/box/matches = 20,
 		/obj/item/lighter/random = 40,
+		/obj/item/lighter/zippo = 80,
 		/obj/item/storage/fancy/rollingpapers = 30,
 		/obj/item/clothing/mask/cigarette/cigar/havana = 80)
 	refill_canister = /obj/item/vending_refill/cigarette
@@ -938,10 +943,12 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 					/obj/item/storage/box/matches = 10,
-					/obj/item/lighter/random = 4,
+					/obj/item/lighter/zippo = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)
-	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1, /obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/lighter/zippo = 3)
+	contraband = list()
 	prices = list()
 
 /obj/machinery/economy/vending/wallmed

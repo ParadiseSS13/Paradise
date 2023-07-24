@@ -3,6 +3,7 @@ GLOBAL_LIST_INIT(station_departments, list(DEPARTMENT_COMMAND, DEPARTMENT_MEDICA
 											DEPARTMENT_SCIENCE, DEPARTMENT_SECURITY, DEPARTMENT_SUPPLY,
 											DEPARTMENT_SERVICE, DEPARTMENT_ASSISTANT))
 
+/// All roles that are within the command category
 GLOBAL_LIST_INIT(command_positions, list(
 	"Captain",
 	"Head of Personnel",
@@ -10,7 +11,19 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Chief Engineer",
 	"Research Director",
 	"Chief Medical Officer",
-	"Nanotrasen Representative"
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Blueshield"
+))
+
+/// Only roles that are command of departments, for revolution and similar stuff
+GLOBAL_LIST_INIT(command_head_positions, list(
+	"Captain",
+	"Head of Personnel",
+	"Head of Security",
+	"Chief Engineer",
+	"Research Director",
+	"Chief Medical Officer",
 ))
 
 
@@ -56,9 +69,6 @@ GLOBAL_LIST_INIT(support_positions, list(
 	"Clown",
 	"Mime",
 	"Barber",
-	"Magistrate",
-	"Nanotrasen Representative",
-	"Blueshield",
 	"Explorer"
 ))
 
@@ -71,14 +81,24 @@ GLOBAL_LIST_INIT(supply_positions, list(
 
 GLOBAL_LIST_INIT(service_positions, (list("Head of Personnel") + (support_positions - supply_positions)))
 
-
+/// Roles that include any semblence of security, mostly for jobbans
 GLOBAL_LIST_INIT(security_positions, list(
 	"Head of Security",
 	"Warden",
 	"Detective",
 	"Security Officer",
-	"Magistrate"
+	"Magistrate",
+	"Blueshield"
 ))
+
+/// Active security roles
+GLOBAL_LIST_INIT(active_security_positions, list(
+	"Head of Security",
+	"Warden",
+	"Detective",
+	"Security Officer"
+))
+
 
 
 GLOBAL_LIST_INIT(assistant_positions, list(

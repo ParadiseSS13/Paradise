@@ -68,7 +68,7 @@
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
-		EQUIPMENT("Kinetic Crusher", /obj/item/twohanded/kinetic_crusher, 750),
+		EQUIPMENT("Kinetic Crusher", /obj/item/kinetic_crusher, 750),
 		EQUIPMENT("Resonator", /obj/item/resonator, 800),
 		EQUIPMENT("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
 		EQUIPMENT("Super Resonator", /obj/item/resonator/upgraded, 2500),
@@ -93,13 +93,18 @@
 	)
 	prize_list["Extra"] = list() // Used in child vendors
 
+/obj/machinery/mineral/equipment_vendor/proc/remove_id()
+	if(inserted_id)
+		inserted_id.forceMove(get_turf(src))
+		inserted_id = null
+		return TRUE
+
 /obj/machinery/mineral/equipment_vendor/power_change()
-	if(!..())
-		return
+	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-	if(inserted_id && !(stat & NOPOWER))
-		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
-		inserted_id.forceMove(loc)
+	if(. && inserted_id && (stat & NOPOWER))
+		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
+		remove_id()
 
 /obj/machinery/mineral/equipment_vendor/update_icon_state()
 	if(has_power())
@@ -203,8 +208,7 @@
 		return
 	if(panel_open)
 		if(istype(I, /obj/item/crowbar))
-			if(inserted_id)
-				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
+			remove_id()
 			default_deconstruction_crowbar(user, I)
 		return TRUE
 	if(istype(I, /obj/item/mining_voucher))
@@ -256,7 +260,7 @@
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/twohanded/kinetic_crusher(drop_location)
+			new /obj/item/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 
@@ -268,8 +272,7 @@
 		qdel(src)
 
 /obj/machinery/mineral/equipment_vendor/Destroy()
-	if(inserted_id)
-		inserted_id.forceMove(loc)
+	remove_id()
 	return ..()
 
 

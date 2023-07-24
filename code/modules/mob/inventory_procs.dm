@@ -28,6 +28,10 @@
 
 	return item_to_test && item_to_test.is_equivalent(I)
 
+/// Check if an item is in one of our hands
+/mob/proc/is_holding(obj/item/I)
+	return istype(I) && (I == r_hand || I == l_hand)
+
 
 //Returns the thing in our inactive hand
 /mob/proc/get_inactive_hand()
@@ -248,6 +252,11 @@
 
 	var/obj/item/storage/S = M.get_inactive_hand()
 	if(istype(S) && S.can_be_inserted(src, 1))	//see if we have box in other hand
+		S.handle_item_insertion(src)
+		return 1
+
+	S = M.get_item_by_slot(slot_wear_id)
+	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in a wallet
 		S.handle_item_insertion(src)
 		return 1
 

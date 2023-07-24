@@ -201,7 +201,7 @@
 				user.adjustBrainLoss(10)
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
-			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(user.loc)
+			var/obj/item/dualsaber/newSaber = new /obj/item/dualsaber(user.loc)
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = TRUE
 				newSaber.item_color = "rainbow"
@@ -227,6 +227,24 @@
 
 		else
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+
+
+/obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(!active)
+		return FALSE
+	. = ..()
+	if(!.) // they did not block the attack
+		return
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
+			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+			return TRUE
+		owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
+		return -1
+	return TRUE
 
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"

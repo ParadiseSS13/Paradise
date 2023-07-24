@@ -146,6 +146,7 @@
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
+	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<BR>"
@@ -675,10 +676,6 @@
 
 			if("survive")
 				new_objective = new /datum/objective/survive
-				new_objective.owner = src
-
-			if("die")
-				new_objective = new /datum/objective/die
 				new_objective.owner = src
 
 			if("nuclear")

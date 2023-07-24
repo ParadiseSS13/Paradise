@@ -936,6 +936,15 @@
 	icon_state = "box_wizard"
 	w_class = WEIGHT_CLASS_GIGANTIC
 
+/obj/item/storage/box/wizard/hardsuit
+	name = "battlemage armour bundle"
+	desc = "This box contains a bundle of Battlemage Armour."
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/hardsuit/populate_contents()
+	new /obj/item/clothing/suit/space/hardsuit/shielded/wizard(src)
+	new /obj/item/clothing/shoes/magboots/wizard(src)
+
 /obj/item/storage/box/breaching
 	name = "breaching charges"
 	desc = "Contains three T4 thermal breaching charges."

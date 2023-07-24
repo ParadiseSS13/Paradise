@@ -491,7 +491,7 @@
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/lightreplacer = 1,
 		/obj/item/storage/bag/trash = 1,
-		/obj/item/twohanded/push_broom,
+		/obj/item/push_broom,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/melee/flyswatter = 1)
 

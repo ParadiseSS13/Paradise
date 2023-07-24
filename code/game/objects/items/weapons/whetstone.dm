@@ -17,20 +17,23 @@
 	if(used)
 		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
 		return
-	if(I.force >= max || I.throwforce >= max)//no esword sharpening
-		to_chat(user, "<span class='warning'>[I] is much too powerful to sharpen further!</span>")
-		return
 	if(requires_sharpness && !I.sharp)
 		to_chat(user, "<span class='warning'>You can only sharpen items that are already sharp, such as knives!</span>")
 		return
-	if(istype(I, /obj/item/twohanded))//some twohanded items should still be sharpenable, but handle force differently. therefore i need this stuff
-		var/obj/item/twohanded/TH = I
-		if(TH.force_wielded >= max || TH.force_wielded > initial(TH.force_wielded))
-			to_chat(user, "<span class='warning'>[TH] is much too powerful to sharpen further!</span>")
-			return
-		TH.force_wielded = clamp(TH.force_wielded + increment, 0, max)//wieldforce is increased since normal force wont stay
-		TH.force_unwielded = clamp(TH.force_unwielded + increment, 0, max)
+	var/signal_out = SEND_SIGNAL(I, COMSIG_ITEM_SHARPEN_ACT, increment, max)
 
+	if((signal_out & COMPONENT_BLOCK_SHARPEN_MAXED) || I.force >= max || I.throwforce >= max) //If the item's components enforce more limits on maximum power from sharpening,  we fail
+		to_chat(user, "<span class='warning'>[I] is much too powerful to sharpen further!</span>")
+		return
+	if(signal_out & COMPONENT_BLOCK_SHARPEN_BLOCKED)
+		to_chat(user, "<span class='warning'>[I] is not able to be sharpened right now!</span>")
+		return
+	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || (I.force > initial(I.force) && !signal_out)) //No sharpening stuff twice
+		to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
+		return
+	if(!(signal_out & COMPONENT_BLOCK_SHARPEN_APPLIED)) //If the item has a relevant component and COMPONENT_BLOCK_SHARPEN_APPLIED is returned, the item only gets the throw force increase
+		I.force = clamp(I.force + increment, 0, max)
+	// TODO verify this new logic
 	if(istype(I, /obj/item/melee/energy))
 		var/obj/item/melee/energy/E = I
 		if(E.force_on > initial(E.force_on) || (E.force > initial(E.force)))

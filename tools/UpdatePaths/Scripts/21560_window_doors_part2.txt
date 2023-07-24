@@ -1,0 +1,1 @@
+/obj/machinery/door/window/@SUBTYPES{dir=@UNSET} : /obj/machinery/door/window/@SUBTYPES{@OLD;dir=4}

@@ -187,7 +187,6 @@
 	switch(severity)
 		if(1.0)
 			ChangeTurf(baseturf)
-			return
 		if(2.0)
 			if(prob(50))
 				take_damage(rand(150, 250))
@@ -195,8 +194,6 @@
 				dismantle_wall(1, 1)
 		if(3.0)
 			take_damage(rand(0, 250))
-		else
-	return
 
 /turf/simulated/wall/blob_act(obj/structure/blob/B)
 	if(prob(50))
@@ -433,7 +430,7 @@
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 		return TRUE
 
-	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
+	else if(istype(I, /obj/item/pyro_claws))
 		to_chat(user, "<span class='notice'>You begin to melt the wall.</span>")
 
 		if(do_after(user, isdiamond ? 60 * I.toolspeed : 30 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds

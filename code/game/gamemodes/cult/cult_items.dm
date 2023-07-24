@@ -558,15 +558,14 @@
 		return TRUE
 	return FALSE
 
-/obj/item/twohanded/cult_spear
+/obj/item/cult_spear
 	name = "blood halberd"
 	desc = "A sickening spear composed entirely of crystallized blood. Will stun people who have been recently marked if the spear is wielded."
 	icon = 'icons/obj/cult.dmi'
+	base_icon_state = "bloodspear"
 	icon_state = "bloodspear0"
 	slot_flags = 0
 	force = 17
-	force_unwielded = 17
-	force_wielded = 24
 	throwforce = 30
 	throw_speed = 2
 	armour_penetration_percentage = 50
@@ -577,19 +576,20 @@
 	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 
-/obj/item/twohanded/cult_spear/Initialize(mapload)
+/obj/item/cult_spear/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
+	AddComponent(/datum/component/two_handed, force_wielded = 24, force_unwielded = force, icon_wielded="[base_icon_state]1")
 
-/obj/item/twohanded/cult_spear/Destroy()
+/obj/item/cult_spear/Destroy()
 	if(spear_act)
 		qdel(spear_act)
 	return ..()
 
-/obj/item/twohanded/cult_spear/update_icon_state()
-	icon_state = "bloodspear[wielded]"
+/obj/item/cult_spear/update_icon_state()
+	icon_state = "[base_icon_state]0"
 
-/obj/item/twohanded/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
 	if(isliving(hit_atom))
 		var/mob/living/L = hit_atom
@@ -621,7 +621,7 @@
 	else
 		..()
 
-/obj/item/twohanded/cult_spear/proc/break_spear(turf/T)
+/obj/item/cult_spear/proc/break_spear(turf/T)
 	if(!T)
 		T = get_turf(src)
 	if(T)
@@ -631,10 +631,10 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/twohanded/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()
 	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
-	if(S && wielded)
+	if(S && HAS_TRAIT(src, TRAIT_WIELDED))
 		S.trigger()
 
 /datum/action/innate/cult/spear
@@ -642,7 +642,7 @@
 	desc = "Call the blood spear back to your hand!"
 	background_icon_state = "bg_cult"
 	button_icon_state = "bloodspear"
-	var/obj/item/twohanded/cult_spear/spear
+	var/obj/item/cult_spear/spear
 	var/cooldown = 0
 
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
