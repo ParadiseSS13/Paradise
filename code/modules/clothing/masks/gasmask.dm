@@ -287,7 +287,7 @@
 
 								"halt" 			= "HALT! HALT! HALT! HALT!",
 								"bobby" 		= "Stop in the name of the Law.",
-								"compliance" 	        = "Compliance is in your best interest.",
+								"compliance"	= "Compliance is in your best interest.",
 								"justice"		= "Prepare for justice!",
 								"running"		= "Running will only increase your sentence.",
 								"dontmove"		= "Don't move, Creep!",
@@ -304,6 +304,16 @@
 								"super"			= "Face the wrath of the golden bolt.",
 								"dredd"			= "I am, the LAW!"
 								)
+
+/obj/item/clothing/mask/gas/sechailer/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == slot_wear_mask && !HAS_TRAIT(user, TRAIT_SECDEATH))
+		ADD_TRAIT(user, TRAIT_SECDEATH, src)
+
+/obj/item/clothing/mask/gas/sechailer/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_SECDEATH, src)
+
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."

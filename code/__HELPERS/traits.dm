@@ -73,7 +73,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_JESTER			"jester"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
-#define TRAIT_ELITE_CHALLENGER "elite_challenger"
+#define TRAIT_ELITE_CHALLENGER	"elite_challenger"
+#define TRAIT_SECDEATH			"secdeath"
 
 //item traits
 #define TRAIT_CMAGGED "cmagged"
