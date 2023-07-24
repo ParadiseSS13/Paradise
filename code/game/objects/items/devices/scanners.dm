@@ -122,7 +122,7 @@ REAGENT SCANNER
 		if(M.stat == DEAD)
 			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: <font color='red'>Dead</font></span>")
 		else
-			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [round((100 / M.maxHealth) * M.health, 0.1)]% Healthy")
+			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [round(M.health / M.maxHealth * 100, 0.1)]% Healthy")
 		to_chat(user, "\t Damage Specifics: <font color='red'>[M.maxHealth - M.health]</font>")
 		return
 	if(!ishuman(M) || ismachineperson(M))
