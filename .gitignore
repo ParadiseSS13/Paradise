@@ -57,3 +57,4 @@ __pycache__/
 dmm-tools.exe
 OpenDream
 paradise.json
+sound/tts_cache/*

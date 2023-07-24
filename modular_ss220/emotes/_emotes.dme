@@ -1,0 +1,5 @@
+#include "_emotes.dm"
+
+#include "code/emote_verbs.dm"
+#include "code/emote_translations.dm"
+#include "code/racial_emotes.dm"
