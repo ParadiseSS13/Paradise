@@ -107,14 +107,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
-"az" = (
-/obj/structure/table/reinforced,
-/obj/structure/fans/tiny,
-/obj/machinery/door/window{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/powered/bar)
 "aA" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/wall/mineral/titanium,
@@ -598,6 +590,14 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
+"yX" = (
+/obj/structure/table/reinforced,
+/obj/structure/fans/tiny,
+/obj/machinery/door/window{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
 "zy" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -801,15 +801,6 @@
 	icon_state = "blackcorner"
 	},
 /area/ruin/space/powered/bar)
-"Mu" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/marker_beacon/dock_marker/collision,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/template_noop,
-/area/ruin/space/powered)
 "Ni" = (
 /obj/machinery/kitchen_machine/microwave,
 /obj/structure/table/wood,
@@ -2696,8 +2687,8 @@ am
 aU
 am
 aQ
-az
-az
+yX
+yX
 aQ
 am
 aU
@@ -2947,7 +2938,7 @@ aD
 aa
 aa
 aa
-Mu
+st
 aM
 XS
 aM

@@ -1724,14 +1724,6 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
-"gS" = (
-/obj/machinery/door/window/reinforced/normal{
-	dir = 2;
-	name = "Cell Door";
-	req_access_txt = "150"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate_sit)
 "gT" = (
 /obj/machinery/light/spot{
 	dir = 8
@@ -2239,22 +2231,6 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "sit_tele";
 	name = "Teleporter"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
-"io" = (
-/obj/machinery/door/window/classic/normal{
-	name = "Out";
-	req_access_txt = "150";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
-"ip" = (
-/obj/machinery/door/window/classic/reversed{
-	name = "In";
-	req_access_txt = "150";
-	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2854,14 +2830,6 @@
 /obj/item/storage/backpack/industrial,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"ku" = (
-/obj/machinery/door/window/classic/normal{
-	name = "cell door";
-	req_access_txt = "150";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
 "kv" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3080,12 +3048,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"ld" = (
-/obj/machinery/door/window/classic/normal{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
 "le" = (
 /obj/effect/landmark/spawner/syndieprisonwarp,
 /turf/simulated/floor/plasteel/dark,
@@ -4732,6 +4694,14 @@
 /obj/structure/closet/syndicate/nuclear,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"qJ" = (
+/obj/structure/table,
+/obj/machinery/door/window/classic/normal{
+	name = "security checkpoint";
+	dir = 2
+	},
+/turf/simulated/floor/carpet,
+/area/admin)
 "qK" = (
 /obj/machinery/door_control/no_emag{
 	id = "nukeop_ready";
@@ -5158,14 +5128,6 @@
 /obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
-"sc" = (
-/obj/machinery/door/window{
-	name = "Uplink Management Control";
-	req_access_txt = "151";
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/syndicate_mothership)
 "se" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -5194,14 +5156,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
-"si" = (
-/obj/machinery/door/window{
-	name = "Equipment Room";
-	req_access_txt = "150";
-	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "sj" = (
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
@@ -5306,16 +5260,6 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
-"sF" = (
-/obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
-	name = "Equipment Room";
-	req_access_txt = "150";
-	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "sG" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
@@ -5402,6 +5346,14 @@
 /obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior,
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
+"th" = (
+/obj/machinery/door/window/reinforced/normal{
+	color = "#d70000";
+	req_access_txt = "104";
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
 "tj" = (
 /obj/structure/flora/bush,
 /turf/simulated/floor/plating/asteroid/snow/airless,
@@ -5549,17 +5501,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"tP" = (
-/obj/machinery/door/window{
-	name = "Infirmary";
-	req_access_txt = "150";
-	dir = 4
-	},
-/obj/machinery/light/spot{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "tQ" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8;
@@ -5570,17 +5511,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/specops)
-"tT" = (
-/obj/machinery/door/window/classic/reversed{
-	name = "Tool Storage";
-	req_access_txt = "150";
-	dir = 8
-	},
-/obj/machinery/light/spot{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "tU" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
@@ -5636,16 +5566,6 @@
 	dir = 8
 	},
 /obj/machinery/sleeper/syndie{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
-"ub" = (
-/obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
-	name = "Infirmary";
-	req_access_txt = "150";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -6236,14 +6156,6 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
-"vW" = (
-/obj/structure/table,
-/obj/machinery/door/window/classic/normal{
-	name = "security checkpoint";
-	dir = 2
-	},
-/turf/simulated/floor/carpet,
-/area/admin)
 "vX" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
@@ -6606,6 +6518,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"xs" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
 "xv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
@@ -6707,14 +6623,6 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/suppy)
-"yc" = (
-/obj/machinery/door/window/reinforced/normal{
-	color = "#d70000";
-	req_access_txt = "104";
-	dir = 8
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
 "yg" = (
 /mob/living/silicon/decoy{
 	name = "A.L.I.C.E."
@@ -6832,6 +6740,13 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
+"zC" = (
+/obj/machinery/door/window/classic/reversed{
+	name = "bar";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
 "zF" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
@@ -6863,6 +6778,14 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"zW" = (
+/obj/machinery/door/window{
+	name = "Uplink Management Control";
+	req_access_txt = "151";
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/syndicate_mothership)
 "Aa" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/dark,
@@ -6907,6 +6830,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"Am" = (
+/obj/machinery/door/window/classic/normal{
+	name = "cell door";
+	req_access_txt = "150";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "An" = (
 /obj/item/circular_saw,
 /obj/item/hemostat{
@@ -7091,6 +7022,16 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"Bk" = (
+/obj/machinery/door/window{
+	base_state = "right";
+	icon_state = "right";
+	name = "Infirmary";
+	req_access_txt = "150";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Bl" = (
 /obj/machinery/conveyor/east{
 	id = "QMLoad2"
@@ -7553,14 +7494,6 @@
 /obj/structure/marker_beacon/dock_marker,
 /turf/space,
 /area/space)
-"Dc" = (
-/obj/machinery/door/window/classic/normal{
-	name = "Cell B";
-	req_access_txt = "101";
-	dir = 2
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/admin)
 "Dd" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/space_ninja,
@@ -7858,6 +7791,14 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
+"Ej" = (
+/obj/machinery/door/window/reinforced/normal{
+	dir = 2;
+	name = "Cell Door";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
 "Ek" = (
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -8072,6 +8013,17 @@
 "Fo" = (
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
+"Fp" = (
+/obj/machinery/door/window/classic/reversed{
+	name = "Tool Storage";
+	req_access_txt = "150";
+	dir = 8
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Fq" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -8084,6 +8036,17 @@
 	},
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
+"Ft" = (
+/obj/machinery/door/window{
+	name = "Infirmary";
+	req_access_txt = "150";
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Fu" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "admin_away";
@@ -9471,13 +9434,6 @@
 /obj/machinery/optable,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
-"KB" = (
-/obj/machinery/door/window/classic/reversed{
-	name = "bar";
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
 "KC" = (
 /obj/machinery/button/windowtint{
 	pixel_y = 24
@@ -9564,15 +9520,6 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
-/area/centcom/evac)
-"KQ" = (
-/obj/structure/table,
-/obj/item/toy/katana,
-/obj/item/toy/plushie/carpplushie,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "green"
-	},
 /area/centcom/evac)
 "KR" = (
 /obj/machinery/light/spot{
@@ -10613,6 +10560,14 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/wizard_station)
+"OM" = (
+/obj/machinery/door/window/classic/reversed{
+	name = "In";
+	req_access_txt = "150";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "ON" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -11239,6 +11194,14 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Rl" = (
+/obj/machinery/door/window/classic/normal{
+	name = "Out";
+	req_access_txt = "150";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "Rm" = (
 /obj/structure/chair{
 	dir = 1
@@ -11739,10 +11702,6 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
-"TC" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/specops)
 "TF" = (
 /obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 4;
@@ -12036,6 +11995,12 @@
 "UO" = (
 /turf/simulated/wall/indestructible/opsglass/limited_smooth,
 /area/syndicate_mothership)
+"UP" = (
+/obj/machinery/door/window/classic/normal{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "UT" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -12142,6 +12107,16 @@
 /obj/machinery/economy/vending/engivend,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Vq" = (
+/obj/machinery/door/window{
+	base_state = "right";
+	icon_state = "right";
+	name = "Equipment Room";
+	req_access_txt = "150";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Vs" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/badminbrew,
@@ -12334,6 +12309,15 @@
 	icon_state = "brown"
 	},
 /area/shuttle/escape)
+"Wj" = (
+/obj/structure/table,
+/obj/item/toy/katana,
+/obj/item/toy/plushie/carpplushie,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "green"
+	},
+/area/centcom/evac)
 "Wk" = (
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass/jungle,
@@ -12938,6 +12922,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Ys" = (
+/obj/machinery/door/window{
+	name = "Equipment Room";
+	req_access_txt = "150";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Yt" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -13015,6 +13007,14 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/control)
+"YJ" = (
+/obj/machinery/door/window/classic/normal{
+	name = "Cell B";
+	req_access_txt = "101";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
 "YK" = (
 /obj/structure/chair{
 	dir = 4
@@ -26945,7 +26945,7 @@ aN
 ZG
 dl
 ZN
-KB
+zC
 ZN
 ZN
 EN
@@ -27955,7 +27955,7 @@ aN
 aN
 Te
 Rp
-TC
+xs
 Rs
 Sq
 Rp
@@ -29780,7 +29780,7 @@ eX
 eX
 ZG
 qC
-yc
+th
 ry
 Rv
 ZG
@@ -46453,7 +46453,7 @@ aN
 Hh
 HW
 IH
-KQ
+Wj
 Nu
 OF
 Nu
@@ -59252,12 +59252,12 @@ KY
 KY
 KY
 KY
-si
-sF
+Ys
+Vq
 tf
 KY
-tP
-ub
+Ft
+Bk
 tg
 KY
 KY
@@ -60284,7 +60284,7 @@ YS
 sG
 tf
 KY
-tT
+Fp
 ue
 tg
 KY
@@ -63620,7 +63620,7 @@ na
 BY
 nW
 rb
-sc
+zW
 sD
 Yi
 ab
@@ -66667,7 +66667,7 @@ Yi
 gp
 gy
 gD
-gS
+Ej
 gW
 gW
 gW
@@ -67457,7 +67457,7 @@ jO
 Yi
 XJ
 XJ
-ku
+Am
 kA
 kO
 Yi
@@ -68033,7 +68033,7 @@ aN
 aN
 wk
 Ct
-Dc
+YJ
 vK
 vK
 vK
@@ -68218,7 +68218,7 @@ ab
 ab
 Yi
 ij
-io
+Rl
 ix
 XJ
 XJ
@@ -68732,7 +68732,7 @@ ab
 ab
 Yi
 il
-ip
+OM
 ix
 XJ
 XJ
@@ -73157,7 +73157,7 @@ nJ
 tJ
 uz
 vm
-vW
+qJ
 lZ
 lZ
 xb
@@ -73628,7 +73628,7 @@ aN
 aN
 kG
 kV
-ld
+UP
 kV
 kV
 kU
