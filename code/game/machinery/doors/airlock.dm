@@ -215,7 +215,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	return ((aiControlDisabled != AICONTROLDISABLED_ON) && (!isAllPowerLoss()))
 
 /obj/machinery/door/airlock/proc/canAIHack(mob/living/user)
-	return ((aiControlDisabled == AICONTROLDISABLED_ON) && (!hackProof) && (!isAllPowerLoss()) && user.mind.special_role)
+	return ((aiControlDisabled == AICONTROLDISABLED_ON) && (!hackProof) && (!isAllPowerLoss()) && user.mind?.special_role)
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
 	if(stat & (NOPOWER|BROKEN))
@@ -705,7 +705,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!aiHacking)
 		aiHacking = TRUE
 		to_chat(user, "Airlock AI control has been blocked. Beginning fault-detection.")
-		sleep(30)
+		sleep(3 SECONDS)
 		if(canAIControl())
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
@@ -717,7 +717,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		to_chat(user, "Fault confirmed: airlock control wire disabled or cut.")
 		sleep(20)
 		to_chat(user, "Attempting to hack into airlock. This may take some time.")
-		sleep(150)
+		sleep(15 SECONDS)
 		if(canAIControl())
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
@@ -727,7 +727,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			aiHacking = FALSE
 			return
 		to_chat(user, "Upload access confirmed. Loading control program into airlock software.")
-		sleep(50)
+		sleep(5 SECONDS)
 		if(canAIControl())
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
