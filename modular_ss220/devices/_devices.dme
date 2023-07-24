@@ -1,0 +1,4 @@
+#include "_devices.dm"
+
+#include "code/items/scanners.dm"
+#include "code/research_designs/equipment_designs.dm"

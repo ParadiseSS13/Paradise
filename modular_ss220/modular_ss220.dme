@@ -10,6 +10,7 @@
 #include "barsigns/_barsigns.dme"
 #include "crawl_speed/_crawl_speed.dme"
 // #include "crit_rework/_crit_rework.dme"
+#include "devices/_devices.dme"
 #include "emotes/_emotes.dme"
 #include "fullscreen/_fullscreen.dme"
 #include "gunhud/_gunhud.dme"
