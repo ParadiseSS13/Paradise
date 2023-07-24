@@ -916,9 +916,9 @@
 			else
 				if(!muzzled)
 					message = "ворч[pluralize_ru(src.gender,"ит","ят")][M ? " на [M]" : ""]!"
-					if(gender == FEMALE)
+					if(gender == FEMALE && length(dna.species.female_grumble_sound))
 						playsound(src, pick(dna.species.female_grumble_sound), 70, 1, frequency = get_age_pitch())
-					else
+					else if(gender == MALE && length(dna.species.male_grumble_sound))
 						playsound(src, pick(dna.species.male_grumble_sound), 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
@@ -1131,14 +1131,13 @@
 
 		if("handshake")
 			m_type = 1
-			if(!restrained() && !r_hand)
+			if(!restrained())
 				var/mob/M = handle_emote_param(param, 1, 1, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves, only check mobs in our immediate vicinity (1 tile distance) and return the whole mob instead of just its name.
 
-				if(M)
-					if(M.canmove && !M.r_hand && !M.restrained())
-						message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку [M]."
-					else
-						message = "протягива[pluralize_ru(src.gender,"ет","ют")] руку [M]."
+				if(M && M.canmove && !M.restrained())
+					message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку [M]."
+				else
+					message = "пожима[pluralize_ru(src.gender,"ет","ют")] руку самому себе."
 
 		if("dap", "daps")
 			m_type = 1
