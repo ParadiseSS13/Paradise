@@ -1,4 +1,4 @@
-#define ARENA_SIZE 9
+#define ARENA_SIZE 3
 
 /obj/effect/proc_holder/spell/vampire/self/blood_swell
 	name = "Blood Swell (30)"
@@ -199,7 +199,6 @@
 	var/turf/the_middle_ground
 
 /obj/effect/proc_holder/spell/vampire/self/arena/cast(list/targets, mob/user)
-	message_admins("Dear god tell me this is working")
 	if(!targets)
 		return
 	enemy_targets = targets // In case we need to use it in another proc
