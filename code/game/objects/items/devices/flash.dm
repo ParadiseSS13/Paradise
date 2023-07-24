@@ -158,7 +158,7 @@
 	for(var/mob/living/carbon/M in oviewers(3, null))
 		flash_carbon(M, user, 6 SECONDS, 0)
 	for(var/obj/machinery/camera/C in view(3, user))
-		C.emp_act(2)
+		C.emp_act(EMP_LIGHT)
 		log_admin("[key_name(user)] EMPd a camera with a flash")
 		user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
 		add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
