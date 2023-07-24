@@ -17,6 +17,11 @@
 	density = FALSE
 	climbable = FALSE
 
+/obj/structure/railing/corner/cap //aestetic "end" for railing
+	icon_state = "railing_cap"
+	density = FALSE
+	climbable = FALSE
+
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
 	..()
 	add_fingerprint(user)
