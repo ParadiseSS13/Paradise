@@ -266,8 +266,9 @@
 			. += "."
 
 		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives flash/cham sec hud)."
-		if(objectives.len==0) // this is lying, it checks the mind instead of antag datum
-			. += "<br>Objectives are empty! <a href='?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
+		var/datum/antagonist/rev/revolting = has_antag_datum(/datum/antagonist/rev)
+		if(!length(revolting.objectives))
+			. += "<br>Objectives are empty! Unless theres no command, this is likely a bug, please report it! <a href='?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
 	else if(has_antag_datum(/datum/antagonist/rev))
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
 	else
@@ -827,8 +828,8 @@
 				var/datum/antagonist/rev/has_rev = has_antag_datum(/datum/antagonist/rev)
 				if(has_rev)
 					has_rev.promote()
-					log_admin("[key_name(usr)] has promoted [key_name(current)] from rev to headrev")
-					message_admins("[key_name(usr)] has promoted [key_name(current)] from rev to headrev")
+					log_admin("[key_name(usr)] has promoted [key_name(current)] from rev to headrev (auto-equipped flash/hud)")
+					message_admins("[key_name(usr)] has promoted [key_name(current)] from rev to headrev (auto-equipped flash/hud)")
 					edit_memory() // so it updates...
 					return
 

@@ -13,8 +13,7 @@
 
 /datum/antagonist/rev/head/on_cryo()
 	var/datum/team/revolution/revolting = get_team()
-	addtimer(CALLBACK(revolting, TYPE_PROC_REF(/datum/team/revolution, process_promotion)), 10 SECONDS) // let the headrev finish cryoing
-	// contra todo, test this
+	INVOKE_ASYNC(revolting, TYPE_PROC_REF(/datum/team/revolution, process_promotion), REVOLUTION_PROMOTION_AT_LEAST_ONE)
 
 /datum/antagonist/rev/head/greet()
 	to_chat(owner.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!</span>")

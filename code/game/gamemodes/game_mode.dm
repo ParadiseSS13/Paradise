@@ -248,7 +248,7 @@
 /datum/game_mode/proc/latespawn(mob)
 	if(rev_team)
 		rev_team.update_team_objectives()
-		rev_team.process_promotion()
+		rev_team.process_promotion(REVOLUTION_PROMOTION_OPTIONAL)
 
 
 /*

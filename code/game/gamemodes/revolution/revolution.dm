@@ -67,8 +67,6 @@
 		new_headrev.add_antag_datum(/datum/antagonist/rev/head)
 		rev_team.add_member(new_headrev)
 
-	modePlayer += head_revolutionaries
-
 	..()
 
 /datum/game_mode/revolution/Destroy(force, ...)
@@ -79,12 +77,9 @@
 	check_counter++
 	if(check_counter >= 5)
 		if(!finished)
-			check_heads()
+			rev_team.update_team_objectives()
 		check_counter = 0
 	return FALSE
-
-/datum/game_mode/revolution/proc/check_heads()
-	rev_team.update_team_objectives()
 
 /datum/game_mode/proc/get_rev_team()
 	if(!rev_team)
@@ -106,7 +101,7 @@
 /datum/game_mode/revolution/check_finished()
 	if(GLOB.configuration.gamemode.disable_certain_round_early_end)
 		if(finished)
-			SSshuttle.clearHostileEnvironment(src)
+			SSshuttle.clearHostileEnvironment(rev_team)
 			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 				SSshuttle.emergency.mode = SHUTTLE_DOCKED
 				SSshuttle.emergency.timer = world.time
@@ -114,8 +109,7 @@
 		return ..()
 	if(finished)
 		return TRUE
-	else
-		return ..()
+	return ..()
 
 ///////////////////////////////////////////////////
 //Deals with converting players to the revolution//
@@ -260,10 +254,7 @@
 				continue
 			loycount++
 
-	for(var/beepboop in GLOB.silicon_mob_list)
-		var/mob/living/silicon/X = beepboop
-		if(X.stat != DEAD)
-			loycount++
+	// we dont count silicons because well, they follow their laws, not the crew, and there is no easy way to tell if theyre subverted
 
 
 	var/dat = ""

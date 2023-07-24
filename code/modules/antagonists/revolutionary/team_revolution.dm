@@ -35,7 +35,6 @@
 	var/list/heads = SSticker.mode.get_all_heads() - get_targetted_head_minds()
 
 	for(var/datum/mind/head_mind in heads)
-		// add_objective(datum/objective/mutiny)
 		var/datum/objective/mutiny/rev_obj = new
 		rev_obj.target = head_mind
 		rev_obj.explanation_text = "Assassinate or exile [head_mind.name], the [head_mind.assigned_role]."
@@ -61,10 +60,12 @@
 	for(var/datum/objective/mutiny/objective in objectives)
 		if(!(objective.check_completion()))
 			return FALSE
+
+	SSshuttle.clearHostileEnvironment(src) // revs can take the shuttle too if they want
 	return TRUE
 
 /datum/team/revolution/proc/check_heads_victory()
-	for(var/datum/mind/rev_mind in head_revolutionaries())
+	for(var/datum/mind/rev_mind in SSticker.mode.head_revolutionaries)
 		if(!ishuman(rev_mind?.current))
 			continue
 		if(rev_mind.current.stat == DEAD)
@@ -77,15 +78,23 @@
 	SSshuttle.clearHostileEnvironment(src)
 	return TRUE
 
-/datum/team/revolution/proc/head_revolutionaries() // I eventually want to nuke SSticker.mode.head_revolutionaries/revolutionaries if possible
-	. = list()
-	for(var/datum/mind/M in members)
-		if(M.has_antag_datum(/datum/antagonist/rev/head))
-			. += M
+/**	Calculate how many headrevs are needed, given a certain amount of sec/heads.
+ * 		How many Headrevs given security + command (excluding the clamp)
+ * 									Security
+ *		  		0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16
+ *		 		------------------------------------------------------------------
+ *			0 | -3	-2	-2	-2	-1	-1	-1	0	0	0	1	1	1	2	2	2	3
+ *			1 | -2	-1	-1	-1	0	0	0	1	1	1	2	2	2	3	3	3	4
+ *			2 | -1	0	0	0	1	1	1	2	2	2	3	3	3	4	4	4	5
+ * Command	3 | 0	1	1	1	2	2	2	3	3	3	4	4	4	5	5	5	6
+ *			4 | 1	2	2	2	3	3	3	4	4	4	5	5	5	6	6	6	7
+ *			5 | 2	3	3	3	4	4	4	5	5	5	6	6	6	7	7	7	8
+ *			6 | 3	4	4	4	5	5	5	6	6	6	7	7	7	8	8	8	9
+ *			7 | 4	5	5	5	6	6	6	7	7	7	8	8	8	9	9	9	10
+ */
 
-// im not even sure what this is supposed to calculate, but it does something?
 /datum/team/revolution/proc/need_another_headrev(clamp_at = 0) // yes, zero. Not false.
-	var/head_revolutionaries = length(head_revolutionaries())
+	var/head_revolutionaries = length(SSticker.mode.head_revolutionaries)
 	var/heads = length(SSticker.mode.get_all_heads())
 	var/sec = length(SSticker.mode.get_all_sec())
 	if(head_revolutionaries >= max_headrevs)
@@ -93,25 +102,29 @@
 	var/sec_diminish = (8 - sec) / 3 // 2 seccies = 2, 5 seccies = 1, 8 seccies = 0
 
 	var/potential = round(heads - sec_diminish) // more sec, increases. more heads, increases
-	var/weighted_score = clamp(potential, clamp_at, max_headrevs)
+	var/how_many_more_headrevs = clamp(potential, clamp_at, head_revolutionaries - max_headrevs)
 
-	return weighted_score // some magic bullshit idk contra todo
+	return how_many_more_headrevs
 
+/datum/team/revolution/proc/process_promotion(promotion_type = REVOLUTION_PROMOTION_OPTIONAL)
+	if(!need_another_headrev(0) || promotion_type != REVOLUTION_PROMOTION_AT_LEAST_ONE || length(SSticker.mode.head_revolutionaries) > 1)
+		// We check the graph to see if we need a headrev
+		// If this is called from when a headrev is cryoing and, we must promote or the revolution will die
+		return
+	var/list/datum/mind/non_heads = members - SSticker.mode.head_revolutionaries
+	if(!length(non_heads))
+		return
+	for(var/datum/mind/khrushchev in shuffle_inplace(non_heads))
+		if(!is_viable_head(khrushchev))
+			continue
+		// shuffled so its random, we can just pick here and now
+		var/datum/antagonist/rev/rev = khrushchev.has_antag_datum(/datum/antagonist/rev)
+		rev.promote()
+		return // return is needed to break the loop, otherwise we'd get a helluva lot of headrevs
 
-/datum/team/revolution/proc/process_promotion()
-	var/list/head_revolutionaries = head_revolutionaries()
-	if(need_another_headrev(0))
-		var/list/datum/mind/non_heads = members - head_revolutionaries
-		if(!length(non_heads))
-			return
-		for(var/datum/mind/khrushchev in shuffle_inplace(non_heads))
-			if(!khrushchev.current || !khrushchev.current.client)
-				return
-			if(khrushchev.current.incapacitated() || HAS_TRAIT(khrushchev.current, TRAIT_HANDS_BLOCKED))
-				return
-			if(khrushchev.current.stat)
-				return
-			// shuffled so its random, we can just pick here and now
-			var/datum/antagonist/rev/rev = khrushchev.has_antag_datum(/datum/antagonist/rev)
-			rev.promote()
-			return // return is needed to break the loop, otherwise we'd get a helluva lot of headrevs
+/datum/team/revolution/proc/is_viable_head(datum/mind/rev_mind)
+	if(!rev_mind.current || !rev_mind.current.client)
+		return FALSE
+	if(rev_mind.current.incapacitated() || HAS_TRAIT(rev_mind.current, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	return TRUE

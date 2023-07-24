@@ -21,6 +21,11 @@
 				Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, \
 				and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</span>")
 
+/datum/antagonist/rev/farewell()
+	return
+
+/datum/antagonist/rev/announce_objectives()
+
 /datum/antagonist/rev/add_owner_to_gamemode()
 	SSticker.mode.revolutionaries |= owner
 

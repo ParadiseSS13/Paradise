@@ -893,7 +893,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!SSticker)
 		return
 
-	if(!check_rights(R_ADMIN)) // contra todo, test this verb
+	if(!check_rights(R_ADMIN))
 		return
 
 	var/alert = alert(usr, "Do you want to ALLOW or DENY shuttle calls?", "Toggle Deny Shuttle", "Allow", "Deny", "Cancel")
@@ -906,7 +906,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(!length(SSshuttle.hostile_environments))
 			to_chat(usr, "<span class='notice'>No hostile environments found, cleared for takeoff!</span>")
 			return
-		if(alert(usr, "[english_list(SSshuttle.hostile_environments)] are currently blocking the shuttle call, do you want to clear them?", "Toggle Deny Shuttle", "Yes", "No") == "Yes")
+		if(alert(usr, "[english_list(SSshuttle.hostile_environments)] is currently blocking the shuttle call, do you want to clear them?", "Toggle Deny Shuttle", "Yes", "No") == "Yes")
 			SSshuttle.hostile_environments.Cut()
 			var/log = "[key_name(src)] has cleared all hostile environments, allowing the shuttle to be called."
 			log_admin(log)

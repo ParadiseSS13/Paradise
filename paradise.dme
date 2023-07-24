@@ -87,6 +87,7 @@
 #include "code\__DEFINES\radiation_defines.dm"
 #include "code\__DEFINES\radio_defines.dm"
 #include "code\__DEFINES\reagents_defines.dm"
+#include "code\__DEFINES\revolution_defines.dm"
 #include "code\__DEFINES\role_preferences.dm"
 #include "code\__DEFINES\rolebans.dm"
 #include "code\__DEFINES\rust_g.dm"

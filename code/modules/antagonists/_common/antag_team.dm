@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		var/datum/antagonist/A = get_antag_datum_from_member(M)
 		A.objectives |= O
 	objectives |= O
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective_from_team)) // contra todo make sure this works
+	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective_from_team))
 
 /**
  * Remove a team objective from each member's matching antag datum.
@@ -90,7 +90,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		var/datum/antagonist/A = get_antag_datum_from_member(M)
 		A.objectives -= O
 	objectives -= O
-	qdel(O)
+	if(!QDELETED(O))
+		qdel(O)
 
 /**
  * Return an antag datum from a member which is linked with this team.
