@@ -208,7 +208,7 @@
  */
 /obj/structure/m_tray
 	name = "morgue tray"
-	desc = "Apply corpse before closing.
+	desc = "Apply corpse before closing."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue_tray"
 	density = TRUE
