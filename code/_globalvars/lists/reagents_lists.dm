@@ -66,4 +66,4 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"spidereggs", "heartworms", "bacon_grease", "histamine",
 							"fungalspores", "jagged_crystals", "salmonella",
 							"lavaland_extract", "stable_mutagen", "beer2", "curare",
-							"gluttonytoxin", "smoke", "smoke_powder", "foam"))
+							"gluttonytoxin", "smoke_powder", "foam"))
