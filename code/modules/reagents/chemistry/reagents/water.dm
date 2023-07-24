@@ -64,6 +64,9 @@
 	else
 		if(O.simulated)
 			O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+			var/obj/item/clothing/suit/space/hardsuit/H = O
+			if(istype(H) && H.helmet)
+				H.helmet.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
