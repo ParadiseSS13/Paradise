@@ -4,7 +4,9 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	new /datum/stack_recipe("catwalk tile", /obj/item/stack/tile/catwalk, 2, 4, 20),
 	null,
 	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("railing cap (left)", /obj/structure/railing/cap/normal, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("railing cap (right)", /obj/structure/railing/cap/reversed, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe_list("chainlink fence", list(
 		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),

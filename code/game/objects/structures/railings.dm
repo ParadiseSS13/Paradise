@@ -17,8 +17,18 @@
 	density = FALSE
 	climbable = FALSE
 
-/obj/structure/railing/corner/cap //aestetic "end" for railing
+/obj/structure/railing/cap //aestetic "end" for railing
 	icon_state = "railing_cap"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/cap/normal
+	icon_state = "railing_cap_normal"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/cap/reversed
+	icon_state = "railing_cap_reversed"
 	density = FALSE
 	climbable = FALSE
 
@@ -77,6 +87,15 @@
 	return TRUE
 
 /obj/structure/railing/corner/CheckExit()
+	return TRUE
+
+/obj/structure/railing/cap/CanPass()
+	return TRUE
+
+/obj/structure/railing/cap/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	return TRUE
+
+/obj/structure/railing/cap/CheckExit()
 	return TRUE
 
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target)
