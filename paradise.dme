@@ -1612,6 +1612,7 @@
 #include "code\modules\events\abductor_event.dm"
 #include "code\modules\events\alien_infestation.dm"
 #include "code\modules\events\anomaly_bluespace.dm"
+#include "code\modules\events\anomaly_cryo.dm"
 #include "code\modules\events\anomaly_event.dm"
 #include "code\modules\events\anomaly_flux.dm"
 #include "code\modules\events\anomaly_grav.dm"
