@@ -177,7 +177,7 @@
 /datum/game_mode/revolution/latespawn(mob/living/carbon/human/player)
 	..()
 	var/datum/mind/player_mind = player.mind
-	if(player_mind && (player_mind.assigned_role in GLOB.full_command_positions))
+	if(player_mind && (player_mind.assigned_role in GLOB.command_head_positions))
 		for(var/datum/mind/rev_mind in head_revolutionaries)
 			mark_for_death(rev_mind, player_mind)
 

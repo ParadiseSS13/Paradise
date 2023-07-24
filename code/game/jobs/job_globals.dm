@@ -17,7 +17,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 ))
 
 /// Only roles that are command of departments, for revolution and similar stuff
-GLOBAL_LIST_INIT(full_command_positions, list(
+GLOBAL_LIST_INIT(command_head_positions, list(
 	"Captain",
 	"Head of Personnel",
 	"Head of Security",
@@ -92,7 +92,7 @@ GLOBAL_LIST_INIT(security_positions, list(
 ))
 
 /// Active security roles
-GLOBAL_LIST_INIT(full_security_positions, list(
+GLOBAL_LIST_INIT(active_security_positions, list(
 	"Head of Security",
 	"Warden",
 	"Detective",
