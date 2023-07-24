@@ -400,8 +400,8 @@ Doesn't work on other aliens/AI.*/
 
 
 /mob/living/carbon/alien/humanoid/CtrlClick(mob/living/carbon/alien/humanoid/alien)
-	if(!istype(alien) || usr != alien)
-		return
+	if(!istype(alien) || src != alien)
+		return ..()
 
 	var/datum/action/innate/xeno_action/resin/resin = locate() in alien.actions
 	if(!resin)
