@@ -286,14 +286,8 @@
 ////////////////////////////
 /datum/game_mode/proc/get_all_heads()
 	. = list()
-<<<<<<< HEAD
-	for(var/mob/player in GLOB.human_list)
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
-		if(player.mind && (player.mind.assigned_role in real_command_positions))
-=======
 	for(var/mob/player in GLOB.mob_list)
 		if(player.mind && (player.mind.assigned_role in GLOB.command_head_positions))
->>>>>>> master
 			. |= player.mind
 
 //////////////////////////////////////////////
