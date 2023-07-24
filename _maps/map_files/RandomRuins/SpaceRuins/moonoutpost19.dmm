@@ -2878,7 +2878,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fC" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	desc = "A plastic potted plant.";
 	pixel_y = 3
 	},
@@ -4943,7 +4943,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "km" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	desc = "A plastic potted plant.";
 	pixel_y = 3
 	},

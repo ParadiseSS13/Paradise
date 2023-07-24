@@ -221,7 +221,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/bridge)
 "aF" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "aG" = (
@@ -774,7 +774,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "bZ" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -1166,7 +1166,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "cW" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -1216,7 +1216,7 @@
 	},
 /area/ruin/space/derelict/crew_quarters)
 "dd" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1691,7 +1691,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -2920,7 +2920,7 @@
 	},
 /area/ruin/space/derelict/solar_control)
 "ha" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -3012,7 +3012,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "hm" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "hn" = (
@@ -3814,7 +3814,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "jr" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -7149,7 +7149,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "rw" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},

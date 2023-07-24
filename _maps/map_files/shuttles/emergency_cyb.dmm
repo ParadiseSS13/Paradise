@@ -414,7 +414,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "br" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -432,7 +432,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "bx" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
@@ -544,14 +544,14 @@
 	},
 /area/shuttle/escape)
 "bJ" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bK" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -673,7 +673,7 @@
 	},
 /area/shuttle/escape)
 "cb" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "cc" = (

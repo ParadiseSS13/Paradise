@@ -143,7 +143,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "sd" = (
-/obj/item/twohanded/required/kirbyplants/dead,
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "vg" = (

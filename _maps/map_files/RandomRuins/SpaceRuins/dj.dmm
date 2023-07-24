@@ -419,7 +419,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
