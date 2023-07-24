@@ -16,7 +16,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	var/limit = SIBYL_NONLETHAL
 	var/emagged = FALSE
 
-	var/voice_is_enabled = TRUE
+	var/voice_is_enabled = FALSE
 	var/voice_cd = null
 
 	var/list/available = list()
