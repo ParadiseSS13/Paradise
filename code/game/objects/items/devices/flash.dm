@@ -145,7 +145,7 @@
 	if(!try_use_flash(user))
 		return
 	var/obj/machinery/camera/C = target
-	C.emp_act(1)
+	C.emp_act(EMP_HEAVY)
 	to_chat(user,"<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
 	log_admin("[key_name(user)] EMPd a camera with a flash")
 	user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
