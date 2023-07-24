@@ -20,7 +20,6 @@
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out foam!</span>")
 
 	var/datum/effect_system/foam_spread/s = new()
-	var/datum/reagent/R
 	s.set_up(created_volume, location, holder, 0)
 	s.start()
 	holder.clear_reagents()
