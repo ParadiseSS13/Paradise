@@ -89,13 +89,13 @@
 
 /obj/item/reagent_containers/food/pill/happy_psych
 	name = "mood stabilizer pill"
-	desc = "Used to temporarily alleviate anxiety and depression, take only as prescribed."
+	desc = "Used to temporarily alleviate anxiety and depression. Take only as prescribed."
 	icon_state = "pill_happy"
 	list_reagents = list("happiness" = 15, "mannitol" = 5)
 
 /obj/item/reagent_containers/food/pill/happy
 	name = "happy pill"
-	desc = "They have little happy faces on them, and they smell like marker pens."
+	desc = "They have little happy faces on them and smell like marker pens."
 	icon_state = "pill_happy"
 	list_reagents = list("space_drugs" = 15, "sugar" = 15)
 
