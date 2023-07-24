@@ -8,7 +8,7 @@
 
 /datum/chemical_reaction/explosion_potassium/on_reaction(datum/reagents/holder, created_volume)
 	var/datum/effect_system/reagents_explosion/e = new()
-	e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)
+	e.set_up(min(round(created_volume / 10, 1), 30), holder.my_atom, 0, 0)
 	e.start()
 	holder.clear_reagents()
 
@@ -389,3 +389,26 @@
 	result = "thermite"
 	required_reagents = list("aluminum" = 1, "iron" = 1, "oxygen" = 1)
 	result_amount = 3
+
+/datum/chemical_reaction/confetti
+	name = "Confetti"
+	id = "confetti"
+	result = "confetti"
+	required_reagents = list("cyanide" = 1, "colorful_reagent" = 1)
+	result_amount = 5
+	mix_message = "The mixture congeals into a dry powder."
+
+/datum/chemical_reaction/confetti/confettibomb
+	name = "confettibomb"
+	id = "confettibomb"
+	required_reagents = list("confetti" = 1)
+	min_temp = T0C + 300
+	result = null
+	mix_sound = 'sound/effects/confetti_partywhistle.ogg'
+	mix_message = "The powder starts vibrating quickly!"
+
+/datum/chemical_reaction/confetti/confettibomb/on_reaction(datum/reagents/holder, created_volume)
+	var/turf/T = get_turf(holder.my_atom)
+	var/confetti_size = CEILING(created_volume / 10, 1)
+	var/confetti_range = CEILING(confetti_size / 2, 1)
+	confettisize(T, confetti_size, confetti_range)

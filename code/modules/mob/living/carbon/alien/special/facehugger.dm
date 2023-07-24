@@ -147,7 +147,9 @@
 			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
 
 	GoIdle() //so it doesn't jump the people that tear it off
-
+	var/obj/structure/bed/nest/our_nest = M.buckled
+	if(istype(our_nest))
+		addtimer(CALLBACK(our_nest, TYPE_PROC_REF(/obj/structure/bed/nest, ghost_check)), 15 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(Impregnate), M), impregnation_time)
 	return TRUE
 

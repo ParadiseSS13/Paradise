@@ -89,7 +89,8 @@
 	if(isanimal(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes
 	add_fingerprint(user)
-	start_spike(victim, user)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure/kitchenspike, start_spike), victim, user)
+	return TRUE
 
 /obj/structure/kitchenspike/proc/start_spike(mob/living/victim, mob/user)
 	if(has_buckled_mobs())
