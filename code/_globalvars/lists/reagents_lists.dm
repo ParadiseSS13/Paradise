@@ -61,9 +61,9 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"syndicate_nanites", "ripping_tendrils", "boiling_oil",
 							"envenomed_filaments", "lexorin_jelly", "kinetic",
 							"cryogenic_liquid", "liquid_dark_matter", "b_sorium",
-							"reagent", "life","dragonsbreath", "nanocalcium",
+							"reagent", "dragonsbreath", "nanocalcium",
 							"xenomicrobes", "nanomachines", "gibbis", "prions",
-							"spidereggs", "heartworms", "bacon_grease", "histamine",
+							"spidereggs", "heartworms", "bacon_grease",
 							"fungalspores", "jagged_crystals", "salmonella",
 							"lavaland_extract", "stable_mutagen", "beer2", "curare",
 							"gluttonytoxin", "smoke_powder", "foam"))
