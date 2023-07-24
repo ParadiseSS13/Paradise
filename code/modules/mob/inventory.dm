@@ -111,10 +111,10 @@
 /**
  * Just another helper. Puts item in one of the hands if they are empty.
  */
-/mob/proc/put_in_any_hand_if_possible(obj/item/I, drop_on_fail = FALSE, qdel_on_fail = FALSE, disable_warning = TRUE)
-	if(equip_to_slot_if_possible(I, slot_l_hand, disable_warning = disable_warning))
+/mob/proc/put_in_any_hand_if_possible(obj/item/I, drop_on_fail = FALSE, qdel_on_fail = FALSE, ignore_anim = TRUE)
+	if(put_in_active_hand(I, ignore_anim = ignore_anim))
 		return TRUE
-	else if(equip_to_slot_if_possible(I, slot_l_hand, disable_warning = disable_warning))
+	else if(put_in_inactive_hand(I, ignore_anim = ignore_anim))
 		return TRUE
 
 	if(drop_on_fail)
