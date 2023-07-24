@@ -5,7 +5,7 @@
 	var/list/positions = list()
 	var/list/set_names = list(
 		"heads" = GLOB.command_positions,
-		"sec" = GLOB.security_positions,
+		"sec" = GLOB.full_security_positions.Copy(),
 		"eng" = GLOB.engineering_positions,
 		"med" = GLOB.medical_positions,
 		"sci" = GLOB.science_positions,
