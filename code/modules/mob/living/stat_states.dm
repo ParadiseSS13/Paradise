@@ -38,11 +38,11 @@
 // death() is used to make a mob die
 
 // handles revival through other means than cloning or adminbus (defib, IPC repair)
-/mob/living/proc/update_revive(updating = TRUE)
+/mob/living/proc/update_revive(updating = TRUE, force = FALSE)
 	if(stat != DEAD)
-		return 0
-	if(!can_be_revived())
-		return 0
+		return FALSE
+	if(!force && !can_be_revived())
+		return FALSE
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
 	stat = CONSCIOUS
 	GLOB.dead_mob_list -= src
@@ -70,7 +70,7 @@
 			var/obj/effect/proc_holder/spell/spell = S
 			spell.updateButtonIcon()
 
-	return 1
+	return TRUE
 
 /mob/living/proc/check_death_method()
 	return TRUE

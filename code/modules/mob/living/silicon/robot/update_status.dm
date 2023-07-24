@@ -33,7 +33,7 @@
 			add_misc_logs(src, "revived, trigger reason: [reason]")
 	..()
 
-/mob/living/silicon/robot/update_revive(updating = TRUE)
+/mob/living/silicon/robot/update_revive(updating = TRUE, defib_revive = FALSE)
 	. = ..(updating)
 	if(.)
 		update_icons()
