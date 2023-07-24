@@ -547,14 +547,26 @@
 	message = "шмыгает носом."
 	message_param = "шмыгает носом на %t."
 
-/datum/emote/living/carbon/human/snuffle
+/datum/keybinding/emote/carbon/human/snuffle
+	linked_emote = /datum/emote/living/carbon/human/snuffle
+	name = "Шмыгать носом"
+
+/datum/emote/living/carbon/human/hem
 	key = "hem"
 	key_third_person = "hems"
 	message = "хмыкает."
 	message_param = "хмыкает %t."
 
-/datum/emote/living/carbon/human/snuffle
+/datum/keybinding/emote/carbon/human/hem
+	linked_emote = /datum/emote/living/carbon/human/hem
+	name = "Хныкать"
+
+/datum/emote/living/carbon/human/scratch
 	key = "scratch"
 	key_third_person = "scratch"
 	message = "чешется."
 	message_param = "чешет %t."
+
+/datum/keybinding/emote/carbon/human/scratch
+	linked_emote = /datum/emote/living/carbon/human/scratch
+	name = "Чесаться"
