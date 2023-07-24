@@ -57,7 +57,7 @@
 	/datum/nothing = 20,
 	/obj/effect/decal/cleanable/blood/oil = 1)
 
-/obj/effect/spawner/random_spawners/oil_maybe
+/obj/effect/spawner/random_spawners/oil_often
 	name = "oil often"
 	icon_state = "oil"
 	result = list(
@@ -130,11 +130,18 @@
 	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/dirt = 1)
 
-/obj/effect/spawner/random_spawners/dirt_rare
-	name = "dirt rare"
+/obj/effect/spawner/random_spawners/dirt_often
+	name = "dirt often"
 	icon_state = "dirt"
 	result = list(
-	/datum/nothing = 10,
+	/datum/nothing = 5,
+	/obj/effect/decal/cleanable/dirt = 1)
+
+/obj/effect/spawner/random_spawners/dirt_maybe
+	name = "dirt maybe"
+	icon_state = "dirt"
+	result = list(
+	/datum/nothing = 7,
 	/obj/effect/decal/cleanable/dirt = 1)
 
 /obj/effect/spawner/random_spawners/fungus_maybe
@@ -308,7 +315,7 @@
 		/obj/item/ammo_box/magazine/m10mm/fire = 1,
 		/obj/item/ammo_box/magazine/m10mm/hp = 1,
 		/obj/item/storage/box/syndie_kit/emp = 1,
-		/obj/item/toy/carpplushie/dehy_carp = 1,
+		/obj/item/toy/plushie/carpplushie/dehy_carp = 1,
 		/obj/item/clothing/glasses/hud/security/chameleon = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
