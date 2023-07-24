@@ -334,6 +334,7 @@
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
 
+
 /obj/item/storage/backpack/satchel_detective
 	name = "forensic satchel"
 	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
@@ -754,3 +755,15 @@
 
 /obj/item/storage/backpack/guitarbag/with_guitar/populate_contents()
 	new /obj/item/instrument/guitar(src)
+
+/obj/item/storage/backpack/detective
+	name = "forensic backpack"
+	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
+	icon_state = "backpack_detective"
+	item_state = "backpack_detective"
+
+/obj/item/storage/backpack/duffel/detective
+	name = "forensic duffelbag"
+	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
+	icon_state = "duffel_detective"
+	item_state = "duffel_detective"

@@ -115,6 +115,22 @@
 		"Stok" = 'icons/mob/species/monkey/uniform.dmi'
 		)
 
+/obj/item/clothing/under/det/skirt
+	name = "hard-worn skirt"
+	item_color = "detective_skirt"
+
+/obj/item/clothing/under/det/alt_a
+	icon_state = "detective_suit"
+	item_color = "detectives_suit_grey"
+
+/obj/item/clothing/under/det/alt_a/skirt
+	name = "hard-worn skirt"
+	item_color = "detectives_skirt_grey"
+
+/obj/item/clothing/under/det/alt_b
+	icon_state = "detective_suit_alt"
+	item_color = "detective_suit_alt"
+
 /*
  * Head of Security
  */

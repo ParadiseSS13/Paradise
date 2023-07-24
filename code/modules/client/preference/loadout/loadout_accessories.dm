@@ -73,6 +73,11 @@
 	path = /obj/item/clothing/accessory/holobadge/cord
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot")
 
+/datum/gear/accessory/holobadge/detective
+	display_name = "holobadge, detective"
+	path = /obj/item/clothing/accessory/holobadge/detective
+	allowed_roles = list("Head of Security", "Detective")
+
 /datum/gear/accessory/tieblue
 	display_name = "tie, blue"
 	path = /obj/item/clothing/accessory/blue

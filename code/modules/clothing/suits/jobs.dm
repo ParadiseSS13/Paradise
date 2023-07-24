@@ -242,6 +242,13 @@
 		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/storage/det_suit/black
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi'
+		)
+	icon_state = "detective_black"
+
 //Forensics
 /obj/item/clothing/suit/storage/det_suit/forensics
 	name = "jacket"
@@ -261,6 +268,24 @@
 	desc = "A blue forensics technician jacket."
 	icon_state = "forensics_blue"
 
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser
+	name = "black jacket"
+	desc = "A black forensics technician jacket."
+	icon_state = "dec_blazer_black"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" =  'icons/mob/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser/brown
+	name = "brown jacket"
+	desc = "A brown forensics technician jacket."
+	icon_state = "dec_blazer_brown"
+
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser/grey
+	name = "grey jacket"
+	desc = "A grey forensics technician jacket."
+	icon_state = "dec_blazer_grey"
 //Blueshield
 /obj/item/clothing/suit/storage/blueshield
 	name = "blueshield coat"

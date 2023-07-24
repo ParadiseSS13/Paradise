@@ -129,6 +129,15 @@
 		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
+/obj/item/clothing/head/det_hat/black
+	icon_state = "detective_coolhat_black"
+
+/obj/item/clothing/head/det_hat/brown
+	icon_state = "detective_coolhat_brown"
+
+/obj/item/clothing/head/det_hat/grey
+	icon_state = "detective_coolhat_grey"
+
 //Mime
 /obj/item/clothing/head/beret
 	name = "beret"

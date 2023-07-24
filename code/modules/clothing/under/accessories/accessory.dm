@@ -289,6 +289,12 @@
 	icon_state = "holobadge-cord"
 	item_color = "holobadge-cord"
 
+/obj/item/clothing/accessory/holobadge/detective
+	name = "detective holobadge"
+	desc = "This glowing yellow badge marks the holder as THE DETECTIVE."
+	icon_state = "holobadge_dec"
+	item_color = "holobadge_dec"
+
 /obj/item/clothing/accessory/holobadge/attack_self(mob/user)
 	if(!stored_name)
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")

@@ -289,6 +289,8 @@
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
 	new /obj/item/storage/backpack/satchel_detective(src)
+	new /obj/item/storage/backpack/detective(src)
+	new /obj/item/storage/backpack/duffel/detective(src)
 	new /obj/item/clothing/gloves/color/black/forensics(src)
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/clipboard(src)
@@ -304,6 +306,7 @@
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/storage/belt/security/detective(src)
+	new /obj/item/clothing/accessory/holobadge/detective(src)
 	new /obj/item/storage/garmentbag/detective(src)
 
 /obj/structure/closet/secure_closet/detective/update_icon()
