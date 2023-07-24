@@ -278,15 +278,15 @@
 		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
 		return
 	if(used)
-		to_chat(user, "<span class='warning'>The injector is empty!</span>")
+		to_chat(user, "<span class='notice'>The injector is empty!</span>")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once.
 	var/choice = alert(user, "The injector is still unused. Do you wish to use it?", "Yes", "No")
 	if(choice == "No")
-		to_chat(user, "<span class='warning'>You decide against using [src].</span>")
+		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
 		used = FALSE
 		return
-	to_chat(user, "<span class='warning'>You inject yourself with the nanites!</span>")
+	to_chat(user, "<span class='notice'>You inject yourself with the nanites!</span>")
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, "fireproof_injector")
 
 /obj/item/batterer
