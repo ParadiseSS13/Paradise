@@ -22,8 +22,6 @@
 ///from base of mob/AltClickOn(): (atom/A)
 #define COMSIG_MOB_ALTCLICKON "mob_altclickon"
 	#define COMSIG_MOB_CANCEL_CLICKON (1<<0)
-///from base of mob/alt_click_on_secodary(): (atom/A)
-#define COMSIG_MOB_ALTCLICKON_SECONDARY "mob_altclickon_secondary"
 /// From base of /mob/living/simple_animal/bot/proc/bot_step()
 #define COMSIG_MOB_BOT_PRE_STEP "mob_bot_pre_step"
 	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
@@ -179,14 +177,10 @@
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"
 ///from base of obj/item/afterattack(): (atom/target, obj/item/weapon, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
-///from base of obj/item/afterattack_secondary(): (atom/target, obj/item/weapon, proximity_flag, click_parameters)
-#define COMSIG_MOB_ITEM_AFTERATTACK_SECONDARY "mob_item_afterattack_secondary"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_ATTACK_QDELETED "mob_item_attack_qdeleted"
 ///from base of mob/RangedAttack(): (atom/A, modifiers)
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
-///from base of mob/ranged_secondary_attack(): (atom/target, modifiers)
-#define COMSIG_MOB_ATTACK_RANGED_SECONDARY "mob_attack_ranged_secondary"
 ///From base of atom/ctrl_click(): (atom/A)
 #define COMSIG_MOB_CTRL_CLICKED "mob_ctrl_clicked"
 ///From base of mob/update_movespeed():area

@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		connected = null
 	if(clonemind)
 		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
-		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSFER_TO)
 	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
 	QDEL_LIST_CONTENTS(missing_organs)
@@ -293,7 +293,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		to_chat(clonemind.current, "<span class='notice'>Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete.</span>")
 		// Set up a soul link with the dead body to catch a revival
 		RegisterSignal(clonemind.current, COMSIG_LIVING_REVIVE, PROC_REF(occupant_got_revived))
-		RegisterSignal(clonemind, COMSIG_MIND_TRANSER_TO, PROC_REF(occupant_got_revived))
+		RegisterSignal(clonemind, COMSIG_MIND_TRANSFER_TO, PROC_REF(occupant_got_revived))
 
 	SSblackbox.record_feedback("tally", "players_revived", 1, "cloned")
 	update_icon()
@@ -480,7 +480,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
 		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
-		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSFER_TO)
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
 		update_clone_antag(occupant)
@@ -516,7 +516,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		connected_message("Critical Error!")
 		announce_radio_message("Critical error! Please contact a Thinktronic Systems technician, as your warranty may be affected.")
 		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
-		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSFER_TO)
 		if(!go_easy)
 			if(occupant.mind != clonemind)
 				clonemind.transfer_to(occupant)

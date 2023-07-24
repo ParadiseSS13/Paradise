@@ -3,7 +3,7 @@
 ///from base of datum/action/proc/Trigger(): (datum/action)
 // #define COMSIG_ACTION_TRIGGER "action_trigger"
 	// Return to block the trigger from occuring
-	#define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
+	// #define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
 /// From /datum/action/Grant(): (mob/grant_to)
 // #define COMSIG_ACTION_GRANTED "action_grant"
 /// From /datum/action/Grant(): (datum/action)
@@ -20,7 +20,7 @@
 /// From base of /datum/action/cooldown/proc/PreActivate(), sent to the action owner: (datum/action/cooldown/activated)
 // #define COMSIG_MOB_ABILITY_STARTED "mob_ability_base_started"
 	/// Return to block the ability from starting / activating
-	#define COMPONENT_BLOCK_ABILITY_START (1<<0)
+	// #define COMPONENT_BLOCK_ABILITY_START (1<<0)
 /// From base of /datum/action/cooldown/proc/PreActivate(), sent to the action owner: (datum/action/cooldown/finished)
 // #define COMSIG_MOB_ABILITY_FINISHED "mob_ability_base_finished"
 
