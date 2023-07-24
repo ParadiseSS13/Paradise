@@ -13,7 +13,6 @@
 	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
@@ -45,7 +44,7 @@
 	icon_state = "voxmask"
 	item_state = "voxmask"
 	permeability_coefficient = 0.01
-	species_restricted = list("Vox", "Vox Armalis") //These should fit the "Mega Vox" just fine.
+	species_restricted = list("Vox")
 	actions_types = list()
 
 /obj/item/clothing/mask/breath/vox/attack_self(mob/user)

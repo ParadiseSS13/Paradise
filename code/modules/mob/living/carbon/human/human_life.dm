@@ -896,13 +896,12 @@
 /mob/living/carbon/human/proc/undergoing_cardiac_arrest()
 	if(!can_heartattack())
 		return FALSE
+
 	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
-	if(istype(heart))
-		if(heart.status & ORGAN_DEAD)
-			return TRUE
-		if(heart.beating)
-			return FALSE
-	return TRUE
+	if(!istype(heart) || (heart.status & ORGAN_DEAD) || !heart.beating)
+		return TRUE
+
+	return FALSE
 
 /mob/living/carbon/human/proc/set_heartattack(status)
 	if(!can_heartattack())

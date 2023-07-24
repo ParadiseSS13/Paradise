@@ -10,7 +10,9 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Chief Engineer",
 	"Research Director",
 	"Chief Medical Officer",
-	"Nanotrasen Representative"
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Blueshield"
 ))
 
 
@@ -77,7 +79,8 @@ GLOBAL_LIST_INIT(security_positions, list(
 	"Warden",
 	"Detective",
 	"Security Officer",
-	"Magistrate"
+	"Magistrate",
+	"Blueshield"
 ))
 
 

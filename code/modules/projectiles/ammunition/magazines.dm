@@ -80,6 +80,12 @@
 	caliber = "cap"
 	max_ammo = 7
 
+/obj/item/ammo_box/magazine/internal/overgrown
+	name = "overgrown pistol magazine"
+	desc = "Oh god, this shouldn't be here"
+	ammo_type = /obj/item/ammo_casing/overgrown
+	max_ammo = 8
+
 // Shotgun internal mags
 /obj/item/ammo_box/magazine/internal/shot
 	name = "shotgun internal magazine"
