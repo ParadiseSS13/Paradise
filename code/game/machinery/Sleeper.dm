@@ -120,8 +120,9 @@
 
 			if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
 				occupant.transfer_blood_to(beaker, 1)
-				for(var/datum/reagent/x in occupant.reagents.reagent_list)
-					for(!var/datum/reagent/y in GLOB.blocked_chems)
+				var/datum/reagent/R
+				for(R in occupant.reagents.reagent_list)
+					for(!(R.id in GLOB.blocked_chems))
 						occupant.reagents.trans_to(beaker, 3)
 					occupant.transfer_blood_to(beaker, 1)
 
