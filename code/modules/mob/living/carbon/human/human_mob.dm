@@ -19,7 +19,7 @@
 
 	UpdateAppearance()
 	GLOB.human_list += src
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+	RegisterSignal(src, COMSIG_MIND_TRANSER_TO, PROC_REF(mind_checks))
 
 /**
   * Sets up DNA and species.
@@ -38,6 +38,16 @@
 	dna.ready_dna(src)
 	dna.real_name = real_name
 	sync_organ_dna()
+
+/**
+  * Handles any adjustments to the mob after a mind transfer.
+  */
+
+/mob/living/carbon/human/proc/mind_checks()
+	if(!mind)
+		return
+	if(mind.miming)
+		qdel(GetComponent(/datum/component/footstep))
 
 /**
   * Sets up other variables and components that may be needed for gameplay.
@@ -68,6 +78,7 @@
 	splinted_limbs.Cut()
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src
+	UnregisterSignal(src, COMSIG_MIND_TRANSER_TO)
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
