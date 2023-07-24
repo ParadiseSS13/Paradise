@@ -133,6 +133,7 @@
 
 /obj/item/mmi/robotic_brain/proc/transfer_personality(mob/candidate)
 	searching = FALSE
+	brainmob.revive() /// in case of death
 	brainmob.key = candidate.key
 	name = "[src] ([brainmob.name])"
 

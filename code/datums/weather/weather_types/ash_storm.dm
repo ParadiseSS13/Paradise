@@ -117,6 +117,8 @@
 			var/mob/living/simple_animal/borer/target = L
 			if(target.host?.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 				return TRUE
+		if (istype(L, /mob/living/silicon))
+			return TRUE /// Borgs are protected and so their brains
 		L = L.loc //Matryoshka check
 	return FALSE //RIP you
 
