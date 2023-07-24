@@ -403,15 +403,16 @@
 	if(cooldown > world.time || owner.suiciding) // don't heal while you're in cooldown!
 		return
 	if(reviving)
-		if(owner.health <= HEALTH_THRESHOLD_CRIT)
+		reviving = FALSE
+		if(owner.health <= HEALTH_THRESHOLD_CRIT + 10) //We do not want to leave them on the end of crit constantly.
 			addtimer(CALLBACK(src, PROC_REF(heal)), 30)
-		else
-			reviving = FALSE
-			if(owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //If they are no longer in crit, but have shock, and pass a 15% chance:
-				for(var/datum/disease/critical/shock/S in owner.viruses)
-					S.cure()
-					revive_cost += 150
-					to_chat(owner, "<span class='notice'>You feel better.</span>")
+			reviving = TRUE
+		if(owner.health > HEALTH_THRESHOLD_CRIT && owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //We do not do an else, as we need them to cure shock inside this magic zone of 10 damage
+			for(var/datum/disease/critical/shock/S in owner.viruses)
+				S.cure()
+				revive_cost += 150
+				to_chat(owner, "<span class='notice'>You feel better.</span>")
+		if(!reviving)
 			return
 	cooldown = revive_cost + world.time
 	revive_cost = 0
@@ -424,14 +425,14 @@
 		owner.adjustOxyLoss(-3)
 		revive_cost += 5
 	if(prob(75) && owner.getBruteLoss())
-		owner.adjustBruteLoss(-1)
-		revive_cost += 20
+		owner.adjustBruteLoss(-2)
+		revive_cost += 15
 	if(prob(75) && owner.getFireLoss())
-		owner.adjustFireLoss(-1)
-		revive_cost += 20
+		owner.adjustFireLoss(-2)
+		revive_cost += 15
 	if(prob(40) && owner.getToxLoss())
 		owner.adjustToxLoss(-1)
-		revive_cost += 50
+		revive_cost += 25
 
 
 /obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)
