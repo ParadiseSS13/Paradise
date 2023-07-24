@@ -133,7 +133,6 @@
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.
 //////////////////////////////////////////////////////////////////////////////
 /datum/game_mode/proc/remove_revolutionary(datum/mind/rev_mind, beingborged, activate_protection)
-	var/remove_head = FALSE
 	var/mob/revolutionary = rev_mind.current
 	var/remove_head = (beingborged && rev_mind.has_antag_datum(/datum/antagonist/rev/head))
 
@@ -150,7 +149,6 @@
 				"<span class='[class]'>[rev_mind.current] looks like [rev_mind.current.p_they()] just remembered [rev_mind.current.p_their()] real allegiance!</span>",
 				"<span class='[class]'>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel... the only thing you remember is the name of the one who brainwashed you...</span>")
 			rev_mind.current.Paralyse(10 SECONDS)
-		update_rev_icons_removed(rev_mind)
 		if(activate_protection && isliving(revolutionary))
 			var/mob/living/living_rev = revolutionary
 			living_rev.apply_status_effect(STATUS_EFFECT_REVOLUTION_PROTECT)

@@ -657,7 +657,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
  * 	where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
-	var/sec_positions = GLOB.security_positions - "Magistrate"
+	var/sec_positions = GLOB.active_security_positions
 	var/total = 0
 	var/active = 0
 	var/dead = 0
