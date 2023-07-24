@@ -133,9 +133,10 @@
 			step_towards(M,src)
 	for(var/obj/O in range(0, src))
 		if(!O.anchored && O.loc != src && O.move_resist < MOVE_FORCE_OVERPOWERING) // so it cannot throw the anomaly core or super big things
-			var/mob/living/target = locate() in view(4, src)
-			if(target && !target.stat)
-				O.throw_at(target, 5, 10, dodgeable = FALSE)
+			for(var/mob/living/target in view(4, src))
+				if(target && !target.stat && (get_dist(target, src) > 1 || prob(50))) //We don't want to always throw at the person that is in the anomaly, fuck up people around it.
+					O.throw_at(target, 5, 10, dodgeable = FALSE)
+					break
 	//anomaly quickly contracts then slowly expands it's ring
 	animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
 	animate(time = 14, transform = matrix())
@@ -160,6 +161,14 @@
 		A.throw_at(target, 5, 1)
 		boing = FALSE
 
+/obj/effect/anomaly/grav/detonate()
+	if(!drops_core)
+		return
+	var/turf/T = get_turf(src)
+	if(T && GLOB.gravity_generators["[T.z]"])
+		var/obj/machinery/gravity_generator/main/G = pick(GLOB.gravity_generators["[T.z]"])
+		G.set_broken() //Requires engineering to fix the gravity generator, as it gets overloaded by the anomaly.
+
 /////////////////////
 
 /obj/effect/anomaly/flux
@@ -178,13 +187,16 @@
 /obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
 	. = ..()
 	explosive = _explosive
+	if(explosive)
+		zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN
+		power = 15000
 
 /obj/effect/anomaly/flux/anomalyEffect()
 	..()
 	canshock = TRUE
 	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
-	if(explosive && prob(50)) //Let us not fuck up the sm that much
+	if(explosive) //Let us not fuck up the sm that much
 		tesla_zap(src, zap_range, power, zap_flags)
 
 
@@ -229,9 +241,9 @@
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
-	for(var/mob/living/M in range(3, src))
+	for(var/mob/living/M in range(4, src))
 		do_teleport(M, locate(M.x, M.y, M.z), 4)
-	for(var/obj/item/O in range (3, src))
+	for(var/obj/O in range (4, src))
 		if(!O.anchored && O.invisibility == 0 && prob(50))
 			do_teleport(O, locate(O.x, O.y, O.z), 6)
 
@@ -320,13 +332,13 @@
 			M.adjust_fire_stacks(4)
 			M.IgniteMob()
 
-	if(ticks < 5)
+	if(ticks < 4)
 		return
 	else
 		ticks = 0
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
+		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 20)
 
 /obj/effect/anomaly/pyro/detonate()
 	if(produces_slime)
@@ -365,16 +377,16 @@
 		qdel(src)
 		return
 
-	grav(rand(0, 3), rand(2, 3), 50, 25)
+	grav(rand(0, 3), rand(2, 3), 100, 30)
 
 	//Throwing stuff around!
-	for(var/obj/O in range(2, src))
+	for(var/obj/O in range(3, src))
 		if(O == src || O.loc == src)
 			return //DON'T DELETE YOURSELF OR YOUR CORE GOD DAMN
 		if(!O.anchored)
-			var/mob/living/target = locate() in view(4, src)
+			var/mob/living/target = locate() in view(5, src)
 			if(target && !target.stat)
-				O.throw_at(target, 7, 5)
+				O.throw_at(target, 7, 5, dodgeable = FALSE)
 		else
 			O.ex_act(EXPLODE_HEAVY)
 
@@ -400,6 +412,9 @@
 				step_towards(O, src)
 		for(var/mob/living/M in T.contents)
 			step_towards(M, src)
+			if(drops_core)
+				M.Weaken(3.5 SECONDS) //You ran into a black hole, you ride the pain train.
+			M.KnockDown(7 SECONDS)
 
 	//Damaging the turf
 	if(T && prob(turf_removal_chance))
