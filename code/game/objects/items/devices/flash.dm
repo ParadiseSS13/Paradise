@@ -140,15 +140,16 @@
 /obj/item/flash/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!proximity)
 		return
-	if(istype(target, /obj/machinery/camera))
-		if(!try_use_flash(user))
-			return
-		var/obj/machinery/camera/C = target
-		C.emp_act(1)
-		to_chat(user,"<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
-		log_admin("[key_name(user)] EMPd a camera with a flash")
-		user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
-		add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
+	if(!istype(target, /obj/machinery/camera))
+		return
+	if(!try_use_flash(user))
+		return
+	var/obj/machinery/camera/C = target
+	C.emp_act(1)
+	to_chat(user,"<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
+	log_admin("[key_name(user)] EMPd a camera with a flash")
+	user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
+	add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 
 
 /obj/item/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
