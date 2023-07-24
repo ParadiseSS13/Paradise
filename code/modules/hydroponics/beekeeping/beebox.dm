@@ -93,13 +93,12 @@
 
 /obj/structure/beebox/process()
 	if(queen_bee)
-		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST)
-			if(honeycombs.len < get_max_honeycomb())
-				bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
-				var/obj/item/reagent_containers/food/snacks/honeycomb/HC = new(src)
-				if(queen_bee.beegent)
-					HC.set_reagent(queen_bee.beegent.id)
-				honeycombs += HC
+		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST && honeycombs.len < get_max_honeycomb())
+			bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
+			var/obj/item/reagent_containers/food/snacks/honeycomb/HC = new(src)
+			if(queen_bee.beegent)
+				HC.set_reagent(queen_bee.beegent.id)
+			honeycombs += HC
 
 		if(bees.len < get_max_bees())
 			var/freebee = FALSE //a freebee, geddit?, hahaha HAHAHAHA
