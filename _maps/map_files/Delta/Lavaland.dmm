@@ -5396,7 +5396,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/item/toy/plushie/lizardplushie,
+/obj/item/toy/plushie/ashwalkerplushie,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "DR" = (

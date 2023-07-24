@@ -1133,6 +1133,46 @@
 	icon_state = "plushie_lizard"
 	item_state = "plushie_lizard"
 
+/obj/item/toy/plushie/ashwalkerplushie
+	name = "ash walker plushie"
+	desc = "Wild looking ash walker plush toy."
+	icon_state = "plushie_ashwalker1"
+	attack_verb = list("slashes", "tail whipped", "strikes")
+	var/cooldown = FALSE
+	var/ashwalkerbite = 'sound/effects/unathihiss.ogg'
+
+/obj/item/toy/plushie/ashwalkerplushie/New()
+	..()
+	if(prob(50))
+		icon_state = "plushie_ashwalker2"
+
+/obj/item/toy/plushie/ashwalkerplushie/attack(mob/M, mob/user)
+	switch(rand(1, 10))
+		if(1 to 6)
+			playsound(loc, ashwalkerbite, 40, 1)
+		if(7 to 10)
+			playsound(loc, pick('sound/voice/unathi/roar.ogg', 'sound/voice/unathi/roar2.ogg', 'sound/voice/unathi/roar3.ogg',	\
+								'sound/voice/unathi/threat.ogg', 'sound/voice/unathi/threat2.ogg', 'sound/voice/unathi/whip_short.ogg'), 40, 1)
+	return ..()
+
+/obj/item/toy/plushie/ashwalkerplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	switch(rand(1, 20))
+		if(1 to 12)
+			playsound(src, ashwalkerbite, 40, 1)
+			visible_message("<span class='danger'>Hsss!</span>")
+		if(13 to 19)
+			playsound(src, pick('sound/voice/unathi/roar.ogg', 'sound/voice/unathi/roar2.ogg', 'sound/voice/unathi/roar3.ogg',	\
+								'sound/voice/unathi/threat.ogg', 'sound/voice/unathi/threat2.ogg', 'sound/voice/unathi/whip.ogg'), 40, 1)
+			visible_message("<span class='danger'>RAAAAAWR!</span>")
+		if(20)
+			playsound(src, pick('sound/voice/unathi/rumble.ogg', 'sound/voice/unathi/rumble2.ogg'), 40, 1)
+			visible_message("<span class='notice'>Ash walker looks calm.</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
 /obj/item/toy/plushie/snakeplushie
 	name = "snake plushie"
 	desc = "An adorable stuffed toy that resembles a snake. Not to be mistaken for the real thing."
