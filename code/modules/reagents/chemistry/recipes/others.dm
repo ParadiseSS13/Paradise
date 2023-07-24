@@ -21,8 +21,6 @@
 
 	var/datum/effect_system/foam_spread/s = new()
 	var/datum/reagent/R
-	for(R in GLOB.blocked_chems)
-		holder.del_reagent(R.id)
 	s.set_up(created_volume, location, holder, 0)
 	s.start()
 	holder.clear_reagents()
