@@ -621,8 +621,8 @@
 "amK" = (
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "amV" = (
@@ -1778,11 +1778,11 @@
 /area/trader_station/sol)
 "aPL" = (
 /obj/machinery/door/poddoor/shutters/invincible{
+	density = 0;
+	dir = 2;
 	id_tag = "ert_vis_turret";
 	locked = 1;
-	opacity = 0;
-	density = 0;
-	dir = 2
+	opacity = 0
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
@@ -1986,10 +1986,10 @@
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/invincible{
+	density = 0;
 	id_tag = "ert_vis_turret";
 	locked = 1;
-	opacity = 0;
-	density = 0
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2162,9 +2162,9 @@
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/door_control{
 	id = "ert_enter_control";
+	name = "Shuttle control";
 	pixel_x = 5;
 	pixel_y = 8;
-	name = "Shuttle control";
 	req_access = list(114)
 	},
 /turf/simulated/floor/carpet/black,
@@ -4846,8 +4846,8 @@
 /area/vox_station)
 "cuu" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "cuy" = (
@@ -4947,8 +4947,8 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	req_access = list(104,109);
-	pixel_y = 2
+	pixel_y = 2;
+	req_access = list(104,109)
 	},
 /obj/machinery/suit_storage_unit/standard_unit/ertamber{
 	req_access = list(104,109)
@@ -6371,8 +6371,8 @@
 /obj/machinery/door_control{
 	id = "admin_ert_enter_2";
 	pixel_x = 24;
-	req_access = list(104,109,114);
-	pixel_y = 8
+	pixel_y = 8;
+	req_access = list(104,109,114)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6448,8 +6448,8 @@
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "dqG" = (
@@ -6505,10 +6505,10 @@
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/invincible{
+	density = 0;
 	id_tag = "ert_vis_turret";
 	locked = 1;
-	opacity = 0;
-	density = 0
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealt"
@@ -6781,8 +6781,8 @@
 /area/vox_station)
 "dyN" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "CC_GAMMA";
-	dir = 8
+	dir = 8;
+	id_tag = "CC_GAMMA"
 	},
 /obj/machinery/door/airlock/centcom{
 	name = "Gamma Armory";
@@ -7491,8 +7491,8 @@
 /area/centcom/evac)
 "dRV" = (
 /obj/item/toy/plushie/orange_fox/grump{
-	name = "savior grumpy fox";
-	desc = "Эта лиса и её друг однажды спасли станцию."
+	desc = "Эта лиса и её друг однажды спасли станцию.";
+	name = "savior grumpy fox"
 	},
 /turf/simulated/floor/holofloor/space,
 /area/centcom/specops)
@@ -9071,8 +9071,8 @@
 	color = "#ff9999";
 	id = "ERT_armory_lvl3";
 	name = "ERT Armory Level 3";
-	req_access = list(114);
-	pixel_x = 8
+	pixel_x = 8;
+	req_access = list(114)
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -9286,12 +9286,12 @@
 /area/syndicate_mothership)
 "ePq" = (
 /obj/machinery/vending/nta/ertarmory/green{
-	req_access = list(104,109);
-	dir = 4
+	dir = 4;
+	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "ePz" = (
@@ -9584,8 +9584,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "eWv" = (
@@ -10559,8 +10559,8 @@
 	req_access = list(114)
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "CC_BUDKA";
-	dir = 8
+	dir = 8;
+	id_tag = "CC_BUDKA"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12865,8 +12865,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "gDV" = (
@@ -13113,25 +13113,25 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "gMv" = (
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/poddoor/shutters/invincible{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	density = 0;
 	dir = 1;
 	id_tag = "ERT_armory_lvl1";
 	layer = 5;
+	locked = 1;
 	name = "Armory Level 1";
-	opacity = 0;
-	density = 0;
-	locked = 1
+	opacity = 0
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "gMB" = (
@@ -14794,8 +14794,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "hNd" = (
@@ -14964,8 +14964,8 @@
 "hSv" = (
 /obj/machinery/door_control{
 	id = "admin_armory";
-	pixel_y = 24;
 	pixel_x = 8;
+	pixel_y = 24;
 	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
@@ -15041,11 +15041,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/cargo)
-"hTP" = (
-/turf/space/transit{
-	icon_state = "speedspace_ns_1"
-	},
-/area/space)
 "hTU" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -15059,15 +15054,15 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	req_access = list(104,109);
-	pixel_y = 2
+	pixel_y = 2;
+	req_access = list(104,109)
 	},
 /obj/machinery/suit_storage_unit/standard_unit/ertamber{
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 6
+	dir = 6;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "hUI" = (
@@ -16101,8 +16096,8 @@
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "iAZ" = (
@@ -18430,8 +18425,8 @@
 /area/syndicate_mothership/control)
 "jJr" = (
 /obj/machinery/vending/nta/ertarmory/medical{
-	req_access = list(103,104,109);
-	dir = 4
+	dir = 4;
+	req_access = list(103,104,109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navyblue"
@@ -19210,8 +19205,8 @@
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "khv" = (
@@ -21999,10 +21994,10 @@
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/invincible{
+	density = 0;
 	id_tag = "ert_vis_turret";
 	locked = 1;
-	opacity = 0;
-	density = 0
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22062,8 +22057,8 @@
 /area/syndicate_mothership)
 "lwX" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "lxn" = (
@@ -22177,10 +22172,10 @@
 /obj/machinery/door_control{
 	id = "Admin_shuttle_access";
 	name = "Argos Shuttle Access";
+	pixel_x = -24;
 	pixel_y = -24;
 	req_access = list(114);
-	wires = 1;
-	pixel_x = -24
+	wires = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -22708,8 +22703,8 @@
 /area/shuttle/syndicate_sit)
 "lLN" = (
 /obj/machinery/vending/nta{
-	req_access = list(104,109);
-	dir = 4
+	dir = 4;
+	req_access = list(104,109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23397,8 +23392,8 @@
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "mdY" = (
@@ -24392,8 +24387,8 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	req_access = list(104,109);
-	pixel_y = 2
+	pixel_y = 2;
+	req_access = list(104,109)
 	},
 /obj/machinery/suit_storage_unit/standard_unit/ertamber{
 	req_access = list(104,109)
@@ -24413,10 +24408,10 @@
 /obj/machinery/door_control{
 	id = "Admin_shuttle_access";
 	name = "Argos Shuttle Access";
-	req_access = list(114);
-	wires = 1;
 	pixel_x = -24;
-	pixel_y = -8
+	pixel_y = -8;
+	req_access = list(114);
+	wires = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -24452,9 +24447,9 @@
 "mzH" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/door_control{
+	id = "senior_o_shutters";
 	req_access = list(114);
-	wires = 1;
-	id = "senior_o_shutters"
+	wires = 1
 	},
 /turf/simulated/floor/wood,
 /area/centcom/specops)
@@ -25249,9 +25244,9 @@
 "mPp" = (
 /obj/machinery/door_control{
 	id = "ert_vis_turret";
+	name = "ERT Turrets";
 	pixel_x = -10;
 	pixel_y = 8;
-	name = "ERT Turrets";
 	req_access = list(114)
 	},
 /turf/simulated/wall/indestructible/reinforced,
@@ -25343,9 +25338,9 @@
 	id = "CC_Armory_GYGAX";
 	name = "GYGAX";
 	pixel_x = -24;
+	pixel_y = -8;
 	req_access = list(114);
-	wires = 1;
-	pixel_y = -8
+	wires = 1
 	},
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/specops)
@@ -25617,12 +25612,12 @@
 	req_access = list(109)
 	},
 /obj/machinery/door/poddoor/impassable{
+	density = 0;
 	id_tag = "ert_enter_control";
-	req_access = list(114);
+	layer = 5;
 	locked = 1;
 	opacity = 0;
-	layer = 5;
-	density = 0
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -26104,8 +26099,8 @@
 	operation_req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "ncA" = (
@@ -26124,10 +26119,10 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control{
+	id = "ERT_director_office_shutters";
 	pixel_x = 32;
 	req_access = list(114);
-	wires = 1;
-	id = "ERT_director_office_shutters"
+	wires = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -27254,8 +27249,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "nBq" = (
@@ -27423,8 +27418,8 @@
 /area/centcom/bridge)
 "nDM" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "ert_vis_turret";
-	dir = 2
+	dir = 2;
+	id_tag = "ert_vis_turret"
 	},
 /obj/structure/window/full/reinforced{
 	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
@@ -28409,8 +28404,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "ocY" = (
@@ -30099,8 +30094,8 @@
 	layer = 2
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "ert_vis_turret";
-	dir = 2
+	dir = 2;
+	id_tag = "ert_vis_turret"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
@@ -30380,8 +30375,8 @@
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "oTM" = (
@@ -30652,17 +30647,17 @@
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/poddoor/shutters/invincible{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	density = 0;
 	dir = 1;
 	id_tag = "ERT_armory_lvl1";
 	layer = 5;
+	locked = 1;
 	name = "Armory Level 1";
-	opacity = 0;
-	density = 0;
-	locked = 1
+	opacity = 0
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "pcw" = (
@@ -31403,8 +31398,8 @@
 /area/space)
 "pwb" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "pwr" = (
@@ -32753,8 +32748,8 @@
 /obj/mecha/combat/marauder/loaded,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 5
+	dir = 5;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "qdI" = (
@@ -32775,10 +32770,10 @@
 /obj/machinery/door_control{
 	id = "CC_BSA";
 	name = "BSA room";
+	pixel_x = -24;
 	pixel_y = 24;
 	req_access = list(114);
-	wires = 1;
-	pixel_x = -24
+	wires = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -32998,8 +32993,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 9
+	dir = 9;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "qlp" = (
@@ -34907,8 +34902,8 @@
 /area/syndicate_mothership)
 "rey" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "reF" = (
@@ -35796,8 +35791,8 @@
 	frequency = 2000;
 	master_tag = "CC-OP4";
 	name = "CC-OP4-INT";
-	req_access = list(109);
-	pixel_y = 24
+	pixel_y = 24;
+	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -36158,8 +36153,8 @@
 /obj/mecha/combat/marauder/loaded,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "rHU" = (
@@ -36320,9 +36315,9 @@
 /obj/item/pen/multi/fountain,
 /obj/machinery/door_control{
 	id = "ert_vis_turret";
+	name = "Windows control";
 	pixel_x = -10;
 	pixel_y = 8;
-	name = "Windows control";
 	req_access = list(114)
 	},
 /obj/item/clothing/mask/cigarette/cigar/cohiba,
@@ -38067,8 +38062,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "sBs" = (
@@ -42407,8 +42402,8 @@
 /area/syndicate_mothership)
 "uxZ" = (
 /obj/item/toy/plushie/orange_cat{
-	name = "savior cat plushie";
-	desc = "Этот котик и его подруга однажды спасли станцию."
+	desc = "Этот котик и его подруга однажды спасли станцию.";
+	name = "savior cat plushie"
 	},
 /turf/simulated/floor/holofloor/space,
 /area/centcom/specops)
@@ -43278,8 +43273,8 @@
 	switchcount = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "uQK" = (
@@ -43452,8 +43447,8 @@
 /area/centcom/specops)
 "uTC" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "uUr" = (
@@ -44579,11 +44574,11 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "admin_armory";
-	req_access = list(114);
-	locked = 1;
 	density = 0;
-	opacity = 0
+	id_tag = "admin_armory";
+	locked = 1;
+	opacity = 0;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -45249,8 +45244,8 @@
 /area/syndicate_mothership/control)
 "vPx" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "vPy" = (
@@ -45406,8 +45401,8 @@
 /area/shuttle/escape)
 "vSX" = (
 /obj/structure/statue/diamond/ai2{
-	name = "statue of the malfuction AI core";
-	desc = "Этот злой ИИ чуть не уничтожил всю станцию, его имя говорило что-то про таяров ."
+	desc = "Этот злой ИИ чуть не уничтожил всю станцию, его имя говорило что-то про таяров .";
+	name = "statue of the malfuction AI core"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
@@ -45653,10 +45648,10 @@
 /obj/machinery/door_control{
 	id = "CC_BUDKA";
 	name = "Overwatch Cabinet";
-	req_access = list(114);
-	wires = 1;
+	pixel_x = -24;
 	pixel_y = 24;
-	pixel_x = -24
+	req_access = list(114);
+	wires = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -46448,8 +46443,8 @@
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "ERT_armory_lvl2";
 	dir = 8;
+	id_tag = "ERT_armory_lvl2";
 	name = "Armory Level 2"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -46794,10 +46789,10 @@
 "wAL" = (
 /obj/machinery/door_control{
 	id = "admin_armory";
-	pixel_y = 32;
+	name = "Armoury control";
 	pixel_x = 5;
-	req_access = list(104,109,114);
-	name = "Armoury control"
+	pixel_y = 32;
+	req_access = list(104,109,114)
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -48778,15 +48773,15 @@
 "xBe" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	req_access = list(104,109);
-	pixel_y = 2
+	pixel_y = 2;
+	req_access = list(104,109)
 	},
 /obj/machinery/suit_storage_unit/standard_unit/ertamber{
 	req_access = list(104,109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 10
+	dir = 10;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "xBl" = (
@@ -48880,8 +48875,8 @@
 	},
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "xDA" = (
@@ -48944,13 +48939,13 @@
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/poddoor/shutters/invincible{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	density = 0;
 	dir = 1;
 	id_tag = "ERT_armory_lvl1";
 	layer = 5;
+	locked = 1;
 	name = "Armory Level 1";
-	opacity = 0;
-	density = 0;
-	locked = 1
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -60297,7 +60292,7 @@ ymc
 mVX
 mVX
 mVX
-hTP
+mVX
 mVX
 mVX
 mVX
