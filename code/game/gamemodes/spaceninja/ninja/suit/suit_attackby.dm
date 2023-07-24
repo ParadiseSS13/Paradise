@@ -1,18 +1,4 @@
 /obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/ninja, params)
-	// Копипаст кода джетпаков в хардсьютах
-	if(istype(I, /obj/item/tank/jetpack/suit/ninja))
-		if(jetpack)
-			to_chat(ninja, "<span class='warning'>[src] already has a jetpack installed.</span>")
-			return
-		if(src == ninja.get_item_by_slot(slot_wear_suit)) //Make sure the player is not wearing the suit before applying the upgrade.
-			to_chat(ninja, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
-			return
-
-		if(ninja.drop_transfer_item_to_loc(I, src))
-			jetpack = I
-			to_chat(ninja, "<span class='notice'>You successfully install the jetpack into [src].</span>")
-			return
-
 	if(ninja!=affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
 		return ..()
 

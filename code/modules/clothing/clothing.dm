@@ -633,6 +633,64 @@ BLIND     // can't see anything
 	hide_tail_by_species = null
 	species_restricted = list("exclude", "Wryn", "lesser form")
 	faction_restricted = list("ashwalker")
+	var/obj/item/tank/jetpack/suit/jetpack = null
+
+
+/obj/item/clothing/suit/space/New()
+	if(jetpack && ispath(jetpack))
+		jetpack = new jetpack(src)
+	..()
+
+
+/obj/item/clothing/suit/space/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!jetpack)
+		to_chat(user, span_warning("[src] has no jetpack installed."))
+		return
+	if(src == user.get_item_by_slot(slot_wear_suit))
+		to_chat(user, span_warning("You cannot remove the jetpack from [src] while wearing it."))
+		return
+	jetpack.turn_off(user)
+	jetpack.forceMove(drop_location())
+	jetpack = null
+	to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
+
+
+/obj/item/clothing/suit/space/equipped(mob/user, slot, initial)
+	. = ..()
+
+	if(jetpack)
+		if(slot == slot_wear_suit)
+			for(var/X in jetpack.actions)
+				var/datum/action/A = X
+				A.Grant(user)
+
+
+/obj/item/clothing/suit/space/dropped(mob/user)
+	..()
+	if(jetpack)
+		for(var/X in jetpack.actions)
+			var/datum/action/A = X
+			A.Remove(user)
+
+
+/obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/tank/jetpack/suit))
+		if(jetpack)
+			to_chat(user, span_warning("[src] already has a jetpack installed."))
+			return
+		if(src == user.get_item_by_slot(slot_wear_suit)) //Make sure the player is not wearing the suit before applying the upgrade.
+			to_chat(user, span_warning("You cannot install the upgrade to [src] while wearing it."))
+			return
+
+		if(user.drop_transfer_item_to_loc(I, src))
+			jetpack = I
+			to_chat(user, span_notice("You successfully install the jetpack into [src]."))
+			return
+	return ..()
+
 
 // Under clothing
 /obj/item/clothing/under

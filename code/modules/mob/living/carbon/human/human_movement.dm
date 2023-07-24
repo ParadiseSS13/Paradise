@@ -13,13 +13,9 @@
 	if(istype(back, /obj/item/tank/jetpack))
 		jetpacks += back
 
-	var/obj/item/clothing/suit/space/hardsuit/H = wear_suit
-	if(istype(H) && H.jetpack)
-		jetpacks += H.jetpack
-
-	var/obj/item/clothing/suit/space/space_ninja/SN = wear_suit
-	if(istype(SN) && SN.jetpack)
-		jetpacks += SN.jetpack
+	var/obj/item/clothing/suit/space/space_suit = wear_suit
+	if(istype(space_suit) && space_suit.jetpack)
+		jetpacks += space_suit.jetpack
 
 	for(var/obj/item/tank/jetpack/jetpack in jetpacks)
 		if((movement_dir || jetpack.stabilizers) && jetpack.allow_thrust(0.01, src, should_leave_trail = movement_dir))

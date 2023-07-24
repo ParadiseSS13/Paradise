@@ -95,7 +95,7 @@
 	/// Купил ли ниндзя боевое исскуство?
 	var/ninja_martial = FALSE
 	/// Встроенный в костюм джетпак
-	var/obj/item/tank/jetpack/suit/jetpack = /obj/item/tank/jetpack/suit/ninja
+	jetpack = /obj/item/tank/jetpack/suit/ninja
 
 	/// UI stuff ///
 	/// Флаги отвечающие за то - показываем мы или нет интерфейс заряда и концентрации ниндзя
@@ -288,9 +288,6 @@
 	// Smoke Init
 	smoke_system = new
 	smoke_system.attach(src)
-	// Jetpack initialize
-	if(jetpack && ispath(jetpack))
-		jetpack = new jetpack(src)
 
 	if(!mapload)
 
@@ -336,35 +333,6 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-/obj/item/clothing/suit/space/space_ninja/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(!jetpack)
-		to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
-		return
-	if(src == user.get_item_by_slot(slot_wear_suit))
-		to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
-		return
-	jetpack.turn_off(user)
-	jetpack.forceMove(drop_location())
-	jetpack = null
-	to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
-
-/obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot, initial)
-	. = ..()
-	if(jetpack)
-		if(slot == slot_wear_suit)
-			for(var/X in jetpack.actions)
-				var/datum/action/A = X
-				A.Grant(user)
-
-/obj/item/clothing/suit/space/space_ninja/dropped(mob/user)
-	. = ..()
-	if(jetpack)
-		for(var/X in jetpack.actions)
-			var/datum/action/A = X
-			A.Remove(user)
 
 /obj/item/clothing/suit/space/space_ninja/proc/start()
 	if(!s_initialized)
