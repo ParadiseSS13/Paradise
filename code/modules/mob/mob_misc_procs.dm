@@ -358,13 +358,18 @@
 	while(counter>=1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(newletter in list(" ", "!", "?", ".", ","))
-			//do nothing
+			// Skip these
+			counter -= 1
+			continue
+
 		else if(lowertext(newletter) in list("a", "e", "i", "o", "u", "y"))
 			newletter = "ph"
+
 		else
 			newletter = "m"
-		newphrase+="[newletter]"
-		counter-=1
+
+		newphrase += "[newletter]"
+		counter -= 1
 	return newphrase
 
 /proc/muffledspeech_all(list/message_pieces)
