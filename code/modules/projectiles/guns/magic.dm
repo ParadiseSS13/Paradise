@@ -66,7 +66,7 @@
 
 /obj/item/gun/magic/process()
 	// Don't start recharging until we lose a charge
-	if (charges >= max_charges)
+	if(charges >= max_charges)
 		charge_tick = 0
 		return 0
 
