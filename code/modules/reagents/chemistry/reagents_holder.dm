@@ -947,8 +947,8 @@
 			var/R = thing.id
 			if(!(R in GLOB.blocked_chems))
 				random_reagents += R
-    var/picked_reagent = pick(random_reagents)
-    return picked_reagent
+	var/picked_reagent = pick(random_reagents)
+	return picked_reagent
 
 /datum/reagents/proc/get_reagent_from_id(id)
 	var/datum/reagent/result = null
