@@ -68,7 +68,7 @@
 	// Don't start recharging until we lose a charge
 	if(charges >= max_charges)
 		charge_tick = 0
-		return 0
+		return FALSE
 
 	charge_tick++
 	if(charge_tick >= recharge_rate)
