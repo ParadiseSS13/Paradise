@@ -48,4 +48,4 @@ if __name__ == '__main__':
         print(f'Illegal files are not allowed to be included in dme files.')
         sys.exit(1)
     else:
-        print(f'Found no .dme illegal files')
+        print(f'Found no illegal includes in main .dme.')
