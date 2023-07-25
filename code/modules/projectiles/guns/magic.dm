@@ -74,7 +74,7 @@
 	if(charge_tick >= recharge_rate)
 		charge_tick = 0
 		charges++
-		return 1
+		return TRUE
 	else
 		return 0
 
