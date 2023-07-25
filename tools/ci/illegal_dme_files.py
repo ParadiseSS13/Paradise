@@ -1,5 +1,5 @@
 # Naive search for illegal files. Has no semantic knowledge, just a lexical
-# search for #include directives against existing file paths.
+# search for specific endings in a .dme
 #
 # This is basically a slightly edited verison of unticked_files.py.
 # Look there for precise documentation on the methods used here.
