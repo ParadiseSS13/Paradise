@@ -76,7 +76,7 @@
 		charges++
 		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/item/gun/magic/update_icon_state()
 	return
