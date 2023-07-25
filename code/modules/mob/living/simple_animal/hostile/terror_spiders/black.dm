@@ -36,7 +36,7 @@
 	var/inject_target = pick("chest", "head")
 	L.adjustStaminaLoss(30)
 	L.attack_animal(src)
-	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE) || do_mob(src, L, 5 SECONDS))
+	if(L.can_inject(null, FALSE, inject_target, FALSE) || HAS_TRAIT(L, TRAIT_HANDS_BLOCKED) && HAS_TRAIT(L, TRAIT_IMMOBILIZED))
 		L.reagents.add_reagent("terror_black_toxin", 30) // inject our special poison
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else

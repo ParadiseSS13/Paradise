@@ -41,7 +41,7 @@
 	L.attack_animal(src)
 	L.KnockDown(10 SECONDS)
 	L.adjustStaminaLoss(30)
-	if(L.IsStunned() || L.IsParalyzed() || L.can_inject(null, FALSE, inject_target, FALSE) || do_mob(src, L, 5 SECONDS))
+	if(L.can_inject(null, FALSE, inject_target, FALSE) || (HAS_TRAIT(L, TRAIT_HANDS_BLOCKED) && HAS_TRAIT(L, TRAIT_IMMOBILIZED)))
 		if(!IsTSInfected(L) && ishuman(L))
 			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
 			new /obj/item/organ/internal/body_egg/terror_eggs(L)
