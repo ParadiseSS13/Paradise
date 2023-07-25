@@ -198,3 +198,13 @@
   - bugfix: MMIs dying to ash storms and robotic brains not reviving after death (#3196)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#3200)
+'2023-07-25':
+  Daeberdir:
+  - bugfix: Restore two inventory icon updates for Smoking Pipe and Shoes procs. Correcting
+      Jackboots icons. (#3226)
+  Dimach:
+  - bugfix: bsg sprites fix (#3225)
+  Zwei:
+  - refactor: Antag Datums (#3157)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3227)
