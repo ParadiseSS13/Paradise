@@ -871,6 +871,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		forceMove(T)
 
 /obj/item/organ/external/proc/add_embedded_object(obj/item/I)
+	owner.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
 	embedded_objects += I
 	I.forceMove(owner)
 	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(remove_embedded_object))
