@@ -2201,7 +2201,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	visible_message("<span class='danger'>[src] fires [held_gun][isturf(possible_target) ? "" : " towards [possible_target]!"]</span>")
 
 /mob/living/carbon/human/proc/dchat_step(dir)
-	if(grabbed_by)
+	if(length(grabbed_by))
 		resist_grab()
 	step(src, dir)
 
