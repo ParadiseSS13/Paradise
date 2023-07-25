@@ -945,7 +945,7 @@
 	if(!length(random_reagents))
 		var/datum/reagent/R
 		for(R in subtypesof(/datum/reagent))
-			if(R.id in GLOB.blocked_chems)
+			if(initial(R.id) in GLOB.blocked_chems)
 				continue
 			random_reagents += R.id
 	var/picked_reagent = pick(random_reagents)

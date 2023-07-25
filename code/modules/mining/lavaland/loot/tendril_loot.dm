@@ -93,22 +93,7 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
 
-//Potion of Flight: as we do not have the "Angel" species this currently does not work.
-
-/obj/item/reagent_containers/glass/bottle/potion
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "potionflask"
-
-/obj/item/reagent_containers/glass/bottle/potion/flight
-	name = "strange elixir"
-	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
-	list_reagents = list("flightpotion" = 5)
-
-/obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
-	if(reagents.total_volume)
-		icon_state = "potionflask"
-	else
-		icon_state = "potionflask_empty"
+//Jacob's ladder
 
 /obj/item/jacobs_ladder
 	name = "jacob's ladder"
