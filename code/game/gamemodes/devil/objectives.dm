@@ -1,6 +1,7 @@
 /datum/objective/devil
 
 /datum/objective/devil/soulquantity
+	needs_target = FALSE
 	explanation_text = "You shouldn't see this text.  Error:DEVIL1"
 	target_amount = 4
 
@@ -25,6 +26,7 @@
 
 
 /datum/objective/devil/soulquality
+	needs_target = FALSE
 	explanation_text = "You shouldn't see this text.  Error:DEVIL2"
 	var/contractType
 	var/contractName
@@ -61,6 +63,7 @@
 
 
 /datum/objective/devil/sintouch
+	needs_target = FALSE
 	explanation_text = "You shouldn't see this text.  Error:DEVIL3"
 
 /datum/objective/devil/sintouch/New()

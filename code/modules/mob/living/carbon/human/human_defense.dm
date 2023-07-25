@@ -467,8 +467,9 @@ emp_act
 
 	apply_damage(I.force * weakness, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
-	if(mind && user?.mind?.objectives)
-		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+	var/all_objectives = user?.mind?.get_all_objectives()
+	if(mind && all_objectives)
+		for(var/datum/objective/pain_hunter/objective in all_objectives)
 			if(mind == objective.target)
 				objective.take_damage(I.force * weakness, I.damtype)
 

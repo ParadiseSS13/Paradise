@@ -39,6 +39,15 @@
 
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
+/// Rapid burn/brute/oxy/blood healing from the changeling ability
+#define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend
+
+/// Handles changeling speed boost and chemical cost.
+#define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs
+
+/// Handles changeling anatomic panacea ability effects.
+#define STATUS_EFFECT_PANACEA /datum/status_effect/panacea
+
 /////////////
 // DEBUFFS //
 /////////////

@@ -50,7 +50,7 @@
 	team_names[team_number] = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
 	//Team Objective
 	var/datum/objective/experiment/team_objective = new
-	team_objective.team = team_number
+	team_objective.abductor_team_number = team_number
 	team_objectives[team_number] = team_objective
 	//Team Members
 
@@ -231,8 +231,10 @@
 
 // OBJECTIVES
 /datum/objective/experiment
+	needs_target = FALSE
 	target_amount = 6
-	var/team
+	/// Which abductor team number does this belong to.
+	var/abductor_team_number
 
 /datum/objective/stay_hidden
 
@@ -244,23 +246,26 @@
 /datum/objective/experiment/New()
 	explanation_text = "Experiment on [target_amount] humans."
 
+
 /datum/objective/experiment/check_completion()
-	var/ab_team = team
-	if(owner)
-		if(!owner.current || !ishuman(owner.current))
+	var/ab_team = abductor_team_number
+	for(var/datum/mind/player in get_owners())
+		if(!player.current || !ishuman(player.current) || !isabductor(player.current))
 			return FALSE
-		var/mob/living/carbon/human/H = owner.current
-		if(!isabductor(H))
-			return FALSE
-		var/datum/species/abductor/S = H.dna.species
-		ab_team = S.team
-	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
-		if(E.team == ab_team)
-			if(E.points >= target_amount)
+
+		var/mob/living/carbon/human/human_owner = player.current
+		var/datum/species/abductor/abductor = human_owner.dna.species
+		ab_team = abductor.team
+
+	for(var/obj/machinery/abductor/experiment/experiment in GLOB.machines)
+		if(experiment.team == ab_team)
+			if(experiment.points >= target_amount)
 				return TRUE
 			else
 				return FALSE
+
 	return FALSE
+
 
 /datum/game_mode/proc/remove_abductor(datum/mind/abductor_mind)
 	if(abductor_mind in abductors)

@@ -374,11 +374,13 @@
 		eat.owner = mind
 		eat.explanation_text = "Eat as many living beings as possible to still the hunger within you."
 		eat.completed = TRUE
+		eat.needs_target = FALSE
 		mind.objectives += eat
 		var/datum/objective/procreate = new /datum/objective
 		procreate.owner = mind
 		procreate.explanation_text = "Split yourself in as many other [name]'s as possible!"
 		procreate.completed = TRUE
+		procreate.needs_target = FALSE
 		mind.objectives += procreate
 		mind.announce_objectives()
 

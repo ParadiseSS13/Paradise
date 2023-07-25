@@ -329,12 +329,11 @@
 
 		if(slot_handcuffed)
 			handcuffed = I
-			update_handcuffed()
+			update_handcuffed_status()
 
 		if(slot_legcuffed)
 			legcuffed = I
-			update_inv_legcuffed()
-			toggle_move_intent()
+			update_legcuffed_status()
 
 		if(slot_l_hand)
 			l_hand = I

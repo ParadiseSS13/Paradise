@@ -71,10 +71,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOODCRAWL		"bloodcrawl"
 #define TRAIT_BLOODCRAWL_EAT	"bloodcrawl_eat"
 #define TRAIT_JESTER			"jester"
+#define TRAIT_ELITE_CHALLENGER 	"elite_challenger"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
-#define TRAIT_ELITE_CHALLENGER	"elite_challenger"
 #define TRAIT_SECDEATH			"secdeath"
+#define TRAIT_AI_UNTRACKABLE	"AI_untrackable"
+#define TRAIT_FAKEDEATH			"fakedeath" //Makes the owner appear as dead to most forms of medical examination
+#define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
+#define TRAIT_GOTTAGOFAST		"gottagofast"
+#define TRAIT_GOTTAGONOTSOFAST	"gottagonotsofast"
 
 //item traits
 #define TRAIT_CMAGGED "cmagged"
@@ -87,10 +92,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //
 // common trait sources
+#define TRAIT_GENERIC "generic"
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
 #define CULT_TRAIT "cult"
-#define CLOCK_TRAIT "clockwork cult"
+#define CLOCK_TRAIT "clockwork_cult"
 #define INNATE_TRAIT "innate"
+#define CHANGELING_TRAIT "changeling"
 #define EAR_DAMAGE "ear_damage"
 
 // unique trait sources

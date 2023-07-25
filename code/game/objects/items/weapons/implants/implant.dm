@@ -24,11 +24,17 @@
 	activate("action_button")
 
 
-//What does the implant do upon injection?
-//return 1 if the implant injects
-//return -1 if the implant fails to inject
-//return 0 if there is no room for implant
-/obj/item/implant/proc/implant(var/mob/source, var/mob/user)
+/**
+ * Try to implant ourselves into a mob.
+ *
+ * * source - The person the implant is being administered to.
+ * * user - The person who is doing the implanting.
+ *
+ * Returns
+ * 	`TRUE` if the implant injects successfully
+ *  `FALSE` if the implant fails to inject
+ */
+/obj/item/implant/proc/implant(mob/source, mob/user)
 	var/obj/item/implant/imp_e = locate(src.type) in source
 	if(!allow_multiple && imp_e && imp_e != src)
 		if(imp_e.uses < initial(imp_e.uses)*2)
@@ -37,14 +43,13 @@
 			else
 				imp_e.uses = min(imp_e.uses + uses, initial(imp_e.uses)*2)
 			qdel(src)
-			return 1
+			return TRUE
 		else
-			return 0
-
+			return FALSE
 
 	src.loc = source
 	imp_in = source
-	implanted = 1
+	implanted = TRUE
 	if(activated)
 		for(var/X in actions)
 			var/datum/action/A = X
@@ -56,12 +61,13 @@
 	if(user)
 		add_attack_logs(user, source, "Implanted with [src]")
 
-	return 1
+	return TRUE
 
-/obj/item/implant/proc/removed(var/mob/source)
-	src.loc = null
+
+/obj/item/implant/proc/removed(mob/source)
+	loc = null
 	imp_in = null
-	implanted = 0
+	implanted = FALSE
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -71,7 +77,8 @@
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
 
-	return 1
+	return TRUE
+
 
 /obj/item/implant/Destroy()
 	if(imp_in)

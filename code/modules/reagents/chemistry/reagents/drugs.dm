@@ -383,6 +383,11 @@
 	heart_rate_increase = 1
 	taste_description = "speed"
 
+
+/datum/reagent/methamphetamine/on_mob_add(mob/living/L)
+	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+
+
 /datum/reagent/methamphetamine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(5))
@@ -395,13 +400,12 @@
 	M.AdjustWeakened(-4 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-7, FALSE)
 	M.SetSleeping(0)
-	M.status_flags |= GOTTAGOFAST
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	..()
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
@@ -877,6 +881,11 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "wiper fluid"
 
+
+/datum/reagent/lube/ultra/on_mob_add(mob/living/L)
+	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+
+
 /datum/reagent/lube/ultra/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
@@ -889,7 +898,6 @@
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-7, FALSE)
-	M.status_flags |= GOTTAGOFAST
 	M.Jitter(6 SECONDS)
 	update_flags |= M.adjustBrainLoss(0.5, FALSE)
 	if(prob(5))
@@ -897,7 +905,7 @@
 	return ..() | update_flags
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	..()
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)

@@ -190,7 +190,7 @@
 
 
 	var/appears_dead = FALSE
-	if(stat == DEAD || (status_flags & FAKEDEATH))
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		appears_dead = TRUE
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
@@ -345,7 +345,7 @@
 				else if(!client)
 					msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
 
-		if(digitalcamo)
+		if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 			msg += "[p_they(TRUE)] [p_are()] moving [p_their()] body in an unnatural and blatantly inhuman manner.\n"
 
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))

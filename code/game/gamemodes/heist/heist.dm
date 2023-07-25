@@ -254,7 +254,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		var/text = "<FONT size = 2><B>The Vox raiders were:</B></FONT>"
 
 		for(var/datum/mind/vox in raiders)
-			text += "<br>[vox.key] was [vox.name] ("
+			text += "<br>[vox.get_display_key()] was [vox.name] ("
 			if(check_return)
 				var/obj/stack = raiders[vox]
 				if(get_area(stack.loc) != locate(/area/shuttle/vox))

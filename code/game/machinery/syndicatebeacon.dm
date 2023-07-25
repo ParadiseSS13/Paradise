@@ -73,6 +73,7 @@
 					objective = "Make certain at least 80% of the station evacuates on the shuttle."
 
 			var/datum/objective/custom_objective = new(objective)
+			custom_objective.needs_target = FALSE
 			custom_objective.owner = N.mind
 			N.mind.objectives += custom_objective
 			var/datum/objective/escape/escape_objective = new

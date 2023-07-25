@@ -29,7 +29,7 @@
 	space_ninja.assigned_role = SPECIAL_ROLE_SPACE_NINJA //So they aren't chosen for other jobs.
 	space_ninja.special_role = SPECIAL_ROLE_SPACE_NINJA
 	space_ninja.offstation_role = TRUE //ninja can't be targeted as a victim for some pity traitors
-	space_ninja.original = space_ninja.current
+	space_ninja.set_original_mob(space_ninja.current)
 	if(!length(GLOB.ninjastart))
 		to_chat(space_ninja.current, span_danger("A starting location for you could not be found, please report this bug!"))
 		return FALSE
@@ -265,10 +265,10 @@
 					var/datum/objective/steal/steal_objective = new
 					steal_objective.owner = ninja_mind
 					steal_objective.find_target()
-					if("[steal_objective.steal_target]" in ninja_datum.assigned_targets)
+					if("[steal_objective.steal_target.name]" in ninja_datum.assigned_targets)
 						steal_objective.find_target()
 					else if(steal_objective.steal_target)
-						ninja_datum.assigned_targets.Add("[steal_objective.steal_target]")
+						ninja_datum.assigned_targets.Add("[steal_objective.steal_target.name]")
 					ninja_mind.objectives += steal_objective
 
 	//Выжить//
@@ -328,10 +328,10 @@
 		var/datum/objective/steal/steal_objective = new
 		steal_objective.owner = ninja_mind
 		steal_objective.find_target()
-		if("[steal_objective.steal_target]" in ninja_datum.assigned_targets)
+		if("[steal_objective.steal_target.name]" in ninja_datum.assigned_targets)
 			steal_objective.find_target()
 		else if(steal_objective.steal_target)
-			ninja_datum.assigned_targets.Add("[steal_objective.steal_target]")
+			ninja_datum.assigned_targets.Add("[steal_objective.steal_target.name]")
 		ninja_mind.objectives += steal_objective
 
 	//Нанесение увечий. Цели не будет если target совпадает с прошлыми.
@@ -404,10 +404,10 @@
 	var/datum/objective/steal/steal_objective = new
 	steal_objective.owner = ninja_mind
 	steal_objective.find_target()
-	if("[steal_objective.steal_target]" in ninja_datum.assigned_targets)
+	if("[steal_objective.steal_target.name]" in ninja_datum.assigned_targets)
 		steal_objective.find_target()
 	else if(steal_objective.steal_target)
-		ninja_datum.assigned_targets.Add("[steal_objective.steal_target]")
+		ninja_datum.assigned_targets.Add("[steal_objective.steal_target.name]")
 	ninja_mind.objectives += steal_objective
 
 	//Банальное убийство
@@ -551,7 +551,7 @@
 
 		for(var/datum/mind/ninja in space_ninjas)
 
-			text += "<br><b>[ninja.key]</b> был <b>[ninja.name]</b> ("
+			text += "<br><b>[ninja.get_display_key()]</b> был <b>[ninja.name]</b> ("
 			if(ninja.current)
 				if(ninja.current.stat == DEAD)
 					text += "Умер"

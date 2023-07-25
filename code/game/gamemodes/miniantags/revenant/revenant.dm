@@ -307,26 +307,37 @@
 	else
 		icon_state = icon_idle
 
+
 /datum/objective/revenant
+	needs_target = FALSE
 	var/targetAmount = 100
+
 
 /datum/objective/revenant/New()
 	targetAmount = rand(350,600)
 	explanation_text = "Absorb [targetAmount] points of essence from humans."
 	..()
 
+
 /datum/objective/revenant/check_completion()
-	if(!owner || !istype(owner.current, /mob/living/simple_animal/revenant))
-		return 0
-	var/mob/living/simple_animal/revenant/R = owner.current
-	if(!R || R.stat == DEAD)
-		return 0
-	var/essence_stolen  = R.essence_accumulated
-	if(essence_stolen  < targetAmount)
-		return 0
-	return 1
+	var/total_essence = 0
+
+	for(var/datum/mind/player in get_owners())
+		if(!istype(player.current, /mob/living/simple_animal/revenant) || QDELETED(player.current))
+			continue
+
+		var/mob/living/simple_animal/revenant/revenant = player.current
+		total_essence += revenant.essence_accumulated
+
+	if(total_essence < targetAmount)
+		return FALSE
+
+	return TRUE
+
 
 /datum/objective/revenantFluff
+	needs_target = FALSE
+
 
 /datum/objective/revenantFluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
@@ -346,8 +357,9 @@
 	explanation_text = pick(explanationTexts)
 	..()
 
+
 /datum/objective/revenantFluff/check_completion()
-	return 1
+	return TRUE
 
 
 /obj/item/ectoplasm/revenant

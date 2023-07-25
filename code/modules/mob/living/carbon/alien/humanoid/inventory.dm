@@ -57,12 +57,11 @@
 
 		if(slot_handcuffed)
 			handcuffed = I
-			update_handcuffed()
+			update_handcuffed_status()
 
 		if(slot_legcuffed)
 			legcuffed = I
-			update_inv_legcuffed()
-			toggle_move_intent()
+			update_legcuffed_status()
 
 
 /mob/living/carbon/alien/humanoid/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)

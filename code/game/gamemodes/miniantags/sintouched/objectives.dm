@@ -1,5 +1,6 @@
 /datum/objective/sintouched
-	completed = 1
+	completed = TRUE
+	needs_target = FALSE
 
 /*  NO ERP OBJECTIVE FOR YOU.
 /datum/objective/sintouched/lust

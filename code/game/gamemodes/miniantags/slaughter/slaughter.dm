@@ -325,23 +325,30 @@
 
 //Objective info, Based on Reverent mini Atang
 /datum/objective/slaughter
+	needs_target = FALSE
 	var/targetKill = 10
+
 
 /datum/objective/slaughter/New()
 	targetKill = rand(10,20)
 	explanation_text = "Devour [targetKill] mortals."
 	..()
 
+
 /datum/objective/slaughter/check_completion()
-	if(!istype(owner.current, /mob/living/simple_animal/slaughter) || !owner.current)
-		return 0
-	var/mob/living/simple_animal/slaughter/R = owner.current
-	if(!R || R.stat == DEAD)
-		return 0
-	var/deathCount = R.devoured
-	if(deathCount < targetKill)
-		return 0
-	return 1
+	var/kill_count = 0
+	for(var/datum/mind/player in get_owners())
+		if(!istype(player.current, /mob/living/simple_animal/slaughter) || QDELETED(player.current))
+			continue
+
+		var/mob/living/simple_animal/slaughter/demon = player.current
+		kill_count += demon.devoured
+
+	if(kill_count >= targetKill)
+		return TRUE
+
+	return FALSE
+
 
 /datum/objective/demonFluff
 
@@ -349,9 +356,9 @@
 /datum/objective/demonFluff/New()
 	find_target()
 	var/targetname = "someone"
-	if(target && target.current)
+	if(target?.current)
 		targetname = target.current.real_name
-	var/list/explanationTexts = list("Spread blood all over the bridge.", \
+	var/list/explanation_texts = list("Spread blood all over the bridge.", \
 									 "Spread blood all over the brig.", \
 									 "Spread blood all over the chapel.", \
 									 "Kill or Destroy all Janitors or Sanitation bots.", \
@@ -362,8 +369,12 @@
 									 "Drive [targetname] insane with demonic whispering."
 									 )
 
-	explanation_text = pick(explanationTexts)
+	// As this is a fluff objective, we don't need a target, so we want to null it out.
+	// We don't want the demon getting a "Time for Plan B" message if the target cryos.
+	target = null
+	explanation_text = pick(explanation_texts)
 	..()
 
+
 /datum/objective/demonFluff/check_completion()
-	return 1
+	return TRUE

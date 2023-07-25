@@ -12,7 +12,7 @@
 
 /obj/item/organ/internal/body_egg/insert(var/mob/living/carbon/M, special = 0)
 	..()
-	owner.status_flags |= XENO_HOST
+	ADD_TRAIT(owner, TRAIT_XENO_HOST, TRAIT_GENERIC)
 	START_PROCESSING(SSobj, src)
 	owner.med_hud_set_status()
 	spawn(0)
@@ -21,7 +21,7 @@
 /obj/item/organ/internal/body_egg/remove(var/mob/living/carbon/M, special = 0)
 	STOP_PROCESSING(SSobj, src)
 	if(owner)
-		owner.status_flags &= ~(XENO_HOST)
+		REMOVE_TRAIT(owner, TRAIT_XENO_HOST, TRAIT_GENERIC)
 		owner.med_hud_set_status()
 		spawn(0)
 			RemoveInfectionImages(owner)

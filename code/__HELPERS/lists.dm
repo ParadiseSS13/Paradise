@@ -725,6 +725,9 @@ proc/dd_sortedObjectList(list/incoming)
 #define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 
+///If the lazy list is currently initialized find item I in list L
+#define LAZYIN(L, I) (L && (I in L))
+
 // LAZYING PT 2: THE LAZENING
 #define LAZYREINITLIST(L) LAZYCLEARLIST(L); LAZYINITLIST(L);
 

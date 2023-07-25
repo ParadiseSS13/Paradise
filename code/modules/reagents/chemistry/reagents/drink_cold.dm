@@ -73,11 +73,11 @@
 	M.Druggy(60 SECONDS)
 	M.AdjustDizzy(10 SECONDS)
 	M.SetDrowsy(0)
-	M.status_flags |= GOTTAGONOTSOFAST
+	ADD_TRAIT(M, TRAIT_GOTTAGONOTSOFAST, id)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGONOTSOFAST
+	REMOVE_TRAIT(M, TRAIT_GOTTAGONOTSOFAST, id)
 	..()
 
 /datum/reagent/consumable/drink/cold/spacemountainwind

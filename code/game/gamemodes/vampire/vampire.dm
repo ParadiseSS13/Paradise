@@ -84,7 +84,7 @@
 		for(var/datum/mind/vampire in vampires)
 			var/traitorwin = 1
 
-			text += "<br>[vampire.key] [genderize_ru(vampire.current.gender, "был", "была", "было", "были")] [vampire.name] ("
+			text += "<br>[vampire.get_display_key()] [genderize_ru(vampire.current.gender, "был", "была", "было", "были")] [vampire.name] ("
 			if(vampire.current)
 				if(vampire.current.stat == DEAD)
 					text += "[genderize_ru(vampire.current.gender, "умер", "умерла", "умерло", "умерли")]"
@@ -128,7 +128,7 @@
 	if(vampire_enthralled.len)
 		var/text = "<FONT size = 2><B>Рабами вампиров были:</B></FONT>"
 		for(var/datum/mind/Mind in vampire_enthralled)
-			text += "<br>[Mind.key] [genderize_ru(Mind.current.gender, "был", "была", "было", "были")] [Mind.name] ("
+			text += "<br>[Mind.get_display_key()] [genderize_ru(Mind.current.gender, "был", "была", "было", "были")] [Mind.name] ("
 			if(Mind.current)
 				if(Mind.current.stat == DEAD)
 					text += "[genderize_ru(Mind.current.gender, "умер", "умерла", "умерло", "умерли")]"

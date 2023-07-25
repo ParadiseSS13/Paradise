@@ -501,8 +501,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		H.mind.ninja.update_owner(H)
 	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))
 		SSticker.mode.update_vampire_icons_added(H.mind)
-	if(H.mind in SSticker.mode.changelings)
-		SSticker.mode.update_change_icons_added(H.mind)
  	if((H.mind in SSticker.mode.shadowling_thralls) || (H.mind in SSticker.mode.shadows))
  		SSticker.mode.update_shadow_icons_added(H.mind)
 

@@ -63,7 +63,7 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(IsWeakened() || IsParalyzed() || stat || (status_flags & FAKEDEATH))
+	return !(IsWeakened() || IsParalyzed() || stat || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE, list/extra_checks = list(), use_default_checks = TRUE)

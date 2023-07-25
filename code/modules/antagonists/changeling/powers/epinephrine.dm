@@ -3,27 +3,30 @@
 	desc = "We evolve additional sacs of adrenaline throughout our body. Costs 30 chemicals."
 	helptext = "Removes all stuns instantly and adds a short term reduction in further stuns. Can be used while unconscious. Continued use poisons the body."
 	button_icon_state = "adrenaline"
-	chemical_cost = 30
+	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
-	req_human = 1
+	chemical_cost = 30
+	req_human = TRUE
 	req_stat = UNCONSCIOUS
 
-//Recover from stuns.
-/datum/action/changeling/epinephrine/sting_action(var/mob/living/user)
+
+/datum/action/changeling/epinephrine/sting_action(mob/living/user)
 
 	if(user.lying)
-		to_chat(user, "<span class='notice'>We arise.</span>")
+		to_chat(user, span_notice("We arise."))
 	else
-		to_chat(user, "<span class='notice'>Adrenaline rushes through us.</span>")
+		to_chat(user, span_notice("Adrenaline rushes through us."))
+
 	user.SetSleeping(0)
 	user.WakeUp()
 	user.SetParalysis(0)
 	user.SetStunned(0)
 	user.SetWeakened(0)
-	user.lying = 0
+	user.lying = FALSE
+	user.resting = FALSE
 	user.update_canmove()
 	user.reagents.add_reagent("synaptizine", 20)
 	user.adjustStaminaLoss(-95)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return 1
+	return TRUE

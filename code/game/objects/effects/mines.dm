@@ -170,17 +170,25 @@
 	to_chat(victim, "<span class='notice'>You feel great!</span>")
 	victim.revive()
 
+
 /obj/effect/mine/pickup/speed
 	name = "Yellow Orb"
 	desc = "You feel faster just looking at it."
 	color = "yellow"
-	duration = 300
+	duration = 30 SECONDS
+
 
 /obj/effect/mine/pickup/speed/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	victim.status_flags |= GOTTAGOFAST
-	spawn(duration)
-		victim.status_flags &= ~GOTTAGOFAST
-		to_chat(victim, "<span class='notice'>You slow down.</span>")
+
+	ADD_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
+	to_chat(victim, span_notice("You feel fast!"))
+
+	addtimer(CALLBACK(src, PROC_REF(mine_effect_callback), victim), duration, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
+
+
+/obj/effect/mine/pickup/speed/proc/mine_effect_callback(mob/living/carbon/victim)
+	if(!QDELETED(victim))
+		REMOVE_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
+		to_chat(victim, span_notice("You slow down."))

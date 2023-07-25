@@ -26,10 +26,6 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	if(mind.objectives.len)
 		mind.objectives.Cut()
 		mind.special_role = null
-	else
-		if(SSticker.mode.name == "AutoTraitor")
-			var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
-			current_mode.possible_traitors.Remove(src)
 
 	// Ghost the current player and allow or disallow them to respawn, depends on time
 	if(TOO_EARLY_TO_GHOST)

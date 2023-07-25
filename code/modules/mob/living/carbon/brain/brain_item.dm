@@ -17,6 +17,8 @@
 	hidden_pain = TRUE //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
 	var/mmi_icon = 'icons/obj/assemblies.dmi'
 	var/mmi_icon_state = "mmi_full"
+	/// If it's a fake brain without a mob assigned that should still be treated like a real brain.
+	var/decoy_brain = FALSE
 
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"
@@ -67,7 +69,8 @@
 	if(dna)
 		name = "[dna.real_name]'s [initial(name)]"
 
-	if(!owner) return ..() // Probably a redundant removal; just bail
+	if(!owner)
+		return ..() // Probably a redundant removal; just bail
 
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
@@ -75,7 +78,7 @@
 		if(borer)
 			borer.leave_host() //Should remove borer if the brain is removed - RR
 
-		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
+		if(owner.mind && !non_primary && !decoy_brain)	//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
 	if(istype(owner,/mob/living/carbon/human))
@@ -83,7 +86,7 @@
 		H.update_hair()
 	. = ..()
 
-/obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
+/obj/item/organ/internal/brain/insert(var/mob/living/target, special = FALSE)
 
 	name = "[initial(name)]"
 	var/brain_already_exists = 0
@@ -93,6 +96,9 @@
 
 		var/mob/living/carbon/human/H = target
 		H.update_hair()
+
+	if(ischangeling(target))
+		decoy_brain = TRUE
 
 	if(!brain_already_exists)
 		if(brainmob)

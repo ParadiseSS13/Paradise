@@ -29,28 +29,38 @@
 	QDEL_NULL(button)
 	return ..()
 
-/datum/action/proc/Grant(mob/M)
-	if(owner)
-		if(owner == M)
-			return
-		Remove(owner)
-	owner = M
-	M.actions += src
-	if(M.client)
-		M.client.screen += button
-		button.locked = TRUE
-	M.update_action_buttons()
 
-/datum/action/proc/Remove(mob/M)
+/datum/action/proc/Grant(mob/user)
+	if(owner)
+		if(owner == user)
+			return FALSE
+		Remove(owner)
+	owner = user
+	user.actions += src
+
+	if(user.client)
+		user.client.screen += button
+		button.locked = TRUE
+	user.update_action_buttons()
+
+	return TRUE
+
+
+/datum/action/proc/Remove(mob/user)
 	owner = null
-	if(!M)
-		return
-	if(M.client)
-		M.client.screen -= button
+	if(!user)
+		return FALSE
+
+	if(user.client)
+		user.client.screen -= button
+
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
-	M.actions -= src
-	M.update_action_buttons()
+	user.actions -= src
+	user.update_action_buttons()
+
+	return TRUE
+
 
 /datum/action/proc/Trigger()
 	if(!IsAvailable())

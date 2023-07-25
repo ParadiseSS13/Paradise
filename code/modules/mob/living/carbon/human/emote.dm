@@ -1,6 +1,6 @@
 /mob/living/carbon/human/emote(act, m_type = 1, message = null, force)
 
-	if((stat == DEAD) || (status_flags & FAKEDEATH))
+	if((stat == DEAD) || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return // You can't just scream if you dead
 
 	var/param = null

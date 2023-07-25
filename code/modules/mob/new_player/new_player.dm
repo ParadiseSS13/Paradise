@@ -648,7 +648,7 @@
 		else if(mind.assigned_role == "Mime")
 			new_character.real_name = pick(GLOB.mime_names)
 			new_character.rename_self("mime")
-		mind.original = new_character
+		mind.set_original_mob(new_character)
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
 		GLOB.human_names_list += new_character.real_name
 

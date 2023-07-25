@@ -53,6 +53,7 @@
 	if(updating)
 		update_canmove()
 		update_blind_effects()
+		update_blurry_effects()
 		update_sight()
 		updatehealth("update revive")
 		hud_used?.reload_fullscreen()

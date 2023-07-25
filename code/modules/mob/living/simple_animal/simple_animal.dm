@@ -349,9 +349,6 @@
 		for(var/i in loot)
 			new i(loc)
 
-/mob/living/simple_animal/revive()
-	..()
-	density = initial(density)
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
@@ -437,6 +434,7 @@
 
 /mob/living/simple_animal/revive()
 	..()
+	density = initial(density)
 	health = maxHealth
 	icon = initial(icon)
 	icon_state = icon_living

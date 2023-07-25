@@ -289,7 +289,7 @@ Made by Xhuis
 	if(shadows.len)
 		text += "<br><span class='big'><b>The shadowlings were:</b></span>"
 		for(var/datum/mind/shadow in shadows)
-			text += "<br>[shadow.key] was [shadow.name] ("
+			text += "<br>[shadow.get_display_key()] was [shadow.name] ("
 			if(shadow.current)
 				if(shadow.current.stat == DEAD)
 					text += "died"
@@ -304,7 +304,7 @@ Made by Xhuis
 		if(shadowling_thralls.len)
 			text += "<br><span class='big'><b>The thralls were:</b></span>"
 			for(var/datum/mind/thrall in shadowling_thralls)
-				text += "<br>[thrall.key] was [thrall.name] ("
+				text += "<br>[thrall.get_display_key()] was [thrall.name] ("
 				if(thrall.current)
 					if(thrall.current.stat == DEAD)
 						text += "died"

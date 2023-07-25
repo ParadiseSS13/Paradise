@@ -235,25 +235,27 @@
 			to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
 	return update_flags
 
+
 /datum/reagent/proc/fakedeath(mob/living/M)
-	if(M.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		return
+
 	if(!(M.status_flags & CANPARALYSE))
 		return
-	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
-		return
+
 	M.emote("deathgasp")
-	M.status_flags |= FAKEDEATH
+	ADD_TRAIT(M, TRAIT_FAKEDEATH, id)
 	M.updatehealth("fakedeath reagent")
 
+
 /datum/reagent/proc/fakerevive(mob/living/M)
-	if(!(M.status_flags & FAKEDEATH))
+	if(!HAS_TRAIT_FROM(M, TRAIT_FAKEDEATH, id))
 		return
-	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating)
-		return
+
 	if(M.resting)
 		M.StopResting()
-	M.status_flags &= ~(FAKEDEATH)
+
+	REMOVE_TRAIT(M, TRAIT_FAKEDEATH, id)
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")

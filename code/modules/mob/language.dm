@@ -521,6 +521,7 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
+
 /datum/language/ling
 	name = "Changeling"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
@@ -530,11 +531,11 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
+
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
-	if(speaker.mind && speaker.mind.changeling)
-		..(speaker, message, speaker.mind.changeling.changelingID)
-	else if(speaker.mind && speaker.mind.linglink)
-		..()
+	var/datum/antagonist/changeling/cling = speaker?.mind?.has_antag_datum(/datum/antagonist/changeling)
+	if(cling)
+		..(speaker, message, cling.changelingID)
 	else
 		..(speaker,message)
 

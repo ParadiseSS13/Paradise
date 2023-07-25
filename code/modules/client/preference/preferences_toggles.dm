@@ -332,3 +332,11 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_REVERB_DISABLE
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_REVERB_DISABLE) ? "no longer" : "now"] get reverb on ingame sounds.")
+
+/mob/verb/toggle_anonmode()
+	set name = "Toggle Anonymous Mode"
+	set category = "Preferences"
+	set desc = "Toggles showing your key in various parts of the game (deadchat, end round, etc)."
+	client.prefs.toggles2 ^= PREFTOGGLE_2_ANON
+	to_chat(src, "Your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "no longer" : "now"] be shown in certain events (end round reports, deadchat, etc).</span>")
+	client.prefs.save_preferences(src)

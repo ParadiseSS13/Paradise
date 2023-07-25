@@ -316,7 +316,7 @@
 
 	mind = new
 	mind.current = src
-	mind.original = src
+	mind.set_original_mob(src)
 	mind.assigned_role = "Drone"
 	SSticker.minds += mind
 	mind.key = player.key

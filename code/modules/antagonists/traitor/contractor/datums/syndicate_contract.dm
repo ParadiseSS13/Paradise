@@ -10,7 +10,7 @@
 /**
   * # Syndicate Contract
   *
-  * Describes a contract that can be completed by a [/datum/antagonist/traitor/contractor].
+  * Describes a contract that can be completed by a [/datum/antagonist/contractor].
   */
 /datum/syndicate_contract
 	// Settings

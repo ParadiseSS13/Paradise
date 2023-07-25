@@ -1052,14 +1052,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
-	clear_alert("legcuffed")
 	if(legcuffed)
 		overlays_standing[LEGCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "legcuff1", layer = -LEGCUFF_LAYER)
-		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
-		if(m_intent != MOVE_INTENT_WALK)
-			m_intent = MOVE_INTENT_WALK
-			if(hud_used && hud_used.move_intent)
-				hud_used.move_intent.icon_state = "walking"
 	apply_overlay(LEGCUFF_LAYER)
 
 

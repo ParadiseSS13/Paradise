@@ -183,14 +183,18 @@
 			stat("Chemicals", B.chemicals)
 
 		if(mind)
-			if(mind.changeling)
-				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
-				stat("Absorbed DNA", mind.changeling.absorbedcount)
+			var/datum/antagonist/changeling/cling = mind?.has_antag_datum(/datum/antagonist/changeling)
+			if(cling)
+				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
+				stat("Absorbed DNA", cling.absorbed_count)
+
 			if(mind.vampire)
 				stat("Всего крови", "[mind.vampire.bloodtotal]")
 				stat("Доступная кровь", "[mind.vampire.bloodusable]")
+
 			if(isclocker(mind.current))
 				stat("Total Power", "[GLOB.clockwork_power]")
+
 			if(mind.ninja && mind.ninja.my_suit)
 				stat("Заряд костюма","[mind.ninja.return_cell_charge()]")
 				stat("Заряд рывков","[mind.ninja.return_dash_charge()]")
@@ -505,17 +509,26 @@
 		return "Unknown"
 	return real_name
 
-//gets name from ID or PDA itself, ID inside PDA doesn't matter
-//Useful when player is being seen by other mobs
-/mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	var/obj/item/storage/wallet/wallet = wear_id
-	if(istype(pda))		. = pda.owner
-	else if(istype(id))	. = id.registered_name
-	else if(istype(wallet)) . = wallet.front_id ? wallet.front_id.registered_name : if_no_id
-	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
-	return
+
+/**
+ * Gets name from ID or PDA itself, ID inside PDA doesn't matter.
+ * Useful when player is being seen by other mobs.
+ */
+/mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
+	var/obj/item/card/id/id = wear_id?.GetID()
+	if(istype(id))
+		return id.registered_name
+
+	if(is_pda(wear_id))
+		var/obj/item/pda/pda = wear_id
+		return pda.owner
+
+	if(istype(wear_id, /obj/item/storage/wallet))
+		var/obj/item/storage/wallet/wallet = wear_id
+		return wallet.front_id ? wallet.front_id.registered_name : if_no_id
+
+	return if_no_id	//to prevent null-names making the mob unclickable
+
 
 //Gets ID card object from hands only
 /mob/living/carbon/human/proc/get_id_from_hands()
@@ -1577,7 +1590,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
 		return
-	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
+	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
 	if(!check_has_mouth())

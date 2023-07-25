@@ -37,8 +37,13 @@
 	screen_loc = ui_lingstingdisplay
 
 /obj/screen/ling/sting/Click()
-	var/mob/living/carbon/U = usr
-	U.unset_sting()
+	var/datum/antagonist/changeling/cling = usr?.mind?.has_antag_datum(/datum/antagonist/changeling)
+	cling?.chosen_sting?.unset_sting()
+
+/obj/screen/ling/chems
+	name = "chemical storage"
+	icon_state = "power_display"
+	screen_loc = ui_lingchemdisplay
 
 /obj/screen/devil
 	invisibility = INVISIBILITY_ABSTRACT
@@ -68,11 +73,6 @@
 
 /obj/screen/devil/soul_counter/proc/clear()
 	invisibility = INVISIBILITY_ABSTRACT
-
-/obj/screen/ling/chems
-	name = "chemical storage"
-	icon_state = "power_display"
-	screen_loc = ui_lingchemdisplay
 
 
 /mob/living/carbon/human/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.

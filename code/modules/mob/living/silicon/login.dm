@@ -5,7 +5,7 @@
 		SSticker.mode.remove_cultist(mind, 1)
 		SSticker.mode.remove_wizard(mind)
 		SSticker.mode.remove_ninja(mind)
-		SSticker.mode.remove_changeling(mind)
+		mind.remove_antag_datum(/datum/antagonist/changeling)
 		SSticker.mode.remove_vampire(mind)
 		SSticker.mode.remove_thief(mind)
 		SSticker.mode.remove_thrall(mind, 0)

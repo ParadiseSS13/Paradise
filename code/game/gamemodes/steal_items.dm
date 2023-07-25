@@ -60,7 +60,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	/// If a steal objective has forbidden jobs, and the forbidden jobs would not be in the possession of this item, set this to false
 	var/job_possession = TRUE
 
-/datum/theft_objective/proc/check_completion(var/datum/mind/owner)
+
+/datum/theft_objective/proc/check_completion(datum/mind/owner)
 	if(!owner.current)
 		return FALSE
 	if(!isliving(owner.current))
@@ -71,9 +72,19 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 			return TRUE
 	return FALSE
 
-/datum/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
+
+/**
+ * This proc is to be used for not granting objectives if a special requirement other than job is not met.
+ */
+/datum/theft_objective/proc/check_objective_conditions()
 	return TRUE
 
+
+/**
+ * For objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
+ */
+/datum/proc/check_special_completion() //
+	return TRUE
 
 
 //==========================
@@ -135,7 +146,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	protected_jobs = list("Chief Engineer")
 	altitems = list(/obj/item/photo)
 
-/datum/objective_item/highrisk/blueprints/check_special_completion(obj/item/I)
+
+/datum/theft_objective/highrisk/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints/ce))
 		return TRUE
 	if(istype(I, /obj/item/photo))
@@ -164,7 +176,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
 	altitems = list(/obj/item/folder/documents)
 
-/datum/objective_item/highrisk/documents/check_special_completion(obj/item/I)
+
+/datum/theft_objective/highrisk/documents/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/documents))
 		return TRUE
 	if(istype(I, /obj/item/folder/documents))

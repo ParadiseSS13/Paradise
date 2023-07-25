@@ -586,11 +586,17 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	else return get_step(ref, base_dir)
 
-//Takes: Anything that could possibly have variables and a varname to check.
-//Returns: 1 if found, 0 if not.
-/proc/hasvar(var/datum/A, var/varname)
-	if(A.vars.Find(lowertext(varname))) return 1
-	else return 0
+
+/**
+ * Takes: Anything that could possibly have variables and a varname to check.
+ * Returns: `TRUE` if found, `FALSE` if not.
+ */
+/proc/has_variable(datum/check, varname)
+	if(check.vars.Find(lowertext(varname)))
+		return TRUE
+
+	return FALSE
+
 
 //Returns: all the areas in the world
 /proc/return_areas()

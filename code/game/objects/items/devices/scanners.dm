@@ -389,7 +389,7 @@ REAGENT SCANNER
 		else
 			. += "Общий статус: <span class='danger'>МЕРТВ</span>"
 	else //Если живой или отключка
-		if(H.status_flags & FAKEDEATH)
+		if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
 			OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
 			. += "Общий статус: <span class='danger'>МЕРТВ</span>"
 		else
@@ -397,7 +397,7 @@ REAGENT SCANNER
 	. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>"
 	. += "Уровень повреждений: <font color='#0080ff'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FF8000'>[BU]</font> - <font color='red'>[BR]</font>"
 	. += "Температура тела: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)"
-	if(H.timeofdeath && (H.stat == DEAD || (H.status_flags & FAKEDEATH)))
+	if(H.timeofdeath && (H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH)))
 		. += "Время смерти: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]"
 		var/tdelta = round(world.time - H.timeofdeath)
 		if(tdelta < DEFIB_TIME_LIMIT && !DNR)

@@ -34,6 +34,10 @@
 
 #define is_pen(W) (istype(W, /obj/item/pen))
 
+#define is_pda(W) (istype(W, /obj/item/pda))
+
+#define isradio(A) istype(A, /obj/item/radio)
+
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
@@ -110,6 +114,5 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 // Misc
 #define isclient(A) istype(A, /client)
-#define isradio(A) istype(A, /obj/item/radio)
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 

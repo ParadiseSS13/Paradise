@@ -7,90 +7,119 @@
 		Armor
 */
 
-
 //Parent to shields and blades because muh copypasted code.
 /datum/action/changeling/weapon
 	name = "Organic Weapon"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
+	power_type = CHANGELING_UNOBTAINABLE_POWER
 	chemical_cost = 1000
-	dna_cost = -1
 	genetic_damage = 1000
-
+	req_human = TRUE
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
 
-/datum/action/changeling/weapon/try_to_sting(var/mob/user, var/mob/target)
-	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
-		qdel(user.l_hand)
-		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-		user.update_inv_l_hand()
-		return
-	if(istype(user.r_hand, weapon_type))
-		qdel(user.r_hand)
-		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-		user.update_inv_r_hand()
+
+/datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
+	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
+		retract(user, TRUE)
 		return
 	..(user, target)
 
-/datum/action/changeling/weapon/sting_action(var/mob/user)
-	if(user.get_active_hand() && !user.drop_from_active_hand())
-		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
+
+/datum/action/changeling/weapon/sting_action(mob/user)
+	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
+	if(!user.can_unEquip(user.get_active_hand(), silent = TRUE))
+		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
+		return FALSE
+
+	var/obj/item/weapon = new weapon_type(user, silent, src)
+	user.put_in_hands(weapon)
+
+	RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(retract), override = TRUE)
+	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
+
+	return weapon
+
+
+/datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
+	SIGNAL_HANDLER
+
+	if(!ischangeling(owner))
 		return
-	var/obj/item/W = new weapon_type(user, silent)
-	user.put_in_hands(W)
-	return W
+
+	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
+		return
+
+	var/done = FALSE
+	if(istype(owner.l_hand, weapon_type))
+		qdel(owner.l_hand)
+		owner.update_inv_l_hand()
+		done = TRUE
+
+	if(istype(owner.l_hand, weapon_type))
+		var/obj/item/hand_item = owner.l_hand
+		owner.temporarily_remove_item_from_inventory(hand_item, force = TRUE)
+		qdel(hand_item)
+		done = TRUE
+
+	if(istype(owner.r_hand, weapon_type))
+		var/obj/item/hand_item = owner.r_hand
+		owner.temporarily_remove_item_from_inventory(hand_item, force = TRUE)
+		qdel(hand_item)
+		done = TRUE
+
+	if(done && !silent)
+		owner.visible_message(span_warning("With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!"), span_notice("We assimilate the [weapon_name_simple] back into our body."), span_warning("You hear organic matter ripping and tearing!"))
+
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit
 	name = "Organic Suit"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
+	power_type = CHANGELING_UNOBTAINABLE_POWER
 	chemical_cost = 1000
-	dna_cost = -1
-	genetic_damage = 1000
-
+	req_human = TRUE
 	var/helmet_type = /obj/item
 	var/suit_type = /obj/item
 	var/suit_name_simple = "    "
 	var/helmet_name_simple = "     "
 	var/recharge_slowdown = 0
-	var/blood_on_castoff = 0
+	var/blood_on_castoff = FALSE
 
-/datum/action/changeling/suit/try_to_sting(var/mob/user, var/mob/target)
-	var/datum/changeling/changeling = user.mind.changeling
-	if(!ishuman(user) || !changeling)
-		return
 
-	var/mob/living/carbon/human/H = user
-	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
-		H.visible_message("<span class='warning'>[H] casts off [H.p_their()] [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple][genetic_damage > 0 ? ", temporarily weakening our genomes." : "."]</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
-		qdel(H.wear_suit)
-		qdel(H.head)
-		H.update_inv_wear_suit()
-		H.update_inv_head()
-		H.update_hair()
-		H.update_fhair()
+/datum/action/changeling/suit/try_to_sting(mob/living/carbon/human/user, mob/target)
+	if(!istype(user))
+		return FALSE
+
+	if(istype(user.wear_suit, suit_type) || istype(user.head, helmet_type))
+		user.visible_message(span_warning("[user] casts off [user.p_their()] [suit_name_simple]!"), span_warning("We cast off our [suit_name_simple][genetic_damage > 0 ? ", temporarily weakening our genomes." : "."]"), span_warning("You hear the organic matter ripping and tearing!"))
+		qdel(user.wear_suit)
+		qdel(user.head)
+		user.update_inv_wear_suit()
+		user.update_inv_head()
+		user.update_hair()
+		user.update_fhair()
 
 		if(blood_on_castoff)
-			H.add_splatter_floor()
-			playsound(H.loc, 'sound/effects/splat.ogg', 50, 1) //So real sounds
+			user.add_splatter_floor()
+			playsound(user.loc, 'sound/effects/splat.ogg', 50, TRUE) //So real sounds
 
-		changeling.geneticdamage += genetic_damage //Casting off a space suit leaves you weak for a few seconds.
-		changeling.chem_recharge_slowdown -= recharge_slowdown
-		return
-	..(H, target)
+		cling.chem_recharge_slowdown -= recharge_slowdown
+		return FALSE
+	..(user, target)
+
 
 /datum/action/changeling/suit/sting_action(var/mob/living/carbon/human/user)
 	if(!user.can_unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
-		return
+		return FALSE
+
 	if(!user.can_unEquip(user.head))
 		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
-		return
+		return FALSE
 
 	user.drop_item_ground(user.head)
 	user.drop_item_ground(user.wear_suit)
@@ -98,9 +127,8 @@
 	user.equip_to_slot_or_del(new suit_type(user), slot_wear_suit)
 	user.equip_to_slot_or_del(new helmet_type(user), slot_head)
 
-	var/datum/changeling/changeling = user.mind.changeling
-	changeling.chem_recharge_slowdown += recharge_slowdown
-	return 1
+	cling.chem_recharge_slowdown += recharge_slowdown
+	return TRUE
 
 
 //fancy headers yo
@@ -112,13 +140,14 @@
 	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
-	chemical_cost = 25
+	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 3
+	chemical_cost = 25
 	genetic_damage = 10
-	req_human = 1
 	max_genetic_damage = 20
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
+
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
@@ -127,7 +156,7 @@
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	sharp = 1
+	sharp = TRUE
 	force = 25
 	armour_penetration = 20
 	block_chance = 50
@@ -137,49 +166,70 @@
 	throw_speed = 0
 	gender = FEMALE
 	ru_names = list(NOMINATIVE = "рука-клинок", GENITIVE = "руки-клинка", DATIVE = "руке-клинку", ACCUSATIVE = "руку-клинок", INSTRUMENTAL = "рукой-клинком", PREPOSITIONAL = "руке-клинке")
+	var/datum/action/changeling/weapon/parent_action
+
+
+/obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
+	. = ..()
+	parent_action = new_parent_action
+
+
+/obj/item/melee/arm_blade/Destroy()
+	if(parent_action)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+		parent_action = null
+	return ..()
+
 
 /obj/item/melee/arm_blade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		final_block_chance = 0 //only blocks melee
 	return ..()
 
+
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
+
 	if(istype(target, /obj/structure/table))
-		var/obj/structure/table/T = target
-		T.deconstruct(FALSE)
+		var/obj/structure/table/table = target
+		table.deconstruct(FALSE)
 
 	else if(istype(target, /obj/machinery/computer))
-		var/obj/machinery/computer/C = target
-		if(C.attack_generic(user, 60, BRUTE, "melee", 0))
+		var/obj/machinery/computer/computer = target
+		if(computer.attack_generic(user, 60, BRUTE, "melee", 0))
 			playsound(loc, 'sound/weapons/slash.ogg', 100, TRUE)
 
 	else if(istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/A = target
+		var/obj/machinery/door/airlock/airlock = target
 
-		if(!A.requiresID() || A.allowed(user)) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message.
+		if(!airlock.requiresID() || airlock.allowed(user)) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message.
 			return
 
-		if(A.locked)
-			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
+		if(airlock.locked)
+			to_chat(user, span_notice("The airlock's bolts prevent it from being forced."))
 			return
 
-		if(A.arePowerSystemsOn())
-			user.visible_message("<span class='warning'>[user] jams [src] into the airlock and starts prying it open!</span>", "<span class='warning'>We start forcing the airlock open.</span>", \
-			"<span class='italics'>You hear a metal screeching sound.</span>")
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-			if(!do_after(user, 3 SECONDS, target = A))
+		if(airlock.arePowerSystemsOn())
+			user.visible_message(span_warning("[user] jams [src] into the airlock and starts prying it open!"), \
+								span_warning("We start forcing the airlock open."), \
+								span_italics("You hear a metal screeching sound."))
+
+			playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
+			if(!do_after(user, 3 SECONDS, target = airlock ))
 				return
 
 		//user.say("Heeeeeeeeeerrre's Johnny!")
-		user.visible_message("<span class='warning'>[user] forces the airlock to open with [user.p_their()] [name]!</span>", "<span class='warning'>We force the airlock to open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
-		A.open(2)
+		user.visible_message(span_warning("[user] forces the airlock to open with [user.p_their()] [name]!"), \
+							span_warning("We force the airlock to open."), \
+							span_warning("You hear a metal screeching sound."))
+		airlock.open(2)
+
 
 /***************************************\
 |***********COMBAT TENTACLES*************|
 \***************************************/
-
 /datum/action/changeling/weapon/tentacle
 	name = "Tentacle"
 	desc = "We ready a tentacle to grab items or victims with. Costs 10 chemicals."
@@ -187,14 +237,15 @@
 	Help will simply drag them closer, Disarm will grab whatever they are holding instead of them, Grab will put the victim in our hold after catching it, \
 	and Harm will stun it, and stab it if we are also holding a sharp weapon. Cannot be used while in lesser form."
 	button_icon_state = "tentacle"
-	chemical_cost = 10
+	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
+	chemical_cost = 10
 	genetic_damage = 5
-	req_human = 1
 	max_genetic_damage = 10
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
 	silent = TRUE
+
 
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
@@ -211,21 +262,37 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/gun/magic/tentacle/New(location,silent)
-	..()
+
+/obj/item/gun/magic/tentacle/Initialize(mapload, silent, new_parent_action)
+	. = ..()
+	parent_action = new_parent_action
 	if(ismob(loc))
 		if(!silent)
-			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+			loc.visible_message(span_warning("[loc.name]\'s arm starts stretching inhumanly!"), \
+								span_warning("Our arm twists and mutates, transforming it into a tentacle."), \
+								span_italics("You hear organic matter ripping and tearing!"))
 		else
-			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
+			to_chat(loc, span_notice("You prepare to extend a tentacle."))
+
+
+/obj/item/gun/magic/tentacle/Destroy()
+	if(parent_action)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+		parent_action = null
+	return ..()
+
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>The [name] is not ready yet.</span>")
+	to_chat(user, span_warning("The [name] is not ready yet."))
+
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
+
 
 /obj/item/ammo_casing/magic/tentacle
 	name = "tentacle"
@@ -236,13 +303,16 @@
 	muzzle_flash_effect = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
+
 /obj/item/ammo_casing/magic/tentacle/New(obj/item/gun/magic/tentacle/tentacle_gun)
 	gun = tentacle_gun
 	..()
 
+
 /obj/item/ammo_casing/magic/tentacle/Destroy()
 	gun = null
 	return ..()
+
 
 /obj/item/projectile/tentacle
 	name = "tentacle"
@@ -256,129 +326,160 @@
 	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
+
 /obj/item/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
 	source = tentacle_casing
 	..()
+
 
 /obj/item/projectile/tentacle/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
 		intent = firer.a_intent
-		if (intent == INTENT_DISARM)
+		if(intent == INTENT_DISARM)
 			armour_penetration = 100   //ignore block_chance
 	..()
 
-/obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/H)
-	if(!H)
+
+/obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/user)
+	if(!user)
 		return
-	if(H.in_throw_mode)
-		H.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
+	if(user.in_throw_mode)
+		user.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
+
 
 /obj/item/projectile/tentacle/proc/tentacle_disarm(obj/item/thrown_item)
 	reset_throw(firer)
 	if(!thrown_item || !firer)
 		return
+
 	if(thrown_item in firer.contents)
 		return
+
 	if(firer.get_active_hand())
 		return
+
 	if(istype(thrown_item, /obj/item/twohanded))
 		if(firer.get_inactive_hand())
 			return
+
 	firer.put_in_active_hand(thrown_item)
 
-/obj/item/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/C)
-	if(!firer || !C)
-		return
-	if(!firer.Adjacent(C))
-		return
-	var/obj/item/grab/G = C.grabbedby(firer, 1)
-	if(istype(G))
-		G.state = GRAB_PASSIVE
-		C.Weaken(4 SECONDS)
 
-/obj/item/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/C)
-	if(!firer || !C)
+/obj/item/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/target)
+	if(!firer || !target)
 		return
-	if(!firer.Adjacent(C))
+
+	if(!firer.Adjacent(target))
 		return
-	var/obj/item/I = firer.r_hand
-	if(!is_sharp(I))
-		I = firer.l_hand
-	if(!is_sharp(I))
+
+	var/obj/item/grab/grab = target.grabbedby(firer, 1)
+	if(istype(grab))
+		grab.state = GRAB_PASSIVE
+		target.Weaken(4 SECONDS)
+
+
+/obj/item/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/target)
+	if(!firer || !target)
 		return
-	C.visible_message("<span class='danger'>[firer] impales [C] with [I]!</span>", "<span class='userdanger'>[firer] impales you with [I]!</span>")
-	add_attack_logs(firer, C, "[firer] pulled [C] with a tentacle, attacking them with [I]") //Attack log is here so we can fetch the item they're stabbing with.
-	C.apply_damage(I.force, BRUTE, "chest")
-	do_item_attack_animation(C, used_item = I)
-	add_blood(C)
-	playsound(get_turf(firer), I.hitsound, 75, 1)
+
+	if(!firer.Adjacent(target))
+		return
+
+	var/obj/item/offarm_item = firer.r_hand
+	if(!is_sharp(offarm_item))
+		offarm_item = firer.l_hand
+
+	if(!is_sharp(offarm_item))
+		return
+
+	target.visible_message(span_danger("[firer] impales [target] with [offarm_item]!"), \
+							span_danger("[firer] impales you with [offarm_item]!"))
+	add_attack_logs(firer, target, "[firer] pulled [target] with a tentacle, attacking them with [offarm_item]") //Attack log is here so we can fetch the item they're stabbing with.
+
+	target.apply_damage(offarm_item.force, BRUTE, "chest")
+	do_item_attack_animation(target, used_item = offarm_item)
+	add_blood(target)
+	playsound(get_turf(firer), offarm_item.hitsound, 75, TRUE)
+
 
 /obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
 	qdel(source.gun) //one tentacle only unless you miss
 	if(blocked >= 100)
-		return 0
-	var/mob/living/carbon/human/H = firer
+		return FALSE
+
+	var/mob/living/carbon/human/user = firer
 	if(istype(target, /obj/item))
-		var/obj/item/I = target
-		if(!I.anchored)
-			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
-			add_attack_logs(src, I, "[src] pulled [I] towards them with a tentacle")
-			H.throw_mode_on()
-			I.throw_at(H, 10, 2, callback = CALLBACK(src, PROC_REF(tentacle_disarm), I))
-			. = 1
+		var/obj/item/item = target
+		if(!item.anchored)
+			to_chat(firer, "<span class='notice'>You pull [item] towards yourself.</span>")
+			add_attack_logs(src, item, "[src] pulled [item] towards them with a tentacle")
+			user.throw_mode_on()
+			item.throw_at(user, 10, 2, callback = CALLBACK(src, PROC_REF(tentacle_disarm), item))
+			. = TRUE
 
 	else if(isliving(target))
-		var/mob/living/L = target
-		if(!L.anchored && !L.throwing)//avoid double hits
-			if(iscarbon(L))
-				var/mob/living/carbon/C = L
+		var/mob/living/l_target = target
+		if(!l_target.anchored && !l_target.throwing)//avoid double hits
+			if(iscarbon(l_target))
+				var/mob/living/carbon/c_target = l_target
 				switch(intent)
 					if(INTENT_HELP)
-						C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
-						add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
-						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2)
-						return 1
+						c_target.visible_message(span_danger("[c_target] is pulled by [user]'s tentacle!"), \
+												span_userdanger("A tentacle grabs you and pulls you towards [user]!"))
+
+						add_attack_logs(user, c_target, "[user] pulled [c_target] towards them with a tentacle")
+						c_target.client?.move_delay = world.time + 1 SECONDS
+						c_target.throw_at(get_step_towards(user, c_target), 8, 2)
+						return TRUE
 
 					if(INTENT_DISARM)
-						var/obj/item/I = C.l_hand
-						if(!istype(I, /obj/item/shield))  //shield is priotity target
-							I = C.r_hand
-							if(!istype(I, /obj/item/shield))
-								I = C.get_active_hand()
-								if(!I)
-									I = C.get_inactive_hand()
-						if(I)
-							if(C.drop_item_ground(I))
-								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
-								add_attack_logs(src, C, "[src] has grabbed [I] out of [C]'s hand with a tentacle")
-								on_hit(I) //grab the item as if you had hit it directly with the tentacle
-								return 1
+						var/obj/item/hand_item = c_target.l_hand
+						if(!istype(hand_item, /obj/item/shield))  //shield is priotity target
+							hand_item = c_target.r_hand
+							if(!istype(hand_item, /obj/item/shield))
+								hand_item = c_target.get_active_hand()
+								if(!hand_item)
+									hand_item = c_target.get_inactive_hand()
+
+						if(hand_item)
+							if(c_target.drop_item_ground(hand_item))
+								c_target.visible_message(span_danger("[hand_item] is yanked out of [c_target]'s hand by [src]!"), \
+														span_userdanger("A tentacle pulls [hand_item] away from you!"))
+								add_attack_logs(src, c_target, "[src] has grabbed [hand_item] out of [c_target]'s hand with a tentacle")
+								on_hit(hand_item) //grab the item as if you had hit it directly with the tentacle
+								return TRUE
+
 							else
-								to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
-								add_attack_logs(src, C, "[src] tried to grab [I] out of [C]'s hand with a tentacle, but failed")
-								return 0
+								to_chat(firer, span_danger("You can't seem to pry [hand_item] out of [c_target]'s hands!"))
+								add_attack_logs(src, c_target, "[src] tried to grab [hand_item] out of [c_target]'s hand with a tentacle, but failed")
+								return FALSE
+
 						else
-							to_chat(firer, "<span class='danger'>[C] has nothing in hand to disarm!</span>")
-							return 0
+							to_chat(firer, span_danger("[c_target] has nothing in hand to disarm!"))
+							return FALSE
 
 					if(INTENT_GRAB)
-						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
-						add_attack_logs(H, C, "[H] grabbed [C] with a changeling tentacle")
-						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, PROC_REF(tentacle_grab), C))
-						return 1
+						c_target.visible_message(span_danger("[c_target] is grabbed by [user]'s tentacle!"), \
+												span_userdanger("A tentacle grabs you and pulls you towards [user]!"))
+						add_attack_logs(user, c_target, "[user] grabbed [c_target] with a changeling tentacle")
+						c_target.client?.move_delay = world.time + 1 SECONDS
+						c_target.throw_at(get_step_towards(user, c_target), 8, 2, callback = CALLBACK(src, PROC_REF(tentacle_grab), c_target))
+						return TRUE
 
 					if(INTENT_HARM)
-						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
-						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, PROC_REF(tentacle_stab), C))
-						return 1
+						c_target.visible_message(span_danger("[c_target] is thrown towards [user] by a tentacle!"), \
+												span_userdanger("A tentacle grabs you and throws you towards [user]!"))
+						c_target.client?.move_delay = world.time + 1 SECONDS
+						c_target.throw_at(get_step_towards(user, c_target), 8, 2, callback = CALLBACK(src, PROC_REF(tentacle_stab), c_target))
+						return TRUE
+
 			else
-				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
-				L.throw_at(get_step_towards(H,L), 8, 2)
-				. = 1
+				l_target.visible_message(span_danger("[l_target] is pulled by [user]'s tentacle!"), \
+										span_userdanger("A tentacle grabs you and pulls you towards [user]!"))
+				l_target.throw_at(get_step_towards(user, l_target), 8, 2)
+				. = TRUE
+
 
 /obj/item/projectile/tentacle/Destroy()
 	qdel(chain)
@@ -394,25 +495,23 @@
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
 	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more genomes we absorb, the stronger it is. Cannot be used while in lesser form."
 	button_icon_state = "organic_shield"
+	power_type = CHANGELING_PURCHASABLE_POWER
 	chemical_cost = 20
 	dna_cost = 1
 	genetic_damage = 12
-	req_human = 1
 	max_genetic_damage = 20
-
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 
-/datum/action/changeling/weapon/shield/sting_action(var/mob/user)
-	var/datum/changeling/changeling = user.mind.changeling //So we can read the absorbedcount.
-	if(!changeling)
-		return
 
-	var/obj/item/shield/changeling/S = ..(user)
-	if(!S)
-		return
-	S.remaining_uses = round(changeling.absorbedcount * 3)
-	return 1
+/datum/action/changeling/weapon/shield/sting_action(mob/user)
+	var/obj/item/shield/changeling/shield = ..(user)
+	if(!shield)
+		return FALSE
+
+	shield.remaining_uses = round(cling.absorbed_count * 3)
+	return TRUE
+
 
 /obj/item/shield/changeling
 	name = "shield-like mass"
@@ -420,22 +519,27 @@
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
 	block_chance = 50
-
 	var/remaining_uses //Set by the changeling ability.
+
 
 /obj/item/shield/changeling/New()
 	..()
 	if(ismob(loc))
-		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message(span_warning("The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!"), \
+							span_warning("We inflate our hand into a strong shield."), \
+							span_italics("You hear organic matter ripping and tearing!"))
+
 
 /obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(remaining_uses < 1)
 		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
-			H.temporarily_remove_item_from_inventory(src, force = TRUE)
+			var/mob/living/carbon/human/user = loc
+			user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] shield into an arm!"), \
+								span_notice("We assimilate our shield into our body."), \
+								span_italics("You hear organic matter ripping and tearing!"))
+			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
-		return 0
+		return FALSE
 	else
 		remaining_uses--
 		return ..()
@@ -449,18 +553,18 @@
 	desc = "We grow an organic suit to protect ourselves from space exposure. Costs 20 chemicals."
 	helptext = "We must constantly repair our form to make it space proof, reducing chemical production while we are protected. Cannot be used in lesser form."
 	button_icon_state = "organic_suit"
-	chemical_cost = 20
+	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
+	chemical_cost = 20
 	genetic_damage = 8
-	req_human = 1
 	max_genetic_damage = 20
-
 	suit_type = /obj/item/clothing/suit/space/changeling
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
 	suit_name_simple = "flesh shell"
 	helmet_name_simple = "space helmet"
 	recharge_slowdown = 0.5
-	blood_on_castoff = 1
+	blood_on_castoff = TRUE
+
 
 /obj/item/clothing/suit/space/changeling
 	name = "flesh mass"
@@ -474,16 +578,21 @@
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
+
 /obj/item/clothing/suit/space/changeling/New()
 	..()
 	if(ismob(loc))
-		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message(span_warning("[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!"), \
+							span_warning("We inflate our flesh, creating a spaceproof suit!"), \
+							span_italics("You hear organic matter ripping and tearing!"))
 	START_PROCESSING(SSobj, src)
+
 
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.reagents.add_reagent("perfluorodecalin", REAGENTS_METABOLISM)
+		var/mob/living/carbon/human/user = loc
+		user.reagents.add_reagent("perfluorodecalin", REAGENTS_METABOLISM)
+
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"
@@ -505,17 +614,17 @@
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 25 chemicals."
 	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Cannot be used in lesser form."
 	button_icon_state = "chitinous_armor"
-	chemical_cost = 25
+	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
+	chemical_cost = 25
 	genetic_damage = 11
-	req_human = 1
 	max_genetic_damage = 20
-
 	suit_type = /obj/item/clothing/suit/armor/changeling
 	helmet_type = /obj/item/clothing/head/helmet/changeling
 	suit_name_simple = "armor"
 	helmet_name_simple = "helmet"
 	recharge_slowdown = 0.25
+
 
 /obj/item/clothing/suit/armor/changeling
 	name = "chitinous mass"
@@ -533,10 +642,14 @@
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
+
 /obj/item/clothing/suit/armor/changeling/New()
 	..()
 	if(ismob(loc))
-		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message(span_warning("[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!"), \
+							span_warning("We harden our flesh, creating a suit of armor!"), \
+							span_italics("You hear organic matter ripping and tearing!"))
+
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"

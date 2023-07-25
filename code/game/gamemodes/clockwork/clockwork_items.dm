@@ -684,7 +684,7 @@
 		if(enchant_type == SPEED_SPELL)
 			enchant_type = CASTING_SPELL
 			flags |= NODROP
-			carbon.status_flags |= GOTTAGOFAST
+			ADD_TRAIT(carbon, TRAIT_GOTTAGOFAST, "clockrobes[UID()]")
 			addtimer(CALLBACK(src, PROC_REF(unspeed), carbon), 8 SECONDS)
 			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
 			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
@@ -699,7 +699,7 @@
 	deplete_spell()
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/unspeed(mob/living/carbon/carbon)
-	carbon.status_flags &= ~GOTTAGOFAST
+	REMOVE_TRAIT(carbon, TRAIT_GOTTAGOFAST, "clockrobes[UID()]")
 	flags &= ~NODROP
 	deplete_spell()
 

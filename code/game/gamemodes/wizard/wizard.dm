@@ -31,7 +31,7 @@
 	modePlayer += wizard
 	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
-	wizard.original = wizard.current
+	wizard.set_original_mob(wizard.current)
 	if(GLOB.wizardstart.len == 0)
 		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
 		return 0
@@ -51,7 +51,7 @@
 			apprentice.assigned_role = SPECIAL_ROLE_WIZARD_APPRENTICE //So they aren't chosen for other jobs.
 			apprentice.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 			possible_wizards.Remove(apprentice)
-			apprentice.original = apprentice.current
+			apprentice.set_original_mob(apprentice.current)
 
 	return 1
 
@@ -315,7 +315,7 @@
 
 		for(var/datum/mind/wizard in wizards)
 
-			text += "<br><b>[wizard.key]</b> was <b>[wizard.name]</b> ("
+			text += "<br><b>[wizard.get_display_key()]</b> was <b>[wizard.name]</b> ("
 			if(wizard.current)
 				if(wizard.current.stat == DEAD)
 					text += "died"
@@ -358,7 +358,7 @@
 		if(apprentices.len)
 			text += "<br><font size=3><b>the wizards/witches apprentices were:</b></font>"
 			for(var/datum/mind/apprentice in apprentices)
-				text += "<br><b>[apprentice.key]</b> was <b>[apprentice.name]</b> ("
+				text += "<br><b>[apprentice.get_display_key()]</b> was <b>[apprentice.name]</b> ("
 				if(apprentice.current)
 					if(apprentice.current.stat == DEAD)
 						text += "died"

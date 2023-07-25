@@ -888,16 +888,6 @@
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 
-/mob/living/carbon/human/handle_changeling()
-	if(mind.changeling)
-		mind.changeling.regenerate(src)
-		if(hud_used)
-			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
-	else
-		if(hud_used)
-			hud_used.lingchemdisplay.invisibility = 101
-
 
 /mob/living/carbon/human/proc/handle_pulse(times_fired)
 	if(times_fired % 5 == 1)
@@ -917,7 +907,7 @@
 	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
 		temp = PULSE_THREADY	//not enough :(
 
-	if(status_flags & FAKEDEATH)
+	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
 
 	if(reagents)

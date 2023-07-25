@@ -226,8 +226,9 @@
 
 		target.visible_message("<span class='danger'>[user] cuts [target] with razor gloves!</span>")
 
-		if(target.mind && user?.mind?.objectives)
-			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+		var/all_objectives = user?.mind?.get_all_objectives()
+		if(target.mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
 				if(target.mind == objective.target)
 					objective.take_damage(damage, BRUTE)
 
@@ -290,8 +291,9 @@
 
 		target.visible_message("<span class='danger'>[user] smash [target] with knuckles!</span>")
 
-		if(target.mind && user?.mind?.objectives)
-			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+		var/all_objectives = user?.mind?.get_all_objectives()
+		if(target.mind && all_objectives)
+			for(var/datum/objective/pain_hunter/objective in all_objectives)
 				if(target.mind == objective.target)
 					objective.take_damage(damage, BRUTE)
 

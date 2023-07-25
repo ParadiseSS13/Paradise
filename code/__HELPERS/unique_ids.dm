@@ -56,6 +56,20 @@ GLOBAL_LIST_EMPTY(uid_log)
 		return D
 	return null
 
+
+/**
+ * If the list `L` contains a datum UID who's type matches `D`'s type, returns the UID of that datum in the list. Otherwise returns null.
+ */
+/proc/is_type_in_UID_list(datum/D, list/L)
+	if(!length(L))
+		return
+
+	for(var/datum_UID in L)
+		var/datum/A = locateUID(datum_UID)
+		if(istype(D, A))
+			return datum_UID
+
+
 /**
   * Opens a lof of UIDs
   *

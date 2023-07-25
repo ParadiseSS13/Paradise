@@ -79,6 +79,7 @@
 /datum/admins/proc/makeChangelings()
 
 	var/datum/game_mode/changeling/temp = new
+
 	if(config.protect_roles_from_antagonist)
 		temp.restricted_jobs += temp.protected_jobs
 
@@ -100,11 +101,11 @@
 
 		for(var/i = 0, i<numChangelings, i++)
 			H = pick(candidates)
-			H.mind.make_Changeling()
+			H.mind.add_antag_datum(/datum/antagonist/changeling)
 			candidates.Remove(H)
 
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeRevs()
 
@@ -408,7 +409,7 @@
 		var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(GLOB.raider_spawn[index])
 		new_vox.mind = raider
 		raider.current = new_vox
-		raider.original = new_vox
+		raider.set_original_mob(new_vox)
 
 		raider.key = candidate.key
 		new_vox.key = raider.key

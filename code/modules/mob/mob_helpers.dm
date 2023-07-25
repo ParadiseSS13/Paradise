@@ -43,11 +43,6 @@
 			return 1
 	return 0
 
-/proc/ismindslave(A) //Checks to see if the person contains a mindslave implant, then checks that the implant is actually inside of them
-	for(var/obj/item/implant/traitor/T in A)
-		if(T && T.implanted)
-			return 1
-	return 0
 
 /proc/isLivingSSD(mob/M)
 	return istype(M) && M.player_logged && M.stat != DEAD
@@ -451,7 +446,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 //Direct dead say used both by emote and say
 //It is somewhat messy. I don't know what to do.
 //I know you can't see the change, but I rewrote the name code. It is significantly less messy now
-/proc/say_dead_direct(var/message, var/mob/subject = null)
+/proc/say_dead_direct(message, mob/subject = null)
 	var/name
 	var/keyname
 	if(subject && subject.client)
@@ -462,8 +457,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			var/realname = C.mob.real_name
 			if(C.mob.mind)
 				mindname = C.mob.mind.name
-				if(C.mob.mind.original && C.mob.mind.original.real_name)
-					realname = C.mob.mind.original.real_name
+				if(C.mob.mind.original_mob_name)
+					realname = C.mob.mind.original_mob_name
 			if(mindname && mindname != realname)
 				name = "[realname] died as [mindname]"
 			else
@@ -479,13 +474,13 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD,0,M))
 					follow = "([admin_jump_link(subject)]) "
 				var/mob/dead/observer/DM
-				if(istype(subject, /mob/dead/observer))
+				if(isobserver(subject))
 					DM = subject
-				if(check_rights(R_ADMIN|R_MOD,0,M)) 							// What admins see
-					lname = "[keyname][(DM && DM.client && DM.client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "*" : (DM ? "" : "^")] ([name])"
+				if(check_rights(R_ADMIN|R_MOD, FALSE, M)) 							// What admins see
+					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
 				else
-					if(DM && DM.client && DM.client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT)	// If the person is actually observer they have the option to be anonymous
-						lname = "Ghost of [name]"
+					if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)	// If the person is actually observer they have the option to be anonymous
+						lname = "<i>Anon</i> ([name])"
 					else if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
 					else										// Everyone else (dead people who didn't ghost yet, etc.)

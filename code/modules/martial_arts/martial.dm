@@ -124,9 +124,10 @@
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
-/datum/martial_art/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
-	if(target.mind && user?.mind?.objectives)
-		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+/datum/martial_art/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
+	var/all_objectives = user?.mind?.get_all_objectives()
+	if(target.mind && all_objectives)
+		for(var/datum/objective/pain_hunter/objective in all_objectives)
 			if(target.mind == objective.target)
 				objective.take_damage(damage, damage_type)
 
@@ -263,11 +264,11 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
-/obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
+/obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
-		if(user.mind && user.mind.changeling) //Changelings
+	if(user.mind && (ischangeling(user) || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
+		if(ischangeling(user)) //Changelings
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else //Vampires

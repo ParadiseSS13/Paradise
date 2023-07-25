@@ -94,8 +94,10 @@
 	if(has_changer)
 		return has_changer
 
-	if(mind?.changeling?.mimicking)
-		return mind.changeling.mimicking
+	if(ischangeling(src))
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling.mimicking)
+			return cling.mimicking
 
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
@@ -108,8 +110,10 @@
 	if(has_changer_tts)
 		return has_changer_tts
 
-	if(mind?.changeling?.mimicking)
-		return mind.changeling.tts_mimicking
+	if(ischangeling(src))
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling.tts_mimicking)
+			return cling.tts_mimicking
 
 	if(GetSpecialTTSVoice())
 		return GetSpecialTTSVoice()

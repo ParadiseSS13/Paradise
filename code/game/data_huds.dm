@@ -98,7 +98,7 @@
 
 //helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
-	if(M.stat == DEAD || (M.status_flags & FAKEDEATH))
+	if(M.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		return "health-100-dead" //what's our health? it doesn't matter, we're dead, or faking
 
 	var/maxi_health = M.maxHealth
@@ -181,7 +181,7 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	// To the right of health bar
-	if(stat == DEAD || (status_flags & FAKEDEATH))
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
 		if(!ghost_can_reenter() || suiciding) // DNR or AntagHUD or Suicide
 			revivable = FALSE
@@ -189,7 +189,7 @@
 			holder.icon_state = "hudflatline"
 		else
 			holder.icon_state = "huddead"
-	else if(status_flags & XENO_HOST)
+	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
 	else if(B && B.controlling)
 		holder.icon_state = "hudbrainworm"

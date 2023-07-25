@@ -235,6 +235,128 @@
 /datum/status_effect/regenerative_core/on_remove()
 	owner.status_flags &= ~IGNORE_SPEED_CHANGES
 
+
+/datum/status_effect/fleshmend
+	id = "fleshmend"
+	duration = -1
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 1 SECONDS
+	alert_type = null
+	/// This diminishes the healing of fleshmend the higher it is.
+	var/tolerance = 1
+	/// This diminishes the healing of fleshmend if the user is cold when it is activated
+	var/freezing = FALSE
+	/// Number of heal ticks.
+	var/instance_duration = 10
+	/// A list of integers, one for each remaining instance of fleshmend.
+	var/list/active_instances = list()
+	var/ticks = 0
+
+
+/datum/status_effect/fleshmend/on_apply()
+	apply_new_fleshmend()
+	return TRUE
+
+
+/datum/status_effect/fleshmend/refresh()
+	apply_new_fleshmend()
+	..()
+
+
+/datum/status_effect/fleshmend/proc/apply_new_fleshmend()
+	tolerance += 1
+	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
+	if(freezing)
+		to_chat(owner, span_warning("Our healing's effectiveness is reduced by our cold body!"))
+	active_instances += instance_duration
+
+
+/datum/status_effect/fleshmend/tick()
+	if(length(active_instances) >= 1)
+		var/heal_amount = (length(active_instances) / tolerance) * (freezing ? 2 : 10)
+		var/blood_restore = 30 * length(active_instances)
+		owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+		owner.adjustOxyLoss(-heal_amount, FALSE)
+		owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
+		owner.updatehealth()
+		var/list/expired_instances = list()
+		for(var/i in 1 to length(active_instances))
+			active_instances[i]--
+			if(active_instances[i] <= 0)
+				expired_instances += active_instances[i]
+		active_instances -= expired_instances
+	tolerance = max(tolerance - 0.05, 1)
+	if(tolerance <= 1 && length(active_instances) == 0)
+		qdel(src)
+
+
+/datum/status_effect/speedlegs
+	id = "gottagofast"
+	duration = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	tick_interval = 4 SECONDS
+	alert_type = null
+	var/stacks = 0
+	/// A reference to the changeling's changeling antag datum.
+	var/datum/antagonist/changeling/cling
+
+
+/datum/status_effect/speedlegs/on_apply()
+	cling = owner?.mind?.has_antag_datum(/datum/antagonist/changeling)
+	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
+	return TRUE
+
+
+/datum/status_effect/speedlegs/tick()
+	if(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)
+		to_chat(owner, span_danger("Our muscles relax without the energy to strengthen them."))
+		owner.Weaken(6 SECONDS)
+		qdel(src)
+	else
+		stacks++
+		cling.chem_charges -= stacks * 3 //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
+		if(stacks == 7) //Warning message that the stacks are getting too high
+			to_chat(owner, span_warning("Our legs are really starting to hurt..."))
+
+
+/datum/status_effect/speedlegs/before_remove()
+	if(stacks < 3 && !(owner.stat || owner.staminaloss >= 90 || cling.chem_charges <= (stacks + 1) * 3)) //We don't want people to turn it on and off fast, however, we need it forced off if the 3 later conditions are met.
+		to_chat(owner, span_notice("Our muscles just tensed up, they will not relax so fast."))
+		return FALSE
+	return TRUE
+
+
+/datum/status_effect/speedlegs/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
+	if(!owner.IsWeakened())
+		to_chat(owner, span_notice("Our muscles relax."))
+		if(stacks >= 7)
+			to_chat(owner, span_danger("We collapse in exhaustion."))
+			owner.Weaken(6 SECONDS)
+			owner.emote("gasp")
+	cling.genetic_damage += stacks
+	cling = null
+
+
+/datum/status_effect/panacea
+	id = "panacea"
+	duration = 20 SECONDS
+	tick_interval = 2 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+
+
+/datum/status_effect/panacea/tick()
+	owner.adjustToxLoss(-5) //Has the same healing as 20 charcoal, but happens faster
+	owner.radiation = max(0, owner.radiation - 70) //Same radiation healing as pentetic
+	owner.adjustBrainLoss(-5)
+	owner.AdjustDrunk(-12 SECONDS) //50% stronger than antihol
+	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
+	for(var/datum/reagent/reagent in owner.reagents.reagent_list)
+		if(!reagent.harmless)
+			owner.reagents.remove_reagent(reagent.id, 2)
+
+
 /datum/status_effect/terror/regeneration
 	id = "terror_regen"
 	duration = 250

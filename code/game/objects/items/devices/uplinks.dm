@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/temp_category
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// If set, the uplink will show the option to become a contractor through this variable.
-	var/datum/antagonist/traitor/contractor/contractor = null
+	var/datum/antagonist/contractor/contractor = null
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
 
@@ -260,7 +260,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if(UI_MODAL_ANSWER)
 			if(id == "become_contractor")
 				if(text2num(params["answer"]))
-					var/datum/antagonist/traitor/contractor/C = usr.mind.has_antag_datum(/datum/antagonist/traitor/contractor)
+					var/datum/antagonist/contractor/C = usr?.mind?.has_antag_datum(/datum/antagonist/contractor)
 					C?.become_contractor(usr, src)
 				return
 	return FALSE

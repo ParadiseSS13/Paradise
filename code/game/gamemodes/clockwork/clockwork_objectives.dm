@@ -113,11 +113,13 @@
 /datum/objective/serveclock //Given to clockers on conversion/roundstart
 	explanation_text = "Assist your fellow clockwork associates and Power Ratvar to Tear the Veil! (Use the Study Veil action to check your progress.)"
 	completed = TRUE
+	needs_target = FALSE
 
 /datum/objective/demand_power
 	var/power_get = FALSE
 	var/beacon_get = FALSE
 	var/clockers_get = FALSE
+	needs_target = FALSE
 	explanation_text = "The Ratvar demands power in order to prepare the summoning."
 
 /datum/objective/demand_power/check_completion()
@@ -125,6 +127,7 @@
 
 
 /datum/objective/clockgod
+	needs_target = FALSE
 	var/summoned = FALSE
 	var/killed = FALSE
 	var/list/ritual_spots = list()

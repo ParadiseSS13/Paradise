@@ -77,10 +77,10 @@
 
 		var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
 
-		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
+		if(internal_bleeding_rate && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed_internal(internal_bleeding_rate + additional_bleed)
 
-		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
+		if(bleed_rate && !bleedsuppress && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed(bleed_rate + additional_bleed)
 
 //Makes a blood drop, leaking amt units of blood from the mob

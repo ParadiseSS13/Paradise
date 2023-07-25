@@ -1,5 +1,6 @@
 /datum/objective/abductee
-	completed = 1
+	needs_target = FALSE
+	completed = TRUE
 
 /datum/objective/abductee/steal
 	explanation_text = "Украдите"

@@ -232,25 +232,31 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
+
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
-	var/turf/T = get_turf(src)
-	if(!T)
-		return 0
-	if(!is_level_reachable(T.z))
-		return 0
-	if(user != null && src == user)
-		return 0
+	var/turf/source_turf = get_turf(src)
+	if(!source_turf)
+		return FALSE
+
+	if(!is_level_reachable(source_turf.z))
+		return FALSE
+
+	if(!isnull(user) && src == user)
+		return FALSE
+
 	if(invisibility || alpha == 0)//cloaked
-		return 0
-	if(digitalcamo)
-		return 0
+		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_AI_UNTRACKABLE))
+		return FALSE
 
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	if(!near_camera(src))
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
+
 
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
@@ -277,7 +283,7 @@
 /mob/living/pointed(atom/A as mob|obj|turf)
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
-	if(status_flags & FAKEDEATH)
+	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
 	return ..()
 

@@ -64,7 +64,7 @@
 
 
 //called when we get cuffed/uncuffed
-/mob/living/carbon/proc/update_handcuffed()
+/mob/living/carbon/proc/update_handcuffed_status()
 	if(handcuffed)
 		drop_from_active_hand()
 		drop_from_inactive_hand()
@@ -84,18 +84,21 @@
 		hand.update_icon()
 
 
-/mob/living/carbon/update_inv_legcuffed()
+/**
+ * Updates move intent, popup alert and human legcuffed overlay.
+ */
+/mob/living/carbon/proc/update_legcuffed_status()
 	if(legcuffed)
 		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
-		toggle_move_intent()
+		if(m_intent == MOVE_INTENT_RUN)
+			toggle_move_intent()
+
 	else
 		clear_alert("legcuffed")
+		if(m_intent == MOVE_INTENT_WALK)
+			toggle_move_intent()
 
-		if(m_intent != MOVE_INTENT_RUN)
-			m_intent = MOVE_INTENT_RUN
-			update_icons()
-			if(hud_used)
-				hud_used.move_intent.icon_state = "running"
+	update_inv_legcuffed()
 
 
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = FALSE)
@@ -289,12 +292,12 @@
 		if(buckled && buckled.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
 		if(!QDELETED(src))
-			update_handcuffed()
+			update_handcuffed_status()
 
 	else if(I == legcuffed)
 		legcuffed = null
 		if(!QDELETED(src))
-			update_inv_legcuffed()
+			update_legcuffed_status()
 
 
 /**
