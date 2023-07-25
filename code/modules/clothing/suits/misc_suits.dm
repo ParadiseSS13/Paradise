@@ -513,6 +513,7 @@
 	desc = "Hood hopefully belonging to an ablative trenchcoat. Includes a flash proof visor."
 	icon_state = "ablativehood"
 	flash_protect = FLASH_PROTECTION_FLASH
+	flags = BLOCKHAIR
 	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	strip_delay = 3 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi',
