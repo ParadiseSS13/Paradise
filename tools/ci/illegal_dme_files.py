@@ -7,7 +7,7 @@ from pathlib import Path, PureWindowsPath
 import argparse
 import sys
 
-INCLUDER_FILES = [
+INCLUDED_FILES = [
     'paradise.dme'
 ]
 
@@ -17,7 +17,7 @@ ILLEGAL_FILES = (
 
 def get_illegal_files(root:Path):
     illegal_files = set()
-    for includer in INCLUDER_FILES:
+    for includer in INCLUDED_FILES:
         with open(root / includer, 'r') as f:
             # I've tried to optimize this, but this was the best I could get. Try placing the strips elsewhere if you dare
             lines = [line for line in f.readlines() if line.rstrip('\r\n').strip('"').endswith(ILLEGAL_FILES)]
