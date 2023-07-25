@@ -941,14 +941,14 @@
 	reagents.my_atom = src
 
 /proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
-	var/static/list/random_reagents = list()
+	var/list/random_reagents = list()
 	if(!length(random_reagents))
-		for(var/thing in subtypesof(/datum/reagent))
-			var/datum/reagent/R = thing
-			if(!(initial(R.id) in GLOB.blocked_chems))
+		for(var/datum/reagent/thing in subtypesof(/datum/reagent))
+			var/R = thing.id
+			if(!(initial(R) in GLOB.blocked_chems))
 				random_reagents += R.id
-	var/picked_reagent = pick(random_reagents)
-	return picked_reagent
+    var/picked_reagent = pick(random_reagents)
+    return picked_reagent
 
 /datum/reagents/proc/get_reagent_from_id(id)
 	var/datum/reagent/result = null
