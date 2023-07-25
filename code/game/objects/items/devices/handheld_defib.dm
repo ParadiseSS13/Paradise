@@ -56,7 +56,7 @@
 	if(emagged || (H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
 		user.visible_message("<span class='notice'>[user] shocks [H] with [src].</span>", "<span class='notice'>You tried to shock [H] with [src].</span>")
 		add_attack_logs(user, H, "defibrillated with [src]")
-		playsound(user, "sound/weapons/Egloves.ogg", 75, 1)
+		playsound(get_turf(src), "sound/weapons/Egloves.ogg", 75, 1)
 		if(!blocked)
 			if(H.stat == DEAD)
 				to_chat(user, "<span class='danger'>[H] doesn't respond at all!</span>")
