@@ -44,6 +44,7 @@ if __name__ == '__main__':
     # Windows quoting behavior for directories adds trailing double-quote
     illegal_files = get_illegal_files(Path(args.root.strip('"')))
     if illegal_files:
+        print(f'Found {illegal_files} total illegal files.')
         print(f'Illegal files are not allowed to be included in dme files.')
         sys.exit(1)
     else:
