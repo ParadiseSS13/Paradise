@@ -215,7 +215,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /proc/epsilon_process()
-	GLOB.security_announcement.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", 'sound/effects/purge_siren.ogg')
+	GLOB.security_announcement.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", 'modular_ss220/aesthetics_sounds/sound/epsilon/epsilon.ogg') //SS220 EDIT
 	GLOB.security_level = SEC_LEVEL_EPSILON
 	post_status(STATUS_DISPLAY_ALERT, "epsilonalert")
 	for(var/area/A as anything in GLOB.all_areas)
