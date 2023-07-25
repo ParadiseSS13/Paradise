@@ -2200,6 +2200,22 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	held_gun.afterattack(possible_target, src)
 	visible_message("<span class='danger'>[src] fires [held_gun][isturf(possible_target) ? "" : " towards [possible_target]!"]</span>")
 
+/mob/living/carbon/human/proc/dchat_step(dir)
+	if(grabbed_by)
+		resist_grab()
+	step(src, dir)
+
+/datum/component/deadchat_control/human/Initialize(_deadchat_mode, _inputs, _input_cooldown, _on_removal)
+	if(!ishuman(parent))
+		return COMPONENT_INCOMPATIBLE
+
+	_inputs["up"] = CALLBACK(parent, TYPE_PROC_REF(/mob/living/carbon/human, dchat_step), NORTH)
+	_inputs["down"] = CALLBACK(parent, TYPE_PROC_REF(/mob/living/carbon/human, dchat_step), SOUTH)
+	_inputs["left"] = CALLBACK(parent, TYPE_PROC_REF(/mob/living/carbon/human, dchat_step), WEST)
+	_inputs["right"] = CALLBACK(parent, TYPE_PROC_REF(/mob/living/carbon/human, dchat_step), EAST)
+
+	return ..()
+
 /mob/living/carbon/human/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 7 SECONDS)
 	var/list/inputs = list(
 		"emote" = CALLBACK(src, PROC_REF(dchat_emote)),
@@ -2212,4 +2228,4 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		"shoot" = CALLBACK(src, PROC_REF(dchat_shoot)),
 	)
 
-	AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, inputs, cooldown)
+	AddComponent(/datum/component/deadchat_control/human, mode, inputs, cooldown)
