@@ -603,7 +603,8 @@
 /datum/game_mode/proc/generate_station_goals()
 	var/list/possible = list()
 
-	for(var/datum/station_goal/goal in subtypesof(/datum/station_goal))
+	for(var/T in subtypesof(/datum/station_goal))
+		var/datum/station_goal/goal = T
 		if(config_tag in initial(goal.gamemode_blacklist))
 			continue
 
