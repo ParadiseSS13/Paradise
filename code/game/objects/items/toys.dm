@@ -235,12 +235,11 @@
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
-	sharp_when_wielded = FALSE // It's a toy
 	needs_permit = FALSE
 
 /obj/item/dualsaber/toy/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed)
+	AddComponent(/datum/component/two_handed, only_sharp_when_wielded = FALSE, force_wielded = 0, force_unwielded = 0)
 
 /obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0

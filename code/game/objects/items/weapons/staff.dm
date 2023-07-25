@@ -25,32 +25,27 @@
 
 /obj/item/staff/broom/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, \
-		force_wielded=5, \
-		force_unwielded=3)
+	AddComponent(/datum/component/two_handed, force_wielded=5, force_unwielded=3, wield_callback=CALLBACK(src, PROC_REF(wield)), unwield_callback=CALLBACK(src, PROC_REF(unwield)))
+
+/obj/item/staff/broom/proc/wield(obj/item/source, mob/user)
+	attack_verb = list("rammed into", "charged at")
+	user.update_inv_l_hand()
+	user.update_inv_r_hand()
+	if(iswizard(user))
+		user.flying = TRUE
+		user.say("QUID 'ITCH")
+		animate(user, pixel_y = pixel_y + 10 , time = 10, loop = 1, easing = SINE_EASING)
+	to_chat(user, "<span class='notice'>You hold [src] between your legs.</span>")
 
 
-/obj/item/staff/broom/attack_self(mob/user as mob)
-	. = ..()
-	var/wielded = HAS_TRAIT(src, TRAIT_WIELDED)
-	item_state = "broom[wielded ? 1 : 0]"
-	attack_verb = wielded ? list("rammed into", "charged at") : list("bludgeoned", "whacked", "cleaned")
-	if(user)
-		user.update_inv_l_hand()
-		user.update_inv_r_hand()
-		if(user.mind in SSticker.mode.wizards)
-			user.flying = wielded ? 1 : 0
-			if(wielded)
-				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")
-				user.say("QUID 'ITCH")
-				animate(user, pixel_y = pixel_y + 10 , time = 10, loop = 1, easing = SINE_EASING)
-			else
-				animate(user, pixel_y = pixel_y + 10 , time = 1, loop = 1)
-				animate(user, pixel_y = pixel_y, time = 10, loop = 1, easing = SINE_EASING)
-				animate(user)
-		else
-			if(wielded)
-				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")
+/obj/item/staff/broom/proc/unwield(obj/item/source, mob/user)
+	attack_verb = list("bludgeoned", "whacked", "cleaned")
+	user.update_inv_l_hand()
+	user.update_inv_r_hand()
+	if(iswizard(user))
+		animate(user, pixel_y = pixel_y + 10 , time = 1, loop = 1)
+		animate(user, pixel_y = pixel_y, time = 10, loop = 1, easing = SINE_EASING)
+		animate(user)
 
 /obj/item/staff/broom/attackby(obj/O, mob/user)
 	if(istype(O, /obj/item/clothing/mask/horsehead))

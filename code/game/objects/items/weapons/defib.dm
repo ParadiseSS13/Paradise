@@ -288,9 +288,9 @@
 	var/on_cooldown = FALSE
 
 
-/obj/item/shockpaddles/Initialize(mapload, mainunit)
+/obj/item/shockpaddles/New(mainunit)
 	. = ..()
-	AddComponent(/datum/component/two_handed)
+
 	if(check_defib_exists(mainunit, null, src))
 		defib = mainunit
 		loc = defib
@@ -301,6 +301,7 @@
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))
 	RegisterSignal(src, COMSIG_DEFIB_PADDLES_APPLIED, PROC_REF(on_application))
+	AddComponent(/datum/component/two_handed)
 
 /obj/item/shockpaddles/Destroy()
 	defib = null

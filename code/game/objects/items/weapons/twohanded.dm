@@ -116,8 +116,6 @@
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 
-	var/sharp_when_wielded = TRUE
-
 
 	var/force_unwielded = 3
 	var/force_wielded = 34
@@ -129,7 +127,7 @@
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
-	AddComponent(/datum/component/two_handed, force_wielded=force_wielded, force_unwielded=force_unwielded, wieldsound=wieldsound, unwieldsound=unwieldsound, wield_callback=CALLBACK(src, PROC_REF(on_wield)), unwield_callback=CALLBACK(src, PROC_REF(on_unwield)))
+	AddComponent(/datum/component/two_handed, force_wielded=force_wielded, force_unwielded=force_unwielded, wieldsound=wieldsound, unwieldsound=unwieldsound, wield_callback=CALLBACK(src, PROC_REF(on_wield)), unwield_callback=CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded=TRUE)
 
 /obj/item/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -205,15 +203,11 @@
 
 	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
-	if(sharp_when_wielded)
-		set_sharpness(TRUE)
 
 
 /obj/item/dualsaber/proc/on_unwield()
 	hitsound = "swing_hit"
 	w_class = initial(w_class)
-	if(sharp_when_wielded)
-		set_sharpness(FALSE)
 
 /obj/item/dualsaber/IsReflect()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -842,7 +836,7 @@
 	name = "push broom"
 	desc = "This is my BROOMSTICK! It can be used manually or braced with two hands to sweep items as you move. It has a telescopic handle for compact storage."
 	icon = 'icons/obj/janitor.dmi'
-	icon_state = "broom"
+	icon_state = "broom0"
 	base_icon_state = "broom"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
@@ -867,8 +861,6 @@
 	icon_state = "broom0"
 
 /obj/item/push_broom/proc/wield(obj/item/source, mob/user)
-	if(!.)
-		return
 	to_chat(user, "<span class='notice'>You brace [src] against the ground in a firm sweeping stance.</span>")
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(sweep))
 
@@ -935,13 +927,11 @@
 			Help intent will sweep foes away from you, disarm intent sweeps their legs from under them, grab intent confuses \
 			and minorly fatigues them, and harm intent hits them normally.</span>"
 
-/obj/item/push_broom/traitor/wield(mob/user)
-	. = ..()
+/obj/item/push_broom/traitor/wield(obj/item/source, mob/user)
 	ADD_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")
 	to_chat(user, "<span class='warning'>Your sweeping stance allows you to deflect projectiles.</span>")
 
-/obj/item/push_broom/traitor/unwield(mob/user)
-	. = ..()
+/obj/item/push_broom/traitor/unwield(obj/item/source, mob/user)
 	if(HAS_TRAIT_FROM(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")) //this check is needed because obj/item/twohanded calls unwield() on drop and you'd get the message even if you weren't wielding it before
 		REMOVE_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")
 		to_chat(user, "<span class='warning'>You stop reflecting projectiles.</span>")

@@ -1,3 +1,5 @@
+#define NO_CHANGE -1
+
 /**
  * Two Handed Component
  *
@@ -48,10 +50,11 @@
  * * force_wielded (optional) The force setting when the item is wielded, do not use with force_multiplier
  * * force_unwielded (optional) The force setting when the item is unwielded, do not use with force_multiplier
  * * icon_wielded (optional) The icon to be used when wielded
+ * * only_sharp_when_wielded (optional) Is the item only sharp when held in both hands?
  */
 /datum/component/two_handed/Initialize(require_twohands=FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
 										force_multiplier=0, force_wielded=0, force_unwielded=0, icon_wielded=FALSE, \
-										datum/callback/wield_callback, datum/callback/unwield_callback)
+										only_sharp_when_wielded=FALSE, datum/callback/wield_callback, datum/callback/unwield_callback)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -65,34 +68,37 @@
 	src.icon_wielded = icon_wielded
 	src.wield_callback = wield_callback
 	src.unwield_callback = unwield_callback
+	src.only_sharp_when_wielded = only_sharp_when_wielded
 
 
 // Inherit the new values passed to the component
-/datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, wieldsound, unwieldsound, \
-											force_multiplier, force_wielded, force_unwielded, icon_wielded, \
-											datum/callback/wield_callback, datum/callback/unwield_callback)
+/datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands = NO_CHANGE, wieldsound = NO_CHANGE, unwieldsound = NO_CHANGE, \
+											force_multiplier = NO_CHANGE, force_wielded = NO_CHANGE, force_unwielded = NO_CHANGE, icon_wielded = NO_CHANGE, \
+											only_sharp_when_wielded = NO_CHANGE, datum/callback/wield_callback = NO_CHANGE, datum/callback/unwield_callback = NO_CHANGE)
 	if(!original)
 		return
-	if(require_twohands)
+	if(require_twohands != NO_CHANGE)
 		src.require_twohands = require_twohands
-	if(wieldsound)
+	if(wieldsound != NO_CHANGE)
 		src.wieldsound = wieldsound
-	if(unwieldsound)
+	if(unwieldsound != NO_CHANGE)
 		src.unwieldsound = unwieldsound
-	if(attacksound)
+	if(attacksound != NO_CHANGE)
 		src.attacksound = attacksound
-	if(force_multiplier)
+	if(force_multiplier != NO_CHANGE)
 		src.force_multiplier = force_multiplier
-	if(force_wielded)
+	if(force_wielded != NO_CHANGE)
 		src.force_wielded = force_wielded
-	if(force_unwielded)
+	if(force_unwielded != NO_CHANGE)
 		src.force_unwielded = force_unwielded
-	if(icon_wielded)
+	if(icon_wielded != NO_CHANGE)
 		src.icon_wielded = icon_wielded
-	if(wield_callback)
+	if(wield_callback != NO_CHANGE)
 		src.wield_callback = wield_callback
-	if(unwield_callback)
+	if(unwield_callback != NO_CHANGE)
 		src.unwield_callback = unwield_callback
+	if(only_sharp_when_wielded != NO_CHANGE)
+		src.only_sharp_when_wielded = only_sharp_when_wielded
 
 // register signals withthe parent item
 /datum/component/two_handed/RegisterWithParent()
@@ -104,6 +110,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
 	RegisterSignal(parent, COMSIG_CARBON_UPDATE_HANDCUFFED, PROC_REF(on_handcuff_user))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
 
 // Remove all siginals registered to the parent item
 /datum/component/two_handed/UnregisterFromParent()
@@ -152,6 +159,12 @@
 		else if(user.is_holding(parent))
 			INVOKE_ASYNC(src, PROC_REF(wield), user)
 
+/datum/component/two_handed/proc/on_attack_hand(datum/source, mob/user)
+	SIGNAL_HANDLER  // COMSIG_ATOM_ATTACK_HAND if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+	if(require_twohands && user.get_inactive_hand())
+		to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
 /**
  * Wield the two handed item in both hands
  *
@@ -187,6 +200,9 @@
 	wielded = TRUE
 	ADD_TRAIT(parent, TRAIT_WIELDED, "[\ref(src)]")
 	RegisterSignal(user, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(on_swapping_hands))
+	if(only_sharp_when_wielded)
+		var/obj/O = parent
+		O.set_sharpness(TRUE)
 	wield_callback?.Invoke(parent, user)
 
 	// update item stats and name
@@ -236,6 +252,9 @@
 	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, user)
 	REMOVE_TRAIT(parent, TRAIT_WIELDED, "[\ref(src)]")
 	unwield_callback?.Invoke(parent, user)
+	if(only_sharp_when_wielded)
+		var/obj/O = parent
+		O.set_sharpness(FALSE)
 
 	// update item stats
 	var/obj/item/parent_item = parent
@@ -355,12 +374,13 @@
 	sharpened_increase = min(amount, (max_amount - wielded_val))
 	var/obj/item/I = parent
 	if(!only_sharp_when_wielded)
-		// wielded force gets applied on wield
 		force_unwielded += sharpened_increase
 		I.force += sharpened_increase  // todo double check this logic is correct
 	else if(wielded)
 		I.force += sharpened_increase
-	return  // don't return the "sharpened applied" signal since we probably wanna sharpen the base form too
+	// also update force_wielded so this still gets applied after re-wielding
+	force_wielded += sharpened_increase
+	return COMPONENT_SHARPEN_APPLIED  // don't return the "sharpened applied" signal since we probably wanna sharpen the base form too
 
 /datum/component/two_handed/proc/on_handcuff_user(mob/user, handcuff_status)
 	SIGNAL_HANDLER  // COMSIG_CARBON_UPDATE_HANDCUFFED
@@ -395,3 +415,5 @@
 	. = ..()
 	if(wielded && !user.is_holding(src) && !QDELETED(src))
 		qdel(src)
+
+#undef NO_CHANGE

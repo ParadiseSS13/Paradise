@@ -562,7 +562,7 @@
 #define COMSIG_ITEM_MICROWAVE_ACT "microwave_act"
 ///from base of item/sharpener/attackby(): (amount, max)
 #define COMSIG_ITEM_SHARPEN_ACT "sharpen_act"
-	#define COMPONENT_BLOCK_SHARPEN_APPLIED (1<<0)
+	#define COMPONENT_SHARPEN_APPLIED (1<<0)
 	#define COMPONENT_BLOCK_SHARPEN_BLOCKED (1<<1)
 	#define COMPONENT_BLOCK_SHARPEN_ALREADY (1<<2)
 	#define COMPONENT_BLOCK_SHARPEN_MAXED (1<<3)
