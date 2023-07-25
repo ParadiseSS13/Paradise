@@ -475,6 +475,10 @@ BLIND     // can't see anything
 				name = "mangled [name]"
 				desc = "[desc] They have had their toes opened up."
 				update_icon()
+				if(ishuman(user))
+					var/mob/living/carbon/human/H = user
+					if(H.shoes == src)
+						user.update_inv_shoes()
 			else
 				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
 		return
