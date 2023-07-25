@@ -15,4 +15,4 @@
 /obj/item/twohanded/garrote/@SUBTYPES : /obj/item/garrote/@SUBTYPES{@OLD}
 /obj/item/twohanded/bostaff : /obj/item/bostaff{@OLD}
 /obj/item/twohanded/kinetic_crusher : /obj/item/kinetic_crusher{@OLD}
-/obj/item/twohanded/staff/@SUBTYPES : /obj/item/staff/@SUBTYPES
+/obj/item/twohanded/staff/@SUBTYPES : /obj/item/staff/@SUBTYPES{@OLD}
