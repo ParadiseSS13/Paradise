@@ -3,25 +3,44 @@
 
 // #include "example/_example.dme"
 
+// --- MAINTENANCE --- //
 #include "_defines220/_defines220.dme"
 #include "_signals220/_signals220.dme"
 #include "_maps220/_maps220.dme"
 #include "_span/_span.dme"
+#include "whitelist/_whitelist.dme"
+#include "text_to_speech/_tts.dme"
+
+// --- ICONS --- //
 #include "aesthetics/_aesthetics.dme"
-#include "aesthetics_sounds/_aesthetics_sounds.dme"
-#include "barsigns/_barsigns.dme"
-#include "crawl_speed/_crawl_speed.dme"
-// #include "crit_rework/_crit_rework.dme"
+
+// --- OBJECTS --- //
+#include "sechailer/sechailer.dme"
 #include "devices/_devices.dme"
-#include "emotes/_emotes.dme"
-#include "fullscreen/_fullscreen.dme"
-#include "gunhud/_gunhud.dme"
 #include "food/_food.dme"
-#include "keybindings/_keybindings.dme"
-#include "pixel_shift/_pixel_shift.dme"
+#include "barsigns/_barsigns.dme"
+
+// --- MISC --- //
 #include "screentip_change/_screentip_change.dme"
 #include "smart_equip_targeted/_smart_equip_targeted.dme"
 #include "unique_objects/_unique_objects.dme"
 #include "title_screen/_title_screen.dme"
-#include "text_to_speech/_tts.dme"
-#include "whitelist/_whitelist.dme"
+#include "pixel_shift/_pixel_shift.dme"
+#include "gunhud/_gunhud.dme"
+#include "crawl_speed/_crawl_speed.dme"
+#include "emotes/_emotes.dme"
+#include "fullscreen/_fullscreen.dme"
+#include "keybindings/_keybindings.dme"
+#include "aesthetics_sounds/_aesthetics_sounds.dme"
+
+// --- UNUSED MODS --- //
+
+ /*------------------------------------------------------------------
+	 Почему UNUSED MODS стоит хранить?
+	 Потому что никто не проверяет использование тех или иных файлов
+	 в коде, и мод просто исчезнет из поля зрения, когда находясь здесь
+	 он всегда напоминает о своём существовании. Небольшая библиотека,
+	 если так вообще можно выразиться.
+ ---------------------------------------------------------------------*/
+
+// #include "crit_rework/_crit_rework.dme"
