@@ -56,6 +56,9 @@
 
 /obj/machinery/field/containment/Crossed(mob/mover, oldloc)
 	if(isliving(mover))
+		var/mob/living/victim = mover
+		if(victim.incorporeal_move)
+			return
 		shock_field(mover)
 
 	if(istype(mover, /obj/machinery) || istype(mover, /obj/structure) || istype(mover, /obj/mecha))
