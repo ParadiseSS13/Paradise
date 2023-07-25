@@ -631,11 +631,11 @@
 					var/mob/living/carbon/human/H = pulling
 					if(!H.lying)
 						if(H.get_confusion() > 0 && prob(4))
-							H.Stun(4 SECONDS)
+							H.Weaken(4 SECONDS)
 							pulling.stop_pulling()
 							visible_message(span_danger("Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол!"))
 						if(H.m_intent == MOVE_INTENT_WALK && prob(4))
-							H.Stun(4 SECONDS)
+							H.Weaken(4 SECONDS)
 							visible_message(span_danger("[H] не поспевает за [src] и с грохотом падает на пол!"))
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
