@@ -598,7 +598,7 @@
 			to_chat(carbon, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
 		carbon.Jitter(9 SECONDS)
 	if(strength >= DISGUST_LEVEL_VERYGROSS)
-		var/pukeprob = 5 + 0.005 * carbon.AmountDisgust()
+		var/pukeprob = 5 + 0.005 * strength
 		if(prob(pukeprob))
 			carbon.AdjustConfused(9 SECONDS)
 			carbon.AdjustStuttering(3 SECONDS)
@@ -615,6 +615,9 @@
 
 /datum/status_effect/transient/disgust/on_remove()
 	owner.update_disgust_alert()
+
+/datum/status_effect/transient/disgust/calc_decay()
+	return -1 * initial(tick_interval)
 
 /datum/status_effect/transient/deaf
 	id = "deafened"
