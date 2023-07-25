@@ -204,7 +204,15 @@
       Jackboots icons. (#3226)
   Dimach:
   - bugfix: bsg sprites fix (#3225)
+  Rerik007:
+  - bugfix: correct calc_decay for disgust status effect (#3223)
+  Vladisvell:
+  - bugfix: incorporeal living beings now aren't struck by containment fields (#3232)
   Zwei:
   - refactor: Antag Datums (#3157)
+  - bugfix: Station Goals (#3234)
+  captainnelly:
+  - bugfix: handheld defib sound (#3230)
+  - tweak: stun to weaken while being pulled in walk mode (#3229)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#3227)
