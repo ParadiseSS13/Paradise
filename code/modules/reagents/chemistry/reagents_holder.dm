@@ -946,7 +946,7 @@
 		for(var/datum/reagent/thing in subtypesof(/datum/reagent))
 			var/R = thing.id
 			if(!(initial(R) in GLOB.blocked_chems))
-				random_reagents += R.id
+				random_reagents += R
     var/picked_reagent = pick(random_reagents)
     return picked_reagent
 
