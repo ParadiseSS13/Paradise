@@ -15,14 +15,15 @@ ILLEGAL_FILES = (
     '.dmm'
 )
 
-def get_illegal_files(root:Path):
+def get_illegal_files(root: Path):
     illegal_files = set()
     for includer in INCLUDED_FILES:
         with open(root / includer, 'r') as f:
             # I've tried to optimize this, but this was the best I could get. Try placing the strips elsewhere if you dare
             lines = [line for line in f.readlines() if line.rstrip('\r\n').strip('"').endswith(ILLEGAL_FILES)]
             included = [line.replace('#include ', '').rstrip('\r\n').strip('"') for line in lines]
-            print(f'Found {len(included)} illegal files in {root / includer}')
+            if(len(INCLUDED_FILES) > 1):
+                print(f'Found {len(included)} illegal files in {root / includer}')
             illegal_files.update([root / Path(includer).parent / Path(PureWindowsPath(i)) for i in included])
 
     return illegal_files
