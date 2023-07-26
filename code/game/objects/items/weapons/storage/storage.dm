@@ -436,19 +436,24 @@
 			M.client.screen -= W
 
 	if(new_location)
-		if(ismob(loc))
+		var/is_on_mob = get(loc, /mob)
+		if(is_on_mob)
 			W.dropped(usr)
-		if(ismob(new_location))
+
+		if(ismob(new_location) || get(new_location, /mob))
+			if(usr && !is_on_mob && config.item_animations_enabled)
+				W.loc = get_turf(src)	// This bullshit is required since /image/ registered in turf contents only
+				W.pixel_x = pixel_x
+				W.pixel_y = pixel_y
+				W.do_pickup_animation(usr)
 			W.layer = ABOVE_HUD_LAYER
 			W.plane = ABOVE_HUD_PLANE
-		else
 			W.pixel_y = initial(W.pixel_y)
 			W.pixel_x = initial(W.pixel_x)
+		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
-		if(usr && config.item_animations_enabled)
-			W.loc = get_turf(src)
-			W.do_pickup_animation(usr)
+
 		W.forceMove(new_location)
 
 	if(usr)

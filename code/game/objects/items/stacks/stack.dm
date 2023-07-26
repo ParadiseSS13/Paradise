@@ -56,8 +56,8 @@
 				if(is_zero_amount(delete_if_zero = FALSE))
 					return INITIALIZE_HINT_QDEL
 
-	update_icon()
 	update_weight()
+	update_icon()
 
 
 /obj/item/stack/Destroy()
@@ -379,6 +379,9 @@
 		amount += newamount
 		update_icon()
 		update_weight()
+		if(isstorage(loc))
+			var/obj/item/storage/container = loc
+			addtimer(CALLBACK(container, TYPE_PROC_REF(/obj/item/storage, drop_overweight)), 0)
 
 
 /obj/item/stack/proc/update_weight()
@@ -390,6 +393,24 @@
 		w_class = full_w_class
 
 
+/obj/item/storage/proc/drop_overweight()
+	if(QDELETED(src))
+		return
+
+	for(var/obj/item/stack/item_stack in contents)
+		if(item_stack.is_cyborg)
+			continue
+
+		if(item_stack.w_class > max_w_class)
+			var/drop_loc = get_turf(src)
+			item_stack.pixel_x = pixel_x
+			item_stack.pixel_y = pixel_y
+			item_stack.forceMove(drop_loc)
+			var/mob/holder = usr
+			if(holder)
+				to_chat(holder, span_warning("[item_stack] exceeds [src] weight limits and drops to [drop_loc]"))
+
+
 /obj/item/stack/use(used, transfer = FALSE, check = TRUE)
 	if(check && is_zero_amount(delete_if_zero = TRUE))
 		return FALSE
@@ -398,10 +419,10 @@
 	if(amount < used)
 		return FALSE
 	amount -= used
-	if(check)
-		is_zero_amount(delete_if_zero = TRUE)
-	update_icon()
+	if(check && is_zero_amount(delete_if_zero = TRUE))
+		return TRUE
 	update_weight()
+	update_icon()
 	return TRUE
 
 
@@ -461,8 +482,8 @@
 	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
 	if(QDELETED(target_stack))
 		CRASH("Stack merge attempted on qdeleted target stack.")
-	if(QDELETED(src))
-		CRASH("Stack merge attempted on qdeleted source stack.")
+	//if(QDELETED(src))	// omitted until I find a way
+	//	CRASH("Stack merge attempted on qdeleted source stack.")
 	if(target_stack == src)
 		CRASH("Stack attempted to merge into itself.")
 
