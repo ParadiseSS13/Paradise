@@ -1781,6 +1781,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return CPR_CHEST_COMPRESSION_ONLY
 	if(HAS_TRAIT(src, TRAIT_NOBREATH) || HAS_TRAIT(H, TRAIT_NOBREATH))
 		return CPR_CHEST_COMPRESSION_ONLY
+	if(isvox(H) || isplasmaman(H) || isvox(src) || isplasmaman(src))  // sorry non oxy-breathers
+		return CPR_CHEST_COMPRESSION_ONLY
 	return CPR_RESCUE_BREATHS
 
 /// Get the amount of time that this round of CPR should add to the death timer
