@@ -7,13 +7,12 @@
 	var/active = FALSE // This gets set to TRUE on all devices except the one where the initial request was made.
 	var/event
 	var/swiping = FALSE // on swiping screen?
-	var/list/ert_chosen = list()
-	var/confirmed = FALSE // This variable is set by the device that confirms the request.
-	var/confirm_delay = 5 SECONDS // time allowed for a second person to confirm a swipe.
-	var/busy = FALSE // Busy when waiting for authentication or an event request has been sent from this device.
+	var/confirm_delay = 20 SECONDS // time allowed for a second person to confirm a swipe.
+	/// True when a request is sent from another device. So someone on the other end can't just close the ERT menu while someone is typing
+	var/busy = FALSE
 	var/obj/machinery/keycard_auth/event_source
-	var/mob/event_triggered_by
-	var/mob/event_confirmed_by
+	var/mob/triggered_by
+	var/mob/confirmed_by
 	var/ert_reason
 
 	anchored = TRUE
@@ -27,7 +26,7 @@
 /obj/machinery/keycard_auth/update_icon_state()
 	. = ..()
 
-	if(event_triggered_by || event_source)
+	if(triggered_by || event_source)
 		icon_state = "auth_on"
 	else
 		icon_state = "auth_off"
@@ -36,37 +35,42 @@
 	. = ..()
 	underlays.Cut()
 
-	if(event_triggered_by || event_source)
+	if(triggered_by || event_source)
 		underlays += emissive_appearance(icon, "auth_lightmask")
 
 
-/obj/machinery/keycard_auth/attack_ai(mob/user as mob)
+/obj/machinery/keycard_auth/attack_ai(mob/user)
 	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
 	return
 
-/obj/machinery/keycard_auth/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/keycard_auth/attackby(obj/item/W, mob/user, params)
 	if(stat & (NOPOWER|BROKEN))
 		to_chat(user, "This device is not powered.")
 		return
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
-		if(check_access(W))
-			if(active)
-				//This is not the device that made the initial request. It is the device confirming the request.
-				if(event_source)
-					event_source.confirmed = TRUE
-					event_source.event_confirmed_by = usr
-					SStgui.update_uis(event_source)
-					SStgui.update_uis(src)
-			else if(swiping)
-				if(event == "Emergency Response Team" && !ert_reason)
-					to_chat(user, "<span class='warning'>Supply a reason for calling the ERT first!</span>")
-					return
-				event_triggered_by = usr
-				SStgui.update_uis(src)
-				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
-		else
+		if(!check_access(W))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
+			return
+		if(user == event_source?.triggered_by)
+			to_chat(user, "<span class='warning'>Identical body-signature detected. Access denied.</span>")
+			return
+		if(active)
+			//This is not the device that made the initial request. It is the device confirming the request.
+			if(!event_source)
+				return
+			event_source.confirmed_by = user
+			SStgui.update_uis(event_source)
+			SStgui.update_uis(src)
+			event_source.confirm_and_trigger()
+			reset()
+			return
+		if(swiping)
+			if(event == "Emergency Response Team" && !ert_reason)
+				to_chat(user, "<span class='warning'>Supply a reason for calling the ERT first!</span>")
+				return
+			triggered_by = user
+			SStgui.update_uis(src)
+			broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 	return ..()
 
 /obj/machinery/keycard_auth/power_change()
@@ -97,8 +101,8 @@
 	data["event"] = active && event_source && event_source.event ? event_source.event : event
 	data["ertreason"] = active && event_source && event_source.ert_reason ? event_source.ert_reason : ert_reason
 	data["isRemote"] = active ? TRUE : FALSE
-	data["hasSwiped"] = event_triggered_by ? TRUE : FALSE
-	data["hasConfirm"] = event_confirmed_by || (active && event_source && event_source.event_confirmed_by) ? TRUE : FALSE
+	data["hasSwiped"] = triggered_by ? TRUE : FALSE
+	data["hasConfirm"] = confirmed_by || (active && event_source && event_source.confirmed_by) ? TRUE : FALSE
 	return data
 
 /obj/machinery/keycard_auth/ui_act(action, params)
@@ -126,10 +130,10 @@
 	active = FALSE
 	event = null
 	swiping = FALSE
-	confirmed = FALSE
+	busy = FALSE
 	event_source = null
-	event_triggered_by = null
-	event_confirmed_by = null
+	triggered_by = null
+	confirmed_by = null
 	set_light(0)
 	update_icon()
 
@@ -137,39 +141,32 @@
 	update_icon()
 	set_light(1, LIGHTING_MINIMUM_POWER)
 	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
-		if(KA == src) continue
-		KA.reset()
-		spawn()
-			KA.receive_request(src)
+		if(KA == src)
+			continue
+		KA.receive_request(src)
 
-	sleep(confirm_delay)
-	if(confirmed)
-		confirmed = FALSE
-		trigger_event(event)
-		log_game("[key_name(event_triggered_by)] triggered and [key_name(event_confirmed_by)] confirmed event [event]")
-		message_admins("[key_name_admin(event_triggered_by)] triggered and [key_name_admin(event_confirmed_by)] confirmed event [event]", 1)
+	addtimer(CALLBACK(src, PROC_REF(reset)), confirm_delay)
+
+/obj/machinery/keycard_auth/proc/confirm_and_trigger()
+	trigger_event(event)
+	log_game("[key_name(triggered_by)] triggered and [key_name(confirmed_by)] confirmed event [event]")
+	message_admins("[key_name_admin(triggered_by)] triggered and [key_name_admin(confirmed_by)] confirmed event [event]", 1)
+
 	reset()
 
 /obj/machinery/keycard_auth/proc/receive_request(obj/machinery/keycard_auth/source)
 	if(stat & (BROKEN|NOPOWER))
 		return
+	reset()
 
 	set_light(1, LIGHTING_MINIMUM_POWER)
-
 	event_source = source
 	busy = TRUE
 	active = TRUE
 	SStgui.update_uis(src)
 	update_icon()
 
-	sleep(confirm_delay)
-
-	event_source = null
-	update_icon()
-	active = FALSE
-	busy = FALSE
-
-	set_light(0)
+	addtimer(CALLBACK(src, PROC_REF(reset)), confirm_delay)
 
 /obj/machinery/keycard_auth/proc/trigger_event()
 	switch(event)
@@ -195,16 +192,20 @@
 			for(var/client/C in GLOB.admins)
 				if(check_rights(R_EVENT, 0, C.mob))
 					fullmin_count++
-			if(fullmin_count)
-				GLOB.ert_request_answered = TRUE
-				ERT_Announce(ert_reason , event_triggered_by, 0)
-				ert_reason = null
-				SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
-				spawn(3000)
-					if(!GLOB.ert_request_answered)
-						ERT_Announce(ert_reason , event_triggered_by, 1)
-			else
+			if(!fullmin_count)
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
+				return
+
+			ERT_Announce(ert_reason, triggered_by, repeat_warning = FALSE)
+			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
+			addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, triggered_by), 5 MINUTES)
+			ert_reason = null
+
+/obj/machinery/keycard_auth/proc/remind_admins(old_reason, the_triggerer) // im great at naming variables
+	if(GLOB.ert_request_answered)
+		GLOB.ert_request_answered = FALSE // For ERT requests that may come later
+		return
+	ERT_Announce(old_reason, the_triggerer, repeat_warning = TRUE)
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled
