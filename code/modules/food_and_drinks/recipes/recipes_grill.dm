@@ -284,3 +284,12 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/lizard
 
+/datum/recipe/grill/plov
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/reagent_containers/food/snacks/onion_slice,
+		/obj/item/reagent_containers/food/snacks/grown/carrot,
+		/obj/item/reagent_containers/food/snacks/rawcutlet,
+		/obj/item/reagent_containers/food/snacks/grown/garlic
+	)
+	result = /obj/item/reagent_containers/food/snacks/plov

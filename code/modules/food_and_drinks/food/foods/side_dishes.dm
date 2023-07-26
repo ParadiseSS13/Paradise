@@ -127,3 +127,11 @@
 	tastes = list("parsnip" = 1)
 	foodtype = VEGETABLES
 
+/obj/item/reagent_containers/food/snacks/plov
+	name = "Plov"
+	desc = "Mix of rice and vegetables."
+	icon_state = "plov"
+	trash = /obj/item/trash/plate
+	list_reagents = list("nutriment" = 6, "protein" = 6, "plantmatter" = 6)
+	tastes = list("boiledrice"= 1, "rawcutlet" = 1, "onion" = 1)
+	foodtype = VEGETABLES | MEAT | GRAIN
