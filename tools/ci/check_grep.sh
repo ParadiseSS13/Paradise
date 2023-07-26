@@ -46,7 +46,7 @@ if grep -P --exclude='__byond_version_compat.dm' '(\.proc\/)|(CALLBACK\(.*proc\/
     st=1
 fi;
 # Check for to_chat procs lacking proper arguments
-if grep -P '(\to_chat("\)' code/**/*.dm; then
+if grep -P '\to_chat("/' code/**/*.dm; then
 	echo "ERROR: to_chat proc called without a target argument. Please add a target argument so it properly displays in game."
 	st=1
 fi;
