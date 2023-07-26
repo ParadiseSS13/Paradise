@@ -203,7 +203,7 @@
 	if(user.l_hand || user.r_hand)
 		return TRUE
 
-	to_chat("<span class='warning'>You need something in your hand to use this emote!</span>")
+	to_chat(user, "<span class='warning'>You need something in your hand to use this emote!</span>")
 	return FALSE
 
 /datum/emote/living/carbon/twirl/run_emote(mob/user, params, type_override, intentional)
