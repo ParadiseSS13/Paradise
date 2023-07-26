@@ -78,6 +78,7 @@
 	message = "facepalms."
 	hands_use_check = TRUE
 	sound = 'sound/weapons/slap.ogg'
+	emote_type = EMOTE_SOUND
 	volume = 50
 
 /datum/emote/living/carbon/human/palm
