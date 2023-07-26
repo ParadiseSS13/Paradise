@@ -96,7 +96,7 @@
 	var/list/possible_materials = list(
 		/obj/item/stack/sheet/mineral/silver,
 		/obj/item/stack/sheet/mineral/gold,
-		/obj/item/stack/ore/bluespace_crystal,
+		/obj/item/stack/ore/bluespace_crystal/refined,
 		)
 	var/is_correct = FALSE
 	for(var/P in possible_materials)
@@ -108,10 +108,10 @@
 		to_chat(user, "<span class='warning'>Неподходящий материал для улучшения.</span>")
 		return FALSE
 
-	var/is_rare = istype(M, /obj/item/stack/ore/bluespace_crystal)
+	var/is_rare = istype(M, /obj/item/stack/ore/bluespace_crystal/refined)
 	var/need_amount = is_rare ? 2 : 5
 	if(M.get_amount() < need_amount)
-		visible_message("Недостаточно материала, нужно хотя бы [need_amount] шт.")
+		to_chat(user, "<span class='warning'>Недостаточно материала, нужно хотя бы [need_amount] шт.</span>")
 		return FALSE
 
 	switch(type)
@@ -121,7 +121,7 @@
 					construct(M, user, /obj/structure/toilet/material/gold, need_amount)
 				if(/obj/item/stack/sheet/mineral/silver)
 					construct(M, user, /obj/structure/toilet/material/captain, need_amount)
-				if(/obj/item/stack/ore/bluespace_crystal)
+				if(/obj/item/stack/ore/bluespace_crystal/refined)
 					construct(M, user, /obj/structure/toilet/material/bluespace, need_amount)
 		if(/obj/structure/toilet/material/gold)
 			if(M.type == /obj/item/stack/sheet/mineral/gold)
