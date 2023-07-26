@@ -313,9 +313,12 @@
 	if(stat & BROKEN)
 		return
 	if(!anchored)
-		to_chat("<span class='warning'>[src] must be anchored first!</span>")
+		to_chat(user, "<span class='warning'>[src] must be anchored first!</span>")
 		return
 	ui_interact(user)
+
+#warn REMOVE AFTER THIS WORKS
+	to_chat("this is for debugging")
 
 /obj/machinery/chem_dispenser/AltClick(mob/user)
 	if(!is_drink || !Adjacent(user))
