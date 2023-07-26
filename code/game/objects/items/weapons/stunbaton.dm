@@ -166,7 +166,7 @@
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		return
 	if(user.mind?.martial_art?.no_baton)
-		to_chat(user, "<span class='warning'>The baton feels off balance in your hand due to your judo training!</span>")
+		to_chat(user, user.mind.martial_art.no_baton_reason)
 		return
 	if(issilicon(M)) // Can't stunbaton borgs and AIs
 		return ..()

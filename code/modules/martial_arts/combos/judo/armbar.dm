@@ -11,7 +11,7 @@
 						"<span class='userdanger'>[user] wrestles you into an armbar!</span>")
 	playsound(get_turf(user), 'sound/weapons/slashmiss.ogg', 40, TRUE, -1)
 	target.apply_damage(45, STAMINA)
-	target.SetImmobilized(5 SECONDS)
-	target.SetKnockDown(5 SECONDS)
+	target.Immobilize(5 SECONDS)
+	target.KnockDown(5 SECONDS)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Armbar", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

@@ -4,6 +4,7 @@
 	no_baton = TRUE
 	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/wheelthrow)
 	weight = 5 //takes priority over boxing and drunkneness, less priority than krav or CQC/carp
+	no_baton_reason = "<span class='warning'>The baton feels off balance in your hand due to your judo training!</span>"
 
 //Corporate Judo Belt
 
@@ -49,9 +50,8 @@
 /datum/martial_art/judo/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	var/picked_hit_type = pick("chops", "slices", "strikes")
-	var/attack_damage = 7
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	D.apply_damage(attack_damage, BRUTE)
+	D.apply_damage(7, BRUTE)
 	playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
