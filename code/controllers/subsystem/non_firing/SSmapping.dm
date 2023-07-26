@@ -167,7 +167,7 @@ SUBSYSTEM_DEF(mapping)
 
 // Loads in lavaland
 /datum/controller/subsystem/mapping/proc/loadLavaland()
-	lavaland_theme = pick(/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma)
+	lavaland_theme = pick(/turf/simulated/floor/plating/lava/smooth/lava_land_surface, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma, /turf/simulated/floor/chasm/straight_down/lava_land_surface)
 	log_startup_progress("We feel like [lavaland_theme] today...")
 	if(!GLOB.configuration.ruins.enable_lavaland)
 		log_startup_progress("Skipping Lavaland...")
