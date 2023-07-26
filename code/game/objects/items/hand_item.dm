@@ -68,5 +68,8 @@
 /obj/item/slapper/parry/attack(mob/M, mob/living/carbon/human/user)
 	if(isliving(M))
 		var/mob/living/creature = M
+		SEND_SOUND(creature, sound('sound/weapons/flash_ring.ogg'))
 		creature.Confused(10 SECONDS) //SMACK CAM
+		creature.EyeBlind(2 SECONDS) //OH GOD MY EARS ARE RINGING
+		creature.Deaf(4 SECONDS) //OH MY HEAD
 	return ..()

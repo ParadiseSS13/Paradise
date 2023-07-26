@@ -223,6 +223,11 @@
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
 
+/datum/status_effect/pacifism/batterer
+	id = "pacifism_debuff_batterer"
+	alert_type = null
+	duration = 10 SECONDS
+
 // used to track if hitting someone with a cult dagger/sword should stamina crit.
 /datum/status_effect/cult_stun_mark
 	id = "cult_stun"
@@ -289,6 +294,10 @@
 /datum/status_effect/cling_tentacle/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
+/datum/status_effect/cling_tentacle/batterer
+	id = "cling_tentacle_batterer"
+	alert_type = null
+	duration = 7 SECONDS
 // start of `living` level status procs.
 
 /**
@@ -936,3 +945,29 @@
 #undef FAKE_FOOD_POISONING
 #undef FAKE_RETRO_VIRUS
 #undef FAKE_TURBERCULOSIS
+
+/datum/status_effect/cryo_beam
+	id = "cryo beam"
+	alert_type = null
+	duration = -1 //Kill it, get out of sight, or be killed. Jump boots are *required*
+	tick_interval = 0.5 SECONDS
+	var/damage = 0.75
+	var/source_UID
+
+/datum/status_effect/cryo_beam/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+
+/datum/status_effect/cryo_beam/tick()
+	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacker = locateUID(source_UID)
+	if(!(owner in view(attacker, 8)))
+		qdel(src)
+		return
+
+	owner.apply_damage(damage, BURN)
+	owner.bodytemperature = max(0, owner.bodytemperature - 20)
+	owner.Beam(attacker.beam, icon_state = "medbeam", time = 0.5 SECONDS)
+	for(var/datum/reagent/R in owner.reagents.reagent_list)
+		owner.reagents.remove_reagent(R.id, 0.75)
+	if(prob(10))
+		to_chat(owner, "<span class='userdanger'>Your blood freezes in your veins, get away!</span>")

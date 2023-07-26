@@ -641,3 +641,25 @@
 /datum/status_effect/thrall_net/on_remove()
 	. = ..()
 	vamp = null
+
+/datum/status_effect/rev_protection
+	// revs are paralyzed for 10 seconds when they're deconverted, same duration
+	duration = 10 SECONDS
+	alert_type = null
+
+/datum/status_effect/rev_protection/on_apply()
+	RegisterSignal(owner, COMSIG_HUMAN_ATTACKED, PROC_REF(on_human_attackby))
+	return ..()
+
+/datum/status_effect/rev_protection/proc/on_human_attackby(mob/living/carbon/human/victim, mob/living/carbon/human/attacker)
+	SIGNAL_HANDLER
+	if(!(attacker.a_intent in list(INTENT_DISARM, INTENT_HARM)))
+		return
+	if(!is_any_revolutionary(attacker)) // protect from non-revs. Revs dont care about deconverted people
+		to_chat(attacker, "<span class='biggerdanger'>[owner] was just deconverted! You don't feel like harming them!</span>")
+		attacker.changeNext_move(CLICK_CD_MELEE)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/status_effect/rev_protection/on_remove()
+	UnregisterSignal(owner, COMSIG_HUMAN_ATTACKED)
+	. = ..()
