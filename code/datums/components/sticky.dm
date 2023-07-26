@@ -14,9 +14,8 @@
 	drop_on_attached_destroy = _drop_on_attached_destroy
 
 /datum/component/sticky/Destroy(force, silent)
-	if(QDELETED(parent)) // we dont want the falling off visible message if this component is getting destroyed because parent is getting destroyed
-		return
-	if(isitem(parent) && attached_to)
+	// we dont want the falling off visible message if this component is getting destroyed because parent is getting destroyed
+	if(!QDELETED(parent) && isitem(parent) && attached_to)
 		var/obj/item/I = parent
 		I.visible_message("<span class='notice'>[parent] falls off of [attached_to]</span>")
 	pick_up(parent)
