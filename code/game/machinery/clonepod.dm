@@ -1,4 +1,12 @@
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent", "mutadone", "rezadone")
+
+#define VALID_BIOMASSABLES list(/obj/item/reagent_containers/food/snacks/meat,\
+								/obj/item/reagent_containers/food/snacks/monstermeat, \
+								/obj/item/reagent_containers/food/snacks/carpmeat, \
+								/obj/item/reagent_containers/food/snacks/salmonmeat, \
+								/obj/item/reagent_containers/food/snacks/catfishmeat, \
+								/obj/item/reagent_containers/food/snacks/tofurkey)
+
 #define FORBIDDEN_INTERNAL_ORGANS list(/obj/item/organ/internal/regenerative_core, \
 									/obj/item/organ/internal/alien, \
 									/obj/item/organ/internal/body_egg, \
@@ -27,6 +35,7 @@
 
 //Balance tweaks go here vv
 #define BIOMASS_BASE_COST 250
+#define MEAT_BIOMASS_VALUE 50
 //These ones are also used for dead limbs/organs
 #define BIOMASS_NEW_LIMB_COST 100
 #define BIOMASS_NEW_ORGAN_COST 100
@@ -238,6 +247,17 @@
 			reagents.update_total()
 			atom_say("Purged contaminant from chemical storage.")
 
+	//Take in biomass. Mostly copied from the old cloning code
+	var/show_message = FALSE
+	for(var/obj/item/item in range(1, src))
+		if(is_type_in_list(item, VALID_BIOMASSABLES) && (biomass + MEAT_BIOMASS_VALUE <= biomass_storage_capacity))
+			qdel(item)
+			biomass += MEAT_BIOMASS_VALUE
+			show_message = TRUE
+	if(show_message)
+		visible_message("[src] sucks in nearby biomass.")
+
+
 //Clonepod-specific procs
 //This just begins the cloning process. Called by the cloning console.
 /obj/machinery/clonepod/proc/start_cloning(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
@@ -292,14 +312,24 @@
 
 //Ejects a clone. The force var ejects even if there's still clone damage.
 /obj/machinery/clonepod/proc/eject_clone(force = FALSE)
-	if(!clone)
+	if(!currently_cloning)
 		return FALSE
+
+	if(!clone && force)
+		new /obj/effect/gibspawner/generic(get_turf(src), desired_data.genetic_info)
+		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+		currently_cloning = FALSE
+		patient_data = null
+		desired_data = null
+		clone_progress = 0
+		desc_flavor = initial(desc_flavor)
+		return TRUE
 
 	if(clone.cloneloss)
 		if(force)
 			clone.forceMove(src.loc)
-			var/obj/effect/gibspawner/gibs = new /obj/effect/gibspawner(src)
-			gibs.spawn_gibs(src.loc, clone.dna)
+			new /obj/effect/gibspawner/generic(get_turf(src), clone)
+			playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 			currently_cloning = FALSE
 			clone = null
 			patient_data = null
@@ -529,12 +559,14 @@
 		. += "panel_open"
 
 #undef VALID_REAGENTS
+#undef VALID_BIOMASSABLES
 #undef FORBIDDEN_INTERNAL_ORGANS
 #undef UPGRADE_LOCKED_ORGANS
 #undef FORBIDDEN_LIMBS
 #undef ALLOWED_ROBOT_PARTS
 
 #undef BIOMASS_BASE_COST
+#undef MEAT_BIOMASS_VALUE
 #undef BIOMASS_NEW_LIMB_COST
 #undef BIOMASS_NEW_ORGAN_COST
 #undef BIOMASS_BURN_WOUND_COST
