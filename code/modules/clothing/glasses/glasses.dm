@@ -366,7 +366,7 @@
 
 /obj/item/clothing/glasses/sunglasses/reagent/item_action_slot_check(slot)
 	if(slot == slot_glasses)
-		return 1
+		return TRUE
 
 /obj/item/clothing/glasses/virussunglasses
 	name = "sunglasses"
