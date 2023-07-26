@@ -652,6 +652,10 @@
 	else
 		..()
 
+/obj/item/card/id/syndicate/Destroy()
+	..()
+	registered_user = null
+
 /obj/item/card/id/syndicate_command
 	name = "syndicate ID card"
 	desc = "An ID straight from the Syndicate."
