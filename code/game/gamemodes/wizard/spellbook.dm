@@ -137,6 +137,12 @@
 	spell_type = /obj/effect/proc_holder/spell/fireball
 	category = "Offensive"
 
+/datum/spellbook_entry/summon_toolbox
+	name = "Homing Toolbox"
+	spell_type = /obj/effect/proc_holder/spell/fireball/toolbox
+	category = "Offensive"
+	cost = 1
+
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
 	spell_type = /obj/effect/proc_holder/spell/touch/flesh_to_stone

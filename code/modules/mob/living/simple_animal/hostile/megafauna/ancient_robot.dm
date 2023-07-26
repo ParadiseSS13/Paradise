@@ -6,6 +6,7 @@
 #define PYRO 3
 #define FLUX 4
 #define VORTEX 5
+#define CRYO 6
 #define TOP_RIGHT 1
 #define TOP_LEFT 2
 #define BOTTOM_RIGHT 3
@@ -101,7 +102,7 @@ Difficulty: Hard
 	BR = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, BOTTOM_RIGHT)
 	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, BOTTOM_LEFT)
 	beam = new /obj/effect/abstract(loc)
-	mode = pick(BLUESPACE, GRAV, PYRO, FLUX, VORTEX) //picks one of the 5 cores.
+	mode = pick(BLUESPACE, GRAV, PYRO, FLUX, VORTEX, CRYO) //picks one of the 6 cores
 	if(mode == FLUX) // Main attack is shock, so flux makes it stronger
 		melee_damage_lower = 25
 		melee_damage_upper = 25
@@ -160,6 +161,8 @@ Difficulty: Hard
 			core_type = /obj/item/assembly/signaler/anomaly/flux
 		if(VORTEX)
 			core_type = /obj/item/assembly/signaler/anomaly/vortex
+		if(CRYO)
+			core_type = /obj/item/assembly/signaler/anomaly/cryo
 
 	var/crate_type = pick(loot)
 	var/obj/structure/closet/crate/C = new crate_type(loc)
@@ -345,6 +348,10 @@ Difficulty: Hard
 			for(var/turf/turf in range(9,get_turf(target)))
 				if(prob(15))
 					new /obj/effect/temp_visual/target/ancient(turf)
+		if(CRYO)
+			visible_message("<span class='danger'>[src]'s shell opens slightly, as sensors begin locking on to everyone around it!</span>")
+			for(var/mob/living/carbon/human/H in view(7, src))
+				H.apply_status_effect(STATUS_EFFECT_CRYO_BEAM, src)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/spawn_anomalies()
 	say(pick("JKVRUEOTM XGC VUCKX", "KXXUX OT GTUSGRE IUTZGOTSKTZ", "YZGHOROZE OT OTYZGHOROZE OT YZGHOROZE OT OTYZGH-"))
@@ -373,6 +380,8 @@ Difficulty: Hard
 				A.knockdown = TRUE
 			if(VORTEX)
 				new /obj/effect/anomaly/bhole(spot, 150, FALSE)
+			if(CRYO)
+				new /obj/effect/anomaly/cryo(spot, 150, FALSE)
 		anomalies++
 	return
 
@@ -518,6 +527,14 @@ Difficulty: Hard
 				for(var/atom/A in T)
 					A.ex_act(3) //Body is immune to explosions of this strength.
 				T.ex_act(3)
+			if(mode == CRYO)
+				var/turf/simulated/S = get_turf(src)
+				S.MakeSlippery(TURF_WET_ICE)
+				for(var/turf/T in range (1, src))
+					new /obj/effect/snowcloud(T)
+					for(var/mob/living/carbon/C in T.contents)
+						C.bodytemperature = max(0, C.bodytemperature - 300) //Take a chill pill.
+						C.apply_status_effect(/datum/status_effect/freon/watcher) // 0.8 seconds of no moving, should be funny.
 
 	beam.forceMove(get_turf(src))
 	return ..()
@@ -775,4 +792,5 @@ Difficulty: Hard
 #undef GRAV
 #undef PYRO
 #undef FLUX
+#undef CRYO
 #undef VORTEX

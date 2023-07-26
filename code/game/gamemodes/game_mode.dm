@@ -272,8 +272,7 @@
 	. = list()
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/player = thing
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.command_head_positions))
 			. |= player.mind
 
 
@@ -283,8 +282,7 @@
 /datum/game_mode/proc/get_all_heads()
 	. = list()
 	for(var/mob/player in GLOB.mob_list)
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
-		if(player.mind && (player.mind.assigned_role in real_command_positions))
+		if(player.mind && (player.mind.assigned_role in GLOB.command_head_positions))
 			. |= player.mind
 
 //////////////////////////////////////////////
@@ -294,7 +292,7 @@
 	. = list()
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/player = thing
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.security_positions))
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.active_security_positions))
 			. |= player.mind
 
 ////////////////////////////////////////
@@ -304,7 +302,7 @@
 	. = list()
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/player = thing
-		if(player.mind && (player.mind.assigned_role in GLOB.security_positions))
+		if(player.mind && (player.mind.assigned_role in GLOB.active_security_positions))
 			. |= player.mind
 
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])

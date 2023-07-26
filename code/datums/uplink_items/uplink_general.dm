@@ -382,6 +382,34 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/syndieminibomb
 	cost = 30
 
+/datum/uplink_item/explosives/frag_grenade
+	name = "Fragmentation Grenade"
+	desc = "A frag grenade. Upon detonation, releases shrapnel that can embed in nearby victims."
+	reference = "FG"
+	item = /obj/item/grenade/frag
+	cost = 10
+
+/datum/uplink_item/explosives/frag_grenade_pack
+	name = "Pack of 5 Fragmentation Grenades"
+	desc = "A box of 5 frag grenades. Upon detonation, releases shrapnel that can embed in nearby victims. And it seems you'll have a LOT of victims."
+	reference = "FGP"
+	item = /obj/item/storage/box/syndie_kit/frag_grenades
+	cost = 40
+
+/datum/uplink_item/explosives/frag_grenade
+	name = "Fragmentation Grenade"
+	desc = "A frag grenade. Upon detonation, releases shrapnel that can embed in nearby victims."
+	reference = "FG"
+	item = /obj/item/grenade/frag
+	cost = 2
+
+/datum/uplink_item/explosives/frag_grenade_pack
+	name = "Pack of 5 Fragmentation Grenades"
+	desc = "A box of 5 frag grenades. Upon detonation, releases shrapnel that can embed in nearby victims. And it seems you'll have a LOT of victims."
+	reference = "FGP"
+	item = /obj/item/storage/box/syndie_kit/frag_grenades
+	cost = 8
+
 /datum/uplink_item/explosives/pizza_bomb
 	name = "Pizza Bomb"
 	desc = "A pizza box with a bomb taped inside of it. The timer needs to be set by opening the box; afterwards, opening the box again will trigger the detonation."
@@ -453,7 +481,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Projects an image across a user, disguising them as an object scanned with it, as long as they don't move the projector from their hand. The disguised user cannot run and projectiles pass over them."
 	reference = "CP"
 	item = /obj/item/chameleon
-	cost = 35
+	cost = 25
 
 /datum/uplink_item/stealthy_tools/chameleon_counter
 	name = "Chameleon Counterfeiter"
@@ -464,9 +492,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
-	desc = "Enables you to view all cameras on the network to track a target."
+	desc = "Enables you to view all cameras on the network to track a target. Also has 5 sticky hidden cameras, allowing you remote view of any object you can stick a camera on."
 	reference = "CB"
-	item = /obj/item/camera_bug
+	item = /obj/item/storage/box/syndie_kit/camera_bug
 	cost = 3
 	surplus = 90
 
@@ -656,6 +684,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FI"
 	item = /obj/item/implanter/freedom
 	cost = 25
+
+/datum/uplink_item/implants/protofreedom
+	name = "Prototype Freedom Bio-chip"
+	desc = "A prototype bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can only be activated a singular time."
+	reference = "PFI"
+	item = /obj/item/implanter/freedom/prototype
+	cost = 10
+
+/datum/uplink_item/implants/protofreedom
+	name = "Prototype Freedom Bio-chip"
+	desc = "A prototype bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can only be activated a singular time."
+	reference = "PFI"
+	item = /obj/item/implanter/freedom/prototype
+	cost = 2
 
 /datum/uplink_item/implants/storage
 	name = "Storage Bio-chip"
