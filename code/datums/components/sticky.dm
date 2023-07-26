@@ -76,7 +76,7 @@
 
 
 	I.invisibility = initial(I.invisibility)
-	UnregisterSignal(attached_to, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(attached_to, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, COMSIG_PARENT_EXAMINE, COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 	STOP_PROCESSING(SSobj, src)
 	attached_to = null
 	return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -104,6 +104,9 @@
 	if(!drop_on_attached_destroy)
 		qdel(parent)
 		return
+
+	// Cancel out these signals, if they even still exist. Just to be safe
+	UnregisterSignal(attached_to, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, COMSIG_PARENT_EXAMINE, COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 
 	var/turf/T = get_turf(source)
 	if(!T)
