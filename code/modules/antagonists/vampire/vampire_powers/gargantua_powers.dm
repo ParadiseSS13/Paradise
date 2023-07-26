@@ -189,10 +189,6 @@
 	action_icon_state = "vampire_charge"
 	/// The garg vampire
 	var/mob/mychild
-	/// List of people who tried to interfere in the glorious fight
-	var/list/invaders = list()
-	/// List of the people who have to fight in the arena
-	var/list/enemy_targets = list()
 	/// Is our spell active?
 	var/spell_active
 	/// What turf will be the middle of our arena?
@@ -207,6 +203,9 @@
 /obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/user)
 	if(!targets)
 		return
+
+	// First we leap towards the enemy target
+
 	var/turf/target_turf = get_turf(targets[1])
 	var/prevLayer = user.layer
 	var/prevFlying = user.flying
@@ -222,66 +221,23 @@
 	user.flying = prevFlying
 	user.layer = prevLayer
 
-	enemy_targets = targets // In case we need to use it in another proc
+	// Now we build the arena and give the caster the buff
+
 	the_middle_ground = get_turf(user) // I am so deeply sorry to get a hard ref to a turf
 	mychild = user
-	make_activator(targets)
 	spell_active = TRUE
 	arena_checks()
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
-	if(spell_active == FALSE || QDELETED(src))
+	if(!spell_active || QDELETED(src))
 		return
 	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
 	INVOKE_ASYNC(src, PROC_REF(arena_trap))  //Gets another arena trap queued up for when this one runs out.
-	INVOKE_ASYNC(src, PROC_REF(border_check))  //Checks to see if our fighters got out of the arena somehow.
 	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
-
-/obj/effect/proc_holder/spell/vampire/arena/proc/make_activator(list/targets)
-	if(!targets)
-		return // Sanity check
-	var/list/temporary_list = targets
-	for(var/i in 1 to length(targets))
-		var/mob/apply_challenger = temporary_list[1]
-		ADD_TRAIT(apply_challenger, TRAIT_ELITE_CHALLENGER, "activation")
-		temporary_list.Cut(1,2)
-	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(clear_activator))
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
 	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_SIZE, the_middle_ground))
 		new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
-
-/obj/effect/proc_holder/spell/vampire/arena/proc/border_check()
-	var/list/temporary_targets = enemy_targets
-	var/how_many_targets = length(enemy_targets) // We gotta get this in a var first because otherwise it'll stop working halfway through
-	for(var/j in 1 to how_many_targets)
-		var/mob/activator = temporary_targets[1]
-		if(activator != null && get_dist(src, activator) >= ARENA_SIZE)
-			activator.forceMove(loc)
-			visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
-			playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
-		if(mychild != null && get_dist(src, mychild) >= ARENA_SIZE)
-			mychild.forceMove(loc)
-			visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
-			playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
-		temporary_targets.Cut(1,2)
-
-/obj/effect/proc_holder/spell/vampire/arena/HasProximity(atom/movable/AM)
-	if(!ishuman(AM) && !isrobot(AM))
-		return
-	var/mob/living/M = AM
-	if(M in enemy_targets)
-		return
-	if(M in invaders)
-		to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
-		for(var/i in 1 to 4)
-			M.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
-	else
-		to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
-		invaders += M
-	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_SIZE + 2, src) // extra safety
-	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
-	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check()
 	if(QDELETED(mychild) || mychild.stat == DEAD)
