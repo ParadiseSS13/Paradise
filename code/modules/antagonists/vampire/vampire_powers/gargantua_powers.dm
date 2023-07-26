@@ -180,7 +180,7 @@
 	icon_state = "immobilized"
 	duration = 1 SECONDS
 
-/obj/effect/proc_holder/spell/vampire/self/arena
+/obj/effect/proc_holder/spell/vampire/arena
 	name = "Challenging Arena"
 	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
@@ -198,9 +198,30 @@
 	/// What turf will be the middle of our arena?
 	var/turf/the_middle_ground
 
-/obj/effect/proc_holder/spell/vampire/self/arena/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/vampire/dark_passage/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.click_radius = 0
+	T.allowed_type = /mob/living
+	return T
+
+/obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/user)
 	if(!targets)
 		return
+	var/turf/target_turf = get_turf(targets[1])
+	var/prevLayer = user.layer
+	var/prevFlying = user.flying
+	user.layer = 9
+	user.flying = TRUE
+	for(var/i=0, i<10, i++)
+		var/movement_dir = get_dir(user, target_turf)
+		step(user, movement_dir)
+		if(i < 5) user.pixel_y += 8
+		else user.pixel_y -= 8
+		sleep(1)
+		user.flying = prevFlying
+	user.flying = prevFlying
+	user.layer = prevLayer
+
 	enemy_targets = targets // In case we need to use it in another proc
 	the_middle_ground = get_turf(user) // I am so deeply sorry to get a hard ref to a turf
 	mychild = user
@@ -208,7 +229,7 @@
 	spell_active = TRUE
 	arena_checks()
 
-/obj/effect/proc_holder/spell/vampire/self/arena/proc/arena_checks()
+/obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
 	if(spell_active == FALSE || QDELETED(src))
 		return
 	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
@@ -216,7 +237,7 @@
 	INVOKE_ASYNC(src, PROC_REF(border_check))  //Checks to see if our fighters got out of the arena somehow.
 	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
 
-/obj/effect/proc_holder/spell/vampire/self/arena/proc/make_activator(list/targets)
+/obj/effect/proc_holder/spell/vampire/arena/proc/make_activator(list/targets)
 	if(!targets)
 		return // Sanity check
 	var/list/temporary_list = targets
@@ -226,11 +247,11 @@
 		temporary_list.Cut(1,2)
 	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(clear_activator))
 
-/obj/effect/proc_holder/spell/vampire/self/arena/proc/arena_trap()
+/obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
 	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_SIZE, the_middle_ground))
 		new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
 
-/obj/effect/proc_holder/spell/vampire/self/arena/proc/border_check()
+/obj/effect/proc_holder/spell/vampire/arena/proc/border_check()
 	var/list/temporary_targets = enemy_targets
 	var/how_many_targets = length(enemy_targets) // We gotta get this in a var first because otherwise it'll stop working halfway through
 	for(var/j in 1 to how_many_targets)
@@ -245,7 +266,7 @@
 			playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 		temporary_targets.Cut(1,2)
 
-/obj/effect/proc_holder/spell/vampire/self/arena/HasProximity(atom/movable/AM)
+/obj/effect/proc_holder/spell/vampire/arena/HasProximity(atom/movable/AM)
 	if(!ishuman(AM) && !isrobot(AM))
 		return
 	var/mob/living/M = AM
@@ -262,17 +283,17 @@
 	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
 	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
-/obj/effect/proc_holder/spell/vampire/self/arena/proc/fighters_check()
+/obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check()
 	if(QDELETED(mychild) || mychild.stat == DEAD)
 		onEliteLoss()
 		return
 
-/obj/effect/proc_holder/spell/vampire/self/arena/proc/clear_activator(mob/source)
+/obj/effect/proc_holder/spell/vampire/arena/proc/clear_activator(mob/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "clear activation")
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
-/obj/effect/proc_holder/spell/vampire/self/arena/proc/onEliteLoss()
+/obj/effect/proc_holder/spell/vampire/arena/proc/onEliteLoss()
 	spell_active = FALSE
 	visible_message("<span class='warning'>[src] begins to convulse violently before falling lifeless to the ground.</span>")
 	visible_message("<span class='warning'>The arena begins to slowly dissipate.</span>")
