@@ -240,8 +240,7 @@
 				return
 
 	//Basically just isolate_reagent() with extra functionality.
-	for(var/A in reagents.reagent_list)
-		var/datum/reagent/R = A
+	for(var/datum/reagent/R as anything in reagents.reagent_list)
 		if(!(R.id in VALID_REAGENTS))
 			reagents.del_reagent(R.id)
 			reagents.update_total()
