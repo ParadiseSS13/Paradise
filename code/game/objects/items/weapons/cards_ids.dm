@@ -653,8 +653,8 @@
 		..()
 
 /obj/item/card/id/syndicate/Destroy()
-	..()
 	registered_user = null
+	return ..()
 
 /obj/item/card/id/syndicate_command
 	name = "syndicate ID card"
