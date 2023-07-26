@@ -25,12 +25,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(V.iscloaking)
-			H.physiology.burn_mod *= 1.3
+			H.physiology.burn_mod *= 1.1
 			user.RegisterSignal(user, COMSIG_LIVING_IGNITED, TYPE_PROC_REF(/mob/living, update_vampire_cloak))
 		else
 			user.UnregisterSignal(user, COMSIG_LIVING_IGNITED)
-			H.physiology.burn_mod /= 1.3
-
+			H.physiology.burn_mod /= 1.1
 	update_name()
 	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
 
@@ -117,8 +116,8 @@
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor
 	name = "Soul Anchor (30)"
-	desc = "You summon a dimenional anchor after a delay, casting again will teleport you back to the anchor. You are forced back after 2 minutes if you have not cast again."
-	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will. Unless you willingly teleport back to that point within 2 minutes, you are forced back."
+	desc = "You summon a dimenional anchor after a delay, casting again will teleport you back to the anchor. You will fake a recall after 2 minutes."
+	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will. Unless you willingly teleport back to that point within 2 minutes, you will fake a recall."
 	required_blood = 30
 	centcom_cancast = FALSE
 	base_cooldown = 3 MINUTES
@@ -128,7 +127,7 @@
 	var/obj/structure/shadow_anchor/anchor
 	/// Are we making an anchor?
 	var/making_anchor = FALSE
-	/// Holds a reference to the timer until the caster is forced to recall
+	/// Holds a reference to the timer until the caster fake recalls
 	var/timer
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/create_new_targeting()
@@ -142,7 +141,7 @@
 	if(!making_anchor && !anchor) // first cast, setup the anchor
 		var/turf/anchor_turf = get_turf(user)
 		making_anchor = TRUE
-		if(do_mob(user, user, 10 SECONDS, only_use_extra_checks = TRUE)) // no checks, cant fail
+		if(do_mob(user, user, 5 SECONDS, only_use_extra_checks = TRUE)) // no checks, cant fail
 			make_anchor(user, anchor_turf)
 			making_anchor = FALSE
 			return
@@ -153,10 +152,10 @@
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
 	anchor = new(anchor_turf)
-	timer = addtimer(CALLBACK(src, PROC_REF(recall), user), 2 MINUTES, TIMER_STOPPABLE)
+	timer = addtimer(CALLBACK(src, PROC_REF(recall), user, TRUE), 2 MINUTES, TIMER_STOPPABLE)
 	should_recharge_after_cast = TRUE
 
-/obj/effect/proc_holder/spell/vampire/soul_anchor/proc/recall(mob/user)
+/obj/effect/proc_holder/spell/vampire/soul_anchor/proc/recall(mob/user, fake = FALSE)
 	if(timer)
 		deltimer(timer)
 		timer = null
@@ -168,7 +167,16 @@
 	if(!is_teleport_allowed(end_turf.z))
 		return
 
-	user.forceMove(end_turf)
+	if(fake)
+		var/mob/living/simple_animal/hostile/illusion/escape/E = new(end_turf)
+		E.Copy_Parent(user, 10 SECONDS)
+		for(var/mob/living/L in view(7, E)) //We want it to start running
+			E.GiveTarget(L)
+			break
+		user.make_invisible()
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, reset_visibility)), 4 SECONDS)
+	else
+		user.forceMove(end_turf)
 
 	if(end_turf.z == start_turf.z)
 		shadow_to_animation(start_turf, end_turf, user)
@@ -176,7 +184,7 @@
 	var/datum/spell_handler/vampire/V = custom_handler
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/blood_cost = V.calculate_blood_cost(vampire)
-	vampire.bloodusable -= blood_cost
+	vampire.bloodusable = clamp(vampire.bloodusable - blood_cost, 0, vampire.bloodusable)// Vampires get a coupon if they have less than the normal blood cost
 	addtimer(VARSET_CALLBACK(src, should_recharge_after_cast, FALSE), 1 SECONDS) // this is needed so that the spell handler knows we casted it properly
 
 /proc/shadow_to_animation(turf/start_turf, turf/end_turf, mob/user)
@@ -273,43 +281,46 @@
 
 /obj/effect/proc_holder/spell/vampire/self/eternal_darkness
 	name = "Eternal Darkness"
-	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby."
+	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby. Energy projectiles will dim in its radius."
 	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
 	base_cooldown = 10 SECONDS
 	action_icon_state = "eternal_darkness"
 	required_blood = 5
-	var/shroud_power = -4
+	var/shroud_power = -6
 
 /obj/effect/proc_holder/spell/vampire/self/eternal_darkness/cast(list/targets, mob/user)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/target = targets[1]
 	if(!V.get_ability(/datum/vampire_passive/eternal_darkness))
 		V.force_add_ability(/datum/vampire_passive/eternal_darkness)
-		target.set_light(6, shroud_power, "#AAD84B")
+		target.set_light(8, shroud_power, "#ddd6cf")
 	else
 		for(var/datum/vampire_passive/eternal_darkness/E in V.powers)
 			V.remove_ability(E)
 
 /datum/vampire_passive/eternal_darkness
-	gain_desc = "You surround yourself in a unnatural darkness, freezing those around you."
+	gain_desc = "You surround yourself in a unnatural darkness, freezing those around you and dimming energy projectiles."
 
 /datum/vampire_passive/eternal_darkness/New()
 	..()
-	START_PROCESSING(SSobj, src)
+	START_PROCESSING(SSfastprocess, src)
 
 /datum/vampire_passive/eternal_darkness/Destroy(force, ...)
 	owner.remove_light()
-	STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
 /datum/vampire_passive/eternal_darkness/process()
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 
-	for(var/mob/living/L in view(6, owner))
+	for(var/mob/living/L in view(8, owner))
 		if(L.affects_vampire(owner))
-			L.adjust_bodytemperature(-20 * TEMPERATURE_DAMAGE_COEFFICIENT)
+			L.adjust_bodytemperature(-3 * TEMPERATURE_DAMAGE_COEFFICIENT) //The dark is cold and unforgiving. Equivelnt to -60 with previous values.
+	for(var/obj/item/projectile/P in view(8, owner))
+		if(P.flag == ENERGY || P.flag == LASER)
+			P.damage *= 0.7
 
-	V.bloodusable = max(V.bloodusable - 5, 0)
+	V.bloodusable = max(V.bloodusable - 0.25, 0) //2.5 per second, 5 per 2, same as before
 
 	if(!V.bloodusable || owner.stat == DEAD)
 		V.remove_ability(src)
