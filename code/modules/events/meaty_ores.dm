@@ -15,7 +15,7 @@
 
 /obj/effect/space_dust/meaty
 	icon = 'icons/mob/animal.dmi'
-	icon_state = "cow"
+	icon_state = "pig"
 
 	strength = 1
 	life = 3
@@ -33,4 +33,4 @@
 		else if(prob(10))
 			explosion(where, 0, pick(0,1), pick(2,3), 0, cause = src)
 	else
-		new /mob/living/simple_animal/cow(where)
+		new /mob/living/simple_animal/pig(where)
