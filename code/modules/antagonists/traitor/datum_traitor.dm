@@ -58,8 +58,9 @@
 
 	if(hidden_uplink)
 		var/obj/item/uplink_holder = hidden_uplink.loc
+		if(!QDELETED(uplink_holder))
+			uplink_holder.hidden_uplink = null
 
-		uplink_holder.hidden_uplink = null
 		QDEL_NULL(hidden_uplink)
 
 		for(var/obj/item/implant/uplink/uplink_implant in owner.current.contents)

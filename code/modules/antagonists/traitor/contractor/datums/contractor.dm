@@ -11,6 +11,8 @@
   */
 /datum/antagonist/contractor
 	name = "Contractor"
+	job_rank = ROLE_TRAITOR
+	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	/// How many telecrystals a traitor must forfeit to become a contractor.
 	var/tc_cost = 20
