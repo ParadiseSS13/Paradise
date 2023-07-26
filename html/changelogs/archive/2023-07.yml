@@ -216,3 +216,18 @@
   - tweak: stun to weaken while being pulled in walk mode (#3229)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#3227)
+'2023-07-26':
+  Ksaikok46:
+  - tweak: pig-meatyores (#3220)
+  LiquidPotroh:
+  - bugfix: stethoscope counts pulse of a stopped heart (#3224)
+  Roman:
+  - add: Plov Update! (#3237)
+  Vladisvell:
+  - bugfix: dinnerware old vendor in delta's Old Restaurant now sells stuff properly
+      (#3231)
+  WolfLox:
+  - balance: Weakness weaken (#3236)
+  Zwei:
+  - bugfix: Contractor Role Update (#3235)
+  - tweak: Stack Overweight Drop (#3221)
