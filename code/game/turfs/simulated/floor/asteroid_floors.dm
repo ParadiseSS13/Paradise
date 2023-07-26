@@ -148,7 +148,7 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB

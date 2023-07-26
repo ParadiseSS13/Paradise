@@ -4,7 +4,7 @@
 #define RANDOM_LOWER_X 50
 #define RANDOM_LOWER_Y 50
 
-/proc/spawn_rivers(target_z, nodes = 4, turf_type = /turf/simulated/floor/plating/lava/smooth/lava_land_surface, whitelist_area = /area/lavaland/surface/outdoors, min_x = RANDOM_LOWER_X, min_y = RANDOM_LOWER_Y, max_x = RANDOM_UPPER_X, max_y = RANDOM_UPPER_Y)
+/proc/spawn_rivers(target_z, nodes = 4, turf_type = /turf/simulated/floor/plating/lava/smooth/mapping_lava, whitelist_area = /area/lavaland/surface/outdoors, min_x = RANDOM_LOWER_X, min_y = RANDOM_LOWER_Y, max_x = RANDOM_UPPER_X, max_y = RANDOM_UPPER_Y, prob = 25, prob_loss = 11)
 	var/list/river_nodes = list()
 	var/num_spawned = 0
 	var/list/possible_locs = block(locate(min_x, min_y, target_z), locate(max_x, max_y, target_z))
@@ -54,7 +54,7 @@
 				continue
 			else
 				var/turf/river_turf = cur_turf.ChangeTurf(turf_type, ignore_air = TRUE)
-				river_turf.Spread(25, 11, whitelist_area)
+				river_turf.Spread(prob, prob_loss, whitelist_area)
 
 	for(var/WP in river_nodes)
 		qdel(WP)

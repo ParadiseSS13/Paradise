@@ -12,6 +12,8 @@ SUBSYSTEM_DEF(mapping)
 	var/list/ghostteleportlocs
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
+	///What do we have as the lavaland theme today?
+	var/turf/simulated/floor/lavaland_theme
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
@@ -63,7 +65,14 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
 		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-		spawn_rivers(level_name_to_num(MINING))
+		switch(lavaland_theme)
+			if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface)
+				spawn_rivers(level_name_to_num(MINING)) //Default spawn, no tweaks needed
+			if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma) //More rivers, smaller
+				spawn_rivers(level_name_to_num(MINING), nodes = 2)
+				spawn_rivers(level_name_to_num(MINING), nodes = 2)
+			if(/turf/simulated/floor/chasm/straight_down/lava_land_surface) //Thiner chasms, bridges, reaches to edge of map.
+				spawn_rivers(level_name_to_num(MINING), nodes = 6, turf_type = /turf/simulated/floor/plating/lava/smooth/mapping_lava, whitelist_area = /area/lavaland/surface/outdoors, min_x = 50, min_y = 5, max_x = 255, max_y = 225, prob = 10, prob_loss = 5)
 		log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 	else
 		log_startup_progress("Skipping lavaland ruins...")
@@ -158,6 +167,8 @@ SUBSYSTEM_DEF(mapping)
 
 // Loads in lavaland
 /datum/controller/subsystem/mapping/proc/loadLavaland()
+	lavaland_theme = pick(/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma)
+	log_startup_progress("We feel like [lavaland_theme] today...")
 	if(!GLOB.configuration.ruins.enable_lavaland)
 		log_startup_progress("Skipping Lavaland...")
 		return
