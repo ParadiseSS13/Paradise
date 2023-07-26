@@ -282,13 +282,14 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != INFINITY)
-			..()
-			reagents.trans_to(M, reagents.total_volume)
-			return TRUE
-		else
-			blocked = INFINITY
-			target.visible_message("<span class='danger'>[src] was deflected!</span>", \
-								"<span class='userdanger'>You were protected against [src]!</span>")
+			if(M.can_inject(null, FALSE, hit_zone, TRUE))
+				..()
+				reagents.trans_to(M, reagents.total_volume)
+				return TRUE
+			else
+				blocked = INFINITY
+				target.visible_message("<span class='danger'>[src] was deflected!</span>", \
+									"<span class='userdanger'>You were protected against [src]!</span>")
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()

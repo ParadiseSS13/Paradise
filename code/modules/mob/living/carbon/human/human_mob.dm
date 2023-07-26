@@ -1038,17 +1038,19 @@
 	if(!affecting)
 		. = FALSE
 		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
-	else if(affecting.is_robotic())
+	if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
+	if(target_zone == "head")
+		if(head && head.flags & THICKMATERIAL && !penetrate_thick)
+			. = FALSE
+		if(head == /obj/item/clothing/head/helmet/space/deathsquad || head == /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst)
+			. = FALSE
 	else
-		switch(target_zone)
-			if("head")
-				if(head && head.flags & THICKMATERIAL && !penetrate_thick)
-					. = FALSE
-			else
-				if(wear_suit && wear_suit.flags & THICKMATERIAL && !penetrate_thick)
-					. = FALSE
+		if(wear_suit && wear_suit.flags & THICKMATERIAL && !penetrate_thick)
+			. = FALSE
+		if(wear_suit == /obj/item/clothing/suit/space/deathsquad || wear_suit == /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst)
+			. = FALSE
 	if(!. && error_msg && user)
 		if(!fail_msg)
 			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
