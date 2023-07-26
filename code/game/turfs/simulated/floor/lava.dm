@@ -193,6 +193,8 @@
 				O.armor = O.armor.setRating(fire_value = 50)
 			O.fire_act(10000, 1000)
 
+		if(isliving(thing))
+			. = 1
 		var/mob/living/burn_living = thing
 		if(burn_living.flying)
 			continue	//YOU'RE FLYING OVER IT
