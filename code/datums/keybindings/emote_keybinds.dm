@@ -265,6 +265,7 @@
 
 /datum/keybinding/emote/carbon/twirl
 	linked_emote = /datum/emote/living/carbon/twirl
+	name = "Twirl"
 
 /datum/keybinding/emote/carbon/faint
 	linked_emote = /datum/emote/living/carbon/faint
