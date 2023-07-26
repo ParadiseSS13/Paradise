@@ -105,8 +105,9 @@
 		qdel(parent)
 		return
 
+	// Cancel out these signals, if they even still exist. Just to be safe
 	UnregisterSignal(attached_to, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, COMSIG_PARENT_EXAMINE, COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
-	// cancel out these signals, if they even still exist
+
 	var/turf/T = get_turf(source)
 	if(!T)
 		T = get_turf(parent)
