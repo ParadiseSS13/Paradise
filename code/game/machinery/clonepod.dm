@@ -161,6 +161,24 @@
 
 //Process
 /obj/machinery/clonepod/process()
+
+	//Basically just isolate_reagent() with extra functionality.
+	for(var/datum/reagent/R as anything in reagents.reagent_list)
+		if(!(R.id in VALID_REAGENTS))
+			reagents.del_reagent(R.id)
+			reagents.update_total()
+			atom_say("Purged contaminant from chemical storage.")
+
+	//Take in biomass. Mostly copied from the old cloning code
+	var/show_message = FALSE
+	for(var/obj/item/item in range(1, src))
+		if(is_type_in_list(item, VALID_BIOMASSABLES) && (biomass + MEAT_BIOMASS_VALUE <= biomass_storage_capacity))
+			qdel(item)
+			biomass += MEAT_BIOMASS_VALUE
+			show_message = TRUE
+	if(show_message)
+		visible_message("[src] sucks in nearby biomass.")
+
 	//If we're cloning someone, we haven't generated a list of limbs to grow, and we're before any possibility of not having any limbs left to grow.
 	if(currently_cloning && !length(limbs_to_grow) && clone_progress < 20)
 		limb_loop:
@@ -180,6 +198,9 @@
 						continue limb_loop //If it's a vital organ, and belongs to the current limb, we don't want this limb.
 
 				limbs_to_grow += limb //It's not supposed to be missing and it's not vital - so we'll be growing it.
+
+	if(clone)
+		clone.SetSleeping(4 SECONDS) //make sure they stay asleep
 
 	//Actually grow clones (this is the fun part of the proc!)
 	if(currently_cloning)
@@ -239,24 +260,6 @@
 				clone.setCloneLoss(0) //get out of the pod!!
 				return
 
-	//Basically just isolate_reagent() with extra functionality.
-	for(var/datum/reagent/R as anything in reagents.reagent_list)
-		if(!(R.id in VALID_REAGENTS))
-			reagents.del_reagent(R.id)
-			reagents.update_total()
-			atom_say("Purged contaminant from chemical storage.")
-
-	//Take in biomass. Mostly copied from the old cloning code
-	var/show_message = FALSE
-	for(var/obj/item/item in range(1, src))
-		if(is_type_in_list(item, VALID_BIOMASSABLES) && (biomass + MEAT_BIOMASS_VALUE <= biomass_storage_capacity))
-			qdel(item)
-			biomass += MEAT_BIOMASS_VALUE
-			show_message = TRUE
-	if(show_message)
-		visible_message("[src] sucks in nearby biomass.")
-
-
 //Clonepod-specific procs
 //This just begins the cloning process. Called by the cloning console.
 /obj/machinery/clonepod/proc/start_cloning(datum/cloning_data/_patient_data, datum/cloning_data/_desired_data)
@@ -269,7 +272,6 @@
 	clone = new /mob/living/carbon/human(src)
 
 	clone.change_dna(patient_data.genetic_info, FALSE, TRUE)
-	clone.mind = patient_data.mind //surely this works perfectly (clueless)
 
 	for(var/obj/item/organ/external/limb in clone.bodyparts)
 		if(!(limb.limb_name in limbs_to_grow)) //if the limb was determined to be vital
@@ -308,6 +310,11 @@
 
 	clone.set_heartattack(FALSE) //you are not allowed to die
 	clone.adjustCloneLoss(25) //to punish early ejects
+
+	patient_data.mind.transfer_to(clone)
+	to_chat(clone, "<span class='userdanger'>You remember nothing from the time you were dead!</span>")
+	to_chat(clone, "<span class='notice'>Your mind sparks to life. You're floating in a blissful void, numb to the machines stitching you back together...</span>")
+	clone.SetSleeping(4 SECONDS)
 
 //Ejects a clone. The force var ejects even if there's still clone damage.
 /obj/machinery/clonepod/proc/eject_clone(force = FALSE)
