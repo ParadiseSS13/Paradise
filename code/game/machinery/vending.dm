@@ -1477,6 +1477,21 @@
 	contraband = list(/obj/item/kitchen/rollingpin = 2, /obj/item/kitchen/knife/butcher = 2)
 	refill_canister = /obj/item/vending_refill/dinnerware
 
+/obj/machinery/vending/dinnerware/old
+	products = list(/obj/item/storage/bag/tray = 1, /obj/item/kitchen/utensil/fork = 2,
+					/obj/item/kitchen/knife = 0, /obj/item/kitchen/rollingpin = 0,
+					/obj/item/kitchen/sushimat = 1,
+					/obj/item/reagent_containers/food/drinks/drinkingglass = 2,
+					/obj/item/clothing/suit/chef/classic = 1,
+					/obj/item/storage/belt/chef = 0, /obj/item/reagent_containers/food/condiment/pack/ketchup = 1,
+					/obj/item/reagent_containers/food/condiment/pack/hotsauce = 0,/obj/item/reagent_containers/food/condiment/saltshaker = 1,
+					/obj/item/reagent_containers/food/condiment/peppermill = 2,/obj/item/whetstone = 1,
+					/obj/item/mixing_bowl = 3,/obj/item/kitchen/mould/bear = 1,
+					/obj/item/kitchen/mould/worm = 0,/obj/item/kitchen/mould/bean = 0,
+					/obj/item/kitchen/mould/ball = 1,/obj/item/kitchen/mould/cane = 1,
+					/obj/item/kitchen/mould/cash = 0,/obj/item/kitchen/mould/coin = 0,
+					/obj/item/kitchen/mould/loli = 1,/obj/item/kitchen/cutter = 0, /obj/item/eftpos = 1)
+
 /obj/machinery/vending/sovietsoda
 	name = "\improper BODA"
 	desc = "Old sweet water vending machine."
