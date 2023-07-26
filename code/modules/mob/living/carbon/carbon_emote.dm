@@ -208,14 +208,7 @@
 
 /datum/emote/living/carbon/twirl/run_emote(mob/user, params, type_override, intentional)
 
-	var/obj/item/thing = user.get_active_hand()
-	if(user.get_active_hand())
-		message = "twirls [thing] around in their hand!"
-	else if(user.get_inactive_hand())
-		message = "twirls [user.get_inactive_hand()] around in their offhand!"
-
+	var/obj/item/thing = user.l_hand || user.r_hand
+	message = "twirls [thing] around in their hand!"
 	. = ..()
 	message = initial(message)
-
-
-
