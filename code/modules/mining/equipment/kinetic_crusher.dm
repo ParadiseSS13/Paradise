@@ -436,7 +436,7 @@
 		H.force += bonus_value * 0.2
 		H.force_wielded += bonus_value * 0.2
 		// don't update force since KCs have 0 force by default
-		AddComponent(/datum/component/two_handed, force_wielded = H.force_wielded, force_unwielded = H.force)
+		H.AddComponent(/datum/component/two_handed, force_wielded = H.force_wielded, force_unwielded = H.force)
 		H.detonation_damage += bonus_value * 0.8
 
 /obj/item/crusher_trophy/demon_claws/remove_from(obj/item/kinetic_crusher/H, mob/living/user)
@@ -444,7 +444,7 @@
 	if(.)
 		H.force -= bonus_value * 0.2
 		H.force_wielded -= bonus_value * 0.2
-		AddComponent(/datum/component/two_handed, force_wielded = H.force_wielded, force_unwielded = H.force)
+		H.AddComponent(/datum/component/two_handed, force_wielded = H.force_wielded, force_unwielded = H.force)
 		H.detonation_damage -= bonus_value * 0.8
 
 /obj/item/crusher_trophy/demon_claws/on_melee_hit(mob/living/target, mob/living/user)
