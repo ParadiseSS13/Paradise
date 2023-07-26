@@ -152,37 +152,38 @@
 			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
 		var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
 		var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
-		if((H && M.pulse) || (L && !(BREATHLESS in M.mutations) && !(NO_BREATHE in M.dna.species.species_traits)))
-			var/color = "notice"
-			if(H)
-				var/heart_sound
-				switch(H.damage)
-					if(0 to 1)
-						heart_sound = "healthy"
-					if(1 to 25)
-						heart_sound = "offbeat"
-					if(25 to 50)
-						heart_sound = "uneven"
-						color = "warning"
-					if(50 to INFINITY)
-						heart_sound = "weak, unhealthy"
-						color = "warning"
-				to_chat(user, "<span class='[color]'>You hear \an [heart_sound] pulse.</span>")
-			if(L)
-				var/lung_sound
-				switch(L.damage)
-					if(0 to 1)
-						lung_sound = "healthy respiration"
-					if(1 to 25)
-						lung_sound = "labored respiration"
-					if(25 to 50)
-						lung_sound = "pained respiration"
-						color = "warning"
-					if(50 to INFINITY)
-						lung_sound = "gurgling"
-						color = "warning"
-				to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
-		else
+		var/color
+		var/heart_sound
+		var/lung_sound
+		if((H && M.pulse))
+			color = "notice"
+			switch(H.damage)
+				if(0 to 1)
+					heart_sound = "healthy"
+				if(1 to 25)
+					heart_sound = "offbeat"
+				if(25 to 50)
+					heart_sound = "uneven"
+					color = "warning"
+				if(50 to INFINITY)
+					heart_sound = "weak, unhealthy"
+					color = "warning"
+			to_chat(user, "<span class='[color]'>You hear \an [heart_sound] pulse.</span>")
+		if(L && !(BREATHLESS in M.mutations) && !(NO_BREATHE in M.dna.species.species_traits))
+			color = "notice"
+			switch(L.damage)
+				if(0 to 1)
+					lung_sound = "healthy respiration"
+				if(1 to 25)
+					lung_sound = "labored respiration"
+				if(25 to 50)
+					lung_sound = "pained respiration"
+					color = "warning"
+				if(50 to INFINITY)
+					lung_sound = "gurgling"
+					color = "warning"
+			to_chat(user, "<span class='[color]'>You hear [lung_sound].</span>")
+		if(!heart_sound && !lung_sound)
 			to_chat(user, "<span class='warning'>You don't hear anything.</span>")
 		return
 	return ..(M,user)
