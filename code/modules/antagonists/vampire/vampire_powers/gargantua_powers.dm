@@ -198,7 +198,7 @@
 	/// What turf will be the middle of our arena?
 	var/turf/the_middle_ground
 
-/obj/effect/proc_holder/spell/vampire/dark_passage/create_new_targeting()
+/obj/effect/proc_holder/spell/vampire/arena/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.click_radius = 0
 	T.allowed_type = /mob/living
