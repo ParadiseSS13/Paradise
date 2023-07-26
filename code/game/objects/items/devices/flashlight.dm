@@ -195,6 +195,8 @@
 	on = FALSE
 	force = initial(force)
 	damtype = initial(damtype)
+	hitsound = initial(hitsound)
+	attack_verb = initial(attack_verb)
 	update_brightness()
 
 /obj/item/flashlight/flare/attack_self(mob/user)
@@ -213,6 +215,8 @@
 		if(produce_heat)
 			force = on_damage
 			damtype = "fire"
+			hitsound = 'sound/items/welder.ogg'
+			attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
