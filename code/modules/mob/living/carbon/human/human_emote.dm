@@ -673,7 +673,6 @@
 	sound = 'sound/effects/mob_effects/slime_pop.ogg'
 	volume = 50
 
-
 /datum/emote/living/carbon/human/howl
 	key = "howl"
 	key_third_person = "howls"
