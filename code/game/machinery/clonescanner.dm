@@ -141,8 +141,8 @@
 		var/obj/item/organ/internal/active_organ = scanned.get_int_organ(scanned.dna.species.has_organ[organ]) //this is icky
 		if(istype(active_organ))
 			scan_result.organs[organ] = list(active_organ.damage,
-											 active_organ.status,
-											 FALSE)
+											active_organ.status,
+											FALSE)
 		else
 			scan_result.organs[organ] = list(0, 0, TRUE)
 

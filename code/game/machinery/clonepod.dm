@@ -11,9 +11,9 @@
 									/obj/item/organ/internal/ears/microphone)
 
 #define UPGRADE_LOCKED_ORGANS list(/obj/item/organ/internal/heart/gland, \
-								   /obj/item/organ/internal/heart/demon, \
-								   /obj/item/organ/internal/heart/cursed, \
-								   /obj/item/organ/internal/eyes/cybernetic/eyesofgod)
+								/obj/item/organ/internal/heart/demon, \
+								/obj/item/organ/internal/heart/cursed, \
+								/obj/item/organ/internal/eyes/cybernetic/eyesofgod)
 
 #define FORBIDDEN_LIMBS list(/obj/item/organ/external/head, \
 							/obj/item/organ/external/chest, \
