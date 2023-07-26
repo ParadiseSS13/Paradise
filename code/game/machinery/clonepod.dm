@@ -1,14 +1,14 @@
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent", "mutadone", "rezadone")
 #define FORBIDDEN_INTERNAL_ORGANS list(/obj/item/organ/internal/regenerative_core, \
-									   /obj/item/organ/internal/alien, \
-									   /obj/item/organ/internal/body_egg, \
-									   /obj/item/organ/internal/adamantine_resonator, \
-									   /obj/item/organ/internal/vocal_cords/colossus, \
-									   /obj/item/organ/internal/cyberimp, \
-									   /obj/item/organ/internal/brain, \
-									   /obj/item/organ/internal/cell, \
-									   /obj/item/organ/internal/eyes/optical_sensor, \
-									   /obj/item/organ/internal/ears/microphone)
+									/obj/item/organ/internal/alien, \
+									/obj/item/organ/internal/body_egg, \
+									/obj/item/organ/internal/adamantine_resonator, \
+									/obj/item/organ/internal/vocal_cords/colossus, \
+									/obj/item/organ/internal/cyberimp, \
+									/obj/item/organ/internal/brain, \
+									/obj/item/organ/internal/cell, \
+									/obj/item/organ/internal/eyes/optical_sensor, \
+									/obj/item/organ/internal/ears/microphone)
 
 #define UPGRADE_LOCKED_ORGANS list(/obj/item/organ/internal/heart/gland, \
 								   /obj/item/organ/internal/heart/demon, \
@@ -16,13 +16,13 @@
 								   /obj/item/organ/internal/eyes/cybernetic/eyesofgod)
 
 #define FORBIDDEN_LIMBS list(/obj/item/organ/external/head, \
-							 /obj/item/organ/external/chest, \
-							 /obj/item/organ/external/groin) //you can't even get chests and groins normally
+							/obj/item/organ/external/chest, \
+							/obj/item/organ/external/groin) //you can't even get chests and groins normally
 
 #define ALLOWED_ROBOT_PARTS list(/obj/item/robot_parts/r_arm, \
-								 /obj/item/robot_parts/l_arm, \
-								 /obj/item/robot_parts/r_leg, \
-								 /obj/item/robot_parts/l_leg)
+								/obj/item/robot_parts/l_arm, \
+								/obj/item/robot_parts/r_leg, \
+								/obj/item/robot_parts/l_leg)
 
 
 //Balance tweaks go here vv

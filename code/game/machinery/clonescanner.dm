@@ -131,9 +131,9 @@
 		if(scanned.bodyparts_by_name[limb])
 			var/obj/item/organ/external/active_limb = scanned.bodyparts_by_name[limb]
 			scan_result.limbs[limb] = list(active_limb.brute_dam,
-										   active_limb.burn_dam,
-										   active_limb.status,
-										   FALSE)
+											active_limb.burn_dam,
+											active_limb.status,
+											FALSE)
 		else
 			scan_result.limbs[limb] = list(0, 0, 0, TRUE) //no damage if it's missing!
 
