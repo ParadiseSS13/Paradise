@@ -15,7 +15,7 @@
 	/// Stamina damage
 	var/staminaforce = 20
 	/// How many life ticks does the stun last for
-	var/stunforce = 4 SECONDS
+	var/stunforce = 2 SECONDS
 	/// Is the baton currently turned on
 	var/status = 0
 	/// How much power does it cost to stun someone
@@ -246,7 +246,7 @@
 	force = 3
 	throwforce = 5
 	staminaforce = 25
-	stunforce = 2 SECONDS
+	stunforce = 0.5 SECONDS
 	hitcost = 500
 	throw_hit_chance = 50
 	slot_flags = SLOT_BACK

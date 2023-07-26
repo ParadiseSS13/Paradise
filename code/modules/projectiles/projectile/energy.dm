@@ -13,7 +13,7 @@
 	color = "#FFFF00"
 	shockbull = TRUE
 	nodamage = 1
-	weaken = 2 SECONDS
+	weaken = 0.2 SECONDS
 	stamina = 33
 	stutter = 8 SECONDS
 	jitter = 30 SECONDS
@@ -67,13 +67,13 @@
 	damage_type = TOX
 	stamina = 40
 	nodamage = 0
-	weaken = 5 SECONDS
+	weaken = 3 SECONDS
 	stutter = 2 SECONDS
 	shockbull = TRUE
 
 /obj/item/projectile/energy/bolt/large
 	damage = 20
-	weaken = 2 SECONDS
+	weaken = 0.1 SECONDS
 	stamina = 30
 
 /obj/item/projectile/energy/shock_revolver
