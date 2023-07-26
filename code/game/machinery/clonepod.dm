@@ -312,6 +312,8 @@
 	clone.adjustCloneLoss(25) //to punish early ejects
 
 	patient_data.mind.transfer_to(clone)
+	clone.grab_ghost()
+	clone.update_revive()
 	to_chat(clone, "<span class='userdanger'>You remember nothing from the time you were dead!</span>")
 	to_chat(clone, "<span class='notice'>Your mind sparks to life. You're floating in a blissful void, numb to the machines stitching you back together...</span>")
 	clone.SetSleeping(4 SECONDS)
