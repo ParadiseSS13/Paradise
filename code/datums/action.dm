@@ -7,7 +7,7 @@
 	var/obj/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
-	var/button_background_icon = 'icons/mob/actions/actions.dmi'
+	var/background_icon
 	var/background_icon_state = "bg_default"
 	var/buttontooltipstyle = ""
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
@@ -120,7 +120,10 @@
 			button.icon = ui_style2icon(owner.client.prefs.UI_style)
 			button.icon_state = "template"
 		else
-			button.icon = button_background_icon
+			if(background_icon)
+				button.icon = background_icon
+			else
+				button.icon = button_icon
 			button.icon_state = background_icon_state
 		button.name = name
 		button.desc = desc
@@ -610,7 +613,7 @@
 	name = spell.name
 	desc = spell.desc
 	button_icon = spell.action_icon
-	button_background_icon = spell.action_background_icon
+	background_icon = spell.action_background_icon
 	button_icon_state = spell.action_icon_state
 	background_icon_state = spell.action_background_icon_state
 	button.name = name
