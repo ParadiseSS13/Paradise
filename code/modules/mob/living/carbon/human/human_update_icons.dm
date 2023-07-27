@@ -228,7 +228,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(husk)
 				base_icon.ColorTone(husk_color_mod)
 			else if(hulk)
-				var/list/tone = ReadRGB(hulk_color_mod)
+				var/list/tone = rgb2num(hulk_color_mod)
 				base_icon.MapColors(rgb(tone[1],0,0),rgb(0,tone[2],0),rgb(0,0,tone[3]))
 
 		//Handle husk overlay.
@@ -350,8 +350,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				else
 					overlays_standing[HEAD_ACCESSORY_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACCESSORY_LAYER)
 					apply_overlay(HEAD_ACCESSORY_LAYER)
-		else
-			//warning("Invalid ha_style for [species.name]: [ha_style]")
 
 /**
   * Generates overlays for the hair layer.
@@ -385,7 +383,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(gradient)
 				var/icon/icn_alpha_mask = icon(gradient.icon, gradient.icon_state)
 				var/icon/icn_gradient = icon(gradient.icon, "full")
-				var/list/icn_color = ReadRGB(O.h_grad_colour)
+				var/list/icn_color = rgb2num(O.h_grad_colour)
 				icn_gradient.MapColors(rgb(icn_color[1], 0, 0), rgb(0, icn_color[2], 0), rgb(0, 0, icn_color[3]))
 				icn_gradient.ChangeOpacity(O.h_grad_alpha / 255)
 				icn_gradient.AddAlphaMask(icn_alpha_mask)
@@ -478,9 +476,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				else
 					overlays_standing[FHAIR_LAYER] = mutable_appearance(face_standing, layer = -FHAIR_LAYER)
 					apply_overlay(FHAIR_LAYER)
-		else
-			//warning("Invalid f_style for [species.name]: [f_style]")
-
 
 
 /mob/living/carbon/human/update_mutations()

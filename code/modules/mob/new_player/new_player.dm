@@ -328,6 +328,9 @@
 	if(thisjob.barred_by_disability(client))
 		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
 		return 0
+	if(thisjob.barred_by_missing_limbs(client))
+		to_chat(src, alert("[rank] is not available due to your character having amputated limbs without a prosthetic replacement. Please try another."))
+		return 0
 
 	SSjobs.AssignRole(src, rank, 1)
 
@@ -474,7 +477,7 @@
 	var/list/categorizedJobs = list(
 		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
 		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
-		"Security" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
+		"Security" = list(jobs = list(), titles = GLOB.active_security_positions, color = "#ff9999"),
 		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
 		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
 		"Support / Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
@@ -483,7 +486,7 @@
 		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in SSjobs.occupations)
-		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client) && !job.barred_by_missing_limbs(client))
 			num_jobs_available++
 			activePlayers[job] = 0
 			var/categorized = 0
