@@ -330,10 +330,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(loc == null)
 		return
 	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
-		var/obj/effect/temp_visual/elite_tumor_wall/newwall
-		newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
-		newwall.activator = activator
-		newwall.ourelite = mychild
+		new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
 
 /obj/structure/elite_tumor/proc/border_check()
 	if(activator != null && get_dist(src, activator) >= ARENA_RADIUS)

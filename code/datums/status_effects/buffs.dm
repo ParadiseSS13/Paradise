@@ -206,7 +206,6 @@
 /datum/status_effect/vampire_gladiator/on_apply()
 	. = ..()
 	var/mob/living/carbon/human/H = owner
-	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 
 /datum/status_effect/vampire_gladiator/on_remove()
 

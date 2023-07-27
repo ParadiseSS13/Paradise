@@ -212,7 +212,7 @@
 	base_cooldown = 30 SECONDS
 	action_icon_state = "blood_barrier"
 	/// The garg vampire
-	var/mob/mychild
+	var/mob/garg_vampire
 	/// Is our spell active?
 	var/spell_active
 	/// What turf will be the middle of our arena?
@@ -254,12 +254,12 @@
 	// Now we build the arena and give the caster the buff
 
 	the_middle_ground = get_turf(user) // I am so deeply sorry to get a hard ref to a turf
-	mychild = user
-	var/mob/living/carbon/human/H = target
+	garg_vampire = user
+	var/mob/living/carbon/human/H = garg_vampire
 	H.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	spell_active = TRUE
 	timer = addtimer(CALLBACK(src, PROC_REF(dispell), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
-	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
+	RegisterSignal(garg_vampire, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
 	arena_checks()
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
@@ -274,7 +274,7 @@
 		new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check()
-	if(QDELETED(mychild) || mychild.stat == DEAD)
+	if(QDELETED(garg_vampire) || garg_vampire.stat == DEAD)
 		dispell()
 		return
 
