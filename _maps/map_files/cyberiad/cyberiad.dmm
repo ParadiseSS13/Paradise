@@ -46657,6 +46657,11 @@
 	c_tag = "Medbay Surgery West";
 	dir = 1
 	},
+/obj/item/radio/intercom{
+	name = "south station intercom (General)";
+	pixel_y = -28
+	},
+/obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -46670,11 +46675,6 @@
 	},
 /area/medical/surgery/north)
 "ckW" = (
-/obj/structure/closet/secure_closet/medical2,
-/obj/item/radio/intercom{
-	name = "south station intercom (General)";
-	pixel_y = -28
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -72554,6 +72554,12 @@
 	icon_state = "dark"
 	},
 /area/security/main)
+"fMW" = (
+/obj/machinery/smartfridge/secure/medbay/organ,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/medical/surgery/north)
 "fOI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -77521,6 +77527,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
+"lFP" = (
+/obj/machinery/smartfridge/secure/medbay/organ,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/medical/surgery/south)
 "lFQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/firealarm{
@@ -123404,7 +123416,7 @@ chl
 mmF
 cjx
 ckW
-cCW
+fMW
 cuz
 cnW
 cpw
@@ -126228,7 +126240,7 @@ ccB
 cDf
 cDf
 cDf
-cDf
+lFP
 ckz
 cDf
 cDf

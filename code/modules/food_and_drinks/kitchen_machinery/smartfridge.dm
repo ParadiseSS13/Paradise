@@ -141,6 +141,11 @@
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return
 
+	if (istype(O, /obj/item/gripper))
+		var/obj/item/gripper/G = O
+		if (G.gripped_item)
+			O = G.gripped_item /// Borgs can fully operate fridges
+
 	add_fingerprint(user)
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
@@ -163,9 +168,6 @@
 	else if(!istype(O, /obj/item/card/emag))
 		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
 		return TRUE
-
-/obj/machinery/smartfridge/attack_ai(mob/user)
-	return FALSE
 
 /obj/machinery/smartfridge/attack_ghost(mob/user)
 	return attack_hand(user)
@@ -523,6 +525,35 @@
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
 	. = ..()
+
+/obj/machinery/smartfridge/secure/medbay/organ
+	req_access = list(ACCESS_SURGERY)
+	name = "\improper Secure Refrigerated Organ Storage"
+	desc = "A refrigerated storage unit for storing organs, limbs and implants."
+
+/obj/machinery/smartfridge/secure/medbay/organ/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/organ
+	))
+
+/// Copy pasting to reuse existing sprites
+/obj/machinery/smartfridge/secure/medbay/organ/update_icon()
+	var/prefix = initial(icon_state)
+	if(stat & (BROKEN|NOPOWER))
+		icon_state = "[prefix]-off"
+	else if(visible_contents)
+		switch(length(contents))
+			if(0)
+				icon_state = "[prefix]"
+			if(1 to 25)
+				icon_state = "[prefix]-organ1"
+			if(26 to 75)
+				icon_state = "[prefix]-organ2"
+			if(76 to INFINITY)
+				icon_state = "[prefix]-organ3"
+	else
+		icon_state = "[prefix]"
 
 /**
   * # Disk Compartmentalizer

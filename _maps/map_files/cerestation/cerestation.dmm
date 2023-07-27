@@ -9364,19 +9364,7 @@
 	},
 /area/medical/surgery/north)
 "bjL" = (
-/obj/structure/closet/crate/freezer,
 /obj/machinery/iv_drip,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/blood/diona,
-/obj/item/reagent_containers/iv_bag/blood/grey,
-/obj/item/reagent_containers/iv_bag/blood/kidan,
-/obj/item/reagent_containers/iv_bag/blood/nian,
-/obj/item/reagent_containers/iv_bag/blood/skrell,
-/obj/item/reagent_containers/iv_bag/blood/tajaran,
-/obj/item/reagent_containers/iv_bag/blood/unathi,
-/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
-/obj/item/reagent_containers/iv_bag/blood/wryn,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -11226,10 +11214,6 @@
 	id = "surg2";
 	pixel_y = -24
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
 /obj/machinery/holosign_switch{
 	dir = 4;
 	id = "surgery1";
@@ -11241,9 +11225,16 @@
 	pixel_x = -4;
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
+/obj/structure/sink{
+	dir = 1
 	},
+/obj/machinery/shower{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot_white{
+	color = "#009dff"
+	},
+/turf/simulated/floor/noslip,
 /area/medical/surgery/south)
 "btq" = (
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -59633,6 +59624,27 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/hallway)
+"moi" = (
+/obj/structure/closet/crate/freezer,
+/obj/machinery/iv_drip,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/blood/diona,
+/obj/item/reagent_containers/iv_bag/blood/grey,
+/obj/item/reagent_containers/iv_bag/blood/kidan,
+/obj/item/reagent_containers/iv_bag/blood/nian,
+/obj/item/reagent_containers/iv_bag/blood/skrell,
+/obj/item/reagent_containers/iv_bag/blood/tajaran,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
+/obj/item/reagent_containers/iv_bag/blood/wryn,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay)
 "mok" = (
 /turf/simulated/wall,
 /area/hallway/spacebridge/medcargo)
@@ -75963,13 +75975,9 @@
 	},
 /area/library)
 "rrp" = (
-/obj/effect/turf_decal/bot_white{
-	color = "#009dff"
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
-/turf/simulated/floor/noslip,
 /area/medical/surgery/north)
 "rrr" = (
 /obj/machinery/hologram/holopad,
@@ -76027,19 +76035,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fsmaint3)
 "rrV" = (
-/obj/structure/closet/crate/freezer,
 /obj/machinery/iv_drip,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/blood/diona,
-/obj/item/reagent_containers/iv_bag/blood/grey,
-/obj/item/reagent_containers/iv_bag/blood/kidan,
-/obj/item/reagent_containers/iv_bag/blood/nian,
-/obj/item/reagent_containers/iv_bag/blood/skrell,
-/obj/item/reagent_containers/iv_bag/blood/tajaran,
-/obj/item/reagent_containers/iv_bag/blood/unathi,
-/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
-/obj/item/reagent_containers/iv_bag/blood/wryn,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -77916,6 +77912,10 @@
 /obj/machinery/disposal,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
+"rVl" = (
+/obj/machinery/smartfridge/secure/medbay/organ,
+/turf/simulated/wall,
+/area/medical/surgery/north)
 "rVu" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -79820,10 +79820,6 @@
 	id = "surg1";
 	pixel_y = -24
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
 /obj/machinery/holosign_switch{
 	dir = 4;
 	id = "surgery1";
@@ -79835,9 +79831,16 @@
 	pixel_x = -4;
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
+/obj/structure/sink{
+	dir = 1
 	},
+/obj/machinery/shower{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot_white{
+	color = "#009dff"
+	},
+/turf/simulated/floor/noslip,
 /area/medical/surgery/north)
 "syk" = (
 /turf/simulated/floor/plasteel{
@@ -83509,13 +83512,9 @@
 	},
 /area/engine/break_room)
 "tHu" = (
-/obj/effect/turf_decal/bot_white{
-	color = "#009dff"
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
-/obj/machinery/shower{
-	dir = 4
-	},
-/turf/simulated/floor/noslip,
 /area/medical/surgery/south)
 "tHB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -148486,7 +148485,7 @@ bzF
 vPH
 ulG
 tRA
-tRA
+rVl
 tRA
 tRA
 tRA
@@ -149778,7 +149777,7 @@ ddr
 vUg
 nqG
 tLf
-xsc
+moi
 epP
 epP
 epP
@@ -150035,7 +150034,7 @@ cPm
 vUg
 nqG
 tLf
-xsc
+moi
 epP
 uAb
 oVC
