@@ -255,6 +255,8 @@
 
 	the_middle_ground = get_turf(user) // I am so deeply sorry to get a hard ref to a turf
 	mychild = user
+	var/mob/living/carbon/human/H = target
+	H.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	spell_active = TRUE
 	timer = addtimer(CALLBACK(src, PROC_REF(dispell), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
 	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(dispell))

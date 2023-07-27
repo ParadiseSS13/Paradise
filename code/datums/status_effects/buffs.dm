@@ -174,7 +174,7 @@
 	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 	var/mob/living/carbon/human/H = owner
 	H.physiology.brute_mod *= 0.5
-	H.physiology.burn_mod *= 0.8
+	H.physiology.burn_mod *= 0.5
 	H.physiology.stamina_mod *= 0.5
 	H.physiology.stun_mod *= 0.5
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -189,13 +189,27 @@
 	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 	var/mob/living/carbon/human/H = owner
 	H.physiology.brute_mod /= 0.5
-	H.physiology.burn_mod /= 0.8
+	H.physiology.burn_mod /= 0.5
 	H.physiology.stamina_mod /= 0.5
 	H.physiology.stun_mod /= 0.5
 	if(bonus_damage_applied)
 		bonus_damage_applied = FALSE
 		H.physiology.melee_bonus -= 10
 		H.dna.species.punchstunthreshold -= 8
+
+/datum/status_effect/vampire_gladiator
+	id = "bloodswell"
+	duration = 30 SECONDS
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/blood_swell
+
+/datum/status_effect/vampire_gladiator/on_apply()
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
+
+/datum/status_effect/vampire_gladiator/on_remove()
+
 
 /datum/status_effect/blood_rush
 	alert_type = null
