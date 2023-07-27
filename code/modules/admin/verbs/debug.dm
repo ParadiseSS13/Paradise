@@ -862,11 +862,13 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	// Iterate that target and see whats what
 	for(var/queue_entry in target_queue)
 		var/datum/D = locate(queue_entry[1])
-		if(istype(D))
-			if(!queue_counts[D.type])
-				queue_counts[D.type] = 0
+		if(!istype(D))
+			continue
 
-			queue_counts[D.type]++
+		if(!queue_counts[D.type])
+			queue_counts[D.type] = 0
+
+		queue_counts[D.type]++
 
 	// Sort it the right way
 	var/list/sorted = sortTim(queue_counts, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
