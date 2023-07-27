@@ -8,7 +8,7 @@
 //Revive from regenerative stasis
 /datum/action/changeling/revive/sting_action(var/mob/living/carbon/user)
 
-	to_chat(user, span_notice("We have regenerated."))
+	to_chat(user, span_changeling("We have regenerated."))
 
 	REMOVE_TRAIT(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT)
 

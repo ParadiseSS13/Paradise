@@ -13,8 +13,8 @@
  */
 /datum/action/changeling/fakedeath/sting_action(mob/living/user)
 
-	to_chat(user, span_notice("We begin our stasis, preparing energy to arise once more."))
 	if(user.stat != DEAD)
+		cling.calculate_stasis_delay(user)
 		user.emote("deathgasp")
 		user.timeofdeath = world.time
 
@@ -23,7 +23,9 @@
 	user.update_canmove()
 	cling.regenerating = TRUE
 
-	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), (LING_FAKEDEATH_TIME + cling.fakedeath_delay))
+	var/stasis_delay = LING_FAKEDEATH_TIME + cling.fakedeath_delay
+	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), stasis_delay)
+	to_chat(user, span_changeling("We begin our stasis, preparing energy to arise once more. This process will take <b>[stasis_delay / 10] seconds</b>."))
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
@@ -31,7 +33,7 @@
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
 	if(!QDELETED(user) && !QDELETED(src) && ischangeling(user) && cling?.acquired_powers)
 		cling.fakedeath_delay = 0 SECONDS
-		to_chat(user, span_notice("We are ready to regenerate."))
+		to_chat(user, span_changeling("We are ready to regenerate."))
 		cling.give_power(new /datum/action/changeling/revive)
 
 

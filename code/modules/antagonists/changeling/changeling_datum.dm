@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/regenerating = FALSE
 	/// A name that will display in place of the changeling's real name when speaking.
 	var/mimicking = ""
-	/// TSS seed used in mimic voice ability.
+	/// TTS seed used in mimic voice ability.
 	var/tts_mimicking = ""
 
 
@@ -251,6 +251,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return FALSE
 	if(can_respec)
 		to_chat(user, span_changeling("We have removed our evolutions from this form, and are now ready to readapt."))
+		remove_changeling_mutations(user)
 		respec()
 		can_respec = FALSE
 		return TRUE
@@ -527,71 +528,62 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(!istype(h_user))
 		return
 
-	fakedeath_delay += genetic_damage * 1 SECONDS
-
-	if(h_user.on_fire)
-		fakedeath_delay += 20 SECONDS
-		fakedeath_delay += round(h_user.fire_stacks) * 2 SECONDS
+	addtimer(CALLBACK(src, PROC_REF(calculate_stasis_delay), user), 0)	// We need this timer to register missing head
 
 	if(!h_user.get_organ_slot("brain"))
-		to_chat(user, span_notice("The brain is a useless organ to us, we are able to regenerate!"))
+		to_chat(user, span_changeling("The brain is a useless organ to us, we are able to regenerate!"))
 	else
-		to_chat(user, span_notice("While our current form may be lifeless, this is not the end for us as we can still regenerate!"))
+		to_chat(user, span_changeling("While our current form may be lifeless, this is not the end for us as we can still regenerate!"))
+
+
+/**
+ * Additional stasis delay from different sources.
+ */
+/datum/antagonist/changeling/proc/calculate_stasis_delay(mob/living/user)
+
+	if(QDELETED(src) || QDELETED(user) || !istype(user))
+		return
+
+	// 1 SECOND for each point of genetic damage.
+	fakedeath_delay = genetic_damage * 1 SECONDS
+
+	// 20 SECONDS delay if cling was on fire while dying and 2 SECONDS for each fire stack.
+	// 60 SECONDS of delay overall.
+	if(user.on_fire)
+		fakedeath_delay += 20 SECONDS
+		fakedeath_delay += round(user.fire_stacks) * 2 SECONDS
+
+	if(!ishuman(user))
+		return
+
+	// 12 SECONDS for each missing major limb: head, any arm (not hand), any leg (not foot).
+	// 60 SECONDS of delay overall.
+	var/mob/living/carbon/human/h_user = user
+	var/missing_limbs = 5
+	for(var/obj/item/organ/external/limb in h_user.bodyparts)
+		if(istype(limb, /obj/item/organ/external/head) || \
+			istype(limb, /obj/item/organ/external/arm) || \
+			istype(limb, /obj/item/organ/external/leg))
+
+			missing_limbs--
+
+	fakedeath_delay += missing_limbs * 12 SECONDS
 
 
 /**
  * Removes all mutated items on owner: armblade, tentacle, chitin suit etc.
  * Global proc since we might need to delete mutated parts on any user.
  */
-/proc/remove_changeling_mutations(mob/living/carbon/human/user, actions_check = FALSE)
+/proc/remove_changeling_mutations(mob/living/carbon/human/user)
 
 	if(!istype(user) || QDELETED(user))
 		return
 
-	var/datum/antagonist/changeling/ling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
-	if(!ling || !actions_check)
-		for(var/path in GLOB.changeling_mutations)
-			var/obj/item/mutation = locate(path) in user
-			if(mutation)
-				user.temporarily_remove_item_from_inventory(mutation, force = TRUE)
-				qdel(mutation)
-		return
-
-	var/datum/action/changeling/weapon/weapon_power = locate() in user.actions
-	if(weapon_power)
-
-		if(istype(user.l_hand, weapon_power.weapon_type))
-			var/obj/item/hand_item = user.l_hand
-			user.temporarily_remove_item_from_inventory(hand_item, force = TRUE)
-			qdel(hand_item)
-
-		if(istype(user.r_hand, weapon_power.weapon_type))
-			var/obj/item/hand_item = user.r_hand
-			user.temporarily_remove_item_from_inventory(hand_item, force = TRUE)
-			qdel(hand_item)
-
-	var/datum/action/changeling/suit/suit_power = locate() in user.actions
-	if(suit_power)
-
-		if(istype(user.wear_suit, suit_power.suit_type))
-			var/obj/item/suit = user.wear_suit
-			user.temporarily_remove_item_from_inventory(suit, force = TRUE)
-			qdel(suit)
-
-		if(istype(user.head, suit_power.helmet_type))
-			var/obj/item/helmet = user.head
-			user.temporarily_remove_item_from_inventory(helmet, force = TRUE)
-			qdel(helmet)
-
-		ling.chem_recharge_slowdown -= suit_power.recharge_slowdown
-
-	var/datum/action/changeling/augmented_eyesight/eyes_power = locate() in user.actions
-	if(eyes_power)
-
-		var/obj/item/organ/internal/cyberimp/eyes/eyes = user.get_organ_slot("eye_ling")
-		if(eyes)
-			eyes.remove(user)
-			qdel(eyes)
+	for(var/path in GLOB.changeling_mutations)
+		var/obj/item/mutation = locate(path) in user
+		if(mutation)
+			user.temporarily_remove_item_from_inventory(mutation, force = TRUE)
+			qdel(mutation)
 
 
 /**
