@@ -37,14 +37,14 @@
 					cargo_holder.cargo += O
 					O.loc = chassis
 					O.anchored = FALSE
-					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+					occupant_message(span_notice("[target] successfully loaded."))
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 				else
 					O.anchored = initial(O.anchored)
 			else
-				occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+				occupant_message(span_warning("Not enough room in cargo compartment!"))
 		else
-			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
+			occupant_message(span_warning("[target] is firmly secured!"))
 
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
@@ -62,30 +62,30 @@
 						cargo_holder.cargo += M
 						M.loc = chassis
 						M.anchored = FALSE
-						occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+						occupant_message(span_notice("[target] successfully loaded."))
 						log_message("Loaded [M]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 					else
 						M.anchored = initial(M.anchored)
 				else
-					occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+					occupant_message(span_warning("Not enough room in cargo compartment!"))
 			else
-				occupant_message("<span class='warning'>[target] is buckled to something!</span>")
+				occupant_message(span_warning("[target] is buckled to something!"))
 		if(chassis.occupant.a_intent == INTENT_HARM)
 			M.take_overall_damage(dam_force)
 			if(!M)
 				return
 			M.adjustOxyLoss(round(dam_force/2))
-			target.visible_message("<span class='danger'>[chassis] squeezes [target].</span>", \
-								"<span class='userdanger'>[chassis] squeezes [target].</span>",\
-								"<span class='italics'>You hear something crack.</span>")
+			target.visible_message(span_danger("[chassis] squeezes [target]."), \
+								span_userdanger("[chassis] squeezes [target]."),\
+								span_italics("You hear something crack."))
 			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
 		else
 			if(M.stat == DEAD && issilicon(M) || chassis.cargo_expanded == TRUE)
 				return
 			step_away(M,chassis)
-			occupant_message("<span class='notice'>You push [target] out of the way.</span>")
-			chassis.visible_message("<span class='notice'>[chassis] pushes [target] out of the way.</span>")
+			occupant_message(span_notice("You push [target] out of the way."))
+			chassis.visible_message(span_notice("[chassis] pushes [target] out of the way."))
 		return 1
 
 
@@ -109,21 +109,21 @@
 					cargo_holder.cargo += O
 					O.loc = chassis
 					O.anchored = 0
-					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+					occupant_message(span_notice("[target] successfully loaded."))
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 				else
 					O.anchored = initial(O.anchored)
 			else
-				occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+				occupant_message(span_warning("Not enough room in cargo compartment!"))
 		else
-			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
+			occupant_message(span_warning("[target] is firmly secured!"))
 
 	else if(istype(target,/mob/living))
 		var/mob/living/M = target
 		if(M.stat == DEAD) return
 		if(chassis.occupant.a_intent == INTENT_HARM)
-			target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury.</span>",
-								"<span class='userdanger'>[chassis] destroys [target] in an unholy fury.</span>")
+			target.visible_message(span_danger("[chassis] destroys [target] in an unholy fury."),
+								span_userdanger("[chassis] destroys [target] in an unholy fury."))
 			M.gib()
 		/*if(chassis.occupant.a_intent == INTENT_DISARM)
 			target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>",
@@ -416,24 +416,29 @@
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach_act()
 	UnregisterSignal(chassis, COMSIG_MOVABLE_MOVED)
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/action(var/obj/item/stack/cable_coil/target)
+/obj/item/mecha_parts/mecha_equipment/cable_layer/action(atom/target)
 	if(!action_checks(target))
 		return
-	if(istype(target) && target.amount)
+	if(istype(target, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/target_coil = target
 		var/cur_amount = cable? cable.amount : 0
 		var/to_load = max(max_cable - cur_amount,0)
 		if(to_load)
-			to_load = min(target.amount, to_load)
+			to_load = min(target_coil.amount, to_load)
 			if(!cable)
 				cable = new(src, 0)
 			cable.amount += to_load
-			target.use(to_load)
-			occupant_message("<span class='notice'>[to_load] meters of cable successfully loaded.</span>")
+			target_coil.use(to_load)
+			occupant_message(span_notice("[to_load] meters of cable successfully loaded."))
 			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",src.get_equip_info())
+			return
 		else
-			occupant_message("<span class='warning'>Reel is full.</span>")
+			occupant_message(span_warning("Reel is full."))
+	if(isturf(target))
+		target.attackby(cable, chassis)
+		return
 	else
-		occupant_message("<span class='warning'>Unable to load [target] - no cable found.</span>")
+		occupant_message(span_warning("Unable to load from [target] - no cable found."))
 
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/Topic(href,href_list)
