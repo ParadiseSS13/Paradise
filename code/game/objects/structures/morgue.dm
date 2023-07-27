@@ -208,7 +208,7 @@
  */
 /obj/structure/m_tray
 	name = "morgue tray"
-	desc = "Apply corpse before closing. May float away in no-gravity."
+	desc = "Apply corpse before closing."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue_tray"
 	density = TRUE
@@ -273,6 +273,9 @@
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
+
+/obj/structure/m_tray/Process_Spacemove(movement_dir)
+	return TRUE
 
 /*
  * Crematorium
@@ -538,6 +541,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		connected.connected = null
 	connected = null
 	return ..()
+
+/obj/structure/c_tray/Process_Spacemove(movement_dir)
+	return TRUE
 
 // Crematorium switch
 /obj/machinery/crema_switch
