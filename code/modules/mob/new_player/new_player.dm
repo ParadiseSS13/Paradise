@@ -477,7 +477,7 @@
 	var/list/categorizedJobs = list(
 		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
 		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
-		"Security" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
+		"Security" = list(jobs = list(), titles = GLOB.active_security_positions, color = "#ff9999"),
 		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
 		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
 		"Support / Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
