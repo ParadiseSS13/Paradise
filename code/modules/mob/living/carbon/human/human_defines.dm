@@ -80,9 +80,3 @@
 
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"
-
-	/// How much extra time (beyond the defib timer) to give someone before they can't be defibrillated
-	var/revive_timer_postponement = 0
-
-	/// Whether the time of reckoning has passed and the defib timer has expired on this mob while they've been dead.
-	var/defib_timer_has_expired = FALSE

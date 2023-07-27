@@ -105,9 +105,6 @@
 	if(dna.species)
 		dna.species.update_sight(src)
 
-	revive_timer_postponement = 0
-	defib_timer_has_expired = FALSE
-
 /mob/living/carbon/human/proc/makeSkeleton()
 	if(HAS_TRAIT(src, TRAIT_SKELETONIZED))
 		return
