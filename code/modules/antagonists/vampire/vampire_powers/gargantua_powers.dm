@@ -226,6 +226,7 @@
 	the_middle_ground = get_turf(user) // I am so deeply sorry to get a hard ref to a turf
 	mychild = user
 	spell_active = TRUE
+	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(onEliteLoss))
 	arena_checks()
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
