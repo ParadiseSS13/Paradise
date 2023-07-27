@@ -2277,16 +2277,16 @@
 			SSticker.mode.devils -= src
 			SSticker.mode.update_devil_icons_removed(src)
 			special_role = null
-			RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
-			RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/fireball/hellish)
-			RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/summon_contract)
-			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
-			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
-			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
-			RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/violin)
-			RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_dancefloor)
-			RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch)
-			RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch/ascended)
+			RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
+			RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
+			RemoveSpell(/obj/effect/proc_holder/spell/summon_contract)
+			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork)
+			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater)
+			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended)
+			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/violin)
+			RemoveSpell(/obj/effect/proc_holder/spell/summon_dancefloor)
+			RemoveSpell(/obj/effect/proc_holder/spell/sintouch)
+			RemoveSpell(/obj/effect/proc_holder/spell/sintouch/ascended)
 			if(issilicon(current))
 				var/mob/living/silicon/S = current
 				S.laws.clear_sixsixsix_laws()
@@ -2584,9 +2584,9 @@
 		for(var/type in exceptions)
 			if(istype(S, type))
 				continue
-		S.charge_counter = delay
+		S.cooldown_handler?.recharge_duration = delay
 		spawn(0)
-			S.start_recharge()
+			S.cooldown_handler?.start_recharge()
 		S.updateButtonIcon()
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)

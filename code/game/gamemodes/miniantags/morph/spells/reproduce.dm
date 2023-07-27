@@ -1,12 +1,28 @@
-/obj/effect/proc_holder/spell/targeted/morph_spell/reproduce
+/obj/effect/proc_holder/spell/morph_spell/reproduce
 	name = "Reproduce"
 	desc = "Split yourself in half making a new morph. Can only be used while on a floor. Makes you temporarily unable to vent crawl."
 	hunger_cost = 150 // 5 humans
-	charge_max = 30 SECONDS
+	base_cooldown = 30 SECONDS
 	action_icon_state = "morph_reproduce"
-	self_only = TRUE
+	create_attack_logs = FALSE
 
-/obj/effect/proc_holder/spell/targeted/morph_spell/reproduce/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
+/obj/effect/proc_holder/spell/morph_spell/reproduce/Initialize(mapload)
+	. = ..()
+	update_name()
+
+
+/obj/effect/proc_holder/spell/morph_spell/reproduce/proc/update_name()
+	if(hunger_cost && action)
+		name = "[initial(name)] ([hunger_cost])"
+		if(action)
+			action.name = name
+
+
+/obj/effect/proc_holder/spell/morph_spell/reproduce/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/morph_spell/reproduce/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
 	. = ..()
 	if(!.)
 		return
@@ -19,7 +35,8 @@
 			to_chat(user, "<span class='warning'>You can only split while on flooring!</span>")
 		return FALSE
 
-/obj/effect/proc_holder/spell/targeted/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
+
+/obj/effect/proc_holder/spell/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	to_chat(user, "<span class='sinister'>You prepare to split in two, making you unable to vent crawl!</span>")
 	user.ventcrawler = FALSE // Temporarily disable it
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
@@ -40,5 +57,6 @@
 	player_mind.active = TRUE
 	player_mind.transfer_to(new_morph)
 	new_morph.make_morph_antag()
-	add_misc_logs(user, "Made a [new_morph] using [src]")
+	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
 	user.ventcrawler = initial(user.ventcrawler) // re enable the crawling
+

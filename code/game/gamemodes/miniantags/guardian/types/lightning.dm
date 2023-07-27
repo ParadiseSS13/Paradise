@@ -28,7 +28,7 @@
 
 /mob/living/simple_animal/hostile/guardian/beam/New()
 	..()
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/lightning/guardian)
+	AddSpell(new /obj/effect/proc_holder/spell/charge_up/bounce/lightning/guardian)
 
 /mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	return FALSE //You are lightning, you should not be hurt by such things.

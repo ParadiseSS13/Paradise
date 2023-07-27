@@ -635,9 +635,7 @@ Difficulty: Medium
 	return
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)
-	var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/repulse_action = new /obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon(src)
-	repulse_action.action.Grant(src)
-	mob_spell_list += repulse_action
+	AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse/spacedragon(src))
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(var/atom/at = target)
@@ -654,25 +652,27 @@ Difficulty: Medium
 	ranged_cooldown = world.time + ranged_cooldown_time
 	fire_stream()
 
-/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon
+/obj/effect/proc_holder/spell/aoe/repulse/spacedragon
 	name = "Tail Sweep"
 	desc = "Throw back attackers with a sweep of your tail."
 	sound = 'sound/magic/tail_swing.ogg'
-	charge_max = 150
+	base_cooldown = 15 SECONDS
+	cooldown_min = 15 SECONDS
 	clothes_req = FALSE
-	range = 1
-	cooldown_min = 150
+	human_req = FALSE
 	invocation_type = "none"
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
 	action_icon_state = "tailsweep"
 	action_background_icon_state = "bg_alien"
 
-/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/cast(list/targets, mob/user = usr)
+
+/obj/effect/proc_holder/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		playsound(C.loc, 'sound/effects/hit_punch.ogg', 80, TRUE, TRUE)
 		C.spin(6, 1)
-	..(targets, user, 3)
+	..(targets, user, 3 SECONDS)
+
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
 	return

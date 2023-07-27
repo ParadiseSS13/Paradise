@@ -117,22 +117,24 @@
 /mob/living/simple_animal/hostile/hellhound/greater/New()
 	. = ..()
 	// Movement
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
-	var/obj/effect/proc_holder/spell/targeted/area_teleport/teleport/telespell = new
+	AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
+	var/obj/effect/proc_holder/spell/area_teleport/teleport/telespell = new
 	telespell.clothes_req = FALSE
+	telespell.human_req = FALSE
 	telespell.invocation_type = "none"
 	AddSpell(telespell)
-	var/obj/effect/proc_holder/spell/aoe_turf/knock/knockspell = new
+	var/obj/effect/proc_holder/spell/aoe/knock/knockspell = new
 	knockspell.invocation_type = "none"
 	AddSpell(knockspell)
 	// Defense
-	var/obj/effect/proc_holder/spell/targeted/forcewall/greater/wallspell = new
+	var/obj/effect/proc_holder/spell/forcewall/greater/wallspell = new
 	wallspell.clothes_req = FALSE
+	wallspell.human_req = FALSE
 	wallspell.invocation_type = "none"
 	AddSpell(wallspell)
 	// Offense
-	var/obj/effect/proc_holder/spell/aoe_turf/conjure/creature/summonspell = new
-	summonspell.charge_max = 1
+	var/obj/effect/proc_holder/spell/aoe/conjure/creature/summonspell = new
+	summonspell.base_cooldown = 1
 	summonspell.invocation_type = "none"
 	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
 	summonspell.summon_amt = 1

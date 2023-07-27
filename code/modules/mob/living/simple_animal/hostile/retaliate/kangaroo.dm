@@ -27,7 +27,9 @@
 /mob/living/simple_animal/hostile/retaliate/kangaroo/New()
 	. = ..()
 	// Leap spell, player-only usage
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/leap)
+	var/obj/effect/proc_holder/spell/leap/leap = new()
+	leap.human_req = FALSE
+	AddSpell(leap)
 
 /mob/living/simple_animal/hostile/retaliate/kangaroo/AttackingTarget()
 	if(client && a_intent != INTENT_HARM)

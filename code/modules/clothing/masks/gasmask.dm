@@ -186,43 +186,45 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
+
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(user && user.mind)
-		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/S = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
-		if(S && !S.from_mask)
-			return
+	if(!user?.mind || slot != slot_wear_mask)
+		return
 
-		if(slot == slot_wear_mask)
-			if(!S)
-				var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/new_spell = new
-				user.mind.AddSpell(new_spell)
-				new_spell.start_recharge()
-			else
-				if(S.action?.invisibility)
-					S.action?.ToggleInvisibility()
+	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
+	if(!spell)
+		var/obj/effect/proc_holder/spell/mime/speak/mask/new_spell = new
+		new_spell.cooldown_handler?.starts_off_cooldown = FALSE
+		user.mind.AddSpell(new_spell)
+	else
+		if(spell.action?.invisibility)
+			spell.action?.ToggleInvisibility()
+
 
 /obj/item/clothing/mask/gas/mime/dropped(mob/user)
 	. = ..()
 
-	if(user && user.mind)
-		var/obj/effect/proc_holder/spell/targeted/mime/speak/mask/S = locate(/obj/effect/proc_holder/spell/targeted/mime/speak/mask) in user.mind.spell_list
-		if(!S || !S?.from_mask)
-			return
+	if(!user?.mind)
+		return
 
-		if(S.charge_counter < S.charge_max)
-			if(!S.action?.invisibility)
-				S.action?.ToggleInvisibility()
-		else
-			if(user.mind.miming)
-				S.cast(list(user))
-			user.mind.RemoveSpell(S)
+	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
+	if(!spell?.cooldown_handler)
+		return
+
+	if(spell.cooldown_handler.is_on_cooldown())
+		if(!spell.action?.invisibility)
+			spell.action.ToggleInvisibility()
+	else
+		if(user.mind.miming)
+			spell.cast(list(user))
+		user.mind.RemoveSpell(spell)
 
 
 /obj/item/clothing/mask/gas/mime/item_action_slot_check(slot, mob/user)
 	if(slot == slot_wear_mask)
-		return 1
+		return TRUE
 
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"

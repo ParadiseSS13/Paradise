@@ -282,7 +282,7 @@
 /obj/item/paper/contract/infernal/wealth/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind) // How in the hell could that happen?
 		return -1
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_wealth(null))
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/summon_wealth(null))
 	return ..()
 
 /obj/item/paper/contract/infernal/prestige/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
@@ -317,19 +317,19 @@
 /obj/item/paper/contract/infernal/magic/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind)
 		return -1
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball/hellish(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
 	return ..()
 
 /obj/item/paper/contract/infernal/knowledge/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind)
 		return -1
 	user.mutations.Add(XRAY)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/view_range(null))
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/view_range(null))
 	return ..()
 
 /obj/item/paper/contract/infernal/friendship/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind)
 		return -1
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_friend(null))
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/summon_friend(null))
 	return ..()

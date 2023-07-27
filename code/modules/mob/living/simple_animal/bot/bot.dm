@@ -1119,15 +1119,21 @@ Pass a positive integer as an argument to override a bot's default speed.
 	speed = initial(speed)
 	to_chat(src, "<span class='notice'>Now you are moving at your normal speed.</span>")
 
-/obj/effect/proc_holder/spell/targeted/bot_speed
+
+/obj/effect/proc_holder/spell/bot_speed
 	name = "Speed Charge"
 	desc = "Speeds up the bot's internal systems for a while."
 	action_icon_state = "adrenal-bot"
-	charge_max = 300 SECONDS
+	base_cooldown = 300 SECONDS
 	clothes_req = FALSE
-	self_only = TRUE
+	human_req = FALSE
 
-/obj/effect/proc_holder/spell/targeted/bot_speed/cast(list/targets, mob/user = usr)
+
+/obj/effect/proc_holder/spell/bot_speed/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/bot_speed/cast(list/targets, mob/user = usr)
 	for(var/mob/living/simple_animal/bot/bot in targets)
 		bot.speed = 0.1
 		addtimer(CALLBACK(bot, TYPE_PROC_REF(/mob/living/simple_animal/bot, reset_speed)), 45 SECONDS)

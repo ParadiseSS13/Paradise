@@ -1,7 +1,4 @@
 //Travel through pools of blood. Slaughter Demon powers for everyone!
-#define BLOODCRAWL     1
-#define BLOODCRAWL_EAT 2
-
 /mob/living/proc/phaseout(var/obj/effect/decal/cleanable/B)
 
 	if(iscarbon(src))
@@ -59,8 +56,8 @@
 			if(animation)
 				qdel(animation)
 			var/sound
-			if(istype(src, /mob/living/simple_animal/slaughter))
-				var/mob/living/simple_animal/slaughter/SD = src
+			if(issimulatedturf(src))
+				var/mob/living/simple_animal/demon/slaughter/SD = src
 				sound = SD.feast_sound
 			else
 				sound = 'sound/misc/demon_consume.ogg'
@@ -75,8 +72,8 @@
 				adjustOxyLoss(-1000)
 				adjustToxLoss(-1000)
 
-				if(istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
-					var/mob/living/simple_animal/slaughter/demon = src
+				if(isslaughterdemon(src)) //rason, do not want humans to get this
+					var/mob/living/simple_animal/demon/slaughter/demon = src
 					demon.devoured++
 					to_chat(kidnapped, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
 					kidnapped.adjustBruteLoss(1000)
@@ -128,7 +125,7 @@
 	animation.master = B.loc
 	animation.dir = dir
 
-	if(prob(25) && istype(src, /mob/living/simple_animal/slaughter))
+	if(prob(25) && isslaughterdemon(src))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
 		playsound(get_turf(src), pick(voice),50, 1, -1)
 	visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")

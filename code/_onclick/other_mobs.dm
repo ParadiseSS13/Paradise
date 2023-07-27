@@ -41,7 +41,7 @@
 			return
 
 	if(!GLOB.pacifism_after_gt)
-		if((LASER in mutations) && a_intent == INTENT_HARM)
+		if(HAS_TRAIT(src, TRAIT_LASEREYES) && a_intent == INTENT_HARM)
 			LaserEyes(A)
 
 		if(TK in mutations)

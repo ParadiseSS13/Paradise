@@ -212,9 +212,9 @@
 	desc = "Школа, практикующие заклинания для выживания и исцеления травм, с созданием защитного барьера для самозащиты."
 
 /datum/magick_school/healer/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summonitem(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall(null))
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/healing(owner), slot_r_hand)
 
 	//Нацепляем белый балахон
@@ -251,9 +251,9 @@
 	desc = "Школа, практикующая разнообразные техники перемещения. Эфирный прыжок, телепортация и блинк заставят возненавидеть назойливого волшебника!"
 
 /datum/magick_school/motion/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/turf_teleport/blink(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/area_teleport/teleport(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/turf_teleport/blink(null))
 
 	//Нацепляем фиолетовый защитный балахон
 	var/obj/item/clothing/suit/space/suit = new
@@ -289,9 +289,9 @@
 	desc = "Школа, практикующаяся в нанесении ущерба грязным технологиям магглов. Магглы не любят, когда технологии восстают против них самих."
 
 /datum/magick_school/sabotage/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summonitem(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/emplosion/disable_tech(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), slot_r_hand)
 
 	var/obj/item/clothing/suit/blacktrenchcoat/suit = new
@@ -325,11 +325,11 @@
 	desc = "Школа, практикующая заклинания защиты, не допускающая допуск неприятеля и заставляющая его держать дистанцию!"
 
 /datum/magick_school/defense/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall/greater(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/repulse(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/sacred_flame(null))
-	ADD_TRAIT(owner, RESISTHOT, SUMMON_MAGIC)	//sacred_flame из-за не совсем верной выдачи, без этого, не выдает защиту от огня.
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
+	ADD_TRAIT(owner, RESISTHOT, MAGIC_TRAIT)	//sacred_flame из-за не совсем верной выдачи, без этого, не выдает защиту от огня.
 
 	//Стандартный костюм мага-воителя, который есть в башне волшебника и так.
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusred(owner), slot_wear_suit)
@@ -342,10 +342,10 @@
 	desc = "Классическая школа огня, прислужники которой искусно владеют стихией огня!"
 
 /datum/magick_school/fire/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/sacred_flame(null))
-	ADD_TRAIT(owner, RESISTHOT, SUMMON_MAGIC)
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/smoke(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
+	ADD_TRAIT(owner, RESISTHOT, MAGIC_TRAIT)
 
 	//Надеваем красный балахон
 	var/obj/item/clothing/suit/victcoat/red/suit = new
@@ -367,7 +367,7 @@
 	desc = "Школа, практикующая оживление статики, и каменение динамики."
 
 /datum/magick_school/sculpt/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/flesh_to_stone(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/flesh_to_stone(null))
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), slot_r_hand)
 
 	//Костюм настоящего художника-скульптора.
@@ -401,7 +401,7 @@
 	desc = "Школа, практикующее владение собственным стендом-защитником с защитной стеной."
 
 /datum/magick_school/stand/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall/greater(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater(null))
 	owner.equip_or_collect(new /obj/item/guardiancreator(owner), slot_r_hand)
 
 
@@ -411,8 +411,8 @@
 	desc = "Школа, не позволяющая магглам стоять в полный рост перед волшебниками. Ей даже интересовалась федерация Клоунов."
 
 /datum/magick_school/instability/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summonitem(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/repulse(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/slipping(owner), slot_r_hand)
 	owner.equip_or_collect(new /obj/item/bikehorn, slot_belt)
 
@@ -424,7 +424,7 @@
 
 /datum/magick_school/blood/kit()
 	owner.equip_or_collect(new /obj/item/storage/belt/soulstone/full(owner), slot_belt)
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/construct(null))
 
 	var/obj/item/melee/chainofcommand/chain = new
 	chain.name = "Жертвенная Цепь"
@@ -451,7 +451,7 @@
 	desc = "Запретная школа, заставляющая мертвых служить некроманту, заключившему контракт души."
 
 /datum/magick_school/necromantic/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lichdom(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/lichdom(null))
 	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), slot_l_store)
 	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), slot_r_store)
 
@@ -462,7 +462,7 @@
 	desc = "Древняя школа, практикующее безмерное видение с лишением зрения недостойных. Послужники носят уникальные робы."
 
 /datum/magick_school/vision/kit()
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/trigger/blind(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/trigger/blind(null))
 	owner.equip_or_collect(new /obj/item/scrying(owner), slot_r_hand)
 	//Выдаем трейты ОРБа
 	if(!(XRAY in owner.mutations))
@@ -484,8 +484,8 @@
 
 /datum/magick_school/singulo/kit()
 	owner.equip_or_collect(new /obj/item/twohanded/singularityhammer(owner), slot_r_hand)
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/repulse(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summonitem(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 
 	//Всё тот же костюм мага воителя, но с спрайтом сингулярного рыцаря.
 	var/obj/item/clothing/suit/wizrobe/magusred/suit = new
@@ -510,8 +510,8 @@
 	desc = "Старая школа, практикующая заклинания для чтения без мантии с подменам разума и открытием закрытых дверей."
 
 /datum/magick_school/replace/kit()		//старый набор
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/mind_transfer(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
 
 	//Нацепляем простой фиолетовый балахон
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/psypurple(owner), slot_wear_suit)
@@ -524,9 +524,9 @@
 	desc = "Старая школа, практикующая заклинания на нанесении ущерба."
 
 /datum/magick_school/destruction/kit()	//старый набор
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball(null))
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lightning(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/projectile/magic_missile(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge_up/bounce/lightning(null))
 
 	//Стандартный костюм мага-воителя, который есть в башне волшебника и так.
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusred(owner), slot_wear_suit)

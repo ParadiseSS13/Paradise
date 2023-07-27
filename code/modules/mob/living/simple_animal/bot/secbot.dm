@@ -96,7 +96,7 @@
 		access_card.access += J.get_access()
 		prev_access = access_card.access
 
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/bot_speed)
+	AddSpell(new /obj/effect/proc_holder/spell/bot_speed)
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]

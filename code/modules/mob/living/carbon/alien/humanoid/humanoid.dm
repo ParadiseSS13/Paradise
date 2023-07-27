@@ -23,6 +23,7 @@
 	add_language("Xenomorph")
 	add_language("Hivemind")
 	..()
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	update_icons()
 
@@ -31,6 +32,12 @@
 		return 1
 
 	return 0
+
+
+// Determines if mob has and can use his hands like a human
+/mob/living/carbon/alien/humanoid/real_human_being()
+	return TRUE
+
 
 ///mob/living/carbon/alien/humanoid/bullet_act(var/obj/item/projectile/Proj) taken care of in living
 

@@ -259,8 +259,10 @@ GLOBAL_PROTECT(log_end)
 	//sending logs to Log Viewer and then logs into game.log
 	if(istype(MU))
 		MU.create_log(ATTACK_LOG, what_done, target, get_turf(user))
+		MU.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
 	if(istype(MT))
 		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
+		MT.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	var/mob/living/alive = target
 	if(istype(alive))
 		newhp += "\[HP:[alive.health]:[alive.getOxyLoss()]-[alive.getToxLoss()]-[alive.getFireLoss()]-[alive.getBruteLoss()]-[alive.getStaminaLoss()]-[alive.getBrainLoss()]-[alive.getCloneLoss()]\]"

@@ -92,9 +92,9 @@ GLOBAL_LIST_INIT(lawlorify, list (
 	var/form = BASIC_DEVIL
 	var/exists = 0
 	var/static/list/dont_remove_spells = list(
-	/obj/effect/proc_holder/spell/targeted/click/summon_contract,
-	/obj/effect/proc_holder/spell/targeted/conjure_item/violin,
-	/obj/effect/proc_holder/spell/targeted/summon_dancefloor)
+	/obj/effect/proc_holder/spell/summon_contract,
+	/obj/effect/proc_holder/spell/conjure_item/violin,
+	/obj/effect/proc_holder/spell/summon_dancefloor)
 	var/ascendable = FALSE
 
 /datum/devilinfo/New()
@@ -326,37 +326,37 @@ GLOBAL_LIST_INIT(lawlorify, list (
 			owner.RemoveSpell(S)
 
 /datum/devilinfo/proc/give_summon_contract()
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/summon_contract(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/summon_contract(null))
 
 
 /datum/devilinfo/proc/give_base_spells(give_summon_contract = 0)
 	remove_spells()
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball/hellish(null))
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork(null))
 	if(give_summon_contract)
 		give_summon_contract()
 		if(obligation == OBLIGATION_FIDDLE)
-			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/violin(null))
+			owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/violin(null))
 		if(obligation == OBLIGATION_DANCEOFF)
-			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_dancefloor(null))
+			owner.AddSpell(new /obj/effect/proc_holder/spell/summon_dancefloor(null))
 
 /datum/devilinfo/proc/give_lizard_spells()
 	remove_spells()
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork(null))
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball/hellish(null))
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/infernal_jaunt(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/infernal_jaunt(null))
 
 /datum/devilinfo/proc/give_true_spells()
 	remove_spells()
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater(null))
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball/hellish(null))
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/infernal_jaunt(null))
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/sintouch(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork/greater(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/infernal_jaunt(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/sintouch(null))
 
 /datum/devilinfo/proc/give_arch_spells()
 	remove_spells()
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended(null))
-	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/sintouch/ascended(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended(null))
+	owner.AddSpell(new /obj/effect/proc_holder/spell/sintouch/ascended(null))
 
 /datum/devilinfo/proc/beginResurrectionCheck(mob/living/body)
 	if(owner.current != body)

@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/touch/banana
+/obj/effect/proc_holder/spell/touch/banana
 	name = "Banana Touch"
 	desc = "A spell popular at wizard birthday parties, this spell will put on a clown costume on the target, \
 		stun them with a loud HONK, and mutate them to make them more entertaining! \
@@ -6,10 +6,11 @@
 	hand_path = /obj/item/melee/touch_attack/banana
 	school = "transmutation"
 
-	charge_max = 300
-	clothes_req = 1
-	cooldown_min = 100 //50 deciseconds reduction per rank
+	base_cooldown = 30 SECONDS
+	clothes_req = TRUE
+	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
 	action_icon_state = "clown"
+
 
 /obj/item/melee/touch_attack/banana
 	name = "banana touch"
@@ -19,18 +20,20 @@
 	icon_state = "banana_touch"
 	item_state = "banana_touch"
 
+
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.lying || user.handcuffed)
 		return
 
-	var/datum/effect_system/smoke_spread/s = new
-	s.set_up(5, 0, target)
-	s.start()
+	var/datum/effect_system/smoke_spread/smoke = new
+	smoke.set_up(5, FALSE, target)
+	smoke.start()
 
 	to_chat(user, "<font color='red' size='6'>HONK</font>")
-	var/mob/living/carbon/human/H = target
-	H.bananatouched()
+	var/mob/living/carbon/human/h_target = target
+	h_target.bananatouched()
 	..()
+
 
 /mob/living/carbon/human/proc/bananatouched()
 	to_chat(src, "<font color='red' size='6'>HONK</font>")

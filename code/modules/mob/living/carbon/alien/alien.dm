@@ -35,32 +35,43 @@
 	var/leaping = FALSE
 	var/dirslash_enabled = TRUE
 	ventcrawler = 1
-	var/list/alien_organs = list()
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
-	var/datum/action/innate/xeno_action/whisper/whisper_action = new
-	var/datum/action/innate/xeno_action/transfer_plasma/transfer_plasma_action = new
-	var/datum/action/innate/xeno_action/regurgitate/regurgitate_action = new
-	var/datum/action/innate/xeno_action/nightvisiontoggle/nigtvisiontoggle_action = new
+	var/datum/action/innate/alien_nightvision_toggle/night_vision_action
 
-/mob/living/carbon/alien/proc/GrantAlienActions()
-	whisper_action.Grant(src)
-	transfer_plasma_action.Grant(src)
-	regurgitate_action.Grant(src)
-	nigtvisiontoggle_action.Grant(src)
 
 /mob/living/carbon/alien/New()
 	..()
 	create_reagents(1000)
 	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
-	alien_organs += new /obj/item/organ/internal/brain/xeno
-	alien_organs += new /obj/item/organ/internal/xenos/hivenode
-	alien_organs += new /obj/item/organ/internal/ears
-	for(var/obj/item/organ/internal/I in alien_organs)
-		I.insert(src)
-	GrantAlienActions()
+	night_vision_action = new
+	night_vision_action.Grant(src)
+
+	for(var/organ_path in get_caste_organs())
+		var/obj/item/organ/internal/organ = new organ_path()
+		organ.insert(src)
+
+
+/mob/living/carbon/alien/Destroy()
+	if(night_vision_action)
+		night_vision_action.Remove(src)
+		night_vision_action = null
+	return ..()
+
+
+/**
+ * Returns the list of type paths of the organs that we need to insert into this particular xeno upon its creation
+ */
+/mob/living/carbon/alien/proc/get_caste_organs()
+	RETURN_TYPE(/list/obj/item/organ/internal)
+	return list(
+		/obj/item/organ/internal/brain/xeno,
+		/obj/item/organ/internal/xenos/hivenode,
+		/obj/item/organ/internal/ears
+	)
+
 
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)
@@ -252,14 +263,49 @@ Des: Removes all infected images from the alien.
 				qdel(I)
 	return
 
+
 /mob/living/carbon/alien/canBeHandcuffed()
-	return 1
+	return TRUE
 
-/mob/living/carbon/alien/proc/updatePlasmaDisplay()
-	if(hud_used) //clientless aliens
-		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font color='magenta'>[getPlasma()]</font></div>"
 
-/mob/living/carbon/alien/larva/updatePlasmaDisplay()
+/mob/living/carbon/proc/get_plasma()
+	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+	if(!vessel)
+		return FALSE
+
+	return vessel.stored_plasma
+
+
+/**
+ * Adjust_alien_plasma just requires the plasma amount, so admins can easily varedit it and stuff.
+ * Updates the spell's actions on use as well, so they know when they can or can't use their powers.
+ */
+/mob/living/carbon/proc/adjust_alien_plasma(amount)
+	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+	if(!vessel)
+		return
+	vessel.stored_plasma = clamp(vessel.stored_plasma + amount, 0, vessel.max_plasma)
+	for(var/datum/action/spell_action/action in actions)
+		action.UpdateButtonIcon()
+
+
+/**
+ * Although this is on the carbon level, we only want this proc'ing for aliens that do have this hud.
+ * Only humanoid aliens do at the moment, so we have a check and carry the owner just to make sure.
+ */
+/mob/living/carbon/proc/update_plasma_display(mob/owner, update_buttons = FALSE)
+	if(update_buttons)
+		for(var/datum/action/spell_action/action in actions)
+			action.UpdateButtonIcon()
+
+	if(!hud_used || !isalien(owner)) //clientless aliens or non aliens
+		return
+
+	hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[get_plasma()]</font></div>"
+	hud_used.alien_plasma_display.maptext_x = -3
+
+
+/mob/living/carbon/alien/larva/update_plasma_display(mob/owner, update_buttons = FALSE)
 	return
 
 /mob/living/carbon/alien/can_use_vents()

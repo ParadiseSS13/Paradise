@@ -41,7 +41,7 @@
 		user.whisper(message) // And whisper the actual message
 
 	var/my_message
-	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbringers of the Slaughter
+	if(istype(user, /mob/living/simple_animal/demon/slaughter/cult)) //Harbringers of the Slaughter
 		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
 	else
 		my_message = "<span class='cultspeech'><b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]</span>"

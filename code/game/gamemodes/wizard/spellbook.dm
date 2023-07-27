@@ -4,7 +4,6 @@
 	var/spell_type = null
 	var/desc = ""
 	var/category = "Offensive"
-	var/log_name = "XX" //What it shows up as in logs
 	var/cost = 2
 	var/refundable = TRUE
 	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
@@ -31,9 +30,7 @@
 			else
 				aspell.name = initial(aspell.name)
 				aspell.spell_level++
-				aspell.charge_max = round(initial(aspell.charge_max) - aspell.spell_level * (initial(aspell.charge_max) - aspell.cooldown_min) / aspell.level_max)
-				if(aspell.charge_max < aspell.charge_counter)
-					aspell.charge_counter = aspell.charge_max
+				aspell.cooldown_handler.recharge_duration = round(aspell.base_cooldown - aspell.spell_level * (aspell.base_cooldown - aspell.cooldown_min) / aspell.level_max)
 				switch(aspell.spell_level)
 					if(1)
 						to_chat(user, "<span class='notice'>You have improved [aspell.name] into Efficient [aspell.name].</span>")
@@ -49,9 +46,10 @@
 						aspell.name = "Instant [aspell.name]"
 				if(aspell.spell_level >= aspell.level_max)
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
+				aspell.on_purchase_upgrade()
 				return TRUE
 	//No same spell found - just learn it
-	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	user.mind.AddSpell(newspell)
 	to_chat(user, "<span class='notice'>You have learned [newspell.name].</span>")
 	return TRUE
@@ -89,8 +87,7 @@
 		S = new spell_type()
 	var/dat =""
 	dat += "<b>[name]</b>"
-	if(S.charge_type == "recharge")
-		dat += " Cooldown:[S.charge_max/10]"
+	dat += " Cooldown:[S.base_cooldown/10]"
 	dat += " Cost:[cost]<br>"
 	dat += "<i>[S.desc][desc]</i><br>"
 	dat += "[S.clothes_req?"Needs wizard garb":"Can be cast without wizard garb"]<br>"
@@ -101,218 +98,199 @@
 
 /datum/spellbook_entry/blind
 	name = "Blind"
-	spell_type = /obj/effect/proc_holder/spell/targeted/trigger/blind
-	log_name = "BD"
+	spell_type = /obj/effect/proc_holder/spell/trigger/blind
 	category = "Offensive"
 	cost = 1
 
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
-	spell_type = /obj/effect/proc_holder/spell/targeted/lightning
-	log_name = "LB"
+	spell_type = /obj/effect/proc_holder/spell/charge_up/bounce/lightning
 	category = "Offensive"
 	cost = 1
 
 /datum/spellbook_entry/cluwne
 	name = "Curse of the Cluwne"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/cluwne
-	log_name = "CC"
+	spell_type = /obj/effect/proc_holder/spell/touch/cluwne
 	category = "Offensive"
 
 /datum/spellbook_entry/banana_touch
 	name = "Banana Touch"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/banana
-	log_name = "BT"
+	spell_type = /obj/effect/proc_holder/spell/touch/banana
 	cost = 1
 
 /datum/spellbook_entry/mime_malaise
 	name = "Mime Malaise"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/mime_malaise
-	log_name = "MI"
+	spell_type = /obj/effect/proc_holder/spell/touch/mime_malaise
 	cost = 1
 
 /datum/spellbook_entry/horseman
 	name = "Curse of the Horseman"
-	spell_type = /obj/effect/proc_holder/spell/targeted/click/horsemask
-	log_name = "HH"
+	spell_type = /obj/effect/proc_holder/spell/horsemask
 	category = "Offensive"
 
 /datum/spellbook_entry/disintegrate
 	name = "Disintegrate"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/disintegrate
-	log_name = "DG"
+	spell_type = /obj/effect/proc_holder/spell/touch/disintegrate
 	category = "Offensive"
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
-	spell_type = /obj/effect/proc_holder/spell/targeted/click/fireball
-	log_name = "FB"
+	spell_type = /obj/effect/proc_holder/spell/fireball
 	category = "Offensive"
 
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/flesh_to_stone
-	log_name = "FS"
+	spell_type = /obj/effect/proc_holder/spell/touch/flesh_to_stone
 	category = "Offensive"
 
 /datum/spellbook_entry/mutate
 	name = "Mutate"
-	spell_type = /obj/effect/proc_holder/spell/targeted/genetic/mutate
-	log_name = "MU"
+	spell_type = /obj/effect/proc_holder/spell/genetic/mutate
 	category = "Offensive"
 
 /datum/spellbook_entry/rod_form
 	name = "Rod Form"
-	spell_type = /obj/effect/proc_holder/spell/targeted/rod_form
-	log_name = "RF"
+	spell_type = /obj/effect/proc_holder/spell/rod_form
 	category = "Offensive"
 
 /datum/spellbook_entry/infinite_guns
 	name = "Lesser Summon Guns"
-	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns
-	log_name = "IG"
+	spell_type = /obj/effect/proc_holder/spell/infinite_guns
 	category = "Offensive"
 
 //Defensive
 /datum/spellbook_entry/disabletech
 	name = "Disable Tech"
-	spell_type = /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech
-	log_name = "DT"
+	spell_type = /obj/effect/proc_holder/spell/emplosion/disable_tech
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/forcewall
 	name = "Force Wall"
-	spell_type = /obj/effect/proc_holder/spell/targeted/forcewall
-	log_name = "FW"
+	spell_type = /obj/effect/proc_holder/spell/forcewall
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/greaterforcewall
 	name = "Greater Force Wall"
-	spell_type = /obj/effect/proc_holder/spell/targeted/forcewall/greater
-	log_name = "GFW"
+	spell_type = /obj/effect/proc_holder/spell/forcewall/greater
 	category = "Defensive"
 	cost = 1
 
+/datum/spellbook_entry/rathens
+	name = "Rathen's Secret"
+	spell_type = /obj/effect/proc_holder/spell/rathens
+	category = "Defensive"
+	cost = 2
+
 /datum/spellbook_entry/repulse
 	name = "Repulse"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/repulse
-	log_name = "RP"
+	spell_type = /obj/effect/proc_holder/spell/aoe/repulse
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/smoke
 	name = "Smoke"
-	spell_type = /obj/effect/proc_holder/spell/targeted/smoke
-	log_name = "SM"
+	spell_type = /obj/effect/proc_holder/spell/smoke
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/lichdom
 	name = "Bind Soul"
-	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
-	log_name = "LD"
+	spell_type = /obj/effect/proc_holder/spell/lichdom
 	category = "Defensive"
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/magicm
 	name = "Magic Missile"
-	spell_type = /obj/effect/proc_holder/spell/targeted/projectile/magic_missile
-	log_name = "MM"
+	spell_type = /obj/effect/proc_holder/spell/projectile/magic_missile
 	category = "Defensive"
 
 /datum/spellbook_entry/timestop
 	name = "Time Stop"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
-	log_name = "TS"
+	spell_type = /obj/effect/proc_holder/spell/aoe/conjure/timestop
 	category = "Defensive"
 
 /datum/spellbook_entry/sacred_flame
 	name = "Sacred Flame and Fire Immunity"
-	spell_type = /obj/effect/proc_holder/spell/targeted/sacred_flame
+	spell_type = /obj/effect/proc_holder/spell/sacred_flame
 	cost = 1
-	log_name = "SF"
 	category = "Defensive"
 
 /datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
 	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
-	ADD_TRAIT(user, RESISTHOT, SUMMON_MAGIC)
+	ADD_TRAIT(user, RESISTHOT, MAGIC_TRAIT)
 	//ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
 /datum/spellbook_entry/sacred_flame/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
 	to_chat(user, "<span class='warning'>You no longer feel fireproof.</span>")
-	REMOVE_TRAIT(user, RESISTHOT, SUMMON_MAGIC)
+	REMOVE_TRAIT(user, RESISTHOT, MAGIC_TRAIT)
 	//REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
 //Mobility
 /datum/spellbook_entry/knock
 	name = "Knock"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock
-	log_name = "KN"
+	spell_type = /obj/effect/proc_holder/spell/aoe/knock
 	category = "Mobility"
 	cost = 1
 
+/datum/spellbook_entry/greaterknock
+	name = "Greater Knock"
+	spell_type = /obj/effect/proc_holder/spell/aoe/knock/greater
+	category = "Mobility"
+	refundable = 0 //global effect on cast
+
 /datum/spellbook_entry/blink
 	name = "Blink"
-	spell_type = /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
-	log_name = "BL"
+	spell_type = /obj/effect/proc_holder/spell/turf_teleport/blink
 	category = "Mobility"
 
 /datum/spellbook_entry/jaunt
 	name = "Ethereal Jaunt"
-	spell_type = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt
-	log_name = "EJ"
+	spell_type = /obj/effect/proc_holder/spell/ethereal_jaunt
 	category = "Mobility"
 
-/datum/spellbook_entry/greaterknock
-	name = "Greater Knock"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock/greater
-	log_name = "GK"
+/datum/spellbook_entry/spacetime_dist
+	name = "Spacetime Distortion"
+	spell_type = /obj/effect/proc_holder/spell/spacetime_dist
+	cost = 1 //Better defence than greater forcewall (maybe) but good luck hitting anyone, so 1 point.
 	category = "Mobility"
-	refundable = 0 //global effect on cast
 
 /datum/spellbook_entry/mindswap
 	name = "Mindswap"
-	spell_type = /obj/effect/proc_holder/spell/targeted/click/mind_transfer
-	log_name = "MT"
+	spell_type = /obj/effect/proc_holder/spell/mind_transfer
 	category = "Mobility"
 
 /datum/spellbook_entry/teleport
 	name = "Teleport"
-	spell_type = /obj/effect/proc_holder/spell/targeted/area_teleport/teleport
-	log_name = "TP"
+	spell_type = /obj/effect/proc_holder/spell/area_teleport/teleport
 	category = "Mobility"
 
 //Assistance
 
 /datum/spellbook_entry/shapeshift
 	name = "Shapechange"
-	spell_type = /obj/effect/proc_holder/spell/targeted/shapeshift
-	log_name = "SH"
+	spell_type = /obj/effect/proc_holder/spell/shapeshift
 	category = "Assistance"
 	cost = 2
 
 /datum/spellbook_entry/charge
 	name = "Charge"
-	spell_type = /obj/effect/proc_holder/spell/targeted/charge
-	log_name = "CH"
+	spell_type = /obj/effect/proc_holder/spell/charge
 	category = "Assistance"
 	cost = 1
 
 /datum/spellbook_entry/summonitem
 	name = "Summon Item"
-	spell_type = /obj/effect/proc_holder/spell/targeted/summonitem
-	log_name = "IS"
+	spell_type = /obj/effect/proc_holder/spell/summonitem
 	category = "Assistance"
 	cost = 1
 
 /datum/spellbook_entry/noclothes
 	name = "Remove Clothes Requirement"
 	spell_type = /obj/effect/proc_holder/spell/noclothes
-	log_name = "NC"
 	category = "Assistance"
 
 //Rituals
@@ -342,7 +320,6 @@
 	name = "Summon Ghosts"
 	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
 	cost = 0
-	log_name = "SGH"
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
@@ -355,11 +332,10 @@
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
-	log_name = "SG"
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	rightandwrong(SUMMON_GUNS, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -369,11 +345,10 @@
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
-	log_name = "SU"
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	rightandwrong(SUMMON_MAGIC, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -385,12 +360,16 @@
 	name = "Buy Item"
 	refundable = 0
 	buy_word = "Summon"
+	var/spawn_on_floor = FALSE
 	var/item_path = null
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	user.put_in_hands(new item_path)
-	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
-	return 1
+	if(spawn_on_floor == FALSE)
+		user.put_in_hands(new item_path)
+	else
+		new item_path(user.loc)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+	return TRUE
 
 /datum/spellbook_entry/item/GetInfo()
 	var/dat =""
@@ -404,14 +383,12 @@
 	name = "A Necromantic Stone"
 	desc = "A Necromantic stone is able to resurrect three dead individuals as skeletal thralls for you to command."
 	item_path = /obj/item/necromantic_stone
-	log_name = "NS"
 	category = "Artefacts"
 
 /datum/spellbook_entry/item/scryingorb
 	name = "Scrying Orb"
 	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision."
 	item_path = /obj/item/scrying
-	log_name = "SO"
 	category = "Artefacts"
 
 /datum/spellbook_entry/item/scryingorb/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
@@ -428,20 +405,18 @@
 	name = "Six Soul Stone Shards and the spell Artificer"
 	desc = "Soul Stone Shards are ancient tools capable of capturing and harnessing the spirits of the dead and dying. The spell Artificer allows you to create arcane machines for the captured souls to pilot."
 	item_path = /obj/item/storage/belt/soulstone/full
-	log_name = "SS"
 	category = "Artefacts"
 
 /datum/spellbook_entry/item/soulstones/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. = ..()
 	if(.)
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/construct(null))
 	return .
 
 /datum/spellbook_entry/item/wands
 	name = "Wand Assortment"
 	desc = "A collection of wands that allow for a wide variety of utility. Wands do not recharge, so be conservative in use. Comes in a handy belt."
 	item_path = /obj/item/storage/belt/wands/full
-	log_name = "WA"
 	category = "Artefacts"
 
 //Weapons and Armors
@@ -451,7 +426,6 @@
 	item_path = /obj/item/storage/box/wizard/hardsuit
 	limit = 1
 	category = "Weapons and Armors"
-	log_name = "BMA"
 
 /datum/spellbook_entry/item/battlemage_charge
 	name = "Battlemage Armour Charges"
@@ -459,20 +433,17 @@
 	item_path = /obj/item/wizard_armour_charge
 	category = "Weapons and Armors"
 	cost = 1
-	log_name = "BMAC"
 
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
 	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
 	item_path = /obj/item/twohanded/mjollnir
-	log_name = "MJ"
 	category = "Weapons and Armors"
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
 	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everthing nearby to the point of impact."
 	item_path = /obj/item/twohanded/singularityhammer
-	log_name = "SI"
 	category = "Weapons and Armors"
 
 //Staves
@@ -480,7 +451,6 @@
 	name = "Staff of Door Creation"
 	desc = "A particular staff that can mold solid metal into ornate wooden doors. Useful for getting around in the absence of other transportation. Does not work on glass."
 	item_path = /obj/item/gun/magic/staff/door
-	log_name = "SD"
 	category = "Staves"
 	cost = 1
 
@@ -488,7 +458,6 @@
 	name = "Staff of Healing"
 	desc = "An altruistic staff that can heal the lame and raise the dead."
 	item_path = /obj/item/gun/magic/staff/healing
-	log_name = "SH"
 	category = "Staves"
 	cost = 1
 
@@ -496,7 +465,6 @@
 	name = "Staff of Slipping"
 	desc = "A staff that shoots magical bananas. These bananas will either slip or stun the target when hit. Surprisingly reliable!"
 	item_path = /obj/item/gun/magic/staff/slipping
-	log_name = "SL"
 	category = "Staves"
 	cost = 1
 
@@ -504,14 +472,12 @@
 	name = "Staff of Animation"
 	desc = "An arcane staff capable of shooting bolts of eldritch energy which cause inanimate objects to come to life. This magic doesn't affect machines."
 	item_path = /obj/item/gun/magic/staff/animate
-	log_name = "SA"
 	category = "Staves"
 
 /datum/spellbook_entry/item/staffchange
 	name = "Staff of Change"
 	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself."
 	item_path = /obj/item/gun/magic/staff/change
-	log_name = "ST"
 	category = "Staves"
 	is_ragin_restricted = TRUE
 
@@ -519,7 +485,6 @@
 	name = "Staff of Chaos"
 	desc = "A caprious tool that can fire all sorts of magic without any rhyme or reason. Using it on people you care about is not recommended."
 	item_path = /obj/item/gun/magic/staff/chaos
-	log_name = "SC"
 	category = "Staves"
 
 //Summons
@@ -527,7 +492,6 @@
 	name = "Bottle of Ooze"
 	desc = "A bottle of magically infused ooze, which will awake an all-consuming Morph, capable of cunningly disguising itself as any object it comes in contact with and even casting some very basic spells. Be careful though, as Morph diet includes Wizards."
 	item_path = /obj/item/antag_spawner/morph
-	log_name = "BO"
 	category = "Summons"
 	limit = 3
 	cost = 1
@@ -542,7 +506,6 @@
 		damaging. The crew's reaction to the other hand could be very \
 		destructive."
 	item_path = /obj/item/antag_spawner/slaughter_demon/laughter
-	log_name = "HB"
 	category = "Summons"
 	limit = 3
 	cost = 1 // Non-destructive; it's just a jape, sibling!
@@ -551,7 +514,6 @@
 	name = "Bottle of Blood"
 	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
 	item_path = /obj/item/antag_spawner/slaughter_demon
-	log_name = "BB"
 	category = "Summons"
 	limit = 3
 
@@ -559,7 +521,6 @@
 	name = "Mayhem in a Bottle"
 	desc = "A magically infused bottle of blood, the scent of which will drive anyone nearby into a murderous frenzy."
 	item_path = /obj/item/mayhem
-	log_name = "MB"
 	category = "Artefacts"
 	limit = 1
 	cost = 2
@@ -568,7 +529,6 @@
 	name = "Contract of Apprenticeship"
 	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
 	item_path = /obj/item/contract/apprentice
-	log_name = "CT"
 	category = "Summons"
 
 /datum/spellbook_entry/item/tarotdeck
@@ -576,7 +536,6 @@
 	desc = "A deck of guardian tarot cards, capable of binding a personal guardian to your body. There are multiple types of guardian available, but all of them will transfer some amount of damage to you. \
 	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
 	item_path = /obj/item/guardiancreator
-	log_name = "TD"
 	category = "Summons"
 	limit = 1
 
@@ -883,7 +842,7 @@
 
 //Single Use Spellbooks
 /obj/item/spellbook/oneuse
-	var/spell = /obj/effect/proc_holder/spell/targeted/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
+	var/spell = /obj/effect/proc_holder/spell/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
 	var/spellname = "sandbox"
 	var/used = 0
 	name = "spellbook of "
@@ -926,7 +885,7 @@
 	return
 
 /obj/item/spellbook/oneuse/fireball
-	spell = /obj/effect/proc_holder/spell/targeted/click/fireball
+	spell = /obj/effect/proc_holder/spell/fireball
 	spellname = "fireball"
 	icon_state = "bookfireball"
 	desc = "This book feels warm to the touch."
@@ -937,7 +896,7 @@
 	qdel(src)
 
 /obj/item/spellbook/oneuse/smoke
-	spell = /obj/effect/proc_holder/spell/targeted/smoke
+	spell = /obj/effect/proc_holder/spell/smoke
 	spellname = "smoke"
 	icon_state = "booksmoke"
 	desc = "This book is overflowing with the dank arts."
@@ -948,7 +907,7 @@
 	user.adjust_nutrition(-200)
 
 /obj/item/spellbook/oneuse/blind
-	spell = /obj/effect/proc_holder/spell/targeted/trigger/blind
+	spell = /obj/effect/proc_holder/spell/trigger/blind
 	spellname = "blind"
 	icon_state = "bookblind"
 	desc = "This book looks blurry, no matter how you look at it."
@@ -961,7 +920,7 @@
 		L.EyeBlind(20 SECONDS)
 
 /obj/item/spellbook/oneuse/mindswap
-	spell = /obj/effect/proc_holder/spell/targeted/click/mind_transfer
+	spell = /obj/effect/proc_holder/spell/mind_transfer
 	spellname = "mindswap"
 	icon_state = "bookmindswap"
 	desc = "This book's cover is pristine, though its pages look ragged and torn."
@@ -985,7 +944,7 @@
 		to_chat(user, "<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>")
 		return
 
-	var/obj/effect/proc_holder/spell/targeted/click/mind_transfer/swapper = new
+	var/obj/effect/proc_holder/spell/mind_transfer/swapper = new
 	swapper.cast(user, stored_swap)
 
 	to_chat(stored_swap, "<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")
@@ -993,7 +952,7 @@
 	stored_swap = null
 
 /obj/item/spellbook/oneuse/forcewall
-	spell = /obj/effect/proc_holder/spell/targeted/forcewall
+	spell = /obj/effect/proc_holder/spell/forcewall
 	spellname = "forcewall"
 	icon_state = "bookforcewall"
 	desc = "This book has a dedication to mimes everywhere inside the front cover."
@@ -1006,7 +965,7 @@
 	user.drop_from_active_hand()
 
 /obj/item/spellbook/oneuse/knock
-	spell = /obj/effect/proc_holder/spell/aoe_turf/knock
+	spell = /obj/effect/proc_holder/spell/aoe/knock
 	spellname = "knock"
 	icon_state = "bookknock"
 	desc = "This book is hard to hold closed properly."
@@ -1017,7 +976,7 @@
 	user.Weaken(40 SECONDS)
 
 /obj/item/spellbook/oneuse/horsemask
-	spell = /obj/effect/proc_holder/spell/targeted/click/horsemask
+	spell = /obj/effect/proc_holder/spell/horsemask
 	spellname = "horses"
 	icon_state = "bookhorses"
 	desc = "This book is more horse than your mind has room for."
@@ -1037,7 +996,7 @@
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")
 
 /obj/item/spellbook/oneuse/charge
-	spell = /obj/effect/proc_holder/spell/targeted/charge
+	spell = /obj/effect/proc_holder/spell/charge
 	spellname = "charging"
 	icon_state = "bookcharge"
 	desc = "This book is made of 100% post-consumer wizard."
@@ -1048,7 +1007,7 @@
 	empulse(src, 1, 1)
 
 /obj/item/spellbook/oneuse/summonitem
-	spell = /obj/effect/proc_holder/spell/targeted/summonitem
+	spell = /obj/effect/proc_holder/spell/summonitem
 	spellname = "instant summons"
 	icon_state = "booksummons"
 	desc = "This book is bright and garish, very hard to miss."
@@ -1059,13 +1018,13 @@
 	qdel(src)
 
 /obj/item/spellbook/oneuse/fake_gib
-	spell = /obj/effect/proc_holder/spell/targeted/touch/fake_disintegrate
+	spell = /obj/effect/proc_holder/spell/touch/fake_disintegrate
 	spellname = "disintegrate"
 	icon_state = "bookfireball"
 	desc = "This book feels like it will rip stuff apart."
 
 /obj/item/spellbook/oneuse/sacredflame
-	spell = /obj/effect/proc_holder/spell/targeted/sacred_flame
+	spell = /obj/effect/proc_holder/spell/sacred_flame
 	spellname = "sacred flame"
 	icon_state = "booksacredflame"
 	desc = "Become one with the flames that burn within... and invite others to do so as well."
@@ -1073,7 +1032,7 @@
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"
 
-/obj/item/spellbook/oneuse/random/initialize()
+/obj/item/spellbook/oneuse/random/Initialize()
 	. = ..()
 	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)

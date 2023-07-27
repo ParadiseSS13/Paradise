@@ -30,12 +30,18 @@
 
 	real_name = src.name
 	grant_all_babel_languages()
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
-	alien_organs += new /obj/item/organ/internal/xenos/acidgland/queen
-	alien_organs += new /obj/item/organ/internal/xenos/eggsac
-	alien_organs += new /obj/item/organ/internal/xenos/resinspinner/queen
-	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
+
+
+/mob/living/carbon/alien/humanoid/queen/get_caste_organs()
+	. = ..()
+	. += list(
+		/obj/item/organ/internal/xenos/plasmavessel/queen,
+		/obj/item/organ/internal/xenos/acidgland/queen,
+		/obj/item/organ/internal/xenos/eggsac,
+		/obj/item/organ/internal/xenos/resinspinner,
+		/obj/item/organ/internal/xenos/neurotoxin
+	)
 
 /mob/living/carbon/alien/humanoid/queen/movement_delay()
 	. = ..()
@@ -46,27 +52,6 @@
 
 /mob/living/carbon/alien/humanoid/queen/is_strong()
 	return TRUE
-
-//Queen verbs
-/datum/action/innate/xeno_action/lay_egg_queen
-	name = "Lay Egg (75)"
-	desc = "Lay an egg to produce huggers to impregnate prey with."
-	button_icon_state = "alien_egg"
-
-/datum/action/innate/xeno_action/lay_egg_queen/Activate()
-	var/mob/living/carbon/alien/humanoid/queen/host = owner
-
-	if(locate(/obj/structure/alien/egg) in get_turf(owner))
-		to_chat(host, "<span class='noticealien'>There's already an egg here.</span>")
-		return
-
-	if(plasmacheck(75,1))//Can't plant eggs on spess tiles. That's silly.
-		host.adjustPlasma(-75)
-		for(var/mob/O in viewers(host, null))
-			O.show_message(text("<span class=notice'><B>[host] has laid an egg!</B></span>"), 1)
-		new /obj/structure/alien/egg(host.loc)
-		playsound_xenobuild(host)
-	return
 
 /mob/living/carbon/alien/humanoid/queen/large
 	icon = 'icons/mob/alienlarge.dmi'

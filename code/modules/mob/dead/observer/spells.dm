@@ -9,30 +9,37 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	"It feels like someone's standing behind you.",
 ))
 
-/obj/effect/proc_holder/spell/targeted/click/boo
+/obj/effect/proc_holder/spell/boo
 	name = "Boo!"
 	desc = "Fuck with the living."
 	selection_deactivated_message	= "<span class='shadowling'>Your presence will not be known. For now.</span>"
 	selection_activated_message		= "<span class='shadowling'>You prepare to reach across the veil. <b>Left-click to influence a target!</b></span>"
-	auto_target_single = FALSE
-	allowed_type = /atom // No subtypes are safe from spookage.
 
 	ghost = TRUE
 
 	action_icon_state = "boo"
 	school = "transmutation"
-	charge_max = 2 MINUTES
+	base_cooldown = 2 MINUTES
 	starts_charged = FALSE
-	clothes_req = 0
-	stat_allowed = 1
+	clothes_req = FALSE
+	human_req = FALSE
+	stat_allowed = UNCONSCIOUS
 	invocation = ""
 	invocation_type = "none"
-	range = 20
+	need_active_overlay = TRUE
 	// no need to spam admins regarding boo casts
-	create_logs = FALSE
+	create_attack_logs = FALSE
 
 
-/obj/effect/proc_holder/spell/targeted/click/boo/cast(list/targets, mob/user = usr)
+
+/obj/effect/proc_holder/spell/boo/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.allowed_type = /atom
+	T.try_auto_target = FALSE
+	return T
+
+
+/obj/effect/proc_holder/spell/boo/cast(list/targets, mob/user = usr)
 	var/atom/target = targets[1]
 	ASSERT(istype(target))
 
@@ -40,7 +47,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 		var/area/spook_zone = get_area(target)
 		if (spook_zone.is_haunted == TRUE)
 			to_chat(usr, "<span class='shadowling'>The veil is weak in [spook_zone], it took less effort to influence [target].</span>")
-			charge_counter = charge_max / 2
+			cooldown_handler.start_recharge(cooldown_handler.recharge_duration / 2)
 		return
 
-	charge_counter = charge_max * 0.9 // We've targetted a non-spookable object! Try again fast!
+	cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)

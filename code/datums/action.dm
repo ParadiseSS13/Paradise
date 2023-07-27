@@ -6,10 +6,11 @@
 	var/invisibility = FALSE
 	var/obj/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
+	var/button_icon_state = "default"
+	var/button_background_icon = 'icons/mob/actions/actions.dmi'
 	var/background_icon_state = "bg_default"
 	var/buttontooltipstyle = ""
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
-	var/button_icon_state = "default"
 	var/mob/owner
 
 /datum/action/New(var/Target)
@@ -119,7 +120,7 @@
 			button.icon = ui_style2icon(owner.client.prefs.UI_style)
 			button.icon_state = "template"
 		else
-			button.icon = button_icon
+			button.icon = button_background_icon
 			button.icon_state = background_icon_state
 		button.name = name
 		button.desc = desc
@@ -129,11 +130,12 @@
 		if(IsMayActive())
 			toggle_active_overlay()
 
-		// If the action isn't available, darken the button
-		if(!IsAvailable())
+		var/obj/effect/proc_holder/spell/spell = target
+		if(istype(spell) && spell.cooldown_handler.should_draw_cooldown() || !IsAvailable())
 			apply_unavailable_effect()
 		else
 			return TRUE
+
 
 /datum/action/proc/apply_unavailable_effect()
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
@@ -603,13 +605,14 @@
 
 /datum/action/spell_action/New(Target)
 	..()
-	var/obj/effect/proc_holder/spell/S = target
-	S.action = src
-	name = S.name
-	desc = S.desc
-	button_icon = S.action_icon
-	button_icon_state = S.action_icon_state
-	background_icon_state = S.action_background_icon_state
+	var/obj/effect/proc_holder/spell/spell = target
+	spell.action = src
+	name = spell.name
+	desc = spell.desc
+	button_icon = spell.action_icon
+	button_background_icon = spell.action_background_icon
+	button_icon_state = spell.action_icon_state
+	background_icon_state = spell.action_background_icon_state
 	button.name = name
 
 /datum/action/spell_action/Destroy()
@@ -618,53 +621,62 @@
 	return ..()
 
 /datum/action/spell_action/Trigger()
-	if(!..())
+	if(!IsAvailable(TRUE))
 		return FALSE
+
 	if(target)
 		var/obj/effect/proc_holder/spell = target
 		spell.Click()
 		return TRUE
 
-/datum/action/spell_action/IsAvailable()
+/datum/action/spell_action/IsAvailable(message = FALSE)
 	if(!target)
 		return FALSE
 	var/obj/effect/proc_holder/spell/spell = target
 
-	if(spell.special_availability_check)
-		return TRUE
-
 	if(owner)
-		return spell.can_cast(owner)
+		return spell.can_cast(owner, show_message = message)
 	return FALSE
+
 
 /datum/action/spell_action/IsMayActive()
 	if(!target)
 		return FALSE
-	var/obj/effect/proc_holder/spell/targeted/click/S = target
-	if(istype(S) || S?.can_select)
+
+	var/obj/effect/proc_holder/spell/spell = target
+	if(istype(spell) && spell.need_active_overlay)
 		return TRUE
-	else
-		return ..()
+
+	return FALSE
+
 
 /datum/action/spell_action/toggle_active_overlay()
-	var/obj/effect/proc_holder/spell/targeted/click/S = target
+	var/obj/effect/proc_holder/spell/spell = target
 	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
-	I.plane = FLOAT_PLANE + 1.1
-	I.layer = FLOAT_LAYER
-	if(S.active)
-		button.overlays += I
+	I.appearance_flags |= RESET_COLOR | RESET_ALPHA
+	I.plane = FLOAT_PLANE + 1.2
+	if(spell.active)
+		button.add_overlay(I)
 	else
-		button.overlays -= I
+		button.cut_overlay(I)
+
+
+/datum/action/spell_action/ApplyIcon(obj/screen/movable/action_button/current_button)
+	current_button.cut_overlays()
+	if(button_icon && button_icon_state)
+		var/image/img = image(button_icon, current_button, button_icon_state)
+		img.appearance_flags = RESET_COLOR | RESET_ALPHA
+		img.pixel_x = 0
+		img.pixel_y = 0
+		current_button.add_overlay(img)
+
 
 /datum/action/spell_action/apply_unavailable_effect()
-	var/obj/effect/proc_holder/spell/S = target
-	if(!istype(S))
+	var/obj/effect/proc_holder/spell/spell = target
+	if(!istype(spell))
 		return ..()
-	var/progress = S.get_availability_percentage()
-	if(progress == 1)
-		return ..() // This means that the spell is charged but unavailable due to something else
 
-	var/alpha = 220 - 140 * progress
+	var/alpha = spell.cooldown_handler.get_cooldown_alpha()
 
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
 	img.alpha = alpha
@@ -675,21 +687,10 @@
 	// Make a holder for the charge text
 	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
 	count_down_holder.plane = FLOAT_PLANE + 1.1
-	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
+	var/text = spell.cooldown_handler.statpanel_info()
+	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(count_down_holder)
 
-/*
-/datum/action/spell_action/alien
-
-/datum/action/spell_action/alien/IsAvailable()
-	if(!target)
-		return 0
-	var/obj/effect/proc_holder/alien/ab = target
-
-	if(owner)
-		return ab.cost_check(ab.check_turf, owner, 1)
-	return 0
-*/
 
 //Preset for general and toggled actions
 /datum/action/innate

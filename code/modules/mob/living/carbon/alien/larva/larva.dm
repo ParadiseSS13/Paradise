@@ -16,14 +16,9 @@
 	var/time_of_birth
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
-	var/datum/action/innate/xeno_action/hide/hide_action = new
-	var/datum/action/innate/xeno_action/evolve/evolve_action = new
 
+	var/datum/action/innate/hide/alien_larva/hide_action
 
-/mob/living/carbon/alien/larva/GrantAlienActions()
-	hide_action.Grant(src)
-	evolve_action.Grant(src)
-	nigtvisiontoggle_action.Grant(src)
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()
@@ -33,15 +28,32 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
 	..()
+	hide_action = new
+	hide_action.Grant(src)
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
+
+
+
+
+/mob/living/carbon/alien/larva/Destroy()
+	if(hide_action)
+		hide_action.Remove(src)
+		hide_action = null
+	return ..()
+
+
+/mob/living/carbon/alien/larva/get_caste_organs()
+	. = ..()
+	. += /obj/item/organ/internal/xenos/plasmavessel/larva
+
 
 //This needs to be fixed
 /mob/living/carbon/alien/larva/Stat()
 	..()
 	stat(null, "Progress: [amount_grown]/[max_grown]")
 
-/mob/living/carbon/alien/larva/adjustPlasma(amount)
+/mob/living/carbon/alien/larva/adjust_alien_plasma(amount)
 	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)

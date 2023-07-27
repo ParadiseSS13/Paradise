@@ -54,7 +54,7 @@
 	set_weapon() //giving it the right projectile and firing sound.
 	setup_access()
 
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/bot_speed)
+	AddSpell(new /obj/effect/proc_holder/spell/bot_speed)
 
 	if(lasercolor)
 		shot_delay = 6//Longer shot delay because JESUS CHRIST

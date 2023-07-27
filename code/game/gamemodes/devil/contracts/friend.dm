@@ -10,11 +10,11 @@
 	random = TRUE
 	id_job = "SuperFriend"
 	id_access = "assistant"
-	var/obj/effect/proc_holder/spell/targeted/summon_friend/spell
+	var/obj/effect/proc_holder/spell/summon_friend/spell
 	var/datum/mind/owner
 	assignedrole = "SuperFriend"
 
-/obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/targeted/summon_friend/summoning_spell)
+/obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/summon_friend/summoning_spell)
 	. = ..()
 	owner = owner_mind
 	description = "Be someone's loyal friend/slave. If they die, you die as well."	//best I could think of in the moment, not sure how this role plays in practise, have never seen it.
@@ -32,7 +32,7 @@
 		L.name = L.real_name
 		soullink(/datum/soullink/oneway/devilfriend, owner.current, L)
 		spell.friend = L
-		spell.charge_counter = spell.charge_max
+		spell.revert_cast()
 		L.mind.hasSoul = FALSE
 		var/mob/living/carbon/human/H = L
 		var/obj/item/worn = H.wear_id

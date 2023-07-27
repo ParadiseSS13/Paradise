@@ -120,16 +120,30 @@
 	fire_sound_text = null
 	lefthand_file = null
 	righthand_file = null
-	clumsy_check = 0 //Stole your uplink! Honk!
-	needs_permit = 0 //go away beepsky
+	can_holster = FALSE // Get your fingers out of there!
+	clumsy_check = FALSE //Stole your uplink! Honk!
+	needs_permit = FALSE //go away beepsky
+	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
+
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Pew pew pew!"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 
-/obj/item/gun/projectile/revolver/fingergun/New()
+
+/obj/item/gun/projectile/revolver/fingergun/New(loc, new_parent_spell)
 	..()
+	parent_spell = new_parent_spell
 	verbs -= /obj/item/gun/projectile/revolver/verb/spin
+
+
+/obj/item/gun/projectile/revolver/fingergun/Destroy()
+	if(parent_spell)
+		parent_spell.current_gun = null
+		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+		parent_spell = null
+	return ..()
+
 
 /obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)
 	to_chat(usr, "<span class='warning'>You are out of ammo! You holster your fingers.</span>")
@@ -154,7 +168,7 @@
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
-	
+
 /obj/item/gun/projectile/revolver/ga12
 	name = "\improper Tkach Ya-Sui GA 12 revolver"
 	desc = "An outdated sidearm rarely seen in use by certain PMCs that operate throughout the frontier systems, featuring a three-shell cylinder. Thats right, shell, this one shoots twelve gauge."

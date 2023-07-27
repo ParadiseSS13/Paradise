@@ -18,6 +18,9 @@
 	no_spin_thrown = 1
 	del_on_death = TRUE
 
+	/// The probability % of us escaping if stuffed into a bag/toolbox/etc
+	var/escape_chance = 10
+	/// What is the actual item we are "possessing"
 	var/obj/item/possessed_item
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)
@@ -56,6 +59,7 @@
 			possessed_item.forceMove(loc)
 	return ..()
 
+
 /mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
 	..()
 
@@ -73,6 +77,13 @@
 		drop_l_hand()
 	if(r_hand)
 		drop_r_hand()
+
+	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
+		visible_message("<span class='notice'>[src] refuses to be contained!</span>")
+		forceMove(get_turf(src))
+		if(possessed_item.loc != src) //safety so the item doesn't somehow become detatched from us while doing this
+			possessed_item.forceMove(src)
+
 
 /mob/living/simple_animal/possessed_object/Login()
 	..()

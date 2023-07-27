@@ -43,7 +43,7 @@
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
 	delay_web = 15
-	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/queen)
+	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_queen)
 	can_wrap = FALSE
 	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать поражение, ведь все пауки погибнут."
 	var/spider_spawnfrequency = 1600 // 160 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()

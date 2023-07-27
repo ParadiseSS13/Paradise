@@ -142,6 +142,8 @@
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
 		return TRUE
+	if(istype(mover) && mover.checkpass(PASSDOOR) && !locked)
+		return TRUE
 	else if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density

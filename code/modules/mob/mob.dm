@@ -783,14 +783,8 @@
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
 
-/mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
-	switch(S.charge_type)
-		if("recharge")
-			statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)
-		if("charges")
-			statpanel(S.panel,"[S.charge_counter]/[S.charge_max]",S)
-		if("holdervar")
-			statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
+/mob/proc/add_spell_to_statpanel(obj/effect/proc_holder/spell/S)
+	statpanel(S.panel,"[S.cooldown_handler.statpanel_info()]", S)
 
 // facing verbs
 /mob/proc/canface()
@@ -1049,6 +1043,54 @@
 	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
 	GLOB.logging.add_log(real_ckey, record)
 
+
+/mob/proc/create_attack_log(text, collapse = TRUE)
+	LAZYINITLIST(attack_log_old)
+	create_log_in_list(attack_log_old, text, collapse, last_log)
+	last_log = world.timeofday
+
+
+/mob/proc/create_debug_log(text, collapse = TRUE)
+	LAZYINITLIST(debug_log)
+	create_log_in_list(debug_log, text, collapse, world.timeofday)
+
+
+/proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
+	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
+	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
+	var/new_log = "\[[time_stamp()]] [text]"
+
+	if(target.len)//if there are other logs already present
+		var/previous_log = target[target.len]//get the latest log
+		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
+		var/x_sign_position = findtext(previous_log, "x")
+
+		if(world.timeofday - last_log > 100)//if more than 10 seconds from last log
+			collapse = 0//don't collapse anyway
+
+		//the following checks if the last log has the same contents as the new one
+		if(last_log_is_range)
+			if(!(copytext(previous_log, x_sign_position + 13) == text))//the 13 is there because of span classes; you won't see those normally in-game
+				collapse = 0
+		else
+			if(!(copytext(previous_log, 12) == text))
+				collapse = 0
+
+
+		if(collapse == 1)
+			var/rep = 0
+			var/old_timestamp = copytext(previous_log, 2, 10)//copy the first time value. This one doesn't move when it's a timespan, so no biggie
+			//An attack log entry can either be a time range with multiple occurences of an action or a single one, with just one time stamp
+			if(last_log_is_range)
+
+				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
+
+			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
+			target -= target[target.len]//remove the last log
+
+	target += new_log
+
+
 /mob/vv_get_dropdown()
 	. = ..()
 	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
@@ -1200,3 +1242,29 @@
 	else
 		. = invoked_callback.Invoke()
 	usr = temp
+
+
+GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
+	/area/chapel,
+	/area/maintenance/chapel
+)))
+
+
+/mob/proc/holy_check()
+	if(!is_type_in_typecache(get_area(src), GLOB.holy_areas))
+		return FALSE
+
+	if(!mind)
+		return FALSE
+
+	//Allows cult to bypass holy areas once they summon
+	var/datum/game_mode/gamemode = SSticker.mode
+	if(iscultist(src) && gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+		return FALSE
+
+	//Execption for Holy Constructs
+	if(isconstruct(src) && !iscultist(src))
+		return FALSE
+
+	to_chat(src, span_warning("Your powers are useless on this holy ground."))
+	return TRUE

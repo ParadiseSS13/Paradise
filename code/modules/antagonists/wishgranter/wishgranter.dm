@@ -75,6 +75,6 @@
 	H.dna.SetSEState(GLOB.immolateblock, TRUE)
 	genemutcheck(H, GLOB.immolateblock, null, MUTCHK_FORCED)
 
-	H.mutations.Add(LASER)
+	ADD_TRAIT(H, TRAIT_LASEREYES, "wishgranter")
 	H.update_mutations()
 	H.update_body()

@@ -6,28 +6,29 @@
 	devour_time = 2 SECONDS
 	icon_state = "alienh_s"
 
-	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
-
-/mob/living/carbon/alien/humanoid/hunter/GrantAlienActions()
-	. = ..()
-	plant_spell.action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/hunter/New()
 	if(name == "alien hunter")
 		name = text("alien hunter ([rand(1, 1000)])")
 	real_name = name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
 	..()
+
+
+/mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
+	. = ..()
+	. += /obj/item/organ/internal/xenos/plasmavessel/hunter
+
 
 /mob/living/carbon/alien/humanoid/hunter/movement_delay()
 	. = -1		//hunters are sanic
 	. += ..()	//but they still need to slow down on stun
 
+
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
 	if(m_intent == MOVE_INTENT_RUN || resting)
 		..()
 	else
-		adjustPlasma(-heal_rate)
+		adjust_alien_plasma(-heal_rate)
 
 
 //Hunter verbs

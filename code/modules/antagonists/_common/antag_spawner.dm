@@ -166,7 +166,7 @@
 	var/veil_msg = "<span class='warning'>You sense a dark presence lurking \
 		just beyond the veil...</span>"
 	var/objective_verb = "Kill"
-	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
+	var/mob/living/demon_type = /mob/living/simple_animal/demon/slaughter
 
 /obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
@@ -180,7 +180,7 @@
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
 
 	var/type = "slaughter"
-	if(demon_type == /mob/living/simple_animal/slaughter/laughter)
+	if(demon_type == /mob/living/simple_animal/demon/slaughter/laughter)
 		type = "laughter"
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
@@ -197,7 +197,7 @@
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
-	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
+	var/mob/living/simple_animal/demon/slaughter/S = new demon_type(holder)
 	S.vialspawned = TRUE
 	S.holder = holder
 	S.key = C.key
@@ -227,7 +227,7 @@
 	veil_msg = "<span class='warning'>You sense an adorable presence \
 		lurking just beyond the veil...</span>"
 	objective_verb = "Hug and tickle"
-	demon_type = /mob/living/simple_animal/slaughter/laughter
+	demon_type = /mob/living/simple_animal/demon/slaughter/laughter
 
 ///////////MORPH
 

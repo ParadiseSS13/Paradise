@@ -36,7 +36,7 @@
 	web_type = /obj/structure/spider/terrorweb/purple
 	can_wrap = FALSE
 	delay_web = 20
-	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/terror/shield)
+	special_abillity = list(/obj/effect/proc_holder/spell/aoe/conjure/build/terror_shield)
 	can_wrap = FALSE
 	spider_intro_text = "Будучи Защитником Ужаса, ваша задача - охрана гнезда, яиц, принцесс и королевы. Вы очень сильны и живучи, используйте это, чтобы защитить выводок. Ваша активная способность создает временный неразрушимый барьер, через который могут пройти только пауки. Если встанет выбор, спасти принцессу, или королеву, при этои обрекая себя на смерть - делайте это без раздумий!."
 	ai_spins_webs = FALSE

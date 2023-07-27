@@ -93,6 +93,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //
 // common trait sources
 #define TRAIT_GENERIC "generic"
+#define MAGIC_TRAIT "magic"
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
 #define CULT_TRAIT "cult"
 #define CLOCK_TRAIT "clockwork_cult"
@@ -110,3 +111,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// This mob heals from cult pylons.
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
+
+//traits that should be properly converted to genetic mutations one day
+#define TRAIT_LASEREYES "laser_eyes"

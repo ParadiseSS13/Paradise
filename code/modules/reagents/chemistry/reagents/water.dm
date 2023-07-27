@@ -311,7 +311,7 @@
 				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(6 SECONDS)
-		if(isvampirethrall(M))
+		if(isvampirethrall_goon(M))
 			SSticker.mode.remove_vampire_mind(M.mind)
 			holder.remove_reagent(id, volume)
 			M.SetJitter(0)

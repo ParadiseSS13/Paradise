@@ -21,7 +21,7 @@
 
 /mob/living/simple_animal/hostile/guardian/fire/New()
 	. = ..()
-	src.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/guardian/fire/hallucination(summoner))
+	src.AddSpell(new /obj/effect/proc_holder/spell/aoe/guardian_hallucination(summoner))
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
 	. = ..()
@@ -59,19 +59,39 @@
 	..()
 	collision_ignite(AM)
 
-/obj/effect/proc_holder/spell/aoe_turf/guardian/fire/hallucination
+
+/obj/effect/proc_holder/spell/aoe/guardian_hallucination
 	name = "Волна галлюцинаций"
 	desc = "Призовите самый темный страх на ваших жертв. Хозяин невосприимчив к эффекту."
 	action_icon_state = "blight"
 	action_background_icon_state = "bg_spell"
-	charge_max = 120
+	base_cooldown = 12 SECONDS
 	clothes_req = FALSE
+	human_req = FALSE
 	phase_allowed = TRUE
-	range = 10
 	var/mob/living/summoner = null
 	var/list/stunning_hallucinations = list("singulo", "koolaid", "fake")
+	aoe_range = 10
 
-/obj/effect/proc_holder/spell/aoe_turf/guardian/fire/hallucination/cast(list/targets, mob/user = usr)
+
+/obj/effect/proc_holder/spell/aoe/guardian_hallucination/hallucination/New(mob/living/summoned_by)
+	. = ..()
+	summoner = summoned_by
+
+
+/obj/effect/proc_holder/spell/aoe/guardian_hallucination/Destroy()
+	summoner = null
+	return ..()
+
+
+/obj/effect/proc_holder/spell/aoe/guardian_hallucination/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = aoe_range
+	T.use_turf_of_user = TRUE
+	return T
+
+
+/obj/effect/proc_holder/spell/aoe/guardian_hallucination/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/mob/target in T.contents)
 			if(iscarbon(target) && target != summoner)
@@ -87,9 +107,3 @@
 				do_sparks(5, 1, silicon)
 				silicon.Weaken(6 SECONDS)
 
-/obj/effect/proc_holder/spell/aoe_turf/guardian/fire/hallucination/New(var/mob/living/summoned_by)
-	. = ..()
-	summoner = summoned_by
-
-/obj/effect/proc_holder/spell/aoe_turf/guardian/fire/hallucination/choose_targets(mob/user = usr)
-	. = ..(summoner)

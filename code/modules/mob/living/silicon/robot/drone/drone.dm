@@ -75,6 +75,10 @@
 	// NO BRAIN.
 	mmi = null
 
+	// Give us our action button
+	var/datum/action/innate/hide/drone/hide = new()
+	hide.Grant(src)
+
 	//We need to screw with their HP a bit. They have around one fifth as much HP as a full borg.
 	for(var/V in components) if(V != "power cell")
 		var/datum/robot_component/C = components[V]
@@ -99,6 +103,14 @@
 	//Some tidying-up.
 	scanner.Grant(src)
 	update_icons()
+
+
+/mob/living/silicon/robot/drone/Destroy()
+	for(var/datum/action/innate/hide/drone/hide in actions)
+		hide.Remove(src)
+
+	. = ..()
+
 
 /mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()

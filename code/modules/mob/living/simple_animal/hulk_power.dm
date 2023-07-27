@@ -1,15 +1,21 @@
 //Transform spell
 
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_transform
+/obj/effect/proc_holder/spell/hulk_transform
 	name = "Transform"
 	desc = "Превращение в халка."
 	panel = "Hulk"
 	action_icon_state = "transformarion_hulk"
 	action_background_icon_state = "bg_hulk"
-	charge_max = 100
-	clothes_req = 0
+	base_cooldown = 10 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
 
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_transform/cast(list/targets, mob/user)
+
+/obj/effect/proc_holder/spell/hulk_transform/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/hulk_transform/cast(list/targets, mob/user = usr)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(user, "<span class='warning'>Not enough angry power.")
 		return
@@ -38,22 +44,27 @@
 	user.status_flags |= GODMODE
 	user.mind.transfer_to(Monster)
 	Monster.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
-	return
+
 
 //HUMAN HULK
 
 //Dash
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_dash
+/obj/effect/proc_holder/spell/hulk_dash
 	name = "Dash"
 	desc = "Разбег. Чем он дольше, тем больнее будет, тем кто встанет у вас на пути."
 	panel = "Hulk"
 	action_icon_state = "charge_hulk"
 	action_background_icon_state = "bg_hulk"
-	charge_max = 130
-	clothes_req = 0
-	range = 5
+	base_cooldown = 13 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
 
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_dash/cast(list/targets, mob/living/user)
+
+/obj/effect/proc_holder/spell/hulk_dash/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/hulk_dash/cast(list/targets, mob/living/user)
 	var/turf/T = get_turf(get_step(user,user.dir))
 	for(var/mob/living/M in T.contents)
 		to_chat(user, "<span class='warning'>Something right in front of you!</span>")
@@ -206,18 +217,22 @@
 	return
 
 //Jump
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_jump
+/obj/effect/proc_holder/spell/hulk_jump
 	name = "Leap"
 	desc = "Прыжок. Можно легко сломать кому-то кость при столкновении."
 	panel = "Hulk"
 	action_icon_state = "jump_hulk"
 	action_background_icon_state = "bg_hulk"
-	charge_max = 130
-	clothes_req = 0
-	range = 5
+	base_cooldown = 13 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
 
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_jump/cast(list/targets , mob/living/user)
-	//for(var/turf/T in targets)
+
+/obj/effect/proc_holder/spell/hulk_jump/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/hulk_jump/cast(list/targets, mob/living/user)
 	var/failure = 0
 	if (istype(user.loc,/mob) || user.lying || user.IsStunned() || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
@@ -310,21 +325,26 @@
 		container.pixel_x = 0
 		container.pixel_y = 0
 
-	return
+
 //Clown-Hulk
 
 //Hulk Honk
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_honk
+/obj/effect/proc_holder/spell/hulk_honk
 	name = "HulkHONK"
 	desc = "Ваш хонк заставляет ваших врагов пасть на пол и налить под себя смазку (от страха). На ваших братьях-клоунах работает как лечение."
 	panel = "Hulk"
 	action_icon_state = "honk_hulk"
 	action_background_icon_state = "bg_hulk"
-	charge_max = 250
-	clothes_req = 0
-	range = 2
+	base_cooldown = 25 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
 
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_honk/cast(list/target,mob/user)
+
+/obj/effect/proc_holder/spell/hulk_honk/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/hulk_honk/cast(list/targets, mob/user)
 	if (user.incapacitated())
 		to_chat(user, "<span class='red'>You can't right now!</span>")
 		return
@@ -347,19 +367,25 @@
 			var /turf/simulated/victim_loc = M.loc
 			victim_loc.MakeSlippery(TURF_WET_LUBE, 5 SECONDS)
 
+
 //Hulk Joke
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_joke
+/obj/effect/proc_holder/spell/hulk_joke/create_new_targeting()
 	name = "Joke"
 	desc = "Пускает большое облако дыма, а так-же лечит вас. Хорошее решение если вам нужно отступить."
 	panel = "Hulk"
 	action_icon_state = "joke_hulk"
 	action_background_icon_state = "bg_hulk"
-	charge_max = 350
-	clothes_req = 0
-	range = 2
+	base_cooldown = 35 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
 
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_joke/cast(list/targets,mob/user)
-	if (user.incapacitated())
+
+/obj/effect/proc_holder/spell/hulk_joke/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/hulk_joke/cast(list/targets,mob/user)
+	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't right now!</span>")
 		return
 
@@ -379,17 +405,22 @@
 //Zilla
 
 //Hulk Mill
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_mill
+/obj/effect/proc_holder/spell/hulk_mill
 	name = "Windmill"
 	desc = "Вы начинаете крутить хвостом во все стороны и наносить им урон. Хорошим выбором будет использовать это в узких помещаниях."
 	panel = "Hulk"
 	action_icon_state = "mill_hulk"
 	action_background_icon_state = "bg_hulk"
-	charge_max = 200
-	clothes_req = 0
-	range = 2
+	base_cooldown = 20 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
 
-/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_mill/cast(list/targets,mob/user = user)
+
+/obj/effect/proc_holder/spell/hulk_mill/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/hulk_mill/cast(list/targets,mob/user = user)
 	if (user.lying || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
@@ -416,6 +447,7 @@
 				M.Weaken(4 SECONDS)
 		sleep(1)
 
+
 //Harchok
 /obj/item/projectile/energy/hulkspit
 	name = "spit"
@@ -431,64 +463,41 @@
 		M.adjust_fire_stacks(20)
 		M.IgniteMob()
 
-/obj/effect/proc_holder/spell/targeted/click/hulk/hulk_spit
+
+/obj/effect/proc_holder/spell/fireball/hulk_spit
 	name = "Fire Spit"
 	desc = "Вы харкаете во врага зеленой соплей и поджигаете его."
 	panel = "Hulk"
-	invocation_type = "shout"
+	invocation_type = "none"
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"
-	allowed_type = /atom
-	charge_max = 250
-	clothes_req = 0
-	range = 20
+	selection_activated_message	= "<span class='notice'>Your prepare to spit fire! <B>Left-click to spit at a target!</B></span>"
+	selection_deactivated_message = "<span class='notice'>You swallow your spit...for now.</span>"
+	fireball_type = /obj/item/projectile/energy/hulkspit
+	base_cooldown = 25 SECONDS
+	human_req = FALSE
+	need_active_overlay = TRUE
 
-/obj/effect/proc_holder/spell/targeted/click/hulk/hulk_spit/cast(list/targets,mob/user)
-	var/target = targets[1]
-	if (user.lying || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
 
-	var/turf/T = user.loc
-	var/turf/U = get_step(user,user.dir) // Get the tile infront of the move, based on their direction
-	if(!isturf(U) || !isturf(T))
-		return
+/obj/effect/proc_holder/spell/fireball/hulk_spit/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(user.incapacitated())
+		return FALSE
+	return ..()
 
-	var/obj/item/projectile/energy/hulkspit/HS = new /obj/item/projectile/energy/hulkspit(user.loc)
-	HS.current = get_turf(user)
-	HS.preparePixelProjectile(target, get_turf(target), user)
-	HS.fire()
-	user.newtonian_move(get_dir(U, T))
-	playsound(user, 'sound/magic/fireball.ogg', CHANNEL_BUZZ)
+
+/obj/effect/proc_holder/spell/fireball/hulk_spit/update_icon()
+	return
+
 
 //Laser
 
-/obj/effect/proc_holder/spell/targeted/click/hulk/hulk_lazor
+/obj/effect/proc_holder/spell/fireball/hulk_spit/hulk_lazor
 	name = "LazorZ"
 	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
-	panel = "Hulk"
-	invocation_type = "shout"
 	action_icon_state = "lazer_hulk"
-	action_background_icon_state = "bg_hulk"
-	allowed_type = /atom
-	charge_max = 70
-	clothes_req = 0
-	range = 20
+	selection_activated_message	= "<span class='notice'>You strained your eyes preparing the LAZOR! <B>Left-click to fire at a target!</B></span>"
+	selection_deactivated_message = "<span class='notice'>You relax your eyes...for now.</span>"
+	fireball_type = /obj/item/projectile/beam
+	base_cooldown = 7 SECONDS
+	sound = 'sound/weapons/laser.ogg'
 
-/obj/effect/proc_holder/spell/targeted/click/hulk/hulk_lazor/cast(list/targets,mob/user)
-	var/target = targets[1]
-	if (user.lying || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't right now!</span>")
-		return
-
-	var/turf/T = user.loc
-	var/turf/U = get_step(user, user.dir) // Get the tile infront of the move, based on their direction
-	if(!isturf(U) || !isturf(T))
-		return
-
-	var/obj/item/projectile/beam/B = new /obj/item/projectile/beam(user.loc)
-	playsound(user, 'sound/weapons/laser.ogg', CHANNEL_BUZZ)
-	B.current = get_turf(user)
-	B.preparePixelProjectile(target, get_turf(target), user)
-	B.fire()
-	user.newtonian_move(get_dir(U, T))

@@ -466,7 +466,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_mutations()
 	remove_overlay(MUTATIONS_LAYER)
 	var/mutable_appearance/standing = mutable_appearance(issmall(src) ? 'icons/mob/species/monkey/genetics.dmi' : 'icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
-	var/add_image = 0
+	var/add_image = FALSE
 	var/g = "m"
 	if(gender == FEMALE)
 		g = "f"
@@ -478,12 +478,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/underlay = gene.OnDrawUnderlays(src, g)
 			if(underlay)
 				standing.underlays += underlay
-				add_image = 1
-	for(var/mut in mutations)
-		switch(mut)
-			if(LASER)
-				standing.overlays += "lasereyes_s"
-				add_image = 1
+				add_image = TRUE
+
+	if(HAS_TRAIT(src, TRAIT_LASEREYES))
+		standing.overlays += "lasereyes_s"
+		add_image = TRUE
+
 	if((COLDRES in mutations) && (HEATRES in mutations))
 		standing.underlays -= "cold_s"
 		standing.underlays -= "fire_s"

@@ -33,7 +33,7 @@
 	canlay = 1
 	hasnested = TRUE
 	spider_spawnfrequency = 1600 // 160 seconds
-	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/princess)
+	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_princess)
 	var/spider_max_children = 20
 	tts_seed = "Lissandra"
 

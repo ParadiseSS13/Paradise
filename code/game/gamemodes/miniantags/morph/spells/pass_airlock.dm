@@ -1,25 +1,34 @@
 // TODO refactor when spell code is component based instead of OO based
-/obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock
+/obj/effect/proc_holder/spell/morph_spell/pass_airlock
 	name = "Pass Airlock"
 	desc = "Reform yourself so you can fit through a non bolted airlock. Takes a while to do and can only be used in a non disguised form."
+	action_background_icon_state = "bg_morph"
 	action_icon_state = "morph_airlock"
-	clothes_req = FALSE
-	charge_max = 10 SECONDS
-	click_radius = -1
-	allowed_type = /obj/machinery/door/airlock
-	range = 1
+	base_cooldown = 10 SECONDS
 	selection_activated_message = "<span class='sinister'>Click on an airlock to try pass it.</span>"
+	need_active_overlay = TRUE
 
-/obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
+
+/obj/effect/proc_holder/spell/morph_spell/pass_airlock/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 1
+	T.allowed_type = /obj/machinery/door/airlock
+	T.click_radius = -1
+	return T
+
+
+/obj/effect/proc_holder/spell/morph_spell/pass_airlock/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message)
 	. = ..()
 	if(!.)
 		return
 
 	if(user.morphed)
-		to_chat(user, "<span class='warning'>You can only pass through airlocks in your true form!</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>You can only pass through airlocks in your true form!</span>")
 		return FALSE
 
-/obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
+
+/obj/effect/proc_holder/spell/morph_spell/pass_airlock/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	var/obj/machinery/door/airlock/airlock = targets[1]
 	if(airlock.locked)
 		to_chat(user, "<span class='warning'>[airlock] is bolted shut! You're unable to create a crack to pass through!</span>")
@@ -40,5 +49,5 @@
 	user.forceMove(airlock.loc) // Move into the turf of the airlock
 
 
-/obj/effect/proc_holder/spell/targeted/click/morph_spell/pass_airlock/proc/pass_check(mob/living/simple_animal/hostile/morph/user, obj/machinery/door/airlock/airlock)
+/obj/effect/proc_holder/spell/morph_spell/pass_airlock/proc/pass_check(mob/living/simple_animal/hostile/morph/user, obj/machinery/door/airlock/airlock)
 	return user.morphed || airlock.locked

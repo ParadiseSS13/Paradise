@@ -3,7 +3,7 @@
 /datum/dna/gene/basic/grant_spell/morph
 	name = "Morphism"
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
-	spelltype =/obj/effect/proc_holder/spell/targeted/morph
+	spelltype = /obj/effect/proc_holder/spell/morph
 	activation_messages = list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
@@ -13,26 +13,27 @@
 	..()
 	block = GLOB.morphblock
 
-/obj/effect/proc_holder/spell/targeted/morph
+/obj/effect/proc_holder/spell/morph
 	name = "Morph"
 	desc = "Mimic the appearance of your choice!"
 	panel = "Abilities"
-	charge_max = 1800
+	base_cooldown = 3 MINUTES
 
-	clothes_req = 0
-	stat_allowed = 0
-	invocation_type = "none"
-	range = -1
-	include_user = 1
-	selection_type = "range"
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_morph"
 
-/obj/effect/proc_holder/spell/targeted/morph/cast(list/targets, mob/user = usr)
+
+/obj/effect/proc_holder/spell/morph/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/morph/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))
 		return
 
-	if(istype(user.loc,/mob/))
+	if(ismob(user.loc))
 		to_chat(user, "<span class='warning'>You can't change your appearance right now!</span>")
 		return
 	var/mob/living/carbon/human/M = user
@@ -46,62 +47,64 @@
 		else
 			M.change_gender(FEMALE)
 
-	var/new_eyes = input("Please select eye color.", "Character Generation", eyes_organ.eye_colour) as null|color
-	if(new_eyes)
-		M.change_eye_color(new_eyes)
+	if(eyes_organ)
+		var/new_eyes = input("Please select eye color.", "Character Generation", eyes_organ.eye_colour) as null|color
+		if(new_eyes)
+			M.change_eye_color(new_eyes)
 
-	//Alt heads.
-	if(head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
-		var/list/valid_alt_heads = M.generate_valid_alt_heads()
-		var/new_alt_head = input("Please select alternate head", "Character Generation", head_organ.alt_head) as null|anything in valid_alt_heads
-		if(new_alt_head)
-			M.change_alt_head(new_alt_head)
+	if(istype(head_organ))
+		//Alt heads.
+		if(head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
+			var/list/valid_alt_heads = M.generate_valid_alt_heads()
+			var/new_alt_head = input("Please select alternate head", "Character Generation", head_organ.alt_head) as null|anything in valid_alt_heads
+			if(new_alt_head)
+				M.change_alt_head(new_alt_head)
 
-	// hair
-	var/list/valid_hairstyles = M.generate_valid_hairstyles()
-	var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
+		// hair
+		var/list/valid_hairstyles = M.generate_valid_hairstyles()
+		var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
 
-	// if new style selected (not cancel)
-	if(new_style)
-		M.change_hair(new_style)
+		// if new style selected (not cancel)
+		if(new_style)
+			M.change_hair(new_style)
 
-	var/new_hair = input("Please select hair color.", "Character Generation", head_organ.hair_colour) as null|color
-	if(new_hair)
-		M.change_hair_color(new_hair)
-
-	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[head_organ.h_style]
-	if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-		new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
+		var/new_hair = input("Please select hair color.", "Character Generation", head_organ.hair_colour) as null|color
 		if(new_hair)
-			M.change_hair_color(new_hair, 1)
+			M.change_hair_color(new_hair)
 
-	// facial hair
-	var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
-	new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
+		var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[head_organ.h_style]
+		if(hair_style.secondary_theme && !hair_style.no_sec_colour)
+			new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
+			if(new_hair)
+				M.change_hair_color(new_hair, TRUE)
 
-	if(new_style)
-		M.change_facial_hair(new_style)
+		// facial hair
+		var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
+		new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
 
-	var/new_facial = input("Please select facial hair color.", "Character Generation", head_organ.facial_colour) as null|color
-	if(new_facial)
-		M.change_facial_hair_color(new_facial)
+		if(new_style)
+			M.change_facial_hair(new_style)
 
-	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
-	if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-		new_facial = input("Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour) as null|color
+		var/new_facial = input("Please select facial hair color.", "Character Generation", head_organ.facial_colour) as null|color
 		if(new_facial)
-			M.change_facial_hair_color(new_facial, 1)
+			M.change_facial_hair_color(new_facial)
 
-	//Head accessory.
-	if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
-		var/list/valid_head_accessories = M.generate_valid_head_accessories()
-		var/new_head_accessory = input("Please select head accessory style", "Character Generation", head_organ.ha_style) as null|anything in valid_head_accessories
-		if(new_head_accessory)
-			M.change_head_accessory(new_head_accessory)
+		var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
+		if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
+			new_facial = input("Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour) as null|color
+			if(new_facial)
+				M.change_facial_hair_color(new_facial, TRUE)
 
-		var/new_head_accessory_colour = input("Please select head accessory colour.", "Character Generation", head_organ.headacc_colour) as null|color
-		if(new_head_accessory_colour)
-			M.change_head_accessory_color(new_head_accessory_colour)
+		//Head accessory.
+		if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
+			var/list/valid_head_accessories = M.generate_valid_head_accessories()
+			var/new_head_accessory = input("Please select head accessory style", "Character Generation", head_organ.ha_style) as null|anything in valid_head_accessories
+			if(new_head_accessory)
+				M.change_head_accessory(new_head_accessory)
+
+			var/new_head_accessory_colour = input("Please select head accessory colour.", "Character Generation", head_organ.headacc_colour) as null|color
+			if(new_head_accessory_colour)
+				M.change_head_accessory_color(new_head_accessory_colour)
 
 	//Body accessory.
 	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)))
@@ -111,16 +114,18 @@
 			if(new_body_accessory)
 				M.change_body_accessory(new_body_accessory)
 
-	//Head markings.
-	if(M.dna.species.bodyflags & HAS_HEAD_MARKINGS)
-		var/list/valid_head_markings = M.generate_valid_markings("head")
-		var/new_marking = input("Please select head marking style", "Character Generation", M.m_styles["head"]) as null|anything in valid_head_markings
-		if(new_marking)
-			M.change_markings(new_marking, "head")
+	if(istype(head_organ))
+		//Head markings.
+		if(M.dna.species.bodyflags & HAS_HEAD_MARKINGS)
+			var/list/valid_head_markings = M.generate_valid_markings("head")
+			var/new_marking = input("Please select head marking style", "Character Generation", M.m_styles["head"]) as null|anything in valid_head_markings
+			if(new_marking)
+				M.change_markings(new_marking, "head")
 
-		var/new_marking_colour = input("Please select head marking colour.", "Character Generation", M.m_colours["head"]) as null|color
-		if(new_marking_colour)
-			M.change_marking_color(new_marking_colour, "head")
+			var/new_marking_colour = input("Please select head marking colour.", "Character Generation", M.m_colours["head"]) as null|color
+			if(new_marking_colour)
+				M.change_marking_color(new_marking_colour, "head")
+
 	//Body markings.
 	if(M.dna.species.bodyflags & HAS_BODY_MARKINGS)
 		var/list/valid_body_markings = M.generate_valid_markings("body")
@@ -167,7 +172,7 @@
 			M.change_skin_tone(new_tone)
 
 	//Skin colour.
-	if(M.dna.species.bodyflags & HAS_SKIN_COLOR && !(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
+	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
 		var/new_body_colour = input("Please select body colour.", "Character Generation", M.skin_colour) as null|color
 		if(new_body_colour)
 			M.change_skin_color(new_body_colour)
@@ -176,6 +181,7 @@
 
 	M.visible_message("<span class='notice'>[M] morphs and changes [M.p_their()] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
 
+
 /datum/dna/gene/basic/grant_spell/remotetalk
 	name = "Telepathy"
 	activation_messages = list("You feel you can project your thoughts.")
@@ -183,56 +189,46 @@
 	instability = GENE_INSTABILITY_MINOR
 	mutation = REMOTE_TALK
 
-	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
+	spelltype = /obj/effect/proc_holder/spell/remotetalk
+
 
 /datum/dna/gene/basic/grant_spell/remotetalk/New()
 	..()
 	block = GLOB.remotetalkblock
 
+
 /datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/M, connected, flags)
 	..()
-	M.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindscan(null))
+	M.AddSpell(new /obj/effect/proc_holder/spell/mindscan(null))
+
 
 /datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/user)
 	..()
 	for(var/obj/effect/proc_holder/spell/S in user.mob_spell_list)
-		if(istype(S, /obj/effect/proc_holder/spell/targeted/mindscan))
+		if(istype(S, /obj/effect/proc_holder/spell/mindscan))
 			user.RemoveSpell(S)
 
-/obj/effect/proc_holder/spell/targeted/remotetalk
+
+/obj/effect/proc_holder/spell/remotetalk
 	name = "Project Mind"
 	desc = "Make people understand your thoughts!"
-	charge_max = 0
+	base_cooldown = 0
 
-	clothes_req = 0
-	stat_allowed = 0
-	invocation_type = "none"
-	range = -2
-	selection_type = "range"
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_project"
 
-/obj/effect/proc_holder/spell/targeted/remotetalk/choose_targets(mob/user = usr)
-	var/list/targets = new /list()
-	var/list/validtargets = user.get_telepathic_targets()
+/obj/effect/proc_holder/spell/remotetalk/create_new_targeting()
+	return new /datum/spell_targeting/telepathic
 
-	if(!length(validtargets))
-		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
-		start_recharge()
+
+/obj/effect/proc_holder/spell/remotetalk/cast(list/targets, mob/user = usr)
+	if(!ishuman(user))
 		return
-
-	var/target_name = input("Choose the target to talk to.", "Targeting") as null|anything in validtargets
-
-	var/mob/living/target
-	if(!target_name || !(target = validtargets[target_name]))
-		revert_cast(user)
+	if(user.mind?.miming) // Dont let mimes telepathically talk
+		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
 		return
-
-	targets += target
-	perform(targets, user = user)
-
-/obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets, mob/user = usr)
-	if(!ishuman(user))	return
 	var/say = input("What do you wish to say") as text|null
 	if(!say || usr.stat)
 		return
@@ -240,8 +236,9 @@
 	say = pencode_to_html(say, usr, format = 0, fields = 0)
 
 	for(var/mob/living/target in targets)
-		add_say_logs(user, say, target, "[src]")
-		if(REMOTE_TALK in target.mutations)
+		log_say("(TPATH to [key_name(target)]) [say]", user)
+		user.create_log(SAY_LOG, "Telepathically said '[say]' using [src]", target)
+		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
 		else
 			target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
@@ -249,56 +246,42 @@
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic message from <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
-/obj/effect/proc_holder/spell/targeted/mindscan
+
+/obj/effect/proc_holder/spell/mindscan
 	name = "Scan Mind"
 	desc = "Offer people a chance to share their thoughts!"
-	charge_max = 0
-	clothes_req = 0
-	stat_allowed = 0
-	invocation_type = "none"
-	range = -2
-	selection_type = "range"
+	base_cooldown = 0
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	action_icon_state = "genetic_mindscan"
 	var/list/available_targets = list()
 
-/obj/effect/proc_holder/spell/targeted/mindscan/choose_targets(mob/user = usr)
-	var/list/targets = list()
-	var/list/validtargets = user.get_telepathic_targets()
 
-	if(!length(validtargets))
-		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
-		start_recharge()
-		return
+/obj/effect/proc_holder/spell/mindscan/create_new_targeting()
+	return new /datum/spell_targeting/telepathic
 
-	var/target_name = input("Choose the target to listen to.", "Targeting") as null|anything in validtargets
 
-	var/mob/living/target
-	if(!target_name || !(target = validtargets[target_name]))
-		revert_cast(user)
-		return
-
-	targets += target
-	perform(targets, user = user)
-
-/obj/effect/proc_holder/spell/targeted/mindscan/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/mindscan/cast(list/targets, mob/user = usr)
 	if(!ishuman(user))
 		return
 	for(var/mob/living/target in targets)
 		var/message = "You feel your mind expand briefly... (Click to send a message.)"
-		if(REMOTE_TALK in target.mutations)
+		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
 		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
 		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
 		available_targets += target
 		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 100)
 
-/obj/effect/proc_holder/spell/targeted/mindscan/proc/removeAvailability(mob/living/target)
+
+/obj/effect/proc_holder/spell/mindscan/proc/removeAvailability(mob/living/target)
 	if(target in available_targets)
 		available_targets -= target
 		if(!(target in available_targets))
 			target.show_message("<span class='abductor'>You feel the sensation fade...</span>")
 
-/obj/effect/proc_holder/spell/targeted/mindscan/Topic(href, href_list)
+
+/obj/effect/proc_holder/spell/mindscan/Topic(href, href_list)
 	var/mob/living/user
 	if(href_list["user"])
 		user = locateUID(href_list["user"])
@@ -314,8 +297,9 @@
 			return
 		say = strip_html(say)
 		say = pencode_to_html(say, target, format = 0, fields = 0)
-		add_say_logs(user, say, target, "[src] respond")
-		if(REMOTE_TALK in target.mutations)
+		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
+		log_say("(TPATH to [key_name(target)]) [say]", user)
+		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			target.show_message("<span class='abductor'>You project your mind into [user.name]: [say]</span>")
 		else
 			target.show_message("<span class='abductor'>You fill the space in your thoughts: [say]</span>")
@@ -323,9 +307,11 @@
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic response from <b>[target]</b> ([ghost_follow_link(target, ghost=G)]) to <b>[user]</b> ([ghost_follow_link(user, ghost=G)]): [say]</i>")
 
-/obj/effect/proc_holder/spell/targeted/mindscan/Destroy()
+
+/obj/effect/proc_holder/spell/mindscan/Destroy()
 	available_targets.Cut()
 	return ..()
+
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name = "Remote Viewing"
@@ -334,48 +320,30 @@
 	instability = GENE_INSTABILITY_MINOR
 	mutation = REMOTE_VIEW
 
-	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
+	spelltype = /obj/effect/proc_holder/spell/remoteview
+
 
 /datum/dna/gene/basic/grant_spell/remoteview/New()
 	..()
 	block = GLOB.remoteviewblock
 
 
-/obj/effect/proc_holder/spell/targeted/remoteview
+/obj/effect/proc_holder/spell/remoteview
 	name = "Remote View"
 	desc = "Spy on people from any range!"
-	charge_max = 100
+	base_cooldown = 10 SECONDS
 
-	clothes_req = 0
-	stat_allowed = 0
-	invocation_type = "none"
-	range = -2
-	selection_type = "range"
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_view"
 
-/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
-	var/list/targets = list()
-	var/list/remoteviewers = list()
-	for(var/mob/M in GLOB.alive_mob_list)
-		if(M == user)
-			continue
-		if(PSY_RESIST in M.mutations)
-			continue
-		if(REMOTE_VIEW in M.mutations)
-			remoteviewers += M
-	if(!LAZYLEN(remoteviewers))
-		to_chat(user, "<span class='warning'>No valid targets with remote view were found!</span>")
-		start_recharge()
-		return
-	targets += input("Choose the target to spy on.", "Targeting") as null|anything in remoteviewers
-	if(!targets)
-		to_chat(user, "<span class='warning'>You decide against remote viewing.</span>")
-		start_recharge()
-		return
-	perform(targets, user = user)
 
-/obj/effect/proc_holder/spell/targeted/remoteview/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/remoteview/create_new_targeting()
+	return new /datum/spell_targeting/remoteview
+
+
+/obj/effect/proc_holder/spell/remoteview/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H
 	if(ishuman(user))
 		H = user
@@ -404,3 +372,4 @@
 	else
 		H.remoteview_target = null
 		H.reset_perspective()
+

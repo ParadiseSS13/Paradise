@@ -3,7 +3,7 @@
 
 /datum/event/spawn_slaughter/proc/get_slaughter(var/end_if_fail = 0)
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Демона Резни?", ROLE_DEMON, TRUE, source = /mob/living/simple_animal/slaughter)
+		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Демона Резни?", ROLE_DEMON, TRUE, source = /mob/living/simple_animal/demon/slaughter)
 		if(!candidates.len)
 			key_of_slaughter = null
 			kill()
@@ -37,7 +37,7 @@
 			kill()
 			return
 		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
-		var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
+		var/mob/living/simple_animal/demon/slaughter/S = new(holder)
 		S.holder = holder
 		player_mind.transfer_to(S)
 		player_mind.assigned_role = "Slaughter Demon"

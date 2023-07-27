@@ -1,24 +1,35 @@
 /obj/item/organ/internal/xenos
 	origin_tech = "biotech=5"
 	icon_state = "xgibmid2"
-	var/list/alien_powers = list()
 	tough = TRUE
 	sterile = TRUE
+	/// List of all powers carbon will get from inserted organ.
+	var/list/alien_powers
 
-///can be changed if xenos get an update..
-/obj/item/organ/internal/xenos/insert(mob/living/carbon/M, special = 0)
+
+/**
+ * This adds and removes alien spells upon addition, if a noncarbon tries to do this well... I blame adminbus
+ */
+/obj/item/organ/internal/xenos/insert(mob/living/carbon/user, special = FALSE)
 	..()
-	for(var/P in alien_powers)
-		M.verbs |= P
+	if(length(alien_powers))
+		for(var/power_to_add in alien_powers)
+			user.AddSpell(new power_to_add)
 
-/obj/item/organ/internal/xenos/remove(mob/living/carbon/M, special = 0)
-	for(var/P in alien_powers)
-		M.verbs -= P
+
+/obj/item/organ/internal/xenos/remove(mob/living/carbon/user, special = FALSE)
+	if(length(alien_powers))
+		for(var/power_to_remove in alien_powers)
+			var/actual_spell = locate(power_to_remove) in user.mob_spell_list
+			user.RemoveSpell(actual_spell)
 	. = ..()
+
+
 /obj/item/organ/internal/xenos/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent("sacid", 10)
-	return S
+	var/obj/object = ..()
+	object.reagents.add_reagent("sacid", 10)
+	return object
+
 
 //XENOMORPH ORGANS
 
@@ -29,41 +40,45 @@
 	origin_tech = "biotech=5;plasmatech=4"
 	parent_organ = "chest"
 	slot = "plasmavessel"
-
-
+	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds, /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma)
+	/// Used as a marker for hud updates on Life(). Ridiculous initial value required to update hud on organ insertion.
+	var/old_plasma_amount = 9999
+	/// Current amount of plasma.
 	var/stored_plasma = 0
+	/// Maximum vessel capacity.
 	var/max_plasma = 500
+	/// Gained heal amount per Life() cycle.
 	var/heal_rate = 7.5
+	/// Gained plasma amount per Life() cycle.
 	var/plasma_rate = 10
 
-/obj/item/organ/internal/xenos/plasmavessel/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent("plasma", stored_plasma/10)
-	return S
 
 /obj/item/organ/internal/xenos/plasmavessel/queen
 	name = "bloated xeno plasma vessel"
 	icon_state = "plasma_large"
 	origin_tech = "biotech=6;plasmatech=4"
 	stored_plasma = 200
-	max_plasma = 500
 	plasma_rate = 25
+	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/queen, /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma)
+
 
 /obj/item/organ/internal/xenos/plasmavessel/drone
 	name = "large xeno plasma vessel"
 	icon_state = "plasma_large"
 	stored_plasma = 200
-	max_plasma = 500
+
 
 /obj/item/organ/internal/xenos/plasmavessel/sentinel
-	stored_plasma = 200
-	max_plasma = 500
+	stored_plasma = 100
+
 
 /obj/item/organ/internal/xenos/plasmavessel/hunter
 	name = "small xeno plasma vessel"
 	icon_state = "plasma_tiny"
 	stored_plasma = 100
 	max_plasma = 150
+	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds)
+
 
 /obj/item/organ/internal/xenos/plasmavessel/larva
 	name = "tiny xeno plasma vessel"
@@ -71,33 +86,42 @@
 	max_plasma = 100
 
 
+/obj/item/organ/internal/xenos/plasmavessel/prepare_eat()
+	var/obj/S = ..()
+	S.reagents.add_reagent("plasma", stored_plasma/10)
+	return S
+
+
 /obj/item/organ/internal/xenos/plasmavessel/on_life()
-	//passive regeneration amount
-	var/heal_amount = 1
+	if(!owner)
+		return
 
-	if(locate(/obj/structure/alien/weeds) in owner.loc)
-		if(owner.health >= owner.maxHealth)
-			owner.adjustPlasma(plasma_rate)
-		else
-			heal_amount += isalien(owner) ? heal_rate : 0.2 * heal_rate
-			owner.adjustPlasma(plasma_rate*0.5)
+	update_hud()
 
-	owner.adjustBruteLoss(-heal_amount)
-	owner.adjustFireLoss(-heal_amount)
-	owner.adjustOxyLoss(-heal_amount)
-	owner.adjustCloneLoss(-heal_amount)
+	//If there are alien weeds on the ground then heal if needed or give some plasma
+	if(!(locate(/obj/structure/alien/weeds) in owner.loc))
+		return
 
-/obj/item/organ/internal/xenos/plasmavessel/insert(mob/living/carbon/M, special = 0)
-	..()
-	if(isalien(M))
-		var/mob/living/carbon/alien/A = M
-		A.updatePlasmaDisplay()
+	if(owner.health >= owner.maxHealth)
+		owner.adjust_alien_plasma(plasma_rate)
+		update_hud()
+		return
 
-/obj/item/organ/internal/alien/plasmavessel/remove(mob/living/carbon/M, special = 0)
-	. =..()
-	if(isalien(M))
-		var/mob/living/carbon/alien/A = M
-		A.updatePlasmaDisplay()
+	var/heal_amt = heal_rate
+	if(!isalien(owner))
+		heal_amt *= 0.2
+	owner.adjust_alien_plasma((plasma_rate * 0.5))
+	owner.adjustBruteLoss(-heal_amt)
+	owner.adjustFireLoss(-heal_amt)
+	owner.adjustOxyLoss(-heal_amt)
+	owner.adjustCloneLoss(-heal_amt)
+	update_hud()
+
+
+/obj/item/organ/internal/xenos/plasmavessel/proc/update_hud()
+	if(old_plasma_amount != stored_plasma)
+		old_plasma_amount = stored_plasma
+		owner.update_plasma_display(owner)
 
 
 /obj/item/organ/internal/xenos/acidgland
@@ -106,27 +130,23 @@
 	parent_organ = "head"
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
-	var/datum/action/innate/xeno_action/corrosive_acid/corrosive_acid_action = new
+	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid)
+
 
 /obj/item/organ/internal/xenos/acidgland/sentinel
 	name = "medium xeno acid gland"
-	corrosive_acid_action = new /datum/action/innate/xeno_action/corrosive_acid/sentinel
+	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/sentinel)
+
 
 /obj/item/organ/internal/xenos/acidgland/praetorian
 	name = "massive xeno acid gland"
-	corrosive_acid_action = new /datum/action/innate/xeno_action/corrosive_acid/praetorian
+	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/praetorian)
+
 
 /obj/item/organ/internal/xenos/acidgland/queen
 	name = "royal xeno acid gland"
-	corrosive_acid_action = new /datum/action/innate/xeno_action/corrosive_acid/queen
+	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/queen)
 
-/obj/item/organ/internal/xenos/acidgland/insert(mob/living/carbon/M, special = 0)
-	..()
-	corrosive_acid_action.Grant(M)
-
-/obj/item/organ/internal/xenos/acidgland/remove(mob/living/carbon/M, special = 0)
-	corrosive_acid_action.Remove(M)
-	. = ..()
 
 /obj/item/organ/internal/xenos/hivenode
 	name = "xeno hive node"
@@ -135,6 +155,8 @@
 	slot = "hivenode"
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
 	w_class = WEIGHT_CLASS_TINY
+	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/whisper)
+
 
 /obj/item/organ/internal/xenos/hivenode/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -142,11 +164,13 @@
 	M.add_language("Hivemind")
 	M.add_language("Xenomorph")
 
+
 /obj/item/organ/internal/xenos/hivenode/remove(mob/living/carbon/M, special = 0)
 	M.faction -= "alien"
 	M.remove_language("Hivemind")
 	M.remove_language("Xenomorph")
 	. = ..()
+
 
 /obj/item/organ/internal/xenos/neurotoxin
 	name = "xeno neurotoxin gland"
@@ -154,16 +178,8 @@
 	parent_organ = "head"
 	slot = "neurotox"
 	origin_tech = "biotech=5;combat=5"
-	var/obj/effect/proc_holder/spell/neurotoxin/neurotoxin_spell = new
+	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin)
 
-/obj/item/organ/internal/xenos/neurotoxin/insert(mob/living/carbon/M, special = 0)
-	..()
-	neurotoxin_spell.action.Grant(M)
-
-
-/obj/item/organ/internal/xenos/neurotoxin/remove(mob/living/carbon/M, special = 0)
-	neurotoxin_spell.action.Remove(M)
-	. = ..()
 
 /obj/item/organ/internal/xenos/resinspinner
 	name = "xeno resin organ"//...there tiger....
@@ -171,22 +187,8 @@
 	icon_state = "liver-x"
 	slot = "spinner"
 	origin_tech = "biotech=5;materials=4"
-	var/datum/action/innate/xeno_action/resin/resin_action = new
-	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
+	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/build_resin)
 
-/obj/item/organ/internal/xenos/resinspinner/insert(mob/living/carbon/M, special = 0)
-	..()
-	resin_action.Grant(M)
-	plant_spell.action.Grant(M)
-
-/obj/item/organ/internal/xenos/resinspinner/remove(mob/living/carbon/M, special = 0)
-	resin_action.Remove(M)
-	plant_spell.action.Remove(M)
-	. = ..()
-
-/obj/item/organ/internal/xenos/resinspinner/queen
-	name = "extensive xeno resin organ"
-	plant_spell = new /obj/effect/proc_holder/spell/xeno_plant/queen
 
 /obj/item/organ/internal/xenos/eggsac
 	name = "xeno egg sac"
@@ -195,12 +197,5 @@
 	slot = "eggsac"
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=6"
-	var/datum/action/innate/xeno_action/lay_egg_queen/lay_egg_queen_action = new
+	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/eggs)
 
-/obj/item/organ/internal/xenos/eggsac/insert(mob/living/carbon/M, special = 0)
-	..()
-	lay_egg_queen_action.Grant(M)
-
-/obj/item/organ/internal/xenos/eggsac/remove(mob/living/carbon/M, special = 0)
-	lay_egg_queen_action.Remove(M)
-	. = ..()

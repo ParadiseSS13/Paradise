@@ -32,7 +32,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/New()
 	..()
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/guardian/healer/quickmend(summoner))
+	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(summoner))
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
@@ -145,26 +145,45 @@
 	else
 		to_chat(src, "<span class='danger'>Вам нужно стоять смирно!</span>")
 
-/obj/effect/proc_holder/spell/targeted/guardian/healer/quickmend
+
+/obj/effect/proc_holder/spell/guardian_quickmend
 	name = "Быстрое исцеление"
 	desc = "Проверяет хозяина на наличие травм. Если таковые есть, лечит случайную из них. Шанс срабатывания 50%."
 	action_icon_state = "heal"
 	action_background_icon_state = "bg_spell"
-	charge_max = 350
-	range = 1
+	base_cooldown = 35 SECONDS
 	clothes_req = FALSE
-	human_req = 0
+	human_req = FALSE
 	var/chance_to_mend = 50
 	var/cast_time = 50
 	var/list/possible_cures = list("bleedings","fractures","infections","embedded","damaged_organs")
 	var/mob/living/carbon/human/summoner = null
 
-/obj/effect/proc_holder/spell/targeted/guardian/healer/quickmend/New(var/mob/living/carbon/human/summoned_by)
+
+/obj/effect/proc_holder/spell/guardian_quickmend/New(mob/living/carbon/human/summoned_by)
 	. = ..()
 	summoner = summoned_by
 
-/obj/effect/proc_holder/spell/targeted/guardian/healer/quickmend/cast(list/targets, mob/user)
-	. = ..()
+
+/obj/effect/proc_holder/spell/guardian_quickmend/Destroy()
+	summoner = null
+	return ..()
+
+
+/obj/effect/proc_holder/spell/guardian_quickmend/create_new_targeting()
+	var/datum/spell_targeting/aoe/T = new
+	T.range = 1
+	T.selection_type = SPELL_SELECTION_RANGE
+	T.use_turf_of_user = TRUE
+	T.try_auto_target = TRUE
+	return T
+
+
+/obj/effect/proc_holder/spell/guardian_quickmend/valid_target(target, user)
+	return target == summoner
+
+
+/obj/effect/proc_holder/spell/guardian_quickmend/cast(list/targets, mob/user)
 	for(var/target in targets)
 		if(target != summoner)
 			to_chat(user, "Это не ваш хозяин.")
