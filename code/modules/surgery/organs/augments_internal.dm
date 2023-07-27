@@ -372,6 +372,7 @@
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+
 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	name = "hardened nutriment pump implant"
 	emp_proof = TRUE
