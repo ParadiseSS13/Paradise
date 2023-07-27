@@ -231,3 +231,6 @@
   Zwei:
   - bugfix: Contractor Role Update (#3235)
   - tweak: Stack Overweight Drop (#3221)
+'2023-07-27':
+  Zwei:
+  - refactor: Porting and Refactoring Official Paradise Spells System (#3168)
