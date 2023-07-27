@@ -1684,6 +1684,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 #define CPR_BREATHS_RESTORATION (4 SECONDS)
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
+
+	var/static/list/effective_cpr_messages = list(
+		"You feel like you're able to stave off the inevitable for a little longer.",
+		"You can still see the color in their cheeks."
+	)
+
+	var/static/list/ineffective_cpr_messages = list(
+		"You're starting to feel them stiffen under you, but you keep going",
+		"Without rescue breaths, they seem to be turning a little blue, but you press on.",
+	)
+
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
 		return
@@ -1719,10 +1730,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD) && H.IsRevivable())
 			var/timer_restored
 			if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
-				visible_message("<span class='notice'>[src] gives [H] chest compressions, though [H] do[H.p_es()] not seem to respond.</span>", "<span class='notice'>You can't make rescue breaths work, so you do your best to give chest compressions.</span>")
+				visible_message("<span class='notice'>[src] gives [H] chest compressions.</span>", "<span class='notice'>You can't make rescue breaths work, so you do your best to give chest compressions.</span>")
 				timer_restored = CPR_CHEST_COMPRESSION_RESTORATION  // without rescue breaths, it won't stave off the death timer forever
 			else
-				visible_message("<span class='notice'>[src] gives [H] chest compressions and rescue breaths, hopefully postponing the inevitable.</span>", "<span class='notice'>You give [H] chest compressions and rescue breaths.</span>")
+				visible_message("<span class='notice'>[src] gives [H] chest compressions and rescue breaths.</span>", "<span class='notice'>You give [H] chest compressions and rescue breaths.</span>")
 				timer_restored = CPR_BREATHS_RESTORATION  // this, however, should keep it indefinitely postponed assuming CPR continues
 
 			if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
@@ -1734,6 +1745,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			var/new_time = (timer_restored + H.get_cpr_timer_adjustment(cpr_modifier))
 
 			SEND_SIGNAL(H, COMSIG_HUMAN_RECEIVE_CPR, (new_time SECONDS))
+
+			if(prob(5))
+				if(timer_restored > 4 SECONDS)
+					to_chat(pick(effective_cpr_messages))
+				else
+					to_chat(pick(ineffective_cpr_messages))
 
 		if(!H.IsRevivable())
 			to_chat(src, "<span class='notice'>You feel [H]'s body is already starting to stiffen beneath you...it's too late for CPR now.</span>")
