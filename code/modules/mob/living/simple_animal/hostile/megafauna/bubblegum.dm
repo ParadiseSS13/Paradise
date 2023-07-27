@@ -171,6 +171,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2)
 	if(!chargeat)
 		return
+	if(target.z != z)
+		return
 	var/chargeturf = get_turf(chargeat)
 	if(!chargeturf)
 		return
@@ -370,6 +372,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hallucination_charge_around(times = 4, delay = 9, chargepast = 0, useoriginal = 1, radius)
 	var/startingangle = rand(1, 360)
 	if(!target)
+		return
+	if(target.z != z)
 		return
 	var/turf/chargeat = get_turf(target)
 	var/srcplaced = FALSE

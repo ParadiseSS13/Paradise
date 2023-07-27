@@ -195,8 +195,7 @@
 /obj/docking_port/stationary/transit
 	name = "In transit"
 	turf_type = /turf/space/transit
-	var/area/shuttle/transit/assigned_area
-	lock_shuttle_doors = 1
+	lock_shuttle_doors = TRUE
 
 /obj/docking_port/stationary/transit/register()
 	if(!..())
