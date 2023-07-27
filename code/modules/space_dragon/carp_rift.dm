@@ -9,7 +9,7 @@
 	name = "Summon Rift"
 	desc = "Открывает разлом призыва орды космических карпов."
 	button_icon_state = "carp_rift"
-	background_icon_state = "bg_default"
+	background_icon_state = "bg_alien"
 
 /datum/action/innate/summon_rift/Activate()
 	var/datum/antagonist/space_dragon/dragon = owner.mind?.has_antag_datum(/datum/antagonist/space_dragon)

@@ -35,8 +35,6 @@
 		return
 
 	dragon = owner.current
-	rift_ability = new()
-
 
 
 /datum/antagonist/space_dragon/Destroy()
@@ -82,7 +80,9 @@
 	RegisterSignal(antag, COMSIG_LIVING_DEATH, PROC_REF(destroy_rifts))
 	antag.faction |= "carp"
 	// Give the ability over if we have one
-	rift_ability?.Grant(antag)
+	if(!rift_ability)
+		rift_ability = new()
+	rift_ability.Grant(antag)
 
 
 /datum/antagonist/space_dragon/remove_innate_effects(mob/living/mob_override)
