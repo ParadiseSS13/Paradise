@@ -169,7 +169,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "wolf_eyepatch"
 
-/obj/item/clothing/glasses/meson/fluff/book_berner_1 // Adrkiller59: Adam Cooper
+/obj/item/clothing/glasses/hud/meson/fluff/book_berner_1 // Adrkiller59: Adam Cooper
 	name = "bespectacled mesonic surveyors"
 	desc = "One of the older meson scanner models retrofitted to perform like its modern counterparts."
 	icon = 'icons/obj/custom_items.dmi'

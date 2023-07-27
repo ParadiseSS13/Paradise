@@ -9,6 +9,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_TURF_CHASM)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_CHASM)
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
+	hud_possible = list(MESON_HUD)
 	layer = 1.7
 	intact = 0
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
@@ -34,6 +35,13 @@
 	var/drop_x = 1
 	var/drop_y = 1
 	var/drop_z = 2 // so that it doesn't send you to CC if something fucks up.
+
+/turf/simulated/floor/chasm/Initialize()
+	. = ..()
+	prepare_huds()
+	for(var/datum/atom_hud/data/meson/advanced/meson_hud in GLOB.huds)
+		meson_hud.add_to_hud(src)
+	meson_hud_set_warning()
 
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()

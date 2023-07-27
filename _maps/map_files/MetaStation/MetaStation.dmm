@@ -149,7 +149,7 @@
 /obj/item/clothing/mask/gas,
 /obj/item/extinguisher,
 /obj/item/clothing/head/hardhat/red,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "acv" = (
@@ -6750,9 +6750,9 @@
 /obj/item/storage/belt/utility,
 /obj/item/storage/belt/utility,
 /obj/item/storage/belt/utility,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
+/obj/item/clothing/glasses/hud/meson,
+/obj/item/clothing/glasses/hud/meson,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aGc" = (
@@ -16871,7 +16871,7 @@
 "bho" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/firecloset,
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/hud/meson/engine,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -17824,7 +17824,7 @@
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/t_scanner,
 /obj/item/multitool,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/machinery/camera{
 	c_tag = "Starboard Primary Hallway - Auxiliary Tool Storage";
 	dir = 1
@@ -18342,7 +18342,7 @@
 /area/maintenance/maintcentral)
 "bkT" = (
 /obj/structure/closet/toolcloset,
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/hud/meson/engine,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -19465,7 +19465,7 @@
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/t_scanner,
 /obj/item/multitool,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "custom placement";
@@ -19617,7 +19617,7 @@
 	layer = 2.9
 	},
 /obj/item/lighter/zippo,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/machinery/button/windowtint{
 	id = "CE";
 	pixel_y = -24;
@@ -58365,8 +58365,8 @@
 "hrZ" = (
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/glasses/meson/engine,
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/hud/meson/engine,
+/obj/item/clothing/glasses/hud/meson/engine,
 /obj/item/rpd,
 /obj/item/rpd,
 /obj/machinery/light{
@@ -80116,7 +80116,7 @@
 /obj/item/clothing/head/radiation,
 /obj/item/geiger_counter,
 /obj/item/geiger_counter,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "rHb" = (

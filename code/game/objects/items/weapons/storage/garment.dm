@@ -196,7 +196,7 @@
 	new /obj/item/clothing/under/rank/cargo/quartermaster/skirt(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/clothing/glasses/hud/meson(src)
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)

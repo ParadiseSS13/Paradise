@@ -131,10 +131,15 @@
 
 /obj/item/organ/internal/eyes/cybernetic/meson/insert(mob/living/carbon/human/M, special = FALSE)
 	ADD_TRAIT(M, TRAIT_MESON_VISION, "meson_vision[UID()]")
-	return ..()
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MESON_ADVANCED]
+	H.add_hud_to(M)
+	M.permanent_huds |= H
 
 /obj/item/organ/internal/eyes/cybernetic/meson/remove(mob/living/carbon/human/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_MESON_VISION, "meson_vision[UID()]")
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MESON_ADVANCED]
+	M.permanent_huds ^= H
+	H.remove_hud_from(M)
 	return ..()
 
 /obj/item/organ/internal/eyes/cybernetic/xray

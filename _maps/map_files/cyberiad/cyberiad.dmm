@@ -8620,7 +8620,7 @@
 /obj/item/clothing/mask/gas,
 /obj/item/extinguisher,
 /obj/item/clothing/head/hardhat/red,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "azn" = (
@@ -48607,7 +48607,7 @@
 	},
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/t_scanner,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/item/multitool,
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -61092,7 +61092,7 @@
 /area/engine/hardsuitstorage)
 "dtl" = (
 /obj/item/stock_parts/cell/high,
-/obj/item/clothing/glasses/meson{
+/obj/item/clothing/glasses/hud/meson{
 	pixel_y = 5
 	},
 /obj/structure/table,
@@ -72390,7 +72390,7 @@
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/clothing/gloves/color/black,
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/hud/meson/engine,
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -75548,7 +75548,7 @@
 	charge = 100;
 	maxcharge = 15000
 	},
-/obj/item/clothing/glasses/meson{
+/obj/item/clothing/glasses/hud/meson{
 	pixel_y = 4
 	},
 /obj/item/lighter/zippo{
@@ -76328,7 +76328,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/radiation,
 /obj/item/clothing/head/radiation,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -76625,7 +76625,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/radiation,
 /obj/item/clothing/head/radiation,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/item/geiger_counter,
 /obj/item/geiger_counter,
 /obj/effect/decal/warning_stripes/north,

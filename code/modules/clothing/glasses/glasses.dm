@@ -68,66 +68,6 @@
 				H.EyeBlurry(10 SECONDS)
 				eyes.receive_damage(5)
 
-/obj/item/clothing/glasses/meson
-	name = "optical meson scanner"
-	desc = "Used for seeing walls, floors, and stuff through anything."
-	icon_state = "meson"
-	item_state = "meson"
-	origin_tech = "magnets=1;engineering=2"
-	prescription_upgradable = TRUE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
-
-	var/active_on_equip = TRUE
-
-/obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
-	. = ..()
-	if(active_on_equip && slot == slot_glasses)
-		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/meson/dropped(mob/user)
-	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
-
-/obj/item/clothing/glasses/meson/night
-	name = "night vision optical meson scanner"
-	desc = "An optical meson scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
-	icon_state = "nvgmeson"
-	origin_tech = "magnets=4;engineering=5;plasmatech=4"
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	prescription_upgradable = FALSE
-
-/obj/item/clothing/glasses/meson/prescription
-	prescription = 1
-
-/obj/item/clothing/glasses/meson/gar
-	name = "gar mesons"
-	icon_state = "garm"
-	item_state = "garm"
-	desc = "Do the impossible, see the invisible!"
-	force = 10
-	throwforce = 10
-	throw_speed = 4
-	attack_verb = list("sliced")
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharp = TRUE
-
-/obj/item/clothing/glasses/meson/cyber
-	name = "eye replacement implant"
-	desc = "An implanted replacement for a left eye with meson vision capabilities."
-	icon_state = "cybereye-green"
-	item_state = "eyepatch"
-	flags = NODROP
-	flags_cover = null
-	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"

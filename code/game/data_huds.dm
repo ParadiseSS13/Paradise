@@ -51,6 +51,11 @@
 /datum/atom_hud/data/diagnostic/advanced
 	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD)
 
+/datum/atom_hud/data/meson
+
+/datum/atom_hud/data/meson/advanced
+	hud_icons = list(MESON_HUD)
+
 /datum/atom_hud/abductor
 	hud_icons = list(GLAND_HUD)
 
@@ -486,6 +491,14 @@
 		holder.icon_state = "electrified"
 	else
 		holder.icon_state = ""
+
+/*~~~~~~~~~~~
+	Mesons!
+~~~~~~~~~~~~*/
+/turf/simulated/floor/chasm/proc/meson_hud_set_warning()
+	var/image/holder
+	holder = hud_list[MESON_HUD]
+	holder.icon_state = "chasm"
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

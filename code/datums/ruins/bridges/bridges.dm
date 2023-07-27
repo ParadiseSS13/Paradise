@@ -79,5 +79,4 @@
 	else if((ismineralturf(north) || istype(north, /turf/simulated/floor/plating/asteroid)) && (ismineralturf(south) || istype(south, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(e1) || istype(e1, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(w1) || istype(w1, /turf/simulated/floor/plating/asteroid)))
 		template = GLOB.bridge_vertical_templates[pick("lavaland_bridge_vertical_1.dmm", "lavaland_bridge_vertical_2.dmm", "lavaland_bridge_vertical_3.dmm", "lavaland_bridge_vertical_4.dmm", "lavaland_bridge_vertical_5.dmm", "lavaland_bridge_vertical_6.dmm")]
 		template.load(loc, centered = TRUE)
-	message_admins("I existed, but may not have spawned something")
 	return INITIALIZE_HINT_QDEL

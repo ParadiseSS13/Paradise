@@ -230,3 +230,66 @@
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 	)
+
+
+/obj/item/clothing/glasses/hud/meson
+	name = "optical meson scanner"
+	desc = "Used for seeing walls, floors, and stuff through anything."
+	icon_state = "meson"
+	item_state = "meson"
+	origin_tech = "magnets=1;engineering=2"
+	prescription_upgradable = TRUE
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+		)
+
+	var/active_on_equip = TRUE
+
+/obj/item/clothing/glasses/hud/meson/equipped(mob/user, slot, initial)
+	. = ..()
+	if(active_on_equip && slot == slot_glasses)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+
+/obj/item/clothing/glasses/hud/meson/dropped(mob/user)
+	. = ..()
+	if(user)
+		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+
+/obj/item/clothing/glasses/hud/meson/night
+	name = "night vision optical meson scanner"
+	desc = "An optical meson scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
+	icon_state = "nvgmeson"
+	origin_tech = "magnets=4;engineering=5;plasmatech=4"
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	prescription_upgradable = FALSE
+	HUDType = DATA_HUD_MESON_ADVANCED
+
+/obj/item/clothing/glasses/hud/meson/prescription
+	prescription = 1
+
+/obj/item/clothing/glasses/hud/meson/gar
+	name = "gar mesons"
+	icon_state = "garm"
+	item_state = "garm"
+	desc = "Do the impossible, see the invisible!"
+	force = 10
+	throwforce = 10
+	throw_speed = 4
+	attack_verb = list("sliced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharp = TRUE
+
+/obj/item/clothing/glasses/hud/meson/cyber
+	name = "eye replacement implant"
+	desc = "An implanted replacement for a left eye with meson vision capabilities."
+	icon_state = "cybereye-green"
+	item_state = "eyepatch"
+	flags = NODROP
+	flags_cover = null
+	prescription_upgradable = FALSE

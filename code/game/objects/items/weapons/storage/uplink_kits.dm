@@ -110,7 +110,7 @@
 		/obj/item/clothing/gloves/color/yellow/power, // 10TC
 		/obj/item/dnainjector/telemut/darkbundle, // 0TC
 		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
-		/obj/item/clothing/glasses/meson/engine/tray, // 0TC
+		/obj/item/clothing/glasses/hud/meson/engine/tray, // 0TC
 		/obj/item/clothing/mask/chameleon, // 1TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC

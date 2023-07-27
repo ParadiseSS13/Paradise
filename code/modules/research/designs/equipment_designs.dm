@@ -88,7 +88,7 @@
 	req_tech = list("magnets" = 2, "engineering" = 2, "plasmatech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/clothing/glasses/meson
+	build_path = /obj/item/clothing/glasses/hud/meson
 	category = list("Equipment")
 
 
@@ -99,7 +99,7 @@
 	req_tech = list("materials" = 4, "magnets" = 3, "engineering" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_PLASMA = 100)
-	build_path = /obj/item/clothing/glasses/meson/engine
+	build_path = /obj/item/clothing/glasses/hud/meson/engine
 	category = list("Equipment")
 
 /datum/design/tray_goggles
@@ -109,7 +109,7 @@
 	req_tech = list("materials" = 3, "magnets" = 2, "engineering" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/clothing/glasses/meson/engine/tray
+	build_path = /obj/item/clothing/glasses/hud/meson/engine/tray
 	category = list("Equipment")
 
 /datum/design/nvgmesons
@@ -119,7 +119,7 @@
 	req_tech = list("magnets" = 5, "plasmatech" = 5, "engineering" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_PLASMA = 350, MAT_URANIUM = 1000)
-	build_path = /obj/item/clothing/glasses/meson/night
+	build_path = /obj/item/clothing/glasses/hud/meson/night
 	category = list("Equipment")
 
 /datum/design/air_horn

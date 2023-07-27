@@ -5,7 +5,7 @@
 	icon_deny = "engivend_deny"
 	icon_panel = "generic"
 	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
-	products = list(/obj/item/clothing/glasses/meson/engine = 2, /obj/item/multitool = 4, /obj/item/geiger_counter = 5,  /obj/item/airlock_electronics = 10, /obj/item/firelock_electronics = 10, /obj/item/firealarm_electronics = 10, /obj/item/apc_electronics = 10, /obj/item/airalarm_electronics = 10, /obj/item/stock_parts/cell/high = 10, /obj/item/camera_assembly = 10)
+	products = list(/obj/item/clothing/glasses/hud/meson/engine = 2, /obj/item/multitool = 4, /obj/item/geiger_counter = 5,  /obj/item/airlock_electronics = 10, /obj/item/firelock_electronics = 10, /obj/item/firealarm_electronics = 10, /obj/item/apc_electronics = 10, /obj/item/airalarm_electronics = 10, /obj/item/stock_parts/cell/high = 10, /obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	refill_canister = /obj/item/vending_refill/engivend
 
@@ -16,7 +16,7 @@
 	icon_deny = "engi_deny"
 	req_access_txt = "11"
 	products = list(/obj/item/clothing/under/rank/engineering/chief_engineer = 4, /obj/item/clothing/under/rank/engineering/engineer = 40, /obj/item/clothing/shoes/workboots = 4, /obj/item/clothing/head/hardhat = 4,
-					/obj/item/storage/belt/utility = 4, /obj/item/clothing/glasses/meson/engine = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
+					/obj/item/storage/belt/utility = 4, /obj/item/clothing/glasses/hud/meson/engine = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
 					/obj/item/crowbar = 12, /obj/item/wirecutters = 12, /obj/item/multitool = 12,/obj/item/wrench = 12, /obj/item/t_scanner = 12,
 					/obj/item/stack/cable_coil = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8, /obj/item/clothing/head/welding = 8,
 					/obj/item/light/tube = 10, /obj/item/clothing/suit/fire = 4, /obj/item/stock_parts/scanning_module = 5, /obj/item/stock_parts/micro_laser = 5,

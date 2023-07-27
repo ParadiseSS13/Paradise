@@ -16180,9 +16180,9 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
+/obj/item/clothing/glasses/hud/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/item/pickaxe/mini,
 /obj/item/pickaxe/mini,
 /obj/item/pickaxe/mini,
@@ -23841,7 +23841,7 @@
 /area/crew_quarters/kitchen)
 "css" = (
 /obj/structure/table,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -28605,7 +28605,7 @@
 "cQD" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/clothing/glasses/meson{
+/obj/item/clothing/glasses/hud/meson{
 	pixel_y = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -47140,7 +47140,7 @@
 "hPZ" = (
 /obj/structure/table,
 /obj/item/wrench,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
 "hQf" = (
@@ -53935,7 +53935,7 @@
 /area/security/nuke_storage)
 "jXc" = (
 /obj/structure/table,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
@@ -55165,8 +55165,8 @@
 /area/hallway/primary/fore)
 "ksU" = (
 /obj/structure/rack,
-/obj/item/clothing/glasses/meson/engine,
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/hud/meson/engine,
+/obj/item/clothing/glasses/hud/meson/engine,
 /obj/item/geiger_counter,
 /obj/item/geiger_counter,
 /turf/simulated/floor/plasteel{
@@ -73795,7 +73795,7 @@
 "qzg" = (
 /obj/structure/table,
 /obj/item/wrench,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "qzH" = (
@@ -74974,7 +74974,7 @@
 /area/hallway/secondary/entry/north)
 "qUt" = (
 /obj/structure/table,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/hallway/primary/aft/west)
@@ -78497,7 +78497,7 @@
 	pixel_y = -1
 	},
 /obj/item/multitool,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/machinery/alarm{
 	dir = 8;
 	pixel_x = 24;
@@ -91988,7 +91988,7 @@
 /area/security/checkpoint2)
 "wAp" = (
 /obj/structure/table,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "wAq" = (

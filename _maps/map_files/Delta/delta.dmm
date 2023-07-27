@@ -4779,7 +4779,7 @@
 "avx" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/black,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -5389,9 +5389,9 @@
 /area/maintenance/disposal)
 "awG" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/hud/meson,
+/obj/item/clothing/glasses/hud/meson,
+/obj/item/clothing/glasses/hud/meson,
 /obj/item/analyzer,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -45475,7 +45475,7 @@
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/black,
 /obj/item/wrench,
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/hud/meson/engine,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -51415,7 +51415,7 @@
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/black,
 /obj/item/wrench,
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/hud/meson/engine,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
