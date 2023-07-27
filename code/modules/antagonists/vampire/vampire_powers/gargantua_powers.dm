@@ -237,7 +237,7 @@
 	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
-	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_SIZE, the_middle_ground))
+	for(var/tumor_range_turfs in circle_edge_turfs(the_middle_ground, ARENA_SIZE))
 		new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check()

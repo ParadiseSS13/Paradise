@@ -111,7 +111,7 @@
 
 	return dist
 
-/proc/circlerangeturfs(center=usr,radius=3)
+/proc/circle_edge_turfs(center=usr,radius=3) // Get the turfs on the edge of a circle
 
 	var/turf/centerturf = get_turf(center)
 	var/list/turfs = new/list()
@@ -122,9 +122,14 @@
 		var/dy = T.y - centerturf.y
 		if(dx*dx + dy*dy <= rsq)
 			turfs += T
+	for(var/turf/T in turfs)
+		var/dx = T.x - centerturf.x
+		var/dy = T.y - centerturf.y
+		if(dx*dx + dy*dy <= (rsq - 3))
+			turfs -= T
 	return turfs
 
-/proc/circleviewturfs(center=usr,radius=3)		//Is there even a diffrence between this proc and circlerangeturfs()?
+/proc/circleviewturfs(center=usr,radius=3)
 
 	var/turf/centerturf = get_turf(center)
 	var/list/turfs = new/list()
