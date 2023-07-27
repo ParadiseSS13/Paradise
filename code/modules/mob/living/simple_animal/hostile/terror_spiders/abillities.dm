@@ -79,6 +79,7 @@
 /obj/effect/proc_holder/spell/fireball/venom_spit
 	name = "Venom spit"
 	desc = "Spit an acid that creates smoke filled with drugs and venom on impact."
+	invocation_type = "none"
 	action_icon_state = "fake_death"
 	action_background_icon_state = "bg_terror"
 	selection_activated_message	= "<span class='notice'>Your prepare your venom spit! <B>Left-click to spit at a target!</B></span>"
@@ -119,6 +120,7 @@
 /obj/effect/proc_holder/spell/fireball/smoke_spit
 	name = "Smoke spit"
 	desc = "Spit an acid that creates smoke on impact."
+	invocation_type = "none"
 	action_icon_state = "smoke"
 	action_background_icon_state = "bg_terror"
 	selection_activated_message	= "<span class='notice'>Your prepare your smoke spit! <B>Left-click to spit at a target!</B></span>"
