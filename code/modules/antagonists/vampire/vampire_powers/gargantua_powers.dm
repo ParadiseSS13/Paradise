@@ -180,19 +180,45 @@
 	icon_state = "immobilized"
 	duration = 1 SECONDS
 
+/obj/effect/proc_holder/spell/vampire/charge
+	name = "Charge (30)"
+	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
+	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
+	required_blood = 30
+	base_cooldown = 30 SECONDS
+	action_icon_state = "vampire_charge"
+
+/obj/effect/proc_holder/spell/vampire/charge/create_new_targeting()
+	return new /datum/spell_targeting/clicked_atom
+
+/obj/effect/proc_holder/spell/vampire/charge/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/L = user
+	if(IS_HORIZONTAL(L))
+		return FALSE
+	return ..()
+
+/obj/effect/proc_holder/spell/vampire/charge/cast(list/targets, mob/user)
+	var/target = targets[1]
+	if(isliving(user))
+		var/mob/living/L = user
+		L.apply_status_effect(STATUS_EFFECT_CHARGING)
+		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
+
 /obj/effect/proc_holder/spell/vampire/arena
 	name = "Challenging Arena"
 	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 30
 	base_cooldown = 30 SECONDS
-	action_icon_state = "vampire_charge"
+	action_icon_state = "blood_barrier"
 	/// The garg vampire
 	var/mob/mychild
 	/// Is our spell active?
 	var/spell_active
 	/// What turf will be the middle of our arena?
 	var/turf/the_middle_ground
+	/// Holds a reference to the timer until either the spell runs out or we recast it
+	var/timer
 
 /obj/effect/proc_holder/spell/vampire/arena/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -202,6 +228,10 @@
 
 /obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/user)
 	if(!targets)
+		return
+
+	if(timer) // Recast to dispell the wall and buff early
+		dispell()
 		return
 
 	// First we leap towards the enemy target
@@ -226,7 +256,8 @@
 	the_middle_ground = get_turf(user) // I am so deeply sorry to get a hard ref to a turf
 	mychild = user
 	spell_active = TRUE
-	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(onEliteLoss))
+	timer = addtimer(CALLBACK(src, PROC_REF(dispell), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
+	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
 	arena_checks()
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
@@ -242,7 +273,7 @@
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check()
 	if(QDELETED(mychild) || mychild.stat == DEAD)
-		onEliteLoss()
+		dispell()
 		return
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/clear_activator(mob/source)
@@ -250,7 +281,9 @@
 	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "clear activation")
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/onEliteLoss()
+/obj/effect/proc_holder/spell/vampire/arena/proc/dispell()
 	spell_active = FALSE
-	visible_message("<span class='warning'>[src] begins to convulse violently before falling lifeless to the ground.</span>")
+	if(timer)
+		deltimer(timer)
+		timer = null
 	visible_message("<span class='warning'>The arena begins to slowly dissipate.</span>")

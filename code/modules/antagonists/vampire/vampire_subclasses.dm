@@ -83,6 +83,7 @@
 							/obj/effect/proc_holder/spell/vampire/blood_barrier,
 							/obj/effect/proc_holder/spell/vampire/self/blood_rush,
 							/obj/effect/proc_holder/spell/vampire/self/stomp,
+							/obj/effect/proc_holder/spell/vampire/charge
 							/obj/effect/proc_holder/spell/vampire/shadow_snare,
 							/obj/effect/proc_holder/spell/vampire/soul_anchor,
 							/obj/effect/proc_holder/spell/vampire/pacify,
