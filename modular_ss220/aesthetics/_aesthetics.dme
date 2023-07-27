@@ -36,3 +36,8 @@
 #include "intercom\code\intercom.dm"
 #include "walls\code\walls.dm"
 #include "windows\code\windows.dm"
+#include "floors\code\tile_types.dm"
+#include "decals\code\decals.dm"
+#include "airlocks\code\airlock.dm"
+#include "airlocks\code\airlock_types.dm"
+#include "airlocks\code\airlock_assembly_types.dm"
