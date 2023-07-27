@@ -232,5 +232,17 @@
   - bugfix: Contractor Role Update (#3235)
   - tweak: Stack Overweight Drop (#3221)
 '2023-07-27':
+  Daeberdir:
+  - tweak: knuckles are not so yummy anymore. (#3245)
+  Vladisvell:
+  - qol: mecha cable layer tool now can place cables (#3241)
+  - bugfix: pod tracking console no longer BSODs (#3233)
   Zwei:
   - refactor: Porting and Refactoring Official Paradise Spells System (#3168)
+  - bugfix: Terror Spellcasters No More (#3248)
+  - bugfix: Carp Rift Grant (#3244)
+  - bugfix: Background For Ninja's Buttons (#3249)
+  - bugfix: Revenant Ectoplasm Refactor (#3238)
+  - tweak: Changeling Stasis Update (#3239)
+  dontbetank:
+  - add: organ fridge to medbay (#3178)
