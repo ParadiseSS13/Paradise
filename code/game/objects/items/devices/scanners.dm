@@ -153,11 +153,8 @@ REAGENT SCANNER
 	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
 		to_chat(user, "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>")
 		var/tdelta = round(world.time - H.timeofdeath)
-		if(H.under_defib_timer() && !DNR)
+		if(H.IsRevivable() && !DNR)
 			to_chat(user, "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>")
-			if(advanced)
-				var/time_left = round(H.defib_time_left() / 10)
-				to_chat(user, "<span class='red'>Estimated time before unrecoverable tissue damage: [DisplayTimeText(time_left)].</span>")
 		else
 			to_chat(user, "<font color='red'>Subject died [DisplayTimeText(tdelta)] ago.</font>")
 

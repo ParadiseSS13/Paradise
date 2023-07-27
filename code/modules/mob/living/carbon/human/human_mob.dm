@@ -1677,22 +1677,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	..()
 
-/// How long the mob has before they cannot be defibrillated back to life.
-/mob/living/carbon/human/defib_time_left()
-	if(stat != DEAD)
-		return 0
-	return ..() + revive_timer_postponement
-
-
-/mob/living/carbon/human/under_defib_timer()
-	return defib_time_left() > 0
 
 #define CPR_CHEST_COMPRESSION_ONLY	0.75
 #define CPR_RESCUE_BREATHS			1
 #define CPR_CHEST_COMPRESSION_RESTORATION (2 SECONDS)
 #define CPR_BREATHS_RESTORATION (4 SECONDS)
-/// How much the cpr time surplus can outpace the actual seconds since death
-#define CPR_MAXIMUM_DEFIB_TIME_EXTENSION (1 MINUTES)
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
@@ -1721,13 +1710,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			H.receiving_cpr = FALSE
 			return
 
-		if(HAS_TRAIT(H, TRAIT_FAKEDEATH) || !H.under_defib_timer())
+		if(HAS_TRAIT(H, TRAIT_FAKEDEATH) || !H.IsRevivable())
 			to_chat(src, "<span class='warning'>[H] is already too far gone for CPR...</span>")
 			H.receiving_cpr = FALSE
 			return
 
 		visible_message("<span class='danger'>[src] is trying to perform CPR on [H]'s lifeless body!</span>", "<span class='danger'>You start trying to perform CPR on [H]'s lifeless body!</span>")
-		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD) && H.under_defib_timer())
+		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD) && H.IsRevivable())
 			var/timer_restored
 			if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
 				visible_message("<span class='notice'>[src] gives [H] chest compressions, though [H] do[H.p_es()] not seem to respond.</span>", "<span class='notice'>You can't make rescue breaths work, so you do your best to give chest compressions.</span>")
@@ -1743,12 +1732,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 			// this is the amount of time that should get added onto the timer.
 			var/new_time = (timer_restored + H.get_cpr_timer_adjustment(cpr_modifier))
-			var/seconds_since_death = (world.time - H.timeofdeath)
-			// make sure that it never gets more than a minute ahead of the number of seconds since death
 
-			H.revive_timer_postponement = clamp(new_time + H.revive_timer_postponement, 0, seconds_since_death + CPR_MAXIMUM_DEFIB_TIME_EXTENSION)
+			SEND_SIGNAL(H, COMSIG_HUMAN_RECEIVE_CPR, (new_time SECONDS))
 
-		if(!H.under_defib_timer())
+		if(!H.IsRevivable())
 			to_chat(src, "<span class='notice'>You feel [H]'s body is already starting to stiffen beneath you...it's too late for CPR now.</span>")
 		else
 			visible_message("<span class='notice'>[src] stops giving [H] CPR.</span>", "<span class='notice'>You stop giving [H] CPR.</span>")
@@ -1783,7 +1770,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return CPR_CHEST_COMPRESSION_ONLY
 
 	if(isvox(src) && !isvox(H) || !isvox(src) && isvox(H) || isplasmaman(src) && !isplasmaman(H) || !isplasmaman(src) && isplasmaman(H))  // sorry non oxy-breathers
-		to_chat(target, "<span class='warning'>You don't think you'd be able to give [H] very effective rescue breaths...</span>")
+		to_chat(src, "<span class='warning'>You don't think you'd be able to give [H] very effective rescue breaths...</span>")
 		return CPR_CHEST_COMPRESSION_ONLY
 	return CPR_RESCUE_BREATHS
 
@@ -1803,7 +1790,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 #undef CPR_RESCUE_BREATHS
 #undef CPR_CHEST_COMPRESSION_RESTORATION
 #undef CPR_BREATHS_RESTORATION
-#undef CPR_MAXIMUM_DEFIB_TIME_EXTENSION
 
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms() >= 2)

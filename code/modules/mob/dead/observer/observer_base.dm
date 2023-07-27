@@ -405,7 +405,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		create_log(MISC_LOG, "DNR Enabled")
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
-			mind.current.med_hud_set_status()
+			mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"

@@ -693,6 +693,9 @@
 #define COMSIG_HUMAN_PARRY "human_parry"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
+/// Sent from mob/living/carbon/human/do_cpr(): (mob/living/carbon/human/H, new_seconds_of_life)
+#define COMSIG_HUMAN_RECEIVE_CPR "human_receieve_cpr"
+
 
 // /datum/species signals
 

@@ -30,10 +30,6 @@
 		handle_embedded_objects()
 
 	if(stat == DEAD)
-		if(!under_defib_timer() && !defib_timer_has_expired)
-			med_hud_set_status()
-			defib_timer_has_expired = TRUE  // mark it so we don't have to re-set this
-
 		handle_decay()
 
 	//Update our name based on whether our face is obscured/disfigured

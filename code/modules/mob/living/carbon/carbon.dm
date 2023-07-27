@@ -1345,11 +1345,3 @@ so that different stomachs can handle things in different ways VB*/
 		if(wear_suit.flags_inv & HIDEGLOVES)
 			clean_hands = FALSE
 	..(clean_hands, clean_mask, clean_feet)
-
-
-/// Returns TRUE if the mob can still be revived by a defibrillator.
-/mob/living/carbon/proc/under_defib_timer()
-	return defib_time_left() > 0
-
-/mob/living/carbon/proc/defib_time_left()
-	return BASE_DEFIB_TIME_LIMIT - round(world.time - timeofdeath)

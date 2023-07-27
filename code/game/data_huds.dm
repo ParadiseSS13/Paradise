@@ -191,7 +191,7 @@
 			revivable = FALSE
 		else if(ismachineperson(src))
 			revivable = TRUE
-		else if(timeofdeath && under_defib_timer())
+		else if(timeofdeath && IsRevivable())
 			revivable = TRUE
 
 		if(revivable)
