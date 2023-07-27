@@ -27,6 +27,7 @@
 		/obj/effect/particle_effect/ion_trails,
 		/obj/effect/abstract,
 		/obj/effect/ebeam,
+		/obj/effect/spawner,
 		/obj/structure/railing,
 		/obj/machinery/atmospherics/pipe/simple
 		))
