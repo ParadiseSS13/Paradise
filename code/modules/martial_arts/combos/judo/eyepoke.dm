@@ -5,7 +5,7 @@
 	combo_text_override = "Disarm, Harm"
 
 /datum/martial_combo/judo/eyepoke/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(user.IsKnockedDown())
+	if(user.IsStunned())
 		return MARTIAL_COMBO_FAIL
 	target.visible_message("<span class='warning'>[user] jabs [target] in [user.p_their()] eyes!</span>", \
 						"<span class='userdanger'>[user] jabs you in the eyes!</span>")

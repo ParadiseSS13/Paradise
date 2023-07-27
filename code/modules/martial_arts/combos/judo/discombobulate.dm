@@ -5,7 +5,7 @@
 	combo_text_override = "Disarm, Grab"
 
 /datum/martial_combo/judo/discombobulate/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(user.IsKnockedDown())
+	if(user.IsStunned())
 		return MARTIAL_COMBO_FAIL
 	target.visible_message("<span class='warning'>[user] strikes [target] in the head with [user.p_their()] palm!</span>", \
 						"<span class='userdanger'>[user] strikes you with [user.p_their()] palm!</span>")
