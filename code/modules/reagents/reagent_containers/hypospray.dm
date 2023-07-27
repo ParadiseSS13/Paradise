@@ -46,8 +46,9 @@
 			var/contained = english_list(injected)
 
 			add_attack_logs(user, M, "Injected with [src] containing ([contained])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
-			if(reagents.id == "????") // Yes this is a specific case that we don't really want
-				return TRUE
+			for(var/datum/reagent/R as anything in reagents)
+				if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
+					return TRUE
 			reagents.reaction(M, REAGENT_INGEST, 0.1)
 		return TRUE
 

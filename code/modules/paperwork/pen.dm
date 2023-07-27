@@ -129,8 +129,9 @@
 		transfered = reagents.trans_to(M, 50)
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
-	if(reagents.id == "????") // Yes this is a specific case that we don't really want
-		return TRUE
+	for(var/datum/reagent/R as anything in reagents)
+		if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
+			return TRUE
 	reagents.reaction(M, REAGENT_INGEST, 0.1)
 	return TRUE
 
