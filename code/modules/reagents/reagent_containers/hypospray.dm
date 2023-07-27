@@ -35,7 +35,6 @@
 				injected += R.name
 
 			var/primary_reagent_name = reagents.get_master_reagent_name()
-			reagents.reaction(M, REAGENT_INGEST, 0.1)
 			var/trans = reagents.trans_to(M, amount_per_transfer_from_this)
 
 			if(safety_hypo)
@@ -47,7 +46,9 @@
 			var/contained = english_list(injected)
 
 			add_attack_logs(user, M, "Injected with [src] containing ([contained])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
-
+			if(reagents.id == "????") // Yes this is a specific case that we don't really want
+				return TRUE
+			reagents.reaction(M, REAGENT_INGEST, 0.1)
 		return TRUE
 
 /obj/item/reagent_containers/hypospray/on_reagent_change()

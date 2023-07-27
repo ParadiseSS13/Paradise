@@ -256,10 +256,11 @@
 		if(blocked != INFINITY)
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
-				var/fraction = 5 / reagents.total_volume
-				reagents.reaction(M, REAGENT_INGEST, fraction)
 				reagents.trans_to(M, reagents.total_volume)
-				return 1
+				if(reagents.id == "????") // Yes this is a specific case that we don't really want
+					return TRUE
+				reagents.reaction(M, REAGENT_INGEST, 0.1)
+				return TRUE
 			else
 				blocked = INFINITY
 				target.visible_message("<span class='danger'>[src] was deflected!</span>", \
@@ -267,7 +268,7 @@
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
-	return 1
+	return TRUE
 
 /obj/item/projectile/bullet/dart/metalfoam
 
