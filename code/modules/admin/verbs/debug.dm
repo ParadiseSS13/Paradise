@@ -856,8 +856,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	// Get our target
-	var/list/target_queue = SSgarbage.queues[selectable_queues[choice]].Copy()
-	message_admins(length(target_queue))
+	var/list/target_queue = SSgarbage.queues[selectable_queues[choice]]
 	var/list/queue_counts = list()
 
 	// Iterate that target and see whats what
