@@ -50,7 +50,7 @@
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/mob/living/carbon/C = M
-	if(M.get_blood_id() != id && !C.mind?.has_antag_datum(/datum/antagonist/vampire))  // no effect on slime people // and vampires
+	if(M.get_blood_id() != id && !C.mind?.has_antag_datum(/datum/antagonist/vampire))  // no effect on slime people or vampires
 		if(prob(10))
 			to_chat(M, "<span class='danger'>Your insides are burning!</span>")
 			update_flags |= M.adjustToxLoss(rand(2, 6) * REAGENTS_EFFECT_MULTIPLIER, FALSE) // avg 0.4 toxin per cycle, not unreasonable
@@ -70,9 +70,10 @@
 		B.update_icon()
 
 /datum/reagent/slimejelly/reaction_mob(mob/living/M, method, volume)
+	..()
 	if(method == REAGENT_INGEST && iscarbon(M) && M.mind?.has_antag_datum(/datum/antagonist/vampire))
 		M.reagents.remove_reagent("slimejelly", 1)
-		volume++ // Bit higher than base, wish it could be higher, but this stops slimes from gaming to get more blood out of their blood
+		volume++ // Bit higher than base, wish it could be higher, but if it was higher, slime vampires would get even more blood out of their slime jelly
 		M.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, M.nutrition + 10))
 		M.blood_volume = min(M.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
