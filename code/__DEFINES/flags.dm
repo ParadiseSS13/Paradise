@@ -27,6 +27,8 @@
 ///Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS			32768
 
+#define PUNCTUREIMMUNE			65536 	// Prevents RSG syringes from puncturing
+
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
 #define UPDATE_NAME (1<<0)

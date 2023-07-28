@@ -474,6 +474,7 @@
 	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 40, BOMB = 200, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	icon_state = "hardsuit0-sst"
 	item_color = "sst"
+	flags = STOPSPRESSUREDMAGE | THICKMATERIAL | PUNCTUREIMMUNE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 
 /obj/item/clothing/suit/space/hardsuit/syndi/freedom

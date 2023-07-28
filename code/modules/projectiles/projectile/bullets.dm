@@ -282,7 +282,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != INFINITY)
-			if(!(istype(M.wear_suit, /obj/item/clothing/suit/space/deathsquad) || istype(M.wear_suit, /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst)))
+			if(!M.wear_suit.flags & PUNCTUREIMMUNE)
 				..()
 				reagents.trans_to(M, reagents.total_volume)
 				return TRUE
