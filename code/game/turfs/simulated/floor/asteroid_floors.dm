@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		megafauna_spawn_list = GLOB.megafauna_spawn_list
 	if (!flora_spawn_list)
 		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2 , /obj/structure/flora/ash/cap_shroom = 2 , /obj/structure/flora/ash/stem_shroom = 2 , /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2, /obj/structure/flora/ash/rock/style_random = 1)
-		if(SSmapping.cave_theme == "Blocked Burrows")
+		if(SSmapping.cave_theme == BLOCKED_BURROWS)
 			flora_spawn_list += list(/obj/structure/flora/ash/rock/style_random = 3) //Let us see how this goes
 	. = ..()
 	if(!has_data)
@@ -221,11 +221,11 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	if(!tunnel_length)//This is a sub cave do not overide repeat do not overide
 		get_cave_data(tunnel_length, excluded_dir)
 	switch(SSmapping.cave_theme)
-		if("Blocked Burrows") //Longer on average
+		if(BLOCKED_BURROWS) //Longer on average
 			get_cave_data(rand(40, 60), excluded_dir)
-		if("Classic Caves") //Classic
+		if(CLASSIC_CAVES) //Classic
 			get_cave_data(tunnel_length, excluded_dir)
-		if("Deadly Deeprock") //Smaller into large rooms with more mobs.
+		if(DEADLY_DEEPROCK) //Smaller into large rooms with more mobs.
 			get_cave_data(rand(20, 40), excluded_dir)
 			if(prob(25)) //Less caves due to big openings. This may lead to fauna inside 1x1 rooms. We'll call that a suprise mechanic
 				SpawnFloor(src, 75) //now with extra suprise
@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 			break
 
 		var/list/L = list(45)
-		if(ISODD(dir2angle(dir)) && (!SSmapping.cave_theme == "Blocked Burrows" || prob(33))) // We're going at an angle and we want thick angled tunnels.
+		if(ISODD(dir2angle(dir)) && (!SSmapping.cave_theme == BLOCKED_BURROWS || prob(33))) // We're going at an angle and we want thick angled tunnels.
 			L += -45
 
 		// Expand the edges of our tunnel
@@ -265,9 +265,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 			// Small chance to have forks in our tunnel; otherwise dig our tunnel.
 			var/caveprob = 20
 			switch(SSmapping.cave_theme)
-				if("Blocked Burrows") //Longer on average
+				if(BLOCKED_BURROWS) //Longer on average
 					caveprob = 30 //More splitting
-				if("Deadly Deeprock") //Smaller into large rooms with more mobs.
+				if(DEADLY_DEEPROCK) //Smaller into large rooms with more mobs.
 					caveprob = 10 //Less splitting
 			if(i > 3 && prob(caveprob))
 				var/turf/simulated/floor/plating/asteroid/airless/cave/C = tunnel.ChangeTurf(data_having_type, FALSE, TRUE)
@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		// Chance to change our direction left or right.
 		if(i > 2 && prob(33))
 			// We can't go a full loop though
-			if(!SSmapping.cave_theme == "Blocked Burrows" || prob(60))
+			if(!SSmapping.cave_theme == BLOCKED_BURROWS || prob(60))
 				next_angle = -next_angle
 			setDir(angle2dir(dir2angle(dir) )+ next_angle)
 		if(length -2 == i && !has_data) //Branches will not make this
@@ -289,7 +289,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnRoom(turf/T)
 	switch(SSmapping.cave_theme)
-		if("Deadly Deeprock")
+		if(DEADLY_DEEPROCK)
 			var/tempradius = rand(10, 15)
 			var/probmodifer = 43 * tempradius //Yes this is a magic number, it is a magic number that works well.
 			for(var/turf/NT in circlerangeturfs(T, tempradius))
@@ -349,7 +349,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		var/scanrange = 12
 		var/megafaunarange = 7
 		switch(SSmapping.cave_theme)
-			if("Deadly Deeprock")
+			if(DEADLY_DEEPROCK)
 				if(prob(50) && monsterprob > 30)
 					scanrange = rand(4, 7)
 					megafaunarange = scanrange
@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFlora(turf/T)
 	var/floraprob = 12
 	switch(SSmapping.cave_theme)
-		if("Blocked Burrows")
+		if(BLOCKED_BURROWS)
 			floraprob = 30 //Lots of folliage, lots of blockage
 	if(prob(floraprob))
 		if(istype(loc, /area/mine/explored) || istype(loc, /area/lavaland/surface/outdoors/explored))
