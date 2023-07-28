@@ -137,7 +137,10 @@
 	var/remove_head = (beingborged && rev_mind.has_antag_datum(/datum/antagonist/rev/head))
 
 	if(rev_mind.has_antag_datum(/datum/antagonist/rev, FALSE) || remove_head)
+		var/datum/antagonist/rev = rev_mind.has_antag_datum(/datum/antagonist/rev)
+		rev.silent = TRUE // We have some custom text, lets make the removal silent
 		rev_team.remove_member(rev_mind)
+
 		if(beingborged)
 			revolutionary.visible_message(
 				"<span class='userdanger'>The frame beeps contentedly, purging the hostile memory engram from the MMI before initalizing it.</span>",

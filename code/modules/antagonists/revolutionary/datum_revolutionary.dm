@@ -22,7 +22,9 @@
 				and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</span>")
 
 /datum/antagonist/rev/farewell()
-	return
+	if(owner && owner.current)
+		to_chat(owner.current,"<span class='userdanger'>You have been brainwashed! You are no longer a [special_role]! </span>")
+
 
 /datum/antagonist/rev/announce_objectives()
 

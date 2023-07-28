@@ -791,11 +791,12 @@
 				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield bio-chip")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield bio-chip")
 
-				to_chat(H, "<span class='userdanger'>You somehow have become the recepient of a mindshield transplant, and it just activated!</span>")
+				to_chat(H, "<span class='userdanger'>You somehow have become the recipient of a mindshield transplant, and it just activated!</span>")
 				var/datum/antagonist/rev/has_rev = has_antag_datum(/datum/antagonist/rev)
 				if(has_rev)
+					has_rev.silent = TRUE // we have some custom text, lets make the removal silent
 					remove_antag_datum(/datum/antagonist/rev)
-					to_chat(H, "<span class='userdanger'>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</span>")
+					to_chat(H, "<span class='userdanger'>The nanobots in the mindshield implant remove all thoughts about being a revolutionary. Get back to work!</span>")
 
 	else if(href_list["revolution"])
 
@@ -804,7 +805,6 @@
 				var/datum/antagonist/rev/has_rev = has_antag_datum(/datum/antagonist/rev)
 				if(has_rev)
 					remove_antag_datum(/datum/antagonist/rev)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a [lowertext(has_rev.name)]!</B></FONT></span>")
 					log_admin("[key_name(usr)] has de-rev'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-rev'd [key_name_admin(current)]")
 
