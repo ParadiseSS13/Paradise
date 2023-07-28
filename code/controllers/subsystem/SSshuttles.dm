@@ -185,7 +185,7 @@ SUBSYSTEM_DEF(shuttle)
 			message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
 
 /datum/controller/subsystem/shuttle/proc/registerHostileEnvironment(datum/bad)
-	hostile_environments[bad] = TRUE
+	hostile_environments |= bad
 
 /datum/controller/subsystem/shuttle/proc/clearHostileEnvironment(datum/bad)
 	hostile_environments -= bad
