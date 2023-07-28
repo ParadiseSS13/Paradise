@@ -246,3 +246,13 @@
   - tweak: Changeling Stasis Update (#3239)
   dontbetank:
   - add: organ fridge to medbay (#3178)
+'2023-07-28':
+  Den109G:
+  - bugfix: BloodCrawl (#3252)
+  LiquidPotroh:
+  - bugfix: Sentience potion dont affect mokey from cubes (#3255)
+  Zwei:
+  - bugfix: Contractor Runtime (#3257)
+  - tweak: More Sanity Loops (#3250)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3253)
