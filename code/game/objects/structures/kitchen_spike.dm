@@ -129,7 +129,7 @@
 	victim.set_lying_angle(180)
 	victim.update_transform()
 	victim.pixel_y = victim.get_standard_pixel_y_offset(180)
-	if(victim.client)
+	if(victim.mind)
 		add_attack_logs(user, victim, "Hooked into [src]")
 	return TRUE
 
