@@ -102,6 +102,35 @@
 	if(method != REAGENT_TOUCH)
 		M.ForceContractDisease(new /datum/disease/transformation/slime(0))
 
+/datum/reagent/sanguine_toxin
+	name = "Sanguine Mutation Toxin"
+	id = "sanguine_toxin"
+	description = "A mixture of sanguine reagent and advanced mutation toxin that's capable of acting on machines."
+	reagent_state = LIQUID
+	color = "#720000ff"
+	taste_description = "corroding metal"
+	process_flags = SYNTHETIC
+
+/datum/reagent/sanguine_toxin/on_mob_life(mob/living/M)
+	. = ..()
+
+	if(!ismachineperson(M))
+		return
+
+	var/mob/living/carbon/human/target = M
+
+	switch(current_cycle)
+		if(1 to 15)
+			if(prob(25))
+				var/message = pick("Your paint is flaking off...", "Is that blood on your chassis?")
+				to_chat(target, "<span class='warning'>[message]</span>")
+		if(16 to 30)
+			if(prob(25))
+				var/message = pick("The metal on your chassis is becoming pliable!", "You're bleeding!", "Your cabling is writhing!")
+				to_chat(target, "<span class='userdanger'>[message]</span>")
+		if(31 to INFINITY)
+			to_chat(target, "<span class='userdanger'>Your chassis melts, collapses in on itself slightly - and condenses into slime!</span>")
+			target.set_species(/datum/species/slime)
 
 /datum/reagent/mercury
 	name = "Mercury"

@@ -161,3 +161,11 @@
 	required_reagents = list("lsd" = 1, "teslium" = 1, "methamphetamine" = 1)
 	result_amount = 3
 	mix_message = "<span class='danger'>After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.</span>"
+
+/datum/chemical_reaction/sanguine_toxin
+	name = "Sanguine Mutation Toxin"
+	id = "sanguine_toxin"
+	result = "sanguine_toxin"
+	required_reagents = list("sanguine_reagent" = 4, "amutationtoxin" = 1)
+	result_amount = 1
+	mix_message = "The red gel melts into the advanced mutation toxin."
