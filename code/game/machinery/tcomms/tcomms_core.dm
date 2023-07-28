@@ -27,7 +27,6 @@
 	/// What tab of the UI were currently on
 	var/ui_tab = UI_TAB_CONFIG
 
-
 /**
   * Initializer for the core.
   *
