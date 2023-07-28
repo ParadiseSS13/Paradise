@@ -12,9 +12,7 @@
 	pixel_y = -6;
 	pixel_x = 11
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bk" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -60,11 +58,8 @@
 	},
 /area/ruin/space/unpowered)
 "bG" = (
-/obj/structure/grille,
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bO" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -316,9 +311,7 @@
 	pixel_x = 6
 	},
 /obj/structure/grille/broken,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "mP" = (
 /obj/effect/decal/cleanable/vomit/green,
@@ -402,7 +395,7 @@
 	animal_species = /mob/living/simple_animal/pet/dog;
 	attack_sound = 'sound/weapons/bite.ogg';
 	attacktext = "bites";
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 1, "stamina" = 1, "oxy" = 1);
+	damage_coeff = list("brute"=1,"fire"=1,"tox"=1,"clone"=1,"stamina"=1,"oxy"=1);
 	death_sound = null;
 	deathmessage = "";
 	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
@@ -1057,13 +1050,6 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/unpowered)
-"OA" = (
-/obj/structure/grille,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ruin/space/unpowered)
 "OF" = (
 /obj/machinery/door/window{
 	dir = 1
@@ -1089,7 +1075,7 @@
 	animal_species = /mob/living/simple_animal/pet/dog;
 	attack_sound = 'sound/weapons/bite.ogg';
 	attacktext = "bites";
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 1, "stamina" = 1, "oxy" = 1);
+	damage_coeff = list("brute"=1,"fire"=1,"tox"=1,"clone"=1,"stamina"=1,"oxy"=1);
 	death_sound = null;
 	deathmessage = "";
 	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
@@ -1163,9 +1149,7 @@
 	pixel_y = -11;
 	pixel_x = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "Sz" = (
 /obj/effect/decal/cleanable/blood,
@@ -1289,7 +1273,7 @@
 	animal_species = /mob/living/simple_animal/pet/dog;
 	attack_sound = 'sound/weapons/bite.ogg';
 	attacktext = "bites";
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 1, "stamina" = 1, "oxy" = 1);
+	damage_coeff = list("brute"=1,"fire"=1,"tox"=1,"clone"=1,"stamina"=1,"oxy"=1);
 	death_sound = null;
 	deathmessage = "";
 	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
@@ -1728,9 +1712,9 @@ gx
 DY
 XZ
 bn
-OA
+bG
 uA
-OA
+bG
 bn
 bn
 EB

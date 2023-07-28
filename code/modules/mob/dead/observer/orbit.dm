@@ -36,6 +36,7 @@
 
 	var/list/alive = list()
 	var/list/highlights = list()
+	var/list/response_teams = list()
 	var/list/antagonists = list()
 	var/list/dead = list()
 	var/list/ghosts = list()
@@ -79,6 +80,9 @@
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
+				if(mind.special_role in list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD, SPECIAL_ROLE_SYNDICATE_DEATHSQUAD))
+					response_teams += list(serialized)
+
 				if(user.antagHUD)
 					/*
 					If a mind is many antags at once, we'll display all of them, each
@@ -149,6 +153,7 @@
 
 	data["antagonists"] = antagonists
 	data["highlights"] = highlights
+	data["response_teams"] = response_teams
 	data["alive"] = alive
 	data["dead"] = dead
 	data["ghosts"] = ghosts
