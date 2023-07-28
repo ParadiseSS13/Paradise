@@ -787,7 +787,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	. = ..()
 
 	if(!victim.has_embedded_objects())
-		owner.clear_alert("embeddedobject")
+		victim.clear_alert("embeddedobject")
 
 	// Attached organs also fly off.
 	if(!ignore_children)
