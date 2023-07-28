@@ -1,4 +1,4 @@
-name: Проверка Ченджлога
+name: Changelog validation
 
 permissions:
   contents: read
@@ -14,19 +14,19 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'ss220club/Paradise-Remake' && github.base_ref == 'master' && github.event.pull_request.draft == false
     steps:
-      - name: Скачивание файлов
+      - name: Downloading scripts
         run: |
-          wget https://raw.githubusercontent.com/ss220club/Paradise-Remake/master/tools/changelog/sierra_check_changelog.py
+          wget https://raw.githubusercontent.com/ss220club/Paradise-Remake/master/tools/changelog/check_changelog.py
           wget https://raw.githubusercontent.com/ss220club/Paradise-Remake/master/tools/changelog/tags.yml
-      - name: Установка Python
+      - name: Installing Python
         uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1
         with:
           python-version: '3.x'
-      - name: Установка зависимостей
+      - name: Installing deps
         run: |
           python -m pip install --upgrade pip
           pip install ruamel.yaml PyGithub
-      - name: Проверка чейнджлога
+      - name: Changelog validation
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-        run: python sierra_check_changelog.py
+        run: python check_changelog.py
