@@ -1354,3 +1354,38 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_CLOWN), "Emergency Response Clown")
 	H.sec_hud_set_ID()
+
+/datum/outfit/admin/observer
+	name = "Observer"
+
+	uniform = /obj/item/clothing/under/costume/tourist_suit
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/black
+	backpack_contents = list(/obj/item/storage/box/survival = 1)
+
+	implants = list(/obj/item/implant/dust)
+
+/datum/outfit/admin/observer/plasmaman
+	name = "Observer (Plasma)"
+
+	uniform = /obj/item/clothing/under/plasmaman/assistant
+	head = /obj/item/clothing/head/helmet/space/plasmaman/assistant
+	mask = /obj/item/clothing/mask/breath
+	belt =/obj/item/tank/internals/plasmaman/belt/full
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/black
+	backpack_contents = list(/obj/item/storage/box/survival_plasmaman = 1)
+
+	implants = list(/obj/item/implant/dust)
+
+/datum/outfit/admin/observer/vox
+	name = "Observer (Vox)"
+
+	uniform = /obj/item/clothing/under/costume/tourist_suit
+	mask = /obj/item/clothing/mask/breath/vox
+	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/black
+	backpack_contents = list(/obj/item/storage/box/survival_vox = 1)
+
+	implants = list(/obj/item/implant/dust)
