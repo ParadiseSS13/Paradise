@@ -14,7 +14,12 @@
 	var/thunder_charges = 3
 	var/thunder_charge_time = 15 SECONDS
 	var/static/list/excluded_areas = list(/area/space)
+	///This is a list of turfs currently being targeted.
 	var/list/targeted_turfs = list()
+
+/obj/item/storm_staff/Destroy()
+	targeted_turfs = null
+	return ..()
 
 /obj/item/storm_staff/examine(mob/user)
 	. = ..()
