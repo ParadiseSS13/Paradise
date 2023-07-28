@@ -82,7 +82,7 @@ SUBSYSTEM_DEF(mapping)
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 		if(time_spent >= 10)
-			log_startup_progress("!!!ERROR!!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers imediately! !!!ERROR!!!") //In 2 testing cases so far, I have had it take far too long to generate. I belive I have fixed this issue, but want to be sure
+			log_startup_progress("!!!ERROR!!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers imediately! !!!ERROR!!!") //In 3 testing cases so far, I have had it take far too long to generate. I am 99% sure I have fixed this issue, but never hurts to be sure
 			WARNING("!!!ERROR!!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers imediately! !!!ERROR!!!")
 			var/loud_annoying_alarm = sound('sound/machines/engine_alert1.ogg')
 			for(var/get_player_attention in GLOB.player_list)

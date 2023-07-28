@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 			break
 
 		var/list/L = list(45)
-		if(ISODD(dir2angle(dir)) && (!SSmapping.cave_theme == "Blocked Burrows" || prob(50))) // We're going at an angle and we want thick angled tunnels.
+		if(ISODD(dir2angle(dir)) && (!SSmapping.cave_theme == "Blocked Burrows" || prob(33))) // We're going at an angle and we want thick angled tunnels.
 			L += -45
 
 		// Expand the edges of our tunnel
@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		// Chance to change our direction left or right.
 		if(i > 2 && prob(33))
 			// We can't go a full loop though
-			if(!SSmapping.cave_theme == "Blocked Burrows" || prob(80))
+			if(!SSmapping.cave_theme == "Blocked Burrows" || prob(60))
 				next_angle = -next_angle
 			setDir(angle2dir(dir2angle(dir) )+ next_angle)
 		if(length -2 == i && !has_data) //Branches will not make this
@@ -292,11 +292,34 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		if("Deadly Deeprock")
 			var/tempradius = rand(10, 15)
 			var/probmodifer = 43 * tempradius //Yes this is a magic number, it is a magic number that works well.
-			for(var/turf/NT in circlerangeturfs(T, rand(10, 15)))
+			for(var/turf/NT in circlerangeturfs(T, tempradius))
 				var/distance = (max(get_dist(T, NT), 1)) //Get dist throws -1 if same turf
 				if(prob(min(probmodifer / distance, 100)))
 					if(ismineralturf(NT) || istype(NT, /turf/simulated/floor/plating/asteroid)) //No spawning on lava / other ruins
 						SpawnFloor(NT, 50) //Room has higher probabilty.
+			if(prob(25))
+				tempradius = round(tempradius / 3)
+				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water = 1, /turf/simulated/floor/plating/asteroid = 1))
+				if(oasis_lake == /turf/simulated/floor/plating/asteroid)
+					new /obj/effect/spawner/oasisrock(T, tempradius)
+				for(var/turf/oasis in circlerangeturfs(T, tempradius))
+					oasis.ChangeTurf(oasis_lake, ignore_air = TRUE)
+
+/obj/effect/spawner/oasisrock
+	name = "Oasis rock spawner"
+
+/obj/effect/spawner/oasisrock/Initialize(mapload, radius)
+	. = ..()
+
+	addtimer(CALLBACK(src, PROC_REF(make_rock), radius), 5 SECONDS)
+
+/obj/effect/spawner/oasisrock/proc/make_rock(radius)
+	for(var/turf/oasis in circlerangeturfs(get_turf(src), radius))
+		oasis.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic, ignore_air = TRUE)
+	var/list/valid_turfs = RANGE_EDGE_TURFS(radius + 2, src)
+	for(var/mob/M in radius(src, radius)) //We don't want mobs inside the ore rock
+		M.forceMove(pick(valid_turfs))
+	qdel(src)
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFloor(turf/T, monsterprob = 30)
 	for(var/S in RANGE_TURFS(1, src))
@@ -355,7 +378,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	var/floraprob = 12
 	switch(SSmapping.cave_theme)
 		if("Blocked Burrows")
-			floraprob = 30
+			floraprob = 50 //Lots of folliage, lots of blockage
 	if(prob(floraprob))
 		if(istype(loc, /area/mine/explored) || istype(loc, /area/lavaland/surface/outdoors/explored))
 			return
