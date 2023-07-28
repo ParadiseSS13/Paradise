@@ -20,7 +20,7 @@
 		I.visible_message("<span class='notice'>[parent] falls off of [attached_to]</span>")
 	pick_up(parent)
 	move_to_the_thing(parent, get_turf(parent))
-	. = ..()
+	return ..()
 
 /datum/component/sticky/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(stick_to_it))
