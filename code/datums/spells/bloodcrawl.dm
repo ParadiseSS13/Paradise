@@ -96,7 +96,7 @@
 	left_hand.icon_state = "bloodhand_left"
 	right_hand.icon_state = "bloodhand_right"
 	user.put_in_l_hand(left_hand)
-	user.put_in_l_hand(right_hand)
+	user.put_in_r_hand(right_hand)
 	user.regenerate_icons()
 	return TRUE
 
