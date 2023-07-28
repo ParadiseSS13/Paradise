@@ -359,7 +359,6 @@
 							var/name = H.head.name
 							C.seal_part(H.head, FALSE)
 							C.retract(null, H.head)
-							C.finish_activation(on = FALSE)
 							to_chat(H, "<span class='danger'>Your [name] melts away as your [C.name] performs emergency cleaning on the helmet, deactivating the suit!</span>")
 						else
 							to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")

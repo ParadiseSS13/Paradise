@@ -205,6 +205,8 @@
 	. = ..()
 	if(!.)
 		return
+	if(wearer.buckled)
+		return
 	var/current_time = world.time
 	var/atom/movable/plane_master_controller/pm_controller = mod.wearer.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 	for(var/key in pm_controller.controlled_planes)

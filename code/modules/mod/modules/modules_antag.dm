@@ -187,6 +187,8 @@
 	. = ..()
 	if(!.)
 		return
+	if(wearer.buckled)
+		return
 	mod.wearer.visible_message("<span class='warning'>[mod.wearer] starts charging a kick!</span>")
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
 	animate(mod.wearer, 0.3 SECONDS, pixel_z = 16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
