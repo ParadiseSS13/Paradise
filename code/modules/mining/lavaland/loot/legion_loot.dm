@@ -68,7 +68,7 @@
 		to_chat(user, "<span class='warning'>The staff will not work here.</span>")
 		return
 	if(target_turf in targeted_turfs)
-		to_chat(user, "<span class='warning'>That turf is already being shocked!</span>")
+		to_chat(user, "<span class='warning'>That SPOT is already being shocked!</span>")
 		return
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
@@ -101,16 +101,16 @@
 			if(!turf_to_add)
 				continue
 			affected_turfs += turf_to_add
-	for(var/turf/turf as anything in affected_turfs)
-		new /obj/effect/temp_visual/electricity(turf)
-		for(var/mob/living/hit_mob in turf)
+	for(var/turf/T as anything in affected_turfs)
+		new /obj/effect/temp_visual/electricity(T)
+		for(var/mob/living/hit_mob in T)
 			to_chat(hit_mob, "<span class='userdanger'>You've been struck by lightning!</span>")
-			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (turf == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_TESLA|SHOCK_NOSTUN)
+			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_TESLA|SHOCK_NOSTUN)
 
-		for(var/obj/hit_thing in turf)
+		for(var/obj/hit_thing in T)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
-	target.visible_message("<span class='userdanger'>A thunderbolt strikes [target]!</span>")
+	target.visible_message("<span class='danger'>A thunderbolt strikes [target]!</span>")
 	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
 
 
