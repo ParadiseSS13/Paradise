@@ -34,6 +34,7 @@
 #include "keybindings/_keybindings.dme"
 #include "aesthetics_sounds/_aesthetics_sounds.dme"
 #include "radio_sound/radio_sound.dme"
+#include "events/_events.dme"
 
 // --- UNUSED MODS --- //
 
