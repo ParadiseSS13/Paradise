@@ -69,6 +69,12 @@
 	notes = "A bio-chip that is illegal in many systems. It is notoriously known for allowing users to grotesquely fracture bones and over-exert joints in order to slip out of the tightest of restraints."
 	function = "Uses a mixture of cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
 
+/datum/implant_fluff/protofreedom
+	name = "Cybersun Industries X-92 Quick Escape Bio-chip"
+	life = "Destroyed after 1 use."
+	notes = "A bio-chip that is illegal in many systems. This is the early prototype version of the RX-92. It's significantly cheaper than it's newer version."
+	function = "Uses a mixture of cheap cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
+
 /datum/implant_fluff/health
 	name = "Nanotrasen Health Bio-chip"
 

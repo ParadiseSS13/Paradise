@@ -339,7 +339,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["jobs_engineering"] = GLOB.engineering_positions
 					data["jobs_medical"] = GLOB.medical_positions
 					data["jobs_science"] = GLOB.science_positions
-					data["jobs_security"] = GLOB.security_positions
+					data["jobs_security"] = GLOB.active_security_positions
 					data["jobs_service"] = GLOB.service_positions
 					data["jobs_supply"] = GLOB.supply_positions - "Head of Personnel"
 					data["jobs_centcom"] = get_all_centcom_jobs() + get_all_ERT_jobs()

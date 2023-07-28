@@ -1,489 +1,401 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aM" = (
-/obj/item/stack/rods,
-/obj/item/stack/sheet/metal,
-/turf/template_noop,
-/area/space)
-"bb" = (
-/obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/turf/simulated/floor/plasteel,
+"ar" = (
+/obj/structure/table_frame,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"au" = (
+/obj/structure/grille,
+/obj/item/shard,
+/obj/item/shard{
+	pixel_y = -6;
+	pixel_x = 11
+	},
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bk" = (
-/obj/structure/grille/broken,
-/turf/template_noop,
-/area/space)
-"cc" = (
-/obj/item/reagent_containers/food/snacks/syndicake,
-/obj/item/reagent_containers/food/snacks/syndicake,
-/obj/item/reagent_containers/food/snacks/syndicake,
-/turf/simulated/floor/plating/airless,
-/area/space)
-"dy" = (
-/obj/structure/lattice,
-/turf/simulated/floor/plating/airless,
-/area/template_noop)
-"es" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_y = 7
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"fq" = (
-/obj/machinery/autolathe,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"fU" = (
-/obj/machinery/door/airlock/mining/glass{
-	locked = 1;
-	name = "Egg processing"
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
 	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"fY" = (
-/obj/item/stack/sheet/metal,
-/turf/template_noop,
-/area/template_noop)
-"gy" = (
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"hm" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+"bl" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/storage/box/papersack{
+	pixel_x = -3
 	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"ho" = (
-/turf/space,
-/area/ruin/space)
-"iK" = (
-/obj/item/stack/sheet/metal,
-/obj/item/stack/sheet/metal,
-/turf/space,
-/area/ruin/space)
-"jf" = (
-/obj/item/trash/syndi_cakes,
-/turf/template_noop,
-/area/template_noop)
-"jv" = (
-/obj/item/stack/cable_coil/cut,
-/turf/template_noop,
-/area/space)
-"jR" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/cigarettes/cigpack_random,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"ke" = (
-/obj/structure/lattice,
-/turf/space,
-/area/ruin)
-"kh" = (
-/obj/structure/lattice,
-/obj/item/stack/rods,
-/turf/template_noop,
-/area/space)
-"ky" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+/obj/item/storage/box/papersack{
+	pixel_x = 3
 	},
-/turf/simulated/wall,
-/area/ruin/space/unpowered)
-"ls" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space)
-"lK" = (
-/obj/machinery/power/apc/off_station{
-	apc_area = null;
-	dir = 8;
-	keep_preset_name = 1;
-	light_power = 0;
-	locked = 0;
-	max_integrity = 0;
-	name = "Manufacturing control room  APC";
-	pixel_y = -24;
-	shorted = 1;
-	start_charge = -1
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+/area/ruin/space/unpowered)
+"bn" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
 	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"mc" = (
-/obj/structure/grille/broken,
-/turf/space,
-/area/ruin/space)
-"mx" = (
-/obj/item/trash/syndi_cakes,
-/turf/template_noop,
-/area/space)
-"nV" = (
-/obj/machinery/conveyor/east{
-	id = null
+"bq" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/space)
-"ob" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/ruin/space/unpowered)
-"om" = (
-/obj/item/reagent_containers/food/snacks/syndicake,
-/obj/item/reagent_containers/food/snacks/syndicake,
-/obj/item/reagent_containers/food/snacks/syndicake,
-/obj/item/reagent_containers/food/snacks/syndicake,
-/obj/item/reagent_containers/food/snacks/syndicake,
-/obj/item/reagent_containers/food/snacks/syndicake,
-/turf/simulated/floor/plasteel/airless,
-/area/space)
-"oJ" = (
-/obj/item/stack/rods,
-/turf/template_noop,
-/area/space)
-"oO" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Nexus"
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
-"pb" = (
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/space)
-"pd" = (
-/turf/template_noop,
-/area/space)
-"pR" = (
-/obj/machinery/conveyor/northeast{
-	id = null
+"bv" = (
+/obj/machinery/light/small{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"qS" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "EVA Storage"
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"rJ" = (
-/obj/structure/lattice,
-/turf/space,
-/area/ruin/space)
-"rL" = (
-/obj/item/reagent_containers/food/snacks/syndicake,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin)
-"rU" = (
-/obj/machinery/space_heater,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"sN" = (
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"ub" = (
-/obj/item/stack/rods,
-/turf/space,
-/area/space)
-"uA" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/syndicake,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"uF" = (
-/obj/machinery/conveyor/east{
-	id = null
-	},
-/obj/machinery/gibber/autogibber,
-/obj/structure/plasticflaps,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"wB" = (
-/obj/item/trash/syndi_cakes,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"xB" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"xT" = (
-/turf/simulated/floor/plating/airless,
-/area/space)
-"yU" = (
-/obj/item/stack/sheet/metal,
-/obj/item/stack/sheet/metal,
-/turf/space,
-/area/space)
-"zd" = (
-/obj/machinery/power/apc/off_station{
-	apc_area = null;
-	dir = 8;
-	keep_preset_name = 1;
-	locked = 0;
-	name = "EVA room APC";
-	pixel_x = -24;
-	start_charge = -1
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"zo" = (
-/turf/simulated/wall,
-/area/space)
-"zt" = (
-/obj/item/stack/sheet/metal,
-/turf/template_noop,
-/area/space)
-"zF" = (
+"bG" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
-"zP" = (
-/obj/structure/rack{
+"bO" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"bY" = (
+/obj/structure/girder,
+/turf/template_noop,
+/area/template_noop)
+"co" = (
+/obj/structure/chair/comfy/black,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"cr" = (
+/obj/machinery/conveyor/east{
+	id = "garbage";
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"cW" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered)
+"dP" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/machinery/light/small{
 	dir = 4
 	},
-/obj/random/tool,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
-"zY" = (
+"dV" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"AH" = (
-/obj/structure/lattice,
-/obj/item/stack/sheet/metal,
-/turf/template_noop,
-/area/template_noop)
-"AJ" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall,
-/area/space)
-"BG" = (
-/obj/machinery/door/airlock/mining/glass{
-	locked = 1;
-	name = "Manufacturing Control Room"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"BI" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"Cp" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"CY" = (
-/obj/item/stack/rods,
-/turf/template_noop,
-/area/template_noop)
-"Da" = (
-/turf/space,
-/area/space)
-"Dz" = (
-/obj/machinery/conveyor/east{
-	id = null
-	},
-/mob/living/simple_animal/pet/dog/corgi,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"Ej" = (
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"EJ" = (
-/turf/simulated/wall,
-/area/ruin/space/unpowered)
-"Fw" = (
-/obj/item/stack/cable_coil/cut,
-/turf/template_noop,
-/area/template_noop)
-"Fy" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"FO" = (
-/obj/machinery/suit_storage_unit/syndicate,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"Gm" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"GB" = (
-/mob/living/simple_animal/pet/dog/corgi,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"Hx" = (
-/obj/machinery/conveyor/east{
-	id = null
-	},
-/mob/living/simple_animal/pet/dog/corgi,
-/mob/living/simple_animal/pet/dog/corgi,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"Hy" = (
-/turf/template_noop,
-/area/template_noop)
-"HQ" = (
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"Ic" = (
-/turf/simulated/floor/plating/burnt,
-/area/ruin)
-"Id" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"IB" = (
-/obj/structure/lattice,
-/turf/space,
-/area/ruin/space/unpowered)
-"IJ" = (
-/obj/machinery/light{
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless,
+/obj/machinery/door_control{
+	id = "producearea";
+	name = "Produce Area Doors"
+	},
+/turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
-"JI" = (
-/obj/effect/spawner/random_spawners/syndicate/loot,
-/turf/simulated/floor/plasteel/airless,
+"ex" = (
+/obj/structure/table/reinforced,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = -32
+	},
+/obj/item/reagent_containers/food/snacks/donut/sprinkles{
+	pixel_y = 8;
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/food/snacks/donut/sprinkles{
+	pixel_y = -1;
+	pixel_x = 5
+	},
+/turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
-"Ki" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/template_noop)
-"Kr" = (
-/obj/structure/girder,
+"fq" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/meat/corgi,
+/obj/item/reagent_containers/food/snacks/meat/corgi{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"fs" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_x = 15;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_y = -10
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"fE" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"fJ" = (
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"ga" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"gc" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass,
+/area/ruin/space/unpowered)
+"gk" = (
+/turf/simulated/floor/grass,
+/area/ruin/space/unpowered)
+"gu" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"gx" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/syringe,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"gy" = (
+/obj/item/clothing/mask/gas/monkeymask,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"hc" = (
+/obj/machinery/porta_turret/syndicate/assault_pod,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"ho" = (
+/obj/structure/table/reinforced,
+/obj/item/trash/spacetwinkie,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"hq" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"hC" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"hF" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"hH" = (
+/obj/structure/railing/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"hM" = (
+/obj/structure/door_assembly/door_assembly_hatch,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"iq" = (
+/obj/item/flag/syndi{
+	anchored = 1
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"iL" = (
+/obj/structure/noticeboard{
+	pixel_y = 32
+	},
+/obj/item/paper/fluff/ruins/syndiecakesfactory/reception,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"je" = (
+/obj/structure/table_frame,
+/obj/item/stack/sheet/plastitaniumglass,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"jn" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/paper/fluff/ruins/syndiecakesfactory/teleporter,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"jx" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/grass,
+/area/ruin/space/unpowered)
+"ke" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_x = 15;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/syndicake,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"ky" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/unpowered)
+"kD" = (
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"ls" = (
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"lZ" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
-"KD" = (
+"mg" = (
+/obj/item/shard,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_y = -5;
+	pixel_x = 6
+	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
-"KS" = (
-/turf/simulated/floor/plating/airless,
-/area/ruin)
-"Le" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+"mP" = (
+/obj/effect/decal/cleanable/vomit/green,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
 	},
-/obj/machinery/power/port_gen/pacman,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"Lq" = (
-/mob/living/simple_animal/pet/dog/corgi,
-/turf/simulated/floor/plasteel/airless,
+"nl" = (
+/obj/structure/rack,
+/obj/item/clothing/mask/gas/syndicate,
+/turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
-"Mi" = (
-/turf/simulated/floor/plating/airless,
-/area/template_noop)
-"Nw" = (
-/obj/machinery/power/smes,
-/obj/structure/cable/blue{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"NQ" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
-"OA" = (
-/obj/structure/computerframe,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"OK" = (
-/obj/item/reagent_containers/food/snacks/syndicake,
-/turf/space,
-/area/space)
-"OU" = (
-/turf/simulated/floor/plasteel/airless,
-/area/ruin)
-"Qv" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/trash/syndi_cakes,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"QF" = (
-/obj/machinery/conveyor/east{
-	dir = 2;
-	id = null
-	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin)
-"QI" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/simulated/wall,
-/area/ruin)
-"Ra" = (
-/obj/machinery/power/terminal{
+"nO" = (
+/obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"oo" = (
+/obj/item/stack/rods/ten,
+/turf/template_noop,
+/area/template_noop)
+"oB" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
 	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"Rg" = (
-/obj/machinery/door/airlock/mining/glass{
-	locked = 1;
-	max_integrity = 300000;
-	name = "Corgi processing";
-	normal_integrity = 300000
+"oH" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall,
+/area/ruin/space/unpowered)
+"oJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/ruin/space/unpowered)
-"Ry" = (
-/obj/item/stack/cable_coil/random,
-/turf/simulated/floor/plasteel/airless,
+"oV" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
-"RB" = (
+"pd" = (
+/turf/template_noop,
+/area/template_noop)
+"pz" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"qd" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/breadslice,
+/obj/item/reagent_containers/food/snacks/breadslice{
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/snacks/breadslice{
+	pixel_y = 8
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"qk" = (
+/obj/item/trash/syndi_cakes,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"qx" = (
+/obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/alien/sentinel{
 	animal_species = /mob/living/simple_animal/pet/dog;
 	attack_sound = 'sound/weapons/bite.ogg';
 	attacktext = "bites";
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 1, "stamina" = 1, "oxy" = 1);
+	damage_coeff = list("brute"=1,"fire"=1,"tox"=1,"clone"=1,"stamina"=1,"oxy"=1);
 	death_sound = null;
 	deathmessage = "";
 	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
@@ -491,1359 +403,2170 @@
 	icon_living = "corgi";
 	icon_state = "corgi";
 	name = "angry corgi";
-	retreat_distance = 2
+	retreat_distance = 2;
+	icon_dead = "corgi_dead"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
 /area/ruin/space/unpowered)
-"Tj" = (
+"qX" = (
+/obj/machinery/conveyor/east{
+	id = "garbage";
+	dir = 1
+	},
+/obj/machinery/light/small{
+	active_power_consumption = 0;
+	dir = 8;
+	icon_state = "bulb-broken";
+	status = 2
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"qY" = (
+/obj/structure/sign/securearea{
+	pixel_x = -32
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"rJ" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light/small{
+	active_power_consumption = 0;
+	dir = 4;
+	icon_state = "bulb-broken";
+	status = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"rP" = (
+/obj/machinery/door/poddoor{
+	id_tag = "cakearea"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"sh" = (
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"sj" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"sv" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Packaging Room"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"sN" = (
+/obj/machinery/conveyor/east,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"tf" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_x = 15;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_x = 15
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"tp" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"Tt" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plating,
-/area/ruin/space/powered)
-"TM" = (
-/obj/structure/chair/office/dark{
+/obj/item/paper_bin,
+/obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
-"TT" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+"tX" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/machinery/light/small{
+	active_power_consumption = 0;
+	dir = 8;
+	icon_state = "bulb-broken";
+	status = 2
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
-	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
-"Uq" = (
-/obj/machinery/conveyor/east{
-	id = null
+"ub" = (
+/obj/structure/railing{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin)
-"UC" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"up" = (
 /obj/machinery/tcomms/relay/ruskie{
 	network_id = "SYNDICAKES-FACTORY"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
-"UR" = (
-/obj/item/trash/syndi_cakes,
-/turf/space,
-/area/space)
-"Vf" = (
-/obj/machinery/light{
-	dir = 8
+"uA" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/stack/sheet/animalhide/corgi,
+/obj/item/stack/sheet/animalhide/corgi{
+	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"Vt" = (
-/obj/machinery/conveyor/north/ccw{
-	id = null
+/obj/item/stack/sheet/animalhide/corgi{
+	pixel_y = 9
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"VH" = (
-/obj/structure/lattice,
-/obj/random/tool,
-/turf/space,
-/area/space)
-"VR" = (
-/obj/structure/lattice,
-/turf/simulated/floor/plating/airless,
-/area/space)
-"WL" = (
-/turf/space,
-/area/ruin/space/unpowered)
-"Xd" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
 	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"XZ" = (
+"uP" = (
+/obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"uU" = (
+/obj/structure/rack,
+/obj/random/tool,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"vo" = (
+/obj/structure/lattice,
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/template_noop)
+"vE" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"vO" = (
+/obj/effect/decal/cleanable/flour,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"vR" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "SC-Eridani"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"YR" = (
-/obj/machinery/light{
+"wd" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/kitchen/knife/butcher,
+/obj/item/kitchen/knife{
+	pixel_y = 4;
+	pixel_x = -16
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"wf" = (
+/obj/structure/sign/securearea{
+	pixel_y = -32
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"wv" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"wC" = (
+/obj/effect/decal/cleanable/insectguts,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"wE" = (
+/obj/machinery/door/window/classic/normal{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
-"YU" = (
+"wI" = (
+/obj/machinery/conveyor/east{
+	id = "garbage";
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"wV" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"wW" = (
+/obj/machinery/suit_storage_unit/syndicate,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"xy" = (
+/obj/machinery/suit_storage_unit,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"xO" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"xW" = (
+/obj/structure/rack,
+/obj/item/clothing/under/syndicate,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"yU" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"yV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"zc" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap{
+	pixel_y = 7
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"zo" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/corgisuit,
+/obj/item/clothing/head/corgi,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"zt" = (
+/turf/simulated/floor/plating/damaged,
+/area/ruin/space/unpowered)
+"AP" = (
+/obj/structure/table/reinforced,
+/obj/item/trash/syndi_cakes,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"AV" = (
+/obj/machinery/door_control{
+	pixel_y = 32;
+	id = "cakearea";
+	name = "Control Room"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Bh" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_y = -10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"BG" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/stack/sheet/animalhide/corgi,
+/turf/simulated/floor/grass,
+/area/ruin/space/unpowered)
+"BR" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/armor/vest,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Cm" = (
+/obj/effect/decal/cleanable/vomit/green,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"Cp" = (
+/obj/item/shard,
+/turf/simulated/floor/grass,
+/area/ruin/space/unpowered)
+"Cu" = (
+/obj/item/stack/ore/glass/basalt,
+/turf/template_noop,
+/area/template_noop)
+"CR" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel,
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"CW" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap{
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"CX" = (
+/obj/item/trash/tray,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered)
+"Do" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/meat/corgi,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"DJ" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"DP" = (
+/obj/machinery/door/poddoor{
+	id_tag = "securearea"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"DY" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_y = 5;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/food/condiment/milk{
+	pixel_y = 5;
+	pixel_x = -5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"EB" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"EH" = (
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"EJ" = (
+/turf/simulated/wall,
+/area/ruin/space/unpowered)
+"Fj" = (
+/obj/item/trash/syndi_cakes,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"FK" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"FX" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"Ga" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box/empty,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Gh" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Gn" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_y = 7
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"GV" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light/small{
+	active_power_consumption = 0;
+	dir = 8;
+	icon_state = "bulb-broken";
+	status = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"Ha" = (
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/template_noop)
+"Hh" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Ho" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/paper_bin,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Hy" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"Ii" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Iz" = (
+/obj/item/reagent_containers/food/snacks/meat/corgi{
+	pixel_y = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"IB" = (
+/obj/item/stack/sheet/animalhide/corgi,
+/turf/simulated/floor/grass,
+/area/ruin/space/unpowered)
+"IE" = (
+/obj/item/flag/syndi{
+	anchored = 1
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"Jt" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"JQ" = (
+/obj/machinery/teleport/hub,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"Kr" = (
+/obj/effect/decal/cleanable/flour,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"KS" = (
+/obj/machinery/door/poddoor{
+	id_tag = "producearea"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"KY" = (
+/obj/machinery/door/poddoor{
+	id_tag = "securearea"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"Li" = (
+/turf/template_noop,
+/area/ruin/space/unpowered)
+"Lr" = (
+/obj/machinery/door/window/classic/normal{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/unpowered)
+"Lt" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_x = 15
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"LV" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"LW" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/trash/pistachios,
+/obj/item/trash/cheesie,
+/obj/item/trash/fried_vox,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Mw" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_x = 15;
+	pixel_y = 7
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"MV" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/storage/box/papersack{
+	pixel_x = -3
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 3
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"MY" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_x = 15
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"Nq" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"Nx" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap{
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"NQ" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"Ov" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/donkpocket{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/food/snacks/donkpocket{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/snacks/donkpocket{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/donkpocket{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/birthdaycakeslice,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"OF" = (
+/obj/machinery/door/window{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"OK" = (
+/turf/simulated/mineral,
+/area/ruin/space/unpowered)
+"OP" = (
+/obj/item/flag/syndi{
+	anchored = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"OU" = (
+/mob/living/simple_animal/hostile/alien/sentinel{
+	animal_species = /mob/living/simple_animal/pet/dog;
+	attack_sound = 'sound/weapons/bite.ogg';
+	attacktext = "bites";
+	damage_coeff = list("brute"=1,"fire"=1,"tox"=1,"clone"=1,"stamina"=1,"oxy"=1);
+	death_sound = null;
+	deathmessage = "";
+	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
+	icon = 'icons/mob/pets.dmi';
+	icon_living = "corgi";
+	icon_state = "corgi";
+	name = "angry corgi";
+	retreat_distance = 2;
+	icon_dead = "corgi_dead"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"PH" = (
+/obj/structure/railing,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"PS" = (
+/obj/structure/rack,
+/obj/item/storage/pill_bottle/random_drug_bottle,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Qv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"QF" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_x = 15;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_x = 15
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"QI" = (
+/obj/item/toy/plushie/greyplushie,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"RG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"RO" = (
+/obj/structure/grille,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/item/shard{
+	icon_state = "small";
+	pixel_y = -11;
+	pixel_x = 6
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"Sz" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"SS" = (
+/obj/item/reagent_containers/food/snacks/meat/corgi,
+/turf/simulated/floor/grass,
+/area/ruin/space/unpowered)
+"TG" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/unpowered)
+"TM" = (
+/obj/machinery/recycler/deathtrap,
+/obj/machinery/conveyor/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"UR" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Vo" = (
+/obj/machinery/light/small{
+	active_power_consumption = 0;
+	dir = 8;
+	icon_state = "bulb-broken";
+	status = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"Vt" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_y = 12
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"VI" = (
+/obj/item/reagent_containers/food/snacks/meat/corgi{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"VS" = (
+/obj/structure/table_frame,
+/obj/item/stack/sheet/plastitaniumglass,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"Wh" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/unpowered)
+"Wr" = (
+/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"WX" = (
+/obj/item/trash/waffles,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"XZ" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/unpowered)
+"Yy" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "securearea";
+	name = "Secure Area Doors"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"YE" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/unpowered)
+"YQ" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"YR" = (
+/mob/living/simple_animal/hostile/alien/sentinel{
+	animal_species = /mob/living/simple_animal/pet/dog;
+	attack_sound = 'sound/weapons/bite.ogg';
+	attacktext = "bites";
+	damage_coeff = list("brute"=1,"fire"=1,"tox"=1,"clone"=1,"stamina"=1,"oxy"=1);
+	death_sound = null;
+	deathmessage = "";
+	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
+	icon = 'icons/mob/pets.dmi';
+	icon_living = "corgi";
+	icon_state = "corgi";
+	name = "angry corgi";
+	retreat_distance = 2;
+	icon_dead = "corgi_dead"
+	},
+/turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "Zs" = (
-/obj/machinery/conveyor/east{
-	id = null
+/obj/item/reagent_containers/food/condiment/flour,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
 	},
-/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
-"Zt" = (
-/obj/machinery/conveyor/east{
-	dir = 2;
-	id = null
+"Zw" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_y = 7
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/space)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"ZK" = (
+/mob/living/simple_animal/bunny{
+	name = "Flippers";
+	faction = list("neutral","jungle","syndicate")
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"ZT" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (2,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+OK
+pd
+pd
+pd
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (3,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-ob
-ob
-ob
-ob
-ob
-ob
-EJ
-EJ
-EJ
-EJ
-EJ
-EJ
-EJ
-EJ
-Ki
-Ki
-Ki
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+OK
+OK
+OK
+OK
+OK
+OK
+pd
+OK
+OK
+OK
+OK
+pd
+OK
+OK
+pd
+OK
+OK
+OK
+pd
+pd
+pd
+OK
+OK
+OK
+pd
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (4,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-EJ
-EJ
-EJ
-EJ
-EJ
-EJ
-EJ
-Le
-Vf
-zd
-rU
-sN
-FO
-EJ
-EJ
-EJ
-pb
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (5,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-EJ
-JI
-Lq
-IJ
-gy
-gy
-EJ
-Ra
-sN
-Gm
-sN
-sN
-sN
-Tt
-KD
-Tt
-pb
-pb
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (6,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-EJ
-gy
-Hx
-Lq
-Dz
-gy
-EJ
-Nw
-hm
-TT
-Id
-sN
-Ej
-EJ
-EJ
-EJ
-pb
+OK
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (7,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+OK
+OK
+OK
+OK
+OK
+OK
 EJ
-gy
-Dz
-gy
-Dz
-gy
 EJ
-UC
-sN
-Gm
-sN
-sN
-zY
 EJ
+EJ
+oH
+EJ
+EJ
+EJ
+oH
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+EJ
+oH
+EJ
+EJ
+EJ
+OK
+OK
+OK
 pd
 pd
-ls
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (8,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+OK
+OK
+OK
+OK
+OK
+OK
 EJ
-gy
-Zs
-gy
-Zs
-gy
 EJ
+GV
+bn
+VI
+Do
 fq
+Do
+fq
+Vo
+bG
 sN
-Gm
-sN
-YU
-OA
+cr
+cr
+cr
+cr
+cr
+cr
+cr
+cr
+qX
 EJ
+OK
+OK
+OK
 pd
 pd
-ls
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (9,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+OK
+OK
+OK
 EJ
-gy
+oH
+bn
+Kr
 Zs
-gy
-Zs
-xB
-EJ
-sN
-GB
-Gm
+oB
+bn
+bn
+Iz
+qx
+Kr
+bG
 TM
-sN
-sN
+bG
+bG
+au
+bG
+bG
+mg
+bG
+bG
+wI
 EJ
+OK
+OK
+OK
 pd
 pd
-ls
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (10,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+OK
+pd
+OK
+OK
+OK
 EJ
-pR
+vE
+bn
+oB
+bn
+Kr
 Vt
-Vt
-Vt
-gy
-EJ
+gx
+DY
 XZ
-BI
-Gm
+bn
+bG
 uA
-OA
-jR
+bG
+bn
+bn
+EB
+bn
+vO
+bn
+bG
+wI
 EJ
+OK
+OK
+OK
 pd
 pd
-ls
 pd
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+pd
+pd
 "}
 (11,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+OK
+OK
+OK
+OK
 EJ
-Zs
+uP
+oB
+bn
+bn
+bn
+bn
+oB
+fJ
+bn
+bn
+oB
+bn
+bn
+Cm
+bn
+EH
+Nq
+bn
+gu
+bG
+wI
 EJ
-EJ
-EJ
-Rg
-EJ
-EJ
-EJ
-qS
-EJ
-EJ
-EJ
-EJ
-EJ
-EJ
-EJ
-EJ
+OK
+OK
+OK
+OK
 pd
 pd
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+pd
+pd
 "}
 (12,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-EJ
-Zs
-zF
-TM
-Qv
-lK
-EJ
-gy
-IJ
-Fy
-gy
-gy
-Ry
-Kr
-OU
-OU
-OU
-EJ
-pd
-pd
-pd
 OK
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+OK
+OK
+OK
+OK
+EJ
+wd
+mP
+bn
+wC
+bn
+Qv
+oB
+bn
+bn
+bn
+bn
+oB
+bn
+bn
+Kr
+bn
+yV
+OU
+oB
+RO
+wI
+oH
+OK
+OK
+OK
+pd
+pd
+Cu
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (13,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+OK
+OK
+OK
+OK
 EJ
-Zs
-zF
-Tj
-zP
-Xd
-ky
-Cp
-Cp
-es
-gy
+EJ
 rJ
-rJ
-Kr
-rL
-KS
+bn
 OU
+bn
+oH
 EJ
+ky
+Lr
+Cp
+EJ
+EJ
+EJ
+rJ
+gu
+bn
+bn
+hM
+FX
+OF
+wI
+EJ
+OK
+OK
+Cu
+Cu
+Cu
 pd
 pd
 pd
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
 "}
 (14,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+OK
+OK
+OK
+TG
+TG
+TG
+TG
+TG
+TG
+TG
 EJ
-Zs
-EJ
-sN
-wB
-sN
 BG
-gy
-gy
-gy
-gy
-gy
-gy
-oO
-OU
-KS
+gk
+gk
+gk
+SS
+EJ
+EJ
+oH
+EJ
+EJ
 KS
 EJ
+EJ
+EJ
+EJ
+OK
+Cu
+Cu
+pd
+Cu
 pd
 pd
 pd
 pd
-oJ
-Hy
-Hy
-Hy
-Hy
-Hy
-fY
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
 "}
 (15,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+OK
+OK
+OK
+OK
+TG
+UR
+sh
+sh
+sh
+wv
+TG
 EJ
-Zs
-zF
-TM
-RB
-wB
+gk
+SS
+gk
+jx
+gk
 EJ
-IB
-gy
-gy
-gy
-gy
 gy
 EJ
-KS
-KS
-rJ
+IE
+yU
+xO
+PH
+tX
 EJ
+OK
+OK
+bY
+pd
+Ha
 pd
 pd
-mx
+Cu
 pd
 pd
 pd
-Hy
-fY
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
 "}
 (16,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+OK
+OK
+OK
+OK
+TG
+sh
+cW
+cW
+cW
+sh
+TG
 EJ
-Zs
-zF
-bb
-OA
-sN
-EJ
-WL
+jx
+gk
 IB
-gy
+SS
 YR
-HQ
-HQ
 EJ
-OU
-KS
-rJ
+xO
 EJ
-zt
-oJ
+xO
+xO
+yU
+PH
+YE
+EJ
+OK
+EJ
+bY
+pd
+pd
+Ha
 pd
 pd
 pd
-jv
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+pd
 "}
 (17,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-EJ
-uF
-EJ
-EJ
-EJ
-fU
-EJ
-EJ
-EJ
-oO
-EJ
-EJ
-EJ
-EJ
-OU
-KS
 OK
-Da
+OK
+OK
+OK
+OK
+TG
+hc
+cW
+cW
+cW
+hc
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+xO
+xO
+xO
+PH
+oV
+oH
+OK
+oH
+OP
+vo
+oo
 pd
 pd
-NQ
-zt
+oo
 pd
 pd
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
 "}
 (18,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-VR
-Uq
-OU
-OU
-KS
-KS
-OU
-ho
-OU
-OU
-OU
-OU
-ho
-iK
-KS
-Da
+pd
 OK
 OK
-pd
-pd
+OK
+OK
+TG
+sh
+cW
+cW
+cW
+wf
+TG
+pz
+PS
+nl
+BR
+up
+sh
+Hh
+ho
+TG
+Ho
+Gh
+dV
+ZT
+hC
+EJ
+EJ
+EJ
+hF
+zt
 NQ
-zo
+pd
+vo
 pd
 pd
 pd
 pd
-OK
-Hy
-Hy
-fY
-Hy
-Hy
-Hy
+pd
+pd
 "}
 (19,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-pd
-rJ
-rJ
-rJ
-KS
-rJ
-KS
-rJ
-Ic
-Ic
-ub
-NQ
-OU
-KS
-NQ
-NQ
-Da
 OK
+OK
+OK
+OK
+OK
+TG
+sh
+cW
+cW
+cW
+cW
+rP
+sh
+cW
+cW
+cW
+cW
+CX
+ZK
+Ga
+TG
+iL
+sh
+Ii
+xO
 yU
-Da
+wV
+EJ
+sh
+sh
+sh
+lZ
+lZ
 NQ
-AJ
-pd
-OK
-pd
+bY
+EJ
 pd
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
 "}
 (20,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-pd
-nV
-xT
-mc
-KS
-mc
-KS
-KS
-Da
-NQ
-Da
-NQ
-Da
-Da
+Li
+OK
+OK
+OK
+OK
+TG
+AV
+cW
+cW
+cW
+cW
+rP
+sh
+cW
+cW
+cW
+cW
+cW
+CR
+ex
+TG
 UR
-ub
-Da
-Da
-pd
-pd
-NQ
-NQ
-pd
-pd
-pd
+sj
+Ii
+xO
+xO
+xO
+vR
+sh
+hF
+sh
+hF
 zt
+Hy
+lZ
+Hy
 pd
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
 "}
 (21,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Ki
-xT
 pd
-Zt
-rJ
-Zt
-Zt
-NQ
-Ic
-Da
-Da
-Da
-Da
-OK
-Da
-Da
 OK
 OK
-Da
+OK
+OK
+TG
+sh
+cW
+cW
+cW
+cW
+rP
+sh
+cW
+cW
+cW
+cW
+cW
+WX
+AP
+TG
+sh
+sh
+Ii
+xO
+xO
+Jt
+EJ
+sh
+sh
+sh
+sh
+sh
+EJ
+EJ
+EJ
 pd
-NQ
-Da
-Da
 pd
 pd
 pd
-pd
-pd
-pd
-pd
-Hy
-Ki
-Hy
-Hy
 "}
 (22,1,1) = {"
-Hy
-Hy
-CY
-Hy
-Hy
-Hy
-Hy
-xT
-pd
-pd
-zo
-pd
-zo
-zo
-NQ
-ub
-Da
-Da
-Da
-Da
-Da
-Da
-Da
-Da
-Da
-ub
-zt
-pd
-pd
-pd
-mx
-pd
-pd
-pd
-pd
 OK
-Hy
-Hy
-Hy
-Hy
+OK
+OK
+OK
+OK
+TG
+sh
+cW
+cW
+cW
+wf
+TG
+nO
+zo
+xW
+uU
+wW
+LW
+Gn
+tp
+TG
+wE
+ga
+Yy
+hH
+ub
+EJ
+EJ
+EJ
+sh
+sh
+sh
+sh
+oH
+OK
+OK
+pd
+pd
+pd
+pd
 "}
 (23,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Ki
-Mi
-dy
-VR
-pd
-pd
-pd
-pd
-pd
-zt
-pd
-pd
-Ic
-OU
-OU
-Da
-NQ
-pd
-pd
-pd
-pd
-pd
-pd
-oJ
-pd
-zt
+OK
+OK
+OK
+OK
+OK
+TG
+hc
+cW
+cW
+cW
+hc
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+xO
+xO
+xO
+PH
+gc
+EJ
+OK
+oH
+OP
+sh
+sh
 ls
+EJ
+OK
+OK
 pd
 pd
 pd
-Hy
-Hy
-Hy
-Hy
+pd
 "}
 (24,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Ki
-Hy
-Hy
-Hy
-Ki
-Hy
 pd
-oJ
+OK
+OK
+OK
+OK
+TG
+sh
+cW
+cW
+cW
+sh
+TG
+EJ
+fs
+Zw
+bk
+Bh
+QF
+EJ
+xO
+EJ
+xO
+xO
+xO
+PH
+YE
+EJ
+OK
+EJ
+EJ
+xy
+xy
+EJ
+EJ
 OK
 pd
 pd
-bk
-NQ
-QF
-QF
-QF
-QF
-Da
-xT
-oJ
 pd
 pd
 pd
-cc
-VH
-pd
-pd
-pd
-pd
-pd
-pd
-ls
-Hy
-Hy
-Hy
-Hy
 "}
 (25,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-CY
-Hy
-Hy
-Hy
-Hy
-pd
-pd
+OK
+OK
+OK
+OK
+OK
+TG
+UR
+sh
+sh
+sh
+wv
+TG
+EJ
 ke
-OK
-pd
-zo
-NQ
-NQ
+hq
+xO
+FK
+Lt
+EJ
 QI
-NQ
-NQ
-pd
-pd
-zt
-NQ
-NQ
-om
-zo
-pd
+oH
+iq
+xO
+xO
+PH
+dP
+EJ
+OK
+OK
+EJ
+EJ
+EJ
+EJ
+OK
 OK
 pd
-oJ
 pd
 pd
-zt
-Hy
-Hy
-Hy
-Hy
+pd
+pd
 "}
 (26,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Ki
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+OK
+OK
+OK
+OK
+TG
+TG
+DP
+KY
+DP
+TG
+TG
+oH
+tf
+xO
+Sz
+xO
+MY
+EJ
+EJ
+EJ
+EJ
+EJ
+sv
+EJ
+oH
+EJ
+EJ
+OK
+OK
+OK
+OK
+OK
+OK
 pd
 pd
 pd
 pd
 pd
 pd
-pd
-pd
-NQ
-ls
-pd
-pd
-pd
-pd
-pd
-zo
-zo
-Da
-Da
-pd
-oJ
-pd
-pd
-pd
-Hy
-Hy
-Hy
-Hy
 "}
 (27,1,1) = {"
-Hy
-Hy
-CY
-Hy
-Hy
-Hy
-Hy
-AH
-CY
-CY
-Hy
-fY
-Hy
-pd
-pd
-pd
-pd
-pd
-pd
-pd
-pd
-pd
-pd
 OK
-pd
+OK
+OK
+OK
+OK
+EJ
+qY
+xO
+hq
+xO
+qY
+EJ
+EJ
+fE
+hq
+Wr
+hq
+Zw
+EJ
+bO
+DJ
+xO
+hq
+Fj
+hq
 oJ
-pd
-mx
-pd
-pd
+MV
+EJ
+OK
+OK
+OK
+OK
 OK
 pd
 pd
 pd
 pd
 pd
-Hy
-Hy
-Hy
-Hy
+pd
+pd
 "}
 (28,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-pd
-NQ
+OK
+OK
+OK
+OK
+OK
+EJ
+xO
+FK
+xO
+hq
+xO
+hq
+xO
+hq
+xO
+FK
+RG
+hq
+xO
+hq
+xO
+FK
+xO
+hq
+xO
+FK
+bl
+EJ
+OK
+OK
+OK
 OK
 pd
 pd
-aM
-pd
-mx
-pd
-pd
-pd
-oJ
 pd
 pd
 pd
 pd
 pd
 pd
-aM
-pd
-pd
-Hy
-Hy
-Hy
-Hy
-jf
 "}
 (29,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-CY
-Hy
-Hy
-Hy
-Hy
-CY
-Hy
-Hy
-Hy
-Fw
-Hy
-pd
-oJ
-pd
-pd
-pd
-pd
-pd
-pd
-pd
 OK
-oJ
+OK
+OK
+OK
+OK
+oH
+hq
+xO
+Sz
+xO
+FK
+xO
+hq
+Fj
+hq
+bq
+FK
+RG
+hq
+xO
+hq
+xO
+hq
+xO
+Sz
+xO
+hq
+oH
+OK
+OK
+OK
+OK
 pd
-kh
 pd
 pd
 pd
 pd
 pd
 pd
-Hy
-Hy
-Hy
-fY
-Hy
-Hy
+pd
 "}
 (30,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-CY
-CY
-Hy
 pd
-pd
-pd
-pd
-ls
-pd
+OK
+OK
+OK
+OK
+EJ
+xO
+hq
+xO
+qk
+RG
+hq
+xO
+hq
+co
+Ov
+YQ
+FK
+xO
+qk
+xO
+hq
+xO
+hq
+xO
+hq
+xO
+EJ
+OK
+OK
+OK
 OK
 pd
 pd
@@ -1852,435 +2575,425 @@ pd
 pd
 pd
 pd
-oJ
-zt
 pd
-pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
 "}
 (31,1,1) = {"
-Hy
-Hy
-Hy
-fY
-Hy
-Hy
-Ki
-Hy
-Hy
-Hy
-Ki
-Hy
-CY
-Hy
-Hy
-Hy
-Hy
+pd
+OK
+OK
+OK
+OK
+EJ
+EJ
+xO
+hq
+xO
+FK
+xO
+hq
+xO
+hq
+LV
+hq
+Fj
+FK
+xO
+hq
+xO
+hq
+xO
+FK
+RG
+MV
+EJ
+OK
+OK
+OK
+OK
 pd
 pd
 pd
 pd
 pd
-ls
-pd
-pd
-oJ
-pd
-pd
-aM
 pd
 pd
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
 "}
 (32,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-fY
-Hy
-Hy
-Hy
-Hy
-kh
+OK
+OK
+OK
+OK
+OK
+OK
+EJ
+EJ
+kD
+VS
+ar
+je
+xO
+bv
+xO
+hq
+xO
+bv
+xO
+hq
+zc
+Nx
+CW
+qk
+xO
+bv
+bl
+EJ
+OK
+OK
+OK
+OK
 pd
 pd
-zt
-pd
-pd
-ls
 pd
 pd
 pd
 pd
 pd
 pd
-Hy
-Hy
-Fw
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
 "}
 (33,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-CY
-Hy
-CY
-Hy
-fY
-Hy
-Hy
-Hy
-Hy
-Hy
-jf
-Hy
-Hy
-Hy
-Hy
+pd
+OK
+OK
+OK
+OK
+OK
+OK
+EJ
+EJ
+oH
+oH
+EJ
+EJ
+EJ
+hq
+xO
+hq
+EJ
+EJ
+EJ
+oH
+EJ
+EJ
+EJ
+oH
+EJ
+EJ
+EJ
+OK
+OK
+OK
 pd
 pd
 pd
 pd
 pd
-NQ
-zt
 pd
 pd
-oJ
 pd
-fY
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
 "}
 (34,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-CY
-Hy
-Hy
-Hy
-CY
-Hy
-fY
-Hy
-CY
-Hy
-Hy
 pd
-oJ
+pd
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+EJ
+Mw
+xO
+hq
+xO
+qd
+oH
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+"}
+(35,1,1) = {"
+pd
+pd
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+oH
+fE
+hq
+xO
+hq
+jn
+EJ
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+pd
+OK
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+"}
+(36,1,1) = {"
+pd
+pd
+OK
+OK
+pd
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+EJ
+Wh
+xO
+hq
+xO
+Wh
+EJ
+OK
+OK
+OK
+OK
+OK
+OK
+pd
+OK
+OK
+pd
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+"}
+(37,1,1) = {"
+pd
+pd
+pd
+OK
+pd
+pd
+OK
+OK
+OK
+OK
+OK
+OK
+EJ
+oH
+EJ
+JQ
+EJ
+oH
+EJ
+OK
+OK
+OK
+OK
+OK
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+"}
+(38,1,1) = {"
+pd
 pd
 pd
 OK
 pd
 pd
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-"}
-(35,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Ki
-Hy
-Hy
-Hy
-CY
-CY
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+OK
+OK
 pd
-pd
-ls
+OK
+OK
+OK
+OK
+EJ
+EJ
+EJ
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
 pd
 pd
 pd
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-fY
-Hy
-Hy
-Hy
-Hy
-Hy
-"}
-(36,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-CY
-Hy
-Hy
-Hy
-Hy
-fY
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-"}
-(37,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Fw
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-"}
-(38,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (39,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-jf
-Hy
-Hy
-Hy
-Hy
-fY
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+OK
+pd
+OK
+pd
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+OK
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
 "}
 (40,1,1) = {"
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
-Hy
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
+pd
 "}

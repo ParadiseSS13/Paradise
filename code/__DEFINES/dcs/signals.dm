@@ -304,6 +304,8 @@
 
 ///from base of /datum/mind/proc/transfer_to(mob/living/new_character)
 #define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
+///called on the mob instead of the mind
+#define COMSIG_BODY_TRANSFER_TO "body_transfer_to"
 
 // /mob signals
 
@@ -693,6 +695,8 @@
 #define COMSIG_HUMAN_PARRY "human_parry"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
+///From mob/living/carbon/human/attackedby(): (mob/living/carbon/human/attacker). Also found on species/disarm and species/harm
+#define COMSIG_HUMAN_ATTACKED "human_attacked"
 
 // /datum/species signals
 
