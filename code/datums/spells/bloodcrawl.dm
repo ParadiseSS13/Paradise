@@ -9,6 +9,7 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	human_req = FALSE
+	phase_allowed = TRUE
 	cooldown_min = 0
 	should_recharge_after_cast = FALSE
 	overlay = null
