@@ -1361,9 +1361,10 @@
 	uniform = /obj/item/clothing/under/costume/tourist_suit
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/black
-	backpack_contents = list(/obj/item/storage/box/survival = 1)
-
-	implants = list(/obj/item/implant/dust)
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/implanter/dust = 1
+		)
 
 /datum/outfit/admin/observer/plasmaman
 	name = "Observer (Plasma)"
@@ -1374,9 +1375,10 @@
 	belt =/obj/item/tank/internals/plasmaman/belt/full
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/black
-	backpack_contents = list(/obj/item/storage/box/survival_plasmaman = 1)
-
-	implants = list(/obj/item/implant/dust)
+	backpack_contents = list(
+		/obj/item/storage/box/survival_plasmaman = 1,
+		/obj/item/implanter/dust = 1
+		)
 
 /datum/outfit/admin/observer/vox
 	name = "Observer (Vox)"
@@ -1386,6 +1388,8 @@
 	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/black
-	backpack_contents = list(/obj/item/storage/box/survival_vox = 1)
+	backpack_contents = list(
+		/obj/item/storage/box/survival_vox = 1,
+		/obj/item/implanter/dust = 1
+		)
 
-	implants = list(/obj/item/implant/dust)
