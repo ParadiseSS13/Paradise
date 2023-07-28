@@ -58,6 +58,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/obj/item/encryptionkey/syndicate/syndiekey = null
 	/// How many times this is disabled by EMPs
 	var/disable_timer = 0
+	/// Areas in which this radio cannot send messages
+	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome)
 
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -262,6 +264,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	else
 		connection = radio_connection
 		channel = null
+
+	if(is_type_in_list(get_area(src), blacklisted_areas))
+		// add a debug log so people testing things won't be fighting against a "broken" radio for too long.
+		log_debug("Radio message from [src] was used in restricted area [get_area(src)].")
+		return
 	if(!istype(connection))
 		return
 	if(!connection)
@@ -359,6 +366,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	if(!M.IsVocal())
 		return 0
+
+	if(is_type_in_list(get_area(src), blacklisted_areas))
+		// add a debug log so people testing things won't be fighting against a "broken" radio for too long.
+		log_debug("Radio message from [src] was used in restricted area [get_area(src)].")
+		return FALSE
 
 	var/jammed = FALSE
 	var/turf/position = get_turf(src)

@@ -26,11 +26,7 @@
 	var/link_password
 	/// What tab of the UI were currently on
 	var/ui_tab = UI_TAB_CONFIG
-	/// Areas in which every radio message will be ignored
-	var/list/blacklisted_areas = list(
-		/area/adminconstruction,
-		/area/tdome,
-	)
+
 
 /**
   * Initializer for the core.
@@ -100,11 +96,6 @@
 		return FALSE
 	// Kill the signal if its on a z-level that isnt reachable
 	if(!zlevel_reachable(tcm.source_level))
-		return FALSE
-
-	if(is_type_in_list(get_area(tcm.radio), blacklisted_areas))
-		// add a debug log so people testing things won't be fighting against a "broken" radio for too long.
-		log_debug("Radio message from [tcm.sender] was used in restricted area [get_area(tcm.radio)].")
 		return FALSE
 
 	// Now we can run NTTC
