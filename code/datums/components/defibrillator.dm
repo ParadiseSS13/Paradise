@@ -165,7 +165,7 @@
 	if(ghost?.can_reenter_corpse)
 		to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 		window_flash(ghost.client)
-		ghost << sound('sound/effects/genetics.ogg')
+		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
 	if(!do_after(user, 3 SECONDS * speed_multiplier, target = target)) // Beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 		busy = FALSE
@@ -252,12 +252,12 @@
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No brain detected within patient.</span>")
 		defib_success = FALSE
 	else if(ghost)
-		if(!ghost.can_reenter_corpse) // DNR or AntagHUD
+		if(!ghost.can_reenter_corpse || target.suiciding) // DNR or AntagHUD
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected.</span>")
 		else
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>")
 		defib_success = FALSE
-	else if((signal_result & COMPONENT_BLOCK_DEFIB) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || HAS_TRAIT(target, TRAIT_BADDNA))  // these are a bit more arbitrary
+	else if((signal_result & COMPONENT_BLOCK_DEFIB) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || HAS_TRAIT(target, TRAIT_BADDNA) || target.suiciding)  // these are a bit more arbitrary
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>")
 		defib_success = FALSE
 

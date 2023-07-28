@@ -304,6 +304,8 @@
 
 ///from base of /datum/mind/proc/transfer_to(mob/living/new_character)
 #define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
+///called on the mob instead of the mind
+#define COMSIG_BODY_TRANSFER_TO "body_transfer_to"
 
 // /mob signals
 
@@ -696,6 +698,8 @@
 /// Sent from mob/living/carbon/human/do_cpr(): (mob/living/carbon/human/H, new_seconds_of_life)
 #define COMSIG_HUMAN_RECEIVE_CPR "human_receieve_cpr"
 
+///From mob/living/carbon/human/attackedby(): (mob/living/carbon/human/attacker). Also found on species/disarm and species/harm
+#define COMSIG_HUMAN_ATTACKED "human_attacked"
 
 // /datum/species signals
 

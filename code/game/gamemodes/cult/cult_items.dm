@@ -617,7 +617,7 @@
 					L.Stuttering(16 SECONDS)
 					L.CultSlur(20 SECONDS)
 					L.Jitter(16 SECONDS)
-		break_spear(T)
+			break_spear(T)
 	else
 		..()
 

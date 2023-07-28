@@ -226,8 +226,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "rb" = (
-/obj/machinery/door/window/brigdoor/southleft{
-	req_one_access_txt = "2;19"
+/obj/machinery/door/window/reinforced/normal{
+	req_one_access_txt = "2;19";
+	dir = 2
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
@@ -392,12 +393,14 @@
 /area/shuttle/administration)
 "yg" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor/eastleft{
+/obj/machinery/door/window/reinforced/normal{
 	name = "Armory";
-	req_access_txt = "3"
+	req_access_txt = "3";
+	dir = 4
 	},
-/obj/machinery/door/window/brigdoor/westleft{
-	name = "Armory"
+/obj/machinery/door/window/reinforced/normal{
+	name = "Armory";
+	dir = 8
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -464,8 +467,9 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "Bn" = (
-/obj/machinery/door/window/brigdoor/southleft{
-	req_one_access_txt = "2;19"
+/obj/machinery/door/window/reinforced/normal{
+	req_one_access_txt = "2;19";
+	dir = 2
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -640,8 +644,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Ke" = (
-/obj/machinery/door/window/brigdoor/southright{
-	req_one_access_txt = "2;19"
+/obj/machinery/door/window/reinforced/reversed{
+	req_one_access_txt = "2;19";
+	dir = 2
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
@@ -748,8 +753,9 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Pe" = (
-/obj/machinery/door/window/brigdoor/southright{
-	req_one_access_txt = "2;19"
+/obj/machinery/door/window/reinforced/reversed{
+	req_one_access_txt = "2;19";
+	dir = 2
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
