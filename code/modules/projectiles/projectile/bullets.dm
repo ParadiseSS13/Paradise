@@ -282,7 +282,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != INFINITY)
-			if(!M.wear_suit.flags & PUNCTUREIMMUNE)
+			if(!(M.wear_suit.flags & PUNCTUREIMMUNE))
 				..()
 				reagents.trans_to(M, reagents.total_volume)
 				return TRUE
