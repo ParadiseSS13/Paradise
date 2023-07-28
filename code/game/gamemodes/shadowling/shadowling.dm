@@ -161,7 +161,7 @@ Made by Xhuis
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
 		//If you add spells to thrall, be sure to remove them on dethrallize
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_guise(null))
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision(null))
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision/thrall(null))
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>")
