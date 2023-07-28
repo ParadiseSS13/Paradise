@@ -28,7 +28,7 @@
 			var/mob/dead/observer/ghost = get_ghost()
 			if(ghost)
 				to_chat(ghost, "<span class='ghostalert'>Your cyborg shell has been repaired, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)")
-				ghost << sound('sound/effects/genetics.ogg')
+				SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 			create_attack_log("revived, trigger reason: [reason]")
 			create_log(MISC_LOG, "revived, trigger reason: [reason]")
 

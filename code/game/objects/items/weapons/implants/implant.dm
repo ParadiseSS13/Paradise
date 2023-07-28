@@ -160,7 +160,9 @@
  *  -1 if the implant fails to inject
  * 	0 if there's no room for the implant.
  */
-/obj/item/implant/proc/implant(mob/source, mob/user)
+/obj/item/implant/proc/implant(mob/source, mob/user, force)
+	if(!force && !can_implant(source, user))
+		return
 	var/obj/item/implant/imp_e = locate(type) in source
 	if(!allow_multiple && imp_e && imp_e != src)
 		if(imp_e.uses < initial(imp_e.uses)*2)
@@ -199,6 +201,19 @@
 		add_attack_logs(user, source, "Chipped with [src]")
 
 	return 1
+
+/**
+ * Check that we can actually implant this before implanting it
+ * * source - The person being implanted
+ * * user - The person doing the implanting
+ *
+ * Returns
+ * TRUE - I could care less, implant it, maybe don't. I don't care.
+ * FALSE - Don't implant!
+ */
+/obj/item/implant/proc/can_implant(mob/source, mob/user)
+	return TRUE
+
 
 /**
  * Clean up when an implant is removed.
