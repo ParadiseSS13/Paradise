@@ -337,7 +337,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		found_valid_target = TRUE
 
 	else
-		var/loops = 5
+		var/loops = 10
 		// Steal objectives need snowflake handling here unfortunately.
 		if(istype(new_objective, /datum/objective/steal))
 			var/datum/objective/steal/steal_objective = new_objective
