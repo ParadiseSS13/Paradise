@@ -103,7 +103,8 @@
 		return FALSE
 
 	if(is_type_in_list(get_area(tcm.radio), blacklisted_areas))
-		log_debug("Radio message was muted in restricted area")
+		// add a debug log so people testing things won't be fighting against a "broken" radio for too long.
+		log_debug("Radio message from [tcm.sender] was used in restricted area [get_area(tcm.radio)].")
 		return FALSE
 
 	// Now we can run NTTC
