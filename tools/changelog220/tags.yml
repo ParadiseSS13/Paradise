@@ -1,0 +1,25 @@
+tags:
+    add: add
+    del: del
+    tweak: tweak
+    fix: fix
+    wip: wip
+    soundadd: soundadd
+    sounddel: sounddel
+    imageadd: imageadd
+    imagedel: imagedel
+    spellcheck: spellcheck
+    experiment: experiment
+
+defaults:
+    add: Что-то добавил
+    del: Что-то удалил
+    tweak: Поменял что-то по мелочи
+    fix: Что-то починил
+    wip: Какие-либо наработки в процессе
+    soundadd: Добавил новый звук
+    sounddel: Удалил старый звук
+    imageadd: Добавил новую картинку
+    imagedel: Удалил старую картинку
+    spellcheck: Исправил опечатку
+    experiment: Добавил эксперементальную функцию
