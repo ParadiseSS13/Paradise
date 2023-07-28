@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	for(var/turf/oasis in circlerangeturfs(get_turf(src), radius))
 		oasis.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic, ignore_air = TRUE)
 	var/list/valid_turfs = RANGE_EDGE_TURFS(radius + 2, src)
-	for(var/mob/M in radius(src, radius)) //We don't want mobs inside the ore rock
+	for(var/mob/M in range(src, radius)) //We don't want mobs inside the ore rock
 		M.forceMove(pick(valid_turfs))
 	qdel(src)
 
