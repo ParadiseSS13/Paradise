@@ -1044,12 +1044,8 @@
 	if(target_zone == "head")
 		if(head && head.flags & THICKMATERIAL && !penetrate_thick)
 			. = FALSE
-		if(head == /obj/item/clothing/head/helmet/space/deathsquad || head == /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst)
-			. = FALSE
 	else
 		if(wear_suit && wear_suit.flags & THICKMATERIAL && !penetrate_thick)
-			. = FALSE
-		if(wear_suit == /obj/item/clothing/suit/space/deathsquad || wear_suit == /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst)
 			. = FALSE
 	if(!. && error_msg && user)
 		if(!fail_msg)
