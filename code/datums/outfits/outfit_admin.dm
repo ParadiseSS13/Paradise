@@ -1372,7 +1372,7 @@
 	uniform = /obj/item/clothing/under/plasmaman/assistant
 	head = /obj/item/clothing/head/helmet/space/plasmaman/assistant
 	mask = /obj/item/clothing/mask/breath
-	belt =/obj/item/tank/internals/plasmaman/belt/full
+	belt = /obj/item/tank/internals/plasmaman/belt/full
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/black
 	backpack_contents = list(
