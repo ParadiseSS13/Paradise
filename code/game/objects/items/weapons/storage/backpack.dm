@@ -19,9 +19,8 @@
 	max_integrity = 300
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/back.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
-		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
+		)
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(in_range(user, src))
@@ -125,6 +124,11 @@
 	new /obj/item/instrument/bikehorn(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/dnainjector/comic(src)
+	for(var/i in 1 to 10)
+		new /obj/item/ammo_box/magazine/m12g/confetti(src)
+	for(var/i in 1 to 5)
+		new /obj/item/grenade/confetti(src)
+	new /obj/item/gun/projectile/revolver/capgun(src)
 
 /obj/item/storage/backpack/mime
 	name = "Parcel Parceaux"
@@ -574,6 +578,7 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone(src)
 
 /obj/item/storage/backpack/duffel/syndie/med/surgery_fake //for maint spawns
 	name = "surgery duffelbag"
@@ -590,6 +595,16 @@
 	if(prob(50))
 		new /obj/item/circular_saw(src)
 		new /obj/item/surgicaldrill(src)
+
+/obj/item/storage/backpack/duffel/syndie/party
+	desc = "A large duffel bag, packed to the brim with hilarious equipment."
+
+/obj/item/storage/backpack/duffel/syndie/party/populate_contents()
+	for(var/i in 1 to 10)
+		new /obj/item/ammo_box/magazine/m12g/confetti(src)
+	for(var/i in 1 to 5)
+		new /obj/item/grenade/confetti(src)
+	new /obj/item/gun/projectile/revolver/capgun(src)
 
 #define NANNY_MAX_VALUE 7
 #define NANNY_MIN_VALUE 6

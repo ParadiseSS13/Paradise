@@ -515,7 +515,8 @@
 		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
 		/obj/item/storage/bag/trash,
-		/obj/item/twohanded/push_broom
+		/obj/item/twohanded/push_broom,
+		/obj/item/door_remote/janikeyring
 		)
 
 /obj/item/storage/belt/janitor/full/populate_contents()

@@ -22,8 +22,10 @@
 	var/slip_always
 	/// The verb that players will see when someone slips on the parent. In the form of "You [slip_verb]ped on".
 	var/slip_verb
+	/// TRUE the player will only slip if the mob this datum is attached to is horizontal
+	var/horizontal_required
 
-/datum/component/slippery/Initialize(_description, _knockdown = 0, _slip_chance = 100, _slip_tiles = 0, _walking_is_safe = TRUE, _slip_always = FALSE, _slip_verb = "slip")
+/datum/component/slippery/Initialize(_description, _knockdown = 0, _slip_chance = 100, _slip_tiles = 0, _walking_is_safe = TRUE, _slip_always = FALSE, _slip_verb = "slip", _horizontal_required = FALSE)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -34,6 +36,7 @@
 	walking_is_safe = _walking_is_safe
 	slip_always = _slip_always
 	slip_verb = _slip_verb
+	horizontal_required = _horizontal_required
 
 /datum/component/slippery/RegisterWithParent()
 	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(Slip))
@@ -52,5 +55,9 @@
 		var/atom/movable/owner = parent
 		if(!isturf(owner.loc))
 			return
+		if(isliving(owner))
+			var/mob/living/mob_owner = owner
+			if(horizontal_required && !IS_HORIZONTAL(mob_owner))
+				return
 		if(prob(slip_chance) && victim.slip(description, knockdown, slip_tiles, walking_is_safe, slip_always, slip_verb))
 			owner.after_slip(victim)

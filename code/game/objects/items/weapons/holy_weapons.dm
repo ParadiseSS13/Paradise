@@ -421,7 +421,10 @@
 /obj/item/nullrod/armblade/mining/pickup(mob/living/user)
 	..()
 	flags += ABSTRACT
-	return FALSE
+
+/obj/item/nullrod/armblade/mining/dropped(mob/living/user)
+	..()
+	flags ^= ABSTRACT
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
@@ -711,6 +714,6 @@
 	//if you made it this far: congratulations! you are now a religious zealot!
 	target.mind.make_zealot(missionary, convert_duration, team_color)
 
-	target << sound('sound/misc/wololo.ogg', 0, 1, 25)
+	SEND_SOUND(target, sound('sound/misc/wololo.ogg', volume = 25))
 	missionary.say("WOLOLO!")
-	missionary << sound('sound/misc/wololo.ogg', 0, 1, 25)
+	SEND_SOUND(missionary, sound('sound/misc/wololo.ogg', volume = 25))
