@@ -204,8 +204,9 @@
 /datum/status_effect/vampire_gladiator
 	id = "vampire_gladiator"
 	duration = 30 SECONDS
-	tick_interval = 0
+	tick_interval = 1 SECONDS
 	alert_type = /obj/screen/alert/status_effect/vampire_gladiator
+	var/healing_ticks_left // We use this to see how long we can keep healing the vampire
 
 /obj/screen/alert/status_effect/vampire_gladiator
 	name = "Gladiatorial resilience"
@@ -215,6 +216,7 @@
 
 /datum/status_effect/vampire_gladiator/on_apply()
 	. = ..()
+	healing_ticks_left = 30
 	var/mob/living/carbon/human/H = owner
 	for(var/Y in H.bodyparts)
 		var/obj/item/organ/external/E = Y
@@ -225,6 +227,15 @@
 	for(var/Y in H.bodyparts)
 		var/obj/item/organ/external/E = Y
 		E.min_broken_damage -= 100
+
+/datum/status_effect/vampire_gladiator/tick()
+	if(healing_ticks_left)
+		owner.adjustStaminaLoss(-40)
+		owner.adjustBruteLoss(-5)
+		owner.adjustFireLoss(-5)
+		healing_ticks_left--
+	else
+		qdel(src)
 
 /datum/status_effect/blood_rush
 	alert_type = null

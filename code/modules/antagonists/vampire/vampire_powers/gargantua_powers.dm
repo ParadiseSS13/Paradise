@@ -219,6 +219,8 @@
 	var/turf/the_middle_ground
 	/// Holds a reference to the timer until either the spell runs out or we recast it
 	var/timer
+	/// Holds a reference to all arena walls so we can qdel them easily with dispell()
+	var/list/all_temp_walls = list()
 
 /obj/effect/proc_holder/spell/vampire/arena/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -236,20 +238,27 @@
 
 	// First we leap towards the enemy target
 
-	var/turf/target_turf = get_turf(targets[1])
 	var/prevLayer = user.layer
 	var/prevFlying = user.flying
 	user.layer = 9
 	user.flying = TRUE
 	for(var/i=0, i<10, i++)
-		var/movement_dir = get_dir(user, target_turf)
-		step(user, movement_dir)
-		if(i < 5) user.pixel_y += 8
-		else user.pixel_y -= 8
+		user.pixel_y += 12
+		sleep(1)
+		user.flying = prevFlying
+	var/turf/target_turf = get_turf(targets[1]) // We want to get the location here in case the target moves while we are charging up
+	user.forceMove(target_turf)
+	for(var/i=0, i<5, i++)
+		user.pixel_y -= 24
 		sleep(1)
 		user.flying = prevFlying
 	user.flying = prevFlying
 	user.layer = prevLayer
+
+	// They get a cool soundeffect and a visual, as a treat
+
+	playsound(target_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	new /obj/effect/temp_visual/stomp(target_turf)
 
 	// Now we build the arena and give the caster the buff
 
@@ -271,7 +280,8 @@
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
 	for(var/tumor_range_turfs in circle_edge_turfs(the_middle_ground, ARENA_SIZE))
-		new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
+		tumor_range_turfs = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
+		all_temp_walls += tumor_range_turfs
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check()
 	if(QDELETED(garg_vampire) || garg_vampire.stat == DEAD)
@@ -288,4 +298,5 @@
 	if(timer)
 		deltimer(timer)
 		timer = null
-	visible_message("<span class='warning'>The arena begins to slowly dissipate.</span>")
+	QDEL_LIST_CONTENTS(all_temp_walls)
+	visible_message("<span class='warning'>The arena begins to dissipate.</span>")
