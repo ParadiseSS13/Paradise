@@ -160,6 +160,7 @@
 	tick_interval = 0
 	alert_type = /obj/screen/alert/status_effect/blood_swell
 	var/bonus_damage_applied = FALSE
+	var/original_color
 
 /obj/screen/alert/status_effect/blood_swell
 	name = "Blood Swell"
@@ -173,6 +174,8 @@
 		return FALSE
 	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 	var/mob/living/carbon/human/H = owner
+	original_color = H.color
+	H.color = "#d11141"
 	H.physiology.brute_mod *= 0.5
 	H.physiology.burn_mod *= 0.5
 	H.physiology.stamina_mod *= 0.5
@@ -188,6 +191,7 @@
 		return
 	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 	var/mob/living/carbon/human/H = owner
+	H.color = original_color
 	H.physiology.brute_mod /= 0.5
 	H.physiology.burn_mod /= 0.5
 	H.physiology.stamina_mod /= 0.5
@@ -198,17 +202,29 @@
 		H.dna.species.punchstunthreshold -= 8
 
 /datum/status_effect/vampire_gladiator
-	id = "bloodswell"
+	id = "vampire_gladiator"
 	duration = 30 SECONDS
 	tick_interval = 0
-	alert_type = /obj/screen/alert/status_effect/blood_swell
+	alert_type = /obj/screen/alert/status_effect/vampire_gladiator
+
+/obj/screen/alert/status_effect/vampire_gladiator
+	name = "Gladiatorial resilience"
+	desc = "Roused by the thrill of the fight, your body has become more resistant to breaking!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "mech_damtype_brute"
 
 /datum/status_effect/vampire_gladiator/on_apply()
 	. = ..()
 	var/mob/living/carbon/human/H = owner
+	for(var/Y in H.bodyparts)
+		var/obj/item/organ/external/E = Y
+		E.min_broken_damage += 100 // Arbitrary high damage number, we just want to stop bone breaks from happening
 
 /datum/status_effect/vampire_gladiator/on_remove()
-
+	var/mob/living/carbon/human/H = owner
+	for(var/Y in H.bodyparts)
+		var/obj/item/organ/external/E = Y
+		E.min_broken_damage -= 100
 
 /datum/status_effect/blood_rush
 	alert_type = null
