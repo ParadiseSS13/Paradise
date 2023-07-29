@@ -49,7 +49,7 @@
 /obj/item/areaeditor/permit
 	name = "construction permit"
 	icon_state = "permit"
-	desc = "This is a one-use permit that allows the user to officially declare a built room as new addition to the station."
+	desc = "This is a one-use permit that allows the user to officially declare a built room as an addition to the station."
 	fluffnotice = "Nanotrasen Engineering requires all on-station construction projects to be approved by a head of staff, as detailed in Nanotrasen Company Regulation 512-C (Mid-Shift Modifications to Company Property). \
 						By submitting this form, you accept any fines, fees, or personal injury/death that may occur during construction."
 	w_class = WEIGHT_CLASS_TINY
@@ -229,7 +229,7 @@
 	if(!str || !length(str)) //cancel
 		return area_created
 	if(length(str) > 50)
-		to_chat(usr, "<span class='warning'>The given name is too long.  The area remains undefined.</span>")
+		to_chat(usr, "<span class='warning'>The given name is too long. The area remains undefined.</span>")
 		return area_created
 	if(syndicate)
 		var/area/syndicate/unpowered/syndicate_space_base/A = new
@@ -277,7 +277,7 @@
 	if(!str || !length(str) || str==prevname) //cancel
 		return
 	if(length(str) > 50)
-		to_chat(usr, "<span class='warning'>The given name is too long.  The area's name is unchanged.</span>")
+		to_chat(usr, "<span class='warning'>The given name is too long. The area's name is unchanged.</span>")
 		return
 	set_area_machinery_title(A,str,prevname)
 	A.name = str

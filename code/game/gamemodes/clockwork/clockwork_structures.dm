@@ -11,7 +11,7 @@
 
 /obj/structure/clockwork/altar
 	name = "credence"
-	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods..."
+	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
 	icon_state = "altar"
 	density = 0
 
@@ -164,7 +164,7 @@
 
 /obj/structure/clockwork/functional/altar
 	name = "credence"
-	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods..."
+	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
 	icon_state = "altar"
 	density = 0
 	death_message = "<span class='danger'>The alter breaks in pieces as it dusts into nothing!</span>"
