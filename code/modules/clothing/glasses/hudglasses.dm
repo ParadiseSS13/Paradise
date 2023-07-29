@@ -230,4 +230,3 @@
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 	)
-
