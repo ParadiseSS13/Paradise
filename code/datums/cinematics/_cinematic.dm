@@ -127,7 +127,7 @@
 	if(is_global)
 		SEND_SOUND(world, sound_to_play)
 	else
-		for(var/client/watching_client as anything in watching)
+		for(var/client/watching_client in watching)
 			SEND_SOUND(watching_client, sound_to_play)
 
 /// Invoke any special callbacks for actual effects synchronized with animation.
@@ -141,10 +141,10 @@
 
 /// Stops the cinematic and removes it from all the viewers.
 /datum/cinematic/proc/stop_cinematic()
-	for(var/client/viewing_client as anything in watching)
+	for(var/client/viewing_client in watching)
 		remove_watcher(viewing_client)
 
-	for(var/datum/locked_ref as anything in locked)
+	for(var/datum/locked_ref in locked)
 		unlock_mob(locked_ref)
 
 	qdel(src)

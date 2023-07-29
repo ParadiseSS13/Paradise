@@ -361,6 +361,7 @@ SUBSYSTEM_DEF(ticker)
 >>>>>>> 953faf7429 (refactor: Cinematics)
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
+					to_chat(M, "<span class='danger'><B>The blast wave from the explosion tears you atom from atom!</B></span>")
 					M.ghostize()
 					M.dust() //no mercy
 					CHECK_TICK
@@ -403,8 +404,6 @@ SUBSYSTEM_DEF(ticker)
 					play_cinematic(/datum/cinematic/nuke/ops_victory, world)
 				if("AI malfunction") //Malf (screen,explosion,summary)
 					play_cinematic(/datum/cinematic/malf, world)
-				if("blob") //Station nuked (nuke,explosion,summary)
-					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
 				else //Station nuked (nuke,explosion,summary)
 <<<<<<< HEAD
 					flick("intro_nuke", cinematic)
