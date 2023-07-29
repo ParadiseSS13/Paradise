@@ -230,7 +230,7 @@
 
 /datum/status_effect/vampire_gladiator/tick()
 	if(healing_ticks_left)
-		owner.adjustStaminaLoss(-40)
+		owner.adjustStaminaLoss(-20)
 		owner.adjustBruteLoss(-5)
 		owner.adjustFireLoss(-5)
 		healing_ticks_left--
