@@ -1361,8 +1361,8 @@
 	uniform = /obj/item/clothing/under/costume/tourist_suit
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/black
+	box = /obj/item/storage/box/survival
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/implanter/dust = 1
 		)
 
@@ -1373,23 +1373,11 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/assistant
 	mask = /obj/item/clothing/mask/breath
 	belt = /obj/item/tank/internals/plasmaman/belt/full
-	back = /obj/item/storage/backpack/satchel
-	shoes = /obj/item/clothing/shoes/black
-	backpack_contents = list(
-		/obj/item/storage/box/survival_plasmaman = 1,
-		/obj/item/implanter/dust = 1
-		)
+	box = /obj/item/storage/box/survival_plasmaman
 
 /datum/outfit/admin/observer/vox
 	name = "Observer (Vox)"
 
-	uniform = /obj/item/clothing/under/costume/tourist_suit
 	mask = /obj/item/clothing/mask/breath/vox
 	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
-	back = /obj/item/storage/backpack/satchel
-	shoes = /obj/item/clothing/shoes/black
-	backpack_contents = list(
-		/obj/item/storage/box/survival_vox = 1,
-		/obj/item/implanter/dust = 1
-		)
-
+	box = /obj/item/storage/box/survival_vox = 1
