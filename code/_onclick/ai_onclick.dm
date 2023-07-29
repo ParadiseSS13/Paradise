@@ -209,7 +209,6 @@
 		return
 	if(isAntag(user) || do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
 		toggle_bolt(user)
-		return
 
 
 /obj/machinery/door/airlock/AIAltClick(mob/living/silicon/user) // Electrifies doors.
@@ -223,7 +222,6 @@
 		if(isAntag(user) || do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
 			electrify(-1, user, TRUE) // permanent shock + audio cue
 			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			return
 
 
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
