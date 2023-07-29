@@ -1380,4 +1380,4 @@
 
 	mask = /obj/item/clothing/mask/breath/vox
 	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
-	box = /obj/item/storage/box/survival_vox = 1
+	box = /obj/item/storage/box/survival_vox
