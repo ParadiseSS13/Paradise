@@ -35,18 +35,3 @@
 	sight_mode = BORGMESON
 	icon_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "meson"
-
-/datum/action/innate/robot_sight/meson/Activate()
-	. = ..()
-	var/mob/living/silicon/robot/R = owner
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MESON_ADVANCED]
-	H.add_hud_to(R)
-	R.permanent_huds |= H
-
-/datum/action/innate/robot_sight/meson/Deactivate()
-	. = ..()
-	var/mob/living/silicon/robot/R = owner
-	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MESON_ADVANCED]
-	R.permanent_huds ^= H
-	H.remove_hud_from(R)
-

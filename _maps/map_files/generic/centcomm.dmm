@@ -3348,7 +3348,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/glasses/hud/meson,
+/obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/thermal{
 	pixel_x = 3;
 	pixel_y = -3

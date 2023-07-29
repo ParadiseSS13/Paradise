@@ -69,8 +69,8 @@
 					/obj/item/clothing/head/hardhat,
 					/obj/item/clothing/head/hardhat,
 					/obj/item/clothing/head/hardhat,
-					/obj/item/clothing/glasses/hud/meson/engine,
-					/obj/item/clothing/glasses/hud/meson/engine)
+					/obj/item/clothing/glasses/meson/engine,
+					/obj/item/clothing/glasses/meson/engine)
 	cost = 100
 	containername = "engineering gear crate"
 

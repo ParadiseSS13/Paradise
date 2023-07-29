@@ -58,7 +58,7 @@
 	//port:					5  items,  5 spots 0 extra (08/08/2014)
 	loot = list(
 				/obj/item/bodybag = 10,
-				/obj/item/clothing/glasses/hud/meson = 20,
+				/obj/item/clothing/glasses/meson = 20,
 				/obj/item/clothing/glasses/sunglasses = 10,
 				/obj/item/clothing/gloves/color/yellow/fake = 15,
 				/obj/item/clothing/gloves/color/fyellow = 10,
@@ -329,7 +329,7 @@
 				/obj/item/rpd/bluespace = 25,
 				/obj/item/tank/internals/emergency_oxygen/double = 25,
 				/obj/item/storage/backpack/holding = 25,
-				/obj/item/clothing/glasses/hud/meson/night = 25, // NV mesons
+				/obj/item/clothing/glasses/meson/night = 25, // NV mesons
 				/obj/item/clothing/glasses/material = 25, // shows objects, but not mobs, through walls
 				/obj/item/grenade/clusterbuster/metalfoam = 25 // cluster metal foam grenade
 				)

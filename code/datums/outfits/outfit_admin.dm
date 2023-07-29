@@ -1089,7 +1089,7 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	mask = /obj/item/clothing/mask/breath
 	l_ear = /obj/item/radio/headset/ert
-	glasses = /obj/item/clothing/glasses/hud/meson/cyber
+	glasses = /obj/item/clothing/glasses/meson/cyber
 	id = /obj/item/card/id
 	suit_store = /obj/item/tank/internals/oxygen
 	backpack_contents = list(

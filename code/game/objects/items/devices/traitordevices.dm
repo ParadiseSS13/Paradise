@@ -252,7 +252,7 @@
 
 /obj/item/storage/box/syndie_kit/teleporter/populate_contents()
 	new /obj/item/teleporter(src)
-	new /obj/item/clothing/glasses/hud/meson/chameleon(src)
+	new /obj/item/clothing/glasses/meson/chameleon(src)
 	new /obj/item/paper/teleporter(src)
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter

@@ -226,7 +226,7 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
-	glasses = /obj/item/clothing/glasses/hud/meson/engine
+	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened)
 
@@ -246,7 +246,7 @@
 	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
-	glasses = /obj/item/clothing/glasses/hud/meson/engine
+	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(
 	/obj/item/organ/internal/eyes/cybernetic/shield,
@@ -272,7 +272,7 @@
 	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
-	glasses = /obj/item/clothing/glasses/hud/meson/night
+	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
 	l_pocket = /obj/item/t_scanner
