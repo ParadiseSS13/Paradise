@@ -52,14 +52,16 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/update_icon_state()
-	. = ..()
 	if(!dynamic_icon_state)
-		return
-	var/temp_amount = get_amount()
-	if(temp_amount > 1)
-		icon_state = "[initial(icon_state)]_[min(temp_amount, 3)]" //2 if amount is 2, 3 if more.
-		return
-	icon_state = initial(icon_state)
+		return ..()
+	if(amount <= (max_amount * (1/3)))
+		icon_state = initial(icon_state)
+		return ..()
+	if (amount <= (max_amount * (2/3)))
+		icon_state = "[initial(icon_state)]_2"
+		return ..()
+	icon_state = "[initial(icon_state)]_3"
+	return ..()
 
 /obj/item/stack/Crossed(obj/O, oldloc)
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
