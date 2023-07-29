@@ -144,7 +144,7 @@
 			"<span class='userdanger'>Tendrils of ghastly electricity surge from [shocked] as [shocked.p_their()] heart seems to outright refuse defibrillation!<span>",
 			blind_message = "<span class='danger'>You hear a loud shock.</span>"
 		)
-		tesla_zap(owner, 4, 8000, ZAP_MOB_STUN | ZAP_MOB_DAMAGE)
+		basic_tesla_zap(owner, 4, 8000, ZAP_MOB_STUN | ZAP_MOB_DAMAGE)
 		// NO, YOU!
 		playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
 

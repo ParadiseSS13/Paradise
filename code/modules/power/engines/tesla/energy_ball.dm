@@ -231,8 +231,44 @@
 	var/mob/living/carbon/C = A
 	C.dust()
 
-/obj/singularity/energy_ball/tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list(), is_energy_ball = FALSE)
-	..()
+/obj/singularity/energy_ball/proc/tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list(), is_energy_ball = FALSE)
+	if(QDELETED(source))
+		return
+	if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
+		LAZYSET(shocked_targets, source, TRUE) //I don't want no null refs in my list yeah?
+	. = source.dir
+	if(power < 1000)
+		return
+
+	/*
+	THIS IS SO FUCKING UGLY AND I HATE IT, but I can't make it nice without making it slower, check*N rather then n. So we're stuck with it.
+	*/
+	var/atom/closest_atom
+	var/closest_type = 0
+	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure, /obj/vehicle))
+	var/static/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
+										/obj/machinery/atmospherics/portable,
+										/obj/machinery/power/emitter,
+										/obj/machinery/field/generator,
+										/mob/living/simple_animal/slime,
+										/obj/machinery/particle_accelerator/control_box,
+										/obj/structure/particle_accelerator/fuel_chamber,
+										/obj/structure/particle_accelerator/particle_emitter/center,
+										/obj/structure/particle_accelerator/particle_emitter/left,
+										/obj/structure/particle_accelerator/particle_emitter/right,
+										/obj/structure/particle_accelerator/power_box,
+										/obj/structure/particle_accelerator/end_cap,
+										/obj/machinery/field/containment,
+										/obj/structure/disposalpipe,
+										/obj/structure/disposaloutlet,
+										/obj/machinery/disposal/deliveryChute,
+										/obj/machinery/camera,
+										/obj/structure/sign,
+										/obj/structure/lattice,
+										/obj/structure/grille,
+										/obj/structure/cable,
+										/obj/machinery/the_singularitygen/tesla,
+										/obj/machinery/constructable_frame/machine_frame))
 	//Ok so we are making an assumption here. We assume that view() still calculates from the center out.
 	//This means that if we find an object we can assume it is the closest one of its type. This is somewhat of a speed increase.
 	//This also means we have no need to track distance, as the doview() proc does it all for us.
@@ -259,10 +295,9 @@
 			closest_type = ROD
 			closest_atom = A
 
-		else if(is_energy_ball)
-			if(istype(A, /obj/machinery/power/apc))
-				closest_type = APC
-				closest_atom = A
+		else if(istype(A, /obj/machinery/power/apc))
+			closest_type = APC
+			closest_atom = A
 
 		else if(closest_type >= RIDE)
 			continue

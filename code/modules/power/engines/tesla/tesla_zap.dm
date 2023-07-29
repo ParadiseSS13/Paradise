@@ -1,6 +1,5 @@
 /*
-Alright so, this is a file that has the proc for basic blacklists of lightning zaps, and a proc that works like 90% of all zaps.
-Use tesla_zap() with an override and add the behaviour you want for your own special lightning zaps.
+Alright so, this is a file that has the proc for a proc that works like 90% of all zaps.
 basic_tesla_zap() can be called by anything and does not need any overrides.
 */
 
@@ -13,46 +12,10 @@ basic_tesla_zap() can be called by anything and does not need any overrides.
 #define BLOB (STRUCTURE + 1)
 #define STRUCTURE (1)
 
-/atom/proc/tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list(), is_energy_ball = FALSE)
-	if(QDELETED(source))
-		return
-	if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
-		LAZYSET(shocked_targets, source, TRUE) //I don't want no null refs in my list yeah?
-	. = source.dir
-	if(power < 1000)
-		return
 
-	/*
-	THIS IS SO FUCKING UGLY AND I HATE IT, but I can't make it nice without making it slower, check*N rather then n. So we're stuck with it.
-	*/
-	var/atom/closest_atom
-	var/closest_type = 0
-	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure, /obj/vehicle))
-	var/static/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
-										/obj/machinery/atmospherics/portable,
-										/obj/machinery/power/emitter,
-										/obj/machinery/field/generator,
-										/mob/living/simple_animal/slime,
-										/obj/machinery/particle_accelerator/control_box,
-										/obj/structure/particle_accelerator/fuel_chamber,
-										/obj/structure/particle_accelerator/particle_emitter/center,
-										/obj/structure/particle_accelerator/particle_emitter/left,
-										/obj/structure/particle_accelerator/particle_emitter/right,
-										/obj/structure/particle_accelerator/power_box,
-										/obj/structure/particle_accelerator/end_cap,
-										/obj/machinery/field/containment,
-										/obj/structure/disposalpipe,
-										/obj/structure/disposaloutlet,
-										/obj/machinery/disposal/deliveryChute,
-										/obj/machinery/camera,
-										/obj/structure/sign,
-										/obj/structure/lattice,
-										/obj/structure/grille,
-										/obj/structure/cable,
-										/obj/machinery/the_singularitygen/tesla,
-										/obj/machinery/constructable_frame/machine_frame))
+// If you want a normal zap, you use the proc below
 
-/atom/proc/basic_tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
+/proc/basic_tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
 	if(QDELETED(source))
 		return
 	if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
@@ -188,11 +151,11 @@ basic_tesla_zap() can be called by anything and does not need any overrides.
 		power = closest_atom.zap_act(power, zap_flags)
 	if(prob(20)) //I know I know
 		var/list/shocked_copy = shocked_targets.Copy()
-		basic_tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_copy, is_energy_ball = TRUE) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
-		basic_tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_targets, is_energy_ball = TRUE)
+		basic_tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_copy) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
+		basic_tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_targets)
 		shocked_targets += shocked_copy
 	else
-		basic_tesla_zap(closest_atom, next_range, power, zap_flags, is_energy_ball = TRUE)
+		basic_tesla_zap(closest_atom, next_range, power, zap_flags)
 
 #undef COIL
 #undef ROD
