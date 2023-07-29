@@ -8,6 +8,6 @@ CREATE TABLE `json_datum_saves` (
 	`created` DATETIME NOT NULL DEFAULT current_timestamp(),
 	`updated` DATETIME NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
 	PRIMARY KEY (`id`) USING BTREE,
-	UNIQUE INDEX `ckey_unique` (`ckey`, `slotname`) USING BTREE
-	INDEX `ckey` (`ckey`) USING BTREE,
+	UNIQUE INDEX `ckey_unique` (`ckey`, `slotname`) USING BTREE,
+	INDEX `ckey` (`ckey`) USING BTREE
 ) COLLATE = 'utf8mb4_general_ci' ENGINE = InnoDB;
