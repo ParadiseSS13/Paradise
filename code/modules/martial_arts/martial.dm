@@ -38,7 +38,7 @@
 	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
 	var/weight = 0
 	/// Message displayed when someone uses a baton when its forbidden by a martial art
-	var/no_baton_reason
+	var/no_baton_reason = "Your martial arts training prevents you from wielding batons."
 
 /datum/martial_art/New()
 	. = ..()
