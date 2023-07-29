@@ -131,6 +131,7 @@
 		if(31 to INFINITY)
 			to_chat(target, "<span class='userdanger'>Your chassis melts, collapses in on itself slightly - and condenses into slime!</span>")
 			target.set_species(/datum/species/slime)
+			add_attack_logs(M, M, "Turned into a slime person with sanguine mutation toxin") //this is how lazarus reagent does it
 
 /datum/reagent/mercury
 	name = "Mercury"
