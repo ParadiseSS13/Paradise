@@ -607,9 +607,9 @@ CREATE TABLE `tickets` (
 	CONSTRAINT `awho` CHECK (json_valid(`awho`))
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 
----
---- Table structure for table `json_datum_saves`
----
+--
+-- Table structure for table `json_datum_saves`
+--
 DROP TABLE IF EXISTS `json_datum_saves`;
 CREATE TABLE `json_datum_saves` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
