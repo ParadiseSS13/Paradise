@@ -205,11 +205,11 @@
 		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
 
 /obj/effect/proc_holder/spell/vampire/arena
-	name = "Challenging Arena"
-	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
+	name = "Arena"
+	desc = "You jump towards a target on your screen, creating an arena around yourself and making your body immune to breaking."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
-	required_blood = 30
-	base_cooldown = 30 SECONDS
+	required_blood = 100
+	base_cooldown = 1 MINUTES
 	action_icon_state = "blood_barrier"
 	/// The garg vampire
 	var/mob/garg_vampire
@@ -298,5 +298,5 @@
 	if(timer)
 		deltimer(timer)
 		timer = null
-	QDEL_LIST_CONTENTS(all_temp_walls)
+	qdel(all_temp_walls)
 	visible_message("<span class='warning'>The arena begins to dissipate.</span>")
