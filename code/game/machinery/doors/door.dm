@@ -144,7 +144,7 @@
 		return TRUE
 	if(istype(mover) && mover.checkpass(PASSDOOR) && !locked)
 		return TRUE
-	else if(istype(mover) && mover.checkpass(PASSGLASS))
+	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density
 

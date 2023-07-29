@@ -84,6 +84,7 @@
 	name = "tiny xeno plasma vessel"
 	icon_state = "plasma_tiny"
 	max_plasma = 100
+	alien_powers = list()
 
 
 /obj/item/organ/internal/xenos/plasmavessel/prepare_eat()

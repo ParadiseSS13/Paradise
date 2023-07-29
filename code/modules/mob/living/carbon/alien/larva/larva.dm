@@ -28,9 +28,9 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	..()
 	hide_action = new
 	hide_action.Grant(src)
+	..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
 
 
