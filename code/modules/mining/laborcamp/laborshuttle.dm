@@ -33,7 +33,6 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
-	var/machinedir = SOUTH
 	var/inserted_id_uid
 	var/obj/item/radio/intercom/announcer
 

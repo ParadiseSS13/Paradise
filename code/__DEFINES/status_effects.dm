@@ -56,6 +56,8 @@
 
 #define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback // Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
 
+#define STATUS_EFFECT_REVOLUTION_PROTECT /datum/status_effect/rev_protection
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -95,6 +97,8 @@
 #define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
 
 #define STATUS_EFFECT_CLINGTENTACLE /datum/status_effect/cling_tentacle //Imobilises target for 3 seconds
+
+#define STATUS_EFFECT_CRYO_BEAM /datum/status_effect/cryo_beam //Chills target, freezes reagents in their blood, breaks if sight is lost.
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -167,3 +171,13 @@
 #define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
 /// This status effect lets the user see the lwap dots.
 #define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope
+
+//////////////////////////
+// Mind batter variants //
+//////////////////////////
+// Basically variants with differing effect times to their parent datums, nothing special
+
+#define STATUS_EFFECT_PACIFIED_BATTERER /datum/status_effect/pacifism/batterer
+
+#define STATUS_EFFECT_CLINGTENTACLE_BATTERER /datum/status_effect/cling_tentacle/batterer
+

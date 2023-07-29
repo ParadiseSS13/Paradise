@@ -203,9 +203,9 @@
 				D.cure()
 		M.resistances |= data
 
-/datum/reagent/vaccine/on_merge(list/data)
-	if(istype(data))
-		data |= data.Copy()
+/datum/reagent/vaccine/on_merge(list/incoming_data)
+	if(islist(incoming_data))
+		data |= incoming_data.Copy()
 
 /datum/reagent/fishwater
 	name = "Fish Water"

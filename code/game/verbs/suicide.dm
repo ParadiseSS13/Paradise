@@ -21,6 +21,11 @@
 
 	var/confirm = null
 	if(!forced)
+		if(ischangeling(src))
+			// the alternative is to allow clings to commit suicide, but then you'd probably have them
+			// killing themselves as soon as they're in cuffs
+			to_chat(src, "<span class='warning'>We refuse to take the coward's way out.</span>")
+			return
 		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 
 	if(stat == DEAD || suiciding) //We check again, because alerts sleep until a choice is made
