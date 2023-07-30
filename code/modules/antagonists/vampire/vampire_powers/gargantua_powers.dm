@@ -208,7 +208,7 @@
 	name = "Arena"
 	desc = "You jump towards a target on your screen, creating an arena around yourself and making your body immune to breaking."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
-	required_blood = 100
+	required_blood = 150
 	base_cooldown = 1 MINUTES
 	action_icon_state = "blood_barrier"
 	/// The garg vampire
