@@ -254,5 +254,23 @@
   Zwei:
   - bugfix: Contractor Runtime (#3257)
   - tweak: More Sanity Loops (#3250)
+  - bugfix: Thrall Vision (#3260)
+  - bugfix: Bloodcrawl Typo (#3258)
+  dontbetank:
+  - add: Floor painter for drones (#3251)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#3253)
+'2023-07-29':
+  Den109G:
+  - bugfix: Randomtypos (#3262)
+  Zwei:
+  - bugfix: Few Fixes to Alien Larva and Hide Action (#3264)
+'2023-07-30':
+  Vladisvell:
+  - refactor: added new defines to span.dm (#3268)
+  - add: IPC's don't lose hair on death (#3270)
+  Zwei:
+  - add: port offparadise vampire (#3246)
+  dontbetank:
+  - bugfix: cleaning IPC with space cleaner (#3269)
+  - bugfix: mass hallucinations of guardian now have owner (#3266)
