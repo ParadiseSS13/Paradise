@@ -107,17 +107,6 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_yes
 	H.verbs -= /mob/living/carbon/human/proc/emote_no
 
-/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(!head_organ)
-		return
-	head_organ.h_style = "Bald"
-	head_organ.f_style = "Shaved"
-	spawn(100)
-		if(H && head_organ)
-			H.update_hair()
-			H.update_fhair()
-
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor
 	name = "Change Monitor"
