@@ -59,7 +59,6 @@
 	icon_state = "[initial(icon_state)]_[state]"
 	if(state <= 1)
 		icon_state = initial(icon_state)
-		return
 
 /obj/item/stack/Crossed(obj/O, oldloc)
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
