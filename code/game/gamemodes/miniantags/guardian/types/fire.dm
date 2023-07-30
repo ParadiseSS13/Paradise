@@ -74,7 +74,7 @@
 	aoe_range = 10
 
 
-/obj/effect/proc_holder/spell/aoe/guardian_hallucination/hallucination/New(mob/living/summoned_by)
+/obj/effect/proc_holder/spell/aoe/guardian_hallucination/New(mob/living/summoned_by)
 	. = ..()
 	summoner = summoned_by
 
