@@ -17,6 +17,15 @@
 	volume = 50
 	icon_state = "bluespaceshotglass"
 
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/bluespace/update_name()
+	. = ..()
+	if(reagents.total_volume)
+		name = "bluespace shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
+		if(resistance_flags & ON_FIRE)
+			name = "flaming [name]"
+	else
+		name = "bluespace shot glass"
+
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
 	if(!isShotFlammable() && (resistance_flags & ON_FIRE))
 		extinguish()
