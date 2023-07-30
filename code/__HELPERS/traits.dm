@@ -1,4 +1,13 @@
 // trait accessor defines
+
+/**
+ * Adds a status trait to the target datum.
+ *
+ * Arguments: (All Required)
+ * * target - The datum to add the trait to.
+ * * trait - The trait which is being added.
+ * * source - The source of the trait which is being added.
+ */
 #define ADD_TRAIT(target, trait, source) \
 	do { \
 		var/list/_L; \
@@ -15,6 +24,17 @@
 			} \
 		} \
 	} while (0)
+
+
+/**
+ * Removes a status trait from a target datum.
+ *
+ * `ROUNDSTART_TRAIT` traits can't be removed without being specified in `sources`.
+ * Arguments:
+ * * target - The datum to remove the trait from.
+ * * trait - The trait which is being removed.
+ * * sources - If specified, only remove the trait if it is from this source. (Lists Supported)
+ */
 #define REMOVE_TRAIT(target, trait, sources) \
 	do { \
 		var/list/_L = target.status_traits; \
@@ -38,6 +58,15 @@
 			}; \
 		} \
 	} while (0)
+
+
+/**
+ * Removes all status traits from a target datum which were NOT added by `sources`.
+ *
+ * Arguments:
+ * * target - The datum to remove the traits from.
+ * * sources - The trait source which is being searched for.
+ */
 #define REMOVE_TRAITS_NOT_IN(target, sources) \
 	do { \
 		var/list/_L = target.status_traits; \
@@ -53,9 +82,56 @@
 				};\
 		}\
 	} while (0)
+
+
+/**
+ * Removes all status traits from a target datum which were added by `sources`.
+ *
+ * Arguments:
+ * * target - The datum to remove the traits from.
+ * * sources - The trait source which is being searched for.
+ */
+#define REMOVE_TRAITS_IN(target, sources) \
+	do { \
+		if(target.status_traits) { \
+			var/list/SOURCES = sources; \
+			if(!islist(sources)) { \
+				SOURCES = list(sources); \
+			} \
+\
+			for(var/TRAIT in target.status_traits) { \
+				if(!target.status_traits[TRAIT]) \
+					continue; \
+				target.status_traits[TRAIT] -= SOURCES; \
+				if(!length(target.status_traits[TRAIT])) { \
+					target.status_traits -= TRAIT; \
+					if(!target.status_traits) \
+						break; \
+				} \
+			} \
+			if(!length(target.status_traits)) { \
+				target.status_traits = null; \
+			} \
+		} \
+	} while (0)
+
+
 #define HAS_TRAIT(target, trait) (target.status_traits ? (target.status_traits[trait] ? TRUE : FALSE) : FALSE)
+
+
 #define HAS_TRAIT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (source in target.status_traits[trait]) : FALSE) : FALSE)
+
+
+#define HAS_TRAIT_FROM_ONLY(target, trait, source) (\
+	target.status_traits ?\
+		(target.status_traits[trait] ?\
+			((source in target.status_traits[trait]) && (length(target.status_traits) == 1))\
+			: FALSE)\
+		: FALSE)
+
+
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (length(target.status_traits[trait] - source) > 0) : FALSE) : FALSE)
+
 
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
@@ -80,6 +156,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_GOTTAGOFAST		"gottagofast"
 #define TRAIT_GOTTAGONOTSOFAST	"gottagonotsofast"
+#define TRAIT_CHUNKYFINGERS		"chunkyfingers" //means that you can't use weapons with normal trigger guards.
+#define TRAIT_FORCE_DOORS 		"force_doors"
 
 //item traits
 #define TRAIT_CMAGGED "cmagged"
@@ -99,6 +177,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CLOCK_TRAIT "clockwork_cult"
 #define INNATE_TRAIT "innate"
 #define CHANGELING_TRAIT "changeling"
+#define VAMPIRE_TRAIT "vampire"
 #define EAR_DAMAGE "ear_damage"
 
 // unique trait sources

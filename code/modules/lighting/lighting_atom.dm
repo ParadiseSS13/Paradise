@@ -10,7 +10,7 @@
 // The proc you should always use to set the light of this atom.
 // Nonesensical value for l_color default, so we can detect if it gets set to null.
 #define NONSENSICAL_VALUE -99999
-/atom/proc/set_light(var/l_range, var/l_power, var/l_color = NONSENSICAL_VALUE)
+/atom/proc/set_light(l_range, l_power, l_color = NONSENSICAL_VALUE)
 	if(l_range > 0 && l_range < MINIMUM_USEFUL_LIGHT_RANGE)
 		l_range = MINIMUM_USEFUL_LIGHT_RANGE	//Brings the range up to 1.4, which is just barely brighter than the soft lighting that surrounds players.
 	if(l_power != null)
@@ -27,6 +27,12 @@
 	update_light()
 
 #undef NONSENSICAL_VALUE
+
+/atom/proc/remove_light()
+	light_power = 0
+	light_range = 0
+	light_color = 0
+	update_light()
 
 // Will update the light (duh).
 // Creates or destroys it if needed, makes it update values, makes sure it's got the correct source turf...
@@ -48,7 +54,7 @@
 		else
 			light = new/datum/light_source(src, .)
 
-/atom/proc/extinguish_light()
+/atom/proc/extinguish_light(force = FALSE)
 	return
 
 // If we have opacity, make sure to tell (potentially) affected light sources.
@@ -63,7 +69,7 @@
 
 // Should always be used to change the opacity of an atom.
 // It notifies (potentially) affected light sources so they can update (if needed).
-/atom/proc/set_opacity(var/new_opacity)
+/atom/proc/set_opacity(new_opacity)
 	if(new_opacity == opacity)
 		return
 

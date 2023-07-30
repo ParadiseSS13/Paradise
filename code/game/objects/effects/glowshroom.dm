@@ -30,6 +30,10 @@
 /obj/structure/glowshroom/has_prints()
 	return FALSE
 
+/obj/structure/glowshroom/extinguish_light(force = FALSE)
+	visible_message(span_warning("[src] withers away!"))
+	qdel(src)
+
 /obj/structure/glowshroom/glowcap
 	name = "glowcap"
 	desc = "Mycena Ruthenia, a species of mushroom that, while it does glow in the dark, is not actually bioluminescent."
@@ -41,6 +45,9 @@
 	desc = "Mycena Umbra, a species of mushroom that emits shadow instead of light."
 	icon_state = "shadowshroom"
 	myseed = /obj/item/seeds/glowshroom/shadowshroom
+
+/obj/structure/glowshroom/shadowshroom/extinguish_light(force = FALSE)
+	return
 
 /obj/structure/glowshroom/single/Spread()
 	return

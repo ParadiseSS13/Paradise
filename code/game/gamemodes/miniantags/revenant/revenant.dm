@@ -341,6 +341,7 @@
 	needs_target = FALSE
 
 
+
 /datum/objective/revenantFluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
 									 "Cause as much chaos and anger as you can without being killed.", \

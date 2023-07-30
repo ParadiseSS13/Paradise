@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(huds, list( \
 
 	var/serv_huds = list()//mindslaves and/or vampire thralls
 	if(SSticker.mode)
-		for(var/datum/mindslaves/serv in (SSticker.mode.vampires | SSticker.mode.traitors))
+		for(var/datum/mindslaves/serv in (SSticker.mode.vampires | SSticker.mode.goon_vampires | SSticker.mode.traitors))
 			serv_huds += serv.thrallhud
 
 

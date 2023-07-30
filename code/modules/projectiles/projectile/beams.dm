@@ -9,7 +9,7 @@
 	flag = "laser"
 	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	is_reflectable = TRUE
+	reflectability = REFLECTABILITY_ENERGY
 	light_range = 2
 	light_color = LIGHT_COLOR_DARKRED
 	ricochets_max = 50	//Honk!

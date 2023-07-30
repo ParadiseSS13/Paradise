@@ -232,6 +232,13 @@
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
+	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished plant has been lit up
+	var/light_process = 0
+	/// Light range plant will get on init
+	var/l_range_init
+	/// Light power plant will get on init
+	var/l_power_init
+
 
 /obj/item/twohanded/required/kirbyplants/New()
 	..()
@@ -241,9 +248,50 @@
 	var/num = rand(1,35)
 	icon_state = "plant-[num]"
 	if(num == 9)
-		set_light(2, 0.6, COLOR_LUMINOL)
+		l_range_init = 2
+		l_power_init = 0.6
+		set_light(l_range_init, l_power_init, COLOR_LUMINOL)
 	else if(num == 20)
-		set_light(2, 0.6, COLOR_WHEAT)
+		l_range_init = 2
+		l_power_init = 0.6
+		set_light(l_range_init, l_power_init, COLOR_WHEAT)
+
+
+/obj/item/twohanded/required/kirbyplants/Destroy()
+	if(isprocessing)
+		STOP_PROCESSING(SSobj, src)
+	return ..()
+
+
+/obj/item/twohanded/required/kirbyplants/extinguish_light(force = FALSE)
+	if(light_range)
+		light_power = 0
+		light_range = 0
+		update_light()
+		name = "dimmed [name]"
+		desc = "Something shadowy moves to cover the plant. Perhaps shining a light will force it to clear?"
+		START_PROCESSING(SSobj, src)
+
+
+/obj/item/twohanded/required/kirbyplants/process()
+	var/turf/source_turf = get_turf(src)
+	if(source_turf.get_lumcount() > 0.2)
+		light_process++
+		if(light_process > 3)
+			reset_light()
+		return
+	light_process = 0
+
+
+/obj/item/twohanded/required/kirbyplants/proc/reset_light()
+	light_process = 0
+	light_power = l_power_init
+	light_range = l_range_init
+	update_light()
+	name = initial(name)
+	desc = initial(desc)
+	STOP_PROCESSING(SSobj, src)
+
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	. = ..()

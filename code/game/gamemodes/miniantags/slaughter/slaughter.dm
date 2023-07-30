@@ -360,13 +360,18 @@
 	for(var/datum/mind/player in get_owners())
 		if(!isslaughterdemon(player.current) || QDELETED(player.current))
 			continue
+
 		var/mob/living/simple_animal/demon/slaughter/demon = player.current
 		kill_count += demon.devoured
+
 	if(kill_count >= targetKill)
 		return TRUE
+
 	return FALSE
 
+
 /datum/objective/demonFluff
+	needs_target = FALSE
 
 
 /datum/objective/demonFluff/New()

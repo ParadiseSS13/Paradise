@@ -17,6 +17,8 @@
 	barefootstep = FOOTSTEP_GLASS
 	clawfootstep = FOOTSTEP_GLASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished glass floor tile has been lit up
+	var/light_process = 0
 
 /turf/simulated/floor/transparent/glass/Initialize(mapload)
 	. = ..()
@@ -85,6 +87,40 @@
 	R.use(2)
 	playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
 	ChangeTurf(/turf/simulated/floor/plating)
+
+
+/turf/simulated/floor/transparent/glass/extinguish_light(force = FALSE)
+	light_power = 0
+	light_range = 0
+	update_light()
+	name = "dimmed glass flooring"
+	desc = "Something shadowy moves to cover the glass. Perhaps shining a light will force it to clear?"
+	START_PROCESSING(SSobj, src)
+
+
+/turf/simulated/floor/transparent/glass/process()
+	if(get_lumcount() > 0.2)
+		light_process++
+		if(light_process > 3)
+			reset_light()
+		return
+	light_process = 0
+
+
+/turf/simulated/floor/transparent/glass/proc/reset_light()
+	light_process = 0
+	light_power = initial(light_power)
+	light_range = initial(light_range)
+	update_light()
+	name = initial(name)
+	desc = initial(desc)
+	STOP_PROCESSING(SSobj, src)
+
+
+/turf/simulated/floor/transparent/glass/Destroy()
+	if(isprocessing)
+		STOP_PROCESSING(SSobj, src)
+	return ..()
 
 
 /turf/simulated/floor/transparent/glass/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)

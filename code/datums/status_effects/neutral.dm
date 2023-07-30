@@ -52,3 +52,8 @@
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
 	var/bonus_damage = 0
+
+
+/datum/status_effect/charging
+	id = "charging"
+	alert_type = null

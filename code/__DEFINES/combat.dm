@@ -128,3 +128,9 @@
 * this is needed as many functions for stun durations used to output cycles as values, but we now track stun times in deciseconds.
 */
 #define STATUS_EFFECT_CONSTANT * 20
+
+
+/// Projectile reflectability defines
+#define REFLECTABILITY_NEVER 0
+#define REFLECTABILITY_PHYSICAL 1
+#define REFLECTABILITY_ENERGY 2

@@ -64,6 +64,11 @@
 	set_light(0)
 	STOP_PROCESSING(SSobj, src)
 
+/obj/item/lighter/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	turn_off_lighter()
+
 /obj/item/lighter/proc/show_off_message(mob/living/user)
 	to_chat(user, "<span class='notice'>You shut off [src].")
 
@@ -263,6 +268,11 @@
 /obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	matchignite()
+
+/obj/item/match/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	matchburnout()
 
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)

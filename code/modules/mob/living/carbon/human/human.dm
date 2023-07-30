@@ -183,14 +183,20 @@
 			stat("Chemicals", B.chemicals)
 
 		if(mind)
-			var/datum/antagonist/changeling/cling = mind?.has_antag_datum(/datum/antagonist/changeling)
+			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 			if(cling)
 				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
 				stat("Absorbed DNA", cling.absorbed_count)
 
-			if(mind.vampire)
-				stat("Всего крови", "[mind.vampire.bloodtotal]")
-				stat("Доступная кровь", "[mind.vampire.bloodusable]")
+			var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
+			if(vamp)
+				stat("Total Blood", "[vamp.bloodtotal]")
+				stat("Usable Blood", "[vamp.bloodusable]")
+
+			var/datum/antagonist/goon_vampire/g_vamp = mind.has_antag_datum(/datum/antagonist/goon_vampire)
+			if(g_vamp)
+				stat("Всего крови", "[g_vamp.bloodtotal]")
+				stat("Доступная кровь", "[g_vamp.bloodusable]")
 
 			if(isclocker(mind.current))
 				stat("Total Power", "[GLOB.clockwork_power]")
@@ -1734,7 +1740,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if(NOGUNS in dna.species.species_traits)
+		if((NOGUNS in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return FALSE
 
@@ -1935,14 +1941,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
 	return TRUE
 
-/mob/living/carbon/human/extinguish_light()
+/mob/living/carbon/human/extinguish_light(force = FALSE)
 	// Parent function handles stuff the human may be holding
 	..()
 
 	var/obj/item/organ/internal/lantern/O = get_int_organ(/obj/item/organ/internal/lantern)
 	if(O && O.glowing)
 		O.toggle_biolum(TRUE)
-		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
+		visible_message(span_danger("[src] is engulfed in shadows and fades into the darkness."), \
+						span_danger("A sense of dread washes over you as you suddenly dim dark."))
 
 /mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
 	return min(health, maxHealth - getStaminaLoss()) + shock_reduction

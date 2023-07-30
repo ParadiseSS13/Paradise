@@ -137,7 +137,7 @@
 		addtimer(CALLBACK(src, PROC_REF(update_state_icon), BSM_DEACTIVATION_STATE), 3 SECONDS)
 		addtimer(CALLBACK(src, PROC_REF(update_state_icon)), 6 SECONDS)
 		return
-	if(istype(sample_mind.vampire))
+	if(isvampire(sample_mind))
 		scan_state[iterator] = NINJA_BLOODSCAN_SUCCESSFULL
 	else
 		scan_state[iterator] = NINJA_BLOODSCAN_FAILED
@@ -151,7 +151,7 @@
 /obj/machinery/ninja_bloodscan_machine/proc/end_samples_scan()
 	if(length(samples_mind_list) == 3)
 		for(var/datum/mind/vamp_mind in samples_mind_list)
-			if(!istype(vamp_mind.vampire))
+			if(!isvampire(vamp_mind))
 				handle_say("Сканирование окончено! Некоторые образцы не подходят. Продолжайте поиск.")
 				clear_important_vars()
 				update_state_icon(BSM_WRONG_STATE)

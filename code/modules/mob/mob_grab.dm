@@ -406,7 +406,7 @@
 		user.visible_message("<span class='danger'>[user.name] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting.name]!</span>")
 		if(affecting.mind)
 			add_attack_logs(attacker, affecting, "Devoured")
-		if(user.mind.vampire)
+		if(isvampire(user))
 			user.adjust_nutrition(affecting.blood_nutrients)
 		else
 			user.adjust_nutrition(10 * affecting.health)
@@ -422,7 +422,9 @@
 		return 1
 
 	var/mob/living/carbon/human/H = attacker
-	if(ishuman(H) && attacker.mind.vampire && istype(prey, /mob/living/simple_animal/mouse)) //vampires can eat mice despite race
+	var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(ishuman(H) && (vamp || g_vamp) && istype(prey, /mob/living/simple_animal/mouse)) //vampires can eat mice despite race
 		return 1
 	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1

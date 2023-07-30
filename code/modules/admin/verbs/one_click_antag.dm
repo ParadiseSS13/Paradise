@@ -445,7 +445,7 @@
 
 		for(var/i = 0, i<numVampires, i++)
 			H = pick(candidates)
-			H.mind.make_Vampire()
+			H.mind.make_vampire()
 			candidates.Remove(H)
 
 		return 1

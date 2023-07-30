@@ -17,10 +17,8 @@
 	var/plasma_cost = 0
 
 
-/obj/effect/proc_holder/spell/touch/alien_spell/New(spell, owner)
-	if(plasma_cost)
-		name = "[name] ([plasma_cost])"
-	. = ..()
+/obj/effect/proc_holder/spell/touch/alien_spell/after_spell_init()
+	update_alien_spell_name()
 
 
 /obj/effect/proc_holder/spell/touch/alien_spell/write_custom_logs(list/targets, mob/user)

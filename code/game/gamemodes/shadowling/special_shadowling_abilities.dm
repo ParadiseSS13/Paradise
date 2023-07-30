@@ -282,6 +282,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	undershirt = "None"
 	socks = "None"
 	faction |= "faithless"
+	add_language("Shadowling Hivemind")
 
 	set_species(/datum/species/shadow/ling)
 	equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(src), slot_w_uniform)
@@ -293,8 +294,6 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(src), slot_glasses)
 
 	to_chat(src, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
-
-	//sleep(0.1 SECONDS)
 
 	ExtinguishMob()
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
@@ -316,8 +315,4 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	mind.special_role = SPECIAL_ROLE_SHADOWLING
 	SSticker.mode.shadows += src.mind
 	SSticker.mode.update_shadow_icons_added(src.mind)
-
-	/*QDEL_NULL(hud_used)
-	hud_used = new /datum/hud/human(src, ui_style2icon(src.client.prefs.UI_style), src.client.prefs.UI_style_color, src.client.prefs.UI_style_alpha)
-	hud_used.show_hud(src.hud_used.hud_version)*/
 

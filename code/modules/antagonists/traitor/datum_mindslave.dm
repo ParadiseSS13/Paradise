@@ -9,6 +9,10 @@
 	antag_hud_name = "mindslave"	// This isn't named "hudmindslave" because `add_serve_hud()` adds "hud" to the beginning.
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
+	/// Whether mindslave uses special handling on transfer mind.
+	var/special = FALSE
+	/// Icon slave master will get, must be without "hud" prefix.
+	var/master_hud_icon = "master"
 	/// Custom greeting text if you don't want to use the basic greeting. Specify this when making a new mindslave datum with `New()`.
 	var/greet_text
 	/// A reference to the mind who mindslaved us.
@@ -45,8 +49,8 @@
 	// Basically a copy and paste of what's in [/datum/antagonist/proc/add_antag_hud] in case the master doesn't have a traitor datum.
 	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
 	hud.join_hud(master.current)
-	set_antag_hud(master.current, "hudmaster")
-	slaved.add_serv_hud(master, "master")
+	set_antag_hud(master.current, "hud[master_hud_icon]")
+	slaved.add_serv_hud(master, master_hud_icon)
 	return ..()
 
 
@@ -57,6 +61,19 @@
 /datum/antagonist/mindslave/remove_owner_from_gamemode()
 	SSticker.mode.implanted[owner] = null
 	SSticker.mode.implanted -= owner
+
+
+/datum/antagonist/mindslave/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	..()
+
+	if(special)
+		if(old_body)
+			var/obj/item/implant/traitor/implant = locate() in old_body.contents
+			if(implant)
+				qdel(implant)
+				return
+
+		new_body.mind?.remove_antag_datum(src)
 
 
 /datum/antagonist/mindslave/give_objectives()

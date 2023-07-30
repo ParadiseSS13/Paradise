@@ -509,7 +509,7 @@
 				qdel(src)
 				return FALSE
 
-			if(P.is_reflectable)
+			if(P.is_reflectable(REFLECTABILITY_ENERGY))
 				return FALSE //To avoid reflection chance double-dipping with block chance
 
 		// Hit by a melee weapon or blocked a projectile

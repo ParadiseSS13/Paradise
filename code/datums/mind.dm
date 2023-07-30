@@ -58,7 +58,6 @@
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 
-	var/datum/vampire/vampire			//vampire holder
 	var/datum/ninja/ninja				//ninja holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
@@ -170,8 +169,6 @@
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
 
-	for(var/datum/antagonist/antag in antag_datums)	//Makes sure all antag datums effects are applied in the new body
-		antag.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character, old_current)
 
@@ -180,6 +177,9 @@
 			martial_art.remove(current)
 		else
 			martial_art.teach(current)
+
+	for(var/datum/antagonist/antag in antag_datums)	//Makes sure all antag datums effects are applied in the new body
+		antag.on_body_transfer(old_current, current)
 
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
@@ -411,11 +411,34 @@
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
 
 
+/datum/mind/proc/memory_edit_goon_vampire(mob/living/carbon/human/H)
+	. = _memory_edit_header("goonvampire")
+	var/datum/antagonist/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/goon_vampire)
+	if(g_vamp)
+		. += "<b><font color='red'>GOON VAMPIRE</font></b>|<a href='?src=[UID()];goonvampire=clear'>no</a>"
+		. += "<br>Usable blood: <a href='?src=[UID()];goonvampire=edit_usable_blood'>[g_vamp.bloodusable]</a>"
+		. += " | Total blood: <a href='?src=[UID()];goonvampire=edit_total_blood'>[g_vamp.bloodtotal]</a>"
+
+		if(!length(g_vamp.objectives))
+			. += "<br>Objectives are empty! <a href='?src=[UID()];goonvampire=autoobjectives'>Randomize!</a>"
+	else if(!isvampire(src))
+		. += "<a href='?src=[UID()];goonvampire=goonvampire'>goon vampire</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_VAMPIRE)
+
+
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
-	. = _memory_edit_header("vampire", list("traitorvamp", "traitorthiefvamp", "thiefvamp", "vampirethief"))
-	if(src in SSticker.mode.vampires)
+	. = _memory_edit_header("vampire", list("traitorvamp"))
+	var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+	if(vamp)
 		. += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=[UID()];vampire=clear'>no</a>"
-		if(!length(objectives))
+		. += "<br>Usable blood: <a href='?src=[UID()];vampire=edit_usable_blood'>[vamp.bloodusable]</a>"
+		. += " | Total blood: <a href='?src=[UID()];vampire=edit_total_blood'>[vamp.bloodtotal]</a>"
+		var/has_subclass = !QDELETED(vamp.subclass)
+		. += "<br>Subclass: <a href='?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
+		if(has_subclass)
+			. += " | Force full power: <a href='?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
+		if(!length(vamp.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];vampire=vampire'>vampire</a>|<b>NO</b>"
@@ -423,10 +446,11 @@
 	. += _memory_edit_role_enabled(ROLE_VAMPIRE)
 	/** Enthralled ***/
 	. += "<br><b><i>enthralled</i></b>: "
-	if(src in SSticker.mode.vampire_enthralled)
+	if(has_antag_datum(/datum/antagonist/mindslave/thrall) || has_antag_datum(/datum/antagonist/mindslave/goon_thrall))
 		. += "<b><font color='red'>THRALL</font></b>|<a href='?src=[UID()];vampthrall=clear'>no</a>"
 	else
 		. += "thrall|<b>NO</b>"
+
 
 /datum/mind/proc/memory_edit_nuclear(mob/living/carbon/human/H)
 	. = _memory_edit_header("nuclear")
@@ -639,6 +663,7 @@
 		"clockwork",
 		"wizard",
 		"changeling", 	// "traitorchan", "thiefchan", "changelingthief",
+		"goonvampire",
 		"vampire", 		// "traitorvamp", "thiefvamp", "vampirethief",
 		"nuclear",
 		"traitor",
@@ -655,6 +680,8 @@
 		sections["wizard"] = memory_edit_wizard(H)
 		/** CHANGELING ***/
 		sections["changeling"] = memory_edit_changeling(H)
+		/** GOON VAMPIRE ***/
+		sections["goonvampire"] = memory_edit_goon_vampire(H)
 		/** VAMPIRE ***/
 		sections["vampire"] = memory_edit_vampire(H)
 		/** NUCLEAR ***/
@@ -1446,7 +1473,10 @@
 
 			if("changeling")
 				if(!ischangeling(current))
-					add_antag_datum(/datum/antagonist/changeling)
+					var/datum/antagonist/changeling/cling = new()
+					cling.give_objectives = FALSE
+					add_antag_datum(cling)
+					to_chat(usr, "<span class='notice'>Changeling [key] has no objectives. You can add custom ones or generate random set by using <b>Randomize!</b> button.</span>")
 					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</span>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
@@ -1470,39 +1500,186 @@
 					log_admin("[key_name(usr)] has reset [key_name(current)]'s DNA")
 					message_admins("[key_name_admin(usr)] has reset [key_name_admin(current)]'s DNA")
 
+	else if(href_list["goonvampire"])
+		switch(href_list["goonvampire"])
+			if("clear")
+				if(!isvampire(src))
+					return
+
+				remove_goon_vampire_role()
+				to_chat(current, "<FONT color='red' size = 3><B>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</B></FONT>")
+				log_admin("[key_name(usr)] has de-goon-vampired [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-goon-vampired [key_name_admin(current)]")
+
+			if("goonvampire")
+				if(isvampire(src))
+					return
+
+				var/datum/antagonist/goon_vampire/g_vamp = new()
+				g_vamp.give_objectives = FALSE
+				add_antag_datum(g_vamp)
+				to_chat(usr, "<span class='notice'>У вампира [key] отсутствуют задания. Вы можете добавить их вручную или сгенерировать случайный набор, кнопкой <b>Randomize!</b></span>")
+				log_admin("[key_name(usr)] has goon-vampired [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has goon-vampired [key_name_admin(current)]")
+
+			if("edit_usable_blood")
+				if(!isvampire(src))
+					return
+
+				var/new_usable = input(usr, "Select a new value:", "Modify usable blood") as null|num
+				if(isnull(new_usable) || new_usable < 0)
+					return
+				var/datum/antagonist/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/goon_vampire)
+				g_vamp.bloodusable = new_usable
+				current.update_action_buttons_icon()
+				log_admin("[key_name(usr)] has set [key_name(current)]'s usable blood to [new_usable].")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s usable blood to [new_usable].")
+
+			if("edit_total_blood")
+				if(!isvampire(src))
+					return
+
+				var/new_total = input(usr, "Select a new value:", "Modify total blood") as null|num
+				if(isnull(new_total) || new_total < 0)
+					return
+
+				var/datum/antagonist/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/goon_vampire)
+				if(new_total < g_vamp.bloodtotal)
+					if(alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", "Yes", "No") == "No")
+						return
+					g_vamp.remove_all_powers()
+
+				g_vamp.bloodtotal = new_total
+				g_vamp.check_vampire_upgrade()
+				log_admin("[key_name(usr)] has set [key_name(current)]'s total blood to [new_total].")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s total blood to [new_total].")
+
+			if("autoobjectives")
+				var/datum/antagonist/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/goon_vampire)
+				g_vamp.give_objectives()
+				to_chat(usr, "<span class='notice'>Для вампира [key] сгенерированы задания. Вы можете отредактировать и объявить их вручную.</span>")
+				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+
 	else if(href_list["vampire"])
 		switch(href_list["vampire"])
 			if("clear")
+				if(!isvampire(src))
+					return
+
 				remove_vampire_role()
-				to_chat(current, "<FONT color='red' size = 3><B>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</B></FONT>")
+				to_chat(current, "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>")
 				log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
+
 			if("vampire")
-				if(!(src in SSticker.mode.vampires))
-					SSticker.mode.vampires += src
-					SSticker.mode.grant_vampire_powers(current)
-					SSticker.mode.update_vampire_icons_added(src)
-					var/datum/mindslaves/slaved = new()
-					slaved.masters += src
-					som = slaved //we MIGT want to mindslave someone
-					special_role = SPECIAL_ROLE_VAMPIRE
-					SEND_SOUND(current, 'sound/ambience/antag/vampalert.ogg')
-					to_chat(current, "<B><font color='red'>Ваши силы пробудились. Жажда крови нарастает… Вы — вампир!</font></B>")
-					log_admin("[key_name(usr)] has vampired [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
+				if(isvampire(src))
+					return
+
+				var/datum/antagonist/vampire/vamp = new()
+				vamp.give_objectives = FALSE
+				add_antag_datum(vamp)
+				to_chat(usr, "<span class='notice'>Vampire [key] has no objectives. You can add custom ones or generate random set by using <b>Randomize!</b> button.</span>")
+				to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
+				log_admin("[key_name(usr)] has vampired [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
+
+			if("edit_usable_blood")
+				if(!isvampire(src))
+					return
+
+				var/new_usable = input(usr, "Select a new value:", "Modify usable blood") as null|num
+				if(isnull(new_usable) || new_usable < 0)
+					return
+
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				vamp.bloodusable = new_usable
+				current.update_action_buttons_icon()
+				log_admin("[key_name(usr)] has set [key_name(current)]'s usable blood to [new_usable].")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s usable blood to [new_usable].")
+
+			if("edit_total_blood")
+				if(!isvampire(src))
+					return
+
+				var/new_total = input(usr, "Select a new value:", "Modify total blood") as null|num
+				if(isnull(new_total) || new_total < 0)
+					return
+
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(new_total < vamp.bloodtotal)
+					if(alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", "Yes", "No") == "No")
+						return
+					vamp.remove_all_powers()
+
+				vamp.bloodtotal = new_total
+				vamp.check_vampire_upgrade()
+				log_admin("[key_name(usr)] has set [key_name(current)]'s total blood to [new_total].")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s total blood to [new_total].")
+
+			if("change_subclass")
+				if(!isvampire(src))
+					return
+
+				var/list/subclass_selection = list()
+				for(var/subtype in subtypesof(/datum/vampire_subclass))
+					var/datum/vampire_subclass/subclass = subtype
+					subclass_selection[capitalize(initial(subclass.name))] = subtype
+				subclass_selection["Let them choose (remove current subclass)"] = NONE
+
+				var/new_subclass_name = input(usr, "Choose a new subclass:", "Change Vampire Subclass") as null|anything in subclass_selection
+				if(!new_subclass_name)
+					return
+
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				var/subclass_type = subclass_selection[new_subclass_name]
+
+				if(subclass_type == NONE)
+					vamp.clear_subclass()
+					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
+					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
+				else
+					vamp.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
+					vamp.change_subclass(subclass_type)
+					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
+					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
+
+			if("full_power_override")
+				if(!isvampire(src))
+					return
+
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(vamp.subclass.full_power_override)
+					vamp.subclass.full_power_override = FALSE
+					for(var/power in vamp.powers)
+						if(!is_type_in_list(power, vamp.subclass.fully_powered_abilities))
+							continue
+						vamp.remove_ability(power)
+				else
+					vamp.subclass.full_power_override = TRUE
+
+				vamp.check_full_power_upgrade()
+				log_admin("[key_name(usr)] set [key_name(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
+				message_admins("[key_name_admin(usr)] set [key_name_admin(current)]'s vampire 'full_power_overide' to [vamp.subclass.full_power_override].")
 
 			if("autoobjectives")
-				SSticker.mode.forge_vampire_objectives(src)
-				to_chat(usr, "<span class='notice'>Для вампира [key] сгенерированы задания. Вы можете отредактировать и объявить их вручную.</span>")
+				if(!isvampire(src))
+					return
+
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				vamp.give_objectives()
+				to_chat(usr, "<span class='notice'>The objectives for vampire [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
 	else if(href_list["vampthrall"])
 		switch(href_list["vampthrall"])
 			if("clear")
-				remove_vampire_role()
-				log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
+				if(has_antag_datum(/datum/antagonist/mindslave/thrall) || has_antag_datum(/datum/antagonist/mindslave/goon_thrall))
+					remove_antag_datum(/datum/antagonist/mindslave/thrall)
+					remove_antag_datum(/datum/antagonist/mindslave/goon_thrall)
+					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
@@ -2232,6 +2409,7 @@
 		SSticker.mode.update_wiz_icons_removed(src)
 
 
+
 /datum/mind/proc/remove_changeling_role()
 	var/datum/antagonist/traitor/chan_datum = has_antag_datum(/datum/antagonist/changeling)
 	if(!chan_datum)
@@ -2241,19 +2419,21 @@
 	remove_antag_datum(chan_datum)
 
 
+/datum/mind/proc/remove_goon_vampire_role()
+	var/datum/antagonist/goon_vampire/vamp = has_antag_datum(/datum/antagonist/goon_vampire)
+	if(!vamp)
+		return
+
+	remove_antag_datum(vamp)
+
+
 /datum/mind/proc/remove_vampire_role()
-	if(src in SSticker.mode.vampires)
-		SSticker.mode.vampires -= src
-		special_role = null
-		if(vampire)
-			vampire.remove_vampire_powers()
-			qdel(vampire)
-			vampire = null
-		SSticker.mode.update_vampire_icons_removed(src)
-	if(src in SSticker.mode.vampire_enthralled)
-		SSticker.mode.remove_vampire_mind(src)
-		log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
-		message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
+	var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+	if(!vamp)
+		return
+
+	remove_antag_datum(vamp)
+
 
 /datum/mind/proc/remove_syndicate_role()
 	if(src in SSticker.mode.syndicates)
@@ -2337,6 +2517,7 @@
 	remove_clocker_role()
 	remove_wizard_role()
 	remove_changeling_role()
+	remove_goon_vampire_role()
 	remove_vampire_role()
 	remove_syndicate_role()
 	remove_event_role()
@@ -2402,6 +2583,17 @@
 	if(!has_antag_datum(/datum/antagonist/traitor))
 		add_antag_datum(/datum/antagonist/traitor)
 
+
+/datum/mind/proc/make_goon_vampire()
+	if(!isvampire(src))
+		add_antag_datum(/datum/antagonist/goon_vampire)
+
+
+/datum/mind/proc/make_vampire()
+	if(!isvampire(src))
+		add_antag_datum(/datum/antagonist/vampire)
+
+
 /datum/mind/proc/make_Nuke()
 	if(!(src in SSticker.mode.syndicates))
 		SSticker.mode.syndicates += src
@@ -2432,15 +2624,6 @@
 		qdel(H.w_uniform)
 
 		SSticker.mode.equip_syndicate(current)
-
-/datum/mind/proc/make_Vampire()
-	if(!(src in SSticker.mode.vampires))
-		SSticker.mode.vampires += src
-		SSticker.mode.grant_vampire_powers(current)
-		special_role = SPECIAL_ROLE_VAMPIRE
-		SSticker.mode.forge_vampire_objectives(src)
-		SSticker.mode.greet_vampire(src)
-		SSticker.mode.update_vampire_icons_added(src)
 
 
 /datum/mind/proc/make_Overmind()

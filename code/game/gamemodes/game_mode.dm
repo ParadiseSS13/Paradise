@@ -218,16 +218,16 @@
 		if(player.client)
 			clients++
 
+			var/area/player_area = get_area(player)
+
 			if(ishuman(player))
 				if(!player.stat)
 					surviving_humans++
-					if(player.loc && player.loc.loc && (player.loc.loc.type in escape_locations))
+					if(player_area?.type in escape_locations)
 						escaped_humans++
 
 			if(!player.stat)
 				surviving_total++
-
-				var/area/player_area = get_area(player)
 
 				if(player_area?.type in escape_locations)
 					escaped_total++

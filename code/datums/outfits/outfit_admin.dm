@@ -1380,6 +1380,7 @@
 		/obj/item/clothing/under/color/black = 1
 	)
 
+
 /datum/outfit/admin/ancient_vampire/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
@@ -1395,23 +1396,26 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Ancient One", "data")
 
-	if(H.mind)
-		if(!H.mind.vampire)
-			H.make_vampire()
-			if(H.mind.vampire)
-				H.mind.vampire.bloodusable = 9999
-				H.mind.vampire.bloodtotal = 9999
-				H.mind.vampire.check_vampire_upgrade(0)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/bats)
-				to_chat(H, "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth.")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/hellhound)
-				to_chat(H, "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting.")
-				//H.mind.AddSpell(new /obj/effect/proc_holder/spell/raise_vampires)
-				to_chat(H, "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.")
-				H.dna.SetSEState(GLOB.jumpblock, 1)
-				genemutcheck(H, GLOB.jumpblock,  null, MUTCHK_FORCED)
-				H.update_mutations()
-				H.gene_stability = 100
+	if(!H.mind)
+		return
+
+	H.mind.make_vampire()
+	var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
+
+	if(!V)	// Just in case
+		return
+
+	V.bloodusable = 9999
+	V.bloodtotal = 9999
+	H.mind.offstation_role = TRUE
+	V.add_subclass(SUBCLASS_ANCIENT, FALSE)
+	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/bats)
+	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/hellhound)
+	H.dna.SetSEState(GLOB.jumpblock, TRUE)
+	genemutcheck(H, GLOB.jumpblock, null, MUTCHK_FORCED)
+	H.update_mutations()
+	H.gene_stability = 100
+
 
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"

@@ -289,9 +289,9 @@
 		return
 	if(owner.stat == DEAD)
 		return
-	if(owner.mind != null && owner.mind.vampire != null)
-		return
 	if(ismachineperson(owner))
+		return
+	if(isvampire(owner))
 		return
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE

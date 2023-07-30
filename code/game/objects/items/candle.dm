@@ -90,3 +90,10 @@
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
 	infinite = 1
+
+
+/obj/item/candle/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	infinite = FALSE
+	wax = 1 // next process will burn it out

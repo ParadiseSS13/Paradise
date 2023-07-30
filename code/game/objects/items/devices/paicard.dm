@@ -338,9 +338,10 @@
 		M.emp_act(severity)
 	..()
 
-/obj/item/paicard/extinguish_light()
-	pai.extinguish_light()
-	set_light(0)
+/obj/item/paicard/extinguish_light(force = FALSE)
+	if(pai)
+		pai.extinguish_light()
+		set_light(0)
 
 /obj/item/paicard/attackby(obj/item/I, mob/user, params)
 	. = ..()

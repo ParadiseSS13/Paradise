@@ -227,7 +227,7 @@
 			var/color = "#e6e6e6"
 			if(i%2 == 0)
 				color = "#f2f2f2"
-			var/is_antagonist = is_special_character(M)
+			var/antagonist_string = get_antag_type_truncated_plaintext_string(M)
 
 			var/M_job = ""
 
@@ -307,7 +307,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]","[client_ckey]","[M_eyeUID]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]","[antagonist_string]","[M.UID()]","[client_ckey]","[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
@@ -524,6 +524,12 @@
 
 		if(SSticker.mode.abductees.len)
 			dat += check_role_table("Abductees", SSticker.mode.abductees)
+
+		if(SSticker.mode.goon_vampires.len)
+			dat += check_role_table("Goon Vampires", SSticker.mode.goon_vampires)
+
+		if(SSticker.mode.goon_vampire_enthralled.len)
+			dat += check_role_table("Goon Vampire Thralls", SSticker.mode.goon_vampire_enthralled)
 
 		if(SSticker.mode.vampires.len)
 			dat += check_role_table("Vampires", SSticker.mode.vampires)

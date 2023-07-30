@@ -304,6 +304,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	targeting = targeting_datums[type]
 	cooldown_handler = create_new_cooldown()
 	cooldown_handler.cooldown_init(src)
+	after_spell_init()
 
 
 /obj/effect/proc_holder/spell/Destroy()
@@ -341,6 +342,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	s_cooldown.recharge_duration = base_cooldown
 	s_cooldown.starts_off_cooldown = starts_charged
 	return s_cooldown
+
+
+/**
+ * This proc will trigger when all necessary initialization is done. Usefull for staff like changing spell name.
+ */
+/obj/effect/proc_holder/spell/proc/after_spell_init()
 
 
 /**

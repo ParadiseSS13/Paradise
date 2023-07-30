@@ -1,8 +1,5 @@
-/proc/isvampirethrall_goon(mob/living/user)
-	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.vampire_enthralled)
-
 /**
- * Goon Vampire special spell handler.
+ * Goon Vampire spell handler.
  */
 /datum/spell_handler/goon_vampire
 	var/required_blood
@@ -10,56 +7,63 @@
 
 /datum/spell_handler/goon_vampire/can_cast(mob/user, charge_check, show_message, obj/effect/proc_holder/spell/spell)
 
-	var/datum/vampire/vampire = user.mind.vampire
+	var/datum/antagonist/goon_vampire/vampire = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
 
 	if(!vampire)
 		return FALSE
 
-	var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
+	var/fullpower = vampire.get_ability(/datum/goon_vampire_passive/full)
 
 	if(user.stat >= DEAD)
-		to_chat(user, "<span class='warning'>Но вы же мертвы!</span>")
+		if(show_message)
+			to_chat(user, span_warning("Но вы же мертвы!"))
 		return FALSE
 
 	if(vampire.nullified && !fullpower)
-		to_chat(user, "<span class='warning'>Что-то блокирует ваши силы!</span>")
+		if(show_message)
+			to_chat(user, span_warning("Что-то блокирует ваши силы!"))
 		return FALSE
 
 	if(vampire.bloodusable < required_blood)
-		to_chat(user, "<span class='warning'>Для этого вам потребуется не менее [required_blood] единиц крови!</span>")
+		if(show_message)
+			to_chat(user, span_warning("Для этого вам потребуется не менее [required_blood] единиц крови!"))
 		return FALSE
 
 	//chapel check
 	if(is_type_in_typecache(get_area(user), GLOB.holy_areas) && !fullpower)
-		to_chat(user, "<span class='warning'>Ваши силы не действуют на этой святой земле.</span>")
+		if(show_message)
+			to_chat(user, span_warning("Ваши силы не действуют на этой святой земле."))
 		return FALSE
 
 	return TRUE
 
 
 /datum/spell_handler/goon_vampire/spend_spell_cost(mob/user, obj/effect/proc_holder/spell/spell)
+	for(var/datum/action/spell_action/action in user.actions)
+		action.UpdateButtonIcon()
+
 	if(!required_blood) //don't take the blood yet if this is false!
 		return
 
-	var/datum/vampire/vampire = user.mind.vampire
-	vampire.bloodusable -= required_blood
+	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	vamp?.bloodusable -= required_blood
 
 
 /datum/spell_handler/goon_vampire/revert_cast(mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
-	var/datum/vampire/vampire = user.mind.vampire
-	vampire.bloodusable += required_blood
+	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	vamp?.bloodusable += required_blood
 
 
 /datum/spell_handler/goon_vampire/after_cast(list/targets, mob/user, obj/effect/proc_holder/spell/spell)
-	if(!spell.should_recharge_after_cast)
-		return
+
+	SSblackbox.record_feedback("tally", "goon_vampire_powers_used", 1, "[spell]")
 
 	if(!required_blood)
 		return
 
-	var/datum/vampire/vampire = user.mind.vampire
-	to_chat(user, "<span class='boldnotice'>You have [vampire.bloodusable] left to use.</span>")
-	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]")
+	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	to_chat(user, span_boldnotice("У Вас осталось [vamp.bloodusable] единиц крови."))
+
 
 /*******************
  * Spell handler end.
@@ -74,7 +78,7 @@
 	desc = "You shouldn't see this!"
 	panel = "Vampire"
 	school = "vampire"
-	action_background_icon_state = "bg_vampire"
+	action_background_icon_state = "bg_vampire_old"
 	human_req = TRUE
 	clothes_req = FALSE
 	base_cooldown = 3 MINUTES
@@ -83,17 +87,20 @@
 	var/required_blood
 
 
-/obj/effect/proc_holder/spell/goon_vampire/Initialize(mapload)
-	. = ..()
-	if(required_blood)
-		name = "[name] ([required_blood])"
+/obj/effect/proc_holder/spell/goon_vampire/after_spell_init()
+	update_name()
 
-	if(action)
-		action.UpdateButtonIcon()
+
+/obj/effect/proc_holder/spell/goon_vampire/proc/update_name(mob/user = usr)
+	if(required_blood)
+		var/new_name = "[name] ([required_blood])"
+		name = new_name
+		action?.name = new_name
+		action?.UpdateButtonIcon()
 
 
 /obj/effect/proc_holder/spell/goon_vampire/create_new_handler()
-	var/datum/spell_handler/goon_vampire/H = new
+	var/datum/spell_handler/goon_vampire/H = new()
 	H.required_blood = required_blood
 	return H
 
@@ -113,35 +120,29 @@
 
 
 /obj/effect/proc_holder/spell/goon_vampire/proc/affects(mob/target, mob/user = usr)
+
 	//Other vampires aren't affected
-	if(target.mind && target.mind.vampire)
+	if(isvampire(target))
 		return FALSE
 
 	//Vampires who have reached their full potential can affect nearly everything
-	if(user.mind.vampire.get_ability(/datum/vampire_passive/full))
-		return FALSE
+	var/datum/antagonist/goon_vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(vampire?.get_ability(/datum/goon_vampire_passive/full))
+		return TRUE
 
 	//Holy characters are resistant to vampire powers
-	if(target.mind && target.mind.isholy)
+	if(target.mind?.isholy)
 		return FALSE
 
 	return TRUE
 
-
-/datum/vampire_passive
-	var/gain_desc
-
-/datum/vampire_passive/New()
-	..()
-	if(!gain_desc)
-		gain_desc = "Вы получили способность «[src]»."
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /obj/effect/proc_holder/spell/goon_vampire/self/rejuvenate
 	name = "Восстановление"
 	desc= "Используйте накопленную кровь, чтобы влить в тело новые силы, устраняя любое ошеломление"
-	action_icon_state = "vampire_rejuvinate"
+	action_icon_state = "vampire_rejuvinate_old"
 	base_cooldown = 20 SECONDS
 	stat_allowed = UNCONSCIOUS
 	var/effect_timer
@@ -154,8 +155,12 @@
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	user.adjustStaminaLoss(-60)
-	to_chat(user, "<span class='notice'>Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты.</span>")
-	if(user.mind?.vampire?.get_ability(/datum/vampire_passive/regen))
+	user.lying = FALSE
+	user.resting = FALSE
+	user.update_canmove()
+	to_chat(user, span_notice("Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты."))
+	var/datum/antagonist/goon_vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(vampire?.get_ability(/datum/goon_vampire_passive/regen))
 		effect_timer = addtimer(CALLBACK(src, PROC_REF(rejuvenate_effect), user), 3.5 SECONDS, TIMER_STOPPABLE|TIMER_LOOP)
 
 
@@ -184,18 +189,18 @@
 /obj/effect/proc_holder/spell/goon_vampire/targetted/hypnotise/cast(list/targets, mob/living/carbon/human/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 
-	user.visible_message("<span class='warning'>Глаза [user] вспыхивают, когда [user.p_they()] пристально смотрит в глаза [target]</span>")
+	user.visible_message(span_warning("Глаза [user] ярко вспыхивают, когда он[genderize_ru(user.gender,"","а","о","и")] пристально смотр[genderize_ru(user.gender,"ит","ит","ит","ят")] в глаза [target]."))
 	if(do_mob(user, target, 6 SECONDS))
 		if(!affects(target))
-			to_chat(user, "<span class='warning'>Ваш пронзительный взгляд не смог заворожить [target].</span>")
-			to_chat(target, "<span class='notice'>Невыразительный взгляд [user] ничего вам не делает.</span>")
+			to_chat(user, span_warning("Ваш пронзительный взгляд не смог заворожить [target]."))
+			to_chat(target, span_notice("Невыразительный взгляд [user] ничего вам не делает."))
 		else
-			to_chat(user, "<span class='warning'>Ваш пронзающий взгляд завораживает [target].</span>")
-			to_chat(target, "<span class='warning'>Вы чувствуете сильную слабость.</span>")
+			to_chat(user, span_warning("Ваш пронзающий взгляд завораживает [target]."))
+			to_chat(target, span_warning("Вы чувствуете сильную слабость."))
 			target.SetSleeping(40 SECONDS)
 	else
 		revert_cast(user)
-		to_chat(user, "<span class='warning'>Вы смотрите в никуда.</span>")
+		to_chat(user, span_warning("Вы смотрите в никуда."))
 
 
 /obj/effect/proc_holder/spell/goon_vampire/targetted/disease
@@ -209,10 +214,10 @@
 /obj/effect/proc_holder/spell/goon_vampire/targetted/disease/cast(list/targets, mob/living/carbon/human/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 
-	to_chat(user, "<span class='warning'>Вы незаметно инфицируете [target] заражающим касанием.</span>")
+	to_chat(user, span_warning("Вы незаметно инфицируете [target] заражающим касанием."))
 	target.help_shake_act(user)
 	if(!affects(target))
-		to_chat(user, "<span class='warning'>Вам кажется, что заражающее касание не подействовало на [target].</span>")
+		to_chat(user, span_warning("Вам кажется, что заражающее касание не подействовало на [target]."))
 		return
 
 	var/datum/disease/virus = new /datum/disease/vampire
@@ -222,7 +227,7 @@
 /obj/effect/proc_holder/spell/goon_vampire/glare
 	name = "Вспышка"
 	desc = "Вы сверкаете глазами, ненадолго ошеломляя всех людей вокруг"
-	action_icon_state = "vampire_glare"
+	action_icon_state = "vampire_glare_old"
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
 
@@ -240,10 +245,10 @@
 		return
 
 	if(istype(user.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-		to_chat(user, "<span class='warning'>У вас на глазах повязка!</span>")
+		to_chat(user, span_warning("У вас на глазах повязка!"))
 		return
 
-	user.visible_message("<span class='warning'>Глаза [user] ослепительно вспыхивают!</span>")
+	user.visible_message(span_warning("Глаза [user] ослепительно вспыхивают!"))
 
 	for(var/mob/living/carbon/human/target in targets)
 		if(!affects(target))
@@ -260,7 +265,7 @@
 		target.Weaken(4 SECONDS)
 		target.AdjustStuttering(40 SECONDS)
 		target.adjustStaminaLoss(20)
-		to_chat(target, "<span class='warning'>Вы ослеплены вспышкой из глаз [user].</span>")
+		to_chat(target, span_userdanger("Вы ослеплены вспышкой из глаз [user]."))
 		add_attack_logs(user, target, "(Vampire) слепит")
 		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
@@ -274,7 +279,7 @@
 
 
 /obj/effect/proc_holder/spell/goon_vampire/self/shapeshift/cast(list/targets, mob/living/carbon/human/user = usr)
-	user.visible_message("<span class='warning'>[user] transforms!</span>")
+	user.visible_message(span_warning("[user] transforms!"))
 
 	scramble(TRUE, user, 100)
 	user.real_name = random_name(user.gender, user.dna.species.name) //Give them a name that makes sense for their species.
@@ -298,7 +303,9 @@
 /obj/effect/proc_holder/spell/goon_vampire/self/screech/cast(list/targets, mob/user = usr)
 
 	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, TRUE)
-	user.visible_message("<span class='warning'>[user] издаёт ушераздирающий визг!</span>", "<span class='warning'>Вы громко визжите.</span>", "<span class='warning'>Вы слышите болезненно громкий визг!</span>")
+	user.visible_message(span_warning("[user] издаёт душераздирающий визг!"), \
+						span_warning("Вы громко визжите."), \
+						span_italics("Вы слышите болезненно громкий визг!"))
 
 	for(var/mob/living/carbon/target in hearers(4))
 		if(target == user)
@@ -321,7 +328,7 @@
 				target.adjustStaminaLoss(20)
 				continue
 
-		to_chat(target, "<span class='warning'><font size='3'><b>Вы слышите ушераздирающий визг и ваши чувства притупляются!</font></b></span>")
+		to_chat(target, span_warning("<font size='3'><b>Вы слышите ушераздирающий визг и ваши чувства притупляются!</font></b>"))
 		target.Weaken(4 SECONDS)
 		target.Deaf(40 SECONDS)
 		target.Stuttering(40 SECONDS)
@@ -336,7 +343,7 @@
 	name = "Порабощение"
 	desc = "Вы используете большую часть своей силы, вынуждая тех, кто ещё никому не служит, служить только вам."
 	gain_desc = "Вы получили способность «Порабощение», которая тратит много крови, но позволяет вам поработить человека, который ещё никому не служит, на случайный период времени."
-	action_icon_state = "vampire_enthrall"
+	action_icon_state = "vampire_enthrall_old"
 	required_blood = 300
 
 
@@ -345,18 +352,21 @@
 	var/mob/living/carbon/human/target = targets[1]
 
 	if(!ishuman(target))
-		to_chat(user, "<span class='warning'>Вы можете порабощать только гуманоидов.</span>")
+		to_chat(user, span_warning("Вы можете порабощать только гуманоидов."))
 		return
 
-	user.visible_message("<span class='warning'>[user] кусает [target] в шею!</span>", "<span class='warning'>Вы кусаете [target] в шею и начинаете передачу части своей силы.</span>")
-	to_chat(target, "<span class='warning'>Вы ощущаете, как щупальца зла впиваются в ваш разум.</span>")
+	user.visible_message(span_warning("[user] кусает [target] в шею!"), \
+						span_warning("Вы кусаете [target] в шею и начинаете передачу части своей силы."))
+	to_chat(target, span_warning("Вы ощущаете, как щупальца зла впиваются в ваш разум."))
 
 	if(do_mob(user, target, 5 SECONDS))
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
 		else
 			revert_cast(user)
-			to_chat(user, "<span class='warning'>Вы или цель сдвинулись, или вам не хватило запаса крови.</span>")
+	else
+		revert_cast(user)
+
 
 
 /obj/effect/proc_holder/spell/goon_vampire/targetted/enthrall/proc/can_enthrall(mob/living/carbon/human/user, mob/living/carbon/target)
@@ -377,96 +387,80 @@
 		return FALSE
 
 	if(!target.mind)
-		to_chat(user, "<span class='warning'>Разум [target.name] сейчас не здесь, поэтому порабощение не удастся.</span>")
+		to_chat(user, span_warning("Разум [target.name] сейчас не здесь, поэтому порабощение не удастся."))
 		return FALSE
 
-	if(enthrall_safe || target.mind.vampire || isvampirethrall_goon(target))
-		target.visible_message("<span class='warning'>Похоже что [target] сопротивляется захвату!</span>", "<span class='notice'>Вы ощущаете в голове знакомое ощущение, но оно быстро проходит.</span>")
+	if(enthrall_safe || isvampire(target) || isvampirethrall(target))
+		target.visible_message(span_warning("Похоже что [target] сопротивляется захвату!"), \
+							span_notice("Вы ощущаете в голове знакомое ощущение, но оно быстро проходит."))
 		return FALSE
 
 	if(!affects(target))
-		target.visible_message("<span class='warning'>Похоже что [target] сопротивляется захвату!</span>", "<span class='notice'>Вера в [SSticker.Bible_deity_name] защищает ваш разум от всякого зла.</span>")
+		target.visible_message(span_warning("Похоже что [target] сопротивляется захвату!"), \
+							span_notice("Вера в [SSticker.Bible_deity_name] защищает ваш разум от всякого зла."))
 		return FALSE
 
 	if(isninja(target))
 		var/obj/item/clothing/suit/space/space_ninja/ninja_suit = target.wear_suit
 		if(istype(ninja_suit) && ninja_suit.vamp_protection_active && ninja_suit.s_initialized)
-			target.visible_message(span_warning("Похоже что [target] сопротивляется захвату!"), span_notice("Вы ощутили сильную боль, а затем слабый укол в шею. Кажется костюм только, что защитил ваш разум..."))
+			target.visible_message(span_warning("Похоже что [target] сопротивляется захвату!"), \
+								span_notice("Вы ощутили сильную боль, а затем слабый укол в шею. Кажется костюм только, что защитил ваш разум..."))
 			target.setBrainLoss(20)
 			return FALSE
 
 	if(!ishuman(target))
-		to_chat(user, "<span class='warning'>Вы можете порабощать только гуманоидов!</span>")
+		to_chat(user, span_warning("Вы можете порабощать только гуманоидов!"))
 		return FALSE
 
 	return TRUE
 
 
 /obj/effect/proc_holder/spell/goon_vampire/targetted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/target)
+	if(!istype(target))
+		return FALSE
 
-	var/datum/mind/user_mind = user.mind
-	var/datum/mind/target_mind = target.mind
-	var/ref = "\ref[user_mind]"
-	if(!(ref in SSticker.mode.vampire_thralls))
-		SSticker.mode.vampire_thralls[ref] = list(target_mind)
-	else
-		SSticker.mode.vampire_thralls[ref] += target_mind
-
-	SSticker.mode.update_vampire_icons_added(target_mind)
-	SSticker.mode.update_vampire_icons_added(user_mind)
-
-	var/datum/mindslaves/slaved = user_mind.som
-	target_mind.som = slaved
-	slaved.serv += target
-	slaved.add_serv_hud(user_mind, "vampire")//handles master servent icons
-	slaved.add_serv_hud(target_mind, "vampthrall")
-
-	SSticker.mode.vampire_enthralled.Add(target_mind)
-	SSticker.mode.vampire_enthralled[target_mind] = user_mind
-	target.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
-
-	var/datum/objective/protect/serve_objective = new
-	serve_objective.owner = user_mind
-	serve_objective.target = target_mind
-	serve_objective.explanation_text = "Вы были порабощены [user.real_name]. Выполняйте все [user.p_their()] приказы."
-	target_mind.objectives += serve_objective
-
-	to_chat(target, "<span class='biggerdanger'>Вы были порабощены [user.real_name]. Выполняйте все [user.p_their()] приказы.</span>")
-	to_chat(user, "<span class='warning'>Вы успешно поработили [target]. <i>Если [target.p_they()] откажется вас слушаться, используйте adminhelp.</i></span>")
+	var/greet_text = "<b>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</b>"
+	target.mind.add_antag_datum(new /datum/antagonist/mindslave/goon_thrall(user.mind, greet_text))
+	if(jobban_isbanned(target, ROLE_VAMPIRE))
+		SSticker.mode.replace_jobbanned_player(target, SPECIAL_ROLE_VAMPIRE_THRALL)
 	target.Stun(4 SECONDS)
-	add_attack_logs(user, target, "Vampire-thralled")
+	to_chat(user, span_warning("Вы успешно поработили [target]. <i>Если игрок откажется Вас слушаться, используйте adminhelp.</i>"))
+	user.create_log(CONVERSION_LOG, "vampire enthralled", target)
+	target.create_log(CONVERSION_LOG, "was vampire enthralled", user)
 
 
 /obj/effect/proc_holder/spell/goon_vampire/self/cloak
 	name = "Покров тьмы"
 	desc = "Переключается, маскируя вас в темноте"
 	gain_desc = "Вы получили способность «Покров тьмы», которая, будучи включённой, делает вас практически невидимым в темноте."
-	action_icon_state = "vampire_cloak"
+	action_icon_state = "vampire_cloak_old"
 	base_cooldown = 1 SECONDS
 
 
-/obj/effect/proc_holder/spell/goon_vampire/self/cloak/Initialize(mapload)
-	. = ..()
-	update_name()
+/obj/effect/proc_holder/spell/goon_vampire/self/cloak/update_name(mob/user = usr)
 
-
-/obj/effect/proc_holder/spell/goon_vampire/self/cloak/proc/update_name()
-	var/mob/living/user = loc
-	if(!ishuman(user) || !user.mind?.vampire)
+	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(!vamp)
 		return
 
-	name = "[initial(name)] ([user.mind.vampire.iscloaking ? "Выключить" : "Включить"])"
+	var/new_name = "[initial(name)] ([vamp.iscloaking ? "Выключить" : "Включить"])"
+	name = new_name
+	action?.name = new_name
+	action?.UpdateButtonIcon()
 
 
 /obj/effect/proc_holder/spell/goon_vampire/self/cloak/cast(list/targets, mob/living/carbon/human/user = usr)
-	var/datum/vampire/vamp = user.mind.vampire
+	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(!vamp)
+		return
+
 	vamp.iscloaking = !vamp.iscloaking
-	update_name()
-	to_chat(user, "<span class='notice'>Теперь вас будет <b>[vamp.iscloaking ? "не видно" : "видно"]</b> в темноте.</span>")
+	update_name(user)
+	to_chat(user, span_notice("Теперь вас будет <b>[vamp.iscloaking ? "не видно" : "видно"]</b> в темноте."))
 
 
 /obj/effect/proc_holder/spell/goon_vampire/bats
-	name = "Дети ночи (50)"
+	name = "Дети ночи"
 	desc = "Вы вызываете пару космолетучих мышей, которые будут биться насмерть со всеми вокруг"
 	gain_desc = "Вы получили способность «Дети ночи», призывающую летучих мышей."
 	action_icon_state = "vampire_bats"
@@ -566,6 +560,9 @@
 		qdel(animation)
 		qdel(holder)
 
+		for(var/datum/action/spell_action/action in user.actions)
+			action.UpdateButtonIcon()
+
 
 // Blink for vamps
 // Less smoke spam.
@@ -621,7 +618,7 @@
 /obj/effect/proc_holder/spell/goon_vampire/shadowstep/cast(list/targets, mob/living/carbon/human/user = usr)
 	if(!length(targets))
 		revert_cast(user)
-		to_chat(user, "<span class='warning'>Поблизости нет теней, куда можно было бы шагнуть.</span>")
+		to_chat(user, span_warning("Поблизости нет теней, куда можно было бы шагнуть."))
 		return
 
 	var/target_turf = pick(targets)
@@ -641,87 +638,24 @@
 			qdel(animation)
 
 
-/datum/vampire_passive/regen
+/datum/goon_vampire_passive
+	var/gain_desc
+
+
+/datum/goon_vampire_passive/New()
+	..()
+	if(!gain_desc)
+		gain_desc = "Вы получили способность «[src]»."
+
+
+/datum/goon_vampire_passive/regen
 	gain_desc = "Ваша способность «Восстановление» улучшена. Теперь она будет постепенно исцелять вас после использования."
 
 
-/datum/vampire_passive/vision
+/datum/goon_vampire_passive/vision
 	gain_desc = "Ваше вампирское зрение улучшено."
 
 
-/datum/vampire_passive/full
+/datum/goon_vampire_passive/full
 	gain_desc = "Вы достигли полной силы и ничто святое больше не может ослабить вас. Ваше зрение значительно улучшилось."
-
-
-/obj/effect/proc_holder/spell/aoe/raise_vampires
-	name = "Поднятие вампиров"
-	desc = "Призовите смертоносных вампиров из блюспейса"
-	school = "transmutation"
-	action_icon_state = "revive_thrall"
-	base_cooldown = 10 SECONDS
-	cooldown_min = 2 SECONDS
-	clothes_req = FALSE
-	human_req = TRUE
-	sound = 'sound/magic/wandodeath.ogg'
-	aoe_range = 3
-
-
-/obj/effect/proc_holder/spell/aoe/raise_vampires/create_new_targeting()
-	var/datum/spell_targeting/aoe/T = new()
-	T.range = aoe_range
-	return T
-
-
-/obj/effect/proc_holder/spell/aoe/raise_vampires/cast(list/targets, mob/user = usr)
-	new /obj/effect/temp_visual/cult/sparks(user.loc)
-	to_chat(user, "<span class='warning'>Ваш зов расходится в блюспейсе, на помощь созывая других вампирских духов!</span>")
-	for(var/mob/living/carbon/human/target in targets)
-		target.Beam(target, "sendbeam", 'icons/effects/effects.dmi', time= 3 SECONDS, maxdistance = 7, beam_type = /obj/effect/ebeam)
-		new /obj/effect/temp_visual/cult/sparks(target.loc)
-		target.raise_vampire(user)
-
-
-/mob/living/carbon/human/proc/raise_vampire(var/mob/M)
-	if(!istype(M))
-		log_debug("human/proc/raise_vampire called with invalid argument.")
-		return
-	if(!mind)
-		visible_message("Кажется, [src] недостаёт ума, чтобы понять, о чём вы говорите.")
-		return
-	if(dna && (NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !blood_volume)
-		visible_message("[src] выглядит невозмутимо!")
-		return
-	if(mind.vampire || mind.special_role == SPECIAL_ROLE_VAMPIRE || mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
-		visible_message("<span class='notice'>[src] выглядит обновлённо!</span>")
-		adjustBruteLoss(-60)
-		adjustFireLoss(-60)
-		for(var/obj/item/organ/external/E in bodyparts)
-			if(prob(25))
-				E.mend_fracture()
-
-		return
-	if(stat != DEAD)
-		if(IsWeakened())
-			visible_message("<span class='warning'>Кажется, [src] ощущает боль!</span>")
-			adjustBrainLoss(60)
-		else
-			visible_message("<span class='warning'>Кажется, энергия оглушает [src]!</span>")
-			Weaken(40 SECONDS)
-		return
-	for(var/obj/item/implant/mindshield/L in src)
-		if(L && L.implanted)
-			qdel(L)
-	for(var/obj/item/implant/traitor/T in src)
-		if(T && T.implanted)
-			qdel(T)
-	visible_message("<span class='warning'>Глаза [src] начинают светиться жутким красным светом!</span>")
-	var/datum/objective/protect/protect_objective = new
-	protect_objective.owner = mind
-	protect_objective.target = M.mind
-	protect_objective.explanation_text = "Защитите [M.real_name]."
-	mind.objectives += protect_objective
-	add_attack_logs(M, src, "Vampire-sired")
-	mind.make_Vampire()
-	revive()
-	Weaken(40 SECONDS)
 

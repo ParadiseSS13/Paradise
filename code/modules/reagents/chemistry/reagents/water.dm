@@ -311,13 +311,16 @@
 				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(6 SECONDS)
-		if(isvampirethrall_goon(M))
-			SSticker.mode.remove_vampire_mind(M.mind)
+		if(isvampirethrall(M))
+			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
+			M.mind.remove_antag_datum(/datum/antagonist/mindslave/goon_thrall)
 			holder.remove_reagent(id, volume)
+			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
+
 		if(iscultist(M))
 			SSticker.mode.remove_cultist(M.mind)
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
@@ -342,17 +345,63 @@
 					if(is_type_in_list(I, CLOCK_CLOTHING))
 						H.drop_item_ground(I)
 
-	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
+	var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(M) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
-		if(M.mind.vampire.bloodusable)
+		if(vamp.bloodusable)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(60 SECONDS)
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
-			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
-			if(M.mind.vampire.bloodusable)
+			vamp.adjust_nullification(20, 4)
+			vamp.bloodusable = max(vamp.bloodusable - 3,0)
+			if(vamp.bloodusable)
+				V.vomit(0, TRUE, FALSE)
+				V.adjustBruteLoss(3)
+			else
+				holder.remove_reagent(id, volume)
+				V.vomit(0, FALSE, FALSE)
+				return
+		else
+			if(!vamp.bloodtotal)
+				return ..() | update_flags
+			switch(current_cycle)
+				if(1 to 4)
+					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
+					vamp.adjust_nullification(20, 4)
+				if(5 to 12)
+					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
+					update_flags |= M.adjustFireLoss(1, FALSE)
+					M.Stuttering(2 SECONDS)
+					M.Jitter(40 SECONDS)
+					if(prob(20))
+						M.emote("scream")
+					vamp.adjust_nullification(20, 4)
+				if(13 to INFINITY)
+					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
+									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
+					M.fire_stacks = min(5, M.fire_stacks + 3)
+					M.IgniteMob()
+					update_flags |= M.adjustFireLoss(3, FALSE)
+					M.Stuttering(2 SECONDS)
+					M.Jitter(60 SECONDS)
+					if(prob(40))
+						M.emote("scream")
+					vamp.adjust_nullification(20, 4)
+
+	var/datum/antagonist/goon_vampire/g_vamp = M.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(ishuman(M) && g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full) && prob(80))
+		var/mob/living/carbon/V = M
+		if(g_vamp.bloodusable)
+			M.Stuttering(2 SECONDS)
+			M.Jitter(60 SECONDS)
+			update_flags |= M.adjustStaminaLoss(5, FALSE)
+			if(prob(20))
+				M.emote("scream")
+			g_vamp.nullified = max(5, g_vamp.nullified + 2)
+			g_vamp.bloodusable = max(g_vamp.bloodusable - 3,0)
+			if(g_vamp.bloodusable)
 				V.vomit(0,1)
 			else
 				holder.remove_reagent(id, volume)
@@ -362,7 +411,7 @@
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					g_vamp.nullified = max(5, g_vamp.nullified + 2)
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
@@ -370,7 +419,7 @@
 					M.Jitter(40 SECONDS)
 					if(prob(20))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					g_vamp.nullified = max(5, g_vamp.nullified + 2)
 				if(13 to INFINITY)
 					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
 									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
@@ -381,24 +430,45 @@
 					M.Jitter(60 SECONDS)
 					if(prob(40))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					g_vamp.nullified = max(5, g_vamp.nullified + 2)
+
 	return ..() | update_flags
 
 
 /datum/reagent/holywater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
-	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
-		var/mob/living/carbon/human/H=M
+	if(!ishuman(M) || !M.mind)
+		return
+
+	var/mob/living/carbon/human/target = M
+
+	var/datum/antagonist/vampire/vamp = target.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(!vamp.get_ability(/datum/vampire_passive/full))
+
 		if(method == REAGENT_TOUCH)
-			if(H.wear_mask)
-				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
+			if(target.wear_mask)
+				to_chat(target, "<span class='warning'>Your mask protects you from the holy water!</span>")
 				return
-			else if(H.head)
-				to_chat(H, "<span class='warning'>Your helmet protects you from the holy water!</span>")
+			else if(target.head)
+				to_chat(target, "<span class='warning'>Your helmet protects you from the holy water!</span>")
 				return
 			else
-				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+				to_chat(target, "<span class='warning'>Something holy interferes with your powers!</span>")
+				vamp.adjust_nullification(5, 2)
+
+	var/datum/antagonist/goon_vampire/g_vamp = target.mind.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
+
+		if(method == REAGENT_TOUCH)
+			if(target.wear_mask)
+				to_chat(target, "<span class='warning'>Your mask protects you from the holy water!</span>")
+				return
+			else if(target.head)
+				to_chat(target, "<span class='warning'>Your helmet protects you from the holy water!</span>")
+				return
+			else
+				to_chat(target, "<span class='warning'>Something holy interferes with your powers!</span>")
+				g_vamp.nullified = max(5, g_vamp.nullified + 2)
 
 
 /datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)

@@ -164,6 +164,13 @@
 		set_light(1, 1, COLOR_WHITE)
 		icon_state = initial(icon_state)
 
+
+/obj/machinery/vending/extinguish_light(force = FALSE)
+	if(light_range)
+		set_light(0)
+		underlays.Cut()
+
+
 /*
  * Reimp, flash the screen on and off repeatedly.
  */

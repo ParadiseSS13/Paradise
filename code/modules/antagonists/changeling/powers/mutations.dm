@@ -323,6 +323,7 @@
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
 	armour_penetration = 0
+	reflectability = REFLECTABILITY_NEVER //Let us not reflect this ever. It's not quite a bullet, and a cling should never wrap its tentacle around itself, it controls its body well
 	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 

@@ -9,6 +9,7 @@
 	nonabstract_req = TRUE
 	centcom_cancast = FALSE //Prevent people from getting to centcom
 	var/sound_in = 'sound/magic/ethereal_enter.ogg'
+	var/sound_out = 'sound/magic/ethereal_exit.ogg'
 	var/jaunt_duration = 5 SECONDS //in deciseconds
 	var/jaunt_in_time = 0.5 SECONDS
 	var/jaunt_in_type = /obj/effect/temp_visual/wizard
@@ -22,7 +23,6 @@
 
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/cast(list/targets, mob/user = usr) //magnets, so mostly hardcoded
-	playsound(get_turf(user), sound_in, 50, TRUE, -1)
 	for(var/mob/living/target in targets)
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
 			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
@@ -31,6 +31,7 @@
 
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/do_jaunt(mob/living/target)
+	playsound(get_turf(target), sound_in, 50, TRUE, -1)
 	target.notransform = TRUE
 	var/turf/mobloc = get_turf(target)
 	var/obj/effect/dummy/spell_jaunt/holder = new jaunt_type_path(mobloc)
@@ -53,29 +54,33 @@
 
 	target.canmove = FALSE
 	holder.reappearing = TRUE
-	playsound(get_turf(target), 'sound/magic/ethereal_exit.ogg', 50, 1, -1)
+	playsound(mobloc, sound_out, 50, TRUE, -1)
 
 	sleep(jaunt_in_time * 4)
+	mobloc = get_turf(target.loc)
 	new jaunt_in_type(mobloc, holder.dir)
 	target.setDir(holder.dir)
 
 	sleep(jaunt_in_time)
 	qdel(holder)
 
-	if(!QDELETED(target))
-		if(is_blocked_turf(mobloc, TRUE))
-			for(var/turf/T in orange(7))
-				if(isspaceturf(T))
-					continue
-				if(target.Move(T))
-					target.remove_CC()
-					target.canmove = TRUE
-					return
-			for(var/turf/space/space_turf in orange(7))
-				if(target.Move(space_turf))
-					break
-		target.canmove = TRUE
-		target.remove_CC()
+	if(QDELETED(target))
+		return
+
+	mobloc = get_turf(target.loc)
+	if(is_blocked_turf(mobloc, TRUE))
+		for(var/turf/T in orange(7))
+			if(isspaceturf(T))
+				continue
+			if(target.Move(T))
+				target.remove_CC()
+				target.canmove = TRUE
+				return
+		for(var/turf/space/space_turf in orange(7))
+			if(target.Move(space_turf))
+				break
+	target.canmove = TRUE
+	target.remove_CC()
 
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/jaunt_steam(mobloc)

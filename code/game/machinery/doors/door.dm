@@ -166,10 +166,44 @@
 				var/mob/living/simple_animal/bot/B = user
 				B.door_opened(src)
 		else
+			if(pry_open_check(user))
+				return
 			if(HAS_TRAIT(src, TRAIT_CMAGGED))
 				cmag_switch(TRUE, user)
 				return
 			do_animate("deny")
+
+
+/obj/machinery/door/proc/pry_open_check(mob/user)
+	. = TRUE
+	if(isterrorspider(user))
+		return
+
+	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
+		return FALSE
+
+	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+		if(!V.bloodusable)
+			REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+			return FALSE
+
+	if(welded)
+		to_chat(user, span_warning("The door is welded."))
+		return FALSE
+
+	if(locked)
+		to_chat(user, span_warning("The door is bolted."))
+		return FALSE
+
+	if(density)
+		visible_message(span_danger("[user] forces the door open!"))
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		open(TRUE)
+
+	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+		V.bloodusable = max(V.bloodusable - 5, 0)
+
 
 /obj/machinery/door/attack_ai(mob/user)
 	return attack_hand(user)

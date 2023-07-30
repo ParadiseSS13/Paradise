@@ -1180,6 +1180,11 @@
 /obj/mecha/proc/toggle_lights()
 	lights_action.Trigger()
 
+/obj/mecha/extinguish_light(force = FALSE)
+	if(!lights || !lights_power)
+		return
+	toggle_lights()
+
 /obj/mecha/proc/toggle_internal_tank()
 	internals_action.Trigger()
 

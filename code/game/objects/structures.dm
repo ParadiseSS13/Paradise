@@ -6,6 +6,8 @@
 	var/climbable
 	var/mob/living/climber
 	var/broken = FALSE
+	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished structure has been lit up
+	var/light_process = 0
 
 /obj/structure/New()
 	..()
@@ -31,6 +33,8 @@
 		var/turf/T = get_turf(src)
 		spawn(0)
 			queue_smooth_neighbors(T)
+	if(isprocessing)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/structure/has_prints()
@@ -225,3 +229,33 @@
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE
+
+
+/obj/structure/extinguish_light(force = FALSE)
+	if(light_range)
+		light_power = 0
+		light_range = 0
+		update_light()
+		name = "dimmed [name]"
+		desc = "Something shadowy moves to cover the object. Perhaps shining a light will force it to clear?"
+		START_PROCESSING(SSobj, src)
+
+
+/obj/structure/process()
+	var/turf/source_turf = get_turf(src)
+	if(source_turf.get_lumcount() > 0.2)
+		light_process++
+		if(light_process > 3)
+			reset_light()
+		return
+	light_process = 0
+
+
+/obj/structure/proc/reset_light()
+	light_process = 0
+	light_power = initial(light_power)
+	light_range = initial(light_range)
+	update_light()
+	name = initial(name)
+	desc = initial(desc)
+	STOP_PROCESSING(SSobj, src)

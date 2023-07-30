@@ -25,6 +25,8 @@
 
 #define STATUS_EFFECT_TERROR_FOOD_REGEN /datum/status_effect/terror/food_regen   //over time healing for mobs to gain full HP within 25~ seconds
 
+#define STATUS_EFFECT_THRALL_NET /datum/status_effect/thrall_net
+
 //#define STATUS_EFFECT_VANGUARD /datum/status_effect/vanguard_shield //Grants temporary stun absorption, but will stun the user based on how many stuns they absorbed.
 //#define STATUS_EFFECT_INATHNEQS_ENDOWMENT /datum/status_effect/inathneqs_endowment //A 15-second invulnerability and stun absorption, granted by Inath-neq.
 //#define STATUS_EFFECT_WRAITHSPECS /datum/status_effect/wraith_spectacles
@@ -47,6 +49,12 @@
 
 /// Handles changeling anatomic panacea ability effects.
 #define STATUS_EFFECT_PANACEA /datum/status_effect/panacea
+
+/// Stun resistance and halved damage for gargantua vampires.
+#define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell
+
+/// Speed boost for gargantua vampires.
+#define STATUS_EFFECT_BLOOD_RUSH /datum/status_effect/blood_rush
 
 /////////////
 // DEBUFFS //
@@ -73,6 +81,10 @@
 #define STATUS_EFFECT_STAMINADOT /datum/status_effect/stamina_dot
 
 #define STATUS_EFFECT_BLUESPACESLOWDOWN /datum/status_effect/bluespace_slowdown //Halfs victims next move modifier
+
+#define STATUS_EFFECT_PACIFIED /datum/status_effect/pacifism //forces the pacifism trait
+
+#define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -123,6 +135,8 @@
 /////////////
 
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
+
+#define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 

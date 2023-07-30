@@ -175,29 +175,31 @@
 /datum/component/two_handed/proc/wield(mob/living/carbon/user)
 	SIGNAL_HANDLER
 
+	var/obj/item/check = parent
+	var/abstract_check = !(check.flags & ABSTRACT)
 	if(wielded)
 		return
 
 	if(issmall(user))
 		if(require_twohands)
-			if(world.time > antispam_timer + 0.1 SECONDS)
+			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
 				to_chat(user, SPAN_WARNING("[parent] слишком тяжел и громоздок для Вас!"))
 			user.drop_item_ground(parent, force = TRUE)
 		else
-			if(world.time > antispam_timer + 0.1 SECONDS)
+			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
 				to_chat(user, SPAN_WARNING("Ваши руки для этого не приспособлены."))
 		return
 
 	if(user.get_inactive_hand())
 		if(require_twohands)
-			if(world.time > antispam_timer + 0.1 SECONDS)
+			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
 				to_chat(user, SPAN_WARNING("[parent] слишком громоздок, чтобы носить в одной руке!"))
 			user.drop_item_ground(parent, force = TRUE)
 		else
-			if(world.time > antispam_timer + 0.1 SECONDS)
+			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
 				to_chat(user, SPAN_WARNING("Вторая рука должна быть свободна!"))
 		return
@@ -205,7 +207,7 @@
 	if(user.l_arm_broken() || user.r_arm_broken())
 		if(require_twohands)
 			user.drop_item_ground(parent, force = TRUE)
-		if(world.time > antispam_timer + 0.1 SECONDS)
+		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
 			to_chat(user, SPAN_WARNING("Вы чувствуете как двигаются кости, когда пытаетесь взять [parent] в обе руки."))
 		return
@@ -213,7 +215,7 @@
 	if(!user.has_left_hand() || !user.has_right_hand())
 		if(require_twohands)
 			user.drop_item_ground(parent, force = TRUE)
-		if(world.time > antispam_timer + 0.1 SECONDS)
+		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
 			to_chat(user, SPAN_WARNING("У Вас отсутствует вторая рука!"))
 		return
@@ -255,7 +257,7 @@
 			antispam_timer = world.time
 			to_chat(user, SPAN_NOTICE("Вы сконцентировались на поддержании [original_name]."))
 	else
-		if(world.time > antispam_timer + 0.1 SECONDS)
+		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
 			to_chat(user, SPAN_NOTICE("Вы взяли [original_name] в обе руки."))
 
@@ -329,19 +331,20 @@
 
 		// Show message if requested
 		if(show_message)
+			var/abstract_check = !(item.flags & ABSTRACT)
 			if(isrobot(parent))
 				to_chat(user, SPAN_NOTICE("Вы снизили нагрузку на [parent_item]."))
 			else
 				if(require_twohands || parent_item.loc != user)
-					if(world.time > antispam_timer + 0.1 SECONDS)
+					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
 						to_chat(user, SPAN_NOTICE("Вы уронили [parent_item]."))
 				if(parent_item.loc == user && user.is_in_hands(parent_item))
-					if(world.time > antispam_timer + 0.1 SECONDS)
+					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
 						to_chat(user, SPAN_NOTICE("Теперь вы держите [parent_item] одной рукой."))
 				if(parent_item.loc == user && !user.is_in_hands(parent_item))
-					if(world.time > antispam_timer + 0.1 SECONDS)
+					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
 						to_chat(user, SPAN_NOTICE("Вы экипировали [parent_item]."))
 

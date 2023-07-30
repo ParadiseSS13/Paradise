@@ -582,3 +582,8 @@ Class Procs:
 	var/alertstr = span_userdanger("Network Alert: Hacking attempt detected[get_area(src)?" in [get_area_name(src, TRUE)]":". Unable to pinpoint location"].")
 	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
 		to_chat(AI, alertstr)
+
+
+/obj/machinery/extinguish_light(force = FALSE)
+	if(light_range)
+		remove_light()

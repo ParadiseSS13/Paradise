@@ -71,6 +71,13 @@
 			reagents.add_reagent("fuel", 1)
 	..()
 
+/obj/item/weldingtool/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	if(!tool_enabled)
+		return
+	remove_fuel(maximum_fuel)
+
 /obj/item/weldingtool/attack_self(mob/user)
 	if(tool_enabled) //Turn off the welder if it's on
 		to_chat(user, "<span class='notice'>You switch off [src].</span>")

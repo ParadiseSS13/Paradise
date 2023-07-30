@@ -66,12 +66,11 @@
 	var/icontype
 
 /datum/mindslaves/New(loc,mastername)
-
 	name = mastername
 	thrallhud = new()
 
 /datum/mindslaves/proc/add_serv_hud(datum/mind/serv_mind, icon)
-	thrallhud.join_hud(serv_mind.current, 1)
+	thrallhud.join_hud(serv_mind.current, TRUE)
 	icontype = "hud[icon]"
 	set_antag_hud(serv_mind.current, icontype)
 

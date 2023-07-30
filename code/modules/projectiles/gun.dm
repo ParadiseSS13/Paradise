@@ -425,10 +425,10 @@
 		knife_overlay = null
 	return TRUE
 
-/obj/item/gun/extinguish_light()
+/obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)
 		toggle_gunlight()
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(span_danger("[src]'s light fades and turns off."))
 
 
 /obj/item/gun/dropped(mob/user)

@@ -27,6 +27,12 @@
 				stat |= NOPOWER
 				set_light(0)
 
+
+/obj/machinery/dye_generator/extinguish_light(force = FALSE)
+	set_light(0)
+	underlays.Cut()
+
+
 /obj/machinery/dye_generator/attack_hand(mob/user)
 	..()
 	if(stat & (BROKEN|NOPOWER))

@@ -188,6 +188,8 @@
 	var/status = LIGHT_OK
 	/// Is the light currently flickering?
 	var/flickering = FALSE
+	/// Was this light extinguished with an antag ability? Used to ovveride flicker events
+	var/extinguished = FALSE
 
 	/// Item type of the light bulb
 	var/light_type = /obj/item/light/tube
@@ -316,6 +318,7 @@
 	var/BR = nightshift_enabled ? nightshift_light_range : brightness_range
 	var/PO = nightshift_enabled ? nightshift_light_power : brightness_power
 	if(on)
+		extinguished = FALSE
 		var/CO = nightshift_enabled ? nightshift_light_color : brightness_color
 		if(color)
 			CO = color
@@ -586,7 +589,7 @@
 /obj/machinery/light/proc/flicker_event(var/amount)
 	if(on && status == LIGHT_OK)
 		for(var/i = 0; i < amount; i++)
-			if(status != LIGHT_OK)
+			if(status != LIGHT_OK || extinguished)
 				break
 			on = FALSE
 			update(FALSE)
@@ -594,7 +597,7 @@
 			on = (status == LIGHT_OK)
 			update(FALSE)
 			sleep(rand(1, 10))
-		on = (status == LIGHT_OK)
+		on = (status == LIGHT_OK && !extinguished)
 		update(FALSE)
 	flickering = FALSE
 
@@ -702,7 +705,8 @@
 	if(status == LIGHT_OK)
 		return
 	status = LIGHT_OK
-	on = 1
+	extinguished = FALSE
+	on = TRUE
 	update()
 
 /obj/machinery/light/tesla_act(power, explosive = FALSE)
@@ -902,13 +906,15 @@
 			limb.droplimb(0, DROPLIMB_BURN)
 	return FIRELOSS
 
-/obj/machinery/light/extinguish_light()
-	on = FALSE
-	emergency_mode = FALSE
-	no_emergency = TRUE
-	addtimer(CALLBACK(src, PROC_REF(enable_emergency_lighting)), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
-	update(FALSE)
+/obj/machinery/light/extinguish_light(force = FALSE)
+	if(on)
+		on = FALSE
+		extinguished = TRUE
+		emergency_mode = FALSE
+		no_emergency = TRUE
+		addtimer(CALLBACK(src, PROC_REF(enable_emergency_lighting)), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
+		visible_message(span_danger("[src] flickers and falls dark."))
+		update(FALSE)
 
 /obj/machinery/light/proc/enable_emergency_lighting()
 	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")

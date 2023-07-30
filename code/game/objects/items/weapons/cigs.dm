@@ -210,6 +210,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	smoke()
 
+/obj/item/clothing/mask/cigarette/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	die()
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)

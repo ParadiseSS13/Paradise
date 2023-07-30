@@ -78,7 +78,7 @@
 
 	current_bites++
 	playsound(target.loc, 'sound/items/eatfood.ogg', 50, 0)
-	if(!target.mind?.vampire) //Dont give nutrition to vampires
+	if(!isvampire(target)) //Dont give nutrition to vampires
 		target.adjust_nutrition(nutritional_value)
 	obj_integrity = max(obj_integrity - integrity_bite, 0)
 	colour_change()

@@ -421,3 +421,144 @@
 		to_chat(owner, "<span class='notice'>[pick(hope_messages)]</span>")
 	else
 		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
+
+
+/datum/status_effect/thrall_net
+	id = "thrall_net"
+	tick_interval = 2 SECONDS
+	duration = -1
+	alert_type = null
+	var/blood_cost_per_tick = 5
+	var/list/target_UIDs = list()
+	var/datum/antagonist/vampire/vamp
+
+
+/datum/status_effect/thrall_net/on_creation(mob/living/new_owner, datum/antagonist/vampire/V, ...)
+	. = ..()
+	vamp = V
+	START_PROCESSING(SSfastprocess, src)
+	target_UIDs += owner.UID()
+	var/list/view_cache = view(7, owner)
+	for(var/datum/mind/M in owner.mind.som.serv)
+		if(!M.has_antag_datum(/datum/antagonist/mindslave/thrall))
+			continue
+
+		if(!(M.current in view_cache))
+			continue
+
+		if(M.current.stat == DEAD)
+			continue
+
+		target_UIDs += M.current.UID()
+		M.current.Beam(owner, "sendbeam", time = 2 SECONDS, maxdistance = 7)
+
+
+/datum/status_effect/thrall_net/tick()
+	var/total_damage = 0
+	var/list/view_cache = view(7, owner)
+	for(var/uid in target_UIDs)
+		var/mob/living/L = locateUID(uid)
+		if(!(L in view_cache) || L.stat == DEAD)
+			target_UIDs -= uid
+			continue
+		total_damage += (L.maxHealth - L.health)
+		L.Beam(owner, "sendbeam", time = 2 SECONDS, maxdistance = 7)
+
+	var/average_damage = total_damage / length(target_UIDs)
+
+	for(var/uid in target_UIDs)
+		var/mob/living/L = locateUID(uid)
+		var/current_damage = L.maxHealth - L.health
+		if(current_damage == average_damage)
+			continue
+		if(current_damage > average_damage)
+			var/heal_amount = current_damage - average_damage
+			L.heal_ordered_damage(heal_amount, list(BRUTE, BURN, TOX, OXY, CLONE))
+		else
+			var/damage_amount = average_damage - current_damage
+			L.adjustFireLoss(damage_amount)
+
+	vamp.bloodusable = max(vamp.bloodusable - blood_cost_per_tick, 0)
+	if(!vamp.bloodusable || length(target_UIDs) <= 1) // if there is one left in the list, its only the vampire.
+		qdel(src)
+
+
+/datum/status_effect/thrall_net/on_remove()
+	. = ..()
+	vamp = null
+
+
+/datum/status_effect/bloodswell
+	id = "bloodswell"
+	duration = 30 SECONDS
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/blood_swell
+	var/bonus_damage_applied = FALSE
+
+
+/obj/screen/alert/status_effect/blood_swell
+	name = "Blood Swell"
+	desc = "Your body has been infused with crimson magics, your resistance to attacks has greatly increased!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "blood_swell_status"
+
+
+/datum/status_effect/bloodswell/on_apply()
+	. = ..()
+	if(!. || !ishuman(owner))
+		return FALSE
+
+	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
+	var/mob/living/carbon/human/H = owner
+	H.dna.species.brute_mod *= 0.5
+	H.dna.species.burn_mod *= 0.8
+	H.dna.species.stamina_mod *= 0.5
+	H.dna.species.stun_mod *= 0.5
+
+	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
+		bonus_damage_applied = TRUE
+		H.dna.species.punchdamagelow += 14
+		H.dna.species.punchdamagehigh += 14
+		H.dna.species.punchstunthreshold += 10 //higher chance to stun but not 100%
+
+
+/datum/status_effect/bloodswell/on_remove()
+	if(!ishuman(owner))
+		return
+
+	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
+	var/mob/living/carbon/human/H = owner
+	H.dna.species.brute_mod /= 0.5
+	H.dna.species.burn_mod /= 0.8
+	H.dna.species.stamina_mod /= 0.5
+	H.dna.species.stun_mod /= 0.5
+
+	if(bonus_damage_applied)
+		bonus_damage_applied = FALSE
+		H.dna.species.punchdamagelow -= 14
+		H.dna.species.punchdamagehigh -= 14
+		H.dna.species.punchstunthreshold -= 10
+
+
+/datum/status_effect/blood_rush
+	id = "bloodrush"
+	alert_type = /obj/screen/alert/status_effect/blood_rush
+	duration = 10 SECONDS
+
+
+/datum/status_effect/blood_rush/on_apply()
+	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+	return TRUE
+
+
+/datum/status_effect/blood_rush/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+
+
+/obj/screen/alert/status_effect/blood_rush
+	name = "Blood Rush"
+	desc = "Your body is infused with blood magic, boosting your movement speed."
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "blood_rush_status"
+

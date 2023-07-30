@@ -10,13 +10,13 @@
  * * category - a text string corresponding to what type of alert it is
  * * type - a type path of the actual alert type to throw
  * * severity - is an optional number that will be placed at the end of the icon_state for this alert
-	 For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
+ *   For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
  * * obj/new_master - optional argument. Sets the alert's icon state to "template" in the ui_style icons with the master as an overlay. Clicks are forwarded to master
  * * no_anim - whether the alert should play a small sliding animation when created on the player's screen
+ * * icon_override - makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
  * * list/alert_args - a list of arguments to pass to the alert when creating it
  */
-
-/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, list/alert_args)
+/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, icon_override, list/alert_args)
 	if(!category)
 		return
 
@@ -46,6 +46,9 @@
 		alert.override_alerts = override
 		if(override)
 			alert.timeout = null
+
+	if(icon_override)
+		alert.icon = icon_override
 
 	if(new_master)
 		var/old_layer = new_master.layer
@@ -172,69 +175,90 @@
 	desc = "ABSOLUTELY DISGUSTIN'"
 	icon_state = "gross3"
 
-/obj/screen/alert/fat
-	name = "Fat"
-	desc = "You ate too much food, lardass. Run around the station and lose some weight."
-	icon_state = "fat"
+// Hunger alerts
 
-/obj/screen/alert/full
+/obj/screen/alert/hunger
+	icon = 'icons/mob/screen_hunger.dmi'
+
+/obj/screen/alert/hunger/full
 	name = "Full"
 	desc = "You feel full and satisfied, but you shouldn't eat much more."
 	icon_state = "full"
 
-/obj/screen/alert/well_fed
+/obj/screen/alert/hunger/well_fed
 	name = "Well Fed"
 	desc = "You feel quite satisfied, but you may be able to eat a bit more."
 	icon_state = "well_fed"
 
-/obj/screen/alert/fed
+/obj/screen/alert/hunger/fed
 	name = "Fed"
 	desc = "You feel moderately satisfied, but a bit more food may not hurt."
 	icon_state = "fed"
 
-/obj/screen/alert/hungry
+/obj/screen/alert/hunger/hungry
 	name = "Hungry"
 	desc = "Some food would be good right about now."
 	icon_state = "hungry"
 
-/obj/screen/alert/starving
+/obj/screen/alert/hunger/starving
 	name = "Starving"
 	desc = "You're severely malnourished. The hunger pains make moving around a chore."
 	icon_state = "starving"
 
-///Vampire "hunger"
+/// Machine "hunger"
 
-/obj/screen/alert/fat/vampire
+/obj/screen/alert/hunger/fat/machine
+	name = "Over Charged"
+	desc = "Your cell has excessive charge due to electrical shocks. Run around the station and spend some energy."
+
+/obj/screen/alert/hunger/full/machine
+	name = "Full Charge"
+	desc = "Your cell is at full charge. Might want to give APCs some space."
+
+/obj/screen/alert/hunger/well_fed/machine
+	name = "High Charge"
+	desc = "You're almost all charged, but could top up a bit more."
+
+/obj/screen/alert/hunger/fed/machine
+	name = "Half Charge"
+	desc = "You feel moderately charged, but a bit more juice couldn't hurt."
+
+/obj/screen/alert/hunger/hungry/machine
+	name = "Low Charge"
+	desc = "Could use a little charging right about now."
+
+/obj/screen/alert/hunger/starving/machine
+	name = "Nearly Discharged"
+	desc = "You're almost drained. The low power makes moving around a chore."
+
+
+/// Vampire "hunger"
+
+/obj/screen/alert/hunger/fat/vampire
 	name = "Ожирение"
 	desc = "Вы выпили столько крови, что пузо уже не влезает в штаны. Бегайте теперь по станции кругами, чтобы похудеть."
-	icon_state = "v_fat"
 
-/obj/screen/alert/full/vampire
+/obj/screen/alert/hunger/full/vampire
 	name = "Пресыщение"
 	desc = "Вы чувствуете спокойствие и приятную насыщенность. Но жажда крови обязательно вернётся…"
-	icon_state = "v_full"
 
-/obj/screen/alert/well_fed/vampire
+/obj/screen/alert/hunger/well_fed/vampire
 	name = "Сытость"
 	desc = "Вы вполне сыты, но могли бы выпить ещё немного крови."
-	icon_state = "v_well_fed"
 
-/obj/screen/alert/fed/vampire
+/obj/screen/alert/hunger/fed/vampire
 	name = "Удовлетворённость"
 	desc = "Вы не голодны, но испить ещё немного крови не помешало бы."
-	icon_state = "v_fed"
 
-/obj/screen/alert/hungry/vampire
+/obj/screen/alert/hunger/hungry/vampire
 	name = "Недоедание"
 	desc = "Вы жаждете отведать свежей крови."
-	icon_state = "v_hungry"
 
-/obj/screen/alert/starving/vampire
+/obj/screen/alert/hunger/starving/vampire
 	name = "Жажда"
 	desc = "Вас наполняет жажда. Она приносит физическую боль. Вам тяжело передвигаться."
-	icon_state = "v_starving"
 
-//End of Vampire "hunger"
+/// End of Vampire "hunger"
 
 
 /obj/screen/alert/hot

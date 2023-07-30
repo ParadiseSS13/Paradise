@@ -42,6 +42,44 @@
 	owner.underlays -= marked_underlay //if this is being called, we should have an owner at this point.
 	..()
 
+
+/datum/status_effect/pacifism
+	id = "pacifism_debuff"
+	alert_type = null
+	duration = 40 SECONDS
+
+
+/datum/status_effect/pacifism/on_apply()
+	ADD_TRAIT(owner, TRAIT_PACIFISM, id)
+	return ..()
+
+
+/datum/status_effect/pacifism/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
+
+
+/datum/status_effect/shadow_boxing
+	id = "shadow barrage"
+	alert_type = null
+	duration = 10 SECONDS
+	tick_interval = 0.4 SECONDS
+	var/damage = 8
+	var/source_UID
+
+
+/datum/status_effect/shadow_boxing/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+
+
+/datum/status_effect/shadow_boxing/tick()
+	var/mob/living/attacker = locateUID(source_UID)
+	if(attacker in view(owner, 2))
+		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
+		owner.apply_damage(damage, BRUTE)
+		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+
+
 /datum/status_effect/saw_bleed
 	id = "saw_bleed"
 	duration = -1 //removed under specific conditions
@@ -391,7 +429,7 @@
 
 	var/mob/living/carbon/dreamer = owner
 
-	if(dreamer.mind?.vampire)
+	if(isvampire(dreamer))
 		if(istype(dreamer.loc, /obj/structure/closet/coffin))
 			dreamer.adjustBruteLoss(-1, FALSE)
 			dreamer.adjustFireLoss(-1, FALSE)

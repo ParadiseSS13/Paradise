@@ -627,7 +627,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/proc/is_special_character(mob/M as mob) // returns 1 for specail characters and 2 for heroes of gamemode
+/*/proc/is_special_character(mob/M as mob) // returns 1 for specail characters and 2 for heroes of gamemode
 	if(!SSticker || !SSticker.mode)
 		return 0
 	if(!istype(M))
@@ -663,7 +663,94 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(M.mind&&M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
 		return 1
 
-	return 0
+	return 0*/
+
+
+/**
+  * A proc that return whether the mob is a "Special Character" aka Antagonist
+  *
+  * Arguments:
+  * * M - the mob you're checking
+  */
+/proc/is_special_character(mob/M)
+	if(!SSticker.mode)
+		return FALSE
+	if(!istype(M))
+		return FALSE
+	if(isrobot(M))
+		var/mob/living/silicon/robot/R = M
+		if(R.emagged)
+			return TRUE
+	if(M.mind?.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
+		return TRUE
+	return FALSE
+
+
+/**
+  * A proc that return an array of capitalized strings containing name of the antag types they are
+  *
+  * Arguments:
+  * * M - the mob you're checking
+  */
+/proc/get_antag_type_strings_list(mob/M) // return an array of all the antag types they are with name
+	var/list/antag_list = list()
+
+	if(!SSticker.mode || !istype(M) || !M.mind)
+		return FALSE
+
+	if(M.mind in SSticker.mode.head_revolutionaries)
+		antag_list += "Head Rev"
+	if(M.mind in SSticker.mode.revolutionaries)
+		antag_list += "Revolutionary"
+	if(M.mind in SSticker.mode.cult)
+		antag_list += "Cultist"
+	if(M.mind in SSticker.mode.syndicates)
+		antag_list += "Nuclear Operative"
+	if(M.mind in SSticker.mode.wizards)
+		antag_list += "Wizard"
+	if(M.mind in SSticker.mode.changelings)
+		antag_list += "Changeling"
+	if(M.mind in SSticker.mode.abductors)
+		antag_list += "Abductor"
+	if(M.mind.has_antag_datum(/datum/antagonist/goon_vampire))
+		antag_list += "Goon Vampire"
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave/goon_thrall))
+		antag_list += "Goon Vampire Thrall"
+	if(M.mind.has_antag_datum(/datum/antagonist/vampire))
+		antag_list += "Vampire"
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave/thrall))
+		antag_list += "Vampire Thrall"
+	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
+		antag_list += "Traitor"
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))
+		antag_list += "Mindslave"
+	if(isrobot(M))
+		var/mob/living/silicon/robot/R = M
+		if(R.emagged)
+			antag_list += "Emagged Borg"
+	if(!length(antag_list) && M.mind.special_role) // Snowflake check. If none of the above but still special, then other antag. Technically not accurate.
+		antag_list += "Other Antag(s)"
+	return antag_list
+
+
+/**
+  * A proc that return a string containing all the singled out antags . Empty string if not antag
+  *
+  * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
+  * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
+  * It always append "(May be other antag)"
+  * Arguments:
+  * * M - the mob you're checking
+  * *
+  */
+/proc/get_antag_type_truncated_plaintext_string(mob/M as mob)
+	var/list/antag_list = get_antag_type_strings_list(M)
+
+	if(length(antag_list))
+		return antag_list.Join(" &amp; ") + " " + "(May be other antag)"
+
+	return ""
+
 
 /datum/admins/proc/spawn_atom(var/object as text)
 	set category = "Debug"
@@ -700,6 +787,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	log_and_message_admins("spawned [chosen] at [COORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 /datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
 	set category = "Admin"

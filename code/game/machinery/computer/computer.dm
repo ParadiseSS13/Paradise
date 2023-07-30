@@ -36,9 +36,11 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/extinguish_light()
-	set_light(0)
-	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
+/obj/machinery/computer/extinguish_light(force = FALSE)
+	if(light_range)
+		set_light(0)
+		underlays.Cut()
+		visible_message(span_danger("[src] grows dim, its screen barely readable."))
 
 /*
  * Reimp, flash the screen on and off repeatedly.

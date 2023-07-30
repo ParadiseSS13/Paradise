@@ -150,7 +150,8 @@
 		return
 	return ..()
 
-/obj/machinery/floodlight/extinguish_light()
-	on = 0
-	set_light(0)
-	update_icon()
+/obj/machinery/floodlight/extinguish_light(force = FALSE)
+	if(on)
+		on = FALSE
+		set_light(0)
+		update_icon()

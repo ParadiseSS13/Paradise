@@ -435,11 +435,11 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/delusion
 	var/list/image/delusions = list()
 
-/obj/effect/hallucination/delusion/New(loc, mob/living/carbon/T, force_kind = null, duration = 300,skip_nearby = 1, custom_icon = null, custom_icon_file = null)
+/obj/effect/hallucination/delusion/New(loc, mob/living/carbon/T, force_kind = null, duration = 30 SECONDS, skip_nearby = TRUE, custom_icon = null, custom_icon_file = null)
 	. = ..()
 	target = T
 	var/image/A = null
-	var/kind = force_kind ? force_kind : pick("clown", "corgi", "carp", "skeleton", "demon","zombie")
+	var/kind = force_kind ? force_kind : pick("clown", "carp", "corgi", "skeleton", "zombie", "demon", "bear", "goat", "alien", "faithless", "pink", "migo", "horror", "blob", "fly", "legion", "morph", "pirate", "wizard", "eskimo", "syndie1", "syndie2", "fleshling")
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
 		if(H.stat == DEAD || H == target)
@@ -448,9 +448,9 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			continue
 		switch(kind)
 			if("clown")//Clown
-				A = image('icons/mob/animal.dmi',H,"clown")
+				A = image('icons/mob/simple_human.dmi',H,"clown")
 			if("carp")//Carp
-				A = image('icons/mob/animal.dmi',H,"carp")
+				A = image('icons/mob/livestock.dmi',H,"spesscarp")
 			if("corgi")//Corgi
 				A = image('icons/mob/pets.dmi',H,"corgi")
 			if("skeleton")//Skeletons
@@ -459,6 +459,40 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				A = image('icons/mob/human.dmi',H,"zombie2_s")
 			if("demon")//Demon
 				A = image('icons/mob/mob.dmi',H,"daemon")
+			if("bear")//Bear
+				A = image('icons/mob/animal.dmi',H,"bear")
+			if("goat")//Goat
+				A = image('icons/mob/animal.dmi',H,"goat")
+			if("alien")//Alien weirdo
+				A = image('icons/mob/alien.dmi',H,"alienother")
+			if("faithless")//Faithless
+				A = image('icons/mob/animal.dmi',H,"faithlessold")
+			if("pink")//Pink monstrosity
+				A = image('icons/mob/animal.dmi',H,"blank-body")
+			if("migo")//Mi-go
+				A = image('icons/mob/animal.dmi',H,"mi-go")
+			if("horror")//Horror
+				A = image('icons/mob/mob.dmi',H,"horror")
+			if("blob")//Blobbernaut
+				A = image('icons/mob/blob.dmi',H,"blobbernaut")
+			if("fly")//Fly mutant
+				A = image('icons/mob/human.dmi',H,"fly_f_s")
+			if("legion")//Legion
+				A = image('icons/mob/lavaland/lavaland_monsters.dmi',H,"legion")
+			if("morph")//Morph
+				A = image('icons/mob/animal.dmi',H,"otherthing")
+			if("pirate")//Pirate
+				A = image('icons/mob/simple_human.dmi',H,"piratemelee")
+			if("wizard")//Wizard
+				A = image('icons/mob/simple_human.dmi',H,"wizard")
+			if("eskimo")//Eskimo
+				A = image('icons/mob/simple_human.dmi',H,"eskimo")
+			if("syndie1")//Syndies
+				A = image('icons/mob/simple_human.dmi',H,"syndicate_space_sword")
+			if("syndie2")//Syndies
+				A = image('icons/mob/simple_human.dmi',H,"syndicate_stormtrooper_shotgun")
+			if("fleshling")//Fleshling
+				A = image('icons/mob/simple_human.dmi',H,"fleshling3")
 			if("custom")
 				A = image(custom_icon_file, H, custom_icon)
 		A.override = 1
@@ -907,9 +941,9 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					throw_alert("too_much_tox", /obj/screen/alert/too_much_tox, override = TRUE)
 				if("nutrition")
 					if(prob(50))
-						throw_alert("nutrition", /obj/screen/alert/fat, override = TRUE)
+						throw_alert("nutrition", /obj/screen/alert/hunger/fat, override = TRUE, icon_override = dna.species.hunger_icon)
 					else
-						throw_alert("nutrition", /obj/screen/alert/starving, override = TRUE)
+						throw_alert("nutrition", /obj/screen/alert/hunger/starving, override = TRUE, icon_override = dna.species.hunger_icon)
 				if("weightless")
 					throw_alert("weightless", /obj/screen/alert/weightless, override = TRUE)
 				if("fire")

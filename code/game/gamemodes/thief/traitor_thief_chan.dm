@@ -24,14 +24,14 @@
 		if((player.mind in possible_changelings) && (player.client.prefs.species in protected_species_changeling))
 			possible_changelings -= player.mind
 
-	if(possible_changelings.len > 0)
+	if(length(possible_changelings))
 		var/datum/mind/changeling = pick(possible_changelings)
 		pre_changelings += changeling
 		changeling.restricted_roles = restricted_jobs
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 		return ..()
 	else
-		return 0
+		return FALSE
 
 /datum/game_mode/traitor/thief/changeling/post_setup()
 	for(var/datum/mind/changeling in pre_changelings)
