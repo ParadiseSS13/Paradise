@@ -299,33 +299,6 @@
 /mob/living/simple_animal/hostile/lightgeist/ghost()
 	qdel(src)
 
-/obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
-	activation_method = "touch"
-	cooldown_add = 50
-	activation_sound = 'sound/magic/timeparadox2.ogg'
-	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
-										/obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink)
-
-/obj/machinery/anomalous_crystal/refresher/Initialize(mapload)
-	. = ..()
-	banned_items_typecache = typecacheof(banned_items_typecache)
-
-
-/obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
-	if(..())
-		var/list/L = list()
-		var/turf/T = get_step(src, dir)
-		new /obj/effect/temp_visual/emp/pulse(T)
-		for(var/i in T)
-			if(isitem(i) && !is_type_in_typecache(i, banned_items_typecache))
-				var/obj/item/W = i
-				if(!W.admin_spawned && !(W.flags_2 & HOLOGRAM_2) && !(W.flags & ABSTRACT))
-					L += W
-		if(L.len)
-			var/obj/item/CHOSEN = pick(L)
-			new CHOSEN.type(T)
-			qdel(CHOSEN)
-
 /obj/machinery/anomalous_crystal/possessor //Allows you to bodyjack small animals, then exit them at your leisure, but you can only do this once per activation. Because they blow up. Also, if the bodyjacked animal dies, SO DO YOU.
 	activation_method = "touch"
 
