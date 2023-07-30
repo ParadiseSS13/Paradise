@@ -668,20 +668,20 @@
 			newdir = EAST
 	if(IS_DIR_CARDINAL(newdir) && (prob(50)))
 		newdir = turn(get_dir(T, loc), 180)
-	var/blood_exists = locate(/obj/effect/decal/cleanable/trail_holder) //checks for blood splatter already on the floor
+	var/blood_exists = locate(/obj/effect/decal/cleanable/trail_holder) in loc //checks for blood splatter already on the floor
 	if(!blood_exists)
 		new /obj/effect/decal/cleanable/trail_holder(loc)
-	for(var/obj/effect/decal/cleanable/trail_holder/TH in loc)
-		if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && length(TH.existing_dirs) <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
-			TH.existing_dirs += newdir
-			TH.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
-			TH.transfer_mob_blood_dna(src)
+	for(var/obj/effect/decal/cleanable/trail_holder/existing_trail in loc)
+		if((!(newdir in existing_trail.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && length(existing_trail.existing_dirs) <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
+			existing_trail.existing_dirs += newdir
+			existing_trail.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
+			existing_trail.transfer_mob_blood_dna(src)
 			if(ishuman(src))
 				var/mob/living/carbon/human/H = src
 				if(H.dna.species.blood_color)
-					TH.color = H.dna.species.blood_color
+					existing_trail.color = H.dna.species.blood_color
 				else
-					TH.color = "#A10808"
+					existing_trail.color = "#A10808"
 
 /mob/living/carbon/human/makeTrail(turf/T)
 
