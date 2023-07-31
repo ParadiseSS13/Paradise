@@ -56,9 +56,11 @@
 	if(!dynamic_icon_state)
 		return
 	var/state = CEILING((amount/max_amount) * 3, 1)
-	icon_state = "[initial(icon_state)]_[state]"
 	if(state <= 1)
 		icon_state = initial(icon_state)
+		return
+
+	icon_state = "[initial(icon_state)]_[state]"
 
 /obj/item/stack/Crossed(obj/O, oldloc)
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
