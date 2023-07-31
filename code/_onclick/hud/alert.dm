@@ -180,6 +180,11 @@
 /obj/screen/alert/hunger
 	icon = 'icons/mob/screen_hunger.dmi'
 
+/obj/screen/alert/hunger/fat
+	name = "Fat"
+	desc = "You ate too much food, lardass. Run around the station and lose some weight."
+	icon_state = "fat"
+
 /obj/screen/alert/hunger/full
 	name = "Full"
 	desc = "You feel full and satisfied, but you shouldn't eat much more."
