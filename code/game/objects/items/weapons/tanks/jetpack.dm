@@ -85,7 +85,7 @@
 
 /obj/item/tank/jetpack/Moved(OldLoc, Dir, Forced)
 	var/mob/living/carbon/human/holder = loc
-	if(on && !(istype(loc) && holder.back == src))
+	if(on && !(istype(holder) && holder.back == src))
 		turn_off()
 	..()
 

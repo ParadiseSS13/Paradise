@@ -58,12 +58,17 @@
 
 
 /obj/effect/proc_holder/spell/mime/speak/cast(list/targets, mob/user = usr)
-	for(var/mob/living/carbon/human/target in targets)
-		user.mind.miming = !user.mind.miming
-		if(user.mind.miming)
-			to_chat(user, "<span class='notice'>You make a vow of silence.</span>")
-		else
-			to_chat(user, "<span class='notice'>You break your vow of silence.</span>")
+	var/mob/living/carbon/human/target = targets[1]
+
+	if(!target.mind)
+		return
+
+	target.mind.miming = !target.mind.miming
+
+	if(target.mind.miming)
+		to_chat(target, "<span class='notice'>You make a vow of silence.</span>")
+	else
+		to_chat(target, "<span class='notice'>You break your vow of silence.</span>")
 
 
 /obj/effect/proc_holder/spell/mime/speak/mask

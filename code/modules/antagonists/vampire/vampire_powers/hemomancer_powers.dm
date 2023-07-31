@@ -154,7 +154,7 @@
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
-			L.adjustToxLoss(25)
+			L.adjustToxLoss(33)
 			L.visible_message(span_warning("[L] gets ensnare in blood tendrils, restricting [L.p_their()] movement!"))
 			var/turf/target_turf = get_turf(L)
 			playsound(target_turf, 'sound/magic/tail_swing.ogg', 50, TRUE)
@@ -174,8 +174,8 @@
 
 /obj/effect/proc_holder/spell/vampire/blood_barrier
 	name = "Blood Barrier"
-	desc = "Select two points within 3 tiles of each other and make a barrier between them."
-	gain_desc = "You have gained the ability to summon a crystaline wall of blood between two points, the barrier is easily destructable, however you can walk freely through it."
+	desc = "Select two points within 3 tiles of each other and make a barrier between them. You can cast on self to make a barrier on your current position instantly."
+	gain_desc = "You have gained the ability to summon a crystaline wall of blood between two points, the barrier is easily destructable, however you can walk freely through it. You can cast on self to make a barrier on your current position instantly."
 	required_blood = 20
 	base_cooldown = 30 SECONDS
 	should_recharge_after_cast = FALSE
@@ -208,7 +208,36 @@
 
 
 /obj/effect/proc_holder/spell/vampire/blood_barrier/cast(list/targets, mob/user)
+	// First we check if vampire clicks on himself
 	var/turf/target_turf = get_turf(targets[1])
+	var/user_found = FALSE
+	for(var/mob/living/check in target_turf.contents)
+		if(check == user)
+			user_found = TRUE
+			break
+
+	if(user_found && !start_turf)
+		var/odd_number = max_walls % 2
+		var/walls_amount = odd_number ? (max_walls - 1) / 2 : max_walls / 2
+		var/dir_right = turn(user.dir, 90)
+		var/dir_left = turn(user.dir, 270)
+
+		new /obj/structure/blood_barrier(target_turf)
+		for(var/i in 1 to walls_amount)
+			new /obj/structure/blood_barrier(get_step(target_turf, dir_right))
+
+		for(var/i in 1 to (odd_number ? walls_amount : walls_amount + 1))
+			new /obj/structure/blood_barrier(get_step(target_turf, dir_left))
+
+		var/datum/spell_handler/vampire/V = custom_handler
+		var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+		var/blood_cost = V.calculate_blood_cost(vampire)
+		vampire.bloodusable -= blood_cost
+		remove_ranged_ability(user)
+		cooldown_handler.start_recharge()
+		return
+
+	// Otherwise we will try to build a wall by two clicks
 	if(target_turf == start_turf)
 		to_chat(user, span_notice("You deselect the targeted turf."))
 		start_turf = null
@@ -257,7 +286,7 @@
 
 
 /obj/structure/blood_barrier/process()
-	take_damage(20, sound_effect = FALSE)
+	take_damage(8, sound_effect = FALSE)
 
 
 /obj/structure/blood_barrier/obj_destruction(damage_flag)

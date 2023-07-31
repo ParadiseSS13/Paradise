@@ -26,9 +26,9 @@
 		if(NO_EXTINGUISHER)
 			return
 		if(MINI_EXTINGUISHER)
-			has_extinguisher = new/obj/item/extinguisher/mini
+			has_extinguisher = new/obj/item/extinguisher/mini(src)
 		else
-			has_extinguisher = new/obj/item/extinguisher
+			has_extinguisher = new/obj/item/extinguisher(src)
 
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
