@@ -94,7 +94,7 @@
 /datum/design/bluespaceshotglass
 	name = "Bluespace Shot Glass"
 	desc = "For when you need to make the Bartender's life extra hell."
-	req_tech = list("bluespace" = 3, "toxins" = 6)
+	req_tech = list("bluespace" = 5, "materials" = 3, "plasmatech" = 4)
 	id = "bluespaceshotglass"
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_BLUESPACE = 500)
