@@ -13,7 +13,7 @@
 "ah" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/shutters{
-	id_tag = cargoshipblastdoor2
+	id_tag = "cargoshipblastdoor2"
 	},
 /obj/structure/barricade/wooden/crude{
 	layer = 4
@@ -276,7 +276,7 @@
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
-	id_tag = cargoshipblastdoor4
+	id_tag = "cargoshipblastdoor4"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
@@ -397,7 +397,7 @@
 /area/ruin/space/wreck_cargoship)
 "oE" = (
 /obj/machinery/door/poddoor{
-	id_tag = cargoshipblastdoor5
+	id_tag = "cargoshipblastdoor5"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -537,7 +537,7 @@
 /obj/effect/landmark/damageturf,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
-	id_tag = cargoshipblastdoor4
+	id_tag = "cargoshipblastdoor4"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
@@ -563,7 +563,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
-	id_tag = cargoshipblastdoor1
+	id_tag = "cargoshipblastdoor1"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
@@ -623,7 +623,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
-	id_tag = cargoshipblastdoor4
+	id_tag = "cargoshipblastdoor4"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
@@ -951,7 +951,7 @@
 "NO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/shutters{
-	id_tag = cargoshipblastdoor3;
+	id_tag = "cargoshipblastdoor3";
 	name = "auxiliary equipment storage shutters"
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -982,7 +982,7 @@
 /obj/structure/window/full/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
-	id_tag = cargoshipblastdoor4
+	id_tag = "cargoshipblastdoor4"
 	},
 /turf,
 /area/ruin/space/wreck_cargoship)
@@ -1041,7 +1041,7 @@
 /area/ruin/space/wreck_cargoship)
 "Te" = (
 /obj/machinery/door/poddoor/shutters{
-	id_tag = cargoshipblastdoor3;
+	id_tag = "cargoshipblastdoor3;"
 	name = "auxiliary equipment storage shutters"
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -1174,7 +1174,7 @@
 /area/ruin/space/wreck_cargoship)
 "Wx" = (
 /obj/machinery/door/poddoor/shutters{
-	id_tag = cargoshipblastdoor2
+	id_tag = "cargoshipblastdoor2"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/barricade/wooden/crude{
