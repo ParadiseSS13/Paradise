@@ -305,9 +305,7 @@ SUBSYSTEM_DEF(tts220)
 
 	// Bail if it errored
 	if(response.errored)
-		provider.failed_requests++
-		if(provider.failed_requests >= provider.failed_requests_limit)
-			provider.is_enabled = FALSE
+		provider.timed_out_requests++
 		message_admins("<span class='warning'>Error connecting to [provider.name] TTS API. Please inform a maintainer or server host.</span>")
 		return
 
