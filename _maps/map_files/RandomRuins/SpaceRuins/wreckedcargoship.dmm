@@ -325,7 +325,7 @@
 "my" = (
 /obj/structure/table,
 /obj/machinery/door_control{
-	id = cargoshipblastdoor4;
+	id = "cargoshipblastdoor4";
 	name = "bridge lockdown shutters"
 	},
 /turf/simulated/floor/plasteel,
@@ -360,7 +360,7 @@
 /obj/structure/grille/broken,
 /obj/machinery/door_control{
 	name = "auxiliary equipment storage shutters";
-	id = cargoshipblastdoor3;
+	id = "cargoshipblastdoor3";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
@@ -491,7 +491,7 @@
 "rn" = (
 /obj/machinery/door_control{
 	name = "interior warehouse shutters";
-	id = cargoshipblastdoor2
+	id = "cargoshipblastdoor2"
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/space/wreck_cargoship)
@@ -797,7 +797,7 @@
 "IP" = (
 /obj/machinery/door_control{
 	name = "exterior warehouse blastdoors";
-	id = cargoshipblastdoor1
+	id = "cargoshipblastdoor1"
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/wreck_cargoship)
@@ -1089,7 +1089,7 @@
 "UN" = (
 /obj/machinery/door_control{
 	name = "exterior blastdoor";
-	id = cargoshipblastdoor5
+	id = "cargoshipblastdoor5"
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/wreck_cargoship)
