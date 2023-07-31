@@ -1041,7 +1041,7 @@
 /area/ruin/space/wreck_cargoship)
 "Te" = (
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "cargoshipblastdoor3;"
+	id_tag = "cargoshipblastdoor3";
 	name = "auxiliary equipment storage shutters"
 	},
 /obj/effect/decal/warning_stripes/yellow,
