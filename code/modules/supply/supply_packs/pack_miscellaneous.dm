@@ -292,6 +292,25 @@
 	manifest += "Contains any [num_contained] of:"
 	..()
 
+/datum/supply_packs/misc/randomised/plushie
+	var/num_contained = 3 //number of items picked to be contained in a randomised crate
+	contains = list(/obj/item/toy/plushie/carpplushie,
+					/obj/item/toy/plushie/corgi,
+					/obj/item/toy/plushie/girly_corgi,
+					/obj/item/toy/plushie/robo_corgi,
+					/obj/item/toy/plushie/octopus,
+					/obj/item/toy/plushie/face_hugger,
+					/obj/item/toy/plushie/red_fox,
+					/obj/item/toy/plushie/coffee_fox,
+					)
+	name = "Collectable Hats Crate"
+	cost = 2500
+	containername = "collectable hats crate! Brought to you by Bass.inc!"
+
+/datum/supply_packs/misc/randomised/plushie/New()
+	manifest += "Contains any [num_contained] of:"
+	..()
+
 
 /datum/supply_packs/misc/foamforce
 	name = "Foam Force Crate"
