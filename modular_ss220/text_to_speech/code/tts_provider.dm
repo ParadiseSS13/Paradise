@@ -6,6 +6,7 @@
 	var/is_throttled = FALSE
 	var/throttled_until = 0
 
+	var/timed_out_requests = 0
 	var/failed_requests = 0
 	var/failed_requests_limit = 10
 

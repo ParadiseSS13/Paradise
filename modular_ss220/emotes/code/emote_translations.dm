@@ -412,6 +412,8 @@
 /datum/emote/living/carbon/human/salute
 	message = "салютует."
 	message_param = "салютует %t."
+	emote_type = EMOTE_VISIBLE | EMOTE_SOUND
+	sound = "modular_ss220/emotes/audio/salute.ogg"
 
 /datum/emote/living/carbon/human/shrug
 	message = "пожимает плечами."
@@ -570,3 +572,15 @@
 /datum/keybinding/emote/carbon/human/scratch
 	linked_emote = /datum/emote/living/carbon/human/scratch
 	name = "Чесаться"
+
+/datum/emote/living/carbon/human/whistle
+	key = "whistle"
+	key_third_person = "whistles"
+	message = "свистит."
+	message_param = "свистит на %t."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH | EMOTE_SOUND
+	sound = "modular_ss220/emotes/audio/whistle.ogg"
+
+/datum/keybinding/emote/carbon/human/whistle
+	linked_emote = /datum/emote/living/carbon/human/whistle
+	name = "Свистеть"
