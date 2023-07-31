@@ -1761,6 +1761,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				else
 					to_chat(pick(ineffective_cpr_messages))
 
+			cpr_try_activate_bomb(H)
+
+
 		if(!H.IsRevivable())
 			to_chat(src, "<span class='notice'>You feel [H]'s body is already starting to stiffen beneath you...it's too late for CPR now.</span>")
 		else
@@ -1778,6 +1781,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		H.AdjustParalysis(-2 SECONDS)
 		H.updatehealth("cpr")
 		visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
+
+		cpr_try_activate_bomb(H)
 
 		if(cpr_modifier == CPR_RESCUE_BREATHS)
 			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
@@ -1811,6 +1816,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		adjustment_time /= 2
 
 	return adjustment_time
+
+/mob/living/carbon/human/proc/cpr_try_activate_bomb(mob/living/carbon/human/target)
+	var/obj/item/organ/external/chest/org = target.get_organ("chest")
+	if(istype(org) && istype(org.hidden, /obj/item/grenade))
+		var/obj/item/grenade/G = org.hidden
+		if(!G.active && prob(25))
+			to_chat(src, "<span class='notice'>You feel something <i>click</i> under your hands.</span>")
+			add_attack_logs(src, target, "activated an implanted grenade [G] in [target] with CPR.", ATKLOG_MOST)
+			playsound(target.loc, 'sound/weapons/armbomb.ogg', 60, TRUE)
+			G.active = TRUE
+			addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/grenade, prime)), G.det_time)
 
 #undef CPR_CHEST_COMPRESSION_ONLY
 #undef CPR_RESCUE_BREATHS
