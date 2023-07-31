@@ -261,6 +261,7 @@
 					/obj/item/clothing/glasses/sunglasses)
 	cost = 450
 	containername = "sunglasses crate"
+
 /datum/supply_packs/misc/randomised
 	var/num_contained = 3 //number of items picked to be contained in a randomised crate
 	contains = list(/obj/item/clothing/head/collectable/chef,
@@ -293,24 +294,16 @@
 	..()
 
 /datum/supply_packs/misc/randomised/plushie
-	var/num_contained = 3 //number of items picked to be contained in a randomised crate
-	contains = list(/obj/item/toy/plushie/carpplushie,
-					/obj/item/toy/plushie/corgi,
-					/obj/item/toy/plushie/girly_corgi,
-					/obj/item/toy/plushie/robo_corgi,
-					/obj/item/toy/plushie/octopus,
-					/obj/item/toy/plushie/face_hugger,
-					/obj/item/toy/plushie/red_fox,
-					/obj/item/toy/plushie/coffee_fox,
-					)
-	name = "Collectable Hats Crate"
-	cost = 2500
-	containername = "collectable hats crate! Brought to you by Bass.inc!"
+	name = "Collectable Plushies Crate"
+	cost = 1000
+	containername = "collectable plushies crate! Brought to you by Bass.inc!"
 
-/datum/supply_packs/misc/randomised/plushie/New()
-	manifest += "Contains any [num_contained] of:"
-	..()
-
+/datum/supply_packs/misc/randomised/plushie/generate_items()
+	. = list()
+	for(var/i in 1 to 3)
+		. += /obj/random/plushie
+	if(prob(1)) // 1 % chance to have a free of charge Blahbomb!
+		. += /obj/item/toy/plushie/shark/explosive // To make it a bit more avoidable, if a crate will get a bomb, it'll get four plushies instead
 
 /datum/supply_packs/misc/foamforce
 	name = "Foam Force Crate"

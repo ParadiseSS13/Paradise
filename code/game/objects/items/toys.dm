@@ -817,6 +817,9 @@
 	item_state = "blahaj"
 	attack_verb = list("gnawed", "gnashed", "chewed")
 
+/obj/item/toy/plushie/shark/explosive
+	grenade = /obj/item/grenade/syndieminibomb
+
 /obj/item/toy/plushie/abductor
 	name = "abductor plushie"
 	desc = "A plushie depicting an alien abductor. The tag on it is in an indecipherable language."
