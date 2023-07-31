@@ -15,7 +15,7 @@ from ruamel import yaml
 from github import Github
 import json
 
-CL_BODY = re.compile(r"(:cl:|🆑)(.+)?\r\n((.|\n|\r)+?)\r\n\/(:cl:|🆑)", re.MULTILINE)
+CL_BODY = re.compile(r"(:cl:|🆑)(.+)?\n((.|\n|)+?)\n\/(:cl:|🆑)", re.MULTILINE)
 CL_SPLIT = re.compile(r"(^\w+):\s+(\w.+)", re.MULTILINE)
 
 # Blessed is the GoOnStAtIoN birb ZeWaKa for thinking of this first
