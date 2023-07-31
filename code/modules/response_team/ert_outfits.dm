@@ -224,7 +224,8 @@
 /datum/outfit/job/centcom/response_team/engineer/amber
 	name = "RT Engineer (Amber)"
 	shoes = /obj/item/clothing/shoes/magboots
-	suit = /obj/item/storage/belt/utility/chief/full
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
+	belt = /obj/item/storage/belt/utility/chief/full
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
