@@ -1429,10 +1429,9 @@
 		AM.pipe_eject(dir)
 		if(isdrone(AM) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 			return
-		spawn(5)
-			if(QDELETED(AM))
-				return
-			AM.throw_at(target, 3, 1)
+		if(QDELETED(AM))
+			return
+		AM.throw_at(target, 3, 1)
 
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)
