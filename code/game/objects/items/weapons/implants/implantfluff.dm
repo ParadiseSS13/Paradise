@@ -69,6 +69,12 @@
 	notes = "A bio-chip that is illegal in many systems. It is notoriously known for allowing users to grotesquely fracture bones and over-exert joints in order to slip out of the tightest of restraints."
 	function = "Uses a mixture of cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
 
+/datum/implant_fluff/protofreedom
+	name = "Cybersun Industries X-92 Quick Escape Bio-chip"
+	life = "Destroyed after 1 use."
+	notes = "A bio-chip that is illegal in many systems. This is the early prototype version of the RX-92. It's significantly cheaper than it's newer version."
+	function = "Uses a mixture of cheap cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
+
 /datum/implant_fluff/health
 	name = "Nanotrasen Health Bio-chip"
 
@@ -116,3 +122,9 @@
 	life = "Unknown, no collected sample has been active long enough to determine lifespan."
 	notes = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
 	function = "Allows the user to transform into an angry fast and robust gorilla. Very deadly in close quarters."
+
+/datum/implant_fluff/stealth
+	name = "Syndicate S3 \"Stealth\" Bio-chip"
+	life = "Unknown. No collected sample has been active long enough to determine lifespan."
+	notes = "Manually activated by the user."
+	function = "Allows the user to summon a box from a bluespace pocket located inside the implant. The exterior of this box is lined with experimental cloaking panels which render the box invisible to the naked eye."

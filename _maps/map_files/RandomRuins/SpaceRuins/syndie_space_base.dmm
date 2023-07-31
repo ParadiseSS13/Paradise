@@ -264,10 +264,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "cH" = (
-/obj/machinery/door/window/eastright{
+/obj/machinery/door/window/classic/reversed{
 	name = "Animal Storage";
 	req_access_txt = "150";
-	req_one_access_txt = "150"
+	req_one_access_txt = "150";
+	dir = 4
 	},
 /obj/structure/window/basic{
 	dir = 1

@@ -21,6 +21,8 @@
 	var/walltype = /turf/simulated/wall
 	var/girder_type = /obj/structure/girder/displaced
 	var/opening = FALSE
+	/// Minimum environment smash level (found on simple animals) to break through this instantly
+	var/env_smash_level = ENVIRONMENT_SMASH_STRUCTURES
 
 	density = TRUE
 	opacity = TRUE
@@ -38,13 +40,14 @@
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(100)
-			return "<span class='notice'>It looks fully intact.</span>"
+			. += "<span class='notice'>It looks fully intact.</span>"
 		if(70 to 99)
-			return  "<span class='warning'>It looks slightly damaged.</span>"
+			. +=  "<span class='warning'>It looks slightly damaged.</span>"
 		if(40 to 70)
-			return  "<span class='warning'>It looks moderately damaged.</span>"
+			. +=  "<span class='warning'>It looks moderately damaged.</span>"
 		if(0 to 40)
-			return "<span class='danger'>It looks heavily damaged.</span>"
+			. += "<span class='danger'>It looks heavily damaged.</span>"
+	. += "<br><span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
 /obj/structure/falsewall/Destroy()
 	density = FALSE
@@ -115,6 +118,12 @@
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/twohanded/required/pyro_claws))
 		dismantle(user, TRUE)
+
+/obj/structure/falsewall/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && M.environment_smash >= env_smash_level)
+		deconstruct(FALSE)
+		to_chat(M, "<span class='info'>You smash through the wall.</span>")
 
 /obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
 	if(opening)
