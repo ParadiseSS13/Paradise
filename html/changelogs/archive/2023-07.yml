@@ -274,3 +274,7 @@
   dontbetank:
   - bugfix: cleaning IPC with space cleaner (#3269)
   - bugfix: mass hallucinations of guardian now have owner (#3266)
+'2023-07-31':
+  Zwei:
+  - bugfix: FAT Once More (#3274)
+  - bugfix: Few Runtimes Fixed And Vampire Tweaks (#3275)
