@@ -7,7 +7,8 @@
 		"Human" = 'icons/mob/clothing/under/color.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/color.dmi'
 		)
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
