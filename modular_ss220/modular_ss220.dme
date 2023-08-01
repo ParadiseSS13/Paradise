@@ -35,7 +35,7 @@
 #include "aesthetics_sounds/_aesthetics_sounds.dme"
 #include "radio_sound/radio_sound.dme"
 #include "events/_events.dme"
-
+#include "jobs/_jobs.dme"
 // --- UNUSED MODS --- //
 
  /*------------------------------------------------------------------
