@@ -4614,7 +4614,7 @@
 "cnn" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating,
 /area/shuttle/spacebar)
 "cnr" = (
 /turf/simulated/wall/shuttle/nosmooth{
