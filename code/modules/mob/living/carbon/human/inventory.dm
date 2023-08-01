@@ -447,7 +447,6 @@
 		else
 			return FALSE
 
-
 /**
  * Returns the item currently in the slot
  */
