@@ -73,9 +73,16 @@
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
-	if(!do_after(user, 50, target = src))
-		climber = null
-		return FALSE
+	if(climber.mind.assigned_role != "Bartender")
+		usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+		if(!do_after(user, 50, target = src))
+			climber = null
+			return FALSE
+	else
+		usr.visible_message("<span class='warning'>[user] jumps up onto \the [src]!</span>")
+		if(!do_after(user, 5, target = src))
+			climber = null
+			return FALSE
 
 	if(!can_touch(user) || !climbable)
 		climber = null
