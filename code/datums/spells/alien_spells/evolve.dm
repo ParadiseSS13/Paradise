@@ -20,7 +20,7 @@
 	desc = "Evolve into an Alien Queen."
 	action_icon_state = "alienq_running"
 	queen_check = TRUE
-	evolution_path = /mob/living/carbon/alien/humanoid/queen
+	evolution_path = /mob/living/carbon/alien/humanoid/queen/large
 
 
 /obj/effect/proc_holder/spell/alien_spell/evolve/create_new_targeting()

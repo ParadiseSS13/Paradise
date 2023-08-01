@@ -58,6 +58,21 @@
 	icon_state = "queen_s"
 	pixel_x = -16
 	large = 1
+	var/datum/action/innate/small_sprite_alien/action_sprite
+
+
+/mob/living/carbon/alien/humanoid/queen/large/New()
+	action_sprite = new
+	action_sprite.Grant(src)
+	..()
+
+
+/mob/living/carbon/alien/humanoid/queen/large/Destroy()
+	if(action_sprite)
+		action_sprite.Remove(src)
+		action_sprite = null
+	return ..()
+
 
 /mob/living/carbon/alien/humanoid/queen/large/update_icons()
 	overlays.Cut()
