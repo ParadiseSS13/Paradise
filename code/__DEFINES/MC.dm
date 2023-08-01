@@ -91,6 +91,7 @@
 /datum/controller/subsystem/timer/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
+	ss_id="timer_[#X]";\
 }\
 /datum/controller/subsystem/timer/##X/fire() {..() /*just so it shows up on the profiler*/} \
 /datum/controller/subsystem/timer/##X
