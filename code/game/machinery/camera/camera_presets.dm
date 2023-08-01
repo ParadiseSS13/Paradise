@@ -33,29 +33,17 @@
 	upgradeXRay()
 	upgradeMotion()
 
-// AUTONAME
-
-/obj/machinery/camera/autoname
-	var/number = 0 //camera number in area
-
 // This camera type automatically sets it's name to whatever the area that it's in is called.
 /obj/machinery/camera/autoname/Initialize(mapload)
-	number = 1
-	var/area/A = get_area(src)
-	if(!A)
-		number = rand(1, 100)
-		c_tag = "Unknown #[number]"
+	var/static/list/autonames_in_areas = list()
+
+	var/area/camera_area = get_area(src)
+	if(!camera_area)
+		c_tag = "Unknown #[rand(1, 100)]"
 		stack_trace("Camera with tag [c_tag] was spawned without an area, please report this to your nearest coder.")
 		return ..()
 
-	for(var/obj/machinery/camera/autoname/C in A.contents)
-		if(C == src)
-			continue
-		if(C.number)
-			number = max(number, C.number + 1)
-
-	c_tag = "[sanitize(A.name)] #[number]"
-
+	c_tag = "[sanitize(camera_area.name)] #[++autonames_in_areas[camera_area]]" // increase the number, then print it (this is what ++ before does)
 	return ..() // We do this here so the camera is not added to the cameranet until it has a name.
 
 // CHECKS
