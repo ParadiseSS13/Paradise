@@ -649,3 +649,4 @@
 	else
 		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
 
+/atom/movable/fall_and_crush(turf/target, crush_damage, crit_chance = 0, datum/vendor_crit/forced_crit, paralyze_time)
