@@ -37,7 +37,6 @@
 		animate(user, pixel_y = pixel_y + 10 , time = 10, loop = 1, easing = SINE_EASING)
 	to_chat(user, "<span class='notice'>You hold [src] between your legs.</span>")
 
-
 /obj/item/staff/broom/proc/unwield(obj/item/source, mob/user)
 	attack_verb = list("bludgeoned", "whacked", "cleaned")
 	user.update_inv_l_hand()

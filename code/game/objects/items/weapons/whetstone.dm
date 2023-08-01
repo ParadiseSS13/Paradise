@@ -33,7 +33,6 @@
 		return
 	if(!(signal_out & COMPONENT_SHARPEN_APPLIED)) //If the item has a relevant component and COMPONENT_BLOCK_SHARPEN_APPLIED is returned, the item only gets the throw force increase
 		I.force = clamp(I.force + increment, 0, max)
-	// TODO verify this new logic
 	if(istype(I, /obj/item/melee/energy))
 		var/obj/item/melee/energy/E = I
 		if(E.force_on > initial(E.force_on) || (E.force > initial(E.force)))

@@ -92,10 +92,9 @@
  * Double-Bladed Energy Swords - Cheridan
  */
 /obj/item/dualsaber
-
-	icon_state = "dualsaber0"
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
+	icon_state = "dualsaber0"
 	force = 3
 	throwforce = 5
 	throw_speed = 1
@@ -114,7 +113,7 @@
 	var/hacked = FALSE
 	var/blade_color
 	var/brightness_on = 2
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red = LIGHT_COLOR_RED, blue = LIGHT_COLOR_LIGHTBLUE, green = LIGHT_COLOR_GREEN, purple = LIGHT_COLOR_PURPLE, rainbow = LIGHT_COLOR_WHITE)
 
 
 	var/force_unwielded = 3
@@ -127,7 +126,7 @@
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force_unwielded, wieldsound = wieldsound, unwieldsound = unwieldsound, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded=TRUE)
+	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force_unwielded, wieldsound = wieldsound, unwieldsound = unwieldsound, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded = TRUE)
 
 /obj/item/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -157,7 +156,6 @@
 		if(i == WEST)
 			user.SpinAnimation(7, 1)
 		sleep(1)
-
 
 /obj/item/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
@@ -300,10 +298,10 @@
 		qdel(src)
 
 /obj/item/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
-	base_icon_state = "bone_spear"
-	icon_state = "bone_spear0"
 	name = "bone spear"
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
+	base_icon_state = "bone_spear"
+	icon_state = "bone_spear0"
 	force = 11
 	force_unwielded = 11
 	force_wielded = 20					//I have no idea how to balance
@@ -313,10 +311,10 @@
 
 //GREY TIDE
 /obj/item/spear/grey_tide
-	base_icon_state = "spearglass"
-	icon_state = "spearglass0"
 	name = "\improper Grey Tide"
 	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
+	base_icon_state = "spearglass"
+	icon_state = "spearglass0"
 	force_unwielded = 15
 	force_wielded = 25
 	throwforce = 20
@@ -384,10 +382,11 @@
 	qdel(src)
 
 /obj/item/spear/kidan
-	base_icon_state = "kindanspear"
-	icon_state = "kidanspear0"
 	name = "\improper Kidan spear"
 	desc = "A spear brought over from the Kidan homeworld."
+	base_icon_state = "kindanspear"
+	icon_state = "kidanspear0"
+
 
 // DIY CHAINSAW
 /obj/item/chainsaw
@@ -461,10 +460,10 @@
 
 ///CHAINSAW///
 /obj/item/butcher_chainsaw
-	base_icon_state = "chainsaw"
-	icon_state = "chainsaw0"
 	name = "chainsaw"
 	desc = "Perfect for felling trees or fellow spacemen."
+	base_icon_state = "chainsaw"
+	icon_state = "chainsaw0"
 	force = 15
 	throwforce = 15
 	throw_speed = 1
