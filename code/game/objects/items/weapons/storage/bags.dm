@@ -23,6 +23,31 @@
 	use_to_pickup = 1
 	slot_flags = SLOT_BELT
 
+/obj/item/storage/bag/trash/proc/update_weight()
+	if(!length(contents))
+		w_class = WEIGHT_CLASS_NORMAL
+		return
+
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/storage/bag/trash/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
+	update_weight()
+
+/obj/item/storage/bag/trash/can_be_inserted(obj/item/I, stop_messages = FALSE)
+	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
+		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+		return FALSE
+	. = ..()
+
+/obj/item/storage/bag/trash/Initialize(mapload)
+	. = ..()
+	update_weight()
+
+/obj/item/storage/bag/trash/handle_item_insertion(obj/item/I, prevent_warning)
+	. = ..()
+	update_weight()
+
 // -----------------------------
 //          Trash bag
 // -----------------------------
