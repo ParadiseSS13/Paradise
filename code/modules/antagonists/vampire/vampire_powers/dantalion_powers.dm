@@ -302,6 +302,6 @@
 
 		SEND_SOUND(H, 'sound/hallucinations/over_here1.ogg')
 		H.Slowed(4 SECONDS)
-		H.flash_eyes(1, TRUE) // flash to give them a second to lose track of who is who
+		H.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion(get_turf(user), H, skip_nearby = FALSE)
 

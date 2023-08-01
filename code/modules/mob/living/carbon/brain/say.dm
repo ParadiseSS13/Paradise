@@ -19,7 +19,7 @@
 
 	..()
 
-/mob/living/carbon/brain/can_speak(var/warning = FALSE)
+/mob/living/carbon/brain/can_speak(warning = FALSE)
 	. = ..()
 
 	if(!istype(container, /obj/item/mmi))
@@ -28,7 +28,7 @@
 		var/obj/item/mmi/robotic_brain/R = container
 		if(R && R.silenced)
 			if(warning)
-				to_chat(usr, "<span class='warning'>You cannot speak, as your internal speaker is turned off.</span>")
+				to_chat(src, span_warning("You cannot speak, as your internal speaker is turned off."))
 			. = FALSE
 
 /mob/living/carbon/brain/handle_message_mode(var/message_mode, list/message_pieces, var/verb, var/used_radios)

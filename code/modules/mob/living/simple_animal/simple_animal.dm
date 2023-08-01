@@ -518,6 +518,7 @@
 	I.pixel_y = initial(I.pixel_y)
 	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
+	I.forceMove(src)
 
 	switch(slot)
 		if(slot_collar)

@@ -444,7 +444,7 @@
 	var/mob/living/carbon/human/target = M
 
 	var/datum/antagonist/vampire/vamp = target.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(!vamp.get_ability(/datum/vampire_passive/full))
+	if(vamp && !vamp.get_ability(/datum/vampire_passive/full))
 
 		if(method == REAGENT_TOUCH)
 			if(target.wear_mask)

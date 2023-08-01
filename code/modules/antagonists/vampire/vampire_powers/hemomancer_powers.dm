@@ -218,7 +218,7 @@
 
 	if(user_found && !start_turf)
 		var/odd_number = max_walls % 2
-		var/walls_amount = odd_number ? (max_walls - 1) / 2 : max_walls / 2
+		var/walls_amount = odd_number ? ((max_walls - 1) / 2) : (max_walls / 2 - 1)
 		var/dir_right = turn(user.dir, 90)
 		var/dir_left = turn(user.dir, 270)
 

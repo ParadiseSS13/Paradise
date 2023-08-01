@@ -524,7 +524,7 @@
 		praying = FALSE
 
 /obj/item/nullrod/rosary/process()
-	if(ishuman(loc))
+	if(!ishuman(loc))
 		return
 
 	var/mob/living/carbon/human/holder = loc

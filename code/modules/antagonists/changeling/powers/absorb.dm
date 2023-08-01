@@ -7,11 +7,11 @@
 	req_human = TRUE
 
 
-/datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user)
+/datum/action/changeling/absorbDNA/can_sting(mob/living/carbon/user, ignore_absorbing = FALSE)
 	if(!..())
 		return FALSE
 
-	if(cling.is_absorbing)
+	if(cling.is_absorbing && !ignore_absorbing)
 		to_chat(user, span_warning("We are already absorbing!"))
 		return FALSE
 
@@ -46,7 +46,7 @@
 				target.take_overall_damage(40)
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
-		if(!do_mob(user, target, 15 SECONDS) || !can_sting(user))
+		if(!do_mob(user, target, 15 SECONDS) || !can_sting(user, TRUE))
 			to_chat(user, span_warning("Our absorption of [target] has been interrupted!"))
 			cling.is_absorbing = FALSE
 			return FALSE
