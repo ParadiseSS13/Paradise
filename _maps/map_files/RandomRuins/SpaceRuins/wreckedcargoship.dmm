@@ -637,7 +637,7 @@
 	dir = 8;
 	id_tag = "cargoshipblastdoor4"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "Ad" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -1004,7 +1004,7 @@
 	id_tag = "cargoshipblastdoor4"
 	},
 /obj/effect/spawner/window/reinforced,
-/turf,
+/turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "QH" = (
 /obj/structure/rack,
