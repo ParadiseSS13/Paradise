@@ -299,11 +299,11 @@
 	containername = "collectable plushies crate! Brought to you by Bass.inc!"
 
 /datum/supply_packs/misc/randomised/plushie/generate_items()
-	. = list()
-	for(var/i in 1 to 3)
-		. += /obj/random/plushie
+	. = list(/obj/random/plushie, /obj/random/plushie)
 	if(prob(1)) // 1 % chance to have a free of charge Blahbomb!
-		. += /obj/item/toy/plushie/shark/explosive // To make it a bit more avoidable, if a crate will get a bomb, it'll get four plushies instead
+		. += /obj/item/toy/plushie/shark/explosive // 1% chance in a crate that costs 1000 credits
+	else
+		. += /obj/random/plushie
 
 /datum/supply_packs/misc/foamforce
 	name = "Foam Force Crate"
