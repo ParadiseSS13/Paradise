@@ -1238,7 +1238,7 @@
 
 /obj/item/toy/chainsaw/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, wieldsound='sound/weapons/chainsawstart.ogg', icon_wielded="[base_icon_state]1")
+	AddComponent(/datum/component/two_handed, wieldsound = 'sound/weapons/chainsawstart.ogg', icon_wielded = "[base_icon_state]1")
 
 
 /obj/item/toy/chainsaw/update_icon_state()

@@ -35,7 +35,7 @@
 
 /obj/item/garrote/improvised/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, wield_callback=CALLBACK(src, PROC_REF(wield)))
+	AddComponent(/datum/component/two_handed, wield_callback = CALLBACK(src, PROC_REF(wield)))
 
 
 /obj/item/garrote/proc/wield(obj/item/source, mob/living/carbon/user)

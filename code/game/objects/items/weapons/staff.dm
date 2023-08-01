@@ -25,7 +25,7 @@
 
 /obj/item/staff/broom/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_wielded=5, force_unwielded=3, wield_callback=CALLBACK(src, PROC_REF(wield)), unwield_callback=CALLBACK(src, PROC_REF(unwield)))
+	AddComponent(/datum/component/two_handed, force_wielded = 5, force_unwielded = 3, wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
 
 /obj/item/staff/broom/proc/wield(obj/item/source, mob/user)
 	attack_verb = list("rammed into", "charged at")

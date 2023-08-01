@@ -359,7 +359,7 @@
 /obj/item/bostaff/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
-	AddComponent(/datum/component/two_handed, force_wielded=24, force_unwielded=force, icon_wielded="[base_icon_state]1")
+	AddComponent(/datum/component/two_handed, force_wielded = 24, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 
 /obj/item/bostaff/update_icon_state()
 	icon_state = "[base_icon_state]0"

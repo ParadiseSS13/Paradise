@@ -273,7 +273,7 @@
 	icon_state = "plant-[rand(1,35)]"
 	if(prob(1))
 		icon_state = "plant-36"
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/kirbyplants/Destroy()
 	if(iscarbon(loc))

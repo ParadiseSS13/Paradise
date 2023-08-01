@@ -57,7 +57,7 @@
 
 /obj/item/vamp_claws/Initialize(mapload, new_parent_spell)
 	. = ..()
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 	parent_spell = new_parent_spell
 
 /obj/item/vamp_claws/Destroy()

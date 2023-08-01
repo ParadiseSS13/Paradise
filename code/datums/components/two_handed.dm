@@ -52,9 +52,9 @@
  * * icon_wielded (optional) The icon to be used when wielded
  * * only_sharp_when_wielded (optional) Is the item only sharp when held in both hands?
  */
-/datum/component/two_handed/Initialize(require_twohands=FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
-										force_multiplier=0, force_wielded=0, force_unwielded=0, icon_wielded=FALSE, \
-										only_sharp_when_wielded=FALSE, datum/callback/wield_callback, datum/callback/unwield_callback)
+/datum/component/two_handed/Initialize(require_twohands = FALSE, wieldsound = FALSE, unwieldsound = FALSE, attacksound = FALSE, \
+										force_multiplier = 0, force_wielded = 0, force_unwielded = 0, icon_wielded = FALSE, \
+										only_sharp_when_wielded = FALSE, datum/callback/wield_callback, datum/callback/unwield_callback)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -153,11 +153,12 @@
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK_SELF
 
-	if(!require_twohands)
-		if(wielded)
-			INVOKE_ASYNC(src, PROC_REF(unwield), user)
-		else if(user.is_holding(parent))
-			INVOKE_ASYNC(src, PROC_REF(wield), user)
+	if(require_twohands)
+		return
+	if(wielded)
+		INVOKE_ASYNC(src, PROC_REF(unwield), user)
+	else if(user.is_holding(parent))
+		INVOKE_ASYNC(src, PROC_REF(wield), user)
 
 /datum/component/two_handed/proc/on_attack_hand(datum/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_ATOM_ATTACK_HAND if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
@@ -177,20 +178,20 @@
 	if(ismonkeybasic(user))
 		if(require_twohands)
 			to_chat(user, "<span class='notice'>[parent] is too heavy and cumbersome for you to carry!</span>")
-			user.unEquip(parent, force=TRUE)
+			user.unEquip(parent, force = TRUE)
 		else
 			to_chat(user, "<span class='notice'>[parent] too heavy for you to wield fully.</span>")
 		return
 	if(user.get_inactive_hand())
 		if(require_twohands)
 			to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
-			user.unEquip(parent, force=TRUE)
+			user.unEquip(parent, force = TRUE)
 		else
 			to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
 		return
 	if(!user.has_both_hands())
 		if(require_twohands)
-			user.unEquip(parent, force=TRUE)
+			user.unEquip(parent, force = TRUE)
 		to_chat(user, "<span class='warning'>You don't have enough intact hands.</span>")
 		return
 
@@ -284,7 +285,7 @@
 
 		// if the item requires two handed drop the item on unwield
 		if(require_twohands && can_drop)
-			user.unEquip(parent, force=TRUE)
+			user.unEquip(parent, force = TRUE)
 
 		// Show message if requested
 		if(show_message)

@@ -14,7 +14,7 @@
 
 /obj/item/golden_record/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /turf/simulated/satellite
 	name = "satellite components storage"

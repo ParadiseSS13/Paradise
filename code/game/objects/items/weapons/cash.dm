@@ -83,4 +83,4 @@
 
 /obj/item/cash_pile/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)

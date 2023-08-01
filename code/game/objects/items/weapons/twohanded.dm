@@ -25,7 +25,7 @@
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
-	AddComponent(/datum/component/two_handed, force_unwielded=force_unwielded, force_wielded=force_wielded, icon_wielded="[base_icon_state]1")
+	AddComponent(/datum/component/two_handed, force_unwielded = force_unwielded, force_wielded = force_wielded, icon_wielded = "[base_icon_state]1")
 
 /obj/item/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "[base_icon_state]0"
@@ -49,7 +49,7 @@
 
 /obj/item/fireaxe/boneaxe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_wielded=force_wielded, icon_wielded="[base_icon_state]1")
+	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]1")
 
 /obj/item/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
@@ -62,7 +62,7 @@
 /obj/item/fireaxe/energized/Initialize(mapload)
 	. = ..()
 	// only update the new args
-	AddComponent(/datum/component/two_handed, force_wielded=force_wielded, icon_wielded="[base_icon_state]2")
+	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]2")
 
 /obj/item/fireaxe/energized/New()
 	..()
@@ -127,7 +127,7 @@
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
-	AddComponent(/datum/component/two_handed, force_wielded=force_wielded, force_unwielded=force_unwielded, wieldsound=wieldsound, unwieldsound=unwieldsound, wield_callback=CALLBACK(src, PROC_REF(on_wield)), unwield_callback=CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded=TRUE)
+	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force_unwielded, wieldsound = wieldsound, unwieldsound = unwieldsound, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded=TRUE)
 
 /obj/item/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -252,9 +252,9 @@
 /obj/item/spear/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, \
-		force_wielded=force_wielded, \
-		force_unwielded=force_unwielded, \
-		icon_wielded="[base_icon_state]1")
+		force_wielded = force_wielded, \
+		force_unwielded = force_unwielded, \
+		icon_wielded = "[base_icon_state]1")
 
 /obj/item/spear/update_icon_state()
 	icon_state = "[base_icon_state]0"
@@ -266,9 +266,9 @@
 	throwforce = 21
 	base_icon_state = "spearplasma"
 	AddComponent(/datum/component/two_handed, \
-		force_wielded=force_wielded, \
-		force_unwielded=force_unwielded, \
-		icon_wielded="[base_icon_state]1")
+		force_wielded = force_wielded, \
+		force_unwielded = force_unwielded, \
+		icon_wielded = "[base_icon_state]1")
 
 	update_icon()
 
@@ -411,7 +411,7 @@
 
 /obj/item/chainsaw/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 
 /obj/item/chainsaw/attack_self(mob/user)
@@ -482,12 +482,12 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
 	AddComponent(/datum/component/two_handed, \
-		force_wielded=40, \
-		force_unwielded=force, \
-		icon_wielded="[base_icon_state]1", \
+		force_wielded = 40, \
+		force_unwielded = force, \
+		icon_wielded = "[base_icon_state]1", \
 		wieldsound = 'sound/weapons/chainsawstart.ogg', \
-		wield_callback=CALLBACK(src, PROC_REF(wield)), \
-		unwield_callback=CALLBACK(src, PROC_REF(unwield)))
+		wield_callback = CALLBACK(src, PROC_REF(wield)), \
+		unwield_callback = CALLBACK(src, PROC_REF(unwield)))
 
 /obj/item/butcher_chainsaw/update_icon_state()
 	icon_state = "[base_icon_state]0"
@@ -544,9 +544,9 @@
 /obj/item/singularityhammer/Initialize(mapload)
 	..()
 	AddComponent(/datum/component/two_handed, \
-		force_wielded=40, \
-		force_unwielded=force, \
-		icon_wielded="[base_icon_state]1")
+		force_wielded = 40, \
+		force_unwielded = force, \
+		icon_wielded = "[base_icon_state]1")
 	START_PROCESSING(SSobj, src)
 
 /obj/item/singularityhammer/Destroy()
@@ -610,9 +610,9 @@
 /obj/item/mjollnir/Initialize(mapload)
 	..()
 	AddComponent(/datum/component/two_handed, \
-		force_wielded=25, \
-		force_unwielded=force, \
-		icon_wielded="[base_icon_state]1")
+		force_wielded = 25, \
+		force_unwielded = force, \
+		icon_wielded = "[base_icon_state]1")
 
 /obj/item/mjollnir/proc/shock(mob/living/target)
 	do_sparks(5, 1, target.loc)
@@ -657,9 +657,9 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/two_handed, \
-		force_wielded=30, \
-		force_unwielded=force, \
-		icon_wielded="[base_icon_state]1")
+		force_wielded = 30, \
+		force_unwielded = force, \
+		icon_wielded = "[base_icon_state]1")
 
 /obj/item/knighthammer/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -725,7 +725,7 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/pyro_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -851,11 +851,11 @@
 /obj/item/push_broom/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, \
-		force_wielded=12, \
-		force_unwielded=force, \
-		icon_wielded="[base_icon_state]1", \
-		wield_callback=CALLBACK(src, PROC_REF(wield)), \
-		unwield_callback=CALLBACK(src, PROC_REF(unwield)))
+		force_wielded = 12, \
+		force_unwielded = force, \
+		icon_wielded = "[base_icon_state]1", \
+		wield_callback = CALLBACK(src, PROC_REF(wield)), \
+		unwield_callback = CALLBACK(src, PROC_REF(unwield)))
 
 /obj/item/push_broom/update_icon_state()
 	icon_state = "broom0"
@@ -918,7 +918,7 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	// parent component handles this
-	AddComponent(/datum/component/two_handed, force_wielded=25, force_unwielded=force)
+	AddComponent(/datum/component/two_handed, force_wielded = 25, force_unwielded = force)
 
 /obj/item/push_broom/traitor/examine(mob/user)
 	. = ..()
