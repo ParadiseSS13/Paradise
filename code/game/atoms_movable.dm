@@ -649,4 +649,168 @@
 	else
 		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
 
-/atom/movable/fall_and_crush(turf/target, crush_damage, crit_chance = 0, datum/vendor_crit/forced_crit, paralyze_time)
+/atom/movable/proc/choose_crit(mob/living/carbon/victim, list/possible_crits)
+	if(!length(possible_crits))
+		return
+	for(var/crit_path in shuffle(possible_crits))
+		var/datum/vendor_crit/C = GLOB.tilt_crits[crit_path]
+		if(C.is_valid(src, victim))
+			return C
+
+
+/atom/movable/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, datum/vendor_crit/crit)
+
+	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
+	var/crit_rebate = 0
+
+	var/should_throw_at_target = TRUE
+
+	if(HAS_TRAIT(victim, TRAIT_DWARF))
+		// also double damage if you're short
+		damage_to_deal *= 2
+
+	if(crit)
+		crit_rebate = crit.tip_crit_effect(src, victim)
+		if(crit.harmless)
+			return
+
+		add_attack_logs(null, victim, "critically crushed by [src] causing [crit]")
+	else
+		add_attack_logs(null, victim, "crushed by [src]")
+
+	// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
+	damage_to_deal = max(damage_to_deal - crit_rebate, 0)
+	if(prob(30))
+		victim.apply_damage(damage_to_deal, BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
+	else
+		var/picked_zone
+		var/num_parts_to_pick = 2
+		for(var/i = 1 to num_parts_to_pick)
+			picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
+			victim.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
+
+	victim.AddElement(/datum/element/squish, 80 SECONDS)
+	// todo modify defines
+
+
+/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/vendor_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, angle)
+	if(QDELETED(src) || isnull(target_turf))
+		return
+
+	if(is_blocked_turf(target_turf, TRUE))
+		visible_message("<span class='warning'>[src] seems to rock against [target_turf], but doesn't fall over!</span>")
+		Move(target_turf, get_dir(get_turf(src), target_turf))
+		return
+
+	for(var/atom/target in (target_turf.contents) + target_turf)
+		var/crushed_something = FALSE
+		if(isarea(target))
+			continue
+
+		if(isobserver(target))
+			continue
+
+		var/datum/vendor_crit/crit_case = forced_crit
+		if(isnull(forced_crit) && should_crit)
+			crit_case = choose_crit()  // todo actually handle the list
+		// note that it could still be null after this point, in which case it won't crit
+
+		// todo add signal logic
+
+		var/damage_to_deal = crush_damage
+
+		if(isliving(target))
+			var/mob/living/L = target
+
+			// todo ensure the old "from_combat" stuff makes it back in, as well as stuff from knocking it over onto yourself
+
+			if(crit_case)
+				// increase damage if you knock it over onto yourself
+				damage_to_deal *= crit_damage_factor
+			if(iscarbon(L))
+				var/crush_spec = handle_squish_carbon(L, damage_to_deal, crit_case)
+			L.Weaken(weaken_time)
+			L.emote("scream")
+			L.KnockDown(knockdown_time)
+			playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
+			playsound(L, "sound/effects/splat.ogg", 50, TRUE)
+			add_attack_logs(null, L, "crushed by [src]")
+
+
+		else if(isobj(target) && !isitem(target))  // don't crush things on the floor, that'd probably be annoying
+			var/obj/O = target
+			O.take_damage(damage_to_deal, BRUTE, "", FALSE)
+		else
+			continue
+
+		target.visible_message(
+			"<span class='danger'>[target] is crushed by [src]!</span>",
+			"<span class='userdanger'>[src] crushes you!</span>",
+			"<span class='warning'>You hear a loud crunch!</span>"
+		)
+
+	tilt_over(target_turf, angle)
+	// for things like teleporters apparently
+	Move(target_turf, get_dir(get_turf(src), target_turf))
+
+	return TRUE
+
+
+/atom/movable/proc/tilt_over(turf/target, angle)
+	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
+	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
+	if(angle)
+		var/matrix/M = matrix()
+		M.Turn(isnull(angle) ? pick(90, 270) : angle)
+		transform = M
+	if(target && target != get_turf(src))
+		throw_at(target, 1, 1, spin = FALSE)
+
+// /atom/movable/proc/untilt(mob/user)
+// 	if(!tilted)
+// 		return
+
+// 	if(user)
+// 		user.visible_message(
+// 			"[user] begins to right [src].",
+// 			"You begin to right [src]."
+// 		)
+// 		if(!do_after(user, 7 SECONDS, TRUE, src))
+// 			return
+// 		user.visible_message(
+// 			"<span class='notice'>[user] rights [src].</span>",
+// 			"<span class='notice'>You right [src].</span>",
+// 			"<span class='notice'>You hear a loud clang.</span>"
+// 		)
+
+// 	unbuckle_all_mobs(TRUE)
+
+// 	tilted = FALSE
+// 	layer = initial(layer)
+
+// 	var/matrix/M = matrix()
+// 	M.Turn(0)
+// 	transform = M
+
+/obj/item/tilter
+	name = "tilter"
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "multitool"
+	var/turf/saved_turf
+	var/atom/movable/tilting_thing
+
+/obj/item/tilter/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(isturf(target))
+		saved_turf = get_turf(target)
+		atom_say("[target] registered as target!")
+	else if(ismovable(target))
+		tilting_thing = target
+		atom_say("[tilting_thing] registered as tilter!")
+
+/obj/item/tilter/attack_self(mob/user)
+	. = ..()
+	if(tilting_thing && saved_turf)
+		tilting_thing.fall_and_crush(saved_turf, 5, 50, 2, null, 4 SECONDS, 14 SECONDS, FALSE)
+
+

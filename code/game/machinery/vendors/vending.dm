@@ -194,6 +194,8 @@
 	update_icon(UPDATE_OVERLAYS)
 	reconnect_database()
 	power_change()
+	RegisterSignal(src, COMSIG_MOVABLE_UNTILTED, PROC_REF(on_untilt))
+	RegisterSignal(src, COMSIG_MOVABLE_TRY_UNTILT, PROC_REF(on_try_untilt))
 
 /obj/machinery/economy/vending/Destroy()
 	SStgui.close_uis(wires)
@@ -356,11 +358,9 @@
 	else
 		..()
 
-/obj/machinery/economy/vending/AltClick(mob/user)
+/obj/machinery/economy/vending/proc/on_try_untilt(atom/source, mob/user)
 	if(!tilted || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	untilt(user)
+		return COMPONENT_BLOCK_UNTILT
 
 /obj/machinery/economy/vending/attackby(obj/item/I, mob/user, params)
 	if(tilted)
@@ -935,6 +935,10 @@
 			if(dump_amount >= 16)
 				return
 
+/obj/machinery/economy/vending/proc/on_untilt(atom/source, mob/user)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_UNTILTED
+	tilted = FALSE
+
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/economy/vending/proc/throw_item()
 	var/obj/throw_item = null
@@ -963,7 +967,7 @@
 /**
  * Select a random valid crit.
  */
-/obj/machinery/economy/vending/proc/choose_crit(mob/living/carbon/victim)
+/obj/machinery/economy/vending/proc/choose_crit_old(mob/living/carbon/victim)
 	if(!length(possible_crits))
 		return
 	for(var/crit_path in shuffle(possible_crits))
@@ -971,7 +975,7 @@
 		if(C.is_valid(src, victim))
 			return C
 
-/obj/machinery/economy/vending/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, crit, from_combat)
+/obj/machinery/economy/vending/proc/handle_squish_carbon_old(mob/living/carbon/victim, damage_to_deal, crit, from_combat)
 
 	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
 	var/crit_rebate = 0
@@ -1023,7 +1027,7 @@
  * * crit - if true, some special damage effects might happen.
  * * from_combat - If true, hold off on some of the additional damage and extra effects.
  */
-/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE)
+/obj/machinery/economy/vending/proc/tilt_old(atom/victim, crit = FALSE, from_combat = FALSE)
 	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
 		return
 
@@ -1076,7 +1080,26 @@
 
 	tilt_over(should_throw_at_target ? victim : null)
 
-/obj/machinery/economy/vending/proc/tilt_over(mob/victim)
+/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE)
+	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
+		return
+
+	if(Adjacent(victim))
+		var/damage = squish_damage
+		var/picked_angle = pick(90, 270)
+		var/should_crit = !from_combat && crit
+		if(should_crit && !from_combat)
+			squish_damage *= self_knockover_factor
+
+		. = fall_and_crush(get_turf(victim), squish_damage, should_crit, crit_damage_factor, null, from_combat ? 4 SECONDS : 6 SECONDS, 12 SECONDS, FALSE, picked_angle)
+		if(.)
+			tilted = TRUE
+			layer = ABOVE_MOB_LAYER
+
+	if(get_turf(victim) != get_turf(src))
+		throw_at(get_turf(victim), 1, 1, spin = FALSE)
+
+/obj/machinery/economy/vending/tilt_over(mob/victim)
 	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
 	var/matrix/M = matrix()

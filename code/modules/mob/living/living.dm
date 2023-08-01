@@ -1158,3 +1158,8 @@
 	C.take_organ_damage(damage)
 	C.KnockDown(3 SECONDS)
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
+
+/mob/living/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/vendor_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, angle)
+	// keep most of what's passed in, but don't change the angle
+	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity, null)
+	KnockDown(10 SECONDS)

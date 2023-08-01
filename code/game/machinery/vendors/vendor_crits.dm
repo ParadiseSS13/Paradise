@@ -7,11 +7,20 @@
 	var/harmless = FALSE
 	/// If we should be thrown against the mob or not.
 	var/fall_towards_mob = TRUE
+	/// List of types which we should be valid for
+	var/list/valid_types_whitelist = list(/obj/machinery/economy/vending)
+	/// Typecache of valid types
+	var/list/valid_typecache
+
+/datum/vendor_crit/New()
+	valid_typecache = typecacheof(valid_types_whitelist)
 
 /**
  * Return whether or not the crit selected is valid.
  */
 /datum/vendor_crit/proc/is_valid(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
+
+	SHOULD_CALL_PARENT(TRUE)
 	return TRUE
 
 /***
