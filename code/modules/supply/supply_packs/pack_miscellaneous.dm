@@ -301,7 +301,12 @@
 /datum/supply_packs/misc/randomised/plushie/generate_items()
 	. = list(/obj/random/plushie, /obj/random/plushie)
 	if(prob(1)) // 1 % chance to have a free of charge Blahbomb!
-		. += /obj/item/toy/plushie/shark/explosive // 1% chance in a crate that costs 1000 credits
+		var/obj/item/toy/plushie/plushie = /obj/random/plushie
+		plushie.grenade = /obj/item/grenade/syndieminibomb
+		var/obj/item/I = /obj/item/grenade/syndieminibomb
+		I.forceMove(plushie)
+		. += plushie
+
 	else
 		. += /obj/random/plushie
 
