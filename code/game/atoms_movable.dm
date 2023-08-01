@@ -653,12 +653,12 @@
 	if(!length(possible_crits))
 		return
 	for(var/crit_path in shuffle(possible_crits))
-		var/datum/vendor_crit/C = GLOB.tilt_crits[crit_path]
+		var/datum/tilt_crit/C = GLOB.tilt_crits[crit_path]
 		if(C.is_valid(src, victim))
 			return C
 
 
-/atom/movable/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, datum/vendor_crit/crit)
+/atom/movable/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, datum/tilt_crit/crit)
 
 	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
 	var/crit_rebate = 0
@@ -693,7 +693,7 @@
 	// todo modify defines
 
 
-/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/vendor_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, angle)
+/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, angle)
 	if(QDELETED(src) || isnull(target_turf))
 		return
 
@@ -703,14 +703,13 @@
 		return
 
 	for(var/atom/target in (target_turf.contents) + target_turf)
-		var/crushed_something = FALSE
 		if(isarea(target))
 			continue
 
 		if(isobserver(target))
 			continue
 
-		var/datum/vendor_crit/crit_case = forced_crit
+		var/datum/tilt_crit/crit_case = forced_crit
 		if(isnull(forced_crit) && should_crit)
 			crit_case = choose_crit()  // todo actually handle the list
 		// note that it could still be null after this point, in which case it won't crit

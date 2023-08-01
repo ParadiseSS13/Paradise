@@ -149,8 +149,8 @@
 			continue // These are not valid objectives to add.
 		GLOB.admin_objective_list[initial(O.name)] = path
 
-	for(var/path in subtypesof(/datum/vendor_crit))
-		var/datum/vendor_crit/crit = new path()
+	for(var/path in subtypesof(/datum/tilt_crit))
+		var/datum/tilt_crit/crit = new path()
 		GLOB.tilt_crits[path] = crit
 
 /* // Uncomment to debug chemical reaction list.

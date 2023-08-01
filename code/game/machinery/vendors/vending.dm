@@ -136,11 +136,11 @@
 	var/static/list/all_possible_crits = list()
 	/// Possible crit effects from this vending machine tipping.
 	var/list/possible_crits = list(
-		/datum/vendor_crit/pop_head,
-		/datum/vendor_crit/embed,
-		/datum/vendor_crit/pin,
-		/datum/vendor_crit/shatter,
-		/datum/vendor_crit/lucky
+		/datum/tilt_crit/pop_head,
+		/datum/tilt_crit/vendor/embed,
+		/datum/tilt_crit/pin,
+		/datum/tilt_crit/shatter,
+		/datum/tilt_crit/lucky
 	)
 	/// number of shards to apply when a crit embeds
 	var/num_shards = 7
@@ -188,7 +188,7 @@
 
 
 	if(!length(all_possible_crits))
-		for(var/typepath in subtypesof(/datum/vendor_crit))
+		for(var/typepath in subtypesof(/datum/tilt_crit))
 			all_possible_crits[typepath] = new typepath()
 
 	update_icon(UPDATE_OVERLAYS)
@@ -971,7 +971,7 @@
 	if(!length(possible_crits))
 		return
 	for(var/crit_path in shuffle(possible_crits))
-		var/datum/vendor_crit/C = all_possible_crits[crit_path]
+		var/datum/tilt_crit/C = all_possible_crits[crit_path]
 		if(C.is_valid(src, victim))
 			return C
 
@@ -986,7 +986,7 @@
 		// also double damage if you're short
 		damage_to_deal *= 2
 
-	var/datum/vendor_crit/critical_attack = choose_crit(victim)
+	var/datum/tilt_crit/critical_attack = choose_crit(victim)
 	if(!from_combat && crit && critical_attack)
 		crit_rebate = critical_attack.tip_crit_effect(src, victim)
 		if(critical_attack.harmless)
