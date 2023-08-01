@@ -442,6 +442,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
 		displayname = syndiekey.fake_name
 		jobname = "Unknown"
+		rank = "Unknown"
 		voicemask = TRUE
 
 	// Copy the message pieces so we can safely edit comms line without affecting the actual line
