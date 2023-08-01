@@ -1058,6 +1058,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	cant_discount = TRUE
 
+/datum/uplink_item/stealthy_weapons/mr_chang
+	name = "Mr. Chang's Aggressive Marketing Technique"
+	desc = "This package was kindly provided to us by Mr. Cheng's corporation. It contains a wide range of implements for the most effective promotion of products in a free market environment."
+	reference = "MRCH"
+	item = /obj/item/storage/box/syndie_kit/mr_chang_technique
+	cost = 3
+	cant_discount = FALSE
+
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
 	desc = "A flash disguised as a camera with a self-charging safety system preventing the flash from burning out.\

@@ -499,3 +499,9 @@
 /obj/item/clothing/shoes/ducky/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/squeaktoy.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+
+/obj/item/clothing/shoes/mr_chang_sandals
+	name = "Flashy slippers"
+	desc = "Made of wood. Used to support world's economics stable."
+	icon_state = "mr_chang_sandals"
+	item_state = "mr_chang_sandals"

@@ -449,3 +449,14 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/revolver_ammo/populate_contents()
 	new /obj/item/ammo_box/a357(src)
 	new /obj/item/ammo_box/a357(src)
+
+/obj/item/storage/box/syndie_kit/mr_chang_technique
+	name = "Mr. Chang's Aggressive Marketing Technique"
+	desc = "Special delivery package that contains a set of items dedicated to maximize the income. Sell me that pen."
+	icon_state = "box_mr_chang"
+
+/obj/item/storage/box/syndie_kit/mr_chang_technique/populate_contents()
+	new /obj/item/mr_chang_technique(src)
+	new /obj/item/clothing/suit/mr_chang_coat(src)
+	new /obj/item/clothing/shoes/mr_chang_sandals(src)
+	new /obj/item/clothing/head/mr_chang_band(src)

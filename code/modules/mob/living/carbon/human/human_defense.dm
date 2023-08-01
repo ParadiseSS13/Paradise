@@ -253,9 +253,9 @@ emp_act
 			return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_block()
-	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
-		return TRUE
+/mob/living/carbon/human/proc/check_martial_art_defense(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
+	if(mind && mind.martial_art)
+		return mind.martial_art.attack_reaction(defender, attacker, I, visible_message, self_message)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
@@ -452,8 +452,7 @@ emp_act
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
 			return 0
 
-	if(check_block())
-		visible_message("<span class='warning'>[src] blocks [I]!</span>")
+	if(check_martial_art_defense(src, user, I, "<span class='warning'>[src] blocks [I]!</span>"))
 		return FALSE
 
 	if(istype(I,/obj/item/card/emag))

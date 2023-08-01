@@ -489,6 +489,22 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You hear the clattering of loose change.</span>")
 
+/obj/item/coin/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(istype(throwingdatum?.thrower?.mind?.martial_art, /datum/martial_art/mr_chang))
+		throwingdatum.thrower.say(pick("Сдачу, пожалуйста!", "За сущие копейки!", "Сдачу!", "Кэшбек в кредит!"))
+		embed_chance = 30
+		embedded_impact_pain_multiplier = 2
+		embedded_ignore_throwspeed_threshold = TRUE
+		sharp = TRUE
+	. = ..()
+
+/obj/item/stack/spacecash/after_throw(datum/callback/callback)
+	embed_chance = initial(embed_chance)
+	embedded_impact_pain_multiplier = initial(embedded_impact_pain_multiplier)
+	embedded_ignore_throwspeed_threshold = initial(embedded_ignore_throwspeed_threshold)
+	sharp = initial(sharp)
+	. = ..()
+
 #undef GIBTONITE_QUALITY_LOW
 #undef GIBTONITE_QUALITY_MEDIUM
 #undef GIBTONITE_QUALITY_HIGH

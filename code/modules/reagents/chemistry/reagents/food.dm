@@ -885,12 +885,16 @@
 
 /datum/reagent/msg/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(5))
-		if(prob(10))
-			update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
-		if(prob(7))
-			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
-			M.Stun(rand(4 SECONDS, 10 SECONDS))
+	if(istype(M.mind?.martial_art, /datum/martial_art/mr_chang))
+		update_flags |= M.adjustBruteLoss(-0.75)
+		update_flags |= M.adjustFireLoss(-0.75)
+	else
+		if(prob(5))
+			if(prob(10))
+				update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
+			if(prob(7))
+				to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
+				M.Stun(rand(4 SECONDS, 10 SECONDS))
 	return ..() | update_flags
 
 /datum/reagent/cholesterol

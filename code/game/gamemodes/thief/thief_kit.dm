@@ -319,3 +319,10 @@
 		/obj/item/storage/box/candythief,
 		)
 
+/datum/thief_kit/mr_chang
+	name = "Набор Мистера Ченга"
+	desc = "Этот набор был любезно предоставлен нам корпорацией мистера Ченга. Он содержит обширный набор средств для наиболее эффективного продвижения продукции в условиях свободного рынка."
+	item_list = list(
+		/obj/item/storage/box/syndie_kit/mr_chang_technique
+		)
+

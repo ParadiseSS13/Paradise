@@ -124,6 +124,15 @@
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
+/datum/martial_art/proc/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I, var/visible_message, var/self_message)
+	if(can_use(src) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
+		if(prob(block_chance))
+			if(visible_message || self_message)
+				defender.visible_message(visible_message, self_message)
+			else
+				defender.visible_message("<span class='warning'>[defender] blocks [I]!</span>")
+			return TRUE
+
 /datum/martial_art/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
 	var/all_objectives = user?.mind?.get_all_objectives()
 	if(target.mind && all_objectives)
@@ -350,6 +359,24 @@
 		playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
+
+/obj/item/mr_chang_technique
+	name = "«Aggressive Marketing Technique»"
+	desc = "Even a sneak peek on a cover of this magazine just made you 23 credit of clear profit! Wow!"
+	icon = 'icons/obj/library.dmi'
+	icon_state = "mr_cheng_manual"
+
+/obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user)
+		return
+	to_chat(user, "<span class='boldannounce'>You remember the basics of mr_chang_technique.</span>")
+
+	var/datum/martial_art/mr_chang/mr_chang = new(null)
+	mr_chang.teach(user)
+	user.temporarily_remove_item_from_inventory(src)
+	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
 
 /obj/item/twohanded/bostaff
 	name = "bo staff"

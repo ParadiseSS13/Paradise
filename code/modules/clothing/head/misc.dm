@@ -577,3 +577,10 @@
 	desc = "Now just to find some maracas!"
 	icon_state = "cuban_hat"
 	item_state = "cuban_hat"
+
+/obj/item/clothing/head/mr_chang_band
+	name = "Tight headband"
+	desc = "It is a safety tool, designed to prevent all marketing and selling techniques from escaping the wearers skull. Handle with care."
+	w_class = WEIGHT_CLASS_TINY
+	icon_state = "mr_chang_band"
+	item_state = "mr_chang_band"
