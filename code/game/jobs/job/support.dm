@@ -164,7 +164,8 @@
 	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
-
+	var/datum/martial_art/judo/under_siege/bouncer_delight = new
+	bouncer_delight.teach(H)
 
 
 /datum/job/chef
