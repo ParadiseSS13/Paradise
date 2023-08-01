@@ -1,8 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ae" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small,
 /obj/structure/closet/walllocker/emerglocker{
 	dir = 8;
 	pixel_x = -32
@@ -43,6 +41,7 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "cx" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcornersiding";
 	dir = 4
@@ -62,6 +61,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/rack,
+/obj/item/beach_ball/holoball,
+/obj/item/beach_ball/holoball,
+/obj/item/beach_ball/holoball,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blackcorner"
@@ -74,9 +76,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "dy" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
@@ -292,6 +292,7 @@
 /obj/structure/sign/poster/contraband/tools{
 	pixel_y = 32
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "lf" = (
@@ -301,11 +302,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "lH" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced/polarized,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
+/obj/effect/spawner/window/reinforced/polarized,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "lQ" = (
@@ -327,6 +327,13 @@
 /obj/machinery/door_control{
 	id = "cargoshipblastdoor4";
 	name = "bridge lockdown shutters"
+	},
+/obj/item/paper_bin{
+	pixel_x = -6
+	},
+/obj/item/pen/multi/fountain{
+	pixel_y = 8;
+	pixel_x = 7
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
@@ -391,7 +398,7 @@
 "nH" = (
 /obj/machinery/light/small,
 /obj/machinery/power/apc/off_station/empty_charge{
-	pixel_y = -32
+	pixel_y = -24
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
@@ -474,9 +481,6 @@
 "qr" = (
 /obj/structure/largecrate,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 20
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "qY" = (
@@ -496,9 +500,8 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/space/wreck_cargoship)
 "ru" = (
-/obj/structure/grille,
 /obj/effect/spawner/window/plastitanium,
-/turf,
+/turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "rA" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
@@ -568,7 +571,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "uV" = (
-/obj/structure/closet/crate,
+/obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4
@@ -609,6 +612,15 @@
 	dir = 4
 	},
 /area/ruin/space/wreck_cargoship)
+"yG" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/retaliate/poison/snake{
+	name = "Rattlesnake Hardie";
+	desc = "A relatively menacing looking snake. Despite their intimidating look, they have cute collar attached to their neck. You can't help but think that name sounds familiar from somewhere."
+	},
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
 "zm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
@@ -644,7 +656,10 @@
 /area/ruin/space/wreck_cargoship)
 "AP" = (
 /obj/structure/rack,
-/obj/item/stock_parts/cell/high/empty,
+/obj/structure/sign/poster/contraband/smoke{
+	pixel_x = -32
+	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -668,10 +683,10 @@
 "Bx" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /obj/structure/rack,
-/obj/item/toy/plushie/shark,
 /obj/structure/sign/cargo{
 	pixel_x = -32
 	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4
@@ -747,6 +762,7 @@
 /area/ruin/space/wreck_cargoship)
 "Fk" = (
 /obj/structure/closet/crate,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -782,6 +798,7 @@
 /obj/structure/railing{
 	dir = 9
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "Ih" = (
@@ -850,6 +867,7 @@
 /area/ruin/space/wreck_cargoship)
 "KJ" = (
 /obj/structure/table,
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -872,6 +890,9 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "Lt" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -978,17 +999,18 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "PB" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "cargoshipblastdoor4"
 	},
+/obj/effect/spawner/window/reinforced,
 /turf,
 /area/ruin/space/wreck_cargoship)
 "QH" = (
 /obj/structure/rack,
-/obj/item/storage/toolbox/mechanical,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 20
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "QY" = (
@@ -1013,6 +1035,10 @@
 "Se" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/landmark/damageturf,
+/obj/machinery/button/windowtint{
+	pixel_y = -32
+	},
+/obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blackcorner"
@@ -1160,6 +1186,10 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
 	},
+/turf/template_noop,
+/area/template_noop)
+"VZ" = (
+/obj/structure/girder/displaced,
 /turf/template_noop,
 /area/template_noop)
 "Wj" = (
@@ -1755,7 +1785,7 @@ ea
 DY
 ea
 DY
-ea
+VZ
 DY
 pv
 BA
@@ -1796,7 +1826,7 @@ ea
 ea
 ea
 ea
-ea
+VZ
 ea
 ea
 gE
@@ -1843,7 +1873,7 @@ ea
 ru
 Vc
 ME
-ET
+yG
 un
 mm
 dQ
