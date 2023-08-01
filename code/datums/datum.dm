@@ -6,7 +6,6 @@
 	var/list/status_traits
 	var/list/comp_lookup
 	var/list/list/datum/callback/signal_procs
-	var/signal_enabled = FALSE
 	var/var_edited = FALSE //Warranty void if seal is broken
 	var/tmp/unique_datum_id = null
 
@@ -34,8 +33,6 @@
 		qdel(timer)
 
 	//BEGIN: ECS SHIT
-	signal_enabled = FALSE
-
 	var/list/dc = datum_components
 	if(dc)
 		var/all_components = dc[/datum/component]
