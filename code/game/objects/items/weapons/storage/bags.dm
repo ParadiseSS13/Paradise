@@ -472,6 +472,61 @@
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
 
 /*
+ *	Antag Tray
+ */
+/obj/item/storage/bag/dangertray
+	name = "tray"
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "dangertray"
+	desc = "A metal tray to lay food on. The edges are razor sharp"
+	force = 25
+	throwforce = 25.0
+	throw_speed = 3
+	throw_range = 7
+	armour_penetration = 15
+	sharp = TRUE
+	w_class = WEIGHT_CLASS_NORMAL
+	flags = CONDUCT
+	materials = list(MAT_METAL=3000)
+
+/obj/item/storage/bag/dangertray/attack(mob/living/M, mob/living/user)
+	..()
+	// Drop all the things. All of them.
+	var/list/obj/item/oldContents = contents.Copy()
+	drop_inventory(user)
+
+	// Make each item scatter a bit
+	for(var/obj/item/I in oldContents)
+		spawn()
+			for(var/i = 1, i <= rand(1,2), i++)
+				if(I)
+					step(I, pick(NORTH,SOUTH,EAST,WEST))
+					sleep(rand(2,4))
+
+	if(prob(50))
+		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
+	else
+		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
+
+	if(ishuman(M))
+		if(prob(10))
+			M.Weaken(4 SECONDS)
+
+
+/obj/item/storage/bag/dangertray/proc/rebuild_overlays()
+	overlays.Cut()
+	for(var/obj/item/I in contents)
+		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+
+/obj/item/storage/bag/dangertray/remove_from_storage(obj/item/W, atom/new_location)
+	..()
+	rebuild_overlays()
+
+/obj/item/storage/bag/dangertray/handle_item_insertion(obj/item/I, prevent_warning = 0)
+	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+	..()
+
+/*
  *	Chemistry bag
  */
 

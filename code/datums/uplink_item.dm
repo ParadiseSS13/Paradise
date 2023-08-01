@@ -266,6 +266,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Chef")
 	surplus = 0 //because it's useless for all non-chefs
 
+/datum/uplink_item/jobspecific/dangertray
+	name = "Dangerous Tray pack"
+	desc = "Contains a set of three sharp metal trays capable of cutting off limbs. "
+	reference = "DT"
+	item = /obj/item/storage/box/syndie_kit/dangertray
+	cost = 3
+	job = list("Chef")
+
 //Chaplain
 /datum/uplink_item/jobspecific/voodoo
 	name = "Voodoo Doll"

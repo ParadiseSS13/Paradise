@@ -450,6 +450,17 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/a357(src)
 	new /obj/item/ammo_box/a357(src)
 
+/obj/item/storage/box/syndie_kit/dangertray
+	name = "Danger Tray pack"
+	desc = "Normal size box with compartments for trays."
+	can_hold = list(/obj/item/storage/bag/dangertray)
+	max_combined_w_class = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/syndie_kit/dangertray/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/storage/bag/dangertray(src)
+
 /obj/item/storage/box/syndie_kit/mr_chang_technique
 	name = "Mr. Chang's Aggressive Marketing Technique"
 	desc = "Special delivery package that contains a set of items dedicated to maximize the income. Sell me that pen."
