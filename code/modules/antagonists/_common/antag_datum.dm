@@ -337,31 +337,29 @@ GLOBAL_LIST_EMPTY(antagonists)
 		found_valid_target = TRUE
 
 	else
-		var/loops = 10
-		// Steal objectives need snowflake handling here unfortunately.
 		if(istype(new_objective, /datum/objective/steal))
-			var/datum/objective/steal/steal_objective = new_objective
-			while(loops--)
-				steal_objective.find_target()
-				if(steal_objective.steal_target && !("[steal_objective.steal_target.name]" in assigned_targets))
-					found_valid_target = TRUE
-					break
+			var/datum/objective/steal/our_objective = new_objective
+			var/list/steal_targets = list()
+			for(var/datum/objective/steal/steal_objective in owner.get_all_objectives())
+				steal_targets |= steal_objective.steal_target
+			our_objective.find_target(target_blacklist = steal_targets)
+
+			if(our_objective.steal_target)
+				found_valid_target = TRUE
 
 		else
-			while(loops--)
-				new_objective.find_target()
-				if(new_objective.target && !("[new_objective.target]" in assigned_targets))
-					found_valid_target = TRUE
-					break
+			var/list/general_targets = list()
+			for(var/datum/objective/general_objective in owner.get_all_objectives())
+				if(istype(general_objective, /datum/objective/steal))
+					continue
 
-	if(found_valid_target)
-		// This is its own seperate section in case someone passes a `target_override`.
-		if(istype(new_objective, /datum/objective/steal))
-			var/datum/objective/steal/steal_objective = new_objective
-			assigned_targets |= "[steal_objective.steal_target.name]"
-		else
-			assigned_targets |= "[new_objective.target]"
-	else
+				general_targets |= general_objective.target
+
+			new_objective.find_target(target_blacklist = general_targets)
+			if(new_objective.target)
+				found_valid_target = TRUE
+
+	if(!found_valid_target)
 		new_objective.explanation_text = "Yeah. Do whatever..."
 		new_objective.target = null
 

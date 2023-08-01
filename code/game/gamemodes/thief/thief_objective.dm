@@ -25,7 +25,7 @@
 		/obj/machinery/nuclearbomb,
 	)
 
-/datum/objective/steal_structure/find_target()
+/datum/objective/steal_structure/find_target(list/target_blacklist)
 	var/list/valid_targets_list = possible_targets_list.Copy()
 
 	while(!wanted_type)
@@ -119,7 +119,7 @@
 
 	)
 
-/datum/objective/steal_pet/find_target()
+/datum/objective/steal_pet/find_target(list/target_blacklist)
 	var/list/valid_targets_list = possible_targets_list.Copy()
 
 	while(!wanted_type)
@@ -212,7 +212,7 @@
 	var/datum/theft_objective/collect/collect_objective
 	explanation_text = "Собрать: "
 
-/datum/objective/collect/find_target()
+/datum/objective/collect/find_target(list/target_blacklist)
 	var/list/valid_objectives_list = list()
 	for(var/theft_type in get_theft_list_objectives(type_theft_flag))
 		for(var/datum/objective/collect/objective in owner.objectives)

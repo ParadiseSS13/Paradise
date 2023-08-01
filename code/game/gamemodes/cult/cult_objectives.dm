@@ -130,7 +130,7 @@
 /datum/objective/sacrifice/check_completion()
 	return sacced || completed
 
-/datum/objective/sacrifice/find_target()
+/datum/objective/sacrifice/find_target(list/target_blacklist)
 	var/list/target_candidates = list()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level

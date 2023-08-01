@@ -221,7 +221,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	martyr_compatible = TRUE
 
 
-/datum/objective/mutiny/find_target()
+/datum/objective/mutiny/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
 		explanation_text = "Exile or assassinate [target.current.real_name], the [target.assigned_role]."
@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	martyr_compatible = TRUE
 
 
-/datum/objective/maroon/find_target()
+/datum/objective/maroon/find_target(list/target_blacklist)
 	..()
 	if(target?.current)
 		explanation_text = "Prevent from escaping alive or free [target.current.real_name], the [target.assigned_role]."
@@ -311,7 +311,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return TARGET_INVALID_CHANGELING
 
 
-/datum/objective/debrain/find_target()
+/datum/objective/debrain/find_target(list/target_blacklist)
 	..()
 	if(target?.current)
 		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
@@ -346,7 +346,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	martyr_compatible = TRUE
 
 
-/datum/objective/protect/find_target()
+/datum/objective/protect/find_target(list/target_blacklist)
 	var/list/datum/mind/temp_victims = SSticker.mode.victims.Copy()
 	for(var/datum/objective/objective in owner.get_all_objectives())
 		temp_victims.Remove(objective.target)
@@ -523,20 +523,20 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = null
 	/// Stored because the target's `[mob/var/real_name]` can change over the course of the round.
 	var/target_real_name
-	/// If the objective has an assassinate objective tied to it.
-	var/has_assassinate_objective = FALSE
+	/// If the objective has an special objective tied to it.
+	var/has_special_objective = FALSE
 
 
-/datum/objective/escape/escape_with_identity/New(text, datum/team/team_to_join, datum/objective/assassinate/assassinate)
+/datum/objective/escape/escape_with_identity/New(text, datum/team/team_to_join, datum/objective/special_objective)
 	..()
-	if(!assassinate)
+	if(!special_objective)
 		return
-	target = assassinate.target
-	target_real_name = assassinate.target.current.real_name
+	target = special_objective.target
+	target_real_name = special_objective.target.current.real_name
 	explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
-	has_assassinate_objective = TRUE
-	RegisterSignal(assassinate, COMSIG_OBJECTIVE_TARGET_FOUND, PROC_REF(assassinate_found_target))
-	RegisterSignal(assassinate, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, PROC_REF(assassinate_checking_target))
+	has_special_objective = TRUE
+	RegisterSignal(special_objective, COMSIG_OBJECTIVE_TARGET_FOUND, PROC_REF(special_objective_found_target))
+	RegisterSignal(special_objective, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, PROC_REF(special_objective_checking_target))
 
 
 /datum/objective/escape/escape_with_identity/is_invalid_target(datum/mind/possible_target)
@@ -555,33 +555,33 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		explanation_text = "Free Objective"
 
 
-/datum/objective/escape/escape_with_identity/proc/assassinate_checking_target(datum/source, datum/mind/possible_target)
+/datum/objective/escape/escape_with_identity/proc/special_objective_checking_target(datum/source, datum/mind/possible_target)
 	SIGNAL_HANDLER
 	if(!possible_target.current.client || has_no_DNA(possible_target.current))
-		// Stop our linked assassinate objective from choosing a clientless/geneless target.
+		// Stop our linked special objective from choosing a clientless/geneless target.
 		return OBJECTIVE_INVALID_TARGET
 	return OBJECTIVE_VALID_TARGET
 
 
-/datum/objective/escape/escape_with_identity/proc/assassinate_found_target(datum/source, datum/mind/new_target)
+/datum/objective/escape/escape_with_identity/proc/special_objective_found_target(datum/source, datum/mind/new_target)
 	SIGNAL_HANDLER
 	if(new_target)
 		target_real_name = new_target.current.real_name
 		return
-	// The assassinate objective was unable to find a new target after the old one cryo'd as was qdel'd. We're on our own.
+	// The special objective was unable to find a new target after the old one cryo'd as was qdel'd. We're on our own.
 	find_target()
-	has_assassinate_objective = FALSE
+	has_special_objective = FALSE
 
 
 /datum/objective/escape/escape_with_identity/on_target_cryo()
-	if(has_assassinate_objective)
-		return // Our assassinate objective will handle this.
+	if(has_special_objective)
+		return // Our special objective will handle this.
 	..()
 
 
 /datum/objective/escape/escape_with_identity/post_target_cryo()
-	if(has_assassinate_objective)
-		return // Our assassinate objective will handle this.
+	if(has_special_objective)
+		return // Our special objective will handle this.
 	..()
 
 
@@ -671,7 +671,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return "неизвестной зоне"
 
 
-/datum/objective/steal/find_target()
+/datum/objective/steal/find_target(list/target_blacklist)
 	var/list/temp = get_theft_list_objectives(type_theft_flag)
 	var/list/theft_types = temp.Copy()
 	while(!steal_target && length(theft_types))
@@ -691,6 +691,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			continue
 
 		if((owner.assigned_role in new_theft_objective.protected_jobs))
+			continue
+
+		if(new_theft_objective in target_blacklist)
 			continue
 
 		steal_target = new_theft_objective
@@ -869,7 +872,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/target_real_name
 
 
-/datum/objective/destroy/find_target()
+/datum/objective/destroy/find_target(list/target_blacklist)
 	var/list/possible_targets = active_ais(1)
 	var/mob/living/silicon/ai/target_ai = pick(possible_targets)
 	target = target_ai.mind
@@ -1311,7 +1314,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			qdel(killer_objective)
 	. = ..()
 
-/datum/objective/protect/ninja/find_target()
+/datum/objective/protect/ninja/find_target(list/target_blacklist)
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target))
@@ -1418,7 +1421,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/set_up
 	martyr_compatible = TRUE
 
-/datum/objective/set_up/find_target()
+/datum/objective/set_up/find_target(list/target_blacklist)
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target))
@@ -1487,7 +1490,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/find_and_scan/on_target_cryo()
 	return
 
-/datum/objective/find_and_scan/find_target()
+/datum/objective/find_and_scan/find_target(list/target_blacklist)
 	var/list/roles = list("Clown", "Mime", "Cargo Technician",
 	"Shaft Miner", "Scientist", "Roboticist",
 	"Medical Doctor", "Geneticist", "Security Officer",
@@ -1529,7 +1532,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	martyr_compatible = TRUE
 	var/req_kills
 
-/datum/objective/vermit_hunt/find_target()
+/datum/objective/vermit_hunt/find_target(list/target_blacklist)
 	generate_changelings()
 	req_kills = max(1, round(length(SSticker.mode.changelings)/2))
 	explanation_text = "На объекте вашей миссии действуют паразиты так же известные как \"Генокрады\" истребите хотя бы [req_kills] из них."

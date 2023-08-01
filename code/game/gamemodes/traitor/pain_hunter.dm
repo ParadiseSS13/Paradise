@@ -31,7 +31,7 @@
 		SSticker.mode.victims.Remove(target)
 	. = ..()
 
-/datum/objective/pain_hunter/find_target()
+/datum/objective/pain_hunter/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
 		update_find_objective()
