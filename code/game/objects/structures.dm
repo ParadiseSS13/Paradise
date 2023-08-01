@@ -73,14 +73,14 @@
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
-	if(climber.mind.assigned_role != "Bartender")
-		usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
-		if(!do_after(user, 50, target = src))
+	if(climber.mind.assigned_role == "Bartender" || climber.mind.assigned_role == "Chef")
+		usr.visible_message("<span class='warning'>[user] gets ready to vault up onto \the [src]!</span>")
+		if(!do_after(user, 5, target = src))
 			climber = null
 			return FALSE
 	else
-		usr.visible_message("<span class='warning'>[user] jumps up onto \the [src]!</span>")
-		if(!do_after(user, 5, target = src))
+		usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+		if(!do_after(user, 50, target = src))
 			climber = null
 			return FALSE
 
