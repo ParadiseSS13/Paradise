@@ -693,7 +693,7 @@
 	// todo modify defines
 
 
-/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, angle)
+/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, should_rotate = TRUE, angle)
 	if(QDELETED(src) || isnull(target_turf))
 		return
 
@@ -748,19 +748,19 @@
 			"<span class='warning'>You hear a loud crunch!</span>"
 		)
 
-	tilt_over(target_turf, angle)
+	tilt_over(target_turf, pick(90, 270), should_rotate)
 	// for things like teleporters apparently
 	Move(target_turf, get_dir(get_turf(src), target_turf))
 
 	return TRUE
 
 
-/atom/movable/proc/tilt_over(turf/target, angle)
+/atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate)
 	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
-	if(angle)
+	if(should_rotate)
 		var/matrix/M = matrix()
-		M.Turn(isnull(angle) ? pick(90, 270) : angle)
+		M.Turn(isnull(rotation_angle) ? pick(90, 270) : rotation_angle)
 		transform = M
 	if(target && target != get_turf(src))
 		throw_at(target, 1, 1, spin = FALSE)
