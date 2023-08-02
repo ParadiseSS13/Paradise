@@ -257,7 +257,7 @@
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
 
-	if (is_station_level(z))
+	if(is_station_level(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, PROC_REF(on_security_level_change_planned))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
@@ -280,10 +280,10 @@
 /obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
 
-	if (status != LIGHT_OK)
+	if(status != LIGHT_OK)
 		return
 
-	if (new_level_number == SEC_LEVEL_EPSILON)
+	if(new_level_number == SEC_LEVEL_EPSILON)
 		fire_mode = FALSE
 		emergency_mode = TRUE
 		on = FALSE
@@ -292,10 +292,10 @@
 /obj/machinery/light/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
 
-	if (status != LIGHT_OK)
+	if(status != LIGHT_OK)
 		return
 
-	if (new_level_number >= SEC_LEVEL_EPSILON)
+	if(new_level_number >= SEC_LEVEL_EPSILON)
 		fire_mode = TRUE
 		emergency_mode = TRUE
 		on = FALSE

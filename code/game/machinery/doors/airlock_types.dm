@@ -409,13 +409,13 @@
 
 /obj/machinery/door/airlock/highsecurity/red/Initialize(mapload)
 	. = ..()
-	if (is_station_level(z))
+	if(is_station_level(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
 /obj/machinery/door/airlock/highsecurity/red/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
 
-	if (new_level_number >= SEC_LEVEL_RED)
+	if(new_level_number >= SEC_LEVEL_RED)
 		unlock(TRUE)
 	else
 		lock(TRUE)

@@ -51,7 +51,7 @@ FIRE ALARM
 /obj/machinery/firealarm/Initialize(mapload)
 	. = ..()
 
-	if (is_station_contact(z))
+	if(is_station_contact(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
 	name = "fire alarm"

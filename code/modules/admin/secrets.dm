@@ -66,7 +66,7 @@
 				var/security_levels_data = ""
 				for (var/level_name in SSsecurity_level.available_levels)
 					var/datum/security_level/this_level = SSsecurity_level.available_levels[level_name]
-					security_levels_data += "<A href='?src=[UID()];secretsfun=securitylevel;number=[this_level.number_level]'>[this_level.name]</A>"
+					security_levels_data += "<a href='?src=[UID()];secretsfun=securitylevel;number=[this_level.number_level]'>[this_level.name]</a>"
 
 				dat += {"
 					<center>

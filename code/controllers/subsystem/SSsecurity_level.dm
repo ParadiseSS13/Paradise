@@ -37,13 +37,13 @@ SUBSYSTEM_DEF(security_level)
 	if(!selected_level)
 		CRASH("set_level was called with an invalid security level([new_level_name])")
 
-	if (security_level_set_timer_id)
+	if(security_level_set_timer_id)
 		deltimer(security_level_set_timer_id)
 		security_level_set_timer_id = null
 
 	pre_set_level(selected_level)
 
-	if (selected_level.set_delay)
+	if(selected_level.set_delay)
 		SEND_SIGNAL(src, COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, current_security_level.number_level, selected_level.number_level)
 		security_level_set_timer_id = addtimer(CALLBACK(src, PROC_REF(do_set_level), selected_level), selected_level.set_delay, TIMER_UNIQUE | TIMER_STOPPABLE)
 	else

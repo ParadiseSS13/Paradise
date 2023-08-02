@@ -521,11 +521,6 @@
 #define COMSIG_CAMERA_OFF "camera_off"
 #define COMSIG_CAMERA_MOVED "camera_moved"
 
-// /obj/machinery/power/apc signals
-
-///from base of  /obj/machinery/power/apc/set_emergency_lights(): (updated_to)
-#define COMSIG_APC_UPDATE_EMERGENCY_LIGHTS "apc_update_emergency_lights"
-
 // /obj/item signals
 
 ///from base of obj/item/attack(): (/mob/living/target, /mob/living/user)
