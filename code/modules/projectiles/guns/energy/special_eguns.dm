@@ -895,7 +895,7 @@
 	icon_state = "magspear"
 
 /obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
-	if((blocked != 100) && ishuman(target))
+	if((blocked < 100) && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.bleed(50)
 	..()
