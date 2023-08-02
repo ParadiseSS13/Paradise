@@ -149,6 +149,16 @@
 			continue // These are not valid objectives to add.
 		GLOB.admin_objective_list[initial(O.name)] = path
 
+	// Setup all chem reactions
+	for(var/reaction_type in subtypesof(/datum/chemical_reaction))
+		var/datum/chemical_reaction/CR = new reaction_type
+		// Skip slime extract chemicals
+		if(CR.required_container)
+			continue
+		// If we ever get a chem with multiple reactions to form it
+		// just take the last one. it's pretty much just kahluaVodka atm
+		GLOB.all_chemical_reactions[CR.result] = CR
+
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 

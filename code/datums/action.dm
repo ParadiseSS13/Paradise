@@ -435,6 +435,10 @@
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
 		current_button.overlays += img
 
+/datum/action/item_action/toggle_medchem_recipes
+	name = "Medical Chemistry Recipes"
+	desc = "This menu contains the recipes and effects of various healing medicals."
+
 /datum/action/item_action/instrument
 	name = "Use Instrument"
 	desc = "Use the instrument specified"

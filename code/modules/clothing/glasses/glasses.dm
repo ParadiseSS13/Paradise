@@ -160,6 +160,76 @@
 	prescription_upgradable = FALSE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
+// Has an action button when equipped that shows information about healing chemicals and how to create them
+/obj/item/clothing/glasses/medchem
+	name = "medical chemistry goggles"
+	desc = "A pair of goggles detecting and analyzing reagents. With an inbuilt holoprojector, they are able to display information about various healing chemicals."
+	icon_state = "purple"	// todo
+	item_state = "glasses"	// todo2
+	origin_tech = "biotech=4;materials=4"
+	prescription_upgradable = TRUE
+	scan_reagents = TRUE
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi')
+	actions_types = list(/datum/action/item_action/toggle_medchem_recipes)
+
+	/// The list of reagents that it should show information about, use /datum/reagent's "id" here
+	var/list/medical_reagents = list("antihol", "atropine", "calomel", "charcoal", "cryoxadone", "degreaser", "epinephrine", "haloperidol", "heparin", "hydrocodone", "lazarus_reagent", "liquid_solder", "mannitol", "mitocholide", "mutadone", "oculine", "pen_acid", "perfluorodecalin", "potass_iodide", "rezadone", "salbutamol", "salglu_solution",  "sal_acid", "sanguine_reagent", "silver_sulfadiazine", "spaceacillin", "styptic_powder", "synthflesh",  "teporone")
+	/// The list of components with which we create chemicals in medical_reagents, use /datum/reagent's "id" here
+	var/list/component_reagents = list("acetone", "ammonia", "cryostylane", "cyanide", "diethylamine", "formaldehyde", "oil", "phenol", "sodiumchloride", "sacid", "sterilizine", "mutagen")
+
+// Only grant us the action when the goggles are actually equipped
+/obj/item/clothing/glasses/medchem/item_action_slot_check(slot)
+	if(slot == slot_glasses)
+		return TRUE
+
+// UI starts here
+/obj/item/clothing/glasses/medchem/ui_action_click(mob/user)
+	ui_interact(user)
+
+/obj/item/clothing/glasses/medchem/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "MedicalChemistryRecipes", name, 500, 570, master_ui, state)
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/obj/item/clothing/glasses/medchem/ui_data(mob/user)
+	var/list/data = list()
+	data["reagents"] = generate_chem_lists(medical_reagents)
+	data["components"] = generate_chem_lists(component_reagents)
+	return data
+
+/obj/item/clothing/glasses/medchem/ui_static_data(mob/user)
+	var/list/data = list()
+	data["reagents"] = generate_chem_lists(medical_reagents)
+	data["components"] = generate_chem_lists(component_reagents)
+	return data
+
+// We generate the data for tgui here
+/obj/item/clothing/glasses/medchem/proc/generate_chem_lists(chem_type_list)
+	var/list/reagent_list = list()
+	for(var/reagent in chem_type_list)
+		// The reagent's name, description, metabolization rate and overdose threshold
+		var/datum/reagent/chosen_reagent = GLOB.chemical_reagents_list[reagent]
+		// The reagent's required ingredients and temperature
+		var/datum/chemical_reaction/chosen_creation = GLOB.all_chemical_reactions[reagent]
+		if(chosen_reagent && chosen_creation)
+			reagent_list.Add(list(list("name" = chosen_reagent.name, "description" = chosen_reagent.description, "metabolization" = chosen_reagent.metabolization_rate, "overdose" = chosen_reagent.overdose_threshold, "creation_ingredients" = chosen_creation.required_reagents, "creation_temperature" = chosen_creation.min_temp)))
+		else
+			// Something went wrong like a typo while declaring the reagent, log it
+			log_debug("Found a faulty reagent [reagent] while generating a list for [src].")
+	return reagent_list
+
+/obj/item/clothing/glasses/medchem/ui_act(action, list/params)
+	if(..())
+		return
+	// todo anything else here??
+
 /obj/item/clothing/glasses/janitor
 	name = "janitorial goggles"
 	desc = "These'll keep the soap out of your eyes."
