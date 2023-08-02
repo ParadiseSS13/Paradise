@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(security_level)
 	name = "Security Level"
 	can_fire = FALSE // We will control when we fire in this subsystem
 	/// Timer id of delayed security level set
-	var/security_level_set_timer_ids
+	var/security_level_set_timer_id
 	/// Currently set security level
 	var/datum/security_level/current_security_level
 	/// A list of initialised security level datums
