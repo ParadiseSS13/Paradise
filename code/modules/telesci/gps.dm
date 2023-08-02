@@ -27,8 +27,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	var/emped = FALSE
 	/// Turf reference. If set, it will appear in the UI. Used by [/obj/machinery/computer/telescience].
 	var/turf/locked_location
-	/// What state the GPS uses for tgui. Set to deep for the modsuit gps.
-	var/tgui_state = "inventory_state"
 
 /obj/item/gps/Initialize(mapload)
 	. = ..()
@@ -56,7 +54,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
 /obj/item/gps/AltClick(mob/user)
-	if(ui_status(user, GLOB[tgui_state]))
+	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
 		return //user not valid to use gps
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
@@ -114,10 +112,10 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB[tgui_state])
+/obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "GPS", "GPS", 450, 700, master_ui, state)
+		ui = new(user, src, ui_key, "GPS", "GPS", 450, 700)
 		ui.open()
 
 /obj/item/gps/ui_act(action, list/params)
@@ -138,6 +136,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			return FALSE
 		if("same_z")
 			same_z = !same_z
+		else
+			return FALSE
 
 /**
   * Turns off the GPS's EMPed state. Called automatically after an EMP.
@@ -168,8 +168,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/mod
 	icon_state = "gps-m"
 	gpstag = "MOD0"
-	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
-	tgui_state = "deep_inventory_state"
+	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."	
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
