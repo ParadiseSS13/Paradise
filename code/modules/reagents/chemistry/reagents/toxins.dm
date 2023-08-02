@@ -52,7 +52,8 @@
 	var/mob/living/carbon/C = M
 	if(iscarbon(C) && C.mind?.has_antag_datum(/datum/antagonist/vampire))
 		M.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, M.nutrition + 10))
-		M.blood_volume = min(M.blood_volume + REAGENTS_METABOLISM, BLOOD_VOLUME_NORMAL)
+		if(M.get_blood_id() != id)
+			M.blood_volume = min(M.blood_volume + REAGENTS_METABOLISM, BLOOD_VOLUME_NORMAL)
 		return ..() | update_flags
 
 	if(M.get_blood_id() != id)
