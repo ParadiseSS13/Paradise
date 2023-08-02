@@ -178,7 +178,7 @@
 	actions_types = list(/datum/action/item_action/toggle_medchem_recipes)
 
 	/// The list of reagents that it should show information about, use /datum/reagent's "id" here
-	var/list/medical_reagents = list("antihol", "atropine", "calomel", "charcoal", "cryoxadone", "degreaser", "epinephrine", "haloperidol", "heparin", "hydrocodone", "lazarus_reagent", "liquid_solder", "mannitol", "mitocholide", "mutadone", "oculine", "pen_acid", "perfluorodecalin", "potass_iodide", "rezadone", "salbutamol", "salglu_solution",  "sal_acid", "sanguine_reagent", "silver_sulfadiazine", "spaceacillin", "styptic_powder", "synthflesh",  "teporone")
+	var/list/medical_reagents = list("antihol", "atropine", "calomel", "charcoal", "cryoxadone", "degreaser", "diphenhydramine", "ephedrine", "epinephrine", "haloperidol", "heparin", "hydrocodone", "lazarus_reagent", "liquid_solder", "mannitol", "mitocholide", "mutadone", "oculine", "pen_acid", "perfluorodecalin", "potass_iodide", "rezadone", "salbutamol", "salglu_solution",  "sal_acid", "sanguine_reagent", "silver_sulfadiazine", "spaceacillin", "styptic_powder", "synthflesh",  "teporone")
 	/// The list of components with which we create chemicals in medical_reagents, use /datum/reagent's "id" here
 	var/list/component_reagents = list("acetone", "ammonia", "cryostylane", "cyanide", "diethylamine", "formaldehyde", "oil", "phenol", "sodiumchloride", "sacid", "sterilizine", "mutagen")
 
