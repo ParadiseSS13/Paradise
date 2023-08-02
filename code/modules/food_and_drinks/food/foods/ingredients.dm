@@ -166,10 +166,13 @@
 
 /obj/item/reagent_containers/food/snacks/doughslice/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/rawcutlet))
-		new /obj/item/reagent_containers/food/snacks/pelmeni(src)
-		to_chat(user, "You make some pelmeni.")
-		qdel(src)
-		qdel(I)
+		if(isturf(loc))
+			new /obj/item/reagent_containers/food/snacks/pelmeni(loc)
+			to_chat(user, span_notice("You make some pelmeni."))
+			qdel(src)
+			qdel(I)
+		else
+			to_chat(user, span_notice("You need to put [src] on a surface."))
 	else
 		..()
 
