@@ -6,12 +6,11 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 SUBSYSTEM_DEF(security_level)
 	name = "Security Level"
 	can_fire = FALSE // We will control when we fire in this subsystem
-	init_order = INIT_ORDER_SECURITY_LEVEL
+	/// Timer id of delayed security level set
+	var/security_level_set_timer_ids
 	/// Currently set security level
 	var/datum/security_level/current_security_level
-	/// Timer id of planned security level set
-	var/security_level_set_timer_id
-	/// A list of initialised security level datums.
+	/// A list of initialised security level datums
 	var/list/available_levels = list()
 
 /datum/controller/subsystem/security_level/Initialize()
@@ -23,7 +22,7 @@ SUBSYSTEM_DEF(security_level)
 /**
  * Sets a new security level as our current level
  *
- * This is how everything should change the security level.
+ * This is how everything should change the security level
  *
  * Arguments:
  * * new_level - The new security level that will become our current level, could be number or name of security level
@@ -63,6 +62,7 @@ SUBSYSTEM_DEF(security_level)
 
 /**
  * Actually sets the security level after the announcement
+ *
  * Sends `COMSIG_SECURITY_LEVEL_CHANGED` in the end
  *
  * Arguments:
