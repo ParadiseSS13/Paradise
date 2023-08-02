@@ -74,6 +74,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SENTIENT, 										// Sentient animal
 	ROLE_SHADOWLING = /datum/game_mode/shadowling, 		// Shadowling
 	ROLE_DEMON, 										// Slaguther demon
+	ROLE_SPACE_DRAGON,									// Space dragon
 	ROLE_NINJA, 										// Space ninja
 	ROLE_TERROR_SPIDER,									// Terror Spider
 	ROLE_THIEF = /datum/game_mode/thief,				// Thief
@@ -84,7 +85,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_RAIDER = /datum/game_mode/heist, 				// Vox raider
 	ROLE_ALIEN, 										// Xenomorph
 	ROLE_WIZARD = /datum/game_mode/wizard, 				// Wizard
-	ROLE_SPACE_DRAGON,
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
