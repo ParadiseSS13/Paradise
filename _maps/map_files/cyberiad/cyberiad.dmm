@@ -55798,7 +55798,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 1;
 	id = "Cell 1";
 	name = "Cell 1";
@@ -63708,7 +63708,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "eSm" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 1;
 	id = "Cell 3";
 	name = "Cell 3";
@@ -67405,7 +67405,7 @@
 /area/security/permabrig)
 "gXR" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 2;
 	id = "Cell 4";
 	name = "Cell 4";
@@ -85678,7 +85678,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 2;
 	id = "Cell 2";
 	name = "Cell 2";
@@ -92400,7 +92400,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	id = "Cell 5";
 	name = "Cell 5";
 	req_access_txt = "2";
