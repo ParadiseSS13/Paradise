@@ -51,7 +51,7 @@
 /datum/action/changeling/linglink/sting_action(mob/user)
 	var/obj/item/grab/grab = user.get_active_hand()
 	var/mob/living/carbon/human/target = grab.affecting
-	cling.is_absorbing = TRUE
+	cling.is_linking = TRUE
 
 	for(var/stage in 1 to 3)
 		switch(stage)

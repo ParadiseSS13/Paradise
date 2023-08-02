@@ -480,10 +480,10 @@
 /obj/item/stack/proc/merge_without_del(obj/item/stack/target_stack, limit)
 	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
 	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
-	//if(QDELETED(target_stack))
-	//	CRASH("Stack merge attempted on qdeleted target stack.")
-	//if(QDELETED(src))	// omitted until I find a way
-	//	CRASH("Stack merge attempted on qdeleted source stack.")
+	if(!target_stack)
+		CRASH("Stack merge attempted on qdeleted target stack.")
+	if(!src)
+		CRASH("Stack merge attempted on qdeleted source stack.")
 	if(target_stack == src)
 		CRASH("Stack attempted to merge into itself.")
 
