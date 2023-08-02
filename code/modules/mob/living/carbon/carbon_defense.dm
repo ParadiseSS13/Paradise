@@ -9,9 +9,6 @@
 				if(get_inactive_hand())
 					return FALSE
 			throw_mode_off()
-			if(isalien(src))
-				AM.attack_alien(src)
-				return FALSE
 			put_in_active_hand(AM)
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
 			SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
