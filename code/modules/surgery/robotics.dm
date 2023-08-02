@@ -319,7 +319,7 @@
 			to_chat(user, "<span class='notice'> \The [I] is in no state to be transplanted.</span>")
 			return -1
 
-		if(target.get_int_organ(I))
+		if(target.get_int_organ(I) && !affected)
 			to_chat(user, "<span class='warning'> \The [target] already has [I].</span>")
 			return -1
 
