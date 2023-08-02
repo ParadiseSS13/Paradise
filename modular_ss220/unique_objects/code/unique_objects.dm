@@ -136,7 +136,7 @@
 			if(M.type == /obj/item/stack/sheet/mineral/gold)
 				construct(M, user, /obj/structure/toilet/material/king/nt, need_amount)
 		if(/obj/structure/toilet/material/bluespace)
-			if(M.type == /obj/structure/toilet/material/bluespace)
+			if(M.type == /obj/item/stack/ore/bluespace_crystal/refined)
 				construct(M, user, /obj/structure/toilet/material/bluespace/nt, need_amount)
 		else
 			to_chat(user, "<span class='warning'>Неподходящая цель для гравировки.</span>")
