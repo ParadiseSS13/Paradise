@@ -122,7 +122,7 @@
 	heart_rate_decrease = 1
 	taste_description = "a safe refuge"
 
-/datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE)
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
 			data = "Ingested"
