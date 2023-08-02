@@ -536,18 +536,19 @@ GLOBAL_VAR(bomb_set)
 /// round-end cinematic to play.
 /obj/machinery/nuclearbomb/proc/get_nuke_site()
 	var/turf/bomb_turf = get_turf(src)
-	if(bomb_turf)
-		if(!is_station_level(bomb_turf.z))
-			return NUKE_SITE_OFF_STATION_ZLEVEL
+	if(!bomb_turf)
+		return NUKE_SITE_INVALID
 
-		var/area/bomb_area = get_area(src)
-		for(var/A in SSmapping.existing_station_areas)
-			if(istype(bomb_area, A))
-				return NUKE_SITE_ON_STATION
+	if(!is_station_level(bomb_turf.z))
+		return NUKE_SITE_OFF_STATION_ZLEVEL
 
-		return NUKE_SITE_ON_STATION_ZLEVEL
+	var/area/bomb_area = get_area(src)
+	for(var/A in SSmapping.existing_station_areas)
+		if(istype(bomb_area, A))
+			return NUKE_SITE_ON_STATION
 
-	return NUKE_SITE_INVALID
+	return NUKE_SITE_ON_STATION_ZLEVEL
+
 
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
