@@ -245,10 +245,12 @@
 	var/angle = get_angle(user, targets[1]) + 180
 	user.transform = user.transform.Turn(angle)
 	user.incorporeal_move = TRUE
+	user.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
 	user.throw_at(target_turf, range = 10, speed = 2, thrower = user, spin = FALSE)
 	animate(user, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
 	user.transform = 0
 	user.incorporeal_move = FALSE
+	user.remove_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
 	// They get a cool soundeffect and a visual, as a treat
 
 	playsound(target_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
