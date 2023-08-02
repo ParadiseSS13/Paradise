@@ -407,7 +407,7 @@
 /obj/item/missile/light/primed_explosion(atom/hit_atom)
 	explosion(hit_atom, 0, 0, 2, 4, 0)
 
-/obj/item/missile/throw_impact(atom/hit_atom)
+/obj/item/missile/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(primed)
 		primed_explosion(hit_atom)
 		qdel(src)

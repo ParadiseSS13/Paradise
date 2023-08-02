@@ -260,7 +260,7 @@
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
-/obj/item/grenade/chem_grenade/throw_impact() // called when a throw stops
+/obj/item/grenade/chem_grenade/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // called when a throw stops
 	..()
 	if(nadeassembly)
 		nadeassembly.process_movement()

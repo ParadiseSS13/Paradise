@@ -75,7 +75,7 @@
 	leaping = 0
 	update_icons()
 
-/mob/living/carbon/alien/humanoid/hunter/throw_impact(atom/A)
+/mob/living/carbon/alien/humanoid/hunter/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	if(!leaping)
 		return ..()
 

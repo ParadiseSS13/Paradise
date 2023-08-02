@@ -264,7 +264,7 @@
 /obj/item/arrow/rod/fire/proc/fire_down() //burn it!
 	qdel(src)
 
-/obj/item/arrow/rod/fire/throw_impact(atom/A)
+/obj/item/arrow/rod/fire/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(ishuman(A) && flamed)
 		var/mob/living/carbon/human = A

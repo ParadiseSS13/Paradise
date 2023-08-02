@@ -68,7 +68,7 @@
 	item_state = "basketball"
 	desc = "Used for playing the most violent and degrading of childhood games."
 
-/obj/item/beach_ball/dodgeball/throw_impact(atom/hit_atom)
+/obj/item/beach_ball/dodgeball/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	if((ishuman(hit_atom)))
 		var/mob/living/carbon/human/H = hit_atom

@@ -129,7 +129,7 @@
 	/// The amount of stamina damage to do on hit.
 	var/stamina_damage = 10
 
-/obj/item/snowball/throw_impact(atom/target)
+/obj/item/snowball/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(!. && isliving(target))
 		var/mob/living/M = target

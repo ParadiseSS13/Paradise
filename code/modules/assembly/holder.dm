@@ -138,7 +138,7 @@
 			triggered = AM
 	process_movement(triggered)
 
-/obj/item/assembly_holder/throw_impact() // called when a throw stops
+/obj/item/assembly_holder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // called when a throw stops
 	..()
 	var/triggered
 	if(throwing?.thrower)

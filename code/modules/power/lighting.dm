@@ -820,7 +820,7 @@
 	brightness_range = 5
 	brightness_color = "#a0a080"
 
-/obj/item/light/throw_impact(atom/hit_atom)
+/obj/item/light/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	shatter()
 

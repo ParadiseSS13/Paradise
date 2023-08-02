@@ -413,7 +413,7 @@
 
 //Throwing stuff
 
-/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum)
+/mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 
 	if(has_status_effect(STATUS_EFFECT_CHARGING))

@@ -106,7 +106,7 @@
 	else
 		return ..(target, user, proximity)
 
-/obj/item/reagent_containers/food/drinks/cans/throw_impact(atom/A)
+/obj/item/reagent_containers/food/drinks/cans/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(times_shaken < 5)
 		times_shaken++

@@ -51,7 +51,7 @@
 	if(!charging)
 		..()
 
-/mob/living/simple_animal/hostile/guardian/charger/throw_impact(atom/A)
+/mob/living/simple_animal/hostile/guardian/charger/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	if(!charging)
 		return ..()
 

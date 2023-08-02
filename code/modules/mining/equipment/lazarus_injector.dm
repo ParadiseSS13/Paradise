@@ -105,12 +105,12 @@
 		else
 			to_chat(M, "You can't capture that mob!")
 
-/obj/item/mobcapsule/throw_impact(atom/A, mob/user)
+/obj/item/mobcapsule/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	..()
 	if(captured)
-		dump_contents(user)
+		dump_contents()
 
-/obj/item/mobcapsule/proc/dump_contents(mob/user)
+/obj/item/mobcapsule/proc/dump_contents()
 	if(captured)
 		captured.forceMove(get_turf(src))
 		captured = null

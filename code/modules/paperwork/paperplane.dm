@@ -88,7 +88,7 @@
 
 	add_fingerprint(user)
 
-/obj/item/paperplane/throw_impact(atom/hit_atom)
+/obj/item/paperplane/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(..())
 		return
 	if(!ishuman(hit_atom))

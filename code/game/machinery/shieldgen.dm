@@ -683,6 +683,6 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/hitby(AM as mob|obj)
+/obj/machinery/shieldwall/syndicate/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	phaseout()
 	return ..()

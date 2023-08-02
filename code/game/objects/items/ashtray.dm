@@ -84,7 +84,7 @@
 	visible_message("<span class='warning'>Oops, [src] broke into a lot of pieces!</span>")
 	return ..()
 
-/obj/item/storage/ashtray/throw_impact(atom/hit_atom)
+/obj/item/storage/ashtray/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(contents.len)
 		for(var/obj/item/I in contents)
 			I.forceMove(loc)

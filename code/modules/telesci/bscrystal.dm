@@ -35,7 +35,7 @@
 		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')
 
-/obj/item/stack/ore/bluespace_crystal/throw_impact(atom/hit_atom)
+/obj/item/stack/ore/bluespace_crystal/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	if(isliving(hit_atom))
 		blink_mob(hit_atom)

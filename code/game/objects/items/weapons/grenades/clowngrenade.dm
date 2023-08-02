@@ -41,7 +41,7 @@
 	H.take_organ_damage(2)
 	return ..()
 
-/obj/item/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom)
+/obj/item/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/burned = rand(1,3)
 	if(istype(hit_atom ,/mob/living))
 		var/mob/living/M = hit_atom

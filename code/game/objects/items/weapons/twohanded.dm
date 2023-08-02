@@ -371,7 +371,7 @@
 		qdel(src)
 
 
-/obj/item/twohanded/spear/throw_impact(atom/target)
+/obj/item/twohanded/spear/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(explosive)
 		explosive.prime()
@@ -697,7 +697,7 @@
 			M.Stun(4 SECONDS)
 			shock(M)
 
-/obj/item/twohanded/mjollnir/throw_impact(atom/target)
+/obj/item/twohanded/mjollnir/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
