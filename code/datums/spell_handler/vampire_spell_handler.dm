@@ -47,7 +47,7 @@
 /datum/spell_handler/vampire/proc/calculate_blood_cost(datum/antagonist/vampire/vampire)
 	var/blood_cost_modifier = 1 + vampire.nullified / 100
 	var/blood_cost = round(required_blood * blood_cost_modifier)
-	return blood_cost
+	return clamp(blood_cost, 0, vampire.bloodusable)
 
 
 /datum/spell_handler/vampire/after_cast(list/targets, mob/user, obj/effect/proc_holder/spell/spell)
