@@ -52,7 +52,6 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 	recipes = GLOB.glass_recipes
 
 /obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
-	..()
 	if(istype(W,/obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(CC.get_amount() < 5)
@@ -62,7 +61,7 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
 		new /obj/item/stack/light_w(user.loc)
 		src.use(1)
-	else if( istype(W, /obj/item/stack/rods) )
+	else if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V  = W
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
@@ -151,8 +150,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	recipes = GLOB.pglass_recipes
 
 /obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
-	..()
-	if( istype(W, /obj/item/stack/rods) )
+	if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V  = W
 		var/obj/item/stack/sheet/plasmarglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
