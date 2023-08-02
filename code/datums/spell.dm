@@ -553,8 +553,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		action.UpdateButtonIcon()
 
 
-/obj/effect/proc_holder/spell/proc/updateButtonIcon()
+/obj/effect/proc_holder/spell/proc/updateButtonIcon(change_name = FALSE)
 	if(action)
+		if(change_name)
+			action.name = name
+			action.desc = desc
 		action.UpdateButtonIcon()
 
 
@@ -618,9 +621,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			return FALSE
 
 	if(!ghost)
-		if(user.stat && !stat_allowed)
+		if(stat_allowed < user.stat)
 			if(show_message)
-				to_chat(user, span_notice("You can't cast this spell while incapacitated."))
+				if(user.stat == UNCONSCIOUS)
+					to_chat(user, span_notice("You can't use <b>[name]</b> while unconscious."))
+				if(user.stat == DEAD)
+					to_chat(user, span_notice("You can't use <b>[name]</b> while dead."))
 			return FALSE
 
 		if(!phase_allowed && istype(user.loc, /obj/effect/dummy) || istype(user.loc, /obj/effect/immovablerod/wizard))
