@@ -8,10 +8,24 @@
 	var/list/gland_types
 	var/list/gland_colors
 	var/list/amounts
+	var/list/color_pool = list(
+		"#700b08",
+		"#b87411",
+		"#8e8004",
+		"#2d7248",
+		"#095da2",
+		"#4d238e",
+		"#661553",
+		"#a70b03",
+		"#576402",
+		"#1a2e43",
+		"#994225",
+		"#4f2f27",
+		"#bd3675"
+	)
 
 /obj/machinery/abductor/gland_dispenser/proc/random_color()
-	//TODO : replace with presets or spectrum
-	return rgb(rand(0,255),rand(0,255),rand(0,255))
+	return pick_n_take(color_pool)
 
 /obj/machinery/abductor/gland_dispenser/Initialize(mapload)
 	. = ..()
@@ -19,65 +33,54 @@
 	gland_types = shuffle(gland_types)
 	gland_colors = new/list(gland_types.len)
 	amounts = new/list(gland_types.len)
-	for(var/i=1,i<=gland_types.len,i++)
+	for(var/i in 1 to gland_types.len)
 		gland_colors[i] = random_color()
 		amounts[i] = rand(1,5)
 
-/obj/machinery/abductor/gland_dispenser/attack_hand(mob/user)
+/obj/machinery/abductor/gland_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "GlandDispenser", name, 300, 338, master_ui, state)
+		ui.open()
+
+/obj/machinery/abductor/gland_dispenser/ui_data(mob/user)
+	var/list/data = list()
+	data["glands"] = list()
+	for(var/gland_number in 1 to gland_colors.len)
+		var/list/gland_information = list(
+			"color" = gland_colors[gland_number],
+			"amount" = amounts[gland_number],
+			"id" = gland_number,
+		)
+		data["glands"] += list(gland_information)
+	return data
+
+/obj/machinery/abductor/gland_dispenser/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	if(!isabductor(user))
-		return
-	user.set_machine(src)
-	var/box_css = {"
-	<style>
-	a.box.gland {
-		float: left;
-		width: 20px;
-		height: 20px;
-		margin: 5px;
-		border-width: 1px;
-		border-style: solid;
-		border-color: rgba(0,0,0,.2);
-		text-align: center;
-		}
-	</style>"}
-	var/dat = ""
-	var/item_count = 0
-	for(var/i=1,i<=gland_colors.len,i++)
-		item_count++
-		var/g_color = gland_colors[i]
-		var/amount = amounts[i]
-		dat += "<a class='box gland' style='background-color:[g_color]' href='?src=[UID()];dispense=[i]'>[amount]</a>"
-		if(item_count == 4) // Three boxes per line
-			dat +="</br></br>"
-			item_count = 0
-	var/datum/browser/popup = new(user, "glands", "Gland Dispenser", 200, 200)
-	popup.add_head_content(box_css)
-	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
-	popup.open()
-	return
+
+	switch(action)
+		if("dispense")
+			var/gland_id = text2num(params["gland_id"])
+			if(!gland_id)
+				return
+			Dispense(gland_id)
+			return TRUE
+
+/obj/machinery/abductor/gland_dispenser/attack_hand(mob/user)
+	. = ..()
+	ui_interact(user)
 
 /obj/machinery/abductor/gland_dispenser/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/organ/internal/heart/gland))
 		if(!user.drop_item())
 			return
 		W.forceMove(src)
-		for(var/i=1,i<=gland_colors.len,i++)
+		for(var/i in 1 to gland_colors.len)
 			if(gland_types[i] == W.type)
 				amounts[i]++
 	else
 		return ..()
-
-/obj/machinery/abductor/gland_dispenser/Topic(href, href_list)
-	if(..())
-		return
-	usr.set_machine(src)
-
-	if(href_list["dispense"])
-		Dispense(text2num(href_list["dispense"]))
-	updateUsrDialog()
 
 /obj/machinery/abductor/gland_dispenser/proc/Dispense(count)
 	if(amounts[count]>0)
