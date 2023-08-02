@@ -182,8 +182,18 @@
 	var/active = FALSE
 	var/activationCost = 300
 	var/activationUpkeep = 50
+	var/last_disguise = ""
 	var/disguise = "landmate"
+	var/loaded_name_disguise = "Standard"
 	var/mob/living/silicon/robot/syndicate/saboteur/S
+	var/list/possible_disguises = list("Last One",
+										"Standard" = list("Robot-STD", "droid", "Standard", "Noble-STD"),
+										"Medical" = list("Standard-Medi", "Robot-MED", "surgeon", "droid-medical", "Robot-SRG", "Noble-MED", "Cricket-MEDI"),
+										"Engineering" = list("Robot-ENG", "Robot-ENG2", "landmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI"),
+										"Security" = list("Robot-SEC", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC"),
+										"Service" = list("Robot-LDY", "toiletbot", "Robot-RLX", "maximillion", "Robot-MAN", "Standard-Serv", "Noble-SRV", "Cricket-SERV"),
+										"Miner" = list("Robot-MNR", "droid-miner", "Miner", "Standard-Mine", "Noble-DIG", "Cricket-MINE", "lavaland"),
+										"Syndicate" = list("syndie_bloodhound", "syndi-medi"))
 
 /obj/item/borg_chameleon/Destroy()
 	if(S)
@@ -213,6 +223,31 @@
 		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
 		deactivate(user)
 	else
+		var/choice
+		var/new_disguise = input("Please, select a disguise!", "Robot", null, null) as null|anything in possible_disguises
+		var/list/module_disguises
+		if(!new_disguise)
+			choice = disguise
+		else if(new_disguise == "Last One")
+			if(!last_disguise)
+				choice = disguise
+			choice = last_disguise
+		else
+			var/list/choices = list()
+			module_disguises = possible_disguises[new_disguise]
+			if(length(module_disguises) > 1)
+				for(var/skin in module_disguises)
+					var/image/skin_image = image(icon = user.icon, icon_state = skin)
+					skin_image.add_overlay("eyes-[skin]")
+					choices[skin] = skin_image
+			choice = show_radial_menu(user, user, choices, require_near = TRUE)
+			last_disguise = choice
+			loaded_name_disguise = new_disguise
+		if(!choice)
+			if(!last_disguise)
+				choice = disguise
+			else
+				choice = last_disguise
 		to_chat(user, "<span class='notice'>You activate [src].</span>")
 		var/start = user.filters.len
 		var/X
@@ -234,7 +269,7 @@
 		if(do_after(user, 50, target = user) && user.cell.use(activationCost))
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
 			to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen cyborg.</span>")
-			activate(user)
+			activate(user, choice)
 		else
 			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
 			do_sparks(3, FALSE, user)
@@ -250,13 +285,16 @@
 	else
 		return PROCESS_KILL
 
-/obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/syndicate/saboteur/user)
+/obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/syndicate/saboteur/user, new_disguise)
 	START_PROCESSING(SSobj, src)
 	S = user
-	user.base_icon = disguise
-	user.icon_state = disguise
+	user.base_icon = new_disguise
+	user.icon_state = new_disguise
+	user.module.name_disguise = loaded_name_disguise
 	user.cham_proj = src
 	user.bubble_icon = "robot"
+	var/list/names = splittext(user.icon_state, "-")
+	user.custom_panel = trim(names[1])
 	active = TRUE
 	user.update_icons()
 
@@ -266,6 +304,8 @@
 	user.base_icon = initial(user.base_icon)
 	user.icon_state = initial(user.icon_state)
 	user.bubble_icon = "syndibot"
+	user.module.name_disguise = initial(user.module.name_disguise)
+	user.custom_panel = initial(user.custom_panel)
 	active = FALSE
 	user.update_icons()
 
