@@ -95,7 +95,7 @@
 
 /obj/machinery/keycard_auth/ui_data()
 	var/list/data = list()
-	data["redAvailable"] = GLOB.security_level == SEC_LEVEL_RED ? FALSE : TRUE
+	data["redAvailable"] = SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_RED
 	data["swiping"] = swiping
 	data["busy"] = busy
 	data["event"] = active && event_source && event_source.event ? event_source.event : event
@@ -171,7 +171,7 @@
 /obj/machinery/keycard_auth/proc/trigger_event()
 	switch(event)
 		if("Red Alert")
-			set_security_level(SEC_LEVEL_RED)
+			SSsecurity_level.set_level(SEC_LEVEL_RED)
 		if("Grant Emergency Maintenance Access")
 			make_maint_all_access()
 		if("Revoke Emergency Maintenance Access")
