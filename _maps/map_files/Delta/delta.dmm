@@ -21660,7 +21660,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 2;
 	id = "Cell 2";
 	name = "Cell 2";
@@ -25550,7 +25550,7 @@
 	},
 /area/security/prison/cell_block)
 "brl" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 2;
 	id = "Cell 3";
 	name = "Cell 3";
@@ -29210,7 +29210,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 1;
 	id = "Cell 5";
 	name = "Cell 5";
@@ -33537,7 +33537,7 @@
 	},
 /area/security/brig)
 "bHX" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 8;
 	id = "Cell 1";
 	name = "Cell 1";
@@ -35076,7 +35076,7 @@
 	},
 /area/security/prison/cell_block)
 "bLG" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 2;
 	id = "Cell 4";
 	name = "Cell 4";
@@ -86849,7 +86849,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "lmR" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 1;
 	id = "Cell 6";
 	name = "Cell 6";

@@ -332,7 +332,7 @@
 			. += (health_deficiency / 75)
 		else
 			if(health_deficiency >= 40)
-				. += (health_deficiency / 25) //Once damage is over 40, you get the harsh formula
+				. += ((health_deficiency / 25) - 1.1) //Once damage is over 40, you get the harsh formula
 			else
 				. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
 
@@ -512,6 +512,8 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
+	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
 	else
@@ -559,6 +561,8 @@
 		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
+		return FALSE
+	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 	if(target.absorb_stun(0))
 		target.visible_message("<span class='warning'>[target] is not affected by [user]'s disarm attempt!</span>")

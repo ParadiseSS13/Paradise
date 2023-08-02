@@ -196,6 +196,13 @@
 	for(var/I in 1 to 5)
 		new /obj/item/grenade/plastic/c4(src)
 
+/obj/item/storage/box/syndie_kit/frag_grenades
+	name = "pack of fragmentation grenades"
+
+/obj/item/storage/box/syndie_kit/frag_grenades/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/frag(src)
+
 /obj/item/storage/box/syndie_kit/throwing_weapons
 	name = "boxed throwing kit"
 	can_hold = list(/obj/item/throwing_star, /obj/item/restraints/legcuffs/bola/tactical)

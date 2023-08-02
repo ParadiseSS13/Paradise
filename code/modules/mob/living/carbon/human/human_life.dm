@@ -858,7 +858,7 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/electheart.ogg',0,0,CHANNEL_HEARTBEAT,30)//Credit to GhostHack (www.ghosthack.de) for sound.
+					SEND_SOUND(src, sound('sound/effects/electheart.ogg', channel = CHANNEL_HEARTBEAT, volume = 30)) // Credit to GhostHack (www.ghosthack.de) for sound.
 
 				else
 					heartbeat++
@@ -876,7 +876,7 @@
 
 			if(heartbeat >= rate)
 				heartbeat = 0
-				src << sound('sound/effects/singlebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
+				SEND_SOUND(src, sound('sound/effects/singlebeat.ogg', channel = CHANNEL_HEARTBEAT, volume = 50))
 			else
 				heartbeat++
 
