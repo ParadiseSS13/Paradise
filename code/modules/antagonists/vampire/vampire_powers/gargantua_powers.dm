@@ -239,18 +239,17 @@
 	// First we leap towards the enemy target
 
 	animate(user, 1 SECONDS, pixel_z = 64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
-	addtimer(CALLBACK(user, user.spin(32, 1), 3, 2), 0.3 SECONDS)
+	addtimer(CALLBACK(user, user.spin(16, 1), 3, 2), 0.3 SECONDS)
 
 	target_turf = get_turf(targets[1]) // We want to get the location here in case the target moves while we are charging up
 	var/angle = get_angle(user, targets[1]) + 180
 	user.transform = user.transform.Turn(angle)
-	user.incorporeal_move = TRUE
-	user.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
-	user.throw_at(target_turf, range = 10, speed = 2, thrower = user, spin = FALSE)
-	animate(user, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
+	for(var/i, i < 10, i++)
+		var/move_dir = get_dir(user, target_turf)
+		user.forceMove(get_step(user, move_dir))
+		sleep(1)
 	user.transform = 0
-	user.incorporeal_move = FALSE
-	user.remove_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
+	animate(user, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
 	// They get a cool soundeffect and a visual, as a treat
 
 	playsound(target_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
