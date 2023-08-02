@@ -205,7 +205,7 @@
 		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
 
 /obj/effect/proc_holder/spell/vampire/arena
-	name = "Arena"
+	name = "Arena (150)"
 	desc = "You jump towards a target on your screen, creating an arena around yourself and making your body immune to breaking."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 150
@@ -215,8 +215,8 @@
 	var/mob/garg_vampire
 	/// Is our spell active?
 	var/spell_active
-	/// What turf will be the middle of our arena?
-	var/turf/the_middle_ground
+	/// The turf that will have our target, and will also be the middle of our arena
+	var/turf/target_turf
 	/// Holds a reference to the timer until either the spell runs out or we recast it
 	var/timer
 	/// Holds a reference to all arena walls so we can qdel them easily with dispell()
@@ -228,7 +228,7 @@
 	T.allowed_type = /mob/living
 	return T
 
-/obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/living/user)
 	if(!targets)
 		return
 
@@ -238,23 +238,17 @@
 
 	// First we leap towards the enemy target
 
-	var/prevLayer = user.layer
-	var/prevFlying = user.flying
-	user.layer = 9
-	user.flying = TRUE
-	for(var/i=0, i<10, i++)
-		user.pixel_y += 12
-		sleep(1)
-		user.flying = prevFlying
-	var/turf/target_turf = get_turf(targets[1]) // We want to get the location here in case the target moves while we are charging up
-	user.forceMove(target_turf)
-	for(var/i=0, i<5, i++)
-		user.pixel_y -= 24
-		sleep(1)
-		user.flying = prevFlying
-	user.flying = prevFlying
-	user.layer = prevLayer
+	animate(user, 1 SECONDS, pixel_z = 64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
+	addtimer(CALLBACK(user, user.spin(32, 1), 3, 2), 0.3 SECONDS)
 
+	target_turf = get_turf(targets[1]) // We want to get the location here in case the target moves while we are charging up
+	var/angle = get_angle(user, targets[1]) + 180
+	user.transform = user.transform.Turn(angle)
+	user.incorporeal_move = TRUE
+	user.throw_at(target_turf, range = 10, speed = 2, thrower = user, spin = FALSE)
+	animate(user, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
+	user.transform = 0
+	user.incorporeal_move = FALSE
 	// They get a cool soundeffect and a visual, as a treat
 
 	playsound(target_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -262,7 +256,6 @@
 
 	// Now we build the arena and give the caster the buff
 
-	the_middle_ground = get_turf(user) // I am so deeply sorry to get a hard ref to a turf
 	garg_vampire = user
 	var/mob/living/carbon/human/H = garg_vampire
 	H.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
@@ -279,9 +272,9 @@
 	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
-	for(var/tumor_range_turfs in circle_edge_turfs(the_middle_ground, ARENA_SIZE))
+	for(var/tumor_range_turfs in circle_edge_turfs(target_turf, ARENA_SIZE))
 		tumor_range_turfs = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
-		all_temp_walls += tumor_range_turfs
+	//	all_temp_walls += tumor_range_turfs
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check()
 	if(QDELETED(garg_vampire) || garg_vampire.stat == DEAD)
@@ -298,5 +291,5 @@
 	if(timer)
 		deltimer(timer)
 		timer = null
-	qdel(all_temp_walls)
+	// qdel(all_temp_walls)
 	visible_message("<span class='warning'>The arena begins to dissipate.</span>")
