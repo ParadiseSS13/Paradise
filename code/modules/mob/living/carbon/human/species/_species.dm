@@ -332,7 +332,7 @@
 			. += (health_deficiency / 75)
 		else
 			if(health_deficiency >= 40)
-				. += (health_deficiency / 25) //Once damage is over 40, you get the harsh formula
+				. += ((health_deficiency / 25) - 1.1) //Once damage is over 40, you get the harsh formula
 			else
 				. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
 
