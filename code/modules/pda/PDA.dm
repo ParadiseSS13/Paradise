@@ -103,10 +103,22 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/GetID()
 	return id ? id : ..()
 
-/obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
-	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)) && can_use())
-		return attack_self(M)
+
+/obj/item/pda/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	if(over == user)
+		attack_self(user)
+		return TRUE
+
+	return FALSE
+
 
 /obj/item/pda/attack_self(mob/user as mob)
 	user.set_machine(src)

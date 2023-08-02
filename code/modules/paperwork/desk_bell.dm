@@ -28,18 +28,25 @@
 	ring_cooldown = world.time + ring_cooldown_length
 	return TRUE
 
-/obj/item/desk_bell/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(!ishuman(M))
-		return
 
-	if(over_object == M)
-		if(!remove_item_from_storage(M))
-			M.drop_item_ground(src)
-		M.put_in_hands(src, ignore_anim = FALSE)
-		anchored = FALSE
+/obj/item/desk_bell/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
 
-	add_fingerprint(M)
+	var/mob/user = usr
+	if(over != user || user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	anchored = FALSE
+	if(user.put_in_hands(src, ignore_anim = FALSE))
+		add_fingerprint(user)
+		user.visible_message(span_notice("[user] picks up [src]."))
+		return TRUE
+
+	anchored = TRUE
+	return FALSE
+
 
 // Fix the clapper
 /obj/item/desk_bell/screwdriver_act(mob/living/user, obj/item/tool)

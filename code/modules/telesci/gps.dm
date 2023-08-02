@@ -119,10 +119,25 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/gps/MouseDrop(obj/over_object as obj, src_location, over_location)
-	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)))
-		return attack_self(M)
+
+/obj/item/gps/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(istype(over, /obj/screen))
+		return FALSE
+
+	if(user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	if(over == user)
+		attack_self(user)
+		return TRUE
+
+	return FALSE
+
 
 /obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

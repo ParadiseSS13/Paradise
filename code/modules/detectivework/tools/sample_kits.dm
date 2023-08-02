@@ -156,9 +156,22 @@
 		to_chat(user, "<span class='warning'>You are unable to locate any [evidence_type]s on \the [A].</span>")
 		. = ..()
 
+
 /obj/item/forensics/sample_kit/MouseDrop(atom/over)
-	if(ismob(src.loc))
-		afterattack(over, usr, TRUE)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(istype(over, /obj/screen))
+		return FALSE
+
+	if(loc != user || user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	afterattack(over, user, TRUE)
+	return TRUE
+
 
 /obj/item/forensics/sample_kit/powder
 	name = "fingerprint powder"

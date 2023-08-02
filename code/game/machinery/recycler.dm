@@ -179,7 +179,7 @@
 
 	// Remove and recycle the equipped items
 	if(eat_victim_items)
-		for(var/obj/item/I in L.get_equipped_items(TRUE))
+		for(var/obj/item/I in L.get_equipped_items(TRUE, TRUE))
 			if(L.drop_item_ground(I))
 				eat(I, sound = 0)
 

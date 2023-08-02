@@ -446,7 +446,7 @@
 	. |= list(get_active_hand(), get_inactive_hand())
 
 
-/mob/living/carbon/get_equipped_items(include_pockets = FALSE)
+/mob/living/carbon/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
 	var/list/items = ..()
 	if(wear_suit)
 		items += wear_suit

@@ -80,14 +80,14 @@
 			return TRUE
 
 	if(drop_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE))
+		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			drop_item_ground(I)
 		else
 			forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE))
+		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			temporarily_remove_item_from_inventory(I, force = TRUE)
 		qdel(I)
 
@@ -118,14 +118,14 @@
 		return TRUE
 
 	if(drop_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE))
+		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			drop_item_ground(I)
 		else
 			forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE))
+		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			temporarily_remove_item_from_inventory(I, force = TRUE)
 		qdel(I)
 
@@ -177,14 +177,14 @@
 
 	if(!I.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured))
 		if(drop_on_fail)
-			if(I in get_equipped_items(include_pockets = TRUE))
+			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 				drop_item_ground(I)
 			else
 				forceMove(drop_location())
 			return FALSE
 
 		if(qdel_on_fail)
-			if(I in get_equipped_items(include_pockets = TRUE))
+			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 				temporarily_remove_item_from_inventory(I, force = TRUE)
 			qdel(I)
 
@@ -580,12 +580,17 @@
 
 //Outdated but still in use apparently. This should at least be a human proc.
 //Daily reminder to murder this - Remie.
-/mob/proc/get_equipped_items(include_pockets = FALSE)
+/mob/proc/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
 	var/list/items = list()
 	if(back)
 		items += back
 	if(wear_mask)
 		items += wear_mask
+	if(include_hands)
+		if(l_hand)
+			items += l_hand
+		if(r_hand)
+			items += r_hand
 	return items
 
 

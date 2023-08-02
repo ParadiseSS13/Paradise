@@ -124,29 +124,26 @@
 	can_hold = list(/obj/item/photo)
 	resistance_flags = FLAMMABLE
 
-/obj/item/storage/photo_album/MouseDrop(obj/over_object as obj)
 
-	if((istype(usr, /mob/living/carbon/human)))
-		var/mob/M = usr
-		if(!( istype(over_object, /obj/screen) ))
-			return ..()
-		playsound(loc, "rustle", 50, 1, -5)
-		if((!( M.restrained() ) && !( M.stat ) && M.back == src))
-			switch(over_object.name)
-				if("r_hand")
-					M.drop_item_ground(src)
-					M.put_in_r_hand(src, ignore_anim = FALSE)
-				if("l_hand")
-					M.drop_item_ground(src)
-					M.put_in_l_hand(src, ignore_anim = FALSE)
-			add_fingerprint(usr)
-			return
-		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
-			if(usr.s_active)
-				usr.s_active.close(usr)
-			show_to(usr)
-			return
-	return
+/obj/item/storage/photo_album/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	if(over == user)
+		playsound(loc, "rustle", 50, TRUE, -5)
+		user.put_in_hands(src, ignore_anim = FALSE)
+		if(user.s_active)
+			user.s_active.close(user)
+		show_to(user)
+		return TRUE
+
+	return FALSE
+
 
 /*********
 * camera *

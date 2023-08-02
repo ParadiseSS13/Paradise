@@ -95,10 +95,13 @@
 		user.visible_message("<span class = 'notice'>[user] places [user.p_their()] hand over [src] to put it out!</span>", "<span class = 'notice'>You use your hand to extinguish [src]!</span>")
 		extinguish()
 
+
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user)
 	if(!ishuman(user))
-		return
+		return ..()
+
 	if((CLUMSY in user.mutations) && prob(50) && (resistance_flags & ON_FIRE))
 		clumsilyDrink(user)
-	else
-		..()
+		return
+
+	return ..()

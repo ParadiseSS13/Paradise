@@ -78,10 +78,10 @@
 	else
 		return
 
-/obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
-	if(!iscarbon(over_object))
-		return
-	var/mob/living/carbon/chugger = over_object
+/obj/item/reagent_containers/food/drinks/MouseDrop(atom/over) //CHUG! CHUG! CHUG!
+	if(!iscarbon(over))
+		return ..()
+	var/mob/living/carbon/chugger = over
 	if(!(container_type & DRAINABLE))
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return

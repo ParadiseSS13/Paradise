@@ -19,10 +19,24 @@
 /obj/item/sensor_device/attack_self(mob/user as mob)
 	ui_interact(user)
 
-/obj/item/sensor_device/MouseDrop(obj/over_object as obj, src_location, over_location)
-	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)))
-		return attack_self(M)
+
+/obj/item/sensor_device/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(istype(over, /obj/screen))
+		return FALSE
+
+	if(user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	if(over == user)
+		attack_self(user)
+		return TRUE
+
+	return FALSE
 
 
 /obj/item/sensor_device/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

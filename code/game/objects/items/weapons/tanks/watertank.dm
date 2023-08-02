@@ -82,23 +82,6 @@
 		return
 	..()
 
-/obj/item/watertank/MouseDrop(obj/over_object)
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		switch(over_object.name)
-			if("r_hand")
-				if(H.r_hand)
-					return
-				if(!H.drop_item_ground(src))
-					return
-				H.put_in_r_hand(src)
-			if("l_hand")
-				if(H.l_hand)
-					return
-				if(!H.drop_item_ground(src))
-					return
-				H.put_in_l_hand(src, ignore_anim = FALSE)
-	return
 
 /obj/item/watertank/attackby(obj/item/W, mob/user, params)
 	if(W == noz)

@@ -27,30 +27,23 @@
 	extinguish()
 	update_icon()
 
-/obj/item/paper_bin/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(M.restrained() || M.stat || !Adjacent(M))
-		return
-	if(!ishuman(M))
-		return
 
-	if(over_object == M)
-		if(!remove_item_from_storage(M))
-			M.drop_item_ground(src)
-		M.put_in_hands(src, ignore_anim = FALSE)
+/obj/item/paper_bin/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
 
-	else if(istype(over_object, /obj/screen))
-		switch(over_object.name)
-			if("r_hand")
-				if(!remove_item_from_storage(M))
-					M.drop_item_ground(src)
-				M.put_in_r_hand(src, ignore_anim = FALSE)
-			if("l_hand")
-				if(!remove_item_from_storage(M))
-					M.drop_item_ground(src)
-				M.put_in_l_hand(src, ignore_anim = FALSE)
+	var/mob/user = usr
+	if(over != user || user.incapacitated() || !ishuman(user))
+		return FALSE
 
-	add_fingerprint(M)
+	if(user.put_in_hands(src, ignore_anim = FALSE))
+		add_fingerprint(user)
+		user.visible_message(span_notice("[user] picks up [src]."))
+		return TRUE
+
+	return FALSE
+
 
 /obj/item/paper_bin/attack_hand(mob/user as mob)
 	if(ishuman(user))

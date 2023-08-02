@@ -359,7 +359,7 @@
 		return FALSE
 
 	// item unequip delay
-	if(usr && W.equip_delay_self && W.is_equipped(include_pockets = TRUE) && !usr.is_general_slot(usr.get_slot_by_item(W)))
+	if(usr && W.equip_delay_self && W.is_equipped() && !usr.is_general_slot(usr.get_slot_by_item(W)))
 		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
 							span_notice("Вы начинаете снимать [W.name]..."))
 		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))

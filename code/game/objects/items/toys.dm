@@ -520,25 +520,22 @@
 		update_icon()
 
 
-/obj/item/toy/cards/deck/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(M.incapacitated() || !Adjacent(M))
-		return
-	if(!ishuman(M))
-		return
-	if(over_object == M)
-		M.put_in_hands(src, ignore_anim = FALSE)
-	if(istype(over_object, /obj/screen))
-		if(!remove_item_from_storage(M))
-			M.drop_item_ground(src)
-		if(over_object != M)
-			switch(over_object.name)
-				if("l_hand")
-					M.put_in_l_hand(src, ignore_anim = FALSE)
-				if("r_hand")
-					M.put_in_r_hand(src, ignore_anim = FALSE)
-	add_fingerprint(M)
-	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+/obj/item/toy/cards/deck/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(over != user || user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	if(user.put_in_hands(src, ignore_anim = FALSE))
+		add_fingerprint(user)
+		user.visible_message(span_notice("[user] picks up [src]."))
+		return TRUE
+
+	return FALSE
+
 
 /obj/item/toy/cards/deck/update_icon()
 	switch(cards.len)
@@ -1422,30 +1419,23 @@
 			name = "green rubber piggy"
 			desc = "Watch out for angry voxes!"
 
-/obj/item/toy/plushie/pig/MouseDrop(atom/over_object)
-	var/mob/M = usr
-	if(M.restrained() || M.stat || !Adjacent(M))
-		return
-	if(!ishuman(M))
-		return
 
-	if(over_object == M)
-		if(!remove_item_from_storage(M))
-			M.drop_item_ground(src)
-		M.put_in_hands(src, ignore_anim = FALSE)
+/obj/item/toy/plushie/pig/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
 
-	else if(istype(over_object, /obj/screen))
-		switch(over_object.name)
-			if("r_hand")
-				if(!remove_item_from_storage(M))
-					M.drop_item_ground(src)
-				M.put_in_r_hand(src, ignore_anim = FALSE)
-			if("l_hand")
-				if(!remove_item_from_storage(M))
-					M.drop_item_ground(src)
-				M.put_in_l_hand(src, ignore_anim = FALSE)
+	var/mob/user = usr
+	if(over != user || user.incapacitated() || !ishuman(user))
+		return FALSE
 
-	add_fingerprint(M)
+	if(user.put_in_hands(src, ignore_anim = FALSE))
+		add_fingerprint(user)
+		user.visible_message(span_notice("[user] picks up [src]."))
+		return TRUE
+
+	return FALSE
+
 
 /obj/item/toy/plushie/bubblegumplushie
 	name = "bubblegum plushie"
