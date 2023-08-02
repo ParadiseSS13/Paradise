@@ -8,7 +8,7 @@ export const GlandDispenser = (props, context) => {
     glands = [],
   } = data;
   return (
-    <Window theme="abductor">
+    <Window>
       <Window.Content>
         <Section>
           {glands.map(gland => (
