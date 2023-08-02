@@ -1,3 +1,11 @@
+#define MALF_AI_ROLL_TIME (0.5 SECONDS)
+#define MALF_AI_ROLL_COOLDOWN (1 SECONDS + MALF_AI_ROLL_TIME)
+#define MALF_AI_ROLL_DAMAGE
+// crit percent
+#define MALF_AI_ROLL_CRIT_CHANCE 5
+// how far away something can be for the AI to roll towards it
+#define MALF_AI_ROLL_MAX_DISTANCE 1
+
 //The malf AI action subtype. All malf actions are subtypes of this.
 /datum/action/innate/ai
 	name = "AI Action"
@@ -468,7 +476,7 @@
 
 /obj/effect/proc_holder/ranged_ai/overload_machine
 	active = FALSE
-	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
+	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	enable_text = "<span class='notice'>You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.</span>"
 	disable_text = "<span class='notice'>You release your hold on the powernet.</span>"
 
@@ -827,3 +835,77 @@
 	actual_action.fix_borg(robot_target)
 	remove_ranged_ability(ranged_ability_user, "<span class='warning'>[robot_target] successfully rebooted.</span>")
 	return TRUE
+
+/datum/AI_Module/core_tilt
+	module_name = "Rolling Servos"
+	mod_pick_name = "watchforrollingcores"
+	description = "Allows you to slowly roll your core around, crushing anything in your path with your bulk."
+	cost = 10
+	one_purchase = FALSE
+	power_type = /datum/action/innate/ai/ranged/core_tilt
+	unlock_sound = 'sound/effects/bang.ogg'
+	unlock_text = "<span class='notice'>You gain the ability to roll over and crush anything in your way.</span>"
+
+/datum/action/innate/ai/ranged/core_tilt
+	name = "Roll Over"
+	// button_icon_state = "roll_over"
+	desc = "Allows you to roll over in the direction of your choosing, crushing anything in your way."
+	auto_use_uses = FALSE
+	linked_ability_type = /obj/effect/proc_holder/ranged_ai/roll_over
+
+/obj/effect/proc_holder/ranged_ai/roll_over
+	active = FALSE
+	ranged_mousepointer = 'icons/effects/cult_target.dmi'
+	enable_text = "<span class='notice'>Your inner servos shift as you prepare to roll around. Click adjacent tiles to roll into them!</span>"
+	disable_text = "<span class='notice'>You disengage your rolling protocols.</span>"
+	var/last_tilt_time = 0
+
+/obj/effect/proc_holder/ranged_ai/roll_over/InterceptClickOn(mob/living/caller, params, atom/target_atom)
+	if(..())
+		return
+	if(ranged_ability_user.incapacitated())
+		remove_ranged_ability()
+		return
+	if(last_tilt_time + MALF_AI_ROLL_COOLDOWN > world.time)
+		to_chat(ranged_ability_user, "<span class='warning'>Your rolling capacitors are still powering back up!</span>")
+		return
+
+	var/turf/target = get_turf(target_atom)
+	if(isnull(target))
+		return
+
+	if(target == get_turf(ranged_ability_user))
+		to_chat(ranged_ability_user, "<span class='warning'>You can't roll over on yourself!</span>")
+		return
+
+	var/picked_dir = get_dir(caller, target)
+
+	new /obj/effect/temp_visual/telegraphing/vending_machine_tilt(target, MALF_AI_ROLL_TIME)
+	ranged_ability_user.visible_message("<span class='danger'>[ranged_ability_user] seems to be winding up!</span>")
+	addtimer(CALLBACK(src, PROC_REF(do_roll_over), caller, picked_dir), MALF_AI_ROLL_TIME)
+
+	last_tilt_time = world.time
+
+	remove_ranged_ability(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
+	return TRUE
+
+
+/obj/effect/proc_holder/ranged_ai/roll_over/proc/do_roll_over(mob/living/silicon/ai/ai_caller, picked_dir)
+	var/turf/target = get_step(ai_caller, picked_dir) // in case we moved we pass the dir not the target turf
+
+	if(isnull(target))
+		return
+
+	var/paralyze_time = clamp(6 SECONDS, 0 SECONDS, (MALF_AI_ROLL_COOLDOWN * 0.9)) //the clamp prevents stunlocking as the max is always a little less than the cooldown between rolls
+
+	return ai_caller.fall_and_crush(target, MALF_AI_ROLL_DAMAGE, MALF_AI_ROLL_CRIT_CHANCE, null, paralyze_time, picked_dir, angle = get_rotation_from_dir(picked_dir))
+
+/obj/effect/proc_holder/ranged_ai/roll_over/proc/get_rotation_from_dir(dir)
+	switch (dir)
+		if (NORTH, NORTHWEST, WEST, SOUTHWEST)
+			return 270 // try our best to not return 180 since it works badly with animate
+		if (EAST, NORTHEAST, SOUTH, SOUTHEAST)
+			return 90
+		else
+			stack_trace("non-standard dir entered to get_rotation_from_dir. (got: [dir])")
+			return 0
