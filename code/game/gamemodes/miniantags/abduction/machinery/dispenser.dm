@@ -24,9 +24,6 @@
 		"#bd3675"
 	)
 
-/obj/machinery/abductor/gland_dispenser/proc/random_color()
-	return pick_n_take(color_pool)
-
 /obj/machinery/abductor/gland_dispenser/Initialize(mapload)
 	. = ..()
 	gland_types = subtypesof(/obj/item/organ/internal/heart/gland)
@@ -34,7 +31,7 @@
 	gland_colors = new/list(gland_types.len)
 	amounts = new/list(gland_types.len)
 	for(var/i in 1 to length(gland_types))
-		gland_colors[i] = random_color()
+		gland_colors[i] = pick_n_take(color_pool)
 		amounts[i] = rand(1,5)
 
 /obj/machinery/abductor/gland_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -46,7 +43,7 @@
 /obj/machinery/abductor/gland_dispenser/ui_data(mob/user)
 	var/list/data = list()
 	data["glands"] = list()
-	for(var/gland_number in 1 to gland_colors.len)
+	for(var/gland_number in 1 to length(gland_colors))
 		var/list/gland_information = list(
 			"color" = gland_colors[gland_number],
 			"amount" = amounts[gland_number],
