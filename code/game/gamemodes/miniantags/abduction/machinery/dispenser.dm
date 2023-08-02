@@ -33,7 +33,7 @@
 	gland_types = shuffle(gland_types)
 	gland_colors = new/list(gland_types.len)
 	amounts = new/list(gland_types.len)
-	for(var/i in 1 to gland_types.len)
+	for(var/i in 1 to length(gland_types))
 		gland_colors[i] = random_color()
 		amounts[i] = rand(1,5)
 
@@ -76,7 +76,7 @@
 		if(!user.drop_item())
 			return
 		W.forceMove(src)
-		for(var/i in 1 to gland_colors.len)
+		for(var/i in 1 to length(gland_colors))
 			if(gland_types[i] == W.type)
 				amounts[i]++
 	else
