@@ -179,15 +179,48 @@
 
 	/// The list of reagents that it should show information about, use /datum/reagent's "id" here
 	var/list/medical_reagents = list("antihol", "atropine", "calomel", "charcoal", "cryoxadone", "degreaser", "diphenhydramine", "ephedrine", "epinephrine", "haloperidol", "heparin", "hydrocodone", "lazarus_reagent", "liquid_solder", "mannitol", "mitocholide", "mutadone", "oculine", "pen_acid", "perfluorodecalin", "potass_iodide", "rezadone", "salbutamol", "salglu_solution",  "sal_acid", "sanguine_reagent", "silver_sulfadiazine", "spaceacillin", "styptic_powder", "synthflesh",  "teporone")
-	/// The list of components with which we create chemicals in medical_reagents, use /datum/reagent's "id" here
-	var/list/component_reagents = list("acetone", "ammonia", "cryostylane", "cyanide", "diethylamine", "formaldehyde", "oil", "phenol", "sodiumchloride", "sacid", "sterilizine", "mutagen")
+	/// List of medicine we will pass over to tgui
+	var/list/medicine_list = list()
+	/// List of components we will pass over to tgui
+	var/list/component_list = list()
+
+// Make these lists once on init and save them
+/obj/item/clothing/glasses/medchem/Initialize(mapload)
+	. = ..()
+	// Temporary list just for component ids
+	var/list/all_components = list()
+
+	// Creating the medicine list here and collecting components
+	for(var/reagent in medical_reagents)
+		// The reagent's name, description, metabolization rate and overdose threshold
+		var/datum/reagent/chosen_reagent = GLOB.chemical_reagents_list[reagent]
+		// The reagent's required components and temperature
+		var/datum/chemical_reaction/chosen_reaction = GLOB.all_chemical_reactions[reagent]
+		if(chosen_reagent && chosen_reaction)
+			// Medicine list
+			medicine_list.Add(list(list("name" = chosen_reagent.name, "description" = chosen_reagent.description, "metabolization" = chosen_reagent.metabolization_rate, "overdose" = chosen_reagent.overdose_threshold, "reaction_components" = chosen_reaction.required_reagents, "reaction_temperature" = chosen_reaction.min_temp)))
+
+			// Temporary component list
+			for(var/component in chosen_reaction.required_reagents)
+				if((component in all_components) || (component in medical_reagents))
+					continue
+				all_components += component
+		else
+			log_debug("Found a faulty reagent [reagent] while generating a list for [src].")
+
+	// Now collect the same data for components
+	all_components = sortList(all_components)
+	for(var/component in all_components)
+		var/datum/reagent/chosen_component = GLOB.chemical_reagents_list[component]
+		var/datum/chemical_reaction/chosen_reaction = GLOB.all_chemical_reactions[component]
+		if(chosen_component && chosen_reaction)
+			component_list.Add(list(list("name" = chosen_component.name, "description" = chosen_component.description, "metabolization" = chosen_component.metabolization_rate, "overdose" = chosen_component.overdose_threshold, "reaction_components" = chosen_reaction.required_reagents, "reaction_temperature" = chosen_reaction.min_temp)))
 
 // Only grant us the action when the goggles are actually equipped
 /obj/item/clothing/glasses/medchem/item_action_slot_check(slot)
 	if(slot == slot_glasses)
 		return TRUE
 
-// UI starts here
 /obj/item/clothing/glasses/medchem/ui_action_click(mob/user)
 	ui_interact(user)
 
@@ -200,35 +233,15 @@
 
 /obj/item/clothing/glasses/medchem/ui_data(mob/user)
 	var/list/data = list()
-	data["reagents"] = generate_chem_lists(medical_reagents)
-	data["components"] = generate_chem_lists(component_reagents)
+	data["reagents"] = medicine_list
+	data["components"] = component_list
 	return data
 
 /obj/item/clothing/glasses/medchem/ui_static_data(mob/user)
 	var/list/data = list()
-	data["reagents"] = generate_chem_lists(medical_reagents)
-	data["components"] = generate_chem_lists(component_reagents)
+	data["reagents"] = medicine_list
+	data["components"] = component_list
 	return data
-
-// We generate the data for tgui here
-/obj/item/clothing/glasses/medchem/proc/generate_chem_lists(chem_type_list)
-	var/list/reagent_list = list()
-	for(var/reagent in chem_type_list)
-		// The reagent's name, description, metabolization rate and overdose threshold
-		var/datum/reagent/chosen_reagent = GLOB.chemical_reagents_list[reagent]
-		// The reagent's required ingredients and temperature
-		var/datum/chemical_reaction/chosen_creation = GLOB.all_chemical_reactions[reagent]
-		if(chosen_reagent && chosen_creation)
-			reagent_list.Add(list(list("name" = chosen_reagent.name, "description" = chosen_reagent.description, "metabolization" = chosen_reagent.metabolization_rate, "overdose" = chosen_reagent.overdose_threshold, "creation_ingredients" = chosen_creation.required_reagents, "creation_temperature" = chosen_creation.min_temp)))
-		else
-			// Something went wrong like a typo while declaring the reagent, log it
-			log_debug("Found a faulty reagent [reagent] while generating a list for [src].")
-	return reagent_list
-
-/obj/item/clothing/glasses/medchem/ui_act(action, list/params)
-	if(..())
-		return
-	// todo anything else here??
 
 /obj/item/clothing/glasses/janitor
 	name = "janitorial goggles"

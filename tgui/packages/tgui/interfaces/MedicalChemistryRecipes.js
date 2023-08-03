@@ -61,12 +61,12 @@ export const MedicalChemistryRecipes = (props, context) => {
             {selected_reagent.overdose === 0 ? "None" : [selected_reagent.overdose] + " units"}
             </LabeledList.Item>
             <LabeledList.Item label = "Ingredients">
-            {Object.entries(selected_reagent.creation_ingredients).sort().map(r => {
+            {Object.entries(selected_reagent.reaction_components).sort().map(r => {
               return r[1] + " part " + r[0];
             }).join(', ')}
             </LabeledList.Item>
             <LabeledList.Item label = "Required Temperature">
-            {selected_reagent.creation_temperature === 0 ? "None" : [selected_reagent.creation_temperature] + " K"}
+            {selected_reagent.reaction_temperature === 0 ? "None" : [selected_reagent.reaction_temperature] + " K"}
             </LabeledList.Item>
           </LabeledList>
         </Section>
