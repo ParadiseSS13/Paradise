@@ -182,6 +182,18 @@
 	build_path = /obj/item/clothing/glasses/science/night
 	category = list("Equipment")
 
+/datum/design/medchem_goggles
+	name = "Medical Chemistry Goggles"
+	desc = "Goggles fitted with a portable analyzer capable of determining the research worth of an item or components of a machine."
+	id = "medchemgoggles"
+	req_tech = list("biotech=5;materials=5")
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/glasses/medchem
+	category = list("Equipment")
+
+// Add NV variant here??
+
 /datum/design/diagnostic_hud
 	name = "Diagnostic HUD"
 	desc = "A HUD used to analyze and determine faults within robotic machinery."

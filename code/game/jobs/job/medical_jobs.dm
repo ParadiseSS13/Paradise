@@ -162,7 +162,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat/chemist
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med
-	glasses = /obj/item/clothing/glasses/science
+	glasses = /obj/item/clothing/glasses/medchem
 	id = /obj/item/card/id/chemist
 	pda = /obj/item/pda/chemist
 
