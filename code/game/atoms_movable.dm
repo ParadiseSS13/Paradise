@@ -692,10 +692,14 @@
 	victim.AddElement(/datum/element/squish, 80 SECONDS)
 	// todo modify defines
 
+#define NO_CRUSH_DIR "no_dir"
 
-/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time = 4 SECONDS, knockdown_time = 10 SECONDS, ignore_gravity = FALSE, should_rotate = TRUE, angle, rightable = FALSE, block_interactions_until_righted = FALSE)
+/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time = 4 SECONDS, knockdown_time = 10 SECONDS, ignore_gravity = FALSE, should_rotate = TRUE, angle, rightable = FALSE, block_interactions_until_righted = FALSE, crush_dir = NO_CRUSH_DIR)
 	if(QDELETED(src) || isnull(target_turf))
 		return
+
+	if(crush_dir == NO_CRUSH_DIR)
+		crush_dir = get_dir(get_turf(src), target_turf)
 
 	if(is_blocked_turf(target_turf, TRUE))
 		visible_message("<span class='warning'>[src] seems to rock against [target_turf], but doesn't fall over!</span>")
@@ -707,6 +711,10 @@
 			continue
 
 		if(isobserver(target))
+			continue
+
+		// ignore things that are under the ground
+		if(isobj(target) && (target.invisibility > SEE_INVISIBLE_LIVING) || iseffect(target) || target.level == 1)
 			continue
 
 		var/datum/tilt_crit/crit_case = forced_crit
@@ -728,12 +736,14 @@
 				damage_to_deal *= crit_damage_factor
 			if(iscarbon(L))
 				handle_squish_carbon(L, damage_to_deal, crit_case)
+			else
+				L.apply_damage(damage_to_deal, BRUTE)
 			L.Weaken(weaken_time)
 			L.emote("scream")
 			L.KnockDown(knockdown_time)
 			playsound(L, 'sound/effects/blobattack.ogg', 40, TRUE)
 			playsound(L, 'sound/effects/splat.ogg', 50, TRUE)
-			add_attack_logs(null, L, "crushed by [src]")
+			add_attack_logs(src, L, "crushed by [src]")
 
 
 		else if(isobj(target) && !isitem(target))  // don't crush things on the floor, that'd probably be annoying
@@ -754,14 +764,16 @@
 
 	return TRUE
 
+#undef NO_CRUSH_DIR
+
 
 /atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted)
 	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
 	if(should_rotate)
-		var/matrix/M = matrix()
-		M.Turn(isnull(rotation_angle) ? pick(90, 270) : rotation_angle)
-		transform = M
+		var/rot_angle = isnull(rotation_angle) ? pick(90, 270) : rotation_angle
+		var/matrix/to_turn = turn(transform, rot_angle)
+		animate(src, transform = to_turn, 0.2 SECONDS)
 	if(target && target != get_turf(src))
 		throw_at(target, 1, 1, spin = FALSE)
 	if(rightable)

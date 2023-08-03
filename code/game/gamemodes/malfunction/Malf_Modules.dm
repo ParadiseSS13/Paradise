@@ -1,6 +1,6 @@
 #define MALF_AI_ROLL_TIME (0.5 SECONDS)
 #define MALF_AI_ROLL_COOLDOWN (1 SECONDS + MALF_AI_ROLL_TIME)
-#define MALF_AI_ROLL_DAMAGE
+#define MALF_AI_ROLL_DAMAGE 75
 // crit percent
 #define MALF_AI_ROLL_CRIT_CHANCE 5
 // how far away something can be for the AI to roll towards it
@@ -878,6 +878,10 @@
 		to_chat(ranged_ability_user, "<span class='warning'>You can't roll over on yourself!</span>")
 		return
 
+	if(get_dist(target, get_turf(ranged_ability_user)) > 1)
+		to_chat(ranged_ability_user, "<span class='warning'>That's too far!</span>")
+		return
+
 	var/picked_dir = get_dir(caller, target)
 
 	new /obj/effect/temp_visual/telegraphing/vending_machine_tilt(target, MALF_AI_ROLL_TIME)
@@ -886,7 +890,7 @@
 
 	last_tilt_time = world.time
 
-	remove_ranged_ability(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
+	to_chat(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
 	return TRUE
 
 
@@ -898,7 +902,7 @@
 
 	var/paralyze_time = clamp(6 SECONDS, 0 SECONDS, (MALF_AI_ROLL_COOLDOWN * 0.9)) //the clamp prevents stunlocking as the max is always a little less than the cooldown between rolls
 
-	return ai_caller.fall_and_crush(target, MALF_AI_ROLL_DAMAGE, MALF_AI_ROLL_CRIT_CHANCE, null, paralyze_time, picked_dir, angle = get_rotation_from_dir(picked_dir))
+	return ai_caller.fall_and_crush(target, MALF_AI_ROLL_DAMAGE, prob(MALF_AI_ROLL_CRIT_CHANCE), 2, null, paralyze_time, crush_dir = picked_dir, angle = get_rotation_from_dir(picked_dir))
 
 /obj/effect/proc_holder/ranged_ai/roll_over/proc/get_rotation_from_dir(dir)
 	switch (dir)
