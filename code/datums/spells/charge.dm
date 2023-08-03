@@ -47,6 +47,16 @@
 					to_chat(L, "<span class='caution'>Glowing red letters appear on the front cover...</span>")
 					to_chat(L, "<span class='warning'>[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]</span>")
 					burnt_out = TRUE
+			else if(istype(item, /obj/item/book/granter))
+				var/obj/item/book/granter/I = item
+				if(prob(80))
+					L.visible_message("<span class='warning'>[I] catches fire!</span>")
+					qdel(I)
+				else
+					I.uses += 1
+					charged_item = I
+					break
+
 			else if(istype(item, /obj/item/gun/magic))
 				var/obj/item/gun/magic/I = item
 				if(prob(80) && !I.can_charge)

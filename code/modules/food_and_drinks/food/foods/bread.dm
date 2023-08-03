@@ -170,6 +170,14 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bread" = 2)
 
+/obj/item/reagent_containers/food/snacks/baguette/combat
+	sharp = TRUE
+	force = 20
+
+/obj/item/reagent_containers/food/snacks/baguette/combat/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+
 /obj/item/reagent_containers/food/snacks/twobread
 	name = "two bread"
 	desc = "It is very bitter and winy."
