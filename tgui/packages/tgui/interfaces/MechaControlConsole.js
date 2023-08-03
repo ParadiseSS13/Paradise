@@ -64,7 +64,7 @@ export const MechaControlConsole = (props, context) => {
                   </Button>
                   <Button.Confirm
                     color="red"
-                    content="Sabotage"
+                    content="Disrupt"
                     icon="bomb"
                     onClick={() => act('shock', { mt: beacon.uid })}
                   />
