@@ -1136,7 +1136,7 @@
 			planet_of_origin = "Unknown"
 			job_requested = "Central Command Intern"
 			employment_records = "Experience in pressing buttons"
-		if(UNIQUE_MIME) // Only hire mimes that don't fill their curriculum
+		if(UNIQUE_MIME) // Only hire mimes that don't fill their employment application
 			candidate_name = "..."
 			candidate_gender = "..."
 			age = "..."

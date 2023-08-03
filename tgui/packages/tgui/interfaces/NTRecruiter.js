@@ -54,7 +54,7 @@ export const NTRecruiter = (props, context) => {
                   content="Main Menu"
                   onClick={() => act('back_to_menu')} />
               )}>
-                You must HIRE or DISMISS five curriculums to achieve victory,
+                You must HIRE or DISMISS five employment applications to achieve victory,
                 for that you must pay attention to errors and things that
                 wouldnt make sense in the eyes of a Nanotrasen Recruiter!
             </Section>
@@ -68,7 +68,7 @@ export const NTRecruiter = (props, context) => {
       <Window.Content>
             <Section
               color="label"
-              title="Curriculums">
+              title="Employment Applications">
               <Box fontSize="24px">Candidate Number #{cand_curriculum}</Box>
               <Box fontSize="14px">Name: {cand_name}</Box>
               <Box fontSize="14px">Gender: {cand_gender}</Box>
