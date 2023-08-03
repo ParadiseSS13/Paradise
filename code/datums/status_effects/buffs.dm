@@ -175,7 +175,7 @@
 	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 	var/mob/living/carbon/human/H = owner
 	original_color = H.color
-	H.color = "#d11141"
+	H.color = "#a61915"
 	H.physiology.brute_mod *= 0.4
 	H.physiology.burn_mod *= 0.5
 	H.physiology.stamina_mod *= 0.5

@@ -209,8 +209,9 @@
 	desc = "You jump towards a target on your screen, creating an arena around yourself and making your body immune to breaking."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 150
-	base_cooldown = 1 MINUTES
+	base_cooldown = 30 SECONDS
 	action_icon_state = "blood_barrier"
+	should_recharge_after_cast = FALSE
 	/// The garg vampire
 	var/mob/garg_vampire
 	/// Is our spell active?
@@ -229,6 +230,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/living/user)
+	garg_vampire = user
 	if(!targets)
 		return
 
@@ -239,7 +241,7 @@
 	// First we leap towards the enemy target
 
 	animate(user, 1 SECONDS, pixel_z = 64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
-	addtimer(CALLBACK(user, user.spin(16, 1), 3, 2), 0.3 SECONDS)
+	addtimer(CALLBACK(user, user.spin(14, 1), 3, 2), 0.3 SECONDS)
 
 	target_turf = get_turf(targets[1]) // We want to get the location here in case the target moves while we are charging up
 	var/angle = get_angle(user, targets[1]) + 180
@@ -247,8 +249,10 @@
 	for(var/i, i < 10, i++)
 		var/move_dir = get_dir(user, target_turf)
 		user.forceMove(get_step(user, move_dir))
+		if(get_turf(garg_vampire) == target_turf)
+			user.transform = 0
+			break
 		sleep(1)
-	user.transform = 0
 	animate(user, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
 	// They get a cool soundeffect and a visual, as a treat
 
@@ -257,13 +261,13 @@
 
 	// Now we build the arena and give the caster the buff
 
-	garg_vampire = user
 	var/mob/living/carbon/human/H = garg_vampire
 	H.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	spell_active = TRUE
 	timer = addtimer(CALLBACK(src, PROC_REF(dispell), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
 	RegisterSignal(garg_vampire, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
 	arena_checks()
+	should_recharge_after_cast = TRUE
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
 	if(!spell_active || QDELETED(src))
@@ -292,5 +296,6 @@
 	if(timer)
 		deltimer(timer)
 		timer = null
-	// qdel(all_temp_walls)
+	garg_vampire.remove_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
+	addtimer(VARSET_CALLBACK(src, should_recharge_after_cast, FALSE), 1 SECONDS)
 	visible_message("<span class='warning'>The arena begins to dissipate.</span>")
