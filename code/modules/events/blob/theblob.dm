@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	opacity = FALSE
 	anchored = TRUE
 	max_integrity = 30
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 70)
 	flags_2 = CRITICAL_ATOM_2
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	var/health_timestamp = 0
@@ -220,7 +220,6 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			damage_amount *= brute_resist
 		if(BURN)
 			damage_amount *= fire_resist
-		if(CLONE)
 		else
 			return 0
 	var/armor_protection = 0
@@ -267,6 +266,10 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.description
 	return "something unknown"
+
+/obj/structure/blob/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	damage *= 0.25 // Lets not have sorium be too much of a blender / rapidly kill itself
+	return ..()
 
 /obj/structure/blob/normal
 	icon_state = "blob"

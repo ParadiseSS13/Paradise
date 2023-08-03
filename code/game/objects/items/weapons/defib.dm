@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
 		)
@@ -312,11 +312,8 @@
 	if(!wielded)
 		to_chat(user, "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>")
 		return COMPONENT_BLOCK_DEFIB_MISC
-
 	if(!defib.powered)
 		return COMPONENT_BLOCK_DEFIB_DEAD
-
-	return
 
 /obj/item/twohanded/shockpaddles/proc/on_cooldown_expire(obj/item/paddles)
 	SIGNAL_HANDLER  // COMSIG_DEFIB_READY

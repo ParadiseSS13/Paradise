@@ -463,7 +463,8 @@
 	metadata = sanitize_text(metadata, initial(metadata))
 	real_name = reject_bad_name(real_name, TRUE)
 
-	if(isnull(species))
+	if(isnull(species) || isnull(SP))
+		SP = GLOB.all_species["Human"]
 		species = "Human"
 		stack_trace("Character doesn't have a species, character name is [real_name]. Defaulting to human.")
 
@@ -1149,7 +1150,18 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-
+			if(JOB_EXPLORER)
+				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "orange_s")
+				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "workboots"), ICON_UNDERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
+				has_gloves = TRUE
+				switch(backbag)
+					if(2)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
+					if(3)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
+					if(4)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 	else if(job_medsci_high)
 		switch(job_medsci_high)
 			if(JOB_RD)
@@ -1993,6 +2005,9 @@
 				continue
 			if(job.barred_by_disability(user.client))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
+				continue
+			if(job.barred_by_missing_limbs(user.client))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[MISSING LIMBS\]</b></td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)

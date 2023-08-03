@@ -204,8 +204,8 @@
 /obj/item/scrying
 	name = "scrying orb"
 	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means."
-	icon = 'icons/obj/projectiles.dmi'
-	icon_state ="bluespace"
+	icon = 'icons/obj/wizard.dmi'
+	icon_state ="scrying_orb"
 	throw_speed = 7
 	throw_range = 15
 	throwforce = 15
@@ -231,6 +231,7 @@
 		to_chat(current_owner, "<span class='notice'>Your otherworldly vision fades...</span>")
 
 		REMOVE_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		REMOVE_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
 		current_owner.update_sight()
 		current_owner.update_icons()
 
@@ -242,6 +243,7 @@
 		to_chat(current_owner, "<span class='notice'>You can see...everything!</span>")
 
 		ADD_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		ADD_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
 		current_owner.update_sight()
 		current_owner.update_icons()
 

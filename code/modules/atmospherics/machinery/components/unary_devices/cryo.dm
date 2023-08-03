@@ -13,7 +13,7 @@
 	plane = GAME_PLANE
 	interact_offline = TRUE
 	max_integrity = 350
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 30, ACID = 30)
 	var/temperature_archived
 	var/current_heat_capacity = 50
 
@@ -31,6 +31,11 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
 	. = ..()
+	if(occupant)
+		if(occupant.is_dead())
+			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
+		else
+			. += "<span class='notice'>You see [occupant.name] inside.</span>"
 	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
 	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
 	. += "<span class='notice'><b>Click-drag</b> someone to a cell to place them in it, use the 'Eject occupant' verb to remove them.</span>"
@@ -133,16 +138,16 @@
 		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>The cryo cell is already occupied!</span>")
-		return
+		return TRUE
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
 		to_chat(user, "<span class='danger'>Subject may not hold anything in their hands.</span>")
-		return
+		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
-		return
+		return TRUE
 	if(put_mob(L))
 		if(L == user)
 			visible_message("[user] climbs into the cryo cell.")
@@ -152,6 +157,7 @@
 			if(user.pulling == L)
 				user.stop_pulling()
 		SStgui.update_uis(src)
+	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()

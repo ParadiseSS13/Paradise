@@ -19,7 +19,7 @@ FIRE ALARM
 	anchored = TRUE
 	max_integrity = 250
 	integrity_failure = 100
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 100, fire = 90, acid = 30)
 	idle_power_consumption = 2
 	active_power_consumption = 6
 	power_channel = PW_CHANNEL_ENVIRONMENT
@@ -299,6 +299,8 @@ FIRE ALARM
 	if(!working || !report_fire_alarms)
 		return
 	var/area/A = get_area(src)
+	if(!A)
+		return
 	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
 
 /obj/machinery/firealarm/New(location, direction, building)

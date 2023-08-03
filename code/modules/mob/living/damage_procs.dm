@@ -157,6 +157,8 @@
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		oxyloss = 0
 		return FALSE
+	if(amount < 0 && has_status_effect(STATUS_EFFECT_NO_OXY_HEAL))
+		return FALSE
 	var/old_oxyloss = oxyloss
 	oxyloss = max(oxyloss + amount, 0)
 	if(old_oxyloss == oxyloss)

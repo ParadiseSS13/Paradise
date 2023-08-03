@@ -157,6 +157,15 @@
 	desc = "A tiny, highly volatile sliver of a supermatter crystal. Do not handle without protection!"
 	icon_state = "supermatter_sliver"
 	pulseicon = "supermatter_sliver_pulse"
+	layer = ABOVE_MOB_LAYER + 0.02
+
+/obj/item/nuke_core/supermatter_sliver/process()
+	. = ..()
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40,"#ffd04f", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+		animate(offset = 0, time = 10 SECONDS)
 
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
 	return
@@ -178,6 +187,13 @@
 	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
 		return
 	else
+		if(issilicon(user))
+			to_chat(user, "<span class='userdanger'>You try to touch [src] with one of your modules. Error!</span>")
+			radiation_pulse(user, 500, 2)
+			playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+			user.dust()
+			qdel(src)
+			return
 		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [I] burst into dust!</span>")
 		radiation_pulse(user, 100)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)

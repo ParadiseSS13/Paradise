@@ -191,7 +191,7 @@
 	/// Do we require any of the needed chems, or all of them?
 	var/require_all_chems = TRUE
 	/// Whether silicons ignore any probabilities (and are therefore "perfect" surgeons)
-	var/silicons_obey_prob = FALSE
+	var/silicons_ignore_prob = FALSE
 	/// How many times this step has been automatically repeated.
 	var/times_repeated = 0
 
@@ -359,7 +359,7 @@
 
 	var/step_result
 
-	if((prob(prob_success) || isrobot(user) && !silicons_obey_prob) && chem_check_result && !try_to_fail)
+	if((prob(prob_success) || silicons_ignore_prob && isrobot(user)) && chem_check_result && !try_to_fail)
 		step_result = end_step(user, target, target_zone, tool, surgery)
 	else
 		step_result = fail_step(user, target, target_zone, tool, surgery)

@@ -22,6 +22,8 @@
 	var/datum/map_template/shuttle/preview_template
 	var/list/templates = list()
 	var/list/shuttle_data = list()
+	anchored = TRUE
+	layer = 5
 
 /obj/machinery/shuttle_manipulator/Initialize(mapload)
 	. = ..()
@@ -64,6 +66,7 @@
 		if("shuttle_and_preview_cooldown")
 			log_and_message_admins("has attempted to change the [var_name] variable. Please do not do this, this can cause entire Z levels to freeze if spammed too quickly.")
 			return FALSE // Extremely important that this doesn't get varedited by mistake, otherwise horrible, horrible things can happen to the server.
+	return ..()
 
 /obj/machinery/shuttle_manipulator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -136,7 +139,7 @@
 		return
 	if(shuttle_and_preview_cooldown > world.time)
 		to_chat(usr, "<span class='warning'>Please wait until the desired shuttle has finished being loaded.</span>")
-		return		
+		return
 	. = TRUE
 
 	switch(action)

@@ -1,5 +1,6 @@
 /datum/martial_art/cqc
 	name = "CQC"
+	weight = 6
 	has_explaination_verb = TRUE
 	can_parry = TRUE
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
@@ -26,8 +27,10 @@
 		for(var/obj/item/slapper/parry/smacking_hand in held_items)
 			qdel(smacking_hand)
 		can_parry = FALSE
+		weight = 0
 	else
 		can_parry = TRUE
+		weight = 5
 
 /datum/martial_art/cqc/under_siege/can_use(mob/living/carbon/human/H)
 	var/area/A = get_area(H)

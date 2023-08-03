@@ -143,9 +143,7 @@
 	slot_flags = SLOT_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
-		) //We read you loud and skree-er.
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi') //We read you loud and skree-er.
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)
@@ -423,12 +421,16 @@
 		if(flags_cover != initial(flags_cover))
 			if(initial(flags_cover) & MASKCOVERSMOUTH) //If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
 				flags_cover |= MASKCOVERSMOUTH
-		if(H.head == src && flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
-			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+		if(H.head == src)
+			if(isnull(user.get_item_by_slot(slot_bitfield_to_slot(slot_flags))))
 				user.unEquip(src)
-			else //Otherwise, put it in an available hand, the active one preferentially.
-				user.unEquip(src)
-				user.put_in_hands(src)
+				user.equip_to_slot(src, slot_bitfield_to_slot(slot_flags))
+			else if(flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
+				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+					user.unEquip(src)
+				else //Otherwise, put it in an available hand, the active one preferentially.
+					user.unEquip(src)
+					user.put_in_hands(src)
 	else
 		to_chat(user, "<span class='notice'>You push \the [src] out of the way.</span>")
 		gas_transfer_coefficient = null
@@ -446,12 +448,16 @@
 			flags_cover &= ~MASKCOVERSMOUTH
 		if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
 			flags &= ~AIRTIGHT
-		if(user.wear_mask == src && initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
-			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+		if(user.wear_mask == src)
+			if(isnull(user.get_item_by_slot(slot_bitfield_to_slot(slot_flags))))
 				user.unEquip(src)
-			else //Otherwise, put it in an available hand, the active one preferentially.
-				user.unEquip(src)
-				user.put_in_hands(src)
+				user.equip_to_slot(src, slot_bitfield_to_slot(slot_flags))
+			else if(initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
+				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+					user.unEquip(src)
+				else //Otherwise, put it in an available hand, the active one preferentially.
+					user.unEquip(src)
+					user.put_in_hands(src)
 	H.wear_mask_update(src, toggle_off = up)
 	usr.update_inv_wear_mask()
 	usr.update_inv_head()
@@ -539,7 +545,7 @@
 	icon = 'icons/obj/clothing/suits.dmi'
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = SLOT_OCLOTHING
@@ -549,6 +555,8 @@
 	var/ignore_suitadjust = TRUE
 	var/adjust_flavour = null
 	var/list/hide_tail_by_species = null
+	/// Maximum weight class of an item in the suit storage slot.
+	var/max_suit_w = WEIGHT_CLASS_BULKY
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(mob/user)
@@ -633,7 +641,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = INFINITY, RAD = 50, FIRE = 200, ACID = 115)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 50, FIRE = 200, ACID = 115)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -658,7 +666,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = INFINITY, RAD = 50, FIRE = 200, ACID = 115)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 50, FIRE = 200, ACID = 115)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -679,7 +687,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'

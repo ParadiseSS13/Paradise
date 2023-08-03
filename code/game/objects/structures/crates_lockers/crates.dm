@@ -70,10 +70,12 @@
 
 	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	var/itemcount = 0
-	for(var/obj/O in get_turf(src))
+	for(var/atom/movable/O in get_turf(src))
 		if(itemcount >= storage_capacity)
 			break
 		if(O.density || O.anchored || istype(O,/obj/structure/closet))
+			continue
+		if(ismob(O) && !HAS_TRAIT(O, TRAIT_CONTORTED_BODY))
 			continue
 		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
 			var/obj/structure/bed/B = O
@@ -169,7 +171,7 @@
 	icon_opened = "securecrate_open"
 	icon_closed = "securecrate"
 	max_integrity = 500
-	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
 	broken = FALSE
 	locked = TRUE
@@ -313,6 +315,7 @@
 	icon_state = "trashcart"
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
+	pull_speed = 0
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
@@ -439,64 +442,6 @@
 	emag = "largebinemag"
 	open_sound = 'sound/effects/bin_open.ogg'
 	close_sound = 'sound/effects/bin_close.ogg'
-
-/obj/structure/closet/crate/large
-	name = "large crate"
-	desc = "A hefty metal crate."
-	icon_state = "largemetal"
-	icon_opened = "largemetal_open"
-	icon_closed = "largemetal"
-	integrity_failure = 0 //Makes the crate break when integrity reaches 0, instead of opening and becoming an invisible sprite.
-
-/obj/structure/closet/crate/large/close()
-	. = ..()
-	if(.)//we can hold up to one large item
-		var/found = 0
-		for(var/obj/structure/S in loc)
-			if(S == src)
-				continue
-			if(!S.anchored)
-				found = 1
-				S.forceMove(src)
-				break
-		if(!found)
-			for(var/obj/machinery/M in loc)
-				if(!M.anchored)
-					M.forceMove(src)
-					break
-
-/obj/structure/closet/crate/secure/large
-	name = "large crate"
-	desc = "A hefty metal crate with an electronic locking system."
-	icon_state = "largemetal"
-	icon_opened = "largemetal_open"
-	icon_closed = "largemetal"
-	redlight = "largemetalr"
-	greenlight = "largemetalg"
-
-/obj/structure/closet/crate/secure/large/close()
-	. = ..()
-	if(.)//we can hold up to one large item
-		var/found = 0
-		for(var/obj/structure/S in loc)
-			if(S == src)
-				continue
-			if(!S.anchored)
-				found = 1
-				S.forceMove(src)
-				break
-		if(!found)
-			for(var/obj/machinery/M in loc)
-				if(!M.anchored)
-					M.forceMove(src)
-					break
-
-//fluff variant
-/obj/structure/closet/crate/secure/large/reinforced
-	desc = "A hefty, reinforced metal crate with an electronic locking system."
-	icon_state = "largermetal"
-	icon_opened = "largermetal_open"
-	icon_closed = "largermetal"
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"

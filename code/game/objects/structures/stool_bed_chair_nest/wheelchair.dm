@@ -4,6 +4,7 @@
 	item_chair = null
 	anchored = FALSE
 	movable = TRUE
+	pull_speed = 0
 	buildstackamount = 15
 
 	var/move_delay = null
@@ -76,7 +77,7 @@
 	if(!has_buckled_mobs())
 		return
 	var/mob/living/buckled_mob = buckled_mobs[1]
-	if(istype(A, /obj/machinery/door) || istype(A, /obj/machinery/gateway))
+	if(istype(A, /obj/machinery/door))
 		A.Bumped(buckled_mob)
 
 	if(propelled)

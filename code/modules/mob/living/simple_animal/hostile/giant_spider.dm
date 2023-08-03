@@ -9,7 +9,6 @@
 	name = "giant spider"
 	desc = "Furry and black, it makes you shudder to look at it. This one has deep red eyes."
 	icon_state = "guard"
-	var/butcher_state = 8 // Icon state for dead spider icons
 	icon_living = "guard"
 	icon_dead = "guard_dead"
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
@@ -77,6 +76,7 @@
 	health = 40
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	gold_core_spawnable = NO_SPAWN
 	venom_per_bite = 30
 	var/atom/cocoon_target
 	var/fed = 0
@@ -282,7 +282,6 @@
 	var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(loc)
 	C.faction = faction.Copy()
 	C.master_commander = master_commander
-	C.xenobiology_spawned = xenobiology_spawned
 	if(ckey)
 		C.player_spiders = TRUE
 	fed--

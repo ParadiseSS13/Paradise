@@ -186,10 +186,11 @@
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
-	icon_state = "bluespace_tap"	//sprites by Ionward
+	icon_state = "bluespace_tap"
+	base_icon_state = "bluespace_tap"
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
-	pixel_y = -64
+	pixel_y = -32
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
 	power_state = NO_POWER_USE	// power usage is handelled manually
@@ -231,17 +232,16 @@
 	var/base_points = 4
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 10
-
+	/// When event triggers this will hold references to all portals so we can fix the sprite after they're broken
+	var/list/active_nether_portals = list()
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
 	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
-	for(var/direct in list(EAST, WEST, SOUTHEAST, SOUTHWEST))
+	for(var/direct in list(NORTH, NORTHEAST, NORTHWEST, EAST, WEST, SOUTHEAST, SOUTHWEST))
 		occupied += get_step(src, direct)
-	occupied += locate(x + 1, y - 2, z)
-	occupied += locate(x - 1, y - 2, z)
 
 	for(var/T in occupied)
 		var/obj/structure/filler/F = new(T)
@@ -254,6 +254,73 @@
 		component_parts += new /obj/item/stack/ore/bluespace_crystal(null)
 	if(!powernet)
 		connect_to_network()
+
+/obj/machinery/power/bluespace_tap/update_icon_state()
+	. = ..()
+
+	if(length(active_nether_portals))
+		icon_state = "redspace_tap"
+		return
+
+	if(get_available_power() <= 0)
+		icon_state = base_icon_state
+	else
+		icon_state = "[base_icon_state][get_icon_state_number()]"
+
+
+/obj/machinery/power/bluespace_tap/update_overlays()
+	. = ..()
+
+	underlays.Cut()
+
+	if(length(active_nether_portals))
+		. += "redspace"
+		set_light(15, 5, "#ff0000")
+		return
+
+	if(stat & (BROKEN|NOPOWER))
+		set_light(0)
+	else
+		set_light(1, 1, "#353535")
+
+	if(get_available_power())
+		. += "screen"
+		if(light)
+			underlays += emissive_appearance(icon, "light_mask")
+
+
+/obj/machinery/power/bluespace_tap/proc/get_icon_state_number()
+	switch(input_level)
+		if(0)
+			return 0
+		if(1 to 2)
+			return 1
+		if(3 to 5)
+			return 2
+		if(6 to 7)
+			return 3
+		if(8 to 10)
+			return 4
+		if(11 to INFINITY)
+			return 5
+
+/obj/machinery/power/bluespace_tap/power_change()
+	. = ..()
+	if(stat & (BROKEN|NOPOWER))
+		set_light(0)
+	else
+		set_light(1, 1, "#353535")
+	if(.)
+		update_icon()
+
+
+/obj/machinery/power/bluespace_tap/connect_to_network()
+	..()
+	update_icon()
+
+/obj/machinery/power/bluespace_tap/disconnect_from_network()
+	..()
+	update_icon()
 
 /obj/machinery/power/bluespace_tap/Destroy()
 	QDEL_LIST_CONTENTS(fillers)
@@ -313,29 +380,39 @@
 
 /obj/machinery/power/bluespace_tap/process()
 	actual_power_usage = get_power_use(input_level)
-	if(surplus() < actual_power_usage)	//not enough power, so turn down a level
+	if(get_surplus() < actual_power_usage)	//not enough power, so turn down a level
 		input_level--
+		update_icon()
 		return	// and no mining gets done
 	if(actual_power_usage)
-		add_load(actual_power_usage)
+		consume_direct_power(actual_power_usage)
 		var/points_to_add = (input_level + emagged) * base_points
 		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
 	// actual input level changes slowly
-	if(input_level < desired_level && (surplus() >= get_power_use(input_level + 1)))
+	//holy shit every proccess this
+	if(input_level < desired_level && (get_surplus() >= get_power_use(input_level + 1)))
 		input_level++
+		update_icon()
 	else if(input_level > desired_level)
 		input_level--
+		update_icon()
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
 		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0
-		for(var/i in 1 to rand(1, 3))
-			var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
-			new /obj/structure/spawner/nether/bluespace_tap(location)
+		start_nether_portaling(rand(1,3))
 
-
+/obj/machinery/power/bluespace_tap/proc/start_nether_portaling(amount)
+	var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
+	var/obj/structure/spawner/nether/bluespace_tap/P = new /obj/structure/spawner/nether/bluespace_tap(location)
+	amount--
+	active_nether_portals += P
+	P.linked_source_object = src
+	update_icon()
+	if(amount)
+		addtimer(CALLBACK(src, PROC_REF(start_nether_portaling), amount), rand(3,5) SECONDS)
 
 /obj/machinery/power/bluespace_tap/ui_data(mob/user)
 	var/list/data = list()
@@ -345,7 +422,7 @@
 	data["points"] = points
 	data["totalPoints"] = total_points
 	data["powerUse"] = actual_power_usage
-	data["availablePower"] = surplus()
+	data["availablePower"] = get_surplus()
 	data["maxLevel"] = max_level
 	data["emagged"] = emagged
 	data["safeLevels"] = safe_levels
@@ -365,12 +442,18 @@
 
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
 	add_fingerprint(user)
+	if(length(active_nether_portals))		//this would be cool if we made unique TGUI for this
+		to_chat(user, "<span class='warning'>UNKNOWN INTERFERENCE ... UNRESPONSIVE</span>")
+		return
 	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ghost(mob/user)
 	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ai(mob/user)
+	if(length(active_nether_portals))		//this would be cool if we made unique TGUI for this
+		to_chat(user, "<span class='warning'>UNKNOWN INTERFERENCE ... UNRESPONSIVE</span>")
+		return
 	ui_interact(user)
 
 /**
@@ -389,8 +472,7 @@
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, src)
 	new A.product_path(get_turf(src))
-
-
+	flick_overlay_view(image(icon, src, "flash", FLY_LAYER))
 
 //UI stuff below
 
@@ -428,10 +510,18 @@
 	spawn_time = 30 SECONDS
 	max_mobs = 5		//Dont' want them overrunning the station
 	max_integrity = 250
+	/// the BSH that spawned this portal
+	var/obj/machinery/power/bluespace_tap/linked_source_object
 
 /obj/structure/spawner/nether/bluespace_tap/deconstruct(disassembled)
 	new /obj/item/stack/ore/bluespace_crystal(loc)	//have a reward
 	return ..()
+
+/obj/structure/spawner/nether/bluespace_tap/Destroy()
+	. = ..()
+	if(linked_source_object)
+		linked_source_object.active_nether_portals -= src
+		linked_source_object.update_icon()
 
 /obj/item/paper/bluespace_tap
 	name = "paper- 'The Experimental NT Bluespace Harvester - Mining other universes for science and profit!'"

@@ -9,7 +9,7 @@
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
-	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 90, ACID = 50)
 	var/datum/wires/camera/wires = null // Wires datum
 	max_integrity = 100
 	integrity_failure = 50
@@ -406,6 +406,7 @@
 	return TRUE
 
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
+	start_active = TRUE // theres no real way to reactivate these, so never break them when they init
 	var/turf/prev_turf
 
 /obj/machinery/camera/portable/Initialize(mapload)
