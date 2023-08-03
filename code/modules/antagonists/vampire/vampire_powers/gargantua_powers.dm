@@ -213,7 +213,7 @@
 	action_icon_state = "blood_barrier"
 	should_recharge_after_cast = FALSE
 	/// The garg vampire
-	var/mob/garg_vampire
+	var/mob/living/carbon/human/garg_vampire
 	/// Is our spell active?
 	var/spell_active
 	/// The turf that will have our target, and will also be the middle of our arena
@@ -240,20 +240,20 @@
 
 	// First we leap towards the enemy target
 
-	animate(user, 1 SECONDS, pixel_z = 64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
-	addtimer(CALLBACK(user, user.spin(14, 1), 3, 2), 0.3 SECONDS)
+	animate(garg_vampire, 1 SECONDS, pixel_z = 64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
+	addtimer(CALLBACK(garg_vampire, garg_vampire.spin(14, 1), 3, 2), 0.3 SECONDS)
 
 	target_turf = get_turf(targets[1]) // We want to get the location here in case the target moves while we are charging up
-	var/angle = get_angle(user, targets[1]) + 180
-	user.transform = user.transform.Turn(angle)
+	var/angle = get_angle(garg_vampire, targets[1]) + 180
+	garg_vampire.transform = garg_vampire.transform.Turn(angle)
 	for(var/i, i < 10, i++)
-		var/move_dir = get_dir(user, target_turf)
-		user.forceMove(get_step(user, move_dir))
+		var/move_dir = get_dir(garg_vampire, target_turf)
+		garg_vampire.forceMove(get_step(garg_vampire, move_dir))
 		if(get_turf(garg_vampire) == target_turf)
-			user.transform = 0
+			garg_vampire.transform = 0
 			break
 		sleep(1)
-	animate(user, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
+	animate(garg_vampire, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
 	// They get a cool soundeffect and a visual, as a treat
 
 	playsound(target_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -261,10 +261,9 @@
 
 	// Now we build the arena and give the caster the buff
 
-	var/mob/living/carbon/human/H = garg_vampire
-	H.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
+	garg_vampire.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	spell_active = TRUE
-	timer = addtimer(CALLBACK(src, PROC_REF(dispell), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
+	timer = addtimer(CALLBACK(src, PROC_REF(dispell), garg_vampire, TRUE), 30 SECONDS, TIMER_STOPPABLE)
 	RegisterSignal(garg_vampire, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
 	arena_checks()
 	should_recharge_after_cast = TRUE
