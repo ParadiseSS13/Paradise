@@ -58,7 +58,7 @@
 	flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
-		"mutagen",
+		"unstable_mutagen",
 		"saltpetre",
 		"eznutriment",
 		"left4zednutriment",
@@ -604,7 +604,7 @@
 /obj/item/handheld_chem_dispenser/botanical
 	name = "handheld botanical chemical dispenser"
 	dispensable_reagents = list(
-		"mutagen",
+		"unstable_mutagen",
 		"saltpetre",
 		"eznutriment",
 		"left4zednutriment",

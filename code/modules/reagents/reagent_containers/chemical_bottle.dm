@@ -81,7 +81,7 @@
 	name = "unstable mutagen bottle"
 	desc = "A small bottle of unstable mutagen. Randomly changes the DNA structure of whoever comes in contact."
 	icon_state = "bottle"
-	list_reagents = list("mutagen" = 30)
+	list_reagents = list("unstable_mutagen" = 30)
 
 /obj/item/reagent_containers/glass/bottle/ammonia
 	name = "ammonia bottle"

@@ -296,7 +296,7 @@
 	name = "royal bee jelly"
 	id = "royal_bee_jelly"
 	result = "royal_bee_jelly"
-	required_reagents = list("mutagen" = 10, "honey" = 40)
+	required_reagents = list("unstable_mutagen" = 10, "honey" = 40)
 	result_amount = 5
 
 /datum/chemical_reaction/glycerol
@@ -370,7 +370,7 @@
 	name = "mutagenic agar"
 	id = "mutagenvirusfood"
 	result = "mutagenvirusfood"
-	required_reagents = list("mutagen" = 1, "virusfood" = 1)
+	required_reagents = list("unstable_mutagen" = 1, "virusfood" = 1)
 	result_amount = 1
 
 /datum/chemical_reaction/virus_food_diphenhydramine
@@ -427,7 +427,7 @@
 /datum/chemical_reaction/mix_virus/mix_virus_2
 	name = "Mix Virus 2"
 	id = "mixvirus2"
-	required_reagents = list("mutagen" = 1)
+	required_reagents = list("unstable_mutagen" = 1)
 	level_min = 2
 	level_max = 4
 

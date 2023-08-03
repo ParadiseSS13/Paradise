@@ -148,8 +148,8 @@
 
 /datum/chemical_reaction/mutagen
 	name = "Unstable mutagen"
-	id = "mutagen"
-	result = "mutagen"
+	id = "unstable_mutagen"
+	result = "unstable_mutagen"
 	required_reagents = list("radium" = 1, "plasma" = 1, "chlorine" = 1)
 	result_amount = 3
 	mix_message = "The substance turns neon green and bubbles unnervingly."

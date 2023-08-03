@@ -2107,7 +2107,7 @@
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
-				evilcookie.reagents.add_reagent("mutagen", 10)
+				evilcookie.reagents.add_reagent("unstable_mutagen", 10)
 				evilcookie.desc = "It has a faint green glow."
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP | DROPDEL

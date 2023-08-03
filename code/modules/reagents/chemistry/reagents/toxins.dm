@@ -177,7 +177,7 @@
 
 /datum/reagent/mutagen
 	name = "Unstable mutagen"
-	id = "mutagen"
+	id = "unstable_mutagen"
 	description = "Might cause unpredictable mutations. Keep away from children."
 	reagent_state = LIQUID
 	color = "#04DF27"

@@ -494,7 +494,7 @@
 		myseed.on_chem_reaction(S) //In case seeds have some special interactions with special chems, currently only used by vines
 
 	// Requires 5 mutagen to possibly change species.// Poor man's mutagen.
-	if(S.has_reagent("mutagen", 5) || S.has_reagent("radium", 10) || S.has_reagent("uranium", 10))
+	if(S.has_reagent("unstable_mutagen", 5) || S.has_reagent("radium", 10) || S.has_reagent("uranium", 10))
 		switch(rand(100))
 			if(91 to 100)
 				adjustHealth(-10)
@@ -515,9 +515,9 @@
 				to_chat(user, "<span class='notice'>Nothing happens...</span>")
 
 	// 2 or 1 units is enough to change the yield and other stats.// Can change the yield and other stats, but requires more than mutagen
-	else if(S.has_reagent("mutagen", 2) || S.has_reagent("radium", 5) || S.has_reagent("uranium", 5))
+	else if(S.has_reagent("unstable_mutagen", 2) || S.has_reagent("radium", 5) || S.has_reagent("uranium", 5))
 		hardmutate()
-	else if(S.has_reagent("mutagen", 1) || S.has_reagent("radium", 2) || S.has_reagent("uranium", 2))
+	else if(S.has_reagent("unstable_mutagen", 1) || S.has_reagent("radium", 2) || S.has_reagent("uranium", 2))
 		mutate()
 
 	// After handling the mutating, we now handle the damage from adding crude radioactives...

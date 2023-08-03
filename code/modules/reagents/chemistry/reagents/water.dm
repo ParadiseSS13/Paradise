@@ -240,7 +240,7 @@
 	return
 
 /datum/reagent/holywater
-	name = "Water"
+	name = "Holy Water"
 	id = "holywater"
 	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
 	reagent_state = LIQUID

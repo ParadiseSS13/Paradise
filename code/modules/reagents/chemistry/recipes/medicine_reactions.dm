@@ -16,7 +16,7 @@
 	name = "Cryoxadone"
 	id = "cryoxadone"
 	result = "cryoxadone"
-	required_reagents = list("cryostylane" = 1, "plasma" = 1, "acetone" = 1, "mutagen" = 1)
+	required_reagents = list("cryostylane" = 1, "plasma" = 1, "acetone" = 1, "unstable_mutagen" = 1)
 	result_amount = 4
 	mix_message = "The solution bubbles softly."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -192,7 +192,7 @@
 	name = "Lazarus Reagent"
 	id = "lazarus_reagent"
 	result = "lazarus_reagent"
-	required_reagents = list("omnizine" = 1, "holywater" = 1, "mutagen" = 1)
+	required_reagents = list("omnizine" = 1, "holywater" = 1, "unstable_mutagen" = 1)
 	result_amount = 3
 	mix_message = "The substance begins moving on its own somehow."
 
@@ -243,7 +243,7 @@
 	name = "Mutadone"
 	id = "mutadone"
 	result = "mutadone"
-	required_reagents = list("mutagen" = 1, "acetone" = 1, "bromine" = 1)
+	required_reagents = list("unstable_mutagen" = 1, "acetone" = 1, "bromine" = 1)
 	result_amount = 3
 	mix_message = "A foul astringent liquid emerges from the reaction."
 

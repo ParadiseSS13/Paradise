@@ -7,7 +7,7 @@ GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","c
 								"morphine","epinephrine","space_drugs","oxygen","copper",
 								"nitrogen","hydrogen","potassium","mercury","sulfur","carbon","chlorine",
 								"fluorine","sodium","phosphorus","lithium","sugar","sacid","facid",
-								"glycerol","radium","mutadone","thermite","mutagen","virusfood","iron",
+								"glycerol","radium","mutadone","thermite","unstable_mutagen","virusfood","iron",
 								"gold","silver","uranium","aluminum","silicon","fuel","cleaner","atrazine",
 								"plasma","teporone","lexorin","silver_sulfadiazine","salbutamol",
 								"perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide",
@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","c
 GLOBAL_LIST_INIT(rare_chemicals, list("minttoxin","syndicate_nanites", "xenomicrobes"))
 // Standard medicines
 GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine","epinephrine","space_drugs",
-								"mutadone","mutagen","teporone","lexorin","silver_sulfadiazine",
+								"mutadone","unstable_mutagen","teporone","lexorin","silver_sulfadiazine",
 								"salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol",
 								"potass_iodide","pen_acid","mannitol","oculine","styptic_powder","happiness",
 								"methamphetamine","spaceacillin","carpotoxin","lsd","ethanol","ammonia",

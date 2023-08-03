@@ -191,7 +191,7 @@
 	desc = "Bottled trickery and terrible admin work. Probably shouldn't drink this one at all."
 	icon_state = "badminbrew"
 	is_glass = TRUE
-	list_reagents = list("mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
+	list_reagents = list("unstable_mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/ale
 	name = "Magm-Ale"
