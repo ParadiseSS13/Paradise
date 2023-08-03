@@ -266,7 +266,6 @@
 	timer = addtimer(CALLBACK(src, PROC_REF(dispell), garg_vampire, TRUE), 30 SECONDS, TIMER_STOPPABLE)
 	RegisterSignal(garg_vampire, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
 	arena_checks()
-	should_recharge_after_cast = TRUE
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
 	if(!spell_active || QDELETED(src))
@@ -295,6 +294,6 @@
 	if(timer)
 		deltimer(timer)
 		timer = null
+	cooldown_handler.start_recharge()
 	garg_vampire.remove_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
-	addtimer(VARSET_CALLBACK(src, should_recharge_after_cast, FALSE), 1 SECONDS)
 	visible_message("<span class='warning'>The arena begins to dissipate.</span>")
