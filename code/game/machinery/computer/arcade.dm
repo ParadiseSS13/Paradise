@@ -1029,11 +1029,17 @@
 #undef ORION_TRAIL_BLACKHOLE
 
 #define PROB_CANDIDATE_ERRORS 10
+
 #define PROB_UNIQUE_CANDIDATE 2
 #define UNIQUE_STEVE 1
 #define UNIQUE_MIME 2
 #define UNIQUE_CEO_CHILD 3
 #define UNIQUE_VIGILANTE 4
+
+#define RECRUITER_STATUS_START 0
+#define RECRUITER_STATUS_INSTRUCTIONS 1
+#define RECRUITER_STATUS_NORMAL 2
+#define RECRUITER_STATUS_GAMEOVER 3
 
 /obj/machinery/computer/arcade/recruiter
 	name = "NT Recruiter Simulator"
@@ -1051,16 +1057,16 @@
 	/// Is he a unique candidate/character?
 	var/unique_candidate
 
-	var/list/planets = list("Earth", "Mars", "Luna", "Jargoon 4", "New Cannan", "Mauna-B", "Ahdomai", "Moghes", "Qerrballak", "Xarxis 5", "Hoorlm", "Aurum", "Boron 2", "Kelune", "Dalstadt")
+	var/list/planets = list("Earth", "Mars", "Luna", "Jargon 4", "New Cannan", "Mauna-B", "Ahdomai", "Moghes", "Qerrballak", "Xarxis 5", "Hoorlm", "Aurum", "Boron 2", "Kelune", "Dalstadt")
 	/// Planets with either mispellings or ones that cannot support life
-	var/list/incorrect_planets = list("Altam", "Eath", "Marks", "Lunao", "Jaboon 4", "Old Cannan", "Mauna-P", "Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
+	var/list/incorrect_planets = list("Altam", "Eath", "Marks", "Lunao", "Jabon 4", "Old Cannan", "Mauna-P", "Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
 
 	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Barber", "Botanist", "Explorer", "Station Engineer", "Atmospherics Technician", "Medical Doctor", "Coroner", "Geneticist", "Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs")
 	/// Jobs that NT stations dont offer/mispelled
 	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "ERT", "Pod Pilot", "Cremist", "Cluwne", "Work Safety Inspector", "Musician", "Chauffeur", "Teacher", "Maid", "Plumber", "Trader", "Hobo", "NT CEO", "Mime", "Assitant", "Janitor", "Medical", "Generticist", "Baton Officer", "Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs")
 
-	var/list/records = list("Janitor", "Cargo Technician")
-	var/list/incorrect_records = list("Syndicate Janitor", "Syndicate Cargo Tech", "None")
+	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation", "Charged with three counts of aggravated silliness", "Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian", "")
+	var/list/incorrect_records = list("Caught littering on NSS Cyberiad", "Scientist involved in the ###### incident", "Rescued four assistants from a plasma fire, but left behind the station blueprints", "Successfully cremated a changeling without stripping them", "", "None")
 
 	/// Species that are hirable in the eyes of NT
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
@@ -1074,8 +1080,9 @@
 
 	/// Is he a good candidate for hiring?
 	var/good_candidate = TRUE
-	var/playing = FALSE
-	var/game_over = FALSE
+	/// Why did you lose?
+	var/reason
+	var/gameStatus = RECRUITER_STATUS_START
 
 /obj/machinery/computer/arcade/recruiter/proc/generate_candidate()
 	if(prob(PROB_CANDIDATE_ERRORS))
@@ -1154,105 +1161,90 @@
 			employment_records = "Experience in hunting criminals"
 
 /obj/machinery/computer/arcade/recruiter/proc/win()
-	playing = FALSE
+	gameStatus = RECRUITER_STATUS_START
 	atom_say("Congratulations recruiter, the company is going to have a productive shift thanks to you.")
-	playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
-	prizevend(200)
+	playsound(loc, 'sound/arcade/recruiter_win.ogg', 50)
+	prizevend(100)
 
-/obj/machinery/computer/arcade/recruiter/attack_hand(mob/user)
+/obj/machinery/computer/arcade/recruiter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "NTRecruiter", name, 400, 480, master_ui, state)
+		ui.open()
+
+/obj/machinery/computer/arcade/recruiter/ui_data(mob/user)
+	var/list/data = list(
+	"gamestatus" = gameStatus,
+
+	"cand_name" = candidate_name,
+	"cand_gender" = capitalize(candidate_gender),
+	"cand_age" = age,
+	"cand_species" = initial(cand_species.name),
+	"cand_planet" = planet_of_origin,
+	"cand_job" = job_requested,
+	"cand_records" = employment_records,
+
+	"cand_curriculum" = curriculums,
+
+	"reason" = reason
+	)
+	return data
+
+/obj/machinery/computer/arcade/recruiter/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
-	user.set_machine(src)
-	var/dat = ""
-	if(game_over)
-		if(!good_candidate)
-			dat = "<center><h1>Game Over</h1></center>"
-			dat += "You ended up hiring incompetent employees and now the company is wasting lots of resources to fix what you caused..."
-			dat += "<br><P ALIGN=Right><a href='byond://?src=[UID()];menu=1'>Menu</a></P>"
-		else
-			dat = "<center><h1>Game Over</h1></center>"
-			dat += "You ended up dismissing a competent employee and now the company is suffering with the lack of crew."
-			dat += "<br><P ALIGN=Right><a href='byond://?src=[UID()];menu=1'>Menu</a></P>"
-	else if(playing)
-		dat = "<center><h1>Candidate number #[curriculums]</h1></center>"
-		dat += "<h3><b>Name:</b></h3>"
-		dat += "[candidate_name]"
-		dat += "<h3><b>Gender:</b></h3>"
-		dat += "[capitalize(candidate_gender)]"
-		dat += "<h3><b>Age:</b></h3>"
-		dat += "[age] years"
-		dat += "<h3><b>Species:</b></h3>"
-		dat += "[initial(cand_species.name)]"
-		dat += "<h3><b>Planet of Origin:</b></h3>"
-		dat += "[planet_of_origin]"
-		dat += "<h3><b>Requested Job:</b></h3>"
-		dat += "[job_requested]"
-		dat += "<h3><b>Employment Records:</b></h3>"
-		dat += "[employment_records]"
-
-		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];hire=1'>Hire</a></P>"
-		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];dismiss=1'>Dismiss</a></P>"
-		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];close=1'>Close</a></P>"
-	else
-		dat = "<center><h2>NT Recruiter Simulator</h2></center>"
-		dat += "<br><center><h3>Work as the Nanotrasen recruiter and avoid hiring incompetent employees!</h3></center><br><br>"
-		dat += "<center><b><a href='byond://?src=[UID()];newgame=1'>Begin shift</a></b></center>"
-		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];close=1'>Close</a></P>"
-	var/datum/browser/popup = new(user, "arcade", "NT Recruiter Simulator", 400, 700)
-	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
-	popup.open()
-	return
-
-/obj/machinery/computer/arcade/recruiter/Topic(href, href_list)
-	. = ..()
-	if(.)
-		return
-	if(href_list["close"])
-		usr.unset_machine()
-		usr << browse(null, "window=arcade")
-
-	if(href_list["hire"])
-		if(!good_candidate)
-			game_over = TRUE
-		else if(curriculums >= 5)
-			win()
-		else
-			curriculums++
-			if(prob(PROB_UNIQUE_CANDIDATE))
-				unique_candidate()
+	var/mob/user = ui.user
+	add_fingerprint(user)
+	. = TRUE
+	switch(action)
+		if("hire")
+			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+			if(!good_candidate)
+				gameStatus = RECRUITER_STATUS_GAMEOVER
+				reason = "You ended up hiring incompetent employees and now the company is wasting lots of resources to fix what you caused..."
+			else if(curriculums >= 5)
+				win()
 			else
-				generate_candidate()
+				curriculums++
+				if(prob(PROB_UNIQUE_CANDIDATE))
+					unique_candidate()
+				else
+					generate_candidate()
 
-	if(href_list["dismiss"])
-		if(good_candidate)
-			game_over = TRUE
-		else if(curriculums >= 5)
-			win()
-		else
-			curriculums++
+		if("dismiss")
+			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+			if(good_candidate)
+				gameStatus = RECRUITER_STATUS_GAMEOVER
+				reason = "You ended up dismissing a competent employee and now the company is suffering with the lack of crew."
+			else if(curriculums >= 5)
+				win()
+			else
+				curriculums++
+				good_candidate = TRUE
+				if(prob(PROB_UNIQUE_CANDIDATE))
+					unique_candidate()
+				else
+					generate_candidate()
+
+		if("start_game")
+			if(gameStatus != RECRUITER_STATUS_START)
+				return
 			good_candidate = TRUE
+			gameStatus = RECRUITER_STATUS_NORMAL
+			curriculums = 1
 			if(prob(PROB_UNIQUE_CANDIDATE))
 				unique_candidate()
 			else
 				generate_candidate()
+		if("instructions")
+			if(gameStatus != RECRUITER_STATUS_START)
+				return
+			gameStatus = RECRUITER_STATUS_INSTRUCTIONS
+		if("back_to_menu")
+			gameStatus = RECRUITER_STATUS_START
 
-	if(href_list["newgame"])
-		good_candidate = TRUE
-		playing = TRUE
-		curriculums = 1
-		if(prob(PROB_UNIQUE_CANDIDATE))
-			unique_candidate()
-		else
-			generate_candidate()
-
-	if(href_list["menu"])
-		game_over = FALSE
-		playing = FALSE
-
-	add_fingerprint(usr)
-	updateUsrDialog()
-	return
+/obj/machinery/computer/arcade/recruiter/attack_hand(mob/user)
+	ui_interact(user)
 
 #undef PROB_CANDIDATE_ERRORS
 #undef PROB_UNIQUE_CANDIDATE
@@ -1260,3 +1252,7 @@
 #undef UNIQUE_MIME
 #undef UNIQUE_CEO_CHILD
 #undef UNIQUE_VIGILANTE
+#undef RECRUITER_STATUS_START
+#undef RECRUITER_STATUS_INSTRUCTIONS
+#undef RECRUITER_STATUS_NORMAL
+#undef RECRUITER_STATUS_GAMEOVER
