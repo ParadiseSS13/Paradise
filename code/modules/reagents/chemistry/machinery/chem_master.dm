@@ -354,7 +354,7 @@
 				if("create_pill")
 					if(condi || !reagents.total_volume)
 						return
-					var/num = round(text2num(arguments["num"] || 1))
+					var/num = clamp(round(text2num(arguments["num"])), 0, MAX_MULTI_AMOUNT)
 					if(!num)
 						return
 					arguments["num"] = num
@@ -374,7 +374,7 @@
 				if("create_patch")
 					if(condi || !reagents.total_volume)
 						return
-					var/num = round(text2num(arguments["num"] || 1))
+					var/num = clamp(round(text2num(arguments["num"])), 0, MAX_MULTI_AMOUNT)
 					if(!num)
 						return
 					arguments["num"] = num
@@ -440,7 +440,7 @@
 				if("create_pill")
 					if(condi || !reagents.total_volume)
 						return
-					var/count = clamp(round(text2num(arguments["num"]) || 0), 0, MAX_MULTI_AMOUNT)
+					var/count = text2num(arguments["num"])
 					if(!count)
 						return
 
@@ -473,7 +473,7 @@
 				if("create_patch")
 					if(condi || !reagents.total_volume)
 						return
-					var/count = clamp(round(text2num(arguments["num"]) || 0), 0, MAX_MULTI_AMOUNT)
+					var/count = text2num(arguments["num"])
 					if(!count)
 						return
 
