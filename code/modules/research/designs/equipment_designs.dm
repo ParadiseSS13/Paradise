@@ -184,9 +184,9 @@
 
 /datum/design/medchem_goggles
 	name = "Medical Chemistry Goggles"
-	desc = "Goggles fitted with a portable analyzer capable of determining the research worth of an item or components of a machine."
+	desc = "A pair of goggles detecting and analyzing reagents. With an inbuilt holoprojector, they are able to display information about various healing chemicals."
 	id = "medchemgoggles"
-	req_tech = list("biotech=5;materials=5")
+	req_tech = list("biotech" = 5, "materials" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/glasses/medchem
