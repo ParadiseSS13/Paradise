@@ -1,11 +1,3 @@
-// Using these to decide how a vendor crush should be handled after crushing a carbon.
-/// Just jump ship, the crit handled everything it needs to.
-#define VENDOR_CRUSH_HANDLED 0
-/// Throw the vendor at the target's tile.
-#define VENDOR_THROW_AT_TARGET 1
-/// Don't actually throw at the target, just tip it in place.
-#define VENDOR_TIP_IN_PLACE 2
-
 /**
  *  Datum used to hold information about a product in a vending machine
  */
@@ -205,10 +197,6 @@
 
 /obj/machinery/economy/vending/examine(mob/user)
 	. = ..()
-	if(tilted)
-		. += "<span class='warning'>It's been tipped over and won't be usable unless it's righted.</span>"
-		. += "<span class='notice'>You can <b>Alt-Click</b> it to right it when adjacent.</span>"
-
 	if(aggressive)
 		. += "<span class='warning'>Its product lights seem to be blinking ominously...</span>"
 
@@ -991,7 +979,7 @@
 		crit_rebate = critical_attack.tip_crit_effect(src, victim)
 		if(critical_attack.harmless)
 			tilt_over(critical_attack.fall_towards_mob ? victim : null)
-			return VENDOR_CRUSH_HANDLED
+			return
 
 		should_throw_at_target = critical_attack.fall_towards_mob
 		add_attack_logs(null, victim, "critically crushed by [src] causing [critical_attack]")
@@ -1017,7 +1005,7 @@
 	victim.AddElement(/datum/element/squish, 80 SECONDS)
 	victim.emote("scream")
 
-	return should_throw_at_target ? VENDOR_THROW_AT_TARGET : VENDOR_TIP_IN_PLACE
+	return
 
 /**
  * Tilts the machine onto the atom passed in.
@@ -1056,13 +1044,13 @@
 
 		if(iscarbon(L))
 			var/throw_spec = handle_squish_carbon(victim, damage_to_deal, crit, from_combat)
-			switch(throw_spec)
-				if(VENDOR_CRUSH_HANDLED)
-					return TRUE
-				if(VENDOR_THROW_AT_TARGET)
-					should_throw_at_target = TRUE
-				if(VENDOR_TIP_IN_PLACE)
-					should_throw_at_target = FALSE
+			// switch(throw_spec)
+			// 	if(VENDOR_CRUSH_HANDLED)
+			// 		return TRUE
+			// 	if(VENDOR_THROW_AT_TARGET)
+			// 		should_throw_at_target = TRUE
+			// 	if(VENDOR_TIP_IN_PLACE)
+			// 		should_throw_at_target = FALSE
 		else
 			L.visible_message(
 				"<span class='danger'>[L] is crushed by [src]!</span>",
@@ -1089,9 +1077,9 @@
 		var/picked_angle = pick(90, 270)
 		var/should_crit = !from_combat && crit
 		if(should_crit && !from_combat)
-			squish_damage *= self_knockover_factor
+			damage *= self_knockover_factor
 
-		. = fall_and_crush(get_turf(victim), squish_damage, should_crit, crit_damage_factor, null, from_combat ? 4 SECONDS : 6 SECONDS, 12 SECONDS, FALSE, picked_angle)
+		. = fall_and_crush(get_turf(victim), damage, should_crit, crit_damage_factor, null, from_combat ? 4 SECONDS : 6 SECONDS, 12 SECONDS, FALSE, picked_angle)
 		if(.)
 			tilted = TRUE
 			layer = ABOVE_MOB_LAYER
@@ -1107,32 +1095,6 @@
 	transform = M
 	if(victim && get_turf(victim) != get_turf(src))
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
-
-/obj/machinery/economy/vending/proc/untilt(mob/user)
-	if(!tilted)
-		return
-
-	if(user)
-		user.visible_message(
-			"[user] begins to right [src].",
-			"You begin to right [src]."
-		)
-		if(!do_after(user, 7 SECONDS, TRUE, src))
-			return
-		user.visible_message(
-			"<span class='notice'>[user] rights [src].</span>",
-			"<span class='notice'>You right [src].</span>",
-			"<span class='notice'>You hear a loud clang.</span>"
-		)
-
-	unbuckle_all_mobs(TRUE)
-
-	tilted = FALSE
-	layer = initial(layer)
-
-	var/matrix/M = matrix()
-	M.Turn(0)
-	transform = M
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))
@@ -1166,8 +1128,3 @@
 	premium = list()
 
 */
-
-
-#undef VENDOR_CRUSH_HANDLED
-#undef VENDOR_THROW_AT_TARGET
-#undef VENDOR_TIP_IN_PLACE

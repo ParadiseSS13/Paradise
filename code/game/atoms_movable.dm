@@ -650,9 +650,9 @@
 		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
 
 /atom/movable/proc/choose_crit(mob/living/carbon/victim, list/possible_crits)
-	if(!length(possible_crits))
+	if(!length(GLOB.tilt_crits))
 		return
-	for(var/crit_path in shuffle(possible_crits))
+	for(var/crit_path in shuffle(GLOB.tilt_crits))
 		var/datum/tilt_crit/C = GLOB.tilt_crits[crit_path]
 		if(C.is_valid(src, victim))
 			return C
@@ -693,7 +693,7 @@
 	// todo modify defines
 
 
-/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, should_rotate = TRUE, angle)
+/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time = 4 SECONDS, knockdown_time = 10 SECONDS, ignore_gravity = FALSE, should_rotate = TRUE, angle, rightable = FALSE, block_interactions_until_righted = FALSE)
 	if(QDELETED(src) || isnull(target_turf))
 		return
 
@@ -727,12 +727,12 @@
 				// increase damage if you knock it over onto yourself
 				damage_to_deal *= crit_damage_factor
 			if(iscarbon(L))
-				var/crush_spec = handle_squish_carbon(L, damage_to_deal, crit_case)
+				handle_squish_carbon(L, damage_to_deal, crit_case)
 			L.Weaken(weaken_time)
 			L.emote("scream")
 			L.KnockDown(knockdown_time)
-			playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
-			playsound(L, "sound/effects/splat.ogg", 50, TRUE)
+			playsound(L, 'sound/effects/blobattack.ogg', 40, TRUE)
+			playsound(L, 'sound/effects/splat.ogg', 50, TRUE)
 			add_attack_logs(null, L, "crushed by [src]")
 
 
@@ -748,14 +748,14 @@
 			"<span class='warning'>You hear a loud crunch!</span>"
 		)
 
-	tilt_over(target_turf, pick(90, 270), should_rotate)
+	tilt_over(target_turf, angle, should_rotate, rightable, block_interactions_until_righted)
 	// for things like teleporters apparently
 	Move(target_turf, get_dir(get_turf(src), target_turf))
 
 	return TRUE
 
 
-/atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate)
+/atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted)
 	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
 	if(should_rotate)
@@ -764,6 +764,39 @@
 		transform = M
 	if(target && target != get_turf(src))
 		throw_at(target, 1, 1, spin = FALSE)
+	if(rightable)
+		layer = ABOVE_MOB_LAYER
+		AddComponent(/datum/component/tilted, 14 SECONDS, block_interactions_until_righted)
+
+/atom/movable/proc/untilt(mob/living/user, duration = 10 SECONDS)
+	if(!GetComponent(/datum/component/tilted))
+		return
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_TRY_UNTILT, user) & COMPONENT_BLOCK_UNTILT)
+		return
+
+	if(user)
+		user.visible_message(
+			"[user] begins to right [src].",
+			"You begin to right [src]."
+		)
+		if(!do_after(user, duration, TRUE, src))
+			return
+		user.visible_message(
+			"<span class='notice'>[user] rights [src].</span>",
+			"<span class='notice'>You right [src].</span>",
+			"<span class='notice'>You hear a loud clang.</span>"
+		)
+
+	unbuckle_all_mobs(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_MOVABLE_UNTILTED, user)
+
+	layer = initial(layer)
+
+	var/matrix/M = matrix()
+	M.Turn(0)
+	transform = M
+
 
 // /atom/movable/proc/untilt(mob/user)
 // 	if(!tilted)

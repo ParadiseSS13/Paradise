@@ -20,7 +20,7 @@
  */
 /datum/tilt_crit/proc/is_valid(atom/movable/tilter, mob/living/carbon/victim)
 	SHOULD_CALL_PARENT(TRUE)
-	return TRUE
+	return is_type_in_typecache(tilter, valid_typecache)
 
 /***
  * Perform the tip crit effect on a victim.
@@ -34,6 +34,10 @@
 	return 0
 
 /datum/tilt_crit/shatter
+
+/datum/tilt_crit/shatter/is_valid(atom/movable/tilter, mob/living/carbon/victim)
+	. = ..()
+	return . && iscarbon(victim)
 
 /datum/tilt_crit/shatter/tip_crit_effect(atom/movable/tilter, mob/living/carbon/victim, incoming_damage)
 	victim.bleed(150)
@@ -56,7 +60,11 @@
 
 /datum/tilt_crit/pin
 
-/datum/tilt_crit/pin/tip_crit_effect(atom/movable/tilter, mob/living/carbon/victim, incoming_damage)
+/datum/tilt_crit/pin/is_valid(atom/movable/tilter, mob/living/victim)
+	. = ..()
+	return . && isliving(victim)
+
+/datum/tilt_crit/pin/tip_crit_effect(atom/movable/tilter, mob/living/victim, incoming_damage)
 	tilter.forceMove(get_turf(victim))
 	tilter.buckle_mob(victim, force=TRUE)
 	victim.visible_message(
@@ -79,6 +87,7 @@
 		return
 	if(machine.num_shards <= 0)
 		return FALSE
+	return iscarbon(victim)
 
 /datum/tilt_crit/vendor/embed/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim, incoming_damage)
 	victim.visible_message(
@@ -104,6 +113,10 @@
 	return incoming_damage * (3/4)
 
 /datum/tilt_crit/pop_head
+
+/datum/tilt_crit/pop_head/is_valid(atom/movable/tilter, mob/living/carbon/victim)
+	. = ..()
+	return . && iscarbon(victim)
 
 /datum/tilt_crit/pop_head/tip_crit_effect(atom/movable/tilter, mob/living/carbon/victim, incoming_damage)
 	// pop!
