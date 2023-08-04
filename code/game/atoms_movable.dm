@@ -688,7 +688,6 @@
 			victim.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
 
 	victim.AddElement(/datum/element/squish, 80 SECONDS)
-	// todo modify defines
 
 #define NO_CRUSH_DIR "no_dir"
 
@@ -801,33 +800,6 @@
 	M.Turn(0)
 	transform = M
 
-
-// /atom/movable/proc/untilt(mob/user)
-// 	if(!tilted)
-// 		return
-
-// 	if(user)
-// 		user.visible_message(
-// 			"[user] begins to right [src].",
-// 			"You begin to right [src]."
-// 		)
-// 		if(!do_after(user, 7 SECONDS, TRUE, src))
-// 			return
-// 		user.visible_message(
-// 			"<span class='notice'>[user] rights [src].</span>",
-// 			"<span class='notice'>You right [src].</span>",
-// 			"<span class='notice'>You hear a loud clang.</span>"
-// 		)
-
-// 	unbuckle_all_mobs(TRUE)
-
-// 	tilted = FALSE
-// 	layer = initial(layer)
-
-// 	var/matrix/M = matrix()
-// 	M.Turn(0)
-// 	transform = M
-
 /obj/item/tilter
 	name = "tilter"
 	icon = 'icons/obj/tools.dmi'
@@ -848,5 +820,3 @@
 	. = ..()
 	if(tilting_thing && saved_turf)
 		tilting_thing.fall_and_crush(saved_turf, 5, 50, 2, null, 4 SECONDS, 14 SECONDS, FALSE)
-
-

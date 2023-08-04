@@ -61,7 +61,6 @@
 	if(user.incapacitated())
 		return COMPONENT_BLOCK_UNTILT
 
-
 /datum/component/tilted/proc/do_untilt(atom/movable/source, mob/user)
 	if(SEND_SIGNAL(source, COMSIG_MOVABLE_TRY_UNTILT, user) & COMPONENT_BLOCK_UNTILT)
 		return
@@ -90,7 +89,3 @@
 	source.transform = M
 
 	qdel(src)
-
-
-
-

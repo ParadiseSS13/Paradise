@@ -1158,4 +1158,3 @@
 	C.take_organ_damage(damage)
 	C.KnockDown(3 SECONDS)
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
-
