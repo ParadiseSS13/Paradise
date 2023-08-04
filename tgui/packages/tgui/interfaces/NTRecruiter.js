@@ -1,5 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Dimmer, Divider, Icon, NumberInput, Section, Flex } from '../components';
+import { useBackend } from '../backend';
+import { Box, Button, Section, Flex } from '../components';
 import { Window } from '../layouts';
 
 export const NTRecruiter = (props, context) => {
@@ -96,7 +96,7 @@ export const NTRecruiter = (props, context) => {
               <br/>
               <Box display="inline" color="silver" bold>Age:</Box> {cand_age} years
               <br/>
-              <Box  display="inline" color="silver" bold>Species:</Box> {cand_species}
+              <Box display="inline" color="silver" bold>Species:</Box> {cand_species}
               <br/>
               <Box display="inline" color="silver" bold>Planet of Origin:</Box> {cand_planet}
               <br/>

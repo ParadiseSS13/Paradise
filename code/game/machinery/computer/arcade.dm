@@ -1083,7 +1083,7 @@
 	/// Why did you lose?
 	var/reason
 	/// In which screen are we?
-	var/gameStatus = RECRUITER_STATUS_START
+	var/game_status = RECRUITER_STATUS_START
 
 /obj/machinery/computer/arcade/recruiter/proc/generate_candidate()
 	if(prob(PROB_CANDIDATE_ERRORS))
@@ -1162,7 +1162,7 @@
 			employment_records = "Experience in hunting criminals"
 
 /obj/machinery/computer/arcade/recruiter/proc/win()
-	gameStatus = RECRUITER_STATUS_START
+	game_status = RECRUITER_STATUS_START
 	atom_say("Congratulations recruiter, the company is going to have a productive shift thanks to you.")
 	playsound(loc, 'sound/arcade/recruiter_win.ogg', 50)
 	prizevend(100)
@@ -1175,7 +1175,7 @@
 
 /obj/machinery/computer/arcade/recruiter/ui_data(mob/user)
 	var/list/data = list(
-	"gamestatus" = gameStatus,
+	"gamestatus" = game_status,
 
 	"cand_name" = candidate_name,
 	"cand_gender" = capitalize(candidate_gender),
@@ -1201,7 +1201,7 @@
 		if("hire")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			if(!good_candidate)
-				gameStatus = RECRUITER_STATUS_GAMEOVER
+				game_status = RECRUITER_STATUS_GAMEOVER
 				reason = "You ended up hiring incompetent employees and now the company is wasting lots of resources to fix what you caused..."
 			else if(curriculums >= 5)
 				win()
@@ -1215,7 +1215,7 @@
 		if("dismiss")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			if(good_candidate)
-				gameStatus = RECRUITER_STATUS_GAMEOVER
+				game_status = RECRUITER_STATUS_GAMEOVER
 				reason = "You ended up dismissing a competent employee and now the company is suffering with the lack of crew."
 			else if(curriculums >= 5)
 				win()
@@ -1228,21 +1228,21 @@
 					generate_candidate()
 
 		if("start_game")
-			if(gameStatus != RECRUITER_STATUS_START)
+			if(game_status != RECRUITER_STATUS_START)
 				return
 			good_candidate = TRUE
-			gameStatus = RECRUITER_STATUS_NORMAL
+			game_status = RECRUITER_STATUS_NORMAL
 			curriculums = 1
 			if(prob(PROB_UNIQUE_CANDIDATE))
 				unique_candidate()
 			else
 				generate_candidate()
 		if("instructions")
-			if(gameStatus != RECRUITER_STATUS_START)
+			if(game_status != RECRUITER_STATUS_START)
 				return
-			gameStatus = RECRUITER_STATUS_INSTRUCTIONS
+			game_status = RECRUITER_STATUS_INSTRUCTIONS
 		if("back_to_menu")
-			gameStatus = RECRUITER_STATUS_START
+			game_status = RECRUITER_STATUS_START
 
 /obj/machinery/computer/arcade/recruiter/attack_hand(mob/user)
 	ui_interact(user)
