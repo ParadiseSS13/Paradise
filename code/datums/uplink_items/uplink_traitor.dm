@@ -41,6 +41,14 @@
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 1
 	job = list("Clown")
+
+/datum/uplink_item/jobspecific/trick_grenade
+	name = "Trick Grenade"
+	desc = "Syndicate Minibomb with glue ejectors that will stick bomb to user's hand on activation."
+	reference = "CGN"
+	item = /obj/item/storage/box/syndie_kit/fake_minibomb
+	cost = 1
+	job = list("Clown")
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
