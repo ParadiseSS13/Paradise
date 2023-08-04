@@ -122,6 +122,7 @@
 		preloadRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()
+	preloadEventTemplates()
 
 /proc/preloadRuinTemplates()
 	// Merge the active lists together
@@ -168,3 +169,14 @@
 
 		GLOB.shuttle_templates[S.shuttle_id] = S
 		GLOB.map_templates[S.shuttle_id] = S
+
+/proc/preloadEventTemplates()
+	for(var/item in subtypesof(/datum/map_template/event))
+		var/datum/map_template/event/event_type = item
+		if(!initial(event_type.mappath))
+			continue
+
+		var/datum/map_template/event/E = new event_type()
+
+		GLOB.event_templates[E.event_id] = E
+		GLOB.map_templates[E.event_id] = E
