@@ -177,7 +177,7 @@
 				return
 			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L)) //xenobio moment
 				continue
-			new /obj/effect/temp_visual/lwap_ping(owner.loc, owner, L)
+			new /obj/effect/temp_visual/single_user/lwap_ping(owner.loc, owner, L)
 			locks++
 
 #undef LWAP_LOCK_CAP
@@ -197,11 +197,14 @@
 	. = ..()
 	if(!looker || !creature)
 		return INITIALIZE_HINT_QDEL
-	lwap_image = image(icon = icon, loc = src, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_x = ((creature.x - looker.x) * 32), pixel_y = ((creature.y - looker.y) * 32))
+	lwap_image = create_image(looker, creature)
 	lwap_image.plane = ABOVE_LIGHTING_PLANE
 	lwap_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	source_UID = looker.UID()
 	add_mind(looker)
+
+/obj/effect/temp_visual/lwap_ping/proc/create_image(mob/living/looker, mob/living/creature)
+	return image(icon = icon, loc = src, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_x = ((creature.x - looker.x) * 32), pixel_y = ((creature.y - looker.y) * 32))
 
 /obj/effect/temp_visual/lwap_ping/Destroy()
 	var/mob/living/previous_user = locateUID(source_UID)

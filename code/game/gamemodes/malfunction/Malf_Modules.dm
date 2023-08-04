@@ -884,7 +884,7 @@
 
 	var/picked_dir = get_dir(caller, target)
 
-	new /obj/effect/temp_visual/telegraphing/vending_machine_tilt(target, MALF_AI_ROLL_TIME)
+	new /obj/effect/temp_visual/single_user/ai_telegraph(target, ranged_ability_user)
 	ranged_ability_user.visible_message("<span class='danger'>[ranged_ability_user] seems to be winding up!</span>")
 	addtimer(CALLBACK(src, PROC_REF(do_roll_over), caller, picked_dir), MALF_AI_ROLL_TIME)
 
@@ -901,8 +901,9 @@
 		return
 
 	var/paralyze_time = clamp(6 SECONDS, 0 SECONDS, (MALF_AI_ROLL_COOLDOWN * 0.9)) //the clamp prevents stunlocking as the max is always a little less than the cooldown between rolls
-
-	return ai_caller.fall_and_crush(target, MALF_AI_ROLL_DAMAGE, prob(MALF_AI_ROLL_CRIT_CHANCE), 2, null, paralyze_time, crush_dir = picked_dir, angle = get_rotation_from_dir(picked_dir))
+	ai_caller.tp_override = TRUE
+	ai_caller.fall_and_crush(target, MALF_AI_ROLL_DAMAGE, prob(MALF_AI_ROLL_CRIT_CHANCE), 2, null, paralyze_time, crush_dir = picked_dir, angle = get_rotation_from_dir(picked_dir))
+	ai_caller.tp_override = FALSE
 
 /obj/effect/proc_holder/ranged_ai/roll_over/proc/get_rotation_from_dir(dir)
 	switch (dir)
