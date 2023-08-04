@@ -848,7 +848,7 @@
 
 /datum/action/innate/ai/ranged/core_tilt
 	name = "Roll Over"
-	// button_icon_state = "roll_over"
+	button_icon_state = "roll_over"
 	desc = "Allows you to roll over in the direction of your choosing, crushing anything in your way."
 	auto_use_uses = FALSE
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/roll_over

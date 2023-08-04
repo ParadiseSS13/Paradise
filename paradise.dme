@@ -897,7 +897,6 @@
 #include "code\game\objects\effects\spawners\random_spawners.dm"
 #include "code\game\objects\effects\spawners\vaultspawner.dm"
 #include "code\game\objects\effects\spawners\windowspawner.dm"
-#include "code\game\objects\effects\temporary_visuals\ai_effects.dm"
 #include "code\game\objects\effects\temporary_visuals\clockcult.dm"
 #include "code\game\objects\effects\temporary_visuals\cult_visuals.dm"
 #include "code\game\objects\effects\temporary_visuals\misc_visuals.dm"
