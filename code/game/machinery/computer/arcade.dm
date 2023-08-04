@@ -1036,6 +1036,7 @@
 #define UNIQUE_CEO_CHILD 3
 #define UNIQUE_VIGILANTE 4
 
+// Defines for the game screens
 #define RECRUITER_STATUS_START 0
 #define RECRUITER_STATUS_INSTRUCTIONS 1
 #define RECRUITER_STATUS_NORMAL 2
@@ -1043,7 +1044,7 @@
 
 /obj/machinery/computer/arcade/recruiter
 	name = "NT Recruiter Simulator"
-	desc = "Play as the nanotrasen recruiter."
+	desc = "Weed out the good from bad employees and build the perfect manifest to work aboard the station."
 	circuit = /obj/item/circuitboard/arcade/recruiter
 	var/candidate_name
 	var/candidate_gender
@@ -1057,16 +1058,28 @@
 	/// Is he a unique candidate/character?
 	var/unique_candidate
 
-	var/list/planets = list("Earth", "Mars", "Luna", "Jargon 4", "New Cannan", "Mauna-B", "Ahdomai", "Moghes", "Qerrballak", "Xarxis 5", "Hoorlm", "Aurum", "Boron 2", "Kelune", "Dalstadt")
+	var/list/planets = list("Earth", "Mars", "Luna", "Jargon 4", "New Cannan", "Mauna-B", "Ahdomai", "Moghes",
+							"Qerrballak", "Xarxis 5", "Hoorlm", "Aurum", "Boron 2", "Kelune", "Dalstadt")
 	/// Planets with either mispellings or ones that cannot support life
-	var/list/incorrect_planets = list("Altam", "Eath", "Marks", "Lunao", "Jabon 4", "Old Cannan", "Mauna-P", "Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
+	var/list/incorrect_planets = list("Altam", "Eath", "Marks", "Lunao", "Jabon 4", "Old Cannan", "Mauna-P",
+									"Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
 
-	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Barber", "Botanist", "Explorer", "Station Engineer", "Atmospherics Technician", "Medical Doctor", "Coroner", "Geneticist", "Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs")
+	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Barber", "Botanist", "Explorer",
+						"Station Engineer", "Atmospherics Technician", "Medical Doctor", "Coroner","Geneticist",
+						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs")
 	/// Jobs that NT stations dont offer/mispelled
-	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "ERT", "Pod Pilot", "Cremist", "Cluwne", "Work Safety Inspector", "Musician", "Chauffeur", "Teacher", "Maid", "Plumber", "Trader", "Hobo", "NT CEO", "Mime", "Assitant", "Janitor", "Medical", "Generticist", "Baton Officer", "Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs")
+	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "ERT",
+								"Pod Pilot", "Cremist", "Cluwne", "Work Safety Inspector", "Musician",
+								"Chauffeur", "Teacher", "Maid", "Plumber", "Trader", "Hobo", "NT CEO",
+								"Mime", "Assitant", "Janittor", "Medical", "Generticist", "Baton Officer",
+								"Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs")
 
-	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation", "Charged with three counts of aggravated silliness", "Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian", "")
-	var/list/incorrect_records = list("Caught littering on NSS Cyberiad", "Scientist involved in the ###### incident", "Rescued four assistants from a plasma fire, but left behind the station blueprints", "Successfully cremated a changeling without stripping them", "", "None")
+	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation", "Charged with three counts of aggravated silliness",
+							"Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian",
+							"")
+	var/list/incorrect_records = list("Caught littering on NSS Cyberiad", "Scientist involved in the ###### incident",
+									"Rescued four assistants from a plasma fire, but left behind the station blueprints",
+									"Successfully cremated a changeling without stripping them", "", "None")
 
 	/// Species that are hirable in the eyes of NT
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
@@ -1194,9 +1207,11 @@
 /obj/machinery/computer/arcade/recruiter/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
+
 	var/mob/user = ui.user
 	add_fingerprint(user)
 	. = TRUE
+
 	switch(action)
 		if("hire")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
@@ -1237,10 +1252,12 @@
 				unique_candidate()
 			else
 				generate_candidate()
+
 		if("instructions")
 			if(game_status != RECRUITER_STATUS_START)
 				return
 			game_status = RECRUITER_STATUS_INSTRUCTIONS
+
 		if("back_to_menu")
 			game_status = RECRUITER_STATUS_START
 
