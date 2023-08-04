@@ -1077,11 +1077,17 @@
 	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation, dont normally asks for good salaries", "Charged with three counts of aggravated silliness",
 							"Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian",
 							"Has spent most of their life backpacking through the milky way galaxy", "Has worked at Mr Changs",
-							"Spent 8 years as a freelance journalist", "")
+							"Spent 8 years as a freelance journalist", "Known as a hero for keeping stations clean while its under attack",
+							"Worked as a bureaucratic for the SolGov", "Worked on the R&D department of the Donk Corporation",
+							"Experienced Cybersun industries roboticist", "Did work for USSP as an translator",
+							"Served for 4 years as a soldier of the Prospero Order", "Traveled over multiple systems as an businessman",
+							"Worked as an waiter for one year", "Has previous experience as an cameraman",
+							"Spent years of his life being a janitor at the clown university")
 	var/list/incorrect_records = list("Caught littering on NSS Cyberiad", "Scientist involved in the ###### incident",
 									"Rescued four assistants from a plasma fire, but left behind the station blueprints",
 									"Successfully cremated a changeling without stripping them", "Worked at a zoo and got fired for eating a monkey", "None",
-									"Found loitering in front of the bridge", "Wired the engine directly to the power grid", "Known for getting wounded too easily")
+									"Found loitering in front of the bridge", "Wired the engine directly to the power grid", "Known for getting wounded too easily",
+									"Demoted in the past for speaking as a mime", "THEY ARE AFTER ME, SEND HELP!")
 
 	/// Species that are hirable in the eyes of NT
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
