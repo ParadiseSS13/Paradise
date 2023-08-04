@@ -1073,7 +1073,7 @@
 										/datum/species/tajaran, /datum/species/kidan, /datum/species/golem,
 										/datum/species/diona, /datum/species/machine, /datum/species/slime,
 										/datum/species/grey, /datum/species/vulpkanin, /datum/species/plasmaman,
-										/datum/species/moth)
+										/datum/species/moth, /datum/species/drask)
 	/// Species that are NOT hirable in the eyes of NT
 	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey, /datum/species/nucleation,
 										/datum/species/shadow, /datum/species/skeleton)
@@ -1102,7 +1102,7 @@
 	else
 		age = rand(initial(cand_species.min_age), initial(cand_species.max_age))
 
-	candidate_name = random_name(candidate_gender, cand_species)
+	candidate_name = random_name(candidate_gender, initial(cand_species.name))
 
 	if(prob(PROB_CANDIDATE_ERRORS))
 		planet_of_origin = pick(incorrect_planets)
