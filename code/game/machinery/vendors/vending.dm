@@ -124,16 +124,6 @@
 	var/crit_damage_factor = 2
 	/// Factor of extra damage to deal when you knock it over onto yourself
 	var/self_knockover_factor = 1.5
-	/// All possible crits that could be applied. We only need to build this up once
-	var/static/list/all_possible_crits = list()
-	/// Possible crit effects from this vending machine tipping.
-	var/list/possible_crits = list(
-		/datum/tilt_crit/pop_head,
-		/datum/tilt_crit/vendor/embed,
-		/datum/tilt_crit/pin,
-		/datum/tilt_crit/shatter,
-		/datum/tilt_crit/lucky
-	)
 	/// number of shards to apply when a crit embeds
 	var/num_shards = 7
 	/// Last time the machine was punched
@@ -177,11 +167,6 @@
 
 	if(account_database)
 		vendor_account = account_database.vendor_account
-
-
-	if(!length(all_possible_crits))
-		for(var/typepath in subtypesof(/datum/tilt_crit))
-			all_possible_crits[typepath] = new typepath()
 
 	update_icon(UPDATE_OVERLAYS)
 	reconnect_database()
