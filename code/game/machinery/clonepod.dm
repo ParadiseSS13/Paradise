@@ -559,7 +559,10 @@
 
 //Icon stuff
 /obj/machinery/clonepod/update_icon_state()
-	//TODO: this logic. lol
+	if(currently_cloning && !(stat & NOPOWER))
+		icon_state = "pod_cloning"
+	else
+		icon_state = "pod_idle"
 
 /obj/machinery/clonepod/update_overlays()
 	. = ..()
