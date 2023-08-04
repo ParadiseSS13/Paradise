@@ -1076,10 +1076,10 @@
 
 	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation", "Charged with three counts of aggravated silliness",
 							"Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian",
-							"")
+							"Has spent most of their life backpacking through the milky way galaxy")
 	var/list/incorrect_records = list("Caught littering on NSS Cyberiad", "Scientist involved in the ###### incident",
 									"Rescued four assistants from a plasma fire, but left behind the station blueprints",
-									"Successfully cremated a changeling without stripping them", "", "None")
+									"Successfully cremated a changeling without stripping them", "Worked at a zoo and got fired for eating a monkey", "None")
 
 	/// Species that are hirable in the eyes of NT
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
@@ -1183,7 +1183,7 @@
 /obj/machinery/computer/arcade/recruiter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "NTRecruiter", name)
+		ui = new(user, src, ui_key, "NTRecruiter", name, 400, 480)
 		ui.open()
 
 /obj/machinery/computer/arcade/recruiter/ui_data(mob/user)
