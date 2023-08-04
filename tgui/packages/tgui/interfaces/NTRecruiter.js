@@ -28,13 +28,15 @@ export const NTRecruiter = (props, context) => {
                 lineHeight={2}
                 fluid
                 icon="play"
+                color="green"
                 content="Begin Game"
                 onClick={() => act('start_game')} />
               <Button
                 lineHeight={2}
                 fluid
                 icon="info"
-                content="Instructions"
+                color="blue"
+                content="Tips"
                 onClick={() => act('instructions')} />
         </Section>
       </Window.Content>
@@ -47,16 +49,32 @@ export const NTRecruiter = (props, context) => {
       <Window.Content>
             <Section
               color="label"
-              title="Objective"
+              title="Tips"
               buttons={(
                 <Button
                   icon="arrow-left"
                   content="Main Menu"
                   onClick={() => act('back_to_menu')} />
               )}>
-                You must HIRE or DISMISS five employment applications to achieve victory,
-                for that you must pay attention to errors and things that
-                wouldnt make sense in the eyes of a Nanotrasen Recruiter!
+                <Box>
+                1# To win this game you must hire/dismiss FIVE candidates,
+                one choice made wrong leads to game over.
+                <br/>
+                <br/>
+                2# Make the right choice by truly putting yourself into
+                the skin of a recruiter working for Nanotrasen!
+                <br/>
+                <br/>
+                3# Unique characters may appear, pay attention to them!
+                <br/>
+                <br/>
+                4# Make sure to pay attention to details like ages,
+                planet names, jobs offered by NT and even the species of the candidate!
+                <br/>
+                <br/>
+                5# Not every employment record is good, remember to make
+                your choice based on the company morals!
+                </Box>
             </Section>
       </Window.Content>
     </Window>
@@ -69,7 +87,8 @@ export const NTRecruiter = (props, context) => {
             <Section
               color="label"
               title="Employment Applications">
-              <Box fontSize="24px">Candidate Number #{cand_curriculum}</Box>
+              <Box fontSize="24px" textAlign="center">Candidate Number #{cand_curriculum}</Box>
+              <br/>
               <Box fontSize="14px">Name: {cand_name}</Box>
               <Box fontSize="14px">Gender: {cand_gender}</Box>
               <Box fontSize="14px">Age: {cand_age} years</Box>
@@ -79,8 +98,7 @@ export const NTRecruiter = (props, context) => {
               <Box fontSize="14px">Employment Records: {cand_records}</Box>
             </Section>
             <Section
-              color="label"
-              title="Stamp"
+              title="Pick your stamp"
               textAlign="center">
                 <>
                 <Box float="center">
@@ -114,11 +132,14 @@ export const NTRecruiter = (props, context) => {
     <Window>
       <Window.Content>
         <Section>
-        <Flex.Item color="red" fontSize="32px">
+        <Flex.Item color="red" fontSize="32px" textAlign="center">
           {"Game Over"}
         </Flex.Item>
-        <Flex.Item grow fontSize="15px" color="label">
+        <Flex.Item fontSize="15px" color="label" textAlign="center">
           {reason}
+        <Flex.Item color="blue" fontSize="20px" textAlign="center">
+        FINAL SCORE: {cand_curriculum-1}/5
+        </Flex.Item>
         </Flex.Item>
               <Button
                 lineHeight={2}

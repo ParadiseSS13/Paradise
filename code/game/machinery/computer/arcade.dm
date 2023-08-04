@@ -1052,7 +1052,7 @@
 	var/planet_of_origin
 	var/job_requested
 	var/employment_records
-	/// Current turn of the game
+	/// Current "turn" of the game
 	var/curriculums
 	/// Is he a unique candidate/character?
 	var/unique_candidate
@@ -1082,6 +1082,7 @@
 	var/good_candidate = TRUE
 	/// Why did you lose?
 	var/reason
+	/// In which screen are we?
 	var/gameStatus = RECRUITER_STATUS_START
 
 /obj/machinery/computer/arcade/recruiter/proc/generate_candidate()
@@ -1169,7 +1170,7 @@
 /obj/machinery/computer/arcade/recruiter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "NTRecruiter", name, 400, 480, master_ui, state)
+		ui = new(user, src, ui_key, "NTRecruiter", name)
 		ui.open()
 
 /obj/machinery/computer/arcade/recruiter/ui_data(mob/user)
