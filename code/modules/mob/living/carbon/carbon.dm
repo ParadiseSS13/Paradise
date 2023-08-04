@@ -1353,5 +1353,5 @@ so that different stomachs can handle things in different ways VB*/
 
 /mob/living/carbon/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate = TRUE, angle)
 	// keep most of what's passed in, but don't change the angle
-	. = ..(target_turf, crush_damage, should_crit, damage_factor, forced_crit, weaken_time, knockdown_time, should_rotate = FALSE, rightable = FALSE)
+	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, should_rotate = FALSE, rightable = FALSE)
 	KnockDown(10 SECONDS)
