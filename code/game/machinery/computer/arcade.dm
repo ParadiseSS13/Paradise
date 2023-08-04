@@ -1079,7 +1079,8 @@
 							"Has spent most of their life backpacking through the milky way galaxy")
 	var/list/incorrect_records = list("Caught littering on NSS Cyberiad", "Scientist involved in the ###### incident",
 									"Rescued four assistants from a plasma fire, but left behind the station blueprints",
-									"Successfully cremated a changeling without stripping them", "Worked at a zoo and got fired for eating a monkey", "None")
+									"Successfully cremated a changeling without stripping them", "Worked at a zoo and got fired for eating a monkey", "None",
+									"Found loitering in front of the bridge", "Wired the engine directly to the power grid")
 
 	/// Species that are hirable in the eyes of NT
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
@@ -1256,9 +1257,11 @@
 		if("instructions")
 			if(game_status != RECRUITER_STATUS_START)
 				return
+			playsound(user, 'sound/effects/pressureplate.ogg', 50, vary = TRUE)
 			game_status = RECRUITER_STATUS_INSTRUCTIONS
 
 		if("back_to_menu")
+			playsound(user, 'sound/effects/pressureplate.ogg', 50, vary = TRUE)
 			game_status = RECRUITER_STATUS_START
 
 /obj/machinery/computer/arcade/recruiter/attack_hand(mob/user)

@@ -21,7 +21,7 @@ export const NTRecruiter = (props, context) => {
   return (
     <Window resizable>
       <Window.Content>
-        <Section title="Nanotrasen Recruiter Simulator" textAlign="center" color="label">
+        <Section title="Nanotrasen Recruiter Simulator" fontSize="16px" textAlign="center" color="label" py="140px">
           Work as the Nanotrasen recruiter and avoid hiring incompetent employees!
         </Section>
         <Section>
@@ -38,7 +38,7 @@ export const NTRecruiter = (props, context) => {
             fluid
             icon="info"
             color="blue"
-            content="Tips"
+            content="Guide"
             onClick={() => act('instructions')}
           />
         </Section>
@@ -50,8 +50,8 @@ export const NTRecruiter = (props, context) => {
     <Window resizable>
       <Window.Content>
         <Section
-          color="label"
-          title="Tips"
+          color="grey"
+          title="Guide"
           buttons={
             <Button
               icon="arrow-left"
@@ -60,25 +60,27 @@ export const NTRecruiter = (props, context) => {
             />
           }
         >
-        <Box>
-          1# To win this game you must hire/dismiss FIVE candidates,
-          one choice made wrong leads to game over.
-          <br/>
-          <br/>
-          2# Make the right choice by truly putting yourself into
-          the skin of a recruiter working for Nanotrasen!
-          <br/>
-          <br/>
-          3# Unique characters may appear, pay attention to them!
-          <br/>
-          <br/>
-          4# Make sure to pay attention to details like ages,
-          planet names, jobs offered by NT and even the species of the candidate!
-          <br/>
-          <br/>
-          5# Not every employment record is good, remember to make
-          your choice based on the company morals!
-        </Box>
+        <LabeledList>
+          <LabeledListItem label="1#" color="silver">
+            To win this game you must hire/dismiss <b>FIVE</b> candidates,
+            one choice made wrong leads to game over.
+          </LabeledListItem>
+          <LabeledListItem label="2#" color="silver">
+            Make the right choice by truly putting yourself into
+            the skin of a recruiter working for Nanotrasen!
+          </LabeledListItem>
+          <LabeledListItem label="3#" color="silver">
+            <b>Unique</b> characters may appear, pay attention to them!
+          </LabeledListItem>
+          <LabeledListItem label="4#" color="silver">
+            Make sure to pay attention to details like ages,
+            planet names, jobs offered by NT and even the species of the candidate!
+          </LabeledListItem>
+          <LabeledListItem label="5#" color="silver">
+            Not every employment record is good, remember to make
+            your choice based on the company morals!
+          </LabeledListItem>
+        </LabeledList>
         </Section>
       </Window.Content>
     </Window>
@@ -121,7 +123,7 @@ export const NTRecruiter = (props, context) => {
         </Section>
         <Section
           title="Stamp the application!"
-          color="silver"
+          color="grey"
           textAlign="center">
         <>
           <Box float="center">
@@ -153,16 +155,17 @@ export const NTRecruiter = (props, context) => {
     return (
     <Window resizable>
       <Window.Content>
-        <Section>
-          <Flex.Item color="red" fontSize="32px" textAlign="center">
+        <Section py="140px">
+          <Flex.Item color="red" fontSize="50px" textAlign="center">
             {"Game Over"}
           </Flex.Item>
           <Flex.Item fontSize="15px" color="label" textAlign="center">
             {reason}
-          <Flex.Item color="blue" fontSize="20px" textAlign="center">
+          </Flex.Item>
+          <Flex.Item color="blue" fontSize="20px" textAlign="center" pt="10px">
             FINAL SCORE: {cand_curriculum-1}/5
           </Flex.Item>
-          </Flex.Item>
+          <Flex.Item pt="20px">
             <Button
               lineHeight={2}
               fluid
@@ -170,6 +173,7 @@ export const NTRecruiter = (props, context) => {
               content="Main Menu"
               onClick={() => act('back_to_menu')}
             />
+          </Flex.Item>
         </Section>
       </Window.Content>
     </Window>
