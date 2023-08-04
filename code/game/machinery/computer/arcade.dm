@@ -1246,6 +1246,7 @@
 		if("start_game")
 			if(game_status != RECRUITER_STATUS_START)
 				return
+			playsound(user, 'sound/effects/pressureplate.ogg', 50, vary = TRUE)
 			good_candidate = TRUE
 			game_status = RECRUITER_STATUS_NORMAL
 			curriculums = 1
