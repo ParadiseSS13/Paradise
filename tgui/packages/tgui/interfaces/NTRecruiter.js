@@ -86,19 +86,27 @@ export const NTRecruiter = (props, context) => {
       <Window.Content>
             <Section
               color="label"
+              fontSize="14px"
               title="Employment Applications">
-              <Box fontSize="24px" textAlign="center">Candidate Number #{cand_curriculum}</Box>
+              <Box fontSize="24px" textAlign="center" color="silver" bold>Candidate Number #{cand_curriculum}</Box>
               <br/>
-              <Box fontSize="14px">Name: {cand_name}</Box>
-              <Box fontSize="14px">Gender: {cand_gender}</Box>
-              <Box fontSize="14px">Age: {cand_age} years</Box>
-              <Box fontSize="14px">Species: {cand_species}</Box>
-              <Box fontSize="14px">Planet of Origin: {cand_planet}</Box>
-              <Box fontSize="14px">Requested Job: {cand_job}</Box>
-              <Box fontSize="14px">Employment Records: {cand_records}</Box>
+              <Box display="inline" color="silver" bold>Name:</Box> {cand_name}
+              <br/>
+              <Box display="inline" color="silver" bold>Gender:</Box> {cand_gender}
+              <br/>
+              <Box display="inline" color="silver" bold>Age:</Box> {cand_age} years
+              <br/>
+              <Box  display="inline" color="silver" bold>Species:</Box> {cand_species}
+              <br/>
+              <Box display="inline" color="silver" bold>Planet of Origin:</Box> {cand_planet}
+              <br/>
+              <Box display="inline" color="silver" bold>Requested Job:</Box> {cand_job}
+              <br/>
+              <Box display="inline" color="silver" bold>Employment Records:</Box> {cand_records}
             </Section>
             <Section
-              title="Pick your stamp"
+              title="Stamp the application!"
+              color="silver"
               textAlign="center">
                 <>
                 <Box float="center">
@@ -107,7 +115,7 @@ export const NTRecruiter = (props, context) => {
                   content="Hire"
                   width="100%"
                   icon="arrow-circle-up"
-                  lineHeight={7}
+                  lineHeight={3}
                   onClick={() => act('hire')}
                   />
                   </Box>
@@ -117,7 +125,7 @@ export const NTRecruiter = (props, context) => {
                  content="Dismiss"
                  width="100%"
                  icon="ban"
-                 lineHeight={7}
+                 lineHeight={3}
                  onClick={() => act('dismiss')}
                 />
                 </Box>
