@@ -952,122 +952,6 @@
 /obj/machinery/economy/vending/onTransitZ()
 	return
 
-/**
- * Select a random valid crit.
- */
-/obj/machinery/economy/vending/proc/choose_crit_old(mob/living/carbon/victim)
-	if(!length(possible_crits))
-		return
-	for(var/crit_path in shuffle(possible_crits))
-		var/datum/tilt_crit/C = all_possible_crits[crit_path]
-		if(C.is_valid(src, victim))
-			return C
-
-/obj/machinery/economy/vending/proc/handle_squish_carbon_old(mob/living/carbon/victim, damage_to_deal, crit, from_combat)
-
-	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
-	var/crit_rebate = 0
-
-	var/should_throw_at_target = TRUE
-
-	if(HAS_TRAIT(victim, TRAIT_DWARF))
-		// also double damage if you're short
-		damage_to_deal *= 2
-
-	var/datum/tilt_crit/critical_attack = choose_crit(victim)
-	if(!from_combat && crit && critical_attack)
-		crit_rebate = critical_attack.tip_crit_effect(src, victim)
-		if(critical_attack.harmless)
-			tilt_over(critical_attack.fall_towards_mob ? victim : null)
-			return
-
-		should_throw_at_target = critical_attack.fall_towards_mob
-		add_attack_logs(null, victim, "critically crushed by [src] causing [critical_attack]")
-	else
-		victim.visible_message(
-			"<span class='danger'>[victim] is crushed by [src]!</span>",
-			"<span class='userdanger'>[src] crushes you!</span>",
-			"<span class='warning'>You hear a loud crunch!</span>"
-		)
-		add_attack_logs(null, victim, "crushed by [src]")
-
-	// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
-	damage_to_deal = max(damage_to_deal - crit_rebate, 0)
-	if(prob(30))
-		victim.apply_damage(damage_to_deal, BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
-	else
-		var/picked_zone
-		var/num_parts_to_pick = 2
-		for(var/i = 1 to num_parts_to_pick)
-			picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
-			victim.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
-
-	victim.AddElement(/datum/element/squish, 80 SECONDS)
-	victim.emote("scream")
-
-	return
-
-/**
- * Tilts the machine onto the atom passed in.
- *
- * Arguments:
- * * victim - The thing the machine is falling on top of
- * * crit - if true, some special damage effects might happen.
- * * from_combat - If true, hold off on some of the additional damage and extra effects.
- */
-/obj/machinery/economy/vending/proc/tilt_old(atom/victim, crit = FALSE, from_combat = FALSE)
-	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
-		return
-
-	tilted = TRUE
-	layer = ABOVE_MOB_LAYER
-
-	var/should_throw_at_target = TRUE
-
-	. = FALSE
-
-	if(!victim || !in_range(victim, src))
-		tilt_over()
-		return
-	for(var/mob/living/L in get_turf(victim))
-		// Damage to deal outright
-		var/damage_to_deal = squish_damage
-		if(!from_combat)
-			L.Weaken(6 SECONDS)
-			if(crit)
-				// increase damage if you knock it over onto yourself
-				damage_to_deal *= crit_damage_factor
-			else
-				damage_to_deal *= self_knockover_factor
-		else
-			L.Weaken(4 SECONDS)
-
-		if(iscarbon(L))
-			var/throw_spec = handle_squish_carbon(victim, damage_to_deal, crit, from_combat)
-			// switch(throw_spec)
-			// 	if(VENDOR_CRUSH_HANDLED)
-			// 		return TRUE
-			// 	if(VENDOR_THROW_AT_TARGET)
-			// 		should_throw_at_target = TRUE
-			// 	if(VENDOR_TIP_IN_PLACE)
-			// 		should_throw_at_target = FALSE
-		else
-			L.visible_message(
-				"<span class='danger'>[L] is crushed by [src]!</span>",
-				"<span class='userdanger'>[src] falls on top of you, crushing you!</span>"
-			)
-			L.apply_damage(damage_to_deal, BRUTE)
-
-			add_attack_logs(null, L, "crushed by [src]")
-
-		. = TRUE
-		L.KnockDown(12 SECONDS)
-
-		playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
-		playsound(L, "sound/effects/splat.ogg", 50, TRUE)
-
-	tilt_over(should_throw_at_target ? victim : null)
-
 /obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE)
 	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
 		return
@@ -1085,15 +969,6 @@
 			layer = ABOVE_MOB_LAYER
 
 	if(get_turf(victim) != get_turf(src))
-		throw_at(get_turf(victim), 1, 1, spin = FALSE)
-
-/obj/machinery/economy/vending/tilt_over(mob/victim)
-	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
-	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
-	var/matrix/M = matrix()
-	M.Turn(pick(90, 270))
-	transform = M
-	if(victim && get_turf(victim) != get_turf(src))
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)

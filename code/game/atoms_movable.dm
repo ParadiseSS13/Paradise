@@ -663,8 +663,6 @@
 	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
 	var/crit_rebate = 0
 
-	var/should_throw_at_target = TRUE
-
 	if(HAS_TRAIT(victim, TRAIT_DWARF))
 		// also double damage if you're short
 		damage_to_deal *= 2
@@ -719,20 +717,14 @@
 
 		var/datum/tilt_crit/crit_case = forced_crit
 		if(isnull(forced_crit) && should_crit)
-			crit_case = choose_crit()  // todo actually handle the list
+			crit_case = choose_crit()
 		// note that it could still be null after this point, in which case it won't crit
-
-		// todo add signal logic
-
 		var/damage_to_deal = crush_damage
 
 		if(isliving(target))
 			var/mob/living/L = target
 
-			// todo ensure the old "from_combat" stuff makes it back in, as well as stuff from knocking it over onto yourself
-
 			if(crit_case)
-				// increase damage if you knock it over onto yourself
 				damage_to_deal *= crit_damage_factor
 			if(iscarbon(L))
 				handle_squish_carbon(L, damage_to_deal, crit_case)
@@ -759,7 +751,7 @@
 		)
 
 	tilt_over(target_turf, angle, should_rotate, rightable, block_interactions_until_righted)
-	// for things like teleporters apparently
+	// for things that trigger on Crossed()
 	Move(target_turf, get_dir(get_turf(src), target_turf))
 
 	return TRUE
