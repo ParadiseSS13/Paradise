@@ -53,6 +53,9 @@
 		if(istype(summoner_loc, /obj/machinery/atmospherics))
 			to_chat(G, "<span class='warning'>You can not manifest while in these pipes!</span>")
 			return
+		if(istype(summoner_loc, /obj/structure/closet/cardboard/agent))
+			to_chat(G, "<span class='warning'>You can not manifest while your Stealth Implant is active!</span>")
+			return
 		if(G.loc == G.summoner)
 			G.Manifest()
 
