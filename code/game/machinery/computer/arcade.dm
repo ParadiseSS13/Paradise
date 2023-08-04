@@ -1074,13 +1074,14 @@
 								"Mime", "Assitant", "Janittor", "Medical", "Generticist", "Baton Officer",
 								"Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs")
 
-	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation", "Charged with three counts of aggravated silliness",
+	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation, dont normally asks for good salaries", "Charged with three counts of aggravated silliness",
 							"Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian",
-							"Has spent most of their life backpacking through the milky way galaxy")
+							"Has spent most of their life backpacking through the milky way galaxy", "Has worked at Mr Changs",
+							"Spent 8 years as a freelance journalist", "")
 	var/list/incorrect_records = list("Caught littering on NSS Cyberiad", "Scientist involved in the ###### incident",
 									"Rescued four assistants from a plasma fire, but left behind the station blueprints",
 									"Successfully cremated a changeling without stripping them", "Worked at a zoo and got fired for eating a monkey", "None",
-									"Found loitering in front of the bridge", "Wired the engine directly to the power grid")
+									"Found loitering in front of the bridge", "Wired the engine directly to the power grid", "Known for getting wounded too easily")
 
 	/// Species that are hirable in the eyes of NT
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
@@ -1218,6 +1219,7 @@
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			if(!good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
+				playsound(loc, 'sound/misc/compiler-failure.ogg', 5, TRUE)
 				reason = "You ended up hiring incompetent employees and now the company is wasting lots of resources to fix what you caused..."
 			else if(curriculums >= 5)
 				win()
@@ -1232,7 +1234,8 @@
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			if(good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
-				reason = "You ended up dismissing a competent employee and now the company is suffering with the lack of crew."
+				playsound(loc, 'sound/misc/compiler-failure.ogg', 5, TRUE)
+				reason = "You ended up dismissing a competent employee and now the company is suffering with the lack of crew!"
 			else if(curriculums >= 5)
 				win()
 			else

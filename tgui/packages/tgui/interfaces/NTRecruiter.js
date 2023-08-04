@@ -21,11 +21,18 @@ export const NTRecruiter = (props, context) => {
   return (
     <Window resizable>
       <Window.Content>
-        <Section title="Nanotrasen Recruiter Simulator" fontSize="16px" textAlign="center" color="label" py="140px">
-          Work as the Nanotrasen recruiter and avoid hiring incompetent employees!
-        </Section>
-        <Section>
+        <Section py="140px">
+          <Flex direction="column">
+            <Flex.Item fontSize="35px" color="blue" pb="10px" textAlign="center">
+              Nanotrasen Recruiter Simulator
+            </Flex.Item>
+            <Flex.Item fontSize="16px" textAlign="center" color="label">
+              Work as the Nanotrasen recruiter and avoid hiring incompetent employees!
+            </Flex.Item>
+          </Flex>
           <Button
+            mt="50px"
+            textAlign="center"
             lineHeight={2}
             fluid
             icon="play"
@@ -34,6 +41,8 @@ export const NTRecruiter = (props, context) => {
             onClick={() => act('start_game')}
           />
           <Button
+            mt="10px"
+            textAlign="center"
             lineHeight={2}
             fluid
             icon="info"
@@ -79,6 +88,14 @@ export const NTRecruiter = (props, context) => {
           <LabeledListItem label="5#" color="silver">
             Not every employment record is good, remember to make
             your choice based on the company morals!
+          </LabeledListItem>
+          <LabeledListItem label="6#" color="silver">
+            The planet of origin has no restriction on the species of the candidate,
+            dont think too much when you see humans that came from Boron!
+          </LabeledListItem>
+          <LabeledListItem label="7#" color="silver">
+            Pay attention to <b>typos</b> and <b>missing words</b>, these do
+            make for bad applications!
           </LabeledListItem>
         </LabeledList>
         </Section>
