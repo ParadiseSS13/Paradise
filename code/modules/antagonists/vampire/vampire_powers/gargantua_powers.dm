@@ -209,7 +209,7 @@
 	desc = "You jump towards a target on your screen, creating an arena around yourself and making your body immune to breaking."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 150
-	base_cooldown = 30 SECONDS
+	base_cooldown = 1 SECONDS
 	action_icon_state = "blood_barrier"
 	should_recharge_after_cast = FALSE
 	/// The garg vampire
@@ -226,7 +226,7 @@
 /obj/effect/proc_holder/spell/vampire/arena/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
 	T.click_radius = 0
-	T.allowed_type = /mob/living
+	T.allowed_type = /mob/living/carbon/human
 	return T
 
 /obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/living/user)
@@ -241,15 +241,15 @@
 	// First we leap towards the enemy target
 
 	animate(garg_vampire, 1 SECONDS, pixel_z = 64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
-	addtimer(CALLBACK(garg_vampire, garg_vampire.spin(14, 1), 3, 2), 0.3 SECONDS)
+	addtimer(CALLBACK(garg_vampire, garg_vampire.spin(12, 1), 3, 2), 0.3 SECONDS)
 
-	target_turf = get_turf(targets[1]) // We want to get the location here in case the target moves while we are charging up
 	var/angle = get_angle(garg_vampire, targets[1]) + 180
 	garg_vampire.transform = garg_vampire.transform.Turn(angle)
 	for(var/i, i < 10, i++)
-		var/move_dir = get_dir(garg_vampire, target_turf)
+		var/move_dir = get_dir(garg_vampire, targets[1])
 		garg_vampire.forceMove(get_step(garg_vampire, move_dir))
-		if(get_turf(garg_vampire) == target_turf)
+		if(get_turf(garg_vampire) == get_turf(targets[1]))
+			target_turf = get_turf(garg_vampire)
 			garg_vampire.transform = 0
 			break
 		sleep(1)
@@ -277,7 +277,7 @@
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
 	for(var/tumor_range_turfs in circle_edge_turfs(target_turf, ARENA_SIZE))
 		tumor_range_turfs = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
-	//	all_temp_walls += tumor_range_turfs
+		all_temp_walls += tumor_range_turfs
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check()
 	if(QDELETED(garg_vampire) || garg_vampire.stat == DEAD)
@@ -294,6 +294,7 @@
 	if(timer)
 		deltimer(timer)
 		timer = null
+	QDEL_LIST_CONTENTS(all_temp_walls)
 	cooldown_handler.start_recharge()
 	garg_vampire.remove_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	visible_message("<span class='warning'>The arena begins to dissipate.</span>")
