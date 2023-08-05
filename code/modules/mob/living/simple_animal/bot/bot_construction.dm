@@ -30,12 +30,11 @@
 
 	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
-		if(!isnull(t))
-			if(length(t) > 0)
-				created_name = t
-				log_game("[key_name(user)] has renamed a robot to [t]")
-			else
-				to_chat(user, "The robot's name must have at least one character.")
+		if(length(t) > 0)
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
+		else
+			to_chat(user, "The robot's name must have at least one character.")
 
 //Edbot Assembly
 
@@ -55,12 +54,11 @@
 
 	if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
-		if(!isnull(t))
-			if(length(t) > 0)
-				created_name = t
-				log_game("[key_name(user)] has renamed a robot to [t]")
-			else
-				to_chat(user, "The robot's name must have at least one character.")
+		if(length(t) > 0)
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
+		else
+			to_chat(user, "The robot's name must have at least one character.")
 		return
 
 	switch(build_step)
@@ -306,12 +304,11 @@
 
 	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
-		if(!isnull(t))
-			if(length(t) > 0)
-				created_name = t
-				log_game("[key_name(user)] has renamed a robot to [t]")
-			else
-				to_chat(user, "The robot's name must have at least one character.")
+		if(length(t) > 0)
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
+		else
+			to_chat(user, "The robot's name must have at least one character.")
 
 /obj/item/toolbox_tiles/sensor/update_icon_state()
 	icon_state = "[toolbox_color]toolbox_tiles_sensor"
@@ -390,12 +387,11 @@
 	..()
 	if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
-		if(!isnull(t))
-			if(length(t) > 0)
-				created_name = t
-				log_game("[key_name(user)] has renamed a robot to [t]")
-			else
-				to_chat(user, "The robot's name must have at least one character.")
+		if(length(t) > 0)
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
+		else
+			to_chat(user, "The robot's name must have at least one character.")
 	else
 		switch(build_step)
 			if(0)
@@ -501,12 +497,11 @@
 
 	else if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
-		if(!isnull(t))
-			if(length(t) > 0)
-				created_name = t
-				log_game("[key_name(user)] has renamed a robot to [t]")
-			else
-				to_chat(user, "The robot's name must have at least one character.")
+		if(length(t) > 0)
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
+		else
+			to_chat(user, "The robot's name must have at least one character.")
 
 //General Griefsky
 
