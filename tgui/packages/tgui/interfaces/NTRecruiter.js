@@ -87,7 +87,7 @@ export const NTRecruiter = (props, context) => {
           </LabeledListItem>
           <LabeledListItem label="5#" color="silver">
             Not every employment record is good, remember to make
-            your choice based on the company morals!
+            your choice based on the <b>company morals</b>!
           </LabeledListItem>
           <LabeledListItem label="6#" color="silver">
             The planet of origin has no restriction on the species of the candidate,
@@ -96,6 +96,10 @@ export const NTRecruiter = (props, context) => {
           <LabeledListItem label="7#" color="silver">
             Pay attention to <b>typos</b> and <b>missing words</b>, these do
             make for bad applications!
+          </LabeledListItem>
+          <LabeledListItem label="8#" color="silver">
+            Remember, you aree recruiting people to work at one of the many NT stations,
+            so no hiring for <b>jobs</b> that they <b>dont offer</b>!
           </LabeledListItem>
         </LabeledList>
         </Section>
