@@ -23,7 +23,7 @@ export const NTRecruiter = (props, context) => {
       <Window.Content>
         <Section py="140px">
           <Flex direction="column">
-            <Flex.Item fontSize="35px" color="blue" pb="10px" textAlign="center">
+            <Flex.Item fontSize="31px" color="white" pb="10px" textAlign="center" bold>
               Nanotrasen Recruiter Simulator
             </Flex.Item>
             <Flex.Item fontSize="16px" textAlign="center" color="label">
