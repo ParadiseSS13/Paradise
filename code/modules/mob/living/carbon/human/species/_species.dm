@@ -559,6 +559,8 @@
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
 		return FALSE
+	if(user.mind.martial_art && IS_HORIZONTAL(user))
+		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
@@ -628,15 +630,8 @@
 		else if(!user.IsStunned())
 			target.Stun(0.5 SECONDS)
 	else
-		if(target.IsSlowed() && target.get_active_hand())
-			target.drop_item()
-			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
-		else
-			target.Slowed(2.5 SECONDS, 1)
-			var/obj/item/I = target.get_active_hand()
-			if(I)
-				to_chat(target, "<span class='warning'>Your grip on [I] loosens!</span>")
-			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
+		target.Slowed(2.5 SECONDS, 1)
+		add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
 	target.stop_pulling()
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
