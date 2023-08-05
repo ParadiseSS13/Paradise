@@ -89,7 +89,8 @@
 	if(isanimal(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes
 	add_fingerprint(user)
-	start_spike(victim, user)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure/kitchenspike, start_spike), victim, user)
+	return TRUE
 
 /obj/structure/kitchenspike/proc/start_spike(mob/living/victim, mob/user)
 	if(has_buckled_mobs())
@@ -128,6 +129,8 @@
 	victim.set_lying_angle(180)
 	victim.update_transform()
 	victim.pixel_y = victim.get_standard_pixel_y_offset(180)
+	if(victim.mind)
+		add_attack_logs(user, victim, "Hooked onto [src]")
 	return TRUE
 
 /obj/structure/kitchenspike/user_unbuckle_mob(mob/living/buckled_mob, mob/living/carbon/human/user)

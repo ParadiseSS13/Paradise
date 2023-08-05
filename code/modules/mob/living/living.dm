@@ -81,6 +81,8 @@
 
 //Called when we bump into a mob
 /mob/living/proc/MobBump(mob/M)
+	if(m_intent == MOVE_INTENT_WALK)
+		return TRUE
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
@@ -269,6 +271,11 @@
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
 		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
 		return TRUE
+	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && A != hand_item)
+		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
+		visible_message("<span class='danger'>[src] points [trick] at- and [trick] goes off in their hand!</span>")
+		trick.shoot_gun(src)
+
 	visible_message("<b>[src]</b> points to [pointed_object]")
 	return TRUE
 
@@ -483,7 +490,7 @@
 	CureNervous()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
-	RestoreEars()
+	SetDeaf(0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	SEND_SIGNAL(src, COMSIG_LIVING_CLEAR_STUNS)
@@ -1139,3 +1146,15 @@
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	stop_pulling()
 	return ..()
+
+/mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(C == src || flying || !density)
+		return
+	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	if(mob_hurt)
+		return
+	if(!self_hurt)
+		take_organ_damage(damage)
+	C.take_organ_damage(damage)
+	C.KnockDown(3 SECONDS)
+	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")

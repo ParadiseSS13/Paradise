@@ -1028,6 +1028,12 @@
 	..()
 	block = GLOB.remoteviewblock
 
+/datum/mutation/grant_spell/remoteview/deactivate(mob/user)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.remoteview_target = null
+		H.reset_perspective()
 
 /obj/effect/proc_holder/spell/remoteview
 	name = "Remote View"

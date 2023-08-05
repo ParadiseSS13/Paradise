@@ -78,7 +78,7 @@
 		/obj/item/clothing/gloves/color/latex/nitrile, // 0 TC
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
-		/obj/item/thermal_drill/diamond_drill, // 1TC
+		/obj/item/thermal_drill/diamond_drill/syndicate, // 1TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/implant = list( // 40TC
@@ -195,6 +195,13 @@
 /obj/item/storage/box/syndie_kit/c4/populate_contents()
 	for(var/I in 1 to 5)
 		new /obj/item/grenade/plastic/c4(src)
+
+/obj/item/storage/box/syndie_kit/frag_grenades
+	name = "pack of fragmentation grenades"
+
+/obj/item/storage/box/syndie_kit/frag_grenades/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/frag(src)
 
 /obj/item/storage/box/syndie_kit/throwing_weapons
 	name = "boxed throwing kit"
@@ -365,3 +372,21 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/revolver/populate_contents()
 	new /obj/item/gun/projectile/revolver(src)
 	new /obj/item/ammo_box/a357(src)
+
+/obj/item/storage/box/syndie_kit/stechkin
+	name = "\improper FK-69 Stechkin kit"
+	desc = "A box marked with Neo-Russkiyan characters. It appears to contain a 10mm pistol and two magazines."
+
+/obj/item/storage/box/syndie_kit/stechkin/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+
+/obj/item/storage/box/syndie_kit/camera_bug
+	name = "\improper Camera Bug kit"
+
+/obj/item/storage/box/syndie_kit/camera_bug/populate_contents()
+	var/camera = new /obj/item/camera_bug(src)
+	new /obj/item/paper/camera_bug(src)
+	for(var/i in 1 to 5)
+		new /obj/item/wall_bug(src, camera)

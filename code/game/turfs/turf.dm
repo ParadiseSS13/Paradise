@@ -34,8 +34,6 @@
 
 	var/blocks_air = FALSE
 
-	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
-
 	flags = 0
 
 	var/image/obscured	//camerachunks
@@ -131,12 +129,6 @@
 		our_rpd.flip_all_pipes(user, src)
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_all_pipes(user, src)
-
-/turf/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/beam/pulse))
-		src.ex_act(2)
-	..()
-	return FALSE
 
 /turf/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/bullet/gyro))
@@ -503,10 +495,12 @@
 
 /turf/proc/add_blueprints(atom/movable/AM)
 	var/image/I = new
+	I.plane = GAME_PLANE
+	I.layer = OBJ_LAYER
 	I.appearance = AM.appearance
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	I.loc = src
-	I.setDir(AM.dir)
+	I.dir = AM.dir
 	I.alpha = 128
 	LAZYADD(blueprint_data, I)
 
@@ -573,3 +567,12 @@
 		else
 			return I
 	return I
+
+
+/turf/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(mob_hurt || !density)
+		return
+	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
+	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+	C.take_organ_damage(damage)
+	C.KnockDown(3 SECONDS)

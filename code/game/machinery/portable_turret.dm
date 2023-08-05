@@ -435,7 +435,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			return
 
 	health -= damage_amount
-	if(damage_amount > 5 && prob(45) && spark_system)
+	if(damage_amount > 5 && prob(45) && spark_system && damage_flag != FIRE)
 		spark_system.start()
 	if(health <= 0)
 		die()	//the death process :(
@@ -746,7 +746,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(power_channel, reqpower * (2 * (emagged || lethal)) * (2 * emagged))
+	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
 
 	if(istype(A))
 		A.original = target

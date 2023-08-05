@@ -64,7 +64,7 @@
 			var/obj/item/stack/tile/W = C
 			if(!W.use(1))
 				return
-			ChangeTurf(W.turf_type)
+			ChangeTurf(W.turf_type, keep_icon = FALSE)
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
@@ -230,7 +230,7 @@
 
 /turf/simulated/floor/engine/n20
 	name = "\improper N2O floor"
-	sleeping_agent = 6000
+	sleeping_agent = 60000
 	oxygen = 0
 	nitrogen = 0
 

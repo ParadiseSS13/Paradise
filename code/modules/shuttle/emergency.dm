@@ -304,7 +304,7 @@
 			continue
 		if(isanimal(player)) //Poly does not own the shuttle
 			continue
-		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
+		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints/them being golems
 			var/mob/living/carbon/human/H = player
 			if(!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead
 				continue
@@ -316,6 +316,8 @@
 				var/obj/structure/closet/C = H.loc
 				if(C.welded || C.locked)
 					continue
+			if(isgolem(H)) // golems are often used in hijacks, so they really shouldn't all be forced to space themselves before the shuttle docks
+				continue
 		var/special_role = player.mind.special_role
 		if(special_role)
 			// There's a long list of special roles, but almost all of them are antags anyway.

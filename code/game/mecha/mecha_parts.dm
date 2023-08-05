@@ -466,8 +466,3 @@
 /obj/item/circuitboard/mecha/odysseus/peripherals
 	board_name = "Odysseus Peripherals Control Module"
 	icon_state = "mcontroller"
-
-
-/obj/item/circuitboard/mecha/pod
-	board_name = "Space Pod Mainboard"
-	icon_state = "mainboard"
