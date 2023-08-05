@@ -11,5 +11,5 @@
 /datum/map_template/event/splashscreen_sandbox
 	name = "Splashscreen Sandbox"
 	event_id = "|Event| Splashscreen Sandbox"
-	description = "Pre-made starting area with contain respawner, make sure to use ghost beacon, it contain all basic sandbox tools necessery for your ants to create colony."
+	description = "Pre-made starting area that contains a respawner, make sure to use the ghost beacon. It has all the basic sandbox tools necessary for your ants to create colony."
 	mappath = "_maps/map_files/EventStructures/splashscreen_sandbox.dmm"
