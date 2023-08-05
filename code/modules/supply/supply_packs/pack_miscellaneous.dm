@@ -10,7 +10,7 @@
 	containername = "\improper MULEbot crate"
 	department_restrictions = list(DEPARTMENT_SUPPLY)
 
-/datum/supply_packs/misc/mule
+/datum/supply_packs/misc/loader
 	name = "Loader MODsuit Crate"
 	contains = list(/obj/item/mod/control/pre_equipped/loader)
 	cost = 750 //Unique, expencive. Better sell that plasma
