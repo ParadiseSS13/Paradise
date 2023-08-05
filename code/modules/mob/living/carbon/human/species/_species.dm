@@ -509,6 +509,12 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
+	//Mind Flayer code
+	var/datum/antagonist/mindflayer/MF = user?.mind?.has_antag_datum(/datum/antagonist/mindflayer)
+	if(MF && !MF.harvesting && user.zone_selected == "head" && target != user)
+		if(MF.check_valid_harvest(target))
+			MF.handle_harvest(target)
+	//End Mind Flayer Code
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
