@@ -1204,7 +1204,7 @@
 	game_status = RECRUITER_STATUS_START
 	atom_say("Congratulations recruiter, the company is going to have a productive shift thanks to you.")
 	playsound(loc, 'sound/arcade/recruiter_win.ogg', 40)
-	prizevend(100)
+	prizevend(50)
 
 /obj/machinery/computer/arcade/recruiter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
