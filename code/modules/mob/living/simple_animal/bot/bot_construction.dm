@@ -30,7 +30,7 @@
 
 	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
-		if(length(t) > 0)
+		if(length(t))
 			created_name = t
 			log_game("[key_name(user)] has renamed a robot to [t]")
 		else
@@ -54,7 +54,7 @@
 
 	if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
-		if(length(t) > 0)
+		if(length(t))
 			created_name = t
 			log_game("[key_name(user)] has renamed a robot to [t]")
 		else
@@ -304,7 +304,7 @@
 
 	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
-		if(length(t) > 0)
+		if(length(t))
 			created_name = t
 			log_game("[key_name(user)] has renamed a robot to [t]")
 		else
@@ -387,7 +387,7 @@
 	..()
 	if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
-		if(length(t) > 0)
+		if(length(t))
 			created_name = t
 			log_game("[key_name(user)] has renamed a robot to [t]")
 		else
@@ -497,7 +497,7 @@
 
 	else if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
-		if(length(t) > 0)
+		if(length(t))
 			created_name = t
 			log_game("[key_name(user)] has renamed a robot to [t]")
 		else
