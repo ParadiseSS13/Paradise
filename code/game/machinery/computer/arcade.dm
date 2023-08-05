@@ -1063,7 +1063,7 @@
 	var/list/planets = list("Earth", "Mars", "Luna", "Jargon 4", "New Cannan", "Mauna-B", "Ahdomai", "Moghes",
 							"Qerrballak", "Xarxis 5", "Hoorlm", "Aurum", "Boron 2", "Kelune", "Dalstadt")
 	/// Planets with either mispellings or ones that cannot support life
-	var/list/incorrect_planets = list("Altam", "Eath", "Marks", "Lunao", "Jabon 4", "Old Cannan", "Mauna-P",
+	var/list/incorrect_planets = list("Eath", "Marks", "Lunao", "Jabon 4", "Old Cannan", "Mauna-P",
 									"Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
 
 	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Barber", "Botanist", "Explorer", "Quartermaster",
@@ -1166,7 +1166,6 @@
 		good_candidate = TRUE
 
 /obj/machinery/computer/arcade/recruiter/proc/unique_candidate()
-	good_candidate = TRUE
 	unique_candidate = pick(UNIQUE_STEVE, UNIQUE_MIME, UNIQUE_CEO_CHILD, UNIQUE_VIGILANTE)
 	switch(unique_candidate)
 		if(UNIQUE_STEVE) // Steve is special
@@ -1241,7 +1240,7 @@
 
 	switch(action)
 		if("hire")
-			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(!good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
@@ -1250,13 +1249,14 @@
 				win()
 			else
 				curriculums++
+				good_candidate = TRUE
 				if(prob(PROB_UNIQUE_CANDIDATE))
 					unique_candidate()
 				else
 					generate_candidate()
 
 		if("dismiss")
-			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
@@ -1274,7 +1274,7 @@
 		if("start_game")
 			if(game_status != RECRUITER_STATUS_START)
 				return
-			playsound(user, 'sound/effects/pressureplate.ogg', 30, vary = TRUE)
+			playsound(user, 'sound/effects/pressureplate.ogg', 30, TRUE)
 			good_candidate = TRUE
 			game_status = RECRUITER_STATUS_NORMAL
 			curriculums = 1
@@ -1286,11 +1286,11 @@
 		if("instructions")
 			if(game_status != RECRUITER_STATUS_START)
 				return
-			playsound(user, 'sound/effects/pressureplate.ogg', 30, vary = TRUE)
+			playsound(user, 'sound/effects/pressureplate.ogg', 30, TRUE)
 			game_status = RECRUITER_STATUS_INSTRUCTIONS
 
 		if("back_to_menu")
-			playsound(user, 'sound/effects/pressureplate.ogg', 30, vary = TRUE)
+			playsound(user, 'sound/effects/pressureplate.ogg', 30, TRUE)
 			game_status = RECRUITER_STATUS_START
 
 /obj/machinery/computer/arcade/recruiter/attack_hand(mob/user)
