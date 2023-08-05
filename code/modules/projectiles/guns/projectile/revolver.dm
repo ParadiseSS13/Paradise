@@ -96,7 +96,7 @@
 /obj/item/gun/projectile/revolver/fake/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY))
-		. += "<span class='sans'>Its mechanism looks like it shoots backwards.</span>"
+		. += "<span class='sans'>Its mechanism seems to shoot backwards.</span>"
 
 /obj/item/gun/projectile/revolver/fake/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
 	var/zone = "chest"
