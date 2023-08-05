@@ -76,7 +76,9 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "t" = (
-/obj/effect/mob_spawn/human/corpse/mime,
+/obj/effect/mob_spawn/human/corpse/mime{
+	name = "Mime Pilot"
+	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "x" = (
@@ -147,6 +149,16 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"H" = (
+/obj/effect/mob_spawn/human/corpse/clown{
+	name = "Clown Pilot"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unpowered)
+"I" = (
+/obj/item/paper/clownship,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "J" = (
 /obj/effect/spawner/window/shuttle,
@@ -600,7 +612,7 @@ a
 b
 n
 p
-x
+H
 k
 O
 b
@@ -644,7 +656,7 @@ a
 e
 k
 k
-k
+I
 k
 k
 e
