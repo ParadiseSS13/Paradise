@@ -12,19 +12,6 @@
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/grass,
 /area/start)
-"b" = (
-/obj/item/pen/multi,
-/obj/item/pen/multi,
-/obj/item/pen/multi,
-/obj/item/pen/multi,
-/obj/item/pen/multi,
-/obj/item/pen/multi,
-/obj/item/pen/multi,
-/obj/item/pen/multi,
-/obj/item/pen/multi,
-/obj/item/pen/multi,
-/turf/simulated/floor/grass,
-/area/start)
 "c" = (
 /obj/item/storage/fancy/crayons,
 /obj/item/storage/fancy/crayons,
@@ -46,6 +33,12 @@
 	},
 /turf/simulated/floor/grass,
 /area/start)
+"e" = (
+/obj/item/paper_bin,
+/obj/item/paper_bin,
+/obj/item/paper_bin,
+/turf/simulated/floor/grass,
+/area/start)
 "f" = (
 /obj/item/tank/internals/emergency_oxygen/double/vox,
 /obj/item/tank/internals/emergency_oxygen/double/vox,
@@ -55,16 +48,16 @@
 /turf/simulated/floor/grass,
 /area/start)
 "g" = (
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
-/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty,
 /turf/simulated/floor/grass,
 /area/start)
 "h" = (
@@ -160,6 +153,19 @@
 /obj/machinery/mineral/ore_redemption/upgraded,
 /turf/simulated/floor/grass,
 /area/start)
+"r" = (
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/obj/item/storage/belt,
+/turf/simulated/floor/grass,
+/area/start)
 "s" = (
 /obj/item/stack/ore/plasma{
 	amount = 50
@@ -179,6 +185,14 @@
 /obj/item/storage/box/bodybags,
 /obj/item/storage/box/bodybags,
 /obj/item/storage/box/bodybags,
+/turf/simulated/floor/grass,
+/area/start)
+"u" = (
+/obj/item/soap/syndie,
+/obj/item/soap/syndie,
+/obj/item/soap/syndie,
+/obj/item/soap/syndie,
+/obj/item/soap/syndie,
 /turf/simulated/floor/grass,
 /area/start)
 "v" = (
@@ -213,11 +227,7 @@
 /turf/simulated/floor/grass,
 /area/start)
 "x" = (
-/obj/item/mop/advanced,
-/obj/item/mop/advanced,
-/obj/item/mop/advanced,
-/obj/item/mop/advanced,
-/obj/item/mop/advanced,
+/obj/machinery/recycler,
 /turf/simulated/floor/grass,
 /area/start)
 "z" = (
@@ -336,6 +346,19 @@
 /obj/item/tank/internals/plasmaman/full,
 /turf/simulated/floor/grass,
 /area/start)
+"N" = (
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/turf/simulated/floor/grass,
+/area/start)
 "O" = (
 /obj/item/stack/tape_roll,
 /obj/item/stack/tape_roll,
@@ -401,10 +424,23 @@
 	},
 /turf/simulated/floor/grass,
 /area/start)
+"U" = (
+/obj/item/mop/advanced,
+/obj/item/mop/advanced,
+/obj/item/mop/advanced,
+/turf/simulated/floor/grass,
+/area/start)
 "V" = (
-/obj/item/paper_bin,
-/obj/item/paper_bin,
-/obj/item/paper_bin,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
 /turf/simulated/floor/grass,
 /area/start)
 "X" = (
@@ -532,9 +568,9 @@ m
 m
 n
 n
-R
+n
 w
-l
+J
 n
 n
 n
@@ -551,7 +587,7 @@ s
 n
 R
 Y
-J
+L
 n
 n
 n
@@ -566,9 +602,9 @@ m
 m
 B
 K
-k
+r
 v
-L
+G
 n
 n
 n
@@ -585,7 +621,7 @@ h
 T
 a
 O
-G
+l
 n
 n
 n
@@ -600,8 +636,8 @@ m
 m
 n
 q
-n
-V
+k
+e
 C
 D
 X
@@ -617,7 +653,7 @@ m
 m
 p
 P
-b
+V
 c
 g
 n
@@ -636,7 +672,7 @@ F
 d
 A
 Q
-H
+N
 n
 n
 n
@@ -651,9 +687,9 @@ m
 m
 o
 n
-x
+U
 t
-j
+H
 n
 n
 n
@@ -669,8 +705,8 @@ m
 n
 n
 n
-n
-n
+u
+j
 n
 n
 n
@@ -729,7 +765,7 @@ n
 n
 n
 n
-n
+x
 m
 "}
 (18,1,1) = {"
