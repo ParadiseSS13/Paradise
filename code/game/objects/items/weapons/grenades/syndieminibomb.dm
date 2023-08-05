@@ -16,7 +16,7 @@
 /obj/item/grenade/syndieminibomb/fake/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY))
-		. += "<span class='sans'>There is small glue ejectors all over the bomb.</span>"
+		. += "<span class='sans'>There are small glue ejectors all over the bomb.</span>"
 
 /obj/item/grenade/syndieminibomb/fake/attack_self(mob/user)
 	if(!active)
