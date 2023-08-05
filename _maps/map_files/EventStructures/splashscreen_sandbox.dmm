@@ -12,6 +12,19 @@
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/grass,
 /area/start)
+"b" = (
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/turf/simulated/floor/grass,
+/area/start)
 "c" = (
 /obj/item/storage/fancy/crayons,
 /obj/item/storage/fancy/crayons,
@@ -39,6 +52,19 @@
 /obj/item/tank/internals/emergency_oxygen/double/vox,
 /obj/item/tank/internals/emergency_oxygen/double/vox,
 /obj/item/tank/internals/emergency_oxygen/double/vox,
+/turf/simulated/floor/grass,
+/area/start)
+"g" = (
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
+/obj/item/stack/tile/carpet,
 /turf/simulated/floor/grass,
 /area/start)
 "h" = (
@@ -375,6 +401,12 @@
 	},
 /turf/simulated/floor/grass,
 /area/start)
+"V" = (
+/obj/item/paper_bin,
+/obj/item/paper_bin,
+/obj/item/paper_bin,
+/turf/simulated/floor/grass,
+/area/start)
 "X" = (
 /obj/effect/landmark/newplayer_start,
 /turf/simulated/floor/grass,
@@ -431,8 +463,8 @@ m
 (2,1,1) = {"
 m
 z
-n
-n
+f
+S
 n
 n
 n
@@ -447,7 +479,7 @@ m
 "}
 (3,1,1) = {"
 m
-n
+Z
 n
 n
 n
@@ -464,7 +496,7 @@ m
 "}
 (4,1,1) = {"
 m
-n
+E
 n
 n
 n
@@ -481,11 +513,11 @@ m
 "}
 (5,1,1) = {"
 m
+M
+i
 n
 n
-R
-l
-B
+n
 n
 n
 n
@@ -501,8 +533,8 @@ m
 n
 n
 R
-J
-h
+w
+l
 n
 n
 n
@@ -515,11 +547,11 @@ m
 "}
 (7,1,1) = {"
 m
+s
 n
-n
-w
-L
-K
+R
+Y
+J
 n
 n
 n
@@ -532,11 +564,11 @@ m
 "}
 (8,1,1) = {"
 m
-n
-n
-Y
-G
-T
+B
+K
+k
+v
+L
 n
 n
 n
@@ -549,11 +581,11 @@ m
 "}
 (9,1,1) = {"
 m
-n
-n
-v
-C
-p
+h
+T
+a
+O
+G
 n
 n
 n
@@ -568,9 +600,9 @@ m
 m
 n
 q
-Z
-O
-F
+n
+V
+C
 D
 X
 n
@@ -583,11 +615,11 @@ m
 "}
 (11,1,1) = {"
 m
-n
-n
-E
-k
+p
 P
+b
+c
+g
 n
 n
 n
@@ -600,11 +632,11 @@ m
 "}
 (12,1,1) = {"
 m
-n
-n
-f
-S
+F
 d
+A
+Q
+H
 n
 n
 n
@@ -617,11 +649,11 @@ m
 "}
 (13,1,1) = {"
 m
+o
 n
-n
-M
-i
-s
+x
+t
+j
 n
 n
 n
@@ -636,9 +668,9 @@ m
 m
 n
 n
-c
-a
-o
+n
+n
+n
 n
 n
 n
@@ -653,9 +685,9 @@ m
 m
 n
 n
-x
-H
-j
+n
+n
+n
 n
 n
 n
@@ -670,9 +702,9 @@ m
 m
 n
 n
-A
-t
-Q
+n
+n
+n
 n
 n
 n
