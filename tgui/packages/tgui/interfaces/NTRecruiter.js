@@ -98,7 +98,7 @@ export const NTRecruiter = (props, context) => {
             make for bad applications!
           </LabeledListItem>
           <LabeledListItem label="8#" color="silver">
-            Remember, you aree recruiting people to work at one of the many NT stations,
+            Remember, you are recruiting people to work at one of the many NT stations,
             so no hiring for <b>jobs</b> that they <b>dont offer</b>!
           </LabeledListItem>
         </LabeledList>

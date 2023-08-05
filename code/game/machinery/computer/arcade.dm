@@ -1125,38 +1125,38 @@
 	var/game_status = RECRUITER_STATUS_START
 
 /obj/machinery/computer/arcade/recruiter/proc/generate_candidate()
-	if(prob(PROB_CANDIDATE_ERRORS))
+	if(prob(PROB_CANDIDATE_ERRORS)) // Species
 		cand_species = pick(incorrect_species)
 		good_candidate = FALSE
 	else
 		cand_species = pick(hirable_species)
 
-	candidate_gender = pick(MALE, FEMALE, NEUTER)
+	candidate_gender = pick(MALE, FEMALE, NEUTER) // Gender
 
 	if(candidate_gender == NEUTER && initial(cand_species.has_gender)) // If the species has a gender it cannot be neuter!
 		good_candidate = FALSE
 
-	if(prob(PROB_CANDIDATE_ERRORS))
+	if(prob(PROB_CANDIDATE_ERRORS)) // Age
 		age = pick(initial(cand_species.max_age) + rand(10, 100), (initial(cand_species.min_age) - rand(1, 10))) // Its either too young or too old for the job
 		good_candidate = FALSE
 	else
 		age = rand(initial(cand_species.min_age), initial(cand_species.max_age))
 
-	candidate_name = random_name(candidate_gender, initial(cand_species.name))
+	candidate_name = random_name(candidate_gender, initial(cand_species.name)) // Name
 
-	if(prob(PROB_CANDIDATE_ERRORS))
+	if(prob(PROB_CANDIDATE_ERRORS)) // Planet
 		planet_of_origin = pick(incorrect_planets)
 		good_candidate = FALSE
 	else
 		planet_of_origin = pick(planets)
 
-	if(prob(PROB_CANDIDATE_ERRORS))
+	if(prob(PROB_CANDIDATE_ERRORS)) // Requested Job
 		job_requested = pick(incorrect_jobs)
 		good_candidate = FALSE
 	else
 		job_requested = pick(jobs)
 
-	if(prob(PROB_CANDIDATE_ERRORS))
+	if(prob(PROB_CANDIDATE_ERRORS)) // Employment records
 		employment_records = pick(incorrect_records)
 		good_candidate = FALSE
 	else
@@ -1259,7 +1259,7 @@
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
-				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
+				playsound(loc, 'sound/misc/compiler-failure.ogg', 2, TRUE)
 				reason = "You ended up dismissing a competent employee and now the company is suffering with the lack of crew!"
 			else if(curriculums >= 5)
 				win()
@@ -1274,7 +1274,7 @@
 		if("start_game")
 			if(game_status != RECRUITER_STATUS_START)
 				return
-			playsound(user, 'sound/effects/pressureplate.ogg', 30, TRUE)
+			playsound(user, 'sound/effects/pressureplate.ogg', 20, TRUE)
 			good_candidate = TRUE
 			game_status = RECRUITER_STATUS_NORMAL
 			curriculums = 1
@@ -1286,11 +1286,11 @@
 		if("instructions")
 			if(game_status != RECRUITER_STATUS_START)
 				return
-			playsound(user, 'sound/effects/pressureplate.ogg', 30, TRUE)
+			playsound(user, 'sound/effects/pressureplate.ogg', 20, TRUE)
 			game_status = RECRUITER_STATUS_INSTRUCTIONS
 
 		if("back_to_menu")
-			playsound(user, 'sound/effects/pressureplate.ogg', 30, TRUE)
+			playsound(user, 'sound/effects/pressureplate.ogg', 20, TRUE)
 			game_status = RECRUITER_STATUS_START
 
 /obj/machinery/computer/arcade/recruiter/attack_hand(mob/user)
