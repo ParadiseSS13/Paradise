@@ -880,8 +880,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/clothing/suit/hooded/oblivion
 	name = "Oblivion Enforcer's robes"
 	desc = "A set of armored, radiation-proof robes worn by Oblivion Enforcers."
-	icon_state = "oblivionrobes"
-	item_state = "oblivionrobes"
+	icon_state = "oblivionarmor"
+	item_state = "oblivionarmor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	hoodtype = /obj/item/clothing/head/hooded/oblivion
 	allowed = list(/obj/item/twohanded/supermatter, /obj/item/nuke_core/supermatter_sliver)
