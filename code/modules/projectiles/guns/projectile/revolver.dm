@@ -111,7 +111,7 @@
 		return
 	process_chamber()
 	update_icon()
-	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
 	user.visible_message("<span class='danger'>[src] goes off!</span>")
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
 	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
