@@ -68760,6 +68760,7 @@
 /area/medical/paramedic)
 "nnj" = (
 /obj/effect/decal/warning_stripes/green,
+/obj/machinery/chem_dispenser/botanical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
