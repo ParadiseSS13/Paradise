@@ -129,15 +129,19 @@
 				src.visible_message("<span class='warning'>[target]'s holy weapon absorbs the light!</span>")
 				deplete_spell()
 				return
-			living.Weaken(10 SECONDS)
-			living.Silence(16 SECONDS)
+			living.Weaken(4 SECONDS)
+			living.adjustStaminaLoss(30)
+			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+			living.flash_eyes(1, TRUE)
 			if(isrobot(living))
 				var/mob/living/silicon/robot/robot = living
 				robot.emp_act(EMP_HEAVY)
 			else if(iscarbon(target))
 				var/mob/living/carbon/carbon = living
-				carbon.Stuttering(32 SECONDS)
-				carbon.ClockSlur(32 SECONDS)
+				carbon.Silence(10 SECONDS)
+				carbon.Stuttering(16 SECONDS)
+				carbon.ClockSlur(20 SECONDS)
+				carbon.Jitter(16 SECONDS)
 			add_attack_logs(user, target, "Stunned by [src]")
 			deplete_spell()
 		if(KNOCK_SPELL)

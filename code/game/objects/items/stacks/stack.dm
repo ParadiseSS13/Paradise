@@ -184,6 +184,9 @@
 			if(locate(/obj/structure/clockwork) in usr.drop_location())
 				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 				return FALSE
+			if(locate(/obj/structure/falsewall) in usr.drop_location())
+				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+				return FALSE
 		var/area/A = get_area(usr)
 		if(R.result_type == /obj/structure/clockwork/functional/beacon)
 			if(!is_station_level(usr.z))
