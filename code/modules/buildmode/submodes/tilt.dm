@@ -20,7 +20,7 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 	to_chat(user, "<span class='notice'>Left Mouse Button on obj/mob      = Select atom to tilt</span>")
 	to_chat(user, "<span class='notice'>Right Mouse Button on turf/obj/mob = Tilt selected atom onto target</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button + Alt          = Select ")
+	to_chat(user, "<span class='notice'>Right Mouse Button + Alt          = Untilt selected atom</span>")
 	to_chat(user, "<span class='warning'>Right-click the main action button to customize tilting behavior.</span>")
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
@@ -44,7 +44,7 @@
 
 
 
-/datum/buildmode_mode/tilting/handle_click(mob/user, params, atom/object)
+/datum/buildmode_mode/tilting/handle_click(mob/user, params, atom/movable/object)
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	var/right_click = pa.Find("right")
@@ -56,15 +56,18 @@
 		tilter = object
 		to_chat(user, "Selected object '[tilter]' to tilt.")
 	if(right_click)
-		if(alt_click)
-
 		if(!tilter)
-			to_chat(user, "<span class='warning'>You need to select something to tilt.</span>")
+			to_chat(user, "<span class='warning'>You need to select something to tilt (or untilt) first.</span>")
 			return
+		if(tilter.GetComponent(/datum/component/tilted) && alt_click)
+			tilter.untilt(duration = 0)
+			log_admin("Build Mode: [key_name(user)] has righted [tilter] ([tilter.x],[tilter.y],[tilter.z])")
+			return
+
 		if(!object || isnull(get_turf(object)))
 			to_chat(user, "<span class='warning'>You need to select a target first.</span>")
 			return
 
-		tilter.fall_and_crush(get_turf(object), crush_damage, 2, crit_chance, forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, rotation_angle, rightable, block_interactions_until_righted)
+		tilter.fall_and_crush(get_turf(object), crush_damage, prob(crit_chance), 2, forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, rotation_angle, rightable, block_interactions_until_righted)
 
-		log_admin("Build Mode: [key_name(user)] tilted [tilter] onto ([object.x],[object.y],[object.z])")
+		log_admin("Build Mode: [key_name(user)] tilted [tilter] onto [ADMIN_COORDJMP(object)]")

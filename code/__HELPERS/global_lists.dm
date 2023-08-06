@@ -151,7 +151,7 @@
 
 	for(var/path in subtypesof(/datum/tilt_crit))
 		var/datum/tilt_crit/crit = path
-		if(isnull(initial(path)))
+		if(isnull(initial(crit.name)))
 			continue
 		crit = new path()
 		GLOB.tilt_crits[path] = crit

@@ -182,4 +182,4 @@
 	. = ..()
 
 /obj/structure/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable, block_interactions)
-	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity, rightable = TRUE, block_interactions_until_righted = FALSE)
+	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable = TRUE, block_interactions_until_righted = FALSE)

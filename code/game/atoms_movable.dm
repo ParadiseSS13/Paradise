@@ -649,7 +649,7 @@
 	else
 		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
 
-/atom/movable/proc/choose_crush_crit(mob/living/carbon/victim, list/possible_crits)
+/atom/movable/proc/choose_crush_crit(mob/living/carbon/victim)
 	if(!length(GLOB.tilt_crits))
 		return
 	for(var/crit_path in shuffle(GLOB.tilt_crits))
@@ -716,7 +716,7 @@
 
 		var/datum/tilt_crit/crit_case = forced_crit
 		if(isnull(forced_crit) && should_crit)
-			crit_case = choose_crush_crit()
+			crit_case = choose_crush_crit(target)
 		// note that it could still be null after this point, in which case it won't crit
 		var/damage_to_deal = crush_damage
 

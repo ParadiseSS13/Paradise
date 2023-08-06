@@ -69,7 +69,5 @@
 
 /datum/component/tilted/proc/on_try_untilt(atom/source, mob/living/user)
 	SIGNAL_HANDLER
-	if(!istype(user))
-		return COMPONENT_BLOCK_UNTILT
-	if(user.incapacitated())
+	if(istype(user) && user.incapacitated())
 		return COMPONENT_BLOCK_UNTILT

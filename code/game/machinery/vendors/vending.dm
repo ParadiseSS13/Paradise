@@ -332,7 +332,7 @@
 		..()
 
 /obj/machinery/economy/vending/proc/on_try_untilt(atom/source, mob/user)
-	if(!tilted || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user && (!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return COMPONENT_BLOCK_UNTILT
 
 /obj/machinery/economy/vending/attackby(obj/item/I, mob/user, params)
