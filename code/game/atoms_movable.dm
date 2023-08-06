@@ -787,7 +787,7 @@
 /atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted)
 	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
-	var/rot_angle = isnull(rotation_angle) ? pick(90, -90) : rotation_angle
+	var/rot_angle = rotation_angle ? rotation_angle : pick(90, -90)
 	if(should_rotate)
 		var/matrix/to_turn = turn(transform, rot_angle)
 		animate(src, transform = to_turn, 0.2 SECONDS)

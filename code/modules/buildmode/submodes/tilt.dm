@@ -28,7 +28,9 @@
 	crush_damage = input(user, "Crush Damage", "Damage", initial(crush_damage)) as num|null
 	crit_chance = input(user, "Crit Chance (out of 100)", "Crit chance", 0) as num|null
 	if(crit_chance > 0)
-		forced_crit = input(user, "Force a specific crit?", "Forced Crit", null) as null|anything in GLOB.tilt_crits
+		var/forced_crit_path = input(user, "Force a specific crit?", "Forced Crit", null) as null|anything in GLOB.tilt_crits
+		if(forced_crit_path)
+			forced_crit = GLOB.tilt_crits[forced_crit_path]
 	weaken_time = input(user, "How long to weaken (in seconds)?", "Weaken Time", 4) as num|null
 	weaken_time = weaken_time SECONDS
 	knockdown_time = input(user, "How long to knockdown (in seconds)?", "Knockdown Time", 12) as num|null
