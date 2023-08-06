@@ -2184,6 +2184,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 	special = TRUE
 
+/datum/supply_packs/misc/jetpack_upgrade
+	name = "Jetpack Upgrade Crate"
+	contains = list(
+					/obj/item/tank/jetpack/suit,
+					/obj/item/tank/jetpack/suit,
+					/obj/item/tank/jetpack/suit
+					)
+	cost = 500
+	containername = "Jetpack upgrade crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
