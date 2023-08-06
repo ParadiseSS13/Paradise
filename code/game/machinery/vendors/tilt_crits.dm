@@ -3,6 +3,8 @@
  */
 
 /datum/tilt_crit
+	/// Name of a crit. Only crits with a name will be options.
+	var/name
 	/// If it'll deal damage or not
 	var/harmless = FALSE
 	/// If we should be thrown against the mob or not.
@@ -34,6 +36,7 @@
 	return 0
 
 /datum/tilt_crit/shatter
+	name = "Leg Crush"
 
 /datum/tilt_crit/shatter/is_valid(atom/movable/tilter, mob/living/carbon/victim)
 	. = ..()
@@ -59,6 +62,7 @@
 	return incoming_damage * (5/6)
 
 /datum/tilt_crit/pin
+	name = "Pin"
 
 /datum/tilt_crit/pin/is_valid(atom/movable/tilter, mob/living/victim)
 	. = ..()
@@ -79,6 +83,7 @@
 	valid_types_whitelist = list(/obj/machinery/economy/vending)
 
 /datum/tilt_crit/vendor/embed
+	name = "Panel Shatter"
 
 
 /datum/tilt_crit/vendor/embed/is_valid(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
@@ -113,6 +118,7 @@
 	return incoming_damage * (3/4)
 
 /datum/tilt_crit/pop_head
+	name = "Head Pop"
 
 /datum/tilt_crit/pop_head/is_valid(atom/movable/tilter, mob/living/carbon/victim)
 	. = ..()
@@ -144,6 +150,7 @@
 
 /datum/tilt_crit/lucky
 	harmless = TRUE
+	name = "Lucky"
 
 /datum/tilt_crit/lucky/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim, incoming_damage)
 	victim.visible_message(

@@ -649,7 +649,7 @@
 	else
 		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
 
-/atom/movable/proc/choose_crit(mob/living/carbon/victim, list/possible_crits)
+/atom/movable/proc/choose_crush_crit(mob/living/carbon/victim, list/possible_crits)
 	if(!length(GLOB.tilt_crits))
 		return
 	for(var/crit_path in shuffle(GLOB.tilt_crits))
@@ -699,7 +699,7 @@
 		crush_dir = get_dir(get_turf(src), target_turf)
 
 	if(is_blocked_turf(target_turf, TRUE))
-		visible_message("<span class='warning'>[src] seems to rock against [target_turf], but doesn't fall over!</span>")
+		visible_message("<span class='warning'>[src] seems to rock, but doesn't fall over!</span>")
 		Move(target_turf, get_dir(get_turf(src), target_turf))
 		return
 
@@ -711,12 +711,12 @@
 			continue
 
 		// ignore things that are under the ground
-		if(isobj(target) && (target.invisibility > SEE_INVISIBLE_LIVING) || iseffect(target) || target.level == 1)
+		if(isobj(target) && (target.invisibility > SEE_INVISIBLE_LIVING) || iseffect(target) || isitem(target) || target.level == 1)
 			continue
 
 		var/datum/tilt_crit/crit_case = forced_crit
 		if(isnull(forced_crit) && should_crit)
-			crit_case = choose_crit()
+			crit_case = choose_crush_crit()
 		// note that it could still be null after this point, in which case it won't crit
 		var/damage_to_deal = crush_damage
 
@@ -737,7 +737,7 @@
 			add_attack_logs(src, L, "crushed by [src]")
 
 
-		else if(isobj(target) && !isitem(target))  // don't crush things on the floor, that'd probably be annoying
+		else if(isobj(target))  // don't crush things on the floor, that'd probably be annoying
 			var/obj/O = target
 			O.take_damage(damage_to_deal, BRUTE, "", FALSE)
 		else
@@ -761,15 +761,15 @@
 /atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted)
 	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
+	var/rot_angle = isnull(rotation_angle) ? pick(90, -90) : rotation_angle
 	if(should_rotate)
-		var/rot_angle = isnull(rotation_angle) ? pick(90, 270) : rotation_angle
 		var/matrix/to_turn = turn(transform, rot_angle)
 		animate(src, transform = to_turn, 0.2 SECONDS)
 	if(target && target != get_turf(src))
 		throw_at(target, 1, 1, spin = FALSE)
 	if(rightable)
 		layer = ABOVE_MOB_LAYER
-		AddComponent(/datum/component/tilted, 14 SECONDS, block_interactions_until_righted)
+		AddComponent(/datum/component/tilted, 14 SECONDS, block_interactions_until_righted, rot_angle)
 
 /atom/movable/proc/untilt(mob/living/user, duration = 10 SECONDS)
 	if(!GetComponent(/datum/component/tilted))
@@ -819,4 +819,4 @@
 /obj/item/tilter/attack_self(mob/user)
 	. = ..()
 	if(tilting_thing && saved_turf)
-		tilting_thing.fall_and_crush(saved_turf, 5, 50, 2, null, 4 SECONDS, 14 SECONDS, FALSE)
+		tilting_thing.fall_and_crush(saved_turf, 5, prob(50), 2, null, 4 SECONDS, 14 SECONDS, FALSE)

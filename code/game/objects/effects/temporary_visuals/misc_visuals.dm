@@ -399,6 +399,9 @@
 	icon_state = "rcd_short_reverse"
 	duration = 3.1 SECONDS
 
+/**
+ * A visual effect that will be shown only to a particular user for a period of time.
+ */
 /obj/effect/temp_visual/single_user
 	/// The image to show to the user
 	var/image/displayed_image
@@ -437,11 +440,11 @@
 	displayed_image = null
 	return ..()
 
-/// Add the image to the lwap user's screen
+/// Add the image to the user's screen
 /obj/effect/temp_visual/single_user/proc/add_mind(mob/living/looker)
 	looker.client?.images |= displayed_image
 
-/// Remove the image from the lwap user's screen
+/// Remove the image from the user's screen
 /obj/effect/temp_visual/single_user/proc/remove_mind(mob/living/looker)
 	looker.client?.images -= displayed_image
 

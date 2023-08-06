@@ -4,15 +4,28 @@
  */
 
 /datum/component/tilted
+	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	/// How long it should take to untilt
 	var/untilt_duration
 	/// Whether we should block any interactions with it
 	var/block_interactions
+	/// The angle by which we rotated as a result of tilting. Should help us avoid cases where something gets tilted until it's upright.
+	var/rotated_angle
 
-/datum/component/tilted/Initialize(_untilt_duration = 16 SECONDS, _block_interactions = FALSE)
+/datum/component/tilted/Initialize(_untilt_duration = 16 SECONDS, _block_interactions = FALSE, _rotated_angle)
 	. = ..()
 	untilt_duration = _untilt_duration
 	block_interactions = _block_interactions
+	rotated_angle = _rotated_angle
+
+/datum/component/tilted/InheritComponent(datum/component/C, i_am_original, _untilt_duration, _block_interactions, _rotated_angle)
+	. = ..()
+	untilt_duration = _untilt_duration
+	block_interactions = _block_interactions
+	rotated_angle += _rotated_angle
+
+	if(rotated_angle % 360 == 0)
+		qdel(src)
 
 
 /datum/component/tilted/RegisterWithParent()
@@ -63,6 +76,9 @@
 
 /datum/component/tilted/proc/do_untilt(atom/movable/source, mob/user)
 	if(SEND_SIGNAL(source, COMSIG_MOVABLE_TRY_UNTILT, user) & COMPONENT_BLOCK_UNTILT)
+		return
+
+	if(!user.Adjacent(parent) || !iscarbon(user) || user.incapacitated())
 		return
 
 	if(user)
