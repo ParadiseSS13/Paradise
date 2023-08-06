@@ -266,3 +266,11 @@
 /obj/item/melee/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(sparkler.activate())
 		return ..()
+
+/obj/item/melee/baton/flayerprod
+	icon = 'icons/mob/robot_items.dmi'
+	icon_state = "elecarm"
+	force = 10
+	throwforce = 0 // Just in case
+	knockdown_duration = 6 SECONDS
+	w_class = WEIGHT_CLASS_BULKY
