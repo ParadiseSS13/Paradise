@@ -277,6 +277,36 @@
 	icon_state = "flour"
 	color = "#D5820B"
 	scoop_reagents = list("fungus" = 10)
+	no_clear = TRUE
+	var/timer_id
+
+/obj/effect/decal/cleanable/fungus/examine(mob/user)
+	. = ..()
+	if(no_scoop)
+		. += "<span class='notice'>There's really not a lot here, you probably couldn't harvest anything if you tried.</span>"
+	else
+		. += "<span class='notice'>There's a good bit here, it looks like you could scrape some off into a beaker.</span>"
+
+/obj/effect/decal/cleanable/fungus/on_scoop()
+
+	// can you feel your heart burning?
+	// can you feel the struggle within?
+	// the fear within me is beyond anything your soul can make.
+	// you can't kill me in a way that matters
+
+	alpha = 128
+	no_scoop = TRUE
+
+	timer_id = addtimer(CALLBACK(src, PROC_REF(recreate)), rand(5 MINUTES, 10 MINUTES), TIMER_STOPPABLE)
+
+/obj/effect/decal/cleanable/fungus/Destroy()
+	. = ..()
+	deltimer(timer_id)
+
+/obj/effect/decal/cleanable/fungus/proc/recreate()
+	alpha = 255
+	reagents.add_reagent_list(scoop_reagents)
+	no_scoop = FALSE
 
 /obj/effect/decal/cleanable/confetti //PARTY TIME!
 	name = "confetti"
