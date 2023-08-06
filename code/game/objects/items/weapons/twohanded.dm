@@ -1132,7 +1132,7 @@
 /obj/item/twohanded/supermatter  //Supermatter Halberd, used by Oblivion Enforcers
 	name = "supermatter halberd"
 	desc = "The revered weapon of Oblivion Enforcers, used to enforce the Order's will."
-	icon_state = "fireaxe0" //no sprites yet :(
+	icon_state = "smhalberd0"
 	force = 5
 	sharp = TRUE
 	damtype = BURN
@@ -1154,7 +1154,7 @@
 	//Not sure on the numbers here (remind me to remove this comment before merge if I don't do it myself)
 
 /obj/item/twohanded/supermatter/update_icon_state()
-	icon_state = "fireaxe[wielded]"
+	icon_state = "smhalberd[wielded]"
 
 /obj/item/twohanded/supermatter/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
