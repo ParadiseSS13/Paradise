@@ -117,7 +117,19 @@
 
 /obj/item/clothing/under/det/skirt
 	name = "hard-worn skirt"
+	icon_state = "detective_skirt"
 	item_color = "detective_skirt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi',
+		"Unathi" = 'icons/mob/species/unathi/uniform.dmi',
+		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/species/monkey/uniform.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/uniform.dmi',
+		"Tajaran" = 'icons/mob/species/vulpkanin/uniform.dmi'
+		)
 
 /obj/item/clothing/under/det/alt_a
 	icon_state = "detective_suit"
@@ -125,7 +137,19 @@
 
 /obj/item/clothing/under/det/alt_a/skirt
 	name = "hard-worn skirt"
+	icon_state = "detectives_skirt_grey"
 	item_color = "detectives_skirt_grey"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi',
+		"Unathi" = 'icons/mob/species/unathi/uniform.dmi',
+		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/species/monkey/uniform.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/uniform.dmi',
+		"Tajaran" = 'icons/mob/species/vulpkanin/uniform.dmi'
+		)
 
 /obj/item/clothing/under/det/alt_b
 	icon_state = "detective_suit_alt"
