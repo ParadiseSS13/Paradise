@@ -984,7 +984,8 @@
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
-			M.Stun(6 SECONDS)
+			to_chat(M, "<span class='userdanger'>You feel like total shit, and your muscles lock up!</span>")
+			M.Weaken(6 SECONDS)
 
 	return ..() | update_flags
 
