@@ -691,6 +691,23 @@
 
 #define NO_CRUSH_DIR "no_dir"
 
+/**
+ * Tip over this atom onto a turf, crushing things in its path.
+ *
+ * Arguments:
+ * * target_turf - The turf to fall onto.
+ * * should_crit - If true, we'll try to crit things that we crush.
+ * * crit_damage_factor - If a crit is rolled, crush_damage will be multiplied by this amount.
+ * * forced_crit - If passed, this crit will be applied to everything it crushes.
+ * * weaken_time - The amount of time that weaken will be applied to crushed mobs.
+ * * knockdown_time - The amount of time that knockdown will be applied to crushed mobs.
+ * * ignore_gravity - If false, we won't fall over in zero G.
+ * * should_rotate - If false, we won't rotate when we fall.
+ * * angle - The angle by which we'll rotate. If this is null/0, we'll randomly rotate 90 degrees clockwise or counterclockwise.
+ * * rightable - If true, the tilted component will be applied, allowing people to alt-click to right it.
+ * * block_interactions_until_righted - If true, interactions with the object will be blocked until it's righted.
+ * * crush_dir - The direction we're crushing.
+ */
 /atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time = 4 SECONDS, knockdown_time = 10 SECONDS, ignore_gravity = FALSE, should_rotate = TRUE, angle, rightable = FALSE, block_interactions_until_righted = FALSE, crush_dir = NO_CRUSH_DIR)
 	if(QDELETED(src) || isnull(target_turf))
 		return
@@ -757,7 +774,16 @@
 
 #undef NO_CRUSH_DIR
 
-
+/**
+ * Tip over an atom without too much fuss. This won't cause damage to anything, and just rotates the thing and (optionally) adds the component.
+ *
+ * Arguments:
+ * * target - The turf to tilt over onto
+ * * rotation_angle - The angle to rotate by. If not given, defaults to random rotating by 90 degrees clockwise or counterclockwise
+ * * should_rotate - Whether or not we should rotate at all
+ * * rightable - Whether or not this object should be rightable, attaching the tilted component to it
+ * * block_interactions_until_righted - If true, this object will need to be righted before it can be interacted with
+ */
 /atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted)
 	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
@@ -771,6 +797,7 @@
 		layer = ABOVE_MOB_LAYER
 		AddComponent(/datum/component/tilted, 14 SECONDS, block_interactions_until_righted, rot_angle)
 
+/// Untilt a tilted object.
 /atom/movable/proc/untilt(mob/living/user, duration = 10 SECONDS)
 	if(!GetComponent(/datum/component/tilted))
 		return
