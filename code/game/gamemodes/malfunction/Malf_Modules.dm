@@ -36,6 +36,9 @@
 		if(initial(uses) > 1) //no need to tell 'em if it was one-use anyway!
 			to_chat(owner, "<span class='warning'>[name] has run out of uses!</span>")
 		qdel(src)
+	else
+		desc = "[initial(desc)] It has [uses] use\s remaining."
+		UpdateButtonIcon()
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/action/innate/ai/ranged
@@ -487,9 +490,6 @@
 
 	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
-	if(attached_action && attached_action.uses)
-		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
-		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/overload_machine, detonate_machine), target), 50) //kaboom!
 	remove_ranged_ability(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
@@ -537,9 +537,6 @@
 
 	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
-	if(attached_action && attached_action.uses)
-		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
-		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine), target), 50) //kabeep!
 	remove_ranged_ability(ranged_ability_user, "<span class='danger'>Sending override signal...</span>")
@@ -646,9 +643,6 @@
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
 	owner.playsound_local(owner, "sparks", 50, FALSE, use_reverb = FALSE)
 	adjust_uses(-1)
-	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
-		desc = "[initial(desc)] It has [uses] use\s remaining."
-		UpdateButtonIcon()
 
 //Reactivate Camera Network: Reactivates up to 30 cameras across the station.
 /datum/AI_Module/reactivate_cameras
@@ -683,9 +677,6 @@
 			uses--
 	to_chat(owner, "<span class='notice'>Diagnostic complete! Cameras reactivated: <b>[repaired_cameras]</b>. Reactivations remaining: <b>[uses]</b>.</span>")
 	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, FALSE, use_reverb = FALSE)
-	if(uses)
-		desc = "[initial(desc)] It has [uses] use\s remaining."
-		UpdateButtonIcon()
 	adjust_uses(0, TRUE)
 
 //Upgrade Camera Network: EMP-proofs all cameras, in addition to giving them X-ray vision.
@@ -817,9 +808,6 @@
 	is_active = TRUE
 	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
-	if(attached_action && attached_action.uses)
-		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
-		attached_action.UpdateButtonIcon()
 	robot_target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [robot_target]!</span>")
 	if(!do_mob(caller, robot_target, 10 SECONDS))
 		is_active = FALSE
