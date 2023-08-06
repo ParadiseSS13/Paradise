@@ -984,7 +984,8 @@
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
-			to_chat(M, "<span class='userdanger'>You feel like total shit, and your muscles lock up!</span>")
+			to_chat(M, "<span class='userdanger'>It feels like every single one of your muscles is cramping at once!</span>")
+			M.emote("scream")
 			M.Weaken(6 SECONDS)
 
 	return ..() | update_flags
