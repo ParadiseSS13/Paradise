@@ -263,7 +263,7 @@
 				return
 			else if( mouth_covered )	// Reduced effects if partially protected
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
-				if(prob(5))
+				if(prob(20))
 					victim.emote("scream")
 				victim.EyeBlurry(6 SECONDS)
 				victim.EyeBlind(2 SECONDS)
@@ -272,13 +272,19 @@
 				victim.Weaken(6 SECONDS)
 				victim.drop_from_active_hand()
 				return
-			else if( eyes_covered ) // Eye cover is better than mouth cover
-				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
-				victim.EyeBlurry(6 SECONDS)
-				victim.damageoverlaytemp = 30
+			else if( eyes_covered ) // Eye cover is better than mouth cover but not best
+				to_chat(victim, "<span class='danger'>Your [safe_thing] partially protects your eyes from the pepperspray!</span>")
+				if(prob(20))
+					victim.emote("scream")
+				victim.EyeBlurry(4 SECONDS)
+				victim.EyeBlind(2 SECONDS)
+				victim.Confused(4 SECONDS)
+				victim.damageoverlaytemp = 40
+				victim.Weaken(4 SECONDS)
+				victim.drop_from_active_hand()
 				return
 			else // Oh dear :D
-				if(prob(5))
+				if(prob(20))
 					victim.emote("scream")
 				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
 				victim.EyeBlurry(10 SECONDS)
