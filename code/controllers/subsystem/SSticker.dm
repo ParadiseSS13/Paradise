@@ -227,7 +227,7 @@ SUBSYSTEM_DEF(ticker)
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
 
-	// Now that every other piece of the round has initialized, lets setup player job scaling // Not completely true anymore, but if we do this later we only get the latejoin slots after the round has started
+	// Enable highpop slots just before we distribute jobs.
 	var/playercount = length(GLOB.clients)
 	var/highpop_trigger = 80
 
