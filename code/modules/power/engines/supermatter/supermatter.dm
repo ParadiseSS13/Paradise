@@ -1123,6 +1123,9 @@
 	power += amount
 	message_admins("[src] has been activated and given an increase EER of [amount] at [ADMIN_JMP(src)]")
 
+/obj/machinery/atmospherics/supermatter_crystal/on_crush_thing(atom/thing)
+	Bumped(thing)
+
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
 #undef FLUX_ANOMALY

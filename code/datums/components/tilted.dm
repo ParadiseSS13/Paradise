@@ -73,35 +73,3 @@
 		return COMPONENT_BLOCK_UNTILT
 	if(user.incapacitated())
 		return COMPONENT_BLOCK_UNTILT
-
-/datum/component/tilted/proc/do_untilt(atom/movable/source, mob/user)
-	if(SEND_SIGNAL(source, COMSIG_MOVABLE_TRY_UNTILT, user) & COMPONENT_BLOCK_UNTILT)
-		return
-
-	if(!user.Adjacent(parent) || !iscarbon(user) || user.incapacitated())
-		return
-
-	if(user)
-		user.visible_message(
-			"[user] begins to right [parent].",
-			"You begin to right [parent]."
-		)
-		if(!do_after(user, untilt_duration, TRUE, parent))
-			return
-		user.visible_message(
-			"<span class='notice'>[user] rights [parent].</span>",
-			"<span class='notice'>You right [parent].</span>",
-			"<span class='notice'>You hear a loud clang.</span>"
-		)
-
-	source.unbuckle_all_mobs(TRUE)
-
-	SEND_SIGNAL(source, COMSIG_MOVABLE_UNTILTED, user)
-
-	source.layer = initial(source.layer)
-
-	var/matrix/M = matrix()
-	M.Turn(0)
-	source.transform = M
-
-	qdel(src)

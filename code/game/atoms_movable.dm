@@ -800,6 +800,10 @@
 	M.Turn(0)
 	transform = M
 
+/// useful callback for things that want special behavior on crush
+/atom/movable/proc/on_crush_thing(atom/thing)
+	return
+
 /obj/item/tilter
 	name = "tilter"
 	icon = 'icons/obj/tools.dmi'
