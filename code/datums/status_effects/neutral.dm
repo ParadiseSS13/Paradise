@@ -92,7 +92,7 @@
 		C.do_attack_animation(user, no_effect = TRUE)
 		playsound(user, sound_effect, 80)
 		if(!both_wiz)
-			user.visible_message("<span class='notice'><b>[	user.name]</b> and <b>[C.name]</b> [success]</span>")
+			user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[C.name]</b> [success]</span>")
 			user.remove_status_effect(type)
 			C.remove_status_effect(type)
 			return FALSE
