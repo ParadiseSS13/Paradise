@@ -337,16 +337,16 @@
 	else
 		. += "thrall|<b>NO</b>"
 
-/datum/mind/proc/memory_edit_mindflayer(mob/living/carbon/human/H)
-	. = _memory_edit_header("mindflayer")
+/datum/mind/proc/memory_edit_mind_flayer(mob/living/carbon/human/H)
+	. = _memory_edit_header("mind_flayer")
 	var/datum/antagonist/mindflayer/flayer = has_antag_datum(/datum/antagonist/mindflayer)
 	if(flayer)
-		. += "<b><font color='red'>MINDFLAYER</font></b>|<a href='?src=[UID()];mindflayer=clear'>no</a>"
-		. += " | Usable swarms: <a href='?src=[UID()];mindflayer=edit_total_swarms'>[flayer.usable_swarms]</a>"
+		. += "<b><font color='red'>MINDFLAYER</font></b>|<a href='?src=[UID()];mind_flayer=clear'>no</a>"
+		. += " | Usable swarms: <a href='?src=[UID()];mind_flayer=edit_total_swarms'>[flayer.usable_swarms]</a>"
 		if(!length(flayer.objectives))
-			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
+			. += "<br>Objectives are empty! <a href='?src=[UID()];mind_flayer=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='?src=[UID()];mindflayer=mindflayer'>mindflayer</a>|<b>NO</b>"
+		. += "<a href='?src=[UID()];mind_flayer=mind_flayer'>mind_flayer</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_MIND_FLAYER)
 
@@ -488,6 +488,7 @@
 		"wizard",
 		"changeling",
 		"vampire", // "traitorvamp",
+		"mind_flayer",
 		"nuclear",
 		"traitor", // "traitorchan",
 	)
@@ -504,7 +505,7 @@
 		/** VAMPIRE ***/
 		sections["vampire"] = memory_edit_vampire(H)
 		/** MINDFLAYER ***/
-		sections["mindflayer"] = memory_edit_mindflayer(H)
+		sections["mind_flayer"] = memory_edit_mind_flayer(H)
 		/** NUCLEAR ***/
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** Abductors **/
@@ -1115,6 +1116,27 @@
 					remove_antag_datum(/datum/antagonist/mindslave/thrall)
 					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
+
+	else if(href_list["mind_flayer"])
+		switch(href_list["mind_flayer"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/mindflayer))
+					remove_antag_datum(/datum/antagonist/mindflayer)
+					log_admin("[key_name(usr)] has de-flayer'd [key_name(current)].")
+					message_admins("[key_name(usr)] has de-flayer'd [key_name(current)].")
+			if("mind_flayer")
+				if(!has_antag_datum(/datum/antagonist/mindflayer))
+					add_antag_datum(/datum/antagonist/mindflayer)
+					log_admin("[key_name(usr)] has flayer'd [key_name(current)].")
+					message_admins("[key_name(usr)] has flayer'd [key_name(current)].")
+			if("edit_total_swarms")
+				var/new_swarms = input(usr, "Select a new value:", "Modify swarms") as null|num
+				if(isnull(new_swarms) || new_swarms < 0)
+					return
+				var/datum/antagonist/mindflayer/MF = has_antag_datum(/datum/antagonist/mindflayer)
+				MF.set_swarms(new_swarms)
+				log_admin("[key_name(usr)] has set [key_name(current)]'s current swarms to [new_swarms].")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s current swarms to [new_swarms].")
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
