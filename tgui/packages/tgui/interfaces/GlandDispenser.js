@@ -8,7 +8,7 @@ export const GlandDispenser = (props, context) => {
     glands = [],
   } = data;
   return (
-    <Window>
+    <Window theme="abductor">
       <Window.Content>
         <Section>
           {glands.map(gland => (
@@ -18,6 +18,7 @@ export const GlandDispenser = (props, context) => {
               height="60px"
               m={0.75}
               textAlign="center"
+              fontSize="17px"
               lineHeight="55px"
               icon="eject"
               backgroundColor={gland.color}
