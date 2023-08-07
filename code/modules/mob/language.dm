@@ -296,11 +296,15 @@
 	syllables = list("click","clack")
 
 /datum/language/kidan/get_random_name()
-	var/new_name = "[pick(list("Vrax", "Krek", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx"))]"
-	new_name += ", "
-	new_name += "[pick(list("Noble", "Worker", "Scout", "Builder", "Farmer", "Gatherer", "Soldier", "Guard", "Prospector"))]"
-	new_name += " of Clan "
-	new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax"))]"	//I ran out of ideas after the first two tbh -_-
+	var/new_name = "[pick(list("Vrax", "Krek", "Krekk", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx", "Vrik", "Vrek", "Krax", "Varak", "Zavak", "Vrexx", "Drevk", "Krik", "Karak", "Krexx", "Zrax", "Zrexx", "Zrek", "Verk", "Drek", "Drikk", "Zvik", "Vzik", "Kviz", "Vrizk", "Vrizzk", "Krix", "Krek", "Krixx", "Zark", "Xark", "Xarkk", "Xerx", "Xarak", "Karax", "Varak", "Vazak", "Vazzak", "Zirk", "Krak"))]"
+	if(prob(67))
+		if(prob(50))
+			new_name += ", "
+			new_name += "[pick(list("Noble", "Worker", "Scout", "Builder", "Farmer", "Gatherer", "Soldier", "Guard", "Prospector", "Miner", "Healer", "Cleric", "Worker", "Trader", "Craftsman", "Alchemist", "Researcher", "Historian", "Hunter", "Mechanic", "Scholar", "Caretaker", "Medic"))]"
+			new_name += " of Clan "
+		else
+			new_name += " "
+		new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Tarlan", "Oriz", "Tariz", "Kristan"))]"
 	return new_name
 
 
