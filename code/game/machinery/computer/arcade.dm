@@ -1067,10 +1067,10 @@
 									"Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
 
 	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Barber", "Botanist", "Explorer", "Quartermaster",
-						"Station Engineer", "Atmospherics Technician", "Medical Doctor", "Coroner","Geneticist", "Chaplain",
+						"Station Engineer", "Atmospherics Technician", "Medical Doctor", "Coroner","Geneticist", "Chaplain", "Librarian",
 						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs")
 	/// Jobs that NT stations dont offer/mispelled
-	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "ERT",
+	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "Brig Physician",
 								"Pod Pilot", "Cremist", "Cluwne", "Work Safety Inspector", "Musician",
 								"Chauffeur", "Teacher", "Maid", "Plumber", "Trader", "Hobo", "NT CEO",
 								"Mime", "Assitant", "Janittor", "Medical", "Generticist", "Baton Officer",
@@ -1095,7 +1095,7 @@
 							"Has received several commendations due to visually appealing kitchen remodelings", "Is known to report any petty Space Law or SOP breakage to the relevant authorities",
 							"As Chef, adapted their menus in order to appeal all stationed species", "Took care of Toxins, Xenobiology, Robotics and R&D as a single worker in the Research department",
 							"Was part of the \"Pump Purgers\", famous for the streak of 102 shifts with no Supermatter Explosions",
-							"Virologist; took it upon themselves to distribute a vaccine to the crew", "Morally ambiguous with a penchant for violence")
+							"Virologist; took it upon themselves to distribute a vaccine to the crew", "Conducted experiments that generated high profits but many casualties")
 
 	var/list/incorrect_records = list("Caught littering on NSS Cyberiad", "Scientist involved in the ###### incident",
 									"Rescued four assistants from a plasma fire, but left behind the station blueprints",
@@ -1137,7 +1137,7 @@
 		good_candidate = FALSE
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Age
-		age = pick(initial(cand_species.max_age) + rand(10, 100), (initial(cand_species.min_age) - rand(1, 10))) // Its either too young or too old for the job
+		age = pick(initial(cand_species.max_age) + rand(10, 100), (initial(cand_species.min_age) - rand(1, 7))) // Its either too young or too old for the job
 		good_candidate = FALSE
 	else
 		age = rand(initial(cand_species.min_age), initial(cand_species.max_age))
@@ -1244,7 +1244,7 @@
 			if(!good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
-				reason = "You ended up hiring incompetent employees and now the company is wasting lots of resources to fix what you caused..."
+				reason = "You ended up hiring incompetent candidates and now the company is wasting lots of resources to fix what you caused..."
 			else if(curriculums >= 5)
 				win()
 			else
@@ -1260,7 +1260,7 @@
 			if(good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 2, TRUE)
-				reason = "You ended up dismissing a competent employee and now the company is suffering with the lack of crew!"
+				reason = "You ended up dismissing a competent candidate and now the company is suffering with the lack of crew..."
 			else if(curriculums >= 5)
 				win()
 			else
@@ -1272,8 +1272,6 @@
 					generate_candidate()
 
 		if("start_game")
-			if(game_status != RECRUITER_STATUS_START)
-				return
 			playsound(user, 'sound/effects/pressureplate.ogg', 20, TRUE)
 			good_candidate = TRUE
 			game_status = RECRUITER_STATUS_NORMAL
@@ -1284,8 +1282,6 @@
 				generate_candidate()
 
 		if("instructions")
-			if(game_status != RECRUITER_STATUS_START)
-				return
 			playsound(user, 'sound/effects/pressureplate.ogg', 20, TRUE)
 			game_status = RECRUITER_STATUS_INSTRUCTIONS
 
