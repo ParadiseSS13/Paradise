@@ -15,7 +15,6 @@
 /obj/machinery/light/small,
 /obj/item/storage/toolbox/syndicate,
 /obj/structure/closet/syndicate,
-/obj/item/storage/belt/utility/syndi_researcher,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
@@ -387,6 +386,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
+"Eu" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/syndicate_listening_station)
 "FW" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -599,6 +608,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1508,7 +1518,7 @@ kJ
 un
 Hg
 Ya
-MO
+Eu
 hp
 kJ
 yn
