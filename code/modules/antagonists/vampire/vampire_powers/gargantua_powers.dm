@@ -243,7 +243,7 @@
 
 	var/angle = get_angle(garg_vampire, targets[1]) + 180
 	garg_vampire.transform = garg_vampire.transform.Turn(angle)
-	for(var/i in range 1 to 10)
+	for(var/i in 1 to 10)
 		var/move_dir = get_dir(garg_vampire, targets[1])
 		garg_vampire.forceMove(get_step(garg_vampire, move_dir))
 		if(get_turf(garg_vampire) == get_turf(targets[1]))
