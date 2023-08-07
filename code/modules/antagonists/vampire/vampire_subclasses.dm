@@ -51,7 +51,7 @@
 							/obj/effect/proc_holder/spell/vampire/self/stomp = 250,
 							/datum/vampire_passive/blood_swell_upgrade = 400,
 							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 600,
-							/obj/effect/proc_holder/spell/vampire/charge = 700,
+							/obj/effect/proc_holder/spell/vampire/charge = 800,
 							/obj/effect/proc_holder/spell/fireball/demonic_grasp = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/obj/effect/proc_holder/spell/vampire/arena)

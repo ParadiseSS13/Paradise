@@ -48,7 +48,7 @@
 
 #define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell //stun resistance and halved damage for gargantua vampires
 
-#define STATUS_EFFECT_VAMPIRE_GLADIATOR /datum/status_effect/vampire_gladiator // Bonebreak, IB and burn wound immunity for garg vampires
+#define STATUS_EFFECT_VAMPIRE_GLADIATOR /datum/status_effect/vampire_gladiator // Bonebreak, IB and burn wound immunity for garg vampires and healing.
 
 #define STATUS_EFFECT_BLOOD_RUSH /datum/status_effect/blood_rush // speed boost for gargantua vampires
 

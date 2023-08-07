@@ -209,15 +209,13 @@
 	desc = "You jump towards a target on your screen, creating an arena around yourself and making your body immune to breaking."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 150
-	base_cooldown = 1 SECONDS
+	base_cooldown = 30 SECONDS
 	action_icon_state = "blood_barrier"
 	should_recharge_after_cast = FALSE
 	/// The garg vampire
 	var/mob/living/carbon/human/garg_vampire
 	/// Is our spell active?
-	var/spell_active
-	/// The turf that will have our target, and will also be the middle of our arena
-	var/turf/target_turf
+	var/spell_active = FALSE
 	/// Holds a reference to the timer until either the spell runs out or we recast it
 	var/timer
 	/// Holds a reference to all arena walls so we can qdel them easily with dispell()
@@ -245,19 +243,18 @@
 
 	var/angle = get_angle(garg_vampire, targets[1]) + 180
 	garg_vampire.transform = garg_vampire.transform.Turn(angle)
-	for(var/i, i < 10, i++)
+	for(var/i in range 1 to 10)
 		var/move_dir = get_dir(garg_vampire, targets[1])
 		garg_vampire.forceMove(get_step(garg_vampire, move_dir))
 		if(get_turf(garg_vampire) == get_turf(targets[1]))
-			target_turf = get_turf(garg_vampire)
 			garg_vampire.transform = 0
 			break
 		sleep(1)
 	animate(garg_vampire, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
 	// They get a cool soundeffect and a visual, as a treat
 
-	playsound(target_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
-	new /obj/effect/temp_visual/stomp(target_turf)
+	playsound(get_turf(garg_vampire), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	new /obj/effect/temp_visual/stomp(get_turf(garg_vampire))
 
 	// Now we build the arena and give the caster the buff
 
@@ -265,7 +262,7 @@
 	spell_active = TRUE
 	timer = addtimer(CALLBACK(src, PROC_REF(dispell), garg_vampire, TRUE), 30 SECONDS, TIMER_STOPPABLE)
 	RegisterSignal(garg_vampire, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
-	arena_checks()
+	arena_checks(get_turf(targets[1]))
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
 	if(!spell_active || QDELETED(src))
@@ -275,7 +272,7 @@
 	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
-	for(var/tumor_range_turfs in circle_edge_turfs(target_turf, ARENA_SIZE))
+	for(var/tumor_range_turfs in circle_edge_turfs(get_turf(garg_vampire), ARENA_SIZE))
 		tumor_range_turfs = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
 		all_temp_walls += tumor_range_turfs
 
@@ -283,11 +280,6 @@
 	if(QDELETED(garg_vampire) || garg_vampire.stat == DEAD)
 		dispell()
 		return
-
-/obj/effect/proc_holder/spell/vampire/arena/proc/clear_activator(mob/source)
-	SIGNAL_HANDLER
-	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "clear activation")
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/dispell()
 	spell_active = FALSE
