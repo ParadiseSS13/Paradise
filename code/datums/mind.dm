@@ -337,6 +337,19 @@
 	else
 		. += "thrall|<b>NO</b>"
 
+/datum/mind/proc/memory_edit_mindflayer(mob/living/carbon/human/H)
+	. = _memory_edit_header("mindflayer")
+	var/datum/antagonist/mindflayer/flayer = has_antag_datum(/datum/antagonist/mindflayer)
+	if(flayer)
+		. += "<b><font color='red'>MINDFLAYER</font></b>|<a href='?src=[UID()];mindflayer=clear'>no</a>"
+		. += " | Usable swarms: <a href='?src=[UID()];mindflayer=edit_total_swarms'>[flayer.usable_swarms]</a>"
+		if(!length(flayer.objectives))
+			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='?src=[UID()];mindflayer=mindflayer'>mindflayer</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_MIND_FLAYER)
+
 /datum/mind/proc/memory_edit_nuclear(mob/living/carbon/human/H)
 	. = _memory_edit_header("nuclear")
 	if(src in SSticker.mode.syndicates)
@@ -490,6 +503,8 @@
 		sections["changeling"] = memory_edit_changeling(H)
 		/** VAMPIRE ***/
 		sections["vampire"] = memory_edit_vampire(H)
+		/** MINDFLAYER ***/
+		sections["mindflayer"] = memory_edit_mindflayer(H)
 		/** NUCLEAR ***/
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** Abductors **/

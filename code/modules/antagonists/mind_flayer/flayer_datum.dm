@@ -17,6 +17,9 @@
 
 #define BRAIN_DRAIN_LIMIT = 120
 
+/proc/ismindflayer(mob/M)
+	return M.mind?.has_antag_datum(/datum/antagonist/mindflayer)
+
 /datum/antagonist/mindflayer/proc/get_swarms()
 	return usable_swarms
 
