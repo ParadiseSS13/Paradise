@@ -339,6 +339,16 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/syndicate_listening_station)
+"CF" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/syndicate_listening_station)
 "CG" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/effect/decal/cleanable/dirt,
@@ -385,16 +395,6 @@
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/ruin/space/syndicate_listening_station)
-"Eu" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/economy/vending/cigarette/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/ruin/space/syndicate_listening_station)
 "FW" = (
 /obj/structure/table,
@@ -499,6 +499,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
+/area/ruin/space/syndicate_listening_station)
+"PH" = (
+/obj/item/gps/ruin{
+	gpstag = "Encrypted Signal"
+	},
+/turf/simulated/wall/r_wall,
 /area/ruin/space/syndicate_listening_station)
 "Sq" = (
 /obj/structure/cable{
@@ -1430,7 +1436,7 @@ yn
 yn
 yn
 yn
-kJ
+PH
 un
 un
 Sq
@@ -1518,7 +1524,7 @@ kJ
 un
 Hg
 Ya
-Eu
+CF
 hp
 kJ
 yn
