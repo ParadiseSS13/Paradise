@@ -1057,7 +1057,7 @@
 	var/employment_records
 	/// Current "turn" of the game
 	var/curriculums
-	/// Is he a unique candidate/character?
+	/// Which unique candidate is he?
 	var/unique_candidate
 
 	var/list/planets = list("Earth", "Mars", "Luna", "Jargon 4", "New Cannan", "Mauna-B", "Ahdomai", "Moghes",
