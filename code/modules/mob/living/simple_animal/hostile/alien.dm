@@ -76,7 +76,7 @@
 	name = "alien queen"
 	icon_state = "alienq_running"
 	icon_living = "alienq_running"
-	icon_dead = "alienq_d"
+	icon_dead = "alienq_dead"
 	health = 250
 	maxHealth = 250
 	melee_damage_lower = 15
