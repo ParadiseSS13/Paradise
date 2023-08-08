@@ -300,11 +300,11 @@
 	if(prob(67))
 		if(prob(50))
 			new_name += ", "
-			new_name += "[pick(list("Noble", "Worker", "Scout", "Builder", "Farmer", "Gatherer", "Soldier", "Guard", "Prospector", "Miner", "Healer", "Cleric", "Worker", "Trader", "Craftsman", "Alchemist", "Researcher", "Historian", "Hunter", "Mechanic", "Scholar", "Caretaker"))]"
+			new_name += "[pick(list("Noble", "Worker", "Scout", "Carpenter", "Farmer", "Gatherer", "Soldier", "Guard", "Miner", "Priest", "Merchant", "Crafter", "Alchemist", "Historian", "Hunter", "Scholar", "Caretaker", "Artist", "Bard", "Blacksmith", "Brewer"))]"
 			new_name += " of Clan "
 		else
 			new_name += " "
-		new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Tarlan", "Oriz", "Tariz", "Kristan"))]"
+		new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Oriz", "Tariz", "Kvestan"))]"
 	return new_name
 
 
