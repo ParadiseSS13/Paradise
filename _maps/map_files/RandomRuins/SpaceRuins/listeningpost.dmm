@@ -23,7 +23,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
 "eg" = (
-/obj/machinery/door/airlock/hatch/syndicate,
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Cabin"
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/ruin/space/syndicate_listening_station)
@@ -33,9 +35,7 @@
 	},
 /obj/machinery/disposal,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "hr" = (
 /obj/structure/cable{
@@ -50,9 +50,7 @@
 /obj/item/taperecorder,
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "iL" = (
 /obj/structure/disposaloutlet{
@@ -108,9 +106,7 @@
 	pixel_y = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "oE" = (
 /obj/machinery/atmospherics/portable/scrubber,
@@ -131,7 +127,17 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/mineral,
+/turf/simulated/mineral/ancient,
+/area/ruin/space/syndicate_listening_station/asteroid)
+"rS" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/structure/falsewall/rock_ancient,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "sf" = (
 /obj/structure/cable{
@@ -151,6 +157,16 @@
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/syndicate_listening_station/asteroid)
+"sq" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/falsewall/rock_ancient,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "tk" = (
@@ -183,15 +199,11 @@
 	name = "mission briefing"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "un" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "uv" = (
 /obj/structure/cable{
@@ -202,9 +214,7 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave/upgraded,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "vd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -219,14 +229,14 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
 "wj" = (
-/obj/machinery/door/airlock/hatch/syndicate,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Telecommunications"
 	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "yn" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/ancient,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "yv" = (
 /obj/structure/cable{
@@ -236,9 +246,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "zb" = (
 /obj/machinery/door/airlock/external{
@@ -249,15 +257,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
+"zs" = (
+/obj/machinery/shower{
+	pixel_y = 20
+	},
+/obj/item/soap/syndie,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/syndicate_listening_station)
 "Ab" = (
 /obj/structure/closet/syndicate,
 /obj/item/clothing/glasses/regular,
 /obj/item/storage/firstaid,
 /obj/item/storage/firstaid,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "AT" = (
 /turf/simulated/floor/plating/asteroid/airless,
@@ -276,9 +289,7 @@
 	network_id = "SYNDIE-LPOST-RELAY"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "BD" = (
 /obj/structure/cable{
@@ -335,9 +346,7 @@
 /obj/item/tape,
 /obj/item/tape,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "CF" = (
 /obj/machinery/light{
@@ -345,9 +354,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/vending/cigarette/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "CG" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
@@ -372,9 +379,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "Ej" = (
 /obj/structure/cable{
@@ -399,9 +404,7 @@
 "FW" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "Go" = (
 /mob/living/simple_animal/hostile/syndicate{
@@ -409,10 +412,12 @@
 	environment_smash = 0
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
+"Gy" = (
+/obj/structure/falsewall/rock_ancient,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/syndicate_listening_station/asteroid)
 "GQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -432,9 +437,7 @@
 /obj/item/tank/internals/oxygen,
 /obj/item/tank/jetpack/oxygen,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "HZ" = (
 /obj/structure/cable{
@@ -470,9 +473,10 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/syndicate_listening_station)
+"Nd" = (
+/turf/simulated/floor/mineral/silver,
 /area/ruin/space/syndicate_listening_station)
 "Ow" = (
 /obj/machinery/door/airlock/external{
@@ -506,6 +510,16 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/ruin/space/syndicate_listening_station)
+"PP" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/syndicate_listening_station)
+"RN" = (
+/obj/machinery/door/airlock/silver{
+	name = "Bathroom"
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/syndicate_listening_station)
 "Sq" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -514,9 +528,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "TS" = (
 /obj/machinery/door/airlock/external{
@@ -548,12 +560,12 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "UM" = (
-/obj/machinery/door/airlock/hatch/syndicate,
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Engineering"
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -561,18 +573,14 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "Vn" = (
 /obj/machinery/computer/message_monitor{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "WN" = (
 /obj/structure/cable{
@@ -588,6 +596,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
+"Xm" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/syndicate_listening_station)
 "Xz" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -615,9 +629,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/vending/snack/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "Zw" = (
 /turf/template_noop,
@@ -887,12 +899,12 @@ Zw
 Zw
 Zw
 Zw
-AT
 yn
 yn
-AT
-hr
-AT
+yn
+yn
+sq
+yn
 yn
 yn
 yn
@@ -928,13 +940,13 @@ yn
 yn
 Zw
 Zw
-AT
-AT
 yn
-AT
+yn
+yn
+yn
 OO
 HZ
-AT
+yn
 yn
 yn
 yn
@@ -970,12 +982,12 @@ Zw
 yn
 Zw
 yn
-AT
+yn
 OO
-tk
+rS
 tk
 HZ
-AT
+yn
 yn
 yn
 yn
@@ -1012,11 +1024,11 @@ Zw
 Zw
 Zw
 yn
-AT
+yn
 hr
-AT
-AT
-AT
+yn
+yn
+yn
 yn
 yn
 yn
@@ -1433,9 +1445,9 @@ Zw
 Zw
 yn
 yn
-yn
-yn
-yn
+kJ
+zs
+PP
 PH
 un
 un
@@ -1475,10 +1487,10 @@ Zw
 Zw
 yn
 yn
-yn
-yn
-yn
 kJ
+Xm
+Nd
+RN
 un
 un
 Sq
@@ -1517,9 +1529,9 @@ Zw
 Zw
 yn
 yn
-yn
-yn
-yn
+kJ
+kJ
+kJ
 kJ
 un
 Hg
@@ -1688,9 +1700,9 @@ Zw
 yn
 yn
 yn
-Zw
-Zw
-Zw
+AT
+AT
+AT
 yn
 yn
 rK
@@ -1730,9 +1742,9 @@ Zw
 Zw
 yn
 yn
-Zw
-Zw
-Zw
+AT
+AT
+yn
 yn
 yn
 iL
@@ -1773,8 +1785,8 @@ Zw
 Zw
 yn
 yn
-Zw
-Zw
+Gy
+yn
 yn
 yn
 Zw
