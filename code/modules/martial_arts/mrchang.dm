@@ -2,6 +2,7 @@
 /datum/martial_art/mr_chang
 	name = "Mr. Chang's Aggressive Marketing"
 	combos = list(/datum/martial_combo/mr_chang/steal_card)
+	has_explaination_verb = TRUE
 	var/stun_on_cooldown = FALSE
 
 /datum/martial_art/mr_chang/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I)
@@ -27,4 +28,11 @@
 			stun_on_cooldown = FALSE
 		return TRUE
 
+/datum/martial_art/mr_chang/explaination_header(user)
+	to_chat(user, "<b><i>\nПринимая позу лотоса, вы начинаете медитацию. Знания Мистера Чанга наполнаяют ваш разум.</i></b>")
 
+/datum/martial_art/mr_chang/explaination_footer(user)
+	to_chat(user, "<span class='notice'>Stunning discounts!</span>: Включенный интент Disarm и режим броска позволяют перехватить атаку в ближнем бою по себе и перебросить через себя атакующего на пол, опрокинув неприятеля в стаминакрит. Перезарядка: 4 секунды.")
+	to_chat(user, "<span class='notice'>Business lunch</span>: Глутамат натрия теперь восстанавливает 0,75 ожогового/физического урона. (Содержится в малом количестве в еде Mr. Chang)")
+	to_chat(user, "<span class='notice'>TAKEYOMONEY</span>: Пачка купюр при броске наносит урон, пропорциональный толщине пачки.")
+	to_chat(user, "<span class='notice'>Change please!</span>: Монеты при броске имеют шанс в 30% застрять в теле жертвы, нанося малый периодический урон")

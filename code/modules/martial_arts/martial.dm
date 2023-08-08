@@ -369,7 +369,7 @@
 /obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	to_chat(user, "<span class='boldannounce'>You remember the basics of mr_chang_technique.</span>")
+	to_chat(user, "<span class='boldannounce'>You remember the basics of Aggressive Marketing Technique.</span>")
 
 	var/datum/martial_art/mr_chang/mr_chang = new(null)
 	mr_chang.teach(user)

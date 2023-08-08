@@ -159,7 +159,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				/obj/item/storage/box/syndie_kit/mr_chang_technique = 2,
+				/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
 				"" = 68
 				)
 
