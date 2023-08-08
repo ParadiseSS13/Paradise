@@ -4,8 +4,8 @@
 /datum/martial_art
 	var/name = "Martial Art"
 	var/streak = ""
-	var/max_streak_length = 6
 	var/temporary = FALSE
+	var/owner_UID
 	/// The permanent style.
 	var/datum/martial_art/base = null
 	/// Chance to deflect projectiles while on throw mode.
@@ -65,6 +65,9 @@
 	if(last_hit + COMBO_ALIVE_TIME < world.time)
 		reset_combos()
 	last_hit = world.time
+	streak += intent_to_streak(step)
+	var/mob/living/carbon/human/owner = locateUID(owner_UID)
+	owner?.hud_used.combo_display.update_icon_state(streak)
 
 	if(HAS_COMBOS)
 		return check_combos(step, user, target)
@@ -72,6 +75,9 @@
 
 /datum/martial_art/proc/reset_combos()
 	current_combos.Cut()
+	streak = ""
+	var/mob/living/carbon/human/owner = locateUID(owner_UID)
+	owner?.hud_used.combo_display.update_icon_state(streak)
 	for(var/combo_type in combos)
 		current_combos.Add(new combo_type())
 
@@ -147,6 +153,7 @@
 			return
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+	owner_UID = H.UID()
 	H.mind.known_martial_arts.Add(src)
 	H.mind.martial_art = get_highest_weight(H)
 
@@ -209,6 +216,17 @@
 
 /datum/martial_art/proc/try_deflect(mob/user)
 		return prob(deflection_chance)
+
+/datum/martial_art/proc/intent_to_streak(intent)
+	switch(intent)
+		if(MARTIAL_COMBO_STEP_HARM)
+			return "E" // these hands are rated E for everyone
+		if(MARTIAL_COMBO_STEP_DISARM)
+			return "D"
+		if(MARTIAL_COMBO_STEP_GRAB)
+			return "G"
+		if(MARTIAL_COMBO_STEP_HELP)
+			return "H"
 
 /datum/action/defensive_stance
 	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
@@ -427,6 +445,32 @@
 	if(wielded)
 		return ..()
 	return 0
+
+/obj/screen/combo
+	icon_state = ""
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	screen_loc = ui_combo
+	layer = ABOVE_HUD_LAYER
+	var/timerid
+
+/obj/screen/combo/proc/clear_streak()
+	cut_overlays()
+	icon_state = ""
+
+/obj/screen/combo/update_icon_state(streak = "")
+	clear_streak()
+	if(timerid)
+		deltimer(timerid)
+	if(!streak)
+		return
+	timerid = addtimer(CALLBACK(src, PROC_REF(clear_streak)), COMBO_ALIVE_TIME, TIMER_UNIQUE | TIMER_STOPPABLE)
+	icon_state = "combo"
+	for(var/i in 1 to length(streak))
+		var/intent_text = copytext(streak, i, i + 1)
+		var/image/intent_icon = image(icon, src, "combo_[intent_text]")
+		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
+		add_overlay(intent_icon)
+
 
 #undef HAS_COMBOS
 #undef COMBO_ALIVE_TIME
