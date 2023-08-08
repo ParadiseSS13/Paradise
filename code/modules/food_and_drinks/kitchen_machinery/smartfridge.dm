@@ -59,6 +59,7 @@
 		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/seeds,
 		/obj/item/grown,
+		/obj/item/slimepotion,
 	))
 
 /obj/machinery/smartfridge/RefreshParts()
