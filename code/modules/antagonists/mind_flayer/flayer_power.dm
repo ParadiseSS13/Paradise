@@ -45,50 +45,6 @@
 	return ..()
 
 // Retractable weapons code
-/*
-/obj/effect/proc_holder/spell/flayer/weapon
-	name = "Non-Organic Weapon"
-	desc = "Go tell a coder if you see this"
-	power_type = FLAYER_UNOBTAINABLE_POWER
-	var/silent = FALSE
-	var/weapon_type
-	var/weapon_name_simple
-
-/obj/effect/proc_holder/spell/flayer/weapon/try_to_sting(mob/user, mob/target)
-	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
-		retract(user, TRUE)
-		return
-	..(user, target)
-
-/obj/effect/proc_holder/spell/flayer/weapon/sting_action(mob/user)
-	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
-	if(!user.drop_item())
-		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
-		return FALSE
-	var/obj/item/W = new weapon_type(user, silent, src)
-	user.put_in_hands(W)
-	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override = TRUE)
-	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
-	return W
-
-/obj/effect/proc_holder/spell/flayer/weapon/proc/retract(atom/target, any_hand = FALSE)
-	SIGNAL_HANDLER
-/*	if(!ischangeling(owner))
-		return*/ // TODO: Replace with an isflayer() check later
-	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
-		return
-	var/done = FALSE
-	if(istype(owner.l_hand, weapon_type))
-		qdel(owner.l_hand)
-		owner.update_inv_l_hand()
-		done = TRUE
-	if(istype(owner.r_hand, weapon_type))
-		qdel(owner.r_hand)
-		owner.update_inv_r_hand()
-		done = TRUE
-	if(done && !silent)
-		owner.visible_message("<span class='warning'>With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-*/
 
 /obj/effect/proc_holder/spell/flayer/weapon
 	name = "This really shouldn't be here"

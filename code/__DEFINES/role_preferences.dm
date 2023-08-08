@@ -27,7 +27,7 @@
 #define ROLE_HOG_CULTIST		"hand of god: cultist"
 #define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
-#define ROLE_MIND_FLAYER			"mindflayer"
+#define ROLE_MIND_FLAYER		"mindflayer"
 // Role tags for EVERYONE!
 #define ROLE_DEMON				"demon"
 #define ROLE_SENTIENT			"sentient animal"
