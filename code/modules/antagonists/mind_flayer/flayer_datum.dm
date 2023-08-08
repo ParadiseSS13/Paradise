@@ -2,7 +2,7 @@
 	name = "Mind Flayer"
 //	antag_hud_type = ANTAG_HUD_MIND_FLAYER
 	antag_hud_name = "hudflayer"
-//	special_role = SPECIAL_ROLE_MIND_FLAYER
+	special_role = SPECIAL_ROLE_MIND_FLAYER
 	wiki_page_name = "Mind Flayer"
 	///The current amount of swarms the mind flayer has access to purchase with
 	var/usable_swarms = 0
@@ -12,6 +12,8 @@
 	var/mob/living/carbon/human/harvesting
 	///The list of all purchased powers
 	var/list/powers = list()
+	/// The list of all innate powers
+	var/list/innate_powers = list(/obj/effect/proc_holder/spell/flayer/weapon/swarmprod)
 	///List for keeping track of who has already been drained
 	var/list/drained_humans = list()
 	///How fast the flayer's touch drains
@@ -78,6 +80,13 @@
 	acquired_powers += power
 	on_purchase(mindflayer || owner.current, src, power)
 */
+/datum/antagonist/mindflayer/on_gain()
+	. = ..()
+	for(var/path in innate_powers)
+		powers += path
+		add_ability(path)
+
+
 /datum/antagonist/mindflayer/greet()
 	var/dat
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
@@ -86,14 +95,28 @@
 		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(owner.current, dat)
 
-/datum/antagonist/mindflayer/apply_innate_effects(mob/living/mob_override)
-	mob_override = ..()
+/datum/antagonist/mindflayer/proc/add_ability(path)
+	if(!get_ability(path))
+		force_add_ability(path)
 
-	mob_override.dna.species.hunger_type = "vampire"
-	mob_override.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
-//	check_mindflayer_upgrade(FALSE) TODO: add this proc
+/datum/antagonist/mindflayer/proc/force_add_ability(path)
+	var/spell = new path(owner)
+	if(istype(spell, /obj/effect/proc_holder/spell))
+		owner.AddSpell(spell)
+	if(istype(spell, /datum/mindflayer_passive))
+		var/datum/mindflayer_passive/passive = spell
+//		passive.owner = owner.current	TODO: add the var `passive` on `mindflayer_passive`
+		passive.on_apply(src)
+	powers += spell
+
+/datum/antagonist/mindflayer/proc/get_ability(path)
+	for(var/datum/power as anything in powers)
+		if(power.type == path)
+			return power
+	return null
+
 /*
-/datum/hud/proc/remove_vampire_hud()
+/datum/hud/proc/remove_mindflayer_hud() TODO: make this remove the mindflayer hud
 	static_inventory -= vampire_blood_display
 	QDEL_NULL(vampire_blood_display)
 */
@@ -103,12 +126,12 @@
 		var/datum/hud/hud = owner.current.hud_used
 		if(!hud.vampire_blood_display)
 			hud.vampire_blood_display = new /obj/screen()
-			hud.vampire_blood_display.name = "Usable Blood"
+			hud.vampire_blood_display.name = "Usable Swarms"
 			hud.vampire_blood_display.icon_state = "blood_display"
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 			hud.static_inventory += hud.vampire_blood_display
 			hud.show_hud(hud.hud_version)
-//		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
+		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[usable_swarms]</font></div>"
 
 
 #undef BRAIN_DRAIN_LIMIT

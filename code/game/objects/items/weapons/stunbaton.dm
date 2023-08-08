@@ -268,9 +268,31 @@
 		return ..()
 
 /obj/item/melee/baton/flayerprod
+	name = "stunprod"
+	desc = "A mechanical mass which you can use to incapacitate someone with."
 	icon = 'icons/mob/robot_items.dmi'
 	icon_state = "elecarm"
+	base_icon = "elecarm"
 	force = 10
 	throwforce = 0 // Just in case
 	knockdown_duration = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
+	knockdown_delay = 0
+	flags = ABSTRACT | NODROP | DROPDEL
+	turned_on = TRUE
+
+/obj/item/melee/baton/flayerprod/update_icon_state()
+	return
+
+/obj/item/melee/baton/flayerprod/attackby(obj/item/I, mob/user, params)
+	return
+
+/obj/item/melee/baton/flayerprod/screwdriver_act(mob/living/user, obj/item/I)
+	return
+
+/obj/item/melee/baton/flayerprod/attack_self(mob/user)
+	return
+
+/obj/item/melee/baton/flayerprod/loaded/Initialize(mapload) //this one starts with a cell pre-installed.
+	link_new_cell()
+	return ..()

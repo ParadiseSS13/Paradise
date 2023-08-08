@@ -44,20 +44,6 @@
 	flayer.add_ability(path)
 	return TRUE
 
-/datum/antagonist/mindflayer/proc/add_ability(path)
-//	if(!get_ability(path)) TODO: make this proc
-//		force_add_ability(path)
-
-/datum/antagonist/mindflayer/proc/force_add_ability(path)
-	var/spell = new path(owner)
-	if(istype(spell, /obj/effect/proc_holder/spell))
-		owner.AddSpell(spell)
-	if(istype(spell, /datum/mindflayer_passive))
-		var/datum/mindflayer_passive/passive = spell
-//		passive.owner = owner.current	TODO: add the var `passive` on `mindflayer_passive`
-		passive.on_apply(src)
-	powers += spell
-
 /datum/mindflayer_passive/proc/on_apply(datum/antagonist/mindflayer/flayer)
 	return
 
@@ -86,10 +72,8 @@
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
 	return W
 
-/obj/effect/proc_holder/spell/flayer/weapon/proc/retract(atom/target, any_hand = FALSE, mob/owner = src)
+/obj/effect/proc_holder/spell/flayer/weapon/proc/retract(atom/target, any_hand = TRUE, mob/owner = src)
 	SIGNAL_HANDLER
-	if(!ismindflayer(owner))
-		return
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
 	if(istype(owner.l_hand, weapon_type))
