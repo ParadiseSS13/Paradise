@@ -504,6 +504,8 @@
 	add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
 	spread_germs_to_organ(I, user)
 	var/obj/item/thing = I.remove(target)
+	if(QDELETED(thing))
+		return ..()
 	if(!istype(thing))
 		thing.forceMove(get_turf(target))
 	else
