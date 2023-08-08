@@ -87,7 +87,7 @@
 		return
 
 	if(get_dist(src, user) > 1 && (!issilicon(user) && !user.can_admin_interact()))
-		to_chat(user, "<span class='warning'>Too far away.</span>")
+		to_chat(user, span_warning("Too far away."))
 		user.unset_machine()
 		user << browse(null, "window=ai_slipper")
 		return

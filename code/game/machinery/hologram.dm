@@ -195,7 +195,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
+				to_chat(AI, span_info("Your presence is requested at <a href='?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>."))
 		else
 			temp = "A request for AI presence was already sent recently.<br>"
 			temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
@@ -204,7 +204,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		if(outgoing_call)
 			return
 		if(dialling_input)
-			to_chat(usr, "<span class='notice'>Finish dialling first!</span>")
+			to_chat(usr, span_notice("Finish dialling first!"))
 			return
 		temp = "You must stand on the holopad to make a call!<br>"
 		temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
@@ -351,7 +351,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
 	if(!(stat & NOPOWER) && (!AI || force))
 		if(AI && (istype(AI.current, /obj/machinery/hologram/holopad)))
-			to_chat(user, "<span class='danger'>ERROR:</span> Image feed in progress.")
+			to_chat(user, "[span_danger("ERROR:")] Image feed in progress.")
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
@@ -378,7 +378,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		return hologram
 
 
-	to_chat(user, "<span class='danger'>ERROR:</span> Hologram Projection Malfunction.")
+	to_chat(user, span_danger("ERROR: ") + "Hologram Projection Malfunction.")
 	clear_holo(user)//safety check
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.

@@ -35,11 +35,11 @@
 
 /obj/machinery/space_heater/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The heater is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"].</span>"
+	. += span_notice("The heater is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"].")
 	if(open)
-		. += "<span class='notice'>The power cell is [cell ? "installed" : "missing"].</span>"
+		. += span_notice("The power cell is [cell ? "installed" : "missing"].")
 	else
-		. += "<span class='notice'>The charge meter reads [cell ? round(cell.percent(),1) : 0]%.</span>"
+		. += span_notice("The charge meter reads [cell ? round(cell.percent(),1) : 0]%.")
 
 /obj/machinery/space_heater/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -64,7 +64,7 @@
 						C.add_fingerprint(user)
 						add_fingerprint(user)
 
-						user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+						user.visible_message(span_notice("[user] inserts a power cell into [src]."), span_notice("You insert the power cell into [src]."))
 		else
 			to_chat(user, "The hatch must be open to insert a power cell.")
 			return
@@ -114,7 +114,7 @@
 
 	else
 		on = !on
-		user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] [src].</span>")
+		user.visible_message(span_notice("[user] switches [on ? "on" : "off"] [src]."),span_notice("You switch [on ? "on" : "off"] [src]."))
 		update_icon()
 	return
 
@@ -140,7 +140,7 @@
 					usr.put_in_hands(cell, ignore_anim = FALSE)
 					cell.add_fingerprint(usr)
 					cell = null
-					usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
+					usr.visible_message(span_notice("[usr] removes the power cell from [src]."), span_notice("You remove the power cell from [src]."))
 
 
 			if("cellinstall")
@@ -151,7 +151,7 @@
 						cell = C
 						C.add_fingerprint(usr)
 
-						usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+						usr.visible_message(span_notice("[usr] inserts a power cell into [src]."), span_notice("You insert the power cell into [src]."))
 
 		updateDialog()
 	else

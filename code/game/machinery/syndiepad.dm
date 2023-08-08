@@ -120,18 +120,18 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(console_link)
-		to_chat(user, "<span class='notice'>Этот телепад привязан к консоли, воспользуйтесь ею для управления устройством!</span>")
+		to_chat(user, span_notice("Этот телепад привязан к консоли, воспользуйтесь ею для управления устройством!"))
 		return
 	receive = !receive
 	if(receive)
-		to_chat(user, "<span class='notice'>Включен режим получения посылок.</span>")
+		to_chat(user, span_notice("Включен режим получения посылок."))
 		var/new_id = input("Задайте ID этому телепаду для получения им посылок")
 		if(new_id)
 			id = new_id
 		linked_pad = null
 		target_id = null
 	else
-		to_chat(user, "<span class='notice'>Включен режим отправки посылок.</span>")
+		to_chat(user, span_notice("Включен режим отправки посылок."))
 		var/new_target_id = input("Задайте ID телепада на который будут приходить посылки.")
 		if(new_target_id && new_target_id != id)
 			target_id = new_target_id
@@ -157,7 +157,7 @@
 
 /obj/machinery/syndiepad/attack_hand(mob/user)
 	if(console_link)
-		to_chat(user, "<span class='notice'>Этот телепад привязан к консоли, воспользуйтесь ею для управления устройством!</span>")
+		to_chat(user, span_notice("Этот телепад привязан к консоли, воспользуйтесь ею для управления устройством!"))
 	add_fingerprint(user)
 	if(!console_link)
 		checks(usr)
@@ -165,39 +165,39 @@
 /obj/machinery/syndiepad/proc/checks(mob/user)
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>The panel must be closed before operating this machine!</span>")
+		to_chat(user, span_warning("The panel must be closed before operating this machine!"))
 		return
 
 	if(receive)
 		if(!console_link)
-			to_chat(user, "<span class='warning'>Receive mode is on! Please change mode if you want this pad to deliver your crates!</span>")
+			to_chat(user, span_warning("Receive mode is on! Please change mode if you want this pad to deliver your crates!"))
 			return
 
 	if(!linked_pad || QDELETED(linked_pad))
-		to_chat(user, "<span class='notice'>No linked target pad detected! Attempting to link '[src]' to the target!</span>")
+		to_chat(user, span_notice("No linked target pad detected! Attempting to link '[src]' to the target!"))
 		pad_sync()
 		if(!linked_pad || target_id == null)
-			to_chat(user, "<span class='warning'>Attempt failed! No target with the ID: '[target_id]' was found!</span>")
+			to_chat(user, span_warning("Attempt failed! No target with the ID: '[target_id]' was found!"))
 		else
 			if(console_link)
 				doteleport(usr)
-			to_chat(user, "<span class='notice'>Successfully linked!</span>")
+			to_chat(user, span_notice("Successfully linked!"))
 		return
 
 	if(world.time < last_teleport + teleport_cooldown)
-		to_chat(user, "<span class='warning'>[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds.</span>")
+		to_chat(user, span_warning("[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds."))
 		return
 
 	if(teleporting)
-		to_chat(user, "<span class='warning'>[src] is charging up. Please wait.</span>")
+		to_chat(user, span_warning("[src] is charging up. Please wait."))
 		return
 
 	if(linked_pad.teleporting)
-		to_chat(user, "<span class='warning'>Linked pad is busy. Please wait.</span>")
+		to_chat(user, span_warning("Linked pad is busy. Please wait."))
 		return
 
 	if(linked_pad.stat & NOPOWER)
-		to_chat(user, "<span class='warning'>Linked pad is not responding to ping.</span>")
+		to_chat(user, span_warning("Linked pad is not responding to ping."))
 		return
 
 	return doteleport(usr)
@@ -218,11 +218,11 @@
 				teleporting = 0
 				return
 			if(stat & NOPOWER)
-				to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
+				to_chat(user, span_warning("[src] is unpowered!"))
 				teleporting = 0
 				return
 			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
-				to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
+				to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
 				teleporting = 0
 				return
 
@@ -242,18 +242,18 @@
 				// if is living, check if allowed, don't let through if not
 				if(isliving(ROI) && allow_humans == FALSE)
 					if(!console_link)
-						to_chat(user, "<span class='warning'>Error: You cannot teleport living organisms for security reasons!</span>")
+						to_chat(user, span_warning("Error: You cannot teleport living organisms for security reasons!"))
 					else
-						to_chat(user, "<span class='warning'>Error: '[ROI]' was not teleported! You cannot teleport living organisms for security reasons!</span>")
+						to_chat(user, span_warning("Error: '[ROI]' was not teleported! You cannot teleport living organisms for security reasons!"))
 					continue
 				// if is living and in container, check if allowed, don't let through if not
 				if((ROI.contents) && allow_humans == FALSE)
 					var/check = FALSE
 					for(var/mob/living/M in ROI.contents)
 						if(!console_link)
-							to_chat(user, "<span class='warning'>Error: You cannot teleport living organisms for security reasons!</span>")
+							to_chat(user, span_warning("Error: You cannot teleport living organisms for security reasons!"))
 						else
-							to_chat(user, "<span class='warning'>Error: Object '[ROI]' and it's contents were not teleported! You cannot teleport living organisms for security reasons!</span>")
+							to_chat(user, span_warning("Error: Object '[ROI]' and it's contents were not teleported! You cannot teleport living organisms for security reasons!"))
 						check = TRUE
 						break
 					if(check)
@@ -273,7 +273,7 @@
 							continue
 				tele_success = do_teleport(ROI, get_turf(linked_pad), bypass_area_flag = force_ignore_teleport_blocking)
 				if(!tele_success)
-					to_chat(user, "<span class='warning'>Object '[ROI]'' was not teleported for unknown reason!</span>")
+					to_chat(user, span_warning("Object '[ROI]'' was not teleported for unknown reason!"))
 			return
 
 

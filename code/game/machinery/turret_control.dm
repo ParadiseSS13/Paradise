@@ -94,7 +94,7 @@
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(isrobot(user) && !iscogscarab(user) || isAI(user))
 		if(ailock)
-			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
+			to_chat(user, span_notice("There seems to be a firewall preventing you from accessing this device."))
 			return TRUE
 		else
 			return FALSE
@@ -119,16 +119,16 @@
 		if(src.allowed(usr))
 			add_fingerprint(user)
 			if(emagged)
-				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")
+				to_chat(user, span_notice("The turret control is unresponsive."))
 			else
 				locked = !locked
-				to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>")
+				to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the panel."))
 		return
 	return ..()
 
 /obj/machinery/turretid/emag_act(user as mob)
 	if(!emagged)
-		to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
+		to_chat(user, span_danger("You short out the turret controls' access analysis module."))
 		emagged = TRUE
 		locked = FALSE
 		ailock = FALSE

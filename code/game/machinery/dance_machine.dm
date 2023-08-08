@@ -87,7 +87,7 @@
 
 /obj/machinery/disco/interact(mob/user)
 	if(!anchored)
-		to_chat(user,"<span class='warning'>This device must be anchored by a wrench!</span>")
+		to_chat(user,span_warning("This device must be anchored by a wrench!"))
 		return
 	if(!Adjacent(user) && !isAI(user))
 		return
@@ -124,7 +124,7 @@
 				return
 			if(!active)
 				if(stop > world.time)
-					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)].</span>")
+					to_chat(usr, span_warning("Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)]."))
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
 				active = TRUE
@@ -138,7 +138,7 @@
 				updateUsrDialog()
 		if("select")
 			if(active)
-				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
+				to_chat(usr, span_warning("Error: You cannot change the song until the current one is over."))
 				return
 
 			var/list/available = list()
@@ -168,7 +168,7 @@
 
 /obj/machinery/disco/proc/deejay(S)
 	if(QDELETED(src) || !active || charge < 5)
-		to_chat(usr, "<span class='warning'>The device is not able to play more DJ sounds at this time.</span>")
+		to_chat(usr, span_warning("The device is not able to play more DJ sounds at this time."))
 		return
 	charge -= 5
 	playsound(src, S, 300, 1)

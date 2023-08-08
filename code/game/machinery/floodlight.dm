@@ -32,7 +32,7 @@
 /obj/machinery/floodlight/process()
 	if(!cell && on)
 		on = FALSE
-		visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+		visible_message(span_warning("[src] shuts down due to lack of power!"))
 		update_icon()
 		set_light(0)
 	if(on)
@@ -41,7 +41,7 @@
 			on = FALSE
 			updateicon()
 			set_light(0)
-			visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+			visible_message(span_warning("[src] shuts down due to lack of power!"))
 
 /obj/machinery/floodlight/attack_ai()
 	return
@@ -63,7 +63,7 @@
 		to_chat(user, "You remove the power cell.")
 		if(on)
 			on = FALSE
-			visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+			visible_message(span_warning("[src] shuts down due to lack of power!"))
 			set_light(0)
 		updateicon()
 		return
@@ -71,7 +71,7 @@
 	if(on)
 		add_fingerprint(user)
 		on = FALSE
-		to_chat(user, "<span class='notice'>You turn off the light.</span>")
+		to_chat(user, span_notice("You turn off the light."))
 		set_light(0)
 	else
 		if(!cell)
@@ -80,7 +80,7 @@
 			return
 		add_fingerprint(user)
 		on = TRUE
-		to_chat(user, "<span class='notice'>You turn on the light.</span>")
+		to_chat(user, span_notice("You turn on the light."))
 		set_light(brightness_on)
 
 	updateicon()
@@ -101,14 +101,14 @@
 			playsound(loc, W.usesound, 50, 1)
 			user.visible_message( \
 				"[user] tightens \the [src]'s casters.", \
-				"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
+				span_notice(" You have tightened \the [src]'s casters."), \
 				"You hear ratchet.")
 			anchored = TRUE
 		else if(anchored)
 			playsound(loc, W.usesound, 50, 1)
 			user.visible_message( \
 				"[user] loosens \the [src]'s casters.", \
-				"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+				span_notice(" You have loosened \the [src]'s casters."), \
 				"You hear ratchet.")
 			anchored = FALSE
 		updateicon()

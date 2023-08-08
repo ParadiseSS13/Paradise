@@ -298,7 +298,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
 			else
 				reset_message()
-				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
+				to_chat(user, span_warning("You are not authorized to send announcements."))
 			SStgui.update_uis(src)
 		if(screen == RCS_SHIPPING)
 			add_fingerprint(user)

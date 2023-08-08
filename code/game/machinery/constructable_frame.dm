@@ -76,23 +76,23 @@
 				var/obj/item/stack/cable_coil/C = P
 				if(C.get_amount() >= 5)
 					playsound(src.loc, C.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
+					to_chat(user, span_notice("You start to add cables to the frame."))
 					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 1 && C.use(5))
 							add_fingerprint(user)
-							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+							to_chat(user, span_notice("You add cables to the frame."))
 							state = 2
 							icon_state = "box_1"
 						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
+							to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
 							return
 				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
+					to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
 				return
 
 			if(istype(P, /obj/item/wrench))
 				playsound(src.loc, P.usesound, 75, 1)
-				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
+				to_chat(user, span_notice("You dismantle the frame."))
 				deconstruct(TRUE)
 				return
 		if(2)
@@ -101,7 +101,7 @@
 				if(B.board_type == "machine")
 					add_fingerprint(user)
 					playsound(src.loc, B.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
+					to_chat(user, span_notice("You add the circuit board to the frame."))
 					circuit = P
 					user.drop_transfer_item_to_loc(P, src)
 					icon_state = "box_2"
@@ -111,12 +111,12 @@
 					update_namelist()
 					update_req_desc()
 				else
-					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
+					to_chat(user, span_danger("This frame does not accept circuit boards of this type!"))
 				return
 			if(istype(P, /obj/item/wirecutters))
 				add_fingerprint(user)
 				playsound(src.loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
+				to_chat(user, span_notice("You remove the cables."))
 				state = 1
 				icon_state = "box_0"
 				new /obj/item/stack/cable_coil(src.loc, 5)
@@ -139,9 +139,9 @@
 				circuit.loc = src.loc
 				circuit = null
 				if(components.len == 0)
-					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+					to_chat(user, span_notice("You remove the circuit board."))
 				else
-					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
+					to_chat(user, span_notice("You remove the circuit board and other components."))
 					for(var/obj/item/I in components)
 						I.loc = src.loc
 				desc = initial(desc)
@@ -202,7 +202,7 @@
 
 				for(var/obj/item/stock_parts/part in added_components)
 					components += part
-					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
+					to_chat(user, span_notice("[part.name] applied."))
 				replacer.play_rped_sound()
 
 				update_req_desc()
@@ -235,7 +235,7 @@
 						update_req_desc()
 						return 1
 				if(!success)
-					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
+					to_chat(user, span_danger("You cannot add that to the machine!"))
 					return 0
 				return
 	if(user.a_intent == INTENT_HARM)
@@ -301,7 +301,7 @@ to destroy them and players will be able to make replacements.
 			display_vending_names_paths[vending_names_paths[path]] = path
 	var/choice =  input(user, "Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
 	if(!(loc == user || (istype(loc, /obj/item/gripper) && loc && loc.loc == user)))
-		to_chat(user, "<span class='notice'>You need to keep [src] in your hands while doing that!</span>")
+		to_chat(user, span_notice("You need to keep [src] in your hands while doing that!"))
 		return
 	set_type(display_vending_names_paths[choice])
 
@@ -373,11 +373,11 @@ to destroy them and players will be able to make replacements.
 		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
 			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
 			name = "circuit board (Heater)"
-			to_chat(user, "<span class='notice'>You set the board to heating.</span>")
+			to_chat(user, span_notice("You set the board to heating."))
 		else
 			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
 			name = "circuit board (Freezer)"
-			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
+			to_chat(user, span_notice("You set the board to cooling."))
 		return
 	return ..()
 
@@ -594,7 +594,7 @@ to destroy them and players will be able to make replacements.
 	if(findtextEx(new_name, "\improper"))
 		new_name = replacetext(new_name, "\improper", "")
 	if(user)
-		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")
+		to_chat(user, span_notice("You set the board to [new_name]."))
 
 /obj/item/circuitboard/monkey_recycler
 	name = "circuit board (Monkey Recycler)"
@@ -652,7 +652,7 @@ to destroy them and players will be able to make replacements.
 
 	build_path = new_path
 	name = "circuit board ([new_name] 3000)"
-	to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
+	to_chat(user, span_notice("You change the circuit board setting to \"[new_name]\"."))
 
 /obj/item/circuitboard/chem_master/condi_master
 	name = "circuit board (CondiMaster 3000)"
@@ -866,7 +866,7 @@ to destroy them and players will be able to make replacements.
 		var/obj/item/gps/L = I
 		if(L.locked_location)
 			target = get_turf(L.locked_location)
-			to_chat(user, "<span class='caution'>You upload the data from [L]</span>")
+			to_chat(user, span_caution("You upload the data from [L]"))
 		return
 	return ..()
 
@@ -897,7 +897,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/quantumpad/emag_act(mob/user)
 	if(!emagged)
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], rewriting it's protocols for redspace usage.</span>")
+			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], rewriting it's protocols for redspace usage."))
 			playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		emagged = TRUE
 		name = "circuit board (Syndicate Quantum Pad)"

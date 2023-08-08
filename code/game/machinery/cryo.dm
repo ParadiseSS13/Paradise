@@ -128,16 +128,16 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>Криокапсула уже занята!</span>")
+		to_chat(user, span_boldnotice("Криокапсула уже занята!"))
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Субъект не должен держать в руках абиотические предметы.</span>")
+		to_chat(user, span_danger("Субъект не должен держать в руках абиотические предметы."))
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] нельзя поместить в [src], поскольку к [genderize_ru(L.gender,"его","её","его","их")] голове прилеплен слайм.</span>")
+		to_chat(user, span_warning("[L] нельзя поместить в [src], поскольку к [genderize_ru(L.gender,"его","её","его","их")] голове прилеплен слайм."))
 		return
 	if(put_mob(L))
 		add_fingerprint(user)
@@ -200,7 +200,7 @@
 		return
 
 	if(panel_open)
-		to_chat(usr, "<span class='boldnotice'>Сначала закройте панель техобслуживания.</span>")
+		to_chat(usr, span_boldnotice("Сначала закройте панель техобслуживания."))
 		return
 
 	add_fingerprint(user)
@@ -292,7 +292,7 @@
 	if(istype(G, /obj/item/reagent_containers/glass))
 		var/obj/item/reagent_containers/B = G
 		if(beaker)
-			to_chat(user, "<span class='warning'>В криокапсулу уже загружена другая ёмкость.</span>")
+			to_chat(user, span_warning("В криокапсулу уже загружена другая ёмкость."))
 			return
 		if(!user.drop_transfer_item_to_loc(B, src))
 			to_chat(user, "Вы не можете бросить [B]!")
@@ -310,12 +310,12 @@
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/GG = G
 		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Сначала закройте панель техобслуживания.</span>")
+			to_chat(user, span_boldnotice("Сначала закройте панель техобслуживания."))
 			return
 		if(!ismob(GG.affecting))
 			return
 		if(GG.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[GG.affecting] не влеза[pluralize_ru(GG.affecting.gender,"ет","ют")] в [src] потому что к [genderize_ru(GG.affecting.gender,"его","её","его","их")] голове прилеплен слайм.</span>")
+			to_chat(user, span_warning("[GG.affecting] не влеза[pluralize_ru(GG.affecting.gender,"ет","ют")] в [src] потому что к [genderize_ru(GG.affecting.gender,"его","её","его","их")] голове прилеплен слайм."))
 			return
 		var/mob/M = GG.affecting
 		if(put_mob(M))
@@ -330,7 +330,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/screwdriver_act(mob/user, obj/item/I)
 	if(occupant || on)
-		to_chat(user, "<span class='notice'>Панель техобслуживания закрыта.</span>")
+		to_chat(user, span_notice("Панель техобслуживания закрыта."))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "pod0-o", "pod0", I))
 		return TRUE
@@ -460,21 +460,21 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
 	if(!istype(M))
-		to_chat(usr, "<span class='danger'>Подобную форму жизни не удастся поместить в криокапсулу!</span>")
+		to_chat(usr, span_danger("Подобную форму жизни не удастся поместить в криокапсулу!"))
 		return
 	if(occupant)
-		to_chat(usr, "<span class='danger'>Криокапсула уже занята!</span>")
+		to_chat(usr, span_danger("Криокапсула уже занята!"))
 		return
 	if(M.abiotic())
-		to_chat(usr, "<span class='warning'>Субъект не должен держать в руках абиотические предметы.</span>")
+		to_chat(usr, span_warning("Субъект не должен держать в руках абиотические предметы."))
 		return
 	if(!node)
-		to_chat(usr, "<span class='warning'>Криокапсула не подключена к трубам!</span>")
+		to_chat(usr, span_warning("Криокапсула не подключена к трубам!"))
 		return
 	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.IsSleeping()))
-		to_chat(M, "<span class='boldnotice'>Вас окружает холодная жидкость. Кожа начинает замерзать.</span>")
+		to_chat(M, span_boldnotice("Вас окружает холодная жидкость. Кожа начинает замерзать."))
 	occupant = M
 //	M.metabslow = 1
 	add_fingerprint(usr)
@@ -490,7 +490,7 @@
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
-		to_chat(usr, "<span class='notice'>Активирована высвобождающая последовательность. Время ожидания: одна минута.</span>")
+		to_chat(usr, span_notice("Активирована высвобождающая последовательность. Время ожидания: одна минута."))
 		sleep(60 SECONDS)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
@@ -522,7 +522,7 @@
 	set src in oview(1)
 
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] не влез[pluralize_ru(usr.gender,"ет","ут")] в [src], потому что к [genderize_ru(usr.gender,"его","её","его","их")] голове прилеплен слайм.</span>")
+		to_chat(usr, span_warning("[usr] не влез[pluralize_ru(usr.gender,"ет","ут")] в [src], потому что к [genderize_ru(usr.gender,"его","её","его","их")] голове прилеплен слайм."))
 		return
 
 	if(stat & (NOPOWER|BROKEN))

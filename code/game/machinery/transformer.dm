@@ -254,7 +254,7 @@
 	if(!istype(H))
 		return
 	if(!ispath(selected_outfit, /datum/outfit))
-		to_chat(H, "<span class='warning'>This equipper is not properly configured! 'selected_outfit': '[selected_outfit]'</span>")
+		to_chat(H, span_warning("This equipper is not properly configured! 'selected_outfit': '[selected_outfit]'"))
 		return
 
 	if(prestrip)
@@ -278,7 +278,7 @@
 	if(!istype(H))
 		return
 	if(!ispath(target_species))
-		to_chat(H, "<span class='warning'>'[target_species]' is not a valid species!</span>")
+		to_chat(H, span_warning("'[target_species]' is not a valid species!"))
 		return
 	H.set_species(target_species)
 
@@ -310,7 +310,7 @@
 	if(!istype(H))
 		return
 	if(!istype(template))
-		to_chat(H, "<span class='warning'>No genetic template configured!</span>")
+		to_chat(H, span_warning("No genetic template configured!"))
 		return
 	var/prev_ue = H.dna.unique_enzymes
 	H.set_species(template.species.type)
@@ -324,16 +324,16 @@
 /obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/disk/data))
 		if(locked)
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			to_chat(user, span_warning("Access Denied."))
 			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return FALSE
 		var/obj/item/disk/data/D = I
 		if(!D.buf)
-			to_chat(user, "<span class='warning'>Error: No data found.</span>")
+			to_chat(user, span_warning("Error: No data found."))
 			return FALSE
 		add_fingerprint(user)
 		template = D.buf.dna.Clone()
-		to_chat(user, "<span class='notice'>Upload of gene template for '[template.real_name]' complete!</span>")
+		to_chat(user, span_notice("Upload of gene template for '[template.real_name]' complete!"))
 		return TRUE
 	else
 		return ..()

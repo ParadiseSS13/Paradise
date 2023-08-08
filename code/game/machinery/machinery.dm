@@ -277,16 +277,16 @@ Class Procs:
 		return TRUE
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return TRUE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
-			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")
+			visible_message(span_warning("[H] stares cluelessly at [src] and drools."))
 			return TRUE
 		else if(prob(H.getBrainLoss()))
-			to_chat(user, "<span class='warning'>You momentarily forget how to use [src].</span>")
+			to_chat(user, span_warning("You momentarily forget how to use [src]."))
 			return TRUE
 
 	if(panel_open)
@@ -347,7 +347,7 @@ Class Procs:
 		return FALSE
 	if((panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
 		deconstruct(TRUE)
-		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+		to_chat(user, span_notice("You disassemble [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return 1
 	return 0
@@ -361,11 +361,11 @@ Class Procs:
 		if(!panel_open)
 			panel_open = 1
 			icon_state = icon_state_open
-			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
+			to_chat(user, span_notice("You open the maintenance hatch of [src]."))
 		else
 			panel_open = 0
 			icon_state = icon_state_closed
-			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
+			to_chat(user, span_notice("You close the maintenance hatch of [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return 1
 	return 0
@@ -377,7 +377,7 @@ Class Procs:
 		return FALSE
 	if(panel_open)
 		dir = turn(dir,-90)
-		to_chat(user, "<span class='notice'>You rotate [src].</span>")
+		to_chat(user, span_notice("You rotate [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		return TRUE
 	return FALSE
@@ -393,28 +393,28 @@ Class Procs:
 	if(istype(O, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = O
 		if(stat & BROKEN)
-			to_chat(user, "<span class='notice'>[src] is too damaged to be fixed with nanopaste!</span>")
+			to_chat(user, span_notice("[src] is too damaged to be fixed with nanopaste!"))
 			return
 		if(obj_integrity == max_integrity)
-			to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
+			to_chat(user, span_notice("[src] is fully intact."))
 			return
 		if(being_repaired)
 			return
 		if(N.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
+			to_chat(user, span_warning("You don't have enough to complete this task!"))
 			return
-		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
+		to_chat(user, span_notice("You start applying [O] to [src]."))
 		being_repaired = TRUE
 		var/result = do_after(user, 3 SECONDS, target = src)
 		being_repaired = FALSE
 		if(!result)
 			return
 		if(!N.use(1))
-			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
+			to_chat(user, span_warning("You don't have enough to complete this task!")) // this is here, as we don't want to use nanopaste until you finish applying
 			return
 		obj_integrity = min(obj_integrity + 50, max_integrity)
-		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
-			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
+		user.visible_message(span_notice("[user] applied some [O] at [src]'s damaged areas."),\
+			span_notice("You apply some [O] at [src]'s damaged areas."))
 	else
 		return ..()
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
@@ -446,7 +446,7 @@ Class Procs:
 						component_parts -= A
 						component_parts += B
 						B.loc = null
-						to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+						to_chat(user, span_notice("[A.name] replaced with [B.name]."))
 						shouldplaysound = 1
 						break
 			RefreshParts()
@@ -459,26 +459,26 @@ Class Procs:
 		return 0
 
 /obj/machinery/proc/display_parts(mob/user)
-	. = list("<span class='notice'>Following parts detected in the machine:</span>")
+	. = list(span_notice("Following parts detected in the machine:"))
 	for(var/obj/item/C in component_parts)
-		. += "<span class='notice'>[bicon(C)] [C.name]</span>"
+		. += span_notice("[bicon(C)] [C.name]")
 	. = jointext(., "\n")
 
 /obj/machinery/examine(mob/user)
 	. = ..()
 	if(stat & BROKEN)
-		. += "<span class='notice'>It looks broken and non-functional.</span>"
+		. += span_notice("It looks broken and non-functional.")
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			. += "<span class='warning'>It's on fire!</span>"
+			. += span_warning("It's on fire!")
 		var/healthpercent = (obj_integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
-				. +=  "<span class='notice'>It looks slightly damaged.</span>"
+				. +=  span_notice("It looks slightly damaged.")
 			if(25 to 50)
-				. +=  "<span class='notice'>It appears heavily damaged.</span>"
+				. +=  span_notice("It appears heavily damaged.")
 			if(0 to 25)
-				. +=  "<span class='warning'>It's falling apart!</span>"
+				. +=  span_warning("It's falling apart!")
 	if(user.research_scanner && component_parts)
 		. += display_parts(user)
 

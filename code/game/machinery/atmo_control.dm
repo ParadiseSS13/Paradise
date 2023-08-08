@@ -50,9 +50,9 @@
 		to_chat(user, "[src] is bolted to the floor! You can't detach it like this.")
 		return
 	playsound(loc, I.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
+	to_chat(user, span_notice("You begin to unfasten [src]..."))
 	if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
-		user.visible_message("[user] unfastens [src].", "<span class='notice'>You have unfastened [src].</span>", "You hear ratchet.")
+		user.visible_message("[user] unfastens [src].", span_notice("You have unfastened [src]."), "You hear ratchet.")
 		new /obj/item/pipe_gsensor(loc)
 		qdel(src)
 

@@ -68,7 +68,7 @@
 			L.Weaken(strength)
 			if(L.weakeyes)
 				L.Weaken(strength * 1.5)
-				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields [L.p_their()] eyes!</span>")
+				L.visible_message(span_disarm("<b>[L]</b> gasps and shields [L.p_their()] eyes!"))
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -94,9 +94,9 @@
 		return
 	disable = !disable
 	if(disable)
-		user.visible_message("<span class='warning'>[user] has disconnected [src]'s flashbulb!</span>", "<span class='warning'>You disconnect [src]'s flashbulb!</span>")
+		user.visible_message(span_warning("[user] has disconnected [src]'s flashbulb!"), span_warning("You disconnect [src]'s flashbulb!"))
 	if(!disable)
-		user.visible_message("<span class='warning'>[user] has connected [src]'s flashbulb!</span>", "<span class='warning'>You connect [src]'s flashbulb!</span>")
+		user.visible_message(span_warning("[user] has connected [src]'s flashbulb!"), span_warning("You connect [src]'s flashbulb!"))
 
 /obj/machinery/flasher/portable/wrench_act(mob/user, obj/item/I)
 	. = TRUE

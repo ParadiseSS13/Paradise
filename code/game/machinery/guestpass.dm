@@ -20,13 +20,13 @@
 /obj/item/card/id/guest/examine(mob/user)
 	. = ..()
 	if(world.time < expiration_time)
-		. += "<span class='notice'>This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
+		. += span_notice("This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].")
 	else
-		. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
-	. += "<span class='notice'>It grants access to following areas:</span>"
+		. += span_warning("It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].")
+	. += span_notice("It grants access to following areas:")
 	for(var/A in temp_access)
-		. += "<span class='notice'>[get_access_desc(A)].</span>"
-	. += "<span class='notice'>Issuing reason: [reason].</span>"
+		. += span_notice("[get_access_desc(A)].")
+	. += span_notice("Issuing reason: [reason].")
 
 /////////////////////////////////////////////
 //Guest pass terminal////////////////////////
@@ -57,7 +57,7 @@
 				giver = I
 				updateUsrDialog()
 		else
-			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
+			to_chat(user, span_warning("There is already ID card inside."))
 		return
 	return ..()
 
@@ -126,7 +126,7 @@
 					if(dur > 0 && dur <= 30)
 						duration = dur
 					else
-						to_chat(usr, "<span class='warning'>Invalid duration.</span>")
+						to_chat(usr, span_warning("Invalid duration."))
 			if("access")
 				var/A = text2num(href_list["access"])
 				if(A in accesses)
@@ -185,7 +185,7 @@
 					pass.reason = reason
 					pass.name = "guest pass #[number]"
 				else
-					to_chat(usr, "<span class='warning'>Cannot issue pass without issuing ID.</span>")
+					to_chat(usr, span_warning("Cannot issue pass without issuing ID."))
 	updateUsrDialog()
 	return
 

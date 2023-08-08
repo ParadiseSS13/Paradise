@@ -100,7 +100,7 @@
 	add_fingerprint(user)
 
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		to_chat(user, span_warning("Access Denied."))
 		return
 
 	if(!allow_items)
@@ -113,14 +113,14 @@
 
 			var/obj/item/item = locateUID(params["item"])
 			if(!item|| item.loc != src)
-				to_chat(user, "<span class='notice'>[item] is no longer in storage.</span>")
+				to_chat(user, span_notice("[item] is no longer in storage."))
 				return
 
-			visible_message("<span class='notice'>[src] beeps happily as it dispenses [item].</span>")
+			visible_message(span_notice("[src] beeps happily as it dispenses [item]."))
 			dispense_item(item)
 
 		if("all_items")
-			visible_message("<span class='notice'>[src] beeps happily as it dispenses the desired objects.</span>")
+			visible_message(span_notice("[src] beeps happily as it dispenses the desired objects."))
 
 			for(var/list/frozen_item in frozen_items)
 				var/obj/item/item = locateUID(frozen_item["uid"])
@@ -153,10 +153,10 @@
 /obj/machinery/computer/cryopod/emag_act(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(!objective_items.len)
-		visible_message("<span class='warning'>The console buzzes in an annoyed manner.</span>")
+		visible_message(span_warning("The console buzzes in an annoyed manner."))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return
-	visible_message("<span class='warning'>The console sparks, and some items fall out!</span>")
+	visible_message(span_warning("The console sparks, and some items fall out!"))
 	do_sparks(5, 1, src)
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
@@ -462,7 +462,7 @@
 				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
 			else
 				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]")
-		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
+		visible_message(span_notice("\The [src] hums and hisses as it moves [occupant.real_name] into storage."))
 
 	// Ghost and delete the mob.
 	if(!occupant.get_ghost(1))
@@ -480,7 +480,7 @@
 		var/obj/item/grab/G = I
 
 		if(occupant)
-			to_chat(user, "<span class='notice'>[src] is in use.</span>")
+			to_chat(user, span_notice("[src] is in use."))
 			return
 
 		if(!ismob(G.affecting))
@@ -494,7 +494,7 @@
 		time_till_despawn = initial(time_till_despawn)
 
 		if(!istype(M) || M.stat == DEAD)
-			to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
+			to_chat(user, span_notice("Dead people can not be put into cryo."))
 			return
 
 		if(M.client)
@@ -513,14 +513,14 @@
 					return
 
 				if(occupant)
-					to_chat(user, "<span class='boldnotice'>[src] is in use.</span>")
+					to_chat(user, span_boldnotice("[src] is in use."))
 					return
 
 				add_fingerprint(user)
 				take_occupant(M, willing)
 
 			else //because why the fuck would you keep going if the mob isn't in the pod
-				to_chat(user, "<span class='notice'>You stop putting [M] into the cryopod.</span>")
+				to_chat(user, span_notice("You stop putting [M] into the cryopod."))
 				return
 
 			if(orient_right)
@@ -528,8 +528,8 @@
 			else
 				icon_state = occupied_icon_state
 
-			to_chat(M, "<span class='notice'>[on_enter_occupant_message]</span>")
-			to_chat(M, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+			to_chat(M, span_notice("[on_enter_occupant_message]"))
+			to_chat(M, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
 
 			take_occupant(M, willing)
 	else
@@ -555,7 +555,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
+		to_chat(user, span_boldnotice("The cryo pod is already occupied!"))
 		return
 
 
@@ -564,15 +564,15 @@
 		return
 
 	if(L.stat == DEAD)
-		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
+		to_chat(user, span_notice("Dead people can not be put into cryo."))
 		return
 
 	if(!L.mind)
-		to_chat(user, "<span class='notice'>Catatonic people are not allowed into cryo.</span>")
+		to_chat(user, span_notice("Catatonic people are not allowed into cryo."))
 		return
 
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		to_chat(user, span_warning("[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head."))
 		return
 
 
@@ -591,7 +591,7 @@
 
 	if(willing)
 		if(!Adjacent(L) && !Adjacent(user))
-			to_chat(user, "<span class='boldnotice'>You're not close enough to [src].</span>")
+			to_chat(user, span_boldnotice("You're not close enough to [src]."))
 			return
 		if(L == user)
 			visible_message("[user] starts climbing into the cryo pod.")
@@ -602,12 +602,12 @@
 			if(!L) return
 
 			if(occupant)
-				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
+				to_chat(user, span_boldnotice("\The [src] is in use."))
 				return
 			add_fingerprint(user)
 			take_occupant(L, willing)
 		else
-			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
+			to_chat(user, span_notice("You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]"))
 
 /obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E, var/willing_factor = 1)
 	if(occupant)
@@ -620,8 +620,8 @@
 		icon_state = "[occupied_icon_state]-r"
 	else
 		icon_state = occupied_icon_state
-	to_chat(E, "<span class='notice'>[on_enter_occupant_message]</span>")
-	to_chat(E, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+	to_chat(E, span_notice("[on_enter_occupant_message]"))
+	to_chat(E, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
 	occupant = E
 	name = "[name] ([occupant.name])"
 	time_entered = world.time
@@ -631,7 +631,7 @@
 			if(Gh.key == FT)
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
 					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
-	log_admin("<span class='notice'>[key_name_log(E)] entered a stasis pod.</span>")
+	log_admin(span_notice("[key_name_log(E)] entered a stasis pod."))
 	message_admins("[key_name_admin(E)] entered a stasis pod. [ADMIN_JMP(src)]")
 	add_fingerprint(E)
 
@@ -673,11 +673,11 @@
 		return
 
 	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
+		to_chat(usr, span_boldnotice("\The [src] is in use."))
 		return
 
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		to_chat(usr, span_warning("[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head."))
 		return
 
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
@@ -691,7 +691,7 @@
 			return
 
 		if(occupant)
-			to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
+			to_chat(usr, span_boldnotice("\The [src] is in use."))
 			return
 
 		usr.stop_pulling()
@@ -704,8 +704,8 @@
 		else
 			icon_state = occupied_icon_state
 
-		to_chat(usr, "<span class='notice'>[on_enter_occupant_message]</span>")
-		to_chat(usr, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
+		to_chat(usr, span_notice("[on_enter_occupant_message]"))
+		to_chat(usr, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
 		occupant = usr
 		time_entered = world.time
 

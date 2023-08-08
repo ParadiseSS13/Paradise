@@ -100,7 +100,7 @@
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 0))
 					add_fingerprint(user)
-					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
+					to_chat(user, span_notice("You anchor \the [src]!"))
 					anchored = 1
 					build++
 				return 1
@@ -113,7 +113,7 @@
 					add_fingerprint(user)
 					build--
 					anchored = 0
-					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
+					to_chat(user, span_notice("You de-anchored \the [src]!"))
 				return 1
 		if(2) // Welded to the floor
 			if(istype(W, /obj/item/stack/cable_coil))
@@ -123,7 +123,7 @@
 				if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src) && (C.get_amount() >= 2) && (build == 2))
 					add_fingerprint(user)
 					C.use(2)
-					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
+					to_chat(user, span_notice("You've added cables to \the [src]."))
 					build++
 			return
 		if(3) // Wired
@@ -133,7 +133,7 @@
 					add_fingerprint(user)
 					new /obj/item/stack/cable_coil(loc,2)
 					playsound(get_turf(src), W.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
+					to_chat(user, span_notice("You've removed the cables from \the [src]."))
 					build--
 				return 1
 			if(istype(W, /obj/item/stack/rods))
@@ -143,7 +143,7 @@
 				if(do_after(user, 20 * R.toolspeed * gettoolspeedmod(user), target = src) && (R.get_amount() >= 2) && (build == 3))
 					add_fingerprint(user)
 					R.use(2)
-					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
+					to_chat(user, span_notice("You've added the grille to \the [src]."))
 					build++
 				return 1
 			return

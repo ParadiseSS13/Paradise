@@ -181,9 +181,9 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(mode != STATUS_DISPLAY_BLANK && mode != STATUS_DISPLAY_ALERT)
-		. += "<span class='notice'>На дисплее написано: <br>\t[sanitize(message1)]<br>\t[sanitize(message2)].</span>"
+		. += span_notice("На дисплее написано: <br>\t[sanitize(message1)]<br>\t[sanitize(message2)].")
 	if(mode == STATUS_DISPLAY_ALERT)
-		. += "<span class='notice'>Текущий уровень угрозы: [get_security_level_ru()]. </span>"
+		. += span_notice("Текущий уровень угрозы: [get_security_level_ru()]. ")
 
 /obj/machinery/status_display/proc/set_message(m1, m2)
 	if(m1)

@@ -226,15 +226,15 @@
 
 	if(active)
 		add_fingerprint(user)
-		user.visible_message("<span class='notice'>[bicon(src)] [user] deactivated the shield generator.</span>", \
-			"<span class='notice'>[bicon(src)] You deactivate the shield generator.</span>", \
+		user.visible_message(span_notice("[bicon(src)] [user] deactivated the shield generator."), \
+			span_notice("[bicon(src)] You deactivate the shield generator."), \
 			"You hear heavy droning fade out.")
 		shields_down()
 	else
 		if(anchored)
 			add_fingerprint(user)
-			user.visible_message("<span class='notice'>[bicon(src)] [user] activated the shield generator.</span>", \
-				"<span class='notice'>[bicon(src)] You activate the shield generator.</span>", \
+			user.visible_message(span_notice("[bicon(src)] [user] activated the shield generator."), \
+				span_notice("[bicon(src)] You activate the shield generator."), \
 				"You hear heavy droning.")
 			shields_up()
 		else
@@ -248,7 +248,7 @@
 
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
-		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
+		to_chat(user, span_notice("You begin to replace the wires."))
 		if(do_after(user, 30 * coil.toolspeed * gettoolspeedmod(user), target = src))
 			if(!src || !coil)
 				return
@@ -257,7 +257,7 @@
 			health = max_health
 			malfunction = TRUE
 			playsound(loc, coil.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
+			to_chat(user, span_notice("You repair the [src]!"))
 			update_icon()
 
 	else if(I.GetID())
@@ -266,7 +266,7 @@
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 
 	else
 		return ..()
@@ -291,7 +291,7 @@
 	if(anchored)
 		WRENCH_UNANCHOR_MESSAGE
 		if(active)
-			visible_message("<span class='warning'>[src] shuts off!</span>")
+			visible_message(span_warning("[src] shuts off!"))
 			shields_down()
 		anchored = FALSE
 	else
@@ -363,13 +363,13 @@
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user)
 	if(state != 1)
-		to_chat(user, "<span class='warning'>The shield generator needs to be firmly secured to the floor first.</span>")
+		to_chat(user, span_warning("The shield generator needs to be firmly secured to the floor first."))
 		return 1
 	if(locked && !issilicon(user))
-		to_chat(user, "<span class='warning'>The controls are locked!</span>")
+		to_chat(user, span_warning("The controls are locked!"))
 		return 1
 	if(power != 1)
-		to_chat(user, "<span class='warning'>The shield generator needs to be powered by wire underneath.</span>")
+		to_chat(user, span_warning("The shield generator needs to be powered by wire underneath."))
 		return 1
 
 	if(active >= 1)
@@ -414,7 +414,7 @@
 		active = 2
 	if(active >= 1)
 		if(power == 0)
-			visible_message("<span class='warning'>The [name] shuts down due to lack of power!</span>", \
+			visible_message(span_warning("The [name] shuts down due to lack of power!"), \
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0
@@ -494,7 +494,7 @@
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 
 	else
 		..()

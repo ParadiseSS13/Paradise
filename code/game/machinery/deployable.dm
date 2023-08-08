@@ -33,7 +33,7 @@
 	if(bar_material != METAL)
 		return
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		to_chat(user, span_notice("[src] does not need repairs."))
 		return
 	if(user.a_intent == INTENT_HARM)
 		return
@@ -80,10 +80,10 @@
 	if(istype(I,/obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/W = I
 		if(W.get_amount() < 5)
-			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
+			to_chat(user, span_warning("You need at least five wooden planks to make a wall!"))
 			return
 		else
-			to_chat(user, "<span class='notice'>You start adding [I] to [src]...</span>")
+			to_chat(user, span_notice("You start adding [I] to [src]..."))
 			if(do_after(user, 50, target = src))
 				if(!W.use(5))
 					return
@@ -143,7 +143,7 @@
 	density = TRUE
 	anchored = TRUE
 	if(deploy_message)
-		visible_message("<span class='warning'>[src] deploys!</span>")
+		visible_message(span_warning("[src] deploys!"))
 
 
 /obj/item/grenade/barrier
@@ -157,7 +157,7 @@
 
 /obj/item/grenade/barrier/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to toggle modes.</span>"
+	. += span_notice("Alt-click to toggle modes.")
 
 /obj/item/grenade/barrier/AltClick(mob/living/carbon/user)
 	if(!istype(user) || !user.Adjacent(src) || user.incapacitated())

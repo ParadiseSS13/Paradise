@@ -192,12 +192,12 @@
 	if(storedpda) // PDA is in machine.
 		if(ishuman(usr))
 			if (storedpda.id || storedpda.cartridge)
-				to_chat(usr, "<span class='notice'>Уберите карту и картридж из PDA.</span>")
+				to_chat(usr, span_notice("Уберите карту и картридж из PDA."))
 				statusLabel = "Уберите карту и картридж"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
 			else
 				storedpda = new /obj/item/pda(src)
-				to_chat(usr, "<span class='notice'>Данные на PDA полностью стерты.</span>")
+				to_chat(usr, span_notice("Данные на PDA полностью стерты."))
 				statusLabel = "PDA очищен"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
 

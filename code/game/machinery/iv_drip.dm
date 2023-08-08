@@ -49,14 +49,14 @@
 /obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/iv_bag))
 		if(bag)
-			to_chat(user, "<span class='warning'>[src] already has an IV bag!</span>")
+			to_chat(user, span_warning("[src] already has an IV bag!"))
 			return
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 
 		add_fingerprint(user)
 		bag = I
-		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
+		to_chat(user, span_notice("You attach [I] to [src]."))
 		update_icon()
 		START_PROCESSING(SSmachines, src)
 	else if (bag && istype(I, /obj/item/reagent_containers))

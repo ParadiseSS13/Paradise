@@ -26,7 +26,7 @@
 
 /obj/machinery/snow_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The internal reservoir indicates it is [infinite_snow ? "100" : round(reagents.total_volume / reagents.maximum_volume * 100)]% full.</span>"
+	. += span_notice("The internal reservoir indicates it is [infinite_snow ? "100" : round(reagents.total_volume / reagents.maximum_volume * 100)]% full.")
 
 /obj/machinery/snow_machine/RefreshParts()
 	power_efficiency = 0
@@ -41,7 +41,7 @@
 		return
 	if(turn_on_or_off(!active))
 		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You [active ? "turn on" : "turn off"] [src].</span>")
+		to_chat(user, span_notice("You [active ? "turn on" : "turn off"] [src]."))
 	return ..()
 
 /obj/machinery/snow_machine/crowbar_act(mob/user, obj/item/I)
@@ -58,7 +58,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored
-	to_chat(user, "<span class='notice'>You [anchored ? "tighten" : "loosen"] [src]'s wheels.</span>")
+	to_chat(user, span_notice("You [anchored ? "tighten" : "loosen"] [src]'s wheels."))
 	turn_on_or_off(FALSE)
 
 /obj/machinery/snow_machine/process()
@@ -130,7 +130,7 @@
 /obj/machinery/snow_machine/proc/turn_on_or_off(activate, give_message = FALSE)
 	active = activate ? TRUE : FALSE
 	if(!active && give_message)
-		visible_message("<span class='warning'>[src] switches off!</span>")
+		visible_message(span_warning("[src] switches off!"))
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	update_icon()
 	return TRUE

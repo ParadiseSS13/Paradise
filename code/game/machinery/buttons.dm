@@ -72,7 +72,7 @@
 	. = TRUE
 	playsound(get_turf(src), I.usesound, 50, 1)
 	if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
-		to_chat(user, "<span class='notice'>You detach [src] from the wall.</span>")
+		to_chat(user, span_notice("You detach [src] from the wall."))
 		new/obj/item/mounted/frame/driver_button(get_turf(src))
 		qdel(src)
 

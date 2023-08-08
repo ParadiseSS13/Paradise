@@ -77,7 +77,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>Сначала откройте панель техобслуживания.</span>")
+		to_chat(user, span_notice("Сначала откройте панель техобслуживания."))
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = input(user,"Выберите направление соединения.", "Направление соединения") in choices
@@ -108,7 +108,7 @@
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
+		to_chat(user, span_notice("Сначала закройте панель техобслуживания."))
 		return
 
 	add_fingerprint(user)
@@ -246,7 +246,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>Сначала откройте панель техобслуживания.</span>")
+		to_chat(user, span_notice("Сначала откройте панель техобслуживания."))
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = input(user,"Выберите направление соединения.", "Направление соединения") in choices
@@ -277,7 +277,7 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_hand(mob/user as mob)
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
+		to_chat(user, span_notice("Сначала закройте панель техобслуживания."))
 		return
 
 	add_fingerprint(user)

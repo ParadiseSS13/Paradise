@@ -115,7 +115,7 @@
 			if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
 				addiction_removal_chance = 10
 			if(prob(addiction_removal_chance))
-				to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
+				to_chat(occupant, span_notice("You no longer feel reliant on [R.name]!"))
 				occupant.reagents.addiction_list.Remove(R)
 				qdel(R)
 
@@ -134,7 +134,7 @@
 		return
 
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
 
 	add_fingerprint(user)
@@ -253,7 +253,7 @@
 	if(!controls_inside && usr == occupant)
 		return
 	if(panel_open)
-		to_chat(usr, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(usr, span_notice("Close the maintenance panel first."))
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -264,7 +264,7 @@
 			if(!occupant)
 				return
 			if(occupant.stat == DEAD)
-				to_chat(usr, "<span class='danger'>This person has no life to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them.</span>")
+				to_chat(usr, span_danger("This person has no life to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them."))
 				return
 			var/chemical = params["chemid"]
 			var/amount = text2num(params["amount"])
@@ -273,7 +273,7 @@
 			if(occupant.health > min_health || (chemical in emergency_chems))
 				inject_chemical(usr, chemical, amount)
 			else
-				to_chat(usr, "<span class='danger'>This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!</span>")
+				to_chat(usr, span_danger("This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!"))
 		if("removebeaker")
 			remove_beaker()
 		if("togglefilter")
@@ -292,7 +292,7 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		if(!beaker)
 			if(!user.drop_transfer_item_to_loc(I, src))
-				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
+				to_chat(user, span_warning("[I] is stuck to you!"))
 				return
 
 			add_fingerprint(user)
@@ -302,7 +302,7 @@
 			return
 
 		else
-			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
+			to_chat(user, span_warning("The sleeper has a beaker already."))
 			return
 
 	if(exchange_parts(user, I))
@@ -311,22 +311,22 @@
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			to_chat(user, span_boldnotice("Close the maintenance panel first."))
 			return
 		if(!ismob(G.affecting))
 			return
 		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+			to_chat(user, span_boldnotice("The sleeper is already occupied!"))
 			return
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
+			to_chat(user, span_warning("[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head."))
 			return
 
 		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
 
 		if(do_after(user, 20, target = G.affecting))
 			if(occupant)
-				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+				to_chat(user, span_boldnotice("The sleeper is already occupied!"))
 				return
 			if(!G || !G.affecting)
 				return
@@ -334,7 +334,7 @@
 			M.forceMove(src)
 			occupant = M
 			icon_state = "[base_icon]"
-			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+			to_chat(M, span_boldnotice("You feel cool air surround you. You go numb as your senses turn inward."))
 			add_fingerprint(user)
 			qdel(G)
 			SStgui.update_uis(src)
@@ -349,7 +349,7 @@
 
 /obj/machinery/sleeper/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		to_chat(user, span_notice("The maintenance panel is locked."))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I))
 		return TRUE
@@ -359,10 +359,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(occupant)
-		to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
+		to_chat(user, span_notice("The scanner is occupied."))
 		return
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
 	if(dir == EAST)
 		orient = "LEFT"
@@ -434,7 +434,7 @@
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user, chemical, amount)
 	if(!(chemical in possible_chems))
-		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</span>")
+		to_chat(user, span_notice("The sleeper does not offer that chemical!"))
 		return
 	if(!(amount in amounts))
 		return
@@ -500,19 +500,19 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(panel_open)
-		to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+		to_chat(user, span_boldnotice("Close the maintenance panel first."))
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+		to_chat(user, span_boldnotice("The sleeper is already occupied!"))
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, span_boldnotice("Subject cannot have abiotic items on."))
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		to_chat(user, span_warning("[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head."))
 		return
 	if(L == user)
 		visible_message("[user] starts climbing into the sleeper.")
@@ -521,13 +521,13 @@
 
 	if(do_after(user, 20, target = L))
 		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+			to_chat(user, span_boldnotice("The sleeper is already occupied!"))
 			return
 		if(!L) return
 		L.forceMove(src)
 		occupant = L
 		icon_state = "[base_icon]"
-		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+		to_chat(L, span_boldnotice("You feel cool air surround you. You go numb as your senses turn inward."))
 		add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
@@ -547,20 +547,20 @@
 	if(usr.stat != 0 || !(ishuman(usr)))
 		return
 	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+		to_chat(usr, span_boldnotice("The sleeper is already occupied!"))
 		return
 	if(panel_open)
-		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+		to_chat(usr, span_boldnotice("Close the maintenance panel first."))
 		return
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		to_chat(usr, span_warning("[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head."))
 		return
 	visible_message("[usr] starts climbing into the sleeper.")
 	if(do_after(usr, 20, target = usr))
 		if(occupant)
-			to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+			to_chat(usr, span_boldnotice("The sleeper is already occupied!"))
 			return
 		usr.stop_pulling()
 		usr.forceMove(src)
