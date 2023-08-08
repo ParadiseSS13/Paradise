@@ -136,7 +136,7 @@
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
 	incompatible_modules = list(/obj/item/mod/module/noslip)
-	origin_tech = "syndicate=2"
+	origin_tech = "syndicate=1"
 
 /obj/item/mod/module/noslip/on_suit_activation()
 	mod.boots.flags |= NOSLIP
