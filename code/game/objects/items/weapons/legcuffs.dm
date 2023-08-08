@@ -130,6 +130,30 @@
 				L.apply_damage(trap_damage, BRUTE)
 	..()
 
+/obj/item/restraints/legcuffs/beartrap/on_found(mob/finder)
+	if(armed)
+		var/mob/living/L = finder
+		armed = FALSE
+		update_icon()
+		playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+
+		if(!silent_arming)
+			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", "<span class='userdanger'>You trigger \the [src]!</span>")
+
+		if(IED)
+			IED.active = TRUE
+			message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
+			log_game("[key_name(usr)] has triggered an IED-rigged [name].")
+			spawn(IED.det_time)
+			IED.prime()
+
+		if(sig)
+			sig.signal()
+
+		if(ishuman(finder))
+			var/mob/living/carbon/H = finder
+			H.apply_damage(trap_damage, BRUTE,(pick("l_hand", "r_hand")))
+
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"
 	armed = TRUE
