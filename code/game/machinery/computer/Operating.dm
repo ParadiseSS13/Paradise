@@ -183,6 +183,8 @@
 			return FALSE
 
 /obj/machinery/computer/operating/process()
+	if(stat & (NOPOWER|BROKEN))
+		return
 	if(!table) //Does this Operating Computer have an Operating Table connected to it?
 		return
 	if(!verbose) //Are the speakers on?
