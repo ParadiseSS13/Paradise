@@ -1,3 +1,6 @@
+#define PLANT_LAYER OBJ_LAYER + 0.01
+#define LID_LAYER OBJ_LAYER + 0.02
+
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -288,9 +291,6 @@
 			overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "gaia_blessing")
 		set_light(3)
 
-	if(lid_state)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover")
-
 	update_icon_hoses()
 
 	if(myseed)
@@ -303,6 +303,9 @@
 			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
+
+	if(lid_state)
+		overlays += image(icon='icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover", layer = LID_LAYER)
 
 	return
 
@@ -327,7 +330,7 @@
 	else
 		var/t_growthstate = clamp(round((age / myseed.maturation) * myseed.growthstages), 1, myseed.growthstages)
 		I = image(icon = myseed.growing_icon, icon_state = "[myseed.icon_grow][t_growthstate]")
-	I.layer = OBJ_LAYER + 0.01
+	I.layer = PLANT_LAYER
 	overlays += I
 
 /obj/machinery/hydroponics/proc/update_icon_lights()
@@ -1055,3 +1058,6 @@
 		qdel(src)
 	else
 		return ..()
+
+#undef PLANT_LAYER
+#undef LID_LAYER
