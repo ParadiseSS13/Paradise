@@ -25,24 +25,41 @@
 
 // Behold, a copypaste from changeling, might need some redoing
 
+/obj/effect/proc_holder/spell/flayer/Destroy(force, ...)
+	flayer.powers -= src
+	flayer = null
+	return ..()
+
 /*
- * Changeling code relies on on_purchase to grant powers.
+ * Mindflayer code relies on on_purchase to grant powers.
  * The same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec
  */
 
-/obj/effect/proc_holder/spell/flayer/proc/on_purchase(mob/user, datum/antagonist/changeling/C)
+/obj/effect/proc_holder/spell/flayer/proc/on_purchase(mob/user, datum/antagonist/mindflayer/C, datum/path)
 	SHOULD_CALL_PARENT(TRUE)
 	if(!user || !user.mind || !C)
 		qdel(src)
 		return
 	flayer = C
-//	Grant(user)	TODO: make it give the spells correctly
+	flayer.add_ability(path)
 	return TRUE
 
-/obj/effect/proc_holder/spell/flayer/Destroy(force, ...)
-	flayer.powers -= src
-	flayer = null
-	return ..()
+/datum/antagonist/mindflayer/proc/add_ability(path)
+//	if(!get_ability(path)) TODO: make this proc
+//		force_add_ability(path)
+
+/datum/antagonist/mindflayer/proc/force_add_ability(path)
+	var/spell = new path(owner)
+	if(istype(spell, /obj/effect/proc_holder/spell))
+		owner.AddSpell(spell)
+	if(istype(spell, /datum/mindflayer_passive))
+		var/datum/mindflayer_passive/passive = spell
+//		passive.owner = owner.current	TODO: add the var `passive` on `mindflayer_passive`
+		passive.on_apply(src)
+	powers += spell
+
+/datum/mindflayer_passive/proc/on_apply(datum/antagonist/mindflayer/flayer)
+	return
 
 // Retractable weapons code
 
@@ -81,5 +98,3 @@
 	if(istype(owner.r_hand, weapon_type))
 		qdel(owner.r_hand)
 		owner.update_inv_r_hand()
-//	if(done && !silent)
-//		owner.visible_message // TODO: add a message
