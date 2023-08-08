@@ -53,6 +53,9 @@
 	summoner = host
 	host.grant_guardian_actions(src)
 
+/mob/living/simple_animal/hostile/guardian/can_buckle()
+	return FALSE
+
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
 		var/image/holder = hud_list[HEALTH_HUD]
