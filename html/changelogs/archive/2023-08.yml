@@ -47,3 +47,19 @@
   - add: CQC for Blueshield (#3308)
   aeternaclose:
   - add: CereImprovement-pt5 (#3300)
+'2023-08-08':
+  LiquidPotroh:
+  - tweak: Slime potions added to the Smart Fridge (#3323)
+  - add: explanation text for Mr. Chang's Aggressive Marketing (#3309)
+  Rerik007:
+  - bugfix: simplemob alien queen's typo in icon_dead state (#3321)
+  Vladisvell:
+  - refactor: atmospherics span messages (#3289)
+  - tweak: hydroponics tray lid overlay position (#3314)
+  - refactor: 'span refactor: machinery pack part 1 (#3278)'
+  Zardesse:
+  - tweak: Laser arm implant tech requirements (#3316)
+  Zwei:
+  - bugfix: Few Stack Fixes (#3310)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3320)
