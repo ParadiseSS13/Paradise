@@ -106,7 +106,7 @@
 		side_inverted = TRUE
 	else
 		side_inverted = FALSE
-	to_chat(user, "<span class='notice'>You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side.</span>")
+	to_chat(user, span_notice("You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side."))
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
 
 /obj/machinery/atmospherics/binary/circulator/update_icon()

@@ -66,7 +66,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
 	. = ..()
 	if(welded)
-		. += "<span class = 'notice'>It seems welded shut.</span>"
+		. += span_notice("It seems welded shut.")
 
 /obj/machinery/atmospherics/unary/vent_scrubber/auto_use_power()
 	if(!powered(power_channel))
@@ -361,7 +361,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/attack_alien(mob/user)
 	if(!welded || !(do_after(user, 20, target = src)))
 		return
-	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the scrubber.</span>", "<span class='italics'>You hear loud scraping noises.</span>")
+	user.visible_message(span_warning("[user] furiously claws at [src]!"), span_notice("You manage to clear away the stuff blocking the scrubber."), span_italics("You hear loud scraping noises."))
 	welded = FALSE
 	update_icon()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
@@ -371,7 +371,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
+			to_chat(user, span_danger("You cannot unwrench this [src], turn it off first."))
 			return 1
 
 	return ..()
@@ -388,10 +388,10 @@
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		if(!welded)
 			welded = TRUE
-			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
-				"<span class='notice'>You weld [src] shut!</span>")
+			user.visible_message(span_notice("[user] welds [src] shut!"),\
+				span_notice("You weld [src] shut!"))
 		else
 			welded = FALSE
-			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
-				"<span class='notice'>You unweld [src]!</span>")
+			user.visible_message(span_notice("[user] unwelds [src]!"),\
+				span_notice("You unweld [src]!"))
 		update_icon()

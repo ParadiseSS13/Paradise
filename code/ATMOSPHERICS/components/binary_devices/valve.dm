@@ -64,7 +64,7 @@
 		close()
 	else
 		open()
-	to_chat(user, "<span class='notice'>You [open ? "open" : "close"] [src].</span>")
+	to_chat(user, span_notice("You [open ? "open" : "close"] [src]."))
 
 /obj/machinery/atmospherics/binary/valve/digital		// can be controlled by AI
 	name = "digital valve"
@@ -89,7 +89,7 @@
 	if(!powered())
 		return
 	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, span_alert("Access denied."))
 		return
 	..()
 

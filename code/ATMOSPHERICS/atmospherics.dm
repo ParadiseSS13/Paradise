@@ -182,10 +182,10 @@ Pipelines + Other Objects -> Pipe network
 	var/turf/T = get_turf(src)
 	if(can_unwrench && istype(W, /obj/item/wrench))
 		if(T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe) && layer != GAS_PIPE_VISIBLE_LAYER) //pipes on GAS_PIPE_VISIBLE_LAYER are above the transparent floor and should be interactable
-			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+			to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 			return
 		if(level == 1 && isturf(T) && T.intact)
-			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
+			to_chat(user, span_danger("You must remove the plating first."))
 			return
 		var/datum/gas_mixture/int_air = return_air()
 		var/datum/gas_mixture/env_air = loc.return_air()
@@ -198,16 +198,16 @@ Pipelines + Other Objects -> Pipe network
 		var/internal_pressure = I - E
 
 		playsound(src.loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
+		to_chat(user, span_notice("You begin to unfasten \the [src]..."))
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
-			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
+			to_chat(user, span_warning("As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?"))
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
 		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src) && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
-				"<span class='notice'>You have unfastened \the [src].</span>", \
-				"<span class='italics'>You hear ratcheting.</span>")
+				span_notice("You have unfastened \the [src]."), \
+				span_italics("You hear ratcheting."))
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
@@ -217,13 +217,13 @@ Pipelines + Other Objects -> Pipe network
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
 				if(safefromgusts)
-					to_chat(user, "<span class='italics'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
+					to_chat(user, span_italics("Your magboots cling to the floor as a great burst of wind bellows against you."))
 				else
 					unsafe_pressure_release(user,internal_pressure)
 			deconstruct(TRUE)
 	else
 		if(T.transparent_floor)
-			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+			to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 			return TRUE
 		return ..()
 
@@ -240,7 +240,7 @@ Pipelines + Other Objects -> Pipe network
 
 	var/fuck_you_dir = get_dir(src, user)
 	var/turf/general_direction = get_edge_target_turf(user, fuck_you_dir)
-	user.visible_message("<span class='danger'>[user] is sent flying by pressure!</span>","<span class='userdanger'>The pressure sends you flying!</span>")
+	user.visible_message(span_danger("[user] is sent flying by pressure!"),span_userdanger("The pressure sends you flying!"))
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
 	user.throw_at(general_direction, pressures/10, pressures/50)
 

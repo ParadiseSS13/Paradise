@@ -33,7 +33,7 @@
 
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user) && !issilicon(usr))
 		return
@@ -47,7 +47,7 @@
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user) && !issilicon(usr))
 		return
@@ -196,7 +196,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, span_alert("Access denied."))
 		return
 
 	add_fingerprint(user)

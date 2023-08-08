@@ -88,7 +88,7 @@
 	else return 1
 
 /obj/machinery/atmospherics/pipe/simple/proc/burst()
-	src.visible_message("<span class='danger'>\The [src] bursts!</span>")
+	src.visible_message(span_danger("\The [src] bursts!"))
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1,0, src.loc, 0)
