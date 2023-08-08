@@ -32,17 +32,20 @@
 	var/cotton_name = "raw cotton"
 
 /obj/item/grown/cotton/attack_self(mob/user)
-	user.show_message("<span class='notice'>You pull some [cotton_name] out of the [name]!</span>", 1)
+	user.show_message(span_notice("You pull some [cotton_name] out of the [name]!"), 1)
 	var/seed_modifier = 0
 	if(seed)
 		seed_modifier = round(seed.potency / 25)
-	var/obj/item/stack/cotton = new cotton_type(user.loc, 1 + seed_modifier)
-	var/old_cotton_amount = cotton.amount
-	for(var/obj/item/stack/ST in user.loc)
-		if(ST != cotton && istype(ST, cotton_type) && ST.amount < ST.max_amount)
-			ST.attackby(cotton, user)
-	if(cotton.amount > old_cotton_amount)
-		to_chat(user, "<span class='notice'>You add the newly-formed [cotton_name] to the stack. It now contains [cotton.amount] [cotton_name].</span>")
+	new cotton_type(user.loc, 1 + seed_modifier)
+	var/new_amount = 0
+	for(var/obj/item/stack/sheet/G in user.loc)
+		if(!istype(G, cotton_type))
+			continue
+		if(G.amount >= G.max_amount)
+			continue
+		new_amount += G.amount
+	if(new_amount > 1)
+		to_chat(user, span_notice("You add the newly-formed [cotton_name] to the stack. It now contains [new_amount] [cotton_name]."))
 	qdel(src)
 
 //reinforced mutated variant
