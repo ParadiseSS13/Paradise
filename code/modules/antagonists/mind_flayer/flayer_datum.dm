@@ -49,7 +49,7 @@
 	if(!(drained_humans[unique_drain_id]))
 		drained_humans[unique_drain_id] = 0
 	else
-		return drained_humans[unique_drain_id] <= BRAIN_DRAIN_LIMIT
+		return drained_humans[unique_drain_id] <= BRAIN_DRAIN_LIMIT //TODO better feedback on trying to drain past the limit
 	return TRUE
 
 /datum/antagonist/mindflayer/proc/handle_harvest(mob/living/carbon/human/H)
