@@ -300,6 +300,17 @@
 	locked = 1
 	category = list("Weapons")
 
+/datum/design/laser_arm
+	name = "Laser arm implant"
+	desc = "An arm cannon implant that fires lethal laser beams. Comes with a self-charging module."
+	id = "laser_arm_imp"
+	req_tech = list("materials" = 7, "magnets" = 7, "powerstorage" = 7, "plasmatech" = 7, "biotech" = 7, "combat" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 15000, MAT_URANIUM = 10000, MAT_TITANIUM = 6000, MAT_GOLD = 4500, MAT_DIAMOND = 3500)
+	build_path = /obj/item/organ/internal/cyberimp/arm/gun/laser
+	locked = 1
+	category = list("Weapons")
+
 /////////////////////////////////////////
 ////////////////ILLEGAL//////////////////
 /////////////////////////////////////////
@@ -545,17 +556,6 @@
 	materials = list(MAT_METAL = 40000, MAT_GLASS = 20000, MAT_TITANIUM = 20000, MAT_PLASMA = 20000)
 	build_path = /obj/item/rcd_ammo/syndicate/large
 	locked = 0
-	category = list("ILLEGAL")
-
-/datum/design/laser_arm
-	name = "Laser arm implant"
-	desc = "An arm cannon implant that fires lethal laser beams. Come with a self-charge."
-	id = "laser_arm_imp"
-	req_tech = list("syndicate" = 4, "biotech" = 7, "combat" = 8, "plasmatech" = 5)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 8000, MAT_URANIUM = 8000, MAT_TITANIUM = 1000, MAT_GOLD = 500, MAT_DIAMOND = 100)
-	build_path = /obj/item/organ/internal/cyberimp/arm/gun/laser
-	locked = 1
 	category = list("ILLEGAL")
 
 /datum/design/paicard_cartridge
