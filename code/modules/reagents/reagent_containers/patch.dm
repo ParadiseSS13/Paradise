@@ -28,6 +28,10 @@
 /obj/item/reagent_containers/food/pill/patch/afterattack(obj/target, mob/user , proximity)
 	return // thanks inheritance again
 
+/obj/item/reagent_containers/food/pill/patch/attack_self(mob/user)
+	attack(user, user)
+	. = ..()
+
 /obj/item/reagent_containers/food/pill/patch/styptic
 	name = "brute patch"
 	desc = "Helps with brute injuries."
