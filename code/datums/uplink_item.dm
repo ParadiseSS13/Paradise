@@ -220,7 +220,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot stunning bullets out of your fingers, and create large walls that can block an entire hallway!"
 	reference = "AM"
 	item = /obj/item/storage/box/syndie_kit/mimery
-	cost = 7
+	cost = 6
+	job = list("Mime")
+
+/datum/uplink_item/jobspecific/mimejutsu
+	name = "Mimejutsu manual"
+	desc =	"An old manual of the martial art of mimes."
+	reference = "MJ"
+	item = /obj/item/mimejutsu_scroll
+	cost = 8
 	job = list("Mime")
 
 //Miner

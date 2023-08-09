@@ -257,7 +257,6 @@
 /obj/item/storage/box/syndie_kit/mimery/populate_contents()
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
 	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
-	new /obj/item/mimejutsu_scroll(src)
 
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
