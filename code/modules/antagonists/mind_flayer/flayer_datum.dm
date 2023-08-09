@@ -80,6 +80,8 @@
 	acquired_powers += power
 	on_purchase(mindflayer || owner.current, src, power)
 */
+
+// This proc adds extra things that the mindflayer should get upon becoming a mindflayer
 /datum/antagonist/mindflayer/on_gain()
 	. = ..()
 	for(var/path in innate_powers)
