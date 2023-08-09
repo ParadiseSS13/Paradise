@@ -132,7 +132,10 @@
 					SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 			else
-				L.apply_damage(trap_damage, BRUTE)
+				if(istype(L, /mob/living/simple_animal/hostile/bear))
+					L.apply_damage(trap_damage * 2.5, BRUTE)
+				else
+					L.apply_damage(trap_damage, BRUTE)
 	..()
 
 /obj/item/restraints/legcuffs/beartrap/on_found(mob/finder)
