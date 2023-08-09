@@ -531,6 +531,7 @@
 	req_access = list(ACCESS_SURGERY)
 	name = "\improper Secure Refrigerated Organ Storage"
 	desc = "A refrigerated storage unit for storing organs, limbs and implants."
+	opacity = 1
 
 /obj/machinery/smartfridge/secure/medbay/organ/Initialize(mapload)
 	. = ..()
