@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
-	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
+	breakouttime = 30 SECONDS
 
 /obj/item/restraints/legcuffs/beartrap
 	name = "bear trap"
@@ -19,6 +19,7 @@
 	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
 	origin_tech = "engineering=4"
+	breakouttime = 20 SECONDS
 	var/armed = FALSE
 	var/trap_damage = 20
 	///Do we want the beartrap not to make a visable message on arm? Use when a beartrap is applied by something else.
