@@ -4748,6 +4748,7 @@
 /area/vox_station)
 "crJ" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison Cell";
 	opacity = 1
 	},
@@ -10124,6 +10125,7 @@
 /area/centcom/jail)
 "fmZ" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -13209,6 +13211,7 @@
 /area/ninja/outpost)
 "gPg" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -14146,6 +14149,7 @@
 /area/ninja/outside)
 "htR" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison Cell";
 	opacity = 1
 	},
@@ -16332,6 +16336,7 @@
 /area/centcom/zone1)
 "iFB" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -19745,6 +19750,7 @@
 /area/centcom/zone1)
 "kvN" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison Cell";
 	opacity = 1
 	},
@@ -25203,6 +25209,7 @@
 /area/syndicate_mothership)
 "mOD" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -27321,6 +27328,7 @@
 /area/centcom/bridge)
 "nCA" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)
@@ -35220,6 +35228,7 @@
 /area/syndicate_mothership/control)
 "rmG" = (
 /obj/machinery/door/airlock/syndicate/extmai/glass{
+	damage_deflection = 999;
 	id_tag = "syndicate_jail_cell";
 	name = "Cell";
 	req_access = list(153)
@@ -38856,6 +38865,7 @@
 /area/centcom/zone2)
 "sVL" = (
 /obj/machinery/door/airlock/centcom{
+	damage_deflection = 999;
 	name = "Prison";
 	opacity = 1;
 	req_access = list(104)

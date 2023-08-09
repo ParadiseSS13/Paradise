@@ -181,7 +181,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(ishuman(user) && user.dna.species.obj_damage)
-			attack_generic(user, user.dna.species.obj_damage)
+			attack_generic(user, user.dna.species.obj_damage, damage_flag = "melee")
 		else
 			playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
 			user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
