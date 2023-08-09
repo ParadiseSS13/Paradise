@@ -45,6 +45,7 @@
 		return
 
 	affecting.grabbed_by += src
+	RegisterSignal(affecting, COMSIG_MOVABLE_MOVED, PROC_REF(grab_moved))
 
 	hud = new /obj/screen/grab(src)
 	hud.icon_state = "reinforce"
@@ -61,6 +62,11 @@
 
 	clean_grabbed_by(assailant, affecting)
 	adjust_position()
+
+/obj/item/grab/proc/grab_moved()
+	if(!assailant.Adjacent(affecting))
+		qdel(src)
+		return
 
 /obj/item/grab/proc/clean_grabbed_by(mob/user, mob/victim) //Cleans up any nulls in the grabbed_by list.
 	if(istype(user))
@@ -417,6 +423,7 @@
 
 /obj/item/grab/Destroy()
 	if(affecting)
+		UnregisterSignal(affecting, COMSIG_MOVABLE_MOVED)
 		if(!affecting.buckled)
 			affecting.pixel_x = 0
 			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
