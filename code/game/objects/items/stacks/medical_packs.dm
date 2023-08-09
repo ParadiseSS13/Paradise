@@ -77,6 +77,9 @@
 							"<span class='green'>You apply [src] on [M].</span>")
 		use(1)
 
+/obj/item/stack/medical/attack_self(mob/user)
+	attack(user, user)
+
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
 	var/mob/living/carbon/human/H = M
 	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)

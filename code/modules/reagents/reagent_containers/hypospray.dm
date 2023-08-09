@@ -51,7 +51,6 @@
 
 /obj/item/reagent_containers/hypospray/attack_self(mob/user)
 	attack(user, user)
-	. = ..()
 
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)

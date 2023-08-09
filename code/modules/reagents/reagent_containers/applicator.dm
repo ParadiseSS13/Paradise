@@ -93,6 +93,8 @@
 		update_icon()
 		user.changeNext_move(CLICK_CD_MELEE)
 
+/obj/item/reagent_containers/applicator/attack_self(mob/user)
+	attack(user, user)
 
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE)
 	var/total_applied_amount = applied_amount * multiplier

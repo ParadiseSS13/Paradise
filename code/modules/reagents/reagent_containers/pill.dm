@@ -33,7 +33,6 @@
 
 /obj/item/reagent_containers/food/pill/attack_self(mob/user)
 	attack(user, user)
-	. = ..()
 
 /obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
 	if(!proximity || !target.is_refillable())
