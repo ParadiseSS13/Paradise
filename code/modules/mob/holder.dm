@@ -297,6 +297,7 @@
 	desc = "It's a pet"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "snake"
+	slot_flags = SLOT_HEAD | SLOT_NECK
 
 /obj/item/holder/parrot
 	name = "pet"

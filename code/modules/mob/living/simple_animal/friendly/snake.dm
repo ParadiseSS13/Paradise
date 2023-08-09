@@ -37,6 +37,7 @@
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	holder_type = /obj/item/holder/snake
+	can_collar = TRUE
 
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)

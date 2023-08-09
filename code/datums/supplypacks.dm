@@ -1440,6 +1440,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/croco
 	containername = "croco crate"
 
+/datum/supply_packs/organic/snake
+	name = "Snake Crate"
+	cost = 40
+	containertype = /obj/structure/closet/critter/snake
+	containername = "snake crate"
+
 ////// hippy gear
 
 /datum/supply_packs/organic/hydroponics // -- Skie
