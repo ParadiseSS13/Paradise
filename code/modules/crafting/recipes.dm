@@ -1,7 +1,7 @@
 /datum/crafting_recipe
 	var/name = "" //in-game display name
 	var/reqs[] = list() //type paths of items consumed associated with how many are needed
-	var/blacklist[] = list() //type paths of items explicitly not allowed as an ingredient
+	var/blacklist[] = list() //type paths of items explicitly not allowed as an ingredient, you can expand it in New() by using typecacheof to ban subtypes
 	var/result //type path of item resulting from this craft
 	var/tools[] = list() //tool behaviours of items needed but not consumed
 	var/pathtools[] = list() //type paths of items needed but not consumed
