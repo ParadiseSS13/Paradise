@@ -17,6 +17,7 @@
  *		Toy xeno
  *		Toy chainsaws
  *		Action Figures
+ *      Rubber Toolbox
  */
 
 
@@ -2257,7 +2258,14 @@
 	else
 		soundloop.stop()
 
-
-
-
-
+/obj/item/toy/toolbox
+	name = "Rubber Toolbox"
+	desc = "Practice your robust!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "rubber_toolbox"
+	damtype = STAMINA
+	force = 10
+	throwforce = 15
+	w_class = WEIGHT_CLASS_BULKY
+	attack_verb = list("robusted")
+	hitsound = 'sound/items/squeaktoy.ogg'
