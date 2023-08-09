@@ -208,11 +208,12 @@
 			to_chat(user, "<span class='warning'>You cannot do this there is \a [blocking_object] in the way!</span>")
 			return FALSE
 		G.affecting.forceMove(get_turf(src))
-		G.affecting.Weaken(4 SECONDS)
-		item_placed(G.affecting)
-		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
-									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
-		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
+		if(!IS_HORIZONTAL(G.affecting))
+			G.affecting.Weaken(4 SECONDS)
+			item_placed(G.affecting)
+			G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
+										"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
+			add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
 		qdel(G)
 		return TRUE
 	qdel(G)
