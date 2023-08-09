@@ -559,11 +559,6 @@
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
 		return FALSE
-	for(var/obj/item/grab/grab in target.grabbed_by)
-		qdel(grab) // you pushed a grabbed person? No grab left!
-	for(var/obj/item/grab/grab in user.grabbed_by)
-		if(grab.affecting == user)
-			qdel(grab)
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
@@ -576,6 +571,15 @@
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
+	if(istype(user.get_inactive_hand(), /obj/item/grab))
+		var/obj/item/grab/grab = user.get_inactive_hand()
+		if(grab.affecting == target)
+			return FALSE // no table fu
+	for(var/obj/item/grab/grab in target.grabbed_by)
+		qdel(grab) // you pushed a grabbed person? No grab left!
+	for(var/obj/item/grab/grab in user.grabbed_by)
+		if(grab.affecting == user)
+			qdel(grab)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	if(target.move_resist > user.pull_force)
 		return FALSE

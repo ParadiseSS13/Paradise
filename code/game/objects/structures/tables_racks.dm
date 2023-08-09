@@ -255,7 +255,8 @@
 	target.pass_flags |= PASSTABLE
 	if(target.Move(loc))
 		. = TRUE
-		target.Weaken(4 SECONDS)
+		if(IS_HORIZONTAL(target))
+			target.Weaken(4 SECONDS)
 		add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
 	else
 		. = FALSE
