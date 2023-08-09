@@ -15605,43 +15605,43 @@
 	req_access = list(114)
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 12/24-round drum magazines.";
 	name = "Pancor Jackhammer"
 	},
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun{
@@ -24802,18 +24802,18 @@
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/item/gun/projectile/revolver/doublebarrel,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
 /turf/simulated/floor/indestructible{
 	dir = 8;
 	icon_state = "vault"

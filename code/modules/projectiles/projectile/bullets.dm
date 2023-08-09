@@ -118,6 +118,27 @@
 	tile_dropoff_s = 1.25
 	armour_penetration = -20
 
+/obj/item/projectile/bullet/pellet/nuclear
+	damage = 15.5
+	tile_dropoff = 0
+
+/obj/item/projectile/bullet/pellet/bioterror
+	damage = 9
+	irradiate = 20
+	tile_dropoff = 0
+
+/obj/item/projectile/bullet/pellet/bioterror/on_hit(atom/target, blocked = 0, hit_zone)
+	. = ..()
+	if((blocked != 100) && iscarbon(target))
+		var/mob/living/carbon/C = target
+		C.adjustToxLoss(9)
+
+/obj/item/projectile/bullet/pellet/flechette
+	name = "flechette"
+	damage = 16.5
+	tile_dropoff = 0
+	armour_penetration = 20
+
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
 	damage = 3
@@ -217,6 +238,9 @@
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
 	name = "dragonsbreath round"
 	damage = 5
+
+/obj/item/projectile/bullet/incendiary/shell/dragonsbreath/nuclear
+	damage = 13.5
 
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath/mecha
 	name = "liquidlava round"

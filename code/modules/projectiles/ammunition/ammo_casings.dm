@@ -211,6 +211,9 @@
 	pellets = 6
 	variance = 17
 
+/obj/item/ammo_casing/shotgun/buckshot/nuclear
+	projectile_type = /obj/item/projectile/bullet/pellet/nuclear
+
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubber shot"
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
@@ -305,6 +308,11 @@
 	variance = 25
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
+/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
+	projectile_type = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath/nuclear
+	pellets = 6
+	variance = 20
+
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"
 	desc = "An advanced shotgun shell which uses a subspace ansible crystal to produce an effect similar to a standard ion rifle. \
@@ -350,16 +358,13 @@
 /obj/item/ammo_casing/shotgun/dart/attackby()
 	return
 
-/obj/item/ammo_casing/shotgun/dart/bioterror
-	desc = "A shotgun dart filled with deadly toxins."
-
-/obj/item/ammo_casing/shotgun/dart/bioterror/New()
-	..()
-	reagents.add_reagent("neurotoxin", 6)
-	reagents.add_reagent("spore", 6)
-	reagents.add_reagent("capulettium_plus", 6) //;HELP OPS IN MAINT
-	reagents.add_reagent("coniine", 6)
-	reagents.add_reagent("sodium_thiopental", 6)
+/obj/item/ammo_casing/shotgun/bioterror
+	name = "bioterror shell"
+	desc = "A shotgun shell filled with deadly toxins."
+	icon_state = "bioshell"
+	projectile_type = /obj/item/projectile/bullet/pellet/bioterror
+	pellets = 4
+	variance = 17
 
 /obj/item/ammo_casing/shotgun/tranquilizer
 	name = "tranquilizer darts"
@@ -369,6 +374,14 @@
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/ammo_casing/shotgun/flechette
+	name = "flechette"
+	desc = "A shotgun casing filled with tiny steel darts, used to penetrate armor. Beehive incoming!"
+	icon_state = "flechette"
+	projectile_type = /obj/item/projectile/bullet/pellet/flechette
+	pellets = 4
+	variance = 13
 
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."

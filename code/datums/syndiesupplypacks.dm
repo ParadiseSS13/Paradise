@@ -433,12 +433,12 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/security/armory/m12g_buckshot_slugs
 	name = "Syndicate Bulldog - 12g Buckshot Magazine Crate"
-	contains = list(/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot,
-					/obj/item/ammo_box/magazine/m12g/buckshot)
+	contains = list(/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g,
+					/obj/item/ammo_box/magazine/m12g)
 	cost = 1000
 	containername = "Bulldog - 12g Buckshot Magazine crate"
 

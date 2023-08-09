@@ -545,6 +545,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous
 	category = "Highly Visible and Dangerous Weapons"
 
+/datum/uplink_item/dangerous/minotaur
+	name = "AS-12 'Minotaur' Shotgun"
+	desc = "A modern, burst firing, mag-fed combat shotgun, that uses 12g ammo. Holds a 12/24 round drums, perfect for cleaning out crowds of people in narrow corridors. Welcome to the Minotaur's labyrinth!"
+	reference = "AS12"
+	item = /obj/item/gun/projectile/automatic/shotgun/minotaur
+	cost = 16
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	surplus = 0
+
 /datum/uplink_item/dangerous/pistol
 	name = "FK-69 Pistol"
 	reference = "SPI"
@@ -804,56 +813,72 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_box/magazine/m10mm/hp
 	cost = 1
 
-/datum/uplink_item/ammo/bullslug
-	name = "Bulldog - 12g Slug Magazine"
-	desc = "An additional 8-round slug magazine for use in the Bulldog shotgun. Now 8 times less likely to shoot your pals."
-	reference = "12BSG"
+/datum/uplink_item/ammo/bullbuck
+	name = "Drum - 12g Buckshot"
+	desc = "An additional 12-round buckshot magazine for use in the auto shotguns. Front towards enemy."
+	reference = "12BS"
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 2
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/ammo/bullbuck
-	name = "Bulldog - 12g Buckshot Magazine"
-	desc = "An additional 8-round buckshot magazine for use in the Bulldog shotgun. Front towards enemy."
-	reference = "12BS"
-	item = /obj/item/ammo_box/magazine/m12g/buckshot
-	cost = 2
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/ammo/bullstun
-	name = "Bulldog - 12g Stun Slug Magazine"
-	desc = "An alternative 8-round stun slug magazine for use in the Bulldog shotgun. Saying that they're completely non-lethal would be lying."
-	reference = "12SS"
-	item = /obj/item/ammo_box/magazine/m12g/stun
-	cost = 1
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
 /datum/uplink_item/ammo/bulldragon
-	name = "Bulldog - 12g Dragon's Breath Magazine"
-	desc = "An alternative 8-round dragon's breath magazine for use in the Bulldog shotgun. I'm a fire starter, twisted fire starter!"
+	name = "Drum - 12g Dragon's Breath"
+	desc = "An alternative 12-round dragon's breath magazine for use in the auto shotguns. I'm a fire starter, twisted fire starter!"
 	reference = "12DB"
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	cost = 2
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/ammo/bullflechette
+	name = "Drum - 12g Flechette"
+	desc = "An additional 12-round flechette magazine for use in the auto shotguns. Works well against armour."
+	reference = "12BS"
+	item = /obj/item/ammo_box/magazine/m12g/flechette
+	cost = 2
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/ammo/bullterror
-	name = "Bulldog - 12g Bioterror Magazine"
-	desc = "An alternative 8-round bioterror magazine for use in the Bulldog shotgun. Extremely toxic!"
+	name = "Drum - 12g Bioterror"
+	desc = "An alternative 12-round bioterror magazine for use in the auto shotguns. Extremely toxic!"
 	reference = "12BT"
 	item = /obj/item/ammo_box/magazine/m12g/bioterror
 	cost = 3
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullmeteor
-	name = "Bulldog - 12g Meteor Magazine"
-	desc = "An alternative 8-round breaching magazine for use in the Bulldog shotgun. This ammo should be illegal.!"
+	name = "Drum - 12g Meteor"
+	desc = "An alternative 12-round breaching magazine for use in the auto shotguns. This ammo should be illegal!"
 	reference = "12BRE"
 	item = /obj/item/ammo_box/magazine/m12g/breach
 	cost = 5
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/ammo/bull_XLbuck
+	name = "Extended drum - 12g Buckshot"
+	desc = "An additional 24-round buckshot magazine for use in the auto shotguns. Front towards enemy."
+	reference = "12BSXL"
+	item = /obj/item/ammo_box/magazine/m12g/XtrLrg
+	cost = 4
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/bull_XLflechette
+	name = "Extended drum - 12g Flechette"
+	desc = "An additional 24-round flechette magazine for use in the auto shotguns. Works well against armour."
+	reference = "12FLXL"
+	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
+	cost = 4
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/ammo/bull_XLdragon
+	name = "Extended drum - 12g Dragon's Breath"
+	desc = "An additional 24-round dragon's breath magazine for use in the auto shotguns. I'm a fire starter, twisted fire starter!"
+	reference = "12DBXL"
+	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
+	cost = 4
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/ammo/bulldog_ammobag
-	name = "Bulldog - 12g Ammo Duffel Bag"
+	name = "Drum - 12g Ammo Duffel Bag"
 	desc = "A duffel bag filled with enough 12g ammo to supply an entire team, at a discounted price."
 	reference = "12ADB"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
@@ -861,8 +886,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_XLmagsbag
-	name = "Bulldog - 12g XL Magazine Duffel Bag"
-	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
+	name = "Drum - 12g XL Ammo Duffel Bag"
+	desc = "A duffel bag containing three 24 round drum magazines(Buckshot, Flechette, Dragon's Breath)."
 	reference = "12XLDB"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
 	cost = 9 // normally 18

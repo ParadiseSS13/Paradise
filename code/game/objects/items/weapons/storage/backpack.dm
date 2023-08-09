@@ -451,13 +451,11 @@
 	item_state = "duffel-syndiammo"
 
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
-	desc = "A large duffelbag, packed to the brim with Bulldog shotgun ammo."
+	desc = "A large duffelbag, packed to the brim with auto shotguns ammo."
 
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun/populate_contents()
-	for(var/i in 1 to 6)
+	for(var/i in 1 to 8)
 		new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
-	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
@@ -465,7 +463,7 @@
 
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags/populate_contents()
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
-	new /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot(src)
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette(src)
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/lmg

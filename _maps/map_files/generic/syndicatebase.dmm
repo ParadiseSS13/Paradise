@@ -21593,9 +21593,9 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
-/obj/item/ammo_box/magazine/m12g/buckshot,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
+/obj/item/ammo_box/magazine/m12g,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "sAa" = (
