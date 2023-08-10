@@ -86,3 +86,13 @@
   - bugfix: Logging All Objectives Again (#3330)
   spaghetti:
   - add: mimejutsu (#3311)
+'2023-08-10':
+  Vladisvell:
+  - refactor: turfs span messages (#3282)
+  - add: Big Iron (#3317)
+  - qol: allow cables to be laid on fireproof catwalks on lava (#3331)
+  - qol: Broken APCs cover now can be pried off. (#3326)
+  WolfLox:
+  - add: braindamage from holywater (#3329)
+  yosoyrebelde:
+  - add: new station goal - bluespace rift scan (#3295)
