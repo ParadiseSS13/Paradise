@@ -67,7 +67,7 @@
 	desc = "An industrial U-Stor-It Storage unit designed to accommodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
 	helmet_type	= /obj/item/clothing/head/helmet/space/capspace //Looks like they couldn't handle the Neutron Style
 	mask_type	= /obj/item/clothing/mask/gas
-	storage_type = /obj/item/mod/control/pre_equipped/magnate
+	suit_type = /obj/item/mod/control/pre_equipped/magnate
 	req_access	= list(ACCESS_CAPTAIN)
 
 /obj/machinery/suit_storage_unit/captain/secure
@@ -79,7 +79,7 @@
 	base_icon_state = "industrial"
 	mask_type	= /obj/item/clothing/mask/breath
 	boots_type = /obj/item/clothing/shoes/magboots
-	storage_type = /obj/item/mod/control/pre_equipped/engineering
+	suit_type = /obj/item/mod/control/pre_equipped/engineering
 	req_access	= list(ACCESS_ENGINE_EQUIP)
 
 /obj/machinery/suit_storage_unit/engine/secure
@@ -91,7 +91,7 @@
 	base_icon_state = "industrial"
 	mask_type	= /obj/item/clothing/mask/gas
 	boots_type = /obj/item/clothing/shoes/magboots/advance
-	storage_type = /obj/item/mod/control/pre_equipped/advanced
+	suit_type = /obj/item/mod/control/pre_equipped/advanced
 	req_access	= list(ACCESS_CE)
 
 /obj/machinery/suit_storage_unit/ce/secure
@@ -99,7 +99,7 @@
 
 /obj/machinery/suit_storage_unit/rd
 	name = "research director's suit storage unit"
-	storage_type = /obj/item/mod/control/pre_equipped/research
+	suit_type = /obj/item/mod/control/pre_equipped/research
 	mask_type	= /obj/item/clothing/mask/gas
 	req_access	= list(ACCESS_RD)
 
@@ -118,7 +118,7 @@
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
 	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
-	storage_type = /obj/item/mod/control/pre_equipped/safeguard
+	suit_type = /obj/item/mod/control/pre_equipped/safeguard
 	req_access = list(ACCESS_HOS)
 
 /obj/machinery/suit_storage_unit/security/hos/secure
@@ -137,7 +137,7 @@
 	name = "atmospherics suit storage unit"
 	mask_type	= /obj/item/clothing/mask/gas
 	boots_type = /obj/item/clothing/shoes/magboots/atmos
-	storage_type = /obj/item/mod/control/pre_equipped/atmospheric
+	suit_type = /obj/item/mod/control/pre_equipped/atmospheric
 	req_access	= list(ACCESS_ATMOSPHERICS)
 
 /obj/machinery/suit_storage_unit/atmos/secure
@@ -146,7 +146,7 @@
 /obj/machinery/suit_storage_unit/mining
 	name = "mining suit storage unit"
 	mask_type	= /obj/item/clothing/mask/breath
-	storage_type = /obj/item/mod/control/pre_equipped/mining/asteroid
+	suit_type = /obj/item/mod/control/pre_equipped/mining/asteroid
 	req_access	= list(ACCESS_MINING_STATION)
 
 /obj/machinery/suit_storage_unit/mining/secure
@@ -161,7 +161,7 @@
 
 /obj/machinery/suit_storage_unit/cmo
 	mask_type	= /obj/item/clothing/mask/breath
-	storage_type = /obj/item/mod/control/pre_equipped/medical
+	suit_type = /obj/item/mod/control/pre_equipped/medical
 	req_access	= list(ACCESS_CMO)
 
 /obj/machinery/suit_storage_unit/cmo/secure
@@ -364,7 +364,7 @@
   *
 **/
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
-	if(istype(I, /obj/item/clothing/suit) && !suit)
+	if((istype(I, /obj/item/clothing/suit)|| istype(I, /obj/item/mod/control)) && !suit)
 		if(try_store_item(I, user))
 			suit = I
 			return TRUE
@@ -380,7 +380,7 @@
 		if(try_store_item(I, user))
 			boots = I
 			return TRUE
-	if(((istype(I, /obj/item/tank) || I.w_class <= WEIGHT_CLASS_SMALL) || istype(I, /obj/item/mod/control)) && !storage)
+	if(((istype(I, /obj/item/tank) || I.w_class <= WEIGHT_CLASS_SMALL)) && !storage)
 		if(try_store_item(I, user))
 			storage = I
 			return TRUE

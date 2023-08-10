@@ -129,6 +129,7 @@
 			to_chat(mod.wearer, "<span class='notice'>[src] activated, [used_button] to use.</span>")
 	else
 		COOLDOWN_START(src, cooldown_timer, cooldown_time) //We don't want to put active modules on cooldown when selected
+		to_chat(mod.wearer, "<span class='notice'>[src] activated.</span>")
 	active = TRUE
 	mod.update_mod_overlays()
 	//mod.wearer.update_clothing(mod.slot_flags)
@@ -153,6 +154,8 @@
 		else
 			UnregisterSignal(mod.wearer, used_signal)
 			used_signal = null
+	else if(display_message)
+		to_chat(mod.wearer, "<span class='notice'>[src] deactivated.</span>")
 	//mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED)
 	mod.update_mod_overlays()

@@ -228,6 +228,8 @@
 /obj/item/mod/control/MouseDrop(atom/over_object)
 	if(iscarbon(usr))
 		var/mob/M = usr
+		if(get_dist(usr, src) > 1) //1 as we want to access it if beside the user
+			return
 
 		if(!over_object)
 			return
