@@ -85,8 +85,10 @@
 	if(assailant.moving_diagonally == FIRST_DIAG_STEP) //we dont want to do anything in the middle of diagonal step
 		return
 	if(!assailant.Adjacent(old_turf))
+		qdel(src)
 		return
 	if(assailant.Adjacent(affecting))
+		adjust_position()
 		return
 	var/possible_dest = list(old_turf)
 	for(var/turf/dest in orange(assailant, 1))
@@ -99,7 +101,7 @@
 		var/obj/item/grab/grab = assailant.r_hand
 		possible_dest -= get_turf(grab.affecting)
 	for(var/turf/dest in possible_dest)
-		if(affecting.Move(dest, get_dir(affecting, dest)))
+		if(affecting.Move(dest, get_dir(affecting, dest), assailant.movement_delay() + 7))
 			break
 	if(state == GRAB_NECK)
 		assailant.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))

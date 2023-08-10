@@ -40,7 +40,6 @@
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
-	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
 	var/notransform = FALSE	//Carbon
