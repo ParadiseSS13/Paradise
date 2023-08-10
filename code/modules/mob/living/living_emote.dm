@@ -51,7 +51,7 @@
 	. = ..()
 	if(. && isliving(user))
 		var/mob/living/L = user
-		L.Paralyse(4 SECONDS)
+		L.KnockDown(4 SECONDS)
 
 /datum/emote/living/dance
 	key = "dance"
