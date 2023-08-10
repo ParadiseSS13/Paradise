@@ -67,7 +67,6 @@
 /obj/item/grab/Destroy()
 	if(affecting)
 		UnregisterSignal(affecting, COMSIG_MOVABLE_MOVED)
-		UnregisterSignal(assailant, COMSIG_MOVABLE_MOVED)
 		if(!affecting.buckled)
 			affecting.pixel_x = 0
 			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
@@ -75,70 +74,42 @@
 		affecting.grabbed_by -= src
 		affecting = null
 	if(assailant)
+		UnregisterSignal(assailant, COMSIG_MOVABLE_MOVED)
 		if(assailant.client)
 			assailant.client.screen -= hud
 		assailant = null
 	QDEL_NULL(hud)
 	return ..()
 
-/obj/item/grab/proc/pull_grabbed(mob/user, turf/old_turf, direct, forced, movetime)
+/obj/item/grab/proc/pull_grabbed(mob/user, turf/old_turf, direct, forced)
+	if(assailant.moving_diagonally == FIRST_DIAG_STEP) //we dont want to do anything in the middle of diagonal step
+		return
 	if(!assailant.Adjacent(old_turf))
 		return
-	// We might not actually be grab pulled, but we are pretending that we are, so as to
-	// hackily work around issues arising from mutual grabs.
-	var/old_being_pulled = assailant.currently_grab_pulled
-	assailant.currently_grab_pulled = TRUE
-	// yes, this is four distinct `for` loops. No, they can't be merged.
-	var/list/grabbing = list()
-	for(var/mob/M in assailant.ret_grab())
-		if(assailant == M)
-			continue
-		if(M.currently_grab_pulled)
-			// Being already pulled by something else up the call stack.
-			continue
-		grabbing |= M
-	for(var/mob/M in grabbing)
-		M.currently_grab_pulled = TRUE
-		M.animate_movement = SYNC_STEPS
-	for(var/i in 1 to length(grabbing))
-		var/mob/M = grabbing[i]
-		if(QDELETED(M))  // old code warned me that M could go missing during a move, so I'm cargo-culting it here
-			continue
-		// compile a list of turfs we can maybe move them towards
-		// importantly, this should happen before actually trying to move them to either of those
-		// otherwise they can be moved twice (since `Move` returns TRUE only if it managed to
-		// *fully* move where you wanted it to; it can still move partially and return FALSE)
-		var/possible_dest = list()
-		for(var/turf/dest in orange(assailant, 1))
-			if(dest.Adjacent(M))
-				possible_dest |= dest
-		if(i == 1) // at least one of them should try to trail behind us, for aesthetics purposes
-			if(M.Move(old_turf, get_dir(M, old_turf), movetime))
-				continue
-		// By this time the `old_turf` is definitely occupied by something immovable.
-		// So try to move them into some other adjacent turf, in a believable way
-		if(assailant.Adjacent(M))
-			continue // they are already adjacent
-		for(var/turf/dest in possible_dest)
-			if(M.Move(dest, get_dir(M, dest), movetime))
-				break
-	for(var/mob/M in grabbing)
-		M.currently_grab_pulled = null
-		M.animate_movement = SLIDE_STEPS
-
-	for(var/obj/item/grab/G in assailant)
-		if(G.state == GRAB_NECK)
-			assailant.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
-		G.adjust_position()
-	for(var/obj/item/grab/G in assailant.grabbed_by)
-		G.adjust_position()
-
-	assailant.currently_grab_pulled = old_being_pulled
+	if(assailant.Adjacent(affecting))
+		return
+	var/possible_dest = list(old_turf)
+	for(var/turf/dest in orange(assailant, 1))
+		if(dest.Adjacent(affecting))
+			possible_dest |= dest
+	if(istype(assailant.l_hand, /obj/item/grab))
+		var/obj/item/grab/grab = assailant.l_hand
+		possible_dest -= get_turf(grab.affecting)
+	if(istype(assailant.r_hand, /obj/item/grab))
+		var/obj/item/grab/grab = assailant.r_hand
+		possible_dest -= get_turf(grab.affecting)
+	for(var/turf/dest in possible_dest)
+		if(affecting.Move(dest, get_dir(affecting, dest)))
+			break
+	if(state == GRAB_NECK)
+		assailant.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
+	adjust_position()
 
 /obj/item/grab/proc/grab_moved()
+	if(affecting.moving_diagonally == FIRST_DIAG_STEP) //we dont want to do anything in the middle of diagonal step
+		return
 	if(!assailant.Adjacent(affecting))
 		qdel(src)
-		return
 
 /obj/item/grab/proc/clean_grabbed_by(mob/user, mob/victim) //Cleans up any nulls in the grabbed_by list.
 	if(istype(user))

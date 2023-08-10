@@ -228,7 +228,7 @@
 		return
 
 	if(.)
-		Moved(oldloc, direct, movetime = movetime)
+		Moved(oldloc, direct)
 
 	last_move = direct
 	move_speed = world.time - l_move_time
@@ -238,8 +238,8 @@
 		. = 0
 
 // Called after a successful Move(). By this point, we've already moved
-/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE, movetime = 0)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced, movetime)
+/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
