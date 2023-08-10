@@ -203,7 +203,6 @@
 	duration = 30 SECONDS
 	tick_interval = 1 SECONDS
 	alert_type = /obj/screen/alert/status_effect/vampire_gladiator
-	var/healing_ticks_left // We use this to see how long we can keep healing the vampire
 
 /obj/screen/alert/status_effect/vampire_gladiator
 	name = "Gladiatorial Resilience"
