@@ -214,7 +214,7 @@
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	for(var/Y in H.bodyparts)
-		var/obj/item/organ/external/E = Y
+		var/obj/item/organ/external/E = Y // Wait looking back on this, this is stupid. I'll redo this later but I can't now
 		E.limb_flags |= CANNOT_BREAK
 		E.limb_flags |= CANNOT_DISMEMBER
 		E.limb_flags |= CANNOT_BURN
