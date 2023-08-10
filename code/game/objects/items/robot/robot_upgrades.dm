@@ -414,8 +414,9 @@
 	to_chat(cyborg, "<span class='notice'>The floor buffer is now [cyborg.floorbuffer ? "active" : "deactivated"].</span>")
 
 /obj/item/borg/upgrade/floorbuffer/Destroy()
-	cyborg.floorbuffer = FALSE
-	cyborg = null
+	if(cyborg)
+		cyborg.floorbuffer = FALSE
+		cyborg = null
 	return ..()
 
 /obj/item/borg/upgrade/bluespace_trash_bag
