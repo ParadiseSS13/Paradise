@@ -138,6 +138,12 @@
 				new /obj/structure/lattice/catwalk/fireproof(src)
 		else
 			return
+	else if(istype(C, /obj/item/stack/cable_coil))
+		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
+		if(!W)
+			return
+		else
+			return ..()
 	else return
 
 /turf/simulated/floor/plating/lava/screwdriver_act()
