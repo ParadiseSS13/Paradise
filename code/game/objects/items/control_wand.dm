@@ -122,7 +122,7 @@
 	region_access = list(REGION_MEDBAY)
 
 /obj/item/door_remote/civillian
-	name = "civillian door remote"
+	name = "civilian door remote"
 	icon_state = "gangtool-white"
 	region_access = list(REGION_GENERAL, REGION_SUPPLY)
 	additional_access = list(ACCESS_HOP)
