@@ -212,8 +212,6 @@
 	base_cooldown = 30 SECONDS
 	action_icon_state = "blood_barrier"
 	should_recharge_after_cast = FALSE
-	/// The garg vampire
-	var/mob/living/carbon/human/garg_vampire
 	/// Is our spell active?
 	var/spell_active = FALSE
 	/// Holds a reference to the timer until either the spell runs out or we recast it
@@ -228,7 +226,6 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/living/user)
-	garg_vampire = user
 	if(!targets)
 		return
 
@@ -238,55 +235,55 @@
 
 	// First we leap towards the enemy target
 
-	animate(garg_vampire, 1 SECONDS, pixel_z = 64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
-	addtimer(CALLBACK(garg_vampire, garg_vampire.spin(12, 1), 3, 2), 0.3 SECONDS)
+	animate(user, 1 SECONDS, pixel_z = 64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
+	addtimer(CALLBACK(user, user.spin(12, 1), 3, 2), 0.3 SECONDS)
 
-	var/angle = get_angle(garg_vampire, targets[1]) + 180
-	garg_vampire.transform = garg_vampire.transform.Turn(angle)
+	var/angle = get_angle(user, targets[1]) + 180
+	user.transform = user.transform.Turn(angle)
 	for(var/i in 1 to 10)
-		var/move_dir = get_dir(garg_vampire, targets[1])
-		garg_vampire.forceMove(get_step(garg_vampire, move_dir))
-		if(get_turf(garg_vampire) == get_turf(targets[1]))
-			garg_vampire.transform = 0
+		var/move_dir = get_dir(user, targets[1])
+		user.forceMove(get_step(user, move_dir))
+		if(get_turf(user) == get_turf(targets[1]))
+			user.transform = 0
 			break
 		sleep(1)
-	animate(garg_vampire, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
+	animate(user, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
 	// They get a cool soundeffect and a visual, as a treat
 
-	playsound(get_turf(garg_vampire), 'sound/effects/meteorimpact.ogg', 100, TRUE)
-	new /obj/effect/temp_visual/stomp(get_turf(garg_vampire))
+	playsound(get_turf(user), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	new /obj/effect/temp_visual/stomp(get_turf(user))
 
 	// Now we build the arena and give the caster the buff
 
-	garg_vampire.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
+	user.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	spell_active = TRUE
-	timer = addtimer(CALLBACK(src, PROC_REF(dispell), garg_vampire, TRUE), 30 SECONDS, TIMER_STOPPABLE)
-	RegisterSignal(garg_vampire, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
-	arena_checks(get_turf(targets[1]))
+	timer = addtimer(CALLBACK(src, PROC_REF(dispell), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
+	arena_checks(get_turf(targets[1]), user)
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks()
+/obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks(turf/target_turf, mob/living/user)
 	if(!spell_active || QDELETED(src))
 		return
-	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
-	INVOKE_ASYNC(src, PROC_REF(arena_trap))  //Gets another arena trap queued up for when this one runs out.
-	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
+	INVOKE_ASYNC(src, PROC_REF(fighters_check), user)  //Checks to see if our fighters died.
+	INVOKE_ASYNC(src, PROC_REF(arena_trap), target_turf)  //Gets another arena trap queued up for when this one runs out.
+	addtimer(CALLBACK(src, PROC_REF(arena_checks), target_turf, user), 5 SECONDS)
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap()
-	for(var/tumor_range_turfs in circle_edge_turfs(get_turf(garg_vampire), ARENA_SIZE))
+/obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap(turf/target_turf)
+	for(var/tumor_range_turfs in circle_edge_turfs(target_turf, ARENA_SIZE))
 		tumor_range_turfs = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
 		all_temp_walls += tumor_range_turfs
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check()
-	if(QDELETED(garg_vampire) || garg_vampire.stat == DEAD)
-		dispell()
+/obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check(mob/living/user)
+	if(QDELETED(user) || user.stat == DEAD)
+		dispell(user)
 		return
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/dispell()
+/obj/effect/proc_holder/spell/vampire/arena/proc/dispell(mob/living/user)
 	spell_active = FALSE
 	if(timer)
 		deltimer(timer)
 		timer = null
 	QDEL_LIST_CONTENTS(all_temp_walls)
 	cooldown_handler.start_recharge()
-	garg_vampire.remove_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
+	user.remove_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	visible_message("<span class='warning'>The arena begins to dissipate.</span>")
