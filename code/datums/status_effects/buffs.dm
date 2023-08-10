@@ -215,13 +215,17 @@
 	var/mob/living/carbon/human/H = owner
 	for(var/Y in H.bodyparts)
 		var/obj/item/organ/external/E = Y
-		E.min_broken_damage += 100 // Arbitrary high damage number, we just want to stop bone breaks from happening
+		E.limb_flags |= CANNOT_BREAK
+		E.limb_flags |= CANNOT_DISMEMBER
+		E.limb_flags |= CANNOT_BURN
 
 /datum/status_effect/vampire_gladiator/on_remove()
 	var/mob/living/carbon/human/H = owner
 	for(var/Y in H.bodyparts)
 		var/obj/item/organ/external/E = Y
-		E.min_broken_damage -= 100
+		E.limb_flags -= CANNOT_BREAK
+		E.limb_flags -= CANNOT_DISMEMBER
+		E.limb_flags -= CANNOT_BURN
 
 /datum/status_effect/vampire_gladiator/tick()
 	owner.adjustStaminaLoss(-20)
