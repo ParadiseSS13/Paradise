@@ -59,9 +59,9 @@
 		else if(E.is_broken() || !E.is_usable())
 			stance_damage += 1
 
-	// Canes and crutches help you stand (if the latter is ever added)
+	// Canes and crutches help you stand
 	// One cane mitigates a broken leg+foot, or a missing foot.
-	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
+	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you. Get some crutches instead.
 	if(l_hand)
 		stance_damage -= l_hand.get_crutch_efficency()
 	if(r_hand)
