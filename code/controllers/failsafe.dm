@@ -41,7 +41,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 				break
 			else if(defcon == 1) //Exit Failsafe if we weren't able to recover the MC in the last stage
 				log_game("FailSafe: Failed to recover MC while in emergency state. Failsafe exiting.")
-				message_admins("<span class='boldannounce'>Failsafe failed criticaly while trying to recreate broken MC. Please manually fix the MC or reboot the server. Failsafe exiting now.</span>")
+				message_admins("<span class='boldannounce'>Failsafe failed critically while trying to recreate broken MC. Please manually fix the MC or reboot the server. Failsafe exiting now.</span>")
 				message_admins("<span class='boldannounce'>You can try manually calling these two procs:.</span>")
 				message_admins("<span class='boldannounce'><code>/proc/recover_all_SS_and_recreate_master</code>: Most stuff should still function but expect instability/runtimes/broken stuff.</span>")
 				message_admins("<span class='boldannounce'><code>/proc/delete_all_SS_and_recreate_master</code>: Most stuff will be broken but basic stuff like movement and chat should still work.</span>")
