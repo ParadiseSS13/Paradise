@@ -46,6 +46,7 @@
 
 	affecting.grabbed_by += src
 	RegisterSignal(affecting, COMSIG_MOVABLE_MOVED, PROC_REF(grab_moved))
+	RegisterSignal(assailant, COMSIG_MOVABLE_MOVED, PROC_REF(pull_grabbed))
 
 	hud = new /obj/screen/grab(src)
 	hud.icon_state = "reinforce"
@@ -62,6 +63,77 @@
 
 	clean_grabbed_by(assailant, affecting)
 	adjust_position()
+
+/obj/item/grab/Destroy()
+	if(affecting)
+		UnregisterSignal(affecting, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(assailant, COMSIG_MOVABLE_MOVED)
+		if(!affecting.buckled)
+			affecting.pixel_x = 0
+			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
+			affecting.layer = initial(affecting.layer)
+		affecting.grabbed_by -= src
+		affecting = null
+	if(assailant)
+		if(assailant.client)
+			assailant.client.screen -= hud
+		assailant = null
+	QDEL_NULL(hud)
+	return ..()
+
+/obj/item/grab/proc/pull_grabbed(mob/user, turf/old_turf, direct, forced, movetime)
+	if(!assailant.Adjacent(old_turf))
+		return
+	// We might not actually be grab pulled, but we are pretending that we are, so as to
+	// hackily work around issues arising from mutual grabs.
+	var/old_being_pulled = assailant.currently_grab_pulled
+	assailant.currently_grab_pulled = TRUE
+	// yes, this is four distinct `for` loops. No, they can't be merged.
+	var/list/grabbing = list()
+	for(var/mob/M in assailant.ret_grab())
+		if(assailant == M)
+			continue
+		if(M.currently_grab_pulled)
+			// Being already pulled by something else up the call stack.
+			continue
+		grabbing |= M
+	for(var/mob/M in grabbing)
+		M.currently_grab_pulled = TRUE
+		M.animate_movement = SYNC_STEPS
+	for(var/i in 1 to length(grabbing))
+		var/mob/M = grabbing[i]
+		if(QDELETED(M))  // old code warned me that M could go missing during a move, so I'm cargo-culting it here
+			continue
+		// compile a list of turfs we can maybe move them towards
+		// importantly, this should happen before actually trying to move them to either of those
+		// otherwise they can be moved twice (since `Move` returns TRUE only if it managed to
+		// *fully* move where you wanted it to; it can still move partially and return FALSE)
+		var/possible_dest = list()
+		for(var/turf/dest in orange(assailant, 1))
+			if(dest.Adjacent(M))
+				possible_dest |= dest
+		if(i == 1) // at least one of them should try to trail behind us, for aesthetics purposes
+			if(M.Move(old_turf, get_dir(M, old_turf), movetime))
+				continue
+		// By this time the `old_turf` is definitely occupied by something immovable.
+		// So try to move them into some other adjacent turf, in a believable way
+		if(assailant.Adjacent(M))
+			continue // they are already adjacent
+		for(var/turf/dest in possible_dest)
+			if(M.Move(dest, get_dir(M, dest), movetime))
+				break
+	for(var/mob/M in grabbing)
+		M.currently_grab_pulled = null
+		M.animate_movement = SLIDE_STEPS
+
+	for(var/obj/item/grab/G in assailant)
+		if(G.state == GRAB_NECK)
+			assailant.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
+		G.adjust_position()
+	for(var/obj/item/grab/G in assailant.grabbed_by)
+		G.adjust_position()
+
+	assailant.currently_grab_pulled = old_being_pulled
 
 /obj/item/grab/proc/grab_moved()
 	if(!assailant.Adjacent(affecting))
@@ -420,23 +492,6 @@
 		return EAT_TIME_ANIMAL
 
 	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it
-
-/obj/item/grab/Destroy()
-	if(affecting)
-		UnregisterSignal(affecting, COMSIG_MOVABLE_MOVED)
-		if(!affecting.buckled)
-			affecting.pixel_x = 0
-			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
-			affecting.layer = initial(affecting.layer)
-		affecting.grabbed_by -= src
-		affecting = null
-	if(assailant)
-		if(assailant.client)
-			assailant.client.screen -= hud
-		assailant = null
-	QDEL_NULL(hud)
-	return ..()
-
 
 #undef EAT_TIME_XENO
 #undef EAT_TIME_FAT
