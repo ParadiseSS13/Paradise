@@ -76,6 +76,7 @@
 	new /obj/item/clothing/accessory/medal/science(src)
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/RD(src)
+	new /obj/item/t_scanner/experimental(src)
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"

@@ -2162,6 +2162,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 	containername = "Goal crate"
 
+/datum/supply_packs/misc/station_goal/bluespace_rift
+	name = "Bluespace Rift Research"
+	cost = 150
+	contains = list(
+		/obj/item/disk/design_disk/station_goal_machinery/brs_server,
+		/obj/item/disk/design_disk/station_goal_machinery/brs_portable_scanner,
+		/obj/item/disk/design_disk/station_goal_machinery/brs_stationary_scanner,
+	)
+	containername = "bluespace rift research crate"
+	containertype = /obj/structure/closet/crate/sci
+
 ///////////// Bathroom Fixtures
 
 /datum/supply_packs/misc/toilet

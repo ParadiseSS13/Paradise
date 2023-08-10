@@ -199,7 +199,7 @@
 	desc = "An assistant's every dream."
 	payload = /obj/random/tool
 
-/obj/item/grenade/clusterbuster/tools
+/obj/item/grenade/clusterbuster/eng_tools
 	name = "Engineering Deployment Platfom"
 	desc = "For the that time when gearing up was just too hard."
 	payload = /obj/random/tech_supply

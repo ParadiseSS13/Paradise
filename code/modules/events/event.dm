@@ -185,8 +185,14 @@
 
 	event_meta = EM
 	severity = event_meta.severity
-	if(severity < EVENT_LEVEL_MUNDANE) severity = EVENT_LEVEL_MUNDANE
-	if(severity > EVENT_LEVEL_MAJOR) severity = EVENT_LEVEL_MAJOR
+
+	// Validate severity
+	if(severity != EVENT_LEVEL_NONE \
+		|| severity != EVENT_LEVEL_MUNDANE \
+		|| severity != EVENT_LEVEL_MODERATE \
+		|| severity != EVENT_LEVEL_MAJOR \
+	)
+		severity = EVENT_LEVEL_NONE
 
 	startedAt = world.time
 

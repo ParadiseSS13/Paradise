@@ -47,23 +47,13 @@ SUBSYSTEM_DEF(events)
 
 	finished_events += E
 
-	var/theseverity
-
-	if(!E.severity)
-		theseverity = EVENT_LEVEL_MODERATE
-
-	if(!E.severity == EVENT_LEVEL_MUNDANE && !E.severity == EVENT_LEVEL_MODERATE && !E.severity == EVENT_LEVEL_MAJOR)
-		theseverity = EVENT_LEVEL_MODERATE //just to be careful
-
-	if(E.severity)
-		theseverity = E.severity
+	var/datum/event_meta/EM = E.event_meta
+	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
 
 	// Add the event back to the list of available events
-	var/datum/event_container/EC = event_containers[theseverity]
-	var/datum/event_meta/EM = E.event_meta
-	EC.available_events += EM
-
-	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
+	if(E.severity != EVENT_LEVEL_NONE)
+		var/datum/event_container/EC = event_containers[E.severity]
+		EC.available_events += EM
 
 /datum/controller/subsystem/events/proc/delay_events(severity, delay)
 	var/datum/event_container/EC = event_containers[severity]

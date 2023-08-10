@@ -14,10 +14,10 @@
 	var/list/datum/supply_packs/supply_list = list()
 
 /datum/station_goal/proc/send_report()
+	on_report()
 	var/directive = "Nanotrasen Directive [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]"
 	GLOB.priority_announcement.Announce("Поступила приоритетная директива Нанотрейзен. Отправлены подробности проекта «[name]».", "Приоритетное оповещение.", 'sound/AI/commandreport.ogg')
 	print_command_report("<div style='text-align:center;'><img src = ntlogo.png>" + "<h3>[directive]</h3></div><hr>" + get_report(), "[directive]", FALSE, src)
-	on_report()
 
 /datum/station_goal/proc/on_report()
 	//Additional unlocks/changes go here
@@ -49,7 +49,6 @@
 		return
 
 	if(href_list["announce"])
-		on_report()
 		send_report()
 	else if(href_list["remove"])
 		qdel(src)

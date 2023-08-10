@@ -790,3 +790,13 @@
 #define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
+
+// /datum/component/bluespace_rift_scanner signals
+/// from scanner's `process()` : (seconds, emagged)
+#define COMSIG_SCANNING_RIFTS "scanning_rifts"
+	/// No rifts within the scanner's range
+	#define COMPONENT_SCANNED_NOTHING (1<<0)
+	/// There are some rifts within the scanner's range
+	#define COMPONENT_SCANNED_NORMAL (1<<1)
+	/// The scanner is within critical range of a rift
+	#define COMPONENT_SCANNED_CRITICAL (1<<2)
