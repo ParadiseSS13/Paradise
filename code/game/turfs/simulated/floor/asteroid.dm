@@ -34,7 +34,7 @@
 	if(!dug)
 		return TRUE
 	if(user)
-		to_chat(user, "<span class='notice'>Looks like someone has dug here already.</span>")
+		to_chat(user, span_notice("Looks like someone has dug here already."))
 
 /turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -76,13 +76,13 @@
 		if(!istype(T))
 			return
 
-		to_chat(user, "<span class='notice'>You start digging...</span>")
+		to_chat(user, span_notice("You start digging..."))
 
 		playsound(src, I.usesound, 50, TRUE)
 		if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
 			if(!can_dig(user))
 				return TRUE
-			to_chat(user, "<span class='notice'>You dig a hole.</span>")
+			to_chat(user, span_notice("You dig a hole."))
 			getDug()
 			return TRUE
 
@@ -348,7 +348,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 
 /turf/simulated/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
-		visible_message("<span class='danger'>[src] melts away!.</span>")
+		visible_message(span_danger("[src] melts away!."))
 		slowdown = 0
 		burnt = TRUE
 		icon_state = "snow_dug"

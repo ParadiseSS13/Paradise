@@ -75,22 +75,22 @@
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
 		if(W)
-			to_chat(user, "<span class='warning'>There is already a catwalk here!</span>")
+			to_chat(user, span_warning("There is already a catwalk here!"))
 			return
 		if(L)
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>You construct a catwalk.</span>")
+				to_chat(user, span_notice("You construct a catwalk."))
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				new/obj/structure/lattice/catwalk(src)
 			else
-				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
+				to_chat(user, span_warning("You need two rods to build a catwalk!"))
 			return
 		if(R.use(1))
-			to_chat(user, "<span class='notice'>Constructing support lattice...</span>")
+			to_chat(user, span_notice("Constructing support lattice..."))
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			ReplaceWithLattice()
 		else
-			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
+			to_chat(user, span_warning("You need one rod to build a lattice."))
 		return
 
 	if(istype(C, /obj/item/stack/tile/plasteel))
@@ -100,33 +100,33 @@
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>You build a floor.</span>")
+				to_chat(user, span_notice("You build a floor."))
 				ChangeTurf(/turf/simulated/floor/plating)
 			else
-				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
+				to_chat(user, span_warning("You need one floor tile to build a floor!"))
 		else
-			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
+			to_chat(user, span_warning("The plating is going to need some support! Place metal rods first."))
 
 	if(istype(C, /obj/item/stack/fireproof_rods))
 		var/obj/item/stack/fireproof_rods/R = C
 		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice/fireproof, src)
 		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
 		if(W)
-			to_chat(user, "<span class='warning'>Здесь уже есть мостик!</span>")
+			to_chat(user, span_warning("Здесь уже есть мостик!"))
 			return
 		if(!L)
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>Вы установили прочную решётку.</span>")
+				to_chat(user, span_notice("Вы установили прочную решётку."))
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				new /obj/structure/lattice/fireproof(src)
 			else
-				to_chat(user, "<span class='warning'>Вам нужен один огнеупорный стержень для постройки решётки.</span>")
+				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки."))
 			return
 		if(L)
 			if(R.use(2))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>Вы установили мостик.</span>")
+				to_chat(user, span_notice("Вы установили мостик."))
 				new /obj/structure/lattice/catwalk/fireproof(src)
 
 /turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)

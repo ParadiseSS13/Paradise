@@ -82,21 +82,21 @@
 		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice, src)
 		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
 		if(W)
-			to_chat(user, "<span class='warning'>Здесь уже есть мостик!</span>")
+			to_chat(user, span_warning("Здесь уже есть мостик!"))
 			return
 		if(!L)
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>Вы установили прочную решётку.</span>")
+				to_chat(user, span_notice("Вы установили прочную решётку."))
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				new /obj/structure/lattice/fireproof(src)
 			else
-				to_chat(user, "<span class='warning'>Вам нужен один огнеупорный стержень для постройки решётки.</span>")
+				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки."))
 			return
 		if(L)
 			if(R.use(2))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>Вы установили мостик.</span>")
+				to_chat(user, span_notice("Вы установили мостик."))
 				new /obj/structure/lattice/catwalk/fireproof(src)
 
 /turf/simulated/floor/chasm/is_safe()
@@ -133,7 +133,7 @@
 		if(istype(H.belt, /obj/item/wormhole_jaunter))
 			var/obj/item/wormhole_jaunter/J = H.belt
 			//To freak out any bystanders
-			visible_message("<span class='boldwarning'>[H] falls into [src]!</span>")
+			visible_message(span_boldwarning("[H] falls into [src]!"))
 			J.chasm_react(H)
 			return FALSE
 	return TRUE
@@ -145,8 +145,8 @@
 	falling_atoms[AM] = TRUE
 	var/turf/T = locate(drop_x, drop_y, drop_z)
 	if(T)
-		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
-		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
+		AM.visible_message(span_boldwarning("[AM] falls into [src]!"), span_userdanger("GAH! Ah... where are you?"))
+		T.visible_message(span_boldwarning("[AM] falls from above!"))
 		AM.forceMove(T)
 		if(isliving(AM))
 			var/mob/living/L = AM
@@ -161,7 +161,7 @@
 	drop_z = z - 1
 	var/turf/T = locate(drop_x, drop_y, drop_z)
 	if(T)
-		T.visible_message("<span class='boldwarning'>The ceiling gives way!</span>")
+		T.visible_message(span_boldwarning("The ceiling gives way!"))
 		playsound(T, 'sound/effects/break_stone.ogg', 50, 1)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
@@ -179,8 +179,8 @@
 	if(!AM || QDELETED(AM) || AM.anchored)
 		return
 	falling_atoms[AM] = TRUE
-	AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
-	into the enveloping dark.</span>")
+	AM.visible_message(span_boldwarning("[AM] falls into [src]!"), span_userdanger("You stumble and stare into an abyss before you. It stares back, and you fall \
+	into the enveloping dark."))
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.notransform = TRUE
@@ -212,7 +212,7 @@
 	qdel(AM)
 
 	if(AM && !QDELETED(AM))	//It's indestructible
-		visible_message("<span class='boldwarning'>[src] spits out the [AM]!</span>")
+		visible_message(span_boldwarning("[src] spits out the [AM]!"))
 		AM.alpha = oldalpha
 		AM.color = oldcolor
 		AM.transform = oldtransform

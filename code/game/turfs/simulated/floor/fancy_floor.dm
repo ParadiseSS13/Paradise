@@ -25,16 +25,16 @@
 		broken = 0
 		burnt = 0
 		if(user && !silent)
-			to_chat(user, "<span class='notice'>You remove the broken planks.</span>")
+			to_chat(user, span_notice("You remove the broken planks."))
 	else
 		if(make_tile)
 			if(user && !silent)
-				to_chat(user, "<span class='notice'>You unscrew the planks.</span>")
+				to_chat(user, span_notice("You unscrew the planks."))
 			if(floor_tile)
 				new floor_tile(src)
 		else
 			if(user && !silent)
-				to_chat(user, "<span class='warning'>You forcefully pry off the planks, destroying them in the process.</span>")
+				to_chat(user, span_warning("You forcefully pry off the planks, destroying them in the process."))
 	return make_plating()
 
 /turf/simulated/floor/wood/cold
@@ -100,7 +100,7 @@
 		return
 	if(istype(C, /obj/item/shovel))
 		new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
-		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
+		to_chat(user, span_notice("You shovel the grass."))
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
 

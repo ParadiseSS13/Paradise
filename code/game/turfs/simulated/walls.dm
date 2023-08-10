@@ -58,18 +58,18 @@
 	. = ..()
 
 	if(!damage)
-		. += "<span class='notice'>It looks fully intact.</span>"
+		. += span_notice("It looks fully intact.")
 	else
 		var/dam = damage / damage_cap
 		if(dam <= 0.3)
-			. += "<span class='warning'>It looks slightly damaged.</span>"
+			. += span_warning("It looks slightly damaged.")
 		else if(dam <= 0.6)
-			. += "<span class='warning'>It looks moderately damaged.</span>"
+			. += span_warning("It looks moderately damaged.")
 		else
-			. += "<span class='danger'>It looks heavily damaged.</span>"
+			. += span_danger("It looks heavily damaged.")
 
 	if(rotting)
-		. += "<span class='warning'>There is fungus growing on [src].</span>"
+		. += span_warning("There is fungus growing on [src].")
 
 /turf/simulated/wall/proc/update_icon()
 	if(!damage_overlays[1]) //list hasn't been populated
@@ -189,7 +189,7 @@
 	if(our_rpd.mode == RPD_ATMOS_MODE)
 		if(!our_rpd.ranged)
 			playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
-			user.visible_message("<span class='notice'>[user] starts drilling a hole in [src]...</span>", "<span class='notice'>You start drilling a hole in [src]...</span>", "<span class='warning'>You hear drilling.</span>")
+			user.visible_message(span_notice("[user] starts drilling a hole in [src]..."), span_notice("You start drilling a hole in [src]..."), span_italics("You hear drilling."))
 			if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
 				return
 		our_rpd.create_atmos_pipe(user, src)
@@ -221,7 +221,7 @@
 	switch(M.damtype)
 		if(BRUTE)
 			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-			M.visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='danger'>You hit [src]!</span>")
+			M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"))
 			if(prob(hardness + M.force) && M.force > 20)
 				dismantle_wall(1)
 				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -269,7 +269,7 @@
 	F.burn_tile()
 	F.icon_state = "plating"
 	if(user)
-		to_chat(user, "<span class='warning'>The thermite starts melting through the wall.</span>")
+		to_chat(user, span_warning("The thermite starts melting through the wall."))
 
 	spawn(wait)
 		if(O)	qdel(O)
@@ -283,13 +283,13 @@
 	if((M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
 		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			dismantle_wall(1)
-			to_chat(M, "<span class='info'>You smash through the wall.</span>")
+			to_chat(M, span_info("You smash through the wall."))
 		else
-			to_chat(M, text("<span class='notice'>You smash against the wall.</span>"))
+			to_chat(M, span_notice("You smash against the wall."))
 			take_damage(rand(25, 75))
 			return
 
-	to_chat(M, "<span class='notice'>You push the wall but nothing happens!</span>")
+	to_chat(M, span_notice("You push the wall but nothing happens!"))
 	return
 
 /turf/simulated/wall/attack_hand(mob/user)
@@ -301,25 +301,25 @@
 
 		if(A.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			dismantle_wall(1)
-			to_chat(A, "<span class='info'>You smash through the wall.</span>")
+			to_chat(A, span_info("You smash through the wall."))
 			return
 		if(A.environment_smash & ENVIRONMENT_SMASH_WALLS)
-			to_chat(A, text("<span class='notice'>You smash against the wall.</span>"))
+			to_chat(A, span_notice("You smash against the wall."))
 			take_damage(A.obj_damage)
 			return
 
-		to_chat(A, "<span class='notice'>You push the wall but nothing happens!</span>")
+		to_chat(A, span_notice("You push the wall but nothing happens!"))
 		return
 	if(rotting)
 		if(hardness <= 10)
-			to_chat(user, "<span class='notice'>This wall feels rather unstable.</span>")
+			to_chat(user, span_notice("This wall feels rather unstable."))
 			return
 		else
-			to_chat(user, "<span class='notice'>The wall crumbles under your touch.</span>")
+			to_chat(user, span_notice("The wall crumbles under your touch."))
 			dismantle_wall()
 			return
 
-	to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
+	to_chat(user, span_notice("You push the wall but nothing happens!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
 	return ..()
@@ -361,7 +361,7 @@
 			for(var/obj/effect/overlay/wall_rot/WR in src)
 				qdel(WR)
 			rotting = FALSE
-			to_chat(user, "<span class='notice'>You burn off the fungi with [I].</span>")
+			to_chat(user, span_notice("You burn off the fungi with [I]."))
 		return
 
 	if(!I.tool_use_check(user, 0)) //Wall repair stuff
@@ -377,7 +377,7 @@
 			var/moved_away = user.loc
 			intention = alert(user, "Would you like to repair or dismantle [src]?", "[src]", "Repair", "Dismantle")
 			if(user.loc != moved_away)
-				to_chat(user, "<span class='notice'>Stay still while doing this!</span>")
+				to_chat(user, span_notice("Stay still while doing this!"))
 				return
 			if(intention == "Repair")
 				time_required = max(5, damage / 5)
@@ -399,20 +399,20 @@
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
 	if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
-		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
+		to_chat(user, span_notice("[src] crumbles away under the force of your [I.name]."))
 		dismantle_wall(1)
 		return TRUE
 	return FALSE
 
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gun/energy/plasmacutter))
-		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
+		to_chat(user, span_notice("You begin slicing through the outer plating."))
 		playsound(src, I.usesound, 100, 1)
 
 		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.toolspeed * gettoolspeedmod(user) : 60 * I.toolspeed * gettoolspeedmod(user), target = src))
-			to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
+			to_chat(user, span_notice("You remove the outer plating."))
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] slices apart [src]!</span>", "<span class='warning'>You hear metal being sliced apart.</span>")
+			visible_message(span_warning("[user] slices apart [src]!"), span_warning("You hear metal being sliced apart."))
 			return TRUE
 
 	return FALSE
@@ -421,30 +421,30 @@
 	var/isdiamond = istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) // snowflake bullshit
 
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
-		to_chat(user, "<span class='notice'>You begin to drill though the wall.</span>")
+		to_chat(user, span_notice("You begin to drill though the wall."))
 
 		if(do_after(user, isdiamond ? 480 * I.toolspeed * gettoolspeedmod(user) : 240 * I.toolspeed * gettoolspeedmod(user), target = src)) // Diamond pickaxe has 0.25 toolspeed, so 120/60
-			to_chat(user, "<span class='notice'>Your [I.name] tears though the last of the reinforced plating.</span>")
+			to_chat(user, span_notice("Your [I.name] tears though the last of the reinforced plating."))
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] drills through [src]!</span>", "<span class='warning'>You hear the grinding of metal.</span>")
+			visible_message(span_warning("[user] drills through [src]!"), span_italics("You hear the grinding of metal."))
 			return TRUE
 
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
-		to_chat(user, "<span class='notice'>You begin to disintegrates the wall.</span>")
+		to_chat(user, span_notice("You begin to disintegrates the wall."))
 
 		if(do_after(user, isdiamond ? 600 * I.toolspeed * gettoolspeedmod(user) : 300 * I.toolspeed * gettoolspeedmod(user), target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
-			to_chat(user, "<span class='notice'>Your [I.name] disintegrates the reinforced plating.</span>")
+			to_chat(user, span_notice("Your [I.name] disintegrates the reinforced plating."))
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
+			visible_message(span_warning("[user] disintegrates [src]!"),span_warning("You hear the grinding of metal."))
 			return TRUE
 
 	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
-		to_chat(user, "<span class='notice'>You begin to melt the wall.</span>")
+		to_chat(user, span_notice("You begin to melt the wall."))
 
 		if(do_after(user, isdiamond ? 60 * I.toolspeed : 30 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
-			to_chat(user, "<span class='notice'>Your [I.name] melts the reinforced plating.</span>")
+			to_chat(user, span_notice("Your [I.name] melts the reinforced plating."))
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] melts [src]!</span>","<span class='warning'>You hear the hissing of steam.</span>")
+			visible_message(span_warning("[user] melts [src]!"),span_italics("You hear the hissing of steam."))
 			return TRUE
 
 	return FALSE
@@ -463,15 +463,15 @@
 		if(P.pipe_type != -1) // ANY PIPE
 			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
 			user.visible_message(
-				"<span class='notice'>[user] starts drilling a hole in [src].</span>",
-				"<span class='notice'>You start drilling a hole in [src].</span>",
-				"<span class='notice'>You hear a drill.</span>")
+				span_notice("[user] starts drilling a hole in [src]."),
+				span_notice("You start drilling a hole in [src]."),
+				span_italics("You hear a drill."))
 
 			if(do_after(user, 80 * P.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message(
-					"<span class='notice'>[user] drills a hole in [src] and pushes [P] into the void.</span>",
-					"<span class='notice'>You finish drilling [src] and push [P] into the void.</span>",
-					"<span class='notice'>You hear a ratchet.</span>")
+					span_notice("[user] drills a hole in [src] and pushes [P] into the void."),
+					span_notice("You finish drilling [src] and push [P] into the void."),
+					span_italics("You hear a ratchet."))
 
 				user.drop_from_active_hand()
 				if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm

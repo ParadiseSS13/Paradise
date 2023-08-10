@@ -34,7 +34,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(I.use_tool(src, user, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You fix some cracks in the glass.</span>")
+		to_chat(user, span_notice("You fix some cracks in the glass."))
 		overlays -= current_overlay
 		current_overlay = null
 		burnt = FALSE
@@ -58,10 +58,10 @@
 
 	if(istype(R, /obj/item/stack/sheet/metal))
 		if(R.get_amount() < 2) //not enough metal in the stack
-			to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle [src]!</span>")
+			to_chat(user, span_danger("You also need to hold two sheets of metal to dismantle [src]!"))
 			return
 		else
-			to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
+			to_chat(user, span_notice("You begin replacing [src]..."))
 			playsound(src, I.usesound, 80, TRUE)
 			if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), target = src))
 				if(R.get_amount() < 2 || !transparent_floor)
@@ -69,7 +69,7 @@
 			else
 				return
 	else //not holding metal at all
-		to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle \the [src]!</span>")
+		to_chat(user, span_danger("You also need to hold two sheets of metal to dismantle \the [src]!"))
 		return
 	switch(type) //What material is returned? Depends on the turf
 		if(/turf/simulated/floor/transparent/glass/reinforced)
