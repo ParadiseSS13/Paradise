@@ -152,3 +152,24 @@
 				bug.death(1)
 			else
 				qdel(target)
+
+/obj/item/melee/bigiron
+	name = "Big Iron"
+	desc = "It is a very old rusty and racist iron. Used to beat the living shit out of these filthy xenos."
+	w_class = WEIGHT_CLASS_NORMAL
+	force = 8
+	throwforce = 8
+	var/bonus_damage = 10
+	icon_state = "big_iron"
+	item_state = "big_iron"
+	attack_verb = list("burned", "dominated", "robusted")
+
+/obj/item/melee/bigiron/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!proximity)
+		return
+	if(ishuman(target))
+		if(!ishumanbasic(target))
+			var/mob/living/victim = target
+			victim.apply_damage(bonus_damage, BURN)
+

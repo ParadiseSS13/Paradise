@@ -61,8 +61,8 @@
 	pixel_y = 26
 	},
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
@@ -820,6 +820,11 @@
 	gpstag = "Faint Radio Signal"
 	},
 /turf/simulated/wall/r_wall,
+/area/ruin/tcommsat)
+"dN" = (
+/obj/structure/table,
+/obj/item/melee/bigiron,
+/turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
 
 (1,1,1) = {"
@@ -2473,7 +2478,7 @@ ak
 ak
 bN
 ak
-ak
+dN
 ak
 ak
 ai
