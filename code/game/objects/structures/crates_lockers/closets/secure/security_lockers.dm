@@ -119,10 +119,8 @@
 	icon_opened = "hop_open"
 
 /obj/structure/closet/secure_closet/blueshield/populate_contents()
-	if(prob(50))
-		new /obj/item/storage/backpack/blueshield(src)
-	else
-		new /obj/item/storage/backpack/satchel_blueshield(src)
+	new /obj/item/storage/backpack/blueshield(src)
+	new /obj/item/storage/backpack/satchel_blueshield(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/storage/backpack/duffel/blueshield(src)
 	new /obj/item/radio/headset/heads/blueshield/alt(src)
