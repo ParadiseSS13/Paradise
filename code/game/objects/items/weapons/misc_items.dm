@@ -33,8 +33,33 @@
 	materials = list(MAT_METAL=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 
-/obj/item/cane/is_crutch()
-	return 1
+/obj/item/cane/get_crutch_efficency()
+	return 2
+
+/obj/item/twohanded/crutches // someone move these out of lockers into the map once the freeze is over :) (so we can get a consistent amount for each map)
+	name = "crutches"
+	desc = "A medical device to help those walk who have injured or missing legs."
+	gender = PLURAL
+	icon = 'icons/obj/surgery.dmi' // I mean like... cmon its basically medical.dmi
+	icon_state = "crutches0"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	flags = CONDUCT
+	force = 5
+	force_unwielded = 5
+	force_wielded = 5
+	throwforce = 7
+	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_METAL = 500)
+	attack_verb = list("bludgeoned", "whacked", "cracked")
+
+/obj/item/twohanded/crutches/get_crutch_efficency()
+	// 6 when wielded, 2 when not. Basically a small upgrade to just having 2 canes in each hand
+	return 2 + (4 * wielded) // less efficient when you're holding both in a single hand
+
+/obj/item/twohanded/crutches/update_icon_state()
+	icon_state = "crutches[wielded]"
+	item_state = "crutches[wielded]"
 
 /obj/item/c_tube
 	name = "cardboard tube"
