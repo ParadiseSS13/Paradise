@@ -230,7 +230,7 @@
 		return
 
 	if(timer) // Recast to dispell the wall and buff early
-		dispell()
+		dispell(user)
 		return
 
 	// First we leap towards the enemy target
