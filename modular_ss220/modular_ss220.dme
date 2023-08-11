@@ -13,6 +13,7 @@
 
 // --- ICONS --- //
 #include "aesthetics/_aesthetics.dme"
+#include "hairs/_hairs.dme"
 
 // --- OBJECTS --- //
 #include "sechailer/sechailer.dme"

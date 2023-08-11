@@ -1,0 +1,9 @@
+#ifndef MODPACK_HAIRS
+#define MODPACK_HAIRS
+
+#endif
+
+// BEGIN INCLUDE
+#include "_hairs.dm"
+#include "code/vulpkanin_hair.dm"
+// END_INCLUDE
