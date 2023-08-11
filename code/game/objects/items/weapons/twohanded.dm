@@ -1146,6 +1146,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	resistance_flags = FIRE_PROOF
 	var/static/list/obliteration_targets = list(/turf/simulated/wall, /obj/machinery/door/airlock)
+	var/charged = TRUE //Whether we'll knockdown on hit
 
 /obj/item/twohanded/supermatter/Initialize(mapload)
 	. = ..()
@@ -1164,7 +1165,7 @@
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
 
-		//dusting downed people
+		//dusting dead people + knocking down people
 		if(isliving(A))
 			var/mob/living/target = A
 			if(target.stat == DEAD)
@@ -1176,6 +1177,16 @@
 					return
 				to_chat(user, "<span class='notice'>You lower [src]. There'll be time to obliterate them later...</span>")
 				return
+
+			if(charged)
+				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
+				target.visible_message("<span class='danger'>[src] flares with energy and shocks [target]!</span>", \
+										"<span class='userdanger'>You're shocked by [src]!</span>", \
+										"<span class='warning'>You hear shocking.</span>")
+				target.KnockDown(4 SECONDS)
+				do_sparks(3, FALSE, src)
+				charged = FALSE
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 4 SECONDS)
 
 		//walls and airlock obliteration logic
 		if(!is_type_in_list(A, obliteration_targets))
@@ -1190,7 +1201,7 @@
 			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
 
 			if(do_after(user, 5 SECONDS * toolspeed, target = A))
-				playsound(loc, 'sound/effects/supermatter.ogg', 50, 1)
+				playsound(loc, 'sound/effects/supermatter.ogg', 25, 1)
 				var/turf/AT = A
 				AT.ChangeTurf(/turf/simulated/floor/plating)
 				return
@@ -1205,9 +1216,13 @@
 			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
 
 			if(do_after(user, 5 SECONDS * toolspeed, target = A))
-				playsound(loc, 'sound/effects/supermatter.ogg', 50, 1)
+				playsound(loc, 'sound/effects/supermatter.ogg', 25, 1)
 				qdel(A)
 				return
 
 			qdel(E)
 			return
+
+/obj/item/twohanded/supermatter/proc/recharge()
+	charged = TRUE
+	playsound(loc, 'sound/machines/sm/accent/normal/1.ogg', 25, 1)
