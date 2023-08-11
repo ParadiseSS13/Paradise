@@ -128,3 +128,9 @@
 	life = "Unknown. No collected sample has been active long enough to determine lifespan."
 	notes = "Manually activated by the user."
 	function = "Allows the user to summon a box from a bluespace pocket located inside the implant. The exterior of this box is lined with experimental cloaking panels which render the box invisible to the naked eye."
+
+/datum/implant_fluff/objective
+	name = "Syndicate Klepto Bio-chip"
+	life = "Unknown. No collected sample has been active long enough to determine lifespan."
+	notes = "A slimmed-down and crudely modified variant of the RX-16 bio-chip, this storage implant can only be activated a single time."
+	function = "Allows the user to summon illegal tools in which to pilfer and thieve from pesky corporate enemies."

@@ -7,17 +7,21 @@
 /obj/item/implant/objective
 	name = "Objective bio-chip"
 	desc = "INFORM CODERS - YOU SHOULDNT BE SEEING THIS."
+	implant_data = /datum/implant_fluff/objective
 	implant_state = "implant-syndicate"
+	origin_tech = "combat=5;magnets=3;biotech=4;syndicate=2"
 	uses = 1
 
 /obj/item/implant/objective/nuclear_core
 	name = "Nuclear Theft bio-chip"
 	desc = "Allows you to smuggle in a set of tools designed to assist in the theft of a Nuclear Plutonium Core."
+	icon_state = "plutonium_core"
 	implant_state = "implant-syndicate"
 
 /obj/item/implant/objective/supermatter_sliver
 	name = "Supermatter Theft bio-chip"
 	desc = "Allows you to smuggle in a set of tools designed to assist in the theft of a sliver of the Supermatter Engine."
+	icon_state = "supermatter_sliver"
 	implant_state = "implant-syndicate"
 
 /obj/item/implanter/objective/nuclear_core
