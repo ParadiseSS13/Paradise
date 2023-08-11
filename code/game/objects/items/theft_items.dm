@@ -384,6 +384,8 @@
 			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",
 			"<span class='hear'>Everything suddenly goes silent.</span>")
 		user.dust()
+		icon_state = "supermatter_tongs"
+		item_state = "supermatter_tongs"
 	radiation_pulse(src, 500, 2)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)
