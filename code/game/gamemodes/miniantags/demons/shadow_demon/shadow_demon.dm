@@ -6,6 +6,7 @@
 	icon_living = "shadow_demon"
 	move_resist = MOVE_FORCE_STRONG
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
+	damage_coeff = list(BRUTE = 1, BURN = 2, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 	var/thrown_alert = FALSE
 	var/wrapping = FALSE
