@@ -152,7 +152,7 @@
 	icon_state = "cshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/rubber
 	pellets = 6
-	variance = 25
+	variance = 35
 	materials = list(MAT_METAL=4000)
 
 
@@ -173,7 +173,7 @@
 	projectile_type = /obj/item/projectile/bullet/pellet/weak
 	materials = list(MAT_METAL=250)
 	pellets = 10
-	variance = 25
+	variance = 35
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
@@ -257,7 +257,7 @@
 	icon_state = "lshell"
 	projectile_type = /obj/item/projectile/beam/scatter
 	pellets = 8
-	variance = 25
+	variance = 35
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
