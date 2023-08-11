@@ -509,7 +509,7 @@
 
 /obj/item/dnainjector/antitour
 	name = "DNA-Injector (Anti-Tour.)"
-	desc = "Will cure tourrets."
+	desc = "Will cure tourettes."
 	datatype = DNA2_BUF_SE
 	value = 0x001
 	forcedmutation = TRUE
@@ -520,7 +520,7 @@
 
 /obj/item/dnainjector/tourmut
 	name = "DNA-Injector (Tour.)"
-	desc = "Gives you a nasty case off tourrets."
+	desc = "Gives you a nasty case off tourettes."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
 	forcedmutation = TRUE
