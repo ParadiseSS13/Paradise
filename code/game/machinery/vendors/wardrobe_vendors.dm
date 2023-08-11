@@ -568,6 +568,7 @@
 					/obj/item/clothing/suit/apron = 3,
 					/obj/item/clothing/suit/apron/overalls = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/hydro = 3,
+					/obj/item/clothing/suit/storage/labcoat/hydro = 3,
 					/obj/item/clothing/mask/bandana/botany = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3,
 					/obj/item/storage/backpack/botany = 2,
@@ -579,6 +580,7 @@
 					/obj/item/clothing/suit/apron = 50,
 					/obj/item/clothing/suit/apron/overalls = 50,
 					/obj/item/clothing/suit/hooded/wintercoat/hydro = 75,
+					/obj/item/clothing/suit/storage/labcoat/hydro = 75,
 					/obj/item/clothing/mask/bandana/botany = 20,
 					/obj/item/clothing/accessory/armband/hydro = 20,
 					/obj/item/storage/backpack/botany = 50,
@@ -602,11 +604,7 @@
 					/obj/item/clothing/shoes/galoshes = 3,
 					/obj/item/storage/belt/janitor = 3)
 	contraband = list(/obj/item/toy/figure/crew/janitor = 1)
-	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50,
-					/obj/item/clothing/head/soft/purple = 20,
-					/obj/item/clothing/gloves/color/black = 20,
-					/obj/item/clothing/shoes/galoshes = 20,
-					/obj/item/storage/belt/janitor = 75)
+	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50)
 	refill_canister = /obj/item/vending_refill/janidrobe
 
 /obj/machinery/economy/vending/lawdrobe

@@ -12,6 +12,14 @@
 	damage = 5
 	stamina = 40
 
+/obj/item/projectile/bullet/weakbullet/on_hit(atom/target, blocked = 0)
+	. = ..()
+	if(isliving(target))
+		var/mob/living/L = target
+		if(L.move_resist < INFINITY)
+			var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, starting)))
+			L.throw_at(throw_target, 1, 2)
+
 /obj/item/projectile/bullet/weakbullet/booze
 
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
@@ -157,6 +165,12 @@
 		var/mob/living/M = target
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
+
+/obj/item/projectile/bullet/midbullet3/overgrown
+	icon = 'icons/obj/ammo.dmi'
+	item_state = "peashooter_bullet"
+	icon_state = "peashooter_bullet"
+	damage = 25
 
 /obj/item/projectile/bullet/heavybullet
 	damage = 35

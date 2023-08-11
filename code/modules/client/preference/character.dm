@@ -463,7 +463,8 @@
 	metadata = sanitize_text(metadata, initial(metadata))
 	real_name = reject_bad_name(real_name, TRUE)
 
-	if(isnull(species))
+	if(isnull(species) || isnull(SP))
+		SP = GLOB.all_species["Human"]
 		species = "Human"
 		stack_trace("Character doesn't have a species, character name is [real_name]. Defaulting to human.")
 
@@ -2004,6 +2005,9 @@
 				continue
 			if(job.barred_by_disability(user.client))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
+				continue
+			if(job.barred_by_missing_limbs(user.client))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[MISSING LIMBS\]</b></td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)

@@ -251,6 +251,11 @@
 				"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
 				)
 		return
+	// If it has any of the highfive statuses, dap, handshake, etc
+	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
+	if(effect)
+		M.apply_status_effect(effect.type)
+		return
 	// BEGIN HUGCODE - N3X
 	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	if(M.zone_selected == "head")
@@ -258,11 +263,6 @@
 		"<span class='notice'>[M] pats [src] on the head.</span>",\
 		"<span class='notice'>You pat [src] on the head.</span>",\
 		)
-		return
-	// If it has any of the highfive statuses, dap, handshake, etc
-	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
-	if(effect)
-		M.apply_status_effect(effect.type)
 		return
 	M.visible_message(\
 	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
@@ -626,7 +626,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	for(var/obj/item/twohanded/dualsaber/D in contents)
-		if(D.wielded)
+		if(D.wielded && D.force)
 			visible_message("<span class='danger'>[src] impales [C] with [D], before dropping them on the ground!</span>")
 			C.apply_damage(100, BRUTE, "chest", sharp = TRUE, used_weapon = "Impaled on [D].")
 			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!

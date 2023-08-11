@@ -739,6 +739,14 @@
 	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
 	return html_replacer.Replace(the_text, "")
 
+/proc/starts_with_vowel(text)
+	var/start_char = copytext(text, 1, 2)
+	switch(lowertext(start_char))
+		if("a", "e", "i", "o", "u")
+			return TRUE
+		else
+			return FALSE
+
 /**
   * Formats num with an SI prefix.
   *

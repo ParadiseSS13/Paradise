@@ -137,6 +137,12 @@
 	spell_type = /obj/effect/proc_holder/spell/fireball
 	category = "Offensive"
 
+/datum/spellbook_entry/summon_toolbox
+	name = "Homing Toolbox"
+	spell_type = /obj/effect/proc_holder/spell/fireball/toolbox
+	category = "Offensive"
+	cost = 1
+
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
 	spell_type = /obj/effect/proc_holder/spell/touch/flesh_to_stone
@@ -470,7 +476,7 @@
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
 	desc = "An ensorceled suit of armour, protected by a powerful shield. The shield can completely negate sixteen attacks before being permanently depleted. Despite appearance it is NOT spaceproof."
-	item_path = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
+	item_path = /obj/item/storage/box/wizard/hardsuit
 	limit = 1
 	category = "Weapons and Armors"
 
@@ -567,7 +573,7 @@
 	name = "Bottle of Tickles"
 	desc = "A bottle of magically infused fun, the smell of which will \
 		attract adorable extradimensional beings when broken. These beings \
-		are similar to slaughter demons, but are a little weaker and they do not permamently \
+		are similar to slaughter demons, but are a little weaker and they do not permanently \
 		kill their victims, instead putting them in an extradimensional hugspace, \
 		to be released on the demon's death. Chaotic, but not ultimately \
 		damaging. The crew's reaction to the other hand could be very \
