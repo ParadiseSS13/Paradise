@@ -221,3 +221,19 @@
 	suffix = "lavaland_surface_monster_nest.dmm"
 	allow_duplicates = FALSE
 	cost = 5
+
+/datum/map_template/ruin/lavaland/lavaland_surface_canyon1
+	name = "Horizontal Canyon"
+	id = "horizontalcanyon"
+	description = "A long horizontal canyon, watch your steps!"
+	suffix = "lavaland_surface_canyon1.dmm"
+	allow_duplicates = TRUE
+	cost = 5
+
+/datum/map_template/ruin/lavaland/lavaland_surface_cave1
+	name = "Small Cave"
+	id = "smallcave"
+	description = "A small cave, it provide shelter against ash storms."
+	suffix = "lavaland_surface_cave1.dmm"
+	allow_duplicates = TRUE
+	cost = 5

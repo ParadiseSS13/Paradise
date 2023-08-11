@@ -546,7 +546,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/mine/abandoned)
+/area/mine/storage)
 "bx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4

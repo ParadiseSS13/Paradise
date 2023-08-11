@@ -37,6 +37,11 @@
 /area/ruin/powered/seedvault
 	icon_state = "yellow"
 
+//Caves
+
+/area/ruin/unpowered/cave1
+	name = "Small Cave"
+	icon_state = "purple"
 
 //Xeno Nest
 

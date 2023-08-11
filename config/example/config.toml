@@ -584,7 +584,7 @@ redis_connstring = "redis://127.0.0.1/"
 # Whether to load the lavaland Z-level.
 enable_lavaland = true
 # Globally enable and disable placing of all ruins, including lavaland ruins and lavaland tendrils.
-enable_space_ruins = false
+enable_space_ruins = true
 # Minimum number of extra zlevels to generate and fill with ruins
 minimum_zlevels = 2
 # Maximum number of extra zlevels to generate and fill with ruins
@@ -669,6 +669,10 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm",
 	# Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
+
+	##CAVES_AND_CLIFFS
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_canyon1.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cave1.dmm",
 
 	##MISC
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_animal_hospital.dmm",
