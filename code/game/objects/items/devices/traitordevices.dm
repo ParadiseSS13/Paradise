@@ -321,7 +321,7 @@
 				to_chat(M, "<span class='warning'>and you feel an innate love for life for a fleeting moment!</span>")
 			if(3)
 				new /obj/effect/hallucination/delusion(get_turf(M), M)
-				to_chat(M, "<span class='warning'>and the people around you morph in appearence!</span>")
+				to_chat(M, "<span class='warning'>and the people around you morph in appearance!</span>")
 			if(4)
 				if(prob(80))
 					M.EyeBlurry(25 SECONDS)
