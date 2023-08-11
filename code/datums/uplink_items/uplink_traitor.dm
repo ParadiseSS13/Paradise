@@ -295,7 +295,7 @@
 //skrell
 /datum/uplink_item/species_restricted/lovepen
 	name = "Aggression Supression Pen"
-	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. \ The pen holds four doses of the mixture and it cannot be refilled."
+	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. \The pen holds four doses of the mixture and it cannot be refilled."
 	reference = "LP"
 	item = /obj/item/pen/sleepy/love
 	cost = 4
@@ -314,7 +314,7 @@
 //IPC:
 //Positonic supercharge implant: stims, 3 uses, IPC adrenals
 /datum/uplink_item/species_restricted/supercharge_implant
-	name = "Synthetic Supercharge Implant"
+	name = "Synthetic Supercharge Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "SSI"
 	item = /obj/item/implanter/supercharge
@@ -324,8 +324,8 @@
 
 //plasmeme
 /datum/uplink_item/species_restricted/fireproofing_nanites
-	name = "Fireproofing Nanite Inejctor"
-	desc = "A swarm of nanomachines that absorb excess amounts of heat, allowing the user to become practically fireproof"
+	name = "Fireproofing Nanite Injector"
+	desc = "A swarm of nanomachines that absorb excess amounts of heat, allowing the user to become practically fireproof."
 	reference = "FPN"
 	item = /obj/item/fireproofing_injector
 	cost = 5

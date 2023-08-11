@@ -876,7 +876,6 @@
 	addiction_decay_rate = 0.2
 	taste_description = "silicon"
 
-
 /datum/reagent/surge_plus/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustParalysis(-8 SECONDS)
@@ -889,7 +888,6 @@
 		if(prob(10))
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-
 
 	return ..() | update_flags
 
@@ -904,8 +902,7 @@
 		M.Confused(2 SECONDS * recent_consumption)
 	if(prob(10))
 		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
-		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, 1)
-		//Lightning effect for electrical discharge visualization
+		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, TRUE)
 		var/icon/I = new('icons/obj/zap.dmi', "lightningend")
 		I.Turn(-135)
 		var/obj/effect/overlay/beam/B = new(get_turf(M))
