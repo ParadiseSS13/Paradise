@@ -277,7 +277,17 @@
 		if(M == user)
 			cig.attackby(src, user)
 		else
-			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			if(istype(src, /obj/item/match/unathi))
+				if(prob(80))
+					cig.light("<span class='notice'>[user] breathes hot air at [M], burning him and lighting [cig] in the process.</span>")
+					var/obj/item/organ/external/affecting = M.get_organ("[user.head]")
+					if(affecting.receive_damage( 0, 5 ))
+						M.UpdateDamageIcon()
+				else
+					cig.light("<span class='notice'>[user] breathes hot air at [M], lighting [cig] and nearly burning his face!</span>")
+				qdel(src)
+			else
+				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
 			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	else
 		..()
@@ -302,3 +312,26 @@
 /obj/item/match/firebrand/New()
 	..()
 	matchignite()
+
+
+/obj/item/match/unathi
+	name = "fire"
+	desc = "Hot hot hot"
+	attack_verb = list("huffed at", "puffed at")
+	smoketime = 10
+	flags = DROPDEL
+
+/obj/item/match/unathi/New()
+	..()
+	matchignite()
+	name = "fire"
+	desc = "Hot hot hot"
+
+/obj/item/match/unathi/matchburnout()
+	if(lit)
+		lit = FALSE
+		burnt = TRUE
+		qdel(src)
+		return TRUE
+
+
