@@ -594,6 +594,13 @@
 /obj/random/plushie/item_to_spawn()
 	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
 
+/obj/random/plushie/explosive/item_to_spawn()
+	var/obj/item/toy/plushie/plushie = new (pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)))
+	plushie.grenade = /obj/item/grenade/syndieminibomb
+	var/obj/item/I = new /obj/item/grenade/syndieminibomb
+	I.forceMove(plushie)
+	return plushie
+
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
 	icon_state = "corgi"
