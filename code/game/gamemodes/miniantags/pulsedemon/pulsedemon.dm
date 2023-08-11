@@ -218,15 +218,14 @@
 	update_cableview()
 
 /mob/living/simple_animal/pulse_demon/vv_edit_var(var_name, var_value)
-	if(var_name == "charge")
-		// automatically adjusts maxcharge to allow the new value
-		adjust_charge(var_value - charge, TRUE)
-		return TRUE
-
-	. = ..()
 	switch(var_name)
 		if("glow_color")
 			update_glow()
+		if("charge")
+			// automatically adjusts maxcharge to allow the new value
+			adjust_charge(var_value - charge, TRUE)
+			return TRUE
+	return ..()
 
 /mob/living/simple_animal/pulse_demon/forceMove(atom/destination)
 	var/old = loc
@@ -603,8 +602,7 @@
 		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 /mob/living/simple_animal/pulse_demon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
-	var/list/access = get_all_accesses()
-	return has_access(list(), req_one_accesses, access)
+	return has_access(list(), req_one_accesses, get_all_accesses())
 
 /mob/living/simple_animal/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
@@ -625,7 +623,6 @@
 		to_chat(src, "<span class='warning'>You are already performing an action!</span>")
 		return FALSE
 
-// TODO: this formula is eeeeeehhhhhhhhhhhhhhhhhhhhhhhhhhhh but figuring out what would actually fit is not easy, discover in testing sometime
 // note: the station maps supposedly average ~150 APCs, so the upper levels here are certainly possible, also you can manually upgrade the capacity stat
 /mob/living/simple_animal/pulse_demon/proc/calc_maxcharge(n)
 	if(n < 1)

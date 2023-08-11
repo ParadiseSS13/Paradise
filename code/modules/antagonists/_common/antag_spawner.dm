@@ -375,7 +375,6 @@
 /obj/item/antag_spawner/pulse_demon
 	name = "living lightbulb"
 	desc = "A magically sealed lightbulb confining some manner of electricity based creature."
-	// TODO: nicer sprite?
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lbulb"
 	var/shatter_msg = "<span class='notice'>You shatter the bulb, no turning back now!</span>"
@@ -401,7 +400,7 @@
 	used = TRUE
 	to_chat(user, "<span class='notice'>You break the seal on the bulb, waiting for the creature to spark to life...</span>")
 
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon summoned by [user.real_name]?", ROLE_PULSEDEMON, TRUE, 10 SECONDS, source = demon_type)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
 	if(!length(candidates))
 		used = FALSE
@@ -421,8 +420,8 @@
 
 	var/mob/living/simple_animal/pulse_demon/demon = new(T)
 	player_mind.transfer_to(demon)
-	player_mind.assigned_role = SPECIAL_ROLE_PULSEDEMON
-	player_mind.special_role = SPECIAL_ROLE_PULSEDEMON
+	player_mind.assigned_role = SPECIAL_ROLE_DEMON
+	player_mind.special_role = SPECIAL_ROLE_DEMON
 	var/i = demon.give_objectives()
 
 	var/datum/objective/assassinate/kill_wiz = new /datum/objective/assassinate

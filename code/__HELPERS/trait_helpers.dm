@@ -227,7 +227,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
 #define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
 
-/// Prevent mobs on the turf being shocked by a pulse demon crossing under. Added by a /obj/structure with creates_cover set to TRUE
+/// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
 #define TRAIT_TURF_COVERED "turf_covered"
 
 

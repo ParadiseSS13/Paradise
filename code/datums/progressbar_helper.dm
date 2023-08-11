@@ -89,3 +89,9 @@
 				QDEL_NULL(fail_cb)
 			end()
 			state = PBHELPER_FAILED
+
+#undef PBHELPER_INITIAL
+#undef PBHELPER_RUNNING
+#undef PBHELPER_CANCELED
+#undef PBHELPER_FAILED
+#undef PBHELPER_FINISHED

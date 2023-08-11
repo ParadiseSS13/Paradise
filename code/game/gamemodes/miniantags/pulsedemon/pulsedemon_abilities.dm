@@ -14,7 +14,6 @@
 	school = "pulse demon"
 	clothes_req = FALSE
 	action_background_icon_state = "bg_pulsedemon"
-	has_altclick = TRUE
 	var/locked = TRUE
 	var/unlock_cost = 1 KW
 	var/cast_cost = 1 KW

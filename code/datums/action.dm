@@ -19,8 +19,6 @@
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
 	var/mob/owner
-	/// Determines the behavior of the button when alt-clicked. If this is false, the regular Trigger will fire. Overriding AltTrigger and not calling the parent will cause this to have no effect.
-	var/has_altclick = FALSE
 
 /datum/action/New(Target)
 	target = Target
@@ -68,10 +66,8 @@
 	return TRUE
 
 /datum/action/proc/AltTrigger()
-	if(!has_altclick)
-		Trigger()
-		return FALSE
-	return TRUE
+	Trigger()
+	return FALSE
 
 /datum/action/proc/Process()
 	return
@@ -568,7 +564,6 @@
 	button_icon = S.action_icon
 	button_icon_state = S.action_icon_state
 	background_icon_state = S.action_background_icon_state
-	has_altclick = S.has_altclick
 	button.name = name
 
 /datum/action/spell_action/Destroy()
@@ -585,10 +580,8 @@
 		return TRUE
 
 /datum/action/spell_action/AltTrigger()
-	if(!..())
-		return FALSE
 	if(target)
-		var/obj/effect/proc_holder/spell = target
+		var/obj/effect/proc_holder/spell/spell = target
 		spell.AltClick(usr)
 		return TRUE
 
