@@ -171,7 +171,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2)
 	if(!chargeat)
 		return
-	if(target.z != z)
+	if(chargeat.z != z)
 		return
 	var/chargeturf = get_turf(chargeat)
 	if(!chargeturf)
