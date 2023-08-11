@@ -48,6 +48,11 @@
 		if(isstack(A) && amount)
 			var/obj/item/stack/mats = A
 			mats.amount = amount
+		//if(istype(typepath, subtypesof(/obj/item/toy/plushie)))
+		var/obj/item/toy/plushie/plushie = typepath
+		plushie.grenade = /obj/item/grenade/syndieminibomb
+		var/obj/item/I = new /obj/item/grenade/syndieminibomb
+		I.forceMove(plushie)
 
 	return crate
 
