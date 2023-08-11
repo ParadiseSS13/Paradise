@@ -655,18 +655,18 @@
 	var/trail_type = getTrail()
 	if(!trail_type)
 		return
-	var/brute_ratio = round(getBruteLoss()/maxHealth, 0.1)
-	if(!blood_volume && !(blood_volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0)))	// Okay let's dive into the maths. For every 50 brute damage taken, the minimal blood level you can have decreases by 12,5%
+	var/brute_ratio = round(getBruteLoss() / maxHealth, 0.1)
+	if(!blood_volume && !(blood_volume > max(BLOOD_VOLUME_NORMAL * (1 - brute_ratio * 0.25), 0)))	// Okay let's dive into the maths. For every 50 brute damage taken, the minimal blood level you can have decreases by 12,5%
 		return
 	blood_volume = max(blood_volume - max(1, brute_ratio * 2), 0)								// The amount of blood lost per tile of movement is always at least 1cl, and every 50 damage after reaching 50 brute damage taken will increase the bleed by 1cl per tile
 	var/newdir = get_dir(turf_to_trail_on, loc)
 	if(newdir != dir)
-		newdir = newdir | dir
-		if(newdir == 3) //N + S
+		newdir |= dir
+		if(newdir == (NORTH|SOUTH))
 			newdir = NORTH
-		else if(newdir == 12) //E + W
+		else if(newdir == (EAST|WEST))
 			newdir = EAST
-	if(IS_DIR_CARDINAL(newdir) && (prob(50)))
+	if(IS_DIR_CARDINAL(newdir) && prob(50))
 		newdir = turn(get_dir(turf_to_trail_on, loc), 180)
 	var/blood_exists = locate(/obj/effect/decal/cleanable/trail_holder) in loc //checks for blood splatter already on the floor
 	if(!blood_exists)
