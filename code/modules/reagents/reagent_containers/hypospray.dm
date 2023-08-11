@@ -18,7 +18,7 @@
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
 
-/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
@@ -49,8 +49,11 @@
 
 		return TRUE
 
+/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+	return apply(M, user)
+
 /obj/item/reagent_containers/hypospray/attack_self(mob/user)
-	attack(user, user)
+	return apply(user, user)
 
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)
@@ -125,6 +128,11 @@
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
+	..()
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+/obj/item/reagent_containers/hypospray/autoinjector/attack_self(mob/user)
 	..()
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE

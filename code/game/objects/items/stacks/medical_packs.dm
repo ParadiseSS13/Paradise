@@ -17,7 +17,7 @@
 	var/stop_bleeding = 0
 	var/healverb = "bandage"
 
-/obj/item/stack/medical/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/proc/apply(mob/living/M, mob/user)
 	if(get_amount() <= 0)
 		if(is_cyborg)
 			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [singular_name]\s!</span>")
@@ -77,8 +77,11 @@
 							"<span class='green'>You apply [src] on [M].</span>")
 		use(1)
 
+/obj/item/stack/medical/attack(mob/living/M, mob/user)
+	return apply(M, user)
+
 /obj/item/stack/medical/attack_self(mob/user)
-	attack(user, user)
+	return apply(user, user)
 
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
 	var/mob/living/carbon/human/H = M
