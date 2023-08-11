@@ -775,7 +775,7 @@
 	description = "Causes an electrical surge in the targeted cyborg, rebooting and repairing most of its subsystems. Requires two uses on a cyborg with broken armor."
 	cost = 20
 	power_type = /datum/action/innate/ai/ranged/repair_cyborg
-	unlock_text = "<span class='notice'>TLB exception on load: Error pointing to address 0000001H, Proceed with execution anywa- SURGE protocalls installed, welcome to open APC!</span>"
+	unlock_text = "<span class='notice'>TLB exception on load: Error pointing to address 0000001H, Proceed with execution anywa- SURGE protocols installed, welcome to open APC!</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/action/innate/ai/ranged/repair_cyborg
