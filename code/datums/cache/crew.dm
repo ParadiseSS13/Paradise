@@ -2,6 +2,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 /datum/repository/crew
 	var/static/list/bold_jobs
+	var/static/list/security_jobs_list
 
 /datum/repository/crew/New()
 	cache_data = list()
@@ -28,6 +29,11 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		bold_jobs += get_all_centcom_jobs()
 		bold_jobs += list("Nanotrasen Representative", "Blueshield", "Magistrate")
 
+	// It's needed for correct finding security crew in CrewMonitor.js
+	if(!security_jobs_list)
+		security_jobs_list = list()
+		security_jobs_list += GLOB.security_positions
+
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
 		var/obj/item/clothing/under/C = H.w_uniform
@@ -43,6 +49,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		crewmemberData["rank"] = H.get_authentification_rank(if_no_id="Unknown", if_no_job="No Job")
 		crewmemberData["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_job="No Job")
 		crewmemberData["is_command"] = (crewmemberData["assignment"] in bold_jobs)
+		crewmemberData["is_security"] = (crewmemberData["assignment"] in security_jobs_list)
 
 		if(C.sensor_mode >= SUIT_SENSOR_BINARY)
 			crewmemberData["dead"] = H.stat == DEAD
