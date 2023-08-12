@@ -1176,8 +1176,3 @@ Just an object used in constructing air alarms
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
-
-
-#undef AIR_ALARM_FRAME
-#undef AIR_ALARM_UNWIRED
-#undef AIR_ALARM_READY
