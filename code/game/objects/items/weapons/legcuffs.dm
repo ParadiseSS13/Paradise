@@ -98,12 +98,12 @@
 		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
 	return TRUE
 
-/obj/item/restraints/legcuffs/beartrap/proc/spring_trap()
+/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(mob/user)
 	armed = FALSE
 	update_icon()
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
 	if(!silent_arming)
-		L.visible_message("<span class='danger'>[L] triggers [src].", "<span class='userdanger'>You trigger [src].")
+		user.visible_message("<span class='danger'>[user] triggers [src].", "<span class='userdanger'>You trigger [src].")
 
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
 	if(armed && isturf(src.loc))
@@ -143,7 +143,6 @@
 /obj/item/restraints/legcuffs/beartrap/on_found(mob/finder)
 	if(!armed)
 		return FALSE
-	var/mob/living/L = finder
 	spring_trap(finder)
 
 	if(IED)
