@@ -797,7 +797,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			C.electronics_damage = 0
 
 			var/been_hijacked = FALSE
-			for(var/mob/living/simple_animal/pulse_demon/demon in cell)
+			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
 				if(!been_hijacked)
 					demon.do_hijack_robot(src)
 					been_hijacked = TRUE

@@ -17,7 +17,7 @@ GLOBAL_DATUM_INIT(physical_state, /datum/ui_state/physical, new)
 /mob/living/simple_animal/revenant/physical_can_use_topic(src_object)
 	return STATUS_UPDATE
 
-/mob/living/simple_animal/pulse_demon/physical_can_use_topic(src_object)
+/mob/living/simple_animal/demon/pulse_demon/physical_can_use_topic(src_object)
 	return STATUS_UPDATE
 
 /mob/living/physical_can_use_topic(src_object)

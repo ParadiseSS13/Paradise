@@ -273,7 +273,7 @@
 			W.forceMove(src)
 			cell = W
 
-			for(var/mob/living/simple_animal/pulse_demon/demon in cell)
+			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
 				demon.forceMove(src)
 				demon.current_power = src
 				if(!being_hijacked) // first come first serve

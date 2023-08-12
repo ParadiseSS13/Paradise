@@ -8,15 +8,14 @@
 
 #define PULSEDEMON_SOURCE_DRAIN_INVALID (-1)
 
-/mob/living/simple_animal/pulse_demon
+/mob/living/simple_animal/demon/pulse_demon
 	name = "pulse demon"
 	real_name = "pulse demon"
 	desc = "A strange electrical apparition that lives in wires."
 	gender = NEUTER
 	speak_chance = 20
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
+	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Pulse demons take damage from nothing
 
 	emote_hear = list("vibrates", "sizzles")
 	speak_emote = list("modulates")
@@ -33,9 +32,6 @@
 	plane = FLOOR_PLANE
 	layer = ABOVE_PLATING_LAYER
 
-	see_in_dark = 8
-	minbodytemp = 0
-	maxbodytemp = 4000
 	maxHealth = 50
 	health = 50
 	speed = -0.5
@@ -51,12 +47,7 @@
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	pass_flags = PASSDOOR
-	// so we can see in maints better
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	stop_automated_movement = TRUE
-	wander = FALSE
-	can_have_ai = FALSE
-	can_be_on_fire = FALSE
 	has_unlimited_silicon_privilege = TRUE
 	// this makes the demon able to speak through holopads, due to the overriden say, PD cannot speak normally regardless
 	universal_speak = TRUE
@@ -132,7 +123,7 @@
 	/// This demon's progressbar helper, used for the hijacking timer on APCs and all charger types (cell, gun, cyborg).
 	var/datum/progressbar_helper/pb_helper
 
-/mob/living/simple_animal/pulse_demon/Initialize(mapload)
+/mob/living/simple_animal/demon/pulse_demon/Initialize(mapload)
 	. = ..()
 	if(!mapload)
 		name += " ([rand(100, 999)])"
@@ -163,7 +154,7 @@
 	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 30, TRUE)
 	give_spells()
 
-/mob/living/simple_animal/pulse_demon/proc/deleted_handler(src, force)
+/mob/living/simple_animal/demon/pulse_demon/proc/deleted_handler(src, force)
 	SIGNAL_HANDLER
 	// assume normal deletion if we're on a turf, otherwise deletion could be inherited from loc
 	if(force || isnull(loc) || isturf(loc))
@@ -174,7 +165,7 @@
 	exit_to_turf()
 	return TRUE
 
-/mob/living/simple_animal/pulse_demon/proc/cable_updated_handler(SSdcs, turf/T)
+/mob/living/simple_animal/demon/pulse_demon/proc/cable_updated_handler(SSdcs, turf/T)
 	SIGNAL_HANDLER
 	if(cable_images[T])
 		var/list/turf_images = cable_images[T]
@@ -190,16 +181,16 @@
 		cable_images[T] += cable_image
 		client?.images += cable_image
 
-/mob/living/simple_animal/pulse_demon/proc/apc_deleted_handler(obj/machinery/power/apc/A, force)
+/mob/living/simple_animal/demon/pulse_demon/proc/apc_deleted_handler(obj/machinery/power/apc/A, force)
 	SIGNAL_HANDLER
 	hijacked_apcs -= A
 
-/mob/living/simple_animal/pulse_demon/Destroy()
+/mob/living/simple_animal/demon/pulse_demon/Destroy()
 	pb_helper.cancel() // just making sure nothing started between death() and here
 	QDEL_NULL(pb_helper)
 
-	QDEL_LIST_CONTENTS(cable_images)
-	QDEL_LIST_CONTENTS(apc_images)
+	cable_images.Cut()
+	apc_images.Cut()
 
 	controlling_area = null
 	current_bot = null
@@ -213,11 +204,11 @@
 
 	return ..()
 
-/mob/living/simple_animal/pulse_demon/Login()
+/mob/living/simple_animal/demon/pulse_demon/Login()
 	. = ..()
 	update_cableview()
 
-/mob/living/simple_animal/pulse_demon/vv_edit_var(var_name, var_value)
+/mob/living/simple_animal/demon/pulse_demon/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("glow_color")
 			update_glow()
@@ -227,7 +218,7 @@
 			return TRUE
 	return ..()
 
-/mob/living/simple_animal/pulse_demon/forceMove(atom/destination)
+/mob/living/simple_animal/demon/pulse_demon/forceMove(atom/destination)
 	var/old = loc
 	. = ..()
 	current_weapon = null
@@ -238,12 +229,12 @@
 	if(old && istype(old, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = old
 		// only set rigged if there are no remaining demons in the cell
-		C.rigged = !(locate(/mob/living/simple_animal/pulse_demon) in old)
+		C.rigged = !(locate(/mob/living/simple_animal/demon/pulse_demon) in old)
 	if(loc && istype(loc, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = loc
 		C.rigged = FALSE
 
-/mob/living/simple_animal/pulse_demon/proc/give_objectives()
+/mob/living/simple_animal/demon/pulse_demon/proc/give_objectives()
 	if(!mind)
 		return
 	mind.wipe_memory()
@@ -264,7 +255,7 @@
 	SSticker.mode.traitors |= mind
 	return i
 
-/mob/living/simple_animal/pulse_demon/proc/give_spells()
+/mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain(do_drain))
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable(can_exit_cable))
@@ -276,7 +267,7 @@
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotedrain)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/open_upgrades)
 
-/mob/living/simple_animal/pulse_demon/Stat()
+/mob/living/simple_animal/demon/pulse_demon/Stat()
 	. = ..()
 	if(statpanel("Status"))
 		stat(null, "Charge: [format_si_suffix(charge)]W")
@@ -286,13 +277,13 @@
 		stat(null, "Drain Rate: [format_si_suffix(power_drain_rate)]W")
 		stat(null, "Hijack Time: [hijack_time / 10] seconds")
 
-/mob/living/simple_animal/pulse_demon/dust()
+/mob/living/simple_animal/demon/pulse_demon/dust()
 	return death()
 
-/mob/living/simple_animal/pulse_demon/gib()
+/mob/living/simple_animal/demon/pulse_demon/gib()
 	return death()
 
-/mob/living/simple_animal/pulse_demon/death()
+/mob/living/simple_animal/demon/pulse_demon/death()
 	pb_helper.cancel() // clean up any actions we were doing
 	var/turf/T = get_turf(src)
 	do_sparks(rand(2, 4), FALSE, src)
@@ -303,7 +294,7 @@
 	empulse(T, heavy_radius, light_radius)
 	playsound(T, pick(hurt_sounds), 30, TRUE)
 
-/mob/living/simple_animal/pulse_demon/proc/exit_to_turf()
+/mob/living/simple_animal/demon/pulse_demon/proc/exit_to_turf()
 	var/turf/T = get_turf(src)
 	current_power = null
 	update_controlling_area()
@@ -317,7 +308,7 @@
 			S.do_toggle(can_exit_cable)
 			to_chat(src, "<span class='danger'>Your self-sustaining ability has automatically enabled itself to prevent death from having no connection!</span>")
 
-/mob/living/simple_animal/pulse_demon/proc/update_controlling_area(reset = FALSE)
+/mob/living/simple_animal/demon/pulse_demon/proc/update_controlling_area(reset = FALSE)
 	var/area/prev = controlling_area
 	if(reset || current_power == null)
 		controlling_area = null
@@ -337,10 +328,10 @@
 			S.action.UpdateButtonIcon()
 
 // can enter an apc at all?
-/mob/living/simple_animal/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
+/mob/living/simple_animal/demon/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
 	return istype(A) && !(A.stat & BROKEN) && !A.shorted
 
-/mob/living/simple_animal/pulse_demon/Move(newloc)
+/mob/living/simple_animal/demon/pulse_demon/Move(newloc)
 	var/obj/machinery/power/new_power = locate(/obj/machinery/power) in newloc
 	var/obj/structure/cable/new_cable = locate(/obj/structure/cable) in newloc
 
@@ -409,7 +400,7 @@
 	if(!ispulsedemon(user))
 		return ..()
 
-	var/mob/living/simple_animal/pulse_demon/demon = user
+	var/mob/living/simple_animal/demon/pulse_demon/demon = user
 	var/turf/T = get_turf(src)
 	var/turf/T2 = get_step(T, dir)
 	if(demon.can_exit_cable || locate(/obj/structure/cable) in T2)
@@ -421,7 +412,7 @@
 				demon.pb_helper.cancel()
 			demon.update_controlling_area(TRUE)
 
-/mob/living/simple_animal/pulse_demon/proc/adjust_charge(amount, adjust_max = FALSE)
+/mob/living/simple_animal/demon/pulse_demon/proc/adjust_charge(amount, adjust_max = FALSE)
 	if(amount == 0)
 		return 0
 	if(adjust_max)
@@ -450,25 +441,25 @@
 	// 2.5 at 100k
 	// 3   at 200k
 	// 3.5 at 400k, etc
-/mob/living/simple_animal/pulse_demon/proc/update_glow()
+/mob/living/simple_animal/demon/pulse_demon/proc/update_glow()
 	var/range = 2 + (log(2, charge + 1) - log(2, 50000)) / 2
 	range = max(range, 1.5)
 	set_light(range, 2, glow_color)
 
-/mob/living/simple_animal/pulse_demon/proc/drain_APC(obj/machinery/power/apc/A, multiplier = 1)
+/mob/living/simple_animal/demon/pulse_demon/proc/drain_APC(obj/machinery/power/apc/A, multiplier = 1)
 	if(A.being_hijacked)
 		return PULSEDEMON_SOURCE_DRAIN_INVALID
 	var/amount_to_drain = clamp(A.cell.charge, 0, power_drain_rate * multiplier)
 	A.cell.use(min(amount_to_drain, maxcharge - charge)) // calculated seperately because the apc charge multiplier shouldn't affect the actual consumption
 	return adjust_charge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER)
 
-/mob/living/simple_animal/pulse_demon/proc/drain_SMES(obj/machinery/power/smes/S, multiplier = 1)
+/mob/living/simple_animal/demon/pulse_demon/proc/drain_SMES(obj/machinery/power/smes/S, multiplier = 1)
 	var/amount_to_drain = clamp(S.charge, 0, power_drain_rate * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
 	var/drained = adjust_charge(amount_to_drain)
 	S.charge -= drained
 	return drained
 
-/mob/living/simple_animal/pulse_demon/Life(seconds, times_fired)
+/mob/living/simple_animal/demon/pulse_demon/Life(seconds, times_fired)
 	. = ..()
 
 	var/got_power = FALSE
@@ -512,12 +503,12 @@
 		if(--regen_lock == 0)
 			clear_alert(ALERT_CATEGORY_NOREGEN)
 
-/mob/living/simple_animal/pulse_demon/proc/gen_speech_name()
+/mob/living/simple_animal/demon/pulse_demon/proc/gen_speech_name()
 	. = ""
 	for(var/i = 1 to 10)
 		. += pick("!", "@", "#", "$", "%", "^", "&", "*")
 
-/mob/living/simple_animal/pulse_demon/say(message, verb, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/demon/pulse_demon/say(message, verb, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client && check_mute(client.ckey, MUTE_IC))
 		to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 		return FALSE
@@ -585,13 +576,13 @@
 	emote("me", message = "[pick(emote_hear)]")
 	return TRUE
 
-/mob/living/simple_animal/pulse_demon/update_runechat_msg_location()
+/mob/living/simple_animal/demon/pulse_demon/update_runechat_msg_location()
 	if(istype(loc, /obj/machinery/hologram/holopad))
 		runechat_msg_location = loc.UID()
 	else
 		return ..()
 
-/mob/living/simple_animal/pulse_demon/visible_message(message, self_message, blind_message)
+/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
@@ -601,10 +592,10 @@
 			msg = self_message
 		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
-/mob/living/simple_animal/pulse_demon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
+/mob/living/simple_animal/demon/pulse_demon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	return has_access(list(), req_one_accesses, get_all_accesses())
 
-/mob/living/simple_animal/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
+/mob/living/simple_animal/demon/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
 	if(!is_valid_apc(A) || (A in hijacked_apcs) || apc_being_hijacked || A.being_hijacked)
 		return FALSE
@@ -624,12 +615,12 @@
 		return FALSE
 
 // note: the station maps supposedly average ~150 APCs, so the upper levels here are certainly possible, also you can manually upgrade the capacity stat
-/mob/living/simple_animal/pulse_demon/proc/calc_maxcharge(n)
+/mob/living/simple_animal/demon/pulse_demon/proc/calc_maxcharge(n)
 	if(n < 1)
 		return 1000
 	return 20000 * clamp(n, 0, 20) + 500000 * clamp(n - 20, 0, 30) + 1000000 * clamp(n - 50, 0, 50) + 500000000 * max(0, n - 100)
 
-/mob/living/simple_animal/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
+/mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
 	apc_image.plane = ABOVE_LIGHTING_PLANE
 	LAZYADD(apc_images[get_turf(A)], apc_image)
@@ -642,22 +633,22 @@
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
 	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs.</span>")
 
-/mob/living/simple_animal/pulse_demon/proc/cleanup_hijack_apc(obj/machinery/power/apc/A)
+/mob/living/simple_animal/demon/pulse_demon/proc/cleanup_hijack_apc(obj/machinery/power/apc/A)
 	apc_being_hijacked = null
 	A.being_hijacked = FALSE
 	A.update_icon()
 
-/mob/living/simple_animal/pulse_demon/proc/fail_hijack()
+/mob/living/simple_animal/demon/pulse_demon/proc/fail_hijack()
 	to_chat(src, "<span class='warning'>Hijacking failed!</span>")
 
-/mob/living/simple_animal/pulse_demon/proc/try_cross_shock(src, atom/A)
+/mob/living/simple_animal/demon/pulse_demon/proc/try_cross_shock(src, atom/A)
 	SIGNAL_HANDLER
 	if(!isliving(A) || is_under_tile())
 		return
 	var/mob/living/L = A
 	try_shock_mob(L)
 
-/mob/living/simple_animal/pulse_demon/proc/try_shock_mob(mob/living/L, siemens_coeff = 1)
+/mob/living/simple_animal/demon/pulse_demon/proc/try_shock_mob(mob/living/L, siemens_coeff = 1)
 	var/dealt = 0
 	if(current_cable && current_cable.powernet && current_cable.powernet.available_power)
 		// returns used energy, not damage dealt, but ez conversion with /20
@@ -669,15 +660,15 @@
 		do_sparks(rand(2, 4), FALSE, src)
 	add_attack_logs(src, L, "shocked ([dealt] damage)")
 
-/mob/living/simple_animal/pulse_demon/proc/is_under_tile()
+/mob/living/simple_animal/demon/pulse_demon/proc/is_under_tile()
 	var/turf/T = get_turf(src)
 	return T.transparent_floor || T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
 
-/mob/living/simple_animal/pulse_demon/proc/do_hijack_notice(atom/A)
+/mob/living/simple_animal/demon/pulse_demon/proc/do_hijack_notice(atom/A)
 	to_chat(src, "<span class='notice'>You are now attempting to hijack [A], this will take approximately [hijack_time / 10] seconds.</span>")
 
 // cable (and hijacked APC) view helper
-/mob/living/simple_animal/pulse_demon/proc/update_cableview()
+/mob/living/simple_animal/demon/pulse_demon/proc/update_cableview()
 	if(!client)
 		return
 
@@ -713,7 +704,7 @@
 		LAZYADD(apc_images[apc_turf], apc_image)
 		client.images += apc_image
 
-/mob/living/simple_animal/pulse_demon/emp_act(severity)
+/mob/living/simple_animal/demon/pulse_demon/emp_act(severity)
 	if(emp_debounce)
 		return
 
@@ -731,12 +722,12 @@
 	emp_debounce = TRUE
 	addtimer(VARSET_CALLBACK(src, emp_debounce, FALSE), 0.1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
-/mob/living/simple_animal/pulse_demon/proc/try_attack_mob(mob/living/L)
+/mob/living/simple_animal/demon/pulse_demon/proc/try_attack_mob(mob/living/L)
 	if(!is_under_tile() && L != src)
 		do_attack_animation(L)
 		try_shock_mob(L)
 
-/mob/living/simple_animal/pulse_demon/UnarmedAttack(atom/A)
+/mob/living/simple_animal/demon/pulse_demon/UnarmedAttack(atom/A)
 	if(isliving(A))
 		var/mob/living/L = A
 		try_attack_mob(L)
@@ -748,7 +739,7 @@
 			adjust_charge(min(C.charge, power_drain_rate))
 			visible_message("<span class='notice'>[src] touches the [O] and drains its power!</span>", "<span class='notice'>You touch the [O] and drain its power!</span>")
 
-/mob/living/simple_animal/pulse_demon/attack_hand(mob/living/carbon/human/M)
+/mob/living/simple_animal/demon/pulse_demon/attack_hand(mob/living/carbon/human/M)
 	if(is_under_tile())
 		to_chat(M, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
@@ -761,7 +752,7 @@
 			visible_message("<span class='warning'>[M] [response_harm] [src].</span>")
 	try_attack_mob(M)
 
-/mob/living/simple_animal/pulse_demon/attackby(obj/item/O, mob/living/user)
+/mob/living/simple_animal/demon/pulse_demon/attackby(obj/item/O, mob/living/user)
 	if(is_under_tile())
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
@@ -774,54 +765,54 @@
 	visible_message("<span class='notice'>[O] goes right through [src].</span>")
 	try_shock_mob(user, O.siemens_coefficient)
 
-/mob/living/simple_animal/pulse_demon/ex_act()
+/mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return
 
-/mob/living/simple_animal/pulse_demon/CanPass(atom/movable/mover, turf/target, height)
+/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target, height)
 	. = ..()
 	// maybe a prob on this? prob only for weak ions? discover in testing
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE
 
-/mob/living/simple_animal/pulse_demon/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/ion))
 		return ..()
 	visible_message("<span class='warning'>[Proj] goes right through [src]!</span>")
 
-/mob/living/simple_animal/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
+/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
 	return
 
-/mob/living/simple_animal/pulse_demon/blob_act(obj/structure/blob/B)
+/mob/living/simple_animal/demon/pulse_demon/blob_act(obj/structure/blob/B)
 	return // will likely end up dying if the blob cuts its wires anyway
 
-/mob/living/simple_animal/pulse_demon/narsie_act()
+/mob/living/simple_animal/demon/pulse_demon/narsie_act()
 	return // you can't turn electricity into a harvester
 
-/mob/living/simple_animal/pulse_demon/get_access()
+/mob/living/simple_animal/demon/pulse_demon/get_access()
 	return get_all_accesses()
 
-/mob/living/simple_animal/pulse_demon/IsAdvancedToolUser()
+/mob/living/simple_animal/demon/pulse_demon/IsAdvancedToolUser()
 	return TRUE // interacting with machines
 
-/mob/living/simple_animal/pulse_demon/can_be_pulled()
+/mob/living/simple_animal/demon/pulse_demon/can_be_pulled()
 	return FALSE
 
-/mob/living/simple_animal/pulse_demon/can_buckle()
+/mob/living/simple_animal/demon/pulse_demon/can_buckle()
 	return FALSE
 
-/mob/living/simple_animal/pulse_demon/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+/mob/living/simple_animal/demon/pulse_demon/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	return
 
-/mob/living/simple_animal/pulse_demon/experience_pressure_difference()
+/mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference()
 	return // no thanks
 
-/mob/living/simple_animal/pulse_demon/singularity_pull()
+/mob/living/simple_animal/demon/pulse_demon/singularity_pull()
 	return
 
-/mob/living/simple_animal/pulse_demon/mob_negates_gravity()
+/mob/living/simple_animal/demon/pulse_demon/mob_negates_gravity()
 	return TRUE
 
-/mob/living/simple_animal/pulse_demon/mob_has_gravity()
+/mob/living/simple_animal/demon/pulse_demon/mob_has_gravity()
 	return TRUE
 
 /obj/screen/alert/pulse_nopower

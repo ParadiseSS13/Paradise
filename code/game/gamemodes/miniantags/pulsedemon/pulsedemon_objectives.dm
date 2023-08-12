@@ -14,7 +14,7 @@
 	for(var/datum/mind/M in get_owners())
 		if(!ispulsedemon(M.current) || QDELETED(M.current))
 			continue
-		var/mob/living/simple_animal/pulse_demon/demon = M.current
+		var/mob/living/simple_animal/demon/pulse_demon/demon = M.current
 		hijacked += length(demon.hijacked_apcs)
 	return hijacked >= amount
 
@@ -34,7 +34,7 @@
 	for(var/datum/mind/M in get_owners())
 		if(!ispulsedemon(M.current) || QDELETED(M.current))
 			continue
-		var/mob/living/simple_animal/pulse_demon/demon = M.current
+		var/mob/living/simple_animal/demon/pulse_demon/demon = M.current
 		drained += demon.charge_drained
 	return drained >= amount
 
@@ -48,7 +48,7 @@
 	for(var/datum/mind/M in get_owners())
 		if(!ispulsedemon(M.current) || QDELETED(M.current))
 			continue
-		var/mob/living/simple_animal/pulse_demon/demon = M.current
+		var/mob/living/simple_animal/demon/pulse_demon/demon = M.current
 		if(!length(demon.hijacked_apcs) || !M.active || demon.stat == DEAD)
 			return FALSE
 	return TRUE

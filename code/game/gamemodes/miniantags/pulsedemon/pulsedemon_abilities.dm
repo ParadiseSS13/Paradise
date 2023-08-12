@@ -37,7 +37,7 @@
 	action.desc = desc
 	action.UpdateButtonIcon()
 
-/obj/effect/proc_holder/spell/pulse_demon/can_cast(mob/living/simple_animal/pulse_demon/user, charge_check, show_message)
+/obj/effect/proc_holder/spell/pulse_demon/can_cast(mob/living/simple_animal/demon/pulse_demon/user, charge_check, show_message)
 	if(!..())
 		return FALSE
 	if(!istype(user))
@@ -58,7 +58,7 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/pulse_demon/cast(list/targets, mob/living/simple_animal/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/cast(list/targets, mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user) || locked || user.charge < cast_cost || !targets)
 		return FALSE
 	if(requires_area && !user.controlling_area)
@@ -76,11 +76,11 @@
 /obj/effect/proc_holder/spell/pulse_demon/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
 
-/obj/effect/proc_holder/spell/pulse_demon/proc/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/proc/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	return FALSE
 
 // handles purchasing and upgrading abilities
-/obj/effect/proc_holder/spell/pulse_demon/AltClick(mob/living/simple_animal/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
 		return
 
@@ -116,7 +116,7 @@
 		else
 			to_chat(user, "<span class='warning'>You cannot afford to upgrade this ability! It costs [format_si_suffix(upgrade_cost)]W to upgrade.</span>")
 
-/obj/effect/proc_holder/spell/pulse_demon/proc/do_upgrade(mob/living/simple_animal/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/proc/do_upgrade(mob/living/simple_animal/demon/pulse_demon/user)
 	cooldown_handler.recharge_duration = round(base_cooldown / (1.5 ** spell_level))
 	to_chat(user, "<span class='notice'>You have upgraded [initial(name)] to level [spell_level + 1], it now takes [cooldown_handler.recharge_duration / 10] seconds to recharge.</span>")
 
@@ -128,7 +128,7 @@
 	cast_cost = 5 KW
 	upgrade_cost = 75 KW
 
-/obj/effect/proc_holder/spell/pulse_demon/cablehop/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/cablehop/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	var/turf/O = get_turf(user)
 	var/turf/T = get_turf(target)
 	var/obj/structure/cable/C = locate(/obj/structure/cable) in T
@@ -155,7 +155,7 @@
 	upgrade_cost = 200 KW
 	requires_area = TRUE
 
-/obj/effect/proc_holder/spell/pulse_demon/emagtamper/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/emagtamper/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	to_chat(user, "<span class='warning'>You attempt to tamper with [target]!</span>")
 	target.emag_act(user)
 	return TRUE
@@ -169,7 +169,7 @@
 	upgrade_cost = 200 KW
 	requires_area = TRUE
 
-/obj/effect/proc_holder/spell/pulse_demon/emp/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/emp/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	to_chat(user, "<span class='warning'>You attempt to EMP [target]!</span>")
 	empulse(get_turf(target), 1, 1)
 	return TRUE
@@ -183,7 +183,7 @@
 	upgrade_cost = 500 KW
 	requires_area = TRUE
 
-/obj/effect/proc_holder/spell/pulse_demon/overload/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/overload/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	var/obj/machinery/M = target
 	if(!istype(M))
 		to_chat(user, "<span class='warning'>That is not a machine.</span>")
@@ -210,7 +210,7 @@
 	level_max = 0
 	base_cooldown = 3 SECONDS // you have to wait for the regular hijack time anyway
 
-/obj/effect/proc_holder/spell/pulse_demon/remotehijack/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/remotehijack/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	var/obj/machinery/power/apc/A = target
 	if(!istype(A))
 		to_chat(user, "<span class='warning'>That is not an APC.</span>")
@@ -227,7 +227,7 @@
 	cast_cost = 100
 	upgrade_cost = 100 KW
 
-/obj/effect/proc_holder/spell/pulse_demon/remotedrain/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/remotedrain/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	if(isapc(target))
 		var/drained = user.drain_APC(target, PULSEDEMON_REMOTE_DRAIN_MULTIPLIER)
 		if(drained == PULSEDEMON_SOURCE_DRAIN_INVALID)
@@ -271,11 +271,11 @@
 	locked = FALSE
 	level_max = 0
 
-/obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	user.do_drain = do_toggle(!user.do_drain, user)
 	return TRUE
 
-/obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain/AltClick(mob/living/simple_animal/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
 		return
 
@@ -298,14 +298,14 @@
 	upgrade_cost = 300 KW
 	level_max = 3
 
-/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	if(user.can_exit_cable && !(user.current_cable || user.current_power))
 		to_chat(user, "<span class='warning'>Enter a cable or power source first!</span>")
 		return FALSE
 	user.can_exit_cable = do_toggle(!user.can_exit_cable, user)
 	return TRUE
 
-/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/do_upgrade(mob/living/simple_animal/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/do_upgrade(mob/living/simple_animal/demon/pulse_demon/user)
 	user.outside_cable_speed = max(initial(user.outside_cable_speed) - spell_level, 1)
 	to_chat(user, "<span class='notice'>You have upgraded [initial(name)] to level [spell_level + 1], you will now move faster outside of cables.</span>")
 
@@ -324,7 +324,7 @@
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/AltClick(mob/living/simple_animal/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
 		return
 	current_camera = 0
@@ -335,7 +335,7 @@
 		return
 	user.forceMove(user.current_power)
 
-/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	if(length(user.controlling_area.cameras) < 1)
 		return FALSE
 
@@ -387,7 +387,7 @@
 /obj/effect/proc_holder/spell/pulse_demon/open_upgrades/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/proc/calc_cost(mob/living/simple_animal/pulse_demon/user, upgrade)
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/proc/calc_cost(mob/living/simple_animal/demon/pulse_demon/user, upgrade)
 	var/cost
 	switch(upgrade)
 		if(PD_UPGRADE_HIJACK_SPEED)
@@ -420,7 +420,7 @@
 			return -1
 	return round(cost)
 
-/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/proc/get_upgrades(mob/living/simple_animal/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/proc/get_upgrades(mob/living/simple_animal/demon/pulse_demon/user)
 	var/upgrades = list()
 	for(var/upgrade in upgrade_icons)
 		var/cost = calc_cost(user, upgrade)
@@ -429,7 +429,7 @@
 		upgrades["[upgrade] ([format_si_suffix(cost)]W)"] = upgrade_icons[upgrade]
 	return upgrades
 
-/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/AltClick(mob/living/simple_animal/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
 		return
 
@@ -438,7 +438,7 @@
 		var/cost = calc_cost(user, upgrade)
 		to_chat(user, "<b>[upgrade]</b> ([cost == -1 ? "Fully Upgraded" : "[format_si_suffix(cost)]W"]) - [upgrade_descs[upgrade]]")
 
-/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	var/upgrades = get_upgrades(user)
 	if(!length(upgrades))
 		to_chat(user, "<span class='warning'>You have already fully upgraded everything available!</span>")

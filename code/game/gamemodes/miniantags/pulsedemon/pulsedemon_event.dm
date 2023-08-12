@@ -2,7 +2,7 @@
 	var/key_of_pulsedemon
 
 /datum/event/spawn_pulsedemon/proc/get_pulsedemon()
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon?", ROLE_DEMON, FALSE, source = /mob/living/simple_animal/pulse_demon)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon?", ROLE_DEMON, FALSE, source = /mob/living/simple_animal/demon/pulse_demon)
 	if(!length(candidates))
 		message_admins("no candidates were found for the pulse demon event.")
 		kill()
@@ -19,7 +19,7 @@
 	player_mind.active = TRUE
 
 	var/turf/spawn_loc = get_spawn_loc(player_mind.current)
-	var/mob/living/simple_animal/pulse_demon/demon = new(spawn_loc)
+	var/mob/living/simple_animal/demon/pulse_demon/demon = new(spawn_loc)
 	player_mind.transfer_to(demon)
 	player_mind.assigned_role = SPECIAL_ROLE_DEMON
 	player_mind.special_role = SPECIAL_ROLE_DEMON

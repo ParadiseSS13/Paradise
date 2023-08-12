@@ -32,6 +32,9 @@
 
 /obj/screen/movable/action_button/Click(location,control,params)
 	var/list/modifiers = params2list(params)
+	if(usr.next_click > world.time)
+		return FALSE
+	usr.changeNext_click(1)
 	if(modifiers["shift"])
 		if(locked)
 			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
@@ -43,22 +46,14 @@
 		locked = !locked
 		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
 		return TRUE
-	if(linked_action)
-		if(usr.next_click > world.time)
-			return
-		usr.next_click = world.time + 1
-		if(modifiers["alt"])
-			linked_action.AltTrigger()
-		else
-			linked_action.Trigger()
-		return TRUE
-	else if(modifiers["alt"])
+	if(modifiers["alt"])
 		AltClick(usr)
 		return TRUE
+	linked_action.Trigger()
 	return FALSE
 
 /obj/screen/movable/action_button/AltClick(mob/user)
-	return
+	return linked_action.AltTrigger()
 
 //Hide/Show Action Buttons ... Button
 /obj/screen/movable/action_button/hide_toggle
