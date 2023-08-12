@@ -155,8 +155,8 @@
 
 /obj/structure/flora/ash/rock
 	name = "large rock"
-	icon_state = "basalt1"
 	desc = "A volcanic rock. Pioneers used to ride these babies for miles."
+	icon_state = "basalt1"
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	harvest = /obj/item/stack/ore/glass/basalt

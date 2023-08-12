@@ -63,14 +63,14 @@
 /obj/effect/spawner/bridge/Initialize(mapload)
 	. = ..()
 
-	var/turf/east = locate(x+3,y,z)
-	var/turf/west = locate(x-3,y,z)
-	var/turf/north = locate(x,y+3,z)
-	var/turf/south = locate(x,y-3,z)
-	var/turf/e1 = locate(x+1,y,z)
-	var/turf/w1 = locate(x-1,y,z)
-	var/turf/n1 = locate(x,y+1,z)
-	var/turf/s1 = locate(x,y-1,z)
+	var/turf/east = locate(x + 3, y, z)
+	var/turf/west = locate(x - 3, y, z)
+	var/turf/north = locate(x, y + 3, z)
+	var/turf/south = locate(x, y - 3, z)
+	var/turf/e1 = locate(x + 1, y, z)
+	var/turf/w1 = locate(x - 1, y, z)
+	var/turf/n1 = locate(x, y + 1, z)
+	var/turf/s1 = locate(x, y - 1, z)
 
 
 	if((ismineralturf(east) || istype(east, /turf/simulated/floor/plating/asteroid)) && (ismineralturf(west) || istype(west, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(n1) || istype(n1, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(s1) || istype(s1, /turf/simulated/floor/plating/asteroid)))

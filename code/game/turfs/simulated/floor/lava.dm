@@ -183,7 +183,7 @@
 			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
 				continue
 			. = 1
-			if((O.resistance_flags & (ON_FIRE)))
+			if((O.resistance_flags & ON_FIRE))
 				continue
 			if(!(O.resistance_flags & FLAMMABLE))
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
@@ -216,7 +216,7 @@
 				return
 			burn_living.adjust_fire_stacks(20) //dipping into a stream of plasma would probably make you more flammable than usual
 			burn_living.IgniteMob()
-			burn_living.adjust_bodytemperature(-rand(50,65)) //its cold, man
+			burn_living.adjust_bodytemperature(-rand(50, 65)) //its cold, man
 			if(!ishuman(burn_living) || prob(65))
 				return
 			var/mob/living/carbon/human/burn_human = burn_living

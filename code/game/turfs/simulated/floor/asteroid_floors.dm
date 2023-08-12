@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	if (!megafauna_spawn_list)
 		megafauna_spawn_list = GLOB.megafauna_spawn_list
 	if (!flora_spawn_list)
-		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2 , /obj/structure/flora/ash/cap_shroom = 2 , /obj/structure/flora/ash/stem_shroom = 2 , /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2, /obj/structure/flora/ash/rock/style_random = 1)
+		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2, /obj/structure/flora/ash/cap_shroom = 2, /obj/structure/flora/ash/stem_shroom = 2, /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2, /obj/structure/flora/ash/rock/style_random = 1)
 		if(SSmapping.cave_theme == BLOCKED_BURROWS)
 			flora_spawn_list += list(/obj/structure/flora/ash/rock/style_random = 3) //Let us see how this goes
 	. = ..()
