@@ -1,4 +1,4 @@
-#define SPACE_DRAGON_SPAWN_THRESHOLD 25
+#define SPACE_DRAGON_SPAWN_THRESHOLD 55
 
 /datum/event/space_dragon
 	announceWhen = 45
