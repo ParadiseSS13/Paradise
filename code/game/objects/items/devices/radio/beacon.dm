@@ -28,6 +28,8 @@
 /obj/item/radio/beacon/hear_talk()
 	return
 
+/obj/item/radio/beacon/talk_into()
+	return FALSE
 
 /obj/item/radio/beacon/send_hear()
 	return null
