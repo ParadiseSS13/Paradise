@@ -98,28 +98,31 @@
 		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
 	return TRUE
 
-/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(mob/user)
+/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(mob/user, obj/item/grenade/iedcasing/IED, obj/item/assembly/signaler/sig)
 	armed = FALSE
 	update_icon()
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
 	if(!silent_arming)
 		user.visible_message("<span class='danger'>[user] triggers [src].", "<span class='userdanger'>You trigger [src].")
 
+	if(sig)
+		sig.signal()
+
+	if(IED)
+		IED.active = TRUE
+		message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
+		log_game("[key_name(usr)] has triggered an IED-rigged [name].")
+		spawn(IED.det_time)
+			IED.prime()
+
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
+	if(!armed || !(isturf(src.loc)))
+		return ..()
+
 	if(armed && isturf(src.loc))
 		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
-			spring_trap(AM)
-
-			if(IED && isturf(src.loc))
-				IED.active = TRUE
-				message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
-				log_game("[key_name(usr)] has triggered an IED-rigged [name].")
-				spawn(IED.det_time)
-					IED.prime()
-
-			if(sig && isturf(src.loc))
-				sig.signal()
+			spring_trap(AM, IED, sig)
 
 			if(ishuman(AM))
 				var/mob/living/carbon/H = AM
@@ -143,17 +146,7 @@
 /obj/item/restraints/legcuffs/beartrap/on_found(mob/finder)
 	if(!armed)
 		return FALSE
-	spring_trap(finder)
-
-	if(IED)
-		IED.active = TRUE
-		message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
-		log_game("[key_name(usr)] has triggered an IED-rigged [name].")
-		spawn(IED.det_time)
-		IED.prime()
-
-	if(sig)
-		sig.signal()
+	spring_trap(finder, IED, sig)
 
 	if(ishuman(finder))
 		var/mob/living/carbon/H = finder
