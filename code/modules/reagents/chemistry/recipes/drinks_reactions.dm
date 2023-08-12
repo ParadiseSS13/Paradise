@@ -1063,3 +1063,11 @@
 	required_reagents = list("space_drugs" = 1, "sodawater" = 1, "grapejuice" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/planet_cracker
+	name = "Planet Cracker"
+	id = "planet_cracker"
+	result = "planet_cracker"
+	required_reagents = list("champagne" = 10, "lizardwine" = 10, "egg" = 2, "gold" = 5)
+	result_amount = 20
+	mix_message = "The liquid's color starts shifting as the nanogold is alternately corroded and redeposited."
