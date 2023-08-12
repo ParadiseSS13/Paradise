@@ -323,6 +323,6 @@
 	id = "wreckedcargoship"
 	suffix = "wreckedcargoship.dmm"
 	name = "Wrecked Cargoship"
-	description = "A cargo shuttle in a wrecked condition. There are many unknown horrors in space and looks like it's last crew has faced one of them."
+	description = "A cargo shuttle in a wrecked condition. There are many unknown horrors in space and looks like its last crew has faced one of them."
 	allow_duplicates = FALSE
 	cost = 1 // With the loot it contains it shouldn't be found frequently
