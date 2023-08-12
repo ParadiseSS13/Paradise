@@ -43,7 +43,7 @@
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
 	..()
 
-	if(!ishuman(user) || ishuman(user) && user.restrained())
+	if(!ishuman(user) || user.restrained())
 		return
 
 	if(do_after(user, 2 SECONDS, target = user))
@@ -144,7 +144,7 @@
 	var/mob/living/L = finder
 	armed = FALSE
 	update_icon()
-	playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+	playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 	if(!silent_arming)
 		L.visible_message("<span class='danger'>[L] triggers [src].</span>", "<span class='userdanger'>You trigger [src]!</span>")
 
