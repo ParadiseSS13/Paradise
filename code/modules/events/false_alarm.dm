@@ -31,8 +31,8 @@
 	)
 
 	var/list/major_fake_events = list(
-		list("Confirmed outbreak of level 3-X biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak3.ogg'),
-		list("Confirmed outbreak of level 3-S biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak3.ogg'),
+		list("Confirmed outbreak of level 3-X biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak3.ogg', 'sound/effects/siren-spooky.ogg'),
+		list("Confirmed outbreak of level 3-S biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak3.ogg', 'sound/effects/siren-spooky.ogg'),
 		list("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 	)
 
@@ -41,6 +41,6 @@
 		GLOB.minor_announcement.Announce(event[1], listgetindex(event, 2), listgetindex(event, 3))
 	else
 		event = pick_n_take(major_fake_events)
-		GLOB.major_announcement.Announce(event[1], listgetindex(event, 2), listgetindex(event, 3))
+		GLOB.major_announcement.Announce(event[1], listgetindex(event, 2), listgetindex(event, 3), new_sound2 = listgetindex(event, 4))
 
 	message_admins("False Alarm: [event[1]]")
