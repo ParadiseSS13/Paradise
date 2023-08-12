@@ -144,7 +144,7 @@
 	var/mob/living/L = finder
 	armed = FALSE
 	update_icon()
-	playsound(loc, 'sound/effects/snap.ogg', 50, 1)
+	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
 	if(!silent_arming)
 		L.visible_message("<span class='danger'>[L] triggers [src].</span>", "<span class='userdanger'>You trigger [src]!</span>")
 
