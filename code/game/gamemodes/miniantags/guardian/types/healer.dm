@@ -47,9 +47,9 @@
 	..()
 	if(statpanel("Status"))
 		if(beacon_cooldown >= world.time)
-			stat(null, "Bluespace Beacon Cooldown Remaining: [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds")
+			stat(null, "Bluespace Beacon Cooldown Remaining: [max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
 		if(surgical_cooldown >= world.time)
-			stat(null, "Surgical Cooldown Remaining: [max(round((surgical_cooldown - world.time)*0.1, 0.1), 0)] seconds")
+			stat(null, "Surgical Cooldown Remaining: [max(round((surgical_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()

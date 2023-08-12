@@ -102,8 +102,8 @@
 	return ..()
 
 /obj/effect/guardianshield
-	desc = "A guardian's defensive wall."
 	name = "guardian's shield"
+	desc = "A guardian's defensive wall."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-grey"
 	can_be_hit = TRUE
