@@ -515,6 +515,7 @@
             "},
             "border=0;titlebar=0;size=1x1"
         )
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
