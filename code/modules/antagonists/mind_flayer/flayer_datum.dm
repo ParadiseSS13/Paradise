@@ -127,9 +127,22 @@
 		owner.AddSpell(spell)
 	if(istype(spell, /datum/mindflayer_passive))
 		var/datum/mindflayer_passive/passive = spell
-//		passive.owner = owner.current	TODO: add the var `passive` on `mindflayer_passive`
+		passive.owner = owner.current
 		passive.on_apply(src)
 	powers += spell
+
+/datum/antagonist/mindflayer/proc/remove_ability(path)
+	if(get_ability(path))
+		force_remove_ability(path)
+
+/datum/antagonist/mindflayer/proc/force_remove_ability(path)
+	var/spell = new path(owner)
+	if(istype(spell, /obj/effect/proc_holder/spell))
+		owner.RemoveSpell(spell)
+	if(istype(spell, (datum/mindflayer_passive)))
+		var/datum/mindflayer_passive/passive = spell
+		passive.on_remove(src)
+	powers -= spell
 
 /datum/antagonist/mindflayer/proc/get_ability(path)
 	for(var/datum/power as anything in powers)
