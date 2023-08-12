@@ -494,7 +494,7 @@
 		if(C.legcuffed)
 			to_chat(C, "<span class='notice'>Ваши ноги скованы! Вы не можете бежать, пока не снимете [C.legcuffed]!</span>")
 			C.m_intent = MOVE_INTENT_WALK	//Just incase
-			C.hud_used.move_intent.icon_state = "walking"
+			C.hud_used?.move_intent.icon_state = "walking"
 			return
 
 	var/icon_toggle

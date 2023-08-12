@@ -158,3 +158,12 @@
 	if(item == legcuffed)
 		return slot_legcuffed
 	return null
+
+
+/mob/living/carbon/alien/humanoid/has_organ_for_slot(slot_id)
+	switch(slot_id)
+		if(slot_back, slot_wear_mask, slot_wear_suit, slot_l_hand, slot_r_hand, slot_l_store, slot_r_store, slot_handcuffed, slot_legcuffed)
+			return TRUE
+		else
+			return FALSE
+

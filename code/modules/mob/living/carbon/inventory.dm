@@ -150,7 +150,7 @@
 		qdel(new_value)
 		return
 
-	if(handcuffed || handcuffed == new_value)
+	if(handcuffed || handcuffed == new_value || !has_organ_for_slot(slot_handcuffed))
 		drop_item_ground(new_value)
 		return
 

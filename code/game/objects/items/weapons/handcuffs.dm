@@ -31,22 +31,20 @@
 		return
 
 	if((flags & NODROP) && !isrobot(user))
-		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
+		to_chat(user, span_warning("[src] is stuck to your hand!"))
 		return
 
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(!(H.has_left_hand() || H.has_right_hand()))
-			to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
-			return
+	if(!C.has_organ_for_slot(slot_handcuffed))
+		to_chat(user, span_warning("How do you suggest handcuffing someone with no hands?"))
+		return
 
 	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
-		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
+		to_chat(user, span_warning("Uh... how do those things work?!"))
 		apply_cuffs(user, user)
 		return
 
-	C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
-						"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
+	C.visible_message(span_danger("[user] is trying to put [name] on [C]!"), \
+					span_userdanger("[user] is trying to put [name] on [C]!"))
 	playsound(loc, cuffsound, 30, 1, -2)
 
 	if(do_mob(user, C, 5 SECONDS))
@@ -54,15 +52,8 @@
 			apply_cuffs(C, user, TRUE)
 		else
 			apply_cuffs(C, user)
-
-		C.visible_message(span_notice("[user] handcuffs [C]."), \
-					span_userdanger("[user] handcuffs you."))
-
-		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-		add_attack_logs(user, C, "Handcuffed ([src])")
-
 	else
-		to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
+		to_chat(user, span_warning("You fail to handcuff [C]."))
 
 
 /**
@@ -78,6 +69,9 @@
 	if(target.handcuffed)
 		return
 
+	if(!target.has_organ_for_slot(slot_handcuffed))
+		return
+
 	if(!user.temporarily_remove_item_from_inventory(src) && !dispense)
 		return
 
@@ -91,6 +85,11 @@
 
 	if(trashtype && !dispense)
 		qdel(src)
+
+	target.visible_message(span_notice("[user] handcuffs [target]."), \
+						span_userdanger("[user] handcuffs you."))
+	add_attack_logs(user, target, "Handcuffed ([src])")
+	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 
 /obj/item/restraints/handcuffs/sinew

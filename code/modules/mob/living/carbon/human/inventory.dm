@@ -96,7 +96,7 @@
 		update_fhair()
 		update_head_accessory()
 
-	if(internal && !get_organ_slot("breathing_tube"))
+	if(toggle_off && internal && !get_organ_slot("breathing_tube"))
 		internal = null
 		update_action_buttons_icon()
 

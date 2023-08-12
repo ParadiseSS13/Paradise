@@ -151,3 +151,22 @@
 /mob/living/carbon/alien/humanoid/toggle_move_intent() //because with movement intent change our pose changes
 	..()
 	update_icons()
+
+
+/mob/living/carbon/alien/humanoid/examine(mob/user)
+	. = ..()
+	if(!key)
+		. += span_deadsay("[p_their(TRUE)] eyes have no spark of life.")
+		. += "<BR>"
+
+	if(handcuffed)
+		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
+			. += span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!")
+		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
+			. += span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!")
+		else
+			. += span_warning("[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!")
+
+	if(legcuffed)
+		. += span_warning("[p_they(TRUE)] [p_are()] [bicon(legcuffed)] restrained with [legcuffed]!")
+
