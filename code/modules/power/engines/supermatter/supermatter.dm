@@ -940,10 +940,6 @@
 					l_power = -1 - darkness_strength / 1.25,
 					l_color = "#ddd6cf")
 
-
-
-
-
 /obj/effect/warp_effect/supermatter
 	plane = GRAVITY_PULSE_PLANE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
