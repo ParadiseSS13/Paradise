@@ -98,7 +98,7 @@
 				network = list()
 				stat |= EMPED
 				turn_off(null, FALSE, TRUE)
-			addtimer(CALLBACK(src, PROC_REF(reactivate_after_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+			addtimer(CALLBACK(src, PROC_REF(reactivate_after_emp)), (90 / severity) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 			..()
 
 /obj/machinery/camera/proc/reactivate_after_emp()
