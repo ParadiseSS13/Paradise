@@ -564,6 +564,9 @@
 #define COMSIG_TOOL_IN_USE "tool_in_use"
 ///from base of [/obj/item/proc/tool_start_check]: (mob/living/user)
 #define COMSIG_TOOL_START_USE "tool_start_use"
+///from base of [/obj/item/proc/tool_attack_chain]: (atom/tool, mob/user)
+#define COMSIG_TOOL_ATTACK "tool_attack"
+	#define COMPONENT_CANCEL_TOOLACT (1<<0)
 ///from [/obj/item/proc/disableEmbedding]:
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
