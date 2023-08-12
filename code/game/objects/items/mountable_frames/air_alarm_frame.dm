@@ -3,9 +3,6 @@ AIR ALARM ITEM
 Handheld air alarm frame, for placing on walls
 Code shamelessly copied from apc_frame
 */
-
-#define AIR_ALARM_FRAME		0 // Default state when just placing the frame on the wall
-
 /obj/item/mounted/frame/alarm_frame
 	name = "air alarm frame"
 	desc = "Used for building Air Alarms"
