@@ -178,6 +178,3 @@
 // Basically variants with differing effect times to their parent datums, nothing special
 
 #define STATUS_EFFECT_PACIFIED_BATTERER /datum/status_effect/pacifism/batterer
-
-#define STATUS_EFFECT_CLINGTENTACLE_BATTERER /datum/status_effect/cling_tentacle/batterer
-
