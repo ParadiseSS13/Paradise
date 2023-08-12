@@ -58,11 +58,14 @@
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat,/obj/item/flashlight)
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	flags_inv = HIDESHOES | HIDEJUMPSUIT | HIDETAIL
-	flags = STOPSPRESSUREDMAGE | THICKMATERIAL | PUNCTUREIMMUNE
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
+
+/obj/item/clothing/suit/space/deathsquad/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer beret"

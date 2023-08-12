@@ -276,24 +276,10 @@
 	icon_state = "syringeproj"
 
 /obj/item/projectile/bullet/dart/syringe/pierce_ignore
-	piercing = TRUE
 
 /obj/item/projectile/bullet/dart/syringe/pierce_ignore/on_hit(atom/target, blocked = 0, hit_zone)
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		if(blocked != INFINITY)
-			if(!(M.wear_suit.flags & PUNCTUREIMMUNE))
-				..()
-				reagents.trans_to(M, reagents.total_volume)
-				return TRUE
-			else
-				blocked = INFINITY
-				target.visible_message("<span class='danger'>[src] was deflected!</span>", \
-									"<span class='userdanger'>You were protected against [src]!</span>")
-	..(target, blocked, hit_zone)
-	reagents.set_reacting(TRUE)
-	reagents.handle_reactions()
-	return TRUE
+	. = ..()
+	piercing = TRUE
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
 
