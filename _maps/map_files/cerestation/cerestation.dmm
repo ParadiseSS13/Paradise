@@ -4584,7 +4584,11 @@
 	},
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "QMLoad2"
+	id = "QMLoad"
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4693,7 +4697,7 @@
 /area/quartermaster/miningdock)
 "aIy" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4932,7 +4936,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/conveyor{
 	dir = 8;
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8034,20 +8038,20 @@
 "bcT" = (
 /obj/machinery/conveyor{
 	dir = 8;
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/quartermaster/office)
 "bcU" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "QMLoad2"
+	},
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor";
 	name = "supply dock loading door"
-	},
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
@@ -14258,7 +14262,7 @@
 "bFT" = (
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -14274,13 +14278,13 @@
 	},
 /area/medical/medbay)
 "bGm" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad"
+	},
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor2";
 	name = "supply dock loading door"
-	},
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
@@ -24880,7 +24884,7 @@
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
@@ -43852,7 +43856,7 @@
 /area/maintenance/apmaint2)
 "hCI" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -89440,7 +89444,7 @@
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
 	dir = 8;
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
@@ -90622,7 +90626,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
