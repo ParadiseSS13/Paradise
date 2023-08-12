@@ -73,13 +73,13 @@
 	if(summoner)
 		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD) || QDELETED(summoner))
 			summoner.remove_guardian_actions()
-			to_chat(src, "<span class='danger'>Ваш призыватель умер!</span>")
-			visible_message("<span class='danger'>[src] умирает вместе с носителем!</span>")
+			to_chat(src, span_danger("Ваш призыватель умер!"))
+			visible_message(span_danger("[src] умирает вместе с носителем!"))
 			ghostize()
 			qdel(src)
 	snapback()
 	if(summoned && !summoner && !admin_spawned)
-		to_chat(src, "<span class='danger'>Каким-то образом у вас нет призывателя! Вы исчезаете!</span>")
+		to_chat(src, span_danger("Каким-то образом у вас нет призывателя! Вы исчезаете!"))
 		ghostize()
 		qdel(src)
 
@@ -90,7 +90,7 @@
 			return
 		else
 			to_chat(src, "<span class='holoparasite'>Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метров от [summoner.real_name]!</span>")
-			visible_message("<span class='danger'>\The [src] вернулся к носителю.</span>")
+			visible_message(span_danger("\The [src] вернулся к носителю."))
 			if(istype(summoner.loc, /obj/effect))
 				Recall(TRUE)
 			else
@@ -103,7 +103,7 @@
 
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
 	if(!is_deployed() && a_intent == INTENT_HARM)
-		to_chat(src, "<span class='danger'>Вы должны показать себя для атаки!</span>")
+		to_chat(src, span_danger("Вы должны показать себя для атаки!"))
 		return FALSE
 	else if(!is_deployed() && a_intent == INTENT_HELP)
 		return FALSE
@@ -119,7 +119,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	to_chat(summoner, "<span class='danger'>Ваш [name] как-то умер!</span>")
+	to_chat(summoner, span_danger("Ваш [name] как-то умер!"))
 	summoner.death()
 
 
@@ -139,11 +139,13 @@
 		if(loc == summoner)
 			return
 		summoner.adjustBruteLoss(damage)
-		if(damage)
-			to_chat(summoner, "<span class='danger'>Ваш [name] под атакой! Вы получаете урон!</span>")
-			summoner.visible_message("<span class='danger'>Кровь хлещет из [summoner] ибо [src] получает урон!</span>")
+		if(damage <= 0)
+			return
+		if(damage > 0)
+			to_chat(summoner, span_danger("Ваш [name] под атакой! Вы получаете урон!"))
+			summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src] получает урон!"))
 		if(summoner.stat == UNCONSCIOUS)
-			to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
+			to_chat(summoner, span_danger("Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!"))
 			summoner.adjustCloneLoss(damage/2)
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
@@ -159,7 +161,7 @@
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
-		to_chat(summoner, "<span class='danger'>Ваш [src] взорвался!</span>")
+		to_chat(summoner, span_danger("Ваш [src] взорвался!"))
 		summoner.Weaken(20 SECONDS)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
@@ -212,16 +214,16 @@
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
-	to_chat(src, "<span class='danger'>У вас нет другого режима!</span>")
+	to_chat(src, span_danger("У вас нет другого режима!"))
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(!light_on)
 		set_light(luminosity_on)
-		to_chat(src, "<span class='notice'>Вы активировали свет.</span>")
+		to_chat(src, span_notice("Вы активировали свет."))
 	else
 		set_light(0)
-		to_chat(src, "<span class='notice'>Вы выключили свет.</span>")
+		to_chat(src, span_notice("Вы выключили свет."))
 	light_on = !light_on
 
 ////////Creation
@@ -264,7 +266,7 @@
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
 	var/choice = alert(user, "[confirmation_message]",, "Да", "Нет")
 	if(choice == "Нет")
-		to_chat(user, "<span class='warning'>Вы решили не использовать [name].</span>")
+		to_chat(user, span_warning("Вы решили не использовать [name]."))
 		used = FALSE
 		return
 	to_chat(user, "[use_message]")
@@ -277,7 +279,7 @@
 	else
 		guardian_type = input(user, "Выберите тип [mob_name]", "Создание [mob_name] ") as null|anything in possible_guardians
 		if(!guardian_type)
-			to_chat(user, "<span class='warning'>Вы решили не использовать [name].</span>")
+			to_chat(user, span_warning("Вы решили не использовать [name]."))
 			used = FALSE
 			return
 
@@ -294,7 +296,7 @@
 /obj/item/guardiancreator/examine(mob/user, distance)
 	. = ..()
 	if(used)
-		. += "<span class='notice'>[used_message]</span>"
+		. += span_notice("[used_message]")
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key, guardian_type)
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
