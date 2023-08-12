@@ -160,11 +160,7 @@
 
 	if(ishuman(finder))
 		var/mob/living/carbon/H = finder
-		var/obj/item/organ/external/temp_hand = H.get_organ(pick("l_hand", "r_hand"))
-		H.apply_damage(trap_damage, BRUTE, temp_hand)
-		if(prob(15))
-			temp_hand.droplimb(TRUE)
-			to_chat(finder, "<span class='warning'>The bear trap severs your hand!")
+		H.apply_damage(trap_damage, BRUTE, pick("'l_hand', 'r_hand'"))
 	return TRUE
 
 /obj/item/restraints/legcuffs/beartrap/energy
