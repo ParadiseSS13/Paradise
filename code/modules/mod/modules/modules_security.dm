@@ -76,6 +76,11 @@
 	/// Mob that threw the grenade.
 	var/mob/living/thrower
 
+
+/obj/item/grenade/mirage/Destroy()
+	thrower = null
+	return ..()
+
 /obj/item/grenade/mirage/attack_self(mob/user)
 	. = ..()
 	thrower = user

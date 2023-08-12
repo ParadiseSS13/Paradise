@@ -23,15 +23,19 @@
 	/// Speed that we actually added.
 	var/actual_speed_added = 0
 	/// Armor values added to the suit parts.
-	var/list/armor_mod_1 = /obj/item/mod/armor/mod_module_armor_boost
+	var/armor_mod_1 = /obj/item/mod/armor/mod_module_armor_boost
 	/// the actual armor object
 	var/obj/item/mod/armor/armor_mod_2 = null
 	/// List of parts of the suit that are spaceproofed, for giving them back the pressure protection.
 	var/list/spaceproofed = list()
 
-/obj/item/mod/module/armor_booster/New()
+/obj/item/mod/module/armor_booster/Initialize(mapload)
 	. = ..()
 	armor_mod_2 = new armor_mod_1
+
+/obj/item/mod/module/armor_booster/Destroy()
+	QDEL_NULL(armor_mod_2)
+	return ..()
 
 /obj/item/mod/armor/mod_module_armor_boost
 	armor = list(MELEE = 25, BULLET = 30, LASER = 15, ENERGY = 15, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
@@ -147,7 +151,7 @@
 //Bite of 87 Springlock - Equips faster, disguised as DNA lock, can block retracting for 10 seconds.
 /obj/item/mod/module/springlock/bite_of_87
 	activation_step_time_booster = 10
-	ninetine_eighty_seven_edition = TRUE
+	nineteen_eighty_seven_edition = TRUE
 	dont_let_you_come_back = TRUE
 
 /obj/item/mod/module/springlock/bite_of_87/Initialize(mapload)

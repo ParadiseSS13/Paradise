@@ -13,7 +13,7 @@
 	///How much faster will your suit deploy?
 	var/activation_step_time_booster = 2
 	///Is this the syndicate version, which can be toggled on multitool?
-	var/ninetine_eighty_seven_edition = FALSE
+	var/nineteen_eighty_seven_edition = FALSE
 	///If this is true, the suit will prevent you from retracting for 10 seconds, so an antag can smoke bomb you.
 	var/dont_let_you_come_back = FALSE
 	///If this is true, we are about to spring shut on someone, and should not remove the retraction blocking.
@@ -35,7 +35,7 @@
 	UnregisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS)
 
 /obj/item/mod/module/springlock/multitool_act(mob/living/user, obj/item/I)
-	if(!ninetine_eighty_seven_edition)
+	if(!nineteen_eighty_seven_edition)
 		return
 	. = TRUE
 	if(dont_let_you_come_back)

@@ -222,7 +222,7 @@
 		animate(pm_controller.controlled_planes[key], 0.1 SECONDS, transform = matrix(1, MATRIX_SCALE))
 	playsound(src, 'sound/items/modsuit/loader_launch.ogg', 75, TRUE)
 	var/angle = get_angle(mod.wearer, target)
-	mod.wearer.transform = mod.wearer.transform.Turn(angle)
+	mod.wearer.transform = mod.wearer.transform.Turn(mod.wearer.transform, angle)
 	mod.wearer.throw_at(get_ranged_target_turf_direct(mod.wearer, target, power), \
 		range = power, speed = max(round(0.2*power), 1), thrower = mod.wearer, spin = FALSE, \
 		callback = CALLBACK(src, PROC_REF(on_throw_end), mod.wearer, -angle))
@@ -230,7 +230,7 @@
 /obj/item/mod/module/hydraulic/proc/on_throw_end(mob/user, angle)
 	if(!user)
 		return
-	user.transform = user.transform.Turn(angle)
+	user.transform = user.transform.Turn(user.transform, angle)
 	user.cut_overlay(charge_up_overlay)
 
 /obj/item/mod/module/magnet
@@ -293,7 +293,7 @@
 	/// How many tiles we traveled through.
 	var/traveled_tiles = 0
 	/// Armor values per tile.
-	var/list/armor_mod_1 = /obj/item/mod/armor/mod_ash_accretion
+	var/armor_mod_1 = /obj/item/mod/armor/mod_ash_accretion
 	/// the actual armor object
 	var/obj/item/mod/armor/armor_mod_2 = null
 	/// Speed added when you're fully covered in ash.
@@ -305,9 +305,13 @@
 	/// Turfs that let us keep ash.
 	var/static/list/keep_turfs
 
-/obj/item/mod/module/ash_accretion/New()
+/obj/item/mod/module/ash_accretion/Initialize(mapload)
 	. = ..()
 	armor_mod_2 = new armor_mod_1
+
+/obj/item/mod/module/ash_accretion/Destroy()
+	QDEL_NULL(armor_mod_2)
+	return ..()
 
 /obj/item/mod/armor/mod_ash_accretion
 	armor = list(MELEE = 4, BULLET = 1, LASER = 2, ENERGY = 1, BOMB = 4, RAD = 0, FIRE = 0, ACID = 0)

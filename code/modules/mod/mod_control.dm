@@ -160,6 +160,10 @@
 	if(core)
 		QDEL_NULL(core)
 	QDEL_NULL(wires)
+	wearer = null
+	selected_module = null
+	bag = null
+	modules = null
 	return ..()
 
 
@@ -652,8 +656,6 @@
 		CRASH("[src] tried to set skin while active!")
 	skin = new_skin
 	var/list/used_skin = theme.skins[new_skin]
-	//if(used_skin[CONTROL_LAYER])
-	//	alternate_worn_layer = used_skin[CONTROL_LAYER] ///FICK
 	var/list/skin_updating = mod_parts + src
 	for(var/obj/item/part as anything in skin_updating)
 		part.icon = used_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'

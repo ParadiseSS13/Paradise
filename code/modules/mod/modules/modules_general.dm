@@ -25,6 +25,11 @@
 	bag.storage_slots = max_items
 	bag.source = src
 
+/obj/item/mod/module/storage/Destroy()
+	QDEL_NULL(bag)
+	return ..()
+
+
 /obj/item/mod/module/storage/on_install()
 	mod.bag = bag
 	bag.forceMove(mod)
@@ -430,7 +435,7 @@
 	overlay_state_inactive = "module_plasma"
 
 /obj/item/mod/module/plasma_stabilizer/on_equip()
-	ADD_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION_HEAD_ONLY, "mod_trait")
+	ADD_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION_HEAD_ONLY, MODSUIT_TRAIT)
 
 /obj/item/mod/module/plasma_stabilizer/on_unequip()
-	REMOVE_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION_HEAD_ONLY, "mod_trait")
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION_HEAD_ONLY, MODSUIT_TRAIT)

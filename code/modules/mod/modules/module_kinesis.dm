@@ -32,7 +32,7 @@
 	/// Our mouse movement catcher.
 	var/obj/screen/fullscreen/cursor_catcher/kinesis/kinesis_catcher
 	/// The sounds playing while we grabbed an object.
-	var/datum/looping_sound/gravgen/kinesis/soundloop
+	var/datum/looping_sound/kinesis/soundloop
 	///The pixel_X of whatever we were grabbing before hand.
 	var/pre_pixel_x
 	///The pixel_y of whatever we were grabbing before hand.
@@ -49,6 +49,10 @@
 
 /obj/item/mod/module/anomaly_locked/kinesis/Destroy()
 	QDEL_NULL(soundloop)
+	QDEL_NULL(beam)
+	QDEL_NULL(kinesis_catcher)
+	QDEL_NULL(kinesis_icon)
+	grabbed_atom = null
 	return ..()
 
 /obj/item/mod/module/anomaly_locked/kinesis/on_select_use(atom/target)
