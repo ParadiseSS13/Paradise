@@ -35230,6 +35230,7 @@
 /obj/machinery/door/airlock/syndicate/extmai/glass{
 	damage_deflection = 999;
 	id_tag = "syndicate_jail_cell";
+	locked = 1;
 	name = "Cell";
 	req_access = list(153)
 	},
