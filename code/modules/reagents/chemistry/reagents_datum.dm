@@ -287,3 +287,6 @@
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")
+
+/datum/reagent/proc/has_heart_rate_increase()
+	return heart_rate_increase
