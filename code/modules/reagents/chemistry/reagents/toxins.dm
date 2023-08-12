@@ -49,7 +49,14 @@
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.get_blood_id() != id)  // no effect on slime people
+	var/mob/living/carbon/C = M
+	if(iscarbon(C) && C.mind?.has_antag_datum(/datum/antagonist/vampire))
+		M.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, M.nutrition + 10))
+		if(M.get_blood_id() != id)
+			M.blood_volume = min(M.blood_volume + REAGENTS_METABOLISM, BLOOD_VOLUME_NORMAL)
+		return ..() | update_flags
+
+	if(M.get_blood_id() != id)
 		if(prob(10))
 			to_chat(M, "<span class='danger'>Your insides are burning!</span>")
 			update_flags |= M.adjustToxLoss(rand(2, 6) * REAGENTS_EFFECT_MULTIPLIER, FALSE) // avg 0.4 toxin per cycle, not unreasonable
@@ -67,7 +74,6 @@
 		var/obj/effect/decal/cleanable/blood/slime/B = new(T)
 		B.basecolor = color
 		B.update_icon()
-
 
 /datum/reagent/slimetoxin
 	name = "Mutation Toxin"
