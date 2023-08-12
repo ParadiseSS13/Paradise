@@ -100,7 +100,7 @@ const RadCounter = (props, context) => {
         <Section
           title="Radiation Level"
           color={active && userradiated ? 'bad' : 'good'}>
-          {active && userradiated ? 'IRRADIATED' : 'RADIATION-FREE'}
+          {active && userradiated ? 'IRRADIATED!' : 'RADIATION-FREE'}
         </Section>
       </Flex.Item>
       <Flex.Item grow>
