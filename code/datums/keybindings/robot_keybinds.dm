@@ -28,6 +28,15 @@
 	module_number = 3
 	keys = list("3")
 
+/datum/keybinding/robot/switch_intent
+	name = "Switch Intents"
+	keys = list("4")
+
+/datum/keybinding/robot/switch_intent/down(client/C)
+	. = ..()
+	var/mob/living/silicon/robot/M = C.mob
+	M.a_intent_change(INTENT_HOTKEY_LEFT)
+
 /datum/keybinding/robot/cycle_modules
 	name = "Cycle Modules"
 	keys = list("X")
