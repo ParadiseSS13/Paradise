@@ -1,4 +1,4 @@
-#define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent", "mutadone", "rezadone")
+#define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent")
 
 #define VALID_BIOMASSABLES list(/obj/item/reagent_containers/food/snacks/meat,\
 								/obj/item/reagent_containers/food/snacks/monstermeat, \
@@ -539,6 +539,10 @@
 		WRENCH_ANCHOR_MESSAGE
 		anchored = TRUE
 
+/obj/machinery/clonepod/attack_hand(mob/user)
+	. = ..()
+	ui_interact(user)
+
 /obj/machinery/clonepod/emag_act(user)
 	. = ..()
 	eject_clone(TRUE)
@@ -556,6 +560,40 @@
 /obj/machinery/clonepod/ex_act(severity)
 	..()
 
+//TGUI
+/obj/machinery/clonepod/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "CloningPod", "Cloning Pod", 500, 500, master_ui, state)
+		ui.open()
+
+/obj/machinery/clonepod/ui_data(mob/user)
+	var/list/data = list()
+	data["biomass"] = biomass
+	data["biomass_storage_capacity"] = biomass_storage_capacity
+	data["sanguine_reagent"] = reagents.get_reagent_amount("sanguine_reagent")
+	data["osseous_reagent"] = reagents.get_reagent_amount("osseous_reagent")
+
+	var/list/organs_list
+	for(var/obj/item/organ/O in contents)
+		organs_list += list(list("name" = O.name, "ref" = O.UID()))
+
+	data["organs"] = organs_list
+
+	return data
+
+/obj/machinery/clonepod/ui_act(action, params)
+	if(..())
+		return
+	if(action == "eject_organ")
+		var/obj/item/organ/O = locateUID(params["organ_ref"])
+		if(!O) //This shouldn't happen
+			return FALSE
+		if(!usr.put_in_hands(O))
+			O.forceMove(src.loc)
+		return TRUE
+
+	update_icon()
 
 //Icon stuff
 /obj/machinery/clonepod/update_icon_state()
