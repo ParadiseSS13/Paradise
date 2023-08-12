@@ -1,6 +1,6 @@
 /datum/antagonist/vampire
 	name = "Vampire"
-	antag_hud_type = ANTAG_HUD_VAMPIRE
+//	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "hudvampire"
 	special_role = SPECIAL_ROLE_VAMPIRE
 	wiki_page_name = "Vampire"
