@@ -98,23 +98,6 @@
 		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
 	return TRUE
 
-/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(mob/user, obj/item/grenade/iedcasing/IED, obj/item/assembly/signaler/sig)
-	armed = FALSE
-	update_icon()
-	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
-	if(!silent_arming)
-		user.visible_message("<span class='danger'>[user] triggers [src].", "<span class='userdanger'>You trigger [src].")
-
-	if(sig)
-		sig.signal()
-
-	if(IED)
-		IED.active = TRUE
-		message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
-		log_game("[key_name(usr)] has triggered an IED-rigged [name].")
-		spawn(IED.det_time)
-			IED.prime()
-
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
 	if(!armed || !(isturf(src.loc)))
 		return ..()
@@ -140,7 +123,7 @@
 				if(istype(L, /mob/living/simple_animal/hostile/bear))
 					L.apply_damage(trap_damage * 2.5, BRUTE)
 				else
-					L.apply_damage(trap_damage, BRUTE)
+					L.apply_damage(trap_damage * 1.75, BRUTE)
 	..()
 
 /obj/item/restraints/legcuffs/beartrap/on_found(mob/finder)
@@ -152,6 +135,23 @@
 		var/mob/living/carbon/H = finder
 		H.apply_damage(trap_damage, BRUTE, pick("'l_hand', 'r_hand'"))
 	return TRUE
+
+/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(mob/user, obj/item/grenade/iedcasing/IED, obj/item/assembly/signaler/sig)
+	armed = FALSE
+	update_icon()
+	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
+	if(!silent_arming)
+		user.visible_message("<span class='danger'>[user] triggers [src].", "<span class='userdanger'>You trigger [src].")
+
+	if(sig)
+		sig.signal()
+
+	if(IED)
+		IED.active = TRUE
+		message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
+		log_game("[key_name(usr)] has triggered an IED-rigged [name].")
+		spawn(IED.det_time)
+			IED.prime()
 
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"
