@@ -194,12 +194,7 @@
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
 	hand = !hand
-	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
-		var/obj/screen/inventory/hand/H
-		H = hud_used.inv_slots[slot_l_hand]
-		H.update_icon()
-		H = hud_used.inv_slots[slot_r_hand]
-		H.update_icon()
+	update_hands_hud()
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
 
 
@@ -1045,7 +1040,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		changeNext_move(CLICK_CD_RAPID) //reset click cooldown from handcuffs
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
-	update_hud_handcuffed()
+	update_hands_hud()
 
 /mob/living/carbon/get_standard_pixel_y_offset()
 	if(IS_HORIZONTAL(src))

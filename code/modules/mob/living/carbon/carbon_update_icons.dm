@@ -32,13 +32,13 @@
 	return
 
 //update whether handcuffs appears on our hud.
-/mob/living/carbon/proc/update_hud_handcuffed()
-	if(hud_used)
-		var/obj/screen/inventory/R = hud_used.inv_slots[slot_r_hand]
-		var/obj/screen/inventory/L = hud_used.inv_slots[slot_l_hand]
-		if(R && L)
-			R.update_icon()
-			L.update_icon()
+/mob/living/carbon/proc/update_hands_hud()
+	if(!hud_used)
+		return
+	var/obj/screen/inventory/R = hud_used.inv_slots[slot_r_hand]
+	R?.update_icon()
+	var/obj/screen/inventory/L = hud_used.inv_slots[slot_l_hand]
+	L?.update_icon()
 
 /mob/living/carbon/update_inv_r_hand(ignore_cuffs)
 	if(handcuffed && !ignore_cuffs)
