@@ -98,16 +98,18 @@
 		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
 	return TRUE
 
+/obj/item/restraints/legcuffs/beartrap/proc/spring_trap()
+	armed = FALSE
+	update_icon()
+	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
+	if(!silent_arming)
+		L.visible_message("<span class='danger'>[L] triggers [src].", "<span class='userdanger'>You trigger [src].")
+
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
 	if(armed && isturf(src.loc))
 		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
-			armed = FALSE
-			update_icon()
-			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-			if(!silent_arming)
-				L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
-						"<span class='userdanger'>You trigger \the [src]!</span>")
+			spring_trap(AM)
 
 			if(IED && isturf(src.loc))
 				IED.active = TRUE
@@ -142,11 +144,7 @@
 	if(!armed)
 		return FALSE
 	var/mob/living/L = finder
-	armed = FALSE
-	update_icon()
-	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
-	if(!silent_arming)
-		L.visible_message("<span class='danger'>[L] triggers [src].</span>", "<span class='userdanger'>You trigger [src]!</span>")
+	spring_trap(finder)
 
 	if(IED)
 		IED.active = TRUE
