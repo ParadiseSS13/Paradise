@@ -300,7 +300,7 @@
 
 /datum/supply_packs/misc/randomised/plushie/generate_items()
 	. = list(/obj/random/plushie, /obj/random/plushie)
-	if(prob(100)) // 1 % chance to have a free of charge Blahbomb!
+	if(prob(1)) // 1 % chance to have a free of charge Blahbomb!
 		. += /obj/random/plushie/explosive
 	else
 		. += /obj/random/plushie
