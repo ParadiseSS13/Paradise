@@ -11,7 +11,7 @@
     gradient = list(COLOR_YELLOW, COLOR_ORANGE)
     color_change = 0.005
     lifespan = 1.5 SECONDS
-    drift = generator("box", list(-32, 32), list(0, 96))
+    drift = 5 // generator("box", list(-32, 32), list(0, 96))
     velocity = list(10, 25)
 
 /obj/particle_emitter
@@ -34,8 +34,9 @@
 	icon = null
 	particles = new /particles/electrical_sparks
 
-/proc/electricity_spark(atom/src_atom, test1, gradient, duration, count)
-	var/obj/particle_emitter/electrical_sparks/sparks_emitter = new /obj/particle_emitter/electrical_sparks(get_turf(src_atom))
+/proc/electricity_sparks(atom/src_atom, test1, gradient, duration, count)
+	return
+	/*var/obj/particle_emitter/electrical_sparks/sparks_emitter = new /obj/particle_emitter/electrical_sparks(get_turf(src_atom))
 	sparks_emitter.particles.count = count
 	sparks_emitter.particles.gradient = gradient
 	sleep(duration)
@@ -43,6 +44,6 @@
 	sparks_emitter.particles.lifespan = 0
 	sleep(wait_time)
 	QDEL_NULL(sparks_emitter.particles)
-	qdel(sparks_emitter)
+	qdel(sparks_emitter)*/
 
 

@@ -82,7 +82,19 @@
 	desc = "A basic capacitor used in the construction of a variety of devices."
 	icon_state = "capacitor"
 	origin_tech = "powerstorage=1"
+	max_integrity = 100
+	integrity_failure = 10
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
+
+/obj/item/stock_parts/capacitor/blown_out
+	name = "blown out capacitor"
+	desc = "a broken capacitor. It looks like this one got a bit too hot."
+	rating = 0
+
+/obj/item/stock_parts/capacitor/blown_out/Initialize(mapload, old_name)
+	. = ..()
+	if(old_name)
+		name = "blown-out [old_name]"
 
 /obj/item/stock_parts/scanning_module
 	name = "scanning module"

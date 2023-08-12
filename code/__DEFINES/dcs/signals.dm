@@ -489,6 +489,8 @@
 
 ///from base of obj/deconstruct(): (disassembled)
 #define COMSIG_OBJ_DECONSTRUCT "obj_deconstruct"
+/// from the base of obj/obj_break(): (damage_flag)
+#define COMSIG_OBJ_BREAK "obj_break"
 ///called in /obj/structure/setAnchored(): (value)
 #define COMSIG_OBJ_SETANCHORED "obj_setanchored"
 ///from base of code/game/machinery
@@ -583,19 +585,6 @@
 #define COMSIG_DEFIB_ABORTED "defib_aborted"
 /// Called when a defib's cooldown has run its course and it is once again ready. ()
 #define COMSIG_DEFIB_READY "defib_ready"
-
-// /obj/item signals for economy
-///called when an item is sold by the exports subsystem
-#define COMSIG_ITEM_SOLD "item_sold"
-///called when a wrapped up structure is opened by hand
-#define COMSIG_STRUCTURE_UNWRAPPED "structure_unwrapped"
-#define COMSIG_ITEM_UNWRAPPED "item_unwrapped"
-///called when a wrapped up item is opened by hand
-	#define COMSIG_ITEM_SPLIT_VALUE  (1<<0)
-///called when getting the item's exact ratio for cargo's profit.
-#define COMSIG_ITEM_SPLIT_PROFIT "item_split_profits"
-///called when getting the item's exact ratio for cargo's profit, without selling the item.
-#define COMSIG_ITEM_SPLIT_PROFIT_DRY "item_split_profits_dry"
 
 // /obj/item/clothing signals
 

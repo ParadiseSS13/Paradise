@@ -36,24 +36,29 @@
 
 /*
 	* # Power Value Getter/Setter Procs
+	*
+	* Directly interacts with powernet to get/set power values. THAT IS ALL THESE PROCS SHOULD DO!
+	* Should always be producing or consuming the amount given, figure out how much or little that should be before
+	* calling these procs to keep it clean :P
 */
 /// Adds power to the queued power cycle, will become the available power next power cycle
 /obj/machinery/power/proc/produce_direct_power(amount)
+	SHOULD_CALL_PARENT(TRUE)
 	if(powernet)
 		if(powernet.power_voltage_type != power_voltage_type)
 			return FALSE
 		powernet.queued_power_production += amount
-		return TRUE
-	return FALSE
+		return amount
+	return 0
 
 /// Adds power demand to the powernet, machines should use this
 /obj/machinery/power/proc/consume_direct_power(amount)
 	if(!powernet)
-		return
+		return 0
 	if(powernet.power_voltage_type != power_voltage_type)
-		return FALSE
+		return 0
 	powernet.power_demand += amount
-	return TRUE
+	return amount
 
 /// Gets surplus power available on this machines powernet, machines should use this proc
 /obj/machinery/power/proc/get_surplus()
@@ -69,8 +74,12 @@
 
 /// Adds queued power demand to be met next process cycle
 /obj/machinery/power/proc/add_queued_power_demand(amount)
-	powernet?.queued_power_demand += amount
-	powernet.update_voltage(power_voltage_type)
+	if(!powernet)
+		return 0
+	if(powernet.power_voltage_type != power_voltage_type)
+		return 0
+	powernet.queued_power_demand += amount
+	return amount
 
 /// Gets surplus power queued for next process cycle on this cables powernet
 /obj/machinery/power/proc/get_queued_surplus()

@@ -27,6 +27,11 @@
 // APC user setting,
 #define CHANNEL_SETTING_AUTO_ON  3 //auto
 
+
+#define LIGHTING_CHANNEL_TIMER		()
+#define EQUIPMENT_CHANNEL_TIMER		()
+#define ENVIRONMENT_CHANNEL_TIMER	()
+
 // the Area Power Controller (APC), formerly Power Distribution Unit (PDU)
 // one per area, needs wire conection to power network through a terminal
 
@@ -50,6 +55,7 @@
 	// set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
 	powernet = 0
 	power_voltage_type = VOLTAGE_LOW
+
 	/*** APC Area/Powernet vars ***/
 	/// the area that this APC is in
 	var/area/apc_area
@@ -60,6 +66,7 @@
 	/// The status of the terminals powernet that this APC is connected to: not connected, no power, or recieving power
 	var/main_status = APC_EXTERNAL_POWER_NOTCONNECTED
 
+	/*** APC Consumption Stats vars ***/
 	/// amount of power used in the last cycle for lighting channel
 	var/last_used_lighting = 0
 	/// amount of power used in the last cycle for equipment channel
@@ -71,7 +78,8 @@
 
 	/*** APC Cell Vars ***/
 	/// the cell type stored in this APC
-	var/obj/item/stock_parts/cell/cell
+	var/obj/item/stock_parts/cell/cell = null
+	///
 	/// the percentage charge the internal battery will start with
 	var/start_charge = 90
 	/// Base cell has 2500 capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
@@ -411,64 +419,7 @@
 
 	return ui_interact(user)
 
-/obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "APC", name, 510, 460, master_ui, state)
-		ui.open()
 
-/obj/machinery/power/apc/ui_data(mob/user)
-	var/list/data = list()
-	data["locked"] = is_locked(user)
-	data["normallyLocked"] = locked
-	data["isOperating"] = operating
-	data["externalPower"] = main_status
-	data["powerCellStatus"] = cell ? cell.percent() : null
-	data["chargeMode"] = chargemode
-	data["chargingStatus"] = charging
-	data["totalLoad"] = round(last_used_equipment + last_used_lighting + last_used_environment)
-	data["coverLocked"] = coverlocked
-	data["siliconUser"] = issilicon(user)
-	data["siliconLock"] = locked
-	data["malfStatus"] = get_malf_status(user)
-	data["nightshiftLights"] = nightshift_lights
-	data["emergencyLights"] = !emergency_lights
-
-	var/list/power_channels = list()
-	power_channels += list(list(
-		"title" = "Equipment",
-		"powerLoad" = round(last_used_equipment),
-		"status" = equipment_channel,
-		"topicParams" = list(
-			"auto" = list("eqp" = 3),
-			"on"   = list("eqp" = 2),
-			"off"  = list("eqp" = 1)
-		)
-	))
-	power_channels += list(list(
-		"title" = "Lighting",
-		"powerLoad" = round(last_used_lighting),
-		"status" = lighting_channel,
-		"topicParams" = list(
-			"auto" = list("lgt" = 3),
-			"on"   = list("lgt" = 2),
-			"off"  = list("lgt" = 1)
-		)
-	))
-	power_channels += list(list(
-		"title" = "Environment",
-		"powerLoad" = round(last_used_environment),
-		"status" = environment_channel,
-		"topicParams" = list(
-			"auto" = list("env" = 3),
-			"on"   = list("env" = 2),
-			"off"  = list("env" = 1)
-		)
-	))
-
-	data["powerChannels"] = power_channels
-
-	return data
 
 /obj/machinery/power/apc/proc/update()
 	if(operating && !shorted)
@@ -532,65 +483,7 @@
 	else
 		return locked
 
-/obj/machinery/power/apc/ui_act(action, params, datum/tgui/ui)
-	var/mob/user = ui.user
-	if(..() || !can_use(user, TRUE) || (locked && !user.has_unlimited_silicon_privilege && (action != "toggle_nightshift") && !user.can_admin_interact()))
-		return
-	. = TRUE
-	switch(action)
-		if("lock")
-			if(user.has_unlimited_silicon_privilege)
-				if(emagged || stat & BROKEN)
-					to_chat(user, "<span class='warning'>The APC does not respond to the command!</span>")
-					return FALSE
-				else
-					locked = !locked
-					update_icon()
-			else
-				to_chat(user, "<span class='warning'>Access Denied!</span>")
-				return FALSE
-		if("cover")
-			coverlocked = !coverlocked
-		if("breaker")
-			toggle_breaker(user)
-		if("toggle_nightshift")
-			if(last_nightshift_switch > world.time + 100) // don't spam...
-				to_chat(user, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
-				return FALSE
-			last_nightshift_switch = world.time
-			set_nightshift(!nightshift_lights)
-		if("charge")
-			chargemode = !chargemode
-		if("channel")
-			if(params["eqp"])
-				equipment_channel = setsubsystem(text2num(params["eqp"]))
-				update_icon()
-				update()
-			else if(params["lgt"])
-				lighting_channel = setsubsystem(text2num(params["lgt"]))
-				update_icon()
-				update()
-			else if(params["env"])
-				environment_channel = setsubsystem(text2num(params["env"]))
-				update_icon()
-				update()
-		if("overload")
-			if(user.has_unlimited_silicon_privilege)
-				INVOKE_ASYNC(src, PROC_REF(overload_lighting))
-		if("hack")
-			if(get_malf_status(user))
-				malfhack(user)
-		if("occupy")
-			if(get_malf_status(user))
-				malfoccupy(usr)
-		if("deoccupy")
-			if(get_malf_status(user))
-				malfvacate()
-		if("emergency_lighting")
-			emergency_lights = !emergency_lights
-			for(var/obj/machinery/light/L in apc_area)
-				INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
-				CHECK_TICK
+
 
 /obj/machinery/power/apc/proc/update_last_used()
 	last_used_lighting = machine_powernet.get_channel_usage(PW_CHANNEL_LIGHTING)

@@ -170,9 +170,7 @@
 		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
-#define kW *1000
-#define MW kW *1000
-#define GW MW *1000
+
 
 /**
   * # Bluespace Harvester
@@ -541,6 +539,3 @@
 	<p><small>Device highly experimental. Not for sale. Do not operate near small children or vital NT assets. Do not tamper with machine. In case of existential dread, stop machine immediately. \
 	Please document any and all extradimensional incursions. In case of imminent death, please leave said documentation in plain sight for clean-up teams to recover.</small></p>"
 
-#undef kW
-#undef MW
-#undef GW

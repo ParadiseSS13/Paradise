@@ -7,8 +7,6 @@
 	* don't concern areas and are instead attached to a single wirenet with power machine, engine, battery, and terminal nodes
 */
 /datum/regional_powernet
-	/// The Powernet Unique ID Number
-	var/number
 	/// A list of All cables & junctions in this powernet
 	var/list/cables = list()
 	/// All Power Machines that are connected to this powernet
@@ -39,6 +37,9 @@
 	var/smoothed_demand = 0
 	/// The voltage type on this powernet, determines special behaviour like transfer efficiency and merge'ing of powernets
 	var/power_voltage_type = null
+
+	/// Are we currently undergoing a rolling blackout on the net? Needed to make sure
+	var/blackout = FALSE
 
 /datum/regional_powernet/New(obj/structure/cable/root_cable, no_root = FALSE)
 	. = ..()
@@ -170,6 +171,8 @@
 	var/total_wattage_load = 0
 	// first run around to get total load being demanded by the transformers
 	for(var/obj/machinery/power/transformer/transformer in subnet_connectors)
+		if(!transformer.operating)
+			continue
 		total_wattage_load += transformer.wattage_setting
 	for(var/obj/machinery/power/load_limiter/limiter in subnet_connectors)
 		total_wattage_load += limiter.wattage_setting
@@ -181,6 +184,8 @@
 		if(excess_power < total_wattage_load) // check again
 			// since there's more load than supply on the net, we need to be picky about how we give out power
 			for(var/obj/machinery/power/transformer/transformer in subnet_connectors)
+				if(!transformer.operating)
+					continue
 				// will give each transformer it's own slice of the pie, enough power or too much power it don't matter
 				var/power_to_give_out = round((transformer.wattage_setting / total_wattage_load) * excess_power)
 				transformer.produce_direct_power(power_to_give_out)
@@ -190,11 +195,15 @@
 				limiter.produce_direct_power(power_to_give_out)
 		else
 			for(var/obj/machinery/power/transformer/transformer in subnet_connectors)
+				if(!transformer.operating)
+					continue
 				transformer.produce_direct_power(transformer.wattage_setting)
 			for(var/obj/machinery/power/load_limiter/limiter in subnet_connectors)
 				limiter.produce_direct_power(limiter.wattage_setting)
 	else // we have more than enough power so we can fully power each subnet connector!
 		for(var/obj/machinery/power/transformer/transformer in subnet_connectors)
+			if(!transformer.operating)
+				continue
 			transformer.produce_direct_power(transformer.wattage_setting)
 			power_demand += transformer.wattage_setting
 		for(var/obj/machinery/power/load_limiter/limiter in subnet_connectors)
@@ -265,11 +274,57 @@
 	for(var/datum/short_circuit_event/event in short_circuit_events)
 		event.process_short_circuit()
 
+/*
+	* # low_power_flicker
+	* Indicate to a room/area on this powernet that there is low power by flickering lights and machinery
+	* intensity - 1 to 5 value which controls how much flickering is done
+*/
+/datum/regional_powernet/proc/low_power_flicker(intensity = 1, silent = TRUE)
+	var/list/apc_targets = list()
+	for(var/obj/machinery/power/apc/apc in nodes)
+		apc_targets += apc
+	var/victim_count = length(apc_targets) / (6 - intensity)
+	for(var/i in 1 to victim_count)
+		var/obj/machinery/power/apc/the_victim = pick_n_take(apc_targets)
+		if(intensity >= 3 && !silent)
+			// now we start playing warning sounds for players, at this point the transformer needs to be dealt with or a lot of players will get angry :)
+			#warn play sound for victims
+		var/list/victim_machines = the_victim.machine_powernet.registered_machines
+		var/victim_machine_count = length(the_victim.machine_powernet.registered_machines) / (6 - intensity)
+		for(var/j in 1 to victim_machine_count)
+			var/obj/machinery/victim_machine = pick_n_take(victim_machines)
+			victim_machine.flicker() // boo bitch!
+
 /datum/regional_powernet/proc/powernet_overload()
 	return
 
-/datum/regional_powernet/proc/process_powernet_overload() // UNLIMITED POWAAAA (not actually, just way too much)
-	return
+/// A full powernet blackout of the powernet, will cinematically shut down all APCs in an area by turning off their breaker over 10 seconds
+/datum/regional_powernet/proc/rolling_blackout()
+	var/list/apc_targets = list()
+	var/apc_count = length(apc_targets)
+	var/apc_rounds = CEILING(apc_count / 10, 1)
+	if(!apc_count)
+		CRASH("proc rolling_blackout called on a powernet without apcs")
+	for(var/obj/machinery/power/apc/apc in nodes)
+		apc_targets += apc
+	var/blackout_wait = (1 SECONDS)
+	for(var/i in 1 to 10)
+		var/list/blackout_apcs = pick_multiple_unique(apc_targets, apc_rounds)
+		apc_rounds -= blackout_apcs
+		addtimer(CALLBACK(src, PROC_REF(do_apc_blackout), blackout_apcs), blackout_wait)
+		blackout_wait += (1 SECONDS) // this is what we mean by rolling blackout
+
+/datum/regional_powernet/proc/do_apc_blackout(list/blackout_apcs = list())
+	if(!length(blackout_apcs))
+		return
+	for(var/obj/machinery/power/apc/apc in blackout_apcs)
+		if(apc.operating)
+			apc.toggle_breaker()
+			for(var/mob/player in apc.apc_area)
+				if(!player.client)
+					continue
+				#warn play blackout sound
+				player.playsound_local(get_turf(player), 'sound/ambience/antag/malf.ogg', 50, FALSE)
 
 #define MINIMUM_PW_SHOCK 1000
 #define MINIMUM_SHOCK_DAMAGE 20

@@ -174,7 +174,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	* To check mergeability, we flip our original direction because in perfectly opposite directions, the inverse of one is equal to the other
 	* if the cable we find on the next turf has atleast one direction equal to the inverse of our new cables direction, we know it connects
 */
-#warn refactor  merge_powernets stuff potentially? Lots of repeat code here
 /obj/structure/cable/proc/merge_connected_networks(direction)
 	if(d1 != direction && d2 != direction)
 		return //if the cable is not pointed in this direction, do nothing

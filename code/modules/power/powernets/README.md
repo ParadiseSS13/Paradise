@@ -10,9 +10,9 @@ There are two types of powernets in our code
 They are two completely different datum types from eachother and serve different completely different purposes. In a nutshell, regional powernets are dynamically sized and deal with physical machinery, cables, and generators whereas local powernets are statically locked into a single area each and work directly with APCs to handle individual machines interactions with the larger regional powernet.
 
 ## Regional Powernet
-An inter-area datum which handles 1 continuous set of cables (`var/list/cables`) and all the connected machinery/nodes on that set of cable (`var/list/nodes`).
+An inter-area datum which handles 1 continuous set of cables (`var/list/cables`) and all the connected machinery/nodes on that set of cable (`var/list/nodes`). Since each powernet works on a process cycle, each variable and proc represents values and actions for the current process.
 
-On this datum you'll notice a lot of different vars handling power input, output, consumption, demand, etc
+
 
 ### Regional Powernet Process Call Stack
 Starting in SSmachines,

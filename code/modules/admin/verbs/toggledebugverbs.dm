@@ -4,7 +4,6 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 	/client/proc/intercom_view,
 	/client/proc/Cell, //More air things
 	/client/proc/atmosscan, //check plumbing
-	/client/proc/powerdebug, //check power
 	/client/proc/count_objects_on_z_level,
 	/client/proc/count_objects_all,
 	/client/proc/cmd_assume_direct_control,

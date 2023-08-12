@@ -1,3 +1,7 @@
+#define kW *1000
+#define MW kW *1000
+#define GW MW *1000
+
 /// Power Channel for equipment power users
 #define PW_CHANNEL_EQUIPMENT	1
 /// Power chanel for lighting power users
