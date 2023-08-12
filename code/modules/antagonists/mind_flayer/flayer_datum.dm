@@ -1,6 +1,6 @@
 /datum/antagonist/mindflayer
 	name = "Mind Flayer"
-//	antag_hud_type = ANTAG_HUD_MIND_FLAYER
+	antag_hud_type = ANTAG_HUD_MIND_FLAYER
 	antag_hud_name = "hudflayer"
 	special_role = SPECIAL_ROLE_MIND_FLAYER
 	wiki_page_name = "Mind Flayer"
