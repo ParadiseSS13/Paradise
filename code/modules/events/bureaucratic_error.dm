@@ -13,7 +13,10 @@
 		/datum/job/nanotrasenrep,
 		/datum/job/blueshield,
 		/datum/job/judge,
-		/datum/job/chaplain
+		/datum/job/chaplain,
+		/datum/job/officer,
+		/datum/job/detective,
+		/datum/job/warden
 	)
 
 /datum/event/bureaucratic_error/announce()

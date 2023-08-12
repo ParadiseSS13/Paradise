@@ -456,7 +456,7 @@
 						P.icon_state = "pill[pillsprite]"
 						reagents.trans_to(P, amount_per_pill)
 						// Load the pills in the bottle if there's one loaded
-						if(istype(loaded_pill_bottle) && length(loaded_pill_bottle.contents) < loaded_pill_bottle.storage_slots)
+						if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
 							P.forceMove(loaded_pill_bottle)
 				if("create_pill_multiple")
 					if(condi || !reagents.total_volume)
@@ -492,7 +492,7 @@
 							P.instant_application = TRUE
 							P.icon_state = "bandaid_med"
 						// Load the patches in the bottle if there's one loaded
-						if(istype(loaded_pill_bottle, /obj/item/storage/pill_bottle/patch_pack) && length(loaded_pill_bottle.contents) < loaded_pill_bottle.storage_slots)
+						if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
 							P.forceMove(loaded_pill_bottle)
 				if("create_patch_multiple")
 					if(condi || !reagents.total_volume)

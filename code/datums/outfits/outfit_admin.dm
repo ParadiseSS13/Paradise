@@ -353,36 +353,6 @@
 	suit = /obj/item/clothing/suit/pirate_black
 	head = /obj/item/clothing/head/pirate
 
-/datum/outfit/admin/vox
-	name = "Vox Raider"
-	uniform = /obj/item/clothing/under/vox/vox_robes
-	suit = /obj/item/clothing/suit/space/vox/carapace
-	back = /obj/item/storage/backpack
-	gloves = /obj/item/clothing/gloves/color/yellow/vox
-	shoes = /obj/item/clothing/shoes/magboots/vox
-	head = /obj/item/clothing/head/helmet/space/vox/carapace
-	mask = /obj/item/clothing/mask/gas/syndicate
-	l_ear = /obj/item/radio/headset/syndicate
-	glasses = /obj/item/clothing/glasses/thermal/monocle
-	id = /obj/item/card/id/syndicate/vox
-	l_pocket = /obj/item/melee/classic_baton/telescopic
-	r_pocket = /obj/item/tank/internals/emergency_oxygen/double/vox
-	backpack_contents = list(
-		/obj/item/flashlight = 1,
-		/obj/item/restraints/handcuffs/cable/zipties = 1,
-		/obj/item/flash = 1,
-		/obj/item/gun/energy/noisecannon = 1
-	)
-
-/datum/outfit/admin/vox/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/card/id/I = H.wear_id
-	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Vox Armalis", "syndie")
-
 /datum/outfit/admin/tunnel_clown
 	name = "Tunnel Clown"
 
@@ -973,7 +943,7 @@
 /datum/outfit/admin/hardsuit/wizard
 	name = "Hardsuit - Wizard"
 	suit = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
-	shoes = /obj/item/clothing/shoes/magboots
+	shoes = /obj/item/clothing/shoes/magboots/wizard
 
 /datum/outfit/admin/hardsuit/medical
 	name = "Hardsuit - Medical"
@@ -1384,3 +1354,30 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_CLOWN), "Emergency Response Clown")
 	H.sec_hud_set_ID()
+
+/datum/outfit/admin/observer
+	name = "Observer"
+
+	uniform = /obj/item/clothing/under/costume/tourist_suit
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/black
+	box = /obj/item/storage/box/survival
+	backpack_contents = list(
+		/obj/item/implanter/dust = 1
+		)
+
+/datum/outfit/admin/observer/plasmaman
+	name = "Observer (Plasma)"
+
+	uniform = /obj/item/clothing/under/plasmaman/assistant
+	head = /obj/item/clothing/head/helmet/space/plasmaman/assistant
+	mask = /obj/item/clothing/mask/breath
+	belt = /obj/item/tank/internals/plasmaman/belt/full
+	box = /obj/item/storage/box/survival_plasmaman
+
+/datum/outfit/admin/observer/vox
+	name = "Observer (Vox)"
+
+	mask = /obj/item/clothing/mask/breath/vox
+	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
+	box = /obj/item/storage/box/survival_vox
