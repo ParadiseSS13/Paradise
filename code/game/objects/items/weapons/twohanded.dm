@@ -1170,7 +1170,7 @@
 			var/mob/living/target = A
 			if(target.stat == DEAD)
 				visible_message("<span class='danger'>[user] raises [src] high, ready to bring it down on [target]!</span>")
-				if(do_after(user, 4 SECONDS, TRUE, target))
+				if(do_after(user, 1 SECONDS, TRUE, target))
 					visible_message("<span class='danger'>[user] brings down [src], obliterating [target] with a heavy blow!</span>")
 					playsound(loc, 'sound/effects/supermatter.ogg', 50, 1)
 					target.dust()
