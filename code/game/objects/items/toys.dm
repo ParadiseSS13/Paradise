@@ -597,9 +597,6 @@
 /obj/random/plushie/explosive
 	var/explosive_chance = 1 // 1% to spawn a blahbomb!
 
-/obj/random/plushie/explosive/item_to_spawn() // To override the non explosive random plushie spawn
-	return
-
 /obj/random/plushie/explosive/spawn_item()
 	var/obj/item/toy/plushie/plushie = ..()
 	if(!prob(explosive_chance))
