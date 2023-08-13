@@ -289,6 +289,14 @@
 		F.update_icon()
 	qdel(src)
 
+/obj/machinery/door/firedoor/CanPass(atom/movable/mover, turf/target)
+	if(..())
+		return TRUE
+	if(isliving(mover) && !locked)
+		var/mob/living/living_mover = mover
+		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
+			return TRUE
+
 /obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/edge_doorfire.dmi'
 	flags = ON_BORDER

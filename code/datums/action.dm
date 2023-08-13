@@ -1,8 +1,10 @@
-#define AB_CHECK_RESTRAINED 1
-#define AB_CHECK_STUNNED 2
-#define AB_CHECK_LYING 4
-#define AB_CHECK_CONSCIOUS 8
-#define AB_CHECK_TURF 16
+#define AB_CHECK_RESTRAINED		(1<<0)
+#define AB_CHECK_STUNNED		(1<<1)
+#define AB_CHECK_LYING			(1<<2)
+#define AB_CHECK_CONSCIOUS		(1<<3)
+#define AB_CHECK_TURF			(1<<4)
+#define AB_CHECK_HANDS_BLOCKED	(1<<5)
+#define AB_CHECK_IMMOBILE		(1<<6)
 
 
 /datum/action
@@ -72,6 +74,10 @@
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
+		return FALSE
 	if(check_flags & AB_CHECK_RESTRAINED)
 		if(owner.restrained())
 			return FALSE
@@ -131,7 +137,7 @@
 
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
 
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)

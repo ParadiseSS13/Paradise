@@ -32,8 +32,6 @@
 	var/list/apc = list()
 
 	var/has_gravity = TRUE
-	/// If TRUE, everyone will waddle when entering the area (and slip if they enter from an area with it being FALSE)
-	var/has_cmagged_gravity = FALSE
 
 	var/no_air = null
 
@@ -442,45 +440,12 @@
 	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == MOVE_INTENT_RUN)) // Being ready when you change areas gives you a chance to avoid falling all together.
 		thunk(L)
 
-	if(oldarea.has_cmagged_gravity && !newarea.has_cmagged_gravity)
-		clown_thunk(L, FALSE)
-
-	else if(!oldarea.has_cmagged_gravity && newarea.has_cmagged_gravity)
-		clown_thunk(L, TRUE)
-
 	//Ship ambience just loops if turned on.
 	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))
 		L.client.ambience_playing = TRUE
 		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = 35 * L.client.prefs.get_channel_volume(CHANNEL_BUZZ), channel = CHANNEL_BUZZ))
 	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ))
 		L.client.ambience_playing = FALSE
-
-/area/proc/cmag_grav_change(cmag_gravity = FALSE, area/A)
-	var/existing_grav = A.has_cmagged_gravity
-	A.has_cmagged_gravity = cmag_gravity
-
-	for(var/mob/living/M in A)
-		if(cmag_gravity != existing_grav)
-			clown_thunk(M, cmag_gravity)
-
-
-/area/proc/clown_thunk(mob/living/M, clown_gravity_enabled)
-	if(!istype(M))
-		return
-
-	if(iscarbon(M))
-		if(!IS_HORIZONTAL(M))
-			playsound(M, 'sound/misc/slip.ogg', 50, FALSE)
-			M.KnockDown(5 SECONDS)
-	else
-		M.Weaken(5 SECONDS)  // sure
-
-	if(clown_gravity_enabled)
-		to_chat(M, "<span class='warning sans'>Gravity...?</span>")
-		M.AddElement(/datum/element/waddling/clown_gravity)
-	else
-		to_chat(M, "<span class='notice'>You feel a bit more steady on your feet.</span>")
-		M.RemoveElement(/datum/element/waddling/clown_gravity)
 
 /area/proc/gravitychange(gravitystate = 0, area/A)
 	A.has_gravity = gravitystate

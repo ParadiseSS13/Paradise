@@ -24,6 +24,13 @@
 	anomaly_type = /obj/effect/anomaly/pyro
 	origin_tech = "plasmatech=7"
 
+/obj/item/assembly/signaler/anomaly/cryo
+	name = "\improper cryogenic anomaly core"
+	desc = "The neutralized core of a cryogenic anomaly. Rime is forming on its cold surface. It'd probably be valuable for research."
+	icon_state = "cryo_core"
+	anomaly_type = /obj/effect/anomaly/cryo
+	origin_tech = "biotech=7"
+
 /obj/item/assembly/signaler/anomaly/grav
 	name = "\improper gravitational anomaly core"
 	desc = "The neutralized core of a gravitational anomaly. It feels much heavier than it looks. It'd probably be valuable for research."
@@ -57,7 +64,7 @@
 
 /obj/item/assembly/signaler/anomaly/random/New()
 	..()
-	var/list/types = list(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
+	var/list/types = list(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/cryo, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
 	var/A = pick(types)
 	new A(loc)
 	qdel(src)
@@ -74,23 +81,17 @@
 		/obj/item/assembly/signaler/anomaly/grav = /obj/item/clothing/suit/armor/reactive/repulse,
 		/obj/item/assembly/signaler/anomaly/flux = /obj/item/clothing/suit/armor/reactive/tesla,
 		/obj/item/assembly/signaler/anomaly/bluespace = /obj/item/clothing/suit/armor/reactive/teleport,
-		/obj/item/assembly/signaler/anomaly/pyro = /obj/item/clothing/suit/armor/reactive/fire
+		/obj/item/assembly/signaler/anomaly/pyro = /obj/item/clothing/suit/armor/reactive/fire,
+		/obj/item/assembly/signaler/anomaly/cryo = /obj/item/clothing/suit/armor/reactive/cryo,
+		/obj/item/assembly/signaler/anomaly/vortex = /obj/item/clothing/suit/armor/reactive/stealth
 		)
 
 	if(istype(I, /obj/item/assembly/signaler/anomaly))
 		var/obj/item/assembly/signaler/anomaly/A = I
-		var/armour_path = /obj/item/clothing/suit/armor/reactive/stealth //Fallback
-		if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
-			armour_path = /obj/item/clothing/suit/armor/reactive/repulse
-		if(istype(I, /obj/item/assembly/signaler/anomaly/flux))
-			armour_path = /obj/item/clothing/suit/armor/reactive/tesla
-		if(istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
-			armour_path = /obj/item/clothing/suit/armor/reactive/teleport
-		if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
-			armour_path = /obj/item/clothing/suit/armor/reactive/fire
-		if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
-			armour_path = /obj/item/clothing/suit/armor/reactive/stealth // Vortex needs one, this is just temporary(TM) till one is coded for them.
-		to_chat(user, "<span class='notice'>You insert [A] into the chest plate, and the armour gently hums to life.</span>")
+		var/armour_path = anomaly_armour_types[A.type]
+		if(!armour_path)
+			armour_path = /obj/item/clothing/suit/armor/reactive/stealth //Fallback
+		to_chat(user, "<span class='notice'>You insert [A] into the chest plate, and the armor gently hums to life.</span>")
 		new armour_path(get_turf(src))
 		qdel(src)
 		qdel(A)

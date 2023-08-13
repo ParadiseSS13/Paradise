@@ -386,6 +386,17 @@
 
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
+/obj/item/clothing/suit/pimpcoat
+	name = "expensive coat"
+	desc = "Very fluffy pink coat, made out of very expensive fur (clearly)."
+	icon_state = "pimpcoat"
+	item_state = "pimpcoat"
+	blood_overlay_type = "armor"
+	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO
+	allowed = list(/obj/item/tank/internals/emergency_oxygen)
+	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
 /obj/item/clothing/suit/furcoat
 	name = "fur coat"
 	desc = "A trenchcoat made from fur. You could put an oxygen tank in one of the pockets."
@@ -513,6 +524,7 @@
 	desc = "Hood hopefully belonging to an ablative trenchcoat. Includes a flash proof visor."
 	icon_state = "ablativehood"
 	flash_protect = FLASH_PROTECTION_FLASH
+	flags = BLOCKHAIR
 	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	strip_delay = 3 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi',

@@ -220,3 +220,45 @@
 	containername = "thermo-electric generator crate"
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
+
+/datum/supply_packs/engineering/canister/nitrogen
+	name = "Nitrogen canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/nitrogen)
+	cost = 50
+	containertype = /obj/structure/largecrate
+	containername = "nitrogen canister crate"
+
+/datum/supply_packs/engineering/canister/oxygen
+	name = "Oxygen canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/oxygen)
+	cost = 50
+	containertype = /obj/structure/largecrate
+	containername = "oxygen canister crate"
+
+/datum/supply_packs/engineering/canister/air
+	name = "Air canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/air)
+	cost = 50
+	containertype = /obj/structure/largecrate
+	containername = "Air canister crate"
+
+/datum/supply_packs/engineering/canister/sleeping_agent
+	name = "Nitrous oxide canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/sleeping_agent)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "Nitrous oxide canister crate"
+
+/datum/supply_packs/engineering/canister/carbon_dioxide
+	name = "Carbon dioxide canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/carbon_dioxide)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "Carbon dioxide canister crate"
+
+/datum/supply_packs/engineering/canister/toxins
+	name = "Plasma canister"
+	contains = list(/obj/machinery/atmospherics/portable/canister/toxins)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "Plasma canister crate"
