@@ -297,13 +297,7 @@
 	name = "Collectable Plushies Crate"
 	cost = 1000
 	containername = "collectable plushies crate! Brought to you by Bass.inc!"
-
-/datum/supply_packs/misc/randomised/plushie/generate_items()
-	. = list(/obj/random/plushie, /obj/random/plushie)
-	if(prob(1)) // 1 % chance to have a free of charge Blahbomb!
-		. += /obj/random/plushie/explosive
-	else
-		. += /obj/random/plushie
+	contains = list(/obj/random/plushie, /obj/random/plushie, /obj/random/plushie/explosive)
 
 /datum/supply_packs/misc/foamforce
 	name = "Foam Force Crate"

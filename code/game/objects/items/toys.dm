@@ -594,12 +594,17 @@
 /obj/random/plushie/item_to_spawn()
 	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
 
+/obj/random/plushie/explosive
+	var/explosive_chance = 1 // 1% to spawn a blahbomb!
+
 /obj/random/plushie/explosive/item_to_spawn() // To override the non explosive random plushie spawn
 	return
 
 /obj/random/plushie/explosive/spawn_item()
-	var/build_path = pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie))
+	var/build_path = ..()
 	var/obj/item/toy/plushie/plushie = new build_path(src.loc)
+    if(!prob(explosive_chance))
+        return plushie
 	var/obj/item/I = new /obj/item/grenade/syndieminibomb
 	plushie.has_stuffing = FALSE
 	plushie.grenade = I
