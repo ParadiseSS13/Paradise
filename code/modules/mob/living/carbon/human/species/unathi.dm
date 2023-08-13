@@ -98,7 +98,6 @@
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
-
 /datum/species/unathi/ashwalker
 	name = "Ash Walker"
 	name_plural = "Ash Walkers"
