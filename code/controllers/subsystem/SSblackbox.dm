@@ -328,7 +328,7 @@ SUBSYSTEM_DEF(blackbox)
 			"coord" = "[L.x], [L.y], [L.z]",
 			"server_id" = GLOB.configuration.system.instance_id,
 			"rid" = GLOB.round_id,
-			"last_words" = L.say_log.len > 0 ? L.say_log[L.say_log.len] : null
+			"last_words" = length(L.say_log) > 0 ? L.say_log[L.say_log.len] : null
 		)
 	)
 	deathquery.warn_execute()
