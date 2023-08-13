@@ -1243,7 +1243,7 @@
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(!good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
-				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
+				playsound(loc, 'sound/misc/compiler-failure.ogg', 2, TRUE)
 				reason = "You ended up hiring incompetent candidates and now the company is wasting lots of resources to fix what you caused..."
 			else if(curriculums >= 5)
 				win()
@@ -1272,7 +1272,7 @@
 					generate_candidate()
 
 		if("start_game")
-			playsound(user, 'sound/effects/pressureplate.ogg', 20, TRUE)
+			playsound(user, 'sound/effects/pressureplate.ogg', 10, TRUE)
 			good_candidate = TRUE
 			game_status = RECRUITER_STATUS_NORMAL
 			curriculums = 1
@@ -1282,11 +1282,11 @@
 				generate_candidate()
 
 		if("instructions")
-			playsound(user, 'sound/effects/pressureplate.ogg', 20, TRUE)
+			playsound(user, 'sound/effects/pressureplate.ogg', 10, TRUE)
 			game_status = RECRUITER_STATUS_INSTRUCTIONS
 
 		if("back_to_menu")
-			playsound(user, 'sound/effects/pressureplate.ogg', 20, TRUE)
+			playsound(user, 'sound/effects/pressureplate.ogg', 10, TRUE)
 			game_status = RECRUITER_STATUS_START
 
 /obj/machinery/computer/arcade/recruiter/attack_hand(mob/user)
