@@ -601,8 +601,7 @@
 	return
 
 /obj/random/plushie/explosive/spawn_item()
-	var/build_path = ..()
-	var/obj/item/toy/plushie/plushie = new build_path(src.loc)
+	var/obj/item/toy/plushie/plushie = ..()
 	if(!prob(explosive_chance))
 		return plushie
 	var/obj/item/I = new /obj/item/grenade/syndieminibomb
