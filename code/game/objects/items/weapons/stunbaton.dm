@@ -66,6 +66,7 @@
 		icon_state = "[base_icon]_nocell"
 	else
 		icon_state = "[base_icon]"
+
 /obj/item/melee/baton/examine(mob/user)
 	. = ..()
 	if(isrobot(user))
@@ -234,6 +235,9 @@
 
 	var/user_UID = thrownby
 	var/mob/user = locateUID(thrownby)
+	if(!istype(user) || (user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user)))
+		return
+
 	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID))
 		return FALSE
 
