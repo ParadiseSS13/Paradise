@@ -322,11 +322,11 @@
 	force = 0
 	flags = DROPDEL
 	origin_tech = null
+	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
 
 /obj/item/match/unathi/New()
 	..()
-	lit = TRUE
 	START_PROCESSING(SSobj, src)
 
 /obj/item/match/unathi/matchburnout()
