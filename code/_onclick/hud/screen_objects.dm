@@ -436,6 +436,7 @@
 /obj/screen/inventory/hand
 	var/image/active_overlay
 	var/image/handcuff_overlay
+	var/static/mutable_appearance/blocked_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "blocked")
 
 /obj/screen/inventory/hand/update_overlays()
 	. = ..()
@@ -450,6 +451,10 @@
 			var/mob/living/carbon/C = hud.mymob
 			if(C.handcuffed)
 				. += handcuff_overlay
+
+			var/obj/item/organ/external/hand = C.get_organ("[slot_id == slot_l_hand ? "l" : "r"]_hand")
+			if(!hand || !hand.is_usable())
+				. += blocked_overlay
 
 		if(slot_id == slot_l_hand && hud.mymob.hand)
 			. += active_overlay

@@ -1354,3 +1354,30 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_CLOWN), "Emergency Response Clown")
 	H.sec_hud_set_ID()
+
+/datum/outfit/admin/observer
+	name = "Observer"
+
+	uniform = /obj/item/clothing/under/costume/tourist_suit
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/black
+	box = /obj/item/storage/box/survival
+	backpack_contents = list(
+		/obj/item/implanter/dust = 1
+		)
+
+/datum/outfit/admin/observer/plasmaman
+	name = "Observer (Plasma)"
+
+	uniform = /obj/item/clothing/under/plasmaman/assistant
+	head = /obj/item/clothing/head/helmet/space/plasmaman/assistant
+	mask = /obj/item/clothing/mask/breath
+	belt = /obj/item/tank/internals/plasmaman/belt/full
+	box = /obj/item/storage/box/survival_plasmaman
+
+/datum/outfit/admin/observer/vox
+	name = "Observer (Vox)"
+
+	mask = /obj/item/clothing/mask/breath/vox
+	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
+	box = /obj/item/storage/box/survival_vox

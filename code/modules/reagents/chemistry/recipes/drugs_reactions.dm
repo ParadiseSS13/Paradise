@@ -91,6 +91,14 @@
 	required_reagents = list("epinephrine" = 1, "atropine" = 1, "insulin" = 1)
 	result_amount = 3
 
+/datum/chemical_reaction/happiness
+	name = "Happiness"
+	id = "happiness"
+	result = "happiness"
+	required_reagents = list("space_drugs" = 1, "nitrogen" = 1, "oxygen" = 1, "sacid" = 2)
+	required_catalysts = list("plasma" = 5)
+	result_amount = 5
+
 /datum/chemical_reaction/fliptonium
 	name = "fliptonium"
 	id = "fliptonium"

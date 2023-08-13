@@ -153,9 +153,9 @@
 /obj/effect/proc_holder/spell/vampire/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
 	anchor = new(anchor_turf)
 	timer = addtimer(CALLBACK(src, PROC_REF(recall), user, TRUE), 2 MINUTES, TIMER_STOPPABLE)
-	should_recharge_after_cast = TRUE
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/proc/recall(mob/user, fake = FALSE)
+	cooldown_handler.start_recharge()
 	if(timer)
 		deltimer(timer)
 		timer = null
@@ -185,7 +185,6 @@
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/blood_cost = V.calculate_blood_cost(vampire)
 	vampire.bloodusable = clamp(vampire.bloodusable - blood_cost, 0, vampire.bloodusable)// Vampires get a coupon if they have less than the normal blood cost
-	addtimer(VARSET_CALLBACK(src, should_recharge_after_cast, FALSE), 1 SECONDS) // this is needed so that the spell handler knows we casted it properly
 
 /proc/shadow_to_animation(turf/start_turf, turf/end_turf, mob/user)
 	var/x_difference = end_turf.x - start_turf.x

@@ -1303,23 +1303,23 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 ///can the mob be buckled to something by default?
 /mob/proc/can_buckle()
-	return 1
+	return TRUE
 
 ///can the mob be unbuckled from something by default?
 /mob/proc/can_unbuckle()
-	return 1
+	return TRUE
 
 
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
-	return 0
+	return FALSE
 
 //Can this mob leave its location without breaking things terrifically?
 /mob/proc/can_safely_leave_loc()
-	return 1 // Yes, you can
+	return TRUE // Yes, you can
 
 /mob/proc/IsVocal()
-	return 1
+	return TRUE
 
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS

@@ -484,7 +484,7 @@
 	if(M.mind.assigned_role == "Clown")
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
-		M.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
+		M.AdjustDizzy(20 SECONDS, 0, 100 SECONDS)
 		M.Druggy(30 SECONDS)
 		if(prob(10))
 			M.EyeBlurry(10 SECONDS)
