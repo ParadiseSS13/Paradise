@@ -99,11 +99,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 			light("<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [name] with [L].</span>")
 
 	else if(istype(I, /obj/item/match/unathi))
-		var/obj/item/match/unathi/M = I
-		if(M.lit)
-			light("<span class='warning'>After a quick snout movement, [user] heats up [user.p_their()] [name] with [user.p_their()] breath and lights it on fire!</span>")
-			qdel(M)
-			return
+		var/obj/item/match/unathi/U = I
+		if(U.lit)
+			light("<span class='rose'>[user] spits fire at [user.p_their()] [name], igniting it.</span>")
+			U.matchburnout()
 
 	else if(istype(I, /obj/item/match))
 		var/obj/item/match/M = I

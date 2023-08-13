@@ -45,7 +45,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
 		"brain" =    /obj/item/organ/internal/brain/unathi,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
+		"eyes" =     /obj/item/organ/internal/eyes/unathi, //3 darksight.
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
@@ -60,19 +60,19 @@
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
-	var/datum/action/innate/tail_lash/lash = new()
+	//var/datum/action/innate/tail_lash/lash = new()
 	var/datum/action/innate/breathe_fire/fire = new()
-	lash.Grant(H)
+	//lash.Grant(H)
 	fire.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
-	for(var/datum/action/innate/tail_lash/lash in H.actions)
-		lash.Remove(H)
+	//for(var/datum/action/innate/tail_lash/lash in H.actions)
+	//	lash.Remove(H)
 	for(var/datum/action/innate/breathe_fire/fire in H.actions)
 		fire.Remove(H)
 
-/datum/action/innate/tail_lash
+/*/datum/action/innate/tail_lash
 	name = "Tail lash"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "tail"
@@ -103,32 +103,38 @@
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
 				to_chat(user, "<span class='warning'>You run out of momentum!</span>")
-				return
+				return*/
+
+/datum/action/innate/breathe_fire
+	name = "Ignite"
+	desc = "Requires you to drink welding fuel beforehand"
+	icon_icon = 'icons/obj/cigarettes.dmi'
+	var/cooldown = 0
+	button_icon_state = "match_unathi"
+	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+
+
+/datum/action/innate/breathe_fire/Activate()
+	var/mob/living/carbon/human/user = owner
+	if(user.reagents && user.reagents.has_reagent("fuel", 4))
+		var/obj/item/match/unathi/fire = new(user.loc, src)
+		if(user.put_in_hands(fire))
+			to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
+			user.reagents.del_reagent("fuel")
+		else
+			qdel(fire)
+			to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
+	else
+		to_chat(user, "<span class='warning'>You need to drink welding fuel first.</span>")
+
+/datum/action/innate/breathe_fire/IsAvailable()
+	if(..())
+		return TRUE
+	return FALSE
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
-//TO-DO:
-//-why does qdeling stuff crash everything?
-//-welding fuel should work
-//sprites
-/datum/action/innate/breathe_fire
-	name = "Ignite"
-	desc = "Drink welding fuel and breathe fire!"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "tail"
-	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
-
-/datum/action/innate/breathe_fire/Activate()
-	var/mob/living/carbon/human/user = owner
-	if(user.reagents && user.reagents.has_reagent(/datum/reagent/fuel,4))
-		to_chat(user, "<span class='notice'>You breathe fire!</span>")
-		var/obj/item/match/unathi/fire = new /obj/item/match/unathi(user.loc, src)
-		user.put_in_hands(fire)
-		user.reagents.del_reagent(/datum/reagent/fuel)
-	else
-		to_chat(user, "<span class='notice'>You need to drink welding fuel first!</span>")
-	return
 
 /datum/species/unathi/ashwalker
 	name = "Ash Walker"
@@ -152,5 +158,5 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
 		"brain" =    /obj/item/organ/internal/brain/unathi,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi
+		"eyes" =     /obj/item/organ/internal/eyes/unathi,
 		)

@@ -279,13 +279,13 @@
 		else
 			if(istype(src, /obj/item/match/unathi))
 				if(prob(80))
-					cig.light("<span class='notice'>[user] breathes hot air at [M], burning him and lighting [cig] in the process.</span>")
-					var/obj/item/organ/external/affecting = M.get_organ("[user.head]")
-					if(affecting.receive_damage( 0, 5 ))
-						M.UpdateDamageIcon()
+					cig.light("<span class='rose'>[user] spits fire at [M], burning [user.p_their()] face and lighting [cig] in the process.</span>")
+					var/obj/item/organ/external/head/affecting = M.get_organ("head")
+					affecting.receive_damage( 3, 7 )
+					M.UpdateDamageIcon()
 				else
-					cig.light("<span class='notice'>[user] breathes hot air at [M], lighting [cig] and nearly burning his face!</span>")
-				qdel(src)
+					cig.light("<span class='rose'>[user] spits fire at [M], lighting [cig] and nearly burning [user.p_their()] face!</span>")
+				matchburnout()
 			else
 				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
 			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
@@ -315,17 +315,22 @@
 
 
 /obj/item/match/unathi
-	name = "fire"
-	desc = "Hot hot hot"
-	attack_verb = list("huffed at", "puffed at")
-	smoketime = 10
+	name = "small blaze"
+	desc = "A little flame of your own, currently located dangerously in your mouth."
+	icon_state = "match_unathi"
+	force = 0
 	flags = DROPDEL
+	origin_tech = null
+	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
 
 /obj/item/match/unathi/New()
 	..()
 	matchignite()
-	name = "fire"
-	desc = "Hot hot hot"
+	name = "small blaze"
+	desc = "A little flame of your own, currently located dangerously in your mouth."
+	icon_state = "match_unathi"
+	force = 0
+	attack_verb = null
 
 /obj/item/match/unathi/matchburnout()
 	if(lit)
