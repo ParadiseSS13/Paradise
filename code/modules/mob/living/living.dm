@@ -680,8 +680,8 @@
 				var/mob/living/carbon/human/H = src
 				if(H.dna.species.blood_color)
 					existing_trail.color = H.dna.species.blood_color
-				else
-					existing_trail.color = "#A10808"
+			else
+				existing_trail.color = "#A10808"
 
 /mob/living/carbon/human/makeTrail(turf/T)
 
