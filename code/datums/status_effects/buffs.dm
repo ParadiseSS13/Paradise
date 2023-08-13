@@ -309,8 +309,7 @@
 		heal(L)
 
 /datum/status_effect/hippocraticOath/proc/heal(mob/living/L)
-	if(L.health < L.maxHealth)
-		new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
+	var/starting_points = heal_points
 
 	if(iscarbon(L))
 		L.adjustBruteLoss(-3.5)
@@ -339,6 +338,9 @@
 		SM.adjustHealth(-3.5)
 		if(prob(50)) // Animals are simpler
 			heal_points--
+
+	if(starting_points != heal_points)
+		new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
 
 /obj/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"
