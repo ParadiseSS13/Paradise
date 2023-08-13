@@ -287,16 +287,15 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 
-		if(H.health < H.maxHealth)
+		if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss())
+			H.adjustBruteLoss(-1.5)
+			H.adjustFireLoss(-1.5)
+			H.adjustOxyLoss(-1.5)
+			H.adjustToxLoss(-1.5)
+			H.adjustBrainLoss(-1.5)
+			H.adjustStaminaLoss(-1.5)
+			H.adjustCloneLoss(-0.5) // Because apparently clone damage is the bastion of all health
 			new /obj/effect/temp_visual/heal(get_turf(H), COLOR_HEALING_GREEN)
-
-		H.adjustBruteLoss(-1.5)
-		H.adjustFireLoss(-1.5)
-		H.adjustToxLoss(-1.5)
-		H.adjustOxyLoss(-1.5)
-		H.adjustStaminaLoss(-1.5)
-		H.adjustBrainLoss(-1.5)
-		H.adjustCloneLoss(-0.5) // Because apparently clone damage is the bastion of all health
 
 	// Regenerate points passively
 	if(heal_points < max_heal_points)
