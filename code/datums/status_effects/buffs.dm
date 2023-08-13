@@ -310,6 +310,7 @@
 
 /datum/status_effect/hippocraticOath/proc/heal(mob/living/L)
 	var/starting_points = heal_points
+	var/force_particle = FALSE
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
@@ -348,10 +349,11 @@
 		var/mob/living/simple_animal/SM = L
 		if(SM.getBruteLoss()) // Scuffed; there's no `.getHealth()` for simple animals, they just use bruteloss
 			SM.adjustHealth(-3.5)
+			force_particle = TRUE
 			if(prob(50)) // Animals are simpler
 				heal_points--
 
-	if(starting_points != heal_points)
+	if(starting_points != heal_points || force_particle)
 		new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
 
 /obj/screen/alert/status_effect/regenerative_core
