@@ -67,7 +67,7 @@
 	last_hit = world.time
 	streak += intent_to_streak(step)
 	var/mob/living/carbon/human/owner = locateUID(owner_UID)
-	owner?.hud_used.combo_display.update_icon_state(streak)
+	owner?.hud_used.combo_display.update_icon(ALL, streak)
 
 	if(HAS_COMBOS)
 		return check_combos(step, user, target)
@@ -77,7 +77,7 @@
 	current_combos.Cut()
 	streak = ""
 	var/mob/living/carbon/human/owner = locateUID(owner_UID)
-	owner?.hud_used.combo_display.update_icon_state(streak)
+	owner?.hud_used.combo_display.update_icon(ALL, streak)
 	for(var/combo_type in combos)
 		current_combos.Add(new combo_type())
 
@@ -452,24 +452,33 @@
 	screen_loc = ui_combo
 	layer = ABOVE_HUD_LAYER
 	var/timerid
+	var/streak
 
 /obj/screen/combo/proc/clear_streak()
 	cut_overlays()
+	streak = ""
 	icon_state = ""
 
-/obj/screen/combo/update_icon_state(streak = "")
-	clear_streak()
+/obj/screen/combo/update_icon(updates, _streak)
+	streak = _streak
+	return ..()
+
+/obj/screen/combo/update_overlays()
+	. = list()
+	for(var/i in 1 to length(streak))
+		var/intent_text = copytext(streak, i, i + 1)
+		var/image/intent_icon = image(icon, src, "combo_[intent_text]")
+		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
+		. += intent_icon
+
+/obj/screen/combo/update_icon_state()
+	icon_state = ""
 	if(timerid)
 		deltimer(timerid)
 	if(!streak)
 		return
 	timerid = addtimer(CALLBACK(src, PROC_REF(clear_streak)), COMBO_ALIVE_TIME, TIMER_UNIQUE | TIMER_STOPPABLE)
 	icon_state = "combo"
-	for(var/i in 1 to length(streak))
-		var/intent_text = copytext(streak, i, i + 1)
-		var/image/intent_icon = image(icon, src, "combo_[intent_text]")
-		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
-		add_overlay(intent_icon)
 
 
 #undef HAS_COMBOS
