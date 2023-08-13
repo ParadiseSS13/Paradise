@@ -1,5 +1,7 @@
 // original implementation: https://ss13.moe/wiki/index.php/Pulse_Demon
 
+#define PD_HIJACK_CB(pd, proc) (CALLBACK(pd, TYPE_PROC_REF(/mob/living/simple_animal/demon/pulse_demon, proc), src))
+
 #define PULSEDEMON_PLATING_SPARK_CHANCE 20
 #define PULSEDEMON_APC_CHARGE_MULTIPLIER 2
 #define PULSEDEMON_SMES_DRAIN_MULTIPLIER 10
@@ -110,7 +112,7 @@
 	/// Delay tracker for movement inside bots.
 	var/bot_movedelay = 0
 	/// A cyborg that has already been hijacked can be re-entered instantly.
-	var/list/hijacked_robots
+	var/list/hijacked_robots = list()
 
 	/// Images of cables currently being shown on the client.
 	var/list/cable_images = list()
@@ -120,8 +122,6 @@
 	var/list/hijacked_apcs = list()
 	/// Reference to the APC currently being hijacked.
 	var/obj/machinery/power/apc/apc_being_hijacked
-	/// This demon's progressbar helper, used for the hijacking timer on APCs and all charger types (cell, gun, cyborg).
-	var/datum/progressbar_helper/pb_helper
 
 /mob/living/simple_animal/demon/pulse_demon/Initialize(mapload)
 	. = ..()
@@ -141,8 +141,6 @@
 	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(deleted_handler))
 
 	RegisterSignal(SSdcs, COMSIG_GLOB_CABLE_UPDATED, PROC_REF(cable_updated_handler))
-
-	pb_helper = new()
 
 	current_power = locate(/obj/machinery/power) in loc
 	// in the case that both current_power and current_cable are null, the pulsedemon will die the next tick
@@ -186,9 +184,6 @@
 	hijacked_apcs -= A
 
 /mob/living/simple_animal/demon/pulse_demon/Destroy()
-	pb_helper.cancel() // just making sure nothing started between death() and here
-	QDEL_NULL(pb_helper)
-
 	cable_images.Cut()
 	apc_images.Cut()
 
@@ -284,7 +279,6 @@
 	return death()
 
 /mob/living/simple_animal/demon/pulse_demon/death()
-	pb_helper.cancel() // clean up any actions we were doing
 	var/turf/T = get_turf(src)
 	do_sparks(rand(2, 4), FALSE, src)
 	. = ..()
@@ -371,6 +365,11 @@
 		current_bot.hijacked = FALSE
 	current_bot = null
 
+	/*
+	A few notes about this terrible proc, If you're wondering, I didn't write it but man I do NOT want to touch it
+	1. A lot of this 100% shouldn't be on move, that's just waiting for something bad to happen
+	2. Never, EVER directly call a do_after here, it will cause move to sleep which is awful
+	*/
 	if(new_power)
 		current_power = new_power
 		current_cable = null
@@ -381,7 +380,7 @@
 			if(current_power in hijacked_apcs)
 				update_controlling_area()
 			else
-				try_hijack_apc(current_power)
+				addtimer(CALLBACK(src, PROC_REF(try_hijack_apc), current_power), 0) // This is awful, also prevents it from sleeping so... yippie?
 	else if(new_cable)
 		current_cable = new_cable
 		current_power = null
@@ -395,7 +394,7 @@
 		current_power = null
 		update_controlling_area()
 
-// signal to replace relaymove where or when?
+// signal to replace relaymove where or when? // Never, actually just manage your code instead
 /obj/machinery/power/relaymove(mob/user, dir)
 	if(!ispulsedemon(user))
 		return ..()
@@ -408,8 +407,6 @@
 		do_sparks(rand(2, 4), FALSE, src)
 		user.forceMove(T)
 		if(isapc(src))
-			if(src == demon.apc_being_hijacked)
-				demon.pb_helper.cancel()
 			demon.update_controlling_area(TRUE)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/adjust_charge(amount, adjust_max = FALSE)
@@ -601,18 +598,15 @@
 		return FALSE
 
 	do_hijack_notice(A)
-	if(pb_helper.start(src, A, hijack_time, TRUE, \
-		CALLBACK(src, PROC_REF(is_valid_apc), A), \
-		CALLBACK(src, PROC_REF(finish_hijack_apc), A, remote), \
-		CALLBACK(src, PROC_REF(fail_hijack)), \
-		CALLBACK(src, PROC_REF(cleanup_hijack_apc), A)))
-		apc_being_hijacked = A
-		A.being_hijacked = TRUE
-		A.update_icon()
-		return TRUE
-	else
-		to_chat(src, "<span class='warning'>You are already performing an action!</span>")
-		return FALSE
+	apc_being_hijacked = A
+	A.being_hijacked = TRUE
+	A.update_icon()
+	if(do_after(src, hijack_time, target = A))
+		if(is_valid_apc(A))
+			finish_hijack_apc(A, remote)
+		else
+			fail_hijack(A)
+	cleanup_hijack_apc(A)
 
 // note: the station maps supposedly average ~150 APCs, so the upper levels here are certainly possible, also you can manually upgrade the capacity stat
 /mob/living/simple_animal/demon/pulse_demon/proc/calc_maxcharge(n)

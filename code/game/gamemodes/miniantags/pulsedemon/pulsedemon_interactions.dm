@@ -1,4 +1,3 @@
-#define PD_HIJACK_CB(pd, proc) (CALLBACK(pd, TYPE_PROC_REF(/mob/living/simple_animal/demon/pulse_demon, proc), src))
 #define PD_HIJACK_FAIL(pd) (CALLBACK(pd, TYPE_PROC_REF(/mob/living/simple_animal/demon/pulse_demon, fail_hijack)))
 
 /mob/living/simple_animal/demon/pulse_demon/ClickOn(atom/A, params)
@@ -130,13 +129,16 @@
 
 /obj/machinery/recharger/attack_pulsedemon(mob/living/simple_animal/demon/pulse_demon/user)
 	user.forceMove(src)
-	if(user.check_valid_recharger(src))
-		if(!user.pb_helper.start(user, src, user.hijack_time, TRUE, PD_HIJACK_CB(user, check_valid_recharger), PD_HIJACK_CB(user, finish_hijack_recharger), PD_HIJACK_FAIL(user)))
-			to_chat(user, "<span class='warning'>You are already performing an action!</span>")
-		else
-			user.do_hijack_notice(charging)
-	else
+	if(!user.check_valid_recharger(src))
 		to_chat(user, "<span class='warning'>There is no weapon charging. Click again to retry.</span>")
+		return
+	user.do_hijack_notice(charging)
+	if(!do_after(user, user.hijack_time, FALSE, src))
+		return
+	if(user.check_valid_recharger(src))
+		user.finish_hijack_recharger(src)
+	else
+		user.fail_hijack()
 
 /mob/living/simple_animal/demon/pulse_demon/proc/check_valid_recharger(obj/machinery/recharger/R)
 	return R.charging
@@ -148,16 +150,19 @@
 
 /obj/machinery/cell_charger/attack_pulsedemon(mob/living/simple_animal/demon/pulse_demon/user)
 	user.forceMove(src)
-	if(user.check_valid_cell_charger(src))
-		if(charging.rigged)
-			user.finish_hijack_cell_charger(src)
-			return
-		if(!user.pb_helper.start(user, src, user.hijack_time, TRUE, PD_HIJACK_CB(user, check_valid_cell_charger), PD_HIJACK_CB(user, finish_hijack_cell_charger), PD_HIJACK_FAIL(user)))
-			to_chat(user, "<span class='warning'>You are already performing an action!</span>")
-		else
-			user.do_hijack_notice(charging)
-	else
+	if(!user.check_valid_recharger(src))
 		to_chat(user, "<span class='warning'>There is no cell charging. Click again to retry.</span>")
+		return
+	user.do_hijack_notice(charging)
+	if(charging.rigged)
+		user.finish_hijack_cell_charger(src)
+		return
+	if(!do_after(user, user.hijack_time, FALSE, src))
+		return
+	if(user.check_valid_recharger(src))
+		user.finish_hijack_cell_charger(src)
+	else
+		user.fail_hijack()
 
 /mob/living/simple_animal/demon/pulse_demon/proc/check_valid_cell_charger(obj/machinery/cell_charger/C)
 	return C.charging
@@ -168,18 +173,21 @@
 
 /obj/machinery/recharge_station/attack_pulsedemon(mob/living/simple_animal/demon/pulse_demon/user)
 	user.forceMove(src)
-	if(user.check_valid_recharge_station(src))
-		var/mob/living/silicon/robot/R = occupant
-		if(R in user.hijacked_robots)
-			user.finish_hijack_recharge_station(src)
-			return
-		if(!user.pb_helper.start(user, src, user.hijack_time, TRUE, PD_HIJACK_CB(user, check_valid_recharge_station), PD_HIJACK_CB(user, finish_hijack_recharge_station), PD_HIJACK_FAIL(user)))
-			to_chat(user, "<span class='warning'>You are already performing an action!</span>")
-		else
-			user.do_hijack_notice(occupant)
-			to_chat(R, "<span class='danger'>ALERT: ELECTRICAL MALEVOLENCE DETECTED, TARGETING SYSTEMS HIJACK IN PROGRESS</span>")
-	else
+	if(!user.check_valid_recharge_station(src))
 		to_chat(user, "<span class='warning'>There is no silicon-based occupant inside. Click again to retry.</span>")
+		return
+	user.do_hijack_notice(occupant)
+	var/mob/living/silicon/robot/R = occupant
+	if(R in user.hijacked_robots)
+		user.finish_hijack_recharge_station(src)
+		return
+	to_chat(R, "<span class='danger'>ALERT: ELECTRICAL MALEVOLENCE DETECTED, TARGETING SYSTEMS HIJACK IN PROGRESS</span>")
+	if(!do_after(user, user.hijack_time, FALSE, src))
+		return
+	if(user.check_valid_recharge_station(src))
+		user.finish_hijack_recharge_station(src)
+	else
+		user.fail_hijack()
 
 /mob/living/simple_animal/demon/pulse_demon/proc/check_valid_recharge_station(obj/machinery/recharge_station/R)
 	return isrobot(R.occupant)
@@ -264,5 +272,4 @@
 		to_chat(user, "You unload [load].")
 		unload(0)
 
-#undef PD_HIJACK_CB
 #undef PD_HIJACK_FAIL

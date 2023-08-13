@@ -338,7 +338,6 @@
 #include "code\datums\pipe_datums.dm"
 #include "code\datums\position_point_vector.dm"
 #include "code\datums\progressbar.dm"
-#include "code\datums\progressbar_helper.dm"
 #include "code\datums\radiation_wave.dm"
 #include "code\datums\radio_frequency.dm"
 #include "code\datums\recipe.dm"
