@@ -312,32 +312,35 @@
 	var/starting_points = heal_points
 
 	if(iscarbon(L))
-		L.adjustBruteLoss(-3.5)
-		L.adjustFireLoss(-3.5)
-		L.adjustToxLoss(-3.5)
-		L.adjustOxyLoss(-3.5)
-		L.adjustStaminaLoss(-3.5)
-		L.adjustBrainLoss(-3.5)
-		L.adjustCloneLoss(-1) // Because apparently clone damage is the bastion of all health
-		heal_points--
+		if(L.getBruteLoss() || L.getFireLoss() || L.getOxyLoss() || L.getToxLoss() || L.getBrainLoss() || L.getStaminaLoss() || L.getCloneLoss())
+			L.adjustBruteLoss(-3.5)
+			L.adjustFireLoss(-3.5)
+			L.adjustOxyLoss(-3.5)
+			L.adjustToxLoss(-3.5)
+			L.adjustBrainLoss(-3.5)
+			L.adjustStaminaLoss(-3.5)
+			L.adjustCloneLoss(-1) // Because apparently clone damage is the bastion of all health
+			heal_points--
 
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
 			for(var/obj/item/organ/external/E in H.bodyparts)
-				if(prob(10))
+				if(prob(10) && (E.status & (ORGAN_BROKEN | ORGAN_INT_BLEEDING | ORGAN_BURNT)) && !E.is_robotic())
 					E.mend_fracture()
 					E.fix_internal_bleeding()
 					E.fix_burn_wound(update_health = FALSE)
 					heal_points--
 	else if(issilicon(L))
-		L.adjustBruteLoss(-3.5)
-		L.adjustFireLoss(-3.5)
-		heal_points--
+		if(L.getBruteLoss() || L.getFireLoss())
+			L.adjustBruteLoss(-3.5)
+			L.adjustFireLoss(-3.5)
+			heal_points--
 	else if(isanimal(L))
 		var/mob/living/simple_animal/SM = L
-		SM.adjustHealth(-3.5)
-		if(prob(50)) // Animals are simpler
-			heal_points--
+		if(SM.getBruteLoss()) // Scuffed; there's no `.getHealth()` for simple animals, they just use bruteloss as health
+			SM.adjustHealth(-3.5)
+			if(prob(50)) // Animals are simpler
+				heal_points--
 
 	if(starting_points != heal_points)
 		new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
