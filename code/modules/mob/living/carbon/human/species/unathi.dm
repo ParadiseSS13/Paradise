@@ -70,11 +70,10 @@
 
 /datum/action/innate/ignite
 	name = "Ignite"
-	desc = "Requires you to drink welding fuel beforehand"
+	desc = "Requires you to drink welding fuel beforehand."
 	icon_icon = 'icons/obj/cigarettes.dmi'
-	var/cooldown = 0
 	button_icon_state = "match_unathi"
-	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
 
 
 /datum/action/innate/ignite/Activate()

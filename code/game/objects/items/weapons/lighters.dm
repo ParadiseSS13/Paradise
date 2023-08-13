@@ -281,7 +281,7 @@
 				if(prob(80))
 					cig.light("<span class='rose'>[user] spits fire at [M], burning [user.p_their()] face and lighting [cig] in the process.</span>")
 					var/obj/item/organ/external/head/affecting = M.get_organ("head")
-					affecting.receive_damage( 3, 7 )
+					affecting.receive_damage(3, 7)
 					M.UpdateDamageIcon()
 				else
 					cig.light("<span class='rose'>[user] spits fire at [M], lighting [cig] and nearly burning [user.p_their()] face!</span>")
@@ -318,6 +318,7 @@
 	name = "small blaze"
 	desc = "A little flame of your own, currently located dangerously in your mouth."
 	icon_state = "match_unathi"
+	attack_verb = null
 	force = 0
 	flags = DROPDEL
 	origin_tech = null
@@ -325,18 +326,12 @@
 
 /obj/item/match/unathi/New()
 	..()
-	matchignite()
-	name = "small blaze"
-	desc = "A little flame of your own, currently located dangerously in your mouth."
-	icon_state = "match_unathi"
-	force = 0
-	attack_verb = null
+	lit = TRUE
+	START_PROCESSING(SSobj, src)
 
 /obj/item/match/unathi/matchburnout()
-	if(lit)
-		lit = FALSE
-		burnt = TRUE
-		qdel(src)
-		return TRUE
-
-
+	if(!lit)
+		return
+	lit = FALSE //to avoid a qdel loop
+	qdel(src)
+	return TRUE
