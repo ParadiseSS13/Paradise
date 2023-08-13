@@ -45,7 +45,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
 		"brain" =    /obj/item/organ/internal/brain/unathi,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi, //3 darksight.
+		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
@@ -60,15 +60,15 @@
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
-	var/datum/action/innate/breathe_fire/fire = new()
+	var/datum/action/innate/ignite/fire = new()
 	fire.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
-	for(var/datum/action/innate/breathe_fire/fire in H.actions)
+	for(var/datum/action/innate/ignite/fire in H.actions)
 		fire.Remove(H)
 
-/datum/action/innate/breathe_fire
+/datum/action/innate/ignite
 	name = "Ignite"
 	desc = "Requires you to drink welding fuel beforehand"
 	icon_icon = 'icons/obj/cigarettes.dmi'
@@ -77,7 +77,7 @@
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
 
 
-/datum/action/innate/breathe_fire/Activate()
+/datum/action/innate/ignite/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(user.reagents && user.reagents.has_reagent("fuel", 4))
 		var/obj/item/match/unathi/fire = new(user.loc, src)
@@ -90,7 +90,7 @@
 	else
 		to_chat(user, "<span class='warning'>You need to drink welding fuel first.</span>")
 
-/datum/action/innate/breathe_fire/IsAvailable()
+/datum/action/innate/ignite/IsAvailable()
 	if(..())
 		return TRUE
 	return FALSE
@@ -121,5 +121,5 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
 		"brain" =    /obj/item/organ/internal/brain/unathi,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi,
+		"eyes" =     /obj/item/organ/internal/eyes/unathi
 		)
