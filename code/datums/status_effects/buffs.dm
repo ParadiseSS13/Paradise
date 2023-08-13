@@ -328,7 +328,7 @@
 			if(prob(10) && (E.status & (ORGAN_BROKEN | ORGAN_INT_BLEEDING | ORGAN_BURNT)) && !E.is_robotic())
 				E.mend_fracture()
 				E.fix_internal_bleeding()
-				E.fix_burn_wound(update_health = FALSE)
+				E.fix_burn_wound()
 				heal_points--
 	else if(iscarbon(L))
 		if(L.getBruteLoss() || L.getFireLoss() || L.getOxyLoss() || L.getToxLoss() || L.getBrainLoss() || L.getStaminaLoss() || L.getCloneLoss())
