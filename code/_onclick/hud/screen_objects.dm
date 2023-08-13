@@ -50,12 +50,12 @@
 
 
 /obj/screen/drop
-	name = "drop"
+	name = "accurate drop"
 	icon_state = "act_drop"
 
 /obj/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
-		usr.drop_item_ground(usr.get_active_hand())
+		usr.drop_item_ground(usr.get_active_hand(), ignore_pixel_shift = TRUE)
 
 
 /obj/screen/grab
