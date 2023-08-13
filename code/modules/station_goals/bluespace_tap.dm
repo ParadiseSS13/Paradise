@@ -178,7 +178,7 @@
 		/obj/item/reagent_containers/food/snacks/fishandchips,
 		/obj/item/reagent_containers/food/snacks/meatpie,
 		/obj/item/pizzabox/hawaiian, //it ONLY gives hawaiian. MUHAHAHA
-		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
+		/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno //maybe add some dangerous/special food here, ie robobuger?
 	)
 
 #define kW *1000

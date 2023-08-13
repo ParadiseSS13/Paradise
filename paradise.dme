@@ -2267,6 +2267,7 @@
 #include "code\modules\mob\living\simple_animal\hostile\bat.dm"
 #include "code\modules\mob\living\simple_animal\hostile\bear.dm"
 #include "code\modules\mob\living\simple_animal\hostile\bees.dm"
+#include "code\modules\mob\living\simple_animal\hostile\bread_monster.dm"
 #include "code\modules\mob\living\simple_animal\hostile\carp.dm"
 #include "code\modules\mob\living\simple_animal\hostile\creature.dm"
 #include "code\modules\mob\living\simple_animal\hostile\deathsquid.dm"

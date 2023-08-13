@@ -57,6 +57,10 @@
 /atom/movable/proc/get_cell()
 	return
 
+//Handles special effects on teleporting. Overload for some items if you want to do so.
+/atom/movable/proc/on_teleported()
+	return
+
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	var/mob/M = AM
 	if(ismob(M) && M.buckled)

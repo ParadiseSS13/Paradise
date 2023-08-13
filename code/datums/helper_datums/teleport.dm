@@ -144,6 +144,7 @@
 			L.unbuckle_all_mobs(force = TRUE)
 
 	destarea.Entered(teleatom)
+	teleatom.on_teleported()
 
 	return 1
 

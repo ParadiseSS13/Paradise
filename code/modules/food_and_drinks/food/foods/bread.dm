@@ -3,7 +3,7 @@
 //		Breads		//
 //////////////////////
 
-/obj/item/reagent_containers/food/snacks/sliceable/meatbread
+/obj/item/reagent_containers/food/snacks/sliceable/bread/meat
 	name = "meatbread loaf"
 	desc = "The culinary base of every self-respecting eloquen/tg/entleman."
 	icon_state = "meatbread"
@@ -22,7 +22,7 @@
 	filling_color = "#FF7575"
 	foodtype = GRAIN | MEAT
 
-/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread
+/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno
 	name = "xenomeatbread loaf"
 	desc = "The culinary base of every self-respecting eloquent gentleman. Extra Heretical."
 	icon_state = "xenomeatbread"
@@ -41,7 +41,7 @@
 	filling_color = "#8AFF75"
 	foodtype = GRAIN | MEAT
 
-/obj/item/reagent_containers/food/snacks/sliceable/spidermeatbread
+/obj/item/reagent_containers/food/snacks/sliceable/bread/spider
 	name = "spider meat loaf"
 	desc = "Reassuringly green meatloaf made from spider meat."
 	icon_state = "spidermeatbread"
@@ -59,7 +59,7 @@
 	list_reagents = list("toxin" = 2)
 	foodtype = GRAIN | MEAT | TOXIC
 
-/obj/item/reagent_containers/food/snacks/sliceable/bananabread
+/obj/item/reagent_containers/food/snacks/sliceable/bread/banana
 	name = "banana-nut bread"
 	desc = "A heavenly and filling treat."
 	icon_state = "bananabread"
@@ -79,7 +79,7 @@
 	tastes = list("bread" = 10)
 	foodtype = GRAIN | FRUIT
 
-/obj/item/reagent_containers/food/snacks/sliceable/tofubread
+/obj/item/reagent_containers/food/snacks/sliceable/bread/tofu
 	name = "tofubread"
 	icon_state = "Like meatbread but for vegetarians. Not guaranteed to give superpowers."
 	icon_state = "tofubread"
@@ -109,6 +109,12 @@
 	tastes = list("bread" = 10)
 	foodtype = GRAIN
 
+/obj/item/reagent_containers/food/snacks/sliceable/bread/on_teleported()
+	if(length(GLOB.bread_monsters) < GLOB.bread_monsters_maxcap)
+		new /mob/living/simple_animal/hostile/bread_monster(get_turf(src))
+		qdel(src)
+	return
+
 /obj/item/reagent_containers/food/snacks/breadslice
 	name = "bread slice"
 	desc = "A slice of home."
@@ -118,6 +124,16 @@
 	list_reagents = list("nutriment" = 2, "bread" = 5)
 	tastes = list("bread" = 10)
 	foodtype = GRAIN
+
+/obj/item/reagent_containers/food/snacks/breadslice/burned
+	name = "burned bread slice"
+	desc = "A slice of slightly burned bread. Probably it's not the best idea to eat this..."
+	icon_state = "breadslice"
+	trash = /obj/item/trash/plate
+	filling_color = "#D27332"
+	list_reagents = list("nutriment" = 2, "bread" = 5, "????" = 2)
+	tastes = list("bread" = 10)
+	foodtype = GRAIN | TOXIC
 
 /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread
 	name = "cream cheese bread"

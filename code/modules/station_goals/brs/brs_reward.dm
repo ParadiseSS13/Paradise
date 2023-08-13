@@ -159,7 +159,7 @@
 		/obj/item/reagent_containers/food/snacks/meatpie,
 		/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit,
 		/obj/item/reagent_containers/food/snacks/soup/mysterysoup,
-		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread,
+		/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno,
 		/obj/item/clothing/head/collectable/chef,
 		/obj/item/clothing/head/collectable/paper,
 		/obj/item/clothing/head/collectable/tophat,
@@ -220,7 +220,7 @@
 
 /obj/effect/spawner/lootdrop/bluespace_rift/goal_complete
 	lootcount = 2
-	lootdoubles = FALSE	
+	lootdoubles = FALSE
 	loot = list(
 		/obj/structure/toilet/bluespace/nt,
 		/obj/item/paper/researchnotes_brs,

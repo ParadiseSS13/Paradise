@@ -2367,7 +2367,7 @@
 /area/space)
 "gv" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread,
+/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno,
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
