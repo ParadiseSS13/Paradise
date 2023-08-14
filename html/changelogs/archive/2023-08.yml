@@ -120,3 +120,12 @@
   Zwei:
   - add: Accurate Item Drop (#3171)
   - tweak: Clever Odysseus Sleeper (#3192)
+'2023-08-14':
+  Den109G:
+  - bugfix: icons for holders (#3341)
+  - del: Reverts changes in USSP (#3345)
+  Zwei:
+  - bugfix: Few Objectives Fixes (#3346)
+  - bugfix: More Runtimes Fixed (#3298)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3340)
