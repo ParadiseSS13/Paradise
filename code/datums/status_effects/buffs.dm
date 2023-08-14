@@ -214,18 +214,26 @@
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	for(var/Y in H.bodyparts)
-		var/obj/item/organ/external/E = Y // Wait looking back on this, this is stupid. I'll redo this later but I can't now
-		E.limb_flags |= CANNOT_BREAK
-		E.limb_flags |= CANNOT_DISMEMBER
-		E.limb_flags |= CANNOT_BURN
+		var/obj/item/organ/external/E = Y
+		E.limb_flags |= CANNOT_INT_BLEED
+		if(!HAS_TRAIT(owner, TRAIT_NO_BONES))
+			E.limb_flags |= CANNOT_BREAK
+		if(!HAS_TRAIT(owner, TRAIT_STURDY_LIMBS))
+			E.limb_flags |= CANNOT_DISMEMBER
+		if(!HAS_TRAIT(owner, TRAIT_BURN_WOUND_IMMUNE))
+			E.limb_flags |= CANNOT_BURN
 
 /datum/status_effect/vampire_gladiator/on_remove()
 	var/mob/living/carbon/human/H = owner
 	for(var/Y in H.bodyparts)
 		var/obj/item/organ/external/E = Y
-		E.limb_flags -= CANNOT_BREAK
-		E.limb_flags -= CANNOT_DISMEMBER
-		E.limb_flags -= CANNOT_BURN
+		E.limb_flags -= CANNOT_INT_BLEED
+		if(!HAS_TRAIT(owner, TRAIT_NO_BONES))
+			E.limb_flags -= CANNOT_BREAK
+		if(!HAS_TRAIT(owner, TRAIT_STURDY_LIMBS))
+			E.limb_flags -= CANNOT_DISMEMBER
+		if(!HAS_TRAIT(owner, TRAIT_BURN_WOUND_IMMUNE))
+			E.limb_flags -= CANNOT_BURN
 
 /datum/status_effect/vampire_gladiator/tick()
 	owner.adjustStaminaLoss(-20)

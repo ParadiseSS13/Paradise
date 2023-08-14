@@ -686,6 +686,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(NO_BLOOD in owner.dna.species.species_traits)
 		return
+	if(limb_flags & CANNOT_INT_BLEED)
+		return
 	status |= ORGAN_INT_BLEEDING
 	owner.custom_pain("You feel something rip in your [name]!")
 

@@ -15,6 +15,7 @@
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)
 #define CANNOT_BURN			(1 << 2)
+#define CANNOT_INT_BLEED	(1 << 3)
 
 #define PROCESS_ACCURACY 10
 
