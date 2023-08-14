@@ -139,7 +139,7 @@
 	update_icon()
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
 	if(!silent_arming)
-		user.visible_message("<span class='danger'>[user] triggers [src].", "<span class='userdanger'>You trigger [src].")
+		user.visible_message("<span class='danger'>[user] triggers [src].</span>", "<span class='userdanger'>You trigger [src].</span>")
 
 	if(sig)
 		sig.signal()
