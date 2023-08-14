@@ -99,7 +99,7 @@
 	return TRUE
 
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
-	if(!armed || !(isturf(src.loc)))
+	if(!armed || !isturf(loc))
 		return ..()
 
 	if(armed && isturf(src.loc))
