@@ -704,7 +704,7 @@
 		if(!wearer)
 			part.forceMove(src)
 			return
-		retract(wearer, part)
+		retract(wearer, part, TRUE)
 		if(active)
 			INVOKE_ASYNC(src, PROC_REF(toggle_activate), wearer, TRUE)
 
