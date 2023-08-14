@@ -561,21 +561,16 @@
 	if(!istype(H))
 		return
 	if(stat == DEAD)
-		H.icon = 'icons/mob/pai.dmi'
-		H.icon_state = "[chassis]_dead"
 		return
 	if(resting)
 		icon_state = "[chassis]"
 		resting = 0
 	if(custom_sprite)
-		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
 		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
 		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
-		H.icon_state = "[icon_state]"
 		H.item_state = "[icon_state]_hand"
 	else
-		H.icon_state = "pai-[icon_state]"
 		H.item_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
 	grabber.update_inv_l_hand()

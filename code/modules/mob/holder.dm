@@ -74,17 +74,20 @@
 	return
 
 //Mob procs and vars for scooping up
-/mob/living/var/holder_type
+/mob/living
+	var/holder_type = null
 
 /mob/living/proc/get_scooped(var/mob/living/carbon/grabber)
-	if(!holder_type)	return
+	if(!holder_type)
+		return
 
 	var/obj/item/holder/H = new holder_type(loc)
 	src.forceMove(H)
 	H.name = name
-	if(istype(H, /obj/item/holder/mouse))	H.icon_state = icon_state
-	if(istype(H, /obj/item/holder/chicken))	H.icon_state = icon_state
-	if(desc)	H.desc = desc
+	H.icon = icon
+	H.icon_state = icon_state
+	if(desc)
+		H.desc = desc
 	H.attack_hand(grabber)
 
 	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
