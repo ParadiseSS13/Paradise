@@ -78,7 +78,7 @@
 
 /datum/action/innate/ignite/Activate()
 	var/mob/living/carbon/human/user = owner
-	if(user.reagents && user.reagents.has_reagent("fuel", 4))
+	if(user.reagents && user.reagents.has_reagent("fuel", 3))
 		var/obj/item/match/unathi/fire = new(user.loc, src)
 		if(user.put_in_hands(fire))
 			to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
