@@ -187,12 +187,13 @@
 /obj/item/implant/mod/proc/mod_step() //Step,increase tries if failed
 	if(!length(path))
 		return FALSE
-	for(var/obj/machinery/door/airlock/A in range(2, module.mod))
-		if(A.operating || A.emagged)
+	for(var/obj/machinery/door/D in range(2, module.mod))
+		if(D.operating || D.emagged)
 			continue
-		if(A.requiresID() && A.allowed(imp_in))
-			if(A.density)
-				A.open()
+		if(D.requiresID() && D.allowed(imp_in))
+			if(D.density)
+				D.open()
+
 
 	if(!step_towards(module.mod, path[1]))
 		tries++
