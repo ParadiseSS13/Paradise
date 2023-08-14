@@ -144,6 +144,9 @@
 /obj/structure/clockwork/wall_gear/displaced
 	anchored = FALSE
 
+/obj/structure/clockwork/wall_gear/fake/displaced
+	anchored = FALSE
+
 /obj/structure/clockwork/wall_gear/Initialize()
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
@@ -214,4 +217,50 @@
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && disassembled)
 		new /obj/item/stack/sheet/brass(loc, 1)
+	return ..()
+
+/obj/structure/clockwork/wall_gear/fake
+	desc = "A massive tarnished brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
+	max_integrity = 200
+
+/obj/structure/clockwork/wall_gear/fake/narsie_act()
+	if(prob(25))
+		new /obj/structure/girder/cult(loc)
+		qdel(src)
+
+/obj/structure/clockwork/wall_gear/fake/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/brass_fake))
+		var/obj/item/stack/sheet/brass_fake/W = I
+		if(W.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
+			return
+		var/turf/T = get_turf(src)
+		if(iswallturf(T))
+			to_chat(user, "<span class='warning'>There is already a wall present!</span>")
+			return
+		if(!isfloorturf(T))
+			to_chat(user, "<span class='warning'>A floor must be present to build a [anchored ? "false ":""]wall!</span>")
+			return
+		if(locate(/obj/structure/falsewall) in T.contents)
+			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
+			return
+		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
+		if(do_after(user, 2 SECONDS, target = src))
+			var/brass_floor_fake = FALSE
+			if(istype(T, /turf/simulated/floor/clockwork/fake)) //if the floor is already brass, costs less to make(conservation of masssssss)
+				brass_floor_fake = TRUE
+			if(W.use(2 - brass_floor_fake))
+				if(anchored)
+					T.ChangeTurf(/turf/simulated/wall/clockwork/fake)
+				else
+					T.ChangeTurf(/turf/simulated/floor/clockwork/fake)
+				qdel(src)
+			else
+				to_chat(user, "<span class='warning'>You need more brass to make a [anchored ? "false ":""]wall!</span>")
+		return TRUE
+	return ..()
+
+/obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT) && disassembled)
+		new /obj/item/stack/sheet/brass_fake(loc, 1)
 	return ..()

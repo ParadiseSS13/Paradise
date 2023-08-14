@@ -786,6 +786,20 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	cancolor = FALSE
 	var/made_glow = FALSE
 
+/obj/structure/window/reinforced/clockworkfake
+	name = "brass window"
+	desc = "A paper-thin pane of translucent yet reinforced brass. This one looks tarnished."
+	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon_state = "clockwork_window_single"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	max_integrity = 80
+	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
+	glass_type = /obj/item/stack/sheet/brass_fake
+	reinf = FALSE
+	cancolor = FALSE
+	var/made_glow = FALSE
+
 /obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
 	. = ..()
 	if(fulltile)
@@ -797,7 +811,25 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else
 		debris += new/obj/item/stack/sheet/brass(src, 1)
 
+/obj/structure/window/reinforced/clockworkfake/Initialize(mapload, direct)
+	. = ..()
+	if(fulltile)
+		made_glow = TRUE
+	QDEL_LIST(debris)
+	if(fulltile)
+		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
+		debris += new/obj/item/stack/sheet/brass_fake(src, 2)
+	else
+		debris += new/obj/item/stack/sheet/brass_fake(src, 1)
+
 /obj/structure/window/reinforced/clockwork/setDir(direct)
+	if(!made_glow)
+		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
+		E.setDir(direct)
+		made_glow = TRUE
+	..()
+
+/obj/structure/window/reinforced/clockworkfake/setDir(direct)
 	if(!made_glow)
 		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
 		E.setDir(direct)
@@ -816,6 +848,17 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/window/reinforced/clockwork/fulltile
+	icon_state = "clockwork_window"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
+	fulltile = TRUE
+	flags = PREVENT_CLICK_UNDER
+	dir = FULLTILE_WINDOW_DIR
+	max_integrity = 120
+	level = 3
+	glass_amount = 2
+
+/obj/structure/window/reinforced/clockworkfake/fulltile
 	icon_state = "clockwork_window"
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null

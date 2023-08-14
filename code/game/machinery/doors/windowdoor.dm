@@ -381,9 +381,23 @@
 	cancolor = FALSE
 	var/made_glow = FALSE
 
+/obj/machinery/door/window/clockwork_fake
+	name = "brass windoor"
+	desc = "A completely not magical thin door with translucent brass paneling."
+	icon_state = "clockwork"
+	base_state = "clockwork"
+	shards = 0
+	rods = 0
+	resistance_flags = ACID_PROOF | FIRE_PROOF
+	cancolor = FALSE
+
 /obj/machinery/door/window/clockwork/New(loc, set_dir)
 	..()
 	debris += new/obj/item/stack/sheet/brass(src, 2)
+
+/obj/machinery/door/window/clockwork_fake/New(loc, set_dir)
+	. = ..()
+	debris += new/obj/item/stack/sheet/brass_fake(src, 2)
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)

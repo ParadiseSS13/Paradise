@@ -458,7 +458,19 @@
 	metalUsed = 1
 	metal_type = /obj/item/stack/sheet/runed_metal
 
+/obj/structure/girder/cult_fake
+	name = "runed girder"
+	desc = "Framework made of a strange and shockingly cold metal. It does seem to have bolts, wow."
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "cultgirder"
+	metalUsed = 1
+	metal_type = /obj/item/stack/sheet/runed_metal_fake
+
 /obj/structure/girder/cult/Initialize(mapload)
+	. = ..()
+	icon_state = SSticker.cultdat?.cult_girder_icon_state
+
+/obj/structure/girder/cult_fake/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.cult_girder_icon_state
 
@@ -497,6 +509,45 @@
 			R.use(1)
 			var/turf/T = get_turf(src)
 			T.ChangeTurf(/turf/simulated/wall/cult)
+			qdel(src)
+	else
+		return ..()
+
+/obj/structure/girder/cult_fake/attackby(obj/item/W, mob/user, params)
+	add_fingerprint(user)
+	if(istype(W, /obj/item/melee/cultblade/dagger) && iscultist(user)) //Cultists can demolish cult girders instantly with their dagger
+		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
+		refundMetal(metalUsed)
+		qdel(src)
+	else if(istype(W, /obj/item/gun/energy/plasmacutter))
+		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
+		if(do_after(user, 40* W.toolspeed * gettoolspeedmod(user), target = src))
+			playsound(loc, W.usesound, 100, 1)
+			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
+			var/obj/item/stack/sheet/runed_metal_fake/R = new(get_turf(src), 1)
+			transfer_fingerprints_to(R)
+			qdel(src)
+	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
+		var/obj/item/pickaxe/drill/jackhammer/D = W
+		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
+		var/obj/item/stack/sheet/runed_metal_fake/R = new(get_turf(src), 1)
+		transfer_fingerprints_to(R)
+		D.playDigSound()
+		qdel(src)
+
+	else if(istype(W, /obj/item/stack/sheet/runed_metal_fake))
+		var/obj/item/stack/sheet/runed_metal_fake/R = W
+		if(R.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
+			return 0
+		user.visible_message("<span class='notice'>[user] begins laying runed metal on [src]...</span>", "<span class='notice'>You begin constructing a runed wall...</span>")
+		if(do_after(user, 10, target = src))
+			if(R.get_amount() < 1 || !R)
+				return
+			user.visible_message("<span class='notice'>[user] plates [src] with runed metal.</span>", "<span class='notice'>You construct a runed wall.</span>")
+			R.use(1)
+			var/turf/T = get_turf(src)
+			T.ChangeTurf(/turf/simulated/wall/cult_fake)
 			qdel(src)
 	else
 		return ..()

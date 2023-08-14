@@ -415,6 +415,15 @@ GLOBAL_LIST_INIT(cult_recipes, list(
 	new /datum/stack_recipe/cult("Archives (crafts zealot's blindfolds, shuttle curse orbs, and veil shifters)", /obj/structure/cult/functional/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("Altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 ))
+GLOBAL_LIST_INIT(cult_fake_recipes, list(
+	new /datum/stack_recipe/cult("Runed door", /obj/machinery/door/airlock/cult_fake, time = 50, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe/cult("Runed girder", /obj/structure/girder/cult_fake, time = 10, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe/cult("Pylon", /obj/structure/cult/pylon, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe/cult("Forge", /obj/structure/cult/forge, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe/cult("Archives", /obj/structure/cult/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe/cult("Altar", /obj/structure/cult/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe("Engraved floor tile", /obj/item/stack/tile/harsie, res_amount = 4, max_res_amount = 20),
+))
 
 /obj/item/stack/sheet/runed_metal
 	name = "runed metal"
@@ -425,6 +434,15 @@ GLOBAL_LIST_INIT(cult_recipes, list(
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
 	recipe_width = 700
+
+/obj/item/stack/sheet/runed_metal_fake
+	name = "runed metal"
+	desc = "Sheets of cold metal with shifting inscriptions writ upon them. is that math formulas?"
+	singular_name = "runed metal sheet"
+	icon_state = "sheet-runed"
+	item_state = "sheet-runed"
+	sheettype = "runed"
+	merge_type = /obj/item/stack/sheet/runed_metal_fake
 
 /obj/item/stack/sheet/runed_metal/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -466,9 +484,16 @@ GLOBAL_LIST_INIT(cult_recipes, list(
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50
 
+/obj/item/stack/sheet/runed_metal_fake/fifty
+	amount = 50
+
 /obj/item/stack/sheet/runed_metal/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.cult_recipes
+
+/obj/item/stack/sheet/runed_metal_fake/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.cult_fake_recipes
 
 /*
  * Brass
@@ -485,9 +510,28 @@ GLOBAL_LIST_INIT(brass_recipes, list(
 		new /datum/stack_recipe("Brass table frame", /obj/structure/table_frame/brass, time = 5, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
 		null,
+		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
 		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork, 2, time = 30, on_floor = TRUE, window_checks = TRUE),
 		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockwork, on_floor = TRUE, window_checks = TRUE),
 		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, on_floor = TRUE, window_checks = TRUE),
+	)),
+))
+
+GLOBAL_LIST_INIT(fake_brass_recipes, list(
+	new /datum/stack_recipe("Altar of credence", /obj/structure/clockwork/altar, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe("Eternal workshop", /obj/structure/clockwork/workshop, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe("Herald's beacon", /obj/structure/clockwork/beacon, 6, time = 80, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	new /datum/stack_recipe("Wall gear", /obj/structure/clockwork/wall_gear/fake, time = 10, one_per_turf = TRUE, on_floor = TRUE, cult_structure = FALSE),
+	null,
+	new /datum/stack_recipe_list("Windows and furniture", list(
+		new /datum/stack_recipe("Brass chair", /obj/structure/chair/brass/fake, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Brass table frame", /obj/structure/table_frame/brass/fake, time = 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
+		null,
+		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork_fake, 2, time = 30, on_floor = TRUE, window_checks = TRUE),
+		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockworkfake, on_floor = TRUE, window_checks = TRUE),
+		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockworkfake/fulltile, 2, on_floor = TRUE, window_checks = TRUE),
 	)),
 ))
 
@@ -540,6 +584,41 @@ GLOBAL_LIST_INIT(brass_recipes, list(
 	is_cyborg = 1
 	cyborg_construction_stack = /obj/item/stack/sheet/brass
 
+
+/obj/item/stack/sheet/brass_fake
+	name = "brass"
+	desc = "Specially hand-crafted sheets of brass. These ones look tarnished. "
+	singular_name = "brass sheet"
+	icon_state = "sheet-brass"
+	item_state = "sheet-brass"
+	icon = 'icons/obj/items.dmi'
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	throwforce = 10
+	max_amount = 50
+	throw_speed = 1
+	throw_range = 3
+	merge_type = /obj/item/stack/sheet/brass_fake
+
+/obj/item/stack/sheet/brass_fake/narsie_act()
+	qdel(src)
+
+/obj/item/stack/sheet/brass_fake/attack_self(mob/living/user)
+	if(iscultist(user))
+		user.visible_message("<span class='clocklarge'>\"I can't resist you.. bloody fool..\"</span>")
+	if(!isclocker(user))
+		to_chat(user, "<span class='warning'>Only my followers have to work with it...but I can't prevent it.</span>")
+	if(!is_level_reachable(user.z))
+		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		return
+
+	return ..()
+
+/obj/item/stack/sheet/brass_fake/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.fake_brass_recipes
+
+/obj/item/stack/sheet/brass_fake/fifty
+	amount = 50
 
 /*
  * Bones

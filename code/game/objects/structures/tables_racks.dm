@@ -641,6 +641,13 @@
 	buildstackamount = 1
 	canSmoothWith = list(/obj/structure/table/reinforced/brass)
 
+/obj/structure/table/reinforced/brass/fake
+	desc = "A solid, slightly beveled and totally not magic brass table."
+	frame = /obj/structure/table_frame/brass/fake
+	framestack = /obj/item/stack/sheet/brass_fake
+	buildstack = /obj/item/stack/sheet/brass_fake
+	canSmoothWith = list(/obj/structure/table/reinforced/brass/fake)
+
 /obj/structure/table/reinforced/brass/narsie_act()
 	take_damage(rand(15, 45), BRUTE)
 	if(src) //do we still exist?
@@ -650,6 +657,9 @@
 
 /obj/structure/table/reinforced/brass/ratvar_act()
 	obj_integrity = max_integrity
+
+/obj/structure/table/reinforced/brass/fake/ratvar_act()
+	return
 
 /obj/structure/table/tray
 	name = "surgical tray"

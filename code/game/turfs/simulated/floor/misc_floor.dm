@@ -163,6 +163,10 @@
 	var/uses_overlay = TRUE
 	var/obj/effect/clockwork/overlay/floor/realappearence
 
+/turf/simulated/floor/clockwork/fake
+	desc = "Tightly-pressed brass tiles. They emit minute vibration. Or it just your imagination?"
+	baseturf = /turf/simulated/floor/clockwork/fake
+
 /turf/simulated/floor/clockwork/Initialize(mapload)
 	. = ..()
 	if(uses_overlay)
@@ -194,6 +198,14 @@
 /turf/simulated/floor/clockwork/make_plating()
 	if(!dropped_brass)
 		new /obj/item/stack/sheet/brass(src)
+		dropped_brass = TRUE
+	if(baseturf == type)
+		return
+	return ..()
+
+/turf/simulated/floor/clockwork/fake/make_plating()
+	if(!dropped_brass)
+		new /obj/item/stack/sheet/brass_fake(src)
 		dropped_brass = TRUE
 	if(baseturf == type)
 		return

@@ -9,12 +9,28 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
 
+/turf/simulated/wall/cult_fake
+	name = "runed metal wall"
+	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head remember school. Oh no.."
+	icon = 'icons/turf/walls/cult_wall.dmi'
+	icon_state = "cult"
+	canSmoothWith = null
+	smooth = SMOOTH_FALSE
+	sheet_type = /obj/item/stack/sheet/runed_metal_fake
+	sheet_amount = 1
+	girder_type = /obj/structure/girder/cult_fake
+
 /turf/simulated/wall/cult/Initialize(mapload)
 	. = ..()
 	if(SSticker.mode)//game hasn't started offically don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
 		if(!icon_state == "holy")
 			icon_state = SSticker.cultdat.cult_wall_icon_state
+
+/turf/simulated/wall/cult_fake/Initialize(mapload)
+	. = ..()
+	if(SSticker.mode)
+		new /obj/effect/temp_visual/cult/turf(src)
 
 /turf/simulated/wall/cult/artificer
 	name = "runed stone wall"
@@ -71,6 +87,14 @@
 	baseturf = /turf/simulated/floor/clockwork
 	var/heated
 	var/obj/effect/clockwork/overlay/wall/realappearance
+
+/turf/simulated/wall/clockwork/fake
+	name = "clockwork wall"
+	desc = "A huge chunk of warm metal. The clanging of machinery emanates in the corner of your eyes. Maybe just a wind..."
+	sheet_type = /obj/item/stack/sheet/brass_fake
+	sheet_amount = 1
+	girder_type = /obj/structure/clockwork/wall_gear/fake
+	baseturf = /turf/simulated/floor/clockwork/fake
 
 /turf/simulated/wall/clockwork/Initialize()
 	. = ..()

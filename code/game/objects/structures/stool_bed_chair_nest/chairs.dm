@@ -538,3 +538,8 @@
 		user.visible_message("<span class='notice'>[user] stops [src]'s uncontrollable spinning.</span>", \
 		"<span class='notice'>You grab [src] and stop its wild spinning.</span>")
 		STOP_PROCESSING(SSfastprocess, src)
+
+/obj/structure/chair/brass/fake
+	name = "brass chair"
+	desc = "A spinny chair made of brass. It looks uncomfortable. Totally not magic!"
+	buildstacktype = /obj/item/stack/sheet/brass_fake

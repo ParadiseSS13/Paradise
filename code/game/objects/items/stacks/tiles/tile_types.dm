@@ -300,3 +300,22 @@
 
 /obj/item/stack/tile/arcade_carpet/loaded
 	amount = 20
+
+//Cult tiles
+/obj/item/stack/tile/clockwork
+	name = "clockwork floor tile"
+	singular_name = "clockwork floor tile"
+	desc = "Tightly-pressed brass tiles. They emit minute vibration in your hand."
+	icon_state = "tile_goldfancy"
+	turf_type = /turf/simulated/floor/clockwork
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	resistance_flags = FIRE_PROOF
+
+/obj/item/stack/tile/harsie
+	name = "engraved floor tile"
+	singular_name = "engraved floor tile"
+	desc = "dark tiles. You dont feel good about this."
+	icon_state = "tile_basalt"
+	turf_type = /turf/simulated/floor/engine/cult
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	resistance_flags = FIRE_PROOF

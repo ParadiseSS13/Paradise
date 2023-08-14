@@ -40111,9 +40111,9 @@
 /obj/item/melee/cultblade,
 /obj/item/restraints/legcuffs/bola/cult,
 /obj/item/whetstone/cult,
-/obj/item/stack/sheet/runed_metal{
-	amount = 50
-	},
+/obj/item/stack/sheet/brass_fake/fifty,
+/obj/item/stack/sheet/runed_metal/fifty,
+/obj/item/stack/sheet/runed_metal_fake/fifty,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

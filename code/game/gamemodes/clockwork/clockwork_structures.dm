@@ -6,12 +6,12 @@
 
 /obj/structure/clockwork/beacon
 	name = "herald's beacon"
-	desc = "An imposing spire formed of brass. It somewhat pulsates."
+	desc = "An imposing spire formed of brass. It somewhat pulsates. Cool and pretty!"
 	icon_state = "beacon"
 
 /obj/structure/clockwork/altar
 	name = "credence"
-	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
+	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 	icon_state = "altar"
 	density = 0
 
@@ -186,6 +186,9 @@
 	var/first_stage = FALSE // Did convert started?
 	var/second_stage = FALSE // Did we started to gib someone?
 	var/convert_timer = 0
+
+/obj/structure/clockwork/functional/fake_altar
+	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 
 /obj/structure/clockwork/functional/altar/Initialize(mapload)
 	. = ..()
