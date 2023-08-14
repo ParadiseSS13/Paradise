@@ -294,5 +294,5 @@
 	/obj/item/reagent_containers/food/snacks/fried_vox = 1,
 	/datum/reagent/consumable/ethanol = 100
 	)
-	result = /obj/item/reagent_containers/food/drinks/bottle/voxwine
-	category = CAT_FOOD
+	result = list(/obj/item/reagent_containers/food/drinks/bottle/voxwine)
+	category = CAT_MISC

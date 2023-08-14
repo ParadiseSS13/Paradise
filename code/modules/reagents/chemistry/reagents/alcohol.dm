@@ -1790,3 +1790,14 @@
 	drink_name = "Vox Wine"
 	drink_desc = "An interesting drink some may find rather offensive."
 	taste_description = "victory"
+
+/datum/reagent/consumable/ethanol/planet_cracker
+	name = "Planet Cracker"
+	id = "planet_cracker"
+	description = "This jubilant drink celebrates humanity's triumph over the alien menace. May be offensive to non-human crewmembers."
+	color = "#fdb7ff" // rgb: 253, 183, 255
+	alcohol_perc = 0.2
+	drink_icon = "planet_cracker"
+	drink_name = "Planet Cracker"
+	drink_desc = "This jubilant drink celebrates humanity's triumph over the alien menace. May be offensive to non-human crewmembers."
+	taste_description = "triumph with a hint of bitterness"

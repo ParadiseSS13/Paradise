@@ -15,6 +15,7 @@
 #define CAT_BREAD	"Breads"
 #define CAT_BURGER	"Burgers"
 #define CAT_CAKE	"Cakes"
+#define CAT_DRINK	"Drinks"
 #define CAT_EGG	"Egg-Based Food"
 #define CAT_MEAT	"Meats"
 #define CAT_SUSHI	"Sushi"
