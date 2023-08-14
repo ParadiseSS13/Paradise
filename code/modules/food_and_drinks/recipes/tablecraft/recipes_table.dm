@@ -287,3 +287,12 @@
 	result = list(/mob/living/simple_animal/pet/cat/cak)
 	category = CAT_FOOD
 	subcategory = CAT_CAKE //Cat! Haha, get it? CAT? GET IT? We get it - Love Felines -Foxes are better
+
+/datum/crafting_recipe/voxwine
+	name ="Vox Wine"
+	reqs = list(
+	/obj/item/reagent_containers/food/snacks/fried_vox = 1,
+	/datum/reagent/consumable/ethanol = 100
+	)
+	result = /obj/item/reagent_containers/cup/glass/bottle/voxwine
+	category = CAT_FOOD

@@ -1779,3 +1779,14 @@
 	mutated = TRUE
 
 	return ..()
+
+/datum/reagent/consumable/drink/voxwine
+	name = "Vox Wine"
+	id = "voxwine"
+	description = "An interesting drink some may find rather offensive."
+	color = "#cdd37b" // rgb: 205, 211, 123
+	alcohol_perc = 0.2
+	drink_icon = "voxwine"
+	drink_name = "Vox Wine"
+	drink_desc = "An interesting drink some may find rather offensive."
+	taste_description = "victory"
