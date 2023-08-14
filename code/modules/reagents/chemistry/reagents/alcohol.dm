@@ -1780,7 +1780,7 @@
 
 	return ..()
 
-/datum/reagent/consumable/drink/voxwine
+/datum/reagent/consumable/ethanol/voxwine
 	name = "Vox Wine"
 	id = "voxwine"
 	description = "An interesting drink some may find rather offensive."
