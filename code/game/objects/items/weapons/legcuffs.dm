@@ -102,8 +102,8 @@
 	if(!armed || !isturf(loc))
 		return ..()
 
-	if((iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
-		var/mob/living/L = AM
+	var/mob/living/L = AM
+	if((iscarbon(AM) || isanimal(AM)) && L.flying != TRUE)
 		spring_trap(AM)
 
 		if(ishuman(AM))
