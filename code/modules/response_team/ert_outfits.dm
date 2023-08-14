@@ -168,7 +168,7 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/ammo_box/magazine/laser = 2,
-		/obj/item/gun/energy/gun/pdw9/ert
+		/obj/item/gun/energy/gun/pdw9/ert = 1
 	)
 
 	cybernetic_implants = list(
