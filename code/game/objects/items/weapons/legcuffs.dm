@@ -102,22 +102,21 @@
 	if(!armed || !isturf(loc))
 		return ..()
 
-	if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
+	if((iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 		var/mob/living/L = AM
 		spring_trap(AM)
 
 		if(ishuman(AM))
 			var/mob/living/carbon/H = AM
 			if(IS_HORIZONTAL(H))
-				H.apply_damage(trap_damage, BRUTE,"chest")
+				H.apply_damage(trap_damage, BRUTE, "chest")
 			else
-				H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
+				H.apply_damage(trap_damage, BRUTE, pick("l_leg", "r_leg"))
 			if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 				H.legcuffed = src
 				forceMove(H)
 				H.update_inv_legcuffed()
 				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-
 		else
 			if(istype(L, /mob/living/simple_animal/hostile/bear))
 				L.apply_damage(trap_damage * 2.5, BRUTE)
