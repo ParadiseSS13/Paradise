@@ -8,7 +8,7 @@
 	combos = list(/datum/martial_combo/sleeping_carp/wrist_wrench, /datum/martial_combo/sleeping_carp/back_kick, /datum/martial_combo/sleeping_carp/stomach_knee, /datum/martial_combo/sleeping_carp/head_kick, /datum/martial_combo/sleeping_carp/elbow_drop)
 
 /datum/martial_art/the_sleeping_carp/can_use(mob/living/carbon/human/H)
-	if(length(H.reagents.addiction_list))
+	if(H.reagents && length(H.reagents.addiction_list))
 		return FALSE
 	return ..()
 

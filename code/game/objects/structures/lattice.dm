@@ -47,6 +47,8 @@
 	else
 		add_fingerprint(user)
 		var/turf/T = get_turf(src)
+		if(!T)
+			return
 		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
 
 /obj/structure/lattice/ratvar_act()

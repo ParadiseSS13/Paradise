@@ -229,7 +229,8 @@
 		return ..()
 	if(!gun)
 		qdel(src)
-	gun.create_portal(src)
+	if(!(locate(/obj/effect/portal) in get_turf(target)))
+		gun.create_portal(src)
 
 /obj/item/projectile/bullet/frag12
 	name ="explosive slug"

@@ -7,32 +7,46 @@
 	var/shift_frequency = 3
 	var/number_of_wormholes = 400
 
+
 /datum/event/wormholes/setup()
 	announceWhen = rand(0, 20)
 	endWhen = rand(40, 80)
 
-/datum/event/wormholes/start()
-	for(var/turf/simulated/floor/T in world)
-		if(is_station_level(T.z))
-			pick_turfs += T
 
+/datum/event/wormholes/start()
+	var/list/stations_z = levels_by_trait(STATION_LEVEL)
+	if(!length(stations_z))
+		return
+
+	var/list/station_turfs = block(locate(1, 1, stations_z[1]), locate(world.maxx, world.maxy, stations_z[1]))
+	for(var/turf/simulated/floor/new_turf in station_turfs)
+		pick_turfs |= new_turf
+
+	var/list/temp_turfs = pick_turfs.Copy()
 	for(var/i in 1 to number_of_wormholes)
-		var/turf/T = pick(pick_turfs)
-		wormholes += new /obj/effect/portal/wormhole(T, null, null, -1)
+		var/turf/anomaly_turf = pick_n_take(temp_turfs)
+		if(anomaly_turf)
+			wormholes |= new /obj/effect/portal/wormhole(anomaly_turf, null, null, -1)
+
 
 /datum/event/wormholes/announce()
 	GLOB.event_announcement.Announce("Зафиксированы пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", new_sound = 'sound/AI/spanomalies.ogg')
 
+
 /datum/event/wormholes/tick()
 	if(activeFor % shift_frequency == 0)
-		for(var/obj/effect/portal/wormhole/O in wormholes)
-			var/turf/T = pick(pick_turfs)
-			if(T)	O.loc = T
+		var/list/temp_turfs = pick_turfs.Copy()
+		for(var/obj/effect/portal/wormhole/wormhole in wormholes)
+			var/turf/anomaly_turf = pick_n_take(temp_turfs)
+			if(anomaly_turf)
+				wormhole.forceMove(anomaly_turf)
+
 
 /datum/event/wormholes/end()
-	for(var/obj/effect/portal/wormhole/O in wormholes)
-		qdel(O)
+	for(var/obj/effect/portal/wormhole/wormhole in wormholes)
+		qdel(wormhole)
 	wormholes.Cut()
+
 
 /obj/effect/portal/wormhole
 	name = "wormhole"
@@ -41,11 +55,13 @@
 	icon_state = "anom"
 	failchance = 0
 
+
 /obj/effect/portal/wormhole/can_teleport(atom/movable/M)
 	. = ..()
 
 	if(istype(M, /obj/singularity))
 		. = FALSE
+
 
 /obj/effect/portal/wormhole/teleport(atom/movable/M)
 	if(!can_teleport(M))

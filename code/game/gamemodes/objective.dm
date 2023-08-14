@@ -1364,7 +1364,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			if(killer_maroon_objective)
 				killer_maroon_objective.target = target
 				killer_maroon_objective.check_cryo = FALSE
-				killer_maroon_objective.explanation_text = "Prevent from escaping alive or assassinate [target.current.real_name], the [target.assigned_role]."
+				killer_maroon_objective.explanation_text = "Prevent from escaping alive or free [target.current.real_name], the [target.assigned_role]."
 				killers_objectives += killer_maroon_objective
 			else if(killer_kill_objective)
 				killer_kill_objective.target = target
@@ -1378,6 +1378,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 				killer.assigned_targets = list()
 				//Подставная цель для трейтора
 				var/datum/objective/maroon/maroon_objective = killer.add_objective(/datum/objective/maroon, target_override = target)
+				maroon_objective.explanation_text = "Prevent from escaping alive or free [target.current.real_name], the [target.assigned_role]."
 				maroon_objective.check_cryo = FALSE
 				killers_objectives += maroon_objective
 				//Кража для трейтора

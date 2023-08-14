@@ -170,7 +170,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //
 // common trait sources
-#define TRAIT_GENERIC "generic"
+#define GENERIC_TRAIT "generic"
 #define MAGIC_TRAIT "magic"
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
 #define CULT_TRAIT "cult"

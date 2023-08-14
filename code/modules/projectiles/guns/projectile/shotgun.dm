@@ -290,7 +290,9 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/examine(mob/user)
-	. = desc // Override since magical hand lasers don't have chambers or bolts
+	var/f_name = "\a [src]."
+	. = list("[bicon(src)] That's [f_name]")
+	. += desc // Override since magical hand lasers don't have chambers or bolts
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/discard_gun(mob/living/user)
 	qdel(src)
