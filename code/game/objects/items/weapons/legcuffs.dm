@@ -102,41 +102,40 @@
 	if(!armed || !isturf(loc))
 		return ..()
 
-	if(armed && isturf(src.loc))
-		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
-			var/mob/living/L = AM
-			spring_trap(AM, IED, sig)
+	if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
+		var/mob/living/L = AM
+		spring_trap(AM)
 
-			if(ishuman(AM))
-				var/mob/living/carbon/H = AM
-				if(IS_HORIZONTAL(H))
-					H.apply_damage(trap_damage, BRUTE,"chest")
-				else
-					H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
-				if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
-					H.legcuffed = src
-					forceMove(H)
-					H.update_inv_legcuffed()
-					SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-
+		if(ishuman(AM))
+			var/mob/living/carbon/H = AM
+			if(IS_HORIZONTAL(H))
+				H.apply_damage(trap_damage, BRUTE,"chest")
 			else
-				if(istype(L, /mob/living/simple_animal/hostile/bear))
-					L.apply_damage(trap_damage * 2.5, BRUTE)
-				else
-					L.apply_damage(trap_damage * 1.75, BRUTE)
+				H.apply_damage(trap_damage, BRUTE,(pick("l_leg", "r_leg")))
+			if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+				H.legcuffed = src
+				forceMove(H)
+				H.update_inv_legcuffed()
+				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
+
+		else
+			if(istype(L, /mob/living/simple_animal/hostile/bear))
+				L.apply_damage(trap_damage * 2.5, BRUTE)
+			else
+				L.apply_damage(trap_damage * 1.75, BRUTE)
 	..()
 
 /obj/item/restraints/legcuffs/beartrap/on_found(mob/finder)
 	if(!armed)
 		return FALSE
-	spring_trap(finder, IED, sig)
+	spring_trap(finder)
 
 	if(ishuman(finder))
 		var/mob/living/carbon/H = finder
-		H.apply_damage(trap_damage, BRUTE, pick("'l_hand', 'r_hand'"))
+		H.apply_damage(trap_damage, BRUTE, pick("l_hand", "r_hand"))
 	return TRUE
 
-/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(mob/user, obj/item/grenade/iedcasing/IED, obj/item/assembly/signaler/sig)
+/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(mob/user)
 	armed = FALSE
 	update_icon()
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
