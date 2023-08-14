@@ -693,7 +693,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if((owner.assigned_role in new_theft_objective.protected_jobs))
 			continue
 
-		if(new_theft_objective in target_blacklist)
+		if(new_theft_objective.name in target_blacklist)
 			continue
 
 		steal_target = new_theft_objective

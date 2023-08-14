@@ -267,19 +267,9 @@
 	var/list/all_objectives = list()
 
 	for(var/datum/antagonist/antag in antag_datums)
-		if(QDELETED(antag))
-			continue
-
-		for(var/datum/objective/objective in antag.objectives)
-			if(QDELETED(objective))
-				continue
-
-			all_objectives += objective // Add all antag datum objectives.
+		all_objectives += antag.objectives	// Add all antag datum objectives.
 
 	for(var/datum/objective/objective in objectives)
-		if(QDELETED(objective))
-			continue
-
 		all_objectives += objective // Add all mind objectives.
 
 	return all_objectives
@@ -291,10 +281,6 @@
 /datum/mind/proc/remove_objective(datum/objective/objective)
 	for(var/datum/antagonist/antag in antag_datums)
 		antag.objectives -= objective
-		antag.assigned_targets -= "[objective.target]"
-		if(istype(objective, /datum/objective/steal))
-			var/datum/objective/steal/steal_objective = objective
-			antag.assigned_targets -= "[steal_objective.steal_target.name]"
 	objectives -= objective
 	qdel(objective)
 
@@ -830,15 +816,51 @@
 			if(objectives.Find(objective))
 				objective_pos = list(objectives.Find(objective), null)
 			else
-				for(var/datum/antagonist/antag as anything in antag_datums)
+				for(var/datum/antagonist/antag in antag_datums)
 					if(antag.objectives.Find(objective))
 						objective_pos = list(antag.objectives.Find(objective), antag)
 
 			//Text strings are easy to manipulate. Revised for simplicity.
 			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
-			def_value = copytext(temp_obj_type, 18)//Convert last part of path into an objective keyword.
+			def_value = copytext(temp_obj_type, 18)	//Convert last part of path into an objective keyword.
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
+
+			switch(def_value)
+				if("maroon")
+					def_value = "prevent from escape"
+				if("pain_hunter")
+					def_value = "pain hunter"
+				if("debrain")
+					def_value = "steal brain"
+				if("steal/hard")
+					def_value = "thief hard"
+				if("steal/medium")
+					def_value = "thief medium"
+				if("collect")
+					def_value = "thief collect"
+				if("steal_pet")
+					def_value = "thief pet"
+				if("steal_structure")
+					def_value = "thief structure"
+				if("escape_with_identity")
+					def_value = "identity theft"
+				if("block")
+					def_value = "kill all humans"
+				if("get_money")
+					def_value = "get money"
+				if("find_and_scan")
+					def_value = "find and scan"
+				if("set_up")
+					def_value = "set up"
+				if("research_corrupt")
+					def_value = "research corrupt"
+				if("ai_corrupt")
+					def_value = "ai corrupt"
+				if("plant_explosive")
+					def_value = "plant explosive"
+				if("cyborg_hijack")
+					def_value = "cyborg hijack"
 
 		var/list/objective_types = list(
 			"assassinate", "prevent from escape", "pain hunter", "steal brain", "protect", "escape", "survive",
@@ -922,7 +944,7 @@
 						if("steal brain")
 							description = "Steal the brain of"
 						if("prevent from escape")
-							description = "Prevent from escaping alive or assassinate"
+							description = "Prevent from escaping alive or free"
 						if("pain hunter")
 							var/datum/objective/pain_hunter/choose_objective = new_objective
 							choose_objective.update_find_objective()

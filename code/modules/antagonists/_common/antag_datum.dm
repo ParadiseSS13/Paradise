@@ -341,7 +341,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 			var/datum/objective/steal/our_objective = new_objective
 			var/list/steal_targets = list()
 			for(var/datum/objective/steal/steal_objective in owner.get_all_objectives())
-				steal_targets |= steal_objective.steal_target
+				if(!steal_objective.steal_target.name)
+					continue
+				steal_targets |= steal_objective.steal_target.name
 			our_objective.find_target(target_blacklist = steal_targets)
 
 			if(our_objective.steal_target)
