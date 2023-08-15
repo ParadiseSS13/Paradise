@@ -181,7 +181,7 @@
 	if(R in user.hijacked_robots)
 		user.finish_hijack_recharge_station(src)
 		return
-	to_chat(R, "<span class='danger'>ALERT: ELECTRICAL MALEVOLENCE DETECTED, TARGETING SYSTEMS HIJACK IN PROGRESS</span>")
+	to_chat(R, "<span class='userdanger'>ALERT: ELECTRICAL MALEVOLENCE DETECTED, TARGETING SYSTEMS HIJACK IN PROGRESS</span>")
 	if(!do_after(user, user.hijack_time, FALSE, src))
 		return
 	if(user.check_valid_recharge_station(src))
