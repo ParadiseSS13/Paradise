@@ -1067,7 +1067,7 @@
 									"Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
 
 	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Barber", "Botanist", "Explorer", "Quartermaster",
-						"Station Engineer", "Atmospherics Technician", "Medical Doctor", "Coroner","Geneticist", "Chaplain", "Librarian",
+						"Station Engineer", "Atmospheric Technician", "Medical Doctor", "Coroner","Geneticist", "Chaplain", "Librarian",
 						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs")
 	/// Jobs that NT stations dont offer/mispelled
 	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "Brig Physician",
