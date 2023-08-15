@@ -170,8 +170,6 @@
 	desc = "An interesting drink some may find rather offensive."
 	icon_state = "voxwine"
 	list_reagents = list("voxwine" = 100)
-
-
 /obj/item/reagent_containers/food/drinks/bottle/whiskey
 	name = "Uncle Git's Special Reserve"
 	desc = "A premium single-malt whiskey, gently matured inside the tunnels of a nuclear shelter. TUNNEL WHISKEY RULES."
