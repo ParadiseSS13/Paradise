@@ -14,5 +14,7 @@ Code shamelessly copied from apc_frame
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
 
 /obj/item/mounted/frame/alarm_frame/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/alarm(get_turf(src), get_dir(on_wall, user), 1)
+	var/obj/machinery/alarm/A = new/obj/machinery/alarm(get_turf(src), get_dir(on_wall, user), 1)
+	A.buildstage = AIR_ALARM_FRAME // Set the build stage to the initial state
+	A.update_icon()
 	qdel(src)
