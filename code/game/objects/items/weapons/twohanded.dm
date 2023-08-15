@@ -1198,29 +1198,33 @@
 
 			to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
 			playsound(loc, hitsound, 50, 1)
-			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
+
+			var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
 
 			if(do_after(user, 5 SECONDS * toolspeed, target = A))
+				new /obj/effect/temp_visual/obliteration(get_turf(A), A)
 				playsound(loc, 'sound/effects/supermatter.ogg', 25, 1)
 				var/turf/AT = A
 				AT.ChangeTurf(/turf/simulated/floor/plating)
 				return
 
-			qdel(E)
+			qdel(rays)
 			return
 
 		if(istype(A, /obj/machinery/door/airlock))
 
 			to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
 			playsound(loc, hitsound, 50, 1)
-			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
+
+			var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
 
 			if(do_after(user, 5 SECONDS * toolspeed, target = A))
+				new /obj/effect/temp_visual/obliteration(get_turf(A), A)
 				playsound(loc, 'sound/effects/supermatter.ogg', 25, 1)
 				qdel(A)
 				return
 
-			qdel(E)
+			qdel(rays)
 			return
 
 /obj/item/twohanded/supermatter/proc/recharge()
