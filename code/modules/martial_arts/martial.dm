@@ -27,8 +27,8 @@
 	var/list/combos = list()
 	/// What combos are currently (possibly) being performed.
 	var/list/datum/martial_art/current_combos = list()
-	/// When the last hit happened.
-	var/last_hit = 0
+	/// Stores the timer_id for the combo timeout timer
+	var/combo_timer
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
 	/// If the martial art allows parrying.
@@ -62,9 +62,13 @@
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!can_use(user))
 		return MARTIAL_ARTS_CANNOT_USE
+	if(combo_timer)
+		deltimer(combo_timer)
+/*
 	if(last_hit + COMBO_ALIVE_TIME < world.time)
 		reset_combos()
-	last_hit = world.time
+*/
+	combo_timer = addtimer(CALLBACK(src, PROC_REF(reset_combos)), COMBO_ALIVE_TIME, TIMER_UNIQUE | TIMER_STOPPABLE)
 	streak += intent_to_streak(step)
 	var/mob/living/carbon/human/owner = locateUID(owner_UID)
 	owner?.hud_used.combo_display.update_icon(ALL, streak)
@@ -451,7 +455,6 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = ui_combo
 	layer = ABOVE_HUD_LAYER
-	var/timerid
 	var/streak
 
 /obj/screen/combo/proc/clear_streak()
@@ -473,11 +476,8 @@
 
 /obj/screen/combo/update_icon_state()
 	icon_state = ""
-	if(timerid)
-		deltimer(timerid)
 	if(!streak)
 		return
-	timerid = addtimer(CALLBACK(src, PROC_REF(clear_streak)), COMBO_ALIVE_TIME, TIMER_UNIQUE | TIMER_STOPPABLE)
 	icon_state = "combo"
 
 
