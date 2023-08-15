@@ -1785,7 +1785,7 @@
 	id = "voxwine"
 	description = "An interesting drink some may find rather offensive."
 	color = "#cdd37b" // rgb: 205, 211, 123
-	alcohol_perc = 0.2
+	alcohol_perc = 0.6
 	drink_icon = "voxwine"
 	drink_name = "Vox Wine"
 	drink_desc = "An interesting drink some may find rather offensive."
@@ -1796,7 +1796,7 @@
 	id = "planet_cracker"
 	description = "This jubilant drink celebrates humanity's triumph over the alien menace. May be offensive to non-human crewmembers."
 	color = "#fdb7ff" // rgb: 253, 183, 255
-	alcohol_perc = 0.2
+	alcohol_perc = 0.4
 	drink_icon = "planet_cracker"
 	drink_name = "Planet Cracker"
 	drink_desc = "This jubilant drink celebrates humanity's triumph over the alien menace. May be offensive to non-human crewmembers."
