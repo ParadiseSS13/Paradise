@@ -305,7 +305,6 @@
 	for(var/mob/living/L in view(7, owner))
 		if(heal_points <= 0)
 			break
-
 		heal(L)
 
 /datum/status_effect/hippocraticOath/proc/heal(mob/living/L)
