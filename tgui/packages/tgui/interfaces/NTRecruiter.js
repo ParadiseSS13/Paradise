@@ -72,7 +72,7 @@ export const NTRecruiter = (props, context) => {
         <LabeledList>
           <LabeledListItem label="1#" color="silver">
             To win this game you must hire/dismiss <b>FIVE</b> candidates,
-            one choice made wrong leads to game over.
+            one wrongly made choice leads to a game over.
           </LabeledListItem>
           <LabeledListItem label="2#" color="silver">
             Make the right choice by truly putting yourself into
@@ -82,8 +82,8 @@ export const NTRecruiter = (props, context) => {
             <b>Unique</b> characters may appear, pay attention to them!
           </LabeledListItem>
           <LabeledListItem label="4#" color="silver">
-            Make sure to pay attention to details like ages,
-            planet names, jobs offered by NT and even the species of the candidate!
+            Make sure to pay attention to details like age,
+            planet names, the requested job and even the species of the candidate!
           </LabeledListItem>
           <LabeledListItem label="5#" color="silver">
             Not every employment record is good, remember to make
@@ -91,7 +91,7 @@ export const NTRecruiter = (props, context) => {
           </LabeledListItem>
           <LabeledListItem label="6#" color="silver">
             The planet of origin has no restriction on the species of the candidate,
-            dont think too much when you see humans that came from Boron!
+            don't think too much when you see humans that came from Boron!
           </LabeledListItem>
           <LabeledListItem label="7#" color="silver">
             Pay attention to <b>typos</b> and <b>missing words</b>, these do
@@ -99,7 +99,7 @@ export const NTRecruiter = (props, context) => {
           </LabeledListItem>
           <LabeledListItem label="8#" color="silver">
             Remember, you are recruiting people to work at one of the many NT stations,
-            so no hiring for <b>jobs</b> that they <b>dont offer</b>!
+            so no hiring for <b>jobs</b> that they <b>don't offer</b>!
           </LabeledListItem>
         </LabeledList>
         </Section>
