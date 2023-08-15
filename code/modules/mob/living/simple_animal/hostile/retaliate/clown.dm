@@ -43,7 +43,7 @@
 	mob_biotypes = MOB_ORGANIC
 	response_help = "honks the"
 	speak = list("Honk!")
-	speak_emote = list("sqeaks")
+	speak_emote = list("squeaks")
 	emote_see = list("honks")
 	maxHealth = 100
 	health = 100

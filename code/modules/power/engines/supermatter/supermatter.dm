@@ -207,7 +207,6 @@
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
 	supermatter_id = global_supermatter_id++
-	SSair.atmos_machinery += src
 	countdown = new(src)
 	countdown.start()
 	GLOB.poi_list |= src
