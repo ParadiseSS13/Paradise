@@ -1430,6 +1430,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE
 
 /mob/proc/faction_check_mob(mob/target, exact_match)
+	if(!target)
+		return faction_check(faction, null, FALSE)
 	if(exact_match) //if we need an exact match, we need to do some bullfuckery.
 		var/list/faction_src = faction.Copy()
 		var/list/faction_target = target.faction.Copy()
@@ -1438,8 +1440,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(!("\ref[target]" in faction_src))
 			faction_target -= "\ref[target]" //same thing here.
 		return faction_check(faction_src, faction_target, TRUE)
-	if(!target)
-		return faction_check(faction, null, FALSE)
 	return faction_check(faction, target.faction, FALSE)
 
 /proc/faction_check(list/faction_A, list/faction_B, exact_match)
