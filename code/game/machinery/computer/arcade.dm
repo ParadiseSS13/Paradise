@@ -1081,7 +1081,7 @@
 							"Has proven knownledge of the SOP, but no working experience", "Has worked at Mr Changs",
 							"Spent 8 years as a freelance journalist", "Known as a hero for keeping stations clean while its under attack",
 							"Worked as a bureaucratic for the SolGov", "Worked on the R&D department of the Donk Corporation",
-							"Experienced Cybersun industries roboticist", "Did work for USSP as an translator",
+							"Did work for USSP as an translator", "Took care of Toxins, Xenobiology, Robotics and R&D as a single worker in the Research department",
 							"Served for 4 years as a soldier of the Prospero Order", "Traveled through various systems as an businessman",
 							"Worked as an waiter for one year", "Has previous experience as an cameraman",
 							"Spent years of his life being a janitor at the clown university", "Was given numerous good reviews for delivering cargo requests on time",
@@ -1093,7 +1093,7 @@
 							"Improved efficiency of Research Outpost by 5.7% through dismissal of underperforming workers", "Skilled in Enterprise Resource Planning",
 							"Prevented three Supermatter Delamination Events in the same shift", "Developed an innovative plasma refinement process that cuts waste gasses in half",
 							"Has received several commendations due to visually appealing kitchen remodelings", "Is known to report any petty Space Law or SOP breakage to the relevant authorities",
-							"As Chef, adapted their menus in order to appeal all stationed species", "Took care of Toxins, Xenobiology, Robotics and R&D as a single worker in the Research department",
+							"As Chef, adapted their menus in order to appeal all stationed species",
 							"Was part of the \"Pump Purgers\", famous for the streak of 102 shifts with no Supermatter Explosions",
 							"Virologist; took it upon themselves to distribute a vaccine to the crew", "Conducted experiments that generated high profits but many casualties")
 
@@ -1105,7 +1105,7 @@
 									"Ex-NT recruiter, fired for hiring a syndicate agent as an Chief Engineer", "Took the autolathe circuit board from the Tech Storage as Roboticist",
 									"Did not alert the crew about multiple toxins tests", "Did build a medical bay in the Research Division as a Scientist",
 									"Connected a plasma storage tank to the air distribution line", "Certified supermatter taste tester",
-									"Is known to spend entire shifts in the arcade instead of working")
+									"Is known to spend entire shifts in the arcade instead of working", "Experienced Cybersun industries roboticist")
 
 	/// Species that are hirable in the eyes of NT
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
