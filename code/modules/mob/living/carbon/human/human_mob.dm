@@ -1057,10 +1057,10 @@
 	if(piercing)
 		return TRUE
 	if(target_zone == "head")
-		if(head && (head.flags & THICKMATERIAL) && !penetrate_thick)
+		if((head?.flags & THICKMATERIAL) && !penetrate_thick)
 			. = FALSE
 	else
-		if(wear_suit && (wear_suit.flags & THICKMATERIAL) && !penetrate_thick)
+		if((wear_suit?.flags & THICKMATERIAL) && !penetrate_thick)
 			. = FALSE
 	if(!. && error_msg && user)
 		if(!fail_msg)
