@@ -43,20 +43,20 @@
 #define DATA_HUD_DIAGNOSTIC_ADVANCED	6
 #define DATA_HUD_HYDROPONIC				7
 //antag HUD defines
-#define ANTAG_HUD_CULT		8
-#define ANTAG_HUD_REV		9
-#define ANTAG_HUD_OPS		10
-#define ANTAG_HUD_WIZ		11
-#define ANTAG_HUD_SHADOW    12
-#define ANTAG_HUD_TRAITOR 13
-#define ANTAG_HUD_NINJA 14
-#define ANTAG_HUD_CHANGELING 15
-#define ANTAG_HUD_VAMPIRE 16
-#define ANTAG_HUD_ABDUCTOR 17
-#define DATA_HUD_ABDUCTOR	18
-#define ANTAG_HUD_EVENTMISC 19
-#define ANTAG_HUD_BLOB 20
-#define ANTAG_HUD_MIND_FLAYER 21
+#define ANTAG_HUD_CULT					8
+#define ANTAG_HUD_REV					9
+#define ANTAG_HUD_OPS					10
+#define ANTAG_HUD_WIZ					11
+#define ANTAG_HUD_SHADOW    			12
+#define ANTAG_HUD_TRAITOR 				13
+#define ANTAG_HUD_NINJA 				14
+#define ANTAG_HUD_CHANGELING 			15
+#define ANTAG_HUD_VAMPIRE 				16
+#define ANTAG_HUD_ABDUCTOR 				17
+#define DATA_HUD_ABDUCTOR				18
+#define ANTAG_HUD_EVENTMISC 			19
+#define ANTAG_HUD_BLOB 					20
+#define ANTAG_HUD_MIND_FLAYER 			21
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
