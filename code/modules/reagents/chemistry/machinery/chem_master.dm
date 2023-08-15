@@ -25,7 +25,7 @@
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles
-	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
+	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
 									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
 									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
 									"mitocholide", "rezadone", "menthol")

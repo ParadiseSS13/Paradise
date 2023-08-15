@@ -17,7 +17,7 @@
 	slot_flags = SLOT_BELT
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
-	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
+	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
 									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
 									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
 									"mitocholide", "rezadone", "menthol")
