@@ -99,6 +99,10 @@
 /obj/structure/sign/double/map/right
 	icon_state = "map-right"
 
+/obj/structure/sign/double/map/attack_hand(mob/user)
+	if(user.client)
+		user.client.webmap()
+
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
 	desc = "A warning sign which reads 'SECURE AREA'"
