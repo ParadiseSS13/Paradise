@@ -411,7 +411,7 @@
 	update_icon()
 	var/obj/effect/dusting_anim/dust_effect = new(loc, UID())
 	filters += filter(type = "displace", size = 256, render_source = "*snap[UID()]")
-	animate(src, alpha = 0, time = 20, easing = (EASE_IN | SINE_EASING))
+	animate(src, alpha = 0, time = 2 SECONDS, easing = (EASE_IN | SINE_EASING))
 	QDEL_IN(dust_effect, 20)
 	return TRUE
 
@@ -421,7 +421,7 @@
 /obj/effect/temp_visual/obliteration_rays/Initialize(mapload)
 	. = ..()
 	var/new_filter = isnull(get_filter("ray"))
-	ray_filter_helper(1, 40,"#ffd04f", 6, 20)
+	ray_filter_helper(1, 40, "#ffd04f", 6, 20)
 	if(new_filter)
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)

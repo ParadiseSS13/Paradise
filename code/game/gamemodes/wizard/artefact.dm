@@ -861,8 +861,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/clothing/head/hooded/oblivion
 	name = "Oblivion Enforcer's hood"
-	icon_state = "oblivionhood"
 	desc = "A hood worn by an Oblivion Enforcer."
+	icon_state = "oblivionhood"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
