@@ -24,13 +24,9 @@
 
 /obj/structure/railing/cap/normal
 	icon_state = "railing_cap_normal"
-	density = FALSE
-	climbable = FALSE
 
 /obj/structure/railing/cap/reversed
 	icon_state = "railing_cap_reversed"
-	density = FALSE
-	climbable = FALSE
 
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
 	..()
