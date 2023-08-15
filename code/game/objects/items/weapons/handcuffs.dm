@@ -27,6 +27,7 @@
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
 	if(!user.IsAdvancedToolUser())
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 
 	if(!istype(C))
