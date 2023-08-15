@@ -874,7 +874,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 /obj/item/clothing/suit/hooded/oblivion
@@ -893,7 +896,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 
 /obj/item/clothing/suit/hooded/oblivion/equipped(mob/user, slot, initial)
@@ -913,5 +919,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 	)
