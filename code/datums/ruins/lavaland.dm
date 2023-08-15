@@ -228,12 +228,44 @@
 	description = "A long horizontal canyon, watch your steps!"
 	suffix = "lavaland_surface_canyon1.dmm"
 	allow_duplicates = TRUE
-	cost = 5
+	cost = 3
 
-/datum/map_template/ruin/lavaland/lavaland_surface_cave1
-	name = "Small Cave"
-	id = "smallcave"
-	description = "A small cave, it provide shelter against ash storms."
-	suffix = "lavaland_surface_cave1.dmm"
-	allow_duplicates = TRUE
-	cost = 5
+/datum/map_template/ruin/lavaland/lavaland_surface_smallcave1
+	name = "Small Cave o"
+	id = "smallcave1"
+	description = "A small 'o' shaped cave, it provide shelter against ash storms."
+	suffix = "lavaland_surface_smallcave1.dmm"
+	allow_duplicates = FALSE
+	cost = 2
+
+/datum/map_template/ruin/lavaland/lavaland_surface_smallcave2
+	name = "Small Cave s"
+	id = "smallcave2"
+	description = "A small 's' shaped cave, it provide shelter against ash storms."
+	suffix = "lavaland_surface_smallcave2.dmm"
+	allow_duplicates = FALSE
+	cost = 2
+
+/datum/map_template/ruin/lavaland/lavaland_surface_smallcave3
+	name = "Small Cave x"
+	id = "smallcave3"
+	description = "A small 'x' shaped cave, it provide shelter against ash storms."
+	suffix = "lavaland_surface_smallcave3.dmm"
+	allow_duplicates = FALSE
+	cost = 2
+
+/datum/map_template/ruin/lavaland/lavaland_surface_bigcave1
+	name = "Big Cave X"
+	id = "bigcave1"
+	description = "A big 'X' shaped cave, it provide shelter against ash storms."
+	suffix = "lavaland_surface_bigcave1.dmm"
+	allow_duplicates = FALSE
+	cost = 3
+
+/datum/map_template/ruin/lavaland/lavaland_surface_bigcave2
+	name = "Big Cave Y"
+	id = "bigcave2"
+	description = "A big 'Y' shaped cave, it provide shelter against ash storms."
+	suffix = "lavaland_surface_bigcave2.dmm"
+	allow_duplicates = FALSE
+	cost = 3

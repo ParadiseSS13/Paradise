@@ -39,8 +39,32 @@
 
 //Caves
 
-/area/ruin/unpowered/cave1
-	name = "Small Cave"
+/area/ruin/unpowered/smallcave
+	name = "Main Branch, do not use"
+	icon_state = "purple"
+
+/area/ruin/unpowered/smallcave/cave1
+	name = "Small Cave o"
+	icon_state = "purple"
+
+/area/ruin/unpowered/smallcave/cave2
+	name = "Small Cave s"
+	icon_state = "purple"
+
+/area/ruin/unpowered/smallcave/cave3
+	name = "Small Cave x"
+	icon_state = "purple"
+
+/area/ruin/unpowered/bigcave
+	name = "Main Branch, do not use"
+	icon_state = "purple"
+
+/area/ruin/unpowered/bigcave/cave1
+	name = "Big Cave X"
+	icon_state = "purple"
+
+/area/ruin/unpowered/bigcave/cave2
+	name = "Big Cave Y"
 	icon_state = "purple"
 
 //Xeno Nest

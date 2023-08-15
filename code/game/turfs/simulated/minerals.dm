@@ -237,7 +237,7 @@
 
 /turf/simulated/mineral/ancient/lava_land_surface_hard
 	name = "hardened volcanic rock"
-	desc = "A rare and dense volcanic rock that appears to be resistant to everything except diamond and sonic tools!"
+	desc = "A dense volcanic rock that appears to be resistant to everything except diamond and sonic tools!"
 	mine_time = 15 SECONDS
 	color = COLOR_HARD_ROCK
 	oxygen = 14
