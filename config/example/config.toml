@@ -409,7 +409,7 @@ job_slot_amounts = [
 	{name = "Research Director", lowpop = 1, highpop = 1},
 	{name = "Chief Medical Officer", lowpop = 1, highpop = 1},
 	# Engineering
-	{name = "Atmospheric Technician", lowpop = 3, highpop = 4},
+	{name = "Life Support Specialist", lowpop = 3, highpop = 4},
 	{name = "Station Engineer", lowpop = 5, highpop = 6},
 	# Medical
 	{name = "Chemist", lowpop = 2, highpop = 2},
@@ -417,19 +417,19 @@ job_slot_amounts = [
 	{name = "Medical Doctor", lowpop = 5, highpop = 6},
 	{name = "Virologist", lowpop = 1, highpop = 1},
 	# Science
-	{name = "Robotocist", lowpop = 2, highpop = 2},
+	{name = "Roboticist", lowpop = 2, highpop = 2},
 	{name = "Scientist", lowpop = 6, highpop = 7},
 	# Security
 	{name = "Detective", lowpop = 1, highpop = 1},
 	{name = "Security Officer", lowpop = 8, highpop = 9},
 	{name = "Warden", lowpop = 1, highpop = 1},
+	{name = "Internal Affairs Agent", lowpop = 2, highpop = 2},
 	# Service
 	{name = "Bartender", lowpop = 1, highpop = 1},
 	{name = "Botanist", lowpop = 2, highpop = 2},
 	{name = "Chaplain", lowpop = 1, highpop = 1},
 	{name = "Chef", lowpop = 1, highpop = 1},
 	{name = "Janitor", lowpop = 1, highpop = 2},
-	{name = "Lawyer", lowpop = 2, highpop = 2},
 	{name = "Librarian", lowpop = 1, highpop = 1},
 	# Cargo/Supply
 	{name = "Quartermaster", lowpop = 1, highpop = 1},
