@@ -118,8 +118,8 @@
 	to_chat(owner.current, dat)
 
 /datum/antagonist/mindflayer/proc/add_ability(path)
-	if(!get_ability(path))
-		force_add_ability(path)
+//	if(!get_ability(path)) TODO: make a working check for if the mindflayer already has the spell you're trying to add
+	force_add_ability(path)
 
 /datum/antagonist/mindflayer/proc/force_add_ability(path)
 	var/spell = new path(owner)
@@ -146,7 +146,7 @@
 
 /datum/antagonist/mindflayer/proc/get_ability(path)
 	for(var/datum/power as anything in powers)
-		if(power.type == path)
+		if(power == path)
 			return power
 	return null
 

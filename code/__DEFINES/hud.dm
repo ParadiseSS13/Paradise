@@ -35,13 +35,13 @@
 
 //data HUD (medhud, sechud) defines
 //Don't forget to update human/New() if you change these!
-#define DATA_HUD_SECURITY_BASIC		1
-#define DATA_HUD_SECURITY_ADVANCED	2
-#define DATA_HUD_MEDICAL_BASIC		3
-#define DATA_HUD_MEDICAL_ADVANCED	4
-#define DATA_HUD_DIAGNOSTIC_BASIC	5
+#define DATA_HUD_SECURITY_BASIC			1
+#define DATA_HUD_SECURITY_ADVANCED		2
+#define DATA_HUD_MEDICAL_BASIC			3
+#define DATA_HUD_MEDICAL_ADVANCED		4
+#define DATA_HUD_DIAGNOSTIC_BASIC		5
 #define DATA_HUD_DIAGNOSTIC_ADVANCED	6
-#define DATA_HUD_HYDROPONIC			7
+#define DATA_HUD_HYDROPONIC				7
 //antag HUD defines
 #define ANTAG_HUD_CULT		8
 #define ANTAG_HUD_REV		9
@@ -56,7 +56,7 @@
 #define DATA_HUD_ABDUCTOR	18
 #define ANTAG_HUD_EVENTMISC 19
 #define ANTAG_HUD_BLOB 20
-//#define ANTAG_HUD_MIND_FLAYER 21
+#define ANTAG_HUD_MIND_FLAYER 21
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

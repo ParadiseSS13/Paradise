@@ -64,6 +64,7 @@
 	power_type = FLAYER_UNOBTAINABLE_POWER
 	var/weapon_type
 	var/weapon_name_simple
+	var/obj/item/weapon_ref
 
 /obj/effect/proc_holder/spell/flayer/weapon/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -76,19 +77,17 @@
 	if(!user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return FALSE
-	var/obj/item/W = new weapon_type(user, src)
-	user.put_in_hands(W)
-	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override = TRUE)
-	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
-	return W
+	if(!weapon_ref)
+		weapon_ref = new weapon_type(user, src)
+	user.put_in_hands(weapon_ref)
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), user)
+	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), user)
+	return weapon_ref
 
-/obj/effect/proc_holder/spell/flayer/weapon/proc/retract(atom/target, any_hand = TRUE, mob/owner = src)
+/obj/effect/proc_holder/spell/flayer/weapon/proc/retract(mob/owner, any_hand = TRUE)
 	SIGNAL_HANDLER
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
-	if(owner.l_hand && istype(owner.l_hand, weapon_type))
-		qdel(owner.l_hand)
-		owner.update_inv_l_hand()
-	if(owner.r_hand && istype(owner.r_hand, weapon_type))
-		qdel(owner.r_hand)
-		owner.update_inv_r_hand()
+	weapon_ref.forceMove(src)
+	owner.update_inv_l_hand()
+	owner.update_inv_r_hand()
