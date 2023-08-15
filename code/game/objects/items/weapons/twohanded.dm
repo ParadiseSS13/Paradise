@@ -1152,8 +1152,7 @@
 /obj/item/twohanded/supermatter/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
-	//Not sure on the numbers here (remind me to remove this comment before merge if I don't do it myself)
+	AddComponent(/datum/component/parry, _stamina_constant = 0, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/supermatter/update_icon_state()
 	icon_state = "smhalberd[wielded]"
