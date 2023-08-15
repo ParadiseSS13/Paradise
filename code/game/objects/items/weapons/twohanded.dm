@@ -1146,7 +1146,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	resistance_flags = FIRE_PROOF
 	var/static/list/obliteration_targets = list(/turf/simulated/wall, /obj/machinery/door/airlock)
-	var/charged = TRUE //Whether we'll knockdown on hit
+	/// Whether we'll knockdown on hit
+	var/charged = TRUE
 
 /obj/item/twohanded/supermatter/Initialize(mapload)
 	. = ..()
@@ -1175,14 +1176,14 @@
 			visible_message("<span class='danger'>[user] raises [src] high, ready to bring it down on [target]!</span>")
 			if(do_after(user, 1 SECONDS, TRUE, target))
 				visible_message("<span class='danger'>[user] brings down [src], obliterating [target] with a heavy blow!</span>")
-				playsound(loc, 'sound/effects/supermatter.ogg', 50, 1)
+				playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE)
 				target.dust()
 				return
 			to_chat(user, "<span class='notice'>You lower [src]. There'll be time to obliterate them later...</span>")
 			return
 
 		if(charged)
-			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
+			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
 			target.visible_message("<span class='danger'>[src] flares with energy and shocks [target]!</span>", \
 									"<span class='userdanger'>You're shocked by [src]!</span>", \
 									"<span class='warning'>You hear shocking.</span>")
@@ -1200,13 +1201,13 @@
 			return
 
 		to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
-		playsound(loc, hitsound, 50, 1)
+		playsound(loc, hitsound, 50, TRUE)
 
 		var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
 
 		if(do_after(user, 5 SECONDS * toolspeed, target = A))
 			new /obj/effect/temp_visual/obliteration(get_turf(A), A)
-			playsound(loc, 'sound/effects/supermatter.ogg', 25, 1)
+			playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
 			var/turf/AT = A
 			AT.ChangeTurf(/turf/simulated/floor/plating)
 			return
@@ -1215,15 +1216,14 @@
 		return
 
 	if(istype(A, /obj/machinery/door/airlock))
-
 		to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
-		playsound(loc, hitsound, 50, 1)
+		playsound(loc, hitsound, 50, TRUE)
 
 		var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
 
 		if(do_after(user, 5 SECONDS * toolspeed, target = A))
 			new /obj/effect/temp_visual/obliteration(get_turf(A), A)
-			playsound(loc, 'sound/effects/supermatter.ogg', 25, 1)
+			playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
 			qdel(A)
 			return
 
@@ -1232,4 +1232,4 @@
 
 /obj/item/twohanded/supermatter/proc/recharge()
 	charged = TRUE
-	playsound(loc, 'sound/machines/sm/accent/normal/1.ogg', 25, 1)
+	playsound(loc, 'sound/machines/sm/accent/normal/1.ogg', 25, TRUE)
