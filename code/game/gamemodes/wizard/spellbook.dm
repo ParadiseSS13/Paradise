@@ -475,17 +475,10 @@
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
-	desc = "An ensorceled suit of armour, protected by a powerful shield. The shield can completely negate sixteen attacks before being permanently depleted. Despite appearance it is NOT spaceproof."
+	desc = "An ensorceled suit of protective yet light armour, protected by a powerful shield. The shield can completely negate three attacks at a time before needing to recharge. The armor is also spaceproof."
 	item_path = /obj/item/storage/box/wizard/hardsuit
 	limit = 1
 	category = "Weapons and Armors"
-
-/datum/spellbook_entry/item/battlemage_charge
-	name = "Battlemage Armour Charges"
-	desc = "A powerful defensive rune, it will grant eight additional charges to a suit of battlemage armour."
-	item_path = /obj/item/wizard_armour_charge
-	category = "Weapons and Armors"
-	cost = 1
 
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
