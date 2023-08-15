@@ -534,6 +534,7 @@ SUBSYSTEM_DEF(jobs)
 		// Key: name | Value: Amount
 		var/datum/job/J = GetJob(job)
 		if(!J)
+			stack_trace("`[job]` not found while setting max slots. Check for misspellings or alternate titles")
 			continue
 		J.total_positions = text2num(joblist[job])
 		J.spawn_positions = text2num(joblist[job])
