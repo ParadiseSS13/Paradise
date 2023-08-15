@@ -1160,72 +1160,75 @@
 /obj/item/twohanded/supermatter/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
-	if(wielded) //same behavior as a fireaxe for windows
-		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
-			var/obj/structure/W = A
-			W.obj_destruction("fireaxe")
 
-		//dusting dead people + knocking down people
-		if(isliving(A))
-			var/mob/living/target = A
-			if(target.stat == DEAD)
-				visible_message("<span class='danger'>[user] raises [src] high, ready to bring it down on [target]!</span>")
-				if(do_after(user, 1 SECONDS, TRUE, target))
-					visible_message("<span class='danger'>[user] brings down [src], obliterating [target] with a heavy blow!</span>")
-					playsound(loc, 'sound/effects/supermatter.ogg', 50, 1)
-					target.dust()
-					return
-				to_chat(user, "<span class='notice'>You lower [src]. There'll be time to obliterate them later...</span>")
+	if(!wielded) //same behavior as a fireaxe for windows
+		return
+
+	if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
+		var/obj/structure/W = A
+		W.obj_destruction("fireaxe")
+
+	//dusting dead people + knocking down people
+	if(isliving(A))
+		var/mob/living/target = A
+		if(target.stat == DEAD)
+			visible_message("<span class='danger'>[user] raises [src] high, ready to bring it down on [target]!</span>")
+			if(do_after(user, 1 SECONDS, TRUE, target))
+				visible_message("<span class='danger'>[user] brings down [src], obliterating [target] with a heavy blow!</span>")
+				playsound(loc, 'sound/effects/supermatter.ogg', 50, 1)
+				target.dust()
 				return
-
-			if(charged)
-				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
-				target.visible_message("<span class='danger'>[src] flares with energy and shocks [target]!</span>", \
-										"<span class='userdanger'>You're shocked by [src]!</span>", \
-										"<span class='warning'>You hear shocking.</span>")
-				target.KnockDown(4 SECONDS)
-				do_sparks(3, FALSE, src)
-				charged = FALSE
-				addtimer(CALLBACK(src, PROC_REF(recharge)), 4 SECONDS)
-
-		//walls and airlock obliteration logic
-		if(!is_type_in_list(A, obliteration_targets))
+			to_chat(user, "<span class='notice'>You lower [src]. There'll be time to obliterate them later...</span>")
 			return
 
-		if(iswallturf(A))
-			if(istype(A, /turf/simulated/wall/indestructible))
-				return
+		if(charged)
+			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
+			target.visible_message("<span class='danger'>[src] flares with energy and shocks [target]!</span>", \
+									"<span class='userdanger'>You're shocked by [src]!</span>", \
+									"<span class='warning'>You hear shocking.</span>")
+			target.KnockDown(4 SECONDS)
+			do_sparks(3, FALSE, src)
+			charged = FALSE
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 4 SECONDS)
 
-			to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
-			playsound(loc, hitsound, 50, 1)
+	//walls and airlock obliteration logic
+	if(!is_type_in_list(A, obliteration_targets))
+		return
 
-			var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
-
-			if(do_after(user, 5 SECONDS * toolspeed, target = A))
-				new /obj/effect/temp_visual/obliteration(get_turf(A), A)
-				playsound(loc, 'sound/effects/supermatter.ogg', 25, 1)
-				var/turf/AT = A
-				AT.ChangeTurf(/turf/simulated/floor/plating)
-				return
-
-			qdel(rays)
+	if(iswallturf(A))
+		if(istype(A, /turf/simulated/wall/indestructible))
 			return
 
-		if(istype(A, /obj/machinery/door/airlock))
+		to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
+		playsound(loc, hitsound, 50, 1)
 
-			to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
-			playsound(loc, hitsound, 50, 1)
+		var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
 
-			var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
-
-			if(do_after(user, 5 SECONDS * toolspeed, target = A))
-				new /obj/effect/temp_visual/obliteration(get_turf(A), A)
-				playsound(loc, 'sound/effects/supermatter.ogg', 25, 1)
-				qdel(A)
-				return
-
-			qdel(rays)
+		if(do_after(user, 5 SECONDS * toolspeed, target = A))
+			new /obj/effect/temp_visual/obliteration(get_turf(A), A)
+			playsound(loc, 'sound/effects/supermatter.ogg', 25, 1)
+			var/turf/AT = A
+			AT.ChangeTurf(/turf/simulated/floor/plating)
 			return
+
+		qdel(rays)
+		return
+
+	if(istype(A, /obj/machinery/door/airlock))
+
+		to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
+		playsound(loc, hitsound, 50, 1)
+
+		var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
+
+		if(do_after(user, 5 SECONDS * toolspeed, target = A))
+			new /obj/effect/temp_visual/obliteration(get_turf(A), A)
+			playsound(loc, 'sound/effects/supermatter.ogg', 25, 1)
+			qdel(A)
+			return
+
+		qdel(rays)
+		return
 
 /obj/item/twohanded/supermatter/proc/recharge()
 	charged = TRUE
