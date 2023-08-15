@@ -186,7 +186,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard
 	name = "battlemage armor"
-	desc = "Not all wizards are afraid of getting up close and personal. Spaceproof."
+	desc = "Not all wizards are afraid of getting up close and personal. It is spaceproof."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
 	recharge_rate = 1
