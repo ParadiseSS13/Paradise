@@ -91,7 +91,7 @@ export const NTRecruiter = (props, context) => {
           </LabeledListItem>
           <LabeledListItem label="6#" color="silver">
             The planet of origin has no restriction on the species of the candidate,
-            don't think too much when you see humans that came from Boron!
+            don&apos;t think too much when you see humans that came from Boron!
           </LabeledListItem>
           <LabeledListItem label="7#" color="silver">
             Pay attention to <b>typos</b> and <b>missing words</b>, these do
@@ -99,7 +99,7 @@ export const NTRecruiter = (props, context) => {
           </LabeledListItem>
           <LabeledListItem label="8#" color="silver">
             Remember, you are recruiting people to work at one of the many NT stations,
-            so no hiring for <b>jobs</b> that they <b>don't offer</b>!
+            so no hiring for <b>jobs</b> that they <b>don&apos;t offer</b>!
           </LabeledListItem>
         </LabeledList>
         </Section>

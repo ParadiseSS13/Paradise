@@ -1245,15 +1245,16 @@
 				game_status = RECRUITER_STATUS_GAMEOVER
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 2, TRUE)
 				reason = "You ended up hiring incompetent candidates and now the company is wasting lots of resources to fix what you caused..."
-			else if(curriculums >= 5)
+				return
+			if(curriculums >= 5)
 				win()
+				return
+			curriculums++
+			good_candidate = TRUE
+			if(prob(PROB_UNIQUE_CANDIDATE))
+				unique_candidate()
 			else
-				curriculums++
-				good_candidate = TRUE
-				if(prob(PROB_UNIQUE_CANDIDATE))
-					unique_candidate()
-				else
-					generate_candidate()
+				generate_candidate()
 
 		if("dismiss")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
@@ -1261,15 +1262,16 @@
 				game_status = RECRUITER_STATUS_GAMEOVER
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 2, TRUE)
 				reason = "You ended up dismissing a competent candidate and now the company is suffering with the lack of crew..."
-			else if(curriculums >= 5)
+				return
+			if(curriculums >= 5)
 				win()
+				return
+			curriculums++
+			good_candidate = TRUE
+			if(prob(PROB_UNIQUE_CANDIDATE))
+				unique_candidate()
 			else
-				curriculums++
-				good_candidate = TRUE
-				if(prob(PROB_UNIQUE_CANDIDATE))
-					unique_candidate()
-				else
-					generate_candidate()
+				generate_candidate()
 
 		if("start_game")
 			playsound(user, 'sound/effects/pressureplate.ogg', 10, TRUE)
