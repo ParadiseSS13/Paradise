@@ -64,7 +64,7 @@
 			capitalize = 0
 		scrambled_text += next
 		var/chance = rand(100)
-		if(join_override)
+		if(!isnull(join_override))
 			scrambled_text += join_override
 		else if(chance <= 5)
 			scrambled_text += ". "
@@ -274,7 +274,13 @@
 	colour = "trinary"
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")
+	syllables = list("0", "1", "2")
+	space_chance = 0
+	join_override = ""
+
+/datum/language/trinary/scramble(input)
+	. = ..(copytext(input, 1, max(length(input) / 4, 2)))
+
 
 /datum/language/trinary/get_random_name()
 	var/new_name

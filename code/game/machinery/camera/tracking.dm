@@ -5,10 +5,6 @@
 		return 1
 	return 0
 
-
-/mob/living/silicon/ai/var/max_locations = 10
-/mob/living/silicon/ai/var/stored_locations[0]
-
 /mob/living/silicon/ai/proc/get_camera_list()
 
 	track.cameras.Cut()
@@ -48,59 +44,6 @@
 	src.eyeobj.setLoc(C)
 
 	return
-
-/mob/living/silicon/ai/proc/ai_store_location(loc as text)
-	set category = "AI Commands"
-	set name = "Store Camera Location"
-	set desc = "Stores your current camera location by the given name"
-
-	loc = sanitize(copytext(loc, 1, MAX_MESSAGE_LEN))
-	if(!loc)
-		to_chat(src, "<span class='warning'>Must supply a location name</span>")
-		return
-
-	if(stored_locations.len >= max_locations)
-		to_chat(src, "<span class='warning'>Cannot store additional locations. Remove one first</span>")
-		return
-
-	if(loc in stored_locations)
-		to_chat(src, "<span class='warning'>There is already a stored location by this name</span>")
-		return
-
-	var/L = get_turf(eyeobj)
-	if(InvalidTurf(get_turf(L)))
-		to_chat(src, "<span class='warning'>Unable to store this location</span>")
-		return
-
-	stored_locations[loc] = L
-	to_chat(src, "Location '[loc]' stored")
-
-/mob/living/silicon/ai/proc/sorted_stored_locations()
-	return sortList(stored_locations)
-
-/mob/living/silicon/ai/proc/ai_goto_location(loc in sorted_stored_locations())
-	set category = "AI Commands"
-	set name = "Goto Camera Location"
-	set desc = "Returns to the selected camera location"
-
-	if(!(loc in stored_locations))
-		to_chat(src, "<span class='warning'>Location [loc] not found</span>")
-		return
-
-	var/L = stored_locations[loc]
-	src.eyeobj.setLoc(L)
-
-/mob/living/silicon/ai/proc/ai_remove_location(loc in sorted_stored_locations())
-	set category = "AI Commands"
-	set name = "Delete Camera Location"
-	set desc = "Deletes the selected camera location"
-
-	if(!(loc in stored_locations))
-		to_chat(src, "<span class='warning'>Location [loc] not found</span>")
-		return
-
-	stored_locations.Remove(loc)
-	to_chat(src, "Location [loc] removed")
 
 // Used to allow the AI is write in mob names/camera name from the CMD line.
 /datum/trackable

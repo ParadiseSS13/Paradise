@@ -590,6 +590,68 @@
 		H.LoseBreath(10 SECONDS) // procs 5 times, mostly a visual thing. damage could stack to cause a slowdown.
 		H.Confused(10 SECONDS)
 
+/datum/reagent/happiness
+	name = "Happiness"
+	id = "happiness"
+	description = "Fills you with ecstasic numbness and causes minor brain damage. If overdosed, causes sudden mood swings and spikes in heart rate."
+	reagent_state = LIQUID
+	color = "#f2ff00"
+	overdose_threshold = 20
+	taste_description = "paint thinner"
+	shock_reduction = 20
+	allowed_overdose_process = TRUE
+	addiction_chance = 2 // fairly rare, but funny
+	addiction_chance_additional = 20
+	addiction_threshold = 20
+	minor_addiction = TRUE
+
+/datum/reagent/happiness/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(15))
+		M.emote(pick("laugh", "giggle", "smile", "grin"))
+	else if(prob(10))
+		to_chat(M, "<span class='notice'>You feel [pick("great", "good", "amazing", "really nice", "magical")]!</span>")
+	else if(prob(1))
+		M.say("hehehe") // you WILL hehehe
+
+	if(prob(50))
+		M.AdjustConfused(-10 SECONDS) // same as degreaser
+		M.AdjustJitter(-10 SECONDS)
+	update_flags |= M.adjustBrainLoss(0.2, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/happiness/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+
+	if(prob(15))
+		M.emote(pick("cry", "frown", "sulk", "gurgle"))
+	else if(prob(10))
+		to_chat(M, "<span class='warning'>You feel [pick("like shit", "terrible", "weak", "like a rhumba beat", "hollow")]!</span>")
+	update_flags |= M.adjustBrainLoss(0.2, FALSE)
+	if(!prob(10 * (severity ** 2))) // 1 - 10, 2 - 40
+		return list(effect, update_flags)
+
+	var/static/list/good_messages = list("YES! YES!! YES!!", "I AM UNSTOPPABLE", "THIS IS GREAT", "THERE WILL NEVER BE ANYONE BETTER",
+		"GLORY IS MINE", "WE'RE SO BACK", "I AM FUCKING INVINCIBLE", "I'M HANGING IN THERE")
+	var/static/list/bad_messages = list("NO! NO!! NO!!", "OH MY GOD", "THEY'RE LOOKING AT ME", "KILLLL MEEE, KILLLLL ME",
+		"I CAN'T FUCKING TAKE IT ANYMORE", "ARRGH, IT'S OVER")
+
+	var/message = pick(good_messages)
+	var/class = "greenannounce" // theres not many good green classes
+	if(prob(50))
+		message = pick(bad_messages)
+		class = "danger"
+
+	M.Dizzy(50 SECONDS) // shaking with glee or fear, whichever you prefer
+	to_chat(M, "<span class='[class]'><font size='[rand(3,6)]'>[message][pick("!", "!!", "!!!")]</font></span>")
+	return list(effect, update_flags)
+
+/datum/reagent/happiness/has_heart_rate_increase()
+	return overdosed
+
+
 /datum/reagent/thc
 	name = "Tetrahydrocannabinol"
 	id = "thc"
