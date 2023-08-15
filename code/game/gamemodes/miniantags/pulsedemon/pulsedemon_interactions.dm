@@ -256,7 +256,7 @@
 		if(prob(50))
 			F.MakeSlippery(TURF_WET_WATER)
 		if(prob(50))
-			audible_message("<span class='warning'>Something flies out of [src]! It seems to be acting oddly.</span>")
+			visible_message("<span class='warning'>Something flies out of [src]! It seems to be acting oddly.</span>")
 			if(!(locate(/obj/effect/decal/cleanable/blood/gibs) in F))
 				new /obj/effect/decal/cleanable/blood/gibs(F)
 
