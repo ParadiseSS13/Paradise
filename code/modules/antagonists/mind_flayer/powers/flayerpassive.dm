@@ -27,3 +27,13 @@
 /datum/mindflayer_passive/armored_plating/on_apply(datum/antagonist/mindflayer/flayer)
 	var/armor_value = 5 * level
 	owner.dna.species.armor = armor_value
+
+/datum/mindflayer_passive/fluid_feet
+	purchase_text = "The swarm will make your legs more fluid, resulting in it muting your footsteps."
+	upgrade_text = "Your feet become even more malleable, seemingly melting into the floor; you feel oddly stable."
+	gain_desc = "Your limbs start slowly melting into the floor."
+
+/datum/mindflayer_passive/fluid_feet/on_apply(datum/antagonist/mindflayer/flayer)
+	qdel(owner.GetComponent(/datum/component/footstep))
+	if(level == 2)
+		owner.flags |= NOSLIP // Does this work? We'll find out once the Tgui is working
