@@ -80,12 +80,16 @@
 	var/mob/living/carbon/human/user = owner
 	if(user.reagents && user.reagents.has_reagent("fuel", 3))
 		var/obj/item/match/unathi/fire = new(user.loc, src)
-		if(user.put_in_hands(fire))
-			to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
-			user.reagents.del_reagent("fuel")
-		else
+		if((user.head && (user.head.flags_cover & HEADCOVERSMOUTH)) || (user.wear_mask && (user.wear_mask.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask.up))
 			qdel(fire)
-			to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
+			to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
+		else
+			if(user.put_in_hands(fire))
+				to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
+				user.reagents.del_reagent("fuel")
+			else
+				qdel(fire)
+				to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
 	else
 		to_chat(user, "<span class='warning'>You need to drink welding fuel first.</span>")
 
