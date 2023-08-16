@@ -45,15 +45,20 @@
  * Else, spawn a new cell and use that instead.
  * Arguments:
  * * unlink - If TRUE, sets the `cell` variable to `null` rather than linking it to a new one.
+ * * existing_cell - If argument is supplied, will set the starting cell to the argument
  */
-/obj/item/melee/baton/proc/link_new_cell(unlink = FALSE)
+/obj/item/melee/baton/proc/link_new_cell(unlink = FALSE, obj/item/stock_parts/cell/existing_cell = null)
 	if(unlink)
 		cell = null
-	else if(isrobot(loc.loc)) // First loc is the module
+		return
+	if(isrobot(loc.loc)) // First loc is the module
 		var/mob/living/silicon/robot/R = loc.loc
 		cell = R.cell
-	else
-		cell = new(src)
+		return
+	if(existing_cell)
+		cell = existing_cell
+		return
+	cell = new(src)
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -108,7 +113,7 @@
 		cell = null
 		turned_on = FALSE
 		update_icon(UPDATE_ICON_STATE)
-	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
+	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off. //TODO this breaks with mindflayer self charging prods
 		turned_on = FALSE
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
@@ -277,7 +282,6 @@
 	throwforce = 0 // Just in case
 	knockdown_duration = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
-	knockdown_delay = 0
 	flags = ABSTRACT | NODROP
 	turned_on = TRUE
 
@@ -293,6 +297,27 @@
 /obj/item/melee/baton/flayerprod/attack_self(mob/user)
 	return
 
+/obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown)
+	. = ..()
+	disable_radio(L)
+	addtimer(CALLBACK(src, PROC_REF(enable_radio), L), 5 SECONDS) //Currently, the baton disables radio on hit for 5 seconds, values can be tweaked
+
+
+/obj/item/melee/baton/flayerprod/proc/disable_radio(mob/living/L)
+	var/list/all_items = L.GetAllContents()
+	for(var/obj/item/radio/R in all_items)
+		R.on = FALSE
+		R.listening = FALSE
+		R.broadcasting = FALSE
+		L.visible_message("<span class='warning'>[R] buzzes loudly as it short circuits!</span>", blind_message="<span class='notice'>You hear a loud, electronic buzzing.</span>")
+
+/obj/item/melee/baton/flayerprod/proc/enable_radio(mob/living/L)
+	var/list/all_items = L.GetAllContents()
+	for(var/obj/item/radio/R in all_items)
+		R.on = TRUE
+		R.listening = TRUE
+
 /obj/item/melee/baton/flayerprod/loaded/Initialize(mapload) //this one starts with a cell pre-installed.
-	link_new_cell()
+	var/obj/item/stock_parts/cell/flayerprod/internal_cell = new(src)
+	link_new_cell(existing_cell = internal_cell)
 	return ..()
