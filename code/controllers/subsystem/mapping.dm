@@ -157,7 +157,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/loadTaipan()
 	var/watch = start_watch()
 	log_startup_progress("Loading Taipan...")
-	var/taipan_z_level = GLOB.space_manager.add_new_zlevel(RAMSS_TAIPAN, linkage = SELFLOOPING, traits = list(REACHABLE, TAIPAN))
+	var/taipan_z_level = GLOB.space_manager.add_new_zlevel(RAMSS_TAIPAN, linkage = CROSSLINKED, traits = list(REACHABLE, TAIPAN))
 	GLOB.maploader.load_map(file("_maps/map_files/generic/syndicatebase.dmm"), z_offset = taipan_z_level)
 	log_startup_progress("Loaded Taipan in [stop_watch(watch)]s")
 
