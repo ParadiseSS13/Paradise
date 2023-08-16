@@ -34,6 +34,8 @@
 	gain_desc = "Your limbs start slowly melting into the floor."
 
 /datum/mindflayer_passive/fluid_feet/on_apply(datum/antagonist/mindflayer/flayer)
-	qdel(owner.GetComponent(/datum/component/footstep))
-	if(level == 2)
-		owner.flags |= NOSLIP // Does this work? We'll find out once the Tgui is working
+	switch(level)
+		if(1)
+			qdel(owner.GetComponent(/datum/component/footstep))
+		if(2)
+			owner.flags |= NOSLIP // Does this work? We'll find out once the Tgui is working
