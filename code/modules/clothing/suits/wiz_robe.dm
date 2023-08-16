@@ -191,7 +191,7 @@
 	item_state = "wiz_hardsuit"
 	///How many shields regen per recharge cycle
 	recharge_rate = 1
-	///How many charges the shields start with
+	///The amount of charges the suit currently has
 	current_charges = 3
 	///The max number of charges the suit can hold
 	max_charges = 3
