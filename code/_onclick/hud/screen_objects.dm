@@ -217,6 +217,7 @@
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
 		S.attackby(I, user)
+	return TRUE
 
 /obj/screen/zone_sel
 	name = "damage zone"
@@ -403,6 +404,15 @@
 		object_overlays += item_overlay
 		add_overlay(object_overlays)
 
+/obj/screen/inventory/MouseDrop(atom/over)
+	cut_overlay(object_overlays)
+	object_overlays.Cut()
+	if(could_be_click_lag())
+		Click()
+		drag_start = 0
+		return
+	return ..()
+
 /obj/screen/inventory/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
@@ -426,6 +436,7 @@
 /obj/screen/inventory/hand
 	var/image/active_overlay
 	var/image/handcuff_overlay
+	var/static/mutable_appearance/blocked_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "blocked")
 
 /obj/screen/inventory/hand/update_overlays()
 	. = ..()
@@ -440,6 +451,10 @@
 			var/mob/living/carbon/C = hud.mymob
 			if(C.handcuffed)
 				. += handcuff_overlay
+
+			var/obj/item/organ/external/hand = C.get_organ("[slot_id == slot_l_hand ? "l" : "r"]_hand")
+			if(!hand || !hand.is_usable())
+				. += blocked_overlay
 
 		if(slot_id == slot_l_hand && hud.mymob.hand)
 			. += active_overlay

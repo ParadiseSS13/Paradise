@@ -215,6 +215,22 @@
 /datum/chemical_reaction/life/friendly/on_reaction(datum/reagents/holder, created_volume)
 	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (friendly)", FRIENDLY_SPAWN)
 
+/datum/chemical_reaction/sanguine_reagent
+	name = "Sanguine Reagent"
+	id = "sanguine_reagent"
+	result = "sanguine_reagent"
+	required_reagents = list("omnizine" = 1, "synthflesh" = 2, "iron" = 2)
+	result_amount = 5
+	mix_message = "The mixture bubbles furiously for a moment, then condenses into a sanguine gel."
+
+/datum/chemical_reaction/osseous_reagent
+	name = "Osseous Reagent"
+	id = "osseous_reagent"
+	result = "osseous_reagent"
+	required_reagents = list("milk" = 1, "potassium" = 1, "oxygen" = 4, "phenol" = 3, "formaldehyde" = 3)
+	result_amount = 12
+	mix_message = "Shards of a bone-like substance start to form in the liquid."
+
 /datum/chemical_reaction/mannitol
 	name = "Mannitol"
 	id = "mannitol"

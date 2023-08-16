@@ -57,8 +57,6 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = FALSE
-	///Was this egg laid by a xenobiology mob? Used for mob capping
-	var/xenobiology_spawned = FALSE
 	var/list/faction = list("spiders")
 	flags_2 = CRITICAL_ATOM_2
 
@@ -80,7 +78,6 @@
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			S.xenobiology_spawned = xenobiology_spawned
 			if(player_spiders)
 				S.player_spiders = TRUE
 		qdel(src)
@@ -108,7 +105,7 @@
 	pixel_y = rand(6,-6)
 	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/swarming)
-	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug") // Normally this is just used for mobs, but spiderlings are kind of that... 
+	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug") // Normally this is just used for mobs, but spiderlings are kind of that...
 
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -185,7 +182,7 @@
 				qdel(src)
 				return
 			if(!grow_as)
-				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
+				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider) - /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider)
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander

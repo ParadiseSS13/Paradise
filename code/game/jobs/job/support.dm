@@ -307,6 +307,7 @@
 		H.dna.default_blocks.Add(GLOB.comicblock)
 	H.check_mutations = TRUE
 	H.add_language("Clownish")
+	H.AddComponent(/datum/component/slippery, H, 8 SECONDS, 100, 0, FALSE, TRUE, "slip", TRUE)
 
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
@@ -380,8 +381,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		H.mind.miming = 1
-
-
+	qdel(H.GetComponent(/datum/component/footstep))
 
 /datum/job/janitor
 	title = "Janitor"
@@ -407,6 +407,7 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/janitor
 	pda = /obj/item/pda/janitor
+	r_pocket = /obj/item/door_remote/janikeyring
 
 
 //More or less assistants

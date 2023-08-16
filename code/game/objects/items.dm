@@ -751,6 +751,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(loc && I.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, I, user)
+		remove_outline()
+		return TRUE
 	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
 
 /obj/item/proc/apply_outline(mob/user, outline_color = null)
@@ -870,6 +872,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/GetID()
 	return null
 
+/obj/item/proc/add_tape()
+	return
+
+/obj/item/proc/remove_tape()
+	return
+
 /obj/item/water_act(volume, temperature, source, method)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_OIL_SLICKED))
@@ -878,4 +886,3 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		REMOVE_TRAIT(src, TRAIT_OIL_SLICKED, "potion")
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			H.regenerate_icons()

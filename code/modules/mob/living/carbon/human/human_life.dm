@@ -787,7 +787,7 @@
 				break
 
 	for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
-		if(R.heart_rate_increase)
+		if(R.has_heart_rate_increase())
 			if(temp <= PULSE_FAST && temp >= PULSE_NONE)
 				temp++
 				break
@@ -858,7 +858,7 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/electheart.ogg',0,0,CHANNEL_HEARTBEAT,30)//Credit to GhostHack (www.ghosthack.de) for sound.
+					SEND_SOUND(src, sound('sound/effects/electheart.ogg', channel = CHANNEL_HEARTBEAT, volume = 30)) // Credit to GhostHack (www.ghosthack.de) for sound.
 
 				else
 					heartbeat++
@@ -876,7 +876,7 @@
 
 			if(heartbeat >= rate)
 				heartbeat = 0
-				src << sound('sound/effects/singlebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
+				SEND_SOUND(src, sound('sound/effects/singlebeat.ogg', channel = CHANNEL_HEARTBEAT, volume = 50))
 			else
 				heartbeat++
 
@@ -896,13 +896,12 @@
 /mob/living/carbon/human/proc/undergoing_cardiac_arrest()
 	if(!can_heartattack())
 		return FALSE
+
 	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
-	if(istype(heart))
-		if(heart.status & ORGAN_DEAD)
-			return TRUE
-		if(heart.beating)
-			return FALSE
-	return TRUE
+	if(!istype(heart) || (heart.status & ORGAN_DEAD) || !heart.beating)
+		return TRUE
+
+	return FALSE
 
 /mob/living/carbon/human/proc/set_heartattack(status)
 	if(!can_heartattack())

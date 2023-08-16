@@ -304,6 +304,8 @@
 
 ///from base of /datum/mind/proc/transfer_to(mob/living/new_character)
 #define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
+///called on the mob instead of the mind
+#define COMSIG_BODY_TRANSFER_TO "body_transfer_to"
 
 // /mob signals
 
@@ -347,6 +349,8 @@
 #define COMSIG_MOB_THROW "mob_throw"
 ///called when a user willingly drops something (i.e. keybind, or UI action)
 #define COMSIG_MOB_WILLINGLY_DROP "mob_willingly_drop"
+///called when a user is getting new weapon and we want to remove previous weapon to clear hands
+#define COMSIG_MOB_WEAPON_APPEARS "mob_weapon_appears"
 ///from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_EXAMINATE "mob_examinate"
 ///from base of /mob/update_sight(): ()
@@ -477,6 +481,8 @@
 #define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
 /// From /mob/living/carbon/flash_eyes()
 #define COMSIG_CARBON_FLASH_EYES "carbon_flash_eyes"
+/// From /mob/living/carbon/regenerate_icons()
+#define COMSIG_CARBON_REGENERATE_ICONS "carbon_regen_icons"
 
 
 // /mob/living/simple_animal/hostile signals
@@ -558,6 +564,9 @@
 #define COMSIG_TOOL_IN_USE "tool_in_use"
 ///from base of [/obj/item/proc/tool_start_check]: (mob/living/user)
 #define COMSIG_TOOL_START_USE "tool_start_use"
+///from base of [/obj/item/proc/tool_attack_chain]: (atom/tool, mob/user)
+#define COMSIG_TOOL_ATTACK "tool_attack"
+	#define COMPONENT_CANCEL_TOOLACT (1<<0)
 ///from [/obj/item/proc/disableEmbedding]:
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
@@ -571,14 +580,8 @@
 	#define COMPONENT_BLOCK_DEFIB_DEAD (1<<0)
 	/// Something else: we won't have a custom message for this and should let the defib handle it.
 	#define COMPONENT_BLOCK_DEFIB_MISC (1<<1)
-	/// If our safeties are on, turn them off for this shock.
-	#define COMPONENT_DEFIB_BECOME_THE_DANGER (1<<2)
-	/// If our safeties are off, turn them on for this shock.
-	#define COMPONENT_DEFIB_BECOME_SAFE (1<<3)
 /// Called when a defib has been successfully used, and a shock has been applied. (mob/living/user, mob/living/target, harmful, successful)
 #define COMSIG_DEFIB_SHOCK_APPLIED "defib_zap"
-/// Called when a defib is aborted and no shock was applied. (mob/living/user, mob/living/target, harmful)
-#define COMSIG_DEFIB_ABORTED "defib_aborted"
 /// Called when a defib's cooldown has run its course and it is once again ready. ()
 #define COMSIG_DEFIB_READY "defib_ready"
 
@@ -693,6 +696,10 @@
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
 //sent from living mobs when they parry
 #define COMSIG_HUMAN_PARRY "human_parry"
+///From mob/living/carbon/human/do_suicide()
+#define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
+///From mob/living/carbon/human/attackedby(): (mob/living/carbon/human/attacker). Also found on species/disarm and species/harm
+#define COMSIG_HUMAN_ATTACKED "human_attacked"
 
 // /datum/species signals
 

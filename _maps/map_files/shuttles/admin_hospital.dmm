@@ -88,48 +88,12 @@
 	},
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
-"av" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
 "aw" = (
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"ax" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/machinery/camera{
-	dir = 8;
-	name = "NHV Asclepius Lobby";
-	network = list("NHV Asclepius")
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "ay" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"az" = (
-/obj/machinery/clonepod{
-	biomass = 300
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"aA" = (
-/obj/machinery/computer/cloning,
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aB" = (
@@ -150,18 +114,6 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"aH" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor/westleft{
-	req_access_txt = "33"
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aI" = (
@@ -214,15 +166,6 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
-"aR" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
 "aS" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/syringes,
@@ -246,15 +189,6 @@
 /obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
-"aV" = (
-/obj/machinery/camera{
-	dir = 8;
-	name = "NHV Asclepius Cloning";
-	network = list("NHV Asclepius")
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
 "aX" = (
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag,
@@ -265,12 +199,6 @@
 /area/shuttle/administration)
 "aY" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"aZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
-	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "ba" = (
@@ -295,12 +223,6 @@
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/storage/box/gloves,
 /obj/item/storage/box/masks,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"bf" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden{
-	dir = 4
-	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bg" = (
@@ -346,38 +268,6 @@
 /area/shuttle/administration)
 "bp" = (
 /obj/machinery/computer/pandemic,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"bq" = (
-/obj/machinery/camera{
-	c_tag = "Tech Storage";
-	name = "NHV Asclepius Command Center";
-	network = list("NHV Asclepius")
-	},
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/machinery/door_control{
-	dir = 4;
-	id = "Asclshutters";
-	name = "remote shutter control";
-	pixel_x = -5;
-	pixel_y = 35;
-	req_access = list(101)
-	},
-/obj/machinery/keycard_auth{
-	pixel_y = 24
-	},
-/obj/machinery/door_control{
-	id = "asclblast";
-	name = "blast door control";
-	pixel_x = 5;
-	pixel_y = 35;
-	req_access = list(101)
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "br" = (
@@ -505,16 +395,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
-"bM" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/machinery/light,
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
 "bO" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/mineral/titanium,
@@ -593,12 +473,6 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
-"cf" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cg" = (
@@ -712,6 +586,27 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"ia" = (
+/obj/machinery/camera{
+	dir = 8;
+	name = "NHV Asclepius Cloning";
+	network = list("NHV Asclepius")
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"ip" = (
+/obj/machinery/clonepod{
+	biomass = 300
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"kY" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
 "qa" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -724,18 +619,110 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
+"qj" = (
+/obj/machinery/camera{
+	dir = 8;
+	name = "NHV Asclepius Lobby";
+	network = list("NHV Asclepius")
+	},
+/obj/machinery/recharge_station,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"rn" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"rx" = (
+/obj/machinery/camera{
+	c_tag = "Tech Storage";
+	name = "NHV Asclepius Command Center";
+	network = list("NHV Asclepius")
+	},
+/obj/machinery/door_control{
+	dir = 4;
+	id = "Asclshutters";
+	name = "remote shutter control";
+	pixel_x = -5;
+	pixel_y = 35;
+	req_access = list(101)
+	},
+/obj/machinery/keycard_auth{
+	pixel_y = 24
+	},
+/obj/machinery/door_control{
+	id = "asclblast";
+	name = "blast door control";
+	pixel_x = 5;
+	pixel_y = 35;
+	req_access = list(101)
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"wk" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/reinforced/normal{
+	req_access_txt = "33";
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"xs" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
 "zD" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"Ax" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
 "Dw" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/administration)
+"Jz" = (
+/obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"Kk" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"LI" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "RB" = (
 /obj/machinery/sleeper{
 	dir = 1;
 	icon_state = "sleeper"
 	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"RQ" = (
+/obj/machinery/computer/cloning,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "TT" = (
@@ -794,10 +781,10 @@ aw
 aY
 aq
 ab
-bq
-aR
-aR
-bM
+rx
+Ax
+Ax
+Jz
 ab
 aC
 cv
@@ -819,7 +806,7 @@ aw
 aw
 aw
 bb
-cf
+rn
 cw
 aw
 cn
@@ -868,7 +855,7 @@ ab
 (7,1,1) = {"
 ab
 au
-aH
+wk
 aP
 aT
 aP
@@ -887,11 +874,11 @@ ab
 "}
 (8,1,1) = {"
 ah
-av
+kY
 aw
-av
+Kk
 aw
-av
+Kk
 bc
 aP
 aw
@@ -947,11 +934,11 @@ ab
 "}
 (11,1,1) = {"
 ah
-ax
+qj
 aI
-aR
+Ax
 aw
-aR
+Ax
 bd
 aP
 bv
@@ -1007,11 +994,11 @@ ab
 "}
 (14,1,1) = {"
 ad
-az
-aw
-aw
-aw
-aw
+aC
+aK
+aK
+aK
+cu
 bg
 ab
 bx
@@ -1027,11 +1014,11 @@ qa
 "}
 (15,1,1) = {"
 ad
-aA
+ip
 aw
 aw
 aw
-aw
+cw
 bh
 ab
 by
@@ -1047,11 +1034,11 @@ qa
 "}
 (16,1,1) = {"
 ad
-aB
+RQ
 aw
 aw
 aw
-aZ
+LI
 bi
 ab
 bz
@@ -1067,11 +1054,11 @@ qa
 "}
 (17,1,1) = {"
 ab
-aC
-aK
-aK
-aV
-bf
+aB
+aw
+aw
+ia
+xs
 ce
 ab
 bA

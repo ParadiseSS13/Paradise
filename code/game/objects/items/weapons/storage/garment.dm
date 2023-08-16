@@ -180,6 +180,7 @@
 	new /obj/item/clothing/suit/storage/blueshield(src)
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)

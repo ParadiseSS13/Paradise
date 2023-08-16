@@ -16,6 +16,7 @@
 /.github/workflows/ @AffectedArc07
 /code/modules/unit_tests/ @AffectedArc07
 /tools/ci/ @AffectedArc07
+_build_dependencies.sh @AffectedArc07
 
 # Server Stuff
 /SQL/ @AffectedArc07
