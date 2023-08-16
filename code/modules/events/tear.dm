@@ -19,7 +19,7 @@
 
 /datum/event/tear/start()
 	var/list/area_turfs = get_area_turfs(impact_area)
-	while(length(area_turfs) > 0)
+	while(length(area_turfs))
 		var/turf/T = pick_n_take(area_turfs)
 		if(is_blocked_turf(T))
 			continue
