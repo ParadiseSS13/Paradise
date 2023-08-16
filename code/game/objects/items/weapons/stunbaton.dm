@@ -278,7 +278,7 @@
 	knockdown_duration = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 	knockdown_delay = 0
-	flags = ABSTRACT | NODROP | DROPDEL
+	flags = ABSTRACT | NODROP
 	turned_on = TRUE
 
 /obj/item/melee/baton/flayerprod/update_icon_state()

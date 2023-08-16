@@ -14,13 +14,13 @@
 	action_background_icon_state = "bg_vampire" // TODO: flayer background
 	human_req = TRUE
 	clothes_req = FALSE
-	/// A reference to the changeling's changeling antag datum.
+	/// A reference to the mind flayer's antag datum.
 	var/datum/antagonist/mindflayer/flayer
-	/// Determines whether the power is always given to the changeling or if it must be purchased.
+	/// Determines whether the power is always given to the mind flayer or if it must be purchased.
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
 	/// The cost of purchasing the power.
 	var/swarm_cost = 0
-	/// What `stat` value the changeling needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
+	/// What `stat` value the mind flayer needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
 	var/req_stat = CONSCIOUS
 
 // Behold, a copypaste from changeling, might need some redoing
@@ -75,6 +75,7 @@
 	SIGNAL_HANDLER
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
+	owner.unEquip(weapon_ref, TRUE)
 	weapon_ref.forceMove(src)
 	owner.update_inv_l_hand()
 	owner.update_inv_r_hand()
