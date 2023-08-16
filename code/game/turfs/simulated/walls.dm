@@ -294,7 +294,8 @@
 		sleep(1 SECONDS)
 	if(iswallturf(src))
 		melting = FALSE
-	if(O)	qdel(O)
+	if(O)
+		qdel(O)
 	return
 
 //Interactions
