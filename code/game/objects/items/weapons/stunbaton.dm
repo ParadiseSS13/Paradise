@@ -160,9 +160,9 @@
 	add_fingerprint(user)
 
 /obj/item/melee/baton/throw_impact(mob/living/carbon/human/hit_mob)
-	if(!..() && turned_on && istype(hit_mob))
+	. = ..()
+	if(!. && turned_on && istype(hit_mob))
 		thrown_baton_stun(hit_mob)
-	return ..()
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
