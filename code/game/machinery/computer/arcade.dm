@@ -1028,7 +1028,7 @@
 #undef ORION_TRAIL_SPACEPORT
 #undef ORION_TRAIL_BLACKHOLE
 
-#define PROB_CANDIDATE_ERRORS 10
+#define PROB_CANDIDATE_ERRORS 8.3
 
 #define PROB_UNIQUE_CANDIDATE 2
 #define UNIQUE_STEVE 1
@@ -1111,7 +1111,6 @@
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
 										/datum/species/tajaran, /datum/species/kidan, /datum/species/drask,
 										/datum/species/diona, /datum/species/machine, /datum/species/slime,
-										/datum/species/grey, /datum/species/vulpkanin, /datum/species/plasmaman,
 										/datum/species/moth)
 	/// Species that are NOT hirable in the eyes of NT
 	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey, /datum/species/nucleation,
@@ -1142,7 +1141,13 @@
 	else
 		age = rand(initial(cand_species.min_age), initial(cand_species.max_age))
 
-	candidate_name = random_name(candidate_gender, initial(cand_species.name)) // Name
+	if(prob(PROB_CANDIDATE_ERRORS)) // Name
+		// Lets pick all species with a naming scheme and remove the selected one so we can have a mismatch
+		var/datum/species/wrong_species = pick((hirable_species + /datum/species/monkey + /datum/species/golem - cand_species))
+		candidate_name = random_name(candidate_gender, initial(wrong_species.name))
+		good_candidate = FALSE
+	else
+		candidate_name = random_name(candidate_gender, initial(cand_species.name))
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Planet
 		planet_of_origin = pick(incorrect_planets)

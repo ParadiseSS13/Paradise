@@ -101,6 +101,10 @@ export const NTRecruiter = (props, context) => {
             Remember, you are recruiting people to work at one of the many NT stations,
             so no hiring for <b>jobs</b> that they <b>don&apos;t offer</b>!
           </LabeledListItem>
+          <LabeledListItem label="9#" color="silver">
+            Keep your eyes open for incompatible <b>naming schemes</b>, no company wants
+            a Vox named Joe!
+          </LabeledListItem>
         </LabeledList>
         </Section>
       </Window.Content>
