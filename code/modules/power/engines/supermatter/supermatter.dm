@@ -920,25 +920,25 @@
 	if(!combined_gas > MOLE_PENALTY_THRESHOLD || !get_integrity() < SUPERMATTER_DANGER_PERCENT)
 		for(var/obj/D in darkness_effects)
 			qdel(D)
+			return
 
+	var/darkness_strength = clamp((damage - 450) / 75, 1, 8) / 2
+	var/darkness_aoe = clamp((damage - 450) / 25, 1, 25)
+	set_light(
+		l_range = 4 + darkness_aoe,
+		l_power = -1 - darkness_strength,
+		l_color = "#ddd6cf")
+	if(!length(darkness_effects) && moveable) //Don't do this on movable sms oh god. Ideally don't do this at all, but hey, that's lightning for you
+		darkness_effects += new /obj/effect/abstract(locate(x-3,y+3,z))
+		darkness_effects += new /obj/effect/abstract(locate(x+3,y+3,z))
+		darkness_effects += new /obj/effect/abstract(locate(x-3,y-3,z))
+		darkness_effects += new /obj/effect/abstract(locate(x+3,y-3,z))
 	else
-		var/darkness_strength = clamp((damage - 450) / 75, 1, 8) / 2
-		var/darkness_aoe = clamp((damage - 450) / 25, 1, 25)
-		set_light(
-			l_range = 4 + darkness_aoe,
-			l_power = -1 - darkness_strength,
-			l_color = "#ddd6cf")
-		if(!length(darkness_effects) && moveable) //Don't do this on movable sms oh god. Ideally don't do this at all, but hey, that's lightning for you
-			darkness_effects += new /obj/effect/abstract(locate(x-3,y+3,z))
-			darkness_effects += new /obj/effect/abstract(locate(x+3,y+3,z))
-			darkness_effects += new /obj/effect/abstract(locate(x-3,y-3,z))
-			darkness_effects += new /obj/effect/abstract(locate(x+3,y-3,z))
-		else
-			for(var/obj/O in darkness_effects)
-				O.set_light(
-					l_range = 0 + darkness_aoe,
-					l_power = -1 - darkness_strength / 1.25,
-					l_color = "#ddd6cf")
+		for(var/obj/O in darkness_effects)
+			O.set_light(
+				l_range = 0 + darkness_aoe,
+				l_power = -1 - darkness_strength / 1.25,
+				l_color = "#ddd6cf")
 
 /obj/effect/warp_effect/supermatter
 	plane = GRAVITY_PULSE_PLANE
