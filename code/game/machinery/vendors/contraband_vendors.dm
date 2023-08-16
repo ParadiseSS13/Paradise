@@ -15,6 +15,7 @@
 	desc = "Smoke 'em if you've got 'em."
 	slogan_list = list("Space cigs taste good like a cigarette should.", "I'd rather toolbox than switch.", "Smoke!", "Don't believe the reports - smoke today!")
 	ads_list = list("Probably not bad for you!", "Don't believe the scientists!", "It's good for you!", "Don't quit, buy more!", "Smoke!", "Nicotine heaven.", "Best cigarettes since 2150.", "Award-winning cigs.")
+	category = VENDOR_TYPE_RECREATION
 	vend_delay = 34
 	icon_state = "cigs"
 	icon_lightmask = "cigs"
@@ -29,6 +30,7 @@
 	icon_lightmask = "nutri"
 	icon_off = "nutri"
 	icon_panel = "thin_vendor"
+	category = VENDOR_TYPE_FOOD
 	products = list(/obj/item/reagent_containers/food/snacks/chips = 6,/obj/item/reagent_containers/food/snacks/sosjerky = 6,
 					/obj/item/reagent_containers/food/snacks/syndicake = 6, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 6)
 
@@ -93,6 +95,7 @@
 	slogan_list = list("Get your cool toys today!", "Trigger a valid hunter today!", "Quality toy weapons for cheap prices!", "Give them to HoPs for all access!", "Give them to HoS to get permabrigged!")
 	ads_list = list("Feel robust with your toys!", "Express your inner child today!", "Toy weapons don't kill people, but valid hunters do!", "Who needs responsibilities when you have toy weapons?", "Make your next murder FUN!")
 	vend_reply = "Come back for more!"
+	category = VENDOR_TYPE_RECREATION
 	products = list(/obj/item/gun/projectile/automatic/toy = 10,
 					/obj/item/gun/projectile/automatic/toy/pistol= 10,
 					/obj/item/gun/projectile/shotgun/toy = 10,
