@@ -69,9 +69,7 @@
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	user.forceMove(get_turf(src)) //make_new_construct spawns harvesters at observers locations, could be used to get into admin rooms/CC
-	make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, user, cult_override = TRUE)
-	new /obj/effect/particle_effect/smoke/sleeping(user.loc)
-
+	make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, user, cult_override = TRUE, create_smoke = TRUE)
 
 /obj/singularity/narsie/process()
 	eat()
