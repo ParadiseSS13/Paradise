@@ -56,6 +56,7 @@
 				explosion(upriser.loc, -1, 1, 2, 4, 0)
 				qdel(upriser)
 
+		log_debug("Brand intelligence: The last vendor has been infected.")
 		kill()
 		return
 
@@ -83,6 +84,7 @@
 	if(originMachine)
 		originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
 		originMachine.visible_message("[originMachine] beeps and seems lifeless.")
+	log_debug("Brand intelligence completed early due to origin machine being defeated.")
 	kill()
 
 /datum/event/brand_intelligence/kill()
