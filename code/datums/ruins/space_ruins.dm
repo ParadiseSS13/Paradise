@@ -146,6 +146,7 @@
 	description = "No questions asked. No shoes/foot protection, no service. \
 		No tabs. No violence in the inside areas. That's it. Welcome to the \
 		Rampant Golem and Yellow Hound. Can I take your order?"
+	allow_duplicates = FALSE //it spawn ship docking, no more than one to avoid duplication in console.
 	cost = 2
 
 /datum/map_template/ruin/space/turreted_outpost
@@ -317,3 +318,11 @@
 	description = "A relic of old times, you don't know what it hide inside."
 	allow_duplicates = FALSE
 	cost = 1 // Gives research levels and it should be hard-to-find
+
+/datum/map_template/ruin/space/wreckedcargoship
+	id = "wreckedcargoship"
+	suffix = "wreckedcargoship.dmm"
+	name = "Wrecked Cargoship"
+	description = "A cargo shuttle in a wrecked condition. There are many unknown horrors in space and looks like its last crew has faced one of them."
+	allow_duplicates = FALSE
+	cost = 1 // With the loot it contains it shouldn't be found frequently

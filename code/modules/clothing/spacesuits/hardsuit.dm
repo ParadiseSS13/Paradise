@@ -431,6 +431,7 @@
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
+	origin_tech = "engineering=6;syndicate=4"
 	w_class = WEIGHT_CLASS_NORMAL
 	var/on = TRUE
 	actions_types = list(/datum/action/item_action/toggle_hardsuit_mode)
@@ -475,6 +476,10 @@
 	icon_state = "hardsuit0-sst"
 	item_color = "sst"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
+
+/obj/item/clothing/suit/space/hardsuit/syndi/elite/sst/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 	name = "eagle suit"

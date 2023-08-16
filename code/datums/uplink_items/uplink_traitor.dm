@@ -124,6 +124,16 @@
 	cost = 2
 	job = list("Janitor")
 
+/datum/uplink_item/jobspecific/titaniumbroom
+	name = "Titanium Push Broom"
+	desc = "A push broom with a reinforced handle and a metal wire brush, perfect for giving yourself more work by beating up assistants. \
+	When wielded, you will reflect projectiles, and hitting people will have different effects based on your intent."
+	reference = "TPBR"
+	item = /obj/item/twohanded/push_broom/traitor
+	cost = 12
+	job = list("Janitor")
+	surplus = 0 //no reflect memes
+
 //Virology
 
 /datum/uplink_item/jobspecific/viral_injector
@@ -281,6 +291,55 @@
 	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian", "Coroner", "Psychiatrist", "Virologist")
+
+
+//--------------------------//
+// Species Restricted Gear //
+//-------------------------//
+
+/datum/uplink_item/species_restricted
+	category = "Species Specific Gear"
+	cant_discount = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
+
+//skrell
+/datum/uplink_item/species_restricted/lovepen
+	name = "Aggression Supression Pen"
+	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. The pen holds four doses of the mixture and it cannot be refilled."
+	reference = "LP"
+	item = /obj/item/pen/sleepy/love
+	cost = 4
+	species = list("Skrell")
+
+
+//Vox
+/datum/uplink_item/species_restricted/spikethrower
+	name = "Skipjack Spikethrower"
+	desc = "An energy based weapon that launches high velocity plasma spikes. These spikes hit with enough force to knock the target down and leave a nasty wound."
+	reference = "STG"
+	item = /obj/item/gun/energy/spikethrower
+	cost = 12
+	species = list("Vox")
+
+//IPC:
+//Positonic supercharge implant: stims, 3 uses, IPC adrenals
+/datum/uplink_item/species_restricted/supercharge_implant
+	name = "Synthetic Supercharge Bio-chip"
+	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
+	reference = "SSI"
+	item = /obj/item/implanter/supercharge
+	cost = 8
+	species = list("Machine")
+
+
+//plasmeme
+/datum/uplink_item/species_restricted/fireproofing_nanites
+	name = "Fireproofing Nanite Injector"
+	desc = "A swarm of nanomachines that absorb excess amounts of heat, allowing the user to become practically fireproof."
+	reference = "FPN"
+	item = /obj/item/fireproofing_injector
+	cost = 5
+	species = list("Plasmaman")
 
 
 // -------------------------------------
@@ -516,7 +575,7 @@
 	name = "CQC Manual"
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. \
 			Changes your unarmed damage to deal non-lethal stamina damage. \
-			Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
+			Does not restrict weapon usage, and can be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
 	cost = 10

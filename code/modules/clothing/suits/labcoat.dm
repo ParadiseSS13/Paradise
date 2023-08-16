@@ -87,3 +87,10 @@
 	desc = "More purple than the standard model."
 	icon_state = "labcoat_rd_open"
 	item_state = "labcoat_rd_open"
+
+/obj/item/clothing/suit/storage/labcoat/hydro
+	name = "hydroponics labcoat"
+	desc = "A blue suit that protects against minor chemical spills. Has a green stripe on the shoulder."
+	icon_state = "labcoat_hydro_open"
+	item_state = "labcoat_hydro_open"
+	allowed = list(/obj/item/plant_analyzer, /obj/item/reagent_containers/glass/bottle, /obj/item/storage/bag/plants, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker, /obj/item/paper)

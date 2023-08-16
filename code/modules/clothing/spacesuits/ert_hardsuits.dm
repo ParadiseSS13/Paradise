@@ -123,6 +123,10 @@
 	item_state = "syndicate-black-red"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/security
 
+/obj/item/clothing/suit/space/hardsuit/ert/security/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/clothing/suit/space/hardsuit/ert/security/gamma
 	name = "elite emergency response team security suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -180,6 +184,10 @@
 	desc = "A suit worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready."
 	icon_state = "ert_medical"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/medical
+
+/obj/item/clothing/suit/space/hardsuit/ert/medical/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/clothing/suit/space/hardsuit/ert/medical/gamma
 	name = "elite emergency response team medical suit"

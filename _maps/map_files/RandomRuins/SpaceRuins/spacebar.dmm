@@ -1,7 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
+/obj/structure/lattice,
 /turf/template_noop,
-/area/template_noop)
+/area/space/nearstation)
 "ab" = (
 /turf/simulated/mineral,
 /area/space/nearstation)
@@ -9,12 +10,18 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "ad" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/space)
 "ae" = (
-/turf/simulated/wall,
-/area/ruin/unpowered)
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "SpaceBar";
+	name = "Teleporter Shutters"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "rampbottom"
+	},
+/area/ruin/space/powered/bar)
 "af" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -23,9 +30,10 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "ah" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/powered)
+/area/space/nearstation)
 "ai" = (
 /turf/simulated/mineral,
 /area/ruin/space/powered)
@@ -40,19 +48,26 @@
 /turf/simulated/wall,
 /area/ruin/space/powered/bar)
 "ap" = (
-/obj/structure/table,
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/simulated/floor/wood,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "black"
+	},
 /area/ruin/space/powered/bar)
 "aq" = (
 /obj/structure/table,
-/obj/machinery/economy/vending/boozeomat,
+/obj/machinery/chem_dispenser/beer{
+	pixel_y = 8
+	},
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "ar" = (
 /obj/structure/table,
-/obj/machinery/light/small{
-	dir = 1
+/obj/machinery/chem_dispenser/soda{
+	pixel_y = 8
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
@@ -65,18 +80,20 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "au" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/shaker,
-/turf/simulated/floor/wood,
-/area/ruin/space/powered/bar)
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/preopen,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
 "av" = (
-/obj/effect/decal/remains/human,
+/obj/structure/table/wood,
+/obj/item/stack/sheet/metal{
+	amount = 10
+	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aw" = (
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/simulated/floor/wood,
-/area/ruin/space/powered/bar)
+/turf/simulated/wall/mineral/iron,
+/area/space/nearstation)
 "ax" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -90,11 +107,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
-"az" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
-/turf/simulated/floor/wood,
-/area/ruin/space/powered/bar)
 "aA" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/wall/mineral/titanium,
@@ -106,13 +118,10 @@
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
 "aD" = (
-/obj/machinery/door_control{
-	id = "pod cycle";
-	name = "pod door cycle";
-	pixel_x = -26
-	},
-/turf/simulated/floor/wood,
-/area/ruin/space/powered/bar)
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
 "aE" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/wood,
@@ -122,22 +131,16 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aG" = (
-/obj/machinery/light/small,
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/wood,
-/area/ruin/space/powered/bar)
+/turf/simulated/wall/mineral/iron,
+/area/ruin/space/powered)
 "aH" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aI" = (
-/obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 10
-	},
-/turf/simulated/floor/wood,
-/area/ruin/space/powered/bar)
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "aJ" = (
 /turf/simulated/wall,
 /area/ruin/space/powered)
@@ -146,609 +149,1350 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aL" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/glass/rag,
-/turf/simulated/floor/wood,
+/obj/structure/rack,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/ruin/space/powered/bar)
 "aM" = (
-/obj/machinery/door/airlock{
-	name = "Bar Storage";
-	req_access_txt = "25"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/ruin/space/powered/bar)
+/turf/template_noop,
+/area/ruin/space/powered)
 "aN" = (
-/obj/structure/chair/stool/bar,
-/turf/simulated/floor/plasteel,
+/obj/structure/table,
+/obj/item/reagent_containers/glass/rag,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aO" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "aP" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/powered/bar)
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/marker_beacon/dock_marker,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
 "aQ" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "aS" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "black"
+	},
 /area/ruin/space/powered/bar)
 "aT" = (
-/turf/simulated/floor/plating,
-/area/ruin/space/powered/bar)
-"aU" = (
-/obj/structure/chair{
+/obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"aU" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/ruin/space/powered/bar)
 "aV" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "aW" = (
-/obj/structure/chair{
-	dir = 8
+/obj/structure/mirror{
+	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel,
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = -8
+	},
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/ruin/space/powered/bar)
 "aX" = (
-/obj/machinery/light{
-	dir = 8
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "black"
 	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "aY" = (
-/obj/structure/chair,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/powered/bar)
+/obj/item/clothing/accessory/stethoscope,
+/obj/item/stack/medical/bruise_pack/advanced,
+/obj/item/scalpel,
+/obj/structure/table,
+/obj/item/wirecutters,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "aZ" = (
 /obj/item/radio/beacon,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "ba" = (
-/obj/machinery/economy/vending/cola,
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "black"
+	},
 /area/ruin/space/powered/bar)
 "bb" = (
-/obj/machinery/economy/vending/cigarette,
+/obj/machinery/door/poddoor,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "bc" = (
-/obj/machinery/economy/vending/coffee,
-/turf/simulated/floor/plasteel,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "bd" = (
-/obj/machinery/economy/vending/snack,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/powered/bar)
-"be" = (
-/obj/structure/chair{
+/obj/structure/chair/stool{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"be" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
 /area/ruin/space/powered/bar)
 "bf" = (
-/obj/machinery/door/airlock{
-	name = "Unisex Bathroom"
+/obj/structure/table,
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "bg" = (
-/obj/structure/urinal{
-	pixel_x = -32
+/turf/simulated/floor/plasteel{
+	icon_state = "rampbottom"
 	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "bh" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/powered/bar)
+/obj/item/stack/ore/glass,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "bi" = (
-/obj/structure/table/wood,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/teleport/station,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "bj" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/powered/bar)
+/obj/item/stack/ore/glass,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
 "bk" = (
-/obj/structure/toilet{
-	dir = 4
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "bl" = (
-/obj/machinery/door/airlock{
-	name = "Toilet"
+/obj/structure/girder,
+/obj/item/stack/sheet/metal{
+	amount = 5
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "bm" = (
-/obj/structure/glowshroom,
-/turf/simulated/floor/plasteel,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = -8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/ruin/space/powered/bar)
 "bn" = (
-/obj/machinery/door/airlock/external,
+/obj/effect/landmark/damageturf,
+/obj/item/stack/tile/mineral,
 /turf/simulated/floor/plating,
-/area/ruin/space/powered)
+/area/ruin/space/powered/bar)
 "bo" = (
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bq" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "pod cycle";
-	name = "airlock dock"
-	},
-/turf/simulated/floor/plating,
+/obj/machinery/light,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "br" = (
-/obj/machinery/door/poddoor{
-	id_tag = "pod cycle";
-	name = "airlock dock"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/powered)
+/turf/template_noop,
+/area/space/nearstation)
 "bt" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
+"bF" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"bN" = (
+/obj/machinery/atmospherics/portable/canister/air{
+	filled = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"cE" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"ee" = (
+/obj/structure/safe,
+/obj/item/circuitboard/teleporter,
+/obj/item/circuitboard/teleporter_hub{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/suit/hgpirate,
+/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer,
+/obj/item/clothing/gloves/ring/gold,
+/obj/item/id_decal/gold,
+/obj/item/screwdriver,
+/obj/item/toy/plushie/carpplushie/gold,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"eG" = (
+/obj/effect/landmark/damageturf,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
+"fg" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"gy" = (
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"gM" = (
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/structure/lattice,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/template_noop,
+/area/ruin/space/powered)
+"iM" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"jm" = (
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"jD" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"jN" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"jR" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/ruin/space/powered)
+"lh" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"lx" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"lO" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"lS" = (
+/obj/item/restraints/handcuffs/cable/red,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"mb" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/shaker,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
+"mu" = (
+/obj/structure/bed/roller,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"pb" = (
+/obj/item/stack/tile/mineral,
+/obj/machinery/door_control{
+	id = "SpaceBar";
+	name = "Public Shutters";
+	pixel_x = -24
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
+"qZ" = (
+/obj/item/caution/proximity_sign,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"rN" = (
+/obj/machinery/atmospherics/portable/canister/air{
+	filled = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"rQ" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/bar)
+"sq" = (
+/obj/structure/lattice,
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/template_noop,
+/area/ruin/space/powered)
+"st" = (
+/obj/structure/lattice,
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/template_noop,
+/area/ruin/space/powered)
+"tu" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blackcorner"
+	},
+/area/ruin/space/powered/bar)
+"tv" = (
+/obj/effect/landmark/damageturf,
+/obj/item/storage/toolbox/electrical,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
+"tH" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"vD" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
+"vE" = (
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/structure/lattice,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/template_noop,
+/area/ruin/space/powered)
+"vT" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/stack/ore/glass/basalt,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"wy" = (
+/obj/effect/landmark/damageturf,
+/obj/structure/holosign/barrier/engineering,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
+"wL" = (
+/obj/effect/landmark/damageturf,
+/obj/item/crowbar/small,
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
+"wQ" = (
+/obj/structure/mopbucket/full,
+/obj/item/mop,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"yC" = (
+/obj/machinery/economy/vending/cola,
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"yE" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"yW" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
+"yX" = (
+/obj/structure/table/reinforced,
+/obj/structure/fans/tiny,
+/obj/machinery/door/window{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
+"zy" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/space/nearstation)
+"zC" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"Ad" = (
+/obj/machinery/door/airlock{
+	name = "Unisex Bathroom"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"AX" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "blackcorner"
+	},
+/area/ruin/space/powered/bar)
+"Bc" = (
+/obj/machinery/light,
+/obj/machinery/economy/vending/snack,
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"Ck" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/bar)
+"Cx" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/item/stack/ore/bluespace_crystal/refined,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"CN" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"Do" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "pod cycle";
+	name = "airlock dock"
+	},
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"DT" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/obj/item/wrench,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"Ec" = (
+/obj/machinery/door/airlock{
+	name = "Toilet"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"Ee" = (
+/obj/item/shard,
+/obj/structure/door_assembly,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
+"Fj" = (
+/obj/machinery/economy/vending/coffee,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"FO" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/stack/ore/glass,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"FY" = (
+/obj/machinery/reagentgrinder,
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
+"Gv" = (
+/obj/item/pickaxe,
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"Gz" = (
+/turf/simulated/wall/mineral/iron,
+/area/space)
+"HX" = (
+/obj/structure/table,
+/obj/item/book/manual/barman_recipes,
+/obj/item/lighter/zippo,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
+"Is" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/rag,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"JW" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/shovel{
+	pixel_x = -5
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"Kp" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"KM" = (
+/obj/effect/landmark/damageturf,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"KO" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/storage/belt/utility,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"Lh" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"Lq" = (
+/turf/simulated/wall,
+/area/space/nearstation)
+"Lu" = (
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"Ly" = (
+/obj/machinery/door_control{
+	id = "pod cycle";
+	name = "Pod Door Cycle";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"LB" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
+"LQ" = (
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	id = "whiteship_bar";
+	name = "Space Bar"
+	},
+/turf/template_noop,
+/area/space)
+"LU" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "blackcorner"
+	},
+/area/ruin/space/powered/bar)
+"Ni" = (
+/obj/machinery/kitchen_machine/microwave,
+/obj/structure/table/wood,
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
+"Nl" = (
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"Np" = (
+/obj/item/stack/ore/bluespace_crystal/refined,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"Nr" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"NE" = (
+/obj/structure/closet/secure_closet/bar{
+	anchored = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
+"NP" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
+"Of" = (
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"Ow" = (
+/obj/item/stack/ore/glass/basalt,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"Pr" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"PA" = (
+/obj/structure/marker_beacon/dock_marker,
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"QG" = (
+/obj/item/stack/ore/glass,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered)
+"QU" = (
+/obj/effect/landmark/damageturf,
+/obj/item/stack/tile/mineral,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"QY" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/powered/bar)
+"RL" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
+"RX" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/marker_beacon/dock_marker,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Sy" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"UA" = (
+/obj/structure/glowshroom,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"UO" = (
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/structure/computerframe{
+	dir = 8
+	},
+/obj/item/shard,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"Vt" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "black"
+	},
+/area/ruin/space/powered/bar)
+"VR" = (
+/obj/item/stack/tile/mineral,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/bar)
+"VU" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"VY" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/powered/bar)
+"Xi" = (
+/obj/machinery/bottler,
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
+"XS" = (
+/obj/machinery/door/poddoor{
+	id_tag = "pod cycle";
+	name = "airlock dock"
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"ZM" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
 
 (1,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ab
+ad
+ad
+ad
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ab
+ac
+ac
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (2,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ad
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (3,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ab
+ad
+ad
+ad
+ab
+ab
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ab
+ac
+ab
+ac
+ad
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (4,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ad
+ad
+ac
+ac
 ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ag
+ai
+ai
+aG
+af
+af
+af
+aG
+ad
+ad
+ad
+ad
+aG
+af
+af
+af
+af
+aG
+ab
+ac
+ac
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (5,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
+ad
+ad
+ad
+ad
+ad
+ad
 ab
 ab
 ab
-ac
-aa
-aa
-ac
+ag
+bj
+ai
+ag
+Nr
+ag
+ag
+ag
+aG
+af
+af
+af
+af
+aG
+ag
+ag
+ag
+ag
+aG
 ab
 ab
 ab
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (6,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+ai
+ag
+Ow
+ag
+ag
+ag
+bj
+ag
+Nr
+ag
+ag
+ag
+ag
+Nr
+ag
+ag
+ag
+ag
+QG
+ai
+ai
+aG
+aG
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (7,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-af
-af
-aJ
-af
-ac
-ac
-ac
-af
-af
-af
-af
-af
-ac
-ac
-aJ
-bn
-aJ
-ac
-ac
+ad
+ad
+ad
+ad
+ad
+ad
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ai
+ai
+ag
+bj
+ai
+ai
+ag
+ai
+ag
+ag
+Ow
+bj
+ag
+af
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (8,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-af
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+bj
 ag
-ag
-af
-ac
-af
-af
+aj
+aj
+aj
+aA
 ag
 ag
 ag
 ag
+bj
+ai
+ai
+ai
+ai
+Ow
 ag
-af
-af
+bj
+ag
+ag
+ag
+bq
 aJ
-bo
 aJ
-ac
-ab
-ab
-ab
-aa
-aa
-aa
-aa
-aa
-aa
+aJ
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (9,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-af
-ag
-ag
-ag
-ag
-af
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-aJ
-bo
-aJ
-aJ
-aJ
-aJ
+ad
+ad
+ad
+ad
 ab
 ab
+ab
+ab
+ai
+ag
+ak
+Cx
+ax
+aB
+ag
+ag
+ag
+ai
+ag
+ag
+ai
+ai
+ai
+ai
+ag
+ag
+ag
+ag
+ag
+ag
+RX
+au
+aP
 aa
+PA
 aa
-aa
-aa
-aa
+PA
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (10,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ab
+ad
+ab
 ac
-ac
-ac
-af
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-aJ
-bn
-aJ
-ag
-ag
-aJ
 ab
 ab
-aa
-aa
-aa
-aa
-aa
+ag
+aj
+aj
+aj
+aA
+ag
+ag
+ag
+ag
+ag
+ai
+ai
+ag
+bj
+ag
+ag
+ag
+ag
+bj
+ag
+ag
+bt
+au
+bo
+br
+br
+br
+br
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (11,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ab
+ad
+ab
+ab
 ac
 ac
-ac
-af
+ab
+ai
+Ow
+ag
+ag
+ag
+bj
+ag
+ag
+ag
+Ow
 ag
 ag
 ag
@@ -760,41 +1504,43 @@ ag
 ag
 ag
 ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-aJ
-aJ
-aJ
-aJ
-aJ
-aJ
-aJ
-aJ
-aa
-aa
+bt
+au
+bo
+br
+br
+br
+br
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (12,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ab
+ab
 ac
 ac
-ac
-af
+ab
+ab
+ai
+ai
 ag
-aj
-aj
-aj
-aA
+ag
+ag
+ag
 ag
 ag
 ag
@@ -811,207 +1557,98 @@ ag
 ag
 ag
 bt
-bq
-bo
-bo
-bo
+au
 bo
 br
-aa
-aa
-aa
+br
+br
+br
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (13,1,1) = {"
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+ab
+ag
+ag
+ag
+aj
+aj
+aj
+aA
+ag
+ag
+ag
+ag
+aj
+aj
+aj
+aA
+ag
+ag
+ag
+ag
+ag
+ag
+RX
+au
+aP
 aa
+PA
 aa
-aa
-aa
-aa
-aa
-ac
-ac
-af
-ag
-ag
-ak
-ax
-ax
-aB
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-bt
-bq
-bo
-bo
-bo
-bo
-br
-aa
-aa
-aa
+PA
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (14,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-af
-ag
-ag
-aj
-aj
-aj
-aA
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-bt
-bq
-bo
-bo
-bo
-bo
-br
-aa
-aa
-aa
-"}
-(15,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-af
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-bt
-bq
-bo
-bo
-bo
-bo
-br
-aa
-aa
-aa
-"}
-(16,1,1) = {"
-aa
-aa
-aa
-aa
-ac
-ac
-ac
 ad
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-aj
-aj
-aj
-aA
-ag
-ag
-ag
-bt
-bq
-bo
-bo
-bo
-bo
-br
-aa
-aa
-aa
-"}
-(17,1,1) = {"
-aa
-aa
-aa
-aa
-ac
-ac
-ac
 ad
+ad
+ac
+ab
+ac
+ab
+ab
+Ow
+ag
+bj
+ag
+ak
+ax
+ax
+aB
 ag
 ag
-ag
-ai
-ai
-ai
-ag
-ag
-ag
-am
-aS
-am
-ag
-ag
+bj
 ag
 ak
 ax
@@ -1020,38 +1657,48 @@ aB
 ag
 ag
 ag
-bt
+bj
+ag
 bq
-bo
-bo
-bo
-bo
-br
-aa
-aa
-aa
+aJ
+aJ
+aJ
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
-(18,1,1) = {"
-aa
-aa
-aa
-aa
+(15,1,1) = {"
+ad
+ad
+ad
+ad
 ac
-ac
-ac
-ae
+ab
+ab
+ab
+ag
+Nl
 ag
 ag
-ai
-ai
-ai
-ai
-ai
+aj
+aj
+aj
+aA
 ag
-ag
-aQ
-aT
-aQ
 ag
 ag
 ag
@@ -1062,938 +1709,1587 @@ aA
 ag
 ag
 ag
-aJ
-aJ
-aJ
-aJ
-aJ
-aJ
-aJ
-aJ
-aa
-aa
+Ow
+Nl
+Ow
+bj
+af
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(16,1,1) = {"
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+Np
+ai
+Ow
+Ow
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+bj
+ag
+ag
+ag
+ag
+ag
+Ow
+bj
+ai
+Ow
+ai
+ai
+aG
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(17,1,1) = {"
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+ab
+ai
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ai
+ai
+ai
+ai
+ai
+ai
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(18,1,1) = {"
+ad
+ad
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ai
+ag
+ai
+ag
+ai
+vT
+FO
+rN
+ag
+ag
+ag
+JW
+KO
+ai
+ai
+ai
+ai
+ai
+ag
+ag
+ai
+ai
+ab
+ac
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (19,1,1) = {"
-aa
-aa
-aa
-aa
-ac
-ac
-ac
 ad
+ab
+ad
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
 ag
 ai
 ai
-ai
-ai
-ai
-ai
-ag
-ag
+am
+am
 aQ
-aT
+fg
+ba
 aQ
+am
+am
+ai
+ai
+ai
+ai
+ag
+ai
 ag
 ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-aJ
+ab
+ab
+ab
 ac
-ac
-ac
-ac
-aa
-aa
-aa
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (20,1,1) = {"
-aa
-aa
-aa
+ad
+ad
+ab
+ad
+ad
+ad
+ab
 ab
 ac
-ac
-ac
-ad
-ag
+ab
+ab
 ai
 ai
+ai
 am
-am
-am
-am
-am
-am
-am
+jm
 aS
+tu
+AX
+Pr
+Vt
 am
-am
-am
-am
-am
-aQ
-ag
-ag
-ag
-ag
 ai
-ag
-ag
-aJ
-ac
-ac
-ac
-ac
-aa
-aa
-aa
+ai
+ai
+ai
+RL
+VR
+aU
+am
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (21,1,1) = {"
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ad
 ab
 ab
 ac
-ac
-ac
-af
-ag
-ai
+ab
+aU
 am
-ap
-as
-aD
-aK
-aN
+aU
+am
+am
+am
+tH
 aO
 aO
-aX
-aY
-aV
+aO
+aO
 be
-aO
-aO
-aQ
-ag
-ag
-ai
-ai
-ai
-ag
-aJ
-ac
-ac
-ac
-aa
-aa
-aa
-aa
+aU
+am
+bl
+am
+aU
+am
+yE
+tv
+am
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (22,1,1) = {"
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ab
+ac
 ab
 ab
-ac
-ac
-ac
-af
-ag
-ag
+ab
 am
 aq
 as
+NP
 as
-aK
 aN
+ap
 aO
 aO
 aO
 aO
-aO
-aO
-aO
-aO
-aO
-aQ
-ag
-ai
-ai
-ag
-ag
-af
-ac
-ac
-ac
-aa
-aa
-aa
-aa
+lh
+ae
+bF
+bk
+pb
+VU
+Ee
+wL
+Kp
+am
+ab
+ab
+ah
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (23,1,1) = {"
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ad
+ac
+ac
 ab
 ab
-ac
-ac
-ac
-af
-ag
 am
 ar
 as
 as
-aL
-aN
+as
+at
+ap
 aO
 aO
-aU
+rQ
 aO
-aO
-aO
-aO
-aO
-aO
-aO
-aQ
-ag
-ag
-ag
-ag
-af
-ac
-ac
-aa
-aa
-aa
-aa
-aa
+lh
+ae
+iM
+eG
+QU
+yW
+wy
+bk
+bn
+am
+ab
+bh
+lS
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (24,1,1) = {"
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ad
+ac
 ab
 ab
-ac
-ac
-ac
-af
-ag
+ab
 am
+aE
 as
 as
 as
 aK
-aN
+ap
 aO
-aO
+aZ
 aV
 aO
-aO
-aO
-aO
-aY
-bi
-be
+yC
 am
-ag
-ag
-ag
-ag
-af
+UO
+bi
+KM
+aL
+RL
+bb
+bb
+am
+ab
 ac
-ac
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (25,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ab
 ac
+ab
+ab
+ab
+ab
+aU
+as
+as
+as
+as
+vD
+ap
+aO
+aO
+Ck
+aO
+Bc
+am
+am
+am
+am
+am
+am
+bk
+bk
+QY
+gy
 ac
+mu
+ab
+ab
 ac
-af
-ag
-ag
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(26,1,1) = {"
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+am
+HX
+as
+ZM
+as
+aK
+ap
+aO
+aO
+aO
+aO
+AX
+aX
+bg
+bF
+bk
+bk
+bk
+bk
+bk
+aU
+Lu
+bh
+aY
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(27,1,1) = {"
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+aI
+ab
 am
 am
 ay
-aE
-am
-aO
-aO
-aO
-aW
-aO
-ba
 am
 am
 am
-am
-am
-am
-ag
-ag
-ag
-ag
-af
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-"}
-(26,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-af
-ag
-ag
-am
-at
-as
-aF
-am
+Sy
 aO
 aO
 aO
 aO
-aZ
-bb
-am
+LU
+lO
 bg
-bg
-am
+bk
+bk
+bk
+bk
+bk
 bk
 am
-ai
-ag
-ag
-ag
-af
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-"}
-(27,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-af
-ag
-ag
-am
-au
-as
-aG
-am
-aP
-aO
-aU
-aO
-aO
-bc
-am
-aO
-aO
-am
-bl
-am
-ai
-ag
-ag
-ag
-af
-ac
+ab
+Gv
 ab
 ac
-aa
-aa
-aa
-aa
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (28,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ab
+ab
+ab
+ee
 ac
-ac
-ac
-af
-ag
-ag
+ab
 am
 av
 as
-aH
-am
-aO
-aO
-aV
-aO
-aO
+bc
+as
+ay
+cE
+aT
+zC
+Lh
 bd
+Fj
 am
-aO
-aO
-bj
-aO
 am
-ai
-ai
-ag
-ag
-af
-ac
-ac
-ac
-aa
-aa
-aa
-aa
+am
+am
+am
+am
+jD
+bk
+am
+ab
+ab
+Np
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (29,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-af
-ag
-ag
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+UA
+bh
+aU
+mb
+as
+as
+aF
 am
-as
-as
-as
-aM
-aO
-aO
+am
+am
+am
+am
+am
+am
+am
 aW
-aO
-aO
-aO
-am
-aO
-aO
-aO
 bm
+bm
+bk
 am
-ai
-ai
-ag
-ag
-af
-ac
+bk
+qZ
+am
+ab
 ac
 ab
-aa
-aa
-aa
-aa
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (30,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-af
-ag
-ag
-am
-aw
-az
-aI
-am
-aO
-aO
-aO
-aO
-aO
-aO
-bf
-aO
-bh
-bh
-aO
-am
-ai
-ai
-ai
-ag
-af
-ac
+ad
+ad
+ad
+ad
 ac
 ab
-aa
-aa
-aa
-aa
+ab
+ab
+ac
+QY
+as
+as
+as
+aH
+am
+jN
+lx
+bk
+bk
+Is
+bf
+am
+bk
+bk
+qZ
+bk
+Ad
+bk
+bN
+am
+ab
+ab
+ab
+ab
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (31,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
 ac
-ac
-ah
-ag
-ag
+ab
+ab
+ab
+ab
+ab
 am
+NE
+as
+as
+as
 am
+bk
+bk
+bk
+bk
+bk
+bk
 am
+bk
+VY
+bk
+bk
 am
+wQ
 am
-am
-aQ
-aQ
-aQ
-aQ
-am
-am
-am
-am
-am
-am
-am
-ai
-ai
-ai
-ag
-af
-ac
-ac
-aa
-aa
-aa
-aa
-aa
+aU
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (32,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+am
+am
+LB
+as
+as
+ay
+bk
+bk
+bk
+bk
+bk
+bk
+am
+Ec
+am
+Ec
+am
+am
+aU
+am
 ac
 ac
-af
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ag
-aJ
-ac
-ac
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (33,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-af
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ai
-ai
-ai
-ai
-ai
-ai
-ag
-af
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+am
+Ni
+FY
+Xi
+am
+Of
+bk
+bk
+bk
+bk
+Ly
+am
+CN
+am
+DT
+am
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ad
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (34,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+Lq
+Lq
+am
+aU
+am
+am
+aU
+am
+aQ
+yX
+yX
+aQ
+am
+aU
+aU
+am
+aU
+am
+Lq
+Lq
+ab
+ab
+ab
 ac
-ac
-af
-af
-af
-ag
-ag
-ag
-ag
-af
-af
-af
-af
-af
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-af
-af
-aJ
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (35,1,1) = {"
+aD
 aa
 aa
 aa
+aD
 aa
 aa
 aa
-aa
-aa
-ac
-ac
-ac
-ac
-ac
-af
-af
-aJ
-af
-ac
-ac
-ac
-ac
-ac
-af
-ag
-ag
-ag
-ag
-af
-af
-ac
-ac
-ac
-ac
-ac
+vE
+aM
+XS
+aM
+sq
+aM
+aM
+sq
+aM
+aM
+aM
+aM
+sq
+aM
+aM
+sq
+aM
+Do
+aM
+vE
 aa
 aa
 aa
+aD
 aa
 aa
 aa
+aD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (36,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ab
-ac
-ac
-ac
-ac
-af
-af
-af
-af
-ac
-ac
-ac
-ac
-ab
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+br
+br
+br
+br
+br
+br
+br
+br
+aM
+aM
+XS
+aM
+jR
+aM
+aM
+jR
+aM
+aM
+aM
+aM
+jR
+aM
+aM
+jR
+aM
+Do
+aM
+aM
+br
+br
+br
+br
+br
+br
+br
+br
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (37,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-aa
-ab
-ab
-ab
-aa
-aa
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+br
+br
+br
+br
+br
+br
+br
+br
+aM
+aM
+XS
+aM
+jR
+aM
+aM
+jR
+aM
+aM
+aM
+aM
+jR
+aM
+aM
+jR
+aM
+Do
+aM
+aM
+br
+br
+br
+br
+br
+br
+br
+br
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (38,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-aa
-aa
-aa
-ac
-ab
-ab
-ab
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+br
+br
+br
+br
+br
+br
+br
+br
+aM
+aM
+XS
+aM
+jR
+aM
+aM
+jR
+aM
+aM
+aM
+aM
+jR
+aM
+aM
+jR
+aM
+Do
+aM
+aM
+br
+br
+br
+br
+br
+br
+br
+br
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (39,1,1) = {"
+aD
 aa
 aa
 aa
+aD
 aa
 aa
 aa
+st
+aM
+XS
+aM
+st
+aM
+aM
+st
+aM
+aM
+aM
+aM
+st
+aM
+aM
+st
+aM
+Do
+aM
+gM
 aa
 aa
 aa
+aD
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+aD
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}
 (40,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ab
+aw
+ab
+aw
+ab
+aw
+zy
+zy
+aw
+zy
+zy
+zy
+zy
+aw
+zy
+zy
+aw
+ab
+aw
+ab
+Gz
+ad
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+LQ
+"}
+(41,1,1) = {"
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(42,1,1) = {"
+ad
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(43,1,1) = {"
+ad
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ac
+ab
+ac
+ab
+ab
+ab
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ab
+ac
+ac
+ac
+ac
+ac
+ad
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(44,1,1) = {"
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ab
+ab
+ab
+ac
+ac
+ab
+ab
+ab
+ab
+ac
+ab
+ab
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+"}
+(45,1,1) = {"
+ad
+ad
+ad
+ad
+ad
+ad
+ab
+ad
+ad
+ad
+ab
+ab
+ab
+ab
+ad
+ad
+ab
+ad
+ad
+ab
+ad
+ad
+ad
+ab
+ab
+ad
+ac
+ad
+ab
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 "}

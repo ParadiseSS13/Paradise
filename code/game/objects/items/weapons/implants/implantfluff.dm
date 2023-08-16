@@ -22,6 +22,12 @@
 	notes = "One of Cybersun Industries oldest and simplest implants, even in its simplicity it is rumoured to be one of Cybersun Industries best-selling products."
 	function = "Subjects injected with this bio-chip can activate an injection of medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
+/datum/implant_fluff/supercharge
+	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
+	life = "Known to last for up to a year."
+	notes = "One of Cybersun Industries simplest implants, it's rumored that synthetic rights groups maintain stockpiles of these."
+	function = "Synthetic subjects injected with this bio-chip can activate an injection of lubricants, coolants, and positronic patching fluid."
+
 /datum/implant_fluff/chem
 	name = "BioTech Solutions MJ-420 Prisoner Management Bio-chip" //ah yes, MJ-420, old coders are FUNNY
 	life = "Deactivates upon death but remains within the body."
@@ -68,6 +74,12 @@
 	life = "Destroyed after 4 uses."
 	notes = "A bio-chip that is illegal in many systems. It is notoriously known for allowing users to grotesquely fracture bones and over-exert joints in order to slip out of the tightest of restraints."
 	function = "Uses a mixture of cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
+
+/datum/implant_fluff/protofreedom
+	name = "Cybersun Industries X-92 Quick Escape Bio-chip"
+	life = "Destroyed after 1 use."
+	notes = "A bio-chip that is illegal in many systems. This is the early prototype version of the RX-92. It's significantly cheaper than it's newer version."
+	function = "Uses a mixture of cheap cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
 
 /datum/implant_fluff/health
 	name = "Nanotrasen Health Bio-chip"

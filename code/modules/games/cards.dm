@@ -256,27 +256,31 @@
 		cooldown = world.time
 
 
-/obj/item/deck/MouseDrop(atom/over_object) // Code from Paper bin, so you can still pick up the deck
+/obj/item/deck/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	var/mob/M = usr
 	if(M.incapacitated() || !Adjacent(M))
 		return
 	if(!ishuman(M))
 		return
 
-	if(over_object == M || istype(over_object, /obj/screen))
-		if(!remove_item_from_storage(M))
+	if(istype(over, /obj/screen))
+		if(!remove_item_from_storage(get_turf(M)))
 			M.unEquip(src)
-		if(over_object != M)
-			switch(over_object.name)
-				if("r_hand")
-					M.put_in_r_hand(src)
-				if("l_hand")
-					M.put_in_l_hand(src)
-		else
-			M.put_in_hands(src)
+		switch(over.name)
+			if("r_hand")
+				if(M.put_in_r_hand(src))
+					add_fingerprint(M)
+					usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+			if("l_hand")
+				if(M.put_in_l_hand(src))
+					add_fingerprint(M)
+					usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+		return
 
-		add_fingerprint(M)
-		usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+	if(over == M && loc != M)
+		if(M.put_in_hands(src))
+			add_fingerprint(M)
+			usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/pack
 	name = "card pack"

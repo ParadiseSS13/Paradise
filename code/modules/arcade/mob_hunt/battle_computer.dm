@@ -81,6 +81,8 @@
 		if(ready && SSmob_hunt.battle_turn != team)
 			atom_say("You can't recall on your rival's turn!")
 			return
+	if(!card)
+		return
 	card.mob_data = mob_info
 	mob_info = null
 	card.forceMove(get_turf(src))

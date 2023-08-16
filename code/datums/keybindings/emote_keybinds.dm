@@ -263,6 +263,10 @@
 	linked_emote = /datum/emote/living/carbon/scowl
 	name = "Scowl"
 
+/datum/keybinding/emote/carbon/twirl
+	linked_emote = /datum/emote/living/carbon/twirl
+	name = "Twirl"
+
 /datum/keybinding/emote/carbon/faint
 	linked_emote = /datum/emote/living/carbon/faint
 	name = "Faint"
@@ -345,6 +349,10 @@
 	linked_emote = /datum/emote/living/carbon/human/eyebrow
 	name = "Eyebrow"
 
+/datum/keybinding/emote/carbon/human/facepalm
+	linked_emote = /datum/emote/living/carbon/human/facepalm
+	name = "Facepalm"
+
 /datum/keybinding/emote/carbon/human/grumble
 	linked_emote = /datum/emote/living/carbon/human/grumble
 	name = "Grumble"
@@ -360,6 +368,10 @@
 /datum/keybinding/emote/carbon/human/nod
 	linked_emote = /datum/emote/living/carbon/human/nod
 	name = "Nod"
+
+/datum/keybinding/emote/carbon/human/palm
+	linked_emote = /datum/emote/living/carbon/human/palm
+	name = "Extend palm"
 
 /datum/keybinding/emote/carbon/human/scream
 	linked_emote = /datum/emote/living/carbon/human/scream
@@ -408,6 +420,14 @@
 /datum/keybinding/emote/carbon/human/slap
 	linked_emote = /datum/emote/living/carbon/human/slap
 	name = "Slap"
+
+/datum/keybinding/emote/carbon/human/wince
+	linked_emote = /datum/emote/living/carbon/human/wince
+	name = "Wince"
+
+/datum/keybinding/emote/carbon/human/squint
+	linked_emote = /datum/emote/living/carbon/human/squint
+	name = "Squint"
 
 /datum/keybinding/emote/carbon/human/wink
 	linked_emote = /datum/emote/living/carbon/human/wink
@@ -483,7 +503,7 @@
 
 /datum/keybinding/emote/carbon/human/hiss
 	linked_emote = /datum/emote/living/carbon/human/hiss
-	name = "Hiss"
+	name = "Hiss (Unathi)"
 
 /datum/keybinding/emote/carbon/human/creak
 	linked_emote = /datum/emote/living/carbon/human/creak
@@ -501,9 +521,25 @@
 	linked_emote = /datum/emote/living/carbon/human/growl
 	name = "Growl"
 
+/datum/keybinding/emote/carbon/human/meow
+	linked_emote = /datum/emote/living/carbon/human/meow
+	name = "Meow"
+
+/datum/keybinding/emote/carbon/human/hiss/tajaran
+	linked_emote = /datum/emote/living/carbon/human/hiss/tajaran
+	name = "Hiss (Tajaran)"
+
 /datum/keybinding/emote/carbon/human/rattle
 	linked_emote = /datum/emote/living/carbon/human/rattle
 	name = "Rattle"
+
+/datum/keybinding/emote/carbon/human/bubble
+	linked_emote = /datum/emote/living/carbon/human/bubble
+	name = "Bubble"
+
+/datum/keybinding/emote/carbon/human/pop
+	linked_emote = /datum/emote/living/carbon/human/pop
+	name = "Pop"
 
 /datum/keybinding/emote/carbon/human/monkey/can_use(client/C, mob/M)
 	return ismonkeybasic(M) && ..()
