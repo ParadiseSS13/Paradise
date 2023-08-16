@@ -1,10 +1,11 @@
-/obj/item/storage/pill_bottle/dice
+/obj/item/storage/pill_bottle/dice //But why is this a pill bottle
 	name = "bag of dice"
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
 	allow_wrap = FALSE
+	use_sound = "rustle"
 
 /obj/item/storage/pill_bottle/dice/populate_contents()
 	var/special_die = pick("1","2","fudge","00","100")
@@ -252,7 +253,7 @@
 				/obj/item/storage/toolbox/syndicate,
 				/obj/item/storage/backpack/clown/syndie,
 				/obj/item/storage/backpack/satchel_flat,
-				/obj/item/camera_bug,
+				/obj/item/storage/box/syndie_kit/camera_bug,
 				/obj/item/storage/belt/military/traitor,
 				/obj/item/clothing/glasses/chameleon/thermal,
 				/obj/item/borg/upgrade/modkit/indoors,

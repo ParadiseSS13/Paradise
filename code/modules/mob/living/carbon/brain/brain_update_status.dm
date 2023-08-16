@@ -3,7 +3,7 @@
 		return
 		// if(health <= min_health)
 	if(stat == DEAD)
-		if(container && health > HEALTH_THRESHOLD_DEAD)
+		if(container && health > HEALTH_THRESHOLD_DEAD && !suiciding)
 			update_revive()
 			create_debug_log("revived, trigger reason: [reason]")
 			return

@@ -351,6 +351,12 @@
 	containername = "flags crate"
 	contraband = TRUE
 
+/datum/supply_packs/misc/pimpcoat
+	name = "Very Expensive Coat for Rich People"
+	contains = list(/obj/item/clothing/suit/pimpcoat)
+	cost = 1000
+	containername = "expensive coat crate"
+
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Formal Wear Crate"
 	contains = list(/obj/item/clothing/under/dress/blacktango,

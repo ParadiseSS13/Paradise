@@ -194,12 +194,7 @@
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
 	hand = !hand
-	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
-		var/obj/screen/inventory/hand/H
-		H = hud_used.inv_slots[slot_l_hand]
-		H.update_icon()
-		H = hud_used.inv_slots[slot_r_hand]
-		H.update_icon()
+	update_hands_hud()
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
 
 
@@ -251,6 +246,11 @@
 				"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
 				)
 		return
+	// If it has any of the highfive statuses, dap, handshake, etc
+	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
+	if(effect)
+		M.apply_status_effect(effect.type)
+		return
 	// BEGIN HUGCODE - N3X
 	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	if(M.zone_selected == "head")
@@ -258,11 +258,6 @@
 		"<span class='notice'>[M] pats [src] on the head.</span>",\
 		"<span class='notice'>You pat [src] on the head.</span>",\
 		)
-		return
-	// If it has any of the highfive statuses, dap, handshake, etc
-	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
-	if(effect)
-		M.apply_status_effect(effect.type)
 		return
 	M.visible_message(\
 	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
@@ -1045,7 +1040,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		changeNext_move(CLICK_CD_RAPID) //reset click cooldown from handcuffs
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
-	update_hud_handcuffed()
+	update_hands_hud()
 
 /mob/living/carbon/get_standard_pixel_y_offset()
 	if(IS_HORIZONTAL(src))
