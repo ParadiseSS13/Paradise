@@ -1109,13 +1109,13 @@
 
 	/// Species that are hirable in the eyes of NT
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
-										/datum/species/tajaran, /datum/species/kidan, /datum/species/golem,
+										/datum/species/tajaran, /datum/species/kidan, /datum/species/drask,
 										/datum/species/diona, /datum/species/machine, /datum/species/slime,
 										/datum/species/grey, /datum/species/vulpkanin, /datum/species/plasmaman,
-										/datum/species/moth, /datum/species/drask)
+										/datum/species/moth)
 	/// Species that are NOT hirable in the eyes of NT
 	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey, /datum/species/nucleation,
-										/datum/species/shadow, /datum/species/skeleton)
+										/datum/species/shadow, /datum/species/skeleton, /datum/species/golem)
 
 	/// Is he a good candidate for hiring?
 	var/good_candidate = TRUE
