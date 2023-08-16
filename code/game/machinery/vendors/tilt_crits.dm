@@ -85,7 +85,6 @@
 /datum/tilt_crit/vendor/embed
 	name = "Panel Shatter"
 
-
 /datum/tilt_crit/vendor/embed/is_valid(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
 	. = ..()
 	if(!. || !istype(machine))
@@ -115,7 +114,7 @@
 
 	playsound(machine, "shatter", 50)
 
-	return incoming_damage * (3/4)
+	return incoming_damage * (3 / 4)
 
 /datum/tilt_crit/pop_head
 	name = "Head Pop"

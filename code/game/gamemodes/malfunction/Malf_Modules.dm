@@ -1,4 +1,4 @@
-#define MALF_AI_ROLL_TIME (0.5 SECONDS)
+#define MALF_AI_ROLL_TIME 0.5 SECONDS
 #define MALF_AI_ROLL_COOLDOWN (1 SECONDS + MALF_AI_ROLL_TIME)
 #define MALF_AI_ROLL_DAMAGE 75
 // crit percent
@@ -893,7 +893,6 @@
 	to_chat(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
 	return TRUE
 
-
 /obj/effect/proc_holder/ranged_ai/roll_over/proc/do_roll_over(mob/living/silicon/ai/ai_caller, picked_dir)
 	var/turf/target = get_step(ai_caller, picked_dir) // in case we moved we pass the dir not the target turf
 
@@ -906,10 +905,10 @@
 	ai_caller.tp_override = FALSE
 
 /obj/effect/proc_holder/ranged_ai/roll_over/proc/get_rotation_from_dir(dir)
-	switch (dir)
-		if (NORTH, NORTHWEST, WEST, SOUTHWEST)
+	switch(dir)
+		if(NORTH, NORTHWEST, WEST, SOUTHWEST)
 			return 270 // try our best to not return 180 since it works badly with animate
-		if (EAST, NORTHEAST, SOUTH, SOUTHEAST)
+		if(EAST, NORTHEAST, SOUTH, SOUTHEAST)
 			return 90
 		else
 			stack_trace("non-standard dir entered to get_rotation_from_dir. (got: [dir])")

@@ -35,16 +35,13 @@
 	weaken_time = weaken_time SECONDS
 	knockdown_time = input(user, "How long to knockdown (in seconds)?", "Knockdown Time", 12) as num|null
 	knockdown_time = knockdown_time SECONDS
-	ignore_gravity = alert(user, "Ignore gravity?","Ignore gravity","Yes","No") == "Yes"
-	should_rotate = alert(user, "Should it rotate on falling?","Should rotate","Yes","No") == "Yes"
+	ignore_gravity = alert(user, "Ignore gravity?", "Ignore gravity", "Yes", "No") == "Yes"
+	should_rotate = alert(user, "Should it rotate on falling?", "Should rotate", "Yes", "No") == "Yes"
 	if(should_rotate)
 		rotation_angle = input(user, "Which angle to rotate at? (if empty, defaults to 90 degrees in either direction)", "Rotation angle", 0) as num|null
-		rightable = alert(user, "Should it be rightable with alt-click?","Rightable","Yes","No") == "Yes"
+		rightable = alert(user, "Should it be rightable with alt-click?", "Rightable", "Yes", "No") == "Yes"
 		if(rightable)
-			block_interactions_until_righted = alert(user, "Should it block interactions until righted (by alt-clicking)?","Block interactions","Yes","No") == "Yes"
-
-
-
+			block_interactions_until_righted = alert(user, "Should it block interactions until righted (by alt-clicking)?", "Block interactions", "Yes", "No") == "Yes"
 
 /datum/buildmode_mode/tilting/handle_click(mob/user, params, atom/movable/object)
 	var/list/pa = params2list(params)

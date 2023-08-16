@@ -27,7 +27,6 @@
 	if(rotated_angle % 360 == 0)
 		qdel(src)
 
-
 /datum/component/tilted/RegisterWithParent()
 	. = ..()
 

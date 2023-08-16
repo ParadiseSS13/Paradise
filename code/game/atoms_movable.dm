@@ -657,7 +657,6 @@
 		if(C.is_valid(src, victim))
 			return C
 
-
 /atom/movable/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, datum/tilt_crit/crit)
 
 	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
@@ -683,7 +682,7 @@
 	else
 		var/picked_zone
 		var/num_parts_to_pick = 2
-		for(var/i = 1 to num_parts_to_pick)
+		for(var/i in 1 to num_parts_to_pick)
 			picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
 			victim.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
 
