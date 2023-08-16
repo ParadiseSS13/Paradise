@@ -265,6 +265,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
+#define TRAIT_TABLE_LEAP "table_leap"
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
