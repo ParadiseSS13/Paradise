@@ -373,56 +373,57 @@ SUBSYSTEM_DEF(ticker)
 			if(M.client)
 				M.client.screen += cinematic	//show every client the cinematic
 
-	//Now animate the cinematic
-	if(nuke_site == NUKE_SITE_ON_STATION)
-		// station was destroyed
-		if(mode && !override)
-			override = mode.name
-		switch(override)
-			if("nuclear emergency") //Nuke Ops successfully bombed the station
-				flick("intro_nuke", cinematic)
-				sleep(35)
-				flick("station_explode_fade_red", cinematic)
-				SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-				cinematic.icon_state = "summary_nukewin"
-			if("AI malfunction") //Malf (screen,explosion,summary)
-				flick("intro_malf", cinematic)
-				sleep(76)
-				flick("station_explode_fade_red", cinematic)
-				SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-				cinematic.icon_state = "summary_malf"
-			else //Station nuked (nuke,explosion,summary)
-				flick("intro_nuke", cinematic)
-				sleep(35)
-				flick("station_explode_fade_red", cinematic)
-				SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-				cinematic.icon_state = "summary_selfdes"
-		stop_delta_alarm()
-	else if(nuke_site == NUKE_SITE_ON_STATION_ZLEVEL)
-		// nuke was nearby but (mostly) missed
-		if(mode && !override)
-			override = mode.name
-		switch(override)
-			if("nuclear emergency") //Nuke wasn't on station when it blew up
-				flick("intro_nuke", cinematic)
-				sleep(35)
-				SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-				flick("station_intact_fade_red", cinematic)
-				cinematic.icon_state = "summary_nukefail"
-			if("fake") //The round isn't over, we're just freaking people out for fun
-				flick("intro_nuke", cinematic)
-				sleep(35)
-				SEND_SOUND(world, sound('sound/items/bikehorn.ogg'))
-				flick("summary_selfdes", cinematic)
-			else
-				flick("intro_nuke", cinematic)
-				sleep(35)
-				SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-	else if(nuke_site == NUKE_SITE_OFF_STATION_ZLEVEL || nuke_site == NUKE_SITE_INVALID)
-		// nuke was nowhere nearby
-		// TODO: a really distant explosion animation
-		sleep(50)
-		SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+	switch(nuke_site)
+		//Now animate the cinematic
+		if(NUKE_SITE_ON_STATION)
+			// station was destroyed
+			if(mode && !override)
+				override = mode.name
+			switch(override)
+				if("nuclear emergency") //Nuke Ops successfully bombed the station
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					flick("station_explode_fade_red", cinematic)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+					cinematic.icon_state = "summary_nukewin"
+				if("AI malfunction") //Malf (screen,explosion,summary)
+					flick("intro_malf", cinematic)
+					sleep(76)
+					flick("station_explode_fade_red", cinematic)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+					cinematic.icon_state = "summary_malf"
+				else //Station nuked (nuke,explosion,summary)
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					flick("station_explode_fade_red", cinematic)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+					cinematic.icon_state = "summary_selfdes"
+			stop_delta_alarm()
+		if(NUKE_SITE_ON_STATION_ZLEVEL)
+			// nuke was nearby but (mostly) missed
+			if(mode && !override)
+				override = mode.name
+			switch(override)
+				if("nuclear emergency") //Nuke wasn't on station when it blew up
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+					flick("station_intact_fade_red", cinematic)
+					cinematic.icon_state = "summary_nukefail"
+				if("fake") //The round isn't over, we're just freaking people out for fun
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					SEND_SOUND(world, sound('sound/items/bikehorn.ogg'))
+					flick("summary_selfdes", cinematic)
+				else
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+		if(NUKE_SITE_OFF_STATION_ZLEVEL, NUKE_SITE_INVALID)
+			// nuke was nowhere nearby
+			// TODO: a really distant explosion animation
+			sleep(50)
+			SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 
 	//If its actually the end of the round, wait for it to end.
 	//Otherwise if its a verb it will continue on afterwards.
