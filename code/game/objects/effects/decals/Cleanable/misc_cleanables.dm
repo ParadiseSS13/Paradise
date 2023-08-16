@@ -285,7 +285,7 @@
 	if(no_scoop)
 		. += "<span class='notice'>There's not a lot here, you probably wouldn't be able to harvest anything useful.</span>"
 	else
-		. += "<span class='notice'>There's a good bit here, it looks like you could scrape some off into a beaker.</span>"
+		. += "<span class='notice'>There's enough here to scrape into a beaker.</span>"
 
 /obj/effect/decal/cleanable/fungus/on_scoop()
 
