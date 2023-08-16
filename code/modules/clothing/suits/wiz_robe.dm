@@ -192,8 +192,8 @@
 	recharge_rate = 1
 	current_charges = 3
 	max_charges = 3
-	recharge_cooldown = 50
-	recharge_delay = 100
+	recharge_cooldown = 5 SECONDS
+	recharge_delay = 10 SECONDS
 	shield_state = "shield-red"
 	shield_on = "shield-red"
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
