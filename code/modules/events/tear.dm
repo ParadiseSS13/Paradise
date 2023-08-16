@@ -35,7 +35,7 @@
 
 		return
 
-	log_and_message_admins("dimensional tear failed to find a valid turf in [impact_area]")
+	log_debug("dimensional tear failed to find a valid turf in [impact_area]")
 
 /datum/event/tear/proc/spawn_tear(location)
 	TE = new /obj/effect/tear(location)
