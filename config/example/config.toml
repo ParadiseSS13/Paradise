@@ -621,6 +621,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
