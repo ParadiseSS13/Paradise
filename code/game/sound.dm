@@ -235,6 +235,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				soundin = pick('sound/voice/unathi/m_u_scream.ogg', 'sound/voice/unathi/m_u_scream2.ogg')
 			if("clownstep")
 				soundin = pick('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg')
+			if("desceration")
+				soundin = pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-03.ogg')
 			else
 				var/check_sound = FALSE
 				for(var/format in SOUND_ALLOWED_FILE_FORMATS)

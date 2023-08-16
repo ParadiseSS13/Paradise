@@ -89,7 +89,7 @@
 		var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
 		if(head)
 			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
-			playsound(loc,pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg') ,50, 1, -1)
+			playsound(loc,"desceration" ,50, 1, -1)
 	return BRUTELOSS
 
 /obj/item/wirecutters/power/attack_self(mob/user)
