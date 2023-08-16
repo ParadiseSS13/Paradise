@@ -44,19 +44,6 @@
 	flayer.add_ability(path)
 	return TRUE
 
-/datum/mindflayer_passive
-	var/purchase_text = "Oopsie daisies! No purchase text on this ability!"
-	var/upgrade_text = "Uh oh someone forgot to add upgrade text!"
-	///All passives start at level on
-	var/level = 1
-	var/mob/living/owner
-
-/datum/mindflayer_passive/proc/on_apply(datum/antagonist/mindflayer/flayer)
-	return
-
-/datum/mindflayer_passive/proc/on_remove(datum/antagonist/mindflayer/flayer)
-	return
-
 // Retractable weapons code
 
 /obj/effect/proc_holder/spell/flayer/weapon
