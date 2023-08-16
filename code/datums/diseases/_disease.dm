@@ -2,6 +2,7 @@
 #define VIRUS_SYMPTOM_LIMIT	6
 
 //Visibility Flags
+#define VISIBLE	0
 #define HIDDEN_SCANNER	1
 #define HIDDEN_PANDEMIC	2
 
@@ -34,7 +35,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /datum/disease
 	//Flags
-	var/visibility_flags = 0
+	var/visibility_flags = VISIBLE
 	var/disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
 	var/spread_flags = AIRBORNE
 

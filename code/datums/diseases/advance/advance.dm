@@ -195,6 +195,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 				visibility_flags = HIDDEN_SCANNER
 			if(3 to INFINITY)
 				visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
+			else
+				visibility_flags = VISIBLE
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
 		SetSpread(clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
@@ -310,8 +312,6 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 // Mix a list of advance diseases and return the mixed result.
 /proc/Advance_Mix(var/list/D_list)
-
-//	to_chat(world, "Mixing!!!!")
 
 	var/list/diseases = list()
 
