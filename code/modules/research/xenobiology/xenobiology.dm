@@ -474,6 +474,14 @@
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return
 		I.slowdown = 0
+		if(ismodcontrol(O))
+			var/obj/item/mod/control/C = O
+			if(C.active)
+				to_chat(user, "<span class='warning'>It is too dangerous to smear [src] on [C] while it is active!</span>")
+				return
+			C.slowdown_inactive = 0
+			C.slowdown_active = 0
+			C.update_speed()
 
 	to_chat(user, "<span class='notice'>You slather the oily gunk over [O], making it slick and slippery.</span>")
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)

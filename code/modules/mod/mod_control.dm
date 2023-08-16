@@ -732,3 +732,15 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
+
+
+/obj/item/mod/control/water_act(volume, temperature, source, method)
+	if(HAS_TRAIT(src, TRAIT_OIL_SLICKED)) //Overide base to work right
+		slowdown_active = theme.slowdown_active
+		slowdown_inactive = theme.slowdown_inactive
+		update_speed()
+		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+		REMOVE_TRAIT(src, TRAIT_OIL_SLICKED, "potion")
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			H.regenerate_icons()

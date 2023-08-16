@@ -758,7 +758,7 @@ emp_act
 	if(method != REAGENT_TOUCH)
 		return
 
-	for(var/obj/O in list(head, wear_suit, l_hand, r_hand))
+	for(var/obj/O in list(head, wear_suit, back, l_hand, r_hand))
 		O.water_act(src, volume, temperature, source, method)
 	if((head?.flags & THICKMATERIAL) && (wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
 		return
