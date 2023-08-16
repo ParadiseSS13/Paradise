@@ -542,10 +542,8 @@ GLOBAL_VAR(bomb_set)
 	if(!is_station_level(bomb_turf.z))
 		return NUKE_SITE_OFF_STATION_ZLEVEL
 
-	var/area/bomb_area = get_area(src)
-	for(var/A in SSmapping.existing_station_areas)
-		if(istype(bomb_area, A))
-			return NUKE_SITE_ON_STATION
+	if(get_area(src) in SSmapping.existing_station_areas)
+		return NUKE_SITE_ON_STATION
 
 	return NUKE_SITE_ON_STATION_ZLEVEL
 
