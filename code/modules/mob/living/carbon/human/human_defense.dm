@@ -762,9 +762,8 @@ emp_act
 		O.water_act(src, volume, temperature, source, method)
 	if((head?.flags & THICKMATERIAL) && (wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
 		return
-	else
-		for(var/obj/O in list(w_uniform, shoes, belt, gloves, glasses, l_ear, r_ear, wear_id, wear_pda, r_store, l_store, s_store))
-			O.water_act(src, volume, temperature, source, method)
+	for(var/obj/O in list(w_uniform, shoes, belt, gloves, glasses, l_ear, r_ear, wear_id, wear_pda, r_store, l_store, s_store))
+		O.water_act(src, volume, temperature, source, method)
 
 
 
