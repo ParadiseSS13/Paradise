@@ -760,7 +760,10 @@
 								read = 1
 								if(LAZYLEN(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
-										to_chat(usr, c)
+										if(islist(c))
+											to_chat(usr, "[c["header"]]: [c["text"]]")
+										else
+											to_chat(usr, c)
 								else
 									to_chat(usr, "<span class='warning'>No comments found</span>")
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
