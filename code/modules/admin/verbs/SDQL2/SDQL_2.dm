@@ -443,7 +443,6 @@
 		new_args[++new_args.len] = SDQL_expression(source, arg)
 
 	if(object == world) // Global proc.
-		procname = "/proc/[procname]"
 		return (WrapAdminProcCall(GLOBAL_PROC, procname, new_args))
 
 	return (WrapAdminProcCall(object, procname, new_args))
