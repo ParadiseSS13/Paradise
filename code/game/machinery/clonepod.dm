@@ -464,8 +464,10 @@
 				return
 			has_children = TRUE
 			for(var/obj/item/organ/external/child in EO.children)
-				new child.type(src)
-				EO.children.Remove(child)
+				child.forceMove(src)
+				child.parent = null
+				EO.children -= child
+				EO.compile_icon()
 
 	if(is_type_in_list(inserted, ALLOWED_ROBOT_PARTS) && speed_modifier == 1) //if our manipulators aren't upgraded at all
 		to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
