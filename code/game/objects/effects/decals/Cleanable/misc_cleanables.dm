@@ -283,7 +283,7 @@
 /obj/effect/decal/cleanable/fungus/examine(mob/user)
 	. = ..()
 	if(no_scoop)
-		. += "<span class='notice'>There's really not a lot here, you probably couldn't harvest anything if you tried.</span>"
+		. += "<span class='notice'>There's not a lot here, you probably wouldn't be able to harvest anything useful.</span>"
 	else
 		. += "<span class='notice'>There's a good bit here, it looks like you could scrape some off into a beaker.</span>"
 
