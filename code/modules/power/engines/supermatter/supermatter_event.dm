@@ -73,14 +73,14 @@
 /datum/supermatter_event/delta_tier/nitrogen
 	name = "D-2"
 
-/datum/supermatter_event/delta_tier/sleeping_gas/on_start()
+/datum/supermatter_event/delta_tier/nitrogen/on_start()
 	environment.nitrogen += 200
 
 // carbon dioxide
 /datum/supermatter_event/delta_tier/carbon_dioxide
 	name = "D-3"
 
-/datum/supermatter_event/delta_tier/sleeping_gas/on_start()
+/datum/supermatter_event/delta_tier/carbon_dioxide/on_start()
 	environment.carbon_dioxide += 250
 
 
