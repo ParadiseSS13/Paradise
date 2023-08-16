@@ -1700,7 +1700,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	var/static/list/ineffective_cpr_messages = list(
-		"You're starting to feel them stiffen under you, but you keep going",
+		"You're starting to feel them stiffen under you, but you keep going.",
 		"Without rescue breaths, they seem to be turning a little blue, but you press on.",
 	)
 
