@@ -1208,7 +1208,7 @@
 /obj/machinery/computer/arcade/recruiter/proc/win()
 	game_status = RECRUITER_STATUS_START
 	atom_say("Congratulations recruiter, the company is going to have a productive shift thanks to you.")
-	playsound(loc, 'sound/arcade/recruiter_win.ogg', 40)
+	playsound(loc, 'sound/arcade/recruiter_win.ogg', 30)
 	prizevend(50)
 
 /obj/machinery/computer/arcade/recruiter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -1248,7 +1248,7 @@
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(!good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
-				playsound(loc, 'sound/misc/compiler-failure.ogg', 2, TRUE)
+				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				reason = "You ended up hiring incompetent candidates and now the company is wasting lots of resources to fix what you caused..."
 				return
 			if(curriculums >= 5)
@@ -1265,7 +1265,7 @@
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
-				playsound(loc, 'sound/misc/compiler-failure.ogg', 2, TRUE)
+				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				reason = "You ended up dismissing a competent candidate and now the company is suffering with the lack of crew..."
 				return
 			if(curriculums >= 5)

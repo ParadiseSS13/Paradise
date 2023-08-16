@@ -150,28 +150,26 @@ export const NTRecruiter = (props, context) => {
           title="Stamp the application!"
           color="grey"
           textAlign="center">
-        <>
-          <Box float="center">
-            <Button
-              color = "green"
-              content="Hire"
-              width="100%"
-              icon="arrow-circle-up"
-              lineHeight={3}
-              onClick={() => act('hire')}
-            />
-          </Box>
-          <Box float="center">
-            <Button
-            color = "red"
+          <Button
+            float="right"
+            color="green"
+            content="Hire"
+            fontSize="150%"
+            width="49%"
+            icon="arrow-circle-up"
+            lineHeight={4.5}
+            onClick={() => act('hire')}
+          />
+          <Button
+            float="left"
+            color="red"
             content="Dismiss"
-            width="100%"
+            fontSize="150%"
+            width="49%"
             icon="ban"
-            lineHeight={3}
+            lineHeight={4.5}
             onClick={() => act('dismiss')}
-            />
-          </Box>
-        </>
+          />
         </Section>
       </Window.Content>
     </Window>
