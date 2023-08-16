@@ -1169,7 +1169,7 @@
 								/datum/supermatter_event/sierra_tier = 1)
 
 	var/datum/supermatter_event/event = pick(subtypesof(pickweight(events)))
-	if(initial(event.threat_level) == SM_EVENT_THREAT_S && has_run_sclass)
+	if(istype(event, /datum/supermatter_event/sierra_tier) && has_run_sclass)
 		make_next_event_time()
 		return // We're only gonna have one s-class per round, take a break engineers
 	run_event(event)
