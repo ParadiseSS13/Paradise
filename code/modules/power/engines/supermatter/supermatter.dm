@@ -238,6 +238,7 @@
 	if(is_main_engine)
 		GLOB.main_supermatter_engine = src
 	soundloop = new(list(src), TRUE)
+	make_next_event_time()
 
 /obj/machinery/atmospherics/supermatter_crystal/Destroy()
 	if(warp)
@@ -1155,6 +1156,8 @@
 	next_event_time += fake_time
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
+	if(has_been_powered == FALSE)
+		return
 	if(!next_event_time) // for when the SM starts
 		make_next_event_time()
 		return
@@ -1162,8 +1165,8 @@
 		return
 	if(event_active)
 		return
-	var/static/list/events = list(/datum/supermatter_event/delta_tier = 50,
-								/datum/supermatter_event/charlie_tier = 30,
+	var/static/list/events = list(/datum/supermatter_event/delta_tier = 40,
+								/datum/supermatter_event/charlie_tier = 40,
 								/datum/supermatter_event/bravo_tier = 15,
 								/datum/supermatter_event/alpha_tier = 5,
 								/datum/supermatter_event/sierra_tier = 1)
@@ -1173,6 +1176,7 @@
 		make_next_event_time()
 		return // We're only gonna have one s-class per round, take a break engineers
 	run_event(event)
+	make_next_event_time()
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/run_event(datum/supermatter_event/event) // mostly admin testing and stuff
 	if(ispath(event))

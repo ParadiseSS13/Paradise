@@ -39,7 +39,6 @@
 	supermatter.heat_multiplier = 1
 	supermatter.event_active = null
 	supermatter.last_events += src
-	supermatter.make_next_event_time()
 
 /datum/supermatter_event/proc/sm_radio_say(text)
 	if(!text)
