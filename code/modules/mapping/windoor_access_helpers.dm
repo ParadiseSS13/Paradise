@@ -143,9 +143,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox_storage
 	access = ACCESS_TOX_STORAGE
 
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/genetics
-	access = ACCESS_GENETICS
-
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics
 	access = ACCESS_ROBOTICS
 
@@ -164,6 +161,9 @@
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general
 	access = ACCESS_SECURITY
+
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/forensics
+	access = ACCESS_FORENSICS_LOCKERS
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors
 	access = ACCESS_SEC_DOORS
@@ -208,7 +208,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/library
 	access = ACCESS_LIBRARY
 
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/library
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/theatre
 	access = ACCESS_THEATRE
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/clown
@@ -352,9 +352,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/science/tox_storage
 	access = ACCESS_TOX_STORAGE
 
-/obj/effect/mapping_helpers/airlock/windoor/access/all/science/genetics
-	access = ACCESS_GENETICS
-
 /obj/effect/mapping_helpers/airlock/windoor/access/all/science/robotics
 	access = ACCESS_ROBOTICS
 
@@ -373,6 +370,9 @@
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/general
 	access = ACCESS_SECURITY
+
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/forensics
+	access = ACCESS_FORENSICS_LOCKERS
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/doors
 	access = ACCESS_SEC_DOORS
@@ -420,7 +420,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/library
 	access = ACCESS_LIBRARY
 
-/obj/effect/mapping_helpers/airlock/windoor/access/all/service/library
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/theatre
 	access = ACCESS_THEATRE
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/clown
