@@ -185,14 +185,22 @@
 /datum/design/medchem_goggles
 	name = "Medical Chemistry Goggles"
 	desc = "A pair of goggles detecting and analyzing reagents. With an inbuilt holoprojector, they are able to display information about various healing chemicals."
-	id = "medchemgoggles"
-	req_tech = list("biotech" = 5, "materials" = 4)
+	id = "chemgoggles"
+	req_tech = list("biotech" = 2, "materials" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/glasses/medchem
 	category = list("Equipment")
 
-// Add NV variant here??
+/datum/design/nv_medchem_goggles
+	name = "Night Vision Medical Chemistry Goggles"
+	desc = "Like Medical Chemisty Goggles Goggles, but works in darkness."
+	id = "nvchemgoggles"
+	req_tech = list("magnets" = 5, "plasmatech" = 4, "engineering" = 6, "biotech" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 250, MAT_GLASS = 300, MAT_PLASMA = 250, MAT_URANIUM = 1000)
+	build_path = /obj/item/clothing/glasses/medchem/night
+	category = list("Equipment")
 
 /datum/design/diagnostic_hud
 	name = "Diagnostic HUD"

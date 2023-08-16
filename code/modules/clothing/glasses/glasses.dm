@@ -164,17 +164,12 @@
 /obj/item/clothing/glasses/medchem
 	name = "medical chemistry goggles"
 	desc = "A pair of goggles detecting and analyzing reagents. With an inbuilt holoprojector, they are able to display information about various healing chemicals."
-	icon_state = "purple"	// todo
-	item_state = "glasses"	// todo2
-	origin_tech = "biotech=4;materials=4"
+	icon_state = "chemgoggles"
+	item_state = "glasses"
+	origin_tech = "biotech=2;materials=2"
 	prescription_upgradable = TRUE
 	scan_reagents = TRUE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi')
 	actions_types = list(/datum/action/item_action/toggle_medchem_recipes)
 
 	/// The list of reagents that it should show information about, use /datum/reagent's "id" here
@@ -246,6 +241,15 @@
 	data["reagents"] = medicine_list
 	data["components"] = component_list
 	return data
+
+/obj/item/clothing/glasses/medchem/night
+	name = "night vision medical chemistry goggles"
+	icon_state = "nvchemgoggles"
+	item_state = "glasses"
+	origin_tech = "biotech=4;materials=4;plasmatech=3;engineering=5"
+	see_in_dark = 8
+	prescription_upgradable = FALSE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/janitor
 	name = "janitorial goggles"
