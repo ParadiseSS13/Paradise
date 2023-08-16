@@ -19,11 +19,13 @@
 	var/turned_on = FALSE
 	/// How much power does it cost to stun someone
 	var/hitcost = 1000
-	var/obj/item/stock_parts/cell/high/cell = null
+	var/obj/item/stock_parts/cell/cell = null // Adminbus tip: make this something that isn't a cell :)
 	/// the initial cooldown tracks the time between swings. tracks the world.time when the baton is usable again.
 	var/cooldown = 3.5 SECONDS
 	/// the time it takes before the target falls over
 	var/knockdown_delay = 2.5 SECONDS
+	/// Can this baton be turned off?
+	var/can_turn_off = TRUE
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -47,7 +49,7 @@
  * * unlink - If TRUE, sets the `cell` variable to `null` rather than linking it to a new one.
  * * existing_cell - If argument is supplied, will set the starting cell to the argument
  */
-/obj/item/melee/baton/proc/link_new_cell(unlink = FALSE, obj/item/stock_parts/cell/existing_cell = null)
+/obj/item/melee/baton/proc/link_new_cell(unlink = FALSE)
 	if(unlink)
 		cell = null
 		return
@@ -55,10 +57,11 @@
 		var/mob/living/silicon/robot/R = loc.loc
 		cell = R.cell
 		return
-	if(existing_cell)
-		cell = existing_cell
-		return
-	cell = new(src)
+	if(!cell)
+		var/powercell = /obj/item/stock_parts/cell/high
+		cell = new powercell(src)
+	else
+		cell = new cell(src)
 
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -113,7 +116,7 @@
 		cell = null
 		turned_on = FALSE
 		update_icon(UPDATE_ICON_STATE)
-	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off. //TODO this breaks with mindflayer self charging prods
+	if(cell.charge < (hitcost) && can_turn_off) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
@@ -284,6 +287,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP
 	turned_on = TRUE
+	can_turn_off = FALSE
+	cell = /obj/item/stock_parts/cell/flayerprod
 
 /obj/item/melee/baton/flayerprod/update_icon_state()
 	return
@@ -317,7 +322,12 @@
 		R.on = TRUE
 		R.listening = TRUE
 
-/obj/item/melee/baton/flayerprod/loaded/Initialize(mapload) //this one starts with a cell pre-installed.
-	var/obj/item/stock_parts/cell/flayerprod/internal_cell = new(src)
-	link_new_cell(existing_cell = internal_cell)
+/obj/item/melee/baton/flayerprod/Initialize(mapload) // We are not making a flayerprod without a cell
+	link_new_cell()
 	return ..()
+
+/obj/item/melee/baton/flayerprod/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The baton is [round(cell.percent())]% charged.</span>"
+	. += "<span class='notice'>When turned on this item will knockdown anyone it hits after a short delay. While on harm intent, this item will also do some brute damage, even if turned on.</span>"
+	. += "<span class='notice'>This one seems to be able to interfere with radio headsets.</span>"
