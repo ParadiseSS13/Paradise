@@ -407,8 +407,9 @@
 		return
 	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
 	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
+	if(drops_core)
+		O.stun = 0.5 SECONDS
 	O.original = target
-	O.stun = 0.5 SECONDS
 	O.current = T
 	O.yo = U.y - T.y
 	O.xo = U.x - T.x
