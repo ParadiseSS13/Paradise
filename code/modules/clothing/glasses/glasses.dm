@@ -213,8 +213,12 @@
 	for(var/component in all_components)
 		var/datum/reagent/chosen_component = GLOB.chemical_reagents_list[component]
 		var/datum/chemical_reaction/chosen_reaction = GLOB.all_chemical_reactions[component]
-		if(chosen_component && chosen_reaction)
-			component_list.Add(list(list("name" = chosen_component.name, "description" = chosen_component.description, "metabolization" = chosen_component.metabolization_rate, "overdose" = chosen_component.overdose_threshold, "reaction_components" = chosen_reaction.required_reagents, "reaction_temperature" = chosen_reaction.min_temp)))
+		if(chosen_component)
+			if(chosen_reaction)
+				component_list.Add(list(list("name" = chosen_component.name, "description" = chosen_component.description, "metabolization" = chosen_component.metabolization_rate, "overdose" = chosen_component.overdose_threshold, "reaction_components" = chosen_reaction.required_reagents, "reaction_temperature" = chosen_reaction.min_temp)))
+			// Base chemicals have no reaction or temperature
+			else
+				component_list.Add(list(list("name" = chosen_component.name, "description" = chosen_component.description, "metabolization" = chosen_component.metabolization_rate, "overdose" = chosen_component.overdose_threshold)))
 
 // Only grant us the action when the goggles are actually equipped
 /obj/item/clothing/glasses/medchem/item_action_slot_check(slot)
