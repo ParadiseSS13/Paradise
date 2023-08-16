@@ -189,10 +189,15 @@
 	desc = "Not all wizards are afraid of getting up close and personal."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
+	///How many shields regen per recharge cycle
 	recharge_rate = 1
+	///How many charges the shields start with
 	current_charges = 3
+	///The max number of charges the suit can hold
 	max_charges = 3
+	///How long between each recharge
 	recharge_cooldown = 5 SECONDS
+	///How long after being hit the shields can begin recharging
 	recharge_delay = 10 SECONDS
 	shield_state = "shield-red"
 	shield_on = "shield-red"
