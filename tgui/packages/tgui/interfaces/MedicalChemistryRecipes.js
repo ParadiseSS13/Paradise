@@ -24,6 +24,7 @@ export const MedicalChemistryRecipes = (props, context) => {
           <Box>
               {reagents.map((medicine, id) => (
                 <Button
+                  key={id}
                   content={medicine.name}
                   textAlign="center"
                   selected={reagentType === 0 ? id === reagentIndex : null}
@@ -37,6 +38,7 @@ export const MedicalChemistryRecipes = (props, context) => {
         <Box>
               {components.map((component, id) => (
                 <Button
+                  key={id}
                   content={component.name}
                   textAlign="center"
                   selected={reagentType === 1 ? id === reagentIndex : null}
