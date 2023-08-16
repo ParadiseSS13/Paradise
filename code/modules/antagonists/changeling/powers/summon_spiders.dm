@@ -53,13 +53,15 @@
 	/// To check and gib the spider when dead, then remove only one of the counter for the changeling owner
 	var/gibbed = FALSE
 
-//These two bellow are needed to both gib the spider always, and even if it was gibbed only remove 1 from the counter of spider_counter instead of death's gib calling death again and removing 2
+//These two below are needed to both gib the spider always, and even if it was gibbed only remove 1 from the counter of spider_counter instead of death's gib calling death again and removing 2
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/gib()
 	gibbed = TRUE
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/death(gibbed)
 	var/mob/owner_mob = locateUID(owner_UID)
+	if(!ismob(owner_mob))
+		return ..(TRUE)
 	var/datum/action/changeling/spiders/S = locate() in owner_mob.actions
 	if(!isnull(S))
 		if(gibbed)

@@ -36,6 +36,7 @@
 #define ui_storage1 "CENTER+1:18,SOUTH:5"
 #define ui_storage2 "CENTER+2:20,SOUTH:5"
 #define ui_pda "CENTER+3:22,SOUTH:5"
+#define ui_combo "CENTER+4:24,SOUTH+1:7" //combo meter for martial arts
 
 #define ui_alien_head "4:12,1:5"	//aliens
 #define ui_alien_oclothing "5:14,1:5"	//aliens
