@@ -10566,8 +10566,9 @@
 	},
 /area/storage/primary)
 "bqf" = (
+/obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/medical/surgery/south)
 "bqh" = (
@@ -15397,7 +15398,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
+	icon_state = "white"
 	},
 /area/medical/medbreak)
 "bLa" = (
@@ -25475,8 +25476,7 @@
 /area/maintenance/port)
 "cOC" = (
 /obj/structure/table/glass,
-/obj/item/clothing/accessory/stethoscope,
-/obj/item/folder,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -31353,7 +31353,9 @@
 	},
 /area/crew_quarters/locker)
 "dJH" = (
-/obj/machinery/suit_storage_unit/cmo,
+/obj/structure/table/wood,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/pen,
 /turf/simulated/floor/carpet/cyan,
 /area/medical/cmo)
 "dJO" = (
@@ -40123,6 +40125,10 @@
 	},
 /area/hallway/secondary/entry/south)
 "gAx" = (
+/obj/machinery/suit_storage_unit/cmo{
+	name = "chief medical officer's suit storage unit"
+	},
+/obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -53980,10 +53986,22 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "kAR" = (
-/obj/item/flag/med,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24
+	},
+/obj/structure/closet/secure_closet/CMO,
+/obj/item/cartridge/medical{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/cartridge/medical{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/item/cartridge/medical,
+/obj/item/cartridge/chemistry{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -54008,12 +54026,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "kAZ" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp{
-	pixel_x = -3;
-	pixel_y = 11
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22"
 	},
-/obj/item/toy/figure/cmo,
 /turf/simulated/floor/carpet/cyan,
 /area/medical/cmo)
 "kBa" = (
@@ -63187,8 +63202,11 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/item/pen,
-/obj/item/paper_bin/nanotrasen,
+/obj/item/flashlight/lamp{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/item/toy/figure/cmo,
 /turf/simulated/floor/carpet/cyan,
 /area/medical/cmo)
 "nqu" = (
@@ -66488,7 +66506,7 @@
 /obj/machinery/door_control{
 	id = "medlockdown";
 	name = "Medical Asteroid Lockdown";
-	pixel_x = 10;
+	pixel_x = 7;
 	pixel_y = 39;
 	req_access = list(40)
 	},
@@ -66497,6 +66515,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/keycard_auth{
+	pixel_x = 1;
+	pixel_y = 29
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -67685,10 +67707,9 @@
 /obj/machinery/door_control{
 	id = "Biohazard_medi";
 	name = "Emergency Medbay Quarantine";
+	pixel_x = -7;
 	pixel_y = 7
 	},
-/obj/effect/spawner/lootdrop/officetoys,
-/obj/item/clothing/glasses/hud/health/sunglasses,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -68430,7 +68451,6 @@
 /obj/structure/table/glass,
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
-/obj/item/stamp/cmo,
 /obj/machinery/computer/guestpass{
 	pixel_y = -28
 	},
@@ -75097,8 +75117,9 @@
 /turf/simulated/mineral/ancient,
 /area/teleporter/quantum/docking)
 "qWJ" = (
+/obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/medical/surgery/north)
 "qWS" = (
@@ -76262,10 +76283,7 @@
 	},
 /area/medical/cloning)
 "rpK" = (
-/obj/machinery/suit_storage_unit/cmo{
-	name = "chief medical officer's suit storage unit"
-	},
-/obj/effect/turf_decal/bot,
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -77667,22 +77685,7 @@
 /turf/simulated/wall,
 /area/hallway/primary/fore)
 "rNg" = (
-/obj/machinery/keycard_auth{
-	pixel_x = -24
-	},
-/obj/structure/closet/secure_closet/CMO,
-/obj/item/cartridge/medical{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/cartridge/medical{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/obj/item/cartridge/medical,
-/obj/item/cartridge/chemistry{
-	pixel_y = 2
-	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -79000,7 +79003,13 @@
 	dir = 4;
 	pixel_x = 24
 	},
-/obj/machinery/papershredder,
+/obj/structure/table,
+/obj/item/folder,
+/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/glasses/hud/health/sunglasses{
+	pixel_y = 10
+	},
+/obj/item/stamp/cmo,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -79279,7 +79288,7 @@
 	req_access = list(45)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/medical/surgery/south)
 "siv" = (
@@ -80101,7 +80110,9 @@
 /turf/space,
 /area/space/nearstation)
 "sxo" = (
-/obj/machinery/photocopier,
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -81236,7 +81247,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 1
+	icon_state = "dark"
 	},
 /area/medical/cmo)
 "sPH" = (
@@ -81438,7 +81449,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/medical/surgery/north)
 "sSG" = (
@@ -92497,11 +92508,11 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/cabin2)
 "wno" = (
-/obj/structure/closet/secure_closet/CMO,
 /obj/machinery/newscaster{
 	dir = 8;
 	pixel_x = 28
 	},
+/obj/item/flag/med,
 /turf/simulated/floor/carpet/cyan,
 /area/medical/cmo)
 "wnp" = (
@@ -95762,7 +95773,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/toxins/rdoffice)
 "xnA" = (
 /turf/simulated/wall/r_wall,
