@@ -14,7 +14,7 @@
 	action_background_icon_state = "bg_vampire" // TODO: flayer background
 	human_req = TRUE
 	clothes_req = FALSE
- 	/// A reference to the changeling's changeling antag datum.
+	/// A reference to the changeling's changeling antag datum.
 	var/datum/antagonist/mindflayer/flayer
 	/// Determines whether the power is always given to the changeling or if it must be purchased.
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
