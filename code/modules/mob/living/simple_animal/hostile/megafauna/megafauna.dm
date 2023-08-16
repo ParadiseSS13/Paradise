@@ -38,6 +38,8 @@
 	var/nest_range = 10
 	var/chosen_attack = 1 // chosen attack num
 	var/list/attack_action_types = list()
+	/// Has someone enabled hard mode?
+	var/enraged = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -125,6 +127,17 @@
 /mob/living/simple_animal/hostile/megafauna/proc/SetRecoveryTime(buffer_time)
 	recovery_time = world.time + buffer_time
 	ranged_cooldown = world.time + buffer_time
+
+/// This proc is called by the INSERT NAME HERE to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
+/mob/living/simple_animal/hostile/megafauna/proc/enrage() //TODO: heal or have some other check if it is too damaged to be enraged.
+	if(enraged)
+		return
+	enraged = TRUE
+
+/mob/living/simple_animal/hostile/megafauna/proc/unrage()
+	if(!enraged)
+		return
+	enraged = FALSE
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"

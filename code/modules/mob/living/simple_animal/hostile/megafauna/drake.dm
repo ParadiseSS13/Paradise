@@ -104,7 +104,7 @@ Difficulty: Medium
 	if(swooping)
 		return
 
-	anger_modifier = clamp(((maxHealth - health)/50),0,20)
+	anger_modifier = clamp(max((maxHealth - health)/50, enraged? 15 : 0),0, 20)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 	if(client)
@@ -124,6 +124,8 @@ Difficulty: Medium
 
 	else if(prob(10+anger_modifier))
 		shoot_fire_attack()
+	else if(enraged)
+		arena_escape_enrage()
 	else
 		fire_cone()
 
@@ -138,7 +140,7 @@ Difficulty: Medium
 		return
 	target.visible_message("<span class='boldwarning'>Fire rains from the sky!</span>")
 	for(var/turf/turf in range(9,get_turf(target)))
-		if(prob(11))
+		if(prob(enraged? 44 : 11))
 			new /obj/effect/temp_visual/target(turf)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(amount, delay = 0.8)
@@ -148,7 +150,7 @@ Difficulty: Medium
 	while(amount > 0)
 		if(QDELETED(target))
 			break
-		var/turf/T = pick(RANGE_TURFS(1, target))
+		var/turf/T = pick(RANGE_TURFS(enraged? 3 : 1, target))
 		new /obj/effect/temp_visual/lava_warning(T, 60) // longer reset time for the lava
 		amount--
 		SLEEP_CHECK_DEATH(delay)
@@ -169,6 +171,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/mass_fire(spiral_count = 12, range = 15, times = 3)
 	SLEEP_CHECK_DEATH(0)
+	if(prob(50) && enraged)
+		INVOKE_ASYNC(src, PROC_REF(fire_rain))
 	for(var/i = 1 to times)
 		SetRecoveryTime(50)
 		playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)

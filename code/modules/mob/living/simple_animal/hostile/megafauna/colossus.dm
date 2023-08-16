@@ -93,6 +93,14 @@ Difficulty: Very Hard
 	. = ..(("<span class='colossus'><b>[uppertext(message)]</b></span>"), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 
 
+/mob/living/simple_animal/hostile/megafauna/colossus/enrage()
+	. = ..()
+	move_to_delay = 5
+
+/mob/living/simple_animal/hostile/megafauna/colossus/unrage()
+	. = ..()
+	move_to_delay = initial(move_to_delay)
+
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	anger_modifier = clamp(((maxHealth - health)/50),0,20)
 	ranged_cooldown = world.time + 120
@@ -109,7 +117,7 @@ Difficulty: Very Hard
 				alternating_dir_shots()
 		return
 
-	if(enrage(target))
+	if(cheese(target))
 		if(move_to_delay == initial(move_to_delay))
 			say("You can't dodge")
 		ranged_cooldown = world.time + 30
@@ -120,9 +128,11 @@ Difficulty: Very Hard
 	else
 		move_to_delay = initial(move_to_delay)
 
-	if(health <= maxHealth / 10 && final_available) //One time use final attack
+	if(health <= maxHealth / (enraged? 10 : 9) && final_available) //One time use final attack. Want to make it not get skipped as much on base colossus, but a little easier to skip on enraged as it can be used multiple times
 		final_available = FALSE
 		final_attack()
+		if(enraged)
+			final_available = TRUE
 	else if(prob(20 + anger_modifier)) //Major attack
 		select_spiral_attack()
 	else if(prob(20))
@@ -133,23 +143,27 @@ Difficulty: Very Hard
 		else
 			alternating_dir_shots()
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/cheese(mob/living/L)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
 			return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
-	ranged_cooldown = world.time + 40
-	telegraph(DIR_SHOTS)
-	SLEEP_CHECK_DEATH(1.5 SECONDS)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots(telegraphing = TRUE)
+	var/rage = enraged? 5 : 10
+	if(telegraphing)
+		ranged_cooldown = world.time + 40
+		telegraph(DIR_SHOTS)
+		SLEEP_CHECK_DEATH(1.5 SECONDS)
 	dir_shots(GLOB.diagonals)
-	SLEEP_CHECK_DEATH(10)
+	SLEEP_CHECK_DEATH(rage)
 	dir_shots(GLOB.cardinal)
-	SLEEP_CHECK_DEATH(10)
+	SLEEP_CHECK_DEATH(rage)
 	dir_shots(GLOB.diagonals)
-	SLEEP_CHECK_DEATH(10)
+	SLEEP_CHECK_DEATH(rage)
 	dir_shots(GLOB.cardinal)
+	if(telegraphing)
+		alternating_dir_shots(FALSE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
 	if(health < maxHealth/3)
@@ -204,14 +218,14 @@ Difficulty: Very Hard
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
-		if(prob(5))
+		if(prob(enraged? 10 : 5))
 			shoot_projectile(T)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle, do_sleep = TRUE)
 	ranged_cooldown = world.time + 20
 	if(do_sleep)
 		telegraph(BLAST)
-		SLEEP_CHECK_DEATH(1.5 SECONDS)
+		SLEEP_CHECK_DEATH(enraged? 1 : 1.5 SECONDS)
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))

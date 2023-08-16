@@ -39,7 +39,7 @@ Difficulty: Hard
 	desc = "A massive metal club that hangs in the air as though waiting. It'll make you dance to its beat."
 	health = 2500
 	maxHealth = 2500
-	attacktext = "clubs"
+	attacktext = "slams into"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "hierophant"
 	icon_living = "hierophant"
@@ -47,7 +47,7 @@ Difficulty: Hard
 	icon = 'icons/mob/lavaland/hierophant_new.dmi'
 	faction = list("boss") //asteroid mobs? get that shit out of my beautiful square house
 	speak_emote = list("preaches")
-	armour_penetration_percentage = 50
+	armour_penetration_percentage = 100 //It does 15 damage / only attacks when enraged
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	speed = 10
@@ -81,6 +81,7 @@ Difficulty: Hard
 	var/list/kill_phrases = list("Wsyvgi sj irivkc xettih. Vitemvmrk...", "Irivkc wsyvgi jsyrh. Vitemvmrk...", "Jyip jsyrh. Egxmzexmrk vitemv gcgpiw...", "Kix fiex. Liepmrk...")
 	var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
 	var/list/stored_nearby = list() // stores people nearby the hierophant when it enters the death animation
+	var/colour_shifting = FALSE //If the hiero has changed colour, stop the rays animation.
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
 	. = ..()
@@ -113,6 +114,14 @@ Difficulty: Hard
 	button_icon_state = "hierophant_club_ready_beacon"
 	chosen_message = "<span class='colossus'>You are now repeatedly blinking at your target.</span>"
 	chosen_attack_num = 4
+
+/mob/living/simple_animal/hostile/megafauna/hierophant/enrage()
+	. = ..()
+	move_to_delay = 5
+
+/mob/living/simple_animal/hostile/megafauna/hierophant/unrage()
+	. = ..()
+	move_to_delay = initial(move_to_delay)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/OpenFire()
 	if(blinking)
@@ -196,10 +205,12 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
-	if(health < maxHealth * 0.5 && blink_counter > 1)
+	if((health < maxHealth * 0.5 || enraged) && blink_counter > 1)
 		visible_message("<span class='hierophant'>\"Mx ampp rsx iwgeti.\"</span>")
 		var/oldcolor = color
 		animate(src, color = "#660099", time = 6)
+		colour_shifting = TRUE
+		remove_filter("rays")
 		SLEEP_CHECK_DEATH(6)
 		while(!QDELETED(target) && blink_counter)
 			if(loc == target.loc || loc == target) //we're on the same tile as them after about a second we can stop now
@@ -210,6 +221,7 @@ Difficulty: Hard
 			blinking = TRUE
 			SLEEP_CHECK_DEATH(4 + target_slowness)
 		animate(src, color = oldcolor, time = 8)
+		colour_shifting = FALSE
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 		SLEEP_CHECK_DEATH(8)
 		blinking = FALSE
@@ -222,6 +234,8 @@ Difficulty: Hard
 	blinking = TRUE
 	var/oldcolor = color
 	animate(src, color = "#660099", time = 6)
+	colour_shifting = TRUE
+	remove_filter("rays")
 	SLEEP_CHECK_DEATH(6)
 	while(!QDELETED(target) && cross_counter)
 		cross_counter--
@@ -231,6 +245,7 @@ Difficulty: Hard
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.diagonals)
 		SLEEP_CHECK_DEATH(6 + target_slowness)
 	animate(src, color = oldcolor, time = 8)
+	colour_shifting = FALSE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 	SLEEP_CHECK_DEATH(8)
 	blinking = FALSE
@@ -242,6 +257,8 @@ Difficulty: Hard
 	blinking = TRUE
 	var/oldcolor = color
 	animate(src, color = "#660099", time = 6)
+	colour_shifting = TRUE
+	remove_filter("rays")
 	SLEEP_CHECK_DEATH(6)
 	var/list/targets = ListTargets()
 	var/list/cardinal_copy = GLOB.cardinal.Copy()
@@ -259,6 +276,7 @@ Difficulty: Hard
 		SLEEP_CHECK_DEATH(8 + target_slowness)
 	chaser_cooldown = world.time + initial(chaser_cooldown)
 	animate(src, color = oldcolor, time = 8)
+	colour_shifting = FALSE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 	SLEEP_CHECK_DEATH(8)
 	blinking = FALSE
@@ -375,8 +393,24 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/burst(turf/original, spread_speed)
 	hierophant_burst(src, original, burst_range, spread_speed)
 
+/mob/living/simple_animal/hostile/megafauna/hierophant/float(on) //we don't want this guy to float, messes up his animations
+	if(throwing)
+		return
+	if(on && !floating)
+		floating = TRUE
+	else if(!on && floating)
+		floating = FALSE
+
 /mob/living/simple_animal/hostile/megafauna/hierophant/Life()
 	. = ..()
+	if(enraged && !colour_shifting)
+		var/new_filter = isnull(get_filter("ray"))
+		ray_filter_helper(1, 40,"#660099", 6, 20, 16)
+		if(new_filter)
+			animate(get_filter("ray"), offset = 10, y = 8, time = 10 SECONDS, loop = -1)
+			animate(offset = 0, time = 10 SECONDS)
+	else
+		remove_filter("ray")
 	if(. && spawned_beacon && !QDELETED(spawned_beacon) && !client)
 		if(target || loc == spawned_beacon.loc)
 			timeout_time = initial(timeout_time)
@@ -446,6 +480,11 @@ Difficulty: Hard
 		if(target && isliving(target))
 			var/mob/living/L = target
 			if(L.stat != DEAD)
+				if(enraged)
+					..() //This causes it to melee attack as well. Extra damage if trying to crusher tank. TODO make the hieros melee knock a person back a tile
+					if(L.move_resist < INFINITY)
+						var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
+						L.throw_at(throw_target, 1, 2) //Yeet them away. Makes crusher harder / stops endless backstab
 				if(ranged_cooldown <= world.time)
 					calculate_rage()
 					ranged_cooldown = world.time + max(5, ranged_cooldown_time - anger_modifier * 0.75)
@@ -483,7 +522,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/calculate_rage() //how angry we are overall
 	did_reset = FALSE //oh hey we're doing SOMETHING, clearly we might need to heal if we recall
-	anger_modifier = clamp(((maxHealth - health) / 42),0,50)
+	anger_modifier = clamp((max((maxHealth - health) / 42, enraged? 40 : 0)),0,50)
 	burst_range = initial(burst_range) + round(anger_modifier * 0.08)
 	beam_range = initial(beam_range) + round(anger_modifier * 0.12)
 
