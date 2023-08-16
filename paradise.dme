@@ -1337,7 +1337,7 @@
 #include "code\modules\antagonists\changeling\powers\transform.dm"
 #include "code\modules\antagonists\mind_flayer\flayer_power.dm"
 #include "code\modules\antagonists\mind_flayer\mindflayer_gamemode.dm"
-#include "code\modules\antagonists\mind_flayer\passives\flayerpassive.dm"
+#include "code\modules\antagonists\mind_flayer\powers\flayerpassive.dm"
 #include "code\modules\antagonists\mind_flayer\powers\flayerprod.dm"
 #include "code\modules\antagonists\survivalist\survivalist.dm"
 #include "code\modules\antagonists\traitor\datum_mindslave.dm"
