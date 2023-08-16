@@ -610,7 +610,7 @@ Difficulty: Medium
 	move_force = MOVE_FORCE_NORMAL
 	move_resist = MOVE_FORCE_NORMAL
 	pull_force = MOVE_FORCE_NORMAL
-	deathmessage = "screeches as its wings turn to dust and it collapses on the floor, life estinguished."
+	deathmessage = "screeches as its wings turn to dust and it collapses on the floor, life extinguished."
 	attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)

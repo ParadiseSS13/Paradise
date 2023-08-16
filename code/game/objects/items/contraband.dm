@@ -3,12 +3,13 @@
 //Illicit drugs~
 /obj/item/storage/pill_bottle/happy
 	name = "Happy pills"
-	desc = "Highly illegal drug. When you want to see the rainbow."
+	desc = "Real fun drugs, for when you want to see the rainbow. Happy happy joy joy!"
 	wrapper_color = COLOR_PINK
 
 /obj/item/storage/pill_bottle/happy/populate_contents()
-	for(var/i in 1 to 7)
+	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/food/pill/happy(src)
+		new /obj/item/reagent_containers/food/pill/happy/happiness(src)
 
 /obj/item/storage/pill_bottle/zoom
 	name = "Zoom pills"

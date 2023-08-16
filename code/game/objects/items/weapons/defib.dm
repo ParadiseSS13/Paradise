@@ -243,11 +243,14 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
 	combat = TRUE
 	safety = TRUE
-	hardened = TRUE  // emp-proof (on the component), but not emag-proof.
+	hardened = TRUE // emp-proof (on the component), but not emag-proof.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
 	heart_attack_probability = 10
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
+
+/obj/item/defibrillator/compact/advanced/screwdriver_act(mob/living/user, obj/item/I)
+	return // The cell is too strong roundstart and we dont want the adv defib to become useless
 
 /obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
