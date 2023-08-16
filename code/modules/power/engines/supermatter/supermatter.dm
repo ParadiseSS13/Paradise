@@ -245,6 +245,8 @@
 	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
 	if(isAntag(user))
 		. += "<span class='warning'>Although a T.E.G. is more costly, there's a damn good reason the syndicate doesn't use this. If the integrity of [src] dips to 0%, perhaps from overheating, the supermatter will violently explode destroying nearly everything even somewhat close to it and releasing massive amounts of radiation.</span>"
+	if(moveable)
+		. += "<span class='notice'>It can be [anchored ? "unfastened from" : "fastened to"] the floor with a wrench.</span>"
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
@@ -801,6 +803,10 @@
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(AM)
+
+/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
+	..()
+	Bumped(A)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
 	if(isliving(AM))
