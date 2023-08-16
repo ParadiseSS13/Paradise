@@ -26,9 +26,6 @@
 	H.dna.SetSEState(GLOB.teleblock, TRUE)
 	singlemutcheck(H, GLOB.teleblock, MUTCHK_FORCED)
 
-	H.dna.SetSEState(GLOB.increaserunblock, TRUE)
-	singlemutcheck(H, GLOB.increaserunblock, MUTCHK_FORCED)
-
 	H.dna.SetSEState(GLOB.breathlessblock, TRUE)
 	singlemutcheck(H, GLOB.breathlessblock, MUTCHK_FORCED)
 

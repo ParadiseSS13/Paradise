@@ -225,6 +225,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
 #define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
 
+///An item that is oiled. If sprayed with water, it's slowdown reverts to normal.
+#define TRAIT_OIL_SLICKED "oil_slicked"
 
 //
 // common trait sources
