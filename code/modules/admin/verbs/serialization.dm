@@ -58,6 +58,7 @@
 				qdel(dbq2)
 				return
 
+			qdel(dbq2)
 			to_chat(usr, "Successfully saved <code>[clean_name]</code>. You can spawn it from <code>Debug > Spawn Saved JSON Datum</code>.")
 
 		else
@@ -76,6 +77,7 @@
 				qdel(dbq2)
 				return
 
+			qdel(dbq2)
 			to_chat(usr, "Successfully updated <code>[slot_choice]</code>. You can spawn it from <code>Debug > Spawn Saved JSON Datum</code>.")
 
 

@@ -3385,8 +3385,6 @@
 		if(spawn_choice != "Yes")
 			return
 
-		qdel(dbq)
-
 		// Log this for gods sake
 		message_admins("[key_name_admin(usr)] spawned an atom from a JSON DB save.")
 		log_admin("[key_name(usr)] spawned an atom from a JSON DB save, JSON Text: [slot_json]")
@@ -3421,10 +3419,10 @@
 		))
 
 		if(!dbq2.warn_execute())
-			qdel(dbq)
+			qdel(dbq2)
 			return
 
-		qdel(dbq)
+		qdel(dbq2)
 		owner.json_spawn_menu() // Refresh their menu
 		to_chat(usr, "Slot <code>[slot_name]</code> deleted.")
 
