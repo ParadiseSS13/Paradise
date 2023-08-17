@@ -151,7 +151,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 	//used to activate parts of the reactor code for testing
 	var/testing = FALSE
-
+	///time until next processing tick
+	var/next_slowprocess = 0
 // procs to start and stop testing
 
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/test()
