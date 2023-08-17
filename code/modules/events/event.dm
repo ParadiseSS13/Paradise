@@ -99,7 +99,7 @@
   * Only called once.
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
-/datum/event/proc/announce()
+/datum/event/proc/announce(false_alarm = FALSE)
 	return
 
 /**
