@@ -205,9 +205,9 @@
 		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
 
 /obj/effect/proc_holder/spell/vampire/arena
-	name = "Arena (150)"
-	desc = "You jump towards a target on your screen, creating an arena around yourself and making your body immune to breaking."
-	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
+	name = "Desecrated Duel (150)"
+	desc = "You jump towards someone. Upon landing, you conjure an arena, and within it you will heal brute and burn damage, recover from fatigue faster, and be strengthened against lasting damages. Can be recasted to end the spell early."
+	gain_desc = "You can now jump to a target, creating an arena where you land."
 	required_blood = 150
 	base_cooldown = 30 SECONDS
 	action_icon_state = "blood_barrier"
