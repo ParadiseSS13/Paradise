@@ -33,7 +33,7 @@
 			continue
 		L.gib() //lol, lmao even
 
-/obj/effect/proc_holder/spell/ethereal_jaunt/proc/do_jaunt(mob/living/target)
+/obj/effect/proc_holder/spell/ethereal_jaunt/do_jaunt(mob/living/target)
 	target.notransform = TRUE
 	var/turf/mobloc = get_turf(target)
 
