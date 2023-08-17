@@ -56,6 +56,26 @@ Difficulty: Medium
 	. = ..()
 	transform *= 2
 
+/mob/living/simple_animal/hostile/megafauna/legion/enrage()
+	health = 1250
+	maxHealth = 1250
+	transform /= 1.5
+	loot = list(/datum/nothing)
+	crusher_loot = list(/datum/nothing)
+	var/mob/living/simple_animal/hostile/megafauna/legion/legiontwo = new /mob/living/simple_animal/hostile/megafauna/legion(get_turf(src))
+	legiontwo.transform /= 1.5
+	legiontwo.loot = list(/datum/nothing)
+	legiontwo.crusher_loot = list(/datum/nothing)
+	legiontwo.health = 1250
+	legiontwo.maxHealth = 1250
+
+/mob/living/simple_animal/hostile/megafauna/legion/death(gibbed)
+	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
+		if(other != src)
+			other.loot = initial(loot)
+			other.crusher_loot = initial(crusher_loot)
+	. = ..()
+
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
 	. = ..()
 	if(. && ishuman(target))
@@ -159,7 +179,7 @@ Difficulty: Medium
 		return
 	if(.)
 		var/matrix/M = new
-		resize = 1 + (health / maxHealth)
+		resize = enraged? 0.66 : 1 + (health / maxHealth)
 		M.Scale(resize, resize)
 		transform = M
 		if(amount > 0 && prob(33))

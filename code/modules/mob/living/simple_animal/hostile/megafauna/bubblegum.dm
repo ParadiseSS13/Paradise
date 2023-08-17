@@ -115,13 +115,14 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/enrage()
 	. = ..()
-	maxHealth = 250 //Less health, as a phase 2
-	health = 250
+	maxHealth = 2000 //Less health, as a phase 2
+	health = 2000
 	rapid_melee = 12 //Don't stand still
+	vision_range = 18
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum) //You'll get it in phase 2.
 	crusher_loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
-	for(var/mob/living/carbon/human/H in range(20)) //suprise motherfucker bubblegum wakes up fast
+	for(var/mob/living/carbon/human/H in range(18)) //suprise motherfucker bubblegum wakes up fast
 		to_chat(H, "<span class='colossus'><b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b></span>")
 		FindTarget(list(H), 1) //From down town with the pile driver
 
@@ -623,8 +624,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2
 	name = "bubblegum"
 	desc = "Oh they are PISSED. And quite injured too..."
-	health = 250 //750
-	maxHealth = 250
+	health = 750
+	maxHealth = 750
 	armour_penetration_percentage = 75
 	second_life = TRUE
 	enraged = TRUE
@@ -639,6 +640,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
-	for(var/mob/living/carbon/human/H in range(20)) //suprise motherfucker bubblegum wakes up fast
+	for(var/mob/living/carbon/human/H in range(20))
 		to_chat(H, "<span class='colossus'><b>I WILL END YOU HERE AND NOW!</b></span>")
-		FindTarget(list(H), 1) //From down town with the pile driver
+		FindTarget(list(H), 1)

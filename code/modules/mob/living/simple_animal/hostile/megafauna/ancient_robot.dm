@@ -1,4 +1,4 @@
-#define BODY_SHIELD_COOLDOWN_TIME 5 SECONDS
+#define BODY_SHIELD_COOLDOWN_TIME enraged? 3 SECONDS : 5 SECONDS
 #define EXTRA_PLAYER_ANGER_NORMAL_CAP 6
 #define EXTRA_PLAYER_ANGER_STATION_CAP 3
 #define BLUESPACE 1
@@ -178,6 +178,9 @@ Difficulty: Hard
 	anger_modifier = clamp(((maxHealth - health) / 50), 0, 20)
 	ranged_cooldown = world.time + (ranged_cooldown_time * ((10 - extra_player_anger) / 10))
 
+	if(enraged && prob(10)) //This attack is free, and can be combined with other attacks, so chance is low.
+		single_laser()
+
 	if(prob(30 + (anger_modifier / 2))) //Less scaling as the weaker attack / first calculated.
 		triple_charge()
 
@@ -188,6 +191,33 @@ Difficulty: Hard
 		do_special_move()
 
 	calculate_extra_player_anger()
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/single_laser()
+	say(pick("KTMGMK JOYIU OTLKXTU", "ROQK G OTZKXTGR JOYQ", "HO-JOXKIZOUTGR RGYKXY KTMGMKJ"))
+	new /obj/effect/vetus_laser(get_turf(src))
+
+/obj/effect/vetus_laser
+	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
+	icon_state = "energy_ball"
+	pixel_x = -32
+	pixel_y = -32
+
+/obj/effect/vetus_laser/Initialize(mapload)
+	. = ..()
+	var/newcolor = rgb(241, 137, 172)
+	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
+	beam_it_up()
+
+/obj/effect/vetus_laser/ex_act(severity)
+	return
+
+/obj/effect/vetus_laser/proc/beam_it_up()
+	var/turf/beam_me_up_scotty = get_turf(src)
+	for(var/turf/T in spiral_range_turfs(9, src, 9))
+		T.Beam(beam_me_up_scotty, icon_state = "sm_arc_dbz_referance", time = 0.1, beam_type = /obj/effect/ebeam/vetus)
+		sleep(1)
+	qdel(src)
+
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/triple_charge()
 	if(mode == BLUESPACE)
@@ -312,7 +342,7 @@ Difficulty: Hard
 				if(T in range (2, target))
 					continue
 				turfs += T
-			while(rocks < 3 && length(turfs))
+			while(rocks < enraged? 5 : 3 && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
 				new /obj/effect/temp_visual/rock(spot)
 				addtimer(CALLBACK(src, PROC_REF(throw_rock), spot, target), 2 SECONDS)
@@ -324,10 +354,10 @@ Difficulty: Hard
 			for(var/turf/T in view(4, target))
 				if(T.density)
 					continue
-				if(T in range(1, target))
+				if(T in range(1, target) && !enraged)
 					continue
 				turfs += T
-			while(volcanos < 3 && length(turfs))
+			while(volcanos < enraged? 5 : 3 && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
 				for(var/turf/around in range(1, spot))
 					new /obj/effect/temp_visual/lava_warning(around)
@@ -346,7 +376,7 @@ Difficulty: Hard
 		if(VORTEX)
 			visible_message("<span class='danger'>[src] begins vibrate rapidly. It's causing an earthquake!</span>")
 			for(var/turf/turf in range(9,get_turf(target)))
-				if(prob(15))
+				if(prob(enraged? 40 : 15))
 					new /obj/effect/temp_visual/target/ancient(turf)
 		if(CRYO)
 			visible_message("<span class='danger'>[src]'s shell opens slightly, as sensors begin locking on to everyone around it!</span>")
@@ -357,11 +387,11 @@ Difficulty: Hard
 	say(pick("JKVRUEOTM XGC VUCKX", "KXXUX OT GTUSGRE IUTZGOTSKTZ", "YZGHOROZE OT OTYZGHOROZE OT YZGHOROZE OT OTYZGH-"))
 	var/list/turfs = list()
 	var/anomalies = 0
-	for(var/turf/T in view(5, src))
+	for(var/turf/T in view(enraged? 7 : 5, src))
 		if(T.density)
 			continue
 		turfs += T
-	while(anomalies < 3 && length(turfs))
+	while(anomalies < enraged? 5 : 3 && length(turfs))
 		var/turf/spot = pick(turfs)
 		turfs -= spot
 		switch(mode)
@@ -404,6 +434,8 @@ Difficulty: Hard
 			continue
 		anger++
 	if(health <= health / 2)
+		anger += 2
+	if(enraged)
 		anger += 2
 	cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
 	extra_player_anger = clamp(anger,1,cap) - 1
@@ -541,6 +573,9 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/mob_negates_gravity() //No more being thrown around like a spastic child by grav anomalies
 	return TRUE
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act(shock_damage, source, siemens_coeff, flags)
+	return
 
 /mob/living/simple_animal/hostile/ancient_robot_leg
 	name = "leg"
@@ -697,6 +732,9 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
 	return TRUE
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, source, siemens_coeff, flags)
+	return
 
 /obj/item/projectile/bullet/ancient_robot_bullet
 	damage = 8

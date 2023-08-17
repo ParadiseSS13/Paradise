@@ -1570,17 +1570,23 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 		y = t_center.y + c_dist - 1
 		x = t_center.x + c_dist
+		var/list/temp_list_one = list()
 		for(y in t_center.y-c_dist to y)
 			T = locate(x,y,t_center.z)
 			if(T)
-				L += T
+				temp_list_one += T
+		for(var/turf/temp_one in reverselist(temp_list_one))
+			L += temp_one
 
 		y = t_center.y - c_dist
 		x = t_center.x + c_dist - 1
+		var/list/temp_list_two = list()
 		for(x in t_center.x-c_dist to x)
 			T = locate(x,y,t_center.z)
 			if(T)
-				L += T
+				temp_list_two += T
+		for(var/turf/temp_two in reverselist(temp_list_two))
+			L += temp_two
 
 		y = t_center.y - c_dist + 1
 		x = t_center.x - c_dist
