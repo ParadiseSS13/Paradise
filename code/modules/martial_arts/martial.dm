@@ -64,16 +64,13 @@
 		return MARTIAL_ARTS_CANNOT_USE
 	if(combo_timer)
 		deltimer(combo_timer)
-/*
-	if(last_hit + COMBO_ALIVE_TIME < world.time)
-		reset_combos()
-*/
+
 	combo_timer = addtimer(CALLBACK(src, PROC_REF(reset_combos)), COMBO_ALIVE_TIME, TIMER_UNIQUE | TIMER_STOPPABLE)
-	streak += intent_to_streak(step)
-	var/mob/living/carbon/human/owner = locateUID(owner_UID)
-	owner?.hud_used.combo_display.update_icon(ALL, streak)
 
 	if(HAS_COMBOS)
+		streak += intent_to_streak(step)
+		var/mob/living/carbon/human/owner = locateUID(owner_UID)
+		owner?.hud_used.combo_display.update_icon(ALL, streak)
 		return check_combos(step, user, target)
 	return FALSE
 
