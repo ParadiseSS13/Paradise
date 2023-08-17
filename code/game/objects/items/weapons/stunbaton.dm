@@ -47,7 +47,6 @@
  * Else, spawn a new cell and use that instead.
  * Arguments:
  * * unlink - If TRUE, sets the `cell` variable to `null` rather than linking it to a new one.
- * * existing_cell - If argument is supplied, will set the starting cell to the argument
  */
 /obj/item/melee/baton/proc/link_new_cell(unlink = FALSE)
 	if(unlink)

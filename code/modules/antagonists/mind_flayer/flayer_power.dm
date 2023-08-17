@@ -22,6 +22,8 @@
 	var/swarm_cost = 0
 	/// What `stat` value the mind flayer needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
 	var/req_stat = CONSCIOUS
+	/// If it's only unlocked after buying a different ability, or abilities.
+	var/list/prerequisite = list()
 
 // Behold, a copypaste from changeling, might need some redoing
 
@@ -44,39 +46,3 @@
 	flayer.add_ability(path)
 	return TRUE
 
-// Retractable weapons code
-
-/obj/effect/proc_holder/spell/flayer/weapon
-	name = "This really shouldn't be here"
-	power_type = FLAYER_UNOBTAINABLE_POWER
-	base_cooldown = 1 SECONDS //This just handles retracting and deploying the weapon, weapon charge will be fully separate
-	var/weapon_type
-	var/weapon_name_simple
-	var/obj/item/weapon_ref
-
-/obj/effect/proc_holder/spell/flayer/weapon/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/flayer/weapon/cast(list/targets, mob/user)
-	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
-		retract(user, TRUE)
-		return
-	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
-	if(!user.drop_item())
-		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
-		return FALSE
-	if(!weapon_ref)
-		weapon_ref = new weapon_type(user, src)
-	user.put_in_hands(weapon_ref)
-	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), user)
-	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), user)
-	return weapon_ref
-
-/obj/effect/proc_holder/spell/flayer/weapon/proc/retract(mob/owner, any_hand = TRUE)
-	SIGNAL_HANDLER
-	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
-		return
-	owner.unEquip(weapon_ref, TRUE)
-	weapon_ref.forceMove(src)
-	owner.update_inv_l_hand()
-	owner.update_inv_r_hand()
