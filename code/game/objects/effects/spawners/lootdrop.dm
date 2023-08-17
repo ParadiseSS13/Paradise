@@ -160,8 +160,9 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				/obj/item/clothing/suit/jacket/syndicatebomber = 5,
-				"" = 60 // This should be a decently high number for chances where no loot will spawn
+				/obj/item/clothing/suit/jacket/syndicatebomber = 4,
+				/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 2, // More armored than bomber and has pockets, so it is rarer
+				"" = 58 // This should be a decently high number for chances where no loot will spawn
 				)
 
 /obj/effect/spawner/lootdrop/maintenance/two
