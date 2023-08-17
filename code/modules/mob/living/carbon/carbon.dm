@@ -101,6 +101,8 @@
 		return FALSE
 
 	if(stun)
+		if(blood)
+			KnockDown(10 SECONDS)
 		AdjustConfused(8 SECONDS)
 		Slowed(8 SECONDS)
 
