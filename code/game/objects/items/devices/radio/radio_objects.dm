@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	/// How many times this is disabled by EMPs
 	var/disable_timer = 0
 	/// Areas in which this radio cannot send messages
-	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome)
+	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome, /area/ruin/space/bubblegum_arena)
 
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
