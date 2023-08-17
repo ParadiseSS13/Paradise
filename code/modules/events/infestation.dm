@@ -25,7 +25,7 @@
 /datum/event/infestation/start()
 	var/list/turf/simulated/floor/turfs = list()
 	var/area/spawn_area_type = pick(spawn_areas)
-	var/locstring = spawn_areas[location]
+	locstring = spawn_areas[location]
 	for(var/areapath in typesof(spawn_area_type))
 		var/area/A = locate(areapath)
 		if(!A)
@@ -71,7 +71,7 @@
 		var/area/loc_area = pick(spawn_areas)
 		location_str = spawn_areas[loc_area]
 
-	GLOB.minor_announcement.Announce("Bioscans indicate that [vermstring] have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+	GLOB.minor_announcement.Announce("Bioscans indicate that [vermin_chosen] have been breeding in [location_str]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
 
 #undef VERM_MICE
 #undef VERM_LIZARDS
