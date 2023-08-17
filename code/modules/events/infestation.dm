@@ -73,15 +73,6 @@
 
 	GLOB.minor_announcement.Announce("Bioscans indicate that [vermstring] have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
 
-#undef LOC_KITCHEN
-#undef LOC_ATMOS
-#undef LOC_INCIN
-#undef LOC_CHAPEL
-#undef LOC_LIBRARY
-#undef LOC_HYDRO
-#undef LOC_VAULT
-#undef LOC_TECH
-
 #undef VERM_MICE
 #undef VERM_LIZARDS
 #undef VERM_SPIDERS

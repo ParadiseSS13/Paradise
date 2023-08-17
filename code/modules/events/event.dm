@@ -172,9 +172,10 @@
 	SSevents.active_events -= src
 	SSevents.event_complete(src)
 
-/datum/event/New(datum/event_meta/EM)
+/datum/event/New(datum/event_meta/EM, skeleton = FALSE)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
-	SSevents.active_events += src
+	if(!skeleton)
+		SSevents.active_events += src
 
 	if(!EM)
 		EM = new /datum/event_meta(EVENT_LEVEL_MAJOR, "Unknown, Most likely admin called", src.type)
@@ -186,7 +187,8 @@
 
 	startedAt = world.time
 
-	setup()
+	if(!skeleton)
+		setup()
 	..()
 
 //Called after something followable has been spawned by an event

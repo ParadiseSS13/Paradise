@@ -1,4 +1,4 @@
-/datum/event/communications_blackout/announce()
+/datum/event/communications_blackout/announce(false_alarm)
 	var/alert = pick(	"Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you*%fj00)`5vc-BZZT", \
 						"Ionospheric anomalies detected. Temporary telecommunication failu*3mga;b4;'1v?-BZZZT", \
 						"Ionospheric anomalies detected. Temporary telec#MCi46:5.;@63-BZZZZT", \
@@ -11,7 +11,7 @@
 		to_chat(A, "<span class='warning'><b>[alert]</b></span>")
 		to_chat(A, "<br>")
 
-	if(prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
+	if(prob(30) || false_alarm)	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
 		GLOB.minor_announcement.Announce(alert)
 
 /datum/event/communications_blackout/start()

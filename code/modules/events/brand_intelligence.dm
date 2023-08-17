@@ -14,11 +14,13 @@
 									"You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
 
 /datum/event/brand_intelligence/announce(false_alarm)
-	var/alarm_source
-	if(false_alarm)
+	var/alarm_source = originMachine
+	if(originMachine)
+		alarm_source = originMachine.name
+	else
 		var/obj/machinery/economy/vending/vendor_type = pick(subtypesof(/obj/machinery/economy/vending))
 		// TODO WAIT ON THE OTHER VENDOR THING TO GO IN FIRST
-		originMachine = initial(vendor_type)
+		alarm_source = initial(vendor_type.name)
 	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [initial(originMachine.name)].", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
 
 /datum/event/brand_intelligence/start()
