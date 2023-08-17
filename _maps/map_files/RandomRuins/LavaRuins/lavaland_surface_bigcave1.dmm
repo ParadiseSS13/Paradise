@@ -7,7 +7,7 @@
 /area/ruin/unpowered/bigcave/cave1)
 "d" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
-/area/ruin/unpowered/bigcave/cave1)
+/area/template_noop)
 "j" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard,
@@ -334,7 +334,7 @@ q
 (10,1,1) = {"
 q
 d
-d
+b
 b
 a
 a

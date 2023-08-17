@@ -1,17 +1,17 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard,
-/area/template_noop)
+/area/ruin/unpowered/bigcave/cave2)
 "b" = (
 /turf/simulated/mineral/ancient/lava_land_surface_hard,
-/area/template_noop)
+/area/ruin/unpowered/bigcave/cave2)
 "d" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/template_noop)
 "j" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard,
-/area/template_noop)
+/area/ruin/unpowered/bigcave/cave2)
 "q" = (
 /turf/template_noop,
 /area/template_noop)
@@ -807,7 +807,7 @@ d
 d
 q
 q
-d
+b
 b
 b
 b
@@ -843,7 +843,7 @@ q
 q
 d
 d
-d
+b
 a
 a
 a
@@ -911,8 +911,8 @@ b
 b
 b
 q
-b
-b
+d
+d
 a
 a
 a
@@ -946,7 +946,7 @@ a
 b
 b
 b
-b
+d
 b
 a
 a

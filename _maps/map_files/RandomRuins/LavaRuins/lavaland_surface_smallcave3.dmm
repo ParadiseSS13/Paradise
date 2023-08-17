@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
-/area/ruin/unpowered/smallcave/cave3)
+/area/template_noop)
 "b" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard,
 /area/ruin/unpowered/smallcave/cave3)

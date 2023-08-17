@@ -224,9 +224,17 @@
 
 /datum/map_template/ruin/lavaland/lavaland_surface_canyon1
 	name = "Horizontal Canyon"
-	id = "horizontalcanyon"
+	id = "canyon1"
 	description = "A long horizontal canyon, watch your steps!"
 	suffix = "lavaland_surface_canyon1.dmm"
+	allow_duplicates = TRUE
+	cost = 3
+
+/datum/map_template/ruin/lavaland/lavaland_surface_canyon2
+	name = "Z Shaped Canyon"
+	id = "canyon2"
+	description = "A long 'Z' shaped canyon, watch your steps!"
+	suffix = "lavaland_surface_canyon2.dmm"
 	allow_duplicates = TRUE
 	cost = 3
 

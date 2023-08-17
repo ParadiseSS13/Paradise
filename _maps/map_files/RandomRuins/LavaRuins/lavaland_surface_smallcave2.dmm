@@ -7,7 +7,7 @@
 /area/ruin/unpowered/smallcave/cave2)
 "d" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
-/area/ruin/unpowered/smallcave/cave2)
+/area/template_noop)
 "q" = (
 /turf/template_noop,
 /area/template_noop)

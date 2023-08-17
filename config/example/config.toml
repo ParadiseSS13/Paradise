@@ -672,6 +672,7 @@ active_lava_ruins = [
 
 	##CAVES_AND_CLIFFS
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_canyon1.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_canyon2.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_smallcave1.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_smallcave2.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_smallcave3.dmm",
