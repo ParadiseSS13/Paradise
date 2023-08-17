@@ -101,14 +101,16 @@
 		return FALSE
 
 	if(stun)
-		Stun(8 SECONDS)
+		AdjustConfused(8 SECONDS)
+		Slowed(8 SECONDS)
 
 	if(!blood && nutrition < 100) // Nutrition vomiting while already starving
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
 							"<span class='userdanger'>You try to throw up, but there's nothing in your stomach!</span>")
 		if(stun)
-			Weaken(20 SECONDS)
+			KnockDown(20 SECONDS)
+			AdjustConfused(20 SECONDS)
 		return
 
 	if(message)
