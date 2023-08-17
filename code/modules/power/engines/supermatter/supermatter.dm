@@ -791,7 +791,6 @@
 			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
 				to_chat(M, "<span class='danger'>[src] seethes with energy as you finish cutting off a sliver!</span>")
 				matter_power += 600
-
 				new /obj/item/nuke_core/supermatter_sliver(drop_location())
 		return
 
