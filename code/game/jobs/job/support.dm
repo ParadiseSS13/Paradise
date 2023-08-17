@@ -164,6 +164,7 @@
 	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
+	ADD_TRAIT(H, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 
 
 
@@ -205,6 +206,7 @@
 		return
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H)
+	ADD_TRAIT(H, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 
 
 /datum/job/hydro
