@@ -104,6 +104,11 @@
 	icon_state = "payback"
 	show_when_dead = TRUE
 
+/obj/screen/fullscreen/fog
+	icon = 'icons/mob/screen_fog.dmi'
+	icon_state = "fog"
+	color = "#FF0000"
+
 /obj/screen/fullscreen/flash
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"

@@ -59,6 +59,8 @@ Difficulty: Hard
 	var/enrage_till = 0
 	var/enrage_time = 70
 	var/revving_charge = FALSE
+	// Is it on its enraged exclusive second life?
+	var/second_life = FALSE
 	internal_gps = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
@@ -111,6 +113,13 @@ Difficulty: Hard
 	chosen_message = "<span class='colossus'>You are now warping to blood around your clicked position.</span>"
 	chosen_attack_num = 4
 
+/mob/living/simple_animal/hostile/megafauna/bubblegum/enrage()
+	. = ..()
+	for(var/mob/living/carbon/human/H in range(20)) //suprise motherfucker bubblegum wakes up fast
+		to_chat(H, "<span class='colossus'><b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b></span>")
+		H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
+		FindTarget(list(H), 1) //From down town with the pile driver
+
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire()
 	if(charging)
 		return
@@ -137,7 +146,9 @@ Difficulty: Hard
 	if(!BUBBLEGUM_SMASH)
 		triple_charge()
 	else
-		if(prob(50 + anger_modifier))
+		if(prob(20) && enraged)
+			hit_up_narsi()
+		else if(prob(50 + anger_modifier))
 			hallucination_charge()
 		else
 			surround_with_hallucinations()
@@ -317,6 +328,24 @@ Difficulty: Hard
 		blood_enrage()
 		return TRUE
 	return FALSE
+
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hit_up_narsi()
+	SetRecoveryTime(20)
+	visible_message("<span class='colossus'><b>[pick("[SSticker.cultdat.entity_name], I call on YOU for one of MY favours you owe me!", "[SSticker.cultdat.entity_title1], I call on you for some support...", "Let us see how you like the minions of [SSticker.cultdat.entity_title2]!", "Oh, [SSticker.cultdat.entity_title3] join me in RENDING THIS WHELP APART!")]</b></span>")
+	var/list/turfs = new/list()
+	var/constructs = 0
+	for(var/turf/T in view(6, target))
+		if(T.density)
+			continue
+		if(T in range(2, target))
+			continue
+		turfs += T
+		while(constructs < 3 && length(turfs))
+			var/turf/spot = pick_n_take(turfs)
+			var/mob/living/simple_animal/hostile/construct/wraith/hostile/summon = new /mob/living/simple_animal/hostile/construct/wraith/hostile(spot)
+			summon.faction = src.faction.Copy()
+			constructs++
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/be_aggressive()
 	if(BUBBLEGUM_IS_ENRAGED)
