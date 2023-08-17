@@ -109,7 +109,7 @@
 /obj/machinery/suit_storage_unit/security
 	name = "security suit storage unit"
 	mask_type	= /obj/item/clothing/mask/gas/sechailer
-	storage_type	= /obj/item/mod/control/pre_equipped/security
+	suit_type = /obj/item/mod/control/pre_equipped/security
 	req_access	= list(ACCESS_SECURITY)
 
 /obj/machinery/suit_storage_unit/security/secure
