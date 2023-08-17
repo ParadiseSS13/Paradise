@@ -216,7 +216,14 @@
 	key_third_person = "salutes"
 	message = "salutes."
 	message_param = "salutes to %t."
+	emote_type = EMOTE_AUDIBLE
 	hands_use_check = TRUE
+	audio_cooldown = 3 SECONDS
+
+/datum/emote/living/carbon/human/salute/get_sound(mob/living/user)
+	var/mob/living/carbon/human/H = user
+	if(istype(H.shoes, /obj/item/clothing/shoes/jackboots) || istype(H.shoes, /obj/item/clothing/shoes/combat) || istype(H.shoes, /obj/item/clothing/shoes/centcom))
+		return 'sound/effects/salute.ogg'
 
 /datum/emote/living/carbon/human/shrug
 	key = "shrug"
