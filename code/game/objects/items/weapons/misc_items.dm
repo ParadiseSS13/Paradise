@@ -38,7 +38,7 @@
 
 /obj/item/twohanded/crutches // someone move these out of lockers into the map once the freeze is over :) (so we can get a consistent amount for each map)
 	name = "crutches"
-	desc = "A medical device to help those walk who have injured or missing legs."
+	desc = "A medical device to help those who have injured or missing legs to walk."
 	gender = PLURAL
 	icon = 'icons/obj/surgery.dmi' // I mean like... cmon its basically medical.dmi
 	icon_state = "crutches0"
