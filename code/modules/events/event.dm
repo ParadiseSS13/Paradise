@@ -195,3 +195,9 @@
 /datum/event/proc/announce_to_ghosts(atom/atom_of_interest)
 	if(atom_of_interest)
 		notify_ghosts("[name] has an object of interest: [atom_of_interest]!", title = "Something's Interesting!", source = atom_of_interest, action = NOTIFY_FOLLOW)
+
+/// Override this to make a custom fake announcement that differs from the normal announcement.
+/// Used for false alarms.
+/// If this proc returns TRUE, the regular Announce() won't be called.
+/datum/event/proc/fake_announce()
+	return FALSE

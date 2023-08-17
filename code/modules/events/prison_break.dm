@@ -35,8 +35,8 @@
 	src.endWhen = src.releaseWhen+2
 
 
-/datum/event/prison_break/announce()
-	if(areas && areas.len > 0)
+/datum/event/prison_break/announce(false_alarm)
+	if(length(areas) || false_alarm)
 		GLOB.minor_announcement.Announce("[pick("Gr3y.T1d3 virus","Malignant trojan")] detected in [station_name()] [(eventDept == "Security")? "imprisonment":"containment"] subroutines. Secure any compromised areas immediately. Station AI involvement is recommended.", "[eventDept] Alert")
 
 /datum/event/prison_break/start()

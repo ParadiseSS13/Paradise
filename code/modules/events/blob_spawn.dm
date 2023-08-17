@@ -3,8 +3,8 @@
 	endWhen			= 240
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
-/datum/event/blob/announce()
-	if(successSpawn)
+/datum/event/blob/announce(false_alarm)
+	if(successSpawn || false_alarm)
 		GLOB.major_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")

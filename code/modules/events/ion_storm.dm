@@ -16,8 +16,8 @@
 	src.ionAnnounceChance = ionAnnounceChance
 	..()
 
-/datum/event/ion_storm/announce()
-	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
+/datum/event/ion_storm/announce(false_alarm)
+	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)) || false_alarm)
 		GLOB.minor_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/AI/ions.ogg')
 
 /datum/event/ion_storm/start()
