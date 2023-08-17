@@ -165,7 +165,9 @@
 			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		return
-
+	if(user.mind?.martial_art?.no_baton)
+		to_chat(user, user.mind.martial_art.no_baton_reason)
+		return
 	if(issilicon(M)) // Can't stunbaton borgs and AIs
 		return ..()
 
