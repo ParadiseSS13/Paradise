@@ -1,0 +1,2029 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ae" = (
+/obj/machinery/light/small,
+/obj/structure/closet/walllocker/emerglocker{
+	dir = 8;
+	pixel_x = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/wreck_cargoship)
+"ah" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "cargoshipblastdoor2"
+	},
+/obj/structure/barricade/wooden/crude{
+	layer = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"aW" = (
+/obj/structure/fans/tiny,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"bf" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"ca" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"cx" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcornersiding";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"cT" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"dk" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/rack,
+/obj/item/beach_ball/holoball,
+/obj/item/beach_ball/holoball,
+/obj/item/beach_ball/holoball,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "blackcorner"
+	},
+/area/ruin/space/wreck_cargoship)
+"dx" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"dy" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"dD" = (
+/obj/structure/table_frame,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"dQ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"ea" = (
+/turf/template_noop,
+/area/template_noop)
+"eC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"eQ" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/wreck_cargoship)
+"eV" = (
+/obj/structure/railing,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"fm" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel/stairs{
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"gi" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "blackcorner"
+	},
+/area/ruin/space/wreck_cargoship)
+"gp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/item/clothing/suit/jacket/cargobomber,
+/obj/item/clothing/suit/jacket/cargobomber,
+/obj/item/clothing/suit/jacket/cargobomber,
+/obj/item/clothing/under/rank/cargo/tech,
+/obj/item/clothing/under/rank/cargo/tech,
+/obj/item/clothing/under/rank/cargo/tech,
+/obj/item/clothing/shoes/black,
+/obj/item/clothing/shoes/black,
+/obj/item/clothing/shoes/black,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"gu" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"gE" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/wreck_cargoship)
+"he" = (
+/obj/machinery/door/firedoor/border_only/closed{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"hh" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/wreck_cargoship)
+"hn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"hD" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/stairs{
+	dir = 8
+	},
+/area/ruin/space/wreck_cargoship)
+"hF" = (
+/obj/structure/chair/comfy/corp{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"hO" = (
+/obj/structure/railing,
+/turf/simulated/floor/plasteel/stairs{
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"if" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/ruin/space/wreck_cargoship)
+"it" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"iU" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"jb" = (
+/obj/structure/table,
+/obj/structure/table,
+/obj/item/paper{
+	name = "management's directive";
+	info = "Good day Captain Hardie. Your ship has been assigned to carry an extremely delicate cargo due to an unfortunate scheduling issue in behalf of our custormers. You will find the additional information on transporting procedure of this extremely delicate cargo attached to it. Management believes you will not mind this rather unconvenient last minute change after what happened last time. Make sure you and your crew doesn't mess it up this time as we hate to compensate the expenses from our esteemed already-in-debt employees. Pick the cargo from next destination and safely deliver it where it has to go."
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"jm" = (
+/obj/item/toy/plushie/ipcplushie,
+/obj/item/reagent_containers/food/snacks/breadslice,
+/obj/item/reagent_containers/food/snacks/breadslice,
+/obj/item/paper/crumpled{
+	name = "unintelligible scribbles";
+	info = "toast... i must... the plushie..."
+	},
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"jN" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/shreds{
+	layer = 2
+	},
+/obj/item/stack/sheet/wood{
+	amount = 5;
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 3;
+	pixel_y = -4;
+	pixel_x = 3
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"kf" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium_dam5";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"kt" = (
+/obj/structure/railing/corner,
+/obj/effect/decal/warning_stripes/white/partial{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"kI" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/rack,
+/obj/item/stack/rods/fifty,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"kO" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "cargoshipblastdoor4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"kP" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"kU" = (
+/obj/structure/table,
+/obj/effect/decal/warning_stripes/west,
+/obj/structure/sign/poster/contraband/tools{
+	pixel_y = 32
+	},
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"lf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/autolathe,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"lH" = (
+/obj/structure/barricade/wooden/crude{
+	layer = 4
+	},
+/obj/effect/spawner/window/reinforced/polarized,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"lQ" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"lW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/molten_object,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"mm" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"my" = (
+/obj/structure/table,
+/obj/machinery/door_control{
+	id = "cargoshipblastdoor4";
+	name = "bridge lockdown shutters"
+	},
+/obj/item/paper_bin{
+	pixel_x = -6
+	},
+/obj/item/pen/multi/fountain{
+	pixel_y = 8;
+	pixel_x = 7
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"mW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"nl" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/landmark/damageturf,
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"nr" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
+/obj/machinery/door_control{
+	name = "auxiliary equipment storage shutters";
+	id = "cargoshipblastdoor3";
+	pixel_y = -32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"nx" = (
+/obj/structure/railing,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"ny" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/wreck_cargoship)
+"nB" = (
+/obj/effect/decal/warning_stripes/white/partial{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"nG" = (
+/obj/structure/table_frame,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"nH" = (
+/obj/machinery/light/small,
+/obj/machinery/power/apc/off_station/empty_charge{
+	pixel_y = -24
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"oE" = (
+/obj/machinery/door/poddoor{
+	id_tag = "cargoshipblastdoor5"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"pj" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/stairs{
+	dir = 1
+	},
+/area/ruin/space/wreck_cargoship)
+"pv" = (
+/obj/machinery/door/firedoor/border_only/closed{
+	dir = 1
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"py" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"pz" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/barricade/wooden/crude{
+	layer = 4
+	},
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"pD" = (
+/obj/structure/closet/walllocker/emerglocker{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"pL" = (
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"pR" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
+/obj/structure/closet/fireaxecabinet{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"pW" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"qg" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon/dock_marker/collision,
+/turf/template_noop,
+/area/template_noop)
+"qr" = (
+/obj/structure/largecrate,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"qY" = (
+/obj/structure/rack,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/mop,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"rn" = (
+/obj/machinery/door_control{
+	name = "interior warehouse shutters";
+	id = "cargoshipblastdoor2"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/wreck_cargoship)
+"ru" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"rA" = (
+/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/structure/closet/crate,
+/obj/item/clothing/under/syndicate,
+/obj/item/clothing/under/syndicate,
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"sd" = (
+/turf/simulated/floor/plasteel/stairs{
+	dir = 1
+	},
+/area/ruin/space/wreck_cargoship)
+"sL" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"tk" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium_dam2";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"tm" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"tn" = (
+/obj/effect/landmark/damageturf,
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "cargoshipblastdoor4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"tA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/molten_object/large,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"tD" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"un" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"uH" = (
+/obj/structure/fans/tiny,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+	id_tag = "cargoshipblastdoor1"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"uV" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"vq" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"wf" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"wp" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/wreck_cargoship)
+"xX" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"yb" = (
+/obj/structure/railing,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"yF" = (
+/obj/structure/closet/walllocker/emerglocker{
+	dir = 4;
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"yG" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/retaliate/poison/snake{
+	name = "Rattlesnake Hardie";
+	desc = "A relatively menacing looking snake. Despite their intimidating look, they have cute collar attached to their neck. You can't help but think that name sounds familiar from somewhere."
+	},
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"zm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/railing/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"Aa" = (
+/obj/structure/grille,
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "cargoshipblastdoor4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"Ad" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/wreck_cargoship)
+"AN" = (
+/obj/effect/decal/remains/human,
+/obj/structure/grille/broken,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"AP" = (
+/obj/structure/rack,
+/obj/structure/sign/poster/contraband/smoke{
+	pixel_x = -32
+	},
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"AR" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"Bt" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"Bw" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"Bx" = (
+/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/structure/rack,
+/obj/structure/sign/cargo{
+	pixel_x = -32
+	},
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"BA" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"BP" = (
+/obj/machinery/door/firedoor/border_only/closed{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"CB" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"Dp" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"DI" = (
+/obj/structure/railing,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"DY" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"Ei" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/railing,
+/turf/simulated/floor/plasteel/stairs{
+	dir = 8
+	},
+/area/ruin/space/wreck_cargoship)
+"ES" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"ET" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"Fk" = (
+/obj/structure/closet/crate,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowsiding";
+	dir = 1
+	},
+/area/ruin/space/wreck_cargoship)
+"Ge" = (
+/obj/structure/railing,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"Gj" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium_dam3";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"GR" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"Ho" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/toy/plushie/slimeplushie,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"HS" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"Ih" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/paper{
+	name = "shift inventory log transcription";
+	pixel_y = -5;
+	pixel_x = -4;
+	info = "<b>Shift inventory log #071</b><br><br><b>S0-C5-P0-D0</b><br><br><b>voice transcription:</b> all containers is intact.<br><br><b>S1-C6-P3-D2</b><br><br><b>voice transcription:</b> two cargo delivered three picked up, same as usual.<br><br><b>S2-C4-P1-D3-X1</b><br><br><b>voice transcription:</b> just finished checkin' the unexpected guest, whatever this is it's hella huge. As they specifically asked us to not use forklifts to load it onboard, we had to carry it ourselves. Container seems undamaged and good to go.<br><br><b>S3-C9-P5-D0-X1</b><br><br><b>voice transcription:</b> it's an enigma what's inside this thing. I swear i heard something moving inside while we were loading the crates in last stop. I don't like this.<br><br><b>S?-C?-P?-D?-X?</b><br><br><b>voice transcription:</b> IT'# OUT+$, W@ CA#'T SPAC^ IT_. GOD HAV+ MERCY. ^# COMES HERE. S#ND H^LP, PLEAS- >$@#_"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"IP" = (
+/obj/machinery/door_control{
+	name = "exterior warehouse blastdoors";
+	id = "cargoshipblastdoor1"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/wreck_cargoship)
+"JK" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/item/toy/figure/crew/cargotech{
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"JR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/safe,
+/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/item/stack/spacecash/c500,
+/obj/item/stack/sheet/mineral/gold{
+	amount = 15
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/space/wreck_cargoship)
+"JX" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"Kn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty{
+	pixel_y = -4;
+	pixel_x = -4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"Kw" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel/stairs{
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"KJ" = (
+/obj/structure/table,
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"KZ" = (
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel{
+	icon_state = "blackcorner"
+	},
+/area/ruin/space/wreck_cargoship)
+"Ll" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"Lt" = (
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"LF" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"Mc" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"Mt" = (
+/obj/structure/closet/crate,
+/obj/item/toy/plushie/orange_fox,
+/obj/item/toy/plushie/voxplushie,
+/obj/item/toy/plushie/lizardplushie,
+/obj/item/toy/plushie/grey_cat,
+/obj/item/toy/plushie/shark,
+/obj/item/toy/plushie/abductor/agent,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"Mx" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"ME" = (
+/obj/item/chair,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"MS" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"MY" = (
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/unary/tank/oxygen_agent_b{
+	dir = 4
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/space/wreck_cargoship)
+"Nf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"NI" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium_dam1";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"NM" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"NO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "cargoshipblastdoor3";
+	name = "auxiliary equipment storage shutters"
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"NR" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/wreck_cargoship)
+"Pn" = (
+/obj/machinery/light/small,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"PB" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "cargoshipblastdoor4"
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"QH" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 20
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"QY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/clothing/head/kitty,
+/obj/item/clothing/head/kitty,
+/obj/item/clothing/head/kitty,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"RZ" = (
+/obj/structure/rack,
+/mob/living/simple_animal/bot/secbot/griefsky/toy,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"Se" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/landmark/damageturf,
+/obj/machinery/button/windowtint{
+	pixel_y = -32
+	},
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blackcorner"
+	},
+/area/ruin/space/wreck_cargoship)
+"Sj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"SI" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"SJ" = (
+/obj/structure/sign/poster/official/here_for_your_safety{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"Te" = (
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "cargoshipblastdoor3";
+	name = "auxiliary equipment storage shutters"
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"TS" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/computer{
+	dir = 8
+	},
+/obj/structure/railing,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"Ub" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"Uq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"UE" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"UN" = (
+/obj/machinery/door_control{
+	name = "exterior blastdoor";
+	id = "cargoshipblastdoor5"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/wreck_cargoship)
+"UQ" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"Vb" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium_dam3";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"Vc" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"Vs" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"Vt" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plasteel{
+	icon_state = "black"
+	},
+/area/ruin/space/wreck_cargoship)
+"Vw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"VF" = (
+/obj/machinery/computer{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+"VR" = (
+/obj/machinery/light/small,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"VW" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"VZ" = (
+/obj/structure/girder/displaced,
+/turf/template_noop,
+/area/template_noop)
+"Wj" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"Wx" = (
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "cargoshipblastdoor2"
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/barricade/wooden/crude{
+	layer = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
+"WJ" = (
+/obj/structure/rack,
+/obj/item/book/manual/wiki/security_space_law/black,
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"WO" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/welding{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/weldingtool/largetank{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -5;
+	pixel_x = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"Xn" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"XX" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "titanium";
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"Yk" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/wreck_cargoship)
+"Yz" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
+"YV" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel/stairs{
+	dir = 4
+	},
+/area/ruin/space/wreck_cargoship)
+"Zc" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "caution"
+	},
+/area/ruin/space/wreck_cargoship)
+"ZY" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/structure/table,
+/obj/item/fan{
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/wreck_cargoship)
+
+(1,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+"}
+(2,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+VW
+VW
+bf
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+"}
+(3,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+gE
+ny
+NR
+NR
+Yk
+ny
+gE
+ea
+ea
+ea
+ea
+ea
+"}
+(4,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+gE
+gE
+Ad
+JR
+MY
+gE
+gE
+ea
+ea
+ea
+ea
+ea
+"}
+(5,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+gE
+gE
+NO
+Te
+Te
+gE
+gE
+ea
+ea
+ea
+ea
+ea
+"}
+(6,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+gE
+kU
+lQ
+nr
+gE
+ea
+ea
+ea
+ea
+ea
+ea
+"}
+(7,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+DY
+gE
+qr
+Vs
+nH
+gE
+DY
+ea
+ea
+ea
+ea
+ea
+"}
+(8,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+qg
+gE
+Yz
+Vs
+Sj
+gE
+qg
+ea
+ea
+ea
+ea
+ea
+"}
+(9,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+gE
+gE
+QH
+Nf
+Bt
+gE
+gE
+ea
+ea
+ea
+ea
+ea
+"}
+(10,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+gE
+gE
+gE
+gE
+UE
+gE
+gE
+gE
+gE
+ea
+ea
+ea
+ea
+"}
+(11,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+gE
+KZ
+nl
+Mt
+gi
+gE
+kI
+Ho
+gE
+ea
+ea
+ea
+ea
+"}
+(12,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+uH
+Vt
+wf
+tm
+MS
+lH
+NI
+SJ
+gE
+ea
+ea
+ea
+ea
+"}
+(13,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+aW
+SI
+AN
+tA
+QY
+lH
+Dp
+VR
+gE
+ea
+ea
+ea
+ea
+"}
+(14,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+aW
+GR
+lW
+tm
+Ll
+pz
+yb
+Vb
+gE
+ea
+ea
+ea
+ea
+"}
+(15,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+IP
+rA
+AR
+wf
+vq
+lH
+Ge
+py
+gE
+ea
+ea
+ea
+ea
+"}
+(16,1,1) = {"
+ea
+ea
+ea
+ea
+VW
+VW
+gE
+dk
+UQ
+LF
+Se
+gE
+hO
+hD
+gE
+VW
+VW
+ea
+ea
+"}
+(17,1,1) = {"
+ea
+ea
+ea
+gE
+NR
+NR
+gE
+ny
+ah
+jN
+Wx
+rn
+Wj
+Pn
+gE
+NR
+NR
+gE
+ea
+"}
+(18,1,1) = {"
+ea
+ea
+ea
+gE
+lf
+Kn
+ru
+Bx
+Kw
+YV
+fm
+pL
+NM
+NI
+ru
+tD
+gp
+gE
+ea
+"}
+(19,1,1) = {"
+ea
+ea
+ea
+gE
+Xn
+Nf
+xX
+NI
+NM
+cT
+NM
+NM
+qY
+NM
+xX
+Ih
+pR
+gE
+ea
+"}
+(20,1,1) = {"
+ea
+ea
+ea
+gE
+gE
+hn
+ru
+WJ
+Gj
+tk
+cT
+RZ
+mW
+cT
+ru
+WO
+gE
+gE
+ea
+"}
+(21,1,1) = {"
+ea
+ea
+ea
+ea
+gE
+gE
+gE
+Ub
+JX
+uV
+NM
+yF
+NI
+XX
+gE
+gE
+gE
+ea
+ea
+"}
+(22,1,1) = {"
+ea
+ea
+ea
+ea
+DY
+qg
+gE
+Uq
+Mx
+zm
+kf
+ny
+gE
+gE
+gE
+qg
+DY
+ea
+ea
+"}
+(23,1,1) = {"
+ea
+ea
+ea
+ea
+DY
+ea
+BP
+DI
+hD
+Ei
+HS
+ru
+hh
+ae
+gE
+ea
+ea
+ea
+ea
+"}
+(24,1,1) = {"
+ea
+DY
+ea
+DY
+VZ
+DY
+pv
+BA
+CB
+kP
+Vw
+eQ
+wp
+Vs
+oE
+ea
+ea
+ea
+ea
+"}
+(25,1,1) = {"
+ea
+ea
+DY
+ea
+DY
+DY
+he
+ET
+mm
+ET
+jm
+ru
+dx
+dy
+UN
+ea
+ea
+ea
+ea
+"}
+(26,1,1) = {"
+ea
+ea
+ea
+VZ
+ea
+ea
+gE
+Aa
+tn
+kO
+PB
+ny
+gE
+Mc
+gE
+qg
+DY
+ea
+ea
+"}
+(27,1,1) = {"
+ea
+ea
+ea
+ea
+DY
+gE
+ny
+pD
+sL
+sL
+ca
+AP
+KJ
+nG
+ny
+gE
+ea
+ea
+ea
+"}
+(28,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ru
+Vc
+ME
+yG
+un
+mm
+dQ
+iU
+iU
+cx
+ru
+ea
+ea
+ea
+"}
+(29,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ru
+pW
+dD
+jb
+my
+nB
+pj
+it
+ZY
+Fk
+ru
+ea
+ea
+ea
+"}
+(30,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ru
+Lt
+ET
+hF
+Bw
+kt
+sd
+gu
+nx
+if
+ru
+ea
+ea
+ea
+"}
+(31,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+gE
+ny
+ES
+Zc
+eC
+eV
+JK
+VF
+TS
+ny
+gE
+ea
+ea
+ea
+"}
+(32,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+gE
+gE
+ru
+ru
+ru
+ru
+ru
+gE
+gE
+ea
+ea
+ea
+ea
+"}
+(33,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+qg
+ea
+ea
+ea
+ea
+ea
+qg
+ea
+ea
+ea
+ea
+ea
+"}
+(34,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+DY
+ea
+ea
+ea
+ea
+ea
+DY
+ea
+ea
+ea
+ea
+ea
+"}
+(35,1,1) = {"
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+ea
+"}

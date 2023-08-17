@@ -477,6 +477,10 @@
 	item_color = "sst"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 
+/obj/item/clothing/suit/space/hardsuit/syndi/elite/sst/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 	name = "eagle suit"
 	desc = "An advanced, light suit, fabricated from a mixture of synthetic feathers and space-resistant material. A gun holster appears to be integrated into the suit."
