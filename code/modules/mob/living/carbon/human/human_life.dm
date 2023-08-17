@@ -617,7 +617,8 @@
 			if(prob(7))
 				AdjustConfused(4 SECONDS)
 			if(prob(5))
-				Paralyse(4 SECONDS)
+				AdjustConfused(4 SECONDS)
+				KnockDown(4 SECONDS)
 			switch(health)
 				if(-INFINITY to -100)
 					adjustOxyLoss(1)
@@ -633,7 +634,8 @@
 					adjustOxyLoss(1)
 					if(prob(4))
 						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
-						Paralyse(4 SECONDS)
+						AdjustConfused(4 SECONDS)
+						KnockDown(4 SECONDS)
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
 				if(-79 to -50)
@@ -646,9 +648,11 @@
 						ForceContractDisease(D)
 					if(prob(6))
 						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
-						Weaken(6 SECONDS)
+						AdjustConfused(6 SECONDS)
+						KnockDown(6 SECONDS)
 					if(prob(3))
-						Paralyse(4 SECONDS)
+						AdjustConfused(4 SECONDS)
+						KnockDown(4 SECONDS)
 				if(-49 to 0)
 					adjustOxyLoss(1)
 					if(prob(3))
@@ -656,7 +660,8 @@
 						ForceContractDisease(D)
 					if(prob(5))
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
-						Weaken(6 SECONDS)
+						AdjustConfused(6 SECONDS)
+						KnockDown(6 SECONDS)
 
 #define BODYPART_PAIN_REDUCTION 5
 
