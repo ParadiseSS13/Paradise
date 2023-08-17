@@ -219,10 +219,12 @@
 	emote_type = EMOTE_AUDIBLE
 	hands_use_check = TRUE
 	audio_cooldown = 3 SECONDS
+	var/list/valid_shoes = list(/obj/item/clothing/shoes/jackboots, /obj/item/clothing/shoes/combat,
+								/obj/item/clothing/shoes/centcom, /obj/item/clothing/shoes/laceup)
 
 /datum/emote/living/carbon/human/salute/get_sound(mob/living/user)
 	var/mob/living/carbon/human/H = user
-	if(istype(H.shoes, /obj/item/clothing/shoes/jackboots) || istype(H.shoes, /obj/item/clothing/shoes/combat) || istype(H.shoes, /obj/item/clothing/shoes/centcom))
+	if(is_type_in_list(H.shoes, valid_shoes))
 		return 'sound/effects/salute.ogg'
 
 /datum/emote/living/carbon/human/shrug
