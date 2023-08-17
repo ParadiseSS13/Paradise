@@ -206,6 +206,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define SM_HALLUCINATION_IMMUNE "supermatter_hallucination_immune"
 #define TRAIT_CONTORTED_BODY	"contorted_body"
 #define TRAIT_DEFLECTS_PROJECTILES "trait_deflects_projectiles"
+#define TRAIT_BADASS "trait_badass"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
