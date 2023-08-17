@@ -32,9 +32,11 @@
 	weapon_ref.forceMove(src)
 	owner.update_inv_l_hand()
 	owner.update_inv_r_hand()
+
 /**
 	START OF INDIVIDUAL WEAPONS
 */
+
 /obj/effect/proc_holder/spell/flayer/weapon/swarmprod
 	name = "Swarmprod"
 	desc = "Add me!"

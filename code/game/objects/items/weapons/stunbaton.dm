@@ -313,7 +313,7 @@
 		R.on = FALSE
 		R.listening = FALSE
 		R.broadcasting = FALSE
-		L.visible_message("<span class='warning'>[R] buzzes loudly as it short circuits!</span>", blind_message="<span class='notice'>You hear a loud, electronic buzzing.</span>")
+		L.visible_message("<span class='warning'>[R] buzzes loudly as it short circuits!</span>", blind_message = "<span class='notice'>You hear a loud, electronic buzzing.</span>")
 
 /obj/item/melee/baton/flayerprod/proc/enable_radio(mob/living/L)
 	var/list/all_items = L.GetAllContents()

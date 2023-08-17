@@ -45,4 +45,3 @@
 	flayer = C
 	flayer.add_ability(path)
 	return TRUE
-

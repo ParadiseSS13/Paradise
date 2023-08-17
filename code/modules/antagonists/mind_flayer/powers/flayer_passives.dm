@@ -3,7 +3,7 @@
 /datum/mindflayer_passive
 	var/purchase_text = "Oopsie daisies! No purchase text on this ability!"
 	var/upgrade_text = "Uh oh someone forgot to add upgrade text!"
-	///All passives start at level on
+	///The level of the passive, used for upgrading passives. Basic level is 1
 	var/level = 1
 	var/mob/living/owner
 	var/gain_desc
