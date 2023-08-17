@@ -64,20 +64,22 @@
 	target.setDir(holder.dir)
 	sleep(jaunt_in_time)
 	qdel(holder)
-	if(!QDELETED(target))
-		if(is_blocked_turf(mobloc, TRUE))
-			for(var/turf/T in orange(7))
-				if(isspaceturf(T))
-					continue
-				if(target.Move(T))
-					target.remove_CC()
-					REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
-					return
-			for(var/turf/space/S in orange(7))
-				if(target.Move(S))
-					break
-		REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
-		target.remove_CC()
+	if(QDELETED(target))
+		return
+	if(!is_blocked_turf(mobloc, TRUE))
+		return
+	for(var/turf/T in orange(7))
+		if(isspaceturf(T))
+			continue
+		if(target.Move(T))
+			target.remove_CC()
+			REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
+			return
+	for(var/turf/space/S in orange(7))
+		if(target.Move(S))
+			break
+	REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
+	target.remove_CC()
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/create_jaunt_holder(turf/mobloc, mob/living/target)
 	return new jaunt_type_path(mobloc)
