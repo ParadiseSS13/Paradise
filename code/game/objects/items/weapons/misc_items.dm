@@ -4,6 +4,7 @@
 /*CURRENT CONTENTS
 	Ball Toy
 	Cane
+	Crutches
 	Cardboard Tube
 	Fan
 	Gaming Kit
