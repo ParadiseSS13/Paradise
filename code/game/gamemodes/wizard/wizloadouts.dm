@@ -102,10 +102,10 @@
 
 /datum/spellbook_entry/loadout/oblivion
 	name = "Oblivion Enforcer"
-	desc = "The Oblivion Order is an isolated clique of monks that revere the supermatter. \
+	desc = "The Oblivion Order is an isolated clique of monks that revere supermatter. \
 	Oblivion Enforcers are how the Order imposes their will on the universe as a whole. By taking this loadout, \
 	you give up your identity and become a faceless hand of the Order. <br>\
-	You will be completely protected from the effects of the supermatter by the items granted here, so far as to \
+	You will be completely protected from the effects of supermatter by the items granted here, so far as to \
 	allow you to pick up and throw supermatter slivers, which your halberd can cut from the engine. <br>\
 	</i>Provides a Supermatter Halberd, Oblivion Enforcer robes, and an air tank, as well as Instant Summons, Lightning Bolt, Ethereal Jaunt, and Summon Supermatter Crystal.<i>"
 	items_path = list(/obj/item/twohanded/supermatter, /obj/item/clothing/gloves/color/white/supermatter_immune, \

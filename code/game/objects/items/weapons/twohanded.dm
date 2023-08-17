@@ -1161,10 +1161,10 @@
 	if(!proximity)
 		return
 
-	if(!wielded) //same behavior as a fireaxe for windows
+	if(!wielded)
 		return
 
-	if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
+	if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille)) //same behavior as a fireaxe for windows
 		var/obj/structure/W = A
 		W.obj_destruction("fireaxe")
 
