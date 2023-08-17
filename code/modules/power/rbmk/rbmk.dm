@@ -124,6 +124,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_power_produced = 0
 	///Light flicker timer
 	var/next_flicker = 0
+	var/next_slowprocess = 0
 	var/base_power_modifier = RBMK_POWER_FLAVOURISER
 	///Is this reactor even usable any more?
 	var/slagged = FALSE
@@ -151,8 +152,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 	//used to activate parts of the reactor code for testing
 	var/testing = FALSE
-	///time until next processing tick
-	var/next_slowprocess = 0
+
 // procs to start and stop testing
 
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/test()
@@ -298,8 +298,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/trinary/nuclear_reactor/process()
 	..()
 	if((next_slowprocess < world.time))
-		process_atmos()
-		next_slowprocess = world.time + 100 //Set to wait for another second before processing again, we don't need to process more than once a second
+		slow_process()
+		next_slowprocess = world.time + 1 SECONDS //Set to wait for another second before processing again, we don't need to process more than once a second
 		to_chat(world, "Process has just triggered!")
 		return
 	else
@@ -308,8 +308,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/has_fuel()
 	return length(fuel_rods)
 
-/obj/machinery/atmospherics/trinary/nuclear_reactor/process_atmos()
-	..()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/slow_process()
+	.=..()
 	if(slagged)
 		STOP_PROCESSING(SSmachines, src)
 		return
