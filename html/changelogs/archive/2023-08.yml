@@ -137,3 +137,21 @@
   - server: Automatic NanoMap Update (#3340)
   Сиротка:
   - add: Fake cult sheets and armour (#3080)
+'2023-08-16':
+  Den109G:
+  - bugfix: Dead do not should spam death message (#3352)
+  Furukia:
+  - bugfix: taipan sector accessibility (#3350)
+  LiquidPotroh:
+  - bugfix: Invisible viruses (#3358)
+  Vladisvell:
+  - imageadd: some missing sprites for drasks and voxes, flags (#3354)
+  Zwei:
+  - bugfix: Defined Descreation Sound (#3351)
+  aeternaclose:
+  - bugfix: Cere CMO Fix (#3360)
+'2023-08-17':
+  Den109G:
+  - bugfix: few fixes (#3357)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3362)
