@@ -357,6 +357,7 @@
 #include "code\datums\cache\crew.dm"
 #include "code\datums\cache\powermonitor.dm"
 #include "code\datums\components\_component.dm"
+#include "code\datums\components\boss_music.dm"
 #include "code\datums\components\caltrop.dm"
 #include "code\datums\components\deadchat_control.dm"
 #include "code\datums\components\decal.dm"

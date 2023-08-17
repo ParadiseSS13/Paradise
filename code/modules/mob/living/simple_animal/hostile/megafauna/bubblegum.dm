@@ -115,10 +115,19 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/enrage()
 	. = ..()
+	rapid_melee = 12 //Don't stand still
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum) //You'll get it in phase 2.
+	crusher_loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 	for(var/mob/living/carbon/human/H in range(20)) //suprise motherfucker bubblegum wakes up fast
 		to_chat(H, "<span class='colossus'><b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b></span>")
 		H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
 		FindTarget(list(H), 1) //From down town with the pile driver
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
+	if(enraged)
+		var/obj/structure/closet/crate/necropolis/bubblegum/bait/jebait = new /obj/structure/closet/crate/necropolis/bubblegum/bait(get_turf(src))
+		new /obj/effect/bubblegum_trigger(jebait, ListTargets())
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire()
 	if(charging)
@@ -146,9 +155,10 @@ Difficulty: Hard
 	if(!BUBBLEGUM_SMASH)
 		triple_charge()
 	else
-		if(prob(20) && enraged)
+		if(prob(25) && enraged)
 			hit_up_narsi()
-		else if(prob(50 + anger_modifier))
+			return
+		if(prob(50 + anger_modifier))
 			hallucination_charge()
 		else
 			surround_with_hallucinations()

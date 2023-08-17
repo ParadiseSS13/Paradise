@@ -13,6 +13,30 @@
 	. = ..()
 	new /obj/item/crusher_trophy/demon_claws(src)
 
+/obj/structure/closet/crate/necropolis/bubblegum/bait/populate_contents()
+	return
+
+/obj/structure/closet/crate/necropolis/bubblegum/bait/open(by_hand)
+	. == ..()
+	for(var/obj/effect/bubblegum_trigger/B in contents)
+		targets_to_fuck_up += usr
+		B.activate()
+
+/obj/effect/bubblegum_trigger
+	var/list/targets_to_fuck_up = list()
+
+/obj/effect/bubblegum_trigger/Initialize(mapload, target_list)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(activate)), 25 SECONDS) //We try to auto engage the fun 25 seconds after death, or when manually opened, whichever comes first. If for some strange reason the target list is empty, we'll trigger when opened
+	targets_to_fuck_up = target_list
+
+/obj/effect/bubblegum_trigger/proc/activate()
+	if(!length(targets_to_fuck_up))
+		return
+	for(var/mob/living/M in targets_to_fuck_up)
+		to_chat(H, "<span class='colossus'><b>NO! I REFUSE TO LET YOU THINK YOU HAVE WON. I SHALL END YOUR INSIGNIFICANT LIFE!</b></span>")
+		
+
 // Mayhem
 
 /obj/item/mayhem

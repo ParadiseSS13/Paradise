@@ -149,3 +149,6 @@
 	name = "Suspicious Asteroid"
 	icon_state = "dark"
 	requires_power = FALSE
+
+/area/ruin/space/bubblegum_arena
+	name = "Bubblegum Arena"

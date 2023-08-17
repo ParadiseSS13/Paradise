@@ -117,10 +117,12 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/enrage()
 	. = ..()
+	AddComponent(/datum/component/boss_music, 'sound/lavaland/hiero_boss.ogg', 145 SECONDS)
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/unrage()
 	. = ..()
+
 	move_to_delay = initial(move_to_delay)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/OpenFire()
@@ -291,7 +293,7 @@ Difficulty: Hard
 		new /obj/effect/temp_visual/hierophant/telegraph/diagonal(T, src)
 	else
 		new /obj/effect/temp_visual/hierophant/telegraph(T, src)
-	playsound(T,'sound/effects/bin_close.ogg', 200, TRUE)
+	playsound(T,'sound/effects/bin_close.ogg', 75, TRUE)
 	SLEEP_CHECK_DEATH(2)
 	new /obj/effect/temp_visual/hierophant/blast(T, src, FALSE)
 	for(var/d in directions)
@@ -338,8 +340,8 @@ Difficulty: Hard
 	var/turf/source = get_turf(src)
 	new /obj/effect/temp_visual/hierophant/telegraph(T, src)
 	new /obj/effect/temp_visual/hierophant/telegraph(source, src)
-	playsound(T,'sound/magic/wand_teleport.ogg', 200, TRUE)
-	playsound(source,'sound/machines/airlock_open.ogg', 200, TRUE)
+	playsound(T,'sound/magic/wand_teleport.ogg', 80, TRUE)
+	playsound(source,'sound/machines/airlock_open.ogg', 80, TRUE)
 	blinking = TRUE
 	SLEEP_CHECK_DEATH(2) //short delay before we start...
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
@@ -371,14 +373,14 @@ Difficulty: Hard
 	if(!T)
 		return
 	new /obj/effect/temp_visual/hierophant/telegraph(T, src)
-	playsound(T,'sound/effects/bin_close.ogg', 200, TRUE)
+	playsound(T,'sound/effects/bin_close.ogg', 75, TRUE)
 	SLEEP_CHECK_DEATH(2)
 	for(var/t in RANGE_TURFS(1, T))
 		new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
 
 //expanding square
 /proc/hierophant_burst(mob/caster, turf/original, burst_range, spread_speed = 0.5)
-	playsound(original,'sound/machines/airlock_open.ogg', 200, TRUE)
+	playsound(original,'sound/machines/airlock_open.ogg', 75, TRUE)
 	var/last_dist = 0
 	for(var/t in spiral_range_turfs(burst_range, original))
 		var/turf/T = t
@@ -511,7 +513,7 @@ Difficulty: Hard
 	if(!stat && .)
 		var/obj/effect/temp_visual/hierophant/squares/HS = new(oldLoc)
 		HS.setDir(movement_dir)
-		playsound(src, 'sound/mecha/mechmove04.ogg', 150, TRUE, -4)
+		playsound(src, 'sound/mecha/mechmove04.ogg', 65, TRUE, -4)
 		if(target)
 			arena_trap(target)
 
@@ -703,7 +705,7 @@ Difficulty: Hard
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
-	playsound(T,'sound/magic/blind.ogg', 125, TRUE, -5) //make a sound
+	playsound(T,'sound/magic/blind.ogg', 65, TRUE, -5) //make a sound
 	sleep(6) //wait a little
 	bursting = TRUE
 	do_damage(T) //do damage and mark us as bursting
