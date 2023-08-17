@@ -926,7 +926,7 @@
 
 /mob/living/narsie_act()
 	if(client)
-		make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, src, cult_override = TRUE)
+		make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, src, cult_override = TRUE, create_smoke = TRUE)
 	spawn_dust()
 	gib()
 
