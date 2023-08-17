@@ -49,7 +49,10 @@
 	if(!istype(M))
 		return FALSE
 
-	if(check_loc && M.loc != loc)
+	if(check_loc && !in_range(M, src))
+		return FALSE
+
+	if(check_loc && M.loc != loc && !M.Move(loc))
 		return FALSE
 
 	if((!can_buckle && !force) || M.buckled || (length(buckled_mobs) >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
@@ -72,7 +75,7 @@
 		qdel(G)
 
 	if(!check_loc && M.loc != loc)
-		M.forceMove(loc)
+		M.Move(loc) || M.forceMove(loc)
 
 	if(!buckle_lying)
 		M.set_body_position(STANDING_UP)
@@ -135,9 +138,13 @@
 	if(!in_range(user, src) || !isturf(user.loc) || user.incapacitated() || M.anchored)
 		return FALSE
 
-	if (isguardian(user))
-		if (M.loc == user.loc || user.alpha == 60) //Alpha is for detecting ranged guardians in scout mode
+	if(isguardian(user))
+		if(M.loc == user.loc || user.alpha == 60) //Alpha is for detecting ranged guardians in scout mode
 			return  //unmanifested guardians shouldn't be able to buckle mobs
+
+	if(M != user)
+		if(!in_range(M, src) || !do_after(user, 1 SECONDS, target = M))
+			return FALSE
 
 	add_fingerprint(user)
 	. = buckle_mob(M, check_loc = check_loc)
