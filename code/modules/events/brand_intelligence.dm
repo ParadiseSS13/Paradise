@@ -21,7 +21,7 @@
 		var/obj/machinery/economy/vending/vendor_type = pick(subtypesof(/obj/machinery/economy/vending))
 		// TODO WAIT ON THE OTHER VENDOR THING TO GO IN FIRST
 		alarm_source = initial(vendor_type.name)
-	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [initial(originMachine.name)].", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
+	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [alarm_source].", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
 
 /datum/event/brand_intelligence/start()
 	var/list/obj/machinery/economy/vending/leaderables = list()
