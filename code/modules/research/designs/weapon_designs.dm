@@ -257,7 +257,7 @@
 	category = list("Weapons")
 
 /datum/design/xray
-	name = "Xray Laser Gun"
+	name = "X-ray Laser Gun"
 	desc = "Not quite as menacing as it sounds"
 	id = "xray"
 	req_tech = list("combat" = 7, "magnets" = 5, "biotech" = 5, "powerstorage" = 4)

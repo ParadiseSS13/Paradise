@@ -36,7 +36,8 @@
 		bites_damage_string = "Видна внутренняя часть..."
 	else if((current_bites >= bites_split * 3))
 		bites_damage_string = "Осталась одна труха..."
-	material_string += "\n[bites_damage_string]"
+	if(bites_damage_string)
+		material_string += "\n[bites_damage_string]"
 
 	return material_string
 

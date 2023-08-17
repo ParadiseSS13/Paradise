@@ -1963,7 +1963,6 @@
 	},
 /mob/living/simple_animal/hostile/alien/drone{
 	dir = 8;
-	health = 0
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2920,7 +2919,6 @@
 	},
 /mob/living/simple_animal/hostile/alien/drone{
 	dir = 8;
-	health = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3711,7 +3709,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /mob/living/simple_animal/hostile/alien/drone{
 	dir = 8;
-	health = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

@@ -56,13 +56,13 @@
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	pre_equip(H, visualsOnly)
 
-	//Start with uniform,suit,backpack for additional slots
+	//Start with backpack,suit,uniform for additional slots
+	if(back)
+		equip_item(H, back, slot_back)
 	if(uniform)
 		equip_item(H, uniform, slot_w_uniform)
 	if(suit)
 		equip_item(H, suit, slot_wear_suit)
-	if(back)
-		equip_item(H, back, slot_back)
 	if(belt)
 		equip_item(H, belt, slot_belt)
 	if(gloves)

@@ -177,7 +177,7 @@
 	..()
 
 /obj/item/dnainjector/xraymut
-	name = "DNA-Injector (Xray)"
+	name = "DNA-Injector (X-ray)"
 	desc = "Finally you can see what the Captain does."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
@@ -188,7 +188,7 @@
 	..()
 
 /obj/item/dnainjector/antixray
-	name = "DNA-Injector (Anti-Xray)"
+	name = "DNA-Injector (Anti-X-ray)"
 	desc = "It will make you see harder."
 	datatype = DNA2_BUF_SE
 	value = 0x001

@@ -400,6 +400,7 @@
 
 /obj/item/ammo_casing/a545/fusty
 	desc = "A fusty 5.45x39mm bullet casing."
+	caliber = "f545"
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/item/projectile/bullet/f545
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG

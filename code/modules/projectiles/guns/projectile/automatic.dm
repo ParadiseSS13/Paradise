@@ -366,7 +366,7 @@
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 
 /obj/item/gun/projectile/automatic/lr30
-	name = "\improper IR-30 Laser Rifle"
+	name = "\improper LR-30 Laser Rifle"
 	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lr30"
 	item_state = "lr30"

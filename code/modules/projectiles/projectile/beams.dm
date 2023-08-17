@@ -41,7 +41,7 @@
 	damage = 5
 
 /obj/item/projectile/beam/xray
-	name = "xray beam"
+	name = "x-ray beam"
 	icon_state = "xray"
 	damage = 10
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
