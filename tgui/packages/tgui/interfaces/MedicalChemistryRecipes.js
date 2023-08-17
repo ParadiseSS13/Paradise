@@ -18,8 +18,8 @@ export const MedicalChemistryRecipes = (props, context) => {
 
   // Todo: fix the iteration error I have no idea about, cannot build tgui.bundle.js until then
   return (
-    <Window>
-      <Window.Content>
+    <Window resizable>
+      <Window.Content scrollable>
         <Section title="Medicine">
           <Box>
               {reagents.map((medicine, id) => (
@@ -42,7 +42,7 @@ export const MedicalChemistryRecipes = (props, context) => {
                   content={component.name}
                   textAlign="center"
                   selected={reagentType === 1 ? id === reagentIndex : null}
-                  onClick={() => {setReagentIndex(id); setReagentType(1)}}
+                  onClick={() => {setReagentType(1); setReagentIndex(id)}}
                 />
               ))}
           </Box>
