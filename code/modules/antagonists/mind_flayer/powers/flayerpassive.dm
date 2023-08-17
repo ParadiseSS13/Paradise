@@ -39,3 +39,11 @@
 			qdel(owner.GetComponent(/datum/component/footstep))
 		if(2)
 			owner.flags |= NOSLIP // Does this work? We'll find out once the Tgui is working
+
+/datum/mindflayer_passive/new_crit
+	purchase_text = "I give up, IPCs are based now"
+	upgrade_text = "Add this later"
+	gain_desc = "Ayyyy lmao"
+
+/datum/mindflayer_passive/new_crit/on_apply(datum/antagonist/mindflayer/flayer)
+	owner.dna.species.dies_at_threshold = FALSE
