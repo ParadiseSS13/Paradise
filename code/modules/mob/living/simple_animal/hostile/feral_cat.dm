@@ -36,3 +36,4 @@
 	health = 25
 	melee_damage_lower = 15
 	melee_damage_upper = 10
+	gold_core_spawnable = NO_SPAWN

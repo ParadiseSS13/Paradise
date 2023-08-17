@@ -32,8 +32,6 @@
 	working_event = new working_event_type(skeleton = TRUE)
 	log_debug("False alarm selecting [working_event] to imitate")
 
-
-
 /datum/event/falsealarm/announce()
 	if(working_event.fake_announce())
 		return
@@ -42,5 +40,4 @@
 	kill()
 
 /datum/event/falsealarm/end()
-	qdel(working_event)
-
+	QDEL_NULL(working_event)

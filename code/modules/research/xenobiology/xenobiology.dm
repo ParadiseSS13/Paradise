@@ -447,6 +447,49 @@
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
+/obj/item/slimepotion/oil_slick
+	name = "slime oil potion"
+	desc = "A potent chemical mix that will remove the slowdown from any item by reducing friction. Doesn't mix well with water."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle4"
+	origin_tech = "biotech=5"
+
+/obj/item/slimepotion/oil_slick/afterattack(obj/O, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	..()
+	if(!isitem(O))
+		if(!istype(O, /obj/structure/table))
+			to_chat(user, "<span class='warning'>The potion can only be used on items!</span>")
+			return
+		var/obj/structure/table/T = O
+		if(T.slippery)
+			to_chat(user, "<span class='warning'>[T] can luckily not be made any slippier!</span>")
+			return
+		to_chat(user, "<span class='warning'>You go to place the potion on [T], but before you know it, your hands are moving on your own!</span>") //Speed table must remain.
+		T.slippery = TRUE
+	else
+		var/obj/item/I = O
+		if(I.slowdown <= 0)
+			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+			return
+		I.slowdown = 0
+
+	to_chat(user, "<span class='notice'>You slather the oily gunk over [O], making it slick and slippery.</span>")
+	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	O.add_atom_colour("#6e6e86", FIXED_COLOUR_PRIORITY)
+	ADD_TRAIT(O, TRAIT_OIL_SLICKED, "potion")
+	if(ishuman(O.loc))
+		var/mob/living/carbon/human/H = O.loc
+		H.regenerate_icons()
+	qdel(src)
+
+/obj/item/slimepotion/oil_slick/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
 /obj/effect/timestop
 	anchored = TRUE
 	name = "chronofield"

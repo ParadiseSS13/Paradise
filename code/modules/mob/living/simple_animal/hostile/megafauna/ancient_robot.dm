@@ -529,7 +529,7 @@ Difficulty: Hard
 				T.ex_act(3)
 			if(mode == CRYO)
 				var/turf/simulated/S = get_turf(src)
-				S.MakeSlippery(TURF_WET_ICE)
+				S.MakeSlippery(TURF_WET_ICE, rand(10, 20 SECONDS))
 				for(var/turf/T in range (1, src))
 					new /obj/effect/snowcloud(T)
 					for(var/mob/living/carbon/C in T.contents)

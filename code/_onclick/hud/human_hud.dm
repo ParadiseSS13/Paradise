@@ -354,6 +354,9 @@
 
 	inventory_shown = FALSE
 
+	combo_display = new()
+	infodisplay += combo_display
+
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv.hud = src

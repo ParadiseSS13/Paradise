@@ -286,28 +286,6 @@
 	block = GLOB.regenerateblock
 	..()
 
-/obj/item/dnainjector/runfast
-	name = "DNA-Injector (Increase Run)"
-	desc = "Running Man."
-	datatype = DNA2_BUF_SE
-	value = 0xFFF
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/runfast/Initialize()
-	block = GLOB.increaserunblock
-	..()
-
-/obj/item/dnainjector/antirunfast
-	name = "DNA-Injector (Anti-Increase Run)"
-	desc = "Walking Man."
-	datatype = DNA2_BUF_SE
-	value = 0x001
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/antirunfast/Initialize()
-	block = GLOB.increaserunblock
-	..()
-
 /obj/item/dnainjector/morph
 	name = "DNA-Injector (Morph)"
 	desc = "A total makeover."
@@ -509,7 +487,7 @@
 
 /obj/item/dnainjector/antitour
 	name = "DNA-Injector (Anti-Tour.)"
-	desc = "Will cure tourrets."
+	desc = "Will cure tourettes."
 	datatype = DNA2_BUF_SE
 	value = 0x001
 	forcedmutation = TRUE
@@ -520,7 +498,7 @@
 
 /obj/item/dnainjector/tourmut
 	name = "DNA-Injector (Tour.)"
-	desc = "Gives you a nasty case off tourrets."
+	desc = "Gives you a nasty case off tourettes."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
 	forcedmutation = TRUE

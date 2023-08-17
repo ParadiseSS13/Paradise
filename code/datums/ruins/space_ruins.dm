@@ -318,3 +318,11 @@
 	description = "A relic of old times, you don't know what it hide inside."
 	allow_duplicates = FALSE
 	cost = 1 // Gives research levels and it should be hard-to-find
+
+/datum/map_template/ruin/space/wreckedcargoship
+	id = "wreckedcargoship"
+	suffix = "wreckedcargoship.dmm"
+	name = "Wrecked Cargoship"
+	description = "A cargo shuttle in a wrecked condition. There are many unknown horrors in space and looks like its last crew has faced one of them."
+	allow_duplicates = FALSE
+	cost = 1 // With the loot it contains it shouldn't be found frequently
