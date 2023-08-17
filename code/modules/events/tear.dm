@@ -34,9 +34,9 @@
 
 /datum/event/tear/announce(false_alarm)
 	var/area/target_area = impact_area
-	if(!impact_area)
+	if(!target_area)
 		if(false_alarm)
-			impact_area = findEventArea()
+			target_area = findEventArea()
 		else
 			log_debug("Tried to announce a tear without a valid area!")
 			kill()
