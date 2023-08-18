@@ -6,4 +6,6 @@
 // BEGIN INCLUDE
 #include "_hairs.dm"
 #include "code/vulpkanin_hair.dm"
+#include "code/human_hair.dm"
 // END_INCLUDE
+
