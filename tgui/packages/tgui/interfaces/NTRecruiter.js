@@ -37,7 +37,7 @@ export const NTRecruiter = (props, context) => {
             fluid
             icon="play"
             color="green"
-            content="Begin Game"
+            content="Begin Shift"
             onClick={() => act('start_game')}
           />
           <Button
