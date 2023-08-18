@@ -152,11 +152,14 @@
 		air2.merge(filtered_out)
 		air3.merge(removed)
 
-	parent2.update = 1
+	if(parent2)
+		parent2.update = 1
 
-	parent3.update = 1
+	if(parent3)
+		parent3.update = 1
 
-	parent1.update = 1
+	if(parent1)
+		parent1.update = 1
 
 	return 1
 
