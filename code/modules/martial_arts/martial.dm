@@ -4,8 +4,8 @@
 /datum/martial_art
 	var/name = "Martial Art"
 	var/streak = ""
-	var/max_streak_length = 6
 	var/temporary = FALSE
+	var/owner_UID
 	/// The permanent style.
 	var/datum/martial_art/base = null
 	/// Chance to deflect projectiles while on throw mode.
@@ -27,8 +27,8 @@
 	var/list/combos = list()
 	/// What combos are currently (possibly) being performed.
 	var/list/datum/martial_art/current_combos = list()
-	/// When the last hit happened.
-	var/last_hit = 0
+	/// Stores the timer_id for the combo timeout timer
+	var/combo_timer
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
 	/// If the martial art allows parrying.
@@ -62,9 +62,16 @@
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!can_use(user))
 		return MARTIAL_ARTS_CANNOT_USE
+	if(combo_timer)
+		deltimer(combo_timer)
+/*
 	if(last_hit + COMBO_ALIVE_TIME < world.time)
 		reset_combos()
-	last_hit = world.time
+*/
+	combo_timer = addtimer(CALLBACK(src, PROC_REF(reset_combos)), COMBO_ALIVE_TIME, TIMER_UNIQUE | TIMER_STOPPABLE)
+	streak += intent_to_streak(step)
+	var/mob/living/carbon/human/owner = locateUID(owner_UID)
+	owner?.hud_used.combo_display.update_icon(ALL, streak)
 
 	if(HAS_COMBOS)
 		return check_combos(step, user, target)
@@ -72,6 +79,9 @@
 
 /datum/martial_art/proc/reset_combos()
 	current_combos.Cut()
+	streak = ""
+	var/mob/living/carbon/human/owner = locateUID(owner_UID)
+	owner?.hud_used.combo_display.update_icon(ALL, streak)
 	for(var/combo_type in combos)
 		current_combos.Add(new combo_type())
 
@@ -147,6 +157,7 @@
 			return
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+	owner_UID = H.UID()
 	H.mind.known_martial_arts.Add(src)
 	H.mind.martial_art = get_highest_weight(H)
 
@@ -209,6 +220,17 @@
 
 /datum/martial_art/proc/try_deflect(mob/user)
 		return prob(deflection_chance)
+
+/datum/martial_art/proc/intent_to_streak(intent)
+	switch(intent)
+		if(MARTIAL_COMBO_STEP_HARM)
+			return "E" // these hands are rated E for everyone
+		if(MARTIAL_COMBO_STEP_DISARM)
+			return "D"
+		if(MARTIAL_COMBO_STEP_GRAB)
+			return "G"
+		if(MARTIAL_COMBO_STEP_HELP)
+			return "H"
 
 /datum/action/defensive_stance
 	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
@@ -427,6 +449,37 @@
 	if(wielded)
 		return ..()
 	return 0
+
+/obj/screen/combo
+	icon_state = ""
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	screen_loc = ui_combo
+	layer = ABOVE_HUD_LAYER
+	var/streak
+
+/obj/screen/combo/proc/clear_streak()
+	cut_overlays()
+	streak = ""
+	icon_state = ""
+
+/obj/screen/combo/update_icon(updates, _streak)
+	streak = _streak
+	return ..()
+
+/obj/screen/combo/update_overlays()
+	. = list()
+	for(var/i in 1 to length(streak))
+		var/intent_text = copytext(streak, i, i + 1)
+		var/image/intent_icon = image(icon, src, "combo_[intent_text]")
+		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
+		. += intent_icon
+
+/obj/screen/combo/update_icon_state()
+	icon_state = ""
+	if(!streak)
+		return
+	icon_state = "combo"
+
 
 #undef HAS_COMBOS
 #undef COMBO_ALIVE_TIME

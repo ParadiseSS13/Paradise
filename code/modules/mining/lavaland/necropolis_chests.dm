@@ -70,17 +70,6 @@
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 
-/obj/structure/closet/crate/necropolis/puzzle
-	name = "puzzling chest"
-
-/obj/structure/closet/crate/necropolis/puzzle/populate_contents()
-	var/loot = rand(1,2)
-	switch(loot)
-		if(1)
-			new /obj/item/soulstone/anybody(src)
-		if(2)
-			new /obj/item/wisp_lantern(src)
-
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disk
 	name = "\improper KA mod disk"

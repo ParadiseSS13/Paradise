@@ -176,6 +176,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FLASH_PROTECTION	"flash_protection"
 #define TRAIT_NIGHT_VISION		"night_vision"
 #define TRAIT_EMOTE_MUTE		"emote_mute"
+#define TRAIT_PUNCTURE_IMMUNE	"punctureimmune" //prevents RSG syringes from piercing your clothing
 
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
@@ -224,6 +225,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
 #define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
 
+///An item that is oiled. If sprayed with water, it's slowdown reverts to normal.
+#define TRAIT_OIL_SLICKED "oil_slicked"
 
 //
 // common trait sources
@@ -264,6 +267,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
+#define TRAIT_TABLE_LEAP "table_leap"
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"

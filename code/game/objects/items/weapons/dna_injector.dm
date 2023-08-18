@@ -286,28 +286,6 @@
 	block = GLOB.regenerateblock
 	..()
 
-/obj/item/dnainjector/runfast
-	name = "DNA-Injector (Increase Run)"
-	desc = "Running Man."
-	datatype = DNA2_BUF_SE
-	value = 0xFFF
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/runfast/Initialize()
-	block = GLOB.increaserunblock
-	..()
-
-/obj/item/dnainjector/antirunfast
-	name = "DNA-Injector (Anti-Increase Run)"
-	desc = "Walking Man."
-	datatype = DNA2_BUF_SE
-	value = 0x001
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/antirunfast/Initialize()
-	block = GLOB.increaserunblock
-	..()
-
 /obj/item/dnainjector/morph
 	name = "DNA-Injector (Morph)"
 	desc = "A total makeover."

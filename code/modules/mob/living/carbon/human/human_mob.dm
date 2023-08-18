@@ -760,7 +760,10 @@
 								read = 1
 								if(LAZYLEN(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
-										to_chat(usr, c)
+										if(islist(c))
+											to_chat(usr, "[c["header"]]: [c["text"]]")
+										else
+											to_chat(usr, c)
 								else
 									to_chat(usr, "<span class='warning'>No comments found</span>")
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
@@ -1032,7 +1035,7 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
+/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, piercing = FALSE)
 	. = TRUE
 
 	if(!target_zone)
@@ -1044,23 +1047,24 @@
 
 	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
-
+	if(HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE))
+		. = FALSE
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)
 		. = FALSE
 		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
-	else if(affecting.is_robotic())
+	if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
+	if(piercing)
+		return TRUE
+	if(target_zone == "head")
+		if((head?.flags & THICKMATERIAL) && !penetrate_thick)
+			. = FALSE
 	else
-		switch(target_zone)
-			if("head")
-				if(head && head.flags & THICKMATERIAL && !penetrate_thick)
-					. = FALSE
-			else
-				if(wear_suit && wear_suit.flags & THICKMATERIAL && !penetrate_thick)
-					. = FALSE
+		if((wear_suit?.flags & THICKMATERIAL) && !penetrate_thick)
+			. = FALSE
 	if(!. && error_msg && user)
 		if(!fail_msg)
 			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on [p_their()] head" : "on [p_their()] body"] to inject into."

@@ -138,21 +138,15 @@
 	return powernet
 
 /area/proc/reg_in_areas_in_z()
-	if(contents.len)
-		var/list/areas_in_z = GLOB.space_manager.areas_in_z
-		var/z
-		for(var/i in 1 to contents.len)
-			var/atom/thing = contents[i]
-			if(!thing)
-				continue
-			z = thing.z
-			break
-		if(!z)
-			WARNING("No z found for [src]")
-			return
-		if(!areas_in_z["[z]"])
-			areas_in_z["[z]"] = list()
-		areas_in_z["[z]"] += src
+	if(!length(contents)) // if its nullspaced or something, I guess
+		return
+	if(!z)
+		WARNING("No z found for [src]")
+		return
+	var/list/areas_in_z = GLOB.space_manager.areas_in_z
+	if(!areas_in_z["[z]"])
+		areas_in_z["[z]"] = list()
+	areas_in_z["[z]"] += src
 
 /area/proc/get_cameras()
 	var/list/cameras = list()
