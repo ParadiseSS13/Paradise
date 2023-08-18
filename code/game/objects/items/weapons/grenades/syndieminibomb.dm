@@ -21,6 +21,6 @@
 /obj/item/grenade/syndieminibomb/fake/attack_self(mob/user)
 	if(!active)
 		flags |= NODROP
-		to_chat(user, "<span class='danger'>As you activate the bomb, it emits super glue and sticks to your hand.</span>")
+		to_chat(user, "<span class='userdanger'>As you activate the bomb, it emits a substance that sticks to your hand! It won't come off!</span>")
 		to_chat(user, "<span class='sans'>Uh oh.</span>")
 	. = ..()
