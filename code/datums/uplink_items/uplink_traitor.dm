@@ -49,6 +49,7 @@
 	item = /obj/item/storage/box/syndie_kit/fake_minibomb
 	cost = 1
 	job = list("Clown")
+
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
