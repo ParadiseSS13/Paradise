@@ -18,7 +18,7 @@
 	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
 
 	var/global/damage_overlays[8]
-	var/melting = FALSE
+	var/melting = FALSE //TRUE if wall is currently being melted with thermite
 
 	opacity = TRUE
 	density = TRUE
@@ -278,9 +278,7 @@
 		return
 
 	melting = TRUE
-	while(TRUE)
-		if(!reagents.get_reagent_amount("thermite"))
-			break
+	while(reagents.get_reagent_amount("thermite") > 0)
 		reagents.remove_reagent("thermite", 5)
 		if(damage_cap - damage <= 30)
 			burn_down()
