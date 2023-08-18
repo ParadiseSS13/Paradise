@@ -170,11 +170,11 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
 	. = ..()
-	armour_penetration_flat = 100
-	TL.armour_penetration_flat = 100
-	TR.armour_penetration_flat = 100
-	BL.armour_penetration_flat = 100
-	BR.armour_penetration_flat = 100
+	armour_penetration_percentage = 66
+	TL.armour_penetration_percentage = 66
+	TR.armour_penetration_percentage = 66
+	BL.armour_penetration_percentage = 66
+	BR.armour_penetration_percentage = 66
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/OpenFire()
 	if(charging)
@@ -223,7 +223,7 @@ Difficulty: Hard
 	var/turf/beam_me_up_scotty = get_turf(src)
 	for(var/turf/T in spiral_range_turfs(9, src, 9))
 		T.Beam(beam_me_up_scotty, icon_state = "sm_arc_dbz_referance", time = 0.1, beam_type = /obj/effect/ebeam/vetus)
-		sleep(1)
+		SLEEP_CHECK_QDEL(1)
 	qdel(src)
 
 
@@ -362,13 +362,13 @@ Difficulty: Hard
 			for(var/turf/T in view(4, target))
 				if(T.density)
 					continue
-				if(T in range(1, target) && !enraged)
+				if(T in range(1, target))
 					continue
 				turfs += T
 			while(volcanos < (enraged? 5 : 3) && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
 				for(var/turf/around in range(1, spot))
-					new /obj/effect/temp_visual/lava_warning(around, enraged? 6 SECONDS : 3 SECONDS)
+					new /obj/effect/temp_visual/lava_warning(around, enraged? 12 SECONDS : 6 SECONDS)
 				volcanos++
 		if(FLUX)
 			for(var/mob/living/carbon/human/H in view(7, src))
@@ -817,7 +817,7 @@ Difficulty: Hard
 	var/turf/T = get_turf(src)
 	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
 	new /obj/effect/temp_visual/fireball/rock(T)
-	sleep(duration)
+	SLEEP_CHECK_QDEL(duration)
 	if(ismineralturf(T))
 		var/turf/simulated/mineral/M = T
 		M.gets_drilled()

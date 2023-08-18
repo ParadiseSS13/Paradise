@@ -1014,13 +1014,13 @@
 		to_chat(owner, "<span class='colossus'><b>YOU CHALLENGE ME LIKE THIS... AND YOU RUN WITH YOUR FALSE MAGICS?</b></span>")
 	else
 		return
-	sleep(2 SECONDS)
+	SLEEP_CHECK_QDEL(2 SECONDS)
 	to_chat(owner, "<span class='colossus'><b>REALLY?</b></span>")
-	sleep(2 SECONDS)
+	SLEEP_CHECK_QDEL(2 SECONDS)
 	to_chat(owner, "<span class='colossus'><b>SUCH INSOLENCE!</b></span>")
-	sleep(2 SECONDS)
+	SLEEP_CHECK_QDEL(2 SECONDS)
 	to_chat(owner, "<span class='colossus'><b>SO PATHETIC...</b></span>")
-	sleep(2 SECONDS)
+	SLEEP_CHECK_QDEL(2 SECONDS)
 	to_chat(owner, "<span class='colossus'><b>...SO FOOLISH!</b></span>")
 	get_over_here()
 
@@ -1031,18 +1031,20 @@
 		to_chat(owner, "<span class='colossus'><b>My my, you can run FAST.</b></span>")
 	else
 		return
-	sleep(2 SECONDS)
+	SLEEP_CHECK_QDEL(2 SECONDS)
 	to_chat(owner, "<span class='colossus'><b>I thought you wanted a true fight?</b></span>")
-	sleep(2 SECONDS)
+	SLEEP_CHECK_QDEL(2 SECONDS)
 	to_chat(owner, "<span class='colossus'><b>Perhaps I was mistaken</b></span>")
-	sleep(2 SECONDS)
+	SLEEP_CHECK_QDEL(2 SECONDS)
 	to_chat(owner, "<span class='colossus'><b>You are a coward who does not want a fight...</b></span>")
-	sleep(2 SECONDS)
+	SLEEP_CHECK_QDEL(2 SECONDS)
 	to_chat(owner, "<span class='colossus'><b>...BUT I WANT YOU DEAD!</b></span>")
 	get_over_here()
 
 /datum/status_effect/bubblegum_curse/proc/get_over_here()
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
+	if(!attacker)
+		return //Let's not nullspace
 	var/turf/TA = get_turf(owner)
 	owner.Immobilize(3 SECONDS)
 	new /obj/effect/decal/cleanable/blood/bubblegum(TA)
