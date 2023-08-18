@@ -1,5 +1,6 @@
 ///The cooldown period between last_boomerang_throw and it's methods of implementing a rebound proc.
 #define BOOMERANG_REBOUND_INTERVAL (1 SECONDS)
+
 /**
  * If an object is given the boomerang component, it should be thrown back to the thrower after either hitting it's target, or landing on the thrown tile.
  * Thrown objects should be thrown back to the original thrower with this component, a number of tiles defined by boomerang_throw_range.
@@ -18,10 +19,8 @@
 		return COMPONENT_INCOMPATIBLE
 
 	//Assignments
-	if(boomerang_throw_range)
-		src.boomerang_throw_range = boomerang_throw_range
-	if(thrower_easy_catch_enabled)
-		src.thrower_easy_catch_enabled = thrower_easy_catch_enabled
+	src.boomerang_throw_range = boomerang_throw_range
+	src.thrower_easy_catch_enabled = thrower_easy_catch_enabled
 
 /datum/component/boomerang/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOVABLE_POST_THROW, PROC_REF(prepare_throw)) //Collect data on current thrower and the throwing datum
@@ -39,11 +38,9 @@
  */
 /datum/component/boomerang/proc/prepare_throw(datum/source, datum/thrownthing/thrown_thing, spin)
 	SIGNAL_HANDLER
-	if(thrower_easy_catch_enabled && thrown_thing?.thrower)
-		if(iscarbon(thrown_thing.thrower))
-			var/mob/living/carbon/Carbon = thrown_thing.thrower
-			Carbon.throw_mode_on()
-	return
+	if(thrower_easy_catch_enabled && iscarbon(thrown_thing?.thrower))
+		var/mob/living/carbon/C = thrown_thing.thrower
+		C.throw_mode_on()
 
 /**
  * Proc that triggers when the thrown boomerang hits an object.

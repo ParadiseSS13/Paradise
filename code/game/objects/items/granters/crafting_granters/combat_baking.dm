@@ -1,6 +1,6 @@
 /obj/item/book/granter/crafting_recipe/combat_baking
 	name = "the anarchist's cookbook"
-	desc = "A widely illegal recipe book, which will teach you how to bake croissants to die for."
+	desc = "A widely illegal recipe book which will teach you how to bake croissants to die for."
 	crafting_recipe_types = list(
 		/datum/crafting_recipe/throwing_croissant,
 	)
@@ -14,6 +14,6 @@
 	)
 
 /obj/item/book/granter/crafting_recipe/combat_baking/recoil(mob/living/user)
-	to_chat(user, "<span class='warning'>The book dissolves into burnt flour!")
+	to_chat(user, "<span class='warning'>The book dissolves into burnt flour!</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)

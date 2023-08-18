@@ -75,6 +75,7 @@
 
 /// Effects that occur whenever the book is read when it has no uses left.
 /obj/item/book/granter/proc/recoil(mob/living/user)
+    return
 
 /// Checks if the user can learn whatever this granter... grants
 /obj/item/book/granter/proc/can_learn(mob/living/user)

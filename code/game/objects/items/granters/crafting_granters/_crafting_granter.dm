@@ -3,7 +3,7 @@
 	var/list/crafting_recipe_types = list()
 
 /obj/item/book/granter/crafting_recipe/on_reading_finished(mob/user)
-	. = ..()
+	..()
 	if(!user.mind)
 		return
 	for(var/datum/crafting_recipe/crafting_recipe_type as anything in crafting_recipe_types)
