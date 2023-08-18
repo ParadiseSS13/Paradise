@@ -86,6 +86,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
 	. = ..()
 	spawned_beacon = new(loc)
+	AddComponent(/datum/component/boss_music, 'sound/lavaland/hiero_boss.ogg', 145 SECONDS)
 
 /datum/action/innate/megafauna_attack/blink
 	name = "Blink To Target"
@@ -117,7 +118,6 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/enrage()
 	. = ..()
-	AddComponent(/datum/component/boss_music, 'sound/lavaland/hiero_boss.ogg', 145 SECONDS)
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/unrage()

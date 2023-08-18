@@ -168,6 +168,14 @@ Difficulty: Hard
 	var/obj/structure/closet/crate/C = new crate_type(loc)
 	new core_type(C)
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
+	. = ..()
+	armour_penetration_flat = 100
+	TL.armour_penetration_flat = 100
+	TR.armour_penetration_flat = 100
+	BL.armour_penetration_flat = 100
+	BR.armour_penetration_flat = 100
+
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/OpenFire()
 	if(charging)
 		return
@@ -178,7 +186,7 @@ Difficulty: Hard
 	anger_modifier = clamp(((maxHealth - health) / 50), 0, 20)
 	ranged_cooldown = world.time + (ranged_cooldown_time * ((10 - extra_player_anger) / 10))
 
-	if(enraged && prob(10)) //This attack is free, and can be combined with other attacks, so chance is low.
+	if(enraged && prob(20)) //This attack is free, and can be combined with other attacks, so chance is low.
 		single_laser()
 
 	if(prob(30 + (anger_modifier / 2))) //Less scaling as the weaker attack / first calculated.
@@ -234,7 +242,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2) //add limb charge as well
 	if(!chargeat)
 		return
-	if(mode == BLUESPACE)
+	if(mode == BLUESPACE || (enraged && prob(25)))
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 		src.visible_message("<span class='danger'>[src] teleports somewhere nearby!</span>")
 		do_teleport(src, target, 7, sound_in = 'sound/effects/phasein.ogg', safe_turf_pick = TRUE) //Teleport within 7 tiles of the target
@@ -284,7 +292,7 @@ Difficulty: Hard
 				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 				shake_camera(L, 4, 3)
 				shake_camera(src, 2, 3)
-				if(mode == GRAV)
+				if(mode == GRAV || enraged)
 					var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
 					L.throw_at(throw_target, 3, 2)
 	..()
@@ -342,7 +350,7 @@ Difficulty: Hard
 				if(T in range (2, target))
 					continue
 				turfs += T
-			while(rocks < enraged? 5 : 3 && length(turfs))
+			while(rocks < (enraged? 5 : 3) && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
 				new /obj/effect/temp_visual/rock(spot)
 				addtimer(CALLBACK(src, PROC_REF(throw_rock), spot, target), 2 SECONDS)
@@ -357,10 +365,10 @@ Difficulty: Hard
 				if(T in range(1, target) && !enraged)
 					continue
 				turfs += T
-			while(volcanos < enraged? 5 : 3 && length(turfs))
+			while(volcanos < (enraged? 5 : 3) && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
 				for(var/turf/around in range(1, spot))
-					new /obj/effect/temp_visual/lava_warning(around)
+					new /obj/effect/temp_visual/lava_warning(around, enraged? 6 SECONDS : 3 SECONDS)
 				volcanos++
 		if(FLUX)
 			for(var/mob/living/carbon/human/H in view(7, src))
@@ -391,27 +399,28 @@ Difficulty: Hard
 		if(T.density)
 			continue
 		turfs += T
-	while(anomalies < enraged? 5 : 3 && length(turfs))
+	while(anomalies < (enraged? 5 : 3) && length(turfs))
 		var/turf/spot = pick(turfs)
 		turfs -= spot
+		var/timetouse = enraged? 25 SECONDS : 15 SECONDS
 		switch(mode)
 			if(BLUESPACE)
-				var/obj/effect/anomaly/bluespace/A = new(spot, 150, FALSE)
+				var/obj/effect/anomaly/bluespace/A = new(spot, timetouse, FALSE)
 				A.mass_teleporting = FALSE
 			if(GRAV)
-				var/obj/effect/anomaly/grav/A = new(spot, 150, FALSE, FALSE)
+				var/obj/effect/anomaly/grav/A = new(spot, timetouse, FALSE, FALSE)
 				A.knockdown = TRUE
 			if(PYRO)
-				var/obj/effect/anomaly/pyro/A = new(spot, 150, FALSE)
+				var/obj/effect/anomaly/pyro/A = new(spot, timetouse, FALSE)
 				A.produces_slime = FALSE
 			if(FLUX)
-				var/obj/effect/anomaly/flux/A = new(spot, 150, FALSE)
+				var/obj/effect/anomaly/flux/A = new(spot, timetouse, FALSE)
 				A.explosive = FALSE
 				A.knockdown = TRUE
 			if(VORTEX)
-				new /obj/effect/anomaly/bhole(spot, 150, FALSE)
+				new /obj/effect/anomaly/bhole(spot, timetouse, FALSE)
 			if(CRYO)
-				new /obj/effect/anomaly/cryo(spot, 150, FALSE)
+				new /obj/effect/anomaly/cryo(spot, timetouse, FALSE)
 		anomalies++
 	return
 
@@ -437,7 +446,7 @@ Difficulty: Hard
 		anger += 2
 	if(enraged)
 		anger += 2
-	cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
+	cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP) + enraged
 	extra_player_anger = clamp(anger,1,cap) - 1
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
@@ -550,7 +559,7 @@ Difficulty: Hard
 		if(charging)
 			if(mode == PYRO)
 				var/turf/C = get_turf(src)
-				new /obj/effect/temp_visual/lava_warning(C)
+				new /obj/effect/temp_visual/lava_warning(C, enraged? 12 SECONDS : 6 SECONDS)
 				for(var/turf/T in range (1,src))
 					new /obj/effect/hotspot(T)
 					T.hotspot_expose(700,50,1)
