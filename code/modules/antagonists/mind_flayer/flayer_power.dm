@@ -34,7 +34,7 @@
 
 /*
  * Mindflayer code relies on on_purchase to grant powers.
- * The same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec
+ * The same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec TODO: make Remove()
  */
 
 /obj/effect/proc_holder/spell/flayer/proc/on_purchase(mob/user, datum/antagonist/mindflayer/C, datum/path)
