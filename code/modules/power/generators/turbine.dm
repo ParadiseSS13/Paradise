@@ -386,7 +386,7 @@
 			var/time_until_done =  compressor.time_until_overheat_done()
 			if(time_until_done)
 				compressor.starter = FALSE
-				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [time_until_done/10] seconds for cooldown procedures to complete.</span>")
+				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
 				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 			else if(compressor?.turbine)
 				compressor.starter = !compressor.starter
@@ -450,10 +450,10 @@
 			var/time_until_done = compressor.time_until_overheat_done()
 			if(time_until_done)
 				compressor.starter = FALSE
-				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [time_until_done/10] seconds for cooldown procedures to complete.</span>")
+				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
 				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 			else if(compressor?.turbine)
-				if(compressor.starter == FALSE)
+				if(!compressor.starter)
 					playsound(compressor, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 				compressor.starter = !compressor.starter
 				. = TRUE
