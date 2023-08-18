@@ -265,6 +265,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BUCKLING_TRAIT "buckled"
 #define TRAIT_WAS_BATONNED "batonged"
 #define CLOWN_EMAG "clown_emag"
+#define HOLO_CIGAR "holo_cigar"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
