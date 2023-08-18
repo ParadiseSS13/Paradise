@@ -1038,6 +1038,9 @@
 /mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, piercing = FALSE)
 	. = TRUE
 
+	if(wear_suit && HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE))
+		return FALSE
+
 	if(!target_zone)
 		if(!user)
 			. = FALSE
@@ -1047,8 +1050,7 @@
 
 	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
-	if(HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE))
-		. = FALSE
+
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)
