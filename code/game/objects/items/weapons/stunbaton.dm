@@ -24,8 +24,6 @@
 	var/cooldown = 3.5 SECONDS
 	/// the time it takes before the target falls over
 	var/knockdown_delay = 2.5 SECONDS
-	/// Can this baton be turned off?
-	var/can_turn_off = TRUE
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -115,7 +113,7 @@
 		cell = null
 		turned_on = FALSE
 		update_icon(UPDATE_ICON_STATE)
-	if(cell.charge < (hitcost) && can_turn_off) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
+	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
@@ -287,7 +285,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP
 	turned_on = TRUE
-	can_turn_off = FALSE
 	cell = /obj/item/stock_parts/cell/flayerprod
 
 /obj/item/melee/baton/flayerprod/update_icon_state()
@@ -325,6 +322,9 @@
 /obj/item/melee/baton/flayerprod/Initialize(mapload) // We are not making a flayerprod without a cell
 	link_new_cell()
 	return ..()
+
+/obj/item/melee/baton/flayerprod/deductcharge(amount)
+	cell.use(amount)
 
 /obj/item/melee/baton/flayerprod/examine(mob/user)
 	. = ..()
