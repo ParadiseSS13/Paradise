@@ -100,7 +100,7 @@
 
 /obj/item/gun/projectile/revolver/fake/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
 	var/zone = "chest"
-	if(!user.has_organ("head"))
+	if(user.has_organ("head"))
 		zone = "head"
 	add_fingerprint(user)
 	if(!chambered)
