@@ -393,7 +393,7 @@
 
 /obj/item/mod/control/AltClick(mob/user)
 	. = ..()
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE) && bag)
 		bag.forceMove(user)
 		bag.show_to(user)
 		playsound(loc, "rustle", 50, TRUE, -5)
