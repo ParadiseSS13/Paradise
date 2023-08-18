@@ -57,7 +57,6 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/ignite/fire = new()
@@ -70,33 +69,33 @@
 
 /datum/action/innate/ignite
 	name = "Ignite"
-	desc = "Requires you to drink welding fuel beforehand."
+	desc = "You form fire in your mouth, allowing you to.. light cigarettes. Requires you to drink welding fuel beforehand."
 	icon_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
+	var/cooldown = 0
 	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
-
 
 /datum/action/innate/ignite/Activate()
 	var/mob/living/carbon/human/user = owner
-	if(user.reagents && user.reagents.has_reagent("fuel", 3))
-		var/obj/item/match/unathi/fire = new(user.loc, src)
-		if((user.head && (user.head.flags_cover & HEADCOVERSMOUTH)) || (user.wear_mask && (user.wear_mask.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask.up))
-			qdel(fire)
-			to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
-		else
-			if(user.put_in_hands(fire))
-				to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
-				user.reagents.del_reagent("fuel")
-			else
-				qdel(fire)
-				to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
+	if(world.time < cooldown)
+		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
+		return
 	else
-		to_chat(user, "<span class='warning'>You need to drink welding fuel first.</span>")
+		if(user.reagents?.has_reagent("fuel", 3))
+			if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.wear_mask?.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask?.up)
+				to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
+			else
+				var/obj/item/match/unathi/fire = new(user.loc, src)
+				if(user.put_in_hands(fire))
+					to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
+					user.reagents.del_reagent("fuel")
+					cooldown = world.time + 300 //30 second cooldown
+				else
+					qdel(fire)
+					to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
+		else
+			to_chat(user, "<span class='warning'>You need to drink welding fuel first.</span>")
 
-/datum/action/innate/ignite/IsAvailable()
-	if(..())
-		return TRUE
-	return FALSE
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -136,22 +135,22 @@
 		fire.Remove(H)
 
 /datum/action/innate/ignite/ash_walker
-	desc = "Allows you to light a fire once every five minutes."
-	var/cooldown = 0
+	desc = "You form fire in your mouth, allowing you to.. light cigarettes."
 
 /datum/action/innate/ignite/ash_walker/Activate()
 	var/mob/living/carbon/human/user = owner
-	if(world.time > cooldown)
-		var/obj/item/match/unathi/fire = new(user.loc, src)
+	if(world.time < cooldown)
+		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
+		return
+	else
 		if((user.head && (user.head.flags_cover & HEADCOVERSMOUTH)) || (user.wear_mask && (user.wear_mask.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask.up))
-			qdel(fire)
 			to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
 		else
+			var/obj/item/match/unathi/fire = new(user.loc, src)
 			if(user.put_in_hands(fire))
-				cooldown = world.time + 3000
+				cooldown = world.time + 3000 //5 minute cooldown
 				to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
 			else
 				qdel(fire)
 				to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
-	else
-		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
+

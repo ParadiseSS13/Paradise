@@ -279,13 +279,14 @@
 		else
 			if(istype(src, /obj/item/match/unathi))
 				if(prob(80))
+					cig.light("<span class='rose'>[user] spits fire at [M], lighting [cig] and nearly burning [user.p_their()] face!</span>")
+					matchburnout()
+				else
 					cig.light("<span class='rose'>[user] spits fire at [M], burning [user.p_their()] face and lighting [cig] in the process.</span>")
 					var/obj/item/organ/external/head/affecting = M.get_organ("head")
-					affecting.receive_damage(3, 7)
+					affecting.receive_damage(0, 5)
 					M.UpdateDamageIcon()
-				else
-					cig.light("<span class='rose'>[user] spits fire at [M], lighting [cig] and nearly burning [user.p_their()] face!</span>")
-				matchburnout()
+
 			else
 				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
 			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
@@ -313,20 +314,19 @@
 	..()
 	matchignite()
 
-
 /obj/item/match/unathi
 	name = "small blaze"
 	desc = "A little flame of your own, currently located dangerously in your mouth."
 	icon_state = "match_unathi"
 	attack_verb = null
 	force = 0
-	flags = DROPDEL
+	flags = DROPDEL | ABSTRACT
 	origin_tech = null
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
 
-/obj/item/match/unathi/New()
-	..()
+/obj/item/match/unathi/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/match/unathi/matchburnout()
@@ -334,4 +334,7 @@
 		return
 	lit = FALSE //to avoid a qdel loop
 	qdel(src)
-	return TRUE
+
+/obj/item/match/unathi/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
