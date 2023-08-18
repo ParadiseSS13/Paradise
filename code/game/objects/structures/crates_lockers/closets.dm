@@ -6,7 +6,7 @@
 	density = TRUE
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 70, ACID = 60)
 	var/icon_closed
 	var/icon_opened
 	var/open_door_sprite = "generic_door"
@@ -133,7 +133,7 @@
 			break
 		if(isobserver(M))
 			continue
-		if(istype(M, /mob/living/simple_animal/bot/mulebot) || istype(M, /mob/camera))
+		if(istype(M, /mob/living/simple_animal/bot/mulebot) || iscameramob(M))
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue
@@ -255,6 +255,7 @@
 	if(user != O)
 		user.visible_message("<span class='danger'>[user] stuffs [O] into [src]!</span>", "<span class='danger'>You stuff [O] into [src]!</span>")
 	add_fingerprint(user)
+	return TRUE
 
 /obj/structure/closet/attack_ai(mob/user)
 	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
@@ -408,6 +409,7 @@
 	icon_state = "bluespace"
 	open_door_sprite = "bluespace_door"
 	storage_capacity = 60
+	pull_speed = 0
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 
 /obj/structure/closet/bluespace/CheckExit(atom/movable/AM)

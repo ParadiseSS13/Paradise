@@ -129,11 +129,6 @@
 /obj/item/shard,
 /turf/space,
 /area/space)
-"N" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "O" = (
 /obj/machinery/power/apc/worn_out{
 	pixel_y = -24
@@ -467,7 +462,7 @@ X
 v
 X
 v
-N
+v
 E
 E
 K

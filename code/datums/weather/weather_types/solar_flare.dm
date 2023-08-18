@@ -14,7 +14,7 @@
 
 	end_duration = 10 // wind_down() does not do anything for this event, so we just trigger end() semi-immediately
 	end_message = null
-	area_type = /area/space // read generate_area_list() as well below
+	area_type = /area // read generate_area_list() as well below
 	protected_areas = list(/area/shuttle/arrival/station)
 	target_trait = STATION_LEVEL
 	immunity_type = "burn"
@@ -39,12 +39,12 @@
 	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate) * 40
 
 /datum/weather/solar_flare/can_weather_act(mob/living/L)
-	. = ..()
-	if(.) //If true the mob is already affected, no need to keep processing
-		return TRUE
 	if(isanimal(L)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
 		return FALSE
 	if(isdrone(L)) //same with poor maint drones who just wanna have fun
+		return FALSE
+	. = ..()
+	if(!.) // If false the mob is not currently a valid target, no need to keep processing
 		return FALSE
 	for(var/turf/T in oview(get_turf(L)))
 		if(isspaceturf(T) || istransparentturf(T))

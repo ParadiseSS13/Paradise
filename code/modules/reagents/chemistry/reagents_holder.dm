@@ -295,7 +295,7 @@
  */
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
-		temperature_reagents(M.bodytemperature - 30)
+		temperature_reagents(M.bodytemperature)
 		M.absorb_blood()
 
 	for(var/datum/reagent/R as anything in addiction_threshold_accumulated)

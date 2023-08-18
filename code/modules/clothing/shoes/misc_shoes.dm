@@ -10,7 +10,7 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, BIO = 5, RAD = 0, FIRE = 115, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 0, FIRE = 115, ACID = 50)
 	strip_delay = 70
 	resistance_flags = NONE
 
@@ -18,7 +18,7 @@
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 35, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 50, BIO = 20, RAD = 20, FIRE = 450, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 20, FIRE = 450, ACID = 50)
 	flags = NOSLIP
 
 /obj/item/clothing/shoes/sandal
@@ -50,7 +50,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 35, ACID = 150)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 35, ACID = 150)
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -134,17 +134,17 @@
 		user.pass_flags = prev_flags
 
 /obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/living/user, action)
-    if(recharging_time > world.time)
-        to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
-        return
-    var/prev_dir = user.dir
-    var/old_pass = user.pass_flags
-    user.pass_flags |= (PASSMOB | PASSTABLE)
-    playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE, 1)
-    recharging_time = world.time + recharging_rate
-    user.lay_down()
-    for(var/crossed in 1 to slide_distance)
-        addtimer(CALLBACK(src, PROC_REF(slide_one), user, crossed, prev_dir, old_pass), crossed)
+	if(recharging_time > world.time)
+		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		return
+	var/prev_dir = user.dir
+	var/old_pass = user.pass_flags
+	user.pass_flags |= (PASSMOB | PASSTABLE)
+	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE, 1)
+	recharging_time = world.time + recharging_rate
+	user.lay_down()
+	for(var/crossed in 1 to slide_distance)
+		addtimer(CALLBACK(src, PROC_REF(slide_one), user, crossed, prev_dir, old_pass), crossed)
 
 
 /obj/item/clothing/shoes/clown_shoes/slippers/toggle_waddle(mob/living/user)
@@ -351,7 +351,7 @@
 	name = "lizard skin boots"
 	desc = "You can hear a faint hissing from inside the boots; you hope it is just a mournful ghost."
 	icon_state = "lizardboots_green"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 35, ACID = 0) //lizards like to stay warm
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 35, ACID = 0) //lizards like to stay warm
 
 /obj/item/clothing/shoes/cowboy/lizardmasterwork
 	name = "\improper Hugs-The-Feet lizard skin boots"

@@ -22,6 +22,7 @@
 	user.SetWeakened(0)
 	user.setStaminaLoss(0)
 	user.SetKnockDown(0)
+	user.stand_up(TRUE)
 	SEND_SIGNAL(user, COMSIG_LIVING_CLEAR_STUNS)
 	user.reagents.add_reagent("synaptizine", 15)
 	user.reagents.add_reagent("stimulative_cling", 1)

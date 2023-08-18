@@ -426,6 +426,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "sheet-abductor"
 	item_state = "sheet-abductor"
+	dynamic_icon_state = FALSE
 	singular_name = "alien alloy sheet"
 	force = 5
 	throwforce = 5

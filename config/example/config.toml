@@ -19,7 +19,6 @@
 # - discord_configuration
 # - event_configuration
 # - gamemode_configuration
-# - gateway_configuration
 # - general_configuration
 # - ipintel_configuration
 # - job_configuration
@@ -145,7 +144,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 48
+sql_version = 49
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -254,24 +253,6 @@ disable_certain_round_early_end = false
 traitor_objective_amount = 2
 # Enable player limits on gamemodes. Disable if testing
 enable_gamemode_player_limit = true
-
-
-################################################################
-
-
-[gateway_configuration]
-# This section contains everything relating to the ingame gateway (away mission) system.
-
-# Do we want to enable this at all? Disable for faster load times in testing
-enable_away_mission = false
-# Delay (in deciseconds) before the gateway is usable
-away_mission_delay = 0
-# List of all enabled away missions. Comment out an entry to disable it.
-enabled_away_missions = [
-	"_maps/map_files/RandomZLevels/beach.dmm",
-	#"_maps/map_files/RandomZLevels/evil_santa.dmm",			# Special christmas mission. Enable for festivities
-	#"_maps/map_files/RandomZLevels/example.dmm",				# Example file. Do not enable.
-]
 
 
 ################################################################
@@ -428,7 +409,7 @@ job_slot_amounts = [
 	{name = "Research Director", lowpop = 1, highpop = 1},
 	{name = "Chief Medical Officer", lowpop = 1, highpop = 1},
 	# Engineering
-	{name = "Atmospheric Technician", lowpop = 3, highpop = 4},
+	{name = "Life Support Specialist", lowpop = 3, highpop = 4},
 	{name = "Station Engineer", lowpop = 5, highpop = 6},
 	# Medical
 	{name = "Chemist", lowpop = 2, highpop = 2},
@@ -436,19 +417,19 @@ job_slot_amounts = [
 	{name = "Medical Doctor", lowpop = 5, highpop = 6},
 	{name = "Virologist", lowpop = 1, highpop = 1},
 	# Science
-	{name = "Robotocist", lowpop = 2, highpop = 2},
+	{name = "Roboticist", lowpop = 2, highpop = 2},
 	{name = "Scientist", lowpop = 6, highpop = 7},
 	# Security
 	{name = "Detective", lowpop = 1, highpop = 1},
 	{name = "Security Officer", lowpop = 8, highpop = 9},
 	{name = "Warden", lowpop = 1, highpop = 1},
+	{name = "Internal Affairs Agent", lowpop = 2, highpop = 2},
 	# Service
 	{name = "Bartender", lowpop = 1, highpop = 1},
 	{name = "Botanist", lowpop = 2, highpop = 2},
 	{name = "Chaplain", lowpop = 1, highpop = 1},
 	{name = "Chef", lowpop = 1, highpop = 1},
 	{name = "Janitor", lowpop = 1, highpop = 2},
-	{name = "Lawyer", lowpop = 2, highpop = 2},
 	{name = "Librarian", lowpop = 1, highpop = 1},
 	# Cargo/Supply
 	{name = "Quartermaster", lowpop = 1, highpop = 1},
@@ -639,6 +620,8 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/onehalf.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",

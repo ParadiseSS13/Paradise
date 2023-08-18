@@ -10,7 +10,7 @@
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	level = 3
-	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
 	integrity_failure = 20
 	var/rods_type = /obj/item/stack/rods
@@ -78,10 +78,18 @@
 		shock(user, 70)
 		shockcooldown = world.time + my_shockcooldown
 
-/obj/structure/grille/attack_animal(mob/user)
+/obj/structure/grille/attack_animal(mob/living/simple_animal/user)
 	. = ..()
-	if(. && !QDELETED(src) && !shock(user, 70))
-		take_damage(rand(5,10), BRUTE, MELEE, 1)
+	if(!. || QDELETED(src) || shock(user, 70))
+		return
+
+	if(user.environment_smash >= ENVIRONMENT_SMASH_STRUCTURES)
+		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
+		obj_break()
+		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
+		return
+
+	take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/hulk_damage()
 	return 60
@@ -110,15 +118,13 @@
 		take_damage(20, BRUTE, MELEE, 1)
 
 /obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
+	. = !density
 	if(height==0)
-		return 1
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
-		return 1
-	else
-		if(istype(mover, /obj/item/projectile))
-			return prob(30)
-		else
-			return !density
+		return TRUE
+	if(istype(mover, /obj/item/projectile))
+		return (prob(30) || !density)
 
 /obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density

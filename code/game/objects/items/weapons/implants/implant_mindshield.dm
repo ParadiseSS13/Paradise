@@ -6,6 +6,13 @@
 	implant_data = /datum/implant_fluff/mindshield
 	implant_state = "implant-nanotrasen"
 
+/obj/item/implant/mindshield/can_implant(mob/source, mob/user)
+	if(source.mind in SSticker.mode.head_revolutionaries)
+		source.visible_message("<span class='biggerdanger'>[source] seems to resist [src]!</span>",
+								"<span class='warning'>You feel something interfering with your mental conditioning, but you resist it!</span>")
+		return FALSE
+	return ..()
+
 /obj/item/implant/mindshield/implant(mob/target)
 	if(!..())
 		return FALSE

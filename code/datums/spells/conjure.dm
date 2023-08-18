@@ -21,6 +21,7 @@
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/conjure/cast(list/targets,mob/living/user = usr)
+	var/list/what_conjure_summoned = list()
 	playsound(get_turf(user), cast_sound, 50,1)
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
@@ -41,6 +42,7 @@
 				O.ChangeTurf(N)
 			else
 				var/atom/summoned_object = new summoned_object_type(spawn_place)
+				what_conjure_summoned += summoned_object
 
 				for(var/varName in newVars)
 					if(varName in summoned_object.vars)
@@ -53,7 +55,7 @@
 		cooldown_handler.start_recharge(0.5 SECONDS)
 
 
-	return
+	return what_conjure_summoned
 
 /obj/effect/proc_holder/spell/aoe/conjure/summonEdSwarm //test purposes
 	name = "Dispense Wizard Justice"

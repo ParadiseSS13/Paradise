@@ -26,7 +26,7 @@
 	display_name = "Sleek veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built security HUD."
 	path = /obj/item/clothing/glasses/hud/security/tajblind
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent", "Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent", "Magistrate", "Detective")
 	cost = 2
 
 /datum/gear/racial/taj/med

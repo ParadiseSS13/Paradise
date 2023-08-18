@@ -6,7 +6,7 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
-	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	var/obj/item/holosign_creator/projector
 
 /obj/structure/holosign/Initialize(mapload, source_projector)
@@ -62,9 +62,9 @@
 		return TRUE
 	if(mover.pass_flags & (PASSGLASS|PASSTABLE|PASSGRILLE))
 		return TRUE
-	if(iscarbon(mover))
-		var/mob/living/carbon/C = mover
-		if(allow_walk && (C.m_intent == MOVE_INTENT_WALK || (C.pulledby && C.pulledby.m_intent == MOVE_INTENT_WALK)))
+	if(isliving(mover))
+		var/mob/living/walker = mover
+		if(allow_walk && (walker.m_intent == MOVE_INTENT_WALK || (walker.pulledby && walker.pulledby.m_intent == MOVE_INTENT_WALK)))
 			return TRUE
 
 /obj/structure/holosign/barrier/engineering

@@ -46,12 +46,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.category = "Discounted Gear"
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
 		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
+		A.species = null //same as above for species speific items
 		A.reference = "DIS[newreference]"
 		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
 		A.surplus = 0 // stops the surplus crate potentially giving out a bit too much
 		A.item = I.item
 		newreference++
-
 		if(!uplink_items[A.category])
 			uplink_items[A.category] = list()
 
@@ -74,6 +74,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/uplinktypes = list() // Empty list means it is in all the uplink types. Otherwise place the uplink type here.
 	var/list/excludefrom = list() // Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
 	var/list/job = null
+	/// This makes an item on the uplink only show up to the specified species
+	var/list/species = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/cant_discount = FALSE
 	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
@@ -163,10 +165,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Highly Visible and Dangerous Weapons"
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol"
+	name = "FK-69 Pistol Kit"
 	reference = "SPI"
-	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
-	item = /obj/item/gun/projectile/automatic/pistol
+	desc = "A box containing a small, easily concealable handgun and two eight-round magazines chambered in 10mm auto rounds. Compatible with suppressors."
+	item = /obj/item/storage/box/syndie_kit/stechkin
 	cost = 4
 
 /datum/uplink_item/dangerous/revolver
@@ -179,7 +181,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/rapid
 	name = "Gloves of the North Star"
-	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed."
+	desc = "These gloves let the user help, shove, grab, and punch people very fast. Does not improve weapon attack speed. Can be combined with martial arts for a deadly weapon."
 	reference = "RPGD"
 	item = /obj/item/clothing/gloves/fingerless/rapid
 	cost = 8
@@ -199,7 +201,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
 	reference = "PF"
 	item = /obj/item/melee/powerfist
-	cost = 8
+	cost = 10
 
 /datum/uplink_item/dangerous/chainsaw
 	name = "Chainsaw"
@@ -208,6 +210,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/twohanded/chainsaw
 	cost = 13
 
+/datum/uplink_item/dangerous/universal_gun_kit
+	name = "Universal Self Assembling Gun Kit"
+	desc = "A universal gun kit, that can be combined with any weapon kit to make a functioning RND gun of your own. Uses built in allen keys to self assemble, just combine the kits by hitting them together."
+	reference = "IKEA"
+	item = /obj/item/weaponcrafting/gunkit/universal_gun_kit
+	cost = 8
+
+/datum/uplink_item/dangerous/batterer
+	name = "Mind Batterer"
+	desc = "A dangerous syndicate device focused on crowd control and escapes. Causes brain damage, confusion, and other nasty effects to those surrounding the user. Has 5 charges."
+	reference = "BTR"
+	item = /obj/item/batterer
+	cost = 5
 
 // Ammunition
 
@@ -317,7 +332,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A syndicate rapid syringe gun able to fill and fire syringes automatically from an internal reagent reservoir. Comes pre-loaded with 7 empty syringes, and has a maximum capacity of 14 syringes and 300u of reagents."
 	reference = "RSG"
 	item = /obj/item/gun/syringe/rapidsyringe/preloaded/half
-	cost = 8
+	cost = 12
 
 /datum/uplink_item/stealthy_weapons/poisonbottle
 	name = "Poison Bottle"
@@ -338,7 +353,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Dehydrated Space Carp"
 	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
-	item = /obj/item/toy/carpplushie/dehy_carp
+	item = /obj/item/toy/plushie/carpplushie/dehy_carp
 	cost = 1
 
 
@@ -361,13 +376,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/c4
 	cost = 4
 
-
 /datum/uplink_item/explosives/syndicate_minibomb
 	name = "Syndicate Minibomb"
 	desc = "The minibomb is a grenade with a five-second fuse."
 	reference = "SMB"
 	item = /obj/item/grenade/syndieminibomb
 	cost = 6
+
+/datum/uplink_item/explosives/frag_grenade
+	name = "Fragmentation Grenade"
+	desc = "A frag grenade. Upon detonation, releases shrapnel that can embed in nearby victims."
+	reference = "FG"
+	item = /obj/item/grenade/frag
+	cost = 2
+
+/datum/uplink_item/explosives/frag_grenade_pack
+	name = "Pack of 5 Fragmentation Grenades"
+	desc = "A box of 5 frag grenades. Upon detonation, releases shrapnel that can embed in nearby victims. And it seems you'll have a LOT of victims."
+	reference = "FGP"
+	item = /obj/item/storage/box/syndie_kit/frag_grenades
+	cost = 8
 
 /datum/uplink_item/explosives/pizza_bomb
 	name = "Pizza Bomb"
@@ -440,7 +468,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Projects an image across a user, disguising them as an object scanned with it, as long as they don't move the projector from their hand. The disguised user cannot run and projectiles pass over them."
 	reference = "CP"
 	item = /obj/item/chameleon
-	cost = 7
+	cost = 5
 
 /datum/uplink_item/stealthy_tools/chameleon_counter
 	name = "Chameleon Counterfeiter"
@@ -451,9 +479,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
-	desc = "Enables you to view all cameras on the network to track a target."
+	desc = "Enables you to view all cameras on the network to track a target. Also has 5 sticky hidden cameras, allowing you remote view of any object you can stick a camera on."
 	reference = "CB"
-	item = /obj/item/camera_bug
+	item = /obj/item/storage/box/syndie_kit/camera_bug
 	cost = 1
 	surplus = 90
 
@@ -536,14 +564,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
 	reference = "NCAI"
 	item = /obj/item/storage/box/syndie_kit/bonerepair
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/device_tools/syndicate_teleporter
 	name = "Experimental Syndicate Teleporter"
 	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
 			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
 			but if that emergency teleport fails, it will kill you. \
-			Has 4 charges, recharges, warranty voided if exposed to EMP."
+			Has 4 charges, recharges, warranty voided if exposed to EMP. \
+			Comes with free chameleon mesons, to help you stay stylish while seeing through walls."
 	reference = "TELE"
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 8
@@ -599,7 +628,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools/singularity_beacon
 	name = "Power Beacon"
 	desc = "When screwed to wiring attached to an electric grid and activated, this large device pulls any \
-			active gravitational singularities or tesla balls towards it. This will not work when the engine is still \
+			active gravitational singularities. This will not work when the engine is still \
 			in containment. Because of its size, it cannot be carried. Ordering this \
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
@@ -643,6 +672,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/implanter/freedom
 	cost = 5
 
+/datum/uplink_item/implants/protofreedom
+	name = "Prototype Freedom Bio-chip"
+	desc = "A prototype bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can only be activated a singular time."
+	reference = "PFI"
+	item = /obj/item/implanter/freedom/prototype
+	cost = 2
+
 /datum/uplink_item/implants/storage
 	name = "Storage Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
@@ -662,6 +698,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "AI"
 	item = /obj/item/implanter/adrenalin
+	cost = 8
+
+/datum/uplink_item/implants/stealthimplant
+	name = "Stealth Bio-chip"
+	desc = "This one-of-a-kind implant will make you almost invisible if you play your cards right. \
+			On activation, it will conceal you inside a chameleon cardboard box that is only revealed once someone bumps into it."
+	reference = "SI"
+	item = /obj/item/implanter/stealth
 	cost = 8
 
 // POINTLESS BADASSERY

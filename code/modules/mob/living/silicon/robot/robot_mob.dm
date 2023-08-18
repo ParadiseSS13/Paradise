@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
 	var/lamp_recharging = FALSE //Flag for if the lamp is on cooldown after being forcibly disabled.
 
- 	/// When the camera moved signal was send last. Avoid overdoing it
+	/// When the camera moved signal was send last. Avoid overdoing it
 	var/last_camera_update
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)

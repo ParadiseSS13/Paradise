@@ -37,7 +37,7 @@
 
 /obj/machinery/particle_accelerator/control_box/attack_hand(mob/user as mob)
 	if(construction_state >= 3)
-		interact(user)
+		ui_interact(user)
 	else if(construction_state == 2) // Wires exposed
 		wires.Interact(user)
 
@@ -83,38 +83,6 @@
 					icon_state = "[reference]w"
 				else
 					icon_state = "[reference]c"
-
-/obj/machinery/particle_accelerator/control_box/Topic(href, href_list)
-	if(..(href, href_list))
-		return 1
-
-	if(!interface_control)
-		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
-		return
-
-	if(href_list["close"])
-		usr << browse(null, "window=pacontrol")
-		usr.unset_machine()
-		return
-	if(href_list["togglep"])
-		if(!wires.is_cut(WIRE_PARTICLE_POWER))
-			toggle_power()
-
-	else if(href_list["scan"])
-		part_scan()
-
-	else if(href_list["strengthup"])
-		if(!wires.is_cut(WIRE_PARTICLE_STRENGTH))
-			add_strength()
-
-	else if(href_list["strengthdown"])
-		if(!wires.is_cut(WIRE_PARTICLE_STRENGTH))
-			remove_strength()
-
-	updateDialog()
-	update_icon()
-	return
-
 
 /obj/machinery/particle_accelerator/control_box/proc/strength_change()
 	for(var/obj/structure/particle_accelerator/part in connected_parts)
@@ -213,7 +181,6 @@
 		assembled = 0
 		return 0
 
-
 /obj/machinery/particle_accelerator/control_box/proc/check_part(turf/T, type)
 	if(!(T)||!(type))
 		return 0
@@ -224,7 +191,6 @@
 				connected_parts.Add(PA)
 				return 1
 	return 0
-
 
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
@@ -247,36 +213,47 @@
 			part.update_icon()
 	return 1
 
+/obj/machinery/particle_accelerator/control_box/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "ParticleAccelerator", name, 350, 160, master_ui, state)
+		ui.open()
 
-/obj/machinery/particle_accelerator/control_box/interact(mob/user)
-	if(((get_dist(src, user) > 1) && !isobserver(user)) || (stat & (BROKEN|NOPOWER)))
-		if(!issilicon(user))
-			user.unset_machine()
-			user << browse(null, "window=pacontrol")
-			return
-	user.set_machine(src)
+/obj/machinery/particle_accelerator/control_box/ui_data(mob/user)
+	var/list/data = list()
+	data["assembled"] = assembled
+	data["power"] = active
+	data["strength"] = strength
+	data["max_strength"] = strength_upper_limit
+	return data
 
-	var/dat = ""
-	dat += "<A href='?src=[UID()];close=1'>Close</A><BR><BR>"
-	dat += "<h3>Status</h3>"
-	if(!assembled)
-		dat += "Unable to detect all parts!<BR>"
-		dat += "<A href='?src=[UID()];scan=1'>Run Scan</A><BR><BR>"
-	else
-		dat += "All parts in place.<BR><BR>"
-		dat += "Power:"
-		if(active)
-			dat += "On<BR>"
-		else
-			dat += "Off <BR>"
-		dat += "<A href='?src=[UID()];togglep=1'>Toggle Power</A><BR><BR>"
-		dat += "Particle Strength: [strength] "
-		dat += "<A href='?src=[UID()];strengthdown=1'>--</A>|<A href='?src=[UID()];strengthup=1'>++</A><BR><BR>"
+/obj/machinery/particle_accelerator/control_box/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
 
-	//user << browse(dat, "window=pacontrol;size=420x500")
-	//onclose(user, "pacontrol")
-	var/datum/browser/popup = new(user, "pacontrol", name, 420, 500)
-	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
-	popup.open()
-	return
+	if(!interface_control)
+		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
+		return
+
+	switch(action)
+		if("power")
+			if(wires.is_cut(WIRE_PARTICLE_POWER))
+				return
+			toggle_power()
+			. = TRUE
+		if("scan")
+			part_scan()
+			. = TRUE
+		if("add_strength")
+			if(wires.is_cut(WIRE_PARTICLE_STRENGTH))
+				return
+			add_strength()
+			. = TRUE
+		if("remove_strength")
+			if(wires.is_cut(WIRE_PARTICLE_STRENGTH))
+				return
+			remove_strength()
+			. = TRUE
+
+	if(.)
+		update_icon()

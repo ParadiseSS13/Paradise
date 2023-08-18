@@ -175,20 +175,35 @@
 	var/reagent_after_burning = "ash"
 
 /datum/reagent/oil/reaction_temperature(exposed_temperature, exposed_volume)
-	if(exposed_temperature > T0C + 600)
-		var/turf/T = get_turf(holder.my_atom)
-		holder.my_atom.visible_message("<b>The oil burns!</b>")
-		var/datum/reagents/old_holder = holder
-		fire_flash_log(holder, id)
-		if(holder)
-			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+	if(exposed_temperature <= T0C + 600)
+		return
 
-		fireflash(T, min(max(0, volume / 40), 8))
-		var/datum/effect_system/smoke_spread/bad/BS = new
-		BS.set_up(1, FALSE, T)
-		BS.start()
-		if(!QDELETED(old_holder) && reagent_after_burning)
-			old_holder.add_reagent(reagent_after_burning, round(volume * 0.5))
+	var/violent = volume > 30
+	var/message_type = violent ? "class='boldwarning'" : "class='warning'"
+	holder.my_atom.visible_message("<span [message_type]>The oil [violent ? "boils and burns violently" : "burns"]!</span>")
+
+	var/datum/reagents/old_holder = holder
+	var/turf/T = get_turf(holder.my_atom)
+	var/smoke_type = /datum/effect_system/smoke_spread
+
+	if(violent)
+		// Log -> remove reagent -> fireflash. Else the log fails or fireflash triggers a reaction again
+		fire_flash_log(holder, id)
+		holder.del_reagent(id)
+		fireflash(T, clamp(volume / 40, 0, 8))
+
+		smoke_type = /datum/effect_system/smoke_spread/bad
+	else
+		holder.del_reagent(id)
+
+	// Flavor reaction effects
+	playsound(T, 'sound/goonstation/misc/drinkfizz.ogg', 80, TRUE)
+	var/datum/effect_system/smoke_spread/BS = new smoke_type
+	BS.set_up(1, FALSE, T)
+	BS.start()
+
+	if(!QDELETED(old_holder) && reagent_after_burning)
+		old_holder.add_reagent(reagent_after_burning, round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !(locate(/obj/effect/decal/cleanable/blood/oil) in T))
@@ -469,7 +484,7 @@
 	if(M.mind.assigned_role == "Clown")
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
-		M.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
+		M.AdjustDizzy(20 SECONDS, 0, 100 SECONDS)
 		M.Druggy(30 SECONDS)
 		if(prob(10))
 			M.EyeBlurry(10 SECONDS)

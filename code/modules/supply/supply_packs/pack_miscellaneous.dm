@@ -261,6 +261,7 @@
 					/obj/item/clothing/glasses/sunglasses)
 	cost = 450
 	containername = "sunglasses crate"
+
 /datum/supply_packs/misc/randomised
 	var/num_contained = 3 //number of items picked to be contained in a randomised crate
 	contains = list(/obj/item/clothing/head/collectable/chef,
@@ -292,6 +293,11 @@
 	manifest += "Contains any [num_contained] of:"
 	..()
 
+/datum/supply_packs/misc/randomised/plushie
+	name = "Collectable Plushies Crate"
+	cost = 1000
+	containername = "collectable plushies crate! Brought to you by Bass.inc!"
+	contains = list(/obj/random/plushie, /obj/random/plushie, /obj/random/plushie/explosive)
 
 /datum/supply_packs/misc/foamforce
 	name = "Foam Force Crate"
@@ -328,7 +334,7 @@
 					/obj/item/instrument/recorder,
 					/obj/item/instrument/harmonica,
 					/obj/item/instrument/xylophone,
-					/obj/structure/piano)
+					/obj/structure/musician/piano)
 	cost = 500
 	containername = "big band musical instruments collection"
 
@@ -350,6 +356,12 @@
 	cost = 200
 	containername = "flags crate"
 	contraband = TRUE
+
+/datum/supply_packs/misc/pimpcoat
+	name = "Very Expensive Coat for Rich People"
+	contains = list(/obj/item/clothing/suit/pimpcoat)
+	cost = 1000
+	containername = "expensive coat crate"
 
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Formal Wear Crate"
@@ -444,7 +456,9 @@
 	cost = 50
 	contains = list(/obj/item/vending_refill/bardrobe,
 					/obj/item/vending_refill/chefdrobe,
-					/obj/item/vending_refill/hydrodrobe)
+					/obj/item/vending_refill/hydrodrobe,
+					/obj/item/vending_refill/janidrobe,
+					/obj/item/vending_refill/lawdrobe)
 	containername = "service clothing vendor crate"
 
 /datum/supply_packs/misc/vending/clothingvendor/cargo

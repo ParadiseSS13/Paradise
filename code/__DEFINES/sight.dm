@@ -5,6 +5,8 @@
 
 #define INVISIBILITY_LIGHTING 20
 
+#define SEE_INVISIBLE_LIVING_AI 24
+
 #define SEE_INVISIBLE_LIVING 25
 
 // Hidden cult runes

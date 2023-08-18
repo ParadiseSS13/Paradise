@@ -187,8 +187,6 @@
 		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
-	mode = MODE_OFF
-	icon_state = icon_off
 	target = null
 	location = null
 
@@ -209,12 +207,11 @@
 
 			to_chat(usr, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
 
-
-			return attack_self(usr)
+			toggle_on()
 
 		if("Disk Recovery")
 			setting = SETTING_DISK
-			return attack_self(usr)
+			toggle_on()
 
 		if("Other Signature")
 			setting = SETTING_OBJECT
@@ -231,16 +228,34 @@
 					if(!targetitem)
 						return
 
+					var/priority
+					var/backup
 					var/list/target_candidates = get_all_of_type(item_paths[targetitem], subtypes = TRUE)
 					for(var/obj/item/candidate in target_candidates)
-						if(!is_admin_level((get_turf(candidate)).z))
-							target = candidate
-							break
+						var/cand_z = (get_turf(candidate)).z
+						if(is_admin_level(cand_z))
+							continue
+						if(usr.z != cand_z)
+							if(!backup)
+								backup = candidate
+							continue
+						// no candidate set yet, or check if there is a closer one
+						if(!priority || (get_dist(usr, candidate) < get_dist(usr, priority)))
+							priority = candidate
+
+					if(priority)
+						target = priority
+					else
+						target = backup
+						if(target)
+							to_chat(usr, "<span class='notice'>Unable to find [targetitem] in this sector, falling back to off-sector tracking.</span>")
 
 					if(!target)
 						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
 						return
+
 					to_chat(usr, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
+
 				if("DNA")
 					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
 					if(!DNAstring)
@@ -252,7 +267,12 @@
 							target = C
 							break
 
-			return attack_self(usr)
+			toggle_on()
+
+/obj/item/pinpointer/advpinpointer/proc/toggle_on()
+	if(mode == MODE_OFF)
+		cur_index = 1
+		cycle(usr)
 
 ///////////////////////
 //nuke op pinpointers//
@@ -322,13 +342,19 @@
 		icon_state = icon_off
 
 /obj/item/pinpointer/operative/proc/scan_for_ops()
-	if(mode == MODE_OPERATIVE)
-		nearest_op = null //Resets nearest_op every time it scans
-		var/closest_distance = 1000
-		for(var/mob/living/carbon/M in GLOB.mob_list)
-			if(M.mind && (M.mind in SSticker.mode.syndicates))
-				if(get_dist(M, get_turf(src)) < closest_distance) //Actually points toward the nearest op, instead of a random one like it used to
-					nearest_op = M
+	if(mode != MODE_OPERATIVE)
+		return
+	nearest_op = null //Resets nearest_op every time it scans
+
+	var/closest_distance = 1000
+	for(var/datum/mind/Mind in SSticker.mode.syndicates)
+		var/mob/M = Mind.current
+		if(!ishuman(M))
+			continue
+		var/current_dist = get_dist(M, get_turf(src))
+		if(current_dist < closest_distance)
+			nearest_op = M
+			closest_distance = current_dist
 
 /obj/item/pinpointer/operative/proc/workop()
 	if(mode == MODE_OPERATIVE)

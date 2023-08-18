@@ -41,7 +41,7 @@
 
 /obj/structure/closet/secure_closet/medical3
 	name = "medical doctor's locker"
-	req_access = list(ACCESS_SURGERY)
+	req_access = list(ACCESS_MEDICAL)
 	icon_state = "med_secure"
 	open_door_sprite = "white_secure_door"
 
@@ -104,11 +104,19 @@
 	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
 	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
 	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
+	new /obj/item/reagent_containers/food/pill/happy_psych(src)
+	new /obj/item/reagent_containers/food/pill/happy_psych(src)
+	new /obj/item/reagent_containers/food/pill/happy_psych(src)
 	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
 	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
 	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
 	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
 	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
@@ -117,6 +125,7 @@
 	open_door_sprite = "white_secure_door"
 
 /obj/structure/closet/secure_closet/psychiatrist/populate_contents()
+	new /obj/item/storage/bag/garment/psychologist(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/reagent_containers/syringe(src)
 	new /obj/item/reagent_containers/glass/bottle/ether(src)
@@ -149,6 +158,7 @@
 	new /obj/item/defibrillator/compact/advanced/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/belt/medical(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/flash(src)
 	new /obj/item/gun/syringe(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)
@@ -200,6 +210,11 @@
 	new /obj/item/key/ambulance(src)
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/storage/belt/medical(src)
+	new /obj/item/storage/firstaid/adv(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
+	new /obj/item/storage/toolbox/emergency(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"

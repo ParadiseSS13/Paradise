@@ -66,7 +66,7 @@
 	name = "Holo Strecher"
 	desc = "A hardlight projector for transporting patients."
 	id = "holo_stretcher"
-	req_tech = list("magnets" = 6, "powerstorage" = 4)
+	req_tech = list("magnets" = 5, "powerstorage" = 4)
 	build_path = /obj/item/roller/holo
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)

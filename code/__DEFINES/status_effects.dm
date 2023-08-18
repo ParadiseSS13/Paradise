@@ -54,6 +54,10 @@
 
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
+#define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback // Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
+
+#define STATUS_EFFECT_REVOLUTION_PROTECT /datum/status_effect/rev_protection
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -94,6 +98,8 @@
 
 #define STATUS_EFFECT_CLINGTENTACLE /datum/status_effect/cling_tentacle //Imobilises target for 3 seconds
 
+#define STATUS_EFFECT_CRYO_BEAM /datum/status_effect/cryo_beam //Chills target, freezes reagents in their blood, breaks if sight is lost.
+
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
 //#define CURSE_SPAWNING	2 //spawns creatures that attack the target only
@@ -127,6 +133,7 @@
 #define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
 #define STATUS_EFFECT_SILENCED /datum/status_effect/transient/silence
 #define STATUS_EFFECT_ABSSILENCED /datum/status_effect/transient/silence/absolute
+#define STATUS_EFFECT_NO_OXY_HEAL /datum/status_effect/transient/no_oxy_heal
 #define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
 #define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
 #define STATUS_EFFECT_STAMMER /datum/status_effect/transient/stammering
@@ -136,6 +143,7 @@
 #define STATUS_EFFECT_BLURRY_EYES /datum/status_effect/transient/eye_blurry
 #define STATUS_EFFECT_BLINDED /datum/status_effect/transient/blindness
 #define STATUS_EFFECT_DRUGGED /datum/status_effect/transient/drugged
+#define STATUS_EFFECT_DEAF /datum/status_effect/transient/deaf
 
 /////////////
 // NEUTRAL //
@@ -163,3 +171,10 @@
 #define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
 /// This status effect lets the user see the lwap dots.
 #define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope
+
+//////////////////////////
+// Mind batter variants //
+//////////////////////////
+// Basically variants with differing effect times to their parent datums, nothing special
+
+#define STATUS_EFFECT_PACIFIED_BATTERER /datum/status_effect/pacifism/batterer

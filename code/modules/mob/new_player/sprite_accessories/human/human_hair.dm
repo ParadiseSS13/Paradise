@@ -631,6 +631,7 @@
 	icon_state = "emo2"
 	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin")
 
+
 /datum/sprite_accessory/hair/rows2
 	name = "Rows 2"
 	icon_state = "rows2"

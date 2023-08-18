@@ -229,7 +229,6 @@
 #define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
 #define isskrell(A) (is_species(A, /datum/species/skrell))
 #define isvox(A) (is_species(A, /datum/species/vox))
-#define isvoxarmalis(A) (is_species(A, /datum/species/vox/armalis))
 #define iskidan(A) (is_species(A, /datum/species/kidan))
 #define isslimeperson(A) (is_species(A, /datum/species/slime))
 #define isgrey(A) (is_species(A, /datum/species/grey))
@@ -251,6 +250,7 @@
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
 #define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))
 #define isgorilla(A) 		(istype((A), /mob/living/simple_animal/hostile/gorilla))
+#define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -268,6 +268,7 @@
 
 #define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
 
+#define iscameramob(A)	(istype((A), /mob/camera))
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 

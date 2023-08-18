@@ -173,7 +173,7 @@
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
 	M.AdjustKnockDown(-4 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-25, FALSE)
+	update_flags |= M.adjustStaminaLoss(-40, FALSE)
 	if(prob(15))
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
@@ -181,7 +181,7 @@
 	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>You feel warm.</span>") // fever, gets worse with volume
 		M.bodytemperature += 30 * recent_consumption
-		M.Confused(2 SECONDS * recent_consumption)
+		M.Confused(1 SECONDS * recent_consumption) //let us see how this feels
 
 	if(prob(4))
 		to_chat(M, "<span class='notice'>You feel kinda awful!</span>")
@@ -246,7 +246,7 @@
 
 /datum/reagent/pump_up/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(-15) // two cycles to get out of stam crit ~4 seconds
+	update_flags |= M.adjustStaminaLoss(-21) // one cycle to get out of stam crit ~2 second
 	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
@@ -377,7 +377,7 @@
 	if(prob(5))
 		M.emote(pick("twitch_s","blink_r","shiver"))
 	M.AdjustJitter(10 SECONDS, bound_upper = 100 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-40, FALSE)
+	update_flags |= M.adjustStaminaLoss(-30, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
 	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
@@ -556,7 +556,7 @@
 	addiction_threshold = 5
 	addiction_decay_rate = 0.2
 	/// how much do we edit the stun and stamina mods? lower is more resistance
-	var/tenacity = 0.7
+	var/tenacity = 0.5
 
 /datum/reagent/aranesp/on_mob_add(mob/living/L)
 	if(ishuman(L))
@@ -568,11 +568,12 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	var/recent_consumption = holder.addiction_threshold_accumulated[type]
 
-	// small amount of stam regen, meaning that if you can buy time between hits
-	// you can take 6 disabler shots (30 base * 0.7 stam mod = 21 stam damage each, 5 shots to 105 which is stamina crit. but you can heal 6 in 3 cycles) before going down
+	// So. Before this let you take 5 shots before going down. Nice and all, but you needed to combine this with another antistun drug to be benefical, which means you need 2 downsides. It was not pratical, or used
+	// you can take 7 disabler shots (30 base * 0.5 stam mod = 15 stam damage each, 7 shots to 105 which is stamina crit. but you can heal 6 in 3 cycles) before going down.
+	// Strong combined with another drug, but frankly I could do meth crank hydro for a better mix. Will be interesting with batons?
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
 	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
-		update_flags |= M.adjustToxLoss(4, FALSE)
+		update_flags |= M.adjustToxLoss(4, FALSE) //This does toxin damage. This kills any chem mixes, which could be considered a good thing, but it is a drug that MUST be combined with other drugs. I want to turn this down, but someone will just iv drip a certian bar drink
 	if(prob(5))
 		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
 	if(prob(8))
@@ -588,6 +589,68 @@
 		H.vomit(blood = TRUE, stun = FALSE) // just a visual, very gritty. don't do drugs kids
 		H.LoseBreath(10 SECONDS) // procs 5 times, mostly a visual thing. damage could stack to cause a slowdown.
 		H.Confused(10 SECONDS)
+
+/datum/reagent/happiness
+	name = "Happiness"
+	id = "happiness"
+	description = "Fills you with ecstasic numbness and causes minor brain damage. If overdosed, causes sudden mood swings and spikes in heart rate."
+	reagent_state = LIQUID
+	color = "#f2ff00"
+	overdose_threshold = 20
+	taste_description = "paint thinner"
+	shock_reduction = 20
+	allowed_overdose_process = TRUE
+	addiction_chance = 2 // fairly rare, but funny
+	addiction_chance_additional = 20
+	addiction_threshold = 20
+	minor_addiction = TRUE
+
+/datum/reagent/happiness/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(15))
+		M.emote(pick("laugh", "giggle", "smile", "grin"))
+	else if(prob(10))
+		to_chat(M, "<span class='notice'>You feel [pick("great", "good", "amazing", "really nice", "magical")]!</span>")
+	else if(prob(1))
+		M.say("hehehe") // you WILL hehehe
+
+	if(prob(50))
+		M.AdjustConfused(-10 SECONDS) // same as degreaser
+		M.AdjustJitter(-10 SECONDS)
+	update_flags |= M.adjustBrainLoss(0.2, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/happiness/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+
+	if(prob(15))
+		M.emote(pick("cry", "frown", "sulk", "gurgle"))
+	else if(prob(10))
+		to_chat(M, "<span class='warning'>You feel [pick("like shit", "terrible", "weak", "like a rhumba beat", "hollow")]!</span>")
+	update_flags |= M.adjustBrainLoss(0.2, FALSE)
+	if(!prob(10 * (severity ** 2))) // 1 - 10, 2 - 40
+		return list(effect, update_flags)
+
+	var/static/list/good_messages = list("YES! YES!! YES!!", "I AM UNSTOPPABLE", "THIS IS GREAT", "THERE WILL NEVER BE ANYONE BETTER",
+		"GLORY IS MINE", "WE'RE SO BACK", "I AM FUCKING INVINCIBLE", "I'M HANGING IN THERE")
+	var/static/list/bad_messages = list("NO! NO!! NO!!", "OH MY GOD", "THEY'RE LOOKING AT ME", "KILLLL MEEE, KILLLLL ME",
+		"I CAN'T FUCKING TAKE IT ANYMORE", "ARRGH, IT'S OVER")
+
+	var/message = pick(good_messages)
+	var/class = "greenannounce" // theres not many good green classes
+	if(prob(50))
+		message = pick(bad_messages)
+		class = "danger"
+
+	M.Dizzy(50 SECONDS) // shaking with glee or fear, whichever you prefer
+	to_chat(M, "<span class='[class]'><font size='[rand(3,6)]'>[message][pick("!", "!!", "!!!")]</font></span>")
+	return list(effect, update_flags)
+
+/datum/reagent/happiness/has_heart_rate_increase()
+	return overdosed
+
 
 /datum/reagent/thc
 	name = "Tetrahydrocannabinol"
@@ -825,7 +888,7 @@
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
 	M.AdjustKnockDown(-4 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-25, FALSE)
+	update_flags |= M.adjustStaminaLoss(-40, FALSE)
 	if(prob(5))
 		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
 		if(prob(10))
@@ -857,5 +920,78 @@
 		update_flags |= M.adjustFireLoss(rand(1,5)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustBruteLoss(rand(1,5)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
+
+
+//surge+, used in supercharge implants
+/datum/reagent/surge_plus
+	name = "Surge Plus"
+	id = "surge_plus"
+	description = "A superconducting gel that overloads processors, causing an effect reportedly similar to benzodiazepines in synthetic units."
+	reagent_state = LIQUID
+	color = "#28b581"
+
+	process_flags = SYNTHETIC
+	overdose_threshold = 30
+	addiction_chance = 1
+	addiction_chance_additional = 20
+	addiction_threshold = 5
+	addiction_decay_rate = 0.2
+	taste_description = "silicon"
+
+/datum/reagent/surge_plus/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustParalysis(-8 SECONDS)
+	M.AdjustStunned(-8 SECONDS)
+	M.AdjustWeakened(-8 SECONDS)
+	M.AdjustKnockDown(-8 SECONDS)
+	update_flags |= M.adjustStaminaLoss(-25, FALSE)
+	if(prob(5))
+		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
+		if(prob(10))
+			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+
+	return ..() | update_flags
+
+/datum/reagent/surge_plus/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/recent_consumption = holder.addiction_threshold_accumulated[type]
+	M.Jitter(40 SECONDS)
+	M.Stuttering(10 SECONDS)
+	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
+		M.bodytemperature += 30 * recent_consumption
+		M.Confused(2 SECONDS * recent_consumption)
+	if(prob(10))
+		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
+		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, TRUE)
+		var/icon/I = new('icons/obj/zap.dmi', "lightningend")
+		I.Turn(-135)
+		var/obj/effect/overlay/beam/B = new(get_turf(M))
+		B.pixel_x = rand(-20, 0)
+		B.pixel_y = rand(-20, 0)
+		B.icon = I
+		update_flags |= M.adjustFireLoss(rand(1, 5) * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(rand(1, 5) * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return list(0, update_flags)
+
+//Servo Lube, supercharge
+/datum/reagent/lube/ultra/combat
+	name = "Combat-Lube"
+	id = "combatlube"
+	description = "Combat-Lube is a refined and enhanced lubricant which induces effect stronger than Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
+	overdose_threshold = 30
+	addiction_chance = 1
+	addiction_chance_additional = 20
+
+/datum/reagent/lube/ultra/combat/on_mob_life(mob/living/M)
+	M.SetSleeping(0)
+	M.SetDrowsy(0)
+
+	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
+	if(prob(10))
+		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[high_message]</span>")
 
 #undef DRAWBACK_CHANCE_MODIFIER

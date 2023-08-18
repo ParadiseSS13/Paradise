@@ -124,7 +124,8 @@
 	if(targetl.buckled)
 		return
 
-	move_into_gibber(user,target)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/gibber, move_into_gibber), user, target)
+	return TRUE
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)
@@ -139,20 +140,25 @@
 		to_chat(user, "<span class='danger'>This is not suitable for [src]!</span>")
 		return
 
-	if(victim.abiotic(TRUE))
-		to_chat(user, "<span class='danger'>Subject may not have anything on their body.</span>")
-		return
-
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into [src]!</span>")
 	add_fingerprint(user)
-	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
+
+	if(victim.abiotic(TRUE))
+		to_chat(user, "<span class='danger'>Clothing detected. Please speak to an engineer if any clothing jams up the internal grinders!</span>")
+		if(do_after(user, 15 SECONDS, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant) //15 seconds if they are not fully stripped, 12 more than normal. Similarly, takes about that long to strip a person in a ert hardsuit of all gear.
+			user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
+		else
+			return
+	else if(do_after(user, 3 SECONDS, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
 		user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
+	else
+		return
+	victim.forceMove(src)
+	occupant = victim
 
-		victim.forceMove(src)
-		occupant = victim
+	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
+	INVOKE_ASYNC(src, PROC_REF(feedinTopanim))
 
-		update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
-		INVOKE_ASYNC(src, PROC_REF(feedinTopanim))
 
 /obj/machinery/gibber/verb/eject()
 	set category = "Object"
@@ -286,6 +292,26 @@
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
 	victims += "\[[all_timestamps()]\] [key_name(occupant)] killed by [UserOverride ? "Autogibbing" : "[key_name(user)]"]" //have to do this before ghostizing
+	if(!stealthmode && ishuman(occupant))
+		var/mob/living/carbon/human/H = occupant
+		for(var/obj/item/I in H.get_contents())
+			if(I.resistance_flags & INDESTRUCTIBLE)
+				I.forceMove(get_turf(src))
+		if(H.get_item_by_slot(slot_wear_suit))
+			var/obj/item/ws = H.get_item_by_slot(slot_s_store)
+			if(ws.resistance_flags & INDESTRUCTIBLE)
+				ws.forceMove(get_turf(src))
+				H.s_store = null
+		if(H.get_item_by_slot(slot_l_store))
+			var/obj/item/ls = H.get_item_by_slot(slot_l_store)
+			if(ls.resistance_flags & INDESTRUCTIBLE)
+				ls.forceMove(get_turf(src))
+				H.l_store = null
+		if(H.get_item_by_slot(slot_r_store))
+			var/obj/item/rs = H.get_item_by_slot(slot_r_store)
+			if(rs.resistance_flags & INDESTRUCTIBLE)
+				rs.forceMove(get_turf(src))
+				H.r_store = null
 	occupant.death(1)
 	occupant.ghostize()
 

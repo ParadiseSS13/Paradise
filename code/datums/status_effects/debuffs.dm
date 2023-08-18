@@ -223,6 +223,11 @@
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
 
+/datum/status_effect/pacifism/batterer
+	id = "pacifism_debuff_batterer"
+	alert_type = null
+	duration = 10 SECONDS
+
 // used to track if hitting someone with a cult dagger/sword should stamina crit.
 /datum/status_effect/cult_stun_mark
 	id = "cult_stun"
@@ -370,7 +375,7 @@
 	if(!.)
 		return
 	owner.EyeBlurry(4 SECONDS)
-	if(prob(5))
+	if(prob(0.5))
 		owner.AdjustSleeping(2 SECONDS)
 		owner.Paralyse(10 SECONDS)
 
@@ -448,23 +453,23 @@
 		else if(istype(M.martial_art, DRUNK_BRAWLING))
 			M.martial_art.remove(owner)
 	// THRESHOLD_CONFUSION (80 SECONDS)
-	if(actual_strength >= THRESHOLD_CONFUSION && prob(3.3))
+	if(actual_strength >= THRESHOLD_CONFUSION && prob(0.33))
 		owner.AdjustConfused(6 SECONDS / alcohol_resistance, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
 	// THRESHOLD_SPARK (100 SECONDS)
-	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(2.5))
+	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(0.25))
 		do_sparks(3, 1, owner)
 	// THRESHOLD_VOMIT (120 SECONDS)
-	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.8))
+	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.08))
 		owner.fakevomit()
 	// THRESHOLD_BLUR (150 SECONDS)
 	if(actual_strength >= THRESHOLD_BLUR)
 		owner.EyeBlurry(20 SECONDS / alcohol_resistance)
 	// THRESHOLD_COLLAPSE (150 SECONDS)
-	if(actual_strength >= THRESHOLD_COLLAPSE && prob(1))
+	if(actual_strength >= THRESHOLD_COLLAPSE && prob(0.1))
 		owner.emote("collapse")
 		do_sparks(3, 1, src)
 	// THRESHOLD_FAINT (180 SECONDS)
-	if(actual_strength >= THRESHOLD_FAINT && prob(1))
+	if(actual_strength >= THRESHOLD_FAINT && prob(0.1))
 		owner.Paralyse(10 SECONDS / alcohol_resistance)
 		owner.Drowsy(60 SECONDS / alcohol_resistance)
 		if(L)
@@ -472,7 +477,7 @@
 		if(!is_ipc)
 			owner.adjustToxLoss(1)
 	// THRESHOLD_BRAIN_DAMAGE (240 SECONDS)
-	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(1))
+	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(0.1))
 		owner.adjustBrainLoss(1)
 
 #undef THRESHOLD_SLUR
@@ -676,6 +681,20 @@
 
 /datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
 	id = "abssilenced"
+
+/datum/status_effect/transient/deaf
+	id = "deafened"
+
+/datum/status_effect/transient/deaf/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+
+/datum/status_effect/transient/deaf/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+
+/datum/status_effect/transient/no_oxy_heal
+	id = "no_oxy_heal"
 
 /datum/status_effect/transient/jittery
 	id = "jittering"
@@ -922,3 +941,29 @@
 #undef FAKE_FOOD_POISONING
 #undef FAKE_RETRO_VIRUS
 #undef FAKE_TURBERCULOSIS
+
+/datum/status_effect/cryo_beam
+	id = "cryo beam"
+	alert_type = null
+	duration = -1 //Kill it, get out of sight, or be killed. Jump boots are *required*
+	tick_interval = 0.5 SECONDS
+	var/damage = 0.75
+	var/source_UID
+
+/datum/status_effect/cryo_beam/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+
+/datum/status_effect/cryo_beam/tick()
+	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacker = locateUID(source_UID)
+	if(!(owner in view(attacker, 8)))
+		qdel(src)
+		return
+
+	owner.apply_damage(damage, BURN)
+	owner.bodytemperature = max(0, owner.bodytemperature - 20)
+	owner.Beam(attacker.beam, icon_state = "medbeam", time = 0.5 SECONDS)
+	for(var/datum/reagent/R in owner.reagents.reagent_list)
+		owner.reagents.remove_reagent(R.id, 0.75)
+	if(prob(10))
+		to_chat(owner, "<span class='userdanger'>Your blood freezes in your veins, get away!</span>")

@@ -405,7 +405,8 @@
 		"prions",
 		"nanomachines",
 		"chlorine",
-		"fluorine"
+		"fluorine",
+		"happiness"
 	],
 	"CYBERPUNK_drug_adulterants_safe": [
 		"mercury",

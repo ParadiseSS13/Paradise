@@ -16,7 +16,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
+		if(affected.status & ~(ORGAN_SPLINTED | ORGAN_SALVED)) //Checks the inverse of these flags, for example if the targeted limb was broken or burned. The limb must be in good condition to augment.
 			return FALSE
 		return TRUE
 

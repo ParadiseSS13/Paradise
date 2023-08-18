@@ -18,6 +18,8 @@ field_generator power level display
 #define FG_CHARGING 1
 #define FG_ONLINE 2
 
+GLOBAL_LIST_INIT(field_generator_fields, list())
+
 /obj/machinery/field/generator
 	name = "Field Generator"
 	desc = "A large thermal battery that projects a high amount of energy when powered."
@@ -28,7 +30,7 @@ field_generator power level display
 	power_state = NO_POWER_USE
 	max_integrity = 500
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
-	armor = list(MELEE = 25, BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 50, ACID = 70)
 	var/const/num_power_levels = 6	// Total number of power level icon has
 	var/power_level = 0
 	var/active = FG_OFFLINE
@@ -283,6 +285,7 @@ field_generator power level display
 			CF.dir = field_dir
 			fields += CF
 			G.fields += CF
+			GLOB.field_generator_fields += CF
 			for(var/mob/living/L in T)
 				CF.Crossed(L, null)
 
@@ -295,6 +298,7 @@ field_generator power level display
 	clean_up = TRUE
 	for(var/F in fields)
 		qdel(F)
+		GLOB.field_generator_fields -= F
 
 	for(var/CG in connected_gens)
 		var/obj/machinery/field/generator/FG = CG

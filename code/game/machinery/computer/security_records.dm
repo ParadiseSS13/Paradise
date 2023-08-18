@@ -397,6 +397,13 @@
 				<br>\nPhysical Status: [record_general.fields["p_stat"]]
 				<br>\nMental Status: [record_general.fields["m_stat"]]<br>"}
 		P.name = "paper - 'Security Record: [record_general.fields["name"]]'"
+		var/obj/item/photo/photo = new(loc)
+		var/icon/new_photo = icon('icons/effects/64x32.dmi', "records")
+		new_photo.Blend(icon(record_general.fields["photo"], dir = SOUTH), ICON_OVERLAY, 0)
+		new_photo.Blend(icon(record_general.fields["photo"], dir = WEST), ICON_OVERLAY, 32)
+		new_photo.Scale(new_photo.Width() * 3, new_photo.Height() * 3)
+		photo.img = new_photo
+		photo.name = "photo - 'Security Record: [record_general.fields["name"]]'"
 	else
 		P.info += "<b>General Record Lost!</b><br>"
 	if(record_security && GLOB.data_core.security.Find(record_security))

@@ -51,7 +51,6 @@
 	GLOB.breathlessblock    = getAssignedBlock("BREATHLESS",    numsToAssign, DNA_HARD_BOUNDS, good=1)
 	GLOB.remoteviewblock    = getAssignedBlock("REMOTEVIEW",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.regenerateblock    = getAssignedBlock("REGENERATE",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	GLOB.increaserunblock   = getAssignedBlock("INCREASERUN",   numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.remotetalkblock    = getAssignedBlock("REMOTETALK",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.morphblock         = getAssignedBlock("MORPH",         numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.coldblock          = getAssignedBlock("COLD",          numsToAssign, good=1)

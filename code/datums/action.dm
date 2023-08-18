@@ -1,8 +1,10 @@
-#define AB_CHECK_RESTRAINED 1
-#define AB_CHECK_STUNNED 2
-#define AB_CHECK_LYING 4
-#define AB_CHECK_CONSCIOUS 8
-#define AB_CHECK_TURF 16
+#define AB_CHECK_RESTRAINED		(1<<0)
+#define AB_CHECK_STUNNED		(1<<1)
+#define AB_CHECK_LYING			(1<<2)
+#define AB_CHECK_CONSCIOUS		(1<<3)
+#define AB_CHECK_TURF			(1<<4)
+#define AB_CHECK_HANDS_BLOCKED	(1<<5)
+#define AB_CHECK_IMMOBILE		(1<<6)
 
 
 /datum/action
@@ -72,6 +74,10 @@
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
+		return FALSE
 	if(check_flags & AB_CHECK_RESTRAINED)
 		if(owner.restrained())
 			return FALSE
@@ -106,9 +112,8 @@
 		button.desc = desc
 
 		ApplyIcon(button)
-
-		// If the action isn't available, darken the button
-		if(!IsAvailable())
+		var/obj/effect/proc_holder/spell/S = target
+		if(istype(S) && S.cooldown_handler.should_draw_cooldown() || !IsAvailable())
 			apply_unavailable_effect()
 		else
 			return TRUE
@@ -132,7 +137,7 @@
 
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
 
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
@@ -583,11 +588,8 @@
 	var/obj/effect/proc_holder/spell/S = target
 	if(!istype(S))
 		return ..()
-	var/progress = S.cooldown_handler.get_availability_percentage()
-	if(progress == 1)
-		return ..() // This means that the spell is charged but unavailable due to something else
 
-	var/alpha = 220 - 140 * progress
+	var/alpha = S.cooldown_handler.get_cooldown_alpha()
 
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
 	img.alpha = alpha
@@ -598,7 +600,8 @@
 	// Make a holder for the charge text
 	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
 	count_down_holder.plane = FLOAT_PLANE + 1.1
-	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
+	var/text = S.cooldown_handler.statpanel_info()
+	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(count_down_holder)
 
 /*

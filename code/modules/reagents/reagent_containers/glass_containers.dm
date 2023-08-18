@@ -296,7 +296,7 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = SLOT_HEAD
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
@@ -308,7 +308,7 @@
 	icon_state = "woodbucket"
 	item_state = "woodbucket"
 	materials = null
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 50)
 	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)

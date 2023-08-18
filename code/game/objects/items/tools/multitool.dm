@@ -119,7 +119,7 @@
 
 /obj/item/multitool/command/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is attempting to command the command multitool! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-    //basically just cleaned up and copied from the medical wrench code
+	//basically just cleaned up and copied from the medical wrench code
 	if(!user)
 		return
 

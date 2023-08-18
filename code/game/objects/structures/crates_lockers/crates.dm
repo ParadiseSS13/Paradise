@@ -70,10 +70,12 @@
 
 	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	var/itemcount = 0
-	for(var/obj/O in get_turf(src))
+	for(var/atom/movable/O in get_turf(src))
 		if(itemcount >= storage_capacity)
 			break
 		if(O.density || O.anchored || istype(O,/obj/structure/closet))
+			continue
+		if(ismob(O) && !HAS_TRAIT(O, TRAIT_CONTORTED_BODY))
 			continue
 		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
 			var/obj/structure/bed/B = O
@@ -169,7 +171,7 @@
 	icon_opened = "securecrate_open"
 	icon_closed = "securecrate"
 	max_integrity = 500
-	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
 	broken = FALSE
 	locked = TRUE
@@ -313,6 +315,7 @@
 	icon_state = "trashcart"
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
+	pull_speed = 0
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."

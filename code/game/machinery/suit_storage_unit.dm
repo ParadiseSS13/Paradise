@@ -431,19 +431,22 @@
 	var/mob/living/target = A
 	if(!state_open)
 		to_chat(user, "<span class='warning'>[src]'s doors are shut!</span>")
-		return
+		return TRUE
 	if(!is_operational())
 		to_chat(user, "<span class='warning'>[src] is not operational!</span>")
-		return
+		return TRUE
 	if(occupant || helmet || suit || storage)
 		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message("<span class='warning'>[user] starts squeezing into [src]!</span>", "<span class='notice'>You start working your way into [src]...</span>")
 	else
 		target.visible_message("<span class='warning'>[user] starts shoving [target] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/suit_storage_unit, put_in), user, target)
+	return TRUE
 
+/obj/machinery/suit_storage_unit/proc/put_in(mob/user, mob/living/target)
 	if(do_mob(user, target, 30))
 		if(occupant || helmet || suit || storage)
 			return

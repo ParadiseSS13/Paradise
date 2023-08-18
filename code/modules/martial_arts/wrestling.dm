@@ -1,5 +1,6 @@
 /datum/martial_art/wrestling
 	name = "Wrestling"
+	weight = 3
 	help_verb = /mob/living/carbon/human/proc/wrestling_help
 
 //	combo refence since wrestling uses a different format to sleeping carp and plasma fist.

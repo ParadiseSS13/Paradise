@@ -103,7 +103,7 @@
 	if(mob_override)
 		for(var/datum/action/changeling/power in acquired_powers)
 			power.Grant(L)
-	// Else, this is their first time gaining the datum.
+	// Else, this is their first time gaining the datum, or they're transfering from a headslug into a monkey.
 	else
 		for(var/power_type in innate_powers)
 			give_power(new power_type, L)
@@ -132,9 +132,9 @@
 	if(mob_override)
 		for(var/datum/action/changeling/power in acquired_powers)
 			power.Remove(L)
-	// Else, they're losing the datum.
+	// Else, they're losing the datum, or transferring into a headslug. Fully remove and delete all powers.
 	else
-		respec(FALSE)
+		respec(FALSE, FALSE)
 
 	var/mob/living/carbon/C = L
 
@@ -183,15 +183,18 @@
 	if(!owner || !owner.current)
 		return PROCESS_KILL
 	var/mob/living/carbon/human/H = owner.current
-	if(H.hud_used?.lingchemdisplay)
-		H.hud_used.lingchemdisplay.invisibility = 0
-		H.hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(chem_charges)]</font></div>"
 	if(H.stat == DEAD)
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
 		genetic_damage = directional_bounded_sum(genetic_damage, -1, LING_DEAD_GENETIC_DAMAGE_HEAL_CAP, 0)
 	else // Not dead? no chem/genetic_damage caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 		genetic_damage = max(0, genetic_damage - 1)
+	update_chem_charges_ui(H)
+
+/datum/antagonist/changeling/proc/update_chem_charges_ui(mob/living/carbon/human/H = owner.current)
+	if(H.hud_used?.lingchemdisplay)
+		H.hud_used.lingchemdisplay.invisibility = 0
+		H.hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(chem_charges)]</font></div>"
 
 /**
  * Respec the changeling's powers after first checking if they're able to respec.
@@ -213,10 +216,11 @@
 /**
  * Resets a changeling to the point they were when they first became a changeling, i.e no genetic points to spend, no non-innate powers, etc.
  */
-/datum/antagonist/changeling/proc/respec(keep_innate_powers = TRUE)
+/datum/antagonist/changeling/proc/respec(keep_innate_powers = TRUE, reset_genetic_points = TRUE)
 	remove_changeling_powers(keep_innate_powers)
 	chosen_sting = null
-	genetic_points = initial(genetic_points)
+	if(reset_genetic_points)
+		genetic_points = initial(genetic_points)
 	sting_range = initial(sting_range)
 	chem_storage = initial(chem_storage)
 	chem_recharge_rate = initial(chem_recharge_rate)

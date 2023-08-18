@@ -46,6 +46,14 @@
 	surplus = 25
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/dangerous/rocket_launcher
+	name = "Rocket Launcher"
+	desc = "Not many things can survive a direct hit from this. (Ammunition sold separately, keep away from children.)"
+	reference = "RL"
+	item = /obj/item/gun/rocketlauncher
+	cost = 8
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/dangerous/flamethrower
 	name = "Flamethrower"
 	desc = "A flamethrower, fuelled by a portion of highly flammable bio-toxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
@@ -256,6 +264,14 @@
 	cost = 4
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/ammo/rocket
+	name = "Rocket Launcher Shell"
+	desc = "An extra shell for your RPG. Make sure your bestie isn't standing in front of you."
+	reference = "HE"
+	item = /obj/item/ammo_casing/rocket
+	cost = 6
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/ammo/machinegun
 	name = "L6 SAW - 5.56x45mm Box Magazine"
 	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
@@ -394,10 +410,10 @@
 // DEVICES AND TOOLS
 
 /datum/uplink_item/device_tools/diamond_drill
-	name = "Diamond Tipped Thermal Safe Drill"
-	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Guaranteed 100% jam proof."
+	name = "Amplifying Diamond Tipped Thermal Safe Drill"
+	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
 	reference = "DDRL"
-	item = /obj/item/thermal_drill/diamond_drill
+	item = /obj/item/thermal_drill/diamond_drill/syndicate
 	cost = 1
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -664,3 +680,23 @@
 	reference = "DEPCN"
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+// ---------------------------------
+// NUKIE ONLY POINTLESS BADASSERY
+// ---------------------------------
+
+/datum/uplink_item/badass/confettidrum
+	name = "Bulldog - 12g party Magazine"
+	desc = "An alternative 12-round confetti magazine for use in the Bulldog shotgun. Why? Because we can - Honkco Industries"
+	item = /obj/item/ammo_box/magazine/m12g/confetti
+	reference = "12CS"
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	cost = 1
+
+/datum/uplink_item/badass/confetti_party_pack
+	name = "Nuclear party pack"
+	desc = "A dufflebag filled with hilarious equipment! Comes with free confetti grenades and a cap gun!"
+	item = /obj/item/storage/backpack/duffel/syndie/party
+	reference = "SPP"
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	cost = 10

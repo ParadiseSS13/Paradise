@@ -129,6 +129,10 @@
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH)
 
+/mob/living/carbon/human/on_fakedeath_trait_gain(datum/source)
+	. = ..()
+	stop_tail_wagging()
+
 /// Called when [TRAIT_FAKEDEATH] is removed from the mob.
 /mob/living/proc/on_fakedeath_trait_loss(datum/source)
 	SIGNAL_HANDLER

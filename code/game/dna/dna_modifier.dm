@@ -194,16 +194,16 @@
 		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
-		return
+		return TRUE
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
 		to_chat(user, "<span class='danger'>Subject may not hold anything in their hands.</span>")
-		return
+		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
-		return
+		return TRUE
 	if(L == user)
 		visible_message("<span class='notice'>[user] climbs into [src].</span>")
 	else
@@ -211,6 +211,7 @@
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
+	return TRUE
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -782,7 +783,7 @@
 						return
 					var/datum/dna2/record/buf = buffers[bufferId]
 					disk.buf = buf.copy()
-					disk.name = "data disk - '[buf.dna.real_name]'"
+					disk.name = "data disk - '[buf.name]'"
 		if("wipeDisk")
 			if(isnull(disk) || disk.read_only)
 				return

@@ -228,12 +228,12 @@
 		return
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
-		return
+		return TRUE
 
 	var/obj/item/storage/box/pillbottles/P = over_object
 	if(!length(P.contents))
 		to_chat(user, "<span class='notice'>\The [P] is empty.</span>")
-		return
+		return TRUE
 
 	var/items_loaded = 0
 	for(var/obj/G in P.contents)
@@ -245,6 +245,7 @@
 	var/failed = length(P.contents)
 	if(failed)
 		to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
+	return TRUE
 
 /obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

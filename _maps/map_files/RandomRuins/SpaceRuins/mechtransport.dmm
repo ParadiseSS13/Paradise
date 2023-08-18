@@ -1,92 +1,283 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/template_noop,
-/area/template_noop)
-"b" = (
-/turf/simulated/wall/mineral/titanium,
+"cw" = (
+/obj/structure/mecha_wreckage/ripley/firefighter,
+/turf/simulated/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/powered)
-"c" = (
+"cF" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
-"f" = (
-/obj/structure/closet/crate/secure/loot,
+"cP" = (
+/obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
-"g" = (
+"dt" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/up,
+/turf/simulated/floor/mineral/titanium/yellow/airless,
+/area/ruin/space/powered)
+"eZ" = (
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"fr" = (
+/obj/machinery/computer{
+	name = "shuttle control console";
+	desc = "The screen dims greens with an ERROR message. It looks completely unusable."
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"fO" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"hd" = (
+/obj/structure/table,
+/obj/item/mecha_parts/mecha_equipment/drill,
+/obj/item/mecha_parts/mecha_equipment/drill{
+	pixel_y = 10
+	},
+/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill{
+	pixel_y = 4
+	},
+/turf/simulated/floor/mineral/titanium/purple/airless,
+/area/ruin/space/powered)
+"jC" = (
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/powered)
+"lo" = (
+/obj/structure/table,
+/obj/item/stack/sheet/mineral/silver{
+	amount = 15;
+	pixel_y = 5;
+	pixel_x = 3
+	},
+/obj/item/stack/sheet/mineral/diamond{
+	amount = 5;
+	pixel_y = 4;
+	pixel_x = -8
+	},
+/turf/simulated/floor/mineral/titanium/purple/airless,
+/area/ruin/space/powered)
+"lw" = (
+/obj/structure/lattice,
+/obj/item/stack/rods,
+/turf/template_noop,
+/area/template_noop)
+"lO" = (
+/obj/structure/table,
+/obj/item/stack/sheet/metal{
+	pixel_x = -3;
+	amount = 20
+	},
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = 3
+	},
+/turf/simulated/floor/mineral/titanium/purple/airless,
+/area/ruin/space/powered)
+"mL" = (
+/obj/structure/table,
+/obj/item/toy/figure/mech/durand,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"nc" = (
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/space/nearstation)
+"pe" = (
+/obj/structure/mecha_wreckage/phazon,
+/turf/simulated/floor/mineral/titanium/yellow/airless,
+/area/ruin/space/powered)
+"pX" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"qD" = (
+/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/poddoor{
+	id_tag = "storagemechtwo"
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"qV" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/up,
+/obj/item/stack/tile/plasteel{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow/airless,
+/area/ruin/space/powered)
+"ra" = (
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/powered)
+"rc" = (
+/obj/machinery/door_control{
+	pixel_x = 32;
+	id = "storagemechtwo"
+	},
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"rW" = (
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"sI" = (
+/obj/structure/table,
+/obj/item/mecha_parts/mecha_equipment/repair_droid,
+/obj/item/mecha_parts/mecha_equipment/extinguisher,
+/obj/item/mecha_modkit/voice/honk{
+	pixel_y = 10;
+	pixel_x = 3
+	},
+/turf/simulated/floor/mineral/titanium/purple/airless,
+/area/ruin/space/powered)
+"sY" = (
+/obj/structure/table,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"td" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/mineral/titanium/purple/airless,
+/area/ruin/space/powered)
+"tR" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
+"ur" = (
+/obj/item/stack/tile/plasteel{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"vz" = (
 /obj/structure/table,
 /obj/machinery/door_control{
 	id = "mecha cargo"
 	},
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
-"h" = (
+"vN" = (
 /obj/structure/table,
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"i" = (
-/obj/machinery/computer{
-	name = "shuttle control console"
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/floor/mineral/titanium/purple/airless,
 /area/ruin/space/powered)
-"j" = (
-/obj/effect/decal/cleanable/vomit,
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"k" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"l" = (
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"m" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+"wG" = (
+/obj/structure/lattice,
+/obj/item/stack/tile/plasteel{
+	pixel_x = 7;
+	pixel_y = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"n" = (
-/obj/machinery/computer{
-	name = "exosuit control console"
+/turf/template_noop,
+/area/template_noop)
+"yb" = (
+/obj/item/stack/tile/plasteel{
+	pixel_x = 7;
+	pixel_y = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
-"p" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/powered)
-"q" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/ruin/space/powered)
-"r" = (
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/powered)
-"s" = (
-/obj/structure/mecha_wreckage/phazon,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/powered)
-"t" = (
+"zS" = (
+/obj/structure/mecha_wreckage/odysseus,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/powered)
-"u" = (
-/obj/structure/mecha_wreckage/ripley/firefighter,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
+"Af" = (
+/obj/item/stack/rods,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"By" = (
+/obj/structure/table,
+/obj/item/stack/sheet/mineral/titanium{
+	amount = 10;
+	pixel_x = -1
+	},
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 15;
+	pixel_y = 11
+	},
+/turf/simulated/floor/mineral/titanium/purple/airless,
 /area/ruin/space/powered)
-"v" = (
-/obj/structure/mecha_wreckage/ripley,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"w" = (
+"BF" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/up,
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/powered)
-"x" = (
-/obj/effect/decal/cleanable/blood/gibs/robot/up,
+"Dd" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/space/powered)
+"DI" = (
+/obj/machinery/door_control{
+	id = "storagemechone";
+	pixel_x = -32
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"DP" = (
+/obj/structure/mecha_wreckage/durand,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/powered)
-"y" = (
+"Ej" = (
+/obj/structure/table,
+/obj/item/paper{
+	info = "This is third time we're sending this same shipment. I keep telling you to keep an eye on the engine. If it overheats and you manage to screw us over a third time, the damages will be coming out of YOUR wages Jacob. This is the last chance I'm giving you, don't fuck this up please.";
+	name = "final warning"
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"Eq" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"Er" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/powered)
+"Fg" = (
+/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/poddoor{
+	id_tag = "storagemechone"
+	},
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/powered)
+"GW" = (
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"GX" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"HK" = (
+/obj/effect/decal/cleanable/blood/gibs/robot/up,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"Ja" = (
+/obj/structure/closet/walllocker/emerglocker/east,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"JL" = (
+/obj/structure/table,
+/obj/item/toy/plushie/ipcplushie,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"KU" = (
+/obj/structure/table,
+/obj/item/mecha_parts/core,
+/turf/simulated/floor/mineral/titanium/purple/airless,
+/area/ruin/space/powered)
+"Lj" = (
 /obj/machinery/door/poddoor{
 	id_tag = "mecha cargo";
 	name = "Cargo Bay Door";
@@ -94,226 +285,333 @@
 	},
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/powered)
-"z" = (
-/obj/effect/decal/cleanable/blood/gibs/robot,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"A" = (
-/obj/structure/mecha_wreckage/durand,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"B" = (
-/obj/item/stack/tile/plasteel{
-	pixel_x = 7;
-	pixel_y = 8
+"Nm" = (
+/obj/machinery/computer{
+	name = "exosuit control console";
+	desc = "The screen dims green with a bright ERROR message. It looks completely unusable."
 	},
-/turf/simulated/floor/plating/airless,
+/obj/machinery/computer{
+	name = "shuttle control console";
+	desc = "The screen dims green with an ERROR message. It looks completely unusable."
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
-"C" = (
-/turf/simulated/floor/plating/airless,
+"Nw" = (
+/obj/structure/mecha_wreckage/ripley,
+/turf/simulated/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/powered)
-"D" = (
+"Ot" = (
+/turf/template_noop,
+/area/template_noop)
+"Re" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/space/nearstation)
-"E" = (
-/obj/item/stack/rods,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/powered)
-"F" = (
-/obj/effect/decal/cleanable/blood/gibs/robot,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/powered)
-"G" = (
-/obj/item/stack/tile/plasteel{
-	pixel_x = 7;
-	pixel_y = 8
-	},
-/obj/effect/decal/cleanable/blood/gibs/robot,
-/turf/simulated/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/powered)
-"H" = (
+/area/template_noop)
+"Rg" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/powered)
-"J" = (
-/obj/structure/mecha_wreckage/odysseus,
+/area/template_noop)
+"RB" = (
+/obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/powered)
-"K" = (
-/obj/item/stack/sheet/metal,
-/turf/template_noop,
-/area/space/nearstation)
-"L" = (
-/obj/structure/mecha_wreckage/gygax,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/powered)
-"M" = (
+"Sn" = (
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"P" = (
+"Sq" = (
 /obj/item/stack/rods,
 /turf/template_noop,
-/area/space/nearstation)
-"R" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"SW" = (
+/turf/simulated/floor/mineral/titanium/purple/airless,
 /area/ruin/space/powered)
-"U" = (
-/obj/item/gps/ruin,
-/turf/simulated/wall/mineral/titanium,
+"Te" = (
+/obj/structure/lattice,
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/template_noop)
+"VE" = (
+/obj/structure/table,
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
+/turf/simulated/floor/mineral/titanium/purple/airless,
+/area/ruin/space/powered)
+"WO" = (
+/obj/item/stack/sheet/metal,
+/turf/template_noop,
+/area/template_noop)
+"Xv" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"Yf" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/powered)
+"Zk" = (
+/turf/simulated/floor/mineral/titanium/yellow/airless,
+/area/ruin/space/powered)
+"Zp" = (
+/obj/structure/closet/walllocker/emerglocker/west,
+/turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
 
 (1,1,1) = {"
-a
-a
-a
-b
-b
-b
-b
-b
-B
-D
-H
-K
-a
-a
-a
+Ot
+Ot
+Ot
+ra
+ra
+ra
+ra
+ra
+ra
+ra
+Sn
+Te
+Rg
+Ot
+Ot
+Ot
+Ot
+Ot
 "}
 (2,1,1) = {"
-b
-b
-b
-b
-r
-s
-w
-z
-C
-E
-C
-D
-M
-P
-a
+Ot
+Ot
+ra
+ra
+ra
+vN
+lO
+ra
+jC
+jC
+Eq
+wG
+Re
+Re
+Ot
+WO
+Ot
+Ot
 "}
 (3,1,1) = {"
-c
-f
-j
-p
-r
-t
-t
-A
-t
-C
-H
-D
-D
-a
-a
+ra
+ra
+ra
+DI
+ra
+hd
+SW
+Fg
+jC
+pe
+Af
+Re
+Rg
+wG
+Sq
+Rg
+Ot
+Ot
 "}
 (4,1,1) = {"
-c
-f
-k
-b
-r
-t
-x
-B
-A
-t
-B
-C
-K
-a
-a
+cF
+mL
+sY
+GW
+ra
+VE
+sI
+ra
+jC
+Zk
+ur
+HK
+eZ
+rW
+Re
+Re
+Ot
+Ot
 "}
 (5,1,1) = {"
-c
-g
-l
-U
-r
-u
-t
-t
-t
-F
-J
-r
-E
-D
-a
+cF
+Ej
+fO
+Yf
+Dd
+Dd
+Dd
+Dd
+jC
+DP
+zS
+Sn
+Eq
+lw
+rW
+nc
+Ot
+Ot
 "}
 (6,1,1) = {"
-c
-h
-m
-b
-r
-t
-v
-t
-C
-G
-J
-C
-C
-a
-a
+cF
+fr
+fO
+GW
+cF
+Zp
+GW
+cF
+jC
+Zk
+Zk
+BF
+ur
+HK
+Sn
+cF
+GX
+Ot
 "}
 (7,1,1) = {"
-c
-i
-n
-b
-r
-v
-t
-t
-t
-t
-t
-L
-q
-b
-R
+cF
+vz
+fO
+GW
+Xv
+GW
+GW
+Xv
+jC
+Zk
+Zk
+Zk
+dt
+Zk
+Sn
+Dd
+Dd
+Dd
 "}
 (8,1,1) = {"
-b
-b
-b
-b
-r
-t
-t
-t
-t
-w
-t
-r
-b
-b
-R
+cF
+Nm
+fO
+GW
+cF
+Ja
+GW
+cF
+jC
+RB
+cw
+Zk
+zS
+yb
+Er
+cF
+pX
+tR
 "}
 (9,1,1) = {"
-a
-a
-a
-b
-b
-b
-y
-y
-y
-y
-y
-b
-q
-b
-R
+cF
+sY
+fO
+cP
+Dd
+Dd
+Dd
+Dd
+jC
+qV
+Zk
+Nw
+Zk
+Zk
+jC
+cF
+pX
+tR
+"}
+(10,1,1) = {"
+cF
+JL
+sY
+GW
+ra
+lo
+td
+ra
+jC
+Zk
+Zk
+Zk
+RB
+cw
+jC
+ra
+ra
+ra
+"}
+(11,1,1) = {"
+ra
+ra
+ra
+rc
+ra
+KU
+SW
+qD
+jC
+DP
+Zk
+Nw
+Zk
+Zk
+jC
+cF
+pX
+tR
+"}
+(12,1,1) = {"
+Ot
+Ot
+ra
+ra
+ra
+By
+td
+ra
+jC
+jC
+jC
+jC
+jC
+jC
+jC
+cF
+pX
+tR
+"}
+(13,1,1) = {"
+Ot
+Ot
+Ot
+ra
+ra
+ra
+ra
+ra
+ra
+Lj
+Lj
+Lj
+Lj
+Lj
+ra
+ra
+ra
+Ot
 "}
