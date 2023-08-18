@@ -58,6 +58,8 @@
 
 #define STATUS_EFFECT_REVOLUTION_PROTECT /datum/status_effect/rev_protection
 
+#define STATUS_EFFECT_FLAYER_REJUV /datum/status_effect/flayer_rejuv
+
 /////////////
 // DEBUFFS //
 /////////////

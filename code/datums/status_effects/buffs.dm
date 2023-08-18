@@ -663,3 +663,17 @@
 /datum/status_effect/rev_protection/on_remove()
 	UnregisterSignal(owner, COMSIG_HUMAN_ATTACKED)
 	. = ..()
+
+/datum/status_effect/flayer_rejuv
+	duration = 5 SECONDS
+
+/datum/status_effect/flayer_rejuv/on_apply()
+	var/mob/living/U = owner
+	U.SetWeakened(0)
+	U.SetStunned(0)
+	U.SetKnockDown(0)
+	U.SetParalysis(0)
+	U.SetSleeping(0)
+	U.SetConfused(0)
+	U.adjustStaminaLoss(-100)
+	U.stand_up(TRUE)

@@ -1337,6 +1337,7 @@
 #include "code\modules\antagonists\changeling\powers\transform.dm"
 #include "code\modules\antagonists\mind_flayer\flayer_power.dm"
 #include "code\modules\antagonists\mind_flayer\mindflayer_gamemode.dm"
+#include "code\modules\antagonists\mind_flayer\powers\flayer_buffs.dm"
 #include "code\modules\antagonists\mind_flayer\powers\flayer_passives.dm"
 #include "code\modules\antagonists\mind_flayer\powers\mobility_powers.dm"
 #include "code\modules\antagonists\mind_flayer\powers\weapon_powers.dm"
