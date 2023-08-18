@@ -125,3 +125,33 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/unathi
 		)
+
+/datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
+	var/datum/action/innate/ignite/ash_walker/fire = new()
+	fire.Grant(H)
+
+/datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
+	..()
+	for(var/datum/action/innate/ignite/ash_walker/fire in H.actions)
+		fire.Remove(H)
+
+/datum/action/innate/ignite/ash_walker
+	desc = "Allows you to light a fire once every five minutes."
+	var/cooldown = 0
+
+/datum/action/innate/ignite/ash_walker/Activate()
+	var/mob/living/carbon/human/user = owner
+	if(world.time > cooldown)
+		var/obj/item/match/unathi/fire = new(user.loc, src)
+		if((user.head && (user.head.flags_cover & HEADCOVERSMOUTH)) || (user.wear_mask && (user.wear_mask.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask.up))
+			qdel(fire)
+			to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
+		else
+			if(user.put_in_hands(fire))
+				cooldown = world.time + 3000
+				to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
+			else
+				qdel(fire)
+				to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
+	else
+		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
