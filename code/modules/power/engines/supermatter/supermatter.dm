@@ -785,14 +785,14 @@
 		return
 
 	if(istype(I, /obj/item/twohanded/supermatter))
-		if(ishuman(user))
-			var/mob/living/carbon/human/M = user
-			to_chat(M, "<span class='notice'>You begin to carve off a sliver of [src] with [I]...</span>")
-			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
-				to_chat(M, "<span class='danger'>[src] seethes with energy as you finish cutting off a sliver!</span>")
-				matter_power += 600
-				new /obj/item/nuke_core/supermatter_sliver(drop_location())
-		return
+		if(!ishuman(user))
+			return
+		var/mob/living/carbon/human/M = user
+		to_chat(M, "<span class='notice'>You begin to carve off a sliver of [src] with [I]...</span>")
+		if(I.use_tool(src, M, 10 SECONDS, volume = 100))
+			to_chat(M, "<span class='danger'>[src] seethes with energy as you finish cutting off a sliver!</span>")
+			matter_power += 600
+			new /obj/item/nuke_core/supermatter_sliver(drop_location())
 
 	if(istype(I, /obj/item/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[I] bounces off [src], you need to cut a sliver off first!</span>")
@@ -807,14 +807,9 @@
 		radiation_pulse(src, 150, 4)
 
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/AM)
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		if(HAS_TRAIT_FROM(H, TRAIT_SUPERMATTER_IMMUNE, ENFORCER_GLOVES))
-			to_chat(H, "<span class='danger'>You throw your hands out and catch yourself before bumping into [src]! That was close...</span>")
-			return
-		else if(HAS_TRAIT(H, TRAIT_SUPERMATTER_IMMUNE))
-			to_chat(H, "<span class='danger>You bump into [src] harmlessly! That could have been bad...</span>")
-			return
+
+	if(HAS_TRAIT(AM, TRAIT_SUPERMATTER_IMMUNE))
+		return
 
 	if(isliving(AM))
 		AM.visible_message("<span class='danger'>[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
@@ -1025,6 +1020,8 @@
 			var/mob/M = P
 			if(M.mob_negates_gravity())
 				continue //You can't pull someone nailed to the deck
+			if(HAS_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE))
+				continue
 			else if(M.buckled)
 				var/atom/movable/buckler = M.buckled
 				if(buckler.unbuckle_mob(M, TRUE))

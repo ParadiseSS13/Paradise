@@ -902,6 +902,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 
+/obj/item/clothing/suit/hooded/oblivion/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/clothing/suit/hooded/oblivion/equipped(mob/user, slot, initial)
 	. = ..()
 	ADD_TRAIT(user, TRAIT_RADIMMUNE, CLOTHING_TRAIT)
