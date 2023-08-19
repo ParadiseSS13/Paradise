@@ -593,7 +593,7 @@
 				def_value = "custom"
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
-			"assassinate", "blood", "debrain", "die", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
+			"assassinate", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
 			"nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
 		if(!new_obj_type)
 			return

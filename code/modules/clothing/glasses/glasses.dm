@@ -364,6 +364,10 @@
 	scan_reagents = 1
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
+/obj/item/clothing/glasses/sunglasses/reagent/item_action_slot_check(slot)
+	if(slot == slot_glasses)
+		return TRUE
+
 /obj/item/clothing/glasses/virussunglasses
 	name = "sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."

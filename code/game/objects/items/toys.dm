@@ -551,7 +551,7 @@
 
 /obj/item/toy/plushie/Destroy()
 	QDEL_NULL(grenade)
-	..()
+	return ..()
 
 /obj/item/toy/plushie/attackby(obj/item/I, mob/living/user, params)
 	if(I.sharp)

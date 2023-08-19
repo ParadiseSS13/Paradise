@@ -118,6 +118,13 @@ REAGENT SCANNER
 
 // Used by the PDA medical scanner too
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
+	if(issimple_animal(M))
+		if(M.stat == DEAD)
+			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: <font color='red'>Dead</font></span>")
+		else
+			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [round(M.health / M.maxHealth * 100, 0.1)]% Healthy")
+		to_chat(user, "\t Damage Specifics: <font color='red'>[M.maxHealth - M.health]</font>")
+		return
 	if(!ishuman(M) || ismachineperson(M))
 		//these sensors are designed for organic life
 		to_chat(user, "<span class='notice'>Analyzing Results for ERROR:\n\t Overall Status: ERROR</span>")
