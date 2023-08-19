@@ -270,13 +270,13 @@
 		S = O
 		if(S.can_be_inserted(src, 1))
 			S.handle_item_insertion(src)
-			playsound(loc, "rustle", 50, 1, -5)
+			playsound(loc, "rustle", 50, TRUE, -5)
 			return 1
 	if(ismodcontrol(O))
 		var/obj/item/mod/control/C = O
 		if(C.can_be_inserted(src, 1))
 			C.handle_item_insertion(src)
-			playsound(loc, "rustle", 50, 1, -5)
+			playsound(loc, "rustle", 50, TRUE, -5)
 			return 1
 
 	to_chat(M, "<span class='warning'>You are unable to equip that!</span>")

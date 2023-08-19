@@ -29,7 +29,7 @@
 	if(implant)
 		. += "<span class='notice'>Use it on a human to implant them.</span>"
 	else
-		. += "<span class='warning'>The implant is missing</span>"
+		. += "<span class='warning'>The implant is missing.</span>"
 
 /obj/item/mod/module/pathfinder/attack(mob/living/target, mob/living/user, params)
 	if(!ishuman(target) || !implant)

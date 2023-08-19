@@ -80,7 +80,7 @@
 	SIGNAL_HANDLER // COMSIG_DEFIB_READY
 	on_cooldown = FALSE
 	visible_message("<span class='notice'>[src] beeps: Defibrillation unit ready.</span>")
-	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
+	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, FALSE)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod_defib/update_icon_state()

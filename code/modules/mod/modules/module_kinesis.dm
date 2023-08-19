@@ -103,7 +103,7 @@
 		clear_grab()
 		return
 	beam.forceMove(get_turf(mod.wearer))
-	drain_power(use_power_cost/10)
+	drain_power(use_power_cost / 10)
 	if(kinesis_catcher.mouse_params)
 		kinesis_catcher.calculate_params()
 	if(!kinesis_catcher.given_turf)
@@ -231,7 +231,7 @@
 		var/obj/O = hit_atom
 		O.take_damage(damage, BRUTE, MELEE)
 	if(damage_self)
-		S.take_damage(S.max_integrity/5, BRUTE, MELEE)
+		S.take_damage(S.max_integrity / 5, BRUTE, MELEE)
 
 /obj/effect/abstract/kinesis
 	var/datum/beam/chain

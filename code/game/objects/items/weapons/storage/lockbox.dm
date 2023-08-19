@@ -127,7 +127,7 @@
 
 /obj/item/storage/lockbox/research/modsuit
 	name = "Plating lockbox"
-	desc = "A larger lockbox. Looks a bit less secure than other lockboxes"
+	desc = "A larger lockbox. Looks a bit less secure than other lockboxes."
 
 /obj/item/storage/lockbox/research/modsuit/emp_act(severity) //I want emp to get around it, it's not a gun, I just want people not to always make sec / med modsuits.
 	. = ..()

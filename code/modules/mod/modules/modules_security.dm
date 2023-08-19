@@ -34,7 +34,7 @@
 		mod.wearer.unEquip(mod.wearer.get_active_hand())
 		holstered.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [msg], ready to shoot!</span></span>", \
+		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [msg], ready to shoot!</span>", \
 			"<span class='warning'>You draw [msg], ready to shoot!</span>")
 	else
 		to_chat(mod.wearer, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
