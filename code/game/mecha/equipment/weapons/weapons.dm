@@ -226,7 +226,7 @@
 		///else the mousetraps are useless
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(isobj(H.shoes))
+			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
 				H.unEquip(H.shoes)
 				walk_away(thingy,chassis,15,2)

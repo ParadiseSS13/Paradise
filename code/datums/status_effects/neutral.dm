@@ -147,6 +147,10 @@
 	id = "charging"
 	alert_type = null
 
+/datum/status_effect/impact_immune
+	id = "impact_immune"
+	alert_type = null
+
 #define LWAP_LOCK_CAP 10
 
 /datum/status_effect/lwap_scope
