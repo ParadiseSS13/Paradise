@@ -62,7 +62,7 @@
 		U.suicide() // This will display a prompt for confirmation first.
 		return
 
-	if(M.dir != U.dir)
+	if(M.dir != U.dir && !M.incapacitated())
 		to_chat(user, "<span class='warning'>You cannot use [src] on [M] from that angle!</span>")
 		return
 

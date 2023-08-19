@@ -103,7 +103,7 @@
 	taste_description = "<span class='warning'>blood</span>"
 	taste_mult = 1.3
 
-/datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/blood/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(data && data["viruses"])
 		for(var/thing in data["viruses"])
 			var/datum/disease/D = thing
@@ -120,6 +120,7 @@
 		var/mob/living/carbon/C = M
 		if(C.mind?.has_antag_datum(/datum/antagonist/vampire))
 			C.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, C.nutrition + 10))
+			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 	..()
 
 /datum/reagent/blood/on_new(list/data)

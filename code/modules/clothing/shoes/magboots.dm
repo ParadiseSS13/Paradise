@@ -17,13 +17,21 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
+	. = ..()
+	if(magpulse && slowdown_active > SHOES_SLOWDOWN)
+		slowdown = slowdown_active
+
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
 	name = "atmospheric magboots"
 	icon_state = "atmosmagboots0"
 	magboot_state = "atmosmagboots"
 
-/obj/item/clothing/shoes/magboots/attack_self(mob/user)
+/obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
+	toggle_magpulse(user, forced)
+
+/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
 	if(magpulse)
 		START_PROCESSING(SSobj, src) //Gravboots
 		flags &= ~NOSLIP
@@ -34,7 +42,8 @@
 		slowdown = slowdown_active
 	magpulse = !magpulse
 	icon_state = "[magboot_state][magpulse]"
-	to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
+	if(!forced)
+		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)
@@ -194,7 +203,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
-			attack_self(user)
+			attack_self(user, TRUE)
 	else
 		cell.use(power_consumption_rate)
 
@@ -258,7 +267,7 @@
 		style.remove(H)
 		if(magpulse)
 			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
-			attack_self(user)
+			attack_self(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
 	if(slot == slot_shoes)

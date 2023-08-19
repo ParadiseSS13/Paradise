@@ -179,6 +179,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
+	/client/proc/show_gc_queues
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -285,12 +286,14 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		if(holder.rights & R_MAINTAINER)
 			verbs += GLOB.admin_verbs_maintainer
 		if(holder.rights & R_VIEWRUNTIMES)
+			// TODO - Make a viewruntimes list at this point - its getting silly
 			verbs += /client/proc/view_runtimes
 			verbs += /client/proc/cmd_display_del_log
 			verbs += /client/proc/cmd_display_del_log_simple
 			verbs += /client/proc/toggledebuglogs
 			verbs += /client/proc/debug_variables /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 			verbs += /client/proc/ss_breakdown
+			verbs += /client/proc/show_gc_queues
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
