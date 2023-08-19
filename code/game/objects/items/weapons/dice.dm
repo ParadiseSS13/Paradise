@@ -1,10 +1,11 @@
-/obj/item/storage/pill_bottle/dice
+/obj/item/storage/pill_bottle/dice //But why is this a pill bottle
 	name = "bag of dice"
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
 	allow_wrap = FALSE
+	use_sound = "rustle"
 
 /obj/item/storage/pill_bottle/dice/populate_contents()
 	var/special_die = pick("1","2","fudge","00","100")
@@ -257,7 +258,7 @@
 				/obj/item/clothing/glasses/chameleon/thermal,
 				/obj/item/borg/upgrade/modkit/indoors,
 				/obj/item/storage/box/syndie_kit/chameleon,
-				/obj/item/storage/box/syndie_kit/hardsuit,
+				/obj/item/storage/box/syndie_kit/modsuit,
 				/obj/item/implanter/storage,
 				/obj/item/toy/syndicateballoon)
 			var/selected_item = pick(traitor_items)
@@ -289,7 +290,7 @@
 			servant_mind.objectives += O
 			servant_mind.transfer_to(H)
 
-			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the servant of [user.real_name]?", ROLE_WIZARD, poll_time = 30 SECONDS, source = H)
+			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the servant of [user.real_name]?", poll_time = 30 SECONDS, source = H)
 			if(length(candidates) && !QDELETED(H))
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")

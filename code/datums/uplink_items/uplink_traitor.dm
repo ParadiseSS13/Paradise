@@ -293,6 +293,55 @@
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian", "Coroner", "Psychiatrist", "Virologist")
 
 
+//--------------------------//
+// Species Restricted Gear //
+//-------------------------//
+
+/datum/uplink_item/species_restricted
+	category = "Species Specific Gear"
+	cant_discount = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
+
+//skrell
+/datum/uplink_item/species_restricted/lovepen
+	name = "Aggression Supression Pen"
+	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. The pen holds four doses of the mixture and it cannot be refilled."
+	reference = "LP"
+	item = /obj/item/pen/sleepy/love
+	cost = 4
+	species = list("Skrell")
+
+
+//Vox
+/datum/uplink_item/species_restricted/spikethrower
+	name = "Skipjack Spikethrower"
+	desc = "An energy based weapon that launches high velocity plasma spikes. These spikes hit with enough force to knock the target down and leave a nasty wound."
+	reference = "STG"
+	item = /obj/item/gun/energy/spikethrower
+	cost = 12
+	species = list("Vox")
+
+//IPC:
+//Positonic supercharge implant: stims, 3 uses, IPC adrenals
+/datum/uplink_item/species_restricted/supercharge_implant
+	name = "Synthetic Supercharge Bio-chip"
+	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
+	reference = "SSI"
+	item = /obj/item/implanter/supercharge
+	cost = 8
+	species = list("Machine")
+
+
+//plasmeme
+/datum/uplink_item/species_restricted/fireproofing_nanites
+	name = "Fireproofing Nanite Injector"
+	desc = "A swarm of nanomachines that absorb excess amounts of heat, allowing the user to become practically fireproof."
+	reference = "FPN"
+	item = /obj/item/fireproofing_injector
+	cost = 5
+	species = list("Plasmaman")
+
+
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
 // -------------------------------------
@@ -390,16 +439,27 @@
 	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/suits/hardsuit // Nukies get elite/shielded hardsuit instead
-	name = "Syndicate Hardsuit"
-	desc = "The feared suit of a syndicate nuclear agent. Features armor and a combat mode \
+/datum/uplink_item/suits/modsuit
+	name = "Syndicate MODsuit"
+	desc = "The feared MODsuit of a syndicate nuclear agent. Features armor and a eva mode \
 			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
-			Additionally the suit is collapsible, making it small enough to fit within a backpack. Comes packaged with internals. \
+			Comes packaged with internals. \
 			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
-	item = /obj/item/storage/box/syndie_kit/hardsuit
+	item = /obj/item/storage/box/syndie_kit/modsuit
 	cost = 6
+	surplus = 60 //I have upped the chance of modsuits from 40, as I do feel they are much more worthwhile with the base modsuit no longer being 8 tc, and the high armor values of the elite.
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/suits/modsuit_elite
+	name = "Syndicate Elite MODsuit"
+	desc = "An advanced MODsuit with superior armor to the standard Syndicate MODsuit. \
+	Nanotrasen crew who spot these suits are known to *really* panic."
+	reference = "MSE"
+	item = /obj/item/storage/box/syndie_kit/modsuit/elite
+	cost = 9 //9 to start, no holopara / ebow.
+	surplus = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/implants/uplink // Nukies get Nuclear Uplink Bio-chip instead

@@ -184,11 +184,12 @@
 		Retract()
 		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [parent_organ == "r_arm" ? "right" : "left"] arm!</span>")
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
-		to_chat(owner, "<span class='userdanger'>You feel an explosion erupt inside your [parent_organ == "r_arm" ? "right" : "left"] arm as your implant breaks!</span>")
+		to_chat(owner, "<span class='userdanger'>You feel an explosion erupt inside your [parent_organ == "r_arm" ? "right" : "left"] arm as your implant misfires!</span>")
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
 		crit_fail = TRUE
+		addtimer(VARSET_CALLBACK(src, crit_fail, FALSE), 60 SECONDS) //I would rather not have the weapon be permamently disabled, especially as there is no way to fix it.
 	else // The gun will still discharge anyway.
 		..()
 

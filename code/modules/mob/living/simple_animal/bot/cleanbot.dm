@@ -187,8 +187,10 @@
 	do_sparks(3, 1, src)
 	..()
 
-/mob/living/simple_animal/bot/cleanbot/show_controls(mob/M)
-	ui_interact(M)
+//TGUI
+
+/mob/living/simple_animal/bot/cleanbot/show_controls(mob/user)
+	ui_interact(user)
 
 /mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -238,7 +240,7 @@
 		if("ejectpai")
 			ejectpai()
 
-
+//END OF TGUI
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
 	if(istype(A,/obj/effect/decal/cleanable))

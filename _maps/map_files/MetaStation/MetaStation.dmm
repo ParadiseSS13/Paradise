@@ -50480,7 +50480,7 @@
 	},
 /area/engine/engineering)
 "dym" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 8;
 	id = "Cell 1";
 	name = "Cell 1";
@@ -56516,7 +56516,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
 "grL" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 8;
 	id = "Cell 3";
 	name = "Cell 3";
@@ -61998,7 +61998,7 @@
 	},
 /area/engine/controlroom)
 "iTF" = (
-/obj/machinery/door/window/reinforced/reversed{
+/obj/machinery/door/window/brigdoor{
 	dir = 4;
 	id = "Cell 2";
 	name = "Cell 2";
@@ -74316,7 +74316,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	id = "Cell 5";
 	name = "Cell 5";
 	req_access_txt = "2";
@@ -87224,7 +87224,7 @@
 	},
 /area/medical/medbay)
 "viR" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	id = "Cell 4";
 	name = "Cell 4";
 	req_access_txt = "2";
