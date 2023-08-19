@@ -222,7 +222,7 @@
 
 	for(var/datum/mind/head_mind in get_all_heads())
 		var/mob/living/carbon/human/H = head_mind.current
-		if(H.stat == DEAD)
+		if(isnull(H) || H.stat == DEAD)
 			scoreboard.score_dead_command++
 
 
@@ -251,8 +251,7 @@
 			revcount++
 
 	var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/player = thing
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
 		if(player.mind)
 			if(player.mind.assigned_role in real_command_positions)
 				if(player.stat != DEAD)
@@ -292,3 +291,6 @@
 
 /proc/is_any_revolutionary(mob/living/M)
 	return is_revolutionary(M) || is_headrev(M)
+
+#undef REV_VICTORY
+#undef STATION_VICTORY

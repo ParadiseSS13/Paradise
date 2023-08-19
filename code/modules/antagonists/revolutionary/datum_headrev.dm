@@ -30,7 +30,7 @@
 	if(!istype(revolutionary))
 		return
 
-	var/list/slots = list (
+	var/list/slots = list(
 		"backpack" = slot_in_backpack,
 		"left pocket" = slot_l_store,
 		"right pocket" = slot_r_store,

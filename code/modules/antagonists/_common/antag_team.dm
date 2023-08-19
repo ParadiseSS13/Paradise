@@ -135,6 +135,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	message_admins("[key_name_admin(user)] added objective [O.type] to the team '[name]'.")
 	log_admin("[key_name(user)] added objective [O.type] to the team '[name]'.")
 
+/**
+ * Special overrides for teams for target exclusion from objectives.
+ */
 /datum/team/proc/get_target_excludes()
 	return members
 

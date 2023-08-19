@@ -915,8 +915,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	SSshuttle.registerHostileEnvironment(src) // wow, a client blocking the shuttle
 
-	log_admin("[key_name(src)] has denied the shuttle to be called.")
-	message_admins("[key_name_admin(usr)] has denied the shuttle to be called.")
+	log_and_message_admins("has denied the shuttle to be called.")
 
 /client/proc/cmd_admin_attack_log(mob/M as mob in GLOB.mob_list)
 	set category = "Admin"

@@ -156,7 +156,7 @@
 
 
 /obj/item/flash/proc/revolution_conversion(mob/M, mob/user)
-	if(!ishuman(M) || !(user.mind.has_antag_datum(/datum/antagonist/rev/head)))
+	if(!ishuman(M) || !user?.mind.has_antag_datum(/datum/antagonist/rev/head))
 		return
 	if(M.stat != CONSCIOUS)
 		to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")

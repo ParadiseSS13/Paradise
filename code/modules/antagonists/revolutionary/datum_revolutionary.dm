@@ -26,8 +26,6 @@
 		to_chat(owner.current,"<span class='userdanger'>You have been brainwashed! You are no longer a [special_role]! </span>")
 
 
-/datum/antagonist/rev/announce_objectives()
-
 /datum/antagonist/rev/add_owner_to_gamemode()
 	SSticker.mode.revolutionaries |= owner
 
@@ -39,7 +37,6 @@
 
 /datum/antagonist/rev/get_team()
 	return SSticker.mode.get_rev_team()
-
 
 /datum/antagonist/rev/give_objectives()
 	var/datum/team/revolution/revolting = get_team()
@@ -54,5 +51,5 @@
 	new_revhead.silent = TRUE
 	old_owner.add_antag_datum(new_revhead, SSticker.mode.get_rev_team())
 	new_revhead.silent = FALSE
-	to_chat(old_owner.current, "<span class='userdanger'>You have proved your devotion to revolution! You are a head revolutionary now!</span>")
+	to_chat(old_owner.current, "<span class='userdanger'>You have proved your devotion to the revolution! You are a head revolutionary now!</span>")
 

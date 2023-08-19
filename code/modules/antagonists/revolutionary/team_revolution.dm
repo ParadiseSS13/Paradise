@@ -4,7 +4,7 @@
 	var/max_headrevs = REVOLUTION_MAX_HEADREVS // adminbus is possible
 
 /datum/team/revolution/New()
-	. = ..()
+	..()
 	update_team_objectives()
 	SSshuttle.registerHostileEnvironment(src)
 
