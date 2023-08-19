@@ -185,7 +185,7 @@
 	return TRUE
 
 /obj/item/implant/mod/proc/mod_step() //Step,increase tries if failed
-	if(!length(path))
+	if(!path || !length(path))
 		return FALSE
 	for(var/obj/machinery/door/D in range(2, module.mod))
 		if(D.operating || D.emagged)
