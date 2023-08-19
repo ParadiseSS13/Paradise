@@ -118,7 +118,7 @@
 			weaponlock_time = 120
 
 /mob/living/silicon/robot/update_canmove(delay_action_updates = 0)
-	if(IsParalyzed() || IsStunned() || IsWeakened() || buckled || lockcharge || stat)
+	if(IsParalyzed() || IsStunned() || IsWeakened() || buckled || lockcharge || stat || IsImmobilized())
 		canmove = FALSE
 	else
 		canmove = TRUE

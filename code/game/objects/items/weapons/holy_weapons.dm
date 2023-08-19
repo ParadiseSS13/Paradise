@@ -497,14 +497,14 @@
 					return
 
 				var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-				if(!vamp?.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
+				if(vamp && !vamp.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
 					vamp.adjust_nullification(120, 50)
 					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
 					praying = FALSE
 					return
 
 				var/datum/antagonist/goon_vampire/g_vamp = M.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-				if(!g_vamp?.get_ability(/datum/goon_vampire_passive/full))
+				if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
 					g_vamp.nullified = max(120, g_vamp.nullified + 120)
 					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
 					praying = FALSE
@@ -533,7 +533,7 @@
 
 	for(var/mob/living/carbon/human/target in range(5, loc))
 		var/datum/antagonist/goon_vampire/g_vamp = target.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(!g_vamp?.get_ability(/datum/goon_vampire_passive/full))
+		if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
 			g_vamp.nullified = max(5, g_vamp.nullified + 2)
 			if(prob(10))
 				to_chat(target, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")

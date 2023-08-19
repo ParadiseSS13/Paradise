@@ -140,6 +140,7 @@
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
+	var/metal_type = /obj/item/stack/sheet/brass
 
 /obj/structure/clockwork/wall_gear/displaced
 	anchored = FALSE
@@ -216,12 +217,13 @@
 
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && disassembled)
-		new /obj/item/stack/sheet/brass(loc, 1)
+		new metal_type(loc, 1)
 	return ..()
 
 /obj/structure/clockwork/wall_gear/fake
 	desc = "A massive tarnished brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
 	max_integrity = 200
+	metal_type = /obj/item/stack/sheet/brass_fake
 
 /obj/structure/clockwork/wall_gear/fake/narsie_act()
 	if(prob(25))
@@ -258,9 +260,4 @@
 			else
 				to_chat(user, "<span class='warning'>You need more brass to make a [anchored ? "false ":""]wall!</span>")
 		return TRUE
-	return ..()
-
-/obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT) && disassembled)
-		new /obj/item/stack/sheet/brass_fake(loc, 1)
 	return ..()
