@@ -1038,9 +1038,6 @@
 /mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, piercing = FALSE)
 	. = TRUE
 
-	if(wear_suit && HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE))
-		return FALSE
-
 	if(!target_zone)
 		if(!user)
 			. = FALSE
@@ -1059,7 +1056,7 @@
 	if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
-	if(piercing)
+	if(wear_suit && !HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE) && piercing)
 		return TRUE
 	if(target_zone == "head")
 		if((head?.flags & THICKMATERIAL) && !penetrate_thick)
