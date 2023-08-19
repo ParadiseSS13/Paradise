@@ -44,7 +44,7 @@
 	/// Chance to mend fractures
 	var/mend_fractures_chance = 0
 
-	/// Its healing robots as well?
+	/// Its healing robots parts as well?
 	var/robot_heal = FALSE
 
 	/// Map of external organs (such as "tail", "wing", "r_foot" etc.). Will stop internal bleedings only on these organs if specified.
@@ -146,9 +146,18 @@
 
 		var/old_health = candidate.health
 
-		if(iscarbon(candidate) || issilicon(candidate) || isanimal(candidate))
+		if(issilicon(candidate) || isanimal(candidate))
 			candidate.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE)
 			candidate.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE)
+
+		if(iscarbon(candidate)) //another if, because porotic parts
+			if(ishuman(candidate)) //humans, tajarans...
+				var/mob/living/carbon/human/healing = candidate
+				healing.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE, robotic = robot_heal)
+				healing.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE, robotic = robot_heal)
+			else
+				candidate.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE) //aliens, brains...
+				candidate.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE)
 
 		if(iscarbon(candidate))
 			// Toxin healing is forced for slime people
