@@ -443,7 +443,7 @@
 	for(var/obj/item/mod/module/holster/H in modules)
 		H.holstered?.emp_act(severity)
 	if(bag)
-		bag.emp_act()
+		bag.emp_act(severity)
 
 
 /obj/item/mod/control/dropped(mob/user)
