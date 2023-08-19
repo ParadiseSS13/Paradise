@@ -52,7 +52,7 @@
 	if(check_loc && !in_range(M, src))
 		return FALSE
 
-	if(check_loc && !M.Move(loc))
+	if(check_loc && M.loc != loc && !M.Move(loc))
 		return FALSE
 
 	if((!can_buckle && !force) || M.buckled || (length(buckled_mobs) >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
