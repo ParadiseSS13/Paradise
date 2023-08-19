@@ -27,7 +27,7 @@
 	var/list/affected_jobs = list() // For logging
 	var/list/jobs = SSjobs.occupations.Copy()
 	var/datum/job/overflow
-	var/overflow_amount = rand(1, 3)
+	var/overflow_amount = pick(1, 2)
 	var/errors = 0
 	while(errors < overflow_amount)
 		var/random_change = pick(-2, -1, 1, 2)
