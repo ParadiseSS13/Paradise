@@ -83,7 +83,7 @@
 		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
 		return
 	else
-		if(user.reagents.has_reagent("fuel", welding_fuel_used))
+		if(!welding_fuel_used || user.reagents.has_reagent("fuel", welding_fuel_used))
 			if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.wear_mask?.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask?.up)
 				to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
 				return
