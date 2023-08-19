@@ -441,7 +441,7 @@
 	if(prob(50 / severity))
 		wires.emp_pulse() //3 wires get pulsed. Dangerous to a mod user.
 	for(var/obj/item/mod/module/holster/H in modules)
-		H.holstered.emp_act(severity)
+		H.holstered?.emp_act(severity)
 	if(bag)
 		bag.emp_act()
 
