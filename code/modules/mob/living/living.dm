@@ -86,6 +86,8 @@
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_MOB_BUMP, M)
+
 	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
 	if(now_pushing || M.anchored)
 		return TRUE
@@ -926,7 +928,7 @@
 
 /mob/living/narsie_act()
 	if(client)
-		make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, src, cult_override = TRUE)
+		make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, src, cult_override = TRUE, create_smoke = TRUE)
 	spawn_dust()
 	gib()
 

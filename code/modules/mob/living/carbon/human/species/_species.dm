@@ -292,6 +292,10 @@
 
 	if(H.wear_suit)
 		ADD_SLOWDOWN(H.wear_suit.slowdown)
+	if(H.head)
+		ADD_SLOWDOWN(H.head.slowdown)
+	if(H.gloves)
+		ADD_SLOWDOWN(H.gloves.slowdown)
 	if(!H.buckled && H.shoes)
 		ADD_SLOWDOWN(H.shoes.slowdown)
 	if(H.back)
@@ -841,6 +845,12 @@
 				var/obj/item/storage/backpack/B = H.back
 				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
 					return TRUE
+			if(H.back && ismodcontrol(H.back))
+				var/obj/item/mod/control/C = H.back
+				if(C.bag)
+					var/obj/item/storage/backpack/B = C.bag
+					if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+						return TRUE
 			return FALSE
 		if(slot_tie)
 			if(!istype(I, /obj/item/clothing/accessory))
