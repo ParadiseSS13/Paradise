@@ -177,7 +177,7 @@
 		if(is_taipan(destination_z))
 			destination_z = pick(get_all_linked_levels_zpos())
 	//notification if we do get to taipan
-	if(is_taipan(destination_z))
+	if(istype(check_mob) && is_taipan(destination_z))
 		to_chat(check_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
 	return destination_z
 
