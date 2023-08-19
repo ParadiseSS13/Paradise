@@ -219,13 +219,17 @@
 	emote_type = EMOTE_AUDIBLE
 	hands_use_check = TRUE
 	audio_cooldown = 3 SECONDS
-	var/list/valid_shoes = list(/obj/item/clothing/shoes/jackboots, /obj/item/clothing/shoes/combat,
+	var/list/serious_shoes = list(/obj/item/clothing/shoes/jackboots, /obj/item/clothing/shoes/combat,
 								/obj/item/clothing/shoes/centcom, /obj/item/clothing/shoes/laceup)
+	var/list/funny_shoes = list(/obj/item/clothing/shoes/magboots/clown, /obj/item/clothing/shoes/clown_shoes,
+								/obj/item/clothing/shoes/cursedclown, /obj/item/clothing/shoes/ducky)
 
 /datum/emote/living/carbon/human/salute/get_sound(mob/living/user)
 	var/mob/living/carbon/human/H = user
-	if(is_type_in_list(H.shoes, valid_shoes))
+	if(is_type_in_list(H.shoes, serious_shoes))
 		return 'sound/effects/salute.ogg'
+	if(is_type_in_list(H.shoes, funny_shoes))
+		return 'sound/items/toysqueak1.ogg'
 
 /datum/emote/living/carbon/human/shrug
 	key = "shrug"
