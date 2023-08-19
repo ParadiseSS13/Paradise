@@ -268,7 +268,7 @@
 	name = "Berserk"
 	desc = "Increase your movement and melee speed while also increasing your melee armor for a short amount of time."
 
-/datum/action/item_action/berserk_mode/Trigger(trigger_flags)
+/datum/action/item_action/berserk_mode/Trigger(left_click)
 	if(istype(target, /obj/item/clothing/head/hooded/berserker))
 		var/obj/item/clothing/head/hooded/berserker/berzerk = target
 		if(berzerk.berserk_active)

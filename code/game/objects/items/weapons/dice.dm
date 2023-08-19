@@ -258,7 +258,7 @@
 				/obj/item/clothing/glasses/chameleon/thermal,
 				/obj/item/borg/upgrade/modkit/indoors,
 				/obj/item/storage/box/syndie_kit/chameleon,
-				/obj/item/storage/box/syndie_kit/hardsuit,
+				/obj/item/storage/box/syndie_kit/modsuit,
 				/obj/item/implanter/storage,
 				/obj/item/toy/syndicateballoon)
 			var/selected_item = pick(traitor_items)
