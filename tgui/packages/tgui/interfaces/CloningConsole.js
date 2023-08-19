@@ -7,7 +7,6 @@ export const CloningConsole = (props, context) => {
   const {
     tab,
     hasScanner,
-    pods,
     podAmount
   } = data;
   return (
@@ -46,28 +45,56 @@ const CloningConsoleBody = (props, context) => {
 const CloningConsoleMain = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    pods
+    pods,
+    selectedPodUID
   } = data;
   return (
     <Box>
       {!pods && (<Box color='average'>Notice: No pods connected.</Box>)}
-      <Flex>
-        {!!pods &&
-          pods.map((pod, i) => (
-            <Flex.Item key={pod}>
-              <Box textAlign='center'>
+      {!!pods &&
+        pods.map((pod, i) => (
+          <Section key={pod} layer={2} title={"Pod " + (i + 1)}>
+            <Flex textAlign='center'>
+              <Flex.Item basis="96px" shrink={0}>
                 <img
                   src={'pod_' + (pod["cloning"] ? 'cloning' : 'idle') + '.gif'}
                   style={{
-                   width: '100%',
+                  width: '100%',
                     '-ms-interpolation-mode': 'nearest-neighbor',
                   }}
                 />
-                Pod {i + 1}
-              </Box>
-            </Flex.Item>
-        ))}
-      </Flex>
+                <Button selected={selectedPodUID === pod["uid"]} onClick={() => act('select_pod', {uid: pod["uid"]})}>
+                  Select
+                </Button>
+              </Flex.Item>
+              <Flex.Item>
+                <LabeledList>
+                  <LabeledList.Item label='Progress'>
+                    {!pod["currently_cloning"] && <Box color='average'>Pod is inactive.</Box>}
+                    {!!pod["currently_cloning"] && <ProgressBar value={pod["clone_progress"]}
+                      maxValue={100}
+                      color='good' />}
+                  </LabeledList.Item>
+                  <LabeledList.Divider />
+                  <LabeledList.Item label='Biomass'>
+                    <ProgressBar value={pod["biomass"]}
+                      ranges={{
+                        good: [(2*pod["biomass_storage_capacity"])/3, pod["biomass_storage_capacity"]],
+                        average: [pod["biomass_storage_capacity"]/3, (2*pod["biomass_storage_capacity"])/3],
+                        bad: [0, pod["biomass_storage_capacity"]/3] // This is just thirds again
+                      }}
+                      minValue={0}
+                      maxValue={pod["biomass_storage_capacity"]}>
+                      {pod["biomass"]}/{pod["biomass_storage_capacity"] + " (" + 100*pod["biomass"]/pod["biomass_storage_capacity"] + "%)"}
+                    </ProgressBar>
+                  </LabeledList.Item>
+                  <LabeledList.Item label='Sanguine Reagent'>{pod["sanguine_reagent"]}</LabeledList.Item>
+                  <LabeledList.Item label='Osseous Reagent'>{pod["osseous_reagent"]}</LabeledList.Item>
+                </LabeledList>
+              </Flex.Item>
+            </Flex>
+          </Section>
+      ))}
     </Box>
   );
 };

@@ -8,7 +8,9 @@
 	icon_screen = "dna"
 	circuit = /obj/item/circuitboard/cloning
 
-	/// A list of linked cloning pods.
+	/// The currently-selected cloning pod.
+	var/obj/machinery/clonepod/selected_pod
+	/// A list of all linked cloning pods.
 	var/list/pods = list()
 	/// Our linked cloning scanner.
 	var/obj/machinery/clonescanner/scanner
@@ -29,6 +31,8 @@
 	pods += locate(/obj/machinery/clonepod, orange(5, src))
 
 	scanner = locate(/obj/machinery/clonescanner, orange(5, src))
+
+	selected_pod = pick(pods)
 
 	healthy_data.limbs = list(
 		"head"   = list(0, 5, 0, FALSE),
@@ -142,15 +146,18 @@
 		data["hasScanner"] = FALSE
 
 	var/list/pod_data = list()
-	for(var/obj/machinery/clonepod/pod in pods)
-		pod_data += list(list("uid" = pod.UID(),
-						"cloning" = pod.currently_cloning,
-						"biomass" = pod.biomass,
-						"biomass_storage_capacity" = pod.biomass_storage_capacity,
-						"sanguine_reagent" = pod.reagents.get_reagent_amount("sanguine_reagent"),
-						"osseous_reagent" = pod.reagents.get_reagent_amount("osseous_reagent")))
+	if(length(pods))
+		for(var/obj/machinery/clonepod/pod in pods)
+			pod_data += list(list("uid" = pod.UID(),
+							"cloning" = pod.currently_cloning,
+							"clone_progress" = pod.clone_progress,
+							"biomass" = pod.biomass,
+							"biomass_storage_capacity" = pod.biomass_storage_capacity,
+							"sanguine_reagent" = pod.reagents.get_reagent_amount("sanguine_reagent"),
+							"osseous_reagent" = pod.reagents.get_reagent_amount("osseous_reagent")))
 
 	data["pods"] = pod_data
+	data["selectedPodUID"] = selected_pod.UID()
 	data["podAmount"] = length(pods)
 
 	return data
@@ -170,6 +177,9 @@
 				if(TAB_DAMAGES_BREAKDOWN)
 					tab = TAB_DAMAGES_BREAKDOWN
 					return TRUE
+		if("select_pod")
+			selected_pod = locateUID(params["uid"])
+			return TRUE
 
 	src.add_fingerprint(usr)
 
