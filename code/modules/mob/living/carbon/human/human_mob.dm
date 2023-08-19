@@ -1047,8 +1047,7 @@
 
 	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
-	if(HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE))
-		. = FALSE
+
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)
@@ -1057,7 +1056,7 @@
 	if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
-	if(piercing)
+	if(wear_suit && !HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE) && piercing)
 		return TRUE
 	if(target_zone == "head")
 		if((head?.flags & THICKMATERIAL) && !penetrate_thick)

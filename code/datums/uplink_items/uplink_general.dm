@@ -581,8 +581,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
-	category = "Space Suits and Hardsuits"
-	surplus = 40
+	category = "Space Suits and MODsuits"
+	surplus = 10 //I am setting this to 10 as there are a bunch of modsuit parts in here that should be weighted to 10. Suits and modsuits adjusted below.
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
@@ -593,7 +593,59 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/space
 	cost = 4
 
+/datum/uplink_item/suits/thermal
+	name = "MODsuit Thermal Visor Module"
+	desc = "A visor for a MODsuit. Lets you see living beings through walls. Also provides night vision."
+	reference = "MSTV"
+	item = /obj/item/mod/module/visor/thermal
+	cost = 3 // Don't forget, you need to get a modsuit to go with this
+	surplus = 10 //You don't need more than
 
+/datum/uplink_item/suits/night
+	name = "MODsuit Night Visor Module"
+	desc = "A visor for a MODsuit. Lets you see clearer in the dark."
+	reference = "MSNV"
+	item = /obj/item/mod/module/visor/night
+	cost = 1 // It's night vision, rnd pumps out those goggles for anyone man.
+	surplus = 10 //You don't need more than one
+
+/datum/uplink_item/suits/plate_compression
+	name = "MODsuit Plate Compression Module"
+	desc = "A MODsuit module that lets the suit compress into a smaller size. Not compatible with storage modules, \
+	you will have to take that module out first."
+	reference = "MSPC"
+	item = /obj/item/mod/module/plate_compression
+	cost = 2
+
+/datum/uplink_item/suits/noslip
+	name = "MODsuit Anti-Slip Module"
+	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink modsuits."
+	reference = "MSNS"
+	item = /obj/item/mod/module/noslip
+	cost = 1
+
+/datum/uplink_item/suits/springlock_module
+	name = "Heavily Modified Springlock MODsuit Module"
+	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
+		This mechanical exoskeleton pushes out of the way when the user enters and it helps in booting \
+		up, but was taken out of modern suits because of the springlock's tendency to \"snap\" back \
+		into place when exposed to humidity. You know what it's like to have an entire exoskeleton enter you? \
+		This version of the module has been modified to allow for near instant activation of the MODsuit. \
+		Useful for quickly getting your MODsuit on/off, or for taking care of a target via a tragic accident. \
+		It is hidden as a DNA lock module. It will block retraction for 10 seconds by default to allow you to follow \
+		up with smoke, but you can multitool the module to disable that."
+	reference = "FNAF"
+	item = /obj/item/mod/module/springlock/bite_of_87
+	cost = 1
+	surplus = 10
+
+/datum/uplink_item/suits/hidden_holster
+	name = "Hidden Holster Module"
+	desc = "A holster module disguised to look like a tether module. Requires a modsuit to put it in of course. Gun not included."
+	reference = "HHM"
+	item = /obj/item/mod/module/holster/hidden
+	cost = 1
+	surplus = 10
 
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
