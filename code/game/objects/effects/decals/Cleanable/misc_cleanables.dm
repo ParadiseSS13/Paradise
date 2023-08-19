@@ -288,12 +288,6 @@
 		. += "<span class='notice'>There's enough here to scrape into a beaker.</span>"
 
 /obj/effect/decal/cleanable/fungus/on_scoop()
-
-	// can you feel your heart burning?
-	// can you feel the struggle within?
-	// the fear within me is beyond anything your soul can make.
-	// you can't kill me in a way that matters
-
 	alpha = 128
 	no_scoop = TRUE
 
