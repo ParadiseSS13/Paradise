@@ -225,7 +225,8 @@
 		/obj/item/holosign_creator/atmos,
 		/obj/item/clothing/gloves/color/black/forensics,
 		/obj/item/rcd,
-		/obj/item/rpd
+		/obj/item/rpd,
+		/obj/item/mod/control
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -340,7 +341,11 @@
 			QDEL_NULL(P.id)
 			qdel(P)
 			continue
-
+		if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.
+			var/obj/item/storage/backpack/modstorage/M = I
+			M.forceMove(M.source)
+			continue
+		
 		var/preserve = should_preserve_item(I)
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
