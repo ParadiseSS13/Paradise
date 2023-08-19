@@ -73,7 +73,9 @@
 	icon_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
 	var/cooldown = 0
-	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+	var/cooldown_duration = 20 SECONDS
+	var/welding_fuel_used = 3 //one sip, with less strict timing
+	check_flags = AB_CHECK_HANDS_BLOCKED
 
 /datum/action/innate/ignite/Activate()
 	var/mob/living/carbon/human/user = owner
@@ -81,7 +83,7 @@
 		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
 		return
 	else
-		if(user.reagents?.has_reagent("fuel", 3)) //one sip, but without strict timing
+		if(user.reagents?.has_reagent("fuel", welding_fuel_used)) //one sip, but without strict timing
 			if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.wear_mask?.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask?.up)
 				to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
 				return
@@ -90,7 +92,7 @@
 				if(user.put_in_hands(fire))
 					to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
 					user.reagents.remove_reagent("fuel", 50) //slightly high, but I'd rather avoid it being TOO spammable. You can use it 6 times now if you fill yourself with fuel, you really don't need more.
-					cooldown = world.time + 200 //20 second cooldown
+					cooldown = world.time + cooldown_duration
 				else
 					qdel(fire)
 					to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
@@ -137,22 +139,5 @@
 
 /datum/action/innate/ignite/ash_walker
 	desc = "You form fire in your mouth, allowing you to.. light cigarettes."
-
-/datum/action/innate/ignite/ash_walker/Activate()
-	var/mob/living/carbon/human/user = owner
-	if(world.time <= cooldown)
-		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
-		return
-	else
-		if((user.head && (user.head.flags_cover & HEADCOVERSMOUTH)) || (user.wear_mask && (user.wear_mask.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask.up))
-			to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
-			return
-		else
-			var/obj/item/match/unathi/fire = new(user.loc, src)
-			if(user.put_in_hands(fire))
-				cooldown = world.time + 3000 //5 minute cooldown.
-				to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
-			else
-				qdel(fire)
-				to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
-
+	cooldown_duration = 5 MINUTES
+	welding_fuel_used = 0
