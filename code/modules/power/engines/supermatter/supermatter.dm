@@ -785,14 +785,14 @@
 		return
 
 	if(istype(I, /obj/item/twohanded/supermatter))
-		if(!ishuman(user))
-			return
-		var/mob/living/carbon/human/M = user
-		to_chat(M, "<span class='notice'>You begin to carve off a sliver of [src] with [I]...</span>")
-		if(I.use_tool(src, M, 10 SECONDS, volume = 100))
-			to_chat(M, "<span class='danger'>[src] seethes with energy as you finish cutting off a sliver!</span>")
-			matter_power += 600
-			new /obj/item/nuke_core/supermatter_sliver(drop_location())
+		if(ishuman(user))
+			var/mob/living/carbon/human/M = user
+			to_chat(M, "<span class='notice'>You begin to carve off a sliver of [src] with [I]...</span>")
+			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
+				to_chat(M, "<span class='danger'>[src] seethes with energy as you finish cutting off a sliver!</span>")
+				matter_power += 600
+				new /obj/item/nuke_core/supermatter_sliver(drop_location())
+		return
 
 	if(istype(I, /obj/item/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[I] bounces off [src], you need to cut a sliver off first!</span>")
