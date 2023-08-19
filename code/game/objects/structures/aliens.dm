@@ -160,8 +160,6 @@
 		return
 	var/mob/living/carbon/C = user
 	if(C.get_int_organ(/obj/item/organ/internal/alien/hivenode))
-		if(world.time - C.last_bumped <= 60)
-			return
 		if(!C.handcuffed)
 			operate()
 		return

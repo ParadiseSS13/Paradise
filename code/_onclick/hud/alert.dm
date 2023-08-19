@@ -540,6 +540,30 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
 
+/obj/screen/alert/ghost
+	name = "Ghost"
+	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+	icon_state = "template"
+	timeout = 5 MINUTES // longer than any infection should be
+
+/obj/screen/alert/ghost/Initialize(mapload)
+	. = ..()
+	var/image/I = image('icons/mob/mob.dmi', icon_state = "ghost", layer = FLOAT_LAYER, dir = SOUTH)
+	I.layer = FLOAT_LAYER
+	I.plane = FLOAT_PLANE
+	overlays += I
+
+/obj/screen/alert/ghost/Click()
+	var/mob/living/carbon/human/infected_user = usr
+	if(!istype(infected_user) || infected_user.stat == DEAD)
+		infected_user.clear_alert("ghost_nest")
+		return
+	var/obj/item/clothing/mask/facehugger/hugger_mask = infected_user.wear_mask
+	if(!istype(hugger_mask) || !(locate(/obj/item/organ/internal/body_egg/alien_embryo) in infected_user.internal_organs) || hugger_mask.sterile)
+		infected_user.clear_alert("ghost_nest")
+		return
+	infected_user.ghostize(TRUE)
+
 /obj/screen/alert/notify_action
 	name = "Body created"
 	desc = "A body was created. You can enter it."

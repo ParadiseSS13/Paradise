@@ -20,6 +20,17 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(mind_checks))
+
+/**
+  * Handles any adjustments to the mob after a mind transfer.
+  */
+
+/mob/living/carbon/human/proc/mind_checks()
+	if(!mind)
+		return
+	if(mind.miming)
+		qdel(GetComponent(/datum/component/footstep))
 
 /**
   * Sets up DNA and species.
@@ -68,6 +79,7 @@
 	splinted_limbs.Cut()
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src
+	UnregisterSignal(src, COMSIG_BODY_TRANSFER_TO)
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
@@ -87,9 +99,6 @@
 
 /mob/living/carbon/human/vox/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox)
-
-/mob/living/carbon/human/voxarmalis/Initialize(mapload)
-	. = ..(mapload, /datum/species/vox/armalis)
 
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
@@ -751,7 +760,10 @@
 								read = 1
 								if(LAZYLEN(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
-										to_chat(usr, c)
+										if(islist(c))
+											to_chat(usr, "[c["header"]]: [c["text"]]")
+										else
+											to_chat(usr, c)
 								else
 									to_chat(usr, "<span class='warning'>No comments found</span>")
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
@@ -1023,7 +1035,7 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
+/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, piercing = FALSE)
 	. = TRUE
 
 	if(!target_zone)
@@ -1041,17 +1053,17 @@
 	if(!affecting)
 		. = FALSE
 		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
-	else if(affecting.is_robotic())
+	if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
+	if(wear_suit && !HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE) && piercing)
+		return TRUE
+	if(target_zone == "head")
+		if((head?.flags & THICKMATERIAL) && !penetrate_thick)
+			. = FALSE
 	else
-		switch(target_zone)
-			if("head")
-				if(head && head.flags & THICKMATERIAL && !penetrate_thick)
-					. = FALSE
-			else
-				if(wear_suit && wear_suit.flags & THICKMATERIAL && !penetrate_thick)
-					. = FALSE
+		if((wear_suit?.flags & THICKMATERIAL) && !penetrate_thick)
+			. = FALSE
 	if(!. && error_msg && user)
 		if(!fail_msg)
 			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
@@ -2122,6 +2134,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/obj/item/in_hand = get_active_hand()
 
 	if(in_hand)
+		if(in_hand.flags & NODROP)
+			visible_message("<span class='warning'>[src] attempts to drop [in_hand], but it seems to be stuck to [p_their()] hand!</span>")
+			return
+		if(in_hand.flags & ABSTRACT)
+			visible_message("<span class='notice'>[src] seems to have [p_their()] hands full!</span>")
+			return
 		visible_message("<span class='notice'>[src] drops [in_hand] and picks up [thing] instead!</span>")
 		unEquip(in_hand)
 		in_hand.forceMove(old_loc)
@@ -2130,8 +2148,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	put_in_active_hand(thing)
 
 /mob/living/carbon/human/proc/dchat_throw()
-	var/in_hand = get_active_hand()
-	if(!in_hand)
+	var/obj/item/in_hand = get_active_hand()
+	if(!in_hand || in_hand.flags & ABSTRACT)
 		visible_message("<span class='notice'>[src] makes a throwing motion!</span>")
 		return
 	var/atom/possible_target
@@ -2147,9 +2165,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			break
 
 	if(!possible_target)
-		throw_item(cur_turf)
-	else
-		throw_item(possible_target)
+		possible_target = cur_turf
+	if(in_hand.flags & NODROP)
+		visible_message("<span class='warning'>[src] tries to throw [in_hand][isturf(possible_target) ? "" : " towards [possible_target]"], but it won't come off [p_their()] hand!</span>")
+		return
+	throw_item(possible_target)
 
 /mob/living/carbon/human/proc/dchat_shove()
 	var/turf/ahead = get_turf(get_step(src, dir))
@@ -2159,6 +2179,29 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	dna?.species.disarm(src, H)
 
+/mob/living/carbon/human/proc/dchat_shoot()
+
+	var/atom/possible_target
+	var/cur_turf = get_turf(src)
+	for(var/i in 1 to 5)
+		cur_turf = get_step(cur_turf, dir)
+		possible_target = locate(/mob/living) in cur_turf
+		if(possible_target)
+			break
+
+	if(!possible_target)
+		possible_target = cur_turf
+
+	var/obj/item/gun/held_gun = get_active_hand()
+	if(!held_gun)
+		visible_message("<span class='warning'>[src] makes fingerguns towards [possible_target]!</span>")
+		return
+	if(!istype(held_gun))
+		visible_message("<span class='warning'>[src] points [held_gun] towards [possible_target]!</span>")
+		return
+	// for his neutral special, he wields a Gun
+	held_gun.afterattack(possible_target, src)
+	visible_message("<span class='danger'>[src] fires [held_gun][isturf(possible_target) ? "" : " towards [possible_target]!"]</span>")
 
 /mob/living/carbon/human/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 7 SECONDS)
 	var/list/inputs = list(
@@ -2169,6 +2212,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		"throw" = CALLBACK(src, PROC_REF(dchat_throw)),
 		"disarm" = CALLBACK(src, PROC_REF(dchat_shove)),
 		"resist" = CALLBACK(src, PROC_REF(dchat_resist)),
+		"shoot" = CALLBACK(src, PROC_REF(dchat_shoot)),
 	)
 
 	AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, inputs, cooldown)

@@ -230,7 +230,7 @@
 
 /turf/simulated/floor/engine/n20
 	name = "\improper N2O floor"
-	sleeping_agent = 6000
+	sleeping_agent = 60000
 	oxygen = 0
 	nitrogen = 0
 

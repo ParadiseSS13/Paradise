@@ -225,7 +225,8 @@
 		/obj/item/holosign_creator/atmos,
 		/obj/item/clothing/gloves/color/black/forensics,
 		/obj/item/rcd,
-		/obj/item/rpd
+		/obj/item/rpd,
+		/obj/item/mod/control
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -340,7 +341,11 @@
 			QDEL_NULL(P.id)
 			qdel(P)
 			continue
-
+		if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.
+			var/obj/item/storage/backpack/modstorage/M = I
+			M.forceMove(M.source)
+			continue
+		
 		var/preserve = should_preserve_item(I)
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
@@ -743,7 +748,7 @@
 		target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
 			var/turf/T = get_turf(person_to_cryo)
-			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40)
+			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40, create_sparks = FALSE)
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return 1

@@ -157,6 +157,7 @@
 	desc = "A tiny, highly volatile sliver of a supermatter crystal. Do not handle without protection!"
 	icon_state = "supermatter_sliver"
 	pulseicon = "supermatter_sliver_pulse"
+	layer = ABOVE_MOB_LAYER + 0.02
 
 /obj/item/nuke_core/supermatter_sliver/process()
 	. = ..()
@@ -186,6 +187,13 @@
 	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
 		return
 	else
+		if(issilicon(user))
+			to_chat(user, "<span class='userdanger'>You try to touch [src] with one of your modules. Error!</span>")
+			radiation_pulse(user, 500, 2)
+			playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+			user.dust()
+			qdel(src)
+			return
 		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [I] burst into dust!</span>")
 		radiation_pulse(user, 100)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -376,6 +384,8 @@
 			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",
 			"<span class='hear'>Everything suddenly goes silent.</span>")
 		user.dust()
+		icon_state = "supermatter_tongs"
+		item_state = "supermatter_tongs"
 	radiation_pulse(src, 500, 2)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)

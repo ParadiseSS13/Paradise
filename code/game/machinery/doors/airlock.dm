@@ -77,7 +77,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/aiHacking = FALSE
 	var/obj/machinery/door/airlock/closeOther
 	var/closeOtherId
-	var/justzap = FALSE
 	var/obj/item/airlock_electronics/electronics
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
 	var/obj/item/note //Any papers pinned to the airlock
@@ -192,11 +191,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))
 		if(isElectrified())
-			if(!justzap)
+			if(shockCooldown <= world.time)
 				if(shock(user, 100))
-					justzap = TRUE
-					spawn (10)
-						justzap = FALSE
 					return
 			else
 				return
@@ -216,8 +212,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/canAIControl()
 	return ((aiControlDisabled != AICONTROLDISABLED_ON) && (!isAllPowerLoss()))
 
-/obj/machinery/door/airlock/proc/canAIHack()
-	return ((aiControlDisabled == AICONTROLDISABLED_ON) && (!hackProof) && (!isAllPowerLoss()))
+/obj/machinery/door/airlock/proc/canAIHack(mob/living/user)
+	return ((aiControlDisabled == AICONTROLDISABLED_ON) && (!hackProof) && (!isAllPowerLoss()) && user.mind?.special_role)
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
 	if(stat & (NOPOWER|BROKEN))
@@ -312,14 +308,28 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(shockCooldown > world.time)
 		return FALSE	//Already shocked someone recently?
 	if(..())
-		shockCooldown = world.time + 2 SECONDS
+		shockCooldown = world.time + 1 SECONDS //Time must be lowered from 2 seconds due to bump, bump was only 1 second.
 		return TRUE
 	else
 		return FALSE
 
 //Checks if the user can get shocked and shocks him if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/shock_user(mob/user, prob)
-	return (!issilicon(user) && isElectrified() && shock(user, prob))
+	var/output = !issilicon(user) && isElectrified() && shock(user, prob)
+	if(output)
+		return TRUE //We got shocked, end of story
+	if(issilicon(user))
+		return FALSE //Borgs don't get door shocked
+	if(ishuman(user) && isElectrified()) //We don't want people without insulated gloves able to open doors.
+		var/mob/living/carbon/human/H = user
+		if(H.gloves)
+			var/obj/item/clothing/gloves/G = H.gloves
+			if(G.siemens_coefficient == 0)
+				return FALSE
+
+	else if(isElectrified())
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/airlock/toggle_polarization()
 	polarized_on = !polarized_on
@@ -380,7 +390,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				state = AIRLOCK_CLOSED
 			else
 				state = AIRLOCK_OPEN
-		if(AIRLOCK_OPEN, AIRLOCK_CLOSED)
 		if(AIRLOCK_DENY, AIRLOCK_OPENING, AIRLOCK_CLOSING, AIRLOCK_EMAG)
 			icon_state = "nonexistenticonstate" //MADNESS
 
@@ -707,7 +716,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!aiHacking)
 		aiHacking = TRUE
 		to_chat(user, "Airlock AI control has been blocked. Beginning fault-detection.")
-		sleep(50)
+		sleep(3 SECONDS)
 		if(canAIControl())
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
@@ -717,9 +726,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			aiHacking = FALSE
 			return
 		to_chat(user, "Fault confirmed: airlock control wire disabled or cut.")
-		sleep(20)
+		sleep(2 SECONDS)
 		to_chat(user, "Attempting to hack into airlock. This may take some time.")
-		sleep(200)
+		sleep(15 SECONDS)
 		if(canAIControl())
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
@@ -729,7 +738,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			aiHacking = FALSE
 			return
 		to_chat(user, "Upload access confirmed. Loading control program into airlock software.")
-		sleep(170)
+		sleep(5 SECONDS)
 		if(canAIControl())
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
@@ -739,11 +748,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			aiHacking = FALSE
 			return
 		to_chat(user, "Transfer complete. Forcing airlock to execute program.")
-		sleep(50)
+		sleep(5 SECONDS)
 		//disable blocked control
 		aiControlDisabled = AICONTROLDISABLED_BYPASS
 		to_chat(user, "Receiving control information from airlock.")
-		sleep(10)
+		sleep(1 SECONDS)
 		//bring up airlock dialog
 		aiHacking = FALSE
 		if(user)

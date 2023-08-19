@@ -175,6 +175,8 @@
 	var/obj/effect/warp_effect/supermatter/warp
 	///A variable to have the warp effect for singulo SM work properly
 	var/pulse_stage = 0
+	///This list will hold 4 supermatter darkness effects when the supermatter is delaminating to a singulo delam. This lets me darken the area to look better, as it turns out, walls make the effect look ugly as shit.
+	var/list/darkness_effects = list()
 
 	///Boolean used for logging if we've been powered
 	var/has_been_powered = FALSE
@@ -207,7 +209,6 @@
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
 	supermatter_id = global_supermatter_id++
-	SSair.atmos_machinery += src
 	countdown = new(src)
 	countdown.start()
 	GLOB.poi_list |= src
@@ -234,19 +235,21 @@
 	if(is_main_engine && GLOB.main_supermatter_engine == src)
 		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
+	QDEL_NULL(darkness_effects)
 	return ..()
 
 /obj/machinery/atmospherics/supermatter_crystal/examine(mob/user)
 	. = ..()
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
-		var/immune = istype(H.glasses, /obj/item/clothing/glasses/meson)
-		if(!immune && !HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+		if(!HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 			. += "<span class='danger'>You get headaches just from looking at it.</span>"
 	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of the use of the pseudo-perpetual energy source, the supermatter crystal.</span>"
 	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
 	if(isAntag(user))
 		. += "<span class='warning'>Although a T.E.G. is more costly, there's a damn good reason the syndicate doesn't use this. If the integrity of [src] dips to 0%, perhaps from overheating, the supermatter will violently explode destroying nearly everything even somewhat close to it and releasing massive amounts of radiation.</span>"
+	if(moveable)
+		. += "<span class='notice'>It can be [anchored ? "unfastened from" : "fastened to"] the floor with a wrench.</span>"
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
@@ -551,7 +554,7 @@
 
 	//Makes em go mad and accumulate rads.
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
-		if(!istype(l.glasses, /obj/item/clothing/glasses/meson) && !HAS_TRAIT(l, TRAIT_MESON_VISION) && !HAS_TRAIT(l, SM_HALLUCINATION_IMMUNE))
+		if(!HAS_TRAIT(l, TRAIT_MESON_VISION) && !HAS_TRAIT(l, SM_HALLUCINATION_IMMUNE))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			var/hallucination_amount = power * hallucination_power * D
 			l.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
@@ -801,6 +804,10 @@
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(AM)
 
+/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
+	..()
+	Bumped(A)
+
 /obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/user = AM
@@ -908,13 +915,34 @@
 			l_power = 3,
 			l_color = SUPERMATTER_TESLA_COLOUR,
 		)
-	if(combined_gas > MOLE_PENALTY_THRESHOLD)
+	if(combined_gas > MOLE_PENALTY_THRESHOLD && get_integrity() > SUPERMATTER_DANGER_PERCENT)
 		set_light(
-			l_range = 4 + clamp(damage / 2, 10, 50),
+			l_range = 4 + clamp((450 - damage) / 10, 1, 50),
 			l_power = 3,
 			l_color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR,
 		)
+	if(!combined_gas > MOLE_PENALTY_THRESHOLD || !get_integrity() < SUPERMATTER_DANGER_PERCENT)
+		for(var/obj/D in darkness_effects)
+			qdel(D)
+		return
 
+	var/darkness_strength = clamp((damage - 450) / 75, 1, 8) / 2
+	var/darkness_aoe = clamp((damage - 450) / 25, 1, 25)
+	set_light(
+		l_range = 4 + darkness_aoe,
+		l_power = -1 - darkness_strength,
+		l_color = "#ddd6cf")
+	if(!length(darkness_effects) && moveable) //Don't do this on movable sms oh god. Ideally don't do this at all, but hey, that's lightning for you
+		darkness_effects += new /obj/effect/abstract(locate(x-3,y+3,z))
+		darkness_effects += new /obj/effect/abstract(locate(x+3,y+3,z))
+		darkness_effects += new /obj/effect/abstract(locate(x-3,y-3,z))
+		darkness_effects += new /obj/effect/abstract(locate(x+3,y-3,z))
+	else
+		for(var/obj/O in darkness_effects)
+			O.set_light(
+				l_range = 0 + darkness_aoe,
+				l_power = -1 - darkness_strength / 1.25,
+				l_color = "#ddd6cf")
 
 /obj/effect/warp_effect/supermatter
 	plane = GRAVITY_PULSE_PLANE

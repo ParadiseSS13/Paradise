@@ -61,6 +61,9 @@
 		return
 	switch(action)
 		if("fix")
+			if(occupant.suiciding)
+				to_chat(usr, "<span class='warning'>Memory corruption detected in recovery partition, likely due to a sudden self-induced shutdown. AI is unrecoverable.</span>")
+				return
 			if(active) // Prevent from starting a fix while fixing.
 				to_chat(usr, "<span class='warning'>You are already fixing this AI!</span>")
 				return

@@ -46,12 +46,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.category = "Discounted Gear"
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
 		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
+		A.species = null //same as above for species speific items
 		A.reference = "DIS[newreference]"
 		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
 		A.surplus = 0 // stops the surplus crate potentially giving out a bit too much
 		A.item = I.item
 		newreference++
-
 		if(!uplink_items[A.category])
 			uplink_items[A.category] = list()
 
@@ -74,6 +74,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/uplinktypes = list() // Empty list means it is in all the uplink types. Otherwise place the uplink type here.
 	var/list/excludefrom = list() // Empty list does nothing. Place the name of uplink type you don't want this item to be available in here.
 	var/list/job = null
+	/// This makes an item on the uplink only show up to the specified species
+	var/list/species = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/cant_discount = FALSE
 	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
@@ -179,7 +181,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/rapid
 	name = "Gloves of the North Star"
-	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed."
+	desc = "These gloves let the user help, shove, grab, and punch people very fast. Does not improve weapon attack speed. Can be combined with martial arts for a deadly weapon."
 	reference = "RPGD"
 	item = /obj/item/clothing/gloves/fingerless/rapid
 	cost = 8
@@ -215,6 +217,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/weaponcrafting/gunkit/universal_gun_kit
 	cost = 8
 
+/datum/uplink_item/dangerous/batterer
+	name = "Mind Batterer"
+	desc = "A dangerous syndicate device focused on crowd control and escapes. Causes brain damage, confusion, and other nasty effects to those surrounding the user. Has 5 charges."
+	reference = "BTR"
+	item = /obj/item/batterer
+	cost = 5
 
 // Ammunition
 
@@ -324,7 +332,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A syndicate rapid syringe gun able to fill and fire syringes automatically from an internal reagent reservoir. Comes pre-loaded with 7 empty syringes, and has a maximum capacity of 14 syringes and 300u of reagents."
 	reference = "RSG"
 	item = /obj/item/gun/syringe/rapidsyringe/preloaded/half
-	cost = 8
+	cost = 12
 
 /datum/uplink_item/stealthy_weapons/poisonbottle
 	name = "Poison Bottle"
@@ -345,7 +353,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Dehydrated Space Carp"
 	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
-	item = /obj/item/toy/carpplushie/dehy_carp
+	item = /obj/item/toy/plushie/carpplushie/dehy_carp
 	cost = 1
 
 
@@ -368,13 +376,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/c4
 	cost = 4
 
-
 /datum/uplink_item/explosives/syndicate_minibomb
 	name = "Syndicate Minibomb"
 	desc = "The minibomb is a grenade with a five-second fuse."
 	reference = "SMB"
 	item = /obj/item/grenade/syndieminibomb
 	cost = 6
+
+/datum/uplink_item/explosives/frag_grenade
+	name = "Fragmentation Grenade"
+	desc = "A frag grenade. Upon detonation, releases shrapnel that can embed in nearby victims."
+	reference = "FG"
+	item = /obj/item/grenade/frag
+	cost = 2
+
+/datum/uplink_item/explosives/frag_grenade_pack
+	name = "Pack of 5 Fragmentation Grenades"
+	desc = "A box of 5 frag grenades. Upon detonation, releases shrapnel that can embed in nearby victims. And it seems you'll have a LOT of victims."
+	reference = "FGP"
+	item = /obj/item/storage/box/syndie_kit/frag_grenades
+	cost = 8
 
 /datum/uplink_item/explosives/pizza_bomb
 	name = "Pizza Bomb"
@@ -447,7 +468,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Projects an image across a user, disguising them as an object scanned with it, as long as they don't move the projector from their hand. The disguised user cannot run and projectiles pass over them."
 	reference = "CP"
 	item = /obj/item/chameleon
-	cost = 7
+	cost = 5
 
 /datum/uplink_item/stealthy_tools/chameleon_counter
 	name = "Chameleon Counterfeiter"
@@ -458,9 +479,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
-	desc = "Enables you to view all cameras on the network to track a target."
+	desc = "Enables you to view all cameras on the network to track a target. Also has 5 sticky hidden cameras, allowing you remote view of any object you can stick a camera on."
 	reference = "CB"
-	item = /obj/item/camera_bug
+	item = /obj/item/storage/box/syndie_kit/camera_bug
 	cost = 1
 	surplus = 90
 
@@ -560,8 +581,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
-	category = "Space Suits and Hardsuits"
-	surplus = 40
+	category = "Space Suits and MODsuits"
+	surplus = 10 //I am setting this to 10 as there are a bunch of modsuit parts in here that should be weighted to 10. Suits and modsuits adjusted below.
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
@@ -572,7 +593,59 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/space
 	cost = 4
 
+/datum/uplink_item/suits/thermal
+	name = "MODsuit Thermal Visor Module"
+	desc = "A visor for a MODsuit. Lets you see living beings through walls. Also provides night vision."
+	reference = "MSTV"
+	item = /obj/item/mod/module/visor/thermal
+	cost = 3 // Don't forget, you need to get a modsuit to go with this
+	surplus = 10 //You don't need more than
 
+/datum/uplink_item/suits/night
+	name = "MODsuit Night Visor Module"
+	desc = "A visor for a MODsuit. Lets you see clearer in the dark."
+	reference = "MSNV"
+	item = /obj/item/mod/module/visor/night
+	cost = 1 // It's night vision, rnd pumps out those goggles for anyone man.
+	surplus = 10 //You don't need more than one
+
+/datum/uplink_item/suits/plate_compression
+	name = "MODsuit Plate Compression Module"
+	desc = "A MODsuit module that lets the suit compress into a smaller size. Not compatible with storage modules, \
+	you will have to take that module out first."
+	reference = "MSPC"
+	item = /obj/item/mod/module/plate_compression
+	cost = 2
+
+/datum/uplink_item/suits/noslip
+	name = "MODsuit Anti-Slip Module"
+	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink modsuits."
+	reference = "MSNS"
+	item = /obj/item/mod/module/noslip
+	cost = 1
+
+/datum/uplink_item/suits/springlock_module
+	name = "Heavily Modified Springlock MODsuit Module"
+	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
+		This mechanical exoskeleton pushes out of the way when the user enters and it helps in booting \
+		up, but was taken out of modern suits because of the springlock's tendency to \"snap\" back \
+		into place when exposed to humidity. You know what it's like to have an entire exoskeleton enter you? \
+		This version of the module has been modified to allow for near instant activation of the MODsuit. \
+		Useful for quickly getting your MODsuit on/off, or for taking care of a target via a tragic accident. \
+		It is hidden as a DNA lock module. It will block retraction for 10 seconds by default to allow you to follow \
+		up with smoke, but you can multitool the module to disable that."
+	reference = "FNAF"
+	item = /obj/item/mod/module/springlock/bite_of_87
+	cost = 1
+	surplus = 10
+
+/datum/uplink_item/suits/hidden_holster
+	name = "Hidden Holster Module"
+	desc = "A holster module disguised to look like a tether module. Requires a modsuit to put it in of course. Gun not included."
+	reference = "HHM"
+	item = /obj/item/mod/module/holster/hidden
+	cost = 1
+	surplus = 10
 
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
@@ -607,7 +680,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools/singularity_beacon
 	name = "Power Beacon"
 	desc = "When screwed to wiring attached to an electric grid and activated, this large device pulls any \
-			active gravitational singularities or tesla balls towards it. This will not work when the engine is still \
+			active gravitational singularities. This will not work when the engine is still \
 			in containment. Because of its size, it cannot be carried. Ordering this \
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
@@ -650,6 +723,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FI"
 	item = /obj/item/implanter/freedom
 	cost = 5
+
+/datum/uplink_item/implants/protofreedom
+	name = "Prototype Freedom Bio-chip"
+	desc = "A prototype bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can only be activated a singular time."
+	reference = "PFI"
+	item = /obj/item/implanter/freedom/prototype
+	cost = 2
 
 /datum/uplink_item/implants/storage
 	name = "Storage Bio-chip"

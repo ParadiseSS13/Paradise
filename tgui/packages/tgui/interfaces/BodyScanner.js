@@ -293,7 +293,7 @@ const BodyScannerMainOrgansExternal = (props) => {
                 min="0"
                 max={o.maxHealth}
                 mt={i > 0 && '0.5rem'}
-                value={o.totalLoss / 100}
+                value={o.totalLoss / o.maxHealth}
                 ranges={damageRange}
               >
                 <Box float="left" display="inline">
@@ -386,7 +386,7 @@ const BodyScannerMainOrgansInternal = (props) => {
               <ProgressBar
                 min="0"
                 max={o.maxHealth}
-                value={o.damage / 100}
+                value={o.damage / o.maxHealth}
                 mt={i > 0 && '0.5rem'}
                 ranges={damageRange}
               >

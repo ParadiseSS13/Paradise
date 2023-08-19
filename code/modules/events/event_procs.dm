@@ -44,6 +44,19 @@
 
 	return pick(possible_areas)
 
+/proc/findUnrestrictedEventArea() //Does almost the same as findEventArea() but hits a few more areas including maintenance and the AI sat, and also returns a list of all the areas, instead of just one area
+	var/list/safe_areas = typecacheof(list(
+	/area/solar,
+	/area/toxins/test_area,
+	/area/crew_quarters/sleep))
+
+	var/list/allowed_areas = list()
+
+	allowed_areas = typecacheof(GLOB.the_station_areas) - safe_areas
+	var/list/possible_areas = typecache_filter_list(SSmapping.existing_station_areas, allowed_areas)
+
+	return possible_areas
+
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.
 // Note that this isn't sorted by department, because e.g. having a roboticist shouldn't make meteors spawn.
@@ -80,7 +93,7 @@
 		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor"))
 			active_with_role["Medical"]++
 
-		if(M.mind.assigned_role in GLOB.security_positions)
+		if(M.mind.assigned_role in GLOB.active_security_positions)
 			active_with_role["Security"]++
 
 		if(M.mind.assigned_role in list("Research Director", "Scientist"))

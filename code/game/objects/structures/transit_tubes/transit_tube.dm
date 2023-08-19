@@ -286,8 +286,6 @@
 			return 6
 		if("SOUTHWEST", "SW")
 			return 10
-		else
-	return 0
 
 
 
@@ -311,5 +309,4 @@
 			return "NW"
 		if(10)
 			return "SW"
-		else
-	return
+
