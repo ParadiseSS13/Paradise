@@ -947,6 +947,10 @@
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
 
+				if("mam")
+					toggles2 ^= PREFTOGGLE_2_MOD_ACTIVATION_METHOD
+
+
 				if("setviewrange")
 					var/list/viewrange_options = list(
 						"15x15 (Classic)" = "15x15",

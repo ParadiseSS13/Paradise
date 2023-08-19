@@ -236,7 +236,7 @@
 	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
 	button_icon_state = "block"
 
-/datum/action/defensive_stance/Trigger()
+/datum/action/defensive_stance/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
 	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial-arts users anyway
 	if(!MA.can_parry)
