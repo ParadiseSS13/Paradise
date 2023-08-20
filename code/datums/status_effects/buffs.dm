@@ -286,8 +286,7 @@
 	// A servant of medicines stops at nothing to help others, let's give them an additional boost
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-
-		if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss())
+		if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss()) // Avoid counting burn wounds
 			H.adjustBruteLoss(-1.5)
 			H.adjustFireLoss(-1.5)
 			H.adjustOxyLoss(-1.5)
@@ -313,7 +312,7 @@
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss())
+		if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss()) // Avoid counting burn wounds
 			H.adjustBruteLoss(-3.5, robotic = TRUE)
 			H.adjustFireLoss(-3.5, robotic = TRUE)
 			H.adjustOxyLoss(-3.5)
