@@ -339,7 +339,7 @@
 			L.adjustCloneLoss(-1)
 			heal_points--
 	else if(issilicon(L))
-		if(L.getBruteLoss() || L.getFireLoss())
+		if(health != maxHealth)
 			L.adjustBruteLoss(-3.5)
 			L.adjustFireLoss(-3.5)
 			heal_points--
