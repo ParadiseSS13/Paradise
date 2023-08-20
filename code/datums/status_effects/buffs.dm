@@ -287,8 +287,8 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss()) // Avoid counting burn wounds
-			H.adjustBruteLoss(-1.5)
-			H.adjustFireLoss(-1.5)
+			H.adjustBruteLoss(-1.5, robotic = TRUE)
+			H.adjustFireLoss(-1.5, robotic = TRUE)
 			H.adjustOxyLoss(-1.5)
 			H.adjustToxLoss(-1.5)
 			H.adjustBrainLoss(-1.5)
