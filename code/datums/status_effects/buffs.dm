@@ -299,7 +299,7 @@
 
 	// Regenerate points passively
 	if(heal_points < max_heal_points)
-		heal_points = min(heal_points += 3, max_heal_points)
+		heal_points = min(heal_points + 3, max_heal_points)
 
 	// The main course: heal everyone around you!
 	for(var/mob/living/L in view(7, owner))
