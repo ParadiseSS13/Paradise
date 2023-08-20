@@ -945,7 +945,8 @@
 		var/damage = squish_damage
 		var/picked_angle = pick(90, 270)
 		var/should_crit = !from_combat && crit
-		if(should_crit && !from_combat)
+		if(!crit && !from_combat)
+			// only deal this extra bit of damage if they wouldn't otherwise be taking the double damage from critting
 			damage *= self_knockover_factor
 
 		. = fall_and_crush(get_turf(victim), damage, should_crit, crit_damage_factor, null, from_combat ? 4 SECONDS : 6 SECONDS, 12 SECONDS, FALSE, picked_angle)
