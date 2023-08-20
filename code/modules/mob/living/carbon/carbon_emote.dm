@@ -188,3 +188,27 @@
 	if(. && isliving(user))
 		var/mob/living/L = user
 		L.SetSleeping(2 SECONDS)
+
+/datum/emote/living/carbon/twirl
+	key = "twirl"
+	key_third_person = "twirls"
+	message = "twirls something around in their hand."
+	hands_use_check = TRUE
+
+/datum/emote/living/carbon/twirl/can_run_emote(mob/living/user, status_check, intentional)
+	. = ..()
+	if(!.)
+		return
+
+	if(user.l_hand || user.r_hand)
+		return TRUE
+
+	to_chat(user, "<span class='warning'>You need something in your hand to use this emote!</span>")
+	return FALSE
+
+/datum/emote/living/carbon/twirl/run_emote(mob/user, params, type_override, intentional)
+
+	var/obj/item/thing = user.l_hand || user.r_hand
+	message = "twirls [thing] around in their hand!"
+	. = ..()
+	message = initial(message)
