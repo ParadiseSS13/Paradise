@@ -329,7 +329,7 @@
 				E.fix_burn_wound()
 				heal_points--
 	else if(iscarbon(L))
-		if(health != maxHealth || L.getStaminaLoss()) // Carbons have no burn wounds nor brain damage
+		if(L.health != L.maxHealth || L.getStaminaLoss()) // Carbons have no burn wounds nor brain damage
 			L.adjustBruteLoss(-3.5)
 			L.adjustFireLoss(-3.5)
 			L.adjustOxyLoss(-3.5)
@@ -338,7 +338,7 @@
 			L.adjustCloneLoss(-1)
 			heal_points--
 	else if(issilicon(L))
-		if(health != maxHealth)
+		if(L.health != L.maxHealth)
 			L.adjustBruteLoss(-3.5)
 			L.adjustFireLoss(-3.5)
 			heal_points--
