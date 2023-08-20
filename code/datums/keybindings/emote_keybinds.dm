@@ -534,11 +534,11 @@
 	name = "Rattle"
 
 /datum/keybinding/emote/carbon/human/bubble
-	linked_emote = /datum/emote/living/carbon/human/bubble
+	linked_emote = /datum/emote/living/carbon/human/slime/bubble
 	name = "Bubble"
 
 /datum/keybinding/emote/carbon/human/pop
-	linked_emote = /datum/emote/living/carbon/human/pop
+	linked_emote = /datum/emote/living/carbon/human/slime/pop
 	name = "Pop"
 
 /datum/keybinding/emote/carbon/human/monkey/can_use(client/C, mob/M)
