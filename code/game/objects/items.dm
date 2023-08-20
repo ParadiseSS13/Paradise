@@ -483,8 +483,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
-	if(user.get_item_by_slot(slot) != src)
-		return
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
