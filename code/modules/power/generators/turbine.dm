@@ -243,11 +243,11 @@
 		return
 	. += image(icon, "comp-o[rpm_threshold]", FLY_LAYER)
 
-// These are crucial to working of a turbine - the stats modify the power output. TurbGenQ modifies how much raw energy can you get from
-// rpms, TurbGenG modifies the shape of the curve - the lower the value the less straight the curve is.
+// These are crucial to working of a turbine - the stats modify the power output. TurbPower modifies how much raw energy can you get from
+// rpms, TURBCURVESHAPE modifies the shape of the curve - the lower the value the less straight the curve is.
 
-#define TURBGENQ 500000
-#define TURBGENG 0.5
+#define TURBPOWER 500000
+#define TURBCURVESHAPE 0.5
 
 /obj/machinery/power/turbine/Initialize(mapload)
 	. = ..()
@@ -295,12 +295,12 @@
 		return
 
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
-	// the TURBGENQ and TURBGENG values
+	// the TURBPOWER and TURBCURVESHAPE values
 
 	if(compressor.gas_contained.temperature < 500)
 		lastgen = 0
 	else
-		lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity * POWER_CURVE_MOD
+		lastgen = ((compressor.rpm / TURBPOWER) ** TURBCURVESHAPE) * TURBPOWER * productivity * POWER_CURVE_MOD
 
 	produce_direct_power(lastgen)
 
@@ -386,7 +386,7 @@
 			var/time_until_done =  compressor.time_until_overheat_done()
 			if(time_until_done)
 				compressor.starter = FALSE
-				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
+				to_chat(usr, "<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
 				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 			else if(compressor?.turbine)
 				compressor.starter = !compressor.starter
@@ -450,7 +450,7 @@
 			var/time_until_done = compressor.time_until_overheat_done()
 			if(time_until_done)
 				compressor.starter = FALSE
-				to_chat(usr,"<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
+				to_chat(usr, "<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
 				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 			else if(compressor?.turbine)
 				if(!compressor.starter)
