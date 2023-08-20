@@ -179,6 +179,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FLASH_PROTECTION	"flash_protection"
 #define TRAIT_NIGHT_VISION		"night_vision"
 #define TRAIT_EMOTE_MUTE		"emote_mute"
+#define TRAIT_PUNCTURE_IMMUNE	"punctureimmune" //prevents RSG syringes from piercing your clothing
 
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
@@ -206,6 +207,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CULT_IMMUNITY		"cult_immunity"
 #define TRAIT_FLATTENED			"flattened"
 #define SM_HALLUCINATION_IMMUNE "supermatter_hallucination_immune"
+#define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
 #define TRAIT_CONTORTED_BODY	"contorted_body"
 #define TRAIT_DEFLECTS_PROJECTILES "trait_deflects_projectiles"
 
@@ -230,6 +232,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
 #define TRAIT_TURF_COVERED "turf_covered"
 
+///An item that is oiled. If sprayed with water, it's slowdown reverts to normal.
+#define TRAIT_OIL_SLICKED "oil_slicked"
 
 //
 // common trait sources
@@ -267,10 +271,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BUCKLING_TRAIT "buckled"
 #define TRAIT_WAS_BATONNED "batonged"
 #define CLOWN_EMAG "clown_emag"
+#define MODSUIT_TRAIT "modsuit_trait"
 #define PULSEDEMON_TRAIT "pulse_demon"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
+#define TRAIT_TABLE_LEAP "table_leap"
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"

@@ -384,7 +384,7 @@
 
 	if(prob(50))
 		for(var/turf/simulated/floor/nearby_floor in oview(get_turf(src), (drops_core ? 2 : 1)))
-			nearby_floor.MakeSlippery(TURF_WET_PERMAFROST)
+			nearby_floor.MakeSlippery((drops_core? TURF_WET_PERMAFROST : TURF_WET_ICE), (drops_core? null : rand(10, 20 SECONDS)))
 
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
