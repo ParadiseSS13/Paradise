@@ -216,7 +216,7 @@
 	key_third_person = "salutes"
 	message = "salutes."
 	message_param = "salutes to %t."
-	emote_type = EMOTE_AUDIBLE
+	emote_type = EMOTE_SOUND | EMOTE_VISIBLE
 	hands_use_check = TRUE
 	audio_cooldown = 3 SECONDS
 	var/list/serious_shoes = list(/obj/item/clothing/shoes/jackboots, /obj/item/clothing/shoes/combat,
