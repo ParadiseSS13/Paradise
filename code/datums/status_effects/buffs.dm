@@ -344,7 +344,7 @@
 			heal_points--
 	else if(isanimal(L))
 		var/mob/living/simple_animal/SM = L
-		if(SM.getBruteLoss()) // Scuffed; there's no `.getHealth()` for simple animals, they just use bruteloss
+		if(SM.health != SM.maxHealth)
 			SM.adjustHealth(-3.5)
 			force_particle = TRUE
 			if(prob(50)) // Animals are simpler
