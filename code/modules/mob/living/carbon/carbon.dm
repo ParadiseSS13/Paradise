@@ -125,13 +125,13 @@
 		if(blood)
 			if(T)
 				add_splatter_floor(T)
-			if(stun)
+			if(should_confuse)
 				adjustBruteLoss(3)
 		else
 			if(T)
 				T.add_vomit_floor()
 			adjust_nutrition(-lost_nutrition)
-			if(stun)
+			if(should_confuse)
 				adjustToxLoss(-3)
 
 		T = get_step(T, dir)
