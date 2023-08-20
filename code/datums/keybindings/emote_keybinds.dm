@@ -509,8 +509,8 @@
 	linked_emote = /datum/emote/living/carbon/human/creak
 	name = "Creak"
 
-/datum/keybinding/emote/carbon/human/squish
-	linked_emote = /datum/emote/living/carbon/human/squish
+/datum/keybinding/emote/carbon/human/slime/squish
+	linked_emote = /datum/emote/living/carbon/human/slime/squish
 	name = "Squish"
 
 /datum/keybinding/emote/carbon/human/howl
