@@ -94,7 +94,7 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, should_confuse = 1, distance = 0, message = 1)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, should_confuse = TRUE, distance = 0, message = 1)
 	. = TRUE
 
 	if(stat == DEAD || ismachineperson(src)) // Dead people and IPCs do not vomit particulates
