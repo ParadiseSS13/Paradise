@@ -22,6 +22,7 @@
 
 	var/visor_flags = NONE			//flags that are added/removed when an item is adjusted up/down
 	var/visor_flags_inv = NONE		//same as visor_flags, but for flags_inv
+	var/visor_flags_cover = NONE	//for cover flags
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW //what to toggle when toggled with weldingvisortoggle()
 
 	var/can_toggle = FALSE
@@ -111,13 +112,6 @@
 	return 1
 
 /obj/item/clothing/proc/refit_for_species(target_species)
-	//Set species_restricted list
-	switch(target_species)
-		if("Human", "Skrell")	//humanoid bodytypes
-			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Drask")
-		else
-			species_restricted = list(target_species)
-
 	//Set icon
 	if(sprite_sheets && (target_species in sprite_sheets))
 		icon_override = sprite_sheets[target_species]
@@ -613,6 +607,8 @@
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
+		if("modsuit" in hide_tail_by_species)
+			return
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
