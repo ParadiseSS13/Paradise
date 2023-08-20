@@ -106,14 +106,6 @@
 	build_path = /obj/item/clothing/head/welding
 	category = list("initial","Tools")
 
-/datum/design/welding_goggles
-	name = "Welding Goggles"
-	id = "welding_goggles"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1750, MAT_GLASS = 400)
-	build_path = /obj/item/clothing/glasses/welding
-	category = list("initial","Tools")
-
 /datum/design/cable_coil
 	name = "Cable Coil"
 	id = "cable_coil"
