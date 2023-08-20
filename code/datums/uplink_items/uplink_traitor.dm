@@ -47,7 +47,7 @@
 	desc = "Syndicate Minibomb with glue ejectors that will stick it to the user's hands on activation."
 	reference = "CGN"
 	item = /obj/item/storage/box/syndie_kit/fake_minibomb
-	cost = 1
+	cost = 5
 	job = list("Clown")
 
 //mime
