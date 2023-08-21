@@ -530,7 +530,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Change and color your hair on the go."
 	reference = "HM"
 	item = /obj/item/handheld_mirror
-	cost = 10
+	cost = 1
 
 // DEVICE AND TOOLS
 
