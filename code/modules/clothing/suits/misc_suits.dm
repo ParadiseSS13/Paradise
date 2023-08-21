@@ -1226,7 +1226,7 @@
 	)
 
 /obj/item/clothing/suit/hooded/abaya/proc/reskin_abaya(mob/living/L)
-	var/choice = input(L,"You may only change the color once.","Reskin Abaya") in options
+	var/choice = input(L, "You may only change the color once.", "Reskin Abaya") in options
 
 	if(!options[choice] || HAS_TRAIT(L, TRAIT_HANDS_BLOCKED) || !in_range(L, src))
 		return
