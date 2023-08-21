@@ -59,11 +59,13 @@
 			stat &= BROKEN
 			if(prob(75))
 				explode()
+				return
 		if(2)
 			if(prob(25))
 				stat &= BROKEN
 			if(prob(10))
 				explode()
+				return
 		if(3)
 			if(prob(10))
 				stat &= BROKEN

@@ -22,6 +22,12 @@
 	notes = "One of Cybersun Industries oldest and simplest implants, even in its simplicity it is rumoured to be one of Cybersun Industries best-selling products."
 	function = "Subjects injected with this bio-chip can activate an injection of medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
+/datum/implant_fluff/supercharge
+	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
+	life = "Known to last for up to a year."
+	notes = "One of Cybersun Industries simplest implants, it's rumored that synthetic rights groups maintain stockpiles of these."
+	function = "Synthetic subjects injected with this bio-chip can activate an injection of lubricants, coolants, and positronic patching fluid."
+
 /datum/implant_fluff/chem
 	name = "BioTech Solutions MJ-420 Prisoner Management Bio-chip" //ah yes, MJ-420, old coders are FUNNY
 	life = "Deactivates upon death but remains within the body."
@@ -116,6 +122,12 @@
 /datum/implant_fluff/sad_trombone
 	name = "BioTech Solutions Comedy Bio-chip"
 	function = "Plays a sad trombone noise upon death of the implantee, allows clowns to entertain the crew even post-mortem."
+
+/datum/implant_fluff/pathfinder
+	name = "Paizo Productions 5-E Pathfinder Implant"
+	life = "Lasts 2-12 months. Known to fail at the worst possible time, space radation may be a factor."
+	notes = "By use of an internal private GPS signal, allows the pathfinder module to have the MODsuit find the user. Also wirelessly transfers ID information to the suit, to allow doors to open."
+	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."
 
 /datum/implant_fluff/gorilla_rampage
 	name = "Magillitis Serum Bio-chip"

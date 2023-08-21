@@ -6,7 +6,7 @@
 	icon_state = "telecrystal"
 	item_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
-	max_amount = 50
+	max_amount = 100
 	flags = NOBLUDGEON
 	origin_tech = "materials=6;syndicate=1"
 	dynamic_icon_state = TRUE
@@ -48,3 +48,6 @@
 
 /obj/item/stack/telecrystal/fifty
 	amount = 50
+
+/obj/item/stack/telecrystal/hundred
+	amount = 100

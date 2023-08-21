@@ -335,6 +335,17 @@ SUBSYSTEM_DEF(timer)
 	second_queue = alltimers
 	bucket_count = new_bucket_count
 
+/datum/controller/subsystem/timer/Shutdown()
+	if(type != /datum/controller/subsystem/timer)
+		// Yes this is a hack but I dont want this running on inherited children of this SS
+		return
+
+	// Sort it first
+	var/list/sorted = sortTim(GLOB.timers_by_type, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
+
+	// DOOMP EET
+	var/timer_json_file = file("[GLOB.log_directory]/timers.json")
+	WRITE_FILE(timer_json_file, json_encode(sorted))
 
 /datum/controller/subsystem/timer/Recover()
 	second_queue |= SStimer.second_queue

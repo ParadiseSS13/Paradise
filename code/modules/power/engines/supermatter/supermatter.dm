@@ -30,8 +30,8 @@
 //Along with damage_penalty_point, makes flux anomalies.
 /// The cutoff for the minimum amount of power required to trigger the crystal invasion delamination event.
 #define EVENT_POWER_PENALTY_THRESHOLD 4500
-#define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of pyro anomalies, +2 bolts of electricity
-#define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of pyro anomalies
+#define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of cryo anomalies, +2 bolts of electricity
+#define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of cryo anomalies
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
 #define HEAT_PENALTY_THRESHOLD 40             //Higher == Crystal safe operational temperature is higher.
 #define DAMAGE_HARDCAP 0.002
@@ -58,7 +58,7 @@
 
 #define GRAVITATIONAL_ANOMALY "gravitational_anomaly"
 #define FLUX_ANOMALY "flux_anomaly"
-#define PYRO_ANOMALY "pyro_anomaly"
+#define CRYO_ANOMALY "cryo_anomaly"
 
 //If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define SUPERMATTER_DELAM_PERCENT 5
@@ -175,6 +175,8 @@
 	var/obj/effect/warp_effect/supermatter/warp
 	///A variable to have the warp effect for singulo SM work properly
 	var/pulse_stage = 0
+	///This list will hold 4 supermatter darkness effects when the supermatter is delaminating to a singulo delam. This lets me darken the area to look better, as it turns out, walls make the effect look ugly as shit.
+	var/list/darkness_effects = list()
 
 	///Boolean used for logging if we've been powered
 	var/has_been_powered = FALSE
@@ -207,7 +209,6 @@
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
 	supermatter_id = global_supermatter_id++
-	SSair.atmos_machinery += src
 	countdown = new(src)
 	countdown.start()
 	GLOB.poi_list |= src
@@ -234,6 +235,7 @@
 	if(is_main_engine && GLOB.main_supermatter_engine == src)
 		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
+	QDEL_NULL(darkness_effects)
 	return ..()
 
 /obj/machinery/atmospherics/supermatter_crystal/examine(mob/user)
@@ -246,6 +248,8 @@
 	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
 	if(isAntag(user))
 		. += "<span class='warning'>Although a T.E.G. is more costly, there's a damn good reason the syndicate doesn't use this. If the integrity of [src] dips to 0%, perhaps from overheating, the supermatter will violently explode destroying nearly everything even somewhat close to it and releasing massive amounts of radiation.</span>"
+	if(moveable)
+		. += "<span class='notice'>It can be [anchored ? "unfastened from" : "fastened to"] the floor with a wrench.</span>"
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
@@ -607,7 +611,7 @@
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
 			supermatter_anomaly_gen(src, GRAVITATIONAL_ANOMALY, rand(5, 10))
 		if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD))
-			supermatter_anomaly_gen(src, PYRO_ANOMALY, rand(5, 10))
+			supermatter_anomaly_gen(src, CRYO_ANOMALY, rand(5, 10))
 
 	if(prob(15))
 		supermatter_pull(loc, min(power / 850, 3)) //850, 1700, 2550
@@ -800,6 +804,10 @@
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 	Consume(AM)
 
+/obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
+	..()
+	Bumped(A)
+
 /obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/user = AM
@@ -907,13 +915,34 @@
 			l_power = 3,
 			l_color = SUPERMATTER_TESLA_COLOUR,
 		)
-	if(combined_gas > MOLE_PENALTY_THRESHOLD)
+	if(combined_gas > MOLE_PENALTY_THRESHOLD && get_integrity() > SUPERMATTER_DANGER_PERCENT)
 		set_light(
-			l_range = 4 + clamp(damage / 2, 10, 50),
+			l_range = 4 + clamp((450 - damage) / 10, 1, 50),
 			l_power = 3,
 			l_color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR,
 		)
+	if(!combined_gas > MOLE_PENALTY_THRESHOLD || !get_integrity() < SUPERMATTER_DANGER_PERCENT)
+		for(var/obj/D in darkness_effects)
+			qdel(D)
+		return
 
+	var/darkness_strength = clamp((damage - 450) / 75, 1, 8) / 2
+	var/darkness_aoe = clamp((damage - 450) / 25, 1, 25)
+	set_light(
+		l_range = 4 + darkness_aoe,
+		l_power = -1 - darkness_strength,
+		l_color = "#ddd6cf")
+	if(!length(darkness_effects) && moveable) //Don't do this on movable sms oh god. Ideally don't do this at all, but hey, that's lightning for you
+		darkness_effects += new /obj/effect/abstract(locate(x-3,y+3,z))
+		darkness_effects += new /obj/effect/abstract(locate(x+3,y+3,z))
+		darkness_effects += new /obj/effect/abstract(locate(x-3,y-3,z))
+		darkness_effects += new /obj/effect/abstract(locate(x+3,y-3,z))
+	else
+		for(var/obj/O in darkness_effects)
+			O.set_light(
+				l_range = 0 + darkness_aoe,
+				l_power = -1 - darkness_strength / 1.25,
+				l_color = "#ddd6cf")
 
 /obj/effect/warp_effect/supermatter
 	plane = GRAVITY_PULSE_PLANE
@@ -986,8 +1015,8 @@
 				A.explosive = FALSE
 			if(GRAVITATIONAL_ANOMALY)
 				new /obj/effect/anomaly/grav(L, 250, FALSE, FALSE)
-			if(PYRO_ANOMALY)
-				new /obj/effect/anomaly/pyro(L, 200, FALSE)
+			if(CRYO_ANOMALY)
+				new /obj/effect/anomaly/cryo(L, 200, FALSE)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list())
 	if(QDELETED(zapstart))
@@ -1126,7 +1155,7 @@
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
 #undef FLUX_ANOMALY
-#undef PYRO_ANOMALY
+#undef CRYO_ANOMALY
 #undef COIL
 #undef ROD
 #undef LIVING
