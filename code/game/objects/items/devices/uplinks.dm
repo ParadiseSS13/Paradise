@@ -110,8 +110,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(quantity <= 0)
 		return
 	if(UI.limited_stock == 0)
-		to_chat(usr, "<span class='warning'>You have redeemed this discount already.</span>")
-		return "discount zero" // todo, work this shit out
+		return
 	if(UI.limited_stock > 0 && UI.limited_stock < quantity)
 		quantity = UI.limited_stock
 	var/list/bought_things = list()
@@ -278,7 +277,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			SStgui.close_uis(src)
 
 		if("refund")
-			refund(usr)
+			refund(ui.user)
 
 		if("buyRandom")
 			var/datum/uplink_item/UI = chooseRandomItem()
@@ -311,10 +310,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(!LAZYLEN(shopping_cart))
 				return
 			if(calculate_cart_tc() > uses)
-				to_chat(usr, "<span class='warning'>[src] buzzes, it doesn't contain enough telecrystals!</span>")
+				to_chat(ui.user, "<span class='warning'>[src] buzzes, it doesn't contain enough telecrystals!</span>")
 				return
 			if(is_jammed)
-				to_chat(usr, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+				to_chat(ui.user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
 				return
 			var/list/bought_things = list()
 			for(var/reference in shopping_cart)
@@ -354,7 +353,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	for(var/i in 1 to 4)
 		var/cate_number = rand(1, length(uplink_cats))
 		var/item_number = rand(1, length(uplink_cats[cate_number]["items"]))
-		lucky_numbers += list(list("cat" = cate_number-1, "item" = item_number-1)) // dm lists are 1 based, js lists are 0 based
+		lucky_numbers += list(list("cat" = cate_number - 1, "item" = item_number - 1)) // dm lists are 1 based, js lists are 0 based
 
 /obj/item/uplink/hidden/proc/remove_from_cart(item_reference) // i want to make it eventually remove all instances
 	LAZYREMOVE(shopping_cart, item_reference)

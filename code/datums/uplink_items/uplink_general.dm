@@ -137,10 +137,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 		if(istype(I, /obj/item/storage/box) && length(I.contents))
 			for(var/atom/o in I)
-				U.purchase_log += "<BIG>[bicon(o)]</BIG>"
+				U.purchase_log += "<big>[bicon(o)]</big>"
 
 		else
-			U.purchase_log += "<BIG>[bicon(I)]</BIG>"
+			U.purchase_log += "<big>[bicon(I)]</big>"
 
 		if(put_in_hands)
 			user.put_in_any_hand_if_possible(I)
