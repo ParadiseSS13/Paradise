@@ -117,9 +117,11 @@
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	if(recoil)
 		shake_camera(user, recoil + 1, recoil)
-
-	var/muzzle_range = chambered.muzzle_flash_range
-	var/muzzle_strength = chambered.muzzle_flash_strength
+	var/muzzle_range
+	var/muzzle_strength
+	if(chambered)
+		muzzle_range = chambered.muzzle_flash_range
+		muzzle_strength = chambered.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
 	if(suppressed)
 		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
