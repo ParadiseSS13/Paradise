@@ -23,13 +23,12 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
 "ah" = (
-/obj/structure/grille,
 /obj/machinery/door/poddoor{
 	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
 	id_tag = "Awaybiohazard";
 	name = "Acid-Proof biohazard containment door"
 	},
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ai" = (
@@ -251,8 +250,7 @@
 	name = "Acid-Proof containment chamber blast door"
 	},
 /obj/structure/cable,
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aF" = (
@@ -641,8 +639,7 @@
 	id_tag = "Awaylab";
 	name = "Acid-Proof containment chamber blast door"
 	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "br" = (
@@ -1015,8 +1012,7 @@
 	},
 /area/ruin/space/unpowered)
 "bX" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bY" = (
@@ -1197,7 +1193,7 @@
 	dir = 4;
 	locked = 0;
 	name = "Maintenance APC";
-	pixel_x = 25;
+	pixel_x = 24;
 	req_access = null;
 	start_charge = 100
 	},
@@ -1335,8 +1331,7 @@
 	name = "Acid-Proof containment chamber blast door"
 	},
 /obj/structure/cable,
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cD" = (
@@ -1440,7 +1435,7 @@
 	dir = 4;
 	locked = 0;
 	name = "Research APC";
-	pixel_x = 25;
+	pixel_x = 24;
 	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1529,8 +1524,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cU" = (
@@ -1907,12 +1901,11 @@
 	},
 /area/ruin/space/unpowered)
 "dD" = (
-/obj/structure/grille,
 /obj/machinery/door/poddoor{
 	id_tag = "AwayRD";
 	name = "privacy shutter"
 	},
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "dE" = (
@@ -2029,7 +2022,7 @@
 	status = 2
 	},
 /obj/item/paper{
-	info = "<h3><font color=red>In The Event of Xenobiology Breach: Evacuate staff, Lock down Xenobiology, Notify on-site superiors and/or Central Command immediatly.</h3></b><br><br><h3>Current Xenobiology Containment Level:<u><strike>Secure</strike><i><b> RUN                    </h3></b></i></u>";
+	info = "<h3><font color=red>In The Event of Xenobiology Breach: Evacuate staff, Lock down Xenobiology, Notify on-site superiors and/or Central Command immediately.</h3></b><br><br><h3>Current Xenobiology Containment Level:<u><strike>Secure</strike><i><b> RUN                    </h3></b></i></u>";
 	name = "Evacuation Procedure"
 	},
 /obj/machinery/camera{
@@ -2958,8 +2951,7 @@
 	},
 /area/ruin/space/unpowered)
 "fM" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
@@ -2986,7 +2978,7 @@
 	dir = 1;
 	locked = 0;
 	name = "Habitat APC";
-	pixel_y = 25;
+	pixel_y = 24;
 	req_access = null;
 	start_charge = 100
 	},
@@ -3023,11 +3015,6 @@
 	name = "Specials This Week"
 	},
 /obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"fU" = (
-/obj/structure/grille,
-/obj/structure/window/full/basic,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fV" = (
@@ -4233,12 +4220,11 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "iA" = (
-/obj/structure/grille,
 /obj/structure/sign/vacuum{
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
 	name = "\improper HOSTILE ATMOSPHERE AHEAD"
 	},
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "iB" = (
@@ -4917,9 +4903,8 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "kg" = (
-/obj/structure/grille,
 /obj/structure/disposalpipe/segment,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "kh" = (
@@ -8223,10 +8208,10 @@ eB
 eN
 aM
 aM
-fU
+bX
 gx
 gZ
-fU
+bX
 aL
 hn
 aL

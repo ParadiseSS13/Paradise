@@ -5,6 +5,11 @@ import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 import { Fragment } from 'inferno';
 
+const NORTH = 1
+const SOUTH = 2
+const EAST  = 4
+const WEST  = 8
+
 export const AirlockElectronics = (props, context) => {
   return (
     <Window resizable>
@@ -31,10 +36,10 @@ const UnrestrictedAccess = (props, context) => {
               textAlign="center"
               icon="arrow-down"
               content="North"
-              selected={unrestricted_dir === 'north' ? 'selected' : null}
+              selected={unrestricted_dir & NORTH ? 'selected' : null}
               onClick={() =>
                 act('unrestricted_access', {
-                  unres_dir: 'North',
+                  unres_dir: NORTH,
                 })
               }
             />
@@ -45,10 +50,10 @@ const UnrestrictedAccess = (props, context) => {
               textAlign="center"
               icon="arrow-up"
               content="South"
-              selected={unrestricted_dir === 'south' ? 'selected' : null}
+              selected={unrestricted_dir & SOUTH ? 'selected' : null}
               onClick={() =>
                 act('unrestricted_access', {
-                  unres_dir: 'South',
+                  unres_dir: SOUTH,
                 })
               }
             />
@@ -59,10 +64,10 @@ const UnrestrictedAccess = (props, context) => {
               textAlign="center"
               icon="arrow-left"
               content="East"
-              selected={unrestricted_dir === 'east' ? 'selected' : null}
+              selected={unrestricted_dir & EAST ? 'selected' : null}
               onClick={() =>
                 act('unrestricted_access', {
-                  unres_dir: 'East',
+                  unres_dir: EAST,
                 })
               }
             />
@@ -73,10 +78,10 @@ const UnrestrictedAccess = (props, context) => {
               textAlign="center"
               icon="arrow-right"
               content="West"
-              selected={unrestricted_dir === 'west' ? 'selected' : null}
+              selected={unrestricted_dir & WEST ? 'selected' : null}
               onClick={() =>
                 act('unrestricted_access', {
-                  unres_dir: 'West',
+                  unres_dir: WEST,
                 })
               }
             />

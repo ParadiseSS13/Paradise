@@ -20,7 +20,6 @@
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 
-
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
 	req_access = list(ACCESS_HOP)
@@ -66,6 +65,7 @@
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/reagent_containers/food/drinks/flask/barflask(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -78,26 +78,16 @@
 		new /obj/item/storage/backpack/security(src)
 	else
 		new /obj/item/storage/backpack/satchel_sec(src)
+	new /obj/item/storage/bag/garment/warden(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/clothing/suit/armor/vest/warden(src)
-	new /obj/item/clothing/head/warden(src)
-	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
-	new /obj/item/clothing/head/beret/sec/warden(src)
-	new /obj/item/clothing/under/rank/security/warden(src)
-	new /obj/item/clothing/under/rank/security/formal/warden(src)
-	new /obj/item/clothing/under/rank/security/warden/corporate(src)
-	new /obj/item/clothing/under/rank/security/warden/skirt(src)
-	new /obj/item/clothing/under/rank/security/warden/skirt/corporate(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/holosign_creator/security(src)
-	new /obj/item/clothing/mask/gas/sechailer/warden(src)
 	new /obj/item/storage/box/zipties(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/box/holobadge(src)
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
-
+	new /obj/item/clothing/mask/gas/sechailer(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -159,13 +149,11 @@
 	new /obj/item/clothing/accessory/armband/cargo(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
 
-
 /obj/structure/closet/secure_closet/security/engine
 
 /obj/structure/closet/secure_closet/security/engine/populate_contents()
 	new /obj/item/clothing/accessory/armband/engine(src)
 	new /obj/item/encryptionkey/headset_eng(src)
-
 
 /obj/structure/closet/secure_closet/security/science
 
@@ -173,13 +161,11 @@
 	new /obj/item/clothing/accessory/armband/science(src)
 	new /obj/item/encryptionkey/headset_sci(src)
 
-
 /obj/structure/closet/secure_closet/security/med
 
 /obj/structure/closet/secure_closet/security/med/populate_contents()
 	new /obj/item/clothing/accessory/armband/medgreen(src)
 	new /obj/item/encryptionkey/headset_med(src)
-
 
 /obj/structure/closet/secure_closet/detective
 	name = "detective's cabinet"
@@ -192,27 +178,17 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
-	new /obj/item/clothing/under/rank/security/detective(src)
-	new /obj/item/clothing/suit/storage/det_suit(src)
-	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
-	new /obj/item/clothing/suit/storage/det_suit/forensics/red(src)
-	new /obj/item/clothing/gloves/color/black/forensics(src)
+	new /obj/item/storage/bag/garment/detective(src)
 	new /obj/item/storage/belt/security(src)
-	new /obj/item/clothing/head/det_hat(src)
-	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/clipboard(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/detective_scanner(src)
-	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
 	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
 	new /obj/effect/spawner/detgun(src)
-	new /obj/item/clothing/accessory/holster/armpit(src)
-	new /obj/item/clothing/glasses/sunglasses/yeah(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/holosign_creator/security(src)
-	new /obj/item/clothing/accessory/black(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
 
@@ -223,7 +199,6 @@
 /obj/structure/closet/secure_closet/injection/populate_contents()
 	new /obj/item/reagent_containers/syringe/lethal(src)
 	new /obj/item/reagent_containers/syringe/lethal(src)
-
 
 /obj/structure/closet/secure_closet/brig
 	name = "brig locker"
@@ -299,12 +274,8 @@
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/storage/secure/briefcase(src)
+	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/radio/headset/headset_iaa(src)
-	new /obj/item/clothing/under/rank/civilian/internalaffairs(src)
-	new /obj/item/clothing/suit/storage/internalaffairs(src)
-	new /obj/item/clothing/glasses/sunglasses/big(src)
-	new /obj/item/clothing/glasses/sunglasses/big(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/radio/headset/headset_iaa(src)

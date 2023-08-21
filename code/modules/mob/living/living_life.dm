@@ -79,7 +79,7 @@
 			if(!isnum(forced_look))
 				var/atom/A = locateUID(forced_look)
 				if(istype(A))
-					var/view = client ? client.view : world.view
+					var/view = client ? client.maxview() : world.view
 					if(get_dist(src, A) > view || !(src in viewers(view, A)))
 						forced_look = null
 						to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")

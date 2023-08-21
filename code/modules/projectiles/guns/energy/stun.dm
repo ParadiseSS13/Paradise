@@ -8,13 +8,13 @@
 	ammo_x_offset = 3
 	can_holster = TRUE  // Pistol size
 
-/obj/item/gun/energy/shock_revolver
-	name = "tesla revolver"
-	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
+/obj/item/gun/energy/arc_revolver
+	name = "arc revolver"
+	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
 	icon_state = "stunrevolver"
 	item_state = "gun"
 	origin_tech = "combat=4;materials=4;powerstorage=4"
-	ammo_type = list(/obj/item/ammo_casing/energy/shock_revolver)
+	ammo_type = list(/obj/item/ammo_casing/energy/arc_revolver)
 	can_flashlight = FALSE
 	shaded_charge = FALSE
 	can_holster = TRUE
@@ -30,10 +30,6 @@
 	flight_x_offset = 15
 	shaded_charge = FALSE
 	can_holster = TRUE  // Pistol size
-
-/obj/item/gun/energy/gun/advtaser/detailed_examine()
-	return "This is an energy weapon. To recharge this weapon, use a weapon recharger. \
-			To switch between insta-stun and disabler beams, click the weapon in your hand. This weapon can only fire through glass if it is set to disabler beams."
 
 /obj/item/gun/energy/gun/advtaser/cyborg
 	name = "cyborg taser"
@@ -57,6 +53,11 @@
 	flight_x_offset = 15
 	flight_y_offset = 10
 	can_holster = TRUE
+
+/obj/item/gun/energy/disabler/Initialize(mapload)
+	. = ..()
+	cell.maxcharge = 800
+	cell.charge = 800
 
 /obj/item/gun/energy/disabler/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	var/obj/item/gun/energy/disabler/offhand_disabler = user.get_inactive_hand()

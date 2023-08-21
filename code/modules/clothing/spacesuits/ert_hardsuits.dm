@@ -5,7 +5,7 @@
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 50, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
@@ -37,9 +37,8 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/proc/register_camera(mob/wearer)
 	if(camera || !has_camera)
 		return
-	camera = new /obj/machinery/camera/portable(src)
+	camera = new /obj/machinery/camera/portable(src, FALSE)
 	camera.network = list("ERT")
-	GLOB.cameranet.removeCamera(camera)
 	camera.c_tag = wearer.name
 	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 
@@ -59,7 +58,7 @@
 	item_state = "suit-command"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 50, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
@@ -124,6 +123,10 @@
 	item_state = "syndicate-black-red"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/security
 
+/obj/item/clothing/suit/space/hardsuit/ert/security/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/clothing/suit/space/hardsuit/ert/security/gamma
 	name = "elite emergency response team security suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -135,7 +138,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
 	name = "emergency response team engineer helmet"
 	desc = "A helmet worn by engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured and space ready."
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 150, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 150, FIRE = 200, ACID = 200)
 	icon_state = "hardsuit0-ert_engineer"
 	item_state = "helm-orange"
 	item_color = "ert_engineer"
@@ -143,7 +146,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 	name = "elite emergency response team engineer helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = INFINITY, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = 200, ACID = 200)
 	icon_state = "hardsuit0-gammaengineer"
 	item_color = "gammaengineer"
 
@@ -152,14 +155,14 @@
 	desc = "A suit worn by the engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_engineer"
 	item_state = "suit-orange"
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 150, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 150, FIRE = 200, ACID = 200)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	name = "elite emergency response team engineer suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gengineer"
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = INFINITY, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = 200, ACID = 200)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 	slowdown = 0
 
@@ -181,6 +184,10 @@
 	desc = "A suit worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready."
 	icon_state = "ert_medical"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/medical
+
+/obj/item/clothing/suit/space/hardsuit/ert/medical/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/clothing/suit/space/hardsuit/ert/medical/gamma
 	name = "elite emergency response team medical suit"
@@ -254,13 +261,13 @@
 	name = "inquisitor's helmet"
 	icon_state = "hardsuit0-inquisitor"
 	item_color = "inquisitor"
-	armor = list(MELEE = 95, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 95, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = INFINITY, FIRE = 200, ACID = 200)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	name = "inquisitor's hardsuit"
 	icon_state = "hardsuit-inquisitor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
-	armor = list(MELEE = 95, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 95, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = INFINITY, FIRE = 200, ACID = 200)
 	slowdown = 0
 
 
@@ -273,7 +280,7 @@
 	icon_state = "hardsuit0-solgovmarine"
 	item_state = "hardsuit0-solgovmarine"
 	item_color = "solgovmarine"
-	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	name = "\improper Trans-Solar Federation Specops Marine hardsuit"
@@ -283,7 +290,7 @@
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
 	slowdown = 0
-	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
 	name = "\improper Trans-Solar Federation Specops Lieutenant helmet"

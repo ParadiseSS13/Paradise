@@ -30,6 +30,8 @@
 	var/list/item_reactions = list()
 	var/list/valid_items = list() //valid items for special reactions like transforming
 	var/list/critical_items = list() //items that can cause critical reactions
+	var/list/blocked_items = list(/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath,
+									/obj/item/reagent_containers/food/drinks/bottle/immortality)
 	/// Used for linking with rnd consoles
 	var/range = 5
 
@@ -55,6 +57,8 @@
 
 		if(ispath(I,/obj/item/reagent_containers/food))
 			var/obj/item/tempCheck = I
+			if(I in blocked_items)
+				continue
 			if(initial(tempCheck.icon_state) != null) //check it's an actual usable item, in a hacky way
 				valid_items += rand(1,max(2,35-probWeight))
 				valid_items += I

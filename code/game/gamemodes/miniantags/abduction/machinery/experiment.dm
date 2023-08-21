@@ -30,18 +30,19 @@
 		return
 	if(occupant)
 		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
-		return //occupied
+		return TRUE
 	if(target.buckled)
 		return
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head.</span>")
-		return
+		return TRUE
 	visible_message("<span class='notice'>[user] puts [target] into [src].</span>")
 
 	target.forceMove(src)
 	occupant = target
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
+	return TRUE
 
 /obj/machinery/abductor/experiment/attack_hand(mob/user)
 	if(..())
@@ -168,7 +169,7 @@
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 			return "<span class='bad'>Experiment failed! No replacement organ detected.</span>"
 	else
-		atom_say("Brain activity nonexistant - disposing sample...")
+		atom_say("Brain activity nonexistent - disposing sample...")
 		eject_abductee()
 		SendBack(H)
 		return "<span class='bad'>Specimen braindead - disposed.</span>"
@@ -226,3 +227,9 @@
 	occupant.forceMove(get_turf(src))
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/abductor/experiment/broken
+	stat = BROKEN
+
+/obj/machinery/abductor/experiment/broken/MouseDrop_T(mob/living/carbon/human/target, mob/user)
+	return

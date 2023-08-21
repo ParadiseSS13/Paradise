@@ -47,3 +47,4 @@
 	to_chat(M, "<span class='warning'>Due to freak radiation, you have gained \
 							human level intelligence and the ability to speak and understand \
 							human language!</span>")
+	M.create_log(MISC_LOG, "[M] was made into a sentient animal")

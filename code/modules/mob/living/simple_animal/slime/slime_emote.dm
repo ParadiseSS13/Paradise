@@ -45,7 +45,7 @@
 
 /datum/emote/living/simple_animal/slime/smile
 	key = "smile"
-	mood = "mischevous"
+	mood = "mischievous"
 
 /datum/emote/living/simple_animal/slime/colon_three
 	key = ":3"

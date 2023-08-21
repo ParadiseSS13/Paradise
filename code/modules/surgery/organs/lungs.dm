@@ -319,10 +319,11 @@
 	safe_toxins_max = 0
 
 /obj/item/organ/internal/lungs/vox
-	name = "Vox lungs"
+	name = "vox lungs"
 	desc = "They're filled with dust....wow."
 	icon = 'icons/obj/species_organs/vox.dmi'
 	icon_state = "lungs"
+	sterile = TRUE
 
 	safe_oxygen_min = 0 //We don't breathe this
 	safe_oxygen_max = 0.05 //This is toxic to us

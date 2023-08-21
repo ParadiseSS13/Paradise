@@ -60,3 +60,9 @@
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector
+
+/mob/living/simple_animal/hostile/guardian/protector/CanPass(atom/movable/mover, border_dir)
+	. = ..()
+	if(toggle && isliving(mover)) //No crawling under a protector
+		return FALSE
+

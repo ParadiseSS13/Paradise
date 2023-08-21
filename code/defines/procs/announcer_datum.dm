@@ -154,12 +154,13 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 /datum/announcement_configuration/requests_console
 	style = "minor"
 	add_log = TRUE
+	sound = sound('sound/misc/notice2.ogg')
 
 /datum/announcement_configuration/comms_console
 	default_title = "Priority Announcement"
 	add_log = TRUE
 	log_name = ANNOUNCE_KIND_PRIORITY
-	sound = sound('sound/misc/notice2.ogg')
+	sound = sound('sound/misc/announce.ogg')
 	style = "major"
 
 /datum/announcement_configuration/ai

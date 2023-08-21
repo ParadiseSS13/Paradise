@@ -77,9 +77,12 @@
 	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
 
+	if(length(GLOB.configuration.system.region_map))
+		output += "<p><a href='byond://?src=[UID()];setregion=1'>Set region (reduces ping)</A></p>"
+
 	output += "</center>"
 
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 330)
+	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 340)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
 	popup.open(0)
@@ -215,6 +218,10 @@
 		privacy_consent()
 		return FALSE
 
+	if(href_list["setregion"])
+		usr.client.change_region()
+		return FALSE
+
 	if(href_list["late_join"])
 		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
@@ -225,11 +232,9 @@
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
-		if(client.prefs.active_character.species in GLOB.whitelisted_species)
-
-			if(!can_use_species(src, client.prefs.active_character.species))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
-				return FALSE
+		if(!can_use_species(src, client.prefs.active_character.species))
+			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
+			return FALSE
 
 		LateChoices()
 
@@ -245,10 +250,9 @@
 		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			client.prefs.load_random_character_slot(client)
 
-		if(client.prefs.active_character.species in GLOB.whitelisted_species)
-			if(!can_use_species(src, client.prefs.active_character.species))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
-				return FALSE
+		if(!can_use_species(src, client.prefs.active_character.species))
+			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
+			return FALSE
 
 		AttemptLateSpawn(href_list["SelectedJob"])
 		return
@@ -323,6 +327,9 @@
 	var/datum/job/thisjob = SSjobs.GetJob(rank)
 	if(thisjob.barred_by_disability(client))
 		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
+		return 0
+	if(thisjob.barred_by_missing_limbs(client))
+		to_chat(src, alert("[rank] is not available due to your character having amputated limbs without a prosthetic replacement. Please try another."))
 		return 0
 
 	SSjobs.AssignRole(src, rank, 1)
@@ -419,7 +426,7 @@
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
-					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer", follow_target_override = character)
 
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
@@ -436,7 +443,7 @@
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer", follow_target_override = character)
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
@@ -470,7 +477,7 @@
 	var/list/categorizedJobs = list(
 		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
 		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
-		"Security" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
+		"Security" = list(jobs = list(), titles = GLOB.active_security_positions, color = "#ff9999"),
 		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
 		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
 		"Support / Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
@@ -479,7 +486,7 @@
 		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in SSjobs.occupations)
-		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client) && !job.barred_by_missing_limbs(client))
 			num_jobs_available++
 			activePlayers[job] = 0
 			var/categorized = 0
@@ -601,8 +608,9 @@
 	return check_rights(R_ADMIN, 0, src)
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
-	if(!S) return 1
-	return can_use_species(src, S.name) || !(IS_WHITELISTED in S.species_traits)
+	if(!S)
+		return TRUE // Allow null species?
+	return can_use_species(src, S.name)
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()

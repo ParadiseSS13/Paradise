@@ -116,6 +116,7 @@ CREATE TABLE `death` (
   `pod` text NOT NULL COMMENT 'Place of death',
   `coord` text NOT NULL COMMENT 'X, Y, Z POD',
   `tod` datetime NOT NULL COMMENT 'Time of death',
+  `death_rid` INT NULL,
   `server_id` TEXT NULL DEFAULT NULL,
   `job` text NOT NULL,
   `special` text NOT NULL,
@@ -222,10 +223,12 @@ CREATE TABLE `ban` (
   `unbanned_ckey` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `unbanned_computerid` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `unbanned_ip` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `exportable` TINYINT(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
   KEY `computerid` (`computerid`),
-  KEY `ip` (`ip`)
+  KEY `ip` (`ip`),
+  KEY `exportable` (`exportable`)
 ) ENGINE=InnoDB AUTO_INCREMENT=58903 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -288,6 +291,8 @@ CREATE TABLE `player` (
   `colourblind_mode` VARCHAR(48) NOT NULL DEFAULT 'None' COLLATE 'utf8mb4_general_ci',
   `keybindings` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   `server_region` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+  `muted_adminsounds_ckeys` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+  `viewrange` VARCHAR(5) NOT NULL DEFAULT '19x15' COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -312,56 +317,6 @@ CREATE TABLE `privacy` (
   PRIMARY KEY (`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `karma_log`
---
-
-DROP TABLE IF EXISTS `karma_log`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `karma_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `spendername` text NOT NULL,
-  `spenderkey` text NOT NULL,
-  `receivername` text NOT NULL,
-  `receiverkey` text NOT NULL,
-  `receiverrole` text,
-  `receiverspecial` text,
-  `isnegative` tinyint(1) DEFAULT NULL,
-  `spenderip` text NOT NULL,
-  `server_id` TEXT NULL DEFAULT NULL,
-  `time` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73614 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `karma_totals`
---
-
-DROP TABLE IF EXISTS `karma_totals`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `karma_totals` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `byondkey` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `karma` int(11) NOT NULL,
-  `karmaspent` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  KEY `byondkey` (`byondkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=25715 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-DROP TABLE IF EXISTS `karma_purchases`;
-CREATE TABLE `karma_purchases` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`ckey` VARCHAR(32) NOT NULL COLLATE 'utf8_general_ci',
-	`purchase` VARCHAR(64) NOT NULL COLLATE 'utf8_general_ci',
-	`purchase_time` DATETIME NOT NULL DEFAULT current_timestamp(),
-	PRIMARY KEY (`id`) USING BTREE,
-	UNIQUE INDEX `ckey` (`ckey`, `purchase`) USING BTREE
-) COLLATE='utf8_general_ci' ENGINE=InnoDB;
 
 --
 -- Table structure for table `library`

@@ -52,7 +52,7 @@
 //(in game days played) to play that role
 GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ABDUCTOR = /datum/game_mode/abduction, 		// Abductor
-	ROLE_BLOB = /datum/game_mode/blob, 					// Blob
+	ROLE_BLOB, 											// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
 	ROLE_GSPIDER, 										// Giant spider

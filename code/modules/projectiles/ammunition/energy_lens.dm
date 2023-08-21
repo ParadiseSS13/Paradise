@@ -239,12 +239,31 @@
 /obj/item/ammo_casing/energy/plasma/adv
 	projectile_type = /obj/item/projectile/plasma/adv
 
-/obj/item/ammo_casing/energy/shock_revolver
+/obj/item/ammo_casing/energy/tesla_bolt
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	e_cost = 200
 	select_name = "lightning beam"
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
-	projectile_type = /obj/item/projectile/energy/shock_revolver
+	projectile_type = /obj/item/projectile/energy/tesla_bolt
+
+/obj/item/ammo_casing/energy/arc_revolver
+	fire_sound = 'sound/magic/lightningbolt.ogg' //New sound
+	e_cost = 125 //8 shots?
+	select_name = "lightning beam" //I guess
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE // Depends on sprite
+	projectile_type = /obj/item/projectile/energy/arc_revolver
+	///This number is randomly generated when the arc revolver is made. This ensures the beams only link to beams from the gun, one lower or higher than the number on the boosted object.
+	var/random_link_number
+
+/obj/item/ammo_casing/energy/arc_revolver/Initialize()
+	. = ..()
+	random_link_number = rand(1, 9999999)
+
+/obj/item/ammo_casing/energy/arc_revolver/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
+	..()
+	var/obj/item/projectile/energy/arc_revolver/P = BB
+	P.charge_number = random_link_number
+	random_link_number++
 
 /obj/item/ammo_casing/energy/weak_plasma
 	projectile_type = /obj/item/projectile/energy/weak_plasma
@@ -275,7 +294,8 @@
 	select_name = "emitter"
 
 /obj/item/ammo_casing/energy/emitter/cyborg
-	e_cost = 500 // about 28 shots on an engineering borg from a borging machine, assuming some power is used for lights / movement. May need to change.
+	e_cost = 350 // about 42 shots on an engineering borg from a borging machine, Reads a lot better than it actually is because people miss shots and often your better abilities require charge as well
+	delay = 1 SECONDS
 
 /obj/item/ammo_casing/energy/bsg
 	projectile_type = /obj/item/projectile/energy/bsg
@@ -284,8 +304,8 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	fire_sound = 'sound/weapons/wave.ogg'
 	e_cost = 10000
-	select_name = "the experimental setting"
-	delay = 10 SECONDS //Looooooong cooldown
+	select_name = null //No one is sticking this into another gun / so I don't have to rename 20 icon states
+	delay = 4 SECONDS //Looooooong cooldown // Used to be 10 seconds, has been rebalanced to be normal firing rate now
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport
@@ -335,5 +355,5 @@
 	projectile_type = /obj/item/projectile/beam/silencer
 	muzzle_flash_effect = null
 	select_name = "silencing dissidents"
-	e_cost = 62.5 // 16 shots
+	e_cost = 50 // 16 shots
 	fire_sound = 'sound/weapons/silencer_laser.ogg'

@@ -33,13 +33,13 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
-	var/machinedir = SOUTH
 	var/inserted_id_uid
 	var/obj/item/radio/intercom/announcer
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/Initialize()
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
+	announcer.follow_target = src
 	announcer.config(list("Security" = 0))
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/Destroy()

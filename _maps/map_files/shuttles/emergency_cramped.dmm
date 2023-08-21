@@ -51,7 +51,9 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "o" = (
-/obj/machinery/door/window/northleft,
+/obj/machinery/door/window/classic/normal{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "p" = (

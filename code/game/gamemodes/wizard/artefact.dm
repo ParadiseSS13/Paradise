@@ -204,8 +204,8 @@
 /obj/item/scrying
 	name = "scrying orb"
 	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means."
-	icon = 'icons/obj/projectiles.dmi'
-	icon_state ="bluespace"
+	icon = 'icons/obj/wizard.dmi'
+	icon_state ="scrying_orb"
 	throw_speed = 7
 	throw_range = 15
 	throwforce = 15
@@ -231,6 +231,7 @@
 		to_chat(current_owner, "<span class='notice'>Your otherworldly vision fades...</span>")
 
 		REMOVE_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		REMOVE_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
 		current_owner.update_sight()
 		current_owner.update_icons()
 
@@ -242,6 +243,7 @@
 		to_chat(current_owner, "<span class='notice'>You can see...everything!</span>")
 
 		ADD_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		ADD_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
 		current_owner.update_sight()
 		current_owner.update_icons()
 
@@ -593,12 +595,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("soviet")
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/hgpiratecap(M), slot_head)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/sovietofficerhat(M), slot_head)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/hgpirate(M), slot_wear_suit)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/soviet(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/sovietcoat(M), slot_wear_suit)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/new_soviet/sovietofficer(M), slot_w_uniform)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("officer")
@@ -704,7 +706,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(heresy)
 		spawnheresy(M)//oh god why
 	else
-		M.set_species(/datum/species/skeleton)
+		M.set_species(/datum/species/skeleton) // OP skellybones
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
 		M.grab_ghost() // yoinks the ghost if its not in the body
 		M.revive()

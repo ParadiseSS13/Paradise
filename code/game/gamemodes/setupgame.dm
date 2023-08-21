@@ -16,12 +16,6 @@
 
 /proc/setupgenetics()
 
-	if(prob(50))
-		GLOB.blockadd = rand(-300,300)
-	if(prob(75))
-		GLOB.diffmut = rand(0,20)
-
-
 //Thanks to nexis for the fancy code
 // BITCH I AIN'T DONE YET
 
@@ -57,7 +51,6 @@
 	GLOB.breathlessblock    = getAssignedBlock("BREATHLESS",    numsToAssign, DNA_HARD_BOUNDS, good=1)
 	GLOB.remoteviewblock    = getAssignedBlock("REMOTEVIEW",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.regenerateblock    = getAssignedBlock("REGENERATE",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	GLOB.increaserunblock   = getAssignedBlock("INCREASERUN",   numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.remotetalkblock    = getAssignedBlock("REMOTETALK",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.morphblock         = getAssignedBlock("MORPH",         numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.coldblock          = getAssignedBlock("COLD",          numsToAssign, good=1)

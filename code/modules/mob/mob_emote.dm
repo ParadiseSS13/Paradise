@@ -148,9 +148,11 @@
 				if(isturf(oldloc) && isturf(newloc))
 					user.SpinAnimation(5, 1)
 					user.glide_for(0.6 SECONDS) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
-					user.forceMove(newloc)
+					var/old_pass = user.pass_flags
+					user.pass_flags |= (PASSMOB | PASSTABLE)
+					step(user, get_dir(oldloc, newloc))
+					user.pass_flags = old_pass
 					G.glide_for(0.6 SECONDS)
-					G.affecting.forceMove(oldloc)
 					message = "flips over [G.affecting]!"
 					return ..()
 

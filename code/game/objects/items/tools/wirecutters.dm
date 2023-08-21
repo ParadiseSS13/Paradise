@@ -19,7 +19,7 @@
 	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
 	sharp = TRUE
 	toolspeed = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
 
@@ -46,6 +46,38 @@
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, usesound, 50, 1, -1)
 	return BRUTELOSS
+
+/obj/item/wirecutters/security
+	name = "security wirecutters"
+	desc = "A pair of wirecutters with a tactical grip and robust build."
+	icon_state = "cutters_sec"
+	belt_icon = "wirecutters_sec"
+	item_state = "cutters_red" //shh
+	attack_verb = list("reformed", "robusted", "102'd") //102: battery in space law
+	force = 9 //same as seclites
+	toolspeed = 0.75
+	random_color = FALSE
+
+/obj/item/wirecutters/security/suicide_act(mob/living/user)
+
+	if(!user)
+		return
+	user.visible_message("<span class='suicide'>[user] is cutting [user.p_themselves()] free from the mortal coil! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
+
+	user.Immobilize(10 SECONDS)
+	sleep(2 SECONDS)
+	add_fingerprint(user)
+
+	playsound(loc, usesound, 50, TRUE, -1)
+
+	new /obj/item/restraints/handcuffs/cable/zipties/used(user.loc)
+
+	for(var/obj/item/W in user)
+		user.unEquip(W)
+
+	user.dust()
+	return OBLITERATION
 
 /obj/item/wirecutters/brass
 	name = "brass wirecutters"
@@ -89,6 +121,7 @@
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	usesound = 'sound/items/jaws_cut.ogg'
 	toolspeed = 0.25
+	w_class = WEIGHT_CLASS_NORMAL
 	random_color = FALSE
 
 /obj/item/wirecutters/power/suicide_act(mob/user)

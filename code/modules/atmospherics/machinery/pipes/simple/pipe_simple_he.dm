@@ -3,6 +3,8 @@
 	icon_state = "intact"
 	pipe_icon = "hepipe"
 	level = 2
+	plane = GAME_PLANE
+	layer = GAS_PIPE_VISIBLE_LAYER
 	var/initialize_directions_he
 	var/surface = 2
 
@@ -14,8 +16,9 @@
 	var/icon_temperature = T20C //stop small changes in temperature causing icon refresh
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/detailed_examine()
-	return "This radiates heat from the pipe's gas to space, cooling it down."
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This radiates heat from the pipe's gas to space, cooling it down.</span>"
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/process_atmos()
 	var/environment_temperature = 0
@@ -88,6 +91,8 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/hidden
 	level=1
 	icon_state="intact-f"
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER
 
 /////////////////////////////////
 // JUNCTION
@@ -133,3 +138,5 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/hidden
 	level=1
 	icon_state="intact-f"
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER

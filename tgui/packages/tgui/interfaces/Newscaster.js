@@ -343,6 +343,11 @@ const NewscasterFeed = (properties, context) => {
             <LabeledList.Item label="Owner">
               {channel.author || 'N/A'}
             </LabeledList.Item>
+            {!!is_admin && (
+              <LabeledList.Item label="Ckey">
+                {channel.author_ckey}
+              </LabeledList.Item>
+            )}
             <LabeledList.Item label="Public">
               {channel.public ? 'Yes' : 'No'}
             </LabeledList.Item>
@@ -444,6 +449,7 @@ const NewscasterJobs = (properties, context) => {
 const Story = (properties, context) => {
   const { act, data } = useBackend(context);
   const { story, wanted = false } = properties;
+  const {is_admin} = data;
   const [fullStories, setFullStories] = useLocalState(
     context,
     'fullStories',
@@ -485,6 +491,12 @@ const Story = (properties, context) => {
             )}
             <Box display="inline">
               <Icon name="user" /> {story.author} |&nbsp;
+              {!!is_admin && (
+                <Fragment>
+                  ckey: {story.author_ckey}{' '}
+                  |&nbsp;
+                </Fragment>
+              )}
               {!wanted && (
                 <Fragment>
                   <Icon name="eye" /> {story.view_count.toLocaleString()}{' '}

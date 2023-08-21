@@ -16,7 +16,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
-	faction = list("neutral")
+	faction = list("neutral", "jungle")
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	attack_same = TRUE
 	attacktext = "kicks"
@@ -28,7 +28,7 @@
 	stop_automated_movement_when_pulled = TRUE
 	can_collar = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
-	var/obj/item/udder/udder = null
+	var/obj/item/udder/cow/udder = null
 	gender = FEMALE
 	footstep_type = FOOTSTEP_MOB_SHOE
 
@@ -133,7 +133,7 @@
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
-	var/obj/item/udder/udder = null
+	var/obj/item/udder/cow/udder = null
 	gender = FEMALE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	footstep_type = FOOTSTEP_MOB_SHOE
@@ -143,14 +143,13 @@
 	. = ..()
 
 /mob/living/simple_animal/cow/Destroy()
-	qdel(udder)
-	udder = null
+	QDEL_NULL(udder)
 	return ..()
 
 /mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
-		return 1
+		return TRUE
 	else
 		return ..()
 
@@ -498,10 +497,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /obj/item/udder
 	name = "udder"
 
-/obj/item/udder/New()
-	create_reagents(50)
-	reagents.add_reagent("milk", 20)
+/obj/item/udder/Initialize(mapload)
 	. = ..()
+	create_reagents(50)
 
 /obj/item/udder/proc/generateMilk()
 	if(prob(5))
@@ -517,3 +515,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
 	else
 		to_chat(user, "<span class='danger'>The udder is dry. Wait a bit longer...</span>")
+
+/obj/item/udder/cow
+
+/obj/item/udder/cow/Initialize(mapload)
+	. = ..()
+	reagents.add_reagent("milk", 20)

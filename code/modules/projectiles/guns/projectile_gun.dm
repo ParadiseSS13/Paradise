@@ -23,10 +23,6 @@
 	QDEL_NULL(magazine)
 	return ..()
 
-/obj/item/gun/projectile/detailed_examine()
-	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \
-			will tell you what caliber you need."
-
 /obj/item/gun/projectile/update_name()
 	. = ..()
 	if(sawn_state)
@@ -53,13 +49,13 @@
 		. += knife_overlay
 
 /obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
-	var/obj/item/ammo_casing/AC = chambered //Find chambered round
-	if(isnull(AC) || !istype(AC))
+	var/obj/item/ammo_casing/ammo_chambered = chambered //Find chambered round
+	if(!istype(ammo_chambered))
 		chamber_round()
 		return
-	if(eject_casing)
-		AC.loc = get_turf(src) //Eject casing onto ground.
-		AC.SpinAnimation(10, 1) //next gen special effects
+	if(eject_casing && !QDELETED(ammo_chambered))
+		ammo_chambered.forceMove(get_turf(src)) //Eject casing onto ground.
+		ammo_chambered.SpinAnimation(10, 1) //next gen special effects
 		playsound(src, chambered.casing_drop_sound, 100, 1)
 	if(empty_chamber)
 		chambered = null
@@ -82,15 +78,22 @@
 /obj/item/gun/projectile/proc/can_reload()
 	return !magazine
 
-/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)
-		user.remove_from_mob(AM)
-		magazine = AM
-		magazine.loc = src
-		playsound(src, magin_sound, 50, 1)
-		chamber_round()
-		AM.update_icon()
-		update_icon()
+/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user)
+	user.remove_from_mob(AM)
+	magazine = AM
+	magazine.forceMove(src)
+	playsound(src, magin_sound, 50, 1)
+	chamber_round()
+	AM.update_icon()
+	update_icon()
+	if(!user)
 		return
+	// Update the hand opposite of the one holding ammo (the current one)
+	if(user.hand)
+		user.update_inv_r_hand()
+	else
+		user.update_inv_l_hand()
+	return
 
 /obj/item/gun/projectile/attackby(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
@@ -178,6 +181,7 @@
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
 	. += "Has [get_ammo()] round\s remaining."
+	. += "<span class='notice'>Use in hand to empty the gun's ammo reserves.</span>"
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people

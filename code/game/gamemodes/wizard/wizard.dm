@@ -109,7 +109,7 @@
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	to_chat(wizard.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Wizard)</span>")
-	return
+	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
 	if(!istype(wizard_mob))
@@ -164,11 +164,7 @@
 
 	// Wizards
 	for(var/datum/mind/wizard in wizards)
-		if(!iscarbon(wizard.current))
-			continue
-		if(wizard.current.stat==DEAD)
-			continue
-		if(istype(wizard.current, /obj/item/mmi)) // wizard is in an MMI, don't count them as alive
+		if(!iscarbon(wizard.current) || wizard.current.stat == DEAD) // wizard is in an MMI, don't count them as alive
 			continue
 		wizards_alive++
 

@@ -17,6 +17,17 @@
 
 /obj/item/projectile/beam/laser
 
+
+/obj/item/projectile/beam/laser/ik
+
+/obj/item/projectile/beam/laser/ik/emp_act(severity)
+	if(prob(40 / severity))
+		range = 0
+
+/obj/item/projectile/beam/laser/ik/on_range() //Should spark out of the gun. Theoretically, one could emp projectiles out of the air. However, its more practical to EMP the guns, rather than projectiles in flight
+	do_sparks(1, 1, src)
+	..()
+
 /obj/item/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
@@ -39,7 +50,7 @@
 	damage = 15
 	tile_dropoff = 0.75
 	irradiate = 30
-	forcedodge = 1
+	forcedodge = -1
 	range = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
@@ -63,7 +74,7 @@
 	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
-	if(isturf(target) || isstructure(target))
+	if(isturf(target) || isstructure(target) || ismachinery(target))
 		target.ex_act(2)
 	..()
 

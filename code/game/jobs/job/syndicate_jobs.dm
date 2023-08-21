@@ -8,7 +8,7 @@
 	selection_color = "#ff0000"
 	access = list()
 	minimal_access = list()
-	admin_only = 1
+	admin_only = TRUE
 	syndicate_command = 1
 	outfit = /datum/outfit/job/syndicateofficer
 
@@ -49,7 +49,7 @@
 
 	var/obj/item/implant/uplink/admin/U = new /obj/item/implant/uplink/admin(H)
 	U.implant(H)
-	U.hidden_uplink.uses = 500
+	U.hidden_uplink.uses = 2500
 	H.faction += "syndicate"
 	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.join_hud(H.mind.current)

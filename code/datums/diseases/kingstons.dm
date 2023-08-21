@@ -60,7 +60,8 @@
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will mutate to a different species."
 	severity = BIOHAZARD
-	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi,/datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona) //no karma races sorrys.
+	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi,/datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona,
+		/datum/species/slime, /datum/species/kidan, /datum/species/drask, /datum/species/grey, /datum/species/moth) // No IPCs (not organic), or vox+plasmemes because of air requirements
 	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
 	var/datum/species/chosentype
 	var/chosensuff

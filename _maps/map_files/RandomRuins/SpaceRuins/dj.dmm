@@ -70,11 +70,6 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
-"ak" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "al" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -84,8 +79,7 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
 "am" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -94,8 +88,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "an" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -107,8 +100,7 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
 "ap" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -125,8 +117,7 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
 "as" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -271,8 +262,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aK" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -286,8 +276,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aL" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aM" = (
@@ -710,7 +699,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/portable/canister/air,
-/obj/machinery/door/window/westleft,
+/obj/machinery/door/window/classic/normal{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -886,7 +877,7 @@ aa
 aa
 aa
 ab
-ak
+ad
 ad
 ae
 aa

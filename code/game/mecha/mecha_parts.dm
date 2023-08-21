@@ -86,7 +86,7 @@
 
 /obj/item/mecha_parts/part/gygax_head
 	name = "\improper Gygax head"
-	desc = "A Gygax head. Houses advanced surveilance and targeting sensors."
+	desc = "A Gygax head. Houses advanced surveillance and targeting sensors."
 	icon_state = "gygax_head"
 	origin_tech = "programming=2;materials=4;magnets=3;engineering=3"
 
@@ -466,8 +466,3 @@
 /obj/item/circuitboard/mecha/odysseus/peripherals
 	board_name = "Odysseus Peripherals Control Module"
 	icon_state = "mcontroller"
-
-
-/obj/item/circuitboard/mecha/pod
-	board_name = "Space Pod Mainboard"
-	icon_state = "mainboard"

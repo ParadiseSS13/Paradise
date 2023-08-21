@@ -46,7 +46,7 @@
 	colour = "gray"
 
 /obj/item/pen/invisible
-	desc = "It's an invisble pen marker."
+	desc = "It's an invisible pen marker."
 	icon_state = "pen"
 	colour = "white"
 
@@ -89,7 +89,7 @@
 
 /obj/item/pen/fancy
 	name = "fancy pen"
-	desc = "A fancy metal pen. It uses blue ink. An inscription on one side reads,\"L.L. - L.R.\""
+	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
 	icon_state = "fancypen"
 
 /obj/item/pen/multi/gold
@@ -127,17 +127,36 @@
 
 	if(reagents.total_volume && M.reagents)
 		transfered = reagents.trans_to(M, 50)
-
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
+	for(var/datum/reagent/R as anything in reagents.reagent_list)
+		if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
+			return TRUE
+	reagents.reaction(M, REAGENT_INGEST, 0.1)
 	return TRUE
 
 
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
+	fill_pen()
+
+/obj/item/pen/sleepy/proc/fill_pen()
 	reagents.add_reagent("ketamine", 100)
 
+/obj/item/pen/sleepy/love
+	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
+	origin_tech = "engineering=4;syndicate=2"
+
+/obj/item/pen/sleepy/love/attack(mob/living/M, mob/user)
+	var/can_transfer = reagents.total_volume && M.reagents
+	. = ..()
+	if(can_transfer && .)
+		M.apply_status_effect(STATUS_EFFECT_PACIFIED) //pacifies for 40 seconds
+	return TRUE
+
+/obj/item/pen/sleepy/love/fill_pen()
+	reagents.add_reagent("love", 100)
 
 /*
  * (Alan) Edaggers
@@ -150,6 +169,7 @@
 	var/backstab_sound = 'sound/items/unsheath.ogg'
 	var/backstab_damage = 12
 	armour_penetration_flat = 20
+	throw_speed = 4
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
 	var/extra_force_applied = FALSE

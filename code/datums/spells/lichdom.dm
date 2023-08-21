@@ -69,8 +69,8 @@
 
 			lich.real_name = M.mind.name
 			M.mind.transfer_to(lich)
-			lich.set_species(/datum/species/skeleton)
-			to_chat(lich, "<span class='warning'>Your bones clatter and shutter as they're pulled back into this world!</span>")
+			lich.set_species(/datum/species/skeleton/lich) // Wizard variant
+			to_chat(lich, "<span class='warning'>Your bones clatter and shudder as they're pulled back into this world!</span>")
 			cooldown_handler.recharge_duration += 1 MINUTES
 			var/mob/old_body = current_body
 			var/turf/body_turf = get_turf(old_body)
@@ -121,7 +121,7 @@
 				current_body = M.mind.current
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					H.set_species(/datum/species/skeleton)
+					H.set_species(/datum/species/skeleton/lich)
 					H.unEquip(H.wear_suit)
 					H.unEquip(H.head)
 					H.unEquip(H.shoes)

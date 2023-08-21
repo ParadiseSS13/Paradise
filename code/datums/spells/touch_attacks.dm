@@ -9,26 +9,14 @@
 
 /obj/effect/proc_holder/spell/touch/Click(mob/user = usr)
 	if(attached_hand)
-		qdel(attached_hand)
-		cooldown_handler.revert_cast()
-		attached_hand = null
-		if(on_remove_message)
-			to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
+		discharge_hand(user, TRUE)
 		return FALSE
-	..()
+	charge_hand(user)
 
-/obj/effect/proc_holder/spell/touch/cast(list/targets, mob/user = usr)
-	for(var/mob/living/carbon/target in targets)
-		if(!attached_hand)
-			if(!ChargeHand(target))
-				return FALSE
-	while(attached_hand) //hibernate untill the spell is actually used
-		cooldown_handler.recharge_time++ // adds a tick onto the cooldown each tick
-		sleep(1)
-
-/obj/effect/proc_holder/spell/touch/proc/ChargeHand(mob/living/carbon/user)
+/obj/effect/proc_holder/spell/touch/proc/charge_hand(mob/living/carbon/user)
 	var/hand_handled = 1
 	attached_hand = new hand_path(src)
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(discharge_hand))
 	if(isalien(user))
 		user.put_in_hands(attached_hand)
 		return
@@ -42,12 +30,22 @@
 				hand_handled = 0
 	if(!hand_handled)
 		qdel(attached_hand)
-		cooldown_handler.revert_cast()
 		attached_hand = null
 		to_chat(user, "<span class='warning'>Your hands are full!</span>")
 		return 0
 	to_chat(user, "<span class='notice'>You channel the power of the spell to your hand.</span>")
 	return 1
+
+/obj/effect/proc_holder/spell/touch/proc/discharge_hand(atom/target, any = FALSE)
+	SIGNAL_HANDLER
+	var/mob/living/carbon/user = action.owner
+	if(!istype(attached_hand))
+		return
+	if(!any && attached_hand != user.get_active_hand())
+		return
+	QDEL_NULL(attached_hand)
+	if(on_remove_message)
+		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
 
 
 /obj/effect/proc_holder/spell/touch/disintegrate

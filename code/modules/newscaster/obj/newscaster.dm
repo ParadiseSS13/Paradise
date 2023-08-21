@@ -19,7 +19,7 @@
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_off"
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	max_integrity = 200
 	integrity_failure = 50
 	light_range = 0
@@ -77,7 +77,6 @@
 			/datum/job/judge,
 			/datum/job/blueshield,
 			/datum/job/nanotrasenrep,
-			/datum/job/barber,
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntspecops,
@@ -300,6 +299,7 @@
 			uid = C.UID(),
 			name = C.channel_name,
 			author = C.author,
+			author_ckey = (is_admin(user) ? C.author_ckey : "N/A"),
 			description = C.description,
 			icon = C.icon,
 			public = C.is_public,
@@ -332,6 +332,7 @@
 	return list(list(
 		uid = FM.UID(),
 		author = (FM.censor_flags & CENSOR_AUTHOR) ? "" : FM.author,
+		author_ckey = (is_admin(M) ? FM.author_ckey : "N/A"),
 		title = (FM.censor_flags & CENSOR_STORY) ? "" : FM.title,
 		body = (FM.censor_flags & CENSOR_STORY) ? "" : FM.body,
 		admin_locked = FM.admin_locked,
@@ -518,9 +519,11 @@
 					FC.description = copytext(description, 1, CHANNEL_DESC_MAX_LENGTH)
 					FC.icon = usr.can_admin_interact() ? icon : "newspaper"
 					FC.author = usr.can_admin_interact() ? author : scanned_user
+					FC.author_ckey = usr.ckey
 					FC.is_public = public
 					FC.admin_locked = usr.can_admin_interact() && admin_locked
 					set_temp("Channel [FC.channel_name] created.", "good")
+					usr.create_log(MISC_LOG, "Newscaster channel [name] created with desc [description].")
 				if("create_story")
 					var/author = trim(arguments["author"])
 					var/channel = trim(arguments["channel"])
@@ -536,6 +539,7 @@
 						return
 					var/datum/feed_message/FM = new
 					FM.author = usr.can_admin_interact() ? author : scanned_user
+					FM.author_ckey = usr.ckey
 					FM.title = copytext(title, 1, STORY_NAME_MAX_LENGTH)
 					FM.body = copytext(body, 1, STORY_BODY_MAX_LENGTH)
 					FM.img = photo?.img
@@ -554,6 +558,7 @@
 					viewing_channel = FC
 					eject_photo(usr)
 					set_temp("Story published to channel [FC.channel_name].", "good")
+					usr.create_log(MISC_LOG, "Newscaster story [title] created with desc [body].")
 				if("wanted_notice")
 					if(id == "wanted_notice" && !(is_security || usr.can_admin_interact()))
 						return
@@ -582,6 +587,7 @@
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
 					set_temp("Wanted notice distributed.", "good")
+					usr.create_log(MISC_LOG, "Wanted notice for [name] created with desc [description].")
 				else
 					return FALSE
 		else

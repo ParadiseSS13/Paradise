@@ -357,7 +357,7 @@
 					if(!length(answer) || !istype(active2) || !length(state.name))
 						return
 					active2.fields["comments"] += list(list(
-						header = "Made by [state.name] ([state.name]) on [GLOB.current_date_string] [station_time_timestamp()]",
+						header = "Made by [state.name] ([state.rank]) on [GLOB.current_date_string] [station_time_timestamp()]",
 						text = answer
 					))
 				else
@@ -370,7 +370,7 @@
   */
 /obj/machinery/computer/med_data/proc/print_finish()
 	var/obj/item/paper/P = new /obj/item/paper(loc)
-	P.info = "<center></b>Medical Record</b></center><br>"
+	P.info = "<center><b>Medical Record</b></center><br>"
 	if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
 		P.info += {"Name: [active1.fields["name"]] ID: [active1.fields["id"]]
 		<br>\nSex: [active1.fields["sex"]]
@@ -378,10 +378,11 @@
 		<br>\nFingerprint: [active1.fields["fingerprint"]]
 		<br>\nPhysical Status: [active1.fields["p_stat"]]
 		<br>\nMental Status: [active1.fields["m_stat"]]<br>"}
+		P.name = "paper - 'Medical Record: [active1.fields["name"]]'"
 	else
-		P.info += "</b>General Record Lost!</b><br>"
+		P.info += "<b>General Record Lost!</b><br>"
 	if(istype(active2, /datum/data/record) && GLOB.data_core.medical.Find(active2))
-		P.info += {"<br>\n<center></b>Medical Data</b></center>
+		P.info += {"<br>\n<center><b>Medical Data</b></center>
 		<br>\nBlood Type: [active2.fields["blood_type"]]
 		<br>\nDNA: [active2.fields["b_dna"]]<br>\n
 		<br>\nMinor Disabilities: [active2.fields["mi_dis"]]
@@ -395,13 +396,12 @@
 		<br>\nImportant Notes:
 		<br>\n\t[active2.fields["notes"]]<br>\n
 		<br>\n
-		<center></b>Comments/Log</b></center><br>"}
+		<center><b>Comments/Log</b></center><br>"}
 		for(var/c in active2.fields["comments"])
-			P.info += "[c]<br>"
+			P.info += "\"[c["text"]]\" Comment [c["header"]]<br>"
 	else
-		P.info += "</b>Medical Record Lost!</b><br>"
+		P.info += "<b>Medical Record Lost!</b><br>"
 	P.info += "</tt>"
-	P.name = "paper - 'Medical Record: [active1.fields["name"]]'"
 	printing = FALSE
 	SStgui.update_uis(src)
 
@@ -429,7 +429,7 @@
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)
-					R.fields["age"] = rand(5, 85)
+					R.fields["age"] = rand(AGE_MIN, AGE_MAX)
 				if(4)
 					R.fields["blood_type"] = pick("A-", "B-", "AB-", "O-", "A+", "B+", "AB+", "O+")
 				if(5)

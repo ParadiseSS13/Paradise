@@ -58,6 +58,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/obj/item/encryptionkey/syndicate/syndiekey = null
 	/// How many times this is disabled by EMPs
 	var/disable_timer = 0
+	/// Areas in which this radio cannot send messages
+	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome)
 
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -253,7 +255,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, role = "Unknown") //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, role = "Unknown", follow_target_override) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if(channel == "department")
@@ -262,6 +264,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	else
 		connection = radio_connection
 		channel = null
+
+	if(is_type_in_list(get_area(src), blacklisted_areas))
+		// add a debug log so people testing things won't be fighting against a "broken" radio for too long.
+		log_debug("Radio message from [src] was used in restricted area [get_area(src)].")
+		return
 	if(!istype(connection))
 		return
 	if(!connection)
@@ -295,7 +302,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	else
 		tcm.source_level = level_name_to_num(MAIN_STATION) // Assume station level if we dont have an actual Z level available to us.
 	tcm.freq = connection.frequency
-	tcm.follow_target = follow_target
+	if(follow_target_override)
+		tcm.follow_target = follow_target_override
+	else
+		tcm.follow_target = follow_target
 
 	// Now put that through the stuff
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
@@ -357,11 +367,19 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(!M.IsVocal())
 		return 0
 
+	if(is_type_in_list(get_area(src), blacklisted_areas))
+		// add a debug log so people testing things won't be fighting against a "broken" radio for too long.
+		log_debug("Radio message from [src] was used in restricted area [get_area(src)].")
+		return FALSE
+
 	var/jammed = FALSE
 	var/turf/position = get_turf(src)
 	for(var/J in GLOB.active_jammers)
 		var/obj/item/jammer/jammer = J
-		if(get_dist(position, get_turf(jammer)) < jammer.range)
+		var/position_jammer = get_turf(jammer)
+		if(!atoms_share_level(position, position_jammer))
+			continue
+		if(get_dist(position, position_jammer) < jammer.range)
 			jammed = TRUE
 			break
 

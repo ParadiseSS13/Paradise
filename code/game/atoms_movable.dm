@@ -387,7 +387,7 @@
 		pulledby.stop_pulling()
 
 	// They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
-	if(thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
+	if(istype(thrower) && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
 		var/user_momentum = thrower.movement_delay()
 		if(!user_momentum) // no movement_delay, this means they move once per byond tick, let's calculate from that instead
 			user_momentum = world.tick_lag
@@ -624,3 +624,28 @@
 /// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
 /atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE
+
+/**
+ * Adds the deadchat_plays component to this atom with simple movement commands.
+ *
+ * Returns the component added.
+ * Arguments:
+ * * mode - Either DEADCHAT_ANARCHY_MODE or DEADCHAT_DEMOCRACY_MODE passed to the deadchat_control component. See [/datum/component/deadchat_control] for more info.
+ * * cooldown - The cooldown between command inputs passed to the deadchat_control component. See [/datum/component/deadchat_control] for more info.
+ */
+/atom/movable/proc/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
+	return AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown)
+
+/// Easy way to remove the component when the fun has been played out
+/atom/movable/proc/stop_deadchat_plays()
+	var/datum/component/deadchat_control/comp = GetComponent(/datum/component/deadchat_control)
+	if(!QDELETED(comp))
+		qdel(comp)
+
+/atom/movable/vv_get_dropdown()
+	. = ..()
+	if(!GetComponent(/datum/component/deadchat_control))
+		.["Give deadchat control"] = "?_src_=vars;grantdeadchatcontrol=[UID()]"
+	else
+		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
+

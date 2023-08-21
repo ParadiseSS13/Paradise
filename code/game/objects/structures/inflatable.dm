@@ -5,8 +5,9 @@
 	icon_state = "folded_wall"
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/inflatable/detailed_examine()
-	return "Inflate by using it in your hand. The inflatable barrier will inflate on your tile. To deflate it, use the 'deflate' verb."
+/obj/item/inflatable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Use this item in hand</b> to create an inflatible wall.</span>"
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
@@ -28,8 +29,9 @@
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
 
-/obj/structure/inflatable/detailed_examine()
-	return "To remove these safely, use the 'deflate' verb. Hitting these with any objects will probably puncture and break it forever."
+/obj/structure/inflatable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Alt-Shift-Click</b> to deflate [src].</span>"
 
 /obj/structure/inflatable/Initialize(location)
 	..()
@@ -79,15 +81,6 @@
 	transfer_fingerprints_to(R)
 	qdel(src)
 
-/obj/structure/inflatable/verb/hand_deflate()
-	set name = "Deflate"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat || usr.restrained())
-		return
-
-	deconstruct(TRUE)
 
 /obj/item/inflatable/door
 	name = "inflatable door"
@@ -112,10 +105,6 @@
 	var/state_open = FALSE
 	var/is_operating = FALSE
 
-/obj/structure/inflatable/door/detailed_examine()
-	return "Click the door to open or close it. It only stops air while closed.<br>\
-			To remove these safely, use the 'deflate' verb. Hitting these with any objects will probably puncture and break it forever."
-
 /obj/structure/inflatable/door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it
 		return
@@ -139,8 +128,6 @@
 		return
 	if(ismob(user))
 		var/mob/M = user
-		if(world.time - user.last_bumped <= 60)
-			return //NOTE do we really need that?
 		if(M.client)
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M

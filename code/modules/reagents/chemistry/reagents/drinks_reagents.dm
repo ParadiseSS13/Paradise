@@ -70,12 +70,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustEyeBlurry(-2 SECONDS)
 	M.AdjustEyeBlind(-2 SECONDS)
-	switch(current_cycle)
-		if(1 to 20)
-			//nothing
-		if(21 to INFINITY)
-			if(prob(current_cycle - 10))
-				update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
+	if(current_cycle > 20 && prob(current_cycle - 10))
+		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/doctor_delight
@@ -264,13 +260,21 @@
 /datum/reagent/consumable/drink/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
-	description = "Made with love! And coco beans."
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	description = "Made with love! And cocoa beans."
+	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#401101"
 	drink_icon = "hot_coco"
 	drink_name = "Glass of hot coco"
 	drink_desc = "Delicious and cozy."
 	taste_description = "chocolate"
+
+/datum/reagent/consumable/drink/hot_coco/on_mob_life(mob/living/M)
+	if(M.bodytemperature < 310) // 310 is the normal bodytemp. 310.055
+		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M))
+		update_flags |= M.adjustToxLoss(2, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee
 	name = "Coffee"
@@ -379,6 +383,9 @@
 /datum/reagent/consumable/drink/tea/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
+		if(HAS_TRAIT(M, TRAIT_CHAV))
+			update_flags |= M.adjustBruteLoss(-1, FALSE)
+			update_flags |= M.adjustFireLoss(-1, FALSE)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 	return ..() | update_flags
 
@@ -737,3 +744,13 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
 	if(isskrell(M))
 		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+
+/datum/reagent/consumable/drink/lean
+	name = "Lean"
+	id = "lean"
+	description = "Also known as Purple Drank."
+	color = "#f249d6"
+	drink_icon = "lean"
+	drink_name = "Lean"
+	drink_desc = "Also known as Purple Drank."
+	taste_description = "sweet druggy soda"

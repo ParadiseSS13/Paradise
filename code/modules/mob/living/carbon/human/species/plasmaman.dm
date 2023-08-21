@@ -1,12 +1,13 @@
 /datum/species/plasmaman
 	name = "Plasmaman"
 	name_plural = "Plasmamen"
+	max_age = 150
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	species_traits = list(IS_WHITELISTED, NO_BLOOD, NO_HAIR)
-	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_NOHUNGER)
+	species_traits = list(NO_BLOOD, NO_HAIR)
+	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_NOHUNGER, TRAIT_BURN_WOUND_IMMUNE)
 	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
@@ -146,7 +147,7 @@
 
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	var/atmos_sealed = !HAS_TRAIT(H, TRAIT_NOFIRE) && (isclothing(H.wear_suit) && H.wear_suit.flags & STOPSPRESSUREDMAGE) && (isclothing(H.head) && H.head.flags & STOPSPRESSUREDMAGE)
-	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)))
+	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY)))
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment)
 			if(environment.total_moles())

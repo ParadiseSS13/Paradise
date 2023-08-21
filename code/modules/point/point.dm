@@ -12,7 +12,7 @@
 		return
 
 	if((pointed_atom in src) || (pointed_atom.loc in src))
-		create_point_bubble(pointed_atom)
+		create_point_bubble_from_atom(pointed_atom)
 		return
 
 	var/turf/tile = get_turf(pointed_atom)
@@ -24,8 +24,15 @@
 
 	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y, time = 1.7, easing = EASE_OUT)
 
-/atom/movable/proc/create_point_bubble(atom/pointed_atom)
+/// Create a bubble pointing at a particular icon and icon state.
+/// See args for create_point_bubble_from_atom.
+/atom/movable/proc/create_point_bubble(mutable_appearance/pointed_atom_appearance, include_arrow = TRUE)
 	var/obj/effect/thought_bubble_effect = new
+
+	pointed_atom_appearance.layer = POINT_LAYER
+	pointed_atom_appearance.blend_mode = BLEND_INSET_OVERLAY
+	pointed_atom_appearance.pixel_x = 0
+	pointed_atom_appearance.pixel_y = 0
 
 	var/mutable_appearance/thought_bubble = mutable_appearance(
 		'icons/effects/effects.dmi',
@@ -34,16 +41,7 @@
 		appearance_flags = KEEP_APART,
 	)
 
-	var/mutable_appearance/pointed_atom_appearance = new(pointed_atom.appearance)
-	pointed_atom_appearance.blend_mode = BLEND_INSET_OVERLAY
-	pointed_atom_appearance.layer = POINT_LAYER
-	pointed_atom_appearance.pixel_x = 0
-	pointed_atom_appearance.pixel_y = 0
 	thought_bubble.overlays += pointed_atom_appearance
-
-	var/hover_outline_index = pointed_atom.get_filter("hover_outline")
-	if (!isnull(hover_outline_index))
-		pointed_atom_appearance.filters.Cut(hover_outline_index, hover_outline_index + 1)
 
 	thought_bubble.pixel_x = 16
 	thought_bubble.pixel_y = 32
@@ -65,6 +63,41 @@
 	vis_contents += thought_bubble_effect
 
 	QDEL_IN(thought_bubble_effect, 2 SECONDS)
+
+/**
+ * Create a point bubble towards a given item.
+ *
+ * Arguments:
+ * * pointed_atom - Atom to show in the bubble.
+ * * include_arrow - If true, show an arrow pointing downwards.
+ */
+/atom/movable/proc/create_point_bubble_from_atom(atom/pointed_atom, include_arrow = TRUE)
+	var/mutable_appearance/pointed_atom_appearance = new(pointed_atom.appearance)
+
+	var/hover_outline_index = pointed_atom.get_filter("hover_outline")
+	if (!isnull(hover_outline_index))
+		pointed_atom_appearance.filters.Cut(hover_outline_index, hover_outline_index + 1)
+
+	create_point_bubble(pointed_atom_appearance, include_arrow)
+
+/**
+ * Create a point bubble towards a given item, from an icon/icon state.
+ *
+ * Arguments:
+ * * icon - Icon source for the bubble's icon.
+ * * icon_state - Icon state for the bubble's icon.
+ * * include_arrow - If true, show an arrow pointing downwards.
+ */
+/atom/movable/proc/create_point_bubble_from_icons(icon, icon_state, include_arrow = TRUE)
+	var/mutable_appearance/pointed_atom_appearance = mutable_appearance(
+		icon,
+		icon_state,
+	)
+	create_point_bubble(pointed_atom_appearance, include_arrow)
+
+/// See above, this uses an uninstantiated path.
+/atom/movable/proc/create_point_bubble_from_path(atom/pointed_atom_path, include_arrow = TRUE)
+	create_point_bubble_from_icons(initial(pointed_atom_path.icon), initial(pointed_atom_path.icon_state), include_arrow)
 
 /obj/effect/temp_visual/point
 	name = "arrow"
@@ -115,7 +148,7 @@
 		point_at(A)
 		return TRUE
 
-	if(client && !(A in view(client.view, src)))
+	if(client && !(A in view(client.maxview(), src)))
 		return FALSE
 
 	point_at(A)

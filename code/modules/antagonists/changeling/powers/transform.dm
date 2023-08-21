@@ -14,7 +14,16 @@
 	if(!chosen_dna)
 		return FALSE
 
+	var/keep_cuffs
+	if(user.handcuffed)
+		keep_cuffs = user.handcuffed
+		user.handcuffed = FALSE
+	else
+		keep_cuffs = FALSE
 	transform_dna(user, chosen_dna)
+	if(keep_cuffs)
+		user.handcuffed = keep_cuffs
+		user.update_handcuffed()
 	cling.update_languages()
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

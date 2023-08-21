@@ -30,8 +30,8 @@
 	ai_spins_webs = FALSE // uses massweb instead
 	var/prob_ai_massweb = 10
 
-/mob/living/simple_animal/hostile/poison/terror_spider/gray/Move(turf/T)
-	. = ..(T)
+/mob/living/simple_animal/hostile/poison/terror_spider/gray/Move(atom/newloc, dir, step_x, step_y)
+	. = ..()
 	if(stat == DEAD)
 		icon_state = icon_dead
 	else

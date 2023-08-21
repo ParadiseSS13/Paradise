@@ -324,6 +324,12 @@
 	forceMove(get_turf(KA))
 	KA.modkits -= src
 
+/obj/item/borg/upgrade/modkit/Destroy()
+	if(istype(loc, /obj/item/gun/energy/kinetic_accelerator))
+		var/obj/item/gun/energy/kinetic_accelerator/accelerator = loc
+		accelerator.modkits -= src
+	return ..()
+
 /obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/item/projectile/kinetic/K)
 
 //use this one for effects you want to trigger before any damage is done at all and before damage is decreased by pressure

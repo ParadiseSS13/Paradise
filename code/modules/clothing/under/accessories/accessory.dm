@@ -74,7 +74,7 @@
 
 /obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
-	if(istype(H))
+	if(istype(H) && !ismonkeybasic(H)) //Monkeys are a snowflake because you can't remove accessories once added
 		if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
 			to_chat(user, "[H]'s body is covered, and you cannot attach \the [src].")
 			return 1
@@ -262,6 +262,10 @@
 /obj/item/clothing/accessory/medal/legal
 	name = "meritous legal medal"
 	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
+
+/obj/item/clothing/accessory/medal/supply
+	name = "stable supply medal"
+	desc = "An award issued by the Quartermaster to supply staff dedicated to being effective."
 
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"
@@ -468,7 +472,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	item_color = "skull"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -477,7 +481,7 @@
 	icon_state = "talisman"
 	item_state = "talisman"
 	item_color = "talisman"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket

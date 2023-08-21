@@ -37,8 +37,11 @@
 		currentPatient = null
 	return ..()
 
-/obj/machinery/computer/operating/detailed_examine()
-	return "This console gives information on the status of the patient on the adjacent operating table, notably their consciousness."
+
+
+/obj/machinery/computer/operating/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This console gives information on the status of the patient on the adjacent operating table and the next surgery step required in the current surgery.</span>"
 
 /obj/machinery/computer/operating/attack_ai(mob/user)
 	add_fingerprint(user)
@@ -83,7 +86,7 @@
 		occupantData["paralysis"] = occupant.AmountParalyzed()
 		occupantData["hasBlood"] = 0
 		occupantData["bodyTemperature"] = occupant.bodytemperature
-		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations
+		occupantData["maxTemp"] = 1000
 		// Because we can put simple_animals in here, we need to do something tricky to get things working nice
 		occupantData["temperatureSuitability"] = 0 // 0 is the baseline
 		if(ishuman(occupant) && occupant.dna.species)
@@ -180,6 +183,8 @@
 			return FALSE
 
 /obj/machinery/computer/operating/process()
+	if(stat & (NOPOWER|BROKEN))
+		return
 	if(!table) //Does this Operating Computer have an Operating Table connected to it?
 		return
 	if(!verbose) //Are the speakers on?

@@ -26,7 +26,7 @@
 
 /mob/living/simple_animal/parrot
 	name = "parrot"
-	desc = "The parrot squaks, \"It's a parrot! BAWWK!\""
+	desc = "The parrot squawks, \"It's a parrot! BAWWK!\""
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
 	icon_living = "parrot_fly"
@@ -35,6 +35,7 @@
 	pass_flags = PASSTABLE
 	can_collar = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	faction = list("neutral", "jungle")
 
 	var/list/clean_speak = list(
 		"Hi",
@@ -91,13 +92,6 @@
 	speech_buffer = list()
 	available_channels = list()
 	GLOB.hear_radio_list += src
-	if(!ears)
-		var/headset = pick(/obj/item/radio/headset/headset_sec, \
-						/obj/item/radio/headset/headset_eng, \
-						/obj/item/radio/headset/headset_med, \
-						/obj/item/radio/headset/headset_sci, \
-						/obj/item/radio/headset/headset_cargo)
-		ears = new headset(src)
 	update_speak()
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var

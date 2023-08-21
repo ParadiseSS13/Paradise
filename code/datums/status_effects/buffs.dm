@@ -315,6 +315,7 @@
 						if(prob(10))
 							E.mend_fracture()
 							E.fix_internal_bleeding()
+							E.fix_burn_wound(update_health = FALSE)
 							heal_points--
 			else if(issilicon(L))
 				L.adjustBruteLoss(-3.5)
@@ -349,6 +350,7 @@
 		if(is_mining_level(H.z))
 			for(var/obj/item/organ/external/E in H.bodyparts)
 				E.fix_internal_bleeding()
+				E.fix_burn_wound()
 				E.mend_fracture()
 		else
 			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
@@ -366,24 +368,32 @@
 	alert_type = null
 	/// This diminishes the healing of fleshmend the higher it is.
 	var/tolerance = 1
+	/// This diminishes the healing of fleshmend if the user is cold when it is activated
+	var/freezing = FALSE
 	var/instance_duration = 10 // in ticks
 	/// a list of integers, one for each remaining instance of fleshmend.
 	var/list/active_instances = list()
 	var/ticks = 0
 
 /datum/status_effect/fleshmend/on_apply()
-	tolerance += 1
-	active_instances += instance_duration
+	apply_new_fleshmend()
 	return TRUE
 
 /datum/status_effect/fleshmend/refresh()
-	tolerance += 1
-	active_instances += instance_duration
+	apply_new_fleshmend()
 	..()
+
+/datum/status_effect/fleshmend/proc/apply_new_fleshmend()
+	tolerance += 1
+	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
+	if(freezing)
+		to_chat(owner, "<span class='warning'>Our healing's effectiveness is reduced \
+			by our cold body!</span>")
+	active_instances += instance_duration
 
 /datum/status_effect/fleshmend/tick()
 	if(length(active_instances) >= 1)
-		var/heal_amount = 10 * length(active_instances) / tolerance
+		var/heal_amount = (length(active_instances) / tolerance) * (freezing ? 2 : 10)
 		var/blood_restore = 30 * length(active_instances)
 		owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 		owner.adjustOxyLoss(-heal_amount, FALSE)
@@ -537,6 +547,43 @@
 	else
 		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
 
+/datum/status_effect/drill_payback
+	duration = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	var/drilled_successfully = FALSE
+	var/times_warned = 0
+	var/obj/structure/safe/drilled
+
+/datum/status_effect/drill_payback/on_creation(mob/living/new_owner, obj/structure/safe/S)
+	drilled = S
+	return ..()
+
+/datum/status_effect/drill_payback/on_apply()
+	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
+	addtimer(CALLBACK(src, PROC_REF(payback_phase_2)), 2.7 SECONDS)
+	return TRUE
+
+/datum/status_effect/drill_payback/proc/payback_phase_2()
+	owner.clear_fullscreen("payback")
+	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
+
+/datum/status_effect/drill_payback/tick() //They are not staying down. This will be a fight.
+	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) //We don't want someone drilling the safe at arivals then raiding bridge with the buff
+		to_chat(owner, "<span class='userdanger'>Get back to the safe, they are going to get the drill!</span>")
+		times_warned++
+		if(times_warned >= 6)
+			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+			return
+	if(owner.stat != DEAD)
+		owner.adjustBruteLoss(-3)
+		owner.adjustFireLoss(-3)
+		owner.adjustStaminaLoss(-25)
+
+/datum/status_effect/drill_payback/on_remove()
+	. = ..()
+	owner.clear_fullscreen("payback")
+
 /datum/status_effect/thrall_net
 	id = "thrall_net"
 	tick_interval = 2 SECONDS
@@ -594,3 +641,25 @@
 /datum/status_effect/thrall_net/on_remove()
 	. = ..()
 	vamp = null
+
+/datum/status_effect/rev_protection
+	// revs are paralyzed for 10 seconds when they're deconverted, same duration
+	duration = 10 SECONDS
+	alert_type = null
+
+/datum/status_effect/rev_protection/on_apply()
+	RegisterSignal(owner, COMSIG_HUMAN_ATTACKED, PROC_REF(on_human_attackby))
+	return ..()
+
+/datum/status_effect/rev_protection/proc/on_human_attackby(mob/living/carbon/human/victim, mob/living/carbon/human/attacker)
+	SIGNAL_HANDLER
+	if(!(attacker.a_intent in list(INTENT_DISARM, INTENT_HARM)))
+		return
+	if(!is_any_revolutionary(attacker)) // protect from non-revs. Revs dont care about deconverted people
+		to_chat(attacker, "<span class='biggerdanger'>[owner] was just deconverted! You don't feel like harming them!</span>")
+		attacker.changeNext_move(CLICK_CD_MELEE)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/status_effect/rev_protection/on_remove()
+	UnregisterSignal(owner, COMSIG_HUMAN_ATTACKED)
+	. = ..()

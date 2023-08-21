@@ -334,7 +334,7 @@
 
 	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
-/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
+/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE, requires_upright = TRUE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -375,7 +375,7 @@
 			drifting = 0
 			user_loc = user.loc
 
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || (L && IS_HORIZONTAL(L)) || check_for_true_callbacks(extra_checks))
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || (requires_upright && L && IS_HORIZONTAL(L)) || check_for_true_callbacks(extra_checks))
 			. = 0
 			break
 	if(progress)
@@ -392,7 +392,7 @@
  *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
  *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
  */
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, list/extra_checks = list(), use_default_checks = TRUE)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE)
 	if(!user)
 		return FALSE
 	var/atom/Tloc = null
@@ -402,7 +402,7 @@
 	var/atom/Uloc = user.loc
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(!allow_moving && !user.Process_Spacemove(0) && user.inertia_dir)
 		drifting = TRUE
 
 	var/holding = user.get_active_hand()
@@ -429,16 +429,23 @@
 		sleep(1)
 		if(progress)
 			progbar.update(world.time - starttime)
+		if(!allow_moving)
+			if(drifting && !user.inertia_dir)
+				drifting = FALSE
+				Uloc = user.loc
+			if(!drifting && user.loc != Uloc)
+				. = FALSE
+				break
 
-		if(drifting && !user.inertia_dir)
-			drifting = FALSE
-			Uloc = user.loc
-
-		if(!user || user.stat || (!drifting && user.loc != Uloc) || check_for_true_callbacks(extra_checks))
+		if(!user || user.stat || check_for_true_callbacks(extra_checks))
 			. = FALSE
 			break
 
 		if(Tloc && (!target || Tloc != target.loc))
+			. = FALSE
+			break
+
+		if(must_be_held && target.loc != user)
 			. = FALSE
 			break
 
@@ -464,7 +471,7 @@
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_INIT(do_after_once_tracker, list())
-/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, attempt_cancel_message = "Attempt cancelled.")
+/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.")
 	if(!user || !target)
 		return
 
@@ -474,7 +481,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key)))
+	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key)))
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)
@@ -650,7 +657,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
  * 	where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
-	var/sec_positions = GLOB.security_positions - "Magistrate"
+	var/sec_positions = GLOB.active_security_positions
 	var/total = 0
 	var/active = 0
 	var/dead = 0

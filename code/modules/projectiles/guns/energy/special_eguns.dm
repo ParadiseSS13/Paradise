@@ -102,7 +102,7 @@
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
-	desc = "A weapon favored by syndicate stealth specialists."
+	desc = "A weapon favored by syndicate stealth specialists. Knocks down and injects toxins."
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
@@ -119,14 +119,6 @@
 	max_mod_capacity = 0
 	empty_state = "crossbow_empty"
 	can_holster = TRUE
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine()
-	return "This is an energy weapon. To fire the weapon, have your gun mode set to 'fire', \
-			then click where you want to fire."
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine_antag()
-	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a knockdown effect, in \
-			addition to toxins. The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -300,7 +292,7 @@
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
 	desc = "Clown Planet's finest."
-	icon_state = "disabler"
+	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
 	selfcharge = TRUE
@@ -468,7 +460,7 @@
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
-	w_class = WEIGHT_CLASS_HUGE
+	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
 	slot_flags = SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
@@ -530,13 +522,8 @@
 		return
 	return ..()
 
-/obj/item/gun/energy/bsg/process_chamber()
-	if(prob(25))
-		shatter()
-	..()
-	update_icon()
-
 /obj/item/gun/energy/bsg/update_icon_state()
+	. = ..()
 	if(core)
 		if(has_bluespace_crystal)
 			icon_state = "bsg_finished"
@@ -755,6 +742,7 @@
 	. = ..()
 	Announcer = new /obj/item/radio/headset(src)
 	Announcer.config(list("Security" = 1))
+	Announcer.follow_target = src
 	options["The Original"] = "handgun"
 	options["Golden Mamba"] = "handgun_golden-mamba"
 	options["NT's Finest"] = "handgun_nt-finest"
@@ -867,6 +855,55 @@
 		if(C?.mode == MODE_DET)
 			C.stop_tracking()
 	tracking_target_UID = null
+
+
+/obj/item/gun/energy/spikethrower //It's like the cyborg LMG, uses energy to make spikes
+	name = "\improper Vox spike thrower"
+	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "spikethrower"
+	item_state = "toxgun"
+	w_class = WEIGHT_CLASS_NORMAL
+	fire_sound_text = "a strange noise"
+	can_suppress = 0
+	burst_size = 2 // burst has to be stored here
+	can_charge = FALSE
+	selfcharge = TRUE
+	charge_delay = 10
+	restricted_species = list(/datum/species/vox)
+	ammo_type = list(/obj/item/ammo_casing/energy/spike)
+
+/obj/item/gun/energy/spikethrower/emp_act()
+	return
+
+/obj/item/ammo_casing/energy/spike
+	name = "alloy spike"
+	desc = "A broadhead spike made out of a weird silvery metal."
+	projectile_type = /obj/item/projectile/bullet/spike
+	muzzle_flash_effect = null
+	e_cost = 100
+	delay = 3 //and delay has to be stored here on energy guns
+	select_name = "spike"
+	fire_sound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/projectile/bullet/spike
+	name = "alloy spike"
+	desc = "It's about a foot of weird silvery metal with a wicked point."
+	damage = 25
+	knockdown = 2
+	armour_penetration_flat = 30
+	icon_state = "magspear"
+
+/obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
+	if((blocked < 100) && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.bleed(50)
+	..()
+
+/obj/item/gun/energy/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This item's cell recharges on its own. Known to drive people mad by forcing them to wait for shots to recharge. Not compatible with rechargers.</span>"
+
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT

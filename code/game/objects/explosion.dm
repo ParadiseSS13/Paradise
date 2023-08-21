@@ -198,6 +198,9 @@
 			if(istype(array, /obj/item/clothing/head/helmet/space/hardsuit/rd))
 				var/obj/item/clothing/head/helmet/space/hardsuit/rd/Helm_Array = array
 				Helm_Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
+			if(istype(array, /obj/item/mod/module/reagent_scanner/advanced))
+				var/obj/item/mod/module/reagent_scanner/advanced/Mod_Array = array
+				Mod_Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
 	return 1
 
 
@@ -236,7 +239,7 @@
 			heavy = 5
 			light = 7
 		if("Custom Bomb")
-			dev = input("Devestation range (Tiles):") as num
+			dev = input("Devastation range (Tiles):") as num
 			heavy = input("Heavy impact range (Tiles):") as num
 			light = input("Light impact range (Tiles):") as num
 

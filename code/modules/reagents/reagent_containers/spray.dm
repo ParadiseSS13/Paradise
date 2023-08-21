@@ -113,6 +113,8 @@
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
 	desc = "Your standard spritz cleaner bottle designed to keep ALL of your workplaces spotless."
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	spray_maxrange = 2
 	spray_currentrange = 2
 	amount_per_transfer_from_this = 10

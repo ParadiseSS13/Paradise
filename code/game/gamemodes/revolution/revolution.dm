@@ -20,6 +20,7 @@
 
 	var/finished = 0
 	var/max_headrevs = 3
+	var/check_counter = 0
 	var/list/datum/mind/heads_to_kill = list()
 	var/list/possible_revolutionaries = list()
 
@@ -78,14 +79,22 @@
 		SSshuttle.emergencyNoEscape = 1
 	..()
 
-//////////////////////////////////////////////////////////////////////////
-//Check if heads and head revolutionaries are still alive and on Z-level//
-//////////////////////////////////////////////////////////////////////////
-/datum/game_mode/revolution/transit_z(mob/living/player)
-	if(!finished)
-		var/list/heads = get_all_heads()
-		if(player.mind && ((player.mind in heads) || (player.mind in head_revolutionaries)))
-			SSticker.mode.check_win()
+/datum/game_mode/revolution/process() // to anyone who thinks "why don't we use a normal actually sane check here instead of process for checking Z level changes" It's because equip code is dogshit and you change z levels upon spawning in
+	check_counter++
+	if(check_counter >= 5)
+		if(!finished)
+			check_heads()
+		check_counter = 0
+	return FALSE
+
+/datum/game_mode/revolution/proc/check_heads()
+	var/list/heads = get_all_heads()
+	if(length(heads_to_kill) < length(heads))
+		var/list/new_heads = heads - heads_to_kill
+		for(var/datum/mind/head_mind in new_heads)
+			for(var/datum/mind/rev_mind in head_revolutionaries)
+				mark_for_death(rev_mind, head_mind)
+
 
 /datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
 	var/list/heads = get_living_heads()
@@ -106,6 +115,7 @@
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 		obj_count++
 	to_chat(rev_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revolution)</span>")
+	rev_mind.current.create_log(MISC_LOG, "[rev_mind.current] was made into a head revolutionary")
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
@@ -167,8 +177,7 @@
 /datum/game_mode/revolution/latespawn(mob/living/carbon/human/player)
 	..()
 	var/datum/mind/player_mind = player.mind
-	var/static/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
-	if(player_mind && (player_mind.assigned_role in real_command_positions))
+	if(player_mind && (player_mind.assigned_role in GLOB.command_head_positions))
 		for(var/datum/mind/rev_mind in head_revolutionaries)
 			mark_for_death(rev_mind, player_mind)
 
@@ -249,7 +258,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.
 //////////////////////////////////////////////////////////////////////////////
-/datum/game_mode/proc/remove_revolutionary(datum/mind/rev_mind , beingborged)
+/datum/game_mode/proc/remove_revolutionary(datum/mind/rev_mind, beingborged, activate_protection)
 	var/remove_head = FALSE
 	var/mob/revolutionary = rev_mind.current
 	if(beingborged && (rev_mind in head_revolutionaries))
@@ -267,12 +276,17 @@
 				"<span class='userdanger'>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who flashed you."]</span>")
 			message_admins("[key_name_admin(rev_mind.current)] [ADMIN_QUE(rev_mind.current,"?")] ([ADMIN_FLW(rev_mind.current,"FLW")]) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 		else
+			var/class = activate_protection ? "biggerdanger" : "userdanger" // biggerdanger only shows up when protection happens (usually in a red-flood of combat text)
 			revolutionary.visible_message(
-				"<span class='userdanger'>[rev_mind.current] looks like [rev_mind.current.p_they()] just remembered [rev_mind.current.p_their()] real allegiance!</span>",
-				"<span class='userdanger'>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel... the only thing you remember is the name of the one who brainwashed you...</span>")
+				"<span class='[class]'>[rev_mind.current] looks like [rev_mind.current.p_they()] just remembered [rev_mind.current.p_their()] real allegiance!</span>",
+				"<span class='[class]'>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel... the only thing you remember is the name of the one who brainwashed you...</span>")
 			rev_mind.current.Paralyse(10 SECONDS)
 		update_rev_icons_removed(rev_mind)
-			
+		if(activate_protection && isliving(revolutionary))
+			var/mob/living/living_rev = revolutionary
+			living_rev.apply_status_effect(STATUS_EFFECT_REVOLUTION_PROTECT)
+		return TRUE
+
 /////////////////////////////////////
 //Adds the rev hud to a new convert//
 /////////////////////////////////////
@@ -444,3 +458,12 @@
 	dat += "<HR>"
 
 	return dat
+
+/proc/is_revolutionary(mob/living/M)
+	return istype(M) && (M?.mind in SSticker?.mode?.revolutionaries)
+
+/proc/is_headrev(mob/living/M)
+	return istype(M) && (M?.mind in SSticker?.mode?.head_revolutionaries)
+
+/proc/is_any_revolutionary(mob/living/M)
+	return is_revolutionary(M) || is_headrev(M)

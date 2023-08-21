@@ -29,6 +29,7 @@
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+	var/heat_resistance = 5000
 
 	var/can_dismantle_with_welder = TRUE
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
@@ -80,10 +81,7 @@
 
 	if(rotting)
 		. += "<span class='warning'>There is fungus growing on [src].</span>"
-
-/turf/simulated/wall/detailed_examine()
-	return "You can deconstruct this by welding it, and then wrenching the girder.<br>\
-			You can build a wall by using metal sheets and making a girder, then adding more metal or plasteel."
+	. += "<span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
 /// Apply rust effects to the wall
 /turf/simulated/wall/proc/rust()
@@ -189,7 +187,6 @@
 	switch(severity)
 		if(1.0)
 			ChangeTurf(baseturf)
-			return
 		if(2.0)
 			if(prob(50))
 				take_damage(rand(150, 250))
@@ -197,8 +194,6 @@
 				dismantle_wall(1, 1)
 		if(3.0)
 			take_damage(rand(0, 250))
-		else
-	return
 
 /turf/simulated/wall/blob_act(obj/structure/blob/B)
 	if(prob(50))

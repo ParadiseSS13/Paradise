@@ -25,14 +25,15 @@
 	open_door_sprite = "white_secure_door"
 
 /obj/structure/closet/secure_closet/roboticist/populate_contents()
+	new /obj/item/mod/core/standard(src)
 	new /obj/item/storage/backpack(src)
 	new /obj/item/storage/backpack(src)
 	new /obj/item/storage/backpack/satchel_norm(src)
 	new /obj/item/storage/backpack/satchel_norm(src)
 	new /obj/item/storage/backpack/duffel(src)
 	new /obj/item/storage/backpack/duffel(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat/roboblack(src)
+	new /obj/item/clothing/suit/storage/labcoat/robowhite(src)
 	new /obj/item/radio/headset/headset_sci(src)
 	new /obj/item/radio/headset/headset_sci(src)
 	new /obj/item/radio/headset/headset_sci(src)

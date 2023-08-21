@@ -3,6 +3,9 @@
 
 #define CLICKCATCHER_PLANE -99
 
+#define GRAVITY_PULSE_PLANE -96 //Needs to be behind space, otherwise it blocks space, lol
+#define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
+
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 
@@ -13,9 +16,20 @@
 
 #define AREA_PLANE 1
 
-#define SPACE_LAYER 1.8
-#define GRASS_UNDER_LAYER 1.9
+#define SPACE_LAYER 1.5
+#define GRASS_UNDER_LAYER 1.6
+/// Which layer turfs appear on by default in the map editor. Should be unique!
+#define MAP_EDITOR_TURF_LAYER 1.6999
+#define PLATING_LAYER 1.7
+#define LATTICE_LAYER 1.701
+#define DISPOSAL_PIPE_LAYER 1.71
+#define GAS_PIPE_HIDDEN_LAYER 1.72
+#define WIRE_LAYER 1.73
+#define WIRE_TERMINAL_LAYER 1.75
+#define ABOVE_PLATING_LAYER 1.76 // generic for /obj/hide
+#define TRAY_SCAN_LAYER_OFFSET 0.5 // place images above TURF_LAYER
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
+#define ABOVE_TRANSPARENT_TURF_LAYER 2.01 // put wire terminals here if T.transparent_floor
 #define MID_TURF_LAYER 2.02
 #define HIGH_TURF_LAYER 2.03
 #define TURF_PLATING_DECAL_LAYER 2.031
@@ -25,16 +39,12 @@
 #define BULLET_HOLE_LAYER 2.06
 #define ABOVE_NORMAL_TURF_LAYER 2.08
 #define ABOVE_ICYOVERLAY_LAYER 2.11
-#define LATTICE_LAYER 2.2
-#define DISPOSAL_PIPE_LAYER 2.3
-#define GAS_PIPE_HIDDEN_LAYER 2.35
-#define WIRE_LAYER 2.4
-#define TRANSPARENT_TURF_LAYER 2.41
-#define WIRE_TERMINAL_LAYER 2.45
-#define GAS_SCRUBBER_LAYER 2.46
+#define GAS_SCRUBBER_OFFSET -0.001
 #define GAS_PIPE_VISIBLE_LAYER 2.47
-#define GAS_FILTER_LAYER 2.48
-#define GAS_PUMP_LAYER 2.49
+#define GAS_PIPE_SCRUB_OFFSET 0.001
+#define GAS_PIPE_SUPPLY_OFFSET 0.002
+#define GAS_FILTER_OFFSET 0.003
+#define GAS_PUMP_OFFSET 0.004
 #define HOLOPAD_LAYER 2.491
 #define CONVEYOR_LAYER 2.495
 #define LOW_OBJ_LAYER 2.5

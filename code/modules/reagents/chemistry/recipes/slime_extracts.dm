@@ -150,6 +150,7 @@
 	var/list/blocked = list(/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/sliceable,
+		/obj/item/reagent_containers/food/snacks/sliceable/pizza,
 		/obj/item/reagent_containers/food/snacks/margheritapizzaslice,
 		/obj/item/reagent_containers/food/snacks/meatpizzaslice,
 		/obj/item/reagent_containers/food/snacks/mushroompizzaslice,
@@ -165,9 +166,13 @@
 		/obj/item/reagent_containers/food/snacks/meat,
 		/obj/item/reagent_containers/food/snacks/meat/slab,
 		/obj/item/reagent_containers/food/snacks/grown,
+		/obj/item/reagent_containers/food/snacks/grown/shell,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,
 		/obj/item/reagent_containers/food/snacks/deepfryholder,
-		/obj/item/reagent_containers/food/snacks/monstermeat
+		/obj/item/reagent_containers/food/snacks/chinese,
+		/obj/item/reagent_containers/food/snacks/human,
+		/obj/item/reagent_containers/food/snacks/monstermeat,
+		/obj/item/reagent_containers/food/snacks/meatsteak/stimulating
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
@@ -211,6 +216,9 @@
 							/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 							/obj/item/reagent_containers/food/drinks/drinkingglass,
 							/obj/item/reagent_containers/food/drinks/bottle,
+							/obj/item/reagent_containers/food/drinks/everfull,
+							/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath,
+							/obj/item/reagent_containers/food/drinks/bottle/immortality,
 							/obj/item/reagent_containers/food/drinks/mushroom_bowl
 							)
 	blocked += typesof(/obj/item/reagent_containers/food/drinks/flask)
@@ -523,6 +531,20 @@
 	message_admins("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
 	log_game("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
 	explosion(extract_turf, 1, 3, 6)
+
+/datum/chemical_reaction/oil_slick
+	name = "Oil Potion"
+	id = "O_potion"
+	result = null
+	required_reagents = list("blood" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/oil
+	required_other = TRUE
+
+/datum/chemical_reaction/oil_slick/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/slimepotion/oil_slick/P = new /obj/item/slimepotion/oil_slick
+	P.forceMove(get_turf(holder.my_atom))
 
 //Light Pink
 /datum/chemical_reaction/slimepotion2

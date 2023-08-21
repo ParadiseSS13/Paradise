@@ -62,6 +62,8 @@
 		if(client.handle_spam_prevention(message, MUTE_DEADCHAT))
 			return
 
+	if(SEND_SIGNAL(src, COMSIG_MOB_DEADSAY, message) & MOB_DEADSAY_SIGNAL_INTERCEPT)
+		return
 
 	if(message in USABLE_DEAD_EMOTES)
 		emote(copytext(message, 2), intentional = TRUE)
@@ -165,7 +167,7 @@
 			prefixes[++prefixes.len] = list(L, i, i + length(selection))
 		else if(!L && i == 1)
 			prefixes[++prefixes.len] = list(get_default_language(), i, i)
-		else
+
 	return prefixes
 
 /proc/strip_prefixes(message)
@@ -221,5 +223,4 @@
 		. += S.message + " "
 	. = trim_right(.)
 
-#undef USABLE_DEAD_EMOTES
 #undef ILLEGAL_CHARACTERS_LIST

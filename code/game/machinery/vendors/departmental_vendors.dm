@@ -68,7 +68,7 @@
 
 /obj/machinery/economy/vending/hydronutrients
 	name = "\improper NutriMax"
-	desc = "A plant nutrients vendor"
+	desc = "A plant nutrients vendor."
 	slogan_list = list("Aren't you glad you don't have to fertilize the natural way?","Now with 50% less stink!","Plants are people too!")
 	ads_list = list("We like plants!","Don't you want some?","The greenest thumbs ever.","We like big plants.","Soft soil...")
 	icon_state = "nutri"
@@ -152,11 +152,16 @@
 	icon_panel = "wide_vendor"
 	ads_list = list("Go save some lives!","The best stuff for your medbay.","Only the finest tools.","Natural chemicals!","This stuff saves lives.","Don't you want some?","Ping!")
 	req_access_txt = "5"
-	products = list(/obj/item/reagent_containers/syringe = 6,
+	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 4,
+					/obj/item/stack/medical/bruise_pack/advanced = 2,
+					/obj/item/stack/medical/ointment/advanced = 2,
 					/obj/item/reagent_containers/food/pill/patch/styptic = 3,
 					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 3,
 					/obj/item/reagent_containers/applicator/brute = 2,
 					/obj/item/reagent_containers/applicator/burn = 2,
+					/obj/item/stack/medical/bruise_pack = 2,
+					/obj/item/stack/medical/splint = 3,
+					/obj/item/reagent_containers/syringe = 6,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 3,
 					/obj/item/reagent_containers/glass/bottle/epinephrine = 3,
 					/obj/item/reagent_containers/glass/bottle/salicylic = 3,
@@ -168,24 +173,19 @@
 					/obj/item/reagent_containers/syringe/antiviral = 3,
 					/obj/item/reagent_containers/syringe/calomel = 3,
 					/obj/item/reagent_containers/syringe/heparin = 3,
-					/obj/item/reagent_containers/hypospray/autoinjector = 4,
 					/obj/item/reagent_containers/food/pill/salbutamol = 5,
 					/obj/item/reagent_containers/food/pill/mannitol = 5,
 					/obj/item/reagent_containers/food/pill/mutadone = 5,
-					/obj/item/stack/medical/bruise_pack/advanced = 2,
-					/obj/item/stack/medical/ointment/advanced = 2,
-					/obj/item/stack/medical/bruise_pack = 2,
-					/obj/item/stack/medical/splint = 3,
 					/obj/item/reagent_containers/glass/beaker = 3,
 					/obj/item/reagent_containers/dropper = 3,
-					/obj/item/healthanalyzer/advanced = 3,
 					/obj/item/reagent_containers/hypospray/safety = 2,
+					/obj/item/healthanalyzer/advanced = 3,
 					/obj/item/sensor_device = 2,
 					/obj/item/pinpointer/crew = 2)
 	contraband = list(/obj/item/reagent_containers/syringe/insulin = 4,
 					/obj/item/reagent_containers/glass/bottle/sulfonal = 1,
 					/obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 
@@ -218,9 +218,9 @@
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
 					/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4)
+					/obj/item/clothing/mask/muzzle/safety = 4,
+					/obj/item/judobelt = 3)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2, /obj/item/storage/fancy/donut_box = 2, /obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
-
-
-
+	prices = list(/obj/item/reagent_containers/food/snacks/donut = 40,
+					/obj/item/storage/fancy/donut_box = 200) //Bulk discount

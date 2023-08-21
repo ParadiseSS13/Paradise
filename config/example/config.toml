@@ -19,7 +19,6 @@
 # - discord_configuration
 # - event_configuration
 # - gamemode_configuration
-# - gateway_configuration
 # - general_configuration
 # - ipintel_configuration
 # - job_configuration
@@ -145,7 +144,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 45
+sql_version = 49
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -230,7 +229,6 @@ antag_account_age_restrictions = false
 # Gamemode probabilities map for if you are using secret or random
 gamemode_probabilities = [
 	{gamemode = "abduction", probability = 0},
-	{gamemode = "blob", probability = 1},
 	{gamemode = "changeling", probability = 3},
 	{gamemode = "cult", probability = 3},
 	{gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
@@ -260,24 +258,6 @@ enable_gamemode_player_limit = true
 ################################################################
 
 
-[gateway_configuration]
-# This section contains everything relating to the ingame gateway (away mission) system.
-
-# Do we want to enable this at all? Disable for faster load times in testing
-enable_away_mission = false
-# Delay (in deciseconds) before the gateway is usable
-away_mission_delay = 0
-# List of all enabled away missions. Comment out an entry to disable it.
-enabled_away_missions = [
-	"_maps/map_files/RandomZLevels/beach.dmm",
-	#"_maps/map_files/RandomZLevels/evil_santa.dmm",			# Special christmas mission. Enable for festivities
-	#"_maps/map_files/RandomZLevels/example.dmm",				# Example file. Do not enable.
-]
-
-
-################################################################
-
-
 [general_configuration]
 # General setup for the server (branding, options, etc)
 
@@ -300,8 +280,6 @@ allow_antag_hud = true
 restrict_antag_hud_rejoin = true
 # Do we want to allow player respawns?
 respawn_enabled = false
-# Enable karma awarding and karma lockouts for jobs and species?
-enable_karma = false
 # Enable/disable the buster for the CID randomiser DLL
 enable_cid_randomiser_buster = false
 # Prevent admins from possessing the singularity
@@ -431,7 +409,7 @@ job_slot_amounts = [
 	{name = "Research Director", lowpop = 1, highpop = 1},
 	{name = "Chief Medical Officer", lowpop = 1, highpop = 1},
 	# Engineering
-	{name = "Atmospheric Technician", lowpop = 3, highpop = 4},
+	{name = "Life Support Specialist", lowpop = 3, highpop = 4},
 	{name = "Station Engineer", lowpop = 5, highpop = 6},
 	# Medical
 	{name = "Chemist", lowpop = 2, highpop = 2},
@@ -439,19 +417,19 @@ job_slot_amounts = [
 	{name = "Medical Doctor", lowpop = 5, highpop = 6},
 	{name = "Virologist", lowpop = 1, highpop = 1},
 	# Science
-	{name = "Robotocist", lowpop = 2, highpop = 2},
+	{name = "Roboticist", lowpop = 2, highpop = 2},
 	{name = "Scientist", lowpop = 6, highpop = 7},
 	# Security
 	{name = "Detective", lowpop = 1, highpop = 1},
 	{name = "Security Officer", lowpop = 8, highpop = 9},
 	{name = "Warden", lowpop = 1, highpop = 1},
+	{name = "Internal Affairs Agent", lowpop = 2, highpop = 2},
 	# Service
 	{name = "Bartender", lowpop = 1, highpop = 1},
 	{name = "Botanist", lowpop = 2, highpop = 2},
 	{name = "Chaplain", lowpop = 1, highpop = 1},
 	{name = "Chef", lowpop = 1, highpop = 1},
 	{name = "Janitor", lowpop = 1, highpop = 2},
-	{name = "Lawyer", lowpop = 2, highpop = 2},
 	{name = "Librarian", lowpop = 1, highpop = 1},
 	# Cargo/Supply
 	{name = "Quartermaster", lowpop = 1, highpop = 1},
@@ -642,6 +620,8 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/onehalf.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",

@@ -226,7 +226,12 @@
 		result = first ^ second
 	return result
 
-//Pretends to pick an element based on its weight but really just seems to pick a random element.
+/**
+ * Picks an element based on its weight.
+ * L - The input list
+ *
+ * example: list("a" = 1, "b" = 2) will pick "b" 2/3s of the time
+ */
 /proc/pickweight(list/L)
 	var/total = 0
 	var/item

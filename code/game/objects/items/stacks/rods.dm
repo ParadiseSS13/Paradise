@@ -1,11 +1,15 @@
 GLOBAL_LIST_INIT(rod_recipes, list (
 	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor_or_lattice = TRUE),
 	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("catwalk tile", /obj/item/stack/tile/catwalk, 2, 4, 20),
 	null,
-	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	null,
-	new /datum/stack_recipe_list("chainlink fence", list(
+	new /datum/stack_recipe_list("railings...", list(
+		new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("railing cap (left)", /obj/structure/railing/cap/normal, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("railing cap (right)", /obj/structure/railing/cap/reversed, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		)),
+	new /datum/stack_recipe_list("chainlink fence...", list(
 		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -18,7 +22,8 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	name = "metal rod"
 	desc = "Some rods. Can be used for building, or something."
 	singular_name = "metal rod"
-	icon_state = "rods"
+	icon = 'icons/obj/stacks/minerals.dmi'
+	icon_state = "rods-5"
 	item_state = "rods"
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_NORMAL
@@ -34,9 +39,12 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/rods
 
-/obj/item/stack/rods/detailed_examine()
-	return "Made from metal sheets. You can build a grille by using it in your hand. \
-			Clicking on a floor without any tiles will reinforce the floor. You can make reinforced glass by combining rods and normal glass sheets."
+
+
+/obj/item/stack/rods/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Using rods on a floor plating will install a reinforced floor. You can make reinforced glass by combining rods and normal glass sheets.</span>"
+
 
 /obj/item/stack/rods/cyborg
 	energy_type = /datum/robot_energy_storage/rods
@@ -62,10 +70,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 
 /obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
-	if((amount <= 5) && (amount > 0))
-		icon_state = "rods-[amount]"
-	else
-		icon_state = "rods"
+	icon_state = "rods-[clamp(amount, 1, 5)]"
 
 /obj/item/stack/rods/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 2)

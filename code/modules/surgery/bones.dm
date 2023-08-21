@@ -68,7 +68,7 @@
 /datum/surgery_step/glue_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
-			"<span class='notice'> [user] applies some [tool] to [target]'s bone in [affected.name]</span>",
+			"<span class='notice'> [user] applies some [tool] to [target]'s bone in [affected.name].</span>",
 			"<span class='notice'> You apply some [tool] to [target]'s bone in [affected.name] with \the [tool].</span>"
 		)
 

@@ -155,8 +155,16 @@
 	result = /obj/item/reagent_containers/food/snacks/donkpocket
 
 /datum/recipe/microwave/warmdonkpocket
+	duplicate = FALSE
 	items = list(
 		/obj/item/reagent_containers/food/snacks/donkpocket
+	)
+	result = /obj/item/reagent_containers/food/snacks/warmdonkpocket
+
+/datum/recipe/microwave/reheatwarmdonkpocket
+	duplicate = FALSE
+	items = list(
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket
 	)
 	result = /obj/item/reagent_containers/food/snacks/warmdonkpocket
 

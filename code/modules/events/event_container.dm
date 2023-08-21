@@ -49,6 +49,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 		log_debug("Starting event '[next_event.name]' of severity [GLOB.severity_to_string[severity]].")
 		SSblackbox.record_feedback("nested tally", "events", 1, list(GLOB.severity_to_string[severity], next_event.name))
+		GLOB.event_last_fired[next_event] = world.time
 		next_event = null						// When set to null, a random event will be selected next time
 	else
 		// If not, wait for one minute, instead of one tick, before checking again.
@@ -68,9 +69,10 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 	for(var/event_meta in last_event_time) if(possible_events[event_meta])
 		var/time_passed = world.time - GLOB.event_last_fired[event_meta]
-		var/weight_modifier = max(0, (GLOB.configuration.event.expected_round_length - time_passed) / 300)
-		var/new_weight = max(possible_events[event_meta] - weight_modifier, 0)
-
+		var/half_of_round = GLOB.configuration.event.expected_round_length / 2
+		var/weight_modifier = min(1, 1 - ((half_of_round - time_passed) / half_of_round))
+		//With this formula, an event ran 30 minutes ago has half weight, and an event ran an hour ago, has 100 % weight. This works better in general for events, as super high weight events are impacted in a meaningful way.
+		var/new_weight = max(possible_events[event_meta] * weight_modifier, 0)
 		if(new_weight)
 			possible_events[event_meta] = new_weight
 		else
@@ -140,6 +142,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Sentience",			/datum/event/sentience,			50),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Koi School",		/datum/event/carp_migration/koi,		80),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Camera Failure",	/datum/event/camera_failure,		100, list(ASSIGNMENT_ENGINEER = 10)),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Fake Virus",		/datum/event/fake_virus,		50),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Bureaucratic Error",/datum/event/bureaucratic_error,					80, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Disease Outbreak",	/datum/event/disease_outbreak, 			50,		list(ASSIGNMENT_MEDICAL = 25), TRUE)
 	)
 
@@ -147,6 +152,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Nothing",					/datum/event/nothing,					1230),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "False Alarm",				/datum/event/falsealarm,					200),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Appendicitis", 			/datum/event/spontaneous_appendicitis, 	0,		list(ASSIGNMENT_MEDICAL = 10), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Carp School",				/datum/event/carp_migration,			200, 	list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Rogue Drones",				/datum/event/rogue_drone, 				0,		list(ASSIGNMENT_SECURITY = 20)),
@@ -173,6 +179,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vent Clog",				/datum/event/vent_clog,					250),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Wormholes",				/datum/event/wormholes,					150),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Pyro Anomaly",				/datum/event/anomaly/anomaly_pyro,		75,		list(ASSIGNMENT_ENGINEER = 60)),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Cryo Anomaly",				/datum/event/anomaly/anomaly_cryo,		75,		list(ASSIGNMENT_ENGINEER = 60)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vortex Anomaly",			/datum/event/anomaly/anomaly_vortex,	75,		list(ASSIGNMENT_ENGINEER = 25)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Bluespace Anomaly",		/datum/event/anomaly/anomaly_bluespace,	75,		list(ASSIGNMENT_ENGINEER = 25)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Flux Anomaly",				/datum/event/anomaly/anomaly_flux,		75,		list(ASSIGNMENT_ENGINEER = 50)),
@@ -191,13 +198,13 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "APC Overload",		/datum/event/apc_overload,		0),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Blob",				/datum/event/blob, 				30,		list(ASSIGNMENT_ENGINEER =  5), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Meteor Wave",			/datum/event/meteor_wave,		30,		list(ASSIGNMENT_ENGINEER =  5),	TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Meteor Wave",			/datum/event/meteor_wave,		0,		list(ASSIGNMENT_ENGINEER =  10),	TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Abductor Visit",		/datum/event/abductor, 		    20, 	list(ASSIGNMENT_SECURITY =  3), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Alien Infestation",	/datum/event/alien_infestation, 20,		list(ASSIGNMENT_SECURITY = 4), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Traders",				/datum/event/traders,			85, 	is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Terror Spiders",		/datum/event/spider_terror, 	20,		list(ASSIGNMENT_SECURITY = 4), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",		/datum/event/spawn_slaughter,	10,  	is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Shadow Demon", /datum/event/spawn_slaughter/shadow,	50, 	is_one_shot = TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",		/datum/event/spawn_slaughter,	20,  	is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Shadow Demon", /datum/event/spawn_slaughter/shadow,	20, 	is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 	)
 

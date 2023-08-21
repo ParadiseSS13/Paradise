@@ -10,7 +10,7 @@
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 0, FIRE = 80, ACID = 80)
 	/// How many seconds does the knockdown last for?
 	var/knockdown_duration = 10 SECONDS
 	/// how much stamina damage does this baton do?
@@ -74,14 +74,24 @@
 		. += "<span class='notice'>The baton is [round(cell.percent())]% charged.</span>"
 	else
 		. += "<span class='warning'>The baton does not have a power source installed.</span>"
+	. += "<span class='notice'>When turned on this item will knockdown anyone it hits after a short delay. While on harm intent, this item will also do some brute damage, even if turned on.</span>"
+	. += "<span class='notice'>This item can be recharged in a recharger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.</span>"
 
-/obj/item/melee/baton/detailed_examine()
-	return "The baton needs to be turned on to apply the stunning effect. Use it in your hand to toggle it on or off.  If your intent is \
-			set to 'harm', you will inflict damage when using it, regardless if it is on or not. Each stun reduces the baton's charge, which can be replenished by \
-			putting it inside a weapon recharger."
 
 /obj/item/melee/baton/get_cell()
 	return cell
+
+/obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE)
+	if(turned_on && (slot == slot_belt || slot == slot_s_store))
+		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
+		return FALSE
+	return ..(user, slot, disable_warning = TRUE) // call parent but disable warning
+
+/obj/item/melee/baton/can_enter_storage(obj/item/storage/S, mob/user)
+	if(turned_on)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's active!</span>")
+		return FALSE
+	return TRUE
 
 /**
   * Removes the specified amount of charge from the batons power cell.
@@ -155,7 +165,9 @@
 			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		return
-
+	if(user.mind?.martial_art?.no_baton)
+		to_chat(user, user.mind.martial_art.no_baton_reason)
+		return
 	if(issilicon(M)) // Can't stunbaton borgs and AIs
 		return ..()
 
@@ -194,9 +206,11 @@
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)
+		H.SetStuttering(10 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
-	addtimer(CALLBACK(src, PROC_REF(baton_knockdown), L, user_UID, knockdown_duration), knockdown_delay)
+	L.apply_status_effect(STATUS_EFFECT_DELAYED, knockdown_delay, CALLBACK(L, TYPE_PROC_REF(/mob/living/, KnockDown), knockdown_duration), COMSIG_LIVING_CLEAR_STUNS)
+	addtimer(CALLBACK(src, PROC_REF(baton_delay), L, user_UID), knockdown_delay)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
@@ -210,8 +224,7 @@
 	deductcharge(hitcost)
 	return TRUE
 
-/obj/item/melee/baton/proc/baton_knockdown(mob/living/target, user_UID, knockdown_duration)
-	target.KnockDown(knockdown_duration)
+/obj/item/melee/baton/proc/baton_delay(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
 /obj/item/melee/baton/emp_act(severity)

@@ -10,7 +10,7 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, BIO = 5, RAD = 0, FIRE = 115, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 0, FIRE = 115, ACID = 50)
 	strip_delay = 70
 	resistance_flags = NONE
 
@@ -18,7 +18,7 @@
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 35, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 50, BIO = 20, RAD = 20, FIRE = 450, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 20, FIRE = 450, ACID = 50)
 	flags = NOSLIP
 
 /obj/item/clothing/shoes/sandal
@@ -50,7 +50,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 35, ACID = 150)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 35, ACID = 150)
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -70,7 +70,7 @@
 
 /obj/item/clothing/shoes/clown_shoes
 	name = "clown shoes"
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! <span class='notice'>Ctrl-click to toggle the waddle dampeners!</span>"
 	icon_state = "clown"
 	item_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
@@ -116,6 +116,8 @@
 
 /obj/item/clothing/shoes/clown_shoes/slippers
 	actions_types = list(/datum/action/item_action/slipping)
+	enabled_waddle = FALSE
+	slowdown = 0
 	var/slide_distance = 6
 	var/recharging_rate = 8 SECONDS
 	var/recharging_time = 0
@@ -124,30 +126,32 @@
 	if(slot == slot_shoes)
 		return TRUE
 
+/obj/item/clothing/shoes/clown_shoes/slippers/proc/slide_one(mob/living/user, progress, prev_dir , prev_flags)
+	user.dir = prev_dir
+	step(user, user.dir)
+	if(progress == slide_distance)
+		user.stand_up()
+		user.pass_flags = prev_flags
+
 /obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/living/user, action)
 	if(recharging_time > world.time)
 		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
 		return
 	var/prev_dir = user.dir
-	var/prev_pass_flags = user.pass_flags
-	user.pass_flags |= PASSMOB
-	user.Weaken(4 SECONDS)
-	user.dir = prev_dir
-	playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
+	var/old_pass = user.pass_flags
+	user.pass_flags |= (PASSMOB | PASSTABLE)
+	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE, 1)
 	recharging_time = world.time + recharging_rate
-	user.visible_message("<span class='warning'>[user] slips forward!</span>")
-	for(var/i in 1 to slide_distance)
-		step(user, user.dir)
-		sleep(1)
-	user.SetWeakened(0)
-	user.pass_flags = prev_pass_flags
+	user.lay_down()
+	for(var/crossed in 1 to slide_distance)
+		addtimer(CALLBACK(src, PROC_REF(slide_one), user, crossed, prev_dir, old_pass), crossed)
 
 
 /obj/item/clothing/shoes/clown_shoes/slippers/toggle_waddle(mob/living/user)
 	if(!enabled_waddle)
 		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
 		enabled_waddle = TRUE
-		slowdown = initial(slowdown)
+		slowdown = SHOES_SLOWDOWN + 1
 	else
 		to_chat(user, "<span class='notice'>You switch on the waddle dampeners, [src] no longer slow you down!</span>")
 		enabled_waddle = FALSE
@@ -347,7 +351,7 @@
 	name = "lizard skin boots"
 	desc = "You can hear a faint hissing from inside the boots; you hope it is just a mournful ghost."
 	icon_state = "lizardboots_green"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 35, ACID = 0) //lizards like to stay warm
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 35, ACID = 0) //lizards like to stay warm
 
 /obj/item/clothing/shoes/cowboy/lizardmasterwork
 	name = "\improper Hugs-The-Feet lizard skin boots"

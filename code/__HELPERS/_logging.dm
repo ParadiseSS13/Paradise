@@ -40,7 +40,7 @@ GLOBAL_PROTECT(log_end)
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
-			to_chat(C, "DEBUG: [text]")
+			to_chat(C, "<span class='debug'>DEBUG: [text]</span>")
 
 /proc/log_game(text)
 	if(GLOB.configuration.logging.game_logging)
@@ -151,9 +151,6 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_tgui(text)
 	rustg_log_write(GLOB.tgui_log, "[text][GLOB.log_end]")
-
-/proc/log_karma(text)
-	rustg_log_write(GLOB.karma_log, "[text][GLOB.log_end]")
 
 #ifdef REFERENCE_TRACKING
 /proc/log_gc(text)

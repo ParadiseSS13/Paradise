@@ -4,6 +4,9 @@
 #define MAX_UNITS_PER_PATCH 30 // Max amount of units in a patch
 #define MAX_CUSTOM_NAME_LEN 64 // Max length of a custom pill/condiment/whatever
 
+#define TRANSFER_TO_DISPOSAL 0
+#define TRANSFER_TO_BEAKER   1
+
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
 	density = TRUE
@@ -15,7 +18,7 @@
 
 	var/obj/item/reagent_containers/beaker = null
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
-	var/mode = 0
+	var/mode = TRANSFER_TO_BEAKER
 	var/condi = FALSE
 	var/useramount = 30 // Last used amount
 	var/pillamount = 10
@@ -90,7 +93,7 @@
 		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
 		return TRUE
 
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
+	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
@@ -351,7 +354,7 @@
 				if("create_pill")
 					if(condi || !reagents.total_volume)
 						return
-					var/num = round(text2num(arguments["num"] || 1))
+					var/num = clamp(round(text2num(arguments["num"])), 0, MAX_MULTI_AMOUNT)
 					if(!num)
 						return
 					arguments["num"] = num
@@ -371,7 +374,7 @@
 				if("create_patch")
 					if(condi || !reagents.total_volume)
 						return
-					var/num = round(text2num(arguments["num"] || 1))
+					var/num = clamp(round(text2num(arguments["num"])), 0, MAX_MULTI_AMOUNT)
 					if(!num)
 						return
 					arguments["num"] = num
@@ -437,7 +440,7 @@
 				if("create_pill")
 					if(condi || !reagents.total_volume)
 						return
-					var/count = clamp(round(text2num(arguments["num"]) || 0), 0, MAX_MULTI_AMOUNT)
+					var/count = text2num(arguments["num"])
 					if(!count)
 						return
 
@@ -456,7 +459,7 @@
 						P.icon_state = "pill[pillsprite]"
 						reagents.trans_to(P, amount_per_pill)
 						// Load the pills in the bottle if there's one loaded
-						if(istype(loaded_pill_bottle) && length(loaded_pill_bottle.contents) < loaded_pill_bottle.storage_slots)
+						if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
 							P.forceMove(loaded_pill_bottle)
 				if("create_pill_multiple")
 					if(condi || !reagents.total_volume)
@@ -470,7 +473,7 @@
 				if("create_patch")
 					if(condi || !reagents.total_volume)
 						return
-					var/count = clamp(round(text2num(arguments["num"]) || 0), 0, MAX_MULTI_AMOUNT)
+					var/count = text2num(arguments["num"])
 					if(!count)
 						return
 
@@ -492,7 +495,7 @@
 							P.instant_application = TRUE
 							P.icon_state = "bandaid_med"
 						// Load the patches in the bottle if there's one loaded
-						if(istype(loaded_pill_bottle, /obj/item/storage/pill_bottle/patch_pack) && length(loaded_pill_bottle.contents) < loaded_pill_bottle.storage_slots)
+						if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
 							P.forceMove(loaded_pill_bottle)
 				if("create_patch_multiple")
 					if(condi || !reagents.total_volume)
@@ -560,3 +563,6 @@
 #undef MAX_UNITS_PER_PILL
 #undef MAX_UNITS_PER_PATCH
 #undef MAX_CUSTOM_NAME_LEN
+
+#undef TRANSFER_TO_DISPOSAL
+#undef TRANSFER_TO_BEAKER

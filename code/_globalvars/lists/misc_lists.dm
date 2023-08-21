@@ -58,8 +58,9 @@ GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN =
 #define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")
 
 GLOBAL_LIST_EMPTY(client_login_processors)
-// Assoc-List of all karma packages
-GLOBAL_LIST_EMPTY(karma_packages)
 
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
+
+/// List of looping sounds
+GLOBAL_LIST_EMPTY(looping_sounds)

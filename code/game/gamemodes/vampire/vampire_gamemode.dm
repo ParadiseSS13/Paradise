@@ -76,16 +76,16 @@
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 					if(istype(objective, /datum/objective/steal))
 						var/datum/objective/steal/S = objective
-						SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
+						SSblackbox.record_feedback("nested tally", "vampire_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
 					else
-						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
+						SSblackbox.record_feedback("nested tally", "vampire_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 					if(istype(objective, /datum/objective/steal))
 						var/datum/objective/steal/S = objective
-						SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
+						SSblackbox.record_feedback("nested tally", "vampire_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
 					else
-						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
+						SSblackbox.record_feedback("nested tally", "vampire_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
@@ -97,10 +97,10 @@
 
 		if(traitorwin)
 			text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
-			SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
+			SSblackbox.record_feedback("tally", "vampire_success", 1, "SUCCESS")
 		else
 			text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
-			SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
+			SSblackbox.record_feedback("tally", "vampire_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
 

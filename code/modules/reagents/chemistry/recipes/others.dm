@@ -183,7 +183,7 @@
 	name = "corgium"
 	id = "corgium"
 	result = null
-	required_reagents = list("nutriment" = 1, "colorful_reagent" = 1, "strange_reagent" = 1, "blood" = 1)
+	required_reagents = list("nutriment" = 1, "colorful_reagent" = 1, "lazarus_reagent" = 1, "blood" = 1)
 	result_amount = 3
 	min_temp = T0C + 100
 
@@ -196,7 +196,7 @@
 	name = "Flaptonium"
 	id = "flaptonium"
 	result = null
-	required_reagents = list("egg" = 1, "colorful_reagent" = 1, "chicken_soup" = 1, "strange_reagent" = 1, "blood" = 1)
+	required_reagents = list("egg" = 1, "colorful_reagent" = 1, "chicken_soup" = 1, "lazarus_reagent" = 1, "blood" = 1)
 	result_amount = 5
 	min_temp = T0C + 100
 	mix_message = "The substance turns an airy sky-blue and foams up into a new shape."

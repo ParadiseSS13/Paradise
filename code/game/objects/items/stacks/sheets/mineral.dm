@@ -169,6 +169,7 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 
 /obj/item/stack/sheet/mineral/sandbags
 	name = "sandbags"
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "sandbags"
 	singular_name = "sandbag"
 	layer = LOW_ITEM_LAYER
@@ -185,7 +186,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/emptysandbag
 	name = "empty sandbag"
 	desc = "A bag to be filled with sand."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "sandbag"
 	w_class = WEIGHT_CLASS_TINY
 
@@ -319,7 +320,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/bananium
 	name = "bananium"
-	icon_state = "sheet-clown"
+	icon_state = "sheet-bananium"
 	item_state = "sheet-clown"
 	singular_name = "bananium sheet"
 	origin_tech = "materials=4"
@@ -337,7 +338,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/tranquillite
 	name = "tranquillite"
-	icon_state = "sheet-mime"
+	icon_state = "sheet-tranquillite"
 	item_state = "sheet-mime"
 	singular_name = "beret"
 	origin_tech = "materials=4"
@@ -425,6 +426,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "sheet-abductor"
 	item_state = "sheet-abductor"
+	dynamic_icon_state = FALSE
 	singular_name = "alien alloy sheet"
 	force = 5
 	throwforce = 5

@@ -182,7 +182,6 @@
 				continue
 			say("Target [body]... terminated.")
 			depotarea.list_add(body, depotarea.dead_list)
-			pointed(body)
 	else
 		scan_cycles++
 

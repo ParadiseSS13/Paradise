@@ -8,10 +8,6 @@
 "ac" = (
 /turf/simulated/wall/indestructible/wood,
 /area/ninja/outpost)
-"ad" = (
-/obj/effect/landmark/newplayer_start,
-/turf/simulated/floor/plating,
-/area/start)
 "ae" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/holding)
@@ -61,9 +57,6 @@
 	icon_state = "cult"
 	},
 /area/holodeck/source_theatre)
-"am" = (
-/turf/simulated/wall/indestructible/splashscreen,
-/area/start)
 "an" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1426,20 +1419,6 @@
 /obj/item/melee/energy/sword/saber/red,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
-"fP" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomegen";
-	name = "General Supply"
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
-"fQ" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door"
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
 "fR" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/turf_decal/bot,
@@ -1467,13 +1446,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
-"fW" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomehea";
-	name = "Heavy Supply"
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
 "fX" = (
 /obj/structure/table/wood,
 /obj/item/candle/eternal/wizard{
@@ -1490,7 +1462,7 @@
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
 /obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 3;
 	pixel_y = -30
 	},
@@ -1504,7 +1476,7 @@
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
 /obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 3;
 	pixel_y = -30
 	},
@@ -1725,14 +1697,6 @@
 /area/shuttle/syndicate_sit)
 "gR" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate_sit)
-"gS" = (
-/obj/machinery/door/window/brigdoor{
-	dir = 2;
-	name = "Cell Door";
-	req_access_txt = "150"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
 "gT" = (
@@ -2242,20 +2206,6 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "sit_tele";
 	name = "Teleporter"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
-"io" = (
-/obj/machinery/door/window/northleft{
-	name = "Out";
-	req_access_txt = "150"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
-"ip" = (
-/obj/machinery/door/window/northright{
-	name = "In";
-	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -2855,13 +2805,6 @@
 /obj/item/storage/backpack/industrial,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"ku" = (
-/obj/machinery/door/window/northleft{
-	name = "cell door";
-	req_access_txt = "150"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
 "kv" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3080,10 +3023,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"ld" = (
-/obj/machinery/door/window/westleft,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
 "le" = (
 /obj/effect/landmark/spawner/syndieprisonwarp,
 /turf/simulated/floor/plasteel/dark,
@@ -4057,7 +3996,7 @@
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
 /obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 3;
 	pixel_y = -30
 	},
@@ -4377,6 +4316,9 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"ph" = (
+/turf/simulated/wall/r_wall,
+/area/start)
 "pj" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -4727,6 +4669,14 @@
 /obj/structure/closet/syndicate/nuclear,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"qJ" = (
+/obj/structure/table,
+/obj/machinery/door/window/classic/normal{
+	name = "security checkpoint";
+	dir = 2
+	},
+/turf/simulated/floor/carpet,
+/area/admin)
 "qK" = (
 /obj/machinery/door_control/no_emag{
 	id = "nukeop_ready";
@@ -5009,7 +4959,7 @@
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
 "rB" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 4;
 	pixel_y = 32
 	},
@@ -5105,6 +5055,9 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -28
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "rQ" = (
@@ -5150,13 +5103,6 @@
 /obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
-"sc" = (
-/obj/machinery/door/window{
-	name = "Uplink Management Control";
-	req_access_txt = "151"
-	},
-/turf/simulated/floor/wood,
-/area/syndicate_mothership)
 "se" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -5185,13 +5131,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
-"si" = (
-/obj/machinery/door/window{
-	name = "Equipment Room";
-	req_access_txt = "150"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "sj" = (
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
@@ -5296,15 +5235,6 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
-"sF" = (
-/obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
-	name = "Equipment Room";
-	req_access_txt = "150"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "sG" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
@@ -5388,11 +5318,17 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/syndicate)
 "tg" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -28
+/obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate)
+"th" = (
+/obj/machinery/door/window/reinforced/normal{
+	color = "#d70000";
+	req_access_txt = "104";
+	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
+/area/shuttle/administration)
 "tj" = (
 /obj/structure/flora/bush,
 /turf/simulated/floor/plating/asteroid/snow/airless,
@@ -5540,16 +5476,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"tP" = (
-/obj/machinery/door/window{
-	name = "Infirmary";
-	req_access_txt = "150"
-	},
-/obj/machinery/light/spot{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "tQ" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8;
@@ -5560,16 +5486,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/specops)
-"tT" = (
-/obj/machinery/door/window/westright{
-	name = "Tool Storage";
-	req_access_txt = "150"
-	},
-/obj/machinery/light/spot{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "tU" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
@@ -5629,35 +5545,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"ub" = (
-/obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
-	name = "Infirmary";
-	req_access_txt = "150"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "ue" = (
 /obj/machinery/door/window{
 	dir = 8;
 	name = "Tool Storage";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
-"uf" = (
-/obj/structure/closet/crate/internals,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "ug" = (
@@ -6145,7 +6038,7 @@
 /area/admin)
 "vI" = (
 /obj/structure/rack,
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 30
 	},
 /obj/item/gun/energy/xray,
@@ -6224,13 +6117,6 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
-"vW" = (
-/obj/structure/table,
-/obj/machinery/door/window/southleft{
-	name = "security checkpoint"
-	},
-/turf/simulated/floor/carpet,
-/area/admin)
 "vX" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
@@ -6343,7 +6229,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ww" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 30
 	},
 /obj/structure/rack,
@@ -6437,7 +6323,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "wS" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 30
 	},
 /obj/structure/rack,
@@ -6593,6 +6479,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"xs" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
 "xv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
@@ -6694,13 +6584,6 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/suppy)
-"yc" = (
-/obj/machinery/door/window/brigdoor/westleft{
-	color = "#d70000";
-	req_access_txt = "104"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
 "yg" = (
 /mob/living/silicon/decoy{
 	name = "A.L.I.C.E."
@@ -6818,6 +6701,13 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
+"zC" = (
+/obj/machinery/door/window/classic/reversed{
+	name = "bar";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
 "zF" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
@@ -6849,6 +6739,14 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"zW" = (
+/obj/machinery/door/window{
+	name = "Uplink Management Control";
+	req_access_txt = "151";
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/syndicate_mothership)
 "Aa" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/dark,
@@ -6893,6 +6791,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"Am" = (
+/obj/machinery/door/window/classic/normal{
+	name = "cell door";
+	req_access_txt = "150";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "An" = (
 /obj/item/circular_saw,
 /obj/item/hemostat{
@@ -6909,6 +6815,30 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"Ao" = (
+/obj/structure/closet/crate/internals,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "As" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
@@ -7077,6 +7007,16 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"Bk" = (
+/obj/machinery/door/window{
+	base_state = "right";
+	icon_state = "right";
+	name = "Infirmary";
+	req_access_txt = "150";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Bl" = (
 /obj/machinery/conveyor/east{
 	id = "QMLoad2"
@@ -7201,10 +7141,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
-"BM" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/wall/indestructible/fakeglass,
-/area/centcom/control)
 "BO" = (
 /obj/machinery/light/spot{
 	dir = 4
@@ -7543,13 +7479,6 @@
 /obj/structure/marker_beacon/dock_marker,
 /turf/space,
 /area/space)
-"Dc" = (
-/obj/machinery/door/window/southleft{
-	name = "Cell B";
-	req_access_txt = "101"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/admin)
 "Dd" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/space_ninja,
@@ -7847,6 +7776,14 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
+"Ej" = (
+/obj/machinery/door/window/reinforced/normal{
+	dir = 2;
+	name = "Cell Door";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_sit)
 "Ek" = (
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -7920,7 +7857,7 @@
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
 /obj/item/shield/energy,
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 3;
 	pixel_y = -30
 	},
@@ -8061,6 +7998,17 @@
 "Fo" = (
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
+"Fp" = (
+/obj/machinery/door/window/classic/reversed{
+	name = "Tool Storage";
+	req_access_txt = "150";
+	dir = 8
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Fq" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -8073,6 +8021,17 @@
 	},
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
+"Ft" = (
+/obj/machinery/door/window{
+	name = "Infirmary";
+	req_access_txt = "150";
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Fu" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "admin_away";
@@ -8836,7 +8795,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Ip" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = -24
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -8845,7 +8804,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "Ir" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 32
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -9460,12 +9419,6 @@
 /obj/machinery/optable,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
-"KB" = (
-/obj/machinery/door/window/northright{
-	name = "bar"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
 "KC" = (
 /obj/machinery/button/windowtint{
 	pixel_y = 24
@@ -9552,15 +9505,6 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
-/area/centcom/evac)
-"KQ" = (
-/obj/structure/table,
-/obj/item/toy/katana,
-/obj/item/toy/carpplushie,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "green"
-	},
 /area/centcom/evac)
 "KR" = (
 /obj/machinery/light/spot{
@@ -9778,9 +9722,9 @@
 	},
 /area/shuttle/escape)
 "LQ" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomehea";
-	name = "Heavy Supply"
+/obj/machinery/door/poddoor/impassable{
+	name = "Heavy Supply";
+	id_tag = "thunderdomehea"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -10504,9 +10448,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Ox" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomegen";
-	name = "General Supply"
+/obj/machinery/door/poddoor/impassable{
+	name = "General Supply";
+	id_tag = "thunderdomegen"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -10601,6 +10545,14 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/wizard_station)
+"OM" = (
+/obj/machinery/door/window/classic/reversed{
+	name = "In";
+	req_access_txt = "150";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "ON" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -10662,9 +10614,9 @@
 	},
 /area/centcom/specops)
 "OW" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door"
+/obj/machinery/door/poddoor/impassable{
+	name = "Thunderdome Blast Door";
+	id_tag = "thunderdome"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -11227,6 +11179,14 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Rl" = (
+/obj/machinery/door/window/classic/normal{
+	name = "Out";
+	req_access_txt = "150";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "Rm" = (
 /obj/structure/chair{
 	dir = 1
@@ -11727,12 +11687,8 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
-"TC" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/specops)
 "TF" = (
-/obj/machinery/recharger/wallcharger{
+/obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 4;
 	pixel_y = 32
 	},
@@ -11898,6 +11854,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Ul" = (
+/obj/effect/landmark/newplayer_start,
+/turf/simulated/wall/indestructible/splashscreen,
+/area/start)
 "Um" = (
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -12024,6 +11984,12 @@
 "UO" = (
 /turf/simulated/wall/indestructible/opsglass/limited_smooth,
 /area/syndicate_mothership)
+"UP" = (
+/obj/machinery/door/window/classic/normal{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "UT" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -12130,6 +12096,16 @@
 /obj/machinery/economy/vending/engivend,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Vq" = (
+/obj/machinery/door/window{
+	base_state = "right";
+	icon_state = "right";
+	name = "Equipment Room";
+	req_access_txt = "150";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Vs" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/badminbrew,
@@ -12322,6 +12298,15 @@
 	icon_state = "brown"
 	},
 /area/shuttle/escape)
+"Wj" = (
+/obj/structure/table,
+/obj/item/toy/katana,
+/obj/item/toy/plushie/carpplushie,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "green"
+	},
+/area/centcom/evac)
 "Wk" = (
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass/jungle,
@@ -12926,6 +12911,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Ys" = (
+/obj/machinery/door/window{
+	name = "Equipment Room";
+	req_access_txt = "150";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Yt" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -13003,6 +12996,14 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/control)
+"YJ" = (
+/obj/machinery/door/window/classic/normal{
+	name = "Cell B";
+	req_access_txt = "101";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/admin)
 "YK" = (
 /obj/structure/chair{
 	dir = 4
@@ -13470,21 +13471,21 @@ aN
 aN
 aN
 aN
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-am
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -13727,21 +13728,21 @@ aN
 aN
 aN
 aN
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
-rE
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -15276,7 +15277,7 @@ rE
 rE
 rE
 rE
-ad
+rE
 rE
 rE
 rE
@@ -15790,7 +15791,7 @@ rE
 rE
 rE
 rE
-rE
+Ul
 rE
 rE
 rE
@@ -17325,21 +17326,21 @@ ck
 ck
 ck
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
 aN
 aN
 aN
@@ -17582,21 +17583,21 @@ ck
 ck
 ck
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
+rE
 aN
 aN
 aN
@@ -17839,21 +17840,21 @@ ck
 ck
 ck
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -18096,21 +18097,21 @@ ck
 ck
 ck
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -26933,7 +26934,7 @@ aN
 ZG
 dl
 ZN
-KB
+zC
 ZN
 ZN
 EN
@@ -27943,7 +27944,7 @@ aN
 aN
 Te
 Rp
-TC
+xs
 Rs
 Sq
 Rp
@@ -29768,7 +29769,7 @@ eX
 eX
 ZG
 qC
-yc
+th
 ry
 Rv
 ZG
@@ -37958,7 +37959,7 @@ We
 We
 We
 od
-BM
+sm
 QI
 Kb
 Hm
@@ -38215,7 +38216,7 @@ We
 We
 We
 od
-BM
+sm
 ZC
 EV
 MB
@@ -46441,7 +46442,7 @@ aN
 Hh
 HW
 IH
-KQ
+Wj
 Nu
 OF
 Nu
@@ -59240,13 +59241,13 @@ KY
 KY
 KY
 KY
-si
-sF
+Ys
+Vq
 tf
 KY
-tP
-ub
-KY
+Ft
+Bk
+tg
 KY
 KY
 KY
@@ -59490,7 +59491,7 @@ lA
 lQ
 KX
 KX
-KY
+tg
 nx
 gx
 gx
@@ -59499,7 +59500,7 @@ gx
 rP
 KX
 KX
-tg
+KX
 tw
 KX
 KX
@@ -60004,7 +60005,7 @@ lA
 lS
 KX
 mH
-KY
+tg
 nA
 iS
 iS
@@ -60272,9 +60273,9 @@ YS
 sG
 tf
 KY
-tT
+Fp
 ue
-KY
+tg
 KY
 KY
 KY
@@ -61558,7 +61559,7 @@ ab
 KY
 tz
 tU
-uf
+Ao
 KX
 KX
 uT
@@ -63608,7 +63609,7 @@ na
 BY
 nW
 rb
-sc
+zW
 sD
 Yi
 ab
@@ -66655,7 +66656,7 @@ Yi
 gp
 gy
 gD
-gS
+Ej
 gW
 gW
 gW
@@ -67445,7 +67446,7 @@ jO
 Yi
 XJ
 XJ
-ku
+Am
 kA
 kO
 Yi
@@ -68021,7 +68022,7 @@ aN
 aN
 wk
 Ct
-Dc
+YJ
 vK
 vK
 vK
@@ -68206,7 +68207,7 @@ ab
 ab
 Yi
 ij
-io
+Rl
 ix
 XJ
 XJ
@@ -68720,7 +68721,7 @@ ab
 ab
 Yi
 il
-ip
+OM
 ix
 XJ
 XJ
@@ -71001,11 +71002,11 @@ an
 an
 aa
 fI
-fP
-fP
-fP
-fP
-fP
+fM
+fM
+fM
+fM
+fM
 fI
 fI
 fI
@@ -71263,7 +71264,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -71520,7 +71521,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -71777,7 +71778,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -72034,7 +72035,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -72291,7 +72292,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -72543,11 +72544,11 @@ an
 an
 aa
 fI
-fQ
-fQ
-fQ
-fQ
-fQ
+fM
+fM
+fM
+fM
+fM
 fI
 aa
 aa
@@ -73145,7 +73146,7 @@ nJ
 tJ
 uz
 vm
-vW
+qJ
 lZ
 lZ
 xb
@@ -73616,7 +73617,7 @@ aN
 aN
 kG
 kV
-ld
+UP
 kV
 kV
 kU
@@ -76655,11 +76656,11 @@ eN
 IK
 cc
 fI
-fQ
-fQ
-fQ
-fQ
-fQ
+fM
+fM
+fM
+fM
+fM
 fI
 aa
 aa
@@ -76917,7 +76918,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77174,7 +77175,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77431,7 +77432,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77688,7 +77689,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77945,7 +77946,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -78197,11 +78198,11 @@ eQ
 eH
 cc
 fI
-fP
-fP
-fP
-fP
-fP
+fM
+fM
+fM
+fM
+fM
 fI
 fI
 fI

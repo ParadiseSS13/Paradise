@@ -1,6 +1,7 @@
 /datum/species/drask
 	name = "Drask"
 	name_plural = "Drask"
+	max_age = 500
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	language = "Orluum"
 	eyes = "drask_eyes_s"
@@ -31,7 +32,7 @@
 		"is sucking in warm air!",
 		"is holding their breath!")
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_HAIR)
+	species_traits = list(LIPS, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS | BALD | SHAVED
 	has_gender = FALSE

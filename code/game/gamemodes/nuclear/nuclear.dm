@@ -251,14 +251,14 @@
 		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	to_chat(syndicate.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Nuclear_Agent)</span>")
-	return
+	syndicate.current.create_log(MISC_LOG, "[syndicate.current] was made into a nuclear operative")
 
 
 /datum/game_mode/proc/random_radio_frequency()
 	return 1337 // WHY??? -- Doohl
 
 
-/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_uses = 20)
+/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_uses = 100)
 	var/radio_freq = SYND_FREQ
 
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
@@ -282,7 +282,7 @@
 		var/race = synd_mob.dna.species.name
 
 		switch(race)
-			if("Vox", "Vox Armalis")
+			if("Vox")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
 				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand

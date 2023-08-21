@@ -229,7 +229,7 @@ const MedicalRecordsView = (_properties, context) => {
             icon={printing ? 'spinner' : 'print'}
             disabled={printing}
             iconSpin={!!printing}
-            content="Print Entry"
+            content="Print Record"
             ml="0.5rem"
             onClick={() => act('print_record')}
           />

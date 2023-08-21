@@ -1,9 +1,6 @@
 // CAMERA NET
 //
 // The datum containing all the chunks.
-
-#define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
-
 GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 /datum/cameranet
@@ -20,16 +17,16 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 // Checks if a chunk has been Generated in x, y, z.
 /datum/cameranet/proc/chunkGenerated(x, y, z)
-	x &= ~(CHUNK_SIZE - 1)
-	y &= ~(CHUNK_SIZE - 1)
+	x &= ~(CAMERA_CHUNK_SIZE - 1)
+	y &= ~(CAMERA_CHUNK_SIZE - 1)
 	var/key = "[x],[y],[z]"
 	return (chunks[key])
 
 // Returns the chunk in the x, y, z.
 // If there is no chunk, it creates a new chunk and returns that.
 /datum/cameranet/proc/getCameraChunk(x, y, z)
-	x &= ~(CHUNK_SIZE - 1)
-	y &= ~(CHUNK_SIZE - 1)
+	x &= ~(CAMERA_CHUNK_SIZE - 1)
+	y &= ~(CAMERA_CHUNK_SIZE - 1)
 	var/key = "[x],[y],[z]"
 	if(!chunks[key])
 		chunks[key] = new /datum/camerachunk(null, x, y, z)
@@ -55,15 +52,15 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 			chunks_pre_seen |= eye.visibleCameraChunks
 		// 0xf = 15
 		var/static_range = eye.static_visibility_range
-		var/x1 = max(0, eye.x - static_range) & ~(CHUNK_SIZE - 1)
-		var/y1 = max(0, eye.y - static_range) & ~(CHUNK_SIZE - 1)
-		var/x2 = min(world.maxx, eye.x + static_range) & ~(CHUNK_SIZE - 1)
-		var/y2 = min(world.maxy, eye.y + static_range) & ~(CHUNK_SIZE - 1)
+		var/x1 = max(0, eye.x - static_range) & ~(CAMERA_CHUNK_SIZE - 1)
+		var/y1 = max(0, eye.y - static_range) & ~(CAMERA_CHUNK_SIZE - 1)
+		var/x2 = min(world.maxx, eye.x + static_range) & ~(CAMERA_CHUNK_SIZE - 1)
+		var/y2 = min(world.maxy, eye.y + static_range) & ~(CAMERA_CHUNK_SIZE - 1)
 
 		var/list/visibleChunks = list()
 
-		for(var/x = x1; x <= x2; x += CHUNK_SIZE)
-			for(var/y = y1; y <= y2; y += CHUNK_SIZE)
+		for(var/x = x1; x <= x2; x += CAMERA_CHUNK_SIZE)
+			for(var/y = y1; y <= y2; y += CAMERA_CHUNK_SIZE)
 				visibleChunks |= getCameraChunk(x, y, eye.z)
 
 		var/list/remove = eye.visibleCameraChunks - visibleChunks
@@ -115,22 +112,17 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 // Removes a camera from a chunk.
 
 /datum/cameranet/proc/removeCamera(obj/machinery/camera/c)
-	if(c.can_use())
-		majorChunkChange(c, 0)
+	majorChunkChange(c, 0)
 
 // Add a camera to a chunk.
 
 /datum/cameranet/proc/addCamera(obj/machinery/camera/c)
-	if(c.can_use())
-		majorChunkChange(c, 1)
+	majorChunkChange(c, 1)
 
 // Used for Cyborg cameras. Since portable cameras can be in ANY chunk.
 
-/datum/cameranet/proc/updatePortableCamera(obj/machinery/camera/c)
-	if(c.can_use())
-		majorChunkChange(c, 1)
-	//else
-	//	majorChunkChange(c, 0)
+/datum/cameranet/proc/updatePortableCamera(obj/machinery/camera/c, turf/old_loc)
+	majorChunkChange(c, 1, old_loc)
 
 // Never access this proc directly!!!!
 // This will update the chunk and all the surrounding chunks.
@@ -138,31 +130,37 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 // Setting the choice to 0 will remove the camera from the chunks.
 // If you want to update the chunks around an object, without adding/removing a camera, use choice 2.
 
-/datum/cameranet/proc/majorChunkChange(atom/c, choice)
+/datum/cameranet/proc/majorChunkChange(atom/c, choice, turf/old_loc = null)
 	// 0xf = 15
 	if(!c)
 		return
 
 	var/turf/T = get_turf(c)
-	if(T)
-		var/x1 = max(0, T.x - (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
-		var/y1 = max(0, T.y - (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
-		var/x2 = min(world.maxx, T.x + (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
-		var/y2 = min(world.maxy, T.y + (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
+	if(!T)
+		return
 
-//		to_chat(world, "X1: [x1] - Y1: [y1] - X2: [x2] - Y2: [y2]")
+	if(old_loc)
+		// Check if the current turf falls in the same chunka as the old_loc. If so, don't do anything
+		if(T.x & ~(CAMERA_CHUNK_SIZE - 1) == old_loc.x & ~(CAMERA_CHUNK_SIZE - 1) && T.y & ~(CAMERA_CHUNK_SIZE - 1) == old_loc.y & ~(CAMERA_CHUNK_SIZE - 1))
+			return
 
-		for(var/x = x1; x <= x2; x += CHUNK_SIZE)
-			for(var/y = y1; y <= y2; y += CHUNK_SIZE)
-				if(chunkGenerated(x, y, T.z))
-					var/datum/camerachunk/chunk = getCameraChunk(x, y, T.z)
-					if(choice == 0)
-						// Remove the camera.
-						chunk.cameras -= c
-					else if(choice == 1)
-						// You can't have the same camera in the list twice.
-						chunk.cameras |= c
-					chunk.hasChanged()
+	// Use camera view distance here to actually know how far a camera can max watch
+	var/x1 = max(0, T.x - CAMERA_VIEW_DISTANCE) & ~(CAMERA_CHUNK_SIZE - 1)
+	var/y1 = max(0, T.y - CAMERA_VIEW_DISTANCE) & ~(CAMERA_CHUNK_SIZE - 1)
+	var/x2 = min(world.maxx, T.x + CAMERA_VIEW_DISTANCE) & ~(CAMERA_CHUNK_SIZE - 1)
+	var/y2 = min(world.maxy, T.y + CAMERA_VIEW_DISTANCE) & ~(CAMERA_CHUNK_SIZE - 1)
+
+	for(var/x = x1; x <= x2; x += CAMERA_CHUNK_SIZE)
+		for(var/y = y1; y <= y2; y += CAMERA_CHUNK_SIZE)
+			if(chunkGenerated(x, y, T.z))
+				var/datum/camerachunk/chunk = getCameraChunk(x, y, T.z)
+				if(choice == 0)
+					// Remove the camera.
+					chunk.remove_camera(c)
+				else if(choice == 1)
+					// You can't have the same camera in the list twice.
+					chunk.add_camera(c)
+				chunk.hasChanged()
 
 // Will check if a mob is on a viewable turf. Returns 1 if it is, otherwise returns 0.
 

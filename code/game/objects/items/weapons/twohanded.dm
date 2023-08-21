@@ -201,7 +201,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/fireaxe/Initialize(mapload)
@@ -292,7 +292,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp_when_wielded = TRUE // only sharp when wielded
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
 	needs_permit = TRUE
@@ -319,7 +319,7 @@
 		unwield()
 		return
 	..()
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && prob(40))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && prob(40) && force)
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
@@ -334,9 +334,23 @@
 		sleep(1)
 
 /obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
-		return ..()
-	return FALSE
+	if(!wielded)
+		return FALSE
+	. = ..()
+	if(!.) // they did not block the attack
+		return
+
+	if(attack_type == THROWN_PROJECTILE_ATTACK)
+		if(!isitem(hitby))
+			return TRUE
+		var/obj/item/TT = hitby
+		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
+		return TRUE
+	if(isitem(hitby))
+		melee_attack_chain(owner, hitby.loc)
+	else
+		melee_attack_chain(owner, hitby)
+	return TRUE
 
 /obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(wielded)
@@ -408,7 +422,7 @@
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
 	var/icon_prefix = "spearglass"
 
@@ -676,7 +690,7 @@
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 50, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/charged = 2
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
@@ -984,6 +998,8 @@
 
 /obj/item/twohanded/push_broom/wield(mob/user)
 	. = ..()
+	if(!.)
+		return
 	to_chat(user, "<span class='notice'>You brace [src] against the ground in a firm sweeping stance.</span>")
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(sweep))
 
@@ -1004,24 +1020,110 @@
 		return
 	var/turf/new_item_loc = get_step(current_item_loc, user.dir)
 	var/obj/machinery/disposal/target_bin = locate(/obj/machinery/disposal) in new_item_loc.contents
+	var/obj/structure/janitorialcart/jani_cart = locate(/obj/structure/janitorialcart) in new_item_loc.contents
+	var/obj/vehicle/janicart/jani_vehicle = locate(/obj/vehicle/janicart) in new_item_loc.contents
 	var/trash_amount = 1
 	for(var/obj/item/garbage in current_item_loc.contents)
 		if(!garbage.anchored)
-			if(target_bin)
-				garbage.forceMove(target_bin)
+			if(jani_vehicle?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
+				move_into_storage(user, jani_vehicle.mybag, garbage)
+			else if(jani_cart?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
+				move_into_storage(user, jani_cart.mybag, garbage)
+			else if(target_bin)
+				move_into_storage(user, target_bin, garbage)
 			else
 				garbage.Move(new_item_loc, user.dir)
 			trash_amount++
 		if(trash_amount > BROOM_PUSH_LIMIT)
 			break
 	if(trash_amount > 1)
-		if(target_bin)
-			target_bin.update_icon()
-			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].</span>")
-		playsound(loc, 'sound/weapons/thudswoosh.ogg', 10, TRUE, -1)
+		playsound(loc, 'sound/weapons/sweeping.ogg', 70, TRUE, -1)
+
+/obj/item/twohanded/push_broom/proc/move_into_storage(mob/user, obj/storage, obj/trash)
+	trash.forceMove(storage)
+	storage.update_icon()
+	to_chat(user, "<span class='notice'>You sweep the pile of garbage into [storage].</span>")
 
 /obj/item/twohanded/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
 	cart.mybroom = src
 	cart.put_in_cart(src, user)
+
+/obj/item/twohanded/push_broom/traitor
+	name = "titanium push broom"
+	desc = "This is my BROOMSTICK! All of the functionality of a normal broom, but at least half again more robust."
+	attack_verb = list("smashed", "slammed", "whacked", "thwacked", "swept")
+	force = 10
+	force_unwielded = 10
+	force_wielded = 25
+
+/obj/item/twohanded/push_broom/traitor/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+
+/obj/item/twohanded/push_broom/traitor/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='warning'>When wielded, the broom has different effects depending on your intent, similar to a martial art. \
+			Help intent will sweep foes away from you, disarm intent sweeps their legs from under them, grab intent confuses \
+			and minorly fatigues them, and harm intent hits them normally.</span>"
+
+/obj/item/twohanded/push_broom/traitor/wield(mob/user)
+	. = ..()
+	ADD_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")
+	to_chat(user, "<span class='warning'>Your sweeping stance allows you to deflect projectiles.</span>")
+
+/obj/item/twohanded/push_broom/traitor/unwield(mob/user)
+	. = ..()
+	if(HAS_TRAIT_FROM(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")) //this check is needed because obj/item/twohanded calls unwield() on drop and you'd get the message even if you weren't wielding it before
+		REMOVE_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")
+		to_chat(user, "<span class='warning'>You stop reflecting projectiles.</span>")
+
+/obj/item/twohanded/push_broom/traitor/attack(mob/target, mob/living/user)
+	if(!wielded || !ishuman(target))
+		return ..()
+
+	var/mob/living/carbon/human/H = target
+
+	switch(user.a_intent)
+		if(INTENT_HELP)
+			H.visible_message("<span class='danger'>[user] sweeps [H] away!</span>", \
+							"<span class='userdanger'>[user] sweeps you away!</span>", \
+							"<span class='italics'>You hear sweeping.</span>")
+			playsound(loc, 'sound/weapons/sweeping.ogg', 70, TRUE, -1)
+
+			var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)))
+			H.throw_at(throw_target, 3, 1)
+
+			add_attack_logs(user, H, "Swept away with titanium push broom", ATKLOG_ALL)
+
+		if(INTENT_DISARM)
+			if(H.stat || IS_HORIZONTAL(H))
+				return ..()
+
+			H.visible_message("<span class='danger'>[user] sweeps [H]'s legs out from under [H.p_them()]!</span>", \
+							"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
+							"<span class='italics'>You hear sweeping.</span>")
+
+			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
+			playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
+			H.apply_damage(5, BRUTE)
+			H.KnockDown(4 SECONDS)
+
+			add_attack_logs(user, H, "Leg swept with titanium push broom", ATKLOG_ALL)
+
+		if(INTENT_GRAB)
+			H.visible_message("<span class='danger'>[user] smacks [H] with the brush of [user.p_their()] broom!</span>", \
+							"<span class='userdanger'>[user] smacks you with the brush of [user.p_their()] broom!</span>", \
+							"<span class='italics'>You hear a smacking noise.</span>")
+
+			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
+			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 50, TRUE, -1)
+			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS) //no stacking infinitely
+			H.adjustStaminaLoss(15)
+
+			add_attack_logs(user, H, "Swept with the brush of the titanium push broom", ATKLOG_ALL)
+
+		if(INTENT_HARM)
+			return ..()
 
 #undef BROOM_PUSH_LIMIT

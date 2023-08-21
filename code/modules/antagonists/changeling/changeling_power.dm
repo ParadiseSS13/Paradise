@@ -43,13 +43,14 @@
 		return
 	cling = C
 	Grant(user)
+	return TRUE
 
 /datum/action/changeling/Destroy(force, ...)
 	cling.acquired_powers -= src
 	cling = null
 	return ..()
 
-/datum/action/changeling/Trigger()
+/datum/action/changeling/Trigger(left_click)
 	try_to_sting(owner)
 
 /datum/action/changeling/proc/try_to_sting(mob/user, mob/target)
@@ -68,6 +69,7 @@
 
 /datum/action/changeling/proc/take_chemical_cost()
 	cling.chem_charges -= chemical_cost
+	cling.update_chem_charges_ui()
 
 /datum/action/changeling/proc/can_sting(mob/user, mob/target)
 	SHOULD_CALL_PARENT(TRUE)

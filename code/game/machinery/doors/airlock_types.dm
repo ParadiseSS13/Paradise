@@ -197,8 +197,6 @@
 	DA = new /obj/structure/door_assembly(loc)
 	if(glass)
 		DA.glass = TRUE
-	if(heat_proof)
-		DA.heat_proof_finished = TRUE
 	DA.update_icon()
 	DA.update_name()
 	qdel(src)
@@ -211,9 +209,6 @@
 		ignite(is_hot(C))
 	else
 		return ..()
-
-/obj/machinery/door/airlock/plasma/BlockSuperconductivity() //we don't stop the heat~
-	return 0
 
 /obj/machinery/door/airlock/plasma/glass
 	opacity = FALSE
@@ -382,45 +377,6 @@
 	security_level = 6
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
-
-/obj/machinery/door/airlock/hatch/gamma
-	name = "gamma level hatch"
-	hackProof = TRUE
-	aiControlDisabled = AICONTROLDISABLED_ON
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	is_special = TRUE
-
-/obj/machinery/door/airlock/hatch/gamma/attackby(obj/C, mob/user, params)
-	if(!issilicon(user))
-		if(isElectrified())
-			if(shock(user, 75))
-				return
-	if(istype(C, /obj/item/detective_scanner))
-		return
-
-	if(istype(C, /obj/item/grenade/plastic/c4))
-		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
-		return
-
-	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/rcd))
-		to_chat(user, "The hatch is made of an advanced compound that cannot be deconstructed using an RCD.")
-		return
-
-	add_fingerprint(user)
-
-/obj/machinery/door/airlock/hatch/gamma/welder_act(mob/user, obj/item/I)
-	if(shock_user(user, 75))
-		return
-	if(operating || !density)
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, amount = 0, volume = I.tool_volume))
-		return
-	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
-					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
-					"<span class='warning'>You hear welding.</span>")
-	update_icon()
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
@@ -622,7 +578,7 @@
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 //////////////////////////////////
 /*

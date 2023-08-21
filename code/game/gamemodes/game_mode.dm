@@ -35,11 +35,12 @@
 	var/newscaster_announcements = null
 	var/ert_disabled = FALSE
 	var/uplink_welcome = "Syndicate Uplink Console:"
-	var/uplink_uses = 20
+	var/uplink_uses = 100
 
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
+	var/list/blob_overminds = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
@@ -252,10 +253,6 @@
 	return 0
 */
 
-///Called when a mob changes Z-level
-/datum/game_mode/proc/transit_z(mob/living/player)
-	return
-
 /datum/game_mode/proc/num_players()
 	. = 0
 	for(var/mob/new_player/P in GLOB.player_list)
@@ -275,8 +272,7 @@
 	. = list()
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/player = thing
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.command_head_positions))
 			. |= player.mind
 
 
@@ -286,8 +282,7 @@
 /datum/game_mode/proc/get_all_heads()
 	. = list()
 	for(var/mob/player in GLOB.mob_list)
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
-		if(player.mind && (player.mind.assigned_role in real_command_positions))
+		if(player.mind && (player.mind.assigned_role in GLOB.command_head_positions))
 			. |= player.mind
 
 //////////////////////////////////////////////
@@ -297,7 +292,7 @@
 	. = list()
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/player = thing
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.security_positions))
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.active_security_positions))
 			. |= player.mind
 
 ////////////////////////////////////////
@@ -307,7 +302,7 @@
 	. = list()
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/player = thing
-		if(player.mind && (player.mind.assigned_role in GLOB.security_positions))
+		if(player.mind && (player.mind.assigned_role in GLOB.active_security_positions))
 			. |= player.mind
 
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])

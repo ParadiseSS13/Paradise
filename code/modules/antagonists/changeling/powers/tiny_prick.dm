@@ -11,14 +11,14 @@
 	click_override = new(CALLBACK(src, PROC_REF(try_to_sting)))
 
 /datum/action/changeling/sting/Destroy(force, ...)
-	if(cling.owner.current.middleClickOverride == click_override)
+	if(cling.owner.current && cling.owner.current.middleClickOverride == click_override) // this is a very scuffed way of doing this honestly
 		cling.owner.current.middleClickOverride = null
 	QDEL_NULL(click_override)
 	if(cling.chosen_sting == src)
 		cling.chosen_sting = null
 	return ..()
 
-/datum/action/changeling/sting/Trigger()
+/datum/action/changeling/sting/Trigger(left_click)
 	if(!cling.chosen_sting)
 		set_sting()
 	else
@@ -43,10 +43,11 @@
 /datum/action/changeling/sting/can_sting(mob/user, mob/target)
 	if(!..() || !iscarbon(target) || !isturf(user.loc))
 		return FALSE
-	if(get_dist(user, target) > cling.sting_range) // Too far, don't bother pathfinding
+	var/target_distance = get_dist(user, target)
+	if(target_distance > cling.sting_range) // Too far, don't bother pathfinding
 		to_chat(user, "<span class='warning'>Our target is too far for our sting!</span>")
 		return FALSE
-	if(!length(get_path_to(user, target, max_distance = cling.sting_range, simulated_only = FALSE, skip_first = FALSE)))
+	if(target_distance && !length(get_path_to(user, target, max_distance = cling.sting_range, simulated_only = FALSE, skip_first = FALSE))) // If they're not on the same turf, check if it can even reach them.
 		to_chat(user, "<span class='warning'>Our sting is blocked from reaching our target!</span>")
 		return FALSE
 	if(!cling.chosen_sting)
@@ -124,26 +125,6 @@
 	target.EyeBlurry(80 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-
-/datum/action/changeling/sting/LSD
-	name = "Hallucination Sting"
-	desc = "We cause mass terror to our victim. Costs 10 chemicals."
-	helptext = "We evolve the ability to sting a target with a powerful hallucinogenic chemical. The target does not notice they have been stung, and the effect occurs after 30 to 60 seconds."
-	button_icon_state = "sting_lsd"
-	sting_icon = "sting_lsd"
-	chemical_cost = 10
-	dna_cost = 1
-	power_type = CHANGELING_PURCHASABLE_POWER
-
-/datum/action/changeling/sting/LSD/sting_action(mob/user, mob/living/carbon/target)
-	add_attack_logs(user, target, "LSD sting (changeling)")
-	addtimer(CALLBACK(src, PROC_REF(start_hallucinations), target, 400 SECONDS), rand(30 SECONDS, 60 SECONDS))
-	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return TRUE
-
-/datum/action/changeling/sting/LSD/proc/start_hallucinations(mob/living/carbon/target, amount)
-	if(!QDELETED(target))
-		target.Hallucinate(amount)
 
 /datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
 	name = "Cryogenic Sting"

@@ -101,8 +101,6 @@
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
-/obj/item/gun/detailed_examine() // Truly detailed
-	return "This is a gun."
 
 /obj/item/gun/proc/process_chamber()
 	return 0
@@ -476,7 +474,7 @@
 	gun = null
 	return ..()
 
-/datum/action/toggle_scope_zoom/Trigger()
+/datum/action/toggle_scope_zoom/Trigger(left_click)
 	gun.zoom(owner)
 
 /datum/action/toggle_scope_zoom/IsAvailable()

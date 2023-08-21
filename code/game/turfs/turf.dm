@@ -6,7 +6,12 @@
 	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
-	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
+	/// used to check if pipes should be visible under the turf or not
+	var/transparent_floor = FALSE
+
+	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
+	var/real_layer = TURF_LAYER
+	layer = MAP_EDITOR_TURF_LAYER
 
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
@@ -29,8 +34,6 @@
 
 	var/blocks_air = FALSE
 
-	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
-
 	flags = 0
 
 	var/image/obscured	//camerachunks
@@ -48,6 +51,9 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+
+	if(layer == MAP_EDITOR_TURF_LAYER)
+		layer = real_layer
 
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()
@@ -123,12 +129,6 @@
 		our_rpd.flip_all_pipes(user, src)
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_all_pipes(user, src)
-
-/turf/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/beam/pulse))
-		src.ex_act(2)
-	..()
-	return FALSE
 
 /turf/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/bullet/gyro))
@@ -461,7 +461,31 @@
 	return TRUE
 
 /turf/proc/can_lay_cable()
-	return can_have_cabling() & !intact
+	return can_have_cabling() && !intact
+
+/*
+	* # power_list()
+	* returns a list power machinery on the turf and cables on the turf that have a direction equal to the one supplied in params and are currently connected to a powernet
+	*
+	* Arguments:
+	* source - the atom that is calling this proc
+	* direction - the direction that a cable must have in order to be returned in this proc i.e. d1 or d2 must equal direction
+	* cable_only - if TRUE, power_list will only return cables, if FALSE it will also return power machinery
+*/
+/turf/proc/power_list(atom/source, direction, cable_only = FALSE)
+	. = list()
+	for(var/obj/AM in src)
+		if(AM == source)
+			continue	//we don't want to return source
+		if(istype(AM, /obj/structure/cable))
+
+			var/obj/structure/cable/C = AM
+			if(C.d1 == direction || C.d2 == direction)
+				. += C // one of the cables ends matches the supplied direction, add it to connnections
+		if(cable_only || direction)
+			continue
+		if(istype(AM, /obj/machinery/power) && !istype(AM, /obj/machinery/power/apc))
+			. += AM
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
@@ -471,10 +495,12 @@
 
 /turf/proc/add_blueprints(atom/movable/AM)
 	var/image/I = new
+	I.plane = GAME_PLANE
+	I.layer = OBJ_LAYER
 	I.appearance = AM.appearance
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	I.loc = src
-	I.setDir(AM.dir)
+	I.dir = AM.dir
 	I.alpha = 128
 	LAZYADD(blueprint_data, I)
 
@@ -541,3 +567,12 @@
 		else
 			return I
 	return I
+
+
+/turf/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(mob_hurt || !density)
+		return
+	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
+	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+	C.take_organ_damage(damage)
+	C.KnockDown(3 SECONDS)

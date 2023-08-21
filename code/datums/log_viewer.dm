@@ -55,7 +55,7 @@ if(!result || result.ckey != __ckey){\
 		for(var/i in invalid_mobs)
 			selected_mobs -= i // Cleanup
 
-	log_records = sortTim(log_records, /proc/compare_log_record)
+	log_records = sortTim(log_records, GLOBAL_PROC_REF(compare_log_record))
 
 /** Binary search like implementation to find the earliest log
  * Returns the index of the earliest log using the time_from value for the given list of logs.

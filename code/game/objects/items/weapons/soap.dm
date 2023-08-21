@@ -22,7 +22,7 @@
 /obj/item/soap/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(user.zone_selected == "mouth") // cleaning out someone's mouth is a different act
+	if(user.zone_selected == "mouth" && ishuman(target)) // cleaning out someone's mouth is a different act
 		return
 	if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user

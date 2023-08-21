@@ -980,6 +980,17 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mecha_thruster
+	name = "Heavy-duty Exosuit Ion Thruster"
+	desc = "Allows for further control in zero gravity environments."
+	id = "mech_thruster"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 6, "magnets" = 5, "materials" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/thrusters
+	materials = list(MAT_METAL = 15000, MAT_PLASMA = 3000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
 //Cyborg Upgrade Modules
 
 /datum/design/borg_upgrade_reset
@@ -1050,7 +1061,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_abductor_engi
-	name = "Cyborg Upgrade (Abdcutor Engineering Equipment)"
+	name = "Cyborg Upgrade (Abductor Engineering Equipment)"
 	id = "borg_upgade_abductor_engi"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/abductor_engi
@@ -1060,7 +1071,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_abductor_medi
-	name = "Cyborg Upgrade (Abdcutor Medical Equipment)"
+	name = "Cyborg Upgrade (Abductor Medical Equipment)"
 	id = "borg_upgade_abductor_medi"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/abductor_medi
@@ -1095,6 +1106,16 @@
 	build_path = /obj/item/borg/upgrade/selfrepair
 	req_tech = list("materials" = 4, "engineering" = 4)
 	materials = list(MAT_METAL=15000, MAT_GLASS=15000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_bluespace_trash_bag
+	name = "Cyborg Upgrade (Trash bag of holding)"
+	id = "borg_upgrade_bluespace_trash_bag"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/bluespace_trash_bag
+	req_tech = list("materials" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 3)
+	materials = list(MAT_GOLD = 1500, MAT_URANIUM = 250, MAT_PLASMA = 1500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 

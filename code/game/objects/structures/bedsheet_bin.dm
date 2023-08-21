@@ -10,6 +10,8 @@ LINEN BINS
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet"
 	item_state = "bedsheet"
+	lefthand_file = 'icons/mob/inhands/bedsheet_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/bedsheet_righthand.dmi'
 	layer = 4
 	throwforce = 1
 	throw_speed = 1
@@ -23,8 +25,6 @@ LINEN BINS
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5
-
-
 
 /obj/item/bedsheet/attack_self(mob/user as mob)
 	user.drop_item()
@@ -180,7 +180,6 @@ LINEN BINS
 	dream_messages = list("authority", "a silvery ID", "handcuffs", "a baton", "a flashbang", "sunglasses", "the head of security")
 	nightmare_messages = list("the clown", "a toolbox", "sHiTcUrItY", "why did you put them in for 50 minutes")
 
-
 /obj/item/bedsheet/hop
 	name = "head of personnel's bedsheet"
 	desc = "It is decorated with a key emblem.  For those rare moments when you can rest and cuddle with Ian without someone screaming for you over the radio."
@@ -242,7 +241,6 @@ LINEN BINS
 	dream_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 	nightmare_messages = list("a tome", "a floating red crystal", "a glowing sword", "a bloody symbol", "a massive humanoid figure")
 
-
 /obj/item/bedsheet/wiz
 	name = "wizard's bedsheet"
 	desc = "A special fabric enchanted with magic so you can have an enchanted night.  It even glows!"
@@ -251,8 +249,6 @@ LINEN BINS
 	item_color = "wiz"
 	dream_messages = list("a book", "an explosion", "lightning", "a staff", "a skeleton", "a robe", "magic")
 	nightmare_messages = list("a toolbox", "solars")
-
-
 
 /obj/structure/bedsheetbin
 	name = "linen bin"
@@ -288,11 +284,12 @@ LINEN BINS
 	switch(amount)
 		if(0)
 			icon_state = "linenbin-empty"
-		if(1 to 10)
+		if(1 to 6)
+			icon_state = "linenbin-few"
+		if(7 to 15)
 			icon_state = "linenbin-half"
 		else
 			icon_state = "linenbin-full"
-
 
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)

@@ -258,14 +258,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Move(NewLoc, direct)
 	update_parallax_contents()
 	setDir(direct)
-	ghostimage.setDir(dir)
-
-	var/oldloc = loc
+	ghostimage.dir = dir
 
 	if(NewLoc)
-		forceMove(NewLoc)
+		forceMove(NewLoc, direct)
 	else
-		forceMove(get_turf(src))  //Get out of closets and such as a ghost
+		forceMove(get_turf(src), direct)  //Get out of closets and such as a ghost
 		if((direct & NORTH) && y < world.maxy)
 			y++
 		else if((direct & SOUTH) && y > 1)
@@ -274,8 +272,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			x++
 		else if((direct & WEST) && x > 1)
 			x--
-
-	Moved(oldloc, direct)
 
 /mob/dead/observer/can_use_hands()	return 0
 
@@ -330,7 +326,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				source.plane = old_plane
 	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
-		src << sound(sound)
+		SEND_SOUND(src, sound(sound))
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
@@ -497,16 +493,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lock_in_orbit = FALSE, force_move = FALSE, orbit_layer = GHOST_LAYER)
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
-
-/mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
-	set category = "Ghost"
-	set name = "Jump to Mob"
-	set desc = "Teleport to a mob"
-
-	if(isobserver(usr)) //Make sure they're an observer!
-		var/list/dest = getpois(mobs_only=TRUE) //Fill list, prompt user with list
-		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
-		A.on_close(CALLBACK(src, PROC_REF(jump_to_mob)))
 
 /mob/dead/observer/proc/jump_to_mob(mob/M)
 	if(!M || !isobserver(usr))
@@ -744,10 +730,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/run_pointed(atom/A as mob|obj|turf in view())
 	if(!..())
 		return FALSE
-	var/follow_link
-	if(invisibility) // Only show the button if the ghost is not visible to the living
-		follow_link = " ([ghost_follow_link(A, src)])"
-	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>")
+
+	for(var/mob/M in range(7, src))
+		if(M.see_invisible < invisibility)
+			continue //can't view the invisible
+		var/follow_link
+		if(invisibility) // Only show the button if the ghost is not visible to the living
+			follow_link = " ([ghost_follow_link(A, M)])" // Ghost needs to be link clicker, otherwise it breaks
+		M.show_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>", EMOTE_VISIBLE)
+
 	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost()

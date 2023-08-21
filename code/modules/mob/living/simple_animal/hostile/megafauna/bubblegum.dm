@@ -29,7 +29,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum
 	name = "bubblegum"
-	desc = "In what passes for a heirarchy among slaughter demons, this one is king."
+	desc = "In what passes for a hierarchy among slaughter demons, this one is king."
 	health = 2500
 	maxHealth = 2500
 	attacktext = "rends"
@@ -170,6 +170,8 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2)
 	if(!chargeat)
+		return
+	if(chargeat.z != z)
 		return
 	var/chargeturf = get_turf(chargeat)
 	if(!chargeturf)
@@ -370,6 +372,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hallucination_charge_around(times = 4, delay = 9, chargepast = 0, useoriginal = 1, radius)
 	var/startingangle = rand(1, 360)
 	if(!target)
+		return
+	if(target.z != z)
 		return
 	var/turf/chargeat = get_turf(target)
 	var/srcplaced = FALSE

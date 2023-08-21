@@ -9,6 +9,7 @@
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
+	max_age = 130
 	language = "Bubblish"
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
@@ -25,7 +26,7 @@
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_CLONESCAN, EXOTIC_COLOR)
+	species_traits = list(LIPS, NO_CLONESCAN, EXOTIC_COLOR)
 	inherent_traits = list(TRAIT_WATERBREATH, TRAIT_NO_BONES)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
@@ -41,8 +42,8 @@
 
 	vision_organ = null
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/slime,
 		"heart" = /obj/item/organ/internal/heart/slime,
+		"brain" = /obj/item/organ/internal/brain/slime,
 		"lungs" = /obj/item/organ/internal/lungs/slime
 		)
 	mutantears = null

@@ -5,11 +5,16 @@
 	var/ordered = TRUE
 
 /obj/screen/movable/action_button/MouseDrop(over_object)
+	if(locked && could_be_click_lag()) // in case something bad happend and game realised we dragged our ability instead of pressing it
+		Click()
+		drag_start = 0
+		return
+	drag_start = 0
+	if(locked)
+		to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
+		closeToolTip(usr)
+		return
 	if((istype(over_object, /obj/screen/movable/action_button) && !istype(over_object, /obj/screen/movable/action_button/hide_toggle)))
-		if(locked)
-			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
-			closeToolTip(usr)
-			return
 		var/obj/screen/movable/action_button/B = over_object
 		var/list/actions = usr.actions
 		actions.Swap(actions.Find(linked_action), actions.Find(B.linked_action))
@@ -41,7 +46,10 @@
 	if(usr.next_click > world.time)
 		return
 	usr.next_click = world.time + 1
-	linked_action.Trigger()
+	if(modifiers["middle"])
+		linked_action.Trigger(left_click = FALSE)
+		return TRUE
+	linked_action.Trigger(left_click = TRUE)
 	return TRUE
 
 //Hide/Show Action Buttons ... Button

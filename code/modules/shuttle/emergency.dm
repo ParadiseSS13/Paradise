@@ -304,7 +304,7 @@
 			continue
 		if(isanimal(player)) //Poly does not own the shuttle
 			continue
-		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
+		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints/them being golems
 			var/mob/living/carbon/human/H = player
 			if(!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead
 				continue
@@ -316,6 +316,8 @@
 				var/obj/structure/closet/C = H.loc
 				if(C.welded || C.locked)
 					continue
+			if(isgolem(H)) // golems are often used in hijacks, so they really shouldn't all be forced to space themselves before the shuttle docks
+				continue
 		var/special_role = player.mind.special_role
 		if(special_role)
 			// There's a long list of special roles, but almost all of them are antags anyway.
@@ -410,9 +412,6 @@
 					"The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.",
 					new_title = "Priority Announcement"
 				)
-				for(var/mob/M in GLOB.player_list)
-					if(!isnewplayer(M) && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(PREFTOGGLE_DISABLE_KARMA_REMINDER))
-						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
 
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)

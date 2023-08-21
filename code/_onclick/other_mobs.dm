@@ -22,6 +22,9 @@
 		if(S.prevents_buckled_mobs_attacking())
 			return
 
+	if(SEND_SIGNAL(A, COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return
+
 	A.attack_hand(src)
 
 /atom/proc/attack_hand(mob/user as mob)

@@ -32,6 +32,8 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	belt_icon = "trashbag"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = null
@@ -39,6 +41,31 @@
 	max_combined_w_class = 30
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
+
+/obj/item/storage/bag/trash/proc/update_weight()
+	if(!length(contents))
+		w_class = WEIGHT_CLASS_NORMAL
+		return
+
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/storage/bag/trash/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
+	update_weight()
+
+/obj/item/storage/bag/trash/can_be_inserted(obj/item/I, stop_messages = FALSE)
+	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
+		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+		return FALSE
+	. = ..()
+
+/obj/item/storage/bag/trash/Initialize(mapload)
+	. = ..()
+	update_weight()
+
+/obj/item/storage/bag/trash/handle_item_insertion(obj/item/I, prevent_warning)
+	. = ..()
+	update_weight()
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
@@ -78,6 +105,11 @@
 	max_combined_w_class = 60
 	storage_slots = 60
 	flags_2 = NO_MAT_REDEMPTION_2
+
+/obj/item/storage/bag/trash/bluespace/cyborg
+
+/obj/item/storage/bag/trash/bluespace/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	return
 
 // -----------------------------
 //        Plastic Bag
@@ -386,6 +418,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
+	slot_flags = null
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 

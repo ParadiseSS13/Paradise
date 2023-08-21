@@ -76,6 +76,9 @@
 		return TRUE
 	return FALSE
 
+/turf/simulated/floor/chasm/ex_act(severity)
+	return
+
 /turf/simulated/floor/chasm/proc/drop_stuff(AM)
 	. = 0
 	if(find_safeties())

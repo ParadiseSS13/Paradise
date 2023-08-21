@@ -56,9 +56,6 @@
 		S.race_key = ++rkey //Used in mob icon caching.
 		GLOB.all_species[S.name] = S
 
-		if(IS_WHITELISTED in S.species_traits)
-			GLOB.whitelisted_species += S.name
-
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 
 	//Pipe list building
@@ -136,33 +133,7 @@
 		var/datum/client_login_processor/CLP = new processor_type
 		GLOB.client_login_processors += CLP
 	// Sort them by priority, lowest first
-	sortTim(GLOB.client_login_processors, /proc/cmp_login_processor_priority)
-
-	// Setup karma packages
-	// Package base type to do comparison stuff
-	var/datum/karma_package/basetype = new()
-	for(var/package_type in subtypesof(/datum/karma_package))
-		var/datum/karma_package/KP = new package_type()
-		if(KP.type in basetype.meta_packages)
-			// Skip this one
-			continue
-
-		if(KP.database_id == basetype.database_id)
-			stack_trace("[KP.type] has no DB ID set!")
-			continue
-		if(KP.category == basetype.category)
-			stack_trace("[KP.type] has no category set!")
-			continue
-		if(KP.friendly_name == basetype.friendly_name)
-			stack_trace("[KP.type] has no name set!")
-			continue
-
-		// Make sure its not already in there
-		if(KP.database_id in GLOB.karma_packages)
-			stack_trace("[KP.database_id] has already been registered! Skipping for [KP.type]")
-			continue
-
-		GLOB.karma_packages[KP.database_id] = KP
+	sortTim(GLOB.client_login_processors, GLOBAL_PROC_REF(cmp_login_processor_priority))
 
 	GLOB.emote_list = init_emote_list()
 

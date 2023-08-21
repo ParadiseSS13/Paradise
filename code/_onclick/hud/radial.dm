@@ -1,6 +1,6 @@
 #define NEXT_PAGE_ID "__next__"
 #define DEFAULT_CHECK_DELAY 20
-#define ANIM_SPEED 1
+#define ANIM_SPEED 0.5
 
 GLOBAL_LIST_EMPTY(radial_menus)
 

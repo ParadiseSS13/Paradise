@@ -92,8 +92,9 @@
 
 /obj/item/storage/bag/garment/research_director/populate_contents()
 	new /obj/item/clothing/under/rank/rnd/research_director(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat/rd(src)
 	new /obj/item/clothing/suit/mantle/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 
@@ -179,6 +180,7 @@
 	new /obj/item/clothing/suit/storage/blueshield(src)
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
@@ -186,7 +188,7 @@
 	new /obj/item/clothing/accessory/blue(src)
 
 /obj/item/storage/bag/garment/quartermaster
-	name = "quatermaster's garment bag"
+	name = "quartermaster's garment bag"
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the quartermaster."
 
 /obj/item/storage/bag/garment/quartermaster/populate_contents()
@@ -199,3 +201,94 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
+
+/obj/item/storage/bag/garment/warden
+	name = "warden's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the warden."
+
+/obj/item/storage/bag/garment/warden/populate_contents()
+	new /obj/item/clothing/suit/armor/vest/warden(src)
+	new /obj/item/clothing/head/warden(src)
+	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
+	new /obj/item/clothing/head/beret/sec/warden(src)
+	new /obj/item/clothing/under/rank/security/warden(src)
+	new /obj/item/clothing/under/rank/security/formal/warden(src)
+	new /obj/item/clothing/under/rank/security/warden/corporate(src)
+	new /obj/item/clothing/under/rank/security/warden/skirt(src)
+	new /obj/item/clothing/under/rank/security/warden/skirt/corporate(src)
+	new /obj/item/clothing/mask/gas/sechailer/warden(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+
+/obj/item/storage/bag/garment/detective
+	name = "detective's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the detective."
+
+/obj/item/storage/bag/garment/detective/populate_contents()
+	new /obj/item/clothing/under/rank/security/detective(src)
+	new /obj/item/clothing/suit/storage/det_suit(src)
+	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
+	new /obj/item/clothing/suit/storage/det_suit/forensics/red(src)
+	new /obj/item/clothing/gloves/color/black/forensics(src)
+	new /obj/item/clothing/head/det_hat(src)
+	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/suit/armor/vest/det_suit(src)
+	new /obj/item/clothing/accessory/black(src)
+	new /obj/item/clothing/accessory/holster/armpit(src)
+	new /obj/item/clothing/glasses/sunglasses/yeah(src)
+
+/obj/item/storage/bag/garment/iaa
+	name = "internal affairs agent's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the internal affairs agent."
+
+/obj/item/storage/bag/garment/iaa/populate_contents()
+	new /obj/item/clothing/under/rank/civilian/lawyer/black(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/red(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/blue(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/purple(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/bluesuit(src)
+	new /obj/item/clothing/under/suit/female(src)
+	new /obj/item/clothing/suit/storage/lawyer/bluejacket(src)
+	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)
+	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/under/rank/civilian/internalaffairs(src)
+	new /obj/item/clothing/suit/storage/internalaffairs(src)
+	new /obj/item/clothing/glasses/sunglasses/big(src)
+	new /obj/item/clothing/glasses/sunglasses/big(src)
+
+/obj/item/storage/bag/garment/chaplain
+	name = "chaplain's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the chaplain."
+
+/obj/item/storage/bag/garment/chaplain/populate_contents()
+	new /obj/item/clothing/under/rank/civilian/chaplain(src)
+	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/suit/hooded/nun(src)
+	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
+	new /obj/item/clothing/suit/hooded/monk(src)
+	new /obj/item/clothing/suit/witchhunter(src)
+	new /obj/item/clothing/head/witchhunter_hat(src)
+	new /obj/item/clothing/suit/holidaypriest(src)
+	new /obj/item/clothing/under/dress/wedding/bride_white(src)
+	new /obj/item/clothing/head/helmet/riot/knight/templar(src)
+	new /obj/item/clothing/suit/armor/riot/knight/templar(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/gloves/ring/silver(src)
+	new /obj/item/clothing/gloves/ring/silver(src)
+	new /obj/item/clothing/gloves/ring/gold(src)
+	new /obj/item/clothing/gloves/ring/gold(src)
+
+/obj/item/storage/bag/garment/psychologist
+	name = "psychologist's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the psychologist."
+
+/obj/item/storage/bag/garment/psychologist/populate_contents()
+	new /obj/item/clothing/under/rank/medical/psych(src)
+	new /obj/item/clothing/under/rank/medical/psych/turtleneck(src)
+	new /obj/item/clothing/under/rank/medical/doctor(src)
+	new /obj/item/clothing/under/rank/medical/doctor/skirt(src)
+	new /obj/item/clothing/suit/storage/labcoat/psych(src)
+	new /obj/item/clothing/shoes/laceup(src)
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/clothing/glasses/hud/skills(src)
+	new /obj/item/clothing/accessory/blue(src)

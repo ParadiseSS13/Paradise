@@ -74,16 +74,27 @@
 	icon_state = "meson"
 	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
-	vision_flags = SEE_TURFS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
+
+	var/active_on_equip = TRUE
+
+/obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
+	. = ..()
+	if(active_on_equip && slot == slot_glasses)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+
+/obj/item/clothing/glasses/meson/dropped(mob/user)
+	. = ..()
+	if(user)
+		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/meson/night
 	name = "night vision optical meson scanner"
@@ -127,11 +138,12 @@
 	prescription_upgradable = TRUE
 	scan_reagents = 1 //You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
@@ -170,7 +182,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/eyepatch
@@ -182,7 +195,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/monocle
@@ -195,7 +209,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/material
@@ -209,7 +224,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/material/cyber
@@ -239,7 +255,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/regular/hipster
@@ -257,7 +274,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/gglasses
@@ -269,7 +287,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 	prescription_upgradable = TRUE
 
@@ -286,7 +305,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/sunglasses_fake
@@ -300,7 +320,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/sunglasses/noir
@@ -339,8 +360,13 @@
 
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
-	desc = "Strangely ancient technology used to help provide rudimentary eye color. Outfitted with apparatus to scan individual reagents."
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Outfitted with an apparatus to scan individual reagents, tech potentials, and machines internal components."
 	scan_reagents = 1
+	actions_types = list(/datum/action/item_action/toggle_research_scanner)
+
+/obj/item/clothing/glasses/sunglasses/reagent/item_action_slot_check(slot)
+	if(slot == slot_glasses)
+		return TRUE
 
 /obj/item/clothing/glasses/virussunglasses
 	name = "sunglasses"
@@ -354,7 +380,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/sunglasses/lasers
@@ -381,7 +408,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/welding/attack_self(mob/user)
@@ -431,7 +459,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)

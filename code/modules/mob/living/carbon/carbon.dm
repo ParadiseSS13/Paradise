@@ -7,6 +7,11 @@
 	GLOB.carbon_list += src
 
 /mob/living/carbon/Destroy()
+	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
+	if(back)
+		var/obj/I = back
+		unEquip(I)
+		qdel(I)
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
 		unEquip(item)
@@ -15,6 +20,13 @@
 	QDEL_LIST_CONTENTS(stomach_contents)
 	QDEL_LIST_CONTENTS(processing_patches)
 	GLOB.carbon_list -= src
+	if(in_throw_mode)
+		toggle_throw_mode()
+	return ..()
+
+/mob/living/carbon/ghostize(can_reenter_corpse)
+	if(in_throw_mode)
+		toggle_throw_mode()
 	return ..()
 
 /mob/living/carbon/handle_atom_del(atom/A)
@@ -88,48 +100,44 @@
 
 
 /mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1)
-	if(stat == DEAD)
+	. = TRUE
+
+	if(stat == DEAD || ismachineperson(src)) // Dead people and IPCs do not vomit particulates
 		return FALSE
-	if(ismachineperson(src)) //IPCs do not vomit particulates
-		return FALSE
-	if(is_muzzled())
-		if(message)
-			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
-		return FALSE
-	if(is_facehugged())
-		if(message)
-			to_chat(src, "<span class='warning'>You try to throw up, but the alien's proboscis obstructs your throat!</span>") //Sorry
-		return FALSE
+
 	if(stun)
 		Stun(8 SECONDS)
-	if(nutrition < 100 && !blood)
+
+	if(!blood && nutrition < 100) // Nutrition vomiting while already starving
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
-							"<span class='userdanger'>You try to throw up, but there's nothing your stomach!</span>")
+							"<span class='userdanger'>You try to throw up, but there's nothing in your stomach!</span>")
 		if(stun)
 			Weaken(20 SECONDS)
-	else
-		if(message)
-			visible_message("<span class='danger'>[src] throws up!</span>", \
-							"<span class='userdanger'>You throw up!</span>")
-		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
-		var/turf/T = get_turf(src)
-		for(var/i=0 to distance)
-			if(blood)
-				if(T)
-					add_splatter_floor(T)
-				if(stun)
-					adjustBruteLoss(3)
-			else
-				if(T)
-					T.add_vomit_floor()
-				adjust_nutrition(-lost_nutrition)
-				if(stun)
-					adjustToxLoss(-3)
-			T = get_step(T, dir)
-			if(is_blocked_turf(T))
-				break
-	return TRUE
+		return
+
+	if(message)
+		visible_message("<span class='danger'>[src] throws up!</span>", \
+						"<span class='userdanger'>You throw up!</span>")
+
+	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
+	var/turf/T = get_turf(src)
+	for(var/i = 0 to distance)
+		if(blood)
+			if(T)
+				add_splatter_floor(T)
+			if(stun)
+				adjustBruteLoss(3)
+		else
+			if(T)
+				T.add_vomit_floor()
+			adjust_nutrition(-lost_nutrition)
+			if(stun)
+				adjustToxLoss(-3)
+
+		T = get_step(T, dir)
+		if(is_blocked_turf(T))
+			break
 
 /mob/living/carbon/gib()
 	. = death(1)
@@ -191,12 +199,7 @@
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
 	hand = !hand
-	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
-		var/obj/screen/inventory/hand/H
-		H = hud_used.inv_slots[slot_l_hand]
-		H.update_icon()
-		H = hud_used.inv_slots[slot_r_hand]
-		H.update_icon()
+	update_hands_hud()
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
 
 
@@ -219,53 +222,58 @@
 			M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
 			"<span class='notice'>You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!</span>")
 		return
-	if(health >= HEALTH_THRESHOLD_CRIT)
-		if(src == M && ishuman(src))
-			check_self_for_injuries()
-		else
-			if(player_logged)
-				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
-				"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
-			if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
-				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					if(H.w_uniform)
-						H.w_uniform.add_fingerprint(M)
-				AdjustSleeping(-10 SECONDS)
-				AdjustParalysis(-6 SECONDS)
-				AdjustStunned(-6 SECONDS)
-				AdjustWeakened(-6 SECONDS)
-				AdjustKnockDown(-6 SECONDS)
-				adjustStaminaLoss(-10)
-				resting = FALSE
-				stand_up() // help them up if possible
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(!player_logged)
-					M.visible_message( \
-						"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
-						"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
-						)
-			// BEGIN HUGCODE - N3X
-			else
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(M.zone_selected == "head")
-					M.visible_message(\
-					"<span class='notice'>[M] pats [src] on the head.</span>",\
-					"<span class='notice'>You pat [src] on the head.</span>",\
-					)
-				else
-
-					M.visible_message(\
-					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-					"<span class='notice'>You hug [src].</span>",\
-					)
-					if(ishuman(src))
-						var/mob/living/carbon/human/H = src
-						if(H.wear_suit)
-							H.wear_suit.add_fingerprint(M)
-						else if(H.w_uniform)
-							H.w_uniform.add_fingerprint(M)
+	if(health < HEALTH_THRESHOLD_CRIT)
+		return
+	if(src == M && ishuman(src))
+		check_self_for_injuries()
+		return
+	if(player_logged)
+		M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.</span>", \
+		"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
+	if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+		add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			if(H.w_uniform)
+				H.w_uniform.add_fingerprint(M)
+		AdjustSleeping(-10 SECONDS)
+		AdjustParalysis(-6 SECONDS)
+		AdjustStunned(-6 SECONDS)
+		AdjustWeakened(-6 SECONDS)
+		AdjustKnockDown(-6 SECONDS)
+		adjustStaminaLoss(-10)
+		resting = FALSE
+		stand_up() // help them up if possible
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		if(!player_logged)
+			M.visible_message( \
+				"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
+				"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
+				)
+		return
+	// If it has any of the highfive statuses, dap, handshake, etc
+	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
+	if(effect)
+		M.apply_status_effect(effect.type)
+		return
+	// BEGIN HUGCODE - N3X
+	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	if(M.zone_selected == "head")
+		M.visible_message(\
+		"<span class='notice'>[M] pats [src] on the head.</span>",\
+		"<span class='notice'>You pat [src] on the head.</span>",\
+		)
+		return
+	M.visible_message(\
+	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
+	"<span class='notice'>You hug [src].</span>",\
+	)
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.wear_suit)
+			H.wear_suit.add_fingerprint(M)
+		else if(H.w_uniform)
+			H.w_uniform.add_fingerprint(M)
 
 /**
   * Handles patting out a fire on someone.
@@ -318,16 +326,19 @@
 				status = "battered"
 			if(40 to INFINITY)
 				status = "mangled"
-		if(brutedamage > 0 && burndamage > 0)
+		if(brutedamage > 0 && (burndamage > 0 || LB.status & ORGAN_BURNT))
 			status += " and "
 
-		switch(burndamage)
-			if(0.1 to 10)
-				status += "numb"
-			if(10 to 40)
-				status += "blistered"
-			if(40 to INFINITY)
-				status += "peeling away"
+		if(LB.status & ORGAN_BURNT)
+			status += "critically burnt"
+		else
+			switch(burndamage)
+				if(0.1 to 10)
+					status += "numb"
+				if(10 to 40)
+					status += "blistered"
+				if(40 to INFINITY)
+					status += "peeling away"
 
 		if(LB.status & ORGAN_MUTATED)
 			status = "weirdly shapen"
@@ -608,32 +619,25 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
 			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 		return
+	if(has_status_effect(STATUS_EFFECT_IMPACT_IMMUNE))
+		return
 
-	var/hurt = TRUE
 	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
-	/*if(istype(throwingdatum, /datum/thrownthing))
-		var/datum/thrownthing/D = throwingdatum
-		if(isrobot(D.thrower))
-			var/mob/living/silicon/robot/R = D.thrower
-			if(!R.emagged)
-				hurt = FALSE*/
-	if(hit_atom.density && isturf(hit_atom))
-		if(hurt)
-			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
-			take_organ_damage(damage)
-			KnockDown(3 SECONDS)
-			playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
-	if(iscarbon(hit_atom) && hit_atom != src)
-		var/mob/living/carbon/victim = hit_atom
-		if(victim.flying)
+
+	hit_atom.hit_by_thrown_carbon(src, throwingdatum, damage, FALSE, FALSE)
+
+/mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	for(var/obj/item/twohanded/dualsaber/D in contents)
+		if(D.wielded && D.force)
+			visible_message("<span class='danger'>[src] impales [C] with [D], before dropping them on the ground!</span>")
+			C.apply_damage(100, BRUTE, "chest", sharp = TRUE, used_weapon = "Impaled on [D].")
+			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
+			C.KnockDown(6 SECONDS)
+			D.melee_attack_chain(src, C) //attack animation / jedi spin
+			C.emote("scream")
 			return
-		if(hurt)
-			victim.take_organ_damage(damage)
-			take_organ_damage(damage)
-			victim.KnockDown(3 SECONDS)
-			KnockDown(3 SECONDS)
-			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
-		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	. = ..()
+	KnockDown(3 SECONDS)
 
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(in_throw_mode)
@@ -644,16 +648,24 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(I)
 		SEND_SIGNAL(I, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
 
+#define THROW_MODE_ICON 'icons/effects/cult_target.dmi'
+
 /mob/living/carbon/proc/throw_mode_off()
 	in_throw_mode = FALSE
 	if(throw_icon) //in case we don't have the HUD and we use the hotkey
 		throw_icon.icon_state = "act_throw_off"
+	if(client?.mouse_pointer_icon == THROW_MODE_ICON)
+		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 
 /mob/living/carbon/proc/throw_mode_on()
 	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
 	in_throw_mode = TRUE
 	if(throw_icon)
 		throw_icon.icon_state = "act_throw_on"
+	if(client?.mouse_pointer_icon == initial(client.mouse_pointer_icon))
+		client.mouse_pointer_icon = THROW_MODE_ICON
+
+#undef THROW_MODE_ICON
 
 /mob/proc/throw_item(atom/target)
 	return
@@ -913,17 +925,20 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return FALSE
 
 /mob/living/carbon/resist_fire()
+	if(IsKnockedDown())
+		return
 	fire_stacks -= 5
-	Weaken(6 SECONDS, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken (2 SECONDS, TRUE) //Your busy dying from fire, no way you could be able to roll and reach for a snack in your bag
+	KnockDown(6 SECONDS, TRUE) //Ok now you can have that snack if you want
 	spin(32, 2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_themselves()] out!</span>",
 		"<span class='notice'>You stop, drop, and roll!</span>")
-	sleep(3 SECONDS)
-	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src] has successfully extinguished [p_themselves()]!</span>",
-			"<span class='notice'>You extinguish yourself.</span>")
-		ExtinguishMob()
+	addtimer(CALLBACK(src, PROC_REF(extinguish_roll), 3 SECONDS))
 
+/mob/living/carbon/proc/extinguish_roll()
+	if(fire_stacks <= 0)
+		visible_message("<span class='danger'>[src] has successfully extinguished [p_themselves()]!</span>","<span class='notice'>You extinguish yourself.</span>")
+		ExtinguishMob()
 
 /mob/living/carbon/resist_restraints()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
@@ -1032,7 +1047,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		changeNext_move(CLICK_CD_RAPID) //reset click cooldown from handcuffs
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
-	update_hud_handcuffed()
+	update_hands_hud()
 
 /mob/living/carbon/get_standard_pixel_y_offset()
 	if(IS_HORIZONTAL(src))
@@ -1118,6 +1133,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	KnockDown(knockdown)
 	return TRUE
+
+/mob/living/carbon/proc/shock_reduction()
+	var/shock_reduction = 0
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.shock_reduction)
+				shock_reduction += R.shock_reduction
+	return shock_reduction
 
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return 1

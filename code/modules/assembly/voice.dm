@@ -15,7 +15,7 @@
 	if(recorded || listening)
 		. += "A meter on it flickers with every nearby sound."
 	else
-		. += "It is is deactivated."
+		. += "It is deactivated."
 
 /obj/item/assembly/voice/hear_talk(mob/living/M as mob, list/message_pieces)
 	hear_input(M, multilingual_to_message(message_pieces), 0)
@@ -28,7 +28,10 @@
 		return
 
 	if(listening)
-		recorded = msg
+		if(findtext(msg, "</span>"))
+			recorded = strip_html_properly(msg)
+		else
+			recorded = msg
 		recorded_type = type
 		listening = FALSE
 		var/turf/T = get_turf(src)	//otherwise it won't work in hand

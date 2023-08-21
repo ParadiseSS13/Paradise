@@ -39,9 +39,10 @@
 /obj/item/gun/energy/laser/captain/Initialize(mapload, ...)
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
-	
-/obj/item/gun/energy/laser/captain/detailed_examine()
-	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. Unlike most weapons, this weapon recharges itself."
+
+/obj/item/gun/energy/laser/captain/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The power cell of this item slowly recharges on it's own. This caused the station pictured to explode. Cannot be recharged in a recharger.</span>"
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -110,35 +111,92 @@
 /obj/item/gun/energy/lasercannon/cyborg/emp_act()
 	return
 
+#define PROCESS_TIME_PLUS_DECISECOND 2.1 SECONDS //This ensures that you cant move and scope the lwap.
+
 /obj/item/gun/energy/lwap
 	name = "LWAP laser sniper"
-	desc = "A highly advanced laser sniper that does more damage the farther away the target is, but fires slowly."
+	desc = "A highly advanced laser sniper that does more damage the farther away the target is, but fires slowly. Comes with a super advanced scope, which can highlight threats through walls, and pierce one object, after being deployed for a while."
 	icon_state = "esniper"
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 12
-	flags =  CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	can_holster = FALSE
 	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=6;magnets=6;powerstorage=4"
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/sniper)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/sniper, /obj/item/ammo_casing/energy/laser/sniper/pierce)
 	zoomable = TRUE
 	zoom_amt = 7
 	shaded_charge = TRUE
+	/// Is the scope fully online or not?
+	var/scope_active = FALSE
+	var/stored_dir
 
+/obj/item/gun/energy/lwap/Initialize(mapload, ...)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/gun/energy/lwap/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+
+/obj/item/gun/energy/lwap/zoom(mob/living/user, forced_zoom)
+	. = ..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	stored_dir = H.dir
+	if(scope_active && !zoomed)
+		select_fire(H)
+		H.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
+		scope_active = FALSE
+		return
+	if(zoomed && do_after(user, 3 SECONDS, target = src))
+		if(zoomed && !scope_active) //We check after to be sure.
+			scope_active = TRUE
+			to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
+			select_fire(H)
+			H.apply_status_effect(STATUS_EFFECT_LWAPSCOPE, stored_dir)
+		return
+	if(zoomed)
+		zoom(user, FALSE) //Moved while scope was booting, so we unzoom
+
+/obj/item/gun/energy/lwap/process()
+	. = ..()
+	if(!isliving(loc))
+		return
+	var/mob/living/M = loc
+	if(world.time - M.last_movement <= PROCESS_TIME_PLUS_DECISECOND && scope_active) //If they have moved in the last process cycle.
+		to_chat(M, "<span class='warning'>[src]'s scope is overloaded by movement and shuts down!</span>")
+		zoom(M, FALSE)
+
+/obj/item/gun/energy/lwap/attack_self()
+	return //no manual ammo changing.
+
+#undef PROCESS_TIME_PLUS_DECISECOND
 /obj/item/ammo_casing/energy/laser/sniper
 	projectile_type = /obj/item/projectile/beam/laser/sniper
 	muzzle_flash_color = LIGHT_COLOR_PINK
-	select_name = "sniper"
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	select_name = null
 	fire_sound = 'sound/weapons/marauder.ogg'
 	delay = 5 SECONDS
+
+/obj/item/ammo_casing/energy/laser/sniper/pierce
+	projectile_type = /obj/item/projectile/beam/laser/sniper/pierce
 
 /obj/item/projectile/beam/laser/sniper
 	name = "sniper laser"
 	icon_state = "sniperlaser"
 	range = 255
 	damage = 10
+	speed = 0.75
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	forced_accuracy = TRUE
+	var/can_knockdown = TRUE
 
 /obj/item/projectile/beam/laser/sniper/Range()
 	..()
@@ -146,9 +204,14 @@
 
 /obj/item/projectile/beam/laser/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	..()
-	var/mob/living/carbon/human/M = target
-	if(istype(M) && damage >= 40)
-		M.KnockDown(2 SECONDS * (damage / 10))
+	var/mob/living/carbon/human/H = target
+	if(istype(H) && damage >= 40 && can_knockdown)
+		H.KnockDown(2 SECONDS * (damage / 10))
+	can_knockdown = FALSE //Projectiles that pierce can not knockdown, no wall knockdowns.
+
+/obj/item/projectile/beam/laser/sniper/pierce
+	forcedodge = 1 // Can pierce one mob.
+	speed = 0.5
 
 /obj/item/gun/energy/xray
 	name = "xray laser gun"

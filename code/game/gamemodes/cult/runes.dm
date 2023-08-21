@@ -229,9 +229,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	animate(src, transform = matrix() * 2, alpha = 0, time = 5) // Fade out
 	animate(transform = oldtransform, alpha = 255, time = 0)
 
-/obj/effect/rune/proc/fail_invoke()
+/obj/effect/rune/proc/fail_invoke(show_message = TRUE)
 	//This proc contains the effects of a rune if it is not invoked correctly, through either invalid wording or not enough cultists. By default, it's just a basic fizzle.
-	if(!invisibility) // No visible messages if not visible
+	if(!invisibility && show_message) // No visible messages if not visible
 		visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
 	animate(src, color = rgb(255, 0, 0), time = 0)
 	animate(src, color = rune_blood_color, time = 5)
@@ -295,7 +295,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 			for(var/obj/item/organ/internal/brain/brain in H.contents)
 				b_mob = brain.brainmob
 				brain.forceMove(T)
-				O = brain // Convoluted way of making the brain disappear
 
 		else if(istype(O, /obj/item/organ/internal/brain)) // Offering a brain
 			var/obj/item/organ/internal/brain/brain = O
@@ -303,7 +302,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 		if(b_mob && b_mob.mind && (!iscultist(b_mob) || is_sacrifice_target(b_mob.mind)))
 			offer_targets += b_mob
-			O.invisibility = INVISIBILITY_MAXIMUM // So that it can't be moved around. This gets qdeleted later
 
 	if(!length(offer_targets))
 		fail_invoke()
@@ -313,8 +311,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	rune_in_use = TRUE
 	var/mob/living/L = pick(offer_targets)
-	if(L.mind in GLOB.sacrificed)
-		fail_invoke()
+	if(HAS_TRAIT(L, TRAIT_CULT_IMMUNITY))
+		fail_invoke(FALSE)
+		for(var/I in invokers)
+			to_chat(I, "<span class='warning'>This sacrifice was already converted recently. Wait a minute before trying again!</span>")
 		rune_in_use = FALSE
 		return
 
@@ -325,8 +325,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		invocation = "Barhah hra zar'garis!"
 		..()
 		do_sacrifice(L, invokers)
-		if(isbrain(L))
-			qdel(L.loc) // Don't need this anymore!
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
@@ -362,6 +360,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						E.mend_fracture()
 						E.fix_internal_bleeding()
+						E.fix_burn_wound()
 					for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
 						crit.cure()
 
@@ -388,6 +387,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/sacrifice_fulfilled
 	var/worthless = FALSE
 	var/datum/game_mode/gamemode = SSticker.mode
+
+	if(isliving(offering) && !isbrain(offering))
+		var/mob/living/L = offering
+		if(isrobot(L) || ismachineperson(L))
+			L.adjustBruteLoss(250)
+		else
+			L.adjustCloneLoss(120)
+		L.death(FALSE)
+
 	if(offering.mind)
 		GLOB.sacrificed += offering.mind
 		if(is_sacrifice_target(offering.mind))
@@ -621,7 +629,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(mob_to_revive.ghost_can_reenter())
 			mob_to_revive.grab_ghost()
 
-	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
+	if(!mob_to_revive.get_ghost() && (!mob_to_revive.client || mob_to_revive.client.is_afk()))
 		set waitfor = FALSE
 		to_chat(user, "<span class='cult'>[mob_to_revive] was revived, but their mind is lost! Seeking a lost soul to replace it.</span>")
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a revived Cultist?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/melee/cultblade/dagger)

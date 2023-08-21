@@ -14,14 +14,9 @@ GLOBAL_VAR_INIT(twitchblock, 0)
 GLOBAL_VAR_INIT(nervousblock, 0)
 GLOBAL_VAR_INIT(wingdingsblock, 0)
 GLOBAL_VAR_INIT(monkeyblock, DNA_SE_LENGTH) // Monkey block will always be the DNA_SE_LENGTH
-
-GLOBAL_VAR_INIT(blockadd, 0)
-GLOBAL_VAR_INIT(diffmut, 0)
-
 GLOBAL_VAR_INIT(breathlessblock, 0)
 GLOBAL_VAR_INIT(remoteviewblock, 0)
 GLOBAL_VAR_INIT(regenerateblock, 0)
-GLOBAL_VAR_INIT(increaserunblock, 0)
 GLOBAL_VAR_INIT(remotetalkblock, 0)
 GLOBAL_VAR_INIT(morphblock, 0)
 GLOBAL_VAR_INIT(coldblock, 0)

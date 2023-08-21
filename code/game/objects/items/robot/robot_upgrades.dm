@@ -145,10 +145,15 @@
 	origin_tech = "engineering=4;materials=5;programming=4"
 
 /obj/item/borg/upgrade/vtec/do_install(mob/living/silicon/robot/R)
-	if(R.speed < 0)
+	for(var/obj/item/borg/upgrade/vtec/U in R.contents)
 		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
 		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
 		return
+
+	for(var/obj/item/borg/upgrade/floorbuffer/U in R.contents)
+		if(R.floorbuffer)
+			R.floorbuffer = FALSE
+			R.speed -= U.buffer_speed
 
 	R.speed = -1 // Gotta go fast.
 
@@ -246,8 +251,16 @@
 		/obj/item/FixOVein = /obj/item/FixOVein/alien,
 		/obj/item/bonesetter = /obj/item/bonesetter/alien,
 		/obj/item/circular_saw = /obj/item/circular_saw/alien,
-		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien
+		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien,
+		/obj/item/reagent_containers/borghypo = /obj/item/reagent_containers/borghypo/abductor
 	)
+
+/obj/item/borg/upgrade/abductor_medi/after_install(mob/living/silicon/robot/R)
+	. = ..()
+	if(!R.emagged) // Emagged Mediborgs that are upgraded need the evil chems.
+		return
+	for(var/obj/item/reagent_containers/borghypo/F in R.module.modules)
+		F.emag_act()
 
 /obj/item/borg/upgrade/syndicate
 	name = "safety override module"
@@ -401,9 +414,20 @@
 	to_chat(cyborg, "<span class='notice'>The floor buffer is now [cyborg.floorbuffer ? "active" : "deactivated"].</span>")
 
 /obj/item/borg/upgrade/floorbuffer/Destroy()
-	cyborg.floorbuffer = FALSE
-	cyborg = null
+	if(cyborg)
+		cyborg.floorbuffer = FALSE
+		cyborg = null
 	return ..()
+
+/obj/item/borg/upgrade/bluespace_trash_bag
+	name = "janitor cyborg trash bag of holding upgrade"
+	desc = "An advanced trash bag upgrade board with bluespace properties that can be attached to janitorial cyborgs."
+	icon_state = "cyborg_upgrade4"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/janitor
+	items_to_replace = list(
+		/obj/item/storage/bag/trash/cyborg = /obj/item/storage/bag/trash/bluespace/cyborg
+	)
 
 /obj/item/borg/upgrade/rcd
 	name = "R.C.D. upgrade"

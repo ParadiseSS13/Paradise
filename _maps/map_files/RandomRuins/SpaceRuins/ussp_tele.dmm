@@ -54,6 +54,7 @@
 /area/ruin/space/derelict/teleporter)
 "l" = (
 /obj/item/rack_parts,
+/obj/item/clothing/under/new_soviet,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "m" = (

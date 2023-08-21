@@ -29,7 +29,6 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/projectile/automatic/l6_saw,
 	/obj/item/gun/projectile/automatic/m90,
 	/obj/item/gun/energy/alien,
-	/obj/item/gun/energy/gun/turret,
 	/obj/item/gun/energy/pulse/carbine,
 	/obj/item/gun/energy/decloner,
 	/obj/item/gun/energy/mindflayer,

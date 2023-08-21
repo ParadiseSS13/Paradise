@@ -28,6 +28,8 @@
 	var/addiction_stage = 1
 	var/last_addiction_dose = 0
 	var/overdosed = FALSE // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
+	/// If this variable is true, chemicals will continue to process in mobs when overdosed.
+	var/allowed_overdose_process = FALSE
 	var/current_cycle = 1
 	var/drink_icon = null
 	var/drink_name = "Glass of ..what?"
@@ -70,8 +72,9 @@
 		if(can_become_addicted)
 			if(is_type_in_list(src, M.reagents.addiction_list))
 				to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
-
 	var/mob/living/carbon/C = M
+	if(C.mind?.has_antag_datum(/datum/antagonist/vampire))
+		return
 	if(method == REAGENT_INGEST && istype(C) && C.get_blood_id() == id)
 		if(id == "blood" && !(data?["blood_type"] in get_safe_blood(C.dna?.blood_type)) || C.dna?.species.name != data?["species"] && (data?["species_only"] || C.dna?.species.own_species_blood))
 			C.reagents.add_reagent("toxin", volume * 0.5)
@@ -98,6 +101,16 @@
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
+	current_cycle++
+	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency // Cache it
+
+	handle_addiction(M, total_depletion_rate)
+	sate_addiction(M)
+
+	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
+	return STATUS_UPDATE_NONE
+
+/datum/reagent/proc/on_mob_overdose_life(mob/living/M) //We want to drain reagents but not do the entire mob life.
 	current_cycle++
 	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency // Cache it
 
@@ -275,3 +288,6 @@
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")
+
+/datum/reagent/proc/has_heart_rate_increase()
+	return heart_rate_increase

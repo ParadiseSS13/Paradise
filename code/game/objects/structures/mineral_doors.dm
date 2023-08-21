@@ -8,7 +8,7 @@
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 50, ACID = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
 	var/initial_state
@@ -164,9 +164,12 @@
 	opacity = FALSE
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 
-/obj/structure/mineral_door/transparent/operate()
-	..()
-	set_opacity(0)
+/obj/structure/mineral_door/transparent/operate_update()
+	density = !density
+	state_open = !state_open
+	air_update_turf(TRUE)
+	update_icon(UPDATE_ICON_STATE)
+	is_operating = FALSE
 
 /obj/structure/mineral_door/transparent/plasma
 	name = "plasma door"

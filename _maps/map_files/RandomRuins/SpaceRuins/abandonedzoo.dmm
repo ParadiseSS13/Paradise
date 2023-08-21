@@ -14,8 +14,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ac" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -68,8 +67,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ag" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ah" = (
@@ -83,8 +81,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "ak" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -375,7 +372,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/medical,
+/obj/item/mod/control/pre_equipped/medical,
 /obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

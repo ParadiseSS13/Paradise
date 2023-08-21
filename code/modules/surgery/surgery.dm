@@ -42,6 +42,8 @@
 	var/obj/item/organ/external/organ_to_manipulate
 	/// Whether or not this should be a selectable surgery at all
 	var/abstract = FALSE
+	/// Whether this surgery should be cancelled when an organ change happens. (removed if requires bodypart, or added if doesn't require bodypart)
+	var/cancel_on_organ_change = TRUE
 
 
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
@@ -55,6 +57,11 @@
 	if(!surgery_bodypart)
 		return
 	organ_to_manipulate = surgery_bodypart
+	if(cancel_on_organ_change)
+		if(requires_bodypart)
+			RegisterSignal(surgery_target, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_remove))
+		else
+			RegisterSignal(surgery_target, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(on_organ_insert))
 
 /datum/surgery/Destroy()
 	if(target)
@@ -136,6 +143,31 @@
 	qdel(src)
 
 
+/**
+ * Handle an organ's insertion or removal mid-surgery.
+ * If cancel_on_organ_change is true, then this will cancel the surgery in certain cases.
+ */
+/datum/surgery/proc/handle_organ_state_change(mob/living/carbon/organ_owner, obj/item/organ/external/organ, insert)
+	SIGNAL_HANDLER  // only called from signals anyway, better safe than sorry
+	if(!istype(organ_owner) || !istype(organ) || !cancel_on_organ_change)  // only fire this on external organs
+		return
+
+	if(requires_bodypart && organ != organ_to_manipulate)  // we removed a different organ
+		return
+
+	if((requires_bodypart && !insert) || (!requires_bodypart && insert))
+		add_attack_logs(null, organ_owner, "had [src] canceled by organ [insert ? "insertion" : "removal"]")
+		qdel(src)
+
+/datum/surgery/proc/on_organ_insert(mob/living/carbon/organ_owner, obj/item/organ/external/organ)
+	SIGNAL_HANDLER  // COMSIG_CARBON_GAIN_ORGAN
+	handle_organ_state_change(organ_owner, organ, TRUE)
+
+/datum/surgery/proc/on_organ_remove(mob/living/carbon/organ_owner, obj/item/organ/external/organ)
+	SIGNAL_HANDLER  // COMSIG_CARBON_LOSE_ORGAN
+	handle_organ_state_change(organ_owner, organ, FALSE)
+
+
 
 /* SURGERY STEPS */
 /datum/surgery_step
@@ -159,7 +191,7 @@
 	/// Do we require any of the needed chems, or all of them?
 	var/require_all_chems = TRUE
 	/// Whether silicons ignore any probabilities (and are therefore "perfect" surgeons)
-	var/silicons_obey_prob = FALSE
+	var/silicons_ignore_prob = FALSE
 	/// How many times this step has been automatically repeated.
 	var/times_repeated = 0
 
@@ -327,7 +359,7 @@
 
 	var/step_result
 
-	if((prob(prob_success) || isrobot(user) && !silicons_obey_prob) && chem_check_result && !try_to_fail)
+	if((prob(prob_success) || silicons_ignore_prob && isrobot(user)) && chem_check_result && !try_to_fail)
 		step_result = end_step(user, target, target_zone, tool, surgery)
 	else
 		step_result = fail_step(user, target, target_zone, tool, surgery)

@@ -42,6 +42,7 @@
 	result = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
 	reqs = list(/obj/item/reagent_containers/glass/rag = 1,
 				/obj/item/reagent_containers/food/drinks/bottle = 1)
+	blacklist = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
 	parts = list(/obj/item/reagent_containers/food/drinks/bottle = 1)
 	time = 40
 	category = CAT_WEAPONRY
@@ -189,9 +190,9 @@
 	blacklist += subtypesof(/obj/item/gun/energy/laser)
 
 /datum/crafting_recipe/teslarevolver
-	name = "Tesla Revolver"
+	name = "Arc Revolver"
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = list(/obj/item/gun/energy/shock_revolver)
+	result = list(/obj/item/gun/energy/arc_revolver)
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/tesla = 1)
@@ -222,12 +223,16 @@
 	name = "LWAP Laser Sniper"
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/lwap)
-	reqs = list(/obj/item/gun/energy/lasercannon = 1,
+	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/lwap = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/lwap/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/laser)
 
 /datum/crafting_recipe/silencer
 	name = "u-ION Silencer"
@@ -418,6 +423,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
+/datum/crafting_recipe/confettishot
+	name = "Confetti Shot"
+	result = list(/obj/item/ammo_casing/shotgun/confetti)
+	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
+				/datum/reagent/confetti = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
 /datum/crafting_recipe/ishotgun
 	name = "Improvised Shotgun"
 	result = list(/obj/item/gun/projectile/revolver/doublebarrel/improvised)
@@ -429,6 +444,7 @@
 	time = 100
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
@@ -466,6 +482,15 @@
 	result = list(/obj/item/storage/box/papersack)
 	time = 10
 	reqs = list(/obj/item/paper = 5)
+	category = CAT_MISC
+
+/datum/crafting_recipe/donk_box
+	name = "Donk Pocket Box"
+	result = list(/obj/item/storage/box/donkpockets/empty)
+	time = 10
+	reqs = list(/obj/item/storage/box = 1,
+				/obj/item/stack/sheet/plastic = 1,
+				/obj/item/stack/sheet/metal = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/flashlight_eyes

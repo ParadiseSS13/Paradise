@@ -14,7 +14,7 @@
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	toolspeed = 1
 	light_power = 2
@@ -133,10 +133,9 @@
 		item_color = pick("red", "blue", "green", "purple")
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
-/obj/item/melee/energy/sword/detailed_examine()
-	return "The energy sword is a very strong melee weapon, capable of severing limbs easily, if they are targeted. It can also has a chance \
-			to block projectiles and melee attacks while it is on and being held. The sword can be toggled on or off by using it in your hand. While it is off, \
-			it can be concealed in your pocket or bag."
+/obj/item/melee/energy/sword/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Can parry melee attacks and sometimes blocks ranged energy attacks. Use in hand to turn off and on.</span>"
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
@@ -228,6 +227,24 @@
 
 		else
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+
+
+/obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(!active)
+		return FALSE
+	. = ..()
+	if(!.) // they did not block the attack
+		return
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
+			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+			return TRUE
+		owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
+		return -1
+	return TRUE
 
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"

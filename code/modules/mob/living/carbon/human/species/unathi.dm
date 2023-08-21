@@ -1,6 +1,7 @@
 /datum/species/unathi
 	name = "Unathi"
 	name_plural = "Unathi"
+	article_override = "a"  // it's pronounced "you-nah-thee"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
@@ -106,6 +107,7 @@
 /datum/species/unathi/ashwalker
 	name = "Ash Walker"
 	name_plural = "Ash Walkers"
+	article_override = null
 
 	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
 	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners."
@@ -114,6 +116,7 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
+	species_traits = list(LIPS, NOT_SELECTABLE)
 	inherent_traits = list(TRAIT_CHUNKYFINGERS)
 
 	has_organ = list( // same as unathi's organs, aside for the lungs as they need to be able to breathe on lavaland.

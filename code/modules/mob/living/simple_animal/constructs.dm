@@ -26,6 +26,8 @@
 	del_on_death = TRUE
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
+	/// The body/brain of the player inside this construct, transferred over from the soulstone.
+	var/mob/living/held_body
 	var/list/construct_spells = list()
 	/// Is this a holy/purified construct?
 	var/holy = FALSE
@@ -50,9 +52,34 @@
 
 	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
+/mob/living/simple_animal/hostile/construct/Destroy()
+	remove_held_body()
+	return ..()
+
 /mob/living/simple_animal/hostile/construct/death(gibbed)
+	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
+	if(held_body) // Null check for empty bodies
+		held_body.forceMove(get_turf(src))
+		SSticker.mode.add_cult_immunity(held_body)
+		if(ismob(held_body)) // Check if the held_body is a mob
+			held_body.key = key
+		else if(istype(held_body, /obj/item/organ/internal/brain)) // Check if the held_body is a brain
+			var/obj/item/organ/internal/brain/brain = held_body
+			if(brain.brainmob) // Check if the brain has a brainmob
+				brain.brainmob.key = key // Set the key to the brainmob
+				brain.brainmob.mind.transfer_to(brain.brainmob) // Transfer the mind to the brainmob
+		held_body.cancel_camera()
+	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
+	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	. = ..()
-	SSticker.mode.remove_cultist(mind, FALSE)
+
+/mob/living/simple_animal/hostile/construct/proc/add_held_body(atom/movable/body)
+	held_body = body
+	RegisterSignal(body, COMSIG_PARENT_QDELETING, PROC_REF(remove_held_body))
+
+/mob/living/simple_animal/hostile/construct/proc/remove_held_body()
+	SIGNAL_HANDLER
+	held_body = null
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()

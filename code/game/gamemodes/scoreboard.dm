@@ -144,7 +144,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 	score_escapees++
 
-	var/cash_score = get_score_container_worth(H)
+	var/cash_score = get_score_person_worth(H)
 	if(cash_score > richest_cash)
 		richest_cash = cash_score
 		richest_name = H.real_name
@@ -158,7 +158,14 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		damaged_job = H.job
 		damaged_key = H.key
 
-// A recursive function to properly determine the wealthiest escapee
+/// A function to determine the cash plus the account balance of the wealthiest escapee
+/datum/scoreboard/proc/get_score_person_worth(mob/living/carbon/human/H)
+	if(!H.mind)
+		return // if they have no mind, we don't care
+	// return value of space cash on the person + whatever balance they currently have in their original money account
+	return get_score_container_worth(H) + H.mind.initial_account?.credit_balance
+
+/// A recursive function to properly determine the cash on the wealthiest escapee
 /datum/scoreboard/proc/get_score_container_worth(atom/C, level = 0)
 	. = 0
 	if(level >= 5) // in case the containers recurse or something

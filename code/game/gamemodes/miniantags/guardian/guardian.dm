@@ -53,6 +53,9 @@
 	summoner = host
 	host.grant_guardian_actions(src)
 
+/mob/living/simple_animal/hostile/guardian/can_buckle()
+	return FALSE
+
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
 		var/image/holder = hud_list[HEALTH_HUD]
@@ -196,7 +199,7 @@
 		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 	else
 		input = message
-	if(!input)
+	if(!input || !summoner)
 		return
 
 	// Show the message to the host and to the guardian.

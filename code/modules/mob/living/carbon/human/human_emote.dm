@@ -55,18 +55,36 @@
 	muzzled_noises = list("weak", "pathetic", "sad")
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/dap
-	key = "dap"
-	key_third_person = "daps"
-	message = "sadly can't find anybody to give daps to, and daps themself. Shameful."
-	message_param = "give daps to %t."
-	emote_target_type = EMOTE_TARGET_MOB
-	hands_use_check = TRUE
-
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"
 	message = "raises an eyebrow."
 	message_param = "raises an eyebrow at %t."
+
+/datum/emote/living/carbon/human/wince
+	key = "wince"
+	key_third_person = "winces"
+	message = "winces."
+	message_param = "winces at %t."
+
+/datum/emote/living/carbon/human/squint
+	key = "squint"
+	key_third_person = "squints"
+	message = "squints."
+	message_param = "squints at %t."
+
+/datum/emote/living/carbon/human/facepalm
+	key = "facepalm"
+	key_third_person = "facepalms"
+	message = "facepalms."
+	hands_use_check = TRUE
+	sound = 'sound/weapons/slap.ogg'
+	emote_type = EMOTE_SOUND
+	volume = 50
+
+/datum/emote/living/carbon/human/palm
+	key = "palm"
+	message = "extends their palm expectingly."
+	message_param = "extends their palm expectingly towards %t."
 
 /datum/emote/living/carbon/human/grumble
 	key = "grumble"
@@ -160,8 +178,22 @@
 
 /datum/emote/living/carbon/human/gasp/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
 	var/mob/living/carbon/human/H = user
+	var/oxy = H.getOxyLoss()
+	var/volume_decrease = 0
+	switch(oxy)
+		if(0 to 50)
+			volume_decrease = 0
+		if(51 to 100)
+			volume_decrease = 50
+		if(101 to 150)
+			volume_decrease = 65
+		if(151 to 200)
+			volume_decrease = 80
+		else
+			volume_decrease = 95
+	sound_volume -= volume_decrease
 	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
-	playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(), ignore_walls = !isnull(user.mind))
+	playsound(user.loc, sound_path, sound_volume, TRUE, -10, frequency = H.get_age_pitch(H.dna.species.max_age), ignore_walls = !isnull(user.mind))
 
 /datum/emote/living/carbon/human/shake
 	key = "shake"
@@ -268,11 +300,14 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	var/obj/item/slapper/N = new(user)
-	if(user.put_in_hands(N))
+	var/obj/item/slapper/smacking_hand
+	if(user.mind && user.mind.martial_art?.can_parry)
+		smacking_hand = new /obj/item/slapper/parry(user)
+	else
+		smacking_hand = new /obj/item/slapper(user)
+	if(user.put_in_hands(smacking_hand))
 		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
 	else
-		qdel(N)
 		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
 
 /datum/emote/living/carbon/human/wink
@@ -283,9 +318,10 @@
 /datum/emote/living/carbon/human/highfive
 	key = "highfive"
 	key_third_person = "highfives"
-	message = "requests a highfive."
 	hands_use_check = TRUE
-	cooldown = 3 SECONDS
+	cooldown = 5 SECONDS
+	/// Status effect to apply when this emote is used. Should be a subtype
+	var/status = STATUS_EFFECT_HIGHFIVE
 
 /datum/emote/living/carbon/human/highfive/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
@@ -293,81 +329,24 @@
 	if(user_carbon.restrained())
 		return FALSE
 
-/datum/emote/living/carbon/human/highfive/proc/wiz_cleanup(mob/user, mob/highfived)
-	user.status_flags &= ~GODMODE
-	highfived.status_flags &= ~GODMODE
-
 /datum/emote/living/carbon/human/highfive/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/user_carbon = user
-	if(user_carbon.has_status_effect(STATUS_EFFECT_HIGHFIVE))
-		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to high-five them.")
+	if(user_carbon.has_status_effect(status))
+		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to [key].")
 		return TRUE
-	user_carbon.apply_status_effect(STATUS_EFFECT_HIGHFIVE)
-	for(var/mob/living/L in orange(1))
-		if(L.has_status_effect(STATUS_EFFECT_HIGHFIVE) && L != user)
-			if(iswizard(user) && iswizard(L))
-				user.visible_message("<span class='biggerdanger'><b>[user.name]</b> and <b>[L.name]</b> high-five EPICALLY!</span>")
-				user_carbon.status_flags |= GODMODE
-				L.status_flags |= GODMODE
-				explosion(get_turf(user), 5, 2, 1, 3)
-				// explosions have a spawn so this makes sure that we don't get gibbed
-				addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user_carbon, L), 1)
-				user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-				L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-				return TRUE
-			user.visible_message("<b>[user.name]</b> and <b>[L.name]</b> high-five!")
-			playsound(user, 'sound/effects/snap.ogg', 50)
-			user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-			L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-			return TRUE
+	user_carbon.apply_status_effect(status)
+
 	return ..()
 
-/datum/emote/living/carbon/human/handshake
+/datum/emote/living/carbon/human/highfive/dap
+	key = "dap"
+	status = STATUS_EFFECT_DAP
+	key_third_person = "daps"
+
+/datum/emote/living/carbon/human/highfive/handshake
 	key = "handshake"
-	message = "holds out their hand."
-	hands_use_check = TRUE
-	emote_target_type = EMOTE_TARGET_MOB
-	target_behavior = EMOTE_TARGET_BHVR_DEFAULT_TO_BASE
-
-/datum/emote/living/carbon/human/handshake/act_on_target(mob/user, target)
-	. = ..()
-	if(!target)
-		user.visible_message(
-			"[user] seems to shake hands with empty space.",
-			"You shake the air's hand."
-		)
-		return EMOTE_ACT_STOP_EXECUTION
-
-	if(!user.Adjacent(target) || !ishuman(target))
-		message_param = "extends a hand towards %t."
-		return TRUE
-
-	var/mob/living/carbon/human/human_target = target
-
-	if(!HAS_TRAIT(human_target, TRAIT_HANDS_BLOCKED) && !human_target.r_hand && !human_target.restrained())
-		message_param = "shakes hands with %t."
-	else
-		message_param = "holds out [user.p_their()] hand to %t."
-
-/datum/emote/living/carbon/human/handshake/run_emote(mob/user, params, type_override, intentional)
-	var/mob/living/target
-	for(var/mob/living/A in oview(5, user))
-		if(params == A.name)
-			target = A
-
-	if(!target)
-		user.visible_message(
-			"[user] seems to shake hands with empty space.",
-			"You shake the air's hand."
-		)
-		return TRUE
-
-	if(!HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) && !target.r_hand && !target.restrained())
-		message_param = "shakes hands with %t."
-	else
-		message_param = "holds out [user.p_their()] hand to %t."
-
-	return ..()
+	key_third_person = "handshakes"
+	status = STATUS_EFFECT_HANDSHAKE
 
 /datum/emote/living/carbon/human/snap
 	key = "snap"
@@ -669,6 +648,31 @@
 				return TRUE
 	return FALSE
 
+/datum/emote/living/carbon/human/bubble
+	key = "bubble"
+	key_third_person = "bubbles"
+	message = "bubbles."
+	message_param = "bubbles at %t."
+	emote_type = EMOTE_SOUND
+	age_based = TRUE
+	// Sound is CC-4.0 by Audiolarx
+	// Effect is cut out of original clip
+	// https://freesound.org/people/audiolarx/sounds/263945/
+	sound = 'sound/effects/mob_effects/slime_bubble.ogg'
+
+/datum/emote/living/carbon/human/pop
+	key = "pop"
+	key_third_person = "pops"
+	message = "makes a popping sound."
+	message_param = "makes a popping sound at %t."
+	message_mime = "makes a silent pop."
+	emote_type = EMOTE_SOUND
+	age_based = TRUE
+	// CC0
+	// https://freesound.org/people/greenvwbeetle/sounds/244653/
+	sound = 'sound/effects/mob_effects/slime_pop.ogg'
+	volume = 50
+
 /datum/emote/living/carbon/human/howl
 	key = "howl"
 	key_third_person = "howls"
@@ -694,6 +698,30 @@
 	volume = 80
 	muzzled_noises = list("annoyed")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+
+/datum/emote/living/carbon/human/hiss/tajaran
+	message_mime = "hisses silently."
+	species_type_whitelist_typecache = list(/datum/species/tajaran)
+	sound = "sound/effects/tajaranhiss.ogg"
+	volume = 80
+	muzzled_noises = list("irritated")
+	// catHisses1.wav by Zabuhailo. Edited.
+	// https://freesound.org/people/Zabuhailo/sounds/146963/
+
+/datum/emote/living/carbon/human/meow
+	key = "meow"
+	key_third_person = "meows"
+	message = "meows."
+	message_mime = "meows silently."
+	message_param = "meows at %t."
+	species_type_whitelist_typecache = list(/datum/species/tajaran)
+	age_based = TRUE
+	sound = "sound/effects/tajaranmeow.ogg"
+	volume = 75
+	muzzled_noises = list("soft")
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	// Cat Meow Sound Effects by Loudest Paws. Cut.
+	// https://www.youtube.com/watch?v=GBiWYNP-uQI
 
 /datum/emote/living/carbon/human/rattle
 	key = "rattle"

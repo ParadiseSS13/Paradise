@@ -34,7 +34,7 @@
 	name = "syndicate teleporter"
 	desc = "A strange syndicate version of a cult veil shifter. Warranty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "syndi-tele"
+	icon_state = "syndi-tele-4"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 4
@@ -42,6 +42,13 @@
 	flags = CONDUCT
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
+	var/list/icons_charges = list(
+		"syndi-tele-0",
+		"syndi-tele-1",
+		"syndi-tele-2",
+		"syndi-tele-3",
+		"syndi-tele-4",
+	)
 	var/tp_range = 8
 	var/inner_tp_range = 3
 	var/charges = 4
@@ -67,6 +74,7 @@
 /obj/item/teleporter/process()
 	if(prob(10) && charges < max_charges)
 		charges++
+		update_icon_charges()
 
 /obj/item/teleporter/emp_act(severity)
 	var/teleported_something = FALSE
@@ -86,6 +94,12 @@
 				visible_message("<span class='danger'>[src] activates and blinks out of existence!</span>")
 				do_sparks(2, 1, src)
 				qdel(src)
+
+/obj/item/teleporter/proc/update_icon_charges()
+	if(charges + 1 > length(icons_charges))
+		icon_state = initial(icon_state)
+		return
+	icon_state = icons_charges[charges + 1]
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	dir_correction(user)
@@ -119,6 +133,7 @@
 			to_chat(M, "<span class='danger'>[src] will not work here!</span>")
 		if(charges > 0) //While we want EMP triggered teleports to drain charge, we also do not want it to go negative charge, as such we need this check here
 			charges--
+			update_icon_charges()
 		var/turf/destination = pick(turfs)
 		if(tile_check(destination) || flawless) // Why is there so many bloody floor types
 			var/turf/fragging_location = destination
@@ -229,19 +244,163 @@
 	<b>Warning:</b> Teleporting into walls will activate a failsafe teleport parallel up to 3 meters, but the user will be ripped apart and gibbed in a wall if it fails.<br>
 	<br>
 	Do not expose the teleporter to electromagnetic pulses or attempt to use with a bag of holding, unwanted malfunctions may occur.
+	<br><hr>
+	<font size =\"1\">Comes with free chameleon mesons, to help you stay stylish while seeing through walls.</font>
 "}
 /obj/item/storage/box/syndie_kit/teleporter
 	name = "syndicate teleporter kit"
 
 /obj/item/storage/box/syndie_kit/teleporter/populate_contents()
 	new /obj/item/teleporter(src)
+	new /obj/item/clothing/glasses/meson/chameleon(src)
 	new /obj/item/paper/teleporter(src)
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
 
 /obj/item/teleporter/admin
-	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better saftey protocols."
+	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better safety protocols."
 	charges = 8
 	max_charges = 8
 	flawless = TRUE
+
+/obj/item/fireproofing_injector
+	desc = "It contains an alien nanoswarm created by the technomancers of boron. Through near sorcerous feats via use of nanomachines, it enables its user to become fully fireproof."
+	icon = 'icons/obj/hypo.dmi'
+	icon_state = "combat_hypo"
+	var/used = FALSE
+
+/obj/item/fireproofing_injector/attack_self(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
+		to_chat(user, "<span class='warning'>You are already fireproof!</span>")
+		return
+	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Plasmaman"))
+		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
+		return
+	if(used)
+		to_chat(user, "<span class='notice'>The injector is empty!</span>")
+		return
+	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once.
+	var/choice = alert(user, "The injector is still unused. Do you wish to use it?", "Fireproofing injector", "Yes", "No")
+	if(choice == "No")
+		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
+		used = FALSE
+		return
+	to_chat(user, "<span class='notice'>You inject yourself with the nanites!</span>")
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, "fireproof_injector")
+
+/obj/item/batterer
+	name = "mind batterer"
+	desc = "A dangerous syndicate device focused on crowd control and escapes. Causes brain damage, confusion, and other nasty effects to those surrounding the user."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "batterer"
+	throwforce = 5
+	w_class = WEIGHT_CLASS_TINY
+	throw_speed = 4
+	throw_range = 10
+	flags = CONDUCT
+	item_state = "electronic"
+	origin_tech = "magnets=3;combat=3;syndicate=3"
+
+	/// How many times the mind batter has been used
+	var/times_used = 0
+	var/max_uses = 5
+	/// Is this item on cooldown from being thrown
+	var/on_throwing_cooldown = FALSE
+	/// How many SSobj ticks have passed (Roughly 2 seconds of in game time), used to see when to recharge a use on this item
+	var/recharge_ticks = 0
+
+/obj/item/batterer/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/batterer/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>A little label on the side reads: \"Warning: Using this item in quick succession may cause fatigue to the user!\"</span>"
+	if(times_used >= max_uses)
+		. += "<span class='notice'>[src] is out of charge.</span>"
+	if(times_used < max_uses)
+		. += "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>"
+
+/obj/item/batterer/process()
+	if(times_used)
+		recharge_ticks++
+	if(recharge_ticks >= 10) // recharges one use after around 20 seconds
+		recharge_ticks = initial(recharge_ticks)
+		times_used--
+		icon_state = "batterer"
+
+/obj/item/batterer/attack_self(mob/living/carbon/user)
+	activate_batterer(user)
+
+/obj/item/batterer/proc/activate_batterer(mob/user)
+	times_used++
+	if(user)
+		if(times_used > max_uses)
+			to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
+			times_used--
+			return
+		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later."))
+			times_used--
+			return
+		to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
+
+	for(var/mob/living/M in oview(7, get_turf(src)))
+		if(!M.client)
+			continue
+		if(issilicon(M))
+			M.Weaken(10 SECONDS)
+		else
+			M.Confused(45 SECONDS)
+		M.adjustBrainLoss(10)
+		to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through yourself,</span>")
+		switch(rand(1, 10))
+			if(1)
+				M.Immobilize(7 SECONDS)
+				to_chat(M, "<span class='warning'>and your legs lock up for a moment!</span>")
+			if(2)
+				M.apply_status_effect(STATUS_EFFECT_PACIFIED_BATTERER)
+				to_chat(M, "<span class='warning'>and you feel an innate love for life for a fleeting moment!</span>")
+			if(3)
+				new /obj/effect/hallucination/delusion(get_turf(M), M)
+				to_chat(M, "<span class='warning'>and the people around you morph in appearance!</span>")
+			if(4)
+				if(prob(80))
+					M.EyeBlurry(25 SECONDS)
+					to_chat(M, "<span class='warning'>and something in the back of your head stings like hell!</span>")
+				else
+					M.EyeBlind(15 SECONDS)
+					to_chat(M, "<span class='warning'>and you can't see a goddamn thing!</span>")
+			if(5)
+				M.adjustStaminaLoss(40)
+				to_chat(M, "<span class='warning'>and a wave of tiredness washes over you!</span>")
+			else
+				to_chat(M, "<span class='danger'>but as soon as it arrives, it fades.</span>")
+		add_attack_logs(user, M, "Mind battered with [src]")
+
+	playsound(get_turf(src), 'sound/misc/interference.ogg', 50, TRUE)
+	if(times_used >= max_uses)
+		icon_state = "battererburnt"
+
+/obj/item/batterer/throw_impact(atom/hit_atom)
+	..()
+	if(times_used >= max_uses || on_throwing_cooldown)
+		return
+	addtimer(CALLBACK(src, PROC_REF(end_throwing_delay)), 3 SECONDS)
+	visible_message("<span class='notice'>[src] suddenly triggers, sending a shower of sparks everywhere!</span>")
+	do_sparks(4, FALSE, get_turf(src))
+	activate_batterer()
+	on_throwing_cooldown = TRUE
+
+/obj/item/batterer/proc/end_throwing_delay()
+	on_throwing_cooldown = FALSE
+
+/obj/item/batterer/emp_act(severity)
+	if(times_used >= max_uses)
+		return
+	visible_message("<span class='notice'>[src] explodes into a light show of colors!</span>")
+	if(severity == EMP_HEAVY)
+		activate_batterer()
+
+	times_used = max_uses - 1
+	activate_batterer()

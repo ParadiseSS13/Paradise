@@ -152,7 +152,8 @@
 				locked = TRUE
 				overlays = null
 				code = null
-				close(usr)
+				if(usr.s_active == src)
+					close(usr)
 			else
 				code += text("[]", href_list["type"])
 				if(length(code) > 5)

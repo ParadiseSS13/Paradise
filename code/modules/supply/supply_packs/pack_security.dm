@@ -165,8 +165,8 @@
 	name = "SWAT Gear Crate"
 	contains = list(/obj/item/clothing/head/helmet/swat,
 					/obj/item/clothing/head/helmet/swat,
-					/obj/item/clothing/suit/space/swat,
-					/obj/item/clothing/suit/space/swat,
+					/obj/item/clothing/suit/armor/swat,
+					/obj/item/clothing/suit/armor/swat,
 					/obj/item/kitchen/knife/combat,
 					/obj/item/kitchen/knife/combat,
 					/obj/item/clothing/mask/gas/sechailer/swat,
@@ -251,9 +251,34 @@
 	contains = list(/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
+					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,)
 	cost = 500
 	containername = "auto rifle ammo crate"
+
+/datum/supply_packs/security/armory/laserrifle
+	name = "IK-30 Security Laser Rifle Crate"
+	contains = list(/obj/item/gun/projectile/automatic/laserrifle,
+					/obj/item/gun/projectile/automatic/laserrifle)
+	cost = 500
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "laser rifle crate"
+
+/datum/supply_packs/security/armory/laserammo
+	name = "IK-30 Security Laser Rifle Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/laser,
+					/obj/item/ammo_box/magazine/laser,
+					/obj/item/ammo_box/magazine/laser,
+					/obj/item/ammo_box/magazine/laser)
+	cost = 300
+	containername = "laser rifle ammo crate"
+
+/datum/supply_packs/security/armory/tranqammo
+	name = "Tranquilizer Shell Crate"
+	contains = list(/obj/item/storage/box/tranquilizer,
+					/obj/item/storage/box/tranquilizer)
+	cost = 400
+	containername = "tranquilizer shell crate"
 
 /////// Implants & etc
 

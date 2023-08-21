@@ -31,7 +31,7 @@
 	face_while_pulling = TRUE
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
 
 	/// Icon_state when vending
 	var/icon_vend
@@ -149,6 +149,12 @@
 	/// How long to wait before resetting the warning cooldown
 	var/hit_warning_cooldown_length = 10 SECONDS
 
+	/// If the vendor should tip on anyone who walks by. Mainly used for brand intelligence
+	var/aggressive = FALSE
+
+	/// How often slogans will be used by vendors if they're aggressive.
+	var/aggressive_slogan_delay = (1 MINUTES)
+
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -185,6 +191,7 @@
 		for(var/typepath in subtypesof(/datum/vendor_crit))
 			all_possible_crits[typepath] = new typepath()
 
+	update_icon(UPDATE_OVERLAYS)
 	reconnect_database()
 	power_change()
 
@@ -198,8 +205,10 @@
 	. = ..()
 	if(tilted)
 		. += "<span class='warning'>It's been tipped over and won't be usable unless it's righted.</span>"
-		if(Adjacent(user))
-			. += "<span class='notice'>You can <b>Alt-Click</b> it to right it.</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> it to right it when adjacent.</span>"
+
+	if(aggressive)
+		. += "<span class='warning'>Its product lights seem to be blinking ominously...</span>"
 
 /obj/machinery/economy/vending/RefreshParts()         //Better would be to make constructable child
 	if(!component_parts)
@@ -428,19 +437,33 @@
 			R.amount--
 			break
 
+/obj/machinery/economy/vending/HasProximity(atom/movable/AM)
+	if(!aggressive || tilted || !tiltable)
+		return
+
+	if(isliving(AM) && prob(25))
+		AM.visible_message(
+			"<span class='danger'>[src] suddenly topples over onto [AM]!</span>",
+			"<span class='userdanger'>[src] topples over onto you without warning!</span>"
+		)
+		tilt(AM, prob(5), FALSE)
+		aggressive = FALSE
+		// NOTE: AFTER THE GREAT MASSACRE OF 4/22/23 IT HAS BECOME INCREDIBLY CLEAR THAT NOT SETTING AGGRESSIVE TO FALSE HERE IS A BAD BAD IDEA
+		// ALSO DEAR GOD DO NOT MAKE IT MORE LIKELY FOR THEM TO CRIT OR NOT
+
 /obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
 		return
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/economy/vending/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -449,7 +472,7 @@
 /obj/machinery/economy/vending/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -468,7 +491,7 @@
 /obj/machinery/economy/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	if(I.use_tool(src, user, 0, volume = 0))
 		wires.Interact(user)
@@ -476,7 +499,7 @@
 /obj/machinery/economy/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
@@ -582,7 +605,7 @@
 		return
 
 	if(tilted)
-		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")
+		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! <b>Alt-Click</b> to right it first.</span>")
 		return
 
 	if(seconds_electrified != 0 && shock(user, 100))
@@ -845,7 +868,8 @@
 		seconds_electrified--
 
 	//Pitch to the people!  Really sell it!
-	if(last_slogan + slogan_delay <= world.time && LAZYLEN(slogan_list) && !shut_up && prob(5))
+	// especially if we want to tip over onto them!
+	if((last_slogan + slogan_delay <= world.time || (aggressive && last_slogan + aggressive_slogan_delay <= world.time)) && LAZYLEN(slogan_list) && !shut_up && prob(5))
 		var/slogan = pick(slogan_list)
 		speak(slogan)
 		last_slogan = world.time
@@ -866,7 +890,7 @@
 	atom_say(message)
 
 /obj/machinery/economy/vending/power_change()
-	..()
+	. = ..()
 	if(stat & (BROKEN|NOPOWER))
 		set_light(0)
 	else
@@ -880,6 +904,9 @@
 	stat |= BROKEN
 	set_light(0)
 	update_icon(UPDATE_OVERLAYS)
+
+	if(aggressive)
+		aggressive = FALSE  // the evil is defeated
 
 	if(cash_transaction)
 		new /obj/item/stack/spacecash(get_turf(src), cash_transaction)
@@ -1014,11 +1041,14 @@
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
+			L.Weaken(6 SECONDS)
 			if(crit)
 				// increase damage if you knock it over onto yourself
 				damage_to_deal *= crit_damage_factor
 			else
 				damage_to_deal *= self_knockover_factor
+		else
+			L.Weaken(4 SECONDS)
 
 		if(iscarbon(L))
 			var/throw_spec = handle_squish_carbon(victim, damage_to_deal, crit, from_combat)
@@ -1039,7 +1069,6 @@
 			add_attack_logs(null, L, "crushed by [src]")
 
 		. = TRUE
-		L.Weaken(6 SECONDS)
 		L.KnockDown(12 SECONDS)
 
 		playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
@@ -1083,8 +1112,19 @@
 	transform = M
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
+	if(HAS_TRAIT(target, TRAIT_FLATTENED))
+		return
+	add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 	tilt(target, from_combat = TRUE)
 	return TRUE
+
+/obj/machinery/economy/vending/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(HAS_TRAIT(C, TRAIT_FLATTENED))
+		return ..()
+	tilt(C, from_combat = TRUE)
+	mob_hurt = TRUE
+	return ..()
+
 
 /*
  * Vending machine types

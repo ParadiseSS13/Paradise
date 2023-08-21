@@ -2,7 +2,8 @@
 	icon = 'icons/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
 	plane = FLOOR_PLANE
-	layer = GAS_SCRUBBER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + 0.004
+	layer_offset = 0.004
 	name = "passive vent"
 	desc = "A large air vent"
 

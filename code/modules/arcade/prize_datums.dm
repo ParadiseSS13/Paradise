@@ -117,6 +117,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/ammo_box/caps
 	cost = 30
 
+/datum/prize_item/wallet
+	name = "Cheap Wallet"
+	desc = "A cheap and big enough for standard issue ID cards."
+	typepath = /obj/item/storage/wallet/cheap
+	cost = 30
+
 /datum/prize_item/crayons
 	name = "Box of Crayons"
 	desc = "A six-pack of crayons, just like back in kindergarten."
@@ -139,12 +145,6 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Double Deck of Tiny Cards"
 	desc = "Anyone fancy a tiny game of 108-card Pickup?"
 	typepath = /obj/item/deck/cards/tiny/doublecards
-	cost = 50
-
-/datum/prize_item/wallet
-	name = "Colored Wallet"
-	desc = "Brightly colored and big enough for standard issue ID cards."
-	typepath = /obj/item/storage/wallet/color
 	cost = 50
 
 /datum/prize_item/id_sticker

@@ -52,6 +52,8 @@
 /obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/ammo_box))
 		var/obj/item/ammo_box/box = I
+		if(box.slow_loading)
+			return
 		if(isturf(loc))
 			var/boolets = 0
 			for(var/obj/item/ammo_casing/bullet in loc)
@@ -104,6 +106,9 @@
 		return TRUE
 	return ..()
 
+/obj/item/ammo_casing/emp_act(severity)
+	BB?.emp_act(severity)
+
 #define AMMO_MULTI_SPRITE_STEP_NONE null
 #define AMMO_MULTI_SPRITE_STEP_ON_OFF -1
 
@@ -127,10 +132,11 @@
 	var/multi_sprite_step = AMMO_MULTI_SPRITE_STEP_NONE // see update_icon_state() for details
 	var/caliber
 	var/multiload = 1
+	var/slow_loading = FALSE
 	var/list/initial_mats //For calculating refund values.
 
-/obj/item/ammo_box/New()
-	..()
+/obj/item/ammo_box/Initialize(mapload)
+	. = ..()
 	for(var/i in 1 to max_ammo)
 		stored_ammo += new ammo_type(src)
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
@@ -153,6 +159,10 @@
 		update_mat_value()
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return b
+
+/obj/item/ammo_box/emp_act(severity)
+	for(var/obj/item/ammo_casing/A in stored_ammo)
+		A.emp_act(severity)
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
@@ -187,7 +197,7 @@
 	var/num_loaded = 0
 	if(!can_load(user))
 		return
-	if(istype(A, /obj/item/ammo_box) && !istype(A, /obj/item/ammo_box/b357))
+	if(istype(A, /obj/item/ammo_box))
 		var/obj/item/ammo_box/AM = A
 		for(var/obj/item/ammo_casing/AC in AM.stored_ammo)
 			var/did_load = give_round(AC, replace_spent)

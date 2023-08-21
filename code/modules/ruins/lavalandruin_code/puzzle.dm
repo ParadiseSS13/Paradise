@@ -135,7 +135,7 @@
 	return 0
 
 /obj/effect/sliding_puzzle/proc/elements_in_order()
-	return sortTim(elements,cmp=/proc/cmp_xy_desc)
+	return sortTim(elements, GLOBAL_PROC_REF(cmp_xy_desc))
 
 /obj/effect/sliding_puzzle/proc/get_base_icon()
 	var/icon/I = new('icons/obj/puzzle.dmi')
@@ -254,7 +254,7 @@
 
 //Ruin version
 /obj/effect/sliding_puzzle/lavaland
-	reward_type = /obj/structure/closet/crate/necropolis/puzzle
+	reward_type = /obj/structure/closet/crate/necropolis
 
 /obj/effect/sliding_puzzle/lavaland/dispense_reward()
 	if(prob(25))
@@ -292,7 +292,7 @@
 
 //Some armor so it's harder to kill someone by mistake.
 /obj/structure/puzzle_element/prison
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
 
 /obj/structure/puzzle_element/prison/relaymove(mob/user)
 	return

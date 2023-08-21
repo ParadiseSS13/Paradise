@@ -12,8 +12,10 @@
 	open_sound_volume = 35
 	close_sound_volume = 50
 	var/obj/item/paper/manifest/manifest
-	// A list of beacon names that the crate will announce the arrival of, when delivered.
+	/// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
+	/// How much this crate is worth if you sell it via the cargo shuttle, needed for balance :)
+	var/crate_value = DEFAULT_CRATE_VALUE
 
 /obj/structure/closet/crate/update_overlays()
 	. = ..()
@@ -68,10 +70,12 @@
 
 	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	var/itemcount = 0
-	for(var/obj/O in get_turf(src))
+	for(var/atom/movable/O in get_turf(src))
 		if(itemcount >= storage_capacity)
 			break
 		if(O.density || O.anchored || istype(O,/obj/structure/closet))
+			continue
+		if(ismob(O) && !HAS_TRAIT(O, TRAIT_CONTORTED_BODY))
 			continue
 		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
 			var/obj/structure/bed/B = O
@@ -166,16 +170,19 @@
 	icon_state = "securecrate"
 	icon_opened = "securecrate_open"
 	icon_closed = "securecrate"
-	var/redlight = "securecrater"
-	var/greenlight = "securecrateg"
-	var/emag = "securecrateemag"
 	max_integrity = 500
-	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
-	var/tamperproof = FALSE
 	broken = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
+	crate_value = 25 // rarer and cannot be crafted, bonus credits for exporting them
+
+	var/redlight = "securecrater"
+	var/greenlight = "securecrateg"
+	var/emag = "securecrateemag"
+
+	var/tamperproof = FALSE
 
 /obj/structure/closet/crate/secure/update_overlays()
 	. = ..()
@@ -291,6 +298,9 @@
 	icon_state = "plasticcrate"
 	icon_opened = "plasticcrate_open"
 	icon_closed = "plasticcrate"
+	material_drop = /obj/item/stack/sheet/plastic
+	material_drop_amount = 4
+	crate_value = 3 // You can mass produce plastic crates, this is needed to prevent cargo from making tons of money too easily
 
 /obj/structure/closet/crate/internals
 	desc = "A internals crate."
@@ -305,22 +315,7 @@
 	icon_state = "trashcart"
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
-
-/*these aren't needed anymore
-/obj/structure/closet/crate/hat
-	desc = "A crate filled with Valuable Collector's Hats!."
-	name = "Hat Crate"
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
-
-/obj/structure/closet/crate/contraband
-	name = "Poster crate"
-	desc = "A random assortment of posters manufactured by providers NOT listed under Nanotrasen's whitelist."
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
-*/
+	pull_speed = 0
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
@@ -447,64 +442,6 @@
 	emag = "largebinemag"
 	open_sound = 'sound/effects/bin_open.ogg'
 	close_sound = 'sound/effects/bin_close.ogg'
-
-/obj/structure/closet/crate/large
-	name = "large crate"
-	desc = "A hefty metal crate."
-	icon_state = "largemetal"
-	icon_opened = "largemetal_open"
-	icon_closed = "largemetal"
-	integrity_failure = 0 //Makes the crate break when integrity reaches 0, instead of opening and becoming an invisible sprite.
-
-/obj/structure/closet/crate/large/close()
-	. = ..()
-	if(.)//we can hold up to one large item
-		var/found = 0
-		for(var/obj/structure/S in loc)
-			if(S == src)
-				continue
-			if(!S.anchored)
-				found = 1
-				S.forceMove(src)
-				break
-		if(!found)
-			for(var/obj/machinery/M in loc)
-				if(!M.anchored)
-					M.forceMove(src)
-					break
-
-/obj/structure/closet/crate/secure/large
-	name = "large crate"
-	desc = "A hefty metal crate with an electronic locking system."
-	icon_state = "largemetal"
-	icon_opened = "largemetal_open"
-	icon_closed = "largemetal"
-	redlight = "largemetalr"
-	greenlight = "largemetalg"
-
-/obj/structure/closet/crate/secure/large/close()
-	. = ..()
-	if(.)//we can hold up to one large item
-		var/found = 0
-		for(var/obj/structure/S in loc)
-			if(S == src)
-				continue
-			if(!S.anchored)
-				found = 1
-				S.forceMove(src)
-				break
-		if(!found)
-			for(var/obj/machinery/M in loc)
-				if(!M.anchored)
-					M.forceMove(src)
-					break
-
-//fluff variant
-/obj/structure/closet/crate/secure/large/reinforced
-	desc = "A hefty, reinforced metal crate with an electronic locking system."
-	icon_state = "largermetal"
-	icon_opened = "largermetal_open"
-	icon_closed = "largermetal"
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"

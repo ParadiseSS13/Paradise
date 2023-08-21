@@ -9,7 +9,7 @@
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Solar Federation General")
 	restricted_jobs = list("Cyborg")
 	secondary_restricted_jobs = list("AI")
-	required_players = 10
+	required_players = 25
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	secondary_protected_species = list("Machine")
@@ -79,6 +79,8 @@
 
 /datum/game_mode/trifecta/proc/calculate_quantities()
 	var/points = num_players()
+	// So. to ensure that we had at least one vamp / changeling / traitor, I set the number of ammount to 1. I never subtracted points, leading to 25 players worth of antags added for free. Whoops.
+	points -= TOT_COST + VAMP_COST + CLING_COST
 	while(points > 0)
 		if(points < TOT_COST)
 			amount_tot++

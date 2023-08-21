@@ -6,6 +6,7 @@
 	face_while_pulling = FALSE
 	anchored = FALSE
 	density = TRUE
+	pull_speed = 0
 	var/obj/item/stack/sheet/glass/myglass = null
 	var/obj/item/stack/sheet/metal/mymetal = null
 	var/obj/item/stack/sheet/plasteel/myplasteel = null
@@ -168,12 +169,12 @@
 
 /obj/structure/engineeringcart/update_overlays()
 	. = ..()
-	if(myglass)
-		. += "cart_glass"
-	if(mymetal)
-		. += "cart_metal"
 	if(myplasteel)
 		. += "cart_plasteel"
+	if(mymetal)
+		. += "cart_metal"
+	if(myglass)
+		. += "cart_glass"
 	if(myflashlight)
 		. += "cart_flashlight"
 	if(mybluetoolbox)

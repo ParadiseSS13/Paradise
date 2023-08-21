@@ -7,8 +7,11 @@
 
 	density = TRUE
 	max_integrity = 300
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 80, ACID = 30)
 	layer = OBJ_LAYER
+
+	idle_power_consumption = 500
+	active_power_consumption = 0
 
 	var/icon_state_off = "freezer"
 	var/icon_state_on = "freezer_1"
@@ -23,8 +26,8 @@
 	var/base_heating = 140
 	var/base_cooling = 170
 
-/obj/machinery/atmospherics/unary/thermomachine/New()
-	..()
+/obj/machinery/atmospherics/unary/thermomachine/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/thermomachine(null)
@@ -37,10 +40,9 @@
 	RefreshParts()
 	update_icon()
 
-/obj/machinery/atmospherics/unary/thermomachine/detailed_examine()
-	return "Cools or heats the gas of the pipe it is connected to. It uses massive amounts of electricity while on. \
-			It can be upgraded by replacing the capacitors, manipulators, and matter bins. It can be deconstructed by screwing the maintenance panel open with a \
-			screwdriver, and then using a crowbar."
+/obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.</span>"
 
 /obj/machinery/atmospherics/unary/thermomachine/proc/swap_function()
 	cooling = !cooling
@@ -105,12 +107,14 @@
 
 	//todo: have current temperature affected. require power to bring down current temperature again
 
-	var/temperature_delta= abs(old_temperature - air_contents.temperature)
+	var/temperature_delta = abs(old_temperature - air_contents.temperature)
 	if(temperature_delta > 1)
-		update_active_power_consumption(power_channel, (heat_capacity * temperature_delta) / 10 + idle_power_consumption)
-		parent.update = 1
+		var/new_active_consumption = (temperature_delta * 25) * min(log(10, air_contents.temperature) - 1, 1)
+		update_active_power_consumption(power_channel, new_active_consumption + idle_power_consumption)
+		change_power_mode(ACTIVE_POWER_USE)
+		parent.update = TRUE
 	else
-		update_active_power_consumption(power_channel, idle_power_consumption)
+		change_power_mode(IDLE_POWER_USE)
 	return 1
 
 /obj/machinery/atmospherics/unary/thermomachine/attackby(obj/item/I, mob/user, params)

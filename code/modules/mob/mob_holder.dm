@@ -3,7 +3,7 @@
 	name = "holder"
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_HEAD|SLOT_EARS
 
 /obj/item/holder/New()
 	..()

@@ -1,7 +1,7 @@
-#define CHALLENGE_TELECRYSTALS 280
+#define CHALLENGE_TELECRYSTALS 1400
 #define CHALLENGE_TIME_LIMIT 6000
 #define CHALLENGE_SCALE_PLAYER 1 // How many player per scaling bonus
-#define CHALLENGE_SCALE_BONUS 2 // How many TC per scaling bonus
+#define CHALLENGE_SCALE_BONUS 10 // How many TC per scaling bonus
 #define CHALLENGE_MIN_PLAYERS 50
 #define CHALLENGE_SHUTTLE_DELAY 18000 //30 minutes, so the ops have at least 10 minutes before the shuttle is callable. Gives the nuke ops at least 15 minutes before shuttle arrive.
 
@@ -10,9 +10,9 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
 	item_state = "walkietalkie"
-	desc = "Use to send a declaration of hostilities to the target, delaying your shuttle departure for 20 minutes while they prepare for your assault.  \
-	Such a brazen move will attract the attention of powerful benefactors within the Syndicate, who will supply your team with a massive amount of bonus telecrystals.  \
-	Must be used within five minutes, or your benefactors will lose interest."
+	desc = "Use to send a declaration of hostilities to the target, delaying your shuttle departure for 20 minutes while they prepare for your assault. \
+	Such a brazen move will attract the attention of powerful benefactors within the Syndicate, who will supply your team with a massive amount of bonus telecrystals. \
+	Must be used within ten minutes, or your benefactors will lose interest."
 	var/declaring_war = FALSE
 	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
 
@@ -49,6 +49,7 @@
 		return
 
 	GLOB.major_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg', msg_sanitized = TRUE)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(set_security_level), SEC_LEVEL_GAMMA), 30 SECONDS)
 
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 	to_chat(user, "<b>Your bonus telecrystals have been split between your team's uplinks.</b>")

@@ -16,8 +16,9 @@
 	. = ..()
 	. += "It is currently [open ? "open" : "closed"]."
 
-/obj/machinery/atmospherics/binary/valve/detailed_examine()
-	return "Click this to turn the valve. If red, the pipes on each end are separated. Otherwise, they are connected."
+/obj/machinery/atmospherics/binary/valve/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Click this to turn the valve. If red, the pipes on each end are separated. Otherwise, they are connected.</span>"
 
 /obj/machinery/atmospherics/binary/valve/open
 	open = TRUE

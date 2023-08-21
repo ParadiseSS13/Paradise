@@ -72,7 +72,7 @@
 	switch(mode)
 		if(CYBORG_HUGS)
 			if(M.health >= 0)
-				if(isanimal(M))
+				if(isanimal(M) && !M.holder_type) // checks if holder_type exists to prevent picking up animals like mice
 					var/list/modifiers = params2list(params)
 					M.attack_hand(user, modifiers) //This enables borgs to get the floating heart icon and mob emote from simple_animal's that have petbonus == true.
 					return
