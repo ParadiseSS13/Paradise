@@ -1238,7 +1238,7 @@
 	qdel(src)
 
 /obj/item/clothing/suit/hooded/abaya/attack_self(mob/user)
-	..()
+	. = ..()
 	reskin_abaya(user)
 
 /obj/item/clothing/suit/hooded/abaya/red
