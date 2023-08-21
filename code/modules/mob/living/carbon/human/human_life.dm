@@ -787,7 +787,7 @@
 				break
 
 	for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
-		if(R.heart_rate_increase)
+		if(R.has_heart_rate_increase())
 			if(temp <= PULSE_FAST && temp >= PULSE_NONE)
 				temp++
 				break

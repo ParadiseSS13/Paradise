@@ -10,6 +10,14 @@
 	containername = "\improper MULEbot crate"
 	department_restrictions = list(DEPARTMENT_SUPPLY)
 
+/datum/supply_packs/misc/loader
+	name = "Loader MODsuit Crate"
+	contains = list(/obj/item/mod/control/pre_equipped/loader)
+	cost = 750 //Unique, expencive. Better sell that plasma
+	containertype = /obj/structure/largecrate
+	containername = "\improper Loader MODsuit crate"
+	department_restrictions = list(DEPARTMENT_SUPPLY)
+
 /datum/supply_packs/misc/hightank
 	name = "High-Capacity Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank/high)
@@ -261,6 +269,7 @@
 					/obj/item/clothing/glasses/sunglasses)
 	cost = 450
 	containername = "sunglasses crate"
+
 /datum/supply_packs/misc/randomised
 	var/num_contained = 3 //number of items picked to be contained in a randomised crate
 	contains = list(/obj/item/clothing/head/collectable/chef,
@@ -292,6 +301,11 @@
 	manifest += "Contains any [num_contained] of:"
 	..()
 
+/datum/supply_packs/misc/randomised/plushie
+	name = "Collectable Plushies Crate"
+	cost = 1000
+	containername = "collectable plushies crate! Brought to you by Bass.inc!"
+	contains = list(/obj/random/plushie, /obj/random/plushie, /obj/random/plushie/explosive)
 
 /datum/supply_packs/misc/foamforce
 	name = "Foam Force Crate"
