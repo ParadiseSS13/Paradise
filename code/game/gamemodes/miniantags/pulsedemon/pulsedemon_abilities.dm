@@ -369,7 +369,7 @@
 		PD_UPGRADE_HEALTH_REGEN = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "femto_mani"),
 		PD_UPGRADE_HEALTH_LOSS  = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "triphasic_scan_module"),
 		PD_UPGRADE_HEALTH_COST  = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "quadultra_micro_laser"),
-		PD_UPGRADE_MAX_CHARGE   = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "quadratic_capacitor"),
+		PD_UPGRADE_MAX_CHARGE   = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "quadratic_capacitor")
 	)
 	var/static/list/upgrade_descs = list(
 		PD_UPGRADE_HIJACK_SPEED = "Decrease the amount of time required to hijack an APC.",
@@ -378,7 +378,7 @@
 		PD_UPGRADE_HEALTH_REGEN = "Increase the amount of health regenerated when powered per cycle.",
 		PD_UPGRADE_HEALTH_LOSS  = "Decrease the amount of health lost when unpowered per cycle.",
 		PD_UPGRADE_HEALTH_COST  = "Decrease the amount of power required to regenerate per cycle.",
-		PD_UPGRADE_MAX_CHARGE   = "Increase the total amount of charge you can have at once.",
+		PD_UPGRADE_MAX_CHARGE   = "Increase the total amount of charge you can have at once."
 	)
 
 /obj/effect/proc_holder/spell/pulse_demon/open_upgrades/create_new_targeting()
