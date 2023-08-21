@@ -233,7 +233,16 @@ const Advert = (_properties, context) => {
   const { cats, lucky_numbers } = data;
 
   return (
-    <Section title="Suggested Purchases">
+    <Section
+      title="Suggested Purchases"
+      buttons={
+        <Button
+          icon='dice'
+          content='See more suggestions'
+          onClick={() => act('shuffle_lucky_numbers')}
+        />
+      }
+    >
       <Flex grow={1} basis={0} mb="5px">
         <Flex.Item px="5px" width="50%">
           <UplinkItem i={cats[lucky_numbers[0].cat].items[lucky_numbers[0].item]}/>
@@ -348,12 +357,8 @@ const CartButtons = (props, context) => {
       disabled={i.amount <= 0}
     />
     <Button.Input
-      // animated
       content={i.amount}
       width="45px"
-      // step={1}
-      // minValue={0}
-      // maxValue={i.limit}
       onCommit={(e, value) =>
         act('set_cart_item_quantity', {
           item: i.obj_path,

@@ -198,6 +198,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	data["cart"] = generate_tgui_cart()
 	data["cart_potential_remaining_tc"] = calculate_cart_tc() // todo rename this shit
+	data["lucky_numbers"] = lucky_numbers
 
 	return data
 
@@ -208,13 +209,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!uplink_cats || !uplink_items)
 		generate_item_lists(user)
 	if(!lucky_numbers)
-		lucky_numbers = list()
-		for(var/i in 1 to 4)
-			var/cate_number = rand(1, length(uplink_cats))
-			var/item_number = rand(1, length(uplink_cats[cate_number]["items"]))
-			lucky_numbers += list(list("cat" = cate_number-1, "item" = item_number-1)) // dm lists are 1 based, js lists are 0 based
+		shuffle_lucky_numbers()
 	data["cats"] = uplink_cats
-	data["lucky_numbers"] = lucky_numbers
 
 	// Exploitable info
 	var/list/exploitable = list()
@@ -307,7 +303,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			remove_from_cart(item_reference)
 
 		if("set_cart_item_quantity")
-			LAZYSET(shopping_cart, item_reference, text2num(params["quantity"]))
+			var/amount = text2num(params["quantity"])
+			LAZYSET(shopping_cart, item_reference, max(amount, 0))
 			generate_tgui_cart(TRUE)
 
 		if("purchase_cart")
@@ -347,6 +344,17 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 		if("empty_cart")
 			empty_cart()
+
+		if("shuffle_lucky_numbers")
+			// lets see paul allen's random uplink item
+			shuffle_lucky_numbers()
+
+/obj/item/uplink/hidden/proc/shuffle_lucky_numbers()
+	lucky_numbers = list()
+	for(var/i in 1 to 4)
+		var/cate_number = rand(1, length(uplink_cats))
+		var/item_number = rand(1, length(uplink_cats[cate_number]["items"]))
+		lucky_numbers += list(list("cat" = cate_number-1, "item" = item_number-1)) // dm lists are 1 based, js lists are 0 based
 
 /obj/item/uplink/hidden/proc/remove_from_cart(item_reference) // i want to make it eventually remove all instances
 	LAZYREMOVE(shopping_cart, item_reference)
