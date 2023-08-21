@@ -10,4 +10,5 @@
 
 /obj/effect/proc_holder/spell/flayer/self/rejuv/cast(list/targets, mob/user)
 	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
-	user.apply_status_effect(STATUS_EFFECT_FLESHMEND)
+	var/mob/living/caster = user
+	caster.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV)

@@ -666,14 +666,27 @@
 
 /datum/status_effect/flayer_rejuv
 	duration = 5 SECONDS
+	tick_interval = 1 SECONDS
+	alert_type = /obj/screen/alert/status_effect/flayer_rejuv
+	var/heal_amount = 10 // 50 total healing of both brute and burn
+
+/obj/screen/alert/status_effect/flayer_rejuv
+	name = "Regenerating"
+	desc = "A ray of hope beyond dispair."
+	icon_state = "drunk2"
 
 /datum/status_effect/flayer_rejuv/on_apply()
-	var/mob/living/U = owner
-	U.SetWeakened(0)
-	U.SetStunned(0)
-	U.SetKnockDown(0)
-	U.SetParalysis(0)
-	U.SetSleeping(0)
-	U.SetConfused(0)
-	U.adjustStaminaLoss(-100)
-	U.stand_up(TRUE)
+	owner.SetWeakened(0)
+	owner.SetStunned(0)
+	owner.SetKnockDown(0)
+	owner.SetParalysis(0)
+	owner.SetSleeping(0)
+	owner.SetConfused(0)
+	owner.adjustStaminaLoss(-100)
+	owner.stand_up(TRUE)
+	return ..()
+
+/datum/status_effect/flayer_rejuv/tick()
+	owner.adjustBruteLoss(-heal_amount)
+	owner.adjustFireLoss(-heal_amount)
+	owner.updatehealth()
