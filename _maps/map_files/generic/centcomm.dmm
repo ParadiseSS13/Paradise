@@ -8,10 +8,6 @@
 "ac" = (
 /turf/simulated/wall/indestructible/wood,
 /area/ninja/outpost)
-"ad" = (
-/obj/effect/landmark/newplayer_start,
-/turf/simulated/wall/indestructible/splashscreen,
-/area/start)
 "ae" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/holding)
@@ -1423,20 +1419,6 @@
 /obj/item/melee/energy/sword/saber/red,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
-"fP" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomegen";
-	name = "General Supply"
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
-"fQ" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door"
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
 "fR" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/turf_decal/bot,
@@ -1461,13 +1443,6 @@
 /obj/machinery/flasher{
 	id = "tdomeflash";
 	name = "Thunderdome Flash"
-	},
-/turf/simulated/floor/plasteel,
-/area/tdome/arena_source)
-"fW" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomehea";
-	name = "Heavy Supply"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
@@ -4341,6 +4316,9 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"ph" = (
+/turf/simulated/wall/r_wall,
+/area/start)
 "pj" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -4572,9 +4550,6 @@
 	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
-"qf" = (
-/turf/simulated/wall/r_wall,
-/area/start)
 "qg" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/storage/secure/safe{
@@ -5576,20 +5551,6 @@
 	name = "Tool Storage";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
-"uf" = (
-/obj/structure/closet/crate/internals,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "ug" = (
@@ -6854,6 +6815,30 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"Ao" = (
+/obj/structure/closet/crate/internals,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "As" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
@@ -9737,9 +9722,9 @@
 	},
 /area/shuttle/escape)
 "LQ" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomehea";
-	name = "Heavy Supply"
+/obj/machinery/door/poddoor/impassable{
+	name = "Heavy Supply";
+	id_tag = "thunderdomehea"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -10463,9 +10448,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Ox" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdomegen";
-	name = "General Supply"
+/obj/machinery/door/poddoor/impassable{
+	name = "General Supply";
+	id_tag = "thunderdomegen"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -10629,9 +10614,9 @@
 	},
 /area/centcom/specops)
 "OW" = (
-/obj/machinery/door/poddoor{
-	id_tag = "thunderdome";
-	name = "Thunderdome Blast Door"
+/obj/machinery/door/poddoor/impassable{
+	name = "Thunderdome Blast Door";
+	id_tag = "thunderdome"
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -11869,6 +11854,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Ul" = (
+/obj/effect/landmark/newplayer_start,
+/turf/simulated/wall/indestructible/splashscreen,
+/area/start)
 "Um" = (
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -13482,21 +13471,21 @@ aN
 aN
 aN
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -13739,21 +13728,21 @@ aN
 aN
 aN
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -15802,7 +15791,7 @@ rE
 rE
 rE
 rE
-ad
+Ul
 rE
 rE
 rE
@@ -17851,21 +17840,21 @@ ck
 ck
 ck
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -18108,21 +18097,21 @@ ck
 ck
 ck
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -61570,7 +61559,7 @@ ab
 KY
 tz
 tU
-uf
+Ao
 KX
 KX
 uT
@@ -71013,11 +71002,11 @@ an
 an
 aa
 fI
-fP
-fP
-fP
-fP
-fP
+fM
+fM
+fM
+fM
+fM
 fI
 fI
 fI
@@ -71275,7 +71264,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -71532,7 +71521,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -71789,7 +71778,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -72046,7 +72035,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -72303,7 +72292,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fY
 fI
 aN
@@ -72555,11 +72544,11 @@ an
 an
 aa
 fI
-fQ
-fQ
-fQ
-fQ
-fQ
+fM
+fM
+fM
+fM
+fM
 fI
 aa
 aa
@@ -76667,11 +76656,11 @@ eN
 IK
 cc
 fI
-fQ
-fQ
-fQ
-fQ
-fQ
+fM
+fM
+fM
+fM
+fM
 fI
 aa
 aa
@@ -76929,7 +76918,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77186,7 +77175,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77443,7 +77432,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77700,7 +77689,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -77957,7 +77946,7 @@ fM
 fM
 fM
 fM
-fW
+fM
 fZ
 fI
 aN
@@ -78209,11 +78198,11 @@ eQ
 eH
 cc
 fI
-fP
-fP
-fP
-fP
-fP
+fM
+fM
+fM
+fM
+fM
 fI
 fI
 fI

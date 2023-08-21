@@ -9,11 +9,24 @@
 
 /datum/component/sticky/Initialize(_drop_on_attached_destroy = FALSE)
 	if(!isitem(parent))
-		stack_trace("/datum/component/sticky's parent is not an item, its [parent.type]")
 		return COMPONENT_INCOMPATIBLE
 
 	drop_on_attached_destroy = _drop_on_attached_destroy
+
+/datum/component/sticky/Destroy(force, silent)
+	// we dont want the falling off visible message if this component is getting destroyed because parent is getting destroyed
+	if(!QDELETED(parent) && isitem(parent) && attached_to)
+		var/obj/item/I = parent
+		I.visible_message("<span class='notice'>[parent] falls off of [attached_to].</span>")
+	pick_up(parent)
+	move_to_the_thing(parent, get_turf(parent))
+	return ..()
+
+/datum/component/sticky/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(stick_to_it))
+
+/datum/component/sticky/UnregisterFromParent()
+	UnregisterSignal(parent, COMSIG_ITEM_PRE_ATTACK)
 
 /datum/component/sticky/proc/stick_to_it(obj/item/I, atom/target, mob/user, params)
 	SIGNAL_HANDLER
@@ -59,10 +72,10 @@
 /datum/component/sticky/proc/pick_up(atom/A, mob/living/carbon/human/user)
 	SIGNAL_HANDLER
 	if(!attached_to)
+		CRASH("/datum/component/sticky/proc/pick_up was called, but without an attached atom")
+	if(user && user.a_intent != INTENT_GRAB)
 		return
-	if(user.a_intent != INTENT_GRAB)
-		return
-	if(user.get_active_hand())
+	if(user && user.get_active_hand())
 		return
 	attached_to.cut_overlay(overlay, priority = TRUE)
 
@@ -70,13 +83,13 @@
 	I.pixel_x = initial(I.pixel_x)
 	I.pixel_y = initial(I.pixel_y)
 	move_to_the_thing(parent)
-	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), I)
 	if(user)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), I)
 		to_chat(user, "<span class='notice'>You take [parent] off of [attached_to].</span>")
 
 
 	I.invisibility = initial(I.invisibility)
-	UnregisterSignal(attached_to, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(attached_to, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, COMSIG_PARENT_EXAMINE, COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 	STOP_PROCESSING(SSobj, src)
 	attached_to = null
 	return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -90,8 +103,7 @@
 /datum/component/sticky/proc/on_move(datum/source, oldloc, move_dir)
 	SIGNAL_HANDLER
 	if(!attached_to)
-		stack_trace("/datum/component/sticky was called on_move, but without an attached atom")
-		return
+		CRASH("/datum/component/sticky/proc/on_move was called, but without an attached atom")
 	move_to_the_thing(parent)
 
 /datum/component/sticky/process() // because sometimes the item can move inside something, like a crate
@@ -105,6 +117,9 @@
 		qdel(parent)
 		return
 
+	// Cancel out these signals, if they even still exist. Just to be safe
+	UnregisterSignal(attached_to, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, COMSIG_PARENT_EXAMINE, COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
+
 	var/turf/T = get_turf(source)
 	if(!T)
 		T = get_turf(parent)
@@ -115,4 +130,6 @@
 		return // only items should be able to have the sticky component
 	if(!target)
 		target = get_turf(attached_to)
+	if(!target)
+		CRASH("/datum/component/sticky/proc/move_to_the_thing was called without a viable target")
 	INVOKE_ASYNC(I, TYPE_PROC_REF(/atom/movable, forceMove), target)

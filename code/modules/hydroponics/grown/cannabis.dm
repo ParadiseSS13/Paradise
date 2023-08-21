@@ -27,7 +27,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow
 	mutatelist = list(/obj/item/seeds/cannabis/death,
 						/obj/item/seeds/cannabis/ultimate)
-	reagents_add = list("lsd" = 0.15, "thc" = 0.15, "cbd" = 0.15)
+	reagents_add = list("lsd" = 0.15, "thc" = 0.15, "cbd" = 0.15, "happiness" = 0.15)
 	rarity = 40
 
 /obj/item/seeds/cannabis/death

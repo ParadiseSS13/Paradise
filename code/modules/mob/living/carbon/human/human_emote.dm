@@ -60,6 +60,32 @@
 	message = "raises an eyebrow."
 	message_param = "raises an eyebrow at %t."
 
+/datum/emote/living/carbon/human/wince
+	key = "wince"
+	key_third_person = "winces"
+	message = "winces."
+	message_param = "winces at %t."
+
+/datum/emote/living/carbon/human/squint
+	key = "squint"
+	key_third_person = "squints"
+	message = "squints."
+	message_param = "squints at %t."
+
+/datum/emote/living/carbon/human/facepalm
+	key = "facepalm"
+	key_third_person = "facepalms"
+	message = "facepalms."
+	hands_use_check = TRUE
+	sound = 'sound/weapons/slap.ogg'
+	emote_type = EMOTE_SOUND
+	volume = 50
+
+/datum/emote/living/carbon/human/palm
+	key = "palm"
+	message = "extends their palm expectingly."
+	message_param = "extends their palm expectingly towards %t."
+
 /datum/emote/living/carbon/human/grumble
 	key = "grumble"
 	key_third_person = "grumbles"
@@ -622,6 +648,31 @@
 				return TRUE
 	return FALSE
 
+/datum/emote/living/carbon/human/bubble
+	key = "bubble"
+	key_third_person = "bubbles"
+	message = "bubbles."
+	message_param = "bubbles at %t."
+	emote_type = EMOTE_SOUND
+	age_based = TRUE
+	// Sound is CC-4.0 by Audiolarx
+	// Effect is cut out of original clip
+	// https://freesound.org/people/audiolarx/sounds/263945/
+	sound = 'sound/effects/mob_effects/slime_bubble.ogg'
+
+/datum/emote/living/carbon/human/pop
+	key = "pop"
+	key_third_person = "pops"
+	message = "makes a popping sound."
+	message_param = "makes a popping sound at %t."
+	message_mime = "makes a silent pop."
+	emote_type = EMOTE_SOUND
+	age_based = TRUE
+	// CC0
+	// https://freesound.org/people/greenvwbeetle/sounds/244653/
+	sound = 'sound/effects/mob_effects/slime_pop.ogg'
+	volume = 50
+
 /datum/emote/living/carbon/human/howl
 	key = "howl"
 	key_third_person = "howls"
@@ -647,6 +698,30 @@
 	volume = 80
 	muzzled_noises = list("annoyed")
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+
+/datum/emote/living/carbon/human/hiss/tajaran
+	message_mime = "hisses silently."
+	species_type_whitelist_typecache = list(/datum/species/tajaran)
+	sound = "sound/effects/tajaranhiss.ogg"
+	volume = 80
+	muzzled_noises = list("irritated")
+	// catHisses1.wav by Zabuhailo. Edited.
+	// https://freesound.org/people/Zabuhailo/sounds/146963/
+
+/datum/emote/living/carbon/human/meow
+	key = "meow"
+	key_third_person = "meows"
+	message = "meows."
+	message_mime = "meows silently."
+	message_param = "meows at %t."
+	species_type_whitelist_typecache = list(/datum/species/tajaran)
+	age_based = TRUE
+	sound = "sound/effects/tajaranmeow.ogg"
+	volume = 75
+	muzzled_noises = list("soft")
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	// Cat Meow Sound Effects by Loudest Paws. Cut.
+	// https://www.youtube.com/watch?v=GBiWYNP-uQI
 
 /datum/emote/living/carbon/human/rattle
 	key = "rattle"

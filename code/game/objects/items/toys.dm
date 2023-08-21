@@ -550,7 +550,7 @@
 
 /obj/item/toy/plushie/Destroy()
 	QDEL_NULL(grenade)
-	..()
+	return ..()
 
 /obj/item/toy/plushie/attackby(obj/item/I, mob/living/user, params)
 	if(I.sharp)
@@ -593,6 +593,19 @@
 
 /obj/random/plushie/item_to_spawn()
 	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
+
+/obj/random/plushie/explosive
+	var/explosive_chance = 1 // 1% to spawn a blahbomb!
+
+/obj/random/plushie/explosive/spawn_item()
+	var/obj/item/toy/plushie/plushie = ..()
+	if(!prob(explosive_chance))
+		return plushie
+	var/obj/item/I = new /obj/item/grenade/syndieminibomb
+	plushie.has_stuffing = FALSE
+	plushie.grenade = I
+	I.forceMove(plushie)
+	return plushie
 
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
