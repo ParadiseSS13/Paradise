@@ -1,4 +1,4 @@
-// This is a file with all the power that buff or heal a mindflayer in some way
+// This is a file with all the powers that buff or heal a mindflayer in some way
 
 /obj/effect/proc_holder/spell/flayer/self/create_new_targeting()
 	return new /datum/spell_targeting/self
