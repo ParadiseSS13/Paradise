@@ -727,7 +727,7 @@
 	else if(isitem(A) && !is_under_tile())
 		var/obj/item/O = A
 		var/obj/item/stock_parts/cell/C = O.get_cell()
-		if(C && C.charge)
+		if(C?.charge)
 			C.use(min(C.charge, power_drain_rate))
 			adjust_charge(min(C.charge, power_drain_rate))
 			visible_message("<span class='notice'>[src] touches [O] and drains its power!</span>", "<span class='notice'>You touch [O] and drain its power!</span>")
