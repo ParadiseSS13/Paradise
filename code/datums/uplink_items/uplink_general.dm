@@ -598,7 +598,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A visor for a MODsuit. Lets you see living beings through walls. Also provides night vision."
 	reference = "MSTV"
 	item = /obj/item/mod/module/visor/thermal
-	cost = 3 // Don't forget, you need to get a modsuit to go with this
+	cost = 15 // Don't forget, you need to get a modsuit to go with this
 	surplus = 10 //You don't need more than
 
 /datum/uplink_item/suits/night
@@ -606,7 +606,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A visor for a MODsuit. Lets you see clearer in the dark."
 	reference = "MSNV"
 	item = /obj/item/mod/module/visor/night
-	cost = 1 // It's night vision, rnd pumps out those goggles for anyone man.
+	cost = 5 // It's night vision, rnd pumps out those goggles for anyone man.
 	surplus = 10 //You don't need more than one
 
 /datum/uplink_item/suits/plate_compression
@@ -615,14 +615,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	you will have to take that module out first."
 	reference = "MSPC"
 	item = /obj/item/mod/module/plate_compression
-	cost = 2
+	cost = 10
 
 /datum/uplink_item/suits/noslip
 	name = "MODsuit Anti-Slip Module"
 	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink modsuits."
 	reference = "MSNS"
 	item = /obj/item/mod/module/noslip
-	cost = 1
+	cost = 5
 
 /datum/uplink_item/suits/springlock_module
 	name = "Heavily Modified Springlock MODsuit Module"
@@ -636,7 +636,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		up with smoke, but you can multitool the module to disable that."
 	reference = "FNAF"
 	item = /obj/item/mod/module/springlock/bite_of_87
-	cost = 1
+	cost = 5
 	surplus = 10
 
 /datum/uplink_item/suits/hidden_holster
@@ -644,7 +644,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A holster module disguised to look like a tether module. Requires a modsuit to put it in of course. Gun not included."
 	reference = "HHM"
 	item = /obj/item/mod/module/holster/hidden
-	cost = 1
+	cost = 5
 	surplus = 10
 
 /datum/uplink_item/device_tools/binary
