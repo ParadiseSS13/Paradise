@@ -245,11 +245,10 @@
 /mob/living/simple_animal/bot/mulebot/attack_integrated_pulsedemon(mob/living/simple_animal/demon/pulse_demon/user, atom/A)
 	if(!on)
 		return
-	if(istype(A) && Adjacent(A))
-		if(ismovable(A))
-			to_chat(user, "<span class='notice'You try to load [A] onto [src].</span>")
-			load(A)
-			return
+	if(istype(A) && Adjacent(A) && ismovable(A))
+		to_chat(user, "<span class='notice'You try to load [A] onto [src].</span>")
+		load(A)
+		return
 	if(load)
 		to_chat(user, "<span class='notice'You unload [load].</span>")
 		unload(0)
