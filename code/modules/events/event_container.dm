@@ -7,6 +7,7 @@
 #define ASSIGNMENT_MEDICAL "Medical"
 #define ASSIGNMENT_SCIENTIST "Scientist"
 #define ASSIGNMENT_SECURITY "Security"
+#define ASSIGNMENT_CHEMIST "Chemist"
 
 GLOBAL_LIST_INIT(severity_to_string, list(EVENT_LEVEL_MUNDANE = "Mundane", EVENT_LEVEL_MODERATE = "Moderate", EVENT_LEVEL_MAJOR = "Major"))
 GLOBAL_LIST_EMPTY(event_last_fired)
@@ -141,6 +142,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Vermin Infestation",/datum/event/infestation, 		100,	list(ASSIGNMENT_JANITOR = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Sentience",			/datum/event/sentience,			50),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Fungal Growth",		/datum/event/wallrot/fungus, 	50, 	list(ASSIGNMENT_CHEMIST = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Koi School",		/datum/event/carp_migration/koi,		80),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Camera Failure",	/datum/event/camera_failure,		100, list(ASSIGNMENT_ENGINEER = 10)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Fake Virus",		/datum/event/fake_virus,		50),
@@ -218,3 +220,4 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 #undef ASSIGNMENT_MEDICAL
 #undef ASSIGNMENT_SCIENTIST
 #undef ASSIGNMENT_SECURITY
+#undef ASSIGNMENT_CHEMIST
