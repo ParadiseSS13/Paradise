@@ -180,7 +180,7 @@ const ItemsPage = (_properties, context) => {
 
 const CartPage = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { cart, crystals, cart_potential_remaining_tc } = data;
+  const { cart, crystals, cart_price } = data;
 
   const [showDesc, setShowDesc] = useLocalState(context, "showDesc", 0);
 
@@ -202,10 +202,10 @@ const CartPage = (_properties, context) => {
               disabled={!cart}
             />
             <Button
-              content={"Purchase Cart (" + cart_potential_remaining_tc + "TC)"}
+              content={"Purchase Cart (" + cart_price + "TC)"}
               icon='shopping-cart'
               onClick={() => act('purchase_cart')}
-              disabled={!cart || cart_potential_remaining_tc > crystals}
+              disabled={!cart || cart_price > crystals}
             />
           </Fragment>
         }
@@ -359,13 +359,15 @@ const CartButtons = (props, context) => {
     <Button.Input
       content={i.amount}
       width="45px"
+      tooltipPosition="bottom-left"
+      tooltip={i.limit === 0 && 'Discount already redeemed!'}
       onCommit={(e, value) =>
         act('set_cart_item_quantity', {
           item: i.obj_path,
           quantity: value,
         })
       }
-      disabled={i.amount >= i.limit && i.amount <= 0}
+      disabled={i.limit !== -1 && i.amount >= i.limit && i.amount <= 0}
     />
     <Button
       icon='plus'
@@ -377,7 +379,7 @@ const CartButtons = (props, context) => {
           quantity: ++i.amount, // one higher
         })
       }
-      disabled={i.amount >= i.limit}
+      disabled={i.limit !== -1 && i.amount >= i.limit}
     />
   </Flex>
   )

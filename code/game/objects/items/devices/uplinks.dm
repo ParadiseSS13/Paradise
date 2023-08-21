@@ -151,7 +151,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	name = "hidden uplink"
 	desc = "There is something wrong if you're examining this."
 	var/active = FALSE
-	var/list/datum/uplink_item/shopping_cart
+	/// An assoc list of references (the variable called reference on an uplink item) and its value being how many of the item
+	var/list/shopping_cart
+	/// A cached version of shopping_cart containing all the data for the tgui side
 	var/list/cached_cart
 	/// A list of 3 categories and item indexes in uplink_cats, to show as recommendedations
 	var/list/lucky_numbers
@@ -196,7 +198,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	data["crystals"] = uses
 
 	data["cart"] = generate_tgui_cart()
-	data["cart_potential_remaining_tc"] = calculate_cart_tc() // todo rename this shit
+	data["cart_price"] = calculate_cart_tc()
 	data["lucky_numbers"] = lucky_numbers
 
 	return data
@@ -207,7 +209,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	// Actual items
 	if(!uplink_cats || !uplink_items)
 		generate_item_lists(user)
-	if(!lucky_numbers)
+	if(!lucky_numbers) // Make sure these are generated AFTER the categories, otherwise shit will get messed up
 		shuffle_lucky_numbers()
 	data["cats"] = uplink_cats
 
@@ -239,15 +241,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return cached_cart
 
 	if(!length(shopping_cart))
+		shopping_cart = null
 		cached_cart = null
 		return cached_cart
 
 	cached_cart = list()
 	for(var/reference in shopping_cart)
 		var/datum/uplink_item/I = uplink_items[reference]
-		var/limit = I.limited_stock
-		if(limit == -1) // no stock limit
-			limit = 300 // arbitrary... but you're not gonna buy 300 of the same thing
 		cached_cart += list(list(
 			"name" = sanitize(I.name),
 			"desc" = sanitize(I.description()),
@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			"hijack_only" = I.hijack_only,
 			"obj_path" = I.reference,
 			"amount" = shopping_cart[reference],
-			"limit" = limit))
+			"limit" = I.limited_stock))
 
 // Interaction code. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
 /obj/item/uplink/hidden/interact(mob/user)
@@ -267,7 +267,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return
 
 	. = TRUE
-	var/item_reference = params["item"] // i hate typing out brackets multiple times, and quotes, and all that shit
 
 	switch(action)
 		if("lock")
@@ -275,6 +274,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			uses += hidden_crystals
 			hidden_crystals = 0
 			SStgui.close_uis(src)
+			for(var/reference in shopping_cart)
+				if(shopping_cart[reference] == 0) // I know this isn't lazy, but this should runtime on purpose if we can't access this for some reason
+					remove_from_cart(reference)
 
 		if("refund")
 			refund(ui.user)
@@ -289,25 +291,25 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 		if("add_to_cart")
 			var/datum/uplink_item/UI = uplink_items[params["item"]]
-			if(!LAZYIN(shopping_cart, item_reference))
-				var/startamount = 1
-				if(UI.limited_stock == 0)
-					startamount = 0
-				LAZYSET(shopping_cart, item_reference, startamount)
-				generate_tgui_cart(TRUE)
-			else
+			if(LAZYIN(shopping_cart, params["item"]))
 				to_chat(ui.user, "<span class='warning'>[UI.name] is already in your cart!</span>")
+				return
+			var/startamount = 1
+			if(UI.limited_stock == 0)
+				startamount = 0
+			LAZYSET(shopping_cart, params["item"], startamount)
+			generate_tgui_cart(TRUE)
 
 		if("remove_from_cart")
-			remove_from_cart(item_reference)
+			remove_from_cart(params["item"])
 
 		if("set_cart_item_quantity")
 			var/amount = text2num(params["quantity"])
-			LAZYSET(shopping_cart, item_reference, max(amount, 0))
+			LAZYSET(shopping_cart, params["item"], max(amount, 0))
 			generate_tgui_cart(TRUE)
 
 		if("purchase_cart")
-			if(!LAZYLEN(shopping_cart))
+			if(!LAZYLEN(shopping_cart)) // sanity check
 				return
 			if(calculate_cart_tc() > uses)
 				to_chat(ui.user, "<span class='warning'>[src] buzzes, it doesn't contain enough telecrystals!</span>")
@@ -315,6 +317,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(is_jammed)
 				to_chat(ui.user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
 				return
+
+			// Buying of the uplink stuff
 			var/list/bought_things = list()
 			for(var/reference in shopping_cart)
 				var/datum/uplink_item/item = uplink_items[reference]
@@ -323,6 +327,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 					continue
 				bought_things += mass_purchase(item, item ? item.reference : "", purchase_amt)
 
+			// Check how many of them are items
 			var/list/obj/item/items_for_crate = list()
 			for(var/thing in bought_things)
 				// because sometimes you can buy items like crates from surpluses and stuff
@@ -330,10 +335,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				if(isitem(thing))
 					items_for_crate += thing
 
+			// If we have more than 2 of them, put them in a crate
 			if(length(items_for_crate) > 2)
 				var/obj/structure/closet/crate/C = new(get_turf(src))
 				for(var/obj/item/item as anything in items_for_crate)
 					item.forceMove(C)
+			// Otherwise, just put the items in their hands
 			else if(length(items_for_crate))
 				for(var/obj/item/item as anything in items_for_crate)
 					ui.user.put_in_any_hand_if_possible(item)
@@ -353,7 +360,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	for(var/i in 1 to 4)
 		var/cate_number = rand(1, length(uplink_cats))
 		var/item_number = rand(1, length(uplink_cats[cate_number]["items"]))
-		lucky_numbers += list(list("cat" = cate_number - 1, "item" = item_number - 1)) // dm lists are 1 based, js lists are 0 based
+		lucky_numbers += list(list("cat" = cate_number - 1, "item" = item_number - 1)) // dm lists are 1 based, js lists are 0 based, gotta -1
 
 /obj/item/uplink/hidden/proc/remove_from_cart(item_reference) // i want to make it eventually remove all instances
 	LAZYREMOVE(shopping_cart, item_reference)
