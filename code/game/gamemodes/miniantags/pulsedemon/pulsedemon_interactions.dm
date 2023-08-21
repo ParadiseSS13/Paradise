@@ -1,5 +1,3 @@
-#define PD_HIJACK_FAIL(pd) (CALLBACK(pd, TYPE_PROC_REF(/mob/living/simple_animal/demon/pulse_demon, fail_hijack)))
-
 /mob/living/simple_animal/demon/pulse_demon/ClickOn(atom/A, params)
 	if(client?.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
@@ -21,7 +19,7 @@
 		if(iscarbon(G.loc) || isturf(G.loc))
 			G.process_fire(A, src, FALSE)
 			visible_message("<span class='danger'>[G] fires itself at [A]!</span>", "<span class='danger'>You force [G] to fire at [A]!</span>", "<span class='italics'>You hear \a [G.fire_sound_text]!</span>")
-			changeNext_click(1 SECONDS) // I can't actually find what the default gun fire cooldown is, so it's 1 second until someone enlightens me
+			changeNext_click(CLICK_CD_RANGE) // I can't actually find what the default gun fire cooldown is, so it's 1 second until someone enlightens me
 			return
 	else if(current_robot)
 		log_admin("[key_name_admin(src)] made [key_name_admin(current_robot)] attack [A]")
@@ -86,7 +84,7 @@
 
 // for alt-click status tab
 /mob/living/simple_animal/demon/pulse_demon/TurfAdjacent(turf/T)
-	return (get_area(T) == controlling_area) || ..()
+	return get_area(T) == controlling_area || ..()
 
 // for overrides in general
 /atom/proc/attack_pulsedemon(mob/living/simple_animal/demon/pulse_demon/user)
@@ -119,81 +117,65 @@
 	hijacked = TRUE
 
 /mob/living/simple_animal/bot/relaymove(mob/user, dir)
-	if(!on || !isturf(loc))
+	if(!on)
+		to_chat(user, "[src] isn't turned on!")
 		return
 	if(ispulsedemon(user))
 		var/mob/living/simple_animal/demon/pulse_demon/demon = user
 		if(demon.bot_movedelay <= world.time && dir)
-			step(src, dir)
+			Move(get_step(get_turf(src), dir))
 			demon.bot_movedelay = world.time + (BOT_STEP_DELAY * (base_speed - 1)) * ((dir in GLOB.diagonals) ? SQRT_2 : 1)
 
 /obj/machinery/recharger/attack_pulsedemon(mob/living/simple_animal/demon/pulse_demon/user)
 	user.forceMove(src)
-	if(!user.check_valid_recharger(src))
+	if(!charging)
 		to_chat(user, "<span class='warning'>There is no weapon charging. Click again to retry.</span>")
 		return
-	user.do_hijack_notice(charging)
+	to_chat(user, "<span class='notice'>You are now attempting to hijack [src], this will take approximately [user.hijack_time / 10] seconds.</span>")
 	if(!do_after(user, user.hijack_time, FALSE, src))
 		return
-	if(user.check_valid_recharger(src))
-		user.finish_hijack_recharger(src)
-	else
-		user.fail_hijack()
-
-/mob/living/simple_animal/demon/pulse_demon/proc/check_valid_recharger(obj/machinery/recharger/R)
-	return R.charging
-
-/mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_recharger(obj/machinery/recharger/R)
-	to_chat(src, "<span class='notice'>You are now inside [R.charging]. Click on a hijacked APC to return.</span>")
-	forceMove(R.charging)
-	current_weapon = R.charging
+	if(!charging)
+		to_chat(src, "<span class='warning'>Failed to hijack [src]</span>")
+		return
+	to_chat(user, "<span class='notice'>You are now inside [charging]. Click on a hijacked APC to return.</span>")
+	user.forceMove(charging)
+	user.current_weapon = charging
 
 /obj/machinery/cell_charger/attack_pulsedemon(mob/living/simple_animal/demon/pulse_demon/user)
 	user.forceMove(src)
-	if(!user.check_valid_recharger(src))
+	if(!charging)
 		to_chat(user, "<span class='warning'>There is no cell charging. Click again to retry.</span>")
 		return
-	user.do_hijack_notice(charging)
+	to_chat(user, "<span class='notice'>You are now attempting to hijack [src], this will take approximately [user.hijack_time / 10] seconds.</span>")
 	if(charging.rigged)
-		user.finish_hijack_cell_charger(src)
+		to_chat(user, "<span class='notice'>You are now inside [charging]. Click on a hijacked APC to return.</span>")
+		user.forceMove(charging)
 		return
 	if(!do_after(user, user.hijack_time, FALSE, src))
 		return
-	if(user.check_valid_recharger(src))
-		user.finish_hijack_cell_charger(src)
-	else
-		user.fail_hijack()
-
-/mob/living/simple_animal/demon/pulse_demon/proc/check_valid_cell_charger(obj/machinery/cell_charger/C)
-	return C.charging
-
-/mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_cell_charger(obj/machinery/cell_charger/C)
-	to_chat(src, "<span class='notice'>You are now inside [C.charging]. Click on a hijacked APC to return.</span>")
-	forceMove(C.charging)
+	if(!charging)
+		to_chat(src, "<span class='warning'>Failed to hijack [src].</span>")
+		return
+	to_chat(user, "<span class='notice'>You are now inside [charging]. Click on a hijacked APC to return.</span>")
+	user.forceMove(charging)
 
 /obj/machinery/recharge_station/attack_pulsedemon(mob/living/simple_animal/demon/pulse_demon/user)
 	user.forceMove(src)
-	if(!user.check_valid_recharge_station(src))
+	if(!isrobot(occupant))
 		to_chat(user, "<span class='warning'>There is no silicon-based occupant inside. Click again to retry.</span>")
 		return
-	user.do_hijack_notice(occupant)
+	to_chat(user, "<span class='notice'>You are now attempting to hijack [occupant], this will take approximately [user.hijack_time / 10] seconds.</span>")
 	var/mob/living/silicon/robot/R = occupant
 	if(R in user.hijacked_robots)
-		user.finish_hijack_recharge_station(src)
+		user.do_hijack_robot(occupant)
 		return
 	to_chat(R, "<span class='userdanger'>ALERT: ELECTRICAL MALEVOLENCE DETECTED, TARGETING SYSTEMS HIJACK IN PROGRESS</span>")
 	if(!do_after(user, user.hijack_time, FALSE, src))
 		return
-	if(user.check_valid_recharge_station(src))
-		user.finish_hijack_recharge_station(src)
-	else
-		user.fail_hijack()
-
-/mob/living/simple_animal/demon/pulse_demon/proc/check_valid_recharge_station(obj/machinery/recharge_station/R)
-	return isrobot(R.occupant)
-
-/mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_recharge_station(obj/machinery/recharge_station/S)
-	do_hijack_robot(S.occupant)
+	if(isrobot(occupant))
+		user.do_hijack_robot(occupant)
+		return
+	to_chat(src, "<span class='warning'>Failed to hijack [src].</span>")
 
 /mob/living/simple_animal/demon/pulse_demon/proc/do_hijack_robot(mob/living/silicon/robot/R)
 	to_chat(src, "<span class='notice'>You are now inside [R]. Click on a hijacked APC to return.</span>")
@@ -271,5 +253,3 @@
 	if(load)
 		to_chat(user, "You unload [load].")
 		unload(0)
-
-#undef PD_HIJACK_FAIL

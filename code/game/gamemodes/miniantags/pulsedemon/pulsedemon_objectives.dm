@@ -1,6 +1,7 @@
 /datum/objective/pulse_demon/infest
 	name = "Hijack APCs"
-	var/amount
+	/// Amount of APCs we need to hijack, can be 15, 20, or 25
+	var/amount = 0
 
 /datum/objective/pulse_demon/infest/New()
 	. = ..()
@@ -20,7 +21,8 @@
 
 /datum/objective/pulse_demon/drain
 	name = "Drain Power"
-	var/amount
+	/// Amount of power we need to drain, ranges from 500 KW to 5 MW
+	var/amount = 0
 
 /datum/objective/pulse_demon/drain/New()
 	. = ..()
@@ -38,6 +40,7 @@
 		drained += demon.charge_drained
 	return drained >= amount
 
+// Requires 1 APC to be hacked and not destroyed to complete
 /datum/objective/pulse_demon/tamper
 	name = "Tamper Machinery"
 	explanation_text = "Cause mischief amongst the machines in rooms with APCs you've hijacked, and defend yourself from anyone trying to stop you."

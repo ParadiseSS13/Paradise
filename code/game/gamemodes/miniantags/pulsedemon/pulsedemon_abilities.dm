@@ -59,7 +59,7 @@
 	return TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/cast(list/targets, mob/living/simple_animal/demon/pulse_demon/user)
-	if(!istype(user) || locked || user.charge < cast_cost || !targets)
+	if(!istype(user) || locked || user.charge < cast_cost || !length(targets))
 		return FALSE
 	if(requires_area && !user.controlling_area)
 		return FALSE
@@ -139,9 +139,9 @@
 	O.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 1 SECONDS)
 	for(var/turf/working in getline(O, T))
 		for(var/mob/living/L in working)
-			if(electrocute_mob(L, C.powernet, user) == 0) // give a little bit of non-lethal counterplay against insuls
+			if(!electrocute_mob(L, C.powernet, user)) // give a little bit of non-lethal counterplay against insuls
 				L.Jitter(5 SECONDS)
-				L.apply_status_effect(STATUS_EFFECT_DELAYED, 1 SECONDS, CALLBACK(L, TYPE_PROC_REF(/mob/living/, KnockDown), 5 SECONDS), COMSIG_LIVING_CLEAR_STUNS)
+				L.apply_status_effect(STATUS_EFFECT_DELAYED, 1 SECONDS, CALLBACK(L, TYPE_PROC_REF(/mob/living, KnockDown), 5 SECONDS), COMSIG_LIVING_CLEAR_STUNS)
 	user.forceMove(T)
 	user.Move(T)
 	return TRUE
@@ -196,9 +196,9 @@
 	return TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/overload/proc/detonate(obj/machinery/target)
-	if(target && !QDELING(target))
+	if(!QDELETED(target))
 		explosion(get_turf(target), 0, 1, 1, 0)
-		if(target)
+		if(!QDELETED(target))
 			qdel(target)
 
 /obj/effect/proc_holder/spell/pulse_demon/remotehijack
@@ -336,7 +336,7 @@
 	user.forceMove(user.current_power)
 
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
-	if(length(user.controlling_area.cameras) < 1)
+	if(!length(user.controlling_area.cameras))
 		return FALSE
 
 	if(isapc(user.loc))
@@ -380,9 +380,6 @@
 		PD_UPGRADE_HEALTH_COST  = "Decrease the amount of power required to regenerate per cycle.",
 		PD_UPGRADE_MAX_CHARGE   = "Increase the total amount of charge you can have at once.",
 	)
-
-/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/Initialize(mapload)
-	. = ..()
 
 /obj/effect/proc_holder/spell/pulse_demon/open_upgrades/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -444,7 +441,7 @@
 		to_chat(user, "<span class='warning'>You have already fully upgraded everything available!</span>")
 		return FALSE
 
-	var/raw_choice = show_radial_menu(user, user, upgrades, radius = 48)
+	var/raw_choice = show_radial_menu(user, isturf(user.loc) ? user : user.loc, upgrades, radius = 48)
 	if(!raw_choice)
 		return
 	var/choice = splittext(raw_choice, " ")[1]

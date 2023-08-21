@@ -46,18 +46,17 @@
 		locked = !locked
 		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
 		return TRUE
-	if(usr.next_click > world.time)
-		return
-	usr.next_click = world.time + 1
 	if(modifiers["alt"])
 		AltClick(usr)
 		return TRUE
 	if(modifiers["middle"])
 		linked_action.Trigger(left_click = FALSE)
 		return TRUE
-	linked_action.Trigger(left_click = TRUE)
-	linked_action.Trigger()
+	linked_action.Trigger(TRUE)
 	return TRUE
+
+/obj/screen/movable/action_button/AltClick(mob/user)
+	return linked_action.AltTrigger()
 
 //Hide/Show Action Buttons ... Button
 /obj/screen/movable/action_button/hide_toggle

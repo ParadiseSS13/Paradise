@@ -1,7 +1,5 @@
 // original implementation: https://ss13.moe/wiki/index.php/Pulse_Demon
 
-#define PD_HIJACK_CB(pd, proc) (CALLBACK(pd, TYPE_PROC_REF(/mob/living/simple_animal/demon/pulse_demon, proc), src))
-
 #define PULSEDEMON_PLATING_SPARK_CHANCE 20
 #define PULSEDEMON_APC_CHARGE_MULTIPLIER 2
 #define PULSEDEMON_SMES_DRAIN_MULTIPLIER 10
@@ -142,6 +140,8 @@
 
 	RegisterSignal(SSdcs, COMSIG_GLOB_CABLE_UPDATED, PROC_REF(cable_updated_handler))
 
+	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(make_pulse_antagonist))
+
 	current_power = locate(/obj/machinery/power) in loc
 	// in the case that both current_power and current_cable are null, the pulsedemon will die the next tick
 	if(!current_power)
@@ -151,8 +151,10 @@
 	update_glow()
 	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 30, TRUE)
 	give_spells()
+	whisper_action.button_icon_state = "pulse_whisper"
+	whisper_action.background_icon_state = "bg_pulsedemon"
 
-/mob/living/simple_animal/demon/pulse_demon/proc/deleted_handler(src, force)
+/mob/living/simple_animal/demon/pulse_demon/proc/deleted_handler(our_demon, force)
 	SIGNAL_HANDLER
 	// assume normal deletion if we're on a turf, otherwise deletion could be inherited from loc
 	if(force || isnull(loc) || isturf(loc))
@@ -203,6 +205,12 @@
 	. = ..()
 	update_cableview()
 
+/mob/living/simple_animal/demon/pulse_demon/proc/make_pulse_antagonist(demon)
+	SIGNAL_HANDLER
+	mind.assigned_role = SPECIAL_ROLE_DEMON
+	mind.special_role = SPECIAL_ROLE_DEMON
+	give_objectives()
+
 /mob/living/simple_animal/demon/pulse_demon/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("glow_color")
@@ -221,11 +229,11 @@
 	if(current_bot)
 		current_bot.hijacked = FALSE
 	current_bot = null
-	if(old && istype(old, /obj/item/stock_parts/cell))
+	if(istype(old, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = old
 		// only set rigged if there are no remaining demons in the cell
 		C.rigged = !(locate(/mob/living/simple_animal/demon/pulse_demon) in old)
-	if(loc && istype(loc, /obj/item/stock_parts/cell))
+	if(istype(loc, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = loc
 		C.rigged = FALSE
 
@@ -380,7 +388,7 @@
 			if(current_power in hijacked_apcs)
 				update_controlling_area()
 			else
-				addtimer(CALLBACK(src, PROC_REF(try_hijack_apc), current_power), 0) // This is awful, also prevents it from sleeping so... yippie?
+				INVOKE_ASYNC(src, PROC_REF(try_hijack_apc), current_power)
 	else if(new_cable)
 		current_cable = new_cable
 		current_power = null
@@ -597,7 +605,7 @@
 	if(!is_valid_apc(A) || (A in hijacked_apcs) || apc_being_hijacked || A.being_hijacked)
 		return FALSE
 
-	do_hijack_notice(A)
+	to_chat(src, "<span class='notice'>You are now attempting to hijack [A], this will take approximately [hijack_time / 10] seconds.</span>")
 	apc_being_hijacked = A
 	A.being_hijacked = TRUE
 	A.update_icon()
@@ -605,8 +613,10 @@
 		if(is_valid_apc(A))
 			finish_hijack_apc(A, remote)
 		else
-			fail_hijack(A)
-	cleanup_hijack_apc(A)
+			to_chat(src, "<span class='warning'>Failed to hijack [src].</span>")
+	apc_being_hijacked = null
+	A.being_hijacked = FALSE
+	A.update_icon()
 
 // note: the station maps supposedly average ~150 APCs, so the upper levels here are certainly possible, also you can manually upgrade the capacity stat
 /mob/living/simple_animal/demon/pulse_demon/proc/calc_maxcharge(n)
@@ -626,14 +636,6 @@
 		update_controlling_area()
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
 	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs.</span>")
-
-/mob/living/simple_animal/demon/pulse_demon/proc/cleanup_hijack_apc(obj/machinery/power/apc/A)
-	apc_being_hijacked = null
-	A.being_hijacked = FALSE
-	A.update_icon()
-
-/mob/living/simple_animal/demon/pulse_demon/proc/fail_hijack()
-	to_chat(src, "<span class='warning'>Hijacking failed!</span>")
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_cross_shock(src, atom/A)
 	SIGNAL_HANDLER
@@ -657,9 +659,6 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/is_under_tile()
 	var/turf/T = get_turf(src)
 	return T.transparent_floor || T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
-
-/mob/living/simple_animal/demon/pulse_demon/proc/do_hijack_notice(atom/A)
-	to_chat(src, "<span class='notice'>You are now attempting to hijack [A], this will take approximately [hijack_time / 10] seconds.</span>")
 
 // cable (and hijacked APC) view helper
 /mob/living/simple_animal/demon/pulse_demon/proc/update_cableview()
