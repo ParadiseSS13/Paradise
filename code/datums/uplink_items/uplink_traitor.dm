@@ -64,7 +64,7 @@
 		a pair of throwing croissants, and the recipe to make more on demand. Once the job is done, eat the evidence."
 	reference = "CBK"
 	item = /obj/item/storage/box/syndie_kit/combat_baking
-	cost = 5 //A chef can get a knife that sharp easily, though it won't block. While you can get endless boomerang, they are less deadly than a stech, and slower / more predictable.
+	cost = 25 //A chef can get a knife that sharp easily, though it won't block. While you can get endless boomerang, they are less deadly than a stech, and slower / more predictable.
 	job = list("Mime", "Chef")
 
 /datum/uplink_item/jobspecific/pressure_mod
