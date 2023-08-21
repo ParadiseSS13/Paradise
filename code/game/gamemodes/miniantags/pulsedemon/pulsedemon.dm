@@ -618,11 +618,12 @@
 	A.being_hijacked = FALSE
 	A.update_icon()
 
-// note: the station maps supposedly average ~150 APCs, so the upper levels here are certainly possible, also you can manually upgrade the capacity stat
-/mob/living/simple_animal/demon/pulse_demon/proc/calc_maxcharge(n)
-	if(n < 1)
+// Basically this proc gives you more max charge per apc you have hijacked
+// Looks weird but it gets the job done
+/mob/living/simple_animal/demon/pulse_demon/proc/calc_maxcharge(hijacked_apcs)
+	if(!hijacked_apcs) // No APCs hijacked? No extra charge
 		return 1000
-	return 20000 * clamp(n, 0, 20) + 500000 * clamp(n - 20, 0, 30) + 1000000 * clamp(n - 50, 0, 50) + 500000000 * max(0, n - 100)
+	return 20000 * clamp(hijacked_apcs, 0, 20) + 500000 * clamp(hijacked_apcs - 20, 0, 30) + 1000000 * clamp(hijacked_apcs - 50, 0, 50) + 500000000 * max(0, hijacked_apcs - 100)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
@@ -722,8 +723,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/UnarmedAttack(atom/A)
 	if(isliving(A))
-		var/mob/living/L = A
-		try_attack_mob(L)
+		try_attack_mob(A)
 	else if(isitem(A) && !is_under_tile())
 		var/obj/item/O = A
 		var/obj/item/stock_parts/cell/C = O.get_cell()
@@ -736,7 +736,7 @@
 	if(is_under_tile())
 		to_chat(M, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
-	switch (M.intent)
+	switch(M.intent)
 		if(INTENT_HELP)
 			visible_message("<span class='notice'>[M] [response_help] [src].</span>")
 		if(INTENT_DISARM, INTENT_GRAB)
@@ -763,14 +763,13 @@
 
 /mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target, height)
 	. = ..()
-	// maybe a prob on this? prob only for weak ions? discover in testing
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE
 
-/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/ion))
+/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/item/projectile/proj)
+	if(istype(proj, /obj/item/projectile/ion))
 		return ..()
-	visible_message("<span class='warning'>[Proj] goes right through [src]!</span>")
+	visible_message("<span class='warning'>[proj] goes right through [src]!</span>")
 
 /mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
 	return

@@ -247,9 +247,9 @@
 		return
 	if(istype(A) && Adjacent(A))
 		if(ismovable(A))
-			to_chat(user, "You try to load [A] onto [src].")
+			to_chat(user, "<span class='notice'You try to load [A] onto [src].</span>")
 			load(A)
 			return
 	if(load)
-		to_chat(user, "You unload [load].")
+		to_chat(user, "<span class='notice'You unload [load].</span>")
 		unload(0)
