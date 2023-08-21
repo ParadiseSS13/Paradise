@@ -1203,10 +1203,10 @@
 		to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
 		playsound(loc, hitsound, 50, TRUE)
 
-		var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
+		var/obj/effect/temp_visual/obliteration_rays/rays = new(A)
 
 		if(do_after(user, 5 SECONDS * toolspeed, target = A))
-			new /obj/effect/temp_visual/obliteration(get_turf(A), A)
+			new /obj/effect/temp_visual/obliteration(A, A)
 			playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
 			var/turf/AT = A
 			AT.ChangeTurf(/turf/simulated/floor/plating)
@@ -1219,10 +1219,10 @@
 		to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
 		playsound(loc, hitsound, 50, TRUE)
 
-		var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
+		var/obj/effect/temp_visual/obliteration_rays/rays = new(A)
 
 		if(do_after(user, 5 SECONDS * toolspeed, target = A))
-			new /obj/effect/temp_visual/obliteration(get_turf(A), A)
+			new /obj/effect/temp_visual/obliteration(A, A)
 			playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
 			qdel(A)
 			return
