@@ -42,3 +42,4 @@
 #include "airlocks\code\airlock_types.dm"
 #include "airlocks\code\airlock_assembly_types.dm"
 #include "lights\code\lights.dm"
+#include "skin\code\darkmode.dm"

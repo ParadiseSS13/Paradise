@@ -3,126 +3,124 @@ macro "default"
 
 menu "menu"
 	elem
-		name = "&File"
+		name = "&Файл"
 	elem
-		name = "&Quick screenshot"
+		name = "&Быстрый скриншот"
 		command = ".screenshot auto"
-		category = "&File"
+		category = "&Файл"
 	elem
-		name = "&Save screenshot as..."
+		name = "&Сохранить скриншот как..."
 		command = ".screenshot"
-		category = "&File"
+		category = "&Файл"
 	elem "reconnectbutton"
-		name = "&Reconnect"
+		name = "&Переподключиться"
 		command = ".reconnect"
-		category = "&File"
+		category = "&Файл"
 	elem
-		name = ""
-		category = "&File"
-	elem
-		name = "&Quit"
+		name = "&Выход"
 		command = ".quit"
-		category = "&File"
+		category = "&Файл"
 	elem
-		name = "&Icons"
+		name = "&Вид"
 	elem
-		name = "&Size"
-		category = "&Icons"
+		name = "&Размер"
+		category = "&Вид"
 	elem "stretch"
-		name = "&Stretch to fit"
+		name = "&Растянуть"
 		command = ".winset \"mapwindow.map.icon-size=0\""
-		category = "&Size"
+		category = "&Размер"
 		is-checked = true
 		can-check = true
 		group = "size"
 	elem "icon128"
 		name = "&128x128 (4x)"
 		command = ".winset \"mapwindow.map.icon-size=128\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon112"
 		name = "&112x112 (3.5x)"
 		command = ".winset \"mapwindow.map.icon-size=112\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon96"
 		name = "&96x96 (3x)"
 		command = ".winset \"mapwindow.map.icon-size=96\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon80"
 		name = "&80x80 (2.5x)"
 		command = ".winset \"mapwindow.map.icon-size=80\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon64"
 		name = "&64x64 (2x)"
 		command = ".winset \"mapwindow.map.icon-size=64\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon48"
 		name = "&48x48 (1.5x)"
 		command = ".winset \"mapwindow.map.icon-size=48\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem "icon32"
 		name = "&32x32"
 		command = ".winset \"mapwindow.map.icon-size=32\""
-		category = "&Size"
+		category = "&Размер"
 		can-check = true
 		group = "size"
 	elem
-		name = "&Scaling"
-		category = "&Icons"
+		name = "&Масштабирование"
+		category = "&Вид"
+		saved-params = "is-checked;command"
 	elem "NN"
-		name = "&Nearest Neighbor"
+		name = "&По соседним пикселям"
 		command = ".winset \"mapwindow.map.zoom-mode=distort\""
-		category = "&Scaling"
+		category = "&Масштабирование"
+		can-check = true
+		group = "scale"
+	elem "PS"
+		name = "&Точечный отбор"
+		command = ".winset \"mapwindow.map.zoom-mode=normal\""
+		category = "&Масштабирование"
 		can-check = true
 		is-checked = true
 		group = "scale"
-	elem "PS"
-		name = "&Point Sampling"
-		command = ".winset \"mapwindow.map.zoom-mode=normal\""
-		category = "&Scaling"
-		can-check = true
-		group = "scale"
 	elem "BL"
-		name = "&Bilinear"
+		name = "&Билинейное"
 		command = ".winset \"mapwindow.map.zoom-mode=blur\""
-		category = "&Scaling"
+		category = "&Масштабирование"
 		can-check = true
 		group = "scale"
 	elem "textmode"
-		name = "&Text"
+		name = "&Текстовый режим"
 		command = ".winset \"menu.textmode.is-checked=true?mapwindow.map.text-mode=true:mapwindow.map.text-mode=false\""
-		category = "&Icons"
+		category = "&Вид"
 		can-check = true
 	elem
-		name = "&Options"
+		name = "&Опции"
 	elem
-		name = "&Open Volume Mixer"
+		name = "&Открыть микшер"
 		command = "Open-Volume-Mixer"
-		category = "&Options"
+		category = "&Опции"
 	elem "statusbar"
-		name = "&Show status bar"
-		category = "&Options"
+		name = "&Показывать статус бар"
+		category = "&Опции"
 		can-check = true
 		is-checked = true
 		saved-params = "is-checked"
 		command = ".winset \"menu.statusbar.is-checked=true?mapwindow.status_bar.is-visible=true:mapwindow.status_bar.is-visible=false\""
 	elem
-		name = "&Help"
+		name = "&Помощь"
 	elem
 		name = "&Admin help"
 		command = "adminhelp"
-		category = "&Help"
+		category = "&Помощь"
 
 
 window "mainwindow"
@@ -131,10 +129,10 @@ window "mainwindow"
 		size = 640x440
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Paradise Station 13"
+		title = "SS220 | WyccStation (Paradise)"
 		statusbar = false
 		is-maximized = true
-		icon = 'icons\\paradise.png'
+		icon = 'icons\\ss220.png'
 		macro = "default"
 		menu = "menu"
 	elem "asset_cache_browser"
@@ -222,7 +220,7 @@ window "outputwindow"
 		size = 80x20
 		anchor1 = 100,100
 		anchor2 = -1,-1
-		text = "Say"
+		text = "Чат"
 		command = ".winset \"saybutton.is-checked=true?input.command=\"!say \\\"\" macrobutton.is-checked=false:input.command=\"\"saybutton.is-checked=true?mebutton.is-checked=false\""
 		button-type = pushbox
 	elem "mebutton"
@@ -231,7 +229,7 @@ window "outputwindow"
 		size = 80x20
 		anchor1 = 100,100
 		anchor2 = -1,-1
-		text = "Me"
+		text = "Действие"
 		command = ".winset \"mebutton.is-checked=true ? input.command=\"!me \\\"\" : input.command=\"\"mebutton.is-checked=true ? saybutton.is-checked=false\"\"mebutton.is-checked=true ? oocbutton.is-checked=false\""
 		button-type = pushbox
 	elem "browseroutput"
@@ -260,64 +258,43 @@ window "rpane"
 		left = "infowindow"
 		right = "outputwindow"
 		is-vert = false
-	elem "textb"
-		type = BUTTON
-		pos = 0,7
-		size = 60x16
-		saved-params = "is-checked"
-		text = "Text"
-		command = ".winset \"rpanewindow.top=;\""
-		group = "rpanemode"
-		button-type = pushbox
 	elem "infob"
 		type = BUTTON
-		pos = 62,7
-		size = 60x16
+		pos = 3,7
+		size = 40x16
 		is-checked = true
 		saved-params = "is-checked"
-		text = "Info"
+		text = "Инфо"
 		command = ".winset \"rpanewindow.top=infowindow\""
 		group = "rpanemode"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 134,7
+		pos = 48,7
 		size = 50x16
-		text = "Wiki"
+		text = "Вики"
 		command = "wiki"
-	elem "forumb"
-		type = BUTTON
-		pos = 186,7
-		size = 50x16
-		text = "Forum"
-		command = "forum"
 	elem "rulesb"
 		type = BUTTON
-		pos = 238,7
-		size = 50x16
-		text = "Rules"
+		pos = 99,7
+		size = 60x16
+		text = "Правила"
 		command = "rules"
 	elem "githubb"
 		type = BUTTON
-		pos = 290,7
+		pos = 160,7
 		size = 50x16
 		text = "GitHub"
 		command = "github"
 	elem "webmap"
 		type = BUTTON
-		pos = 342,7
+		pos = 211,7
 		size = 50x16
-		text = "Map"
+		text = "Карта"
 		command = "webmap"
-	elem "changelog"
-		type = BUTTON
-		pos = 404,7
-		size = 67x16
-		text = "Changelog"
-		command = "Changelog"
 	elem "discordb"
 		type = BUTTON
-		pos = 473,7
+		pos = 266,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -326,13 +303,26 @@ window "rpane"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 535,7
+		pos = 327,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
-		background-color = #008000
-		text = "Donate"
+		background-color = #ef642b
+		text = "Бусти"
 		command = "Donate"
+	elem "changelog"
+		type = BUTTON
+		pos = 393,7
+		size = 70x16
+		text = "Чейнджлог"
+		command = "Changelog"
+	elem "fullscreenb"
+		type = BUTTON
+		pos = 464,7
+		size = 70x16
+		saved-params = "is-checked"
+		text = "Fullscreen"
+		command = "fullscreen"
 
 window "infowindow"
 	elem "infowindow"
