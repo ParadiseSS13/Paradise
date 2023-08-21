@@ -95,3 +95,35 @@
 			suit.RemoveHood()
 		else
 			qdel(src)
+
+/obj/item/clothing/head/hooded/screened_niqab/red
+	name = "red niqab"
+	icon_state = "redabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/orange
+	name = "orange niqab"
+	icon_state = "orangeabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/yellow
+	name = "yellow niqab"
+	icon_state = "yellowabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/green
+	name = "green niqab"
+	icon_state = "greenabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/blue
+	name = "blue niqab"
+	icon_state = "blueabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/purple
+	name = "purple niqab"
+	icon_state = "purpleabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/white
+	name = "white niqab"
+	icon_state = "whiteabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/rainbow
+	name = "rainbow niqab"
+	icon_state = "rainbowabaya_hood"
