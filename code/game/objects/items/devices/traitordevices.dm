@@ -423,3 +423,7 @@
 	if(ishuman(user))
 		appearance_changer_holder = new(src, user)
 		ui_interact(user)
+
+/obj/item/handheld_mirror/Destroy()
+	QDEL_NULL(appearance_changer_holder)
+	return ..()
