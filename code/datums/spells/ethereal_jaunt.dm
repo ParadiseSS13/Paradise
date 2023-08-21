@@ -109,21 +109,8 @@
 	if(!IS_DIR_DIAGONAL(direction))
 		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
 		return
-	var/turf/possible_1
-	var/turf/possible_2
-	switch(direction)
-		if(NORTHEAST)
-			possible_1 = get_step(src, NORTH)
-			possible_2 = get_step(src, EAST)
-		if(NORTHWEST)
-			possible_1 = get_step(src, NORTH)
-			possible_2 = get_step(src, WEST)
-		if(SOUTHEAST)
-			possible_1 = get_step(src, SOUTH)
-			possible_2 = get_step(src, EAST)
-		if(SOUTHWEST)
-			possible_1 = get_step(src, SOUTH)
-			possible_2 = get_step(src, WEST)
+	var/turf/possible_1 = get_step(src, turn(direction, 45))
+	var/turf/possible_2 = get_step(src, turn(direction, -45))
 	if(can_move(possible_1))
 		forceMove(possible_1)
 		return
