@@ -734,7 +734,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(H, TRAIT_SUPERMATTER_IMMUNE))
-			H.visible_message("[H] reaches out and pokes [src] harmlessly.. somehow.", "<span class='notice'>You poke [src].</span>")
+			H.visible_message("<span class='notice'>[H] reaches out and pokes [src] harmlessly...somehow.</span>", "<span class='notice'>You poke [src].</span>")
 			return
 	dust_mob(user, cause = "hand")
 
