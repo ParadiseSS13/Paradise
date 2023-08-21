@@ -13,6 +13,8 @@ const PickTab = (index) => {
     case 0:
       return <ItemsPage />;
     case 1:
+      return <CartPage />;
+    case 2:
       return <ExploitableInfoPage />;
     default:
       return 'SOMETHING WENT VERY WRONG PLEASE AHELP';
@@ -21,6 +23,7 @@ const PickTab = (index) => {
 
 export const Uplink = (props, context) => {
   const { act, data } = useBackend(context);
+  const { cart } = data
 
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const [searchText, setSearchText] = useLocalState(context, "searchText", "");
@@ -37,15 +40,26 @@ export const Uplink = (props, context) => {
                 setTabIndex(0);
                 setSearchText("");
                 }}
+            icon="store"
+          >
+            View Market
+          </Tabs.Tab>
+          <Tabs.Tab
+            key="Cart"
+            selected={tabIndex === 1}
+            onClick={() => {
+                setTabIndex(1);
+                setSearchText("");
+                }}
             icon="shopping-cart"
           >
-            Purchase Equipment
+            View Shopping Cart {cart && cart.length ? "(" + cart.length + ")" : ""}
           </Tabs.Tab>
           <Tabs.Tab
             key="ExploitableInfo"
-            selected={tabIndex === 1}
+            selected={tabIndex === 2}
             onClick={() => {
-              setTabIndex(1);
+              setTabIndex(2);
               setSearchText("");
               }}
             icon="user"
@@ -103,11 +117,18 @@ const ItemsPage = (_properties, context) => {
     setUplinkItems(SelectEquipment(cats.map(category => category.items).flat(), value));
   };
 
+  const [showDesc, setShowDesc] = useLocalState(context, "showDesc", 1);
+
   return (
     <Section
       title={'Current Balance: ' + crystals + 'TC'}
       buttons={
         <Fragment>
+          <Button.Checkbox
+              content="Show Descriptions"
+              checked={showDesc}
+              onClick={() => setShowDesc(!showDesc)}
+            />
           <Button
             content="Random Item"
             icon="question"
@@ -149,38 +170,214 @@ const ItemsPage = (_properties, context) => {
         </FlexItem>
         <Flex.Item grow={1} basis={0}>
           {uplinkItems.map((i) => (
-            <Section
-              key={decodeHtmlEntities(i.name)}
-              title={decodeHtmlEntities(i.name)}
-              buttons={
-                <Button
-                  content={
-                    'Buy (' +
-                    i.cost +
-                    'TC)' +
-                    (i.refundable ? ' [Refundable]' : '')
-                  }
-                  color={i.hijack_only === 1 && 'red'}
-                  // Yes I care this much about both of these being able to render at the same time
-                  tooltip={i.hijack_only === 1 && 'Hijack Agents Only!'}
-                  tooltipPosition="left"
-                  onClick={() =>
-                    act('buyItem', {
-                      item: i.obj_path,
-                    })
-                  }
-                  disabled={i.cost > crystals}
-                />
-              }
-            >
-              <Box italic>{decodeHtmlEntities(i.desc)}</Box>
-            </Section>
+            <UplinkItem i={i} showDecription={showDesc} key={decodeHtmlEntities(i.name)}/>
           ))}
         </Flex.Item>
       </Flex>
     </Section>
   );
 };
+
+const CartPage = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const { cart, crystals, cart_potential_remaining_tc } = data;
+
+  const [showDesc, setShowDesc] = useLocalState(context, "showDesc", 0);
+
+  return (
+    <Fragment>
+      <Section
+        title={'Current Balance: ' + crystals + 'TC'}
+        buttons={
+          <Fragment>
+            <Button.Checkbox
+              content="Show Descriptions"
+              checked={showDesc}
+              onClick={() => setShowDesc(!showDesc)}
+            />
+            <Button
+              content="Empty Cart"
+              icon="trash"
+              onClick={() => act('empty_cart')}
+              disabled={!cart}
+            />
+            <Button
+              content={"Purchase Cart (" + cart_potential_remaining_tc + "TC)"}
+              icon='shopping-cart'
+              onClick={() => act('purchase_cart')}
+              disabled={!cart || cart_potential_remaining_tc > crystals}
+            />
+          </Fragment>
+        }
+      >
+        <Flex.Item grow={1} basis={0}>
+          {cart ? cart.map((i) => (
+            <UplinkItem
+              i={i}
+              showDecription={showDesc}
+              key={decodeHtmlEntities(i.name)}
+              buttons={<CartButtons i={i}/>}
+            />
+          ))
+          :
+          <Box italic>Your Shopping Cart is empty!</Box>
+        }
+        </Flex.Item>
+      </Section>
+      <Advert/>
+    </Fragment>
+  )
+}
+const Advert = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const { cats, lucky_numbers } = data;
+
+  return (
+    <Section title="Suggested Purchases">
+      <Flex grow={1} basis={0} mb="5px">
+        <Flex.Item px="5px" width="50%">
+          <UplinkItem i={cats[lucky_numbers[0].cat].items[lucky_numbers[0].item]}/>
+        </Flex.Item>
+        <Flex.Item px="5px" width="50%">
+          <UplinkItem i={cats[lucky_numbers[1].cat].items[lucky_numbers[1].item]}/>
+        </Flex.Item>
+      </Flex>
+      {/* <br/> */}
+      <Flex grow={1} basis={0}>
+        <Flex.Item px="5px" width="50%">
+          <UplinkItem i={cats[lucky_numbers[2].cat].items[lucky_numbers[2].item]}/>
+        </Flex.Item>
+        <Flex.Item px="5px" width="50%">
+          <UplinkItem i={cats[lucky_numbers[3].cat].items[lucky_numbers[3].item]}/>
+        </Flex.Item>
+      </Flex>
+    </Section>
+  )
+}
+
+const UplinkItem = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    i,
+    showDecription = 1,
+    buttons = <UplinkItemButtons i={i}/>
+  } = props;
+
+  return (
+    <Section
+      title={decodeHtmlEntities(i.name)}
+      showBottom={showDecription}
+      borderRadius="5px"
+      buttons={buttons}
+    >
+      {showDecription ? <Box italic>{decodeHtmlEntities(i.desc)}</Box> : null}
+    </Section>
+  )
+}
+
+const UplinkItemButtons = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { i } = props;
+  const { crystals } = data;
+
+  return (
+    <Fragment>
+      <Button
+        icon='shopping-cart'
+        color={i.hijack_only === 1 && 'red'}
+        tooltip='Add to cart.'
+        tooltipPosition="left"
+        onClick={() =>
+          act('add_to_cart', {
+            item: i.obj_path,
+          })
+        }
+        disabled={i.cost > crystals}
+      />
+      <Button
+        content={
+          'Buy (' +
+          i.cost +
+          'TC)' +
+          (i.refundable ? ' [Refundable]' : '')
+        }
+        color={i.hijack_only === 1 && 'red'}
+        // Yes I care this much about both of these being able to render at the same time
+        tooltip={i.hijack_only === 1 && 'Hijack Agents Only!'}
+        tooltipPosition="left"
+        onClick={() =>
+          act('buyItem', {
+            item: i.obj_path,
+          })
+        }
+        disabled={i.cost > crystals}
+      />
+    </Fragment>
+  )
+
+}
+
+const CartButtons = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { i } = props;
+  const { exploitable } = data;
+
+  return (
+    <Flex>
+    <Button
+      icon='times'
+      content={"(" + i.cost * i.amount + "TC)"}
+      tooltip='Remove from cart.'
+      tooltipPosition="left"
+      onClick={() =>
+        act('remove_from_cart', {
+          item: i.obj_path,
+        })
+      }
+    />
+    <Button
+      icon='minus'
+      tooltip={i.limit === 0 && 'Discount already redeemed!'}
+      ml="5px"
+      onClick={() =>
+        act('set_cart_item_quantity', {
+          item: i.obj_path,
+          quantity: --i.amount, // one lower
+        })
+      }
+      disabled={i.amount <= 0}
+    />
+    <Button.Input
+      // animated
+      content={i.amount}
+      width="45px"
+      // step={1}
+      // minValue={0}
+      // maxValue={i.limit}
+      onCommit={(e, value) =>
+        act('set_cart_item_quantity', {
+          item: i.obj_path,
+          quantity: value,
+        })
+      }
+      disabled={i.amount >= i.limit && i.amount <= 0}
+    />
+    <Button
+      icon='plus'
+      tooltipPosition="bottom-left"
+      tooltip={i.limit === 0 && 'Discount already redeemed!'}
+      onClick={() =>
+        act('set_cart_item_quantity', {
+          item: i.obj_path,
+          quantity: ++i.amount, // one higher
+        })
+      }
+      disabled={i.amount >= i.limit}
+    />
+  </Flex>
+  )
+}
+
 
 const ExploitableInfoPage = (_properties, context) => {
   const { act, data } = useBackend(context);
