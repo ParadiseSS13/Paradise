@@ -204,6 +204,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CULT_IMMUNITY		"cult_immunity"
 #define TRAIT_FLATTENED			"flattened"
 #define SM_HALLUCINATION_IMMUNE "supermatter_hallucination_immune"
+#define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
 #define TRAIT_CONTORTED_BODY	"contorted_body"
 #define TRAIT_DEFLECTS_PROJECTILES "trait_deflects_projectiles"
 
@@ -264,6 +265,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BUCKLING_TRAIT "buckled"
 #define TRAIT_WAS_BATONNED "batonged"
 #define CLOWN_EMAG "clown_emag"
+#define MODSUIT_TRAIT "modsuit_trait"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

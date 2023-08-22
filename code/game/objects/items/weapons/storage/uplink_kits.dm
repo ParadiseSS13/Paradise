@@ -132,14 +132,29 @@
 		/obj/item/gun/projectile/automatic/pistol, // 4TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
-		/obj/item/storage/box/syndie_kit/hardsuit, // 6TC
+		/obj/item/storage/box/syndie_kit/modsuit, // 6TC
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
+	var/static/list/metroid = list( // 21 + modules + laser gun
+		/obj/item/storage/box/syndie_kit/modsuit/elite, // 9TC
+		/obj/item/mod/module/visor/thermal, // 3 TC
+		/obj/item/mod/module/stealth, //0 TC but strong
+		/obj/item/mod/module/power_kick, //0 TC but funny
+		/obj/item/mod/module/sphere_transform, //0TC but should not be allowed to normally be installed
+		/obj/item/autosurgeon/organ/syndicate/laser_arm, //0 TC but otherwise not obtainable.
+		/obj/item/pinpointer/advpinpointer, //4 TC
+		/obj/item/storage/box/syndidonkpockets, //2TC, otherwise they will just die in the first combat to disabler.
+		/obj/item/storage/belt/utility/full/multitool, //0 TC
+		/obj/item/clothing/head/collectable/slime,  //Priceless (0 TC)
+		/obj/item/encryptionkey/syndicate) //2 TC
+
+
+
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
-	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, grenadier)
+	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, grenadier, metroid)
 	for(var/item in bundle)
 		new item(src)
 
@@ -154,13 +169,21 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
-/obj/item/storage/box/syndie_kit/hardsuit
-	name = "Boxed Blood Red Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
+/obj/item/storage/box/syndie_kit/modsuit
+	name = "Boxed Blood Red MODsuit"
+	can_hold = list(/obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/box/syndie_kit/hardsuit/populate_contents()
-	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
+/obj/item/storage/box/syndie_kit/modsuit/populate_contents()
+	new /obj/item/mod/control/pre_equipped/traitor(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+
+/obj/item/storage/box/syndie_kit/modsuit/elite //I have been informed this is a good idea.
+	name = "Boxed Elite MODsuit"
+
+/obj/item/storage/box/syndie_kit/modsuit/elite/populate_contents()
+	new /obj/item/mod/control/pre_equipped/traitor_elite(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
@@ -240,11 +263,17 @@
 		new /obj/item/ammo_casing/shotgun/assassination(src)
 	new /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane(src)
 
+/obj/item/storage/box/syndie_kit/fake_minibomb
+	name = "trick minibomb kit"
+
+/obj/item/storage/box/syndie_kit/fake_minibomb/populate_contents()
+	new /obj/item/grenade/syndieminibomb/fake(src)
+
 /obj/item/storage/box/syndie_kit/fake_revolver
 	name = "trick revolver kit"
 
 /obj/item/storage/box/syndie_kit/fake_revolver/populate_contents()
-	new /obj/item/toy/russian_revolver/trick_revolver(src)
+	new /obj/item/gun/projectile/revolver/fake(src)
 
 /obj/item/storage/box/syndie_kit/mimery
 	name = "advanced mimery kit"
