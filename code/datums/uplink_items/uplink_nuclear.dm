@@ -511,7 +511,7 @@
 
 /datum/uplink_item/implants/krav_implant
 	name = "Krav Maga Implant"
-	desc = "A biochip that teaches you Krav Maga when implanted, great as a cheap backup weapon. Warning: the biochip will override any other fighting styles such as CQC while active.
+	desc = "A biochip that teaches you Krav Maga when implanted, great as a cheap backup weapon. Warning: the biochip will override any other fighting styles such as CQC while active."
 	reference = "KMI"
 	item = /obj/item/implanter/krav_maga
 	cost = 25
