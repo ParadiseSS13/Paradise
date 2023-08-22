@@ -14,7 +14,7 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/centcom.dmi'
 		)
 
-/obj/item/clothing/under/rank/centcom/sensor
+/obj/item/clothing/under/rank/centcom/ert
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
@@ -26,6 +26,54 @@
 	item_color = "officer"
 	sensor_mode = SENSOR_OFF // You think the Deathsquad wants to be seen?
 	random_sensor = FALSE
+
+/obj/item/clothing/under/rank/centcom/ert/chaplain
+	name = "response team inquisitor uniform"
+	desc = "An armoured uniform designed for emergency response teams. This one belongs to an inquisitor."
+	icon_state = "ert_chaplain"
+	item_state = "ert_chaplain"
+	item_color = "ert_chaplain"
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+
+/obj/item/clothing/under/rank/centcom/ert/commander
+	name = "response team commander uniform"
+	desc = "An armoured uniform designed for emergency response teams. This one belongs to the command officer."
+	icon_state = "ert_commander"
+	item_state = "ert_commander"
+	item_color = "ert_commander"
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+
+/obj/item/clothing/under/rank/centcom/ert/engineer
+	name = "response team engineer uniform"
+	desc = "An armoured uniform designed for emergency response teams. This one belongs to an engineer."
+	icon_state = "ert_engineer"
+	item_state = "ert_engineer"
+	item_color = "ert_engineer"
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+
+/obj/item/clothing/under/rank/centcom/ert/janitor
+	name = "response team janitor uniform"
+	desc = "An armoured uniform designed for emergency response teams. This one belongs to a janitor."
+	icon_state = "ert_janitor"
+	item_state = "ert_janitor"
+	item_color = "ert_janitor"
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+
+/obj/item/clothing/under/rank/centcom/ert/medical
+	name = "response team medic uniform"
+	desc = "An armoured uniform designed for emergency response teams. This one belongs to a medic."
+	icon_state = "ert_medic"
+	item_state = "ert_medic"
+	item_color = "ert_medic"
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+
+/obj/item/clothing/under/rank/centcom/ert/security
+	name = "response team security uniform"
+	desc = "An armoured uniform designed for emergency response teams. This one belongs to a security officer."
+	icon_state = "ert_security"
+	item_state = "ert_security"
+	item_color = "ert_security"
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 
 /obj/item/clothing/under/rank/centcom/commander
 	name = "\improper CentComm commander's jumpsuit"
