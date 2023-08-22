@@ -586,7 +586,7 @@
 		var/mob/living/carbon/human/H = M
 		H.physiology.stun_mod /= tenacity
 		H.physiology.stamina_mod /= tenacity
-		H.vomit(blood = TRUE, stun = FALSE) // just a visual, very gritty. don't do drugs kids
+		H.vomit(blood = TRUE, should_confuse = FALSE) // just a visual, very gritty. don't do drugs kids
 		H.LoseBreath(10 SECONDS) // procs 5 times, mostly a visual thing. damage could stack to cause a slowdown.
 		H.Confused(10 SECONDS)
 
