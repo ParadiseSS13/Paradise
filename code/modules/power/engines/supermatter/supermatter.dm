@@ -1210,7 +1210,8 @@
 	if(ispath(event))
 		event = new event(src)
 	if(!istype(event))
-		return "not is type" // mostly for debugging when proc calling, maybe remove this later
+		log_debug("Attempted supermatter event aborted due to incorrect path. Incorrect path type: [event.path].")
+		return
 	event.start_event()
 
 
