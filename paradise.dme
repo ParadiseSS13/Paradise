@@ -326,6 +326,7 @@
 #include "code\datums\datumvars.dm"
 #include "code\datums\dog_fashion.dm"
 #include "code\datums\emote.dm"
+#include "code\datums\event_structures.dm"
 #include "code\datums\holocall.dm"
 #include "code\datums\http.dm"
 #include "code\datums\input_data.dm"

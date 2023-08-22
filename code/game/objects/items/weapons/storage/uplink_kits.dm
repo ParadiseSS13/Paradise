@@ -263,11 +263,17 @@
 		new /obj/item/ammo_casing/shotgun/assassination(src)
 	new /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane(src)
 
+/obj/item/storage/box/syndie_kit/fake_minibomb
+	name = "trick minibomb kit"
+
+/obj/item/storage/box/syndie_kit/fake_minibomb/populate_contents()
+	new /obj/item/grenade/syndieminibomb/fake(src)
+
 /obj/item/storage/box/syndie_kit/fake_revolver
 	name = "trick revolver kit"
 
 /obj/item/storage/box/syndie_kit/fake_revolver/populate_contents()
-	new /obj/item/toy/russian_revolver/trick_revolver(src)
+	new /obj/item/gun/projectile/revolver/fake(src)
 
 /obj/item/storage/box/syndie_kit/mimery
 	name = "advanced mimery kit"
