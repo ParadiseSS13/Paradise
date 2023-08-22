@@ -352,7 +352,7 @@
 /obj/item/clothing/glasses/sunglasses/yeah/proc/pun()
 	if(punused) // one per round..
 		to_chat(usr, "The moment is gone.")
-	    return
+		return
 
 	punused = TRUE
 	playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
