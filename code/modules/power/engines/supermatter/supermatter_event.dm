@@ -2,7 +2,7 @@
 	var/name = "Unknown X-K (Report this to coders)"
 	var/obj/machinery/atmospherics/supermatter_crystal/supermatter
 	var/datum/gas_mixture/environment
-	// Probability of the event not running, higher tiers being rarer
+	/// Probability of the event not running, higher tiers being rarer
 	var/threat_level
 	var/duration
 
