@@ -21,7 +21,7 @@
 	if(owner_AI && owner_AI.malf_cooldown > world.time)
 		return
 
-/datum/action/innate/ai/Trigger()
+/datum/action/innate/ai/Trigger(left_click)
 	. = ..()
 	if(auto_use_uses)
 		adjust_uses(-1)
@@ -92,7 +92,7 @@
 	button_icon_state = "choose_module"
 	auto_use_uses = FALSE // This is an infinite ability.
 
-/datum/action/innate/ai/choose_modules/Trigger()
+/datum/action/innate/ai/choose_modules/Trigger(left_click)
 	. = ..()
 	owner_AI.malf_picker.use(owner_AI)
 
@@ -103,7 +103,7 @@
 	button_icon_state = "apcemag"
 	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
 
-/datum/action/innate/ai/return_to_core/Trigger()
+/datum/action/innate/ai/return_to_core/Trigger(left_click)
 	. = ..()
 	var/obj/machinery/power/apc/apc = owner_AI.loc
 	if(!istype(apc)) // This shouldn't happen but here for safety.
@@ -314,7 +314,7 @@
 	for(var/explodee in GLOB.player_list)
 		SEND_SOUND(explodee, doomsday_alarm)
 	sleep(100)
-	SSticker.station_explosion_cinematic(null, "AI malfunction")
+	SSticker.station_explosion_cinematic(NUKE_SITE_ON_STATION, "AI malfunction")
 	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
 	SSticker.mode.station_was_nuked = TRUE
 

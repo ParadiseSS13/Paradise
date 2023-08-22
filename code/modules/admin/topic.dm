@@ -3360,6 +3360,73 @@
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
 		usr.client.cmd_admin_alert_message(about_to_be_banned)
 
+	else if(href_list["spawnjsondatum"])
+		// Get the name and JSON to spawn
+		var/datum/db_query/dbq = SSdbcore.NewQuery("SELECT slotname, slotjson FROM json_datum_saves WHERE ckey=:ckey AND id=:id", list(
+			"ckey" = usr.ckey,
+			"id" = href_list["spawnjsondatum"]
+		))
+		if(!dbq.warn_execute())
+			qdel(dbq)
+			return
+
+		var/slot_name = null
+		var/slot_json = null
+
+		// Read it
+		while(dbq.NextRow())
+			slot_name = dbq.item[1]
+			slot_json = dbq.item[2]
+
+		qdel(dbq)
+
+		// Double check
+		var/spawn_choice = alert(usr, "Are you sure you wish to spawn '[slot_name]' at your current location?", "Warning", "Yes", "No")
+		if(spawn_choice != "Yes")
+			return
+
+		// Log this for gods sake
+		message_admins("[key_name_admin(usr)] spawned an atom from a JSON DB save.")
+		log_admin("[key_name(usr)] spawned an atom from a JSON DB save, JSON Text: [slot_json]")
+		json_to_object(slot_json, get_turf(usr))
+
+	else if(href_list["deletejsondatum"])
+		// Get the name
+		var/datum/db_query/dbq = SSdbcore.NewQuery("SELECT slotname FROM json_datum_saves WHERE ckey=:ckey AND id=:id", list(
+			"ckey" = usr.ckey,
+			"id" = href_list["deletejsondatum"]
+		))
+		if(!dbq.warn_execute())
+			qdel(dbq)
+			return
+
+		var/slot_name = null
+
+		// Read it
+		while(dbq.NextRow())
+			slot_name = dbq.item[1]
+
+		qdel(dbq)
+
+		// Double check
+		var/delete_choice = alert(usr, "Are you sure you wish to delete '[slot_name]'? This cannot be undone!", "Warning", "Yes", "No")
+		if(delete_choice != "Yes")
+			return
+
+		var/datum/db_query/dbq2 = SSdbcore.NewQuery("DELETE FROM json_datum_saves WHERE ckey=:ckey AND id=:id", list(
+			"ckey" = usr.ckey,
+			"id" = href_list["deletejsondatum"]
+		))
+
+		if(!dbq2.warn_execute())
+			qdel(dbq2)
+			return
+
+		qdel(dbq2)
+		owner.json_spawn_menu() // Refresh their menu
+		to_chat(usr, "Slot <code>[slot_name]</code> deleted.")
+
+
 /client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))
 		return

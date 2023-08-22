@@ -479,7 +479,7 @@
 	gun = null
 	return ..()
 
-/datum/action/toggle_scope_zoom/Trigger()
+/datum/action/toggle_scope_zoom/Trigger(left_click)
 	gun.zoom(owner)
 
 /datum/action/toggle_scope_zoom/IsAvailable()
