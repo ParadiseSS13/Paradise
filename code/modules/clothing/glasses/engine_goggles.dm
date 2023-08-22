@@ -14,6 +14,8 @@
 	origin_tech = "materials=3;magnets=3;engineering=3;plasmatech=3"
 	active_on_equip = FALSE
 
+	var/active_on_equip_rad = FALSE
+
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
 	var/mode = MODE_NONE
 	var/range = 1
@@ -42,10 +44,10 @@
 	if(mode == MODE_RAD)
 		if(!HAS_TRAIT_FROM(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]"))
 			ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
-		active_on_equip = TRUE
+		active_on_equip_rad = TRUE
 	else
 		REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
-		active_on_equip = FALSE
+		active_on_equip_rad = FALSE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
