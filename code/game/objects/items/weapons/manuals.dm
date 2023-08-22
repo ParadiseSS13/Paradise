@@ -1301,8 +1301,8 @@
 				<br><BR>
 
 				<h1><a name="what"><U><B>What's a Fax?</B></U></a></h1><BR>
-				<li>Faxes are your main method of communicating with the NAS Trurl, better known as Central Command.</li>
-				<li>Faxes allow personnel on the station to maintain open lines of communication with the NAS Trurl, allowing for vital information to flow both ways.</li>
+				<li>Faxes are your main method of communicating with the Trurl, better known as Central Command.</li>
+				<li>Faxes allow personnel on the station to maintain open lines of communication with the Trurl, allowing for vital information to flow both ways.</li>
 				<li>Being written communications, proper grammar, syntax and typography is required, in addition to a signature and, if applicable, a stamp. Failure to sign faxes will lead to an automatic rejection.</li>
 				<li>We at Nanotrasen provide Fax Machines to every Head of Staff, in addition to the Magistrate, Nanotrasen Representative, and Internal Affairs Agents.</li>
 				<li>This means that we trust the recipients of these fax machines to only use them in the proper circumstances (see <B>When to Fax?</B>).</li>

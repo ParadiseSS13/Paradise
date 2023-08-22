@@ -8,7 +8,7 @@
 
 	station_name  = "NSS Farragus"
 	station_short = "Farragus"
-	dock_name     = "NAS Trurl"
+	dock_name     = "NAV Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
 	starsys_name  = "Epsilon Eridani"
