@@ -279,7 +279,7 @@
 	popup.open()
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
-/mob/verb/examinate(atom/A as mob|obj|turf in view())
+/mob/verb/examinate(atom/A as mob|obj|turf in view(client.maxview()))
 	set name = "Examine"
 	set category = "IC"
 
@@ -288,7 +288,7 @@
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
-		return 1
+		return TRUE
 
 	face_atom(A)
 	var/list/result = A.examine(src)
@@ -298,7 +298,7 @@
 //note: ghosts can point, this is intended
 //visible_message will handle invisibility properly
 //overriden here and in /mob/dead/observer for different point span classes and sanity checks
-/mob/verb/pointed(atom/A as mob|obj|turf)
+/mob/verb/pointed(atom/A as mob|obj|turf in view(client.maxview()))
 	set name = "Point To"
 	set category = "Object"
 
@@ -312,7 +312,7 @@
 /// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
 /// either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro
 /mob/proc/run_pointed(atom/A)
-	if(client && !(A in view(client.view, src)))
+	if(client && !(A in view(client.maxview())))
 		return FALSE
 
 	changeNext_move(CLICK_CD_POINT)

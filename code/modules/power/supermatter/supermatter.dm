@@ -460,7 +460,7 @@
 		var/rads = 500 * sqrt( 1 / (get_dist(L, src) + 1) )
 		L.apply_effect(rads, IRRADIATE)
 		investigate_log("has irradiated [L] after consuming [AM].", INVESTIGATE_ENGINE)
-		if(L in view())
+		if(src in view(L.client.maxview()))
 			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
 				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
 		else

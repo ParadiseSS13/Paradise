@@ -237,6 +237,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/datum/keybindings = list()
 	/// Keybinding overrides ("name" => ["key"...])
 	var/list/keybindings_overrides = null
+	/// View range preference for this client
+	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
+
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -539,6 +542,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>View Range:</b> <a href='?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='300px' height='300px' valign='top'>"
@@ -689,7 +693,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 660)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 770)
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
 
@@ -2232,6 +2236,24 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
+
+				if("setviewrange")
+					var/list/viewrange_options = list(
+						"15x15 (Classic)" = "15x15",
+						"17x15 (Wide)" = "17x15",
+						"19x15 (Ultrawide)" = "19x15"
+					)
+
+					var/new_range = input(user, "Select a view range") as anything in viewrange_options
+					var/actual_new_range = viewrange_options[new_range]
+
+					viewrange = actual_new_range
+
+					if(actual_new_range != parent.view)
+						parent.view = actual_new_range
+						// Update the size of the click catcher
+						var/list/actualview = getviewsize(parent.view)
+						parent.void.UpdateGreed(actualview[1],actualview[2])
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))

@@ -653,7 +653,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Comms Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-/client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view())
+/client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view(maxview()))
 	set category = null
 	set name = "\[Admin\] Delete"
 
@@ -697,7 +697,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(src, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "List Free Slots") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view())
+/client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view(maxview()))
 	set category = "Event"
 	set name = "Explosion"
 
@@ -727,7 +727,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		return
 
-/client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view())
+/client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view(maxview()))
 	set category = "Event"
 	set name = "EM Pulse"
 

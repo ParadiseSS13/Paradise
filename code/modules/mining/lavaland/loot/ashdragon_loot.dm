@@ -202,7 +202,7 @@
 		do_sparks(5, FALSE, user)
 		return
 
-	if(target in view(user.client.view, get_turf(user)))
+	if(target in view(user.client.maxview(), get_turf(user)))
 
 		var/turf/simulated/T = get_turf(target)
 		if(!istype(T))

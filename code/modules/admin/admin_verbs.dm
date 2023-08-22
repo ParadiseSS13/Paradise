@@ -881,7 +881,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_and_message_admins("gave [key_name_log(T)] the disease [D].")
 
-/client/proc/make_sound(var/obj/O in view()) // -- TLE
+/client/proc/make_sound(obj/O in view(maxview())) // -- TLE
 	set category = "Event"
 	set name = "\[Admin\] Make Sound"
 	set desc = "Display a message to everyone who can hear the target"

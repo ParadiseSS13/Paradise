@@ -429,7 +429,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/medbot/examinate(atom/A as mob|obj|turf in view())
+/mob/living/simple_animal/bot/medbot/examinate(atom/A as mob|obj|turf in view(client.maxview(), src))
 	..()
 	if(has_vision(information_only=TRUE))
 		chemscan(src, A)

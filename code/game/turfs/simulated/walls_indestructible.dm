@@ -140,7 +140,7 @@
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
 
-/turf/simulated/wall/indestructible/splashcreen
+/turf/simulated/wall/indestructible/splashscreen
 	name = "Space Station 13"
 	icon = 'config/title_screens/images/blank.png'
 	icon_state = ""

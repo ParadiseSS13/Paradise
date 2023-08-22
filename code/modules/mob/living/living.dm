@@ -280,7 +280,7 @@
 	stop_pulling()
 
 //same as above
-/mob/living/pointed(atom/A as mob|obj|turf)
+/mob/living/pointed(atom/A as mob|obj|turf in view(client.maxview()))
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))

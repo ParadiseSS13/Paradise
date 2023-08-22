@@ -298,7 +298,8 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+		if(get_dist(src, T) <= (user.client.maxview() + 2))\
+			user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
 	T.rpd_act(user, src)
 
 #undef RPD_COOLDOWN_TIME

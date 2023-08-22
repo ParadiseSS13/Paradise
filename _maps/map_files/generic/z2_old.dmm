@@ -11365,7 +11365,7 @@
 /turf/simulated/wall/shuttle,
 /area/shuttle/gamma/space)
 "iBH" = (
-/turf/simulated/wall/indestructible/splashcreen,
+/turf/simulated/wall/indestructible/splashscreen,
 /area/start)
 "iBQ" = (
 /obj/structure/table/wood,

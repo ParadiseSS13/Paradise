@@ -967,7 +967,7 @@
 			if(!restrained())
 				var/atom/M = null
 				if(param)
-					for(var/atom/A as mob|obj|turf in view())
+					for(var/atom/A as mob|obj|turf in view(client.maxview(), src))
 						if(lowertext(param) == lowertext(A.name))
 							M = A
 							break

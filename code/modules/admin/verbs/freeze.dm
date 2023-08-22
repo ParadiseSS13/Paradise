@@ -8,7 +8,7 @@
 
 GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
-/client/proc/freeze(atom/movable/M)
+/client/proc/freeze(atom/movable/M in view(maxview()))
 	set name = "\[Admin\] Freeze"
 	set category = null
 

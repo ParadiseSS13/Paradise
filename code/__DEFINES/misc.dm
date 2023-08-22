@@ -118,10 +118,13 @@
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
-  block( \
-	locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
-	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
-  )
+	RECT_TURFS(RADIUS, RADIUS, CENTER)
+
+#define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
+	block( \
+	locate(max(CENTER.x-(H_RADIUS),1),          max(CENTER.y-(V_RADIUS),1),          CENTER.z), \
+	locate(min(CENTER.x+(H_RADIUS),world.maxx), min(CENTER.y+(V_RADIUS),world.maxy), CENTER.z) \
+	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
@@ -383,7 +386,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 29
+#define SQL_VERSION 30
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -519,3 +522,6 @@
 #define TTS_SEED_DEFAULT_FEMALE "tyrande"
 #define TTS_SEED_DEFAULT_MALE "arthas"
 #define TTS_SEED_ANNOUNCER "anubarak"
+
+/// This isnt in client_defines due to scoping issues
+#define DEFAULT_CLIENT_VIEWSIZE "17x15"

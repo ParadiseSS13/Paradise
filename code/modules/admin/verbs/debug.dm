@@ -181,7 +181,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
 #endif
 
-/client/proc/callproc_datum(var/A as null|area|mob|obj|turf)
+/client/proc/callproc_datum(atom/A as null|area|mob|obj|turf in view(maxview()))
 	set category = null
 	set name = "\[Admin\] Atom ProcCall"
 
