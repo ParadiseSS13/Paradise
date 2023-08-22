@@ -198,7 +198,7 @@
 	new /obj/item/clothing/suit/storage/brigdoc(src)
 	new /obj/item/clothing/under/rank/security/brigphys(src)
 	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/sensor_device/security(src)
+	new /obj/item/sensor_device/advanced/security(src)
 	new /obj/item/radio/headset/headset_brigphys(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
@@ -225,7 +225,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/clothing/mask/gas/sechailer/blue(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
-	new /obj/item/sensor_device/command(src)
+	new /obj/item/sensor_device/advanced/command(src)
 	new /obj/item/storage/garmentbag/blueshield(src)
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"

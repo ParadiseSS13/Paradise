@@ -43,19 +43,20 @@
 /obj/item/sensor_device/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	crew_monitor.ui_interact(user, ui_key, ui, force_open)
 
-/obj/item/sensor_device/command
+/obj/item/sensor_device/advanced
+
+/obj/item/sensor_device/advanced/command
 	name = "command crew monitor"
-	desc = "A miniature machine that tracks suit sensors across the station."
 	icon_state = "c_scanner"
 
-/obj/item/sensor_device/command/Initialize(mapload)
+/obj/item/sensor_device/advanced/command/Initialize(mapload)
 	. = ..()
-	crew_monitor.with_command = TRUE
+	crew_monitor.crew_vision = CREW_VISION_COMMAND
 
-/obj/item/sensor_device/security
+/obj/item/sensor_device/advanced/security
 	name = "security crew monitor"
 	icon_state = "s_scanner"
 
-/obj/item/sensor_device/security/Initialize(mapload)
+/obj/item/sensor_device/advanced/security/Initialize(mapload)
 	. = ..()
-	crew_monitor.with_security = TRUE
+	crew_monitor.crew_vision = CREW_VISION_SECURITY
