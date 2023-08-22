@@ -73,7 +73,8 @@
 		passive.owner = owner.current
 		passive.on_apply(src)
 	powers += spell
-	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
+	if(istype(spell, /datum/vampire_passive/vision))
+		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
 /datum/antagonist/vampire/proc/get_ability(path)
 	for(var/datum/power as anything in powers)

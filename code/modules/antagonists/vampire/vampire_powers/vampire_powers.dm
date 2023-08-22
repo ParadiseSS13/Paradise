@@ -267,12 +267,13 @@
 	vision_flags = SEE_MOBS
 
 /datum/vampire_passive/vision/full
+	gain_desc = "Your vampiric vision has reached its full strength!"
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	see_in_dark = 8
 	vision_flags = SEE_MOBS
 
 /datum/vampire_passive/full
-	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy and your vision has improved greatly."
+	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy."
 
 /obj/effect/proc_holder/spell/vampire/raise_vampires
 	name = "Raise Vampires"

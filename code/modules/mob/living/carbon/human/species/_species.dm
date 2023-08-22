@@ -938,9 +938,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	var/datum/antagonist/vampire/V = H.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V)
-		for(var/datum/vampire_passive/vision/buffs as anything in V.powers)
+		for(var/datum/vampire_passive/vision/buffs in V.powers)
 			H.sight = buffs.vision_flags
-			to_chat(H, "<span class='danger'>THIS IS A TEST 1</span>")
 			H.see_in_dark += buffs.see_in_dark
 			H.lighting_alpha = buffs.lighting_alpha
 
