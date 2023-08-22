@@ -122,6 +122,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 		)
+
 /obj/item/clothing/head/hooded/screened_niqab/red
 	name = "red niqab"
 	icon_state = "redabaya_hood"
