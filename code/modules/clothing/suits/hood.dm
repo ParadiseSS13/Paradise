@@ -95,9 +95,33 @@
 			suit.RemoveHood()
 		else
 			qdel(src)
-/obj/item/clothing/head/hooded/screened_niqab
-    flags = BLOCKHAIR
 
+/obj/item/clothing/head/hooded/screened_niqab
+	name = "screened niqab"
+	desc = "A niqab with an eye mesh for additional concealment. The wearer can see you, but you can't see them."
+	icon_state = "abaya_hood"
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	flags = BLOCKHAIR
+	flags_inv = HIDEEARS | HIDEMASK | HIDEFACE | HIDEEYES
+	var/list/options = list(
+		"Niqab" = /obj/item/clothing/suit/hooded/screened_niqab,
+		"Red Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/red,
+		"Orange Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/orange,
+		"Yellow Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/yellow,
+		"Green Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/green,
+		"Blue Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/blue,
+		"Purple Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/purple,
+		"White Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/white,
+		"Rainbow Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/rainbow,
+	)
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
+		)
 /obj/item/clothing/head/hooded/screened_niqab/red
 	name = "red niqab"
 	icon_state = "redabaya_hood"
