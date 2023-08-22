@@ -166,6 +166,7 @@ Works together with spawning an observer, noted above.
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
+		SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
 		return ghost
 
 /*

@@ -53,6 +53,8 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	var/who_started_last_poll = null //storing ckey of whoever started poll last. Preventing fastest hands of Wild West from polling twice in a row
 	var/when_cleansing_happened = 0 //storing (in ticks) moment of arena cleansing
 	var/obj/thunderdome_poller/last_poller = null
+	var/list/fighters = list()	//list of current players on thunderdome, used for tracking winners and stuff.
+	var/is_cleansing_going = FALSE
 
 	var/list/melee_pool = list(
 		/obj/item/melee/rapier = 1,
@@ -176,6 +178,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		curr_x = center.x + radius * cos(ang)
 		curr_y = center.y + radius * sin(ang)
 		var/obj/effect/mob_spawn/human/thunderdome/brawler = new brawler_type(locate(curr_x, curr_y, center.z))
+		brawler.thunderdome = src
 		brawler.outfit.backpack_contents += random_stuff
 		var/mob/dead/observer/ghost = candidates[currpoint]
 		brawler.attack_ghost(ghost)
@@ -211,6 +214,8 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
  *
 */
 /datum/thunderdome_battle/proc/clear_thunderdome()
+	is_cleansing_going = TRUE
+
 	clear_area(GLOB.tdome_arena)
 	clear_area(GLOB.tdome_arena_melee)
 
@@ -219,11 +224,12 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	add_game_logs("Thunderdome battle has ended.")
 	var/image/alert_overlay = image('icons/obj/assemblies.dmi', "thunderdome-bomb-active-wires")
 	notify_ghosts(message = "Thunderdome is ready for battle!", title="Thunderdome News", alert_overlay = alert_overlay, source = last_poller, action = NOTIFY_JUMP)
+	is_cleansing_going = FALSE
 
 /**
  * Clears area from:
  * All mobs
- * All object except thunderdome poller and poddors (shutters included)
+ * All objects except thunderdome poller and poddors (shutters included)
  * *Arguments:
  * *zone - specific area
  */
@@ -243,6 +249,22 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
  */
 /datum/thunderdome_battle/proc/get_rounded_location(curr_x, curr_y, z)
 	return locate(round(curr_x), round(curr_y), z)
+
+/**
+ * Handles thunderdome's participants deaths. Called from /datum/component/death_timer_reset/
+ */
+/datum/thunderdome_battle/proc/handle_participant_death(mob/living/dead_fighter)
+	if(dead_fighter in fighters)
+		fighters -= dead_fighter
+	if(!length(fighters) && !is_cleansing_going)
+		for(var/datum/timedevent/timer in active_timers)
+			qdel(timer)
+		is_cleansing_going = TRUE
+		addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), 5 SECONDS) //Everyone died. Time to reset.
+		//Also avoiding all issues with death handling of thunderdome participants by letting fighters' components do their stuff.
+		if(last_poller)
+			last_poller.visible_message(span_danger("Thunderdome has ended with death of all participants! Cleansing in 5 seconds..."))
+	return
 
 /**
  * Invisible object which is responsible for rolling brawlers for fighting on thunderdome.
@@ -313,8 +335,9 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	death = FALSE
 	min_hours = 0
 	allow_tts_pick = FALSE
+	var/datum/thunderdome_battle/thunderdome
 
-/obj/effect/mob_spawn/human/thunderdome/attack_ghost(mob/user)
+/obj/effect/mob_spawn/human/thunderdome/attack_ghost(mob/dead/observer/user)
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(jobban_isbanned(user, banType))
@@ -336,6 +359,14 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	else
 		add_game_logs("[user.ckey] became [mob_name]. Job: [id_job]", user)
 	create(plr = user, prefs = mob_use_prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
+
+/obj/effect/mob_spawn/human/thunderdome/create(mob/dead/observer/plr, flavour, name, prefs, _mob_name, _mob_gender, _mob_species)
+	var/death_time_before = plr.timeofdeath
+	var/mob/living/created = ..()
+	thunderdome.fighters += created
+
+	created.AddComponent(/datum/component/thunderdome_death_signaler, thunderdome)
+	created.AddComponent(/datum/component/death_timer_reset, death_time_before)
 
 /datum/outfit/thunderdome
 	implants = list(

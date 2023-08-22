@@ -2798,6 +2798,8 @@
 #include "code\modules\tgui\states\self.dm"
 #include "code\modules\tgui\states\zlevel.dm"
 #include "code\modules\thunderdome\thunderdome_battle.dm"
+#include "code\modules\thunderdome\components\death_timer_reset.dm"
+#include "code\modules\thunderdome\components\thunderdome_death_signaler.dm"
 #include "code\modules\tooltip\tooltip.dm"
 #include "code\modules\unit_tests\_unit_tests.dm"
 #include "code\modules\vehicle\ambulance.dm"

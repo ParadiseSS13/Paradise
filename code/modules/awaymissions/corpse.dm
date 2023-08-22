@@ -200,6 +200,8 @@
 	if(!permanent && !uses)
 		qdel(src)
 
+	return M
+
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human
