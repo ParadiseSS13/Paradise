@@ -39,6 +39,14 @@
 		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 		active_on_equip = FALSE
 
+	if(mode == MODE_RAD)
+		if(!HAS_TRAIT_FROM(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]"))
+			ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
+		active_on_equip = TRUE
+	else
+		REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
+		active_on_equip = FALSE
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.glasses == src)
