@@ -25,6 +25,10 @@
 	/// If it's only unlocked after buying a different ability, or abilities.
 	var/list/prerequisite = list()
 
+
+/obj/effect/proc_holder/spell/flayer/self/create_new_targeting()
+	return new /datum/spell_targeting/self
+	
 // Behold, a copypaste from changeling, might need some redoing
 
 /obj/effect/proc_holder/spell/flayer/Destroy(force, ...)
