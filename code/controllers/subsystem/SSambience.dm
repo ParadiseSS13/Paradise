@@ -10,6 +10,10 @@ SUBSYSTEM_DEF(ambience)
 	var/list/ambience_listening_clients = list()
 
 /datum/controller/subsystem/ambience/fire(resumed)
+	if(GLOB.configuration.general.disable_ambient_noise)
+		flags |= SS_NO_FIRE
+		return
+
 	for(var/C in ambience_listening_clients)
 		var/client/client_iterator = C
 
