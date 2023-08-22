@@ -295,6 +295,7 @@
 		"Basic" = "Robot-ENG",
 		"Antique" = "Robot-ENG2",
 		"Landmate" = "landmate",
+		"Сhiefmate" = "chiefmate",
 		"Standard" = "Standard-Engi",
 		"Noble-ENG" = "Noble-ENG",
 		"Cricket" = "Cricket-ENGI"

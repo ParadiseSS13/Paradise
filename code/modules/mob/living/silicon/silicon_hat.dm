@@ -106,7 +106,7 @@
 			isCentered = TRUE
 			canWearBlacklistedHats = TRUE
 			hat_offset_y = -3
-		if("landmate", "syndi-engi") //Высотой: 24 пикселя макушка
+		if("landmate", "chiefmate", "syndi-engi") //Высотой: 24 пикселя макушка
 			canBeHatted = TRUE
 			hat_offset_y = -3
 		if("mopgearrex") //Высотой: 22
