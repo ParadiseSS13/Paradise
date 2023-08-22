@@ -365,6 +365,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "holocigaroff"
 	item_state = "cigaroff"
 	var/enabled = FALSE
+	/// Tracks how many cycles the user has been smoking for.
 	var/cycles_smoking = 0
 
 /obj/item/clothing/mask/holo_cigar/Destroy()
