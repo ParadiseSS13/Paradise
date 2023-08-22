@@ -145,14 +145,14 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Нашествие вредителей",	/datum/event/infestation, 		100,	list(ASSIGNMENT_JANITOR = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Сознание",				/datum/event/sentience,			50),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Стенной грибок",		/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Скопление кои",			/datum/event/carp_migration/koi,		80,)
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Скопление кои",			/datum/event/carp_migration/koi,		80,),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Аппендицит", 			/datum/event/spontaneous_appendicitis, 	0,		list(ASSIGNMENT_MEDICAL = 10), TRUE),
 	)
 
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ничего",					/datum/event/nothing,					1230),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Аппендицит", 				/datum/event/spontaneous_appendicitis, 	0,		list(ASSIGNMENT_MEDICAL = 10), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Скопление карпов",			/datum/event/carp_migration,			200, 	list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Сбойные дроны",			/datum/event/rogue_drone, 				0,		list(ASSIGNMENT_SECURITY = 20)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Космолоза",				/datum/event/spacevine, 				250,	list(ASSIGNMENT_ENGINEER = 10)),
@@ -190,6 +190,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Хедкрабы",					/datum/event/headcrabs, 				0,		list(ASSIGNMENT_SECURITY = 20)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Сбой работы дверей",		/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Космический ниндзя",		/datum/event/space_ninja, 				40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Торговцы",					/datum/event/traders,					85, is_one_shot = TRUE),
 	)
 
 /datum/event_container/major
@@ -203,7 +204,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Метеорный вал",	/datum/event/meteor_wave,		30,						list(ASSIGNMENT_ENGINEER =  5),	TRUE),	// 6.9% on high pop, 5.5% on low pop
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Визит абдукторов",/datum/event/abductor, 		    20, 					list(ASSIGNMENT_SECURITY =  3), TRUE),	// 5.8% on high pop, 4.5% on low pop
 		new /datum/event_meta/alien(EVENT_LEVEL_MAJOR, "Заражение ксеноморфами",	/datum/event/alien_infestation, 		20,		list(ASSIGNMENT_SECURITY = 4), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Торговцы",		/datum/event/traders,			85, is_one_shot = TRUE),										// 8.4% on high pop, 9.4% on low pop
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Пауки Ужаса",		/datum/event/spider_terror, 	20,						list(ASSIGNMENT_SECURITY = 4), TRUE),	// 7.1% on high pop, 5.3% on low pop
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Демон Резни",		/datum/event/spawn_slaughter,	10,  is_one_shot = TRUE),	// 3% on high pop, 2.1% on low pop
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)

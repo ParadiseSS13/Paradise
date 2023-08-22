@@ -18,8 +18,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
 		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "ОПОВЕЩЕНИЕ: Запрос на стыковку шаттла торговцев отклонен.")
-		// if the docking request was refused, fire another major event in 60 seconds
-		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
+		// if the docking request was refused, fire another moderate event in 60 seconds
+		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 		EC.next_event_time = world.time + (60 * 10)
 		return
 

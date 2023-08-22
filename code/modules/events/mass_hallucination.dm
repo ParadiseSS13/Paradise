@@ -16,4 +16,5 @@
 		H.last_hallucinator_log = "Mass hallucination event"
 
 /datum/event/mass_hallucination/announce()
-	GLOB.event_announcement.Announce("Станция [station_name()] проходит через радиационное поле низкой интенсивности. Возможно появление галлюцинаций, но не более.")
+	if(prob(40))
+		GLOB.event_announcement.Announce("Станция [station_name()] проходит через радиационное поле низкой интенсивности. Возможно появление галлюцинаций, но не более.")
