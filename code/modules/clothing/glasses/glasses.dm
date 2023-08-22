@@ -350,9 +350,10 @@
 	pun()
 
 /obj/item/clothing/glasses/sunglasses/yeah/proc/pun()
-	if(!punused)//one per round..
-		punused = TRUE
-		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
+	if(punused) // one per round..
+	    return
+	punused = TRUE
+	playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
 		usr.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
 		if(HAS_TRAIT(usr, TRAIT_BADASS)) //unless you're badass
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 5 MINUTES)

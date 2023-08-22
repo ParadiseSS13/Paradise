@@ -170,10 +170,9 @@
 		if(user.zone_selected == "mouth")
 			if(HAS_TRAIT(user, TRAIT_BADASS))
 				user.visible_message("[user] blows smoke off of [src]'s barrel. What a badass.")
-				return
 			else
 				handle_suicide(user, target, params)
-				return
+			return
 
 
 	//Exclude lasertag guns from the CLUMSY check.
