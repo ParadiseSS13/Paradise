@@ -21,9 +21,9 @@
 /obj/item/clothing/under/rank/centcom/deathsquad
 	name = "\improper Deathsquad jumpsuit"
 	desc = "It's decorative jumpsuit worn by the Deathsquad. A small tag at the bottom reads \"Not associated with Nanotrasen\". "
-	icon_state = "officer"
-	item_state = "g_suit"
-	item_color = "officer"
+	icon_state = "deathsquad"
+	item_state = "deathsquad"
+	item_color = "deathsquad"
 	sensor_mode = SENSOR_OFF // You think the Deathsquad wants to be seen?
 	random_sensor = FALSE
 
