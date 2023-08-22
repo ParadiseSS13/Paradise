@@ -351,17 +351,14 @@
 
 /obj/item/clothing/glasses/sunglasses/yeah/proc/pun()
 	if(punused) // one per round..
+		to_chat(usr, "The moment is gone.")
 	    return
+
 	punused = TRUE
 	playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
 		usr.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
 		if(HAS_TRAIT(usr, TRAIT_BADASS)) //unless you're badass
-			addtimer(CALLBACK(src, PROC_REF(recharge)), 5 MINUTES)
-	else
-		to_chat(usr, "The moment is gone.")
-
-/obj/item/clothing/glasses/sunglasses/yeah/proc/recharge()
-	punused = FALSE
+			addtimer(VARSET_CALLBACK(src, punused, FALSE), 5 MINUTES)
 
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"

@@ -153,7 +153,6 @@
 	return list(effect, update_flags)
 
 /datum/reagent/nicotine/handle_addiction(mob/living/M, consumption_rate)
-
 	if(HAS_TRAIT(M, TRAIT_BADASS))
 		return
 
