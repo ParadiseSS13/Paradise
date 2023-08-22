@@ -242,7 +242,7 @@ const SendERT = (props, context) => {
         <Button
           icon="ambulance"
           content="Send ERT"
-          onClick={() => act('dispatch_ert', {silent: Silent})}
+          onClick={() => act('dispatch_ert', {silent: silentERT})}
         />
       </LabeledList.Item>
     </LabeledList>
