@@ -95,6 +95,8 @@
 			suit.RemoveHood()
 		else
 			qdel(src)
+/obj/item/clothing/head/hooded/screened_niqab
+    flags = BLOCKHAIR
 
 /obj/item/clothing/head/hooded/screened_niqab/red
 	name = "red niqab"
