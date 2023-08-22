@@ -361,7 +361,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar
 	name = "holo-cigar"
-	desc = "A sleek electronic cigar imported straight from Sol. You feel badass merely glimpsing it.."
+	desc = "A sleek electronic cigar imported straight from Sol. You feel badass merely glimpsing it..."
 	icon_state = "holocigaroff"
 	item_state = "cigaroff"
 	var/enabled = FALSE
