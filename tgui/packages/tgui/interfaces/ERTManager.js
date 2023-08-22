@@ -64,10 +64,8 @@ export const ERTOverview = (props, context) => {
   const {
     security_level_color,
     str_security_level,
-    // ert_request_answered = false
+    ert_request_answered,
   } = data;
-
-  const [ert_request_answered, set_ert_request_answered] = useLocalState(context, 'ert_request_answered', false); // todo remove
 
   return(
     <Section title="Overview">
@@ -85,8 +83,7 @@ export const ERTOverview = (props, context) => {
             checked={ert_request_answered}
             textColor={ert_request_answered ? null : "bad"}
             content={ert_request_answered ? "Answered" : "Unanswered"}
-            // onClick={() => act('toggle_ert_request_answered')}
-            onClick={() => set_ert_request_answered(!ert_request_answered)}
+            onClick={() => act('toggle_ert_request_answered')}
             tooltip={"Checking this box will disable the next ERT reminder notification"}
             selected={null}
           />
@@ -245,7 +242,7 @@ const SendERT = (props, context) => {
         <Button
           icon="ambulance"
           content="Send ERT"
-          onClick={() => act('dispatch_ert', {silent: silentERT})}
+          onClick={() => act('dispatch_ert', {silent: Silent})}
         />
       </LabeledList.Item>
     </LabeledList>
