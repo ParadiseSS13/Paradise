@@ -299,7 +299,12 @@
 		if(slot_in_backpack)
 			if(get_active_hand() == I)
 				unEquip(I)
-			I.forceMove(back)
+			if(ismodcontrol(back))
+				var/obj/item/mod/control/C = back
+				if(C.bag)
+					I.forceMove(C.bag)
+			else
+				I.forceMove(back)
 		if(slot_tie)
 			var/obj/item/clothing/under/uniform = src.w_uniform
 			uniform.attackby(I, src)

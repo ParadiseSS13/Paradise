@@ -52,3 +52,15 @@
 #define SPECIAL_ROLE_XENOMORPH_SENTINEL "Xenomorph Sentinel"
 #define SPECIAL_ROLE_XENOMORPH_LARVA "Xenomorph Larva"
 #define SPECIAL_ROLE_EVENTMISC "Event Role"
+
+// Constants used by code which checks the status of nuclear blasts during a
+// round, regardless of original game mode, e.g. setting the ending cinematic.
+
+/// The bomb is on-station.
+#define NUKE_SITE_ON_STATION 0
+/// The bomb is on station z-level, but not a station tile.
+#define NUKE_SITE_ON_STATION_ZLEVEL 1
+/// The bomb is off station z-level.
+#define NUKE_SITE_OFF_STATION_ZLEVEL 2
+/// The bomb's location cannot be found.
+#define NUKE_SITE_INVALID 3

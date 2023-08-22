@@ -4067,7 +4067,7 @@
 /area/ruin/ancientstation)
 "jB" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/suit/space/hardsuit/ancient,
+/obj/item/mod/control/pre_equipped/prototype,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
