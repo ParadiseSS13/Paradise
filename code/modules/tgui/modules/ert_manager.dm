@@ -109,7 +109,7 @@
 			var/slot_text = english_list(slots_list)
 			notify_ghosts("An ERT is being dispatched. Type: [ert_type]. Open positions: [slot_text]")
 			message_admins("[key_name_admin(usr)] dispatched a [params["silent"] ? "silent " : ""][ert_type] ERT. Slots: [slot_text]", 1)
-			log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
+			log_admin("[key_name(usr)] dispatched a [params["silent"] ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
 			if(!params["silent"])
 				GLOB.major_announcement.Announce("Attention, [station_name()]. We are attempting to assemble an ERT. Standby.", "ERT Protocol Activated")
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
@@ -119,6 +119,9 @@
 
 		if("deny_ert")
 			GLOB.ert_request_answered = TRUE
-			GLOB.major_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n\n[params["reason"]]", "ERT Unavailable")
+			var/message = "[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time."
+			if(params["reason"])
+				message += " Your ERT request has been denied for the following reasons:\n\n[params["reason"]]"
+			GLOB.major_announcement.Announce(message, "ERT Unavailable")
 		else
 			return FALSE
