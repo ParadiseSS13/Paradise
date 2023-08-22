@@ -169,6 +169,7 @@
 	addtimer(CALLBACK(src, PROC_REF(reset)), confirm_delay)
 
 /obj/machinery/keycard_auth/proc/trigger_event()
+	SHOULD_NOT_SLEEP(TRUE) // exploits related to ERT spawning can come up here related to ERT spawning if this sleeps
 	switch(event)
 		if("Red Alert")
 			set_security_level(SEC_LEVEL_RED)
