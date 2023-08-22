@@ -164,3 +164,24 @@
   Den109G:
   - bugfix: ACTUALLY healing robot parts (#3366)
   - bugfix: more fixes (#3367)
+  Dimach:
+  - bugfix: runtime in taipan code (#3369)
+  - bugfix: wormholes teleport only to other wormholes (#3370)
+'2023-08-22':
+  Albonix:
+  - add: new spraycan icons (#3372)
+  Daeberdir:
+  - tweak: security medic's sensor device now stored in cryo storage. (#3379)
+  Den109G:
+  - bugfix: delete CC camera (#3382)
+  - bugfix: station trurl -> ship trurl (#3378)
+  Dimach:
+  - bugfix: return normal font (#3389)
+  Igz0m:
+  - tweak: Increase the required playtime for cadets to 10 hours crew (#3386)
+  NightDawnFox:
+  - tweak: event tweaks (#3375)
+  - add: 3 new tail options for unathi. Also tail clipping fix (#3353)
+  - add: new engiborg skin (#3377)
+  Vladisvell:
+  - add: thunderdome clears after all player death (#3380)
