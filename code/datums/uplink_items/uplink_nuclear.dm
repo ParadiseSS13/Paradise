@@ -64,10 +64,10 @@
 	surplus = 40
 
 /datum/uplink_item/dangerous/combat_defib
-	name = "Combat defibrillator"
-	desc = "A lifesaving device turned dangerous weapon. Click on someone with the paddles on harm intent to instantly stop their heart. Can be used as a regular defib as well."
+	name = "Combat Defibrillator Module"
+	desc = "A lifesaving device turned dangerous weapon. Click on someone with the paddles on harm intent to instantly stop their heart. Can be used as a regular defib as well. Installs in a modsuit."
 	reference = "CD"
-	item = /obj/item/defibrillator/compact/combat/loaded
+	item = /obj/item/mod/module/defibrillator/combat
 	cost = 12
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -490,9 +490,9 @@
 // SPACE SUITS
 
 /datum/uplink_item/suits/hardsuit/elite
-	name = "Elite Syndicate Hardsuit"
-	desc = "An advanced hardsuit with superior armor and mobility to the standard Syndicate Hardsuit."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	name = "Elite Syndicate MODsuit"
+	desc = "An advanced MODsuit with superior armor and mobility to the standard Syndicate MODsuit."
+	item = /obj/item/mod/control/pre_equipped/elite
 	cost = 8
 	reference = "ESHS"
 	excludefrom = list()

@@ -427,7 +427,7 @@
 /area/ruin/space/derelict/bridge)
 "bj" = (
 /obj/item/paper/djstation{
-	info = "<i>The note is stained with ink-smudges, the forceful and shaky handwriting scrawled across it is barely legible.</i><br><br>Vostok stopped banging on the door an hour ago. he must be looking for something to try and force it. I am still unsure what's happened, but it's been six hours now.<br><br>My hands won't stop shaking, not even the cigarettes are helping.<br><br>Vostok, if you manage to get in and I am no longer concious, my medication is in the freezer next to my desk. Please. I'm counting on you.";
+	info = "<i>The note is stained with ink-smudges, the forceful and shaky handwriting scrawled across it is barely legible.</i><br><br>Vostok stopped banging on the door an hour ago. he must be looking for something to try and force it. I am still unsure what's happened, but it's been six hours now.<br><br>My hands won't stop shaking, not even the cigarettes are helping.<br><br>Vostok, if you manage to get in and I am no longer conscious, my medication is in the freezer next to my desk. Please. I'm counting on you.";
 	name = "shaky note"
 	},
 /obj/effect/decal/cleanable/dirt,
