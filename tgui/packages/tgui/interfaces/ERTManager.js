@@ -230,7 +230,8 @@ const SendERT = (props, context) => {
             content={silentERT ? 'Silenced' : 'Public'}
             selected={silentERT}
             onClick={() => setSilentERT(!silentERT)}
-            tooltip={silentERT ? "This ERT will not be announced to the station" : 'This ERT will be announced to the station on dispatch'}
+            tooltip={silentERT ? "This ERT will not be announced to the station"
+              : 'This ERT will be announced to the station on dispatch'}
           />
       </LabeledList.Item>
       <LabeledList.Item label="Total Slots">
