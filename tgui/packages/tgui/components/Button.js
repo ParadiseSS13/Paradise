@@ -16,6 +16,7 @@ export const Button = (props) => {
     fluid,
     icon,
     color,
+    textColor,
     disabled,
     selected,
     tooltip,
@@ -60,6 +61,7 @@ export const Button = (props) => {
       ])}
       tabIndex={!disabled && '0'}
       unselectable={IS_IE8}
+      color={textColor}
       onclick={(e) => {
         refocusLayout();
         if (!disabled && onClick) {
