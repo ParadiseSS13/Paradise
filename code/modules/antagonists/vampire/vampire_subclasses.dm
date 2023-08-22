@@ -31,7 +31,7 @@
 							/obj/effect/proc_holder/spell/vampire/shadow_boxing = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
-								/datum/vampire_passive/xray)
+								/datum/vampire_passive/vision/xray)
 
 /datum/vampire_subclass/hemomancer
 	name = "hemomancer"
@@ -105,6 +105,6 @@
 							/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
 							/obj/effect/proc_holder/spell/vampire/hysteria,
 							/obj/effect/proc_holder/spell/vampire/raise_vampires,
-							/datum/vampire_passive/xray)
+							/datum/vampire_passive/vision/xray)
 	improved_rejuv_healing = TRUE
 	thrall_cap = 150 // can thrall high pop

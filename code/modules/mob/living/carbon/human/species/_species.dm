@@ -938,22 +938,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	var/datum/antagonist/vampire/V = H.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V)
-		if(V.get_ability(/datum/vampire_passive/xray))
-			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-			H.see_in_dark += 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(V.get_ability(/datum/vampire_passive/full))
-			H.sight |= SEE_MOBS
-			H.see_in_dark += 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(V.get_ability(/datum/vampire_passive/adv_vision))
-			H.sight |= SEE_MOBS
-			H.see_in_dark += 5
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-		else if(V.get_ability(/datum/vampire_passive/vision))
-			H.sight |= SEE_MOBS
-			H.see_in_dark += 1 // base of 2, 2+1 is 3
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+		H.sight |= V.get_ability(/datum/vampire_passive/vision)
+		H.see_in_dark += 8
+		H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	// my glasses, I can't see without my glasses
 	if(H.glasses)

@@ -22,7 +22,7 @@
 									/datum/vampire_passive/vision = 100,
 									/obj/effect/proc_holder/spell/vampire/self/specialize = 150,
 									/datum/vampire_passive/regen = 200,
-									/datum/vampire_passive/adv_vision = 500)
+									/datum/vampire_passive/vision/adv_vision = 500)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
