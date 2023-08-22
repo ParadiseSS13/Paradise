@@ -113,7 +113,7 @@
 		"Blue Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/blue,
 		"Purple Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/purple,
 		"White Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/white,
-		"Rainbow Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/rainbow,
+		"Rainbow Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/rainbow
 	)
 
 	sprite_sheets = list(
