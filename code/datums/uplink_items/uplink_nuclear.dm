@@ -514,7 +514,7 @@
 	desc = "A biochip that teach you Krav Maga when implanted, great as a cheap backup weapon. Warning, the biochip will override any other fighting styles such as CQC."
 	reference = "KMI"
 	item = /obj/item/implanter/krav_maga
-	cost = 5
+	cost = 25
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/implants/uplink/nuclear
