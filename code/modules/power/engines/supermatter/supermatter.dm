@@ -1210,7 +1210,7 @@
 	if(ispath(event))
 		event = new event(src)
 	if(!istype(event))
-		log_debug("Attempted supermatter event aborted due to incorrect path. Incorrect path type: [event].")
+		log_debug("Attempted supermatter event aborted due to incorrect path. Incorrect path type: [event.type].")
 		return
 	event.start_event()
 
