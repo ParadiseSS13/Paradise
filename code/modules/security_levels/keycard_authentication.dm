@@ -172,7 +172,7 @@
 	SHOULD_NOT_SLEEP(TRUE) // exploits related to ERT spawning can come up here related to ERT spawning if this sleeps
 	switch(event)
 		if("Red Alert")
-			set_security_level(SEC_LEVEL_RED)
+			INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(set_security_level), SEC_LEVEL_RED)
 		if("Grant Emergency Maintenance Access")
 			make_maint_all_access()
 		if("Revoke Emergency Maintenance Access")
