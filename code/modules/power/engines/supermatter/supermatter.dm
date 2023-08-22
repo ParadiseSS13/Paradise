@@ -30,8 +30,8 @@
 //Along with damage_penalty_point, makes flux anomalies.
 /// The cutoff for the minimum amount of power required to trigger the crystal invasion delamination event.
 #define EVENT_POWER_PENALTY_THRESHOLD 4500
-#define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of pyro anomalies, +2 bolts of electricity
-#define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of pyro anomalies
+#define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of cryo anomalies, +2 bolts of electricity
+#define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of cryo anomalies
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
 #define HEAT_PENALTY_THRESHOLD 40             //Higher == Crystal safe operational temperature is higher.
 #define DAMAGE_HARDCAP 0.002
@@ -58,7 +58,7 @@
 
 #define GRAVITATIONAL_ANOMALY "gravitational_anomaly"
 #define FLUX_ANOMALY "flux_anomaly"
-#define PYRO_ANOMALY "pyro_anomaly"
+#define CRYO_ANOMALY "cryo_anomaly"
 
 //If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define SUPERMATTER_DELAM_PERCENT 5
@@ -611,7 +611,7 @@
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
 			supermatter_anomaly_gen(src, GRAVITATIONAL_ANOMALY, rand(5, 10))
 		if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD))
-			supermatter_anomaly_gen(src, PYRO_ANOMALY, rand(5, 10))
+			supermatter_anomaly_gen(src, CRYO_ANOMALY, rand(5, 10))
 
 	if(prob(15))
 		supermatter_pull(loc, min(power / 850, 3)) //850, 1700, 2550
@@ -1015,8 +1015,8 @@
 				A.explosive = FALSE
 			if(GRAVITATIONAL_ANOMALY)
 				new /obj/effect/anomaly/grav(L, 250, FALSE, FALSE)
-			if(PYRO_ANOMALY)
-				new /obj/effect/anomaly/pyro(L, 200, FALSE)
+			if(CRYO_ANOMALY)
+				new /obj/effect/anomaly/cryo(L, 200, FALSE)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list())
 	if(QDELETED(zapstart))
@@ -1155,7 +1155,7 @@
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
 #undef FLUX_ANOMALY
-#undef PYRO_ANOMALY
+#undef CRYO_ANOMALY
 #undef COIL
 #undef ROD
 #undef LIVING
