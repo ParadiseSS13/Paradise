@@ -940,6 +940,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(V)
 		for(var/datum/vampire_passive/vision/buffs as anything in V.powers)
 			H.sight = buffs.vision_flags
+			to_chat(H, "<span class='danger'>THIS IS A TEST 1</span>")
 			H.see_in_dark += buffs.see_in_dark
 			H.lighting_alpha = buffs.lighting_alpha
 
