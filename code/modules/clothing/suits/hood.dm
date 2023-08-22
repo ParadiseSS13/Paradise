@@ -104,17 +104,6 @@
 	cold_protection = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS | HIDEMASK | HIDEFACE | HIDEEYES
-	var/list/options = list(
-		"Niqab" = /obj/item/clothing/suit/hooded/screened_niqab,
-		"Red Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/red,
-		"Orange Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/orange,
-		"Yellow Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/yellow,
-		"Green Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/green,
-		"Blue Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/blue,
-		"Purple Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/purple,
-		"White Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/white,
-		"Rainbow Niqab" = /obj/item/clothing/suit/hooded/screened_niqab/rainbow
-	)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
