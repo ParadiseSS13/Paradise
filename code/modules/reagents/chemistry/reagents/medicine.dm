@@ -359,7 +359,6 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
-
 	if(HAS_TRAIT(M, TRAIT_BADASS))
 		return
 
