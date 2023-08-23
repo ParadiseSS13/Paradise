@@ -74,6 +74,7 @@
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
+	var/stam_regen_start_modifier = 1 //Modifier of time until regeneration starts
 	var/stam_paralyzed = FALSE //knocks you down
 	var/blood_nutrients = 10 //nutrition for devour this creature by vampire
 

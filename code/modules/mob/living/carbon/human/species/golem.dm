@@ -331,7 +331,8 @@
 /datum/species/golem/plasteel
 	name = "Пласталиевый Голем"
 	golem_colour = rgb(187, 187, 187)
-	stun_mod = 0.4
+	stun_mod = 0.5
+	stamina_mod = 0.5
 	punchdamagelow = 12
 	punchdamagehigh = 21
 	punchstunthreshold = 18 //still 40% stun chance
