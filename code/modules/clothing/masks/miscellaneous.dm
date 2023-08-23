@@ -482,6 +482,25 @@
 
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
+/obj/item/clothing/mask/gas/rockso
+	name = "Rockso Mask"
+	desc = "THE ROCK AND ROLL CLOWN!"
+	icon_state = "rocksomask"
+	item_state = "rocksomask"
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Kidan" = 'icons/mob/species/kidan/mask.dmi',
+		"Wryn" = 'icons/mob/species/wryn/mask.dmi'
+	)
+
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+
 // Bandanas
 /obj/item/clothing/mask/bandana
 	name = "bandana"

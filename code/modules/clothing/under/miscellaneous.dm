@@ -722,6 +722,21 @@
 	item_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/rockso
+	name = "Rockso Costume"
+	desc = "I DO COCAINE!"
+	icon_state = "rocksouniform"
+	item_color = "rocksouniform"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
+		"Drask" = 'icons/mob/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/species/grey/uniform.dmi',
+		"Kidan" = 'icons/mob/species/kidan/uniform.dmi',
+		"Wryn" = 'icons/mob/species/wryn/uniform.dmi'
+	)
+
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"
 	desc = "An assistant's formal-wear. Why an assistant needs formal-wear is still unknown."

@@ -473,6 +473,20 @@
 	desc = "A hat with bells, to add some merryness to the suit."
 	icon_state = "jester_hat"
 
+/obj/item/clothing/head/rockso
+	name = "Rockso Hat"
+	desc = "I'M B-B-B-B-B-B-B-B-BACK, BABY!"
+	icon_state = "rocksohat"
+	item_state = "rocksohat"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Drask" = 'icons/mob/species/drask/head.dmi',
+		"Grey" = 'icons/mob/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/species/kidan/head.dmi',
+		"Wryn" = 'icons/mob/species/wryn/head.dmi'
+	)
+
 /obj/item/clothing/head/rice_hat
 	name = "rice hat"
 	desc = "Welcome to the rice fields, motherfucker."
