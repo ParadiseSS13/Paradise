@@ -295,23 +295,13 @@ SUBSYSTEM_DEF(tts)
 	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
 	var/filename = "sound/tts_cache/[seed.name]/[hash]"
 
-	var/hash_old = rustg_hash_string(RUSTG_HASH_MD5, text)
-	var/filename_old = "sound/tts_cache/[seed.name]/[hash_old]"
+	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
 
 	if(fexists("[filename].ogg"))
 		tts_reused++
 		tts_rrps_counter++
 		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
 		return
-
-	if(fexists("[filename_old].ogg"))
-		fcopy("[filename_old].ogg", "[filename].ogg")
-		tts_reused++
-		tts_rrps_counter++
-		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
-		return
-
-	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
 
 	if(LAZYLEN(tts_queue[filename]))
 		tts_reused++
