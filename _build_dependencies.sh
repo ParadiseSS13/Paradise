@@ -12,7 +12,7 @@ export BETA_BYOND_MAJOR=515
 # Beta Byond Minor
 export BETA_BYOND_MINOR=1606
 # For the RUSTG library. Not actually installed by CI but kept as a reference
-export RUSTG_VERSION=2.0.0-ss220
+export RUSTG_VERSION=3.0.0-ss220
 #For DMJIT librarry
 export DMJIT_VERSION=v0.1.0
 

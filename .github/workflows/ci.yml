@@ -91,7 +91,6 @@ jobs:
           sudo dpkg --add-architecture i386
           sudo apt update || true
           sudo apt install libgcc-s1:i386
-          sudo apt install -o APT::Immediate-Configure=false libssl-dev:i386
           bash tools/ci/install_rustg.sh
       - name: Install DMJIT
         run: |
