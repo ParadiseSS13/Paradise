@@ -69,6 +69,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/view_instances,
 	/client/proc/start_vote,
+	/client/proc/toggle_mctabs,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist
 ))
