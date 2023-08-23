@@ -187,3 +187,24 @@
   - add: thunderdome clears after all player death (#3380)
   Zwei:
   - add: WideScreen Port (#3204)
+'2023-08-23':
+  DeDerevce:
+  - imageadd: holy constructs (#3347)
+  Honker9999999:
+  - tweak: vault stun gene+golem (#3381)
+  LiquidPotroh:
+  - tweak: Holy water braindamage (#3393)
+  NightDawnFox:
+  - add: gas mask with voice modulator (#3359)
+  - add: new weapon to Gamma ERT/armory (#3374)
+  SAAD:
+  - add: Remap Bridge, Central Hallway, Barber (#3361)
+  Vladisvell:
+  - add: New icons for quiver and Santa's gift bag (#3355)
+  Zardesse:
+  - add: Rockso costume (#3376)
+  Zwei:
+  - bugfix: Items Offer Fix (#3391)
+  - tweak: Abductors Fixes (#3373)
+  Сиротка:
+  - bugfix: Guardian issues (#3390)
