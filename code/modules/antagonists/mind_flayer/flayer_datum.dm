@@ -13,7 +13,7 @@
 	///The list of all purchased powers
 	var/list/powers = list()
 	/// The list of all innate powers
-	var/list/innate_powers = list(/obj/effect/proc_holder/spell/flayer/weapon/swarmprod, /datum/mindflayer_passive/new_crit, /obj/effect/proc_holder/spell/flayer/self/rejuv) // They won't get newcrit for being a mindflayer, I just like having it during testing
+	var/list/innate_powers = list(/obj/effect/proc_holder/spell/flayer/self/weapon/swarmprod, /datum/mindflayer_passive/new_crit, /obj/effect/proc_holder/spell/flayer/self/rejuv) // They won't get newcrit for being a mindflayer, I just like having it during testing
 	///List for keeping track of who has already been drained
 	var/list/drained_humans = list()
 	///How fast the flayer's touch drains
