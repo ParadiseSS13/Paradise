@@ -29,6 +29,14 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/clothing/glasses/meson/engine/equipped(mob/user, slot, initial)
+	. = ..()
+	if(active_on_equip && mode == MODE_MESON && slot == slot_glasses)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+
+	if(active_on_equip_rad && mode == MODE_RAD && slot == slot_glasses)
+		ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
+
 /obj/item/clothing/glasses/meson/engine/proc/toggle_mode(mob/user, voluntary)
 	mode = modes[mode]
 	to_chat(user, "<span class='[voluntary ? "notice" : "warning"]'>[voluntary ? "You turn the goggles" : "The goggles turn"] [mode ? "to [mode] mode" : "off"][voluntary ? "." : "!"]</span>")
