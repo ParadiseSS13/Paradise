@@ -482,19 +482,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return "[tbrute][tburn]"
 
 /obj/item/organ/external/proc/update_splints()
-    if(!(status & ORGAN_SPLINTED))
-        owner.splinted_limbs -= src
-        return
-    if(owner.step_count >= splinted_count + SPLINT_LIFE)
-        status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
-        owner.handle_splints()
-        if(status & ORGAN_BROKEN)
-            owner.visible_message(owner, "<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off [owner.p_their()] [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
-            owner.emote("scream")
-            owner.Weaken(4 SECONDS) //Better feedback compared to stun() - We won't be just standing there menancingly
-            return
-        to_chat(owner, "<span class='notice'>Your splint harmlessly pops off your [name].</span>") //If we fixed our bones, a splint popping off shouldn't be painful and stun us.
-
+	if(!(status & ORGAN_SPLINTED))
+		owner.splinted_limbs -= src
+		return
+	if(owner.step_count >= splinted_count + SPLINT_LIFE)
+		status &= ~ORGAN_SPLINTED // Oh no, we actually need surgery now!
+		owner.handle_splints()
+		if(!(status & ORGAN_BROKEN))
+			to_chat(owner, "<span class='notice'>Your splint harmlessly pops off your [name].</span>") // If we fixed our bones, a splint popping off shouldn't be painful and stun us.
+			return
+		owner.visible_message("<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off [owner.p_their()] [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
+		owner.emote("scream")
+		owner.Weaken(4 SECONDS) // Better feedback compared to stun() - We won't be just standing there menancingly
 
 /****************************************************
 			DISMEMBERMENT
