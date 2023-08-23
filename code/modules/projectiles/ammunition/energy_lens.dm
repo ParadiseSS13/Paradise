@@ -299,7 +299,7 @@
 
 /obj/item/ammo_casing/energy/emitter/cyborg/proto // needed a slightly weaker ranged option to give to Safety Overriden borgs. The fire rate is about the same as an emitter if you put it on the ground.
 	e_cost = 500
-	delay = 3 SECONDS
+	delay = 2 SECONDS
 
 /obj/item/ammo_casing/energy/bsg
 	projectile_type = /obj/item/projectile/energy/bsg
