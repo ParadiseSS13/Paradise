@@ -124,14 +124,14 @@
 /datum/click_intercept/give/New(client/C)
 	..()
 	holder.mouse_pointer_icon = 'icons/misc/mouse_icons/give_item.dmi'
-	to_chat(holder, "<span class='info'>You can now left click on someone to give them your held item.</span>")
+	to_chat(holder, span_info("You can now left click on someone to give them your held item."))
 	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), /datum/proc/signal_qdel)
 
 
 /datum/click_intercept/give/Destroy(force = FALSE, ...)
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	if(!item_offered)
-		to_chat(holder.mob, "<span class='info'>You're no longer trying to give someone your held item.</span>")
+		to_chat(holder.mob, span_info("You're no longer trying to give someone your held item."))
 	return ..()
 
 
@@ -140,20 +140,23 @@
 		return
 	var/mob/living/carbon/receiver = object
 	if(receiver.stat != CONSCIOUS)
-		to_chat(user, "<span class='warning'>[receiver] can't accept any items because they're not conscious!</span>")
+		to_chat(user, span_warning("[receiver] can't accept any items because they're not conscious!"))
+		return
+	if(!receiver.IsAdvancedToolUser())
+		to_chat(user, span_warning("[receiver] can't accept any items because they don't have the dexterity to do this!"))
 		return
 	var/obj/item/I = user.get_active_hand()
 	if(!user.Adjacent(receiver))
-		to_chat(user, "<span class='warning'>You need to be closer to [receiver] to offer them [I].</span>")
+		to_chat(user, span_warning("You need to be closer to [receiver] to offer them [I]."))
 		return
 	if(!receiver.client)
-		to_chat(user, "<span class='warning'>You offer [I] to [receiver], but they don't seem to respond...</span>")
+		to_chat(user, span_warning("You offer [I] to [receiver], but they don't seem to respond..."))
 		return
 	// We use UID() here so that the receiver can have more then one give request at one time.
 	// Otherwise, throwing a new "take item" alert would override any current one also named "take item".
 	receiver.throw_alert("take item [I.UID()]", /obj/screen/alert/take_item, alert_args = list(user, receiver, I))
 	item_offered = TRUE // TRUE so we don't give them the default chat message in Destroy.
-	to_chat(user, "<span class='info'>You offer [I] to [receiver].</span>")
+	to_chat(user, span_info("You offer [I] to [receiver]."))
 	qdel(src)
 
 
