@@ -300,16 +300,9 @@
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/flash(src)
-	new /obj/item/melee/classic_baton/telescopic(src)
 	new /obj/item/grenade/flashbang(src)
-	update_icon()
-
-/obj/item/storage/belt/security/response_team_gamma/populate_contents()
-	new /obj/item/melee/baton/loaded(src)
-	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/flash(src)
-	new /obj/item/grenade/flashbang(src)
-	new /obj/item/grenade/flashbang(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/restraints/legcuffs/bola/energy(src)
 	update_icon()
 
 /obj/item/storage/belt/security/webbing
@@ -497,6 +490,10 @@
 	new /obj/item/grenade/plastic/c4/thermite(src)
 	new /obj/item/grenade/plastic/c4/thermite(src)
 	update_icon()
+
+/obj/item/storage/belt/military/assault/ert/populate_contents()
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/flashlight(src)
 
 /obj/item/storage/belt/janitor
 	name = "janibelt"

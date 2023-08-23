@@ -57,14 +57,15 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	return 1
 
-/proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
+/proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security, chosen_loadout)
 	GLOB.response_team_members = list()
 	GLOB.active_team = response_team_type
 	GLOB.active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 	GLOB.active_team.cyborg_security_permitted = cyborg_security
+	GLOB.active_team.chosen_loadout = chosen_loadout
 
 	GLOB.send_emergency_team = TRUE
-	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	if(!ert_candidates.len)
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
@@ -241,6 +242,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/paranormal_outfit
 	var/borg_path = /mob/living/silicon/robot/ert
 	var/cyborg_security_permitted = FALSE
+	/// The extra loadout admins chose in ert_manager.dm
+	var/chosen_loadout = /datum/outfit/ert_loadout/agents
 
 /datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
 	slots["Commander"] = com
@@ -285,6 +288,9 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 		if("Commander")
 			M.equipOutfit(command_outfit)
+
+	// Add the extra loadout chosen in ert_manager.dm
+	M.equipOutfit(chosen_loadout)
 
 /datum/response_team/proc/cannot_send_team()
 	GLOB.major_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
@@ -332,21 +338,6 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /datum/response_team/gamma/announce_team()
 	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
-
-/datum/outfit/job/centcom/response_team
-	name = "Response team"
-	var/rt_assignment = "Emergency Response Team Member"
-	var/rt_job = "This is a bug"
-	var/rt_mob_job = "This is a bug" // The job set on the actual mob.
-	allow_backbag_choice = FALSE
-	allow_loadout = FALSE
-	pda = /obj/item/pda/heads/ert
-	id = /obj/item/card/id/ert
-	l_ear = /obj/item/radio/headset/ert/alt
-	box = /obj/item/storage/box/responseteam
-	gloves = /obj/item/clothing/gloves/combat
-
-	implants = list(/obj/item/implant/mindshield)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"

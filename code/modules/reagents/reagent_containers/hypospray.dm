@@ -191,3 +191,11 @@
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)
+
+/obj/item/reagent_containers/hypospray/autoinjector/ert
+	name = "response team combat medipen"
+	desc = "A high-tech autoinjector, used by NanoTrasen's emergency response forces."
+	icon_state = "stimpen"
+	amount_per_transfer_from_this = 20
+	volume = 40
+	list_reagents = list("epinephrine" = 10, "weak_omnizine" = 10, "sal_acid" = 10, "salglu_solution" = 10)

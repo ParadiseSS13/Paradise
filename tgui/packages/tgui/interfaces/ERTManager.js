@@ -5,6 +5,7 @@ import { Window } from '../layouts';
 export const ERTManager = (props, context) => {
   const { act, data } = useBackend(context);
   let slotOptions = [0, 1, 2, 3, 4, 5];
+
   return (
     <Window>
       <Window.Content>
@@ -32,6 +33,17 @@ export const ERTManager = (props, context) => {
                 color={data.ert_type === 'Gamma' ? 'purple' : ''}
                 onClick={() => act('ert_type', { ert_type: 'Gamma' })}
               />
+            </LabeledList.Item>
+          <LabeledList.Item label="Loadout">
+              {data.loadout_types.map((loadout) => (
+                <Button
+                  key={loadout.path}
+                  content={loadout.name}
+                  textAlign="center"
+                  color={data.chosen_loadout === loadout.path ? 'green' : ''}
+                  onClick={() => act('chosen_loadout', { chosen_loadout: loadout.path })}
+                />
+              ))}
             </LabeledList.Item>
           </LabeledList>
         </Section>

@@ -656,11 +656,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	var/list/special_outfits = list(
 		"Naked",
 		"As Job...",
+		"ERT Loadouts...",
 		"Custom..."
 	)
 
 	var/list/outfits = list()
-	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job)
+	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - typesof(/datum/outfit/ert_loadout)
 	for(var/path in paths)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))
@@ -685,6 +686,20 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in job_outfits
 		dresscode = job_outfits[dresscode]
+		if(isnull(dresscode))
+			return
+
+	if(dresscode == "ERT Loadouts...")
+		var/list/ert_loadout_paths = subtypesof(/datum/outfit/ert_loadout)
+		var/list/ert_loadouts = list()
+		for(var/path in ert_loadout_paths)
+			var/datum/outfit/O = path
+			if(initial(O.can_be_admin_equipped))
+				ert_loadouts[initial(O.name)] = path
+		ert_loadouts = sortTim(ert_loadouts, GLOBAL_PROC_REF(cmp_text_asc))
+
+		dresscode = input("Select ERT loadout", "Robust quick dress shop") as null|anything in ert_loadouts
+		dresscode = ert_loadouts[dresscode]
 		if(isnull(dresscode))
 			return
 
