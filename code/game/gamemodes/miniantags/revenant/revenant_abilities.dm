@@ -374,7 +374,7 @@
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/attack(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
 	var/list/potential_victims = list()
 	for(var/mob/living/carbon/potential_victim in range(aoe_range, get_turf(possessed_object)))
-		if(!can_see(possessed_object, potential_victim, aoe_range)) // You can't see me
+		if(QDELETED(possessed_object) || !can_see(possessed_object, potential_victim, aoe_range)) // You can't see me
 			continue
 		if(potential_victim.stat != CONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
 			continue
@@ -386,7 +386,7 @@
 		return
 
 	var/mob/living/carbon/victim = pick(potential_victims)
-	possessed_object.throw_at(victim, aoe_range, 2, user)
+	possessed_object.throw_at(victim, aoe_range, 2, user, dodgeable = FALSE)
 
 /// Sets the glow on the haunted object, scales up based on throwforce
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/set_outline(mob/living/simple_animal/possessed_object/possessed_object)
