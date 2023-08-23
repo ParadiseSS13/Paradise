@@ -218,7 +218,7 @@
 	///amount of EER to ADD
 	var/power_additive = 0
 	/// A list of all previous events
-	var/list/last_events
+	var/list/last_events = list()
 	/// Time of next event
 	var/next_event_time
 	/// Run S-Class event? So we can only run one S-class event per round per crystal
@@ -587,7 +587,7 @@
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
 	if(power_changes)
-		power = max(power - min(((power / 500) ** 3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor), 0)
+		power = max((power - min(((power / 500) ** 3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor) + power_additive), 0)
 	//After this point power is lowered
 	//This wraps around to the begining of the function
 	//Handle high power zaps/anomaly generation
@@ -671,7 +671,6 @@
 		//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()
-	power += power_additive
 	return 1
 
 /obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/item/projectile/Proj)
@@ -1213,7 +1212,6 @@
 		log_debug("Attempted supermatter event aborted due to incorrect path. Incorrect path type: [event.type].")
 		return
 	event.start_event()
-
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
