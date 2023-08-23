@@ -688,11 +688,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(isnull(dresscode))
 			return
 
-		dresscode = input("Select ERT loadout", "Robust quick dress shop") as null|anything in ert_loadouts
-		dresscode = ert_loadouts[dresscode]
-		if(isnull(dresscode))
-			return
-
 	if(dresscode == "Custom...")
 		var/list/custom_names = list()
 		for(var/datum/outfit/D in GLOB.custom_outfits)
