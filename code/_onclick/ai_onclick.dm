@@ -206,14 +206,8 @@
 /obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
 	if(!ai_control_check(user))
 		return
-
-	if(istype(user, /mob/living/silicon/robot))
-		var/mob/living/silicon/robot/S = user
-		if(S.emagged || do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
-			toggle_bolt(user)
-			return
-
-	if(isAntag(user) || do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
+	var/mob/living/silicon/S = user
+	if(S.can_instant_lockdown() || do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
 		toggle_bolt(user)
 
 
@@ -225,15 +219,8 @@
 	if(isElectrified())
 		electrify(0, user, TRUE) // un-shock
 	else
-
-		if(istype(user, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/S = user
-			if(S.emagged || do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
-				electrify(-1, user, TRUE) // permanent shock + audio cue
-				playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-				return
-
-		if(isAntag(user) || do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
+		var/mob/living/silicon/S = user
+		if(S.can_instant_lockdown() || do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
 			electrify(-1, user, TRUE) // permanent shock + audio cue
 			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
