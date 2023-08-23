@@ -188,7 +188,11 @@
 			var/obj/item/clothing/mask/horsehead/hoers = wear_mask
 			if(hoers.voicechange)
 				S.message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
-				verb = pick("whinnies", "neighs", "says")
+
+		if(wear_mask)
+			var/speech_verb_when_masked = wear_mask.change_speech_verb()
+			if(speech_verb_when_masked)
+				verb = speech_verb_when_masked
 
 		if(dna)
 			for(var/datum/dna/gene/gene in GLOB.dna_genes)

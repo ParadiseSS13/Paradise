@@ -341,7 +341,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_SMALL
-	var/voicechange = 0
+	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
 	var/originalname = ""
 
@@ -380,6 +380,10 @@
 		return
 	if(user.real_name == "[originalname][temporaryname]" || user.real_name == "A Horse With No Name") //if it's somehow changed while the mask is on it doesn't revert
 		user.real_name = originalname
+
+/obj/item/clothing/mask/horsehead/change_speech_verb()
+	if(voicechange)
+		return pick("whinnies", "neighs", "says")
 
 /obj/item/clothing/mask/face
 	flags_inv = HIDENAME
@@ -592,3 +596,25 @@
 		if(user)
 			user.gib()
 	return OBLITERATION
+
+//voice modulator
+
+/obj/item/clothing/mask/gas/voice_modulator
+	name = "modified gas mask"
+	desc = "The usual gas mask for firefighters with attached voice change sensor."
+	icon_state = "voice_modulator"
+	item_state = "voice_modulator"
+
+	var/obj/item/voice_changer/voice_modulator/voice_modulator
+
+/obj/item/clothing/mask/gas/voice_modulator/Initialize(mapload)
+	. = ..()
+	voice_modulator = new(src)
+
+/obj/item/clothing/mask/gas/voice_modulator/Destroy()
+	QDEL_NULL(voice_modulator)
+	return ..()
+
+/obj/item/clothing/mask/gas/voice_modulator/change_speech_verb()
+	if(voice_modulator.active)
+		return pick("modulates", "drones", "hums", "buzzes")

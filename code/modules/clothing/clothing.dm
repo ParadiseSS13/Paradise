@@ -423,6 +423,10 @@ BLIND     // can't see anything
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+// Changes the speech verb when wearing a mask if a value is returned
+/obj/item/clothing/mask/proc/change_speech_verb()
+    return
+
 //Shoes
 /obj/item/clothing/shoes
 	name = "shoes"
