@@ -408,8 +408,10 @@
 /obj/item/handheld_mirror
 	name = "hand mirror"
 	desc = "Style, on the go!"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "hand_mirror"
+	icon = 'icons/obj/hhmirror.dmi'
+	icon_state = "hhmirror"
+	lefthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/ui_module/appearance_changer/appearance_changer_holder
 
@@ -421,6 +423,11 @@
 		appearance_changer_holder = new(src, user)
 		ui_interact(user)
 
+/obj/item/handheld_mirror/Initialize(mapload)
+	. = ..()
+	GLOB.mirrors += src
+
 /obj/item/handheld_mirror/Destroy()
+	GLOB.mirrors -= src
 	QDEL_NULL(appearance_changer_holder)
 	return ..()
