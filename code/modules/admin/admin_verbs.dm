@@ -69,7 +69,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/view_instances,
 	/client/proc/start_vote,
-	/client/proc/toggle_mctabs,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist
 ))
@@ -180,7 +179,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
-	/client/proc/show_gc_queues
+	/client/proc/show_gc_queues,
+	/client/proc/toggle_mctabs
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
