@@ -34218,7 +34218,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "NT Representative's Office";
-	req_access = list(40);
+	req_access = list(73);
 	id = "ntr";
 	id_tag = "ntrepofficedoor"
 	},
@@ -61901,11 +61901,11 @@
 	},
 /area/bridge)
 "iqh" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -25
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/orange,
 /area/crew_quarters/heads/hop)
 "iqk" = (
@@ -68600,10 +68600,10 @@
 	},
 /area/bridge)
 "jUR" = (
-/obj/item/flag/nt,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "jVb" = (
@@ -70180,7 +70180,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "kpT" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/item/flag/nt,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "kpV" = (
@@ -76906,6 +76906,7 @@
 	name = "east bump";
 	pixel_x = 26
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "mav" = (
@@ -96463,10 +96464,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "qqU" = (
-/obj/item/flag/nt,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/computer/account_database,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -126042,8 +126043,7 @@
 /area/medical/medbay)
 "xhR" = (
 /obj/machinery/door/airlock/silver{
-	name = "Captain's Bathroom";
-	req_access = list(20)
+	name = "Captain's Bathroom"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
