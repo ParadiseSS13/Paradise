@@ -2313,6 +2313,8 @@
 	products = list(
 		/obj/item/gun/projectile/automatic/ar = 3,
 		/obj/item/ammo_box/magazine/m556 = 6,
+		/obj/item/gun/projectile/automatic/m52 = 3,
+		/obj/item/ammo_box/magazine/m52mag = 6,
 		/obj/item/gun/energy/sniperrifle = 1,
 		/obj/item/gun/energy/lasercannon = 3,
 		/obj/item/gun/energy/xray = 2,

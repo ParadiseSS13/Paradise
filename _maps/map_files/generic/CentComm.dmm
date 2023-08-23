@@ -29846,6 +29846,10 @@
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
 	},
+/obj/item/gun/projectile/automatic/m52,
+/obj/item/ammo_box/magazine/m52mag,
+/obj/item/ammo_box/magazine/m52mag,
+/obj/item/ammo_box/magazine/m52mag,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},

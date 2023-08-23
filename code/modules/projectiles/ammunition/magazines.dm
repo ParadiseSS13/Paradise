@@ -615,3 +615,12 @@
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+
+/obj/item/ammo_box/magazine/m52mag
+	name = "M-52 magazine"
+	icon_state = "m52_ammo"
+	ammo_type = /obj/item/ammo_casing/mm556x45
+	caliber = "mm55645"
+	max_ammo = 24
+	multiple_sprites = 2
+

@@ -410,3 +410,12 @@
         toggle_gunlight()
         return TRUE
 
+//Aussec Armory M-52
+
+/obj/item/gun/projectile/automatic/m52
+	name = "aussec armory M-52"
+	desc = "One of the least popular examples of heavy assault rifles. It has impressive firepower."
+	icon_state = "M52"
+	item_state = "arg"
+	mag_type = /obj/item/ammo_box/magazine/m52mag
+
