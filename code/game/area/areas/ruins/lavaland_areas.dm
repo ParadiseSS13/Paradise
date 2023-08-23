@@ -37,7 +37,7 @@
 /area/ruin/powered/seedvault
 	icon_state = "yellow"
 
-//Caves
+//Caves and cliffs
 
 /area/ruin/unpowered/smallcave
 	name = "Main Branch, do not use"
@@ -65,6 +65,10 @@
 
 /area/ruin/unpowered/bigcave/cave2
 	name = "Big Cave Y"
+	icon_state = "purple"
+
+/area/ruin/unpowered/bigcave/cave3
+	name = "Big Cave S"
 	icon_state = "purple"
 
 //Xeno Nest

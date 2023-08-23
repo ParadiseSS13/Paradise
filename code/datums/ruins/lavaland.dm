@@ -238,6 +238,14 @@
 	allow_duplicates = TRUE
 	cost = 3
 
+/datum/map_template/ruin/lavaland/lavaland_surface_canyon3
+	name = "Vertical Canyon"
+	id = "canyon3"
+	description = "A long vertical canyon, watch your steps!"
+	suffix = "lavaland_surface_canyon3.dmm"
+	allow_duplicates = TRUE
+	cost = 3
+
 /datum/map_template/ruin/lavaland/lavaland_surface_smallcave1
 	name = "Small Cave o"
 	id = "smallcave1"
@@ -275,5 +283,13 @@
 	id = "bigcave2"
 	description = "A big 'Y' shaped cave, it provide shelter against ash storms."
 	suffix = "lavaland_surface_bigcave2.dmm"
+	allow_duplicates = FALSE
+	cost = 3
+
+/datum/map_template/ruin/lavaland/lavaland_surface_bigcave3
+	name = "Big Cave S"
+	id = "bigcave3"
+	description = "A big 'S' shaped cave, it provide shelter against ash storms."
+	suffix = "lavaland_surface_bigcave3.dmm"
 	allow_duplicates = FALSE
 	cost = 3
