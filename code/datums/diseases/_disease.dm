@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 					V = Temp
 
 
-/datum/disease/proc/cure()
+/datum/disease/proc/cure(resistance = TRUE)
 	if(affected_mob)
 		if(disease_flags & CAN_RESIST)
 			if(!(type in affected_mob.resistances))

@@ -155,14 +155,14 @@
 	for(var/mob/living/carbon/H in orange(4,T))
 		if(H == owner)
 			continue
-		switch(pick(1,3))
+		switch(rand(1, 3))
 			if(1)
 				to_chat(H, "<span class='userdanger'>You hear a loud buzz in your head, silencing your thoughts!</span>")
 				H.Stun(6 SECONDS)
 			if(2)
 				to_chat(H, "<span class='warning'>You hear an annoying buzz in your head.</span>")
 				H.AdjustConfused(30 SECONDS)
-				H.adjustBrainLoss(5, 15)
+				H.adjustBrainLoss(rand(5, 15))
 			if(3)
 				H.AdjustHallucinate(60 SECONDS)
 
@@ -176,9 +176,24 @@
 	mind_control_duration = 3000
 
 /obj/item/organ/internal/heart/gland/pop/activate()
-	to_chat(owner, "<span class='notice'>You feel unlike yourself.</span>")
-	var/species = pick(/datum/species/unathi, /datum/species/skrell, /datum/species/diona, /datum/species/tajaran, /datum/species/vulpkanin, /datum/species/kidan, /datum/species/grey)
-	owner.set_species(species)
+	var/mob/living/carbon/human/h_owner = owner
+	to_chat(h_owner, "<span class='notice'>You feel unlike yourself.</span>")
+	var/obj/item/organ/internal/heart/gland/pop/gland = locate() in h_owner.internal_organs
+	var/old_control_uses = initial(mind_control_uses)
+	if(gland)
+		old_control_uses = gland.mind_control_uses
+	var/list/random_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/diona, /datum/species/tajaran, /datum/species/vulpkanin, /datum/species/kidan, /datum/species/grey)
+	random_species -= h_owner.dna.species.type
+	h_owner.set_species(pick(random_species))
+	addtimer(CALLBACK(h_owner, TYPE_PROC_REF(/mob/living/carbon/human, insert_new_gland), old_control_uses), 0)
+
+
+/mob/living/carbon/human/proc/insert_new_gland(mind_controls)
+	if(QDELETED(src))
+		return
+	var/obj/item/organ/internal/heart/gland/pop/replace_gland = new(src)
+	replace_gland.mind_control_uses = mind_controls
+
 
 /obj/item/organ/internal/heart/gland/ventcrawling
 	origin_tech = "materials=4;biotech=5;bluespace=4;abductor=3"
@@ -204,9 +219,12 @@
 
 /obj/item/organ/internal/heart/gland/viral/activate()
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
-	var/datum/disease/advance/A = random_virus(pick(2, 6), 6)
-	A.carrier = TRUE
-	owner.ForceContractDisease(A)
+	var/datum/disease/advance/rand_virus = random_virus(rand(2, 6), 6)
+	rand_virus.carrier = TRUE
+	var/datum/disease/advance/check = locate() in owner.viruses
+	if(check)
+		check.cure(resistance = FALSE)
+	owner.ForceContractDisease(rand_virus)
 
 /obj/item/organ/internal/heart/gland/viral/proc/random_virus(max_symptoms, max_level)
 	if(max_symptoms > VIRUS_SYMPTOM_LIMIT)
@@ -237,6 +255,7 @@
 	icon_state = "emp"
 	mind_control_uses = 3
 	mind_control_duration = 1800
+	emp_proof = TRUE	// EMP should not stop our own heart instantly
 
 /obj/item/organ/internal/heart/gland/emp/activate()
 	to_chat(owner, "<span class='warning'>You feel a spike of pain in your head.</span>")

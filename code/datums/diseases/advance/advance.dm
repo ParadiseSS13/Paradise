@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	return TRUE
 
 // To add special resistances.
-/datum/disease/advance/cure(resistance=1)
+/datum/disease/advance/cure(resistance = TRUE)
 	if(affected_mob)
 		var/id = "[GetDiseaseID()]"
 		if(resistance && !(id in affected_mob.resistances))
