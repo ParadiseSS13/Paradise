@@ -421,7 +421,7 @@
 
 	try_events()
 	if(power > 100)
-		sif(!has_been_powered)
+		if(!has_been_powered)
 			investigate_log("has been powered for the first time.", "supermatter")
 			message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
 			has_been_powered = TRUE
