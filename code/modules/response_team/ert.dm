@@ -243,7 +243,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/borg_path = /mob/living/silicon/robot/ert
 	var/cyborg_security_permitted = FALSE
 	/// The extra loadout admins chose in ert_manager.dm
-	var/chosen_loadout = /datum/outfit/ert_loadout/agents
+	var/chosen_loadout = /datum/loadout/agents
 
 /datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
 	slots["Commander"] = com
@@ -270,27 +270,44 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	return slots[role]
 
 /datum/response_team/proc/equip_officer(officer_type, mob/living/carbon/human/M)
+	var/datum/loadout/loadout = new chosen_loadout
+
 	switch(officer_type)
 		if("Engineer")
 			M.equipOutfit(engineering_outfit)
+			for(var/weapon in loadout.non_security_weapons)
+				M.equip_or_collect(new weapon, slot_in_backpack)
 
 		if("Security")
 			M.equipOutfit(security_outfit)
+			for(var/security_weapon in loadout.security_only_weapons)
+				M.equip_or_collect(new security_weapon, slot_in_backpack)
 
 		if("Medic")
 			M.equipOutfit(medical_outfit)
+			for(var/weapon in loadout.non_security_weapons)
+				M.equip_or_collect(new weapon, slot_in_backpack)
 
 		if("Janitor")
 			M.equipOutfit(janitor_outfit)
+			for(var/weapon in loadout.non_security_weapons)
+				M.equip_or_collect(new weapon, slot_in_backpack)
 
 		if("Paranormal")
 			M.equipOutfit(paranormal_outfit)
+			for(var/weapon in loadout.non_security_weapons)
+				M.equip_or_collect(new weapon, slot_in_backpack)
 
 		if("Commander")
 			M.equipOutfit(command_outfit)
+			for(var/security_weapon in loadout.security_only_weapons)
+				// Avoid double PDW-9s
+				if(security_weapon in M.contents)
+					continue
+				M.equip_or_collect(new security_weapon, slot_in_backpack)
 
-	// Add the extra loadout chosen in ert_manager.dm
-	M.equipOutfit(chosen_loadout)
+	for(var/item in loadout.items)
+		M.equip_or_collect(new item, slot_in_backpack)
 
 /datum/response_team/proc/cannot_send_team()
 	GLOB.major_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")

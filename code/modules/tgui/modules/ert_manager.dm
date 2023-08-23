@@ -11,7 +11,7 @@
 	/// The below is a toggle for if sec cyborgs are enabled or not
 	var/cyborg_security = FALSE
 	/// The chosen loadout we will spawn with, set on the tgui
-	var/chosen_loadout = /datum/outfit/ert_loadout/agents
+	var/chosen_loadout = /datum/loadout/agents
 
 /datum/ui_module/ert_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -46,7 +46,7 @@
 
 	// Generate loadout type data
 	var/list/loadout_types = list()
-	for(var/chosen in subtypesof(/datum/outfit/ert_loadout))
+	for(var/chosen in subtypesof(/datum/loadout))
 		var/datum/outfit/loadout = chosen
 		loadout_types.Add(list(list("name" = initial(loadout.name), "path" = loadout)))
 	data["loadout_types"] = loadout_types

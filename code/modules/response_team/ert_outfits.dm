@@ -94,8 +94,7 @@
 
 	backpack_contents = list(
 		/obj/item/camera_bug/ert = 1,
-		/obj/item/door_remote/omni = 1,
-		/obj/item/gun/energy/gun/blueshield/pdw9 = 1)
+		/obj/item/door_remote/omni = 1)
 
 /datum/outfit/job/centcom/response_team/commander/gamma
 	name = "RT Commander (Gamma)"
@@ -106,7 +105,6 @@
 	backpack_contents = list(
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
-		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
 		/obj/item/gun/projectile/automatic/pistol/enforcer/lethal = 1,
 		/obj/item/ammo_box/magazine/enforcer/lethal = 2)
 
@@ -140,16 +138,12 @@
 	belt = /obj/item/storage/belt/security/response_team
 
 	backpack_contents = list(
-		/obj/item/gun/energy/disabler = 1,
 		/obj/item/flashlight/seclite = 1)
 
 /datum/outfit/job/centcom/response_team/security/red
 	name = "RT Security (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
 	shoes = /obj/item/clothing/shoes/magboots
-
-	backpack_contents = list(
-		/obj/item/gun/energy/gun/blueshield/pdw9 = 1)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/telebaton,
@@ -168,8 +162,7 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/storage/box/flashbangs = 1,
 		/obj/item/whetstone = 1,
-		/obj/item/storage/box/breaching = 1,
-		/obj/item/gun/energy/gun/nuclear = 1)
+		/obj/item/storage/box/breaching = 1)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/telebaton,
@@ -201,15 +194,11 @@
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened)
 
-	l_pocket = /obj/item/gun/energy/gun/mini
-	r_pocket = /obj/item/melee/classic_baton/telescopic
-
 	backpack_contents = list(
 		/obj/item/t_scanner = 1,
 		/obj/item/stack/sheet/glass/fifty = 1,
 		/obj/item/stack/sheet/metal/fifty = 1,
-		/obj/item/flashlight = 1
-	)
+		/obj/item/flashlight = 1)
 
 /datum/outfit/job/centcom/response_team/engineer/red
 	name = "RT Engineer (Red)"
@@ -225,17 +214,10 @@
 	/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	)
 	l_pocket = /obj/item/t_scanner
-	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
 		/obj/item/rcd/preloaded = 1,
-		/obj/item/rcd_ammo = 3,
-		/obj/item/gun/energy/gun = 1
-	)
-
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
-	)
+		/obj/item/rcd_ammo = 3)
 
 /datum/outfit/job/centcom/response_team/engineer/gamma
 	name = "RT Engineer (Gamma)"
@@ -245,14 +227,10 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
 	l_pocket = /obj/item/t_scanner
-	r_pocket = /obj/item/melee/classic_baton/telescopic
-
 
 	backpack_contents = list(
 		/obj/item/rcd/combat = 1,
-		/obj/item/rcd_ammo/large = 3,
-		/obj/item/gun/energy/gun/blueshield/pdw9 = 1
-	)
+		/obj/item/rcd_ammo/large = 3)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
@@ -260,12 +238,7 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
 		/obj/item/organ/internal/eyes/cybernetic/shield,
 		/obj/item/organ/internal/cyberimp/arm/toolset,
-		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
-	)
-
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
-	)
+		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened)
 
 //////////////////// MEDIC ///////////////////
 
@@ -275,35 +248,27 @@
 	rt_job = "Emergency Response Team Medic"
 	rt_mob_job = "ERT Medical"
 	uniform = /obj/item/clothing/under/rank/medical/doctor
+	mask = /obj/item/clothing/mask/gas/sechailer
 	back = /obj/item/storage/backpack/ert/medical
 	pda = /obj/item/pda/heads/ert/medical
 	id = /obj/item/card/id/ert/medic
+	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 
 /datum/outfit/job/centcom/response_team/medic/amber
 	name = "RT Medic (Amber)"
-
 	head = /obj/item/clothing/head/helmet/ert/medical
-	shoes = /obj/item/clothing/shoes/white
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
-	suit_store = /obj/item/gun/energy/gun/mini
+	belt = /obj/item/storage/belt/medical/surgery/loaded
 	glasses = /obj/item/clothing/glasses/hud/health
 
-	belt = /obj/item/storage/belt/medical/surgery/loaded
-
-	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
-	r_pocket = /obj/item/melee/classic_baton/telescopic
-
-	l_hand = /obj/item/defibrillator/loaded
-
 	backpack_contents = list(
-		/obj/item/clothing/mask/surgical = 1,
 		/obj/item/storage/firstaid/ert_amber = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/handheld_defibrillator = 1,
-		/obj/item/soap/nanotrasen = 1
-	)
+		/obj/item/soap/nanotrasen = 1,
+		/obj/item/defibrillator/compact/advanced/loaded = 1)
 
 /datum/outfit/job/centcom/response_team/medic/red
 	name = "RT Medic (Red)"
@@ -311,15 +276,9 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
-	suit_store = /obj/item/gun/energy/gun
-
-	belt = /obj/item/defibrillator/compact/advanced/loaded
-
-	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/storage/belt/medical
 
 	backpack_contents = list(
-		/obj/item/clothing/mask/surgical = 1,
 		/obj/item/storage/firstaid/ert = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
@@ -327,17 +286,12 @@
 		/obj/item/handheld_defibrillator = 1,
 		/obj/item/storage/pill_bottle/ert_red = 1,
 		/obj/item/storage/pill_bottle/patch_pack/ert = 1,
-		/obj/item/soap/nanotrasen = 1
-	)
+		/obj/item/soap/nanotrasen = 1,
+		/obj/item/defibrillator/compact/advanced/loaded = 1)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
-	)
-
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
-	)
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
 	name = "RT Medic (Gamma)"
@@ -345,12 +299,7 @@
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/medic
-
-	belt = /obj/item/storage/belt/medical //No need for belt defib, they got the built in ones. This gives them some extra storage.
-
-	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
-	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
-
+	belt = /obj/item/storage/belt/medical
 
 	backpack_contents = list(
 		/obj/item/bodyanalyzer/advanced = 1,
@@ -361,20 +310,15 @@
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/storage/pill_bottle/ert_gamma = 1,
 		/obj/item/storage/pill_bottle/patch_pack/ert/gamma = 1,
-		/obj/item/gun/energy/gun/blueshield/pdw9 = 1
-		)
+		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
+ 		/obj/item/reagent_containers/hypospray/autoinjector = 1)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/l,
 		/obj/item/organ/internal/cyberimp/arm/medibeam,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/medical,
-		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
-	)
-
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
-	)
+		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened)
 
 //////////////////// PARANORMAL ///////////////////
 
@@ -385,8 +329,6 @@
 	rt_mob_job = "ERT Paranormal"
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	back = /obj/item/storage/backpack/ert/security
-	shoes = /obj/item/clothing/shoes/combat
-	l_ear = /obj/item/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/storage/belt/security/response_team
@@ -394,8 +336,7 @@
 	pda = /obj/item/pda/heads/ert/paranormal
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight/seclite = 1
-		)
+		/obj/item/flashlight/seclite = 1)
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -406,48 +347,33 @@
 	name = "RT Paranormal (Amber)"
 	suit = /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	head = /obj/item/clothing/head/helmet/ert/security/paranormal
-	suit_store = /obj/item/gun/energy/disabler
 	r_pocket = /obj/item/nullrod
 
 /datum/outfit/job/centcom/response_team/paranormal/red
 	name = "RT Paranormal (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
-	suit_store = /obj/item/gun/energy/gun
 	r_pocket = /obj/item/nullrod/ert
 	glasses = /obj/item/clothing/glasses/sunglasses
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
-	)
-
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
-	)
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened)
 
 /datum/outfit/job/centcom/response_team/paranormal/gamma
 	name = "RT Paranormal (Gamma)"
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
-	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/night
 	r_pocket = /obj/item/nullrod/ert
 
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight/seclite = 1,
-		/obj/item/gun/energy/gun/nuclear = 1
-		)
+		/obj/item/flashlight/seclite = 1)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
-	)
-
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
-	)
+		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened)
 
 //////////////////// JANITORIAL ///////////////////
 
@@ -460,10 +386,9 @@
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
 	shoes = /obj/item/clothing/shoes/galoshes
-	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/ert/janitorial
 	pda = /obj/item/pda/heads/ert/janitor
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/lightreplacer = 1,
@@ -478,7 +403,6 @@
 	head = /obj/item/clothing/head/helmet/ert/janitor
 	glasses = /obj/item/clothing/glasses/sunglasses
 	r_pocket = /obj/item/flashlight
-	suit_store = /obj/item/gun/energy/disabler
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/advmop)
@@ -489,23 +413,16 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
 	r_pocket = /obj/item/scythe/tele
-	suit_store = /obj/item/gun/energy/gun/mini
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/janitorial,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
-	)
-
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
-	)
+		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/mod/control/pre_equipped/responsory/janitor
 	r_pocket = /obj/item/scythe/tele
-	shoes = /obj/item/clothing/shoes/magboots/advance
 
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
@@ -513,34 +430,63 @@
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/storage/bag/trash/bluespace = 1,
 		/obj/item/lightreplacer/bluespace = 1,
-		/obj/item/melee/flyswatter = 1,
-		/obj/item/gun/energy/gun = 1
-	)
+		/obj/item/melee/flyswatter = 1)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/arm/advmop,
-		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
-	)
-
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
-	)
+		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened)
 
 // Extra ERT loadouts used in ert_manager.dm
 
-/datum/outfit/ert_loadout
-	collect_not_del = TRUE
+/datum/loadout
+	/// Admin-facing name of the loadout
+	var/name
+	/// Only commander/security gets these weapons
+	var/list/security_only_weapons = list()
+	/// Non-security (janitor, engineer, medic, paranormal) gets these weapons
+	var/list/non_security_weapons = list()
+	/// Everyone gets these items
+	var/list/items = list()
 
-/datum/outfit/ert_loadout/agents
+/datum/loadout/agents
 	name = "Agents"
-	l_hand = /obj/item/gun/energy/gun/blueshield/pdw9
-	r_hand = /obj/item/ammo_box/magazine/laser/ert
+	items = list(/obj/item/restraints/handcuffs)
+	non_security_weapons = list(/obj/item/gun/energy/disabler)
+	security_only_weapons = list(/obj/item/gun/energy/gun/blueshield/pdw9, /obj/item/gun/energy/gun)
 
-/datum/outfit/ert_loadout/blob
+/datum/loadout/blob
 	name = "Blob"
-	l_hand = /obj/item/ammo_box/magazine/laser/ert
+	items = list(/obj/item/grenade/flashbang)
+	non_security_weapons = list(/obj/item/gun/energy/gun/nuclear)
+	security_only_weapons = list(/obj/item/gun/energy/gun/nuclear)
 
-/datum/outfit/ert_loadout/xenomorph
+/datum/loadout/changelings
+	name = "Changelings"
+	items = list(/obj/item/shield/riot/tele)
+	non_security_weapons = list(/obj/item/gun/energy/gun/nuclear)
+	security_only_weapons = list(/obj/item/gun/energy/gun/nuclear)
+
+/datum/loadout/cult
+	name = "Cult"
+	items = list(/obj/item/reagent_containers/food/drinks/bottle/holywater)
+	non_security_weapons = list(/obj/item/melee/classic_baton/telescopic, /obj/item/gun/energy/disabler)
+	security_only_weapons = list(/obj/item/gun/energy/gun/nuclear)
+
+/datum/loadout/terror_spiders
+	name = "Terror Spiders"
+	items = list(/obj/item/shield/riot/tele)
+	non_security_weapons = list(/obj/item/gun/energy/gun/nuclear)
+	security_only_weapons = list(/obj/item/gun/energy/gun/nuclear)
+
+/datum/loadout/vampires
+	name = "Vampires"
+	items = list(/obj/item/restraints/handcuffs, /obj/item/clothing/glasses/sunglasses/blindfold)
+	non_security_weapons = list(/obj/item/gun/energy/disabler)
+	security_only_weapons = list(/obj/item/gun/energy/gun/blueshield/pdw9, /obj/item/gun/energy/gun)
+
+/datum/loadout/xenomorphs
 	name = "Xenomorphs"
-	l_hand = /obj/item/ammo_box/magazine/detective/speedcharger
+	items = list(/obj/item/shield/riot/tele)
+	non_security_weapons = list(/obj/item/gun/energy/gun/nuclear)
+	security_only_weapons = list(/obj/item/gun/energy/immolator)
