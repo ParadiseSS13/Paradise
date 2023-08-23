@@ -142,7 +142,7 @@
 
 			A Class: Events with SEVERE effects to standard setups. Action will need to be taken to prevent a delamination event.</br></br>
 			A-1: The engine's APC is shorted due to a power spike, requiring its wires to be mended.</br>
-			A-2: The engine's air alarm sets its self to siphon mode as an effect of radiological interference.</br>
+			A-2: The engine's air alarm resets its self as an effect of radiological interference.</br>
 			A-3: The amount of plasma and O2 released by the engine is quadrupled for a few minutes.</br></br>
 
 			S Class events: Events that require immediate intervention and a specialized response to prevent a delamination event. Coordination with other departments is HIGHLY recommended. A warning will be broadcasted on engineering communications before these events.</br></br>
