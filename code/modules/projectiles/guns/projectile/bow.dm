@@ -98,3 +98,10 @@
 /obj/item/storage/backpack/quiver/full/populate_contents()
 	for(var/i in 1 to storage_slots)
 		new /obj/item/ammo_casing/caseless/arrow(src)
+	update_icon()
+
+/obj/item/storage/backpack/quiver/update_icon()
+	if(length(contents) > 0)
+		icon_state = "quiver_[clamp(length(contents),1,5)]"
+	else
+		icon_state = initial(icon_state)

@@ -107,6 +107,21 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
 
+/obj/item/storage/backpack/santabag/update_icon()
+	var/items_count = length(contents)
+	switch(items_count)
+		if(1 to 10)
+			icon_state = "giftbag0"
+		if(11 to 20)
+			icon_state = "giftbag1"
+		if(21 to INFINITY)
+			icon_state = "giftbag2"
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
+
 /obj/item/storage/backpack/cultpack
 	name = "trophy rack"
 	desc = "It's useful for both carrying extra gear and proudly declaring your insanity."
