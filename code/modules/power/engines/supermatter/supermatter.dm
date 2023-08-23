@@ -420,7 +420,11 @@
 		return
 
 	try_events()
-
+	if(power > 100)
+		sif(!has_been_powered)
+			investigate_log("has been powered for the first time.", "supermatter")
+			message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
+			has_been_powered = TRUE
 	//We vary volume by power, and handle OH FUCK FUSION IN COOLING LOOP noises.
 	if(power)
 		soundloop.volume = clamp((50 + (power / 50)), 50, 100)
