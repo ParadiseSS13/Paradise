@@ -674,11 +674,13 @@ active_lava_ruins = [
 	##CAVES_AND_CLIFFS
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_canyon1.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_canyon2.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_canyon3.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_smallcave1.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_smallcave2.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_smallcave3.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_bigcave1.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_bigcave2.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_bigcave3.dmm",
 
 	##MISC
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_animal_hospital.dmm",
