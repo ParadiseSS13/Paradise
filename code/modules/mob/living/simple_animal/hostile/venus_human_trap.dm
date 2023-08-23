@@ -10,6 +10,7 @@
 	canSmoothWith = null
 	smoothing_flags = NONE
 	var/growth_time = 120 SECONDS
+	is_alien = FALSE
 
 /obj/structure/alien/resin/flower_bud_enemy/Initialize(mapload)
 	..()
@@ -18,9 +19,6 @@
 	anchors += locate(x + 2, y + 2, z)
 	anchors += locate(x - 2, y - 2, z)
 	anchors += locate(x + 2, y - 2, z)
-
-	for(var/obj/structure/alien/weeds/W in get_turf(src))
-		qdel(W)
 
 	for(var/turf/T in anchors)
 		var/datum/beam/B = Beam(T, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
