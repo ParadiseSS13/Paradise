@@ -29,6 +29,7 @@
 	clothes_req = FALSE
 	invocation = "За С+инд+ик+ат!"
 	energy_divisor = 4
+	human_req = FALSE
 
 
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/New()

@@ -206,12 +206,6 @@
 		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, "<span class='alien'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 
-//override set to true if message should be passed through instead of going to host communication
-/mob/living/simple_animal/hostile/guardian/say(message, override = FALSE)
-	if(admin_spawned || override)//if it's an admin-spawned guardian without a host it can still talk normally
-		return ..(message)
-	Communicate(message)
-
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, span_danger("У вас нет другого режима!"))
