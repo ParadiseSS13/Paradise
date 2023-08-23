@@ -113,43 +113,43 @@
 
 
 /obj/item/book/manual/supermatter_engine
-	name = "Supermatter Engine Anomaly Refrence"
+	name = "Supermatter Engine Anomaly Reference"
 	desc = "An engineer's best tool for dealing with their worst frenemy: The Supermatter and its anomalous behavior."
 	icon_state = "bookParticleAccelerator"
 	author = "Vroo-Looum-Kloo"
-	title = "Supermatter Engine Anomaly Refrence"
+	title = "Supermatter Engine Anomaly Reference"
 
 	pages = list({"Engineering notes on single-stage Supermatter engine,</br>
 			Vroo-Looum-Kloo</br>
 
-			The supermatter engine is a very powerful, yet strange method of power generation. This guide will serve as a pocket refrence of the myraid of anomalous behaviors it may exhibit thoughout your shift. Below is a table of events and their effect.</br></br></br>
+			The supermatter engine is a very powerful, yet strange method of power generation. This guide will serve as a pocket reference for the myriad of anomalous behaviors it may exhibit throughout your shift. Below is a table of events and their effects.</br></br></br>
 
-			D Class: Events that only effect certain types of NON-STANDARD setups, minimial operator intervention required, they occur instantly and engineering will be alerted on telecomms.</br></br>
+			D Class: Events that only affect certain types of NON-STANDARD setups, minimial operator intervention required. These events occur instantly and engineering will be alerted on telecomms.</br></br>
 
-			D-1: 200 mols of nitrous oxide are released by the crystal.</br>
-			D-2: 200 mols of nitrogen are released by the crystal</br>
-			D-3: 250 mols of CO2 are released by the crystal</br></br></br>
+			D-1: About 200 moles of nitrous oxide are released by the crystal.</br>
+			D-2: About 200 moles of nitrogen are released by the crystal</br>
+			D-3: About 250 moles of CO2 are released by the crystal</br></br></br>
 
-			C Class: Events with mild effects to standard setups. Operator intervetion MAY be required. Engineering will be alerted on telecomms.</br></br>
-			C-1: 250 mols of oxygen are released by the crystal</br>
-			C-2: 250 mols of plasma are released by the crystal</br>
-			C-3: The temperature at which the SM starts to lose integrity is lowered for a few minutes.</br></br></br>
+			C Class: Events with mild effects to standard setups. Operator intervention MAY be required. Engineering will be alerted on telecomms.</br></br>
+			C-1: 250 moles of oxygen are released by the crystal</br>
+			C-2: 250 moles of plasma are released by the crystal</br>
+			C-3: The temperature at which the engine starts to lose integrity is lowered for a few minutes.</br></br></br>
 
-			B Class: Events with significant effects to standard setups. SCRAM protocol may be required.</br></br>
-			B-1: The amount of plasma and O2 released by the SM is doubled for a few minutes.</br>
-			B-2: The amount of heat released by the SM is multiplied by 1.25 for a few minutes.</br>
-			B-1: The engine's EER is raised by 2000 for several minutes, regardless of outside factors.</br></br></br>
+			B Class: Events with significant effects to standard setups. Action may need to be taken to prevent a delamination event.</br></br>
+			B-1: The amount of plasma and O2 released by the engine is doubled for a few minutes.</br>
+			B-2: The amount of heat released by the engine is increased for a few minutes.</br>
+			B-3: The engine's EER is raised slightly above critically for several minutes, regardless of outside factors.</br></br></br>
 
-			A Class: Events with SEVERE effects to standard setups. SCRAM protocol required.</br></br>
-			A-1: The engine's APC is shorted due to a power spike, leading to wires needing mending.</br>
-			A-2: The engine's air alarm sets its self to siphon mode due to radiological interference.</br>
-			A-3: The amount of plasma and O2 released by the SM is quadrupled for a few minutes.</br></br>
+			A Class: Events with SEVERE effects to standard setups. Action will need to be taken to prevent a delamination event.</br></br>
+			A-1: The engine's APC is shorted due to a power spike, requiring its wires to be mended.</br>
+			A-2: The engine's air alarm sets its self to siphon mode as an effect of radiological interference.</br>
+			A-3: The amount of plasma and O2 released by the engine is quadrupled for a few minutes.</br></br>
 
-			S Class events: Events that require immediate intervention and a specialized responce to prevent a delamination event. Cordination with other departments is HIGHLY reccomended.</br></br>
-			Arc Type: The SM's EER is raised by 6000 for several minutes.</br>
-			Heat Type: The amount of heat released by the SM is multiplied by a factor of ten.</br></br>
+			S Class events: Events that require immediate intervention and a specialized response to prevent a delamination event. Coordination with other departments is HIGHLY recommended. A warning will be broadcasted on engineering communications before these events.</br></br>
+			Arc Type: The engine's EER is raised massively several minutes, resulting it a supercritical state.</br>
+			Heat Type: The amount of heat released by the engine is massively increased for several minutes.</br></br>
 
-			In the event that an anomaly NOT on this list presents itself, contract your local NanoTrasen Engineering Officer as soon as possible.</br>
+			In the event that an anomaly NOT on this list presents itself, contact your local NanoTrasen Engineering Officer as soon as possible.</br>
 			-Vroo-Looum-Kloo, Senior Engine Technician."})
 
 /obj/item/book/manual/atmospipes
