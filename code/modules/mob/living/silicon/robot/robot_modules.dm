@@ -16,7 +16,7 @@
 	var/list/basic_modules = list()
 	/// A list of modules the robot gets when emagged.
 	var/list/emag_modules = list()
-	/// A list of modules the robot gets when Safety Overridden.______qdel_list_wrapper(list/L)
+	/// A list of modules the robot gets when Safety Overridden.
 	var/list/override_modules = list()
 	/// A list of modules that the robot gets when malf AI buys it.
 	var/list/malf_modules = list()
