@@ -319,7 +319,6 @@
 	item = /obj/item/pen/sleepy/love
 	cost = 20
 	species = list("Skrell")
-	surplus = 0
 
 //Vox
 /datum/uplink_item/species_restricted/spikethrower
