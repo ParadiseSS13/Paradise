@@ -140,6 +140,16 @@
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "ketchup"
 
+/datum/reagent/consumable/bbqsauce
+	name = "BBQ Sauce"
+	id = "bbqsauce"
+	description = "Sweet, smoky, savory, and gets everywhere. Perfect for grilling."
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	reagent_state = LIQUID
+	color = "#78280A" //rbg: 120 40, 10
+	taste_mult = 2.5
+	taste_description = "smokey sweetness"
+
 /datum/reagent/consumable/capsaicin
 	name = "Capsaicin Oil"
 	id = "capsaicin"

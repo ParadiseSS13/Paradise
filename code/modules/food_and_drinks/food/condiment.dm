@@ -16,6 +16,7 @@
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
+	"bbqsauce" = list("bbqsauce", "bbq sauce bottle", "Sweet, smoky, savory, and gets everywhere. Perfect for grilling."),
 	"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
 	"capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
 	"enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
@@ -168,6 +169,13 @@
 	list_reagents = list("flour" = 30)
 	possible_states = list()
 
+/obj/item/reagent_containers/food/condiment/bbqsauce
+	name = "bbq sauce"
+	desc = "Sweet, smoky, savory, and gets everywhere. Perfect for grilling."
+	icon_state = "bbqsauce"
+	list_reagents = list("bbqsauce" = 50)
+	possible_states = list()
+
 /obj/item/reagent_containers/food/condiment/soymilk
 	name = "soy milk"
 	desc = "It's soy milk. White and nutritious goodness!"
@@ -190,6 +198,8 @@
 	icon_state = "soysauce"
 	list_reagents = list("soysauce" = 50)
 	possible_states = list()
+
+
 
 /obj/item/reagent_containers/food/condiment/syndisauce
 	name = "\improper Chef Excellence's Special Sauce"

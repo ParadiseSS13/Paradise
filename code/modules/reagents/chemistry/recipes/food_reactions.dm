@@ -43,6 +43,13 @@
 	required_reagents = list("soymilk" = 1,"sodiumchloride" = 1, "water" = 8)
 	result_amount = 10
 
+/datum/chemical_reaction/bbqsauce
+	name = "BBQ Sauce"
+	id="bbqsauce"
+	result = "bbqsauce"
+	required_reagents = list("ash" = 10, "tomatojuice" = 10, "blackpepper" = 1)
+	result_amount = 10
+
 /datum/chemical_reaction/cheesewheel
 	name = "Cheesewheel"
 	id = "cheesewheel"
