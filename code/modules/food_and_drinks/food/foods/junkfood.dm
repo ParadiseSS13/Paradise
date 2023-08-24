@@ -121,7 +121,7 @@
 	L.reagents = R // Assign the new datum to the objects reagents var
 	R.my_atom = src // set the holders my_atom to src so that we know where we are.
 	reagents.copy_to(L, reagents.total_volume)
-	user.unEquip(src)	//so icons update :[
+	user.unEquip(src)
 	var/obj/item/trash_item = generate_trash(user)
 	user.unEquip(trash_item)
 	user.put_in_hands(L)
