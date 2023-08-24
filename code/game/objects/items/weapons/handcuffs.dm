@@ -216,7 +216,7 @@
 
 /obj/item/restraints/handcuffs/cable/twimsts
 	name = "twimsts cuffs"
-	desc = "Liquorice twist candy made into cable cuffs, tasty but it cant actually hold anyone"
+	desc = "Liquorice twist candy made into cable cuffs, tasty but it can't actually hold anyone."
 	icon_state = "cablecuff"
 	color = "#E31818"
 	throwforce = 0
