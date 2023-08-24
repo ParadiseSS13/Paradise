@@ -146,7 +146,8 @@ const AdminPage = (props, context) => {
     is_admin,
     gamma_armory_location,
     admin_levels,
-    authenticated
+    authenticated,
+    ert_allowed
   } = data;
 
   return (
@@ -179,6 +180,14 @@ const AdminPage = (props, context) => {
               disabled={!is_admin}
               onClick={() => act('dispatch_ert')}
             />
+            <Button.Checkbox
+              checked={ert_allowed}
+              content={ert_allowed ? "ERT calling enabled" : "ERT calling disabled"}
+              tooltip={ert_allowed ? "Command can request an ERT" : "ERTs cannot be requested"}
+              disabled={!is_admin}
+              onClick={() => act('toggle_ert_allowed')}
+              selected={null}
+            />
           </LabeledList.Item>
           <LabeledList.Item label="Nuclear Device">
             <Button
@@ -194,6 +203,20 @@ const AdminPage = (props, context) => {
               content={gamma_armory_location ? "Send Gamma Armory" : "Recall Gamma Armory"}
               disabled={!is_admin}
               onClick={() => act('move_gamma_armory')}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Other">
+            <Button
+              icon="coins"
+              content="View Economy"
+              disabled={!is_admin}
+              onClick={() => act('view_econ')}
+            />
+            <Button
+              icon="fax"
+              content="Fax Manager"
+              disabled={!is_admin}
+              onClick={() => act('view_fax')}
             />
           </LabeledList.Item>
         </LabeledList>

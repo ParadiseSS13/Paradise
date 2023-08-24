@@ -342,6 +342,22 @@
 				return
 			SEND_SOUND(ui.user, sound(cc_announcement_sounds[params["sound"]]))
 
+		if("toggle_ert_allowed")
+			if(!ADMIN_CHECK(ui.user))
+				return
+			ui.user.client.toggle_ert_calling()
+
+		if("view_econ")
+			if(!ADMIN_CHECK(ui.user))
+				return
+			ui.user.client.economy_manager()
+
+		if("view_fax")
+			if(!ADMIN_CHECK(ui.user))
+				return
+			ui.user.client.fax_panel()
+
+
 		if("make_cc_announcement")
 			if(!ADMIN_CHECK(ui.user))
 				return
@@ -417,6 +433,7 @@
 	data["is_admin"] = data["authenticated"] >= COMM_AUTHENTICATION_CENTCOM && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
 
 	data["gamma_armory_location"] = GLOB.gamma_ship_location
+	data["ert_allowed"] = !SSticker.mode.ert_disabled
 
 	data["stat_display"] =  list(
 		"type"   = display_type,
