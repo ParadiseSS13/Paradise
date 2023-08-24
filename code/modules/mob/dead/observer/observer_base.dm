@@ -93,7 +93,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 	plane = GAME_PLANE
 	add_observer_verbs()
-	ADD_TRAIT(src, TRAIT_RESPAWNABLE, "Ghosted")
+	ADD_TRAIT(src, TRAIT_RESPAWNABLE, GHOSTED)
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
@@ -180,7 +180,7 @@ Works together with spawning an observer, noted above.
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		if(ghost.can_reenter_corpse)
-			ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, "Ghosted")
+			ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key

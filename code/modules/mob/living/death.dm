@@ -80,7 +80,7 @@
 	GLOB.dead_mob_list += src
 	if(mind)
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
-		ADD_TRAIT(src, TRAIT_RESPAWNABLE, "Ghosted")
+		ADD_TRAIT(src, TRAIT_RESPAWNABLE, GHOSTED)
 
 		if(mind.name && !isbrain(src)) // !isbrain() is to stop it from being called twice
 			var/turf/T = get_turf(src)

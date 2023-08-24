@@ -210,7 +210,7 @@
 			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
 			observer.key = key
-			ADD_TRAIT(observer, TRAIT_RESPAWNABLE, "Ghosted")
+			ADD_TRAIT(observer, TRAIT_RESPAWNABLE, GHOSTED)
 			qdel(src)
 			return TRUE
 		return FALSE

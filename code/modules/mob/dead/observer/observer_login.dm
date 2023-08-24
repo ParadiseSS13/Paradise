@@ -6,4 +6,4 @@
 
 	if(GLOB.non_respawnable_keys[ckey])
 		can_reenter_corpse = 0
-		REMOVE_TRAIT(src, TRAIT_RESPAWNABLE, "Ghosted")
+		REMOVE_TRAIT(src, TRAIT_RESPAWNABLE, GHOSTED)
