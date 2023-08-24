@@ -79,14 +79,7 @@
 	return ..()
 
 /mob/living/silicon/proc/can_instant_lockdown()
-
-	if(istype(src, /mob/living/silicon/robot)) // Checks for Borgs first, as antags could be placed in a cyborg and we dont want that overriding. You NEED `emagged` to insta-bolt/shock.
-		var/mob/living/silicon/robot/S = src
-		if(S.emagged)
-			return TRUE
-		return FALSE
-
-	if(isAntag(src)) // Checks for Malf AI/Syndie Borgs that are proper antags on their own.
+	if(isAntag(src))
 		return TRUE
 	return FALSE
 
