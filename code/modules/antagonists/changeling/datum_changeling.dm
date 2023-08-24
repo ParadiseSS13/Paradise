@@ -183,7 +183,7 @@
 	var/mob/living/carbon/human/H = owner.current
 	if(H.stat == DEAD)
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
-	else // Not dead? no chem
+	else
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 	update_chem_charges_ui(H)
 
