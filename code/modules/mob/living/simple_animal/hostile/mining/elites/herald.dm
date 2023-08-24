@@ -322,7 +322,7 @@
 		if(istype(chosen, /obj/structure/mirror))
 			var/obj/structure/mirror/M = chosen
 			M.obj_break("brute")
-		else if(istype(chosen, /obj/item/shield/mirror))
+		else if(istype(chosen, /obj/item/shield/mirror) || istype(chosen, /obj/item/handheld_mirror))
 			var/turf/T = get_turf(usr)
 			new /obj/effect/temp_visual/cult/sparks(T)
 			playsound(T, 'sound/effects/glassbr3.ogg', 100)
