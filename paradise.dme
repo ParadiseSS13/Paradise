@@ -692,6 +692,7 @@
 #include "code\game\gamemodes\miniantags\guardian\types\protector.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\ranged.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\standard.dm"
+#include "code\game\gamemodes\miniantags\guardian\types\bomb_components\guardian_mine.dm"
 #include "code\game\gamemodes\miniantags\morph\morph.dm"
 #include "code\game\gamemodes\miniantags\morph\morph_event.dm"
 #include "code\game\gamemodes\miniantags\morph\spells\ambush.dm"
