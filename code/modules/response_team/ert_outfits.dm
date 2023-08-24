@@ -143,6 +143,7 @@
 /datum/outfit/job/centcom/response_team/security/red
 	name = "RT Security (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
+	belt =/obj/item/storage/belt/military/assault/ert
 	shoes = /obj/item/clothing/shoes/magboots
 
 	cybernetic_implants = list(
