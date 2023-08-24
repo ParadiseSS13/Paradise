@@ -111,10 +111,6 @@
 	list_reagents = list("nutriment" = 2, "sugar" = 10)
 	tastes = list("sweetness" = 3, "liquorice" = 2)
 
-/obj/item/reagent_containers/food/snacks/twimsts/examine(mob/user)
-	. = ..()
-	. += "<span class='info'>Use in hand to make it into handcuffs.</span>"
-
 /obj/item/reagent_containers/food/snacks/twimsts/attack_self(mob/user)
 	var/obj/item/restraints/handcuffs/twimsts/L = new /obj/item/restraints/handcuffs/twimsts
 	var/datum/reagents/R = new/datum/reagents(100)
