@@ -471,7 +471,7 @@
 /datum/loadout/cult
 	name = "Cult"
 	items = list(/obj/item/reagent_containers/food/drinks/bottle/holywater)
-	non_security_weapons = list(/obj/item/melee/baton/loaded, /obj/item/gun/energy/disabler)
+	non_security_weapons = list(/obj/item/melee/baton/loaded, /obj/item/gun/energy/gun/blueshield/pdw9)
 	security_only_weapons = list(/obj/item/gun/projectile/automatic/wt550, /obj/item/ammo_box/magazine/wt550m9, /obj/item/gun/energy/disabler, /obj/item/melee/baton/loaded)
 
 /datum/loadout/terror_spiders
