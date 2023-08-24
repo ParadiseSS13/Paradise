@@ -188,6 +188,10 @@
   Zwei:
   - add: WideScreen Port (#3204)
 '2023-08-23':
+  Bizzonium:
+  - del: use and migrate old TTS cache"
+  - bugfix: move play tts callback creation
+  - unknown: bump rust-g to 3.0.0-ss220
   DeDerevce:
   - imageadd: holy constructs (#3347)
   Honker9999999:
@@ -199,6 +203,7 @@
   - add: new weapon to Gamma ERT/armory (#3374)
   SAAD:
   - add: Remap Bridge, Central Hallway, Barber (#3361)
+  - bugfix: Bridge accesses and account console (#3394)
   Vladisvell:
   - add: New icons for quiver and Santa's gift bag (#3355)
   Zardesse:
@@ -208,3 +213,16 @@
   - tweak: Abductors Fixes (#3373)
   Сиротка:
   - bugfix: Guardian issues (#3390)
+'2023-08-24':
+  SAAD:
+  - bugfix: Bridge disposal pipes and some improvements (#3403)
+  Vladisvell:
+  - refactor: Closets render (#3384)
+  - refactor: 'span refactor: machinery pack part 2 (#3279)'
+  - add: New xenomorph type - Alien Vector (#3247)
+  - refactor: Guardian booby traps refactor to component (#3383)
+  Zwei:
+  - bugfix: Morph Reproduce Fix (#3399)
+  - bugfix: Borgs Gripper And Smartfridges (#3401)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3398)
