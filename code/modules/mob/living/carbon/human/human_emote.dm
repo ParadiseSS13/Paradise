@@ -163,9 +163,9 @@
 	volume = 100
 
 /datum/emote/living/carbon/human/gasp/get_sound(mob/user)
-	var/mob/living/carbon/human/H = user
 	if(!ishuman(user))
 		return
+	var/mob/living/carbon/human/H = user
 
 	if(H.is_muzzled())
 		// If you're muzzled you're not making noise
