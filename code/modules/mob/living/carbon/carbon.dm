@@ -979,11 +979,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(I.loc != src || buckled)
 				return
 			if(istype(I, /obj/item/restraints/handcuffs/twimsts))
-				visible_message("<span class='danger'>[src] manages to eat through [I]!</span>")
-				to_chat(src, "<span class='notice'>You successfully eat through [I].</span>")
+				visible_message("<span class='danger'>[src] manages to eat through [I]!</span>", "<span class='notice'>You successfully eat through [I].</span>")
 			else
-				visible_message("<span class='danger'>[src] manages to remove [I]!</span>")
-				to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
+				visible_message("<span class='danger'>[src] manages to remove [I]!</span>", "<span class='notice'>You successfully remove [I].</span>")
 
 			if(I == handcuffed)
 				if(istype(I, /obj/item/restraints/handcuffs/twimsts))
