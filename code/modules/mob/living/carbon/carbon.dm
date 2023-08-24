@@ -978,7 +978,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(do_after(src, breakouttime, 0, target = src))
 			if(I.loc != src || buckled)
 				return
-			if(istype(I, /obj/item/restraints/handcuffs/cable/twimsts))
+			if(istype(I, /obj/item/restraints/handcuffs/twimsts))
 				visible_message("<span class='danger'>[src] manages to eat through [I]!</span>")
 				to_chat(src, "<span class='notice'>You successfully eat through [I].</span>")
 			else
@@ -986,7 +986,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
 
 			if(I == handcuffed)
-				if(istype(I, /obj/item/restraints/handcuffs/cable/twimsts))
+				if(istype(I, /obj/item/restraints/handcuffs/twimsts))
 					playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
 					if(I.reagents && I.reagents.reagent_list.len)
 						taste(I.reagents)

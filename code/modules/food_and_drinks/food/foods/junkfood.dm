@@ -116,7 +116,7 @@
 	. += "<span class='info'>Use in hand to make it into handcuffs.</span>"
 
 /obj/item/reagent_containers/food/snacks/twimsts/attack_self(mob/user)
-	var/obj/item/restraints/handcuffs/cable/twimsts/L = new /obj/item/restraints/handcuffs/cable/twimsts
+	var/obj/item/restraints/handcuffs/twimsts/L = new /obj/item/restraints/handcuffs/twimsts
 	var/datum/reagents/R = new/datum/reagents(100)
 	L.reagents = R // Assign the new datum to the objects reagents var
 	R.my_atom = src // set the holders my_atom to src so that we know where we are.

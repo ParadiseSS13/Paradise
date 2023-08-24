@@ -214,7 +214,7 @@
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return
 
-/obj/item/restraints/handcuffs/cable/twimsts
+/obj/item/restraints/handcuffs/twimsts
 	name = "twimsts cuffs"
 	desc = "Liquorice twist candy made into cable cuffs, tasty but it can't actually hold anyone."
 	icon_state = "cablecuff"
