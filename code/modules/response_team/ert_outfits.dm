@@ -454,7 +454,7 @@
 	name = "Agents"
 	items = list(/obj/item/restraints/handcuffs)
 	non_security_weapons = list(/obj/item/gun/energy/disabler, /obj/item/melee/classic_baton/telescopic)
-	security_only_weapons = list(/obj/item/gun/energy/gun/blueshield/pdw9, /obj/item/gun/energy/gun, /obj/item/melee/baton)
+	security_only_weapons = list(/obj/item/gun/energy/gun/blueshield/pdw9, /obj/item/gun/energy/gun, /obj/item/melee/baton/loaded)
 
 /datum/loadout/blob
 	name = "Blob"
@@ -466,13 +466,13 @@
 	name = "Changelings"
 	items = list(/obj/item/shield/riot/tele)
 	non_security_weapons = list(/obj/item/gun/energy/gun/nuclear, /obj/item/melee/classic_baton/telescopic)
-	security_only_weapons = list(/obj/item/gun/energy/gun/nuclear, /obj/item/melee/baton)
+	security_only_weapons = list(/obj/item/gun/energy/gun/nuclear, /obj/item/melee/baton/loaded)
 
 /datum/loadout/cult
 	name = "Cult"
 	items = list(/obj/item/reagent_containers/food/drinks/bottle/holywater)
-	non_security_weapons = list(/obj/item/melee/baton, /obj/item/gun/energy/disabler)
-	security_only_weapons = list(/obj/item/gun/projectile/automatic/wt550, /obj/item/ammo_box/magazine/wt550m9, /obj/item/gun/energy/disabler, /obj/item/melee/baton)
+	non_security_weapons = list(/obj/item/melee/baton/loaded, /obj/item/gun/energy/disabler)
+	security_only_weapons = list(/obj/item/gun/projectile/automatic/wt550, /obj/item/ammo_box/magazine/wt550m9, /obj/item/gun/energy/disabler, /obj/item/melee/baton/loaded)
 
 /datum/loadout/terror_spiders
 	name = "Terror Spiders"
@@ -484,7 +484,7 @@
 	name = "Vampires"
 	items = list(/obj/item/restraints/handcuffs, /obj/item/clothing/glasses/sunglasses/blindfold)
 	non_security_weapons = list(/obj/item/gun/energy/disabler, /obj/item/melee/classic_baton/telescopic)
-	security_only_weapons = list(/obj/item/gun/energy/gun/blueshield/pdw9, /obj/item/gun/energy/gun, /obj/item/melee/baton)
+	security_only_weapons = list(/obj/item/gun/energy/gun/blueshield/pdw9, /obj/item/gun/energy/gun, /obj/item/melee/baton/loaded)
 
 /datum/loadout/xenomorphs
 	name = "Xenomorphs"
