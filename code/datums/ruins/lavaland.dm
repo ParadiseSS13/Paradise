@@ -297,7 +297,24 @@
 /datum/map_template/ruin/lavaland/lavaland_surface_cavecomplex1
 	name = "Cave Complex A"
 	id = "cavecomplex1"
-	description = "A big cave complex 'A', its made from long and twisted tunnels connecting to small caves, caves protect against ash storms."
+	description = "A big cave complex 'A', its made from long and twisted tunnels connecting to small caves and geodes, caves protect against ash storms."
 	suffix = "lavaland_surface_cavecomplex1.dmm"
 	allow_duplicates = FALSE
 	cost = 7
+
+/datum/map_template/ruin/lavaland/lavaland_surface_cavecomplex2
+	name = "Cave Complex B"
+	id = "cavecomplex2"
+	description = "A big cave complex 'B', its made from long and twisted tunnels connecting to small caves and geodes, caves protect against ash storms."
+	suffix = "lavaland_surface_cavecomplex2.dmm"
+	allow_duplicates = FALSE
+	cost = 7
+
+/datum/map_template/ruin/lavaland/lavaland_surface_cavecomplex3
+	name = "Cave Complex C"
+	id = "cavecomplex3"
+	description = "A big cave complex 'C', its made from long and twisted tunnels connecting to small caves and geode, caves protect against ash storms."
+	suffix = "lavaland_surface_cavecomplex3.dmm"
+	allow_duplicates = FALSE
+	cost = 7
+
