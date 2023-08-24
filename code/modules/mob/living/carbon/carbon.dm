@@ -1,6 +1,3 @@
-/mob/living
-	var/datum/middleClickOverride/middleClickOverride = null
-
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
