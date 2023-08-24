@@ -978,13 +978,25 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(do_after(src, breakouttime, 0, target = src))
 			if(I.loc != src || buckled)
 				return
-			visible_message("<span class='danger'>[src] manages to remove [I]!</span>")
-			to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
+			if(istype(I, /obj/item/restraints/handcuffs/cable/twimsts))
+				visible_message("<span class='danger'>[src] manages to eat through [I]!</span>")
+				to_chat(src, "<span class='notice'>You successfully eat through [I].</span>")
+			else
+				visible_message("<span class='danger'>[src] manages to remove [I]!</span>")
+				to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
 
 			if(I == handcuffed)
-				handcuffed.forceMove(drop_location())
-				handcuffed.dropped(src)
-				handcuffed = null
+				if(istype(I, /obj/item/restraints/handcuffs/cable/twimsts))
+					playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
+					if(I.reagents && I.reagents.reagent_list.len)
+						taste(I.reagents)
+						I.reagents.reaction(src, REAGENT_INGEST)
+						I.reagents.trans_to(src, I.reagents.total_volume)
+					qdel(handcuffed)
+				else
+					handcuffed.forceMove(drop_location())
+					handcuffed.dropped(src)
+					handcuffed = null
 				if(buckled && buckled.buckle_requires_restraints)
 					buckled.unbuckle_mob(src)
 				update_handcuffed()

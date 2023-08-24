@@ -100,6 +100,35 @@
 	list_reagents = list("nutriment" = 10, "sugar" = 4)
 	tastes = list("syrup" = 3, "waffle" = 2)
 
+/obj/item/reagent_containers/food/snacks/twimsts
+	name = "Twimsts"
+	desc = "Sweet twisted sticks made of liquorice, used for eating and as eatable handcuffs!"
+	icon_state = "twimsts"
+	trash = /obj/item/trash/twimsts
+	antable = FALSE
+	filling_color = "#E31818"
+	junkiness = 5
+	list_reagents = list("nutriment" = 2, "sugar" = 10)
+	tastes = list("sweetness" = 3, "liquorice" = 2)
+
+/obj/item/reagent_containers/food/snacks/twimsts/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>Use in hand to make it into handcuffs.</span>"
+
+/obj/item/reagent_containers/food/snacks/twimsts/attack_self(mob/user)
+	var/obj/item/restraints/handcuffs/cable/twimsts/L = new /obj/item/restraints/handcuffs/cable/twimsts
+	var/datum/reagents/R = new/datum/reagents(100)
+	L.reagents = R // Assign the new datum to the objects reagents var
+	R.my_atom = src // set the holders my_atom to src so that we know where we are.
+	reagents.copy_to(L, reagents.total_volume)
+	user.unEquip(src)	//so icons update :[
+	var/obj/item/trash_item = generate_trash(user)
+	user.unEquip(trash_item)
+	user.put_in_hands(L)
+	qdel(src)
+
+
+
 //////////////////////
 //		Homemade	//
 //////////////////////
