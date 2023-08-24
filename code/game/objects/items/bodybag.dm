@@ -68,3 +68,9 @@
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
+
+/obj/structure/closet/body_bag/update_icon()
+	if(!opened)
+		icon_state = icon_closed
+	else
+		icon_state = icon_opened

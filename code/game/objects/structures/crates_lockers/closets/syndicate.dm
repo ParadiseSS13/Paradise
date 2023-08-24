@@ -149,12 +149,7 @@
 	req_access = list(150)
 	layer = 2.9 // ensures the loot they drop always appears on top of them.
 	max_integrity = 300
-	icon_state = "syndicate_secure1"
-	icon_closed = "syndicate_secure"
-	icon_locked = "syndicate_secure1"
-	icon_opened = "syndicate_secure_open"
-	icon_broken = "syndicate_secure_broken"
-	icon_off = "syndicate_secure_off"
+	icon_state = "syndicate_secure"
 
 /obj/structure/closet/secure_closet/syndicate/comms_officer
 	req_access = list(ACCESS_SYNDICATE_COMMS_OFFICER)
@@ -187,12 +182,7 @@
 /obj/structure/closet/secure_closet/syndicate/research_director
 	name = "Syndicate Research Director's Locker"
 	req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
-	icon_state = "syndicate_rd_secure1"
-	icon_closed = "syndicate_rd_secure"
-	icon_locked = "syndicate_rd_secure1"
-	icon_opened = "syndicate_rd_secure_open"
-	icon_broken = "syndicate_rd_secure_broken"
-	icon_off = "syndicate_rd_secure_off"
+	icon_state = "syndicate_rd_secure"
 
 /obj/structure/closet/secure_closet/syndicate/research_director/populate_contents()
 	new /obj/item/clothing/glasses/night(src)
@@ -220,12 +210,7 @@
 /obj/structure/closet/secure_closet/syndicate/cargo
 	name = "Syndicate Cargo Technician's Locker"
 	req_access = list(ACCESS_SYNDICATE_CARGO)
-	icon_state = "syndicate_cargo_secure1"
-	icon_closed = "syndicate_cargo_secure"
-	icon_locked = "syndicate_cargo_secure1"
-	icon_opened = "syndicate_cargo_secure_open"
-	icon_broken = "syndicate_cargo_secure_broken"
-	icon_off = "syndicate_cargo_secure_off"
+	icon_state = "syndicate_cargo_secure"
 
 /obj/structure/closet/secure_closet/syndicate/cargo/populate_contents()
 	new /obj/item/clothing/glasses/meson(src)
@@ -244,12 +229,7 @@
 /obj/structure/closet/secure_closet/syndicate/medbay
 	name = "Syndicate Medical Doctor's Locker"
 	req_access = list(ACCESS_SYNDICATE_MEDICAL)
-	icon_state = "syndicate_med_secure1"
-	icon_closed = "syndicate_med_secure"
-	icon_locked = "syndicate_med_secure1"
-	icon_opened = "syndicate_med_secure_open"
-	icon_broken = "syndicate_med_secure_broken"
-	icon_off = "syndicate_med_secure_off"
+	icon_state = "syndicate_med_secure"
 
 /obj/structure/closet/secure_closet/syndicate/medbay/populate_contents()
 	new /obj/item/storage/backpack/duffel/syndie/surgery(src)
@@ -273,12 +253,7 @@
 /obj/structure/closet/secure_closet/syndicate/hydro
 	name = "Syndicate Botanist's Locker"
 	req_access = list(ACCESS_SYNDICATE_BOTANY)
-	icon_state = "syndicate_hydro_secure1"
-	icon_closed = "syndicate_hydro_secure"
-	icon_locked = "syndicate_hydro_secure1"
-	icon_opened = "syndicate_hydro_secure_open"
-	icon_broken = "syndicate_hydro_secure_broken"
-	icon_off = "syndicate_hydro_secure_off"
+	icon_state = "syndicate_hydro_secure"
 
 /obj/structure/closet/secure_closet/syndicate/hydro/populate_contents()
 	new /obj/item/clothing/suit/apron(src)
@@ -298,12 +273,7 @@
 /obj/structure/closet/secure_closet/syndicate/chef
 	name = "Syndicate Chef's Locker"
 	req_access = list(ACCESS_SYNDICATE_KITCHEN)
-	icon_state = "syndicate_fridge_secure1"
-	icon_closed = "syndicate_fridge_secure"
-	icon_locked = "syndicate_fridge_secure1"
-	icon_opened = "syndicate_fridge_secure_open"
-	icon_broken = "syndicate_fridge_secure_broken"
-	icon_off = "syndicate_fridge_secure_off"
+	icon_state = "syndicate_fridge_secure"
 
 /obj/structure/closet/secure_closet/syndicate/chef/populate_contents()
 	new /obj/item/clothing/under/waiter(src)

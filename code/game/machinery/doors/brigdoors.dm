@@ -210,7 +210,7 @@
 		if(C.opened && !C.close())
 			continue
 		C.locked = 1
-		C.icon_state = C.icon_locked
+		C.update_icon()
 
 	for(var/obj/machinery/treadmill_monitor/T in targets)
 		T.total_joules = 0
@@ -248,7 +248,7 @@
 		if(C.opened)
 			continue
 		C.locked = 0
-		C.icon_state = C.icon_closed
+		C.update_icon()
 
 	for(var/obj/machinery/treadmill_monitor/T in targets)
 		if(!T.stat)

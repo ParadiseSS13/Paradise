@@ -199,18 +199,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "aF" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(271)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /obj/item/clothing/under/suit_jacket/female,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -425,18 +414,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "bh" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(271)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "bi" = (
@@ -757,18 +735,7 @@
 /area/awaymission/UO71/plaza)
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(271)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /obj/item/clothing/under/pj/blue,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -1223,12 +1190,7 @@
 /area/awaymission/UO71/plaza)
 "ds" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "hydrosecurebroken";
-	icon_closed = "hydrosecure";
-	icon_locked = "hydrosecure1";
-	icon_off = "hydrosecureoff";
-	icon_opened = "hydrosecureopen";
-	icon_state = "hydrosecure";
+	icon_state = "hydro";
 	locked = 0;
 	name = "botanist's locker";
 	req_access = list(271)
@@ -1263,12 +1225,7 @@
 /area/awaymission/UO71/plaza)
 "dw" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
+	icon_state = "sec";
 	name = "security officer's locker";
 	req_access = list(271)
 	},
@@ -1378,12 +1335,7 @@
 /area/awaymission/UO71/plaza)
 "dK" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "hydrosecurebroken";
-	icon_closed = "hydrosecure";
-	icon_locked = "hydrosecure1";
-	icon_off = "hydrosecureoff";
-	icon_opened = "hydrosecureopen";
-	icon_state = "hydrosecure";
+	icon_state = "hydro";
 	locked = 0;
 	name = "botanist's locker";
 	req_access = list(271)
@@ -2192,11 +2144,6 @@
 /area/awaymission/UO71/centralhall)
 "fH" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
 	icon_state = "fridge";
 	locked = 0;
 	name = "meat fridge";
@@ -3301,11 +3248,6 @@
 /area/awaymission/UO71/centralhall)
 "ir" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
 	icon_state = "fridge";
 	locked = 0;
 	name = "refrigerator";
@@ -5187,18 +5129,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "mF" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(271)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /obj/item/clothing/under/pj/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -5375,12 +5306,7 @@
 /area/awaymission/UO71/science)
 "mX" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "rdsecurebroken";
-	icon_closed = "rdsecure";
-	icon_locked = "rdsecure1";
-	icon_off = "rdsecureoff";
-	icon_opened = "rdsecureopen";
-	icon_state = "rdsecure1";
+	icon_state = "rd";
 	name = "research director's locker";
 	req_access = list(271)
 	},
@@ -5504,18 +5430,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "nj" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(271)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -6546,12 +6461,7 @@
 /area/awaymission/UO71/science)
 "pb" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
+	icon_state = "sec";
 	name = "security officer's locker";
 	req_access = list(271)
 	},
@@ -7465,12 +7375,7 @@
 /area/awaymission/UO71/eng)
 "qY" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secureengbroken";
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureeng1";
+	icon_state = "eng";
 	name = "engineer's locker";
 	req_access = list(271)
 	},
@@ -9319,12 +9224,7 @@
 	req_access = list(271)
 	},
 /obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
+	icon_state = "sec";
 	name = "security officer's locker";
 	req_access = list(271)
 	},
@@ -10459,18 +10359,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xj" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(271)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xk" = (
@@ -10769,18 +10658,7 @@
 	dir = 4;
 	on = 1
 	},
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(271)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xQ" = (
@@ -10798,12 +10676,7 @@
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/engineering_personal{
-	icon_broken = "miningsecbroken";
-	icon_closed = "miningsec";
-	icon_locked = "miningsec1";
-	icon_off = "miningsecoff";
-	icon_opened = "miningsecopen";
-	icon_state = "miningsec";
+	icon_state = "mining";
 	locked = 0;
 	name = "miner's equipment";
 	req_access = list(271)
@@ -11383,18 +11256,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/queen)
 "zn" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(271)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zo" = (

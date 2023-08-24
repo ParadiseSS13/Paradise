@@ -1,8 +1,7 @@
 /obj/structure/closet/wardrobe
 	name = "wardrobe"
 	desc = "It's a storage unit for standard-issue Nanotrasen attire."
-	icon_state = "blue"
-	icon_closed = "blue"
+	icon_state = "closed"
 
 /obj/structure/closet/wardrobe/generic
 	// Identical to the base wardrobe, aside from containing some stuff.
@@ -21,8 +20,7 @@
 
 /obj/structure/closet/wardrobe/red
 	name = "security wardrobe"
-	icon_state = "red"
-	icon_closed = "red"
+	custom_door_overlay = "red"
 
 /obj/structure/closet/wardrobe/red/populate_contents()
 	new /obj/item/storage/backpack/duffel/security(src)
@@ -54,8 +52,7 @@
 
 /obj/structure/closet/wardrobe/cadet
 	name = "cadets wardrobe"
-	icon_state = "red"
-	icon_closed = "red"
+	custom_door_overlay = "red"
 
 /obj/structure/closet/wardrobe/cadet/populate_contents()
 	new /obj/item/clothing/under/rank/security/cadet(src)
@@ -83,8 +80,7 @@
 
 /obj/structure/closet/redcorp
 	name = "corporate security wardrobe"
-	icon_state = "red"
-	icon_closed = "red"
+	custom_door_overlay = "red"
 
 /obj/structure/closet/redcorp/populate_contents()
 	new /obj/item/clothing/under/rank/security/corp(src)
@@ -99,8 +95,7 @@
 
 /obj/structure/closet/wardrobe/pink
 	name = "pink wardrobe"
-	icon_state = "pink"
-	icon_closed = "pink"
+	custom_door_overlay = "pink"
 
 /obj/structure/closet/wardrobe/pink/populate_contents()
 	new /obj/item/clothing/under/color/pink(src)
@@ -112,8 +107,7 @@
 
 /obj/structure/closet/wardrobe/black
 	name = "black wardrobe"
-	icon_state = "black"
-	icon_closed = "black"
+	custom_door_overlay = "black"
 
 /obj/structure/closet/wardrobe/black/populate_contents()
 	new /obj/item/clothing/under/color/black(src)
@@ -133,8 +127,7 @@
 
 /obj/structure/closet/wardrobe/green
 	name = "green wardrobe"
-	icon_state = "green"
-	icon_closed = "green"
+	custom_door_overlay = "green"
 
 /obj/structure/closet/wardrobe/green/populate_contents()
 	new /obj/item/clothing/under/color/green(src)
@@ -146,8 +139,7 @@
 
 /obj/structure/closet/wardrobe/xenos
 	name = "xenos wardrobe"
-	icon_state = "green"
-	icon_closed = "green"
+	custom_door_overlay = "green"
 
 /obj/structure/closet/wardrobe/xenos/populate_contents()
 	new /obj/item/clothing/neck/mantle/unathi(src)
@@ -163,8 +155,7 @@
 /obj/structure/closet/wardrobe/orange
 	name = "prison wardrobe"
 	desc = "It's a storage unit for Nanotrasen-regulation prisoner attire."
-	icon_state = "orange"
-	icon_closed = "orange"
+	custom_door_overlay = "orange"
 
 /obj/structure/closet/wardrobe/orange/populate_contents()
 	new /obj/item/clothing/under/color/orange/prison(src)
@@ -177,8 +168,7 @@
 
 /obj/structure/closet/wardrobe/yellow
 	name = "yellow wardrobe"
-	icon_state = "yellow"
-	icon_closed = "yellow"
+	custom_door_overlay = "yellow"
 
 /obj/structure/closet/wardrobe/yellow/populate_contents()
 	new /obj/item/clothing/under/color/yellow(src)
@@ -191,8 +181,7 @@
 
 /obj/structure/closet/wardrobe/atmospherics_yellow
 	name = "atmospherics wardrobe"
-	icon_state = "atmostech"
-	icon_closed = "atmostech"
+	custom_door_overlay = "atmostech"
 
 /obj/structure/closet/wardrobe/atmospherics_yellow/populate_contents()
 	new /obj/item/clothing/under/rank/atmospheric_technician(src)
@@ -215,8 +204,7 @@
 
 /obj/structure/closet/wardrobe/engineering_yellow
 	name = "engineering wardrobe"
-	icon_state = "engineer"
-	icon_closed = "engineer"
+	custom_door_overlay = "engineer"
 
 /obj/structure/closet/wardrobe/engineering_yellow/populate_contents()
 	new /obj/item/clothing/under/rank/engineer(src)
@@ -237,8 +225,7 @@
 
 /obj/structure/closet/wardrobe/trainee_yellow
 	name = "trainee wardrobe"
-	icon_state = "engineer"
-	icon_closed = "engineer"
+	custom_door_overlay = "engineer"
 
 /obj/structure/closet/wardrobe/trainee_yellow/populate_contents()
 	new /obj/item/clothing/under/rank/engineer(src)
@@ -268,8 +255,7 @@
 
 /obj/structure/closet/wardrobe/white
 	name = "white wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	custom_door_overlay = "white"
 
 /obj/structure/closet/wardrobe/white/populate_contents()
 	new /obj/item/clothing/under/color/white(src)
@@ -281,8 +267,7 @@
 
 /obj/structure/closet/wardrobe/medical_white
 	name = "medical doctor's wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	custom_door_overlay = "white"
 
 /obj/structure/closet/wardrobe/medical_white/populate_contents()
 	new /obj/item/clothing/under/rank/nursesuit (src)
@@ -314,8 +299,7 @@
 
 /obj/structure/closet/wardrobe/pjs
 	name = "Pajama wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	custom_door_overlay = "white"
 
 /obj/structure/closet/wardrobe/pjs/populate_contents()
 	new /obj/item/clothing/under/pj/red(src)
@@ -330,8 +314,7 @@
 
 /obj/structure/closet/wardrobe/toxins_white
 	name = "toxins wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	custom_door_overlay = "white"
 
 /obj/structure/closet/wardrobe/toxins_white/populate_contents()
 	new /obj/item/clothing/under/rank/scientist(src)
@@ -352,8 +335,7 @@
 
 /obj/structure/closet/wardrobe/student
 	name = "students wardrobe"
-	icon_state = "pink"
-	icon_closed = "pink"
+	custom_door_overlay = "pink"
 
 /obj/structure/closet/wardrobe/student/populate_contents()
 	new /obj/item/clothing/under/rank/scientist/student(src)
@@ -379,8 +361,7 @@
 
 /obj/structure/closet/wardrobe/robotics_black
 	name = "robotics wardrobe"
-	icon_state = "black"
-	icon_closed = "black"
+	custom_door_overlay = "black"
 
 /obj/structure/closet/wardrobe/robotics_black/populate_contents()
 	new /obj/item/clothing/under/rank/roboticist(src)
@@ -397,8 +378,7 @@
 
 /obj/structure/closet/wardrobe/chemistry_white
 	name = "chemistry wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	custom_door_overlay = "white"
 
 /obj/structure/closet/wardrobe/chemistry_white/populate_contents()
 	new /obj/item/clothing/under/rank/chemist(src)
@@ -421,8 +401,7 @@
 
 /obj/structure/closet/wardrobe/genetics_white
 	name = "genetics wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	custom_door_overlay = "white"
 
 /obj/structure/closet/wardrobe/genetics_white/populate_contents()
 	new /obj/item/clothing/under/rank/geneticist(src)
@@ -439,8 +418,7 @@
 
 /obj/structure/closet/wardrobe/virology_white
 	name = "virology wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	custom_door_overlay = "white"
 
 /obj/structure/closet/wardrobe/virology_white/populate_contents()
 	new /obj/item/clothing/under/rank/virologist(src)
@@ -461,8 +439,7 @@
 
 /obj/structure/closet/wardrobe/medic_white
 	name = "medical wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	custom_door_overlay = "white"
 
 /obj/structure/closet/wardrobe/medic_white/populate_contents()
 	new /obj/item/clothing/under/rank/medical(src)
@@ -487,8 +464,7 @@
 
 /obj/structure/closet/wardrobe/intern_white
 	name = "intern wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	custom_door_overlay = "white"
 
 /obj/structure/closet/wardrobe/intern_white/populate_contents()
 	new /obj/item/clothing/under/rank/medical/intern(src)
@@ -516,8 +492,7 @@
 
 /obj/structure/closet/wardrobe/grey
 	name = "grey wardrobe"
-	icon_state = "grey"
-	icon_closed = "grey"
+	custom_door_overlay = "grey"
 
 /obj/structure/closet/wardrobe/grey/populate_contents()
 	new /obj/item/clothing/under/color/grey(src)
@@ -539,8 +514,7 @@
 
 /obj/structure/closet/wardrobe/mixed
 	name = "mixed wardrobe"
-	icon_state = "mixed"
-	icon_closed = "mixed"
+	custom_door_overlay = "mixed"
 
 /obj/structure/closet/wardrobe/mixed/populate_contents()
 	new /obj/item/clothing/under/color/blue(src)
@@ -560,8 +534,7 @@
 
 /obj/structure/closet/wardrobe/coroner
 	name = "coroner wardrobe"
-	icon_state = "black"
-	icon_closed = "black"
+	custom_door_overlay = "black"
 
 /obj/structure/closet/wardrobe/coroner/populate_contents()
 	if(prob(50))

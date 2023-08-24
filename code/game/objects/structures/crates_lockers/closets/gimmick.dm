@@ -1,17 +1,9 @@
 /obj/structure/closet/cabinet
 	name = "cabinet"
 	desc = "Old will forever be in fashion."
-	icon_state = "cabinet_closed"
-	icon_closed = "cabinet_closed"
-	icon_opened = "cabinet_open"
+	icon_state = "cabinet"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-
-/obj/structure/closet/cabinet/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened
 
 /obj/structure/closet/acloset
 	name = "strange closet"
@@ -19,7 +11,6 @@
 	icon_state = "acloset"
 	icon_closed = "acloset"
 	icon_opened = "aclosetopen"
-
 
 /obj/structure/closet/gimmick
 	name = "administrative supply closet"

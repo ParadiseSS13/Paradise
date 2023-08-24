@@ -48565,9 +48565,7 @@
 /area/blueshield)
 "cqL" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -82710,7 +82708,6 @@
 	},
 /obj/structure/closet/secure_closet/security{
 	broken = 1;
-	icon_state = "secbrokenopen";
 	initialized = 1;
 	locked = 0
 	},

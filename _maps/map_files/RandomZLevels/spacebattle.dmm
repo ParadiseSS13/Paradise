@@ -1133,11 +1133,7 @@
 /obj/structure/closet/secure_closet{
 	broken = 1;
 	density = 0;
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureengopen";
+	icon_state = "eng";
 	initialized = 1;
 	locked = 0;
 	opened = 1
@@ -4590,11 +4586,7 @@
 /obj/structure/closet/secure_closet{
 	broken = 1;
 	density = 0;
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureengopen";
+	icon_state = "eng";
 	initialized = 1;
 	locked = 0;
 	opened = 1
@@ -6800,11 +6792,7 @@
 /obj/structure/closet/secure_closet{
 	broken = 1;
 	density = 0;
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureengopen";
+	icon_state = "eng";
 	initialized = 1;
 	locked = 0;
 	opened = 1
@@ -8711,11 +8699,7 @@
 /obj/structure/closet/secure_closet{
 	broken = 1;
 	density = 0;
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureengopen";
+	icon_state = "eng";
 	initialized = 1;
 	locked = 0;
 	opened = 1
@@ -10411,11 +10395,7 @@
 /obj/structure/closet/secure_closet{
 	broken = 1;
 	density = 0;
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureengopen";
+	icon_state = "eng";
 	initialized = 1;
 	locked = 0;
 	opened = 1

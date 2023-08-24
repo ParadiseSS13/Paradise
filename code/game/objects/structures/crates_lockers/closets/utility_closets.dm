@@ -135,9 +135,8 @@
 /obj/structure/closet/radiation
 	name = "radiation suit closet"
 	desc = "It's a storage unit for rad-protective suits."
-	icon_state = "radsuitcloset"
-	icon_opened = "toolclosetopen"
-	icon_closed = "radsuitcloset"
+	icon_state = "toolcloset"
+	custom_door_overlay = "radsuit"
 
 /obj/structure/closet/radiation/populate_contents()
 	new /obj/item/clothing/suit/radiation(src)
@@ -201,14 +200,7 @@
 	name = "first-aid closet"
 	desc = "It's wall-mounted storage unit for first aid supplies."
 	icon_state = "medical_wall"
-	icon_closed = "medical_wall"
-	icon_opened = "medical_wall_open"
 	anchored = 1
 	density = 0
 	wall_mounted = 1
 
-/obj/structure/closet/medical_wall/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened

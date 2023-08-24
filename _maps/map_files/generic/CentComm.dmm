@@ -1605,8 +1605,6 @@
 "aKz" = (
 /obj/structure/closet/secure_closet/freezer/meat{
 	broken = 1;
-	icon_off = "fridgebroken";
-	icon_state = "fridgebroken";
 	locked = 0
 	},
 /obj/item/reagent_containers/food/snacks/meat/meatwheat,

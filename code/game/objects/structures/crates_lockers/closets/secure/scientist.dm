@@ -1,12 +1,7 @@
 /obj/structure/closet/secure_closet/scientist
 	name = "scientist's locker"
 	req_access = list(ACCESS_TOX_STORAGE)
-	icon_state = "secureres1"
-	icon_closed = "secureres"
-	icon_locked = "secureres1"
-	icon_opened = "secureresopen"
-	icon_broken = "secureresbroken"
-	icon_off = "secureresoff"
+	icon_state = "res"
 
 /obj/structure/closet/secure_closet/scientist/populate_contents()
 	new /obj/item/storage/backpack/science(src)
@@ -33,12 +28,7 @@
 /obj/structure/closet/secure_closet/roboticist
 	name = "roboticist's locker"
 	req_access = list(ACCESS_ROBOTICS)
-	icon_state = "secureres1"
-	icon_closed = "secureres"
-	icon_locked = "secureres1"
-	icon_opened = "secureresopen"
-	icon_broken = "secureresbroken"
-	icon_off = "secureresoff"
+	icon_state = "res"
 
 /obj/structure/closet/secure_closet/roboticist/populate_contents()
 	new /obj/item/storage/backpack(src)
@@ -55,12 +45,7 @@
 /obj/structure/closet/secure_closet/RD
 	name = "research director's locker"
 	req_access = list(ACCESS_RD)
-	icon_state = "rdsecure1"
-	icon_closed = "rdsecure"
-	icon_locked = "rdsecure1"
-	icon_opened = "rdsecureopen"
-	icon_broken = "rdsecurebroken"
-	icon_off = "rdsecureoff"
+	icon_state = "rd"
 
 /obj/structure/closet/secure_closet/RD/populate_contents()
 	new /obj/item/cartridge/rd(src)
@@ -81,12 +66,8 @@
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"
 	desc = "Store dangerous chemicals in here."
-	icon_state = "rchemical1"
-	icon_closed = "rchemical"
-	icon_locked = "rchemical1"
-	icon_opened = "medicalopen"
-	icon_broken = "rchemicalbroken"
-	icon_off = "rchemicaloff"
+	icon_state = "res"
+	custom_door_overlay = "rchemical"
 	req_access = list(ACCESS_TOX_STORAGE)
 
 /obj/structure/closet/secure_closet/research_reagents/populate_contents()

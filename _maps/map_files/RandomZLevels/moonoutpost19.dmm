@@ -1623,12 +1623,7 @@
 "dr" = (
 /obj/structure/closet/secure_closet{
 	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective_locked";
+	icon_state = "cabinetdetective";
 	name = "personal closet";
 	req_access = list(150)
 	},
@@ -1645,11 +1640,6 @@
 "ds" = (
 /obj/structure/closet/secure_closet{
 	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
 	icon_state = "cabinetdetective";
 	locked = 0;
 	name = "personal closet";
@@ -3123,12 +3113,7 @@
 /area/moonoutpost19/mo19utilityroom)
 "gj" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
+	icon_state = "sec";
 	name = "security officer's locker";
 	req_access = list(271)
 	},
@@ -4158,12 +4143,7 @@
 /area/moonoutpost19/mo19arrivals)
 "hX" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secureresbroken";
-	icon_closed = "secureres";
-	icon_locked = "secureres1";
-	icon_off = "secureresoff";
-	icon_opened = "secureresopen";
-	icon_state = "secureres";
+	icon_state = "res";
 	locked = 0;
 	name = "scientist's locker";
 	req_access = list(271)
@@ -4374,12 +4354,7 @@
 "iq" = (
 /obj/structure/window/reinforced,
 /obj/structure/closet/secure_closet{
-	icon_broken = "secureresbroken";
-	icon_closed = "secureres";
-	icon_locked = "secureres1";
-	icon_off = "secureresoff";
-	icon_opened = "secureresopen";
-	icon_state = "secureres1";
+	icon_state = "res";
 	name = "scientist's locker";
 	req_access = list(271)
 	},
@@ -4841,12 +4816,7 @@
 /area/moonoutpost19/mo19arrivals)
 "jr" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "rdsecurebroken";
-	icon_closed = "rdsecure";
-	icon_locked = "rdsecure1";
-	icon_off = "rdsecureoff";
-	icon_opened = "rdsecureopen";
-	icon_state = "rdsecure1";
+	icon_state = "rd";
 	name = "research director's locker";
 	req_access = list(271)
 	},
@@ -7024,11 +6994,6 @@
 "oA" = (
 /obj/structure/closet/secure_closet{
 	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
 	icon_state = "cabinetdetective";
 	locked = 0;
 	name = "personal closet";
@@ -7128,11 +7093,6 @@
 /area/moonoutpost19/mo19arrivals)
 "oK" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
 	icon_state = "fridge";
 	locked = 0;
 	name = "meat fridge";
@@ -7165,11 +7125,6 @@
 /area/moonoutpost19/mo19arrivals)
 "oM" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
 	icon_state = "fridge";
 	locked = 0;
 	name = "refrigerator";
@@ -7269,11 +7224,6 @@
 "oZ" = (
 /obj/structure/closet/secure_closet{
 	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
 	icon_state = "cabinetdetective";
 	locked = 0;
 	name = "personal closet";
@@ -7297,11 +7247,6 @@
 "pg" = (
 /obj/structure/closet/secure_closet{
 	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
 	icon_state = "cabinetdetective";
 	locked = 0;
 	name = "personal closet";
