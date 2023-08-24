@@ -310,6 +310,8 @@
 			else
 				to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
 
+		// ADMIN CENTCOMM ONLY STUFF
+
 		if("send_to_cc_announcement_page")
 			if(!ADMIN_CHECK(ui.user))
 				return
@@ -331,6 +333,8 @@
 		if("move_gamma_armory")
 			if(!ADMIN_CHECK(ui.user))
 				return
+			SSblackbox.record_feedback("tally", "admin_comms_console", 1, "Send Gamma Armory")
+			log_and_message_admins("moved the gamma armory")
 			move_gamma_ship()
 
 		if("test_sound")
@@ -353,6 +357,9 @@
 				GLOB.command_announcer.autosay("A classified message has been printed out at all communication consoles.")
 				print_command_report(params["text"], "Classified: [params["subtitle"]]")
 
+			log_and_message_admins("has created a communications report: [params["text"]]")
+			// Okay but this is just an IC way of accessing the same verb
+			SSblackbox.record_feedback("tally", "admin_comms_console", 1, "Create CC Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /obj/machinery/computer/communications/proc/print_nuke_codes()
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
