@@ -275,6 +275,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A length of fiber wire between two wooden handles, perfect for the discrete assassin. This weapon, when used on a target from behind \
 			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
 	item = /obj/item/garrote
+	reference = "GAR"
 	cost = 30
 
 /datum/uplink_item/stealthy_weapons/cameraflash
