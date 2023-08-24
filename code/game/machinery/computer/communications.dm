@@ -1,14 +1,18 @@
 #define COMM_SCREEN_MAIN		1
 #define COMM_SCREEN_STAT		2
 #define COMM_SCREEN_MESSAGES	3
+#define COMM_SCREEN_ANNOUNCER	4
 
 #define COMM_AUTHENTICATION_NONE	0
 #define COMM_AUTHENTICATION_HEAD	1
 #define COMM_AUTHENTICATION_CAPT	2
-#define COMM_AUTHENTICATION_AGHOST	3
+#define COMM_AUTHENTICATION_CENTCOM	3 // Admin-only access
+#define COMM_AUTHENTICATION_AGHOST	4
 
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
+
+#define ADMIN_CHECK(user) is_admin(user) && authenticated >= COMM_AUTHENTICATION_CENTCOM
 
 // The communications computer
 /obj/machinery/computer/communications
@@ -30,7 +34,6 @@
 	var/message_cooldown
 	var/centcomm_message_cooldown
 	var/alert_level_cooldown = 0
-	var/tmp_alertlevel = 0
 
 	var/stat_msg1
 	var/stat_msg2
@@ -40,6 +43,10 @@
 	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/comms_console)
 
 	light_color = LIGHT_COLOR_LIGHTBLUE
+
+	var/list/cc_announcement_sounds = list("Beep" = 'sound/misc/notice2.ogg',
+		"Enemy Communications Intercepted" = 'sound/AI/intercept.ogg',
+		"New Command Report Created" = 'sound/AI/commandreport.ogg')
 
 /obj/machinery/computer/communications/New()
 	GLOB.shuttle_caller_list += src
@@ -51,6 +58,8 @@
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = 1)
 	if(user.can_admin_interact())
 		return COMM_AUTHENTICATION_AGHOST
+	if(ADMIN_CHECK(user))
+		return COMM_AUTHENTICATION_CENTCOM
 	if(authenticated == COMM_AUTHENTICATION_CAPT)
 		return COMM_AUTHENTICATION_CAPT
 	if(authenticated)
@@ -59,20 +68,17 @@
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 	return COMM_AUTHENTICATION_NONE
 
-/obj/machinery/computer/communications/proc/change_security_level(new_level)
-	tmp_alertlevel = new_level
+/obj/machinery/computer/communications/proc/change_security_level(new_level, force)
 	var/old_level = GLOB.security_level
-	if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
-	if(tmp_alertlevel < SEC_LEVEL_GREEN) tmp_alertlevel = SEC_LEVEL_GREEN
-	if(tmp_alertlevel > SEC_LEVEL_BLUE) tmp_alertlevel = SEC_LEVEL_BLUE //Cannot engage delta with this
-	set_security_level(tmp_alertlevel)
-	if(GLOB.security_level != old_level)
+	if(!force)
+		new_level = clamp(new_level, SEC_LEVEL_GREEN, SEC_LEVEL_BLUE)
+	set_security_level(new_level)
+	if(GLOB.security_level != old_level || new_level == SEC_LEVEL_EPSILON) // episilon is delayed... but we still want to log it
 		//Only notify the admins if an actual change happened
 		log_game("[key_name(usr)] has changed the security level to [get_security_level()].")
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
-	tmp_alertlevel = 0
 
-/obj/machinery/computer/communications/ui_act(action, params)
+/obj/machinery/computer/communications/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	if(!is_secure_level(z))
@@ -94,10 +100,19 @@
 		// Login function.
 		var/list/access = usr.get_access()
 		if(allowed(usr))
-			authenticated = COMM_AUTHENTICATION_HEAD
+			authenticated = COMM_AUTHENTICATION_CAPT
 		if(ACCESS_CAPTAIN in access)
 			authenticated = COMM_AUTHENTICATION_CAPT
+		if(ACCESS_CENT_COMMANDER in access)
+			if(!is_admin(ui.user))
+				to_chat(usr, "<span class='warning'>[src] buzzes, invalid central command clearance.</span>")
+				return
+			authenticated = COMM_AUTHENTICATION_CENTCOM
+
+		if(authenticated >= COMM_AUTHENTICATION_CAPT)
 			var/mob/living/carbon/human/H = usr
+			if(!istype(H))
+				return
 			var/obj/item/card/id = H.get_idcard(TRUE)
 			if(istype(id))
 				announcer.author = GetNameAndAssignmentFromId(id)
@@ -117,8 +132,8 @@
 			if(isAI(usr) || isrobot(usr))
 				to_chat(usr, "<span class='warning'>Firewalls prevent you from changing the alert level.</span>")
 				return
-			else if(usr.can_admin_interact())
-				change_security_level(text2num(params["level"]))
+			else if(ADMIN_CHECK(ui.user) || ui.user.can_admin_interact())
+				change_security_level(text2num(params["level"]), force = TRUE)
 				return
 			else if(!ishuman(usr))
 				to_chat(usr, "<span class='warning'>Security measures prevent you from changing the alert level.</span>")
@@ -295,6 +310,64 @@
 			else
 				to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
 
+		if("send_to_cc_announcement_page")
+			if(!ADMIN_CHECK(ui.user))
+				return
+			setMenuState(ui.user, COMM_SCREEN_ANNOUNCER)
+
+		if("make_other_announcement")
+			if(!ADMIN_CHECK(ui.user))
+				return
+			ui.user.client.cmd_admin_create_centcom_report()
+
+		if("dispatch_ert")
+			ui.user.client.response_team() // check_rights is handled on the other side, if someone does get ahold of this
+
+		if("send_nuke_codes")
+			if(!ADMIN_CHECK(ui.user))
+				return
+			print_nuke_codes()
+
+		if("move_gamma_armory")
+			if(!ADMIN_CHECK(ui.user))
+				return
+			move_gamma_ship()
+
+		if("test_sound")
+			if(!ADMIN_CHECK(ui.user))
+				return
+			SEND_SOUND(ui.user, sound(cc_announcement_sounds[params["sound"]]))
+
+		if("make_cc_announcement")
+			if(!ADMIN_CHECK(ui.user))
+				return
+			if(!text2bool(params["classified"]))
+				GLOB.major_announcement.Announce(
+					params["text"],
+					new_title = "Central Command Report",
+					new_subtitle = params["subtitle"],
+					new_sound = cc_announcement_sounds[params["beepsound"]]
+				)
+				print_command_report(params["text"], params["subtitle"])
+			else
+				GLOB.command_announcer.autosay("A classified message has been printed out at all communication consoles.")
+				print_command_report(params["text"], "Classified: [params["subtitle"]]")
+
+
+/obj/machinery/computer/communications/proc/print_nuke_codes()
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
+	P.name = "'CONFIDENTIAL' - [station_name()] Nuclear Codes"
+	P.info = "<center>&ZeroWidthSpace;<img src='ntlogo.png'><br><b>CONFIDENTIAL</b></center><br><hr>"
+
+	P.info += "The nuclear codes to [station_name()]'s nuclear device is [get_nuke_code()].<br>"
+	switch(get_nuke_status())
+		if(NUKE_MISSING)
+			P.info += "Long-range scanners cannot detect the nuclear device on-station."
+		if(NUKE_CORE_MISSING)
+			P.info += "Long-range scanners detect no radioactive signatures from inside the device."
+
+	P.info += "<br><hr><font size=\"1\">Failure to comply with company regulatory confidential guidelines may result in immediate termination, at the jurisdiction of Central Command staff.</font>"
 
 
 /obj/machinery/computer/communications/emag_act(user as mob)
@@ -334,6 +407,9 @@
 	data["authenticated"] = is_authenticated(user, 0)
 	data["authhead"] = data["authenticated"] >= COMM_AUTHENTICATION_HEAD && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
 	data["authcapt"] = data["authenticated"] >= COMM_AUTHENTICATION_CAPT && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
+	data["is_admin"] = data["authenticated"] >= COMM_AUTHENTICATION_CENTCOM && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
+
+	data["gamma_armory_location"] = GLOB.gamma_ship_location
 
 	data["stat_display"] =  list(
 		"type"   = display_type,
@@ -366,10 +442,6 @@
 		else
 			data["security_level_color"] = "purple";
 	data["str_security_level"] = capitalize(get_security_level())
-	data["levels"] = list(
-		list("id" = SEC_LEVEL_GREEN, "name" = "Green", "icon" = "dove"),
-		list("id" = SEC_LEVEL_BLUE,  "name" = "Blue", "icon" = "eye"),
-	)
 
 	var/list/msg_data = list()
 	for(var/i = 1; i <= messagetext.len; i++)
@@ -398,6 +470,29 @@
 	else if(secondsToRefuel)
 		data["esc_status"] = "Refueling: [secondsToRefuel / 60 % 60]:[add_zero(num2text(secondsToRefuel % 60), 2)]"
 	data["esc_section"] = data["esc_status"] || data["esc_callable"] || data["esc_recallable"] || data["lastCallLoc"]
+	return data
+
+/obj/machinery/computer/communications/ui_static_data(mob/user)
+	var/list/data = list()
+
+	data["levels"] = list(
+		list("id" = SEC_LEVEL_GREEN, "name" = "Green", "icon" = "dove"),
+		list("id" = SEC_LEVEL_BLUE,  "name" = "Blue", "icon" = "eye"),
+	)
+
+	data["admin_levels"] = list(
+		list("id" = SEC_LEVEL_RED, "name" = "Red", "icon" = "exclamation"),
+		list("id" = SEC_LEVEL_GAMMA,  "name" = "Gamma", "icon" = "biohazard"),
+		list("id" = SEC_LEVEL_EPSILON, "name" = "Epsilon", "icon" = "skull", "tooltip" = "Epsilon Alert will only activate after 15 or so seconds."),
+		list("id" = SEC_LEVEL_DELTA,  "name" = "Delta", "icon" = "bomb"),
+	)
+
+	var/list/keys = list()
+	for(var/sound_name in cc_announcement_sounds)
+		keys += sound_name
+
+	data["possible_cc_sounds"] = keys
+
 	return data
 
 /obj/machinery/computer/communications/proc/setCurrentMessage(mob/user, value)
