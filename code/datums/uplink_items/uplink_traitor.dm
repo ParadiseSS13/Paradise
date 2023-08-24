@@ -543,19 +543,19 @@
 
 /datum/uplink_item/bundles_TC/surplus_crate
 	name = "Syndicate Surplus Crate"
-	desc = "A crate containing 50 telecrystals worth of random syndicate leftovers."
+	desc = "A crate containing 250 telecrystals worth of random syndicate leftovers."
 	reference = "SYSC"
 	cost = 100
 	item = /obj/item/storage/box/syndie_kit/bundle
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	var/crate_value = 50
+	var/crate_value = 250
 
 /datum/uplink_item/bundles_TC/surplus_crate/super
 	name = "Syndicate Super Surplus Crate"
-	desc = "A crate containing 125 telecrystals worth of random syndicate leftovers."
+	desc = "A crate containing 625 telecrystals worth of random syndicate leftovers."
 	reference = "SYSS"
 	cost = 200
-	crate_value = 125
+	crate_value = 625
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
