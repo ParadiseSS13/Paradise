@@ -293,3 +293,11 @@
 	suffix = "lavaland_surface_bigcave3.dmm"
 	allow_duplicates = FALSE
 	cost = 3
+
+/datum/map_template/ruin/lavaland/lavaland_surface_cavecomplex1
+	name = "Cave Complex A"
+	id = "cavecomplex1"
+	description = "A big cave complex 'A', its made from long and twisted tunnels connecting to small caves, caves protect against ash storms."
+	suffix = "lavaland_surface_cavecomplex1.dmm"
+	allow_duplicates = FALSE
+	cost = 7

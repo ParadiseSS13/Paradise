@@ -71,6 +71,23 @@
 	name = "Big Cave S"
 	icon_state = "purple"
 
+/area/ruin/unpowered/cavecomplex
+	name = "Main Branch, do not use"
+	icon_state = "purple"
+
+/area/ruin/unpowered/cavecomplex/cave1
+	name = "Cave Complex A"
+	icon_state = "purple"
+
+/area/ruin/unpowered/cavecomplex/cave2
+	name = "Cave Complex B"
+	icon_state = "purple"
+
+/area/ruin/unpowered/cavecomplex/cave3
+	name = "Cave Complex C"
+	icon_state = "purple"
+
+
 //Xeno Nest
 
 /area/ruin/unpowered/xenonest
