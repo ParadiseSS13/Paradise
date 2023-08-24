@@ -12,7 +12,7 @@
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
 
-#define ADMIN_CHECK(user) is_admin(user) && authenticated >= COMM_AUTHENTICATION_CENTCOM
+#define ADMIN_CHECK(user) check_rights_multiple(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM
 
 // The communications computer
 /obj/machinery/computer/communications
@@ -104,7 +104,7 @@
 		if(ACCESS_CAPTAIN in access)
 			authenticated = COMM_AUTHENTICATION_CAPT
 		if(ACCESS_CENT_COMMANDER in access)
-			if(!is_admin(ui.user))
+			if(!check_rights_multiple(R_ADMIN|R_EVENT, FALSE, ui.user))
 				to_chat(usr, "<span class='warning'>[src] buzzes, invalid central command clearance.</span>")
 				return
 			authenticated = COMM_AUTHENTICATION_CENTCOM
@@ -323,6 +323,8 @@
 			ui.user.client.cmd_admin_create_centcom_report()
 
 		if("dispatch_ert")
+			if(!ADMIN_CHECK(ui.user))
+				return
 			ui.user.client.response_team() // check_rights is handled on the other side, if someone does get ahold of this
 
 		if("send_nuke_codes")
