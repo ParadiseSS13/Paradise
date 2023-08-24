@@ -218,6 +218,10 @@
 	name = "twimsts cuffs"
 	desc = "Liquorice twist candy made into cable cuffs, tasty but it can't actually hold anyone."
 	icon_state = "cablecuff"
+	item_state = "cablecuff"
+	cuffed_state = "cablecuff"
+	belt_icon = "cablecuff"
 	color = "#E31818"
 	throwforce = 0
 	breakouttime = 0
+	cuffsound = 'sound/weapons/cablecuff.ogg'
