@@ -191,7 +191,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		telepads_status = "Pads ready"
 	else
 		if(usr) //Во избежание рантаймов по to_chat при автоматической раундстарт синхронизации синдипадов
-			to_chat(usr, "<span class='warning'>Synchronization failure! There's no pads in [cargoarea]!</span>")
+			to_chat(usr, span_warning("Synchronization failure! There's no pads in [cargoarea]!"))
 		telepads_status = "Pads not linked!"
 
 /datum/syndie_data_storage/proc/cooldown()
@@ -385,7 +385,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 							if(slip.erroneous && denied) // Caught a mistake
 								cashEarned = slip.points - data_storage.cash_per_crate
 								data_storage.cash += cashEarned // For now, give a full refund for paying attention (minus the crate cost)
-								msg += "<span class='good'>+[cashEarned]</span>: Station correctly denied package [slip.ordernumber]: "
+								msg += "[span_good("+[cashEarned]")]: Station correctly denied package [slip.ordernumber]: "
 								if(slip.erroneous & MANIFEST_ERROR_NAME)
 									msg += "Destination station incorrect. "
 								else if(slip.erroneous & MANIFEST_ERROR_COUNT)
@@ -395,10 +395,10 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 								msg += "Credits refunded.<br>"
 							else if(!slip.erroneous && !denied) // Approving a proper order awards the relatively tiny cash_per_slip
 								data_storage.cash += data_storage.cash_per_slip
-								msg += "<span class='good'>+[data_storage.cash_per_slip]</span>: Package [slip.ordernumber] accorded.<br>"
+								msg += "[span_good("+[data_storage.cash_per_slip]")]: Package [slip.ordernumber] accorded.<br>"
 							else // You done goofed.
 								if(slip.erroneous)
-									msg += "<span class='good'>+0</span>: Station approved package [slip.ordernumber] despite error: "
+									msg += "[span_good("+0")]: Station approved package [slip.ordernumber] despite error: "
 									if(slip.erroneous & MANIFEST_ERROR_NAME)
 										msg += "Destination station incorrect."
 									else if(slip.erroneous & MANIFEST_ERROR_COUNT)
@@ -409,7 +409,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 								else
 									cashEarned = round(data_storage.cash_per_crate - slip.points)
 									data_storage.cash += cashEarned
-									msg += "<span class='bad'>[cashEarned]</span>: Station denied package [slip.ordernumber]. Our records show no fault on our part.<br>"
+									msg += "[span_bad("[cashEarned]")]: Station denied package [slip.ordernumber]. Our records show no fault on our part.<br>"
 							find_slip = 0
 						continue
 
@@ -432,7 +432,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						if(cost)
 							data_storage.techLevels[tech.id] = tech.level
 							data_storage.cash += cost
-							msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
+							msg += "[span_good("+[cost]")]: [tech.name] - new data.<br>"
 
 					// Sell designs
 					if(istype(thing, /obj/item/disk/design_disk))
@@ -444,24 +444,24 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 							continue
 						data_storage.cash += data_storage.cash_per_design
 						data_storage.researchDesigns += design.id
-						msg += "<span class='good'>+[data_storage.cash_per_design]</span>: [design.name] design.<br>"
+						msg += "[span_good("+[data_storage.cash_per_design]")]: [design.name] design.<br>"
 
 					// Sell exotic plants
 					if(istype(thing, /obj/item/seeds))
 						var/obj/item/seeds/S = thing
 						if(!S.rarity) // Mundane species
-							msg += "<span class='bad'>+0</span>: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
+							msg += "[span_bad("+0")]: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
 						else if(data_storage.discoveredPlants[S.type]) // This species has already been sent to Black Market
 							var/potDiff = S.potency - data_storage.discoveredPlants[S.type] // Compare it to the previous best
 							if(potDiff > 0) // This sample is better
 								data_storage.discoveredPlants[S.type] = S.potency
-								msg += "<span class='good'>+[(potDiff * data_storage.cash_multiplier)]</span>: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
+								msg += "[span_good("+[(potDiff * data_storage.cash_multiplier)]")]: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
 								data_storage.cash += (potDiff * data_storage.cash_multiplier)
 							else // This sample is worthless
-								msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([data_storage.discoveredPlants[S.type]] potency).<br>"
+								msg += "[span_bad("+0")]: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([data_storage.discoveredPlants[S.type]] potency).<br>"
 						else // This is a new discovery!
 							data_storage.discoveredPlants[S.type] = S.potency
-							msg += "<span class='good'>[(S.rarity + S.potency)*data_storage.cash_multiplier]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
+							msg += "[span_good("[(S.rarity + S.potency)*data_storage.cash_multiplier]")]: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 							data_storage.cash += (S.rarity + S.potency)*data_storage.cash_multiplier// That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
 					qdel(thing)
 
@@ -470,17 +470,17 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 	if(plasma_count > 0)
 		cashEarned = round(plasma_count * data_storage.cash_per_plasma)
-		msg += "<span class='good'>+[cashEarned]</span>: Received [plasma_count] unit(s) of exotic material.<br>"
+		msg += "[span_good("+[cashEarned]")]: Received [plasma_count] unit(s) of exotic material.<br>"
 		data_storage.cash += cashEarned
 
 	if(intel_count > 0)
 		cashEarned = round(intel_count * data_storage.cash_per_intel)
-		msg += "<span class='good'>+[cashEarned]</span>: Received [intel_count] article(s) of enemy intelligence.<br>"
+		msg += "[span_good("+[cashEarned]")]: Received [intel_count] article(s) of enemy intelligence.<br>"
 		data_storage.cash += cashEarned
 
 	if(crate_count > 0)
 		cashEarned = round(crate_count * data_storage.cash_per_crate)
-		msg += "<span class='good'>+[cashEarned]</span>: Received [crate_count] crate(s).<br>"
+		msg += "[span_good("+[cashEarned]")]: Received [crate_count] crate(s).<br>"
 		data_storage.cash += cashEarned
 
 	data_storage.blackmarket_message += "[msg]<hr>"
@@ -494,13 +494,13 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	is_public = TRUE
 
 /obj/machinery/computer/syndie_supplycomp/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 	return
 
 
 /obj/machinery/computer/syndie_supplycomp/attack_hand(var/mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return 1
 	add_fingerprint(user)
@@ -517,10 +517,10 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		var/obj/item/stack/spacecash/C = I
 		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 		data_storage.cash += C.amount
-		to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
+		to_chat(user, span_info("You insert [C] into [src]."))
 		var/mob/living/carbon/human/H = user
 		var/name = H.get_authentification_name()
-		data_storage.blackmarket_message += "<span class='good'>+[C.amount]</span>: [name] adds credits to the console.<br>"
+		data_storage.blackmarket_message += "[span_good("+[C.amount]")]: [name] adds credits to the console.<br>"
 		SStgui.update_uis(src)
 		C.use(C.amount)
 		return 1
@@ -676,7 +676,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						data_storage.shoppinglist += O
 						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining credits: [data_storage.cash].", INVESTIGATE_SYNDIE_CARGO)
 					else
-						to_chat(usr, "<span class='warning'>There are insufficient credits for this request.</span>")
+						to_chat(usr, span_warning("There are insufficient credits for this request."))
 					break
 
 		if("deny")
@@ -710,9 +710,9 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			usr.investigate_log("added [money2add] credits to the cargo console at [data_storage.cargoarea.name]", INVESTIGATE_SYNDIE_CARGO)
 			data_storage.cash += money2add
 			if(money2add > 0)
-				data_storage.blackmarket_message += "<span class='good'>+[money2add]</span>: We are pleased with your work. Here's your reward.<br>"
+				data_storage.blackmarket_message += "[span_good("+[money2add]")]: We are pleased with your work. Here's your reward.<br>"
 			else if(money2add < 0)
-				data_storage.blackmarket_message += "<span class='bad'>[money2add]</span>: Don't anger us anymore! You won't be able to get away with such a little tax again.<br>"
+				data_storage.blackmarket_message += "[span_bad("[money2add]")]: Don't anger us anymore! You won't be able to get away with such a little tax again.<br>"
 
 
 	add_fingerprint(usr)
@@ -723,11 +723,11 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		data_storage.cash -= cash_sum
 		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 		var/obj/item/stack/spacecash/C = new(drop_location(), cash_sum)
-		to_chat(user, "<span class='info'>The machine give you [C]!</span>")
+		to_chat(user, span_info("The machine give you [C]!"))
 		var/mob/living/carbon/human/H = user
 		var/name = H.get_authentification_name()
-		data_storage.blackmarket_message += "<span class='bad'>-[cash_sum]</span>: [name] withdraws credits from the console.<br>"
+		data_storage.blackmarket_message += "[span_bad("-[cash_sum]")]: [name] withdraws credits from the console.<br>"
 		user.put_in_hands(C, ignore_anim = FALSE)
 	else
-		to_chat(user, "<span class='notice'>Нельзя снять больше денег, чем доступно в консоли!</span>")
+		to_chat(user, span_notice("Нельзя снять больше денег, чем доступно в консоли!"))
 		return

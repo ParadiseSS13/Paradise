@@ -63,7 +63,7 @@
 			if(!ispath(A))
 				continue
 			nice_list += list("[req_components[A]] [initial(A.name)]\s")
-		. += "<span class='notice'>Required components: [english_list(nice_list)].</span>"
+		. += span_notice("Required components: [english_list(nice_list)].")
 
 /obj/item/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
@@ -415,7 +415,7 @@
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(I.GetID())
 		if(allowed(user))
-			user.visible_message("<span class='notice'>\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
+			user.visible_message(span_notice("\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner."), span_notice("You swipe your ID past the [src]'s access protocol scanner."))
 			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in access_types
 			if(console_choice == null)
 				return
@@ -441,9 +441,9 @@
 					build_path = /obj/machinery/computer/rdconsole/public
 					id = 5
 
-			to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
+			to_chat(user, span_notice("Access protocols set to [console_choice]."))
 		else
-			to_chat(user, "<span class='warning'>Access Denied</span>")
+			to_chat(user, span_warning("Access Denied"))
 		return
 	return ..()
 
@@ -454,7 +454,7 @@
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
 					add_fingerprint(user)
-					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
+					to_chat(user, span_notice("You wrench the frame into place."))
 					anchored = 1
 					state = 1
 				return
@@ -463,7 +463,7 @@
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
 					add_fingerprint(user)
-					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
+					to_chat(user, span_notice("You unfasten the frame."))
 					anchored = 0
 					state = 0
 				return
@@ -472,24 +472,24 @@
 				if(B.board_type == "computer")
 					add_fingerprint(user)
 					playsound(loc, B.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
+					to_chat(user, span_notice("You place the circuit board inside the frame."))
 					icon_state = "1"
 					circuit = P
 					user.drop_transfer_item_to_loc(P, src)
 				else
-					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
+					to_chat(user, span_warning("This frame does not accept circuit boards of this type!"))
 				return
 			if(istype(P, /obj/item/screwdriver) && circuit)
 				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
+				to_chat(user, span_notice("You screw the circuit board into place."))
 				state = 2
 				icon_state = "2"
 				return
 			if(istype(P, /obj/item/crowbar) && circuit)
 				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+				to_chat(user, span_notice("You remove the circuit board."))
 				state = 1
 				icon_state = "0"
 				circuit.loc = loc
@@ -499,7 +499,7 @@
 			if(istype(P, /obj/item/screwdriver) && circuit)
 				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
+				to_chat(user, span_notice("You unfasten the circuit board."))
 				state = 1
 				icon_state = "1"
 				return
@@ -507,24 +507,24 @@
 				var/obj/item/stack/cable_coil/C = P
 				if(C.get_amount() >= 5)
 					playsound(loc, C.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
+					to_chat(user, span_notice("You start to add cables to the frame."))
 					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 2 && C.use(5))
 							add_fingerprint(user)
-							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+							to_chat(user, span_notice("You add cables to the frame."))
 							state = 3
 							icon_state = "3"
 						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
+							to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
 							return
 				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
+					to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
 				return
 		if(3)
 			if(istype(P, /obj/item/wirecutters))
 				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
+				to_chat(user, span_notice("You remove the cables."))
 				state = 2
 				icon_state = "2"
 				new /obj/item/stack/cable_coil(loc, 5)
@@ -533,34 +533,34 @@
 				var/obj/item/stack/sheet/glass/G = P
 				if(G.get_amount() >= 2)
 					playsound(loc, G.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
+					to_chat(user, span_notice("You start to add the glass panel to the frame."))
 					if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 3 && G.use(2))
 							add_fingerprint(user)
-							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
+							to_chat(user, span_notice("You put in the glass panel."))
 							state = 4
 							icon_state = "4"
 						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")
+							to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))
 							return
 				else
-					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
+					to_chat(user, span_warning("You need two sheets of glass for this."))
 				return
 		if(4)
 			if(istype(P, /obj/item/crowbar))
 				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
+				to_chat(user, span_notice("You remove the glass panel."))
 				state = 3
 				icon_state = "3"
 				new /obj/item/stack/sheet/glass(loc, 2)
 				return
 			if(istype(P, /obj/item/screwdriver))
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
+				to_chat(user, span_notice("You connect the monitor."))
 				var/build_path = circuit.build_path
 				if(!build_path)
-					to_chat(user, "<span class='notice'>The circuit is not working, so you cant build this computer.</span>")
+					to_chat(user, span_notice("The circuit is not working, so you cant build this computer."))
 					return
 				var/B = new build_path (loc)
 				if(circuit.powernet) B:powernet = circuit.powernet
@@ -585,7 +585,7 @@
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume) && !state)
-		to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+		to_chat(user, span_notice("You deconstruct [src]."))
 		deconstruct(TRUE)
 
 
@@ -602,34 +602,34 @@
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20, target = src))
-					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
+					to_chat(user, span_notice("You wrench the frame into place."))
 					anchored = 1
 					state = 1
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
-					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
+					to_chat(user, span_notice("You unfasten the frame."))
 					anchored = 0
 					state = 0
 			if(istype(P, /obj/item/circuitboard) && !circuit)
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "honkcomputer")
 					playsound(loc, P.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
+					to_chat(user, span_notice("You place the circuit board inside the frame."))
 					icon_state = "1"
 					circuit = P
 					user.drop_transfer_item_to_loc(P, src)
 				else
-					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
+					to_chat(user, span_warning("This frame does not accept circuit boards of this type!"))
 			if(istype(P, /obj/item/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
+				to_chat(user, span_notice("You screw the circuit board into place."))
 				state = 2
 				icon_state = "2"
 			if(istype(P, /obj/item/crowbar) && circuit)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+				to_chat(user, span_notice("You remove the circuit board."))
 				state = 1
 				icon_state = "0"
 				circuit.loc = loc
@@ -638,29 +638,29 @@
 		if(2)
 			if(istype(P, /obj/item/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
+				to_chat(user, span_notice("You unfasten the circuit board."))
 				state = 1
 				icon_state = "1"
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
 				if(C.get_amount() >= 5)
 					playsound(loc, C.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
+					to_chat(user, span_notice("You start to add cables to the frame."))
 					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 2 && C.use(5))
-							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+							to_chat(user, span_notice("You add cables to the frame."))
 							state = 3
 							icon_state = "3"
 						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
+							to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
 							return
 				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
+					to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
 			return
 		if(3)
 			if(istype(P, /obj/item/wirecutters))
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
+				to_chat(user, span_notice("You remove the cables."))
 				state = 2
 				icon_state = "2"
 				new /obj/item/stack/cable_coil(loc, 5)
@@ -669,28 +669,28 @@
 				var/obj/item/stack/sheet/glass/G = P
 				if(G.get_amount() >= 2)
 					playsound(loc, G.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
+					to_chat(user, span_notice("You start to add the glass panel to the frame."))
 					if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 3 && G.use(2))
-							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
+							to_chat(user, span_notice("You put in the glass panel."))
 							state = 4
 							icon_state = "4"
 						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")
+							to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))
 							return
 				else
-					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
+					to_chat(user, span_warning("You need two sheets of glass for this."))
 			return
 		if(4)
 			if(istype(P, /obj/item/crowbar))
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
+				to_chat(user, span_notice("You remove the glass panel."))
 				state = 3
 				icon_state = "3"
 				new /obj/item/stack/sheet/glass(loc, 2)
 			if(istype(P, /obj/item/screwdriver))
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
+				to_chat(user, span_notice("You connect the monitor."))
 				var/B = new circuit.build_path (loc)
 				if(circuit.powernet) B:powernet = circuit.powernet
 				if(circuit.id) B:id = circuit.id

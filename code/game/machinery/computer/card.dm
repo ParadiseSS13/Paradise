@@ -403,7 +403,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(istype(I, /obj/item/card/id))
 					if(!check_access(I))
 						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-						to_chat(usr, "<span class='warning'>This card does not have access.</span>")
+						to_chat(usr, span_warning("This card does not have access."))
 						return FALSE
 					usr.drop_transfer_item_to_loc(I, src)
 					scan = I
@@ -437,7 +437,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	// Everything below HERE requires auth
 	if(!is_authenticated(usr))
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-		to_chat(usr, "<span class='warning'>This function is not available unless you are logged in.</span>")
+		to_chat(usr, span_warning("This function is not available unless you are logged in."))
 		return FALSE
 
 	// 2nd, handle the functions that are available to head-level consoles (department consoles)
@@ -450,11 +450,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(target_dept)
 				if(modify.assignment == "Demoted")
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-					visible_message("<span class='warning'>[src]: Reassigning a demoted individual requires a full ID computer.</span>")
+					visible_message(span_warning("[src]: Reassigning a demoted individual requires a full ID computer."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(modify.rank), config.allow_head_of_departaments_assign_civilian))
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-					visible_message("<span class='warning'>[src]: Reassigning someone outside your department requires a full ID computer.</span>")
+					visible_message(span_warning("[src]: Reassigning someone outside your department requires a full ID computer."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(t1)))
 					return FALSE
@@ -481,7 +481,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							jobdatum = J
 							break
 					if(!jobdatum)
-						to_chat(usr, "<span class='warning'>No log exists for this job: [t1]</span>")
+						to_chat(usr, span_warning("No log exists for this job: [t1]"))
 						return
 					if(length(jobdatum.alt_titles))
 						var/list/AT = jobdatum.alt_titles
@@ -508,7 +508,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/mob/living/carbon/human/H = modify.getPlayer()
 				if(istype(H))
 					if(jobban_isbanned(H, t1))
-						to_chat(usr, "<span class='warning'><FONT size = 4>ЦК не одобряет данную должность для этого сотрудника. Причиной этому могла послужить его профнепригодность для данной профессии.</span>") //На русском, потому что не все поймут на инглише
+						to_chat(usr, span_warning("<FONT size = 4>ЦК не одобряет данную должность для этого сотрудника. Причиной этому могла послужить его профнепригодность для данной профессии.")) //На русском, потому что не все поймут на инглише
 						message_admins("[ADMIN_FULLMONTY(H)] tried to make an appointment to the position [t1], in possible violation of their job ban.")
 						return
 					if(H.mind)
@@ -522,11 +522,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("demote")
 			if(modify.assignment == "Demoted")
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message("<span class='notice'>[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
+				visible_message(span_notice("[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination."))
 				return FALSE
 			if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
+				visible_message(span_notice("[src]: Heads may only demote members of their own department."))
 				return FALSE
 			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !is_authenticated(usr) || !modify)
@@ -552,7 +552,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("terminate")
 			if(!has_idchange_access()) // because captain/HOP can use this even on dept consoles
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message("<span class='notice'>[src]: Only the Captain or HOP may completely terminate the employment of a crew member.</span>")
+				visible_message(span_notice("[src]: Only the Captain or HOP may completely terminate the employment of a crew member."))
 				return FALSE
 			var/jobnamedata = modify.getRankAndAssignment()
 			var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
@@ -615,10 +615,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/tempname = params["remote_demote"]
 					var/temprank = E.fields["real_rank"]
 					if(!j)
-						visible_message("<span class='warning'>[src]: This employee has either no job, or a customized job ([temprank]).</span>")
+						visible_message(span_warning("[src]: This employee has either no job, or a customized job ([temprank])."))
 						return FALSE
 					if(!job_in_department(j, FALSE))
-						visible_message("<span class='warning'>[src]: Only the head of this employee may demote them.</span>")
+						visible_message(span_warning("[src]: Only the head of this employee may demote them."))
 						return FALSE
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
@@ -631,7 +631,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								SSjobs.notify_by_name(tempname, "[scan.registered_name] ([scan.assignment]) has ordered your demotion. Report to their office, or the HOP. Reason given: \"[reason]\"")
 							else
 								playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-								to_chat(usr, "<span class='warning'>[src]: Cannot demote, due to their current security status.</span>")
+								to_chat(usr, span_warning("[src]: Cannot demote, due to their current security status."))
 								return FALSE
 							return
 			return
@@ -639,7 +639,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	// Everything below here requires a full ID computer (dept consoles do not qualify)
 	if(target_dept)
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-		to_chat(usr, "<span class='warning'>This function is not available on department-level consoles.</span>")
+		to_chat(usr, span_warning("This function is not available on department-level consoles."))
 		return
 
 	// 3rd, handle the functions that require a full ID computer
@@ -649,7 +649,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/temp_name = reject_bad_name(input(usr, "Who is this ID for?", "ID Card Renaming", modify.registered_name), TRUE)
 			if(!modify || !temp_name)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message("<span class='notice'>[src] buzzes rudely.</span>")
+				visible_message(span_notice("[src] buzzes rudely."))
 				return FALSE
 			modify.registered_name = temp_name
 			regenerate_id_name()

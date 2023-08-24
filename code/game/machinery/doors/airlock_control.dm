@@ -269,7 +269,7 @@
 	add_fingerprint(usr)
 
 	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 
 	else if(radio_connection)

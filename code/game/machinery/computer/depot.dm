@@ -31,7 +31,7 @@
 
 /obj/machinery/computer/syndicate_depot/attack_ai(mob/user)
 	if(length(req_access) && !("syndicate" in user.faction))
-		to_chat(user, "<span class='warning'>A firewall blocks your access.</span>")
+		to_chat(user, span_warning("A firewall blocks your access."))
 		return TRUE
 	return ..()
 
@@ -39,7 +39,7 @@
 	return
 
 /obj/machinery/computer/syndicate_depot/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/computer/syndicate_depot/allowed(mob/user)
@@ -110,7 +110,7 @@
 		return
 	. = FALSE
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	switch(action)
@@ -175,16 +175,16 @@
 		pub_access = !pub_access
 		if(pub_access)
 			depotarea.set_emergency_access(TRUE)
-			to_chat(user, "<span class='notice'>Emergency Access enabled.</span>")
+			to_chat(user, span_notice("Emergency Access enabled."))
 		else
 			depotarea.set_emergency_access(FALSE)
-			to_chat(user, "<span class='notice'>Emergency Access disabled.</span>")
+			to_chat(user, span_notice("Emergency Access disabled."))
 		playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/doors/secondary(mob/user, subcommand)
 	if(depotarea)
 		depotarea.toggle_falsewalls(src)
-		to_chat(user, "<span class='notice'>False walls toggled.</span>")
+		to_chat(user, span_notice("False walls toggled."))
 		playsound(user, sound_yes, 50, 0)
 
 
@@ -328,7 +328,7 @@
 		return
 	if(message_sent)
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 0)
-		to_chat(user, "<span class='warning'>[src] has already been used to transmit a message to the Syndicate.</span>")
+		to_chat(user, span_warning("[src] has already been used to transmit a message to the Syndicate."))
 		return
 	message_sent = TRUE
 	var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This function may only be used ONCE.", "To abort, send an empty message.", "")
@@ -342,22 +342,22 @@
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/secondary(mob/user)
 	if(!istype(depotarea))
-		to_chat(user, "<span class='warning'>ERROR: [src] is unable to uplink to depot network.</span>")
+		to_chat(user, span_warning("ERROR: [src] is unable to uplink to depot network."))
 		return
 	if(depotarea.local_alarm || depotarea.called_backup || depotarea.used_self_destruct)
-		to_chat(user, "<span class='warning'>Visitor sign-in is not possible while the depot is on security alert.</span>")
+		to_chat(user, span_warning("Visitor sign-in is not possible while the depot is on security alert."))
 		return
 	if(depotarea.something_looted)
-		to_chat(user, "<span class='warning'>Visitor sign-in is not possible after supplies have been taken from a locker in the depot.</span>")
+		to_chat(user, span_warning("Visitor sign-in is not possible after supplies have been taken from a locker in the depot."))
 		return
 	if("syndicate" in user.faction)
-		to_chat(user, "<span class='warning'>You are already recognized as a member of the Syndicate, and do not need to sign in.</span>")
+		to_chat(user, span_warning("You are already recognized as a member of the Syndicate, and do not need to sign in."))
 		return
 	if(!user.mind || user.mind.special_role != SPECIAL_ROLE_TRAITOR)
-		to_chat(user, "<span class='warning'>Only verified agents of the Syndicate may sign in as visitors. Everyone else will be shot on sight.</span>")
+		to_chat(user, span_warning("Only verified agents of the Syndicate may sign in as visitors. Everyone else will be shot on sight."))
 		return
 	if(depotarea.list_includes(user, depotarea.peaceful_list))
-		to_chat(user, "<span class='warning'>[user] is already signed in as a visiting agent.</span>")
+		to_chat(user, span_warning("[user] is already signed in as a visiting agent."))
 		return
 	if(!depotarea.on_peaceful)
 		depotarea.peaceful_mode(TRUE, TRUE)
@@ -534,23 +534,23 @@
 
 /obj/machinery/computer/syndicate_depot/teleporter/primary(mob/user)
 	if(!mybeacon && user)
-		to_chat(user, "<span class='notice'>Unable to connect to teleport beacon.</span>")
+		to_chat(user, span_notice("Unable to connect to teleport beacon."))
 		return
 	var/bresult = mybeacon.toggle()
-	to_chat(user, "<span class='notice'>Syndicate Teleporter Beacon: [bresult ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
+	to_chat(user, span_notice("Syndicate Teleporter Beacon: [bresult ? span_green("ON") : span_red("OFF")]"))
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(mob/user)
 /*	if(!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))
-		to_chat(user, "<span class='notice'>Outgoing Teleport Portal controls are only enabled when the depot has a signed-in agent visitor.</span>")
+		to_chat(user, span_notice("Outgoing Teleport Portal controls are only enabled when the depot has a signed-in agent visitor."))
 		return
 		*/
 
 	if(!portal_enabled && myportal)
-		to_chat(user, "<span class='notice'>Outgoing Teleport Portal: deactivating... please wait...</span>")
+		to_chat(user, span_notice("Outgoing Teleport Portal: deactivating... please wait..."))
 		return
 	toggle_portal()
-	to_chat(user, "<span class='notice'>Outgoing Teleport Portal: [portal_enabled ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
+	to_chat(user, span_notice("Outgoing Teleport Portal: [portal_enabled ? span_green("ON") : span_red("OFF")]"))
 	updateUsrDialog()
 	playsound(user, sound_yes, 50, 0)
 

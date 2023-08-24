@@ -40,7 +40,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= max_brain_damage)
-			to_chat(user, "<span class='warning'>You forget how to use [src].</span>")
+			to_chat(user, span_warning("You forget how to use [src]."))
 			return
 	ui_interact(user)
 

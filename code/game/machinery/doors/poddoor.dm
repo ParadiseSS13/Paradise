@@ -26,7 +26,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/door/poddoor/impassable/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/door/poddoor/Bumped(atom/movable/moving_atom)
@@ -64,14 +64,14 @@
 	if(!density)
 		return
 	if(!hasPower())
-		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
+		to_chat(user, span_notice("You start forcing [src] open..."))
 		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
 			if(!hasPower())
 				open()
 			else
-				to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+				to_chat(user, span_warning("[src] resists your efforts to force it!"))
 	else
-		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 
  // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
  // Wise words. - Bxil

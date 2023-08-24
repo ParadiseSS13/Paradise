@@ -21,23 +21,23 @@
 
 	opened = !opened
 	if(opened)
-		to_chat(usr, "<span class='notice'>The access panel is now open.</span>")
+		to_chat(usr, span_notice("The access panel is now open."))
 	else
-		to_chat(usr, "<span class='notice'>The access panel is now closed.</span>")
+		to_chat(usr, span_notice("The access panel is now closed."))
 	return
 
 
 /obj/machinery/computer/aiupload/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/aiModule))
 		if(!current)//no AI selected
-			to_chat(user, "<span class='danger'>No AI selected. Please chose a target before proceeding with upload.")
+			to_chat(user, span_danger("No AI selected. Please chose a target before proceeding with upload."))
 			return
 		var/turf/T = get_turf(current)
 		if(!atoms_share_level(T, src))
-			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
+			to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the target silicon!")
 			return
 		if(current.on_the_card)
-			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: Target silicon is on an inteliCard or undergoing a repair procedure!")
+			to_chat(user, span_danger("Unable to establish a connection") + ": Target silicon is on an inteliCard or undergoing a repair procedure!")
 			return
 		add_fingerprint(user)
 		var/obj/item/aiModule/M = O
@@ -78,11 +78,11 @@
 /obj/machinery/computer/borgupload/attackby(obj/item/aiModule/module as obj, mob/user as mob, params)
 	if(istype(module, /obj/item/aiModule))
 		if(!current)//no borg selected
-			to_chat(user, "<span class='danger'>No borg selected. Please chose a target before proceeding with upload.")
+			to_chat(user, span_danger("No borg selected. Please chose a target before proceeding with upload."))
 			return
 		var/turf/T = get_turf(current)
 		if(!atoms_share_level(T, src))
-			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
+			to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the target silicon!")
 			return
 		module.install(src)
 		return

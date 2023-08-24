@@ -21,7 +21,7 @@
 	if(..())
 		return 1
 	if(is_away_level(src.z))
-		to_chat(usr, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+		to_chat(usr, span_danger("Unable to establish a connection") + ": You're too far away from the station!")
 		return
 	usr.set_machine(src)
 
@@ -66,7 +66,7 @@
 	if(..())
 		return
 	if(is_away_level(src.z))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+		to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the station!")
 		return
 
 	user.set_machine(src)
@@ -103,12 +103,12 @@
 			for(var/obj/C in src)
 				C.loc = src.loc
 			if(src.stat & BROKEN)
-				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+				to_chat(user, span_notice("The broken glass falls out."))
 				new /obj/item/shard( src.loc )
 				A.state = 3
 				A.icon_state = "3"
 			else
-				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+				to_chat(user, span_notice("You disconnect the monitor."))
 				A.state = 4
 				A.icon_state = "4"
 			qdel(src)

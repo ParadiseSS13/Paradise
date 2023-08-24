@@ -147,14 +147,14 @@ th.cost.toomuch {background:maroon;}
 		var/datum/storeitem/item = GLOB.centcomm_store.items[itemID]
 		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")
 		if(!Adjacent(usr))
-			to_chat(usr, "<span class='warning'>You are not close enough to do that.</span>")
+			to_chat(usr, span_warning("You are not close enough to do that."))
 			return
 		if(sure=="No")
 			updateUsrDialog()
 			return
 		if(!GLOB.centcomm_store.PlaceOrder(usr,itemID))
-			to_chat(usr, "<span class='warning'>Unable to charge your account.</span>")
+			to_chat(usr, span_warning("Unable to charge your account."))
 		else
-			to_chat(usr, "<span class='notice'>You've successfully purchased the item. It should be in your hands or on the floor.</span>")
+			to_chat(usr, span_notice("You've successfully purchased the item. It should be in your hands or on the floor."))
 	src.updateUsrDialog()
 	return

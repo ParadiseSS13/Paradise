@@ -89,7 +89,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 
 	for(var/turf/T in get_area_turfs(end_location) )
 		var/mob/M = locate(/mob) in T
-		to_chat(M, "<span class='warning'>You have arrived at Central Command. Operation has ended!</span>")
+		to_chat(M, span_warning("You have arrived at Central Command. Operation has ended!"))
 
 	GLOB.specops_shuttle_at_station = 0
 
@@ -137,7 +137,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 	if(GLOB.specops_shuttle_moving_to_station || GLOB.specops_shuttle_moving_to_centcom) return
 
 	if(!specops_can_move())
-		to_chat(usr, "<span class='warning'>The Special Operations shuttle is unable to leave.</span>")
+		to_chat(usr, span_warning("The Special Operations shuttle is unable to leave."))
 		return
 
 	//Begin Marauder launchpad.
@@ -232,7 +232,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 
 	for(var/turf/T in get_area_turfs(end_location) )
 		var/mob/M = locate(/mob) in T
-		to_chat(M, "<span class='warning'>You have arrived to [station_name()]. Commence operation!</span>")
+		to_chat(M, span_warning("You have arrived to [station_name()]. Commence operation!"))
 
 	for(var/obj/machinery/computer/specops_shuttle/S in GLOB.machines)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
@@ -248,24 +248,24 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 	return 1
 
 /obj/machinery/computer/specops_shuttle/attack_ai(var/mob/user as mob)
-	to_chat(user, "<span class='warning'>Access Denied.</span>")
+	to_chat(user, span_warning("Access Denied."))
 	return 1
 
 /obj/machinery/computer/specops_shuttle/attackby(I as obj, user as mob, params)
 	if(istype(I,/obj/item/card/emag))
-		to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
+		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 	else
 		return ..()
 
 /obj/machinery/computer/specops_shuttle/attack_hand(var/mob/user as mob)
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		to_chat(user, span_warning("Access Denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 //Commented out so admins can do shenanigans at their leisure. Also makes the force-spawned admin ERTs able to use the shuttle.
 //	if(sent_strike_team == 0 && send_emergency_team == 0)
-//		to_chat(usr, "<span class='warning'>The strike team has not yet deployed.</span>")
+//		to_chat(usr, span_warning("The strike team has not yet deployed."))
 //		return
 
 	if(..())
@@ -296,14 +296,14 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 		if(!GLOB.specops_shuttle_at_station|| GLOB.specops_shuttle_moving_to_station || GLOB.specops_shuttle_moving_to_centcom) return
 
 		if(!specops_can_move())
-			to_chat(usr, "<span class='notice'>Central Command will not allow the Special Operations shuttle to return yet.</span>")
+			to_chat(usr, span_notice("Central Command will not allow the Special Operations shuttle to return yet."))
 			if(world.timeofday <= specops_shuttle_timereset)
 				if(((world.timeofday - specops_shuttle_timereset)/10) > 60)
-					to_chat(usr, "<span class='notice'>[-((world.timeofday - specops_shuttle_timereset)/10)/60] minutes remain!</span>")
-				to_chat(usr, "<span class='notice'>[-(world.timeofday - specops_shuttle_timereset)/10] seconds remain!</span>")
+					to_chat(usr, span_notice("[-((world.timeofday - specops_shuttle_timereset)/10)/60] minutes remain!"))
+				to_chat(usr, span_notice("[-(world.timeofday - specops_shuttle_timereset)/10] seconds remain!"))
 			return
 
-		to_chat(usr, "<span class='notice'>The Special Operations shuttle will arrive at Central Command in [(SPECOPS_MOVETIME/10)] seconds.</span>")
+		to_chat(usr, span_notice("The Special Operations shuttle will arrive at Central Command in [(SPECOPS_MOVETIME/10)] seconds."))
 
 		temp += "Shuttle departing.<BR><BR><A href='?src=[UID()];mainmenu=1'>OK</A>"
 		updateUsrDialog()
@@ -317,10 +317,10 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 		if(GLOB.specops_shuttle_at_station || GLOB.specops_shuttle_moving_to_station || GLOB.specops_shuttle_moving_to_centcom) return
 
 		if(!specops_can_move())
-			to_chat(usr, "<span class='warning'>The Special Operations shuttle is unable to leave.</span>")
+			to_chat(usr, span_warning("The Special Operations shuttle is unable to leave."))
 			return
 
-		to_chat(usr, "<span class='notice'>The Special Operations shuttle will arrive on [station_name()] in [(SPECOPS_MOVETIME/10)] seconds.</span>")
+		to_chat(usr, span_notice("The Special Operations shuttle will arrive on [station_name()] in [(SPECOPS_MOVETIME/10)] seconds."))
 
 		temp += "Shuttle departing.<BR><BR><A href='?src=[UID()];mainmenu=1'>OK</A>"
 		updateUsrDialog()

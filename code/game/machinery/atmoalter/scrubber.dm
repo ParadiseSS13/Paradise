@@ -178,7 +178,7 @@
 	name = "[name] (ID [id])"
 
 /obj/machinery/portable_atmospherics/scrubber/huge/attack_hand(mob/user)
-	to_chat(usr, "<span class='warning'>You can't directly interact with this machine. Use the area atmos computer.</span>")
+	to_chat(usr, span_warning("You can't directly interact with this machine. Use the area atmos computer."))
 
 /obj/machinery/portable_atmospherics/scrubber/huge/update_icon()
 	overlays = 0
@@ -191,15 +191,15 @@
 /obj/machinery/portable_atmospherics/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(stationary)
-		to_chat(user, "<span class='warning'>The bolts are too tight for you to unscrew!</span>")
+		to_chat(user, span_warning("The bolts are too tight for you to unscrew!"))
 		return
 	if(on)
-		to_chat(user, "<span class='warning'>Turn it off first!</span>")
+		to_chat(user, span_warning("Turn it off first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored
-	to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] [src].</span>")
+	to_chat(user, span_notice("You [anchored ? "wrench" : "unwrench"] [src]."))
 
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary
 	name = "Stationary Air Scrubber"

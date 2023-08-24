@@ -24,7 +24,7 @@
 					return
 				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
+				to_chat(user, span_notice("You place the circuit board inside the frame."))
 				update_icon()
 				state = CIRCUIT_CORE
 				circuit = P
@@ -34,47 +34,47 @@
 				var/obj/item/stack/cable_coil/C = P
 				if(C.get_amount() >= 5)
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
+					to_chat(user, span_notice("You start to add cables to the frame..."))
 					if(do_after(user, 20, target = src) && state == SCREWED_CORE && C.use(5))
 						add_fingerprint(user)
-						to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+						to_chat(user, span_notice("You add cables to the frame."))
 						state = CABLED_CORE
 						update_icon()
 				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the AI core!</span>")
+					to_chat(user, span_warning("You need five lengths of cable to wire the AI core!"))
 				return
 		if(CABLED_CORE)
 			if(istype(P, /obj/item/stack/sheet/rglass))
 				var/obj/item/stack/sheet/rglass/G = P
 				if(G.get_amount() >= 2)
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-					to_chat(user, "<span class='notice'>You start to put in the glass panel...</span>")
+					to_chat(user, span_notice("You start to put in the glass panel..."))
 					if(do_after(user, 20, target = src) && state == CABLED_CORE && G.use(2))
 						add_fingerprint(user)
-						to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
+						to_chat(user, span_notice("You put in the glass panel."))
 						state = GLASS_CORE
 						update_icon()
 				else
-					to_chat(user, "<span class='warning'>You need two sheets of reinforced glass to insert them into the AI core!</span>")
+					to_chat(user, span_warning("You need two sheets of reinforced glass to insert them into the AI core!"))
 				return
 
 			if(istype(P, /obj/item/aiModule/purge))
 				add_fingerprint(user)
 				laws.clear_inherent_laws()
-				to_chat(usr, "<span class='notice'>Law module applied.</span>")
+				to_chat(usr, span_notice("Law module applied."))
 				return
 
 			if(istype(P, /obj/item/aiModule/freeform))
 				add_fingerprint(user)
 				var/obj/item/aiModule/freeform/M = P
 				laws.add_inherent_law(M.newFreeFormLaw)
-				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
+				to_chat(usr, span_notice("Added a freeform law."))
 				return
 
 			if(istype(P, /obj/item/aiModule))
 				var/obj/item/aiModule/M = P
 				if(!M.laws)
-					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
+					to_chat(usr, span_warning("This AI module can not be applied directly to AI cores."))
 					return
 				add_fingerprint(user)
 				laws = M.laws
@@ -82,26 +82,26 @@
 			if(istype(P, /obj/item/mmi) && !brain)
 				var/obj/item/mmi/M = P
 				if(!M.brainmob)
-					to_chat(user, "<span class='warning'>Sticking an empty [P] into the frame would sort of defeat the purpose.</span>")
+					to_chat(user, span_warning("Sticking an empty [P] into the frame would sort of defeat the purpose."))
 					return
 				if(M.brainmob.stat == DEAD)
-					to_chat(user, "<span class='warning'>Sticking a dead [P] into the frame would sort of defeat the purpose.</span>")
+					to_chat(user, span_warning("Sticking a dead [P] into the frame would sort of defeat the purpose."))
 					return
 
 				if(!M.brainmob.client)
-					to_chat(user, "<span class='warning'>Sticking an inactive [M.name] into the frame would sort of defeat the purpose.</span>")
+					to_chat(user, span_warning("Sticking an inactive [M.name] into the frame would sort of defeat the purpose."))
 					return
 
 				if(jobban_isbanned(M.brainmob, "AI") || jobban_isbanned(M.brainmob, "nonhumandept"))
-					to_chat(user, "<span class='warning'>This [P] does not seem to fit.</span>")
+					to_chat(user, span_warning("This [P] does not seem to fit."))
 					return
 
 				if(!M.brainmob.mind)
-					to_chat(user, "<span class='warning'>This [M.name] is mindless!</span>")
+					to_chat(user, span_warning("This [M.name] is mindless!"))
 					return
 
 				if(istype(P, /obj/item/mmi/syndie))
-					to_chat(user, "<span class='warning'>This MMI does not seem to fit!</span>")
+					to_chat(user, span_warning("This MMI does not seem to fit!"))
 					return
 
 				if(!user.drop_transfer_item_to_loc(M, src))
@@ -109,7 +109,7 @@
 
 				add_fingerprint(user)
 				brain = M
-				to_chat(user, "<span class='notice'>You add [M.name] to the frame.</span>")
+				to_chat(user, span_notice("You add [M.name] to the frame."))
 				update_icon()
 				return
 
@@ -123,19 +123,19 @@
 		return
 	switch(state)
 		if(CIRCUIT_CORE)
-			to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+			to_chat(user, span_notice("You remove the circuit board."))
 			state = EMPTY_CORE
 			circuit.forceMove(loc)
 			circuit = null
 			return
 		if(GLASS_CORE)
-			to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
+			to_chat(user, span_notice("You remove the glass panel."))
 			state = CABLED_CORE
 			new /obj/item/stack/sheet/rglass(loc, 2)
 			return
 		if(CABLED_CORE)
 			if(brain)
-				to_chat(user, "<span class='notice'>You remove the brain.</span>")
+				to_chat(user, span_notice("You remove the brain."))
 				brain.forceMove(loc)
 				brain = null
 	update_icon()
@@ -148,15 +148,15 @@
 		return
 	switch(state)
 		if(SCREWED_CORE)
-			to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
+			to_chat(user, span_notice("You unfasten the circuit board."))
 			state = CIRCUIT_CORE
 		if(CIRCUIT_CORE)
-			to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
+			to_chat(user, span_notice("You screw the circuit board into place."))
 			state = SCREWED_CORE
 		if(GLASS_CORE)
 			message_admins("[key_name_admin(usr)] has completed an AI core in [ADMIN_VERBOSEJMP(src)].")
 			add_game_logs("has completed an AI core in [AREACOORD(src)].", usr)
-			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
+			to_chat(user, span_notice("You connect the monitor."))
 			if(!brain)
 				var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
 				var/obj/structure/AIcore/deactivated/D = new(loc)
@@ -173,7 +173,7 @@
 			SSblackbox.record_feedback("amount", "ais_created", 1)
 			qdel(src)
 		if(AI_READY_CORE)
-			to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+			to_chat(user, span_notice("You disconnect the monitor."))
 			state = GLASS_CORE
 	update_icon()
 
@@ -185,9 +185,9 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(brain)
-		to_chat(user, "<span class='warning'>Get that [brain.name] out of there first!</span>")
+		to_chat(user, span_warning("Get that [brain.name] out of there first!"))
 	else
-		to_chat(user, "<span class='notice'>You remove the cables.</span>")
+		to_chat(user, span_notice("You remove the cables."))
 		state = SCREWED_CORE
 		update_icon()
 		new /obj/item/stack/cable_coil(loc, 5)
@@ -235,7 +235,7 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
+		to_chat(user, span_notice("You deconstruct the frame."))
 		new /obj/item/stack/sheet/plasteel(drop_location(), 4)
 		qdel(src)
 
@@ -290,7 +290,7 @@ That prevents a few funky behaviors.
 /atom/proc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(istype(card))
 		if(card.flush)
-			to_chat(user, "<span class='boldannounce'>ERROR</span>: AI flush is in progress, cannot execute transfer protocol.")
+			to_chat(user, span_boldannounce("ERROR:") + "AI flush is in progress, cannot execute transfer protocol.")
 			return 0
 	return 1
 
@@ -305,7 +305,7 @@ That prevents a few funky behaviors.
 		AI.forceMove(loc)//To replace the terminal.
 		AI.on_the_card = FALSE
 		to_chat(AI, "You have been uploaded to a stationary terminal. Remote device connection restored.")
-		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.</span>")
+		to_chat(user, span_boldnotice("Transfer successful:") + span_notice("[AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed."))
 		qdel(src)
 	else //If for some reason you use an empty card on an empty AI terminal.
 		to_chat(user, "There is no AI loaded on this terminal!")

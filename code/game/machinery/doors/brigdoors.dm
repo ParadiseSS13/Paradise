@@ -331,7 +331,7 @@
 	if(..())
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	. = TRUE
 	switch(action)
@@ -367,12 +367,12 @@
 			if(timing)
 				var/add_reason = sanitize(copytext(input(usr, "Reason:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
 				if(!add_reason)
-					to_chat(usr, "<span class='warning'>Must specify the reason!</span>")
+					to_chat(usr, span_warning("Must specify the reason!"))
 					return FALSE
 				prisoner_time_add = input(usr, "Minutes to add:", name, prisoner_time_add) as num|null
 				prisoner_time_add = min(max(round(prisoner_time_add), 0), PERMABRIG_TIME)
 				if(!prisoner_time_add)
-					to_chat(usr, "<span class='warning'>Must specify the number!</span>")
+					to_chat(usr, span_warning("Must specify the number!"))
 					return FALSE
 				prisoner_time_add = prisoner_time_add MINUTES
 				if(timetoset + prisoner_time_add >= PERMABRIG_TIME MINUTES)
@@ -393,7 +393,7 @@
 			if(timing)
 				var/reset_reason = sanitize(copytext(input(usr, "Reason for resetting timer:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
 				if(!reset_reason)
-					to_chat(usr, "<span class='warning'>Cancelled reset: reason field is required.</span>")
+					to_chat(usr, span_warning("Cancelled reset: reason field is required."))
 					return FALSE
 				releasetime = world.timeofday + timetoset
 				var/resettext = isobserver(usr) ? "for: [reset_reason]." : "by [usr.name] for: [reset_reason]."
@@ -414,7 +414,7 @@
 		if("flash")
 			for(var/obj/machinery/flasher/F in targets)
 				if(F.last_flash && (F.last_flash + 150) > world.time)
-					to_chat(usr, "<span class='warning'>Flash still charging.</span>")
+					to_chat(usr, span_warning("Flash still charging."))
 				else
 					F.flash()
 		else

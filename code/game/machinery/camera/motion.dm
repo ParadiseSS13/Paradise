@@ -54,7 +54,7 @@
 		return FALSE
 	if(status)
 		SSalarm.triggerAlarm("Motion", get_area(src), list(UID()), src)
-		visible_message("<span class='warning'>A red light flashes on the [src]!</span>")
+		visible_message(span_warning("A red light flashes on the [src]!"))
 	detectTime = -1
 	return TRUE
 
