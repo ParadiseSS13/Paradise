@@ -900,7 +900,7 @@
 		H.bleed(50)
 	..()
 
-/obj/item/gun/energy/examine(mob/user)
+/obj/item/gun/energy/spikethrower/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This item's cell recharges on its own. Known to drive people mad by forcing them to wait for shots to recharge. Not compatible with rechargers.</span>"
 
