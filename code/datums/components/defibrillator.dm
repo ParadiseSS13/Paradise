@@ -322,6 +322,8 @@
 			"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
 	target.adjustStaminaLoss(60)
 	target.KnockDown(10 SECONDS)
+	if(!do_after(user, 1 SECONDS, TRUE, target, TRUE))
+		return
 	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	target.emote("gasp")
 	if(combat && prob(heart_attack_chance))
