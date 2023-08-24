@@ -102,7 +102,7 @@
 
 /obj/item/reagent_containers/food/snacks/twimsts
 	name = "Twimsts"
-	desc = "Sweet twisted sticks made of liquorice, used for eating and as eatable handcuffs!"
+	desc = "Sweet twisted sticks made of liquorice, can be used to make edible handcuffs!"
 	icon_state = "twimsts"
 	trash = /obj/item/trash/twimsts
 	antable = FALSE
