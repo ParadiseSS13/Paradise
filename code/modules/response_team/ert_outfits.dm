@@ -452,8 +452,8 @@
 /datum/loadout/agents
 	name = "Agents"
 	items = list(/obj/item/restraints/handcuffs)
-	non_security_weapons = list(/obj/item/gun/energy/disabler)
-	security_only_weapons = list(/obj/item/gun/energy/gun/blueshield/pdw9, /obj/item/gun/energy/gun)
+	non_security_weapons = list(/obj/item/gun/energy/disabler, /obj/item/melee/classic_baton/telescopic)
+	security_only_weapons = list(/obj/item/gun/energy/gun/blueshield/pdw9, /obj/item/gun/energy/gun, /obj/item/melee/baton)
 
 /datum/loadout/blob
 	name = "Blob"
@@ -464,14 +464,14 @@
 /datum/loadout/changelings
 	name = "Changelings"
 	items = list(/obj/item/shield/riot/tele)
-	non_security_weapons = list(/obj/item/gun/energy/gun/nuclear)
-	security_only_weapons = list(/obj/item/gun/energy/gun/nuclear)
+	non_security_weapons = list(/obj/item/gun/energy/gun/nuclear, /obj/item/melee/classic_baton/telescopic)
+	security_only_weapons = list(/obj/item/gun/energy/gun/nuclear, /obj/item/melee/baton)
 
 /datum/loadout/cult
 	name = "Cult"
 	items = list(/obj/item/reagent_containers/food/drinks/bottle/holywater)
-	non_security_weapons = list(/obj/item/melee/classic_baton/telescopic, /obj/item/gun/energy/disabler)
-	security_only_weapons = list(/obj/item/gun/energy/gun/nuclear)
+	non_security_weapons = list(/obj/item/melee/baton, /obj/item/gun/energy/disabler)
+	security_only_weapons = list(/obj/item/gun/projectile/automatic/wt550, /obj/item/ammo_box/magazine/wt550m9, /obj/item/gun/energy/disabler, /obj/item/melee/baton)
 
 /datum/loadout/terror_spiders
 	name = "Terror Spiders"
@@ -482,8 +482,8 @@
 /datum/loadout/vampires
 	name = "Vampires"
 	items = list(/obj/item/restraints/handcuffs, /obj/item/clothing/glasses/sunglasses/blindfold)
-	non_security_weapons = list(/obj/item/gun/energy/disabler)
-	security_only_weapons = list(/obj/item/gun/energy/gun/blueshield/pdw9, /obj/item/gun/energy/gun)
+	non_security_weapons = list(/obj/item/gun/energy/disabler, /obj/item/melee/classic_baton/telescopic)
+	security_only_weapons = list(/obj/item/gun/energy/gun/blueshield/pdw9, /obj/item/gun/energy/gun, /obj/item/melee/baton)
 
 /datum/loadout/xenomorphs
 	name = "Xenomorphs"
