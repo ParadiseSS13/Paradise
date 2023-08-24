@@ -1,6 +1,6 @@
 /obj/item/clothing/under/rank/security
 	icon = 'icons/obj/clothing/under/security.dmi'
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	strip_delay = 50
 	sprite_sheets = list(
 		"Human" = 'icons/mob/clothing/under/security.dmi',
@@ -101,6 +101,25 @@
 	icon_state = "detective"
 	item_state = "det"
 	item_color = "detective"
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/security.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
+		)
+
+/obj/item/clothing/under/rank/security/detective/skirt
+	name = "detective's jumpskirt"
+	icon_state = "det_skirt"
+	item_color = "det_skirt"
+
+/obj/item/clothing/under/rank/security/detective/black
+	name = "forensics jumpsuit"
+	desc = "A black forensics technician jumpsuit."
+	icon_state = "det_black"
+	item_color = "det_black"
+
 
 /*
  * Head of Security
@@ -111,7 +130,7 @@
 	icon_state = "hos"
 	item_state = "r_suit"
 	item_color = "hos"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/security/head_of_security/skirt

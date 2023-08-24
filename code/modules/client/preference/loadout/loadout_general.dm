@@ -79,7 +79,7 @@
 
 /datum/gear/carpplushie
 	display_name = "Carp plushie"
-	path = /obj/item/toy/carpplushie
+	path = /obj/item/toy/plushie/carpplushie
 
 /datum/gear/greyplushie
 	display_name = "Grey Plushie"
@@ -88,6 +88,10 @@
 /datum/gear/nianplushie
 	display_name = "Nian plushie"
 	path = /obj/item/toy/plushie/nianplushie
+
+/datum/gear/sharkplushie
+	display_name = "Shark plushie"
+	path = /obj/item/toy/plushie/shark
 
 /datum/gear/sechud
 	display_name = "Classic security HUD"

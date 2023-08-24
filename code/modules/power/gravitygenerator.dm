@@ -361,6 +361,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
   */
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
 	var/turf/our_turf = get_turf(src)
+	new /obj/effect/warp_effect/gravity_generator(our_turf)
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/shaken in GLOB.mob_list)
 		var/mob/M = shaken
@@ -391,6 +392,16 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 			GLOB.gravity_generators["[T.z]"] -= src
 
 // Misc
+
+/obj/effect/warp_effect/gravity_generator
+
+/obj/effect/warp_effect/gravity_generator/Initialize(mapload)
+	. = ..()
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * 40, time = 0.8 SECONDS, alpha = 128)
+	QDEL_IN(src, 0.8 SECONDS)
+
 
 /obj/item/paper/gravity_gen
 	name = "paper - 'Generate your own gravity!'"

@@ -32,6 +32,8 @@
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 	/// Is it emagged or not?
 	var/emagged = FALSE
+	/// slowndown on pulling by human. Bigger value = slower pulling
+	var/pull_speed = 0
 
 /obj/New()
 	..()
@@ -297,3 +299,13 @@
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overridden on a machine containing a mob.")
 
+/obj/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	damage *= 0.75 //Define this probably somewhere, we want objects to hurt less than walls, unless special impact effects.
+	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
+	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
+		return
+	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+	C.take_organ_damage(damage)
+	if(!self_hurt)
+		take_damage(damage, BRUTE)
+	C.KnockDown(3 SECONDS)

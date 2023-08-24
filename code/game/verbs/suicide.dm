@@ -21,6 +21,11 @@
 
 	var/confirm = null
 	if(!forced)
+		if(ischangeling(src))
+			// the alternative is to allow clings to commit suicide, but then you'd probably have them
+			// killing themselves as soon as they're in cuffs
+			to_chat(src, "<span class='warning'>We refuse to take the coward's way out.</span>")
+			return
 		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 
 	if(stat == DEAD || suiciding) //We check again, because alerts sleep until a choice is made
@@ -76,21 +81,22 @@
 
 /mob/living/carbon/human/do_suicide()
 	var/obj/item/held_item = get_active_hand()
-	if(held_item)
-		var/damagetype = held_item.suicide_act(src)
-		if(damagetype)
-			if(damagetype & SHAME)
-				adjustStaminaLoss(200)
-				suiciding = FALSE
-				return
-			if(damagetype & OBLITERATION) // Does it gib or something? Don't deal damage
-				return
-			human_suicide(damagetype, held_item)
+	var/damagetype = SEND_SIGNAL(src, COMSIG_HUMAN_SUICIDE_ACT) || held_item?.suicide_act(src)
+
+	if(damagetype)
+		if(damagetype & SHAME)
+			adjustStaminaLoss(200)
+			suiciding = FALSE
 			return
+		if(damagetype & OBLITERATION) // Does it gib or something? Don't deal damage
+			return
+		human_suicide(damagetype, held_item)
+		return
+
 	for(var/obj/O in orange(1, src))
 		if(O.suicidal_hands)
 			continue
-		var/damagetype = O.suicide_act(src)
+		damagetype = O.suicide_act(src)
 		if(damagetype)
 			if(damagetype & SHAME)
 				adjustStaminaLoss(200)

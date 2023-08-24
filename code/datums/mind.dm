@@ -39,6 +39,7 @@
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 	var/datum/martial_art/martial_art
+	var/list/known_martial_arts = list()
 
 	var/role_alt_title
 
@@ -145,6 +146,7 @@
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
+	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<BR>"
@@ -591,7 +593,7 @@
 				def_value = "custom"
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
-			"assassinate", "blood", "debrain", "die", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
+			"assassinate", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
 			"nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
 		if(!new_obj_type)
 			return
@@ -674,10 +676,6 @@
 
 			if("survive")
 				new_objective = new /datum/objective/survive
-				new_objective.owner = src
-
-			if("die")
-				new_objective = new /datum/objective/die
 				new_objective.owner = src
 
 			if("nuclear")

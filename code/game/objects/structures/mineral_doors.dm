@@ -8,7 +8,7 @@
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 50, ACID = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
 	var/initial_state

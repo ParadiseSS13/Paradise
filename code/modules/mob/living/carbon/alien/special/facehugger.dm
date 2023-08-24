@@ -40,7 +40,7 @@
 	return attack_hand(user)
 
 /obj/item/clothing/mask/facehugger/attack_hand(mob/user)
-	if((stat == CONSCIOUS && !sterile) && !isalien(user))
+	if((stat != DEAD && !sterile) && !isalien(user))
 		if(Attach(user))
 			return
 	..()
@@ -74,7 +74,7 @@
 	return
 
 /obj/item/clothing/mask/facehugger/on_found(mob/finder)
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		return HasProximity(finder)
 	return 0
 
@@ -86,7 +86,7 @@
 /obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, dodgeable)
 	if(!..())
 		return
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		icon_state = "[initial(icon_state)]_thrown"
 		spawn(15)
 			if(icon_state == "[initial(icon_state)]_thrown")
@@ -94,23 +94,23 @@
 
 /obj/item/clothing/mask/facehugger/throw_impact(atom/hit_atom)
 	..()
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		icon_state = "[initial(icon_state)]"
 		Attach(hit_atom)
 
 /obj/item/clothing/mask/facehugger/proc/Attach(mob/living/M)
 	if(!isliving(M))
 		return FALSE
+	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
+		return FALSE
 	if(attached)
 		return FALSE
 	else
 		attached = TRUE
 		addtimer(VARSET_CALLBACK(src, attached, FALSE), impregnation_time)
-	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
-		return FALSE
 	if(loc == M)
 		return FALSE
-	if(stat != CONSCIOUS)
+	if(stat == DEAD)
 		return FALSE
 	if(!sterile)
 		M.take_organ_damage(strength, 0) //done here so that even borgs and humans in helmets take damage
@@ -147,7 +147,9 @@
 			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
 
 	GoIdle() //so it doesn't jump the people that tear it off
-
+	var/obj/structure/bed/nest/our_nest = M.buckled
+	if(istype(our_nest))
+		addtimer(CALLBACK(our_nest, TYPE_PROC_REF(/obj/structure/bed/nest, ghost_check)), 15 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(Impregnate), M), impregnation_time)
 	return TRUE
 

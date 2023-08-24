@@ -2,15 +2,15 @@
 	name = "party grenade"
 	desc = "Party time!"
 	icon_state = "confetti"
-	var/spawner_type = /obj/effect/decal/cleanable/confetti
 
 /obj/item/grenade/confetti/prime()
-	var/turf/T = get_turf(src)
-	playsound(T, 'sound/effects/confetti_partywhistle.ogg', 100, 1)
-	for(var/i in 1 to 20) //20 confettis. Yes.
-		var/atom/movable/x = new spawner_type
-		x.loc = T
-		for(var/j in 1 to rand(1, 4))
-			step(x, pick(NORTH,SOUTH,EAST,WEST))
-
+	confettisize(src, 20, 4) //20 confettis. Yes.
 	qdel(src)
+
+/proc/confettisize(turf/simulated/T, volume, range)
+	var/spawner_type = /obj/effect/decal/cleanable/confetti
+	playsound(T, 'sound/effects/confetti_partywhistle.ogg', 70, 1)
+	for(var/i in 1 to volume)
+		var/atom/movable/x = new spawner_type(T)
+		for(var/j in 1 to rand(1, range))
+			step(x, pick(NORTH,SOUTH,EAST,WEST))

@@ -1,5 +1,6 @@
 /datum/martial_art/krav_maga
 	name = "Krav Maga"
+	weight = 7 //Higher weight, since you can choose to put on or take off the gloves
 	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
@@ -9,7 +10,7 @@
 	name = "Neutral Stance - You relax, cancelling your last Krav Maga stance attack."
 	button_icon_state = "neutralstance"
 
-/datum/action/neutral_stance/Trigger()
+/datum/action/neutral_stance/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
 	if(!H.mind.martial_art.in_stance)
 		to_chat(owner, "<b><i>You cannot cancel an attack you haven't prepared!</i></b>")
@@ -23,13 +24,16 @@
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
 	button_icon_state = "neckchop"
 
-/datum/action/neck_chop/Trigger()
+/datum/action/neck_chop/Trigger(left_click)
+	var/mob/living/carbon/human/H = owner //This is a janky solution, but I want to refactor krav anyway and un-jank this (written in may 2023)
+	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
+		to_chat(owner, "<span class='warning'>You don't know how to do that right now.</span>")
+		return
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Neck Chop.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Neck Chop stance!</span>")
-	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
 	H.mind.martial_art.reset_combos()
@@ -38,7 +42,11 @@
 	name = "Leg Sweep - Trips the victim, rendering them prone and unable to move for a short time."
 	button_icon_state = "legsweep"
 
-/datum/action/leg_sweep/Trigger()
+/datum/action/leg_sweep/Trigger(left_click)
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
+		to_chat(owner, "<span class='warning'>You don't know how to do that right now.</span>")
+		return
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
@@ -47,7 +55,6 @@
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
-	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
 	H.mind.martial_art.reset_combos()
@@ -57,13 +64,16 @@
 	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
 	button_icon_state = "lungpunch"
 
-/datum/action/lung_punch/Trigger()
+/datum/action/lung_punch/Trigger(left_click)
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
+		to_chat(owner, "<span class='warning'>You don't know how to do that right now.</span>")
+		return
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Lung Punch.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Lung Punch stance!</span>")
-	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
@@ -169,4 +179,4 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 200, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)

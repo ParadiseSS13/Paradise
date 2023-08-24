@@ -201,11 +201,10 @@
 /obj/item/lava_staff
 	name = "staff of lava"
 	desc = "The power of fire and rocks in your hands!"
-	icon_state = "staffofstorms"
-	item_state = "staffofstorms"
+	icon_state = "lavastaff"
+	item_state = "lavastaff"
 	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = SLOT_BACK
-	item_state = "staffofstorms"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
@@ -234,13 +233,13 @@
 	if(is_type_in_typecache(target, banned_turfs))
 		return
 
-	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
+	if(!is_mining_level(user.z) && !iswizard(user)) //Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
 		timer = world.time + create_delay + 1
 		user.visible_message("<span class='danger'>[user]'s [src] malfunctions!</span>")
 		do_sparks(5, FALSE, user)
 		return
 
-	if(target in view(user.client.view, get_turf(user)))
+	if(target in view(user.client.maxview(), get_turf(user)))
 
 		var/turf/simulated/T = get_turf(target)
 		if(!istype(T))

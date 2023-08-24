@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 		var/image/I = GLOB.typing_indicator[bubble_icon]
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
-	if(ishuman(src))
+	if(ishuman(src) && !me)
 		var/mob/living/carbon/human/H = src
 		if(HAS_TRAIT(H, TRAIT_MUTE))
 			overlays -= GLOB.typing_indicator[bubble_icon]

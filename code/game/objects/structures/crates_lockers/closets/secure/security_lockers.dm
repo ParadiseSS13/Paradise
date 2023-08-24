@@ -65,6 +65,7 @@
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/reagent_containers/food/drinks/flask/barflask(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -86,6 +87,7 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/box/holobadge(src)
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -269,12 +271,11 @@
 	open_door_sprite = "chaplain_door"
 
 /obj/structure/closet/secure_closet/iaa/populate_contents()
-	new /obj/item/storage/bag/garment/iaa(src)
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/box/tapes(src)
+	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/radio/headset/headset_iaa(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/radio/headset/headset_iaa(src)

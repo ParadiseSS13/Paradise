@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(pai_software_by_key)
 	data["app_template"] = active_software.template_file
 	data["app_icon"] = active_software.ui_icon
 	data["app_title"] = active_software.name
-	data["app_data"] = active_software.get_app_data(user)
+	data["app_data"] = active_software.get_app_data(src)
 
 	return data
 

@@ -14,6 +14,7 @@
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
 	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda)
+	inherent_factions = list("jungle", "monkey")
 	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
@@ -37,6 +38,12 @@
 	total_health = 75
 	brute_mod = 1.5
 	burn_mod = 1.5
+	hunger_drain = HUNGER_FACTOR / 2 // twice as slow as normal
+
+/datum/species/monkey/handle_mutations_and_radiation(mob/living/carbon/human/H)
+	. = ..()
+	if(H.radiation > RAD_MOB_GORILLIZE && prob(RAD_MOB_GORILLIZE_PROB))
+		H.gorillize()
 
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)

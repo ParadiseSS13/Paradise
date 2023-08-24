@@ -629,3 +629,30 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 						'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
 			user << pick(creepyasssounds)
+
+
+/obj/item/camera/proc/build_composite_icon(atom/A)
+	var/icon/composite = icon(A.icon, A.icon_state, A.dir, 1)
+	for(var/O in A.overlays)
+		var/image/I = O
+		composite.Blend(icon(I.icon, I.icon_state, I.dir, 1), ICON_OVERLAY)
+	return composite
+
+/obj/item/camera/proc/sort_atoms_by_layer(list/atoms)
+	// Comb sort icons based on levels
+	var/list/result = atoms.Copy()
+	var/gap = result.len
+	var/swapped = 1
+	while(gap > 1 || swapped)
+		swapped = 0
+		if(gap > 1)
+			gap = round(gap / 1.3) // 1.3 is the emperic comb sort coefficient
+		if(gap < 1)
+			gap = 1
+		for(var/i = 1; gap + i <= result.len; i++)
+			var/atom/l = result[i]		//Fucking hate
+			var/atom/r = result[gap+i]	//how lists work here
+			if(l.layer > r.layer)		//no "result[i].layer" for me
+				result.Swap(i, gap + i)
+				swapped = 1
+	return result

@@ -10,7 +10,7 @@
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 0, FIRE = 80, ACID = 80)
 	/// How many seconds does the knockdown last for?
 	var/knockdown_duration = 10 SECONDS
 	/// how much stamina damage does this baton do?
@@ -165,7 +165,9 @@
 			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		return
-
+	if(user.mind?.martial_art?.no_baton)
+		to_chat(user, user.mind.martial_art.no_baton_reason)
+		return
 	if(issilicon(M)) // Can't stunbaton borgs and AIs
 		return ..()
 
@@ -207,7 +209,8 @@
 		H.SetStuttering(10 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
-	addtimer(CALLBACK(src, PROC_REF(baton_knockdown), L, user_UID, knockdown_duration), knockdown_delay)
+	L.apply_status_effect(STATUS_EFFECT_DELAYED, knockdown_delay, CALLBACK(L, TYPE_PROC_REF(/mob/living/, KnockDown), knockdown_duration), COMSIG_LIVING_CLEAR_STUNS)
+	addtimer(CALLBACK(src, PROC_REF(baton_delay), L, user_UID), knockdown_delay)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
@@ -221,8 +224,7 @@
 	deductcharge(hitcost)
 	return TRUE
 
-/obj/item/melee/baton/proc/baton_knockdown(mob/living/target, user_UID, knockdown_duration)
-	target.KnockDown(knockdown_duration)
+/obj/item/melee/baton/proc/baton_delay(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
 /obj/item/melee/baton/emp_act(severity)

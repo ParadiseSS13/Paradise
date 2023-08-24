@@ -62,7 +62,7 @@
 		U.suicide() // This will display a prompt for confirmation first.
 		return
 
-	if(M.dir != U.dir)
+	if(M.dir != U.dir && !M.incapacitated())
 		to_chat(user, "<span class='warning'>You cannot use [src] on [M] from that angle!</span>")
 		return
 
@@ -154,7 +154,10 @@
 
 
 	strangling.AbsoluteSilence(6 SECONDS) // Non-improvised effects
-	strangling.apply_damage(4, OXY, "head")
+	if(G.state == GRAB_KILL)
+		strangling.PreventOxyHeal(6 SECONDS)
+		strangling.AdjustLoseBreath(6 SECONDS)
+		strangling.apply_damage(4, OXY, "head")
 
 
 /obj/item/twohanded/garrote/suicide_act(mob/user)

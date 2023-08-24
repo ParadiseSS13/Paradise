@@ -568,10 +568,6 @@
 	name = "Emo Alt"
 	icon_state = "emo2"
 
-/datum/sprite_accessory/hair/sargeant // TODO: Remove this typepath due to redundancy - Ansari
-	name = "Flat Top"
-	icon_state = "sergeant"
-
 /datum/sprite_accessory/hair/rows2
 	name = "Rows 2"
 	icon_state = "rows2"

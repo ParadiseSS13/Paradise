@@ -77,6 +77,8 @@
 		wear_suit = null
 		if(I.flags_inv & HIDEJUMPSUIT)
 			update_inv_w_uniform()
+		if(I.flags_inv & HIDESHOES)
+			update_inv_shoes()
 		update_inv_wear_suit()
 	else if(I == w_uniform)
 		if(r_store)
@@ -279,6 +281,8 @@
 			update_inv_shoes()
 		if(slot_wear_suit)
 			wear_suit = I
+			if(wear_suit.flags_inv & HIDESHOES)
+				update_inv_shoes()
 			update_inv_wear_suit()
 		if(slot_w_uniform)
 			w_uniform = I
@@ -295,7 +299,12 @@
 		if(slot_in_backpack)
 			if(get_active_hand() == I)
 				unEquip(I)
-			I.forceMove(back)
+			if(ismodcontrol(back))
+				var/obj/item/mod/control/C = back
+				if(C.bag)
+					I.forceMove(C.bag)
+			else
+				I.forceMove(back)
 		if(slot_tie)
 			var/obj/item/clothing/under/uniform = src.w_uniform
 			uniform.attackby(I, src)

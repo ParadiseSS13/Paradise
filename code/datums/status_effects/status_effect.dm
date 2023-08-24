@@ -146,6 +146,14 @@
 			if(initial(S1.id) == S.id)
 				return S
 
+/// Returns the effect if the mob calling the proc owns the given status effect, but checks by type.
+/mob/living/proc/has_status_effect_type(effect)
+	if(!length(status_effects))
+		return
+	for(var/datum/status_effect/S in status_effects)
+		if(istype(S, effect))
+			return S
+
 /// Returns a list of effects with matching IDs that the mod owns; use for effects there can be multiple of
 /mob/living/proc/has_status_effect_list(effect)
 	. = list()

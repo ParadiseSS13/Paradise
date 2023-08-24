@@ -140,10 +140,10 @@
 		if(!M.radiation)
 			to_chat(user, "<span class='notice'>[bicon(src)] Radiation levels within normal boundaries.</span>")
 		else
-			to_chat(user, "<span class='boldannounce'>[bicon(src)] Subject is irradiated. Radiation levels: [M.radiation].</span>")
+			to_chat(user, "<span class='boldannounce'>[bicon(src)] Subject is irradiated. Radiation levels: [M.radiation] rads.</span>")
 
 	if(rad_strength)
-		to_chat(user, "<span class='boldannounce'>[bicon(src)] Target contains radioactive contamination. Radioactive strength: [rad_strength]</span>")
+		to_chat(user, "<span class='boldannounce'>[bicon(src)] Target contains radioactive contamination. Radioactive strength: [rad_strength] rads.</span>")
 	else
 		to_chat(user, "<span class='notice'>[bicon(src)] Target is free of radioactive contamination.</span>")
 

@@ -67,6 +67,7 @@
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
 	item_state = "dodgeball"
+	dribbleable = TRUE
 
 /obj/item/beach_ball/dodgeball_team/throw_impact(atom/hit_atom)
 	..()

@@ -23,7 +23,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect_system/spark_spread/spark_system
@@ -260,8 +260,11 @@
 	if(world.time < lastused + spawndelay)
 		return
 
-
 	var/turf/T = get_turf(target)
+
+	if(!T)
+		return
+
 	if(target != T)
 		// We only check the rpd_act of the target if it isn't the turf, because otherwise
 		// (A) blocked turfs can be acted on, and (B) unblocked turfs get acted on twice.
@@ -282,7 +285,7 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		if(get_dist(src, T) <= (user.client.view + 2))\
+		if(get_dist(src, T) <= (user.client.maxview() + 2))\
 			user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		else
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")

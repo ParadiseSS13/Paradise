@@ -93,7 +93,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 5, ACID = 5)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
@@ -111,7 +111,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 
@@ -125,7 +125,7 @@
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 35, ACID = 150)
+	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 35, ACID = 150)
 	magical = TRUE
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
@@ -137,7 +137,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 35, ACID = 150)
+	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 35, ACID = 150)
 	magical = TRUE
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
@@ -147,7 +147,7 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 20, BOMB = 50, BIO = 20, RAD = 20, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 20, BOMB = 50, RAD = 20, FIRE = 50, ACID = 75)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
@@ -159,7 +159,7 @@
 	name = "empowered cultist hood"
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
@@ -203,7 +203,7 @@
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, BIO = -25, RAD = -25, FIRE = 0, ACID = 0)
+	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, RAD = -25, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -236,7 +236,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, BIO = -25, RAD = -25, FIRE = 0, ACID = 0)
+	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, RAD = -25, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
@@ -338,8 +338,9 @@
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
 		var/turf/turf_behind = get_turf(get_step(T, turn(C.dir, 180)))
-		pulled.forceMove(turf_behind)
-		. = pulled
+		if(!pulled.anchored) //Item may have been anchored while pulling, and pulling state isn't updated until you move away, so we double check.
+			pulled.forceMove(turf_behind)
+			. = pulled
 
 /obj/item/cult_shift/attack_self(mob/user)
 
@@ -404,7 +405,7 @@
 	item_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 50, BULLET = 20, LASER = 50, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 50, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	flags_inv = HIDEJUMPSUIT
 	flags = NODROP | DROPDEL
 
@@ -616,7 +617,7 @@
 					L.Stuttering(16 SECONDS)
 					L.CultSlur(20 SECONDS)
 					L.Jitter(16 SECONDS)
-		break_spear(T)
+			break_spear(T)
 	else
 		..()
 

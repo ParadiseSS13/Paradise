@@ -6,6 +6,8 @@
 // Can hold items and human size things, no other draggables
 // Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
 #define SEND_PRESSURE 0.05*ONE_ATMOSPHERE
+/// How frequently disposals can make sounds, to prevent huge sound stacking
+#define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
 
 /obj/machinery/disposal
 	name = "disposal unit"
@@ -15,7 +17,7 @@
 	anchored = TRUE
 	density = TRUE
 	on_blueprints = TRUE
-	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
 	max_integrity = 200
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	resistance_flags = FIRE_PROOF
@@ -189,14 +191,18 @@
 	if(isanimal(user) && target != user)
 		return //animals cannot put mobs other than themselves into disposal
 	src.add_fingerprint(user)
-	var/target_loc = target.loc
-	var/msg
 	for(var/mob/V in viewers(usr))
 		if(target == user && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 			V.show_message("[usr] starts climbing into the disposal.", 3)
 		if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 			if(target.anchored) return
 			V.show_message("[usr] starts stuffing [target.name] into the disposal.", 3)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disposal, put_in), target, user)
+	return TRUE
+
+/obj/machinery/disposal/proc/put_in(mob/living/target, mob/living/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
+	var/msg
+	var/target_loc = target.loc
 	if(!do_after(usr, 20, target = target))
 		return
 	if(QDELETED(src) || target_loc != target.loc)
@@ -223,7 +229,6 @@
 		C.show_message(msg, 3)
 
 	update()
-	return
 
 // attempt to move while inside
 /obj/machinery/disposal/relaymove(mob/user as mob)
@@ -461,7 +466,7 @@
 		H.tomail = 1
 
 	sleep(10)
-	if(last_sound < world.time + 1)
+	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
@@ -496,7 +501,10 @@
 /obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)
 
 	var/turf/target
-	playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+		playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
+		last_sound = world.time
+
 	if(H) // Somehow, someone managed to flush a window which broke mid-transit and caused the disposal to go in an infinite loop trying to expel null, hopefully this fixes it
 		for(var/atom/movable/AM in H)
 			target = get_offset_target_turf(src.loc, rand(5)-rand(5), rand(5)-rand(5))
@@ -724,12 +732,14 @@
 	dir = 0				// dir will contain dominant direction for junction pipes
 	var/health = 10 	// health points 0-10
 	max_integrity = 200
-	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
 	damage_deflection = 10
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	base_icon_state	// initial icon state on map
+	/// The last time a sound was played from this
+	var/last_sound
 
 	// new pipe, set the icon_state as on map
 /obj/structure/disposalpipe/Initialize(mapload)
@@ -838,7 +848,10 @@
 		else						// otherwise limit to 10 tiles
 			target = get_ranged_target_turf(T, direction, 10)
 
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
+			last_sound = world.time
+
 		if(H)
 			for(var/atom/movable/AM in H)
 				AM.forceMove(T)
@@ -853,7 +866,9 @@
 
 	else	// no specified direction, so throw in random direction
 
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
+			last_sound = world.time
 		if(H)
 			for(var/atom/movable/AM in H)
 				target = get_offset_target_turf(T, rand(5)-rand(5), rand(5)-rand(5))
@@ -1375,6 +1390,8 @@
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
 	var/mode = FALSE // Is the maintenance panel open? Different than normal disposal's mode
+	/// The last time a sound was played
+	var/last_sound
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
@@ -1398,18 +1415,26 @@
 /obj/structure/disposaloutlet/proc/expel(animation = TRUE)
 	if(animation)
 		flick("outlet-open", src)
-		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
+		var/play_sound = FALSE
+		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+			play_sound = TRUE
+			last_sound = world.time
+		if(play_sound)
+			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, FALSE)
 		sleep(20)	//wait until correct animation frame
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(play_sound)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(loc)
 		AM.pipe_eject(dir)
-		if(isdrone(AM) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+		if(QDELETED(AM))
 			return
-		spawn(5)
-			if(QDELETED(AM))
+		if(isliving(AM))
+			var/mob/living/mob_to_immobilize = AM
+			if(isdrone(mob_to_immobilize) || istype(mob_to_immobilize, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 				return
-			AM.throw_at(target, 3, 1)
+			mob_to_immobilize.Immobilize(1 SECONDS)
+		AM.throw_at(target, 3, 1)
 
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)

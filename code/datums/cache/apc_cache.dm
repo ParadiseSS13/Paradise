@@ -1,6 +1,6 @@
 GLOBAL_DATUM_INIT(apc_repository, /datum/repository/apc, new())
 
-/datum/repository/apc/proc/apc_data(datum/powernet/powernet)
+/datum/repository/apc/proc/apc_data(datum/regional_powernet/powernet)
 	var/apcData[0]
 
 	var/datum/cache_entry/cache_entry = cache_data

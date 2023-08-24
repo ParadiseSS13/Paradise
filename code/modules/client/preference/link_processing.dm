@@ -937,6 +937,30 @@
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
 
+				if("mam")
+					toggles2 ^= PREFTOGGLE_2_MOD_ACTIVATION_METHOD
+
+
+				if("setviewrange")
+					var/list/viewrange_options = list(
+						"15x15 (Classic)" = "15x15",
+						"17x15 (Wide)" = "17x15",
+						"19x15 (Ultrawide)" = "19x15"
+					)
+
+					var/new_range = input(user, "Select a view range") as anything in viewrange_options
+					var/actual_new_range = viewrange_options[new_range]
+
+					viewrange = actual_new_range
+
+					if(actual_new_range != parent.view)
+						parent.view = actual_new_range
+						// Update the size of the click catcher
+						var/list/actualview = getviewsize(parent.view)
+						parent.void.UpdateGreed(actualview[1],actualview[2])
+
+					parent.debug_text_overlay.update_view(parent)
+
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
 						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \

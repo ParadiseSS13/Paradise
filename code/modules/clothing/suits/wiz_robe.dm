@@ -4,7 +4,7 @@
 	icon_state = "wizard"
 	gas_transfer_coefficient = 0.01 // IT'S MAGICAL OKAY JEEZ +1 TO NOT DIE
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	//Not given any special protective value since the magic robes are full-body protection --NEO
 	strip_delay = 50
@@ -49,7 +49,7 @@
 	icon_state = "wizard-fake"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	magical = FALSE
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
@@ -88,8 +88,9 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
-	allowed = list(/obj/item/teleportation_scroll)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	allowed = list(/obj/item/teleportation_scroll, /obj/item/gun/magic/staff, /obj/item/melee/ghost_sword, /obj/item/lava_staff, /obj/item/hierophant_club)
+	max_suit_w = WEIGHT_CLASS_HUGE
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50
 	put_on_delay = 50
@@ -156,7 +157,7 @@
 	item_state = "wizrobe"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
@@ -166,7 +167,7 @@
 	icon_state = "marisa"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
@@ -177,7 +178,7 @@
 	item_state = "marisarobe"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
@@ -196,7 +197,7 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	slowdown = 0
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
@@ -218,7 +219,7 @@
 	item_color = "wiz"
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	actions_types = list() //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE

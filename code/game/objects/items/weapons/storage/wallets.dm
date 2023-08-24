@@ -33,6 +33,10 @@
 
 	var/obj/item/card/id/front_id = null
 
+	// allows for clicking of stuff on our person/on the ground to put in the wallet, so easy to stick your ID in your wallet
+	use_to_pickup = TRUE
+	pickup_all_on_tile = FALSE
+
 
 /obj/item/storage/wallet/remove_from_storage(obj/item/I, atom/new_location)
 	. = ..()
@@ -57,35 +61,32 @@
 		if(wearing_human.wear_id == src)
 			wearing_human.sec_hud_set_ID()
 
-	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
-/obj/item/storage/wallet/update_icon_state()
-	if(front_id)
-		switch(front_id.icon_state)
-			if("silver")
-				icon_state = "walletid_silver"
-				return
-			if("gold")
-				icon_state = "walletid_gold"
-				return
-			if("centcom")
-				icon_state = "walletid_centcom"
-				return
-			else
-				icon_state = "walletid"
-				return
-	icon_state = "wallet"
+/obj/item/storage/wallet/update_overlays()
+	. = ..()
+	if(!front_id)
+		return
+	. += mutable_appearance(front_id.icon, front_id.icon_state)
+	. += front_id.overlays
+	. += mutable_appearance(icon, "wallet_overlay")
 
+	// fuck yeah, ass photo in my wallet
+	var/obj/item/photo/photo = locate(/obj/item/photo) in contents
+	if(!photo)
+		return
+	var/mutable_appearance/MA = mutable_appearance(photo.appearance)
+	MA.pixel_x = 11
+	MA.pixel_y = 1
+	. += MA
+	. += mutable_appearance(icon, "photo_overlay")
 
 /obj/item/storage/wallet/update_name(updates)
 	. = ..()
 	if(front_id)
 		name = "wallet displaying [front_id]"
 	else
-		name = get_empty_wallet_name()
-
-/obj/item/storage/wallet/proc/get_empty_wallet_name()
-	return initial(name)
+		name = initial(name)
 
 /obj/item/storage/wallet/GetID()
 	return front_id
@@ -112,62 +113,9 @@
 		new cash(src)
 	new coin(src)
 
-//////////////////////////////////////
-//			Color Wallets			//
-//////////////////////////////////////
 
-/obj/item/storage/wallet/color
+// Arcade Wallet
+/obj/item/storage/wallet/cheap
 	name = "cheap wallet"
-	desc = "A cheap wallet from the arcade."
+	desc = "A cheap and flimsy wallet from the arcade."
 	storage_slots = 5		//smaller storage than normal wallets
-
-/obj/item/storage/wallet/color/Initialize(mapload)
-	. = ..()
-	if(!item_color)
-		var/color_wallet = pick(subtypesof(/obj/item/storage/wallet/color))
-		new color_wallet(loc)
-		qdel(src)
-		return
-	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
-
-/obj/item/storage/wallet/color/update_desc(updates)
-	. = ..()
-	desc = "A cheap, [item_color] wallet from the arcade."
-
-/obj/item/storage/wallet/color/update_icon_state()
-	if(front_id)
-		switch(front_id.icon_state)
-			if("silver")
-				icon_state = "[item_color]_walletid_silver"
-				return
-			if("gold")
-				icon_state = "[item_color]_walletid_gold"
-				return
-			if("centcom")
-				icon_state = "[item_color]_walletid_centcom"
-				return
-			else
-				icon_state = "[item_color]_walletid"
-				return
-	icon_state = "[item_color]_wallet"
-
-/obj/item/storage/wallet/color/blue
-	item_color = "blue"
-
-/obj/item/storage/wallet/color/red
-	item_color = "red"
-
-/obj/item/storage/wallet/color/yellow
-	item_color = "yellow"
-
-/obj/item/storage/wallet/color/green
-	item_color = "green"
-
-/obj/item/storage/wallet/color/pink
-	item_color = "pink"
-
-/obj/item/storage/waller/color/brown
-	item_color = "brown"
-
-/obj/item/storage/wallet/color/get_empty_wallet_name()
-	return "cheap [item_color] wallet"

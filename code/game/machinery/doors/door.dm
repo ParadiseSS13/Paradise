@@ -9,7 +9,7 @@
 	layer = OPEN_DOOR_LAYER
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	max_integrity = 350
-	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
@@ -22,6 +22,7 @@
 	// Whether the door is bolted or not.
 	var/locked = FALSE
 	var/glass = FALSE
+	var/reinforced_glass = FALSE
 	var/welded = FALSE
 	var/normalspeed = TRUE
 	var/auto_close_time = 150
@@ -60,6 +61,7 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
+	update_icon()
 	air_update_turf(1)
 
 /obj/machinery/door/proc/set_init_door_layer()
@@ -103,9 +105,6 @@
 			return
 		if(isliving(AM))
 			var/mob/living/M = AM
-			if(world.time - M.last_bumped <= 10)
-				return	//Can bump-open one airlock per second. This is to prevent shock spam.
-			M.last_bumped = world.time
 			if(M.restrained() && !check_access(null))
 				return
 			if(M.mob_size > MOB_SIZE_TINY)
@@ -115,9 +114,6 @@
 	if(ismecha(AM))
 		var/obj/mecha/mecha = AM
 		if(density)
-			if(mecha.occupant)
-				if(world.time - mecha.occupant.last_bumped <= 10)
-					return
 			if(mecha.occupant && allowed(mecha.occupant) || check_access_list(mecha.operation_req_access))
 				if(HAS_TRAIT(src, TRAIT_CMAGGED))
 					cmag_switch(FALSE, mecha.occupant)
@@ -457,30 +453,31 @@
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
 
-/obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
-	if(opacity || heat_proof)
+/obj/machinery/door/BlockSuperconductivity() // Only heatproof airlocks block heat, currently only varedited doors have this
+	if(heat_proof)
 		return 1
 	return 0
 
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)
+		. = list()
 		set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 		if(unres_sides & NORTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
 			I.pixel_y = 32
-			add_overlay(I)
+			. += I
 		if(unres_sides & SOUTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
 			I.pixel_y = -32
-			add_overlay(I)
+			. += I
 		if(unres_sides & EAST)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
 			I.pixel_x = 32
-			add_overlay(I)
+			. += I
 		if(unres_sides & WEST)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
 			I.pixel_x = -32
-			add_overlay(I)
+			. += I
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
