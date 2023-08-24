@@ -113,9 +113,7 @@
 
 /obj/item/reagent_containers/food/snacks/twimsts/attack_self(mob/user)
 	var/obj/item/restraints/handcuffs/twimsts/L = new /obj/item/restraints/handcuffs/twimsts
-	var/datum/reagents/R = L.create_reagents(100)
-	L.reagents = R // Assign the new datum to the objects reagents var
-	R.my_atom = src // set the holders my_atom to src so that we know where we are.
+	L.create_reagents(100)
 	reagents.copy_to(L, reagents.total_volume)
 	user.unEquip(src)
 	var/obj/item/trash_item = generate_trash(user)
