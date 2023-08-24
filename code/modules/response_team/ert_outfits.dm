@@ -460,7 +460,7 @@
 	name = "Blob"
 	items = list(/obj/item/grenade/flashbang)
 	non_security_weapons = list(/obj/item/gun/energy/gun/nuclear)
-	security_only_weapons = list(/obj/item/gun/energy/gun/nuclear)
+	security_only_weapons = list(/obj/item/gun/projectile/automatic/lasercarbine, /obj/item/ammo_box/magazine/laser/ert, /obj/item/ammo_box/magazine/laser/ert)
 
 /datum/loadout/changelings
 	name = "Changelings"
