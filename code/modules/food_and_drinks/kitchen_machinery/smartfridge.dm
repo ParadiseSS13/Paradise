@@ -142,11 +142,6 @@
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return
 
-	if (istype(O, /obj/item/gripper))
-		var/obj/item/gripper/G = O
-		if (G.gripped_item)
-			O = G.gripped_item /// Borgs can fully operate fridges
-
 	add_fingerprint(user)
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
@@ -296,7 +291,15 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return FALSE
 		else
-			if(istype(I.loc, /obj/item/storage))
+			if(istype(I, /obj/item/gripper))
+				var/obj/item/gripper/gripper = I
+				var/obj/item/gripped_item = gripper.gripped_item
+				gripper.drop_gripped_item(silent = TRUE)
+				I = gripped_item
+				I.do_pickup_animation(src)
+				I.forceMove(src)
+
+			else if(istype(I.loc, /obj/item/storage))
 				var/obj/item/storage/S = I.loc
 				if(user)
 					S.remove_from_storage(I, user.drop_location())
@@ -304,6 +307,7 @@
 					I.forceMove(src)
 				else
 					S.remove_from_storage(I, src)
+
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
 				if(M.get_active_hand() == I)
@@ -352,8 +356,11 @@
   * Arguments:
   * * O - The item to check.
   */
-/obj/machinery/smartfridge/proc/accept_check(obj/item/O)
-	return is_type_in_typecache(O, accepted_items_typecache)
+/obj/machinery/smartfridge/proc/accept_check(obj/item/I)
+	if(istype(I, /obj/item/gripper))
+		var/obj/item/gripper/gripper = I
+		I = gripper.gripped_item
+	return is_type_in_typecache(I, accepted_items_typecache)
 
 /**
   * # Syndie Fridge
