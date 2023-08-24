@@ -311,7 +311,7 @@
 		/obj/item/storage/pill_bottle/ert_gamma = 1,
 		/obj/item/storage/pill_bottle/patch_pack/ert/gamma = 1,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
- 		/obj/item/reagent_containers/hypospray/autoinjector = 1)
+		/obj/item/reagent_containers/hypospray/autoinjector = 1)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/l,
