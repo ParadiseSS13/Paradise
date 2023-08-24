@@ -362,6 +362,8 @@
 		return
 	if(panel_open)
 		if(istype(I, /obj/item/crowbar))
+			if(locked)
+				to_chat(user, "<span class='warning'>The security system prevents you from deconstructing [src]!</span>")
 			dump_contents()
 			default_deconstruction_crowbar(user, I)
 			return
