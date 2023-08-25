@@ -117,6 +117,7 @@
 		return FALSE
 
 	if(!user.IsAdvancedToolUser())
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return FALSE
 
 	var/attack_log = "injected with the Isolated [name]"
@@ -284,28 +285,6 @@
 
 /obj/item/dnainjector/antiregenerate/Initialize()
 	block = GLOB.regenerateblock
-	..()
-
-/obj/item/dnainjector/runfast
-	name = "DNA-Injector (Increase Run)"
-	desc = "Running Man."
-	datatype = DNA2_BUF_SE
-	value = 0xFFF
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/runfast/Initialize()
-	block = GLOB.increaserunblock
-	..()
-
-/obj/item/dnainjector/antirunfast
-	name = "DNA-Injector (Anti-Increase Run)"
-	desc = "Walking Man."
-	datatype = DNA2_BUF_SE
-	value = 0x001
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/antirunfast/Initialize()
-	block = GLOB.increaserunblock
 	..()
 
 /obj/item/dnainjector/morph

@@ -112,3 +112,5 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isradio(A) istype(A, /obj/item/radio)
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 
+// Modsuits
+#define ismodcontrol(A) istype(A, /obj/item/mod/control)

@@ -138,7 +138,7 @@
 	desc = "A device used for illegally interfacing with doors."
 	icon_state = "hacktool"
 	item_state = "hacktool"
-	var/hack_speed = 30
+	var/hack_speed = 1.5 SECONDS
 	var/busy = FALSE
 
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)

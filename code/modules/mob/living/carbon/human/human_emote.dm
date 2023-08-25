@@ -60,6 +60,32 @@
 	message = "raises an eyebrow."
 	message_param = "raises an eyebrow at %t."
 
+/datum/emote/living/carbon/human/wince
+	key = "wince"
+	key_third_person = "winces"
+	message = "winces."
+	message_param = "winces at %t."
+
+/datum/emote/living/carbon/human/squint
+	key = "squint"
+	key_third_person = "squints"
+	message = "squints."
+	message_param = "squints at %t."
+
+/datum/emote/living/carbon/human/facepalm
+	key = "facepalm"
+	key_third_person = "facepalms"
+	message = "facepalms."
+	hands_use_check = TRUE
+	sound = 'sound/weapons/slap.ogg'
+	emote_type = EMOTE_SOUND
+	volume = 50
+
+/datum/emote/living/carbon/human/palm
+	key = "palm"
+	message = "extends their palm expectingly."
+	message_param = "extends their palm expectingly towards %t."
+
 /datum/emote/living/carbon/human/grumble
 	key = "grumble"
 	key_third_person = "grumbles"
@@ -599,17 +625,10 @@
 	species_type_whitelist_typecache = list(/datum/species/diona)
 	sound = "sound/voice/dionatalk1.ogg"
 
-/datum/emote/living/carbon/human/squish
-	key = "squish"
-	key_third_person = "squishes"
-	message = "squishes."
-	message_param = "squishes at %t."
-	emote_type = EMOTE_SOUND
-	age_based = TRUE
-	// Credit to DrMinky (freesound.org) for the sound.
-	sound = "sound/effects/slime_squish.ogg"
+/datum/emote/living/carbon/human/slime
 
-/datum/emote/living/carbon/human/squish/can_run_emote(mob/user, status_check, intentional)
+
+/datum/emote/living/carbon/human/slime/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -621,6 +640,41 @@
 			if(istype(L.dna.species, /datum/species/slime))
 				return TRUE
 	return FALSE
+
+/datum/emote/living/carbon/human/slime/squish
+	key = "squish"
+	key_third_person = "squishes"
+	message = "squishes."
+	message_param = "squishes at %t."
+	emote_type = EMOTE_SOUND
+	age_based = TRUE
+	// Credit to DrMinky (freesound.org) for the sound.
+	sound = "sound/effects/slime_squish.ogg"
+
+/datum/emote/living/carbon/human/slime/bubble
+	key = "bubble"
+	key_third_person = "bubbles"
+	message = "bubbles."
+	message_param = "bubbles at %t."
+	emote_type = EMOTE_SOUND
+	age_based = TRUE
+	// Sound is CC-4.0 by Audiolarx
+	// Effect is cut out of original clip
+	// https://freesound.org/people/audiolarx/sounds/263945/
+	sound = 'sound/effects/mob_effects/slime_bubble.ogg'
+
+/datum/emote/living/carbon/human/slime/pop
+	key = "pop"
+	key_third_person = "pops"
+	message = "makes a popping sound."
+	message_param = "makes a popping sound at %t."
+	message_mime = "makes a silent pop."
+	emote_type = EMOTE_SOUND
+	age_based = TRUE
+	// CC0
+	// https://freesound.org/people/greenvwbeetle/sounds/244653/
+	sound = 'sound/effects/mob_effects/slime_pop.ogg'
+	volume = 50
 
 /datum/emote/living/carbon/human/howl
 	key = "howl"

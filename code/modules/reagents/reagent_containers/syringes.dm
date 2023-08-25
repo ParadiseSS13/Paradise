@@ -18,6 +18,8 @@
 	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
+	///If this variable is true, the syringe will work through hardsuits / modsuits / biosuits.
+	var/penetrates_thick = FALSE
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
@@ -63,7 +65,7 @@
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		if(!L.can_inject(user, TRUE))
+		if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick))
 			return
 
 	switch(mode)
@@ -120,7 +122,7 @@
 				return
 
 			if(L) //living mob
-				if(!L.can_inject(user, TRUE))
+				if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick))
 					return
 				if(L != user)
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
