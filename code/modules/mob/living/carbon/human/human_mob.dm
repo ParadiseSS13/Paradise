@@ -435,18 +435,10 @@
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
 /mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "No id", if_no_job = "No job")
-	var/obj/item/pda/pda = wear_id
-	if(istype(pda))
-		if(pda.id)
-			return pda.id.rank
-		else
-			return pda.ownrank
-	else
-		var/obj/item/card/id/id = get_idcard()
-		if(id)
-			return id.rank ? id.rank : if_no_job
-		else
-			return if_no_id
+	var/obj/item/card/id/id = wear_id.GetID()
+	if(istype(id))
+		return id.rank ? id.rank : if_no_job
+	return if_no_id
 
 //gets assignment from ID, PDA, Wallet, etc.
 //This should not be relied on for authentication, because PDAs show their owner's job, even if an ID is not inserted
