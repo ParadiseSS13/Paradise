@@ -703,8 +703,6 @@
 	items = list(/obj/item/reagent_containers/food/snacks/grown/potato)
 	result = /obj/item/reagent_containers/food/snacks/mashed_potatoes
 
-
-
 //////////////////////////////////////////
 // bs12 food port stuff
 //////////////////////////////////////////
