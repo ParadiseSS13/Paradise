@@ -368,7 +368,7 @@
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(reagents.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
+	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
 		return
 	if(rotting)
