@@ -437,7 +437,7 @@
 /mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "No id", if_no_job = "No job")
 	var/obj/item/card/id/id = wear_id.GetID()
 	if(istype(id))
-		return id.rank ? id.rank : if_no_job
+		return id.rank || if_no_job
 	return if_no_id
 
 //gets assignment from ID, PDA, Wallet, etc.
