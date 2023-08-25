@@ -45,7 +45,7 @@
 
 /datum/chemical_reaction/bbqsauce
 	name = "BBQ Sauce"
-	id="bbqsauce"
+	id = "bbqsauce"
 	result = "bbqsauce"
 	required_reagents = list("ash" = 10, "tomatojuice" = 10, "blackpepper" = 1)
 	result_amount = 10
