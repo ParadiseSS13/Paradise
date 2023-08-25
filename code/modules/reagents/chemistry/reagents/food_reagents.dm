@@ -146,7 +146,7 @@
 	description = "Sweet, smoky, savory, and gets everywhere. Perfect for grilling."
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	reagent_state = LIQUID
-	color = "#78280A" //rbg: 120 40, 10
+	color = "#78280A" // rbg: 120, 40, 10
 	taste_mult = 2.5
 	taste_description = "smokey sweetness"
 
