@@ -802,3 +802,5 @@
 	#define COMPONENT_SCANNED_NORMAL (1<<1)
 	/// The scanner is within critical range of a rift
 	#define COMPONENT_SCANNED_CRITICAL (1<<2)
+	/// There are no servers available
+	#define COMPONENT_SCANNED_NO_SERVERS (1<<3)

@@ -68,7 +68,7 @@ REAGENT SCANNER
 	scan_range = 3
 	pulse_duration = 80
 	origin_tech = null
-	materials = null
+	materials = list()
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/t_scanner/Destroy()

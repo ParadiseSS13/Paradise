@@ -85,45 +85,28 @@
 
 /datum/brs_event_container/normal
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Ничего",					/datum/event/nothing,					400),
-
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Стенной грибок",			/datum/event/wallrot, 					50,		list(ASSIGNMENT_ENGINEER = 10)),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Отходы из вытяжек",		/datum/event/vent_clog,					100),
-
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Массовые галлюцинации",	/datum/event/mass_hallucination,		400),
-
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Сбой работы дверей",		/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_AI = 50)),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Телекоммуникационный сбой",/datum/event/communications_blackout,	100),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Замыкание ЛКП",			/datum/event/apc_short, 				300,	list(ASSIGNMENT_ENGINEER = 25)),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Перегрузка ЛКП",			/datum/event/apc_overload,				300,	list(ASSIGNMENT_ENGINEER = 25)),
-
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Пространственный разрыв",	/datum/event/tear,						50,		list(ASSIGNMENT_SECURITY = 25)),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Червоточины",				/datum/event/wormholes,					100),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Атмосферная аномалия",		/datum/event/anomaly/anomaly_pyro,		100),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Вортекс-аномалия",			/datum/event/anomaly/anomaly_vortex,	100),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Блюспейс-аномалия",		/datum/event/anomaly/anomaly_bluespace,	100),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Флюкс-аномалия",			/datum/event/anomaly/anomaly_flux,		100),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Гравитационная аномалия",	/datum/event/anomaly/anomaly_grav,		100),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Хонкономалия",				/datum/event/tear/honk,					50),
-
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Скопление кои",			/datum/event/carp_migration/koi,		50),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Скопление карпов",			/datum/event/carp_migration,			50),
-
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Space Dust",				/datum/event/dust,						50,		list(ASSIGNMENT_ENGINEER = 5)),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Мясной дождь",				/datum/event/dust/meaty,				50,		list(ASSIGNMENT_ENGINEER = 5)),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Солнечная вспышка",		/datum/event/solar_flare,				50,		list(ASSIGNMENT_ENGINEER = 5)),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Электрический шторм",		/datum/event/electrical_storm, 			50,		list(ASSIGNMENT_ENGINEER = 5)),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Радиационный шторм",		/datum/event/radiation_storm, 			50,		list(ASSIGNMENT_MEDICAL = 5)),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Ионный шторм",				/datum/event/ion_storm, 				50,		list(ASSIGNMENT_AI = 50, ASSIGNMENT_CYBORG = 10)),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Атмосферная аномалия",		/datum/event/anomaly/anomaly_pyro,		60),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Вортекс-аномалия",			/datum/event/anomaly/anomaly_vortex,	60),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Блюспейс-аномалия",		/datum/event/anomaly/anomaly_bluespace,	60),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Флюкс-аномалия",			/datum/event/anomaly/anomaly_flux,		60),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Гравитационная аномалия",	/datum/event/anomaly/anomaly_grav,		60),
 
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Телепортация живых",			/datum/event/bluespace_rift_event/teleport_living,							500),
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Поменять местами живых",		/datum/event/bluespace_rift_event/teleport_living/shuffle,					500),
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Телепортация живых далеко",	/datum/event/bluespace_rift_event/teleport_living/within_z,					500),
 
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Взрывы",						/datum/event/bluespace_rift_event/explosions,								400),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "ЭМИ",						/datum/event/bluespace_rift_event/explosions/em_pulses,						400),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Химические взрывы",			/datum/event/bluespace_rift_event/explosions/random_chem_effect,			300),
-		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Конфетти",					/datum/event/bluespace_rift_event/explosions/random_chem_effect/confetti,	100),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Взрывы",						/datum/event/bluespace_rift_event/explosions,								200),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "ЭМИ",						/datum/event/bluespace_rift_event/explosions/em_pulses,						300),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Вспышки",					/datum/event/bluespace_rift_event/explosions/flashes,						400),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Дым",						/datum/event/bluespace_rift_event/explosions/smoke,							400),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Искры",						/datum/event/bluespace_rift_event/explosions/sparks,						500),
+
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Химические взрывы",			/datum/event/bluespace_rift_event/explosions/random_chem_effect,			100),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Опасные химические взрывы",	/datum/event/bluespace_rift_event/explosions/random_chem_effect/dangerous,	100),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Клоунские химические взрывы",/datum/event/bluespace_rift_event/explosions/random_chem_effect/funny,		100),
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Испачкать пол",				/datum/event/bluespace_rift_event/explosions/random_chem_effect/dirt,		100),
+
+		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Снег",						/datum/event/bluespace_rift_event/snow,										200),
 	)
 
 /**
@@ -144,14 +127,20 @@
 	pick_rift_objects()
 
 /datum/event/bluespace_rift_event/proc/pick_rift_objects()
+	rift_objects = list()
+
 	if(!istype(event_meta, /datum/event_meta/bluespace_rift_event_meta))
-		rift_objects = list()
 		return
+
 	var/datum/event_meta/bluespace_rift_event_meta/t_meta = event_meta
 	if(!length(t_meta.rift.rift_objects))
-		rift_objects = list()
 		return
-	rift_objects = t_meta.rift.rift_objects
+
+	for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in t_meta.rift.rift_objects)
+		if(rift_obj.is_close_to_singularity())
+			// Don't blow up the engine area
+			continue
+		rift_objects += rift_obj
 
 // The class is not supposed to have any instances, but let's add something funny just in case it does.
 /datum/event/bluespace_rift_event/start()
@@ -238,8 +227,8 @@
 */
 /datum/event/bluespace_rift_event/explosions
 	// min/max total number of explosions
-	var/max_explosions = 9
-	var/min_explosions = 3
+	var/max_explosions = 6
+	var/min_explosions = 2
 
 	// min/max explosion radius in tiles
 	var/max_explosion_radius = 3
@@ -269,7 +258,7 @@
 			light_impact_range = radius,
 			flash_range = radius, 
 			flame_range =  radius, 
-			cause = "Bluespace rift event \"[name]\""
+			cause = "Bluespace rift event \"[event_meta.name]\""
 		)
 
 /datum/event/bluespace_rift_event/explosions/end()
@@ -290,60 +279,150 @@
 			heavy_range = radius,
 			light_range = radius, 
 			log =  TRUE, 
-			cause = "Bluespace rift event \"[name]\""
+			cause = "Bluespace rift event \"[event_meta.name]\""
 		)
+
+/** 
+*	Random number of flashes around the rift.
+*/
+/datum/event/bluespace_rift_event/explosions/flashes
+	max_explosion_radius = 6
+	min_explosion_radius = 3
+
+/datum/event/bluespace_rift_event/explosions/flashes/start()
+	for(var/i in 1 to num_explosions)
+		var/radius = rand(min_explosion_radius, max_explosion_radius)
+		var/epicenter = pick_n_take(turfs_in_range)
+		playsound(epicenter, 'sound/effects/bang.ogg', 100, TRUE)
+		bang(
+			epicenter,
+			epicenter,
+			range = radius
+		)
+
+/** 
+*	Random number of smoke clouds around the rift.
+*/
+/datum/event/bluespace_rift_event/explosions/smoke
+
+/datum/event/bluespace_rift_event/explosions/smoke/start()
+	for(var/i in 1 to num_explosions)
+		var/epicenter = pick_n_take(turfs_in_range)
+		playsound(epicenter, 'sound/effects/smoke.ogg', 50, TRUE)
+		new /obj/effect/particle_effect/smoke/bad(epicenter)
+
+/** 
+*	Random number of sparks around the rift.
+*/
+/datum/event/bluespace_rift_event/explosions/sparks
+	max_explosions = 8
+	min_explosions = 4
+
+	var/max_number = 9
+	var/min_number = 3
+
+/datum/event/bluespace_rift_event/explosions/sparks/start()
+	for(var/i in 1 to num_explosions)
+		var/number_of_sparks = rand(min_number, max_number)
+		var/epicenter = pick_n_take(turfs_in_range)
+		do_sparks(number_of_sparks, FALSE, epicenter)
 
 /** 
 *	Random number of random chemical effects around the rift.
 */
 /datum/event/bluespace_rift_event/explosions/random_chem_effect
-
-/datum/event/bluespace_rift_event/explosions/random_chem_effect/start()
-	for(var/i in 1 to num_explosions)
-		var/epicenter = pick_n_take(turfs_in_range)
-
-		// Spawn a random grenade and immediately detonate it
-		var/grenade_type = pick_effect_type()
-		var/obj/item/grenade/grenade = new grenade_type(epicenter)
-		grenade.prime()
-
-/datum/event/bluespace_rift_event/explosions/random_chem_effect/proc/pick_effect_type()
-	var/static/list/grenade_types = list(
-		/obj/item/grenade/smokebomb,
-		/obj/item/grenade/frag,
-		/obj/item/grenade/flashbang,
+	var/list/grenade_types = list(
 		/obj/item/grenade/chem_grenade/meat,
 		/obj/item/grenade/chem_grenade/holywater,
 		/obj/item/grenade/chem_grenade/hellwater,
 		/obj/item/grenade/chem_grenade/drugs,
 		/obj/item/grenade/chem_grenade/ethanol,
 		/obj/item/grenade/chem_grenade/lube,
+		/obj/item/grenade/chem_grenade/metalfoam,
+		/obj/item/grenade/chem_grenade/firefighting,
+		/obj/item/grenade/chem_grenade/antiweed,
+		/obj/item/grenade/chem_grenade/cleaner,
+	)
+
+/datum/event/bluespace_rift_event/explosions/random_chem_effect/start()
+	// Spawn a random grenade and immediately detonate it. I'm not making those effects from scratch.
+	var/grenade_type = pick(grenade_types)
+
+	for(var/i in 1 to num_explosions)
+		var/epicenter = pick_n_take(turfs_in_range)
+		var/obj/item/grenade/grenade = new grenade_type(epicenter)
+		INVOKE_ASYNC(grenade, TYPE_PROC_REF(/obj/item/grenade, prime))
+
+/datum/event/bluespace_rift_event/explosions/random_chem_effect/end()
+	..()
+	grenade_types = null
+
+/** 
+*	Random chemical effects that could harm.
+*/
+/datum/event/bluespace_rift_event/explosions/random_chem_effect/dangerous
+	grenade_types = list(
+		/obj/item/grenade/chem_grenade/incendiary,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/grenade/chem_grenade/facid,
 		/obj/item/grenade/chem_grenade/large/monster,
-		/obj/item/grenade/chem_grenade/large/feast,
+		/obj/item/grenade/gas/knockout,
+		/obj/item/grenade/gluon,
+	)
+
+/** 
+*	Random chemical effects that could be clownish.
+*/
+/datum/event/bluespace_rift_event/explosions/random_chem_effect/funny
+	grenade_types = list(
 		/obj/item/grenade/confetti,
 		/obj/item/grenade/clown_grenade,
 		/obj/item/grenade/bananade,
-		/obj/item/grenade/gas/knockout,
-		/obj/item/grenade/gluon,
-		/obj/item/grenade/chem_grenade/metalfoam,
-		/obj/item/grenade/chem_grenade/firefighting,
-		/obj/item/grenade/chem_grenade/incendiary,
-		/obj/item/grenade/chem_grenade/antiweed,
-		/obj/item/grenade/chem_grenade/cleaner,
-		/obj/item/grenade/chem_grenade/teargas,
-		/obj/item/grenade/chem_grenade/facid
-		)
-	return pick(grenade_types)
+	)
 
 /** 
-*	Makes a confetti shower. Wooo-hooo!
+*	Just makes floors dirty.
 */
-/datum/event/bluespace_rift_event/explosions/random_chem_effect/confetti
-	max_explosions = 10
-	min_explosions = 5
+/datum/event/bluespace_rift_event/explosions/random_chem_effect/dirt
+	grenade_types = list(
+		/obj/item/grenade/chem_grenade/dirt,
+	)
 
-/datum/event/bluespace_rift_event/explosions/random_chem_effect/confetti/pick_effect_type()
-	return /obj/item/grenade/confetti
+/** 
+*	Covers the area around the rift with snow.
+*/
+/datum/event/bluespace_rift_event/snow
+	var/list/turf/turfs_in_range
+
+/datum/event/bluespace_rift_event/snow/setup()
+	..()
+	// Get turfs in range
+	turfs_in_range = list()
+	for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift_objects)
+		turfs_in_range |= RANGE_TURFS(RIFT_EVENT_RANGE(rift_obj.size), rift_obj)
+
+/datum/event/bluespace_rift_event/snow/start()
+
+	for(var/turf/turf as anything in turfs_in_range)
+		if(isspaceturf(turf))
+			continue
+		if(turf.density)
+			continue
+		if(!issimulatedturf(turf))
+			continue
+
+		var/turf/simulated/t_turf = turf
+
+		t_turf.air.temperature = T0C - 1
+		t_turf.air_update_turf()
+
+		if(locate(/obj/effect/snowcloud, t_turf))
+			continue
+		new /obj/effect/snow(t_turf)
+		
+/datum/event/bluespace_rift_event/snow/end()
+	..()
+	turfs_in_range = null
 
 #undef MAX_RIFT_EVENT_RANGE
 #undef RIFT_EVENT_RANGE

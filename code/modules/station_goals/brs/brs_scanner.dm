@@ -10,7 +10,7 @@
 	/// How the value should change when the scanner is too close to a rift, 1 means no change.
 	var/goal_points_critical_multiplier = 1.2
 
-	/// Event expectancy added per second during scan. See units in the `/datum/brs_event_container` definition.
+	/// Event expectancy added per second during scan. See the units in the `/datum/brs_event_container` definition.
 	var/event_increment = 4.15
 	/// How much the value can deviate, 0 <= deviation <= 1, 0 means no deviation.
 	var/event_increment_deviation = 0.5
@@ -50,6 +50,7 @@
 
 /datum/component/bluespace_rift_scanner/proc/scan(datum/source, seconds, emagged)
 	var/scanner_status_after_scan = COMPONENT_SCANNED_NOTHING
+	var/is_there_any_servers = FALSE
 
 	for(var/datum/bluespace_rift/rift as anything in GLOB.bluespace_rifts_list)
 
@@ -58,7 +59,7 @@
 
 		for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift.rift_objects)
 			var/dist_to_rift = get_dist(parent, rift_obj)
-			if(dist_to_rift <= rift_obj.size)
+			if(dist_to_rift <= rift_obj.scanner_overload_range)
 				rift_scanned = TRUE
 				is_critical = TRUE
 			else if(dist_to_rift <= max_range)
@@ -89,9 +90,15 @@
 			continue
 		
 		var/goal_points_mined = seconds * GET_CURRENT_SCAN_VALUE(goal_points_generator, goal_points_critical_multiplier, is_critical)
-		var/probe_points_mined = goal_points_mined / length(GLOB.bluespace_rifts_server_list) // TODO: give each server random amount of that
+		var/probe_points_mined = goal_points_mined / length(GLOB.bluespace_rifts_server_list)
 
 		for(var/obj/machinery/brs_server/server as anything in GLOB.bluespace_rifts_server_list)
+			if(server.stat & (NOPOWER|BROKEN))
+				continue
+			is_there_any_servers = TRUE
 			server.add_points(rift.goal_uid, goal_points_mined, probe_points_mined)
+
+	if(!is_there_any_servers)
+		scanner_status_after_scan |= COMPONENT_SCANNED_NO_SERVERS
 
 	return scanner_status_after_scan

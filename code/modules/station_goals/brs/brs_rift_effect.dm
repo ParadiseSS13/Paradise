@@ -1,5 +1,5 @@
 /obj/effect/abstract/bluespace_rift
-	name = "Блюспейс Разлом"
+	name = "Неопознанный блюспейс разлом"
 	desc = "Аномальное образование с неизвестными свойствами."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_fog"
@@ -11,13 +11,23 @@
 	alpha = 180
 	var/size
 	var/time_per_tile
-	
+
+	var/max_scanner_overload_range = 9
+	var/min_scanner_overload_range = 1
+
+	// How often scanner overload range changes.
+	var/max_range_update_interval = 120 SECONDS
+	var/min_range_update_interval = 30 SECONDS
+
 	/// z-level the rift object should remain on.
 	var/rift_z
 	/// World time when the next step should happen.
 	var/next_step
 	/// An object on the map (turf, mob, etc.)
 	var/atom/target_loc
+
+	var/scanner_overload_range = 0
+	var/range_update_time = 0
 
 /obj/effect/abstract/bluespace_rift/Initialize(mapload, size, time_per_tile)
 	. = ..()
@@ -47,6 +57,9 @@
 
 	// repaint
 	color = rand_hex_color()
+
+	// assign a name
+	name = "Блюспейс разлом [pick(GLOB.greek_letters)] [pick(GLOB.greek_letters)] \Roman[rand(1,10)]"
 
 /obj/effect/abstract/bluespace_rift/Destroy()
 	GLOB.poi_list.Remove(src)
@@ -78,6 +91,22 @@
 		
 		if(is_target_reached())
 			change_direction()
+
+	// Update scanner overload range
+	if(range_update_time < world.time)
+		scanner_overload_range = rand(min_scanner_overload_range, max_scanner_overload_range)
+		range_update_time = world.time + rand(min_range_update_interval, max_range_update_interval)
+
+/** Returns `TRUE` if the rift is close to a singularity or tesla, `FLASE` otherwise. 
+	Use this before doing anything destructive.
+*/
+/obj/effect/abstract/bluespace_rift/proc/is_close_to_singularity(radius = 15)
+	for(var/singularity in GLOB.singularities)
+		if(!atoms_share_level(src, singularity))
+			continue
+		if(get_dist(src, singularity) <= radius)
+			return TRUE
+	return FALSE
 
 /** Check if the object is on the right z-level. If not, teleport it to the right z-level. */
 /obj/effect/abstract/bluespace_rift/proc/check_z()
