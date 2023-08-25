@@ -518,10 +518,6 @@
 	message = "скрипит."
 	message_param = "скрипит на %t."
 
-/datum/emote/living/carbon/human/squish
-	message = "булькает"
-	message_param = "булькает на %t."
-
 /datum/emote/living/carbon/human/howl
 	message = "воет."
 	message_mime = "беззвучно воет."
