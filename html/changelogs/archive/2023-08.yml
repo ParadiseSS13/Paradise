@@ -226,3 +226,19 @@
   - bugfix: Borgs Gripper And Smartfridges (#3401)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#3398)
+'2023-08-25':
+  Honker9999999:
+  - add: capitalism (starting money depending on job) (#3343)
+  Vladisvell:
+  - bugfix: custom closets render (#3406)
+  - add: Supermatter Engine explosion special effects (#3303)
+  - qol: Fireproof rods design can be imported into ore redemption (#3402)
+  Zwei:
+  - bugfix: Stack Fixes Once More (#3404)
+  - refactor: Datumized Thief (#3387)
+  aeternaclose:
+  - add: CereImprovement-pt6 (#3392)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3405)
+  yosoyrebelde:
+  - tweak: (bluespace rift) patch pack for new station goal (#3365)
