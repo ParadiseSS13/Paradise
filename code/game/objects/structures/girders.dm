@@ -81,7 +81,7 @@
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
 			return
 		if(islava(loc))
-			to_chat(user, "<span class='warning'>You can't build a wall here!</span>")
+			to_chat(user, "<span class='warning'>You can't do that while [src] is in lava!</span>")
 			return
 		if(istype(W, /obj/item/stack/sheet/runed_metal))
 			to_chat(user, "<span class='warning'>You can't seem to make the metal bend.</span>")

@@ -70,15 +70,17 @@
 	if(HAS_COMBOS)
 		streak += intent_to_streak(step)
 		var/mob/living/carbon/human/owner = locateUID(owner_UID)
-		owner?.hud_used.combo_display.update_icon(ALL, streak)
-		return check_combos(step, user, target)
+		if(istype(owner) && !QDELETED(owner))
+			owner.hud_used.combo_display.update_icon(ALL, streak)
+			return check_combos(step, user, target)
 	return FALSE
 
 /datum/martial_art/proc/reset_combos()
 	current_combos.Cut()
 	streak = ""
 	var/mob/living/carbon/human/owner = locateUID(owner_UID)
-	owner?.hud_used.combo_display.update_icon(ALL, streak)
+	if(istype(owner) && !QDELETED(owner))
+		owner.hud_used.combo_display.update_icon(ALL, streak)
 	for(var/combo_type in combos)
 		current_combos.Add(new combo_type())
 
@@ -162,6 +164,7 @@
 	var/datum/martial_art/MA = src
 	if(!H.mind)
 		return
+	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
