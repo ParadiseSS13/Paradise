@@ -100,6 +100,10 @@
 	on_cooldown = FALSE
 	SEND_SIGNAL(parent, COMSIG_DEFIB_READY)
 
+/datum/component/defib/proc/set_short_cooldown()
+	on_cooldown = TRUE
+	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), 2.5 SECONDS)
+
 /**
  * Start the defibrillation process when triggered by a signal.
  */
@@ -319,16 +323,23 @@
 		return
 	busy = TRUE
 	target.adjustStaminaLoss(40)
-	target.KnockDown(4 SECONDS)
 	target.emote("gasp")
 	to_chat(target, "<span class='danger'>[user] touches [target] lightly with [parent]!</span>")
-	if(combat && prob(heart_attack_chance) && do_after(user, 1 SECONDS, TRUE, target, TRUE) && target.body_position == LYING_DOWN)
-		target.set_heartattack(TRUE)
+	add_attack_logs(user, target, "Stunned with [parent]")
+	if(!(target.body_position == LYING_DOWN))
+		target.KnockDown(4 SECONDS)
+		set_short_cooldown()
+		busy = FALSE
+		return
+	if(!(combat && prob(heart_attack_chance) && do_after(user, 1 SECONDS, TRUE, target, TRUE)))
+		set_short_cooldown()
+		busy = FALSE
+		return
+	target.set_heartattack(TRUE)
 	target.visible_message("<span class='danger'>[user] has touched [target] with [parent]!</span>", \
 			"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
 	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
-	add_attack_logs(user, target, "Stunned with [parent]")
 	set_cooldown()
 	busy = FALSE
 	return
