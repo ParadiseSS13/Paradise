@@ -306,14 +306,13 @@
 	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 	if(affected.status & ORGAN_BURNT)
 		return TRUE
-	else
-		to_chat(user, "<span class='warning'>The skin on [target]'s [parse_zone(affected)] seem to be in perfect condition, it doesn't need treatment.</span>")
+	to_chat(user, "<span class='warning'>The skin on [target]'s [parse_zone(affected)] seems to be in perfect condition, it doesn't need treatment.</span>")
 	return FALSE
 
 /// Proxy surgery step to allow healing bleeding, bones, and burns.
 /// Should be added into surgeries just after the first three standard steps.
 /datum/surgery_step/proxy/open_organ
-	name = "mend internal bleeding, mend bone, or mend burns (proxy)"
+	name = "mend internal bleeding, bones, or burns (proxy)"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone,

@@ -44,6 +44,15 @@
 	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 
+/datum/surgery/treat_burns/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(affected.status & ORGAN_BURNT)
+		return TRUE
+	return FALSE
+
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
 	if(!.)
@@ -104,18 +113,8 @@
 /datum/surgery_step/fix_vein/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>",
-		"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>"
-	)
-	affected.receive_damage(5, 0)
-
-	return SURGERY_STEP_RETRY
-
-/datum/surgery_step/fix_vein/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>",
-		"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>"
+		"<span class='warning'>[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>",
+		"<span class='warning'>Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>"
 	)
 	affected.receive_damage(5, 0)
 
@@ -135,14 +134,14 @@
 /datum/surgery_step/treat_burns/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected.status & ORGAN_BURNT))
-		to_chat(user, "<span class='warning'>The skin on [target]'s [parse_zone(affected)] seem to be in perfect condition, it doesn't need treatment.</span>")
+		to_chat(user, "<span class='warning'>The skin on [target]'s [parse_zone(affected)] seems to be in perfect condition, it doesn't need treatment.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		"[user] starts to treat affected tissue in [target]'s [affected.name] with \the [tool].",
-		"You start to treat affected tissue in [target]'s [affected.name] with \the [tool]."
+		"[user] starts to treat affected tissue in [target]'s [affected.name] with [tool].",
+		"You start to treat affected tissue in [target]'s [affected.name] with [tool]."
 	)
-	target.custom_pain("The pain in your [affected.name] is unbearable!")
+	target.custom_pain("Your [affected.name] flares with agony as its burn is touched!")
 
 	return ..()
 
@@ -156,8 +155,8 @@
 	target.update_body()
 
 	user.visible_message(
-		"<span class='notice'> [user] finishes treating affected tissue in [target]'s [affected.name]</span>",
-		"<span class='notice'> You finish treating affected tissue in [target]'s [affected.name] with \the [tool].</span>"
+		"<span class='notice'>[user] finishes treating affected tissue in [target]'s [affected.name].</span>",
+		"<span class='notice'>You finish treating affected tissue in [target]'s [affected.name] with [tool].</span>"
 	)
 
 	return SURGERY_STEP_CONTINUE
@@ -169,8 +168,8 @@
 	stack.use(1)
 
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, ineffectively treating [target]'s [affected.name] with the [tool]!</span>",
-		"<span class='warning'> Your hand slips, ineffectively treating [target]'s [affected.name] with the [tool]!</span>"
+		"<span class='warning'>[user]'s hand slips, applying [tool] in the wrong place on [target]'s [affected.name]!</span>",
+		"<span class='warning'>Your hand slips, applying [tool] in the wrong place on [target]'s [affected.name]!</span>"
 	)
 
 	return SURGERY_STEP_RETRY
@@ -209,8 +208,8 @@
 /datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>"
+		"<span class='warning'>[user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>"
 	)
 	affected.receive_damage(20)
 
@@ -296,8 +295,8 @@
 	container.reagents.reaction(target, REAGENT_INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>",
-		"<span class='warning'> Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>"
+		"<span class='warning'>[user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>",
+		"<span class='warning'>Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>"
 	)
 
 	//no damage or anything, just wastes medicine
