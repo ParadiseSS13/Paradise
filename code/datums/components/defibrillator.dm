@@ -155,7 +155,7 @@
 			to_chat(user, "<span class='notice'>The instructions on [defib_ref] don't mention how to defibrillate that...</span>")
 		return
 
-	if(heart_attack_chance == 100)
+	if(should_cause_harm && heart_attack_chance == 100)
 		combat_fibrillate(user, target)
 		return
 
@@ -326,24 +326,16 @@
 	if(!istype(target))
 		return
 	busy = TRUE
-	target.adjustStaminaLoss(40)
-	target.emote("gasp")
-	to_chat(target, "<span class='danger'>[user] touches [target] lightly with [parent]!</span>")
-	add_attack_logs(user, target, "Stunned with [parent]")
-	if(!(target.body_position == LYING_DOWN))
-		target.KnockDown(4 SECONDS)
-		set_short_cooldown()
-		busy = FALSE
-		return
-	if(!(combat && prob(heart_attack_chance) && do_after(user, 1 SECONDS, TRUE, target, TRUE)))
-		set_short_cooldown()
-		busy = FALSE
-		return
-	target.set_heartattack(TRUE)
 	target.visible_message("<span class='danger'>[user] has touched [target] with [parent]!</span>", \
 			"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
+	target.adjustStaminaLoss(60)
+	target.KnockDown(10 SECONDS)
 	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+	target.emote("gasp")
+	if(combat && prob(heart_attack_chance))
+		target.set_heartattack(TRUE)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
+	add_attack_logs(user, target, "Stunned with [parent]")
 	set_cooldown()
 	busy = FALSE
 	return
@@ -356,12 +348,8 @@
 	target.emote("gasp")
 	to_chat(target, "<span class='danger'>[user] touches [target] lightly with [parent]!</span>")
 	add_attack_logs(user, target, "Stunned with [parent]")
-	if(!(target.body_position == LYING_DOWN))
+	if(!(combat && target.body_position == LYING_DOWN && do_after(user, 1 SECONDS, TRUE, target, TRUE)))
 		target.KnockDown(4 SECONDS)
-		set_short_cooldown()
-		busy = FALSE
-		return
-	if(!(combat && prob(heart_attack_chance) && do_after(user, 1 SECONDS, TRUE, target, TRUE)))
 		set_short_cooldown()
 		busy = FALSE
 		return
