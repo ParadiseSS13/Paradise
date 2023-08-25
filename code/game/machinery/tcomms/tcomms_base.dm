@@ -414,7 +414,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(length(heard_gibberish))
 			for(var/M in heard_gibberish)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, follow_target=tcm.follow_target, , check_name_against = tcm.pre_modify_name)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 	return TRUE
 
