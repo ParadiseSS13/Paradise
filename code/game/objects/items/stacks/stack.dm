@@ -458,6 +458,8 @@
  * - [inhand][boolean]: Whether or not the stack to check should act like it's in a mob's hand.
  */
 /obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
+	if(QDELETED(src) || QDELETED(check))
+		return FALSE
 	if(!istype(check, merge_type))
 		return FALSE
 	if(is_cyborg) // No merging cyborg stacks into other stacks
@@ -483,9 +485,9 @@
 /obj/item/stack/proc/merge_without_del(obj/item/stack/target_stack, limit)
 	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
 	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
-	if(!target_stack)
+	if(QDELETED(target_stack))
 		CRASH("Stack merge attempted on qdeleted target stack.")
-	if(!src)
+	if(QDELETED(src))
 		CRASH("Stack merge attempted on qdeleted source stack.")
 	if(target_stack == src)
 		CRASH("Stack attempted to merge into itself.")
