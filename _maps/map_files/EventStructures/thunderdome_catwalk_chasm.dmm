@@ -1,0 +1,147 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"d" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/catwalk,
+/area/tdome/arena)
+"E" = (
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/tdome/arena)
+"R" = (
+/turf/simulated/floor/catwalk,
+/area/tdome/arena)
+
+(1,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(2,1,1) = {"
+R
+R
+R
+d
+R
+R
+R
+"}
+(3,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(4,1,1) = {"
+d
+d
+R
+R
+R
+d
+d
+"}
+(5,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(6,1,1) = {"
+R
+E
+E
+E
+E
+E
+R
+"}
+(7,1,1) = {"
+R
+E
+E
+E
+E
+E
+R
+"}
+(8,1,1) = {"
+R
+E
+E
+E
+E
+E
+R
+"}
+(9,1,1) = {"
+R
+E
+E
+E
+E
+E
+R
+"}
+(10,1,1) = {"
+R
+E
+E
+E
+E
+E
+R
+"}
+(11,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(12,1,1) = {"
+d
+d
+R
+R
+R
+d
+d
+"}
+(13,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(14,1,1) = {"
+R
+R
+R
+d
+R
+R
+R
+"}
+(15,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
