@@ -311,9 +311,9 @@
 "aax" = (
 /obj/machinery/light{
 	dir = 1;
+	layer = 3.1;
 	on = 1;
-	pixel_y = -6;
-	layer = 3.1
+	pixel_y = -6
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -20221,10 +20221,10 @@
 /obj/structure/table/glass,
 /obj/machinery/door/window{
 	base_state = "right";
+	dir = 2;
 	icon_state = "right";
 	name = "Core Modules";
-	req_access = list(20);
-	dir = 2
+	req_access = list(20)
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -22588,8 +22588,8 @@
 "cuN" = (
 /obj/structure/window/reinforced,
 /obj/machinery/light{
-	pixel_y = 6;
-	layer = 3.1
+	layer = 3.1;
+	pixel_y = 6
 	},
 /turf/simulated/floor/carpet/black,
 /area/bridge/vip)
@@ -33836,9 +33836,7 @@
 /area/crew_quarters/fitness)
 "dod" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/sandal/white,
@@ -34228,10 +34226,10 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "NT Representative's Office";
-	req_access = list(73);
 	id = "ntr";
-	id_tag = "ntrepofficedoor"
+	id_tag = "ntrepofficedoor";
+	name = "NT Representative's Office";
+	req_access = list(73)
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
@@ -36650,8 +36648,8 @@
 /obj/effect/landmark/start/captain,
 /obj/machinery/shower{
 	dir = 4;
-	tag = "icon-shower (EAST)";
-	pixel_y = 6
+	pixel_y = 6;
+	tag = "icon-shower (EAST)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -57675,8 +57673,7 @@
 	dir = 4
 	},
 /obj/structure/closet{
-	icon_closed = "white";
-	icon_state = "white";
+	custom_door_overlay = "white";
 	name = "Medical gear";
 	opened = 1
 	},
@@ -64958,8 +64955,8 @@
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/shower{
 	dir = 4;
-	tag = "icon-shower (EAST)";
-	pixel_y = 4
+	pixel_y = 4;
+	tag = "icon-shower (EAST)"
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -72243,10 +72240,10 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/command/glass{
-	name = "Conference Room";
-	req_access = list(19);
 	id = "conferenceroomwindows";
-	id_tag = "conferenceroombolts"
+	id_tag = "conferenceroombolts";
+	name = "Conference Room";
+	req_access = list(19)
 	},
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 4
@@ -75555,8 +75552,8 @@
 	},
 /obj/machinery/shower{
 	dir = 4;
-	tag = "icon-shower (EAST)";
-	pixel_y = 4
+	pixel_y = 4;
+	tag = "icon-shower (EAST)"
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -76311,8 +76308,8 @@
 /area/security/permabrig)
 "lTb" = (
 /obj/structure/statue/gold/ce{
-	name = "Статуя Гарри Оппенгеймера";
-	desc = "Золотая литая статуя, посвящённая великому СЕ - Гарри Оппенгеймеру, который продолжал исполнять свой долг даже в самых тяжелых условиях"
+	desc = "Золотая литая статуя, посвящённая великому СЕ - Гарри Оппенгеймеру, который продолжал исполнять свой долг даже в самых тяжелых условиях";
+	name = "Статуя Гарри Оппенгеймера"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -82451,8 +82448,8 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/item/toy/figure/captain,
 /obj/machinery/door/window{
-	req_access = list(63);
-	dir = 1
+	dir = 1;
+	req_access = list(63)
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain/bedroom)
@@ -89697,8 +89694,8 @@
 /obj/machinery/door_control{
 	id = "teleportershutter";
 	name = "Teleporter Shutters Access Control";
-	req_access = list(17);
-	pixel_y = -24
+	pixel_y = -24;
+	req_access = list(17)
 	},
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "teleportershutter";
@@ -91052,8 +91049,8 @@
 /obj/machinery/door_control{
 	id = "First Surgery Window";
 	name = "Surgery Window Shutters Control";
-	pixel_y = 7;
-	pixel_x = -25
+	pixel_x = -25;
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -91804,17 +91801,17 @@
 "psg" = (
 /obj/structure/chair/office/dark,
 /obj/machinery/keycard_auth{
-	pixel_y = -24;
-	pixel_x = 28
+	pixel_x = 28;
+	pixel_y = -24
 	},
 /obj/machinery/keycard_auth{
-	pixel_y = -24;
-	pixel_x = 28
+	pixel_x = 28;
+	pixel_y = -24
 	},
 /obj/machinery/button/windowtint{
 	id = "hopqueuewindows";
-	pixel_y = -24;
-	pixel_x = 40
+	pixel_x = 40;
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
@@ -94446,9 +94443,9 @@
 /area/maintenance/asmaint)
 "pUz" = (
 /obj/machinery/door/airlock/command{
+	id_tag = "hopofficedoor";
 	name = "Head of Personnel";
-	req_access = list(57);
-	id_tag = "hopofficedoor"
+	req_access = list(57)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -94577,9 +94574,7 @@
 /area/security/processing)
 "pVM" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -99193,9 +99188,7 @@
 /area/maintenance/fpmaint)
 "qVB" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
@@ -102864,8 +102857,7 @@
 "rMp" = (
 /obj/structure/closet{
 	desc = "It's a storage unit for foodservice garments.";
-	icon_closed = "black";
-	icon_state = "black";
+	custom_door_overlay = "black";
 	name = "chef's closet"
 	},
 /obj/item/storage/belt/chef,
@@ -111500,8 +111492,8 @@
 /obj/machinery/door_control{
 	id = "Second Surgery Window";
 	name = "Surgery Window Shutters Control";
-	pixel_y = -7;
-	pixel_x = -25
+	pixel_x = -25;
+	pixel_y = -7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -113020,10 +113012,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/command/glass{
-	name = "Conference Room";
-	req_access = list(19);
 	id = "conferenceroomwindows";
-	id_tag = "conferenceroombolts"
+	id_tag = "conferenceroombolts";
+	name = "Conference Room";
+	req_access = list(19)
 	},
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 1
@@ -117036,8 +117028,8 @@
 	pixel_y = 3
 	},
 /obj/machinery/keycard_auth{
-	pixel_y = 24;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 24
 	},
 /obj/machinery/button/windowtint{
 	dir = 1;
@@ -122579,8 +122571,8 @@
 /obj/machinery/door_control{
 	id = "teleaccessshutter";
 	name = "Teleporter Shutters Access Control";
-	req_access = list(62);
-	pixel_x = -24
+	pixel_x = -24;
+	req_access = list(62)
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -125256,10 +125248,10 @@
 /obj/structure/table/glass,
 /obj/machinery/door/window{
 	base_state = "right";
+	dir = 2;
 	icon_state = "right";
 	name = "Core Modules";
-	req_access = list(20);
-	dir = 2
+	req_access = list(20)
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -129525,8 +129517,8 @@
 	req_access = list(57)
 	},
 /obj/machinery/door/window/westright{
-	name = "Access Queue";
-	dir = 2
+	dir = 2;
+	name = "Access Queue"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{

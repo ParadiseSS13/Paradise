@@ -76884,8 +76884,7 @@
 "lhW" = (
 /obj/structure/closet{
 	desc = "It's a storage unit for foodservice garments.";
-	icon_closed = "black";
-	icon_state = "black";
+	custom_door_overlay = "black";
 	name = "chef's closet"
 	},
 /obj/item/storage/belt/chef,

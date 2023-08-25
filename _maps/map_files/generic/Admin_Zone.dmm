@@ -863,9 +863,7 @@
 /area/tdome/arena_source)
 "iD" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed";
+	icon_state = "cabinet";
 	req_access = list(114)
 	},
 /turf/simulated/floor/wood,
@@ -3376,9 +3374,7 @@
 /area/tdome/arena)
 "Oe" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed";
+	icon_state = "cabinet";
 	req_access = list(114)
 	},
 /obj/machinery/light/small{

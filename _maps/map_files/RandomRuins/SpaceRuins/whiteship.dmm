@@ -716,8 +716,6 @@
 	},
 /obj/structure/closet{
 	desc = "It's a storage unit for tools.";
-	icon_closed = "toolcloset";
-	icon_opened = "toolclosetopen";
 	icon_state = "toolcloset";
 	name = "tool closet"
 	},
@@ -1685,8 +1683,7 @@
 /area/shuttle/abandoned)
 "Ji" = (
 /obj/structure/closet{
-	icon_closed = "white";
-	icon_state = "white";
+	custom_door_overlay = "white";
 	name = "Medical gear"
 	},
 /obj/item/clothing/under/rank/medical/paramedic,

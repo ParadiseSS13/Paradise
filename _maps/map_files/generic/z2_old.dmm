@@ -2150,9 +2150,7 @@
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed";
+	icon_state = "cabinet";
 	req_access = list(114)
 	},
 /obj/item/clothing/head/helmet/space/deathsquad/beret,
@@ -18247,9 +18245,7 @@
 	name = "Cosmonaut Command Helmet"
 	},
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/item/clothing/suit/space/syndicate/blue{
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
@@ -18645,9 +18641,7 @@
 	},
 /obj/item/clothing/head/helmet/space/syndicate/orange,
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/item/clothing/suit/space/syndicate/orange{
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
@@ -22040,9 +22034,7 @@
 	},
 /obj/item/clothing/head/helmet/space/syndicate/orange,
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/item/clothing/suit/space/syndicate/orange{
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
@@ -23972,9 +23964,7 @@
 /area/centcom/specops)
 "rqj" = (
 /obj/structure/closet{
-	icon_closed = "syndicate1";
-	icon_opened = "syndicate1open";
-	icon_state = "syndicate1"
+	icon_state = "syndicate"
 	},
 /obj/item/suppressor,
 /obj/item/gun/projectile/automatic/proto{
@@ -24078,9 +24068,7 @@
 /area/space)
 "rrE" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/item/clothing/under/color/lightpurple,
 /obj/item/clothing/under/color/purple,
@@ -26972,9 +26960,7 @@
 /area/centcom/zone3)
 "tnx" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed";
+	icon_state = "cabinet";
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{

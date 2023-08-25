@@ -309,14 +309,14 @@
 		if(custom_door_overlay)
 			overlays += "[custom_door_overlay]_door"
 		else
-			overlays += "[initial(icon_state)]_door"
+			overlays += "[icon_state]_door"	//No initials because of custom map-made closets.
 		if(welded)
 			overlays += "welded"
 	else
 		if(custom_open_overlay)
 			overlays += "[custom_open_overlay]_open"
 		else
-			overlays += "[initial(icon_state)]_open"
+			overlays += "[icon_state]_open"
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
