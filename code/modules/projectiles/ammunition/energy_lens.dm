@@ -197,7 +197,7 @@
 
 /obj/item/ammo_casing/energy/wormhole/New(obj/item/gun/energy/wormhole_projector/wh)
 	gun = wh
-	..()
+	return ..()
 
 /obj/item/ammo_casing/energy/wormhole/orange
 	projectile_type = /obj/item/projectile/beam/wormhole/orange
