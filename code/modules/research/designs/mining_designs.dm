@@ -126,7 +126,7 @@
 	desc = "Rods made of a complex heat-resistant alloy"
 	id = "firerods"
 	req_tech = list("materials" = 6, "engineering" = 3, "plasmatech" = 4)
-	build_type = PROTOLATHE
+	build_type = PROTOLATHE | SMELTER
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500, MAT_TITANIUM = 1000)
 	build_path = /obj/item/stack/fireproof_rods
 	category = list("Mining")

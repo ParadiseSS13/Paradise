@@ -269,4 +269,12 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "capacitor"
 	desc = "A debug item for research."
-	origin_tech = "materials=8;programming=8;magnets=8;powerstorage=8;bluespace=8;combat=8;biotech=8;syndicate=8;engineering=8;plasmatech=8;abductor=8"
+	origin_tech = "materials=8;programming=8;magnets=8;powerstorage=8;bluespace=8;combat=8;biotech=8;syndicate=8;engineering=8;plasmatech=8;abductor=8;toxins=8"
+
+/obj/item/stack/debug_resource //This also makes material filling less of a pain
+	name = "resources"
+	icon = 'icons/obj/stock_parts.dmi'
+	icon_state = "high_micro_laser"
+	desc = "A debug item for filling protolathes or furnaces with all types of resources"
+	materials = list(MAT_METAL=8000, MAT_GLASS=8000, MAT_SILVER=8000, MAT_GOLD=8000, MAT_DIAMOND=8000, MAT_URANIUM=8000,
+				 MAT_PLASMA=8000, MAT_BLUESPACE=8000, MAT_BANANIUM=8000, MAT_TRANQUILLITE=8000, MAT_TITANIUM=8000)
