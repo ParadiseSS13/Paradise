@@ -169,7 +169,7 @@
 	addtimer(CALLBACK(src, PROC_REF(reset)), confirm_delay)
 
 /obj/machinery/keycard_auth/proc/trigger_event()
-	SHOULD_NOT_SLEEP(TRUE) // exploits related to ERT spawning can come up here related to ERT spawning if this sleeps
+	SHOULD_NOT_SLEEP(TRUE) // trigger_armed_response_team sleeps, which can cause issues for procs that call trigger_event(). We want to avoid that
 	switch(event)
 		if("Red Alert")
 			INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(set_security_level), SEC_LEVEL_RED)
