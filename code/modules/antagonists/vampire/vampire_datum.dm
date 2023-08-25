@@ -2,6 +2,7 @@
 	name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "hudvampire"
+	job_rank = ROLE_VAMPIRE
 	special_role = SPECIAL_ROLE_VAMPIRE
 	var/bloodtotal = 0
 	var/bloodusable = 0

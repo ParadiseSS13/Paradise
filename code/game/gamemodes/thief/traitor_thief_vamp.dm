@@ -9,6 +9,7 @@
 	var/protected_species_vampire = list("Machine")
 	var/list/datum/mind/pre_vampires = list()
 
+
 /datum/game_mode/traitor/thief/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Thief+Vampire!</B>")
 	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров, вампиров и агентов Синдиката. Не дайте агентам Синдиката и Вампирам достичь успеха и не допустите кражу дорогостоящего оборудования!</B>")
@@ -34,7 +35,9 @@
 	else
 		return FALSE
 
+
 /datum/game_mode/traitor/thief/vampire/post_setup()
 	for(var/datum/mind/vampire in pre_vampires)
 		vampire.add_antag_datum(/datum/antagonist/vampire)
 	..()
+

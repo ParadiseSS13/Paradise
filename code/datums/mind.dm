@@ -581,16 +581,21 @@
 	else
 		. += "mindslave|<b>NO</b>"
 
+
 /datum/mind/proc/memory_edit_thief()
 	. = _memory_edit_header("thief", list("traitorthief", "traitorthiefvamp", "traitorthiefchan", "thiefchan", "thiefvamp", "changelingthief", "vampirethief"))
-	if(src in SSticker.mode.thieves)
-		. += "<b><font color='red'>THIEF</font></b>|<a href='?src=[UID()];thief=clear'>no</a>|<a href='?src=[UID()];thief=equip'>Equip</a>"
-		if(!length(objectives))
+	var/datum/antagonist/thief/thief_datum = has_antag_datum(/datum/antagonist/thief)
+	if(thief_datum)
+		. += "<b><font color='red'>THIEF</font></b>|<a href='?src=[UID()];thief=clear'>no</a>"
+		if(ishuman(current))
+			. += "|<a href='?src=[UID()];thief=equip'>Equip</a>"
+		if(!length(thief_datum.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];thief=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];thief=thief'>thief</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_THIEF)
+
 
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
@@ -1105,34 +1110,34 @@
 					return
 
 			if("thief collect")
-				if(!istype(objective, /datum/objective/collect))
-					new_objective = new /datum/objective/collect
+				if(!istype(objective, /datum/objective/steal/collect))
+					new_objective = new /datum/objective/steal/collect
 					new_objective.owner = src
 				else
 					new_objective = objective
-				var/datum/objective/collect/steal = new_objective
+				var/datum/objective/steal/collect/steal = new_objective
 				if(!steal.select_target())
 					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
 
 			if("thief pet")
-				if(!istype(objective, /datum/objective/steal_pet))
-					new_objective = new /datum/objective/steal_pet
+				if(!istype(objective, /datum/objective/steal/animal))
+					new_objective = new /datum/objective/steal/animal
 					new_objective.owner = src
 				else
 					new_objective = objective
-				var/datum/objective/steal_pet/steal = new_objective
+				var/datum/objective/steal/animal/steal = new_objective
 				if(!steal.select_target())
 					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
 
 			if("thief structure")
-				if(!istype(objective, /datum/objective/steal_structure))
-					new_objective = new /datum/objective/steal_structure
+				if(!istype(objective, /datum/objective/steal/structure))
+					new_objective = new /datum/objective/steal/structure
 					new_objective.owner = src
 				else
 					new_objective = objective
-				var/datum/objective/steal_structure/steal = new_objective
+				var/datum/objective/steal/structure/steal = new_objective
 				if(!steal.select_target())
 					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
@@ -2086,24 +2091,37 @@
 				remove_thief_role()
 				log_admin("[key_name(usr)] has de-thiefed [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-thiefed [key_name_admin(current)]")
+
 			if("thief")
-				SSticker.mode.thieves += src
-				special_role = SPECIAL_ROLE_THIEF
-				SSticker.mode.update_thief_icons_added(src)
+				if(has_antag_datum(/datum/antagonist/thief))
+					return
+
+				var/datum/antagonist/thief/thief_datum = new()
+				thief_datum.silent = TRUE
+				thief_datum.give_objectives = FALSE
+				thief_datum.give_kit = FALSE
+				add_antag_datum(thief_datum)
 				SEND_SOUND(current, 'sound/ambience/antag/thiefalert.ogg')
 				to_chat(current, "<B><font color='red'>Мои [ishuman(current) ? "руки" : "лапы"] так и чешутся чего-нибудь прикарманить!</font></B>")
 				log_admin("[key_name(usr)] has thiefed [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has thiefed [key_name_admin(current)]")
+
 			if("autoobjectives")
-				SSticker.mode.forge_thief_objectives(src)
+				var/datum/antagonist/thief/thief_datum = has_antag_datum(/datum/antagonist/thief)
+				if(!thief_datum)
+					return
+
+				thief_datum.give_objectives()
 				to_chat(usr, "<span class='notice'>The objectives for thief [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+
 			if("equip")
-				if(!ishuman(current))
-					to_chat(usr, "<span class='warning'>Некуда поместить экипировку!</span>")
+				var/datum/antagonist/thief/thief_datum = has_antag_datum(/datum/antagonist/thief)
+				if(!thief_datum)
 					return
-				SSticker.mode.equip_thief(current)
+
+				thief_datum.equip_thief_kit()
 				log_admin("[key_name(usr)] give [key_name(current)] thief equipment")
 				message_admins("[key_name_admin(usr)] give [key_name_admin(current)] thief equipment")
 
@@ -2516,8 +2534,12 @@
 
 
 /datum/mind/proc/remove_thief_role()
-	if(src in SSticker.mode.thieves)
-		SSticker.mode.remove_thief(src)
+	var/datum/antagonist/thief/thief_datum = has_antag_datum(/datum/antagonist/thief)
+	if(!thief_datum)
+		return
+
+	remove_antag_datum(thief_datum)
+
 
 /datum/mind/proc/remove_shadow_role()
 	SSticker.mode.update_shadow_icons_removed(src)
@@ -2701,13 +2723,8 @@
 
 
 /datum/mind/proc/make_Thief()
-	if(!(src in SSticker.mode.thieves))
-		SSticker.mode.thieves += src
-	special_role = SPECIAL_ROLE_THIEF
-	SSticker.mode.forge_thief_objectives(src)
-	SSticker.mode.equip_thief(current)
-	SSticker.mode.update_thief_icons_added(src)
-	SSticker.mode.greet_thief(src)
+	if(!has_antag_datum(/datum/antagonist/thief))
+		add_antag_datum(/datum/antagonist/thief)
 
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role ?","Role","Agent","Scientist")

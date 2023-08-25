@@ -9,6 +9,7 @@
 	var/protected_species_changeling = list("Machine")
 	var/list/datum/mind/pre_changelings = list()
 
+
 /datum/game_mode/traitor/thief/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Thief+Changeling!</B>")
 	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров, генокрадов и агентов Синдиката. Не дайте агентам Синдиката и Генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</B>")
@@ -32,6 +33,7 @@
 		return ..()
 	else
 		return FALSE
+
 
 /datum/game_mode/traitor/thief/changeling/post_setup()
 	for(var/datum/mind/changeling in pre_changelings)

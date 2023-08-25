@@ -903,3 +903,11 @@ proc/dd_sortedObjectList(list/incoming)
 	. = list()
 	for(var/thing in flat_list)
 		.[thing] = TRUE
+
+
+/proc/listclearduplicates(check, list/list)
+	if(!istype(list))
+		stack_trace("Wrong type of list passed.")
+		return
+	while(check in list)
+		list -= check

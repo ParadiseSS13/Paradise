@@ -30,7 +30,7 @@
 	var/list/protected_jobs = list()
 	/// Species that can't be antags.
 	var/list/protected_species = list()
-	/// Species duplicate for antags.
+	/// Species duplicate for antags. Remember to clear the list you get with [get_players_for_role()] from duplicate minds. See thief game mode setup.
 	var/list/prefered_species = list()
 	/// If prefered_species list is not empty antagonist mind with that specie will be duplicated passed number of times in get_players_for_role().
 	var/prefered_species_mod = 0

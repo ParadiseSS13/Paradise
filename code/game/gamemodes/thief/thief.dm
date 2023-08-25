@@ -12,8 +12,8 @@
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 3
-
-	var/thieves_amount = 3
+	/// List of minds of soon to be thieves
+	var/list/datum/mind/pre_thieves = list()
 
 
 /datum/game_mode/thief/announce()
@@ -31,18 +31,18 @@
 	var/thieves_scale = 15
 	if(config.traitor_scaling)
 		thieves_scale = config.traitor_scaling
-	thieves_amount = 1 + round(num_players() / thieves_scale)
+	var/thieves_amount = 1 + round(num_players() / thieves_scale)
 	add_game_logs("Number of  thieves chosen: [thieves_amount]")
 
-	if(possible_thieves.len>0)
-		for(var/i = 0, i < thieves_amount, i++)
-			if(!possible_thieves.len) break
-			var/datum/mind/M = pick(possible_thieves)
-			possible_thieves -= M
-			thieves += M
-			M.restricted_roles = restricted_jobs
-			modePlayer += thieves
-			M.special_role = SPECIAL_ROLE_THIEF
+	if(length(possible_thieves))
+		for(var/i in 1 to thieves_amount)
+			if(!length(possible_thieves))
+				break
+			var/datum/mind/thief = pick(possible_thieves)
+			listclearduplicates(thief, possible_thieves)
+			pre_thieves += thief
+			thief.special_role = SPECIAL_ROLE_THIEF
+			thief.restricted_roles = restricted_jobs
 		..()
 		return TRUE
 	else
@@ -50,109 +50,16 @@
 
 
 /datum/game_mode/thief/post_setup()
-	for(var/datum/mind/thief in thieves)
-		thief.make_Thief()
+	for(var/datum/mind/thief in pre_thieves)
+		thief.add_antag_datum(/datum/antagonist/thief)
 	..()
 
-
-/datum/game_mode/proc/forge_thief_objectives(datum/mind/thief)
-	var/datum/objective/thief_objective
-
-	//Hard objective
-	if(prob(30))
-		thief_objective = new /datum/objective/steal
-	else
-		thief_objective = new /datum/objective/steal/hard
-	thief_objective.owner = thief
-	thief_objective.find_target()
-	thief.objectives += thief_objective
-
-	//Medium objective
-	if(prob(50))
-		thief_objective = new /datum/objective/steal_pet
-	else if(prob(70))
-		thief_objective = new /datum/objective/steal/medium
-	else
-		thief_objective = new /datum/objective/steal_structure
-	thief_objective.owner = thief
-	thief_objective.find_target()
-	thief.objectives += thief_objective
-
-	//Collect objective
-	if(prob(70))
-		thief_objective = new /datum/objective/collect
-		thief_objective.owner = thief
-		thief_objective.find_target()
-		thief.objectives += thief_objective
-	else
-		var/datum/objective/get_money/money_objective = new
-		money_objective.owner = thief
-		thief.objectives += money_objective
-		money_objective.new_cash(accounts_procent = 50)
-
-
-	//Escape objective
-	if(!(locate(/datum/objective/escape) in thief.objectives))
-		var/datum/objective/escape/escape_objective = new
-		escape_objective.owner = thief
-		thief.objectives += escape_objective
-	return
-
-/datum/game_mode/proc/greet_thief(datum/mind/thief, you_are=1)
-	SEND_SOUND(thief.current, 'sound/ambience/antag/thiefalert.ogg')
-	if(you_are)
-		to_chat(thief.current, "<span class='danger'>Вы член гильдии воров!</span>")
-	to_chat(thief.current, "<span class='danger'>Гильдия воров прислала новые заказы для кражи. Пора заняться старым добрым ремеслом, пока цели не украли конкуренты!</span>")
-	to_chat(thief.current, "<B>Вам необходимо преуспеть в целях:</B>")
-	if(thief.current.mind)
-		if(thief.current.mind.assigned_role == "Clown")
-			to_chat(thief.current, "Вы превзошли свою клоунскую натуру, ваши ловкие пальцы нивелировали былую неуклюжесть!")
-			thief.current.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(thief.current)
-	var/obj_count = 1
-	for(var/datum/objective/objective in thief.objectives)
-		to_chat(thief.current, "<B>Цель #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-	return
-
-/datum/game_mode/proc/remove_thief(datum/mind/thief_mind)
-	if(thief_mind in thieves)
-		thieves -= thief_mind
-		thief_mind.memory = ""
-		thief_mind.special_role = null
-		if(issilicon(thief_mind.current))
-			to_chat(thief_mind.current, "<span class='userdanger'>Вы киборгизированы!</span>")
-			to_chat(thief_mind.current, "<span class='danger'>Вы должны подчиняться своим законам и подчиняться мастеру ИИ. Ваши цели более недействительны.</span>")
-		else
-			to_chat(thief_mind.current, "<FONT color='red' size = 3><B>Вы встали на праведный путь и Гильдия Воров изгнала вас! Вы больше не вор!</B></FONT>")
-		update_thief_icons_removed(thief_mind)
-
-/datum/game_mode/proc/update_thief_icons_added(datum/mind/thief)
-	var/datum/atom_hud/antag/thiefhud = GLOB.huds[ANTAG_HUD_THIEF]
-	thiefhud.join_hud(thief.current)
-	set_antag_hud(thief.current, "hudthief")
-
-/datum/game_mode/proc/update_thief_icons_removed(datum/mind/thief)
-	var/datum/atom_hud/antag/thiefhud = GLOB.huds[ANTAG_HUD_THIEF]
-	thiefhud.leave_hud(thief.current)
-	set_antag_hud(thief.current, null)
-
-/datum/game_mode/proc/equip_thief(mob/living/carbon/thief)
-	if(!istype(thief))
-		return
-	if(thief.back)
-		thief.equip_to_slot_if_possible(new /obj/item/thief_kit(thief), slot_in_backpack)
-		to_chat(thief, "<span class='notice'>Набор гильдии воров находится у вас в рюкзаке.</span>")
-	else
-		var/obj/item/thief_kit/kit = new(thief)
-		kit.equip_to_best_slot(thief)
 
 /datum/game_mode/proc/auto_declare_completion_thief()
 	if(thieves.len)
 		var/text = "<FONT size = 3><B>Воры в розыске:</B></FONT><br>"
 		for(var/datum/mind/thief in thieves)
-			var/thiefwin = 1
+			var/thiefwin = TRUE
 			text += printplayer(thief) + "<br>"
 
 			if(thief.objectives.len)
@@ -164,7 +71,7 @@
 					else
 						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провалена.</font><br>"
 						SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "FAIL"))
-						thiefwin = 0
+						thiefwin = FALSE
 					count++
 
 			if(thiefwin)
@@ -176,4 +83,4 @@
 
 		to_chat(world, text)
 
-	return 1
+	return TRUE

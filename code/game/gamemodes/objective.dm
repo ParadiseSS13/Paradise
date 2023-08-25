@@ -1,3 +1,12 @@
+#define THEFT_FLAG_HIGHRISK 	1
+#define THEFT_FLAG_UNIQUE 		2
+#define THEFT_FLAG_HARD 		3
+#define THEFT_FLAG_MEDIUM 		4
+#define THEFT_FLAG_STRUCTURE	5
+#define THEFT_FLAG_ANIMAL		6
+#define THEFT_FLAG_COLLECT 		7
+
+
 GLOBAL_LIST_EMPTY(all_objectives)
 
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
@@ -343,6 +352,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/protect //The opposite of killing a dude.
+	name = "Protect"
 	martyr_compatible = TRUE
 
 
@@ -650,25 +660,27 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = "Steal Item"
 	var/datum/theft_objective/steal_target
 	martyr_compatible = FALSE
-	var/theft_area
-	var/type_theft_flag = 0
+	var/type_theft_flag = THEFT_FLAG_HIGHRISK
 
 
-/datum/objective/steal/proc/get_theft_extension_list_objectives()
-	return FALSE
-
-
-/datum/objective/steal/proc/get_location()
-	if(steal_target.location_override)
-		return steal_target.location_override
-
-	var/list/obj/item/steal_candidates = get_all_of_type(steal_target.typepath, subtypes = TRUE)
-	for(var/obj/item/candidate in steal_candidates)
-		if(!is_admin_level(candidate.loc.z))
-			theft_area = get_area(candidate.loc)
-			return "[theft_area]"
-
-	return "неизвестной зоне"
+/datum/objective/steal/proc/get_theft_list_objectives(type_theft_flag)
+	switch(type_theft_flag)
+		if(THEFT_FLAG_HIGHRISK)
+			return GLOB.potential_theft_objectives
+		if(THEFT_FLAG_HARD)
+			return GLOB.potential_theft_objectives_hard
+		if(THEFT_FLAG_MEDIUM)
+			return GLOB.potential_theft_objectives_medium
+		if(THEFT_FLAG_COLLECT)
+			return GLOB.potential_theft_objectives_collect
+		if(THEFT_FLAG_UNIQUE)
+			return subtypesof(/datum/theft_objective/unique)
+		if(THEFT_FLAG_STRUCTURE)
+			return GLOB.potential_theft_objectives_structure
+		if(THEFT_FLAG_ANIMAL)
+			return GLOB.potential_theft_objectives_animal
+		else
+			return GLOB.potential_theft_objectives
 
 
 /datum/objective/steal/find_target(list/target_blacklist)
@@ -680,7 +692,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		var/has_invalid_owner = FALSE
 		for(var/datum/mind/player in get_owners())
-			if((player.assigned_role in new_theft_objective.protected_jobs) || (new_theft_objective in player.targets))
+			if((player.assigned_role in new_theft_objective.protected_jobs))
 				has_invalid_owner = TRUE
 				break
 
@@ -690,16 +702,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(!new_theft_objective.check_objective_conditions())
 			continue
 
-		if((owner.assigned_role in new_theft_objective.protected_jobs))
-			continue
-
-		if(new_theft_objective.name in target_blacklist)
+		if(new_theft_objective.id in target_blacklist)
 			continue
 
 		steal_target = new_theft_objective
-		explanation_text = "Украсть [steal_target.name]. Последнее местоположение было в [get_location()]. "
-		if(length(new_theft_objective.protected_jobs) && new_theft_objective.job_possession)
-			explanation_text += "Оно также может находиться у [jointext(new_theft_objective.protected_jobs, ", ")]."
+		steal_target.generate_explanation_text(src)
 
 		if(steal_target.special_equipment)
 			give_kit(steal_target.special_equipment)
@@ -710,8 +717,16 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return FALSE
 
 
+/datum/objective/steal/check_completion()
+	if(!steal_target)
+		return TRUE // Free Objective
+	return steal_target.check_completion(get_owners())
+
+
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = get_theft_list_objectives(type_theft_flag)+"custom"
+	var/list/possible_items_all = get_theft_list_objectives(type_theft_flag)
+	if(type_theft_flag == THEFT_FLAG_HIGHRISK)
+		possible_items_all |= "custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
 	if(!new_target)
 		return FALSE
@@ -730,26 +745,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		explanation_text = "Украсть [O.name]."
 	else
 		steal_target = new new_target
-		explanation_text = "Украсть [steal_target.name]."
+		steal_target.generate_explanation_text(src)
 		if(steal_target.special_equipment)
 			give_kit(steal_target.special_equipment)
 	if(steal_target)
 		return TRUE
-	return FALSE
-
-
-/datum/objective/steal/check_completion()
-	if(!steal_target)
-		return TRUE // Free Objective
-
-	for(var/datum/mind/player in get_owners())
-		if(!player.current)
-			continue
-
-		for(var/obj/item in player.current.GetAllContents())
-			if((istype(item, steal_target.typepath) || (item.type in steal_target.altitems)) && steal_target.check_special_completion(item))
-				return TRUE
-
 	return FALSE
 
 
@@ -772,6 +772,26 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			to_chat(human_owner, span_userdanger("Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1)."))
 			message_admins("[ADMIN_LOOKUPFLW(human_owner)] Failed to spawn with their [item_path] theft kit.")
 			qdel(item)
+
+
+/datum/objective/steal/hard
+	type_theft_flag = THEFT_FLAG_HARD
+
+
+/datum/objective/steal/medium
+	type_theft_flag = THEFT_FLAG_MEDIUM
+
+
+/datum/objective/steal/structure
+	type_theft_flag = THEFT_FLAG_STRUCTURE
+
+
+/datum/objective/steal/animal
+	type_theft_flag = THEFT_FLAG_ANIMAL
+
+
+/datum/objective/steal/collect
+	type_theft_flag = THEFT_FLAG_COLLECT
 
 
 /datum/objective/steal/exchange

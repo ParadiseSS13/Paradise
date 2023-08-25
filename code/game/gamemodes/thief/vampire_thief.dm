@@ -6,6 +6,8 @@
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
+	var/list/datum/mind/pre_thieves = list()
+
 
 /datum/game_mode/vampire/thief/announce()
 	to_chat(world, "<B>The current game mode is - Vampire+Thief!</B>")
@@ -18,18 +20,18 @@
 
 	var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF)
 
-	if(possible_thieves.len > 0)
+	if(length(possible_thieves))
 		var/datum/mind/thief = pick(possible_thieves)
-		thieves += thief
-		modePlayer += thieves
+		pre_thieves += thief
 		thief.restricted_roles = restricted_jobs
 		thief.special_role = SPECIAL_ROLE_THIEF
 		return ..()
 	else
-		return 0
+		return FALSE
+
 
 /datum/game_mode/vampire/thief/post_setup()
-	for(var/datum/mind/thief in thieves)
-		thief.make_Thief()
+	for(var/datum/mind/thief in pre_thieves)
+		thief.add_antag_datum(/datum/antagonist/thief)
 	..()
-	return
+

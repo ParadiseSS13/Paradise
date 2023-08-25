@@ -339,22 +339,20 @@ GLOBAL_LIST_EMPTY(antagonists)
 	else
 		if(istype(new_objective, /datum/objective/steal))
 			var/datum/objective/steal/our_objective = new_objective
-			var/list/steal_targets = list()
+			var/list/steal_target_ids = list()
 			for(var/datum/objective/steal/steal_objective in owner.get_all_objectives())
-				if(!steal_objective.steal_target.name)
+				if(!steal_objective.steal_target?.id)
 					continue
-				steal_targets |= steal_objective.steal_target.name
-			our_objective.find_target(target_blacklist = steal_targets)
+				steal_target_ids |= steal_objective.steal_target.id
 
-			if(our_objective.steal_target)
+			if(our_objective.find_target(target_blacklist = steal_target_ids))
 				found_valid_target = TRUE
 
 		else
 			var/list/general_targets = list()
 			for(var/datum/objective/general_objective in owner.get_all_objectives())
-				if(istype(general_objective, /datum/objective/steal))
+				if(istype(general_objective, /datum/objective/steal) || !general_objective.target)
 					continue
-
 				general_targets |= general_objective.target
 
 			new_objective.find_target(target_blacklist = general_targets)
