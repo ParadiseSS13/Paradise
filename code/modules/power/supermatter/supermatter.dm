@@ -27,7 +27,6 @@
 #define DETONATION_HALLUCINATION 600
 
 
-
 #define WARNING_DELAY 20			//seconds between warnings.
 /obj/machinery/power/supermatter_shard
 	name = "supermatter shard"
@@ -86,6 +85,8 @@
 	var/has_been_powered = 0
 	var/has_reached_emergency = 0
 
+	var/datum/supermatter_explosive_effects/supermatter_explosive_effects
+
 /obj/machinery/power/supermatter_shard/crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -108,6 +109,8 @@
 	radio = new(src)
 	radio.listening = 0
 	investigate_log("has been created.", INVESTIGATE_ENGINE)
+	supermatter_explosive_effects = new()
+	supermatter_explosive_effects.z = src.z
 
 
 /obj/machinery/power/supermatter_shard/proc/handle_admin_warnings()
@@ -145,6 +148,8 @@
 
 /obj/machinery/power/supermatter_shard/proc/explode()
 	investigate_log("has exploded.", INVESTIGATE_ENGINE)
+	supermatter_explosive_effects.z = src.z
+	supermatter_explosive_effects.handle_special_effects()
 	explosion(get_turf(src), explosion_power, explosion_power * 1.2, explosion_power * 1.5, explosion_power * 2, 1, 1, cause = src)
 	qdel(src)
 	return
@@ -194,7 +199,6 @@
 							H.last_hallucinator_log = "Supermatter explosion"
 						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
 						mob.apply_effect(rads, IRRADIATE)
-
 			explode()
 			emergency_lighting(0)
 

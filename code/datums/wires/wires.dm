@@ -377,6 +377,16 @@
 	on_pulse(wire)
 
 /**
+ * Pulses random wire. Calls `on_pulse()`.
+ *
+ */
+/datum/wires/proc/pulse_random()
+	var/cable = wires[rand(1, length(wires))]
+	if(is_cut(cable))
+		return
+	on_pulse(cable)
+
+/**
  * Pulses the wire associated with the given color.
  *
  * Arugments:
