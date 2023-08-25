@@ -8,10 +8,6 @@
 "ac" = (
 /turf/simulated/wall/indestructible/wood,
 /area/ninja/outpost)
-"ad" = (
-/obj/effect/landmark/newplayer_start,
-/turf/simulated/wall/indestructible/splashscreen,
-/area/start)
 "ae" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/holding)
@@ -3649,6 +3645,13 @@
 /obj/structure/mopbucket,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
+"mS" = (
+/obj/machinery/computer/security{
+	dir = 1;
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/specops)
 "mT" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Restroom";
@@ -4320,6 +4323,9 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"ph" = (
+/turf/simulated/wall/r_wall,
+/area/start)
 "pj" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -4551,9 +4557,6 @@
 	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
-"qf" = (
-/turf/simulated/wall/r_wall,
-/area/start)
 "qg" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/storage/secure/safe{
@@ -5254,6 +5257,13 @@
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"sO" = (
+/obj/machinery/door/poddoor/impassable{
+	name = "Thunderdome Blast Door";
+	id_tag = "thunderdome"
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena_source)
 "sQ" = (
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel/dark,
@@ -5555,30 +5565,6 @@
 	name = "Tool Storage";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
-"uf" = (
-/obj/structure/closet/crate/internals,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "ug" = (
@@ -6461,12 +6447,6 @@
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel,
 /area/admin)
-"xf" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
 "xg" = (
 /obj/machinery/computer/rdservercontrol{
 	badmin = 1;
@@ -6843,6 +6823,30 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"Ao" = (
+/obj/structure/closet/crate/internals,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "As" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
@@ -7182,6 +7186,13 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
+"BW" = (
+/obj/machinery/door/poddoor/impassable{
+	name = "General Supply";
+	id_tag = "thunderdomegen"
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena_source)
 "BX" = (
 /turf/simulated/floor/plating/asteroid/basalt/airless,
 /area/wizard_station)
@@ -7548,6 +7559,13 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"Du" = (
+/obj/machinery/door/poddoor/impassable{
+	name = "Heavy Supply";
+	id_tag = "thunderdomehea"
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena_source)
 "Dv" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/space/space_ninja,
@@ -8295,22 +8313,6 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
-"Gs" = (
-/obj/machinery/computer/security{
-	dir = 4;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
-	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
-/area/shuttle/escape)
 "Gt" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -8633,6 +8635,22 @@
 /obj/machinery/chem_master,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"HF" = (
+/obj/machinery/computer/security{
+	dir = 4;
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost")
+	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/shuttle/escape)
 "HI" = (
 /obj/structure/closet/secure_closet/guncabinet,
 /obj/item/ammo_box/magazine/smgm9mm,
@@ -9299,13 +9317,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
-"Kd" = (
-/obj/machinery/computer/security{
-	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/control)
 "Ke" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/black,
@@ -9545,13 +9556,6 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
-"Lb" = (
-/obj/machinery/computer/security{
-	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/specops)
 "Le" = (
 /obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel{
@@ -10389,6 +10393,13 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/grass,
+/area/centcom/control)
+"Oj" = (
+/obj/machinery/computer/security{
+	dir = 1;
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "Ok" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -11858,6 +11869,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Ul" = (
+/obj/effect/landmark/newplayer_start,
+/turf/simulated/wall/indestructible/splashscreen,
+/area/start)
 "Um" = (
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -11951,6 +11966,13 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"UB" = (
+/obj/machinery/computer/security{
+	dir = 1;
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	},
+/turf/simulated/floor/wood,
+/area/centcom/control)
 "UE" = (
 /obj/machinery/computer/operating,
 /turf/simulated/floor/plasteel/freezer,
@@ -12928,13 +12950,6 @@
 /obj/item/melee/energy/sword/saber/green,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
-"Yu" = (
-/obj/machinery/computer/security{
-	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
-	},
-/turf/simulated/floor/wood,
-/area/centcom/control)
 "Yv" = (
 /obj/machinery/computer/station_alert{
 	dir = 1
@@ -13033,6 +13048,12 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"YP" = (
+/obj/machinery/computer/security{
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "YR" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -13471,21 +13492,21 @@ aN
 aN
 aN
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -13728,21 +13749,21 @@ aN
 aN
 aN
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -15791,7 +15812,7 @@ rE
 rE
 rE
 rE
-ad
+Ul
 rE
 rE
 rE
@@ -17840,21 +17861,21 @@ ck
 ck
 ck
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -18097,21 +18118,21 @@ ck
 ck
 ck
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -27689,7 +27710,7 @@ aN
 Rp
 TA
 Rs
-Lb
+mS
 Rp
 aN
 OP
@@ -38227,7 +38248,7 @@ yg
 Uw
 Um
 Um
-Yu
+UB
 RE
 ID
 EU
@@ -40274,7 +40295,7 @@ aN
 aN
 YA
 Iy
-Kd
+Oj
 YA
 aN
 aN
@@ -49522,7 +49543,7 @@ aN
 od
 Ef
 Fn
-Gs
+HF
 Hl
 od
 IT
@@ -61559,7 +61580,7 @@ ab
 KY
 tz
 tU
-uf
+Ao
 KX
 KX
 uT
@@ -67753,7 +67774,7 @@ vF
 lZ
 wH
 wk
-xf
+YP
 zp
 lZ
 Ax
@@ -71002,11 +71023,11 @@ an
 an
 aa
 fI
-fM
-fM
-fM
-fM
-fM
+BW
+BW
+BW
+BW
+BW
 fI
 fI
 fI
@@ -71264,7 +71285,7 @@ fM
 fM
 fM
 fM
-fM
+Du
 fY
 fI
 aN
@@ -71521,7 +71542,7 @@ fM
 fM
 fM
 fM
-fM
+Du
 fY
 fI
 aN
@@ -71778,7 +71799,7 @@ fM
 fM
 fM
 fM
-fM
+Du
 fY
 fI
 aN
@@ -72035,7 +72056,7 @@ fM
 fM
 fM
 fM
-fM
+Du
 fY
 fI
 aN
@@ -72292,7 +72313,7 @@ fM
 fM
 fM
 fM
-fM
+Du
 fY
 fI
 aN
@@ -72544,11 +72565,11 @@ an
 an
 aa
 fI
-fM
-fM
-fM
-fM
-fM
+sO
+sO
+sO
+sO
+sO
 fI
 aa
 aa
@@ -76656,11 +76677,11 @@ eN
 IK
 cc
 fI
-fM
-fM
-fM
-fM
-fM
+sO
+sO
+sO
+sO
+sO
 fI
 aa
 aa
@@ -76918,7 +76939,7 @@ fM
 fM
 fM
 fM
-fM
+Du
 fZ
 fI
 aN
@@ -77175,7 +77196,7 @@ fM
 fM
 fM
 fM
-fM
+Du
 fZ
 fI
 aN
@@ -77432,7 +77453,7 @@ fM
 fM
 fM
 fM
-fM
+Du
 fZ
 fI
 aN
@@ -77689,7 +77710,7 @@ fM
 fM
 fM
 fM
-fM
+Du
 fZ
 fI
 aN
@@ -77946,7 +77967,7 @@ fM
 fM
 fM
 fM
-fM
+Du
 fZ
 fI
 aN
@@ -78198,11 +78219,11 @@ eQ
 eH
 cc
 fI
-fM
-fM
-fM
-fM
-fM
+BW
+BW
+BW
+BW
+BW
 fI
 fI
 fI
