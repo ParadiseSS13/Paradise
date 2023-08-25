@@ -327,7 +327,7 @@
 			new /obj/effect/temp_visual/cult/sparks(T)
 			playsound(T, 'sound/effects/glassbr3.ogg', 100)
 			if(isliving(chosen.loc))
-				var/mob/living/shatterer = loc
+				var/mob/living/shatterer = chosen.loc
 				shatterer.Weaken(6 SECONDS)
 			qdel(chosen)
 
