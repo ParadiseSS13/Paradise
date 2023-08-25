@@ -275,7 +275,8 @@ SUBSYSTEM_DEF(jobs)
 	var/watch = start_watch()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
-	SetupOccupations()
+	if(!occupations.len)
+		SetupOccupations()
 
 	//Holder for Triumvirate is stored in the ticker, this just processes it
 	if(SSticker)
