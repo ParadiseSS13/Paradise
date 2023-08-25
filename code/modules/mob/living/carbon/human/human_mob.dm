@@ -1053,7 +1053,7 @@
 	if(!affecting)
 		. = FALSE
 		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
-	if(affecting.is_robotic())
+	else if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
 	if(wear_suit && !HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE) && piercing)
