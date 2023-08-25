@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
-			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 1)
+			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 5)
 				sales_items += I
 
 		for(var/datum/uplink_item/I in last)
