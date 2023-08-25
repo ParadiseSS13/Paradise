@@ -61,6 +61,9 @@
 	var/spawn_ert = 0
 	var/syndicate_command = 0
 
+	var/money_factor = 1 // multiplier of starting funds
+	var/random_money_factor = FALSE // is miltiplier randomized (from 4x to 0.25x for now)
+
 	var/outfit = null
 
 	/////////////////////////////////

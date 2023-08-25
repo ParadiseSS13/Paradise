@@ -11,6 +11,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	money_factor = 2
 	outfit = /datum/outfit/job/bartender
 
 /datum/outfit/job/bartender
@@ -53,6 +54,7 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
 	minimal_access = list(ACCESS_KITCHEN)
 	alt_titles = list("Cook","Culinary Artist","Butcher")
+	money_factor = 2
 	outfit = /datum/outfit/job/chef
 
 /datum/outfit/job/chef
@@ -93,6 +95,7 @@
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
+	money_factor = 2
 	outfit = /datum/outfit/job/hydro
 
 /datum/outfit/job/hydro
@@ -129,6 +132,7 @@
 	min_age_allowed = 30
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
+	money_factor = 6
 	outfit = /datum/outfit/job/qm
 
 /datum/outfit/job/qm
@@ -157,6 +161,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
+	money_factor = 2
 	outfit = /datum/outfit/job/cargo_tech
 
 /datum/outfit/job/cargo_tech
@@ -184,6 +189,7 @@
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Spelunker")
+	money_factor = 3
 	outfit = /datum/outfit/job/mining
 
 /datum/outfit/job/mining
@@ -253,6 +259,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE)
+	money_factor = 2
 	outfit = /datum/outfit/job/clown
 
 /datum/outfit/job/clown
@@ -342,6 +349,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_MIME, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE)
+	money_factor = 2
 	outfit = /datum/outfit/job/mime
 
 /datum/outfit/job/mime
@@ -396,6 +404,7 @@
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Custodial Technician")
+	money_factor = 2
 	outfit = /datum/outfit/job/janitor
 
 /datum/outfit/job/janitor
@@ -422,6 +431,7 @@
 	access = list(ACCESS_LIBRARY)
 	minimal_access = list(ACCESS_LIBRARY)
 	alt_titles = list("Journalist")
+	money_factor = 2
 	outfit = /datum/outfit/job/librarian
 
 /datum/outfit/job/librarian
@@ -451,6 +461,7 @@
 	alt_titles = list("Hair Stylist","Beautician")
 	access = list()
 	minimal_access = list()
+	money_factor = 2
 	outfit = /datum/outfit/job/barber
 
 /datum/outfit/job/barber

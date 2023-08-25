@@ -627,7 +627,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
+	var/datum/money_account/M = create_account(H.real_name, rand(500, 1500)*get_job_factor(job, job.random_money_factor), null)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"
@@ -655,6 +655,12 @@ SUBSYSTEM_DEF(jobs)
 
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
+
+/datum/controller/subsystem/jobs/proc/get_job_factor(datum/job/job, randomized)
+	if(randomized)
+		return job.money_factor*rand(0.25, 4) // for now only used for civillians
+	else
+		return job.money_factor
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()

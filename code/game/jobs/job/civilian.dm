@@ -10,6 +10,7 @@
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 	alt_titles = list("Tourist","Businessman","Trader","Assistant")
+	random_money_factor = TRUE
 	outfit = /datum/outfit/job/assistant
 
 /datum/job/civilian/get_access()

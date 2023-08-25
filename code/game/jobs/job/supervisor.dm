@@ -17,6 +17,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_COMMAND
 	disabilities_allowed = 0
+	money_factor = 10
 	outfit = /datum/outfit/job/captain
 
 /datum/job/captain/get_access()
@@ -84,6 +85,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	money_factor = 9
 	outfit = /datum/outfit/job/hop
 
 /datum/outfit/job/hop
@@ -135,6 +137,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_NTREP)
+	money_factor = 9
 	outfit = /datum/outfit/job/nanotrasenrep
 
 /datum/outfit/job/nanotrasenrep
@@ -179,6 +182,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_BLUESHIELD)
 	minimal_access = list(ACCESS_FORENSICS_LOCKERS, ACCESS_SEC_DOORS, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_ENGINE, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH,
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS, ACCESS_BLUESHIELD, ACCESS_WEAPONS)
+	money_factor = 7
 	outfit = /datum/outfit/job/blueshield
 
 /datum/outfit/job/blueshield
@@ -231,6 +235,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAGISTRATE)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_HEADS)
+	money_factor = 9
 	outfit = /datum/outfit/job/judge
 
 /datum/outfit/job/judge
@@ -275,6 +280,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	min_age_allowed = 30
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
+	money_factor = 6
 	outfit = /datum/outfit/job/lawyer
 
 /datum/outfit/job/lawyer

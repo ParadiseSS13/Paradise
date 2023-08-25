@@ -25,7 +25,7 @@
 	required_objectives = list(
 		/datum/job_objective/further_research
 	)
-
+	money_factor = 8
 	outfit = /datum/outfit/job/rd
 
 
@@ -70,7 +70,7 @@
 	required_objectives = list(
 		/datum/job_objective/further_research
 	)
-
+	money_factor = 4
 	outfit = /datum/outfit/job/scientist
 
 
@@ -103,6 +103,7 @@
 	exp_max	= 600
 	exp_type_max = EXP_TYPE_SCIENCE
 	is_novice = TRUE
+	money_factor = 2
 	outfit = /datum/outfit/job/scientist/student
 
 /datum/outfit/job/scientist/student
@@ -150,7 +151,7 @@
 		/datum/job_objective/make_cyborg,
 		/datum/job_objective/make_ripley
 	)
-
+	money_factor = 3
 	outfit = /datum/outfit/job/roboticist
 
 /datum/outfit/job/roboticist

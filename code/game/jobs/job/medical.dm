@@ -19,6 +19,7 @@
 	min_age_allowed = 30
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_MEDICAL
+	money_factor = 7
 	outfit = /datum/outfit/job/cmo
 
 /datum/outfit/job/cmo
@@ -59,6 +60,7 @@
 	minimal_player_age = 3
 	exp_requirements = 600
 	exp_type = EXP_TYPE_MEDICAL
+	money_factor = 3
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
@@ -92,6 +94,7 @@
 	exp_max	= 600
 	exp_type_max = EXP_TYPE_MEDICAL
 	is_novice = TRUE
+	money_factor = 2
 	outfit = /datum/outfit/job/doctor/intern
 
 /datum/outfit/job/doctor/intern
@@ -137,6 +140,7 @@
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
+	money_factor = 3
 	outfit = /datum/outfit/job/coroner
 
 /datum/outfit/job/coroner
@@ -200,6 +204,7 @@
 	minimal_player_age = 7
 	exp_requirements = 600
 	exp_type = EXP_TYPE_MEDICAL
+	money_factor = 4
 	outfit = /datum/outfit/job/chemist
 
 /datum/outfit/job/chemist
@@ -234,6 +239,7 @@
 	minimal_player_age = 3
 	exp_requirements = 900
 	exp_type = EXP_TYPE_MEDICAL
+	money_factor = 4
 	outfit = /datum/outfit/job/geneticist
 
 /datum/outfit/job/geneticist
@@ -269,6 +275,7 @@
 	minimal_player_age = 7
 	exp_requirements = 900
 	exp_type = EXP_TYPE_MEDICAL
+	money_factor = 4
 	outfit = /datum/outfit/job/virologist
 
 /datum/outfit/job/virologist
@@ -302,6 +309,7 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST)
 	alt_titles = list("Psychologist","Therapist")
+	money_factor = 3
 	outfit = /datum/outfit/job/psychiatrist
 
 /datum/outfit/job/psychiatrist
@@ -343,6 +351,7 @@
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
+	money_factor = 3
 	outfit = /datum/outfit/job/paramedic
 
 /datum/outfit/job/paramedic
