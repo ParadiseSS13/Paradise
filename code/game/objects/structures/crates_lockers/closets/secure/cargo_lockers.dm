@@ -31,4 +31,5 @@
 	new /obj/item/rcs(src)
 	new /obj/item/gun/energy/plasmacutter(src)
 	new /obj/item/destTagger(src)
+	new /obj/item/reagent_containers/food/drinks/mug/qm(src)
 
