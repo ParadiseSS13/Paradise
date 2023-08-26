@@ -344,7 +344,7 @@
 	if(!istype(target))
 		return
 	busy = TRUE
-	target.adjustStaminaLoss(40)
+	target.adjustStaminaLoss(60)
 	target.emote("gasp")
 	to_chat(target, "<span class='danger'>[user] touches [target] lightly with [parent]!</span>")
 	add_attack_logs(user, target, "Stunned with [parent]")
