@@ -156,7 +156,7 @@
 /obj/item/reagent_containers/food/drinks/mug/qm
 	name = "quartermaster's mug"
 	desc = "A newly imported mug, express delivery."
-	icon_state = "mug_hop"
+	icon_state = "mug_qm"
 	preset = TRUE
 
 /obj/item/reagent_containers/food/drinks/mug/hop

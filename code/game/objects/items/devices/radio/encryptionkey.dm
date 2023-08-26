@@ -128,7 +128,7 @@
 
 /obj/item/encryptionkey/heads/qm
 	name = "Quartermaster's Encryption Key"
-	icon_state = "hop_cypherkey"
+	icon_state = "qm_cypherkey"
 	channels = list("Supply" = 1, "Command" = 1)
 
 /obj/item/encryptionkey/heads/ntrep
