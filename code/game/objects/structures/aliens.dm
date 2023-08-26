@@ -52,9 +52,12 @@
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_RESIN)
 	max_integrity = 200
 	var/resintype = null
+	var/is_alien = TRUE
 
 /obj/structure/alien/resin/Initialize(mapload)
 	air_update_turf(1)
+	if(!is_alien)
+		return ..()
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
 		qdel(W)
 	if(locate(/obj/structure/alien/weeds) in get_turf(src))
