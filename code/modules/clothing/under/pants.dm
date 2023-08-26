@@ -8,7 +8,8 @@
 		"Human" = 'icons/mob/clothing/under/pants.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/pants.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/pants.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/pants.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/under/pants.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/pants.dmi'
 		)
 
 
