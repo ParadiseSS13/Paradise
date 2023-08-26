@@ -71,8 +71,8 @@
 		"Chief Engineer",
 		"Research Director",
 		"Chief Medical Officer",
-		"Nanotrasen Representative"
-		// The Quartermaster being in this list breaks their IC notes. Why? I don't know.
+		"Nanotrasen Representative",
+		"Quartermaster"
 	)
 	head_of_staff = "Captain"
 
