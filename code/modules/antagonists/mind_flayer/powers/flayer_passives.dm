@@ -7,6 +7,7 @@
 	var/level = 1
 	var/mob/living/owner
 	var/gain_desc
+	var/power_type = FLAYER_UNOBTAINABLE_POWER
 
 /datum/mindflayer_passive/New()
 	..()
@@ -23,6 +24,7 @@
 	purchase_text = "The swarm will reinforce your armor, strengthening it against attacks."
 	upgrade_text = "The swarm adds more layers of armored nanites, strengthening the plating even more."
 	gain_desc = "You feel your plating being reinforced by the swarm."
+	power_type = FLAYER_PURCHASABLE_POWER
 
 /datum/mindflayer_passive/armored_plating/on_apply(datum/antagonist/mindflayer/flayer)
 	var/armor_value = 5 * level
@@ -32,6 +34,7 @@
 	purchase_text = "The swarm will make your legs more fluid, resulting in it muting your footsteps."
 	upgrade_text = "Your feet become even more malleable, seemingly melting into the floor; you feel oddly stable."
 	gain_desc = "Your limbs start slowly melting into the floor."
+	power_type = FLAYER_PURCHASABLE_POWER
 
 /datum/mindflayer_passive/fluid_feet/on_apply(datum/antagonist/mindflayer/flayer)
 	switch(level)
@@ -44,6 +47,7 @@
 	purchase_text = "I give up, IPCs are based now"
 	upgrade_text = "Add this later"
 	gain_desc = "Ayyyy lmao"
+	power_type = FLAYER_INNATE_POWER //Just for testing
 
 /datum/mindflayer_passive/new_crit/on_apply(datum/antagonist/mindflayer/flayer)
 	owner.dna.species.dies_at_threshold = FALSE

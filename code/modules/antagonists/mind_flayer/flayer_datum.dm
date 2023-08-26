@@ -13,17 +13,24 @@
 	///The list of all purchased powers
 	var/list/powers = list()
 	/// The list of all innate powers
-	var/list/innate_powers = list(/obj/effect/proc_holder/spell/flayer/self/weapon/swarmprod, /datum/mindflayer_passive/new_crit, /obj/effect/proc_holder/spell/flayer/self/rejuv) // They won't get newcrit for being a mindflayer, I just like having it during testing
+	var/list/innate_powers = list()
+	/// A static list of all purchasable mindflayer abilities
+	var/static/list/ability_list = list()
 	///List for keeping track of who has already been drained
 	var/list/drained_humans = list()
 	///How fast the flayer's touch drains
 	var/drain_multiplier = 1
 
-#define BRAIN_DRAIN_LIMIT 120
-#define DRAIN_TIME 1/4 SECONDS
 
 /proc/ismindflayer(mob/M)
 	return M.mind?.has_antag_datum(/datum/antagonist/mindflayer)
+
+/datum/antagonist/mindflayer/New()
+	. = ..()
+	if(!length(innate_powers))
+		innate_powers = get_powers_of_type(FLAYER_INNATE_POWER)
+	if(!length(ability_list))
+		ability_list = get_powers_of_type(FLAYER_PURCHASABLE_POWER)
 
 /datum/antagonist/mindflayer/proc/get_swarms()
 	return usable_swarms
@@ -93,13 +100,11 @@
  * * mob/living/mindflayer - the mindflayer who owns this datum. Optional argument.
  * * take_cost - if we should spend genetic points when giving the power
  */
-/* TODO: fix this proc so it works with mindflayers
-/datum/antagonist/mindflayer/proc/give_power(datum/action/mindflayer/power, mob/living/mindflayer, take_cost = TRUE)
+/datum/antagonist/mindflayer/proc/give_power(obj/effect/proc_holder/spell/flayer/power, mob/living/mindflayer, take_cost = TRUE)
 	if(take_cost)
-		genetic_points -= power.dna_cost
-	acquired_powers += power
-	on_purchase(mindflayer || owner.current, src, power)
-*/
+		usable_swarms -= power.swarm_cost
+	powers += power
+	power.on_purchase(mindflayer || owner.current, src, power)
 
 // This proc adds extra things that the mindflayer should get upon becoming a mindflayer
 /datum/antagonist/mindflayer/on_gain()
@@ -109,6 +114,7 @@
 		add_ability(path)
 
 
+
 /datum/antagonist/mindflayer/greet()
 	var/dat
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
@@ -116,6 +122,26 @@
 	dat += {"To harvest someone, target where the brain of your victim is and use harm intent with an empty hand. Drain intelligence to increase your swarm.
 		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
 	to_chat(owner.current, dat)
+
+/**
+ * Gets a list of mind flayer spell and passive typepaths based on the passed in `power_type`. (Thanks for the code Steelslayer)
+ *
+ * Arguments:
+ * * power_type - should be a define related to [/obj/effect/proc_holder/spell/flayer/power_type].
+ */
+/datum/antagonist/mindflayer/proc/get_powers_of_type(power_type)
+	var/list/powers = list()
+	for(var/power_path in subtypesof(/obj/effect/proc_holder/spell/flayer))
+		var/obj/effect/proc_holder/spell/flayer/power = power_path
+		if(initial(power.power_type) != power_type)
+			continue
+		powers += power_path
+	for(var/passive_path in subtypesof(/datum/mindflayer_passive))
+		var/datum/mindflayer_passive/passive = passive_path
+		if(initial(passive.power_type) != power_type)
+			continue
+		powers += passive_path
+	return powers
 
 /datum/antagonist/mindflayer/proc/add_ability(path)
 //	if(!get_ability(path)) TODO: make a working check for if the mindflayer already has the spell you're trying to add
@@ -167,7 +193,3 @@
 			hud.static_inventory += hud.vampire_blood_display
 			hud.show_hud(hud.hud_version)
 		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[usable_swarms]</font></div>"
-
-
-#undef BRAIN_DRAIN_LIMIT
-#undef DRAIN_TIME
