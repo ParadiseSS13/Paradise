@@ -14867,9 +14867,7 @@
 	},
 /area/quartermaster/office)
 "aTz" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/toy/figure/crew/qm,
+/obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -16435,14 +16433,18 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/item/hand_labeler,
+/obj/item/stack/packageWrap,
 /obj/item/paper_bin,
+/obj/item/clipboard,
 /obj/item/pen,
+/obj/machinery/keycard_auth{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -16506,6 +16508,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/item/toy/figure/crew/qm,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -16520,9 +16523,11 @@
 	},
 /area/quartermaster/qm)
 "aWJ" = (
-/obj/structure/closet/secure_closet/quartermaster,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
+	},
+/obj/machinery/computer/card/minor/qm{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -17791,7 +17796,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/closet/secure_closet/quartermaster,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -91564,6 +91569,12 @@
 	icon_state = "dark"
 	},
 /area/maintenance/apmaint)
+"qEc" = (
+/obj/structure/bed/dogbed,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/qm)
 "qET" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -143377,9 +143388,9 @@ aBS
 aKK
 aSa
 aTz
-bhZ
-aWE
 aYg
+aWE
+bhZ
 aZv
 aSa
 boD
@@ -144405,7 +144416,7 @@ aQv
 aKJ
 aSa
 aTD
-aYg
+qEc
 aWI
 aYg
 aZC

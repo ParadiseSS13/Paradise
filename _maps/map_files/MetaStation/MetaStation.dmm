@@ -8965,11 +8965,11 @@
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "aLS" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/status_display/supply_display{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/computer/card/minor/qm,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -10181,6 +10181,7 @@
 	name = "Cargo Requests Console";
 	pixel_y = 30
 	},
+/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -77498,6 +77499,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"qrP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "qrT" = (
 /obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
@@ -87754,12 +87760,12 @@
 /area/engine/break_room)
 "vwD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "vxc" = (
@@ -114278,7 +114284,7 @@ aMH
 bsi
 bsi
 gqF
-gqF
+qrP
 aKl
 jPT
 hDK

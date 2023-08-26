@@ -35184,10 +35184,10 @@
 	},
 /area/assembly/robotics)
 "bRo" = (
-/obj/structure/closet/secure_closet/quartermaster,
 /obj/machinery/camera{
 	c_tag = "Quartermaster's Office"
 	},
+/obj/machinery/computer/card/minor/qm,
 /turf/simulated/floor/carpet,
 /area/quartermaster/qm)
 "bRp" = (
@@ -37467,7 +37467,7 @@
 /area/quartermaster/storage)
 "bXf" = (
 /obj/structure/table,
-/obj/item/flashlight/lamp/green,
+/obj/machinery/keycard_auth,
 /turf/simulated/floor/carpet,
 /area/quartermaster/qm)
 "bXh" = (
@@ -38027,6 +38027,7 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet,
 /area/quartermaster/qm)
 "bYs" = (
@@ -68207,6 +68208,11 @@
 	pixel_x = 6;
 	pixel_y = 5
 	},
+/obj/item/toy/figure/crew/qm,
+/obj/item/coin/silver{
+	pixel_y = 5;
+	pixel_x = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -87880,12 +87886,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/table,
-/obj/item/coin/silver{
-	pixel_y = 5;
-	pixel_x = 3
-	},
-/obj/item/toy/figure/crew/qm,
+/obj/structure/closet/secure_closet/quartermaster,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -89832,7 +89833,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/aft)
 "vnZ" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"

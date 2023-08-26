@@ -2228,12 +2228,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "ann" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/secure_closet/quartermaster,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
 	},
-/area/quartermaster/qm)
+/area)
 "anr" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1
@@ -4084,10 +4084,6 @@
 	dir = 1;
 	id = "hos";
 	pixel_x = -4;
-	pixel_y = -24
-	},
-/obj/machinery/keycard_auth{
-	pixel_x = 8;
 	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
@@ -6648,7 +6644,6 @@
 	},
 /area/bridge)
 "aPp" = (
-/obj/machinery/computer/supplycomp,
 /obj/item/radio/intercom{
 	pixel_y = 28;
 	name = "custom placement"
@@ -15500,12 +15495,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/genetics_cloning)
-"bDy" = (
-/obj/machinery/keycard_auth{
-	pixel_y = 24
-	},
-/turf/simulated/floor/carpet/black,
-/area/bridge)
 "bDz" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -18450,12 +18439,6 @@
 /obj/machinery/computer/guestpass{
 	pixel_x = -28;
 	pixel_y = null
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/chiefs_office)
-"bPA" = (
-/obj/machinery/keycard_auth{
-	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
@@ -25009,6 +24992,9 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22"
 	},
+/obj/machinery/keycard_auth{
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -25656,7 +25642,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "cDS" = (
-/obj/structure/closet/secure_closet/quartermaster,
+/obj/machinery/computer/card/minor/qm{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -26468,9 +26456,6 @@
 	},
 /area/quartermaster/office)
 "cHF" = (
-/obj/machinery/computer/supplycomp{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment{
@@ -28540,9 +28525,6 @@
 /area/hallway/secondary/exit)
 "cQs" = (
 /obj/structure/table,
-/obj/machinery/keycard_auth{
-	pixel_x = -24
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24;
@@ -47510,9 +47492,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/keycard_auth{
-	pixel_x = -24
-	},
 /turf/simulated/floor/wood,
 /area/blueshield)
 "hUs" = (
@@ -52291,10 +52270,6 @@
 	pixel_x = -5;
 	pixel_y = -24
 	},
-/obj/machinery/keycard_auth{
-	pixel_y = -26;
-	pixel_x = -21
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -53162,9 +53137,6 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "jJY" = (
-/obj/machinery/keycard_auth{
-	pixel_y = 24
-	},
 /obj/structure/table/wood,
 /obj/item/melee/chainofcommand,
 /turf/simulated/floor/wood,
@@ -54400,9 +54372,6 @@
 	dir = 1;
 	name = "Desk Door";
 	req_access_txt = "73"
-	},
-/obj/machinery/keycard_auth{
-	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
@@ -77259,9 +77228,6 @@
 /area/hallway/primary/starboard/south)
 "rNg" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/keycard_auth{
-	pixel_x = -24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -83082,6 +83048,7 @@
 	},
 /area/medical/medbay)
 "tLh" = (
+/obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -129464,7 +129431,7 @@ xlS
 bLX
 bNu
 cQB
-bPA
+cQv
 iTF
 bRv
 bSs
@@ -130156,7 +130123,7 @@ aEU
 aEU
 aEU
 eTm
-bDy
+bMQ
 aIv
 bRp
 bYj
