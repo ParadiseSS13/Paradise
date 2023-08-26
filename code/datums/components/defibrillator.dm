@@ -356,7 +356,7 @@
 		target.set_heartattack(TRUE)
 		target.visible_message("<span class='danger'>[user] has touched [target] with [parent]!</span>", \
 				"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
-		playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+		playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		set_cooldown()
 		busy = FALSE
