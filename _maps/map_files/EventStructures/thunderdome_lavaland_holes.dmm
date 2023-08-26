@@ -3,10 +3,6 @@
 /obj/structure/nest/lavaland,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/tdome/arena)
-"F" = (
-/obj/structure/barricade/sandbags,
-/turf/simulated/floor/plating/asteroid/basalt,
-/area/tdome/arena)
 "R" = (
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/tdome/arena)
@@ -30,13 +26,13 @@ R
 R
 "}
 (3,1,1) = {"
-F
-F
 R
 R
 R
-F
-F
+R
+R
+R
+R
 "}
 (4,1,1) = {"
 R
@@ -120,13 +116,13 @@ R
 R
 "}
 (13,1,1) = {"
-F
-F
 R
 R
 R
-F
-F
+R
+R
+R
+R
 "}
 (14,1,1) = {"
 R

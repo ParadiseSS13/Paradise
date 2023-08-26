@@ -38,7 +38,7 @@
 	description = "Only reinforced floor for thunderdome, no structures, good for advanced turf editing."
 	mappath = "_maps/map_files/EventStructures/thunderdome_empty_reinforced.dmm"
 
-	/datum/map_template/event/thunderdome_catwalk_chasm
+/datum/map_template/event/thunderdome_catwalk_chasm
 	name = "Thunderdome - Catwalk, Chasm"
 	event_id = "|Event| Thunderdome Catwalk Chasm"
 	description = "MORE CATWALK! it contain big chasm in middle."

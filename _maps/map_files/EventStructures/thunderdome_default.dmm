@@ -1,9 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"g" = (
-/obj/structure/barricade/sandbags,
-/obj/effect/turf_decal/bot,
-/turf/simulated/floor/plasteel,
-/area/tdome/arena)
 "m" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
@@ -24,7 +19,6 @@
 /area/tdome/arena)
 "R" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 
@@ -57,11 +51,11 @@ R
 "}
 (4,1,1) = {"
 Q
-g
+R
 Q
 Q
 Q
-g
+R
 Q
 "}
 (5,1,1) = {"
@@ -129,11 +123,11 @@ Q
 "}
 (12,1,1) = {"
 Q
-g
+R
 Q
 Q
 Q
-g
+R
 Q
 "}
 (13,1,1) = {"
