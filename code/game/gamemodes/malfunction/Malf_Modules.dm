@@ -376,6 +376,9 @@
 
 /datum/action/innate/ai/destroy_rcds/Activate()
 	for(var/obj/item/rcd/RCD in GLOB.rcd_list)
+		var/turf/RCD_turf = get_turf(RCD)
+		if(RCD_turf.z != usr.z)
+			continue
 		if(!istype(RCD, /obj/item/rcd/borg)) //Ensures that cyborg RCDs are spared.
 			RCD.detonate_pulse()
 
