@@ -106,6 +106,9 @@ By design, d1 is the smallest direction and d2 is the highest
 		var/obj/item/toy/crayon/C = W
 		cable_color(C.colourName)
 
+	else if((W.flags & CONDUCT) && W.sharp)
+		wirecutter_act(user, W)
+
 	add_fingerprint(user)
 
 /obj/structure/cable/multitool_act(mob/user, obj/item/I)
