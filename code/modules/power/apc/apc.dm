@@ -1012,6 +1012,19 @@
 			to_chat(user, "You emag the APC interface.")
 			update_icon()
 
+/obj/machinery/power/apc/proc/apc_short()
+	// if it has internal wires, cut the power wires
+	if(wires)
+		if(!wires.is_cut(WIRE_MAIN_POWER1))
+			wires.cut(WIRE_MAIN_POWER1)
+		if(!wires.is_cut(WIRE_MAIN_POWER2))
+			wires.cut(WIRE_MAIN_POWER2)
+	// if it was operating, toggle off the breaker
+	if(operating)
+		toggle_breaker()
+	// no matter what, ensure the area knows something happened to the power
+	apc_area.powernet.power_change()
+
 ///    *************
 /// APC subtypes
 ///    *************

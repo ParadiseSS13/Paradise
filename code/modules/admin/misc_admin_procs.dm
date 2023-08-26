@@ -699,6 +699,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SPAWN))
 		return
 
+	if(!object)
+		return
+
 	var/list/types = typesof(/atom)
 	var/list/matches = new()
 
