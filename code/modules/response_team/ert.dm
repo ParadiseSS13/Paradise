@@ -246,6 +246,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/borg_path = /mob/living/silicon/robot/ert
 	var/cyborg_security_permitted = FALSE
 
+	/// Whether the ERT announcement should be hidden from the station
 	var/silent
 
 /datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
