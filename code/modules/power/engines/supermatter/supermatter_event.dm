@@ -142,6 +142,7 @@
 
 /datum/supermatter_event/bravo_tier/power_additive/on_start()
 	supermatter.power += 3000
+	duration = 10 SECONDS
 
 //A class events
 /datum/supermatter_event/alpha_tier
