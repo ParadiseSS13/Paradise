@@ -158,6 +158,11 @@
 	display_name = "Bandana, skull"
 	path = /obj/item/clothing/mask/bandana/skull
 
+/datum/gear/pAI
+	display_name = "Personal Artificial Intelligence"
+	path = /obj/item/paicard
+	cost = 2
+
 /datum/gear/mob_hunt_game
 	display_name = "Nano-Mob Hunter GO! Cartridge"
 	path = /obj/item/cartridge/mob_hunt_game
