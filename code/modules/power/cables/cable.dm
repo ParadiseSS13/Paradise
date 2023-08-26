@@ -112,6 +112,10 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	add_fingerprint(user)
 
+/obj/structure/cable/attack_hand(mob/living/user)
+	. = ..()
+	shock(user, 50, 0.2)
+
 /obj/structure/cable/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
