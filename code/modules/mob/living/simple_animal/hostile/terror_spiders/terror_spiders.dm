@@ -473,4 +473,4 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/movement_delay()
 	. = ..()
 	if(pulling && !ismob(pulling) && pulling.density)
-		. += 6 // drastic move speed penalty for dragging anything that is not a mob
+		. += 6 // Drastic move speed penalty for dragging anything that is not a mob or a non dense object
