@@ -222,6 +222,11 @@
 	build_path = /obj/machinery/computer/card/minor/cmo
 	target_dept = TARGET_DEPT_MED
 
+/obj/item/circuitboard/card/minor/qm
+	name = "Circuit board (QM ID Computer)"
+	build_path = /obj/machinery/computer/card/minor/qm
+	target_dept = TARGET_DEPT_SUP
+
 /obj/item/circuitboard/card/minor/rd
 	board_name = "Science ID Computer"
 	icon_state = "science"

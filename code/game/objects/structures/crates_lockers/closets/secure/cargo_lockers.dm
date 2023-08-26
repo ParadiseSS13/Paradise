@@ -26,3 +26,9 @@
 	new /obj/item/organ/internal/eyes/cybernetic/meson(src)
 	new /obj/item/storage/bag/garment/quartermaster(src)
 	new /obj/item/clothing/accessory/medal/supply(src)
+	new /obj/item/fulton_core(src)
+	new /obj/item/extraction_pack(src)
+	new /obj/item/rcs(src)
+	new /obj/item/gun/energy/plasmacutter(src)
+	new /obj/item/destTagger(src)
+
