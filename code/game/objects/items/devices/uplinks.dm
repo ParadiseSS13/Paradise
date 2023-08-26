@@ -285,7 +285,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	..()
 	if(hidden_uplink)
 		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
-		hidden_uplink.uses = 500
+		hidden_uplink.uses = 2500
 
 /obj/item/multitool/uplink/New()
 	..()
@@ -301,4 +301,4 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/headset/uplink/New()
 	..()
 	hidden_uplink = new(src)
-	hidden_uplink.uses = 20
+	hidden_uplink.uses = 100
