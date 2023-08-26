@@ -581,19 +581,27 @@
 		organs_list += list(list("name" = O.name, "ref" = O.UID()))
 
 	data["organs"] = organs_list
+	data["currently_cloning"] = currently_cloning
 
 	return data
 
 /obj/machinery/clonepod/ui_act(action, params)
 	if(..())
 		return
-	if(action == "eject_organ")
-		var/obj/item/organ/O = locateUID(params["organ_ref"])
-		if(!O) //This shouldn't happen
-			return FALSE
-		if(!usr.put_in_hands(O))
-			O.forceMove(src.loc)
-		return TRUE
+	switch(action)
+		if("eject_organ")
+			var/obj/item/organ/O = locateUID(params["organ_ref"])
+			if(!O) //This shouldn't happen
+				return FALSE
+			if(!usr.put_in_hands(O))
+				O.forceMove(src.loc)
+			return TRUE
+		if("purge_reagent")
+			reagents.del_reagent(params["reagent"])
+			return TRUE
+		if("remove_reagent")
+			reagents.remove_reagent(params["reagent"], text2num(params["amount"]))
+			return TRUE
 
 	update_icon()
 
