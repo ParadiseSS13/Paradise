@@ -121,7 +121,7 @@
 #include "code\__HELPERS\_string_lists.dm"
 #include "code\__HELPERS\AnimationLibrary.dm"
 #include "code\__HELPERS\api.dm"
-#include "code\__HELPERS\atmospherics.dm"
+#include "code\__HELPERS\atmospherics_helpers.dm"
 #include "code\__HELPERS\bitflag_lists.dm"
 #include "code\__HELPERS\cmp.dm"
 #include "code\__HELPERS\colour_helpers.dm"
