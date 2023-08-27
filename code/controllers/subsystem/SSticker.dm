@@ -338,34 +338,21 @@ SUBSYSTEM_DEF(ticker)
 	return TRUE
 
 
-<<<<<<< HEAD
-/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(nuke_site = NUKE_SITE_ON_STATION, override = null)
-	if(cinematic)
-		return	//already a cinematic in progress!
-
-=======
-/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
->>>>>>> 953faf7429 (refactor: Cinematics)
+/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(nuke_site = NUKE_SITE_ON_STATION, override = null
 	auto_toggle_ooc(TRUE) // Turn it on
-
-<<<<<<< HEAD
 	if(nuke_site == NUKE_SITE_ON_STATION)
 		// Kill everyone on z-level 1 except for mobs in freezers and
 		// malfunctioning AIs.
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD)
-=======
-	if(!station_missed) //nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
-		for(var/mob/M in GLOB.mob_list)
-			if(M.stat != DEAD && !(issilicon(M) && override == "AI malfunction"))
->>>>>>> 953faf7429 (refactor: Cinematics)
 				var/turf/T = get_turf(M)
-				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
+				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer) && !(issilicon(M) && override == "AI malfunction"))
 					to_chat(M, "<span class='danger'><B>The blast wave from the explosion tears you atom from atom!</B></span>")
-					M.ghostize()
+					var/mob/ghost = M.ghostize()
 					M.dust() //no mercy
+					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
+						ghost.client.screen += cinematic
 					CHECK_TICK
-<<<<<<< HEAD
 			if(M && M.client) //Play the survivors a cinematic.
 				M.client.screen += cinematic
 	else
@@ -377,12 +364,18 @@ SUBSYSTEM_DEF(ticker)
 		//Now animate the cinematic
 		if(NUKE_SITE_ON_STATION)
 			// station was destroyed
-=======
-
-	//Now animate the cinematic
-	switch(station_missed)
-		//nuke was nearby but (mostly) missed
-		if(1)
+			if(mode && !override)
+				override = mode.name
+			switch(override)
+				if("nuclear emergency") //Nuke Ops successfully bombed the station
+					play_cinematic(/datum/cinematic/nuke/ops_victory, world)
+				if("AI malfunction") //Malf (screen,explosion,summary)
+					play_cinematic(/datum/cinematic/malf, world)
+				else //Station nuked (nuke,explosion,summary)
+					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
+			stop_delta_alarm()
+		if(NUKE_SITE_ON_STATION_ZLEVEL)
+			// nuke was nearby but (mostly) missed
 			if(mode && !override)
 				override = mode.name
 			switch(override)
@@ -392,46 +385,6 @@ SUBSYSTEM_DEF(ticker)
 					play_cinematic(/datum/cinematic/nuke/fake, world)
 				else
 					play_cinematic(/datum/cinematic/nuke/self_destruct_miss, world)
-		//nuke was nowhere nearby	//TODO: a really distant explosion animation
-		if(2)
-			play_cinematic(/datum/cinematic/nuke/far_explosion, world)
-		else	//station was destroyed
->>>>>>> 953faf7429 (refactor: Cinematics)
-			if(mode && !override)
-				override = mode.name
-			switch(override)
-				if("nuclear emergency") //Nuke Ops successfully bombed the station
-					play_cinematic(/datum/cinematic/nuke/ops_victory, world)
-				if("AI malfunction") //Malf (screen,explosion,summary)
-					play_cinematic(/datum/cinematic/malf, world)
-				else //Station nuked (nuke,explosion,summary)
-<<<<<<< HEAD
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_selfdes"
-			stop_delta_alarm()
-		if(NUKE_SITE_ON_STATION_ZLEVEL)
-			// nuke was nearby but (mostly) missed
-			if(mode && !override)
-				override = mode.name
-			switch(override)
-				if("nuclear emergency") //Nuke wasn't on station when it blew up
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					flick("station_intact_fade_red", cinematic)
-					cinematic.icon_state = "summary_nukefail"
-				if("fake") //The round isn't over, we're just freaking people out for fun
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/items/bikehorn.ogg'))
-					flick("summary_selfdes", cinematic)
-				else
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 		if(NUKE_SITE_OFF_STATION_ZLEVEL, NUKE_SITE_INVALID)
 			// nuke was nowhere nearby
 			// TODO: a really distant explosion animation
@@ -442,12 +395,8 @@ SUBSYSTEM_DEF(ticker)
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
 		stop_delta_alarm() // If we've not stopped this alarm yet, do so now.
-		QDEL_NULL(cinematic)		//end the cinematic
 
 
-=======
-					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
->>>>>>> 953faf7429 (refactor: Cinematics)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)
