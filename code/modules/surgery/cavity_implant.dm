@@ -17,6 +17,16 @@
 	/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/open_encased/close,/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head", "groin")
 
+/datum/surgery/cavity_implant/plasmaman
+	name = "Plasmaman Cavity Implant/Removal"
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
+	/datum/surgery_step/open_encased/retract, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/open_encased/close,/datum/surgery_step/glue_bone/plasma,/datum/surgery_step/generic/cauterize)
+	possible_locs = list("chest","head")
+
+/datum/surgery/cavity_implant/plasmaman/soft
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize)
+	possible_locs = list("groin")
+
 /datum/surgery/cavity_implant/synth
 	name = "Robotic Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
@@ -25,7 +35,7 @@
 
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/human/target)
 	var/mob/living/carbon/human/H = target
-	if(iskidan(H) || iswryn(H))
+	if(iskidan(H) || iswryn(H) || isplasmaman(H))
 		return FALSE
 	if(!istype(target))
 		return FALSE
@@ -47,6 +57,18 @@
 		if(!affected.encased)
 			return FALSE
 		if(iswryn(H) || iskidan(H))
+			return TRUE
+	return FALSE
+
+/datum/surgery/cavity_implant/plasmaman/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected)
+			return FALSE
+		if(affected.is_robotic())
+			return FALSE
+		if(isplasmaman(H))
 			return TRUE
 	return FALSE
 
