@@ -388,8 +388,7 @@ SUBSYSTEM_DEF(ticker)
 		if(NUKE_SITE_OFF_STATION_ZLEVEL, NUKE_SITE_INVALID)
 			// nuke was nowhere nearby
 			// TODO: a really distant explosion animation
-			sleep(50)
-			SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+			play_cinematic(/datum/cinematic/nuke/far_explosion, world)
 
 	//If its actually the end of the round, wait for it to end.
 	//Otherwise if its a verb it will continue on afterwards.
