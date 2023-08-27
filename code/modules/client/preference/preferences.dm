@@ -99,6 +99,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
+	// Should we draw parallax instead of darkness if we can see in dark?
+	var/parallax_darkness = FALSE
 	/// 2FA status
 	var/_2fa_status = _2FA_DISABLED
 	///Screentip Mode, in pixels. 8 is small, 15 is mega big, 0 is off.

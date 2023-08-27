@@ -29,7 +29,8 @@
 		keybindings,
 		server_region,
 		muted_adminsounds_ckeys,
-		viewrange
+		viewrange,
+		parallax_darkness
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
