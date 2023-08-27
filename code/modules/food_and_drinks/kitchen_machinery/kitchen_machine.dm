@@ -478,8 +478,8 @@
 			else
 				if(food.ingredient_name_plural)
 					name_overrides[display_name] = food.ingredient_name_plural
-				else
-					name_overrides[display_name] = "[name_overrides[display_name]]\s" //name_overrides[display_name] Will be set on the first time as the singular form
+				else if(items_counts[display_name] == 1) // Must only add "s" once or you get stuff like "eggsssss"
+					name_overrides[display_name] = "[name_overrides[display_name]]s" //name_overrides[display_name] Will be set on the first time as the singular form
 
 		items_counts[display_name]++
 

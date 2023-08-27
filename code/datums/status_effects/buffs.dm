@@ -448,7 +448,6 @@
 			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
 			owner.Weaken(6 SECONDS)
 			owner.emote("gasp")
-	cling.genetic_damage += stacks
 	cling = null
 
 /datum/status_effect/panacea

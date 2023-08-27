@@ -46,9 +46,6 @@
 	bloodiness = MAX_SHOE_BLOODINESS
 	alpha = BLOOD_SPLATTER_ALPHA_SLIME
 
-/obj/effect/decal/cleanable/blood/slime/can_bloodcrawl_in()
-	return FALSE
-
 /obj/effect/decal/cleanable/blood/slime/dry()
 	return
 
