@@ -242,3 +242,17 @@
   - server: Automatic NanoMap Update (#3405)
   yosoyrebelde:
   - tweak: (bluespace rift) patch pack for new station goal (#3365)
+'2023-08-27':
+  Daeberdir:
+  - bugfix: completed plasmamen operations. (#3416)
+  Vladisvell:
+  - tweak: overlay locker and critter closet fix (#3414)
+  Zwei:
+  - refactor: Subsystems Polishing (#3271)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3413)
+  Сиротка:
+  - bugfix: BSG (#3397)
+  - tweak: RND SPAI nerf (#3395)
+  - tweak: chameleon counterfeiter illegal level (#3396)
+  - tweak: Ninja borgo hypo pierce (#3412)
