@@ -3,11 +3,6 @@
 	var/is_advanced = FALSE
 	var/viewing_current_z_level
 
-/datum/ui_module/crew_monitor/New(datum/_host)
-	..()
-	viewing_current_z_level = level_name_to_num(MAIN_STATION) // by default, set it to the station
-
-
 /datum/ui_module/crew_monitor/ui_act(action, params)
 	if(..())
 		return TRUE
@@ -51,6 +46,9 @@
 	if(!is_advanced) // Advanced, allow viewing across multiple z-levels, but controlled by ui_act
 		var/turf/T = get_turf(ui_host())
 		viewing_current_z_level = T.z
+
+	if(!viewing_current_z_level)
+		viewing_current_z_level = level_name_to_num(MAIN_STATION) // by default, set it to the station
 
 	data["viewing_current_z_level"] = viewing_current_z_level
 
