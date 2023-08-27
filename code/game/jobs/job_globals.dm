@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Quartermaster",
 	"Nanotrasen Representative",
 	"Magistrate",
-	"Blueshield",
+	"Blueshield"
 ))
 
 /// Only roles that are command of departments, for revolution and similar stuff
