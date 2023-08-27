@@ -222,17 +222,17 @@
 	return ..()
 
 /mob/living/simple_animal/demon/pulse_demon/forceMove(atom/destination)
-	var/old = loc
+	var/old_location = loc
 	. = ..()
 	current_weapon = null
 	current_robot = null
 	if(current_bot)
 		current_bot.hijacked = FALSE
 	current_bot = null
-	if(istype(old, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = old
+	if(istype(old_location, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = old_location
 		// only set rigged if there are no remaining demons in the cell
-		C.rigged = !(locate(/mob/living/simple_animal/demon/pulse_demon) in old)
+		C.rigged = !(locate(/mob/living/simple_animal/demon/pulse_demon) in old_location)
 	if(istype(loc, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = loc
 		C.rigged = FALSE
@@ -248,15 +248,15 @@
 	to_chat(src, "<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise immune to damage.</b>")
 	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Pulse_Demon)</span>")
 
-	var/i = 1
+	var/amount_of_objectives = 1
 	var/list/objective_types = list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper)
 	for(var/p in objective_types)
 		var/datum/objective/objective_to_give = new p
 		objective_to_give.owner = mind
 		mind.objectives += objective_to_give
-		to_chat(src, "<b>Objective #[i++]</b>: [objective_to_give.explanation_text]")
+		to_chat(src, "<b>Objective #[amount_of_objectives++]</b>: [objective_to_give.explanation_text]")
 	SSticker.mode.traitors |= mind
-	return i
+	return amount_of_objectives
 
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
