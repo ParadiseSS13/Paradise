@@ -51,7 +51,9 @@
 /datum/spell_cooldown/proc/get_availability_percentage()
 	if(!is_on_cooldown()) // if off cooldown, we don't bother with the maths
 		return 1
-	return min(1, (recharge_duration - (recharge_time - world.time)) / recharge_duration)
+	if(recharge_duration != 0)
+		return min(1, (recharge_duration - (recharge_time - world.time)) / recharge_duration)
+	return 0.5
 
 /datum/spell_cooldown/proc/get_recharge_time()
 	return world.time + recharge_duration

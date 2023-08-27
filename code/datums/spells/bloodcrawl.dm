@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/bloodcrawl
 	name = "Blood Crawl"
 	desc = "Use pools of blood to phase out of existence."
-	base_cooldown = 1 SECONDS
+	base_cooldown = 0
 	clothes_req = FALSE
 	cooldown_min = 0
 	should_recharge_after_cast = FALSE
@@ -11,6 +11,7 @@
 	panel = "Demon"
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
+	var/list/phasein_atoms = list()
 
 /obj/effect/proc_holder/spell/bloodcrawl/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -39,6 +40,8 @@
 	else
 		if(phaseout(target, user))
 			phased = TRUE
+			cooldown_handler.start_recharge(1 SECONDS)
+			return
 	cooldown_handler.start_recharge()
 
 //Travel through pools of blood. Slaughter Demon powers for everyone!
@@ -203,7 +206,17 @@
 		qdel(BC)
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/rise_message(atom/A)
+	if(A in phasein_atoms)
+		return
+	phasein_atoms.Add(A)
 	A.visible_message("<span class='warning'>[A] starts to bubble...</span>")
+	for(var/i in 1 to 2)
+		if(A && phased)
+			new /obj/effect/temp_visual/cult/turf/open/floor(get_turf(A))
+			sleep(1 SECONDS)
+		else
+			break
+	phasein_atoms.Remove(A)
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_out(atom/A, mob/living/L)
 	if(isslaughterdemon(L))
@@ -219,7 +232,7 @@
 	if(L.notransform)
 		to_chat(L, "<span class='warning'>Finish eating first!</span>")
 		return FALSE
-	rise_message(A)
+	INVOKE_ASYNC(src, PROC_REF(rise_message), A)
 	if(!do_after(L, 2 SECONDS, target = A))
 		return FALSE
 	if(!A)
