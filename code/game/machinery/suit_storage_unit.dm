@@ -109,8 +109,8 @@
 /obj/machinery/suit_storage_unit/qm
 	name = "quartermaster's suit storage unit"
 	suit_type = /obj/item/mod/control/pre_equipped/loader
-	mask_type	= /obj/item/clothing/mask/gas/explorer
-	req_access	= list(ACCESS_QM)
+	mask_type = /obj/item/clothing/mask/gas/explorer
+	req_access = list(ACCESS_QM)
 
 /obj/machinery/suit_storage_unit/qm/secure
 	secure = TRUE
