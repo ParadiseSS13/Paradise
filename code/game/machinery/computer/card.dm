@@ -760,7 +760,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "supply management console"
 	target_dept = TARGET_DEPT_SUP
 	icon_screen = "idsup"
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_BROWN_ORANGE
 	req_access = list(ACCESS_QM)
 	circuit = /obj/item/circuitboard/card/minor/qm
 
