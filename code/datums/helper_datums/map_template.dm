@@ -123,6 +123,7 @@
 	preloadShelterTemplates()
 	preloadShuttleTemplates()
 	preloadBridgeTemplates()
+	preloadEventTemplates()
 
 /proc/preloadRuinTemplates()
 	// Merge the active lists together
@@ -185,3 +186,14 @@
 		var/datum/map_template/ruin/bridge/vertical/V = new vertical_type()
 		GLOB.bridge_vertical_templates[V.suffix] = V
 		GLOB.map_templates[V.suffix] = V
+
+/proc/preloadEventTemplates()
+	for(var/item in subtypesof(/datum/map_template/event))
+		var/datum/map_template/event/event_type = item
+		if(!initial(event_type.mappath))
+			continue
+
+		var/datum/map_template/event/E = new event_type()
+
+		GLOB.event_templates[E.event_id] = E
+		GLOB.map_templates[E.event_id] = E

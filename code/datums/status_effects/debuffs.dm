@@ -294,10 +294,6 @@
 /datum/status_effect/cling_tentacle/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
-/datum/status_effect/cling_tentacle/batterer
-	id = "cling_tentacle_batterer"
-	alert_type = null
-	duration = 7 SECONDS
 // start of `living` level status procs.
 
 /**
@@ -898,6 +894,11 @@
 						list("<span class='danger'>Your head hurts.</span>", "You feel a tingling sensation in your chest.", "<span class='danger'>You feel angry.</span>"),
 						list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>"),
 						list("<span class='danger'>Your entire body vibrates.</span>")
+			)
+			fake_emote = list(
+						list(),
+						list(),
+						list()
 			)
 		else
 			fake_msg = list(

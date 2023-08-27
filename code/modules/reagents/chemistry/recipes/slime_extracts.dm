@@ -532,6 +532,20 @@
 	log_game("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
 	explosion(extract_turf, 1, 3, 6)
 
+/datum/chemical_reaction/oil_slick
+	name = "Oil Potion"
+	id = "O_potion"
+	result = null
+	required_reagents = list("blood" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/oil
+	required_other = TRUE
+
+/datum/chemical_reaction/oil_slick/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/slimepotion/oil_slick/P = new /obj/item/slimepotion/oil_slick
+	P.forceMove(get_turf(holder.my_atom))
+
 //Light Pink
 /datum/chemical_reaction/slimepotion2
 	name = "Slime Potion 2"

@@ -21,6 +21,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/used_TC = 0
 
 	var/job = null
+	var/species = null
 	var/temp_category
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// Whether the uplink is jammed and cannot be used to order items.
@@ -47,7 +48,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /**
   * Build the item lists for use with the UI
   *
-  * Generates a list of items for use in the UI, based on job and other parameters
+  * Generates a list of items for use in the UI, based on job, species and other parameters
   *
   * Arguments:
   * * user - User to check
@@ -55,6 +56,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/proc/generate_item_lists(mob/user)
 	if(!job)
 		job = user.mind.assigned_role
+	if(!species)
+		species = user.dna.species.name
 
 	var/list/cats = list()
 
@@ -63,6 +66,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		for(var/datum/uplink_item/I in uplink_items[category])
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)) && uplink_type != UPLINK_TYPE_ADMIN)
+					continue
+			if(length(I.species))
+				if(!(I.species.Find(species)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
 			cats[cats.len]["items"] += list(list(
 				"name" = sanitize(I.name),
@@ -279,7 +285,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	..()
 	if(hidden_uplink)
 		hidden_uplink.update_uplink_type(UPLINK_TYPE_ADMIN)
-		hidden_uplink.uses = 500
+		hidden_uplink.uses = 2500
 
 /obj/item/multitool/uplink/New()
 	..()
@@ -295,4 +301,4 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/headset/uplink/New()
 	..()
 	hidden_uplink = new(src)
-	hidden_uplink.uses = 20
+	hidden_uplink.uses = 100

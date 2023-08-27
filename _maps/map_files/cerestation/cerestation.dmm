@@ -27321,7 +27321,7 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "cLE" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 2;
 	id = "Cell 6";
 	name = "Cell 6";
@@ -60076,7 +60076,7 @@
 	},
 /area/crew_quarters/sleep)
 "lUn" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 2;
 	id = "Cell 8";
 	name = "Cell 8";
@@ -88211,7 +88211,7 @@
 	},
 /area/hallway/secondary/entry/south)
 "vvl" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 2;
 	id = "Cell 7";
 	name = "Cell 7";

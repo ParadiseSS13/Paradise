@@ -54,6 +54,11 @@
 	flight_y_offset = 10
 	can_holster = TRUE
 
+/obj/item/gun/energy/disabler/Initialize(mapload)
+	. = ..()
+	cell.maxcharge = 800
+	cell.charge = 800
+
 /obj/item/gun/energy/disabler/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	var/obj/item/gun/energy/disabler/offhand_disabler = user.get_inactive_hand()
 	if(istype(offhand_disabler) && offhand_disabler.semicd && (user.a_intent != INTENT_HARM))

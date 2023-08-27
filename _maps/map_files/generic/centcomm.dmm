@@ -8,10 +8,6 @@
 "ac" = (
 /turf/simulated/wall/indestructible/wood,
 /area/ninja/outpost)
-"ad" = (
-/obj/effect/landmark/newplayer_start,
-/turf/simulated/wall/indestructible/splashscreen,
-/area/start)
 "ae" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/holding)
@@ -1295,6 +1291,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"fp" = (
+/obj/machinery/door/poddoor/impassable{
+	name = "Thunderdome Blast Door";
+	id_tag = "thunderdome"
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena_source)
 "fr" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
@@ -4320,6 +4323,9 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"ph" = (
+/turf/simulated/wall/r_wall,
+/area/start)
 "pj" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -4551,9 +4557,6 @@
 	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
-"qf" = (
-/turf/simulated/wall/r_wall,
-/area/start)
 "qg" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/storage/secure/safe{
@@ -5169,6 +5172,13 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"sr" = (
+/obj/machinery/door/poddoor/impassable{
+	name = "Heavy Supply";
+	id_tag = "thunderdomehea"
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena_source)
 "st" = (
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/lawyers_badge{
@@ -5555,20 +5565,6 @@
 	name = "Tool Storage";
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
-"uf" = (
-/obj/structure/closet/crate/internals,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "ug" = (
@@ -6453,7 +6449,7 @@
 /area/admin)
 "xf" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -6833,6 +6829,37 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"Ao" = (
+/obj/structure/closet/crate/internals,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"Ap" = (
+/obj/machinery/door/poddoor/impassable{
+	name = "General Supply";
+	id_tag = "thunderdomegen"
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena_source)
 "As" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
@@ -8288,7 +8315,7 @@
 "Gs" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost")
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -9292,7 +9319,7 @@
 "Kd" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -9538,7 +9565,7 @@
 "Lb" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -11848,6 +11875,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Ul" = (
+/obj/effect/landmark/newplayer_start,
+/turf/simulated/wall/indestructible/splashscreen,
+/area/start)
 "Um" = (
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -12921,7 +12952,7 @@
 "Yu" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -13461,21 +13492,21 @@ aN
 aN
 aN
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -13718,21 +13749,21 @@ aN
 aN
 aN
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -15781,7 +15812,7 @@ rE
 rE
 rE
 rE
-ad
+Ul
 rE
 rE
 rE
@@ -17830,21 +17861,21 @@ ck
 ck
 ck
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -18087,21 +18118,21 @@ ck
 ck
 ck
 aN
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
-qf
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
+ph
 aN
 aN
 aN
@@ -61549,7 +61580,7 @@ ab
 KY
 tz
 tU
-uf
+Ao
 KX
 KX
 uT
@@ -70992,11 +71023,11 @@ an
 an
 aa
 fI
-fM
-fM
-fM
-fM
-fM
+Ap
+Ap
+Ap
+Ap
+Ap
 fI
 fI
 fI
@@ -71254,7 +71285,7 @@ fM
 fM
 fM
 fM
-fM
+sr
 fY
 fI
 aN
@@ -71511,7 +71542,7 @@ fM
 fM
 fM
 fM
-fM
+sr
 fY
 fI
 aN
@@ -71768,7 +71799,7 @@ fM
 fM
 fM
 fM
-fM
+sr
 fY
 fI
 aN
@@ -72025,7 +72056,7 @@ fM
 fM
 fM
 fM
-fM
+sr
 fY
 fI
 aN
@@ -72282,7 +72313,7 @@ fM
 fM
 fM
 fM
-fM
+sr
 fY
 fI
 aN
@@ -72534,11 +72565,11 @@ an
 an
 aa
 fI
-fM
-fM
-fM
-fM
-fM
+fp
+fp
+fp
+fp
+fp
 fI
 aa
 aa
@@ -76646,11 +76677,11 @@ eN
 IK
 cc
 fI
-fM
-fM
-fM
-fM
-fM
+fp
+fp
+fp
+fp
+fp
 fI
 aa
 aa
@@ -76908,7 +76939,7 @@ fM
 fM
 fM
 fM
-fM
+sr
 fZ
 fI
 aN
@@ -77165,7 +77196,7 @@ fM
 fM
 fM
 fM
-fM
+sr
 fZ
 fI
 aN
@@ -77422,7 +77453,7 @@ fM
 fM
 fM
 fM
-fM
+sr
 fZ
 fI
 aN
@@ -77679,7 +77710,7 @@ fM
 fM
 fM
 fM
-fM
+sr
 fZ
 fI
 aN
@@ -77936,7 +77967,7 @@ fM
 fM
 fM
 fM
-fM
+sr
 fZ
 fI
 aN
@@ -78188,11 +78219,11 @@ eQ
 eH
 cc
 fI
-fM
-fM
-fM
-fM
-fM
+Ap
+Ap
+Ap
+Ap
+Ap
 fI
 fI
 fI

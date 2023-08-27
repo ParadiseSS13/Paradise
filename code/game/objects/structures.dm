@@ -71,21 +71,30 @@
 	var/turf/T = src.loc
 	if(!T || !istype(T)) return FALSE
 
-	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
-	if(!do_after(user, 50, target = src))
-		climber = null
-		return FALSE
+	if(HAS_TRAIT(climber, TRAIT_TABLE_LEAP))
+		user.visible_message("<span class='warning'>[user] gets ready to vault up onto [src]!</span>")
+		if(!do_after(user, 0.5 SECONDS, target = src))
+			climber = null
+			return FALSE
+	else
+		user.visible_message("<span class='warning'>[user] starts climbing onto [src]!</span>")
+		if(!do_after(user, 5 SECONDS, target = src))
+			climber = null
+			return FALSE
 
 	if(!can_touch(user) || !climbable)
 		climber = null
 		return FALSE
 
 	var/old_loc = usr.loc
-	usr.loc = get_turf(src)
-	usr.Moved(old_loc, get_dir(old_loc, usr.loc), FALSE)
+	user.loc = get_turf(src)
+	user.Moved(old_loc, get_dir(old_loc, usr.loc), FALSE)
 	if(get_turf(user) == get_turf(src))
-		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+		if(HAS_TRAIT(climber, TRAIT_TABLE_LEAP))
+			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
+		else
+			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
 
 	climber = null
 	return TRUE

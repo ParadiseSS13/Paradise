@@ -52,4 +52,4 @@ GLOBAL_LIST_EMPTY(shelter_templates)
 GLOBAL_LIST_EMPTY(shuttle_templates)
 GLOBAL_LIST_EMPTY(bridge_horizontal_templates)
 GLOBAL_LIST_EMPTY(bridge_vertical_templates)
-
+GLOBAL_LIST_EMPTY(event_templates)
