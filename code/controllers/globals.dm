@@ -14,7 +14,6 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 
 	var/datum/controller/exclude_these = new
 	gvars_datum_in_built_vars = exclude_these.vars + list("gvars_datum_protected_varlist", "gvars_datum_in_built_vars", "gvars_datum_init_order")
-	global.addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, exclude_these), 0, TIMER_STOPPABLE)	//signal logging isn't ready. Use addtimer without timers_by_type logging here
 
 	Initialize()
 

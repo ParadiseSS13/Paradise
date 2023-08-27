@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(dbcore)
 	flags = SS_BACKGROUND
 	wait = 1 MINUTES
 	init_order = INIT_ORDER_DBCORE
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	/// Is the DB schema valid
 	var/schema_valid = TRUE
@@ -24,15 +25,16 @@ SUBSYSTEM_DEF(dbcore)
 
 	offline_implications = "The server will no longer check for undeleted SQL Queries. No immediate action is needed."
 
-/datum/controller/subsystem/dbcore/stat_entry()
-	..("A: [length(active_queries)]")
+
+/datum/controller/subsystem/dbcore/get_stat_details()
+	return "A: [length(active_queries)]"
+
 
 // This is in Initialize() so that its actually seen in chat
 /datum/controller/subsystem/dbcore/Initialize()
 	if(!schema_valid)
-		to_chat(world, "<span class='boldannounce'>Database schema ([sql_version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.</span>")
+		log_startup_progress("Database schema ([sql_version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.")
 
-	return ..()
 
 /datum/controller/subsystem/dbcore/fire()
 	for(var/I in active_queries)
@@ -250,6 +252,7 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/proc/NewQuery(sql_query, arguments)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>DB query blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		log_and_message_admins("attempted to create a DB query via advanced proc-call")
 		return FALSE
 	return new /datum/db_query(connection, sql_query, arguments)
@@ -505,9 +508,11 @@ SUBSYSTEM_DEF(dbcore)
 			return
 
 		SSdbcore.Disconnect()
-		log_and_message_admins("has <b>forced</b> the database to disconnect!!!")
+		log_admin("[key_name(usr)] has forced the database to disconnect")
+		message_admins("[key_name_admin(usr)] has <b>forced</b> the database to disconnect!!!")
 
-	log_and_message_admins("is attempting to re-establish the DB Connection")
+	log_admin("[key_name(usr)] is attempting to re-establish the DB Connection")
+	message_admins("[key_name_admin(usr)] is attempting to re-establish the DB Connection")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Force Reconnect DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	SSdbcore.failed_connections = 0 // Reset this

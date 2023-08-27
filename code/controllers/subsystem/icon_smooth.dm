@@ -5,8 +5,10 @@ SUBSYSTEM_DEF(icon_smooth)
 	priority = FIRE_PRIORITY_SMOOTHING
 	flags = SS_TICKER
 	offline_implications = "Objects will no longer smooth together properly. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	var/list/smooth_queue = list()
+
 
 /datum/controller/subsystem/icon_smooth/fire()
 	while(smooth_queue.len)
@@ -17,6 +19,7 @@ SUBSYSTEM_DEF(icon_smooth)
 			return
 	if(!smooth_queue.len)
 		can_fire = 0
+
 
 /datum/controller/subsystem/icon_smooth/Initialize()
 	log_startup_progress("Smoothing atoms...")
@@ -40,4 +43,3 @@ SUBSYSTEM_DEF(icon_smooth)
 		smooth_icon(A)
 		CHECK_TICK
 
-	return ..()

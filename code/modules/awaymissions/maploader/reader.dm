@@ -37,7 +37,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			return
 		tfile = wrap_file2text(tfile)
 		if(!length(tfile))
-			log_runtime( EXCEPTION("Map path '[fname]' does not exist!"))
+			throw EXCEPTION("Map path '[fname]' does not exist!")
 
 	if(!x_offset)
 		x_offset = 1
@@ -69,16 +69,14 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 					if(!key_len)
 						key_len = length(key)
 					else
-						log_runtime( EXCEPTION("Inconsistent key length in DMM"))
-						return
+						throw EXCEPTION("Inconsistent key length in DMM")
 				if(!measureOnly)
 					grid_models[key] = dmmRegex.group[2]
 
 			// (1,1,1) = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
 			else if(dmmRegex.group[3]) // Coords
 				if(!key_len)
-					log_runtime( EXCEPTION("Coords before model definition in DMM"))
-					return
+					throw EXCEPTION("Coords before model definition in DMM")
 
 				var/xcrdStart = text2num(dmmRegex.group[3]) + x_offset - 1
 				// position of the currently processed square
@@ -138,8 +136,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 								if(xcrd >= 1)
 									var/model_key = copytext(line, tpos, tpos + key_len)
 									if(!grid_models[model_key])
-										log_runtime( EXCEPTION("Undefined model key in DMM: [model_key]. Map file: [fname]."))
-										return
+										throw EXCEPTION("Undefined model key in DMM: [model_key]. Map file: [fname].")
 									parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM)
 									// After this call, it is NOT safe to reference `dmmRegex` without another call to
 									// "Find" - we might've hit a map loader here and changed its state
@@ -153,29 +150,22 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			CHECK_TICK
 	catch(var/exception/e)
 		GLOB._preloader.reset()
-		log_runtime(e)
-		return
+		throw e
 
 	GLOB._preloader.reset()
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
-		log_runtime(EXCEPTION("Bad Map bounds in [fname]"), src, list(
-		"Min x: [bounds[MAP_MINX]]",
-		"Min y: [bounds[MAP_MINY]]",
-		"Min z: [bounds[MAP_MINZ]]",
-		"Max x: [bounds[MAP_MAXX]]",
-		"Max y: [bounds[MAP_MAXY]]",
-		"Max z: [bounds[MAP_MAXZ]]",
-		"Try again"))
-		return null
+		CRASH("Bad Map bounds in [fname], Min x: [bounds[MAP_MINX]], Min y: [bounds[MAP_MINY]], Min z: [bounds[MAP_MINZ]], Max x: [bounds[MAP_MAXX]], Max y: [bounds[MAP_MAXY]], Max z: [bounds[MAP_MAXZ]]")
 	else
 		if(!measureOnly)
 			for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
 				var/turf/T = t
 				// we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
 				T.AfterChange(TRUE, keep_cabling = TRUE)
+				CHECK_TICK
 		return bounds
+
 
 /**
  * Fill a given tile with its area/turf/objects/mobs
@@ -231,7 +221,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			old_position = dpos + 1
 
 			if(!atom_def) // Skip the item if the path does not exist.  Fix your crap, mappers!
-				log_runtime(EXCEPTION("Bad path: [atom_text]"), src, list("Source String: [model]", "dpos: [dpos]"))
+				stack_trace("Bad path: [atom_text] | Source String: [model] | dpos: [dpos]")
 				continue
 			members.Add(atom_def)
 
@@ -271,8 +261,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		// We assume `members[index]` is an area path, as above, yes? I will operate
 		// on that assumption.
 		if(!ispath(members[index], /area))
-			log_runtime( EXCEPTION("Oh no, I thought this was an area!"))
-			return
+			throw EXCEPTION("Oh no, I thought this was an area!")
 
 		GLOB._preloader.setup(members_attributes[index]) // preloader for assigning  set variables on atom creation
 		var/atom/instance = LM.area_path_to_real_area(members[index])
@@ -300,7 +289,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		var/mlen = members.len - 1
 		while(index <= mlen) // Last item is an /area
 			var/underlay
-			if(istype(T, /turf)) // I blame this on the stupid clown who coded the BYOND map editor
+			if(isturf(T)) // I blame this on the stupid clown who coded the BYOND map editor
 				underlay = T.appearance
 			T = instance_atom(members[index], members_attributes[index], xcrd, ycrd, zcrd) // instance new turf
 			if(ispath(members[index], /turf))
@@ -324,18 +313,20 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	var/turf/T = locate(x, y, z)
 	if(T)
+		// Turfs need special attention
 		if(ispath(path, /turf))
 			T.ChangeTurf(path, defer_change = TRUE, keep_icon = FALSE, copy_existing_baseturf = FALSE)
 			instance = T
-		else if(ispath(path, /area))
-
 		else
-			instance = new path(T) // first preloader pass
+			// Anything that isnt an area, init!
+			if(!ispath(path, /area))
+				instance = new path(T) // first preloader pass
 
 	if(GLOB.use_preloader && instance) // second preloader pass, for those atoms that don't ..() in New()
 		GLOB._preloader.load(instance)
 
 	return instance
+
 
 // text trimming (both directions) helper proc
 // optionally removes quotes before and after the text (for variable name)
@@ -344,6 +335,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		return trimQuotesRegex.Replace(what, "")
 	else
 		return trimRegex.Replace(what, "")
+
 
 // find the position of the next delimiter, skipping whatever is comprised between opening_escape and closing_escape
 // returns 0 if reached the last delimiter
@@ -358,6 +350,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		next_opening = findtext(text, opening_escape, position, 0)
 
 	return next_delimiter
+
 
 // build a list from variables in text form (e.g {var1="derp"; var2; var3=7} => list(var1="derp", var2, var3=7))
 // return the filled list
@@ -392,7 +385,9 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	return to_return
 
 
-//Tries to parse the given value_text. Will fallback on the value_text as a string if it fails
+/**
+ * Tries to parse the given value_text. Will fallback on the value_text as a string if it fails
+ */
 /datum/dmm_suite/proc/parse_value(value_text)
 	// Check for string
 	// Make it read to the next delimiter, instead of the quote
@@ -428,6 +423,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	else
 		. = value_text // Assume it is a string without quotes
 
+
 /datum/dmm_suite/Destroy()
 	..()
 	return QDEL_HINT_HARDDEL_NOW
@@ -458,8 +454,8 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		try
 			A.deserialize(json_decode(json_data))
 		catch(var/exception/E)
-			log_runtime(EXCEPTION("Bad json data: '[json_data]'"), src)
-			return E
+			stack_trace("Bad json data: '[json_data]'")
+			throw E
 	for(var/attribute in attributes)
 		var/value = attributes[attribute]
 		if(islist(value))

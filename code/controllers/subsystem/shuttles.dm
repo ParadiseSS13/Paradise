@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(shuttle)
 	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "Shuttles will no longer function and cargo will not generate points. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
@@ -43,6 +44,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 
+
 /datum/controller/subsystem/shuttle/Initialize(start_timeofday)
 	ordernum = rand(1,9000)
 
@@ -63,10 +65,10 @@ SUBSYSTEM_DEF(shuttle)
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
-	return ..()
 
-/datum/controller/subsystem/shuttle/stat_entry(msg)
-	..("M:[mobile.len] S:[stationary.len] T:[transit.len]")
+/datum/controller/subsystem/shuttle/get_stat_details()
+	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
+
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	for(var/obj/docking_port/D in world)

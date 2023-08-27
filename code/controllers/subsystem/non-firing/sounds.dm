@@ -24,9 +24,10 @@ SUBSYSTEM_DEF(sounds)
 	/// higher reserve position - decremented and incremented to reserve sound channels, anything above this is reserved. The channel at this index is the highest unreserved channel.
 	var/channel_reserve_high
 
+
 /datum/controller/subsystem/sounds/Initialize()
 	setup_available_channels()
-	return ..()
+
 
 /**
   * Sets up all available sound channels
@@ -40,6 +41,7 @@ SUBSYSTEM_DEF(sounds)
 		channel_list += i
 	channel_random_low = 1
 	channel_reserve_high = length(channel_list)
+
 
 /**
   * Removes a channel from using list
@@ -57,6 +59,7 @@ SUBSYSTEM_DEF(sounds)
 			using_channels_by_datum -= using
 	free_channel(channel)
 
+
 /**
   * Frees all the channels a datum is using
   *
@@ -72,11 +75,13 @@ SUBSYSTEM_DEF(sounds)
 		free_channel(channel)
 	using_channels_by_datum -= D
 
+
 /**
   * Frees all datumless channels
   */
 /datum/controller/subsystem/sounds/proc/free_datumless_channels()
 	free_datum_channels(DATUMLESS)
+
 
 /**
   * NO AUTOMATIC CLEANUP - If you use this, you better manually free it later!
@@ -90,6 +95,7 @@ SUBSYSTEM_DEF(sounds)
 	var/text_channel = num2text(.)
 	using_channels[text_channel] = DATUMLESS
 	LAZYADD(using_channels_by_datum[DATUMLESS], .)
+
 
 /**
   * Reserves a channel for a datum. Automatic cleanup only when the datum is deleted.
@@ -108,6 +114,7 @@ SUBSYSTEM_DEF(sounds)
 	using_channels[text_channel] = D
 	LAZYADD(using_channels_by_datum[D], .)
 
+
 /**
   * Reserves a channel and updates the datastructure. Private proc.
   */
@@ -118,6 +125,7 @@ SUBSYSTEM_DEF(sounds)
 	var/channel = channel_list[channel_reserve_high]
 	reserved_channels[num2text(channel)] = channel_reserve_high--
 	return channel
+
 
 /**
   * Frees a channel and updates the datastructure. Private proc.
@@ -140,6 +148,7 @@ SUBSYSTEM_DEF(sounds)
 		return
 	reserved_channels[text_reserved] = index
 
+
 /**
   * Random available channel, returns text
   */
@@ -147,6 +156,7 @@ SUBSYSTEM_DEF(sounds)
 	if(channel_random_low > channel_reserve_high)
 		channel_random_low = 1
 	. = "[channel_list[channel_random_low++]]"
+
 
 /**
   * Random available channel, returns number
@@ -156,10 +166,12 @@ SUBSYSTEM_DEF(sounds)
 		channel_random_low = 1
 	. = channel_list[channel_random_low++]
 
+
 /**
   * How many channels we have left
   */
 /datum/controller/subsystem/sounds/proc/available_channels_left()
 	return length(channel_list) - random_channels_min
+
 
 #undef DATUMLESS

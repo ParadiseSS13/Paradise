@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(blackbox)
 	flags = SS_NO_FIRE | SS_NO_INIT
 	// Even though we dont initialize, we need this init_order
 	// On Master.Shutdown(), it shuts down subsystems in the REVERSE order
-	// The database SS has INIT_ORDER_DBCORE=20, and this SS has INIT_ORDER_BLACKBOX=19
+	// The database SS has INIT_ORDER_DBCORE=16, and this SS has INIT_ORDER_BLACKBOX=15
 	// So putting this ensures it shuts down in the right order
 	init_order = INIT_ORDER_BLACKBOX
 

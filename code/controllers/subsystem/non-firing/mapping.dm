@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
-	init_order = INIT_ORDER_MAPPING // 9
+	init_order = INIT_ORDER_MAPPING // 7
 	flags = SS_NO_FIRE
 	/// What map datum are we using
 	var/datum/map/map_datum
@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(mapping)
 		var/F = file("data/next_map.txt")
 		F << next_map.type
 
-/datum/controller/subsystem/mapping/Initialize(timeofday)
+/datum/controller/subsystem/mapping/Initialize()
 	// Load all Z level templates
 	preloadTemplates()
 	// Load the station
@@ -47,21 +47,7 @@ SUBSYSTEM_DEF(mapping)
 		createRandomZlevel()
 	// Seed space ruins
 	if(!config.disable_space_ruins)
-		// load in extra levels of space ruins
-		var/load_zlevels_timer = start_watch()
-		log_startup_progress("Creating random space levels...")
-		var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
-		for(var/i = 1, i <= num_extra_space, i++)
-			GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
-		log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
-
-		// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
-		// While this may seem like a high number, the amount of ruin Z levels can be anywhere between 3 and 7.
-		// Note that this budget is not split evenly accross all zlevels
-		log_startup_progress("Seeding ruins...")
-		var/seed_ruins_timer = start_watch()
-		seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
-		log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
+		handleRuins()
 
 	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE))
@@ -77,6 +63,8 @@ SUBSYSTEM_DEF(mapping)
 		seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 		spawn_rivers(level_name_to_num(MINING))
 		log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
+	else
+		log_startup_progress("Skipping lavaland ruins...")
 
 	// Now we make a list of areas for teleport locs
 	// TOOD: Make these locs into lists on the SS itself, not globs
@@ -106,7 +94,24 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
-	return ..()
+
+// Do not confuse with seedRuins()
+/datum/controller/subsystem/mapping/proc/handleRuins()
+	// load in extra levels of space ruins
+	var/load_zlevels_timer = start_watch()
+	log_startup_progress("Creating random space levels...")
+	var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
+	for(var/i in 1 to num_extra_space)
+		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
+	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
+
+	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
+	// While this may seem like a high number, the amount of ruin Z levels can be anywhere between 3 and 7.
+	// Note that this budget is not split evenly accross all zlevels
+	log_startup_progress("Seeding ruins...")
+	var/seed_ruins_timer = start_watch()
+	seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
+	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
 
 
 /datum/controller/subsystem/mapping/proc/loadStation()

@@ -3,10 +3,11 @@ SUBSYSTEM_DEF(medals)
 	flags = SS_NO_FIRE
 	var/hub_enabled = FALSE
 
-/datum/controller/subsystem/medals/Initialize(timeofday)
+
+/datum/controller/subsystem/medals/Initialize()
 	if(config.medal_hub_address && config.medal_hub_password)
 		hub_enabled = TRUE
-	..()
+
 
 /datum/controller/subsystem/medals/proc/UnlockMedal(medal, client/player)
 	set waitfor = FALSE
@@ -18,6 +19,7 @@ SUBSYSTEM_DEF(medals)
 		message_admins("Error! Failed to contact hub to award [medal] medal to [player.ckey]!")
 		return
 	to_chat(player, "<span class='greenannounce'><B>Achievement unlocked: [medal]!</B></span>")
+
 
 /datum/controller/subsystem/medals/proc/SetScore(score, client/player, increment, force)
 	set waitfor = FALSE

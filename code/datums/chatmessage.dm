@@ -1,9 +1,11 @@
 /// How long the chat message's spawn-in animation will occur for
-#define CHAT_MESSAGE_SPAWN_TIME		0.2 SECONDS
+#define CHAT_MESSAGE_SPAWN_TIME		(0.2 SECONDS)
 /// How long the chat message will exist prior to any exponential decay
-#define CHAT_MESSAGE_LIFESPAN		5 SECONDS
+#define CHAT_MESSAGE_LIFESPAN		(5 SECONDS)
 /// How long the chat message's end of life fading animation will occur for
-#define CHAT_MESSAGE_EOL_FADE		0.7 SECONDS
+#define CHAT_MESSAGE_EOL_FADE		(0.7 SECONDS)
+/// Grace period for fade before we actually delete the chat message
+#define CHAT_MESSAGE_GRACE_PERIOD 	(0.2 SECONDS)
 /// Factor of how much the message index (number of messages) will account to exponential decay
 #define CHAT_MESSAGE_EXP_DECAY		0.7
 /// Factor of how much height will account to exponential decay
@@ -18,8 +20,14 @@
 #define CHAT_LAYER_Z_STEP			0.0001
 /// The number of z-layer 'slices' usable by the chat message layering
 #define CHAT_LAYER_MAX_Z			(CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
-/// Macro from Lummox used to get height from a MeasureText proc
-#define WXH_TO_HEIGHT(x)			text2num(copytext(x, findtextEx(x, "x") + 1))
+/// Macro from Lummox used to get height from a MeasureText proc.
+/// resolves the MeasureText() return value once, then resolves the height, then sets return_var to that.
+#define WXH_TO_HEIGHT(measurement, return_var) \
+	do { \
+		var/_measurement = measurement; \
+		return_var = text2num(copytext(_measurement, findtextEx(_measurement, "x") + 1)); \
+	} while(FALSE);
+
 
 /**
   * # Chat Message Overlay
@@ -35,33 +43,29 @@
 	var/list/signal_targets = list()
 	/// The client who heard this message
 	var/client/owned_by
-	/// Contains the scheduled destruction time, used for scheduling EOL
-	var/scheduled_destruction
-	/// Contains the time that the EOL for the message will be complete, used for qdel scheduling
-	var/eol_complete
 	/// Contains the approximate amount of lines for height decay
 	var/approx_lines
 	/// The current index used for adjusting the layer of each sequential chat message such that recent messages will overlay older ones
 	var/static/current_z_idx = 0
-	/// Contains the reference to the next chatmessage in the bucket, used by runechat subsystem
-	var/datum/chatmessage/next
-	/// Contains the reference to the previous chatmessage in the bucket, used by runechat subsystem
-	var/datum/chatmessage/prev
+	/// When we started animating the message
+	var/animate_start = 0
+	/// Our animation lifespan, how long this message will last
+	var/animate_lifespan = 0
+
 
 /**
   * Constructs a chat message overlay
   *
   * Arguments:
   * * text - The text content of the overlay
-  * * target - The target atom to display the overlay at
+  * * source - The target atom to display the overlay at
   * * owner - The mob that owns this overlay, only this mob will be able to view it
-  * * radio_speech - If we talk directly into radio
   * * italics - Should we use italics or not
   * * lifespan - The lifespan of the message in deciseconds
   */
 /datum/chatmessage/New(text, atom/movable/source, mob/owner, radio_speech, italics, emote, lifespan = CHAT_MESSAGE_LIFESPAN)
 	. = ..()
-	if (!istype(source))
+	if(!istype(source))
 		CRASH("Invalid source given for chatmessage")
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
@@ -69,25 +73,29 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(generate_image), text, source, owner, radio_speech, lifespan, italics, emote)
 
+
 /datum/chatmessage/Destroy()
+	if(REALTIMEOFDAY < (animate_start + animate_lifespan))
+		stack_trace("Del'd before we finished fading, with [(animate_start + animate_lifespan) - REALTIMEOFDAY] time left")
 	for(var/target in signal_targets)
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	signal_targets = null
-	if (owned_by)
-		if (owned_by.seen_messages)
+	if(owned_by)
+		if(owned_by.seen_messages)
 			LAZYREMOVEASSOC(owned_by.seen_messages, message_source, src)
 		owned_by.images.Remove(message)
 	owned_by = null
 	message_source = null
 	message = null
-	leave_subsystem()
 	return ..()
+
 
 /**
   * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
   */
 /datum/chatmessage/proc/on_parent_qdel()
 	qdel(src)
+
 
 /**
   * Generates a chat message image representation
@@ -112,7 +120,7 @@
 	// Clip message
 	var/maxlen = CHAT_MESSAGE_MAX_LENGTH
 	var/datum/html/split_holder/s = split_html(text)
-	if (length_char(s.inner_text) > maxlen)
+	if(length_char(s.inner_text) > maxlen)
 		var/chattext = copytext_char(s.inner_text, 1, maxlen + 1) + "..."
 		text = jointext(s.opening, "") + chattext + jointext(s.closing, "")
 
@@ -127,11 +135,11 @@
 		return
 
 	// Append radio icon
-	if (radio_speech)
+	if(radio_speech)
 		var/image/r_icon = image('icons/effects/chat_icons.dmi', icon_state = "radio")
 		text =  "\icon[r_icon]&nbsp;" + text
 	// Append emote icon
-	if (emote)
+	if(emote)
 		var/image/e_icon = image('icons/effects/chat_icons.dmi', icon_state = "emote")
 		text =  "\icon[e_icon]&nbsp;" + text
 
@@ -139,29 +147,59 @@
 	var/tgt_color = radio_speech ? source.chat_color_darkened : source.chat_color
 
 	// Approximate text height
-	// Note we have to replace HTML encoded metacharacters otherwise MeasureText will return a zero height
-	// BYOND Bug #2563917
-	// Construct text
 	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
 	var/complete_text = "<span class='center maptext[italics ? " italics" : ""]'[tgt_color ? " style='color: [tgt_color]'" : ""]>[text]</span>"
-	var/mheight = WXH_TO_HEIGHT(owned_by.MeasureText(replacetext(complete_text, html_metachars, "m"), null, CHAT_MESSAGE_WIDTH))
+	var/mheight
+	WXH_TO_HEIGHT(owned_by.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH), mheight)
+
+	if(!VERB_SHOULD_YIELD)
+		return finish_image_generation(mheight, source, owner, complete_text, lifespan)
+
+	var/datum/callback/our_callback = CALLBACK(src, PROC_REF(finish_image_generation), mheight, source, owner, complete_text, lifespan)
+	SSrunechat.message_queue += our_callback
+	return
+
+
+///finishes the image generation after the MeasureText() call in generate_image().
+///necessary because after that call the proc can resume at the end of the tick and cause overtime.
+/datum/chatmessage/proc/finish_image_generation(mheight, atom/movable/source, mob/owner, complete_text, lifespan)
+	var/rough_time = REALTIMEOFDAY
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
-	if (owned_by.seen_messages)
+	if(owned_by.seen_messages)
 		var/idx = 1
 		var/combined_height = approx_lines
-		for(var/msg in owned_by.seen_messages[source])
-			var/datum/chatmessage/m = msg
-			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
+		//for(var/datum/chatmessage/m as anything in owned_by.seen_messages[message_source])
+		for(var/datum/chatmessage/m as anything in owned_by.seen_messages[source])
 			combined_height += m.approx_lines
-			var/sched_remaining = m.scheduled_destruction - world.time
-			if (!m.eol_complete)
-				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** combined_height)
-				m.enter_subsystem(world.time + remaining_time) // push updated time to runechat SS
+
+			var/time_alive = rough_time - m.animate_start
+			var/lifespan_until_fade = m.animate_lifespan - CHAT_MESSAGE_EOL_FADE
+
+			if(time_alive >= lifespan_until_fade) // If already fading out or dead, just shift upwards
+				animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME, flags = ANIMATION_PARALLEL)
+				continue
+
+			// Ensure we don't accidentially spike alpha up or something silly like that
+			m.message.alpha = m.get_current_alpha(time_alive)
+
+			var/adjusted_lifespan_until_fade = lifespan_until_fade * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** combined_height)
+			m.animate_lifespan = adjusted_lifespan_until_fade + CHAT_MESSAGE_EOL_FADE
+
+			var/remaining_lifespan_until_fade = adjusted_lifespan_until_fade - time_alive
+			if(remaining_lifespan_until_fade > 0) // Still got some lifetime to go; stay faded in for the remainder, then fade out
+				animate(m.message, alpha = 255, time = remaining_lifespan_until_fade)
+				animate(alpha = 0, time = CHAT_MESSAGE_EOL_FADE)
+			else // Current time alive is beyond new adjusted lifespan, your time has come my son
+				animate(m.message, alpha = 0, time = CHAT_MESSAGE_EOL_FADE)
+
+			// We run this after the alpha animate, because we don't want to interrup it, but also don't want to block it by running first
+			// Sooo instead we do this. bit messy but it fuckin works
+			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME, flags = ANIMATION_PARALLEL)
 
 	// Reset z index if relevant
-	if (current_z_idx >= CHAT_LAYER_MAX_Z)
+	if(current_z_idx >= CHAT_LAYER_MAX_Z)
 		current_z_idx = 0
 
 	// Build message image
@@ -175,22 +213,41 @@
 	message.maptext_x = (CHAT_MESSAGE_WIDTH - owner.bound_width) * -0.5
 	message.maptext = complete_text
 
+	animate_start = rough_time
+	animate_lifespan = lifespan
+
 	message_source = source
-	adjust_message_loc(message_source, null, null, TRUE)
+	adjust_message_loc(message_source)
 
 	// View the message
 	LAZYADDASSOC(owned_by.seen_messages, source, src)
 	owned_by.images |= message
+
+	// Fade in
 	animate(message, alpha = 255, time = CHAT_MESSAGE_SPAWN_TIME)
+	// Stay faded in
+	animate(alpha = 255, time = lifespan - CHAT_MESSAGE_SPAWN_TIME - CHAT_MESSAGE_EOL_FADE)
+	// Fade out
+	animate(alpha = 0, time = CHAT_MESSAGE_EOL_FADE)
 
-	// Prepare for destruction
-	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
-	enter_subsystem()
+	// Register with the runechat SS to handle destruction
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), lifespan + CHAT_MESSAGE_GRACE_PERIOD, TIMER_DELETE_ME, SSrunechat)
 
-/datum/chatmessage/proc/adjust_message_loc(atom/movable/caller, oldLoc, dir, forced)
+
+/// Returns the current alpha of the message based on the time spent
+/datum/chatmessage/proc/get_current_alpha(time_alive)
+	if(time_alive < CHAT_MESSAGE_SPAWN_TIME)
+		return (time_alive / CHAT_MESSAGE_SPAWN_TIME) * 255
+
+	var/lifespan_until_fade = animate_lifespan - CHAT_MESSAGE_EOL_FADE
+	if(time_alive <= lifespan_until_fade)
+		return 255
+
+	return (1 - ((time_alive - lifespan_until_fade) / CHAT_MESSAGE_EOL_FADE)) * 255
+
+
+/datum/chatmessage/proc/adjust_message_loc(atom/movable/caller)
 	SIGNAL_HANDLER
-	if(!forced)
-		return
 
 	var/list/previous_signal_targets = signal_targets
 	var/list/next_signal_targets = list(message_source)
@@ -209,13 +266,6 @@
 
 	signal_targets = next_signal_targets
 
-/**
-  * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion
-  */
-/datum/chatmessage/proc/end_of_life(fadetime = CHAT_MESSAGE_EOL_FADE)
-	eol_complete = scheduled_destruction + fadetime
-	animate(message, alpha = 0, time = fadetime, flags = ANIMATION_PARALLEL)
-	enter_subsystem(eol_complete) // re-enter the runechat SS with the EOL completion time to QDEL self
 
 /**
   * Creates a message overlay at a defined location for a given speaker
@@ -231,13 +281,14 @@
 		// Display visual above source
 		new /datum/chatmessage(raw_message, speaker, src, radio_speech, italics, emote)
 
-/*
+
 // Tweak these defines to change the available color ranges
+/*
 #define CM_COLOR_SAT_MIN	0.6
 #define CM_COLOR_SAT_MAX	0.7
 #define CM_COLOR_LUM_MIN	0.65
 #define CM_COLOR_LUM_MAX	0.75
-*/
+
 /**
   * Gets a color for a name, will return the same color for a given string consistently within a round.atom
   *
@@ -248,7 +299,6 @@
   * * sat_shift - A value between 0 and 1 that will be multiplied against the saturation
   * * lum_shift - A value between 0 and 1 that will be multiplied against the luminescence
   */
-/*
 /datum/chatmessage/proc/colorize_string(name, sat_shift = 1, lum_shift = 1)
 	// seed to help randomness
 	var/static/rseed = rand(1,26)
@@ -284,7 +334,7 @@
 			return "#[num2hex(x, 2)][num2hex(m, 2)][num2hex(c, 2)]"
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
-*/
+
 
 /**
   * Ensures a colour is bright enough for the system
@@ -300,6 +350,7 @@
 	var/list/RGB = hsl2rgb(arglist(HSL))
 	return "#[num2hex(RGB[1],2)][num2hex(RGB[2],2)][num2hex(RGB[3],2)]"
 
+*/
 /**
   * Proc to allow atoms to set their own runechat colour
   *
@@ -309,3 +360,4 @@
   */
 /atom/proc/get_runechat_color()
 	return chat_color
+

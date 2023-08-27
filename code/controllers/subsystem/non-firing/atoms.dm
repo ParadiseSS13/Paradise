@@ -15,12 +15,10 @@ SUBSYSTEM_DEF(atoms)
 	var/list/BadInitializeCalls = list()
 
 
-/datum/controller/subsystem/atoms/Initialize(timeofday)
+/datum/controller/subsystem/atoms/Initialize()
 	setupgenetics()
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
-	return ..()
-
 
 
 /datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms, noisy = TRUE)
@@ -54,7 +52,7 @@ SUBSYSTEM_DEF(atoms)
 				CHECK_TICK
 
 	if(noisy)
-		log_startup_progress("	Initialized [count] atoms in [stop_watch(watch)]s")
+		log_startup_progress("Initialized [count] atoms in [stop_watch(watch)]s")
 	else
 		log_debug("	Initialized [count] atoms in [stop_watch(watch)]s")
 	pass(count)
@@ -70,11 +68,13 @@ SUBSYSTEM_DEF(atoms)
 		for(var/I in late_loaders)
 			var/atom/A = I
 			A.LateInitialize()
+			CHECK_TICK
 		if(noisy)
-			log_startup_progress("	Late initialized [late_loaders.len] atoms in [stop_watch(watch)]s")
+			log_startup_progress("Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")
 		else
-			log_debug("	Late initialized [late_loaders.len] atoms in [stop_watch(watch)]s")
+			log_debug("	Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")
 		late_loaders.Cut()
+
 
 /datum/controller/subsystem/atoms/proc/InitAtom(atom/A, list/arguments)
 	var/the_type = A.type
@@ -111,12 +111,15 @@ SUBSYSTEM_DEF(atoms)
 
 	return qdeleted || QDELING(A)
 
+
 /datum/controller/subsystem/atoms/proc/map_loader_begin()
 	old_initialized = initialized
 	initialized = INITIALIZATION_INSSATOMS
 
+
 /datum/controller/subsystem/atoms/proc/map_loader_stop()
 	initialized = old_initialized
+
 
 /datum/controller/subsystem/atoms/Recover()
 	initialized = SSatoms.initialized

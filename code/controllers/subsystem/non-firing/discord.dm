@@ -6,10 +6,11 @@ SUBSYSTEM_DEF(discord)
 	/// Last time the administrator ping was dropped. This ensures administrators cannot be mass pinged if a large chunk of ahelps go off at once (IE: tesloose)
 	var/last_administration_ping = 0
 
+
 /datum/controller/subsystem/discord/Initialize(start_timeofday)
 	if(config.discord_webhooks_enabled)
 		enabled = TRUE
-	return ..()
+
 
 // This is designed for ease of simplicity for sending quick messages from parts of the code
 /datum/controller/subsystem/discord/proc/send2discord_simple(destination, content)

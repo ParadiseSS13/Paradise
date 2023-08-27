@@ -41,12 +41,12 @@ SUBSYSTEM_DEF(tickets)
 
 	var/ticketCounter = 1
 
+
 /datum/controller/subsystem/tickets/Initialize()
-	if(!close_messages)
-		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Отклонено! -</b></font>",
+	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Отклонено! -</b></font>",
 				"<span class='boldmessage'>Пожалуйста, постарайтесь в тикетах вести себя спокойно, излагать проблему ясно и описательно. Не предполагайте что администратор видел какие-либо связанные события, и чётко укажите имена тех, о ком вы сообщаете. Если вы задали вопрос, то убедитесь, что из него понятно, о чём именно вы спрашиваете.</span>",
 				"<span class='[span_class]'>Ваш [ticket_name] теперь закрыт.</span>")
-	return ..()
+
 
 /datum/controller/subsystem/tickets/fire()
 	var/stales = checkStaleness()
@@ -56,8 +56,10 @@ SUBSYSTEM_DEF(tickets)
 			report += "[num], "
 		message_staff("<span class='[span_class]'>Тикет [report] был открыт [TICKET_TIMEOUT / 600] минут. Меняю статус на «Просрочен».</span>")
 
-/datum/controller/subsystem/tickets/stat_entry()
-	..("Tickets: [LAZYLEN(allTickets)]")
+
+/datum/controller/subsystem/tickets/get_stat_details()
+	return "Tickets: [LAZYLEN(allTickets)]"
+
 
 /datum/controller/subsystem/tickets/proc/checkStaleness()
 	var/stales = list()
@@ -228,7 +230,7 @@ SUBSYSTEM_DEF(tickets)
 	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the admin choosing which autoresponse
 		sorted_responses += key
 
-	var/message_key = input("Выберите авто-ответ. Это заменит тикет на решённый.", "Autoresponse") as null|anything in sortTim(sorted_responses, /proc/cmp_text_asc) //use sortTim and cmp_text_asc to sort alphabetically
+	var/message_key = input("Выберите авто-ответ. Это заменит тикет на решённый.", "Autoresponse") as null|anything in sortTim(sorted_responses, cmp = /proc/cmp_text_asc) //use sortTim and cmp_text_asc to sort alphabetically
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
 	switch(message_key)
 		if(null) //they cancelled

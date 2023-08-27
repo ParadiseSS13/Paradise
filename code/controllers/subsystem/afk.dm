@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(afk)
 	name = "AFK Watcher"
 	wait = 300
 	flags = SS_BACKGROUND
+	cpu_display = SS_CPUDISPLAY_LOW
 	offline_implications = "Players will no longer be marked as AFK. No immediate action is needed."
 	var/list/afk_players = list() // Associative list. ckey as key and AFK state as value
 	var/list/non_cryo_antags
@@ -17,7 +18,7 @@ SUBSYSTEM_DEF(afk)
 	else
 		non_cryo_antags = list(SPECIAL_ROLE_ABDUCTOR_AGENT, SPECIAL_ROLE_ABDUCTOR_SCIENTIST, \
 							SPECIAL_ROLE_SHADOWLING, SPECIAL_ROLE_WIZARD, SPECIAL_ROLE_WIZARD_APPRENTICE, SPECIAL_ROLE_NUKEOPS)
-	return ..()
+
 
 /datum/controller/subsystem/afk/fire()
 	var/list/toRemove = list()
@@ -51,13 +52,13 @@ SUBSYSTEM_DEF(afk)
 					if(A.fast_despawn)
 						toRemove += H.ckey
 						warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes. You have been despawned instantly due to you being in a secure area.</span>")
-						add_misc_logs(H, "despawned by AFK subsystem in a fast despawn area(AFK for [mins_afk])")
+						log_afk_action(H, mins_afk, T, "despawned", "AFK in a fast despawn area")
 						force_cryo_human(H)
 					else
 						if(!(H.mind.special_role in non_cryo_antags))
 							if(cryo_ssd(H))
 								afk_players[H.ckey] = AFK_CRYOD
-								add_misc_logs(H, "Put into cryostorage by the AFK subsystem(AFK for [mins_afk])")
+								log_afk_action(H, mins_afk, T, "put into cryostorage")
 								warn(H, "<span class='danger'>You are AFK for [mins_afk] minutes and have been moved to cryostorage. \
 									After being AFK for another [config.auto_despawn_afk] minutes you will be fully despawned. \
 									Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
@@ -66,18 +67,24 @@ SUBSYSTEM_DEF(afk)
 							afk_players[H.ckey] = AFK_ADMINS_WARNED
 
 			else if(afk_players[H.ckey] != AFK_ADMINS_WARNED && mins_afk >= config.auto_despawn_afk)
-				add_misc_logs(H, "despawned by AFK subsystem(AFK for [mins_afk])")
+				log_afk_action(H, mins_afk, T, "despawned")
 				warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes.</span>")
 				toRemove += H.ckey
 				force_cryo_human(H)
 
 	removeFromWatchList(toRemove)
 
+
 /datum/controller/subsystem/afk/proc/warn(mob/living/carbon/human/H, text)
 	to_chat(H, text)
 	SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
 	if(H.client)
 		window_flash(H.client)
+
+
+/datum/controller/subsystem/afk/proc/log_afk_action(mob/living/carbon/human/H, mins_afk, turf/location, action, info)
+	log_admin("[key_name(H)] has been [action] by the AFK Watcher subsystem after being AFK for [mins_afk] minutes.[info ? " Extra info:" + info : ""]")
+
 
 /datum/controller/subsystem/afk/proc/removeFromWatchList(list/toRemove)
 	for(var/C in toRemove)

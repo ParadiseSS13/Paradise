@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(machines)
 	init_order = INIT_ORDER_MACHINES
 	flags = SS_KEEP_TIMING
 	offline_implications = "Machinery will no longer process. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	var/list/processing = list()
 	var/list/currentrun = list()
@@ -15,10 +16,11 @@ SUBSYSTEM_DEF(machines)
 
 	var/currentpart = SSMACHINES_DEFERREDPOWERNETS
 
+
 /datum/controller/subsystem/machines/Initialize()
 	makepowernets()
 	fire()
-	return ..()
+
 
 /datum/controller/subsystem/machines/proc/makepowernets()
 	for(var/datum/powernet/PN in powernets)
@@ -31,8 +33,10 @@ SUBSYSTEM_DEF(machines)
 			NewPN.add_cable(PC)
 			propagate_network(PC,PC.powernet)
 
-/datum/controller/subsystem/machines/stat_entry()
-	..("Machines: [processing.len]\nPowernets: [powernets.len]\tDeferred: [deferred_powernet_rebuilds.len]")
+
+/datum/controller/subsystem/machines/get_stat_details()
+	return "Machines: [processing.len] | Powernets: [powernets.len] | Deferred: [deferred_powernet_rebuilds.len]"
+
 
 /datum/controller/subsystem/machines/proc/process_defered_powernets(resumed = 0)
 	if(!resumed)

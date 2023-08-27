@@ -1208,6 +1208,11 @@
 			sync_lighting_plane_alpha()
 
 
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force)
+	stop_pulling()
+	return ..()
+
+
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
 /mob/living/can_ventcrawl(atom/clicked_on, override = FALSE)

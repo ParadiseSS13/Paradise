@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(sun)
 	flags = SS_NO_TICK_CHECK
 	init_order = INIT_ORDER_SUN
 	offline_implications = "Solar panels will no longer rotate. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 	var/angle
 	var/dx
 	var/dy
@@ -11,7 +12,8 @@ SUBSYSTEM_DEF(sun)
 	var/list/solars	= list()
 	var/solar_gen_rate = 1500
 
-/datum/controller/subsystem/sun/Initialize(start_timeofday)
+
+/datum/controller/subsystem/sun/Initialize()
 	// Lets work out an angle for the "sun" to rotate around the station
 	angle = rand (0,360)			// the station position to the sun is randomised at round start
 	rate = rand(50,200)/100			// 50% - 200% of standard rotation
@@ -22,11 +24,10 @@ SUBSYSTEM_DEF(sun)
 	for(var/obj/machinery/power/solar_control/SC in solars)
 		SC.setup()
 
-	return ..()
 
+/datum/controller/subsystem/sun/get_stat_details()
+	return "P:[length(solars)]"
 
-/datum/controller/subsystem/sun/stat_entry(msg)
-	..("P:[solars.len]")
 
 /datum/controller/subsystem/sun/fire()
 	angle = (360 + angle + rate * 6) % 360	 // increase/decrease the angle to the sun, adjusted by the rate

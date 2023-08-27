@@ -117,3 +117,6 @@
 
 #define SPLASHSCREEN_LAYER 23
 #define SPLASHSCREEN_PLANE 23
+
+// This should always be on top. No exceptions.
+#define HUD_PLANE_DEBUGVIEW 40

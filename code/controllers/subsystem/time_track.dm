@@ -14,6 +14,8 @@ SUBSYSTEM_DEF(time_track)
 	var/last_tick_realtime = 0
 	var/last_tick_byond_time = 0
 	var/last_tick_tickcount = 0
+	cpu_display = SS_CPUDISPLAY_LOW
+
 
 /datum/controller/subsystem/time_track/fire()
 	var/current_realtime = REALTIMEOFDAY
@@ -33,6 +35,7 @@ SUBSYSTEM_DEF(time_track)
 	last_tick_realtime = current_realtime
 	last_tick_byond_time = current_byondtime
 	last_tick_tickcount = current_tickcount
+
 
 /datum/controller/subsystem/time_track/get_metrics()
 	. = ..()

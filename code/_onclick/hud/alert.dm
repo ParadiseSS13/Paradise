@@ -555,6 +555,34 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
 
+
+/obj/screen/alert/ghost
+	name = "Ghost"
+	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+	icon_state = "template"
+	timeout = 5 MINUTES // longer than any infection should be
+
+
+/obj/screen/alert/ghost/Initialize(mapload)
+	. = ..()
+	var/image/I = image('icons/mob/mob.dmi', icon_state = "ghost", layer = FLOAT_LAYER, dir = SOUTH)
+	I.layer = FLOAT_LAYER
+	I.plane = FLOAT_PLANE
+	overlays += I
+
+
+/obj/screen/alert/ghost/Click()
+	var/mob/living/carbon/human/infected_user = usr
+	if(!istype(infected_user) || infected_user.stat == DEAD)
+		infected_user.clear_alert("ghost_nest")
+		return
+	var/obj/item/clothing/mask/facehugger/hugger_mask = infected_user.wear_mask
+	if(!istype(hugger_mask) || !(locate(/obj/item/organ/internal/body_egg/alien_embryo) in infected_user.internal_organs) || hugger_mask.sterile)
+		infected_user.clear_alert("ghost_nest")
+		return
+	infected_user.ghostize(TRUE)
+
+
 /obj/screen/alert/notify_action
 	name = "Body created"
 	desc = "A body was created. You can enter it."
@@ -564,7 +592,9 @@ so as to remain in compliance with the most up-to-date laws."
 	var/action = NOTIFY_JUMP
 	var/show_time_left = FALSE // If true you need to call START_PROCESSING manually
 	var/image/time_left_overlay // The last image showing the time left
+	var/image/signed_up_overlay // image showing that you're signed up
 	var/datum/candidate_poll/poll // If set, on Click() it'll register the player as a candidate
+
 
 /obj/screen/alert/notify_action/process()
 	if(show_time_left)
@@ -591,9 +621,14 @@ so as to remain in compliance with the most up-to-date laws."
 		qdel(O)
 	..()
 
+
 /obj/screen/alert/notify_action/Destroy()
 	target = null
+	if(signed_up_overlay)
+		overlays -= signed_up_overlay
+		qdel(signed_up_overlay)
 	return ..()
+
 
 /obj/screen/alert/notify_action/Click()
 	if(!usr || !usr.client)
@@ -603,11 +638,14 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 
 	if(poll)
-		if(poll.sign_up(G))
-			// Add a small overlay to indicate we've signed up
-			display_signed_up()
+		var/success
+		if(G in poll.signed_up)
+			success = poll.remove_candidate(G)
 		else
-			display_signed_down()
+			success = poll.sign_up(G)
+		if(success)
+			// Add a small overlay to indicate we've signed up
+			update_signed_up_alert()
 	else if(target)
 		switch(action)
 			if(NOTIFY_ATTACK)
@@ -615,25 +653,34 @@ so as to remain in compliance with the most up-to-date laws."
 			if(NOTIFY_JUMP)
 				var/turf/T = get_turf(target)
 				if(T && isturf(T))
-					G.loc = T
+					G.forceMove(T)
 			if(NOTIFY_FOLLOW)
 				G.ManualFollow(target)
 
+
 /obj/screen/alert/notify_action/Topic(href, href_list)
-	if(href_list["signup"] && poll?.sign_up(usr))
-		display_signed_up()
+	if(!href_list["signup"])
+		return
+	if(!poll)
+		return
+	var/mob/dead/observer/G = usr
+	if(G in poll.signed_up)
+		poll.remove_candidate(G)
+	else
+		poll.sign_up(G)
+	update_signed_up_alert()
 
-/obj/screen/alert/notify_action/proc/display_signed_up()
-	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
-	I.layer = FLOAT_LAYER
-	I.plane = FLOAT_PLANE + 2
-	overlays += I
 
-/obj/screen/alert/notify_action/proc/display_signed_down()
-	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
-	I.layer = FLOAT_LAYER
-	I.plane = FLOAT_PLANE + 2
-	overlays -= I
+/obj/screen/alert/notify_action/proc/update_signed_up_alert()
+	if(!signed_up_overlay)
+		signed_up_overlay = image('icons/mob/screen_gen.dmi', icon_state = "selector")
+		signed_up_overlay.layer = FLOAT_LAYER
+		signed_up_overlay.plane = FLOAT_PLANE + 2
+	if(usr in poll.signed_up)
+		overlays += signed_up_overlay
+	else
+		overlays -= signed_up_overlay
+
 
 /obj/screen/alert/notify_action/proc/display_stacks(stacks = 1)
 	if(stacks <= 1)
@@ -667,7 +714,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(stone)
 		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
 		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
-			stone.opt_in = TRUE
+			stone?.opt_in = TRUE
 
 /obj/screen/alert/notify_soulstone/Destroy()
 	stone = null

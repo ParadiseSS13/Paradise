@@ -856,6 +856,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return hit_atom.hitby(src, FALSE, itempush, throwingdatum = throwingdatum)
 
 
+
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	thrownby = thrower
 	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own

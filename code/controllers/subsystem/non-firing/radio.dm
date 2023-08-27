@@ -30,8 +30,14 @@ SUBSYSTEM_DEF(radio)
 	var/list/syndicate_blacklist = list(SPY_SPIDER_FREQ)	//list of frequencies syndicate headset can't hear
 	var/list/datum/radio_frequency/frequencies = list()
 
+
+// This is a disgusting hack to stop this tripping CI when this thing needs to FUCKING DIE
+///datum/controller/subsystem/radio/Initialize()
+//	return
+
+
 // This is fucking disgusting and needs to die
-/datum/controller/subsystem/radio/proc/frequency_span_class(var/frequency)
+/datum/controller/subsystem/radio/proc/frequency_span_class(frequency)
 	// Taipan!
 	if(frequency == SYND_TAIPAN_FREQ)
 		return "taipan"

@@ -1,9 +1,9 @@
 /// Controls how many buckets should be kept, each representing a tick. (1 minutes worth)
 #define BUCKET_LEN (world.fps*1*60)
 /// Helper for getting the correct bucket for a given timer
-#define BUCKET_POS(timer) (((round((timer.timeToRun - SStimer.head_offset) / world.tick_lag)+1) % BUCKET_LEN)||BUCKET_LEN)
+#define BUCKET_POS(timer) (((round((timer.timeToRun - timer.timer_subsystem.head_offset) / world.tick_lag)+1) % BUCKET_LEN)||BUCKET_LEN)
 /// Gets the maximum time at which timers will be invoked from buckets, used for deferring to secondary queue
-#define TIMER_MAX (SStimer.head_offset + TICKS2DS(BUCKET_LEN + SStimer.practical_offset - 1))
+#define TIMER_MAX(timer_ss) (timer_ss.head_offset + TICKS2DS(BUCKET_LEN + timer_ss.practical_offset - 1))
 /// Max float with integer precision
 #define TIMER_ID_MAX (2**24)
 
@@ -23,6 +23,7 @@ SUBSYSTEM_DEF(timer)
 
 	flags = SS_TICKER|SS_NO_INIT
 	offline_implications = "The game will no longer process timers. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	/// Queue used for storing timers that do not fit into the current buckets
 	var/list/datum/timedevent/second_queue = list()
@@ -50,15 +51,19 @@ SUBSYSTEM_DEF(timer)
 	var/static/last_invoke_warning = 0
 	/// Boolean operator controlling if the timer SS will automatically reset buckets if it fails to invoke callbacks for an extended period of time
 	var/static/bucket_auto_reset = TRUE
+	/// How many times bucket was reset
 	var/bucket_reset_count = 0
+
 
 /datum/controller/subsystem/timer/PreInit()
 	bucket_list.len = BUCKET_LEN
 	head_offset = world.time
 	bucket_resolution = world.tick_lag
 
-/datum/controller/subsystem/timer/stat_entry(msg)
-	..("B:[bucket_count] P:[length(second_queue)] H:[length(hashes)] C:[length(clienttime_timers)] S:[length(timer_id_dict)] RST:[bucket_reset_count]")
+
+/datum/controller/subsystem/timer/get_stat_details()
+	return "B:[bucket_count] P:[length(second_queue)] H:[length(hashes)] C:[length(clienttime_timers)] S:[length(timer_id_dict)] RST:[bucket_reset_count]"
+
 
 /datum/controller/subsystem/timer/proc/dump_timer_buckets(full = TRUE)
 	var/list/to_log = list("Timer bucket reset. world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset]")
@@ -83,6 +88,7 @@ SUBSYSTEM_DEF(timer)
 
 	// Dump all the logged data to the world log
 	log_world(to_log.Join("\n"))
+
 
 /datum/controller/subsystem/timer/fire(resumed = FALSE)
 	// Store local references to datum vars as it is faster to access them
@@ -193,7 +199,7 @@ SUBSYSTEM_DEF(timer)
 			var/i = 0
 			for (i in 1 to length(second_queue))
 				timer = second_queue[i]
-				if (timer.timeToRun >= TIMER_MAX)
+				if (timer.timeToRun >= TIMER_MAX(src))
 					i--
 					break
 
@@ -217,6 +223,7 @@ SUBSYSTEM_DEF(timer)
 		if (MC_TICK_CHECK)
 			break
 
+
 /**
   * Generates a string with details about the timed event for debugging purposes
   */
@@ -229,6 +236,7 @@ SUBSYSTEM_DEF(timer)
 		. += ", QDELETED"
 	if(!TE.callBack)
 		. += ", NO CALLBACK"
+
 
 /**
   * Destroys the existing buckets and creates new buckets from the existing timed events
@@ -264,6 +272,7 @@ SUBSYSTEM_DEF(timer)
 	alltimers += second_queue
 
 	for (var/datum/timedevent/t in alltimers)
+		t.timer_subsystem = src // Recovered timers need to be reparented
 		t.bucket_joined = FALSE
 		t.bucket_pos = -1
 		t.prev = null
@@ -275,7 +284,7 @@ SUBSYSTEM_DEF(timer)
 		return
 
 	// Sort all timers by time to run
-	sortTim(alltimers, /proc/cmp_timer)
+	sortTim(alltimers, cmp = /proc/cmp_timer)
 
 	// Get the earliest timer, and if the TTR is earlier than the current world.time,
 	// then set the head offset appropriately to be the earliest time tracked by the
@@ -296,7 +305,7 @@ SUBSYSTEM_DEF(timer)
 			continue
 
 		// Check that the TTR is within the range covered by buckets, when exceeded we've finished
-		if (timer.timeToRun >= TIMER_MAX)
+		if (timer.timeToRun >= TIMER_MAX(src))
 			i--
 			break
 
@@ -334,10 +343,21 @@ SUBSYSTEM_DEF(timer)
 
 
 /datum/controller/subsystem/timer/Recover()
-	second_queue |= SStimer.second_queue
-	hashes |= SStimer.hashes
-	timer_id_dict |= SStimer.timer_id_dict
-	bucket_list |= SStimer.bucket_list
+	// Find the current timer sub-subsystem in global and recover its buckets etc
+	var/datum/controller/subsystem/timer/timerSS = null
+	for(var/global_var in global.vars)
+		if (istype(global.vars[global_var],src.type))
+			timerSS = global.vars[global_var]
+
+	hashes = timerSS.hashes
+	timer_id_dict = timerSS.timer_id_dict
+
+	bucket_list = timerSS.bucket_list
+	second_queue = timerSS.second_queue
+
+	// The buckets are FUBAR
+	reset_buckets()
+
 
 /**
   * # Timed Event
@@ -371,10 +391,15 @@ SUBSYSTEM_DEF(timer)
 	var/datum/timedevent/next
 	/// Previous timed event in the bucket
 	var/datum/timedevent/prev
+	/// The timer subsystem this event is associated with
+	var/datum/controller/subsystem/timer/timer_subsystem
+	/// Boolean indicating if timer joined into bucket
 	var/bucket_joined = FALSE
+	/// Initial bucket position
 	var/bucket_pos = -1
 
-/datum/timedevent/New(datum/callback/callBack, wait, flags, hash, source)
+
+/datum/timedevent/New(datum/callback/callBack, wait, flags, datum/controller/subsystem/timer/timer_subsystem, hash, source)
 	var/static/nextid = 1
 	id = TIMER_ID_NULL
 	src.callBack = callBack
@@ -382,13 +407,14 @@ SUBSYSTEM_DEF(timer)
 	src.flags = flags
 	src.hash = hash
 	src.source = source
+	src.timer_subsystem = timer_subsystem || SStimer
 
 	// Determine time at which the timer's callback should be invoked
 	timeToRun = (flags & TIMER_CLIENT_TIME ? REALTIMEOFDAY : world.time) + wait
 
 	// Include the timer in the hash table if the timer is unique
 	if (flags & TIMER_UNIQUE)
-		SStimer.hashes[hash] = src
+		timer_subsystem.hashes[hash] = src
 
 	// Generate ID for the timer if the timer is stoppable, include in the timer id dictionary
 	if (flags & TIMER_STOPPABLE)
@@ -397,9 +423,9 @@ SUBSYSTEM_DEF(timer)
 			nextid += min(1, 2 ** round(nextid / SHORT_REAL_LIMIT))
 		else
 			nextid++
-		SStimer.timer_id_dict[id] = src
+		timer_subsystem.timer_id_dict[id] = src
 
-	if ((timeToRun < world.time || timeToRun < SStimer.head_offset) && !(flags & TIMER_CLIENT_TIME))
+	if ((timeToRun < world.time || timeToRun < timer_subsystem.head_offset) && !(flags & TIMER_CLIENT_TIME))
 		CRASH("Invalid timer state: Timer created that would require a backtrack to run (addtimer would never let this happen): [SStimer.get_timer_debug_string(src)]")
 
 	if (callBack.object != GLOBAL_PROC && !QDESTROYING(callBack.object))
@@ -407,10 +433,11 @@ SUBSYSTEM_DEF(timer)
 
 	bucketJoin()
 
+
 /datum/timedevent/Destroy()
 	..()
 	if (flags & TIMER_UNIQUE && hash)
-		SStimer.hashes -= hash
+		timer_subsystem.hashes -= hash
 
 	if (callBack && callBack.object && callBack.object != GLOBAL_PROC && callBack.object.active_timers)
 		callBack.object.active_timers -= src
@@ -419,12 +446,12 @@ SUBSYSTEM_DEF(timer)
 	callBack = null
 
 	if (flags & TIMER_STOPPABLE)
-		SStimer.timer_id_dict -= id
+		timer_subsystem.timer_id_dict -= id
 
 	if (flags & TIMER_CLIENT_TIME)
 		if (!spent)
 			spent = world.time
-			SStimer.clienttime_timers -= src
+			timer_subsystem.clienttime_timers -= src
 		return QDEL_HINT_IWILLGC
 
 	if (!spent)
@@ -439,14 +466,15 @@ SUBSYSTEM_DEF(timer)
 	prev = null
 	return QDEL_HINT_IWILLGC
 
+
 /**
   * Removes this timed event from any relevant buckets, or the secondary queue
   */
 /datum/timedevent/proc/bucketEject()
 	// Store local references for the bucket list and secondary queue
 	// This is faster than referencing them from the datum itself
-	var/list/bucket_list = SStimer.bucket_list
-	var/list/second_queue = SStimer.second_queue
+	var/list/bucket_list = timer_subsystem.bucket_list
+	var/list/second_queue = timer_subsystem.second_queue
 
 	// Attempt to get the head of the bucket
 	var/datum/timedevent/buckethead
@@ -458,14 +486,14 @@ SUBSYSTEM_DEF(timer)
 	// into an existing bucket, or is otherwise not present in the secondary queue
 	if(buckethead == src)
 		bucket_list[bucket_pos] = next
-		SStimer.bucket_count--
+		timer_subsystem.bucket_count--
 	else if(bucket_joined)
-		SStimer.bucket_count--
+		timer_subsystem.bucket_count--
 	else
 		var/l = length(second_queue)
 		second_queue -= src
 		if(l == length(second_queue))
-			SStimer.bucket_count--
+			timer_subsystem.bucket_count--
 
 	// Remove the timed event from the bucket, ensuring to maintain
 	// the integrity of the bucket's list if relevant
@@ -476,6 +504,7 @@ SUBSYSTEM_DEF(timer)
 	prev = next = null
 	bucket_pos = -1
 	bucket_joined = FALSE
+
 
 /**
   * Attempts to add this timed event to a bucket, will enter the secondary queue
@@ -498,26 +527,26 @@ SUBSYSTEM_DEF(timer)
 	// Check if this timed event should be diverted to the client time bucket, or the secondary queue
 	var/list/L
 	if (flags & TIMER_CLIENT_TIME)
-		L = SStimer.clienttime_timers
-	else if (timeToRun >= TIMER_MAX)
-		L = SStimer.second_queue
+		L = timer_subsystem.clienttime_timers
+	else if (timeToRun >= TIMER_MAX(timer_subsystem))
+		L = timer_subsystem.second_queue
 	if(L)
 		BINARY_INSERT_TG(src, L, /datum/timedevent, src, timeToRun, COMPARE_KEY)
 		return
 
 	// Get a local reference to the bucket list, this is faster than referencing the datum
-	var/list/bucket_list = SStimer.bucket_list
+	var/list/bucket_list = timer_subsystem.bucket_list
 
 	// Find the correct bucket for this timed event
 	bucket_pos = BUCKET_POS(src)
 
-	if (bucket_pos < SStimer.practical_offset && timeToRun < (SStimer.head_offset + TICKS2DS(BUCKET_LEN)))
-		WARNING("Bucket pos in past: bucket_pos = [bucket_pos] < practical_offset = [SStimer.practical_offset] \
-			&& timeToRun = [timeToRun] < [SStimer.head_offset + TICKS2DS(BUCKET_LEN)], Timer: [name]")
-		bucket_pos = SStimer.practical_offset // Recover bucket_pos to avoid timer blocking queue
+	if (bucket_pos < timer_subsystem.practical_offset && timeToRun < (timer_subsystem.head_offset + TICKS2DS(BUCKET_LEN)))
+		WARNING("Bucket pos in past: bucket_pos = [bucket_pos] < practical_offset = [timer_subsystem.practical_offset] \
+			&& timeToRun = [timeToRun] < [timer_subsystem.head_offset + TICKS2DS(BUCKET_LEN)], Timer: [name]")
+		bucket_pos = timer_subsystem.practical_offset // Recover bucket_pos to avoid timer blocking queue
 
 	var/datum/timedevent/bucket_head = bucket_list[bucket_pos]
-	SStimer.bucket_count++
+	timer_subsystem.bucket_count++
 
 	// If there is no timed event at this position, then the bucket is 'empty'
 	// and we can just set this event to that position
@@ -534,6 +563,7 @@ SUBSYSTEM_DEF(timer)
 	prev = null
 	bucket_list[bucket_pos] = src
 
+
 /**
   * Returns a string of the type of the callback for this timer
   */
@@ -542,17 +572,21 @@ SUBSYSTEM_DEF(timer)
 	if (callBack.object == GLOBAL_PROC)
 		. = "GLOBAL_PROC"
 	else
+		if(isnull(callBack.object))
+			CRASH("this timer is attached to no object, the attempted proc to call was [callBack.delegate]")
 		. = "[callBack.object.type]"
+
 
 GLOBAL_LIST_EMPTY(timers_by_type)
 // Allows us to track what types generate the most timers. Just invokes the global addtimer
-/datum/proc/addtimer(datum/callback/callback, wait = 0, flags = 0)
+/datum/proc/addtimer(datum/callback/callback, wait = 0, flags = 0, datum/controller/subsystem/timer/timer_subsystem)
 	var/tt = "[type]"
 	if(tt in GLOB.timers_by_type)
 		GLOB.timers_by_type[tt]++
 	else
 		GLOB.timers_by_type[tt] = 1
-	return global.addtimer(callback, wait, flags)
+	return global.addtimer(callback, wait, flags, timer_subsystem)
+
 
 /**
   * Opens a log of timers
@@ -567,13 +601,14 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/list/sorted = sortTim(GLOB.timers_by_type, cmp=/proc/cmp_numeric_dsc, associative = TRUE)
+	var/list/sorted = sortTim(GLOB.timers_by_type, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
 	var/list/text = list("<h1>Timer Log</h1>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
 	usr << browse(text.Join(), "window=timerlog")
+
 
 /client/proc/debug_timers()
 	set name = "Debug Timers"
@@ -590,7 +625,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 			timers[cbtxt] = 1
 
 
-	var/list/sorted = sortTim(timers, cmp=/proc/cmp_numeric_dsc, associative = TRUE)
+	var/list/sorted = sortTim(timers, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
 	var/list/text = list("<h1>All active timers sorted by callback</h1>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"
@@ -607,12 +642,13 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 			timers2[cbtxt] = 1
 
 	text += "<h1>All buckets, sorted by callback</h1><ul>"
-	var/list/sorted2 = sortTim(timers2, cmp=/proc/cmp_numeric_dsc, associative = TRUE)
+	var/list/sorted2 = sortTim(timers2, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
 	for(var/key in sorted2)
 		text += "<li>[key] - [sorted2[key]]</li>"
 
 	text += "</ul>"
 	usr << browse(text.Join(), "window=timerdebug")
+
 
 /**
  * Create a new timer and insert it in the queue.
@@ -622,8 +658,9 @@ GLOBAL_LIST_EMPTY(timers_by_type)
  * * callback the callback to call on timer finish
  * * wait deciseconds to run the timer for
  * * flags flags for this timer, see: code\__DEFINES\subsystems.dm
+ * * timer_subsystem the subsystem to insert this timer into
  */
-/proc/addtimer(datum/callback/callback, wait = 0, flags = 0)
+/proc/addtimer(datum/callback/callback, wait = 0, flags = 0, datum/controller/subsystem/timer/timer_subsystem)
 	if (!callback)
 		CRASH("addtimer called without a callback")
 
@@ -643,6 +680,8 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 	if(wait >= INFINITY)
 		CRASH("Attempted to create timer with INFINITY delay")
 
+	timer_subsystem = timer_subsystem || SStimer
+
 	// Generate hash if relevant for timed events with the TIMER_UNIQUE flag
 	var/hash
 	if (flags & TIMER_UNIQUE)
@@ -652,7 +691,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 		hashlist += callback.arguments
 		hash = hashlist.Join("|||||||")
 
-		var/datum/timedevent/hash_timer = SStimer.hashes[hash]
+		var/datum/timedevent/hash_timer = timer_subsystem.hashes[hash]
 		if(hash_timer)
 			if (hash_timer.spent) // it's pending deletion, pretend it doesn't exist.
 				hash_timer.hash = null // but keep it from accidentally deleting us
@@ -667,8 +706,9 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 	else if(flags & TIMER_OVERRIDE)
 		stack_trace("TIMER_OVERRIDE used without TIMER_UNIQUE")
 
-	var/datum/timedevent/timer = new(callback, wait, flags, hash)
+	var/datum/timedevent/timer = new(callback, wait, flags, timer_subsystem, hash)
 	return timer.id
+
 
 /**
  * Delete a timer
@@ -676,7 +716,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
  * Arguments:
  * * id a timerid or a /datum/timedevent
  */
-/proc/deltimer(id)
+/proc/deltimer(id, datum/controller/subsystem/timer/timer_subsystem)
 	if (!id)
 		return FALSE
 	if (id == TIMER_ID_NULL)
@@ -684,12 +724,62 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 	if (istype(id, /datum/timedevent))
 		qdel(id)
 		return TRUE
+	timer_subsystem = timer_subsystem || SStimer
 	//id is string
-	var/datum/timedevent/timer = SStimer.timer_id_dict[id]
+	var/datum/timedevent/timer = timer_subsystem.timer_id_dict[id]
 	if (timer && (!timer.spent || timer.flags & TIMER_DELETE_ME))
 		qdel(timer)
 		return TRUE
 	return FALSE
+
+
+/**
+ * Get the remaining deciseconds on a timer
+ *
+ * Arguments:
+ * * id a timerid or a /datum/timedevent
+ */
+/proc/timeleft(id, datum/controller/subsystem/timer/timer_subsystem)
+	if (!id)
+		return null
+	if (id == TIMER_ID_NULL)
+		CRASH("Tried to get timeleft of a null timerid. Use TIMER_STOPPABLE flag")
+	if (istype(id, /datum/timedevent))
+		var/datum/timedevent/timer = id
+		return timer.timeToRun - world.time
+	timer_subsystem = timer_subsystem || SStimer
+	//id is string
+	var/datum/timedevent/timer = timer_subsystem.timer_id_dict[id]
+	if(!timer || timer.spent)
+		return null
+	return timer.timeToRun - (timer.flags & TIMER_CLIENT_TIME ? REALTIMEOFDAY : world.time)
+
+
+/**
+ * Update the delay on an existing LOOPING timer
+ * Will come into effect on the next process
+ *
+ * Arguments:
+ * * id a timerid or a /datum/timedevent
+ * * new_wait the new wait to give this looping timer
+ */
+/proc/updatetimedelay(id, new_wait, datum/controller/subsystem/timer/timer_subsystem)
+	if (!id)
+		return
+	if (id == TIMER_ID_NULL)
+		CRASH("Tried to update the wait of null timerid. Use TIMER_STOPPABLE flag")
+	if (istype(id, /datum/timedevent))
+		var/datum/timedevent/timer = id
+		timer.wait = new_wait
+		return
+	timer_subsystem = timer_subsystem || SStimer
+	//id is string
+	var/datum/timedevent/timer = timer_subsystem.timer_id_dict[id]
+	if(!timer || timer.spent)
+		return
+	if(!(timer.flags & TIMER_LOOP))
+		CRASH("Tried to update the wait of a non looping timer. This is not supported")
+	timer.wait = new_wait
 
 
 #undef BUCKET_LEN

@@ -8,12 +8,15 @@ SUBSYSTEM_DEF(throwing)
 	flags = SS_NO_INIT|SS_KEEP_TIMING|SS_TICKER
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Thrown objects may not react properly. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	var/list/currentrun
 	var/list/processing = list()
 
-/datum/controller/subsystem/throwing/stat_entry()
-	..("P:[processing.len]")
+
+/datum/controller/subsystem/throwing/get_stat_details()
+	return "P:[length(processing)]"
+
 
 /datum/controller/subsystem/throwing/fire(resumed = 0)
 	if(!resumed)
@@ -39,6 +42,7 @@ SUBSYSTEM_DEF(throwing)
 
 	currentrun = null
 
+
 /datum/thrownthing
 	var/atom/movable/thrownthing
 	var/atom/target
@@ -62,6 +66,7 @@ SUBSYSTEM_DEF(throwing)
 	var/delayed_time = 0
 	var/last_move = 0
 
+
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
 	if(!isturf(AM.loc) || !AM.throwing)
@@ -84,6 +89,7 @@ SUBSYSTEM_DEF(throwing)
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
 		if((dist_travelled >= maxrange || AM.loc == target_turf) && has_gravity(AM, AM.loc))
+			hitcheck() //Just to be sure
 			finalize()
 			return
 
@@ -103,15 +109,12 @@ SUBSYSTEM_DEF(throwing)
 
 		AM.Move(step, get_dir(AM, step))
 
-		if(!AM.throwing) // we hit something during our move
-			finalize(hit = TRUE)
-			return
-
 		dist_travelled++
 
 		if(dist_travelled > MAX_THROWING_DIST)
 			finalize()
 			return
+
 
 /datum/thrownthing/proc/finalize(hit = FALSE, target = null)
 	set waitfor = 0
@@ -136,9 +139,12 @@ SUBSYSTEM_DEF(throwing)
 
 	if(callback)
 		callback.Invoke()
+	thrownthing.end_throw()
+
 
 /datum/thrownthing/proc/hit_atom(atom/A)
 	finalize(hit = TRUE, target = A)
+
 
 /datum/thrownthing/proc/hitcheck()
 	for(var/thing in get_turf(thrownthing))

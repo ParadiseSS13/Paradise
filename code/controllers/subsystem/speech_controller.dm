@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(speech_controller)
 	name = "Speech Controller"
 	wait = 1
-	flags = SS_TICKER
+	flags = SS_TICKER | SS_NO_INIT
 	priority = FIRE_PRIORITY_SPEECH_CONTROLLER//has to be high priority, second in priority ONLY to SSinput
 	init_order = INIT_ORDER_SPEECH_CONTROLLER
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY

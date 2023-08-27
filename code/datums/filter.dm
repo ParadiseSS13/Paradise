@@ -26,7 +26,7 @@
 	ASSERT(isatom(src) || istype(src, /image))
 	var/atom/atom_cast = src // filters only work with images or atoms.
 	atom_cast.filters = null
-	filter_data = sortTim(filter_data, /proc/cmp_filter_data_priority, TRUE)
+	filter_data = sortTim(filter_data, cmp = /proc/cmp_filter_data_priority, associative = TRUE)
 	for(var/filter_raw in filter_data)
 		var/list/data = filter_data[filter_raw]
 		var/list/arguments = data.Copy()

@@ -66,6 +66,9 @@
 
 	var/datum/click_intercept/click_intercept = null
 
+	/// Overlay for showing debug info
+	var/obj/screen/debugtextholder/debug_text_overlay
+
 	var/datum/geoip_data/geoip = null
 
 	//datum that controls the displaying and hiding of tooltips

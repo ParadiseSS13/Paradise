@@ -5,12 +5,14 @@ SUBSYSTEM_DEF(spacedrift)
 	flags = SS_NO_INIT|SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Mobs will no longer respect a lack of gravity. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	var/list/currentrun = list()
 	var/list/processing = list()
 
-/datum/controller/subsystem/spacedrift/stat_entry()
-	..("P:[processing.len]")
+
+/datum/controller/subsystem/spacedrift/get_stat_details()
+	return "P:[length(processing)]"
 
 
 /datum/controller/subsystem/spacedrift/fire(resumed = 0)

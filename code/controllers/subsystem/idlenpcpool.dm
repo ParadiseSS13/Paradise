@@ -4,19 +4,20 @@ SUBSYSTEM_DEF(idlenpcpool)
 	priority = FIRE_PRIORITY_IDLE_NPC
 	wait = 60
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	init_order = INIT_ORDER_IDLENPCS // MUST be after SSmapping since it tracks max Zs
 	offline_implications = "Idle simple animals will no longer process. Shuttle call recommended."
 
 	var/list/currentrun = list()
 	var/static/list/idle_mobs_by_zlevel[][]
 
-/datum/controller/subsystem/idlenpcpool/stat_entry()
-	var/list/idlelist = GLOB.simple_animals[AI_IDLE]
-	var/list/zlist = GLOB.simple_animals[AI_Z_OFF]
-	..("IdleNPCS:[idlelist.len]|Z:[zlist.len]")
 
-/datum/controller/subsystem/idlenpcpool/Initialize(start_timeofday)
-	idle_mobs_by_zlevel = new /list(world.maxz,0)
-	return ..()
+/datum/controller/subsystem/idlenpcpool/get_stat_details()
+	return "IdleNPCS:[length(GLOB.simple_animals[AI_IDLE])]|Z:[length(GLOB.simple_animals[AI_Z_OFF])]"
+
+
+/datum/controller/subsystem/idlenpcpool/Initialize()
+	idle_mobs_by_zlevel = new /list(world.maxz, 0)
+
 
 /datum/controller/subsystem/idlenpcpool/fire(resumed = FALSE)
 	if(!resumed)

@@ -10,11 +10,14 @@ SUBSYSTEM_DEF(ping)
 	wait = 6 SECONDS
 	flags = SS_NO_INIT | SS_NO_FIRE
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	var/list/currentrun = list()
 
-/datum/controller/subsystem/ping/stat_entry()
-	..("P:[GLOB.clients.len]")
+
+/datum/controller/subsystem/ping/get_stat_details()
+	return "P:[GLOB.clients.len]"
+
 
 /datum/controller/subsystem/ping/fire(resumed = FALSE)
 	// Prepare the new batch of clients
