@@ -204,7 +204,7 @@
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/tank/internals/emergency_oxygen/double (src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 
 /obj/item/storage/bag/garment/warden
 	name = "warden's garment bag"

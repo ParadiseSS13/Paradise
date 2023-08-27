@@ -223,7 +223,7 @@
 	target_dept = TARGET_DEPT_MED
 
 /obj/item/circuitboard/card/minor/qm
-	name = "Circuit board (QM ID Computer)"
+	name = "Supply ID Computer"
 	build_path = /obj/machinery/computer/card/minor/qm
 	target_dept = TARGET_DEPT_SUP
 

@@ -123,7 +123,6 @@
 		"Chef",
 		"Janitor",
 		"Librarian",
-
 		"Internal Affairs Agent",
 		"Chaplain",
 		"Clown",
