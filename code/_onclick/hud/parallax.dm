@@ -17,7 +17,7 @@
 		return
 	// this is needed so it blends properly with the space plane and blackness plane.
 	var/obj/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
-	if(C.prefs.parallax_darkness)
+	if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
 		S.color = rgb(0, 0, 0, 0)
 	else
 		S.color = list(1, 1, 1, 1,
@@ -37,7 +37,7 @@
 	C.parallax_layers = C.parallax_layers_cached.Copy()
 
 	var/obj/screen/plane_master/parallax/parallax_plane_master = plane_masters["[PLANE_SPACE_PARALLAX]"]
-	if(C.prefs.parallax_darkness)
+	if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
 		parallax_plane_master.blend_mode = BLEND_ADD
 	else
 		parallax_plane_master.blend_mode = BLEND_MULTIPLY

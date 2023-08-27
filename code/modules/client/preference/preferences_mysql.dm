@@ -30,7 +30,6 @@
 		server_region = query.item[23]
 		raw_muted_admins = query.item[24]
 		viewrange = query.item[25]
-		parallax_darkness = query.item[26]
 
 	lastchangelog_2 = lastchangelog // Clone please
 
@@ -49,7 +48,6 @@
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
-	parallax_darkness = sanitize_integer(parallax_darkness, 0, 1, initial(parallax_darkness))
 	screentip_mode = sanitize_integer(screentip_mode, 0, 20, initial(screentip_mode))
 	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
 	ghost_darkness_level = sanitize_integer(ghost_darkness_level, 0, 255, initial(ghost_darkness_level))
@@ -102,8 +100,7 @@
 		keybindings=:keybindings,
 		server_region=:server_region,
 		muted_adminsounds_ckeys=:muted_adminsounds_ckeys,
-		viewrange=:viewrange,
-		parallax_darkness=:parallax_darkness
+		viewrange=:viewrange
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -130,8 +127,7 @@
 			"ckey" = C.ckey,
 			"server_region" = server_region,
 			"muted_adminsounds_ckeys" = json_encode(admin_sound_ckey_ignore),
-			"viewrange" = viewrange,
-			"parallax_darkness" = parallax_darkness
+			"viewrange" = viewrange
 		))
 
 	if(!query.warn_execute())

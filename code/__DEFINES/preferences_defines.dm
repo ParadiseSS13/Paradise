@@ -62,6 +62,7 @@
 #define PREFTOGGLE_2_MC_TABS				(1<<15) // 32768
 #define PREFTOGGLE_2_DANCE_DISCO			(1<<16) // 65536
 #define PREFTOGGLE_2_MOD_ACTIVATION_METHOD	(1<<17) // 131072
+#define PREFTOGGLE_2_PARALLAX_IN_DARKNESS	(1<<18) // 262144
 
 #define TOGGLES_2_TOTAL 			262144 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
