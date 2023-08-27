@@ -252,7 +252,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 
 	// General info
-	data["id"] = inserted_id ? list("name" = "[inserted_id.registered_name] ([inserted_id.assignment])", "points" = inserted_id.mining_points) : null
+	data["id"] = inserted_id ? list("name" = "[inserted_id.registered_name] ([inserted_id.assignment])", "points" = inserted_id.mining_points, "total_points" = inserted_id.total_mining_points) : null
 	data["points"] = points
 	data["disk"] = inserted_disk ? list(
 		"name" = inserted_disk.name,

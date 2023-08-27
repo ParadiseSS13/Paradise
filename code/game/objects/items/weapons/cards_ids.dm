@@ -330,7 +330,8 @@
 	data["job"] = assignment
 	data["account"] = associated_account_number
 	data["owner"] = registered_name
-	data["mining"] = mining_points
+	data["mining"] = mining
+	data["total_mining"] = total_mining_points
 	return data
 
 /obj/item/card/id/deserialize(list/data)
@@ -344,6 +345,7 @@
 	associated_account_number = data["account"]
 	registered_name = data["owner"]
 	mining_points = data["mining"]
+	total_mining_points = data["total_mining"]
 	// We'd need to use icon serialization(b64) to save the photo, and I don't feel like i
 	UpdateName()
 	RebuildHTML()
