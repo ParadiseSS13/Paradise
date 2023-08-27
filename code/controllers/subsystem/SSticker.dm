@@ -338,7 +338,7 @@ SUBSYSTEM_DEF(ticker)
 	return TRUE
 
 
-/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(nuke_site = NUKE_SITE_ON_STATION, override = null
+/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(nuke_site = NUKE_SITE_ON_STATION, override = null)
 	auto_toggle_ooc(TRUE) // Turn it on
 	if(nuke_site == NUKE_SITE_ON_STATION)
 		// Kill everyone on z-level 1 except for mobs in freezers and
@@ -348,17 +348,9 @@ SUBSYSTEM_DEF(ticker)
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer) && !(issilicon(M) && override == "AI malfunction"))
 					to_chat(M, "<span class='danger'><B>The blast wave from the explosion tears you atom from atom!</B></span>")
-					var/mob/ghost = M.ghostize()
+					M.ghostize()
 					M.dust() //no mercy
-					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
-						ghost.client.screen += cinematic
 					CHECK_TICK
-			if(M && M.client) //Play the survivors a cinematic.
-				M.client.screen += cinematic
-	else
-		for(var/mob/M in GLOB.mob_list)
-			if(M.client)
-				M.client.screen += cinematic	//show every client the cinematic
 
 	switch(nuke_site)
 		//Now animate the cinematic
