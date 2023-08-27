@@ -189,16 +189,10 @@
 	desc = "Not all wizards are afraid of getting up close and personal."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
-	///How many shields regen per recharge cycle
-	recharge_rate = 1
 	///The amount of charges the suit currently has
-	current_charges = 3
+	current_charges = 15
 	///The max number of charges the suit can hold
-	max_charges = 3
-	///How long between each recharge
-	recharge_cooldown = 5 SECONDS
-	///How long after being hit the shields can begin recharging
-	recharge_delay = 10 SECONDS
+	max_charges = 15
 	shield_state = "shield-red"
 	shield_on = "shield-red"
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -212,8 +206,10 @@
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
 	recharge_rate = 5
-	recharge_cooldown = 0
+	recharge_cooldown = 0 SECONDS
+	current_charges = 15
 	max_charges = 15
+	recharge_delay = 1 SECONDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/arch
