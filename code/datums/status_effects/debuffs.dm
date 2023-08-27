@@ -895,6 +895,11 @@
 						list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>"),
 						list("<span class='danger'>Your entire body vibrates.</span>")
 			)
+			fake_emote = list(
+						list(),
+						list(),
+						list()
+			)
 		else
 			fake_msg = list(
 						list("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>"),

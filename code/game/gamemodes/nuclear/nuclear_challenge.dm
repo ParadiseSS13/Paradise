@@ -59,7 +59,7 @@
 		S.challenge_time = world.time
 
 	// No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
-	total_tc = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
+	total_tc = CHALLENGE_TELECRYSTALS + round(((length(get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)) - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS)
 	share_telecrystals()
 	SSshuttle.refuel_delay = CHALLENGE_SHUTTLE_DELAY
 	qdel(src)

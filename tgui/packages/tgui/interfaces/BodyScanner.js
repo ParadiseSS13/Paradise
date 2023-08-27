@@ -32,9 +32,9 @@ const damages = [
   ['Respiratory', 'oxyLoss'],
   ['Brain', 'brainLoss'],
   ['Toxin', 'toxLoss'],
-  ['Radioactive', 'radLoss'],
+  ['Radiation', 'radLoss'],
   ['Brute', 'bruteLoss'],
-  ['Genetic', 'cloneLoss'],
+  ['Cellular', 'cloneLoss'],
   ['Burn', 'fireLoss'],
   ['Inebriation', 'drunkenness'],
 ];
