@@ -404,7 +404,7 @@ Difficulty: Hard
 	if(enraged)
 		adjustHealth(-75)
 	update_approach()
-	change_move_delay(min(second_life? 3 : 4, enraged? 4 : 5)) //3 if second life, 4 if enraged, 5 otherwise
+	change_move_delay(enraged? 3 : 4) //3if enraged, 4 otherwise
 	var/newcolor = rgb(149, 10, 10)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
 	var/datum/callback/cb = CALLBACK(src, PROC_REF(blood_enrage_end))

@@ -239,10 +239,10 @@ Difficulty: Hard
 		charge(delay = 3)
 	SetRecoveryTime(15)
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2) //add limb charge as well
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2)
 	if(!chargeat)
 		return
-	if(mode == BLUESPACE || (enraged && prob(25)))
+	if(mode == BLUESPACE || (enraged && prob(13)))
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 		src.visible_message("<span class='danger'>[src] teleports somewhere nearby!</span>")
 		do_teleport(src, target, 7, sound_in = 'sound/effects/phasein.ogg', safe_turf_pick = TRUE) //Teleport within 7 tiles of the target
@@ -368,7 +368,7 @@ Difficulty: Hard
 			while(volcanos < (enraged? 5 : 3) && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
 				for(var/turf/around in range(1, spot))
-					new /obj/effect/temp_visual/lava_warning(around, enraged? 12 SECONDS : 6 SECONDS)
+					new /obj/effect/temp_visual/lava_warning(around, enraged? 18 SECONDS : 6 SECONDS)
 				volcanos++
 		if(FLUX)
 			for(var/mob/living/carbon/human/H in view(7, src))
@@ -559,7 +559,7 @@ Difficulty: Hard
 		if(charging)
 			if(mode == PYRO)
 				var/turf/C = get_turf(src)
-				new /obj/effect/temp_visual/lava_warning(C, enraged? 12 SECONDS : 6 SECONDS)
+				new /obj/effect/temp_visual/lava_warning(C, enraged? 18 SECONDS : 6 SECONDS)
 				for(var/turf/T in range (1,src))
 					new /obj/effect/hotspot(T)
 					T.hotspot_expose(700,50,1)
@@ -570,7 +570,7 @@ Difficulty: Hard
 				T.ex_act(3)
 			if(mode == CRYO)
 				var/turf/simulated/S = get_turf(src)
-				S.MakeSlippery(TURF_WET_ICE, rand(10, 20 SECONDS))
+				S.MakeSlippery(TURF_WET_ICE, enraged? rand(25, 35 SECONDS) : rand(10, 20 SECONDS))
 				for(var/turf/T in range (1, src))
 					new /obj/effect/snowcloud(T)
 					for(var/mob/living/carbon/C in T.contents)

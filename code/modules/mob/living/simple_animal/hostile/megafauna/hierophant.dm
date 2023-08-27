@@ -87,6 +87,12 @@ Difficulty: Hard
 	. = ..()
 	spawned_beacon = new(loc)
 	AddComponent(/datum/component/boss_music, 'sound/lavaland/hiero_boss.ogg', 145 SECONDS)
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/hostile/megafauna/hierophant/LateInitialize()
+	. = ..()
+	for(var/mob/living/simple_animal/hostile/megafauna/colossus/C in GLOB.mob_list)
+		RegisterSignal(C, COMSIG_MOB_APPLY_DAMGE, PROC_REF(easy_anti_cheese))
 
 /datum/action/innate/megafauna_attack/blink
 	name = "Blink To Target"
@@ -205,6 +211,18 @@ Difficulty: Hard
 	else //just release a burst of power
 		INVOKE_ASYNC(src, PROC_REF(burst), get_turf(src))
 
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/easy_anti_cheese(mob/living/simple_animal/S)
+	if(enraged || get_dist(S, src) > 20)
+		return
+	for(var/mob/living/L in urange(20, src))
+		if(L.client)
+			enrage()
+			arena_trap(L, TRUE)
+			FindTarget(list(L), 1)
+			for(var/mob/living/simple_animal/hostile/megafauna/colossus/C in GLOB.mob_list)
+				UnregisterSignal(C, COMSIG_MOB_DEATH)
+			break
+
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
 	if((health < maxHealth * 0.5 || enraged) && blink_counter > 1)
@@ -308,19 +326,20 @@ Difficulty: Hard
 		previousturf = J
 		J = get_step(previousturf, set_dir)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/arena_trap(mob/victim) //trap a target in an arena
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/arena_trap(mob/victim, forced = FALSE) //trap a target in an arena
 	var/turf/T = get_turf(victim)
 	if(!istype(victim) || victim.stat == DEAD || !T || arena_cooldown > world.time)
 		return
 	if((istype(get_area(T), /area/ruin/unpowered/hierophant) || istype(get_area(src), /area/ruin/unpowered/hierophant)) && victim != src)
-		return
+		if(!forced)
+			return
 	arena_cooldown = world.time + initial(arena_cooldown)
 	for(var/d in GLOB.cardinal)
 		INVOKE_ASYNC(src, PROC_REF(arena_squares), T, d)
 	for(var/t in RANGE_EDGE_TURFS(11, T))
 		new /obj/effect/temp_visual/hierophant/wall(t, src)
 		new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
-	if(get_dist(src, T) >= 11) //hey you're out of range I need to get closer to you!
+	if(get_dist(src, T) >= 11 || forced) //hey you're out of range I need to get closer to you!
 		INVOKE_ASYNC(src, PROC_REF(blink), T)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/arena_squares(turf/T, set_dir) //make a fancy effect extending from the arena target
@@ -437,6 +456,8 @@ Difficulty: Hard
 	if(health > 0 || stat == DEAD)
 		return
 	else
+		for(var/mob/living/simple_animal/hostile/megafauna/colossus/C in GLOB.mob_list)
+			UnregisterSignal(C, COMSIG_MOB_DEATH)
 		set_stat(DEAD)
 		blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
 		visible_message("<span class='hierophant'>\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\"</span>")

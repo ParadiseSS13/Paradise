@@ -118,7 +118,11 @@ Difficulty: Medium
 			"<span class='userdanger'>You summon a big [A]!</span>")
 			ranged_cooldown = world.time + 5 SECONDS
 		else
-			var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril/A = new(loc)
+			var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/A
+			if(enraged)
+				A = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced/tendril(loc)
+			else
+				A = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril(loc)
 			A.GiveTarget(target)
 			A.friends = friends
 			A.faction = faction
@@ -179,11 +183,15 @@ Difficulty: Medium
 		return
 	if(.)
 		var/matrix/M = new
-		resize = enraged? 0.66 : 1 + (health / maxHealth)
+		resize = (enraged? 0.33 : 1) + (health / maxHealth)
 		M.Scale(resize, resize)
 		transform = M
-		if(amount > 0 && prob(33))
-			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
+		if(amount > 0 && (enraged || prob(33)))
+			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A
+			if(enraged)
+				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced(loc)
+			else
+				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(loc)
 			A.GiveTarget(target)
 			A.friends = friends
 			A.faction = faction
