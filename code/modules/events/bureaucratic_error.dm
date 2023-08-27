@@ -17,7 +17,7 @@
 		/datum/job/officer,
 		/datum/job/detective,
 		/datum/job/warden,
-		/datum/job/qm,
+		/datum/job/qm
 	)
 
 /datum/event/bureaucratic_error/announce()
