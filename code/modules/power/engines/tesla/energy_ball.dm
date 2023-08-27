@@ -231,7 +231,7 @@
 	var/mob/living/carbon/C = A
 	C.dust()
 
-/obj/singularity/energy_ball/proc/tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list(), is_energy_ball = FALSE)
+/obj/singularity/energy_ball/proc/tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
 	if(QDELETED(source))
 		return
 	if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
