@@ -72,11 +72,6 @@ const IdDisk = (properties, context) => {
             <Box bold>{formatPoints(id.points)}</Box>
           </LabeledList.Item>
         )}
-        {id && (
-          <LabeledList.Item label="Collected points">
-          <Box bold>{formatPoints(id.total_points)}</Box>
-        </LabeledList.Item>
-        )}
         <LabeledList.Item
           label="Unclaimed points"
           color={points > 0 ? 'good' : 'grey'}
