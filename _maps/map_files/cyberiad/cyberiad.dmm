@@ -37430,9 +37430,6 @@
 /obj/machinery/keycard_auth{
 	pixel_x = -24
 	},
-/obj/machinery/computer/security/mining{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
@@ -37468,6 +37465,7 @@
 "bXf" = (
 /obj/structure/table,
 /obj/machinery/keycard_auth,
+/obj/item/toy/figure/crew/cargotech,
 /turf/simulated/floor/carpet,
 /area/quartermaster/qm)
 "bXh" = (
@@ -68197,20 +68195,8 @@
 /area/medical/surgery)
 "hyR" = (
 /obj/structure/table,
-/obj/item/toy/figure/crew/cargotech,
-/obj/item/cartridge/quartermaster,
-/obj/item/cartridge/quartermaster{
-	pixel_x = -4;
-	pixel_y = 7
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/item/toy/figure/crew/qm,
-/obj/item/coin/silver{
-	pixel_y = 5;
-	pixel_x = 3
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Medical Officer's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -77391,6 +77377,7 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
+/obj/item/toy/figure/crew/qm,
 /turf/simulated/floor/carpet,
 /area/quartermaster/qm)
 "nBI" = (
@@ -87885,6 +87872,22 @@
 	pixel_x = -28
 	},
 /obj/structure/closet/secure_closet/quartermaster,
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/coin/silver{
+	pixel_y = 5;
+	pixel_x = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"

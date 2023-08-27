@@ -8924,6 +8924,9 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Medical Officer's Office"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -22887,9 +22890,6 @@
 /area/aisat/service)
 "bvY" = (
 /obj/structure/window/reinforced,
-/obj/machinery/computer/supplycomp{
-	dir = 8
-	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "bvZ" = (
@@ -22933,9 +22933,6 @@
 	},
 /area/aisat/service)
 "bwc" = (
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
 /obj/machinery/newscaster/security_unit{
 	dir = 8;
 	name = "east bump";

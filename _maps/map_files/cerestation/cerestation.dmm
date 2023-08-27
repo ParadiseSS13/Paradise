@@ -30126,8 +30126,8 @@
 /area/hallway/primary/fore)
 "cWB" = (
 /obj/structure/table,
-/obj/machinery/cell_charger,
 /obj/item/clipboard,
+/obj/machinery/photocopier/faxmachine,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"

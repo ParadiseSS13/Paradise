@@ -15679,6 +15679,7 @@
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/gps/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17121,19 +17122,8 @@
 /area/quartermaster/qm)
 "aYi" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/quartermaster{
-	pixel_x = -3
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = 5;
-	pixel_y = 3
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/obj/item/gps/mining,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/photocopier/faxmachine,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17797,6 +17787,18 @@
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/quartermaster,
+/obj/item/cartridge/quartermaster{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = 5;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -43038,9 +43040,6 @@
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/heads/hop)
 "cdE" = (
-/obj/machinery/computer/supplycomp{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
 "cdF" = (
@@ -43806,13 +43805,13 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cfC" = (
-/obj/machinery/computer/security/mining{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-20"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
