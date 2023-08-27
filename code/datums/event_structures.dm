@@ -29,7 +29,7 @@
 /datum/map_template/event/thunderdome_reset
 	name = "Thunderdome - Reset"
 	event_id = "|Event| Thunderdome Reset"
-	description = "It will create chasm, with will absorb nearly everything, good for quick cleanup."
+	description = "It will create chasm, which will absorb nearly everything, good for quick cleanup."
 	mappath = "_maps/map_files/EventStructures/thunderdome_reset.dmm"
 
 /datum/map_template/event/thunderdome_empty_reinforced
@@ -41,13 +41,13 @@
 /datum/map_template/event/thunderdome_catwalk_chasm
 	name = "Thunderdome - Catwalk, Chasm"
 	event_id = "|Event| Thunderdome Catwalk Chasm"
-	description = "MORE CATWALK! it contain big chasm in middle."
+	description = "MORE CATWALK! It contains a big chasm in the middle."
 	mappath = "_maps/map_files/EventStructures/thunderdome_catwalk_chasm.dmm"
 
 /datum/map_template/event/thunderdome_catwalk_chasm_fake
 	name = "Thunderdome - Catwalk, Fake Chasm"
 	event_id = "|Event| Thunderdome Catwalk Chasm Fake"
-	description = "MORE CATWALK! it contain big fake chasm in middle."
+	description = "MORE CATWALK! It contains a big fake chasm in the middle."
 	mappath = "_maps/map_files/EventStructures/thunderdome_catwalk_chasm_fake.dmm"
 
 /datum/map_template/event/thunderdome_hiero_default
@@ -59,13 +59,13 @@
 /datum/map_template/event/thunderdome_hiero_pandora
 	name = "Thunderdome - Hiero, Pandora"
 	event_id = "|Event| Thunderdome Hiero Pandora"
-	description = "Heiro inspired area, contain hostile pandora."
+	description = "Hiero inspired arena, contains a hostile pandora"
 	mappath = "_maps/map_files/EventStructures/thunderdome_hiero_pandora.dmm"
 
 /datum/map_template/event/thunderdome_lavaland_holes
 	name = "Thunderdome - Lavaland, Holes"
 	event_id = "|Event| Thunderdome Lavaland Holes"
-	description = "Inspired by lavaland environment, if holes are step on, it have 50-50 chance to be good or bad."
+	description = "Inspired by lavaland environment, holes have a 50% chance of being good or bad when stepped on."
 	mappath = "_maps/map_files/EventStructures/thunderdome_lavaland_holes.dmm"
 
 /datum/map_template/event/thunderdome_lavaland_maze
@@ -77,11 +77,11 @@
 /datum/map_template/event/thunderdome_snow_forest
 	name = "Thunderdome - Snow, Forest"
 	event_id = "|Event| Thunderdome Snow Forest"
-	description = "Inspired by lavaland snow biodome, it contain trees and grass."
+	description = "Inspired by lavaland snow biodome, it contains trees, grass and snow!"
 	mappath = "_maps/map_files/EventStructures/thunderdome_snow_forest.dmm"
 
 /datum/map_template/event/thunderdome_touchgrass
 	name = "Thunderdome - Touch Grass"
 	event_id = "|Event| Thunderdome Touch Grass"
-	description = "Go outside this small rooms and touch grass."
+	description = "Go outside the confined rooms and touch grass."
 	mappath = "_maps/map_files/EventStructures/thunderdome_touchgrass.dmm"
