@@ -29,7 +29,8 @@ const HCC = (role) => {
 // Head bold check. Abbreviated to save on 80 char
 const HBC = (role) => {
   // Return true if they are a head
-  return (HeadRoles.indexOf(role) !== -1);
+  if (HeadRoles.indexOf(role) !== -1) {
+    return true;
   }
 };
 
