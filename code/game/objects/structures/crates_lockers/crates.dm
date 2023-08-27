@@ -13,7 +13,7 @@
 	var/list/announce_beacons = list()
 
 /obj/structure/closet/crate/update_icon()
-	..()
+	//..() is not needed here because of different overlay handling logic for crates
 	overlays.Cut()
 	if(manifest)
 		overlays += "manifest"

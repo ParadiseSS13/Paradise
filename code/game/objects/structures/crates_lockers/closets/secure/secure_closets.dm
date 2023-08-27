@@ -104,7 +104,7 @@
 /obj/structure/closet/secure_closet/update_icon()//Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	..()
 	if(!opened)
-		overlays += overlay_locker
+		//overlays += overlay_locker //uncomment if you want to add locker overlay to all secure closets
 		if(!broken)
 			if(locked)
 				overlays += overlay_locked
