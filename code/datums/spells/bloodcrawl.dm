@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/bloodcrawl
 	name = "Blood Crawl"
 	desc = "Use pools of blood to phase out of existence."
-	base_cooldown = 0
+	base_cooldown = 1 SECONDS
 	clothes_req = FALSE
 	cooldown_min = 0
 	should_recharge_after_cast = FALSE
