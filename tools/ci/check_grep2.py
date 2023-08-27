@@ -71,11 +71,8 @@ def check_mixed_indentation(lines):
 
 
 def check_trailing_newlines(lines):
-    if not lines:
-        return
-
-    last_line = [x for x in lines][-1]
-    if not last_line.endswith("\n"):
+    lines = [x for x in lines]
+    if lines and not lines[-1].endswith("\n"):
         return Failure(len(lines), "Missing a trailing newline")
 
 
