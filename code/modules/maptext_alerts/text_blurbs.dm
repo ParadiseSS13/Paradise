@@ -59,7 +59,7 @@
 		if(blurb_key)
 			if(!ignore_key && (M.key in GLOB.blurb_witnesses[blurb_key]))
 				continue
-			LAZYDISTINCTADD(GLOB.blurb_witnesses[blurb_key], M.key)
+			LAZYADDOR(GLOB.blurb_witnesses[blurb_key], M.key)
 		M.client?.screen += T
 
 	for(var/i in 1 to length(message) + 1)
