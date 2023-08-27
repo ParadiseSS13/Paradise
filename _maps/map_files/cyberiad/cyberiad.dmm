@@ -64377,14 +64377,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "fnX" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Quartermaster";
-	req_access_txt = "41"
-	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "qm"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
+/obj/machinery/door/airlock/command/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "fog" = (
@@ -75504,10 +75503,6 @@
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
 "mkM" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Quartermaster";
-	req_access_txt = "41"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -75526,6 +75521,9 @@
 	id = "qm"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
+/obj/machinery/door/airlock/command/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "mlv" = (

@@ -37796,14 +37796,13 @@
 /area/maintenance/starboard)
 "epp" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Quartermaster";
-	req_access_txt = "41"
-	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "qm"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/command/glass,
+/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbrownfull"
