@@ -32219,6 +32219,12 @@
 	icon_state = "darkbrown"
 	},
 /area/teleporter/quantum/cargo)
+"dkJ" = (
+/obj/machinery/keycard_auth{
+	pixel_y = 24
+	},
+/turf/simulated/floor/carpet/black,
+/area/bridge)
 "dkK" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22"
@@ -49415,6 +49421,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/prison/cell_block/A)
+"izs" = (
+/obj/machinery/keycard_auth{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/chiefs_office)
 "izC" = (
 /turf/simulated/mineral/ancient,
 /area/hallway/primary/aft/east)
@@ -129458,7 +129470,7 @@ xlS
 bLX
 bNu
 cQB
-cQv
+izs
 iTF
 bRv
 bSs
@@ -130150,7 +130162,7 @@ aEU
 aEU
 aEU
 eTm
-bMQ
+dkJ
 aIv
 bRp
 bYj
