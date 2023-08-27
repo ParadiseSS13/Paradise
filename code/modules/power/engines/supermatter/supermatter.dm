@@ -239,7 +239,6 @@
 	if(is_main_engine)
 		GLOB.main_supermatter_engine = src
 	soundloop = new(list(src), TRUE)
-	make_next_event_time()
 
 /obj/machinery/atmospherics/supermatter_crystal/Destroy()
 	if(warp)
@@ -422,9 +421,7 @@
 	try_events()
 	if(power > 100)
 		if(!has_been_powered)
-			investigate_log("has been powered for the first time.", "supermatter")
-			message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
-			has_been_powered = TRUE
+			enable_for_the_first_time()
 	//We vary volume by power, and handle OH FUCK FUSION IN COOLING LOOP noises.
 	if(power)
 		soundloop.volume = clamp((50 + (power / 50)), 50, 100)
@@ -687,9 +684,7 @@
 		if(power_changes) //This needs to be here I swear
 			power += Proj.damage * bullet_energy
 			if(!has_been_powered)
-				investigate_log("has been powered for the first time.", "supermatter")
-				message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
-				has_been_powered = TRUE
+				enable_for_the_first_time()
 	else if(takes_damage)
 		damage += Proj.damage * bullet_energy
 	return FALSE
@@ -1184,7 +1179,7 @@
 		fake_time += rand(2 MINUTES, 10 MINUTES)
 	else if(fake_time > 15 MINUTES && prob(30))
 		fake_time -= rand(2 MINUTES, 10 MINUTES)
-	next_event_time += fake_time
+	next_event_time = fake_time + world.time
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
 	if(has_been_powered == FALSE)
@@ -1216,6 +1211,12 @@
 		log_debug("Attempted supermatter event aborted due to incorrect path. Incorrect path type: [event.type].")
 		return
 	event.start_event()
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/enable_for_the_first_time()
+	investigate_log("has been powered for the first time.", "supermatter")
+	message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
+	has_been_powered = TRUE
+	make_next_event_time()
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
