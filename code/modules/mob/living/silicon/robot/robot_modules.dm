@@ -900,7 +900,7 @@
 	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
-	modules += new /obj/item/reagent_containers/borghypo/upgraded(src)
+	modules += new /obj/item/reagent_containers/borghypo/upgraded/super(src)
 	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
 	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
 

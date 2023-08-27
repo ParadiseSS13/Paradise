@@ -54,6 +54,8 @@
 		"calomel" = list('icons/obj/items.dmi', "soap"), \
 		"oculine" = list('icons/obj/surgery.dmi', "eyes"))
 
+/obj/item/reagent_containers/borghypo/upgraded/super
+	bypass_protection = TRUE
 
 /obj/item/reagent_containers/borghypo/empty()
 	set hidden = TRUE
