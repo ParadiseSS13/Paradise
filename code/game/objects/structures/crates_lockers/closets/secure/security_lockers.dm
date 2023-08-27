@@ -16,6 +16,7 @@
 	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/storage/belt/rapier(src)
 	new /obj/item/gun/energy/gun(src)
+	new /obj/item/flash(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
