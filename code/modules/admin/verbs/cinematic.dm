@@ -6,7 +6,7 @@
 
 	if(!SSticker)
 		return
-	if(!check_rights(R_EVENT))
+	if(!check_rights(R_MAINTAINER))
 		return
 
 	var/datum/cinematic/choice = input(usr, "Choose a cinematic to play to everyone in the server.", "Choose Cinematic") in sortTim(subtypesof(/datum/cinematic), GLOBAL_PROC_REF(cmp_typepaths_asc))
