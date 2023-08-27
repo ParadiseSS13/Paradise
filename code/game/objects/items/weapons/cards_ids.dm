@@ -330,7 +330,7 @@
 	data["job"] = assignment
 	data["account"] = associated_account_number
 	data["owner"] = registered_name
-	data["mining"] = mining
+	data["mining"] = mining_points
 	data["total_mining"] = total_mining_points
 	return data
 
