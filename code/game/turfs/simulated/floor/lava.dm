@@ -56,7 +56,7 @@
 	return FALSE
 
 /turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
-	. = 0
+	. = FALSE
 
 	if(find_safeties())
 		return FALSE
@@ -71,7 +71,7 @@
 				continue
 			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
 				continue
-			. = 1
+			. = TRUE
 			if((O.resistance_flags & (ON_FIRE)))
 				continue
 			if(!(O.resistance_flags & FLAMMABLE))
@@ -83,7 +83,7 @@
 			O.fire_act(10000, 1000)
 
 		else if(isliving(thing))
-			. = 1
+			. = TRUE
 			var/mob/living/L = thing
 			if(L.flying)
 				continue	//YOU'RE FLYING OVER IT
@@ -182,7 +182,7 @@
 				continue
 			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
 				continue
-			. = 1
+			. = TRUE
 			if((O.resistance_flags & ON_FIRE))
 				continue
 			if(!(O.resistance_flags & FLAMMABLE))
@@ -193,39 +193,40 @@
 				O.armor = O.armor.setRating(fire_value = 50)
 			O.fire_act(10000, 1000)
 
-		if(isliving(thing))
-			. = 1
-			var/mob/living/burn_living = thing
-			if(burn_living.flying)
-				continue	//YOU'RE FLYING OVER IT
-			var/buckle_check = burn_living.buckling
-			if(!buckle_check)
-				buckle_check = burn_living.buckled
-			if(isobj(buckle_check))
-				var/obj/O = buckle_check
-				if(O.resistance_flags & LAVA_PROOF)
-					continue
-			else if(isliving(buckle_check))
-				var/mob/living/live = buckle_check
-				if("lava" in live.weather_immunities)
-					continue
-			if("lava" in burn_living.weather_immunities)
+		if(!isliving(thing))
+			continue
+		. = TRUE
+		var/mob/living/burn_living = thing
+		if(burn_living.flying)
+			continue	//YOU'RE FLYING OVER IT
+		var/buckle_check = burn_living.buckling
+		if(!buckle_check)
+			buckle_check = burn_living.buckled
+		if(isobj(buckle_check))
+			var/obj/O = buckle_check
+			if(O.resistance_flags & LAVA_PROOF)
 				continue
-			burn_living.adjustFireLoss(2)
-			if(QDELETED(burn_living))
-				return
-			burn_living.adjust_fire_stacks(20) //dipping into a stream of plasma would probably make you more flammable than usual
-			burn_living.IgniteMob()
-			burn_living.adjust_bodytemperature(-rand(50, 65)) //its cold, man
-			if(!ishuman(burn_living) || prob(65))
-				return
-			var/mob/living/carbon/human/burn_human = burn_living
-			var/datum/species/burn_species = burn_human.dna.species
-			if(istype(burn_species, /datum/species/plasmaman) || istype(burn_species, /datum/species/machine)) //ignore plasmamen/robotic species.
-				return
+		else if(isliving(buckle_check))
+			var/mob/living/live = buckle_check
+			if("lava" in live.weather_immunities)
+				continue
+		if("lava" in burn_living.weather_immunities)
+			continue
+		burn_living.adjustFireLoss(2)
+		if(QDELETED(burn_living))
+			return
+		burn_living.adjust_fire_stacks(20) //dipping into a stream of plasma would probably make you more flammable than usual
+		burn_living.IgniteMob()
+		burn_living.adjust_bodytemperature(-rand(50, 65)) //its cold, man
+		if(!ishuman(burn_living) || prob(65))
+			return
+		var/mob/living/carbon/human/burn_human = burn_living
+		var/datum/species/burn_species = burn_human.dna.species
+		if(istype(burn_species, /datum/species/plasmaman) || istype(burn_species, /datum/species/machine)) //ignore plasmamen/robotic species.
+			return
 
-			burn_human.adjustToxLoss(15) //Cold mutagen is bad for you, more at 11.
-			burn_human.adjustFireLoss(15)
+		burn_human.adjustToxLoss(15) //Cold mutagen is bad for you, more at 11.
+		burn_human.adjustFireLoss(15)
 
 /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	name = "Adaptive lava / chasm / plasma"
