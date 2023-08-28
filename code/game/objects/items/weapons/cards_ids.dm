@@ -109,8 +109,10 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
-	var/mining_points = 0 // For redeeming at mining equipment lockers
-	var/total_mining_points = 0 // Total mining points for the Shift.
+	/// For redeeming at mining equipment lockers
+	var/mining_points = 0
+	/// Total mining points for the Shift.
+	var/total_mining_points = 0
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
