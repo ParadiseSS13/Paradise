@@ -139,8 +139,24 @@
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
+	fill_pen()
+
+/obj/item/pen/sleepy/proc/fill_pen()
 	reagents.add_reagent("ketamine", 100)
 
+/obj/item/pen/sleepy/love
+	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
+	origin_tech = "engineering=4;syndicate=2"
+
+/obj/item/pen/sleepy/love/attack(mob/living/M, mob/user)
+	var/can_transfer = reagents.total_volume && M.reagents
+	. = ..()
+	if(can_transfer && .)
+		M.apply_status_effect(STATUS_EFFECT_PACIFIED) //pacifies for 40 seconds
+	return TRUE
+
+/obj/item/pen/sleepy/love/fill_pen()
+	reagents.add_reagent("love", 100)
 
 /*
  * (Alan) Edaggers

@@ -20,7 +20,6 @@
 		return FALSE
 
 	H.visible_message("<span class='warning'>[H] transforms!</span>")
-	cling.genetic_damage = 30
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
 	H.monkeyize()
 

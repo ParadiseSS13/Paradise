@@ -294,6 +294,9 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
 
+/obj/item/projectile/bullet/dart/syringe/pierce_ignore
+	piercing = TRUE
+
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
