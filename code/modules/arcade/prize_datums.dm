@@ -143,7 +143,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/unum
 	name = "Deck of UNUM! Cards"
-	desc = "Everyone's favorite card game! "
+	desc = "Everyone's favorite card game!"
 	typepath = /obj/item/deck/unum
 	cost = 45
 

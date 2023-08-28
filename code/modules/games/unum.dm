@@ -1,7 +1,7 @@
 /// A deck of unum cards. Classic.
 /obj/item/deck/unum
 	name = "\improper UNUM! deck"
-	desc = "A deck of unum cards. House rules to argue over not included."
+	desc = "A deck of UNUM! cards. House rules to argue over not included."
 	icon_state = "deck_unum_full"
 	card_style = "unum"
 
