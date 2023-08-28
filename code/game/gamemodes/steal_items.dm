@@ -590,7 +590,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = null
 	var/list/type_list = list()
 	var/obj/item/subtype = null
-
+	/// Whether our collection requires to steal n-amount of the same items or subtypes of these items
+	var/steal_same_types = FALSE
 	var/min = 0
 	var/max = 0
 	var/required_amount = 0
@@ -638,33 +639,31 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		return TRUE
 
 	var/collect_amount = 0
+	var/list/temp_items = wanted_items.Copy()
 	for(var/datum/mind/player in owners)
 		if(!player.current)
 			continue
 
+		if(!length(temp_items))
+			break
+
 		for(var/obj/item/item in player.current.GetAllContents())
-			var/list/temp_items = wanted_items.Copy()
 			var/is_found = FALSE
 			for(var/wanted_type in temp_items)
 				if(istype(item, wanted_type))
+					if(!steal_same_types)
+						temp_items -= wanted_type
 					is_found = TRUE
 					break
+
 			if(!is_found)
 				continue
 
 			collect_amount++
-			remove_duplicate(item, temp_items)
-			if(!length(wanted_items))
+			if(!length(temp_items))
 				break
 
 	return collect_amount >= required_amount
-
-
-/datum/theft_objective/collect/proc/remove_duplicate(obj/item/item, list/_wanted_items)
-	_wanted_items -= item
-
-
-/datum/theft_objective/collect/number/remove_duplicate(obj/item/item, list/_wanted_items)
 
 
 //=======Collect Types=======
@@ -781,6 +780,10 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 
 //=====Collection Number=====
+/datum/theft_objective/collect/number
+	steal_same_types = TRUE
+
+
 /datum/theft_objective/collect/number/make_collection()
 	wanted_items |= typepath
 	name = "Собрать: [name] в количестве [required_amount] штук[required_amount == 1 ? "и" : ""]."
