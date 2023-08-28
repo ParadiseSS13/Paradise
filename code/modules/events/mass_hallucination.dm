@@ -7,7 +7,7 @@
 		if(H.stat == DEAD)
 			continue
 		var/turf/T = get_turf(H)
-		if(!is_station_level(T.z))
+		if(!T || !is_station_level(T.z))
 			continue
 		var/armor = H.getarmor(type = "rad")
 		if((RADIMMUNE in H.dna.species.species_traits) || armor >= 75) // Leave radiation-immune species/rad armored players completely unaffected
