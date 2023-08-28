@@ -17,7 +17,7 @@
 /obj/effect/decal/cleanable/proc/_async_clean_soon(clean_time = 5 SECONDS)
 	var/iter = clean_time / (1 SECONDS)
 	for(var/i in 1 to iter)
-		if(!src)
+		if(QDELETED(src))
 			return
 		alpha -= (200 / iter)
 		if(alpha <= 55)
