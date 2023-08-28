@@ -270,6 +270,14 @@
 	cost = 450
 	containername = "sunglasses crate"
 
+/datum/supply_packs/misc/welding_goggles
+	name = "Welding Goggles Crate"
+	contains = list(/obj/item/clothing/glasses/welding,
+					/obj/item/clothing/glasses/welding,
+					/obj/item/clothing/glasses/welding)
+	cost = 300
+	containername = "welding goggles crate"
+
 /datum/supply_packs/misc/randomised
 	var/num_contained = 3 //number of items picked to be contained in a randomised crate
 	contains = list(/obj/item/clothing/head/collectable/chef,
