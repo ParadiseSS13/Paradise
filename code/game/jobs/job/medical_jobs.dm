@@ -305,8 +305,9 @@
 	l_pocket = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 	backpack_contents = list(
-		/obj/item/healthanalyzer = 1
-	)
+		/obj/item/healthanalyzer = 1,
+		/obj/item/sensor_device = 1,
+		/obj/item/pinpointer/crew = 1)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
