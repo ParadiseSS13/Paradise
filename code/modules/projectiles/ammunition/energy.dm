@@ -76,6 +76,7 @@
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/item/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
+	delay = 11
 	e_cost = 100
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 
@@ -126,6 +127,7 @@
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	delay = 20
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 

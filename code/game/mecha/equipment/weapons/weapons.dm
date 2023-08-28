@@ -95,7 +95,7 @@
 	fire_sound = 'sound/weapons/gunshots/1pulse.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
-	equip_cooldown = 40
+	equip_cooldown = 15
 	name = "mkIV Ion Heavy Cannon"
 	icon_state = "mecha_ion"
 	origin_tech = "materials=4;combat=5;magnets=4"
@@ -104,6 +104,7 @@
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ionshotgun
+	equip_cooldown = 15
 	name = "G.M. Ion Shotgun"
 	desc = "Having carefully studied the ion rifle, the brightest minds of the Gorlex Marauders found duct tape and stuck two more barrels! Impressive, isn't it?"
 	icon_state = "mecha_ion"
