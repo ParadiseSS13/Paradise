@@ -204,6 +204,7 @@
 	req_access = list(ACCESS_PARAMEDIC)
 
 /obj/structure/closet/secure_closet/paramedic/populate_contents()
+	new /obj/item/radio/headset/headset_med/para(src)
 	new /obj/item/mod/control/pre_equipped/rescue(src)
 	new /obj/item/key/ambulance(src)
 	new /obj/item/handheld_defibrillator(src)
