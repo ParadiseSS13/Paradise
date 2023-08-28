@@ -343,6 +343,7 @@
 		EQUIPMENT("Dnd set", /obj/item/storage/box/characters, 500),
 		EQUIPMENT("Dice set", /obj/item/storage/box/dice, 250),
 		EQUIPMENT("Cards", /obj/item/deck/cards, 150),
+		EQUIPMENT("UNUM!", /obj/item/deck/unum, 200),
 		EQUIPMENT("Guitar", /obj/item/instrument/guitar, 750),
 		EQUIPMENT("Synthesizer", /obj/item/instrument/piano_synth, 1500),
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
