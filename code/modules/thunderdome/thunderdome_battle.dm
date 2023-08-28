@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	var/ranged_arena_radius = RANGED_ARENA_RADIUS
 	var/voting_poll_time = VOTING_POLL_TIME
 	var/role = ROLE_THUNDERDOME
-	var/melee_random_items_count = 1
+	var/melee_random_items_count = 2
 	var/ranged_random_items_count = 2
 	var/mixed_random_items_count = 1
 	var/who_started_last_poll = null //storing ckey of whoever started poll last. Preventing fastest hands of Wild West from polling twice in a row
@@ -72,7 +72,12 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		/obj/item/storage/toolbox/surgery = 1,
 		/obj/item/storage/toolbox/mechanical = 1,
 		/obj/item/storage/toolbox/syndicate = 1,
-		/obj/item/storage/box/syndie_kit/mantisblade = 1
+		/obj/item/storage/box/syndie_kit/mantisblade = 1,
+		/obj/item/CQC_manual = 1,
+		/obj/item/sleeping_carp_scroll = 1,
+		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
+		/obj/item/clothing/gloves/fingerless/rapid = 1,
+		/obj/item/storage/box/syndie_kit/mr_chang_technique
 	)
 
 	var/list/ranged_pool = list(
@@ -335,6 +340,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	death = FALSE
 	min_hours = 0
 	allow_tts_pick = FALSE
+	banType = ROLE_THUNDERDOME
 	var/datum/thunderdome_battle/thunderdome
 
 /obj/effect/mob_spawn/human/thunderdome/attack_ghost(mob/dead/observer/user)
@@ -365,13 +371,14 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	var/mob/living/created = ..()
 	thunderdome.fighters += created
 
+	created.mutations |= RUN
+
 	created.AddComponent(/datum/component/thunderdome_death_signaler, thunderdome)
 	created.AddComponent(/datum/component/death_timer_reset, death_time_before)
 
 /datum/outfit/thunderdome
 	implants = list(
-		/obj/item/implant/postponed_death,
-		/obj/item/implant/adrenalin
+		/obj/item/implant/postponed_death
 	)
 	uniform = /obj/item/clothing/under/misc/durathread
 	shoes = /obj/item/clothing/shoes/combat
@@ -381,10 +388,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 /datum/outfit/thunderdome/cqc
 	name = "Fighter"
 	backpack_contents = list(
-		/obj/item/CQC_manual = 1,
-		/obj/item/sleeping_carp_scroll = 1,
-		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
-		/obj/item/clothing/gloves/fingerless/rapid = 1
+
 	)
 
 /datum/outfit/thunderdome/ranged
