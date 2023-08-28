@@ -229,7 +229,13 @@
 	if(!length(irradiated_mobs))
 		return
 
-	for(var/mob/living/target as anything in irradiated_mobs)
-		if(!target || QDELETED(target))
+	for(var/mob/living/target in irradiated_mobs)
+		if(QDELETED(target))
 			continue
-		target.apply_effect(rad_damage, IRRADIATE, FALSE, negate_armor)
+
+		if(ishuman(target) && (RADIMMUNE in target.dna?.species?.species_traits))
+			continue
+
+		var/resist = target.getarmor(type = "rad")
+		target.apply_effect(rad_damage, IRRADIATE, resist, negate_armor)
+
