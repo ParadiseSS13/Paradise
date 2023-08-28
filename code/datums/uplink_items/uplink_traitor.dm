@@ -421,7 +421,7 @@
 			While this suit is worn, you will be unable to be tracked or seen by on-Station AI."
 	reference = "SCS"
 	item = /obj/item/clothing/under/syndicate/silicon_cham
-	cost = 15
+	cost = 20
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
