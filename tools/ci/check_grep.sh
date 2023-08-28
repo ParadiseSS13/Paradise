@@ -45,11 +45,6 @@ if grep -P --exclude='__byond_version_compat.dm' '(\.proc\/)|(CALLBACK\(.*proc\/
     echo "ERROR: Outdated proc reference use detected in code, please use proc reference helpers."
     st=1
 fi;
-# Check for to_chat procs lacking proper arguments
-if grep -P '\to_chat("/' code/**/*.dm; then
-	echo "ERROR: to_chat proc called without a target argument. Please add a target argument so it properly displays in game."
-	st=1
-fi;
 nl='
 '
 nl=$'\n'

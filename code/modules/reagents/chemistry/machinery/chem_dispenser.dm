@@ -317,9 +317,6 @@
 		return
 	ui_interact(user)
 
-#warn REMOVE AFTER THIS WORKS
-	to_chat("this is for debugging")
-
 /obj/machinery/chem_dispenser/AltClick(mob/user)
 	if(!is_drink || !Adjacent(user))
 		return
