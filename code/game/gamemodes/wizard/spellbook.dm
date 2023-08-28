@@ -475,7 +475,7 @@
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armor"
-	desc = "An ensorceled spaceproof suit of protective yet light armor, protected by a powerful shield. The shield can completely negate three attacks before needing to recharge."
+	desc = "An ensorceled spaceproof suit of protective yet light armor, protected by a powerful shield. The shield can completely negate 15 attacks before permanently failing."
 	item_path = /obj/item/storage/box/wizard/hardsuit
 	limit = 1
 	category = "Weapons and Armors"
