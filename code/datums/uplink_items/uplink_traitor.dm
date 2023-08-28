@@ -419,7 +419,7 @@
 	name = "\"Big Brother\" Obfuscation Suit"
 	desc = "A syndicate tactical suit equipped with the latest in anti-silicon technology and, allegedly, biological technology learned from the Changeling Hivemind. \
 			While this suit is worn, you will be unable to be tracked or seen by on-Station AI."
-	reference = "SCS"
+	reference = "BBOS"
 	item = /obj/item/clothing/under/syndicate/silicon_cham
 	cost = 20
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
