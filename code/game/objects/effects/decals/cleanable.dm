@@ -14,22 +14,12 @@
 	///prevents from calling clean_soon multiple times
 	var/cleaned_soon = FALSE
 
-/obj/effect/decal/cleanable/proc/_async_clean_soon(clean_time = 5 SECONDS)
-	var/iter = clean_time / (1 SECONDS)
-	for(var/i in 1 to iter)
-		if(QDELETED(src))
-			return
-		alpha -= (200 / iter)
-		if(alpha <= 55)
-			break
-		sleep(1 SECONDS)
-	qdel(src)
-
 /obj/effect/decal/cleanable/proc/clean_soon(clean_time = 5 SECONDS)
 	if(cleaned_soon)
 		return
 	cleaned_soon = TRUE
-	INVOKE_ASYNC(src, PROC_REF(_async_clean_soon), clean_time)
+	animate(src, alpha=0, time=clean_time)
+	QDEL_IN(src, clean_time)
 
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)
