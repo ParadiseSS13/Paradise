@@ -3,3 +3,4 @@
 #include "code/Station/cyberiad.dm"
 #include "code/RandomRuins/lavaland_ruins.dm"
 #include "code/RandomRuins/space_ruins.dm"
+#include "code/Areas/areas.dm"
