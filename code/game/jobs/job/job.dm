@@ -144,6 +144,9 @@
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)
 
+/datum/job/proc/is_spawn_position_available()
+	return (current_positions < spawn_positions) || (spawn_positions == -1)
+
 /datum/outfit/job
 	name = "Standard Gear"
 	collect_not_del = TRUE // we don't want anyone to lose their job shit

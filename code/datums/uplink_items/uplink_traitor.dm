@@ -487,7 +487,7 @@
 	You can also play card games with them."
 	reference = "SPC"
 	item = /obj/item/deck/cards/syndicate
-	cost = 5
+	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
 
@@ -496,7 +496,7 @@
 	desc = "A simple, plastic bag. Keep out of reach of small children, do not apply to head."
 	reference = "PBAG"
 	item = /obj/item/storage/bag/plasticbag
-	cost = 5
+	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/contractor
