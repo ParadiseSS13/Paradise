@@ -756,11 +756,9 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_hand(mob/living/user)
 	..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(HAS_TRAIT(H, TRAIT_SUPERMATTER_IMMUNE))
-			H.visible_message("<span class='notice'>[H] reaches out and pokes [src] harmlessly...somehow.</span>", "<span class='notice'>You poke [src].</span>")
-			return
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
+		user.visible_message("<span class='notice'>[user] reaches out and pokes [src] harmlessly...somehow.</span>", "<span class='notice'>You poke [src].</span>")
+		return
 	dust_mob(user, cause = "hand")
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/dust_mob(mob/living/nom, vis_msg, mob_msg, cause)
@@ -809,7 +807,7 @@
 					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
 		return
 
-	if(istype(I, /obj/item/twohanded/supermatter))
+	if(istype(I, /obj/item/twohanded/supermatter_halberd))
 		if(ishuman(user))
 			var/mob/living/carbon/human/M = user
 			to_chat(M, "<span class='notice'>You begin to carve off a sliver of [src] with [I]...</span>")

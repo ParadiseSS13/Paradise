@@ -1129,7 +1129,7 @@
 
 #undef BROOM_PUSH_LIMIT
 
-/obj/item/twohanded/supermatter  //Supermatter Halberd, used by Oblivion Enforcers
+/obj/item/twohanded/supermatter_halberd  //Supermatter Halberd, used by Oblivion Enforcers
 	name = "supermatter halberd"
 	desc = "The revered weapon of Oblivion Enforcers, used to enforce the Order's will."
 	icon_state = "smhalberd0"
@@ -1149,16 +1149,16 @@
 	/// Whether we'll knockdown on hit
 	var/charged = TRUE
 
-/obj/item/twohanded/supermatter/Initialize(mapload)
+/obj/item/twohanded/supermatter_halberd/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT) //so it can't be dusted by the SM
 	AddComponent(/datum/component/parry, _stamina_constant = 0, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES)
 
-/obj/item/twohanded/supermatter/update_icon_state()
+/obj/item/twohanded/supermatter_halberd/update_icon_state()
 	icon_state = "smhalberd[wielded]"
 
-/obj/item/twohanded/supermatter/afterattack(atom/A, mob/user, proximity)
+/obj/item/twohanded/supermatter_halberd/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 
@@ -1230,6 +1230,6 @@
 		qdel(rays)
 		return
 
-/obj/item/twohanded/supermatter/proc/recharge()
+/obj/item/twohanded/supermatter_halberd/proc/recharge()
 	charged = TRUE
 	playsound(loc, 'sound/machines/sm/accent/normal/1.ogg', 25, TRUE)

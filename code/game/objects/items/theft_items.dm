@@ -172,9 +172,9 @@
 	return
 
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(HAS_TRAIT(H, TRAIT_SUPERMATTER_IMMUNE))
+	if(isliving(user))
+		var/mob/living/L = user
+		if(HAS_TRAIT(L, TRAIT_SUPERMATTER_IMMUNE))
 			return TRUE
 	return FALSE
 

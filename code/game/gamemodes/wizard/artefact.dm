@@ -885,10 +885,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "A set of armored, radiation-proof robes worn by Oblivion Enforcers."
 	icon_state = "oblivionarmor"
 	item_state = "oblivionarmor"
+
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	hoodtype = /obj/item/clothing/head/hooded/oblivion
-	allowed = list(/obj/item/twohanded/supermatter, /obj/item/nuke_core/supermatter_sliver)
+	allowed = list(/obj/item/twohanded/supermatter_halberd, /obj/item/nuke_core/supermatter_sliver)
 	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = INFINITY, FIRE = 5, ACID = 5)
+
 	flags_inv = HIDEJUMPSUIT|HIDESHOES|HIDETAIL|HIDESHOES
 	flags = THICKMATERIAL
 	magical = TRUE
@@ -905,14 +907,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/clothing/suit/hooded/oblivion/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
-
-/obj/item/clothing/suit/hooded/oblivion/equipped(mob/user, slot, initial)
-	. = ..()
-	ADD_TRAIT(user, TRAIT_RADIMMUNE, CLOTHING_TRAIT)
-
-/obj/item/clothing/suit/hooded/oblivion/dropped(mob/user, silent)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_RADIMMUNE, CLOTHING_TRAIT)
 
 /obj/item/clothing/mask/gas/voice_modulator/oblivion
 	name = "Oblivion Enforcer's mask"
