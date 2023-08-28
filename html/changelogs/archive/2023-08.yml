@@ -256,3 +256,25 @@
   - tweak: RND SPAI nerf (#3395)
   - tweak: chameleon counterfeiter illegal level (#3396)
   - tweak: Ninja borgo hypo pierce (#3412)
+'2023-08-28':
+  Daxya:
+  - add: Spacebar update (#3388)
+  DeDerevce:
+  - add: culinary artist clothes (#3415)
+  Den109G:
+  - bugfix: check syndie ban in ninja objectives (#3428)
+  Dimach:
+  - bugfix: wormholes runtime (#3425)
+  NightDawnFox:
+  - bugfix: unathi cult robes  (#3421)
+  - add: radio AltClick, radio CtrlShiftClick, new intercom sprites (#3342)
+  Vladisvell:
+  - tweak: bluespace closet icon adjust (#3419)
+  - tweak: Thunderdome update (#3420)
+  Zwei:
+  - bugfix: Mass Hallucination Runtime (#3424)
+  - bugfix: Radioactivity Fix (#3422)
+  - tweak: GPS & PDA Mousedrop (#3426)
+  Сиротка:
+  - balance: Guns (#3417)
+  - tweak: increase solaris damage (#3418)
