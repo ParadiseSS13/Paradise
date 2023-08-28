@@ -505,3 +505,10 @@
 /obj/item/clothing/suit/hop_jacket/female
 	icon_state = "suitjacket_hop_fem_open"
 	item_state = "suitjacket_hop_fem_open"
+
+//Culinary Artist
+/obj/item/clothing/suit/chefbluza
+	name = "deluxe chef suit"
+	desc = "Well made expensive chief suit"
+	icon_state = "bluza"
+	item_state = "bluza"

@@ -288,3 +288,10 @@
 	desc = "A beret worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	icon_state = "solgov_elite_beret"
+
+//Culinary Artist
+/obj/item/clothing/head/chefcap
+	name = "chef's red cap"
+	desc = "Red cap for people who want show who`s really boss of this kitchen"
+	item_state = "redchefcap"
+	icon_state = "redchefcap"
