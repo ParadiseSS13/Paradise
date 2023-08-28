@@ -409,11 +409,20 @@
 /datum/uplink_item/stealthy_tools/voice_modulator
 	name = "Chameleon Voice Modulator Mask"
 	desc = "A syndicate tactical mask equipped with chameleon technology and a sound modulator for disguising your voice. \
-			While the mask is active, your voice will sound unrecognizable to others"
+			While the mask is active, your voice will sound unrecognizable to others."
 	reference = "CVMM"
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_tools/silicon_cham_suit
+	name = "Silicon Obfuscation Suit"
+	desc = "A syndicate tactical suit equipped with the latest in anti-silicon technology and, allegedly, biological technology learned from the Changeling Hivemind. \
+			While this suit is worn, you will be unable to be tracked or seen by on-Station AI."
+	reference = "SCS"
+	item = /obj/item/clothing/under/syndicate/silicon_cham
+	cost = 15
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
