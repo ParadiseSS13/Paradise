@@ -1196,34 +1196,24 @@
 	if(!is_type_in_list(A, obliteration_targets))
 		return
 
-	if(iswallturf(A))
-		if(istype(A, /turf/simulated/wall/indestructible))
-			return
+	if(istype(A, /turf/simulated/wall/indestructible))
+		return
 
-		to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
-		playsound(loc, hitsound, 50, TRUE)
+	to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
+	playsound(loc, hitsound, 50, TRUE)
 
-		var/obj/effect/temp_visual/obliteration_rays/rays = new(A)
+	var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
 
-		if(do_after(user, 5 SECONDS * toolspeed, target = A))
-			new /obj/effect/temp_visual/obliteration(A, A)
-			playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
+	if(do_after(user, 5 SECONDS * toolspeed, target = A))
+		new /obj/effect/temp_visual/obliteration(A, A)
+		playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
+
+		if(iswallturf(A))
 			var/turf/AT = A
 			AT.ChangeTurf(/turf/simulated/floor/plating)
 			return
 
-		qdel(rays)
-		return
-
-	if(istype(A, /obj/machinery/door/airlock))
-		to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
-		playsound(loc, hitsound, 50, TRUE)
-
-		var/obj/effect/temp_visual/obliteration_rays/rays = new(A)
-
-		if(do_after(user, 5 SECONDS * toolspeed, target = A))
-			new /obj/effect/temp_visual/obliteration(A, A)
-			playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
+		if(istype(A, /obj/machinery/door/airlock))
 			qdel(A)
 			return
 

@@ -404,6 +404,8 @@
 
 /obj/effect/temp_visual/obliteration/Initialize(mapload, atom/target)
 	. = ..()
+	if(isobj(target))
+		loc = target.loc
 	icon = target.icon
 	icon_state = target.icon_state
 	alpha = target.alpha
