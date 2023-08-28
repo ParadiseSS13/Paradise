@@ -77,7 +77,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		/obj/item/sleeping_carp_scroll = 1,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec = 1,
 		/obj/item/clothing/gloves/fingerless/rapid = 1,
-		/obj/item/storage/box/syndie_kit/mr_chang_technique
+		/obj/item/storage/box/syndie_kit/mr_chang_technique = 1
 	)
 
 	var/list/ranged_pool = list(
