@@ -22,7 +22,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
-	name = "station bounced radio"
+	name = "shortwave radio"
+	desc = "A basic handheld radio that can communicate with local telecommunication networks."
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
 	icon_state = "walkietalkie"
@@ -304,8 +305,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		C.handle_message(tcm)
 	qdel(tcm) // Delete the message datum
 	qdel(A)
+
 /obj/item/radio/sec
-	name = "security station bounced radio"
+	name = "security shortwave radio"
+	desc = "A basic handheld radio that can communicate with local telecommunication networks. This model is painted in black colors."
 	icon_state = "walkietalkie_sec"
 	frequency = SEC_FREQ
 
@@ -581,6 +584,29 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
 		else
 			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
+		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
+
+/obj/item/radio/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(!iscarbon(usr) && !isrobot(usr))
+		return
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	broadcasting = !broadcasting
+	to_chat(user, "<span class='notice'>You toggle broadcasting [broadcasting ? "on" : "off"].</span>")
+
+/obj/item/radio/CtrlShiftClick(mob/user) //weird checks
+	if(!Adjacent(user))
+		return
+	if(!iscarbon(usr) && !isrobot(usr))
+		return
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	listening = !listening
+	to_chat(user, "<span class='notice'>You toggle speaker [listening ? "on" : "off"].</span>")
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
