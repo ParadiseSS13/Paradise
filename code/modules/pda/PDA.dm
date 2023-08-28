@@ -106,18 +106,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/MouseDrop(atom/over)
 	. = ..()
-	if(!.)
-		return FALSE
 
 	var/mob/user = usr
-	if(user.incapacitated() || !ishuman(user))
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated())
 		return FALSE
 
-	if(over == user)
-		attack_self(user)
-		return TRUE
-
-	return FALSE
+	attack_self(user)
+	return TRUE
 
 
 /obj/item/pda/attack_self(mob/user as mob)
