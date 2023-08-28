@@ -11,6 +11,4 @@
 /obj/item/lighter/zippo/contractor
 	name = "contractor zippo lighter"
 	desc = "An unique black and gold zippo commonly carried by elite Syndicate agents."
-	icon_state = "contractorzippo"
-	icon_on = "contractorzippoon"
-	icon_off = "contractorzippo"
+	icon_state = "zippo-contractor"

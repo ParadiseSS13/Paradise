@@ -12,8 +12,6 @@
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
 	var/lit = FALSE
-	var/icon_on = "lighter-g-on"
-	var/icon_off = "lighter-g"
 	/// Cooldown until the next turned on message/sound can be activated
 	var/next_on_message
 	/// Cooldown until the next turned off message/sound can be activated
@@ -22,9 +20,7 @@
 /obj/item/lighter/random/New()
 	..()
 	var/color = pick("r","c","y","g")
-	icon_on = "lighter-[color]-on"
-	icon_off = "lighter-[color]"
-	icon_state = icon_off
+	icon_state = "lighter-[color]"
 
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
@@ -43,13 +39,12 @@
 /obj/item/lighter/proc/turn_on_lighter(mob/living/user)
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY
-	icon_state = icon_on
-	item_state = icon_on
 	force = 5
 	damtype = BURN
 	hitsound = 'sound/items/welder.ogg'
 	attack_verb = list("burnt", "singed")
 
+	update_icon()
 	attempt_light(user)
 	set_light(2)
 	START_PROCESSING(SSobj, src)
@@ -70,12 +65,11 @@
 /obj/item/lighter/proc/turn_off_lighter(mob/living/user)
 	lit = FALSE
 	w_class = WEIGHT_CLASS_TINY
-	icon_state = icon_off
-	item_state = icon_off
 	hitsound = "swing_hit"
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
 
+	update_icon()
 	if(user)
 		show_off_message(user)
 	set_light(0)
@@ -119,14 +113,16 @@
 		location.hotspot_expose(700, 5)
 	return
 
+/obj/item/lighter/update_icon_state()
+	icon_state = "[initial(icon_state)][lit ? "-on" : ""]"
+	return ..()
+
 // Zippo lighters
 /obj/item/lighter/zippo
 	name = "zippo lighter"
 	desc = "The zippo."
 	icon_state = "zippo"
 	item_state = "zippo"
-	icon_on = "zippoon"
-	icon_off = "zippo"
 
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
@@ -159,37 +155,27 @@
 /obj/item/lighter/zippo/nt_rep
 	name = "gold engraved zippo"
 	desc = "An engraved golden Zippo lighter with the letters NT on it."
-	icon_state = "zippo_nt_off"
-	icon_on = "zippo_nt_on"
-	icon_off = "zippo_nt_off"
+	icon_state = "zippo-nt"
 
 /obj/item/lighter/zippo/blue
 	name = "blue zippo lighter"
 	desc = "A zippo lighter made of some blue metal."
-	icon_state = "bluezippo"
-	icon_on = "bluezippoon"
-	icon_off = "bluezippo"
+	icon_state = "zippo-blue"
 
 /obj/item/lighter/zippo/black
 	name = "black zippo lighter"
 	desc = "A black zippo lighter."
-	icon_state = "blackzippo"
-	icon_on = "blackzippoon"
-	icon_off = "blackzippo"
+	icon_state = "zippo-black"
 
 /obj/item/lighter/zippo/engraved
 	name = "engraved zippo lighter"
 	desc = "A intricately engraved zippo lighter."
-	icon_state = "engravedzippo"
-	icon_on = "engravedzippoon"
-	icon_off = "engravedzippo"
+	icon_state = "zippo-engraved"
 
 /obj/item/lighter/zippo/gonzofist
 	name = "Gonzo Fist zippo"
 	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."
-	icon_state = "gonzozippo"
-	icon_on = "gonzozippoon"
-	icon_off = "gonzozippo"
+	icon_state = "zippo-gonzo"
 
 ///////////
 //MATCHES//
