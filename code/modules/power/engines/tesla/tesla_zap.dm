@@ -15,7 +15,7 @@ basic_tesla_zap() can be called by anything and does not need any overrides.
 
 // If you want a normal zap, you use the proc below
 
-/proc/basic_tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())
+/proc/basic_tesla_zap(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list(), target_APC = FALSE)
 	if(QDELETED(source))
 		return
 	if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
@@ -55,69 +55,72 @@ basic_tesla_zap() can be called by anything and does not need any overrides.
 										/obj/machinery/constructable_frame/machine_frame))
 
 	for(var/a in typecache_filter_multi_list_exclusion(oview(zap_range + 2, source), things_to_shock, blacklisted_tesla_types))
-		var/atom/A = a
-		if(!(zap_flags & ZAP_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A))
-			continue
-		if(closest_type >= COIL)
-			continue //no need checking these other things
+		get_a_target(source, zap_range, power, zap_flags, shocked_targets, target_APC, closest_atom)
 
-		else if(istype(A, /obj/machinery/power/tesla_coil))
-			var/obj/machinery/power/tesla_coil/C = A
-			if(!C.being_shocked)
-				closest_type = COIL
-				closest_atom = C
+/proc/get_a_target(atom/source, zap_range = 3, power, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list(), target_APC = FALSE, closest_atom)
+	var/atom/A = a
+	if(!(zap_flags & ZAP_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A))
+		continue
+	if(closest_type >= COIL)
+		continue //no need checking these other things
 
-		else if(closest_type >= ROD)
-			continue
+	else if(istype(A, /obj/machinery/power/tesla_coil))
+		var/obj/machinery/power/tesla_coil/C = A
+		if(!C.being_shocked)
+			closest_type = COIL
+			closest_atom = C
 
-		else if(istype(A, /obj/machinery/power/grounding_rod))
-			closest_type = ROD
+	else if(closest_type >= ROD)
+		continue
+
+	else if(istype(A, /obj/machinery/power/grounding_rod))
+		closest_type = ROD
+		closest_atom = A
+
+	else if(closest_type >= RIDE)
+		continue
+
+	else if(istype(A, /obj/vehicle))
+		var/obj/vehicle/R = A
+		if(R.can_buckle && !R.being_shocked)
+			closest_type = RIDE
 			closest_atom = A
 
-		else if(closest_type >= RIDE)
-			continue
+	else if(closest_type >= LIVING)
+		continue
 
-		else if(istype(A, /obj/vehicle))
-			var/obj/vehicle/R = A
-			if(R.can_buckle && !R.being_shocked)
-				closest_type = RIDE
-				closest_atom = A
+	else if(isliving(A))
+		var/mob/living/L = A
+		if(L.stat != DEAD && !(HAS_TRAIT(L, TRAIT_TESLA_SHOCKIMMUNE)) && !(L.flags_2 & SHOCKED_2))
+			closest_type = LIVING
+			closest_atom = A
 
-		else if(closest_type >= LIVING)
-			continue
+	else if(closest_type >= MACHINERY)
+		continue
 
-		else if(isliving(A))
-			var/mob/living/L = A
-			if(L.stat != DEAD && !(HAS_TRAIT(L, TRAIT_TESLA_SHOCKIMMUNE)) && !(L.flags_2 & SHOCKED_2))
-				closest_type = LIVING
-				closest_atom = A
+	else if(ismachinery(A))
+		var/obj/machinery/M = A
+		if(!M.being_shocked)
+			closest_type = MACHINERY
+			closest_atom = A
 
-		else if(closest_type >= MACHINERY)
-			continue
+	else if(closest_type >= BLOB)
+		continue
 
-		else if(ismachinery(A))
-			var/obj/machinery/M = A
-			if(!M.being_shocked)
-				closest_type = MACHINERY
-				closest_atom = A
+	else if(istype(A, /obj/structure/blob))
+		var/obj/structure/blob/B = A
+		if(!B.being_shocked)
+			closest_type = BLOB
+			closest_atom = A
 
-		else if(closest_type >= BLOB)
-			continue
+	else if(closest_type >= STRUCTURE)
+		continue
 
-		else if(istype(A, /obj/structure/blob))
-			var/obj/structure/blob/B = A
-			if(!B.being_shocked)
-				closest_type = BLOB
-				closest_atom = A
-
-		else if(closest_type >= STRUCTURE)
-			continue
-
-		else if(isstructure(A))
-			var/obj/structure/S = A
-			if(!S.being_shocked)
-				closest_type = STRUCTURE
-				closest_atom = A
+	else if(isstructure(A))
+		var/obj/structure/S = A
+		if(!S.being_shocked)
+			closest_type = STRUCTURE
+			closest_atom = A
 
 	//Alright, we've done our loop, now lets see if was anything interesting in range
 	if(!closest_atom)

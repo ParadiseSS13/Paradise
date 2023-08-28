@@ -376,11 +376,11 @@
 		power = closest_atom.zap_act(power, zap_flags)
 	if(prob(20)) //I know I know
 		var/list/shocked_copy = shocked_targets.Copy()
-		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_copy, is_energy_ball = TRUE) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
-		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_targets, is_energy_ball = TRUE)
+		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_copy) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
+		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_targets)
 		shocked_targets += shocked_copy
 	else
-		tesla_zap(closest_atom, next_range, power, zap_flags, is_energy_ball = TRUE)
+		tesla_zap(closest_atom, next_range, power, zap_flags)
 
 #undef COIL
 #undef ROD
