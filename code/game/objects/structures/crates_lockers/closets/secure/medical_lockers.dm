@@ -214,6 +214,10 @@
 	new /obj/item/storage/firstaid/adv(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/storage/toolbox/emergency(src)
+	new /obj/item/fulton_core(src)
+	new /obj/item/extraction_pack(src)
+	new /obj/item/gps/mining(src)
+	new /obj/item/gun/energy/plasmacutter(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
