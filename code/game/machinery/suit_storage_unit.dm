@@ -297,7 +297,7 @@
 		component_parts += new /obj/item/stack/sheet/rglass(null)
 		component_parts += new /obj/item/stack/sheet/rglass(null)
 		component_parts += new /obj/item/stack/sheet/rglass(null)
-	RefreshParts() // MMTODO: needs "upgrades" for the different levels of parts.
+	RefreshParts()
 
 	wires = new(src)
 	if(suit_type)
