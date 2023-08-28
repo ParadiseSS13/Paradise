@@ -362,7 +362,7 @@
 		if(istype(B) && B.off_floor)
 			floor_only = FALSE
 		else
-			qdel(C)
+			C.clean_soon(10 SECONDS)
 	color = initial(color)
 	if(floor_only)
 		clean_blood()

@@ -58,16 +58,22 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(iseffect(O))
-		var/obj/effect/E = O
-		if(E.is_cleanable())
-			var/obj/effect/decal/cleanable/blood/B = E
-			if(!(istype(B) && B.off_floor))
-				qdel(E)
-	else
+	if(!iseffect(O))
 		if(O.simulated)
 			O.color = initial(O.color)
 		O.clean_blood()
+		return
+	var/obj/effect/E = O
+	if(!E.is_cleanable())
+		return
+	var/obj/effect/decal/cleanable/blood/B = E
+	var/obj/effect/decal/cleanable/C = E
+	if((istype(B) && B.off_floor))
+		return
+	if(istype(C))
+		C.clean_soon(10 SECONDS)
+	else
+		qdel(E)
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	T.clean(volume >= 1)
