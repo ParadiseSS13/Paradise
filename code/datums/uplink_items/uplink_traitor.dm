@@ -416,7 +416,7 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/silicon_cham_suit
-	name = "Silicon Obfuscation Suit"
+	name = "\"Big Brother\" Obfuscation Suit"
 	desc = "A syndicate tactical suit equipped with the latest in anti-silicon technology and, allegedly, biological technology learned from the Changeling Hivemind. \
 			While this suit is worn, you will be unable to be tracked or seen by on-Station AI."
 	reference = "SCS"
