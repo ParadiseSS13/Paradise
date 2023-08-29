@@ -266,7 +266,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WAS_BATONNED "batonged"
 #define CLOWN_EMAG "clown_emag"
 #define MODSUIT_TRAIT "modsuit_trait"
-#define MUSCLE_SPASMS "muscle_spasms" // Currently only used as the EMP effect of the muscle stims implant
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

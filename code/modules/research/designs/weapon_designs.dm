@@ -335,7 +335,7 @@
 	category = list("Weapons")
 
 /datum/design/muscle_implant
-	name = "Strong-arm empowered musculature implant"
+	name = "Strong-arm Empowered Musculature Implant"
 	desc = "An implant that enhances your muscles to punch harder and throw people back."
 	id = "muscle_implant"
 	req_tech = list("combat" = 7, "syndicate" = 2, "biotech" = 7)

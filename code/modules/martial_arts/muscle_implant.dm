@@ -1,5 +1,5 @@
 /datum/martial_art/muscle_implant
-	name = "Empowered muscle implant fighting"
+	name = "Empowered Muscle Implant Fighting"
 	weight = 1
 	var/is_emp
 
@@ -13,43 +13,40 @@
 	var/punch_damage = 13 // So the magic numbers are explained user bit more
 	var/picked_hit_type = pick("punch", "smash", "kick")
 
-	if(is_emp) // I am sorry
-		var/temp = user
-		user = target
-		target = temp
-
 	if(ishuman(target))
 		if(target.check_shields(user, punch_damage, "[user]'s' [picked_hit_type]"))
 			user.do_attack_animation(target)
 			playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 			return FALSE
-
 	if(is_emp)
-		target.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+		do_the_punch(user, user)
 	else
-		user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
-	playsound(target.loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
-	playsound(target.loc, 'sound/weapons/genhit2.ogg', 50, 1)
-
-	target.apply_damage(punch_damage, BRUTE, user.zone_selected)
-
-	if(!IS_HORIZONTAL(user)) //Throw them if we are standing
-		var/atom/throw_target = get_edge_target_turf(target, user.dir)
-		target.throw_at(throw_target, rand(1, 2), 0.5, user)
-
-	target.visible_message(
-		"<span class='danger'>[user] [picked_hit_type]ed [target]!</span>",
-		"<span class='danger'>You're [picked_hit_type]ed by [user]!</span>",
-		"<span class='danger'>You hear user sickening sound of flesh hitting flesh!</span>",
-	)
-	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
-	to_chat(user, "<span class='danger'>You [picked_hit_type] [target]!</span>")
+		do_the_punch(user, target)
+	playsound(target.loc, 'sound/weapons/resonator_blast.ogg', 50, TRUE)
+	playsound(target.loc, 'sound/weapons/genhit2.ogg', 50, TRUE)
 
 	return TRUE
 
+/datum/martial_art/muscle_implant/do_the_punch(mob/living/carbon/human/puncher, mob/living/carbon/human/punchee)
+	puncher.do_attack_animation(punchee, ATTACK_EFFECT_SMASH)
+	add_attack_logs(puncher, punchee, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
+	punchee.apply_damage(punch_damage, BRUTE, user.zone_selected)
+
+	if(!IS_HORIZONTAL(puncher)) //Throw them if we are standing
+		var/atom/throw_target = get_edge_target_turf(punchee, puncher.dir)
+		punchee.throw_at(throw_target, rand(1, 2), 0.5, puncher)
+
+	punchee.visible_message(
+		"<span class='danger'>[puncher] [picked_hit_type]ed [punchee]!</span>",
+		"<span class='danger'>You're [picked_hit_type]ed by [puncher]!</span>",
+		"<span class='danger'>You hear user sickening sound of flesh hitting flesh!</span>",
+	)
+
+	to_chat(user, "<span class='danger'>You [picked_hit_type] [punchee]!</span>")
+
 /datum/martial_art/muscle_implant/proc/emp_act(severity, mob/owner)
 	is_emp = TRUE
-	to_chat(owner, "<span class='danger'>Your arm spasms wildly!</span>")
+	to_chat(owner, "<span class='danger'>Your arms spasm wildly!</span>")
 	addtimer(CALLBACK(src, PROC_REF(reboot), owner), (18 / severity) SECONDS)
 
 /datum/martial_art/muscle_implant/proc/reboot(mob/owner)
