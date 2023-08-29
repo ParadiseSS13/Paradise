@@ -2778,6 +2778,7 @@
 #include "code\modules\tgui\modules\appearance_changer.dm"
 #include "code\modules\tgui\modules\atmos_control.dm"
 #include "code\modules\tgui\modules\crew_monitor.dm"
+#include "code\modules\tgui\modules\item_pixel_shift.dm"
 #include "code\modules\tgui\modules\ert_manager.dm"
 #include "code\modules\tgui\modules\generic_crew_manifest.dm"
 #include "code\modules\tgui\modules\ghost_hud_panel.dm"

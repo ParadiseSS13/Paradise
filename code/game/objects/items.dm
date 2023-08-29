@@ -136,6 +136,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	///In deciseconds, how long an item takes to equip/unequip; counts only for normal clothing slots, not pockets, hands etc.
 	var/equip_delay_self = 0 SECONDS
 
+	///Datum used in item pixel shift TGUI
+	var/datum/ui_module/item_pixel_shift/item_pixel_shift
+
 
 /obj/item/New()
 	..()
@@ -181,6 +184,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/mob/M = loc
 		M.drop_item_ground(src, TRUE)
 	QDEL_LIST(actions)
+	QDEL_NULL(item_pixel_shift)
 
 	return ..()
 
@@ -194,20 +198,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
 		qdel(src)
-
-/obj/item/verb/move_to_top()
-	set name = "Move To Top"
-	set category = null
-	set src in oview(1)
-
-	if(!istype(src.loc, /turf) || usr.stat || usr.restrained() )
-		return
-
-	var/turf/T = src.loc
-
-	src.loc = null
-
-	src.loc = T
 
 
 /obj/item/examine(mob/user)
