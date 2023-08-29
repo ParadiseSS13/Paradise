@@ -112,8 +112,7 @@
 					icon_state = "box_2"
 					state = 3
 					components = list()
-					if(circuit.req_components)
-						req_components = circuit.req_components.Copy()
+					req_components = circuit.req_components?.Copy()
 					update_namelist()
 					update_req_desc()
 				else
@@ -1081,4 +1080,5 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/economy/merch
 	board_type = "machine"
 	req_components = list(
+							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1)
