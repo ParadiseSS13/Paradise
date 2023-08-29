@@ -573,7 +573,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
 	. = ..()
-	new muscle_implant(null)
+	muscle_implant = new()
 	muscle_implant.teach(M)
 
 /obj/item/organ/internal/cyberimp/arm/muscle/remove(mob/living/carbon/M, special)
@@ -584,10 +584,4 @@
 	. = ..()
 	if(emp_proof)
 		return
-	to_chat(owner, "<span class='danger'>Your arm spasms wildly!</span>")
-	ADD_TRAIT(owner, MUSCLE_SPASMS, "muscle_imp_EMP")
-	addtimer(CALLBACK(src, PROC_REF(reboot)), (18 / severity) SECONDS)
-
-/obj/item/organ/internal/cyberimp/arm/muscle/proc/reboot()
-	REMOVE_TRAIT(owner, MUSCLE_SPASMS, "muscle_imp_EMP")
-	to_chat(owner, "<span class='danger'>Your arms stop spasming.")
+	muscle_implant.emp_act(severity, owner)

@@ -1,6 +1,7 @@
 /datum/martial_art/muscle_implant
 	name = "Empowered muscle implant fighting"
 	weight = 1
+	var/is_emp
 
 /datum/martial_art/muscle_implant/harm_act(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	MARTIAL_ARTS_ACT_CHECK
@@ -11,7 +12,6 @@
 
 	var/punch_damage = 13 // So the magic numbers are explained user bit more
 	var/picked_hit_type = pick("punch", "smash", "kick")
-	var/is_emp = HAS_TRAIT(user, MUSCLE_SPASMS)
 
 	if(is_emp) // I am sorry
 		var/temp = user
@@ -46,3 +46,12 @@
 	to_chat(user, "<span class='danger'>You [picked_hit_type] [target]!</span>")
 
 	return TRUE
+
+/datum/martial_art/muscle_implant/proc/emp_act(severity, mob/owner)
+	is_emp = TRUE
+	to_chat(owner, "<span class='danger'>Your arm spasms wildly!</span>")
+	addtimer(CALLBACK(src, PROC_REF(reboot), owner), (18 / severity) SECONDS)
+
+/datum/martial_art/muscle_implant/proc/reboot(mob/owner)
+	is_emp = FALSE
+	to_chat(owner, "<span class='danger'>Your arms stop spasming.</span>")
