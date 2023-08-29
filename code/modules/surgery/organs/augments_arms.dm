@@ -572,11 +572,13 @@
 
 /obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
 	. = ..()
-	ADD_TRAIT(M, MUSCLE_IMPLANT, "muscle_implant")
+	var/datum/martial_art/muscle_implant/muscle_implant = new(null)
+	muscle_implant.teach(M)
 
 /obj/item/organ/internal/cyberimp/arm/muscle/remove(mob/living/carbon/M, special)
 	. = ..()
-	REMOVE_TRAIT(M, MUSCLE_IMPLANT, "muscle_implant")
+	var/datum/martial_art/muscle_implant/muscle_implant = new(null)
+	muscle_implant.remove(M)
 
 /obj/item/organ/internal/cyberimp/arm/muscle/emp_act(severity)
 	. = ..()
@@ -584,7 +586,7 @@
 		return
 	to_chat(owner, "<span class='danger'>Your arm spasms wildly!</span>")
 	ADD_TRAIT(owner, MUSCLE_SPASMS, "muscle_imp_EMP")
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), (18 / severity) SECONDS)
 
 /obj/item/organ/internal/cyberimp/arm/muscle/proc/reboot()
 	REMOVE_TRAIT(owner, MUSCLE_SPASMS, "muscle_imp_EMP")

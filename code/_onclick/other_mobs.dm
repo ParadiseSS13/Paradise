@@ -17,13 +17,6 @@
 			if(A.attack_hulk(src))
 				return
 
-	if(HAS_TRAIT(src, MUSCLE_IMPLANT))
-		if(proximity)
-			if(HAS_TRAIT(src, MUSCLE_SPASMS) && src.muscle_imp_attack(src)) // If we can't control our muscles, we hit ourselves!
-				return
-			if(A.muscle_imp_attack(src))
-				return
-
 	if(buckled && isstructure(buckled))
 		var/obj/structure/S = buckled
 		if(S.prevents_buckled_mobs_attacking())

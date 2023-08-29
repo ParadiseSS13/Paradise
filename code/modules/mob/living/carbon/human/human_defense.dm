@@ -621,42 +621,6 @@ emp_act
 		adjustBruteLoss(15)
 		return TRUE
 
-/mob/living/carbon/human/muscle_imp_attack(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(!(user.a_intent == INTENT_HARM))
-		return FALSE
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
-		return FALSE
-
-	var/punch_damage = 13 // So the magic numbers are explained a bit more
-	var/picked_hit_type = pick("punch", "smash", "kick")
-
-	if(ishuman(src))
-		if(src.check_shields(user, punch_damage, "[user]'s' [picked_hit_type]"))
-			user.do_attack_animation(src)
-			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-			return FALSE
-
-	user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
-	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
-	playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)
-
-	adjustBruteLoss(punch_damage)
-
-	if(!IS_HORIZONTAL(user)) //Throw them if we are standing
-		var/atom/throw_target = get_edge_target_turf(src, user.dir)
-		src.throw_at(throw_target, rand(1, 2), 0.5, user)
-
-	src.visible_message(
-		"<span class='danger'>[user] [picked_hit_type]ed [src]!</span>",
-		"<span class='danger'>You're [picked_hit_type]ed by [user]!</span>",
-		"<span class='danger'>You hear a sickening sound of flesh hitting flesh!</span>",
-	)
-
-	to_chat(user, "<span class='danger'>You [picked_hit_type] [src]!</span>")
-
-	return TRUE
-
 /mob/living/carbon/human/attack_hand(mob/user)
 	if(..())	//to allow surgery to return properly.
 		return
