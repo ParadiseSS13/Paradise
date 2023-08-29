@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 			code = signaler2.code
 			frequency = signaler2.frequency
 			to_chat(user, "You transfer the frequency and code to the [signaler2.name].")
-	..()
+	return ..()
 
 /// Called from activate(), actually invokes the signal on other signallers in the world
 /obj/item/assembly/signaler/proc/signal()
