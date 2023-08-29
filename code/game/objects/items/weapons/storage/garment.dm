@@ -302,7 +302,6 @@
 	new /obj/item/clothing/head/soft/blue(src)
 	new /obj/item/clothing/suit/storage/labcoat/emt(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
-	new /obj/item/radio/headset/headset_med/para(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
