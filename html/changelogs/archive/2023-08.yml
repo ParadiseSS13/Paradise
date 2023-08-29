@@ -271,10 +271,22 @@
   Vladisvell:
   - tweak: bluespace closet icon adjust (#3419)
   - tweak: Thunderdome update (#3420)
+  - bugfix: mr.cheng thunderdome runtime fix (#3430)
   Zwei:
   - bugfix: Mass Hallucination Runtime (#3424)
   - bugfix: Radioactivity Fix (#3422)
   - tweak: GPS & PDA Mousedrop (#3426)
+  - bugfix: Collect Objective Completion (#3429)
   Сиротка:
   - balance: Guns (#3417)
   - tweak: increase solaris damage (#3418)
+'2023-08-29':
+  SAAD:
+  - bugfix: remove missclicked windows spawner   (#3432)
+  Vladisvell:
+  - add: Self-hosted Silero TTS Server (#3344)
+  Zwei:
+  - tweak: Title Screen (#3434)
+  - add: Items Pixel Shift (#3175)
+  Сиротка:
+  - add: Uplink Chameleon hardsuit (#3411)
