@@ -174,10 +174,7 @@
 		/obj/item/reagent_containers/food/snacks/bun,
 		/obj/item/reagent_containers/food/snacks/bacon,
 		/obj/item/reagent_containers/food/snacks/bacon,
-		/obj/item/reagent_containers/food/snacks/bacon,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/cheesewedge
 		)
 	result = /obj/item/reagent_containers/food/snacks/baconburger
 
