@@ -1075,7 +1075,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/merch
-	board_name = "Merchandise Computer Circuit Board"
+	board_name = "Nanotrasen Merchandise Vendor"
 	icon_state = "generic"
 	build_path = /obj/machinery/economy/merch
 	board_type = "machine"
