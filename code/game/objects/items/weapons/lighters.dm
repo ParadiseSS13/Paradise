@@ -3,6 +3,8 @@
 	name = "cheap lighter"
 	desc = "A cheap-as-free lighter."
 	icon = 'icons/obj/items.dmi'
+	lefthand_file = 'icons/mob/inhands/lighter_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lighter_righthand.dmi'
 	icon_state = "lighter-g"
 	item_state = "lighter-g"
 	w_class = WEIGHT_CLASS_TINY
