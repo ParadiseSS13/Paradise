@@ -52,12 +52,28 @@
 	H.update_inv_head()
 	H.update_inv_wear_suit()
 
+//agent version disguised as engi hardsuit
+
+/obj/item/clothing/head/helmet/space/hardsuit/contractor/agent
+	name = "engineering hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
+	description_antag = "Шлем хардсьюта-хамелеона, замаскированный изначально под инженерный шлем."
+	icon_state = "hardsuit0-engineering"
+	item_state = "eng_helm"
+
+/obj/item/clothing/suit/space/hardsuit/contractor/agent
+	name = "engineering hardsuit"
+	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
+	description_antag = "Хардсьют-хамелеон, замаскированный изначально под инженерный хардсьют. Красный - предатель!"
+	icon_state = "hardsuit-engineering"
+	item_state = "eng_hardsuit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor/agent
+
 /*
 		Hook
 		Much worse version of lava and ninja hook for balance reasons.
 
 */
-
 /datum/action/item_action/advanced/hook_upgrade
 	name = "Hardsuit SCORPION hook module"
 	desc = "A module installed in the wrist of your hardsuit, this highly illegal module uses a hardlight hook to forcefully pull a target towards you at high speed, knocking them down and partially exhausting them."
@@ -208,7 +224,7 @@
 			src.desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 			helmet.name = "EVA helmet"
 			helmet.desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
-			helmet.icon_state = "hardsuit0-medical" //well...
+			helmet.icon_state = "spacenew"
 			helmet.item_color = "medical"
 		if("Mining Hardsuit")
 			src.name = "mining hardsuit"
