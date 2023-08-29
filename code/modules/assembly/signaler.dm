@@ -31,6 +31,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	. += "<span class='notice'>Alt+Click to send a signal.</span>"
 
 /obj/item/assembly/signaler/AltClick(mob/user)
+	to_chat(user, "<span class='notice'>You activate [src].</span>")
 	activate()
 
 /obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
@@ -58,7 +59,6 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 /obj/item/assembly/signaler/proc/signal_callback()
 	pulse(1)
-	to_chat(usr, "You have sent the signal.")
 	visible_message("[bicon(src)] *beep* *beep*")
 
 // Activation pre-runner, handles cooldown and calls signal(), invoked from ui_act()
