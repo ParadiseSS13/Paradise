@@ -1149,7 +1149,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 					"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
 				update_icon()
 		else if(obj_integrity < max_integrity)
-			if(icon_state != "closed")
+			// Only attempt repairs if the door is solid (albeit closed)
+			if(!density)
 				to_chat(user, "<span class='warning'>The airlock must be closed for repairs.</span>")
 				return
 			user.visible_message("<span class='notice'>[user] is welding the airlock.</span>", \
