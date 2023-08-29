@@ -89,6 +89,11 @@ def check_proc_args_with_var_prefix(lines):
         if PROC_ARGS_WITH_VAR_PREFIX_RE.match(line):
             return Failure(idx + 1, "Changed files contains a proc argument starting with 'var'.")
 
+NANOTRASEN_CAMEL_CASE = re.compile(r"NanoTrasen")
+def check_for_nanotrasen_camel_case(lines):
+    for idx, line in enumerate(lines):
+        if NANOTRASEN_CAMEL_CASE.search(line):
+            return Failure(idx + 1, "Nanotrasen should not be spelled in the camel case form.")
 
 CODE_CHECKS = [
     check_space_indentation,
@@ -96,6 +101,7 @@ CODE_CHECKS = [
     check_trailing_newlines,
     check_global_vars,
     check_proc_args_with_var_prefix,
+    check_for_nanotrasen_camel_case,
 ]
 
 
