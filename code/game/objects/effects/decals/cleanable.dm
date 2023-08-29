@@ -18,8 +18,7 @@
 	if(cleaned_soon)
 		return
 	cleaned_soon = TRUE
-	animate(src, alpha=0, time=clean_time)
-	QDEL_IN(src, clean_time)
+	SScleaning_decals.clean_soon(src, clean_time)
 
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)

@@ -249,6 +249,7 @@
 #include "code\controllers\subsystem\SSblackbox.dm"
 #include "code\controllers\subsystem\SScamera.dm"
 #include "code\controllers\subsystem\SSchat_pings.dm"
+#include "code\controllers\subsystem\SScleaning_decals.dm"
 #include "code\controllers\subsystem\SScleanup.dm"
 #include "code\controllers\subsystem\SSdbcore.dm"
 #include "code\controllers\subsystem\SSdebugview.dm"
