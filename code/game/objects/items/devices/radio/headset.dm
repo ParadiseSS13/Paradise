@@ -185,7 +185,7 @@
 
 /obj/item/radio/headset/headset_med/para
 	name = "paramedic radio headset"
-	desc = "A headset for the trusty paramedic, NanoTrasen search and rescue."
+	desc = "A headset for the trusty paramedic, Nanotrasen search and rescue."
 	icon_state = "para_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_med/para
