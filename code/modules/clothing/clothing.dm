@@ -35,7 +35,8 @@
 	var/species_disguise = null
 	var/magical = FALSE
 	var/dyeable = FALSE
-	var/blockTracking // Do we block AI tracking?
+	/// Do we block AI tracking?
+	var/blockTracking
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/update_icon_state()
