@@ -23896,12 +23896,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/heads/hop)
-"czU" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "conferenceroomwindows"
-	},
-/turf/simulated/wall,
-/area/crew_quarters/locker)
 "czV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -179904,7 +179898,7 @@ cnP
 cnP
 cnP
 cnP
-czU
+cnP
 cnP
 cnP
 cnP
