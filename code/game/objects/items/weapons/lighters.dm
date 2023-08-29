@@ -158,16 +158,19 @@
 	name = "gold engraved zippo"
 	desc = "An engraved golden Zippo lighter with the letters NT on it."
 	icon_state = "zippo-nt"
+	item_state = "zippo-gold"
 
 /obj/item/lighter/zippo/blue
 	name = "blue zippo lighter"
 	desc = "A zippo lighter made of some blue metal."
 	icon_state = "zippo-blue"
+	item_state = "zippo-blue"
 
 /obj/item/lighter/zippo/black
 	name = "black zippo lighter"
 	desc = "A black zippo lighter."
 	icon_state = "zippo-black"
+	item_state = "zippo-black"
 
 /obj/item/lighter/zippo/engraved
 	name = "engraved zippo lighter"
@@ -178,6 +181,7 @@
 	name = "Gonzo Fist zippo"
 	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."
 	icon_state = "zippo-gonzo"
+	item_state = "zippo-red"
 
 ///////////
 //MATCHES//

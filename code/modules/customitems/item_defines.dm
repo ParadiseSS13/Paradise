@@ -207,24 +207,28 @@
 	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "zippo-purple"
+	item_state = "zippo-purple"
 
 /obj/item/lighter/zippo/fluff/michael_guess_1 // mrbits: Callista Gold
 	name = "engraved lighter"
 	desc = "A golden lighter, engraved with some ornaments and a G."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "zippo-guess"
+	item_state = "zippo-gold"
 
 /obj/item/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
 	name = "Monogrammed Zippo"
 	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "zippo-duckchan"
+	item_state = "zippo-purple"
 
 /obj/item/lighter/zippo/fluff/warriorstar // Warriorstar: DEADLOCK
 	name = "zippo"
 	desc = "The lighter is made of a pastel purple metal which seems to glimmer even in complete darkness."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "zippo-warriorstar"
+	item_state = "zippo-purple"
 
 /obj/item/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
