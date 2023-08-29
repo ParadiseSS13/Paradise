@@ -184,7 +184,7 @@
 		return FALSE
 
 	// We don't use defines here so admingloves can work
-	if(L.mind.martial_art?.can_use(L) || HAS_TRAIT(L, MUSCLE_IMPLANT))
+	if(L.mind.martial_art?.can_use(L))
 		click_speed_modifier = initial(click_speed_modifier) * 2 // 4
 	else
 		click_speed_modifier = initial(click_speed_modifier) // 2

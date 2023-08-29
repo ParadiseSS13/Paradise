@@ -59,8 +59,6 @@
 	#define COMPONENT_NO_AFTERATTACK (1<<0)
 ///from base of atom/attack_hulk(): (/mob/living/carbon/human)
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
-///from base of atom/muscle_imp_attack(): (/mob/living/carbon/human)
-#define COMSIG_ATOM_MUSCLE_IMP_ATTACK "muscle_imp_attack"
 ///from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
 ///from base of atom/examine(): (/mob)
