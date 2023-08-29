@@ -7053,7 +7053,7 @@
 /area/centcom/specops)
 "dEd" = (
 /obj/effect/landmark/start,
-/turf/simulated/floor/indestructible,
+/turf/simulated/wall/indestructible/splashscreen,
 /area/start)
 "dEr" = (
 /obj/machinery/door_control{
@@ -9220,9 +9220,6 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
-"eNQ" = (
-/turf/simulated/wall/indestructible/splashscreen,
-/area/start)
 "eNU" = (
 /obj/structure/chair/sofa/left{
 	dir = 8
@@ -111099,7 +111096,7 @@ xVn
 xVn
 xVn
 xVn
-eNQ
+xVn
 mVX
 mVX
 mVX

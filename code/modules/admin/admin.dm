@@ -1010,3 +1010,15 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		result[1]++
 	return result
 
+
+/datum/admins/proc/changetitlescreen()
+	set category = "Admin"
+	set desc = "Changes current title screen"
+	set name = "Change Title Screen"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	if(SStitle?.create_title_screen(usr))
+		log_and_message_admins("changed title screen.")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Change Title Screen")

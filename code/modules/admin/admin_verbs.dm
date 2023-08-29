@@ -73,7 +73,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/list_ssds_afks,
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/toggle_pacifism_gt,
-	/client/proc/toogle_ghost_vision
+	/client/proc/toogle_ghost_vision,
+	/datum/admins/proc/changetitlescreen
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,

@@ -140,8 +140,14 @@
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
 
+
 /turf/simulated/wall/indestructible/splashscreen
 	name = "Space Station 13"
 	icon = 'config/title_screens/images/blank.png'
 	icon_state = ""
 	layer = FLY_LAYER
+	/// Pixel shifts below are needed to centrally position the black icon within the start area at compile-time. This icon used as a background for title screens with smaller resolutions than required.
+	pixel_x = -288
+	pixel_y = -224
+	/// Currently used screen. Defined in SStitle.
+	var/obj/effect/abstract/current_screen
