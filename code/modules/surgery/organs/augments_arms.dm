@@ -559,3 +559,42 @@
 		qdel(src)
 		qdel(I)
 	return ..()
+
+/obj/item/organ/internal/cyberimp/arm/muscle
+	name = "Strong-Arm empowered musculature implant"
+	desc = "When implanted, this cybernetic implant will enhance the muscles of the arm to deliver more power-per-action."
+//	icon_state = "muscle_implant" TODO: fucking download the sprites
+
+	parent_organ = "l_arm" //Left arm by default
+	slot = "l_arm_device"
+
+	actions_types = list()
+
+	///The amount of damage dealt by the empowered attack.
+	var/punch_damage = 13
+	///How far away your attack will throw your oponent
+	var/attack_throw_range = 1
+	///Minimum throw power of the attack
+	var/throw_power_min = 1
+	///Maximum throw power of the attack
+	var/throw_power_max = 4
+
+/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	ADD_TRAIT(M, MUSCLE_IMPLANT, "muscle_implant")
+
+/obj/item/organ/internal/cyberimp/arm/muscle/remove(mob/living/carbon/M, special)
+	. = ..()
+	REMOVE_TRAIT(M, MUSCLE_IMPLANT, "muscle_implant")
+
+/obj/item/organ/internal/cyberimp/arm/muscle/emp_act(severity)
+	. = ..()
+	if(emp_proof)
+		return
+	to_chat(owner, "<span class='danger'>Your arm spasms wildly!</span>")
+	ADD_TRAIT(owner, MUSCLE_SPASMS, "muscle_imp_EMP")
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/proc/reboot()
+	REMOVE_TRAIT(owner, MUSCLE_SPASMS, "muscle_imp_EMP")
+	to_chat(owner, "<span class='danger'>Your arma stop spasming.")

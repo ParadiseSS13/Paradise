@@ -621,6 +621,55 @@ emp_act
 		adjustBruteLoss(15)
 		return TRUE
 
+/mob/living/carbon/human/muscle_imp_attack(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(!(user.a_intent == INTENT_HARM))
+		return FALSE
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
+		return FALSE
+
+	var/mob/living/living_target = target
+	var/picked_hit_type = pick("punch", "smash", "kick")
+
+	if(!implant_is_working)
+		if(!IS_HORIZONTAL(owner) && prob(50))
+			to_chat(owner, "<span class='danger'>You try to [picked_hit_type] [living_target], but lose your balance and fall!</span>")
+			owner.KnockDown(3 SECONDS)
+			owner.forceMove(get_turf(living_target))
+		else
+			to_chat(owner, "<span class='danger'>Your muscles spasm!</span>")
+			owner.Weaken(1 SECONDS)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		if(human_target.check_shields(owner, punch_damage, "[owner]'s' [picked_hit_type]"))
+			owner.do_attack_animation(target)
+			playsound(living_target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
+//			log_combat(owner, target, "attempted to [picked_hit_type]", "muscle implant") TODO: add actual logging
+			return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	owner.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+	playsound(loc, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
+
+	adjustBruteLoss(13)
+
+	if(!IS_HORIZONTAL(owner)) //Throw them if we are standing
+		var/atom/throw_target = get_edge_target_turf(living_target, owner.dir)
+		living_target.throw_at(throw_target, attack_throw_range, rand(throw_power_min,throw_power_max), owner)
+
+	living_target.visible_message(
+		"<span class='danger'>[owner] [picked_hit_type]ed [living_target]!</span>",
+		"<span class='danger'>You're [picked_hit_type]ed by [owner]!</span>",
+		"<span class='danger'>You hear a sickening sound of flesh hitting flesh!</span>",
+	)
+
+	to_chat(owner, "<span class='danger'>You [picked_hit_type] [target]!</span>")
+
+//	log_combat(owner, target, "[picked_hit_type]ed", "muscle implant") TODO: actual logging
+
+	return TRUE
+
 /mob/living/carbon/human/attack_hand(mob/user)
 	if(..())	//to allow surgery to return properly.
 		return
