@@ -1,5 +1,5 @@
 SUBSYSTEM_DEF(cleaning_decals)
-	name = "Ambience"
+	name = "Cleaning decals"
 	flags = SS_BACKGROUND | SS_NO_INIT
 	priority = FIRE_PRIORITY_CLEANING_DEC
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
