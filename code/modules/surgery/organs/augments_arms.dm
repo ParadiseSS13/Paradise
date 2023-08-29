@@ -562,7 +562,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/muscle
 	name = "Strong-Arm empowered musculature implant"
-	desc = "When implanted, this cybernetic implant will enhance the muscles of the arm to deliver more power-per-action."
+	desc = "When implanted, this cybernetic implant will enhance the muscles of the arm to deliver more power-per-action. Only has to be installed in one arm."
 	icon_state = "muscle_imp"
 
 	parent_organ = "l_arm" //Left arm by default
@@ -590,4 +590,4 @@
 
 /obj/item/organ/internal/cyberimp/arm/muscle/proc/reboot()
 	REMOVE_TRAIT(owner, MUSCLE_SPASMS, "muscle_imp_EMP")
-	to_chat(owner, "<span class='danger'>Your arma stop spasming.")
+	to_chat(owner, "<span class='danger'>Your arms stop spasming.")
