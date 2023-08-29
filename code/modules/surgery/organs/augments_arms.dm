@@ -563,7 +563,7 @@
 /obj/item/organ/internal/cyberimp/arm/muscle
 	name = "Strong-Arm empowered musculature implant"
 	desc = "When implanted, this cybernetic implant will enhance the muscles of the arm to deliver more power-per-action."
-//	icon_state = "muscle_implant" TODO: fucking download the sprites
+	icon_state = "muscle_imp"
 
 	parent_organ = "l_arm" //Left arm by default
 	slot = "l_arm_device"
