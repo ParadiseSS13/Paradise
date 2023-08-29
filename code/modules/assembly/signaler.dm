@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 /obj/item/assembly/signaler
 	name = "remote signaling device"
-	desc = "Used to remotely activate devices."
+	desc = "Used to remotely activate devices. Allows for syncing when using a signaler on another. Alt+Click to send a signal."
 	icon_state = "signaller"
 	item_state = "signaler"
 	materials = list(MAT_METAL=400, MAT_GLASS=120)
@@ -28,6 +28,18 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler/examine(mob/user)
 	. = ..()
 	. += "The power light is [receiving ? "on" : "off"]"
+
+/obj/item/assembly/signaler/AltClick(mob/user)
+	activate()
+
+/obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
+	if(issignaler(W))
+		var/obj/item/assembly/signaler/signaler2 = W
+		if(secured && signaler2.secured)
+			code = signaler2.code
+			frequency = signaler2.frequency
+			to_chat(user, "You transfer the frequency and code to the [signaler2.name].")
+	..()
 
 /// Called from activate(), actually invokes the signal on other signallers in the world
 /obj/item/assembly/signaler/proc/signal()
