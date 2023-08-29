@@ -39,7 +39,6 @@
 	return ..()
 
 /datum/martial_art/cqc/teach(mob/living/carbon/human/H, make_temporary)
-	var/datum/action/defensive_stance/defensive = new /datum/action/defensive_stance()
 	var/found = FALSE
 	for(var/datum/martial_art/M in H.mind.known_martial_arts)
 		if(istype(M, /datum/martial_art/cqc/under_siege))
@@ -49,6 +48,7 @@
 			found = TRUE
 			break
 	if(!found)
+		var/datum/action/defensive_stance/defensive = new /datum/action/defensive_stance()
 		defensive.Grant(H)
 	return ..()
 
