@@ -561,7 +561,7 @@
 	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/muscle
-	name = "Strong-arm empowered musculature implant"
+	name = "strong-arm empowered musculature implant"
 	desc = "When implanted, this cybernetic implant will enhance the muscles of the arm to deliver more power-per-action. Only has to be installed in one arm."
 	icon_state = "muscle_imp"
 
