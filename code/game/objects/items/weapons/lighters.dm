@@ -119,6 +119,10 @@
 	icon_state = "[initial(icon_state)][lit ? "-on" : ""]"
 	return ..()
 
+/obj/item/lighter/update_overlays()
+	item_state = "[initial(item_state)][lit ? "-on" : ""]"
+	return ..()
+
 // Zippo lighters
 /obj/item/lighter/zippo
 	name = "zippo lighter"
