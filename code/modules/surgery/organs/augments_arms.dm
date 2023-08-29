@@ -569,15 +569,15 @@
 	slot = "l_arm_device"
 
 	actions_types = list()
+	var/datum/martial_art/muscle_implant/muscle_implant
 
 /obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
 	. = ..()
-	var/datum/martial_art/muscle_implant/muscle_implant = new(null)
+	new muscle_implant(null)
 	muscle_implant.teach(M)
 
 /obj/item/organ/internal/cyberimp/arm/muscle/remove(mob/living/carbon/M, special)
 	. = ..()
-	var/datum/martial_art/muscle_implant/muscle_implant = new(null)
 	muscle_implant.remove(M)
 
 /obj/item/organ/internal/cyberimp/arm/muscle/emp_act(severity)
