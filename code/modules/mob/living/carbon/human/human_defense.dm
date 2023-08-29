@@ -628,43 +628,32 @@ emp_act
 		to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
 		return FALSE
 
-	var/mob/living/living_target = target
+	var/punch_damage = 13 // So the magic numbers are explained a bit more
 	var/picked_hit_type = pick("punch", "smash", "kick")
 
-	if(!implant_is_working)
-		if(!IS_HORIZONTAL(owner) && prob(50))
-			to_chat(owner, "<span class='danger'>You try to [picked_hit_type] [living_target], but lose your balance and fall!</span>")
-			owner.KnockDown(3 SECONDS)
-			owner.forceMove(get_turf(living_target))
-		else
-			to_chat(owner, "<span class='danger'>Your muscles spasm!</span>")
-			owner.Weaken(1 SECONDS)
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+	if(ishuman(src))
+		if(src.check_shields(user, punch_damage, "[user]'s' [picked_hit_type]"))
+			user.do_attack_animation(src)
+			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
+//			log_combat(owner, user, "attempted to [picked_hit_type]", "muscle implant") TODO: add actual logging
+			return FALSE
 
-	if(ishuman(target))
-		var/mob/living/carbon/human/human_target = target
-		if(human_target.check_shields(owner, punch_damage, "[owner]'s' [picked_hit_type]"))
-			owner.do_attack_animation(target)
-			playsound(living_target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-//			log_combat(owner, target, "attempted to [picked_hit_type]", "muscle implant") TODO: add actual logging
-			return COMPONENT_CANCEL_ATTACK_CHAIN
-
-	owner.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+	user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
 	playsound(loc, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 
-	adjustBruteLoss(13)
+	adjustBruteLoss(punch_damage)
 
-	if(!IS_HORIZONTAL(owner)) //Throw them if we are standing
-		var/atom/throw_target = get_edge_target_turf(living_target, owner.dir)
-		living_target.throw_at(throw_target, attack_throw_range, rand(throw_power_min,throw_power_max), owner)
+	if(!IS_HORIZONTAL(user)) //Throw them if we are standing
+		var/atom/throw_target = get_edge_target_turf(src, user.dir)
+		src.throw_at(throw_target, rand(1, 2), rand(1, 4), user)
 
-	living_target.visible_message(
-		"<span class='danger'>[owner] [picked_hit_type]ed [living_target]!</span>",
-		"<span class='danger'>You're [picked_hit_type]ed by [owner]!</span>",
+	src.visible_message(
+		"<span class='danger'>[user] [picked_hit_type]ed [src]!</span>",
+		"<span class='danger'>You're [picked_hit_type]ed by [user]!</span>",
 		"<span class='danger'>You hear a sickening sound of flesh hitting flesh!</span>",
 	)
 
-	to_chat(owner, "<span class='danger'>You [picked_hit_type] [target]!</span>")
+	to_chat(user, "<span class='danger'>You [picked_hit_type] [src]!</span>")
 
 //	log_combat(owner, target, "[picked_hit_type]ed", "muscle implant") TODO: actual logging
 

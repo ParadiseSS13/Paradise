@@ -570,15 +570,6 @@
 
 	actions_types = list()
 
-	///The amount of damage dealt by the empowered attack.
-	var/punch_damage = 13
-	///How far away your attack will throw your oponent
-	var/attack_throw_range = 1
-	///Minimum throw power of the attack
-	var/throw_power_min = 1
-	///Maximum throw power of the attack
-	var/throw_power_max = 4
-
 /obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
 	. = ..()
 	ADD_TRAIT(M, MUSCLE_IMPLANT, "muscle_implant")

@@ -19,7 +19,7 @@
 
 	if(HAS_TRAIT(src, MUSCLE_IMPLANT))
 		if(proximity)
-			if(HAS_TRAIT(src, MUSCLE_SPASMS) && A.muscle_imp_attack(A)) // If we can't control our muscles, we hit ourselves!
+			if(HAS_TRAIT(src, MUSCLE_SPASMS) && src.muscle_imp_attack(src)) // If we can't control our muscles, we hit ourselves!
 				return
 			if(A.muscle_imp_attack(src))
 				return
