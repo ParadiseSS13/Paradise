@@ -239,7 +239,7 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_MUSCLE_IMP_ATTACK, user)
 	if(does_attack_animation)
 		user.changeNext_move(CLICK_CD_MELEE)
-		add_attack_logs(user, src, "Punched with hulk powers")
+		add_attack_logs(user, src, "Punched with an empowered muscle implant")
 		user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
 
 /atom/proc/CheckParts(list/parts_list)

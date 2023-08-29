@@ -635,17 +635,17 @@ emp_act
 		if(src.check_shields(user, punch_damage, "[user]'s' [picked_hit_type]"))
 			user.do_attack_animation(src)
 			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-//			log_combat(owner, user, "attempted to [picked_hit_type]", "muscle implant") TODO: add actual logging
 			return FALSE
 
 	user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
-	playsound(loc, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
+	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)
 
 	adjustBruteLoss(punch_damage)
 
 	if(!IS_HORIZONTAL(user)) //Throw them if we are standing
 		var/atom/throw_target = get_edge_target_turf(src, user.dir)
-		src.throw_at(throw_target, rand(1, 2), rand(1, 4), user)
+		src.throw_at(throw_target, rand(1, 2), 0.5, user)
 
 	src.visible_message(
 		"<span class='danger'>[user] [picked_hit_type]ed [src]!</span>",
@@ -654,8 +654,6 @@ emp_act
 	)
 
 	to_chat(user, "<span class='danger'>You [picked_hit_type] [src]!</span>")
-
-//	log_combat(owner, target, "[picked_hit_type]ed", "muscle implant") TODO: actual logging
 
 	return TRUE
 
