@@ -75,7 +75,6 @@
 /obj/item/projectile/bullet/sniper/antimatter
 	name = "antimatter bullet"
 	dismemberment = 50
-	sharp = TRUE
 
 /obj/item/projectile/bullet/sniper/antimatter/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target)))
