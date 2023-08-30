@@ -642,6 +642,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
 	icon_state = "questionmark"
 
+/obj/effect/landmark/mob_spawner/abandoned_minebot
+	mobtype = /mob/living/simple_animal/hostile/asteroid/abandoned_minebot
+	icon_state = "questionmark"
+
 // Damage tiles
 /obj/effect/landmark/damageturf
 	icon_state = "damaged"

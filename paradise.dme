@@ -2190,6 +2190,7 @@
 #include "code\modules\mob\living\simple_animal\hostile\megafauna\hierophant.dm"
 #include "code\modules\mob\living\simple_animal\hostile\megafauna\legion.dm"
 #include "code\modules\mob\living\simple_animal\hostile\megafauna\megafauna.dm"
+#include "code\modules\mob\living\simple_animal\hostile\mining\abandoned_minebot.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mining\basilisk.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mining\goldgrub.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mining\goliath.dm"
