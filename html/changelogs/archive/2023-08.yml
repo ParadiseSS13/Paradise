@@ -290,3 +290,18 @@
   - add: Items Pixel Shift (#3175)
   Сиротка:
   - add: Uplink Chameleon hardsuit (#3411)
+'2023-08-30':
+  Daeberdir:
+  - bugfix: user sight updating while modifying glasses prescription. (#3437)
+  DeDerevce:
+  - bugfix: bluza stats (#3435)
+  Dimach:
+  - bugfix: incorrect shuttles camera starting pos (#3445)
+  NightDawnFox:
+  - add: Lavaland rework (#3130)
+  Zwei:
+  - bugfix: Transfer Plasma (#3438)
+  - bugfix: Terror Spiders Fixes (#3443)
+  - bugfix: Identity Theft Objective (#3440)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3442)
