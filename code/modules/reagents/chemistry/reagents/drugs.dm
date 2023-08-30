@@ -993,5 +993,6 @@
 		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
+	return ..()
 
 #undef DRAWBACK_CHANCE_MODIFIER
