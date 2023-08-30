@@ -126,6 +126,8 @@ Difficulty: Hard
 		to_chat(H, "<span class='colossus'><b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b></span>")
 		FindTarget(list(H), 1) //From down town with the pile driver
 
+/mob/living/simple_animal/hostile/megafauna/bubblegum/unrage()
+	return //They are pissed. Also whoever enraged them is stuck fighting them so, kinda a M.A.D situation.
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/i_see_you(source, target)
 	if(ishuman(target))

@@ -173,21 +173,3 @@
 	. = ..()
 	playsound(loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	set_light(8, l_color = "#FFD165")
-
-
-
-//move this
-/obj/item/grenade/megafauna_hardmode
-	desc = "An advanced grenade that releases nanomachines, which enter nearby megafauna. This will enrage them greatly, but allows nanotrasen to fully research their abilities."
-	name = "INSERT NAME HERE"
-	icon = 'icons/obj/grenade.dmi'
-	icon_state = "enrager"
-	item_state = "grenade"
-
-/obj/item/grenade/megafauna_hardmode/prime()
-	update_mob()
-	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
-	for(var/mob/living/simple_animal/hostile/megafauna/M in range(7, src))
-		M.enrage()
-		visible_message("<span class='userdanger'>[M] begins glowing in a red light, it looks pissed!</span>")
-	qdel(src)

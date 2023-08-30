@@ -128,7 +128,6 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/unrage()
 	. = ..()
-
 	move_to_delay = initial(move_to_delay)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/OpenFire()

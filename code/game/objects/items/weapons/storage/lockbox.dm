@@ -111,6 +111,14 @@
 	new /obj/item/clothing/accessory/medal/silver/valor(src)
 	new /obj/item/clothing/accessory/medal/heart(src)
 
+/obj/item/storage/lockbox/medal/hardmode_box
+	name = "\improper HRD-MDE program medal box"
+	desc = "A locked box used to store medals of pride."
+	req_access = list(ACCESS_MINING) //No grubby assistant hands on my hard earned medals
+
+/obj/item/storage/lockbox/medal/hardmode_box/populate_contents()
+	return
+
 /obj/item/storage/lockbox/t4
 	name = "lockbox (T4)"
 	desc = "Contains three T4 breaching charges."

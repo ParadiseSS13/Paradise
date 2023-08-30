@@ -176,6 +176,15 @@ Difficulty: Hard
 	BL.armour_penetration_percentage = 66
 	BR.armour_penetration_percentage = 66
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/unrage()
+	. = ..()
+	armour_penetration_percentage = 50
+	TL.armour_penetration_percentage = 50
+	TR.armour_penetration_percentage = 50
+	BL.armour_penetration_percentage = 50
+	BR.armour_penetration_percentage = 50
+
+
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/OpenFire()
 	if(charging)
 		return

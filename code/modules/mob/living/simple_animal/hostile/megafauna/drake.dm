@@ -124,7 +124,7 @@ Difficulty: Medium
 
 	else if(prob(10+anger_modifier))
 		shoot_fire_attack()
-	else if(enraged && prob(15))
+	else if(enraged && prob(20))
 		arena_escape_enrage()
 	else
 		fire_cone()
@@ -151,7 +151,7 @@ Difficulty: Medium
 		if(QDELETED(target))
 			break
 		var/turf/T = pick(RANGE_TURFS(enraged? 2 : 1, target))
-		new /obj/effect/temp_visual/lava_warning(T, enraged? 12 SECONDS : 6 SECONDS) // longer reset time for the lava
+		new /obj/effect/temp_visual/lava_warning(T, enraged? 18 SECONDS : 6 SECONDS) // longer reset time for the lava
 		amount--
 		SLEEP_CHECK_DEATH(delay)
 
