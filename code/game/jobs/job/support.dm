@@ -87,7 +87,7 @@
 				uniform = /obj/item/clothing/under/artist
 				belt = /obj/item/storage/belt/chef/artistred
 				head = /obj/item/clothing/head/chefcap
-				suit = /obj/item/clothing/suit/chefbluza
+				suit = /obj/item/clothing/suit/storage/chefbluza
 
 
 /datum/job/hydro
