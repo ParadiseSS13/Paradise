@@ -668,7 +668,9 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
+	dir = 8
+	},
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9

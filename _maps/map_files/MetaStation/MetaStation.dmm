@@ -50485,7 +50485,9 @@
 	id = "Cell 1";
 	name = "Cell 1"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -52576,13 +52578,19 @@
 	name = "Anti-Theft Shield";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/any/medical/chemistry,
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
+	dir = 8
+	},
 /obj/machinery/door/window/classic/normal{
 	name = "Chemistry Desk";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
+	dir = 4
+	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54417,12 +54425,16 @@
 	dir = 8;
 	name = "glass door"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/atmos{
+	dir = 8
+	},
 /obj/machinery/door/window/classic/normal{
 	dir = 4;
 	name = "glass door"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/atmos{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/atmos)
 "fuq" = (
@@ -54737,8 +54749,12 @@
 	name = "Coroner's Office";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
-/obj/effect/mapping_helpers/airlock/access/any/security/forensics,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/forensics{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -56523,7 +56539,9 @@
 	id = "Cell 3";
 	name = "Cell 3"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -58691,7 +58709,9 @@
 	name = "Coffin Storage";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/chapel_office,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/chapel_office{
+	dir = 4
+	},
 /obj/structure/closet/coffin,
 /turf/simulated/floor/plating,
 /area/chapel/main)
@@ -61898,7 +61918,9 @@
 	name = "Hydroponics Window";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "iSf" = (
@@ -62011,7 +62033,9 @@
 	id = "Cell 2";
 	name = "Cell 2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -62922,7 +62946,9 @@
 	dir = 2;
 	name = "Justice Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 2
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -62934,7 +62960,9 @@
 	dir = 1;
 	name = "Justice Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 1
+	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -66840,7 +66868,9 @@
 	dir = 1;
 	name = "Weapon Distribution"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
+	dir = 1
+	},
 /obj/machinery/door/window/classic/normal{
 	name = "Request Window";
 	dir = 2
@@ -68657,7 +68687,9 @@
 	name = "Library Desk Door";
 	pixel_x = 3
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/library,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/library{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "mcd" = (
@@ -69190,7 +69222,9 @@
 	name = "Primary AI Core Access";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -69678,7 +69712,9 @@
 	dir = 1;
 	name = "Warden's Desk"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
+	dir = 1
+	},
 /obj/machinery/door/window/classic/normal{
 	dir = 2;
 	name = "Reception Window"
@@ -72264,7 +72300,9 @@
 	name = "Mass Driver";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/chapel_office,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/chapel_office{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -72915,12 +72953,16 @@
 	name = "Mass Driver";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance{
+	dir = 1
+	},
 /obj/machinery/door/window/classic/normal{
 	name = "Mass Driver";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance{
+	dir = 2
+	},
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
@@ -74333,7 +74375,9 @@
 	name = "Cell 5";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -81327,7 +81371,9 @@
 	name = "Primary AI Core Access";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload{
+	dir = 8
+	},
 /obj/machinery/turretid/lethal{
 	check_synth = 1;
 	name = "AI Chamber Turret Control";
@@ -82147,7 +82193,9 @@
 	name = "Security Desk";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
+	dir = 4
+	},
 /obj/item/folder/red,
 /obj/item/pen{
 	pixel_x = -3;
@@ -83353,7 +83401,9 @@
 	name = "Tertiary AI Core Access";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -85209,7 +85259,9 @@
 	name = "Secondary AI Core Access";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -85626,7 +85678,9 @@
 	dir = 8;
 	name = "Warden's Desk"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
+	dir = 8
+	},
 /obj/machinery/door/window/classic/normal{
 	dir = 4;
 	name = "Outer Window"
@@ -86361,7 +86415,9 @@
 	name = "MuleBot Access";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -87241,7 +87297,9 @@
 	name = "Cell 4";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},

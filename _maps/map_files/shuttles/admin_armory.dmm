@@ -398,7 +398,9 @@
 	name = "Armory";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
+	dir = 4
+	},
 /obj/machinery/door/window/reinforced/normal{
 	name = "Armory";
 	dir = 8
