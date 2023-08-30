@@ -196,7 +196,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			if(95 to 100)
 				msg = "<span class='notice'>[src]'s seals look factory new, and the reactor's in excellent shape.</span>"
 		. += msg
-//issue with fuel rod remaning after insertion
+
+//issue with fuel rod remaining after insertion
 /obj/machinery/atmospherics/trinary/nuclear_reactor/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/fuel_rod))
 		if(power >= 20)
@@ -295,21 +296,11 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		var/mob/living/L = AM
 		L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 
-/obj/machinery/atmospherics/trinary/nuclear_reactor/process()
-	..()
-	if((next_slowprocess < world.time))
-		slow_process()
-		next_slowprocess = world.time + 1 SECONDS //Set to wait for another second before processing again, we don't need to process more than once a second
-		to_chat(world, "Process has just triggered!")
-		return
-	else
-		return
-
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/has_fuel()
 	return length(fuel_rods)
 
-/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/slow_process()
-	.=..()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/process_atmos()
+	. = ..()
 	if(slagged)
 		STOP_PROCESSING(SSmachines, src)
 		return

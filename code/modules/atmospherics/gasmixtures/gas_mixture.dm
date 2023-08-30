@@ -69,7 +69,7 @@ What are the archived variables for?
 /datum/gas_mixture/proc/set_temperature(new_temp)
 	///Modify moles of gas in an enviroment
 /datum/gas_mixture/proc/adjust_moles(gas_type, amt = 0)
-	set_moles(gas_type, clamp(get_moles(gas_type) + amt,0,INFINITY))
+	set_moles(gas_type, clamp(get_moles(gas_type) + amt, 0, INFINITY))
 
 
 	/// Calculate pressure in kilopascals
