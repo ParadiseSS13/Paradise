@@ -983,6 +983,7 @@
 	overdose_threshold = 30
 	addiction_chance = 1
 	addiction_chance_additional = 20
+	var/tenacity = 1.5 // higher is worse
 
 /datum/reagent/lube/combat/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
