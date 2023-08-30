@@ -14301,7 +14301,7 @@
 "aSh" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -60362,7 +60362,7 @@
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
 	name = "Research Lab Desk";
-	req_access_txt = "7";
+	req_access_txt = "47";
 	dir = 2
 	},
 /obj/machinery/door/window/classic/normal{
@@ -63645,7 +63645,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
 	name = "Research Lab Desk";
-	req_access_txt = "7";
+	req_access_txt = "47";
 	dir = 8
 	},
 /obj/machinery/door/window/classic/normal{
@@ -80869,7 +80869,7 @@
 "ebU" = (
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix");
+	autolink_sensors = list("burn_sensor"="Burn  Mix");
 	dir = 1
 	},
 /obj/machinery/ignition_switch{
@@ -96330,7 +96330,7 @@
 "vZO" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Science Chemistry";
-	req_access_txt = "47"
+	req_access_txt = "7"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
