@@ -780,41 +780,37 @@
 		return
 	if(moveable && default_unfasten_wrench(user, I, time = 20))
 		return
+
 	if(istype(I, /obj/item/scalpel/supermatter))
-		if(ishuman(user))
-			var/mob/living/carbon/human/M = user
-			var/obj/item/scalpel/supermatter/scalpel = I
-			to_chat(M, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
-			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
-				if(scalpel.uses_left)
-					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
-					matter_power += 800
-					scalpel.uses_left--
-					if(!scalpel.uses_left)
-						to_chat(M, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
+		if(!ishuman(user))
+			return
 
-					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+		var/mob/living/carbon/human/H = user
+		var/obj/item/scalpel/supermatter/scalpel = I
 
-					var/obj/item/retractor/supermatter/tongs = M.is_in_hands(/obj/item/retractor/supermatter)
+		if(!scalpel.uses_left)
+			to_chat(H, "<span class='warning'>[scalpel] isn't sharp enough to carve a sliver off of [src]!</span>")
+			return
 
-					if(tongs && !tongs.sliver)
-						tongs.sliver = S
-						S.forceMove(tongs)
-						tongs.icon_state = "supermatter_tongs_loaded"
-						tongs.item_state = "supermatter_tongs_loaded"
-						to_chat(M, "<span class='notice'>You pick up [S] with [tongs]!</span>")
-				else
-					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+		var/obj/item/nuke_core/supermatter_sliver/sliver = carve_sliver(scalpel, H)
+		if(sliver)
+			scalpel.uses_left--
+			if(!scalpel.uses_left)
+				to_chat(H, "<span class='boldwarning'>A tiny piece falls off of [scalpel]'s blade, rendering it useless!</span>")
+
+			var/obj/item/retractor/supermatter/tongs = H.is_in_hands(/obj/item/retractor/supermatter)
+
+			if(tongs && !tongs.sliver)
+				tongs.sliver = sliver
+				sliver.forceMove(tongs)
+				tongs.icon_state = "supermatter_tongs_loaded"
+				tongs.item_state = "supermatter_tongs_loaded"
+				to_chat(H, "<span class='notice'>You pick up [sliver] with [tongs]!</span>")
+
 		return
 
 	if(istype(I, /obj/item/twohanded/supermatter_halberd))
-		if(ishuman(user))
-			var/mob/living/carbon/human/M = user
-			to_chat(M, "<span class='notice'>You begin to carve off a sliver of [src] with [I]...</span>")
-			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
-				to_chat(M, "<span class='danger'>[src] seethes with energy as you finish cutting off a sliver!</span>")
-				matter_power += 600
-				new /obj/item/nuke_core/supermatter_sliver(drop_location())
+		carve_sliver(I, user)
 		return
 
 	if(istype(I, /obj/item/retractor/supermatter))
@@ -942,7 +938,14 @@
 		remove_filter("outline")
 		QDEL_NULL(warp)
 
+/obj/machinery/atmospherics/supermatter_crystal/proc/carve_sliver(obj/item/tool, mob/living/user)
+	to_chat(user, "<span class='notice'>You begin carving a sliver off of [src]...</span>")
+	if(tool.use_tool(src, user, 10 SECONDS, volume = 100))
+		to_chat(user, "<span class='danger'>You carve a sliver off of [src], and it begins to react violently!</span>")
+		matter_power += 800
 
+		var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+		return S
 
 // Change how bright the rock is
 /obj/machinery/atmospherics/supermatter_crystal/proc/lights()
