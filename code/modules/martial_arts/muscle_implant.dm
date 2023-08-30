@@ -49,10 +49,10 @@
 		to_chat(puncher, "<span class='danger'>You [picked_hit_type] [punchee]!</span>")
 
 /datum/martial_art/muscle_implant/proc/emp_act(severity, mob/owner)
-	is_emp = TRUE
+	is_emped = TRUE
 	to_chat(owner, "<span class='danger'>Your arms spasm wildly!</span>")
 	addtimer(CALLBACK(src, PROC_REF(reboot), owner), (18 / severity) SECONDS)
 
 /datum/martial_art/muscle_implant/proc/reboot(mob/owner)
-	is_emp = FALSE
+	is_emped = FALSE
 	to_chat(owner, "<span class='danger'>Your arms stop spasming.</span>")
