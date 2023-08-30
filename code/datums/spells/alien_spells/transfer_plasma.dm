@@ -53,7 +53,7 @@
 
 
 /obj/item/melee/touch_attack/alien/transfer_plasma/Destroy()
-	if(owner)
+	if(owner && is_withdraw)
 		owner.adjust_alien_plasma(plasma_amount)
 	return ..()
 
