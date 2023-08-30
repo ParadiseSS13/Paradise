@@ -8,37 +8,39 @@
 #include "_signals220/_signals220.dme"
 #include "_maps220/_maps220.dme"
 #include "_span/_span.dme"
-#include "whitelist/_whitelist.dme"
-#include "text_to_speech/_tts.dme"
+
 
 // --- ICONS --- //
 #include "aesthetics/_aesthetics.dme"
 #include "hairs/_hairs.dme"
 
 // --- OBJECTS --- //
-#include "sechailer/sechailer.dme"
+#include "barsigns/_barsigns.dme"
 #include "devices/_devices.dme"
 #include "food/_food.dme"
-#include "barsigns/_barsigns.dme"
-#include "wire_splicing/wiresplicing.dme"
 #include "hydroponics/hydroponics.dme"
+#include "sechailer/sechailer.dme"
+#include "unique_objects/_unique_objects.dme"
 #include "vending/vending.dme"
+#include "wire_splicing/wiresplicing.dme"
 
 // --- MISC --- //
+#include "aesthetics_sounds/_aesthetics_sounds.dme"
+#include "crawl_speed/_crawl_speed.dme"
+#include "discord_link/_discord_link.dme"
+#include "emotes/_emotes.dme"
+#include "events/_events.dme"
+#include "fullscreen/_fullscreen.dme"
+#include "gunhud/_gunhud.dme"
+#include "jobs/_jobs.dme"
+#include "keybindings/_keybindings.dme"
+#include "pixel_shift/_pixel_shift.dme"
+#include "radio_sound/radio_sound.dme"
 #include "screentip_change/_screentip_change.dme"
 #include "smart_equip_targeted/_smart_equip_targeted.dme"
-#include "unique_objects/_unique_objects.dme"
+#include "text_to_speech/_tts.dme"
 #include "title_screen/_title_screen.dme"
-#include "pixel_shift/_pixel_shift.dme"
-#include "gunhud/_gunhud.dme"
-#include "crawl_speed/_crawl_speed.dme"
-#include "emotes/_emotes.dme"
-#include "fullscreen/_fullscreen.dme"
-#include "keybindings/_keybindings.dme"
-#include "aesthetics_sounds/_aesthetics_sounds.dme"
-#include "radio_sound/radio_sound.dme"
-#include "events/_events.dme"
-#include "jobs/_jobs.dme"
+#include "whitelist/_whitelist.dme"
 // --- UNUSED MODS --- //
 
  /*------------------------------------------------------------------
