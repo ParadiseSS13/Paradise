@@ -1,13 +1,19 @@
 name: 'Merge Conflict Detection'
+
 on:
   push:
     branches:
       - master
+  pull_request_target:
+    types: [ready_for_review, opened, synchronize, reopened]
 jobs:
   triage:
-    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-22.04
     steps:
-      - uses: mschilde/auto-label-merge-conflicts@master
+      - uses: eps1lon/actions-label-merge-conflict@v2.1.0
         with:
-          CONFLICT_LABEL_NAME: 'Merge Conflict'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          dirtyLabel: 'Merge Conflict'
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
