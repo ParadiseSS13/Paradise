@@ -40,9 +40,8 @@
 
 /datum/martial_art/cqc/teach(mob/living/carbon/human/H, make_temporary)
 	var/found = FALSE
-	for(var/datum/martial_art/M in H.mind.known_martial_arts)
-		if(istype(M, /datum/martial_art/cqc/under_siege))
-			M.remove(H)
+	for(var/datum/martial_art/cqc/under_siege/M in H.mind.known_martial_arts)
+		M.remove(H)
 	for(var/datum/action/D in H.actions)
 		if(istype(D, /datum/action/defensive_stance))
 			found = TRUE
