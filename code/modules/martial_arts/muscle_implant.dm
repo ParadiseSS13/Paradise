@@ -2,7 +2,7 @@
 	name = "Empowered Muscle Implant Fighting"
 	weight = 1
 	/// Are we EMP'ed?
-	var/is_emp
+	var/is_emp = FALSE
 	/// How much damage should our punches deal
 	var/punch_damage = 13
 	var/picked_hit_type
@@ -43,7 +43,10 @@
 		"<span class='danger'>You hear user sickening sound of flesh hitting flesh!</span>",
 	)
 
-	to_chat(puncher, "<span class='danger'>You [picked_hit_type] [punchee]!</span>")
+	if(puncher == punchee)
+		to_chat(puncher, "<span class='danger'>You [picked_hit_type] yourself!")
+	else
+		to_chat(puncher, "<span class='danger'>You [picked_hit_type] [punchee]!</span>")
 
 /datum/martial_art/muscle_implant/proc/emp_act(severity, mob/owner)
 	is_emp = TRUE
