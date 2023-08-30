@@ -40,6 +40,7 @@
 	selection_color = "#eeddbe"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
+	alt_titles = list("Mail Carrier","Courier",)
 	outfit = /datum/outfit/job/cargo_tech
 
 /datum/outfit/job/cargo_tech
