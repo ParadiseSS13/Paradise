@@ -82,19 +82,19 @@
 		shuttle_port = null
 		return
 
-	var/shuttle_eye_pos = get_turf(locate("landmark*Observer-Start"))
+	var/turf/shuttle_eye_pos = get_turf(locate("landmark*Observer-Start"))
 
 	if(jumpto_ports.len)
-		for(var/V in SSshuttle.stationary)
-			if(!V)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
+			if(!S)
 				continue
-			var/obj/docking_port/stationary/S = V
 			if(jumpto_ports[S.id])
 				shuttle_eye_pos = get_turf(S)
 				break
 
 	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(shuttle_eye_pos, src) // There should always be an observer start landmark
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
+	the_eye.eye_initialized = TRUE
 	the_eye.setDir(shuttle_port.dir)
 	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.z)
 	for(var/V in shuttle_port.shuttle_areas)
