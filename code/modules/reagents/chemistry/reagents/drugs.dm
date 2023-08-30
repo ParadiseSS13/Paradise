@@ -976,7 +976,7 @@
 	return list(0, update_flags)
 
 //Servo Lube, supercharge
-/datum/reagent/lube/ultra/combat
+/datum/reagent/lube/combat
 	name = "Combat-Lube"
 	id = "combatlube"
 	description = "Combat-Lube is a refined and enhanced lubricant which induces effect stronger than Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
