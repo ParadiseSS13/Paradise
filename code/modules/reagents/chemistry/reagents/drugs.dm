@@ -983,13 +983,9 @@
 	overdose_threshold = 30
 	addiction_chance = 1
 	addiction_chance_additional = 20
-	var/tenacity = 1.5 // higher is worse
 
 /datum/reagent/lube/combat/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.physiology.stun_mod *= tenacity
 
 /datum/reagent/lube/combat/on_mob_life(mob/living/M)
 	M.SetSleeping(0)
@@ -1004,9 +1000,6 @@
 
 /datum/reagent/lube/combat/on_mob_delete(mob/living/M)
 	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		H.physiology.stun_mod /= tenacity
 	..()
 
 /datum/reagent/lube/combat/overdose_process(mob/living/M, severity)
