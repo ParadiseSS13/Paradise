@@ -171,11 +171,9 @@
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
 	return
 
-/obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
-	if(isliving(user))
-		var/mob/living/L = user
-		if(HAS_TRAIT(L, TRAIT_SUPERMATTER_IMMUNE))
-			return TRUE
+/obj/item/nuke_core/supermatter_sliver/can_be_pulled(mob/user) // no drag memes
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
+		return TRUE
 	return FALSE
 
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)
