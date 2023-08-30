@@ -18,7 +18,7 @@
 			user.do_attack_animation(target)
 			playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 			return FALSE
-	if(is_emp)
+	if(is_emped)
 		do_the_punch(user, user)
 	else
 		do_the_punch(user, target)
