@@ -1427,12 +1427,14 @@
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(loc)
 		AM.pipe_eject(dir)
-		if(isdrone(AM) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+		if(QDELETED(AM))
 			return
-		spawn(5)
-			if(QDELETED(AM))
+		if(isliving(AM))
+			var/mob/living/mob_to_immobilize = AM
+			if(isdrone(mob_to_immobilize) || istype(mob_to_immobilize, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 				return
-			AM.throw_at(target, 3, 1)
+			mob_to_immobilize.Immobilize(1 SECONDS)
+		AM.throw_at(target, 3, 1)
 
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)

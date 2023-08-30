@@ -64,24 +64,23 @@
 		return MARTIAL_ARTS_CANNOT_USE
 	if(combo_timer)
 		deltimer(combo_timer)
-/*
-	if(last_hit + COMBO_ALIVE_TIME < world.time)
-		reset_combos()
-*/
+
 	combo_timer = addtimer(CALLBACK(src, PROC_REF(reset_combos)), COMBO_ALIVE_TIME, TIMER_UNIQUE | TIMER_STOPPABLE)
-	streak += intent_to_streak(step)
-	var/mob/living/carbon/human/owner = locateUID(owner_UID)
-	owner?.hud_used.combo_display.update_icon(ALL, streak)
 
 	if(HAS_COMBOS)
-		return check_combos(step, user, target)
+		streak += intent_to_streak(step)
+		var/mob/living/carbon/human/owner = locateUID(owner_UID)
+		if(istype(owner) && !QDELETED(owner))
+			owner.hud_used.combo_display.update_icon(ALL, streak)
+			return check_combos(step, user, target)
 	return FALSE
 
 /datum/martial_art/proc/reset_combos()
 	current_combos.Cut()
 	streak = ""
 	var/mob/living/carbon/human/owner = locateUID(owner_UID)
-	owner?.hud_used.combo_display.update_icon(ALL, streak)
+	if(istype(owner) && !QDELETED(owner))
+		owner.hud_used.combo_display.update_icon(ALL, streak)
 	for(var/combo_type in combos)
 		current_combos.Add(new combo_type())
 
@@ -165,6 +164,7 @@
 	var/datum/martial_art/MA = src
 	if(!H.mind)
 		return
+	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
@@ -236,7 +236,7 @@
 	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
 	button_icon_state = "block"
 
-/datum/action/defensive_stance/Trigger()
+/datum/action/defensive_stance/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
 	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial-arts users anyway
 	if(!MA.can_parry)

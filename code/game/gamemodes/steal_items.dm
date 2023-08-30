@@ -42,9 +42,9 @@
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 
-/datum/theft_objective/captains_jetpack
-	name = "the captain's deluxe jetpack"
-	typepath = /obj/item/tank/jetpack/oxygen/captain
+/datum/theft_objective/captains_modsuit
+	name = "the captain's Magnate MODsuit"
+	typepath = /obj/item/mod/control/pre_equipped/magnate
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 
