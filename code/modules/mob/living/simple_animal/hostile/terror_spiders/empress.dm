@@ -20,7 +20,7 @@
 	ai_playercontrol_allowtype = 0
 	canlay = 1000
 	spider_tier = TS_TIER_5
-	projectiletype = /obj/item/projectile/terrorqueenspit/empress
+	projectiletype = /obj/item/projectile/terrorspider/empress
 	icon = 'icons/mob/terrorspider64.dmi'
 	pixel_x = -16
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
@@ -30,7 +30,6 @@
 	icon_dead = "terror_empress_dead"
 	var/datum/action/innate/terrorspider/queen/empress/empresslings/empresslings_action
 	var/datum/action/innate/terrorspider/queen/empress/empresserase/empresserase_action
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	tts_seed = "Queen"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/New()
@@ -108,6 +107,9 @@
 		qdel(T)
 	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 
-/obj/item/projectile/terrorqueenspit/empress
-	damage = 90
 
+/obj/item/projectile/terrorspider/empress
+	name = "empress venom"
+	icon_state = "toxin5"
+	damage = 90
+	damage_type = BRUTE
