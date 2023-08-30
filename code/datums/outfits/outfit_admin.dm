@@ -7,6 +7,13 @@
 		H.mind.assigned_role = name
 		H.job = name
 
+/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(H.mind)
+		H.mind.offstation_role = TRUE
+	else
+		H.RegisterSignal(H, COMSIG_MOB_LOGIN, TYPE_PROC_REF(/mob/living/carbon/human, apply_offstation_roles))
+
 
 /proc/apply_to_card(obj/item/card/id/I, mob/living/carbon/human/H, list/access = list(), rank, special_icon)
 	if(!istype(I) || !istype(H))
@@ -64,7 +71,6 @@
 	if(istype(R))
 		R.set_frequency(SYND_FREQ)
 	H.faction += "syndicate"
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/syndicate_infiltrator
 	name = "Syndicate Infiltrator"
@@ -73,7 +79,6 @@
 	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
 	H.sec_hud_set_ID()
 	H.faction += "syndicate"
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/syndicate/operative
 	name = "Syndicate Nuclear Operative"
@@ -119,7 +124,6 @@
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = H.equip_syndicate_commando(FALSE, TRUE)
 	H.faction += "syndicate"
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/syndicate/spy
 	name = "Syndicate Spy"
@@ -157,7 +161,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("VIP Guest"), "VIP Guest")
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/nt_navy_captain
 	name = "NT Navy Captain"
@@ -190,7 +193,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/nt_diplomat
 	name = "NT Diplomat"
@@ -222,7 +224,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Representative"), "Nanotrasen Diplomat")
 	// Will show as ? on sec huds, as this is not a recognized rank.
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/nt_undercover
 	name = "NT Undercover Operative"
@@ -261,7 +262,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Assistant")
 	H.sec_hud_set_ID() // Force it to show as assistant on sec huds
-	H.mind.offstation_role = TRUE
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
@@ -323,7 +323,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Deathsquad Commando"), "Deathsquad")
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
 	if(ismodcontrol(H.back))
 		var/obj/item/mod/control/C = H.back
 		C.quick_activation()
@@ -352,7 +351,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/pirate/first_mate
 	name = "Space Pirate First Mate"
@@ -400,7 +398,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Tunnel Clown")
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/mime_assassin
 	name = "Mime Assassin"
@@ -451,7 +448,6 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Mime")
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/greytide
 	name = "Greytide"
@@ -477,7 +473,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Greytide")
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/greytide/leader
 	name = "Greytide Leader"
@@ -566,7 +561,6 @@
 	var/obj/item/clothing/ears/headphones/P = r_ear
 	if(istype(P))
 		P.attack_self(H) // activate them, display musical notes effect
-	H.mind.offstation_role = TRUE
 
 // Soviet Military
 
@@ -594,7 +588,6 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/soviet/conscript
 	name = "Soviet Conscript"
@@ -726,7 +719,6 @@
 		apply_to_card(I, H, get_all_centcom_access(), name, "lifetimeid")
 	I.assignment = "Solar Federation Representative"
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
 
 
 /datum/outfit/admin/solgov
@@ -781,7 +773,6 @@
 	else if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Emergency Response Team Member"), name, "lifetimeid")
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/solgov/lieutenant
 	name = "Solar Federation Lieutenant"
@@ -871,7 +862,6 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"
@@ -895,7 +885,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses() + get_all_centcom_access(), name, "syndie")
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/spacegear
 	name = "Standard Space Gear"
@@ -922,7 +911,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/hardsuit
 	name = "Hardsuit - Generic"
@@ -944,7 +932,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Hardsuit Tester")
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/hardsuit/engineer
 	name = "Hardsuit - Engineer"
@@ -994,10 +981,6 @@
 /datum/outfit/admin/tournament/green
 	name = "Tournament Standard Green"
 	uniform = /obj/item/clothing/under/color/green
-
-/datum/outfit/admin/tournament/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/tournament/tournament_gangster //gangster are supposed to fight each other. --rastaf0
 	name = "Tournament Gangster"
@@ -1069,7 +1052,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Survivor")
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/masked_killer
 	name = "Masked Killer"
@@ -1105,7 +1087,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Masked Killer", "syndie")
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/singuloth_knight
 	name = "Singuloth Knight"
@@ -1135,7 +1116,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Singuloth Knight")
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/dark_lord
 	name = "Dark Lord"
@@ -1166,7 +1146,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Dark Lord", "syndie")
-	H.mind.offstation_role = TRUE
 
 
 /datum/outfit/admin/ancient_vampire
@@ -1206,7 +1185,6 @@
 		var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
 		V.bloodusable = 9999
 		V.bloodtotal = 9999
-		H.mind.offstation_role = TRUE
 		V.add_subclass(SUBCLASS_ANCIENT, FALSE)
 		H.dna.SetSEState(GLOB.jumpblock, TRUE)
 		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
@@ -1237,7 +1215,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Wizard")
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/wizard/red
 	name = "Wizard - Red Wizard"
@@ -1317,7 +1294,6 @@
 	var/obj/item/radio/headset/R = H.l_ear
 	if(istype(R))
 		R.flags |= NODROP
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/honksquad
 	name = "Honksquad"
@@ -1388,7 +1364,6 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_CLOWN), "Emergency Response Clown")
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
 
 /datum/outfit/admin/observer
 	name = "Observer"
@@ -1416,7 +1391,3 @@
 	mask = /obj/item/clothing/mask/breath/vox
 	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
 	box = /obj/item/storage/box/survival_vox
-
-/datum/outfit/admin/observer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	H.mind.offstation_role = TRUE
