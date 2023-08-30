@@ -354,7 +354,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 	//Now, heat up the output and set our pressure.
 
-	power = (temperature / RBMK_TEMPERATURE_CRITICAL) * 100
+	power = max(((temperature / RBMK_TEMPERATURE_CRITICAL) * 100), 0)
 	if (!length(fuel_rods))
 		power = 0
 		return
