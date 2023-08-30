@@ -563,7 +563,7 @@ Difficulty: Medium
 	sleep(duration)
 	if(ismineralturf(T))
 		var/turf/simulated/mineral/M = T
-		M.gets_drilled()
+		M.attempt_drill()
 	playsound(T, "explosion", 80, TRUE)
 	new /obj/effect/hotspot(T)
 	T.hotspot_expose(700, 50, 1)

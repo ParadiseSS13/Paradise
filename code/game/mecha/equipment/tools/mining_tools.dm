@@ -72,7 +72,7 @@
 /turf/simulated/mineral/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	for(var/turf/simulated/mineral/M in range(drill.chassis, 1))
 		if(get_dir(drill.chassis, M) & drill.chassis.dir)
-			M.gets_drilled()
+			M.attempt_drill()
 	drill.log_message("Drilled through [src]")
 	drill.move_ores()
 

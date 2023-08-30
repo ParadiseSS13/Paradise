@@ -821,6 +821,7 @@
 	max_combined_w_class = 20
 	can_hold = list(
 		/obj/item/crowbar,
+		/obj/item/grenade/plastic/miningcharge,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -856,11 +857,14 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon)
+		/obj/item/stack/marker_beacon,
+		/obj/item/gem)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()
 	new /obj/item/survivalcapsule(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"

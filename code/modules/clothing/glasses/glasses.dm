@@ -553,7 +553,7 @@
 	flags = NODROP
 
 
-/obj/item/clothing/glasses/godeye
+/obj/item/clothing/glasses/hud/godeye
 	name = "eye of god"
 	desc = "A strange eye, said to have been torn from an omniscient creature that used to roam the wastes."
 	icon_state = "godeye"
@@ -565,6 +565,7 @@
 	flags_cover = null
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi',
@@ -576,7 +577,7 @@
 		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)
 		if(W.icon_state == "godeye")
 			W.icon_state = "doublegodeye"

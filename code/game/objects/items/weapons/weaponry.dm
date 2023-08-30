@@ -99,6 +99,27 @@
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
 	return BRUTELOSS
 
+/obj/item/katana/basalt
+	name = "basalt katana"
+	desc = "a katana made out of hardened basalt. Particularly damaging to lavaland fauna."
+	icon_state = "basalt_katana"
+	item_state = "basalt_katana"
+	force = 40
+	block_chance = 50
+
+	var/fauna_damage_bonus = 40
+	var/fauna_damage_type = BRUTE
+
+/obj/item/katana/basalt/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(isliving(target))
+		var/mob/living/L = target
+		if(ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid))
+			L.apply_damage(fauna_damage_bonus,fauna_damage_type)
+			playsound(L, 'sound/weapons/sear.ogg', 100, 1)
+
 /obj/item/harpoon
 	name = "harpoon"
 	sharp = 1
@@ -401,3 +422,15 @@
 		H.update_inv_r_hand()
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
+
+/obj/item/claymore/bone
+	name = "bone sword"
+	desc = "Jagged pieces of bone are tied to what looks like a goliath's femur."
+	icon_state = "bone_sword"
+	item_state = "bone_sword"
+	slot_flags = SLOT_BELT | SLOT_BACK
+	force = 18
+	throwforce = 10
+	armour_penetration = 15
+	w_class = WEIGHT_CLASS_BULKY
+	block_chance = 30

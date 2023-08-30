@@ -1,0 +1,2098 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ad" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"ao" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"bc" = (
+/obj/structure/railing/wooden/endl,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"bv" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/green_bio)
+"bF" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"cx" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/remains/human,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"dB" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"dG" = (
+/obj/structure/table/wood,
+/obj/item/kitchen/utensil/fork,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/green_bio)
+"en" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"fG" = (
+/obj/structure/rack,
+/turf/simulated/floor/pod/light,
+/area/ruin/powered/green_bio)
+"fN" = (
+/obj/structure/railing/wooden{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"gm" = (
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/ruin/powered/green_bio)
+"gP" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/bed,
+/obj/item/bedsheet/purple,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/powered/green_bio)
+"gQ" = (
+/obj/structure/chair/sofa/left{
+	dir = 8
+	},
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet13-5"
+	},
+/area/ruin/powered/green_bio)
+"hW" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ic" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"ij" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"io" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"iL" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"iW" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull";
+	tag = "icon-redfull (NORTHWEST)"
+	},
+/area/ruin/powered/green_bio)
+"iZ" = (
+/turf/simulated/floor/carpet,
+/area/ruin/powered/green_bio)
+"jG" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/powered/green_bio)
+"jR" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/obj/structure/flora/tree/jungle,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"lC" = (
+/obj/structure/bed,
+/obj/item/bedsheet/purple,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/powered/green_bio)
+"lT" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"md" = (
+/obj/structure/railing/wooden/endl,
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"mg" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/powered/green_bio)
+"mr" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/green_bio)
+"mu" = (
+/obj/structure/table/wood,
+/obj/item/phone{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/paper_bin,
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"mw" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet8-0"
+	},
+/area/ruin/powered/green_bio)
+"mP" = (
+/obj/structure/table,
+/turf/simulated/floor/pod,
+/area/ruin/powered/green_bio)
+"nK" = (
+/obj/structure/closet{
+	icon_closed = "cabinet_closed";
+	icon_opened = "cabinet_open";
+	icon_state = "cabinet_closed"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"og" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/green_bio)
+"ol" = (
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"oX" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/green_bio)
+"pg" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/green_bio)
+"pj" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/green{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"qj" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/pod,
+/area/ruin/powered/green_bio)
+"qn" = (
+/obj/item/reagent_containers/glass/bucket,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"rj" = (
+/obj/machinery/hydroponics/soil,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"rp" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"rN" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/obj/structure/railing/wooden/cornerl{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"sI" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/light,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/green_bio)
+"sM" = (
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull";
+	tag = "icon-redfull (NORTHWEST)"
+	},
+/area/ruin/powered/green_bio)
+"tg" = (
+/obj/machinery/light,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"tj" = (
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet5-1"
+	},
+/area/ruin/powered/green_bio)
+"tM" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"uI" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"uN" = (
+/obj/structure/railing/wooden/cornerl{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"vh" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-17";
+	tag = "icon-plant-17"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"vr" = (
+/turf/simulated/floor/beach/water,
+/area/ruin/powered/green_bio)
+"vN" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"we" = (
+/turf/template_noop,
+/area/template_noop)
+"wg" = (
+/obj/structure/railing/wooden,
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"wV" = (
+/obj/structure/table/wood,
+/obj/item/seeds/lavaland/cactus,
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"xZ" = (
+/obj/structure/toilet,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/powered/green_bio)
+"yO" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 9;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/food/drinks/bottle/wine,
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet12-0"
+	},
+/area/ruin/powered/green_bio)
+"zf" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/pod,
+/area/ruin/powered/green_bio)
+"zh" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/pod,
+/area/ruin/powered/green_bio)
+"zU" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/powered/green_bio)
+"Bb" = (
+/turf/simulated/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/ruin/powered/green_bio)
+"Bn" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet4-0"
+	},
+/area/ruin/powered/green_bio)
+"Bq" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"BE" = (
+/obj/structure/sink/puddle,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"BJ" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/effect/turf_decal/siding/green{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"BT" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet6-2"
+	},
+/area/ruin/powered/green_bio)
+"Ci" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/powered/green_bio)
+"Cl" = (
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"Cs" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet13-5"
+	},
+/area/ruin/powered/green_bio)
+"CL" = (
+/turf/simulated/floor/pod,
+/area/ruin/powered/green_bio)
+"CN" = (
+/obj/structure/rack,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/powered/green_bio)
+"De" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/purple,
+/area/ruin/powered/green_bio)
+"Ds" = (
+/obj/structure/window/reinforced,
+/obj/structure/closet/secure_closet/freezer/meat,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull";
+	tag = "icon-redfull (NORTHWEST)"
+	},
+/area/ruin/powered/green_bio)
+"DN" = (
+/obj/structure/dresser,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/green_bio)
+"DZ" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Ej" = (
+/obj/structure/coatrack,
+/obj/machinery/light/small{
+	dir = 8;
+	light_power = 3
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"Fl" = (
+/obj/machinery/door/airlock/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/powered/green_bio)
+"FM" = (
+/obj/structure/window/reinforced,
+/obj/structure/table/reinforced,
+/obj/item/kitchen/knife,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull";
+	tag = "icon-redfull (NORTHWEST)"
+	},
+/area/ruin/powered/green_bio)
+"FN" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Gh" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"Gw" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -3
+	},
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet12-0"
+	},
+/area/ruin/powered/green_bio)
+"GD" = (
+/obj/effect/turf_decal/siding/green,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Il" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/turf/simulated/floor/beach/water,
+/area/ruin/powered/green_bio)
+"Iq" = (
+/obj/machinery/kitchen_machine/oven,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/powered/green_bio)
+"Jk" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Jl" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Jv" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/green_bio)
+"JE" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/turf_decal/siding/green,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"JI" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/obj/structure/railing/wooden/cornerl{
+	dir = 1
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-dead";
+	tag = "plant-dead"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"JY" = (
+/obj/structure/table/wood,
+/obj/item/cultivator/rake,
+/obj/item/shovel/spade,
+/obj/item/seeds/apple,
+/obj/item/seeds/berry,
+/obj/item/seeds/apple,
+/obj/item/seeds/berry,
+/obj/item/seeds/carrot,
+/obj/item/seeds/corn,
+/obj/item/seeds/garlic,
+/obj/item/seeds/grape,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Kp" = (
+/obj/machinery/light/small{
+	dir = 8;
+	light_power = 3
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"Kz" = (
+/obj/structure/table/wood,
+/obj/item/paper,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/green_bio)
+"KN" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"KU" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Lh" = (
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet14-10"
+	},
+/area/ruin/powered/green_bio)
+"Mc" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"MD" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "rock";
+	name = "rock"
+	},
+/area/ruin/powered/green_bio)
+"Ne" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/shower{
+	dir = 8;
+	tag = "icon-shower (WEST)"
+	},
+/obj/item/soap/syndie,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/powered/green_bio)
+"NH" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Oy" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-6";
+	tag = "icon-plant-6"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"Pn" = (
+/obj/effect/turf_decal/siding/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/green{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"PE" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/obj/structure/railing/wooden/cornerr,
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"Qt" = (
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet8-0"
+	},
+/area/ruin/powered/green_bio)
+"QM" = (
+/obj/machinery/door/airlock/wood/glass,
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"Sn" = (
+/obj/structure/railing/wooden,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"SL" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull";
+	tag = "icon-redfull (NORTHWEST)"
+	},
+/area/ruin/powered/green_bio)
+"SY" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/powered/green_bio)
+"UB" = (
+/obj/structure/closet/crate/trashcart,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"US" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"Wf" = (
+/obj/structure/flora/ausbushes/grassybush,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Wg" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-32";
+	tag = "icon-plant-32"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"Wm" = (
+/obj/structure/railing/wooden,
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"Wr" = (
+/obj/structure/chair/sofa/corner,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet14-10"
+	},
+/area/ruin/powered/green_bio)
+"WB" = (
+/turf/simulated/floor/pod/light,
+/area/ruin/powered/green_bio)
+"WJ" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"WU" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Xo" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Xs" = (
+/turf/simulated/floor/carpet{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "carpet4-0"
+	},
+/area/ruin/powered/green_bio)
+"Xt" = (
+/obj/structure/chair/sofa/pew/right{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/green_bio)
+"YL" = (
+/obj/structure/closet{
+	icon_closed = "cabinet_closed";
+	icon_opened = "cabinet_open";
+	icon_state = "cabinet_closed"
+	},
+/obj/machinery/light/small{
+	dir = 8;
+	light_power = 3
+	},
+/turf/simulated/floor/carpet,
+/area/ruin/powered/green_bio)
+"YQ" = (
+/obj/machinery/kitchen_machine/grill,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/powered/green_bio)
+"Za" = (
+/obj/structure/table/reinforced,
+/obj/machinery/reagentgrinder{
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/obj/machinery/light/small{
+	dir = 8;
+	light_power = 3
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/powered/green_bio)
+"Zr" = (
+/obj/structure/flora/tree/jungle,
+/turf/simulated/floor/indestructible/grass,
+/area/ruin/powered/green_bio)
+"Zs" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/carpet/purple,
+/area/ruin/powered/green_bio)
+
+(1,1,1) = {"
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+hW
+hW
+hW
+bv
+hW
+hW
+hW
+bv
+hW
+hW
+hW
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+"}
+(2,1,1) = {"
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+hW
+hW
+bv
+mg
+mg
+mg
+mg
+mg
+mg
+mg
+mg
+mg
+bv
+hW
+hW
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+"}
+(3,1,1) = {"
+we
+we
+we
+we
+we
+we
+we
+we
+hW
+hW
+bv
+mg
+mg
+mg
+ol
+FN
+ol
+ol
+ol
+FN
+ol
+mg
+mg
+mg
+bv
+hW
+hW
+we
+we
+we
+we
+we
+we
+we
+we
+"}
+(4,1,1) = {"
+we
+we
+we
+we
+we
+we
+hW
+hW
+bv
+mg
+mg
+mg
+FN
+ol
+ol
+ol
+ol
+Zr
+ol
+ol
+ol
+ol
+FN
+mg
+mg
+mg
+bv
+hW
+hW
+we
+we
+we
+we
+we
+we
+"}
+(5,1,1) = {"
+we
+we
+we
+we
+we
+hW
+hW
+mg
+mg
+mg
+WU
+ol
+ol
+ol
+ol
+ol
+ol
+ol
+ol
+gm
+gm
+gm
+gm
+tM
+FN
+mg
+mg
+mg
+hW
+hW
+we
+we
+we
+we
+we
+"}
+(6,1,1) = {"
+we
+we
+we
+we
+hW
+hW
+mg
+mg
+FN
+ol
+MD
+MD
+dB
+ol
+tM
+ol
+lT
+ol
+gm
+gm
+Xt
+Jv
+gm
+gm
+lT
+ol
+FN
+mg
+mg
+hW
+hW
+we
+we
+we
+we
+"}
+(7,1,1) = {"
+we
+we
+we
+hW
+hW
+mg
+mg
+ol
+dB
+MD
+MD
+ol
+ol
+ol
+ol
+ol
+KN
+ol
+Sn
+oX
+iZ
+iZ
+zU
+gm
+ol
+ol
+ol
+ol
+mg
+mg
+hW
+hW
+we
+we
+we
+"}
+(8,1,1) = {"
+we
+we
+we
+hW
+mg
+mg
+ol
+ol
+ol
+MD
+ol
+vN
+ol
+Wf
+ol
+ol
+ol
+ol
+Sn
+dG
+pg
+Cl
+YQ
+gm
+ol
+vN
+Wf
+ol
+ol
+mg
+mg
+hW
+we
+we
+we
+"}
+(9,1,1) = {"
+we
+we
+hW
+sI
+mg
+ic
+ol
+ol
+ol
+ol
+ol
+ol
+KN
+ol
+ol
+ol
+ol
+tM
+gm
+gm
+Cl
+Cl
+gm
+gm
+ol
+ol
+MD
+MD
+Wf
+tg
+mg
+mr
+hW
+we
+we
+"}
+(10,1,1) = {"
+we
+we
+hW
+mg
+mg
+ol
+ol
+ol
+Zr
+ij
+gm
+Cl
+gm
+Mc
+Xo
+Xo
+jR
+Xo
+Jl
+ol
+ol
+ol
+ol
+FN
+ol
+MD
+MD
+MD
+MD
+ol
+mg
+mg
+hW
+we
+we
+"}
+(11,1,1) = {"
+we
+hW
+sI
+mg
+ic
+ol
+MD
+MD
+MD
+vr
+fN
+Cl
+wg
+vr
+vr
+vr
+vr
+vr
+vr
+rN
+Xo
+ol
+ol
+ao
+KN
+ol
+ol
+ol
+KN
+ol
+tg
+mg
+mr
+hW
+we
+"}
+(12,1,1) = {"
+we
+hW
+mg
+mg
+MD
+MD
+MD
+MD
+vr
+Il
+fN
+Cl
+wg
+Il
+Il
+Il
+Il
+Il
+Il
+vr
+vr
+rN
+Xo
+ol
+ol
+ol
+ol
+ol
+ol
+ol
+ol
+mg
+mg
+hW
+we
+"}
+(13,1,1) = {"
+hW
+sI
+mg
+cx
+MD
+MD
+MD
+MD
+vr
+uN
+gm
+Cl
+gm
+ic
+ol
+ol
+ol
+ol
+bc
+Il
+Il
+vr
+vr
+rN
+ol
+ol
+ol
+Zr
+ol
+KN
+ol
+tg
+mg
+hW
+hW
+"}
+(14,1,1) = {"
+hW
+mg
+mg
+MD
+MD
+MD
+MD
+MD
+MD
+ol
+ol
+ol
+ao
+ol
+ol
+ol
+ol
+ol
+ol
+ol
+bc
+Il
+vr
+vr
+MD
+ol
+ol
+ol
+tg
+mg
+mg
+mg
+mg
+mg
+mr
+"}
+(15,1,1) = {"
+hW
+mg
+MD
+MD
+MD
+MD
+MD
+ol
+WJ
+ol
+gm
+gm
+Gh
+gm
+gm
+Xo
+Xo
+ol
+ao
+ol
+ol
+bc
+vr
+vr
+MD
+MD
+MD
+ol
+ol
+zf
+CL
+qj
+mP
+mg
+hW
+"}
+(16,1,1) = {"
+hW
+mg
+MD
+MD
+MD
+ol
+ol
+ao
+ol
+tg
+gm
+ad
+US
+Ej
+gm
+io
+md
+ol
+ol
+tM
+ol
+ol
+MD
+MD
+MD
+MD
+MD
+MD
+ol
+mg
+fG
+CL
+mP
+mg
+hW
+"}
+(17,1,1) = {"
+hW
+mg
+MD
+MD
+ol
+ol
+ol
+dB
+ol
+ol
+Gh
+wV
+Xs
+Cl
+QM
+Bb
+Cl
+KN
+ol
+WJ
+ol
+ol
+ol
+MD
+MD
+MD
+MD
+MD
+MD
+mg
+fG
+CL
+CL
+zf
+hW
+"}
+(18,1,1) = {"
+hW
+mg
+MD
+MD
+dB
+ol
+ol
+ol
+ol
+lT
+gm
+nK
+Qt
+US
+gm
+Oy
+PE
+ol
+ol
+ol
+ol
+ol
+Wf
+ol
+ao
+MD
+MD
+MD
+MD
+mg
+CN
+WB
+fG
+mg
+mr
+"}
+(19,1,1) = {"
+hW
+mg
+MD
+MD
+ol
+Zr
+ol
+tg
+gm
+gm
+gm
+gm
+QM
+gm
+gm
+gm
+ol
+ol
+ol
+DZ
+MD
+MD
+ol
+ol
+ol
+ol
+MD
+MD
+MD
+mg
+fG
+CL
+CL
+zf
+hW
+"}
+(20,1,1) = {"
+hW
+mg
+MD
+MD
+MD
+ol
+ol
+tM
+gm
+sM
+Za
+Ds
+Cl
+Kp
+Bn
+gm
+gm
+Gh
+Gh
+gm
+gm
+ol
+ol
+ol
+ol
+vN
+ol
+ol
+MD
+mg
+fG
+CL
+mP
+mg
+hW
+"}
+(21,1,1) = {"
+hW
+mg
+MD
+MD
+MD
+dB
+ol
+ol
+Gh
+Iq
+SL
+jG
+Cl
+Cl
+Gw
+gm
+YL
+Cl
+Cl
+rp
+gm
+ic
+ol
+ol
+ol
+ol
+ol
+ol
+ol
+zf
+CL
+zh
+mP
+mg
+hW
+"}
+(22,1,1) = {"
+hW
+mg
+mg
+MD
+vN
+ol
+ol
+ol
+gm
+iW
+jG
+FM
+vh
+Cl
+yO
+gm
+Kz
+pg
+Cl
+Cl
+Gh
+ol
+ol
+KU
+KU
+KU
+KU
+BJ
+tg
+mg
+mg
+mg
+mg
+mg
+mr
+"}
+(23,1,1) = {"
+hW
+sI
+mg
+ic
+ol
+KN
+ol
+Wf
+gm
+gm
+gm
+gm
+mu
+Cl
+mw
+gm
+DN
+Cl
+Cl
+Cl
+Gh
+ol
+GD
+qn
+ol
+rj
+rj
+JE
+Pn
+tM
+ol
+tg
+mg
+hW
+hW
+"}
+(24,1,1) = {"
+we
+hW
+mg
+mg
+ol
+ol
+ol
+ol
+FN
+ol
+QM
+Cl
+Cl
+Cl
+Cl
+QM
+Cl
+Cl
+De
+Zs
+gm
+ol
+GD
+JY
+ol
+ol
+ol
+ol
+JE
+NH
+ol
+mg
+mg
+hW
+we
+"}
+(25,1,1) = {"
+we
+hW
+sI
+mg
+ic
+ol
+ol
+ol
+ao
+ol
+gm
+BT
+tj
+Cl
+iL
+gm
+Cl
+Cl
+gP
+lC
+gm
+ic
+ol
+ol
+ol
+rj
+rj
+ol
+JE
+NH
+tg
+mg
+mr
+hW
+we
+"}
+(26,1,1) = {"
+we
+we
+hW
+mg
+mg
+ol
+ol
+Zr
+ol
+ol
+Gh
+Lh
+Cs
+Cl
+uI
+gm
+gm
+Fl
+gm
+gm
+gm
+ol
+GD
+rj
+ol
+ol
+ol
+ol
+JE
+NH
+mg
+mg
+hW
+we
+we
+"}
+(27,1,1) = {"
+we
+we
+hW
+sI
+mg
+ic
+ol
+ol
+ol
+ol
+Gh
+Wr
+gQ
+Cl
+Wg
+gm
+xZ
+SY
+gm
+UB
+ol
+ol
+GD
+BE
+ol
+rj
+rj
+JE
+pj
+tg
+mg
+mr
+hW
+we
+we
+"}
+(28,1,1) = {"
+we
+we
+we
+hW
+mg
+mg
+ol
+ol
+Wf
+ol
+gm
+gm
+gm
+QM
+gm
+gm
+Ne
+Ci
+gm
+KN
+ol
+ol
+ol
+en
+en
+en
+en
+en
+ol
+mg
+mg
+hW
+we
+we
+we
+"}
+(29,1,1) = {"
+we
+we
+we
+hW
+hW
+mg
+mg
+ol
+ol
+dB
+FN
+tM
+fN
+Bb
+bF
+gm
+gm
+gm
+gm
+ol
+tM
+ol
+ol
+ol
+Zr
+ol
+ol
+ol
+mg
+mg
+hW
+hW
+we
+we
+we
+"}
+(30,1,1) = {"
+we
+we
+we
+we
+hW
+hW
+mg
+mg
+DZ
+ol
+ol
+ol
+JI
+Cl
+Bq
+Wm
+ol
+FN
+ao
+ol
+ol
+ol
+ol
+ol
+ol
+ol
+DZ
+mg
+mg
+hW
+hW
+we
+we
+we
+we
+"}
+(31,1,1) = {"
+we
+we
+we
+we
+we
+hW
+hW
+mg
+mg
+mg
+DZ
+ol
+ol
+ol
+ol
+ol
+ol
+ol
+ol
+ol
+tM
+ol
+ol
+ol
+DZ
+mg
+mg
+mg
+hW
+hW
+we
+we
+we
+we
+we
+"}
+(32,1,1) = {"
+we
+we
+we
+we
+we
+we
+hW
+hW
+og
+mg
+mg
+mg
+DZ
+ol
+ol
+vN
+ol
+Wf
+MD
+MD
+ol
+ol
+DZ
+mg
+mg
+mg
+og
+hW
+hW
+we
+we
+we
+we
+we
+we
+"}
+(33,1,1) = {"
+we
+we
+we
+we
+we
+we
+we
+we
+hW
+hW
+og
+mg
+mg
+mg
+ol
+DZ
+ol
+MD
+MD
+Jk
+ol
+mg
+mg
+mg
+og
+hW
+hW
+we
+we
+we
+we
+we
+we
+we
+we
+"}
+(34,1,1) = {"
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+hW
+hW
+og
+mg
+mg
+mg
+mg
+mg
+mg
+mg
+mg
+mg
+og
+hW
+hW
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+"}
+(35,1,1) = {"
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+hW
+hW
+hW
+og
+hW
+hW
+hW
+og
+hW
+hW
+hW
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+we
+"}

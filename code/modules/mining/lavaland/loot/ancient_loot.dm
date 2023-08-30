@@ -3,6 +3,7 @@
 
 /obj/structure/closet/crate/necropolis/ancient/populate_contents()
 	new /obj/item/pinpointer/tendril(src)
+	new /obj/item/gem/data(src)
 	var/list/common_ore = list(
 		/obj/item/stack/ore/uranium,
 		/obj/item/stack/ore/silver,

@@ -11,6 +11,13 @@
 	put_on_delay = 20
 	clipped = 1
 
+/obj/item/clothing/gloves/fingerless/weaver
+	name = "weaver chitin gloves"
+	desc = "Grey gloves without fingertips made from the hide of a dead arachnid found on lavaland. Makes wearer stronger in disarming ability."
+	icon_state = "weaver_chitin"
+	item_state = "weaver_chitin"
+	extra_knock_chance = 5
+
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"
 	name = "cyborg gloves"

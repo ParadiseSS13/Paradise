@@ -108,6 +108,9 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
 		"Unathi" = 'icons/mob/species/unathi/uniform.dmi',
+		"Ash Walker" = 'icons/mob/species/unathi/uniform.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/uniform.dmi',
+		"Draconid" = 'icons/mob/species/unathi/uniform.dmi',
 		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
 		"Farwa" = 'icons/mob/species/monkey/uniform.dmi',
 		"Wolpin" = 'icons/mob/species/monkey/uniform.dmi',

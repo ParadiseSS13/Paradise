@@ -6,7 +6,13 @@
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 	var/random_crystal = pick(choices)
 	new random_crystal(src)
-	new /obj/item/organ/internal/vocal_cords/colossus(src)
+	new /obj/item/gem/void(src)
+	var/loot = rand(1,2)
+	switch(loot)
+		if(1)
+			new /obj/item/organ/internal/vocal_cords/colossus(src)
+		if(2)
+			new /obj/item/clothing/glasses/hud/godeye(src)
 
 /obj/structure/closet/crate/necropolis/colossus/crusher
 	name = "angelic colossus chest"

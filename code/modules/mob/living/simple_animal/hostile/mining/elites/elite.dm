@@ -74,7 +74,7 @@
 	. = ..()
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/M = target
-		M.gets_drilled()
+		M.attempt_drill()
 	if(istype(target, /obj/mecha))
 		var/obj/mecha/M = target
 		M.take_damage(mech_damage, BRUTE, "melee", 1)

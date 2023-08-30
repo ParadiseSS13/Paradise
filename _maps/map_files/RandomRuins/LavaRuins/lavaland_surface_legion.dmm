@@ -1,0 +1,371 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"b" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/table,
+/obj/item/rod_of_asclepius,
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"c" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium{
+	pixel_y = 7
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"g" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"o" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"p" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/bed,
+/obj/item/bedsheet/yellow,
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"q" = (
+/turf/simulated/wall/mineral/sandstone,
+/area/ruin/unpowered/misc_lavaruin)
+"v" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/table,
+/obj/item/flashlight/flare/torch,
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"z" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/item/flashlight/flare/torch,
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"B" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/mineral_door/sandstone,
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"C" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"E" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"F" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
+"I" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/spidereggsham,
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"K" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/rack,
+/obj/item/clothing/shoes/roman,
+/obj/item/clothing/under/roman,
+/obj/item/clothing/head/helmet/roman/legionaire,
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"R" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"T" = (
+/obj/effect/turf_decal/sand/plating,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"U" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/rack,
+/obj/item/shield/riot/roman{
+	name = "battered shield"
+	},
+/obj/item/claymore{
+	name = "ancient sword";
+	desc = "A cracked and blunted sword, clearly weathered over the ages."
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+
+(1,1,1) = {"
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+"}
+(2,1,1) = {"
+F
+F
+F
+F
+F
+F
+F
+F
+F
+q
+q
+q
+q
+q
+q
+F
+"}
+(3,1,1) = {"
+F
+q
+q
+q
+q
+q
+q
+q
+q
+q
+K
+K
+K
+K
+q
+q
+"}
+(4,1,1) = {"
+F
+q
+o
+a
+z
+q
+a
+a
+R
+q
+a
+T
+R
+o
+K
+q
+"}
+(5,1,1) = {"
+F
+q
+a
+b
+a
+q
+a
+o
+a
+B
+a
+a
+R
+z
+K
+q
+"}
+(6,1,1) = {"
+F
+q
+R
+I
+R
+B
+a
+R
+R
+q
+a
+a
+a
+T
+K
+q
+"}
+(7,1,1) = {"
+F
+q
+a
+a
+o
+q
+T
+a
+z
+q
+U
+U
+U
+U
+q
+q
+"}
+(8,1,1) = {"
+F
+q
+q
+q
+q
+q
+a
+a
+T
+q
+q
+q
+q
+q
+q
+F
+"}
+(9,1,1) = {"
+F
+q
+p
+a
+p
+q
+a
+a
+a
+q
+E
+g
+E
+E
+q
+F
+"}
+(10,1,1) = {"
+F
+q
+a
+o
+a
+q
+a
+T
+a
+q
+a
+a
+a
+a
+q
+F
+"}
+(11,1,1) = {"
+F
+q
+a
+a
+a
+B
+a
+a
+R
+B
+a
+a
+c
+v
+q
+F
+"}
+(12,1,1) = {"
+F
+q
+p
+a
+v
+q
+a
+a
+R
+q
+a
+a
+a
+a
+q
+F
+"}
+(13,1,1) = {"
+F
+q
+q
+q
+q
+q
+q
+B
+q
+q
+g
+g
+E
+E
+q
+F
+"}
+(14,1,1) = {"
+F
+F
+F
+F
+F
+F
+C
+C
+C
+q
+q
+q
+q
+q
+q
+F
+"}
+(15,1,1) = {"
+F
+F
+F
+F
+F
+F
+F
+C
+C
+F
+F
+F
+F
+F
+F
+F
+"}

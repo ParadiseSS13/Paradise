@@ -250,7 +250,7 @@
 	var/start_now_confirmation = 0
 
 	// Lavaland
-	var/lavaland_budget = 60
+	var/lavaland_budget = 70
 
 	//cube monkey limit
 	var/cubemonkeycap = 20

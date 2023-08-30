@@ -1425,3 +1425,25 @@
 	else
 		update_flags |= M.adjustToxLoss(4, FALSE)
 	return ..() | update_flags
+
+/datum/reagent/medicine/grubjuice
+	name = "Grub juice"
+	id = "grub_juice"
+	description = "A potent medicinal product that can have dangerous side effects if used too much."
+	color = "#43bf1d"
+	taste_description = "bug intestines"
+	overdose_threshold = 10
+	can_synth = FALSE
+
+/datum/reagent/medicine/grubjuice/on_mob_life(mob/living/carbon/M) //huge heal for huge liver problems
+	M.heal_overall_damage(4,4, FALSE)
+	..()
+	return TRUE
+
+/datum/reagent/medicine/grubjuice/overdose_process(mob/living/M)
+	M.adjustBruteLoss(3, 0, FALSE)
+	M.adjustFireLoss(3, 0, FALSE)
+	M.adjustToxLoss(5, 0)
+	..()
+	return TRUE
+

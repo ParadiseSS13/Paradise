@@ -2,6 +2,7 @@
 	name = "dragon chest"
 
 /obj/structure/closet/crate/necropolis/dragon/populate_contents()
+	new /obj/item/gem/amber(src)
 	var/loot = rand(1,4)
 	switch(loot)
 		if(1)
@@ -12,7 +13,10 @@
 			new /obj/item/spellbook/oneuse/sacredflame(src)
 			new /obj/item/gun/magic/wand/fireball(src)
 		if(4)
-			new /obj/item/dragons_blood(src)
+			if(prob(25)) //Still same chance but now you know if you're turning into a lizard (ew)
+				new /obj/item/dragons_blood/refined(src)
+			else
+				new /obj/item/dragons_blood(src)
 
 
 /obj/structure/closet/crate/necropolis/dragon/crusher
@@ -138,6 +142,21 @@
 		if(3)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
 			H.weather_immunities |= "lava"
+
+	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	qdel(src)
+
+/obj/item/dragons_blood/refined
+	name = "bottle of refined dragons blood"
+	desc = "You're totally going to drink this, aren't you?"
+
+/obj/item/dragons_blood/refined/attack_self(mob/living/carbon/human/user)
+	if(!istype(user))
+		return
+
+	var/mob/living/carbon/human/H = user
+	to_chat(user, span_danger("You feel warmth spread through you, paired with an odd desire to burn down a village. You're suddenly a very small, humanoid ash dragon!"))
+	H.set_species(/datum/species/unathi/draconid)
 
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	qdel(src)

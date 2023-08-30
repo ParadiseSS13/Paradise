@@ -23,57 +23,67 @@
 	speak_emote = list("screeches")
 	throw_message = "sinks in slowly, before being pushed out of "
 	deathmessage = "spits up the contents of its stomach before dying!"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub = 1)
 	status_flags = CANPUSH
 	search_objects = 1
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
-						  /obj/item/stack/ore/uranium)
+						  /obj/item/stack/ore/uranium, /obj/item/stack/ore/titanium)
 
 	var/chase_time = 100
 	var/will_burrow = TRUE
+	var/max_loot = 15 // The maximum amount of ore that can be stored in this thing's gut
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
 	. = ..()
 	var/i = rand(1,3)
 	while(i)
-		loot += pick(/obj/item/stack/ore/silver, /obj/item/stack/ore/gold, /obj/item/stack/ore/uranium, /obj/item/stack/ore/diamond)
+		loot += pick(wanted_objects)
 		i--
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/GiveTarget(new_target)
 	target = new_target
 	if(target != null)
-		if(istype(target, /obj/item/stack/ore) && loot.len < 10)
-			visible_message("<span class='notice'>The [name] looks at [target.name] with hungry eyes.</span>")
-		else if(isliving(target))
+		if(wanted_objects[target.type] && loot.len < max_loot)
+			visible_message("<span class='notice'>\The [name] looks at [target.name] with hungry eyes.</span>")
+		else if(iscarbon(target) || issilicon(target))
 			Aggro()
-			visible_message("<span class='danger'>The [name] tries to flee from [target.name]!</span>")
+			visible_message("<span class='danger'>\The [name] tries to flee from \the [target.name]!</span>")
 			retreat_distance = 10
 			minimum_distance = 10
 			if(will_burrow)
 				addtimer(CALLBACK(src, PROC_REF(Burrow)), chase_time)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/AttackingTarget()
-	if(istype(target, /obj/item/stack/ore))
+	if(wanted_objects[target.type])
 		EatOre(target)
 		return
 	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/EatOre(atom/targeted_ore)
-	for(var/obj/item/stack/ore/O in get_turf(targeted_ore))
-		if(length(loot) < 10)
-			var/using = min(10 - length(loot), O.amount)
-			for(var/i in 1 to using)
-				loot += O.type
-			O.use(using)
-	visible_message("<span class='notice'>The ore was swallowed whole!</span>")
+	var/obj/item/stack/ore/O = targeted_ore
+	if(length(loot) < max_loot)
+		var/using = min(max_loot - length(loot), O.amount)
+		for(var/i in 1 to using)
+			loot += O.type
+		O.use(using)
+		visible_message("<span class='notice'>\The ore was swallowed whole by \the [name]!</span>")
+	else // We are now full! We will consume no more ore ever again.
+		search_objects = 0
+		visible_message("<span class='notice'>\The [name] nibbles some of the ore and then stops. \She seems to be full!</span>")
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//Begin the chase to kill the goldgrub in time
-	if(!stat)
-		visible_message("<span class='danger'>The [name] buries into the ground, vanishing from sight!</span>")
+/mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//You failed the chase to kill the goldgrub in time!
+	if(stat == CONSCIOUS)
+		visible_message("<span class='danger'>\The [name] buries into the ground, vanishing from sight!</span>")
 		qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/item/projectile/P)
-	visible_message("<span class='danger'>[P.name] was repelled by [name]'s girth!</span>")
+	visible_message("<span class='danger'>[P.name] was repelled by \the [name]'s blubberous girth!</span>")
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE)
 	vision_range = 9
+	. = ..()
+
+/mob/living/simple_animal/hostile/asteroid/goldgrub/death(gibbed)
+	if(prob(10))
+		new /obj/item/gem/rupee(loc)
 	. = ..()

@@ -102,6 +102,9 @@
 	if(tool)
 		speed_mod = tool.toolspeed * gettoolspeedmod(user)
 
+	if(is_species(user, /datum/species/unathi/ashwalker/shaman))//shaman is slightly better at surgeries
+		speed_mod *= 0.9
+
 	if(do_after(user, time * speed_mod, target = target))
 		var/advance = 0
 		var/prob_chance = 100

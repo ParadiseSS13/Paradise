@@ -1,17 +1,24 @@
 /**********************Mining Scanner**********************/
 /obj/item/mining_scanner
-	desc = "A scanner that checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results."
+	desc = "A scanner that checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	name = "manual mining scanner"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "mining1"
+	icon_state = "miningmanual"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/cooldown = 35
 	var/current_cooldown = 0
+	var/speaker = TRUE // Speaker that plays a sound when pulsed.
+	var/soundone = 'sound/lavaland/area_scan1.ogg'
+	var/soundtwo = 'sound/lavaland/area_scan2.ogg'
 
 	origin_tech = "engineering=1;magnets=1"
+
+/obj/item/mining_scanner/AltClick(mob/user)
+	speaker = !speaker
+	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
 /obj/item/mining_scanner/attack_self(mob/user)
 	if(!user.client)
@@ -19,6 +26,8 @@
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
 		mineral_scan_pulse(get_turf(user))
+		if(speaker)
+			playsound(src, pick(soundone, soundtwo), 15)
 
 
 //Debug item to identify all ore spread quickly
@@ -31,9 +40,9 @@
 	qdel(src)
 
 /obj/item/t_scanner/adv_mining_scanner
-	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range."
+	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	name = "advanced automatic mining scanner"
-	icon_state = "amining0"
+	icon_state = "adv_mining0"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
@@ -41,26 +50,39 @@
 	var/cooldown = 35
 	var/current_cooldown = 0
 	var/range = 7
+	var/speaker = TRUE // Speaker that plays a sound when pulsed.
+	var/soundone = 'sound/lavaland/area_scan1.ogg'
+	var/soundtwo = 'sound/lavaland/area_scan2.ogg'
+
 	origin_tech = "engineering=3;magnets=3"
+
+/obj/item/t_scanner/adv_mining_scanner/AltClick(mob/user)
+	speaker = !speaker
+	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg
 	flags = CONDUCT | NODROP
+	speaker = FALSE //you know...
 
 /obj/item/t_scanner/adv_mining_scanner/lesser
 	name = "automatic mining scanner"
-	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results."
+	icon_state = "mining0"
+	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	range = 4
 	cooldown = 50
 
 /obj/item/mining_scanner/cyborg
 	cooldown = 50
 	flags = CONDUCT | NODROP
+	speaker = FALSE
 
 /obj/item/t_scanner/adv_mining_scanner/scan()
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
 		var/turf/t = get_turf(src)
 		mineral_scan_pulse(t, range)
+		if(speaker)
+			playsound(src, pick(soundone, soundtwo), 15)
 
 /proc/mineral_scan_pulse(turf/T, range = world.view)
 	var/list/minerals = list()

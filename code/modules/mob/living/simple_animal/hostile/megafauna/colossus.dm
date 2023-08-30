@@ -209,6 +209,7 @@ Difficulty: Very Hard
 	for(var/mob/M in range(10,src))
 		if(M.client)
 			flash_color(M.client, "#C80000", 1)
+			sleep(0.5 SECONDS)
 			shake_camera(M, 4, 3)
 	playsound(src, 'sound/magic/narsie_attack.ogg', 200, TRUE)
 

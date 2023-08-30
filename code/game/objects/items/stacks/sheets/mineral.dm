@@ -445,6 +445,19 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	recipes = GLOB.adamantine_recipes
 
 /*
+ * Mythril
+ */
+/obj/item/stack/sheet/mineral/mythril
+	name = "mythril"
+	desc = "A rare mineral used in construction of chitin armor."
+	icon_state = "sheet-mythril"
+	item_state = "sheet-mythril"
+	singular_name = "mythril sheet"
+	origin_tech = "materials=7"
+	merge_type = /obj/item/stack/sheet/mineral/mythril
+	wall_allowed = FALSE
+
+/*
  * Snow
  */
 /obj/item/stack/sheet/mineral/snow

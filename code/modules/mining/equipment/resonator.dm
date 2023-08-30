@@ -98,7 +98,7 @@
 			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
 		else
 			var/turf/simulated/mineral/M = T
-			M.gets_drilled(creator)
+			M.attempt_drill(creator)
 	check_pressure(T)
 	playsound(T,'sound/weapons/resonator_blast.ogg',50,1)
 	for(var/mob/living/L in T)

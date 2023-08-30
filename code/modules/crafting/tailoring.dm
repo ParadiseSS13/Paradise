@@ -269,6 +269,38 @@
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/footwrapsgoliath
+	name = "Goliath Hide Footwraps"
+	result = /obj/item/clothing/shoes/footwraps/goliath
+	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1,
+				/obj/item/stack/sheet/leather = 1)
+	time = 6 SECONDS
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/footwrapsdragon
+	name = "Ash Drake Hide Footwraps"
+	result = /obj/item/clothing/shoes/footwraps/dragon
+	reqs = list(/obj/item/stack/sheet/animalhide/ashdrake = 1,
+				/obj/item/stack/sheet/leather = 1)
+	time = 6 SECONDS
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/goliathgloves
+	name = "Goliath Gloves"
+	result = /obj/item/clothing/gloves/color/black/goliath
+	time = 2 SECONDS
+	reqs = list(/obj/item/stack/sheet/leather = 2,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/chitingloves
+	name = "Weaver Chitin Gloves"
+	result = /obj/item/clothing/gloves/fingerless/weaver
+	time = 2 SECONDS
+	reqs = list(/obj/item/stack/sheet/leather = 1,
+				/obj/item/stack/sheet/animalhide/weaver_chitin = 3)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/voice_modulator
 	name = "Voice Modulator Mask"
 	result = list(/obj/item/clothing/mask/gas/voice_modulator)

@@ -67,6 +67,11 @@
 	origin_tech = "engineering=3;bluespace=4"
 	template_id = "shelter_beta"
 
+/obj/item/survivalcapsule/luxuryelite
+	name = "luxury elite bar capsule"
+	desc = "A luxury bar in a capsule. Bartender required and not included."
+	template_id = "shelter_charlie"
+
 //Pod turfs and objects
 
 //Window

@@ -31,26 +31,37 @@
 	. = ..()
 	prize_list = list()
 	prize_list["Gear"] = list(
-		EQUIPMENT("Advanced Scanner",				/obj/item/t_scanner/adv_mining_scanner, 							800),
+		EQUIPMENT("Automatic Scanner",				/obj/item/t_scanner/adv_mining_scanner/lesser, 						800),
+		EQUIPMENT("Advanced Scanner",				/obj/item/t_scanner/adv_mining_scanner, 							3000),
 		EQUIPMENT("Explorer's Webbing",				/obj/item/storage/belt/mining, 										500),
 		EQUIPMENT("Fulton Beacon",					/obj/item/fulton_core, 												400),
 		EQUIPMENT("Mining Conscription Kit",		/obj/item/storage/backpack/duffel/mining_conscript, 				1500),
 		EQUIPMENT("Jetpack Upgrade",				/obj/item/tank/jetpack/suit, 										2000),
 		EQUIPMENT("Jump Boots",						/obj/item/clothing/shoes/bhop, 										2500),
+		EQUIPMENT("Jump Boots Implants",			/obj/item/storage/box/jumpbootimplant, 								6000),
 		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule, 												800),
 		EQUIPMENT("Lazarus Capsule belt",			/obj/item/storage/belt/lazarus, 									200),
 		EQUIPMENT("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining, 						2000),
 		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker, 								600),
+		EQUIPMENT("Plasma Cutter",					/obj/item/gun/energy/plasmacutter,									1500),
+		EQUIPMENT("Industrial Mining Satchel",		/obj/item/storage/bag/ore/bigger,									500),
+		EQUIPMENT("Meson Health Scanner HUD",		/obj/item/clothing/glasses/hud/health/meson,						1000),
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", 				/obj/item/stack/marker_beacon/ten, 									100),
+		EQUIPMENT("30 Marker Beacons",				/obj/item/stack/marker_beacon/thirty,								500),
+		EQUIPMENT("Pocket Fire Extinguisher",		/obj/item/extinguisher/mini,										200),
 		EQUIPMENT("Brute First-Aid Kit", 			/obj/item/storage/firstaid/brute,									600),
 		EQUIPMENT("Fire First-Aid Kit",				/obj/item/storage/firstaid/fire,									600),
+		EQUIPMENT("Mining Charge",					/obj/item/grenade/plastic/miningcharge/lesser,						250),
+		EQUIPMENT("Industrial Mining Charge",		/obj/item/grenade/plastic/miningcharge,								600),
 		EQUIPMENT("Whetstone",						/obj/item/whetstone,												400),
 		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1000),
 		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										750),
 		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										1000),
-		EQUIPMENT("Point Transfer Card", 			/obj/item/card/mining_point_card, 									500),
+		EQUIPMENT("Point Transfer Card (500)", 		/obj/item/card/mining_point_card, 									500),
+		EQUIPMENT("Point Transfer Card (1000)", 	/obj/item/card/mining_point_card/thousand, 							1000),
+		EQUIPMENT("Point Transfer Card (5000)", 	/obj/item/card/mining_point_card/fivethousand, 						5000),
 		EQUIPMENT("Shelter Capsule", 				/obj/item/survivalcapsule, 											400),
 		EQUIPMENT("Stabilizing Serum", 				/obj/item/hivelordstabilizer, 										400),
 		EQUIPMENT("Survival Medipen", 				/obj/item/reagent_containers/hypospray/autoinjector/survival, 		500),
@@ -65,6 +76,7 @@
 		EQUIPMENT("KA Minebot Passthrough", 		/obj/item/borg/upgrade/modkit/minebot_passthrough, 					100),
 		EQUIPMENT("KA Range Increase", 				/obj/item/borg/upgrade/modkit/range, 								1000),
 		EQUIPMENT("KA Super Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod, 							250),
+		EQUIPMENT("KA Hardness Increase",			/obj/item/borg/upgrade/modkit/hardness,								1200),
 		EQUIPMENT("KA White Tracer Rounds", 		/obj/item/borg/upgrade/modkit/tracer, 								100),
 	)
 	prize_list["Digging Tools"] = list(
@@ -90,6 +102,7 @@
 		EQUIPMENT("GPS upgrade", 					/obj/item/gpsupgrade, 												1000),
 		EQUIPMENT("Laser Pointer", 					/obj/item/laser_pointer, 											300),
 		EQUIPMENT("Luxury Shelter Capsule", 		/obj/item/survivalcapsule/luxury, 									3000),
+		EQUIPMENT("Luxury Elite Bar Capsule",		/obj/item/survivalcapsule/luxuryelite,								10000),
 		EQUIPMENT("Soap", 							/obj/item/soap/nanotrasen, 											200),
 		EQUIPMENT("Space Cash", 					/obj/item/stack/spacecash/c1000, 									2000),
 		EQUIPMENT("Whiskey", 						/obj/item/reagent_containers/food/drinks/bottle/whiskey, 			100),
@@ -242,7 +255,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
+	var/items = list("Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Plasma Cutter Kit", "Mining Explosives Kit", "Crusher Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -250,7 +263,7 @@
 
 	var/drop_location = drop_location()
 	switch(selection)
-		if("Survival Capsule and Explorer's Webbing")
+		if("Explorer's Webbing")
 			new /obj/item/storage/belt/mining/vendor(drop_location)
 		if("Resonator Kit")
 			new /obj/item/extinguisher/mini(drop_location)
@@ -263,6 +276,11 @@
 			new /obj/item/extraction_pack(drop_location)
 			new /obj/item/fulton_core(drop_location)
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
+		if("Plasma Cutter Kit")
+			new /obj/item/gun/energy/plasmacutter(drop_location)
+			new /obj/item/storage/bag/ore/bigger(drop_location)
+		if("Mining Explosives Kit")
+			new /obj/item/storage/backpack/duffel/miningcharges(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
@@ -381,6 +399,12 @@
 	icon_state = "data"
 	var/points = 500
 
+/obj/item/card/mining_point_card/thousand
+	points = 100
+
+/obj/item/card/mining_point_card/fivethousand
+	points = 5000
+
 /obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
 	if(I.GetID())
 		if(points)
@@ -396,6 +420,17 @@
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>There's [points] points on the card.</span>"
+
+/*********************Jump Boots Implants********************/
+
+/obj/item/storage/box/jumpbootimplant
+	name = "box of jumpboot implants"
+	desc = "A box holding a set of jumpboot implants. They will require surgical implantation to function."
+	icon_state = "cyber_implants"
+
+/obj/item/storage/box/jumpbootimplant/populate_contents()
+	new /obj/item/organ/internal/cyberimp/leg/jumpboots(src)
+	new /obj/item/organ/internal/cyberimp/leg/jumpboots/l(src)
 
 
 #undef EQUIPMENT

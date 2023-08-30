@@ -738,7 +738,7 @@ Difficulty: Very Hard
 	sleep(duration)
 	if(ismineralturf(T))
 		var/turf/simulated/mineral/M = T
-		M.gets_drilled()
+		M.attempt_drill()
 	playsound(T, 'sound/effects/meteorimpact.ogg', 80, TRUE)
 	for(var/mob/living/L in T.contents)
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/ancient_robot))

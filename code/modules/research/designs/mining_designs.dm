@@ -21,24 +21,25 @@
 	build_path = /obj/item/pickaxe/drill/diamonddrill
 	category = list("Mining")
 
-/datum/design/plasmacutter
-	name = "Plasma Cutter"
-	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
-	id = "plasmacutter"
-	req_tech = list("materials" = 3, "plasmatech" = 3, "magnets" = 2)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 1500, MAT_GLASS = 500, MAT_PLASMA = 400)
-	build_path = /obj/item/gun/energy/plasmacutter
-	category = list("Mining")
 
 /datum/design/plasmacutter_adv
 	name = "Advanced Plasma Cutter"
 	desc = "It's an advanced plasma cutter, oh my god."
 	id = "plasmacutter_adv"
-	req_tech = list("materials" = 4, "plasmatech" = 4, "engineering" = 2, "combat" = 3, "magnets" = 3)
+	req_tech = list("materials" = 5, "plasmatech" = 6, "engineering" = 6, "combat" = 3, "magnets" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_PLASMA = 2000, MAT_GOLD = 500)
 	build_path = /obj/item/gun/energy/plasmacutter/adv
+	category = list("Mining")
+
+/datum/design/plasmacutter_shotgun
+	name = "Plasma Cutter Shotgun"
+	desc = "An industrial-grade heavy-duty mining shotgun."
+	id = "plasmacutter_shotgun"
+	req_tech = list("materials" = 7, "powerstorage" = 5, "plasmatech" = 7, "engineering" = 7, "combat" = 6, "magnets" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000, MAT_PLASMA = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 3000)
+	build_path = /obj/item/gun/energy/plasmacutter/shotgun
 	category = list("Mining")
 
 /datum/design/jackhammer
@@ -129,4 +130,14 @@
 	build_type = PROTOLATHE | SMELTER
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500, MAT_TITANIUM = 1000)
 	build_path = /obj/item/stack/fireproof_rods
+	category = list("Mining")
+
+/datum/design/mining_charge
+	name = "Experimental Mining Charge"
+	desc = "An experimental mining charge"
+	id = "megacharge"
+	req_tech = list("materials" = 5, "engineering" = 5, "plasmatech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 6000, MAT_URANIUM = 1000)
+	build_path = /obj/item/grenade/plastic/miningcharge/mega
 	category = list("Mining")

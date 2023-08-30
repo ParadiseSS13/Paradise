@@ -145,7 +145,7 @@
 	var/turf/T = get_step(get_turf(src), move_dir)
 	if(ismineralturf(T))
 		var/turf/simulated/mineral/M = T
-		M.gets_drilled()
+		M.attempt_drill()
 	if(T.density)
 		charging = FALSE
 		return

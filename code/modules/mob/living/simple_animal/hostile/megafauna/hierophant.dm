@@ -55,8 +55,8 @@ Difficulty: Hard
 	ranged = TRUE
 	ranged_cooldown_time = 40
 	aggro_vision_range = 21 //so it can see to one side of the arena to the other
-	loot = list(/obj/item/hierophant_club)
-	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman)
+	loot = list(/obj/item/hierophant_club, /obj/item/gem/purple)
+	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman, /obj/item/gem/purple)
 	wander = FALSE
 	internal_type = /obj/item/gps/internal/hierophant
 	medal_type = BOSS_MEDAL_HIEROPHANT
@@ -506,7 +506,7 @@ Difficulty: Hard
 	. = ..()
 	if(ismineralturf(loc))
 		var/turf/simulated/mineral/M = loc
-		M.gets_drilled(caster)
+		M.attempt_drill(caster)
 
 /obj/effect/temp_visual/hierophant/wall //smoothing and pooling were not friends, but pooling is dead.
 	name = "vortex wall"
@@ -643,7 +643,7 @@ Difficulty: Hard
 		hit_things += new_caster
 	if(ismineralturf(loc)) //drill mineral turfs
 		var/turf/simulated/mineral/M = loc
-		M.gets_drilled(caster)
+		M.attempt_drill(caster)
 	INVOKE_ASYNC(src, PROC_REF(blast))
 
 /obj/effect/temp_visual/hierophant/blast/proc/blast()

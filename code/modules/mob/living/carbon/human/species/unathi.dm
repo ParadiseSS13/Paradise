@@ -162,6 +162,60 @@
 		"eyes" =     /obj/item/organ/internal/eyes/unathi
 		)
 
+//Ash walker shaman, worse defensive stats, but better at surgery and have a healing touch ability
+/datum/species/unathi/ashwalker/shaman
+	name = "Ash Walker Shaman"
+	brute_mod = 1.15
+	burn_mod = 1.15
+	speed_mod = -0.60 //less fast as ash walkers
+	punchdamagelow = 7
+	punchdamagehigh = 7
+	punchstunthreshold = 7
+	toolspeedmod = 0.9 //they're smart and efficient unlike other lizards
+	var/obj/effect/proc_holder/spell/touch/healtouch/goodtouch
+
+//gives the heal spell
+/datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+	. = ..()
+	goodtouch = new /obj/effect/proc_holder/spell/touch/healtouch
+	C.AddSpell(goodtouch)
+
+//removes the heal spell
+/datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/C)
+	. = ..()
+	if(goodtouch)
+		C.RemoveSpell(goodtouch)
+
+//basic touch ability that heals brute and burn, only accessed by the ashwalker shaman
+/obj/effect/proc_holder/spell/touch/healtouch
+	name = "healing touch"
+	desc = "This spell charges your hand with the vile energy of the Necropolis, permitting you to undo some external injuries from a target."
+	hand_path = /obj/item/melee/touch_attack/healtouch
+
+	school = "evocation"
+	panel = "Ashwalker"
+	base_cooldown = 20 SECONDS
+	clothes_req = FALSE
+
+	action_icon_state = "spell_default"
+
+/obj/item/melee/touch_attack/healtouch
+	name = "\improper healing touch"
+	desc = "A blaze of life-granting energy from the hand. Heals minor to moderate injuries."
+	catchphrase = "BE REPLENISHED!!"
+	on_use_sound = 'sound/magic/staff_healing.ogg'
+	icon_state = "disintegrate" //ironic huh
+	item_state = "disintegrate"
+	var/healamount = 20 //total of 40 assuming they're hurt by both brute and burn
+
+/obj/item/melee/touch_attack/healtouch/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //no healing yourself
+		return
+	var/mob/living/M = target
+	new /obj/effect/temp_visual/heal(get_turf(M), "#899d39")
+	M.heal_overall_damage(healamount, healamount, 0) //notice it doesn't heal toxins, still need to learn chems for that
+	return ..()
+
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag
@@ -212,3 +266,43 @@
 				to_chat(H, "<span class='danger'>Слишком холодно, я засыпаю...</span>")
 		else
 			return
+
+/*
+draconids
+These guys only come from the dragon's blood bottle from lavaland.
+They're basically just lizards with all-around marginally better stats and fire resistance.
+*/
+/datum/species/unathi/draconid
+	name = "Draconid"
+	name_plural = "Draconids"
+	flesh_color = "#A02720"
+	base_color = "#110101"
+	brute_mod = 0.8 //something something dragon scales
+	burn_mod = 0.9
+	clothing_flags = null //no clothing.
+	punchdamagelow = 9
+	punchdamagehigh = 18
+	punchstunthreshold = 18	//+8 claws of powergaming
+	species_traits = list(LIPS, PIERCEIMMUNE, RESISTHOT) //Dragons like fire
+	no_equip = list(slot_shoes) //everyone have to pay for
+	speed_mod = -0.25			//beeing slightly faster
+
+/datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
+	. = ..()
+	var/obj/shoes = C.get_item_by_slot(slot_shoes)
+	if(shoes && C.can_unEquip(shoes))
+		C.drop_item_ground(shoes)
+	var/obj/item/organ/external/head/head_organ = C.get_organ("head")
+	C.skin_colour = base_color
+	head_organ.h_style = "Drake"
+	C.change_eye_color("#A02720")
+	C.update_dna()
+	C.update_inv_head()
+	C.update_inv_wear_suit() //update sprites for digi legs
+	C.weather_immunities |= "ash"
+
+/datum/species/unathi/draconid/on_species_loss(mob/living/carbon/C)
+	. = ..()
+	C.update_inv_head()
+	C.update_inv_wear_suit()
+	C.weather_immunities -= "ash"

@@ -421,3 +421,37 @@
 		icon_state = "cheesus2"
 		return ..()
 	return ..()
+
+//////BONES
+/obj/structure/bones
+	name = "large bone"
+	desc = "a large bone that belong to the unknown creature"
+	icon = 'icons/obj/bones_64x64.dmi'
+	icon_state = "l_bone"
+	anchored = TRUE
+	density = TRUE
+	max_integrity = 1000
+
+/obj/structure/bones/right
+	icon_state = "r_bone"
+
+/obj/structure/bones/skull
+	name = "large skull"
+	desc = "a large skull that belong to the unknown creature"
+	icon_state = "skull"
+
+/obj/structure/bones/ribs_left
+	name = "large ribs"
+	desc = "a large ribs that belong to the unknown creature"
+	icon_state = "l_ribs"
+
+/obj/structure/bones/ribs_right
+	name = "large ribs"
+	desc = "a large ribs that belong to the unknown creature"
+	icon_state = "r_ribs"
+
+/obj/structure/statue/bone/rib
+	name = "colossal rib"
+	desc = "It's staggering to think that something this big could have lived, let alone died."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "rib"

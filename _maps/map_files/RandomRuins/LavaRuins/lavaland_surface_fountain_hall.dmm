@@ -1,182 +1,1330 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/template_noop,
-/area/template_noop)
-"b" = (
-/turf/simulated/wall/cult,
-/area/ruin/unpowered/misc_lavaruin)
-"c" = (
-/obj/structure/healingfountain,
+"af" = (
+/obj/structure/table/wood,
+/obj/item/organ/internal/brain,
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
-"d" = (
-/obj/structure/fluff/divine/conduit,
+"aV" = (
+/obj/structure/table/wood,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
-"e" = (
+"cj" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 4
+	},
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"cs" = (
+/turf/simulated/mineral/random/volcanic/hard/double/high_chance,
+/area/lavaland/surface/outdoors)
+"dC" = (
+/obj/effect/decal/cleanable/blood/old{
+	layer = 3
+	},
 /obj/structure/sacrificealtar,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
-"f" = (
+"eq" = (
+/obj/effect/decal/cleanable/blood/old{
+	layer = 3.1
+	},
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
-"g" = (
+"eM" = (
+/obj/structure/fluff/divine/conduit,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"hV" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/poppy{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/grown/poppy,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"ib" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 4
+	},
 /mob/living/simple_animal/butterfly,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
-"h" = (
-/obj/structure/fans/tiny/invisible,
+"ik" = (
+/turf/simulated/mineral/random/volcanic/hard,
+/area/ruin/unpowered/misc_lavaruin)
+"ir" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 4
+	},
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
-"i" = (
+"it" = (
+/obj/structure/table/wood,
+/obj/item/organ/internal/ears,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"oE" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lantern,
+/obj/item/trash/candle,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"oM" = (
+/mob/living/simple_animal/butterfly,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"oW" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"px" = (
+/obj/structure/table/wood,
+/obj/item/organ/internal/liver,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"rk" = (
+/obj/structure/table/wood,
+/obj/item/organ/internal/appendix,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"rx" = (
+/turf/simulated/mineral/random/volcanic/hard/double,
+/area/lavaland/surface/outdoors)
+"sv" = (
+/obj/structure/chair/sofa/pew/right{
+	dir = 4
+	},
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"td" = (
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"tY" = (
+/turf/template_noop,
+/area/template_noop)
+"vs" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"wH" = (
+/turf/simulated/mineral/random/volcanic/hard/double/high_chance,
+/area/ruin/unpowered/misc_lavaruin)
+"wR" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/healingfountain,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"xg" = (
+/obj/item/candle,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"xL" = (
+/obj/item/trash/candle,
+/obj/effect/decal/cleanable/blood/old{
+	layer = 3
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"AE" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 4
+	},
+/turf/simulated/mineral/random/volcanic/hard,
+/area/ruin/unpowered/misc_lavaruin)
+"AI" = (
+/turf/simulated/wall/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"AR" = (
+/turf/simulated/mineral/random/volcanic/hard/double,
+/area/ruin/unpowered/misc_lavaruin)
+"Bw" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"BH" = (
+/obj/structure/table/wood,
+/obj/item/organ/internal/heart,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Di" = (
+/obj/structure/cult/archives,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Ff" = (
+/obj/structure/closet/coffin,
+/obj/structure/railing/wooden/endl{
+	dir = 4
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Gp" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"GH" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 4
+	},
+/turf/simulated/mineral/random/volcanic/hard/double/high_chance,
+/area/ruin/unpowered/misc_lavaruin)
+"It" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Ji" = (
+/obj/structure/fluff/divine/nexus,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Jr" = (
+/obj/structure/table/wood,
+/obj/item/organ/internal/eyes,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Mt" = (
+/obj/structure/table/wood,
+/obj/item/organ/internal/kidneys,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"MQ" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Nk" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/poppy/geranium,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Nv" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"NI" = (
+/obj/structure/table/wood,
+/obj/item/candle,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"NV" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/poppy/lily{
+	pixel_x = 4;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Ob" = (
+/turf/simulated/mineral/random/volcanic/hard,
+/area/lavaland/surface/outdoors)
+"Od" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
-"o" = (
+"Of" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"PY" = (
+/obj/structure/table/wood,
+/obj/item/organ/internal/lungs,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Qk" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Y" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+"Rm" = (
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Sl" = (
+/obj/item/trash/candle,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Ul" = (
+/obj/structure/table/wood,
+/obj/item/trash/candle,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"UO" = (
+/obj/effect/decal/cleanable/blood/old{
+	layer = 3
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"VM" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/harebell{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/harebell{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/harebell{
+	pixel_x = -4;
+	pixel_y = 5
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Wj" = (
+/obj/structure/chair/sofa/pew/right{
+	dir = 4
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Xg" = (
+/obj/structure/closet/coffin,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"Yd" = (
+/obj/structure/railing/wooden/endl{
+	dir = 4
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered/misc_lavaruin)
+"YU" = (
+/obj/structure/chair/sofa/pew/right{
+	dir = 4
+	},
+/turf/simulated/mineral/random/volcanic/hard,
+/area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
-a
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-o
-Y
+tY
+tY
+Ob
+Ob
+Ob
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+Ob
+Ob
+tY
+Ob
+Ob
+tY
 "}
 (2,1,1) = {"
-a
-b
-d
-f
-f
-d
-f
-f
-d
-f
-f
-d
-f
-f
-d
-b
-o
-Y
+tY
+Ob
+cs
+cs
+cs
+Ob
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+Qk
+tY
+tY
+tY
+Ob
+Ob
+tY
+Qk
+Qk
+Qk
+tY
+tY
+tY
+tY
+Ob
+Ob
+Ob
+cs
+cs
+Ob
+Ob
 "}
 (3,1,1) = {"
-b
-b
-e
-g
-f
-f
-g
-f
-f
-f
-f
-g
-f
-g
-f
-b
-Y
-Y
+tY
+Ob
+Ob
+Ob
+Ob
+Ob
+tY
+tY
+tY
+tY
+tY
+tY
+Qk
+Qk
+Ob
+tY
+Ob
+Qk
+Ob
+tY
+Ob
+Ob
+Qk
+tY
+tY
+tY
+tY
+Ob
+Ob
+Ob
+cs
+cs
+Ob
+Ob
 "}
 (4,1,1) = {"
-b
-c
-f
-f
-f
-f
-f
-f
-i
-f
-f
-f
-f
-f
-f
-h
-Y
-Y
+tY
+Ob
+Ob
+Ob
+tY
+tY
+tY
+tY
+tY
+tY
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Qk
+tY
+tY
+tY
+tY
+tY
+Ob
+cs
+cs
+Ob
+tY
 "}
 (5,1,1) = {"
-b
-b
-e
-f
-f
-f
-f
-g
-f
-f
-f
-f
-f
-f
-f
-b
-Y
-Y
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+Qk
+Ob
+Ob
+Ob
+Ob
+cs
+cs
+cs
+Ob
+Ob
+Ob
+Ob
+cs
+cs
+cs
+Ob
+Qk
+tY
+tY
+tY
+Ob
+Ob
+Ob
+Ob
+tY
 "}
 (6,1,1) = {"
-a
-b
-d
-g
-f
-d
-f
-f
-d
-f
-f
-d
-f
-g
-d
-b
-Y
-Y
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+Ob
+Ob
+Ob
+Ob
+Ob
+rx
+rx
+AI
+AI
+AI
+AI
+Rm
+AI
+AI
+AI
+AI
+Ob
+Ob
+Ob
+Qk
+tY
+tY
+tY
+tY
+tY
+tY
 "}
 (7,1,1) = {"
-a
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-o
-Y
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+Ob
+Ob
+Ob
+Ob
+rx
+AI
+AI
+AI
+td
+td
+td
+td
+td
+td
+td
+AI
+AI
+AI
+Ob
+Ob
+Qk
+tY
+tY
+tY
+tY
+tY
+"}
+(8,1,1) = {"
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+Ob
+Ob
+Ob
+Ob
+rx
+AI
+AI
+eM
+td
+td
+Wj
+ir
+td
+Wj
+ir
+oM
+td
+eM
+AI
+AI
+Ob
+Ob
+Qk
+tY
+tY
+tY
+tY
+"}
+(9,1,1) = {"
+tY
+tY
+Qk
+tY
+tY
+Ob
+Ob
+Ob
+Ob
+Ob
+rx
+AI
+AI
+eM
+td
+oM
+Sl
+td
+ik
+ik
+vs
+td
+oM
+td
+td
+eM
+AI
+AI
+Ob
+Qk
+tY
+tY
+tY
+tY
+"}
+(10,1,1) = {"
+tY
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+rx
+rx
+rx
+AI
+eM
+td
+td
+td
+vs
+YU
+GH
+ik
+YU
+ir
+td
+xg
+oM
+td
+eM
+AI
+Ob
+Ob
+Qk
+tY
+tY
+tY
+"}
+(11,1,1) = {"
+Qk
+Ob
+Ob
+Ob
+rx
+AI
+AI
+AI
+AI
+AI
+AI
+AI
+td
+td
+Wj
+cj
+ik
+ik
+wH
+ik
+vs
+vs
+td
+Wj
+ir
+td
+td
+AI
+AI
+cs
+Ob
+tY
+tY
+tY
+"}
+(12,1,1) = {"
+Qk
+Ob
+Ob
+rx
+AI
+Xg
+Ff
+Ff
+Ff
+Ff
+AI
+Nv
+oM
+xg
+td
+vs
+vs
+YU
+GH
+wH
+YU
+AE
+td
+td
+td
+td
+td
+MQ
+AI
+cs
+Ob
+Qk
+tY
+tY
+"}
+(13,1,1) = {"
+Qk
+Ob
+Ob
+rx
+AI
+td
+td
+td
+td
+td
+AI
+Nv
+td
+td
+Wj
+ib
+td
+ik
+AR
+AR
+ik
+ik
+vs
+Wj
+ir
+td
+td
+Bw
+AI
+Ob
+Ob
+Ob
+Qk
+tY
+"}
+(14,1,1) = {"
+tY
+Ob
+Ob
+rx
+AI
+td
+aV
+Of
+Nk
+td
+AI
+Ul
+td
+oM
+td
+td
+vs
+sv
+AE
+ik
+sv
+cj
+td
+td
+td
+Sl
+oM
+oW
+AI
+Ob
+Ob
+Ob
+Qk
+tY
+"}
+(15,1,1) = {"
+tY
+tY
+Ob
+Ob
+Rm
+td
+VM
+Ji
+hV
+td
+Rm
+td
+td
+td
+Wj
+ir
+td
+vs
+vs
+Od
+td
+td
+td
+Wj
+ir
+td
+td
+oE
+AI
+Ob
+Ob
+Ob
+Qk
+tY
+"}
+(16,1,1) = {"
+tY
+Ob
+Ob
+rx
+AI
+td
+NI
+NI
+NV
+td
+AI
+Ul
+td
+td
+td
+td
+oM
+Wj
+ir
+td
+Wj
+ir
+td
+td
+oM
+td
+td
+Nv
+AI
+cs
+Ob
+tY
+tY
+tY
+"}
+(17,1,1) = {"
+Qk
+Ob
+Ob
+rx
+AI
+td
+Yd
+Yd
+Yd
+Yd
+AI
+Nv
+td
+td
+td
+td
+td
+td
+td
+td
+UO
+td
+xg
+td
+td
+td
+td
+Nv
+AI
+cs
+Ob
+Qk
+tY
+tY
+"}
+(18,1,1) = {"
+Qk
+Ob
+Ob
+rx
+AI
+Xg
+Xg
+Xg
+Xg
+Xg
+AI
+Nv
+td
+oM
+td
+Ji
+AI
+td
+Sl
+eq
+xL
+td
+AI
+Ji
+td
+oM
+td
+Nv
+AI
+Ob
+Ob
+Qk
+tY
+tY
+"}
+(19,1,1) = {"
+tY
+Ob
+Ob
+Ob
+Ob
+AI
+AI
+AI
+AI
+AI
+AI
+AI
+td
+td
+td
+AI
+af
+UO
+eq
+Gp
+It
+td
+Mt
+AI
+td
+td
+td
+AI
+AI
+Ob
+Ob
+tY
+tY
+tY
+"}
+(20,1,1) = {"
+tY
+tY
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+rx
+AI
+eM
+td
+td
+AI
+it
+td
+It
+dC
+UO
+UO
+px
+AI
+td
+td
+eM
+AI
+cs
+Ob
+Qk
+tY
+tY
+tY
+"}
+(21,1,1) = {"
+tY
+tY
+tY
+Ob
+Ob
+Ob
+tY
+Ob
+Ob
+Ob
+Ob
+AI
+AI
+eM
+td
+AI
+Jr
+td
+UO
+wR
+It
+UO
+PY
+AI
+td
+eM
+AI
+AI
+Ob
+Ob
+Qk
+tY
+tY
+tY
+"}
+(22,1,1) = {"
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+Ob
+Ob
+rx
+AI
+AI
+eM
+AI
+BH
+td
+td
+UO
+td
+td
+rk
+AI
+eM
+AI
+AI
+cs
+Ob
+Qk
+tY
+tY
+tY
+tY
+"}
+(23,1,1) = {"
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+Ob
+Ob
+AI
+AI
+AI
+Nv
+oM
+xg
+Di
+td
+oM
+Nv
+AI
+AI
+AI
+cs
+Ob
+Ob
+Qk
+tY
+tY
+tY
+tY
+"}
+(24,1,1) = {"
+Ob
+Ob
+Ob
+Ob
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+Ob
+rx
+rx
+AI
+AI
+AI
+AI
+AI
+AI
+AI
+AI
+AI
+Ob
+Ob
+Ob
+Ob
+Ob
+tY
+tY
+tY
+tY
+tY
+"}
+(25,1,1) = {"
+tY
+Ob
+cs
+cs
+Ob
+Ob
+Ob
+Ob
+Ob
+tY
+tY
+tY
+tY
+Ob
+Ob
+Ob
+cs
+cs
+cs
+cs
+cs
+cs
+cs
+Ob
+Ob
+Ob
+Ob
+Ob
+tY
+tY
+tY
+tY
+tY
+tY
+"}
+(26,1,1) = {"
+tY
+Ob
+cs
+cs
+Ob
+Ob
+tY
+Qk
+Qk
+tY
+tY
+tY
+tY
+tY
+tY
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Ob
+Qk
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+"}
+(27,1,1) = {"
+tY
+Ob
+Ob
+Ob
+Ob
+Ob
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+Ob
+Ob
+Ob
+tY
+tY
+Ob
+Ob
+Ob
+Ob
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+"}
+(28,1,1) = {"
+tY
+tY
+Ob
+Ob
+Ob
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
+tY
 "}

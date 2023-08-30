@@ -463,3 +463,12 @@
 		/obj/item/toy/desk/fan,
 		/obj/item/hourglass
 	)
+
+/obj/effect/spawner/lootdrop/marrow_weaver
+	name = "40% marrow weaver spawner"
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "weaver"
+	lootdoubles = 0
+	lootcount = 1
+	loot = list(/mob/living/simple_animal/hostile/asteroid/marrowweaver = 40,
+			"" = 60)

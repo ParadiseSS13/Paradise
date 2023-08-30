@@ -31,10 +31,18 @@
 	name = "Hierophant's Arena"
 	icon_state = "dk_yellow"
 
+/area/ruin/unpowered/drake
+	name = "Acnient Temple"
+	icon_state = "dk_yellow"
+
 /area/ruin/powered/pride
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/seedvault
+	icon_state = "dk_yellow"
+
+/area/ruin/powered/green_bio
+	name = "Biodome"
 	icon_state = "dk_yellow"
 
 /area/ruin/unpowered/syndicate_lava_base

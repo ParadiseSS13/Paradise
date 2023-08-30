@@ -434,6 +434,15 @@
 	item_color = "ash"
 	has_sensor = FALSE
 
+/obj/item/clothing/under/ash_walker_shaman
+	name = "shaman tribal rags"
+	desc = "Rags from Lavaland, drenched with ash, it has fine jewel coated bones sewn around the neck. This one seems to be for the shaman of a tribe."
+	icon_state = "shamanrags"
+	item_state = "shamanrags"
+	item_color = "shamanrags"
+	has_sensor = FALSE
+	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+
 //dress
 
 /obj/item/clothing/under/dress/dress_fire

@@ -11,11 +11,11 @@
 "S" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 8;
-	height = 20;
+	dwidth = 10;
+	height = 30;
 	id = "freegolem_space";
 	name = "The middle of space";
-	width = 16
+	width = 20
 	},
 /turf/template_noop,
 /area/template_noop)

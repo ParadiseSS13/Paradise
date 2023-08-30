@@ -12,7 +12,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 29)
+	var/loot = rand(1, 30)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -26,7 +26,7 @@
 		if(4)
 			new /obj/item/katana/cursed(src)
 		if(5)
-			new /obj/item/clothing/glasses/godeye(src)
+			new /obj/item/book_of_babel(src)
 		if(6)
 			new /obj/item/pickaxe/diamond(src)
 		if(7)
@@ -34,10 +34,7 @@
 			new /obj/item/bedsheet/cult(src)
 			new /obj/item/stack/sheet/runed_metal_fake/fifty(src)
 		if(8)
-			if(prob(50))
-				new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)
-			else
-				new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
+			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(9)
 			new /obj/item/rod_of_asclepius(src)
 		if(10)
@@ -50,16 +47,15 @@
 			new /obj/item/jacobs_ladder(src)
 		if(14)
 			new /obj/item/nullrod/scythe/talking(src)
-		if(15)
-			new /obj/item/nullrod/armblade(src)
+		if(15)//select and spawn a random nullrod that a chaplain could choose from
+			var/path = pick(subtypesof(/obj/item/nullrod))
+			new path(src)
 		if(16)
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
+			new /obj/item/stack/sheet/runed_metal_fake/fifty(src)
 		if(17)
-			if(prob(50))
-				new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
-			else
-				new /obj/item/disk/design_disk/modkit_disc/bounty(src)
+			new /obj/item/organ/internal/heart/gland/heals(src)
 		if(18)
 			new /obj/item/warp_cube/red(src)
 		if(19)
@@ -80,19 +76,31 @@
 				new /obj/item/reagent_containers/food/drinks/bottle/holywater(src)
 				new /obj/item/clothing/suit/space/hardsuit/champion/templar/premium(src)
 		if(25)
-			new /obj/item/spellbook/oneuse/summonitem(src)
+			new /obj/item/eflowers(src)
 		if(26)
-			new /obj/item/book_of_babel(src)
+			new /obj/item/rune_scimmy(src)
 		if(27)
-			new /obj/item/borg/upgrade/modkit/lifesteal(src)
-			new /obj/item/bedsheet/cult(src)
-			new /obj/item/stack/sheet/runed_metal_fake/fifty(src)
+			new /obj/item/dnainjector/midgit(src)
+			new /obj/item/grenade/plastic/miningcharge/mega(src)
+			new /obj/item/grenade/plastic/miningcharge/mega(src)
+			new /obj/item/grenade/plastic/miningcharge/mega(src)
 		if(28)
+			var/mega = rand(1, 4)
+			switch(mega)
+				if(1)
+					new /obj/item/twohanded/kinetic_crusher/mega(src)
+				if(2)
+					new /obj/item/gun/energy/plasmacutter/shotgun/mega(src)
+				if(3)
+					new /obj/item/gun/energy/plasmacutter/adv/mega(src)
+				if(4)
+					new /obj/item/gun/energy/kinetic_accelerator/mega(src)
+		if(29)
 			new /obj/item/clothing/suit/hooded/clockrobe_fake(src)
 			new /obj/item/clothing/gloves/clockwork_fake(src)
 			new /obj/item/clothing/shoes/clockwork_fake(src)
 			new /obj/item/stack/sheet/brass_fake/fifty(src)
-		if(29)
+		if(30)
 			new /obj/item/clothing/suit/armor/clockwork_fake(src)
 			new /obj/item/clothing/head/helmet/clockwork_fake(src)
 			new /obj/item/stack/sheet/brass_fake/fifty(src)
@@ -248,3 +256,76 @@
 	icon_state = "asclepius_active"
 	item_state = "asclepius_active"
 	activated = TRUE
+// enchanced flowers
+#define COOLDOWN_SUMMON 1 MINUTES
+/obj/item/eflowers
+	name ="enchanted flowers"
+	desc ="A charming bunch of flowers, most animals seem to find the bearer amicable after momentary contact with it. Squeeze the bouquet to summon tamed creatures. Megafauna cannot be summoned. <b>Megafauna need to be exposed 35 times to become friendly.</b>"
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "eflower"
+	var/next_summon = 0
+	var/list/summons = list()
+	attack_verb = list("thumped", "brushed", "bumped")
+
+/obj/item/eflowers/attack_self(mob/user)
+	var/turf/T = get_turf(user)
+	var/area/A = get_area(user)
+	if(next_summon > world.time)
+		to_chat(user, span_warning("You can't do that yet!"))
+		return
+	if(is_station_level(T.z) && !A.outdoors)
+		to_chat(user, span_warning("You feel like calling a bunch of animals indoors is a bad idea."))
+		return
+	user.visible_message(span_warning("[user] holds the bouquet out, summoning their allies!"))
+	for(var/mob/m in summons)
+		m.forceMove(T)
+	playsound(T, 'sound/effects/splat.ogg', 80, 5, -1)
+	next_summon = world.time + COOLDOWN_SUMMON
+
+/obj/item/eflowers/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
+		return
+	var/mob/living/simple_animal/M = target
+	if(istype(M))
+		if(M.client)
+			to_chat(user, span_warning("[M] is too intelligent to tame!"))
+			return
+		if(M.stat)
+			to_chat(user, span_warning("[M] is dead!"))
+			return
+		if(M.faction == user.faction)
+			to_chat(user, span_warning("[M] is already on your side!"))
+			return
+		if(M.sentience_type == SENTIENCE_BOSS)
+			var/datum/status_effect/taming/G = M.has_status_effect(STATUS_EFFECT_TAMING)
+			if(!G)
+				M.apply_status_effect(STATUS_EFFECT_TAMING, user)
+			else
+				G.add_tame(G.tame_buildup)
+				if(ISMULTIPLE(G.tame_crit-G.tame_amount, 5))
+					to_chat(user, span_notice("[M] has to be exposed [G.tame_crit-G.tame_amount] more times to accept your gift!"))
+			return
+		if(M.sentience_type != SENTIENCE_ORGANIC)
+			to_chat(user, span_warning("[M] cannot be tamed!"))
+			return
+		if(!do_after(user, 1.5 SECONDS, target = M))
+			return
+		M.visible_message(span_notice("[M] seems happy with you after exposure to the bouquet!"))
+		M.add_atom_colour("#11c42f", FIXED_COLOUR_PRIORITY)
+		M.drop_loot()
+		M.faction = user.faction
+		summons |= M
+	..()
+
+//Runite Scimitar. Some weird runescape reference
+/obj/item/rune_scimmy
+	name = "rune scimitar"
+	desc = "A curved sword smelted from an unknown metal. Looking at it gives you the otherworldly urge to pawn it off for '30k', whatever that means."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "rune_scimmy"
+	force = 28
+	slot_flags = SLOT_BELT
+	damtype = BRUTE
+	sharp = TRUE
+	hitsound = 'sound/weapons/rs_slash.ogg'
+	attack_verb = list("slashed","pk'd","atk'd")

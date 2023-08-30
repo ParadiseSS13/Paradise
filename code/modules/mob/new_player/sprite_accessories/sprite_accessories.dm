@@ -541,7 +541,10 @@
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Unathi" = 'icons/mob/species/unathi/underwear.dmi')
+	"Unathi" = 'icons/mob/species/unathi/underwear.dmi',
+	"Ash Walker" = 'icons/mob/species/unathi/underwear.dmi',
+	"Ash Walker Shaman" = 'icons/mob/species/unathi/underwear.dmi',
+	"Draconid" = 'icons/mob/species/unathi/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude

@@ -250,7 +250,7 @@
 	. = ..()
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/M = target
-		M.gets_drilled()
+		M.attempt_drill()
 
 /obj/item/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()

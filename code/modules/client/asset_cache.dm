@@ -343,7 +343,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	verify = FALSE
 
 /datum/asset/simple/materials/register()
-	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic"))
+	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic",
+		"rglass", "plasteel", "plastitanium", "plasmaglass", "titaniumglass", "plastitaniumglass"))
 		assets["sheet-[n].png"] = icon('icons/obj/items.dmi', "sheet-[n]")
 	assets["sheet-bluespace.png"] = icon('icons/obj/telescience.dmi', "polycrystal")
 	..()

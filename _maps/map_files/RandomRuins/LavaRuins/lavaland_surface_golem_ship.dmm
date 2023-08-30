@@ -1,847 +1,1550 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aa" = (
-/turf/template_noop,
-/area/template_noop)
-"ac" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/shuttle,
-/turf/simulated/floor/shuttle/plating,
+"ay" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger{
+	pixel_x = 1;
+	pixel_y = 3
+	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"ad" = (
-/obj/structure/closet/crate/golemgear,
-/turf/simulated/floor/shuttle/plating,
+"aV" = (
+/obj/structure/table/reinforced,
+/obj/item/book/manual/research_and_development{
+	name = "Sacred Text of the Liberator";
+	pixel_y = 3;
+	pixel_x = -1
+	},
+/obj/machinery/light{
+	on = 1
+	},
+/turf/simulated/floor/carpet/black,
 /area/shuttle/freegolem)
-"ae" = (
-/obj/item/storage/toolbox/mechanical,
-/obj/item/reagent_containers/spray/cleaner,
-/turf/simulated/floor/shuttle/plating,
+"bq" = (
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 4
+	},
+/turf/simulated/floor/pod,
 /area/shuttle/freegolem)
-"af" = (
-/turf/simulated/floor/shuttle/plating,
+"bE" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
 /area/shuttle/freegolem)
-"ag" = (
-/obj/structure/reagent_dispensers/watertank/high,
-/turf/simulated/floor/shuttle/plating,
+"cp" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door_control{
+	id = "golem_shuttle";
+	name = "shuttle lockdown";
+	pixel_x = -32
+	},
+/turf/simulated/floor/pod,
 /area/shuttle/freegolem)
-"ah" = (
+"cI" = (
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/freegolem)
+"cU" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/metal{
+	amount = 50;
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"dT" = (
+/obj/structure/window/shuttle/survival_pod,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bridge_lockdown";
+	name = "Bridge Lockdown"
+	},
+/obj/docking_port/stationary{
+	area_type = /area/ruin/powered/golem_ship;
+	dir = 8;
+	dwidth = 10;
+	height = 30;
+	id = "freegolem_lavaland";
+	name = "Lavaland Surface";
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
+	width = 20
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 10;
+	height = 30;
+	id = "freegolem";
+	name = "Free Golem Ship";
+	width = 20
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"dX" = (
+/obj/effect/decal/warning_stripes/yellow/partial,
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"eG" = (
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 8
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"eU" = (
+/turf/simulated/floor/carpet/black,
+/area/shuttle/freegolem)
+"fk" = (
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 8
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"fo" = (
+/obj/machinery/light{
+	dir = 1;
+	layer = 1;
+	on = 1
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"fu" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"ai" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "burst_l"
-	},
-/turf/simulated/floor/shuttle/plating,
+"fw" = (
+/obj/effect/decal/warning_stripes/green/hollow,
+/obj/machinery/vending/snack/free,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"aj" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/shuttle/plating,
+"gr" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"ak" = (
-/obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/shuttle/plating,
+"gt" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"al" = (
-/obj/structure/table/wood,
-/obj/item/disk/design_disk/golem_shell,
-/obj/item/areaeditor/golem,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
+"iq" = (
+/obj/effect/decal/warning_stripes/yellow/partial,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"am" = (
-/obj/machinery/vending/hydronutrients,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
+"ir" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/box,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "golem_shuttle";
+	name = "Entrance Lockdown"
 	},
+/turf/simulated/floor/pod,
 /area/shuttle/freegolem)
-"an" = (
-/obj/machinery/vending/hydroseeds,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
+"jd" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/pod,
 /area/shuttle/freegolem)
-"ao" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"ap" = (
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aq" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/table/wood,
+"jT" = (
+/obj/structure/table/reinforced,
+/obj/item/bedsheet/rd/royal_cape,
 /obj/item/bedsheet/rd/royal_cape{
 	layer = 3;
 	pixel_x = 5;
 	pixel_y = 9
 	},
-/obj/item/book/manual/research_and_development{
-	name = "Sacred Text of the Liberator";
-	pixel_x = -4;
-	pixel_y = 3
+/obj/item/bedsheet/rd/royal_cape{
+	layer = 3;
+	pixel_x = 5;
+	pixel_y = 9
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
+/obj/item/bedsheet/rd/royal_cape,
+/obj/item/clothing/head/crown,
+/obj/item/clothing/head/crown,
+/obj/item/clothing/head/beret/sci,
+/obj/item/clothing/head/beret/sci,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"ar" = (
-/obj/effect/mob_spawn/human/golem/adamantine,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
+"kh" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/computer/shuttle/golem_ship/recall,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/golem_ship)
+"kj" = (
+/obj/machinery/light{
+	dir = 1;
+	layer = 1;
+	on = 1
 	},
-/area/shuttle/freegolem)
-"as" = (
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
+/obj/structure/table/reinforced,
+/obj/item/mining_voucher{
+	pixel_x = 7
 	},
-/area/shuttle/freegolem)
-"at" = (
-/obj/machinery/mineral/equipment_vendor/golem,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
+/obj/item/resonator/upgraded{
+	pixel_x = -7
 	},
+/turf/simulated/floor/carpet/black,
 /area/shuttle/freegolem)
-"au" = (
-/obj/machinery/door/airlock/shuttle,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
+"kv" = (
+/obj/machinery/door/airlock/survival_pod,
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"kO" = (
+/obj/structure/window/shuttle/survival_pod,
+/obj/machinery/door_control{
+	id = "bridge_lockdown";
+	name = "bridge lockdown";
+	pixel_x = -32
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bridge_lockdown";
+	name = "Bridge Lockdown"
+	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"av" = (
-/obj/structure/shuttle/engine/heater{
+"lh" = (
+/obj/structure/shuttle/engine/huge{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"ls" = (
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -32
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/freegolem)
+"lZ" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"me" = (
+/obj/structure/closet/crate/golemgear,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"mi" = (
+/obj/effect/turf_decal/box/corners,
+/obj/structure/rack,
+/obj/item/resonator,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"mn" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/shuttle/plating,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"aw" = (
-/obj/machinery/door/airlock/shuttle,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"ax" = (
+"mt" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/doctor,
 /obj/machinery/light{
+	on = 1
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"mz" = (
+/obj/machinery/door/airlock/survival_pod,
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/box,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "golem_shuttle";
+	name = "Entrance Lockdown"
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"mC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1;
+	do_not_delete_me = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"mN" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot_white,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"mZ" = (
+/obj/effect/decal/warning_stripes/green/partial{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod{
 	dir = 8
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"ay" = (
-/obj/machinery/mineral/ore_redemption/golem,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
+"nl" = (
+/obj/machinery/light{
+	dir = 4;
+	switchcount = 50
 	},
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/pod,
 /area/shuttle/freegolem)
-"az" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
+"nx" = (
+/obj/structure/sign/mining,
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/freegolem)
+"nZ" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	dir = 1;
+	name = "Broken Computer"
 	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"aA" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/golem_ship)
-"aD" = (
-/obj/structure/computerframe,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aE" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/freegolem)
-"aF" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aG" = (
-/obj/machinery/door/airlock/shuttle,
-/obj/structure/fans/tiny,
-/obj/docking_port/stationary{
-	area_type = /area/ruin/powered/golem_ship;
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem_lavaland";
-	name = "Lavaland Surface";
-	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
-	width = 16
-	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem";
-	name = "Free Golem Ship";
-	width = 16
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aH" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/freegolem)
-"aI" = (
-/obj/machinery/computer/shuttle/golem_ship/recall,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/golem_ship)
-"aK" = (
-/turf/simulated/wall/shuttle,
-/area/shuttle/freegolem)
-"aL" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/shuttle,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aM" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/freegolem)
-"aN" = (
-/obj/item/resonator/upgraded,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aO" = (
-/obj/machinery/autolathe,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aQ" = (
-/obj/structure/table/wood,
-/obj/machinery/reagentgrinder,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aS" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/shuttle/freegolem)
-"aT" = (
-/obj/machinery/light,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aU" = (
-/obj/structure/table/wood,
-/obj/item/resonator,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aV" = (
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aW" = (
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/brute,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aX" = (
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/fire,
-/obj/machinery/light,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aY" = (
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/adv,
-/obj/item/storage/firstaid/adv,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"ba" = (
-/obj/machinery/light/small{
+"ot" = (
+/obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/freegolem)
-"bb" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/freegolem)
-"bc" = (
-/obj/structure/ore_box,
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/freegolem)
-"be" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 4
 	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"oD" = (
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3";
+	tag = "icon-heater (NORTH)";
+	dir = 8
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"oY" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"pz" = (
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"pJ" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"qf" = (
+/obj/effect/turf_decal/number/number_1{
+	dir = 1
+	},
+/obj/effect/mob_spawn/human/golem/adamantine,
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/freegolem)
+"qD" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"rq" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -5
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"rt" = (
+/turf/template_noop,
+/area/shuttle/freegolem)
+"sa" = (
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"ta" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/obj/item/reagent_containers/glass/bucket,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"tc" = (
+/obj/machinery/computer/mech_bay_power_console,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"tu" = (
+/obj/machinery/door_control{
+	id = "bridge_lockdown";
+	name = "bridge lockdown";
+	pixel_x = -32
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/freegolem)
+"tF" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/warning_stripes/green/hollow,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"ub" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"uO" = (
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"uQ" = (
+/obj/structure/window/reinforced/survival_pod,
+/obj/effect/decal/warning_stripes/green/partial{
+	dir = 1
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"vO" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"wo" = (
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"wG" = (
+/obj/structure/sign/mining/survival,
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/freegolem)
+"xv" = (
+/obj/structure/window/reinforced/survival_pod{
+	density = 0;
+	dir = 6
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"xI" = (
+/obj/machinery/door_control{
+	id = "bridge_lockdown";
+	name = "bridge lockdown";
+	pixel_x = -32
+	},
+/obj/structure/window/shuttle/survival_pod,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bridge_lockdown";
+	name = "Bridge Lockdown"
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"yf" = (
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"yh" = (
+/obj/effect/decal/warning_stripes/green/partial{
+	dir = 4
+	},
+/obj/machinery/vending/hydroseeds,
+/obj/effect/decal/warning_stripes/green/partial{
+	dir = 6
+	},
+/obj/effect/decal/warning_stripes/green/partial{
+	dir = 1
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"yw" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 10;
+	density = 0
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"yB" = (
+/turf/template_noop,
+/area/template_noop)
+"yO" = (
 /obj/machinery/light,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
+/turf/simulated/floor/mech_bay_recharge_floor{
+	icon_state = "recharge_floor_dark"
 	},
 /area/shuttle/freegolem)
-"bf" = (
+"zc" = (
+/obj/structure/sign/mining/survival{
+	tag = "icon-survival (NORTH)";
+	icon_state = "survival";
+	dir = 1
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/freegolem)
+"Ag" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"AL" = (
+/obj/machinery/light{
+	dir = 4;
+	switchcount = 50
+	},
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_y = 3
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"BF" = (
+/obj/machinery/mineral/ore_redemption/golem,
+/obj/machinery/light{
+	dir = 4;
+	pixel_y = -32
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"BG" = (
+/obj/effect/turf_decal/loading_area,
+/obj/effect/turf_decal/box/corners,
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/obj/structure/ore_box,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"BI" = (
+/obj/machinery/light{
+	dir = 4;
+	switchcount = 50
+	},
+/obj/structure/closet/crate/hydroponics/prespawned,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"BN" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/door_control{
+	id = "golem_shuttle";
+	name = "shuttle lockdown";
+	pixel_x = -32
+	},
+/turf/simulated/floor/carpet/black,
+/area/shuttle/freegolem)
+"Ch" = (
+/obj/machinery/door_control{
+	id = "golem_shuttle";
+	name = "shuttle lockdown";
+	pixel_x = -32
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/freegolem)
+"Cl" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -32
+	},
+/obj/effect/decal/warning_stripes/green/hollow,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"Ct" = (
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side";
+	tag = "icon-heater (NORTH)";
+	dir = 8
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"CQ" = (
+/obj/machinery/vending/wallmed{
+	pixel_x = -25
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/shuttle/freegolem)
+"DN" = (
+/obj/machinery/mineral/equipment_vendor/golem,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"DS" = (
+/obj/structure/ore_box,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"Ev" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 9;
+	density = 0
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"Ez" = (
+/obj/machinery/door_control{
+	id = "golem_shuttle";
+	name = "shuttle lockdown";
+	pixel_x = -32
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"EF" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/resonator,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"Fq" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/adv,
+/obj/item/storage/firstaid/adv,
+/obj/item/storage/firstaid/adv,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"Ft" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/item/resonator,
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/freegolem)
+"FH" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/shuttle/freegolem)
+"Gs" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/golem_ship)
+"Gu" = (
+/obj/effect/turf_decal/number/number_4{
+	dir = 1
+	},
+/obj/effect/mob_spawn/human/golem/adamantine,
+/obj/effect/turf_decal/box/white,
+/obj/machinery/door_control{
+	id = "golem_shuttle";
+	name = "shuttle lockdown";
+	pixel_x = -32
+	},
+/turf/simulated/floor/carpet/black,
+/area/shuttle/freegolem)
+"GE" = (
+/obj/machinery/door/airlock/survival_pod,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"KY" = (
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -32
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 4
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"Lv" = (
 /obj/structure/statue/gold/rd{
 	name = "statue of the Liberator"
 	},
-/obj/structure/window/reinforced{
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"LL" = (
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side_inv";
+	tag = "icon-heater (NORTH)";
+	dir = 8
+	},
+/obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
-	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"bh" = (
-/turf/simulated/wall/shuttle{
+"LV" = (
+/obj/machinery/vending/hydronutrients,
+/obj/effect/decal/warning_stripes/green/partial{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/green/partial{
+	dir = 6
+	},
+/obj/effect/decal/warning_stripes/green/partial{
 	dir = 1
 	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"ik" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth,
+"Md" = (
+/obj/structure/table/reinforced,
+/obj/item/disk/design_disk/golem_shell,
+/obj/item/areaeditor/golem,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"is" = (
-/turf/simulated/wall/shuttle{
+"MI" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"MJ" = (
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -32
+	},
+/obj/machinery/door_control{
+	id = "golem_shuttle";
+	name = "shuttle lockdown";
+	pixel_x = -32
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 4
 	},
+/obj/effect/decal/warning_stripes/yellow/partial,
+/turf/simulated/floor/pod,
 /area/shuttle/freegolem)
-"qo" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
+"MW" = (
+/obj/machinery/light{
+	dir = 4;
+	switchcount = 50
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1;
+	do_not_delete_me = 1
+	},
+/turf/simulated/floor/pod,
 /area/shuttle/freegolem)
-"JQ" = (
-/obj/machinery/light,
-/obj/structure/chair/comfy/purp{
+"Nx" = (
+/obj/structure/closet/crate/golemgear,
+/obj/machinery/light{
+	dir = 1;
+	layer = 1;
+	on = 1
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"NV" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/freegolem)
+"Oc" = (
+/obj/effect/turf_decal/number/number_2{
 	dir = 1
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor5"
+/obj/effect/mob_spawn/human/golem/adamantine,
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/freegolem)
+"OK" = (
+/obj/structure/closet/crate/engineering,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/electrical,
+/obj/item/clothing/head/welding,
+/obj/item/clothing/head/welding,
+/obj/item/multitool/abductor,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"Pn" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"Ps" = (
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -32
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
+/obj/machinery/vending/coffee/free,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"PF" = (
+/obj/machinery/light{
+	on = 1
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"PZ" = (
+/obj/effect/turf_decal/number/number_3{
+	dir = 1
+	},
+/obj/effect/turf_decal/number/number_3{
+	dir = 1
+	},
+/obj/effect/mob_spawn/human/golem/adamantine,
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/freegolem)
+"Qt" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"RQ" = (
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"SD" = (
+/obj/machinery/autolathe,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"SX" = (
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"Tf" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/resonator,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"TQ" = (
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 8
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"Uh" = (
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"UC" = (
+/obj/structure/computerframe,
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -32
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"Vi" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1;
+	do_not_delete_me = 1
+	},
+/obj/machinery/door_control{
+	id = "golem_shuttle";
+	name = "shuttle lockdown";
+	pixel_x = -32
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"Wn" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/yellow/partial,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"WX" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"WZ" = (
+/obj/machinery/computer/crew{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"Xe" = (
+/obj/structure/window/shuttle/survival_pod,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bridge_lockdown";
+	name = "Bridge Lockdown"
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"XV" = (
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -32
+	},
+/obj/structure/closet/crate/golemgear,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"YL" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 
 (1,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-az
-aH
-aH
-aE
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+yB
+rt
+rt
+rt
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+rt
+rt
+rt
+yB
 "}
 (2,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aK
-bf
-aq
-aK
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+yB
+yf
+lh
+yf
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+yf
+lh
+yf
+yB
 "}
 (3,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-az
-ik
-au
-aS
-aD
-JQ
-aS
-au
-ik
-aE
-aa
-aa
-aa
-aa
-aa
+cI
+cI
+cI
+cI
+cI
+yB
+yB
+yB
+rt
+rt
+rt
+yB
+yB
+yB
+cI
+cI
+cI
+cI
+cI
 "}
 (4,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-is
-am
-ap
-ax
-ap
-ap
-ax
-ap
-as
-aK
-aa
-aa
-aa
-aa
-aa
+zc
+Ct
+oD
+LL
+wG
+yB
+yB
+cI
+yf
+lh
+yf
+cI
+yB
+yB
+zc
+Ct
+oD
+LL
+wG
 "}
 (5,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-is
-an
-ap
-ap
-ap
-ap
-ap
-ap
-aV
-aK
-aa
-aa
-aa
-aa
-aa
+cI
+cI
+cI
+cI
+cI
+yB
+yB
+cI
+cI
+cI
+cI
+cI
+yB
+yB
+cI
+cI
+cI
+cI
+cI
 "}
 (6,1,1) = {"
-aa
-aa
-az
-bh
-bh
-aS
-ao
-ap
-ap
-ap
-ap
-ap
-ap
-aT
-aS
-bh
-bh
-aE
-aa
-aa
+cI
+Ps
+yf
+xv
+cI
+cI
+cI
+cI
+Ct
+oD
+LL
+cI
+cI
+cI
+cI
+XV
+me
+DS
+cI
 "}
 (7,1,1) = {"
-aa
-aa
-aK
-ad
-af
-aw
-ap
-ap
-ap
-ap
-ap
-ap
-ap
-ap
-aw
-af
-bc
-aK
-aa
-aa
+cI
+fw
+yf
+uQ
+Cl
+yf
+tF
+cI
+cI
+cI
+cI
+ls
+Lv
+Md
+cI
+yf
+yf
+DS
+cI
 "}
 (8,1,1) = {"
-aa
-aa
-aK
-ad
-af
-aw
-ap
-ap
-ap
-ap
-ap
-ap
-ap
-ap
-aw
-af
-bc
-aK
-aa
-aa
+cI
+cI
+yf
+uQ
+tF
+yf
+tF
+cI
+UC
+uO
+sa
+ot
+WX
+WX
+cI
+GE
+cI
+cI
+cI
 "}
 (9,1,1) = {"
-aa
-aa
-aK
-ad
-aj
-ik
-ao
-ap
-ap
-ap
-ap
-ap
-ap
-aT
-ik
-ba
-bc
-aK
-aa
-aa
+yB
+cI
+yf
+uQ
+tF
+yf
+tF
+cI
+sa
+uO
+sa
+Wn
+yf
+yf
+iq
+yf
+tc
+cI
+yB
 "}
 (10,1,1) = {"
-aa
-aa
-aK
-ad
-af
-aK
-ap
-ap
-ar
-aU
-aU
-ar
-ap
-ap
-aK
-af
-bc
-aK
-aa
-aa
+yB
+cI
+yf
+yw
+mZ
+yf
+yh
+cI
+sa
+uO
+sa
+Wn
+yf
+yf
+iq
+yf
+yO
+cI
+yB
 "}
 (11,1,1) = {"
-aa
-aa
-aK
-ad
-af
-aK
-ap
-ap
-ar
-aU
-aU
-ar
-ap
-ap
-aK
-af
-bc
-aK
-aa
-aa
+yB
+zc
+yf
+yf
+yf
+yf
+LV
+cI
+mn
+yf
+mn
+Ev
+wo
+wo
+yf
+yf
+MI
+wG
+yB
 "}
 (12,1,1) = {"
-aa
-aa
-aK
-ad
-aj
-ik
-ao
-ap
-ap
-ap
-ap
-ap
-ap
-aT
-ik
-ba
-bc
-aK
-aa
-aa
+yB
+cI
+BI
+yf
+yf
+yf
+yf
+GE
+yf
+yf
+yf
+yf
+yf
+yf
+yf
+yf
+ay
+cI
+yB
 "}
 (13,1,1) = {"
-aa
-aa
-aK
-ad
-af
-aw
-ap
-ap
-ap
-ap
-ap
-ap
-ap
-ap
-aw
-af
-bc
-aK
-aa
-aa
+yB
+cI
+cI
+ta
+Pn
+AL
+YL
+nx
+DN
+yf
+BG
+BF
+SX
+SD
+cU
+lZ
+cI
+cI
+yB
 "}
 (14,1,1) = {"
-aa
-ah
-aK
-ad
-af
-aw
-ap
-ap
-ap
-ap
-ap
-ap
-ap
-ap
-aw
-af
-bc
-aK
-ah
-aa
+fu
+fu
+cI
+cI
+cI
+cI
+cI
+cI
+cI
+kv
+cI
+cI
+cI
+cI
+Ch
+cI
+cI
+Gs
+fu
 "}
 (15,1,1) = {"
-aa
-ah
-ik
-ae
-af
-ik
-ap
-ap
-ap
-ap
-ap
-ap
-ap
-aW
-ik
-af
-ae
-ik
-ah
-aa
+fu
+fu
+Uh
+mz
+Vi
+jd
+ir
+MJ
+bq
+KY
+bq
+Ez
+ir
+mC
+cp
+mz
+Uh
+Gs
+fu
 "}
 (16,1,1) = {"
-ah
-ah
-ac
-af
-aj
-aK
-ao
-ap
-ap
-ap
-ap
-ap
-ap
-aX
-aK
-ba
-af
-ac
-ah
-ah
+fu
+fu
+Uh
+mz
+mC
+nl
+ir
+dX
+uO
+uO
+uO
+RQ
+ir
+MW
+jd
+mz
+Uh
+Gs
+fu
 "}
 (17,1,1) = {"
-ah
-ah
-ac
-af
-af
-aK
-ap
-ap
-ap
-ap
-ap
-aN
-ap
-aY
-aK
-af
-af
-ac
-ah
-ah
+fu
+fu
+zc
+cI
+cI
+cI
+cI
+TQ
+fk
+fk
+fk
+eG
+cI
+cI
+cI
+cI
+wG
+kh
+fu
 "}
 (18,1,1) = {"
-aa
-ah
-ik
-ag
-ak
-aK
-at
-ap
-ay
-ap
-ap
-aO
-aQ
-al
-aK
-bb
-bb
-ik
-ah
-ah
+yB
+yB
+cI
+me
+yf
+DS
+cI
+cI
+cI
+ub
+cI
+cI
+cI
+rq
+jT
+gt
+cI
+yB
+yB
 "}
 (19,1,1) = {"
-aa
-aa
-ik
-av
-av
-aK
-av
-av
-aS
-aF
-be
-aS
-av
-av
-aK
-av
-av
-ik
-ah
-ah
+yB
+yB
+cI
+Nx
+yf
+yf
+DS
+cI
+Ft
+yf
+EF
+cI
+qD
+yf
+yf
+mt
+cI
+yB
+yB
 "}
 (20,1,1) = {"
-aa
-aa
-aM
-ai
-ai
-aK
-ai
-ai
-ik
-aG
-aL
-ik
-ai
-ai
-aK
-ai
-ai
-qo
-aa
-ah
+yB
+yB
+cI
+me
+yf
+yf
+yf
+gr
+yf
+pz
+yf
+gr
+yf
+yf
+yf
+Fq
+cI
+yB
+yB
 "}
 (21,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aA
-aA
-aA
-aI
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+yB
+yB
+cI
+cI
+me
+yf
+OK
+cI
+fo
+pz
+PF
+cI
+yf
+yf
+vO
+cI
+cI
+yB
+yB
 "}
 (22,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+yB
+yB
+yB
+cI
+cI
+me
+me
+cI
+Tf
+yf
+mi
+cI
+Ag
+Ag
+cI
+cI
+yB
+yB
+yB
+"}
+(23,1,1) = {"
+yB
+yB
+yB
+yB
+cI
+cI
+cI
+cI
+tu
+GE
+cI
+cI
+cI
+cI
+cI
+yB
+yB
+yB
+yB
+"}
+(24,1,1) = {"
+yB
+yB
+yB
+yB
+yB
+zc
+kj
+CQ
+qf
+eU
+PZ
+bE
+aV
+wG
+yB
+yB
+yB
+yB
+yB
+"}
+(25,1,1) = {"
+yB
+yB
+yB
+yB
+yB
+cI
+NV
+FH
+Oc
+eU
+Gu
+BN
+NV
+cI
+yB
+yB
+yB
+yB
+yB
+"}
+(26,1,1) = {"
+yB
+yB
+yB
+yB
+yB
+cI
+kO
+Qt
+Qt
+pJ
+Qt
+Qt
+xI
+cI
+yB
+yB
+yB
+yB
+yB
+"}
+(27,1,1) = {"
+yB
+yB
+yB
+yB
+yB
+yB
+Xe
+mN
+yf
+yf
+yf
+mN
+Xe
+yB
+yB
+yB
+yB
+yB
+yB
+"}
+(28,1,1) = {"
+yB
+yB
+yB
+yB
+yB
+yB
+Xe
+nZ
+mN
+mN
+mN
+nZ
+Xe
+yB
+yB
+yB
+yB
+yB
+yB
+"}
+(29,1,1) = {"
+yB
+yB
+yB
+yB
+yB
+yB
+cI
+Xe
+WZ
+oY
+nZ
+Xe
+cI
+yB
+yB
+yB
+yB
+yB
+yB
+"}
+(30,1,1) = {"
+yB
+yB
+yB
+yB
+yB
+yB
+yB
+cI
+Xe
+dT
+Xe
+cI
+yB
+yB
+yB
+yB
+yB
+yB
+yB
 "}

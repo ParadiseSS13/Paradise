@@ -419,3 +419,15 @@
 	transform = M
 	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
 	QDEL_IN(src, 0.8 SECONDS)
+
+/obj/effect/temp_visual/love_heart
+	name = "love heart"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "heart"
+	duration = 2.5 SECONDS
+
+/obj/effect/temp_visual/love_heart/Initialize(mapload)
+	. = ..()
+	pixel_x = rand(-10,10)
+	pixel_y = rand(-10,10)
+	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = duration)

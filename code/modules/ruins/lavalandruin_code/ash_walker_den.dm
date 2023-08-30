@@ -50,7 +50,21 @@
 
 /obj/structure/lavaland/ash_walker/proc/spawn_mob()
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
-		new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)))
+		//spawn a shaman if there isn't a living one, or an egg for one
+		var/shaman = TRUE
+		for(var/mob/living/carbon/human/lizardfinder in GLOB.mob_living_list)
+			if(is_species(lizardfinder, /datum/species/unathi/ashwalker/shaman))
+				shaman = FALSE //lizard found
+		if(shaman)
+			for(var/spawners in GLOB.mob_spawners)//if an admin spawns in a shaman egg somewhere randomly, that will prevent any eggs from spawning normally
+				for(var/egg in GLOB.mob_spawners[spawners])
+					if(istype(egg, /obj/effect/mob_spawn/human/ash_walker/shaman))
+						shaman = FALSE
+						break
+		if(shaman)//is a shaman being spawned?
+			new /obj/effect/mob_spawn/human/ash_walker/shaman(get_step(loc, pick(GLOB.alldirs)))
+		else
+			new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)))
 		visible_message("<span class='danger'>Одно из яиц вырастает до огромных размеров и открепляется от щупальца. Оно готово к вылуплению!</span>")
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
 
@@ -74,6 +88,7 @@
 	Вы видели вдали огни… Они предвещают прибытие чужаков, желающих разорить ваши земли и даже сам Некрополь. Но для вас они — лишь очередные подношения для гнезда."
 	assignedrole = "Ash Walker"
 	respawn_cooldown = 10 MINUTES
+	var/eggtype = "пеплоходца"
 
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/carbon/human/new_spawn)
 	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
@@ -85,8 +100,28 @@
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)
-		notify_ghosts("Яйцо пеплоходца готово вылупиться в [A.name].", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
+		notify_ghosts("Яйцо [eggtype] готово вылупиться в [A.name].", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
+
+
+//Ash walker shaman eggs: Spawns in ash walker dens in lavaland. Only one can exist at a time, they are squishier than regular ashwalkers, and have the sole purpose of keeping other ashwalkers alive.
+/obj/effect/mob_spawn/human/ash_walker/shaman
+	name = "ash walker shaman egg"
+	desc = "Янтарное яйцо размером с человека, порождённое каким-то непостижимым существом. Внутри проглядывает гуманоидный силуэт."
+	mob_name = "an ash walker shaman"
+	mob_species = /datum/species/unathi/ashwalker/shaman
+	outfit = /datum/outfit/ashwalker/shaman //might be OP, but the flavour is there
+	description = "Вы - шаман племени пеплоходцев. Ваше племя поклоняется некрополю. Обеспечьте выживание и лечение подконтрольных вам пеплоходцев. Проводите обряды, направленные на исцеление тела и души, обеспечивайте охотников пропитанием."
+	assignedrole = "Ash Walker Shaman"
+	eggtype = "шамана пеплоходцев"
 
 /datum/outfit/ashwalker
 	name ="Ashwalker"
 	uniform = /obj/item/clothing/under/ash_walker
+
+/datum/outfit/ashwalker/shaman //yep, we adding uniform available only for lizards
+	name = "Ashwalker Shaman"
+	uniform = /obj/item/clothing/under/ash_walker_shaman
+	head = /obj/item/clothing/head/shamanash
+	neck = /obj/item/clothing/neck/mantle/unathi
+	belt = /obj/item/storage/bag/medpouch
+	gloves = /obj/item/clothing/gloves/color/black/goliath

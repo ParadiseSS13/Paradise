@@ -195,6 +195,19 @@
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
+/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub
+	name= "goldgrub meat"
+	desc = "Gross, slimy, and green intestines with goldgrub skin, retrieved from a Goldgrub. Legends say it is valuable in traditional medicines, however it's highly toxic now."
+	icon_state = "Goldgrubmeat"
+	list_reagents = list("grub_juice" = 5, "toxin" = 10)
+	bitesize = 2
+	tastes = list("meat" = 1)
+
+/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/burn()
+	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	new /obj/item/reagent_containers/food/snacks/goldgrubmeat(loc)
+	qdel(src)
+
 /obj/item/reagent_containers/food/snacks/monstermeat/rotten
 	name = "rotten meat"
 	desc = "A slab of rotten meat. Looks really awful, a couple of flies sit on it."
@@ -321,6 +334,15 @@
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
 	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/goldgrubmeat
+	name= "goldgrub steak"
+	desc = "Cooked intestines with goldgrub skin, retrieved from a Goldgrub. Legends say it is valuable in traditional medicines."
+	icon_state = "Goldgrubsteak"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	list_reagents = list("grub_juice" = 5)
+	tastes = list("meat" = 1)
+
 
 /obj/item/reagent_containers/food/snacks/smokedsausage
 	name = "Smoked sausage"

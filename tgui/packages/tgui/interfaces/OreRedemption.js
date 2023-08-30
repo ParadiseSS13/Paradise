@@ -1,5 +1,6 @@
 import { useBackend } from '../backend';
 import { Box, Button, Divider, Flex, Icon, LabeledList, NumberInput, Section } from '../components';
+import { FlexItem } from '../components/Flex';
 import { Window } from '../layouts';
 
 const formatPoints = amt => amt.toLocaleString("en-US") + " pts";
@@ -21,7 +22,8 @@ export const OreRedemption = (properties, context) => {
             <IdDisk height="100%" />
           </Flex.Item>
           <Flex.Item grow="1" overflow="hidden">
-            <Ores height="100%" />
+            <Sheet height="62%" />
+            <Alloy height="38%" />
           </Flex.Item>
         </Flex>
       </Window.Content>
@@ -130,11 +132,13 @@ const IdDisk = (properties, context) => {
   );
 };
 
-const Ores = (properties, context) => {
+/*
+Manages titles under "Sheet"
+*/
+const Sheet = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     sheets,
-    alloys,
   } = data;
   const {
     ...rest
@@ -144,13 +148,26 @@ const Ores = (properties, context) => {
       className="OreRedemption__Ores"
       p="0"
       {...rest}>
-      <OreHeader title="Sheets" columns={[["Available", "20%"], ["Smelt", "15%"], ["Ore Value", "20%"]]} />
+      <OreHeader title="Sheets" columns={[["Available", "25%"], ["Ore Value", "15%"], ["Smelt", "20%"]]} />
       {sheets.map(sheet => (
-        <OreLine key={sheet.id} ore={sheet} />
+        <SheetLine key={sheet.id} ore={sheet} />
       ))}
-      <OreHeader title="Alloys" columns={[["Available", "20%"], ["Smelt", "15%"], ["", "20%"]]} />
+    </Section>
+  );
+};
+
+/*
+Manages titles under "Alloy"
+*/
+const Alloy = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const { alloys } = data;
+  const { ...rest } = properties;
+  return (
+    <Section className="OreRedemption__Ores" p="0" {...rest}>
+      <OreHeader title="Alloys" columns={[["Recipe", "50%"], ["Available", "11%"], ["Smelt", "20%"]]} />
       {alloys.map(alloy => (
-        <OreLine key={alloy.id} ore={alloy} />
+        <AlloyLine key={alloy.id} ore={alloy} />
       ))}
     </Section>
   );
@@ -177,7 +194,11 @@ const OreHeader = (properties, context) => {
   );
 };
 
-const OreLine = (properties, context) => {
+/*
+********* SHEETS BOX PROPERTIES *********
+*/
+
+const SheetLine = (properties, context) => {
   const { act } = useBackend(context);
   const {
     ore,
@@ -187,41 +208,109 @@ const OreLine = (properties, context) => {
   }
   const cleanId = ore.id.replace("$", "");
   return (
-    <Box className="OreLine">
+    <Box className="SheetLine">
       <Flex width="100%">
-        <Flex.Item basis="45%" align="center">
-          {ore.value && (
-            <Box
-              as="img"
-              src={"sheet-" + (iconNameOverrides[cleanId] || cleanId) + ".png"}
-              verticalAlign="middle"
-              ml="-0.5rem"
-            />
-          )}
+        <Flex.Item basis="45%" align="middle">
+          <Box
+            as="img"
+            src={'sheet-' + (iconNameOverrides[cleanId] || cleanId) + '.png'}
+            verticalAlign="middle"
+            ml="0rem"
+          />
           {ore.name}
         </Flex.Item>
         <Flex.Item
           basis="20%"
           textAlign="center"
-          color={ore.amount > 0 ? "good" : "gray"}
+          color={ore.amount > 0 ? 'good' : 'gray'}
           bold={ore.amount > 0}
           align="center">
-          {ore.amount.toLocaleString("en-US")}
+          {ore.amount.toLocaleString('en-US')}
         </Flex.Item>
-        <Flex.Item basis="15%" textAlign="center" align="center" lineHeight="32px">
+        <Flex.Item
+          basis="20%"
+          textAlign="center"
+          align="center">
+          {ore.value}
+        </Flex.Item>
+        <Flex.Item
+          basis="20%"
+          textAlign="center"
+          align="center"
+          lineHeight="32px">
           <NumberInput
             value={0}
             minValue={0}
             maxValue={Math.min(ore.amount, 50)}
             stepPixelSize={6}
-            onChange={(_e, value) => act(ore.value ? "sheet" : "alloy", {
-              "id": ore.id,
-              "amount": value,
-            })}
+            onChange={(_e, value) =>
+              act(ore.value ? 'sheet' : 'alloy', {
+                'id': ore.id,
+                'amount': value,
+              })}
           />
         </Flex.Item>
-        <Flex.Item basis="20%" textAlign="center" align="center">
-          {ore.value}
+      </Flex>
+    </Box>
+  );
+};
+
+/*
+********* ALLOYS BOX PROPERTIES *********
+*/
+
+const AlloyLine = (properties, context) => {
+  const { act } = useBackend(context);
+  const { ore } = properties;
+  const cleanId = ore.id.replace('$', '');
+  return (
+    <Box className="SheetLine">
+      <Flex width="100%">
+        <Flex.Item basis="7%" align="middle">
+          <Box
+            as="img"
+            src={'sheet-' + (cleanId) + '.png'}
+            verticalAlign="middle"
+            ml="`0rem"
+          />
+        </Flex.Item>
+        <FlexItem
+          basis="30%"
+          textAlign="middle"
+          align="center">
+          {ore.name}
+        </FlexItem>
+        <Flex.Item
+          basis="35%"
+          textAlign="middle"
+          color={ore.amount > 0 ? 'good' : 'gray'}
+          align="center">
+          {ore.description}
+        </Flex.Item>
+        <Flex.Item
+          basis="10%"
+          textAlign="center"
+          color={ore.amount > 0 ? 'good' : 'gray'}
+          bold={ore.amount > 0}
+          align="center">
+          {ore.amount.toLocaleString('en-US')}
+        </Flex.Item>
+        <Flex.Item
+          basis="20%"
+          textAlign="center"
+          align="center"
+          lineHeight="32px">
+          <NumberInput
+            value={0}
+            minValue={0}
+            maxValue={Math.min(ore.amount, 50)}
+            stepPixelSize={6}
+            onChange={(_e, value) =>
+              act(ore.value ? 'sheet' : 'alloy', {
+                'id': ore.id,
+                'amount': value,
+              })}
+          />
         </Flex.Item>
       </Flex>
     </Box>

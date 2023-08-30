@@ -68,6 +68,13 @@
 	flash_protect = 1
 	tint = 1
 
+/obj/item/clothing/glasses/hud/health/meson
+	name = "meson health scanner HUD"
+	desc = "A medical heads-up display that comes with an optical meson scanner."
+	icon_state = "mesonhealth"
+	vision_flags = SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "Diagnostic HUD"
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."

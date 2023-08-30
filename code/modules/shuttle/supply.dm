@@ -211,6 +211,13 @@
 						SSshuttle.discoveredPlants[S.type] = S.potency
 						msg += "<span class='good'>[S.rarity + S.potency]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 						SSshuttle.points += S.rarity + S.potency
+				// Sell gems
+				if(istype(thing, /obj/item/gem))
+					var/obj/item/gem/G = thing
+					pointsEarned = G.sell_value
+					msg += "<span class='good'>+[pointsEarned]</span>: Received [G]. Excellent work.<br>"
+					SSshuttle.points += pointsEarned
+
 		qdel(MA)
 		SSshuttle.sold_atoms += "."
 

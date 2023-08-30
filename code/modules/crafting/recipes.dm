@@ -574,6 +574,22 @@
 	reqs = list(/obj/item/stack/sheet/bone = 2)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/bonesword
+	name = "Bone Sword"
+	result = /obj/item/claymore/bone
+	time = 4 SECONDS
+	reqs = list(/obj/item/stack/sheet/bone = 3,
+				/obj/item/stack/sheet/sinew = 2)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/goliathshield
+	name = "Goliath Shield"
+	result = /obj/item/shield/riot/goliath
+	time = 6 SECONDS
+	reqs = list(/obj/item/stack/sheet/bone = 4,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 3)
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/bonespear
 	name = "Bone Spear"
 	result = /obj/item/twohanded/spear/bonespear
@@ -582,22 +598,32 @@
 				 /obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
-/datum/crafting_recipe/tribalspear
-	name = "Spear"
-	result = /obj/item/twohanded/spear
-	reqs = list(/obj/item/restraints/handcuffs/sinew = 1,
-				/obj/item/shard = 1,
-				/obj/item/stack/rods = 1)
-	time = 20
+/datum/crafting_recipe/chitinspear
+	name = "Chitin Spear"
+	result = /obj/item/twohanded/spear/bonespear/chitinspear
+	time = 7.5 SECONDS
+	reqs = list(/obj/item/twohanded/spear/bonespear = 1, //tier 2 spear
+				/obj/item/stack/sheet/sinew = 3,
+				/obj/item/stack/sheet/animalhide/weaver_chitin = 8)
 	category = CAT_PRIMAL
 
-/datum/crafting_recipe/bonebow
+/datum/crafting_recipe/bow
 	name = "Wooden Bow"
 	result = /obj/item/gun/projectile/bow
 	time = 30
-	reqs = list(/obj/item/stack/sheet/wood = 3,
+	reqs = list(/obj/item/stack/sheet/wood = 2,
 				 /obj/item/stack/sheet/sinew = 2,
 				 /obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bone_bow
+	name = "Bone Bow"
+	result = /obj/item/gun/projectile/bow/ashen
+	time = 8 SECONDS
+	reqs = list(/obj/item/gun/projectile/bow = 1, //it's actually tier 2 bow
+				/obj/item/stack/sheet/bone = 4,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 2,
+				/obj/item/stack/sheet/sinew = 2)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/arrow
@@ -610,12 +636,31 @@
 				 /obj/item/stack/sheet/wood = 1)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/ashen_arrow //the price is fully justified
+	name = "Bone-tipped Arrows"
+	result = list(/obj/item/ammo_casing/caseless/arrow/bone_tipped,
+				/obj/item/ammo_casing/caseless/arrow/bone_tipped,
+				/obj/item/ammo_casing/caseless/arrow/bone_tipped)
+	time = 4 SECONDS
+	reqs = list(/obj/item/ammo_casing/caseless/arrow = 3,
+				/obj/item/stack/sheet/bone = 1,
+				/obj/item/stack/sheet/sinew = 2,
+				/obj/item/stack/sheet/animalhide/weaver_chitin = 2)
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/quiver
 	name = "Quiver"
 	result = /obj/item/storage/backpack/quiver
 	time = 30
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				 /obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/chitinquiver
+	name = "Chitin Quiver"
+	result = /obj/item/storage/belt/quiver_weaver
+	time = 8 SECONDS
+	reqs = list(/obj/item/stack/sheet/animalhide/weaver_chitin = 4) //Just one spider!
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bola_s
@@ -1249,3 +1294,23 @@
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				/obj/item/stack/sheet/cloth = 3)
 	category = CAT_MISC
+
+/datum/crafting_recipe/pathcloak
+	name = "Pathfinder Cloak"
+	result = /obj/item/clothing/suit/hooded/pathfinder
+	time = 5 SECONDS
+	reqs = list(/obj/item/clothing/suit/hooded/goliath = 1,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 2, //2 plates for the cloak plus 2 here plus 3 for plating the armor = 7 total
+				/obj/item/stack/sheet/animalhide/weaver_chitin = 10,
+				/obj/item/stack/sheet/bone = 8,
+				/obj/item/stack/sheet/sinew = 10)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/pathtreads
+	name = "Pathfinder Treads"
+	result = /obj/item/clothing/shoes/pathtreads
+	time = 5 SECONDS
+	reqs = list(/obj/item/stack/sheet/sinew = 2,
+				/obj/item/stack/sheet/animalhide/weaver_chitin = 2)
+	category = CAT_PRIMAL
+

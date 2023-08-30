@@ -31,6 +31,9 @@
 	put_on_delay = 60
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
+		"Ash Walker" = 'icons/mob/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/species/unathi/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 

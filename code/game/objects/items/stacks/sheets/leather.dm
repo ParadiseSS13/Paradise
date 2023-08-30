@@ -125,7 +125,8 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new/datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/leather, 2),
 	new/datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
 	new/datum/stack_recipe("FireSuit", /obj/item/clothing/suit/fire/firefighter, 15),
-	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4)))
+	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4),
+	new/datum/stack_recipe("gem satchel", /obj/item/storage/bag/gem, 1)))
 
 /obj/item/stack/sheet/leather/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -159,6 +160,8 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
 			/obj/item/clothing/suit/hooded/explorer,
 			/obj/item/clothing/head/hooded/explorer,
+			/obj/item/clothing/suit/hooded/pathfinder,
+			/obj/item/clothing/head/hooded/pathfinder,
 			/obj/item/clothing/head/helmet/space/plasmaman/mining))
 	var/static/list/goliath_platable_armor_with_icon_typecache = typecacheof(list(
 			/obj/item/clothing/suit/space/hardsuit/mining,

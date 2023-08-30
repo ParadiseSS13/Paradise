@@ -341,6 +341,28 @@
 	name = "icy rocks"
 	color = "#cce9eb"
 
+/obj/structure/flora/rock/lava1
+	icon_state = "lavarocks1"
+
+/obj/structure/flora/rock/lava2
+	icon_state = "lavarocks2"
+
+/obj/structure/flora/rock/lava3
+	icon_state = "lavarocks2"
+
+/obj/structure/flora/rock/basalt1
+	icon_state = "basalt1"
+
+/obj/structure/flora/rock/basalt2
+	icon_state = "basalt2"
+
+/obj/structure/flora/rock/basalt3
+	icon_state = "basalt3"
+
+/obj/structure/flora/rock/basalt4
+	icon_state = "basalt4"
+
+/////
 /obj/structure/flora/corn_stalk
 	name = "corn stalk"
 	icon = 'icons/obj/flora/plants.dmi'

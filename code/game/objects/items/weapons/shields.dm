@@ -54,6 +54,15 @@
 	resistance_flags = FLAMMABLE
 	block_chance = 30
 
+/obj/item/shield/riot/goliath
+	name = "goliath shield"
+	desc = "A shield made from interwoven plates of goliath hide."
+	icon_state = "goliath_shield"
+	item_state = "goliath_shield"
+	materials = list()
+	origin_tech = "materials=1;combat=3;biotech=2"
+	block_chance = 30
+
 /obj/item/shield/energy
 	name = "energy combat shield"
 	desc = "A shield that reflects almost all energy projectiles, but is useless against physical attacks. It can be retracted, expanded, and stored anywhere."

@@ -592,9 +592,16 @@
 	icon_state = "cuban_hat"
 	item_state = "cuban_hat"
 
+/obj/item/clothing/head/shamanash
+	name = "shaman skull"
+	desc = "The skull of a long dead animal bolted to the front of a repurposed pan."
+	icon_state = "shamskull"
+	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+
 /obj/item/clothing/head/mr_chang_band
 	name = "Tight headband"
 	desc = "It is a safety tool, designed to prevent all marketing and selling techniques from escaping the wearers skull. Handle with care."
 	w_class = WEIGHT_CLASS_TINY
 	icon_state = "mr_chang_band"
 	item_state = "mr_chang_band"
+

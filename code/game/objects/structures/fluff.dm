@@ -79,3 +79,15 @@
 	name = "conduit"
 	desc = "It allows a deity to extend their reach.  Their powers are just as potent near a conduit as a nexus."
 	icon_state = "conduit"
+
+/obj/structure/fluff/grave
+	name = "grave"
+	desc = "A desolate and shallow grave for those who have fallen."
+	icon = 'icons/obj/lavaland/misc.dmi'
+	icon_state = "grave"
+	deconstructible = FALSE
+
+/obj/structure/fluff/grave/empty
+	name = "empty grave"
+	desc = "A former grave."
+	icon_state = "grave_empty"
