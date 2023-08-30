@@ -40,22 +40,22 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
 		to_chat(src, "<span class='warning'>No emergency response team is currently being sent.</span>")
-		return 0
+		return FALSE
 
 	if(jobban_isbanned(src, ROLE_ERT))
 		to_chat(src, "<span class='warning'>You are jobbanned from playing on an emergency response team!</span>")
-		return 0
+		return FALSE
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && GLOB.configuration.gamemode.antag_account_age_restriction)
 		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
-		return 0
+		return FALSE
 
 	if(cannotPossess(src))
 		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 /proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
 	GLOB.response_team_members = list()
@@ -65,7 +65,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	GLOB.send_emergency_team = TRUE
 	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
-	if(!ert_candidates.len)
+	if(!length(ert_candidates))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
@@ -76,12 +76,15 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			continue
 		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
 			GLOB.response_team_members |= M
+			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/dead/observer, remove_from_ert_list), TRUE)
+
 	// If there's still open slots, non-respawnable players can fill them
 	for(var/mob/dead/observer/M in (ert_candidates - GLOB.respawnable_list))
 		if(M.JoinResponseTeam())
 			GLOB.response_team_members |= M
+			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/dead/observer, remove_from_ert_list), TRUE)
 
-	if(!GLOB.response_team_members.len)
+	if(!length(GLOB.response_team_members))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
@@ -220,6 +223,10 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	return M
 
+/mob/dead/observer/proc/remove_from_ert_list(ghost)
+	SIGNAL_HANDLER
+	GLOB.response_team_members -= src
+	remove_from_respawnable_list()
 
 /datum/response_team
 	var/list/slots = list(
