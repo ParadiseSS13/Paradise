@@ -43,3 +43,5 @@
 #include "airlocks\code\airlock_assembly_types.dm"
 #include "lights\code\lights.dm"
 #include "skin\code\darkmode.dm"
+#include "sheets\code\sheets.dm"
+#include "applicator\code\applicator.dm"

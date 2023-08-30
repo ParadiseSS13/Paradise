@@ -22,6 +22,7 @@
 #include "barsigns/_barsigns.dme"
 #include "wire_splicing/wiresplicing.dme"
 #include "hydroponics/hydroponics.dme"
+#include "vending/vending.dme"
 
 // --- MISC --- //
 #include "screentip_change/_screentip_change.dme"

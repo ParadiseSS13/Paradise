@@ -14883,14 +14883,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"bba" = (
-/obj/effect/landmark{
-	icon = 'icons/effects/spawner_icons.dmi';
-	icon_state = "spooky";
-	name = "Observer-Start"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "bbf" = (
 /obj/machinery/door/airlock/vault{
 	locked = 1
@@ -18033,6 +18025,11 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "spooky";
+	name = "Observer-Start"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "L8"
 	},
@@ -91858,8 +91855,10 @@
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
 	id_tag = "emergency_home";
+	locked = 1;
 	name = "Escape Airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -104767,7 +104766,7 @@ aSd
 aVY
 aXv
 aXs
-bba
+aXs
 aXs
 aXs
 aVY
@@ -149761,9 +149760,9 @@ tnJ
 pXs
 eWC
 bjR
-xir
+boI
 bjR
-xir
+boI
 bjR
 aaa
 aaa
@@ -150524,9 +150523,9 @@ bEG
 bEG
 bEG
 bEG
-boI
+xir
 bjR
-boI
+xir
 bjR
 bjR
 bjR

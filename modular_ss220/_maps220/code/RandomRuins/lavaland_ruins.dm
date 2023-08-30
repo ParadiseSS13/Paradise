@@ -3,6 +3,7 @@
 	name = "example" // Имя руины
 	id = "example_id" // ID руины
 	description = "Пример описания" // Описание руины. Видно только админам.
+	prefix = "_maps/map_files220/RandomRuins/LavaRuins/" // Путь до карты, обязательно оставлять таким.
 	suffix = "" // .dmm файл руины, вписывать название полностью, пример: suffix = "example.dmm". Саму карту закидывать в "_maps\map_files\RandomRuins\LavaRuins"
 	cost = 5 // Вес руины, чем он больше, тем меньше шанс что она заспавнится
 	allow_duplicates = FALSE // Разрешает/Запрещает дубликаты руины. TRUE - могут быть дубликаты. FALSE - дубликатов не будет.
