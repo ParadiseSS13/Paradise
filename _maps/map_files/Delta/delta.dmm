@@ -62652,7 +62652,7 @@
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Research Lab Desk";
-	req_access_txt = "7";
+	req_access_txt = "47";
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
