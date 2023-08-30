@@ -622,8 +622,8 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
-	"_maps/map_files/RandomRuins/SpaceRuins/space_wildwest.dmm",
-	"_maps/map_files/RandomRuins/SpaceRuins/mechtransport_new.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/space_wildwest.dmm",
+	"_maps/map_files220/RandomRuins/SpaceRuins/mechtransport_new.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
