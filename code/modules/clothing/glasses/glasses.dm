@@ -17,6 +17,8 @@
 			to_chat(H, "You fit \the [name] with lenses from \the [O].")
 			prescription = 1
 			name = "prescription [name]"
+			if(H.glasses == src)
+				H.update_nearsighted_effects()
 			return
 		if(prescription && istype(O, /obj/item/screwdriver))
 			var/obj/item/clothing/glasses/regular/G = locate() in src
@@ -26,6 +28,8 @@
 			prescription = 0
 			name = initial(name)
 			H.put_in_hands(G)
+			if(H.glasses == src)
+				H.update_nearsighted_effects()
 			return
 	return ..()
 
