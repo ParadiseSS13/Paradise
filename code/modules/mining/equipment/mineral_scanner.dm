@@ -27,7 +27,7 @@
 		current_cooldown = world.time + cooldown
 		mineral_scan_pulse(get_turf(user))
 		if(speaker)
-			playsound(src, pick(soundone, soundtwo), 15)
+			playsound(src, pick(soundone, soundtwo), 35)
 
 
 //Debug item to identify all ore spread quickly
@@ -82,7 +82,7 @@
 		var/turf/t = get_turf(src)
 		mineral_scan_pulse(t, range)
 		if(speaker)
-			playsound(src, pick(soundone, soundtwo), 15)
+			playsound(src, pick(soundone, soundtwo), 35)
 
 /proc/mineral_scan_pulse(turf/T, range = world.view)
 	var/list/minerals = list()

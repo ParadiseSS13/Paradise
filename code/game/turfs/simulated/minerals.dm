@@ -16,7 +16,7 @@
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
 	var/mineralType = null
-	var/mineralAmt = 3
+	var/mineralAmt = 1
 	var/spread = 0 //will the seam spread?
 	var/spreadChance = 0 //the percentual chance of an ore spreading to the neighbouring tiles
 	var/last_act = 0
@@ -86,7 +86,7 @@
 /turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, override_bonus = FALSE)
 	if(mineralType && (mineralAmt > 0))
 		if(triggered_by_explosion && !override_bonus)
-			mineralAmt *= 2 //bonus if it was exploded, USE EXPLOSIVES WOOO
+			mineralAmt += 2 //bonus if it was exploded, USE EXPLOSIVES WOOO
 		new mineralType(src, mineralAmt)
 		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
@@ -270,7 +270,7 @@
 
 		if(T && ismineralturf(T))
 			var/turf/simulated/mineral/M = T
-			M.mineralAmt = rand(1, 2) + max(0,((hardness - 1) * 2)) //2 bonus ore for every hardness above 1
+			M.mineralAmt = rand(1, 2) + max(0,((hardness - 1) * 1)) //1 bonus ore for every hardness above 1
 			M.environment_type = environment_type
 			M.turf_type = turf_type
 			M.baseturf = baseturf
