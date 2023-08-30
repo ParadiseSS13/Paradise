@@ -984,7 +984,13 @@
 	addiction_chance = 1
 	addiction_chance_additional = 20
 
-/datum/reagent/lube/ultra/combat/on_mob_life(mob/living/M)
+/datum/reagent/lube/combat/on_mob_add(mob/living/L)
+	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.physiology.stun_mod *= tenacity
+
+/datum/reagent/lube/combat/on_mob_life(mob/living/M)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
 
@@ -994,5 +1000,27 @@
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
 	return ..()
+
+/datum/reagent/lube/combat/on_mob_delete(mob/living/M)
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.physiology.stun_mod /= tenacity
+	..()
+
+/datum/reagent/lube/combat/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(prob(20))
+		M.emote("ping")
+	if(prob(33))
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
+		var/obj/item/I = M.get_active_hand()
+		if(I)
+			M.drop_item()
+	update_flags |= M.adjustFireLoss(5, FALSE)
+	update_flags |= M.adjustBrainLoss(3, FALSE)
+	return list(effect, update_flags)
 
 #undef DRAWBACK_CHANCE_MODIFIER
