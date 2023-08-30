@@ -297,8 +297,14 @@
   - bugfix: bluza stats (#3435)
   Dimach:
   - bugfix: incorrect shuttles camera starting pos (#3445)
+  LiquidPotroh:
+  - bugfix: don't stumble if both walking (#3448)
   NightDawnFox:
   - add: Lavaland rework (#3130)
+  - bugfix: Old ussp station (#3446)
+  - bugfix: lavaland hotfixes (#3447)
+  SAAD:
+  - bugfix: delta detective and IFA disposals (#3449)
   Zwei:
   - bugfix: Transfer Plasma (#3438)
   - bugfix: Terror Spiders Fixes (#3443)
