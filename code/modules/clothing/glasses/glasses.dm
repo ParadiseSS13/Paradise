@@ -355,7 +355,7 @@
 		return
 
 	punused = TRUE
-	playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
+	playsound(src.loc, 'sound/misc/yeah.ogg', 100, FALSE)
 	usr.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
 	if(HAS_TRAIT(usr, TRAIT_BADASS)) //unless you're badass
 		addtimer(VARSET_CALLBACK(src, punused, FALSE), 5 MINUTES)
