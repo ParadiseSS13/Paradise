@@ -22,7 +22,7 @@ export const VotePanel = (props, context) => {
           {choices.map(choice => (
             <Box key={choice}>
               <Button
-                className="Button--multiLine"
+                multiLine={choice}
                 content={choice + (show_counts ? " (" + (counts[choice] || 0) + ")" : "")}
                 onClick={() => act("vote", { "target": choice })}
                 selected={choice === user_vote} />
