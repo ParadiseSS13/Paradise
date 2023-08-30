@@ -212,9 +212,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		var/mob/living/carbon/human/maroon_target = maroon_objective.target?.current
 
 		if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && maroon_target && !has_no_DNA(maroon_target))
-			var/datum/objective/escape/escape_with_identity/identity_theft = new(special_objective = maroon_objective)
+			var/datum/objective/escape/escape_with_identity/identity_theft = new(_special_objective = maroon_objective)
 			identity_theft.owner = owner
 			objectives += identity_theft
+			identity_theft.find_target()
 
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
 		if(prob(70))
