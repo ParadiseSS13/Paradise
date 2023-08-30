@@ -630,11 +630,11 @@
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/H = pulling
 					if(!H.lying)
-						if(H.get_confusion() > 0 && prob(4))
+						if(H.get_confusion() > 0 && m_intent != MOVE_INTENT_WALK && prob(4))
 							H.Weaken(4 SECONDS)
 							pulling.stop_pulling()
 							visible_message(span_danger("Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол!"))
-						if(H.m_intent == MOVE_INTENT_WALK && prob(4))
+						if(H.m_intent == MOVE_INTENT_WALK && m_intent != MOVE_INTENT_WALK && prob(4))
 							H.Weaken(4 SECONDS)
 							visible_message(span_danger("[H] не поспевает за [src] и с грохотом падает на пол!"))
 			else
