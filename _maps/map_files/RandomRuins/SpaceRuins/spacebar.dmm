@@ -102,9 +102,9 @@
 /area/ruin/space/powered)
 "ay" = (
 /obj/machinery/door/airlock{
-	name = "Bar Storage";
-	req_access_txt = "25"
+	name = "Bar Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aA" = (

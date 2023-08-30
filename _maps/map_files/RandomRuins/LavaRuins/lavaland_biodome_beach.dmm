@@ -117,9 +117,9 @@
 "av" = (
 /obj/structure/table/wood,
 /obj/machinery/door/window/classic/reversed{
-	req_one_access_txt = "25";
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
 /turf/simulated/floor/wood,
@@ -164,9 +164,9 @@
 "aE" = (
 /obj/structure/table/wood,
 /obj/machinery/door/window/classic/normal{
-	req_one_access_txt = "25";
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aG" = (
@@ -502,9 +502,9 @@
 /area/ruin/powered/beach)
 "Ei" = (
 /obj/machinery/door/airlock/sandstone{
-	name = "Bar Kitchen";
-	req_one_access_txt = "25"
+	name = "Bar Kitchen"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "Gc" = (

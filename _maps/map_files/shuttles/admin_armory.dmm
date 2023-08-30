@@ -227,9 +227,10 @@
 /area/shuttle/administration)
 "rb" = (
 /obj/machinery/door/window/reinforced/normal{
-	req_one_access_txt = "2;19";
 	dir = 2
 	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "rA" = (
@@ -395,9 +396,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
 	name = "Armory";
-	req_access_txt = "3";
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /obj/machinery/door/window/reinforced/normal{
 	name = "Armory";
 	dir = 8
@@ -454,9 +455,9 @@
 /area/shuttle/administration)
 "Bj" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
-	req_one_access_txt = "2;19"
-	},
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -468,9 +469,10 @@
 /area/shuttle/administration)
 "Bn" = (
 /obj/machinery/door/window/reinforced/normal{
-	req_one_access_txt = "2;19";
 	dir = 2
 	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Bq" = (
@@ -645,9 +647,10 @@
 /area/shuttle/administration)
 "Ke" = (
 /obj/machinery/door/window/reinforced/reversed{
-	req_one_access_txt = "2;19";
 	dir = 2
 	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Kh" = (
@@ -754,9 +757,10 @@
 /area/shuttle/administration)
 "Pe" = (
 /obj/machinery/door/window/reinforced/reversed{
-	req_one_access_txt = "2;19";
 	dir = 2
 	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Pn" = (
@@ -821,9 +825,9 @@
 /area/shuttle/administration)
 "TD" = (
 /obj/machinery/door/airlock/command{
-	name = "Command Center";
-	req_access_txt = "19"
+	name = "Command Center"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "TF" = (
@@ -887,9 +891,9 @@
 /area/shuttle/administration)
 "VC" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Shuttle Armory";
-	req_access_txt = "3"
+	name = "Shuttle Armory"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "VQ" = (
