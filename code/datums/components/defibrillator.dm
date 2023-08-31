@@ -310,6 +310,7 @@
 		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
 		add_attack_logs(user, target, "Revived with [defib_ref]")
 		SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
+		return
 	SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, defib_success)
 	set_cooldown(cooldown)
 	busy = FALSE
