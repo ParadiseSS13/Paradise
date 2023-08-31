@@ -80,8 +80,7 @@
 /datum/gear/hat/deliverysoft
 	display_name = "Delivery Boy cap"
 	path = /obj/item/clothing/head/soft/deliverysoft
-	allowed_roles = list("Quartermaster","Cargo Technician")
-
+	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/hat/capred
 	display_name = "Cap, red"
