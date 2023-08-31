@@ -28,10 +28,8 @@
 	ranged_message = "fires"
 	speak_emote = list("states")
 	del_on_death = TRUE
-	//light_system = MOVABLE_LIGHT
 	light_range = 5
 	var/sight_flags = SEE_TURFS
-	//var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	ranged = TRUE
 	retreat_distance = 2
 	minimum_distance = 1
