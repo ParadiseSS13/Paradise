@@ -309,3 +309,28 @@
 
 #define MAX_EYE_BLURRY_FILTER_SIZE 2
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.005
+
+/proc/bodypart_name_to_clothing_bitflag(bodypart_name)
+	switch(bodypart_name)
+		if("head")
+			return HEAD
+		if("chest")
+			return UPPER_TORSO
+		if("groin")
+			return LOWER_TORSO
+		if("l_arm")
+			return ARM_LEFT
+		if("l_hand")
+			return HAND_LEFT
+		if("r_arm")
+			return ARM_RIGHT
+		if("r_hand")
+			return HAND_RIGHT
+		if("r_leg")
+			return LEG_RIGHT
+		if("r_foot")
+			return FOOT_RIGHT
+		if("l_leg")
+			return LEG_LEFT
+		if("l_foot")
+			return FOOT_LEFT
