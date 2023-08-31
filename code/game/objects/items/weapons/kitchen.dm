@@ -142,8 +142,8 @@
 	name = "glass shiv"
 	desc = "A haphazardly constructed blade, fashioned from a glass shard wrapped in cloth and tied with wire."
 	icon = 'icons/obj/items.dmi'
-	item_state = "shard-glass"
-	icon_state = "glass-shiv"
+	item_state = "glass_shiv"
+	icon_state = "glass_shiv"
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
