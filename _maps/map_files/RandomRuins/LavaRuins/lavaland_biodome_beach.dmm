@@ -116,8 +116,9 @@
 /area/ruin/powered/beach)
 "av" = (
 /obj/structure/table/wood,
-/obj/machinery/door/window/westright{
-	req_one_access_txt = "25"
+/obj/machinery/door/window/classic/reversed{
+	req_one_access_txt = "25";
+	dir = 8
 	},
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
@@ -162,8 +163,9 @@
 /area/ruin/powered/beach)
 "aE" = (
 /obj/structure/table/wood,
-/obj/machinery/door/window/westleft{
-	req_one_access_txt = "25"
+/obj/machinery/door/window/classic/normal{
+	req_one_access_txt = "25";
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)

@@ -138,6 +138,9 @@
 	if(flag & LINDA_SPAWN_HEAT)
 		G.temperature += 1000
 
+	if(flag & LINDA_SPAWN_COLD)
+		G.temperature = TCMB
+
 	if(flag & LINDA_SPAWN_TOXINS)
 		G.toxins += amount
 

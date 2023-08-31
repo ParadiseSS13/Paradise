@@ -187,6 +187,8 @@
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
+	if(!anchored)
+		return
 
 	. = TRUE
 	switch(actions)
@@ -309,6 +311,9 @@
 
 /obj/machinery/chem_dispenser/attack_hand(mob/user)
 	if(stat & BROKEN)
+		return
+	if(!anchored)
+		to_chat("<span class='warning'>[src] must be anchored first!</span>")
 		return
 	ui_interact(user)
 

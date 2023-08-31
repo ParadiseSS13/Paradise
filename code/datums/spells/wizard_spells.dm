@@ -225,10 +225,12 @@
 	invocation_type = "shout"
 	cooldown_min = 100
 	summon_amt = 1
+	delay = 0
 	action_icon_state = "time"
 
 	summon_type = list(/obj/effect/timestop/wizard)
 	aoe_range = 0
+
 
 /obj/effect/proc_holder/spell/aoe/conjure/carp
 	name = "Summon Carp"
@@ -357,6 +359,16 @@
 	user.newtonian_move(get_dir(U, T))
 
 	return TRUE
+
+/obj/effect/proc_holder/spell/fireball/toolbox
+	name = "Homing Toolbox"
+	desc = "This spell summons and throws a magical homing toolbox at your opponent."
+	sound = 'sound/weapons/smash.ogg'
+	fireball_type = /obj/item/projectile/homing/magic/toolbox
+	invocation = "ROBUSTIO!"
+
+	selection_activated_message		= "<span class='notice'>Your prepare to cast your homing toolbox! <B>Left-click to cast at a target!</B></span>"
+	selection_deactivated_message	= "<span class='notice'>You unrobust your toolbox...for now.</span>"
 
 /obj/effect/proc_holder/spell/aoe/repulse
 	name = "Repulse"

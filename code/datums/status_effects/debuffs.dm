@@ -203,12 +203,12 @@
 			return
 		if(teleports < 6)
 			to_chat(M, "<span class='warning'>You feel a bit sick!</span>")
-			M.vomit(lost_nutrition = 15, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 15, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(2 SECONDS)
 		else
 			to_chat(M, "<span class='danger'>You feel really sick!</span>")
 			M.adjustBruteLoss(rand(0, teleports * 2))
-			M.vomit(lost_nutrition = 30, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 30, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(6 SECONDS)
 
 /datum/status_effect/pacifism
@@ -294,10 +294,6 @@
 /datum/status_effect/cling_tentacle/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
-/datum/status_effect/cling_tentacle/batterer
-	id = "cling_tentacle_batterer"
-	alert_type = null
-	duration = 7 SECONDS
 // start of `living` level status procs.
 
 /**
@@ -899,6 +895,11 @@
 						list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>"),
 						list("<span class='danger'>Your entire body vibrates.</span>")
 			)
+			fake_emote = list(
+						list(),
+						list(),
+						list()
+			)
 		else
 			fake_msg = list(
 						list("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>"),
@@ -945,3 +946,29 @@
 #undef FAKE_FOOD_POISONING
 #undef FAKE_RETRO_VIRUS
 #undef FAKE_TURBERCULOSIS
+
+/datum/status_effect/cryo_beam
+	id = "cryo beam"
+	alert_type = null
+	duration = -1 //Kill it, get out of sight, or be killed. Jump boots are *required*
+	tick_interval = 0.5 SECONDS
+	var/damage = 0.75
+	var/source_UID
+
+/datum/status_effect/cryo_beam/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+
+/datum/status_effect/cryo_beam/tick()
+	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacker = locateUID(source_UID)
+	if(!(owner in view(attacker, 8)))
+		qdel(src)
+		return
+
+	owner.apply_damage(damage, BURN)
+	owner.bodytemperature = max(0, owner.bodytemperature - 20)
+	owner.Beam(attacker.beam, icon_state = "medbeam", time = 0.5 SECONDS)
+	for(var/datum/reagent/R in owner.reagents.reagent_list)
+		owner.reagents.remove_reagent(R.id, 0.75)
+	if(prob(10))
+		to_chat(owner, "<span class='userdanger'>Your blood freezes in your veins, get away!</span>")

@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 			if(rank == "Captain" && heads.len != 1)
 				heads.Swap(1,  heads.len)
 
-		if(real_rank in GLOB.security_positions)
+		if(real_rank in GLOB.active_security_positions)
 			sec[++sec.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			if(depthead && sec.len != 1)
