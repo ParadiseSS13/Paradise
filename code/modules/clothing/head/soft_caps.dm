@@ -108,7 +108,7 @@
 
 /obj/item/clothing/head/soft/deliverysoft
 	name = "delivery boy cap"
-	desc = "It's a baseball hat that is part of delivery boy unifrom."
+	desc = "It's a baseball hat that is part of the delivery boy uniform."
 	icon_state = "deliverysoft"
 	item_color = "delivery"
 	dog_fashion = /datum/dog_fashion/head/softcap
