@@ -91,7 +91,8 @@
 			if(istype(current_mask) && (current_mask.body_parts_covered & bodypart_clothing_bitflag))
 				continue
 
-		if(((bodypart_clothing_bitflag & ARMS) || (bodypart_clothing_bitflag & LEGS) || (bodypart_clothing_bitflag & UPPER_TORSO) || (bodypart_clothing_bitflag & LOWER_TORSO)))
+		var/chest_groin_arms_legs_bitflag = ARMS | LEGS | UPPER_TORSO | LOWER_TORSO //is what covered by jumpsuit
+		if(bodypart_clothing_bitflag & chest_groin_arms_legs_bitflag)
 			if(skip_jumpsuit)
 				continue
 			if(!isnull(w_uniform) && (w_uniform.body_parts_covered & bodypart_clothing_bitflag))
