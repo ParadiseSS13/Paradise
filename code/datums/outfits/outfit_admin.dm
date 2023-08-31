@@ -7,8 +7,12 @@
 		H.mind.assigned_role = name
 		H.job = name
 
-/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	
+	if(visualsOnly)
+		return
+
 	if(H.mind)
 		H.mind.offstation_role = TRUE
 	else
