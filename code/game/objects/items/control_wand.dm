@@ -37,6 +37,8 @@
 	var/choice = show_radial_menu(user, src, options)
 	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
 		return
+	if(choice == mode) // they didn't change their choice, don't do the to_chat
+		return
 	mode = choice
 
 	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
