@@ -421,7 +421,7 @@
 	desc = "Particularly twisted deities grant gifts of dubious value."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT | NODROP | FORCE_VISIBLE
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 

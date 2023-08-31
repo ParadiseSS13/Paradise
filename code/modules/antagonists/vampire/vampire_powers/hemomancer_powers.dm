@@ -44,7 +44,7 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
-	flags = ABSTRACT | NODROP | DROPDEL
+	flags = ABSTRACT | NODROP | DROPDEL | FORCE_VISIBLE
 	force = 10
 	armour_penetration_flat = 20
 	sharp = TRUE

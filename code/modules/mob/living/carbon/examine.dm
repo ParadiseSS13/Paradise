@@ -134,7 +134,7 @@
 		if(length(parts) >= 5)
 			accessories = parts[5]
 
-		if(item && !(item.flags & ABSTRACT))
+		if(item && !((item.flags & ABSTRACT) && !(item.flags & FORCE_VISIBLE)))
 			var/item_words = item.name
 			if(item.blood_DNA)
 				item_words = "[item.blood_color != "#030303" ? "blood-stained" : "oil-stained"] [item_words]"

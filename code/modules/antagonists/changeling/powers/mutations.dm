@@ -127,7 +127,7 @@
 	desc = "A grotesque blade made of bone and flesh that cleaves through people like a hot knife through butter."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
-	flags = ABSTRACT | NODROP | DROPDEL
+	flags = ABSTRACT | NODROP | DROPDEL | FORCE_VISIBLE
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 	force = 25
@@ -190,7 +190,7 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "tentacle"
 	item_state = "tentacle"
-	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
+	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL | FORCE_VISIBLE
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle
 	fire_sound = 'sound/effects/splat.ogg'

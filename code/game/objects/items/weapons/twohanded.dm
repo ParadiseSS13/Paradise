@@ -726,7 +726,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "pyro_claws"
-	flags = ABSTRACT | NODROP | DROPDEL
+	flags = ABSTRACT | NODROP | DROPDEL | FORCE_VISIBLE
 	force = 22
 	damtype = BURN
 	armour_penetration_percentage = 50
