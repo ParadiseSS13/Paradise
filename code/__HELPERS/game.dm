@@ -111,7 +111,7 @@
 
 	return dist
 
-/proc/circle_edge_turfs(center = usr , radius = 3) // Get the turfs on the edge of a circle
+/proc/circle_edge_turfs(center = usr , radius = 3) // Get the turfs on the edge of a circle. Currently only works for radius 3
 
 	var/turf/centerturf = get_turf(center)
 	var/list/turfs = new/list()
@@ -120,16 +120,13 @@
 	for(var/turf/T in range(radius, centerturf))
 		var/dx = T.x - centerturf.x
 		var/dy = T.y - centerturf.y
-		if(dx*dx + dy*dy <= rsq)
+		if(dx * dx + dy * dy <= (rsq - radius))
+			continue
+		if(dx * dx + dy * dy <= rsq)
 			turfs += T
-	for(var/turf/T in turfs)
-		var/dx = T.x - centerturf.x
-		var/dy = T.y - centerturf.y
-		if(dx * dx + dy * dy <= (rsq - 3))
-			turfs -= T
 	return turfs
 
-/proc/circleviewturfs(center = usr, radius = 3)
+/proc/circleviewturfs(center = usr, radius = 3) // All the turfs in a circle of the radius
 
 	var/turf/centerturf = get_turf(center)
 	var/list/turfs = new/list()
