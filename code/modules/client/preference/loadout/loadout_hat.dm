@@ -173,6 +173,11 @@
 	path = /obj/item/clothing/head/beret/sci
 	allowed_roles = list("Research Director", "Scientist")
 
+/datum/gear/hat/beret_job/robo
+	display_name = "Beret, robotics"
+	path = /obj/item/clothing/head/beret/robo
+	allowed_roles = list("Research Director", "Roboticist")
+
 /datum/gear/hat/beret_job/med
 	display_name = "Beret, medical"
 	path = /obj/item/clothing/head/beret/med
