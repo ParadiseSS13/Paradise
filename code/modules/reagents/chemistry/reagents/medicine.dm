@@ -784,7 +784,7 @@
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					if(ischangeling(M))
 						return
-					M.delayed_gib()
+					M.delayed_gib(TRUE)
 					return
 				if(!M.ghost_can_reenter())
 					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")

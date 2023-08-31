@@ -96,14 +96,20 @@
 	// u no we dead
 	return TRUE
 
-/mob/living/proc/delayed_gib()
+/mob/living/proc/delayed_gib(inflate_at_end = FALSE)
 	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed
-	addtimer(CALLBACK(src, PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))
+	addtimer(CALLBACK(src, inflate_at_end ? PROC_REF(quick_explode_gib) : PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))
 
-/mob/living/carbon/proc/inflate_gib() // Plays an animation that makes mobs appear to inflate before finally gibbing
+/mob/living/proc/inflate_gib() // Plays an animation that makes mobs appear to inflate before finally gibbing
 	addtimer(CALLBACK(src, PROC_REF(gib), null, null, TRUE, TRUE), 25)
-	var/matrix/M = matrix()
+	var/matrix/M = transform
 	M.Scale(1.8, 1.2)
 	animate(src, time = 40, transform = M, easing = SINE_EASING)
+
+/mob/living/proc/quick_explode_gib()
+	addtimer(CALLBACK(src, PROC_REF(gib), null, null, TRUE, TRUE), 1)
+	var/matrix/M = transform
+	M.Scale(1.8, 1.2)
+	animate(src, time = 1, transform = M, easing = SINE_EASING)
