@@ -145,6 +145,13 @@
 	else
 		data["hasScanner"] = FALSE
 
+	if(scanner?.last_scan)
+		data["hasScanned"] = TRUE
+		data["patientLimbData"] = scanner.last_scan.limbs
+		data["patientOrganData"] = scanner.last_scan.organs
+	else if(scanner && !scanner.last_scan)
+		data["hasScanned"] = FALSE
+
 	var/list/pod_data = list()
 	if(length(pods))
 		for(var/obj/machinery/clonepod/pod in pods)

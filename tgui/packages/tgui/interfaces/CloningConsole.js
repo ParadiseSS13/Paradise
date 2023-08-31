@@ -20,7 +20,7 @@ export const CloningConsole = (props, context) => {
         </Section>
         <Tabs>
           <Tabs.Tab selected={tab === 1} icon="home" onClick={() => act('menu', {tab: 1})}>Main Menu</Tabs.Tab>
-          <Tabs.Tab selected={tab === 2} icon="clipboard-list" onClick={() => act('menu', {tab: 2})}>Damage Configuration</Tabs.Tab>
+          <Tabs.Tab selected={tab === 2} icon="user" onClick={() => act('menu', {tab: 2})}>Damage Configuration</Tabs.Tab>
         </Tabs>
         <Section>
           <CloningConsoleBody />
@@ -102,9 +102,20 @@ const CloningConsoleMain = (props, context) => {
 const CloningConsoleDamage = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    pods
+    hasScanned,
+    patientLimbData,
+    patientOrganData
   } = data;
   return (
-    <Box>This is the damage menu</Box>
+    <Box>
+      <Section layer={2} title='Scanner Info' buttons={<Button icon="hourglass-half" onClick={() => act('scan')}>
+        Scan
+      </Button>}>
+        {!hasScanned && <Box color='average'>No scan detected for current patient.</Box>}
+      </Section>
+      <Section layer={2} title='Damages Breakdown'>
+        filler text :3
+      </Section>
+    </Box>
   );
 };

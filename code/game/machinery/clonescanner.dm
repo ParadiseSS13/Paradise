@@ -46,6 +46,11 @@
 		"eyes"     = HEALTHY_ORGAN
 	)
 
+#define SCANNER_UNCLONEABLE_SPECIES "uncloneable"
+#define SCANNER_HUSKED "husked"
+#define SCANNER_NO_SOUL "soulless"
+#define SCANNER_MISC "miscellanious"
+
 //The cloning scanner itself.
 /obj/machinery/clonescanner
 	name = "cloning scanner"
@@ -57,6 +62,8 @@
 
 	//The linked cloning console.
 	var/obj/machinery/computer/cloning/console
+	//The tier of scan we can perform. Tier 2 parts and up can scan husks - or a tier 4 scanner and tier 1 laser.
+	var/scanning_tier
 	//The scanner's occupant.
 	var/mob/living/carbon/human/occupant
 	//The scanner's latest scan result
@@ -76,6 +83,13 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	update_icon()
+	RefreshParts()
+
+/obj/machinery/clonescanner/RefreshParts()
+	for(var/part in component_parts)
+		var/obj/item/stock_parts/SP = part
+		if(istype(SP))
+			scanning_tier += SP.rating
 
 
 /obj/machinery/clonescanner/MouseDrop_T(atom/movable/O, mob/user)
@@ -111,12 +125,12 @@
 	remove(user)
 
 /obj/machinery/clonescanner/proc/can_scan(mob/living/carbon/human/scanned)
-	if(HAS_TRAIT(scanned, TRAIT_BADDNA) || HAS_TRAIT(scanned, TRAIT_GENELESS)) //jimkil TODO: upgraded scanners able to scan husks
-		return FALSE
-	if(!scanned.dna)
-		return FALSE
+	if(!scanned.dna || HAS_TRAIT(scanned, TRAIT_GENELESS))
+		return SCANNER_MISC
+	if(HAS_TRAIT(scanned, TRAIT_BADDNA) && scanning_tier < 4)
+		return SCANNER_HUSKED
 	if(NO_CLONESCAN in scanned.dna.species.species_traits)
-		return FALSE
+		return SCANNER_UNCLONEABLE_SPECIES
 
 	return TRUE
 
@@ -154,6 +168,8 @@
 		return
 	inserted.forceMove(src)
 	occupant = inserted
+	if(last_scan?.name != inserted.dna?.real_name)
+		last_scan = null
 	occupant.notify_ghost_cloning()
 
 /obj/machinery/clonescanner/proc/remove(mob/living/carbon/human/removed)
