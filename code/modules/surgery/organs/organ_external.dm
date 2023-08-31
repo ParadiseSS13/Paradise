@@ -194,6 +194,12 @@
 		brute *= brute_mod
 		burn *= burn_mod
 
+	//I would move the delimb check below fractures and burn wounds, but it would cause issues. As such we save the incoming damage here.
+	var/original_brute = brute
+	var/original_burn = burn
+	var/limb_brute = brute_dam
+	var/limb_burn = burn_dam
+
 	// See if bones need to break
 	check_fracture(brute)
 	// See if we need to inflict severe burns
@@ -271,9 +277,9 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
-			if(brute_dam >= max_damage && prob(brute))
+			if(limb_brute >= max_damage && prob(original_brute / 2))
 				droplimb(0, DROPLIMB_SHARP)
-			if(burn_dam >= max_damage && prob(burn))
+			if(limb_burn >= max_damage && prob(original_burn / 2))
 				droplimb(0, DROPLIMB_BURN)
 
 	if(owner_old)

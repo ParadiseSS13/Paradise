@@ -95,21 +95,25 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, should_confuse = TRUE, distance = 0, message = 1)
 	. = TRUE
 
 	if(stat == DEAD || ismachineperson(src)) // Dead people and IPCs do not vomit particulates
 		return FALSE
 
-	if(stun)
-		Stun(8 SECONDS)
+	if(should_confuse)
+		if(blood)
+			KnockDown(10 SECONDS)
+		AdjustConfused(8 SECONDS)
+		Slowed(8 SECONDS, 1)
 
 	if(!blood && nutrition < 100) // Nutrition vomiting while already starving
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
 							"<span class='userdanger'>You try to throw up, but there's nothing in your stomach!</span>")
-		if(stun)
-			Weaken(20 SECONDS)
+		if(should_confuse)
+			KnockDown(20 SECONDS)
+			AdjustConfused(20 SECONDS)
 		return
 
 	if(message)
@@ -122,13 +126,13 @@
 		if(blood)
 			if(T)
 				add_splatter_floor(T)
-			if(stun)
+			if(should_confuse)
 				adjustBruteLoss(3)
 		else
 			if(T)
 				T.add_vomit_floor()
 			adjust_nutrition(-lost_nutrition)
-			if(stun)
+			if(should_confuse)
 				adjustToxLoss(-3)
 
 		T = get_step(T, dir)
