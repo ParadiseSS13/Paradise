@@ -106,29 +106,31 @@
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
-	if(wound_flavor_text["head"] && (is_destroyed["head"] || (!skip_mask && !(wear_mask && istype(wear_mask, /obj/item/clothing/mask/gas)))))
+	var/obj/item/clothing/mask/current_mask = wear_mask
+	var/obj/item/clothing/gloves/current_gloves = gloves
+	var/obj/item/clothing/shoes/current_shoes = shoes
+	if(wound_flavor_text["head"] && (is_destroyed["head"] || (!skip_mask && (!istype(current_mask) || !(current_mask.body_parts_covered & HEAD)))))
 		msg += wound_flavor_text["head"]
-	if(wound_flavor_text["chest"] && !w_uniform && !skip_jumpsuit) //No need.  A missing chest gibs you.
+	if(wound_flavor_text["chest"] && !skip_jumpsuit && (isnull(w_uniform) || !(w_uniform.body_parts_covered & UPPER_TORSO))) //No need.  A missing chest gibs you.
 		msg += wound_flavor_text["chest"]
-	if(wound_flavor_text["l_arm"] && (is_destroyed["left arm"] || (!w_uniform && !skip_jumpsuit)))
-		msg += wound_flavor_text["l_arm"]
-	if(wound_flavor_text["l_hand"] && (is_destroyed["left hand"] || (!gloves && !skip_gloves)))
-		msg += wound_flavor_text["l_hand"]
-	if(wound_flavor_text["r_arm"] && (is_destroyed["right arm"] || (!w_uniform && !skip_jumpsuit)))
-		msg += wound_flavor_text["r_arm"]
-	if(wound_flavor_text["r_hand"] && (is_destroyed["right hand"] || (!gloves && !skip_gloves)))
-		msg += wound_flavor_text["r_hand"]
-	if(wound_flavor_text["groin"] && (is_destroyed["groin"] || (!w_uniform && !skip_jumpsuit)))
+	if(wound_flavor_text["groin"] && (is_destroyed["groin"] || (!skip_jumpsuit && (isnull(w_uniform) || !(w_uniform.body_parts_covered & LOWER_TORSO)))))
 		msg += wound_flavor_text["groin"]
-	if(wound_flavor_text["l_leg"] && (is_destroyed["left leg"] || (!w_uniform && !skip_jumpsuit)))
+	if(wound_flavor_text["l_arm"] && (is_destroyed["left arm"] || (!skip_jumpsuit && (isnull(w_uniform) || !(w_uniform.body_parts_covered & ARM_LEFT)))))
+		msg += wound_flavor_text["l_arm"]
+	if(wound_flavor_text["l_hand"] && (is_destroyed["left hand"] || (!skip_gloves && (!istype(current_gloves) || !(current_gloves.body_parts_covered & HANDS)))))
+		msg += wound_flavor_text["l_hand"]
+	if(wound_flavor_text["r_arm"] && (is_destroyed["right arm"] || (!skip_jumpsuit && (isnull(w_uniform) || !(w_uniform.body_parts_covered & ARM_RIGHT)))))
+		msg += wound_flavor_text["r_arm"]
+	if(wound_flavor_text["r_hand"] && (is_destroyed["right hand"] || (!skip_gloves && (!istype(current_gloves) || !(current_gloves.body_parts_covered & HANDS)))))
+		msg += wound_flavor_text["r_hand"]
+	if(wound_flavor_text["l_leg"] && (is_destroyed["left leg"] || (!skip_jumpsuit && (isnull(w_uniform) || !(w_uniform.body_parts_covered & LEG_LEFT)))))
 		msg += wound_flavor_text["l_leg"]
-	if(wound_flavor_text["l_foot"]&& (is_destroyed["left foot"] || (!shoes && !skip_shoes)))
+	if(wound_flavor_text["r_hand"] && (is_destroyed["right hand"] || (!skip_shoes && (!istype(current_shoes) || !(current_shoes.body_parts_covered & FEET)))))
 		msg += wound_flavor_text["l_foot"]
-	if(wound_flavor_text["r_leg"] && (is_destroyed["right leg"] || (!w_uniform && !skip_jumpsuit)))
+	if(wound_flavor_text["r_leg"] && (is_destroyed["right leg"] || (!skip_jumpsuit && (isnull(w_uniform) || !(w_uniform.body_parts_covered & LEG_RIGHT)))))
 		msg += wound_flavor_text["r_leg"]
-	if(wound_flavor_text["r_foot"]&& (is_destroyed["right foot"] || (!shoes  && !skip_shoes)))
+	if(wound_flavor_text["r_hand"] && (is_destroyed["right hand"] || (!skip_shoes && (!istype(current_shoes) || !(current_shoes.body_parts_covered & FEET)))))
 		msg += wound_flavor_text["r_foot"]
-
 	return msg
 
 /mob/living/carbon/human/examine_extra_damage_flavor()
