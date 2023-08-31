@@ -1051,7 +1051,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(usr, "<span class='notice'>You [locked ? "lock" : "unlock"] your cover.</span>")
 		return
 	if(!locked)
-		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a roboticist .</span>")
+		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a roboticist.</span>")
 		return
 	if(alert("You cannnot lock your own cover again. Are you sure?\n           You will need a roboticist to re-lock you.", "Unlock Own Cover", "Yes", "No") == "Yes")
 		locked = !locked
