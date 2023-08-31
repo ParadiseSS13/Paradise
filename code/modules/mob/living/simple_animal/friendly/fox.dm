@@ -18,6 +18,9 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
 
+/mob/living/simple_animal/pet/dog/fox/handle_dogomated_movement()
+	return
+
 //Captain fox
 /mob/living/simple_animal/pet/dog/fox/Renault
 	name = "Renault"

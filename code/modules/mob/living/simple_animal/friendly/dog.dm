@@ -22,6 +22,16 @@
 	var/last_eaten = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
 	var/next_spin_message = 0
+	var/turns_since_scan = 0
+	var/atom/movable/movement_target
+	var/mailman_intent = INTENT_HELP
+
+/mob/living/simple_animal/pet/dog/Initialize(mapload)
+	. = ..()
+	if(prob(66))
+		mailman_intent = INTENT_HARM
+		melee_damage_lower = 2
+		melee_damage_upper = 5
 
 /mob/living/simple_animal/pet/dog/npc_safe(mob/user)
 	return TRUE
@@ -60,6 +70,73 @@
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
 				emote("growl")
+
+
+/mob/living/simple_animal/pet/dog/handle_automated_movement()
+	. = ..()
+	handle_dogomated_movement()
+
+///This proc is used by dog subtypes to add on to their automated movements, so we don't get strange conflicts with ian down the line. Also lets ian be a good well trained perfect boy.
+/mob/living/simple_animal/pet/dog/proc/handle_dogomated_movement()
+	//Feeding, chasing food, FOOOOODDDD
+	if(IS_HORIZONTAL(src) || buckled)
+		return
+
+	if(++turns_since_scan > 5)
+		turns_since_scan = 0
+
+		// Has a target, but it's not where it was before, and it wasn't picked up by someone.
+		if(movement_target && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
+			movement_target = null
+			stop_automated_movement = FALSE
+
+		// No current target, or current target is out of range.
+		var/list/snack_range = oview(src, 3)
+		if(!movement_target || !(movement_target.loc in snack_range))
+			movement_target = null
+			stop_automated_movement = FALSE
+			var/mob/possible_target
+			for(var/mob/M in snack_range)
+				if(ishuman(M)) // mailman?
+					if(M.mind.assigned_role == "Cargo Technician" || M.mind.assigned_role == "Quartermaster") // MAILMAN!
+						possible_target = M
+						a_intent = mailman_intent
+						break
+				else if(istype(M, /mob/living/simple_animal/pet/cat)) // CAT!
+					possible_target = M
+					a_intent = mailman_intent //Well trained dogs can be nice to cats. As a treat.
+					break
+			if(possible_target && (isturf(possible_target.loc) || ishuman(possible_target.loc))) // On the ground or in someone's hand.
+				movement_target = possible_target
+		if(movement_target)
+			INVOKE_ASYNC(src, PROC_REF(move_to_target))
+
+	if(prob(1))
+		chasetail()
+
+/mob/living/simple_animal/pet/dog/proc/move_to_target()
+	stop_automated_movement = TRUE
+	step_to(src, movement_target, 1)
+	if(prob(25))
+		emote("bark")
+	sleep(3)
+	if(prob(25))
+		emote("bark")
+	step_to(src, movement_target, 1)
+	sleep(3)
+	if(prob(25))
+		emote("bark")
+	step_to(src, movement_target, 1)
+
+	if(movement_target) // Not redundant due to sleeps, Item can be gone in 6 deciseconds
+		// Face towards the thing
+		dir = get_dir(src, movement_target)
+
+		if(!Adjacent(movement_target)) //can't reach food through windows.
+			return
+
+		if(isturf(movement_target.loc))
+			movement_target.attack_animal(src) // attack the thing
 
 //Corgis and pugs are now under one dog subtype
 
@@ -441,8 +518,6 @@
 	real_name = "Ian"	//Intended to hold the name without altering it.
 	gender = MALE
 	desc = "It's the HoP's beloved corgi."
-	var/turns_since_scan = 0
-	var/obj/movement_target
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
@@ -532,8 +607,7 @@
 	WRITE_FILE(json_file, json_encode(file_data))
 	log_debug("Persistent data for [src] saved (age: [age] | record_age: [record_age] | saved_head: [saved_head ? saved_head : "None"])")
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/handle_automated_movement()
-	. = ..()
+/mob/living/simple_animal/pet/dog/corgi/Ian/handle_dogomated_movement()
 	//Feeding, chasing food, FOOOOODDDD
 	if(IS_HORIZONTAL(src) || buckled)
 		return
@@ -568,7 +642,7 @@
 	if(prob(1))
 		chasetail()
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/proc/move_to_target()
+/mob/living/simple_animal/pet/dog/corgi/Ian/move_to_target()
 	stop_automated_movement = TRUE
 	step_to(src, movement_target, 1)
 	sleep(3)
@@ -674,7 +748,6 @@
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
-	var/turns_since_scan = 0
 
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Life()
 	..()
@@ -687,8 +760,7 @@
 
 	return dat
 
-/mob/living/simple_animal/pet/dog/corgi/Lisa/handle_automated_movement()
-	. = ..()
+/mob/living/simple_animal/pet/dog/corgi/Lisa/handle_dogomated_movement()
 	if(!IS_HORIZONTAL(src) && !buckled)
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("dances around.","chases her tail."))
