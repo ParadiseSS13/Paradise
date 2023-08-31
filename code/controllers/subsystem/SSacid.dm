@@ -34,8 +34,7 @@ SUBSYSTEM_DEF(acid)
 				return
 			continue
 
-		if(O.acid_level && O.acid_processing())
-		else
+		if(!(O.acid_level && O.acid_processing()))
 			O.cut_overlay(GLOB.acid_overlay, TRUE)
 			processing -= O
 

@@ -454,14 +454,9 @@
 		if(isbrain(M)) //Ignore brains
 			continue
 
-		if(M.stat == CONSCIOUS)
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
-					var/obj/item/clothing/glasses/meson/MS = H.glasses
-					if(MS.vision_flags == SEE_TURFS)
-						to_chat(H, "<span class='notice'>You look directly into [src], good thing you had your protective eyewear on!</span>")
-						return
+		if(HAS_TRAIT(M, TRAIT_MESON_VISION))
+			to_chat(M, "<span class='notice'>You look directly into [src], but your meson vision protects you!</span>")
+			return
 
 		M.Stun(6 SECONDS)
 		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \

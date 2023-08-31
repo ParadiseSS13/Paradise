@@ -1,0 +1,4 @@
+help: "Replace the grille and window with the proper spawner."
+/obj/structure/grille:
+  banned_neighbors:
+  - /obj/structure/window/full

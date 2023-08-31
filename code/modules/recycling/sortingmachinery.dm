@@ -317,7 +317,9 @@
 		H.destinationTag = 1
 
 	sleep(10)
-	playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
+	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, FALSE)
+		last_sound = world.time
 	sleep(5) // wait for animation to finish
 
 	H.init(src)	// copy the contents of disposer to holder

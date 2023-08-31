@@ -31,6 +31,6 @@
 		var/obj/item/organ/internal/ears/ears = user.get_int_organ(/obj/item/organ/internal/ears)
 		if(!ears || HAS_TRAIT_NOT_FROM(user, TRAIT_DEAF, EAR_DAMAGE))
 			continue
-		ears.deaf = max(ears.deaf - 0.25, (ears.ear_damage < 100 ? 0 : 1)) // Do not clear deafness if our ears are too damaged
-		ears.ear_damage = max(ears.ear_damage - 0.025, 0)
+		user.AdjustDeaf(-1 SECONDS)
+		ears.heal_internal_damage(0.025)
 		CHECK_TICK

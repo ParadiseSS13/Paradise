@@ -220,13 +220,13 @@
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
 		M.Stuttering(40 SECONDS)
-		M.AdjustEarDamage(0, 30)
+		M.Deaf(30 SECONDS)
 		M.KnockDown(6 SECONDS)
 		M.Jitter(40 SECONDS)
 		///else the mousetraps are useless
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(isobj(H.shoes))
+			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
 				H.unEquip(H.shoes)
 				walk_away(thingy,chassis,15,2)

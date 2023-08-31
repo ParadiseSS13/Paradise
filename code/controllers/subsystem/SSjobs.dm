@@ -82,13 +82,13 @@ SUBSYSTEM_DEF(jobs)
 			return FALSE
 		if(job.barred_by_disability(player.client))
 			return FALSE
+		if(job.barred_by_missing_limbs(player.client))
+			return FALSE
 
-		var/position_limit = job.total_positions
-		if(!latejoin)
-			position_limit = job.spawn_positions
+		var/available = latejoin ? job.is_position_available() : job.is_spawn_position_available()
 
-		if((job.current_positions < position_limit) || position_limit == -1)
-			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
+		if(available)
+			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JTP:[job.total_positions], JSP:[job.spawn_positions]")
 			player.mind.assigned_role = rank
 			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
 
@@ -99,6 +99,7 @@ SUBSYSTEM_DEF(jobs)
 
 			unassigned -= player
 			job.current_positions++
+			SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (latejoin ? "latejoin" : "roundstart")))
 			return 1
 
 	Debug("AR has failed, Player: [player], Rank: [rank]")
@@ -127,6 +128,9 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		if(job.barred_by_disability(player.client))
 			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
+			continue
+		if(job.barred_by_missing_limbs(player.client))
+			Debug("FOC player has missing limbs rendering them ineligible for job, Player: [player]")
 			continue
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
@@ -168,6 +172,10 @@ SUBSYSTEM_DEF(jobs)
 
 		if(job.barred_by_disability(player.client))
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
+			continue
+
+		if(job.barred_by_missing_limbs(player.client))
+			Debug("GRJ player has missing limbs rendering them ineligible for job, Player: [player]")
 			continue
 
 		if(player.mind && (job.title in player.mind.restricted_roles))
@@ -347,6 +355,10 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
+				if(job.barred_by_missing_limbs(player.client))
+					Debug("DO player has missing limbs rendering them ineligible for job, Player: [player], Job:[job.title]")
+					continue
+
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
@@ -355,7 +367,7 @@ SUBSYSTEM_DEF(jobs)
 				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 
 					// If the job isn't filled
-					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
+					if(job.is_spawn_position_available())
 						Debug("DO pass, Player: [player], Level:[level], Job:[job.title]")
 						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
 						AssignRole(player, job.title)
@@ -394,7 +406,7 @@ SUBSYSTEM_DEF(jobs)
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return TRUE
 
-/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE, log_to_db = TRUE)
+/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE)
 	if(!H)
 		return null
 	var/datum/job/job = GetJob(rank)
@@ -435,9 +447,6 @@ SUBSYSTEM_DEF(jobs)
 	if(job.important_information)
 		to_chat(H, "<center><div class='userdanger' style='width: 80%'>[job.important_information]</div></center>")
 	to_chat(H, "<center><span class='green'>----------------</span><br><br></center>")
-
-	if(log_to_db)
-		SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (joined_late ? "latejoin" : "roundstart")))
 
 	return H
 
@@ -521,6 +530,7 @@ SUBSYSTEM_DEF(jobs)
 		// Key: name | Value: Amount
 		var/datum/job/J = GetJob(job)
 		if(!J)
+			stack_trace("`[job]` not found while setting max slots. Check for misspellings or alternate titles")
 			continue
 		J.total_positions = text2num(joblist[job])
 		J.spawn_positions = text2num(joblist[job])
@@ -553,7 +563,7 @@ SUBSYSTEM_DEF(jobs)
 			if(job.get_exp_restrictions(player.client))
 				young++
 				continue
-			if(job.barred_by_disability(player.client))
+			if(job.barred_by_disability(player.client) || job.barred_by_missing_limbs(player.client))
 				disabled++
 				continue
 			if(player.client.prefs.active_character.GetJobDepartment(job, 1) & job.flag)

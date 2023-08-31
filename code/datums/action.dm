@@ -1,8 +1,10 @@
-#define AB_CHECK_RESTRAINED 1
-#define AB_CHECK_STUNNED 2
-#define AB_CHECK_LYING 4
-#define AB_CHECK_CONSCIOUS 8
-#define AB_CHECK_TURF 16
+#define AB_CHECK_RESTRAINED		(1<<0)
+#define AB_CHECK_STUNNED		(1<<1)
+#define AB_CHECK_LYING			(1<<2)
+#define AB_CHECK_CONSCIOUS		(1<<3)
+#define AB_CHECK_TURF			(1<<4)
+#define AB_CHECK_HANDS_BLOCKED	(1<<5)
+#define AB_CHECK_IMMOBILE		(1<<6)
 
 
 /datum/action
@@ -58,7 +60,7 @@
 	M.actions -= src
 	M.update_action_buttons()
 
-/datum/action/proc/Trigger()
+/datum/action/proc/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return FALSE
 	return TRUE
@@ -71,6 +73,10 @@
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
+		return FALSE
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return FALSE
 	if(check_flags & AB_CHECK_RESTRAINED)
 		if(owner.restrained())
@@ -131,7 +137,7 @@
 
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
 
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
@@ -148,12 +154,12 @@
 	I.actions -= src
 	return ..()
 
-/datum/action/item_action/Trigger(attack_self = TRUE) //Maybe we don't want to click the thing itself
+/datum/action/item_action/Trigger(left_click = TRUE, attack_self = TRUE) //Maybe we don't want to click the thing itself
 	if(!..())
 		return FALSE
 	if(target && attack_self)
 		var/obj/item/I = target
-		I.ui_action_click(owner, type)
+		I.ui_action_click(owner, type, left_click)
 	return TRUE
 
 /datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
@@ -173,6 +179,8 @@
 			I.appearance_flags = old_appearance_flags
 	else
 		..()
+
+
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
 
@@ -234,7 +242,7 @@
 /datum/action/item_action/toggle_welding_screen/plasmaman
 	name = "Toggle Welding Screen"
 
-/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger()
+/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger(left_click)
 	var/obj/item/clothing/head/helmet/space/plasmaman/H = target
 	if(istype(H))
 		H.toggle_welding_screen(owner)
@@ -250,7 +258,7 @@
 	desc = "Toggles if the club's blasts cause friendly fire."
 	button_icon_state = "vortex_ff_on"
 
-/datum/action/item_action/toggle_unfriendly_fire/Trigger()
+/datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click)
 	if(..())
 		UpdateButtonIcon()
 
@@ -369,7 +377,7 @@
 /datum/action/item_action/remove_tape
 	name = "Remove Duct Tape"
 
-/datum/action/item_action/remove_tape/Trigger(attack_self = FALSE)
+/datum/action/item_action/remove_tape/Trigger(left_click, attack_self = FALSE)
 	if(..())
 		var/datum/component/ducttape/DT = target.GetComponent(/datum/component/ducttape)
 		DT.remove_tape(target, usr)
@@ -389,7 +397,7 @@
 /datum/action/item_action/toggle_geiger_counter
 	name = "Toggle Geiger Counter"
 
-/datum/action/item_action/toggle_geiger_counter/Trigger()
+/datum/action/item_action/toggle_geiger_counter/Trigger(left_click)
 	var/obj/item/clothing/head/helmet/space/hardsuit/H = target
 	if(istype(H))
 		H.toggle_geiger_counter()
@@ -411,7 +419,7 @@
 	name = "Toggle Research Scanner"
 	button_icon_state = "scan_mode"
 
-/datum/action/item_action/toggle_research_scanner/Trigger()
+/datum/action/item_action/toggle_research_scanner/Trigger(left_click)
 	if(IsAvailable())
 		owner.research_scanner = !owner.research_scanner
 		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
@@ -433,7 +441,7 @@
 	name = "Use Instrument"
 	desc = "Use the instrument specified"
 
-/datum/action/item_action/instrument/Trigger()
+/datum/action/item_action/instrument/Trigger(left_click)
 	if(istype(target, /obj/item/instrument))
 		var/obj/item/instrument/I = target
 		I.interact(usr)
@@ -466,7 +474,7 @@
 	name = "Gravity jump"
 	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
 
-/datum/action/item_action/gravity_jump/Trigger()
+/datum/action/item_action/gravity_jump/Trigger(left_click)
 	if(!IsAvailable())
 		return FALSE
 
@@ -507,7 +515,7 @@
 /datum/action/item_action/voice_changer/voice
 	name = "Set Voice"
 
-/datum/action/item_action/voice_changer/voice/Trigger()
+/datum/action/item_action/voice_changer/voice/Trigger(left_click)
 	if(!IsAvailable())
 		return FALSE
 
@@ -561,7 +569,7 @@
 	S.action = null
 	return ..()
 
-/datum/action/spell_action/Trigger()
+/datum/action/spell_action/Trigger(left_click)
 	if(!..())
 		return FALSE
 	if(target)
@@ -616,7 +624,7 @@
 	check_flags = 0
 	var/active = FALSE
 
-/datum/action/innate/Trigger()
+/datum/action/innate/Trigger(left_click)
 	if(!..())
 		return FALSE
 	if(!active)
@@ -636,7 +644,7 @@
 	check_flags = 0
 	var/procname
 
-/datum/action/generic/Trigger()
+/datum/action/generic/Trigger(left_click)
 	if(!..())
 		return FALSE
 	if(target && procname)

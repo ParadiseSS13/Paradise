@@ -51,7 +51,6 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
-	l_ear = /obj/item/radio/headset/headset_sec
 
 /datum/outfit/plasmaman/warden
 	name = "Plasmaman Warden"

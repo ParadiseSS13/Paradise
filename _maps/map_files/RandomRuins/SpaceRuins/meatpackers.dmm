@@ -1503,7 +1503,8 @@
 "eL" = (
 /obj/machinery/door/window{
 	base_state = "right";
-	icon_state = "right"
+	icon_state = "right";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
@@ -1526,7 +1527,8 @@
 "eS" = (
 /obj/machinery/door/window{
 	base_state = "right";
-	icon_state = "right"
+	icon_state = "right";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Midship)

@@ -327,8 +327,6 @@
 			switch(check_tile_is_border(NT,dir))
 				if(BORDER_NONE)
 					pending+=NT
-				if(BORDER_BETWEEN)
-					//do nothing, may be later i'll add 'rejected' list as optimization
 				if(BORDER_2NDTILE)
 					found+=NT //tile included to new area, but we dont seek more
 				if(BORDER_SPACE)

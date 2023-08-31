@@ -3282,9 +3282,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away2";
-	name = "Labor Camp Airlock";
-	req_access_txt = null;
-	req_one_access_txt = null
+	name = "Labor Camp Airlock"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -3347,9 +3345,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away2";
-	name = "Labor Camp Airlock";
-	req_access_txt = null;
-	req_one_access_txt = null
+	name = "Labor Camp Airlock"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -6191,9 +6187,7 @@
 "TU" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away";
-	name = "Labor Camp Airlock";
-	req_access_txt = null;
-	req_one_access_txt = null
+	name = "Labor Camp Airlock"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,

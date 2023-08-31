@@ -36,8 +36,6 @@
 	var/sting_range = 2
 	/// The changeling's identifier when speaking in the hivemind, i.e. "Mr. Delta 123".
 	var/changelingID = "Changeling"
-	/// The current amount of genetic damage incurred from power use.
-	var/genetic_damage = 0
 	/// If the changeling is in the process of absorbing someone.
 	var/is_absorbing = FALSE
 	/// The amount of points available to purchase changeling abilities.
@@ -183,15 +181,16 @@
 	if(!owner || !owner.current)
 		return PROCESS_KILL
 	var/mob/living/carbon/human/H = owner.current
+	if(H.stat == DEAD)
+		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
+	else
+		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
+	update_chem_charges_ui(H)
+
+/datum/antagonist/changeling/proc/update_chem_charges_ui(mob/living/carbon/human/H = owner.current)
 	if(H.hud_used?.lingchemdisplay)
 		H.hud_used.lingchemdisplay.invisibility = 0
 		H.hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(chem_charges)]</font></div>"
-	if(H.stat == DEAD)
-		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
-		genetic_damage = directional_bounded_sum(genetic_damage, -1, LING_DEAD_GENETIC_DAMAGE_HEAL_CAP, 0)
-	else // Not dead? no chem/genetic_damage caps.
-		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
-		genetic_damage = max(0, genetic_damage - 1)
 
 /**
  * Respec the changeling's powers after first checking if they're able to respec.

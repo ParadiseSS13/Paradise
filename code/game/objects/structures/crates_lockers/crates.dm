@@ -315,6 +315,7 @@
 	icon_state = "trashcart"
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
+	pull_speed = 0
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."

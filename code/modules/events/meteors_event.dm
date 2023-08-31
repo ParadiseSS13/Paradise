@@ -11,7 +11,7 @@
 		if(A)
 			screen_alert = A
 
-	waves = severity * rand(1,3)
+	waves = severity * 2 + rand(0, severity) //4-6 waves on medium. 6-9 waves on major. More consistant.
 
 /datum/event/meteor_wave/announce()
 	switch(severity)
@@ -51,4 +51,4 @@
 			return GLOB.meteors_normal
 
 /datum/event/meteor_wave/proc/get_meteor_count()
-	return severity * rand(1, 2)
+	return severity + rand(1, severity) //3 to 4 per wave for medium, 4-6 for major

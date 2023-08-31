@@ -32,3 +32,6 @@ SUBSYSTEM_DEF(title)
 
 		for(var/turf/simulated/wall/indestructible/splashscreen/splash in world)
 			splash.icon = icon
+			// Below operations are needed to centrally place the new splashscreen on the lobby area
+			splash.pixel_x = -((icon.Width() - world.icon_size) / 2)
+			splash.pixel_y = -((icon.Height() - world.icon_size) / 2)

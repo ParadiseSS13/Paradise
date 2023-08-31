@@ -6,7 +6,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "c" = (
-/obj/machinery/abductor/experiment,
+/obj/machinery/abductor/experiment/broken,
 /turf/simulated/floor/plating/abductor,
 /area/ruin/unpowered/misc_lavaruin)
 "d" = (

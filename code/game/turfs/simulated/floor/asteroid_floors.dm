@@ -42,12 +42,6 @@
 /turf/simulated/floor/plating/asteroid/burn_tile()
 	return
 
-/turf/simulated/floor/plating/asteroid/MakeSlippery(wet_setting)
-	return
-
-/turf/simulated/floor/plating/asteroid/MakeDry(wet_setting)
-	return
-
 /turf/simulated/floor/plating/asteroid/remove_plating()
 	return
 

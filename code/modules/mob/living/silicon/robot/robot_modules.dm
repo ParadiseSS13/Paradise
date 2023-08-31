@@ -335,10 +335,14 @@
 	. = ..()
 	for(var/obj/item/borg_defib/F in modules)
 		F.emag_act()
+	for(var/obj/item/reagent_containers/borghypo/F in modules)
+		F.emag_act()
 
 // Enable safeties on the borg's defib.
 /obj/item/robot_module/medical/unemag()
 	for(var/obj/item/borg_defib/F in modules)
+		F.emag_act()
+	for(var/obj/item/reagent_containers/borghypo/F in modules)
 		F.emag_act()
 	return ..()
 

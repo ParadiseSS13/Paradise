@@ -130,3 +130,7 @@
 
 /obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock)
 	airlock.name = get_area_name(airlock, TRUE)
+
+//part responsible for windoors (thanks S34N)
+/obj/effect/mapping_helpers/airlock/windoor
+	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)

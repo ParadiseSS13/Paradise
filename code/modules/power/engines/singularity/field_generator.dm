@@ -18,6 +18,8 @@ field_generator power level display
 #define FG_CHARGING 1
 #define FG_ONLINE 2
 
+GLOBAL_LIST_INIT(field_generator_fields, list())
+
 /obj/machinery/field/generator
 	name = "Field Generator"
 	desc = "A large thermal battery that projects a high amount of energy when powered."
@@ -283,6 +285,7 @@ field_generator power level display
 			CF.dir = field_dir
 			fields += CF
 			G.fields += CF
+			GLOB.field_generator_fields += CF
 			for(var/mob/living/L in T)
 				CF.Crossed(L, null)
 
@@ -295,6 +298,7 @@ field_generator power level display
 	clean_up = TRUE
 	for(var/F in fields)
 		qdel(F)
+		GLOB.field_generator_fields -= F
 
 	for(var/CG in connected_gens)
 		var/obj/machinery/field/generator/FG = CG

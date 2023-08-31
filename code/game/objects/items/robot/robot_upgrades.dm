@@ -255,6 +255,13 @@
 		/obj/item/reagent_containers/borghypo = /obj/item/reagent_containers/borghypo/abductor
 	)
 
+/obj/item/borg/upgrade/abductor_medi/after_install(mob/living/silicon/robot/R)
+	. = ..()
+	if(!R.emagged) // Emagged Mediborgs that are upgraded need the evil chems.
+		return
+	for(var/obj/item/reagent_containers/borghypo/F in R.module.modules)
+		F.emag_act()
+
 /obj/item/borg/upgrade/syndicate
 	name = "safety override module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg."
@@ -407,8 +414,9 @@
 	to_chat(cyborg, "<span class='notice'>The floor buffer is now [cyborg.floorbuffer ? "active" : "deactivated"].</span>")
 
 /obj/item/borg/upgrade/floorbuffer/Destroy()
-	cyborg.floorbuffer = FALSE
-	cyborg = null
+	if(cyborg)
+		cyborg.floorbuffer = FALSE
+		cyborg = null
 	return ..()
 
 /obj/item/borg/upgrade/bluespace_trash_bag

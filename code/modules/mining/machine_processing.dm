@@ -19,16 +19,16 @@
 	density = TRUE
 	anchored = TRUE
 	var/obj/machinery/mineral/processing_unit/machine = null
-	var/machinedir = EAST
 	speed_process = TRUE
 
 /obj/machinery/mineral/processing_unit_console/Initialize(mapload)
 	. = ..()
-	machine = locate(/obj/machinery/mineral/processing_unit, get_step(src, machinedir))
-	if(machine)
-		machine.CONSOLE = src
-	else
-		return INITIALIZE_HINT_QDEL
+	for(var/obj/machinery/mineral/processing_unit/found_machine in range(1, src))
+		machine = found_machine
+		machine.console = src
+		return //needed to break for loop
+
+	CRASH("[src] failed to link to a mineral processing unit!")
 
 /obj/machinery/mineral/processing_unit_console/attack_ghost(mob/user)
 	return open_ui(user)
@@ -82,7 +82,7 @@
 	icon_state = "furnace"
 	density = TRUE
 	anchored = TRUE
-	var/obj/machinery/mineral/CONSOLE = null
+	var/obj/machinery/mineral/console = null
 	var/on = FALSE
 	var/selected_material = MAT_METAL
 	var/selected_alloy = null
@@ -95,7 +95,7 @@
 	files = new /datum/research/smelter(src)
 
 /obj/machinery/mineral/processing_unit/Destroy()
-	CONSOLE = null
+	console = null
 	QDEL_NULL(files)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
@@ -115,8 +115,8 @@
 		else if(selected_alloy)
 			smelt_alloy()
 
-		if(CONSOLE)
-			CONSOLE.updateUsrDialog()
+		if(console)
+			console.updateUsrDialog()
 
 /obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -126,8 +126,8 @@
 	else
 		materials.insert_item(O)
 		qdel(O)
-		if(CONSOLE)
-			CONSOLE.updateUsrDialog()
+		if(console)
+			console.updateUsrDialog()
 
 /obj/machinery/mineral/processing_unit/proc/get_machine_data()
 	var/dat = "<b>Smelter control console</b><br><br>"
@@ -138,7 +138,7 @@
 		if(selected_material == mat_id)
 			dat += " <i>Smelting</i>"
 		else
-			dat += " <A href='?src=[CONSOLE.UID()];material=[mat_id]'><b>Not Smelting</b></A> "
+			dat += " <A href='?src=[console.UID()];material=[mat_id]'><b>Not Smelting</b></A> "
 		dat += "<br>"
 
 	dat += "<br><br>"
@@ -150,16 +150,16 @@
 		if(selected_alloy == D.id)
 			dat += " <i>Smelting</i>"
 		else
-			dat += " <A href='?src=[CONSOLE.UID()];alloy=[D.id]'><b>Not Smelting</b></A> "
+			dat += " <A href='?src=[console.UID()];alloy=[D.id]'><b>Not Smelting</b></A> "
 		dat += "<br>"
 
 	dat += "<br><br>"
 	//On or off
 	dat += "Machine is currently "
 	if(on)
-		dat += "<A href='?src=[CONSOLE.UID()];set_on=off'>On</A> "
+		dat += "<A href='?src=[console.UID()];set_on=off'>On</A> "
 	else
-		dat += "<A href='?src=[CONSOLE.UID()];set_on=on'>Off</A> "
+		dat += "<A href='?src=[console.UID()];set_on=on'>Off</A> "
 
 	return dat
 

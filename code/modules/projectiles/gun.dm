@@ -118,9 +118,10 @@
 	if(recoil)
 		shake_camera(user, recoil + 1, recoil)
 
-	var/muzzle_range = chambered.muzzle_flash_range
-	var/muzzle_strength = chambered.muzzle_flash_strength
+	var/muzzle_range = chambered?.muzzle_flash_range
+	var/muzzle_strength = chambered?.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
+
 	if(suppressed)
 		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 		muzzle_range *= 0.5
@@ -474,7 +475,7 @@
 	gun = null
 	return ..()
 
-/datum/action/toggle_scope_zoom/Trigger()
+/datum/action/toggle_scope_zoom/Trigger(left_click)
 	gun.zoom(owner)
 
 /datum/action/toggle_scope_zoom/IsAvailable()

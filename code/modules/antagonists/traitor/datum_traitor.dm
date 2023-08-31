@@ -100,17 +100,15 @@
 	for(var/i in 1 to GLOB.configuration.gamemode.traitor_objectives_amount)
 		forge_single_human_objective()
 
-	// Are they required to stay alive for their objectives?
-	var/martyr_compatibility = TRUE
-	if(prob(20))
-		for(var/objective in owner.get_all_objectives())
-			var/datum/objective/O = objective
-			if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
-				martyr_compatibility = FALSE
-				break
+	var/can_succeed_if_dead = TRUE
+	for(var/objective in owner.get_all_objectives())
+		var/datum/objective/O = objective
+		if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
+			can_succeed_if_dead  = FALSE
+			break
 
 	// Give them an escape objective if they don't have one already.
-	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && !martyr_compatibility)
+	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_objective(/datum/objective/escape)
 
 /**

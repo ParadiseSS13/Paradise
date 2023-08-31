@@ -22,6 +22,8 @@
 		return 0.85
 	if(drunk >= 15)//a little drunk
 		return 0.85
+	if(target.reagents.has_reagent("happiness")) // fuck yeah
+		return 0.81
 	return 0.8 //20% failure chance
 
 /proc/get_location_modifier(mob/target)

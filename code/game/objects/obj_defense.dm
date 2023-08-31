@@ -23,11 +23,8 @@
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
-	switch(damage_type)
-		if(BRUTE)
-		if(BURN)
-		else
-			return 0
+	if(damage_type != BRUTE && damage_type != BURN)
+		return 0
 	var/armor_protection = 0
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
@@ -90,7 +87,7 @@
 /obj/blob_act(obj/structure/blob/B)
 	if(isturf(loc))
 		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor) //the blob doesn't destroy thing below the floor
+		if(level == 1 && (T.intact||T.transparent_floor)) //the blob doesn't destroy thing below the floor
 			return
 	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
 
@@ -200,7 +197,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(isturf(loc))
 		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor) //fire can't damage things hidden below the floor.
+		if(level == 1 && (T.intact||T.transparent_floor)) //fire can't damage things hidden below the floor.
 			return
 	..()
 	if(QDELETED(src))  // Some items, like patches, might get qdeled in the parent call

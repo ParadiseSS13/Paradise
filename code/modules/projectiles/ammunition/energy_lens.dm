@@ -196,8 +196,8 @@
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/wormhole/New(obj/item/gun/energy/wormhole_projector/wh)
-	. = ..()
 	gun = wh
+	return ..()
 
 /obj/item/ammo_casing/energy/wormhole/orange
 	projectile_type = /obj/item/projectile/beam/wormhole/orange
@@ -355,5 +355,5 @@
 	projectile_type = /obj/item/projectile/beam/silencer
 	muzzle_flash_effect = null
 	select_name = "silencing dissidents"
-	e_cost = 62.5 // 16 shots
+	e_cost = 50 // 16 shots
 	fire_sound = 'sound/weapons/silencer_laser.ogg'

@@ -4,6 +4,7 @@
 	item_chair = null
 	anchored = FALSE
 	movable = TRUE
+	pull_speed = 0
 	buildstackamount = 15
 
 	var/move_delay = null

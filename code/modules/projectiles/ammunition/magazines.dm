@@ -80,6 +80,12 @@
 	caliber = "cap"
 	max_ammo = 7
 
+/obj/item/ammo_box/magazine/internal/overgrown
+	name = "overgrown pistol magazine"
+	desc = "Oh god, this shouldn't be here"
+	ammo_type = /obj/item/ammo_casing/overgrown
+	max_ammo = 8
+
 // Shotgun internal mags
 /obj/item/ammo_box/magazine/internal/shot
 	name = "shotgun internal magazine"
@@ -488,6 +494,11 @@
 	name = "\improper XL shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
+
+/obj/item/ammo_box/magazine/m12g/confetti
+	name = "\improper XL shotgun magazine (12g confetti)"
+	icon_state = "party_drum"
+	ammo_type = /obj/item/ammo_casing/shotgun/confetti
 
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"
