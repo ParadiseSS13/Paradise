@@ -12,7 +12,7 @@
 	if(H.mind)
 		H.mind.offstation_role = TRUE
 	else
-		H.RegisterSignal(H, COMSIG_MOB_LOGIN, TYPE_PROC_REF(/mob/living/carbon/human, apply_offstation_roles))
+		H.RegisterSignal(H, COMSIG_HUMAN_LOGIN, TYPE_PROC_REF(/mob/living/carbon/human, apply_offstation_roles))
 
 
 /proc/apply_to_card(obj/item/card/id/I, mob/living/carbon/human/H, list/access = list(), rank, special_icon)
