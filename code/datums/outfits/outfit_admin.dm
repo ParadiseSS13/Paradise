@@ -7,8 +7,12 @@
 		H.mind.assigned_role = name
 		H.job = name
 
-/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	
+	if(visualsOnly)
+		return
+
 	if(H.mind)
 		H.mind.offstation_role = TRUE
 	else
@@ -78,7 +82,7 @@
 /datum/outfit/admin/syndicate_infiltrator/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
 	H.sec_hud_set_ID()
-	H.faction += "syndicate"
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate/operative
 	name = "Syndicate Nuclear Operative"
@@ -123,7 +127,7 @@
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = H.equip_syndicate_commando(FALSE, TRUE)
-	H.faction += "syndicate"
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate/spy
 	name = "Syndicate Spy"
