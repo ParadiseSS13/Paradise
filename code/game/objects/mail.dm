@@ -4,7 +4,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "mail_small"
+	icon_state = "mail_misc"
 	item_state = "paper"
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
@@ -30,6 +30,7 @@
 	new /obj/item/stack/spacecash(src, rand(1, 50) * 5)
 
 /obj/item/envelope/security
+	icon_state = "mail_sec"
 	possible_contents = list(/obj/item/reagent_containers/food/snacks/donut/sprinkles,
 	/obj/item/megaphone,
 	/obj/item/poster/random_official,
@@ -43,6 +44,7 @@
 	/obj/item/toy/figure/crew/secofficer)
 
 /obj/item/envelope/science
+	icon_state = "mail_sci"
 	possible_contents = list(/obj/item/analyzer,
 	/obj/item/assembly/signaler,
 	/obj/item/slime_extract/grey,
@@ -58,6 +60,7 @@
 	/obj/item/toy/figure/crew/scientist)
 
 /obj/item/envelope/supply
+	icon_state = "mail_sup"
 	possible_contents = list(/obj/item/reagent_containers/hypospray/autoinjector/survival,
 	/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
 	/obj/item/clothing/glasses/meson/gar,
@@ -71,6 +74,7 @@
 	/obj/item/toy/figure/crew/miner)
 
 /obj/item/envelope/medical
+	icon_state = "mail_med"
 	possible_contents = list(/obj/item/soap,
 	/obj/item/reagent_containers/glass/bottle/morphine,
 	/obj/item/reagent_containers/hypospray/safety,
@@ -86,6 +90,7 @@
 	/obj/item/toy/figure/crew/virologist)
 
 /obj/item/envelope/engineering
+	icon_state = "mail_eng"
 	possible_contents = list(/obj/item/airlock_electronics,
 	/obj/item/reagent_containers/food/drinks/cans/beer,
 	/obj/item/reagent_containers/food/snacks/candy/confectionery/nougat,
@@ -99,6 +104,7 @@
 	/obj/item/toy/figure/crew/engineer)
 
 /obj/item/envelope/service
+	icon_state = "mail_serv"
 	possible_contents = list(/obj/item/painter,
 	/obj/item/twohanded/push_broom,
 	/obj/item/gun/energy/floragun,
@@ -118,6 +124,7 @@
 	/obj/item/toy/figure/crew/mime)
 
 /obj/item/envelope/command
+	icon_state = "mail_com"
 	possible_contents = list(/obj/item/flash,
 	/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 	/obj/item/poster/random_official,
