@@ -103,6 +103,13 @@
 	item_color = "rainbow"
 	dog_fashion = /datum/dog_fashion/head/softcap
 
+/obj/item/clothing/head/soft/deliverysoft
+	name = "delivery boy cap"
+	desc = "It's a baseball hat that is part of delivery boy unifrom."
+	icon_state = "deliveryboysoft"
+	item_color = "deliveryboysoft"
+	dog_fashion = /datum/dog_fashion/head/softcap
+
 /obj/item/clothing/head/soft/sec
 	name = "security cap"
 	desc = "It's baseball hat in tasteful red colour."
