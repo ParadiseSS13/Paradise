@@ -16,7 +16,6 @@ export const MedicalChemistryRecipes = (props, context) => {
     selected_reagent = components[reagentIndex]
   }
 
-  // Todo: fix the iteration error I have no idea about, cannot build tgui.bundle.js until then
   return (
     <Window resizable>
       <Window.Content scrollable>
