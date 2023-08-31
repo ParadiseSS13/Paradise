@@ -63,6 +63,7 @@ Difficulty: Hard
 	score_type = HIEROPHANT_SCORE
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
+	enraged_loot = /obj/item/disk/fauna_research/hierophant
 	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
 							/datum/action/innate/megafauna_attack/chaser_swarm,
 							/datum/action/innate/megafauna_attack/cross_blasts,

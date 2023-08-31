@@ -223,8 +223,8 @@
 	desc = "An award which represents magnificant contributions to the HRD-MDE project in the form of analysing Bubblegum, and the related blood space."
 
 /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
-	name = "medal of pride and accomplishment"
-	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'</i>"
+	name = "medal of incredible dedication"
+	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'...</i>"
 
 // SILVER (awarded by Captain)
 
@@ -309,12 +309,12 @@
 
 /obj/item/clothing/accessory/medal/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
 	. = ..()
-		burn_up()
+	burn_up()
 
 /obj/item/clothing/accessory/medal/plasma/proc/burn_up()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
+		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 10) //Technically twice as much plasma as it should spawn but a little more never hurt anyone.
 	visible_message("<span class='warning'>[src] bursts into flame!</span>")
 	qdel(src)
 

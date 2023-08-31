@@ -40,6 +40,8 @@
 	var/list/attack_action_types = list()
 	/// Has someone enabled hard mode?
 	var/enraged = FALSE
+	/// Path of the hardmode loot disk, if applicable.
+	var/enraged_loot
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -72,6 +74,10 @@
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
+		if(enraged && length(loot) && enraged_loot) //Don't drop a disk if the boss drops no loot. Important for legion.
+			for(var/mob/living/M in urange(20, src)) //Yes big range, but for bubblegum arena
+				if(M.client)
+					loot += enraged_loot //Disk for each miner / borg.
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 	return ..()

@@ -638,6 +638,7 @@ Difficulty: Hard
 	death_sound = 'sound/hallucinations/veryfar_noise.ogg'
 	ranged = TRUE
 	ranged_cooldown_time = 10
+	enraged_loot = /obj/item/disk/fauna_research/bubblegum
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2/Initialize(mapload)
 	. = ..()

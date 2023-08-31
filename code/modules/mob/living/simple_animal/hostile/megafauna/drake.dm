@@ -61,6 +61,7 @@ Difficulty: Medium
 	deathmessage = "collapses into a pile of bones, its flesh sloughing away."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	footstep_type = FOOTSTEP_MOB_HEAVY
+	enraged_loot = /obj/item/disk/fauna_research/ash_drake
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
 							/datum/action/innate/megafauna_attack/fire_cone_meteors,
 							/datum/action/innate/megafauna_attack/mass_fire,

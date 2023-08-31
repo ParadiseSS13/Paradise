@@ -167,6 +167,12 @@ Difficulty: Hard
 	var/crate_type = pick(loot)
 	var/obj/structure/closet/crate/C = new crate_type(loc)
 	new core_type(C)
+	if(!enraged)
+		return
+	if(enraged)
+		for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
+			if(M.client)
+				new /obj/item/disk/fauna_research/vetus(C)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
 	. = ..()

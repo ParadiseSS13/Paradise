@@ -54,6 +54,7 @@ Difficulty: Very Hard
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	death_sound = 'sound/misc/demon_dies.ogg'
+	enraged_loot = /obj/item/disk/fauna_research/colossus
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
 							/datum/action/innate/megafauna_attack/aoe_attack,
 							/datum/action/innate/megafauna_attack/shotgun,

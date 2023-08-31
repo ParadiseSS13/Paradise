@@ -28,3 +28,52 @@
 	<br><hr>
 	<font size =\"1\"><i>By participating in this experiment you waive all rights for compensation of death on the job.</font></i>
 "}
+
+
+/obj/item/disk/fauna_research
+	name = "empty HRD-MDE project disk"
+	desc = "A disk used by the HRD-MDE project. Seems empty?"
+	icon_state = "holodisk"
+	var/obj/item/clothing/accessory/medal/output
+
+/obj/item/disk/fauna_research/Initialize(mapload)
+	. = ..()
+	for(var/obj/structure/closet/C in get_turf(src))
+		forceMove(C)
+		return
+
+/obj/item/disk/fauna_research/blood_drunk_miner
+	name = "blood drunk HRD-MDE project disk"
+	desc = "A disk used by the HRD-MDE project. Contains data on the dash and resiance of the blood drunk miner."
+	output = /obj/item/clothing/accessory/medal/blood_drunk
+
+/obj/item/disk/fauna_research/hierophant
+	name = "\improper Hierophant HRD-MDE project disk"
+	desc = "A disk used by the HRD-MDE project. Contains data on the energy manipulation and material composition of the Hierophant."
+	output = /obj/item/clothing/accessory/medal/plasma/hierophant
+
+/obj/item/disk/fauna_research/ash_drake
+	name = "ash drake HRD-MDE project disk"
+	desc = "A disk used by the HRD-MDE project. Contains data on the fire production methods and rapid regeneration of the ash drakes."
+	output = /obj/item/clothing/accessory/medal/plasma/ash_drake
+
+/obj/item/disk/fauna_research/vetus
+	name = "\improper Vetus Speculator HRD-MDE project disk"
+	desc = "A disk used by the HRD-MDE project. Contains data on the anomaly manipulation and computing processes of the Vetus Speculator."
+	output = /obj/item/clothing/accessory/medal/alloy/vetus
+
+/obj/item/disk/fauna_research/colossus
+	name = "colossus HRD-MDE project disk"
+	desc = "A disk used by the HRD-MDE project. Contains data on the powerful voice and A-T field of the colossi."
+	output = /obj/item/clothing/accessory/medal/silver/colossus
+
+/obj/item/disk/fauna_research/legion
+	name = "\improper Legion HRD-MDE project disk"
+	desc = "A disk used by the HRD-MDE project. Contains data on the endless regeneration and disintegration laser of the Legion."
+	output = /obj/item/clothing/accessory/medal/silver/legion
+
+/obj/item/disk/fauna_research/bubblegum
+	name = "\improper Bubblegum HRD-MDE project disk"
+	desc = "A disk used by the HRD-MDE project. Contains data on the bloodcrawling and \[REDACTED\] of Bubblegum." //I hate this so much
+	output = /obj/item/clothing/accessory/medal/gold/bubblegum
+
