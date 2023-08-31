@@ -1067,7 +1067,7 @@
 									"Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
 
 	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Barber", "Botanist", "Explorer", "Quartermaster",
-						"Station Engineer", "Atmospheric Technician", "Medical Doctor", "Coroner","Geneticist", "Chaplain", "Librarian",
+						"Station Engineer", "Atmospheric Technician", "Medical Doctor", "Coroner", "Geneticist", "Chaplain", "Librarian",
 						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs")
 	/// Jobs that NT stations dont offer/mispelled
 	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "Brig Physician",
@@ -1076,20 +1076,20 @@
 								"Mime", "Assitant", "Janittor", "Medical", "Generticist", "Baton Officer",
 								"Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs")
 
-	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation, dont normally asks for good salaries", "Charged with three counts of aggravated silliness",
+	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation, doesn't normally ask for good salaries", "Charged with three counts of aggravated silliness",
 							"Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian",
-							"Has proven knownledge of the SOP, but no working experience", "Has worked at Mr Changs",
-							"Spent 8 years as a freelance journalist", "Known as a hero for keeping stations clean while its under attack",
-							"Worked as a bureaucratic for the SolGov", "Worked on the R&D department of the Donk Corporation",
+							"Has proven knowledge of SOP, but no working experience", "Has worked at Mr Changs",
+							"Spent 8 years as a freelance journalist", "Known as a hero for keeping stations clean during attacks",
+							"Worked as a bureaucrat for SolGov", "Worked in Donk Corporation's R&D department",
 							"Did work for USSP as an translator", "Took care of Toxins, Xenobiology, Robotics and R&D as a single worker in the Research department",
 							"Served for 4 years as a soldier of the Prospero Order", "Traveled through various systems as an businessman",
-							"Worked as an waiter for one year", "Has previous experience as an cameraman",
-							"Spent years of his life being a janitor at the clown university", "Was given numerous good reviews for delivering cargo requests on time",
+							"Worked as a waiter for one year", "Has previous experience as a cameraman",
+							"Spent years of their life being a janitor at Clown College", "Was given numerous good reviews for delivering cargo requests on time",
 							"Helped old people cross the holostreet", "Has proven ability to read", "Served 4 years in NT navy",
-							"Did set station shields properly before a massive meteor shower", "Previously assisted people as an assistant",
+							"Properly set station shields before a massive meteor shower", "Previously assisted people as an assistant",
 							"Created golems for the purpose of making them work for the company", "Worked at the space IRS for 5 years",
 							"Awarded a medal for hosting a fashion contest against the syndicate",
-							"Is certified for EVA repairs", "Known for storing important objects safely up in their ###",
+							"Is certified for EVA repairs", "Known for storing important objects in curious places",
 							"Improved efficiency of Research Outpost by 5.7% through dismissal of underperforming workers", "Skilled in Enterprise Resource Planning",
 							"Prevented three Supermatter Delamination Events in the same shift", "Developed an innovative plasma refinement process that cuts waste gasses in half",
 							"Has received several commendations due to visually appealing kitchen remodelings", "Is known to report any petty Space Law or SOP breakage to the relevant authorities",
@@ -1097,15 +1097,15 @@
 							"Was part of the \"Pump Purgers\", famous for the streak of 102 shifts with no Supermatter Explosions",
 							"Virologist; took it upon themselves to distribute a vaccine to the crew", "Conducted experiments that generated high profits but many casualties")
 
-	var/list/incorrect_records = list("Caught littering on NSS Cyberiad", "Scientist involved in the ###### incident",
+	var/list/incorrect_records = list("Caught littering on the NSS Cyberiad", "Scientist involved in the ###### incident",
 									"Rescued four assistants from a plasma fire, but left behind the station blueprints",
 									"Successfully cremated a changeling without stripping them", "Worked at a zoo and got fired for eating a monkey", "None",
 									"Found loitering in front of the bridge", "Wired the engine directly to the power grid", "Known for getting wounded too easily",
 									"Demoted in the past for speaking as a mime", "THEY ARE AFTER ME, SEND HELP!",
 									"Ex-NT recruiter, fired for hiring a syndicate agent as an Chief Engineer", "Took the autolathe circuit board from the Tech Storage as Roboticist",
-									"Did not alert the crew about multiple toxins tests", "Did build a medical bay in the Research Division as a Scientist",
+									"Did not alert the crew about multiple toxins tests", "Built a medical bay in the Research Division as a Scientist",
 									"Connected a plasma storage tank to the air distribution line", "Certified supermatter taste tester",
-									"Is known to spend entire shifts in the arcade instead of working", "Experienced Cybersun industries roboticist")
+									"Is known to spend entire shifts in the arcade instead of working", "Experienced Cybersun Industries roboticist")
 
 	/// Species that are hirable in the eyes of NT
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
