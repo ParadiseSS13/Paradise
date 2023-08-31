@@ -71,7 +71,7 @@
 
 /datum/game_mode/revolution/Destroy(force, ...)
 	pre_revolutionaries.Cut()
-	. = ..()
+	return ..()
 
 /datum/game_mode/revolution/process() // to anyone who thinks "why don't we use a normal actually sane check here instead of process for checking Z level changes" It's because equip code is dogshit and you change z levels upon spawning in
 	check_counter++
@@ -179,7 +179,7 @@
 			if(!istype(survivor) || survivor.stat == DEAD)
 				return
 			num_survivors++
-			if(survivor?.mind.has_antag_datum(/datum/antagonist/rev))
+			if(survivor.mind?.has_antag_datum(/datum/antagonist/rev))
 				num_revs++
 		if(num_survivors)
 			to_chat(world, "[TAB]Command's Approval Rating: <B>[100 - round((num_revs/num_survivors)*100, 0.1)]%</B>") // % of loyal crew
@@ -201,7 +201,7 @@
 		text += "<br>"
 		to_chat(world, text)
 
-/datum/game_mode/revolution/set_scoreboard_vars() // is this ever even called?
+/datum/game_mode/revolution/set_scoreboard_vars() // this proc is never called, someone remove it
 	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
 

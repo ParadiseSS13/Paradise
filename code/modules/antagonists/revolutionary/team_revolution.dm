@@ -11,7 +11,7 @@
 /datum/team/revolution/Destroy(force, ...)
 	SSticker.mode.rev_team = null
 	SSshuttle.clearHostileEnvironment(src)
-	. = ..()
+	return ..()
 
 
 /datum/team/revolution/get_target_excludes()
@@ -124,6 +124,8 @@
 
 /datum/team/revolution/proc/is_viable_head(datum/mind/rev_mind)
 	if(!rev_mind.current || !rev_mind.current.client)
+		return FALSE
+	if(!ishuman(rev_mind.current))
 		return FALSE
 	if(rev_mind.current.incapacitated() || HAS_TRAIT(rev_mind.current, TRAIT_HANDS_BLOCKED))
 		return FALSE
