@@ -1189,7 +1189,7 @@
 			job_requested = "Mime"
 			employment_records = "..."
 		if(UNIQUE_CEO_CHILD) // Hes the son of the CEO, what do you expect?
-			candidate_name = "John Nanotrasen Junior"
+			candidate_name = "Johnny Nanotrasen, Jr."
 			candidate_gender = MALE
 			age = "12"
 			cand_species = /datum/species/human
