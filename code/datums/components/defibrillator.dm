@@ -92,17 +92,13 @@
 	if(user && !robotic)
 		to_chat(user, "<span class='warning'>You silently [safety ? "disable" : "enable"] [unit]'s safety protocols with the card.")
 
-/datum/component/defib/proc/set_cooldown()
+/datum/component/defib/proc/set_cooldown(var/how_short)
 	on_cooldown = TRUE
-	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), cooldown)
+	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), how_short)
 
 /datum/component/defib/proc/end_cooldown()
 	on_cooldown = FALSE
 	SEND_SIGNAL(parent, COMSIG_DEFIB_READY)
-
-/datum/component/defib/proc/set_short_cooldown()
-	on_cooldown = TRUE
-	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), 2.5 SECONDS)
 
 /**
  * Start the defibrillation process when triggered by a signal.
@@ -157,10 +153,13 @@
 
 	if(should_cause_harm && combat && heart_attack_chance == 100)
 		combat_fibrillate(user, target)
+		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
+		busy = FALSE
 		return
 
 	if(should_cause_harm)
 		fibrillate(user, target)
+		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
 		return
 
 	user.visible_message(
@@ -219,7 +218,7 @@
 		target.set_heartattack(FALSE)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
-		set_cooldown()
+		set_cooldown(cooldown)
 		user.visible_message("<span class='boldnotice'>[defib_ref] pings: Cardiac arrhythmia corrected.</span>")
 		target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>", "<span class='userdanger'>You feel a jolt, and your heartbeat seems to steady.</span>")
 		playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -312,7 +311,7 @@
 		add_attack_logs(user, target, "Revived with [defib_ref]")
 		SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 	SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, defib_success)
-	set_cooldown()
+	set_cooldown(cooldown)
 	busy = FALSE
 
 /**
@@ -336,7 +335,7 @@
 		target.set_heartattack(TRUE)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Stunned with [parent]")
-	set_cooldown()
+	set_cooldown(cooldown)
 	busy = FALSE
 
 /datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target)
@@ -345,24 +344,20 @@
 	busy = TRUE
 	target.adjustStaminaLoss(60)
 	target.emote("gasp")
-	to_chat(target, "<span class='danger'>[user] touches [target] lightly with [parent]!</span>")
 	add_attack_logs(user, target, "Stunned with [parent]")
-	if(!IS_HORIZONTAL(target))
-		target.KnockDown(4 SECONDS)
-		set_short_cooldown()
-		busy = FALSE
-		return
-	if(do_after(user, 1.5 SECONDS, target = target))
+	target.KnockDown(4 SECONDS)
+	if(IS_HORIZONTAL(target) && HAS_TRAIT(target, TRAIT_HANDS_BLOCKED)) // Weakening exists which doesn't floor you while stunned
+		add_attack_logs(user, target, "Gave a heart attack with [parent]")
 		target.set_heartattack(TRUE)
 		target.visible_message("<span class='danger'>[user] has touched [target] with [parent]!</span>", \
 				"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
 		playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
-		set_cooldown()
-		busy = FALSE
+		set_cooldown(cooldown)
 		return
-	set_short_cooldown()
-	busy = FALSE
+	target.visible_message("<span class='danger'>[user] touches [target] lightly with [parent]!</span>")
+	set_cooldown(2.5 SECONDS)
+
 /*
  * Pass excess shock from a defibrillation into someone else.
  *
