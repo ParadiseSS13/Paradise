@@ -18,7 +18,7 @@
 
 /obj/item/clothing/under/rank/cargo/deliveryboy
 	name = "delivery boy uniform"
-	desc = "It's a jumpsuit worn by cargo delivery boy."
+	desc = "It's a jumpsuit worn by the cargo delivery boy."
 	icon_state = "delivery"
 	item_state = "lb_suit"
 	item_color = "delivery"
