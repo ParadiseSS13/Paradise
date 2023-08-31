@@ -38,7 +38,7 @@
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/clap
-	key ="clap"
+	key = "clap"
 	key_third_person = "claps"
 	message = "claps."
 	message_mime = "claps silently."
@@ -63,14 +63,16 @@
 	return ..()
 
 /datum/emote/living/carbon/human/clap/get_sound(mob/living/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(!H?.mind?.miming)
-			return pick(
-				'sound/misc/clap1.ogg',
-				'sound/misc/clap2.ogg',
-				'sound/misc/clap3.ogg',
-				'sound/misc/clap4.ogg')
+	if(!ishuman(user))
+		return
+
+	var/mob/living/carbon/human/H = user
+	if(!H.mind?.miming)
+		return pick(
+			'sound/misc/clap1.ogg',
+			'sound/misc/clap2.ogg',
+			'sound/misc/clap3.ogg',
+			'sound/misc/clap4.ogg')
 
 /datum/emote/living/carbon/human/crack
 	key = "crack"
