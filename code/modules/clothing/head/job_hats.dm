@@ -218,10 +218,15 @@
 	desc = "A white beret with a purple science insignia emblazoned on it. It has that authentic burning plasma smell."
 	icon_state = "beret_science"
 
-/obj/item/clothing/head/beret/robo
+/obj/item/clothing/head/beret/robowhite
 	name = "robotics beret"
 	desc = "A white beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
-	icon_state = "beret_robotics"
+	icon_state = "beret_roboticswhite"
+
+/obj/item/clothing/head/beret/roboblack
+	name = "bioengineer beret"
+	desc = "A black beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
+	icon_state = "beret_roboticsblack"
 
 //Medical
 /obj/item/clothing/head/beret/med
