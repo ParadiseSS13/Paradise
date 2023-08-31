@@ -12,10 +12,10 @@
 	var/mob/living/carbon/human/harvesting
 	///The list of all purchased powers
 	var/list/powers = list()
-	/// The list of all innate powers
-	var/list/innate_powers = list()
-	/// A static list of all purchasable mindflayer abilities
-	var/static/list/ability_list = list()
+	/// A list of all powers mindflayers should start with
+	var/static/list/innate_powers
+	/// A list of all purchasable mindflayer abilities
+	var/static/list/ability_list
 	///List for keeping track of who has already been drained
 	var/list/drained_humans = list()
 	///How fast the flayer's touch drains
@@ -31,6 +31,16 @@
 		innate_powers = get_powers_of_type(FLAYER_INNATE_POWER)
 	if(!length(ability_list))
 		ability_list = get_powers_of_type(FLAYER_PURCHASABLE_POWER)
+
+// This proc adds extra things that the mindflayer should get upon becoming a mindflayer
+/datum/antagonist/mindflayer/on_gain()
+	. = ..()
+	for(var/obj/effect/proc_holder/spell/flayer/power in innate_powers)
+		powers += power
+		power.on_purchase(owner.current, src, power)
+	for(var/datum/mindflayer_passive/passive in innate_powers)
+		powers += passive
+		passive.on_apply()
 
 /datum/antagonist/mindflayer/proc/get_swarms()
 	return usable_swarms
@@ -92,32 +102,10 @@
 	send_swarm_message("We have stopped receiving energy from [H].")
 	harvesting = null
 
-/**
- * Gives the mind_flayer the passed in `power`. Subtracts the cost of the power from our swarms.
- *
- * Arugments:
- * * datum/action/mindflayer/power - the power to give to the mindflayer.
- * * mob/living/mindflayer - the mindflayer who owns this datum. Optional argument.
- * * take_cost - if we should spend genetic points when giving the power
- */
-/datum/antagonist/mindflayer/proc/give_power(obj/effect/proc_holder/spell/flayer/power, mob/living/mindflayer, take_cost = TRUE)
-	if(take_cost)
-		usable_swarms -= power.swarm_cost
-	powers += power
-	power.on_purchase(mindflayer || owner.current, src, power)
-
-// This proc adds extra things that the mindflayer should get upon becoming a mindflayer
-/datum/antagonist/mindflayer/on_gain()
-	. = ..()
-	for(var/path in innate_powers)
-		powers += path
-		add_ability(path)
-
-
 
 /datum/antagonist/mindflayer/greet()
 	var/dat
-	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/flayeralert.ogg'))
 	dat = "<span class='danger'>You are a mindflayer!</span><br>" // TODO: Add actual description
 	dat += {"To harvest someone, target where the brain of your victim is and use harm intent with an empty hand. Drain intelligence to increase your swarm.
 		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
