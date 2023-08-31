@@ -216,20 +216,18 @@
 	ADD_TRAIT(H, TRAIT_NO_BONES, GLADIATOR)
 	ADD_TRAIT(H, TRAIT_STURDY_LIMBS, GLADIATOR)
 	ADD_TRAIT(H, TRAIT_BURN_WOUND_IMMUNE, GLADIATOR)
-	for(var/Y in H.bodyparts)
-		var/obj/item/organ/external/E = Y
-		E.add_limb_flags()
-		E.limb_flags |= CANNOT_INT_BLEED
+	for(var/obj/item/organ/external/limb in H.bodyparts)
+		limb.add_limb_flags()
+		limb.limb_flags |= CANNOT_INT_BLEED
 
 /datum/status_effect/vampire_gladiator/on_remove()
 	var/mob/living/carbon/human/H = owner
 	REMOVE_TRAIT(H, TRAIT_NO_BONES, GLADIATOR)
 	REMOVE_TRAIT(H, TRAIT_STURDY_LIMBS, GLADIATOR)
 	REMOVE_TRAIT(H, TRAIT_BURN_WOUND_IMMUNE, GLADIATOR)
-	for(var/Y in H.bodyparts)
-		var/obj/item/organ/external/E = Y
-		E.remove_limb_flags()
-		E.limb_flags -= CANNOT_INT_BLEED
+	for(var/obj/item/organ/external/limb in H.bodyparts)
+		limb.remove_limb_flags()
+		limb.limb_flags -= CANNOT_INT_BLEED
 
 /datum/status_effect/vampire_gladiator/tick()
 	owner.adjustStaminaLoss(-20)

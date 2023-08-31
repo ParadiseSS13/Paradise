@@ -287,4 +287,4 @@
 	QDEL_LIST_CONTENTS(all_temp_walls)
 	cooldown_handler.start_recharge()
 	user.remove_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
-	visible_message("<span class='warning'>The arena begins to dissipate.</span>")
+	user.visible_message("<span class='warning'>The arena begins to dissipate.</span>")
