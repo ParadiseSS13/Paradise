@@ -21,7 +21,7 @@
 	desc = "It's a jumpsuit worn by cargo delivery boy."
 	icon_state = "delivery"
 	item_state = "lb_suit"
-	item_color = "qmf"
+	item_color = "delivery"
 
 /obj/item/clothing/under/rank/cargo/quartermaster/skirt
 	name = "quartermaster's jumpskirt"

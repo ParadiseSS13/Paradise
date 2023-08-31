@@ -183,6 +183,11 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/skirt
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
+	/datum/gear/uniform/skirt/job/cargo
+	display_name = "Delivery Boy Uniform"
+	path = /obj/item/clothing/under/rank/cargo/deliveryboy
+	allowed_roles = list("Quartermaster","Cargo Technician")
+
 /datum/gear/uniform/skirt/job/qm
 	display_name = "Skirt, QM"
 	path = /obj/item/clothing/under/rank/cargo/quartermaster/skirt
