@@ -873,7 +873,7 @@
 	if(!T)
 		return
 	for(var/obj/effect/decal/cleanable/blood/B in range(T, 2))
-		if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in() || istype(B, /obj/effect/decal/cleanable/blood/slime)))
+		if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in()))
 			if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 				temp += 30
 			else

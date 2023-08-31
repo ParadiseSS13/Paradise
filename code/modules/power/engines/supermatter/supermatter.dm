@@ -30,8 +30,8 @@
 //Along with damage_penalty_point, makes flux anomalies.
 /// The cutoff for the minimum amount of power required to trigger the crystal invasion delamination event.
 #define EVENT_POWER_PENALTY_THRESHOLD 4500
-#define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of pyro anomalies, +2 bolts of electricity
-#define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of pyro anomalies
+#define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of cryo anomalies, +2 bolts of electricity
+#define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of cryo anomalies
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
 #define HEAT_PENALTY_THRESHOLD 40             //Higher == Crystal safe operational temperature is higher.
 #define DAMAGE_HARDCAP 0.002
@@ -58,7 +58,7 @@
 
 #define GRAVITATIONAL_ANOMALY "gravitational_anomaly"
 #define FLUX_ANOMALY "flux_anomaly"
-#define PYRO_ANOMALY "pyro_anomaly"
+#define CRYO_ANOMALY "cryo_anomaly"
 
 //If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define SUPERMATTER_DELAM_PERCENT 5
@@ -155,6 +155,8 @@
 	var/dynamic_heat_resistance = 1
 	///Uses powerloss_dynamic_scaling and combined_gas to lessen the effects of our powerloss functions
 	var/powerloss_inhibitor = 1
+	///value plus T0C = temp at which the SM starts to take damage. Variable for event usage
+	var/heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
 	///Based on co2 percentage, slowly moves between 0 and 1. We use it to calc the powerloss_inhibitor
 	var/powerloss_dynamic_scaling= 0
 	///Affects the amount of radiation the sm makes. We multiply this with power to find the rads.
@@ -205,6 +207,23 @@
 	var/power_changes = TRUE
 	///Disables the sm's proccessing totally.
 	var/processes = TRUE
+
+	//vars used for supermatter events (Anomalous crystal activityw)
+	/// Do we have an active event?
+	var/datum/supermatter_event/event_active
+	///flat multiplies the amount of gas released by the SM.
+	var/gas_multiplier = 1
+	///flat multiplies the heat released by the SM
+	var/heat_multiplier = 1
+	///amount of EER to ADD
+	var/power_additive = 0
+	/// A list of all previous events
+	var/list/last_events = list()
+	/// Time of next event
+	var/next_event_time
+	/// Run S-Class event? So we can only run one S-class event per round per crystal
+	var/has_run_sclass = FALSE
+
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
@@ -399,6 +418,10 @@
 			visible_message("<span class='warning'>[src] melts through [T]!</span>")
 		return
 
+	try_events()
+	if(power > 100)
+		if(!has_been_powered)
+			enable_for_the_first_time()
 	//We vary volume by power, and handle OH FUCK FUSION IN COOLING LOOP noises.
 	if(power)
 		soundloop.volume = clamp((50 + (power / 50)), 50, 100)
@@ -439,7 +462,7 @@
 			//((((some value between 0.5 and 1 * temp - ((273.15 + 40) * some values between 1 and 10)) * some number between 0.25 and knock your socks off / 150) * 0.25
 			//Heat and mols account for each other, a lot of hot mols are more damaging then a few
 			//Mols start to have a positive effect on damage after 350
-			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.temperature - ((T0C + HEAT_PENALTY_THRESHOLD)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.temperature - ((T0C + heat_penalty_threshold)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			//Power only starts affecting damage when it is above 5000
 			damage = max(damage + (max(power - POWER_PENALTY_THRESHOLD, 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			//Molar count only starts affecting damage when it is above 1800
@@ -449,7 +472,7 @@
 			//healing damage
 			if(combined_gas < MOLE_PENALTY_THRESHOLD)
 				//Only has a net positive effect when the temp is below 313.15, heals up to 2 damage. Psycologists increase this temp min by up to 45
-				damage = max(damage + (min(removed.temperature - (T0C + HEAT_PENALTY_THRESHOLD), 0) / 150 ), 0)
+				damage = max(damage + (min(removed.temperature - (T0C + heat_penalty_threshold), 0) / 150 ), 0)
 
 			//Check for holes in the SM inner chamber
 			for(var/t in RANGE_TURFS(1, loc))
@@ -538,15 +561,15 @@
 		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
 		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
 		//Power * 0.55 * (some value between 1.5 and 23) / 5
-		removed.temperature += ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER)
+		removed.temperature += (((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier)
 		//We can only emit so much heat, that being 57500
 		removed.temperature = max(0, min(removed.temperature, 2500 * dynamic_heat_modifier))
 
 		//Calculate how much gas to release
 		//Varies based on power and gas content
-		removed.toxins += max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0)
+		removed.toxins += max(((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER) * gas_multiplier, 0)
 		//Varies based on power, gas content, and heat
-		removed.oxygen += max(((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
+		removed.oxygen += max((((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier, 0)
 
 		if(produces_gas)
 			env.merge(removed)
@@ -565,7 +588,7 @@
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
 	if(power_changes)
-		power = max(power - min(((power / 500) ** 3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor), 0)
+		power = max((power - min(((power / 500) ** 3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor) + power_additive), 0)
 	//After this point power is lowered
 	//This wraps around to the begining of the function
 	//Handle high power zaps/anomaly generation
@@ -611,7 +634,7 @@
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
 			supermatter_anomaly_gen(src, GRAVITATIONAL_ANOMALY, rand(5, 10))
 		if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD))
-			supermatter_anomaly_gen(src, PYRO_ANOMALY, rand(5, 10))
+			supermatter_anomaly_gen(src, CRYO_ANOMALY, rand(5, 10))
 
 	if(prob(15))
 		supermatter_pull(loc, min(power / 850, 3)) //850, 1700, 2550
@@ -649,7 +672,6 @@
 		//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()
-
 	return 1
 
 /obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/item/projectile/Proj)
@@ -662,9 +684,7 @@
 		if(power_changes) //This needs to be here I swear
 			power += Proj.damage * bullet_energy
 			if(!has_been_powered)
-				investigate_log("has been powered for the first time.", "supermatter")
-				message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
-				has_been_powered = TRUE
+				enable_for_the_first_time()
 	else if(takes_damage)
 		damage += Proj.damage * bullet_energy
 	return FALSE
@@ -1015,8 +1035,8 @@
 				A.explosive = FALSE
 			if(GRAVITATIONAL_ANOMALY)
 				new /obj/effect/anomaly/grav(L, 250, FALSE, FALSE)
-			if(PYRO_ANOMALY)
-				new /obj/effect/anomaly/pyro(L, 200, FALSE)
+			if(CRYO_ANOMALY)
+				new /obj/effect/anomaly/cryo(L, 200, FALSE)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list())
 	if(QDELETED(zapstart))
@@ -1152,10 +1172,56 @@
 	power += amount
 	message_admins("[src] has been activated and given an increase EER of [amount] at [ADMIN_JMP(src)]")
 
+/obj/machinery/atmospherics/supermatter_crystal/proc/make_next_event_time()
+	// Some completely random bullshit to make a "bell curve"
+	var/fake_time = rand(5 MINUTES, 25 MINUTES)
+	if(fake_time < 15 MINUTES && prob(30))
+		fake_time += rand(2 MINUTES, 10 MINUTES)
+	else if(fake_time > 15 MINUTES && prob(30))
+		fake_time -= rand(2 MINUTES, 10 MINUTES)
+	next_event_time = fake_time + world.time
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
+	if(has_been_powered == FALSE)
+		return
+	if(!next_event_time) // for when the SM starts
+		make_next_event_time()
+		return
+	if(world.time < next_event_time)
+		return
+	if(event_active)
+		return
+	var/static/list/events = list(/datum/supermatter_event/delta_tier = 40,
+								/datum/supermatter_event/charlie_tier = 40,
+								/datum/supermatter_event/bravo_tier = 15,
+								/datum/supermatter_event/alpha_tier = 5,
+								/datum/supermatter_event/sierra_tier = 1)
+
+	var/datum/supermatter_event/event = pick(subtypesof(pickweight(events)))
+	if(istype(event, /datum/supermatter_event/sierra_tier) && has_run_sclass)
+		make_next_event_time()
+		return // We're only gonna have one s-class per round, take a break engineers
+	run_event(event)
+	make_next_event_time()
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/run_event(datum/supermatter_event/event) // mostly admin testing and stuff
+	if(ispath(event))
+		event = new event(src)
+	if(!istype(event))
+		log_debug("Attempted supermatter event aborted due to incorrect path. Incorrect path type: [event.type].")
+		return
+	event.start_event()
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/enable_for_the_first_time()
+	investigate_log("has been powered for the first time.", "supermatter")
+	message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
+	has_been_powered = TRUE
+	make_next_event_time()
+
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
 #undef FLUX_ANOMALY
-#undef PYRO_ANOMALY
+#undef CRYO_ANOMALY
 #undef COIL
 #undef ROD
 #undef LIVING
