@@ -236,9 +236,9 @@
 		owner.updatehealth("permanent injury removal")
 	if(!perma_injury)
 		fix_burn_wound(update_health = FALSE)
-		to_chat(owner, "<span class='notice'>You feel your burn wound on [src] is fully healed and the salve is gone.</span>")
+		to_chat(owner, "<span class='notice'>You feel your [src.name]'s burn wound has fully healed, and the rest of the salve absorbs into it.</span>")
 	else
-		to_chat(owner, "<span class='notice'>You feel your burn wound on [src] heal a little but the salve is gone.</span>")
+		to_chat(owner, "<span class='notice'>You feel your [src.name]'s burn wound has healed a little, but the applied salve has already vanished.</span>")
 
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"
