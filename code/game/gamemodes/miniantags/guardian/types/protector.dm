@@ -1,3 +1,6 @@
+#define LEFT_SHIELD FALSE
+#define RIGHT_SHEILD TRUE
+
 /mob/living/simple_animal/hostile/guardian/protector
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -72,8 +75,8 @@
 		toggle = TRUE
 		var/dir_left = turn(dir, -90)
 		var/dir_right = turn(dir, 90)
-		connected_shields += new /obj/effect/guardianshield(get_step(src, dir_left), src, FALSE)
-		connected_shields += new /obj/effect/guardianshield(get_step(src, dir_right), src, TRUE)
+		connected_shields += new /obj/effect/guardianshield(get_step(src, dir_left), src, LEFT_SHIELD)
+		connected_shields += new /obj/effect/guardianshield(get_step(src, dir_right), src, RIGHT_SHEILD)
 
 /mob/living/simple_animal/hostile/guardian/protector/snapback() //snap to what? snap to the guardian!
 	// If the summoner dies instantly, the summoner's ghost may be drawn into null space as the protector is deleted. This check should prevent that.
@@ -108,8 +111,8 @@
 	icon_state = "shield-grey"
 	can_be_hit = TRUE
 	var/mob/living/simple_animal/hostile/guardian/protector/linked_guardian
-	///If false, the guardian shield is the left shield, otherwise it is the right shield.
-	var/shield_orientation = FALSE
+	///Is the guardians shield the left or right shield?
+	var/shield_orientation = LEFT_SHIELD
 
 /obj/effect/guardianshield/Initialize(mapload, mob/living/simple_animal/hostile/guardian/protector/creator, left_or_right)
 	. = ..()
@@ -137,3 +140,7 @@
 /obj/effect/guardianshield/Destroy()
 	linked_guardian = null
 	return ..()
+
+
+#undef LEFT_SHIELD
+#undef RIGHT_SHEILD
