@@ -1219,19 +1219,19 @@
 
 /obj/machinery/computer/arcade/recruiter/ui_data(mob/user)
 	var/list/data = list(
-	"gamestatus" = game_status,
+		"gamestatus" = game_status,
 
-	"cand_name" = candidate_name,
-	"cand_gender" = capitalize(candidate_gender),
-	"cand_age" = age,
-	"cand_species" = initial(cand_species.name),
-	"cand_planet" = planet_of_origin,
-	"cand_job" = job_requested,
-	"cand_records" = employment_records,
+		"cand_name" = candidate_name,
+		"cand_gender" = capitalize(candidate_gender),
+		"cand_age" = age,
+		"cand_species" = initial(cand_species.name),
+		"cand_planet" = planet_of_origin,
+		"cand_job" = job_requested,
+		"cand_records" = employment_records,
 
-	"cand_curriculum" = curriculums,
+		"cand_curriculum" = curriculums,
 
-	"reason" = reason
+		"reason" = reason
 	)
 	return data
 
