@@ -38,7 +38,8 @@
 /obj/effect/proc_holder/spell/flayer/self/augment_menu/cast(mob/user) //For now I'm just gonna make it a menu list, for testing
 	//ui_interact(user)
 	var/path = input(user, "whaddya wanna buy") in flayer.ability_list
-	return path
+	flayer.add_ability(path)
+	flayer.send_swarm_message("nice one dude")
 
 /* This is all the TGUI stuff that will need to be fleshed out once I figure out all the stuff I need to get the data working
 

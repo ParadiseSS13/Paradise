@@ -1,4 +1,5 @@
 //This is all Charlie's code, I'm putting it in before I forget but I'll have to actually figure out how to integrate it in
+//Okay so we'd either need make it a subtype of /obj/effect/proc_holder/spell/flayer, refactor jaunts, or make this spell special
 /obj/effect/proc_holder/spell/ethereal_jaunt/phase_shift
 	name = "Phase Shift"
 	desc = "Shift into the space between dimensions, making you invisible and invulnerable but unable to "
