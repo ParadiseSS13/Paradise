@@ -38,7 +38,6 @@
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/Initialize(mapload)
 	. = ..()
 	loot += pick(
-		/obj/item/borg/upgrade/modkit/minebot_passthrough,
 		/obj/item/borg/upgrade/modkit/chassis_mod,
 		/obj/item/borg/upgrade/modkit/tracer/adjustable,
 		/obj/item/borg/upgrade/modkit/cooldown,
@@ -56,6 +55,7 @@
 		if(isliving(target) && !target.Adjacent(targets_from) && ranged_cooldown <= world.time)
 			OpenFire(target)
 
+// Copied from minebot.dm, to add to the fluff of "Hey! This is a minebot, just broken!"
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/examine(mob/user)
 	. = ..()
 	if(health < maxHealth)
@@ -63,3 +63,13 @@
 			. += "<span class='warning'>It looks slightly dented.</span>"
 		else
 			. += "<span class='boldwarning'>It looks severely dented!</span>"
+
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot/CanPass(atom/movable/O)
+	if(istype(O, /obj/item/projectile/kinetic))
+		var/obj/item/projectile/kinetic/K = O
+		if(K.kinetic_gun)
+			for(var/A in K.kinetic_gun.get_modkits())
+				var/obj/item/borg/upgrade/modkit/M = A
+				if(istype(M, /obj/item/borg/upgrade/modkit/minebot_passthrough))
+					return TRUE
+	return ..()
