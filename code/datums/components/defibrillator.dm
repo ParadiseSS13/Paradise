@@ -153,6 +153,7 @@
 
 	if(should_cause_harm)
 		fibrillate(user, target)
+		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
 		return
 
 	user.visible_message(
