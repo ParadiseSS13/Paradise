@@ -225,6 +225,7 @@
 /obj/item/stack/medical/ointment/heal(mob/living/M, mob/user)
 	var/obj/item/organ/external/affecting = ..()
 	if((affecting.status & ORGAN_BURNT) && !(affecting.status & ORGAN_SALVED))
+		to_chat(affecting.owner, "<span class='notice'>As the [src] applied to your burn wound, you feel cold and relax.</span>")
 		affecting.status |= ORGAN_SALVED
 		addtimer(CALLBACK(affecting, TYPE_PROC_REF(/obj/item/organ/external, remove_ointment), heal_burn), 3 MINUTES)
 
@@ -235,6 +236,9 @@
 		owner.updatehealth("permanent injury removal")
 	if(!perma_injury)
 		fix_burn_wound(update_health = FALSE)
+		to_chat(owner, "<span class='notice'>You feel your burn wound on [src] is fully healed and the salve is gone.</span>")
+	else
+		to_chat(owner, "<span class='notice'>You feel your burn wound on [src] heal a little but the salve is gone.</span>")
 
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"
