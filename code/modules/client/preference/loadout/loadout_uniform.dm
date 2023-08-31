@@ -183,11 +183,6 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/skirt
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
-	/datum/gear/uniform/skirt/job/cargo
-	display_name = "Delivery Boy Uniform"
-	path = /obj/item/clothing/under/rank/cargo/deliveryboy
-	allowed_roles = list("Quartermaster","Cargo Technician")
-
 /datum/gear/uniform/skirt/job/qm
 	display_name = "Skirt, QM"
 	path = /obj/item/clothing/under/rank/cargo/quartermaster/skirt
@@ -236,6 +231,14 @@
 	display_name = "Medical scrubs, green"
 	path = /obj/item/clothing/under/rank/medical/scrubs/green
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
+/datum/gear/uniform/cargo
+	main_typepath = /datum/gear/uniform/cargo
+
+/datum/gear/uniform/cargo/delivery
+	display_name = "Delivery Boy Uniform"
+	path = /obj/item/clothing/under/rank/cargo/deliveryboy
+	allowed_roles = list("Quartermaster","Cargo Technician")
 
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec

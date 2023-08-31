@@ -8,7 +8,10 @@
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Human" = 'icons/mob/clothing/head',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 	dyeable = TRUE
 
@@ -107,7 +110,7 @@
 	name = "delivery boy cap"
 	desc = "It's a baseball hat that is part of delivery boy unifrom."
 	icon_state = "deliverysoft"
-	item_color = "deliverysoft"
+	item_color = "delivery"
 	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/sec
