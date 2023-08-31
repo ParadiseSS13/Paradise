@@ -84,7 +84,7 @@
 			wound_flavor_text["[organ_tag]"] = "<b>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</b>\n"
 			continue
 
-		if((bodypart_clothing_bitflag & HEAD))
+		if(bodypart_clothing_bitflag & HEAD)
 			if(skip_mask)
 				continue
 			var/obj/item/clothing/mask/current_mask = wear_mask
@@ -98,14 +98,14 @@
 			if(!isnull(w_uniform) && (w_uniform.body_parts_covered & bodypart_clothing_bitflag))
 				continue
 
-		if((bodypart_clothing_bitflag & HANDS))
+		if(bodypart_clothing_bitflag & HANDS)
 			if(skip_gloves)
 				continue
 			var/obj/item/clothing/gloves/current_gloves = gloves
 			if(istype(current_gloves) && (current_gloves.body_parts_covered & bodypart_clothing_bitflag))
 				continue
 
-		if((bodypart_clothing_bitflag & FEET))
+		if(bodypart_clothing_bitflag & FEET)
 			if(skip_shoes)
 				continue
 			var/obj/item/clothing/shoes/current_shoes = shoes
