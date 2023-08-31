@@ -74,7 +74,7 @@
  */
 /datum/component/boomerang/proc/aerodynamic_swing(datum/thrownthing/throwing_datum, obj/item/true_parent)
 	var/mob/thrown_by = locateUID(true_parent.thrownby)
-	if(thrown_by)
+	if(istype(thrown_by))
 		var/dir = get_dir(true_parent, thrown_by)
 		var/turf/T = get_ranged_target_turf(thrown_by, dir, 2)
 		addtimer(CALLBACK(true_parent, TYPE_PROC_REF(/atom/movable, throw_at), T, boomerang_throw_range, throwing_datum.speed, null, TRUE), 1)
