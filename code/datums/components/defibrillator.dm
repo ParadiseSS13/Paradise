@@ -92,7 +92,7 @@
 	if(user && !robotic)
 		to_chat(user, "<span class='warning'>You silently [safety ? "disable" : "enable"] [unit]'s safety protocols with the card.")
 
-/datum/component/defib/proc/set_cooldown(var/how_short)
+/datum/component/defib/proc/set_cooldown(how_short)
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), how_short)
 
