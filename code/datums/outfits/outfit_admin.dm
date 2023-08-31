@@ -123,7 +123,7 @@
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = H.equip_syndicate_commando(FALSE, TRUE)
-	H.faction += "syndicate"
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate/spy
 	name = "Syndicate Spy"
