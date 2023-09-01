@@ -534,6 +534,10 @@
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_ATTACK_QDELETED "item_attack_qdeleted"
 ///from base of obj/item/equipped(): (/mob/equipper, slot)
+///called on [/obj/item] before unequip from base of [mob/proc/doUnEquip]: (force, atom/newloc, no_move, invdrop, silent)
+#define COMSIG_ITEM_PRE_UNEQUIP "item_pre_unequip"
+	///only the pre unequip can be cancelled
+	#define COMPONENT_ITEM_BLOCK_UNEQUIP (1<<0)
 #define COMSIG_ITEM_EQUIPPED "item_equip"
 ///from base of obj/item/dropped(): (mob/user)
 #define COMSIG_ITEM_DROPPED "item_drop"
@@ -564,10 +568,15 @@
 #define COMSIG_TOOL_IN_USE "tool_in_use"
 ///from base of [/obj/item/proc/tool_start_check]: (mob/living/user)
 #define COMSIG_TOOL_START_USE "tool_start_use"
+///from base of [/obj/item/proc/tool_attack_chain]: (atom/tool, mob/user)
+#define COMSIG_TOOL_ATTACK "tool_attack"
+	#define COMPONENT_CANCEL_TOOLACT (1<<0)
 ///from [/obj/item/proc/disableEmbedding]:
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
+/// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
+#define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
 
 /// Defib-specific signals
 
@@ -693,6 +702,8 @@
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
 //sent from living mobs when they parry
 #define COMSIG_HUMAN_PARRY "human_parry"
+///From base of mob/living/MobBump() (mob/living)
+#define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 ///From mob/living/carbon/human/attackedby(): (mob/living/carbon/human/attacker). Also found on species/disarm and species/harm
@@ -731,6 +742,10 @@
 
 ///from base of obj/item/reagent_containers/food/snacks/attack(): (mob/living/eater, mob/feeder)
 #define COMSIG_FOOD_EATEN "food_eaten"
+
+//Reagent
+///from base of atom/expose_reagents(): (/list, /datum/reagents, chemholder, volume_modifier)
+#define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
 
 //Gibs
 
@@ -873,3 +888,41 @@
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
 
 #define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"
+
+//MODsuit signals
+/// Called when a module is selected to be the active one from on_select(obj/item/mod/module/module)
+#define COMSIG_MOD_MODULE_SELECTED "mod_module_selected"
+/// Called when a MOD deploys one or more of its parts.
+#define COMSIG_MOD_DEPLOYED "mod_deployed"
+/// Called when a MOD retracts one or more of its parts.
+#define COMSIG_MOD_RETRACTED "mod_retracted"
+/// Called when a MOD is finished toggling itself.
+#define COMSIG_MOD_TOGGLED "mod_toggled"
+/// Called when a MOD activation is called from toggle_activate(mob/user)
+#define COMSIG_MOD_ACTIVATE "mod_activate"
+	/// Cancels the suit's activation
+	#define MOD_CANCEL_ACTIVATE (1 << 0)
+/// Called when a MOD finishes having a module removed from it.
+#define COMSIG_MOD_MODULE_REMOVED "mod_module_removed"
+/// Called when a MOD finishes having a module added to it.
+#define COMSIG_MOD_MODULE_ADDED "mod_module_added"
+/// Called when a MOD is having modules removed from crowbar_act(mob/user, obj/crowbar)
+#define COMSIG_MOD_MODULE_REMOVAL "mod_module_removal"
+	/// Cancels the removal of modules
+	#define MOD_CANCEL_REMOVAL (1 << 0)
+/// Called when a module attempts to activate, however it does. At the end of checks so you can add some yourself, or work on trigger behavior (mob/user)
+#define COMSIG_MODULE_TRIGGERED "mod_module_triggered"
+	/// Cancels activation, with no message. Include feedback on your cancel.
+	#define MOD_ABORT_USE (1<<0)
+/// Called when a module activates, after all checks have passed and cooldown started.
+#define COMSIG_MODULE_ACTIVATED "mod_module_activated"
+/// Called when a module deactivates, after all checks have passed.
+#define COMSIG_MODULE_DEACTIVATED "mod_module_deactivated"
+/// Called when a module is used, after all checks have passed and cooldown started.
+#define COMSIG_MODULE_USED "mod_module_used"
+/// Called when the MODsuit wearer is set.
+#define COMSIG_MOD_WEARER_SET "mod_wearer_set"
+/// Called when the MODsuit wearer is unset.
+#define COMSIG_MOD_WEARER_UNSET "mod_wearer_unset"
+
+

@@ -144,7 +144,7 @@
 	add_fingerprint(user)
 
 	if(victim.abiotic(TRUE))
-		to_chat(user, "<span class='danger'>Clothing detected. Please speak to an engineer if any clothing jams up the interal grinders!</span>")
+		to_chat(user, "<span class='danger'>Clothing detected. Please speak to an engineer if any clothing jams up the internal grinders!</span>")
 		if(do_after(user, 15 SECONDS, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant) //15 seconds if they are not fully stripped, 12 more than normal. Similarly, takes about that long to strip a person in a ert hardsuit of all gear.
 			user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
 		else

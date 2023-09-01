@@ -412,7 +412,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	var/species_name = ""
-	if(dna.species.name in list("Drask", "Grey", "Vox"))
+	if(dna.species.name in list("Drask", "Grey", "Vox", "Kidan"))
 		species_name = "_[lowertext(dna.species.name)]"
 
 	var/icon/hands_mask = icon('icons/mob/body_accessory.dmi', "accessory_none_s") //Needs a blank icon, not actually related to markings at all
@@ -677,7 +677,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing
 		if(gloves.icon_override)
-			standing = mutable_appearance(gloves.icon_override, "[t_state]", layer = -GLOVES_LAYER)
+			standing = mutable_appearance(gloves.icon_override, "[gloves.icon_state]", layer = -GLOVES_LAYER)
 		else if(gloves.sprite_sheets && gloves.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(gloves.sprite_sheets[dna.species.name], "[t_state]", layer = -GLOVES_LAYER)
 		else
@@ -1022,7 +1022,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			t_state = back.icon_state
 		var/mutable_appearance/standing
 		if(back.icon_override)
-			standing = mutable_appearance(back.icon_override, "[t_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance(back.icon_override, "[back.icon_state]", layer = -BACK_LAYER)
 		else if(back.sprite_sheets && back.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[t_state]", layer = -BACK_LAYER)
 		else

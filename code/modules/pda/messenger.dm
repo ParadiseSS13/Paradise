@@ -185,7 +185,7 @@
 		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
 		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[html_decode(t)]", "target" = "[P.UID()]")))
 		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[html_decode(t)]", "target" = "[pda.UID()]")))
-		pda.investigate_log("<span class='game say'>PDA Message - <span class='name'>[U.key] - [pda.owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>", "pda")
+		pda.investigate_log("<span class='game say'>PDA Message - <span class='name'>[pda.owner] ([U.key] [ADMIN_PP(U, "PP")])</span> -> <span class='name'>[P.owner]</span> ([ADMIN_VV(P, "VV")]), Message: <span class='message'>\"[t]\"</span></span>", "pda")
 
 		// Show it to ghosts
 		for(var/mob/M in GLOB.dead_mob_list)

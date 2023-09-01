@@ -50,6 +50,9 @@
 /mob/living/carbon/brain/blob_act(obj/structure/blob/B)
 	return
 
+/mob/living/carbon/brain/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE)
+	return FALSE
+
 /mob/living/carbon/brain/on_forcemove(atom/newloc)
 	if(container)
 		container.forceMove(newloc)

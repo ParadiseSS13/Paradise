@@ -167,6 +167,8 @@
 							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
 								var/list/comments = R.fields["comments"]
 								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
+								if(islist(commentLatest))
+									commentLatest = "[commentLatest["header"]]: [commentLatest["text"]]"
 							else
 								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 

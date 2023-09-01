@@ -62,9 +62,11 @@
 	var/sound_effect = 'sound/weapons/slap.ogg'
 
 /// So we don't leave folks with god-mode
-/datum/status_effect/high_five/proc/wiz_cleanup(mob/user, mob/highfived)
+/datum/status_effect/high_five/proc/wiz_cleanup(mob/living/carbon/user, mob/living/carbon/highfived)
 	user.status_flags &= ~GODMODE
 	highfived.status_flags &= ~GODMODE
+	user.remove_status_effect(type)
+	highfived.remove_status_effect(type)
 
 /datum/status_effect/high_five/on_apply()
 	if(!iscarbon(owner))
@@ -73,6 +75,7 @@
 
 	var/mob/living/carbon/user = owner
 	var/is_wiz = iswizard(user)
+	var/both_wiz = FALSE
 	for(var/mob/living/carbon/C in orange(1, user))
 		if(!C.has_status_effect(type) || C == user)
 			continue
@@ -82,18 +85,18 @@
 			C.status_flags |= GODMODE
 			explosion(get_turf(user), 5, 2, 1, 3, cause = id)
 			// explosions have a spawn so this makes sure that we don't get gibbed
-			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, C), 1)
+			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, C), 0.3 SECONDS) //I want to be sure this lasts long enough, with lag.
 			add_attack_logs(user, C, "caused a wizard [id] explosion")
-			user.remove_status_effect(type)
-			C.remove_status_effect(type)
-
+			both_wiz = TRUE
 		user.do_attack_animation(C, no_effect = TRUE)
 		C.do_attack_animation(user, no_effect = TRUE)
-		user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[C.name]</b> [success]</span>")
 		playsound(user, sound_effect, 80)
-		user.remove_status_effect(type)
-		C.remove_status_effect(type)
-		return FALSE
+		if(!both_wiz)
+			user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[C.name]</b> [success]</span>")
+			user.remove_status_effect(type)
+			C.remove_status_effect(type)
+			return FALSE
+		return TRUE // DO NOT AUTOREMOVE
 
 	owner.custom_emote(EMOTE_VISIBLE, request)
 	owner.create_point_bubble_from_path(item_path, FALSE)
@@ -142,6 +145,10 @@
 
 /datum/status_effect/charging
 	id = "charging"
+	alert_type = null
+
+/datum/status_effect/impact_immune
+	id = "impact_immune"
 	alert_type = null
 
 #define LWAP_LOCK_CAP 10
