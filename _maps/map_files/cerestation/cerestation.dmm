@@ -60032,14 +60032,13 @@
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "lUg" = (
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
 /obj/structure/cable/orange{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/computer/cryopod{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -84420,8 +84419,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "umE" = (
-/obj/machinery/computer/cryopod{
-	pixel_y = 32
+/obj/machinery/alarm{
+	pixel_y = 24;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
