@@ -386,6 +386,7 @@
 #include "code\datums\components\sticky.dm"
 #include "code\datums\components\surgery_initiator.dm"
 #include "code\datums\components\swarming.dm"
+#include "code\datums\components\two_handed.dm"
 #include "code\datums\discord\discord_manager.dm"
 #include "code\datums\discord\discord_webhook.dm"
 #include "code\datums\diseases\_disease.dm"

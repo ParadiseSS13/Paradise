@@ -456,7 +456,7 @@
 					/obj/item/clothing/head/wizard/mime = 1,
 					/obj/item/clothing/mask/gas/mime/wizard = 1,
 					/obj/item/clothing/shoes/sandal/marisa = 1,
-					/obj/item/twohanded/staff = 2)
+					/obj/item/staff = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
@@ -516,10 +516,10 @@
 					/obj/item/clothing/suit/wizrobe/marisa/fake = 1,
 					/obj/item/clothing/under/dress/sundress = 1,
 					/obj/item/clothing/head/witchwig = 1,
-					/obj/item/twohanded/staff/broom = 1,
+					/obj/item/staff/broom = 1,
 					/obj/item/clothing/suit/wizrobe/fake = 1,
 					/obj/item/clothing/head/wizard/fake = 1,
-					/obj/item/twohanded/staff = 3,
+					/obj/item/staff = 3,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 1,
 					/obj/item/clothing/mask/gas/sexymime = 1,
@@ -629,10 +629,10 @@
 					/obj/item/clothing/suit/wizrobe/marisa/fake = 100,
 					/obj/item/clothing/under/dress/sundress = 75,
 					/obj/item/clothing/head/witchwig = 50,
-					/obj/item/twohanded/staff/broom = 50,
+					/obj/item/staff/broom = 50,
 					/obj/item/clothing/suit/wizrobe/fake = 75,
 					/obj/item/clothing/head/wizard/fake = 75,
-					/obj/item/twohanded/staff = 50,
+					/obj/item/staff = 50,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 100,
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 100,
 					/obj/item/clothing/mask/gas/sexymime = 100,

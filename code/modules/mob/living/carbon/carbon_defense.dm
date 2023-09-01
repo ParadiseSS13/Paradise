@@ -5,7 +5,7 @@
 				return FALSE
 			if(get_active_hand())
 				return FALSE
-			if(istype(AM, /obj/item/twohanded))
+			if(AM.GetComponent(/datum/component/two_handed))
 				if(get_inactive_hand())
 					return FALSE
 			put_in_active_hand(AM)
