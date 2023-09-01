@@ -203,12 +203,12 @@
 			return
 		if(teleports < 6)
 			to_chat(M, "<span class='warning'>You feel a bit sick!</span>")
-			M.vomit(lost_nutrition = 15, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 15, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(2 SECONDS)
 		else
 			to_chat(M, "<span class='danger'>You feel really sick!</span>")
 			M.adjustBruteLoss(rand(0, teleports * 2))
-			M.vomit(lost_nutrition = 30, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 30, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(6 SECONDS)
 
 /datum/status_effect/pacifism
