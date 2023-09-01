@@ -71,7 +71,6 @@
 			return TRUE
 
 /obj/machinery/abductor/gland_dispenser/attack_hand(mob/user)
-	. = ..()
 	ui_interact(user)
 
 /obj/machinery/abductor/gland_dispenser/attackby(obj/item/W, mob/user, params)
