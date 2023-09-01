@@ -56,31 +56,37 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_thief()
-	if(thieves.len)
-		var/text = "<FONT size = 3><B>Воры в розыске:</B></FONT><br>"
-		for(var/datum/mind/thief in thieves)
-			var/thiefwin = TRUE
-			text += printplayer(thief) + "<br>"
+	if(!length(thieves))
+		return
 
-			if(thief.objectives.len)
-				var/count = 1
-				for(var/datum/objective/objective in thief.objectives)
-					if(objective.check_completion())
-						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Выполнена!</B></font><br>"
-						SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "SUCCESS"))
-					else
-						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провалена.</font><br>"
-						SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "FAIL"))
-						thiefwin = FALSE
-					count++
+	var/text = "<FONT size = 2><B>Воры в розыске:</B></FONT><br>"
+	for(var/datum/mind/thief in thieves)
 
-			if(thiefwin)
-				text += "<br><font color='green'><B>Вор преуспел!</B></font><br>"
-				SSblackbox.record_feedback("tally", "thief_success", 1, "SUCCESS")
+		text += printplayer(thief) + "<br>"
+
+		var/list/all_objectives = thief.get_all_objectives()
+		if(!length(all_objectives))
+			continue
+
+		var/count = 1
+		var/thiefwin = TRUE
+		for(var/datum/objective/objective in all_objectives)
+			if(objective.check_completion())
+				text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Выполнена!</B></font>"
+				SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "SUCCESS"))
 			else
-				text += "<br><font color='red'><B>Вор провалился.</B></font><br>"
-				SSblackbox.record_feedback("tally", "thief_success", 1, "FAIL")
+				text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провалена.</font>"
+				SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "FAIL"))
+				thiefwin = FALSE
+			count++
 
-		to_chat(world, text)
+		if(thiefwin)
+			text += "<br><font color='green'><B>Вор преуспел!</B></font><br>"
+			SSblackbox.record_feedback("tally", "thief_success", 1, "SUCCESS")
+		else
+			text += "<br><font color='red'><B>Вор провалился.</B></font><br>"
+			SSblackbox.record_feedback("tally", "thief_success", 1, "FAIL")
 
+	to_chat(world, text)
 	return TRUE
+
