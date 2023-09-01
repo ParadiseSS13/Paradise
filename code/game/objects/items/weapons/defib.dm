@@ -22,7 +22,7 @@
 	/// if there's a cell in the defib with enough power for a revive; blocks paddles from reviving otherwise
 	var/powered = FALSE
 	/// Ref to attached paddles
-	var/obj/item/twohanded/shockpaddles/paddles
+	var/obj/item/shockpaddles/paddles
 	/// Ref to internal power cell.
 	var/obj/item/stock_parts/cell/high/cell = null
 	/// If false, using harm intent will let you zap people. Note that any updates to this after init will only impact icons.
@@ -38,7 +38,7 @@
 
 	base_icon_state = "defibpaddles"
 	/// Type of paddles that should be attached to this defib.
-	var/obj/item/twohanded/shockpaddles/paddle_type = /obj/item/twohanded/shockpaddles
+	var/obj/item/shockpaddles/paddle_type = /obj/item/shockpaddles
 
 /obj/item/defibrillator/get_cell()
 	return cell
@@ -225,7 +225,7 @@
 	desc = "A belt-mounted blood-red defibrillator that can be rapidly deployed. Does not have the restrictions or safeties of conventional defibrillators and can revive through space suits."
 	icon_state = "defibcombat"
 	item_state = "defibcombat"
-	paddle_type = /obj/item/twohanded/shockpaddles/syndicate
+	paddle_type = /obj/item/shockpaddles/syndicate
 	combat = TRUE
 	safety = FALSE
 	heart_attack_probability = 100
@@ -240,18 +240,20 @@
 	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. Uses an experimental self-charging cell, meaning that it will (probably) never stop working. Can be used to defibrillate through space suits. It is impossible to damage."
 	icon_state = "defibnt"
 	item_state = "defibnt"
-	paddle_type = /obj/item/twohanded/shockpaddles/advanced
+	paddle_type = /obj/item/shockpaddles/advanced
 	combat = TRUE
 	safety = TRUE
-	hardened = TRUE  // emp-proof (on the component), but not emag-proof.
+	hardened = TRUE // emp-proof (on the component), but not emag-proof.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
 	heart_attack_probability = 10
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
+/obj/item/defibrillator/compact/advanced/screwdriver_act(mob/living/user, obj/item/I)
+	return // The cell is too strong roundstart and we dont want the adv defib to become useless
+
 /obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
-		paddles.unwield()
 		toggle_paddles()
 		update_icon(UPDATE_OVERLAYS)
 
@@ -269,7 +271,7 @@
 
 //paddles
 
-/obj/item/twohanded/shockpaddles
+/obj/item/shockpaddles
 	name = "defibrillator paddles"
 	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
 	icon = 'icons/obj/defib.dmi'
@@ -288,9 +290,11 @@
 	/// Whether or not the paddles are on cooldown. Used for tracking icon states.
 	var/on_cooldown = FALSE
 
-/obj/item/twohanded/shockpaddles/New(mainunit)
+
+/obj/item/shockpaddles/New(mainunit)
 	. = ..()
-	if(check_defib_exists(mainunit, src))
+
+	if(check_defib_exists(mainunit, null, src))
 		defib = mainunit
 		loc = defib
 		update_icon(UPDATE_ICON_STATE)
@@ -300,22 +304,25 @@
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))
 	RegisterSignal(src, COMSIG_DEFIB_PADDLES_APPLIED, PROC_REF(on_application))
+	AddComponent(/datum/component/two_handed)
 
-/obj/item/twohanded/shockpaddles/Destroy()
+/obj/item/shockpaddles/Destroy()
 	defib = null
 	return ..()
 
 /// Check to see if we should abort this before we've even gotten started
-/obj/item/twohanded/shockpaddles/proc/on_application(obj/item/paddles, mob/living/user, mob/living/carbon/human/target, should_cause_harm)
+/obj/item/shockpaddles/proc/on_application(obj/item/paddles, mob/living/user, mob/living/carbon/human/target, should_cause_harm)
 	SIGNAL_HANDLER  // COMSIG_DEFIB_PADDLES_APPLIED
 
-	if(!wielded)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		to_chat(user, "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>")
 		return COMPONENT_BLOCK_DEFIB_MISC
 	if(!defib.powered)
 		return COMPONENT_BLOCK_DEFIB_DEAD
 
-/obj/item/twohanded/shockpaddles/proc/on_cooldown_expire(obj/item/paddles)
+	return
+
+/obj/item/shockpaddles/proc/on_cooldown_expire(obj/item/paddles)
 	SIGNAL_HANDLER  // COMSIG_DEFIB_READY
 	on_cooldown = FALSE
 	if(defib.cell)
@@ -328,46 +335,43 @@
 		update_icon(UPDATE_ICON_STATE)
 	defib.update_icon(UPDATE_ICON_STATE)
 
-/obj/item/twohanded/shockpaddles/proc/after_shock()
+/obj/item/shockpaddles/proc/after_shock()
 	SIGNAL_HANDLER  // COMSIG_DEFIB_SHOCK_APPLIED
 	on_cooldown = TRUE
 	defib.deductcharge(revivecost)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/twohanded/shockpaddles/update_icon_state()
+/obj/item/shockpaddles/update_icon_state()
+	var/wielded = HAS_TRAIT(src, TRAIT_WIELDED)
 	icon_state = "[base_icon_state][wielded]"
 	item_state = "[base_icon_state][wielded]"
 	if(on_cooldown)
 		icon_state = "[base_icon_state][wielded]_cooldown"
 
-/obj/item/twohanded/shockpaddles/suicide_act(mob/user)
+/obj/item/shockpaddles/suicide_act(mob/user)
 	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return OXYLOSS
 
-/obj/item/twohanded/shockpaddles/dropped(mob/user)
+/obj/item/shockpaddles/dropped(mob/user)
 	..()
 	if(user)
-		var/obj/item/twohanded/offhand/O = user.get_inactive_hand()
-		if(istype(O))
-			O.unwield()
 		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
 		defib.paddles_on_defib = TRUE
 		loc = defib
 		defib.update_icon(UPDATE_OVERLAYS)
 		update_icon(UPDATE_ICON_STATE)
-	unwield(user)
 
-/obj/item/twohanded/shockpaddles/on_mob_move(dir, mob/user)
+/obj/item/shockpaddles/on_mob_move(dir, mob/user)
 	if(defib)
 		var/turf/t = get_turf(defib)
 		if(!t.Adjacent(user))
 			defib.remove_paddles(user)
 
-/obj/item/twohanded/shockpaddles/proc/check_defib_exists(mainunit, mob/living/carbon/human/M, obj/O)
+/obj/item/shockpaddles/proc/check_defib_exists(mainunit, mob/living/carbon/human/M, obj/O)
 	if(!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
-		M.unEquip(O)
+		M?.unEquip(O)
 		qdel(O)
 		return FALSE
 	else
@@ -406,14 +410,14 @@
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/twohanded/shockpaddles/syndicate
+/obj/item/shockpaddles/syndicate
 	name = "combat defibrillator paddles"
 	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
 	icon_state = "syndiepaddles0"
 	item_state = "syndiepaddles0"
 	base_icon_state = "syndiepaddles"
 
-/obj/item/twohanded/shockpaddles/advanced
+/obj/item/shockpaddles/advanced
 	name = "advanced defibrillator paddles"
 	desc = "A pair of high-tech paddles with flat plasteel surfaces that are used to deliver powerful electric shocks. They possess the ability to penetrate armor to deliver shock."
 	icon_state = "ntpaddles0"

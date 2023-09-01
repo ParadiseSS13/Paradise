@@ -292,6 +292,10 @@
 
 	if(H.wear_suit)
 		ADD_SLOWDOWN(H.wear_suit.slowdown)
+	if(H.head)
+		ADD_SLOWDOWN(H.head.slowdown)
+	if(H.gloves)
+		ADD_SLOWDOWN(H.gloves.slowdown)
 	if(!H.buckled && H.shoes)
 		ADD_SLOWDOWN(H.shoes.slowdown)
 	if(H.back)
@@ -332,7 +336,7 @@
 			. += (health_deficiency / 75)
 		else
 			if(health_deficiency >= 40)
-				. += (health_deficiency / 25) //Once damage is over 40, you get the harsh formula
+				. += ((health_deficiency / 25) - 1.1) //Once damage is over 40, you get the harsh formula
 			else
 				. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
 
@@ -841,6 +845,12 @@
 				var/obj/item/storage/backpack/B = H.back
 				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
 					return TRUE
+			if(H.back && ismodcontrol(H.back))
+				var/obj/item/mod/control/C = H.back
+				if(C.bag)
+					var/obj/item/storage/backpack/B = C.bag
+					if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+						return TRUE
 			return FALSE
 		if(slot_tie)
 			if(!istype(I, /obj/item/clothing/accessory))
@@ -938,18 +948,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	var/datum/antagonist/vampire/V = H.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V)
-		if(V.get_ability(/datum/vampire_passive/xray))
-			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-			H.see_in_dark += 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(V.get_ability(/datum/vampire_passive/full))
-			H.sight |= SEE_MOBS
-			H.see_in_dark += 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(V.get_ability(/datum/vampire_passive/vision))
-			H.sight |= SEE_MOBS
-			H.see_in_dark += 1 // base of 2, 2+1 is 3
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+		for(var/datum/vampire_passive/vision/buffs in V.powers)
+			H.sight |= buffs.vision_flags
+			H.see_in_dark += buffs.see_in_dark
+			H.lighting_alpha = buffs.lighting_alpha
 
 	// my glasses, I can't see without my glasses
 	if(H.glasses)

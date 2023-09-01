@@ -10,7 +10,7 @@
 #define R_IDEAL_GAS_EQUATION	8.31	//kPa*L/(K*mol)
 #define ONE_ATMOSPHERE			101.325	//kPa
 #define TCMB					2.7		// -270.3degC
-#define TCRYO					265		// -48.15degC
+#define TCRYO					215		// -58.15degC
 #define T0C						273.15	// 0degC
 #define T20C					293.15	// 20degC
 /// -14C - Temperature used for kitchen cold room, medical freezer, etc.

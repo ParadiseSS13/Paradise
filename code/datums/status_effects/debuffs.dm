@@ -49,9 +49,9 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	var/mutable_appearance/marked_underlay
-	var/obj/item/twohanded/kinetic_crusher/hammer_synced
+	var/obj/item/kinetic_crusher/hammer_synced
 
-/datum/status_effect/crusher_mark/on_creation(mob/living/new_owner, obj/item/twohanded/kinetic_crusher/new_hammer_synced)
+/datum/status_effect/crusher_mark/on_creation(mob/living/new_owner, obj/item/kinetic_crusher/new_hammer_synced)
 	. = ..()
 	if(.)
 		hammer_synced = new_hammer_synced
@@ -203,12 +203,12 @@
 			return
 		if(teleports < 6)
 			to_chat(M, "<span class='warning'>You feel a bit sick!</span>")
-			M.vomit(lost_nutrition = 15, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 15, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(2 SECONDS)
 		else
 			to_chat(M, "<span class='danger'>You feel really sick!</span>")
 			M.adjustBruteLoss(rand(0, teleports * 2))
-			M.vomit(lost_nutrition = 30, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 30, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(6 SECONDS)
 
 /datum/status_effect/pacifism
@@ -294,10 +294,6 @@
 /datum/status_effect/cling_tentacle/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
-/datum/status_effect/cling_tentacle/batterer
-	id = "cling_tentacle_batterer"
-	alert_type = null
-	duration = 7 SECONDS
 // start of `living` level status procs.
 
 /**
@@ -898,6 +894,11 @@
 						list("<span class='danger'>Your head hurts.</span>", "You feel a tingling sensation in your chest.", "<span class='danger'>You feel angry.</span>"),
 						list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>"),
 						list("<span class='danger'>Your entire body vibrates.</span>")
+			)
+			fake_emote = list(
+						list(),
+						list(),
+						list()
 			)
 		else
 			fake_msg = list(

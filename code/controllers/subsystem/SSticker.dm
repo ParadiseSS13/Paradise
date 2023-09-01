@@ -226,7 +226,7 @@ SUBSYSTEM_DEF(ticker)
 	mode.pre_pre_setup()
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
-	SSjobs.DivideOccupations() //Distribute jobs
+
 	if(!can_continue)
 		QDEL_NULL(mode)
 		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
@@ -235,6 +235,18 @@ SUBSYSTEM_DEF(ticker)
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return FALSE
+
+	// Enable highpop slots just before we distribute jobs.
+	var/playercount = length(GLOB.clients)
+	var/highpop_trigger = 80
+
+	if(playercount >= highpop_trigger)
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
+		SSjobs.LoadJobs(TRUE)
+	else
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
 		var/list/modes = new
@@ -317,16 +329,6 @@ SUBSYSTEM_DEF(ticker)
 		if(N.client)
 			N.new_player_panel_proc()
 
-	// Now that every other piece of the round has initialized, lets setup player job scaling
-	var/playercount = length(GLOB.clients)
-	var/highpop_trigger = 80
-
-	if(playercount >= highpop_trigger)
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
-		SSjobs.LoadJobs(TRUE)
-	else
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
-
 	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
@@ -340,7 +342,7 @@ SUBSYSTEM_DEF(ticker)
 	return TRUE
 
 
-/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
+/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(nuke_site = NUKE_SITE_ON_STATION, override = null)
 	if(cinematic)
 		return	//already a cinematic in progress!
 
@@ -353,11 +355,9 @@ SUBSYSTEM_DEF(ticker)
 	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	cinematic.screen_loc = "1,1"
 
-	if(station_missed)
-		for(var/mob/M in GLOB.mob_list)
-			if(M.client)
-				M.client.screen += cinematic	//show every client the cinematic
-	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
+	if(nuke_site == NUKE_SITE_ON_STATION)
+		// Kill everyone on z-level 1 except for mobs in freezers and
+		// malfunctioning AIs.
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
@@ -370,34 +370,15 @@ SUBSYSTEM_DEF(ticker)
 					CHECK_TICK
 			if(M && M.client) //Play the survivors a cinematic.
 				M.client.screen += cinematic
+	else
+		for(var/mob/M in GLOB.mob_list)
+			if(M.client)
+				M.client.screen += cinematic	//show every client the cinematic
 
-	//Now animate the cinematic
-	switch(station_missed)
-		if(1)	//nuke was nearby but (mostly) missed
-			if(mode && !override)
-				override = mode.name
-			switch(override)
-				if("nuclear emergency") //Nuke wasn't on station when it blew up
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					flick("station_intact_fade_red", cinematic)
-					cinematic.icon_state = "summary_nukefail"
-				if("fake") //The round isn't over, we're just freaking people out for fun
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/items/bikehorn.ogg'))
-					flick("summary_selfdes", cinematic)
-				else
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-
-
-		if(2)	//nuke was nowhere nearby	//TODO: a really distant explosion animation
-			sleep(50)
-			SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-		else	//station was destroyed
+	switch(nuke_site)
+		//Now animate the cinematic
+		if(NUKE_SITE_ON_STATION)
+			// station was destroyed
 			if(mode && !override)
 				override = mode.name
 			switch(override)
@@ -419,12 +400,36 @@ SUBSYSTEM_DEF(ticker)
 					flick("station_explode_fade_red", cinematic)
 					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					cinematic.icon_state = "summary_selfdes"
-			stop_delta_alarm()
+
+		if(NUKE_SITE_ON_STATION_ZLEVEL)
+			// nuke was nearby but (mostly) missed
+			if(mode && !override)
+				override = mode.name
+			switch(override)
+				if("nuclear emergency") //Nuke wasn't on station when it blew up
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+					flick("station_intact_fade_red", cinematic)
+					cinematic.icon_state = "summary_nukefail"
+				if("fake") //The round isn't over, we're just freaking people out for fun
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					SEND_SOUND(world, sound('sound/items/bikehorn.ogg'))
+					flick("summary_selfdes", cinematic)
+				else
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+		if(NUKE_SITE_OFF_STATION_ZLEVEL, NUKE_SITE_INVALID)
+			// nuke was nowhere nearby
+			// TODO: a really distant explosion animation
+			sleep(50)
+			SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 
 	//If its actually the end of the round, wait for it to end.
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
-		stop_delta_alarm() // If we've not stopped this alarm yet, do so now.
 		QDEL_NULL(cinematic)		//end the cinematic
 
 

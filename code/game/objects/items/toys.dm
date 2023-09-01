@@ -216,7 +216,7 @@
 			to_chat(user, "<span class='notice'>\the [flags & NODROP ? src : W] is stuck to your hand, you can't attach it to \the [flags & NODROP ? W : src]!</span>")
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
-			new /obj/item/twohanded/dualsaber/toy(user.loc)
+			new /obj/item/dualsaber/toy(user.loc)
 			user.unEquip(W)
 			user.unEquip(src)
 			qdel(W)
@@ -225,26 +225,27 @@
 /*
  * Subtype of Double-Bladed Energy Swords
  */
-/obj/item/twohanded/dualsaber/toy
+/obj/item/dualsaber/toy
 	name = "double-bladed toy sword"
 	desc = "A cheap, plastic replica of TWO energy swords.  Double the fun!"
 	force = 0
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 5
-	force_unwielded = 0
-	force_wielded = 0
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
-	sharp_when_wielded = FALSE // It's a toy
 	needs_permit = FALSE
 
-/obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/dualsaber/toy/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, only_sharp_when_wielded = FALSE, force_wielded = 0, force_unwielded = 0)
+
+/obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
-/obj/item/twohanded/dualsaber/toy/IsReflect()
-	if(wielded)
+/obj/item/dualsaber/toy/IsReflect()
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return 2
 
 /obj/item/toy/katana
@@ -593,6 +594,19 @@
 
 /obj/random/plushie/item_to_spawn()
 	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - typesof(/obj/item/toy/plushie/carpplushie)) //exclude the base type.
+
+/obj/random/plushie/explosive
+	var/explosive_chance = 1 // 1% to spawn a blahbomb!
+
+/obj/random/plushie/explosive/spawn_item()
+	var/obj/item/toy/plushie/plushie = ..()
+	if(!prob(explosive_chance))
+		return plushie
+	var/obj/item/I = new /obj/item/grenade/syndieminibomb
+	plushie.has_stuffing = FALSE
+	plushie.grenade = I
+	I.forceMove(plushie)
+	return plushie
 
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
@@ -1224,22 +1238,24 @@
 /*
  * Rubber Chainsaw
  */
-/obj/item/twohanded/toy/chainsaw
+/obj/item/toy/chainsaw
 	name = "Toy Chainsaw"
 	desc = "A toy chainsaw with a rubber edge. Ages 8 and up"
 	icon_state = "chainsaw0"
+	base_icon_state = "chainsaw"
 	force = 0
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
-	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 
-/obj/item/twohanded/toy/chainsaw/update_icon_state()
-	if(wielded)
-		icon_state = "chainsaw[wielded]"
-	else
-		icon_state = "chainsaw0"
+/obj/item/toy/chainsaw/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, wieldsound = 'sound/weapons/chainsawstart.ogg', icon_wielded = "[base_icon_state]1")
+
+
+/obj/item/toy/chainsaw/update_icon_state()
+	icon_state = "[base_icon_state]0"
 
 /*
  * Cat Toy
