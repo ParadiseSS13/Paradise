@@ -293,18 +293,18 @@
 			H.adjustToxLoss(-1.5)
 			H.adjustBrainLoss(-1.5)
 			H.adjustStaminaLoss(-1.5)
-			H.adjustCloneLoss(-0.5) // Because apparently clone damage is the bastion of all health
+			H.adjustCloneLoss(-0.5)
 			new /obj/effect/temp_visual/heal(get_turf(H), COLOR_HEALING_GREEN)
 
 	// Regenerate points passively
 	if(heal_points < max_heal_points)
 		heal_points = min(heal_points + 3, max_heal_points)
 
-	// The main course: heal everyone around you!
+	// The main course: heal everyone around you with the points we just gained!
 	for(var/mob/living/L in view(7, owner))
+		heal(L)
 		if(!heal_points)
 			break
-		heal(L)
 
 /datum/status_effect/hippocraticOath/proc/heal(mob/living/L)
 	var/starting_points = heal_points
