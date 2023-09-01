@@ -56,6 +56,8 @@ actual development.
 
 * While we have no issue helping contributors (and especially new contributors) bring reasonably sized contributions up to standards via the pull request review process, larger contributions are expected to pass a higher bar of completeness and code quality *before* you open a pull request. Maintainers may close such pull requests that are deemed to be substantially flawed. You should take some time to discuss with maintainers or other contributors on how to improve the changes.
 
+* By ticking or leaving ticked the option "Allow edits and access to secrets by maintainers", either when making a PR or at any time thereafter, you give permission for repository maintainers to push changes to your branch without explicit permission. Repository maintainers will avoid doing this unless necessary, and generally should only use it to apply a merge upstream/master, rebuild TGUI, deconflict maps, or other minor changes required shortly before a PR is to be merged. More extensive changes such as force-pushes to your branch require explicit permission from the PR author each time such a change needs to be made.
+
 #### Using The Changelog
 
 * The tags able to be used in the changelog are: `add/soundadd/imageadd`, `del/sounddel/imagedel`, `tweak`, `fix`, `wip`, `spellcheck`, and `experiment`.
