@@ -505,6 +505,31 @@
 	icon_opened = "electricalcrate_open"
 	icon_closed = "electricalcrate"
 
+/obj/structure/closet/crate/mail
+	name = "mail crate"
+	icon = 'icons/obj/bureaucracy.dmi'
+	desc = "A plastic crate for mail delivery."
+	icon_state = "mailsealed"
+	icon_opened = "mailopen"
+	icon_closed = "mailsealed"
+	material_drop = /obj/item/stack/sheet/plastic
+	material_drop_amount = 4
+	crate_value = 3 // Small returnal payment.
+	var/list/possible_contents = list(/obj/item/envelope/security,
+	/obj/item/envelope/science,
+	/obj/item/envelope/supply,
+	/obj/item/envelope/medical,
+	/obj/item/envelope/engineering,
+	/obj/item/envelope/service,
+	/obj/item/envelope/command,
+	/obj/item/envelope/misc)
+
+/obj/structure/closet/crate/mail/populate_contents()
+	. = ..()
+	for(var/i in 1 to rand(5, 10))
+		var/item = pick(possible_contents)
+		new item(src)
+
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)

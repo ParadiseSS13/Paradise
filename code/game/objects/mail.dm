@@ -1,5 +1,5 @@
 /obj/item/envelope
-	name = "envelope"
+	name ="broken letter"
 	desc = "We just got a letter, we just got a letter, we just got a letter- wonder who its from."
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -9,6 +9,8 @@
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	var/list/possible_contents = list()
+	var/list/job_list = list()
+	var/mob/living/recipient
 
 /obj/item/envelope/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is licking a sharp corner of the envelope. It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -16,9 +18,13 @@
 	return BRUTELOSS
 
 /obj/item/envelope/attack_self(mob/user)
+	if(user != recipient)
+		to_chat(user, "<span class='warning'>You don't want to open up another person's mail, that's an invasion of their privacy!</span>")
+		return
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
 		to_chat(user, "<span class='notice'>You begin to open the envelope.</span>")
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
+		user.unEquip(src)
 		for(var/obj/item/I in contents)
 			user.put_in_hands(I)
 		qdel(src)
@@ -28,6 +34,18 @@
 	var/item = pick(possible_contents)
 	new item(src)
 	new /obj/item/stack/spacecash(src, rand(1, 50) * 5)
+	var/list/mind_copy = SSticker.minds.Copy()
+	shuffle(mind_copy)
+	for(var/datum/mind/mail_attracted_people in mind_copy)
+		if(mail_attracted_people.offstation_role || mail_attracted_people.assigned_role == ("AI" || "Cyborg"))
+			continue
+		if(mail_attracted_people.assigned_role in job_list)
+			recipient = mail_attracted_people.current
+			name = "letter to [recipient]"
+			return
+	if(!admin_spawned)
+		log_debug("Error: failed to find a new name to assign to the [src]!")
+		qdel(src)
 
 /obj/item/envelope/security
 	icon_state = "mail_sec"
@@ -42,6 +60,7 @@
 	/obj/item/toy/figure/crew/detective,
 	/obj/item/toy/figure/crew/hos,
 	/obj/item/toy/figure/crew/secofficer)
+	job_list = list("Head of Security", "Security Officer", "Detective", "Forensic Technician", "Warden")
 
 /obj/item/envelope/science
 	icon_state = "mail_sci"
@@ -58,6 +77,7 @@
 	/obj/item/toy/figure/crew/rd,
 	/obj/item/toy/figure/crew/roboticist,
 	/obj/item/toy/figure/crew/scientist)
+	job_list = list("Research Director", "Roboticist", "Biomechanical Engineer", "Geneticist", "Mechatronic Engineer", "Scientist", "Xenoarcheologist", "Annomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
 
 /obj/item/envelope/supply
 	icon_state = "mail_sup"
@@ -72,6 +92,7 @@
 	/obj/item/toy/figure/crew/cargotech,
 	/obj/item/toy/figure/crew/qm,
 	/obj/item/toy/figure/crew/miner)
+	job_list = list("Quartermaster", "Cargo Technician", "Mail Carrier", "Courier", "Shaft Miner", "Spelunker")
 
 /obj/item/envelope/medical
 	icon_state = "mail_med"
@@ -88,6 +109,7 @@
 	/obj/item/toy/figure/crew/geneticist,
 	/obj/item/toy/figure/crew/md,
 	/obj/item/toy/figure/crew/virologist)
+	job_list = list("Chief Medical Officer", "Medical Doctor", "Surgeon", "Nurse", "Coroner", "Chemist", "Pharmacist", "Pharmacologist", "Virologist", "Pathologist", "Microbiologist", "Psychiatrist", "Psychologist", "Therapist", "Paramedic")
 
 /obj/item/envelope/engineering
 	icon_state = "mail_eng"
@@ -102,6 +124,7 @@
 	/obj/item/toy/figure/crew/atmos,
 	/obj/item/toy/figure/crew/ce,
 	/obj/item/toy/figure/crew/engineer)
+	job_list = list("Chief Engineer", "Station Engineer", "Engine Technician", "Electrician", "Life Support Specialist", "Atmospheric Technician")
 
 /obj/item/envelope/service
 	icon_state = "mail_serv"
@@ -122,6 +145,7 @@
 	/obj/item/toy/figure/crew/janitor,
 	/obj/item/toy/figure/crew/librarian,
 	/obj/item/toy/figure/crew/mime)
+	job_list = list("Head of Personnel", "Bartender", "Chef", "Cook", "Culinary Artist", "Butcher", "Botanist", "Hydroponicist", "Botanical Researcher", "Clown", "Mime", "Janitor", "Custodial Technician", "Librarian", "Journalist", "Barber")
 
 /obj/item/envelope/command
 	icon_state = "mail_com"
@@ -136,6 +160,7 @@
 	/obj/item/toy/figure/crew/captain,
 	/obj/item/toy/figure/crew/lawyer,
 	/obj/item/toy/figure/crew/dsquad)
+	job_list = list("Captain", "Magistrate", "NanoTrasen Representative", "Blueshield", "Internal Affairs Agent", "Human Resources Agent")
 
 /obj/item/envelope/misc
 	possible_contents = list(/obj/item/clothing/under/misc/assistantformal,
@@ -149,8 +174,4 @@
 	/obj/item/toy/figure/crew/assistant,
 	/obj/item/toy/figure/owl,
 	/obj/item/toy/figure/griffin)
-
-
-
-
-// Hi you deleted mail crates by mistake.
+	job_list = list("Assistant", "Explorer")
