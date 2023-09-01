@@ -753,7 +753,7 @@
 	if(!ishuman(loc))
 		return ""
 	var/mob/living/carbon/human/owner = loc
-	return "<span class='warning'>[owner.p_they(TRUE)] have energy claws extending [owner.p_their(FALSE)] wrists.</span>\n"
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] energy claws extending [owner.p_their(FALSE)] wrists.</span>\n"
 
 /obj/item/pyro_claws/process()
 	lifetime -= 2 SECONDS
