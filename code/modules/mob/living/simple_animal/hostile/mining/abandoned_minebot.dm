@@ -59,6 +59,11 @@
 	do_sparks(3, 1, src)
 	. = ..()
 
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot/Move(atom/newloc)
+	if(newloc && newloc.z == z && (islava(newloc) || ischasm(newloc))) //minebots aren't lava-resistant. Would be a shame if they just died.
+		return FALSE
+	return ..()
+
 // Copied from minebot.dm, to add to the fluff of "Hey! This is a minebot, just broken!"
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/examine(mob/user)
 	. = ..()
