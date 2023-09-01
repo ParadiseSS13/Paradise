@@ -382,6 +382,7 @@
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
+		/obj/item/stack/tile/catwalk/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg
@@ -754,6 +755,7 @@
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
+		/obj/item/stack/tile/catwalk/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg,
@@ -843,6 +845,11 @@
 /datum/robot_energy_storage/rods
 	name = "Rod Synthesizer"
 	statpanel_name = "Rods"
+
+/datum/robot_energy_storage/catwalk
+	name= "Catwalk Synthesizer"
+	statpanel_name = "Catwalk Tiles"
+	max_energy = 60
 
 /datum/robot_energy_storage/glass
 	name = "Glass Synthesizer"
