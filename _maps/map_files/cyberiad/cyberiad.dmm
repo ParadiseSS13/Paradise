@@ -81380,8 +81380,8 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "qcZ" = (
-/obj/structure/table/holotable/wood,
 /obj/item/flashlight/lamp/green,
+/obj/structure/table/wood,
 /turf/simulated/floor/carpet/royalblack,
 /area/maintenance/apmaint)
 "qdi" = (
