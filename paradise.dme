@@ -110,6 +110,7 @@
 #include "code\__DEFINES\typeids.dm"
 #include "code\__DEFINES\uplinks_defines.dm"
 #include "code\__DEFINES\vampire_defines.dm"
+#include "code\__DEFINES\vending_defines.dm"
 #include "code\__DEFINES\verb_manager.dm"
 #include "code\__DEFINES\vv.dm"
 #include "code\__DEFINES\wires_defines.dm"
