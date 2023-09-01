@@ -5,12 +5,12 @@
 	icon_state = "mining_drone_offense"
 	icon_living = "mining_drone_offense"
 	icon_aggro = "mining_drone_alert"
-	icon_gib = "syndicate_gib"
-	mob_biotypes = MOB_ROBOTIC | MOB_BEAST
+	mob_biotypes = MOB_ROBOTIC
 	vision_range = 6
 	aggro_vision_range = 7
 	status_flags = CANPUSH
 	mouse_opacity = MOUSE_OPACITY_ICON
+	weather_immunities = list("ash")
 	move_to_delay = 10
 	maxHealth = 75
 	health = 75
@@ -55,6 +55,10 @@
 		if(isliving(target) && !target.Adjacent(targets_from) && ranged_cooldown <= world.time)
 			OpenFire(target)
 
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot/adjustHealth(damage, updating_health)
+	do_sparks(3, 1, src)
+	. = ..()
+
 // Copied from minebot.dm, to add to the fluff of "Hey! This is a minebot, just broken!"
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/examine(mob/user)
 	. = ..()
@@ -63,6 +67,7 @@
 			. += "<span class='warning'>It looks slightly dented.</span>"
 		else
 			. += "<span class='boldwarning'>It looks severely dented!</span>"
+	. += "<span class='notice'><b>[rand(-30,110)]%</b> mod capacity remaining.\nThere is some module installed, using <b>[rand(-5,35)]%</b> capacity.\n...or at least you think.</span>"
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/CanPass(atom/movable/O)
 	if(istype(O, /obj/item/projectile/kinetic))
@@ -73,3 +78,7 @@
 				if(istype(M, /obj/item/borg/upgrade/modkit/minebot_passthrough))
 					return TRUE
 	return ..()
+
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot/emp_act(severity)
+	adjustHealth(100 / severity)
+	visible_message("<span class='warning'>[src] crackles and buzzes violently!</span>")
