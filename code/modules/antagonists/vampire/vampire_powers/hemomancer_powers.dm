@@ -44,7 +44,7 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
-	flags = ABSTRACT | NODROP | DROPDEL | FORCE_VISIBLE
+	flags = ABSTRACT | NODROP | DROPDEL
 	force = 10
 	armour_penetration_flat = 20
 	sharp = TRUE
@@ -67,6 +67,12 @@
 		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
 		parent_spell = null
 	return ..()
+
+/obj/item/vamp_claws/customised_abstract_text()
+	if(!ishuman(loc))
+		return ""
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending [owner.p_their(FALSE)] wrists.</span>\n"
 
 /obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)

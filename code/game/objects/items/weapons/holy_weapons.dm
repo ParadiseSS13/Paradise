@@ -122,6 +122,12 @@
 	damtype = BURN
 	attack_verb = list("punched", "cross countered", "pummeled")
 
+/obj/item/nullrod/godhand/customised_abstract_text()
+	if(!ishuman(loc))
+		return ""
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in holy fire.</span>\n"
+
 /obj/item/nullrod/staff
 	name = "red holy staff"
 	desc = "It has a mysterious, protective aura."
@@ -421,9 +427,15 @@
 	desc = "Particularly twisted deities grant gifts of dubious value."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
-	flags = ABSTRACT | NODROP | FORCE_VISIBLE
+	flags = ABSTRACT | NODROP
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
+
+/obj/item/nullrod/armblade/customised_abstract_text()
+	if(!ishuman(loc))
+		return ""
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>\n"
 
 /obj/item/nullrod/armblade/mining
 	flags = NODROP

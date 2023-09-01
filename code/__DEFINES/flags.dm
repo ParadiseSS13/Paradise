@@ -26,7 +26,6 @@
 
 ///Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS			32768
-#define FORCE_VISIBLE			65536	// It forces item to be visible on examine even if it is abstract
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name

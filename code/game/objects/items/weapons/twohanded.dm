@@ -726,7 +726,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "pyro_claws"
-	flags = ABSTRACT | NODROP | DROPDEL | FORCE_VISIBLE
+	flags = ABSTRACT | NODROP | DROPDEL
 	force = 22
 	damtype = BURN
 	armour_penetration_percentage = 50
@@ -748,6 +748,12 @@
 /obj/item/pyro_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/pyro_claws/customised_abstract_text()
+	if(!ishuman(loc))
+		return ""
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_they(TRUE)] have energy claws extending [owner.p_their(FALSE)] wrists.</span>\n"
 
 /obj/item/pyro_claws/process()
 	lifetime -= 2 SECONDS
