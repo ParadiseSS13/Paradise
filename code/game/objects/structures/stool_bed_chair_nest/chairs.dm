@@ -84,6 +84,11 @@
 		return
 	. = ..()
 
+/obj/structure/chair/attack_hand(mob/user)
+	if(user.Move_Pulled(src))
+		return
+	return ..()
+
 /obj/structure/chair/attack_tk(mob/user as mob)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
 		..()
