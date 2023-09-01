@@ -1736,6 +1736,7 @@
 #include "code\modules\games\52card.dm"
 #include "code\modules\games\cards.dm"
 #include "code\modules\games\tarot.dm"
+#include "code\modules\games\unum.dm"
 #include "code\modules\hallucinations\hallucinations.dm"
 #include "code\modules\hallucinations\effects\common.dm"
 #include "code\modules\hallucinations\effects\major.dm"
