@@ -476,6 +476,7 @@
 #include "code\datums\outfits\vv_outfit.dm"
 #include "code\datums\ruins\lavaland.dm"
 #include "code\datums\ruins\space_ruins.dm"
+#include "code\datums\ruins\bridges\bridges.dm"
 #include "code\datums\spell_cooldown\spell_charges.dm"
 #include "code\datums\spell_cooldown\spell_cooldown.dm"
 #include "code\datums\spell_handler\alien_spell_handler.dm"
