@@ -98,7 +98,7 @@
 			var/mob/possible_target
 			for(var/mob/M in snack_range)
 				if(ishuman(M)) // mailman?
-					if(M.mind.assigned_role == "Cargo Technician" || M.mind.assigned_role == "Quartermaster") // MAILMAN!
+					if(M.mind && M.mind.assigned_role == "Cargo Technician" || M.mind.assigned_role == "Quartermaster") // MAILMAN!
 						possible_target = M
 						a_intent = mailman_intent
 						break
