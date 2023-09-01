@@ -149,11 +149,11 @@
 	name = "Suspicious Asteroid"
 	icon_state = "dark"
 	requires_power = FALSE
-  
+
 /area/ruin/space/wreck_cargoship
 	name = "Faint Signal"
 	icon_state = "yellow"
-  
+
 // Syndicate Listening Station
 
 /area/ruin/space/syndicate_listening_station
