@@ -225,11 +225,13 @@
 		/obj/item/holosign_creator/atmos,
 		/obj/item/clothing/gloves/color/black/forensics,
 		/obj/item/rcd,
-		/obj/item/rpd
+		/obj/item/rpd,
+		/obj/item/mod/control
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
-		/obj/item/mmi/robotic_brain
+		/obj/item/mmi/robotic_brain,
+		/obj/item/card/id/captains_spare/assigned
 	)
 
 /obj/machinery/cryopod/right
@@ -339,7 +341,11 @@
 			QDEL_NULL(P.id)
 			qdel(P)
 			continue
-
+		if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.
+			var/obj/item/storage/backpack/modstorage/M = I
+			M.forceMove(M.source)
+			continue
+		
 		var/preserve = should_preserve_item(I)
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
@@ -517,7 +523,7 @@
 		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
-		return
+		return TRUE
 
 
 	var/mob/living/L = O
@@ -526,13 +532,14 @@
 
 	if(L.stat == DEAD)
 		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
-		return
+		return TRUE
 
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
-		return
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/cryopod, put_in), user, L)
+	return TRUE
 
-
+/obj/machinery/cryopod/proc/put_in(mob/user, mob/living/L) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	var/willing = null //We don't want to allow people to be forced into despawning.
 	time_till_despawn = initial(time_till_despawn)
 
@@ -546,18 +553,16 @@
 	if(willing)
 		if(!Adjacent(L) && !Adjacent(user))
 			to_chat(user, "<span class='boldnotice'>You're not close enough to [src].</span>")
-			return
+			return TRUE
 		if(L == user)
 			visible_message("[user] starts climbing into the cryo pod.")
 		else
 			visible_message("[user] starts putting [L] into the cryo pod.")
-
 		if(do_after(user, 20, target = L))
-			if(!L) return
-
+			if(!L) return TRUE
 			if(occupant)
 				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
-				return
+				return TRUE
 			take_occupant(L, willing)
 		else
 			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
@@ -743,7 +748,7 @@
 		target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
 			var/turf/T = get_turf(person_to_cryo)
-			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40)
+			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40, create_sparks = FALSE)
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return 1

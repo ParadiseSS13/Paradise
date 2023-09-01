@@ -254,6 +254,11 @@
 			//Now, S represents a container we can insert W into.
 			S.handle_item_insertion(W, TRUE, TRUE)
 			return S
+		if(ismodcontrol(back))
+			var/obj/item/mod/control/C = back
+			if(C.bag)
+				C.bag.handle_item_insertion(W, TRUE, TRUE)
+			return C.bag
 
 		var/turf/T = get_turf(src)
 		if(istype(T))
@@ -461,7 +466,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(usr, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
 					return 0
-				if(src.w_class > WEIGHT_CLASS_BULKY)
+				if(w_class > H.wear_suit.max_suit_w)
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
@@ -910,9 +915,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/stripPanelEquip(obj/item/what, mob/who)
 	return
 
-/mob/MouseDrop(mob/M as mob)
-	..()
-	if(M != usr) return
+/mob/MouseDrop(mob/M as mob, src_location, over_location, src_control, over_control, params)
+	if((M != usr) || !istype(M))
+		..()
+		return
 	if(isliving(M))
 		var/mob/living/L = M
 		if(L.mob_size <= MOB_SIZE_SMALL)
@@ -1235,11 +1241,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(green)
 			if(!no_text)
 				visible_message("<span class='warning'>[src] vomits up some green goo!</span>","<span class='warning'>You vomit up some green goo!</span>")
-			location.add_vomit_floor(FALSE, TRUE)
+			add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
 				visible_message("<span class='warning'>[src] pukes all over [p_themselves()]!</span>","<span class='warning'>You puke all over yourself!</span>")
-			location.add_vomit_floor(TRUE)
+			add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	mob_spell_list += S
@@ -1302,23 +1308,23 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 ///can the mob be buckled to something by default?
 /mob/proc/can_buckle()
-	return 1
+	return TRUE
 
 ///can the mob be unbuckled from something by default?
 /mob/proc/can_unbuckle()
-	return 1
+	return TRUE
 
 
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
-	return 0
+	return FALSE
 
 //Can this mob leave its location without breaking things terrifically?
 /mob/proc/can_safely_leave_loc()
-	return 1 // Yes, you can
+	return TRUE // Yes, you can
 
 /mob/proc/IsVocal()
-	return 1
+	return TRUE
 
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
@@ -1429,6 +1435,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE
 
 /mob/proc/faction_check_mob(mob/target, exact_match)
+	if(!target)
+		return faction_check(faction, null, FALSE)
 	if(exact_match) //if we need an exact match, we need to do some bullfuckery.
 		var/list/faction_src = faction.Copy()
 		var/list/faction_target = target.faction.Copy()

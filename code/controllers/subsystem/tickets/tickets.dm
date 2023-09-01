@@ -221,7 +221,7 @@ SUBSYSTEM_DEF(tickets)
 		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
 		"Happens Again" = "Thanks, let us know if it continues to happen.",
 		"Clear Cache" = "To fix a blank screen, go to the 'Special Verbs' tab and press 'Reload UI Resources'. If that fails, clear your BYOND cache (instructions provided with 'Reload UI Resources'). If that still fails, please adminhelp again, stating you have already done the following." ,
-		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
+		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representative, or any other relevant authority currently on station.",
 		"Reject" = "Reject",
 		"Man Up" = "Man Up",
 	)
@@ -358,8 +358,8 @@ SUBSYSTEM_DEF(tickets)
 	ticketNum = num
 	ticketState = TICKET_OPEN
 
-	var/list/this_data = list()
 	for(var/client/C in GLOB.admins)
+		var/list/this_data = list()
 		this_data["ckey"] = C.ckey
 		this_data["rank"] = C.holder.rank
 		this_data["afk"] = C.inactivity

@@ -45,6 +45,7 @@
 	return ..()
 
 /datum/vampire_passive/proc/on_apply(datum/antagonist/vampire/V)
+	owner.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 	return
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate
@@ -64,6 +65,8 @@
 	U.SetSleeping(0)
 	U.SetConfused(0)
 	U.adjustStaminaLoss(-100)
+	U.stand_up(TRUE)
+	SEND_SIGNAL(U, COMSIG_LIVING_CLEAR_STUNS)
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/rejuv_bonus = V.get_rejuv_bonus()
@@ -254,9 +257,24 @@
 
 /datum/vampire_passive/vision
 	gain_desc = "Your vampiric vision has improved."
+	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	var/see_in_dark = 1
+	var/vision_flags = SEE_MOBS
+
+/datum/vampire_passive/vision/advanced
+	gain_desc = "Your vampiric vision now allows you to see everything in the dark!"
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	see_in_dark = 3
+	vision_flags = SEE_MOBS
+
+/datum/vampire_passive/vision/full
+	gain_desc = "Your vampiric vision has reached its full strength!"
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	see_in_dark = 6
+	vision_flags = SEE_MOBS
 
 /datum/vampire_passive/full
-	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy and your vision has improved greatly."
+	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy."
 
 /obj/effect/proc_holder/spell/vampire/raise_vampires
 	name = "Raise Vampires"

@@ -448,7 +448,6 @@
 			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
 			owner.Weaken(6 SECONDS)
 			owner.emote("gasp")
-	cling.genetic_damage += stacks
 	cling = null
 
 /datum/status_effect/panacea
@@ -547,6 +546,43 @@
 	else
 		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
 
+/datum/status_effect/drill_payback
+	duration = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	var/drilled_successfully = FALSE
+	var/times_warned = 0
+	var/obj/structure/safe/drilled
+
+/datum/status_effect/drill_payback/on_creation(mob/living/new_owner, obj/structure/safe/S)
+	drilled = S
+	return ..()
+
+/datum/status_effect/drill_payback/on_apply()
+	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
+	addtimer(CALLBACK(src, PROC_REF(payback_phase_2)), 2.7 SECONDS)
+	return TRUE
+
+/datum/status_effect/drill_payback/proc/payback_phase_2()
+	owner.clear_fullscreen("payback")
+	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
+
+/datum/status_effect/drill_payback/tick() //They are not staying down. This will be a fight.
+	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) //We don't want someone drilling the safe at arivals then raiding bridge with the buff
+		to_chat(owner, "<span class='userdanger'>Get back to the safe, they are going to get the drill!</span>")
+		times_warned++
+		if(times_warned >= 6)
+			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+			return
+	if(owner.stat != DEAD)
+		owner.adjustBruteLoss(-3)
+		owner.adjustFireLoss(-3)
+		owner.adjustStaminaLoss(-25)
+
+/datum/status_effect/drill_payback/on_remove()
+	. = ..()
+	owner.clear_fullscreen("payback")
+
 /datum/status_effect/thrall_net
 	id = "thrall_net"
 	tick_interval = 2 SECONDS
@@ -604,3 +640,25 @@
 /datum/status_effect/thrall_net/on_remove()
 	. = ..()
 	vamp = null
+
+/datum/status_effect/rev_protection
+	// revs are paralyzed for 10 seconds when they're deconverted, same duration
+	duration = 10 SECONDS
+	alert_type = null
+
+/datum/status_effect/rev_protection/on_apply()
+	RegisterSignal(owner, COMSIG_HUMAN_ATTACKED, PROC_REF(on_human_attackby))
+	return ..()
+
+/datum/status_effect/rev_protection/proc/on_human_attackby(mob/living/carbon/human/victim, mob/living/carbon/human/attacker)
+	SIGNAL_HANDLER
+	if(!(attacker.a_intent in list(INTENT_DISARM, INTENT_HARM)))
+		return
+	if(!is_any_revolutionary(attacker)) // protect from non-revs. Revs dont care about deconverted people
+		to_chat(attacker, "<span class='biggerdanger'>[owner] was just deconverted! You don't feel like harming them!</span>")
+		attacker.changeNext_move(CLICK_CD_MELEE)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/status_effect/rev_protection/on_remove()
+	UnregisterSignal(owner, COMSIG_HUMAN_ATTACKED)
+	. = ..()

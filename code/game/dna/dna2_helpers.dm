@@ -28,6 +28,10 @@
 	var/block = pick(GLOB.bad_blocks)
 	M.dna.SetSEState(block, 1)
 
+	var/mob/living/carbon/C = M
+	if(prob(RAD_MOB_GORILLIZE_PROB) && istype(C))
+		C.gorillize() // OH SHIT A GORILLA
+
 // Give Random Good Mutation to M
 /proc/randmutg(mob/living/M)
 	if(!M || !M.dna)

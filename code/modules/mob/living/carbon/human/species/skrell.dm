@@ -1,7 +1,6 @@
 /datum/species/skrell
 	name = "Skrell"
 	name_plural = "Skrell"
-	max_age = 70
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	language = "Skrellian"
 	primitive_form = /datum/species/monkey/skrell

@@ -209,3 +209,61 @@
 	icon_state = "reebe"
 	baseturf = /turf/simulated/floor/clockwork/reebe
 	uses_overlay = FALSE
+
+/turf/simulated/floor/catwalk
+	name = "catwalk"
+	desc = "A catwalk for easier inspection of cable and pipe installations."
+	icon = 'icons/turf/floors/catwalk_floor.dmi'
+	icon_state = "catwalk"
+	base_icon_state = "catwalk"
+	baseturf = /turf/simulated/floor/plating
+	floor_tile = /obj/item/stack/tile/catwalk
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_SIMULATED_TURFS)
+	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
+	footstep = FOOTSTEP_CATWALK
+	barefootstep = FOOTSTEP_CATWALK
+	clawfootstep = FOOTSTEP_CATWALK
+	keep_dir = FALSE
+	intact = FALSE
+	transparent_floor = TRUE
+
+/turf/simulated/floor/catwalk/Initialize(mapload)
+	. = ..()
+	var/image/I = image('icons/turf/floors/plating.dmi', src, "plating")
+	I.layer = PLATING_LAYER
+	underlays += I
+	dir = SOUTH //dirs that are not 2/south cause smoothing jank
+	icon_state = "" //Prevents default icon appearing behind the catwalk
+
+/turf/simulated/floor/catwalk/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	pry_tile(I, user, TRUE)
+
+/turf/simulated/floor/catwalk/can_lay_cable()
+	return FALSE // Pry the catwalk up if you want to apply cables underneath
+
+/turf/simulated/floor/catwalk/ex_act(severity)
+	if(is_shielded())
+		return
+	switch(severity)
+		if(1.0)
+			ChangeTurf(baseturf)
+		if(2.0)
+			switch(pick(1,2;75,3))
+				if(1)
+					spawn(0)
+						ReplaceWithLattice()
+						if(prob(33)) new /obj/item/stack/rods(src)
+				if(2)
+					ChangeTurf(baseturf)
+				if(3)
+					break_tile_to_plating()
+					hotspot_expose(1000,CELL_VOLUME)
+					if(prob(33)) new /obj/item/stack/rods(src)
+		if(3.0)
+			if(prob(50))
+				break_tile_to_plating()
+				hotspot_expose(1000,CELL_VOLUME)

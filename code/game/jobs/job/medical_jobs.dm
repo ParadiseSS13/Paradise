@@ -18,6 +18,7 @@
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_MEDICAL = 1200)
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/cmo
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Medical), basic job duties, and act professionally (roleplay)."
 
@@ -256,7 +257,7 @@
 	jobtype = /datum/job/psychiatrist
 
 	uniform = /obj/item/clothing/under/rank/medical/doctor
-	suit = /obj/item/clothing/suit/storage/labcoat
+	suit = /obj/item/clothing/suit/storage/labcoat/psych
 	shoes = /obj/item/clothing/shoes/laceup
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/psychiatrist
@@ -284,8 +285,8 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
-	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
+	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_MORGUE)
+	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_MORGUE)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/paramedic

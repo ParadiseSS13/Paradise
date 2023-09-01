@@ -7,6 +7,7 @@
 	speak = list("snorts")
 	speak_emote = list("snorts")
 	emote_see = list("shakes its head")
+	faction = list("neutral", "jungle")
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 0 //I'm so funny

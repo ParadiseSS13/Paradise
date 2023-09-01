@@ -1,16 +1,6 @@
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 
-//Directions (already defined on BYOND natively, purely here for reference)
-//#define NORTH		1
-//#define SOUTH		2
-//#define EAST		4
-//#define WEST		8
-//#define NORTHEAST	5
-//#define SOUTHEAST 6
-//#define NORTHWEST 9
-//#define SOUTHWEST 10
-
 //Security levels
 #define SEC_LEVEL_GREEN	0
 #define SEC_LEVEL_BLUE	1
@@ -113,9 +103,12 @@
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
+	RECT_TURFS(RADIUS, RADIUS, CENTER)
+
+#define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
 	block( \
-		locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
-		locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
+	locate(max(CENTER.x-(H_RADIUS),1),          max(CENTER.y-(V_RADIUS),1),          CENTER.z), \
+	locate(min(CENTER.x+(H_RADIUS),world.maxx), min(CENTER.y+(V_RADIUS),world.maxy), CENTER.z) \
 	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
@@ -382,7 +375,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 48
+#define SQL_VERSION 50
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -409,9 +402,9 @@
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
-#define DEFIB_TIME_LIMIT 300 SECONDS
+#define DEFIB_TIME_LIMIT (300 SECONDS)
 /// Brain damage starts setting in on the patient after some time left rotting.
-#define DEFIB_TIME_LOSS 60 SECONDS
+#define DEFIB_TIME_LOSS (60 SECONDS)
 
 //different types of atom colorations
 #define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
@@ -497,6 +490,7 @@
 #define LINDA_SPAWN_N2O 64
 #define LINDA_SPAWN_AGENT_B 128
 #define LINDA_SPAWN_AIR 256
+#define LINDA_SPAWN_COLD 512
 
 // Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
@@ -541,6 +535,9 @@
 #define REFLECTABILITY_PHYSICAL 1
 #define REFLECTABILITY_ENERGY 2
 
+// This isnt in client_defines due to scoping issues
+#define DEFAULT_CLIENT_VIEWSIZE "19x15"
+
 // Deadchat control defines
 
 /// Will execute a single command after the cooldown based on player votes.
@@ -549,3 +546,9 @@
 #define DEADCHAT_ANARCHY_MODE (1<<1)
 /// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
 #define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
+
+// Lavaland cave design defines
+
+#define BLOCKED_BURROWS "Blocked Burrows"
+#define CLASSIC_CAVES "Classic Caves"
+#define DEADLY_DEEPROCK "Deadly Deeprock"

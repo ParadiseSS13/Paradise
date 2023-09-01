@@ -1,6 +1,3 @@
-#define TURRET_PRIORITY_TARGET 2
-#define TURRET_SECONDARY_TARGET 1
-#define TURRET_NOT_TARGET 0
 
 /obj/machinery/porta_turret/tag
 	// Reasonable defaults, in case someone manually spawns us

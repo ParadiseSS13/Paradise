@@ -146,7 +146,7 @@
 
 /obj/machinery/power/apc/New(turf/loc, direction, building = 0)
 	if(!armor)
-		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50)
+		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, RAD = 100, FIRE = 90, ACID = 50)
 	..()
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
@@ -612,9 +612,9 @@
 	var/last_charging_state = charging
 	update_last_used() // get local powernet usage and clear it for next cycle
 
-	var/excess = surplus()
-	//Now we calculate the state of the external powernet
-	if(!avail())
+	var/excess = get_power_balance()
+
+	if(!get_available_power())
 		main_status = APC_EXTERNAL_POWER_NOTCONNECTED
 	else if(excess < 0)
 		main_status = APC_EXTERNAL_POWER_NOENERGY  // there's more demand than supply on powernet, there's not enough power
@@ -628,11 +628,11 @@
 
 		if(excess > last_used_total)	// if power excess recharge the cell  by the same amount just used
 			cell.give(cell_used)
-			add_load(cell_used / GLOB.CELLRATE)		// add the load used to recharge the cell
+			consume_direct_power(cell_used / GLOB.CELLRATE)		// add the load used to recharge the cell
 		else // no excess, and not enough per-apc
 			if((cell.charge / GLOB.CELLRATE + excess) >= last_used_total)		// can we draw enough from cell+grid to cover last usage?
 				cell.charge = min(cell.maxcharge, cell.charge + GLOB.CELLRATE * excess)	//recharge with what we can
-				add_load(excess) // so draw what we can from the grid
+				consume_direct_power(excess) // so draw what we can from the grid
 				charging = APC_NOT_CHARGING
 			else	// not enough power available to run the last tick!
 				charging = APC_NOT_CHARGING
@@ -658,7 +658,7 @@
 			if(excess > 0)		// check to make sure we have enough to charge
 				// Max charge is capped to % per second constant
 				var/ch = min(excess*GLOB.CELLRATE, cell.maxcharge*GLOB.CHARGELEVEL)
-				add_load(ch/GLOB.CELLRATE) // Removes the power we're taking from the grid
+				consume_direct_power(ch / GLOB.CELLRATE) // Removes the power we're taking from the grid
 				cell.give(ch) // actually recharge the cell
 
 			else
@@ -777,21 +777,24 @@
 /obj/machinery/power/apc/connect_to_network()
 	terminal?.connect_to_network() //The terminal is what the power computer looks for
 
-/obj/machinery/power/apc/surplus()
+/obj/machinery/power/apc/get_surplus()
 	if(terminal)
-		return terminal.surplus()
+		return terminal.get_surplus()
 	else
-		return 0 //not FALSE
+		return 0
 
-/obj/machinery/power/apc/add_load(amount)
+/obj/machinery/power/apc/get_power_balance()
+	if(terminal)
+		return terminal.get_power_balance()
+	else
+		return 0
+
+/obj/machinery/power/apc/consume_direct_power(amount)
 	if(terminal?.powernet)
-		terminal.add_load(amount)
+		terminal.consume_direct_power(amount)
 
-/obj/machinery/power/apc/avail()
-	if(terminal)
-		return terminal.avail()
-	else
-		return 0 //not FALSE
+/obj/machinery/power/apc/get_available_power()
+	return terminal ? terminal.get_available_power() : 0
 
 /obj/machinery/power/apc/proc/power_destroy() // Caused only by explosions and teslas, not for deconstruction
 	if(obj_integrity > integrity_failure || opened != APC_COVER_OFF)
@@ -1008,6 +1011,19 @@
 			locked = FALSE
 			to_chat(user, "You emag the APC interface.")
 			update_icon()
+
+/obj/machinery/power/apc/proc/apc_short()
+	// if it has internal wires, cut the power wires
+	if(wires)
+		if(!wires.is_cut(WIRE_MAIN_POWER1))
+			wires.cut(WIRE_MAIN_POWER1)
+		if(!wires.is_cut(WIRE_MAIN_POWER2))
+			wires.cut(WIRE_MAIN_POWER2)
+	// if it was operating, toggle off the breaker
+	if(operating)
+		toggle_breaker()
+	// no matter what, ensure the area knows something happened to the power
+	apc_area.powernet.power_change()
 
 ///    *************
 /// APC subtypes

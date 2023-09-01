@@ -16,8 +16,8 @@
 	item_color = "hop"
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel/dress
-	name = "head of personal's dress uniform"
-	desc = "Feminine fashion for the style conscious HoP."
+	name = "head of personnel's dress uniform"
+	desc = "Feminine fashion for the style conscious Head of Personnel."
 	icon_state = "dress_hop"
 	item_color = "dress_hop"
 
@@ -109,7 +109,7 @@
 	name = "janitor's jumpsuit"
 	icon_state = "janitor"
 	item_color = "janitor"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/civilian/librarian
 	name = "sensible suit"

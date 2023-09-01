@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("firelock frame", /obj/structure/firelock_frame, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("reflector frame", /obj/structure/reflector, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe_list("airlock assemblies", list(
@@ -175,7 +175,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-plasteel"
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	throwforce = 10.0
 	flags = CONDUCT
@@ -250,7 +250,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	item_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
 	sheettype = "wood"
 	table_type = /obj/structure/table/wood
@@ -514,6 +514,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	throw_range = 3
 	turf_type = /turf/simulated/floor/clockwork
 	table_type = /obj/structure/table/reinforced/brass
+	dynamic_icon_state = TRUE
 
 /obj/item/stack/tile/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)

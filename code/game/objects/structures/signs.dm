@@ -5,7 +5,7 @@
 	density = FALSE
 	layer = 3.5
 	max_integrity = 100
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/does_emissive = FALSE
@@ -99,6 +99,10 @@
 /obj/structure/sign/double/map/right
 	icon_state = "map-right"
 
+/obj/structure/sign/double/map/attack_hand(mob/user)
+	if(user.client)
+		user.client.webmap()
+
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
 	desc = "A warning sign which reads 'SECURE AREA'"
@@ -183,7 +187,7 @@
 
 /obj/structure/sign/greencross
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
+	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
 	icon_state = "greencross"
 
 /obj/structure/sign/goldenplaque

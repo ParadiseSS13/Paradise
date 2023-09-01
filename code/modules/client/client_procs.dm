@@ -322,6 +322,9 @@
 		// ToS accepted
 		tos_consent = TRUE
 
+	// Setup widescreen
+	view = prefs.viewrange
+
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
@@ -371,6 +374,10 @@
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
+	// Try doing this before mob login
+	generate_clickcatcher()
+	apply_clickcatcher()
+
 	. = ..()	//calls mob.Login()
 
 	mob.update_client_colour(0) // Activate colourblind mode if they have one set
@@ -393,9 +400,6 @@
 	else
 		// activate_darkmode() calls the CL update button proc, so we dont want it double called
 		SSchangelog.UpdatePlayerChangelogButton(src)
-
-	generate_clickcatcher()
-	apply_clickcatcher()
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -432,6 +436,7 @@
 	// Tell client about their connection
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
+
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -1250,6 +1255,11 @@
 
 	winset(src, null, "command=\".configure graphics-hwmode off\"")
 	winset(src, null, "command=\".configure graphics-hwmode on\"")
+
+/// Returns the biggest number from client.view so we can do easier maths
+/client/proc/maxview()
+	var/list/screensize = getviewsize(view)
+	return max(screensize[1], screensize[2])
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

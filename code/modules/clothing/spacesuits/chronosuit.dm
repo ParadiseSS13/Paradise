@@ -4,7 +4,7 @@
 	icon_state = "chronohelmet"
 	item_state = "chronohelmet"
 	slowdown = 1
-	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, BIO = 90, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
@@ -24,7 +24,7 @@
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle)
-	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, BIO = 90, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null

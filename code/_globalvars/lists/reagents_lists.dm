@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(rare_chemicals, list("minttoxin","syndicate_nanites", "xenomicr
 GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine","epinephrine","space_drugs",
 								"mutadone","mutagen","teporone","lexorin","silver_sulfadiazine",
 								"salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol",
-								"potass_iodide","pen_acid","mannitol","oculine","styptic_powder",
+								"potass_iodide","pen_acid","mannitol","oculine","styptic_powder","happiness",
 								"methamphetamine","spaceacillin","carpotoxin","lsd","ethanol","ammonia",
 								"diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin",
 								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin"))

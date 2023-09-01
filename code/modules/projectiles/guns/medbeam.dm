@@ -85,25 +85,25 @@
 	var/turf/user_turf = user.loc
 	var/datum/beam/current_beam = locateUID(beam_UID)
 	if(!istype(user_turf))
-		return 0
+		return FALSE
 	var/obj/dummy = new(user_turf)
-	dummy.pass_flags |= PASSTABLE & PASSGLASS & PASSGRILLE & PASSFENCE //Grille/Glass so it can be used through common windows
+	dummy.pass_flags |= PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE //Grille/Glass so it can be used through common windows
 	for(var/turf/turf in getline(user_turf,target))
 		if(turf.density)
 			qdel(dummy)
-			return 0
+			return FALSE
 		for(var/atom/movable/AM in turf)
 			if(!AM.CanPass(dummy,turf,1))
 				qdel(dummy)
-				return 0
+				return FALSE
 		for(var/obj/effect/ebeam/medical/B in turf)// Don't cross the str-beams!
 			if(B.owner != current_beam)
 				turf.visible_message("<span class='userdanger'>The medbeams cross and EXPLODE!</span>")
 				explosion(B.loc,0,3,5,8)
 				qdel(dummy)
-				return 0
+				return FALSE
 	qdel(dummy)
-	return 1
+	return TRUE
 
 /obj/item/gun/medbeam/proc/on_beam_hit(mob/living/target)
 	return

@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/syndicate/depot
 	name = "depot supply closet"
-	desc = ""
+	desc = "A red and black lootbox full of things the Head of Security is going to flip their shit over."
 	locked = FALSE
 	anchored = TRUE
 	req_access = list()

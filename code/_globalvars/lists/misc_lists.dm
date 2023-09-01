@@ -61,3 +61,6 @@ GLOBAL_LIST_EMPTY(client_login_processors)
 
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
+
+/// List of looping sounds
+GLOBAL_LIST_EMPTY(looping_sounds)

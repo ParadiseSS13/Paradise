@@ -663,7 +663,40 @@
 	build_path = /obj/item/ammo_box/foambox/sniper
 	category = list("initial", "Miscellaneous")
 
+/datum/design/large_welding_tool
+	name = "Industrial Welding Tool"
+	id = "large_welding_tool"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
+	build_path = /obj/item/weldingtool/largetank
+	category = list("initial", "Tools")
+
+/datum/design/rcd
+	name = "Rapid Construction Device (RCD)"
+	id = "rcd"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30000)
+	build_path = /obj/item/rcd
+	category = list("initial", "Construction")
+
+/datum/design/rpd
+	name = "Rapid Pipe Dispenser (RPD)"
+	id = "rpd"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
+	build_path = /obj/item/rpd
+	category = list("initial", "Construction")
+
+/datum/design/rcl
+	name = "Rapid Cable Layer"
+	id = "rcl"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000)
+	build_path = /obj/item/rcl
+	category = list("initial", "Construction")
+
 //hacked autolathe recipes
+
 /datum/design/flamethrower
 	name = "Flamethrower"
 	id = "flamethrower"
@@ -672,29 +705,6 @@
 	build_path = /obj/item/flamethrower/full
 	category = list("hacked", "Security")
 
-/datum/design/rcd
-	name = "Rapid Construction Device (RCD)"
-	id = "rcd"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/rcd
-	category = list("hacked", "Construction")
-
-/datum/design/rpd
-	name = "Rapid Pipe Dispenser (RPD)"
-	id = "rpd"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
-	build_path = /obj/item/rpd
-	category = list("hacked", "Construction")
-
-/datum/design/rcl
-	name = "Rapid Cable Layer"
-	id = "rcl"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 5000)
-	build_path = /obj/item/twohanded/rcl
-	category = list("hacked", "Construction")
 
 /datum/design/electropack
 	name = "Electropack"
@@ -702,14 +712,6 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
 	build_path = /obj/item/electropack
-	category = list("hacked", "Tools")
-
-/datum/design/large_welding_tool
-	name = "Industrial Welding Tool"
-	id = "large_welding_tool"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
-	build_path = /obj/item/weldingtool/largetank
 	category = list("hacked", "Tools")
 
 /datum/design/handcuffs

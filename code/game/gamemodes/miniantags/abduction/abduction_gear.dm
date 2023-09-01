@@ -14,15 +14,15 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = 115, ACID = 115)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10
 	var/datum/icon_snapshot/disguise
-	var/stealth_armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = 115, ACID = 115)
-	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 450, ACID = 450)
+	var/stealth_armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
+	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 450, ACID = 450)
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
@@ -113,6 +113,7 @@
 		M.SetStunned(0)
 		M.SetWeakened(0)
 		M.SetKnockDown(0)
+		M.stand_up(TRUE)
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 

@@ -40,7 +40,7 @@
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	displays_id = FALSE
 
 /obj/item/clothing/under/rank/centcom/captain
@@ -49,7 +49,7 @@
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	displays_id = FALSE
 
 /obj/item/clothing/under/rank/centcom/captain/solgov
@@ -122,7 +122,7 @@
 	icon_state = "blueshield"
 	item_state = "blueshield"
 	item_color = "blueshield"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 
 /obj/item/clothing/under/rank/centcom/blueshield/skirt
 	name = "blueshield's skirt"
@@ -130,7 +130,7 @@
 	icon_state = "blueshield_skirt"
 	item_state = "blueshield_skirt"
 	item_color = "blueshield_skirt"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 
 /obj/item/clothing/under/rank/centcom/blueshield/formal
 	name = "formal blueshield's uniform"
@@ -138,5 +138,5 @@
 	icon_state = "blueshield_formal"
 	item_state = "blueshield_formal"
 	item_color = "blueshield_formal"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	displays_id = FALSE

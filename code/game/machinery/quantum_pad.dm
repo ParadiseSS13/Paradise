@@ -130,17 +130,20 @@
 	add_fingerprint(user)
 	doteleport(user)
 
-/obj/machinery/quantumpad/attack_ai(mob/living/silicon/ai/user)
-	if(!isAI(user))
+/obj/machinery/quantumpad/attack_ai(mob/user)
+	if(isrobot(user))
+		return attack_hand(user)
+	var/mob/living/silicon/ai/AI = user
+	if(!istype(AI))
 		return
-	if(user.eyeobj.loc != loc)
-		user.eyeobj.setLoc(get_turf(loc))
+	if(AI.eyeobj.loc != loc)
+		AI.eyeobj.setLoc(get_turf(loc))
 		return
 	if(!check_usable(user))
 		return
 	var/turf/T = get_turf(linked_pad)
 	if(GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))
-		user.eyeobj.setLoc(T)
+		AI.eyeobj.setLoc(T)
 	else
 		to_chat(user, "<span class='warning'>Linked pad is not on or near any active cameras on the station.</span>")
 

@@ -204,8 +204,8 @@
 /obj/item/scrying
 	name = "scrying orb"
 	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means."
-	icon = 'icons/obj/projectiles.dmi'
-	icon_state ="bluespace"
+	icon = 'icons/obj/wizard.dmi'
+	icon_state ="scrying_orb"
 	throw_speed = 7
 	throw_range = 15
 	throwforce = 15
@@ -231,6 +231,7 @@
 		to_chat(current_owner, "<span class='notice'>Your otherworldly vision fades...</span>")
 
 		REMOVE_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		REMOVE_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
 		current_owner.update_sight()
 		current_owner.update_icons()
 
@@ -242,6 +243,7 @@
 		to_chat(current_owner, "<span class='notice'>You can see...everything!</span>")
 
 		ADD_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		ADD_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
 		current_owner.update_sight()
 		current_owner.update_icons()
 
@@ -743,7 +745,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
 			H.equip_to_slot_or_del(new /obj/item/claymore(H), slot_r_hand)
-			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
+			H.equip_to_slot_or_del(new /obj/item/spear(H), slot_back)
 		if("pirate")
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(H),  slot_wear_suit)
@@ -751,7 +753,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), slot_glasses)
 			H.equip_to_slot_or_del(new /obj/item/claymore(H), slot_r_hand)
-			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
+			H.equip_to_slot_or_del(new /obj/item/spear(H), slot_back)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
 		if("yand")//mine is an evil laugh
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
@@ -760,7 +762,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
 			H.equip_to_slot_or_del(new /obj/item/katana(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
-			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
+			H.equip_to_slot_or_del(new /obj/item/spear(H), slot_back)
 		if("clown")
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), slot_shoes)
@@ -769,7 +771,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
 			H.equip_to_slot_or_del(new /obj/item/claymore(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
-			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
+			H.equip_to_slot_or_del(new /obj/item/spear(H), slot_back)
 
 /obj/item/necromantic_stone/proc/spawnheresy(mob/living/carbon/human/H as mob)
 	H.set_species(/datum/species/human)
@@ -795,7 +797,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/katana(H), slot_r_hand)
 	H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
-	H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
+	H.equip_to_slot_or_del(new /obj/item/spear(H), slot_back)
 	if(!H.real_name || H.real_name == "unknown")
 		H.real_name = "Neko-chan"
 	else

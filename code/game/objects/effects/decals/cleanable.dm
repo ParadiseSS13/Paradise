@@ -1,8 +1,16 @@
+#define ALWAYS_IN_GRAVITY 2
+
 /obj/effect/decal/cleanable
+	///when Initialized() its icon_state will be chosen from this list
 	var/list/random_icon_states = list()
-	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
-	var/mergeable_decal = TRUE //when two of these are on a same tile or do we need to merge them into just one?
-	plane = FLOOR_PLANE //prevents Ambient Occlusion effects around it ; Set to GAME_PLANE in Initialize() if on a wall
+	///0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
+	var/bloodiness = 0
+	///when another of the same type is made on the same tile will they merge --- YES=TRUE; NO=FLASE
+	var/mergeable_decal = TRUE
+	///prevents Ambient Occlusion effects around it ; Set to GAME_PLANE in Initialize() if on a wall
+	plane = FLOOR_PLANE
+	///for blood n vomit in zero G --- IN GRAVITY=TRUE; NO GRAVITY=FALSE
+	var/gravity_check = TRUE
 
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)
@@ -20,7 +28,14 @@
 //This is on /cleanable because fuck this ancient mess
 /obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
 	..()
-	if(!off_floor && ishuman(O))
+
+	if(!ishuman(O))
+		return
+
+	if(!gravity_check && ishuman(O))
+		bloodyify_human(O)
+
+	if(!off_floor)
 		var/mob/living/carbon/human/H = O
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
@@ -71,12 +86,8 @@
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
-	if(loc && isturf(loc))
-		for(var/obj/effect/decal/cleanable/C in loc)
-			if(C != src && C.type == type && !QDELETED(C))
-				if(replace_decal(C))
-					qdel(src)
-					return TRUE
+	if(try_merging_decal())
+		return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
 	if(smoothing_flags)
@@ -89,3 +100,22 @@
 	if(smoothing_flags)
 		QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
+
+/obj/effect/decal/cleanable/proc/try_merging_decal(turf/T)
+	if(!T)
+		T = loc
+	if(isturf(T))
+		for(var/obj/effect/decal/cleanable/C in T)
+			if(C != src && C.type == type && !QDELETED(C))
+				if(C.gravity_check && replace_decal(C))
+					qdel(src)
+					return TRUE
+	return FALSE
+
+/obj/effect/decal/cleanable/proc/check_gravity(turf/T)
+	if(isnull(T))
+		T = get_turf(src)
+	if(gravity_check != ALWAYS_IN_GRAVITY)
+		gravity_check = has_gravity(src, T)
+
+#undef ALWAYS_IN_GRAVITY

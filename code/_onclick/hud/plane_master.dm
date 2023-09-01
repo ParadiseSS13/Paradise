@@ -15,6 +15,7 @@
 //Why do plane masters need a backdrop sometimes? Read http://www.byond.com/forum/?post=2141928
 //Trust me, you need one. Period. If you don't think you do, you're doing something extremely wrong.
 /obj/screen/plane_master/proc/backdrop(mob/mymob)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, add_filter), "displace", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10)), 2 SECONDS)//Why a timer vs just apply on initialize / async? I don't know. It just can't be, neither works correctly. Don't lower below 2 seconds unless you can see effects through walls with no issue.
 
 /obj/screen/plane_master/floor
 	name = "floor plane master"
@@ -29,6 +30,7 @@
 	blend_mode = BLEND_OVERLAY
 
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
+	. = ..() //if you delete it so help me god
 	clear_filters()
 	if(istype(mymob) && mymob.client && mymob.client.prefs && (mymob.client.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
@@ -94,3 +96,11 @@
 	color = list(null, null, null, "#0000", "#000f")
 	blend_mode = BLEND_ADD
 	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR | PIXEL_SCALE
+
+/obj/screen/plane_master/gravpulse
+	name = "gravpulse plane"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = GRAVITY_PULSE_PLANE
+	blend_mode = BLEND_ADD
+	render_target = GRAVITY_PULSE_RENDER_TARGET
+	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR

@@ -93,7 +93,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 5, ACID = 5)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
@@ -111,7 +111,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 
@@ -125,7 +125,7 @@
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 35, ACID = 150)
+	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 35, ACID = 150)
 	magical = TRUE
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
@@ -137,7 +137,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 35, ACID = 150)
+	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 35, ACID = 150)
 	magical = TRUE
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
@@ -147,7 +147,7 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 20, BOMB = 50, BIO = 20, RAD = 20, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 20, BOMB = 50, RAD = 20, FIRE = 50, ACID = 75)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
@@ -159,7 +159,7 @@
 	name = "empowered cultist hood"
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
@@ -203,7 +203,7 @@
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, BIO = -25, RAD = -25, FIRE = 0, ACID = 0)
+	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, RAD = -25, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -236,7 +236,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, BIO = -25, RAD = -25, FIRE = 0, ACID = 0)
+	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, RAD = -25, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
@@ -338,8 +338,9 @@
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
 		var/turf/turf_behind = get_turf(get_step(T, turn(C.dir, 180)))
-		pulled.forceMove(turf_behind)
-		. = pulled
+		if(!pulled.anchored) //Item may have been anchored while pulling, and pulling state isn't updated until you move away, so we double check.
+			pulled.forceMove(turf_behind)
+			. = pulled
 
 /obj/item/cult_shift/attack_self(mob/user)
 
@@ -404,7 +405,7 @@
 	item_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 50, BULLET = 20, LASER = 50, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 0, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 50, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	flags_inv = HIDEJUMPSUIT
 	flags = NODROP | DROPDEL
 
@@ -557,15 +558,14 @@
 		return TRUE
 	return FALSE
 
-/obj/item/twohanded/cult_spear
+/obj/item/cult_spear
 	name = "blood halberd"
 	desc = "A sickening spear composed entirely of crystallized blood. Will stun people who have been recently marked if the spear is wielded."
 	icon = 'icons/obj/cult.dmi'
+	base_icon_state = "bloodspear"
 	icon_state = "bloodspear0"
 	slot_flags = 0
 	force = 17
-	force_unwielded = 17
-	force_wielded = 24
 	throwforce = 30
 	throw_speed = 2
 	armour_penetration_percentage = 50
@@ -576,19 +576,20 @@
 	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 
-/obj/item/twohanded/cult_spear/Initialize(mapload)
+/obj/item/cult_spear/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
+	AddComponent(/datum/component/two_handed, force_wielded = 24, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 
-/obj/item/twohanded/cult_spear/Destroy()
+/obj/item/cult_spear/Destroy()
 	if(spear_act)
 		qdel(spear_act)
 	return ..()
 
-/obj/item/twohanded/cult_spear/update_icon_state()
-	icon_state = "bloodspear[wielded]"
+/obj/item/cult_spear/update_icon_state()
+	icon_state = "[base_icon_state]0"
 
-/obj/item/twohanded/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
 	if(isliving(hit_atom))
 		var/mob/living/L = hit_atom
@@ -616,11 +617,11 @@
 					L.Stuttering(16 SECONDS)
 					L.CultSlur(20 SECONDS)
 					L.Jitter(16 SECONDS)
-		break_spear(T)
+			break_spear(T)
 	else
 		..()
 
-/obj/item/twohanded/cult_spear/proc/break_spear(turf/T)
+/obj/item/cult_spear/proc/break_spear(turf/T)
 	if(!T)
 		T = get_turf(src)
 	if(T)
@@ -630,10 +631,10 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/twohanded/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()
 	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
-	if(S && wielded)
+	if(S && HAS_TRAIT(src, TRAIT_WIELDED))
 		S.trigger()
 
 /datum/action/innate/cult/spear
@@ -641,7 +642,7 @@
 	desc = "Call the blood spear back to your hand!"
 	background_icon_state = "bg_cult"
 	button_icon_state = "bloodspear"
-	var/obj/item/twohanded/cult_spear/spear
+	var/obj/item/cult_spear/spear
 	var/cooldown = 0
 
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)

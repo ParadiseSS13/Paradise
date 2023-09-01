@@ -57,10 +57,6 @@
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
 
-#define AIR_ALARM_FRAME		0
-#define AIR_ALARM_UNWIRED	1
-#define AIR_ALARM_READY		2
-
 //all air alarms in area are connected via magic
 /area
 	var/obj/machinery/alarm/master_air_alarm
@@ -79,7 +75,7 @@
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	siemens_strength = 1
 	var/custom_name
@@ -1176,8 +1172,3 @@ Just an object used in constructing air alarms
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
-
-
-#undef AIR_ALARM_FRAME
-#undef AIR_ALARM_UNWIRED
-#undef AIR_ALARM_READY

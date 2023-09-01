@@ -77,6 +77,9 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
+	// Give us our action button
+	var/datum/action/innate/hide/drone_hide/hide = new()
+	hide.Grant(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
@@ -191,6 +194,8 @@
 	QDEL_NULL(stack_wood)
 	QDEL_NULL(stack_plastic)
 	QDEL_NULL(decompiler)
+	for(var/datum/action/innate/hide/drone_hide/hide in actions)
+		hide.Remove(src)
 
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)

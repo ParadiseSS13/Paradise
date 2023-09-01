@@ -79,7 +79,7 @@
 /area/ruin/powered/animal_hospital)
 "al" = (
 /obj/structure/table/wood,
-/obj/item/toy/carpplushie,
+/obj/item/toy/plushie/carpplushie,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -536,7 +536,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bt" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bu" = (

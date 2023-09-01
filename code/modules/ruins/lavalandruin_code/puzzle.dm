@@ -254,7 +254,7 @@
 
 //Ruin version
 /obj/effect/sliding_puzzle/lavaland
-	reward_type = /obj/structure/closet/crate/necropolis/puzzle
+	reward_type = /obj/structure/closet/crate/necropolis/tendril
 
 /obj/effect/sliding_puzzle/lavaland/dispense_reward()
 	if(prob(25))
@@ -292,7 +292,7 @@
 
 //Some armor so it's harder to kill someone by mistake.
 /obj/structure/puzzle_element/prison
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
 
 /obj/structure/puzzle_element/prison/relaymove(mob/user)
 	return

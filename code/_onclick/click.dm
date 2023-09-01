@@ -155,7 +155,7 @@
 		return
 
 	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
-		return
+		return TRUE
 
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
 	sdepth = A.storage_depth_turf()
@@ -244,6 +244,9 @@
 
 // See click_override.dm
 /mob/living/MiddleClickOn(atom/A)
+	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A, src)
+	if(. & COMSIG_MOB_CANCEL_CLICKON)
+		return
 	if(middleClickOverride)
 		middleClickOverride.onClick(A, src)
 	else
@@ -326,6 +329,9 @@
 
 // See click_override.dm
 /mob/living/AltClickOn(atom/A)
+	. = SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON, A, src)
+	if(. & COMSIG_MOB_CANCEL_CLICKON)
+		return
 	if(middleClickOverride && middleClickOverride.onClick(A, src))
 		return
 	..()

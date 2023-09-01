@@ -316,6 +316,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink(mob/victim) //blink to a target
 	if(blinking || !victim)
 		return
+	if(victim.z != z)
+		return
 	var/turf/T = get_turf(victim)
 	var/turf/source = get_turf(src)
 	new /obj/effect/temp_visual/hierophant/telegraph(T, src)

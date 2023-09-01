@@ -116,6 +116,7 @@ CREATE TABLE `death` (
   `pod` text NOT NULL COMMENT 'Place of death',
   `coord` text NOT NULL COMMENT 'X, Y, Z POD',
   `tod` datetime NOT NULL COMMENT 'Time of death',
+  `death_rid` INT NULL,
   `server_id` TEXT NULL DEFAULT NULL,
   `job` text NOT NULL,
   `special` text NOT NULL,
@@ -291,6 +292,7 @@ CREATE TABLE `player` (
   `keybindings` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   `server_region` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   `muted_adminsounds_ckeys` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+  `viewrange` VARCHAR(5) NOT NULL DEFAULT '19x15' COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -604,3 +606,19 @@ CREATE TABLE `tickets` (
 	CONSTRAINT `all_responses` CHECK (json_valid(`all_responses`)),
 	CONSTRAINT `awho` CHECK (json_valid(`awho`))
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
+
+--
+-- Table structure for table `json_datum_saves`
+--
+DROP TABLE IF EXISTS `json_datum_saves`;
+CREATE TABLE `json_datum_saves` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`slotname` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`slotjson` LONGTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+	`created` DATETIME NOT NULL DEFAULT current_timestamp(),
+	`updated` DATETIME NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `ckey_unique` (`ckey`, `slotname`) USING BTREE,
+	INDEX `ckey` (`ckey`) USING BTREE
+) COLLATE = 'utf8mb4_general_ci' ENGINE = InnoDB;

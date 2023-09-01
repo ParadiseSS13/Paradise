@@ -92,8 +92,9 @@
 
 /obj/item/storage/bag/garment/research_director/populate_contents()
 	new /obj/item/clothing/under/rank/rnd/research_director(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat/rd(src)
 	new /obj/item/clothing/suit/mantle/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 
@@ -179,6 +180,7 @@
 	new /obj/item/clothing/suit/storage/blueshield(src)
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
@@ -275,3 +277,18 @@
 	new /obj/item/clothing/gloves/ring/silver(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
+
+/obj/item/storage/bag/garment/psychologist
+	name = "psychologist's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the psychologist."
+
+/obj/item/storage/bag/garment/psychologist/populate_contents()
+	new /obj/item/clothing/under/rank/medical/psych(src)
+	new /obj/item/clothing/under/rank/medical/psych/turtleneck(src)
+	new /obj/item/clothing/under/rank/medical/doctor(src)
+	new /obj/item/clothing/under/rank/medical/doctor/skirt(src)
+	new /obj/item/clothing/suit/storage/labcoat/psych(src)
+	new /obj/item/clothing/shoes/laceup(src)
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/clothing/glasses/hud/skills(src)
+	new /obj/item/clothing/accessory/blue(src)

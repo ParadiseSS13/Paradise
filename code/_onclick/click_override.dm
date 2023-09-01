@@ -73,7 +73,7 @@
 		beam_from.Beam(target_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 6)
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
-			var/surplus_power = C.surplus()
+			var/surplus_power = C.get_surplus()
 			if(user.a_intent == INTENT_DISARM)
 				add_attack_logs(user, L, "shocked with power gloves.")
 				L.adjustStaminaLoss(60)

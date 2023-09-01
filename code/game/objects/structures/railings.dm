@@ -17,9 +17,27 @@
 	density = FALSE
 	climbable = FALSE
 
+/obj/structure/railing/cap //aestetic "end" for railing
+	icon_state = "railing_cap"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/cap/normal
+	icon_state = "railing_cap_normal"
+
+/obj/structure/railing/cap/reversed
+	icon_state = "railing_cap_reversed"
+
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
 	..()
 	add_fingerprint(user)
+
+/obj/structure/railing/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] tears apart [src]!</span>", "<span class='notice'>You tear apart [src]!</span>")
+
 
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
 	if(user.intent != INTENT_HELP)
@@ -67,14 +85,23 @@
 /obj/structure/railing/corner/CheckExit()
 	return TRUE
 
+/obj/structure/railing/cap/CanPass()
+	return TRUE
+
+/obj/structure/railing/cap/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	return TRUE
+
+/obj/structure/railing/cap/CheckExit()
+	return TRUE
+
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSFENCE))
 		return TRUE
 	if(istype(mover, /obj/item/projectile))
 		return TRUE
 	if(ismob(mover))
-		var/mob/M = mover
-		if(M.flying)
+		var/mob/living/M = mover
+		if(M.flying || (istype(M) && IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(mover.throwing)
 		return TRUE
@@ -100,8 +127,8 @@
 		return TRUE
 	if(istype(O, /obj/item/projectile))
 		return TRUE
-	if(ismob(O))
-		if(M.flying || M.floating)
+	if(istype(M))
+		if(M.flying || M.floating || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(O.throwing)
 		return TRUE

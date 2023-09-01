@@ -19,9 +19,8 @@
 	max_integrity = 300
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/back.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
-		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
+		)
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(in_range(user, src))
@@ -61,7 +60,7 @@
 	flags_2 = NO_MAT_REDEMPTION_2
 	cant_hold = list(/obj/item/storage/backpack, /obj/item/storage/belt/bluespace)
 	cant_hold_override = list(/obj/item/storage/backpack/satchel_flat)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 60, ACID = 50)
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
@@ -125,6 +124,11 @@
 	new /obj/item/instrument/bikehorn(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/dnainjector/comic(src)
+	for(var/i in 1 to 10)
+		new /obj/item/ammo_box/magazine/m12g/confetti(src)
+	for(var/i in 1 to 5)
+		new /obj/item/grenade/confetti(src)
+	new /obj/item/gun/projectile/revolver/capgun(src)
 
 /obj/item/storage/backpack/mime
 	name = "Parcel Parceaux"
@@ -370,6 +374,12 @@
 	var/zipped = TRUE
 	/// How long it takes to toggle the zip state of this bag
 	var/zip_time = 0.7 SECONDS
+	/// This variable is used to change the icon state to the variable when opened
+	var/open_icon_sprite
+	/// This variable is used to change the item state to the variable when opened
+	var/open_item_sprite
+	/// Do we want the bag to be antidropped when zipped up?
+	var/antidrop_on_zip = FALSE
 
 /obj/item/storage/backpack/duffel/examine(mob/user)
 	. = ..()
@@ -392,13 +402,35 @@
 
 			if(zip_time)
 				slowdown = 1
-
+			if(antidrop_on_zip)
+				flags ^= NODROP
+			update_icon_state(UPDATE_ICON_STATE)
 			return
 
 		slowdown = 0
 		hide_from_all()
 		for(var/obj/item/storage/container in src)
 			container.hide_from_all() // Hide everything inside the bag too
+		if(antidrop_on_zip)
+			flags |= NODROP
+		update_icon_state(UPDATE_ICON_STATE)
+
+/obj/item/storage/backpack/duffel/update_icon_state()
+	. = ..()
+	if(!zipped)
+		if(open_icon_sprite)
+			icon_state = open_icon_sprite
+		if(open_item_sprite)
+			item_state = open_item_sprite
+	else
+		if(open_icon_sprite)
+			icon_state = initial(icon_state)
+			item_state = initial(item_state)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_r_hand()
+		H.update_inv_l_hand()
+
 
 // The following three procs handle refusing access to contents if the duffel is zipped
 
@@ -546,6 +578,7 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone(src)
 
 /obj/item/storage/backpack/duffel/syndie/med/surgery_fake //for maint spawns
 	name = "surgery duffelbag"
@@ -562,6 +595,195 @@
 	if(prob(50))
 		new /obj/item/circular_saw(src)
 		new /obj/item/surgicaldrill(src)
+
+/obj/item/storage/backpack/duffel/syndie/party
+	desc = "A large duffel bag, packed to the brim with hilarious equipment."
+
+/obj/item/storage/backpack/duffel/syndie/party/populate_contents()
+	for(var/i in 1 to 10)
+		new /obj/item/ammo_box/magazine/m12g/confetti(src)
+	for(var/i in 1 to 5)
+		new /obj/item/grenade/confetti(src)
+	new /obj/item/gun/projectile/revolver/capgun(src)
+
+#define NANNY_MAX_VALUE 7
+#define NANNY_MIN_VALUE 6
+
+/obj/item/storage/backpack/duffel/magic_nanny_bag
+	name = "magic nanny bag"
+	desc = "Not to be confused with a magic granny bag. Zip it up to make it unable to be dropped while closed."
+	icon_state = "magic_nanny_bag"
+	item_state = "magic_nanny_bag"
+	max_w_class = WEIGHT_CLASS_HUGE
+	slot_flags = 0
+	storage_slots = 98 //Most that fits on your screen. Good luck getting that much in there.
+	max_combined_w_class = 256 //get your 8 bit magic bags here. Also it's wizard, at some point this many items will just make it crowded.
+	silent = TRUE
+	zip_time = 0
+	resistance_flags = FIRE_PROOF
+	open_icon_sprite = "magic_nanny_bag_open"
+	antidrop_on_zip = TRUE
+
+
+/obj/item/storage/backpack/duffel/magic_nanny_bag/populate_contents(attempts = 0)
+	var/value = 0
+	//Melee Weapon
+	switch(rand(1, 8))
+		if(1)
+			new /obj/item/melee/spellblade(src)
+			value += 2
+		if(2)
+			new /obj/item/organ/internal/cyberimp/arm/katana(src)
+			value += 1
+		if(3)
+			new /obj/item/mjollnir(src)
+			value += 2
+		if(4)
+			new /obj/item/singularityhammer(src)
+			value += 2
+		if(5)
+			new /obj/item/katana(src)
+			value += 2 //force 40 this is value 2
+		if(6)
+			new /obj/item/claymore(src)
+			value += 2 //force 40 this is value 2
+		if(7)
+			new /obj/item/spear/grey_tide(src)
+			value += 2 //Value 2, clones are strong
+		if(8)
+			if(prob(50))
+				new /obj/item/sord(src)
+				value -= 1 //Useless joke, might as well give them a value point back.
+				new /obj/item/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
+	//Wands
+	var/wands = 0
+	while(wands < 2)
+		var/obj/item/pickedw = pick(
+			/obj/item/gun/magic/wand/death,
+			/obj/item/gun/magic/wand/resurrection,
+			/obj/item/gun/magic/wand/polymorph,
+			/obj/item/gun/magic/wand/teleport,
+			/obj/item/gun/magic/wand/door,
+			/obj/item/gun/magic/wand/fireball,
+			/obj/item/gun/magic/wand/slipping)
+		new pickedw(src)
+		wands++
+
+	for(var/obj/item/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
+		W.max_charges = initial(W.max_charges)
+		W.charges = W.max_charges
+
+	//Staff
+	var/list/list_s = list(
+		/obj/item/gun/magic/staff/change = 2,
+		/obj/item/gun/magic/staff/slipping = 1,
+		/obj/item/gun/magic/staff/door = 1,
+		/obj/item/gun/magic/staff/healing = 1,
+		/obj/item/gun/magic/staff/chaos = 2,
+		/obj/item/gun/magic/staff/animate = 2,
+		/obj/item/gun/magic/staff/focus = 2,
+		/obj/item/gun/magic/hook = 1,
+		/obj/item/hierophant_club = 3, //Strong so super costly
+		/obj/item/lava_staff = 2 ) //Hot seller so 2
+	var/obj/item/pickeds = pick(list_s)
+	value += list_s[pickeds]
+	new pickeds(src)
+
+	//Random magical artifact.
+	var/list/list_a = list(
+		/obj/item/necromantic_stone = 2,
+		/obj/item/scrying = 1, //thematic discount
+		/obj/item/organ/internal/heart/cursed/wizard = 1,
+		/obj/item/organ/internal/vocal_cords/colossus/wizard = 2,
+		/obj/item/warp_cube/red = 1,
+		/obj/item/reagent_containers/food/drinks/everfull = 2,
+		/obj/item/clothing/suit/space/hardsuit/shielded/wizard = 2,
+		/obj/item/jacobs_ladder = 1, //funny
+		/obj/item/immortality_talisman = 1 ) //spells recharge when invincible
+	var/obj/item/pickeda = pick(list_a)
+	value += list_a[pickeda]
+	new pickeda(src)
+
+	//Summon
+	switch(rand(1, 8))
+		if(1)
+			new /obj/item/antag_spawner/slaughter_demon(src)
+			value += 2
+		if(2)
+			new /obj/item/antag_spawner/morph(src)
+			value += 1
+		if(3)
+			new /obj/item/antag_spawner/slaughter_demon/laughter(src)
+			value += 1
+		if(4)
+			new /obj/item/antag_spawner/slaughter_demon/shadow(src)
+			value += 1
+		if(5)
+			new /obj/item/antag_spawner/revenant(src)
+			value += 1
+		if(6)
+			new /obj/item/contract(src)
+			value += 2
+		if(7)
+			new /obj/item/guardiancreator(src)
+			value += 1
+		if(8)
+			if(prob(25))
+				new /obj/item/reagent_containers/food/snacks/grown/nymph_pod(src)
+				new /obj/item/slimepotion/sentience(src)
+			else
+				new /obj/item/paicard(src) //Still useful, not a point useful.
+
+	//Treat / potion. Free.
+	var/obj/item/pickedt = pick(
+			/obj/item/storage/box/syndidonkpockets, // Healing + speed
+			/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath, // Killing
+			/obj/item/reagent_containers/food/drinks/bottle/immortality, // Super healing for 20 seconds
+			/obj/item/reagent_containers/food/snacks/meatsteak/stimulating, //Healing + stun immunity
+			/obj/item/reagent_containers/food/snacks/plum_pie ) // Great healing over long period of time
+	new pickedt(src)
+
+
+	if(value > NANNY_MAX_VALUE || value < NANNY_MIN_VALUE)
+		if(attempts >= 5)
+			message_admins("Failed to generate the wizard a properly priced magic nanny bag!")
+		else
+			new /obj/item/storage/backpack/duffel/magic_nanny_bag(get_turf(loc), attempts + 1)
+		qdel(src)
+
+#undef NANNY_MAX_VALUE
+#undef NANNY_MIN_VALUE
+
+/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath
+	name = "flask of dragons breath"
+	desc = "Not recommended for wizardly consumption. Recommended for mundane consumption!"
+	icon_state = "holyflask"
+	color = "#DC0000"
+	volume = 100
+	list_reagents = list("dragonsbreath" = 80, "hell_water" = 20)
+
+/obj/item/reagent_containers/food/drinks/bottle/immortality
+	name = "drop of immortality"
+	desc = "Drinking this will make you immortal. For a moment or two, at least."
+	icon_state = "holyflask"
+	color = "#C8A5DC"
+	volume = 5
+	list_reagents = list("adminordrazine" = 5)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/stimulating
+	name = "stimulating steak"
+	desc = "Stimulate your senses."
+	list_reagents = list("nutriment" = 5, "stimulants" = 25)
+	bitesize = 100
+
+/obj/item/reagent_containers/food/snacks/plum_pie
+	name = "perfect plum pie"
+	desc = "The Jack Horner brand of pie. 2 big thumbs up."
+	icon_state = "plump_pie"
+	filling_color = "#B8279B"
+	bitesize = 10
+	list_reagents = list("nutriment" = 3, "vitamin" = 2, "syndicate_nanites" = 45)
+	tastes = list("pie" = 1, "plum" = 1)
 
 /obj/item/storage/backpack/duffel/captain
 	name = "captain's duffelbag"

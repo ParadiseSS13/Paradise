@@ -387,7 +387,7 @@
 		pulledby.stop_pulling()
 
 	// They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
-	if(thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
+	if(istype(thrower) && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
 		var/user_momentum = thrower.movement_delay()
 		if(!user_momentum) // no movement_delay, this means they move once per byond tick, let's calculate from that instead
 			user_momentum = world.tick_lag
@@ -639,7 +639,8 @@
 /// Easy way to remove the component when the fun has been played out
 /atom/movable/proc/stop_deadchat_plays()
 	var/datum/component/deadchat_control/comp = GetComponent(/datum/component/deadchat_control)
-	qdel(comp)
+	if(!QDELETED(comp))
+		qdel(comp)
 
 /atom/movable/vv_get_dropdown()
 	. = ..()

@@ -263,6 +263,10 @@
 	name = "meritous legal medal"
 	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
 
+/obj/item/clothing/accessory/medal/supply
+	name = "stable supply medal"
+	desc = "An award issued by the Quartermaster to supply staff dedicated to being effective."
+
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"
 	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."
@@ -468,7 +472,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	item_color = "skull"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -477,7 +481,7 @@
 	icon_state = "talisman"
 	item_state = "talisman"
 	item_color = "talisman"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket

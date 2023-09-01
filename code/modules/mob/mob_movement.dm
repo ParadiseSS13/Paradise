@@ -156,6 +156,8 @@
 			direct = newdir
 			n = get_step(mob, direct)
 
+	mob.last_movement_dir = direct
+
 	var/prev_pulling_loc = null
 	if(mob.pulling)
 		prev_pulling_loc = mob.pulling.loc
@@ -172,6 +174,9 @@
 			// but that's better than it being jank on every *successful* diagonal move.
 			delay = diag_delay
 	move_delay += delay
+
+	if(mob.pulledby)
+		mob.pulledby.stop_pulling()
 
 	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling

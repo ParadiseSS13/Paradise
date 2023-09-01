@@ -323,6 +323,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	name = "Detective"
 	icon_state = "Det"
 
+/obj/effect/landmark/start/explorer
+	name = "Explorer"
+	icon_state = "Explorer"
+
 /obj/effect/landmark/start/engineer
 	name = "Station Engineer"
 	icon_state = "Engi"
@@ -426,7 +430,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	. = ..()
 	new /obj/item/clothing/suit/chickensuit(src.loc)
 	new /obj/item/clothing/head/chicken(src.loc)
-	new /obj/item/reagent_containers/food/snacks/egg(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/gladiator/Initialize(mapload)
@@ -546,7 +549,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new /obj/item/clothing/suit/holidaypriest(src.loc)
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/costume/marisawizard/fake/Initialize(mapload)
+/obj/effect/landmark/costume/marisa_fakewizard/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/head/wizard/marisa/fake(src.loc)
 	new/obj/item/clothing/suit/wizrobe/marisa/fake(src.loc)
@@ -556,14 +559,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	. = ..()
 	new /obj/item/clothing/under/dress/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
-	new /obj/item/twohanded/staff/broom(src.loc)
+	new /obj/item/staff/broom(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/fakewizard/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wizrobe/fake(src.loc)
 	new /obj/item/clothing/head/wizard/fake(src.loc)
-	new /obj/item/twohanded/staff/(src.loc)
+	new /obj/item/staff/(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/sexyclown/Initialize(mapload)
