@@ -21,18 +21,24 @@
 		"#204a77",
 		"#994225",
 		"#663f36",
-		"#bd3675"
+		"#bd3675",
+		"#b9723c",
+		"#e76a68",
+		"#206e16"
 	)
 
 /obj/machinery/abductor/gland_dispenser/Initialize(mapload)
 	. = ..()
 	gland_types = subtypesof(/obj/item/organ/internal/heart/gland)
 	gland_types = shuffle(gland_types)
-	gland_colors = new/list(length(gland_types))
-	amounts = new/list(length(gland_types))
+	gland_colors = new/list(gland_types.len)
+	amounts = new/list(gland_types.len)
+	var/list/colors = shuffle(color_pool)
 	for(var/i in 1 to length(gland_types))
-		gland_colors[i] = pick_n_take(color_pool)
+		gland_colors[i] = pick_n_take(colors)
 		amounts[i] = rand(1,5)
+		if(!length(colors))
+			colors = shuffle(color_pool)
 
 /obj/machinery/abductor/gland_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
