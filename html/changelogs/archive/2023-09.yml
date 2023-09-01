@@ -1,0 +1,11 @@
+'2023-09-01':
+  Den109G:
+  - bugfix: pylons fix roundstart cultists (#3453)
+  LiquidPotroh:
+  - tweak: Sleepy pen ignore pierceimmune (#3451)
+  Zardesse:
+  - tweak: Holy pylons heal (#3436)
+  Zwei:
+  - refactor: Scoreboard Datum (#3452)
+  - bugfix: Thief Mode Completion Text (#3450)
+  - bugfix: Parrot Collar Fix (#3457)
