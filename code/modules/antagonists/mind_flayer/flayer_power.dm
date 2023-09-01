@@ -27,7 +27,8 @@
 	flayer.powers -= src
 	flayer = null
 	return ..()
-
+	
+///The shop for purchasing and upgrading abilities
 /obj/effect/proc_holder/spell/flayer/self/augment_menu
 	name = "Self-Augment Operations"
 	desc = "Choose how we will upgrade ourselves."
@@ -55,7 +56,7 @@
 	return data
 
 /obj/effect/proc_holder/spell/flayer/self/augment_menu/ui_static_data(mob/user)
-	var/list/data = flayer.ability_list
+	var/list/data = flayer.purchasable_abilities
 	return data
 */
 

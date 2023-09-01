@@ -13,8 +13,6 @@
 	///The list of all purchased powers
 	var/list/powers = list()
 	/// A list of all powers mindflayers should start with
-	var/list/innate_powers = list()
-	/// A list of all purchasable mindflayer abilities
 	var/list/ability_list = list()
 	///List for keeping track of who has already been drained
 	var/list/drained_humans = list()
@@ -27,20 +25,15 @@
 
 /datum/antagonist/mindflayer/New()
 	. = ..()
-	if(!length(innate_powers))
-		innate_powers = get_powers_of_type(FLAYER_INNATE_POWER)
 	if(!length(ability_list))
 		ability_list = get_powers_of_type(FLAYER_PURCHASABLE_POWER)
 
 // This proc adds extra things that the mindflayer should get upon becoming a mindflayer
 /datum/antagonist/mindflayer/on_gain()
 	. = ..()
-	for(var/obj/effect/proc_holder/spell/flayer/power in innate_powers)
-		powers += power
-		power.on_purchase(owner.current, src, power)
-	for(var/datum/mindflayer_passive/passive in innate_powers)
-		powers += passive
-		passive.on_apply()
+s	var/list/innate_powers = get_powers_of_type(FLAYER_INNATE_POWER)
+	for(var/power_path in innate_powers)
+		add_ability(power_path, src)
 
 /datum/antagonist/mindflayer/proc/get_swarms()
 	return usable_swarms
@@ -131,14 +124,17 @@
 		powers += passive_path
 	return powers
 
-/datum/antagonist/mindflayer/proc/add_ability(path)
-//	if(!get_ability(path)) TODO: make a working check for if the mindflayer already has the spell you're trying to add
-	force_add_ability(path)
+/datum/antagonist/mindflayer/proc/add_ability(path, set_owner = null)
+	if(!get_ability(path)) //TODO: make a working check for if the mindflayer already has the spell you're trying to add
+		force_add_ability(path, set_owner)
 
-/datum/antagonist/mindflayer/proc/force_add_ability(path)
+/datum/antagonist/mindflayer/proc/force_add_ability(path, set_owner = null)
 	var/spell = new path(owner)
 	if(istype(spell, /obj/effect/proc_holder/spell))
-		owner.AddSpell(spell)
+		var/obj/effect/proc_holder/spell/flayer/power = spell
+		if(set_owner)
+			power.flayer = src
+		owner.AddSpell(power)
 	if(istype(spell, /datum/mindflayer_passive))
 		var/datum/mindflayer_passive/passive = spell
 		passive.owner = owner.current
