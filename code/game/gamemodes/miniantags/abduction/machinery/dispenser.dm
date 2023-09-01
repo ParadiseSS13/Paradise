@@ -65,7 +65,7 @@
 	switch(action)
 		if("dispense")
 			var/gland_id = text2num(params["gland_id"])
-			if(!gland_id)
+			if(!ISINDEXSAFE(amounts, gland_id)
 				return
 			Dispense(gland_id)
 			return TRUE
