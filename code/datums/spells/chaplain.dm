@@ -49,4 +49,5 @@
 				if(!target.mind.isblessed)
 					target.mind.isblessed = TRUE
 					user.mind.num_blessed++
+					ADD_TRAIT(target, TRAIT_HEALS_FROM_HOLY_PYLONS, INNATE_TRAIT)
 

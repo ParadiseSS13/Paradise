@@ -53,6 +53,7 @@
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_HOLY_PYLONS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	. = ..()

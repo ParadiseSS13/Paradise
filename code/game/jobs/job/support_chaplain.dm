@@ -35,6 +35,7 @@
 
 	if(H.mind)
 		H.mind.isholy = TRUE
+		ADD_TRAIT(H, TRAIT_HEALS_FROM_HOLY_PYLONS, INNATE_TRAIT)
 
 	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
 

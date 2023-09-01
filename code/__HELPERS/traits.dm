@@ -191,5 +191,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// This mob heals from cult pylons.
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 
+/// This mob heals from holy pylons.
+#define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
+
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
