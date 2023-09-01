@@ -160,6 +160,14 @@
 		if(href_list["remove_inv"])
 			var/remove_from = href_list["remove_inv"]
 			switch(remove_from)
+				if("collar")
+					if(!pcollar)
+						return
+					var/collar = pcollar
+					drop_item_ground(collar)
+					usr.put_in_hands(collar, ignore_anim = FALSE)
+					regenerate_icons()
+
 				if("ears")
 					if(ears)
 						if(available_channels.len)
@@ -179,6 +187,9 @@
 				to_chat(usr, "<span class='warning'>You have nothing in your hand to put on its [add_to].</span>")
 				return
 			switch(add_to)
+				if("collar")
+					add_collar(usr.get_active_hand(), usr)
+
 				if("ears")
 					if(ears)
 						to_chat(usr, "<span class='warning'>It's already wearing something.</span>")
