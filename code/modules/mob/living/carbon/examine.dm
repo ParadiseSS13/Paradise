@@ -138,7 +138,7 @@
 
 		if(item)
 			if(item.flags & ABSTRACT)
-				abstract_items.Add(item)
+				abstract_items |= item
 			else
 				var/item_words = item.name
 				if(item.blood_DNA)
