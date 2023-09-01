@@ -386,7 +386,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/chainsaw
 	name = "Toy Chainsaw"
 	desc = "A full-scale model chainsaw, based on that massacre in Space Texas."
-	typepath = /obj/item/twohanded/toy/chainsaw
+	typepath = /obj/item/toy/chainsaw
 	cost = 200
 
 /datum/prize_item/bike

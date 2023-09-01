@@ -215,6 +215,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** ITEM TRAITS *****//
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
+/// An item that is being wielded.
+#define TRAIT_WIELDED "wielded"
 /// Wires on this will have their titles randomized for those with SHOW_WIRES
 #define TRAIT_OBSCURED_WIRES "obscured_wires"
 /// Forces open doors after a delay specific to the item

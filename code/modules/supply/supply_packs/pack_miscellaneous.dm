@@ -151,7 +151,7 @@
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/mop,
-					/obj/item/twohanded/push_broom,
+					/obj/item/push_broom,
 					/obj/item/caution,
 					/obj/item/caution,
 					/obj/item/caution,
@@ -225,7 +225,7 @@
 
 /datum/supply_packs/misc/costume
 	name = "Costume Crate"
-	contains = list(/obj/item/twohanded/staff,
+	contains = list(/obj/item/staff,
 					/obj/item/clothing/suit/wizrobe/fake,
 					/obj/item/clothing/shoes/sandal,
 					/obj/item/clothing/head/wizard/fake,
@@ -435,12 +435,12 @@
 /datum/supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
 	name = "Polo Supply Crate"
 	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
-	contains = list(/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
+	contains = list(/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
 					/obj/item/clothing/mask/horsehead,
 					/obj/item/clothing/mask/horsehead,
 					/obj/item/clothing/mask/horsehead,

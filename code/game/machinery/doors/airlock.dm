@@ -1233,16 +1233,14 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 
 /obj/machinery/door/airlock/proc/force_open_with_item(mob/living/user, obj/item/I)
-	/// Used with an istype check to find out if it's a wielded item or not
-	var/obj/item/twohanded/twohanded_item = I
 	/// Time it takes to open an airlock with an item with the TRAIT_FORCES_OPEN_DOORS_ITEM trait, 5 seconds for wielded items, 10 seconds for nonwielded items
 	var/time_to_open_airlock = 10 SECONDS
 	/// Can we open the airlock while unpowered? Wielded item's can't, but unwielded items can
 	var/can_force_open_while_unpowered = TRUE
-	if(istype(twohanded_item))
+	if(I.GetComponent(/datum/component/two_handed))
 		can_force_open_while_unpowered = FALSE
 		time_to_open_airlock = 5 SECONDS
-		if(!twohanded_item.wielded)
+		if(!HAS_TRAIT(I, TRAIT_WIELDED))
 			to_chat(user, "<span class='warning'>You need to be wielding [I] to do that!</span>")
 			return
 	if(!density || prying_so_hard)
