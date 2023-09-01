@@ -8,6 +8,7 @@
 					/obj/item/wirecutters = 50, /obj/item/cartridge/signal = 75, /obj/item/flashlight = 40,
 					/obj/item/assembly/timer = 20, /obj/item/assembly/voice = 20, /obj/item/assembly/health = 20)
 	refill_canister = /obj/item/vending_refill/assist
+	category = VENDOR_TYPE_SUPPLIES
 
 /obj/machinery/economy/vending/assist/free
 	prices = list()
@@ -20,6 +21,7 @@
 	icon_lightmask = "smartfridge"
 	icon_panel = "smartfridge"
 	icon_broken = "smartfridge"
+	category = VENDOR_TYPE_DRINK
 	products = list(/obj/item/reagent_containers/food/drinks/bottle/gin = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/whiskey = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/tequila = 5,
@@ -64,6 +66,7 @@
 	icon_panel = "screen_vendor"
 	item_slot = TRUE
 	vend_delay = 34
+	category = VENDOR_TYPE_DRINK
 	products = list(/obj/item/reagent_containers/food/drinks/coffee = 25, /obj/item/reagent_containers/food/drinks/tea = 25, /obj/item/reagent_containers/food/drinks/h_chocolate = 25,
 					/obj/item/reagent_containers/food/drinks/chocolate = 10, /obj/item/reagent_containers/food/drinks/chicken_soup = 10, /obj/item/reagent_containers/food/drinks/weightloss = 10,
 					/obj/item/reagent_containers/food/drinks/mug = 15, /obj/item/reagent_containers/food/drinks/mug/novelty = 5)
@@ -120,6 +123,7 @@
 	icon_lightmask = "hats"
 	icon_panel = "syndi"
 	icon_broken = "wide_vendor"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Warning, not all hats are dog/monkey compatible. Apply forcefully with care.","Apply directly to the forehead.","Who doesn't love spending cash on hats?!","From the people that brought you collectable hat crates, Hatlord!")
 	products = list(/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/bowlerhat = 10,
@@ -160,6 +164,7 @@
 	icon_lightmask = "suits"
 	icon_panel = "syndi"
 	icon_broken = "wide_vendor"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*","Blood of your enemies washes right out!","Who are YOU wearing?","Look dapper! Look like an idiot!","Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*")
 	products = list(/obj/item/clothing/under/color/black = 10,
 					/obj/item/clothing/under/dress/blackskirt = 10,
@@ -218,6 +223,7 @@
 	icon_lightmask = "shoes"
 	icon_panel = "syndi"
 	icon_broken = "wide_vendor"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Put your foot down!","One size fits all!","IM WALKING ON SUNSHINE!","No hobbits allowed.","NO PLEASE WILLY, DONT HURT ME- *BZZT*")
 	products = list(/obj/item/clothing/shoes/black = 10,
 					/obj/item/clothing/shoes/brown = 10,
@@ -263,6 +269,7 @@
 	slogan_list = list("Dress for success!","Prepare to look swagalicious!","Look at all this free swag!","Why leave style up to fate? Use the ClothesMate!")
 	vend_delay = 15
 	vend_reply = "Thank you for using the ClothesMate!"
+	category = VENDOR_TYPE_CLOTHING
 	products = list(/obj/item/clothing/suit/ianshirt = 2,
 					/obj/item/clothing/under/misc/overalls = 2,
 					/obj/item/clothing/under/misc/mailman = 1,
@@ -440,6 +447,7 @@
 	slogan_list = list("Sling spells the proper way with MagiVend!","Be your own Houdini! Use MagiVend!")
 	vend_delay = 15
 	vend_reply = "Have an enchanted evening!"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("FJKLFJSD","AJKFLBJAKL","1234 LOONIES LOL!",">MFW","Kill them fuckers!","GET DAT FUKKEN DISK","HONK!","EI NATH","Destroy the station!","Admin conspiracies since forever!","Space-time bending hardware!")
 	products = list(/obj/item/clothing/head/wizard = 1,
 					/obj/item/clothing/suit/wizrobe = 1,
@@ -456,7 +464,7 @@
 					/obj/item/clothing/head/wizard/mime = 1,
 					/obj/item/clothing/mask/gas/mime/wizard = 1,
 					/obj/item/clothing/shoes/sandal/marisa = 1,
-					/obj/item/twohanded/staff = 2)
+					/obj/item/staff = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
@@ -471,6 +479,7 @@
 	slogan_list = list("Dress for success!","Suited and booted!","It's show time!","Why leave style up to fate? Use AutoDrobe!")
 	vend_delay = 15
 	vend_reply = "Thank you for using AutoDrobe!"
+	category = VENDOR_TYPE_CLOTHING
 	products = list(/obj/item/clothing/suit/chickensuit = 1,
 					/obj/item/clothing/head/chicken = 1,
 					/obj/item/clothing/under/costume/gladiator = 1,
@@ -516,10 +525,10 @@
 					/obj/item/clothing/suit/wizrobe/marisa/fake = 1,
 					/obj/item/clothing/under/dress/sundress = 1,
 					/obj/item/clothing/head/witchwig = 1,
-					/obj/item/twohanded/staff/broom = 1,
+					/obj/item/staff/broom = 1,
 					/obj/item/clothing/suit/wizrobe/fake = 1,
 					/obj/item/clothing/head/wizard/fake = 1,
-					/obj/item/twohanded/staff = 3,
+					/obj/item/staff = 3,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 1,
 					/obj/item/clothing/mask/gas/sexymime = 1,
@@ -629,10 +638,10 @@
 					/obj/item/clothing/suit/wizrobe/marisa/fake = 100,
 					/obj/item/clothing/under/dress/sundress = 75,
 					/obj/item/clothing/head/witchwig = 50,
-					/obj/item/twohanded/staff/broom = 50,
+					/obj/item/staff/broom = 50,
 					/obj/item/clothing/suit/wizrobe/fake = 75,
 					/obj/item/clothing/head/wizard/fake = 75,
-					/obj/item/twohanded/staff = 50,
+					/obj/item/staff = 50,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 100,
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 100,
 					/obj/item/clothing/mask/gas/sexymime = 100,
@@ -706,6 +715,7 @@
 	icon_lightmask = "nutri"
 	icon_off = "nutri"
 	icon_panel = "thin_vendor"
+	category = VENDOR_TYPE_FOOD
 	products = list(/obj/item/reagent_containers/food/snacks/tofu = 24,
 					/obj/item/reagent_containers/food/drinks/ice = 12,
 					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
@@ -720,6 +730,7 @@
 	desc = "Old sweet water vending machine."
 	icon_state = "sovietsoda"
 	icon_lightmask = "sovietsoda"
+	category = VENDOR_TYPE_DRINK
 	ads_list = list("For Tsar and Country.","Have you fulfilled your nutrition quota today?","Very nice!","We are simple people, for this is all we eat.","If there is a person, there is a problem. If there is no person, then there is no problem.")
 	products = list(/obj/item/reagent_containers/food/drinks/cans/sodawater = 10)
 	contraband = list(/obj/item/reagent_containers/food/drinks/cans/cola = 7)
@@ -735,6 +746,7 @@
 	icon_lightmask = "nutri"
 	icon_off = "nutri"
 	icon_panel = "thin_vendor"
+	category = VENDOR_TYPE_FOOD
 	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6, /obj/item/reagent_containers/food/drinks/dry_ramen = 6, /obj/item/reagent_containers/food/snacks/chips = 6,
 					/obj/item/reagent_containers/food/snacks/sosjerky = 6,/obj/item/reagent_containers/food/snacks/no_raisin = 6, /obj/item/reagent_containers/food/snacks/pistachios = 6,
 					/obj/item/reagent_containers/food/snacks/spacetwinkie = 6, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 6, /obj/item/reagent_containers/food/snacks/tastybread = 6, /obj/item/reagent_containers/food/snacks/stroopwafel = 2)
@@ -754,6 +766,7 @@
 	slogan_list = list("Taste 5000 years of culture!","Mr. Chang, approved for safe consumption in over 10 sectors!","Chinese food is great for a date night, or a lonely night!","You can't go wrong with Mr. Chang's authentic Chinese food!")
 	icon_state = "chang"
 	icon_lightmask = "chang"
+	category = VENDOR_TYPE_FOOD
 	products = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
 					/obj/item/reagent_containers/food/snacks/chinese/rice = 6, /obj/item/reagent_containers/food/snacks/fortunecookie = 6)
 	prices = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 125, /obj/item/reagent_containers/food/snacks/chinese/tao = 125, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 125, /obj/item/reagent_containers/food/snacks/chinese/newdles = 100,
@@ -771,6 +784,7 @@
 	icon_panel = "thin_vendor"
 	slogan_list = list("Robust Softdrinks: More robust than a toolbox to the head!")
 	ads_list = list("Refreshing!","Hope you're thirsty!","Over 1 million drinks sold!","Thirsty? Why not cola?","Please, have a drink!","Drink up!","The best drinks in space.")
+	category = VENDOR_TYPE_DRINK
 	products = list(/obj/item/reagent_containers/food/drinks/cans/cola = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10, /obj/item/reagent_containers/food/drinks/cans/starkist = 10,
 					/obj/item/reagent_containers/food/drinks/cans/space_up = 10, /obj/item/reagent_containers/food/drinks/cans/grape_juice = 10, /obj/item/reagent_containers/glass/beaker/waterbottle = 10)
@@ -793,6 +807,7 @@
 	icon_state = "artvend"
 	icon_lightmask = "artvend"
 	icon_panel = "screen_vendor"
+	category = VENDOR_TYPE_SUPPLIES
 	products = list(/obj/item/stack/cable_coil/random = 10,
 					/obj/item/toner = 4,
 					/obj/item/camera = 4,
@@ -823,6 +838,7 @@
 	icon_deny = "tool_deny"
 	icon_lightmask = "tool"
 	icon_panel = "generic"
+	category = VENDOR_TYPE_SUPPLIES
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	products = list(/obj/item/crowbar = 5,
@@ -864,6 +880,7 @@
 	icon_state = "crittercare"
 	icon_lightmask = "crittercare"
 	icon_panel = "drobe"
+	category = VENDOR_TYPE_SUPPLIES
 	products = list(/obj/item/petcollar = 5, /obj/item/storage/firstaid/aquatic_kit/full =5, /obj/item/fish_eggs/goldfish = 5,
 					/obj/item/fish_eggs/clownfish = 5, /obj/item/fish_eggs/shark = 5, /obj/item/fish_eggs/feederfish = 10,
 					/obj/item/fish_eggs/salmon = 5, /obj/item/fish_eggs/catfish = 5, /obj/item/fish_eggs/glofish = 5,
@@ -890,6 +907,7 @@
 	vend_delay = 34
 	icon_state = "cigs"
 	icon_lightmask = "cigs"
+	category = VENDOR_TYPE_RECREATION
 	products = list(
 		/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
 		/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
@@ -960,6 +978,7 @@
 	icon_lightmask = "wallmed"
 	icon_panel = "wallmed"
 	icon_broken = "wallmed"
+	category = VENDOR_TYPE_DEPARTMENTAL
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	tiltable = FALSE
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
@@ -977,6 +996,7 @@
 	icon_lightmask = "med"
 	icon_deny = "cart_deny"
 	icon_panel = "wide_vendor"
+	category = VENDOR_TYPE_SUPPLIES
 	products = list(/obj/item/pda =10,/obj/item/cartridge/mob_hunt_game = 25, /obj/item/cartridge/medical = 10, /obj/item/cartridge/chemistry = 10,
 					/obj/item/cartridge/engineering = 10, /obj/item/cartridge/atmos = 10, /obj/item/cartridge/janitor = 10,
 					/obj/item/cartridge/signal/toxins = 10, /obj/item/cartridge/signal = 10)
