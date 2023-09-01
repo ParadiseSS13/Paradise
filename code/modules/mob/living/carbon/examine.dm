@@ -189,7 +189,7 @@
 			if(GRAB_AGGRESSIVE)
 				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s hands!</span>\n"
 			if(GRAB_NECK)
-				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting] neck!</span>\n"
+				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s neck!</span>\n"
 			if(GRAB_KILL)
 				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] strangling [grab.affecting]!</span>\n"
 
