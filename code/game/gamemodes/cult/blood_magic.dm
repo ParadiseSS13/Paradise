@@ -397,7 +397,7 @@
 
 /obj/item/melee/blood_magic/customised_abstract_text()
 	if(!ishuman(loc))
-		return ""
+		return
 	var/mob/living/carbon/human/owner = loc
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in blood-red fire.</span>\n"
 

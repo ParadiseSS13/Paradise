@@ -162,7 +162,7 @@
 
 /obj/item/melee/arm_blade/customised_abstract_text()
 	if(!ishuman(loc))
-		return ""
+		return
 	var/mob/living/carbon/human/owner = loc
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>\n"
 
@@ -209,7 +209,7 @@
 
 /obj/item/gun/magic/tentacle/customised_abstract_text()
 	if(!ishuman(loc))
-		return ""
+		return
 	var/mob/living/carbon/human/owner = loc
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque tentacle.</span>\n"
 

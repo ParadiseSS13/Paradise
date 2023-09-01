@@ -154,7 +154,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		in_storage = TRUE
 
 /obj/item/proc/customised_abstract_text()
-	return ""
+	return
 
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
