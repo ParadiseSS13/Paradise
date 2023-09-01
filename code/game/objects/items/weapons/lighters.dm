@@ -286,7 +286,7 @@
 					var/obj/item/organ/external/head/affecting = M.get_organ("head")
 					affecting.receive_damage(0, 5)
 					M.UpdateDamageIcon()
-				playsound(cig.loc, 'sound/effects/unathiignite.ogg', 40, 0)
+				playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, 0)
 
 			else
 				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")

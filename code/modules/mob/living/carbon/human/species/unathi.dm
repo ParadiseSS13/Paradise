@@ -69,7 +69,7 @@
 
 /datum/action/innate/ignite
 	name = "Ignite"
-	desc = "You form fire in your mouth, allowing you to.. light cigarettes. Requires you to drink welding fuel beforehand."
+	desc = "A fire forms in your mouth, fierce enough to... light a cigarette. Requires you to drink welding fuel beforehand."
 	icon_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
 	var/cooldown = 0
@@ -138,6 +138,6 @@
 		fire.Remove(H)
 
 /datum/action/innate/ignite/ash_walker
-	desc = "You form fire in your mouth, allowing you to.. light cigarettes."
-	cooldown_duration = 5 MINUTES
+	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
+	cooldown_duration = 3 MINUTES
 	welding_fuel_used = 0

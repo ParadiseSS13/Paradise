@@ -101,7 +101,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else if(istype(I, /obj/item/match/unathi))
 		var/obj/item/match/unathi/U = I
 		if(U.lit)
-			playsound(U.loc, 'sound/effects/unathiignite.ogg', 40, 0)
+			playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
 			light("<span class='rose'>[user] spits fire at [user.p_their()] [name], igniting it.</span>")
 			U.matchburnout()
 
