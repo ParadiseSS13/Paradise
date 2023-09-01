@@ -117,7 +117,7 @@
 	if(!istype(M))
 		return
 
-	if(!M.can_inject(user, TRUE))
+	if(!M.can_inject(user, TRUE, ignore_pierceimmune = TRUE))
 		return
 	var/transfered = 0
 	if(reagents.total_volume && M.reagents)
