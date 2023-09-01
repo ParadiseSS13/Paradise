@@ -311,25 +311,9 @@
 	var/force_particle = FALSE
 
 	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss()) // Avoid counting burn wounds
-			H.adjustBruteLoss(-3.5, robotic = TRUE)
-			H.adjustFireLoss(-3.5, robotic = TRUE)
-			H.adjustOxyLoss(-3.5)
-			H.adjustToxLoss(-3.5)
-			H.adjustBrainLoss(-3.5)
-			H.adjustStaminaLoss(-3.5)
-			H.adjustCloneLoss(-1)
-			heal_points--
-
-		for(var/obj/item/organ/external/E in H.bodyparts)
-			if(prob(10) && (E.status & (ORGAN_BROKEN | ORGAN_INT_BLEEDING | ORGAN_BURNT)) && !E.is_robotic())
-				E.mend_fracture()
-				E.fix_internal_bleeding()
-				E.fix_burn_wound()
-				heal_points--
+		heal_human(L)
 	else if(iscarbon(L))
-		if(L.health < L.maxHealth || L.getStaminaLoss()) // Carbons have no burn wounds nor brain damage
+		if(L.health < L.maxHealth || L.getStaminaLoss()) // Carbons have no burn wounds to worry about nor brain damage to heal
 			L.adjustBruteLoss(-3.5)
 			L.adjustFireLoss(-3.5)
 			L.adjustOxyLoss(-3.5)
@@ -352,6 +336,28 @@
 
 	if(starting_points < heal_points || force_particle)
 		new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
+
+/datum/status_effect/hippocraticOath/proc/heal_human(mob/living/carbon/human/H)
+	if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss()) // Avoid counting burn wounds
+		H.adjustBruteLoss(-3.5, robotic = TRUE)
+		H.adjustFireLoss(-3.5, robotic = TRUE)
+		H.adjustOxyLoss(-3.5)
+		H.adjustToxLoss(-3.5)
+		H.adjustBrainLoss(-3.5)
+		H.adjustStaminaLoss(-3.5)
+		H.adjustCloneLoss(-1)
+		heal_points--
+		if(!heal_points)
+			return
+
+	for(var/obj/item/organ/external/E in H.bodyparts)
+		if(prob(10) && (E.status & (ORGAN_BROKEN | ORGAN_INT_BLEEDING | ORGAN_BURNT)) && !E.is_robotic())
+			E.mend_fracture()
+			E.fix_internal_bleeding()
+			E.fix_burn_wound()
+			heal_points--
+			if(!heal_points)
+				return
 
 /obj/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"
