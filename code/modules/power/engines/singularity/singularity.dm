@@ -454,8 +454,8 @@
 		if(isbrain(M)) //Ignore brains
 			continue
 
-		if(HAS_TRAIT(M, TRAIT_MESON_VISION))
-			to_chat(M, "<span class='notice'>You look directly into [src], but your meson vision protects you!</span>")
+		if(HAS_TRAIT(M, TRAIT_MESON_VISION) || HAS_TRAIT(M, SM_HALLUCINATION_IMMUNE))
+			to_chat(M, "<span class='notice'>You look directly into [src], but remain unaffected!</span>")
 			return
 
 		M.Stun(6 SECONDS)
