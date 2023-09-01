@@ -324,5 +324,8 @@
 	if(!V.bloodusable || owner.stat == DEAD)
 		V.remove_ability(src)
 
-/datum/vampire_passive/xray
+/datum/vampire_passive/vision/xray
 	gain_desc = "You can now see through walls, incase you hadn't noticed."
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	see_in_dark = 8
+	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
