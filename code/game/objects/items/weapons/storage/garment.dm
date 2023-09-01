@@ -263,6 +263,7 @@
 /obj/item/storage/bag/garment/chaplain/populate_contents()
 	new /obj/item/clothing/under/rank/civilian/chaplain(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/suit/hooded/abaya(src)
 	new /obj/item/clothing/suit/hooded/nun(src)
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 	new /obj/item/clothing/suit/hooded/monk(src)
