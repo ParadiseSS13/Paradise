@@ -302,7 +302,7 @@
 
 	// The main course: heal everyone around you!
 	for(var/mob/living/L in view(7, owner))
-		if(heal_points <= 0)
+		if(!heal_points)
 			break
 		heal(L)
 
@@ -350,7 +350,7 @@
 			if(prob(50)) // Animals are simpler
 				heal_points--
 
-	if(starting_points != heal_points || force_particle)
+	if(starting_points < heal_points || force_particle)
 		new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
 
 /obj/screen/alert/status_effect/regenerative_core
