@@ -320,7 +320,6 @@
 	cost = 20
 	species = list("Skrell")
 
-
 //Vox
 /datum/uplink_item/species_restricted/spikethrower
 	name = "Skipjack Spikethrower"
@@ -329,6 +328,7 @@
 	item = /obj/item/gun/energy/spikethrower
 	cost = 60
 	species = list("Vox")
+	surplus = 0
 
 //IPC:
 //Positonic supercharge implant: stims, 3 uses, IPC adrenals
@@ -339,6 +339,7 @@
 	item = /obj/item/implanter/supercharge
 	cost = 40
 	species = list("Machine")
+	surplus = 0
 
 
 //plasmeme
@@ -349,6 +350,7 @@
 	item = /obj/item/fireproofing_injector
 	cost = 25
 	species = list("Plasmaman")
+	surplus = 0
 
 
 // -------------------------------------
