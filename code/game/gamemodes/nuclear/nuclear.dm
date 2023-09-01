@@ -432,55 +432,55 @@
 	return newname
 
 
-/datum/game_mode/nuclear/set_scoreboard_gvars()
+/datum/game_mode/nuclear/set_scoreboard_vars()
+	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
+
 	for(var/datum/mind/M in SSticker.mode.syndicates)
 		foecount++
 		if(!M || !M.current)
-			GLOB.score_opkilled++
+			scoreboard.score_ops_killed++
 			continue
 
 		if(M.current.stat == DEAD)
-			GLOB.score_opkilled++
+			scoreboard.score_ops_killed++
 
 		else if(M.current.restrained())
-			GLOB.score_arrested++
+			scoreboard.score_arrested++
 
-	if(foecount == GLOB.score_arrested)
-		GLOB.score_allarrested = 1
+	if(foecount == scoreboard.score_arrested)
+		scoreboard.all_arrested = TRUE // how the hell did they manage that
 
-	for(var/obj/machinery/nuclearbomb/nuke in GLOB.machines)
-		if(nuke.r_code == "Nope")	continue
-		var/turf/T = get_turf(nuke)
-		var/area/A = T.loc
+	var/obj/machinery/nuclearbomb/syndicate/nuke = locate() in GLOB.poi_list
+	if(nuke?.r_code != "Nope")
+		var/area/A = get_area(nuke)
 
-		var/list/thousand_penalty = list(/area/wizard_station, /area/solar, /area)
+		var/list/thousand_penalty = list(/area/wizard_station, /area/solar)
 		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armory, /area/security/checkpoint/south)
 
 		if(is_type_in_list(A, thousand_penalty))
-			GLOB.score_nuked_penalty = 1000
+			scoreboard.nuked_penalty = 1000
 
 		else if(is_type_in_list(A, fiftythousand_penalty))
-			GLOB.score_nuked_penalty = 50000
+			scoreboard.nuked_penalty = 50000
 
 		else if(istype(A, /area/engine))
-			GLOB.score_nuked_penalty = 100000
+			scoreboard.nuked_penalty = 100000
 
 		else
-			GLOB.score_nuked_penalty = 10000
+			scoreboard.nuked_penalty = 10000
 
-		break
-
-		var/killpoints = GLOB.score_opkilled * 250
-		var/arrestpoints = GLOB.score_arrested * 1000
-		GLOB.score_crewscore += killpoints
-		GLOB.score_crewscore += arrestpoints
-		if(GLOB.score_nuked)
-			GLOB.score_crewscore -= GLOB.score_nuked_penalty
+	var/killpoints = scoreboard.score_ops_killed * 250
+	var/arrestpoints = scoreboard.score_arrested * 1000
+	scoreboard.crewscore += killpoints
+	scoreboard.crewscore += arrestpoints
+	if(scoreboard.nuked)
+		scoreboard.crewscore -= scoreboard.nuked_penalty
 
 
 
 /datum/game_mode/nuclear/get_scoreboard_stats()
+	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
 	var/crewcount = 0
 
@@ -508,7 +508,7 @@
 				diskdat += "Carried by [M.real_name] "
 			if(isobj(disk_loc))
 				var/obj/O = disk_loc
-				diskdat += "in \a [O] "
+				diskdat += "in \a [O]"
 			disk_loc = disk_loc.loc
 		diskdat += "in [disk_loc.loc]"
 
@@ -527,13 +527,14 @@
 
 	dat += "<br>"
 
-	dat += "<b>Operatives Arrested:</b> [GLOB.score_arrested] ([GLOB.score_arrested * 1000] Points)<br>"
-	dat += "<b>All Operatives Arrested:</b> [GLOB.score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
+	dat += "<b>Operatives Arrested:</b> [scoreboard.score_arrested] ([scoreboard.score_arrested * 1000] Points)<br>"
+	dat += "<b>All Operatives Arrested:</b> [scoreboard.all_arrested ? "Yes" : "No"] (Score tripled)<br>"
 
-	dat += "<b>Operatives Killed:</b> [GLOB.score_opkilled] ([GLOB.score_opkilled * 1000] Points)<br>"
-	dat += "<b>Station Destroyed:</b> [GLOB.score_nuked ? "Yes" : "No"] (-[GLOB.score_nuked_penalty] Points)<br>"
+	dat += "<b>Operatives Killed:</b> [scoreboard.score_ops_killed] ([scoreboard.score_ops_killed * 1000] Points)<br>"
+	dat += "<b>Station Destroyed:</b> [scoreboard.nuked ? "Yes" : "No"] (-[scoreboard.nuked_penalty] Points)<br>"
 	dat += "<hr>"
 
 	return dat
+
 
 #undef NUKESCALINGMODIFIER

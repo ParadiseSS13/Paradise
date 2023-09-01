@@ -87,7 +87,7 @@
 		to_chat(user, "<span class='notice'>[target == user ? "Вы доели" : "[target] доел"] [src.name].</span>")
 		qdel(src)
 
-	GLOB.score_foodeaten++
+	SSticker.score.score_food_eaten++
 	return TRUE
 
 /obj/item/proc/forceFed(mob/living/carbon/target, mob/user, var/instant_application = FALSE)

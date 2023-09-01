@@ -692,7 +692,7 @@
 		var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 		add_attack_logs(user, src, "Force Fed [toEat](bite volume: [this_bite*toEat.transfer_efficiency]u) containing [toEat.reagents.log_list()]")
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
-	GLOB.score_foodeaten++
+	SSticker.score.score_food_eaten++
 	return 1
 
 

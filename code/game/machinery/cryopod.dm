@@ -385,6 +385,10 @@
 		else
 			I.forceMove(loc)
 
+	// Log antag special role and objectives
+	if(SSticker?.score && occupant.mind?.special_role)
+		SSticker.score.save_antag_info(occupant.mind)
+
 	// Find a new sacrifice target if needed, if unable allow summoning
 	if(is_sacrifice_target(occupant.mind))
 		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
