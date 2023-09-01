@@ -48,6 +48,10 @@
 	if(!cling.get_dna(target.dna))
 		cling.absorb_dna(target)
 	cling.trim_dna()
+	var/ghosted = FALSE
+	if(target.stat == DEAD && target.ghost_can_reenter()) //Are they dead and not DNR / antag hud?
+		ghosted = TRUE
+		target.grab_ghost() //GET OVER HERE!
 
 	var/mob/dead/observer/ghost = target.ghostize(FALSE)
 	user.mind.transfer_to(target)
@@ -56,6 +60,9 @@
 		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die
 		user.key = ghost.key
 	qdel(ghost)
+	if(ghosted)
+		window_flash(target) //Get their attention if alt tabbed.
+		SEND_SOUND(target, sound('sound/misc/notice1.ogg'))
 	user.Paralyse(4 SECONDS)
 	user.regenerate_icons()
 	if(target.stat == DEAD && target.suiciding)  //If Target committed suicide, unset flag for User
