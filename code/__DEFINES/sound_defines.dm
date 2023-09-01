@@ -9,7 +9,6 @@
 #define CHANNEL_ENGINE 1017 // Engine ambient sounds
 #define CHANNEL_FIREALARM 1016 //fire alarm alarms
 #define CHANNEL_ASH_STORM 1015
-#define CHANNEL_DELTA_ALARM 1014
 // SS220 ADDITION START
 #define CHANNEL_TTS_RADIO 1013
 #define CHANNEL_TTS_LOCAL 1012

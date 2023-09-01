@@ -2052,8 +2052,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Fire Alarms"
 		if(CHANNEL_ASH_STORM)
 			return "Ash Storms"
-		if(CHANNEL_DELTA_ALARM)
-			return "Delta Alarm"
 		// SS220 ADDITON START
 		if(CHANNEL_TTS_LOCAL)
 			return "TTS Local"

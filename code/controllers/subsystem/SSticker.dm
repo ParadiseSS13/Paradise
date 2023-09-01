@@ -400,7 +400,7 @@ SUBSYSTEM_DEF(ticker)
 					flick("station_explode_fade_red", cinematic)
 					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					cinematic.icon_state = "summary_selfdes"
-			stop_delta_alarm()
+
 		if(NUKE_SITE_ON_STATION_ZLEVEL)
 			// nuke was nearby but (mostly) missed
 			if(mode && !override)
@@ -430,7 +430,6 @@ SUBSYSTEM_DEF(ticker)
 	//If its actually the end of the round, wait for it to end.
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
-		stop_delta_alarm() // If we've not stopped this alarm yet, do so now.
 		QDEL_NULL(cinematic)		//end the cinematic
 
 
