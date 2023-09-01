@@ -485,7 +485,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 				//Add aliens.
 				else
-					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, FALSE, FALSE)
+					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, FALSE)
 					SSjobs.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
