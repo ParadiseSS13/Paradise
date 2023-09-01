@@ -56,7 +56,7 @@ export const CrewMonitor = (props, context) => {
     <Window resizable>
       <Window.Content>
         <Box fillPositionedParent>
-        <Tabs>
+          <Tabs>
             <Flex>
               <FlexItem grow basis={100}>
                 <Tabs.Tab
