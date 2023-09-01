@@ -11,6 +11,7 @@
 	var/list/possible_contents = list()
 	var/list/job_list = list()
 	var/mob/living/recipient
+	var/has_been_scanned = FALSE
 
 /obj/item/envelope/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is licking a sharp corner of the envelope. It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -85,7 +86,7 @@
 	/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
 	/obj/item/clothing/glasses/meson/gar,
 	/obj/item/stack/marker_beacon/ten,
-	/obj/item/clothing/mask/facehugger/toy,
+	/obj/item/stack/medical/splint,
 	/obj/item/pen/multi/fountain,
 	/obj/item/clothing/mask/cigarette/cigar,
 	/obj/item/stack/wrapping_paper,
@@ -175,3 +176,55 @@
 	/obj/item/toy/figure/owl,
 	/obj/item/toy/figure/griffin)
 	job_list = list("Assistant", "Explorer")
+
+/obj/item/mail_scanner
+	name = "mail scanner"
+	desc = "Confirms deliveries of mail with clients."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "autopsy_scanner"
+	flags = CONDUCT
+	slot_flags = SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "magnets=1"
+	var/obj/item/envelope/saved
+
+
+/obj/item/mail_scanner/attack()
+	return
+
+/obj/item/mail_scanner/afterattack(atom/A, mob/user)
+	if(istype(A, /obj/item/envelope))
+		var/obj/item/envelope/O = A
+		if(O.has_been_scanned)
+			to_chat(user, "<span class='warning'>This letter has already been logged to the active database!</span>")
+			playsound(loc, 'sound/machines/deniedbeep.ogg', 50, 1)
+			return
+		to_chat(user, "<span class='notice'>You add [src] to the active database.</span>")
+		playsound(loc, 'sound/mail/mailscanned.ogg', 50, 1)
+		saved = A
+		return
+	if(isliving(A))
+		var/mob/living/M = A
+		if(!saved)
+			to_chat(user, "<span class='warning'>You have not logged mail to the mail scanner!</span>")
+			playsound(loc, 'sound/mail/maildenied.ogg', 50, 1)
+			return
+		if(M.stat == DEAD)
+			to_chat(user, "<span class='warning'>You can't deliver mail to a corpse!</span>")
+			playsound(loc, 'sound/mail/maildenied.ogg', 50, 1)
+			return
+
+		if(M != saved.recipient)
+			to_chat(user, "<span class='warning'>The scanner will not accept confirmation of orders from non clients!</span>")
+			playsound(loc, 'sound/mail/maildenied.ogg', 50, 1)
+			return
+		if(!M.client)
+			to_chat(user, "<span class='warning'>The scanner will not accept confirmation of orders from SSD people!</span>")
+			playsound(loc, 'sound/mail/maildenied.ogg', 50, 1)
+			return
+		saved.has_been_scanned = TRUE
+		saved = null
+		to_chat(user, "<span class='notice'>Succesful delivery acknowledged! 100 credits added to Supply account!</span>")
+		playsound(loc, 'sound/mail/mailapproved.ogg', 50, 1)
+		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Messaging and Intergalactic Letters", supress_log = FALSE)
+

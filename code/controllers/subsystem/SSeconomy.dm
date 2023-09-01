@@ -92,6 +92,8 @@ SUBSYSTEM_DEF(economy)
 	var/next_paycheck_delay = 0
 	/// total paydays this round
 	var/payday_count = 0
+	/// Time until the next mail shipment
+	var/next_mail_delay = 0
 
 	var/global_paycheck_bonus = 0
 	var/global_paycheck_deduction = 0
@@ -132,6 +134,7 @@ SUBSYSTEM_DEF(economy)
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
 	next_paycheck_delay = 30 MINUTES + world.time
+	next_mail_delay = 1 MINUTES + world.time
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)
@@ -141,6 +144,11 @@ SUBSYSTEM_DEF(economy)
 		next_data_check = 10 MINUTES + world.time
 		record_economy_data()
 	process_job_tasks()
+	if(next_mail_delay <= world.time)
+		if(!is_station_level(SSshuttle.supply.z))
+			return
+		next_mail_delay = 1 MINUTES + world.time
+		mail_never_fails()
 
 /datum/controller/subsystem/economy/proc/record_economy_data()
 	economy_data["totalcash"] += total_space_cash
@@ -284,6 +292,23 @@ SUBSYSTEM_DEF(economy)
 				objective.owner_account.modify_payroll(objective.completion_payment, TRUE, "Job Objective \"[objective.objective_name]\" completed, award will be included in next paycheck")
 				objective.payout_given = TRUE
 			break
+
+/datum/controller/subsystem/economy/proc/mail_never_fails()
+	for(var/obj/machinery/requests_console/console in GLOB.allRequestConsoles)
+		if(console.department != "Cargo Bay")
+			continue
+		console.createMessage("Messaging and Intergalactic Letters", "New Mail Crates ready to be ordered!!", "A new mail crate is able to be shipped alongside your next orders!", 1) // RQ_NORMALPRIORITY
+		var/turf/spawn_location
+		var/pack = /datum/supply_packs/emergency/mail_crate
+		var/datum/supply_packs/the_pack = new pack()
+		var/list/total_turf_list = shuffle(SSshuttle.supply.areaInstance)
+		for(var/turf/simulated/T in total_turf_list)			if(T.density)
+			continue
+			spawn_location = T
+			break
+		var/obj/structure/closet/crate/crate = the_pack.create_package(spawn_location)
+		qdel(the_pack)
+
 
 //
 //   The NanoCoin Economy is booming
