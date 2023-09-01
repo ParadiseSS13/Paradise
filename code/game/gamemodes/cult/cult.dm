@@ -86,6 +86,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(cult_mind.current, CULT_GREETING)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
+		ADD_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 		var/datum/objective/servecult/obj = new
 		obj.owner = cult_mind
 		cult_mind.objectives += obj
