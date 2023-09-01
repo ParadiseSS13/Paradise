@@ -39,7 +39,7 @@ const getStatColor = (cm, critThreshold) => {
 
 export const CrewMonitor = (props, context) => {
   const { act, data } = useBackend(context);
-  const { possible_levels, viewing_current_z_level } = data;
+  const { possible_levels, viewing_current_z_level, is_advanced } = data;
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const decideTab = (index) => {
     switch (index) {
@@ -74,14 +74,17 @@ export const CrewMonitor = (props, context) => {
                   <Icon name="map-marked-alt" /> Map View
                 </Tabs.Tab>
               </FlexItem>
-              <FlexItem>
-                <Dropdown
-                  // display="inline-block"
-                  options={possible_levels}
-                  selected={viewing_current_z_level}
-                  onSelected={(val) => act("switch_level", {new_level: val})}
-                  />
-              </FlexItem>
+              {is_advanced ? (
+                <FlexItem>
+                  <Dropdown
+                    options={possible_levels}
+                    selected={viewing_current_z_level}
+                    onSelected={(val) => act("switch_level", {new_level: val})}
+                    />
+                </FlexItem>
+              ) : (
+                null
+              )}
             </Flex>
           </Tabs>
           {decideTab(tabIndex)}
