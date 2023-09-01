@@ -28,3 +28,5 @@
 	var/nightmare = 0
 
 	blood_volume = BLOOD_VOLUME_NORMAL
+
+	var/list/current_actions = list()

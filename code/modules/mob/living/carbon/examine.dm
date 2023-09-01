@@ -124,8 +124,8 @@
 
 	// All the things wielded/worn that can be reasonably described with a common template:
 	var/list/message_parts = examine_visible_clothing(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
-
 	var/list/abstract_items = list()
+	var/list/grab_items = list()
 
 	for(var/parts in message_parts)
 		var/action = parts[1]
@@ -137,6 +137,8 @@
 			accessories = parts[5]
 
 		if(item)
+			if(istype(item, /obj/item/grab)
+				grab_items |= item
 			if(item.flags & ABSTRACT)
 				abstract_items |= item
 			else
@@ -175,11 +177,24 @@
 		else
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
 
+
 	for(var/obj/item/abstract_item in abstract_items)
 		var/text = abstract_item.customised_abstract_text()
 		if(!text)
 			continue
 		msg += "[text]\n"
+
+	for(var/obj/item/grab/grab in grab_items)
+		switch(grab.state)
+			if(GRAB_AGGRESSIVE)
+				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s hands!</span>\n"
+			if(GRAB_NECK)
+				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting] neck!</span>\n"
+			if(GRAB_KILL)
+				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] strangling [grab.affecting]!</span>\n"
+
+	for(var/item in current_actions)
+		msg += get_action_text(item)
 
 	//Jitters
 	switch(AmountJitter())

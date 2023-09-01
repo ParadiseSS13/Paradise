@@ -888,6 +888,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		buckled.user_unbuckle_mob(src, src)
 		return
 
+	if(ACTION_RESIST_BUCKLE in current_actions)
+		to_chat(src, "<span class='notice'>You are already trying to unbuckle!</span>")
+		return
+
+	current_actions |= ACTION_RESIST_BUCKLE
 	var/time = I.breakouttime
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
@@ -898,6 +903,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!buckled)
 			return
 		buckled.user_unbuckle_mob(src, src)
+
+	current_actions -= ACTION_RESIST_BUCKLE
 
 /mob/living/carbon/proc/buckle_check()
 	if(!buckled) // No longer buckled
@@ -942,15 +949,20 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	var/time = I.resist_time
 	if(I.resist_time == 0)//if it's 0, you can't get out of it
 		to_chat(src, "[I] is too well made, you'll need hands for this one!")
-	else
-		visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
-		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
-		if(do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(muzzle_check)))))
-			visible_message("<span class='warning'>[src] removes [I]!</span>")
-			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
-			if(I.security_lock)
-				I.do_break()
-			unEquip(I)
+		return
+	if(ACTION_REMOVE_MUZZLE in current_actions)
+		to_chat(src, "<span class='notice'>You are already trying to remove [I]!</span>")
+		return
+	current_actions |= ACTION_REMOVE_MUZZLE
+	visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
+	to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
+	if(do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(muzzle_check)))))
+		visible_message("<span class='warning'>[src] removes [I]!</span>")
+		to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
+		if(I.security_lock)
+			I.do_break()
+		unEquip(I)
+	current_actions -= ACTION_REMOVE_MUZZLE
 
 
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
@@ -958,9 +970,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	var/displaytime = breakouttime / 10
 	if(!cuff_break)
+		if(ACTION_REMOVE_HANDCUFFS in current_actions)
+			to_chat(src, "<span class='notice'>You are already trying to remove [I].</span>")
+			return
+		current_actions |= ACTION_REMOVE_HANDCUFFS
 		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
 		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [displaytime] seconds and you need to stand still.)</span>")
 		if(do_after(src, breakouttime, 0, target = src))
+			current_actions -= ACTION_REMOVE_HANDCUFFS
 			if(I.loc != src || buckled)
 				return
 			if(istype(I, /obj/item/restraints/handcuffs/twimsts))
@@ -996,13 +1013,19 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				I.dropped(src)
 				return
 		else
+			current_actions -= ACTION_REMOVE_HANDCUFFS
 			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
 
 	else
 		breakouttime = 50
+		if(ACTION_BREAK_HANDCUFFS in current_actions)
+			to_chat(src, "<span class='notice'>You are already trying to break [I].</span>")
+			return
+		current_actions |= ACTION_BREAK_HANDCUFFS
 		visible_message("<span class='warning'>[src] is trying to break [I]!</span>")
 		to_chat(src, "<span class='notice'>You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)</span>")
 		if(do_after(src, breakouttime, 0, target = src))
+			current_actions -= ACTION_BREAK_HANDCUFFS
 			if(!I.loc || buckled)
 				return
 			visible_message("<span class='danger'>[src] manages to break [I]!</span>")
@@ -1020,6 +1043,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			return 1
 		else
+			current_actions -= ACTION_BREAK_HANDCUFFS
 			to_chat(src, "<span class='warning'>You fail to break [I]!</span>")
 
 //called when we get cuffed/uncuffed
@@ -1347,3 +1371,15 @@ so that different stomachs can handle things in different ways VB*/
 	// keep most of what's passed in, but don't change the angle
 	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, should_rotate = FALSE, rightable = FALSE)
 	KnockDown(10 SECONDS)
+
+/mob/living/carbon/proc/get_action_text(action)
+	switch(action)
+		if(ACTION_REMOVE_HANDCUFFS)
+			return "<span class='warning'>[p_they(TRUE)] [p_are()] trying to remove cuffs!</span>\n"
+		if(ACTION_REMOVE_MUZZLE)
+			return "<span class='warning'>[p_they(TRUE)] [p_are()] trying to remove muzzle!</span>\n"
+		if(ACTION_RESIST_BUCKLE)
+			return "<span class='warning'>[p_they(TRUE)] [p_are()] trying to unbuckle [p_themselves()]!</span>\n"
+		if(ACTION_BREAK_HANDCUFFS)
+			return "<span class='boldwarning'>[p_they(TRUE)] [p_are()] trying to break cuffs!</span>\n"
+	return
