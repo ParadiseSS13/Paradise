@@ -117,7 +117,7 @@
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
-		if(istype(arm_item, /obj/item/twohanded/offhand))
+		if(istype(arm_item, /obj/item/offhand))
 			var/obj/item/offhand_arm_item = owner.get_active_hand()
 			to_chat(owner, "<span class='warning'>Your hands are too encumbered wielding [offhand_arm_item] to deploy [src]!</span>")
 			return

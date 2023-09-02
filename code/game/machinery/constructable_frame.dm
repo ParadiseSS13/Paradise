@@ -52,6 +52,7 @@
 // update description of required components remaining
 /obj/machinery/constructable_frame/proc/update_req_desc()
 	if(!req_components || !req_component_names)
+		desc = "Does not require any more components."
 		return
 
 	var/hasContent = 0
@@ -111,7 +112,7 @@
 					icon_state = "box_2"
 					state = 3
 					components = list()
-					req_components = circuit.req_components.Copy()
+					req_components = circuit.req_components?.Copy()
 					update_namelist()
 					update_req_desc()
 				else
@@ -1074,7 +1075,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/merch
-	name = "Merchandise Computer Circuitboard"
+	board_name = "Nanotrasen Merchandise Vendor"
 	icon_state = "generic"
 	build_path = /obj/machinery/economy/merch
 	board_type = "machine"
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stack/cable_coil = 1)
