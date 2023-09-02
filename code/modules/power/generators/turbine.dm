@@ -452,6 +452,7 @@
 				compressor.starter = FALSE
 				to_chat(usr, "<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
 				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+				. = TRUE
 			else if(compressor?.turbine)
 				if(!compressor.starter)
 					playsound(compressor, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
