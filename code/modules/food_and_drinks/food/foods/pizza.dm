@@ -320,6 +320,8 @@
 
 /obj/item/pizzabox/AltClick(mob/user)
 	..()
+	if(length(boxes) || !Adjacent(user))
+		return
 	if(open)
 		open = FALSE
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
