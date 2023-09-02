@@ -11,7 +11,7 @@
 		/datum/job/warden,
 	)
 
-	/// Jobs that have a 1/10 chance per roll to be picked for the bureaucratic error
+	/// Jobs that pass an additional 40% chance per roll to be picked for the bureaucratic error
 	var/list/uncommon_jobs = list(
 		/datum/job/chief_engineer,
 		/datum/job/cmo,
