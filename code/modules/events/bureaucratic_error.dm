@@ -3,21 +3,25 @@
 	/// Jobs that are not allowed to be picked for the bureaucratic error
 	var/list/blacklisted_jobs = list(
 		/datum/job/assistant,
+		/datum/job/ai,
+		/datum/job/cyborg,
+		/datum/job/blueshield,
+		/datum/job/chaplain,
+		/datum/job/officer,
+		/datum/job/warden,
+	)
+
+	/// Jobs that have a 1/10 chance per roll to be picked for the bureaucratic error
+	var/list/uncommon_jobs = list(
 		/datum/job/chief_engineer,
 		/datum/job/cmo,
 		/datum/job/rd,
 		/datum/job/hos,
-		/datum/job/ai,
-		/datum/job/cyborg,
 		/datum/job/captain,
 		/datum/job/hop,
 		/datum/job/nanotrasenrep,
-		/datum/job/blueshield,
 		/datum/job/judge,
-		/datum/job/chaplain,
-		/datum/job/officer,
 		/datum/job/detective,
-		/datum/job/warden
 	)
 
 /datum/event/bureaucratic_error/announce()
@@ -32,10 +36,13 @@
 	while(errors < overflow_amount)
 		var/random_change = pick(-2, -1, 1, 2)
 		overflow = pick_n_take(jobs)
-		if(overflow.admin_only)
+		if((overflow.admin_only) || (overflow.type in blacklisted_jobs))
 			continue
-		if(overflow.type in blacklisted_jobs)
-			continue
+		if(overflow.type in uncommon_jobs)
+			if(prob(40))
+				random_change = clamp(random_change, 1, 2)
+			else
+				continue
 		overflow.total_positions = max(overflow.total_positions + random_change, 0)
 		affected_jobs += "[overflow.title] slot changed by [random_change]"
 		errors++
