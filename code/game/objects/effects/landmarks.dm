@@ -559,14 +559,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	. = ..()
 	new /obj/item/clothing/under/dress/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
-	new /obj/item/twohanded/staff/broom(src.loc)
+	new /obj/item/staff/broom(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/fakewizard/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wizrobe/fake(src.loc)
 	new /obj/item/clothing/head/wizard/fake(src.loc)
-	new /obj/item/twohanded/staff/(src.loc)
+	new /obj/item/staff/(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/sexyclown/Initialize(mapload)
