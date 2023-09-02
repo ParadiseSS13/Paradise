@@ -31,8 +31,8 @@
 	. = ..()
 	gland_types = subtypesof(/obj/item/organ/internal/heart/gland)
 	gland_types = shuffle(gland_types)
-	gland_colors = new/list(gland_types.len)
-	amounts = new/list(gland_types.len)
+	gland_colors = new/list(length(gland_types))
+	amounts = new/list(length(gland_types))
 	var/list/colors = shuffle(color_pool)
 	for(var/i in 1 to length(gland_types))
 		gland_colors[i] = pick_n_take(colors)
@@ -65,13 +65,12 @@
 	switch(action)
 		if("dispense")
 			var/gland_id = text2num(params["gland_id"])
-			if(!gland_id)
+			if(!ISINDEXSAFE(amounts, gland_id)
 				return
 			Dispense(gland_id)
 			return TRUE
 
 /obj/machinery/abductor/gland_dispenser/attack_hand(mob/user)
-	. = ..()
 	ui_interact(user)
 
 /obj/machinery/abductor/gland_dispenser/attackby(obj/item/W, mob/user, params)
