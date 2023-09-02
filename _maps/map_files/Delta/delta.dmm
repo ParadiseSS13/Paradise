@@ -1155,6 +1155,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -1724,6 +1729,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -89780,6 +89790,23 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/starboard)
+"oDO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/light,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "oDZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -95059,6 +95086,20 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/prison/cell_block)
+"uot" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "uoV" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -97849,6 +97890,22 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/fitness)
+"xUp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "xUI" = (
 /obj/machinery/suit_storage_unit/security,
 /turf/simulated/floor/plasteel,
@@ -134095,7 +134152,7 @@ abj
 aaa
 acC
 akG
-als
+uot
 aoo
 apa
 apR
@@ -134352,7 +134409,7 @@ abj
 abj
 acC
 ant
-anP
+xUp
 aoo
 apb
 apS
@@ -134609,7 +134666,7 @@ aaa
 aaa
 adb
 upw
-fqF
+oDO
 aoo
 apc
 apT
@@ -134866,7 +134923,7 @@ acC
 adb
 adb
 anp
-anP
+xUp
 aoo
 aoo
 aoo
