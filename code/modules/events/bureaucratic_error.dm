@@ -21,7 +21,6 @@
 		/datum/job/hop,
 		/datum/job/nanotrasenrep,
 		/datum/job/judge,
-		/datum/job/detective,
 	)
 
 /datum/event/bureaucratic_error/announce()
