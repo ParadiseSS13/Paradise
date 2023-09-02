@@ -5,6 +5,7 @@
 	item_state = "briefcase"
 	flags = CONDUCT
 	hitsound = "swing_hit"
+	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
 	throw_speed = 2
 	throw_range = 4

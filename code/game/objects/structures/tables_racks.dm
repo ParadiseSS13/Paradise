@@ -227,7 +227,7 @@
 	if(isrobot(user))
 		return
 
-	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT))
+	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
 		if(user.drop_item())
 			I.Move(loc)
 			var/list/click_params = params2list(params)
