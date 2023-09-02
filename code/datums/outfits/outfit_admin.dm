@@ -372,7 +372,7 @@
 	id = /obj/item/card/id
 	l_pocket = /obj/item/reagent_containers/food/snacks/grown/banana
 	r_pocket = /obj/item/bikehorn
-	r_hand = /obj/item/twohanded/fireaxe
+	r_hand = /obj/item/fireaxe
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
@@ -1061,7 +1061,7 @@
 	id = /obj/item/card/id/syndicate
 	l_pocket = /obj/item/kitchen/knife
 	r_pocket = /obj/item/scalpel
-	r_hand = /obj/item/twohanded/fireaxe
+	r_hand = /obj/item/fireaxe
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1
@@ -1087,7 +1087,7 @@
 	uniform = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/singuloth
 	back = /obj/item/storage/backpack/satchel
-	l_hand = /obj/item/twohanded/knighthammer
+	l_hand = /obj/item/knighthammer
 	belt = /obj/item/claymore/ceremonial
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/magboots
@@ -1120,7 +1120,7 @@
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id/syndicate
-	l_hand = /obj/item/twohanded/dualsaber/red
+	l_hand = /obj/item/dualsaber/red
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
@@ -1195,7 +1195,7 @@
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
 	r_pocket = /obj/item/teleportation_scroll
-	l_hand = /obj/item/twohanded/staff
+	l_hand = /obj/item/staff
 	r_hand = /obj/item/spellbook
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1

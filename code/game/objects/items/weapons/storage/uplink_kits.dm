@@ -25,7 +25,7 @@
 		/obj/item/suppressor, // 1TC
 		/obj/item/ammo_box/magazine/m10mm,  // 1TC
 		/obj/item/ammo_box/magazine/m10mm/hp, // 2TC
-		/obj/item/twohanded/garrote, // 6TC
+		/obj/item/garrote, // 6TC
 		/obj/item/door_remote/omni/access_tuner, // 6TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/implanter/freedom, // 5TC
