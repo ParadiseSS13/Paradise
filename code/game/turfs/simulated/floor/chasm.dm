@@ -9,6 +9,8 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_TURF_CHASM)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_CHASM)
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
+	layer = 1.7
+	intact = 0
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
 	var/static/list/forbidden_types = typecacheof(list(
 		/obj/singularity,
@@ -24,7 +26,10 @@
 		/obj/effect/collapse,
 		/obj/effect/particle_effect/ion_trails,
 		/obj/effect/abstract,
-		/obj/effect/ebeam
+		/obj/effect/ebeam,
+		/obj/effect/spawner,
+		/obj/structure/railing,
+		/obj/machinery/atmospherics/pipe/simple
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -65,7 +70,7 @@
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You build a floor.</span>")
-				ChangeTurf(/turf/simulated/floor/plating)
+				ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
 			else
 				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 		else
@@ -140,9 +145,9 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	light_range = 1.9 //slightly less range than lava
-	light_power = 0.65 //less bright, too
+	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
+	light_range = 2
+	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
