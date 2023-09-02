@@ -1,0 +1,159 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/structure/flora/ash/tall_shroom,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/tdome/arena)
+"g" = (
+/obj/structure/flora/ash/cacti,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/tdome/arena)
+"m" = (
+/obj/structure/flora/ash/leaf_shroom,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/tdome/arena)
+"F" = (
+/obj/structure/flora/ash/cap_shroom,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/tdome/arena)
+"R" = (
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/tdome/arena)
+"W" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/tdome/arena)
+
+(1,1,1) = {"
+R
+R
+F
+R
+R
+R
+R
+"}
+(2,1,1) = {"
+W
+W
+R
+W
+b
+W
+W
+"}
+(3,1,1) = {"
+F
+R
+R
+W
+R
+R
+R
+"}
+(4,1,1) = {"
+R
+W
+R
+W
+R
+W
+R
+"}
+(5,1,1) = {"
+W
+W
+b
+R
+g
+R
+R
+"}
+(6,1,1) = {"
+R
+R
+R
+W
+W
+W
+R
+"}
+(7,1,1) = {"
+W
+R
+W
+W
+R
+R
+m
+"}
+(8,1,1) = {"
+g
+R
+R
+m
+R
+W
+W
+"}
+(9,1,1) = {"
+W
+W
+W
+W
+R
+R
+R
+"}
+(10,1,1) = {"
+R
+R
+R
+R
+R
+W
+R
+"}
+(11,1,1) = {"
+R
+W
+g
+W
+W
+W
+F
+"}
+(12,1,1) = {"
+R
+W
+R
+W
+R
+W
+R
+"}
+(13,1,1) = {"
+m
+R
+R
+W
+R
+R
+R
+"}
+(14,1,1) = {"
+W
+W
+R
+W
+W
+m
+W
+"}
+(15,1,1) = {"
+R
+R
+R
+F
+R
+R
+R
+"}
