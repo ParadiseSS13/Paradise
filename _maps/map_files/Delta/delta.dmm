@@ -57803,9 +57803,6 @@
 	dir = 1;
 	name = "Creature Pen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -57815,6 +57812,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/xenobiology)
@@ -57836,9 +57836,6 @@
 	dir = 1;
 	name = "Creature Pen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -57848,6 +57845,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/xenobiology)
@@ -57860,9 +57860,6 @@
 	dir = 1;
 	name = "Creature Pen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -57872,6 +57869,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/xenobiology)
@@ -59132,15 +59132,13 @@
 	dir = 2;
 	name = "Creature Pen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 2
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology)
 "cQH" = (
@@ -60447,9 +60445,6 @@
 	name = "Research Lab Desk";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox{
-	dir = 2
-	},
 /obj/machinery/door/window/classic/normal{
 	dir = 1
 	},
@@ -60464,6 +60459,7 @@
 	pixel_y = 3;
 	anchored = 1
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research,
 /turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "cTG" = (
@@ -61727,9 +61723,6 @@
 	dir = 2;
 	name = "Creature Pen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 2
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -61740,6 +61733,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/xenobiology)
 "cWF" = (
@@ -61751,9 +61745,6 @@
 	dir = 2;
 	name = "Creature Pen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 2
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -61764,6 +61755,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/xenobiology)
 "cWG" = (
@@ -61775,9 +61767,6 @@
 	dir = 2;
 	name = "Creature Pen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 2
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -61788,6 +61777,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/xenobiology)
 "cWH" = (
@@ -62756,10 +62746,10 @@
 	name = "Research Lab Desk";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox{
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel/white,
 /area/toxins/lab)
 "cZw" = (
@@ -79910,15 +79900,15 @@
 	dir = 1;
 	name = "Creature Pen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology)
 "dWr" = (

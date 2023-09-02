@@ -5501,9 +5501,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/qm{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
@@ -17977,9 +17974,6 @@
 	name = "Bridge Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/qm{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
