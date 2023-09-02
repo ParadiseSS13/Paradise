@@ -213,6 +213,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		var/msg
 		if(!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG))
 			msg = "<span class='notice'>[src] talks into [used_radios[1]]</span>"
+			SEND_SOUND(src, sound('sound/items/radio_common.ogg', volume = rand(4, 16)*5))
 
 		if(msg)
 			for(var/mob/living/M in hearers(5, src) - src)
