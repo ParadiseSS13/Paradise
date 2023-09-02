@@ -2058,8 +2058,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Fire Alarms"
 		if(CHANNEL_ASH_STORM)
 			return "Ash Storms"
-		if(CHANNEL_DELTA_ALARM)
-			return "Delta Alarm"
 		if(CHANNEL_BOSS_MUSIC)
 			return "Boss Music"
 

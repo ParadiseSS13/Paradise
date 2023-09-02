@@ -64,7 +64,7 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
-	else if(istype(W, /obj/item/twohanded/required/pyro_claws))
+	else if(istype(W, /obj/item/pyro_claws))
 		playsound(loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>You melt the girder!</span>")
 		refundMetal(metalUsed)

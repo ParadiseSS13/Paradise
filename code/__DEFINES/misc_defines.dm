@@ -547,5 +547,11 @@
 /// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
 #define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
 
+// Lavaland cave design defines
+
+#define BLOCKED_BURROWS "Blocked Burrows"
+#define CLASSIC_CAVES "Classic Caves"
+#define DEADLY_DEEPROCK "Deadly Deeprock"
+
 ///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
 #define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
