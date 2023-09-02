@@ -313,7 +313,7 @@
 	if(stat & BROKEN)
 		return
 	if(!anchored)
-		to_chat("<span class='warning'>[src] must be anchored first!</span>")
+		to_chat(user, "<span class='warning'>[src] must be anchored first!</span>")
 		return
 	ui_interact(user)
 

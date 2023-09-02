@@ -375,7 +375,7 @@
 			M.start_pulling(t)
 	else
 		step(pulling, get_dir(pulling.loc, A))
-	return
+	return TRUE
 
 /mob/proc/update_gravity(has_gravity)
 	return
