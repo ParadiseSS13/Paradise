@@ -1,6 +1,7 @@
 import { render } from 'react-dom';
 import { playAudio } from '~/byondcalls/admin';
 import { codewords, codewordsClear } from '~/byondcalls/codewords';
+import { ehjaxCallback } from '~/byondcalls/ehjax';
 import { output } from '~/byondcalls/output';
 import { reboot, rebootFinished } from '~/byondcalls/reboot';
 import { useMessageSlice } from '~/common/store';
@@ -14,7 +15,7 @@ const setupApp = () => {
   // Set up byond calls so we can receive them
   window.codewords = codewords;
   window.codewordsClear = codewordsClear;
-  window.ehjaxCallback = () => {};
+  window.ehjaxCallback = ehjaxCallback;
   window.output = output;
   window.playAudio = playAudio;
   window.reboot = reboot;

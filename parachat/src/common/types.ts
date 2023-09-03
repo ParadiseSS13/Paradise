@@ -60,7 +60,6 @@ declare global {
     debugs: Array<string>;
 
     // BYOND calls
-    initiatePing: () => void;
     ehjaxCallback: ByondCall;
     output: ByondCall;
     reboot: ByondCall;

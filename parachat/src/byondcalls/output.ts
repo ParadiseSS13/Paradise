@@ -11,7 +11,7 @@ export const output: ByondCall = topic => {
     matchedTab = regexMatch[1];
   }
 
-  const tab: Tab = Tab[matchedTab] || Tab.OTHER;
+  const tab: Tab = Tab[matchedTab] ?? Tab.OTHER;
   addMessage({ text: message, tab });
 
   // Unread tab incrementation

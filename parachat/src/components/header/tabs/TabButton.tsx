@@ -24,10 +24,7 @@ const TabWrapper = styled.a`
     `}
 `;
 
-const TabName = styled.span`
-  display: inline-block;
-  vertical-align: middle;
-`;
+const TabName = styled.span``;
 
 const UnreadCount = styled.span`
   display: inline-block;

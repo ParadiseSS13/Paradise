@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import { initiatePing } from '~/byondcalls/ehjax';
 import { useHeaderSlice } from '~/common/store';
 
-const PingWrapper = styled.div`
-  padding: 6px 9px;
+const PingWrapper = styled.span`
+  padding: 0 9px;
   color: #8f8;
 
   &.ping-good {
@@ -24,10 +25,7 @@ const Ping = () => {
   const ping = useHeaderSlice(state => Math.min(999, state.ping));
 
   useEffect(() => {
-    // const pingInterval = setInterval(() => {
-    // 	window.initiatePing();
-    // }, 1000);
-    // return () => clearInterval(pingInterval);
+    initiatePing();
   }, []);
 
   if (ping === 0) {
