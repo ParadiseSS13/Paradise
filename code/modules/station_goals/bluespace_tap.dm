@@ -102,7 +102,7 @@
 		/obj/item/gun/projectile/shotgun/toy/crossbow = 1,
 		/obj/item/gun/projectile/shotgun/toy/tommygun = 1,
 		/obj/item/gun/projectile/automatic/sniper_rifle/toy = 1,
-		/obj/item/twohanded/dualsaber/toy = 5,
+		/obj/item/dualsaber/toy = 5,
 		/obj/machinery/snow_machine = 10,
 		/obj/item/clothing/head/kitty = 5,
 		/obj/item/coin/antagtoken = 5,

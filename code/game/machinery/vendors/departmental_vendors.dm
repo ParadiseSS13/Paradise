@@ -4,6 +4,7 @@
 	icon_state = "engivend"
 	icon_deny = "engivend_deny"
 	icon_panel = "generic"
+	category = VENDOR_TYPE_DEPARTMENTAL
 	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
 	products = list(/obj/item/clothing/glasses/meson/engine = 2, /obj/item/multitool = 4, /obj/item/geiger_counter = 5,  /obj/item/airlock_electronics = 10, /obj/item/firelock_electronics = 10, /obj/item/firealarm_electronics = 10, /obj/item/apc_electronics = 10, /obj/item/airalarm_electronics = 10, /obj/item/stock_parts/cell/high = 10, /obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
@@ -14,6 +15,7 @@
 	desc = "Everything you need for do-it-yourself station repair."
 	icon_state = "engi"
 	icon_deny = "engi_deny"
+	category = VENDOR_TYPE_DEPARTMENTAL
 	req_access_txt = "11"
 	products = list(/obj/item/clothing/under/rank/engineering/chief_engineer = 4, /obj/item/clothing/under/rank/engineering/engineer = 40, /obj/item/clothing/shoes/workboots = 4, /obj/item/clothing/head/hardhat = 4,
 					/obj/item/storage/belt/utility = 4, /obj/item/clothing/glasses/meson/engine = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
@@ -28,6 +30,7 @@
 	desc = "All the tools you need to create your own robot army."
 	icon_state = "robotics"
 	icon_deny = "robotics_deny"
+	category = VENDOR_TYPE_DEPARTMENTAL
 	icon_lightmask = "robotics"
 	req_access_txt = "29"
 	products = list(/obj/item/clothing/suit/storage/labcoat = 4, /obj/item/clothing/under/rank/rnd/roboticist = 4, /obj/item/stack/cable_coil = 4, /obj/item/flash = 4,
@@ -42,6 +45,7 @@
 	ads_list = list("Mm, food stuffs!","Food and food accessories.","Get your plates!","You like forks?","I like forks.","Woo, utensils.","You don't really need these...")
 	icon_state = "dinnerware"
 	icon_lightmask = "dinnerware"
+	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/storage/bag/tray = 8,
 					/obj/item/kitchen/utensil/fork = 6,
 					/obj/item/trash/plate = 20,
@@ -75,6 +79,7 @@
 	icon_deny = "nutri_deny"
 	icon_lightmask = "nutri"
 	icon_panel = "thin_vendor"
+	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20, /obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13, /obj/item/reagent_containers/glass/bottle/nutrient/rh = 6, /obj/item/reagent_containers/spray/pestspray = 20,
 					/obj/item/reagent_containers/syringe = 5, /obj/item/storage/bag/plants = 5, /obj/item/cultivator = 3, /obj/item/shovel/spade = 3, /obj/item/plant_analyzer = 4)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10, /obj/item/reagent_containers/glass/bottle/diethylamine = 5)
@@ -88,6 +93,7 @@
 	icon_state = "seeds"
 	icon_lightmask = "seeds"
 	icon_panel = "thin_vendor"
+	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/seeds/aloe = 3,
 					/obj/item/seeds/ambrosia = 3,
 					/obj/item/seeds/apple = 3,
@@ -152,6 +158,7 @@
 	icon_panel = "wide_vendor"
 	ads_list = list("Go save some lives!","The best stuff for your medbay.","Only the finest tools.","Natural chemicals!","This stuff saves lives.","Don't you want some?","Ping!")
 	req_access_txt = "5"
+	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 4,
 					/obj/item/stack/medical/bruise_pack/advanced = 2,
 					/obj/item/stack/medical/ointment/advanced = 2,
@@ -196,6 +203,7 @@
 /obj/machinery/economy/vending/plasmaresearch
 	name = "\improper Toximate 3000"
 	desc = "All the fine parts you need in one vending machine!"
+	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/assembly/prox_sensor = 8, /obj/item/assembly/igniter = 8, /obj/item/assembly/signaler = 8,
 					/obj/item/wirecutters = 1, /obj/item/assembly/timer = 8)
 	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/voice = 3, /obj/item/assembly/health = 3, /obj/item/assembly/infra = 3)
@@ -208,6 +216,7 @@
 	icon_lightmask = "sec"
 	icon_deny = "sec_deny"
 	icon_panel = "wide_vendor"
+	category = VENDOR_TYPE_DEPARTMENTAL
 	req_access_txt = "1"
 	products = list(/obj/item/restraints/handcuffs = 8,
 					/obj/item/restraints/handcuffs/cable/zipties = 8,

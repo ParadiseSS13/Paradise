@@ -1378,7 +1378,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "<span class='danger'>Hack aborted. [apc] is no longer responding to our systems.</span>")
 		SEND_SOUND(src, sound('sound/machines/buzz-sigh.ogg'))
 	else
-		malf_picker.processing_time += 10
+		malf_picker.processing_time += 15
 
 		apc.malfai = parent || src
 		apc.malfhack = TRUE

@@ -354,10 +354,13 @@
 				if("create_pill")
 					if(condi || !reagents.total_volume)
 						return
-					var/num = clamp(round(text2num(arguments["num"])), 0, MAX_MULTI_AMOUNT)
+
+					var/num = arguments["num"] || 1 // Multi puts a string in `num`, single leaves it null
+					num = clamp(round(text2num(num)), 0, MAX_MULTI_AMOUNT)
 					if(!num)
 						return
 					arguments["num"] = num
+
 					var/amount_per_pill = clamp(reagents.total_volume / num, 0, MAX_UNITS_PER_PILL)
 					var/default_name = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
 					var/pills_text = num == 1 ? "new pill" : "[num] new pills"
@@ -374,10 +377,13 @@
 				if("create_patch")
 					if(condi || !reagents.total_volume)
 						return
-					var/num = clamp(round(text2num(arguments["num"])), 0, MAX_MULTI_AMOUNT)
+
+					var/num = arguments["num"] || 1 // Multi puts a string in `num`, single leaves it null
+					num = clamp(round(text2num(num)), 0, MAX_MULTI_AMOUNT)
 					if(!num)
 						return
 					arguments["num"] = num
+
 					var/amount_per_patch = clamp(reagents.total_volume / num, 0, MAX_UNITS_PER_PATCH)
 					var/default_name = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
 					var/patches_text = num == 1 ? "new patch" : "[num] new patches"

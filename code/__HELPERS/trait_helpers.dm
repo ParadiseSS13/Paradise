@@ -207,6 +207,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
 #define TRAIT_CONTORTED_BODY	"contorted_body"
 #define TRAIT_DEFLECTS_PROJECTILES "trait_deflects_projectiles"
+#define TRAIT_XENO_INTERACTABLE	"can_be_interacted_with_by_xenos"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -215,6 +216,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** ITEM TRAITS *****//
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
+/// An item that is being wielded.
+#define TRAIT_WIELDED "wielded"
 /// Wires on this will have their titles randomized for those with SHOW_WIRES
 #define TRAIT_OBSCURED_WIRES "obscured_wires"
 /// Forces open doors after a delay specific to the item
