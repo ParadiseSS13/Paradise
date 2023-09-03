@@ -21,6 +21,16 @@
 	cost = 3
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/space/destroyed_infiltrator
+	name = "Destroyed Infiltrator Ship"
+	id = "destroyed_infiltrator"
+	description = "They're loading BSA! But why? Ah, they're going to sho-..."
+	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
+	suffix = "destroyed_infiltrator.dmm"
+	cost = 3
+	allow_duplicates = FALSE
+
+
 // Тут код гейтов которые перенесли в космос, делать можно по приверу ниже.
 // Сам gateaway не трогать, это группа которая не позволяет спавнится сразу нескольким "гейтам"
 /datum/map_template/ruin/space/gateaway
