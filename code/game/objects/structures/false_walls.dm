@@ -116,7 +116,7 @@
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
 		return
 
-	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/twohanded/required/pyro_claws))
+	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/pyro_claws))
 		dismantle(user, TRUE)
 
 /obj/structure/falsewall/attack_animal(mob/living/simple_animal/M)

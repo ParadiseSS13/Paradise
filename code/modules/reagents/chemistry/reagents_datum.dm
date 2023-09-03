@@ -121,15 +121,18 @@
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
-	if(addiction_chance && !is_type_in_list(src, M.reagents.addiction_list))
-		M.reagents.addiction_threshold_accumulated[type] += consumption_rate
-		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[type]
+	if(!addiction_chance)
+		return
+	M.reagents.addiction_threshold_accumulated[type] += consumption_rate
+	if(is_type_in_list(src, M.reagents.addiction_list))
+		return
+	var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[type]
 
-		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
-			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
-			var/datum/reagent/new_reagent = new type()
-			new_reagent.last_addiction_dose = world.timeofday
-			M.reagents.addiction_list.Add(new_reagent)
+	if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
+		to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
+		var/datum/reagent/new_reagent = new type()
+		new_reagent.last_addiction_dose = world.timeofday
+		M.reagents.addiction_list.Add(new_reagent)
 
 /datum/reagent/proc/sate_addiction(mob/living/M) //reagents sate their own withdrawals
 	if(is_type_in_list(src, M.reagents.addiction_list))
