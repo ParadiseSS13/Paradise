@@ -54,13 +54,17 @@
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+		var/obj/item/O = user.get_inactive_hand()
 		if(!L)
-			if(R.use(1))
-				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				ReplaceWithLattice()
+			if(isscrewdriver(O))
+				if(R.use(1))
+					to_chat(user, "<span class='notice'>You construct a lattice.</span>")
+					playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+					ReplaceWithLattice()
+				else
+					to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 			else
-				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
+				to_chat(user, "<span class='warning'>You need to hold a screwdriver in your other hand to secure this lattice.</span>")
 			return
 	if(istype(C, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
