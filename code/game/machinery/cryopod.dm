@@ -345,7 +345,7 @@
 			var/obj/item/storage/backpack/modstorage/M = I
 			M.forceMove(M.source)
 			continue
-		
+
 		var/preserve = should_preserve_item(I)
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
@@ -591,77 +591,6 @@
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
 
-/obj/machinery/cryopod/verb/eject()
-	set name = "Eject Pod"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat != 0)
-		return
-
-	if(usr != occupant)
-		to_chat(usr, "The cryopod is in use and locked!")
-		return
-	icon_state = base_icon_state
-
-	//Eject any items that aren't meant to be in the pod.
-	var/list/items = contents
-	if(occupant) items -= occupant
-	if(announce) items -= announce
-
-	for(var/obj/item/I in items)
-		I.forceMove(get_turf(src))
-
-	go_out()
-	add_fingerprint(usr)
-
-	name = initial(name)
-
-/obj/machinery/cryopod/verb/move_inside()
-	set name = "Enter Pod"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat != 0 || !check_occupant_allowed(usr))
-		return
-
-	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
-		return
-
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
-		return
-
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-
-	visible_message("[usr] starts climbing into [src].")
-
-	if(do_after(usr, 20, target = usr))
-
-		if(!usr || !usr.client)
-			return
-
-		if(occupant)
-			to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
-			return
-
-		usr.stop_pulling()
-		usr.forceMove(src)
-		occupant = usr
-		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
-		icon_state = occupied_icon_state
-		to_chat(usr, "<span class='notice'>[on_enter_occupant_message]</span>")
-		to_chat(usr, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
-		occupant = usr
-		time_entered = world.time
-
-		add_fingerprint(usr)
-		name = "[name] ([usr.name])"
-
-	return
-
 /obj/machinery/cryopod/proc/go_out()
 	if(!occupant)
 		return
@@ -671,9 +600,6 @@
 	icon_state = base_icon_state
 	name = initial(name)
 	playsound(src, 'sound/machines/podopen.ogg', 5)
-
-	return
-
 
 //Attacks/effects.
 /obj/machinery/cryopod/blob_act()

@@ -70,12 +70,10 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 /obj/machinery/doppler_array/AltClick(mob/user)
 	rotate(user)
 
-/obj/machinery/doppler_array/verb/rotate(mob/user)
-	set name = "Rotate Tachyon-doppler Dish"
-	set category = "Object"
-	set src in oview(1)
-
-	if(user.incapacitated())
+/obj/machinery/doppler_array/proc/rotate(mob/user)
+	if(user.stat)
+		return
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!Adjacent(user))
 		return

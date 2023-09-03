@@ -101,6 +101,10 @@ REAGENT SCANNER
 	var/mode = 1
 	var/advanced = FALSE
 
+/obj/item/healthanalyzer/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>Use [src] in hand to swap between showing specific limb damage.</span>"
+
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", "<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
@@ -280,18 +284,12 @@ REAGENT SCANNER
 		to_chat(user, "<span class='danger'>Subject is irradiated.</span>")
 
 /obj/item/healthanalyzer/attack_self(mob/user)
-	toggle_mode()
-
-/obj/item/healthanalyzer/verb/toggle_mode()
-	set name = "Switch Verbosity"
-	set category = "Object"
-
 	mode = !mode
 	switch(mode)
 		if(1)
-			to_chat(usr, "The scanner now shows specific limb damage.")
+			to_chat(user, "The scanner now shows specific limb damage.")
 		if(0)
-			to_chat(usr, "The scanner no longer shows limb damage.")
+			to_chat(user, "The scanner no longer shows limb damage.")
 
 /obj/item/healthanalyzer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/healthupgrade))

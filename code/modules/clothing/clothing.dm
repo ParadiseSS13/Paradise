@@ -223,22 +223,18 @@
  * BLIND     // can't see anything
 */
 
-/obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
-	set name = "Adjust Eyewear"
-	set category = "Object"
-	set desc = "Adjust your eyewear to be worn over or under a mask."
-	set src in usr
+/obj/item/clothing/glasses/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to adjust if it fits over or under your mask.</span>"
 
-	var/mob/living/carbon/human/user = usr
-	if(!istype(user))
-		return
-	if(user.incapacitated()) //Dead spessmen adjust no glasses. Resting/buckled ones do, though
+/obj/item/clothing/glasses/AltClick(mob/living/carbon/human/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
 		return
 
 	var/action_fluff = "You adjust \the [src]"
 	if(user.glasses == src)
 		if(!user.canUnEquip(src))
-			to_chat(usr, "[src] is stuck to you!")
+			to_chat(user, "[src] is stuck to you!")
 			return
 		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
 			action_fluff = "You remove \the [src] and adjust it"
@@ -354,13 +350,6 @@
 			var/mob/living/carbon/human/H = src
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
-
-/obj/item/clothing/under/verb/toggle()
-	set name = "Toggle Suit Sensors"
-	set category = "Object"
-	set src in usr
-
-	set_sensors(usr)
 
 /obj/item/clothing/under/AltShiftClick(mob/user)
 	set_sensors(user)
@@ -821,69 +810,52 @@
 			if(SUIT_SENSOR_TRACKING)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 		if(has_sensor == 1)
-			. += "Alt-shift-click to toggle the sensors mode."
+			. += "<span class='info'>Alt-shift-click to toggle the sensors mode.</span>"
 	else
 		. += "This suit does not have any sensors."
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
-		. += "Alt-click to remove an accessory."
+	. += "<span class='info'>Alt-click to remove an accessory.</span>"
+	. += "<span class='info'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
 
 
-/obj/item/clothing/under/verb/rollsuit()
-	set name = "Roll Down Jumpsuit"
-	set category = "Object"
-	set src in usr
-	if(!isliving(usr)) return
-	if(usr.stat) return
+/obj/item/clothing/under/CtrlShiftClick(mob/living/carbon/human/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
+		to_chat(user, "<span class='notice'>You cannot roll down the uniform!</span>")
+		return
 
-	var/mob/living/carbon/human/H = usr
+	if(copytext(item_color,-2) != "_d")
+		basecolor = item_color
 
-	if(!usr.incapacitated())
-		if(copytext(item_color,-2) != "_d")
-			basecolor = item_color
-
-		if(usr.get_item_by_slot(slot_w_uniform) != src)
-			to_chat(usr, "<span class='notice'>You must wear the uniform to adjust it!</span>")
-
-		else
-			if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.name]))
-				if(H.w_uniform.sprite_sheets[H.dna.species.name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.name], "[basecolor]_d_s"))
-					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-					usr.update_inv_w_uniform()
-
-			else
-				if(H.w_uniform.sprite_sheets["Human"] && icon_exists(H.w_uniform.sprite_sheets["Human"], "[basecolor]_d_s"))
-					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-					usr.update_inv_w_uniform()
-				else
-					to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
+	if(user.get_item_by_slot(slot_w_uniform) != src)
+		to_chat(user, "<span class='notice'>You must wear the uniform to adjust it!</span>")
 
 	else
-		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
+		if((basecolor + "_d_s") in icon_states(user.w_uniform.sprite_sheets[user.dna.species.name]))
+			if(user.w_uniform.sprite_sheets[user.dna.species.name] && icon_exists(user.w_uniform.sprite_sheets[user.dna.species.name], "[basecolor]_d_s"))
+				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+				user.update_inv_w_uniform()
 
-/obj/item/clothing/under/verb/removetie()
-	set name = "Remove Accessory"
-	set category = "Object"
-	set src in usr
-	handle_accessories_removal()
+		else
+			if(user.w_uniform.sprite_sheets["Human"] && icon_exists(user.w_uniform.sprite_sheets["Human"], "[basecolor]_d_s"))
+				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+				user.update_inv_w_uniform()
+			else
+				to_chat(user, "<span class='notice'>You cannot roll down this uniform!</span>")
 
-/obj/item/clothing/under/proc/handle_accessories_removal()
-	if(!isliving(usr))
+/obj/item/clothing/under/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(usr.incapacitated())
-		return
-	if(!Adjacent(usr))
-		return
-	if(!accessories.len)
+	if(!length(accessories))
 		return
 	var/obj/item/clothing/accessory/A
-	if(accessories.len > 1)
+	if(length(accessories) > 1)
 		A = input("Select an accessory to remove from [src]") as null|anything in accessories
 	else
 		A = accessories[1]
-	remove_accessory(usr,A)
+	remove_accessory(user, A)
 
 /obj/item/clothing/under/proc/remove_accessory(mob/user, obj/item/clothing/accessory/A)
 	if(!(A in accessories))
@@ -902,9 +874,6 @@
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()
-
-/obj/item/clothing/under/AltClick()
-	handle_accessories_removal()
 
 /obj/item/clothing/obj_destruction(damage_flag)
 	if(damage_flag == BOMB || damage_flag == MELEE)

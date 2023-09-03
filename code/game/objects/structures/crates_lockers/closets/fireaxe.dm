@@ -127,38 +127,6 @@
 	// no, you can't shove people into a fireaxe cabinet either
 	return FALSE
 
-/obj/structure/closet/fireaxecabinet/verb/toggle_openness() //nice name, huh? HUH?! -Erro //YEAH -Agouri
-	set name = "Open/Close"
-	set category = "Object"
-
-	if(isrobot(usr) || locked || smashed)
-		if(locked)
-			to_chat(usr, "<span class='warning'>The cabinet won't budge!</span>")
-		else if(smashed)
-			to_chat(usr, "<span class='notice'>The protective glass is broken!</span>")
-		return
-
-	operate_panel()
-
-/obj/structure/closet/fireaxecabinet/verb/remove_fire_axe()
-	set name = "Remove Fire Axe"
-	set category = "Object"
-
-	if(isrobot(usr))
-		return
-
-	if(localopened)
-		if(fireaxe)
-			usr.put_in_hands(fireaxe)
-			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from [src].</span>")
-			has_axe = "empty"
-			fireaxe = null
-		else
-			to_chat(usr, "<span class='notice'>[src] is empty.</span>")
-	else
-		to_chat(usr, "<span class='notice'>[src] is closed.</span>")
-	update_icon(UPDATE_ICON_STATE)
-
 /obj/structure/closet/fireaxecabinet/attack_ai(mob/user as mob)
 	if(smashed)
 		to_chat(user, "<span class='warning'>The security of the cabinet is compromised.</span>")

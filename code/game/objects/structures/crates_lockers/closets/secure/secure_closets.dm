@@ -82,20 +82,6 @@
 	else
 		toggle(user)
 
-/obj/structure/closet/secure_closet/verb/verb_togglelock()
-	set src in oview(1) // One square distance
-	set category = "Object"
-	set name = "Toggle Lock"
-
-	if(usr.incapacitated()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
-		return
-
-	if(ishuman(usr)||isrobot(usr))
-		add_fingerprint(usr)
-		togglelock(usr)
-		return
-	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
-
 /obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
 	cut_overlays()
 	if(opened)

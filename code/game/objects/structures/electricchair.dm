@@ -25,6 +25,10 @@
 		part.part1 = part1
 		part.part2 = part2
 
+/obj/structure/chair/e_chair/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>You can <b>Alt-Click</b> [src] to activate it.</span>"
+
 /obj/structure/chair/e_chair/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/wrench))
 		var/obj/structure/chair/C = new /obj/structure/chair(loc)
@@ -37,16 +41,13 @@
 		return
 	return ..()
 
-/obj/structure/chair/e_chair/verb/activate_e_chair()
-	set name = "Activate Electric Chair"
-	set category = "Object"
-	set src in oview(1)
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
+/obj/structure/chair/e_chair/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(last_time + delay_time > world.time)
-		to_chat(usr, "<span class='warning'>\The [src] is not ready yet!</span>")
+		to_chat(user, "<span class='warning'>[src] is not ready yet!</span>")
 		return
-	to_chat(usr, "<span class='notice'>You activate \the [src].</span>")
+	to_chat(user, "<span class='notice'>You activate [src].</span>")
 	shock()
 
 /obj/structure/chair/e_chair/rotate()

@@ -128,6 +128,10 @@
 	materials = list()
 	on = TRUE
 
+/obj/item/flashlight/lamp/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to turn it on/off.</span>"
+
 // green-shaded desk lamp
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
@@ -137,13 +141,11 @@
 /obj/item/flashlight/lamp/green/off
 	on = FALSE
 
-/obj/item/flashlight/lamp/verb/toggle_light()
-	set name = "Toggle light"
-	set category = "Object"
-	set src in oview(1)
+/obj/item/flashlight/lamp/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
-	if(!usr.stat)
-		attack_self(usr)
+	attack_self(user)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp

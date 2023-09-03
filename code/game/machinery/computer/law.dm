@@ -27,22 +27,6 @@
 	do_sparks(5, TRUE, src)
 	circuit = /obj/item/circuitboard/aiupload_broken
 
-// What the fuck even is this
-/obj/machinery/computer/aiupload/verb/AccessInternals()
-	set category = "Object"
-	set name = "Access Computer's Internals"
-	set src in oview(1)
-	if(get_dist(src, usr) > 1 || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || issilicon(usr))
-		return
-
-	opened = !opened
-	if(opened)
-		to_chat(usr, "<span class='notice'>The access panel is now open.</span>")
-	else
-		to_chat(usr, "<span class='notice'>The access panel is now closed.</span>")
-	return
-
-
 /obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/aiModule))
 		return ..()

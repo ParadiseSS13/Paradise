@@ -47,4 +47,4 @@
 
 /datum/keybinding/client/toggle_min_hud/down(client/C)
 	. = ..()
-	C.mob.button_pressed_F12()
+	C.mob.hide_hud()

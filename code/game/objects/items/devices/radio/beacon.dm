@@ -3,7 +3,6 @@
 	desc = "A beacon used by a teleporter."
 	icon_state = "beacon"
 	item_state = "signaler"
-	var/code = "Beacon"
 	origin_tech = "bluespace=1"
 	var/syndicate = FALSE
 	var/area_bypass = FALSE
@@ -11,7 +10,6 @@
 
 /obj/item/radio/beacon/New()
 	..()
-	code = "[code] ([GLOB.beacons.len + 1])"
 	GLOB.beacons += src
 
 /obj/item/radio/beacon/Destroy()
@@ -30,20 +28,6 @@
 
 /obj/item/radio/beacon/send_hear()
 	return null
-
-/obj/item/radio/beacon/verb/alter_signal(t as text)
-	set name = "Alter Beacon's Signal"
-	set category = "Object"
-	set src in usr
-
-	if(usr.stat || usr.restrained())
-		return
-
-	code = t
-	if(isnull(code))
-		code = initial(code)
-	src.add_fingerprint(usr)
-	return
 
 /obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
 
