@@ -214,7 +214,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG))
 			msg = "<span class='notice'>[src] talks into [used_radios[1]]</span>"
 			var/list/specialradiochannels = list("Syndicate", "SyndTeam", "Security", "Procedure", "Command", "Response Team", "Special Ops")
-			if(message_mode in specialradiochannels	)
+			if(message_mode in special_radio_channels)
 				SEND_SOUND(src, sound('sound/items/radio_security.ogg', volume = rand(4, 16)*5* client.prefs.get_channel_volume(CHANNEL_RADIO_TRANSMIT), channel = CHANNEL_RADIO_TRANSMIT))
 			else
 				SEND_SOUND(src, sound('sound/items/radio_common.ogg', volume = rand(4, 16)*5* client.prefs.get_channel_volume(CHANNEL_RADIO_TRANSMIT), channel = CHANNEL_RADIO_TRANSMIT))
