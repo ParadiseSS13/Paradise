@@ -1,3 +1,17 @@
+/* Station */
+/area/security/checkpoint/south
+	name = "\improper Escape Security Checkpoint"
+
+/area/bridge/checkpoint
+	name = "\improper Command Checkpoint"
+
+/area/bridge/checkpoint/north
+	name = "\improper North Command Checkpoint"
+
+/area/bridge/checkpoint/south
+	name = "\improper South Command Checkpoint"
+
+/* CentCom */
 /area/centcom220
 	name = "\improper ЦК"
 	icon_state = "centcom"

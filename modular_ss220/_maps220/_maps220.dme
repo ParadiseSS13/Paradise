@@ -5,6 +5,7 @@
 #include "code/RandomRuins/lavaland_ruins.dm"
 #include "code/RandomRuins/space_ruins.dm"
 #include "code/Station/cyberiad.dm"
+#include "code/Station/delta.dm"
 #include "code/mobs.dm"
 #include "code/spawners.dm"
 #include "code/helpers.dm"
