@@ -65,6 +65,7 @@
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
 	if(user.is_literate())
 		if(in_range(user, src) || isobserver(user))
 			show_content(user)
@@ -94,16 +95,22 @@
 		popup.open()
 	return data
 
-/obj/item/paper/verb/rename()
-	set name = "Rename paper"
-	set category = "Object"
-	set src in usr
-
-	if(HAS_TRAIT(usr, TRAIT_CLUMSY) && prob(50))
-		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
+/obj/item/paper/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(!usr.is_literate())
-		to_chat(usr, "<span class='notice'>You don't know how to read.</span>")
+
+	if(is_pen(user.get_active_hand()))
+		rename(user)
+	else
+		return ..()
+
+/obj/item/paper/proc/rename(mob/user)
+
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
+		return
+	if(!user.is_literate())
+		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
 		return
 	var/n_name = rename_interactive(usr)
 	if(isnull(n_name))
@@ -112,8 +119,7 @@
 		desc = "This is a paper titled '" + name + "'."
 	else
 		desc = initial(desc)
-	add_fingerprint(usr)
-	return
+	add_fingerprint(user)
 
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)

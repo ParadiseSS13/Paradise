@@ -173,18 +173,14 @@
 /obj/item/pinpointer/advpinpointer/AltClick(mob/user)
 	if(!isliving(user) || !Adjacent(user))
 		return ..()
-	toggle_mode()
+	toggle_mode(user)
 
-/obj/item/pinpointer/advpinpointer/verb/toggle_mode()
-	set category = "Object"
-	set name = "Toggle Pinpointer Mode"
-	set src in usr
-
-	if(usr.stat || usr.restrained())
+/obj/item/pinpointer/advpinpointer/proc/toggle_mode(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(modelocked)
-		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
+		to_chat(user, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
 	target = null
@@ -194,18 +190,18 @@
 		if("Location")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(usr, "Please input the x coordinate to search for.", "Location?" , "") as num
-			if(!locationx || !(usr in view(1,src)))
+			var/locationx = input(user, "Please input the x coordinate to search for.", "Location?" , "") as num
+			if(!locationx || !(user in view(1,src)))
 				return
-			var/locationy = input(usr, "Please input the y coordinate to search for.", "Location?" , "") as num
-			if(!locationy || !(usr in view(1,src)))
+			var/locationy = input(user, "Please input the y coordinate to search for.", "Location?" , "") as num
+			if(!locationy || !(user in view(1,src)))
 				return
 
 			var/turf/Z = get_turf(src)
 
 			location = locate(locationx,locationy,Z.z)
 
-			to_chat(usr, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
+			to_chat(user, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
 
 			toggle_on()
 
@@ -235,12 +231,12 @@
 						var/cand_z = (get_turf(candidate)).z
 						if(is_admin_level(cand_z))
 							continue
-						if(usr.z != cand_z)
+						if(user.z != cand_z)
 							if(!backup)
 								backup = candidate
 							continue
 						// no candidate set yet, or check if there is a closer one
-						if(!priority || (get_dist(usr, candidate) < get_dist(usr, priority)))
+						if(!priority || (get_dist(user, candidate) < get_dist(user, priority)))
 							priority = candidate
 
 					if(priority)
@@ -248,13 +244,13 @@
 					else
 						target = backup
 						if(target)
-							to_chat(usr, "<span class='notice'>Unable to find [targetitem] in this sector, falling back to off-sector tracking.</span>")
+							to_chat(user, "<span class='notice'>Unable to find [targetitem] in this sector, falling back to off-sector tracking.</span>")
 
 					if(!target)
-						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
+						to_chat(user, "<span class='warning'>Failed to locate [targetitem]!</span>")
 						return
 
-					to_chat(usr, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
+					to_chat(user, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
 
 				if("DNA")
 					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")

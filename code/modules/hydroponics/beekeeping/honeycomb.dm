@@ -18,9 +18,6 @@
 	pixel_y = rand(8,-8)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/food/snacks/honeycomb/set_APTFT()
-	set hidden = TRUE
-
 /obj/item/reagent_containers/food/snacks/honeycomb/update_overlays()
 	. = ..()
 	var/image/honey

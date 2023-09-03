@@ -193,20 +193,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(B && B.loc == loc)
 		qdel(src)
 
-/obj/item/verb/move_to_top()
-	set name = "Move To Top"
-	set category = null
-	set src in oview(1)
-
-	if(!isturf(src.loc) || usr.stat || usr.restrained() )
-		return
-
-	var/turf/T = src.loc
-
-	src.loc = null
-
-	src.loc = T
-
 /obj/item/examine(mob/user)
 	var/size
 	switch(src.w_class)

@@ -55,6 +55,7 @@
 	. = ..()
 	if(panel_open)
 		. += "<span class='notice'>The maintenance panel is open.</span>"
+	. += "<span class='info'><b>Alt-Click</b> to rotate [src].</span>"
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
@@ -72,23 +73,14 @@
 		power_usage -= 50 * M.rating
 	active_power_consumption = power_usage
 
-/obj/machinery/power/emitter/verb/rotate()
-	set name = "Rotate"
-	set category = "Object"
-	set src in oview(1)
+/obj/machinery/power/emitter/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
 	if(anchored)
-		to_chat(usr, "It is fastened to the floor!")
+		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
 		return
 	dir = turn(dir, 90)
-
-/obj/machinery/power/emitter/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!Adjacent(user))
-		return
-	rotate()
 
 /obj/machinery/power/emitter/Destroy()
 	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)]) [usr ? "Broken by [key_name_admin(usr)]" : ""]", ATKLOG_FEW)
