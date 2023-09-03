@@ -91157,7 +91157,6 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Test Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/machinery/door/poddoor/preopen{
 	name = "Biohazard Shutter";
 	id_tag = "RnDChem"
@@ -91168,6 +91167,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "pWn" = (
@@ -94261,7 +94261,7 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "E.X.P.E.R.I-MENTOR Lab"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/tox,
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "twX" = (
@@ -96488,7 +96488,6 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Science Chemistry"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -96504,6 +96503,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "wbk" = (
