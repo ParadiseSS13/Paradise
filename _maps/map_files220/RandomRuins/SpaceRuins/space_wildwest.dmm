@@ -269,7 +269,7 @@
 /area/awaymission/wwspace/wwmines)
 "cQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/wwspace/wwmines)
 "cS" = (
@@ -664,7 +664,7 @@
 	},
 /area/awaymission/wwspace/wwrefine)
 "ge" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/wood,
 /area/awaymission/wwspace/wwmines)
 "gk" = (
@@ -1767,7 +1767,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/wwspace/wwrefine)
 "pR" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /obj/effect/mine/dnascramble,
 /turf/simulated/floor/carpet/green,
 /area/awaymission/wwspace/wwmines)
@@ -1925,7 +1925,7 @@
 /area/awaymission/wwspace/wwmines)
 "rp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/wood,
 /area/awaymission/wwspace/wwmines)
 "rs" = (
@@ -2968,7 +2968,7 @@
 	},
 /area/awaymission/wwspace/wwmines)
 "BH" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellowfull"
@@ -3147,7 +3147,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/crate/trashcart,
-/obj/item/twohanded/fireaxe,
+/obj/item/fireaxe,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken7"
@@ -3517,7 +3517,7 @@
 /turf/simulated/floor,
 /area/awaymission/wwspace/wwmines)
 "GQ" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /obj/effect/mine/dnascramble,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
@@ -4938,7 +4938,7 @@
 	},
 /area/awaymission/wwspace/wwmines)
 "Wa" = (
-/obj/item/twohanded/required/kirbyplants/dead,
+/obj/item/kirbyplants/dead,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},

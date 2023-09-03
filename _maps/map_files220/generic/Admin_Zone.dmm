@@ -121,7 +121,7 @@
 /area/space)
 "cP" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/fireaxe/energized,
+/obj/item/fireaxe/energized,
 /turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
@@ -162,7 +162,7 @@
 /area/holodeck/source_desert)
 "dk" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/bostaff,
+/obj/item/bostaff,
 /turf/simulated/floor/wood,
 /area/admin)
 "dn" = (
@@ -343,7 +343,7 @@
 /area/admin)
 "fg" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/dualsaber/toy,
+/obj/item/dualsaber/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "fh" = (
@@ -597,7 +597,7 @@
 /area/admin)
 "jD" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/fireaxe/boneaxe,
+/obj/item/fireaxe/boneaxe,
 /turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
@@ -677,7 +677,7 @@
 /area/admin)
 "kq" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/chainsaw,
+/obj/item/butcher_chainsaw,
 /turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
@@ -780,7 +780,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "lT" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "lX" = (
@@ -877,7 +877,7 @@
 /obj/item/clothing/shoes/roman,
 /obj/item/shield/riot/roman,
 /obj/item/clothing/head/helmet/roman/legionaire,
-/obj/item/twohanded/spear/bonespear,
+/obj/item/spear/bonespear,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -1276,7 +1276,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "tI" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -1808,7 +1808,7 @@
 	},
 /area/tdome/tdomeobserve)
 "Bv" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /obj/machinery/light/small{
 	brightness_range = 6;
 	dir = 8;
@@ -1834,7 +1834,7 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2361,7 +2361,7 @@
 /area/holodeck/source_picnicarea)
 "Jc" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/required/chainsaw/doomslayer,
+/obj/item/chainsaw/doomslayer,
 /turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
@@ -2951,7 +2951,7 @@
 /area/admin)
 "QH" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/fireaxe,
+/obj/item/fireaxe,
 /turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
@@ -3083,7 +3083,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "SR" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/simulated/floor/wood,
 /area/admin)
 "SU" = (
@@ -3237,7 +3237,7 @@
 /area/admin)
 "Uk" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/required/chainsaw,
+/obj/item/chainsaw,
 /turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
@@ -3370,7 +3370,7 @@
 /area/admin)
 "Wd" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/toy/chainsaw,
+/obj/item/toy/chainsaw,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Wx" = (

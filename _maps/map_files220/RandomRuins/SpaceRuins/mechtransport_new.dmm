@@ -378,7 +378,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "iU" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-32"
 	},
 /obj/machinery/light_construct{
@@ -1272,7 +1272,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Bh" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-34"
 	},
 /obj/machinery/light/spot{
@@ -1768,7 +1768,7 @@
 /turf/simulated/floor/bluegrid,
 /area/ruin/space/powered)
 "Jq" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-32"
 	},
 /obj/machinery/light_construct{
@@ -2314,7 +2314,7 @@
 /turf/simulated/floor/bluegrid,
 /area/ruin/space/powered)
 "TR" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-34"
 	},
 /obj/machinery/light_construct{
