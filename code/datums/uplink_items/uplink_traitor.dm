@@ -138,7 +138,7 @@
 	desc = "A push broom with a reinforced handle and a metal wire brush, perfect for giving yourself more work by beating up assistants. \
 	When wielded, you will reflect projectiles, and hitting people will have different effects based on your intent."
 	reference = "TPBR"
-	item = /obj/item/twohanded/push_broom/traitor
+	item = /obj/item/push_broom/traitor
 	cost = 60
 	job = list("Janitor")
 	surplus = 0 //no reflect memes
@@ -265,7 +265,7 @@
 	name = "Energized Fire Axe"
 	desc = "A fire axe with a massive energy charge built into it. Upon striking someone while charged it will throw them backwards while stunning them briefly, but will take some time to charge up again. It is also much sharper than a regular axe and can pierce light armor."
 	reference = "EFA"
-	item = /obj/item/twohanded/fireaxe/energized
+	item = /obj/item/fireaxe/energized
 	cost = 40
 	job = list("Life Support Specialist")
 
@@ -320,7 +320,6 @@
 	cost = 20
 	species = list("Skrell")
 
-
 //Vox
 /datum/uplink_item/species_restricted/spikethrower
 	name = "Skipjack Spikethrower"
@@ -329,6 +328,7 @@
 	item = /obj/item/gun/energy/spikethrower
 	cost = 60
 	species = list("Vox")
+	surplus = 0
 
 //IPC:
 //Positonic supercharge implant: stims, 3 uses, IPC adrenals
@@ -339,6 +339,7 @@
 	item = /obj/item/implanter/supercharge
 	cost = 40
 	species = list("Machine")
+	surplus = 0
 
 
 //plasmeme
@@ -349,6 +350,7 @@
 	item = /obj/item/fireproofing_injector
 	cost = 25
 	species = list("Plasmaman")
+	surplus = 0
 
 
 // -------------------------------------
@@ -487,7 +489,7 @@
 	You can also play card games with them."
 	reference = "SPC"
 	item = /obj/item/deck/cards/syndicate
-	cost = 5
+	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
 
@@ -496,7 +498,7 @@
 	desc = "A simple, plastic bag. Keep out of reach of small children, do not apply to head."
 	reference = "PBAG"
 	item = /obj/item/storage/bag/plasticbag
-	cost = 5
+	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/contractor

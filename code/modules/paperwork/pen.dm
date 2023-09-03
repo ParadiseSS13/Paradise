@@ -145,6 +145,9 @@
 	reagents.add_reagent("ketamine", 100)
 
 /obj/item/pen/sleepy/love
+	name = "fancy pen"
+	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
+	icon_state = "fancypen"
 	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
 	origin_tech = "engineering=4;syndicate=2"
 

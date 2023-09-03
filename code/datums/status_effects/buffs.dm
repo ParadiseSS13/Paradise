@@ -265,67 +265,99 @@
 	H.remove_hud_from(owner)
 
 /datum/status_effect/hippocraticOath/tick()
+	// Death transforms you into a snake after a short grace period
 	if(owner.stat == DEAD)
 		if(deathTick < 4)
-			deathTick += 1
-		else
-			owner.visible_message("<span class='notice'>[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.</span>")
-			var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
-			var/list/chems = list("bicaridine", "perfluorodecalin", "kelotane")
-			healSnake.poison_type = pick(chems)
-			healSnake.name = "Asclepius's Snake"
-			healSnake.real_name = "Asclepius's Snake"
-			healSnake.desc = "A mystical snake previously trapped upon the Rod of Asclepius, now freed of its burden. Unlike the average snake, its bites contain chemicals with minor healing properties."
-			new /obj/effect/decal/cleanable/ash(owner.loc)
-			new /obj/item/rod_of_asclepius(owner.loc)
-			qdel(owner)
-	else
-		if(ishuman(owner))
-			var/mob/living/carbon/human/itemUser = owner
-			//Because a servant of medicines stops at nothing to help others, lets keep them on their toes and give them an additional boost.
-			if(itemUser.health < itemUser.maxHealth)
-				new /obj/effect/temp_visual/heal(get_turf(itemUser), COLOR_HEALING_GREEN)
-			itemUser.adjustBruteLoss(-1.5)
-			itemUser.adjustFireLoss(-1.5)
-			itemUser.adjustToxLoss(-1.5)
-			itemUser.adjustOxyLoss(-1.5)
-			itemUser.adjustStaminaLoss(-1.5)
-			itemUser.adjustBrainLoss(-1.5)
-			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
-		if(heal_points < max_heal_points)
-			heal_points = min(heal_points += 3, max_heal_points)
-		//Heal all those around you, unbiased
-		for(var/mob/living/L in view(7, owner))
-			if(heal_points <= 0)
-				break
-			if(L.health < L.maxHealth)
-				new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
-			if(iscarbon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-				L.adjustToxLoss(-3.5)
-				L.adjustOxyLoss(-3.5)
-				L.adjustStaminaLoss(-3.5)
-				L.adjustBrainLoss(-3.5)
-				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
+			deathTick++
+			return
+
+		owner.visible_message("<span class='notice'>[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.</span>")
+		var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
+		var/list/chems = list("bicaridine", "perfluorodecalin", "kelotane")
+		healSnake.poison_type = pick(chems)
+		healSnake.name = "Asclepius's Snake"
+		healSnake.real_name = "Asclepius's Snake"
+		healSnake.desc = "A mystical snake previously trapped upon the Rod of Asclepius, now freed of its burden. Unlike the average snake, its bites contain chemicals with minor healing properties."
+		new /obj/effect/decal/cleanable/ash(owner.loc)
+		new /obj/item/rod_of_asclepius(owner.loc)
+		qdel(owner)
+		return
+
+	// A servant of medicines stops at nothing to help others, let's give them an additional boost
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss()) // Avoid counting burn wounds
+			H.adjustBruteLoss(-1.5, robotic = TRUE)
+			H.adjustFireLoss(-1.5, robotic = TRUE)
+			H.adjustOxyLoss(-1.5)
+			H.adjustToxLoss(-1.5)
+			H.adjustBrainLoss(-1.5)
+			H.adjustStaminaLoss(-1.5)
+			H.adjustCloneLoss(-0.5)
+			new /obj/effect/temp_visual/heal(get_turf(H), COLOR_HEALING_GREEN)
+
+	// Regenerate points passively
+	if(heal_points < max_heal_points)
+		heal_points = min(heal_points + 3, max_heal_points)
+
+	// The main course: heal everyone around you with the points we just gained!
+	for(var/mob/living/L in view(7, owner))
+		heal(L)
+		if(!heal_points)
+			break
+
+/datum/status_effect/hippocraticOath/proc/heal(mob/living/L)
+	var/starting_points = heal_points
+	var/force_particle = FALSE
+
+	if(ishuman(L))
+		heal_human(L)
+	else if(iscarbon(L))
+		if(L.health < L.maxHealth || L.getStaminaLoss()) // Carbons have no burn wounds to worry about nor brain damage to heal
+			L.adjustBruteLoss(-3.5)
+			L.adjustFireLoss(-3.5)
+			L.adjustOxyLoss(-3.5)
+			L.adjustToxLoss(-3.5)
+			L.adjustStaminaLoss(-3.5)
+			L.adjustCloneLoss(-1)
+			heal_points--
+	else if(issilicon(L))
+		if(L.health < L.maxHealth)
+			L.adjustBruteLoss(-3.5)
+			L.adjustFireLoss(-3.5)
+			heal_points--
+	else if(isanimal(L))
+		var/mob/living/simple_animal/SM = L
+		if(SM.health < SM.maxHealth)
+			SM.adjustHealth(-3.5)
+			force_particle = TRUE
+			if(prob(50)) // Animals are simpler
 				heal_points--
-				if(ishuman(L))
-					var/mob/living/carbon/human/H = L
-					for(var/obj/item/organ/external/E in H.bodyparts)
-						if(prob(10))
-							E.mend_fracture()
-							E.fix_internal_bleeding()
-							E.fix_burn_wound(update_health = FALSE)
-							heal_points--
-			else if(issilicon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-				heal_points--
-			else if(isanimal(L))
-				var/mob/living/simple_animal/SM = L
-				SM.adjustHealth(-3.5)
-				if(prob(50))
-					heal_points -- // Animals are simpler
+
+	if(starting_points < heal_points || force_particle)
+		new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
+
+/datum/status_effect/hippocraticOath/proc/heal_human(mob/living/carbon/human/H)
+	if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss()) // Avoid counting burn wounds
+		H.adjustBruteLoss(-3.5, robotic = TRUE)
+		H.adjustFireLoss(-3.5, robotic = TRUE)
+		H.adjustOxyLoss(-3.5)
+		H.adjustToxLoss(-3.5)
+		H.adjustBrainLoss(-3.5)
+		H.adjustStaminaLoss(-3.5)
+		H.adjustCloneLoss(-1)
+		heal_points--
+		if(!heal_points)
+			return
+
+	for(var/obj/item/organ/external/E in H.bodyparts)
+		if(prob(10) && (E.status & (ORGAN_BROKEN | ORGAN_INT_BLEEDING | ORGAN_BURNT)) && !E.is_robotic())
+			E.mend_fracture()
+			E.fix_internal_bleeding()
+			E.fix_burn_wound()
+			heal_points--
+			if(!heal_points)
+				return
 
 /obj/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"
@@ -448,7 +480,6 @@
 			to_chat(owner, "<span class='danger'>We collapse in exhaustion.</span>")
 			owner.Weaken(6 SECONDS)
 			owner.emote("gasp")
-	cling.genetic_damage += stacks
 	cling = null
 
 /datum/status_effect/panacea

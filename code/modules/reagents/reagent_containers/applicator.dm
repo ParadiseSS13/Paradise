@@ -62,7 +62,7 @@
 			applicator_bar.icon_state = "app_e"
 	. += applicator_bar
 
-/obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/applicator/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
@@ -93,6 +93,11 @@
 		update_icon()
 		user.changeNext_move(CLICK_CD_MELEE)
 
+/obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
+	return apply(M, user)
+
+/obj/item/reagent_containers/applicator/attack_self(mob/user)
+	return apply(user, user)
 
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE)
 	var/total_applied_amount = applied_amount * multiplier

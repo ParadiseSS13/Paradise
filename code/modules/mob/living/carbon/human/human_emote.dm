@@ -163,7 +163,10 @@
 	volume = 100
 
 /datum/emote/living/carbon/human/gasp/get_sound(mob/user)
+	if(!ishuman(user))
+		return
 	var/mob/living/carbon/human/H = user
+
 	if(H.is_muzzled())
 		// If you're muzzled you're not making noise
 		return
@@ -217,6 +220,18 @@
 	message = "salutes."
 	message_param = "salutes to %t."
 	hands_use_check = TRUE
+	audio_cooldown = 3 SECONDS
+	var/list/serious_shoes = list(/obj/item/clothing/shoes/jackboots, /obj/item/clothing/shoes/combat,
+								/obj/item/clothing/shoes/centcom, /obj/item/clothing/shoes/laceup)
+	var/list/funny_shoes = list(/obj/item/clothing/shoes/magboots/clown, /obj/item/clothing/shoes/clown_shoes,
+								/obj/item/clothing/shoes/cursedclown, /obj/item/clothing/shoes/ducky)
+
+/datum/emote/living/carbon/human/salute/get_sound(mob/living/user)
+	var/mob/living/carbon/human/H = user
+	if(is_type_in_list(H.shoes, serious_shoes))
+		return 'sound/effects/salute.ogg'
+	if(is_type_in_list(H.shoes, funny_shoes))
+		return 'sound/items/toysqueak1.ogg'
 
 /datum/emote/living/carbon/human/shrug
 	key = "shrug"
