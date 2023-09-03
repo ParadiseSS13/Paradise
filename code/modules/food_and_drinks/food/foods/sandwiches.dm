@@ -60,9 +60,9 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "tofu" = 4)
 
-/obj/item/reagent_containers/food/snacks/roburger
-	name = "roburger"
-	desc = "The lettuce is the only organic component. Beep."
+/obj/item/reagent_containers/food/snacks/hamborger
+	name = "hamborger"
+	desc = "Looking at this makes your flesh feel like a weakness."
 	icon_state = "roburger"
 	filling_color = "#CCCCCC"
 	bitesize = 3

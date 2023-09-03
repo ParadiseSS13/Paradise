@@ -69,7 +69,7 @@
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
-		EQUIPMENT("Kinetic Crusher", /obj/item/twohanded/kinetic_crusher, 750),
+		EQUIPMENT("Kinetic Crusher", /obj/item/kinetic_crusher, 750),
 		EQUIPMENT("Resonator", /obj/item/resonator, 800),
 		EQUIPMENT("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
 		EQUIPMENT("Super Resonator", /obj/item/resonator/upgraded, 2500),
@@ -261,7 +261,7 @@
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/twohanded/kinetic_crusher(drop_location)
+			new /obj/item/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 
@@ -343,6 +343,7 @@
 		EQUIPMENT("Dnd set", /obj/item/storage/box/characters, 500),
 		EQUIPMENT("Dice set", /obj/item/storage/box/dice, 250),
 		EQUIPMENT("Cards", /obj/item/deck/cards, 150),
+		EQUIPMENT("UNUM!", /obj/item/deck/unum, 200),
 		EQUIPMENT("Guitar", /obj/item/instrument/guitar, 750),
 		EQUIPMENT("Synthesizer", /obj/item/instrument/piano_synth, 1500),
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),

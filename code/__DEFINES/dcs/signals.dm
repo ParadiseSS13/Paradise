@@ -390,8 +390,12 @@
 	#define COMPONENT_BLOCK_EMOTE_ACTION (1<<2)
 
 ///from base of mob/swap_hand(): (obj/item)
-#define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
+#define COMSIG_MOB_SWAPPING_HANDS "mob_swapping_hands"
+	/// Prevent the mob from changing hands
 	#define COMPONENT_BLOCK_SWAP (1<<0)
+
+/// Performed after the hands are swapped.
+#define COMSIG_MOB_SWAPPED_HANDS "mob_swap_hands"
 
 #define COMSIG_MOB_AUTOMUTE_CHECK "automute_check"
 	#define WAIVE_AUTOMUTE_CHECK (1<<0)
@@ -481,6 +485,8 @@
 #define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
 /// From /mob/living/carbon/flash_eyes()
 #define COMSIG_CARBON_FLASH_EYES "carbon_flash_eyes"
+/// From /mob/living/carbon/update_handcuffed()
+#define COMSIG_CARBON_UPDATE_HANDCUFFED "carbon_update_handcuff"
 /// From /mob/living/carbon/regenerate_icons()
 #define COMSIG_CARBON_REGENERATE_ICONS "carbon_regen_icons"
 
@@ -560,7 +566,7 @@
 #define COMSIG_ITEM_MICROWAVE_ACT "microwave_act"
 ///from base of item/sharpener/attackby(): (amount, max)
 #define COMSIG_ITEM_SHARPEN_ACT "sharpen_act"
-	#define COMPONENT_BLOCK_SHARPEN_APPLIED (1<<0)
+	#define COMPONENT_SHARPEN_APPLIED (1<<0)
 	#define COMPONENT_BLOCK_SHARPEN_BLOCKED (1<<1)
 	#define COMPONENT_BLOCK_SHARPEN_ALREADY (1<<2)
 	#define COMPONENT_BLOCK_SHARPEN_MAXED (1<<3)
