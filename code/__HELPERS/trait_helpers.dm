@@ -265,9 +265,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BUCKLING_TRAIT "buckled"
 #define TRAIT_WAS_BATONNED "batonged"
 #define CLOWN_EMAG "clown_emag"
-
 #define GLADIATOR "gladiator"
-
 #define MODSUIT_TRAIT "modsuit_trait"
 
 //quirk traits
