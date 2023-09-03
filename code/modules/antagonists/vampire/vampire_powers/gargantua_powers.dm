@@ -210,7 +210,7 @@
 	gain_desc = "You can now jump to a target, creating an arena where you land."
 	required_blood = 150
 	base_cooldown = 30 SECONDS
-	action_icon_state = "blood_barrier"
+	action_icon_state = "duel"
 	should_recharge_after_cast = FALSE
 	/// Is our spell active?
 	var/spell_active = FALSE
@@ -226,6 +226,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/living/user)
+	var/target = targets[1] // We only want to dash towards the first mob in our targeting list, if somehow multiple ended up in there
 	if(!targets)
 		return
 
@@ -237,12 +238,12 @@
 	user.add_stun_absorption("gargantua", INFINITY, 2) // We temporarily make the gargantua immune to stuns to stop any matrix fuckery from happening
 	animate(user, 1 SECONDS, pixel_z = 64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
 	addtimer(CALLBACK(user, user.spin(12, 1), 3, 2), 0.3 SECONDS)
-	var/angle = get_angle(user, targets[1]) + 180
+	var/angle = get_angle(user, target) + 180
 	user.transform = user.transform.Turn(angle)
 	for(var/i in 1 to 10)
-		var/move_dir = get_dir(user, targets[1])
+		var/move_dir = get_dir(user, target)
 		user.forceMove(get_step(user, move_dir))
-		if(get_turf(user) == get_turf(targets[1]))
+		if(get_turf(user) == get_turf(target))
 			user.remove_stun_absorption("gargantua")
 			user.set_body_position(STANDING_UP)
 			user.transform = 0
@@ -260,7 +261,7 @@
 	spell_active = TRUE
 	timer = addtimer(CALLBACK(src, PROC_REF(dispell), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
-	arena_checks(get_turf(targets[1]), user)
+	arena_checks(get_turf(target), user)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks(turf/target_turf, mob/living/user)
 	if(!spell_active || QDELETED(src))
