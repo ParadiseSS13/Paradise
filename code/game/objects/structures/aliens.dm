@@ -52,9 +52,12 @@
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_RESIN)
 	max_integrity = 200
 	var/resintype = null
+	var/is_alien = TRUE
 
 /obj/structure/alien/resin/Initialize(mapload)
 	air_update_turf(1)
+	if(!is_alien)
+		return ..()
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
 		qdel(W)
 	if(locate(/obj/structure/alien/weeds) in get_turf(src))
@@ -480,6 +483,8 @@
 		obj_integrity = integrity_failure
 	else if(status != GROWN)
 		addtimer(CALLBACK(src, PROC_REF(grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
+	if(status == GROWN)
+		AddComponent(/datum/component/proximity_monitor)
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)

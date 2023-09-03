@@ -340,14 +340,6 @@
 
 // STEALTHY WEAPONS
 
-/datum/uplink_item/stealthy_weapons/combat_plus
-	name = "Combat Gloves Plus"
-	desc = "Combat gloves with installed nanochips that teach you Krav Maga when worn, great as a cheap backup weapon. Warning, the nanochips will override any other fighting styles such as CQC."
-	reference = "CGP"
-	item = /obj/item/clothing/gloves/color/black/krav_maga/combat
-	cost = 25
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
 // EXPLOSIVES
 
 /datum/uplink_item/explosives/c4bag
@@ -516,6 +508,14 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // IMPLANTS
+
+/datum/uplink_item/implants/krav_implant
+	name = "Krav Maga Implant"
+	desc = "A biochip that teaches you Krav Maga when implanted, great as a cheap backup weapon. Warning: the biochip will override any other fighting styles such as CQC while active."
+	reference = "KMI"
+	item = /obj/item/implanter/krav_maga
+	cost = 25
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/implants/uplink/nuclear
 	name = "Nuclear Uplink Bio-chip"
