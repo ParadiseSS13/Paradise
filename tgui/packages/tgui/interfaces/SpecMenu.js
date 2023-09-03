@@ -156,10 +156,14 @@ const GarMenu = (props, context) => {
           push/pull the target, respectively.
         </p>
         <p>
+          <b>Charge</b>: Unlocked at 800 blood, you gain the ability to charge at a target. Destroying
+          and knocking back pretty much anything you collide with.
+        </p>
+        <p>
           <b>Full Power</b>
           <Divider />
-          <b>Charge</b>: You gain the ability to charge at a target. Destroying
-          and knocking back pretty much anything you collide with.
+          <b>Desecrated Duel</b>: Jump towards a visible enemy, which will create an
+            arena around you and them, infusing you with increased regeneration.
         </p>
         <Button content="Gargantua" onClick={() => act('gargantua')} />
       </Section>
