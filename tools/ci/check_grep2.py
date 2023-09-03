@@ -94,6 +94,7 @@ def check_for_nanotrasen_camel_case(lines):
     for idx, line in enumerate(lines):
         if NANOTRASEN_CAMEL_CASE.search(line):
             return Failure(idx + 1, "Nanotrasen should not be spelled in the camel case form.")
+            
 TO_CHAT_WITH_NO_USER_ARG_RE = re.compile(r"to_chat\(\"")
 def check_to_chats_have_a_user_arguement(lines):
     for idx, line in enumerate(lines):
