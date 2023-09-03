@@ -56,7 +56,7 @@
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		var/obj/item/O = user.get_inactive_hand()
 		if(!L)
-			if(isscrewdriver(O))
+			if(O?.tool_behaviour == TOOL_SCREWDRIVER)
 				if(R.use(1))
 					to_chat(user, "<span class='notice'>You construct a lattice.</span>")
 					playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
