@@ -59,7 +59,7 @@
 			if(isscrewdriver(O))
 				if(R.use(1))
 					to_chat(user, "<span class='notice'>You construct a lattice.</span>")
-					playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+					playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 					ReplaceWithLattice()
 				else
 					to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
