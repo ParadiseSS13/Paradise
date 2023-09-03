@@ -198,6 +198,7 @@
 
 /obj/item/mop/advanced/debug
 	name = "AVD-CNED mop"
+	desc = "I know you want to do it. Make shit slippery."
 	mopcap = 100
 	mopspeed = 1
 	refill_rate = 50

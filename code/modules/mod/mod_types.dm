@@ -423,6 +423,7 @@
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/stealth/ninja,
+		/obj/item/mod/module/noslip
 	)
 	default_pins = list(
 		/obj/item/mod/module/bikehorn,
