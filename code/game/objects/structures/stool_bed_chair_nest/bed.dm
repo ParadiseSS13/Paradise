@@ -30,6 +30,11 @@
 	. = ..()
 	. += "<span class='notice'>Click dragging someone to a bed will buckle them in. Functions just like a chair except you can walk over them.</span>"
 
+/obj/structure/bed/attack_hand(mob/user)
+	if(user.Move_Pulled(src))
+		return
+	return ..()
+
 /obj/structure/bed/psych
 	name = "psych bed"
 	desc = "For prime comfort during psychiatric evaluations."

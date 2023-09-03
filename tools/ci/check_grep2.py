@@ -16,7 +16,7 @@ IGNORE_515_PROC_MARKER_FILENAME = "__byond_version_compat.dm"
 CHECK_515_PROC_MARKER_RE = re.compile(r"\.proc/")
 def check_515_proc_syntax(lines):
     for idx, line in enumerate(lines):
-        if CHECK_515_PROC_MARKER_RE.match(line):
+        if CHECK_515_PROC_MARKER_RE.search(line):
             return Failure(idx + 1, "Outdated proc reference use detected in code. Please use proc reference helpers.")
 
 
@@ -94,6 +94,11 @@ def check_for_nanotrasen_camel_case(lines):
     for idx, line in enumerate(lines):
         if NANOTRASEN_CAMEL_CASE.search(line):
             return Failure(idx + 1, "Nanotrasen should not be spelled in the camel case form.")
+TO_CHAT_WITH_NO_USER_ARG_RE = re.compile(r"to_chat\(\"")
+def check_to_chats_have_a_user_arguement(lines):
+    for idx, line in enumerate(lines):
+        if TO_CHAT_WITH_NO_USER_ARG_RE.search(line):
+            return Failure(idx + 1, "Changed files contains a to_chat() procedure without a user argument.")
 
 CODE_CHECKS = [
     check_space_indentation,
@@ -102,6 +107,7 @@ CODE_CHECKS = [
     check_global_vars,
     check_proc_args_with_var_prefix,
     check_for_nanotrasen_camel_case,
+    check_to_chats_have_a_user_arguement,
 ]
 
 
