@@ -46,7 +46,7 @@
 
 /obj/item/clothing/glasses/screwdriver_act(mob/living/user)
 	if(!prescription)
-		to_chat(user, "<span class='notice'>[src] do not seem to have prescription lenses in them.</span>")
+		to_chat(user, "<span class='notice'>There are no prescription lenses in [src].</span>")
 		return
 	remove_prescription(user)
 	return TRUE
