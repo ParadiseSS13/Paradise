@@ -232,7 +232,7 @@
 
 /mob/living/proc/is_jammed()
 	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
-		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
+		if(atoms_share_level(get_turf(src), get_turf(jammer)) && get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
 			return TRUE
 	return FALSE
 
