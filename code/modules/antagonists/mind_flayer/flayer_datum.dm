@@ -31,7 +31,7 @@
 // This proc adds extra things that the mindflayer should get upon becoming a mindflayer
 /datum/antagonist/mindflayer/on_gain()
 	. = ..()
-s	var/list/innate_powers = get_powers_of_type(FLAYER_INNATE_POWER)
+	var/list/innate_powers = get_powers_of_type(FLAYER_INNATE_POWER)
 	for(var/power_path in innate_powers)
 		add_ability(power_path, src)
 
