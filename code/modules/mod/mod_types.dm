@@ -420,7 +420,14 @@
 		/obj/item/mod/module/bikehorn,
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/injector,
+		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/stealth/ninja,
 	)
+	default_pins = list(
+		/obj/item/mod/module/bikehorn,
+	)
+	activation_step_time = 0.1 SECONDS // coders are cooler than admins
 
 /obj/item/mod/control/pre_equipped/administrative
 	theme = /datum/mod_theme/administrative

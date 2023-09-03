@@ -61,6 +61,7 @@
 	cant_hold = list(/obj/item/storage/backpack, /obj/item/storage/belt/bluespace)
 	cant_hold_override = list(/obj/item/storage/backpack/satchel_flat)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 60, ACID = 50)
+	allow_same_size = TRUE
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
