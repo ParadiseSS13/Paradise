@@ -12,6 +12,9 @@
 
 // --- ICONS --- //
 #include "aesthetics/_aesthetics.dme"
+#ifdef MODPACK_CHAT_BADGES
+#include "chat_badges/_chat_badges.dme"
+#endif
 #include "hairs/_hairs.dme"
 
 // --- OBJECTS --- //
