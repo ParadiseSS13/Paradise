@@ -126,26 +126,6 @@
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
-/datum/action/changeling/sting/LSD
-	name = "Hallucination Sting"
-	desc = "We cause mass terror to our victim. Costs 10 chemicals."
-	helptext = "We evolve the ability to sting a target with a powerful hallucinogenic chemical. The target does not notice they have been stung, and the effect occurs after 30 to 60 seconds."
-	button_icon_state = "sting_lsd"
-	sting_icon = "sting_lsd"
-	chemical_cost = 10
-	dna_cost = 1
-	power_type = CHANGELING_PURCHASABLE_POWER
-
-/datum/action/changeling/sting/LSD/sting_action(mob/user, mob/living/carbon/target)
-	add_attack_logs(user, target, "LSD sting (changeling)")
-	addtimer(CALLBACK(src, PROC_REF(start_hallucinations), target, 400 SECONDS), rand(30 SECONDS, 60 SECONDS))
-	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-	return TRUE
-
-/datum/action/changeling/sting/LSD/proc/start_hallucinations(mob/living/carbon/target, amount)
-	if(!QDELETED(target))
-		target.Hallucinate(amount)
-
 /datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
 	name = "Cryogenic Sting"
 	desc = "We silently sting our victim with a cocktail of chemicals that freezes them from the inside. Costs 15 chemicals."

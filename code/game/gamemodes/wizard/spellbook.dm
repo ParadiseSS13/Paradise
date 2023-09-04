@@ -137,6 +137,12 @@
 	spell_type = /obj/effect/proc_holder/spell/fireball
 	category = "Offensive"
 
+/datum/spellbook_entry/summon_toolbox
+	name = "Homing Toolbox"
+	spell_type = /obj/effect/proc_holder/spell/fireball/toolbox
+	category = "Offensive"
+	cost = 1
+
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
 	spell_type = /obj/effect/proc_holder/spell/touch/flesh_to_stone
@@ -470,7 +476,7 @@
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
 	desc = "An ensorceled suit of armour, protected by a powerful shield. The shield can completely negate sixteen attacks before being permanently depleted. Despite appearance it is NOT spaceproof."
-	item_path = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
+	item_path = /obj/item/storage/box/wizard/hardsuit
 	limit = 1
 	category = "Weapons and Armors"
 

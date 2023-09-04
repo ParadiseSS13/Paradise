@@ -143,9 +143,7 @@
 	slot_flags = SLOT_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
-		) //We read you loud and skree-er.
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi') //We read you loud and skree-er.
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)

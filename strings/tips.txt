@@ -62,7 +62,7 @@ As a Cyborg, you are immune to most forms of stunning, and excel at almost every
 As a Cyborg, you are impervious to fires and heat. If you are rogue, you can release plasma fires everywhere and walk through them without a care in the world!
 As a Cyborg, you are extremely vulnerable to EMPs as EMPs both stun you and damage you. The ion rifle in the armory or a traitor with an EMP kit can kill you in seconds.
 As an Engineering Cyborg, you can attach air alarm/fire alarm/APC frames to walls by using your magnetic gripper.
-As a Medical Cyborg, you can partially perform surgery, as you cannot replace organs, but you cannot fail any surgery steps.
+As a Medical Cyborg, the Hydrocodone in your Cyborg you can perform most surgery procedures even in the field with the help of your cyborg hypospray's Hydrocodone and roller bed rack module.
 As a Janitor Cyborg, you are the bane of all slaughter demons. Cleaning up blood stains will severely hinder them.
 As the Chief Engineer, you can rename areas or create entirely new ones using your station blueprints.
 As the Chief Engineer, your hardsuit is significantly better than everybody else's. It has the best features of both engineering and atmospherics hardsuits, boasting nigh-invulnerability to radiation and all atmospheric conditions. It even has a built in jet-pack!

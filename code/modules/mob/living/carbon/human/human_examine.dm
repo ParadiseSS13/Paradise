@@ -56,10 +56,15 @@
 		msg += "!"    //omit the species when examining
 	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
 		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!"
-	else if(displayed_species == "Unathi") //DAMN YOU, VOWELS
-		msg += ", a<b><font color='[examine_color]'> unathi</font></b>!"
 	else
-		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!"
+		// do all this extra stuff because byond's text macros get confused by whatever comes between the species name and the article,
+		// so we can't just do \a
+		var/article_override = dna?.species.article_override
+		var/article = article_override
+		if(!article_override)
+			article = starts_with_vowel(displayed_species) ? "an" : "a"
+
+		msg += ", [article]<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!"
 
 	return msg
 

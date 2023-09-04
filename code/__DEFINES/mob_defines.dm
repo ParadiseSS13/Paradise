@@ -229,7 +229,6 @@
 #define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
 #define isskrell(A) (is_species(A, /datum/species/skrell))
 #define isvox(A) (is_species(A, /datum/species/vox))
-#define isvoxarmalis(A) (is_species(A, /datum/species/vox/armalis))
 #define iskidan(A) (is_species(A, /datum/species/kidan))
 #define isslimeperson(A) (is_species(A, /datum/species/slime))
 #define isgrey(A) (is_species(A, /datum/species/grey))

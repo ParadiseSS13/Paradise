@@ -111,6 +111,12 @@ What are the archived variables for?
 
 	return TRUE
 
+	/// Only removes the gas if we have more than the amount
+/datum/gas_mixture/proc/boolean_remove(amount)
+	if(amount > total_moles())
+		return FALSE
+	return remove(amount)
+
 	///Proportionally removes amount of gas from the gas_mixture.
 	///Returns: gas_mixture with the gases removed
 /datum/gas_mixture/proc/remove(amount)

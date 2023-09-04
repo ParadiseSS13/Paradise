@@ -62,7 +62,7 @@
 	name = "bath_salts"
 	id = "bath_salts"
 	result = "bath_salts"
-	required_reagents = list("????" = 1, "saltpetre" = 1, "msg" = 1, "cleaner" = 1, "enzyme" = 1, "mugwort" = 1, "mercury" = 1)
+	required_reagents = list("????" = 1, "saltpetre" = 1, "msg" = 1, "cleaner" = 1, "enzyme" = 1, "sodiumchloride" = 1, "mercury" = 1)
 	result_amount = 6
 	min_temp = T0C + 100
 	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."

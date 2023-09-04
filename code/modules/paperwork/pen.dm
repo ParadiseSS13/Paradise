@@ -89,7 +89,7 @@
 
 /obj/item/pen/fancy
 	name = "fancy pen"
-	desc = "A fancy metal pen. It uses blue ink. An inscription on one side reads,\"L.L. - L.R.\""
+	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
 	icon_state = "fancypen"
 
 /obj/item/pen/multi/gold

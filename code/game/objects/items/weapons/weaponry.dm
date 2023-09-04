@@ -181,6 +181,7 @@
 /obj/item/melee/baseball_bat
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
+	flags_2 = RANDOM_BLOCKER_2
 	icon = 'icons/obj/items.dmi'
 	icon_state = "baseball_bat"
 	item_state = "baseball_bat"

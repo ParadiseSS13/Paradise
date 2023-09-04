@@ -33,6 +33,11 @@
 
 /obj/machinery/sleeper/examine(mob/user)
 	. = ..()
+	if(occupant)
+		if(occupant.is_dead())
+			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
+		else
+			. += "<span class='notice'>You see [occupant.name] inside.</span>"
 	if(Adjacent(user))
 		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
 
@@ -177,7 +182,7 @@
 		occupantData["paralysis"] = occupant.AmountParalyzed()
 		occupantData["hasBlood"] = 0
 		occupantData["bodyTemperature"] = occupant.bodytemperature
-		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations
+		occupantData["maxTemp"] = 1000
 		// Because we can put simple_animals in here, we need to do something tricky to get things working nice
 		occupantData["temperatureSuitability"] = 0 // 0 is the baseline
 		if(ishuman(occupant) && occupant.dna.species)

@@ -86,7 +86,7 @@
 		occupantData["paralysis"] = occupant.AmountParalyzed()
 		occupantData["hasBlood"] = 0
 		occupantData["bodyTemperature"] = occupant.bodytemperature
-		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations
+		occupantData["maxTemp"] = 1000
 		// Because we can put simple_animals in here, we need to do something tricky to get things working nice
 		occupantData["temperatureSuitability"] = 0 // 0 is the baseline
 		if(ishuman(occupant) && occupant.dna.species)

@@ -9,6 +9,7 @@
 	var/image/nest_overlay
 	comfort = 0
 	flags = NODECONSTRUCT
+	var/ghost_timer
 
 /obj/structure/bed/nest/Initialize(mapload)
 	. = ..()
@@ -32,7 +33,7 @@
 				M.visible_message("<span class='warning'>[M.name] struggles to break free from the gelatinous resin!</span>",\
 					"<span class='notice'>You struggle to break free from the gelatinous resin... (Stay still for two minutes.)</span>",\
 					"<span class='italics'>You hear squelching...</span>")
-				if(!do_after(M, 1200, target = src))
+				if(!do_after(M, 120 SECONDS, target = src))
 					if(M && M.buckled)
 						to_chat(M, "<span class='warning'>You fail to escape \the [src]!</span>")
 					return
@@ -46,7 +47,7 @@
 			add_fingerprint(user)
 
 /obj/structure/bed/nest/user_buckle_mob(mob/living/M, mob/living/user)
-	if (!ismob(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
+	if(!istype(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
 		return
 
 	if(M.get_int_organ(/obj/item/organ/internal/alien/hivenode))
@@ -64,7 +65,18 @@
 		M.visible_message("<span class='notice'>[user.name] secretes a thick vile goo, securing [M.name] into [src]!</span>",\
 			"<span class='danger'>[user.name] drenches you in a foul-smelling resin, trapping you in [src]!</span>",\
 			"<span class='italics'>You hear squelching...</span>")
+	ghost_timer = addtimer(CALLBACK(src, PROC_REF(ghost_check), user), 15 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 
+/obj/structure/bed/nest/proc/ghost_check(mob/user)
+	if(!length(buckled_mobs))
+		return
+	for(var/mob/living/carbon/human/buckled_mob in buckled_mobs)
+		var/obj/item/clothing/mask/facehugger/hugger_mask = buckled_mob.wear_mask
+		if(istype(hugger_mask) && !hugger_mask.sterile && (locate(/obj/item/organ/internal/body_egg/alien_embryo) in buckled_mob.internal_organs))
+			if(user && !isalien(user))
+				return
+			buckled_mob.throw_alert("ghost_nest", /obj/screen/alert/ghost)
+			to_chat(buckled_mob, "<span class='ghostalert'>You may now ghost, you keep respawnability in this state. You will be alerted when you're removed from the nest.</span>")
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/M)
 	M.pixel_y = 0
@@ -77,6 +89,9 @@
 	M.pixel_y = M.get_standard_pixel_y_offset()
 	M.layer = initial(M.layer)
 	cut_overlay(nest_overlay)
+	deltimer(ghost_timer)
+	M.clear_alert("ghost_nest")
+	M.notify_ghost_cloning("You have been unbuckled from an alien nest! Click that alert to re-enter your body.", source = src)
 
 /obj/structure/bed/nest/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

@@ -51,7 +51,7 @@
 					if(!L.stat)
 						L.do_alert_animation(L)
 						egged = 1
-				alerted << sound('sound/machines/chime.ogg')
+				SEND_SOUND(alerted, sound('sound/machines/chime.ogg'))
 	return ..()
 
 /mob/living/proc/do_alert_animation(atom/A)

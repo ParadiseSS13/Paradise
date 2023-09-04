@@ -158,6 +158,12 @@
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
 
+/obj/item/projectile/bullet/midbullet3/overgrown
+	icon = 'icons/obj/ammo.dmi'
+	item_state = "peashooter_bullet"
+	icon_state = "peashooter_bullet"
+	damage = 25
+
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 

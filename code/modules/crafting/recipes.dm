@@ -423,6 +423,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
+/datum/crafting_recipe/confettishot
+	name = "Confetti Shot"
+	result = list(/obj/item/ammo_casing/shotgun/confetti)
+	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
+				/datum/reagent/confetti = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
 /datum/crafting_recipe/ishotgun
 	name = "Improvised Shotgun"
 	result = list(/obj/item/gun/projectile/revolver/doublebarrel/improvised)

@@ -77,6 +77,8 @@
 		wear_suit = null
 		if(I.flags_inv & HIDEJUMPSUIT)
 			update_inv_w_uniform()
+		if(I.flags_inv & HIDESHOES)
+			update_inv_shoes()
 		update_inv_wear_suit()
 	else if(I == w_uniform)
 		if(r_store)
@@ -279,6 +281,8 @@
 			update_inv_shoes()
 		if(slot_wear_suit)
 			wear_suit = I
+			if(wear_suit.flags_inv & HIDESHOES)
+				update_inv_shoes()
 			update_inv_wear_suit()
 		if(slot_w_uniform)
 			w_uniform = I

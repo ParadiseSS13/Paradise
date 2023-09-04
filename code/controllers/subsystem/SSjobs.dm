@@ -82,6 +82,8 @@ SUBSYSTEM_DEF(jobs)
 			return FALSE
 		if(job.barred_by_disability(player.client))
 			return FALSE
+		if(job.barred_by_missing_limbs(player.client))
+			return FALSE
 
 		var/position_limit = job.total_positions
 		if(!latejoin)
@@ -128,6 +130,9 @@ SUBSYSTEM_DEF(jobs)
 		if(job.barred_by_disability(player.client))
 			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
 			continue
+		if(job.barred_by_missing_limbs(player.client))
+			Debug("FOC player has missing limbs rendering them ineligible for job, Player: [player]")
+			continue
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
@@ -168,6 +173,10 @@ SUBSYSTEM_DEF(jobs)
 
 		if(job.barred_by_disability(player.client))
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
+			continue
+
+		if(job.barred_by_missing_limbs(player.client))
+			Debug("GRJ player has missing limbs rendering them ineligible for job, Player: [player]")
 			continue
 
 		if(player.mind && (job.title in player.mind.restricted_roles))
@@ -345,6 +354,10 @@ SUBSYSTEM_DEF(jobs)
 
 				if(job.barred_by_disability(player.client))
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
+					continue
+
+				if(job.barred_by_missing_limbs(player.client))
+					Debug("DO player has missing limbs rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
 				if(player.mind && (job.title in player.mind.restricted_roles))
@@ -553,7 +566,7 @@ SUBSYSTEM_DEF(jobs)
 			if(job.get_exp_restrictions(player.client))
 				young++
 				continue
-			if(job.barred_by_disability(player.client))
+			if(job.barred_by_disability(player.client) || job.barred_by_missing_limbs(player.client))
 				disabled++
 				continue
 			if(player.client.prefs.active_character.GetJobDepartment(job, 1) & job.flag)

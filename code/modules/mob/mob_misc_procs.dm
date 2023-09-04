@@ -358,13 +358,18 @@
 	while(counter>=1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(newletter in list(" ", "!", "?", ".", ","))
-			//do nothing
+			// Skip these
+			counter -= 1
+			continue
+
 		else if(lowertext(newletter) in list("a", "e", "i", "o", "u", "y"))
 			newletter = "ph"
+
 		else
 			newletter = "m"
-		newphrase+="[newletter]"
-		counter-=1
+
+		newphrase += "[newletter]"
+		counter -= 1
 	return newphrase
 
 /proc/muffledspeech_all(list/message_pieces)
@@ -549,7 +554,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		if(O.client && (!role || (role in O.client.prefs.be_special)))
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
 			if(ghost_sound)
-				O << sound(ghost_sound)
+				SEND_SOUND(O, sound(ghost_sound))
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)

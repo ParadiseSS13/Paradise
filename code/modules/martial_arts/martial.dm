@@ -33,8 +33,12 @@
 	var/in_stance = FALSE
 	/// If the martial art allows parrying.
 	var/can_parry = FALSE
+	/// Set to TRUE to prevent users of this style from using stun batons (and stunprods)
+	var/no_baton = FALSE
 	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
 	var/weight = 0
+	/// Message displayed when someone uses a baton when its forbidden by a martial art
+	var/no_baton_reason = "Your martial arts training prevents you from wielding batons."
 
 /datum/martial_art/New()
 	. = ..()

@@ -69,6 +69,7 @@
 
 /datum/action/changeling/proc/take_chemical_cost()
 	cling.chem_charges -= chemical_cost
+	cling.update_chem_charges_ui()
 
 /datum/action/changeling/proc/can_sting(mob/user, mob/target)
 	SHOULD_CALL_PARENT(TRUE)

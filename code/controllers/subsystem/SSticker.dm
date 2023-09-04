@@ -413,21 +413,18 @@ SUBSYSTEM_DEF(ticker)
 					flick("station_explode_fade_red", cinematic)
 					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					cinematic.icon_state = "summary_malf"
-				if("blob") //Station nuked (nuke,explosion,summary)
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_selfdes"
 				else //Station nuked (nuke,explosion,summary)
 					flick("intro_nuke", cinematic)
 					sleep(35)
 					flick("station_explode_fade_red", cinematic)
 					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					cinematic.icon_state = "summary_selfdes"
+			stop_delta_alarm()
+
 	//If its actually the end of the round, wait for it to end.
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
+		stop_delta_alarm() // If we've not stopped this alarm yet, do so now.
 		QDEL_NULL(cinematic)		//end the cinematic
 
 

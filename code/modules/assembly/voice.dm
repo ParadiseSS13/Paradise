@@ -15,7 +15,7 @@
 	if(recorded || listening)
 		. += "A meter on it flickers with every nearby sound."
 	else
-		. += "It is is deactivated."
+		. += "It is deactivated."
 
 /obj/item/assembly/voice/hear_talk(mob/living/M as mob, list/message_pieces)
 	hear_input(M, multilingual_to_message(message_pieces), 0)

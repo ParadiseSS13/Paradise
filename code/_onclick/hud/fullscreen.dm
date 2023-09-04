@@ -100,6 +100,7 @@
 	icon_state = "impairedoverlay"
 
 /obj/screen/fullscreen/payback
+	icon = 'icons/mob/screen_payback.dmi'
 	icon_state = "payback"
 	show_when_dead = TRUE
 

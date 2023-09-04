@@ -891,16 +891,20 @@
 	icon_state = "cigs"
 	icon_lightmask = "cigs"
 	products = list(
-		/obj/item/storage/fancy/cigarettes/cigpack_robust = 12,
+		/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
+		/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
 		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 		/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
 		/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
+		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+		/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 		/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
 		/obj/item/storage/box/matches = 10,
 		/obj/item/lighter/random = 4,
-		/obj/item/storage/fancy/rollingpapers = 5)
-	contraband = list(/obj/item/lighter/zippo = 4, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1, /obj/item/clothing/mask/cigarette/cigar/havana = 2)
+		/obj/item/lighter/zippo = 2)
+	contraband = list(/obj/item/storage/fancy/rollingpapers = 5)
 	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 25,
+		/obj/item/storage/fancy/cigarettes/cigpack_carp = 25,
 		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 35,
 		/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,
 		/obj/item/storage/fancy/cigarettes/cigpack_random = 80,
@@ -908,6 +912,7 @@
 		/obj/item/reagent_containers/food/pill/patch/nicotine = 70,
 		/obj/item/storage/box/matches = 20,
 		/obj/item/lighter/random = 40,
+		/obj/item/lighter/zippo = 80,
 		/obj/item/storage/fancy/rollingpapers = 30,
 		/obj/item/clothing/mask/cigarette/cigar/havana = 80)
 	refill_canister = /obj/item/vending_refill/cigarette
@@ -938,10 +943,12 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 					/obj/item/storage/box/matches = 10,
-					/obj/item/lighter/random = 4,
+					/obj/item/lighter/zippo = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)
-	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1, /obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/lighter/zippo = 3)
+	contraband = list()
 	prices = list()
 
 /obj/machinery/economy/vending/wallmed

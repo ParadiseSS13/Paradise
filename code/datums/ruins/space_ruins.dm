@@ -146,6 +146,7 @@
 	description = "No questions asked. No shoes/foot protection, no service. \
 		No tabs. No violence in the inside areas. That's it. Welcome to the \
 		Rampant Golem and Yellow Hound. Can I take your order?"
+	allow_duplicates = FALSE //it spawn ship docking, no more than one to avoid duplication in console.
 	cost = 2
 
 /datum/map_template/ruin/space/turreted_outpost

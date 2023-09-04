@@ -465,3 +465,14 @@
 		M.adjust_fire_stacks(volume / 5)
 		return
 	..()
+
+/datum/reagent/confetti
+	name = "Confetti"
+	id = "confetti"
+	description = "Pure, liquid confetti. Explodes into a colorful bomb when exposed to heat."
+	color = "#500064" // rgb: 80, 0, 100
+	taste_description = "the tears of janitors"
+
+/datum/reagent/confetti/reaction_turf(turf/T, volume)
+	var/confetti = /obj/effect/decal/cleanable/confetti
+	new confetti(T)

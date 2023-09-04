@@ -517,6 +517,54 @@
 		return TRUE
 	return FALSE
 
+/obj/item/clothing/suit/armor/reactive/cryo
+	name = "reactive gelidic armor" //is "gelidic" a word? probably not, but it sounds cool
+	desc = "This armor harnesses a cryogenic anomaly core to defend its user from the cold and attacks alike. Its unstable thermal regulation system occasionally vents gasses."
+
+/obj/item/clothing/suit/armor/reactive/cryo/equipped(mob/user, slot)
+	..()
+	if(slot != slot_wear_suit)
+		return
+	ADD_TRAIT(user, TRAIT_RESISTCOLD, "[UID()]")
+
+/obj/item/clothing/suit/armor/reactive/cryo/dropped(mob/user, silent)
+	..()
+	REMOVE_TRAIT(user, TRAIT_RESISTCOLD, "[UID()]")
+
+/obj/item/clothing/suit/armor/reactive/cryo/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(!active)
+		return FALSE
+	if(reaction_check(hitby) && use_power())
+		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out freezing bolts!</span>")
+
+		for(var/mob/M in oview(get_turf(src), 7))
+			shootAt(M)
+
+		if(prob(10)) //rarely vent gasses
+			owner.visible_message("<span class='warning'>[src] vents excess coolant!</span>")
+			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE)
+
+			var/turf/simulated/T = get_turf(src)
+			if(istype(T))
+				T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20)
+
+		disable(rand(1, 3))
+
+		return TRUE
+	return FALSE
+
+/obj/item/clothing/suit/armor/reactive/cryo/proc/shootAt(atom/movable/target)
+	var/turf/T = get_turf(src)
+	var/turf/U = get_turf(target)
+	if(!T || !U)
+		return
+	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
+	O.current = T
+	O.yo = U.y - T.y
+	O.xo = U.x - T.x
+	O.fire()
+
 
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"

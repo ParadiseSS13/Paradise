@@ -169,7 +169,7 @@
 	var/cooldown = 0
 	/// How fast does the keyring open an airlock. It is not set here so that it can be set via the user's role.
 	var/hack_speed
-	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
+	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
 /obj/item/door_remote/janikeyring/examine(mob/user)
 	. = ..()

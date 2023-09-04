@@ -680,3 +680,23 @@
 	reference = "DEPCN"
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+// ---------------------------------
+// NUKIE ONLY POINTLESS BADASSERY
+// ---------------------------------
+
+/datum/uplink_item/badass/confettidrum
+	name = "Bulldog - 12g party Magazine"
+	desc = "An alternative 12-round confetti magazine for use in the Bulldog shotgun. Why? Because we can - Honkco Industries"
+	item = /obj/item/ammo_box/magazine/m12g/confetti
+	reference = "12CS"
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	cost = 1
+
+/datum/uplink_item/badass/confetti_party_pack
+	name = "Nuclear party pack"
+	desc = "A dufflebag filled with hilarious equipment! Comes with free confetti grenades and a cap gun!"
+	item = /obj/item/storage/backpack/duffel/syndie/party
+	reference = "SPP"
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	cost = 10

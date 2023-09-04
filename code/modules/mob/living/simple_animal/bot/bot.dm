@@ -719,6 +719,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if("home")
 			to_chat(src, "<span class='warning big'>RETURN HOME!</span>")
 		if("ejectpai")
+			return // Do nothing for this
 		else
 			to_chat(src, "<span class='warning'>Unidentified control sequence received: [command]</span>")
 

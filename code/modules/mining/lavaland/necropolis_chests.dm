@@ -510,18 +510,21 @@
 	var/timerid
 	var/list/input_list = list()
 	var/list/combo_strings = list()
-	var/static/list/combo_list = list(
+	var/list/combo_list = list()
+
+
+/obj/item/cursed_katana/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+	combo_list = list(
 		ATTACK_STRIKE = list(COMBO_STEPS = list(LEFT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, strike)),
 		ATTACK_SLICE = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, LEFT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, slice)),
 		ATTACK_DASH = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, RIGHT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, dash)),
 		ATTACK_CUT = list(COMBO_STEPS = list(RIGHT_SLASH, RIGHT_SLASH, LEFT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, cut)),
 		ATTACK_HEAL = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, heal)),
 		ATTACK_SHATTER = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, shatter)),
-		)
+	)
 
-/obj/item/cursed_katana/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	for(var/combo in combo_list)
 		var/list/combo_specifics = combo_list[combo]
 		var/step_string = english_list(combo_specifics[COMBO_STEPS])

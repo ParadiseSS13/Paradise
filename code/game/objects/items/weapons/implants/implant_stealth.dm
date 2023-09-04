@@ -35,13 +35,9 @@
 			recall_box_animation()
 		return
 	// Box closing from here on out.
-	if(on_cooldown)
-		return FALSE
 	if(!isturf(owner.loc)) //Don't let the player use this to escape mechs/welded closets.
 		to_chat(owner, "<span class='warning'>You need more space to activate this implant!</span>")
 		return
-	addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), 10 SECONDS)
-	on_cooldown = TRUE
 	owner.playsound_local(owner, 'sound/misc/box_deploy.ogg', 50, TRUE)
 	spawn_box()
 
@@ -61,6 +57,22 @@
 	INVOKE_ASYNC(box, TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, go_invisible), 1.7 SECONDS)
 	box.create_fake_box()
 	owner.forceMove(box)
+	RegisterSignal(box, COMSIG_PARENT_QDELETING, PROC_REF(start_cooldown))
+
+/datum/action/item_action/agent_box/proc/start_cooldown(datum/source)
+	SIGNAL_HANDLER
+	on_cooldown = TRUE
+	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), 10 SECONDS)
+	UpdateButtonIcon()
+
+/datum/action/item_action/agent_box/proc/end_cooldown()
+	on_cooldown = FALSE
+	UpdateButtonIcon()
+
+/datum/action/item_action/agent_box/IsAvailable()
+	if(..() && !on_cooldown)
+		return TRUE
+	return FALSE
 
 /datum/action/item_action/agent_box/proc/recall_box_animation()
 	var/image/fake_box = image('icons/obj/cardboard_boxes.dmi', owner, "agentbox", ABOVE_MOB_LAYER)
@@ -95,7 +107,8 @@
 	desc = "It's so normal that you didn't notice it before."
 	icon_state = "agentbox"
 	max_integrity = 1
-	move_speed_multiplier = 0.5 // You can move at normal walk speed while in this box.
+	move_speed_multiplier = 0.5 // You can move at run speed while in this box.
+	material_drop = null
 	/// UID of the person who summoned this box with an implant.
 	var/implant_user_UID
 	// This has to be a separate object and not just an image because the image will inherit the box's 0 alpha while it is stealthed.
