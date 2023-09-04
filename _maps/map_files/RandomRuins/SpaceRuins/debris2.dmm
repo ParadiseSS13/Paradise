@@ -25,7 +25,7 @@
 /area/space)
 "l" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "m" = (
 /obj/structure/grille/broken,
@@ -73,7 +73,7 @@
 /obj/structure/door_assembly/door_assembly_vault{
 	anchored = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "z" = (
 /obj/item/stack/rods,
