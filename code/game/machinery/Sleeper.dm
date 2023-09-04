@@ -125,7 +125,7 @@
 					var/datum/reagent/G
 					if(G.id in GLOB.blocked_chems)
 						occupant.reagents.remove_reagent(G.id, 3)
-						beaker.reagents.add_reagent("????", 3)
+						beaker.reagents.add_reagent("saturated_charcoal", 3)
 						continue
 					occupant.reagents.trans_to(beaker, 3)
 
