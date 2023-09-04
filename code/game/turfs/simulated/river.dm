@@ -4,7 +4,7 @@
 #define RANDOM_LOWER_X 50
 #define RANDOM_LOWER_Y 50
 
-/proc/spawn_rivers(target_z, nodes = 4, turf_type = /turf/simulated/floor/plating/lava/smooth/lava_land_surface, whitelist_area = /area/lavaland/surface/outdoors, min_x = RANDOM_LOWER_X, min_y = RANDOM_LOWER_Y, max_x = RANDOM_UPPER_X, max_y = RANDOM_UPPER_Y)
+/proc/spawn_rivers(target_z, nodes = 4, turf_type = /turf/simulated/floor/plating/lava/smooth/mapping_lava, whitelist_area = /area/lavaland/surface/outdoors, min_x = RANDOM_LOWER_X, min_y = RANDOM_LOWER_Y, max_x = RANDOM_UPPER_X, max_y = RANDOM_UPPER_Y, prob = 25, prob_loss = 11)
 	var/list/river_nodes = list()
 	var/num_spawned = 0
 	var/list/possible_locs = block(locate(min_x, min_y, target_z), locate(max_x, max_y, target_z))
@@ -46,6 +46,9 @@
 				cur_dir = get_dir(cur_turf, target_turf)
 
 			cur_turf = get_step(cur_turf, cur_dir)
+			if(cur_turf == null) //This might be the fuck up. Kill the loop if this happens
+				message_admins("Encountered a null turf in river loop.")
+				break
 			var/area/new_area = get_area(cur_turf)
 			if(!istype(new_area, whitelist_area) || (cur_turf.flags & NO_LAVA_GEN)) //Rivers will skip ruins
 				detouring = 0
@@ -54,7 +57,9 @@
 				continue
 			else
 				var/turf/river_turf = cur_turf.ChangeTurf(turf_type, ignore_air = TRUE)
-				river_turf.Spread(25, 11, whitelist_area)
+				if(prob(1))
+					new /obj/effect/spawner/bridge(river_turf)
+				river_turf.Spread(prob, prob_loss, whitelist_area)
 
 	for(var/WP in river_nodes)
 		qdel(WP)
@@ -91,6 +96,8 @@
 		var/turf/T = F
 		if(!istype(T, logged_turf_type) && T.ChangeTurf(type, ignore_air = TRUE) && prob(probability))
 			T.Spread(probability - prob_loss, prob_loss, whitelisted_area)
+			if(prob(1))
+				new /obj/effect/spawner/bridge(T)
 
 	for(var/F in diagonal_turfs) //diagonal turfs only sometimes change, but will always spread if changed
 		var/turf/T = F
@@ -99,6 +106,8 @@
 		else if(ismineralturf(T))
 			var/turf/simulated/mineral/M = T
 			M.ChangeTurf(M.turf_type, ignore_air = TRUE)
+			if(prob(1))
+				new /obj/effect/spawner/bridge(M)
 
 
 #undef RANDOM_UPPER_X
