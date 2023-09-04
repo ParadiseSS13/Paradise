@@ -94,7 +94,6 @@ SUBSYSTEM_DEF(economy)
 	var/payday_count = 0
 	/// Time until the next mail shipment
 	var/next_mail_delay = 0
-	var/static/list/shuttle_turfs = list()
 
 	var/global_paycheck_bonus = 0
 	var/global_paycheck_deduction = 0
@@ -295,24 +294,18 @@ SUBSYSTEM_DEF(economy)
 			break
 
 /datum/controller/subsystem/economy/proc/mail_never_fails()
-	if(!length(shuttle_turfs))
-		message_admins("MAKING THE LIST")
+	var/list/shuttle_turfs = list()
+	for(var/obj/machinery/requests_console/console in GLOB.allRequestConsoles)
+		if(console.department != "Cargo Bay")
+			continue
+		console.createMessage("Messaging and Intergalactic Letters", "New Mail Crates ready to be ordered!", "A new mail crate is able to be shipped alongside your next orders!", 1) // RQ_NORMALPRIORITY
 		for(var/turf/simulated/T in SSshuttle.supply.areaInstance)
 			if(T.density)
 				continue
 			shuttle_turfs += T
-	for(var/obj/machinery/requests_console/console in GLOB.allRequestConsoles)
-		if(console.department != "Cargo Bay")
-			continue
-		console.createMessage("Messaging and Intergalactic Letters", "New Mail Crates ready to be ordered!!", "A new mail crate is able to be shipped alongside your next orders!", 1) // RQ_NORMALPRIORITY
-	message_admins("SENDING THE CRATE")
 	var/pack = /datum/supply_packs/emergency/mail_crate
-	var/datum/supply_packs/the_pack = new pack()
 	var/turf/spawn_location = pick(shuttle_turfs)
-	the_pack.create_package(spawn_location)
-	message_admins("THE CRATE IS SENT")
-	qdel(the_pack)
-
+	new pack(spawn_location)
 
 //
 //   The NanoCoin Economy is booming
