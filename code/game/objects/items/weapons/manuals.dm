@@ -149,7 +149,7 @@
 			Arc Type: The engine's EER is raised massively several minutes, resulting it a supercritical state.</br>
 			Heat Type: The amount of heat released by the engine is massively increased for several minutes.</br></br>
 
-			In the event that an anomaly NOT on this list presents itself, contact your local NanoTrasen Engineering Officer as soon as possible.</br>
+			In the event that an anomaly NOT on this list presents itself, contact your local Nanotrasen Engineering Officer as soon as possible.</br>
 			-Vroo-Looum-Kloo, Senior Engine Technician."})
 
 /obj/item/book/manual/atmospipes
