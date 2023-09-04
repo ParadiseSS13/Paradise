@@ -261,7 +261,7 @@
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/twohanded/kinetic_crusher(drop_location)
+			new /obj/item/kinetic_crusher(drop_location)
 		if("Plasma Cutter Kit")
 			new /obj/item/gun/energy/plasmacutter(drop_location)
 			new /obj/item/survivalcapsule(drop_location)
