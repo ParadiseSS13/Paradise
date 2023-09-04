@@ -974,6 +974,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!zlevel_turf_indexes["[T.z]"])
 			zlevel_turf_indexes["[T.z]"] = list()
 		zlevel_turf_indexes["[T.z]"] |= T
+		T.color = "red"
+		T.maptext = "ACT_TURF"
 		CHECK_TICK
 
 	// Sort the keys

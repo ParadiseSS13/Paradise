@@ -75124,10 +75124,6 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"lYv" = (
-/obj/effect/spawner/random_barrier/floor_probably,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "lYX" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/cobweb,
@@ -76974,7 +76970,7 @@
 	name = "Hardened Bomb-Test Security Camera";
 	network = list("Toxins","Research","SS13")
 	},
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/indestructible/airless,
 /area/toxins/test_area)
 "noq" = (
 /obj/machinery/conveyor/west{
@@ -80205,7 +80201,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "pnB" = (
-/obj/effect/spawner/random_barrier/floor_probably,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /obj/structure/cable{
 	d1 = 1;
@@ -148566,7 +148561,7 @@ iZV
 ciY
 mQX
 ciY
-lYv
+csL
 ciY
 ciY
 ciY

@@ -142,6 +142,8 @@
 
 /turf/simulated/floor/plating/lava/smooth/airless
 	temperature = TCMB
+	oxygen = 0
+	nitrogen = 0
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
 	name = "liquid plasma"

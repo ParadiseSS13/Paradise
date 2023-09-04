@@ -210,6 +210,11 @@
 	baseturf = /turf/simulated/floor/clockwork/reebe
 	uses_overlay = FALSE
 
+/turf/simulated/floor/clockwork/lavaland_air
+	nitrogen = 23
+	oxygen = 14
+	temperature = 300
+
 /turf/simulated/floor/catwalk
 	name = "catwalk"
 	desc = "A catwalk for easier inspection of cable and pipe installations."

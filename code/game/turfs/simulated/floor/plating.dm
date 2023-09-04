@@ -158,6 +158,11 @@
 	. = ..()
 	name = "plating"
 
+/turf/simulated/floor/plating/lavaland_air
+	temperature = 300
+	oxygen = 14
+	nitrogen = 23
+
 /turf/simulated/floor/engine
 	name = "reinforced floor"
 	icon_state = "engine"
@@ -225,6 +230,11 @@
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
+
+/turf/simulated/floor/engine/cult/lavaland_air
+	nitrogen = 23
+	oxygen = 14
+	temperature = 300
 
 //air filled floors; used in atmos pressure chambers
 
