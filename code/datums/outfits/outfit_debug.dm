@@ -147,7 +147,7 @@
 	if(isturf(target))
 		var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
 		if(selected_species)
-			H.set_species(selected_species.type)
+			H.setup_dna(selected_species.type)
 
 /obj/item/debug/human_spawner/attack_self(mob/user)
 	..()
