@@ -13346,7 +13346,7 @@
 /area/storage/art)
 "aPT" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "aPU" = (
 /obj/structure/table/wood,
@@ -14031,9 +14031,9 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkblue";
+	dir = 10
 	},
 /area/space/nearstation)
 "aRv" = (
@@ -14424,7 +14424,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/maintenance/incinerator)
 "aSy" = (
 /obj/machinery/door/poddoor{
@@ -15387,9 +15387,9 @@
 /area/hallway/primary/fore)
 "aUA" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkblue";
+	dir = 5
 	},
 /area/space/nearstation)
 "aUB" = (
@@ -37168,7 +37168,7 @@
 "bQx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
@@ -56128,7 +56128,9 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cIO" = (
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	temperature = 80
+	},
 /area/toxins/xenobiology)
 "cIP" = (
 /obj/machinery/suit_storage_unit/engine,
@@ -56651,14 +56653,14 @@
 "cKp" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on,
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
 /area/toxins/xenobiology)
 "cKq" = (
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
@@ -57278,19 +57280,25 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	temperature = 80
+	},
 /area/toxins/xenobiology)
 "cLT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	temperature = 80
+	},
 /area/toxins/xenobiology)
 "cLU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	temperature = 80
+	},
 /area/toxins/xenobiology)
 "cLW" = (
 /obj/machinery/door/airlock/maintenance,
@@ -59858,7 +59866,9 @@
 	c_tag = "Xeno Kill Room";
 	network = list("Research","SS13")
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	temperature = 80
+	},
 /area/toxins/xenobiology)
 "cSD" = (
 /obj/structure/bed/roller,
@@ -89812,7 +89822,7 @@
 /area/medical/virology)
 "oEG" = (
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "oFL" = (
 /obj/machinery/power/apc{
@@ -154215,7 +154225,7 @@ aaa
 aaa
 abj
 abj
-dij
+oEG
 abj
 csj
 rEQ

@@ -61264,7 +61264,7 @@
 	},
 /turf/simulated/floor/engine/airless{
 	temperature = 80;
-	nitrogen = 500
+	nitrogen = 100
 	},
 /area/toxins/xenobiology)
 "dwg" = (
@@ -64466,7 +64466,7 @@
 	},
 /turf/simulated/floor/engine/airless{
 	temperature = 80;
-	nitrogen = 500
+	nitrogen = 100
 	},
 /area/toxins/xenobiology)
 "fpO" = (
@@ -65046,7 +65046,7 @@
 	},
 /turf/simulated/floor/engine/airless{
 	temperature = 80;
-	nitrogen = 500
+	nitrogen = 100
 	},
 /area/toxins/xenobiology)
 "fFV" = (
@@ -65230,7 +65230,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
@@ -65399,7 +65399,7 @@
 "fSi" = (
 /turf/simulated/floor/engine/airless{
 	temperature = 80;
-	nitrogen = 500
+	nitrogen = 100
 	},
 /area/toxins/xenobiology)
 "fSp" = (
@@ -71509,7 +71509,7 @@
 	},
 /turf/simulated/floor/engine/airless{
 	temperature = 80;
-	nitrogen = 500
+	nitrogen = 100
 	},
 /area/toxins/xenobiology)
 "jIM" = (
@@ -77613,7 +77613,7 @@
 	},
 /turf/simulated/floor/engine/airless{
 	temperature = 80;
-	nitrogen = 500
+	nitrogen = 100
 	},
 /area/toxins/xenobiology)
 "nIY" = (
@@ -82754,7 +82754,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
@@ -87378,7 +87378,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/engine/airless{
 	temperature = 80;
-	nitrogen = 500
+	nitrogen = 100
 	},
 /area/toxins/xenobiology)
 "tMB" = (
@@ -87557,7 +87557,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
