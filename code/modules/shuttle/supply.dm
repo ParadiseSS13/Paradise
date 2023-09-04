@@ -120,6 +120,7 @@
 	var/credits_to_deposit = 0
 	var/research_credits = 0
 	var/service_credits = 0
+	var/medical_credits = 0
 
 	for(var/atom/movable/MA in areaInstance)
 		if(MA.anchored)
@@ -184,6 +185,19 @@
 					SSeconomy.research_designs += design.id
 					msg += "<span class='good'>+[SSeconomy.credits_per_design]</span>: [design.name] design.<br>"
 
+				// Sell viral sample virology goals
+				if(istype(thing, /obj/item/reagent_containers))
+					var/obj/item/reagent_containers/C = thing
+					if(C.reagents)
+						if(C.reagents.reagent_list)
+							for(var/datum/virology_goal/G in GLOB.virology_goals)
+								if(G.completed)
+									continue
+								if(G.check_completion(C.reagents.reagent_list))
+									medical_credits += SSeconomy.credits_per_virology_goal
+									credits_to_deposit += SSeconomy.credits_per_virology_goal
+									msg += "<span class='good'>+[SSeconomy.credits_per_virology_goal]</span>: [G.name] completion.<br>"
+
 				// Sell exotic plants
 				if(istype(thing, /obj/item/seeds))
 					var/obj/item/seeds/S = thing
@@ -227,3 +241,5 @@
 			GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE), research_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
 		if(service_credits)
 			GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), service_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
+		if(medical_credits)
+			GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL), medical_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)

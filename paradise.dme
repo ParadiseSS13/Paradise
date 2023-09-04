@@ -2701,6 +2701,8 @@
 #include "code\modules\vehicle\speedbike.dm"
 #include "code\modules\vehicle\sportscar.dm"
 #include "code\modules\vehicle\vehicle.dm"
+#include "code\modules\virology\viro_item_defines.dm"
+#include "code\modules\virology\virology_goals.dm"
 #include "code\modules\vote\vote_datum.dm"
 #include "code\modules\vote\vote_presets.dm"
 #include "code\modules\vote\vote_verb.dm"

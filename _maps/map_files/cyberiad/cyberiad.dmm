@@ -45150,6 +45150,7 @@
 /obj/item/reagent_containers/dropper/precision,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/light,
+/obj/item/virus_analyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},

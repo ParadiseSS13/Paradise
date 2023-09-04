@@ -85742,6 +85742,7 @@
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/spray/cleaner,
+/obj/item/virus_analyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},

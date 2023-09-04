@@ -65956,6 +65956,7 @@
 	pixel_x = 27
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/virus_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitegreen"

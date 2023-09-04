@@ -2,7 +2,8 @@
 #define MED_DATA_MAINT	3	// Records maintenance
 #define MED_DATA_RECORD	4	// Record
 #define MED_DATA_V_DATA	5	// Virus database
-#define MED_DATA_MEDBOT	6	// Medbot monitor
+#define MED_DATA_GOAL_DATA	6	// Virology goals
+#define MED_DATA_MEDBOT	7	// Medbot monitor
 
 #define FIELD(N, V, E) list(field = N, value = V, edit = E)
 #define MED_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
@@ -164,6 +165,16 @@
 						"D" = D)
 					data["virus"] += list(payload)
 					qdel(DS)
+			if(MED_DATA_GOAL_DATA)
+				data["goals"] = list()
+				for(var/datum/virology_goal/G in GLOB.virology_goals)
+					var/list/payload = list(
+						"name" = G.name,
+						"delivered" = G.delivered_amount,
+						"deliverygoal" = G.delivery_goal,
+						"report" = G.get_report(),
+						"G" = "\ref[G]")
+					data["goals"] += list(payload)
 			if(MED_DATA_MEDBOT)
 				data["medbots"] = list()
 				for(var/mob/living/simple_animal/bot/medbot/M in GLOB.bots_list)
@@ -240,6 +251,13 @@
 				)
 				ui_modal_message(src, "virus", "", null, payload)
 				qdel(D)
+			if("goal")
+				var/datum/virology_goal/G = locate(params["goal"] || "")
+
+				var/list/payload = list(
+					report = G.get_ui_report()
+				)
+				ui_modal_message(src, "goal", "", null, payload)
 			if("del_all_med_records")
 				for(var/datum/data/record/R in GLOB.data_core.medical)
 					qdel(R)

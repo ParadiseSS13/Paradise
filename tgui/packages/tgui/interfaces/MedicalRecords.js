@@ -7,6 +7,7 @@ import {
   Icon,
   Input,
   LabeledList,
+  ProgressBar,
   Section,
   Tabs,
   Flex,
@@ -70,6 +71,21 @@ const virusModalBodyOverride = (modal, context) => {
   );
 };
 
+const goalModalBodyOverride = (modal, context) => {
+  const goal = modal.args;
+  return (
+    <Section level={2} m="-1rem" pb="1rem" title={goal.name}>
+      <Box mx="0.5rem">
+        <LabeledList>
+          <LabeledList.Item label="CentCom Report">
+            {goal.report}
+          </LabeledList.Item>
+        </LabeledList>
+      </Box>
+    </Section>
+  );
+};
+
 export const MedicalRecords = (_properties, context) => {
   const { data } = useBackend(context);
   const { loginState, screen } = data;
@@ -97,6 +113,9 @@ export const MedicalRecords = (_properties, context) => {
     // Virus Database
     body = <MedicalRecordsViruses />;
   } else if (screen === 6) {
+    // Virology Goals
+    body = <MedicalRecordsGoals />;
+  } else if (screen === 7) {
     // Medbot Tracking
     body = <MedicalRecordsMedbots />;
   }
@@ -433,6 +452,57 @@ const MedicalRecordsViruses = (_properties, context) => {
   )
 };
 
+const MedicalRecordsGoals = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const { goals } = data;
+  return(
+    <Flex direction="column" height="100%">
+      <Section flexGrow="1" mt="0.5rem">
+        <Table className="MedicalRecords__list">
+          <Table.Row bold>
+            <Table.Cell>Name</Table.Cell>
+            <Table.Cell>Delivery Progress</Table.Cell>
+            <Table.Cell>Info</Table.Cell>
+          </Table.Row>
+          {goals
+            .map((goal) => (
+              <Table.Row
+                key={goal.id}
+                className={
+                  'MedicalRecords__listGoal--' + goal
+                }
+              >
+                <Table.Cell>
+                  <Icon name="database" /> {goal.name}
+                </Table.Cell>
+                <Table.Cell>
+                  <ProgressBar
+                    value={goal.delivered}
+                    minValue={0}
+                    maxValue={goal.deliverygoal}
+                    ranges={{
+                      good: [goal.deliverygoal * 0.5, Infinity],
+                      average: [goal.deliverygoal * 0.25, goal.deliverygoal * 0.5],
+                      bad: [-Infinity, goal.deliverygoal * 0.25],
+                    }}
+                  >
+                    {goal.delivered} / {goal.deliverygoal} Units
+                  </ProgressBar>
+                </Table.Cell>
+                <Table.Cell>
+                  <Button
+                    content="Info"
+                    onClick={() => act('goal', { goal: goal.G })}
+                  />
+                </Table.Cell>
+              </Table.Row>
+          ))}
+        </Table>
+      </Section>
+    </Flex>
+  );
+};
+
 const MedicalRecordsMedbots = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { medbots } = data;
@@ -558,6 +628,13 @@ const MedicalRecordsNavigation = (_properties, context) => {
         selected={screen === 6}
         onClick={() => act('screen', { screen: 6 })}
       >
+        <Icon name="check-list"/>
+        Virology Goals
+      </Tabs.Tab>
+      <Tabs.Tab
+        selected={screen === 7}
+        onClick={() => act('screen', { screen: 7 })}
+      >
         <Icon name="plus-square"/>
         Medibot Tracking
       </Tabs.Tab>
@@ -578,3 +655,4 @@ const MedicalRecordsNavigation = (_properties, context) => {
 };
 
 modalRegisterBodyOverride('virus', virusModalBodyOverride);
+modalRegisterBodyOverride('goal', goalModalBodyOverride);

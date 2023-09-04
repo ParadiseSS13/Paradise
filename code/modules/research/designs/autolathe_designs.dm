@@ -335,6 +335,14 @@
 	build_path = /obj/item/hatchet
 	category = list("initial","Miscellaneous")
 
+/datum/design/virus_analyzer
+	name = "Plant Analyzer"
+	id = "virus_analyzer"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 210, MAT_GLASS = 40)
+	build_path = /obj/item/virus_analyzer
+	category = list("initial","Medical")
+
 /datum/design/scalpel
 	name = "Scalpel"
 	id = "scalpel"
