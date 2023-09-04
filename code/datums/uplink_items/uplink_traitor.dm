@@ -604,7 +604,7 @@
 		bought_items += I.item
 		remaining_TC -= I.cost
 		itemlog += I.name // To make the name more readable for the log compared to just i.item
-		danger_counter -= RECURSION_PANIC_AMOUNT / 2 // dont reduce it to zero completely, just to be safe
+		danger_counter = 0
 
 	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
