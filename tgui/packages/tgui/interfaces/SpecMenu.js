@@ -108,7 +108,8 @@ const UmbrMenu = (props, context) => {
           <Divider />
           <b>Eternal darkness</b>: When toggled, you consume yourself in unholy
           darkness, only the strongest of lights will be able to see through it.
-          It will also cause nearby creatures to freeze.
+          It will also cause nearby creatures to freeze, and energy projectiles
+          inside the radius will also deal less damage.
         </p>
         <p>In addition, you also gain permament X-ray vision.</p>
         <Button content="Umbrae" onClick={() => act('umbrae')} />
