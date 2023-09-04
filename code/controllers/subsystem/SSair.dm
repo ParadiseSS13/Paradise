@@ -78,9 +78,10 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/Initialize()
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	icon_manager = new() // Sets up icon manager for pipes
-	if(length(active_turfs))
-		log_debug("Failed sanity check: active_turfs is not empty before initialization ([length(active_turfs)])")
 	setup_allturfs()
+	if(length(active_turfs))
+		throw_error_on_active_roundstart_turfs()
+		log_debug("Turfs were active before init! Please check the runtime logger for information on the specific turfs.")
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
@@ -397,6 +398,11 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/setup_overlays()
 	GLOB.plmaster = new /obj/effect/overlay/turf/plasma
 	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
+
+/datum/controller/subsystem/air/proc/throw_error_on_active_roundstart_turfs()
+	stack_trace("Failed sanity check: active_turfs is not empty before init ([length(active_turfs)], turfs are as followed;)")
+	for(var/turf/shouldnt_be_active in active_turfs)
+		stack_trace("[shouldnt_be_active] was active before init, turf x=[shouldnt_be_active.x], turf y=[shouldnt_be_active.y], turf z=[shouldnt_be_active.z], turf area=[shouldnt_be_active.loc]")
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

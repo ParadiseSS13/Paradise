@@ -61262,7 +61262,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless{
+	temperature = 80;
+	nitrogen = 500
+	},
 /area/toxins/xenobiology)
 "dwg" = (
 /obj/machinery/computer/arcade/orion_trail{
@@ -64461,7 +64464,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless{
+	temperature = 80;
+	nitrogen = 500
+	},
 /area/toxins/xenobiology)
 "fpO" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -65038,7 +65044,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless{
+	temperature = 80;
+	nitrogen = 500
+	},
 /area/toxins/xenobiology)
 "fFV" = (
 /obj/machinery/door/poddoor/preopen{
@@ -65388,12 +65397,11 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "fSi" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "evamaint_vent"
+/turf/simulated/floor/engine/airless{
+	temperature = 80;
+	nitrogen = 500
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2)
+/area/toxins/xenobiology)
 "fSp" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
@@ -71499,7 +71507,10 @@
 	dir = 1;
 	network = list("Research","SS13")
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless{
+	temperature = 80;
+	nitrogen = 500
+	},
 /area/toxins/xenobiology)
 "jIM" = (
 /obj/machinery/door/airlock/public/glass{
@@ -77600,7 +77611,10 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless{
+	temperature = 80;
+	nitrogen = 500
+	},
 /area/toxins/xenobiology)
 "nIY" = (
 /obj/structure/disposalpipe/segment{
@@ -87362,7 +87376,10 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless{
+	temperature = 80;
+	nitrogen = 500
+	},
 /area/toxins/xenobiology)
 "tMB" = (
 /obj/machinery/door/airlock/maintenance{
@@ -91683,7 +91700,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/maintenance/fpmaint2)
 "wwZ" = (
 /obj/effect/spawner/window/reinforced/polarized{
@@ -112245,7 +112262,7 @@ doE
 doE
 sLG
 eIz
-fSi
+eIz
 tKA
 aLx
 blG
@@ -140350,9 +140367,9 @@ cEH
 tfN
 kiq
 cBR
-cJK
+fSi
 nIF
-cJK
+fSi
 ecZ
 kMc
 kdc
@@ -140609,7 +140626,7 @@ oDE
 iun
 fpG
 fMb
-cJK
+fSi
 oJr
 cQC
 dhR
@@ -141123,7 +141140,7 @@ hOz
 iun
 dvM
 tQn
-cJK
+fSi
 oJr
 sFy
 dhR
@@ -141378,9 +141395,9 @@ oto
 tPD
 jPb
 cBR
-cJK
+fSi
 fET
-cJK
+fSi
 ecZ
 bUx
 dFe
