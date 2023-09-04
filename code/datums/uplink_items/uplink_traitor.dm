@@ -567,7 +567,7 @@
 		buyable_items += temp_uplink_list[category]
 
 	if(!length(buyable_items)) // UH OH.
-		fucked_shit_up_alert("[src] spawning failed: had no buyable items on purchase which would have caused an infinite loop, refunding [cost] telecrystals instead. (Original cost of the crate). Report this to coders please.")
+		fucked_shit_up_alert(loc, "[src] spawning failed: had no buyable items on purchase which would have caused an infinite loop, refunding [cost] telecrystals instead. (Original cost of the crate). Report this to coders please.")
 		generate_refund(cost, C)
 		return
 
@@ -581,11 +581,11 @@
 	var/danger_counter = 0 // lets make sure we dont get into an infinite loop...
 	while(remaining_TC)
 		if(danger_counter > RECURSION_PANIC_AMOUNT)
-			fucked_shit_up_alert("[src] spawning failed: approached an infinite loop by cost checking, giving the remaining [remaining_TC] telecrystals instead.")
+			fucked_shit_up_alert(loc, "[src] spawning failed: approached an infinite loop by cost checking, giving the remaining [remaining_TC] telecrystals instead.")
 			generate_refund(remaining_TC, C)
 			break
 		if(!length(buyable_items))
-			fucked_shit_up_alert("[src] spawning failed: ran out of buyable items while looping, refunding [cost] telecrystals and cancelling crate. (Original cost of the crate). Report this to coders please.")
+			fucked_shit_up_alert(loc, "[src] spawning failed: ran out of buyable items while looping, refunding [cost] telecrystals and cancelling crate. (Original cost of the crate). Report this to coders please.")
 			generate_refund(cost, C)
 			bought_items.Cut()
 			break
@@ -623,13 +623,14 @@
 		if(infinite_loop_profibitor > RECURSION_PANIC_AMOUNT) // idk how they got 1000+ tc, dont ask me
 			new /obj/item/stack/telecrystal(crate, changing_amount)
 			// Return of Bogdanoff: doomp it
-			message_admins("While refunding telecrystals, [src] went over the expected limit, for a total of [amount] TC. Expected refund is likely [cost]. [ADMIN_COORDJMP(src)]")
+			var/turf/T = get_turf(crate)
+			message_admins("While refunding telecrystals, [src] went over the expected limit, for a total of [amount] TC. Expected refund is likely [cost]. [ADMIN_COORDJMP(T)]")
 			break
 		infinite_loop_profibitor++
 
-/datum/uplink_item/bundles_TC/surplus_crate/proc/fucked_shit_up_alert(msg) // yeah just fuckin tell everyone, this shit is bad
+/datum/uplink_item/bundles_TC/surplus_crate/proc/fucked_shit_up_alert(turf/loc, msg) // yeah just fuckin tell everyone, this shit is bad
 	stack_trace(msg)
-	message_admins("[msg] [ADMIN_COORDJMP(src)]")
+	message_admins("[msg] [ADMIN_COORDJMP(loc)]")
 	log_admin(msg)
 
 #undef RECURSION_PANIC_AMOUNT
