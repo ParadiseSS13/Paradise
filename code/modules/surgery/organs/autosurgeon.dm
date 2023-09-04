@@ -2,22 +2,27 @@
 
 /obj/item/autosurgeon
 	name = "autosurgeon"
-	desc = "A device that automatically inserts an implant or organ into the user without the hassle of extensive surgery. It has a screwdriver slot for removing accidentally added items."
+	desc = "A device that automatically inserts an implant or organ into the user without the hassle of extensive surgery. This autosurgeon is single-use."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "autoimplanter"
 	item_state = ""
 	w_class = WEIGHT_CLASS_SMALL
-	var/uses = INFINITE
+	var/uses = 1
 
 /obj/item/autosurgeon/attack_self_tk(mob/user)
 	return //stops TK fuckery
 
 /obj/item/autosurgeon/organ
 	name = "implant autosurgeon"
-	desc = "A device that automatically inserts an implant or organ into the user without the hassle of extensive surgery. It has a slot to insert implants or organs and a screwdriver slot for removing accidentally added items."
+	desc = "A device that automatically inserts an implant or organ into the user without the hassle of extensive surgery. It has a slot to insert implants or organs and a screwdriver slot for removing accidentally added items. This autosurgeon is single-use."
 	var/organ_type = /obj/item/organ/internal
 	var/starting_organ
 	var/obj/item/organ/internal/storedorgan
+
+/obj/item/autosurgeon/organ/admin
+	name = "advanced autosurgeon"
+	desc = "A device that automatically inserts an implant or organ into the user without the hassle of extensive surgery. It has a screwdriver slot for removing accidentally added items. This one can be used multiple times!"
+	uses = INFINITE
 
 /obj/item/autosurgeon/organ/syndicate
 	name = "suspicious implant autosurgeon"
@@ -77,10 +82,6 @@
 		to_chat(user, "<span class='notice'>You remove [storedorgan] from [src].</span>")
 		I.play_tool_sound(src)
 		storedorgan = null
-		if(uses != INFINITE)
-			uses--
-		if(!uses)
-			desc = "[initial(desc)] Looks like it's been used up."
 	return TRUE
 
 /obj/item/autosurgeon/organ/syndicate/laser_arm
