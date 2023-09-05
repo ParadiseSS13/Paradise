@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { animationDurationMs } from '~/common/animations';
+import Checkbox from '~/components/settings/form/Checkbox';
 import { useEditSettings } from '~/hooks/useEditSettings';
 import Input from '../form/Input';
 import Label from '../form/Label';
@@ -8,43 +9,44 @@ import { Setting } from '../form/Setting';
 
 const GeneralSettingsWrapper = styled.div``;
 
-const Button = styled.a`
-  background-color: ${props => props.theme.accent.primary};
-  display: inline-block;
+const Button = styled.a<{ disabled?: boolean }>`
   padding: 8px 12px;
+  border: 1px solid transparent;
+  background-color: ${({ theme }) => theme.accent.primary};
   border-radius: 4px;
   cursor: pointer;
-  user-select: none;
+  display: inline-block;
   transition-duration: ${animationDurationMs}ms;
-  border: 1px solid transparent;
+  user-select: none;
 
   &:hover {
-    background-color: ${props => props.theme.accent[6]};
+    background-color: ${({ theme }) => theme.accent[6]};
   }
 
   &:active {
-    background-color: ${props => props.theme.accent[5]};
+    background-color: ${({ theme }) => theme.accent[5]};
   }
 
-  ${props =>
-    props.disabled &&
+  ${({ disabled }) =>
+    disabled &&
     css`
+      border: 1px solid ${({ theme }) => theme.colors.bg[3]} !important;
+      background-color: ${({ theme }) => theme.colors.bg[2]} !important;
+      color: ${({ theme }) => theme.colors.fg[2]} !important;
       cursor: default !important;
-      color: ${props => props.theme.colors.fg[2]} !important;
-      background-color: ${props => props.theme.colors.bg[2]} !important;
-      border: 1px solid ${props => props.theme.colors.bg[3]} !important;
     `}
 `;
 
 const Hint = styled.span`
-  display: inline-block;
-  margin-left: 98px;
   margin-bottom: 8px;
+  margin-left: 98px;
   color: ${props => props.theme.colors.fg[3]};
+  display: inline-block;
 `;
 
 const GeneralSettings = () => {
-  const { currentSettings, unsavedSettings, write, save } = useEditSettings();
+  const { currentSettings, hasUnsavedSettings, write, save } =
+    useEditSettings();
 
   return (
     <GeneralSettingsWrapper>
@@ -82,11 +84,15 @@ const GeneralSettings = () => {
         />
       </Setting>
       <Setting>
+        <Label>Condense messages:</Label>
+        <Checkbox
+          checked={currentSettings.condenseMessages}
+          onChange={checked => write('condenseMessages', checked)}
+        />
+      </Setting>
+      <Setting>
         <Label></Label>
-        <Button
-          disabled={!Object.values(unsavedSettings).filter(v => v).length}
-          onClick={save}
-        >
+        <Button disabled={hasUnsavedSettings} onClick={save}>
           Save changes
         </Button>
       </Setting>

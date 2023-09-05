@@ -1,19 +1,19 @@
 import styled, { css } from 'styled-components';
 
-const Input = styled.input`
-  color: ${props => props.theme.colors.fg[0]};
-  background: transparent;
-  border: 1px solid ${props => props.theme.colors.bg[1]};
-  border-radius: 4px;
+const Input = styled.input<{ stretch?: boolean }>`
+  border: 1px solid ${({ theme }) => theme.colors.bg[1]};
   padding: 4px 8px;
+  background: transparent;
+  border-radius: 4px;
+  color: ${({ theme }) => theme.colors.fg[0]};
+  cursor: text;
+  font-family: inherit;
   transition-duration: 0.2s;
   vertical-align: middle;
-  font-family: inherit;
-  cursor: text;
 
   &:hover,
   &:focus {
-    border-color: ${props => props.theme.accent.primary};
+    border-color: ${({ theme }) => theme.accent.primary};
   }
 
   ${props =>

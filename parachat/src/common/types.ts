@@ -42,6 +42,7 @@ export type SettingsData = {
   font: string;
   fontUrl: string;
   lineHeight: number;
+  condenseMessages: boolean;
   highlights: Array<HighlightEntry>;
 };
 

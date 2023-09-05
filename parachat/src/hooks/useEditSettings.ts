@@ -18,7 +18,9 @@ export const useEditSettings = (overwrite?: boolean, settingsObject?) => {
 
   const save = () => {
     currentSettings.updateSettings(
-      Object.fromEntries(Object.entries(unsavedSettings).filter(kv => kv[1]))
+      Object.fromEntries(
+        Object.entries(unsavedSettings).filter(kv => kv[1] !== undefined)
+      )
     );
     setUnsavedSettings({});
     saveSettings();
@@ -27,6 +29,9 @@ export const useEditSettings = (overwrite?: boolean, settingsObject?) => {
   return {
     currentSettings,
     unsavedSettings,
+    hasUnsavedSettings: !Object.values(unsavedSettings).filter(
+      v => v !== undefined
+    ).length,
     write,
     save,
   };

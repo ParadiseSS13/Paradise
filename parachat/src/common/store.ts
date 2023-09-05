@@ -112,12 +112,12 @@ export const addMessage = ({
   tab = Tab.OTHER,
   params = {},
 }: MessageInfo) => {
-  // TODO: make this an option
   if (
     lastMessage &&
     lastMessage.text === text &&
     lastMessage.type === type &&
-    lastMessage.tab === tab
+    lastMessage.tab === tab &&
+    useSettingsSlice.getState().condenseMessages
   ) {
     useMessageSlice.getState().condenseLastMessage();
     return;

@@ -7,6 +7,7 @@ export const defaultSettings: SettingsData = {
   font: "Verdana, 'Helvetica Neue', Helvetica, Arial, sans-serif",
   fontUrl: '',
   lineHeight: 1.2,
+  condenseMessages: true,
   highlights: [
     {
       term: 'Jade',
@@ -40,7 +41,7 @@ export const saveSettings = () => {
   const saveObject = Object.fromEntries(
     Object.keys(defaultSettings).map(key => [
       key,
-      currentSettings[key] || defaultSettings[key],
+      currentSettings[key] ?? defaultSettings[key],
     ])
   );
 
