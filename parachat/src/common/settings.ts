@@ -1,5 +1,5 @@
-import { useSettingsSlice } from '~/common/store';
 import { Highlight, SettingsData } from '~/common/types';
+import { useSettingsSlice } from '../stores/settings';
 
 const settingsStorageKey = 'parachat-settings';
 

@@ -1,11 +1,11 @@
 import styled, { ThemeProvider } from 'styled-components';
-import { useSettingsSlice } from '~/common/store';
 import { generateAccent } from '~/common/util';
-import Audio from '~/components/footer/Audio';
 import GlobalStyle from '~/components/GlobalStyle';
-import Header from '~/components/header/Header';
 import MessageList from '~/components/MessageList';
+import Audio from '~/components/footer/Audio';
+import Header from '~/components/header/Header';
 import SettingsMenu from '~/components/settings/SettingsMenu';
+import { useSettingsSlice } from '~/stores/settings';
 import dark from '~/themes/dark';
 
 const AppWrapper = styled.div`

@@ -1,6 +1,7 @@
 import { generate } from '@ant-design/colors';
-import { useMessageSlice, useSettingsSlice } from '~/common/store';
 import { Highlight, HighlightEntry } from '~/common/types';
+import { useMessageSlice } from '../stores/message';
+import { useSettingsSlice } from '../stores/settings';
 
 export const generateAccent = (accent: string) => ({
   primary: accent,

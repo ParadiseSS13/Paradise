@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { useHeaderSlice } from '~/common/store';
 import { Tab } from '~/common/types';
+import { useHeaderSlice } from '~/stores/header';
 import TabButton from './TabButton';
 
 const TabsWrapper = styled.div`

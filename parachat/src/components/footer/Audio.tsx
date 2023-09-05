@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import styled from 'styled-components';
-import { useAdminSlice } from '~/common/store';
+import { useAdminSlice } from '~/stores/admin';
 
 const AudioWrapper = styled.div`
   background: ${props => props.theme.accent[0]};

@@ -1,5 +1,6 @@
-import { addMessage, useHeaderSlice } from '~/common/store';
 import { ByondCall, Tab } from '~/common/types';
+import { useHeaderSlice } from '~/stores/header';
+import { addMessage } from '~/stores/message';
 
 const tabMatch = /^pchat:(\w+):/;
 export const output: ByondCall = topic => {

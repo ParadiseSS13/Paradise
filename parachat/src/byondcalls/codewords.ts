@@ -1,5 +1,5 @@
-import { useMessageSlice } from '~/common/store';
 import { ByondCall, Highlight, HighlightEntry } from '~/common/types';
+import { useMessageSlice } from '~/stores/message';
 
 export const codewords = (phrases, responses) => {
   const highlights: Array<HighlightEntry> = [];

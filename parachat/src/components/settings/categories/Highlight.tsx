@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { saveSettings } from '~/common/settings';
-import { useSettingsSlice } from '~/common/store';
 import { Highlight } from '~/common/types';
 import { isValidColor, processHighlights } from '~/common/util';
 import { MessageWrapper, addHighlight } from '~/components/messages/Message';
 import { useEditSettings } from '~/hooks/useEditSettings';
+import { useSettingsSlice } from '~/stores/settings';
 import { Button } from '../form/Button';
 import ButtonGroup from '../form/ButtonGroup';
 import Checkbox from '../form/Checkbox';

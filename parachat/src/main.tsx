@@ -4,8 +4,8 @@ import { codewords, codewordsClear } from '~/byondcalls/codewords';
 import { ehjaxCallback } from '~/byondcalls/ehjax';
 import { output } from '~/byondcalls/output';
 import { reboot, rebootFinished } from '~/byondcalls/reboot';
-import { useMessageSlice } from '~/common/store';
 import App from '~/components/App';
+import { useMessageSlice } from './stores/message';
 
 const setupApp = () => {
   // Set up debug console

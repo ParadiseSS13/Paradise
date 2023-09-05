@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { animationDurationMs } from '~/common/animations';
-import { useHeaderSlice } from '~/common/store';
+import { useHeaderSlice } from '~/stores/header';
 
 const SettingsWrapper = styled.div`
   padding: 0 12px;

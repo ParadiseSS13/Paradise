@@ -3,7 +3,8 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { animationDurationMs } from '~/common/animations';
 import { defaultSettings, saveSettings } from '~/common/settings';
-import { useHeaderSlice, useSettingsSlice } from '~/common/store';
+import { useHeaderSlice } from '~/stores/header';
+import { useSettingsSlice } from '~/stores/settings';
 
 const CategoriesWrapper = styled.div`
   display: flex;

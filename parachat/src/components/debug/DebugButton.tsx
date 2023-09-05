@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useHeaderSlice } from '~/common/store';
+import { useHeaderSlice } from '~/stores/header';
 
 const DebugButtonWrapper = styled.a`
   background-color: rgba(0, 0, 0, 0.5);

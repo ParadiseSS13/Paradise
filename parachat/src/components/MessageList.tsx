@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import styled from 'styled-components';
 import { animationDurationMs, fadeIn } from '~/common/animations';
-import { useHeaderSlice, useMessageSlice } from '~/common/store';
 import { MessageInfo, MessageType, Tab } from '~/common/types';
+import { useHeaderSlice } from '~/stores/header';
+import { useMessageSlice } from '~/stores/message';
 import Message from './messages/Message';
 import MessageReboot from './messages/MessageReboot';
 

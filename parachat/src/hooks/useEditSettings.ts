@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { saveSettings } from '~/common/settings';
-import { useSettingsSlice } from '~/common/store';
+import { useSettingsSlice } from '~/stores/settings';
 
 export const useEditSettings = (overwrite?: boolean, settingsObject?) => {
   const [unsavedSettings, setUnsavedSettings] = useState({});

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { initiatePing } from '~/byondcalls/ehjax';
-import { useHeaderSlice } from '~/common/store';
+import { useHeaderSlice } from '~/stores/header';
 
 const PingWrapper = styled.span`
   padding: 0 9px;

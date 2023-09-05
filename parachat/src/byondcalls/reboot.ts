@@ -1,5 +1,5 @@
-import { addMessage, useMessageSlice } from '~/common/store';
 import { ByondCall, MessageType } from '~/common/types';
+import { addMessage, useMessageSlice } from '~/stores/message';
 
 export const reboot: ByondCall = topic => {
   const autoReconnectSeconds = parseInt(topic) || 10;

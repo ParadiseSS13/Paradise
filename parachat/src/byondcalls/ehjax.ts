@@ -1,5 +1,5 @@
-import { useHeaderSlice } from '~/common/store';
 import { ByondCall } from '~/common/types';
+import { useHeaderSlice } from '~/stores/header';
 
 let pingStart = 0;
 
