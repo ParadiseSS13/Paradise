@@ -29,6 +29,7 @@ interface MessageSlice {
   codewordHighlights: Array<HighlightEntry>;
   _addMessage: (messageInfo: MessageInfo) => void;
   rebootCompleted: () => void;
+  condenseLastMessage: () => void;
   setCodewordHighlights: (codewordHighlights: Array<HighlightEntry>) => void;
 }
 
@@ -81,6 +82,14 @@ export const useMessageSlice = create<MessageSlice>()(set => ({
           : message
       ),
     })),
+  condenseLastMessage: () =>
+    set(state => ({
+      messages: state.messages.map((message, index) =>
+        index === state.messages.length - 1
+          ? { ...message, occurences: message.occurences + 1 }
+          : message
+      ),
+    })),
   setCodewordHighlights: codewordHighlights =>
     set(() => ({ codewordHighlights })),
 }));
@@ -96,21 +105,35 @@ export const useSettingsSlice = create<SettingsSlice & SettingsData>()(set => ({
 }));
 
 let messageIndex = 0;
+let lastMessage;
 export const addMessage = ({
   text,
   type = MessageType.TEXT,
   tab = Tab.OTHER,
   params = {},
 }: MessageInfo) => {
-  const messageInfo = {
+  // TODO: make this an option
+  if (
+    lastMessage &&
+    lastMessage.text === text &&
+    lastMessage.type === type &&
+    lastMessage.tab === tab
+  ) {
+    useMessageSlice.getState().condenseLastMessage();
+    return;
+  }
+
+  const messageInfo: MessageInfo = {
     id: messageIndex++,
     text,
     type,
     tab,
     params,
+    occurences: 1,
     ...processHighlights(text),
   };
 
   console.log(text);
   useMessageSlice.getState()._addMessage(messageInfo);
+  lastMessage = { text, type, tab };
 };

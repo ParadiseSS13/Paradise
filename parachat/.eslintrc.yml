@@ -29,6 +29,7 @@ rules:
   import/no-unresolved: error
   prettier/prettier: error
   prefer-const: error
+  react/prop-types: off
 settings:
   import/parsers:
     "@typescript-eslint/parser": [.ts, .js, .tsx, .jsx]

@@ -51,6 +51,8 @@ export type MessageInfo = {
   type?: MessageType;
   tab?: Tab;
   params?: object;
+  highlight?: object;
+  occurences: number;
 };
 
 export type ByondCall = (topic: string) => void;

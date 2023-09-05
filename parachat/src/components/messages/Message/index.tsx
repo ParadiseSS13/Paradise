@@ -1,9 +1,17 @@
-import PropTypes from 'prop-types';
 import { Transition } from 'react-transition-group';
 import styled, { css } from 'styled-components';
 import { animationDurationMs } from '~/common/animations';
+import { MessageInfo } from '~/common/types';
+import { OccurenceCounter } from './OccurenceCounter';
 
-export const MessageWrapper = styled.div`
+interface MessageProps {
+  message: MessageInfo;
+  show: boolean;
+}
+
+export const MessageWrapper = styled.div<{
+  highlightColor: [number, number, number];
+}>`
   display: block;
   padding: 3px 0 3px 9px;
   line-height: ${props => props.theme.lineHeight};
@@ -36,13 +44,6 @@ export const MessageWrapper = styled.div`
     `}
 `;
 
-const slideIn = {
-  entering: { opacity: 1, transform: 'translateX(0)' },
-  entered: { opacity: 1, transform: 'translateX(0)' },
-  exiting: { opacity: 0, transform: 'translateX(10px)' },
-  exited: { opacity: 0, transform: 'translateX(10px)' },
-};
-
 const hexToRgb = hex =>
   hex
     .replace(
@@ -64,39 +65,31 @@ export const addHighlight = highlight => {
   };
 };
 
-const Message = ({ message, show }) => {
+const MessageAnimationWrapper = styled.div<{ enter: boolean }>`
+  opacity: ${({ enter }) => (enter ? '1' : '0')};
+  transform: ${({ enter }) => (enter ? 'translateX(0)' : 'translateX(10px)')};
+  transition: ${animationDurationMs}ms;
+`;
+
+const Message: React.FC<MessageProps> = ({ message, show }) => {
   return (
-    <Transition timeout={animationDurationMs} in appear>
+    <Transition timeout={animationDurationMs} appear in>
       {state =>
         show ? (
           <MessageWrapper {...addHighlight(message.highlight)}>
-            <div
-              style={{
-                transitionDuration: '0.2s',
-                opacity: 0,
-                transform: 'translateX(10px)',
-                ...slideIn[state],
-              }}
+            <MessageAnimationWrapper
+              enter={state === 'entering' || state === 'entered'}
             >
               <span dangerouslySetInnerHTML={{ __html: message.text }} />
-            </div>
+              {message.occurences > 1 && (
+                <OccurenceCounter num={message.occurences} />
+              )}
+            </MessageAnimationWrapper>
           </MessageWrapper>
         ) : null
       }
     </Transition>
   );
-};
-
-Message.propTypes = {
-  message: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    text: PropTypes.string,
-    type: PropTypes.number,
-    tab: PropTypes.number,
-    params: PropTypes.object,
-    highlight: PropTypes.object,
-  }),
-  show: PropTypes.bool,
 };
 
 export default Message;
