@@ -29,7 +29,6 @@
 //below defines the time between an overheat event and next startup
 #define OVERHEAT_TIME 120 SECONDS
 #define OVERHEAT_THRESHOLD 200 //measured in cycles of 2 seconds
-#define POWER_CURVE_MOD 1.7 // Used to form the turbine power generation curve
 #define OVERHEAT_MESSAGE "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
 
 /obj/machinery/power/compressor
@@ -243,11 +242,13 @@
 		return
 	. += image(icon, "comp-o[rpm_threshold]", FLY_LAYER)
 
-// These are crucial to working of a turbine - the stats modify the power output. TurbPower modifies how much raw energy can you get from
-// rpms, TURBCURVESHAPE modifies the shape of the curve - the lower the value the less straight the curve is.
+// These are crucial to working of a turbine - the stats modify the power output.
+// TURBPOWER modifies how much raw energy can you get from rpms,
+// TURBCURVESHAPE modifies the shape of the curve - the lower the value the less straight the curve is.
 
 #define TURBPOWER 500000
 #define TURBCURVESHAPE 0.5
+#define POWER_CURVE_MOD 1.7 // Used to form the turbine power generation curve
 
 /obj/machinery/power/turbine/Initialize(mapload)
 	. = ..()
