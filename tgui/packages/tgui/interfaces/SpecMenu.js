@@ -162,8 +162,8 @@ const GarMenu = (props, context) => {
         <p>
           <b>Full Power</b>
           <Divider />
-          <b>Desecrated Duel</b>: Jump towards a visible enemy, which will create an
-            arena around you and them, infusing you with increased regeneration.
+          <b>Desecrated Duel</b>: Leap towards a visible enemy, which will create an
+            arena upon landing while infusing you with increased regeneration.
         </p>
         <Button content="Gargantua" onClick={() => act('gargantua')} />
       </Section>
