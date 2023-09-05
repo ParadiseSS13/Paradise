@@ -33,7 +33,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/freegolem)
 "i" = (
 /obj/structure/shuttle/engine/propulsion{
