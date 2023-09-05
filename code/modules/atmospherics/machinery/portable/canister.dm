@@ -77,6 +77,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	var/can_label = TRUE
 	var/filled = 0.5
 	pressure_resistance = 7 * ONE_ATMOSPHERE
+	var/temperature_resistance = 1000 + T0C
 	volume = 1000
 	power_state = NO_POWER_USE
 	interact_offline = TRUE
@@ -194,6 +195,11 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	update_flag &= ~RESET //the flag NEW_COLOR represents change, not states. As such, we have to reset them to be able to detect a change on the next go.
 	return
+
+/obj/machinery/atmospherics/portable/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	if(exposed_temperature > temperature_resistance)
+		take_damage(5, BURN, 0)
 
 /obj/machinery/atmospherics/portable/canister/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
