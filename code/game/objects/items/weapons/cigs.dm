@@ -360,7 +360,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(user, "<span class='notice'>[src] straight out REFUSES to be lit by such uncivilized means.</span>")
 
 /obj/item/clothing/mask/holo_cigar
-	name = "holo-cigar"
+	name = "Holo-Cigar"
 	desc = "A sleek electronic cigar imported straight from Sol. You feel badass merely glimpsing it..."
 	icon_state = "holocigaroff"
 	item_state = "cigaroff"
