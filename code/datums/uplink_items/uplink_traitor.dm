@@ -615,18 +615,18 @@
 /datum/uplink_item/bundles_TC/surplus_crate/proc/generate_refund(amount, crate)
 	var/changing_amount = amount
 	var/obj/item/stack/telecrystal/TC
-	var/infinite_loop_profibitor = 0
+	var/prohibitor = 0
 	while(changing_amount >= 1)
 		var/give_amount = min(changing_amount, initial(TC.max_amount))
 		changing_amount -= give_amount
 		new /obj/item/stack/telecrystal(crate, give_amount)
-		if(infinite_loop_profibitor > RECURSION_PANIC_AMOUNT) // idk how they got 1000+ tc, dont ask me
+		if(prohibitor > RECURSION_PANIC_AMOUNT) // idk how they got 1000+ tc, dont ask me
 			new /obj/item/stack/telecrystal(crate, changing_amount)
 			// Return of Bogdanoff: doomp it
 			var/turf/T = get_turf(crate)
 			message_admins("While refunding telecrystals, [src] went over the expected limit, for a total of [amount] TC. Expected refund is likely [cost]. [ADMIN_COORDJMP(T)]")
 			break
-		infinite_loop_profibitor++
+		prohibitor++
 
 /datum/uplink_item/bundles_TC/surplus_crate/proc/fucked_shit_up_alert(turf/loc, msg) // yeah just fuckin tell everyone, this shit is bad
 	stack_trace(msg)
