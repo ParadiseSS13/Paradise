@@ -10765,7 +10765,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/atmos{
-	name = "Aft-Starboard Atmospherics Maintenance";
+	name = "Fore-Port Secondary Maintenance";
 	req_access_txt = "12;24"
 	},
 /turf/simulated/floor/plating,
