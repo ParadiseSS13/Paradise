@@ -300,7 +300,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 			if(prob(25))
 				tempradius = round(tempradius / 3)
 				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
-				if(oasis_lake == /turf/simulated/floor/plating/asteroid && !istype(oasis_lake.loc, /area/ruin))
+				if(oasis_lake == /turf/simulated/floor/plating/asteroid && !istype(oasis_lake.loc, /area/ruin)) // Don't want this spawning on ruins and making at!
 					new /obj/effect/spawner/oasisrock(T, tempradius)
 				for(var/turf/oasis in circlerangeturfs(T, tempradius))
 					if(istype(oasis.loc, /area/ruin))
