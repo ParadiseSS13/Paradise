@@ -4,8 +4,8 @@ import { initiatePing } from '~/byondcalls/ehjax';
 import { useHeaderSlice } from '~/stores/header';
 
 const PingWrapper = styled.span`
-  padding: 0 9px;
   color: #8f8;
+  padding: 0 9px;
 
   &.ping-good {
     color: #8f8;
@@ -21,7 +21,7 @@ const PingWrapper = styled.span`
   }
 `;
 
-const Ping = () => {
+const Ping: React.FC = () => {
   const ping = useHeaderSlice(state => Math.min(999, state.ping));
 
   useEffect(() => {

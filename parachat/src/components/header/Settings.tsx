@@ -5,18 +5,18 @@ import { useHeaderSlice } from '~/stores/header';
 const SettingsWrapper = styled.div`
   padding: 0 12px;
   cursor: pointer;
-  background-color: ${props => props.theme.colors.bg[1]};
+  background-color: ${({ theme }) => theme.colors.bg[1]};
   transition-duration: ${animationDurationMs}ms;
 
   &:hover {
-    background-color: ${props => props.theme.colors.bg[2]};
+    background-color: ${({ theme }) => theme.colors.bg[2]};
   }
   &:active {
-    background-color: ${props => props.theme.colors.bg[0]};
+    background-color: ${({ theme }) => theme.colors.bg[0]};
   }
 `;
 
-const Settings = () => {
+const Settings: React.FC = () => {
   const setShowSettings = useHeaderSlice(state => state.setShowSettings);
 
   return (
