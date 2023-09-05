@@ -11,7 +11,7 @@
 	var/obj/item/tank/holding_tank
 
 	var/volume = 0
-
+	var/temperature_resistance = 1000 + T0C
 	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
 /obj/machinery/atmospherics/portable/Initialize(mapload)
@@ -25,6 +25,11 @@
 		return INITIALIZE_HINT_LATELOAD
 
 	check_for_port()
+
+/obj/machinery/atmospherics/portable/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	if(exposed_temperature > temperature_resistance)
+		take_damage(5, BURN, 0)
 
 // Late init this otherwise it shares with the port and it tries to div temperature by 0
 /obj/machinery/atmospherics/portable/LateInitialize()
