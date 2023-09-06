@@ -4441,7 +4441,7 @@
 "aAe" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -12955,7 +12955,7 @@
 /area/station/science/toxins/mixing)
 "bsV" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17285,7 +17285,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon  Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous  Oxide","waste_sensor"="Gas  Mix  Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -22349,7 +22349,7 @@
 /area/station/hallway/primary/aft/east)
 "ciN" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms");
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -22835,7 +22835,7 @@
 "clW" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -34362,7 +34362,7 @@
 "dxq" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28;
@@ -34621,7 +34621,7 @@
 /area/station/hallway/primary/fore)
 "dyJ" = (
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -40565,7 +40565,7 @@
 "fxL" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -42456,7 +42456,7 @@
 /obj/machinery/computer/security{
 	dir = 4;
 	name = "Labor Camp Monitoring";
-	network = list("Labor Camp")
+	network = list("Labor  Camp")
 	},
 /obj/item/radio/intercom{
 	pixel_x = -28;
@@ -47518,6 +47518,11 @@
 "hUs" = (
 /turf/space,
 /area/station/security/armory/secure)
+"hUz" = (
+/obj/structure/girder,
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "hUF" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -47954,7 +47959,7 @@
 "icR" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -70045,7 +70050,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 8;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed  Air  In","air_sensor"="Mixed  Air  Supply  Tank","mair_out_meter"="Mixed  Air  Out","dloop_atm_meter"="Distribution  Loop","wloop_atm_meter"="Waste  Loop")
 	},
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -85297,7 +85302,7 @@
 	},
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("Research","Research Outpost","RD","MiniSat")
+	network = list("Research","Research  Outpost","RD","MiniSat")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -93711,7 +93716,7 @@
 "xcc" = (
 /obj/structure/girder,
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "xcn" = (
 /obj/effect/turf_decal/stripes/line,
@@ -126431,7 +126436,7 @@ xCT
 uwf
 lzH
 lzH
-xcc
+hUz
 rNK
 rNK
 rNK
@@ -126688,7 +126693,7 @@ hKz
 fCt
 rNK
 rNK
-xcc
+hUz
 rNK
 rNK
 rNK
@@ -127973,7 +127978,7 @@ hKz
 fCt
 rNK
 rNK
-xcc
+hUz
 rNK
 rNK
 rNK
@@ -128230,7 +128235,7 @@ hKz
 fCt
 lzH
 lzH
-xcc
+hUz
 rNK
 rNK
 rNK
@@ -128487,7 +128492,7 @@ dVe
 uVb
 rNK
 rNK
-xcc
+hUz
 rNK
 rNK
 rNK
