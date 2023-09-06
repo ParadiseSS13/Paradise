@@ -18,7 +18,7 @@
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
 
-/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
@@ -46,8 +46,17 @@
 			var/contained = english_list(injected)
 
 			add_attack_logs(user, M, "Injected with [src] containing ([contained])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
-
+			for(var/datum/reagent/R as anything in reagents.reagent_list)
+				if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
+					return TRUE
+			reagents.reaction(M, REAGENT_INGEST, 0.1)
 		return TRUE
+
+/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+	return apply(M, user)
+
+/obj/item/reagent_containers/hypospray/attack_self(mob/user)
+	return apply(user, user)
 
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)
@@ -122,6 +131,11 @@
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
+	..()
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+/obj/item/reagent_containers/hypospray/autoinjector/attack_self(mob/user)
 	..()
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE

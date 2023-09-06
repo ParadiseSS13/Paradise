@@ -153,6 +153,7 @@
 
 	if(should_cause_harm)
 		fibrillate(user, target)
+		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
 		return
 
 	user.visible_message(
@@ -165,7 +166,7 @@
 	if(ghost?.can_reenter_corpse)
 		to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 		window_flash(ghost.client)
-		ghost << sound('sound/effects/genetics.ogg')
+		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
 	if(!do_after(user, 3 SECONDS * speed_multiplier, target = target)) // Beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 		busy = FALSE
@@ -300,7 +301,6 @@
 
 		target.med_hud_set_health()
 		target.med_hud_set_status()
-		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
 		add_attack_logs(user, target, "Revived with [defib_ref]")
 		SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 	SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, defib_success)

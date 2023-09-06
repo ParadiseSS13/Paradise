@@ -98,7 +98,7 @@
 				network = list()
 				stat |= EMPED
 				turn_off(null, FALSE, TRUE)
-			addtimer(CALLBACK(src, PROC_REF(reactivate_after_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+				addtimer(CALLBACK(src, PROC_REF(reactivate_after_emp)), (90 / severity) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 			..()
 
 /obj/machinery/camera/proc/reactivate_after_emp()
@@ -406,6 +406,7 @@
 	return TRUE
 
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
+	start_active = TRUE // theres no real way to reactivate these, so never break them when they init
 	var/turf/prev_turf
 
 /obj/machinery/camera/portable/Initialize(mapload)

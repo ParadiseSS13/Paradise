@@ -131,12 +131,6 @@
 		our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/beam/pulse))
-		src.ex_act(2)
-	..()
-	return FALSE
-
-/turf/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/bullet/gyro))
 		explosion(src, -1, 0, 2)
 	..()
@@ -451,8 +445,8 @@
 					return
 			C.place_turf(src, user)
 			return TRUE
-		else if(istype(I, /obj/item/twohanded/rcl))
-			var/obj/item/twohanded/rcl/R = I
+		else if(istype(I, /obj/item/rcl))
+			var/obj/item/rcl/R = I
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)

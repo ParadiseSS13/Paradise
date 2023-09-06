@@ -111,7 +111,7 @@
 	if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
 		if(M.s_active)
 			M.s_active.close(M)
-		show_to(M)
+		open(M)
 		return
 
 	if((istype(over_object, /obj/structure/table) || isfloorturf(over_object)) && length(contents) \
@@ -155,13 +155,12 @@
 	if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
 		if(usr.s_active)
 			usr.s_active.close(usr)
-		show_to(usr)
+		open(usr)
 
 /obj/item/storage/AltClick(mob/user)
 	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
-		show_to(user)
-		playsound(loc, use_sound, 50, TRUE, -5)
+		open(user)
 		add_fingerprint(user)
 	else if(isobserver(user))
 		show_to(user)
@@ -206,7 +205,7 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	LAZYADDOR(mobs_viewing, user)
+	LAZYDISTINCTADD(mobs_viewing, user)
 
 /**
   * Hides the current container interface from `user`.
@@ -239,7 +238,7 @@
 		hide_from(M)
 
 /obj/item/storage/proc/open(mob/user)
-	if(use_sound)
+	if(use_sound && isliving(user))
 		playsound(loc, use_sound, 50, TRUE, -5)
 
 	if(user.s_active)
@@ -534,6 +533,8 @@
 		var/obj/item/hand_labeler/labeler = I
 		if(labeler.mode)
 			return FALSE
+	if(user.a_intent != INTENT_HELP && issimulatedturf(loc)) // Stops you from putting your baton in the storage on accident
+		return FALSE
 	. = TRUE //no afterattack
 	if(isrobot(user))
 		return //Robots can't interact with storage items.
@@ -547,8 +548,6 @@
 
 
 /obj/item/storage/attack_hand(mob/user)
-	playsound(loc, use_sound, 50, TRUE, -5)
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.get_active_hand())
@@ -565,7 +564,7 @@
 	if(loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
-		show_to(user)
+		open(user)
 	else
 		..()
 	add_fingerprint(user)

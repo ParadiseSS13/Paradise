@@ -91,6 +91,34 @@
 	. = ..()
 	. += "[get_ammo(0,0)] of those are live rounds."
 
+/obj/item/gun/projectile/revolver/fake
+
+/obj/item/gun/projectile/revolver/fake/examine(mob/user)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_CLUMSY))
+		. += "<span class='sans'>Its mechanism seems to shoot backwards.</span>"
+
+/obj/item/gun/projectile/revolver/fake/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
+	var/zone = "chest"
+	if(user.has_organ("head"))
+		zone = "head"
+	add_fingerprint(user)
+	if(!chambered)
+		shoot_with_empty_chamber(user)
+		return
+	if(!chambered.fire(target = user, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone, spread = 0, firer_source_atom = src))
+		shoot_with_empty_chamber(user)
+		return
+	process_chamber()
+	update_icon()
+	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
+	user.visible_message("<span class='danger'>[src] goes off!</span>")
+	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
+	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
+	user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
+	user.bleed(BLOOD_VOLUME_NORMAL)
+	user.death() // Just in case
+
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "\improper finger gun"
 	desc = "Bang bang bang!"
@@ -277,9 +305,8 @@
 /obj/item/gun/projectile/revolver/russian/soul/shoot_self(mob/living/user)
 	..()
 	var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
-	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
-		qdel(SS)
-		return
+	SS.transfer_soul("FORCE", user)
+	user.death(FALSE)
 	user.visible_message("<span class='danger'>[user.name]'s soul is captured by \the [src]!</span>", "<span class='userdanger'>You've lost the gamble! Your soul is forfeit!</span>")
 
 /obj/item/gun/projectile/revolver/capgun

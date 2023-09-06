@@ -104,11 +104,19 @@
 	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
 	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
 	new /obj/item/reagent_containers/food/pill/methamphetamine(src)
+	new /obj/item/reagent_containers/food/pill/happy_psych(src)
+	new /obj/item/reagent_containers/food/pill/happy_psych(src)
+	new /obj/item/reagent_containers/food/pill/happy_psych(src)
 	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
 	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
 	new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
 	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
 	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
@@ -189,24 +197,26 @@
 
 /obj/structure/closet/secure_closet/paramedic
 	name = "paramedic EVA gear"
-	desc = "A locker with a Paramedic EVA suit."
+	desc = "A locker with a Rescue MODsuit."
 	icon_state = "med"
 	open_door_sprite = "med_door"
 	icon_opened = "med_open"
 	req_access = list(ACCESS_PARAMEDIC)
 
 /obj/structure/closet/secure_closet/paramedic/populate_contents()
-	new /obj/item/clothing/suit/space/eva/paramedic(src)
-	new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
-	new /obj/item/sensor_device(src)
+	new /obj/item/radio/headset/headset_med/para(src)
+	new /obj/item/mod/control/pre_equipped/rescue(src)
 	new /obj/item/key/ambulance(src)
-	new /obj/item/pinpointer/crew(src)
 	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/storage/bag/garment/paramedic(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/storage/firstaid/adv(src)
-	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/storage/toolbox/emergency(src)
+	new /obj/item/fulton_core(src)
+	new /obj/item/extraction_pack(src)
+	new /obj/item/gps/mining(src)
+	new /obj/item/gun/energy/plasmacutter(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"

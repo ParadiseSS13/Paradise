@@ -122,24 +122,25 @@
 	heart_rate_decrease = 1
 	taste_description = "a safe refuge"
 
+/datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE)
+	if(iscarbon(M))
+		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
+			data = "Ingested"
+			if(show_message)
+				to_chat(M, "<span class='warning'>[src] freezes solid as it enters your body!</span>") //Burn damage already happens on ingesting
+	..()
+
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-
-	var/external_temp
-	if(istype(M.loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		var/obj/machinery/atmospherics/unary/cryo_cell/C = M.loc
-		external_temp = C.air_contents.temperature
-	else
-		var/turf/T = get_turf(M)
-		external_temp = T.temperature
-
-	if(external_temp < TCRYO)
+	if(M.bodytemperature < TCRYO && data != "Ingested")
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
 		update_flags |= M.adjustBruteLoss(-12, FALSE)
 		update_flags |= M.adjustFireLoss(-12, FALSE)
-
+		M.Stun(4 SECONDS) //You freeze up, but get good healing. Stops use as a combat drug, or for meming on blobs in space.
+		if(M.stat == CONSCIOUS && prob(25)) //So people know what is going on outside cryo tubes, in the event someone weaponises this.
+			to_chat(M, "<span class='warning'>Your veins and muscles are freezing!</span>")
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ("head")
@@ -536,9 +537,6 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.3
 	overdose_threshold = 35
-	addiction_chance = 1
-	addiction_chance = 10
-	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "stimulation"
 
@@ -855,7 +853,7 @@
 	if(volume < 20)
 		if(prob(10))
 			to_chat(H, "<span class='warning>You cough up some congealed blood.</span>")
-			H.vomit(blood = TRUE, stun = FALSE) //mostly visual
+			H.vomit(blood = TRUE, should_confuse = FALSE) //mostly visual
 		else if(prob(10))
 			var/overdose_message = pick("Your vision is tinted red for a moment.", "You can hear your heart beating.")
 			to_chat(H, "<span class='warning'>[overdose_message]</span>")
@@ -863,7 +861,7 @@
 		if(prob(10))
 			to_chat(H, "<span class='danger'>You choke on congealed blood!</span>")
 			H.AdjustLoseBreath(2 SECONDS)
-			H.vomit(blood = TRUE, stun = FALSE)
+			H.vomit(blood = TRUE, should_confuse = FALSE)
 		else if(prob(10))
 			var/overdose_message = pick("You're seeing red!", "Your heartbeat thunders in your ears!", "Your veins writhe under your skin!")
 			to_chat(H, "<span class='danger'>[overdose_message]</span>")
@@ -984,7 +982,9 @@
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
-			M.Stun(6 SECONDS)
+			to_chat(M, "<span class='userdanger'>It feels like every single one of your muscles is cramping at once!</span>")
+			M.emote("scream")
+			M.Weaken(6 SECONDS)
 
 	return ..() | update_flags
 

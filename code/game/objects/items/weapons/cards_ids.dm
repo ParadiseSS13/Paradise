@@ -410,10 +410,10 @@
 		src.assignment = u
 		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
 		to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
-		registered_user = user
-	else if(!registered_user || registered_user == user)
+		registered_user = user.mind.current
+	else if(!registered_user || registered_user == user.mind.current)
 		if(!registered_user)
-			registered_user = user
+			registered_user = user.mind.current
 
 		switch(alert(user,"Would you like to display \the [src] or edit it?","Choose","Show","Edit"))
 			if("Show")
@@ -651,6 +651,10 @@
 							RebuildHTML()
 	else
 		..()
+
+/obj/item/card/id/syndicate/Destroy()
+	registered_user = null
+	return ..()
 
 /obj/item/card/id/syndicate_command
 	name = "syndicate ID card"

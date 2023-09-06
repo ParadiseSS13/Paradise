@@ -59,17 +59,7 @@
 			continue
 		// if we are going to break this one
 		if(prob(APC_BREAK_PROBABILITY))
-			// if it has internal wires, cut the power wires
-			if(A.wires)
-				if(!A.wires.is_cut(WIRE_MAIN_POWER1))
-					A.wires.cut(WIRE_MAIN_POWER1)
-				if(!A.wires.is_cut(WIRE_MAIN_POWER2))
-					A.wires.cut(WIRE_MAIN_POWER2)
-			// if it was operating, toggle off the breaker
-			if(A.operating)
-				A.toggle_breaker()
-			// no matter what, ensure the area knows something happened to the power
-			current_area.powernet.power_change()
+			A.apc_short()
 			affected_apc_count++
 	log_and_message_admins("APC Short Out event has shorted out [affected_apc_count] APCs.")
 

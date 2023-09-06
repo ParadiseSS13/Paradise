@@ -21,7 +21,8 @@
 									/obj/effect/proc_holder/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
 									/obj/effect/proc_holder/spell/vampire/self/specialize = 150,
-									/datum/vampire_passive/regen = 200)
+									/datum/vampire_passive/regen = 200,
+									/datum/vampire_passive/vision/advanced = 500)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
@@ -65,14 +66,13 @@
 
 /datum/antagonist/vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
+	powers += spell
 	if(istype(spell, /obj/effect/proc_holder/spell))
 		owner.AddSpell(spell)
 	if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
 		passive.owner = owner.current
 		passive.on_apply(src)
-	powers += spell
-	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
 /datum/antagonist/vampire/proc/get_ability(path)
 	for(var/datum/power as anything in powers)

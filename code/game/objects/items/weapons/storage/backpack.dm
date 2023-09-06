@@ -19,9 +19,8 @@
 	max_integrity = 300
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/back.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
-		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
+		)
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(in_range(user, src))
@@ -637,10 +636,10 @@
 			new /obj/item/organ/internal/cyberimp/arm/katana(src)
 			value += 1
 		if(3)
-			new /obj/item/twohanded/mjollnir(src)
+			new /obj/item/mjollnir(src)
 			value += 2
 		if(4)
-			new /obj/item/twohanded/singularityhammer(src)
+			new /obj/item/singularityhammer(src)
 			value += 2
 		if(5)
 			new /obj/item/katana(src)
@@ -649,13 +648,13 @@
 			new /obj/item/claymore(src)
 			value += 2 //force 40 this is value 2
 		if(7)
-			new /obj/item/twohanded/spear/grey_tide(src)
+			new /obj/item/spear/grey_tide(src)
 			value += 2 //Value 2, clones are strong
 		if(8)
 			if(prob(50))
 				new /obj/item/sord(src)
 				value -= 1 //Useless joke, might as well give them a value point back.
-				new /obj/item/twohanded/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
+				new /obj/item/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
 	//Wands
 	var/wands = 0
 	while(wands < 2)

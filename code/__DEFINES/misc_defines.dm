@@ -375,7 +375,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 49
+#define SQL_VERSION 50
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -490,6 +490,7 @@
 #define LINDA_SPAWN_N2O 64
 #define LINDA_SPAWN_AGENT_B 128
 #define LINDA_SPAWN_AIR 256
+#define LINDA_SPAWN_COLD 512
 
 // Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
@@ -545,3 +546,9 @@
 #define DEADCHAT_ANARCHY_MODE (1<<1)
 /// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
 #define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
+
+// Lavaland cave design defines
+
+#define BLOCKED_BURROWS "Blocked Burrows"
+#define CLASSIC_CAVES "Classic Caves"
+#define DEADLY_DEEPROCK "Deadly Deeprock"
