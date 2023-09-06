@@ -66,7 +66,7 @@
 
 /datum/martial_art/judo/under_siege
 	name = "Professional Bodyguarding"
-	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen, /area/crew_quarters/bar))
+	var/static/list/areas_under_siege = typecacheof(list(/area/station/service/kitchen, /area/station/service/bar))
 
 /datum/martial_art/judo/under_siege/teach(mob/living/carbon/human/H, make_temporary)
 	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(bar_check))
