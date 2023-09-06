@@ -119,4 +119,4 @@
 
 /datum/map_per_tile_test/nearspace_checker/CheckTile(turf/T)
 	if(T.loc.type == /area/space/nearstation && !is_type_in_list(T, allowed_turfs))
-		Fail(T, "nearspace area contains a non-space turf")
+		Fail(T, "nearspace area contains a non-space turf: [T]")
