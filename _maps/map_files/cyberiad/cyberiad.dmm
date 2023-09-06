@@ -69299,6 +69299,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "ifN" = (
@@ -72108,6 +72113,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/maintenance/disposal)
+"jZW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/asmaint)
 "kap" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -75921,6 +75935,11 @@
 /area/maintenance/apmaint2)
 "mAv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "mAZ" = (
@@ -83203,6 +83222,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
+"rbY" = (
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plasteel,
+/area/maintenance/asmaint)
 "rbZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -145738,10 +145766,10 @@ hlu
 nXc
 pfF
 mAv
-csL
-csL
-ePu
-hyk
+cOm
+cOm
+jZW
+rbY
 cga
 hyk
 csL
