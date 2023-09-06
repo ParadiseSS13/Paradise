@@ -13346,7 +13346,7 @@
 /area/station/public/storage/art)
 "aPT" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "aPU" = (
 /obj/structure/table/wood,
@@ -14031,10 +14031,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "aRv" = (
 /obj/structure/cable{
@@ -15385,13 +15382,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore)
-"aUA" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
-	},
-/area/space/nearstation)
 "aUB" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -89795,10 +89785,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"oEG" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "oFL" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -131526,7 +131512,7 @@ ayg
 aze
 aEJ
 awX
-aUA
+aPT
 abj
 aVK
 qZq
@@ -149779,7 +149765,7 @@ abj
 aaa
 abj
 abj
-oEG
+btJ
 aaa
 ygH
 tFK
@@ -150036,7 +150022,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 abj
 ygH
 aJx
@@ -150293,7 +150279,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 aaa
 ygH
 uUu
@@ -157517,7 +157503,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 aaa
 aaa
 aaa
@@ -157774,7 +157760,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 aaa
 aaa
 aaa
@@ -158031,7 +158017,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 aaa
 aaa
 aaa

@@ -47518,11 +47518,6 @@
 "hUs" = (
 /turf/space,
 /area/station/security/armory/secure)
-"hUz" = (
-/obj/structure/girder,
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "hUF" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -126436,7 +126431,7 @@ xCT
 uwf
 lzH
 lzH
-hUz
+xcc
 rNK
 rNK
 rNK
@@ -126693,7 +126688,7 @@ hKz
 fCt
 rNK
 rNK
-hUz
+xcc
 rNK
 rNK
 rNK
@@ -127978,7 +127973,7 @@ hKz
 fCt
 rNK
 rNK
-hUz
+xcc
 rNK
 rNK
 rNK
@@ -128235,7 +128230,7 @@ hKz
 fCt
 lzH
 lzH
-hUz
+xcc
 rNK
 rNK
 rNK
@@ -128492,7 +128487,7 @@ dVe
 uVb
 rNK
 rNK
-hUz
+xcc
 rNK
 rNK
 rNK
