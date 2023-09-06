@@ -280,7 +280,7 @@
 		return
 	if(!(target.status_flags & CANPUSH))
 		// No throwing mobs specifically flagged as immune to being pushed.
-		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, spaceworms, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
+		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
 		return
 	if(target.move_resist > MOVE_RESIST_DEFAULT)
 		// No throwing mobs that have higher than normal move_resist.
