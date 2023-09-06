@@ -154,7 +154,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/epinephrine
 	list_reagents = list("epinephrine" = 10)
-	container_type = null // Only epi autoinjectors can't be drained
+	container_type = NONE // Only epi autoinjectors can't be drained
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
