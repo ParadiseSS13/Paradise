@@ -26531,7 +26531,7 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
-"btI" = (
+"btJ" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -153171,7 +153171,7 @@ nlB
 aaa
 abj
 abj
-btI
+btJ
 abj
 abj
 csj
@@ -153685,7 +153685,7 @@ aaa
 aaa
 aaa
 abj
-btI
+btJ
 abj
 abj
 csj
@@ -154200,7 +154200,7 @@ aaa
 aaa
 abj
 abj
-btI
+btJ
 abj
 csj
 rEQ
@@ -156233,10 +156233,10 @@ aaa
 aaa
 abj
 abj
-btI
-btI
-btI
-btI
+btJ
+btJ
+btJ
+btJ
 abj
 abj
 fhF
@@ -156495,7 +156495,7 @@ aaa
 abj
 abj
 aaa
-btI
+btJ
 fhF
 fhF
 fhF
@@ -156505,7 +156505,7 @@ fhF
 fhF
 abj
 abj
-btI
+btJ
 aaa
 aaa
 aaa
@@ -156749,10 +156749,10 @@ aaa
 abj
 abj
 abj
-oEG
-oEG
-oEG
-btI
+btJ
+btJ
+btJ
+btJ
 fhF
 fhF
 fhF
@@ -156762,7 +156762,7 @@ fhF
 fhF
 abj
 aaa
-btI
+btJ
 aaa
 aaa
 aaa
@@ -157019,7 +157019,7 @@ fhF
 fhF
 abj
 aaa
-btI
+btJ
 aaa
 aaa
 aaa
@@ -157266,7 +157266,7 @@ aaa
 aaa
 aaa
 aaa
-btI
+btJ
 fhF
 fhF
 fhF
@@ -157274,9 +157274,9 @@ fhF
 fhF
 fhF
 fhF
-btI
+btJ
 abj
-btI
+btJ
 aaa
 aaa
 aaa
@@ -157523,7 +157523,7 @@ aaa
 aaa
 aaa
 aaa
-btI
+btJ
 fhF
 fhF
 fhF
@@ -157531,7 +157531,7 @@ fhF
 fhF
 fhF
 fhF
-btI
+btJ
 abj
 abj
 aaa
@@ -157781,13 +157781,13 @@ aaa
 aaa
 aaa
 bPS
-btI
-btI
+btJ
+btJ
 abj
 bPS
 abj
-btI
-btI
+btJ
+btJ
 bPS
 aaa
 aaa
@@ -158296,11 +158296,11 @@ aaa
 aaa
 aaa
 aaa
-btI
-btI
-btI
-btI
-btI
+btJ
+btJ
+btJ
+btJ
+btJ
 aaa
 aaa
 aaa
