@@ -63,9 +63,9 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"cryogenic_liquid", "dark_matter", "b_sorium",
 							"reagent", "life","dragonsbreath", "nanocalcium"))
 
-GLOBAL_LIST_INIT(safe_chem_list, list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
-									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
-									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
+GLOBAL_LIST_INIT(safe_chem_list, list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol",
+									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol",
+									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "hydrocodone",
 									"mitocholide", "rezadone", "menthol"))
 
 GLOBAL_LIST_INIT(safe_chem_applicator_list, list("silver_sulfadiazine", "styptic_powder", "synthflesh"))
