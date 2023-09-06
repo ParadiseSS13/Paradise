@@ -27,6 +27,8 @@
 	#define AI_OK "AI Allowed"
 	/// Ruins will spawn on this z-level
 	#define SPAWN_RUINS "Spawn Ruins"
+	/// A level that can be navigated to through space, but for real this time.
+	#define REACHABLE_SPACE_ONLY "Reachable Space Only"
 
 // Level names
 	#define MAIN_STATION "Main Station"
