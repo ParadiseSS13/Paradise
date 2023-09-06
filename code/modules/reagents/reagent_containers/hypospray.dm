@@ -113,7 +113,7 @@
 	volume = 100
 	list_reagents = list("nanites" = 100)
 
-/obj/item/reagent_containers/hypospray/autoinjector
+/obj/item/reagent_containers/hypospray/autoinjector // This is an empty variant
 	name = "emergency autoinjector"
 	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
 	icon_state = "autoinjector"
@@ -125,7 +125,6 @@
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = null
 	flags = null
-	list_reagents = list("epinephrine" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -152,6 +151,12 @@
 		. += "<span class='notice'>It is currently loaded.</span>"
 	else
 		. += "<span class='notice'>It is spent.</span>"
+
+/obj/item/reagent_containers/hypospray/autoinjector/epinephrine
+	name = "emergency autoinjector"
+	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
+	icon_state = "autoinjector"
+	list_reagents = list("epinephrine" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
