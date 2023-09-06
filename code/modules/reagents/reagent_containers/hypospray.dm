@@ -153,9 +153,6 @@
 		. += "<span class='notice'>It is spent.</span>"
 
 /obj/item/reagent_containers/hypospray/autoinjector/epinephrine
-	name = "emergency autoinjector"
-	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
-	icon_state = "autoinjector"
 	list_reagents = list("epinephrine" = 10)
 	container_type = null // Only epi autoinjectors can't be drained
 
