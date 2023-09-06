@@ -263,6 +263,7 @@
 /obj/item/storage/bag/garment/chaplain/populate_contents()
 	new /obj/item/clothing/under/rank/civilian/chaplain(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/suit/hooded/abaya(src)
 	new /obj/item/clothing/suit/hooded/nun(src)
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 	new /obj/item/clothing/suit/hooded/monk(src)
@@ -292,3 +293,19 @@
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/glasses/hud/skills(src)
 	new /obj/item/clothing/accessory/blue(src)
+
+/obj/item/storage/bag/garment/paramedic
+	name = "paramedic's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the paramedic."
+
+/obj/item/storage/bag/garment/paramedic/populate_contents()
+	new /obj/item/clothing/under/rank/medical/paramedic(src)
+	new /obj/item/clothing/head/soft/blue(src)
+	new /obj/item/clothing/suit/storage/labcoat/emt(src)
+	new /obj/item/clothing/suit/storage/paramedic(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
+	new /obj/item/clothing/gloves/color/latex(src)
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/shoes/black(src)
+
+

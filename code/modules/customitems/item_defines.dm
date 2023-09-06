@@ -158,7 +158,7 @@
 
 /obj/item/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
 	name = "Zelda's Crowbar"
-	desc = "A pink crow bar that has an engraving that reads, 'To Zelda. Love always, Dawn'"
+	desc = "A pink crowbar that has an engraving that reads, 'To Zelda. Love always, Dawn'"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "zeldacrowbar"
 	item_state = "crowbar"
