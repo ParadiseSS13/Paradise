@@ -453,7 +453,7 @@
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 		return TRUE
 
-	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
+	else if(istype(I, /obj/item/pyro_claws))
 		to_chat(user, "<span class='notice'>You begin to melt the wall.</span>")
 
 		if(do_after(user, isdiamond ? 60 * I.toolspeed : 30 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds

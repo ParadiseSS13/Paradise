@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
-			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 1)
+			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 5)
 				sales_items += I
 
 		for(var/datum/uplink_item/I in last)
@@ -40,8 +40,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.limited_stock = 1
 		I.refundable = FALSE
 		A.refundable = FALSE
-		if(A.cost >= 20)
-			discount *= 0.5 // If the item costs 20TC or more, it's only 25% off.
+		if(A.cost >= 100)
+			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
 		A.cost = max(round(A.cost * (1-discount)),1)
 		A.category = "Discounted Gear"
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Chainsaw"
 	desc = "A high powered chainsaw for cutting up ...you know...."
 	reference = "CH"
-	item = /obj/item/twohanded/chainsaw
+	item = /obj/item/butcher_chainsaw
 	cost = 65
 
 /datum/uplink_item/dangerous/universal_gun_kit
@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A universal gun kit, that can be combined with any weapon kit to make a functioning RND gun of your own. Uses built in allen keys to self assemble, just combine the kits by hitting them together."
 	reference = "IKEA"
 	item = /obj/item/weaponcrafting/gunkit/universal_gun_kit
-	cost = 40
+	cost = 25
 
 /datum/uplink_item/dangerous/batterer
 	name = "Mind Batterer"
@@ -274,11 +274,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Fiber Wire Garrote"
 	desc = "A length of fiber wire between two wooden handles, perfect for the discrete assassin. This weapon, when used on a target from behind \
 			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
+	item = /obj/item/garrote
 	reference = "GAR"
-	item = /obj/item/twohanded/garrote
 	cost = 30
-
-
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -771,7 +769,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	reference = "SYSM"
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	cost = 10
+	cost = 7
 
 /datum/uplink_item/badass/syndiecash
 	name = "Syndicate Briefcase Full of Cash"
@@ -794,6 +792,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An awesome jacket to help you style on Nanotrasen with. The lining is made of a thin polymer to provide a small amount of armor. Does not provide any extra storage space."
 	reference = "JCKT"
 	item = /obj/item/clothing/suit/jacket/syndicatebomber
+	cost = 3
+
+/datum/uplink_item/badass/tpsuit
+	name = "Syndicate Two-Piece Suit"
+	desc = "A snappy two-piece suit that any self-respecting Syndicate agent should wear. Perfect for professionals trying to go undetected, but moderately armored with experimental nanoweave in case things do get loud. Comes with two cashmere-lined pockets for maximum style and comfort."
+	reference = "SUIT"
+	item = /obj/item/clothing/suit/storage/lawyer/blackjacket/armored
 	cost = 5
 
 /datum/uplink_item/bundles_TC

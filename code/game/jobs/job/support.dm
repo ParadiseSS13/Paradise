@@ -13,6 +13,7 @@
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/qm
+	exp_map = list(EXP_TYPE_SUPPLY = 1200)
 
 /datum/outfit/job/qm
 	name = "Quartermaster"
@@ -165,7 +166,8 @@
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
 	ADD_TRAIT(H, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
-
+	var/datum/martial_art/judo/under_siege/bouncer_delight = new
+	bouncer_delight.teach(H)
 
 
 /datum/job/chef

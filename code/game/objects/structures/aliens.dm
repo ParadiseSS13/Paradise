@@ -483,6 +483,8 @@
 		obj_integrity = integrity_failure
 	else if(status != GROWN)
 		addtimer(CALLBACK(src, PROC_REF(grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
+	if(status == GROWN)
+		AddComponent(/datum/component/proximity_monitor)
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
