@@ -14031,7 +14031,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	dir = 10;
 	icon_state = "darkblue"
 	},
@@ -15387,7 +15387,7 @@
 /area/station/hallway/primary/fore)
 "aUA" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "darkblue"
 	},
