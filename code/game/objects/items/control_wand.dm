@@ -34,7 +34,8 @@
 									WAND_EMERGENCY = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_ea"),
 									WAND_SPEED = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_speed"))
 	var/image/part_image = options[mode]
-	part_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_active")
+	// scuffed, but allows you to easily show whats the currently selected one
+	part_image.underlays += image(icon = 'icons/mob/radial.dmi', icon_state = "radial_slice_focus")
 	var/choice = show_radial_menu(user, src, options)
 	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
 		return
