@@ -372,6 +372,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 
+/obj/item/clothing/mask/holo_cigar/update_icon_state()
+	. = ..()
+	icon_state = (enabled ? "holocigaron" : "holocigaroff")
+
 /obj/item/clothing/mask/holo_cigar/examine(mob/user)
 	. = ..()
 	if(enabled)
@@ -414,13 +418,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(enabled)
 		enabled = FALSE
 		to_chat(user, "<span class='notice'>You disable the holo-cigar.</span>")
-		icon_state = "holocigaroff"
 		STOP_PROCESSING(SSobj, src)
 	else
 		enabled = TRUE
 		to_chat(user, "<span class='notice'>You enable the holo-cigar.</span>")
-		icon_state = "holocigaron"
 		START_PROCESSING(SSobj, src)
+
+	update_appearance(UPDATE_ICON_STATE)
 
 /////////////////
 //SMOKING PIPES//
