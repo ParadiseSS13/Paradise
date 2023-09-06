@@ -2876,7 +2876,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/engine/gravitygenerator)
 "asj" = (
@@ -2884,7 +2884,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/engine/gravitygenerator)
 "asu" = (

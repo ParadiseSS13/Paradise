@@ -1021,7 +1021,7 @@
 "afR" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	id_tag = "aisat"
@@ -4006,7 +4006,7 @@
 	},
 /area/tcommsat/chamber)
 "axu" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -6432,7 +6432,7 @@
 /turf/simulated/wall,
 /area/bridge)
 "aOg" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9666,7 +9666,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ai_monitored/storage/eva)
 "bet" = (
@@ -17612,7 +17612,7 @@
 	},
 /area/engine/engineering)
 "bLX" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -17624,7 +17624,7 @@
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "bLY" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -17641,7 +17641,7 @@
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "bLZ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -17660,7 +17660,7 @@
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "bMb" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -18745,7 +18745,7 @@
 /turf/simulated/wall,
 /area/atmos)
 "bQC" = (
-/obj/effect/spawner/window/reinforced/plasma,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -30050,7 +30050,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fore)
 "cWa" = (
-/obj/effect/spawner/window/reinforced/plasma,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -30086,7 +30086,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
 "cWc" = (
-/obj/effect/spawner/window/reinforced/plasma,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -62934,7 +62934,7 @@
 	},
 /area/maintenance/fore2)
 "mVA" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -62947,7 +62947,7 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "mVN" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -63479,7 +63479,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "ndT" = (
@@ -63600,7 +63600,7 @@
 	},
 /area/hallway/spacebridge/comeng)
 "nfW" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -65122,7 +65122,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "nFW" = (
@@ -65278,7 +65278,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/crew_quarters/fitness)
 "nJH" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
@@ -65300,7 +65300,7 @@
 	},
 /area/security/brig)
 "nJN" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"

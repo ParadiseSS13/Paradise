@@ -250,7 +250,7 @@
 	name = "Acid-Proof containment chamber blast door"
 	},
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aF" = (
@@ -639,7 +639,7 @@
 	id_tag = "Awaylab";
 	name = "Acid-Proof containment chamber blast door"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "br" = (
@@ -1331,7 +1331,7 @@
 	name = "Acid-Proof containment chamber blast door"
 	},
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cD" = (
@@ -1524,7 +1524,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cU" = (
