@@ -30,37 +30,42 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 
 /datum/virology_goal/propertysymptom
 	name = "Symptom With Properties Viral Sample Request"
-	var/datum/symptom/goal_symptom
+	var/goal_symptom //Type path of the symptom
+	var/goal_symptom_name
 	var/goal_property
 	var/goal_property_text
 	var/goal_property_value
 
 /datum/virology_goal/propertysymptom/New()
-	var/datum/symptom/S = pick(GLOB.list_symptoms)
-	goal_symptom = new S
+	var/type = pick(GLOB.list_symptoms)
+	var/datum/symptom/S = new type()
+	goal_symptom = S.type
+	var/datum/symptom/SY = new goal_symptom()
+	goal_symptom_name = SY.name
+	qdel(SY)
 	goal_property = pick("resistance", "stealth", "stage_rate", "transmittable")
 	if(goal_property == "stage_rate")
 		goal_property_text = "stage rate"
 	else
 		goal_property_text = goal_property
 	goal_property_value = rand(-18,11)
-	if(goal_property == "resistance" && S.resistance)
+	if(goal_property == "resistance")
 		goal_property_value += S.resistance
-	else if(goal_property == "stealth" && S.stealth)
+	else if(goal_property == "stealth")
 		goal_property_value += S.stealth
-	else if(goal_property == "stage_rate" && S.stage_speed)
+	else if(goal_property == "stage_rate")
 		goal_property_value += S.stage_speed
-	else if(S.transmittable)
+	else
 		goal_property_value += S.transmittable
 
 /datum/virology_goal/propertysymptom/get_report()
-	return {"<b>Effects of [goal_symptom] symptom and level [goal_property_value] [goal_property_text]</b><br>
-	Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom] symptom and with the [goal_property_text] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle.
+	return {"<b>Effects of [goal_symptom_name] symptom and level [goal_property_value] [goal_property_text]</b><br>
+	Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property_text] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle.
 	<br>
 	-Nanotrasen Virology Research"}
 
 /datum/virology_goal/propertysymptom/get_ui_report()
-	return {"Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom] symptom and with the [goal_property_text] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle."}
+	return {"Viral samples with a specific symptom and properties are required to study the effects of this symptom in various conditions. We need you to deliver [delivery_goal]u of viral samples containing the [goal_symptom_name] symptom and with the [goal_property_text] property at level [goal_property_value] along with 3 other symptoms to us through the cargo shuttle."}
 
 /datum/virology_goal/propertysymptom/check_completion(list/datum/reagent/reagent_list)
 	. = FALSE
@@ -69,12 +74,11 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 		if(BL.data && BL.data["viruses"])
 			for(var/datum/disease/advance/D in BL.data["viruses"])
 				if(D.symptoms.len < 4) //We want 3 other symptoms alongside the requested one
-					return
-				var/list/properties = D.GenerateProperties() += list("resistance" = 1, "stealth" = 0, "stage_rate" = 1, "transmittable" = 1, "severity" = 0)
+					continue
 				if(!D.GenerateProperties()[goal_property] == goal_property_value)
-					return
+					continue
 				for(var/datum/symptom/S in D.symptoms)
-					if(S == goal_symptom)
+					if(S.type == goal_symptom)
 						delivered_amount += BL.volume
 						if(delivered_amount >= delivery_goal)
 							delivered_amount = delivery_goal
@@ -85,7 +89,7 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request"
-	var/list/datum/symptom/goal_symptoms = list() //We could go with a diseaseID here instead a list of symptoms but we need the list to tell the player what symptoms to included
+	var/list/goal_symptoms = list() //List of type paths of the symptoms, we could go with a diseaseID here instead a list of symptoms but we need the list to tell the player what symptoms to include
 
 /datum/virology_goal/virus/New()
 	var/list/datum/symptom/symptoms = GLOB.list_symptoms
@@ -107,11 +111,13 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 /datum/virology_goal/virus/proc/symptoms_list2text()
 	var/msg = ""
 	var/index = 1
-	for(var/datum/symptom/S in goal_symptoms)
+	for(var/S in goal_symptoms)
+		var/datum/symptom/SY = new S()
 		if(index == goal_symptoms.len)
-			msg += "[S]"
+			msg += "[SY]"
 		else
-			msg += "[S], "
+			msg += "[SY], "
+		qdel(SY)
 		index += 1
 	return msg
 
@@ -121,13 +127,15 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 	if(BL)
 		if(BL.data && BL.data["viruses"])
 			for(var/datum/disease/advance/D in BL.data["viruses"])
-				var/index = 1
+				var/skip = FALSE
 				for(var/datum/symptom/S in goal_symptoms)
-					if(!S == D.symptoms[index])
-						return
-					index += 1
-				delivered_amount += BL.volume
-				if(delivered_amount >= delivery_goal)
-					delivered_amount = delivery_goal
-					completed = TRUE
-					return TRUE
+					var/datum/symptom/SY = locate(S) in D.symptoms
+					if(!SY)
+						skip = TRUE
+						break
+				if(!skip)
+					delivered_amount += BL.volume
+					if(delivered_amount >= delivery_goal)
+						delivered_amount = delivery_goal
+						completed = TRUE
+						return TRUE

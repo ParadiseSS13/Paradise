@@ -628,7 +628,7 @@ const MedicalRecordsNavigation = (_properties, context) => {
         selected={screen === 6}
         onClick={() => act('screen', { screen: 6 })}
       >
-        <Icon name="check-list"/>
+        <Icon name="vial"/>
         Virology Goals
       </Tabs.Tab>
       <Tabs.Tab
