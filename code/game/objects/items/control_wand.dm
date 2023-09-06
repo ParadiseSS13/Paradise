@@ -29,11 +29,12 @@
 	return ..()
 
 /obj/item/door_remote/attack_self(mob/user)
-	var/static/list/options = list(WAND_OPEN = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_open"),
+	var/list/options = list(WAND_OPEN = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_open"),
 									WAND_BOLT = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_bolt"),
 									WAND_EMERGENCY = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_ea"),
 									WAND_SPEED = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_speed"))
-
+	var/image/part_image = options[mode]
+	part_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_active")
 	var/choice = show_radial_menu(user, src, options)
 	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
 		return
