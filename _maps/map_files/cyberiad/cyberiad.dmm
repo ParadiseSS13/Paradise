@@ -65401,8 +65401,7 @@
 	temperature = 80;
 	nitrogen = 100
 	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
+/area/station/science/xenobiology)
 "fSp" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
