@@ -123,7 +123,7 @@
 	possible_transfer_amounts = null
 	volume = 10
 	ignore_flags = TRUE //so you can medipen through hardsuits
-	container_type = null
+	container_type = DRAWABLE
 	flags = null
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
@@ -157,6 +157,7 @@
 	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
 	icon_state = "autoinjector"
 	list_reagents = list("epinephrine" = 10)
+	container_type = null // Only epi autoinjectors can't be drained
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
