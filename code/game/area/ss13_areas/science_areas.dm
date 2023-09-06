@@ -16,7 +16,7 @@
 
 /area/station/science/explab
 	name = "\improper E.X.P.E.R.I-MENTOR Lab"
-	icon_state = "toxmisc"
+	icon_state = "scilab"
 
 /area/station/science/explab/chamber
 	name = "\improper E.X.P.E.R.I-MENTOR Chamber"

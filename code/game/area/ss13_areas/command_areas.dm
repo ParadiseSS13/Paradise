@@ -39,7 +39,7 @@
 
 /area/station/command/office/cmo
 	name = "\improper Chief Medical Officer's Quarters"
-	icon_state = "cmo"
+	icon_state = "CMO"
 
 /area/station/command/office/ntrep
 	name = "\improper Nanotrasen Representative's Office"
