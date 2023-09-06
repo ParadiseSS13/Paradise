@@ -300,7 +300,7 @@
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
 	playsound(user, 'sound/items/boston_shaker.ogg', 80, 1)
-	if(do_after(user, 3 SECONDS, target = src))
+	if(do_after(user, 3 SECONDS, target = src, allow_moving = TRUE))
 		reagents.set_reacting(TRUE)
 		reagents.handle_reactions()
 	icon_state = "shaker"

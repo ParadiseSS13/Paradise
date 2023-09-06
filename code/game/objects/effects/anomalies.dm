@@ -378,6 +378,9 @@
 	for(var/turf/T in oview(get_turf(src), 7))
 		turf_targets += T
 
+	for(var/mob/living/carbon/human/H in view(get_turf(src), 3))
+		shootAt(H)
+
 	for(var/I in 1 to rand(1, 3))
 		var/turf/target = pick(turf_targets)
 		shootAt(target)
@@ -404,6 +407,9 @@
 		return
 	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
 	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
+	if(drops_core)
+		O.stun = 0.5 SECONDS
+	O.original = target
 	O.current = T
 	O.yo = U.y - T.y
 	O.xo = U.x - T.x
