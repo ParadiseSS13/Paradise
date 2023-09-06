@@ -204,7 +204,7 @@
 "acR" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /obj/machinery/button/windowtint{
 	dir = 8;
@@ -17368,7 +17368,7 @@
 	pixel_y = 28
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -34963,7 +34963,7 @@
 /area/station/security/checkpoint/secondary)
 "cfh" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -60800,7 +60800,7 @@
 "ivU" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/station/science/xenobiology)
 "ivY" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
@@ -63149,7 +63149,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 1;
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix")
+	autolink_sensors = list("burn_sensor"="Burn  Mix")
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -63287,7 +63287,7 @@
 "jIs" = (
 /obj/machinery/computer/security{
 	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -63553,7 +63553,7 @@
 "jNU" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -77383,7 +77383,7 @@
 "qnJ" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
-/area/space/nearstation)
+/area/station/science/xenobiology)
 "qnY" = (
 /obj/machinery/light/small,
 /obj/structure/window/plasmareinforced{
@@ -81161,10 +81161,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/command/office/cmo)
-"sjS" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/engine,
-/area/space/nearstation)
 "sjV" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -91047,7 +91043,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed  Air  In","air_sensor"="Mixed  Air  Supply  Tank","mair_out_meter"="Mixed  Air  Out","dloop_atm_meter"="Distribution  Loop","wloop_atm_meter"="Waste  Loop")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -92420,7 +92416,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon  Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous  Oxide","waste_sensor"="Gas  Mix  Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -134133,7 +134129,7 @@ qnJ
 uQm
 jAZ
 uQm
-bre
+uQm
 abq
 abq
 abq
@@ -134386,11 +134382,11 @@ aaa
 aaD
 aaa
 aaa
-bre
+uQm
 fbt
 sKz
 uXo
-bre
+uQm
 aaa
 aaa
 aaa
@@ -134643,11 +134639,11 @@ aaa
 aaa
 aaa
 aaa
-bre
+uQm
 wSy
 kcb
 njV
-bre
+uQm
 aaa
 aaa
 aaa
@@ -134900,11 +134896,11 @@ aaa
 aaa
 aaa
 aaa
-bre
+uQm
 gMG
 lQx
 xml
-bre
+uQm
 aaa
 aaa
 aaa
@@ -135157,11 +135153,11 @@ laH
 abq
 qnJ
 ivU
-bre
+uQm
 cZr
 jek
 cZr
-bre
+uQm
 ivU
 qnJ
 abq
@@ -135412,7 +135408,7 @@ aaa
 laH
 aaa
 aaa
-bre
+uQm
 fcb
 gMT
 kls
@@ -135420,7 +135416,7 @@ xPh
 gbz
 kvh
 cEn
-bre
+uQm
 aaa
 aaa
 laH
@@ -136183,7 +136179,7 @@ abq
 abq
 abq
 abq
-bre
+uQm
 eus
 gSu
 tau
@@ -136191,7 +136187,7 @@ olg
 vKU
 pji
 lcO
-bre
+uQm
 abq
 abq
 abq
@@ -136437,10 +136433,10 @@ laH
 aaa
 aaa
 aaa
-bre
-bre
-bre
-bre
+uQm
+uQm
+uQm
+uQm
 uQm
 gzU
 iUe
@@ -136448,10 +136444,10 @@ cDI
 mCu
 erC
 uQm
-bre
-bre
-bre
-bre
+uQm
+uQm
+uQm
+uQm
 aaa
 aaa
 aaa
@@ -136694,7 +136690,7 @@ laH
 aaa
 aaa
 aaa
-sjS
+wCn
 mdi
 ucO
 mdi
@@ -136708,7 +136704,7 @@ izh
 mdi
 ucO
 mdi
-sjS
+wCn
 aaa
 aaa
 aaa
@@ -136951,7 +136947,7 @@ laH
 aaa
 aaa
 aaa
-sjS
+wCn
 mdi
 cIP
 mdi
@@ -136965,7 +136961,7 @@ wDf
 mdi
 cIP
 mdi
-sjS
+wCn
 aaa
 aaa
 aaa

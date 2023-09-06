@@ -14301,7 +14301,7 @@
 "aSh" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -26532,14 +26532,8 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
 "btI" = (
-/obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
-/area/space/nearstation)
-"btJ" = (
-/obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "btK" = (
 /obj/machinery/hologram/holopad,
@@ -80860,7 +80854,7 @@
 "ebU" = (
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix");
+	autolink_sensors = list("burn_sensor"="Burn  Mix");
 	dir = 1
 	},
 /obj/machinery/ignition_switch{
@@ -141843,9 +141837,9 @@ cpO
 aXY
 bsr
 bsv
-btI
-btI
-btJ
+bxi
+bxi
+bvV
 bwf
 bDU
 bEc
@@ -153177,7 +153171,7 @@ nlB
 aaa
 abj
 abj
-oEG
+btI
 abj
 abj
 csj
@@ -153691,7 +153685,7 @@ aaa
 aaa
 aaa
 abj
-oEG
+btI
 abj
 abj
 csj
@@ -154206,7 +154200,7 @@ aaa
 aaa
 abj
 abj
-dij
+btI
 abj
 csj
 rEQ
@@ -156239,10 +156233,10 @@ aaa
 aaa
 abj
 abj
-oEG
-oEG
-oEG
-oEG
+btI
+btI
+btI
+btI
 abj
 abj
 fhF
@@ -156501,7 +156495,7 @@ aaa
 abj
 abj
 aaa
-oEG
+btI
 fhF
 fhF
 fhF
@@ -156511,7 +156505,7 @@ fhF
 fhF
 abj
 abj
-oEG
+btI
 aaa
 aaa
 aaa
@@ -156758,7 +156752,7 @@ abj
 oEG
 oEG
 oEG
-oEG
+btI
 fhF
 fhF
 fhF
@@ -156768,7 +156762,7 @@ fhF
 fhF
 abj
 aaa
-oEG
+btI
 aaa
 aaa
 aaa
@@ -157025,7 +157019,7 @@ fhF
 fhF
 abj
 aaa
-oEG
+btI
 aaa
 aaa
 aaa
@@ -157272,7 +157266,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btI
 fhF
 fhF
 fhF
@@ -157280,9 +157274,9 @@ fhF
 fhF
 fhF
 fhF
-oEG
+btI
 abj
-oEG
+btI
 aaa
 aaa
 aaa
@@ -157529,7 +157523,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btI
 fhF
 fhF
 fhF
@@ -157537,7 +157531,7 @@ fhF
 fhF
 fhF
 fhF
-oEG
+btI
 abj
 abj
 aaa
@@ -157787,13 +157781,13 @@ aaa
 aaa
 aaa
 bPS
-oEG
-oEG
+btI
+btI
 abj
 bPS
 abj
-oEG
-oEG
+btI
+btI
 bPS
 aaa
 aaa
@@ -158302,11 +158296,11 @@ aaa
 aaa
 aaa
 aaa
-oEG
-oEG
-oEG
-oEG
-oEG
+btI
+btI
+btI
+btI
+btI
 aaa
 aaa
 aaa
