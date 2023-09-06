@@ -134,7 +134,7 @@ SUBSYSTEM_DEF(economy)
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
 	next_paycheck_delay = 30 MINUTES + world.time
-	next_mail_delay = 1 MINUTES + world.time
+	next_mail_delay = 15 MINUTES + world.time
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)
@@ -145,9 +145,9 @@ SUBSYSTEM_DEF(economy)
 		record_economy_data()
 	process_job_tasks()
 	if(next_mail_delay <= world.time)
-		if(SSshuttle.supply.z == 2)
+		if(SSshuttle.supply.z == 2) // This is ugly but as far as I know there isn't a good way to check if a shuttle is currently travelling
 			return
-		next_mail_delay = 1 MINUTES + world.time
+		next_mail_delay = 15 MINUTES + world.time
 		mail_never_fails()
 
 /datum/controller/subsystem/economy/proc/record_economy_data()
@@ -303,7 +303,7 @@ SUBSYSTEM_DEF(economy)
 			if(T.density)
 				continue
 			shuttle_turfs += T
-	var/pack = /datum/supply_packs/emergency/mail_crate
+	var/pack = /obj/structure/closet/crate/mail
 	var/turf/spawn_location = pick(shuttle_turfs)
 	new pack(spawn_location)
 

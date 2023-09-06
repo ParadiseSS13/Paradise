@@ -45,7 +45,7 @@
 			name = "letter to [recipient]"
 			return
 	if(!admin_spawned)
-		log_debug("Error: failed to find a new name to assign to the [src]!")
+		log_debug("Error: failed to find a new name to assign to [src]!")
 		qdel(src)
 
 /obj/item/envelope/security
