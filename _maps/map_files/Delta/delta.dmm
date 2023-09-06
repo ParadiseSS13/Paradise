@@ -13346,7 +13346,7 @@
 /area/station/public/storage/art)
 "aPT" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "aPU" = (
 /obj/structure/table/wood,
@@ -14031,7 +14031,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel/airless{
+/turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
 	},
@@ -15387,7 +15387,7 @@
 /area/station/hallway/primary/fore)
 "aUA" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel/airless{
+/turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
 	},
