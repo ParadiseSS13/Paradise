@@ -996,8 +996,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	throwforce = 15
-	force_unwielded = 5
-	force_wielded = 40
 	toolspeed = 0.25
 	attack_verb = list("enlightened", "enforced", "cleaved", "stabbed", "whacked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -1011,13 +1009,17 @@
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT) //so it can't be dusted by the SM
 	AddComponent(/datum/component/parry, _stamina_constant = 0, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES)
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force, icon_wielded = "[base_icon_state]1")
+	AddComponent(/datum/component/two_handed, force_wielded = 40, force_unwielded = force, icon_wielded = "[base_icon_state]1")
+
+/obj/item/supermatter_halberd/update_icon_state()
+	icon_state = "[base_icon_state]0"
+	return ..()
 
 /obj/item/supermatter_halberd/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 
-	if(!wielded)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 
 	if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille)) //same behavior as a fireaxe for windows
