@@ -170,7 +170,7 @@
 	if(flag)
 		if(user.zone_selected == "mouth")
 			if(HAS_TRAIT(user, TRAIT_BADASS))
-				user.visible_message("[user] blows smoke off of [src]'s barrel. What a badass.")
+				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
 			else
 				handle_suicide(user, target, params)
 			return
