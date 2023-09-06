@@ -112,9 +112,10 @@
 
 /datum/map_per_tile_test/nearspace_checker
 	var/allowed_turfs = list(/turf/space,
-							 /turf/simulated/floor/plating/airless,
-							 /turf/simulated/wall
-							)
+		/turf/simulated/floor/plating/airless,
+		/turf/simulated/floor/plasteel/airless,
+		/turf/simulated/wall
+		)
 
 /datum/map_per_tile_test/nearspace_checker/New()
 	..()
