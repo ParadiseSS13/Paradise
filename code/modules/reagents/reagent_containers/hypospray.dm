@@ -123,7 +123,7 @@
 	possible_transfer_amounts = null
 	volume = 10
 	ignore_flags = TRUE //so you can medipen through hardsuits
-	container_type = DRAWABLE
+	container_type = null
 	flags = null
 	list_reagents = list("epinephrine" = 10)
 
