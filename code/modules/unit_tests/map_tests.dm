@@ -111,7 +111,12 @@
 		Fail(T, "tile contains at least one structure found in non-near space area")
 
 /datum/map_per_tile_test/nearspace_checker
+	var/allowed_turfs = list(/turf/space, /turf/simulated/floor/plating/airless)
+
+/datum/map_per_tile_test/nearspace_checker/New()
+	..()
+	allowed_turfs = typecacheof(allowed_turfs)
 
 /datum/map_per_tile_test/nearspace_checker/CheckTile(turf/T)
-	if(T.loc.type == /area/space/nearstation && !istype(T, /turf/space))
-		Fail(T, "tile contains at least one structure found in non-near space area")
+	if(T.loc.type == /area/space/nearstation && !is_type_in_list(T, allowed_turfs))
+		Fail(T, "nearspace area contains a non-space turf")
