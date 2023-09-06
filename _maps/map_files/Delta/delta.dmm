@@ -13346,7 +13346,7 @@
 /area/station/public/storage/art)
 "aPT" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/space/nearstation)
 "aPU" = (
 /obj/structure/table/wood,
@@ -14031,7 +14031,10 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel/airless{
+	dir = 10;
+	icon_state = "darkblue"
+	},
 /area/space/nearstation)
 "aRv" = (
 /obj/structure/cable{
@@ -15382,6 +15385,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore)
+"aUA" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/space/nearstation)
 "aUB" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -131512,7 +131522,7 @@ ayg
 aze
 aEJ
 awX
-aPT
+aUA
 abj
 aVK
 qZq
