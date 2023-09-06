@@ -13,11 +13,10 @@
 		to_chat(user, "<span class='warning'>You don't want to hurt [target]!</span>")
 		return FALSE
 	var/picked_hit_type = pick("punch", "smash", "kick")
-	if(ishuman(target))
-		if(target.check_shields(user, punch_damage, "[user]'s' [picked_hit_type]"))
-			user.do_attack_animation(target)
-			playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-			return FALSE
+	if(ishuman(target) && target.check_shields(user, punch_damage, "[user]'s' [picked_hit_type]"))
+		user.do_attack_animation(target)
+		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
+		return FALSE
 	if(is_emped)
 		do_the_punch(user, user)
 	else
@@ -40,11 +39,11 @@
 	punchee.visible_message(
 		"<span class='danger'>[puncher] [picked_hit_type]ed [punchee]!</span>",
 		"<span class='danger'>You're [picked_hit_type]ed by [puncher]!</span>",
-		"<span class='danger'>You hear user sickening sound of flesh hitting flesh!</span>",
+		"<span class='danger'>You hear a sickening sound of flesh hitting flesh!</span>"
 	)
 
 	if(puncher == punchee)
-		to_chat(puncher, "<span class='danger'>You [picked_hit_type] yourself!")
+		to_chat(puncher, "<span class='danger'>You [picked_hit_type] yourself!</span>")
 	else
 		to_chat(puncher, "<span class='danger'>You [picked_hit_type] [punchee]!</span>")
 
