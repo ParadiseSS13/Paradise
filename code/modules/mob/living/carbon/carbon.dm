@@ -1371,15 +1371,3 @@ so that different stomachs can handle things in different ways VB*/
 	// keep most of what's passed in, but don't change the angle
 	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, should_rotate = FALSE, rightable = FALSE)
 	KnockDown(10 SECONDS)
-
-/mob/living/carbon/proc/get_action_text(action)
-	switch(action)
-		if(ACTION_REMOVE_HANDCUFFS)
-			return "<span class='warning'>[p_they(TRUE)] [p_are()] trying to remove cuffs!</span>\n"
-		if(ACTION_REMOVE_MUZZLE)
-			return "<span class='warning'>[p_they(TRUE)] [p_are()] trying to remove muzzle!</span>\n"
-		if(ACTION_RESIST_BUCKLE)
-			return "<span class='warning'>[p_they(TRUE)] [p_are()] trying to unbuckle [p_themselves()]!</span>\n"
-		if(ACTION_BREAK_HANDCUFFS)
-			return "<span class='boldwarning'>[p_they(TRUE)] [p_are()] trying to break cuffs!</span>\n"
-	return

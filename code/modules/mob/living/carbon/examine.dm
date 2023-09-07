@@ -193,9 +193,6 @@
 			if(GRAB_KILL)
 				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] strangling [grab.affecting]!</span>\n"
 
-	for(var/item in current_actions)
-		msg += get_action_text(item)
-
 	//Jitters
 	switch(AmountJitter())
 		if(600 SECONDS to INFINITY)
