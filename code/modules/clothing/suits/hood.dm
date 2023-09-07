@@ -95,3 +95,51 @@
 			suit.RemoveHood()
 		else
 			qdel(src)
+
+/obj/item/clothing/head/hooded/screened_niqab
+	name = "screened niqab"
+	desc = "A niqab with an eye mesh for additional concealment. The wearer can see you, but you can't see them."
+	icon_state = "abaya_hood"
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	flags = BLOCKHAIR
+	flags_inv = HIDEEARS | HIDEMASK | HIDEFACE | HIDEEYES
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
+		)
+
+/obj/item/clothing/head/hooded/screened_niqab/red
+	name = "red niqab"
+	icon_state = "redabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/orange
+	name = "orange niqab"
+	icon_state = "orangeabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/yellow
+	name = "yellow niqab"
+	icon_state = "yellowabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/green
+	name = "green niqab"
+	icon_state = "greenabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/blue
+	name = "blue niqab"
+	icon_state = "blueabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/purple
+	name = "purple niqab"
+	icon_state = "purpleabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/white
+	name = "white niqab"
+	icon_state = "whiteabaya_hood"
+
+/obj/item/clothing/head/hooded/screened_niqab/rainbow
+	name = "rainbow niqab"
+	icon_state = "rainbowabaya_hood"
