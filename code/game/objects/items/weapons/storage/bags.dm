@@ -543,7 +543,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mailbag"
 	item_state = "mailbag"
-	desc = "A bag for envelopes, stamps, pens and papers."
+	desc = "A bag for envelopes, stamps, pens, and papers."
 	storage_slots = 14
 	max_combined_w_class = 28
 	w_class = WEIGHT_CLASS_TINY
