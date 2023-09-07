@@ -109,8 +109,8 @@
 /datum/mob_hunt/proc/get_possible_areas()
 	var/list/possible_areas = list()
 	//setup, sets all station areas (and subtypes) to weight 1
-	for(var/A in GLOB.the_station_areas)
-		if(A == /area/holodeck)	//don't allow holodeck areas as possible spawns since it will allow it to spawn in the holodeck rooms on CC level as well
+	for(var/area/A in SSmapping.existing_station_areas)
+		if(istype(A, /area/holodeck))	//don't allow holodeck areas as possible spawns since it will allow it to spawn in the holodeck rooms on CC level as well
 			continue
 		if(A in possible_areas)
 			continue
@@ -139,10 +139,6 @@
 	for(var/A in area_blacklist)
 		for(var/areapath in typesof(A))
 			possible_areas[areapath] -= 2
-	//removes "bad areas" which shouldn't be on-station but are subtypes of station areas. probably should the unused ones and consider repathing the rest
-	var/list/bad_areas = list(subtypesof(/area/construction), /area/solar/derelict_starboard, /area/solar/derelict_aft)
-	for(var/A in bad_areas)
-		possible_areas -= A
 	//weight check, remove negative or zero weight areas from the list, then return the list.
 	for(var/areapath in possible_areas)
 		//remove any areas that shouldn't be on the station-level
