@@ -35,6 +35,8 @@
 	var/species_disguise = null
 	var/magical = FALSE
 	var/dyeable = FALSE
+	/// Do we block AI tracking?
+	var/blockTracking
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/update_icon_state()
@@ -371,7 +373,6 @@
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
-	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
 
 	var/vision_flags = 0
