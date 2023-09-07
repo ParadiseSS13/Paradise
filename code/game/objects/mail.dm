@@ -199,7 +199,7 @@
 			to_chat(user, "<span class='warning'>This letter has already been logged to the active database!</span>")
 			playsound(loc, 'sound/machines/deniedbeep.ogg', 50, 1)
 			return
-		to_chat(user, "<span class='notice'>You add [src] to the active database.</span>")
+		to_chat(user, "<span class='notice'>You add [O] to the active database.</span>")
 		playsound(loc, 'sound/mail/mailscanned.ogg', 50, 1)
 		saved = A
 		return
