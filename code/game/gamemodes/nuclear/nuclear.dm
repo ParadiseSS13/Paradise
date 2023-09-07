@@ -279,7 +279,6 @@
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 	synd_mob.mind.offstation_role = TRUE
 
-
 	if(synd_mob.dna.species)
 		var/race = synd_mob.dna.species.name
 
