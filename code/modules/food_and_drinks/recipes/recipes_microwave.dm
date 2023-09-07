@@ -151,7 +151,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/appendix,
 		/obj/item/reagent_containers/food/snacks/bun
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/appendixburger
 
 /datum/recipe/microwave/bearger
@@ -166,7 +166,7 @@
 		/obj/item/reagent_containers/food/snacks/bun,
 		/obj/item/reagent_containers/food/snacks/grown/ghost_chili,
 		/obj/item/reagent_containers/food/snacks/grown/ghost_chili
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/fivealarmburger
 
 /datum/recipe/microwave/baconburger
@@ -175,7 +175,7 @@
 		/obj/item/reagent_containers/food/snacks/bacon,
 		/obj/item/reagent_containers/food/snacks/bacon,
 		/obj/item/reagent_containers/food/snacks/cheesewedge
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/baconburger
 
 /datum/recipe/microwave/mcrib
@@ -183,7 +183,7 @@
 		/obj/item/reagent_containers/food/snacks/bun,
 		/obj/item/reagent_containers/food/snacks/bbqribs,
 		/obj/item/reagent_containers/food/snacks/onion_slice
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/mcrib
 
 /datum/recipe/microwave/mcguffin
@@ -192,7 +192,7 @@
 		/obj/item/reagent_containers/food/snacks/bacon,
 		/obj/item/reagent_containers/food/snacks/bacon,
 		/obj/item/reagent_containers/food/snacks/friedegg
-		)
+	)
 	result = /obj/item/reagent_containers/food/snacks/mcguffin
 
 /datum/recipe/microwave/hotdog
