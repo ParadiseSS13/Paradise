@@ -574,7 +574,7 @@
 /obj/item/stack/tile/bluespace
 	name = "bluespace floor tile"
 	singular_name = "floor tile"
-	desc = "Through a series of micro-teleports, these tiles let people move at incredible speeds."
+	desc = "Through a series of micro-teleports, these tiles allow you to move things that would otherwise slow you down."
 	icon_state = "tile-bluespace"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
@@ -588,9 +588,8 @@
 
 
 /turf/simulated/floor/bluespace
-	slowdown = -1
 	icon_state = "bluespace"
-	desc = "Through a series of micro-teleports, these tiles let people move at incredible speeds."
+	desc = "Through a series of micro-teleports, these tiles allow you to move things that would otherwise slow you down."
 	floor_tile = /obj/item/stack/tile/bluespace
 
 
