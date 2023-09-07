@@ -322,9 +322,8 @@
 	..()
 	if(length(boxes) || !Adjacent(user))
 		return
-	if(open)
-		open = FALSE
-		update_appearance(UPDATE_DESC|UPDATE_ICON)
+	open != open 
+	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/pizzabox/attack_self(mob/user)
 	if(boxes.len > 0)
