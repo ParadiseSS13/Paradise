@@ -192,12 +192,8 @@
 		KnockDown(6 SECONDS)
 
 /mob/living/carbon/swap_hand()
-	var/obj/item/item_in_hand = get_active_hand()
-	if(item_in_hand) //this segment checks if the item in your hand is twohanded.
-		if(istype(item_in_hand,/obj/item/twohanded))
-			if(item_in_hand:wielded == 1)
-				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
-				return
+	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, get_active_hand()) == COMPONENT_BLOCK_SWAP)
+		return
 	hand = !hand
 	update_hands_hud()
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
@@ -627,8 +623,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	hit_atom.hit_by_thrown_carbon(src, throwingdatum, damage, FALSE, FALSE)
 
 /mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	for(var/obj/item/twohanded/dualsaber/D in contents)
-		if(D.wielded && D.force)
+	for(var/obj/item/dualsaber/D in contents)
+		if(HAS_TRAIT(src, TRAIT_WIELDED) && D.force)
 			visible_message("<span class='danger'>[src] impales [C] with [D], before dropping them on the ground!</span>")
 			C.apply_damage(100, BRUTE, "chest", sharp = TRUE, used_weapon = "Impaled on [D].")
 			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
@@ -978,13 +974,23 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(do_after(src, breakouttime, 0, target = src))
 			if(I.loc != src || buckled)
 				return
-			visible_message("<span class='danger'>[src] manages to remove [I]!</span>")
-			to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
+			if(istype(I, /obj/item/restraints/handcuffs/twimsts))
+				visible_message("<span class='danger'>[src] manages to eat through [I]!</span>", "<span class='notice'>You successfully eat through [I].</span>")
+			else
+				visible_message("<span class='danger'>[src] manages to remove [I]!</span>", "<span class='notice'>You successfully remove [I].</span>")
 
 			if(I == handcuffed)
-				handcuffed.forceMove(drop_location())
-				handcuffed.dropped(src)
-				handcuffed = null
+				if(istype(I, /obj/item/restraints/handcuffs/twimsts))
+					playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+					if(I.reagents && I.reagents.reagent_list.len)
+						taste(I.reagents)
+						I.reagents.reaction(src, REAGENT_INGEST)
+						I.reagents.trans_to(src, I.reagents.total_volume)
+					qdel(handcuffed)
+				else
+					handcuffed.forceMove(drop_location())
+					handcuffed.dropped(src)
+					handcuffed = null
 				if(buckled && buckled.buckle_requires_restraints)
 					buckled.unbuckle_mob(src)
 				update_handcuffed()
@@ -1029,13 +1035,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
+	SEND_SIGNAL(src, COMSIG_CARBON_UPDATE_HANDCUFFED, handcuffed)
 	if(handcuffed)
-		//we don't want problems with nodrop shit if there ever is more than one nodrop twohanded
-		var/obj/item/I = get_active_hand()
-		if(istype(I, /obj/item/twohanded))
-			var/obj/item/twohanded/TH = I //FML
-			if(TH.wielded)
-				TH.unwield()
 		drop_r_hand()
 		drop_l_hand()
 		stop_pulling()
