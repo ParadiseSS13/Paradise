@@ -747,11 +747,11 @@
 	icon_off = "nutri"
 	icon_panel = "thin_vendor"
 	category = VENDOR_TYPE_FOOD
-	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6, /obj/item/reagent_containers/food/drinks/dry_ramen = 6, /obj/item/reagent_containers/food/snacks/chips = 6,
-					/obj/item/reagent_containers/food/snacks/sosjerky = 6,/obj/item/reagent_containers/food/snacks/no_raisin = 6, /obj/item/reagent_containers/food/snacks/pistachios = 6,
+	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6, /obj/item/reagent_containers/food/drinks/dry_ramen = 6, /obj/item/reagent_containers/food/snacks/chips = 6, /obj/item/reagent_containers/food/snacks/twimsts = 6,
+					/obj/item/reagent_containers/food/snacks/sosjerky = 6, /obj/item/reagent_containers/food/snacks/no_raisin = 6, /obj/item/reagent_containers/food/snacks/pistachios = 6,
 					/obj/item/reagent_containers/food/snacks/spacetwinkie = 6, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 6, /obj/item/reagent_containers/food/snacks/tastybread = 6, /obj/item/reagent_containers/food/snacks/stroopwafel = 2)
 	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 6)
-	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 64, /obj/item/reagent_containers/food/drinks/dry_ramen = 32, /obj/item/reagent_containers/food/snacks/chips = 64,
+	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 64, /obj/item/reagent_containers/food/drinks/dry_ramen = 32, /obj/item/reagent_containers/food/snacks/chips = 64, /obj/item/reagent_containers/food/snacks/twimsts = 64,
 					/obj/item/reagent_containers/food/snacks/sosjerky = 64, /obj/item/reagent_containers/food/snacks/no_raisin = 80, /obj/item/reagent_containers/food/snacks/pistachios = 80,
 					/obj/item/reagent_containers/food/snacks/spacetwinkie = 64, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 64,/obj/item/reagent_containers/food/snacks/tastybread = 80,
 					/obj/item/reagent_containers/food/snacks/stroopwafel = 100, /obj/item/reagent_containers/food/snacks/syndicake = 175) //syndicakes are genuinely kind of powerful
