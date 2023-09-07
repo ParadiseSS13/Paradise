@@ -15698,7 +15698,8 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel)
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/ne)
 "aTe" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -19097,7 +19098,8 @@
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
-	})
+	},
+/area/station/public/dorms)
 "bcc" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -79654,7 +79656,8 @@
 /area/station/security/permabrig)
 "oXK" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plating)
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "oXX" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
