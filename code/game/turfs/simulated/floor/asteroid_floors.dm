@@ -358,7 +358,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 				continue
 			if((ismegafauna(randumb) || ismegafauna(thing)) && get_dist(T, thing) <= megafaunarange)
 				return //if there's a megafauna within standard view don't spawn anything at all
-			if(ispath(randumb, /mob/living/simple_animal/hostile/asteroid) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
+			if(ispath(randumb, /obj/effect/landmark/mob_spawner) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
 				return //if the random is a standard mob, avoid spawning if there's another one within 12 tiles
 			if((ispath(randumb, /obj/structure/spawner/lavaland) || istype(thing, /obj/structure/spawner/lavaland)) && get_dist(T, thing) <= 2)
 				return //prevents tendrils spawning in each other's collapse range
