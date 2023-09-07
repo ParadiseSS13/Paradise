@@ -303,9 +303,8 @@ SUBSYSTEM_DEF(economy)
 			if(T.density)
 				continue
 			shuttle_turfs += T
-	var/pack = /obj/structure/closet/crate/mail
 	var/turf/spawn_location = pick(shuttle_turfs)
-	new pack(spawn_location)
+	new /obj/structure/closet/crate/mail(spawn_location)
 
 //
 //   The NanoCoin Economy is booming
