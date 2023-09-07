@@ -272,8 +272,6 @@
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
 
-	if(!has_gravity(H))
-		return
 	if(!IS_HORIZONTAL(H))
 		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
 			. -= 1
