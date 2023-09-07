@@ -131,7 +131,7 @@
 		SSeconomy.sold_atoms += " [MA.name]"
 
 		// Must be in a crate (or a critter crate)!
-		if((istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter)))
+		if(istype(MA, /obj/structure/closet/crate) || istype(MA, /obj/structure/closet/critter))
 			SSeconomy.sold_atoms += ":"
 			if(!length(MA.contents))
 				SSeconomy.sold_atoms += " (empty)"
