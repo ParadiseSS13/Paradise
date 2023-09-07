@@ -15698,7 +15698,6 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-<<<<<<< HEAD/area/hallway/primary/central/ne,
 /turf/simulated/floor/plasteel)
 "aTe" = (
 /obj/structure/cable{
@@ -19095,7 +19094,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-<<<<<<< HEAD/area/crew_quarters/dorms,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -75272,13 +75270,6 @@
 	icon_state = "white"
 	},
 /area/station/science/hallway)
-"mdx" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/controlroom)
 "mdX" = (
 /obj/item/reagent_containers/food/snacks/grown/cannabis,
 /obj/effect/decal/cleanable/dirt,
@@ -79663,7 +79654,6 @@
 /area/station/security/permabrig)
 "oXK" = (
 /obj/effect/decal/cleanable/blood/old,
-<<<<<<< HEAD/area/maintenance/asmaint,
 /turf/simulated/floor/plating)
 "oXX" = (
 /obj/machinery/disposal,
