@@ -28,14 +28,16 @@
 		return FALSE
 	var/silenced = FALSE
 	for(var/datum/emote/P in key_emotes)
+		// can this mob run the emote at all?
 		if(!P.can_run_emote(src, intentional))
 			continue
-		if(!P.check_cooldown(src, intentional))
-			// if an emote's on cooldown, don't spam them with messages of not being able to use it
-			silenced = TRUE
-			continue
-		if(P.try_run_emote(src, param, type_override, intentional))
-			return TRUE
+		else
+			if(!P.check_cooldown(src, intentional))
+				// if an emote's on cooldown, don't spam them with messages of not being able to use it
+				silenced = TRUE
+				continue
+			if(P.try_run_emote(src, param, type_override, intentional))
+				return TRUE
 	if(intentional && !silenced && !force_silence)
 		to_chat(src, "<span class='notice'>Unusable emote '[emote_key]'. Say *help for a list.</span>")
 	return FALSE
