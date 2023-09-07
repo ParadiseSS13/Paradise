@@ -279,13 +279,13 @@ function output(message, flag) {
 
 	message = byondDecode(message).trim();
 
+	var messageHtml = $.parseHTML(message);
 	//The behemoth of filter-code (for Admin message filters)
 	//Note: This is proooobably hella inefficient
 	var filteredOut = false;
 	if (opts.hasOwnProperty('showMessagesFilters') && !opts.showMessagesFilters['All'].show) {
 		//Get this filter type (defined by class on message)
-		var messageHtml = $.parseHTML(message),
-			messageClasses;
+		var messageClasses;
 		if (opts.hasOwnProperty('filterHideAll') && opts.filterHideAll) {
 			var internal = false;
 			messageClasses = (!!$(messageHtml).attr('class') ? $(messageHtml).attr('class').split(/\s+/) : false);
@@ -388,7 +388,6 @@ function output(message, flag) {
 		opts.previousMessageCount++;
 		var lastIndex = $messages[0].children.length - 1;
 		var message_is_in_box;
-		var messageHtml = $.parseHTML(message);
 		var messageClasses = (!!$(messageHtml).attr('class') ? $(messageHtml).attr('class').split(/\s+/) : false);
 		if (messageClasses) {
 			for (var i = 0; i < messageClasses.length; i++) { //Every class
