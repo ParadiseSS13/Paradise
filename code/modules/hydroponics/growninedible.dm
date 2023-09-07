@@ -42,7 +42,7 @@
 		if(seed)
 			msg += seed.get_analyzer_text()
 		msg += "</span>"
-		to_chat(usr, "<div class='boxed_message'>[msg]</div>")
+		to_chat(usr, chat_box_regular(msg))
 		return
 
 /obj/item/grown/proc/add_juice()

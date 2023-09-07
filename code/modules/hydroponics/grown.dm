@@ -102,7 +102,7 @@
 
 		if(reag_txt)
 			msg += reag_txt
-		to_chat(user, "<div class='boxed_message'>[msg]</div>")
+		to_chat(user, chat_box_regular(msg))
 	else
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)

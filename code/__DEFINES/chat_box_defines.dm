@@ -1,0 +1,6 @@
+#define chat_box_regular(str) ("<div class='boxed_message'>" + str + "</div>")
+#define chat_box_examine(str) ("<div class='boxed_message examine'>" + str + "</div>")
+#define chat_box_red(str) ("<div class='boxed_message red'>" + str + "</div>")
+#define chat_box_green(str) ("<div class='boxed_message green'>" + str + "</div>")
+#define chat_box_notice(str) ("<div class='boxed_message notice'>" + str + "</div>")
+#define chat_box_notice_thick(str) ("<div class='boxed_message thick'>" + str + "</div>")

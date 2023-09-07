@@ -449,7 +449,7 @@ span.body .coderesponses {color: #FF0000;}
 	text-align: center;
 	border-style: solid;
 	border-width: medium;
-	border-color: #a4bad6;
+	border-color: black;
 	border-radius: 5px;
 	margin: 25px;
 	padding: 15px;
@@ -471,6 +471,6 @@ span.body .coderesponses {color: #FF0000;}
 	border-color: #000099;
   }
 
-.boxed_message_notice.manup {
+.boxed_message_notice.thick {
 	border-width: thick;
   }
