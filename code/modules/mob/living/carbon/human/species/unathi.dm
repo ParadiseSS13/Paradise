@@ -138,4 +138,4 @@
 /datum/action/innate/ignite/ash_walker
 	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
 	cooldown_duration = 3 MINUTES
-	welding_fuel_used = 0
+	welding_fuel_used = 0 // Ash walkers dont need welding fuel to use ignite
