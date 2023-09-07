@@ -178,6 +178,9 @@
 	ghostize()
 	qdel(src)
 
+/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0)
+	return TRUE	//Works better in zero G, and not useless in space
+
 //Manifest, Recall, Communicate
 
 /mob/living/simple_animal/hostile/guardian/proc/Manifest()
@@ -328,8 +331,8 @@
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 	switch(guardian_type)
 
-		if("Chaos")
-			pickedtype = /mob/living/simple_animal/hostile/guardian/fire
+		if("Gaseous")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/gaseous
 
 		if("Standard")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/punch
