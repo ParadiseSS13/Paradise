@@ -370,12 +370,11 @@
 		var/mob/M = pulling
 		var/atom/movable/t = M.pulling
 		M.stop_pulling()
-		step(pulling, get_dir(pulling.loc, A))
+		. = step(pulling, get_dir(pulling.loc, A)) // we set the return value to step here, if we don't having someone buckled in to a chair and being pulled won't let them be unbuckeled
 		if(M)
 			M.start_pulling(t)
 	else
-		step(pulling, get_dir(pulling.loc, A))
-	return TRUE
+		. = step(pulling, get_dir(pulling.loc, A))
 
 /mob/proc/update_gravity(has_gravity)
 	return

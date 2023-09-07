@@ -233,9 +233,17 @@
 	icon_state = "mappinglava"
 	base_icon_state = "mappinglava"
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	temperature = 300
+	oxygen = 14
+	nitrogen = 23
+	planetary_atmos = TRUE
 
 
 /turf/simulated/floor/plating/lava/smooth/mapping_lava/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD //Lateload is needed, otherwise atmos does not setup right on the turf roundstart, leading it to be vacume. This is bad.
+
+/turf/simulated/floor/plating/lava/smooth/mapping_lava/LateInitialize()
 	. = ..()
 	ChangeTurf(SSmapping.lavaland_theme)
 
