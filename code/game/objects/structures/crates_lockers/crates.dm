@@ -507,8 +507,8 @@
 
 /obj/structure/closet/crate/mail
 	name = "mail crate"
-	icon = 'icons/obj/bureaucracy.dmi'
 	desc = "A plastic crate for mail delivery."
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mailsealed"
 	icon_opened = "mailopen"
 	icon_closed = "mailsealed"
