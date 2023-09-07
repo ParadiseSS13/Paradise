@@ -422,7 +422,7 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 
-	var/list/L = list("<br><br><center><span class='green'>----------------</span>")
+	var/list/L = list()
 	L.Add("<b>Your role on the station is: [alt_title ? alt_title : rank].")
 	L.Add("You answer directly to [job.supervisors]. Special circumstances may change this.")
 	L.Add("For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a>.")
@@ -447,9 +447,8 @@ SUBSYSTEM_DEF(jobs)
 	L.Add("<br>If you need help, check the <a href=\"https://paradisestation.org/wiki/index.php/Main_Page\">wiki</a> or use Mentorhelp(F1)!</b>")
 	if(job.important_information)
 		L.Add("</b><span class='userdanger' style='width: 80%'>[job.important_information]</span>")
-	L.Add("<span class='green'>----------------</span></center><br><br>")
 
-	to_chat(H, L.Join("<br>"))
+	to_chat(H, "<div class='boxed_message'>[L.Join("<br>")]</div>")
 
 	return H
 

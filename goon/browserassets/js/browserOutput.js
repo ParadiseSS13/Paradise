@@ -387,7 +387,20 @@ function output(message, flag) {
 	if (opts.hideSpam && entry.innerHTML === opts.previousMessage) {
 		opts.previousMessageCount++;
 		var lastIndex = $messages[0].children.length - 1;
-		var countBadge = '<span class="repeatBadge">x' + opts.previousMessageCount + '</span>';
+		var message_is_in_box;
+		var messageHtml = $.parseHTML(message);
+		var messageClasses = (!!$(messageHtml).attr('class') ? $(messageHtml).attr('class').split(/\s+/) : false);
+		if (messageClasses) {
+			for (var i = 0; i < messageClasses.length; i++) { //Every class
+				if (messageClasses[i] == 'boxed_message') {
+					message_is_in_box = true;
+					break;
+				}
+			}
+		}
+
+		var countBadgeClass = message_is_in_box ? "repeatBadge boxed_repeat" : "repeatBadge"
+		var countBadge = '<span class="'+countBadgeClass+'">x' + opts.previousMessageCount + '</span>';
 		var lastEntry = $messages[0].children[lastIndex];
 		lastEntry.innerHTML = opts.previousMessage + countBadge;
 		var insertedBadge = $(lastEntry).find('.repeatBadge');

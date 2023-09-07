@@ -238,6 +238,13 @@ a.popt {text-decoration: none;}
 	border-radius: 10px;
 }
 
+.repeatBadge.boxed_repeat {
+	position: relative;
+	float: right;
+	top: -40px;
+	right: 0;
+}
+
 /* OUTPUT COLORS */
 .highlight {background: yellow;}
 h1, h2, h3, h4, h5, h6	{color: #0000ff;font-family: Georgia, Verdana, sans-serif;}
@@ -437,3 +444,33 @@ span.body .coderesponses {color: #FF0000;}
 .announcement.sec h1 { color: #f00; font-size: 180%; font-family: Verdana, sans-serif; }
 
 .bolditalics {font-style: italic; font-weight: bold;}
+
+.boxed_message {
+	text-align: center;
+	border-style: solid;
+	border-width: medium;
+	border-color: #a4bad6;
+	border-radius: 5px;
+	margin: 25px;
+	padding: 15px;
+  }
+
+.boxed_message.examine {
+	text-align: left
+  }
+
+.boxed_message.red {
+	border-color: #aa0000;
+  }
+
+.boxed_message.green {
+	border-color: #00FF00;
+  }
+
+.boxed_message.notice {
+	border-color: #000099;
+  }
+
+.boxed_message_notice.manup {
+	border-width: thick;
+  }

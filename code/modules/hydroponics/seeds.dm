@@ -306,8 +306,6 @@
 		all_traits += " [traits.get_name()]"
 	text += "- Plant Traits:[all_traits]\n"
 
-	text += "*---------*"
-
 	return text
 
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  // In case seeds have some special interaction with special chems
@@ -315,10 +313,10 @@
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src].</span></span>")
+		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
 		if(text)
-			to_chat(user, "<span class='notice'>[text]</span>")
+			to_chat(user, "<div class='boxed_message'><span class='notice'>[text]</span></div>")
 
 		return
 	if(is_pen(O))

@@ -967,8 +967,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
-	to_chat(T, "<span class='notice'>Move on.</span>")
+	to_chat(T, "<div class='boxed_message notice manup'><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></div>")
 	SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 
 	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
@@ -987,7 +986,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	if(confirm == "Yes")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')
 		for(var/sissy in GLOB.player_list)
-			to_chat(sissy, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
+			to_chat(sissy, "<div class='boxed_message notice manup'><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></div>")
 			SEND_SOUND(sissy, manned_up_sound)
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
