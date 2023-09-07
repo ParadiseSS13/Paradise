@@ -246,7 +246,7 @@
 		if(get_turf(user) == get_turf(target))
 			user.remove_stun_absorption("gargantua")
 			user.set_body_position(STANDING_UP)
-			user.transform = 0
+			user.transform = matrix()
 			break
 		sleep(1)
 	animate(user, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
