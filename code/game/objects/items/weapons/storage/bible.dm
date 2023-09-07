@@ -170,7 +170,7 @@
 		if("Scientology")
 			carpet_dir = 8
 	if(carpet_dir)
-		for(var/area/chapel/main/A in world)
+		for(var/area/station/service/chapel/main/A in world)
 			for(var/turf/T in A.contents)
 				if(T.icon_state == "carpetsymbol")
 					T.dir = carpet_dir*/
