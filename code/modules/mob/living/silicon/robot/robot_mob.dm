@@ -1598,6 +1598,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(src, "<span class='warning'>You can only use this emote when you're out of charge.</span>")
 
 /mob/living/silicon/robot/can_instant_lockdown()
-	if(emagged || faction_check_mob(src, "syndicate"))
+	if(emagged || ("syndicate" in src.faction))
 		return TRUE
 	return FALSE
