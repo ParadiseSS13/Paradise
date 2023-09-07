@@ -933,3 +933,11 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/desk_bell
 	category = list("initial", "Miscellaneous")
+
+/datum/design/mailscanner
+	name = "Mail Scanner"
+	id = "mailscanner"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 80, MAT_GLASS = 20)
+	build_path = /obj/item/mail_scanner
+	category = list("initial", "Miscellaneous")

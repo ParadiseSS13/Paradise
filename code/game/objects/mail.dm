@@ -117,7 +117,7 @@
 	possible_contents = list(/obj/item/airlock_electronics,
 	/obj/item/reagent_containers/food/drinks/cans/beer,
 	/obj/item/reagent_containers/food/snacks/candy/confectionery/nougat,
-	/obj/item/mod/module/tether,
+	/obj/item/mod/module/storage/large_capacity,
 	/obj/item/weldingtool/hugetank,
 	/obj/item/geiger_counter,
 	/obj/item/rcd_ammo,
