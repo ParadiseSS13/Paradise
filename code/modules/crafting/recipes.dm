@@ -71,7 +71,7 @@
 	name = "Throwing croissant"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/croissant = 1,
-		/obj/item/stack/rods = 1,
+		/obj/item/stack/rods = 1
 	)
 	result = list(/obj/item/reagent_containers/food/snacks/croissant)
 	category = CAT_WEAPONRY
