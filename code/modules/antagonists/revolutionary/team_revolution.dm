@@ -110,6 +110,7 @@
 	if(!need_another_headrev(0) || promotion_type != REVOLUTION_PROMOTION_AT_LEAST_ONE || length(SSticker.mode.head_revolutionaries) > 1)
 		// We check the graph to see if we need a headrev
 		// If this is called from when a headrev is cryoing and, we must promote or the revolution will die
+		// This is called before they are officially removed from SSticker.mode.head_revolutionaries, so we want to make sure we get a new head before things go bad.
 		return
 	var/list/datum/mind/non_heads = members - SSticker.mode.head_revolutionaries
 	if(!length(non_heads))
