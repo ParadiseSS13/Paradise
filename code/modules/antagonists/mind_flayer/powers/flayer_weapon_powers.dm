@@ -1,5 +1,6 @@
 /obj/effect/proc_holder/spell/flayer/self/weapon
-	name = "This really shouldn't be here"
+	name = "Create weapon"
+	desc = "This really shouldn't be here"
 	power_type = FLAYER_UNOBTAINABLE_POWER
 	base_cooldown = 1 SECONDS //This just handles retracting and deploying the weapon, weapon charge will be fully separate
 	var/weapon_type

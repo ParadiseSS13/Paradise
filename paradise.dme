@@ -1366,6 +1366,7 @@
 #include "code\modules\antagonists\mind_flayer\powers\flayer_buffs.dm"
 #include "code\modules\antagonists\mind_flayer\powers\flayer_mobility_powers.dm"
 #include "code\modules\antagonists\mind_flayer\powers\flayer_passives.dm"
+#include "code\modules\antagonists\mind_flayer\powers\flayer_spawn_powers.dm"
 #include "code\modules\antagonists\mind_flayer\powers\flayer_weapon_powers.dm"
 #include "code\modules\antagonists\survivalist\survivalist.dm"
 #include "code\modules\antagonists\traitor\datum_mindslave.dm"
