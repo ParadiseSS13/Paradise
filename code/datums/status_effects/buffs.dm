@@ -160,7 +160,6 @@
 	tick_interval = 0
 	alert_type = /obj/screen/alert/status_effect/blood_swell
 	var/bonus_damage_applied = FALSE
-	var/original_color
 
 /obj/screen/alert/status_effect/blood_swell
 	name = "Blood Swell"
@@ -227,7 +226,7 @@
 	REMOVE_TRAIT(H, TRAIT_BURN_WOUND_IMMUNE, GLADIATOR)
 	for(var/obj/item/organ/external/limb in H.bodyparts)
 		limb.remove_limb_flags()
-		limb.limb_flags -= CANNOT_INT_BLEED
+		limb.limb_flags &= ~CANNOT_INT_BLEED
 
 /datum/status_effect/vampire_gladiator/tick()
 	owner.adjustStaminaLoss(-20)
