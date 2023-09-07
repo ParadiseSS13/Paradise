@@ -16,6 +16,7 @@
 	var/direction = DIRECTION_IN
 	/// The desired pressure the pump should be outputting, either into the atmosphere, or into a holding tank.
 	target_pressure = 101.325
+	pull_speed = 0
 
 /obj/machinery/atmospherics/portable/pump/examine(mob/user)
 	. = ..()
