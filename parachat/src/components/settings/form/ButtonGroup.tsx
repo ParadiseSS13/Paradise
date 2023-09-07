@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from './Button';
+
+interface ButtonGroupProps {
+  options: string[];
+  defaultValue: string;
+  onOptionSelect: (selectedOption: string) => void;
+}
 
 const ButtonGroupWrapper = styled.div`
   border-radius: 4px;
@@ -9,25 +14,29 @@ const ButtonGroupWrapper = styled.div`
 
   ${Button} {
     border-radius: 0;
-    color: ${props => props.theme.colors.fg[2]};
+    color: ${({ theme }) => theme.textDisabled};
 
     &:hover {
-      color: ${props => props.theme.colors.fg[0]};
+      color: ${({ theme }) => theme.textPrimary};
     }
 
     &:active {
-      color: ${props => props.theme.colors.fg[1]};
+      color: ${({ theme }) => theme.textSecondary};
     }
 
     &.selected {
       cursor: default;
-      background-color: ${props => props.theme.colors.bg[2]};
-      color: ${props => props.theme.colors.fg[0]};
+      background-color: ${({ theme }) => theme.background[2]};
+      color: ${({ theme }) => theme.textPrimary};
     }
   }
 `;
 
-const ButtonGroup = ({ options, defaultValue, onOptionSelect }) => {
+const ButtonGroup = ({
+  options,
+  defaultValue,
+  onOptionSelect,
+}: ButtonGroupProps) => {
   const [selectedOption, setSelectedOption] = useState(
     defaultValue || options[0]
   );
@@ -54,12 +63,6 @@ const ButtonGroup = ({ options, defaultValue, onOptionSelect }) => {
       ))}
     </ButtonGroupWrapper>
   );
-};
-
-ButtonGroup.propTypes = {
-  options: PropTypes.array,
-  defaultValue: PropTypes.any,
-  onOptionSelect: PropTypes.func,
 };
 
 export default ButtonGroup;

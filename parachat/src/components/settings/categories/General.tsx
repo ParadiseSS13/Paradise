@@ -30,9 +30,9 @@ const Button = styled.a<{ disabled?: boolean }>`
   ${({ disabled }) =>
     disabled &&
     css`
-      border: 1px solid ${({ theme }) => theme.colors.bg[3]} !important;
-      background-color: ${({ theme }) => theme.colors.bg[2]} !important;
-      color: ${({ theme }) => theme.colors.fg[2]} !important;
+      border: 1px solid ${({ theme }) => theme.background[3]} !important;
+      background-color: ${({ theme }) => theme.background[2]} !important;
+      color: ${({ theme }) => theme.textDisabled} !important;
       cursor: default !important;
     `}
 `;
@@ -40,7 +40,7 @@ const Button = styled.a<{ disabled?: boolean }>`
 const Hint = styled.span`
   margin-bottom: 8px;
   margin-left: 98px;
-  color: ${props => props.theme.colors.fg[3]};
+  color: ${({ theme }) => theme.textDisabled};
   display: inline-block;
 `;
 

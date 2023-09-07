@@ -22,7 +22,7 @@ const Backdrop = styled.div`
 `;
 
 const SettingsWrapper = styled.div`
-  background-color: ${props => props.theme.colors.bg[0]};
+  background-color: ${({ theme }) => theme.background[0]};
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   display: block;

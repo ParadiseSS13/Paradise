@@ -10,13 +10,13 @@ interface MessageProps {
 }
 
 export const MessageWrapper = styled.div<{
-  highlightColor: [number, number, number];
+  highlightColor?: [number, number, number];
 }>`
   display: block;
   padding: 3px 0 3px 9px;
-  line-height: ${props => props.theme.lineHeight};
+  line-height: ${({ theme }) => theme.lineHeight};
 
-  ${props => props.theme.cssTheme}
+  ${({ theme }) => theme.cssTheme}
 
   ${props =>
     props.highlightColor &&
@@ -71,7 +71,7 @@ const MessageAnimationWrapper = styled.div<{ enter: boolean }>`
   transition: ${animationDurationMs}ms;
 `;
 
-const Message: React.FC<MessageProps> = ({ message, show }) => {
+const Message = ({ message, show }: MessageProps) => {
   return (
     <Transition timeout={animationDurationMs} appear in>
       {state =>

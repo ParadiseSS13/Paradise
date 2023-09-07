@@ -2,10 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   body {
-    color: ${props => props.theme.colors.fg[0]};
-    background-color: ${props => props.theme.colors.bg[0]};
+    color: ${({ theme }) => theme.textPrimary};
+    background-color: ${({ theme }) => theme.background[0]};
     margin: 0;
-    font-family: ${props => props.theme.font};
+    font-family: ${({ theme }) => theme.font};
     font-size: 12px;
 
     scrollbar-base-color: #323232;
@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: ${props => props.theme.accent[6]};
+    color: ${({ theme }) => theme.accent[6]};
   }
 
   .bold, .prefix, .danger, .admin, .boldannounce, .boldnotice, .ooc, .pr_announce, .name, .sinister, .adminhelp, .admin_channel, .adminticket, .adminticketalt, .alertalien, .boldwarning, .cult, .emote, .ghostalert, .hierophant, .looc, .mentor_channel, .mentor_channel_admin, .mentorhelp, .mind_control, .narsie, .revenboldnotice, .bolditalics, .playerreply {
@@ -73,6 +73,14 @@ const GlobalStyle = createGlobalStyle`
 
   .his_grace {
     font-family: "Courier New", cursive, sans-serif;
+  }
+
+  .box {
+    padding: 1em;
+    background-color: ${({ theme }) => theme.background[0]};
+    border-left: 4px solid ${({ theme }) => theme.accent.primary};
+    border-radius: 2px;
+    margin-right: 9px;
   }
 
   img.icon {

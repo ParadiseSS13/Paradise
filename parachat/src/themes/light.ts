@@ -1,29 +1,29 @@
 import { DefaultTheme } from 'styled-components';
 
-const dark: DefaultTheme = {
+const light: DefaultTheme = {
   background: {
-    [0]: '#141414',
-    [1]: '#1f1f1f',
-    [2]: '#262626',
-    [3]: '#434343',
+    [0]: '#fafafa',
+    [1]: '#f5f5f5',
+    [2]: '#f0f0f0',
+    [3]: '#d9d9d9',
   },
-  error: '#a61d24',
-  errorBg: '#2a1215',
-  textPrimary: 'rgba(255, 255, 255, 0.85)',
-  textSecondary: 'rgba(255, 255, 255, 0.65)',
-  textDisabled: 'rgba(255, 255, 255, 0.45)',
+  error: '#ff4d4f',
+  errorBg: '#fff1f0',
+  textPrimary: 'rgba(0, 0, 0, 0.85)',
+  textSecondary: 'rgba(0, 0, 0, 0.65)',
+  textDisabled: 'rgba(0, 0, 0, 0.45)',
 
   cssTheme: /*css*/ `
   /* Grey */
   .whisper {
-    color: #bfbfbf;
+    color: #8c8c8c;
   }
 
   /* Light blue */
   .notice,
   .info,
   .looc {
-    color: #bae0ff;
+    color: #69b1ff;
   }
 
   /* Blue */
@@ -41,12 +41,12 @@ const dark: DefaultTheme = {
   .revennotice,
   .revenboldnotice,
   .revenbignotice {
-    color: #4096ff;
+    color: #0958d9;
   }
 
   /* Light red */
   .deadsay {
-    color: #ffd6e7;
+    color: #ff85c0;
   }
 
   /* Red */
@@ -71,12 +71,12 @@ const dark: DefaultTheme = {
   .disarm,
   .moderate,
   .narsie {
-    color: #d32029;
+    color: #ff4d4f;
   }
 
   /* Dark red */
   .colossus {
-    color: #791a1f;
+    color: #cf1322;
   }
 
   /* Green */
@@ -90,35 +90,35 @@ const dark: DefaultTheme = {
   .greentext,
   .his_grace,
   .noticealien {
-    color: #73d13d;
+    color: #237804;
   }
 
   /* Dark green */
   .motd,
   .good,
   .memo {
-    color: #3c8616;
+    color: #135200;
   }
 
   /* Teal */
   .resonate {
-    color: #138585;
+    color: #13c2c2;
   }
 
   /* Yellow */
   .adminticketalt {
-    color: #d8db14;
+    color: #fadb14;
   }
 
   /* Orange */
   .average {
-    color: #fa8c16;
+    color: #ad4e00;
   }
 
   /* Light purple */
   .mentor_channel_admin,
   .sciradio {
-    color: #b37feb;
+    color: #722ed1;
   }
 
   /* Purple */
@@ -141,9 +141,9 @@ const dark: DefaultTheme = {
   .revenwarning,
   .revenminor,
   .playerreply {
-    color: #9254de;
+    color: #531dab;
   }
 `,
 };
 
-export default dark;
+export default light;

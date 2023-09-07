@@ -27,12 +27,12 @@ const TextWrapper = styled.span`
 
   & > a {
     margin-left: 8px;
-    color: ${({ theme }) => theme.colors.fg[1]};
+    color: ${({ theme }) => theme.textSecondary};
     font-weight: bold;
     transition-duration: ${animationDurationMs}ms;
 
     &:hover {
-      color: ${({ theme }) => theme.colors.fg[0]};
+      color: ${({ theme }) => theme.textPrimary};
     }
   }
 `;

@@ -18,7 +18,7 @@ const tabs = [
   { tabName: 'Other', tabId: Tab.OTHER },
 ];
 
-const Tabs: React.FC = () => {
+const Tabs = () => {
   const unreadTabs = useHeaderSlice(state => state.unreadTabs);
   const selectedTab = useHeaderSlice(state => state.selectedTab);
   const setSelectedTab = useHeaderSlice(state => state.setSelectedTab);

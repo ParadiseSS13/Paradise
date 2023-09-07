@@ -26,7 +26,7 @@ const App = () => {
         ...dark,
         font,
         lineHeight,
-        accent: generateAccent('#1668dc'),
+        accent: generateAccent('#1668dc', true),
       }}
     >
       {fontUrl && <style>@import url({fontUrl});</style>}

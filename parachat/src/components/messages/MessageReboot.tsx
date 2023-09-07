@@ -1,15 +1,19 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import styled from 'styled-components';
+import { MessageInfo } from '~/common/types';
+
+interface MessageRebootProps {
+  message: MessageInfo;
+}
 
 const MessageRebootWrapper = styled.div`
   position: relative;
   padding: 6px 0;
   padding-left: 9px;
   margin-left: -9px;
-  line-height: ${props => props.theme.lineHeight};
-  background-color: ${props => props.theme.accent[3]};
+  line-height: ${({ theme }) => theme.lineHeight};
+  background-color: ${({ theme }) => theme.accent[3]};
 `;
 
 const Progress = styled.div`
@@ -18,7 +22,7 @@ const Progress = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  background-color: ${props => props.theme.accent[4]};
+  background-color: ${({ theme }) => theme.accent[4]};
 `;
 
 const Text = styled.span`
@@ -38,7 +42,7 @@ const progressFill = {
   exited: { transform: 'translateX(-100%)' },
 };
 
-const MessageReboot = ({ message }) => {
+const MessageReboot = ({ message }: MessageRebootProps) => {
   const [secondsRemaining, setSecondsRemaining] = useState(
     message.params.timeout
   );
@@ -96,16 +100,6 @@ const MessageReboot = ({ message }) => {
       )}
     </Transition>
   );
-};
-
-MessageReboot.propTypes = {
-  message: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    params: PropTypes.shape({
-      timeout: PropTypes.number,
-      completed: PropTypes.bool,
-    }),
-  }),
 };
 
 export default MessageReboot;

@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
 const Input = styled.input<{ stretch?: boolean }>`
-  border: 1px solid ${({ theme }) => theme.colors.bg[1]};
+  border: 1px solid ${({ theme }) => theme.background[1]};
   padding: 4px 8px;
   background: transparent;
   border-radius: 4px;
-  color: ${({ theme }) => theme.colors.fg[0]};
+  color: ${({ theme }) => theme.textPrimary};
   cursor: text;
   font-family: inherit;
   transition-duration: 0.2s;

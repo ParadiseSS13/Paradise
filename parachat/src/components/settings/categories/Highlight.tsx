@@ -40,14 +40,14 @@ const HighlightAddPreview = styled.div`
 
 const HighlightAddPreviewBox = styled.div`
   border-radius: 4px;
-  background-color: ${props => props.theme.colors.bg[1]};
+  background-color: ${({ theme }) => theme.background[1]};
   padding-top: 8px;
   flex: 1;
   margin-bottom: 8px;
 `;
 
 const HighlightTableWrapper = styled.div`
-  border: 1px solid ${props => props.theme.colors.bg[1]};
+  border: 1px solid ${({ theme }) => theme.background[1]};
   border-radius: 4px;
   flex: 1;
   overflow: auto;
@@ -58,7 +58,7 @@ const HighlightTable = styled.table`
   border-spacing: 0;
 
   tr:first-child {
-    background-color: ${props => props.theme.colors.bg[1]};
+    background-color: ${({ theme }) => theme.background[1]};
   }
 
   td {
@@ -78,7 +78,7 @@ const HighlightTerm = styled.span`
 const ColorBox = styled.div`
   content: '';
   background: ${props => props.color};
-  border: 1px solid ${props => props.theme.colors.bg[1]};
+  border: 1px solid ${({ theme }) => theme.background[1]};
   border-radius: 4px;
   align-self: stretch;
   margin-left: 8px;
@@ -91,7 +91,6 @@ const highlightTypeMap = {
   Simple: Highlight.SIMPLE,
 };
 
-// eslint-disable-next-line react/prop-types
 const HighlightAdd = ({ onClose, editing }) => {
   const settings = useSettingsSlice(state => state);
   const { currentSettings, unsavedSettings, write } = useEditSettings(true, {
@@ -223,7 +222,6 @@ const HighlightAdd = ({ onClose, editing }) => {
   );
 };
 
-// eslint-disable-next-line react/prop-types
 const HighlightList = ({ onAddNewClick, onEditClick }) => {
   const settings = useSettingsSlice(state => state);
   const highlights = settings.highlights;

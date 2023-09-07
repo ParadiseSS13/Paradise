@@ -7,7 +7,7 @@ const Hint = styled.span`
   display: inline-block;
   margin-left: 98px;
   margin-bottom: 8px;
-  color: ${props => props.theme.colors.fg[3]};
+  color: ${({ theme }) => theme.textDisabled};
 `;
 
 const ThemeSettings = () => {

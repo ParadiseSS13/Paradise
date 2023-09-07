@@ -1,10 +1,16 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { animationDurationMs } from '~/common/animations';
 import { defaultSettings, saveSettings } from '~/common/settings';
+import { SettingsTab } from '~/common/types';
 import { useHeaderSlice } from '~/stores/header';
 import { useSettingsSlice } from '~/stores/settings';
+
+interface CategoriesProps {
+  categories: { catName: string; catId: SettingsTab }[];
+  selectedCategory: SettingsTab;
+  onCategorySelected: (catId: SettingsTab) => void;
+}
 
 const CategoriesWrapper = styled.div`
   display: flex;
@@ -13,7 +19,7 @@ const CategoriesWrapper = styled.div`
   width: 20%;
   height: 100%;
   margin-right: 20px;
-  border-right: 1px solid ${props => props.theme.colors.bg[1]};
+  border-right: 1px solid ${({ theme }) => theme.background[1]};
 `;
 
 const CategoryList = styled.div`
@@ -21,8 +27,8 @@ const CategoryList = styled.div`
   overflow: auto;
 `;
 
-const Category = styled.a`
-  color: ${props => props.theme.colors.fg[0]};
+const Category = styled.a<{ selected?: boolean }>`
+  color: ${({ theme }) => theme.textPrimary};
   display: block;
   padding: 12px;
   padding-left: 32px;
@@ -30,39 +36,43 @@ const Category = styled.a`
   transition-duration: ${animationDurationMs}ms;
 
   &:hover {
-    background-color: ${props => props.theme.colors.bg[2]};
+    background-color: ${({ theme }) => theme.background[2]};
   }
 
   &:active {
-    background-color: ${props => props.theme.colors.bg[1]};
+    background-color: ${({ theme }) => theme.background[1]};
   }
 
   ${props =>
     props.selected &&
     css`
-      background-color: ${props => props.theme.accent[0]} !important;
-      color: ${props => props.theme.accent.primary};
+      background-color: ${({ theme }) => theme.accent[0]} !important;
+      color: ${({ theme }) => theme.accent.primary};
       cursor: default;
     `}
 `;
 
-const ResetButton = styled(Category)`
-  color: ${props => props.theme.colors.fg[3]};
+const ResetButton = styled(Category)<{ confirm?: boolean }>`
+  color: ${({ theme }) => theme.textDisabled};
   transition-duration: ${animationDurationMs}ms;
 
   ${props =>
     props.confirm &&
     css`
-      background-color: ${props => props.theme.colors.bgError} !important;
-      color: ${props => props.theme.colors.fgError};
+      background-color: ${({ theme }) => theme.errorBg} !important;
+      color: ${({ theme }) => theme.error};
     `}
 `;
 
 const CloseButton = styled(Category)`
-  color: ${props => props.theme.colors.fg[3]};
+  color: ${({ theme }) => theme.textDisabled};
 `;
 
-const Categories = ({ categories, selectedCategory, onCategorySelected }) => {
+const Categories = ({
+  categories,
+  selectedCategory,
+  onCategorySelected,
+}: CategoriesProps) => {
   const setShowSettings = useHeaderSlice(state => state.setShowSettings);
   const updateSettings = useSettingsSlice(state => state.updateSettings);
   const [reallyReset, setReallyReset] = useState(false);
@@ -96,12 +106,6 @@ const Categories = ({ categories, selectedCategory, onCategorySelected }) => {
       <CloseButton onClick={() => setShowSettings(false)}>Close</CloseButton>
     </CategoriesWrapper>
   );
-};
-
-Categories.propTypes = {
-  categories: PropTypes.array.isRequired,
-  selectedCategory: PropTypes.number,
-  onCategorySelected: PropTypes.func,
 };
 
 export default Categories;

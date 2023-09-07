@@ -10,21 +10,21 @@ interface TabButtonProps {
 
 const TabWrapper = styled.a<{ active?: boolean }>`
   padding: 0 12px;
-  color: ${({ theme }) => theme.colors.fg[1]};
+  color: ${({ theme }) => theme.textSecondary};
   text-decoration: none;
   transition-duration: ${animationDurationMs}ms;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.bg[2]};
+    background-color: ${({ theme }) => theme.background[2]};
   }
   &:active {
-    background-color: ${({ theme }) => theme.colors.bg[1]};
+    background-color: ${({ theme }) => theme.background[1]};
   }
 
   ${({ active }) =>
     active &&
     css`
-      background-color: ${({ theme }) => theme.colors.bg[1]} !important;
+      background-color: ${({ theme }) => theme.background[1]} !important;
       color: ${({ theme }) => theme.accent.primary};
       cursor: default;
     `}
@@ -36,9 +36,9 @@ const UnreadCount = styled.span`
   width: 2em;
   height: 2em;
   margin-left: 1em;
-  background-color: ${props => props.theme.accent.primary};
+  background-color: ${({ theme }) => theme.accent.primary};
   border-radius: 32px;
-  color: ${props => props.theme.colors.fg[0]};
+  color: ${({ theme }) => theme.textPrimary};
   display: inline-block;
   font-weight: bold;
   font-size: 75%;
@@ -48,12 +48,7 @@ const UnreadCount = styled.span`
   vertical-align: middle;
 `;
 
-const TabButton: React.FC<TabButtonProps> = ({
-  active,
-  name,
-  unread,
-  onTabClick,
-}) => {
+const TabButton = ({ active, name, unread, onTabClick }: TabButtonProps) => {
   return (
     <TabWrapper href="#" active={active} onClick={onTabClick}>
       <TabName>{name}</TabName>

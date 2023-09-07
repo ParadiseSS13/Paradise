@@ -21,7 +21,7 @@ const PingWrapper = styled.span`
   }
 `;
 
-const Ping: React.FC = () => {
+const Ping = () => {
   const ping = useHeaderSlice(state => Math.min(999, state.ping));
 
   useEffect(() => {

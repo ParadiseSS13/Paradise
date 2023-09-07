@@ -10,7 +10,7 @@ import MessageReboot from './messages/MessageReboot';
 
 const MessageListWrapper = styled.div`
   flex: 1;
-  background-color: ${props => props.theme.colors.bg[1]};
+  background-color: ${({ theme }) => theme.background[1]};
   overflow-y: auto;
   overflow-x: hidden;
 `;
@@ -20,8 +20,8 @@ const ScrollToBottom = styled.a`
   bottom: 10px;
   right: 30px;
   padding: 8px;
-  color: ${props => props.theme.colors.fg[0]};
-  background-color: ${props => props.theme.colors.bg[3]};
+  color: ${({ theme }) => theme.textPrimary};
+  background-color: ${({ theme }) => theme.background[3]};
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   font-weight: bold;
   text-decoration: none;
@@ -78,11 +78,12 @@ const MessageList = () => {
   return (
     <MessageListWrapper
       ref={refList}
-      onScroll={e =>
+      onScroll={e => {
+        const list = e.target as Element;
         setShowScrollToBottom(
-          e.target.scrollTop + e.target.clientHeight < e.target.scrollHeight
-        )
-      }
+          list.scrollTop + list.clientHeight < list.scrollHeight
+        );
+      }}
     >
       <Transition timeout={animationDurationMs} in={showScrollToBottom}>
         {state => (

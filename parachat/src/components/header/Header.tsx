@@ -10,7 +10,7 @@ const HeaderWrapper = styled.div`
   user-select: none;
 `;
 
-const Header: React.FC = () => {
+const Header = () => {
   return (
     <HeaderWrapper>
       <Tabs />

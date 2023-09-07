@@ -14,14 +14,14 @@ const OccurenceCounterWrapper = styled.span<{ entering: boolean }>`
   padding: 2px 4px;
   display: inline-block;
   background-color: ${({ entering, theme }) =>
-    entering ? theme.accent.primary : theme.colors.bg[3]};
+    entering ? theme.accent.primary : theme.background[3]};
   font-weight: bold;
   font-size: 75%;
   text-align: center;
   transition: ${animationDurationMs}ms;
 `;
 
-export const OccurenceCounter: React.FC<OccurenceCounterProps> = ({ num }) => {
+export const OccurenceCounter = ({ num }: OccurenceCounterProps) => {
   const [shouldBlink, setShouldBlink] = useState(false);
 
   useEffect(() => {

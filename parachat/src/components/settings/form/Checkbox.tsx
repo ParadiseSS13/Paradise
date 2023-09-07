@@ -11,7 +11,7 @@ const CheckboxWrapper = styled.div<{ checked?: boolean }>`
   width: 16px;
   height: 16px;
   display: inline-block;
-  border: 1px solid ${({ theme }) => theme.colors.bg[1]};
+  border: 1px solid ${({ theme }) => theme.background[1]};
   border-radius: 4px;
   overflow: hidden;
   transition-duration: ${animationDurationMs}ms;
@@ -40,7 +40,7 @@ const CheckboxWrapper = styled.div<{ checked?: boolean }>`
     `}
 `;
 
-const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange }) => {
+const Checkbox = ({ checked, onChange }: CheckboxProps) => {
   const [isChecked, setIsChecked] = useState(checked);
   const handleClick = () => {
     const value = !isChecked;

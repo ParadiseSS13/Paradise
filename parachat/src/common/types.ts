@@ -51,7 +51,7 @@ export type MessageInfo = {
   text: string;
   type?: MessageType;
   tab?: Tab;
-  params?: object;
+  params?: { timeout?: number; completed?: boolean };
   highlight?: object;
   occurences: number;
 };
@@ -69,6 +69,11 @@ declare global {
     rebootFinished: ByondCall;
     codewords: (phrases: string, responses: string) => void;
     codewordsClear: ByondCall;
-    playAudio: ByondCall;
+    playAudio: (
+      uid: string,
+      sender: string,
+      file: string,
+      volume: number
+    ) => void;
   }
 }
