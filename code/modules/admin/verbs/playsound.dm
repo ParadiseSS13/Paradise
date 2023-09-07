@@ -16,43 +16,47 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 /client/proc/play_sound(S as sound)
 	set category = "Event"
 	set name = "Play Global Sound"
-	if(!check_rights(R_SOUNDS))	return
+	if(!check_rights(R_SOUNDS))
+		return
 
-	for(var/client/C in GLOB.clients)
-		C << browse_rsc(S)
-		C << output(url_encode("[S]"), "browseroutput:playAudio")
-
-  /*
 	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
 	uploaded_sound.priority = 250
 
-	GLOB.sounds_cache += S
+	GLOB.sounds_cache |= S
 
-	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
+	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request", "Play", "Cancel") == "Cancel")
 		return
 
 	if(holder.fakekey)
-		if(alert("Playing this sound will expose your real ckey despite being in stealth mode. You sure?", "Double check" ,"Play", "Cancel") == "Cancel")
+		if(alert("Playing this sound will expose your real ckey despite being in stealth mode. You sure?", "Double check", "Play", "Cancel") == "Cancel")
 			return
-
 
 	log_admin("[key_name(src)] played sound [S]")
 	message_admins("[key_name_admin(src)] played sound [S]", 1)
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client.prefs.sound & SOUND_MIDI)
-			if(ckey in M.client.prefs.admin_sound_ckey_ignore)
-				continue // This player has this admin muted
-			if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
-				M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
-			uploaded_sound.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+		if(!(M.client.prefs.sound & SOUND_MIDI))
+			continue
+		if(ckey in M.client.prefs.admin_sound_ckey_ignore)
+			continue
+		var vol = M.client.prefs.get_channel_volume(CHANNEL_ADMIN) * 100
+		if(!vol)
+			continue
+		if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
+			M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
-			var/this_uid = M.client.UID()
-			to_chat(M, "<span class='boldannounce'>[ckey] played <code>[S]</code> (<a href='?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
+		var/uid = M.client.UID()
+		if(findtext("[S]", ".ogg", -4)) // The browser doesn't support .ogg so fall back to playing via the client
+			uploaded_sound.volume = vol
 			SEND_SOUND(M, uploaded_sound)
+			to_chat(M, "<span class='boldannounce'>[ckey] played <code>[S]</code></span> (<a href='?src=[uid];action=silenceSound'>SILENCE</a>) (<a href='?src=[uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)")
+		else
+			var/data = list2params(list(uid, ckey, "[S]", vol))
+			M << browse(S, "display=0")
+			M << output(data, "browseroutput:playAudio")
+			to_chat(M, "<span class='boldannounce'>[ckey] played <code>[S]</code></span>")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-  */
 
 
 /client/proc/play_local_sound(S as sound)

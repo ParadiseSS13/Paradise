@@ -1,78 +1,111 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Transition } from 'react-transition-group';
 import styled from 'styled-components';
+import { animationDurationMs } from '~/common/animations';
 import { useAdminSlice } from '~/stores/admin';
 
 const AudioWrapper = styled.div`
-  background: ${props => props.theme.accent[0]};
-  font-weight: bold;
   height: 2em;
-  position: relative;
+  background: ${({ theme }) => theme.accent[0]};
   overflow: hidden;
+  position: relative;
 `;
 
-const Progress = styled.div`
+const TextWrapper = styled.span`
+  top: -2em;
+  left: 0px;
+  height: 2em;
+  padding: 0 8px;
+  display: flex;
+  line-height: 2em;
+  position: relative;
+  z-index: 500;
+
+  & > span {
+    flex: 1;
+  }
+
+  & > a {
+    margin-left: 8px;
+    color: ${({ theme }) => theme.colors.fg[1]};
+    font-weight: bold;
+    transition-duration: ${animationDurationMs}ms;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.fg[0]};
+    }
+  }
+`;
+
+const Progress = styled.div<{ duration: number; enter: boolean }>`
   width: 100%;
   height: 100%;
-  background: ${props => props.theme.accent.primary};
+  background: ${({ theme }) => theme.accent.primary};
+  color: transparent;
+  transform: ${({ enter }) => (enter ? 'translateX(0)' : 'translateX(-100%)')};
+  transition: transform ${({ duration }) => duration}ms linear;
 `;
 
-const fillProgress = {
-  entering: { transform: 'translateX(0)' },
-  entered: { transform: 'translateX(0)' },
-  exiting: { transform: 'translateX(-100%)' },
-  exited: { transform: 'translateX(-100%)' },
-};
-
 const Audio = () => {
-  const currentAudio = useAdminSlice(state => state.currentAudio);
-  const setCurrentAudio = useAdminSlice(state => state.setCurrentAudio);
+  const audioUid = useAdminSlice(state => state.audioUid);
+  const audioSender = useAdminSlice(state => state.audioSender);
+  const audioFile = useAdminSlice(state => state.audioFile);
+  const audioVolume = useAdminSlice(state => state.audioVolume);
+  const clearAudio = useAdminSlice(state => state.clearAudio);
   const [duration, setDuration] = useState(0);
 
-  useEffect(() => {
-    if (!currentAudio) {
-      return;
-    }
-    const audioElement = document.createElement('audio');
-    audioElement.src = './' + currentAudio;
-    audioElement.addEventListener('ended', () => setCurrentAudio(''));
-    audioElement.play();
-
-    setDuration(3000);
-    setTimeout(() => setCurrentAudio(''), 3000);
-  }, [currentAudio]);
-
-  if (!currentAudio) {
+  if (!audioFile) {
     return null;
   }
 
   return (
-    <Transition in timeout={duration} appear>
-      {state => (
-        <AudioWrapper>
-          <Progress
-            style={{
-              color: 'transparent',
-              transition: `transform ${duration}ms linear`,
-              transform: 'translateX(-100%)',
-              ...fillProgress[state],
-            }}
-          >
-            {state}
-          </Progress>
-          <span
-            style={{
-              position: 'absolute',
-              top: '0.5em',
-              left: 8,
-              zIndex: 500,
-            }}
-          >
-            Playing {currentAudio}
-          </span>
-        </AudioWrapper>
-      )}
-    </Transition>
+    <>
+      <audio
+        src={'./' + audioFile}
+        onLoadStart={() => setDuration(0)}
+        onPlay={e => {
+          const audio = e.target as HTMLAudioElement;
+          audio.volume = audioVolume / 100;
+          setDuration(audio.duration * 1000);
+        }}
+        onEnded={() => {
+          setDuration(0);
+          clearAudio();
+        }}
+        autoPlay
+      />
+      <Transition in={duration > 0} timeout={duration} appear>
+        {state => (
+          <AudioWrapper>
+            <Progress
+              duration={duration}
+              enter={state === 'entering' || state === 'entered'}
+            >
+              {state}
+            </Progress>
+            <TextWrapper>
+              <span>
+                Playing <code>{audioFile}</code> from {audioSender}
+              </span>
+              <a href="#" onClick={clearAudio}>
+                Stop
+              </a>
+              <a
+                href="#"
+                onClick={() => {
+                  clearAudio();
+                  location.href = `?_src_=${audioUid}&action=muteAdmin&a=${encodeURIComponent(
+                    audioSender
+                  )}`;
+                }}
+              >
+                Stop and mute this admin
+              </a>
+            </TextWrapper>
+          </AudioWrapper>
+        )}
+      </Transition>
+    </>
   );
 };
 

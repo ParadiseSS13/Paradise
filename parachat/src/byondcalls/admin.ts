@@ -1,6 +1,10 @@
-import { ByondCall } from '~/common/types';
 import { useAdminSlice } from '~/stores/admin';
 
-export const playAudio: ByondCall = topic => {
-  useAdminSlice.getState().setCurrentAudio(topic);
+export const playAudio = (
+  uid: string,
+  sender: string,
+  file: string,
+  volume: number
+) => {
+  useAdminSlice.getState().setAudio(uid, sender, file, volume);
 };
