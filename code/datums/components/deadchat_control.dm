@@ -260,3 +260,20 @@
 	_inputs["right"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), EAST)
 
 	return ..()
+
+/**
+ * Deadchat Moves Things
+ *
+ * A special variant of the deadchat_control component that comes pre-baked with basic inputs for moving humans around,
+ * with special behavior that has them resist while moving.
+ */
+/datum/component/deadchat_control/human/Initialize(_deadchat_mode, _inputs, _input_cooldown, _on_removal)
+	if(!ishuman(parent))
+		return COMPONENT_INCOMPATIBLE
+
+	_inputs["up"] = CALLBACK(parent, TYPE_PROC_REF(/mob/living/carbon/human, dchat_step), NORTH)
+	_inputs["down"] = CALLBACK(parent, TYPE_PROC_REF(/mob/living/carbon/human, dchat_step), SOUTH)
+	_inputs["left"] = CALLBACK(parent, TYPE_PROC_REF(/mob/living/carbon/human, dchat_step), WEST)
+	_inputs["right"] = CALLBACK(parent, TYPE_PROC_REF(/mob/living/carbon/human, dchat_step), EAST)
+
+	return ..()
