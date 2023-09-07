@@ -93,6 +93,11 @@ $bg-map: colors.$bg-map !default;
   // padding: 3px 6px;
 }
 
+.Button--multiLine {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
 @each $color-name, $color-value in $bg-map {
   .Button--color--#{$color-name} {
     @include button-color($color-value);

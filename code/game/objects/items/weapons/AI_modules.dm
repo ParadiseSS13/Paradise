@@ -287,7 +287,7 @@ AI MODULES
 	origin_tech = "programming=3;materials=4"
 	laws = new /datum/ai_laws/quarantine
 
-/******************** NanoTrasen ********************/
+/******************** Nanotrasen ********************/
 /obj/item/aiModule/nanotrasen // -- TLE
 	name = "\improper NT Default Core AI Module"
 	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"

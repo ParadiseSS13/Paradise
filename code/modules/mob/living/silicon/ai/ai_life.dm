@@ -141,6 +141,8 @@
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
+	if(controlled_mech)
+		return controlled_mech.get_charge() <= 0
 	return (!A.powernet.equipment_powered && A.requires_power || isspaceturf(T)) && !isitem(loc)
 
 /mob/living/silicon/ai/rejuvenate()
