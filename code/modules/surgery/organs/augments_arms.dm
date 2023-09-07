@@ -117,7 +117,7 @@
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
-		if(istype(arm_item, /obj/item/twohanded/offhand))
+		if(istype(arm_item, /obj/item/offhand))
 			var/obj/item/offhand_arm_item = owner.get_active_hand()
 			to_chat(owner, "<span class='warning'>Your hands are too encumbered wielding [offhand_arm_item] to deploy [src]!</span>")
 			return
@@ -559,3 +559,29 @@
 		qdel(src)
 		qdel(I)
 	return ..()
+
+/obj/item/organ/internal/cyberimp/arm/muscle
+	name = "strong-arm empowered musculature implant"
+	desc = "When implanted, this cybernetic implant will enhance the muscles of the arm to deliver more power-per-action. Only has to be installed in one arm."
+	icon_state = "muscle_imp"
+
+	parent_organ = "l_arm" //Left arm by default
+	slot = "l_arm_device"
+
+	actions_types = list()
+	var/datum/martial_art/muscle_implant/muscle_implant
+
+/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	muscle_implant = new()
+	muscle_implant.teach(M)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/remove(mob/living/carbon/M, special)
+	. = ..()
+	muscle_implant.remove(M)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/emp_act(severity)
+	. = ..()
+	if(emp_proof)
+		return
+	muscle_implant.emp_act(severity, owner)

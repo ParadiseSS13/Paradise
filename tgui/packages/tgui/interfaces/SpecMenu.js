@@ -85,7 +85,8 @@ const UmbrMenu = (props, context) => {
         <b>Shadow anchor</b>: Unlocked at 250 blood, casting it will create
           an anchor at the cast location after a short delay.
           If you then cast the ability again, you are teleported back to the anchor.
-          If you do not cast again within 2 minutes, you are forced back to the anchor.
+          If you do not cast again within 2 minutes, you will do a fake recall,
+          causing a clone to appear at the anchor and making yourself invisible.
           It will not teleport you between Z levels.
         </p>
         <p>
@@ -108,7 +109,8 @@ const UmbrMenu = (props, context) => {
           <Divider />
           <b>Eternal darkness</b>: When toggled, you consume yourself in unholy
           darkness, only the strongest of lights will be able to see through it.
-          It will also cause nearby creatures to freeze.
+          Inside the radius, nearby creatures will freeze and energy projectiles
+          will deal less damage.
         </p>
         <p>In addition, you also gain permament X-ray vision.</p>
         <Button content="Umbrae" onClick={() => act('umbrae')} />
