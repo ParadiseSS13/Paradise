@@ -70,7 +70,7 @@
 	GLOB.cameranet.cameras -= src
 	if(isarea(get_area(src)))
 		LAZYREMOVE(get_area(src).cameras, UID())
-	var/area/ai_monitored/A = get_area(src)
+	var/area/station/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncameras -= src
 	area_motion = null
