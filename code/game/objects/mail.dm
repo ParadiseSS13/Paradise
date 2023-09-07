@@ -15,7 +15,7 @@
 
 /obj/item/envelope/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is licking a sharp corner of the envelope. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/effects/-adminhelp.ogg', 50, 1, -1)
+	playsound(loc, 'sound/effects/-adminhelp.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/envelope/attack_self(mob/user)
