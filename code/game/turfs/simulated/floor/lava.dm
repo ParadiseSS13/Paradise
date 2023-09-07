@@ -247,6 +247,6 @@
 
 /turf/simulated/floor/plating/lava/smooth/mapping_lava/LateInitialize()
 	. = ..()
-	ChangeTurf(SSmapping.lavaland_theme)
+	ChangeTurf(SSmapping.lavaland_theme, ignore_air = TRUE)
 
 
