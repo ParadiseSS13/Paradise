@@ -215,7 +215,7 @@
 
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
-	desc = "A white beret with a purple science insignia emblazoned on it. It has that authentic burning plasma smell."
+	desc = "A white beret with a purple science insignia emblazoned on it. It has that authentic smell of burning plasma."
 	icon_state = "beret_science"
 
 /obj/item/clothing/head/beret/robowhite
