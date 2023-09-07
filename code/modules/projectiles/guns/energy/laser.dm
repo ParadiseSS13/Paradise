@@ -273,6 +273,10 @@
 /obj/item/gun/energy/emitter/cyborg/emp_act()
 	return
 
+/obj/item/gun/energy/emitter/cyborg/proto
+	ammo_type = list(/obj/item/ammo_casing/energy/emitter/cyborg/proto)
+
+
 ////////Laser Tag////////////////////
 
 /obj/item/gun/energy/laser/tag

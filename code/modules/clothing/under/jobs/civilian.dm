@@ -16,8 +16,8 @@
 	item_color = "hop"
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel/dress
-	name = "head of personal's dress uniform"
-	desc = "Feminine fashion for the style conscious HoP."
+	name = "head of personnel's dress uniform"
+	desc = "Feminine fashion for the style conscious Head of Personnel."
 	icon_state = "dress_hop"
 	item_color = "dress_hop"
 
