@@ -1812,15 +1812,19 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(wear_id)
 		var/obj/item/card/id/id = wear_id.GetID()
 		if(istype(id) && id.is_untrackable())
-			return 0
+			return FALSE
 	if(wear_pda)
 		var/obj/item/card/id/id = wear_pda.GetID()
 		if(istype(id) && id.is_untrackable())
-			return 0
+			return FALSE
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)
-			return 0
+			return FALSE
+	if(w_uniform)
+		var/obj/item/clothing/under/uniform = w_uniform
+		if(uniform.blockTracking)
+			return FALSE
 
 	return ..()
 

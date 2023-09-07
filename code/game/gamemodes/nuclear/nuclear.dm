@@ -454,8 +454,13 @@
 	if(nuke?.r_code != "Nope")
 		var/area/A = get_area(nuke)
 
-		var/list/thousand_penalty = list(/area/solar)
-		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armoury, /area/security/checkpoint2)
+		var/list/thousand_penalty = list(/area/station/engineering/solar)
+		var/list/fiftythousand_penalty = list(
+			/area/station/security/main,
+			/area/station/security/brig,
+			/area/station/security/armory,
+			/area/station/security/checkpoint/secondary
+			)
 
 		if(is_type_in_list(A, thousand_penalty))
 			scoreboard.nuked_penalty = 1000
@@ -463,7 +468,7 @@
 		else if(is_type_in_list(A, fiftythousand_penalty))
 			scoreboard.nuked_penalty = 50000
 
-		else if(istype(A, /area/engine))
+		else if(istype(A, /area/station/engineering/engine))
 			scoreboard.nuked_penalty = 100000
 
 		else
