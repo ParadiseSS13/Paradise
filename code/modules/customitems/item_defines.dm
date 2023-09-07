@@ -206,7 +206,6 @@
 /obj/item/lighter/zippo/fluff
 	name = "custom zippo"
 	desc = "A custom made zippo lighter."
-	// HUD icons from custom_items
 	icon = 'icons/obj/custom_items.dmi'
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
