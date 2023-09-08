@@ -84083,7 +84083,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "rHR" = (
 /obj/machinery/hologram/holopad,
@@ -87129,6 +87129,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"tEy" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "tEU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -145759,7 +145768,7 @@ pfF
 mAv
 cOm
 cOm
-cOm
+tEy
 rHN
 cga
 hyk
