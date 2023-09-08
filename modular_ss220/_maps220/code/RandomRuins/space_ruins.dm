@@ -30,6 +30,15 @@
 	cost = 3
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/space/transit_bar
+	name = "Transit Bar"
+	id = "transit_bar"
+	description = "One of the trillion bars in this galaxy, this one looks especially homey and comfy."
+	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
+	suffix = "transit_bar.dmm"
+	cost = 1
+	allow_duplicates = FALSE
+
 
 // Тут код гейтов которые перенесли в космос, делать можно по приверу ниже.
 // Сам gateaway не трогать, это группа которая не позволяет спавнится сразу нескольким "гейтам"
