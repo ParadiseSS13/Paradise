@@ -19,7 +19,7 @@
 	return BRUTELOSS
 
 /obj/item/envelope/attack_self(mob/user)
-	if(user != recipient)
+	if(user.mind.current != recipient.mind.current)
 		to_chat(user, "<span class='warning'>You don't want to open up another person's mail, that's an invasion of their privacy!</span>")
 		return
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
@@ -38,11 +38,12 @@
 	var/list/mind_copy = SSticker.minds.Copy()
 	shuffle(mind_copy)
 	for(var/datum/mind/mail_attracted_people in mind_copy)
-		if(mail_attracted_people.offstation_role || mail_attracted_people.assigned_role == ("AI" || "Cyborg"))
+		var/turf/T = get_turf(mail_attracted_people)
+		if(mail_attracted_people.offstation_role || !ishuman(mail_attracted_people) || T.z == 1)
 			continue
 		if(mail_attracted_people.assigned_role in job_list)
 			recipient = mail_attracted_people.current
-			name = "letter to [recipient.mind.real_name]"
+			name = "letter to [recipient.real_name]"
 			return
 	if(!admin_spawned)
 		log_debug("Error: failed to find a new name to assign to [src]!")
@@ -51,16 +52,16 @@
 /obj/item/envelope/security
 	icon_state = "mail_sec"
 	possible_contents = list(/obj/item/reagent_containers/food/snacks/donut/sprinkles,
-	/obj/item/megaphone,
-	/obj/item/poster/random_official,
-	/obj/item/restraints/handcuffs/pinkcuffs,
-	/obj/item/restraints/legcuffs/bola/energy,
-	/obj/item/reagent_containers/food/drinks/coffee,
-	/obj/item/stock_parts/cell/super,
-	/obj/item/grenade/barrier/dropwall,
-	/obj/item/toy/figure/crew/detective,
-	/obj/item/toy/figure/crew/hos,
-	/obj/item/toy/figure/crew/secofficer)
+							/obj/item/megaphone,
+							/obj/item/poster/random_official,
+							/obj/item/restraints/handcuffs/pinkcuffs,
+							/obj/item/restraints/legcuffs/bola/energy,
+							/obj/item/reagent_containers/food/drinks/coffee,
+							/obj/item/stock_parts/cell/super,
+							/obj/item/grenade/barrier/dropwall,
+							/obj/item/toy/figure/crew/detective,
+							/obj/item/toy/figure/crew/hos,
+							/obj/item/toy/figure/crew/secofficer)
 	job_list = list("Head of Security", "Security Officer", "Detective", "Forensic Technician", "Warden")
 
 /obj/item/envelope/science
