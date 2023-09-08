@@ -99,3 +99,14 @@
 
 /obj/effect/decal/nanotrasen_logo/n6
 	icon_state = "logo6"
+
+/obj/effect/decal/cleanable/dust
+	name = "dust"
+	desc = "It's a little dusty. Someone should clean that up."
+	gender = PLURAL
+	density = FALSE
+	layer = TURF_LAYER
+	icon = 'modular_ss220/aesthetics/decals/icons/dirt.dmi'
+	icon_state = "dust"
+	base_icon_state = "dust"
+	mouse_opacity = FALSE
