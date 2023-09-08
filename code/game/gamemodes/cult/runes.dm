@@ -581,7 +581,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of Resurrection: Requires a dead or inactive cultist. When reviving the dead, you can only perform one revival for every three sacrifices your cult has carried out.
 /obj/effect/rune/raise_dead
 	cultist_name = "Revive"
-	cultist_desc = "requires a dead, mindless, or inactive cultist placed upon the rune. For each three bodies sacrificed to the dark patron, one body will be mended and their mind awoken"
+	cultist_desc = "requires a dead, alive, mindless, or inactive cultist placed upon the rune. For each three bodies sacrificed to the dark patron, one body will be mended and their mind awoken. Mending living cultist requires two cultists at the rune"
 	invocation = "Pasnar val'keriam usinar. Savrae ines amutan. Yam'toth remium il'tarat!" //Depends on the name of the user - see below
 	icon_state = "revive"
 	var/static/sacrifices_used = -SOULS_TO_REVIVE // Cultists get one "free" revive
