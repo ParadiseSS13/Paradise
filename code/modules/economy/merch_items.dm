@@ -68,6 +68,13 @@
 	cost = 200
 	category = MERCH_CAT_TOY
 
+/datum/merch_item/unum
+	name = "UNUM!"
+	desc = "Everyone's favorite card game!"
+	typepath = /obj/item/deck/unum
+	cost = 200
+	category = MERCH_CAT_TOY
+
 /datum/merch_item/katana
 	name = "Replica Katana"
 	desc = "Woefully underpowered in D20."

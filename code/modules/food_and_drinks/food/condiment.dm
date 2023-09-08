@@ -39,10 +39,14 @@
 
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		return 0
+		return FALSE
+
+	if(!iscarbon(M)) // Non-carbons can't process reagents
+		to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
+		return
 
 	if(M == user)
-		to_chat(M, "<span class='notice'>You swallow some of contents of \the [src].</span>")
+		to_chat(user, "<span class='notice'>You swallow some of the contents of [src].</span>")
 	else
 		user.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>")
 		if(!do_mob(user, M))

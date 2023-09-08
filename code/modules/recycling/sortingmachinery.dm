@@ -148,7 +148,7 @@
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
-	var/static/list/no_wrap = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/evidencebag, /obj/structure/closet/body_bag, /obj/item/twohanded/required)
+	var/static/list/no_wrap = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/evidencebag, /obj/structure/closet/body_bag)
 
 /obj/item/stack/packageWrap/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
@@ -198,6 +198,9 @@
 			return FALSE
 		D.init_welded = C.welded
 		C.welded = TRUE
+	else if (target.GetComponent(/datum/component/two_handed))
+		to_chat(user, "<span class='notice'>[target] is too unwieldy to wrap effectively.</span>")
+		return FALSE
 	else
 		to_chat(user, "<span class='notice'>The object you are trying to wrap is unsuitable for the sorting machinery.</span>")
 		return FALSE
