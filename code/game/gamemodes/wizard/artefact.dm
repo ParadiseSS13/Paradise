@@ -885,13 +885,11 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "A set of armored, radiation-proof robes worn by Oblivion Enforcers."
 	icon_state = "oblivionarmor"
 	item_state = "oblivionarmor"
-
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	hoodtype = /obj/item/clothing/head/hooded/oblivion
 	allowed = list(/obj/item/supermatter_halberd, /obj/item/nuke_core/supermatter_sliver)
 	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = INFINITY, FIRE = 5, ACID = 5)
-
-	flags_inv = HIDEJUMPSUIT|HIDESHOES|HIDETAIL|HIDESHOES
+	flags_inv = HIDEJUMPSUIT | HIDESHOES | HIDETAIL | HIDESHOES
 	flags = THICKMATERIAL
 	magical = TRUE
 	sprite_sheets = list(
