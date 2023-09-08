@@ -782,7 +782,7 @@
 #include "code\game\machinery\camera\camera_presets.dm"
 #include "code\game\machinery\camera\motion.dm"
 #include "code\game\machinery\camera\tracking.dm"
-#include "code\game\machinery\computer\arcade_games\recruiter"
+#include "code\game\machinery\computer\arcade_games\recruiter.dm"
 #include "code\game\machinery\computer\ai_core.dm"
 #include "code\game\machinery\computer\aifixer.dm"
 #include "code\game\machinery\computer\arcade.dm"
