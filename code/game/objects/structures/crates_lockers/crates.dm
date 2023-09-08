@@ -516,13 +516,13 @@
 	material_drop_amount = 4
 	crate_value = 3 // Small returnal payment.
 	var/list/possible_contents = list(/obj/item/envelope/security,
-	/obj/item/envelope/science,
-	/obj/item/envelope/supply,
-	/obj/item/envelope/medical,
-	/obj/item/envelope/engineering,
-	/obj/item/envelope/service,
-	/obj/item/envelope/command,
-	/obj/item/envelope/misc)
+										/obj/item/envelope/science,
+										/obj/item/envelope/supply,
+										/obj/item/envelope/medical,
+										/obj/item/envelope/engineering,
+										/obj/item/envelope/service,
+										/obj/item/envelope/command,
+										/obj/item/envelope/misc)
 
 /obj/structure/closet/crate/mail/populate_contents()
 	. = ..()

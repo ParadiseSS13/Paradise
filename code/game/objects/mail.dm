@@ -62,7 +62,7 @@
 							/obj/item/toy/figure/crew/detective,
 							/obj/item/toy/figure/crew/hos,
 							/obj/item/toy/figure/crew/secofficer)
-	job_list = list("Head of Security", "Security Officer", "Detective", "Forensic Technician", "Warden")
+	job_list = list("Head of Security", "Security Officer", "Detective", "Warden")
 
 /obj/item/envelope/science
 	icon_state = "mail_sci"
@@ -79,7 +79,7 @@
 	/obj/item/toy/figure/crew/rd,
 	/obj/item/toy/figure/crew/roboticist,
 	/obj/item/toy/figure/crew/scientist)
-	job_list = list("Research Director", "Roboticist", "Biomechanical Engineer", "Geneticist", "Mechatronic Engineer", "Scientist", "Xenoarcheologist", "Annomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	job_list = list("Research Director", "Roboticist", "Geneticist",  "Scientist")
 
 /obj/item/envelope/supply
 	icon_state = "mail_sup"
@@ -94,7 +94,7 @@
 	/obj/item/toy/figure/crew/cargotech,
 	/obj/item/toy/figure/crew/qm,
 	/obj/item/toy/figure/crew/miner)
-	job_list = list("Quartermaster", "Cargo Technician", "Mail Carrier", "Courier", "Shaft Miner", "Spelunker")
+	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner")
 
 /obj/item/envelope/medical
 	icon_state = "mail_med"
@@ -111,7 +111,7 @@
 	/obj/item/toy/figure/crew/geneticist,
 	/obj/item/toy/figure/crew/md,
 	/obj/item/toy/figure/crew/virologist)
-	job_list = list("Chief Medical Officer", "Medical Doctor", "Surgeon", "Nurse", "Coroner", "Chemist", "Pharmacist", "Pharmacologist", "Virologist", "Pathologist", "Microbiologist", "Psychiatrist", "Psychologist", "Therapist", "Paramedic")
+	job_list = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Psychologist", "Paramedic")
 
 /obj/item/envelope/engineering
 	icon_state = "mail_eng"

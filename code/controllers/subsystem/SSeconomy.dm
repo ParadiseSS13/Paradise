@@ -145,7 +145,7 @@ SUBSYSTEM_DEF(economy)
 		record_economy_data()
 	process_job_tasks()
 	if(next_mail_delay <= world.time)
-		if(SSshuttle.supply.z == 2) // This is ugly but as far as I know there isn't a good way to check if a shuttle is currently travelling
+		if(is_station_level(SSshuttle.supply.z)) // This is ugly but as far as I know there isn't a good way to check if a shuttle is currently travelling
 			return
 		next_mail_delay = 15 MINUTES + world.time
 		mail_never_fails()
