@@ -189,43 +189,45 @@
 	origin_tech = "magnets=1"
 	var/obj/item/envelope/saved
 
-
 /obj/item/mail_scanner/attack()
 	return
 
 /obj/item/mail_scanner/afterattack(atom/A, mob/user)
 	if(istype(A, /obj/item/envelope))
-		var/obj/item/envelope/O = A
-		if(O.has_been_scanned)
+		var/obj/item/envelope/envelope = A
+		if(envelope.has_been_scanned)
 			to_chat(user, "<span class='warning'>This letter has already been logged to the active database!</span>")
-			playsound(loc, 'sound/machines/deniedbeep.ogg', 50, 1)
+			playsound(loc, 'sound/machines/deniedbeep.ogg', 50, TRUE)
 			return
-		to_chat(user, "<span class='notice'>You add [O] to the active database.</span>")
-		playsound(loc, 'sound/mail/mailscanned.ogg', 50, 1)
+		to_chat(user, "<span class='notice'>You add [envelope] to the active database.</span>")
+		playsound(loc, 'sound/mail/mailscanned.ogg', 50, TRUE)
 		saved = A
 		return
 	if(isliving(A))
 		var/mob/living/M = A
 		if(!saved)
 			to_chat(user, "<span class='warning'>You have not logged mail to the mail scanner!</span>")
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, 1)
+			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
+
 		if(M.stat == DEAD)
 			to_chat(user, "<span class='warning'>You can't deliver mail to a corpse!</span>")
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, 1)
+			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 
 		if(M != saved.recipient)
 			to_chat(user, "<span class='warning'>The scanner will not accept confirmation of orders from non clients!</span>")
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, 1)
+			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
+
 		if(!M.client)
 			to_chat(user, "<span class='warning'>The scanner will not accept confirmation of orders from SSD people!</span>")
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, 1)
+			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
+
 		saved.has_been_scanned = TRUE
 		saved = null
-		to_chat(user, "<span class='notice'>Succesful delivery acknowledged! 100 credits added to Supply account!</span>")
-		playsound(loc, 'sound/mail/mailapproved.ogg', 50, 1)
+		to_chat(user, "<span class='notice'>Successful delivery acknowledged! [MAIL_DELIVERY_BONUS] credits added to Supply account!</span>")
+		playsound(loc, 'sound/mail/mailapproved.ogg', 50, TRUE)
 		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Messaging and Intergalactic Letters", supress_log = FALSE)
 
