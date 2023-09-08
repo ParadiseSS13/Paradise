@@ -161,7 +161,7 @@
 	/obj/item/toy/figure/crew/captain,
 	/obj/item/toy/figure/crew/lawyer,
 	/obj/item/toy/figure/crew/dsquad)
-	job_list = list("Captain", "Magistrate", "NanoTrasen Representative", "Blueshield", "Internal Affairs Agent", "Human Resources Agent")
+	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent", "Human Resources Agent")
 
 /obj/item/envelope/misc
 	possible_contents = list(/obj/item/clothing/under/misc/assistantformal,
