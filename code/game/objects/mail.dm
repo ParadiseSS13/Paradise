@@ -31,7 +31,7 @@
 		qdel(src)
 
 /obj/item/envelope/Initialize(mapload)
-	.=..()
+	. = ..()
 	var/item = pick(possible_contents)
 	new item(src)
 	new /obj/item/stack/spacecash(src, rand(1, 50) * 5)
