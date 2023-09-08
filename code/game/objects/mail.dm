@@ -42,7 +42,7 @@
 			continue
 		if(mail_attracted_people.assigned_role in job_list)
 			recipient = mail_attracted_people.current
-			name = "letter to [recipient]"
+			name = "letter to [recipient.mind.real_name]"
 			return
 	if(!admin_spawned)
 		log_debug("Error: failed to find a new name to assign to [src]!")
