@@ -1,0 +1,2618 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"ab" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ae" = (
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/obj/item/stack/ore/bluespace_crystal{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/unpowered)
+"af" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
+"au" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"bc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/mecha_wreckage/ripley,
+/obj/effect/turf_decal/box/white,
+/obj/effect/turf_decal/caution/stand_clear/white,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"be" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors)
+"bL" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"bO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"bP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"bT" = (
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
+"bU" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"bV" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"cb" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"cc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"cw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/smes,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"cJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mech_bay_recharge_port,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"dh" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"du" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"dM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/girder,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"eH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore/plasma,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"eV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"fc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"fd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"fm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/structure/sign/atmosplaque{
+	desc = "A ruined and partially melted plaque bears words that are now faded and rusted, with some letters missing entirely. It reads: Est...ished by the Athland Mining...ration. In recog...on of the brave...who dared...harness...fiery heart...this world. May the...of our labor...shine as brightly...as the molten rivers...beneath our feet. The date of the facility's establishment at the bottom is obliterated, and the signatures of any founding miners are completely lost to time.";
+	pixel_y = 29;
+	name = "\improper Athland Excavation Hub V"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/ruin/unpowered)
+"fs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"fv" = (
+/obj/effect/landmark/burnturf,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"fB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/portable/scrubber,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"fH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"fP" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"fY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/ruin/unpowered)
+"gC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/partial,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"gE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"gF" = (
+/obj/structure/girder,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"hc" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"hj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"ho" = (
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"hx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/ruin/unpowered)
+"hE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"hP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"ic" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"iq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/obj/machinery/mineral/unloading_machine,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"jb" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"jY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/item/stack/sheet/mineral/gold{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"kn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/structure/sign/poster/official/air2{
+	pixel_y = -32
+	},
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"kR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/tank/internals/oxygen,
+/obj/item/storage/box/donkpockets/empty,
+/obj/item/storage/box/donkpockets/empty,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"lr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"ms" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"nm" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"no" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"nK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
+/obj/item/shard,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"nN" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"nQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"nX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"oG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"pn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/item/mounted/frame/apc_frame{
+	pixel_x = -3;
+	pixel_y = 28
+	},
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"qh" = (
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/obj/structure/disposalpipe/broken{
+	dir = 2
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"rd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"rw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"rY" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"sa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west,
+/obj/structure/window/reinforced,
+/obj/item/stack/sheet/mineral/silver,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"sg" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"su" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	amount = 5
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"sv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"sA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"sB" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"sQ" = (
+/obj/item/pickaxe,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"to" = (
+/obj/structure/marker_beacon/dock_marker,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"tv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"tD" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/machinery/light_construct/small,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"tS" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
+/obj/structure/disposalpipe/broken{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ua" = (
+/obj/effect/turf_decal/caution/stand_clear/white,
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"ub" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"uf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"ui" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"um" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"uC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"uM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/rack_parts,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"vf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/air1{
+	pixel_x = 33
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"vl" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/belt/mining/alt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"vo" = (
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"wZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"yV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/obj/machinery/mineral/processing_unit,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"yX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/mob/living/simple_animal/hostile/asteroid/goliath/beast,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"zd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"zp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/shoes/workboots/mining,
+/obj/structure/sign/poster/ripped{
+	pixel_x = -1;
+	pixel_y = 32
+	},
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/effect/landmark/burnturf,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"zq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore{
+	pixel_y = -9;
+	pixel_x = -6
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"zE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/pickaxe,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"zG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/effect/landmark/damageturf,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"zR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/door_assembly/door_assembly_mhatch,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"zZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Au" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"Az" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"AE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"AH" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"AL" = (
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"AT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"BG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"BM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"BO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"BX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/structure/sign/poster/contraband/syndicate_recruitment{
+	pixel_x = -3;
+	pixel_y = 31
+	},
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"CF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/electricshock{
+	pixel_x = -31
+	},
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/machinery/economy/vending/assist/free,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Dd" = (
+/obj/structure/grille,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"Dg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/ruin/unpowered)
+"Dp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Dt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/item/storage/box/donkpockets/empty,
+/mob/living/simple_animal/hostile/asteroid/goliath/beast,
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/ruin/unpowered)
+"Dv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/door_assembly/door_assembly_mhatch,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"DM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"DP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mineral/processing_unit_console{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Ec" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/southwest{
+	dir = 5
+	},
+/obj/structure/plasticflaps,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Ek" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Fa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Fd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/ripped{
+	pixel_x = -1;
+	pixel_y = 32
+	},
+/obj/item/tank/internals/oxygen,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Gk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Gz" = (
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/obj/structure/disposalpipe/broken,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"GF" = (
+/obj/effect/landmark/damageturf,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Hp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore/plasma,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Hx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"HO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Ic" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate/miningcar,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"In" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Io" = (
+/obj/item/chair,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"IT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/ore_box,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Jw" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 8;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"JE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mech_bay_recharge_port,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"JT" = (
+/obj/structure/grille,
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"KJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"KN" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"KT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"KZ" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Lg" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Ln" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate/miningcar,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Lq" = (
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"Ms" = (
+/obj/structure/girder,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"Mw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"MO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"MY" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Og" = (
+/obj/structure/girder,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Oh" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/gloves/color/brown/cargo,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"OJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"OW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/t_scanner/adv_mining_scanner,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Pn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Po" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/item/shard,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Px" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"PF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/ruin/unpowered)
+"PI" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/ruin/unpowered)
+"PJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"Qj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/clothing/mask/gas/explorer,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Qu" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"QE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"RL" = (
+/obj/item/stack/sheet/metal{
+	amount = 5
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"RX" = (
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
+"Ta" = (
+/obj/item/chair{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/red_rum{
+	pixel_y = 31
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/ruin/unpowered)
+"TN" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"TX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/effect/landmark/damageturf,
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"UP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"UU" = (
+/obj/effect/landmark/burnturf,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Vj" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"VJ" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/sign/nosmoking_1{
+	pixel_x = -2;
+	pixel_y = 35
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"VO" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Wb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/clothing/shoes/workboots/mining,
+/obj/item/clothing/shoes/workboots/mining,
+/obj/effect/landmark/damageturf,
+/obj/item/mounted/frame/apc_frame{
+	pixel_x = -3;
+	pixel_y = 28
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Wl" = (
+/obj/structure/grille,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Wp" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"WQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/miningcar,
+/obj/item/mounted/frame/apc_frame{
+	pixel_x = -3;
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Xn" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Xw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/portable/pump,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"XO" = (
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"XT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Yd" = (
+/obj/structure/grille,
+/obj/item/shard,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"Yl" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Yt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Yx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"YF" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"YK" = (
+/obj/structure/disposalpipe/broken,
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"YN" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/turf/simulated/floor/plating/airless,
+/area/lavaland/surface/outdoors)
+"Zi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Zr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"ZA" = (
+/obj/structure/grille,
+/obj/item/shard,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"ZB" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ZG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"ZN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white,
+/obj/structure/sign/poster/ripped{
+	pixel_x = -1;
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+bV
+bL
+bL
+bL
+bL
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bL
+bL
+bL
+bL
+bL
+bL
+bL
+bL
+"}
+(2,1,1) = {"
+bV
+bL
+bL
+bV
+bV
+bV
+bV
+ab
+ab
+bV
+bV
+bV
+bV
+ab
+bV
+bV
+bV
+bV
+bV
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+bL
+bV
+bV
+bV
+bV
+bL
+bL
+"}
+(3,1,1) = {"
+bV
+bL
+bV
+bV
+bV
+bV
+bV
+bT
+ab
+bL
+bL
+bU
+ab
+KZ
+ab
+ab
+bT
+ab
+ab
+ab
+ab
+ab
+YN
+jb
+Yd
+Dd
+bT
+bT
+bV
+bV
+bV
+bV
+bV
+bL
+"}
+(4,1,1) = {"
+bV
+bL
+bL
+ab
+ab
+bT
+bT
+bT
+ab
+ab
+ab
+cb
+ab
+ab
+ab
+bT
+bT
+ab
+bL
+bL
+ab
+cb
+Qu
+Lq
+aa
+Yd
+bT
+bT
+bT
+bT
+ab
+bV
+bV
+bL
+"}
+(5,1,1) = {"
+bV
+bL
+bL
+ab
+ab
+bT
+bT
+sB
+fP
+dh
+ui
+ui
+ui
+ui
+ui
+bT
+bT
+ab
+ab
+bL
+ab
+ab
+ui
+ui
+cc
+ui
+Au
+ui
+ui
+ui
+ab
+ab
+bV
+bL
+"}
+(6,1,1) = {"
+bV
+bL
+bV
+bV
+ab
+bT
+ab
+bL
+bL
+tS
+ui
+nQ
+jY
+IT
+ui
+ab
+bT
+bT
+bT
+ab
+ab
+ab
+ui
+JE
+wZ
+cJ
+CF
+tv
+cw
+ui
+ab
+ab
+ab
+bL
+"}
+(7,1,1) = {"
+bV
+bL
+bV
+bV
+ab
+bT
+bT
+bU
+bU
+ZB
+hc
+Pn
+fv
+zq
+ui
+ab
+ab
+bT
+bT
+ab
+ab
+ab
+ui
+ua
+gE
+bc
+Zi
+AE
+YF
+ui
+ab
+ab
+bL
+bL
+"}
+(8,1,1) = {"
+bV
+bL
+bV
+ab
+ab
+bT
+bL
+Xn
+KZ
+ab
+ui
+ui
+QE
+Lg
+ui
+ab
+ab
+RX
+RX
+RX
+ab
+ab
+ui
+eV
+OJ
+Mw
+Qj
+fs
+OW
+ui
+ab
+ab
+bV
+bL
+"}
+(9,1,1) = {"
+bV
+bL
+bV
+ab
+bT
+bT
+ab
+cb
+ab
+af
+ui
+Ec
+gC
+no
+ui
+ab
+ab
+RX
+RX
+RX
+ab
+ab
+ui
+QE
+af
+BM
+yX
+bO
+In
+dM
+ab
+ab
+ab
+bL
+"}
+(10,1,1) = {"
+bV
+bL
+ab
+bT
+bT
+bT
+ab
+cb
+bT
+af
+PI
+hP
+zE
+ui
+ui
+ui
+ab
+ab
+bT
+bT
+ab
+ab
+ab
+af
+af
+AT
+Wb
+kR
+fc
+gF
+ab
+ab
+bL
+bL
+"}
+(11,1,1) = {"
+bV
+bL
+ab
+af
+ui
+bT
+ab
+ab
+bT
+bT
+XO
+sa
+Gk
+uf
+fc
+DM
+ab
+ab
+ab
+bT
+bT
+bT
+bT
+bT
+bT
+af
+TX
+rw
+Vj
+ui
+bT
+ab
+bV
+bL
+"}
+(12,1,1) = {"
+bV
+bU
+cb
+bT
+af
+bT
+ab
+bT
+bT
+bT
+JT
+zZ
+uf
+nX
+ui
+ui
+VJ
+ab
+ab
+bT
+bT
+bT
+bT
+af
+ui
+bT
+af
+uM
+TN
+ui
+bT
+bT
+bV
+bL
+"}
+(13,1,1) = {"
+bV
+bU
+cb
+ab
+bT
+bT
+ab
+bT
+bT
+bT
+ui
+yV
+UP
+Ic
+ui
+ab
+ab
+Qu
+ab
+bT
+bT
+af
+be
+af
+ui
+vf
+Yt
+uC
+Gz
+hc
+nm
+bT
+ab
+bL
+"}
+(14,1,1) = {"
+bV
+bL
+ab
+ab
+bT
+bT
+ab
+ab
+bT
+bT
+ui
+ae
+In
+tD
+ui
+ab
+ab
+cb
+ab
+ab
+bT
+bT
+bT
+bT
+um
+um
+ui
+BO
+zR
+ui
+bT
+bT
+ab
+bL
+"}
+(15,1,1) = {"
+bV
+ab
+ab
+ab
+bT
+bT
+bL
+cb
+ab
+bT
+ui
+zd
+HO
+Ln
+ui
+cb
+ab
+ab
+ab
+ab
+ab
+bT
+bT
+bT
+bT
+ui
+fB
+In
+fH
+ui
+bT
+ab
+ab
+bL
+"}
+(16,1,1) = {"
+bV
+bL
+ab
+ab
+bT
+bT
+ab
+KZ
+cb
+bT
+ui
+iq
+MO
+eH
+BO
+ab
+ab
+ab
+ab
+ab
+ab
+bT
+bT
+bT
+bT
+ui
+Xw
+fc
+hE
+ui
+bT
+bT
+ab
+bL
+"}
+(17,1,1) = {"
+bV
+bL
+bL
+ab
+bT
+bT
+ab
+bU
+bU
+ab
+ui
+ZN
+cc
+sQ
+ui
+ab
+ab
+ab
+ab
+cb
+ab
+ab
+bT
+bT
+bT
+ui
+Yx
+HO
+XT
+ui
+bT
+bT
+ab
+bL
+"}
+(18,1,1) = {"
+bV
+bL
+bL
+ab
+bT
+bT
+ab
+bL
+bU
+ab
+ui
+DP
+cc
+kn
+ui
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+bT
+bT
+bT
+ui
+Yx
+Hx
+fc
+af
+bT
+ab
+ab
+bL
+"}
+(19,1,1) = {"
+bV
+bL
+bV
+ab
+bT
+bT
+ab
+ab
+cb
+ab
+Au
+WQ
+Hp
+fd
+ui
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+bT
+bT
+bT
+ui
+au
+KJ
+af
+bT
+bT
+ui
+ab
+bL
+"}
+(20,1,1) = {"
+bV
+bL
+ab
+ab
+bT
+bT
+ab
+ab
+ab
+ab
+ui
+ui
+BO
+ui
+ui
+ab
+ab
+ab
+ab
+cb
+ab
+ab
+ab
+bT
+bT
+ui
+ui
+ui
+af
+bT
+bT
+ab
+ab
+bL
+"}
+(21,1,1) = {"
+bV
+bL
+ab
+ab
+af
+bT
+bT
+bT
+bL
+ab
+cb
+Ek
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+du
+ab
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+ui
+af
+bT
+ab
+bL
+"}
+(22,1,1) = {"
+bV
+bL
+ab
+ab
+ui
+af
+bT
+bT
+bT
+bT
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ui
+Px
+ui
+ab
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+ab
+ab
+bL
+"}
+(23,1,1) = {"
+bV
+ab
+ab
+ab
+ab
+ab
+bT
+bT
+bT
+ui
+bT
+bT
+bT
+ab
+ab
+ab
+ab
+ab
+ui
+cc
+ui
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+ab
+ab
+ab
+bL
+"}
+(24,1,1) = {"
+bV
+ab
+ab
+cb
+ab
+bT
+ab
+bT
+bT
+bT
+bT
+af
+bT
+bT
+bT
+ui
+ui
+nK
+sv
+bP
+ui
+Yd
+nN
+ui
+af
+AL
+af
+af
+ui
+bT
+ab
+ab
+ab
+bL
+"}
+(25,1,1) = {"
+bV
+bL
+bV
+ab
+ab
+bT
+bT
+ui
+bT
+bT
+af
+af
+ui
+bT
+bT
+ui
+Dp
+fY
+hx
+PF
+ui
+af
+af
+to
+AL
+AL
+AL
+AL
+to
+bT
+bT
+bT
+ab
+bL
+"}
+(26,1,1) = {"
+bV
+bL
+bV
+cb
+ab
+bT
+PJ
+ui
+ui
+ui
+ui
+af
+af
+ui
+ui
+ui
+um
+Ta
+Dt
+cc
+ui
+bT
+Gk
+AL
+af
+af
+rY
+AL
+af
+bT
+bT
+bT
+ab
+bU
+"}
+(27,1,1) = {"
+bV
+bL
+bL
+ab
+bT
+lr
+lr
+ui
+zp
+vl
+ui
+PI
+TN
+ui
+zG
+Oh
+um
+fm
+Jw
+ms
+bP
+fc
+wZ
+lr
+bT
+bT
+AL
+bT
+af
+bT
+bT
+bT
+ab
+bU
+"}
+(28,1,1) = {"
+bV
+bL
+ab
+ab
+bT
+bT
+bT
+ui
+BX
+ZG
+ui
+su
+PI
+ui
+Fd
+ub
+Au
+pn
+Io
+Dg
+ui
+vo
+sA
+rY
+bT
+AL
+AL
+AL
+af
+bT
+bT
+ab
+ab
+bL
+"}
+(29,1,1) = {"
+bV
+bL
+ab
+ab
+aa
+bT
+bT
+ui
+ui
+Dv
+ui
+ui
+Og
+ui
+ui
+ic
+Au
+Au
+Au
+rd
+ui
+af
+bT
+to
+AL
+bT
+AL
+bT
+af
+bT
+bT
+bT
+ab
+bL
+"}
+(30,1,1) = {"
+bV
+bL
+ab
+ab
+lr
+bT
+bT
+bT
+Ms
+Zr
+qh
+KT
+BG
+UU
+YK
+hj
+Az
+GF
+KT
+oG
+ui
+bT
+Wp
+ui
+af
+af
+af
+af
+ui
+bT
+bT
+ab
+cb
+bL
+"}
+(31,1,1) = {"
+bV
+bL
+ab
+ab
+ab
+lr
+bT
+sg
+ui
+KN
+dM
+Yl
+ui
+ui
+ui
+ui
+ui
+VO
+Fa
+cc
+ui
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+ab
+ab
+cb
+bL
+"}
+(32,1,1) = {"
+bV
+bL
+bL
+ab
+ab
+bT
+bT
+bT
+bT
+MY
+bT
+bT
+af
+af
+af
+af
+ui
+ui
+BO
+ho
+ui
+bT
+ab
+ab
+ab
+bT
+bT
+bT
+bT
+bT
+ab
+ab
+cb
+bL
+"}
+(33,1,1) = {"
+bV
+bL
+bL
+bL
+ab
+ab
+ab
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+ui
+bT
+bT
+bT
+Po
+AH
+Wl
+bT
+ab
+bV
+bV
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+cb
+bL
+"}
+(34,1,1) = {"
+bV
+bL
+bL
+bV
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+bT
+bT
+bT
+bT
+bT
+bT
+bT
+ZA
+AH
+ZA
+ab
+ab
+bV
+bV
+bV
+ab
+ab
+ab
+ab
+bL
+bL
+bU
+bL
+"}
+(35,1,1) = {"
+bV
+bL
+bL
+bV
+bL
+bU
+bU
+cb
+cb
+cb
+cb
+ab
+ab
+ab
+bT
+bT
+bT
+bT
+Wl
+RL
+Wl
+ab
+ab
+ab
+ab
+ab
+ab
+cb
+bV
+bV
+bL
+bL
+bU
+bL
+"}
+(36,1,1) = {"
+bV
+bL
+bL
+bL
+bL
+bL
+bL
+bL
+bL
+bL
+bL
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+bL
+bL
+bL
+bL
+bL
+bL
+bL
+bL
+bL
+bU
+bL
+"}
+(37,1,1) = {"
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+ab
+ab
+ab
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+bV
+"}
