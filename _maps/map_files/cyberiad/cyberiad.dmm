@@ -72112,7 +72112,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
-/area/maintenance/disposal)
+/area/station/maintenance/disposal)
 "kap" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -83212,7 +83212,7 @@
 "rbb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/engine/hardsuitstorage)
+/area/station/engineering/hardsuitstorage)
 "rbZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -84076,6 +84076,15 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/hallway)
+"rHN" = (
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "rHR" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -145750,8 +145759,8 @@ pfF
 mAv
 cOm
 cOm
-jZW
-rbY
+cOm
+rHN
 cga
 hyk
 csL
