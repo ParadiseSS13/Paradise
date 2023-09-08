@@ -56,8 +56,9 @@
 				M.Confused(status_duration * 2)
 
 		// Bang
-		if(bang)
-			var/ear_safety = M.check_ear_prot()
+		if(!bang)
+			return
+		var/ear_safety = M.check_ear_prot()
 			//Atmosphere affects sound
 			var/pressure_factor = 1
 			var/datum/gas_mixture/hearer_env = source_turf.return_air()
