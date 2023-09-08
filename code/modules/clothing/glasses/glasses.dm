@@ -1,8 +1,7 @@
 /obj/item/clothing/glasses/Initialize(mapload)
 	. = ..()
 	if(prescription_upgradable && prescription)
-		// Pre-upgraded upgradable glasses
-		name = "prescription [name]"
+		upgrade_prescription()
 
 /obj/item/clothing/glasses/attackby(obj/item/I, mob/user)
 	if(!prescription_upgradable || user.stat || user.restrained() || !ishuman(user))
@@ -15,25 +14,41 @@
 			to_chat(H, "<span class='warning'>You can't possibly imagine how adding more lenses would improve [src].</span>")
 			return
 		H.unEquip(I)
-		I.loc = src // Store the glasses for later removal
+		upgrade_prescription(I)
 		to_chat(H, "<span class='notice'>You fit [src] with lenses from [I].</span>")
-		prescription = TRUE
-		name = "prescription [initial(name)]"
 
 	// Removing prescription glasses
 	H.update_nearsighted_effects()
 
-/obj/item/clothing/glasses/screwdriver_act(mob/living/user, obj/item/I)
-	if(!prescription)
+/obj/item/clothing/glasses/proc/upgrade_prescription(obj/item/I)
+	if(!I)
+		new /obj/item/clothing/glasses/regular(src)
+	else
+		I.forceMove(src)
+	prescription = TRUE
+	name = "prescription [initial(name)]"
+
+/obj/item/clothing/glasses/proc/remove_prescription(mob/living/user)
+	var/obj/item/clothing/glasses/regular/prescription_glasses = locate() in src
+
+	if(!prescription_glasses)
 		return
-	var/obj/item/clothing/glasses/regular/G = locate() in src
-	if(!G)
-		G = new(src)
-	to_chat(user, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
+
 	prescription = FALSE
 	name = initial(name)
-	user.put_in_hands(G)
-	user.update_nearsighted_effects()
+
+	if(user)
+		to_chat(user, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
+		user.put_in_hands(prescription_glasses)
+		user.update_nearsighted_effects()
+	else
+		prescription_glasses.forceMove(get_turf(src))
+
+/obj/item/clothing/glasses/screwdriver_act(mob/living/user)
+	if(!prescription)
+		to_chat(user, "<span class='notice'>There are no prescription lenses in [src].</span>")
+		return
+	remove_prescription(user)
 	return TRUE
 
 /obj/item/clothing/glasses/update_icon_state()
@@ -106,7 +121,7 @@
 	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/meson/prescription
-	prescription = 1
+	prescription = TRUE
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
@@ -439,7 +454,7 @@
 	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/prescription
-	prescription = 1
+	prescription = TRUE
 
 /obj/item/clothing/glasses/sunglasses/big
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Larger than average enhanced shielding blocks many flashes."
