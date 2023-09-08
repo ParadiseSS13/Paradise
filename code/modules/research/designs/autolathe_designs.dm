@@ -938,6 +938,6 @@
 	name = "Mail Scanner"
 	id = "mailscanner"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 80, MAT_GLASS = 20)
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 500)
 	build_path = /obj/item/mail_scanner
 	category = list("initial", "Miscellaneous")
