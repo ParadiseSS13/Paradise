@@ -1,0 +1,4 @@
+#include "_awaymission_gun.dm"
+
+#include "code/items/awaymission_gun.dm"
+#include "code/research_designs/weapon_designs.dm"
