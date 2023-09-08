@@ -131,7 +131,7 @@
 /obj/item/envelope/service
 	icon_state = "mail_serv"
 	possible_contents = list(/obj/item/painter,
-	/obj/item/twohanded/push_broom,
+	/obj/item/push_broom,
 	/obj/item/gun/energy/floragun,
 	/obj/item/reagent_containers/food/drinks/bottle/fernet,
 	/obj/item/whetstone,
