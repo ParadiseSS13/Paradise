@@ -147,9 +147,9 @@
 	dir = 1
 	},
 /obj/structure/sign/atmosplaque{
-	desc = "A ruined and partially melted plaque bears words that are now faded and rusted, with some letters missing entirely. It reads: Est...ished by the Athland Mining...ration. In recog...on of the brave...who dared...harness...fiery heart...this world. May the...of our labor...shine as brightly...as the molten rivers...beneath our feet. The date of the facility's establishment at the bottom is obliterated, and the signatures of any founding miners are completely lost to time.";
+	desc = "A ruined and partially melted plaque bears words that are now faded and rusted, with some letters missing entirely. It reads: Est...ished by the Althland Mining...ration. In recog...on of the brave...who dared...harness...fiery heart...this world. May the...of our labor...shine as brightly...as the molten rivers...beneath our feet. The date of the facility's establishment at the bottom is obliterated, and the signatures of any founding miners are completely lost to time.";
 	pixel_y = 29;
-	name = "\improper Athland Excavation Hub V"
+	name = "\improper Althland facility plaque"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -450,11 +450,6 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered)
-"sA" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
 "sB" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/disposalpipe/trunk,
@@ -694,6 +689,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"BV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "BX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1991,7 +1991,7 @@ ab
 cb
 ab
 ab
-ab
+bT
 bT
 bT
 ui
@@ -2279,7 +2279,7 @@ Io
 Dg
 ui
 vo
-sA
+BV
 rY
 bT
 AL
