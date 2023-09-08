@@ -145,10 +145,10 @@ SUBSYSTEM_DEF(economy)
 		record_economy_data()
 	process_job_tasks()
 	if(next_mail_delay <= world.time)
-		if(is_station_level(SSshuttle.supply.z)) // This is ugly but as far as I know there isn't a good way to check if a shuttle is currently travelling
+		if(!(SSshuttle.supply.z == 1)) // This is ugly but as far as I know there isn't a good way to check if a shuttle is currently travelling
 			return
 		next_mail_delay = 15 MINUTES + world.time
-		mail_never_fails()
+		SSshuttle.mail_never_fails()
 
 /datum/controller/subsystem/economy/proc/record_economy_data()
 	economy_data["totalcash"] += total_space_cash
@@ -292,19 +292,6 @@ SUBSYSTEM_DEF(economy)
 				objective.owner_account.modify_payroll(objective.completion_payment, TRUE, "Job Objective \"[objective.objective_name]\" completed, award will be included in next paycheck")
 				objective.payout_given = TRUE
 			break
-
-/datum/controller/subsystem/economy/proc/mail_never_fails()
-	var/list/shuttle_turfs = list()
-	for(var/obj/machinery/requests_console/console in GLOB.allRequestConsoles)
-		if(console.department != "Cargo Bay")
-			continue
-		console.createMessage("Messaging and Intergalactic Letters", "New Mail Crates ready to be ordered!", "A new mail crate is able to be shipped alongside your next orders!", 1) // RQ_NORMALPRIORITY
-		for(var/turf/simulated/T in SSshuttle.supply.areaInstance)
-			if(T.density)
-				continue
-			shuttle_turfs += T
-	var/turf/spawn_location = pick(shuttle_turfs)
-	new /obj/structure/closet/crate/mail(spawn_location)
 
 //
 //   The NanoCoin Economy is booming
