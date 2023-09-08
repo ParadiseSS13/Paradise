@@ -323,7 +323,7 @@ emp_act
 			chest_clothes = wear_suit
 		if(chest_clothes)
 			if(!(chest_clothes.resistance_flags & UNACIDABLE))
-				chest_clothes.acid_act(acidpwr, acid_volume)
+				chest_clothes.acid_act(2 * acidpwr, 2 * acid_volume)
 				update_inv_w_uniform()
 				update_inv_wear_suit()
 			else
