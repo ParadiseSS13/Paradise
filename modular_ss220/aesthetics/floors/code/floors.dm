@@ -38,6 +38,9 @@
 	broken_states = list("light-fancy-wood-broken", "light-fancy-wood-broken2", "light-fancy-wood-broken3", "light-fancy-wood-broken4", "light-fancy-wood-broken5", "light-fancy-wood-broken6", "light-fancy-wood-broken7")
 
 // LIGHT FLOORS
+/turf/simulated/floor/light
+	icon = 'icons/turf/floors.dmi'
+
 /turf/simulated/floor/light/red
 	color = "#f23030"
 	light_color = "#f23030"
@@ -51,5 +54,5 @@
 	light_color = "#3030f2"
 
 /turf/simulated/floor/light/purple
-	color = "#9130f2"
-	light_color = "#9130f2"
+	color = "#d493ff"
+	light_color = "#d493ff"
