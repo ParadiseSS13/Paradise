@@ -514,7 +514,6 @@
 	icon_closed = "mailsealed"
 	material_drop = /obj/item/stack/sheet/plastic
 	material_drop_amount = 4
-	crate_value = 3 // Small returnal payment.
 	var/list/possible_contents = list(/obj/item/envelope/security,
 										/obj/item/envelope/science,
 										/obj/item/envelope/supply,

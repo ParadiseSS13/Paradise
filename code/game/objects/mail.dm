@@ -181,8 +181,8 @@
 /obj/item/mail_scanner
 	name = "mail scanner"
 	desc = "Confirms deliveries of mail with clients."
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "autopsy_scanner"
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "mail_scanner"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
