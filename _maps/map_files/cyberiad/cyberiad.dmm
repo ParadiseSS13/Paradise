@@ -19100,17 +19100,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/public/dorms)
-"bcc" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = 5
-	},
-/obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/controlroom)
 "bcg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -49270,6 +49259,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"cGI" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/controlroom)
 "cGJ" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -50217,7 +50213,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/break_room)
+/area/station/maintenance/port)
 "cIY" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -64118,9 +64114,6 @@
 	},
 /area/station/medical/morgue)
 "fgN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
@@ -75272,6 +75265,17 @@
 	icon_state = "white"
 	},
 /area/station/science/hallway)
+"mdx" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/controlroom)
 "mdX" = (
 /obj/item/reagent_containers/food/snacks/grown/cannabis,
 /obj/effect/decal/cleanable/dirt,
@@ -79658,13 +79662,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"oXX" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/controlroom)
 "oYb" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -124913,11 +124910,11 @@ dMK
 cts
 csD
 csD
-bcc
+mdx
 ctY
 cxe
 cxr
-oXX
+cGI
 cvB
 cAR
 cBJ
