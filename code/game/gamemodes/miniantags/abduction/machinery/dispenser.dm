@@ -62,6 +62,9 @@
 	if(..())
 		return
 
+	if(!isabductor(ui.user))
+		return
+
 	switch(action)
 		if("dispense")
 			var/gland_id = text2num(params["gland_id"])
