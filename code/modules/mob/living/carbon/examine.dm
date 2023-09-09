@@ -202,7 +202,7 @@
 					for(var/mob/dead/observer/G in GLOB.player_list)
 						if(G.mind == mind && G.can_reenter_corpse)
 							foundghost = TRUE
-						break
+						     break
 				if(!foundghost)
 					msg += " and [p_their()] soul has departed"
 				msg += "...</span>\n"
