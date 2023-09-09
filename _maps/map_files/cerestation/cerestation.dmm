@@ -36627,19 +36627,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
 "dRx" = (
-/obj/item/crutches{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/crutches,
-/obj/item/crutches{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/structure/rack,
 /obj/item/radio/intercom{
 	pixel_x = -28;
 	name = "custom placement"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -66857,6 +66850,15 @@
 	pixel_x = -3
 	},
 /obj/item/hand_labeler,
+/obj/item/crutches{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/crutches,
+/obj/item/crutches{
+	pixel_x = 2;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -96302,8 +96304,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "xWf" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
