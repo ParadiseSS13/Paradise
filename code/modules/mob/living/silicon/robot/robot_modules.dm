@@ -16,6 +16,8 @@
 	var/list/basic_modules = list()
 	/// A list of modules the robot gets when emagged.
 	var/list/emag_modules = list()
+	/// A list of modules the robot gets when Safety Overridden.
+	var/list/override_modules = list()
 	/// A list of modules that the robot gets when malf AI buys it.
 	var/list/malf_modules = list()
 	/// A list of modules that require special recharge handling. Examples include things like flashes, sprays and welding tools.
@@ -43,6 +45,10 @@
 		basic_modules += I
 		basic_modules -= i
 
+	for(var/i in override_modules)
+		var/obj/item/I = new i(src)
+		override_modules += I
+		override_modules -= i
 	// Even though these are created here the robot won't be able to see and equip them until they actually get emagged/hacked.
 	for(var/i in emag_modules)
 		var/obj/item/I = new i(src)
@@ -59,7 +65,7 @@
 	special_rechargables += /obj/item/flash/cyborg
 
 	// This is done so we can loop through this list later and call cyborg_recharge() on the items while the borg is recharging.
-	var/all_modules = basic_modules | emag_modules | malf_modules
+	var/all_modules = basic_modules | override_modules | emag_modules | malf_modules
 	for(var/path in special_rechargables)
 		var/obj/item/I = locate(path) in all_modules
 		if(I) // If it exists, add the object reference.
@@ -80,6 +86,7 @@
 	// These can all contain actual objects, so we need to null them out.
 	QDEL_LIST_CONTENTS(modules)
 	QDEL_LIST_CONTENTS(basic_modules)
+	QDEL_LIST_CONTENTS(override_modules)
 	QDEL_LIST_CONTENTS(emag_modules)
 	QDEL_LIST_CONTENTS(malf_modules)
 	QDEL_LIST_CONTENTS(storages)
@@ -101,6 +108,7 @@
 /obj/item/robot_module/proc/remove_item_from_lists(item_or_item_type)
 	var/list/lists = list(
 		basic_modules,
+		override_modules,
 		emag_modules,
 		malf_modules,
 		storages,
@@ -170,7 +178,7 @@
 	return I
 
 /**
- * Builds the usable module list from the modules we have in `basic_modules`, `emag_modules` and `malf_modules`
+ * Builds the usable module list from the modules we have in `basic_modules`, `override_modules`, `emag_modules` and `malf_modules`
  */
 /obj/item/robot_module/proc/rebuild_modules()
 	var/mob/living/silicon/robot/R = loc
@@ -185,7 +193,11 @@
 	for(var/item in basic_modules)
 		add_module(item, FALSE)
 
-	if(R.emagged || R.weapons_unlock)
+	if(R.weapons_unlock)
+		for(var/item in override_modules)
+			add_module(item, FALSE)
+
+	if(R.emagged)
 		for(var/item in emag_modules)
 			add_module(item, FALSE)
 
@@ -382,11 +394,13 @@
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
+		/obj/item/stack/tile/catwalk/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg
 	)
 	emag_modules = list(/obj/item/borg/stun, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg)
+	override_modules = list(/obj/item/gun/energy/emitter/cyborg/proto)
 	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 
@@ -754,6 +768,7 @@
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
+		/obj/item/stack/tile/catwalk/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg,
@@ -843,6 +858,11 @@
 /datum/robot_energy_storage/rods
 	name = "Rod Synthesizer"
 	statpanel_name = "Rods"
+
+/datum/robot_energy_storage/catwalk
+	name= "Catwalk Synthesizer"
+	statpanel_name = "Catwalk Tiles"
+	max_energy = 60
 
 /datum/robot_energy_storage/glass
 	name = "Glass Synthesizer"

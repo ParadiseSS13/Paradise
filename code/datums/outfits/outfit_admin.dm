@@ -44,7 +44,7 @@
 
 	var/id_icon = "syndie"
 	var/id_access = "Syndicate Operative"
-	var/uplink_uses = 20
+	var/uplink_uses = 100
 
 /datum/outfit/admin/syndicate/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -122,7 +122,7 @@
 	name = "Syndicate Spy"
 	uniform = /obj/item/clothing/under/suit/really_black
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
-	uplink_uses = 40
+	uplink_uses = 200
 	id_access = "Syndicate Agent"
 
 	implants = list(
@@ -266,16 +266,13 @@
 
 	pda = /obj/item/pinpointer
 	box = /obj/item/storage/box/deathsquad
-	back = /obj/item/storage/backpack/ert/deathsquad
+	back = /obj/item/mod/control/pre_equipped/apocryphal
 	belt = /obj/item/gun/projectile/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/rank/centcom/deathsquad
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	suit = /obj/item/clothing/suit/space/deathsquad
-	suit_store = /obj/item/gun/energy/pulse
 	glasses = /obj/item/clothing/glasses/thermal
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	head = /obj/item/clothing/head/helmet/space/deathsquad
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	r_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 	l_ear = /obj/item/radio/headset/alt/deathsquad
@@ -287,7 +284,8 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/grenade/plastic/c4/x4,
 		/obj/item/melee/energy/sword/saber,
-		/obj/item/shield/energy
+		/obj/item/shield/energy,
+		/obj/item/gun/energy/pulse
 	)
 
 	implants = list(
@@ -297,12 +295,15 @@
 
 /datum/outfit/admin/deathsquad_commando/leader
 	name = "NT Deathsquad Leader"
+	back = /obj/item/mod/control/pre_equipped/apocryphal/officer
+
 	backpack_contents = list(
 		/obj/item/storage/box/flashbangs,
 		/obj/item/ammo_box/a357,
 		/obj/item/flashlight/seclite,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
+		/obj/item/gun/energy/pulse,
 		/obj/item/disk/nuclear/unrestricted
 	)
 
@@ -315,6 +316,9 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Deathsquad Commando"), "Deathsquad")
 	H.sec_hud_set_ID()
+	if(ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
@@ -368,7 +372,7 @@
 	id = /obj/item/card/id
 	l_pocket = /obj/item/reagent_containers/food/snacks/grown/banana
 	r_pocket = /obj/item/bikehorn
-	r_hand = /obj/item/twohanded/fireaxe
+	r_hand = /obj/item/fireaxe
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
@@ -1057,7 +1061,7 @@
 	id = /obj/item/card/id/syndicate
 	l_pocket = /obj/item/kitchen/knife
 	r_pocket = /obj/item/scalpel
-	r_hand = /obj/item/twohanded/fireaxe
+	r_hand = /obj/item/fireaxe
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1
@@ -1083,7 +1087,7 @@
 	uniform = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/singuloth
 	back = /obj/item/storage/backpack/satchel
-	l_hand = /obj/item/twohanded/knighthammer
+	l_hand = /obj/item/knighthammer
 	belt = /obj/item/claymore/ceremonial
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/magboots
@@ -1116,7 +1120,7 @@
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id/syndicate
-	l_hand = /obj/item/twohanded/dualsaber/red
+	l_hand = /obj/item/dualsaber/red
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
@@ -1191,7 +1195,7 @@
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
 	r_pocket = /obj/item/teleportation_scroll
-	l_hand = /obj/item/twohanded/staff
+	l_hand = /obj/item/staff
 	r_hand = /obj/item/spellbook
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1
@@ -1354,3 +1358,30 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_CLOWN), "Emergency Response Clown")
 	H.sec_hud_set_ID()
+
+/datum/outfit/admin/observer
+	name = "Observer"
+
+	uniform = /obj/item/clothing/under/costume/tourist_suit
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/black
+	box = /obj/item/storage/box/survival
+	backpack_contents = list(
+		/obj/item/implanter/dust = 1
+		)
+
+/datum/outfit/admin/observer/plasmaman
+	name = "Observer (Plasma)"
+
+	uniform = /obj/item/clothing/under/plasmaman/assistant
+	head = /obj/item/clothing/head/helmet/space/plasmaman/assistant
+	mask = /obj/item/clothing/mask/breath
+	belt = /obj/item/tank/internals/plasmaman/belt/full
+	box = /obj/item/storage/box/survival_plasmaman
+
+/datum/outfit/admin/observer/vox
+	name = "Observer (Vox)"
+
+	mask = /obj/item/clothing/mask/breath/vox
+	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
+	box = /obj/item/storage/box/survival_vox

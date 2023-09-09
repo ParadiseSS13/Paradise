@@ -378,13 +378,16 @@
 	for(var/turf/T in oview(get_turf(src), 7))
 		turf_targets += T
 
+	for(var/mob/living/carbon/human/H in view(get_turf(src), 3))
+		shootAt(H)
+
 	for(var/I in 1 to rand(1, 3))
 		var/turf/target = pick(turf_targets)
 		shootAt(target)
 
 	if(prob(50))
 		for(var/turf/simulated/floor/nearby_floor in oview(get_turf(src), (drops_core ? 2 : 1)))
-			nearby_floor.MakeSlippery(TURF_WET_PERMAFROST)
+			nearby_floor.MakeSlippery((drops_core? TURF_WET_PERMAFROST : TURF_WET_ICE), (drops_core? null : rand(10, 20 SECONDS)))
 
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
@@ -404,6 +407,9 @@
 		return
 	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
 	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
+	if(drops_core)
+		O.stun = 0.5 SECONDS
+	O.original = target
 	O.current = T
 	O.yo = U.y - T.y
 	O.xo = U.x - T.x

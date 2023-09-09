@@ -182,7 +182,7 @@
 				qdel(src)
 				return
 			if(!grow_as)
-				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
+				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider) - /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider)
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander

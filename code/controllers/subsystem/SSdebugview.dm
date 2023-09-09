@@ -44,23 +44,30 @@ SUBSYSTEM_DEF(debugview)
 		C.debug_text_overlay.maptext = "<span class='maptext' style='background-color: #272727;'>[out_text]</span>"
 
 /datum/controller/subsystem/debugview/proc/start_processing(client/C)
-	C.debug_text_overlay = new /obj/screen/debugtextholder
+	C.debug_text_overlay = new /obj/screen/debugtextholder(null, C)
 	C.screen |= C.debug_text_overlay
 	processing |= C
 
 /datum/controller/subsystem/debugview/proc/stop_processing(client/C)
 	processing -= C
 	C.screen -= C.debug_text_overlay
-	qdel(C.debug_text_overlay)
+	QDEL_NULL(C.debug_text_overlay)
 
 /obj/screen/debugtextholder
 	icon = 'icons/mob/screen_full.dmi'
-	icon_state = "default"
-	screen_loc = "CENTER-7,CENTER-7"
+	icon_state = "empty"
+	screen_loc = "TOP,LEFT"
 	plane = HUD_PLANE_DEBUGVIEW
-	maptext_height = 480 // If we ever change view size, increase this
-	maptext_width = 480
+	maptext_height = 480 // 15 * 32 (15 tiles, 32 pixels each)
+	maptext_width = 480 // changes with prefs
 
+/obj/screen/debugtextholder/Initialize(mapload, client/C)
+	. = ..()
+	update_view(C)
+
+/obj/screen/debugtextholder/proc/update_view(client/C)
+	var/list/viewsizes = getviewsize(C.view)
+	maptext_width = viewsizes[1] * world.icon_size
 
 // Make a verb for dumping full SS stats
 /client/proc/ss_breakdown()

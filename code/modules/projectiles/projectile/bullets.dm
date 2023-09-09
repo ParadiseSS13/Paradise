@@ -12,6 +12,14 @@
 	damage = 5
 	stamina = 40
 
+/obj/item/projectile/bullet/weakbullet/on_hit(atom/target, blocked = 0)
+	. = ..()
+	if(isliving(target))
+		var/mob/living/L = target
+		if(L.move_resist < INFINITY)
+			var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, starting)))
+			L.throw_at(throw_target, 1, 2)
+
 /obj/item/projectile/bullet/weakbullet/booze
 
 /obj/item/projectile/bullet/weakbullet/booze/on_hit(atom/target, blocked = 0)
@@ -256,8 +264,13 @@
 		if(blocked != INFINITY)
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
+				for(var/datum/reagent/R as anything in reagents.reagent_list)
+					if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
+						reagents.trans_to(M, reagents.total_volume)
+						return TRUE
 				reagents.trans_to(M, reagents.total_volume)
-				return 1
+				reagents.reaction(M, REAGENT_INGEST, 0.1)
+				return TRUE
 			else
 				blocked = INFINITY
 				target.visible_message("<span class='danger'>[src] was deflected!</span>", \
@@ -265,7 +278,7 @@
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
-	return 1
+	return TRUE
 
 /obj/item/projectile/bullet/dart/metalfoam
 
@@ -280,6 +293,9 @@
 	name = "syringe"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
+
+/obj/item/projectile/bullet/dart/syringe/pierce_ignore
+	piercing = TRUE
 
 /obj/item/projectile/bullet/dart/syringe/tranquilizer
 

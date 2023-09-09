@@ -5,13 +5,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/ai_call_shuttle,
 	/mob/living/silicon/ai/proc/ai_camera_track,
 	/mob/living/silicon/ai/proc/ai_camera_list,
-	/mob/living/silicon/ai/proc/ai_goto_location,
-	/mob/living/silicon/ai/proc/ai_remove_location,
 	/mob/living/silicon/ai/proc/ai_hologram_change,
 	/mob/living/silicon/ai/proc/ai_network_change,
 	/mob/living/silicon/ai/proc/ai_roster,
 	/mob/living/silicon/ai/proc/ai_statuschange,
-	/mob/living/silicon/ai/proc/ai_store_location,
 	/mob/living/silicon/ai/proc/control_integrated_radio,
 	/mob/living/silicon/ai/proc/core,
 	/mob/living/silicon/ai/proc/pick_icon,
@@ -118,6 +115,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/all_eyes = list()
 	var/next_text_announcement
 
+	//Used with the hotkeys on 2-5 to store locations.
+	var/list/stored_locations = list()
+
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
 	verbs |= silicon_subsystems
@@ -218,6 +218,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
+
+	for(var/I in 1 to 4)
+		stored_locations += "unset" //This is checked in ai_keybinds.dm.
+
 	..()
 
 /mob/living/silicon/ai/Destroy()
@@ -1374,7 +1378,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "<span class='danger'>Hack aborted. [apc] is no longer responding to our systems.</span>")
 		SEND_SOUND(src, sound('sound/machines/buzz-sigh.ogg'))
 	else
-		malf_picker.processing_time += 10
+		malf_picker.processing_time += 15
 
 		apc.malfai = parent || src
 		apc.malfhack = TRUE
@@ -1496,5 +1500,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 	to_chat(src, "<span class='notice'>The tiny in built fan finally removes the tape!</span>")
 	ducttapecomponent.remove_tape(card, src)
+
+//Stores the location of the AI to the value of stored_locations associated with location_number.
+/mob/living/silicon/ai/proc/store_location(location_number)
+	if(!isturf(eyeobj.loc)) //i.e., inside a mech or other shenanigans
+		to_chat(src, "<span class='warning'>You can't set a location here!</span>")
+		return FALSE
+
+	stored_locations[location_number] = eyeobj.loc
+	return TRUE
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN

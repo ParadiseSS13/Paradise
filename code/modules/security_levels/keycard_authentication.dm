@@ -169,9 +169,10 @@
 	addtimer(CALLBACK(src, PROC_REF(reset)), confirm_delay)
 
 /obj/machinery/keycard_auth/proc/trigger_event()
+	SHOULD_NOT_SLEEP(TRUE) // trigger_armed_response_team sleeps, which can cause issues for procs that call trigger_event(). We want to avoid that
 	switch(event)
 		if("Red Alert")
-			set_security_level(SEC_LEVEL_RED)
+			INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(set_security_level), SEC_LEVEL_RED)
 		if("Grant Emergency Maintenance Access")
 			make_maint_all_access()
 		if("Revoke Emergency Maintenance Access")
@@ -187,17 +188,19 @@
 			atom_say("ERT request transmitted!")
 			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name, follow_target_override = src)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
+			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 
 			var/fullmin_count = 0
 			for(var/client/C in GLOB.admins)
 				if(check_rights(R_EVENT, 0, C.mob))
 					fullmin_count++
 			if(!fullmin_count)
-				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
+				// No admins? No problem. Automatically send a code amber ERT.
+				INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(trigger_armed_response_team), new /datum/response_team/amber)
+				ert_reason = null
 				return
 
 			ERT_Announce(ert_reason, triggered_by, repeat_warning = FALSE)
-			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 			addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, triggered_by), 5 MINUTES)
 			ert_reason = null
 

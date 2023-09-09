@@ -99,6 +99,10 @@
 /obj/structure/sign/double/map/right
 	icon_state = "map-right"
 
+/obj/structure/sign/double/map/attack_hand(mob/user)
+	if(user.client)
+		user.client.webmap()
+
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
 	desc = "A warning sign which reads 'SECURE AREA'"
@@ -183,7 +187,7 @@
 
 /obj/structure/sign/greencross
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
+	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
 	icon_state = "greencross"
 
 /obj/structure/sign/goldenplaque

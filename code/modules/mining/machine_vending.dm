@@ -35,11 +35,12 @@
 		EQUIPMENT("Explorer's Webbing", /obj/item/storage/belt/mining, 500),
 		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
 		EQUIPMENT("Mining Conscription Kit", /obj/item/storage/backpack/duffel/mining_conscript, 1500),
-		EQUIPMENT("Jetpack Upgrade", /obj/item/tank/jetpack/suit, 2000),
+		EQUIPMENT("Advanced Jetpack Module", /obj/item/mod/module/jetpack/advanced, 2000),
 		EQUIPMENT("Jump Boots", /obj/item/clothing/shoes/bhop, 2500),
 		EQUIPMENT("Lazarus Capsule", /obj/item/mobcapsule, 800),
 		EQUIPMENT("Lazarus Capsule belt", /obj/item/storage/belt/lazarus, 200),
-		EQUIPMENT("Mining Hardsuit", /obj/item/clothing/suit/space/hardsuit/mining, 2000),
+		EQUIPMENT("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining/vendor, 3500),
+		EQUIPMENT("Asteroid MODsuit Skin", /obj/item/mod/skin_applier/asteroid, 1000),
 		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
 	)
 	prize_list["Consumables"] = list(
@@ -68,7 +69,7 @@
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
-		EQUIPMENT("Kinetic Crusher", /obj/item/twohanded/kinetic_crusher, 750),
+		EQUIPMENT("Kinetic Crusher", /obj/item/kinetic_crusher, 750),
 		EQUIPMENT("Resonator", /obj/item/resonator, 800),
 		EQUIPMENT("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
 		EQUIPMENT("Super Resonator", /obj/item/resonator/upgraded, 2500),
@@ -260,7 +261,7 @@
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/twohanded/kinetic_crusher(drop_location)
+			new /obj/item/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 
@@ -342,6 +343,7 @@
 		EQUIPMENT("Dnd set", /obj/item/storage/box/characters, 500),
 		EQUIPMENT("Dice set", /obj/item/storage/box/dice, 250),
 		EQUIPMENT("Cards", /obj/item/deck/cards, 150),
+		EQUIPMENT("UNUM!", /obj/item/deck/unum, 200),
 		EQUIPMENT("Guitar", /obj/item/instrument/guitar, 750),
 		EQUIPMENT("Synthesizer", /obj/item/instrument/piano_synth, 1500),
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
