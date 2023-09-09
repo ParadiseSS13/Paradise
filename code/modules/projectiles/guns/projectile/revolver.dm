@@ -425,7 +425,7 @@
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/get_crutch_efficency()
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/get_crutch_efficiency()
 	return 2
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()

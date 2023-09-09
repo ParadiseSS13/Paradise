@@ -136,7 +136,7 @@
 	item_state = "cane_nt"
 	needs_permit = FALSE
 
-/obj/item/melee/classic_baton/ntcane/get_crutch_efficency()
+/obj/item/melee/classic_baton/ntcane/get_crutch_efficiency()
 	return 2
 
 /**

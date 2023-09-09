@@ -63,9 +63,9 @@
 	// One cane mitigates a broken leg+foot, or a missing foot.
 	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you. Get some crutches instead.
 	if(l_hand)
-		stance_damage -= l_hand.get_crutch_efficency()
+		stance_damage -= l_hand.get_crutch_efficiency()
 	if(r_hand)
-		stance_damage -= r_hand.get_crutch_efficency()
+		stance_damage -= r_hand.get_crutch_efficiency()
 
 	if(stance_damage < 0)
 		stance_damage = 0

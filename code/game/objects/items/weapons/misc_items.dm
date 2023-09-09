@@ -34,7 +34,7 @@
 	materials = list(MAT_METAL=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 
-/obj/item/cane/get_crutch_efficency()
+/obj/item/cane/get_crutch_efficiency()
 	return 2
 
 /obj/item/twohanded/crutches // someone move these out of lockers into the map once the freeze is over :) (so we can get a consistent amount for each map)
@@ -54,7 +54,7 @@
 	materials = list(MAT_METAL = 500)
 	attack_verb = list("bludgeoned", "whacked", "cracked")
 
-/obj/item/twohanded/crutches/get_crutch_efficency()
+/obj/item/twohanded/crutches/get_crutch_efficiency()
 	// 6 when wielded, 2 when not. Basically a small upgrade to just having 2 canes in each hand
 	return 2 + (4 * wielded) // less efficient when you're holding both in a single hand
 
