@@ -158,9 +158,6 @@
 		duration += bonus_time_per_tick
 		bonus_time -= bonus_time_per_tick
 
-/datum/status_effect/limited_bonus/proc/time_remaining()
-	return duration + bonus_time - world.time
-
 /datum/status_effect/limited_bonus/proc/extend(extra_time)
 	bonus_time = clamp(bonus_time + extra_time, 0, max_bonus_time)
 
