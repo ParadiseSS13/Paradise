@@ -37,7 +37,7 @@
 /obj/item/cane/get_crutch_efficiency()
 	return 2
 
-/obj/item/twohanded/crutches // someone move these out of lockers into the map once the freeze is over :) (so we can get a consistent amount for each map)
+/obj/item/crutches // someone move these out of lockers into the map once the freeze is over :) (so we can get a consistent amount for each map)
 	name = "crutches"
 	desc = "A medical device to help those who have injured or missing legs to walk."
 	gender = PLURAL
@@ -47,20 +47,22 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	flags = CONDUCT
 	force = 5
-	force_unwielded = 5
-	force_wielded = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 500)
 	attack_verb = list("bludgeoned", "whacked", "cracked")
 
+/obj/item/crutches/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded = 5, force_wielded = 5, icon_wielded = "crutches1")
+
+/obj/item/crutches/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+	icon_state = "crutches0"
+	return ..()
+
 /obj/item/twohanded/crutches/get_crutch_efficiency()
 	// 6 when wielded, 2 when not. Basically a small upgrade to just having 2 canes in each hand
-	return 2 + (4 * wielded) // less efficient when you're holding both in a single hand
-
-/obj/item/twohanded/crutches/update_icon_state()
-	icon_state = "crutches[wielded]"
-	item_state = "crutches[wielded]"
+	return 2 + (4 * HAS_TRAIT(src, TRAIT_WIELDED)) // less efficient when you're holding both in a single hand
 
 /obj/item/c_tube
 	name = "cardboard tube"
