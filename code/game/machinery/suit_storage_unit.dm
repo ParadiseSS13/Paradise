@@ -284,7 +284,7 @@
 	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stack/cable_coil(null,3)
+	component_parts += new /obj/item/stack/cable_coil(null, 3)
 	if(board_type == /obj/item/circuitboard/suit_storage_unit/industrial)
 		component_parts += new /obj/item/stack/sheet/plasteel(null)
 		component_parts += new /obj/item/stack/sheet/plasteel(null)

@@ -86,7 +86,7 @@
 	name = "Machine Design (Suit Storage Unit)"
 	desc = "The circuit board for a Suit Storage Unit."
 	id = "ssu"
-	req_tech = list("engineering" = 3,"materials" = 3)
+	req_tech = list("engineering" = 3, "materials" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/suit_storage_unit
@@ -96,7 +96,7 @@
 	name = "Machine Design (Industrial Suit Storage Unit)"
 	desc = "The circuit board for an Industrial Suit Storage Unit."
 	id = "issu"
-	req_tech = list("engineering" = 5,"materials" = 4)
+	req_tech = list("engineering" = 5, "materials" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/suit_storage_unit/industrial
