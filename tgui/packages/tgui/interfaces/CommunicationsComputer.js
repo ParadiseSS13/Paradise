@@ -137,7 +137,6 @@ const MainPage = (props, context) => {
     return <AdminPage/>
   }
   return <PlayerPage/>
-
 }
 
 const AdminPage = (props, context) => {
@@ -416,8 +415,6 @@ const StatusScreens = (props, context) => {
     </Section>
   );
 }
-
-
 
 const MessageView = (props, context) => {
   const { act, data } = useBackend(context);

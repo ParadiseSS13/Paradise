@@ -359,7 +359,6 @@
 				return
 			ui.user.client.fax_panel()
 
-
 		if("make_cc_announcement")
 			if(!ADMIN_CHECK(ui.user))
 				return
