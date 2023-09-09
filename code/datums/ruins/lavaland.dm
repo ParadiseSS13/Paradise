@@ -68,7 +68,7 @@
 	description = "A grim testament to the Althland Mining Company's ambitions, this facility lies in ruin, swallowed by the very planet it sought to exploit. \
 	Once a beacon of mining promise, it now stands as a stark reminder of the company's catastrophic demise."
 	cost = 5
-	suffix = "lavaland_surface_althland_facility"
+	suffix = "lavaland_surface_althland_facility.dmm"
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/sin
