@@ -42200,10 +42200,6 @@
 	},
 /area/station/medical/storage/secondary)
 "ckC" = (
-/obj/structure/rack,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 2
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -42692,10 +42688,8 @@
 	},
 /area/station/medical/storage/secondary)
 "cmr" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -43040,15 +43034,11 @@
 	icon_state = "darkredfull"
 	},
 /area/station/medical/storage/secondary)
-"cnL" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/station/medical/storage/secondary)
 "cnM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -44297,7 +44287,16 @@
 	},
 /area/station/medical/medbay2)
 "csa" = (
-/obj/machinery/hologram/holopad,
+/obj/item/crutches{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/crutches,
+/obj/item/crutches{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -63793,6 +63792,16 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
+"eYO" = (
+/obj/structure/rack,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/station/medical/storage/secondary)
 "eYV" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -133647,8 +133656,8 @@ cou
 bSV
 sBO
 csa
+eYO
 cmq
-cnL
 ciT
 bNK
 ftM

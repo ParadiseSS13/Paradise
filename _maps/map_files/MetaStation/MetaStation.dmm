@@ -52035,13 +52035,16 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "eqS" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/o2{
-	layer = 2.8;
-	pixel_x = 3;
-	pixel_y = 5
+/obj/item/crutches{
+	pixel_x = -2;
+	pixel_y = 2
 	},
-/obj/item/storage/firstaid,
+/obj/item/crutches,
+/obj/item/crutches{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/structure/rack,
 /obj/machinery/camera{
 	c_tag = "Medbay Secondary Storage";
 	dir = 1
@@ -63987,6 +63990,10 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid{
+	pixel_x = -3;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -71081,6 +71088,10 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/toxin,
+/obj/item/storage/firstaid/o2{
+	pixel_x = -3;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"

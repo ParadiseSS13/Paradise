@@ -37,7 +37,7 @@
 /obj/item/cane/get_crutch_efficiency()
 	return 2
 
-/obj/item/crutches // someone move these out of lockers into the map once the freeze is over :) (so we can get a consistent amount for each map)
+/obj/item/crutches
 	name = "crutches"
 	desc = "A medical device to help those who have injured or missing legs to walk."
 	gender = PLURAL
@@ -60,7 +60,7 @@
 	icon_state = "crutches0"
 	return ..()
 
-/obj/item/twohanded/crutches/get_crutch_efficiency()
+/obj/item/crutches/get_crutch_efficiency()
 	// 6 when wielded, 2 when not. Basically a small upgrade to just having 2 canes in each hand
 	return 2 + (4 * HAS_TRAIT(src, TRAIT_WIELDED)) // less efficient when you're holding both in a single hand
 

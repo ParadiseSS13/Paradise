@@ -77,7 +77,7 @@
 	desc = "A pair of crutches to help those who have injured or missing legs to walk."
 	id = "crutches"
 	req_tech = list("biotech" = 3)
-	build_path = /obj/item/twohanded/crutches
+	build_path = /obj/item/crutches
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_TITANIUM = 500)
 	category = list("Medical")
