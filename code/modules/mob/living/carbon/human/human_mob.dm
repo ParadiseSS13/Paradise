@@ -1800,7 +1800,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(HAS_TRAIT(src, TRAIT_NOBREATH) || HAS_TRAIT(H, TRAIT_NOBREATH))
 		return CPR_CHEST_COMPRESSION_ONLY
 
-	if(isvox(src) && !isvox(H) || !isvox(src) && isvox(H) || isplasmaman(src) && !isplasmaman(H) || !isplasmaman(src) && isplasmaman(H))  // sorry non oxy-breathers
+	if(dna?.species.breathid != H.dna?.species.breathid)  // sorry non oxy-breathers
 		to_chat(src, "<span class='warning'>You don't think you'd be able to give [H] very effective rescue breaths...</span>")
 		return CPR_CHEST_COMPRESSION_ONLY
 	return CPR_RESCUE_BREATHS
