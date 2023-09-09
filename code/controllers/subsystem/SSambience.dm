@@ -12,7 +12,6 @@ SUBSYSTEM_DEF(ambience)
 /datum/controller/subsystem/ambience/Initialize()
 	if(GLOB.configuration.general.disable_ambient_noise)
 		flags |= SS_NO_FIRE
-		return
 
 /datum/controller/subsystem/ambience/fire(resumed)
 	for(var/C in ambience_listening_clients)
