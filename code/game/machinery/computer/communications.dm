@@ -423,7 +423,7 @@
 		to_chat(user, "<span class='warning'>Central Command does not allow the shuttle to be called at this time. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 		return
 
-	if(SSshuttle.emergencyNoEscape)
+	if(length(SSshuttle.hostile_environments))
 		to_chat(user, "<span class='warning'>The emergency shuttle may not be sent at this time. Please try again later.</span>")
 		return
 
@@ -447,7 +447,7 @@
 /proc/init_shift_change(mob/user, force = 0)
 	// if force is 0, some things may stop the shuttle call
 	if(!force)
-		if(SSshuttle.emergencyNoEscape)
+		if(length(SSshuttle.hostile_environments))
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
 			return
 
