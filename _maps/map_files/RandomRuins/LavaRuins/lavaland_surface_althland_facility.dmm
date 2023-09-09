@@ -36,7 +36,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "be" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
 /area/lavaland/surface/outdoors)
 "bL" = (
@@ -155,10 +155,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "fs" = (
 /obj/effect/decal/cleanable/dirt,
@@ -194,10 +191,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "gC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -207,7 +201,6 @@
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "gE" = (
@@ -242,13 +235,9 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "hx" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/obj/item/shard,
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "hE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -278,10 +267,11 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "jb" = (
-/obj/structure/grille/broken,
-/obj/item/shard,
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating/airless,
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "jY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -324,8 +314,6 @@
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "ms" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
@@ -496,8 +484,8 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "ub" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/under/rank/cargo/miner,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "uf" = (
@@ -719,21 +707,16 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "Dd" = (
-/obj/structure/grille,
-/obj/effect/spawner/window/reinforced,
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "Dg" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	invisibility = 101
 	},
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "Dp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -745,13 +728,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
 /obj/item/storage/box/donkpockets/empty,
-/mob/living/simple_animal/hostile/asteroid/goliath/beast,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "Dv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1009,7 +987,6 @@
 /obj/structure/grille/broken,
 /obj/item/shard,
 /obj/item/shard,
-/obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "Px" = (
@@ -1021,13 +998,8 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "PF" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "PI" = (
 /obj/structure/lattice,
@@ -1066,6 +1038,9 @@
 /area/ruin/unpowered)
 "RX" = (
 /obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Ta" = (
@@ -1081,10 +1056,7 @@
 	dir = 4;
 	invisibility = 101
 	},
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "TN" = (
 /obj/effect/landmark/damageturf,
@@ -1140,7 +1112,6 @@
 /area/ruin/unpowered)
 "Wl" = (
 /obj/structure/grille,
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "Wp" = (
@@ -1380,7 +1351,7 @@ ab
 ab
 ab
 YN
-jb
+YN
 Yd
 Dd
 bT
@@ -1520,7 +1491,7 @@ ab
 ab
 bT
 bT
-ab
+be
 ab
 ab
 ui
@@ -1590,9 +1561,9 @@ no
 ui
 ab
 ab
-RX
-RX
-RX
+jb
+jb
+jb
 ab
 ab
 ui
@@ -1626,7 +1597,7 @@ ui
 ui
 ui
 ab
-ab
+be
 bT
 bT
 ab
@@ -2167,8 +2138,8 @@ bT
 ui
 Dp
 fY
-hx
-PF
+HO
+uf
 ui
 af
 af
@@ -2242,7 +2213,7 @@ fm
 Jw
 ms
 bP
-fc
+Vj
 wZ
 lr
 bT
@@ -2493,7 +2464,7 @@ bT
 bT
 ZA
 AH
-ZA
+hx
 ab
 ab
 bV
@@ -2527,7 +2498,7 @@ bT
 bT
 bT
 bT
-Wl
+PF
 RL
 Wl
 ab
