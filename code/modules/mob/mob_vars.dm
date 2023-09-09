@@ -42,7 +42,6 @@
 	var/obj/machinery/machine = null
 	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
-	var/next_move = null
 	var/notransform = FALSE	//Carbon
 	/// True for left hand active, otherwise for right hand active
 	var/hand = null
@@ -216,3 +215,44 @@
 	var/runechat_msg_location
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
+	/// Is our mob currently suiciding? Used for suicide code along with many different revival checks
+	var/suiciding = 0
+	/// Used for some screen objects, such as
+	var/list/screens = list()
+	/// lazy list. contains /obj/screen/alert only,  On /mob so clientless mobs will throw alerts properly
+	var/list/alerts
+	/// Makes items bloody if you touch them
+	var/bloody_hands = 0
+	/// Basically a lazy list, copies the DNA of blood you step in
+	var/list/feet_blood_DNA
+	/// affects the blood color of your feet, color taken from the blood you step in
+	var/feet_blood_color
+	/// Affects blood some more
+	var/blood_state = BLOOD_STATE_NOT_BLOODY
+	/// Doesn't really do much, xenos can't track blood and this doesn't seem to have much effect on anything
+	var/list/bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
+	/// set when typing in an input window instead of chatline, this var could probably be removed soon enough
+	var/hud_typing = 0
+	/// Affects if you have a typing indicator
+	var/typing
+	/// Last thing we typed in to the typing indicator, probably does not need to exist
+	var/last_typed
+	/// Last time we typed something in to the typing popup
+	var/last_typed_time
+	// THESE DO NOT AFFECT THE BASE 1 DECISECOND DELAY OF NEXT_CLICK
+	var/next_move
+	/// Unused
+	var/next_move_adjust = 0
+	/// Value to multiply action delays by, actually used
+	var/next_move_modifier = 1
+	// 1 decisecond click delay (above and beyond mob/next_move)
+	/// This is mainly modified by click code, to modify click delays elsewhere, use next_move and changeNext_move(), Controls the click delay. Changed with
+	var/next_click	= 0
+
+	// THESE DO AFFECT THE BASE 1 DECISECOND DELAY OF NEXT_CLICK
+	/// Unused
+	var/next_click_adjust = 0
+	/// Unused
+	var/next_click_modifier = 1
+	/// Tracks the open UIs that a mob has, used in TGUI for various things, such as updating UIs
+	var/list/open_uis = list()

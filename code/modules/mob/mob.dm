@@ -754,9 +754,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/is_dead()
 	return stat == DEAD
 
-/mob
-	var/newPlayerType = /mob/new_player
-
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"

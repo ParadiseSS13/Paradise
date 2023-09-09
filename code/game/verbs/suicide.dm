@@ -1,5 +1,3 @@
-/mob/var/suiciding = 0
-
 /mob/living/verb/suicide() // imagine this shit with BORERS lmao
 	set hidden = 1
 

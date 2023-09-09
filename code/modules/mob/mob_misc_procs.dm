@@ -800,3 +800,16 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			return "unconscious"
 		if(DEAD)
 			return "dead"
+
+/// Proc to PROPERLY set mob invisibility, huds gotta get set too!
+/mob/proc/set_invisible(invis_value)
+	if(invis_value)
+		invisibility = invis_value
+	else
+		invisibility = initial(invisibility)
+	for(var/hud in hud_possible)
+		var/image/actual_hud = hud_list[hud]
+		if(invis_value)
+			actual_hud.invisibility = invis_value
+		else
+			actual_hud.invisibility = initial(actual_hud.invisibility)
