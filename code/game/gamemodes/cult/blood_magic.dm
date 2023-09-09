@@ -873,7 +873,7 @@
 	if(!T)
 		return
 	for(var/obj/effect/decal/cleanable/blood/B in range(T, 2))
-		if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in() || istype(B, /obj/effect/decal/cleanable/blood/slime)))
+		if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in()))
 			if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 				temp += 30
 			else
@@ -945,7 +945,7 @@
 				var/turf/T = get_turf(user)
 				qdel(src)
 				var/datum/action/innate/cult/spear/S = new(user)
-				var/obj/item/twohanded/cult_spear/rite = new(T)
+				var/obj/item/cult_spear/rite = new(T)
 				S.Grant(user, rite)
 				rite.spear_act = S
 				if(user.put_in_hands(rite))

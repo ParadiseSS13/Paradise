@@ -4,6 +4,9 @@
 #define MAX_UNITS_PER_PATCH 30 // Max amount of units in a patch
 #define MAX_CUSTOM_NAME_LEN 64 // Max length of a custom pill/condiment/whatever
 
+#define TRANSFER_TO_DISPOSAL 0
+#define TRANSFER_TO_BEAKER   1
+
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
 	density = TRUE
@@ -15,7 +18,7 @@
 
 	var/obj/item/reagent_containers/beaker = null
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
-	var/mode = 0
+	var/mode = TRANSFER_TO_BEAKER
 	var/condi = FALSE
 	var/useramount = 30 // Last used amount
 	var/pillamount = 10
@@ -351,10 +354,13 @@
 				if("create_pill")
 					if(condi || !reagents.total_volume)
 						return
-					var/num = round(text2num(arguments["num"] || 1))
+
+					var/num = arguments["num"] || 1 // Multi puts a string in `num`, single leaves it null
+					num = clamp(round(text2num(num)), 0, MAX_MULTI_AMOUNT)
 					if(!num)
 						return
 					arguments["num"] = num
+
 					var/amount_per_pill = clamp(reagents.total_volume / num, 0, MAX_UNITS_PER_PILL)
 					var/default_name = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
 					var/pills_text = num == 1 ? "new pill" : "[num] new pills"
@@ -371,10 +377,13 @@
 				if("create_patch")
 					if(condi || !reagents.total_volume)
 						return
-					var/num = round(text2num(arguments["num"] || 1))
+
+					var/num = arguments["num"] || 1 // Multi puts a string in `num`, single leaves it null
+					num = clamp(round(text2num(num)), 0, MAX_MULTI_AMOUNT)
 					if(!num)
 						return
 					arguments["num"] = num
+
 					var/amount_per_patch = clamp(reagents.total_volume / num, 0, MAX_UNITS_PER_PATCH)
 					var/default_name = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
 					var/patches_text = num == 1 ? "new patch" : "[num] new patches"
@@ -437,7 +446,7 @@
 				if("create_pill")
 					if(condi || !reagents.total_volume)
 						return
-					var/count = clamp(round(text2num(arguments["num"]) || 0), 0, MAX_MULTI_AMOUNT)
+					var/count = text2num(arguments["num"])
 					if(!count)
 						return
 
@@ -470,7 +479,7 @@
 				if("create_patch")
 					if(condi || !reagents.total_volume)
 						return
-					var/count = clamp(round(text2num(arguments["num"]) || 0), 0, MAX_MULTI_AMOUNT)
+					var/count = text2num(arguments["num"])
 					if(!count)
 						return
 
@@ -560,3 +569,6 @@
 #undef MAX_UNITS_PER_PILL
 #undef MAX_UNITS_PER_PATCH
 #undef MAX_CUSTOM_NAME_LEN
+
+#undef TRANSFER_TO_DISPOSAL
+#undef TRANSFER_TO_BEAKER

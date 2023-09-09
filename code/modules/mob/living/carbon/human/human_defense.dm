@@ -755,6 +755,17 @@ emp_act
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	dna.species.water_act(src, volume, temperature, source, method)
+	if(method != REAGENT_TOUCH)
+		return
+
+	for(var/obj/O in list(head, wear_suit, back, l_hand, r_hand))
+		O.water_act(src, volume, temperature, source, method)
+	if((head?.flags & THICKMATERIAL) && (wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
+		return
+	for(var/obj/O in list(w_uniform, shoes, belt, gloves, glasses, l_ear, r_ear, wear_id, wear_pda, r_store, l_store, s_store))
+		O.water_act(src, volume, temperature, source, method)
+
+
 
 /mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)

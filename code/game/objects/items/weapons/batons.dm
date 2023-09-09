@@ -66,7 +66,7 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
-	if(user.mind?.martial_art?.no_baton)
+	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user))
 		to_chat(user, user.mind.martial_art.no_baton_reason)
 		return
 	if(issilicon(target))

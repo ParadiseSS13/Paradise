@@ -53,6 +53,18 @@
 	summoner = host
 	host.grant_guardian_actions(src)
 
+/mob/living/simple_animal/hostile/guardian/can_buckle()
+	return FALSE
+
+/mob/living/simple_animal/hostile/guardian/rest()
+	return
+
+/mob/living/simple_animal/hostile/guardian/lay_down()
+	set_body_position(STANDING_UP)
+
+/mob/living/simple_animal/hostile/guardian/stand_up(instant, work_when_dead)
+	set_body_position(STANDING_UP)
+
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
 		var/image/holder = hud_list[HEALTH_HUD]
@@ -165,6 +177,9 @@
 		summoner.Weaken(20 SECONDS)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
+
+/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0)
+	return TRUE	//Works better in zero G, and not useless in space
 
 //Manifest, Recall, Communicate
 
@@ -316,8 +331,8 @@
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 	switch(guardian_type)
 
-		if("Chaos")
-			pickedtype = /mob/living/simple_animal/hostile/guardian/fire
+		if("Gaseous")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/gaseous
 
 		if("Standard")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/punch

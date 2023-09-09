@@ -63,6 +63,10 @@
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
+/obj/item/clothing/suit/space/deathsquad/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer beret"
 	desc = "An armored beret commonly used by special operations officers."

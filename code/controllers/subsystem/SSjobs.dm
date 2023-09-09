@@ -85,12 +85,10 @@ SUBSYSTEM_DEF(jobs)
 		if(job.barred_by_missing_limbs(player.client))
 			return FALSE
 
-		var/position_limit = job.total_positions
-		if(!latejoin)
-			position_limit = job.spawn_positions
+		var/available = latejoin ? job.is_position_available() : job.is_spawn_position_available()
 
-		if((job.current_positions < position_limit) || position_limit == -1)
-			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
+		if(available)
+			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JTP:[job.total_positions], JSP:[job.spawn_positions]")
 			player.mind.assigned_role = rank
 			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
 
@@ -101,6 +99,7 @@ SUBSYSTEM_DEF(jobs)
 
 			unassigned -= player
 			job.current_positions++
+			SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (latejoin ? "latejoin" : "roundstart")))
 			return 1
 
 	Debug("AR has failed, Player: [player], Rank: [rank]")
@@ -275,7 +274,8 @@ SUBSYSTEM_DEF(jobs)
 	var/watch = start_watch()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
-	SetupOccupations()
+	if(!length(occupations))
+		SetupOccupations()
 
 	//Holder for Triumvirate is stored in the ticker, this just processes it
 	if(SSticker)
@@ -368,7 +368,7 @@ SUBSYSTEM_DEF(jobs)
 				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 
 					// If the job isn't filled
-					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
+					if(job.is_spawn_position_available())
 						Debug("DO pass, Player: [player], Level:[level], Job:[job.title]")
 						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
 						AssignRole(player, job.title)
@@ -407,7 +407,7 @@ SUBSYSTEM_DEF(jobs)
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return TRUE
 
-/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE, log_to_db = TRUE)
+/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE)
 	if(!H)
 		return null
 	var/datum/job/job = GetJob(rank)
@@ -422,35 +422,34 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 
-	to_chat(H, "<center><br><br><span class='green'>----------------</span>")
-	to_chat(H, "<center><b>Your role on the station is: [alt_title ? alt_title : rank].<br></b></center>")
-	to_chat(H, "<center><b>You answer directly to [job.supervisors]. Special circumstances may change this.</b></center>")
-	to_chat(H, "<center><b>For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a>.</b></center>")
+	var/list/L = list("<br><br><center><span class='green'>----------------</span>")
+	L.Add("<b>Your role on the station is: [alt_title ? alt_title : rank].")
+	L.Add("You answer directly to [job.supervisors]. Special circumstances may change this.")
+	L.Add("For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a>.")
 	if(job.is_service)
-		to_chat(H, "<center><b>As a member of Service, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>.</center>")
+		L.Add("As a member of Service, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a>.")
 	if(job.is_supply)
-		to_chat(H, "<center><b>As a member of Supply, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>.</center>")
+		L.Add("As a member of Supply, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a>.")
 	if(job.is_command)
-		to_chat(H, "<center><b>As an important member of Command, read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>.</center>")
+		L.Add("As an important member of Command, read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a>.")
 	if(job.is_legal)
-		to_chat(H, "<center><b>Your job requires complete knowledge of <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>.</center>")
+		L.Add("Your job requires complete knowledge of <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>.")
 	if(job.is_engineering)
-		to_chat(H, "<center><b>As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>.</center>")
+		L.Add("As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a>.")
 	if(job.is_medical)
-		to_chat(H, "<center><b>As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>.</center>")
+		L.Add("As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a>.")
 	if(job.is_science)
-		to_chat(H, "<center><b>As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>.</center>")
+		L.Add("As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a>.")
 	if(job.is_security)
-		to_chat(H, "<center><b>As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a>.</b></center>")
+		L.Add("As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a>.")
 	if(job.req_admin_notify)
-		to_chat(H, "<center><b>You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.</b></center>")
-	to_chat(H, "<br><b><center>If you need help, check the <a href=\"https://paradisestation.org/wiki/index.php/Main_Page\">wiki</a> or use Mentorhelp(F1)!</b></center>")
+		L.Add("You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.")
+	L.Add("<br>If you need help, check the <a href=\"https://paradisestation.org/wiki/index.php/Main_Page\">wiki</a> or use Mentorhelp(F1)!</b>")
 	if(job.important_information)
-		to_chat(H, "<center><div class='userdanger' style='width: 80%'>[job.important_information]</div></center>")
-	to_chat(H, "<center><span class='green'>----------------</span><br><br></center>")
+		L.Add("</b><span class='userdanger' style='width: 80%'>[job.important_information]</span>")
+	L.Add("<span class='green'>----------------</span></center><br><br>")
 
-	if(log_to_db)
-		SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (joined_late ? "latejoin" : "roundstart")))
+	to_chat(H, L.Join("<br>"))
 
 	return H
 
@@ -534,6 +533,7 @@ SUBSYSTEM_DEF(jobs)
 		// Key: name | Value: Amount
 		var/datum/job/J = GetJob(job)
 		if(!J)
+			stack_trace("`[job]` not found while setting max slots. Check for misspellings or alternate titles")
 			continue
 		J.total_positions = text2num(joblist[job])
 		J.spawn_positions = text2num(joblist[job])
