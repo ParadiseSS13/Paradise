@@ -10,13 +10,9 @@
 	bio_fluff_string = "Your scarab swarm stirs to life, ready to tear apart your enemies."
 	var/battlecry = "AT"
 
-/mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
-	set name = "Set Battlecry"
-	set category = "Guardian"
-	set desc = "Choose what you shout as you punch"
-	var/input = stripped_input(src,"What do you want your battlecry to be? Max length of 5 characters.", ,"", 6)
-	if(input)
-		battlecry = input
+/mob/living/simple_animal/hostile/guardian/punch/Initialize(mapload, mob/living/host)
+	. = ..()
+	AddSpell(new /obj/effect/proc_holder/spell/choose_battlecry(null))
 
 /mob/living/simple_animal/hostile/guardian/punch/AttackingTarget()
 	. = ..()

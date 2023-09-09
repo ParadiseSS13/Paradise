@@ -2084,6 +2084,7 @@
 #include "code\modules\mob\living\silicon\pai\pai.dm"
 #include "code\modules\mob\living\silicon\pai\pai_death.dm"
 #include "code\modules\mob\living\silicon\pai\pai_life.dm"
+#include "code\modules\mob\living\silicon\pai\pai_login.dm"
 #include "code\modules\mob\living\silicon\pai\pai_say.dm"
 #include "code\modules\mob\living\silicon\pai\pai_update_status.dm"
 #include "code\modules\mob\living\silicon\pai\personality.dm"
