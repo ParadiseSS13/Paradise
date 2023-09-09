@@ -379,7 +379,7 @@
 		var/turf/RCD_turf = get_turf(RCD)
 		if(istype(RCD, /obj/item/rcd/borg)) //Ensures that cyborg RCDs are spared.
 			continue
-		if(RCD_turf.z != 1)
+		if(is_level_reachable(RCD_turf.z))
 			RCD.detonate_pulse()
 
 	to_chat(owner, "<span class='danger'>RCD detonation pulse emitted.</span>")
