@@ -81,7 +81,6 @@ SUBSYSTEM_DEF(air)
 	setup_allturfs()
 	if(length(active_turfs))
 		throw_error_on_active_roundstart_turfs()
-		log_debug("Turfs were active before init! Please check the runtime logger for information on the specific turfs.")
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
@@ -400,8 +399,17 @@ SUBSYSTEM_DEF(air)
 	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
 
 /datum/controller/subsystem/air/proc/throw_error_on_active_roundstart_turfs()
+	// Can't properly test lavaland due to Init order issues and EVERYTHING being surrounded by rocks, as such we just ignore any turfs on that level
+	var/list/active_turfs_we_care_about = list()
+	var/z_level_to_exclude = level_name_to_num(MINING)
+	for(var/turf/is_lavaland_turf in active_turfs)
+		if(is_lavaland_turf.z != z_level_to_exclude)
+			active_turfs_we_care_about += is_lavaland_turf
+	if(!length(active_turfs_we_care_about))
+		return
+	log_debug("Turfs were active before init! Please check the runtime logger for information on the specific turfs.")
 	stack_trace("Failed sanity check: active_turfs is not empty before init ([length(active_turfs)], turfs are as followed;)")
-	for(var/turf/shouldnt_be_active in active_turfs)
+	for(var/turf/shouldnt_be_active in active_turfs_we_care_about)
 		stack_trace("[shouldnt_be_active] was active before init, turf x=[shouldnt_be_active.x], turf y=[shouldnt_be_active.y], turf z=[shouldnt_be_active.z], turf area=[shouldnt_be_active.loc]")
 		message_admins("[shouldnt_be_active] was active before init, [ADMIN_JMP(shouldnt_be_active)])")
 
