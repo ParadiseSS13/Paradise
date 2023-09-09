@@ -135,12 +135,16 @@
 		to_chat(L, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
 		return
 
-	if(ishuman(victim) || isrobot(victim))
+	if(victim.mind)
 		to_chat(L, "<span class='warning'>You devour [victim]. Your health is fully restored.</span>")
 		L.adjustBruteLoss(-1000)
 		L.adjustFireLoss(-1000)
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
+	else if(ishuman(victim) || isrobot(victim))
+		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence makes their flesh dull and wanting for more.</span>")
+		L.adjustBruteLoss(-50)
+		L.adjustFireLoss(-50)
 	else
 		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
 		L.adjustBruteLoss(-25)
@@ -173,6 +177,8 @@
 /obj/effect/proc_holder/spell/bloodcrawl/proc/phaseout(obj/effect/decal/cleanable/B, mob/living/L)
 
 	if(iscarbon(L) && !block_hands(L))
+		return FALSE
+	if(!do_after(L, 2 SECONDS, target = B))
 		return FALSE
 
 	L.notransform = TRUE

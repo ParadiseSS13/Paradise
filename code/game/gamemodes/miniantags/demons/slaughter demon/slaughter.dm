@@ -83,8 +83,8 @@
 // Midround slaughter demon, less tanky
 
 /mob/living/simple_animal/demon/slaughter/lesser
-	maxHealth = 130
-	health = 130
+	maxHealth = 170
+	health = 170
 
 // Cult slaughter demon
 /mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
