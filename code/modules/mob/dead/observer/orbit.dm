@@ -94,6 +94,7 @@
 					- mindslaves/vampire thralls
 					- vampire
 					- changelings
+					- revolutionaries/headrevs
 					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
@@ -111,9 +112,7 @@
 							"Wizard" = (mind in SSticker.mode.wizards),
 							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
-							"Abductor" = (mind in SSticker.mode.abductors),
-							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
-							"Head Revolutionary" = (mind in SSticker.mode.head_revolutionaries)
+							"Abductor" = (mind in SSticker.mode.abductors)
 						)
 
 					for(var/antag_name in other_antags)

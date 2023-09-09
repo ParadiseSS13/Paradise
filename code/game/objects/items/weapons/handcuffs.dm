@@ -52,7 +52,7 @@
 		var/mob/living/carbon/human/H = C
 		if(!(H.has_left_hand() || H.has_right_hand()))
 			to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
-			return
+			return FALSE
 
 	if(!C.handcuffed)
 		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
@@ -67,6 +67,7 @@
 			add_attack_logs(user, C, "Handcuffed ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
+			return FALSE
 
 /obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, remove_src = TRUE)
 	if(!target.handcuffed)
@@ -212,3 +213,15 @@
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return
+
+/obj/item/restraints/handcuffs/twimsts
+	name = "twimsts cuffs"
+	desc = "Liquorice twist candy made into cable cuffs, tasty but it can't actually hold anyone."
+	icon_state = "cablecuff"
+	item_state = "cablecuff"
+	cuffed_state = "cablecuff"
+	belt_icon = "cablecuff"
+	color = "#E31818"
+	throwforce = 0
+	breakouttime = 0
+	cuffsound = 'sound/weapons/cablecuff.ogg'

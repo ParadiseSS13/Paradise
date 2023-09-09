@@ -88,7 +88,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "t" = (
-/obj/effect/mob_spawn/human/golem/adamantine,
+/obj/effect/mob_spawn/human/alive/golem/adamantine,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "u" = (
