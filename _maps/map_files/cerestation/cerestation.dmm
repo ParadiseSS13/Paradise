@@ -85634,11 +85634,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
