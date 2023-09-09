@@ -61265,10 +61265,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/simulated/floor/engine/airless{
-	temperature = 80;
-	nitrogen = 100
-	},
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "dwg" = (
 /obj/machinery/computer/arcade/orion_trail{
@@ -64464,10 +64461,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/simulated/floor/engine/airless{
-	temperature = 80;
-	nitrogen = 100
-	},
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "fpO" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -65044,10 +65038,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine/airless{
-	temperature = 80;
-	nitrogen = 100
-	},
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "fFV" = (
 /obj/machinery/door/poddoor/preopen{
@@ -65397,10 +65388,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "fSi" = (
-/turf/simulated/floor/engine/airless{
-	temperature = 80;
-	nitrogen = 100
-	},
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "fSp" = (
 /obj/machinery/door/firedoor,
@@ -71507,10 +71495,7 @@
 	dir = 1;
 	network = list("Research","SS13")
 	},
-/turf/simulated/floor/engine/airless{
-	temperature = 80;
-	nitrogen = 100
-	},
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "jIM" = (
 /obj/machinery/door/airlock/public/glass{
@@ -77615,10 +77600,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine/airless{
-	temperature = 80;
-	nitrogen = 100
-	},
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "nIY" = (
 /obj/structure/disposalpipe/segment{
@@ -87383,10 +87365,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/engine/airless{
-	temperature = 80;
-	nitrogen = 100
-	},
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "tMB" = (
 /obj/machinery/door/airlock/maintenance{

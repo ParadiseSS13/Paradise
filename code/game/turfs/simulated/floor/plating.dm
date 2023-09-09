@@ -281,6 +281,11 @@
 	oxygen = 2644
 	nitrogen = 10580
 
+/turf/simulated/floor/engine/xenobio
+	oxygen = 0
+	temperature = 80
+	nitrogen = 100
+
 /turf/simulated/floor/engine/airless
 	oxygen = 0
 	nitrogen = 0

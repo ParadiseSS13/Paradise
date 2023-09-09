@@ -329,17 +329,13 @@
 /area/ruin/powered/snow_biodome)
 "tk" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/mineral/silver{
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
 "tl" = (
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/snow_biodome)
 "tZ" = (
-/turf/simulated/floor/mineral/silver{
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
 "uz" = (
 /obj/effect/spawner/window,
@@ -358,9 +354,7 @@
 "zT" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/footprints,
-/turf/simulated/floor/mineral/silver{
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
 "AM" = (
 /obj/machinery/economy/vending/coffee/free,
@@ -385,9 +379,7 @@
 "Ex" = (
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/crude/snow,
-/turf/simulated/floor/mineral/silver{
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
 "Ez" = (
 /obj/structure/fans/tiny,
@@ -403,9 +395,7 @@
 /area/ruin/powered/snow_biodome)
 "GS" = (
 /obj/item/paper/fluff/ruins/snowbiodome/altar,
-/turf/simulated/floor/mineral/silver{
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
 "Hn" = (
 /obj/effect/decal/cleanable/blood/writing,
@@ -427,25 +417,19 @@
 /area/ruin/powered/snow_biodome)
 "MU" = (
 /obj/structure/flora/rock/icy,
-/turf/simulated/floor/mineral/silver{
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
 "Oj" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/silver{
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
 "Pf" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/sacrificealtar,
 /obj/item/kitchen/knife/combat/survival/bone,
-/turf/simulated/floor/mineral/silver{
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
 "PD" = (
 /obj/machinery/door/airlock/hatch,
@@ -486,9 +470,7 @@
 /area/ruin/powered/snow_biodome)
 "XR" = (
 /obj/effect/mob_spawn/human/corpse/skeleton,
-/turf/simulated/floor/mineral/silver{
-	temperature = 180
-	},
+/turf/simulated/floor/mineral/silver/biodome_snow,
 /area/ruin/powered/snow_biodome)
 
 (1,1,1) = {"
