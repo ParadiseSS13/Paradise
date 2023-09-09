@@ -22,6 +22,7 @@
 	supermatter.event_active = src
 	on_start()
 	alert_engi()
+	supermatter.investigate_log("event [src] has been triggered", "supermatter")
 	if(duration)
 		addtimer(CALLBACK(src, PROC_REF(on_end)), duration)
 

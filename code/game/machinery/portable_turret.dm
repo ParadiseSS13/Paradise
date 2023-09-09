@@ -435,7 +435,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			return
 
 	health -= damage_amount
-	if(damage_amount > 5 && prob(45) && spark_system && damage_flag != FIRE)
+	if(!(stat & BROKEN) && damage_amount > 5 && prob(45) && spark_system && damage_flag != FIRE)
 		spark_system.start()
 	if(health <= 0)
 		die()	//the death process :(
