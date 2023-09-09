@@ -2996,16 +2996,16 @@
 	pixel_y = 5
 	},
 /obj/item/storage/box/pillbottles,
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_y = 4
-	},
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -52229,12 +52229,6 @@
 	},
 /area/station/security/brig)
 "eus" = (
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_y = 4
-	},
 /obj/machinery/alarm{
 	dir = 8;
 	name = "east bump";
@@ -52257,6 +52251,12 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -59774,7 +59774,7 @@
 	department = "Science";
 	departmentType = 2;
 	name = "Science Requests Console";
-	pixel_y = 32
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
