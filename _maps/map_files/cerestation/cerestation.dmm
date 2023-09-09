@@ -38539,6 +38539,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
+"eFW" = (
+/obj/machinery/requests_console{
+	department = "Kitchen";
+	departmentType = 2;
+	name = "Kitchen Requests Console";
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/station/service/kitchen)
 "eGe" = (
 /obj/structure/table,
 /obj/item/soap,
@@ -81350,6 +81359,12 @@
 /obj/machinery/smartfridge/foodcart{
 	dir = 4
 	},
+/obj/machinery/requests_console{
+	department = "Kitchen";
+	departmentType = 2;
+	name = "Kitchen Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -117134,7 +117149,7 @@ hpJ
 uzY
 baH
 ogl
-ogl
+eFW
 bbK
 btd
 mgV
