@@ -8,8 +8,8 @@
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
 		/obj/item/gun/magic/wand/resurrection/debug = 1,
 		/obj/item/gun/magic/wand/death/debug = 1,
-		/obj/item/debug/human_spawner = 1,
-)
+		/obj/item/debug/human_spawner = 1
+	)
 	belt = /obj/item/storage/belt/military/abductor/full
 	l_ear = /obj/item/radio/headset/centcom/debug
 	glasses = /obj/item/clothing/glasses/hud/debug
@@ -179,8 +179,8 @@
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/gun/medbeam,
 		/obj/item/handheld_defibrillator,
-		/obj/item/bodyanalyzer/debug,
-		)
+		/obj/item/bodyanalyzer/debug
+	)
 
 /obj/item/organ/internal/cyberimp/arm/janitorial/advanced
 	name = "AVD-CNED janitorial toolset implant... is that a... tazer?"
