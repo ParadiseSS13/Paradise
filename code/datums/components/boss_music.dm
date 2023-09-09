@@ -14,7 +14,7 @@
 
 /datum/component/boss_music/Initialize(
 	boss_track,
-	track_duration,
+	track_duration
 )
 	. = ..()
 	if(!ishostile(parent))

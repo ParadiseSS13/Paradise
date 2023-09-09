@@ -80,9 +80,6 @@ Difficulty: Medium
 			other.health = 2500
 	qdel(src) //Suprise, it's the one on lavaland that regrows to full.
 
-
-
-
 /mob/living/simple_animal/hostile/megafauna/legion/death(gibbed)
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)

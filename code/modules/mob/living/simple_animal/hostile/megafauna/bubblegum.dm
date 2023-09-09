@@ -406,7 +406,7 @@ Difficulty: Hard
 	if(enraged)
 		adjustHealth(-75)
 	update_approach()
-	change_move_delay(enraged? 3 : 4) //3if enraged, 4 otherwise
+	change_move_delay(enraged? 3 : 4) //3 if enraged, 4 otherwise
 	var/newcolor = rgb(149, 10, 10)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
 	var/datum/callback/cb = CALLBACK(src, PROC_REF(blood_enrage_end))

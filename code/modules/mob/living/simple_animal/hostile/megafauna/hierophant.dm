@@ -82,7 +82,8 @@ Difficulty: Hard
 	var/list/kill_phrases = list("Wsyvgi sj irivkc xettih. Vitemvmrk...", "Irivkc wsyvgi jsyrh. Vitemvmrk...", "Jyip jsyrh. Egxmzexmrk vitemv gcgpiw...", "Kix fiex. Liepmrk...")
 	var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
 	var/list/stored_nearby = list() // stores people nearby the hierophant when it enters the death animation
-	var/colour_shifting = FALSE //If the hiero has changed colour, stop the rays animation.
+	///If the hiero has changed colour, stop the rays animation.
+	var/colour_shifting = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
 	. = ..()
@@ -432,7 +433,7 @@ Difficulty: Hard
 	. = ..()
 	if(enraged && !colour_shifting)
 		var/new_filter = isnull(get_filter("ray"))
-		ray_filter_helper(1, 40,"#660099", 6, 20, 16)
+		ray_filter_helper(1, 40, "#660099", 6, 20, 16)
 		if(new_filter)
 			animate(get_filter("ray"), offset = 10, y = 8, time = 10 SECONDS, loop = -1)
 			animate(offset = 0, time = 10 SECONDS)
