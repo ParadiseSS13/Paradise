@@ -393,3 +393,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 //Displayed at the end of roundend_category section
 /datum/antagonist/proc/roundend_report_footer()
 	return
+
+// Called when the owner is cryo'd, for when you want things to happen on cryo and not deletion
+/datum/antagonist/proc/on_cryo()
+	return
