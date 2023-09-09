@@ -1,5 +1,5 @@
 //Malfunctioning cryostasis sleepers: Spawns in makeshift shelters in lavaland. Ghosts become hermits with knowledge of how they got to where they are now.
-/obj/effect/mob_spawn/human/hermit
+/obj/effect/mob_spawn/human/alive/hermit
 	name = "malfunctioning cryostasis sleeper"
 	desc = "A humming sleeper with a silhouetted occupant inside. Its stasis function is broken and it's likely being used as a bed."
 	mob_name = "a stranded hermit"
@@ -16,7 +16,7 @@
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
 	assignedrole = "Hermit"
 
-/obj/effect/mob_spawn/human/hermit/Initialize(mapload)
+/obj/effect/mob_spawn/human/alive/hermit/Initialize(mapload)
 	. = ..()
 	var/arrpee = rand(1,4)
 	switch(arrpee)
@@ -49,6 +49,6 @@
 			outfit.shoes = /obj/item/clothing/shoes/black
 			outfit.back = /obj/item/storage/backpack
 
-/obj/effect/mob_spawn/human/hermit/Destroy()
+/obj/effect/mob_spawn/human/alive/hermit/Destroy()
 	new/obj/structure/fluff/empty_cryostasis_sleeper(get_turf(src))
 	return ..()
