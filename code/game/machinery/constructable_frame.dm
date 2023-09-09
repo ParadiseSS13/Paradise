@@ -1082,3 +1082,27 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1)
+
+/obj/item/circuitboard/suit_storage_unit
+	board_name = "Suit Storage Unit"
+	icon_state = "generic"
+	build_path = /obj/machinery/suit_storage_unit
+	board_type = "machine"
+	origin_tech = "materials=2;engineering=2"
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stock_parts/micro_laser = 1,
+							/obj/item/stack/cable_coil = 3,
+							/obj/item/stack/sheet/rglass = 5)
+
+/obj/item/circuitboard/suit_storage_unit/industrial
+	board_name = "Industrial Suit Storage Unit"
+	icon_state = "engineering"
+	build_path = /obj/machinery/suit_storage_unit/industrial
+	board_type = "machine"
+	origin_tech = "materials=3;engineering=4"
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stock_parts/micro_laser = 1,
+							/obj/item/stack/cable_coil = 3,
+							/obj/item/stack/sheet/plasteel = 5)
