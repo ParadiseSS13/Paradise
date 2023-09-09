@@ -1,7 +1,7 @@
 /// The subsystem used to play ambience to users every now and then, makes them real excited.
 SUBSYSTEM_DEF(ambience)
 	name = "Ambience"
-	flags = SS_BACKGROUND | SS_NO_INIT
+	flags = SS_BACKGROUND
 	priority = FIRE_PRIORITY_AMBIENCE
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 1 SECONDS
@@ -9,11 +9,12 @@ SUBSYSTEM_DEF(ambience)
 	///Assoc list of listening client - next ambience time
 	var/list/ambience_listening_clients = list()
 
-/datum/controller/subsystem/ambience/fire(resumed)
+/datum/controller/subsystem/ambience/Initialize()
 	if(GLOB.configuration.general.disable_ambient_noise)
 		flags |= SS_NO_FIRE
 		return
 
+/datum/controller/subsystem/ambience/fire(resumed)
 	for(var/C in ambience_listening_clients)
 		var/client/client_iterator = C
 
