@@ -1570,6 +1570,7 @@
 #include "code\modules\clothing\spacesuits\void.dm"
 #include "code\modules\clothing\suits\armor_suits.dm"
 #include "code\modules\clothing\suits\bio.dm"
+#include "code\modules\clothing\suits\hazard_vest.dm"
 #include "code\modules\clothing\suits\hood.dm"
 #include "code\modules\clothing\suits\job_suits.dm"
 #include "code\modules\clothing\suits\labcoat.dm"

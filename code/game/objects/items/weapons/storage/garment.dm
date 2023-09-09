@@ -128,7 +128,7 @@
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
 	new /obj/item/clothing/suit/mantle/chief_engineer(src)
-	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/suit/storage/hazardvest/ce(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
@@ -200,6 +200,7 @@
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)
+	new /obj/item/clothing/suit/storage/hazardvest/qm(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
 
 /obj/item/storage/bag/garment/warden

@@ -12799,7 +12799,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest/engi,
 /turf/simulated/floor/plasteel,
 /area/station/public/construction)
 "aWL" = (
@@ -33163,7 +33163,7 @@
 	},
 /area/station/service/expedition)
 "bZH" = (
-/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/storage/hazardvest/atmos,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "bZI" = (
@@ -39049,8 +39049,8 @@
 /area/station/supply/lobby)
 "csB" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/storage/hazardvest,
 /obj/effect/spawner/lootdrop/maintenance/three,
+/obj/item/clothing/suit/storage/hazardvest/engi,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "csG" = (
@@ -55468,15 +55468,15 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/clothing/suit/storage/hazardvest,
-/obj/item/clothing/suit/storage/hazardvest,
-/obj/item/clothing/suit/storage/hazardvest,
-/obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
+/obj/item/clothing/suit/storage/hazardvest/atmos,
+/obj/item/clothing/suit/storage/hazardvest/atmos,
+/obj/item/clothing/suit/storage/hazardvest/atmos,
+/obj/item/clothing/suit/storage/hazardvest/atmos,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "fTI" = (

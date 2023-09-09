@@ -14452,11 +14452,11 @@
 	dir = 8
 	},
 /obj/item/clothing/gloves/color/black,
-/obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/mask/gas,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
+/obj/item/clothing/suit/storage/hazardvest/atmos,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -17350,9 +17350,9 @@
 "aYI" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/black,
-/obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/warning_stripes/east,
+/obj/item/clothing/suit/storage/hazardvest/atmos,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "aYJ" = (
@@ -18971,8 +18971,8 @@
 "bcc" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/workboots,
-/obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/head/hardhat,
+/obj/item/clothing/suit/storage/hazardvest/engi,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "bcd" = (

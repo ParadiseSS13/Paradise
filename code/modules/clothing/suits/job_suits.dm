@@ -194,20 +194,6 @@
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		)
 
-//Engineering
-/obj/item/clothing/suit/storage/hazardvest
-	name = "hazard vest"
-	desc = "A high-visibility vest used in work zones."
-	icon_state = "hazard"
-	item_state = "hazard"
-	blood_overlay_type = "armor"
-	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/rcd, /obj/item/rpd)
-	resistance_flags = NONE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 //Lawyer
 /obj/item/clothing/suit/storage/lawyer
 	sprite_sheets = list(
