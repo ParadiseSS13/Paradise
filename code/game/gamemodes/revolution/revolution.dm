@@ -177,7 +177,7 @@
 		var/num_survivors = 0
 		for(var/mob/living/carbon/human/survivor in GLOB.player_list)
 			if(!istype(survivor) || survivor.stat == DEAD)
-				return
+				continue
 			num_survivors++
 			if(survivor.mind?.has_antag_datum(/datum/antagonist/rev))
 				num_revs++
