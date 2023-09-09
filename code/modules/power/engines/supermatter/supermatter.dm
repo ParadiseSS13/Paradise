@@ -217,8 +217,6 @@
 	var/heat_multiplier = 1
 	///amount of EER to ADD
 	var/power_additive = 0
-	/// A list of all previous events
-	var/list/last_events = list()
 	/// Time of next event
 	var/next_event_time
 	/// Run S-Class event? So we can only run one S-class event per round per crystal
@@ -261,7 +259,7 @@
 	. = ..()
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
-		if(!HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+		if(!HAS_TRAIT(H, TRAIT_MESON_VISION) && !HAS_TRAIT(H, SM_HALLUCINATION_IMMUNE) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 			. += "<span class='danger'>You get headaches just from looking at it.</span>"
 	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of the use of the pseudo-perpetual energy source, the supermatter crystal.</span>"
 	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
