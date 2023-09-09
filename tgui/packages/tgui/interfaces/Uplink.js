@@ -125,10 +125,10 @@ const ItemsPage = (_properties, context) => {
       buttons={
         <Fragment>
           <Button.Checkbox
-              content="Show Descriptions"
-              checked={showDesc}
-              onClick={() => setShowDesc(!showDesc)}
-            />
+            content="Show Descriptions"
+            checked={showDesc}
+            onClick={() => setShowDesc(!showDesc)}
+          />
           <Button
             content="Random Item"
             icon="question"
@@ -323,7 +323,6 @@ const UplinkItemButtons = (props, context) => {
       />
     </Fragment>
   )
-
 }
 
 const CartButtons = (props, context) => {
@@ -384,7 +383,6 @@ const CartButtons = (props, context) => {
   </Flex>
   )
 }
-
 
 const ExploitableInfoPage = (_properties, context) => {
   const { act, data } = useBackend(context);
