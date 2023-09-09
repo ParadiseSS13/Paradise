@@ -1730,13 +1730,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			H.receiving_cpr = FALSE
 			return
 
-		if(HAS_TRAIT(H, TRAIT_FAKEDEATH) || !H.IsRevivable())
+		if(HAS_TRAIT(H, TRAIT_FAKEDEATH) || !H.is_revivable())
 			to_chat(src, "<span class='warning'>[H] is already too far gone for CPR...</span>")
 			H.receiving_cpr = FALSE
 			return
 
 		visible_message("<span class='danger'>[src] is trying to perform CPR on [H]'s lifeless body!</span>", "<span class='danger'>You start trying to perform CPR on [H]'s lifeless body!</span>")
-		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD) && H.IsRevivable())
+		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD) && H.is_revivable())
 			var/timer_restored
 			if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
 				visible_message("<span class='notice'>[src] gives [H] chest compressions.</span>", "<span class='notice'>You can't make rescue breaths work, so you do your best to give chest compressions.</span>")
@@ -1764,7 +1764,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			cpr_try_activate_bomb(H)
 
 
-		if(!H.IsRevivable())
+		if(!H.is_revivable())
 			to_chat(src, "<span class='notice'>You feel [H]'s body is already starting to stiffen beneath you...it's too late for CPR now.</span>")
 		else
 			visible_message("<span class='notice'>[src] stops giving [H] CPR.</span>", "<span class='notice'>You stop giving [H] CPR.</span>")

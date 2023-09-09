@@ -848,7 +848,7 @@ STATUS EFFECTS
 // Revivability
 
 
-/mob/living/proc/IsRevivable()
+/mob/living/proc/is_revivable()
 	return has_status_effect(/datum/status_effect/limited_bonus/revivable)
 
 ///////////////////////////////// FROZEN /////////////////////////////////////

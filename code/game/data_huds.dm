@@ -191,7 +191,7 @@
 			revivable = FALSE
 		else if(ismachineperson(src))
 			revivable = TRUE
-		else if(timeofdeath && IsRevivable())
+		else if(timeofdeath && is_revivable())
 			revivable = TRUE
 
 		if(revivable)
