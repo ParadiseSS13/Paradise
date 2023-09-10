@@ -201,7 +201,7 @@
 				user.adjustBrainLoss(10)
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
-			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(user.loc)
+			var/obj/item/dualsaber/newSaber = new /obj/item/dualsaber(user.loc)
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = TRUE
 				newSaber.item_color = "rainbow"

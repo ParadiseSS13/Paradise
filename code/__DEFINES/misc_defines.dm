@@ -402,7 +402,7 @@
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
-#define DEFIB_TIME_LIMIT (300 SECONDS)
+#define BASE_DEFIB_TIME_LIMIT (300 SECONDS)
 /// Brain damage starts setting in on the patient after some time left rotting.
 #define DEFIB_TIME_LOSS (60 SECONDS)
 
@@ -546,3 +546,9 @@
 #define DEADCHAT_ANARCHY_MODE (1<<1)
 /// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
 #define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
+
+// Lavaland cave design defines
+
+#define BLOCKED_BURROWS "Blocked Burrows"
+#define CLASSIC_CAVES "Classic Caves"
+#define DEADLY_DEEPROCK "Deadly Deeprock"

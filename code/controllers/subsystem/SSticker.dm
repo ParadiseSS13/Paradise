@@ -226,7 +226,7 @@ SUBSYSTEM_DEF(ticker)
 	mode.pre_pre_setup()
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
-	SSjobs.DivideOccupations() //Distribute jobs
+
 	if(!can_continue)
 		QDEL_NULL(mode)
 		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
@@ -235,6 +235,18 @@ SUBSYSTEM_DEF(ticker)
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return FALSE
+
+	// Enable highpop slots just before we distribute jobs.
+	var/playercount = length(GLOB.clients)
+	var/highpop_trigger = 80
+
+	if(playercount >= highpop_trigger)
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
+		SSjobs.LoadJobs(TRUE)
+	else
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
 		var/list/modes = new
@@ -317,16 +329,6 @@ SUBSYSTEM_DEF(ticker)
 		if(N.client)
 			N.new_player_panel_proc()
 
-	// Now that every other piece of the round has initialized, lets setup player job scaling
-	var/playercount = length(GLOB.clients)
-	var/highpop_trigger = 80
-
-	if(playercount >= highpop_trigger)
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
-		SSjobs.LoadJobs(TRUE)
-	else
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
-
 	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
@@ -398,7 +400,7 @@ SUBSYSTEM_DEF(ticker)
 					flick("station_explode_fade_red", cinematic)
 					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					cinematic.icon_state = "summary_selfdes"
-			stop_delta_alarm()
+
 		if(NUKE_SITE_ON_STATION_ZLEVEL)
 			// nuke was nearby but (mostly) missed
 			if(mode && !override)
@@ -428,7 +430,6 @@ SUBSYSTEM_DEF(ticker)
 	//If its actually the end of the round, wait for it to end.
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
-		stop_delta_alarm() // If we've not stopped this alarm yet, do so now.
 		QDEL_NULL(cinematic)		//end the cinematic
 
 

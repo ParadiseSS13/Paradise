@@ -81,6 +81,11 @@
 	icon_state = "med_cypherkey"
 	channels = list("Medical" = 1)
 
+/obj/item/encryptionkey/headset_med/para
+	name = "Paramedic Radio Encryption Key"
+	icon_state = "para_cypherkey"
+	channels = list("Medical" = 1, "Supply" = 0)
+
 /obj/item/encryptionkey/headset_sci
 	name = "Science Radio Encryption Key"
 	icon_state = "sci_cypherkey"

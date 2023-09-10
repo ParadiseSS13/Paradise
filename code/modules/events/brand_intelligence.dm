@@ -14,7 +14,7 @@
 									"You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
 
 /datum/event/brand_intelligence/announce()
-	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
+	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.category] vendor.", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
 
 /datum/event/brand_intelligence/start()
 	var/list/obj/machinery/economy/vending/leaderables = list()
@@ -56,6 +56,7 @@
 				explosion(upriser.loc, -1, 1, 2, 4, 0)
 				qdel(upriser)
 
+		log_debug("Brand intelligence: The last vendor has been infected.")
 		kill()
 		return
 
@@ -83,6 +84,7 @@
 	if(originMachine)
 		originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
 		originMachine.visible_message("[originMachine] beeps and seems lifeless.")
+	log_debug("Brand intelligence completed early due to origin machine being defeated.")
 	kill()
 
 /datum/event/brand_intelligence/kill()

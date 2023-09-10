@@ -257,6 +257,7 @@
 		else
 			job_class = all_jobs[rank]
 
+	tcm.pre_modify_name = tcm.sender_name
 	if(toggle_name_color)
 		var/new_name = "<span class=\"[job_class]\">[tcm.sender_name]</span>"
 		tcm.sender_name = new_name

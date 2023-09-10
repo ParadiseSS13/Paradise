@@ -126,7 +126,7 @@
 
 		for(var/i = 0, i<numRevs, i++)
 			H = pick(candidates)
-			H.mind.make_Rev()
+			H?.mind?.add_antag_datum(/datum/antagonist/rev/head)
 			candidates.Remove(H)
 		return 1
 	return 0
