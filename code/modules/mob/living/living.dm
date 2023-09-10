@@ -86,6 +86,8 @@
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_MOB_BUMP, M)
+
 	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
 	if(now_pushing || M.anchored)
 		return TRUE
@@ -220,12 +222,19 @@
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_AI_UNTRACKABLE))
 		return FALSE
-
+	if(user && user.is_jammed())
+		return FALSE
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	if(!near_camera(src))
 		return FALSE
 
 	return TRUE
+
+/mob/living/proc/is_jammed()
+	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
+		if(atoms_share_level(get_turf(src), get_turf(jammer)) && get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
+			return TRUE
+	return FALSE
 
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm

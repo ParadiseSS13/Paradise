@@ -254,6 +254,11 @@
 			//Now, S represents a container we can insert W into.
 			S.handle_item_insertion(W, TRUE, TRUE)
 			return S
+		if(ismodcontrol(back))
+			var/obj/item/mod/control/C = back
+			if(C.bag)
+				C.bag.handle_item_insertion(W, TRUE, TRUE)
+			return C.bag
 
 		var/turf/T = get_turf(src)
 		if(istype(T))
@@ -946,7 +951,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison))
+	if(!istype(A, /area/station/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -1547,7 +1552,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
-	/area/chapel
+	/area/station/service/chapel
 )))
 
 /mob/proc/holy_check()

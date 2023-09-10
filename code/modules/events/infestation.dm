@@ -10,16 +10,16 @@
 	var/vermin
 	var/vermstring
 	var/static/list/spawn_areas = list(
-		/area/crew_quarters/kitchen = "the kitchen",
-		/area/atmos = "atmospherics",
-		/area/maintenance/incinerator = "the incinerator",
-		/area/chapel/main = "the chapel",
-		/area/library = "the library",
-		/area/hydroponics = "hydroponics",
-		/area/security/nuke_storage = "the vault",
-		/area/construction = "the construction area",
-		/area/storage/tech = "technical storage",
-		/area/security/securearmoury = "the armory"
+		/area/station/service/kitchen = "the kitchen",
+		/area/station/engineering/atmos = "atmospherics",
+		/area/station/maintenance/incinerator = "the incinerator",
+		/area/station/service/chapel = "the chapel",
+		/area/station/service/library = "the library",
+		/area/station/service/hydroponics = "hydroponics",
+		/area/station/command/vault = "the vault",
+		/area/station/public/construction = "the construction area",
+		/area/station/engineering/tech_storage = "technical storage",
+		/area/station/security/armory/secure = "the armory"
 	)
 
 /datum/event/infestation/start()

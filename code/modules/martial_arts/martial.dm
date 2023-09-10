@@ -64,24 +64,23 @@
 		return MARTIAL_ARTS_CANNOT_USE
 	if(combo_timer)
 		deltimer(combo_timer)
-/*
-	if(last_hit + COMBO_ALIVE_TIME < world.time)
-		reset_combos()
-*/
+
 	combo_timer = addtimer(CALLBACK(src, PROC_REF(reset_combos)), COMBO_ALIVE_TIME, TIMER_UNIQUE | TIMER_STOPPABLE)
-	streak += intent_to_streak(step)
-	var/mob/living/carbon/human/owner = locateUID(owner_UID)
-	owner?.hud_used.combo_display.update_icon(ALL, streak)
 
 	if(HAS_COMBOS)
-		return check_combos(step, user, target)
+		streak += intent_to_streak(step)
+		var/mob/living/carbon/human/owner = locateUID(owner_UID)
+		if(istype(owner) && !QDELETED(owner))
+			owner.hud_used.combo_display.update_icon(ALL, streak)
+			return check_combos(step, user, target)
 	return FALSE
 
 /datum/martial_art/proc/reset_combos()
 	current_combos.Cut()
 	streak = ""
 	var/mob/living/carbon/human/owner = locateUID(owner_UID)
-	owner?.hud_used.combo_display.update_icon(ALL, streak)
+	if(istype(owner) && !QDELETED(owner))
+		owner.hud_used.combo_display.update_icon(ALL, streak)
 	for(var/combo_type in combos)
 		current_combos.Add(new combo_type())
 
@@ -165,6 +164,7 @@
 	var/datum/martial_art/MA = src
 	if(!H.mind)
 		return
+	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
@@ -236,7 +236,7 @@
 	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
 	button_icon_state = "block"
 
-/datum/action/defensive_stance/Trigger()
+/datum/action/defensive_stance/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
 	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial-arts users anyway
 	if(!MA.can_parry)
@@ -370,27 +370,27 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
-/obj/item/twohanded/bostaff
+/obj/item/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
-	force_unwielded = 10
-	force_wielded = 24
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon_state = "bostaff0"
+	base_icon_state = "bostaff"
 
-/obj/item/twohanded/bostaff/Initialize(mapload)
+/obj/item/bostaff/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/two_handed, force_wielded = 24, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 
-/obj/item/twohanded/bostaff/update_icon_state()
-	icon_state = "bostaff[wielded]"
+/obj/item/bostaff/update_icon_state()
+	icon_state = "[base_icon_state]0"
 
-/obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
+/obj/item/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
@@ -414,7 +414,7 @@
 		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
-			if(!wielded)
+			if(!HAS_TRAIT(src, TRAIT_WIELDED))
 				return ..()
 			if(!ishuman(target))
 				return ..()
@@ -445,8 +445,8 @@
 		else
 			return ..()
 
-/obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
+/obj/item/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
 	return 0
 

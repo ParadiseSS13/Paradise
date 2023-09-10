@@ -10,6 +10,14 @@
 	containername = "\improper MULEbot crate"
 	department_restrictions = list(DEPARTMENT_SUPPLY)
 
+/datum/supply_packs/misc/loader
+	name = "Loader MODsuit Crate"
+	contains = list(/obj/item/mod/control/pre_equipped/loader)
+	cost = 750 //Unique, expencive. Better sell that plasma
+	containertype = /obj/structure/largecrate
+	containername = "\improper Loader MODsuit crate"
+	department_restrictions = list(DEPARTMENT_SUPPLY)
+
 /datum/supply_packs/misc/hightank
 	name = "High-Capacity Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank/high)
@@ -143,7 +151,7 @@
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/mop,
-					/obj/item/twohanded/push_broom,
+					/obj/item/push_broom,
 					/obj/item/caution,
 					/obj/item/caution,
 					/obj/item/caution,
@@ -217,7 +225,7 @@
 
 /datum/supply_packs/misc/costume
 	name = "Costume Crate"
-	contains = list(/obj/item/twohanded/staff,
+	contains = list(/obj/item/staff,
 					/obj/item/clothing/suit/wizrobe/fake,
 					/obj/item/clothing/shoes/sandal,
 					/obj/item/clothing/head/wizard/fake,
@@ -261,6 +269,14 @@
 					/obj/item/clothing/glasses/sunglasses)
 	cost = 450
 	containername = "sunglasses crate"
+
+/datum/supply_packs/misc/welding_goggles
+	name = "Welding Goggles Crate"
+	contains = list(/obj/item/clothing/glasses/welding,
+					/obj/item/clothing/glasses/welding,
+					/obj/item/clothing/glasses/welding)
+	cost = 300
+	containername = "welding goggles crate"
 
 /datum/supply_packs/misc/randomised
 	var/num_contained = 3 //number of items picked to be contained in a randomised crate
@@ -425,12 +441,12 @@
 /datum/supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
 	name = "Polo Supply Crate"
 	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
-	contains = list(/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
+	contains = list(/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
 					/obj/item/clothing/mask/horsehead,
 					/obj/item/clothing/mask/horsehead,
 					/obj/item/clothing/mask/horsehead,
