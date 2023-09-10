@@ -209,6 +209,7 @@
 	containername = "supermatter shard crate"
 	access = ACCESS_CE
 
+/* Commented out as the TEG is fully problematic. If the syndie base is changed to be dependant on another powersource, we can look at a rework.
 /datum/supply_packs/engineering/engine/teg
 	name = "Thermo-Electric Generator Crate"
 	contains = list(
@@ -220,7 +221,7 @@
 	containername = "thermo-electric generator crate"
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
-
+*/
 /datum/supply_packs/engineering/canister/nitrogen
 	name = "Nitrogen canister"
 	contains = list(/obj/machinery/atmospherics/portable/canister/nitrogen)
