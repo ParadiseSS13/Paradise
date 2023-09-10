@@ -172,7 +172,7 @@
 						"name" = G.name,
 						"delivered" = G.delivered_amount,
 						"deliverygoal" = G.delivery_goal,
-						"report" = G.get_report(),
+						"report" = G.get_ui_report(),
 						"G" = "\ref[G]")
 					data["goals"] += list(payload)
 			if(MED_DATA_MEDBOT)

@@ -9,6 +9,7 @@ import {
   LabeledList,
   ProgressBar,
   Section,
+  Collapsible,
   Tabs,
   Flex,
   Table
@@ -456,50 +457,44 @@ const MedicalRecordsGoals = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { goals } = data;
   return(
-    <Flex direction="column" height="100%">
-      <Section flexGrow="1" mt="0.5rem">
-        <Table className="MedicalRecords__list">
-          <Table.Row bold>
-            <Table.Cell>Name</Table.Cell>
-            <Table.Cell>Delivery Progress</Table.Cell>
-            <Table.Cell>Info</Table.Cell>
-          </Table.Row>
-          {goals
-            .map((goal) => (
-              <Table.Row
-                key={goal.id}
-                className={
-                  'MedicalRecords__listGoal--' + goal
-                }
-              >
-                <Table.Cell>
-                  <Icon name="database" /> {goal.name}
-                </Table.Cell>
-                <Table.Cell>
-                  <ProgressBar
-                    value={goal.delivered}
-                    minValue={0}
-                    maxValue={goal.deliverygoal}
-                    ranges={{
-                      good: [goal.deliverygoal * 0.5, Infinity],
-                      average: [goal.deliverygoal * 0.25, goal.deliverygoal * 0.5],
-                      bad: [-Infinity, goal.deliverygoal * 0.25],
-                    }}
-                  >
-                    {goal.delivered} / {goal.deliverygoal} Units
-                  </ProgressBar>
-                </Table.Cell>
-                <Table.Cell>
-                  <Button
-                    content="Info"
-                    onClick={() => act('goal', { goal: goal.G })}
-                  />
-                </Table.Cell>
-              </Table.Row>
-          ))}
-        </Table>
-      </Section>
-    </Flex>
+    <Section title="Virology Goals" fill>
+      <Flex direction="column">
+        {(goals.length !== 0 &&
+          goals.map((goal) => {
+            return (
+              <Flex.Item key={goal.G}>
+                <Collapsible title={goal.name}>
+                  <Section>
+                    <Table>
+                      <Table.Row header>
+                        <Table.Cell textAlign="center">
+                          <ProgressBar
+                            value={goal.delivered}
+                            minValue={0}
+                            maxValue={goal.deliverygoal}
+                            ranges={{
+                              good: [goal.deliverygoal * 0.5, Infinity],
+                              average: [goal.deliverygoal * 0.25, goal.deliverygoal * 0.5],
+                              bad: [-Infinity, goal.deliverygoal * 0.25],
+                            }}
+                          >
+                            {goal.delivered} / {goal.deliverygoal} Units
+                          </ProgressBar>
+                        </Table.Cell>
+                      </Table.Row>
+                    </Table>
+                    <Box>{goal.report}</Box>
+                  </Section>
+                </Collapsible>
+              </Flex.Item>
+            );
+          })) || (
+          <Flex.Item>
+            <Box textAlign="center">No Goals Detected</Box>
+          </Flex.Item>
+        )}
+      </Flex>
+    </Section>
   );
 };
 
