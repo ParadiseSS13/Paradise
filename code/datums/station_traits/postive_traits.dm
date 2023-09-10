@@ -6,7 +6,7 @@
 	report_message = "Your station has been selected for a special grant. Some extra funds has been made available to your cargo department."
 
 /datum/station_trait/galactic_grant/on_round_start()
-	GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), rand(2000, 4000), "Galactic Grant", "Great Galactic Grant Group", supress_log = FALSE)
+	GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY), rand(2000, 4000), "Galactic Grant", "Great Galactic Grant Group", supress_log = FALSE)
 
 /datum/station_trait/premium_internals_box
 	name = "Premium internals boxes"
@@ -33,7 +33,7 @@
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
 	show_in_report = TRUE
-	report_message = "Our workers accidentally forgot more of their personal belongings in the maintenace areas."
+	report_message = "Our workers accidentally forgot more of their personal belongings in the maintenance areas."
 	blacklist = list(/datum/station_trait/empty_maint)
 	trait_to_give = STATION_TRAIT_FILLED_MAINT
 
@@ -189,7 +189,7 @@
 		/datum/job/bartender = /obj/item/organ/internal/liver/cybernetic,
 		/datum/job/hydro = /obj/item/organ/internal/cyberimp/chest/nutriment,
 		/datum/job/captain = /obj/item/organ/internal/heart/cybernetic/upgraded,
-		/datum/job/cargo_tech= /obj/item/organ/internal/cyberimp/brain/anti_sleep,
+		/datum/job/cargo_tech = /obj/item/organ/internal/cyberimp/brain/anti_sleep,
 		/datum/job/chaplain = /obj/item/organ/internal/cyberimp/brain/anti_drop,
 		/datum/job/chemist = /obj/item/organ/internal/liver/cybernetic,
 		/datum/job/chief_engineer = /obj/item/organ/internal/eyes/cybernetic/meson,

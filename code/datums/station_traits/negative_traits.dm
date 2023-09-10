@@ -87,7 +87,7 @@
 				E.weight *= weight_multiplier
 				if(disable_is_one_shot == TRUE)
 					E.one_shot = FALSE
-				modified_event= TRUE
+				modified_event = TRUE
 	if(!modified_event)
 		CRASH("[type] could not find a round event controller to modify on round start (likely has an invalid event_name or event_severity set, or an admin removed the event from the list)!")
 
@@ -125,7 +125,7 @@
 
 /datum/station_trait/random_event_weight_modifier/anomaly_storm
 	name = "Anomaly Storm"
-	report_message = "The station has moved into unstable space. Expect an increased likelyhood of anomalies running rampent on the station"
+	report_message = "The station has moved into unstable space. Expect an increased likelihood of anomalies running rampant on the station"
 	trait_type = STATION_TRAIT_NEGATIVE
 	trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	weight = 2

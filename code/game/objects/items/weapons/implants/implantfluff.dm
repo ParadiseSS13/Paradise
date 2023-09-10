@@ -143,5 +143,5 @@
 
 /datum/implant_fluff/deathrattle
 	name = "BioTech Solutions \"Dead Ringer\" Death Ratttle Bio-chip"
-	notes = "Alerts imapnted crew to crewmember death."
+	notes = "Alerts implanted crew to crewmember death."
 	function = "Contains a compact radio signaler that triggers when the host's lifesigns cease, only sent to other implanted in the group."
