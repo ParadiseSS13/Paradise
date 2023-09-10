@@ -18482,7 +18482,7 @@
 /area/station/command/office/ce)
 "bPA" = (
 /obj/machinery/keycard_auth{
-	pixel_x = -28
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
