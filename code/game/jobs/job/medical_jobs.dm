@@ -176,7 +176,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	job_department_flags = DEP_FLAG_MEDICAL
+	job_department_flags = DEP_FLAG_MEDICAL | DEP_FLAG_SCIENCE
 	supervisors = "the chief medical officer and the research director"
 	department_head = list("Chief Medical Officer", "Research Director")
 	selection_color = "#ffeef0"

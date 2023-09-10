@@ -109,8 +109,11 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/FreeRole(rank, force = FALSE)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
-	if(job.job_banned_gamemode && !force)
-		return FALSE
+	if(job.job_banned_gamemode)
+		if(!force)
+			return FALSE
+		job.job_banned_gamemode = FALSE // If admins want to force it, they can reopen banned job slots
+
 	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
 		return TRUE
@@ -442,7 +445,7 @@ SUBSYSTEM_DEF(jobs)
 		L.Add("As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a>.")
 	if(job.job_department_flags & DEP_FLAG_MEDICAL)
 		L.Add("As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a>.")
-	if(job.job_department_flags & DEP_FLAG_SCIENCE)
+	if(job.job_department_flags & DEP_FLAG_SCIENCE) // geneticist gets both, yeah sure why not
 		L.Add("As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a>.")
 	if(job.job_department_flags & DEP_FLAG_SECURITY)
 		L.Add("As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a>.")
