@@ -562,6 +562,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	return loc
 
 /obj/item/proc/eyestab(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return FALSE
 
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && ( \
@@ -587,6 +590,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	playsound(loc, src.hitsound, 30, 1, -1)
 
 	user.do_attack_animation(M)
+
+	if(H.check_shields(src, force, "the [name]", MELEE_ATTACK, armour_penetration_flat, armour_penetration_percentage))
+		return FALSE
+
+	if(H.check_block())
+		visible_message("<span class='warning'>[H] blocks [src]!</span>")
+		return FALSE
 
 	if(M != user)
 		M.visible_message("<span class='danger'>[user] has stabbed [M] in the eye with [src]!</span>", \
