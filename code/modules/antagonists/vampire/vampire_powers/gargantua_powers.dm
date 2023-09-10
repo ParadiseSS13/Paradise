@@ -1,5 +1,3 @@
-#define ARENA_SIZE 3
-
 /obj/effect/proc_holder/spell/vampire/self/blood_swell
 	name = "Blood Swell (30)"
 	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage. However, this makes you unable to fire ranged weapons while it is active."
@@ -204,10 +202,11 @@
 		L.apply_status_effect(STATUS_EFFECT_CHARGING)
 		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
 
+#define ARENA_SIZE 3
 /obj/effect/proc_holder/spell/vampire/arena
 	name = "Desecrated Duel (150)"
-	desc = "You jump towards someone. Upon landing, you conjure an arena, and within it you will heal brute and burn damage, recover from fatigue faster, and be strengthened against lasting damages. Can be recasted to end the spell early."
-	gain_desc = "You can now jump to a target, creating an arena where you land."
+	desc = "You leap towards someone. Upon landing, you conjure an arena, and within it you will heal brute and burn damage, recover from fatigue faster, and be strengthened against lasting damages. Can be recasted to end the spell early."
+	gain_desc = "You can now leap to a target, creating an arena where you land."
 	required_blood = 150
 	base_cooldown = 30 SECONDS
 	action_icon_state = "duel"
@@ -289,3 +288,5 @@
 	cooldown_handler.start_recharge()
 	user.remove_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	user.visible_message("<span class='warning'>The arena begins to dissipate.</span>")
+
+#undef ARENA_SIZE
