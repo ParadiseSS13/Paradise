@@ -73,7 +73,7 @@
 	var/list/event_names = list()
 	/// The severity of the event we modify.
 	var/datum/event_container/event_severity
-	/// Multiplier applied to the weight of the event.
+	/// Multiplier applied to the weight of the event. may want to apply to scaling as well
 	var/weight_multiplier = 1
 	/// Do we want to turn off is one shot?
 	var/disable_is_one_shot = FALSE

@@ -7,10 +7,6 @@
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
 	. = ..()
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT) && istype(src, /obj/effect/spawner/lootdrop/maintenance) && prob(50))
-		return qdel(src)
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_FILLED_MAINT) && istype(src, /obj/effect/spawner/lootdrop/maintenance) && prob(50))
-		lootcount = min(lootcount * 2, 12)
 
 	while(lootcount)
 		var/lootspawn = pickweight(loot)
@@ -171,6 +167,14 @@
 				/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 2, // More armored than bomber and has pockets, so it is rarer
 				"" = 61 // This should be a decently high number for chances where no loot will spawn
 				)
+
+/obj/effect/spawner/lootdrop/maintenance/Initialize(mapload)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT) && prob(50))
+		return qdel(src)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_FILLED_MAINT) && prob(50))
+		lootcount = min(lootcount * 2, 12)
+	. = ..()
+
 
 /obj/effect/spawner/lootdrop/maintenance/two
 	name = "maintenance loot spawner (2 items)"

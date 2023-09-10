@@ -530,6 +530,7 @@
 	. = ..()
 	req_access_txt = "[ACCESS_AI_UPLOAD]"
 	if(mapload && HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI) && is_station_level(z))
+		qdel(contents)
 		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/experimental

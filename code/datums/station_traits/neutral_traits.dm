@@ -48,7 +48,7 @@
 		var/turf/adventure_turf = find_safe_turf()
 
 		// Poof!
-		dog.forceMove(adventure_turf) //SORRY NO SMOKE SMOKE SYSTEM SLEEPS
+		INVOKE_ASYNC(dog, TYPE_PROC_REF(/atom/movable, forceMove), adventure_turf)
 
 /// Moves the new dog somewhere safe, equips it with the old one's inventory and makes it deadchat_playable.
 /datum/station_trait/ian_adventure/proc/do_corgi_respawn(mob/living/simple_animal/pet/dog/corgi/old_dog, mob/living/simple_animal/pet/dog/corgi/new_dog, gibbed, lives_left)
@@ -56,18 +56,18 @@
 
 	var/turf/adventure_turf = find_safe_turf()
 
-	new_dog.forceMove(adventure_turf)
+	INVOKE_ASYNC(new_dog, TYPE_PROC_REF(/atom/movable, forceMove), adventure_turf)
 
 	if(old_dog.inventory_back)
 		var/obj/item/old_dog_back = old_dog.inventory_back
 		old_dog.inventory_back = null
-		old_dog_back.forceMove(new_dog)
+		INVOKE_ASYNC(old_dog_back, TYPE_PROC_REF(/atom/movable, forceMove), new_dog)
 		new_dog.inventory_back = old_dog_back
 
 	if(old_dog.inventory_head)
 		var/obj/item/old_dog_hat = old_dog.inventory_head
 		old_dog.inventory_head = null
-		new_dog.place_on_head(old_dog_hat)
+		INVOKE_ASYNC(new_dog, TYPE_PROC_REF(/mob/living/simple_animal/pet/dog/corgi, place_on_head), old_dog_hat)
 
 	new_dog.update_corgi_fluff()
 	new_dog.regenerate_icons()
