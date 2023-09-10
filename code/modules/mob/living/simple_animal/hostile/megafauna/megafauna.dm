@@ -140,9 +140,9 @@
 	recovery_time = world.time + buffer_time
 	ranged_cooldown = world.time + buffer_time
 
-/// This proc is called by the INSERT NAME HERE to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
-/mob/living/simple_animal/hostile/megafauna/proc/enrage() //TODO: heal or have some other check if it is too damaged to be enraged.
-	if(enraged)
+/// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
+/mob/living/simple_animal/hostile/megafauna/proc/enrage()
+	if(enraged || (health / maxHealth) * 100 <= 80 )
 		return
 	enraged = TRUE
 

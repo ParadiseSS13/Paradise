@@ -44,7 +44,7 @@
 
 /obj/item/disk/fauna_research/blood_drunk_miner
 	name = "blood drunk HRD-MDE project disk"
-	desc = "A disk used by the HRD-MDE project. Contains data on the dash and resiance of the blood drunk miner."
+	desc = "A disk used by the HRD-MDE project. Contains data on the dash and resistance of the blood drunk miner."
 	output = /obj/item/clothing/accessory/medal/blood_drunk
 
 /obj/item/disk/fauna_research/hierophant

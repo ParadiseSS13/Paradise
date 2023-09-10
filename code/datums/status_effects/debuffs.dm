@@ -980,6 +980,7 @@
 	tick_interval = 1 SECONDS
 	var/damage = 0.75
 	var/source_UID
+	///Are we starting the process to check if the person has still gotten out of range of bubble / crossed zlvls.
 	var/coward_checking = FALSE
 
 /datum/status_effect/bubblegum_curse/on_creation(mob/living/new_owner, mob/living/source)
