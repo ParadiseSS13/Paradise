@@ -1919,6 +1919,10 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "anA" = (
@@ -2638,6 +2642,10 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20704,7 +20712,7 @@
 	},
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -28
+	pixel_x = 28
 	},
 /obj/machinery/light_switch{
 	name = "north bump";
@@ -21764,6 +21772,10 @@
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
 	icon_state = "map-right-MS";
 	pixel_y = 32
+	},
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -38544,6 +38556,10 @@
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = 28
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "cqK" = (
@@ -41995,6 +42011,10 @@
 	},
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = 28
+	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cCy" = (
@@ -50002,15 +50022,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/medical/exam_room)
-"diA" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "diG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -50373,6 +50384,16 @@
 	luminosity = 2
 	},
 /area/station/command/vault)
+"dul" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "dvc" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -52773,10 +52794,6 @@
 	},
 /area/station/medical/exam_room)
 "eFH" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -53727,6 +53744,10 @@
 /obj/item/bedsheet/medical,
 /obj/machinery/light_construct{
 	dir = 1
+	},
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -64315,6 +64336,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/bar,
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_x = -28
+	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "kfe" = (
@@ -65480,6 +65505,18 @@
 	icon_state = "dark"
 	},
 /area/station/security/main)
+"kHg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/research)
 "kHQ" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
@@ -69008,6 +69045,16 @@
 	icon_state = "dark"
 	},
 /area/station/security/armory)
+"mkl" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/control)
 "mkw" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -72146,6 +72193,19 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
+"nGg" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/bridge)
 "nGj" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -79440,6 +79500,10 @@
 	},
 /area/station/engineering/controlroom)
 "rsQ" = (
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -87059,6 +87123,20 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/rnd)
+"vdj" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Engineering";
+	name = "Engineering Security Doors"
+	},
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/break_room)
 "vdn" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -89095,6 +89173,15 @@
 	icon_state = "whiteyellow"
 	},
 /area/station/medical/reception)
+"wja" = (
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/aft)
 "wjf" = (
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
@@ -118862,7 +118949,7 @@ abW
 vXM
 sOR
 abW
-iuq
+dul
 adi
 vSm
 oIT
@@ -119957,7 +120044,7 @@ bwi
 bkW
 bac
 bKT
-bQr
+nGg
 bQr
 bQr
 bSb
@@ -121033,7 +121120,7 @@ lHZ
 cmm
 eaG
 cxl
-cmm
+wja
 cCQ
 bQW
 cPP
@@ -123590,7 +123677,7 @@ kEd
 tRK
 mgK
 cJp
-uuG
+kHg
 cwR
 riF
 cEK
@@ -134077,7 +134164,7 @@ big
 bkt
 bkT
 aFR
-bmu
+vdj
 xsF
 dVL
 jnD
@@ -135354,7 +135441,7 @@ nRh
 nRh
 nRh
 nRh
-diA
+nRh
 aCg
 qeD
 jvf
@@ -135851,7 +135938,7 @@ amk
 aBZ
 nwp
 aBZ
-ksf
+mkl
 aEn
 llU
 aSn
