@@ -5,8 +5,8 @@
 #define DEPARTMENT_SUPPLY		"Supply"
 #define DEPARTMENT_SERVICE		"Service"
 #define DEPARTMENT_SECURITY		"Security"
-#define DEPARTMENT_ASSISTANT	"Assistant" // Does not have a bitflag in department_str_to_flag
-#define DEPARTMENT_SILICON		"Silicon" // Does not have a bitflag in department_str_to_flag
+#define DEPARTMENT_ASSISTANT	"Assistant" // Does not have a corresponding bitflag
+#define DEPARTMENT_SILICON		"Silicon" // Does not have a corresponding bitflag
 #define DEPARTMENT_COMMAND		"Command"
 
 #define DEP_FLAG_SUPPLY			(1<<0)
