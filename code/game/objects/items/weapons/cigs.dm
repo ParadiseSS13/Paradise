@@ -374,7 +374,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar/update_icon_state()
 	. = ..()
-	icon_state = (enabled ? "holocigaron" : "holocigaroff")
+	icon_state = "holocigar[enabled ? "on" : "off"]"
 
 /obj/item/clothing/mask/holo_cigar/examine(mob/user)
 	. = ..()

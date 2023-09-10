@@ -357,7 +357,7 @@
 	punused = TRUE
 	playsound(loc, 'sound/misc/yeah.ogg', 100, FALSE)
 	user.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
-	if(HAS_TRAIT(usr, TRAIT_BADASS)) //unless you're badass
+	if(HAS_TRAIT(user, TRAIT_BADASS)) //unless you're badass
 		addtimer(VARSET_CALLBACK(src, punused, FALSE), 5 MINUTES)
 
 /obj/item/clothing/glasses/sunglasses/reagent
