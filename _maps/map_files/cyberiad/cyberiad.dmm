@@ -92250,9 +92250,9 @@
 	},
 /area/station/security/execution)
 "vDq" = (
-/obj/machinery/door/airlock/atmos{
-	name = "Atmospherics Maintenance";
-	req_access_txt = "12;24"
+/obj/machinery/door/airlock/security{
+	name = "Used Carnisters Storage";
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
