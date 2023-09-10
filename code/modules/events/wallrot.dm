@@ -38,7 +38,7 @@
 /datum/event/wallrot/fungus
 
 /datum/event/wallrot/fungus/is_valid_candidate(turf/T)
-	return istype(get_area(T), /area/maintenance)
+	return istype(get_area(T), /area/station/maintenance)
 
 /datum/event/wallrot/fungus/apply_to_turf(turf/T)
 	new /obj/effect/decal/cleanable/fungus(T)
