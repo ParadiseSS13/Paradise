@@ -394,10 +394,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(cycles_smoking == 0) //this could also be !cycles_smoking, but since 0 is a number this makes more sense imo
 		C.reagents.add_reagent("nicotine", 2)
-		cycles_smoking++
 	else
 		C.reagents.add_reagent("nicotine", REAGENTS_METABOLISM)
-		cycles_smoking++
+	cycles_smoking++
 
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()
