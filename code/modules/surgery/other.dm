@@ -138,8 +138,8 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		"[user] starts to treat affected tissue in [target]'s [affected.name] with [tool].",
-		"You start to treat affected tissue in [target]'s [affected.name] with [tool]."
+		"[user] starts to treat the scorched tissue in [target]'s [affected.name] with [tool].",
+		"You start to treat the scorched tissue in [target]'s [affected.name] with [tool]."
 	)
 	target.custom_pain("Your [affected.name] flares with agony as its burn is touched!")
 
