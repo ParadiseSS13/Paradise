@@ -82,7 +82,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			return TRUE
 		var/turf/T = get_turf(src)
 		for(var/obj/machinery/power/rad_collector/can_wrench in T.contents)
-			if(istype(can_wrench, /obj/machinery/power/rad_collector) && can_wrench.anchored && !anchored)
+			if(can_wrench.anchored && !anchored)
 				to_chat(user, "<span class='notice'>You can't wrench down [src] here!</span>")
 				return
 		playsound(loc, I.usesound, 75, TRUE)
