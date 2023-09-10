@@ -719,6 +719,7 @@
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
 	toolspeed = 0.5
 	var/lifetime = 60 SECONDS
+	var/next_spark_time
 
 /obj/item/pyro_claws/Initialize(mapload)
 	. = ..()
@@ -743,8 +744,9 @@
 /obj/item/pyro_claws/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(prob(60))
+	if(prob(60) && world.time > next_spark_time)
 		do_sparks(rand(1,6), 1, loc)
+		next_spark_time = world.time + 0.8 SECONDS
 	if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target
 
@@ -774,6 +776,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on_cooldown = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
+	var/next_spark_time
 
 /obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
 	QDEL_NULL(core)
@@ -796,7 +799,6 @@
 		return
 	if(on_cooldown)
 		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
-		do_sparks(rand(1,6), 1, loc)
 		return
 	if(!user.drop_l_hand() || !user.drop_r_hand())
 		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
@@ -807,7 +809,9 @@
 	on_cooldown = TRUE
 	flags |= NODROP
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 2 MINUTES)
-	do_sparks(rand(1,6), 1, loc)
+	if(world.time > next_spark_time)
+		do_sparks(rand(1,6), 1, loc)
+		next_spark_time = world.time + 0.8 SECONDS
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
