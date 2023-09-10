@@ -1752,9 +1752,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 			if(prob(5))
 				if(timer_restored > 4 SECONDS)
-					to_chat(pick(effective_cpr_messages))
+					to_chat(src, pick(effective_cpr_messages))
 				else
-					to_chat(pick(ineffective_cpr_messages))
+					to_chat(src, pick(ineffective_cpr_messages))
 
 			cpr_try_activate_bomb(H)
 
