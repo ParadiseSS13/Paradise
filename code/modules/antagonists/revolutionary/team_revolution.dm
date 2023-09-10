@@ -62,6 +62,14 @@
 			return FALSE
 
 	SSshuttle.clearHostileEnvironment(src) // revs can take the shuttle too if they want
+
+	// HOP can still technically alter some roles, but Nanotrasen wouldn't send heads/sec under threat to the station after revs win
+	var/banned_departments = DEP_FLAG_COMMAND | DEP_FLAG_SECURITY | DEP_FLAG_LEGAL
+	for(var/datum/job/job in SSjobs.occupations)
+		if(!(job.job_department_flags & banned_departments))
+			continue
+		job.total_positions = 0
+		job.job_banned_gamemode = TRUE
 	return TRUE
 
 /datum/team/revolution/proc/check_heads_victory()
@@ -76,14 +84,6 @@
 		return FALSE // there is still a headrev left alive!
 
 	SSshuttle.clearHostileEnvironment(src)
-
-	// HOP can still technically alter some roles, but Nanotrasen wouldn't send heads/sec under threat to the station after revs win
-	var/banned_departments = DEP_FLAG_COMMAND | DEP_FLAG_SECURITY | DEP_FLAG_LEGAL
-	for(var/datum/job/job in SSjobs.occupations)
-		if(!(job.job_department_flags & banned_departments))
-			continue
-		job.total_positions = 0
-
 	return TRUE
 
 /**	Calculate how many headrevs are needed, given a certain amount of sec/heads.

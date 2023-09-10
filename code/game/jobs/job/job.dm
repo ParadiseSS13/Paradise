@@ -67,6 +67,8 @@
 	///Job Objectives that crew with this job will have a roundstart
 	var/required_objectives = list()
 
+	var/job_banned_gamemode = FALSE
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
 
@@ -135,9 +137,13 @@
 	return FALSE
 
 /datum/job/proc/is_position_available()
+	if(job_banned_gamemode)
+		return FALSE
 	return (current_positions < total_positions) || (total_positions == -1)
 
 /datum/job/proc/is_spawn_position_available()
+	if(job_banned_gamemode)
+		return FALSE
 	return (current_positions < spawn_positions) || (spawn_positions == -1)
 
 /datum/outfit/job

@@ -74,6 +74,8 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return FALSE
+		if(job.job_banned_gamemode)
+			return FALSE
 		if(jobban_isbanned(player, rank))
 			return FALSE
 		if(!job.player_old_enough(player.client))
@@ -105,12 +107,14 @@ SUBSYSTEM_DEF(jobs)
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
-/datum/controller/subsystem/jobs/proc/FreeRole(rank)	//making additional slot on the fly
+/datum/controller/subsystem/jobs/proc/FreeRole(rank, force = FALSE)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
+	if(job.job_banned_gamemode && !force)
+		return FALSE
 	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/controller/subsystem/jobs/proc/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
@@ -650,7 +654,7 @@ SUBSYSTEM_DEF(jobs)
 			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 				jobs_to_formats[job.title] = "grey"
 			else if(!job.transfer_allowed)
-				jobs_to_formats[job.title] = "grey" // jobs which shouldnt be transferred into for whatever reason, likely due to high hour requirements
+				jobs_to_formats[job.title] = "grey" // jobs which shouldnt be transferred into for whatever reason, likely due to high hour requirementss
 			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.get_exp_restrictions(M.client))
 				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != "Assistant")
