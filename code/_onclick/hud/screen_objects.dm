@@ -453,8 +453,9 @@
 				. += handcuff_overlay
 
 			var/obj/item/organ/external/hand = C.get_organ("[slot_id == slot_l_hand ? "l" : "r"]_hand")
-			if(!hand || !hand.is_usable())
-				. += blocked_overlay
+			if(!isalien(C))
+				if(!hand || !hand.is_usable())
+					. += blocked_overlay
 
 		if(slot_id == slot_l_hand && hud.mymob.hand)
 			. += active_overlay
