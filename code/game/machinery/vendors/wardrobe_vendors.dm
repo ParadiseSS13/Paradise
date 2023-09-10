@@ -617,11 +617,14 @@
 	vend_reply = "Thank you for using the JaniDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/janitor = 3,
 					/obj/item/clothing/head/soft/purple = 3,
+					/obj/item/clothing/suit/storage/hazardvest = 2,
 					/obj/item/clothing/gloves/color/black = 3,
 					/obj/item/clothing/shoes/galoshes = 3,
 					/obj/item/storage/belt/janitor = 3)
 	contraband = list(/obj/item/toy/figure/crew/janitor = 1)
-	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50)
+	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50,
+					/obj/item/clothing/suit/storage/hazardvest = 75
+	)
 	refill_canister = /obj/item/vending_refill/janidrobe
 
 /obj/machinery/economy/vending/lawdrobe
