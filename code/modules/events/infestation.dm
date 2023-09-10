@@ -31,6 +31,7 @@
 		if(!A)
 			log_debug("Failed to locate area for infestation event!")
 			kill()
+			return
 		for(var/turf/simulated/floor/F in A.contents)
 			if(turf_clear(F))
 				turfs += F
