@@ -11998,6 +11998,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
 "aIB" = (
@@ -62943,10 +62944,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"eCG" = (
-/mob/living/simple_animal/mouse,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "eDs" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -67048,6 +67045,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/coldroom)
+"gRq" = (
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "gRE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -67757,6 +67758,17 @@
 	icon_state = "bar"
 	},
 /area/station/security/permabrig)
+"hiq" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "hiO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -68180,12 +68192,6 @@
 	icon_state = "cmo"
 	},
 /area/station/maintenance/aft)
-"hvu" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "hvz" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -74570,7 +74576,7 @@
 "lpx" = (
 /obj/structure/rack,
 /obj/item/coin/mime,
-/obj/item/clothing/mask/gas/sexymime,
+/obj/item/clothing/mask/gas/mime,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "lpJ" = (
@@ -76553,17 +76559,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
-"mAb" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "mAq" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -82559,6 +82554,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
+"qdA" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "qdO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -139255,7 +139256,7 @@ iaQ
 aEX
 vPH
 aBf
-mAb
+hiq
 aBf
 hAa
 bir
@@ -140026,7 +140027,7 @@ aGX
 sXm
 fQx
 aGY
-eCG
+gRq
 aOI
 sHt
 sHt
@@ -141050,7 +141051,7 @@ aaa
 aHN
 ove
 aGY
-hvu
+qdA
 buy
 cjD
 aGX
