@@ -200,7 +200,7 @@
 		/datum/job/librarian = /obj/item/organ/internal/cyberimp/brain/speech_translator,
 		/datum/job/detective = /obj/item/organ/internal/eyes/cybernetic/meson,
 		/datum/job/doctor = /obj/item/organ/internal/cyberimp/arm/surgery,
-		/datum/job/geneticist = /obj/item/organ/internal/alien/plasmavessel, //we don't care about implants, we have cancer.
+		/datum/job/geneticist = /obj/item/organ/internal/alien/plasmavessel/hunter, //we don't care about implants, we have cancer.
 		/datum/job/hop = /obj/item/organ/internal/eyes/cybernetic/shield,
 		/datum/job/hos = /obj/item/organ/internal/cyberimp/arm/baton, //not giving them thermals
 		/datum/job/janitor = /obj/item/organ/internal/cyberimp/arm/janitorial, //Not giving them bloody xray

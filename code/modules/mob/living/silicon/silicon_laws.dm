@@ -127,7 +127,7 @@
 
 /mob/living/silicon/proc/make_laws()
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI))
-		return pick_unique_lawset()
+		laws = pick_unique_lawset()
 	if(GLOB.configuration.general.random_ai_lawset)
 		laws = get_random_lawset()
 	else
