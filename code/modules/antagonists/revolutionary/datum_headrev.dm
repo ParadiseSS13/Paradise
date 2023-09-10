@@ -11,6 +11,8 @@
 	if(should_equip)
 		equip_revolutionary()
 
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/revalert.ogg'))
+
 /datum/antagonist/rev/head/on_cryo()
 	var/datum/team/revolution/revolting = get_team()
 	INVOKE_ASYNC(revolting, TYPE_PROC_REF(/datum/team/revolution, process_promotion), REVOLUTION_PROMOTION_AT_LEAST_ONE)
