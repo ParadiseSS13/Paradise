@@ -102,7 +102,7 @@
 	var/sec_diminish = (8 - sec) / 3 // 2 seccies = 2, 5 seccies = 1, 8 seccies = 0
 
 	var/potential = round(heads - sec_diminish) // more sec, increases. more heads, increases
-	var/how_many_more_headrevs = clamp(potential, clamp_at, head_revolutionaries - max_headrevs)
+	var/how_many_more_headrevs = clamp(potential, clamp_at, max_headrevs - head_revolutionaries)
 
 	return how_many_more_headrevs
 
