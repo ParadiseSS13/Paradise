@@ -41,15 +41,8 @@
 	//If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify
 
-	//Various Departmental identifiers
-	var/is_supply
-	var/is_service
-	var/is_command
-	var/is_legal
-	var/is_engineering
-	var/is_medical
-	var/is_science
-	var/is_security
+	/// Flags for identifying by department, because we need other shit that isnt for the database
+	var/job_department_flags
 
 	//If you have use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
 	var/minimal_player_age = 0
