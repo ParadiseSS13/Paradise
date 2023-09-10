@@ -8,3 +8,6 @@
 
 #define BRAIN_DRAIN_LIMIT 120
 #define DRAIN_TIME 1/4 SECONDS
+
+#define isspell(A)			(istype(A, /obj/effect/proc_holder/spell))
+#define ispassive(A)		(istype(A, /datum/mindflayer_passive))

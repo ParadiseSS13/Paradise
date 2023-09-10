@@ -50,7 +50,6 @@
 
 //This is mostly for flavor, for framing messages as coming from the swarm itself.
 /datum/antagonist/mindflayer/proc/send_swarm_message(message)
-	to_chat(owner.current, "<span class='boldnotice'>Your parasites whisper to you...</span>")
 	to_chat(owner.current, "<span class='sinister'>\"" + message + "\"</span>")
 
 /**
@@ -124,22 +123,39 @@
 		powers += passive_path
 	return powers
 
+/**
+* Adds an ability to a mindflayer if they don't already have it, upgrades it if they do.
+* Arguments:
+* * path - Some path to a passive or spell, either datum/mindflayer_passive or obj/effect/proc_holder/spell
+* * set_owner - An optional datum/antagonist/mindflayer if the owner of the new ability needs to be set manually
+*/
 /datum/antagonist/mindflayer/proc/add_ability(path, set_owner = null)
 	if(!get_ability(path)) //TODO: make a working check for if the mindflayer already has the spell you're trying to add
 		force_add_ability(path, set_owner)
+		return
+	force_upgrade_ability(path)
 
 /datum/antagonist/mindflayer/proc/force_add_ability(path, set_owner = null)
 	var/spell = new path(owner)
-	if(istype(spell, /obj/effect/proc_holder/spell))
+	if(isspell(spell))
 		var/obj/effect/proc_holder/spell/flayer/power = spell
 		if(set_owner)
 			power.flayer = src
 		owner.AddSpell(power)
-	if(istype(spell, /datum/mindflayer_passive))
+	if(ispassive(spell))
 		var/datum/mindflayer_passive/passive = spell
 		passive.owner = owner.current
 		passive.on_apply(src)
 	powers += spell
+
+/datum/antagonist/mindflayer/proc/force_upgrade_ability(path)
+	var/spell = get_ability(path)
+	if(isspell(spell))
+		var/obj/effect/proc_holder/spell/flayer/power = spell
+		power.on_purchase_upgrade()
+	if(ispassive(spell))
+		var/datum/mindflayer_passive/passive = spell
+		passive.on_apply(src)
 
 /datum/antagonist/mindflayer/proc/remove_ability(path)
 	if(get_ability(path))
@@ -152,11 +168,12 @@
 	if(istype(spell, (/datum/mindflayer_passive)))
 		var/datum/mindflayer_passive/passive = spell
 		passive.on_remove(src)
+		qdel(passive)
 	powers -= spell
 
 /datum/antagonist/mindflayer/proc/get_ability(path)
-	for(var/datum/power as anything in powers)
-		if(power == path)
+	for(var/power as anything in powers)
+		if(istype(power, path))
 			return power
 	return null
 

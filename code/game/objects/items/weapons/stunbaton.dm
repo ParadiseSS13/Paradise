@@ -322,7 +322,7 @@
 	force = 10
 	throwforce = 0 // Just in case
 	knockdown_duration = 6 SECONDS
-	knockdown_delay = 0.1 SECONDS // Can't do 0 as that will never apply knockdown
+	knockdown_delay = 1 SECONDS // Can't do 0 as that will never apply knockdown
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP
 	turned_on = TRUE
@@ -341,9 +341,9 @@
 	return
 
 /obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown)
-	..()
-	disable_radio(L)
-	addtimer(CALLBACK(src, PROC_REF(enable_radio), L), 5 SECONDS) //Currently, the baton disables radio on hit for 5 seconds, values can be tweaked
+	if(..())
+		disable_radio(L)
+		addtimer(CALLBACK(src, PROC_REF(enable_radio), L), 5 SECONDS) //Currently, the baton disables radio on hit for 5 seconds, values can be tweaked
 
 
 /obj/item/melee/baton/flayerprod/proc/disable_radio(mob/living/L)
@@ -365,6 +365,8 @@
 	return ..()
 
 /obj/item/melee/baton/flayerprod/deductcharge(amount)
+	if(cell.charge < hitcost)
+		return
 	cell.use(amount)
 
 /obj/item/melee/baton/flayerprod/examine(mob/user)
