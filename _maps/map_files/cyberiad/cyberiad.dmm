@@ -62943,6 +62943,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"eCG" = (
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "eDs" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -68176,6 +68180,12 @@
 	icon_state = "cmo"
 	},
 /area/station/maintenance/aft)
+"hvu" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "hvz" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -70361,7 +70371,7 @@
 "iIf" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/portable/canister/sleeping_agent{
-	filled = 0.1
+	filled = 0.01
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -70766,7 +70776,7 @@
 /area/station/maintenance/asmaint)
 "iYz" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "iYO" = (
@@ -71827,6 +71837,9 @@
 "jHT" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "jIE" = (
@@ -76540,6 +76553,17 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
+"mAb" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "mAq" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -85595,7 +85619,7 @@
 "rQm" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide{
-	filled = 0.1
+	filled = 0.01
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -139231,7 +139255,7 @@ iaQ
 aEX
 vPH
 aBf
-aBf
+mAb
 aBf
 hAa
 bir
@@ -140002,7 +140026,7 @@ aGX
 sXm
 fQx
 aGY
-aGY
+eCG
 aOI
 sHt
 sHt
@@ -141026,7 +141050,7 @@ aaa
 aHN
 ove
 aGY
-aGY
+hvu
 buy
 cjD
 aGX
