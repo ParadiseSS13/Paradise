@@ -77,13 +77,13 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			eject()
 			return TRUE
 	else if(iswrench(I))
-		var/turf/T = get_turf(src)
 		if(loaded_tank)
 			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
 			return TRUE
+		var/turf/T = get_turf(src)
 		for(var/obj/machinery/power/rad_collector/can_wrench in T.contents)
 			if(istype(can_wrench, /obj/machinery/power/rad_collector) && can_wrench.anchored && !anchored)
-				to_chat(user, "<span class='notice'>You can't wrench down [src] here!</span?")
+				to_chat(user, "<span class='notice'>You can't wrench down [src] here!</span>")
 				return
 		playsound(loc, I.usesound, 75, TRUE)
 		anchored = !anchored
