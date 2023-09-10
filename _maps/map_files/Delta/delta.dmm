@@ -19,6 +19,19 @@
 	},
 /turf/space,
 /area/station/maintenance/auxsolarstarboard)
+"abA" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/control)
 "abQ" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/starboard2)
@@ -82234,10 +82247,6 @@
 	autolink_id = "enginen_vent"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "fEr" = (
@@ -85663,10 +85672,6 @@
 	autolink_id = "engines_vent"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "jER" = (
@@ -125346,7 +125351,7 @@ bWt
 bUu
 bWt
 bQr
-bZA
+abA
 cbs
 cdm
 bou
