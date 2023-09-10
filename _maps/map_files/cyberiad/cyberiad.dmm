@@ -5144,7 +5144,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70377,7 +70376,7 @@
 "iIf" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/portable/canister/sleeping_agent{
-	filled = 0.01
+	filled = 0.015
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -80430,7 +80429,7 @@
 "oQL" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/machinery/atmospherics/portable/canister/oxygen{
-	filled = 0.1
+	filled = 0.3
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -85620,7 +85619,7 @@
 "rQm" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide{
-	filled = 0.01
+	filled = 0.015
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
