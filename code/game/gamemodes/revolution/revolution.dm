@@ -21,6 +21,7 @@
 	recommended_enemies = 3
 
 	var/finished
+	var/check_counter = 0
 	var/list/pre_revolutionaries = list()
 
 ///////////////////////////
