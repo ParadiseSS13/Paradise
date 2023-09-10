@@ -10222,7 +10222,9 @@
 	name = "Cargo Requests Console";
 	pixel_y = 30
 	},
-/obj/machinery/photocopier/faxmachine,
+/obj/machinery/photocopier/faxmachine{
+	department = "Quartermaster's Office"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
