@@ -53,6 +53,7 @@
 			. = TRUE
 
 /datum/team/revolution/proc/check_all_victory()
+	update_team_objectives()
 	check_rev_victory()
 	check_heads_victory()
 

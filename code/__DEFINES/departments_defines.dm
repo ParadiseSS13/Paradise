@@ -20,7 +20,7 @@
 
 
 // ---- Unused, but here is an easy way to transfer from the department string,
-// 		to the corresponding bitflagif it has one.
+// 		to the corresponding bitflag if it has one.
 
 // GLOBAL_LIST_INIT(department_str_to_flag, list(
 // 	DEPARTMENT_ENGINEERING = DEP_FLAG_ENGINEERING,

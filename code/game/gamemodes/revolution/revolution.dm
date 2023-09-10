@@ -70,6 +70,14 @@
 	pre_revolutionaries.Cut()
 	return ..()
 
+/datum/game_mode/revolution/process() // to anyone who thinks "why don't we use a normal actually sane check here instead of process for checking Z level changes" It's because equip code is dogshit and you change z levels upon spawning in
+	check_counter++
+	if(check_counter >= 5)
+		if(!finished)
+			rev_team.check_all_victory()
+		check_counter = 0
+	return FALSE
+
 /datum/game_mode/proc/get_rev_team()
 	if(!rev_team)
 		rev_team = new /datum/team/revolution()

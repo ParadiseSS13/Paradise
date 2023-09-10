@@ -657,7 +657,7 @@ SUBSYSTEM_DEF(jobs)
 			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 				jobs_to_formats[job.title] = "grey"
 			else if(!job.transfer_allowed)
-				jobs_to_formats[job.title] = "grey" // jobs which shouldnt be transferred into for whatever reason, likely due to high hour requirementss
+				jobs_to_formats[job.title] = "grey" // jobs which shouldnt be transferred into for whatever reason, likely due to high hour requirements
 			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.get_exp_restrictions(M.client))
 				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != "Assistant")
