@@ -5,7 +5,9 @@
 	. += dna.species.movement_delay(src)
 	if(isobj(pulling) && has_gravity(pulling))
 		var/obj/pulled = pulling
-		if(!istype(get_turf(src), /turf/simulated/floor/bluespace))
+
+		var/turf/simulated/floor/T = get_turf(src)
+		if(!HAS_TRAIT(T, TRAIT_BLUESPACE_SPEED))
 			. += pulled.pull_speed
 
 

@@ -270,6 +270,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CLOWN_EMAG "clown_emag"
 #define MODSUIT_TRAIT "modsuit_trait"
 
+
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_TABLE_LEAP "table_leap"
@@ -292,3 +293,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CANNOT_PULL "pullblocked"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
+
+//***** TURF TRAITS *****//
+/// Removes slowdown while walking on these tiles.
+#define TRAIT_BLUESPACE_SPEED "bluespace_speed_trait"
+
+// turf trait sources
+#define FLOOR_EFFECT_TRAIT "floor_effect_trait"

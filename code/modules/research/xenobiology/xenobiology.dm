@@ -592,6 +592,10 @@
 	desc = "Through a series of micro-teleports, these tiles allow you to move things that would otherwise slow you down."
 	floor_tile = /obj/item/stack/tile/bluespace
 
+/turf/simulated/floor/bluespace/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_BLUESPACE_SPEED, FLOOR_EFFECT_TRAIT)
+
 
 /obj/item/stack/tile/sepia
 	name = "sepia floor tile"

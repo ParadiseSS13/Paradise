@@ -289,7 +289,9 @@
 	var/flight = H.flying	//Check for flight and flying items
 
 	ADD_SLOWDOWN(speed_mod)
-	if(!istype(get_turf(H), /turf/simulated/floor/bluespace))
+
+	var/turf/simulated/floor/T = get_turf(H)
+	if(!HAS_TRAIT(T, TRAIT_BLUESPACE_SPEED))
 		if(H.wear_suit)
 			ADD_SLOWDOWN(H.wear_suit.slowdown)
 		if(H.head)
