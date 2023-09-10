@@ -22,6 +22,7 @@
 	else
 		log_debug("Couldn't announce brand intelligence -- no machine was selected, and it wasn't a false alarm! Killing event.")
 		kill()
+		return
 
 	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [alarm_source] vendor.", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
 
