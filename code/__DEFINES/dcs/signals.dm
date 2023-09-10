@@ -712,6 +712,9 @@
 #define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
+/// Sent from mob/living/carbon/human/do_cpr(): (mob/living/carbon/human/H, new_seconds_of_life)
+#define COMSIG_HUMAN_RECEIVE_CPR "human_receive_cpr"
+
 ///From mob/living/carbon/human/attackedby(): (mob/living/carbon/human/attacker). Also found on species/disarm and species/harm
 #define COMSIG_HUMAN_ATTACKED "human_attacked"
 

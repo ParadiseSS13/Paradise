@@ -19,7 +19,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/emergencyEscapeTime = SHUTTLE_ESCAPETIME	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 	var/emergency_sec_level_time = 0 // time sec level was last raised to red or higher
 	var/area/emergencyLastCallLoc
-	var/emergencyNoEscape
+	/// Things blocking escape shuttle from leaving.
+	var/list/hostile_environments = list()
 
 	//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply
@@ -182,6 +183,12 @@ SUBSYSTEM_DEF(shuttle)
 			emergency.request(null, 2.5)
 			log_game("There is no means of calling the shuttle anymore. Shuttle automatically called.")
 			message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
+
+/datum/controller/subsystem/shuttle/proc/registerHostileEnvironment(datum/bad)
+	hostile_environments |= bad
+
+/datum/controller/subsystem/shuttle/proc/clearHostileEnvironment(datum/bad)
+	hostile_environments -= bad
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)

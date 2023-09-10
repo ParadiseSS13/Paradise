@@ -896,15 +896,26 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(alert(usr, "Do you want to [SSshuttle.emergencyNoEscape ? "ALLOW" : "DENY"] shuttle calls?", "Toggle Deny Shuttle", "Yes", "No") != "Yes")
+	var/alert = alert(usr, "Do you want to ALLOW or DENY shuttle calls?", "Toggle Deny Shuttle", "Allow", "Deny", "Cancel")
+	if(alert == "Cancel")
 		return
 
-	if(SSshuttle)
-		SSshuttle.emergencyNoEscape = !SSshuttle.emergencyNoEscape
-
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deny Shuttle")
-	log_admin("[key_name(src)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
-	message_admins("[key_name_admin(usr)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
+
+	if(alert == "Allow")
+		if(!length(SSshuttle.hostile_environments))
+			to_chat(usr, "<span class='notice'>No hostile environments found, cleared for takeoff!</span>")
+			return
+		if(alert(usr, "[english_list(SSshuttle.hostile_environments)] is currently blocking the shuttle call, do you want to clear them?", "Toggle Deny Shuttle", "Yes", "No") == "Yes")
+			SSshuttle.hostile_environments.Cut()
+			var/log = "[key_name(src)] has cleared all hostile environments, allowing the shuttle to be called."
+			log_admin(log)
+			message_admins(log)
+		return
+
+	SSshuttle.registerHostileEnvironment(src) // wow, a client blocking the shuttle
+
+	log_and_message_admins("has denied the shuttle to be called.")
 
 /client/proc/cmd_admin_attack_log(mob/M as mob in GLOB.mob_list)
 	set category = "Admin"
