@@ -419,11 +419,20 @@
 /datum/uplink_item/stealthy_tools/voice_modulator
 	name = "Chameleon Voice Modulator Mask"
 	desc = "A syndicate tactical mask equipped with chameleon technology and a sound modulator for disguising your voice. \
-			While the mask is active, your voice will sound unrecognizable to others"
+			While the mask is active, your voice will sound unrecognizable to others."
 	reference = "CVMM"
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_tools/silicon_cham_suit
+	name = "\"Big Brother\" Obfuscation Suit"
+	desc = "A syndicate tactical suit equipped with the latest in anti-silicon technology and, allegedly, biological technology learned from the Changeling Hivemind. \
+			While this suit is worn, you will be unable to be tracked or seen by on-Station AI."
+	reference = "BBOS"
+	item = /obj/item/clothing/under/syndicate/silicon_cham
+	cost = 20
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
@@ -565,12 +574,20 @@
 	cost = 200
 	crate_value = 625
 
+#define RECURSION_PANIC_AMOUNT 10
+
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
 	var/list/temp_uplink_list = get_uplink_items(U)
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
+
+	if(!length(buyable_items)) // UH OH.
+		fucked_shit_up_alert(loc, "[src] spawning failed: had no buyable items on purchase which would have caused an infinite loop, refunding [cost] telecrystals instead. (Original cost of the crate). Report this to coders please.")
+		generate_refund(cost, C)
+		return
+
 	var/remaining_TC = crate_value
 	var/list/bought_items = list()
 	var/list/itemlog = list()
@@ -578,23 +595,62 @@
 	U.used_TC = cost
 
 	var/datum/uplink_item/I
+	var/danger_counter = 0 // lets make sure we dont get into an infinite loop...
 	while(remaining_TC)
+		if(danger_counter > RECURSION_PANIC_AMOUNT)
+			fucked_shit_up_alert(loc, "[src] spawning failed: approached an infinite loop by cost checking, giving the remaining [remaining_TC] telecrystals instead.")
+			generate_refund(remaining_TC, C)
+			break
+		if(!length(buyable_items))
+			fucked_shit_up_alert(loc, "[src] spawning failed: ran out of buyable items while looping, refunding [cost] telecrystals and cancelling crate. (Original cost of the crate). Report this to coders please.")
+			generate_refund(cost, C)
+			bought_items.Cut()
+			break
 		I = pick(buyable_items)
-		if(!I.surplus || prob(100 - I.surplus))
+		if(!I.surplus)
+			buyable_items -= I
 			continue
 		if(I.cost > remaining_TC)
+			danger_counter++
+			buyable_items -= I
+			continue
+		if(prob(100 - I.surplus))
 			continue
 		if((I.item in bought_items) && prob(33)) //To prevent people from being flooded with the same thing over and over again.
 			continue
 		bought_items += I.item
 		remaining_TC -= I.cost
 		itemlog += I.name // To make the name more readable for the log compared to just i.item
+		danger_counter = 0
 
 	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
 		var/obj/purchased = new item(C)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
 	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
+
+/datum/uplink_item/bundles_TC/surplus_crate/proc/generate_refund(amount, crate)
+	var/changing_amount = amount
+	var/obj/item/stack/telecrystal/TC
+	var/prohibitor = 0
+	while(changing_amount >= 1)
+		var/give_amount = min(changing_amount, initial(TC.max_amount))
+		changing_amount -= give_amount
+		new /obj/item/stack/telecrystal(crate, give_amount)
+		if(prohibitor > RECURSION_PANIC_AMOUNT) // idk how they got 1000+ tc, dont ask me
+			new /obj/item/stack/telecrystal(crate, changing_amount)
+			// Return of Bogdanoff: doomp it
+			var/turf/T = get_turf(crate)
+			message_admins("While refunding telecrystals, [src] went over the expected limit, for a total of [amount] TC. Expected refund is likely [cost]. [ADMIN_COORDJMP(T)]")
+			break
+		prohibitor++
+
+/datum/uplink_item/bundles_TC/surplus_crate/proc/fucked_shit_up_alert(turf/loc, msg) // yeah just fuckin tell everyone, this shit is bad
+	stack_trace(msg)
+	message_admins("[msg] [ADMIN_COORDJMP(loc)]")
+	log_admin(msg)
+
+#undef RECURSION_PANIC_AMOUNT
 
 
 // -----------------------------------
