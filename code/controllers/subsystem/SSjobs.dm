@@ -632,7 +632,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/announce_department_accounts(users_departments, mob/living/H, datum/job/job)
 	var/remembered_info = ""
 	for(var/datum/station_department/department as anything in users_departments)
-		if(job.title != department.head_of_staff && job.title != "Quartermaster")
+		if(job.title != department.head_of_staff)
 			continue
 		var/datum/money_account/department_account = department.department_account
 		if(!department_account)

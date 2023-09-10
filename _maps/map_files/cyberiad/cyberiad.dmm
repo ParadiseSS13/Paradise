@@ -35184,10 +35184,10 @@
 	},
 /area/station/science/robotics)
 "bRo" = (
-/obj/structure/closet/secure_closet/quartermaster,
 /obj/machinery/camera{
 	c_tag = "Quartermaster's Office"
 	},
+/obj/machinery/computer/card/minor/qm,
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bRp" = (
@@ -35336,6 +35336,11 @@
 "bRW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
@@ -36004,6 +36009,16 @@
 /area/station/supply/storage)
 "bTs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bTu" = (
@@ -36160,9 +36175,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/pdapainter,
-/turf/simulated/floor/carpet,
-/area/station/command/office/hop)
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/station/supply/qm)
 "bTL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -36774,6 +36791,11 @@
 	name = "east bump";
 	pixel_x = 24;
 	pixel_y = -5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
@@ -37430,9 +37452,7 @@
 /obj/machinery/keycard_auth{
 	pixel_x = -24
 	},
-/obj/machinery/computer/security/mining{
-	dir = 4
-	},
+/obj/machinery/pdapainter,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
@@ -37467,7 +37487,14 @@
 /area/station/supply/storage)
 "bXf" = (
 /obj/structure/table,
-/obj/item/flashlight/lamp/green,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/keycard_auth{
+	pixel_y = -28
+	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bXh" = (
@@ -38027,6 +38054,16 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bYs" = (
@@ -38162,6 +38199,7 @@
 /area/station/supply/office)
 "bYL" = (
 /obj/effect/spawner/window/reinforced,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
 "bYM" = (
@@ -41536,6 +41574,16 @@
 /area/station/supply/miningdock)
 "ciu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "ciy" = (
@@ -64376,14 +64424,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "fnX" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Quartermaster";
-	req_access_txt = "41"
-	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "qm"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/command/glass,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "fog" = (
@@ -64676,6 +64723,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
+"fxC" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "fxD" = (
 /obj/machinery/camera{
 	c_tag = "Research Access";
@@ -65298,6 +65355,11 @@
 /area/station/command/office/rd)
 "fPF" = (
 /obj/structure/filingcabinet,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -68196,7 +68258,6 @@
 	},
 /area/station/medical/surgery)
 "hyR" = (
-/obj/structure/table,
 /obj/item/toy/figure/crew/cargotech,
 /obj/item/cartridge/quartermaster,
 /obj/item/cartridge/quartermaster{
@@ -68206,6 +68267,17 @@
 /obj/item/cartridge/quartermaster{
 	pixel_x = 6;
 	pixel_y = 5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/closet/secure_closet/quartermaster,
+/obj/item/toy/figure/crew/qm,
+/obj/item/coin/silver{
+	pixel_y = 5;
+	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -70635,6 +70707,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "qm"
 	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
 "jdz" = (
@@ -72268,6 +72344,11 @@
 	dir = 8;
 	name = "east bump";
 	pixel_x = 28
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -75502,10 +75583,6 @@
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/chamber)
 "mkM" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Quartermaster";
-	req_access_txt = "41"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -75524,6 +75601,9 @@
 	id = "qm"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/command/glass,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "mlv" = (
@@ -77391,6 +77471,17 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "nBI" = (
@@ -81703,6 +81794,16 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -85367,6 +85468,11 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "sCW" = (
@@ -86850,6 +86956,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "twu" = (
@@ -87887,12 +87998,10 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/table,
-/obj/item/coin/silver{
-	pixel_y = 5;
-	pixel_x = 3
+/obj/machinery/photocopier/faxmachine{
+	department = "Quartermaster's Office"
 	},
-/obj/item/toy/figure/crew/qm,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -89839,7 +89948,12 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "vnZ" = (
-/obj/item/kirbyplants,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -92824,6 +92938,11 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -115133,7 +115252,7 @@ bXf
 bYr
 nBz
 xoE
-nxg
+bTK
 nxg
 tZo
 bYM
@@ -115900,8 +116019,8 @@ bWO
 bKB
 bYM
 bYM
-jdi
-jdi
+fxC
+fxC
 bYM
 bYM
 vnZ
@@ -116161,7 +116280,7 @@ bVr
 bWW
 bYG
 bzJ
-jdi
+fxC
 mkM
 bYM
 bYM
@@ -121039,7 +121158,7 @@ bMG
 bOC
 bQl
 bVc
-bTK
+bTD
 bVy
 bWZ
 bYV
