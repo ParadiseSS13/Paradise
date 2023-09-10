@@ -514,8 +514,7 @@
 			continue
 		trait_list_string += "[station_trait.get_report()]<BR>"
 	if(trait_list_string != "")
-		print_command_report("<hr><b>Identified shift divergencies:</b><BR>" + trait_list_string, "NAS Trurl Detected Divergencies", FALSE)
-	return
+	print_command_report("<hr><b>Identified shift divergencies:</b><BR>" + trait_list_string, "NAS Trurl Detected Divergencies", FALSE)
 
 
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)

@@ -45,9 +45,9 @@
 /obj/item/storage/box/survival/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
-		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)

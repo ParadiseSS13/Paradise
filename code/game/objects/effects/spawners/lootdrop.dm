@@ -7,7 +7,6 @@
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
 	. = ..()
-
 	while(lootcount)
 		var/lootspawn = pickweight(loot)
 		if(!lootdoubles)

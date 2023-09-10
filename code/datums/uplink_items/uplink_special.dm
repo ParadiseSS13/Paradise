@@ -13,4 +13,4 @@
 /datum/uplink_item/special/autosurgeon/New()
 	..()
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
-		excludefrom |= UPLINK_TYPE_TRAITOR
+		excludefrom -= UPLINK_TYPE_TRAITOR
