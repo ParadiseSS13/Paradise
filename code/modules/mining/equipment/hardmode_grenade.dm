@@ -7,7 +7,7 @@
 
 /obj/item/grenade/megafauna_hardmode/prime()
 	update_mob()
-	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
+	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
 	for(var/mob/living/simple_animal/hostile/megafauna/M in range(7, src))
 		M.enrage()
 		visible_message("<span class='userdanger'>[M] begins to wake up as the nanomachines enter them, it looks pissed!</span>")

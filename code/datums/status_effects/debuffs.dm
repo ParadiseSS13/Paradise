@@ -1008,7 +1008,7 @@
 		var/mob/living/carbon/human/H = owner
 		H.bleed(0.33)
 	if(prob(5))
-		to_chat(owner, "<span class='userdanger'>[pick("You feel your sins crawling on your back.", "You felt your sins weighing on your neck", "You feel your blood pulsing inside you", "<b>YOU'LL NEVER ESCAPE ME</b>", "<b>YOU'LL DIE FOR INSULTING ME LIKE THIS</b>")]</span>")
+		to_chat(owner, "<span class='userdanger'>[pick("You feel your sins crawling on your back.", "You felt your sins weighing on your neck.", "You feel your blood pulsing inside you.", "<b>YOU'LL NEVER ESCAPE ME</b>", "<b>YOU'LL DIE FOR INSULTING ME LIKE THIS</b>")]</span>")
 
 /datum/status_effect/bubblegum_curse/on_remove()
 	owner.clear_fullscreen("Bubblegum")
@@ -1040,7 +1040,7 @@
 	SLEEP_CHECK_QDEL(2 SECONDS)
 	to_chat(owner, "<span class='colossus'><b>I thought you wanted a true fight?</b></span>")
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>Perhaps I was mistaken</b></span>")
+	to_chat(owner, "<span class='colossus'><b>Perhaps I was mistaken.</b></span>")
 	SLEEP_CHECK_QDEL(2 SECONDS)
 	to_chat(owner, "<span class='colossus'><b>You are a coward who does not want a fight...</b></span>")
 	SLEEP_CHECK_QDEL(2 SECONDS)
