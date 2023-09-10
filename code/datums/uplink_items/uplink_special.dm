@@ -8,7 +8,7 @@
 	name = "Syndicate Autosurgeon"
 	desc = "A multi-use autosurgeon for implanting whatever you want into yourself. Rip that station apart and make it part of you."
 	item = /obj/item/autosurgeon/organ/syndicate
-	cost = 5
+	cost = 25
 
 /datum/uplink_item/special/autosurgeon/New()
 	..()
