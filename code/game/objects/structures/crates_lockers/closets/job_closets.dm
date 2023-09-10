@@ -121,6 +121,8 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
+	new /obj/item/clothing/suit/storage/hazardvest/paramed(src)
+	new /obj/item/clothing/suit/storage/hazardvest/paramed(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/clothing/suit/storage/labcoat/emt(src)
