@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_supply = 1
-	supervisors = "the Captain"
+	supervisors = "the captain"
 	department_head = list("Captain")
 	department_account_access = TRUE
 	selection_color = "#e2c59d"
