@@ -845,6 +845,12 @@ STATUS EFFECTS
 		singlemutcheck(src, block, MUTCHK_FORCED)
 		dna.UpdateSE()
 
+// Revivability
+
+
+/mob/living/proc/is_revivable()
+	return has_status_effect(/datum/status_effect/limited_bonus/revivable)
+
 ///////////////////////////////// FROZEN /////////////////////////////////////
 
 /mob/living/proc/IsFrozen()

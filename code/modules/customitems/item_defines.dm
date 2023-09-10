@@ -202,37 +202,35 @@
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
+// Custom zippo lighters
+/obj/item/lighter/zippo/fluff
+	name = "custom zippo"
+	desc = "A custom made zippo lighter."
+	icon = 'icons/obj/custom_items.dmi'
+
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
 	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "purple_zippo_off"
-	icon_on = "purple_zippo_on"
-	icon_off = "purple_zippo_off"
+	icon_state = "zippo-purple"
+	item_state = "zippo-purple"
 
 /obj/item/lighter/zippo/fluff/michael_guess_1 // mrbits: Callista Gold
 	name = "engraved lighter"
 	desc = "A golden lighter, engraved with some ornaments and a G."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "guessip"
-	icon_on = "guessipon"
-	icon_off = "guessip"
+	icon_state = "zippo-guess"
+	item_state = "zippo-gold"
 
 /obj/item/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
 	name = "Monogrammed Zippo"
 	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "rybysfluff"
-	icon_on = "rybysfluffopen"
-	icon_off = "rybysfluff"
+	icon_state = "zippo-duckchan"
+	item_state = "zippo-purple"
 
 /obj/item/lighter/zippo/fluff/warriorstar // Warriorstar: DEADLOCK
 	name = "zippo"
 	desc = "The lighter is made of a pastel purple metal which seems to glimmer even in complete darkness."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "deadlock_zippo"
-	icon_on = "deadlock_zippo_on"
-	icon_off = "deadlock_zippo"
+	icon_state = "zippo-warriorstar"
+	item_state = "zippo-purple"
 
 /obj/item/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
