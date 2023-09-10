@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	name = "empty sandbag"
 	desc = "A bag to be filled with sand."
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
-	icon_state = "sandbag"
+	icon_state = "empty-sandbags"
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/emptysandbag/attackby(obj/item/I, mob/user, params)

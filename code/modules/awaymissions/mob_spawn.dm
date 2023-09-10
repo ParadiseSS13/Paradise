@@ -301,193 +301,10 @@
 	roundstart = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
 
 
-//Non-human spawners
+//////////Alive ones, used as "core" for ghost roles now and in future.//////////
 
-/obj/effect/mob_spawn/mouse
-	name = "sleeper"
-	mob_name = "space mouse"
-	mob_type = 	/mob/living/simple_animal/mouse
-	death = FALSE
-	roundstart = FALSE
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "Squeak!"
-
-/obj/effect/mob_spawn/cow
-	name = "sleeper"
-	mob_name = "space cow"
-	mob_type = 	/mob/living/simple_animal/cow
-	death = FALSE
-	roundstart = FALSE
-	mob_gender = FEMALE
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "Moo!"
-
-
-///////////Civilians//////////////////////
-
-/obj/effect/mob_spawn/human/corpse/assistant
-	name = "Assistant"
-	mob_name = "Assistant"
-	id_job = "Assistant"
-	outfit = /datum/outfit/job/assistant
-
-/obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
-	disease = /datum/disease/beesease
-
-/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection
-	disease = /datum/disease/brainrot
-
-/obj/effect/mob_spawn/human/corpse/assistant/spanishflu_infection
-	disease = /datum/disease/fluspanish
-
-/obj/effect/mob_spawn/human/cook
-	name = "Cook"
-	mob_name = "Chef"
-	id_job = "Chef"
-	outfit = /datum/outfit/job/chef
-
-/obj/effect/mob_spawn/human/doctor
-	name = "Doctor"
-	mob_name = "Medical Doctor"
-	id_job = "Medical Doctor"
-	outfit = /datum/outfit/job/doctor
-
-/obj/effect/mob_spawn/human/doctor/alive
-	death = FALSE
-	roundstart = FALSE
-	random = TRUE
-	name = "sleeper"
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "You are a space doctor!"
-	assignedrole = "Space Doctor"
-
-/obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
-	..()
-	// Remove radio and PDA so they wouldn't annoy station crew.
-	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
-	for(var/del_type in del_types)
-		var/obj/item/I = locate(del_type) in H
-		qdel(I)
-
-/obj/effect/mob_spawn/human/engineer
-	name = "Engineer"
-	mob_name = "Engineer"
-	id_job = "Engineer"
-	outfit = /datum/outfit/job/engineer
-
-/obj/effect/mob_spawn/human/engineer/hardsuit
-	outfit = /datum/outfit/job/engineer/suit
-
-/datum/outfit/job/engineer/suit
-	name = "Station Engineer"
-
-	uniform = /obj/item/clothing/under/rank/engineering/engineer
-	belt = /obj/item/storage/belt/utility/full
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
-	shoes = /obj/item/clothing/shoes/workboots
-	mask = /obj/item/clothing/mask/breath
-	id = /obj/item/card/id/engineering
-	l_pocket = /obj/item/t_scanner
-
-	backpack = /obj/item/storage/backpack/industrial
-
-
-/obj/effect/mob_spawn/human/clown
-	name = "Clown"
-	mob_name = "Clown"
-	id_job = "Clown"
-	outfit = /datum/outfit/job/clown
-
-/obj/effect/mob_spawn/human/clown/Initialize()
-	mob_name = pick(GLOB.clown_names)
-	return ..()
-
-/obj/effect/mob_spawn/human/corpse/clownmili
-	name = "Clown Soldier"
-	outfit = /datum/outfit/clownsoldier
-
-/obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
-	mob_name = "Officer [pick(GLOB.clown_names)]"
-	return ..()
-
-/obj/effect/mob_spawn/human/corpse/clownoff
-	name = "Clown Officer"
-	outfit = /datum/outfit/clownofficer
-
-/obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
-	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
-	return ..()
-
-
-/datum/outfit/clownsoldier
-	name = "Clown Soldier"
-	uniform = /obj/item/clothing/under/costume/soldieruniform
-	suit = /obj/item/clothing/suit/soldiercoat
-	shoes = /obj/item/clothing/shoes/clown_shoes
-	l_ear = /obj/item/radio/headset
-	mask = /obj/item/clothing/mask/gas/clown_hat
-	l_pocket = /obj/item/bikehorn
-	back = /obj/item/storage/backpack/clown
-	head = /obj/item/clothing/head/stalhelm
-
-/datum/outfit/clownofficer
-	name = "Clown Officer"
-	uniform = /obj/item/clothing/under/costume/officeruniform
-	suit = /obj/item/clothing/suit/officercoat
-	shoes = /obj/item/clothing/shoes/clown_shoes
-	l_ear = /obj/item/radio/headset
-	mask = /obj/item/clothing/mask/gas/clown_hat
-	l_pocket = /obj/item/bikehorn
-	back = /obj/item/storage/backpack/clown
-	head = /obj/item/clothing/head/armyofficer
-
-/obj/effect/mob_spawn/human/mime
-	name = "Mime"
-	mob_name = "Mime"
-	id_job = "Mime"
-	outfit = /datum/outfit/job/mime
-
-/obj/effect/mob_spawn/human/mime/Initialize()
-	mob_name = pick(GLOB.mime_names)
-	return ..()
-
-/obj/effect/mob_spawn/human/scientist
-	name = "Scientist"
-	mob_name = "Scientist"
-	id_job = "Scientist"
-	outfit = /datum/outfit/job/scientist
-
-/obj/effect/mob_spawn/human/miner
-	name = "Shaft Miner"
-	mob_name = "Shaft Miner"
-	id_job = "Shaft Miner"
-	outfit = /datum/outfit/job/mining/suit
-
-/datum/outfit/job/mining/suit
-	name = "Shaft Miner"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
-	uniform = /obj/item/clothing/under/rank/cargo/miner
-	gloves = /obj/item/clothing/gloves/fingerless
-	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/radio/headset/headset_cargo/mining
-	id = /obj/item/card/id/shaftminer
-	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
-	r_pocket = /obj/item/flashlight/seclite
-
-/obj/effect/mob_spawn/human/miner/explorer
-	outfit = /datum/outfit/job/mining/equipped
-
-/obj/effect/mob_spawn/human/bartender
-	name = "Space Bartender"
-	mob_name = "Bartender"
-	id_job = "Bartender"
-	id_access_list = list(ACCESS_BAR)
-	outfit = /datum/outfit/spacebartender
-
-/obj/effect/mob_spawn/human/bartender/alive
+//Lavaland Bartender (ghost role).
+/obj/effect/mob_spawn/human/alive/bartender
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
@@ -499,29 +316,8 @@
 	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
 	assignedrole = "Space Bartender"
 
-/obj/effect/mob_spawn/human/beach/alive/lifeguard
-	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell. \
-	You aren't trained for this, but you'll still keep your guests alive!"
-	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
-	mob_gender = "female"
-	name = "lifeguard sleeper"
-	id_job = "Lifeguard"
-	uniform = /obj/item/clothing/under/pants/shorts/red
-
-/datum/outfit/spacebartender
-	name = "Space Bartender"
-	uniform = /obj/item/clothing/under/rank/civilian/bartender
-	suit = /obj/item/clothing/suit/armor/vest
-	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
-	id = /obj/item/card/id
-
-
-/obj/effect/mob_spawn/human/beach
-	outfit = /datum/outfit/beachbum
-
-/obj/effect/mob_spawn/human/beach/alive
+//Lavaland Beach Turist(?) (ghost role).
+/obj/effect/mob_spawn/human/alive/beach
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
@@ -534,79 +330,17 @@
 	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
 	assignedrole = "Beach Bum"
 
-/datum/outfit/beachbum
-	name = "Beach Bum"
-	glasses = /obj/item/clothing/glasses/sunglasses
+//Lavaland Beach Guard (ghost role).
+/obj/effect/mob_spawn/human/alive/beach/lifeguard
+	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell. \
+	You aren't trained for this, but you'll still keep your guests alive!"
+	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
+	mob_gender = "female"
+	name = "lifeguard sleeper"
+	id_job = "Lifeguard"
 	uniform = /obj/item/clothing/under/pants/shorts/red
 
-/////////////////Spooky Undead//////////////////////
-
-/obj/effect/mob_spawn/human/skeleton
-	name = "skeletal remains"
-	mob_name = "skeleton"
-	mob_species = /datum/species/skeleton/brittle
-	mob_gender = NEUTER
-
-/obj/effect/mob_spawn/human/skeleton/alive
-	death = FALSE
-	roundstart = FALSE
-	icon = 'icons/effects/blood.dmi'
-	mob_species = /datum/species/skeleton
-	icon_state = "remains"
-	description = "Be a spooky scary skeleton."	//not mapped in anywhere so admin spawner, who knows what they'll use this for.
-	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
-	assignedrole = "Skeleton"
-
-/////////////////Officers//////////////////////
-
-/obj/effect/mob_spawn/human/bridgeofficer
-	name = "Bridge Officer"
-	mob_name = "Bridge Officer"
-	id_job = "Bridge Officer"
-	id_access = "Captain"
-	outfit = /datum/outfit/nanotrasenbridgeofficercorpse
-
-/datum/outfit/nanotrasenbridgeofficercorpse
-	name = "Bridge Officer Corpse"
-	l_ear = /obj/item/radio/headset/heads/hop
-	uniform = /obj/item/clothing/under/rank/centcom
-	suit = /obj/item/clothing/suit/armor/bulletproof
-	shoes = /obj/item/clothing/shoes/black
-	glasses = /obj/item/clothing/glasses/sunglasses
-	id = /obj/item/card/id
-
-
-/obj/effect/mob_spawn/human/commander
-	name = "Commander"
-	mob_name = "Commander"
-	id_job = "Commander"
-	id_access = "Captain"
-	outfit = /datum/outfit/nanotrasencommandercorpse
-
-/datum/outfit/nanotrasencommandercorpse
-	name = "Commander Corpse"
-
-	uniform = /obj/item/clothing/under/rank/centcom/officer
-	gloves =  /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/centcom
-	head = /obj/item/clothing/head/beret/centcom/officer
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/card/id/centcom
-
-
-
-/obj/effect/mob_spawn/human/abductor
-	name = "abductor"
-	mob_name = "alien"
-	mob_species = /datum/species/abductor
-	outfit = /datum/outfit/abductorcorpse
-
-/datum/outfit/abductorcorpse
-	name = "Abductor Corpse"
-	uniform = /obj/item/clothing/under/color/grey
-	shoes = /obj/item/clothing/shoes/combat
-
-//For ghost bar.
+//Space(?) Bar Patron (ghost role).
 /obj/effect/mob_spawn/human/alive/space_bar_patron
 	name = "Bar cryogenics"
 	mob_name = "Bar patron"
@@ -630,3 +364,288 @@
 	shoes = /obj/item/clothing/shoes/black
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+
+//Lavaland Animal Doctor (ghost role).
+/obj/effect/mob_spawn/human/alive/doctor
+	death = FALSE
+	roundstart = FALSE
+	random = TRUE
+	name = "sleeper"
+	icon = 'icons/obj/cryogenic2.dmi'
+	icon_state = "sleeper"
+	flavour_text = "You are a space doctor!"
+	assignedrole = "Space Doctor"
+
+/obj/effect/mob_spawn/human/alive/doctor/equip(mob/living/carbon/human/H)
+	..()
+	// Remove radio and PDA so they wouldn't annoy station crew.
+	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
+	for(var/del_type in del_types)
+		var/obj/item/I = locate(del_type) in H
+		qdel(I)
+
+//Spooky Scary Skeleton...
+/obj/effect/mob_spawn/human/alive/skeleton
+	death = FALSE
+	roundstart = FALSE
+	icon = 'icons/mob/simple_human.dmi'
+	mob_species = /datum/species/skeleton
+	icon_state = "skeleton"
+	description = "Be a spooky scary skeleton."	//not mapped in anywhere so admin spawner, who knows what they'll use this for.
+	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
+	assignedrole = "Skeleton"
+
+//////////Corpses, they can be used for "decoration" purpose.//////////
+
+//Default Abductor corpse.
+/obj/effect/mob_spawn/human/corpse/abductor
+	name = "abductor"
+	mob_name = "alien"
+	mob_species = /datum/species/abductor
+	outfit = /datum/outfit/abductorcorpse
+
+/datum/outfit/abductorcorpse
+	name = "Abductor Corpse"
+	uniform = /obj/item/clothing/under/color/grey
+	shoes = /obj/item/clothing/shoes/combat
+
+//Assistant Corpse
+/obj/effect/mob_spawn/human/corpse/assistant
+	name = "Assistant"
+	mob_name = "Assistant"
+	id_job = "Assistant"
+	outfit = /datum/outfit/job/assistant
+
+//Yes you guess it, they have disease in corpse.
+/obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
+	disease = /datum/disease/beesease
+
+/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection
+	disease = /datum/disease/brainrot
+
+/obj/effect/mob_spawn/human/corpse/assistant/spanishflu_infection
+	disease = /datum/disease/fluspanish
+
+//Bartender corpse.
+/obj/effect/mob_spawn/human/corpse/bartender
+	name = "Space Bartender"
+	mob_name = "Bartender"
+	id_job = "Bartender"
+	id_access_list = list(ACCESS_BAR)
+	outfit = /datum/outfit/spacebartender
+
+/datum/outfit/spacebartender
+	name = "Space Bartender"
+	uniform = /obj/item/clothing/under/rank/civilian/bartender
+	suit = /obj/item/clothing/suit/armor/vest
+	belt = /obj/item/storage/belt/bandolier/full
+	shoes = /obj/item/clothing/shoes/black
+	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	id = /obj/item/card/id
+
+//Lavaland Beach Turist (?) corpse.
+/obj/effect/mob_spawn/human/corpse/beach
+	outfit = /datum/outfit/beachbum
+
+/datum/outfit/beachbum
+	name = "Beach Bum"
+	glasses = /obj/item/clothing/glasses/sunglasses
+	uniform = /obj/item/clothing/under/pants/shorts/red
+
+//Bridge Officer corpse.
+/obj/effect/mob_spawn/human/corpse/bridgeofficer
+	name = "Bridge Officer"
+	mob_name = "Bridge Officer"
+	id_job = "Bridge Officer"
+	id_access = "Captain"
+	outfit = /datum/outfit/nanotrasenbridgeofficercorpse
+
+/datum/outfit/nanotrasenbridgeofficercorpse
+	name = "Bridge Officer Corpse"
+	l_ear = /obj/item/radio/headset/heads/hop
+	uniform = /obj/item/clothing/under/rank/centcom
+	suit = /obj/item/clothing/suit/armor/bulletproof
+	shoes = /obj/item/clothing/shoes/black
+	glasses = /obj/item/clothing/glasses/sunglasses
+	id = /obj/item/card/id
+
+//Clown corpse.
+/obj/effect/mob_spawn/human/corpse/clown
+	name = "Clown"
+	mob_name = "Clown"
+	id_job = "Clown"
+	outfit = /datum/outfit/job/clown
+
+/obj/effect/mob_spawn/human/corpse/clown/Initialize()
+	mob_name = pick(GLOB.clown_names)
+	return ..()
+
+//Clown Officer corpse.
+/obj/effect/mob_spawn/human/corpse/clown/officer
+	name = "Clown Officer"
+	outfit = /datum/outfit/clownofficer
+
+/obj/effect/mob_spawn/human/corpse/clown/officer/Initialize()
+	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
+	return ..()
+/datum/outfit/clownofficer
+	name = "Clown Officer"
+	uniform = /obj/item/clothing/under/costume/officeruniform
+	suit = /obj/item/clothing/suit/officercoat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	head = /obj/item/clothing/head/armyofficer
+
+//Clown Soldier corpse
+/obj/effect/mob_spawn/human/corpse/clown/soldier
+	name = "Clown Soldier"
+	outfit = /datum/outfit/clownsoldier
+
+/obj/effect/mob_spawn/human/corpse/clown/soldier/Initialize()
+	mob_name = "Officer [pick(GLOB.clown_names)]"
+	return ..()
+
+/datum/outfit/clownsoldier
+	name = "Clown Soldier"
+	uniform = /obj/item/clothing/under/costume/soldieruniform
+	suit = /obj/item/clothing/suit/soldiercoat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	head = /obj/item/clothing/head/stalhelm
+
+//Commander (?) corpse.
+/obj/effect/mob_spawn/human/corpse/commander
+	name = "Commander"
+	mob_name = "Commander"
+	id_job = "Commander"
+	id_access = "Captain"
+	outfit = /datum/outfit/nanotrasencommandercorpse
+
+/datum/outfit/nanotrasencommandercorpse
+	name = "Commander Corpse"
+
+	uniform = /obj/item/clothing/under/rank/centcom/officer
+	gloves =  /obj/item/clothing/gloves/color/white
+	shoes = /obj/item/clothing/shoes/centcom
+	head = /obj/item/clothing/head/beret/centcom/officer
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	id = /obj/item/card/id/centcom
+
+//Chef corpse
+/obj/effect/mob_spawn/human/corpse/cook
+	name = "Cook"
+	mob_name = "Chef"
+	id_job = "Chef"
+	outfit = /datum/outfit/job/chef
+
+//Medical Doctor corpse.
+/obj/effect/mob_spawn/human/corpse/doctor
+	name = "Doctor"
+	mob_name = "Medical Doctor"
+	id_job = "Medical Doctor"
+	outfit = /datum/outfit/job/doctor
+
+//Engineer corpse.
+/obj/effect/mob_spawn/human/corpse/engineer
+	name = "Engineer"
+	mob_name = "Engineer"
+	id_job = "Engineer"
+	outfit = /datum/outfit/job/engineer
+
+//Hardsuit Engineer corpse.
+/obj/effect/mob_spawn/human/corpse/engineer/hardsuit
+	outfit = /datum/outfit/job/engineer/suit
+
+/datum/outfit/job/engineer/suit
+	name = "Station Engineer"
+
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
+	belt = /obj/item/storage/belt/utility/full
+	suit = /obj/item/clothing/suit/space/hardsuit/engine
+	shoes = /obj/item/clothing/shoes/workboots
+	mask = /obj/item/clothing/mask/breath
+	id = /obj/item/card/id/engineering
+	l_pocket = /obj/item/t_scanner
+
+	backpack = /obj/item/storage/backpack/industrial
+
+//Mime corpse.
+/obj/effect/mob_spawn/human/corpse/mime
+	name = "Mime"
+	mob_name = "Mime"
+	id_job = "Mime"
+	outfit = /datum/outfit/job/mime
+
+/obj/effect/mob_spawn/human/corpse/mime/Initialize()
+	mob_name = pick(GLOB.mime_names)
+	return ..()
+
+//Normal Miner corpse.
+/obj/effect/mob_spawn/human/corpse/miner
+	name = "Shaft Miner"
+	mob_name = "Shaft Miner"
+	id_job = "Shaft Miner"
+	outfit = /datum/outfit/job/mining/equipped
+
+//Hardsuit Miner corpse.
+/obj/effect/mob_spawn/human/corpse/miner/explorer
+	outfit = /datum/outfit/job/mining/suit
+
+/datum/outfit/job/mining/suit
+	name = "Shaft Miner"
+	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	uniform = /obj/item/clothing/under/rank/cargo/miner
+	gloves = /obj/item/clothing/gloves/fingerless
+	shoes = /obj/item/clothing/shoes/workboots
+	l_ear = /obj/item/radio/headset/headset_cargo/mining
+	id = /obj/item/card/id/shaftminer
+	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
+	r_pocket = /obj/item/flashlight/seclite
+
+//Scientist corpse.
+/obj/effect/mob_spawn/human/corpse/scientist
+	name = "Scientist"
+	mob_name = "Scientist"
+	id_job = "Scientist"
+	outfit = /datum/outfit/job/scientist
+
+/obj/effect/mob_spawn/human/corpse/skeleton
+	name = "skeletal remains"
+	mob_name = "skeleton"
+	mob_species = /datum/species/skeleton/brittle
+	mob_gender = NEUTER
+
+////////Non-human spawners////////
+
+/obj/effect/mob_spawn/mouse
+	name = "sleeper"
+	mob_name = "space mouse"
+	mob_type = 	/mob/living/simple_animal/mouse
+	death = FALSE
+	roundstart = FALSE
+	icon = 'icons/obj/cryogenic2.dmi'
+	icon_state = "sleeper"
+	flavour_text = "Squeak!"
+
+/obj/effect/mob_spawn/cow
+	name = "sleeper"
+	mob_name = "space cow"
+	mob_type = 	/mob/living/simple_animal/cow
+	death = FALSE
+	roundstart = FALSE
+	mob_gender = FEMALE
+	icon = 'icons/obj/cryogenic2.dmi'
+	icon_state = "sleeper"
+	flavour_text = "Moo!"
+
+
+
+
+
+

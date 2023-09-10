@@ -194,6 +194,12 @@
 		brute *= brute_mod
 		burn *= burn_mod
 
+	//I would move the delimb check below fractures and burn wounds, but it would cause issues. As such we save the incoming damage here.
+	var/original_brute = brute
+	var/original_burn = burn
+	var/limb_brute = brute_dam
+	var/limb_burn = burn_dam
+
 	// See if bones need to break
 	check_fracture(brute)
 	// See if we need to inflict severe burns
@@ -271,9 +277,9 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
-			if(brute_dam >= max_damage && prob(brute))
+			if(limb_brute >= max_damage && prob(original_brute / 2))
 				droplimb(0, DROPLIMB_SHARP)
-			if(burn_dam >= max_damage && prob(burn))
+			if(limb_burn >= max_damage && prob(original_burn / 2))
 				droplimb(0, DROPLIMB_BURN)
 
 	if(owner_old)
@@ -486,12 +492,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.splinted_limbs -= src
 		return
 	if(owner.step_count >= splinted_count + SPLINT_LIFE)
-		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
-		owner.visible_message("<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off their [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
-		owner.emote("scream")
-		owner.Stun(4 SECONDS)
+		status &= ~ORGAN_SPLINTED // Oh no, we actually need surgery now!
 		owner.handle_splints()
-
+		if(!(status & ORGAN_BROKEN))
+			to_chat(owner, "<span class='notice'>Your splint harmlessly pops off your [name].</span>") // If we fixed our bones, a splint popping off shouldn't be painful and stun us.
+			return
+		owner.visible_message("<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off [owner.p_their()] [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
+		owner.emote("scream")
+		owner.Weaken(4 SECONDS) // Better feedback compared to stun() - We won't be just standing there menancingly
 
 /****************************************************
 			DISMEMBERMENT

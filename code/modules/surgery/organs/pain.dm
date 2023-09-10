@@ -48,10 +48,10 @@
 	var/msg = "<span class='userdanger'>[message]</span>"
 
 	// Anti message spam checks
-	if(msg && ((msg != last_pain_message) || (world.time >= next_pain_time)))
+	if(msg && ((msg != last_pain_message) && (world.time >= next_pain_time)))
 		last_pain_message = msg
 		to_chat(src, msg)
-	next_pain_time = world.time + 100
+		next_pain_time = world.time + 10 SECONDS
 
 /mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
