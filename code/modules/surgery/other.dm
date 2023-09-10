@@ -208,8 +208,8 @@
 /datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'>Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>"
+		"<span class='warning'>[user]'s hand slips, slicing an artery inside [target]'s [affected.name] with [tool]!</span>",
+		"<span class='warning'>Your hand slips, slicing an artery inside [target]'s [affected.name] with [tool]!</span>"
 	)
 	affected.receive_damage(20)
 
