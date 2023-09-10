@@ -1,5 +1,6 @@
-import styled, { css } from 'styled-components';
-import { animationDurationMs } from '~/common/animations';
+import styled from 'styled-components';
+import { Button } from '~/components/settings/form/Button';
+import ButtonGroup from '~/components/settings/form/ButtonGroup';
 import Checkbox from '~/components/settings/form/Checkbox';
 import { useEditSettings } from '~/hooks/useEditSettings';
 import Input from '../form/Input';
@@ -8,34 +9,6 @@ import { Separator } from '../form/Separator';
 import { Setting } from '../form/Setting';
 
 const GeneralSettingsWrapper = styled.div``;
-
-const Button = styled.a<{ disabled?: boolean }>`
-  padding: 8px 12px;
-  border: 1px solid transparent;
-  background-color: ${({ theme }) => theme.accent.primary};
-  border-radius: 4px;
-  cursor: pointer;
-  display: inline-block;
-  transition-duration: ${animationDurationMs}ms;
-  user-select: none;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.accent[6]};
-  }
-
-  &:active {
-    background-color: ${({ theme }) => theme.accent[5]};
-  }
-
-  ${({ disabled }) =>
-    disabled &&
-    css`
-      border: 1px solid ${({ theme }) => theme.background[3]} !important;
-      background-color: ${({ theme }) => theme.background[2]} !important;
-      color: ${({ theme }) => theme.textDisabled} !important;
-      cursor: default !important;
-    `}
-`;
 
 const Hint = styled.span`
   margin-bottom: 8px;
@@ -50,6 +23,14 @@ const GeneralSettings = () => {
 
   return (
     <GeneralSettingsWrapper>
+      <Setting>
+        <Label>Theme:</Label>
+        <ButtonGroup
+          options={['dark', 'light']}
+          defaultValue={currentSettings.theme}
+          onOptionSelect={o => write('theme', o)}
+        />
+      </Setting>
       <Setting>
         <Label>Font name:</Label>
         <Input

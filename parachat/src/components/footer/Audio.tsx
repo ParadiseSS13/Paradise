@@ -40,7 +40,7 @@ const TextWrapper = styled.span`
 const Progress = styled.div<{ duration: number; enter: boolean }>`
   width: 100%;
   height: 100%;
-  background: ${({ theme }) => theme.accent.primary};
+  background: ${({ theme }) => theme.accent[4]};
   color: transparent;
   transform: ${({ enter }) => (enter ? 'translateX(0)' : 'translateX(-100%)')};
   transition: transform ${({ duration }) => duration}ms linear;

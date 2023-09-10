@@ -4,6 +4,7 @@ import { useSettingsSlice } from '../stores/settings';
 const settingsStorageKey = 'parachat-settings';
 
 export const defaultSettings: SettingsData = {
+  theme: 'light',
   font: "Verdana, 'Helvetica Neue', Helvetica, Arial, sans-serif",
   fontUrl: '',
   lineHeight: 1.2,

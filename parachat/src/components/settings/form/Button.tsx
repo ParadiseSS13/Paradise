@@ -6,8 +6,8 @@ export const Button = styled.a<{
   neutral?: boolean;
   small?: boolean;
 }>`
-  background-color: ${({ theme }) => theme.accent.primary};
-  color: ${({ theme }) => theme.textPrimary};
+  background-color: ${({ theme }) => theme.accent[4]};
+  color: ${({ theme }) => theme.textPrimaryLight};
   display: inline-block;
   padding: 8px 12px;
   border-radius: 4px;

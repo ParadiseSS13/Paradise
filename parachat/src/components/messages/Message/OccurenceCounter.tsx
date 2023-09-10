@@ -14,7 +14,7 @@ const OccurenceCounterWrapper = styled.span<{ entering: boolean }>`
   padding: 2px 4px;
   display: inline-block;
   background-color: ${({ entering, theme }) =>
-    entering ? theme.accent.primary : theme.background[3]};
+    entering ? theme.accent[4] : theme.background[3]};
   font-weight: bold;
   font-size: 75%;
   text-align: center;

@@ -25,7 +25,7 @@ const TabWrapper = styled.a<{ active?: boolean }>`
     active &&
     css`
       background-color: ${({ theme }) => theme.background[1]} !important;
-      color: ${({ theme }) => theme.accent.primary};
+      color: ${({ theme }) => theme.accent[4]};
       cursor: default;
     `}
 `;
@@ -36,7 +36,7 @@ const UnreadCount = styled.span`
   width: 2em;
   height: 2em;
   margin-left: 1em;
-  background-color: ${({ theme }) => theme.accent.primary};
+  background-color: ${({ theme }) => theme.accent[4]};
   border-radius: 32px;
   color: ${({ theme }) => theme.textPrimary};
   display: inline-block;

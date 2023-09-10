@@ -1,5 +1,5 @@
+import { generate } from '@ant-design/colors';
 import styled, { ThemeProvider } from 'styled-components';
-import { generateAccent } from '~/common/util';
 import GlobalStyle from '~/components/GlobalStyle';
 import MessageList from '~/components/MessageList';
 import Audio from '~/components/footer/Audio';
@@ -7,6 +7,7 @@ import Header from '~/components/header/Header';
 import SettingsMenu from '~/components/settings/SettingsMenu';
 import { useSettingsSlice } from '~/stores/settings';
 import dark from '~/themes/dark';
+import light from '~/themes/light';
 
 const AppWrapper = styled.div`
   box-sizing: border-box;
@@ -16,17 +17,21 @@ const AppWrapper = styled.div`
 `;
 
 const App = () => {
+  const theme = useSettingsSlice(state => state.theme);
   const font = useSettingsSlice(state => state.font);
   const fontUrl = useSettingsSlice(state => state.fontUrl);
   const lineHeight = useSettingsSlice(state => state.lineHeight);
+  const primary = '#1668dc';
+  const curTheme = theme === 'light' ? light : dark;
 
   return (
     <ThemeProvider
       theme={{
-        ...dark,
+        ...curTheme,
         font,
         lineHeight,
-        accent: generateAccent('#1668dc', true),
+        primary: primary,
+        accent: generate(primary, { theme: curTheme.isDark }),
       }}
     >
       {fontUrl && <style>@import url({fontUrl});</style>}

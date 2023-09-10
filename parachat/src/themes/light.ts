@@ -1,15 +1,20 @@
 import { DefaultTheme } from 'styled-components';
 
 const light: DefaultTheme = {
+  isDark: 'default',
   background: {
     [0]: '#fafafa',
-    [1]: '#f5f5f5',
-    [2]: '#f0f0f0',
-    [3]: '#d9d9d9',
+    [1]: '#f0f0f0',
+    [2]: '#d9d9d9',
+    [3]: '#bfbfbf',
   },
+  success: '#389e0d',
+  warning: '#faad14',
+  warning2: '#d46b08',
   error: '#ff4d4f',
   errorBg: '#fff1f0',
   textPrimary: 'rgba(0, 0, 0, 0.85)',
+  textPrimaryLight: 'rgba(255, 255, 255, 0.85)',
   textSecondary: 'rgba(0, 0, 0, 0.65)',
   textDisabled: 'rgba(0, 0, 0, 0.45)',
 

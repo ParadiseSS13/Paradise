@@ -1,13 +1,6 @@
-import { generate } from '@ant-design/colors';
 import { Highlight, HighlightEntry } from '~/common/types';
 import { useMessageSlice } from '../stores/message';
 import { useSettingsSlice } from '../stores/settings';
-
-// TODO: not happy with this function, rework primary color
-export const generateAccent = (accent: string, isDark: boolean) => ({
-  primary: accent,
-  ...generate(accent, { theme: isDark ? 'dark' : 'default' }),
-});
 
 const hexRegex = /^#([0-9A-F]{3}){1,2}$/i;
 export const isValidColor = hex => hexRegex.test(hex);

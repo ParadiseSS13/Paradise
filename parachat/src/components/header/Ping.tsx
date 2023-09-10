@@ -4,20 +4,20 @@ import { initiatePing } from '~/byondcalls/ehjax';
 import { useHeaderSlice } from '~/stores/header';
 
 const PingWrapper = styled.span`
-  color: #8f8;
+  color: ${({ theme }) => theme.success};
   padding: 0 9px;
 
   &.ping-good {
-    color: #8f8;
+    color: ${({ theme }) => theme.success};
   }
   &.ping-medium {
-    color: #ff8;
+    color: ${({ theme }) => theme.warning};
   }
   &.ping-bad {
-    color: #fa8;
+    color: ${({ theme }) => theme.warning2};
   }
   &.ping-verybad {
-    color: #f66;
+    color: ${({ theme }) => theme.error};
   }
 `;
 

@@ -78,7 +78,7 @@ const GlobalStyle = createGlobalStyle`
   .box {
     padding: 1em;
     background-color: ${({ theme }) => theme.background[0]};
-    border-left: 4px solid ${({ theme }) => theme.accent.primary};
+    border-left: 4px solid ${({ theme }) => theme.accent[4]};
     border-radius: 2px;
     margin-right: 9px;
   }

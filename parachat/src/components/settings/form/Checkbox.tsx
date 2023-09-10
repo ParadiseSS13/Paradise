@@ -19,19 +19,19 @@ const CheckboxWrapper = styled.div<{ checked?: boolean }>`
 
   &:hover,
   &:focus {
-    border-color: ${({ theme }) => theme.accent.primary};
+    border-color: ${({ theme }) => theme.accent[4]};
   }
 
   ${({ checked }) =>
     checked &&
     css`
-      border-color: ${({ theme }) => theme.accent.primary};
+      border-color: ${({ theme }) => theme.accent[4]};
       cursor: default;
 
       &::after {
         width: 16px;
         height: 16px;
-        background-color: ${({ theme }) => theme.accent.primary};
+        background-color: ${({ theme }) => theme.accent[4]};
         content: '✓';
         display: inline-block;
         font-weight: bold;

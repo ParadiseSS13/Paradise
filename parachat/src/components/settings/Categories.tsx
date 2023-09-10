@@ -47,7 +47,7 @@ const Category = styled.a<{ selected?: boolean }>`
     props.selected &&
     css`
       background-color: ${({ theme }) => theme.accent[0]} !important;
-      color: ${({ theme }) => theme.accent.primary};
+      color: ${({ theme }) => theme.accent[4]};
       cursor: default;
     `}
 `;

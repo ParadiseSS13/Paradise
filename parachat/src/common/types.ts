@@ -39,6 +39,7 @@ export enum SettingsTab {
 }
 
 export type SettingsData = {
+  theme: 'dark' | 'light';
   font: string;
   fontUrl: string;
   lineHeight: number;

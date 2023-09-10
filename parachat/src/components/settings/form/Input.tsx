@@ -13,7 +13,7 @@ const Input = styled.input<{ stretch?: boolean }>`
 
   &:hover,
   &:focus {
-    border-color: ${({ theme }) => theme.accent.primary};
+    border-color: ${({ theme }) => theme.accent[4]};
   }
 
   ${props =>

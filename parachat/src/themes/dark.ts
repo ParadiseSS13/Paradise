@@ -1,15 +1,20 @@
 import { DefaultTheme } from 'styled-components';
 
 const dark: DefaultTheme = {
+  isDark: 'dark',
   background: {
     [0]: '#141414',
     [1]: '#1f1f1f',
     [2]: '#262626',
     [3]: '#434343',
   },
+  success: '#3c8618',
+  warning: '#aa9514',
+  warning2: '#aa6215',
   error: '#a61d24',
   errorBg: '#2a1215',
   textPrimary: 'rgba(255, 255, 255, 0.85)',
+  textPrimaryLight: 'rgba(255, 255, 255, 0.85)',
   textSecondary: 'rgba(255, 255, 255, 0.65)',
   textDisabled: 'rgba(255, 255, 255, 0.45)',
 

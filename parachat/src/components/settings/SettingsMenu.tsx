@@ -7,7 +7,6 @@ import { useHeaderSlice } from '~/stores/header';
 import Categories from './Categories';
 import GeneralSettings from './categories/General';
 import HighlightSettings from './categories/Highlight';
-import ThemeSettings from './categories/Theme';
 
 const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
@@ -42,7 +41,6 @@ const Content = styled.div`
 const categories = [
   { catName: 'General', catId: SettingsTab.GENERAL },
   { catName: 'Highlight', catId: SettingsTab.HIGHLIGHT },
-  { catName: 'Theme', catId: SettingsTab.THEME },
 ];
 
 const SettingsMenu = () => {
@@ -84,7 +82,6 @@ const SettingsMenu = () => {
               {selectedCategory === SettingsTab.HIGHLIGHT && (
                 <HighlightSettings />
               )}
-              {selectedCategory === SettingsTab.THEME && <ThemeSettings />}
             </Content>
           </SettingsWrapper>
         </Backdrop>
