@@ -35,40 +35,28 @@
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue
-		if(!iscarbon(wizard.current))
+		if(wizard.current.stat == DEAD || isbrain(wizard.current) || !iscarbon(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
-				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
-				end_squabble(get_area(wizard.current))
-			continue
-		if(isbrain(wizard.current))
-			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
-				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
-				end_squabble(get_area(wizard.current))
-			continue
-		if(wizard.current.stat==DEAD)
-			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums.</span>")
 				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
-		if(wizard.current.stat==UNCONSCIOUS)
+		if(wizard.current.stat == UNCONSCIOUS)
 			if(wizard.current.health < HEALTH_THRESHOLD_DEAD) //Lets make this not get funny rng crit involved
 				if(istype(get_area(wizard.current), /area/wizard_station))
-					to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+					to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums.</span>")
 					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
 					end_squabble(get_area(wizard.current))
 				else
 					to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
 					wizard.current.dust() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
 			continue
-		if(wizard.current.client && wizard.current.client.is_afk() > 10 * 60 * 10) // 10 minutes
+		if(!wizard.current.client)
+			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
+		if(wizard.current.client.is_afk() > 10 MINUTES)
 			to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
 			wizard.current.dust() // Let's keep the round moving
 			continue
-		if(!wizard.current.client)
-			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
 		wizards_alive++
 
 	if(wizards_alive)
@@ -77,9 +65,9 @@
 			time_checked = world.time
 			make_more_mages()
 	else
-		if(wizards.len >= wizard_cap)
+		if(length(wizards) >= wizard_cap)
 			finished = TRUE
-			return 1
+			return TRUE
 		else
 			make_more_mages()
 	return ..()

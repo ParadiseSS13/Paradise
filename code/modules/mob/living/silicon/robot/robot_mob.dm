@@ -1051,9 +1051,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(usr, "<span class='notice'>You [locked ? "lock" : "unlock"] your cover.</span>")
 		return
 	if(!locked)
-		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a robotocist.</span>")
+		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a roboticist.</span>")
 		return
-	if(alert("You cannnot lock your own cover again. Are you sure?\n           You will need a robotocist to re-lock you.", "Unlock Own Cover", "Yes", "No") == "Yes")
+	if(alert("You cannnot lock your own cover again. Are you sure?\n           You will need a roboticist to re-lock you.", "Unlock Own Cover", "Yes", "No") == "Yes")
 		locked = !locked
 		update_icons()
 		to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
@@ -1596,3 +1596,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 	else
 		to_chat(src, "<span class='warning'>You can only use this emote when you're out of charge.</span>")
+
+/mob/living/silicon/robot/can_instant_lockdown()
+	if(emagged || ("syndicate" in faction))
+		return TRUE
+	return FALSE

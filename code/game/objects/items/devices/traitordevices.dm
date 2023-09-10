@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
 	var/active = FALSE
-	var/range = 12
+	var/range = 15
 
 /obj/item/jammer/Destroy()
 	GLOB.active_jammers -= src
@@ -263,6 +263,31 @@
 	charges = 8
 	max_charges = 8
 	flawless = TRUE
+
+/obj/item/fireproofing_injector
+	desc = "It contains an alien nanoswarm created by the technomancers of boron. Through near sorcerous feats via use of nanomachines, it enables its user to become fully fireproof."
+	icon = 'icons/obj/hypo.dmi'
+	icon_state = "combat_hypo"
+	var/used = FALSE
+
+/obj/item/fireproofing_injector/attack_self(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
+		to_chat(user, "<span class='warning'>You are already fireproof!</span>")
+		return
+	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Plasmaman"))
+		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
+		return
+	if(used)
+		to_chat(user, "<span class='notice'>The injector is empty!</span>")
+		return
+	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once.
+	var/choice = alert(user, "The injector is still unused. Do you wish to use it?", "Fireproofing injector", "Yes", "No")
+	if(choice == "No")
+		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
+		used = FALSE
+		return
+	to_chat(user, "<span class='notice'>You inject yourself with the nanites!</span>")
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, "fireproof_injector")
 
 /obj/item/batterer
 	name = "mind batterer"

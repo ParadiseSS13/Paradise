@@ -22,6 +22,7 @@
 
 	var/visor_flags = NONE			//flags that are added/removed when an item is adjusted up/down
 	var/visor_flags_inv = NONE		//same as visor_flags, but for flags_inv
+	var/visor_flags_cover = NONE	//for cover flags
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW //what to toggle when toggled with weldingvisortoggle()
 
 	var/can_toggle = FALSE
@@ -34,6 +35,8 @@
 	var/species_disguise = null
 	var/magical = FALSE
 	var/dyeable = FALSE
+	/// Do we block AI tracking?
+	var/blockTracking
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/update_icon_state()
@@ -111,13 +114,6 @@
 	return 1
 
 /obj/item/clothing/proc/refit_for_species(target_species)
-	//Set species_restricted list
-	switch(target_species)
-		if("Human", "Skrell")	//humanoid bodytypes
-			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Drask")
-		else
-			species_restricted = list(target_species)
-
 	//Set icon
 	if(sprite_sheets && (target_species in sprite_sheets))
 		icon_override = sprite_sheets[target_species]
@@ -212,7 +208,7 @@
 	var/lighting_alpha
 
 	var/list/color_view = null//overrides client.color while worn
-	var/prescription = 0
+	var/prescription = FALSE
 	var/prescription_upgradable = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
@@ -377,7 +373,6 @@
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
-	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
 
 	var/vision_flags = 0
@@ -613,6 +608,8 @@
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
+		if("modsuit" in hide_tail_by_species)
+			return
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL

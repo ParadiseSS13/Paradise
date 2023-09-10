@@ -225,7 +225,8 @@
 		/obj/item/holosign_creator/atmos,
 		/obj/item/clothing/gloves/color/black/forensics,
 		/obj/item/rcd,
-		/obj/item/rpd
+		/obj/item/rpd,
+		/obj/item/mod/control
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -340,7 +341,11 @@
 			QDEL_NULL(P.id)
 			qdel(P)
 			continue
-
+		if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.
+			var/obj/item/storage/backpack/modstorage/M = I
+			M.forceMove(M.source)
+			continue
+		
 		var/preserve = should_preserve_item(I)
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
@@ -362,7 +367,7 @@
 			if(O.target != occupant.mind)
 				continue
 			O.on_target_cryo()
-		occupant.mind.remove_all_antag_datums()
+		occupant.mind.remove_all_antag_datums(handle_target_cryo = TRUE) // i wish cryo used signals, this is scuffed
 
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
@@ -736,7 +741,7 @@
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
 		if(P.occupant)
 			continue
-		if((ishuman(person_to_cryo) && istype(get_area(P), /area/crew_quarters/sleep)) || istype(P, /obj/machinery/cryopod/robot))
+		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(free_cryopods.len)

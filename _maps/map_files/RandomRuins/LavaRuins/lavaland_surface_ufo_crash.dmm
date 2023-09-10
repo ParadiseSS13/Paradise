@@ -24,7 +24,7 @@
 /turf/simulated/floor/plating/abductor,
 /area/ruin/unpowered/misc_lavaruin)
 "i" = (
-/obj/effect/mob_spawn/human/abductor,
+/obj/effect/mob_spawn/human/corpse/abductor,
 /turf/simulated/floor/plating/abductor,
 /area/ruin/unpowered/misc_lavaruin)
 "j" = (

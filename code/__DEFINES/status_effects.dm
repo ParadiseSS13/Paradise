@@ -155,6 +155,8 @@
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
+#define STATUS_EFFECT_IMPACT_IMMUNE /datum/status_effect/impact_immune
+
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 
 #define STATUS_EFFECT_CRUSHERDAMAGETRACKING /datum/status_effect/crusher_damage //tracks total kinetic crusher damage on a target
@@ -171,6 +173,8 @@
 #define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
 /// This status effect lets the user see the lwap dots.
 #define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope
+/// This status effect allows a mob to be revived with a defibrillator.
+#define STATUS_EFFECT_REVIVABLE /datum/status_effect/limited_bonus/revivable
 
 //////////////////////////
 // Mind batter variants //
