@@ -223,7 +223,7 @@ const CataloguePane = (_properties, context) => {
           {cratesToShow.map((c) => (
             <Table.Row key={c.name}>
               <Table.Cell bold>
-                {c.name} ({c.cost} Credits)
+                {c.name} ({c.get_cost()} Credits)
               </Table.Cell>
               <Table.Cell textAlign="right" pr={1}>
                 <Button
@@ -352,7 +352,7 @@ const DetailsPane = (_properties, context) => {
             <Table.Row key={r.ordernum} className="Cargo_RequestList">
               <Table.Cell mb={1}>
                 <Box>
-                  Order #{r.ordernum}: {r.supply_type} ({r.cost} credits) for <b>{r.orderedby}</b> with {r.department ? `The ${r.department} Department` : "Their Personal"} Account
+                  Order #{r.ordernum}: {r.supply_type} ({r.get_cost()} credits) for <b>{r.orderedby}</b> with {r.department ? `The ${r.department} Department` : "Their Personal"} Account
                 </Box>
                 <Box italic>Reason: {r.comment}</Box>
                 <GetRequestNotice request={r}/>

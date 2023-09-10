@@ -504,6 +504,7 @@ SUBSYSTEM_DEF(jobs)
 
 	if(job && H)
 		job.after_spawn(H)
+		
 
 		//Gives glasses to the vision impaired
 		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))

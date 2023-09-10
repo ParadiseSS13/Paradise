@@ -200,6 +200,7 @@
 	if(user)
 		add_attack_logs(user, source, "Chipped with [src]")
 
+	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, source, user, force)
 	return 1
 
 /**
@@ -237,6 +238,7 @@
 
 	unregister_emotes()
 
+	SEND_SIGNAL(src, COMSIG_IMPLANT_REMOVED, source)
 	return TRUE
 
 /obj/item/implant/dropped(mob/user)

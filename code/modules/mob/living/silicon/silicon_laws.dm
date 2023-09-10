@@ -126,6 +126,8 @@
 	laws.sort_laws()
 
 /mob/living/silicon/proc/make_laws()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI))
+		return pick_unique_lawset()
 	if(GLOB.configuration.general.random_ai_lawset)
 		laws = get_random_lawset()
 	else
@@ -140,3 +142,15 @@
 			continue
 		law_options += L
 	return pick(law_options)
+
+///returns a random non starting / kill crew lawset if the station has a unique ai lawset
+/proc/pick_unique_lawset()
+	var/list/law_options[0]
+	var/paths = subtypesof(/datum/ai_laws)
+	for(var/law in paths)
+		var/datum/ai_laws/L = new law
+		if(!L.unique_ai)
+			continue
+		law_options += L
+	return pick(law_options)
+

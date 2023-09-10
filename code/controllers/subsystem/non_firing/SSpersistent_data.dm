@@ -64,4 +64,3 @@ SUBSYSTEM_DEF(persistent_data)
   */
 /atom/proc/persistent_save()
 	stack_trace("peristent_save() called on an atom which does not have persistent data storage!")
-

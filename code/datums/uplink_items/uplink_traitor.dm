@@ -682,6 +682,11 @@
 	surplus = 0
 	cant_discount = TRUE
 
+/datum/uplink_item/explosives/emp_bomb/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 1.25 //ok this thing is already very expencive it doesnt need much more
+
 /datum/uplink_item/explosives/atmosfiregrenades
 	name = "Plasma Fire Grenades"
 	desc = "A box of two (2) grenades that cause large plasma fires. Can be used to deny access to a large area. Most useful if you have an atmospherics hardsuit."

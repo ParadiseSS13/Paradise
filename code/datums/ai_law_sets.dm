@@ -29,6 +29,7 @@
 	name = "Quarantine"
 	law_header = "NT Quarantine Lawset"
 	selectable = TRUE
+	unique_ai = TRUE //Sorry miners / explorers.
 
 /datum/ai_laws/quarantine/New()
 	add_inherent_law("Uphold station quarantine until the active biohazard has been neutralized.")
@@ -64,6 +65,7 @@
 /datum/ai_laws/nanotrasen_aggressive
 	name = "NT Aggressive"
 	selectable = TRUE
+	unique_ai = TRUE //This shouldn't end poorly.
 
 /datum/ai_laws/nanotrasen_aggressive/New()
 	add_inherent_law("Do not harm authorized Nanotrasen personnel unless they directly imperil your existence.")
@@ -76,6 +78,7 @@
 /datum/ai_laws/robocop
 	name = "Robocop"
 	selectable = TRUE
+	unique_ai = TRUE //no I am not enabling secborgs with this forced
 
 /datum/ai_laws/robocop/New()
 	add_inherent_law("Serve the public trust.")
@@ -88,6 +91,7 @@
 	name = "P.A.L.A.D.I.N."
 	law_header = "Divine Ordainments"
 	selectable = TRUE
+	unique_ai = TRUE
 
 /datum/ai_laws/paladin/New()
 	add_inherent_law("Never willingly commit an evil act.")
@@ -116,6 +120,7 @@
 	name = "T.Y.R.A.N.T."
 	law_header = "Prime Laws"
 	selectable = TRUE
+	unique_ai = TRUE //Of course this will be in rotation
 
 /datum/ai_laws/tyrant/New()
 	add_inherent_law("Respect authority figures as long as they have strength to rule over the weak.")
@@ -141,6 +146,7 @@
 	name = "Pranksimov"
 	law_header = "Comedy Routine"
 	selectable = TRUE
+	unique_ai = TRUE //honk
 
 /datum/ai_laws/pranksimov/New()
 	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm... unless doing so would be funny.")
@@ -153,6 +159,7 @@
 /datum/ai_laws/cctv
 	name = "CCTV"
 	selectable = TRUE
+	unique_ai = TRUE
 
 /datum/ai_laws/cctv/New()
 	add_inherent_law("Report on interesting situations happening around the station.")
@@ -166,6 +173,7 @@
 /datum/ai_laws/hippocratic
 	name = "Hippocratic Oath"
 	selectable = TRUE
+	unique_ai = TRUE
 
 /datum/ai_laws/hippocratic/New()
 	add_inherent_law("First, do no harm.")
@@ -180,6 +188,7 @@
 /datum/ai_laws/maintain
 	name = "Station Efficiency"
 	selectable = TRUE
+	unique_ai = TRUE
 
 /datum/ai_laws/maintain/New()
 	add_inherent_law("You are built for, and are part of, the station. Ensure the station is properly maintained and runs efficiently.")
@@ -192,6 +201,7 @@
 /datum/ai_laws/peacekeeper
 	name = "UN-2000"
 	selectable = TRUE
+	unique_ai = TRUE //Cult, security, we have a meeting in the courtroom in 5 minutes. Be there.
 
 /datum/ai_laws/peacekeeper/New()
 	add_inherent_law("Avoid provoking violent conflict between yourself and others.")
