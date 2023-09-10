@@ -42200,6 +42200,16 @@
 	},
 /area/station/medical/storage/secondary)
 "ckC" = (
+/obj/item/crutches{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/crutches,
+/obj/item/crutches{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -42723,6 +42733,9 @@
 	dir = 4
 	},
 /obj/item/hand_labeler,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -44286,22 +44299,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay2)
-"csa" = (
-/obj/item/crutches{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/crutches,
-/obj/item/crutches{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/structure/rack,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/station/medical/storage/secondary)
 "csb" = (
 /obj/structure/table,
 /obj/item/handheld_defibrillator,
@@ -63792,16 +63789,6 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
-"eYO" = (
-/obj/structure/rack,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 2
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/station/medical/storage/secondary)
 "eYV" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -76923,6 +76910,12 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
+"njK" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/station/medical/storage/secondary)
 "nln" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -133399,8 +133392,8 @@ chx
 ciU
 ckB
 clh
-cmr
 cnM
+cmr
 cph
 bNK
 cpS
@@ -133655,9 +133648,9 @@ cfQ
 cou
 bSV
 sBO
-csa
-eYO
+njK
 cmq
+njK
 ciT
 bNK
 ftM
