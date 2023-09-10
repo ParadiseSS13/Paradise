@@ -632,7 +632,8 @@
 		else if(!user.IsStunned())
 			target.Stun(0.5 SECONDS)
 	else
-		if(target.IsSlowed() && target.get_active_hand() && !IS_HORIZONTAL(user) && !HAS_TRAIT(target, TRAIT_WIELDED))
+		var/obj/item/active_hand = target.get_active_hand()
+		if(target.IsSlowed() && active_hand && !IS_HORIZONTAL(user) && !HAS_TRAIT(active_hand, TRAIT_WIELDED))
 			target.drop_item()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
