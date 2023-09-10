@@ -746,7 +746,7 @@
 		return
 	if(prob(60) && world.time > next_spark_time)
 		do_sparks(rand(1,6), 1, loc)
-		next_spark_time = world.time + 1 SECONDS
+		next_spark_time = world.time + 0.8 SECONDS
 	if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target
 
@@ -811,7 +811,7 @@
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 2 MINUTES)
 	if(world.time > next_spark_time)
 		do_sparks(rand(1,6), 1, loc)
-		next_spark_time = world.time += 1 SECONDS
+		next_spark_time = world.time + 0.8 SECONDS
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
