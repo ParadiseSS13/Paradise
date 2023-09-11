@@ -1599,6 +1599,16 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry)
+"anr" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "ans" = (
 /obj/machinery/light{
 	dir = 1
@@ -14871,8 +14881,24 @@
 /area/station/supply/office)
 "aTz" = (
 /obj/structure/table,
-/obj/item/clipboard,
-/obj/item/toy/figure/crew/qm,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Quartermaster's Office"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -14881,6 +14907,11 @@
 "aTA" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -14903,12 +14934,27 @@
 /area/station/supply/qm)
 "aTC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
 	},
 /area/station/supply/qm)
 "aTD" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -15662,6 +15708,11 @@
 /area/station/engineering/gravitygenerator)
 "aVf" = (
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -15675,6 +15726,11 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -15683,6 +15739,11 @@
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -16445,6 +16506,7 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/clipboard,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -16465,6 +16527,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -16484,6 +16551,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -16522,9 +16594,11 @@
 	},
 /area/station/supply/qm)
 "aWJ" = (
-/obj/structure/closet/secure_closet/quartermaster,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
+	},
+/obj/machinery/computer/card/minor/qm{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -17113,6 +17187,11 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17132,6 +17211,8 @@
 	},
 /obj/item/gps/mining,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/keycard_auth,
+/obj/item/toy/figure/crew/qm,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17772,6 +17853,11 @@
 	c_tag = "Quartermaster Office";
 	dir = 1
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -17780,11 +17866,26 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
 /area/station/supply/qm)
 "aZC" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -17793,7 +17894,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/closet/secure_closet/quartermaster,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -18584,16 +18685,15 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Quartermaster"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/door/airlock/command/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "bbk" = (
@@ -18610,6 +18710,11 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -21363,7 +21468,11 @@
 	},
 /area/station/hallway/primary/fore)
 "bhZ" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -43087,9 +43196,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/office/hop)
 "cdE" = (
-/obj/machinery/computer/supplycomp{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
 "cdF" = (
@@ -43859,9 +43965,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cfC" = (
-/obj/machinery/computer/security/mining{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -81060,6 +81163,16 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
+"eiQ" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "ejr" = (
 /obj/machinery/newscaster/security_unit{
 	dir = 4;
@@ -82528,6 +82641,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/public/fitness)
+"fOa" = (
+/obj/structure/bed/dogbed,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/supply/qm)
 "fOr" = (
 /obj/machinery/economy/vending/cigarette,
 /obj/structure/disposalpipe/segment{
@@ -85413,6 +85532,17 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/reception)
+"jiG" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/suit_storage_unit/qm/secure,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/supply/qm)
 "jji" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -85479,6 +85609,16 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/medical/surgery/primary)
+"jkW" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "jnp" = (
 /obj/structure/sink{
 	dir = 8;
@@ -88218,6 +88358,18 @@
 /obj/item/reagent_containers/dropper,
 /turf/simulated/floor/engine,
 /area/station/science/explab)
+"mPt" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "mPT" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
@@ -88404,7 +88556,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4,"
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
@@ -91498,6 +91650,21 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
+"qnz" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "qpV" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "stationai_door_int";
@@ -91992,6 +92159,17 @@
 	icon_state = "dark"
 	},
 /area/station/security/execution)
+"qYf" = (
+/obj/machinery/button/windowtint{
+	pixel_x = -28;
+	id = "qm";
+	req_access_txt = "41";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/supply/qm)
 "qYC" = (
 /obj/item/kirbyplants,
 /obj/structure/cable{
@@ -93663,6 +93841,18 @@
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
+"sOd" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "sOj" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/white,
@@ -94642,6 +94832,13 @@
 	icon_state = "whitepurple"
 	},
 /area/station/maintenance/apmaint)
+"tRI" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "tRM" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -143266,12 +143463,12 @@ aQr
 aCN
 aKK
 aRZ
-aSa
-aSa
+anr
+anr
 bbj
-aSa
-aSa
-aSa
+qnz
+sOd
+mPt
 bfC
 ben
 hYQ
@@ -143522,13 +143719,13 @@ aBS
 aEX
 aBS
 aKK
-aSa
+jkW
 aTz
 bhZ
 aWE
-aYg
+jiG
 aZv
-aSa
+eiQ
 boD
 bek
 bfF
@@ -143779,7 +143976,7 @@ aBS
 aEZ
 aBS
 aWG
-aSa
+jkW
 aTA
 aVf
 aWF
@@ -144293,13 +144490,13 @@ aDX
 aSw
 aQv
 aKJ
-aSa
+jkW
 aTC
 aVh
 aWH
 aYi
 aZB
-aSa
+tRI
 bbi
 bes
 bbi
@@ -144550,13 +144747,13 @@ aJE
 aQs
 aQv
 aKJ
-aSa
+jkW
 aTD
-aYg
+qYf
 aWI
-aYg
+fOa
 aZC
-aSa
+tRI
 aVX
 beq
 blC

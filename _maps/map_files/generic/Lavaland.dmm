@@ -3078,10 +3078,6 @@
 	},
 /area/mine/sleeper)
 "gh" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Mining Station Communications"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3095,6 +3091,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Mining Station Communications";
+	req_access_txt = null
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/comms)
 "gi" = (
