@@ -22,6 +22,7 @@
 #include "barsigns/_barsigns.dme"
 #include "devices/_devices.dme"
 #include "food/_food.dme"
+#include "gateway/_gateway.dme"
 #include "hydroponics/hydroponics.dme"
 #include "sechailer/sechailer.dme"
 #include "unique_objects/_unique_objects.dme"

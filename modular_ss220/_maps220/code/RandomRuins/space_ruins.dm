@@ -47,20 +47,3 @@
 	suffix = "infected_ship.dmm"
 	cost = 3
 	allow_duplicates = FALSE
-
-
-// Тут код гейтов которые перенесли в космос, делать можно по приверу ниже.
-// Сам gateaway не трогать, это группа которая не позволяет спавнится сразу нескольким "гейтам"
-/datum/map_template/ruin/space/gateaway
-	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
-	cost = 10
-	allow_duplicates = FALSE
-	always_place = TRUE
-	ci_exclude = /datum/map_template/ruin/space/gateaway
-
-// Ниже этого комментария - гейты.
-/datum/map_template/ruin/space/gateaway/space_wildwest
-	name = "Space Wild West"
-	id = "space_wildwest"
-	description = "A captured mining outpost on a lonely asteroid. There are rumors that a horrible structure is entombed in its depths."
-	suffix = "space_wildwest.dmm"
