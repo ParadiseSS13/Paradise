@@ -72,6 +72,7 @@
 	var/msg = ""
 	var/list/wound_flavor_text = list()
 	var/list/is_destroyed = list()
+	var/skip_bodyparts = 0
 	for(var/organ_tag in dna.species.has_limbs)
 
 		var/list/organ_data = dna.species.has_limbs[organ_tag]
@@ -81,7 +82,21 @@
 		var/obj/item/organ/external/E = bodyparts_by_name[organ_tag]
 		var/bodypart_clothing_bitflag = bodypart_name_to_clothing_bitflag(organ_tag)
 		if(!E)
+			if(bodypart_clothing_bitflag & skip_bodyparts)
+				continue
 			wound_flavor_text["[organ_tag]"] = "<b>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</b>\n"
+			if(bodypart_clothing_bitflag & ARM_LEFT)
+				skip_bodyparts |= HAND_LEFT
+				wound_flavor_text["l_hand"] = null
+			if(bodypart_clothing_bitflag & ARM_RIGHT)
+				skip_bodyparts |= HAND_RIGHT
+				wound_flavor_text["r_hand"] = null
+			if(bodypart_clothing_bitflag & LEG_LEFT)
+				skip_bodyparts |= FOOT_LEFT
+				wound_flavor_text["l_foot"] = null
+			if(bodypart_clothing_bitflag & LEG_RIGHT)
+				skip_bodyparts |= FOOT_RIGHT
+				wound_flavor_text["r_foot"] = null
 			continue
 
 		if(bodypart_clothing_bitflag & HEAD)
@@ -137,28 +152,17 @@
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
 
-	if(wound_flavor_text["head"])
-		msg += wound_flavor_text["head"]
-	if(wound_flavor_text["chest"])
-		msg += wound_flavor_text["chest"]
-	if(wound_flavor_text["groin"])
-		msg += wound_flavor_text["groin"]
-	if(wound_flavor_text["l_arm"])
-		msg += wound_flavor_text["l_arm"]
-	if(wound_flavor_text["l_hand"])
-		msg += wound_flavor_text["l_hand"]
-	if(wound_flavor_text["r_arm"])
-		msg += wound_flavor_text["r_arm"]
-	if(wound_flavor_text["r_hand"])
-		msg += wound_flavor_text["r_hand"]
-	if(wound_flavor_text["l_leg"])
-		msg += wound_flavor_text["l_leg"]
-	if(wound_flavor_text["r_hand"])
-		msg += wound_flavor_text["l_foot"]
-	if(wound_flavor_text["r_leg"])
-		msg += wound_flavor_text["r_leg"]
-	if(wound_flavor_text["r_hand"])
-		msg += wound_flavor_text["r_foot"]
+	msg += wound_flavor_text["head"]
+	msg += wound_flavor_text["chest"]
+	msg += wound_flavor_text["groin"]
+	msg += wound_flavor_text["l_arm"]
+	msg += wound_flavor_text["l_hand"]
+	msg += wound_flavor_text["r_arm"]
+	msg += wound_flavor_text["r_hand"]
+	msg += wound_flavor_text["l_leg"]
+	msg += wound_flavor_text["l_foot"]
+	msg += wound_flavor_text["r_leg"]
+	msg += wound_flavor_text["r_foot"]
 	return msg
 
 /mob/living/carbon/human/examine_extra_damage_flavor()
