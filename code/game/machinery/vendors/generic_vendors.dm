@@ -136,6 +136,7 @@
 					/obj/item/clothing/head/soft/solgov = 10,
 					/obj/item/clothing/head/beret = 10,
 					/obj/item/clothing/head/beret/black = 10,
+					/obj/item/clothing/head/beret/white = 10,
 					/obj/item/clothing/head/hairflower = 10,
 					/obj/item/clothing/head/mailman = 1,
 					/obj/item/clothing/head/soft/rainbow = 1)
@@ -151,6 +152,7 @@
 				/obj/item/clothing/head/soft/solgov = 20,
 				/obj/item/clothing/head/beret = 20,
 				/obj/item/clothing/head/beret/black = 20,
+				/obj/item/clothing/head/beret/white = 20,
 				/obj/item/clothing/head/hairflower = 20,
 				/obj/item/clothing/head/mailman = 60,
 				/obj/item/clothing/head/soft/rainbow = 40,
