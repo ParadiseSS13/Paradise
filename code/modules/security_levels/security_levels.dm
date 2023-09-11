@@ -92,9 +92,13 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 				return
 
 			if(SEC_LEVEL_DELTA)
-				GLOB.security_announcement.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", 'sound/effects/deltaalarm.ogg', new_sound2 = 'sound/AI/delta.ogg')
+				var/temp_sound = GLOB.security_announcement.config.sound
+				GLOB.security_announcement.config.sound = null
+				GLOB.security_announcement.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!",
+					new_sound = 'sound/effects/delta_klaxon.ogg',
+					new_sound2 = 'sound/AI/delta.ogg')
+				GLOB.security_announcement.config.sound = temp_sound
 				GLOB.security_level = SEC_LEVEL_DELTA
-
 				post_status(STATUS_DISPLAY_ALERT, "deltaalert")
 				update_firealarms()
 				set_stationwide_emergency_lighting()

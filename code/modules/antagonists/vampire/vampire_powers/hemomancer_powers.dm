@@ -13,16 +13,30 @@
 		user.drop_r_hand()
 	else
 		to_chat(user, "<span class='notice'>Large blades of blood spring from your fingers!</span>")
-	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc)
+	var/obj/item/vamp_claws/claws = new /obj/item/vamp_claws(user.loc, src)
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))
 	user.put_in_hands(claws)
 
+/obj/effect/proc_holder/spell/vampire/self/vamp_claws/proc/dispel()
+	SIGNAL_HANDLER
+	var/mob/living/carbon/human/user = action.owner
+	if(user.mind.has_antag_datum(/datum/antagonist/vampire))
+		return
+	var/current
+	if(istype(user.l_hand, /obj/item/vamp_claws))
+		current = user.l_hand
+	if(istype(user.r_hand, /obj/item/vamp_claws))
+		current = user.r_hand
+	if(current)
+		qdel(current)
+		to_chat(user, "<span class='notice'>You dispel your claws!</span>")
 
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
 	if(L.canUnEquip(L.l_hand) && L.canUnEquip(L.r_hand))
 		return ..()
 
-/obj/item/twohanded/required/vamp_claws
+/obj/item/vamp_claws
 	name = "vampiric claws"
 	desc = "A pair of eldritch claws made of living blood, they seem to flow yet they are solid"
 	icon = 'icons/effects/vampire_effects.dmi'
@@ -30,7 +44,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 10
-	force_wielded = 10
 	armour_penetration_flat = 20
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
@@ -40,8 +53,20 @@
 	var/durability = 15
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
+	var/obj/effect/proc_holder/spell/vampire/self/vamp_claws/parent_spell
 
-/obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
+/obj/item/vamp_claws/Initialize(mapload, new_parent_spell)
+	. = ..()
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
+	parent_spell = new_parent_spell
+
+/obj/item/vamp_claws/Destroy()
+	if(parent_spell)
+		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
+		parent_spell = null
+	return ..()
+
+/obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 
@@ -66,14 +91,14 @@
 			qdel(src)
 			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
 
-/obj/item/twohanded/required/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
+/obj/item/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()
-	if(wielded)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
-/obj/item/twohanded/required/vamp_claws/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
+/obj/item/vamp_claws/attack_self(mob/user)
 	qdel(src)
+	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils
 	name = "Blood Tendrils (10)"
@@ -109,7 +134,7 @@
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
-			L.visible_message("<span class='warning'>[L] gets ensared in blood tendrils, restricting [L.p_their()] movement!</span>")
+			L.visible_message("<span class='warning'>[L] gets ensnare in blood tendrils, restricting [L.p_their()] movement!</span>")
 			new /obj/effect/temp_visual/blood_tendril/long(get_turf(L))
 
 /obj/effect/temp_visual/blood_tendril

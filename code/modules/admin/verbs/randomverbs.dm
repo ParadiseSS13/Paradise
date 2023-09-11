@@ -466,7 +466,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			var/obj/effect/landmark/synd_spawn = locate("landmark*Syndicate-Spawn")
 			if(synd_spawn)
 				new_character.loc = get_turf(synd_spawn)
-			call(/datum/game_mode/proc/equip_syndicate)(new_character)
+			call(TYPE_PROC_REF(/datum/game_mode, equip_syndicate))(new_character)
 
 		if("Deathsquad Commando")//Leaves them at late-join spawn.
 			new_character.equip_deathsquad_commando()
@@ -485,7 +485,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 				//Add aliens.
 				else
-					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, FALSE, FALSE)
+					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, FALSE)
 					SSjobs.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
@@ -496,7 +496,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				GLOB.data_core.manifest_inject(new_character)
 
 			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
-				call(/mob/new_player/proc/AnnounceArrival)(new_character, new_character.mind.assigned_role)
+				call(TYPE_PROC_REF(/mob/new_player, AnnounceArrival))(new_character, new_character.mind.assigned_role)
 
 	message_admins("<span class='notice'>[key_name_admin(usr)] has respawned [key_name_admin(G_found)] as [new_character.real_name].</span>", 1)
 
@@ -896,15 +896,26 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(alert(usr, "Do you want to [SSshuttle.emergencyNoEscape ? "ALLOW" : "DENY"] shuttle calls?", "Toggle Deny Shuttle", "Yes", "No") != "Yes")
+	var/alert = alert(usr, "Do you want to ALLOW or DENY shuttle calls?", "Toggle Deny Shuttle", "Allow", "Deny", "Cancel")
+	if(alert == "Cancel")
 		return
 
-	if(SSshuttle)
-		SSshuttle.emergencyNoEscape = !SSshuttle.emergencyNoEscape
-
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deny Shuttle")
-	log_admin("[key_name(src)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
-	message_admins("[key_name_admin(usr)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
+
+	if(alert == "Allow")
+		if(!length(SSshuttle.hostile_environments))
+			to_chat(usr, "<span class='notice'>No hostile environments found, cleared for takeoff!</span>")
+			return
+		if(alert(usr, "[english_list(SSshuttle.hostile_environments)] is currently blocking the shuttle call, do you want to clear them?", "Toggle Deny Shuttle", "Yes", "No") == "Yes")
+			SSshuttle.hostile_environments.Cut()
+			var/log = "[key_name(src)] has cleared all hostile environments, allowing the shuttle to be called."
+			log_admin(log)
+			message_admins(log)
+		return
+
+	SSshuttle.registerHostileEnvironment(src) // wow, a client blocking the shuttle
+
+	log_and_message_admins("has denied the shuttle to be called.")
 
 /client/proc/cmd_admin_attack_log(mob/M as mob in GLOB.mob_list)
 	set category = "Admin"

@@ -1,4 +1,5 @@
 #define ADDICTION_TIME 4800 //8 minutes
+#define MINIMUM_REAGENT_AMOUNT 0.09 // To account for 0.1 sometimes being 0.09996 and etc.
 
 /**
  * # Reagents Holder
@@ -294,7 +295,7 @@
  */
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
-		temperature_reagents(M.bodytemperature - 30)
+		temperature_reagents(M.bodytemperature)
 		M.absorb_blood()
 
 	for(var/datum/reagent/R as anything in addiction_threshold_accumulated)
@@ -331,10 +332,13 @@
 				continue
 		//If you got this far, that means we can process whatever reagent this iteration is for. Handle things normally from here.
 		if(M && R)
-			update_flags |= R.on_mob_life(M)
 			if(R.volume >= R.overdose_threshold && !R.overdosed && R.overdose_threshold > 0)
 				R.overdosed = TRUE
 				R.overdose_start(M)
+			if(!R.overdosed || R.allowed_overdose_process)
+				update_flags |= R.on_mob_life(M)
+			else
+				update_flags |= R.on_mob_overdose_life(M) //We want to drain reagents but not do the entire mob life.
 			if(R.volume < R.overdose_threshold && R.overdosed)
 				R.overdosed = FALSE
 			if(R.overdosed)
@@ -559,7 +563,7 @@
 	total_volume = 0
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.volume < 0.1)
+		if(R.volume < MINIMUM_REAGENT_AMOUNT)
 			del_reagent(R.id)
 		else
 			total_volume += R.volume

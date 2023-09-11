@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	name = "empty sandbag"
 	desc = "A bag to be filled with sand."
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
-	icon_state = "sandbag"
+	icon_state = "empty-sandbags"
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/emptysandbag/attackby(obj/item/I, mob/user, params)
@@ -426,6 +426,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "sheet-abductor"
 	item_state = "sheet-abductor"
+	dynamic_icon_state = FALSE
 	singular_name = "alien alloy sheet"
 	force = 5
 	throwforce = 5

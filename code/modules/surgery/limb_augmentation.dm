@@ -16,7 +16,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
+		if(affected.status & ~(ORGAN_SPLINTED | ORGAN_SALVED)) //Checks the inverse of these flags, for example if the targeted limb was broken or burned. The limb must be in good condition to augment.
 			return FALSE
 		return TRUE
 
@@ -28,16 +28,17 @@
 /datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/p = tool
 	if(p.part)
-		if(!(target_zone in p.part))
-			to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
-			return SURGERY_BEGINSTEP_ABORT
+		if(target_zone in p.part)
+			var/obj/item/organ/external/affected = target.get_organ(target_zone)
+			user.visible_message(
+				"[user] starts augmenting [affected] with [tool].",
+				"You start augmenting [affected] with [tool]."
+			)
+			return ..()
+	to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
+	return SURGERY_BEGINSTEP_ABORT
 
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message(
-		"[user] starts augmenting [affected] with [tool].",
-		"You start augmenting [affected] with [tool]."
-	)
-	return ..()
+
 
 /datum/surgery_step/augment/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/L = tool

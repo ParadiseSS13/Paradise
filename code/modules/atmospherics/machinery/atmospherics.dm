@@ -16,7 +16,7 @@ Pipelines + Other Objects -> Pipe network
 	power_state = NO_POWER_USE
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	on_blueprints = TRUE
-	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 100, ACID = 70)
 
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	var/layer_offset = 0.0 // generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things
@@ -211,7 +211,10 @@ Pipelines + Other Objects -> Pipe network
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 
 		for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
-			if(usermagboots.gustprotection && usermagboots.magpulse)
+			if(usermagboots.magpulse)
+				safefromgusts = TRUE
+		for(var/obj/item/clothing/shoes/mod/usermodboots in user.get_equipped_items())
+			if(usermodboots.magbooted)
 				safefromgusts = TRUE
 
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
@@ -222,11 +225,13 @@ Pipelines + Other Objects -> Pipe network
 				to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 
 		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
+			safefromgusts = FALSE
 			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
-				if(usermagboots.gustprotection && usermagboots.magpulse) // Check again, incase they change magpulse mid-wrench
+				if(usermagboots.magpulse) // Check again, incase they change magpulse mid-wrench
 					safefromgusts = TRUE
-				else
-					safefromgusts = FALSE
+			for(var/obj/item/clothing/shoes/mod/usermodboots in user.get_equipped_items())
+				if(usermodboots.magbooted)
+					safefromgusts = TRUE
 
 			user.visible_message( \
 				"<span class='notice'>[user] unfastens \the [src].</span>", \

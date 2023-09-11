@@ -62,9 +62,11 @@
 	var/sound_effect = 'sound/weapons/slap.ogg'
 
 /// So we don't leave folks with god-mode
-/datum/status_effect/high_five/proc/wiz_cleanup(mob/user, mob/highfived)
+/datum/status_effect/high_five/proc/wiz_cleanup(mob/living/carbon/user, mob/living/carbon/highfived)
 	user.status_flags &= ~GODMODE
 	highfived.status_flags &= ~GODMODE
+	user.remove_status_effect(type)
+	highfived.remove_status_effect(type)
 
 /datum/status_effect/high_five/on_apply()
 	if(!iscarbon(owner))
@@ -73,6 +75,7 @@
 
 	var/mob/living/carbon/user = owner
 	var/is_wiz = iswizard(user)
+	var/both_wiz = FALSE
 	for(var/mob/living/carbon/C in orange(1, user))
 		if(!C.has_status_effect(type) || C == user)
 			continue
@@ -82,18 +85,18 @@
 			C.status_flags |= GODMODE
 			explosion(get_turf(user), 5, 2, 1, 3, cause = id)
 			// explosions have a spawn so this makes sure that we don't get gibbed
-			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, C), 1)
+			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, C), 0.3 SECONDS) //I want to be sure this lasts long enough, with lag.
 			add_attack_logs(user, C, "caused a wizard [id] explosion")
-			user.remove_status_effect(type)
-			C.remove_status_effect(type)
-
+			both_wiz = TRUE
 		user.do_attack_animation(C, no_effect = TRUE)
 		C.do_attack_animation(user, no_effect = TRUE)
-		user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[C.name]</b> [success]</span>")
 		playsound(user, sound_effect, 80)
-		user.remove_status_effect(type)
-		C.remove_status_effect(type)
-		return FALSE
+		if(!both_wiz)
+			user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[C.name]</b> [success]</span>")
+			user.remove_status_effect(type)
+			C.remove_status_effect(type)
+			return FALSE
+		return TRUE // DO NOT AUTOREMOVE
 
 	owner.custom_emote(EMOTE_VISIBLE, request)
 	owner.create_point_bubble_from_path(item_path, FALSE)
@@ -140,6 +143,166 @@
 
 	return pick(missed_messages)
 
+/// A status effect that can have a certain amount of "bonus" duration added, which extends the duration every tick,
+/// although there is a maximum amount of bonus time that can be active at any given time.
+/datum/status_effect/limited_bonus
+	/// How much extra time has been added
+	var/bonus_time = 0
+	/// How much extra time to apply per tick
+	var/bonus_time_per_tick = 1 SECONDS
+	/// How much maximum bonus time can be active at once
+	var/max_bonus_time = 1 MINUTES
+
+/datum/status_effect/limited_bonus/tick()
+	. = ..()
+	// Sure, we could do some fancy stuff with clamping, and it'd probably be a little cleaner.
+	// This keeps the math simple and easier to use later
+	if(bonus_time > bonus_time_per_tick)
+		duration += bonus_time_per_tick
+		bonus_time -= bonus_time_per_tick
+
+/datum/status_effect/limited_bonus/proc/extend(extra_time)
+	bonus_time = clamp(bonus_time + extra_time, 0, max_bonus_time)
+
+/datum/status_effect/limited_bonus/revivable
+	id = "revivable"
+	alert_type = null
+	status_type = STATUS_EFFECT_UNIQUE
+	duration = BASE_DEFIB_TIME_LIMIT
+
+/datum/status_effect/limited_bonus/revivable/on_apply()
+	. = ..()
+	if(!iscarbon(owner))
+		return FALSE
+
+	RegisterSignal(owner, COMSIG_HUMAN_RECEIVE_CPR, PROC_REF(on_cpr))
+	RegisterSignal(owner, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+
+
+/datum/status_effect/limited_bonus/revivable/proc/on_cpr(mob/living/carbon/human/H, new_seconds)
+	SIGNAL_HANDLER  // COMSIG_HUMAN_RECEIVE_CPR
+	extend(new_seconds)
+
+/datum/status_effect/limited_bonus/revivable/proc/on_revive()
+	SIGNAL_HANDLER  // COMSIG_LIVING_REVIVE
+	qdel(src)
+
+/datum/status_effect/limited_bonus/revivable/on_remove()
+	// Update HUDs once the status effect is deleted to show non-revivability
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living, med_hud_set_status))
+	. = ..()
+
+
 /datum/status_effect/charging
 	id = "charging"
 	alert_type = null
+
+/datum/status_effect/impact_immune
+	id = "impact_immune"
+	alert_type = null
+
+#define LWAP_LOCK_CAP 10
+
+/datum/status_effect/lwap_scope
+	id = "lwap_scope"
+	alert_type = null
+	duration = -1
+	tick_interval = 4
+	/// The number of people the gun has locked on to. Caps at 10 for sanity.
+	var/locks = 0
+	/// What direction the owner was in when using the scope.
+	var/owner_dir = 0
+
+/datum/status_effect/lwap_scope/on_creation(mob/living/new_owner, stored_dir = 0)
+	owner_dir = stored_dir
+	return ..()
+
+/datum/status_effect/lwap_scope/tick()
+	locks = 0
+	var/turf/owner_turf = get_turf(owner)
+	var/scope_turf
+	for(var/turf/T in RANGE_EDGE_TURFS(7, owner_turf))
+		if(get_dir(owner, T) != owner_dir)
+			continue
+		if(T in range(owner, 6))
+			continue
+		scope_turf = T
+		break
+	if(scope_turf)
+		for(var/mob/living/L in range(10, scope_turf))
+			if(locks >= LWAP_LOCK_CAP)
+				return
+			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L)) //xenobio moment
+				continue
+			new /obj/effect/temp_visual/lwap_ping(owner.loc, owner, L)
+			locks++
+
+#undef LWAP_LOCK_CAP
+
+/obj/effect/temp_visual/lwap_ping
+	duration = 0.5 SECONDS
+	randomdir = FALSE
+	icon = 'icons/obj/projectiles.dmi'
+	/// The image shown to lwap users
+	var/image/lwap_image
+	/// The person with the lwap at the moment, really just used to remove this from their screen
+	var/source_UID
+	/// The icon state applied to the image created for this ping.
+	var/real_icon_state = "red_laser"
+
+/obj/effect/temp_visual/lwap_ping/Initialize(mapload, mob/living/looker, mob/living/creature)
+	. = ..()
+	if(!looker || !creature)
+		return INITIALIZE_HINT_QDEL
+	lwap_image = image(icon = icon, loc = src, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_x = ((creature.x - looker.x) * 32), pixel_y = ((creature.y - looker.y) * 32))
+	lwap_image.plane = ABOVE_LIGHTING_PLANE
+	lwap_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	source_UID = looker.UID()
+	add_mind(looker)
+
+/obj/effect/temp_visual/lwap_ping/Destroy()
+	var/mob/living/previous_user = locateUID(source_UID)
+	if(previous_user)
+		remove_mind(previous_user)
+	// Null so we don't shit the bed when we delete
+	lwap_image = null
+	return ..()
+
+/// Add the image to the lwap user's screen
+/obj/effect/temp_visual/lwap_ping/proc/add_mind(mob/living/looker)
+	looker.client?.images |= lwap_image
+
+/// Remove the image from the lwap user's screen
+/obj/effect/temp_visual/lwap_ping/proc/remove_mind(mob/living/looker)
+	looker.client?.images -= lwap_image
+
+/datum/status_effect/delayed
+	id = "delayed_status_effect"
+	status_type = STATUS_EFFECT_MULTIPLE
+	alert_type = null
+	var/prevent_signal = null
+	var/datum/callback/expire_proc = null
+
+/datum/status_effect/delayed/on_creation(mob/living/new_owner, new_duration, datum/callback/new_expire_proc, new_prevent_signal = null)
+	if(!new_duration || !istype(new_expire_proc))
+		qdel(src)
+		return
+	duration = new_duration
+	expire_proc = new_expire_proc
+	. = ..()
+	if(new_prevent_signal)
+		RegisterSignal(owner, new_prevent_signal, PROC_REF(prevent_action))
+		prevent_signal = new_prevent_signal
+
+/datum/status_effect/proc/prevent_action()
+	SIGNAL_HANDLER
+	qdel(src)
+
+/datum/status_effect/delayed/on_remove()
+	if(prevent_signal)
+		UnregisterSignal(owner, prevent_signal)
+	. = ..()
+
+/datum/status_effect/delayed/on_timeout()
+	. = ..()
+	expire_proc.Invoke()

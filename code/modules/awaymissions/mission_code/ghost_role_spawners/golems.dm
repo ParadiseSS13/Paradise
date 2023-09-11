@@ -6,12 +6,12 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct"
 	desc = "The incomplete body of a golem. Add ten sheets of any mineral to finish."
-	var/shell_type = /obj/effect/mob_spawn/human/golem
+	var/shell_type = /obj/effect/mob_spawn/human/alive/golem
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/golem_shell/servant
 	name = "incomplete servant golem shell"
-	shell_type = /obj/effect/mob_spawn/human/golem/servant
+	shell_type = /obj/effect/mob_spawn/human/alive/golem/servant
 
 /obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
 	..()
@@ -32,7 +32,7 @@
 		/obj/item/stack/sheet/mineral/plastitanium		= /datum/species/golem/plastitanium,
 		/obj/item/stack/sheet/mineral/abductor			= /datum/species/golem/alloy,
 		/obj/item/stack/sheet/wood						= /datum/species/golem/wood,
-		/obj/item/stack/sheet/bluespace_crystal			= /datum/species/golem/bluespace,
+		/obj/item/stack/ore/bluespace_crystal/refined	= /datum/species/golem/bluespace,
 		/obj/item/stack/medical/bruise_pack	        	= /datum/species/golem/cloth,
 		/obj/item/stack/medical/bruise_pack/improvised	= /datum/species/golem/cloth,
 		/obj/item/stack/sheet/cloth	                	= /datum/species/golem/cloth,
@@ -56,7 +56,7 @@
 		else
 			to_chat(user, "You can't build a golem out of this kind of material.")
 
-/obj/effect/mob_spawn/human/golem
+/obj/effect/mob_spawn/human/alive/golem
 	name = "inert free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
 	mob_name = "a free golem"
@@ -78,7 +78,7 @@
 	travel the stars with a single declaration: \"Yeah go do whatever.\" Though you are bound to the one who created you, it is customary in your society to repeat those same words to newborn \
 	golems, so that no golem may ever be forced to serve again."
 
-/obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
+/obj/effect/mob_spawn/human/alive/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
 		name += " ([initial(species.prefix)])"
 		mob_species = species
@@ -93,7 +93,7 @@
 		Serve [creator], and assist [creator.p_them()] in completing [creator.p_their()] goals at any cost."
 		owner = creator
 
-/obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn, name)
+/obj/effect/mob_spawn/human/alive/golem/special(mob/living/new_spawn, name)
 	var/datum/species/golem/X = mob_species
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
@@ -105,6 +105,19 @@
 		but avoid actively interfering with the station, you are required to adminhelp and request permission to board the main station.</span>")
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
+		if(owner.mind.special_role)
+			if(owner.mind.special_role == "Response Team")
+				return
+			new_spawn.mind.store_memory("<b>[owner.real_name], your creator, is an antagonist.</b>")
+			to_chat(new_spawn, "<b>[owner.real_name], your creator, is an antagonist.</b>")
+			SSticker.mode.traitors.Add(new_spawn.mind)
+			var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_TRAITOR]
+			hud.join_hud(new_spawn)
+			set_antag_hud(new_spawn.mind.current, "hudmindslave")
+			if(locate(/datum/objective/hijack) in owner.mind.get_all_objectives())
+				new_spawn.mind.store_memory("<b>They must hijack the shuttle.</b>")
+				to_chat(new_spawn, "<b>They are tasked with hijacking the shuttle.</b>")
+				set_antag_hud(new_spawn.mind.current, "hudslavehijack")
 		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 		log_admin("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 	if(ishuman(new_spawn))
@@ -126,7 +139,7 @@
 	else
 		new_spawn.mind.assigned_role = "Free Golem"
 
-/obj/effect/mob_spawn/human/golem/attack_hand(mob/user)
+/obj/effect/mob_spawn/human/alive/golem/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return
@@ -149,7 +162,7 @@
 		user.death()
 		return
 
-/obj/effect/mob_spawn/human/golem/attackby(obj/item/I, mob/living/carbon/user, params)
+/obj/effect/mob_spawn/human/alive/golem/attackby(obj/item/I, mob/living/carbon/user, params)
 	if(!istype(I, /obj/item/slimepotion/transference))
 		return ..()
 	if(iscarbon(user) && can_transfer)
@@ -158,7 +171,7 @@
 			return
 		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))
 			return
-		if(istype(src, /obj/effect/mob_spawn/human/golem/servant) && !isgolem(user))
+		if(istype(src, /obj/effect/mob_spawn/human/alive/golem/servant) && !isgolem(user))
 			has_owner = FALSE
 		if(isgolem(user) && can_transfer)
 			var/datum/species/golem/g = user.dna.species
@@ -180,12 +193,12 @@
 		to_chat(g, "<span class='warning'>You have become the [g.dna.species]. Your allegiances, alliances, and roles are still the same as they were prior to using [I]!</span>")
 		qdel(I)
 
-/obj/effect/mob_spawn/human/golem/servant
+/obj/effect/mob_spawn/human/alive/golem/servant
 	has_owner = TRUE
 	name = "inert servant golem shell"
 	mob_name = "a servant golem"
 
-/obj/effect/mob_spawn/human/golem/adamantine
+/obj/effect/mob_spawn/human/alive/golem/adamantine
 	name = "dust-caked free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
 	mob_name = "a free golem"

@@ -65,7 +65,9 @@
 	var/list/tc = allowed_typecache
 	if(disable_attackby)
 		return
-	if(user.a_intent != INTENT_HELP)
+	// Allow tools to be inserted on harm and help intent since they might be used for construction
+	// otherwise user needs to be on help intent
+	if(!((I.tool_behaviour && user.a_intent == INTENT_HARM) || user.a_intent == INTENT_HELP))
 		return
 	if(I.flags & ABSTRACT)
 		return
@@ -386,7 +388,7 @@
 /datum/material/bluespace
 	name = "Bluespace Mesh"
 	id = MAT_BLUESPACE
-	sheet_type = /obj/item/stack/sheet/bluespace_crystal
+	sheet_type = /obj/item/stack/ore/bluespace_crystal/refined
 	ore_type = /obj/item/stack/ore/bluespace_crystal
 
 /datum/material/bananium

@@ -4,6 +4,8 @@
 	icon_state = "jetpack"
 	w_class = WEIGHT_CLASS_BULKY
 	item_state = "jetpack"
+	lefthand_file = 'icons/mob/inhands/jetpack_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/jetpack_righthand.dmi'
 	distribute_pressure = ONE_ATMOSPHERE * O2STANDARD
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 	var/gas_type = "oxygen"
@@ -131,11 +133,6 @@
 	item_state = "jetpack-captain"
 	volume = 90
 	w_class = WEIGHT_CLASS_NORMAL
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
-
-/obj/item/tank/jetpack/oxygen/captain/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/tank/jetpack/oxygen/security
 	name = "security jetpack (oxygen)"

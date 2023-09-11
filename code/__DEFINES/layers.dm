@@ -3,6 +3,9 @@
 
 #define CLICKCATCHER_PLANE -99
 
+#define GRAVITY_PULSE_PLANE -96 //Needs to be behind space, otherwise it blocks space, lol
+#define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
+
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 

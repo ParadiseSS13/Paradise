@@ -17,7 +17,7 @@
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WRENCH
 
 /obj/item/wrench/suicide_act(mob/user)
@@ -59,6 +59,7 @@
 	throwforce = 8
 	attack_verb = list("drilled", "screwed", "jabbed")
 	toolspeed = 0.25
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/wrench/power/attack_self(mob/user)
 	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
@@ -96,8 +97,8 @@
 	animate(filter, alpha = 110, time = 3, loop = -1)
 	animate(alpha = 40, time = 6)
 
-	// Stun stops them from wandering off
-	user.Stun(10 SECONDS)
+	// Immobilize stops them from wandering off and dropping the wrench
+	user.Immobilize(10 SECONDS)
 	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
 
 	// Let the sound effect finish playing

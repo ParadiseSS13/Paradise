@@ -434,6 +434,41 @@
 	if(..())
 		radiation_pulse(get_turf(src), rad_per_cycle)
 
+/obj/item/mecha_parts/mecha_equipment/thrusters
+	name = "exosuit ion thrusters"
+	desc = "Ion thrusters to be attached to an exosuit. Drains power even while not in flight."
+	icon_state = "tesla"
+	origin_tech = "powerstorage=4;engineering=4"
+	range = 0
+	energy_drain = 20
+	selectable = FALSE
+
+/obj/item/mecha_parts/mecha_equipment/thrusters/attach(obj/mecha/M)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+	M.add_thrusters()
+	M.thruster_count++
+
+/obj/item/mecha_parts/mecha_equipment/thrusters/detach(atom/moveto)
+	chassis.thruster_count--
+	chassis.remove_thrusters()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/mecha_parts/mecha_equipment/thrusters/process()
+	if(!chassis)
+		STOP_PROCESSING(SSobj, src)
+	if(!energy_drain || !chassis.thrusters_active)
+		return
+	chassis.use_power(energy_drain)
+
+/obj/mecha/proc/add_thrusters()
+	if(occupant)
+		thrusters_action.Grant(occupant, src)
+
+/obj/mecha/proc/remove_thrusters()
+	if(occupant && !thruster_count)
+		thrusters_action.Remove(occupant)
 
 #undef MECH_GRAVCAT_MODE_GRAVSLING
 #undef MECH_GRAVCAT_MODE_GRAVPUSH

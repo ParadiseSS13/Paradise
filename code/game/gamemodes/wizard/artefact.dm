@@ -204,8 +204,8 @@
 /obj/item/scrying
 	name = "scrying orb"
 	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means."
-	icon = 'icons/obj/projectiles.dmi'
-	icon_state ="bluespace"
+	icon = 'icons/obj/wizard.dmi'
+	icon_state ="scrying_orb"
 	throw_speed = 7
 	throw_range = 15
 	throwforce = 15
@@ -231,6 +231,7 @@
 		to_chat(current_owner, "<span class='notice'>Your otherworldly vision fades...</span>")
 
 		REMOVE_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		REMOVE_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
 		current_owner.update_sight()
 		current_owner.update_icons()
 
@@ -242,6 +243,7 @@
 		to_chat(current_owner, "<span class='notice'>You can see...everything!</span>")
 
 		ADD_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		ADD_TRAIT(current_owner, TRAIT_NIGHT_VISION, SCRYING_ORB)
 		current_owner.update_sight()
 		current_owner.update_icons()
 
@@ -593,12 +595,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("soviet")
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/hgpiratecap(M), slot_head)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/sovietofficerhat(M), slot_head)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/hgpirate(M), slot_wear_suit)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/soviet(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/sovietcoat(M), slot_wear_suit)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/new_soviet/sovietofficer(M), slot_w_uniform)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("officer")
@@ -743,7 +745,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
 			H.equip_to_slot_or_del(new /obj/item/claymore(H), slot_r_hand)
-			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
+			H.equip_to_slot_or_del(new /obj/item/spear(H), slot_back)
 		if("pirate")
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(H),  slot_wear_suit)
@@ -751,7 +753,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), slot_glasses)
 			H.equip_to_slot_or_del(new /obj/item/claymore(H), slot_r_hand)
-			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
+			H.equip_to_slot_or_del(new /obj/item/spear(H), slot_back)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
 		if("yand")//mine is an evil laugh
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
@@ -760,7 +762,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
 			H.equip_to_slot_or_del(new /obj/item/katana(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
-			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
+			H.equip_to_slot_or_del(new /obj/item/spear(H), slot_back)
 		if("clown")
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), slot_shoes)
@@ -769,7 +771,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
 			H.equip_to_slot_or_del(new /obj/item/claymore(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
-			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
+			H.equip_to_slot_or_del(new /obj/item/spear(H), slot_back)
 
 /obj/item/necromantic_stone/proc/spawnheresy(mob/living/carbon/human/H as mob)
 	H.set_species(/datum/species/human)
@@ -795,7 +797,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/katana(H), slot_r_hand)
 	H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
-	H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
+	H.equip_to_slot_or_del(new /obj/item/spear(H), slot_back)
 	if(!H.real_name || H.real_name == "unknown")
 		H.real_name = "Neko-chan"
 	else
@@ -854,3 +856,67 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/reagent_containers/food/drinks/everfull/proc/magic_fill(reagent_choice)
 	reagents.clear_reagents()
 	reagents.add_reagent(reagent_choice, volume)
+
+//Oblivion Enforcer clothing (the halberd and gloves are defined elsewhere)
+
+/obj/item/clothing/head/hooded/oblivion
+	name = "Oblivion Enforcer's hood"
+	desc = "A hood worn by an Oblivion Enforcer."
+	icon_state = "oblivionhood"
+	flags = BLOCKHAIR
+	flags_inv = HIDEFACE
+	flags_cover = HEADCOVERSEYES
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = INFINITY, FIRE = 5, ACID = 5)
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	magical = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
+
+/obj/item/clothing/suit/hooded/oblivion
+	name = "Oblivion Enforcer's robes"
+	desc = "A set of armored, radiation-proof robes worn by Oblivion Enforcers."
+	icon_state = "oblivionarmor"
+	item_state = "oblivionarmor"
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	hoodtype = /obj/item/clothing/head/hooded/oblivion
+	allowed = list(/obj/item/supermatter_halberd, /obj/item/nuke_core/supermatter_sliver)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = INFINITY, FIRE = 5, ACID = 5)
+	flags_inv = HIDEJUMPSUIT | HIDESHOES | HIDETAIL | HIDESHOES
+	flags = THICKMATERIAL
+	magical = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+	)
+
+/obj/item/clothing/suit/hooded/oblivion/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
+
+/obj/item/clothing/mask/gas/voice_modulator/oblivion
+	name = "Oblivion Enforcer's mask"
+	desc = "The mask of an Oblivion Enforcer. Don't forget to turn it on before giving your one-liners!"
+	icon_state = "oblivionmask"
+	item_state = "oblivionmask"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
+	)

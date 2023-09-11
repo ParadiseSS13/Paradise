@@ -3,6 +3,8 @@
 	name = "cheap lighter"
 	desc = "A cheap-as-free lighter."
 	icon = 'icons/obj/items.dmi'
+	lefthand_file = 'icons/mob/inhands/lighter_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lighter_righthand.dmi'
 	icon_state = "lighter-g"
 	item_state = "lighter-g"
 	w_class = WEIGHT_CLASS_TINY
@@ -12,15 +14,15 @@
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
 	var/lit = FALSE
-	var/icon_on = "lighter-g-on"
-	var/icon_off = "lighter-g"
+	/// Cooldown until the next turned on message/sound can be activated
+	var/next_on_message
+	/// Cooldown until the next turned off message/sound can be activated
+	var/next_off_message
 
 /obj/item/lighter/random/New()
 	..()
 	var/color = pick("r","c","y","g")
-	icon_on = "lighter-[color]-on"
-	icon_off = "lighter-[color]"
-	icon_state = icon_off
+	icon_state = "lighter-[color]"
 
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
@@ -39,13 +41,12 @@
 /obj/item/lighter/proc/turn_on_lighter(mob/living/user)
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY
-	icon_state = icon_on
-	item_state = icon_on
 	force = 5
 	damtype = BURN
 	hitsound = 'sound/items/welder.ogg'
 	attack_verb = list("burnt", "singed")
 
+	update_icon()
 	attempt_light(user)
 	set_light(2)
 	START_PROCESSING(SSobj, src)
@@ -59,16 +60,18 @@
 		if(affecting.receive_damage( 0, 5 ))		//INFERNO
 			H.UpdateDamageIcon()
 		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
+	if(world.time > next_on_message)
+		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
+		next_on_message = world.time + 5 SECONDS
 
 /obj/item/lighter/proc/turn_off_lighter(mob/living/user)
 	lit = FALSE
 	w_class = WEIGHT_CLASS_TINY
-	icon_state = icon_off
-	item_state = icon_off
 	hitsound = "swing_hit"
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
 
+	update_icon()
 	if(user)
 		show_off_message(user)
 	set_light(0)
@@ -81,6 +84,9 @@
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)
 	to_chat(user, "<span class='notice'>You shut off [src].")
+	if(world.time > next_off_message)
+		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
+		next_off_message = world.time + 5 SECONDS
 
 /obj/item/lighter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!isliving(M))
@@ -98,6 +104,7 @@
 				cig.light("<span class='rose'>[user] whips [src] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
 				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 			M.update_inv_wear_mask()
 	else
 		..()
@@ -108,16 +115,20 @@
 		location.hotspot_expose(700, 5)
 	return
 
+/obj/item/lighter/update_icon_state()
+	icon_state = "[initial(icon_state)][lit ? "-on" : ""]"
+	return ..()
+
+/obj/item/lighter/update_overlays()
+	item_state = "[initial(item_state)][lit ? "-on" : ""]"
+	return ..()
+
 // Zippo lighters
 /obj/item/lighter/zippo
 	name = "zippo lighter"
 	desc = "The zippo."
 	icon_state = "zippo"
 	item_state = "zippo"
-	icon_on = "zippoon"
-	icon_off = "zippo"
-	var/next_on_message
-	var/next_off_message
 
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
@@ -150,37 +161,31 @@
 /obj/item/lighter/zippo/nt_rep
 	name = "gold engraved zippo"
 	desc = "An engraved golden Zippo lighter with the letters NT on it."
-	icon_state = "zippo_nt_off"
-	icon_on = "zippo_nt_on"
-	icon_off = "zippo_nt_off"
+	icon_state = "zippo-nt"
+	item_state = "zippo-gold"
 
 /obj/item/lighter/zippo/blue
 	name = "blue zippo lighter"
 	desc = "A zippo lighter made of some blue metal."
-	icon_state = "bluezippo"
-	icon_on = "bluezippoon"
-	icon_off = "bluezippo"
+	icon_state = "zippo-blue"
+	item_state = "zippo-blue"
 
 /obj/item/lighter/zippo/black
 	name = "black zippo lighter"
 	desc = "A black zippo lighter."
-	icon_state = "blackzippo"
-	icon_on = "blackzippoon"
-	icon_off = "blackzippo"
+	icon_state = "zippo-black"
+	item_state = "zippo-black"
 
 /obj/item/lighter/zippo/engraved
 	name = "engraved zippo lighter"
 	desc = "A intricately engraved zippo lighter."
-	icon_state = "engravedzippo"
-	icon_on = "engravedzippoon"
-	icon_off = "engravedzippo"
+	icon_state = "zippo-engraved"
 
 /obj/item/lighter/zippo/gonzofist
 	name = "Gonzo Fist zippo"
 	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."
-	icon_state = "gonzozippo"
-	icon_on = "gonzozippoon"
-	icon_off = "gonzozippo"
+	icon_state = "zippo-gonzo"
+	item_state = "zippo-red"
 
 ///////////
 //MATCHES//
@@ -269,6 +274,7 @@
 			cig.attackby(src, user)
 		else
 			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	else
 		..()
 

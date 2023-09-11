@@ -25,7 +25,7 @@
 	to_chat(user, "<B>Sentinels</B> <span class='notice'>are tasked with protecting the hive and are deadly up close and at a range. They are not as physically imposing nor fast as the hunters.</span>")
 	to_chat(user, "<B>Drones</B> <span class='notice'>are the working class, offering the largest plasma storage and generation. They are the only caste which may evolve again, turning into the dreaded alien queen.</span>")
 	var/static/list/to_evolve = list("Hunter" = image(icon = 'icons/mob/alien.dmi', icon_state = "alienh_s"),
-								"Sentinel" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliend_s"),
+								"Sentinel" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliens_s"),
 								"Drone" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliend_s"))
 	var/new_xeno = show_radial_menu(user, user, to_evolve, src, radius = 40)
 	var/turf/T = user.loc

@@ -279,7 +279,7 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			visible_message("<B>[src] scrambles into the ventillation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+			visible_message("<B>[src] scrambles into the ventilation ducts!</B>", "<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 			spawn(rand(20,60))
 				var/original_location = loc
 				forceMove(exit_vent)

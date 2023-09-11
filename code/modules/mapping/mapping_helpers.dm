@@ -52,7 +52,7 @@
 
 /obj/effect/baseturf_helper/lava_land/surface
 	name = "lavaland baseturf editor"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'
@@ -122,6 +122,7 @@
 
 /obj/effect/mapping_helpers/airlock/unres/payload(obj/machinery/door/airlock)
 	airlock.unres_sides ^= dir
+	airlock.update_icon()
 
 /obj/effect/mapping_helpers/airlock/autoname
 	name = "airlock autoname helper"
@@ -129,3 +130,7 @@
 
 /obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock)
 	airlock.name = get_area_name(airlock, TRUE)
+
+//part responsible for windoors (thanks S34N)
+/obj/effect/mapping_helpers/airlock/windoor
+	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)

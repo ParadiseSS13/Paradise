@@ -11,7 +11,7 @@
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
@@ -33,6 +33,8 @@
 	var/edge_overlay_file
 	/// Tracks the edging appearence sprite
 	var/mutable_appearance/edge_overlay
+	/// Minimum environment smash level (found on simple animals) to break through this instantly
+	var/env_smash_level = ENVIRONMENT_SMASH_STRUCTURES
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -169,7 +171,14 @@
 /obj/structure/window/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)	//used by attack_alien, attack_animal, and attack_slime
 	if(!can_be_reached(user))
 		return
-	..()
+	return ..()
+/obj/structure/window/attack_animal(mob/living/simple_animal/M)
+	if(!can_be_reached(M))
+		return
+	. = ..()
+	if(. && M.environment_smash >= env_smash_level)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
 
 /obj/structure/window/attackby(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
@@ -499,6 +508,31 @@
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
+/obj/structure/window/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	var/shattered = FALSE
+	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
+		shattered = TRUE
+		var/obj/item/S = new shardtype(loc)
+		S.embedded_ignore_throwspeed_threshold = TRUE
+		S.throw_impact(C)
+		S.embedded_ignore_throwspeed_threshold = FALSE
+		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
+		var/turf/T = get_turf(src)
+		for(var/obj/structure/grille/G in T.contents)
+			var/obj/structure/cable/SC = T.get_cable_node()
+			if(SC)
+				playsound(G, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+				tesla_zap(G, 3, SC.get_queued_available_power() * 0.05, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) //Zap for 1/20 of the amount of power, because I am evil.
+				SC.add_queued_power_demand(SC.get_queued_available_power() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
+			qdel(G) //We don't want the grille to block the way, we want rule of cool of throwing people into space!
+
+	if(!self_hurt)
+		take_damage(damage * 2, BRUTE) //Makes windows more vunerable to being thrown so they'll actually shatter in a reasonable ammount of time.
+		self_hurt = TRUE
+	..()
+	if(shattered)
+		C.throw_at(throwingdatum.target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
 
@@ -510,8 +544,8 @@
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
 	icon_state = "rwindow"
 	reinf = TRUE
-	heat_resistance = 1600
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	heat_resistance = 1300
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	max_integrity = 50
 	explosion_block = 1
@@ -617,7 +651,7 @@
 	heat_resistance = 32000
 	max_integrity = 150
 	explosion_block = 1
-	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 
 /obj/structure/window/plasmabasic/BlockSuperconductivity()
@@ -634,7 +668,7 @@
 	heat_resistance = 32000
 	max_integrity = 500
 	explosion_block = 2
-	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 	damage_deflection = 21
 
@@ -674,9 +708,10 @@
 	heat_resistance = 32000
 	max_integrity = 300
 	explosion_block = 1
-	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
+	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -691,9 +726,10 @@
 	heat_resistance = 32000
 	max_integrity = 1000
 	explosion_block = 2
-	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
+	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -707,7 +743,7 @@
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, RAD = 100, FIRE = 80, ACID = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
@@ -737,10 +773,11 @@
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 100, FIRE = 80, ACID = 100)
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	glass_type = /obj/item/stack/sheet/titaniumglass
+	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // shuttle windows should probably be a bit stronger, too
 
 /obj/structure/window/full/shuttle/narsie_act()
 	color = "#3C3434"
@@ -757,7 +794,7 @@
 	max_integrity = 1200
 	reinf = TRUE
 	heat_resistance = 32000
-	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
@@ -771,7 +808,7 @@
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
-	armor = list(MELEE = 60, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 60, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 25, RAD = 100, FIRE = 80, ACID = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	glass_type = /obj/item/stack/tile/brass
 	reinf = FALSE

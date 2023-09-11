@@ -175,11 +175,14 @@ I use this to standardize shadowling dethrall code
 
 /mob/living/carbon/human/has_organic_damage()
 	var/robo_damage = 0
+	var/perma_injury_damage = 0
 	for(var/obj/item/organ/external/E in bodyparts)
 		if(E.is_robotic())
 			robo_damage += E.brute_dam
 			robo_damage += E.burn_dam
-	return health < maxHealth - robo_damage
+		if(E.perma_injury > (E.brute_dam + E.burn_dam))
+			perma_injury_damage += E.perma_injury - (E.brute_dam + E.burn_dam)
+	return health < maxHealth - robo_damage - perma_injury_damage
 
 /mob/living/carbon/human/proc/handle_splints() //proc that rebuilds the list of splints on this person, for ease of processing
 	splinted_limbs.Cut()

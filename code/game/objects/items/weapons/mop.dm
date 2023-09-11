@@ -5,6 +5,8 @@
 	name = "mop"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "mop"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 3
 	throwforce = 5
 	throw_speed = 3

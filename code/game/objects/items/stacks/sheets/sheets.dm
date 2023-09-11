@@ -1,6 +1,8 @@
 /obj/item/stack/sheet
 	name = "sheet"
 	icon = 'icons/obj/stacks/minerals.dmi'
+	lefthand_file = 'icons/mob/inhands/sheet_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/sheet_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 5
 	throwforce = 5

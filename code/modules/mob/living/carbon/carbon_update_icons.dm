@@ -24,18 +24,21 @@
 		floating = FALSE
 		animate(src, transform = ntransform, time = (lying_prev == 0 || lying_angle == 0) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
 
+/mob/living/carbon/regenerate_icons()
+	SEND_SIGNAL(src, COMSIG_CARBON_REGENERATE_ICONS, src)
+	return ..()
 
 /mob/living/carbon/proc/handle_transform_change()
 	return
 
 //update whether handcuffs appears on our hud.
-/mob/living/carbon/proc/update_hud_handcuffed()
-	if(hud_used)
-		var/obj/screen/inventory/R = hud_used.inv_slots[slot_r_hand]
-		var/obj/screen/inventory/L = hud_used.inv_slots[slot_l_hand]
-		if(R && L)
-			R.update_icon()
-			L.update_icon()
+/mob/living/carbon/proc/update_hands_hud()
+	if(!hud_used)
+		return
+	var/obj/screen/inventory/R = hud_used.inv_slots[slot_r_hand]
+	R?.update_icon()
+	var/obj/screen/inventory/L = hud_used.inv_slots[slot_l_hand]
+	L?.update_icon()
 
 /mob/living/carbon/update_inv_r_hand(ignore_cuffs)
 	if(handcuffed && !ignore_cuffs)
@@ -82,3 +85,4 @@
 //update whether our back item appears on our hud.
 /mob/living/carbon/proc/update_hud_back(obj/item/I)
 	return
+

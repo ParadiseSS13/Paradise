@@ -56,6 +56,14 @@
 	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
 	sound = "sound/machines/twobeep.ogg"
 
+/datum/emote/living/silicon/boop
+	key = "boop"
+	key_third_person = "boops"
+	message = "boops."
+	message_param = "boops at %t."
+	emote_type = EMOTE_SOUND | EMOTE_AUDIBLE
+	sound = "sound/machines/boop.ogg"
+
 /datum/emote/living/silicon/yes
 	key = "yes"
 	message = "emits an affirmative blip."

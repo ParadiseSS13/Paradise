@@ -114,6 +114,7 @@
 	var/plasma_count = 0
 	var/intel_count = 0
 	var/crate_count = 0
+	var/total_crate_value = 0
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 	var/credits_to_deposit = 0
@@ -132,6 +133,11 @@
 			SSeconomy.sold_atoms += ":"
 			if(!length(MA.contents))
 				SSeconomy.sold_atoms += " (empty)"
+			if(istype(MA, /obj/structure/closet/crate))
+				var/obj/structure/closet/crate/exported_crate = MA
+				total_crate_value += exported_crate.crate_value
+			else
+				total_crate_value += DEFAULT_CRATE_VALUE
 			crate_count++
 
 			var/find_slip = TRUE
@@ -211,9 +217,8 @@
 		credits_to_deposit += credits_from_intel
 
 	if(crate_count > 0)
-		var/credits_from_crates = crate_count * SSeconomy.credits_per_crate
-		msg += "<span class='good'>+[credits_from_crates]</span>: Received [crate_count] crate(s).<br>"
-		credits_to_deposit += credits_from_crates
+		msg += "<span class='good'>+[total_crate_value]</span>: Received [crate_count] crate(s).<br>"
+		credits_to_deposit += total_crate_value
 
 	SSeconomy.centcom_message += "[msg]<hr>"
 	if(credits_to_deposit > 0)

@@ -54,10 +54,9 @@
 		return ..()
 	if(on_cooldown)
 		return
-	if(issilicon(target) && !affect_silicon)
+	if((issilicon(target) || isbot(target)) && !affect_silicon)
 		return ..()
-	else
-		baton_knockdown(target, user)
+	baton_knockdown(target, user)
 
 /**
   * Called when a target is about to be hit non-lethally.
@@ -67,19 +66,28 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
+	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user))
+		to_chat(user, user.mind.martial_art.no_baton_reason)
+		return
 	if(issilicon(target))
 		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
 							"<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
 		on_silicon_stun(target, user)
-	else
-		// Check for shield/countering
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
-				return FALSE
+
+	// Check for shield/countering
+	else if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+			return FALSE
 		user.visible_message("<span class='danger'>[user] knocks down [target] with [src]!</span>",\
 							"<span class='danger'>You knock down [target] with [src]!</span>")
 		on_non_silicon_stun(target, user)
+
+	else if(isbot(target))
+		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
+							"<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
+		var/mob/living/simple_animal/bot/H = target
+		H.disable(stun_time_silicon)
 	// Visuals and sound
 	user.do_attack_animation(target)
 	playsound(target, stun_sound, 75, TRUE, -1)

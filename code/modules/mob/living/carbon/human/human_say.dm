@@ -115,7 +115,8 @@ GLOBAL_LIST_INIT(soapy_words, list(
 /mob/living/carbon/human/handle_speech_problems(list/message_pieces, verb)
 	var/span = ""
 	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
-	if(translator)
+
+	if(translator && !HAS_TRAIT(src, TRAIT_MUTE))
 		if(translator.active)
 			span = translator.speech_span
 			for(var/datum/multilingual_say_piece/S in message_pieces)
@@ -172,6 +173,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 	return list("verb" = verb)
 
 /mob/living/carbon/human/proc/replace_speech(matched)
+	REGEX_REPLACE_HANDLER
 	return GLOB.soapy_words[lowertext(matched)]
 
 /mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
@@ -236,7 +238,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 	if(dna.species.speech_sounds && prob(dna.species.speech_chance))
 		returns[1] = sound(pick(dna.species.speech_sounds))
 		returns[2] = 50
-		returns[3] = get_age_pitch()
+		returns[3] = get_age_pitch(dna.species.max_age)
 	return returns
 
 /mob/living/carbon/human/binarycheck()

@@ -658,14 +658,17 @@
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
 						Weaken(6 SECONDS)
 
+#define BODYPART_PAIN_REDUCTION 5
+
 /mob/living/carbon/human/update_health_hud()
 	if(!client)
 		return
 	if(dna.species.update_health_hud())
 		return
 	else
+		var/shock_reduction = shock_reduction()
 		if(healths)
-			var/health_amount = get_perceived_trauma()
+			var/health_amount = get_perceived_trauma(shock_reduction)
 			if(..(health_amount)) //not dead
 				switch(health_hud_override)
 					if(HEALTH_HUD_OVERRIDE_CRIT)
@@ -687,9 +690,10 @@
 				healthdoll.icon_state = "healthdoll_DEAD"
 				for(var/obj/item/organ/external/O in bodyparts)
 					var/damage = O.get_damage()
+					damage -= shock_reduction / BODYPART_PAIN_REDUCTION
 					var/comparison = (O.max_damage/5)
 					var/icon_num = 0
-					if(damage)
+					if(damage > 0)
 						icon_num = 1
 					if(damage > (comparison))
 						icon_num = 2
@@ -703,6 +707,8 @@
 				healthdoll.overlays += (new_overlays - cached_overlays)
 				healthdoll.overlays -= (cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
+
+#undef BODYPART_PAIN_REDUCTION
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
@@ -733,7 +739,7 @@
 		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
-				vomit(20, 0, 1, 0, 1)
+				vomit(20, 0, TRUE, 0, 1)
 				adjustToxLoss(-3)
 				lastpuke = 0
 
@@ -781,7 +787,7 @@
 				break
 
 	for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
-		if(R.heart_rate_increase)
+		if(R.has_heart_rate_increase())
 			if(temp <= PULSE_FAST && temp >= PULSE_NONE)
 				temp++
 				break
@@ -852,7 +858,7 @@
 
 				if(heartbeat >= rate)
 					heartbeat = 0
-					src << sound('sound/effects/electheart.ogg',0,0,CHANNEL_HEARTBEAT,30)//Credit to GhostHack (www.ghosthack.de) for sound.
+					SEND_SOUND(src, sound('sound/effects/electheart.ogg', channel = CHANNEL_HEARTBEAT, volume = 30)) // Credit to GhostHack (www.ghosthack.de) for sound.
 
 				else
 					heartbeat++
@@ -870,7 +876,7 @@
 
 			if(heartbeat >= rate)
 				heartbeat = 0
-				src << sound('sound/effects/singlebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
+				SEND_SOUND(src, sound('sound/effects/singlebeat.ogg', channel = CHANNEL_HEARTBEAT, volume = 50))
 			else
 				heartbeat++
 
@@ -890,13 +896,12 @@
 /mob/living/carbon/human/proc/undergoing_cardiac_arrest()
 	if(!can_heartattack())
 		return FALSE
+
 	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
-	if(istype(heart))
-		if(heart.status & ORGAN_DEAD)
-			return TRUE
-		if(heart.beating)
-			return FALSE
-	return TRUE
+	if(!istype(heart) || (heart.status & ORGAN_DEAD) || !heart.beating)
+		return TRUE
+
+	return FALSE
 
 /mob/living/carbon/human/proc/set_heartattack(status)
 	if(!can_heartattack())

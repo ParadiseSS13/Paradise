@@ -70,11 +70,6 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
-"ak" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
 "al" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -424,7 +419,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -704,7 +699,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/portable/canister/air,
-/obj/machinery/door/window/westleft,
+/obj/machinery/door/window/classic/normal{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -880,7 +877,7 @@ aa
 aa
 aa
 ab
-ak
+ad
 ad
 ae
 aa

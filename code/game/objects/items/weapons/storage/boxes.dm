@@ -81,7 +81,6 @@
 /obj/item/storage/box/survival_mining/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
@@ -91,6 +90,7 @@
 /obj/item/storage/box/survival_syndi/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
@@ -268,7 +268,7 @@
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/minertracker
 	name = "boxed tracking bio-chip kit"
@@ -281,7 +281,7 @@
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/mining(src)
 
 /obj/item/storage/box/chemimp
 	name = "chemical bio-chip kit"
@@ -312,7 +312,7 @@
 /obj/item/storage/box/deathimp/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implanter(src)
+	new /obj/item/implanter/death_alarm (src)
 
 /obj/item/storage/box/tapes
 	name = "Tape Box"
@@ -829,8 +829,8 @@
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
@@ -842,12 +842,27 @@
 
 /obj/item/storage/box/deathsquad/populate_contents()
 	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 	new /obj/item/ammo_box/a357(src)
 	new /obj/item/ammo_box/a357(src)
+
+/obj/item/storage/box/soviet
+	name = "boxed survival kit"
+	desc = "A standard issue Soviet military survival kit."
+	icon_state = "box_soviet"
+
+/obj/item/storage/box/soviet/populate_contents()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"
@@ -920,6 +935,15 @@
 	desc = "It's just an ordinary magical box."
 	icon_state = "box_wizard"
 	w_class = WEIGHT_CLASS_GIGANTIC
+
+/obj/item/storage/box/wizard/hardsuit
+	name = "battlemage armour bundle"
+	desc = "This box contains a bundle of Battlemage Armour."
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/hardsuit/populate_contents()
+	new /obj/item/clothing/suit/space/hardsuit/shielded/wizard(src)
+	new /obj/item/clothing/shoes/magboots/wizard(src)
 
 /obj/item/storage/box/breaching
 	name = "breaching charges"

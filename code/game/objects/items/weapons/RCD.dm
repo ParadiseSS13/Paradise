@@ -28,7 +28,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	flags_2 = NO_MAT_REDEMPTION_2
 	req_access = list(ACCESS_ENGINE)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	/// No ammo warning
 	var/no_ammo_message = "<span class='warning'>The \'Low Ammo\' light on the device blinks yellow.</span>"
@@ -162,27 +162,28 @@
 	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
 	return TRUE
-
-/obj/item/rcd/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/rcd_ammo))
-		return ..()
-
-	var/obj/item/rcd_ammo/R = W
-	if((matter + R.ammoamt) > max_matter)
+/**
+*Tries to load ammo into an RCD, borgs will not use this.
+* Arguments:
+* * cart - the compressed matter catridge to insert
+* * user - the user to display the chat messages to
+*/
+/obj/item/rcd/proc/load(obj/item/rcd_ammo/cart, mob/living/user)
+	if(matter == max_matter)
 		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
-		return
-
-	if(!user.unEquip(R))
-		to_chat(user, "<span class='warning'>[R] is stuck to your hand!</span>")
-		return
-
-	matter += R.ammoamt
-	qdel(R)
+		return FALSE
+	matter = clamp((matter + cart.ammoamt), 0, max_matter)
+	qdel(cart)
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
 
+/obj/item/rcd/attackby(obj/item/W, mob/user, params)
+	if(!istype(W, /obj/item/rcd_ammo))
+		return ..()
+	var/obj/item/rcd_ammo/R = W
+	load(R, user)
 /**
  * Creates and displays a radial menu to a user when they trigger the `attack_self` of the RCD.
  *
@@ -689,6 +690,12 @@
 	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20
+
+/obj/item/rcd_ammo/attackby(obj/item/I, mob/user)
+	if(!istype(I, /obj/item/rcd) || issilicon(user))
+		return ..()
+	var/obj/item/rcd/R = I
+	R.load(src, user)
 
 /obj/item/rcd_ammo/large
 	ammoamt = 100

@@ -369,7 +369,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
@@ -385,6 +385,17 @@
 	flags_inv = HIDEEARS
 
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
+
+/obj/item/clothing/suit/pimpcoat
+	name = "expensive coat"
+	desc = "Very fluffy pink coat, made out of very expensive fur (clearly)."
+	icon_state = "pimpcoat"
+	item_state = "pimpcoat"
+	blood_overlay_type = "armor"
+	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO
+	allowed = list(/obj/item/tank/internals/emergency_oxygen)
+	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/suit/furcoat
 	name = "fur coat"
@@ -402,7 +413,7 @@
 	icon_state = "wintercoat_captain"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatcaptain"
-	armor = list(MELEE = 15, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 0, ACID = 50)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
 
@@ -414,7 +425,7 @@
 	icon_state = "wintercoat_sec"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatsecurity"
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 20, ACID = 20)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 	sprite_sheets = list(
@@ -437,7 +448,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatmedical"
 	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 0, ACID = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 40)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical
 
 /obj/item/clothing/head/hooded/winterhood/medical
@@ -449,7 +460,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatscience"
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science
 
 /obj/item/clothing/head/hooded/winterhood/science
@@ -460,7 +471,7 @@
 	icon_state = "wintercoat_engi"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatengineer"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 20, ACID = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 20, ACID = 40)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
 
@@ -502,7 +513,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatminer"
 	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/t_scanner/adv_mining_scanner, /obj/item/storage/bag/ore, /obj/item/gun/energy/kinetic_accelerator)
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
 
 /obj/item/clothing/head/hooded/winterhood/miner
@@ -513,7 +524,8 @@
 	desc = "Hood hopefully belonging to an ablative trenchcoat. Includes a flash proof visor."
 	icon_state = "ablativehood"
 	flash_protect = FLASH_PROTECTION_FLASH
-	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	flags = BLOCKHAIR
+	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	strip_delay = 3 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 						"Grey" = 'icons/mob/clothing/species/grey/head.dmi')
@@ -528,7 +540,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
-	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/ablative
 	strip_delay = 3 SECONDS
@@ -778,7 +790,7 @@
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = INFINITY, RAD = 10, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 50, ACID = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 
 /obj/item/clothing/head/mercy_hood
@@ -789,7 +801,7 @@
 	permeability_coefficient = 0.01
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = INFINITY, RAD = 10, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 50, ACID = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 
 /obj/item/clothing/suit/jacket
@@ -821,7 +833,7 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/suit/jacket/secbomber
 	name = "security bomber jacket"
@@ -837,7 +849,7 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	strip_delay = 60
 	put_on_delay = 40
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 20, ACID = 20)
 	//End of inheritance from Security armour.
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -851,7 +863,7 @@
 	icon_state = "bomberengi"
 	item_state = "bomberengi"
 	ignore_suitadjust = 0
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 20, ACID = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 20, ACID = 40)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -865,7 +877,7 @@
 	icon_state = "bomberatmos"
 	item_state = "bomberatmos"
 	ignore_suitadjust = 0
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 20, ACID = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 20, ACID = 40)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -893,7 +905,7 @@
 	item_state = "bombermining"
 	ignore_suitadjust = 0
 	allowed = list(/obj/item/pickaxe, /obj/item/t_scanner/adv_mining_scanner, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/shovel, /obj/item/storage/bag/ore)
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -958,6 +970,23 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/sovietcoat
+	name = "\improper Soviet greatcoat"
+	desc = "A military overcoat made of rough wool that is thick enough to provide excellent protection against the elements."
+	icon_state = "sovietcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 30, ACID = 30)
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/flashlight, /obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box)
+
+/obj/item/clothing/suit/sovietcoat/officer
+	name = "\improper Soviet officer's greatcoat"
+	desc = "A military overcoat made with expensive wool. The U.S.S.P armband means it must belong to someone important."
+	icon_state = "sovietofficercoat"
+	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 20, RAD = 0, FIRE = 30, ACID = 30)
+
 /obj/item/clothing/suit/toggle/owlwings
 	name = "owl cloak"
 	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
@@ -965,7 +994,7 @@
 	icon_state = "owl_wings"
 	item_state = "owl_wings"
 	body_parts_covered = ARMS
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 15, ACID = 15)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 15, ACID = 15)
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite)
 	actions_types = list(/datum/action/item_action/toggle_wings)
 
@@ -1016,7 +1045,7 @@
 	permeability_coefficient = 0.01
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL | NODROP
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
-	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
@@ -1062,7 +1091,7 @@
 //Syndicate Chaplain Robe (WOLOLO!)
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 10, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 10, FIRE = 20, ACID = 20)
 	var/obj/item/nullrod/missionary_staff/linked_staff = null
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/examine(mob/user)
@@ -1167,3 +1196,87 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 	cold_protection = UPPER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/suit/hooded/abaya
+	name = "abaya"
+	desc = "A modest, unrevealing attire fitted with a veil."
+	icon_state = "abaya"
+	item_state = "abaya"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	hoodtype = /obj/item/clothing/head/hooded/screened_niqab
+	flags_inv = HIDEJUMPSUIT
+	var/list/options = list(
+		"Abaya" = /obj/item/clothing/suit/hooded/abaya,
+		"Red Abaya" = /obj/item/clothing/suit/hooded/abaya/red,
+		"Orange Abaya" = /obj/item/clothing/suit/hooded/abaya/orange,
+		"Yellow Abaya" = /obj/item/clothing/suit/hooded/abaya/yellow,
+		"Green Abaya" = /obj/item/clothing/suit/hooded/abaya/green,
+		"Blue Abaya" = /obj/item/clothing/suit/hooded/abaya/blue,
+		"Purple Abaya" = /obj/item/clothing/suit/hooded/abaya/purple,
+		"White Abaya" = /obj/item/clothing/suit/hooded/abaya/white,
+		"Rainbow Abaya" = /obj/item/clothing/suit/hooded/abaya/rainbow
+	)
+
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+	"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
+	)
+
+/obj/item/clothing/suit/hooded/abaya/proc/reskin_abaya(mob/living/L)
+	var/choice = input(L, "You may only change the color once.", "Reskin Abaya") in options
+
+	if(!options[choice] || HAS_TRAIT(L, TRAIT_HANDS_BLOCKED) || !in_range(L, src))
+		return
+	var/abaya_type = options[choice]
+	var/obj/item/clothing/suit/hooded/abaya/abaya = new abaya_type(get_turf(src))
+	L.unEquip(src, silent = TRUE)
+	L.put_in_active_hand(abaya)
+	to_chat(L, "<span class='notice'>You are now wearing \a [choice]. Allahu Akbar!</span>")
+	qdel(src)
+
+/obj/item/clothing/suit/hooded/abaya/attack_self(mob/user)
+	. = ..()
+	reskin_abaya(user)
+
+/obj/item/clothing/suit/hooded/abaya/red
+	name = "red abaya"
+	icon_state = "redabaya"
+	hoodtype = /obj/item/clothing/head/hooded/screened_niqab/red
+
+/obj/item/clothing/suit/hooded/abaya/orange
+	name = "orange abaya"
+	icon_state = "orangeabaya"
+	hoodtype = /obj/item/clothing/head/hooded/screened_niqab/orange
+
+/obj/item/clothing/suit/hooded/abaya/yellow
+	name = "yellow abaya"
+	icon_state = "yellowabaya"
+	hoodtype = /obj/item/clothing/head/hooded/screened_niqab/yellow
+
+/obj/item/clothing/suit/hooded/abaya/green
+	name = "green abaya"
+	icon_state = "greenabaya"
+	hoodtype = /obj/item/clothing/head/hooded/screened_niqab/green
+
+/obj/item/clothing/suit/hooded/abaya/blue
+	name = "blue abaya"
+	icon_state = "blueabaya"
+	hoodtype = /obj/item/clothing/head/hooded/screened_niqab/blue
+
+/obj/item/clothing/suit/hooded/abaya/purple
+	name = "purple abaya"
+	icon_state = "purpleabaya"
+	hoodtype = /obj/item/clothing/head/hooded/screened_niqab/purple
+
+/obj/item/clothing/suit/hooded/abaya/white
+	name = "white abaya"
+	icon_state = "whiteabaya"
+	hoodtype = /obj/item/clothing/head/hooded/screened_niqab/white
+
+/obj/item/clothing/suit/hooded/abaya/rainbow
+	name = "rainbow abaya"
+	icon_state = "rainbowabaya"
+	hoodtype = /obj/item/clothing/head/hooded/screened_niqab/rainbow

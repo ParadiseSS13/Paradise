@@ -44,7 +44,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 200, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
@@ -65,7 +65,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 10, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/gloves/botanic_leather
 	name = "botanist's leather gloves"
@@ -78,7 +78,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 115, ACID = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 115, ACID = 20)
 
 /obj/item/clothing/gloves/janitor
 	name = "janitorial gloves"
@@ -186,21 +186,28 @@
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "gloves of the North Star"
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
-	var/accepted_intents = list(INTENT_HARM)
+	var/accepted_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	var/click_speed_modifier = CLICK_CD_RAPID
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
-	var/mob/living/M = loc
+	var/mob/living/L = loc
+	if(HAS_TRAIT(L, TRAIT_HULK))
+		return FALSE
 
-	if((M.a_intent in accepted_intents) && !M.mind.martial_art?.can_use(M) && !HAS_TRAIT(M, TRAIT_HULK))
-		M.changeNext_move(click_speed_modifier)
+	// We don't use defines here so admingloves can work
+	if(L.mind.martial_art?.can_use(L))
+		click_speed_modifier = initial(click_speed_modifier) * 2 // 4
+	else
+		click_speed_modifier = initial(click_speed_modifier) // 2
+
+	if((L.a_intent in accepted_intents))
+		L.changeNext_move(click_speed_modifier)
 
 	return FALSE
 
 /obj/item/clothing/gloves/fingerless/rapid/admin
 	name = "advanced interactive gloves"
 	desc = "The gloves are covered in indecipherable buttons and dials, your mind warps by merely looking at them."
-	accepted_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	click_speed_modifier = 0
 	siemens_coefficient = 0
 
@@ -208,3 +215,28 @@
 	name = "gloves of headpats"
 	desc = "You feel the irresistable urge to give headpats by merely glimpsing these."
 	accepted_intents = list(INTENT_HELP)
+
+/obj/item/clothing/gloves/color/white/supermatter_immune
+	name = "hypernobilium weave gloves"
+	desc = "Sleek, white gloves woven from fabric doused in hypernobilium using a process known only to the Oblivion Order."
+	siemens_coefficient = 0
+	icon_state = "obliviongauntlets"
+	item_state = "obliviongauntlets"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi'
+	)
+
+/obj/item/clothing/gloves/color/white/supermatter_immune/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
+
+/obj/item/clothing/gloves/color/white/supermatter_immune/equipped(mob/user, slot, initial)
+	. = ..()
+	ADD_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE, ENFORCER_GLOVES)
+
+/obj/item/clothing/gloves/color/white/supermatter_immune/dropped(mob/user, silent)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE, ENFORCER_GLOVES)

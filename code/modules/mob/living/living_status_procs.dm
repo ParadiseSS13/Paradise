@@ -111,7 +111,10 @@ STATUS EFFECTS
 
 /mob/living/proc/on_lying_down(new_lying_angle)
 	if(layer == initial(layer)) //to avoid things like hiding larvas.
-		layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
+		if(HAS_TRAIT(src, TRAIT_CONTORTED_BODY))
+			layer = BLASTDOOR_LAYER
+		else
+			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	pixel_y = PIXEL_Y_OFFSET_LYING
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	ADD_TRAIT(src, TRAIT_CANNOT_PULL, LYING_DOWN_TRAIT)
@@ -120,7 +123,7 @@ STATUS EFFECTS
 	set_lying_angle(pick(90, 270))
 
 /mob/living/proc/on_standing_up()
-	if(layer == LYING_MOB_LAYER)
+	if(layer == LYING_MOB_LAYER || HAS_TRAIT(src, TRAIT_CONTORTED_BODY))
 		layer = initial(layer)
 	set_density(initial(density))
 	REMOVE_TRAITS_IN(src, LYING_DOWN_TRAIT)
@@ -425,8 +428,30 @@ STATUS EFFECTS
 /mob/living/proc/SetAbsoluteSilence(amount)
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_ABSSILENCED, amount)
 
+/mob/living/proc/PreventedOxyHeal()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_NO_OXY_HEAL)
+
+/mob/living/proc/PreventOxyHeal(amount)
+	SetPreventOxyHeal(max(PreventedOxyHeal(), amount))
+
+/mob/living/proc/SetPreventOxyHeal(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_NO_OXY_HEAL, amount)
+
 /mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSilence(directional_bounded_sum(AmountSilenced(), amount, bound_lower, bound_upper))
+
+//DEAFNESS
+/mob/living/proc/AmountDeaf()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DEAF)
+
+/mob/living/proc/Deaf(amount)
+	SetDeaf(max(amount, AmountDeaf()))
+
+/mob/living/proc/SetDeaf(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DEAF, amount)
+
+/mob/living/proc/AdjustDeaf(amount, bound_lower = 0, bound_upper = INFINITY)
+	SetDeaf(directional_bounded_sum(AmountDeaf(), amount, bound_lower, bound_upper))
 
 // SLEEPING
 /mob/living/proc/IsSleeping()
@@ -819,6 +844,12 @@ STATUS EFFECTS
 		dna.SetSEState(block, 0, 1) //Fix the gene
 		singlemutcheck(src, block, MUTCHK_FORCED)
 		dna.UpdateSE()
+
+// Revivability
+
+
+/mob/living/proc/is_revivable()
+	return has_status_effect(/datum/status_effect/limited_bonus/revivable)
 
 ///////////////////////////////// FROZEN /////////////////////////////////////
 

@@ -6,6 +6,7 @@
 	icon_state = "secdrobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Beat perps in style!", "It's red so you can't see the blood!", "You have the right to be fashionable!", "Now you can be the fashion police you always wanted to be!")
 	vend_reply = "Thank you for using the SecDrobe!"
 	products = list(/obj/item/clothing/under/rank/security/officer/corporate = 4,
@@ -79,12 +80,16 @@
 	icon_state = "detdrobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Apply your brilliant deductive methods in style!", "They already smell of cigarettes!")
 	vend_reply = "Thank you for using the DetDrobe!"
 	products = list(/obj/item/clothing/under/rank/security/detective = 2,
+					/obj/item/clothing/under/rank/security/detective/black = 1,
+					/obj/item/clothing/under/rank/security/detective/skirt = 1,
 					/obj/item/clothing/suit/storage/det_suit = 2,
 					/obj/item/clothing/suit/storage/det_suit/forensics/red = 1,
 					/obj/item/clothing/suit/storage/det_suit/forensics/blue = 1,
+					/obj/item/clothing/suit/storage/det_suit/forensics/black = 1,
 					/obj/item/clothing/suit/armor/vest/det_suit = 1,
 					/obj/item/clothing/glasses/sunglasses/noir = 2,
 					/obj/item/clothing/head/det_hat = 2,
@@ -100,9 +105,12 @@
 					/obj/item/reagent_containers/food/drinks/flask/detflask = 2,
 					/obj/item/storage/fancy/cigarettes/dromedaryco = 5)
 	prices = list(/obj/item/clothing/under/rank/security/detective = 50,
+					/obj/item/clothing/under/rank/security/detective/black = 75,
+					/obj/item/clothing/under/rank/security/detective/skirt = 75,
 					/obj/item/clothing/suit/storage/det_suit = 75,
 					/obj/item/clothing/suit/storage/det_suit/forensics/red = 75,
 					/obj/item/clothing/suit/storage/det_suit/forensics/blue = 75,
+					/obj/item/clothing/suit/storage/det_suit/forensics/black = 75,
 					/obj/item/clothing/suit/armor/vest/det_suit = 75,
 					/obj/item/clothing/head/det_hat = 40,
 					/obj/item/clothing/glasses/sunglasses/noir = 30,
@@ -127,6 +135,7 @@
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "medidrobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Make those blood stains look fashionable!")
 	vend_reply = "Thank you for using the MediDrobe!"
 	products = list(/obj/item/clothing/under/rank/medical/doctor = 3,
@@ -141,9 +150,11 @@
 					/obj/item/clothing/head/surgery/green = 3,
 					/obj/item/clothing/head/surgery/purple = 3,
 					/obj/item/clothing/head/nursehat = 3,
+					/obj/item/clothing/head/headmirror = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/medical = 3,
 					/obj/item/clothing/suit/storage/fr_jacket = 3,
 					/obj/item/clothing/suit/storage/labcoat = 3,
+					/obj/item/clothing/suit/apron/surgical = 3,
 					/obj/item/clothing/accessory/armband/med = 3,
 					/obj/item/clothing/accessory/armband/medgreen = 3,
 					/obj/item/clothing/shoes/laceup = 3,
@@ -166,9 +177,11 @@
 					/obj/item/clothing/head/surgery/green = 20,
 					/obj/item/clothing/head/surgery/purple = 20,
 					/obj/item/clothing/head/nursehat = 20,
+					/obj/item/clothing/head/headmirror = 20,
 					/obj/item/clothing/suit/hooded/wintercoat/medical = 75,
 					/obj/item/clothing/suit/storage/fr_jacket = 75,
 					/obj/item/clothing/suit/storage/labcoat = 75,
+					/obj/item/clothing/suit/apron/surgical = 75,
 					/obj/item/clothing/accessory/armband/med = 20,
 					/obj/item/clothing/accessory/armband/medgreen = 20,
 					/obj/item/clothing/shoes/laceup = 30,
@@ -187,6 +200,7 @@
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "virodrobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Viruses getting you down? Nothing a change of clothes can't fix!", "Upgrade to sterilized clothing today!")
 	vend_reply = "Thank you for using the ViroDrobe!"
 	products = list(/obj/item/clothing/under/rank/medical/virologist = 2,
@@ -223,6 +237,7 @@
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "chemdrobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Our clothes are 0.5% more resistant to acid spills! Get yours now!")
 	vend_reply = "Thank you for using the ChemDrobe!"
 	products = list(/obj/item/clothing/under/rank/medical/chemist = 2,
@@ -259,6 +274,7 @@
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "genedrobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = "Perfect for the mad scientist in you!"
 	vend_reply = "Thank you for using the GeneDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/geneticist = 3,
@@ -288,6 +304,7 @@
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "scidrobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Longing for the smell of plasma burnt flesh?", "Buy your science clothing now!", "Made with 10% Auxetics, so you don't have to worry about losing your arm!")
 	vend_reply = "Thank you for using the SciDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/scientist = 6,
@@ -325,11 +342,13 @@
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "robodrobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("You turn me TRUE, use defines!","0110001101101100011011110111010001101000011001010111001101101000011001010111001001100101")
 	vend_reply = "Thank you for using the RoboDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/roboticist = 3,
 					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 3,
-					/obj/item/clothing/suit/storage/labcoat = 3,
+					/obj/item/clothing/suit/storage/labcoat/roboblack = 3,
+					/obj/item/clothing/suit/storage/labcoat/robowhite = 3,
 					/obj/item/clothing/head/soft/black = 3,
 					/obj/item/clothing/gloves/fingerless = 3,
 					/obj/item/clothing/shoes/laceup = 3,
@@ -338,7 +357,8 @@
 	contraband = list(/obj/item/toy/figure/crew/roboticist = 1)
 	prices = list(/obj/item/clothing/under/rank/rnd/roboticist = 50,
 					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 50,
-					/obj/item/clothing/suit/storage/labcoat = 75,
+					/obj/item/clothing/suit/storage/labcoat/roboblack = 75,
+					/obj/item/clothing/suit/storage/labcoat/robowhite = 75,
 					/obj/item/clothing/head/soft/black = 20,
 					/obj/item/clothing/gloves/fingerless = 20,
 					/obj/item/clothing/shoes/laceup = 30,
@@ -353,6 +373,7 @@
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "engidrobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Guaranteed to protect your feet from industrial accidents!", "Afraid of radiation? Then wear yellow!")
 	vend_reply = "Thank you for using the EngiDrobe!"
 	products = list(/obj/item/clothing/under/rank/engineering/engineer = 6,
@@ -400,6 +421,7 @@
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "atmosdrobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Guaranteed to protect your feet from atmospheric accidents!", "Get your inflammable clothing right here!")
 	vend_reply = "Thank you for using the AtmosDrobe!"
 	products = list(/obj/item/clothing/under/rank/engineering/atmospheric_technician  = 6,
@@ -448,6 +470,7 @@
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "cargodrobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Upgraded Assistant Style! Pick yours today!", "These shorts are comfy and easy to wear, get yours now!")
 	vend_reply = "Thank you for using the CargoDrobe!"
 	products = list(/obj/item/clothing/under/rank/cargo/tech = 6,
@@ -483,6 +506,7 @@
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_addon = "chefdrobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Our clothes are guaranteed to protect you from food splatters!", "Comfortable enough for a CQC practice!")
 	vend_reply = "Thank you for using the ChefDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/chef = 2,
@@ -520,6 +544,7 @@
 	icon_state = "bardrobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Guaranteed to prevent stains from spilled drinks!")
 	vend_reply = "Thank you for using the BarDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/bartender = 2,
@@ -553,6 +578,7 @@
 	icon_state = "hydrobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
+	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Do you love soil? Then buy our clothes!", "Get outfits to match your green thumb here!")
 	vend_reply = "Thank you for using the HydroDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/hydroponics = 3,
@@ -561,6 +587,7 @@
 					/obj/item/clothing/suit/apron = 3,
 					/obj/item/clothing/suit/apron/overalls = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/hydro = 3,
+					/obj/item/clothing/suit/storage/labcoat/hydro = 3,
 					/obj/item/clothing/mask/bandana/botany = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3,
 					/obj/item/storage/backpack/botany = 2,
@@ -573,9 +600,74 @@
 					/obj/item/clothing/suit/apron = 50,
 					/obj/item/clothing/suit/apron/overalls = 50,
 					/obj/item/clothing/suit/hooded/wintercoat/hydro = 75,
+					/obj/item/clothing/suit/storage/labcoat/hydro = 75,
 					/obj/item/clothing/mask/bandana/botany = 20,
 					/obj/item/clothing/accessory/armband/hydro = 20,
 					/obj/item/storage/backpack/botany = 50,
 					/obj/item/storage/backpack/satchel_hyd = 50,
 					/obj/item/storage/backpack/duffel/hydro = 50)
 	refill_canister = /obj/item/vending_refill/hydrodrobe
+
+/obj/machinery/economy/vending/janidrobe
+	name = "\improper JaniDrobe"
+	desc = "A self cleaning vending machine capable of dispensing clothing for janitors."
+	icon_state = "janidrobe"
+	icon_lightmask = "base_drobe"
+	icon_panel = "drobe"
+	icon_broken = "base_drobe"
+	icon_off = "base_drobe"
+	category = VENDOR_TYPE_CLOTHING
+	ads_list = list("Come and get your janitorial clothing, now endorsed by janitors everywhere!")
+	vend_reply = "Thank you for using the JaniDrobe!"
+	products = list(/obj/item/clothing/under/rank/civilian/janitor = 3,
+					/obj/item/clothing/head/soft/purple = 3,
+					/obj/item/clothing/gloves/color/black = 3,
+					/obj/item/clothing/shoes/galoshes = 3,
+					/obj/item/storage/belt/janitor = 3)
+	contraband = list(/obj/item/toy/figure/crew/janitor = 1)
+	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50)
+	refill_canister = /obj/item/vending_refill/janidrobe
+
+/obj/machinery/economy/vending/lawdrobe
+	name = "\improper LawDrobe"
+	desc = "Objection! This wardrobe dispenses the rule of law... and lawyer clothing."
+	icon_state = "lawdrobe"
+	icon_lightmask = "base_drobe"
+	icon_panel = "drobe"
+	icon_broken = "base_drobe"
+	icon_off = "base_drobe"
+	category = VENDOR_TYPE_CLOTHING
+	ads_list = list("OBJECTION! Get the rule of law for yourself!")
+	vend_reply = "Thank you for using the LawDrobe!"
+	products = list(/obj/item/clothing/under/rank/civilian/internalaffairs = 2,
+					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit = 2,
+					/obj/item/clothing/under/rank/civilian/lawyer/purple = 2,
+					/obj/item/clothing/under/rank/civilian/lawyer/black = 2,
+					/obj/item/clothing/under/rank/civilian/lawyer/red = 2,
+					/obj/item/clothing/under/rank/civilian/lawyer/blue = 2,
+					/obj/item/clothing/under/suit/female = 2,
+					/obj/item/clothing/suit/storage/internalaffairs = 2,
+					/obj/item/clothing/suit/storage/lawyer/bluejacket = 2,
+					/obj/item/clothing/suit/storage/lawyer/purpjacket = 2,
+					/obj/item/clothing/shoes/laceup = 2,
+					/obj/item/clothing/shoes/black = 2,
+					/obj/item/clothing/shoes/brown = 2,
+					/obj/item/clothing/glasses/sunglasses/big = 2,
+					/obj/item/clothing/accessory/lawyers_badge = 2)
+	contraband = list(/obj/item/toy/figure/crew/lawyer = 1)
+	prices = list(/obj/item/clothing/under/rank/civilian/internalaffairs = 50,
+					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit = 50,
+					/obj/item/clothing/under/rank/civilian/lawyer/purple = 50,
+					/obj/item/clothing/under/rank/civilian/lawyer/black = 50,
+					/obj/item/clothing/under/rank/civilian/lawyer/red = 50,
+					/obj/item/clothing/under/rank/civilian/lawyer/blue = 50,
+					/obj/item/clothing/under/suit/female = 50,
+					/obj/item/clothing/suit/storage/internalaffairs = 75,
+					/obj/item/clothing/suit/storage/lawyer/bluejacket = 75,
+					/obj/item/clothing/suit/storage/lawyer/purpjacket = 75,
+					/obj/item/clothing/shoes/laceup = 30,
+					/obj/item/clothing/shoes/black = 20,
+					/obj/item/clothing/shoes/brown = 20,
+					/obj/item/clothing/glasses/sunglasses/big = 30,
+					/obj/item/clothing/accessory/lawyers_badge = 50)
+	refill_canister = /obj/item/vending_refill/lawdrobe

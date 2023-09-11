@@ -52,9 +52,12 @@
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_RESIN)
 	max_integrity = 200
 	var/resintype = null
+	var/is_alien = TRUE
 
 /obj/structure/alien/resin/Initialize(mapload)
 	air_update_turf(1)
+	if(!is_alien)
+		return ..()
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
 		qdel(W)
 	if(locate(/obj/structure/alien/weeds) in get_turf(src))
@@ -109,7 +112,7 @@
 	icon_state = "resin"
 	base_icon_state = "resin"
 	max_integrity = 100
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
@@ -140,11 +143,6 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/alien/resin/door/Crossed(mob/living/L, oldloc)
-	..()
-	if(!state_open)
-		return try_to_operate(L)
-
 /obj/structure/alien/resin/door/attack_ai(mob/user)
 	return
 
@@ -165,8 +163,6 @@
 		return
 	var/mob/living/carbon/C = user
 	if(C.get_int_organ(/obj/item/organ/internal/alien/hivenode))
-		if(world.time - C.last_bumped <= 60)
-			return
 		if(!C.handcuffed)
 			operate()
 		return
@@ -487,6 +483,8 @@
 		obj_integrity = integrity_failure
 	else if(status != GROWN)
 		addtimer(CALLBACK(src, PROC_REF(grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
+	if(status == GROWN)
+		AddComponent(/datum/component/proximity_monitor)
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)

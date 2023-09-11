@@ -326,7 +326,9 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/machinery/door/window/westright,
+/obj/machinery/door/window/classic/reversed{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation)
 "bc" = (
@@ -417,7 +419,9 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/machinery/door/window/westleft,
+/obj/machinery/door/window/classic/normal{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation)
 "bn" = (
@@ -520,7 +524,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-dead"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -562,7 +566,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "bK" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-dead"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -809,7 +813,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ct" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-dead"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1304,7 +1308,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-dead"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1542,7 +1546,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-dead"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1711,7 +1715,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-dead"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3860,7 +3864,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plasteel,
@@ -3887,7 +3891,7 @@
 /area/ruin/ancientstation)
 "jg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plasteel,
@@ -3900,7 +3904,7 @@
 	tag = "90Curve"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plasteel,
@@ -3957,7 +3961,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "jo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plasteel,
@@ -4063,7 +4067,7 @@
 /area/ruin/ancientstation)
 "jB" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/suit/space/hardsuit/ancient,
+/obj/item/mod/control/pre_equipped/prototype,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
@@ -4531,14 +4535,14 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldsec,
+/obj/effect/mob_spawn/human/alive/old/sec,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "kJ" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldsci,
+/obj/effect/mob_spawn/human/alive/old/sci,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "kK" = (
@@ -4546,7 +4550,7 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldeng,
+/obj/effect/mob_spawn/human/alive/old/eng,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "kL" = (

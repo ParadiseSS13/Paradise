@@ -102,6 +102,7 @@
 	drink_name = "Glass of Absinthe"
 	drink_desc = "The green fairy is going to get you now!"
 	taste_description = "fucking pain"
+	allowed_overdose_process = TRUE
 
 //copy paste from LSD... shoot me
 /datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/M)
@@ -143,6 +144,7 @@
 	drink_name = "Glass of Rum"
 	drink_desc = "Now you want to Pray for a pirate suit, don't you?"
 	taste_description = "rum"
+	allowed_overdose_process = TRUE
 
 /datum/reagent/consumable/ethanol/rum/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -780,14 +782,14 @@
 /datum/reagent/consumable/ethanol/singulo
 	name = "Singulo"
 	id = "singulo"
-	description = "A blue-space beverage!"
+	description = "A bluespace beverage!"
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	dizzy_adj = 30 SECONDS
 	alcohol_perc = 0.7
 	drink_icon = "singulo"
 	drink_name = "Singulo"
-	drink_desc = "A blue-space beverage."
+	drink_desc = "A bluespace beverage."
 	taste_description = "infinity"
 
 /datum/reagent/consumable/ethanol/sbiten
@@ -1007,18 +1009,18 @@
 	drink_desc = "A stingy drink."
 	taste_description = "a tiny prick"
 
-/datum/reagent/consumable/ethanol/irishcarbomb
-	name = "Irish Car Bomb"
-	id = "irishcarbomb"
+/datum/reagent/consumable/ethanol/dublindrop
+	name = "Dublin Drop"
+	id = "dublindrop"
 	description = "Mmm, tastes like chocolate cake..."
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.3
 	dizzy_adj = 10 SECONDS
-	drink_icon = "irishcarbomb"
-	drink_name = "Irish Car Bomb"
-	drink_desc = "An irish car bomb."
-	taste_description = "troubles"
+	drink_icon = "dublindrop"
+	drink_name = "Dublin Drop"
+	drink_desc = "A Dublin drop. Pub legends say one of the ingredients can bring back the dead."
+	taste_description = "a belt in the gob"
 
 /datum/reagent/consumable/ethanol/syndicatebomb
 	name = "Syndicate Bomb"
@@ -1174,6 +1176,9 @@
 		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
 		M.reagents.del_reagent("milk")
 		M.reagents.del_reagent("dragonsbreath")
+		return
+	if(iswizard(M))
+		M.reagents.del_reagent("dragonsbreath") //As funny as it is, let's not have new wizards dust themselfs.
 		return
 	if(prob(8))
 		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")

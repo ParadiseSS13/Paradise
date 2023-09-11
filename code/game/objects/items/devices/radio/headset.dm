@@ -5,9 +5,7 @@
 	icon_state = "headset"
 	item_state = "headset"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
-		) //We read you loud and skree-er.
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi') //We read you loud and skree-er.
 	materials = list(MAT_METAL = 200)
 	canhear_range = 0 // can't hear headsets from very far away
 
@@ -122,6 +120,16 @@
 	. = ..()
 	set_frequency(SYND_FREQ)
 
+/obj/item/radio/headset/soviet
+	name = "soviet bowman headset"
+	desc = "Used by U.S.S.P forces. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	origin_tech = "syndicate=3"
+	icon_state = "soviet_headset"
+	item_state = "soviet_headset"
+	ks1type = /obj/item/encryptionkey/soviet
+	requires_tcomms = FALSE
+
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/binary
@@ -174,6 +182,13 @@
 	icon_state = "med_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_med
+
+/obj/item/radio/headset/headset_med/para
+	name = "paramedic radio headset"
+	desc = "A headset for the trusty paramedic, Nanotrasen search and rescue."
+	icon_state = "para_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/headset_med/para
 
 /obj/item/radio/headset/headset_sci
 	name = "science radio headset"
@@ -251,6 +266,13 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/hop
+
+/obj/item/radio/headset/heads/qm
+	name = "quartermaster's headset"
+	desc = "Smelling of tobacco and gunpowder, this headset has likely seen many backroom deals."
+	icon_state = "com_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/heads/qm
 
 /obj/item/radio/headset/headset_cargo
 	name = "supply radio headset"

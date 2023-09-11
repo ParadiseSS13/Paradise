@@ -45,6 +45,7 @@
 			aiRestorePowerRoutine = 0
 			update_sight()
 			to_chat(src, "Alert cancelled. Power has been restored[aiRestorePowerRoutine == 2 ? "without our assistance" : ""].")
+			apc_override = FALSE
 	else
 		if(lacks_power())
 			if(!aiRestorePowerRoutine)
@@ -121,9 +122,8 @@
 								to_chat(src, "Receiving control information from APC.")
 								sleep(2)
 								//bring up APC dialog
-								apc_override = 1
+								apc_override = TRUE
 								theAPC.attack_ai(src)
-								apc_override = 0
 								aiRestorePowerRoutine = 3
 						sleep(50)
 						theAPC = null
@@ -141,6 +141,8 @@
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
+	if(controlled_mech)
+		return controlled_mech.get_charge() <= 0
 	return (!A.powernet.equipment_powered && A.requires_power || isspaceturf(T)) && !isitem(loc)
 
 /mob/living/silicon/ai/rejuvenate()

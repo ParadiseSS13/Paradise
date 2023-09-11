@@ -9,6 +9,7 @@
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
+	max_age = 130
 	language = "Bubblish"
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
@@ -41,8 +42,8 @@
 
 	vision_organ = null
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/slime,
 		"heart" = /obj/item/organ/internal/heart/slime,
+		"brain" = /obj/item/organ/internal/brain/slime,
 		"lungs" = /obj/item/organ/internal/lungs/slime
 		)
 	mutantears = null

@@ -133,6 +133,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
+
 /obj/item/New()
 	..()
 
@@ -334,7 +335,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
 
-	if(!A.has_fine_manipulation)
+	if(!A.has_fine_manipulation && !HAS_TRAIT(src, TRAIT_XENO_INTERACTABLE))
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
 			A.unEquip(src)
 		to_chat(user, "<span class='warning'>Your claws aren't capable of such fine manipulation!</span>")
@@ -751,6 +752,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(loc && I.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, I, user)
+		remove_outline()
+		return TRUE
 	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
 
 /obj/item/proc/apply_outline(mob/user, outline_color = null)
@@ -834,12 +837,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/job_icons = get_all_job_icons()
 	var/centcom = get_all_centcom_jobs()
 	var/solgov = get_all_solgov_jobs()
+	var/soviet = get_all_soviet_jobs()
 
 	if((assignmentName in centcom) || (rankName in centcom)) //Return with the NT logo if it is a Centcom job
 		return "Centcom"
 
 	if((assignmentName in solgov) || (rankName in solgov)) //Return with the SolGov logo if it is a SolGov job
 		return "solgov"
+
+	if((assignmentName in soviet) || (rankName in soviet)) //Return with the U.S.S.P logo if it is a Soviet job
+		return "soviet"
 
 	if(assignmentName in job_icons) //Check if the job has a hud icon
 		return assignmentName
@@ -865,3 +872,29 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/GetID()
 	return null
+
+/obj/item/proc/add_tape()
+	return
+
+/obj/item/proc/remove_tape()
+	return
+
+/obj/item/water_act(volume, temperature, source, method)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_OIL_SLICKED))
+		slowdown = initial(slowdown)
+		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+		REMOVE_TRAIT(src, TRAIT_OIL_SLICKED, "potion")
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			H.regenerate_icons()
+
+/obj/item/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_OIL_SLICKED))
+		slowdown = initial(slowdown)
+		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+		REMOVE_TRAIT(src, TRAIT_OIL_SLICKED, "potion")
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			H.regenerate_icons()

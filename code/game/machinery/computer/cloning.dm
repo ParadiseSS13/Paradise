@@ -189,18 +189,15 @@
 	. = TRUE
 	switch(ui_modal_act(src, action, params))
 		if(UI_MODAL_ANSWER)
-			if(params["id"] == "del_rec" && active_record)
-				var/obj/item/card/id/C = usr.get_active_hand()
-				if(!istype(C) && !istype(C, /obj/item/pda))
-					set_temp("ID not in hand.", "danger")
-					return
-				if(check_access(C))
-					records.Remove(active_record)
-					qdel(active_record)
-					set_temp("Record deleted.", "success")
-					menu = MENU_RECORDS
-				else
+			if(params["id"] == "del_rec" && text2num(params["answer"]) && active_record)
+				if(!allowed(usr))
 					set_temp("Access denied.", "danger")
+					return
+
+				records.Remove(active_record)
+				qdel(active_record)
+				set_temp("Record deleted.", "success")
+				menu = MENU_RECORDS
 			return
 
 	switch(action)
@@ -250,7 +247,7 @@
 		if("del_rec")
 			if(!active_record)
 				return
-			ui_modal_boolean(src, action, "Please confirm that you want to delete the record by holding your ID and pressing Delete:", yes_text = "Delete", no_text = "Cancel")
+			ui_modal_boolean(src, action, "Please confirm that you want to delete the record:", yes_text = "Delete", no_text = "Cancel")
 		if("refresh")
 			SStgui.update_uis(src)
 		if("selectpod")

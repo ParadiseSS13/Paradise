@@ -50,7 +50,6 @@
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/hud/health/sunglasses
 	name = "medical HUDSunglasses"
@@ -82,7 +81,6 @@
 	origin_tech = "magnets=4;powerstorage=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses
 	name = "diagnostic sunglasses"
@@ -124,7 +122,6 @@
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
-	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/hud/security/sunglasses/read_only
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
@@ -147,7 +144,7 @@
 	)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
-	prescription = 1
+	prescription = TRUE
 
 /obj/item/clothing/glasses/hud/hydroponic
 	name = "hydroponic HUD"
@@ -169,7 +166,6 @@
 	item_state = "glasses"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/hud/security/tajblind
 	name = "sleek veil"

@@ -16,6 +16,7 @@
 	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/storage/belt/rapier(src)
 	new /obj/item/gun/energy/gun(src)
+	new /obj/item/flash(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
@@ -65,6 +66,7 @@
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/reagent_containers/food/drinks/flask/barflask(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -86,6 +88,7 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/box/holobadge(src)
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -117,7 +120,12 @@
 	icon_opened = "hop_open"
 
 /obj/structure/closet/secure_closet/blueshield/populate_contents()
+	new /obj/item/storage/backpack/blueshield(src)
+	new /obj/item/storage/backpack/satchel_blueshield(src)
 	new /obj/item/storage/briefcase(src)
+	new /obj/item/storage/backpack/duffel/blueshield(src)
+	new /obj/item/radio/headset/heads/blueshield/alt(src)
+	new /obj/item/cartridge/hos(src)
 	new	/obj/item/storage/firstaid/adv(src)
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/flashlight/seclite(src)
@@ -135,6 +143,8 @@
 /obj/structure/closet/secure_closet/ntrep/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/briefcase(src)
+	new /obj/item/radio/headset/heads/ntrep (src)
+	new /obj/item/cartridge/supervisor(src)
 	new /obj/item/paicard(src)
 	new /obj/item/flash(src)
 	new /obj/item/storage/box/tapes(src)
@@ -255,6 +265,7 @@
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/flash(src)
 	new /obj/item/radio/headset/heads/magistrate(src)
+	new /obj/item/cartridge/supervisor(src)
 	new /obj/item/gavelblock(src)
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
@@ -269,12 +280,11 @@
 	open_door_sprite = "chaplain_door"
 
 /obj/structure/closet/secure_closet/iaa/populate_contents()
-	new /obj/item/storage/bag/garment/iaa(src)
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/box/tapes(src)
+	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/radio/headset/headset_iaa(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/radio/headset/headset_iaa(src)

@@ -41,6 +41,11 @@
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."
 
+/obj/item/reagent_containers/food/snacks/meat/slab/gorilla
+	name = "gorilla meat"
+	desc = "Much meatier than monkey meat."
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+
 /obj/item/reagent_containers/food/snacks/meat/monkey
 	//same as plain meat
 
@@ -79,8 +84,13 @@
 			"<span class ='notice'>[user] cuts the raw cutlet with [W]!</span>", \
 			"<span class ='notice'>You cut the raw cutlet with [W]!</span>" \
 			)
-		new /obj/item/reagent_containers/food/snacks/raw_bacon(loc)
-		qdel(src)
+		var/obj/item/reagent_containers/food/snacks/raw_bacon/bacon = new(get_turf(src))
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			qdel(src)
+			H.put_in_hands(bacon)
+		else
+			qdel(src)
 
 //////////////////////////
 //		Monster Meat	//

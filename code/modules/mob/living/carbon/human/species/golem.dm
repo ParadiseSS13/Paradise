@@ -1,6 +1,7 @@
 /datum/species/golem
 	name = "Golem"
 	name_plural = "Golems"
+	max_age = 300
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 
@@ -709,7 +710,7 @@
 	name = "pile of bandages"
 	desc = "It emits a strange aura, as if there was still life within it..."
 	max_integrity = 50
-	armor = list(MELEE = 90, BULLET = 90, LASER = 25, ENERGY = 80, BOMB = 50, BIO = 100, FIRE = -50, ACID = -50)
+	armor = list(MELEE = 90, BULLET = 90, LASER = 25, ENERGY = 80, BOMB = 50, FIRE = -50, ACID = -50)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pile_bandages"
 	resistance_flags = FLAMMABLE

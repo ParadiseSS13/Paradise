@@ -17,6 +17,12 @@
 	if(!starts_off_cooldown)
 		start_recharge()
 
+/datum/spell_cooldown/proc/should_draw_cooldown()
+	return is_on_cooldown()
+
+/datum/spell_cooldown/proc/get_cooldown_alpha()
+	return 220 - 140 * get_availability_percentage()
+
 /datum/spell_cooldown/proc/is_on_cooldown()
 	return recharge_time > world.time
 
@@ -45,11 +51,16 @@
 /datum/spell_cooldown/proc/get_availability_percentage()
 	if(!is_on_cooldown()) // if off cooldown, we don't bother with the maths
 		return 1
-	return (recharge_duration - (recharge_time - world.time)) / recharge_duration
+	return min(1, (recharge_duration - (recharge_time - world.time)) / recharge_duration)
+
+/datum/spell_cooldown/proc/get_recharge_time()
+	return world.time + recharge_duration
 
 /datum/spell_cooldown/proc/start_recharge(recharge_duration_override = 0)
-	var/recharge_increment = recharge_duration_override || recharge_duration
-	recharge_time = world.time + recharge_increment
+	if(recharge_duration_override)
+		recharge_time = world.time + recharge_duration_override
+	else
+		recharge_time = get_recharge_time()
 	if(spell_parent.action)
 		spell_parent.action.UpdateButtonIcon()
 		START_PROCESSING(SSfastprocess, src)

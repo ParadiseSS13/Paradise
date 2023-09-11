@@ -131,7 +131,8 @@
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id/I = H.get_idcard(TRUE)
 			if(istype(I))
-				if(ACCESS_CAPTAIN in I.access)
+				// You must have captain access and it must be red alert or lower (no getting off delta/epsilon)
+				if((ACCESS_CAPTAIN in I.access) && GLOB.security_level <= SEC_LEVEL_RED)
 					change_security_level(text2num(params["level"]))
 				else
 					to_chat(usr, "<span class='warning'>You are not authorized to do this.</span>")
@@ -422,7 +423,7 @@
 		to_chat(user, "<span class='warning'>Central Command does not allow the shuttle to be called at this time. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 		return
 
-	if(SSshuttle.emergencyNoEscape)
+	if(length(SSshuttle.hostile_environments))
 		to_chat(user, "<span class='warning'>The emergency shuttle may not be sent at this time. Please try again later.</span>")
 		return
 
@@ -446,7 +447,7 @@
 /proc/init_shift_change(mob/user, force = 0)
 	// if force is 0, some things may stop the shuttle call
 	if(!force)
-		if(SSshuttle.emergencyNoEscape)
+		if(length(SSshuttle.hostile_environments))
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
 			return
 

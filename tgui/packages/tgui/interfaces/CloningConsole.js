@@ -57,51 +57,6 @@ const viewRecordModalBodyOverride = (modal, context) => {
         <LabeledList.Item label="SE" className="LabeledList__breakContents">
           {strucenzymes}
         </LabeledList.Item>
-        <LabeledList.Item label="Disk">
-          <Button.Confirm
-            disabled={!data.disk}
-            icon="arrow-circle-down"
-            content="Import"
-            onClick={() =>
-              act('disk', {
-                option: 'load',
-              })
-            }
-          />
-          <Button
-            disabled={!data.disk}
-            icon="arrow-circle-up"
-            content="Export UI"
-            onClick={() =>
-              act('disk', {
-                option: 'save',
-                savetype: 'ui',
-              })
-            }
-          />
-          <Button
-            disabled={!data.disk}
-            icon="arrow-circle-up"
-            content="Export UI and UE"
-            onClick={() =>
-              act('disk', {
-                option: 'save',
-                savetype: 'ue',
-              })
-            }
-          />
-          <Button
-            disabled={!data.disk}
-            icon="arrow-circle-up"
-            content="Export SE"
-            onClick={() =>
-              act('disk', {
-                option: 'save',
-                savetype: 'se',
-              })
-            }
-          />
-        </LabeledList.Item>
         <LabeledList.Item label="Actions">
           <Button
             disabled={!data.podready}

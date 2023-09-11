@@ -113,3 +113,10 @@
 	containertype = /obj/structure/closet/crate
 	containername = "special ops crate"
 	hidden = TRUE
+
+/datum/supply_packs/emergency/floodlight
+	name = "Emergency Flood Light"
+	contains = list(/obj/machinery/floodlight)
+	cost = 250
+	containertype = /obj/structure/largecrate
+	containername = "emergency flood light"

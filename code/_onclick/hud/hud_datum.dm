@@ -26,6 +26,7 @@
 	var/obj/screen/zone_select
 	var/obj/screen/move_intent
 	var/obj/screen/module_store_icon
+	var/obj/screen/combo/combo_display
 
 	var/list/static_inventory = list()		//the screen objects which are static
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
@@ -120,15 +121,6 @@
 		display_hud_version = hud_version + 1
 	if(display_hud_version > HUD_VERSIONS)	//If the requested version number is greater than the available versions, reset back to the first version
 		display_hud_version = 1
-
-	if(mymob.client.view < world.view)
-		if(mymob.client.view < ARBITRARY_VIEWRANGE_NOHUD)
-			to_chat(mymob, "<span class='notice'>HUD is unavailable with this view range.</span>")
-			display_hud_version = HUD_STYLE_NOHUD
-		else
-			if(display_hud_version == HUD_STYLE_STANDARD)
-				to_chat(mymob, "<span class='notice'>Standard HUD mode is unavailable with a smaller-than-normal view range.</span>")
-				display_hud_version = HUD_STYLE_REDUCED
 
 	switch(display_hud_version)
 		if(HUD_STYLE_STANDARD)	//Default HUD

@@ -1,15 +1,13 @@
 /obj/machinery/atmospherics/unary/tank
+	name = "pressure tank"
+	desc = "A large vessel containing pressurized gas."
 	icon = 'icons/atmos/tank.dmi'
 	icon_state = "air_map"
 	layer = GAS_PIPE_VISIBLE_LAYER
-	name = "pressure tank"
-	desc = "A large vessel containing pressurized gas."
-
 	max_integrity = 800
-
-	var/volume = 10000 //in liters, 1 meters by 1 meters by 2 meters ~tweaked it a little to simulate a pressure tank without needing to recode them yet
-
 	density = TRUE
+	/// in liters, 1 meters by 1 meters by 2 meters
+	var/volume = 10000 
 
 /obj/machinery/atmospherics/unary/tank/update_underlays()
 	if(..())

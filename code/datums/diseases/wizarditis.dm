@@ -1,5 +1,6 @@
 /datum/disease/wizarditis
 	name = "Wizarditis"
+	desc = "Some speculate that this virus is the cause of Wizard Federation existence. Subjects affected show signs of dementia, yelling obscure sentences or total gibberish. In late stages, subjects sometime express feelings of inner power, and cite 'the ability to control the forces of cosmos themselves!' A gulp of strong, manly spirits usually reverts them to normal, humanlike condition."
 	max_stages = 4
 	spread_text = "Airborne"
 	cure_text = "The Manly Dorf"
@@ -9,7 +10,6 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	disease_flags = CAN_CARRY|CAN_RESIST|CURABLE
 	permeability_mod = 0.75
-	desc = "Some speculate, that this virus is the cause of Wizard Federation existence. Subjects affected show the signs of dementia, yelling obscure sentences or total gibberish. On late stages subjects sometime express the feelings of inner power, and, cite, 'the ability to control the forces of cosmos themselves!' A gulp of strong, manly spirits usually reverts them to normal, humanlike, condition."
 	severity = HARMFUL
 	required_organs = list(/obj/item/organ/external/head)
 
@@ -79,9 +79,9 @@ STI KALY - blind
 	else
 		var/mob/living/carbon/H = affected_mob
 		if(prob(chance))
-			if(!istype(H.r_hand, /obj/item/twohanded/staff))
+			if(!istype(H.r_hand, /obj/item/staff))
 				H.drop_r_hand()
-				H.put_in_r_hand( new /obj/item/twohanded/staff(H) )
+				H.put_in_r_hand( new /obj/item/staff(H) )
 			return
 	return
 

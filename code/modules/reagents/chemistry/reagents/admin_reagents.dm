@@ -39,6 +39,7 @@
 	M.SetStunned(0)
 	M.SetImmobilized(0)
 	M.SetKnockDown(0)
+	M.adjustStaminaLoss(-60)
 	M.SetParalysis(0)
 	M.SetSilence(0)
 	M.SetHallucinate(0)
@@ -56,6 +57,12 @@
 			continue
 		D.cure(0)
 	..()
+	if(M.dna?.species)
+		// Set the temperature to the species's preferred temperature
+		// For things like drasks, for example
+		M.bodytemperature = M.dna.species.body_temperature
+	else
+		M.bodytemperature = BODYTEMP_NORMAL
 	return STATUS_UPDATE_ALL
 
 /datum/reagent/medicine/adminordrazine/nanites

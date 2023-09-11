@@ -46,7 +46,7 @@
 	name = "grass tiles"
 	gender = PLURAL
 	singular_name = "grass floor tile"
-	desc = "A patch of grass like they often use on golf courses"
+	desc = "A patch of grass like they often use on golf courses."
 	icon_state = "tile_grass"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/grass
@@ -57,7 +57,7 @@
 	name = "wood floor tiles"
 	gender = PLURAL
 	singular_name = "wood floor tile"
-	desc = "an easy to fit wood floor tile"
+	desc = "An easy to fit wood floor tile."
 	icon_state = "tile-wood"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
@@ -72,7 +72,7 @@
 /obj/item/stack/tile/carpet
 	name = "carpet"
 	singular_name = "carpet"
-	desc = "A piece of carpet. It is the same size as a floor tile"
+	desc = "A piece of carpet. It is the same size as a floor tile."
 	icon_state = "tile-carpet"
 	turf_type = /turf/simulated/floor/carpet
 	resistance_flags = FLAMMABLE
@@ -182,7 +182,7 @@
 	flags = CONDUCT
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/plasteel/cyborg
@@ -271,3 +271,24 @@
 
 /obj/item/stack/tile/disco_light/thirty
 	amount = 30
+
+/obj/item/stack/tile/catwalk
+	name = "catwalk tiles"
+	gender = PLURAL
+	singular_name = "catwalk tile"
+	desc = "A catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk"
+	force = 6
+	materials = list(MAT_METAL=500)
+	throwforce = 10
+	throw_speed = 3
+	throw_range = 7
+	flags = CONDUCT
+	turf_type = /turf/simulated/floor/catwalk
+	mineralType = "metal"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
+	resistance_flags = FIRE_PROOF
+
+/obj/item/stack/tile/catwalk/cyborg
+	energy_type = /datum/robot_energy_storage/catwalk
+	is_cyborg = TRUE

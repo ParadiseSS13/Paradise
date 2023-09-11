@@ -160,7 +160,7 @@
 	med_bot_skin = "machine"
 
 /obj/item/storage/firstaid/machine/populate_contents()
-	new /obj/item/weldingtool(src)
+	new /obj/item/weldingtool/mini(src)
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
@@ -225,9 +225,10 @@
 	new /obj/item/stack/medical/splint(src)
 	new /obj/item/reagent_containers/applicator/dual(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
-	new /obj/item/storage/pill_bottle/ert(src)
-	new /obj/item/storage/pill_bottle/patch_pack/ert(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+
 
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
@@ -254,6 +255,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"
 	belt_icon = "pill_bottle"
+	use_sound = "pillbottle"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(/obj/item/reagent_containers/food/pill)
 	cant_hold = list(/obj/item/reagent_containers/food/pill/patch)
@@ -302,23 +304,36 @@
 	else
 		return ..()
 
-/obj/item/storage/pill_bottle/ert
-	wrapper_color = COLOR_MAROON
+/obj/item/storage/pill_bottle/ert_red
+	wrapper_color = COLOR_NT_RED
 
-/obj/item/storage/pill_bottle/ert/populate_contents()
+/obj/item/storage/pill_bottle/ert_red/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/pill/pentetic(src)
 		new /obj/item/reagent_containers/food/pill/ironsaline(src)
 		new /obj/item/reagent_containers/food/pill/salicylic(src)
+		new /obj/item/reagent_containers/food/pill/mannitol(src)
 
 /obj/item/storage/pill_bottle/ert_amber
-	wrapper_color = COLOR_AMBER
+	wrapper_color = COLOR_ORANGE
 
 /obj/item/storage/pill_bottle/ert_amber/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/pill/salbutamol(src)
 		new /obj/item/reagent_containers/food/pill/charcoal(src)
 		new /obj/item/reagent_containers/food/pill/salicylic(src)
+
+/obj/item/storage/pill_bottle/ert_gamma
+	wrapper_color = COLOR_YELLOW_GRAY
+
+/obj/item/storage/pill_bottle/ert_gamma/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/pill/pentetic(src)
+		new /obj/item/reagent_containers/food/pill/ironsaline(src)
+		new /obj/item/reagent_containers/food/pill/hydrocodone(src)
+		new /obj/item/reagent_containers/food/pill/mannitol(src)
+		new /obj/item/reagent_containers/food/pill/lazarus_reagent(src)
+		new /obj/item/reagent_containers/food/pill/rezadone(src)
 
 /obj/item/storage/pill_bottle/MouseDrop(obj/over_object) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(over_object))
@@ -347,6 +362,7 @@
 	desc = "It's a container for storing medical patches."
 	icon_state = "patch_pack"
 	belt_icon = "patch_pack"
+	use_sound = "patchpack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"
@@ -380,8 +396,9 @@
 	new /obj/item/reagent_containers/food/pill/fakedeath(src)
 
 /obj/item/storage/pill_bottle/patch_pack/ert
-	name = "ert patch pack"
-	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT medics."
+	name = "ert red patch pack"
+	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Red level medics."
+	wrapper_color = COLOR_NT_RED
 
 /obj/item/storage/pill_bottle/patch_pack/ert/populate_contents()
 	for(var/I in 1 to 5)
@@ -389,9 +406,15 @@
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
+/obj/item/storage/pill_bottle/patch_pack/ert/gamma
+	name = "ert gamma patch pack"
+	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Gamma level medics."
+	wrapper_color = COLOR_YELLOW_GRAY
+
 /obj/item/storage/pill_bottle/patch_pack/ert_amber
 	name = "ert amber patch pack"
 	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Amber level medics"
+	wrapper_color = COLOR_ORANGE
 
 /obj/item/storage/pill_bottle/patch_pack/ert_amber/populate_contents()
 	for(var/I in 1 to 5)

@@ -68,7 +68,7 @@
 		return
 	var/obj/U = locate(/obj) in upgrades
 	if(U)
-		to_chat(user, "<span class='notice'>You unattach an upgrade from the assembly.</span>")
+		to_chat(user, "<span class='notice'>You detach an upgrade from the assembly.</span>")
 		playsound(loc, I.usesound, 50, 1)
 		U.loc = get_turf(src)
 		upgrades -= U
@@ -96,16 +96,15 @@
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/C = new(loc)
+	var/list/network_list = uniquelist(tempnetwork)
+	var/list/visible_networks = difflist(network_list, GLOB.restricted_camera_networks)
+	var/obj/machinery/camera/C = new(loc, length(visible_networks) > 0)
 	loc = C
 	C.assembly = src
 
 	C.auto_turn()
 
-	C.network = uniquelist(tempnetwork)
-	tempnetwork = difflist(C.network,GLOB.restricted_camera_networks)
-	if(!tempnetwork.len) // Camera isn't on any open network - remove its chunk from AI visibility.
-		GLOB.cameranet.removeCamera(C)
+	C.network = network_list
 
 	C.c_tag = input
 

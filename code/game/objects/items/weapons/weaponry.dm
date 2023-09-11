@@ -13,7 +13,7 @@
 	throw_range = 15
 	attack_verb = list("banned")
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/banhammer/suicide_act(mob/user)
@@ -56,7 +56,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/claymore/Initialize(mapload)
@@ -86,7 +86,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	needs_permit = TRUE
 
@@ -125,12 +125,9 @@
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/shard))
-		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
+		var/obj/item/spear/S = new /obj/item/spear
 		if(istype(I, /obj/item/shard/plasma))
-			S.force_wielded = 19
-			S.force_unwielded = 11
-			S.throwforce = 21
-			S.icon_prefix = "spearplasma"
+			S.add_plasmaglass()
 			S.update_icon()
 		if(!remove_item_from_storage(user))
 			user.unEquip(src)
@@ -181,6 +178,7 @@
 /obj/item/melee/baseball_bat
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
+	flags_2 = RANDOM_BLOCKER_2
 	icon = 'icons/obj/items.dmi'
 	icon_state = "baseball_bat"
 	item_state = "baseball_bat"
@@ -282,7 +280,7 @@
 		return
 	if(!(target.status_flags & CANPUSH))
 		// No throwing mobs specifically flagged as immune to being pushed.
-		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, spaceworms, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
+		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
 		return
 	if(target.move_resist > MOVE_RESIST_DEFAULT)
 		// No throwing mobs that have higher than normal move_resist.

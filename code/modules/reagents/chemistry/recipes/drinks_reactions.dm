@@ -164,7 +164,7 @@
 	name = "Mojito"
 	id = "mojito"
 	result = "mojito"
-	required_reagents = list("rum" = 1, "sugar" = 1, "limejuice" = 1, "sodawater" = 1)
+	required_reagents = list("rum" = 1, "sugar" = 1, "limejuice" = 1, "sodawater" = 1, "mint" = 1)
 	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -600,10 +600,10 @@
 	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/irishcarbomb
-	name = "Irish Car Bomb"
-	id = "irishcarbomb"
-	result = "irishcarbomb"
+/datum/chemical_reaction/dublindrop
+	name = "Dublin Drop"
+	id = "dublindrop"
+	result = "dublindrop"
 	required_reagents = list("ale" = 1, "irishcream" = 1)
 	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -1053,5 +1053,13 @@
 	id = "howler"
 	result = "howler"
 	required_reagents = list("limejuice" = 1, "lemon_lime" = 1, "orangejuice" = 1, "tequila" = 2)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/lean
+	name = "Lean"
+	id = "lean"
+	result = "lean"
+	required_reagents = list("space_drugs" = 1, "sodawater" = 1, "grapejuice" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

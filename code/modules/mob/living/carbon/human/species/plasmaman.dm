@@ -1,6 +1,7 @@
 /datum/species/plasmaman
 	name = "Plasmaman"
 	name_plural = "Plasmamen"
+	max_age = 150
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
@@ -146,7 +147,7 @@
 
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	var/atmos_sealed = !HAS_TRAIT(H, TRAIT_NOFIRE) && (isclothing(H.wear_suit) && H.wear_suit.flags & STOPSPRESSUREDMAGE) && (isclothing(H.head) && H.head.flags & STOPSPRESSUREDMAGE)
-	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)))
+	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY)))
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment)
 			if(environment.total_moles())

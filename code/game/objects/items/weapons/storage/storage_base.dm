@@ -9,10 +9,13 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
+	flags_2 = BLOCKS_LIGHT_2
 	/// No message on putting items in.
 	var/silent = FALSE
 	/// List of objects which this item can store (if set, it can't store anything else)
 	var/list/can_hold = list()
+	/// List of objects that can be stored, regardless of w_class
+	var/list/w_class_override = list()
 	/// List of objects which this item can't store (in effect only if can_hold isn't set)
 	var/list/cant_hold = list()
 	/// List of objects which this item overrides the cant_hold list (used to negate cant_hold on specific items. Ex: Allowing Smuggler's Satchels (subtype of backpack) to be stored inside bags of holding.)
@@ -38,7 +41,6 @@
 	var/pickup_all_on_tile = TRUE
 	/// Sound played when used. `null` for no sound.
 	var/use_sound = "rustle"
-
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
 	/// How much of the stack item do you get.
@@ -109,7 +111,7 @@
 	if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
 		if(M.s_active)
 			M.s_active.close(M)
-		show_to(M)
+		open(M)
 		return
 
 	if((istype(over_object, /obj/structure/table) || isfloorturf(over_object)) && length(contents) \
@@ -138,7 +140,6 @@
 		return ..()
 	if(!(loc == M) || (loc && loc.loc == M))
 		return
-	playsound(loc, "rustle", 50, 1, -5)
 	if(!M.restrained() && !M.stat)
 		switch(over_object.name)
 			if("r_hand")
@@ -154,13 +155,12 @@
 	if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
 		if(usr.s_active)
 			usr.s_active.close(usr)
-		show_to(usr)
+		open(usr)
 
 /obj/item/storage/AltClick(mob/user)
 	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
-		show_to(user)
-		playsound(loc, "rustle", 50, TRUE, -5)
+		open(user)
 		add_fingerprint(user)
 	else if(isobserver(user))
 		show_to(user)
@@ -205,7 +205,7 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	LAZYADDOR(mobs_viewing, user)
+	LAZYDISTINCTADD(mobs_viewing, user)
 
 /**
   * Hides the current container interface from `user`.
@@ -238,7 +238,7 @@
 		hide_from(M)
 
 /obj/item/storage/proc/open(mob/user)
-	if(use_sound)
+	if(use_sound && isliving(user))
 		playsound(loc, use_sound, 50, TRUE, -5)
 
 	if(user.s_active)
@@ -385,9 +385,17 @@
 				return FALSE
 
 	if(I.w_class > max_w_class)
-		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")
-		return FALSE
+		if(length(w_class_override))
+			if(is_type_in_list(I, w_class_override))
+				return TRUE
+			else
+				if(!stop_messages)
+					to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")
+				return FALSE
+		else
+			if(!stop_messages)
+				to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")
+			return FALSE
 
 	var/sum_w_class = I.w_class
 	for(var/obj/item/item in contents)
@@ -525,6 +533,8 @@
 		var/obj/item/hand_labeler/labeler = I
 		if(labeler.mode)
 			return FALSE
+	if(user.a_intent != INTENT_HELP && issimulatedturf(loc)) // Stops you from putting your baton in the storage on accident
+		return FALSE
 	. = TRUE //no afterattack
 	if(isrobot(user))
 		return //Robots can't interact with storage items.
@@ -538,8 +548,6 @@
 
 
 /obj/item/storage/attack_hand(mob/user)
-	playsound(loc, "rustle", 50, TRUE, -5)
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.get_active_hand())
@@ -556,7 +564,7 @@
 	if(loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
-		show_to(user)
+		open(user)
 	else
 		..()
 	add_fingerprint(user)

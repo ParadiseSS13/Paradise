@@ -14,7 +14,7 @@
 	belt_icon = "multitool"
 	flags = CONDUCT
 	force = 0
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 0
 	throw_range = 7
 	throw_speed = 3
@@ -38,7 +38,7 @@
 		to_chat(user, "<span class='warning'>That's not a machine!</span>")
 		return
 	buffer = M
-	to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")
+	to_chat(user, "<span class='notice'>You load [M]'s identifying data into [src]'s internal buffer.</span>")
 	return TRUE
 
 /obj/item/multitool/Destroy()
@@ -53,6 +53,7 @@
 	var/rangealert = 8	//Glows red when inside
 	var/rangewarning = 20 //Glows yellow when inside
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/multitool/ai_detect/Initialize(mapload)
 	. = ..()
@@ -104,28 +105,37 @@
 	item_state = "multitool_syndi"
 	belt_icon = "multitool_syndi"
 	toolspeed = 0.95 // dangerously fast... not like multitools use speed anyways
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
 
 /obj/item/multitool/command
 	name = "command multitool"
 	desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain."
 	icon_state = "multitool_command"
+	item_state = "multitool_command"
 	belt_icon = "multitool_command"
 	toolspeed = 0.95 //command those wires / that fireaxe cabinet!
+	var/list/victims = list()
 
 /obj/item/multitool/command/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is attempting to command the command multitool! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-    //basically just cleaned up and copied from the medical wrench code
+	//basically just cleaned up and copied from the medical wrench code
 	if(!user)
 		return
 
-	user.Stun(10 SECONDS)
-	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
+	user.Immobilize(10 SECONDS)
 	sleep(20)
-
 	add_fingerprint(user)
-	desc += " Its screen displays the text \"[user.name]: executed for mutiny.\""
 
+	var/base_desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain. Its screen displays the text \""
+	victims += user.name
+
+	if(length(victims) < 3)
+		desc = base_desc + english_list(victims) + ": executed for mutiny.\""
+	else
+		desc = base_desc + english_list(victims) + ", all executed for mutiny. Impressive.\""
+
+	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
 	for(var/obj/item/W in user)
 		user.unEquip(W)
 
@@ -167,6 +177,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
 	toolspeed = 0.1
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 
 /obj/item/multitool/abductor/Initialize(mapload)

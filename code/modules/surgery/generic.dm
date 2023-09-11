@@ -14,7 +14,7 @@
 		/obj/item/kitchen/knife = 90,
 		/obj/item/shard = 60,
 		/obj/item/scissors = 12,
-		/obj/item/twohanded/chainsaw = 1,
+		/obj/item/butcher_chainsaw = 1,
 		/obj/item/claymore = 6,
 		/obj/item/melee/energy = 6,
 		/obj/item/pen/edagger = 6,
@@ -74,7 +74,7 @@
 /datum/surgery_step/generic/clamp_bleeders/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] clamps bleeders in [target]'s [affected.name] with \the [tool]</span>.",
+		"<span class='notice'> [user] clamps bleeders in [target]'s [affected.name] with \the [tool].</span>",
 		"<span class='notice'> You clamp bleeders in [target]'s [affected.name] with \the [tool].</span>"
 	)
 	spread_germs_to_organ(affected, user, tool)

@@ -90,7 +90,7 @@
 			return ..()
 
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.\n"
+		var/msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src].</span>\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
@@ -178,6 +178,8 @@
 
 // For item-containing growns such as eggy or gatfruit
 /obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)
+	if(!do_after(user, 1.5 SECONDS, target = user))
+		return
 	user.unEquip(src)
 	if(trash)
 		var/obj/item/T = generate_trash()

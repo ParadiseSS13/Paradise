@@ -111,7 +111,7 @@
 	id = "empty-shell"
 	suffix = "emptyshell.dmm"
 	name = "Empty Shell"
-	description = "Cosy, rural property availible for young professional \
+	description = "Cosy, rural property available for young professional \
 		couple. Only twelve parsecs from the nearest hyperspace lane!"
 
 /datum/map_template/ruin/space/intact_empty_ship
@@ -146,6 +146,7 @@
 	description = "No questions asked. No shoes/foot protection, no service. \
 		No tabs. No violence in the inside areas. That's it. Welcome to the \
 		Rampant Golem and Yellow Hound. Can I take your order?"
+	allow_duplicates = FALSE //it spawn ship docking, no more than one to avoid duplication in console.
 	cost = 2
 
 /datum/map_template/ruin/space/turreted_outpost
@@ -187,7 +188,7 @@
 	id = "blowntcommsat"
 	suffix = "blowntcommsat.dmm"
 	name = "Blown-out Telecommunications Satellite"
-	description = "The remains of an old telecommunications satellite once utilised by NanoTrasen. It lays derelict, with quite a few pieces missing."
+	description = "The remains of an old telecommunications satellite once utilised by Nanotrasen. It lays derelict, with quite a few pieces missing."
 	cost = 5 // This is a chonky boy
 	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
 
@@ -309,3 +310,19 @@
 	description = "A now-defunct outpost, with the last received signal being that of distress."
 	allow_duplicates = FALSE
 	cost = 2 // Also pretty big
+
+/datum/map_template/ruin/space/voyager
+	id = "voyager"
+	suffix = "voyager.dmm"
+	name = "Voyager"
+	description = "A relic of old times, you don't know what it hide inside."
+	allow_duplicates = FALSE
+	cost = 1 // Gives research levels and it should be hard-to-find
+
+/datum/map_template/ruin/space/wreckedcargoship
+	id = "wreckedcargoship"
+	suffix = "wreckedcargoship.dmm"
+	name = "Wrecked Cargoship"
+	description = "A cargo shuttle in a wrecked condition. There are many unknown horrors in space and looks like its last crew has faced one of them."
+	allow_duplicates = FALSE
+	cost = 1 // With the loot it contains it shouldn't be found frequently

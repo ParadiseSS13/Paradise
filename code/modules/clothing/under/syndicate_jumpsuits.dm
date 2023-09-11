@@ -5,7 +5,7 @@
 	item_state = "bl_suit"
 	item_color = "syndicate"
 	has_sensor = FALSE
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 35)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 35)
 
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	sprite_sheets = list(
@@ -27,7 +27,7 @@
 	icon_state = "tactifool"
 	item_state = "bl_suit"
 	item_color = "tactifool"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 35)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 35)
 
 /obj/item/clothing/under/syndicate/sniper
 	name = "tactical suit"
@@ -35,3 +35,22 @@
 	icon_state = "tactical_suit"
 	item_state = "bl_suit"
 	item_color = "tactical_suit"
+
+/obj/item/clothing/under/syndicate/silicon_cham
+	name = "tactical turtleneck"
+	desc = "A non-descript and slightly suspicious looking turtleneck with digital camouflage cargo pants. <b>This one has extra cybernetic modifications.</b>"
+	blockTracking = TRUE
+
+/obj/item/clothing/under/syndicate/silicon_cham/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == slot_w_uniform)
+		ADD_TRAIT(user, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
+		user.invisibility = SEE_INVISIBLE_LIVING
+		to_chat(user, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators activate.</span>")
+
+/obj/item/clothing/under/syndicate/silicon_cham/dropped(mob/user)
+	. = ..()
+	if(user)
+		REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
+		user.invisibility = initial(user.invisibility)
+		to_chat(user, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators deactivate.</span>")

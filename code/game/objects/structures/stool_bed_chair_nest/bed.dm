@@ -30,6 +30,11 @@
 	. = ..()
 	. += "<span class='notice'>Click dragging someone to a bed will buckle them in. Functions just like a chair except you can walk over them.</span>"
 
+/obj/structure/bed/attack_hand(mob/user)
+	if(user.Move_Pulled(src))
+		return
+	return ..()
+
 /obj/structure/bed/psych
 	name = "psych bed"
 	desc = "For prime comfort during psychiatric evaluations."
@@ -136,6 +141,7 @@
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
+	pull_speed = 0
 	var/icon_up = "up"
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
@@ -215,7 +221,6 @@
 	return
 
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
-	..()
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr) || usr.incapacitated())
 			return
@@ -224,6 +229,8 @@
 		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 		new folded(get_turf(src))
 		qdel(src)
+		return
+	..()
 
 /obj/item/roller_holder
 	name = "roller bed rack"

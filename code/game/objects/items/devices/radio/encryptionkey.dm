@@ -43,6 +43,12 @@
 	origin_tech = "syndicate=4"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
 
+/obj/item/encryptionkey/soviet
+	name = "soviet encryption key"
+	icon_state = "cypherkey"
+	channels = list("Special Ops" = 1)
+	origin_tech = "syndicate=4"
+
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
 	desc = "An encryption key for a radio headset. To access the binary channel, use :+."
@@ -74,6 +80,11 @@
 	name = "Medical Radio Encryption Key"
 	icon_state = "med_cypherkey"
 	channels = list("Medical" = 1)
+
+/obj/item/encryptionkey/headset_med/para
+	name = "Paramedic Radio Encryption Key"
+	icon_state = "para_cypherkey"
+	channels = list("Medical" = 1, "Supply" = 0)
 
 /obj/item/encryptionkey/headset_sci
 	name = "Science Radio Encryption Key"
@@ -118,7 +129,12 @@
 /obj/item/encryptionkey/heads/hop
 	name = "Head of Personnel's Encryption Key"
 	icon_state = "hop_cypherkey"
-	channels = list("Supply" = 1, "Service" = 1, "Security" = 0, "Command" = 1)
+	channels = list("Service" = 1, "Security" = 0, "Command" = 1)
+
+/obj/item/encryptionkey/heads/qm
+	name = "Quartermaster's Encryption Key"
+	icon_state = "qm_cypherkey"
+	channels = list("Supply" = 1, "Command" = 1)
 
 /obj/item/encryptionkey/heads/ntrep
 	name = "Nanotrasen Representative's Encryption Key"
@@ -133,7 +149,7 @@
 /obj/item/encryptionkey/heads/blueshield
 	name = "Blueshield's Encryption Key"
 	icon_state = "com_cypherkey"
-	channels = list("Command" = 1)
+	channels = list("Command" = 1, "Security" = 1)
 
 /*
 /obj/item/encryptionkey/headset_mine

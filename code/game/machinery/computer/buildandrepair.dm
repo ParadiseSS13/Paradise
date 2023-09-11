@@ -163,6 +163,11 @@
 	build_path = /obj/machinery/computer/aiupload
 	origin_tech = "programming=4;engineering=4"
 
+/obj/item/circuitboard/aiupload_broken
+	board_name = "AI Upload"
+	desc = "<span class='warning'>The board is charred and smells of burnt plastic. It has been rendered useless.</span>"
+	icon_state = "command_broken"
+
 /obj/item/circuitboard/borgupload
 	board_name = "Cyborg Upload"
 	icon_state = "command"
@@ -216,6 +221,11 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/card/minor/cmo
 	target_dept = TARGET_DEPT_MED
+
+/obj/item/circuitboard/card/minor/qm
+	board_name = "Supply ID Computer"
+	build_path = /obj/machinery/computer/card/minor/qm
+	target_dept = TARGET_DEPT_SUP
 
 /obj/item/circuitboard/card/minor/rd
 	board_name = "Science ID Computer"

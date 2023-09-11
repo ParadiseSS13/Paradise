@@ -32,6 +32,7 @@
 	var/allow_pai = TRUE // Are we even allowed to insert a pai card.
 	var/bot_name
 
+	var/disabling_timer_id = null
 	var/list/player_access = list()
 	var/emagged = 0
 	var/obj/item/card/id/access_card			// the ID card that the bot "holds"
@@ -121,6 +122,8 @@
 		return "<span class='average'>[mode_name[mode]]</span>"
 
 /mob/living/simple_animal/bot/proc/turn_on()
+	if(disabling_timer_id)
+		return FALSE
 	if(stat)
 		return 0
 	on = TRUE
@@ -417,6 +420,20 @@
 	if(was_on)
 		turn_on()
 
+/mob/living/simple_animal/bot/proc/disable(time)
+	if(disabling_timer_id)
+		deltimer(disabling_timer_id) // if we already have disabling timer, lets replace it with new one
+	if(on)
+		turn_off()
+	disabling_timer_id = addtimer(CALLBACK(src, PROC_REF(enable)), time, TIMER_STOPPABLE)
+
+/mob/living/simple_animal/bot/proc/enable()
+	if(disabling_timer_id)
+		deltimer(disabling_timer_id)
+		disabling_timer_id = null
+	if(!on)
+		turn_on()
+
 /mob/living/simple_animal/bot/rename_character(oldname, newname)
 	if(!..(oldname, newname))
 		return 0
@@ -452,7 +469,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 */
 /mob/living/simple_animal/bot/proc/scan(atom/scan_type, atom/old_target, scan_range = DEFAULT_SCAN_RANGE)
 	var/final_result
-	for(var/scan in shuffle(view(scan_range, src))) //Search for something in range!
+	for(var/scan in view(scan_range, src)) //Search for something in range!
 		var/atom/A = scan
 		if(!istype(A, scan_type)) //Check that the thing we found is the type we want!
 			continue //If not, keep searching!
@@ -702,6 +719,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if("home")
 			to_chat(src, "<span class='warning big'>RETURN HOME!</span>")
 		if("ejectpai")
+			return // Do nothing for this
 		else
 			to_chat(src, "<span class='warning'>Unidentified control sequence received: [command]</span>")
 

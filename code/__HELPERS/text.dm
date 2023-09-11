@@ -462,6 +462,10 @@
 	text = replacetext(text, "\[/i\]",		"</I>")
 	text = replacetext(text, "\[u\]",		"<U>")
 	text = replacetext(text, "\[/u\]",		"</U>")
+	if(findtext(text, "\[signfont\]") || findtext(text, "\[/signfont\]")) // Make sure the text is there before giving off an error
+		if(check_rights(R_EVENT))
+			text = replacetext(text, "\[signfont\]",		"<font face=\"[signfont]\"><i>")
+			text = replacetext(text, "\[/signfont\]",		"</i></font>")
 	if(sign)
 		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
 	if(fields)
@@ -734,3 +738,11 @@
 /proc/strip_html_tags(the_text)
 	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
 	return html_replacer.Replace(the_text, "")
+
+/proc/starts_with_vowel(text)
+	var/start_char = copytext(text, 1, 2)
+	switch(lowertext(start_char))
+		if("a", "e", "i", "o", "u")
+			return TRUE
+		else
+			return FALSE

@@ -22,6 +22,9 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		var/obj/item/paicard/card = locate(href_list["device"])
 		if(card.pai)
 			return
+		if(!isobserver(candidate.owner.mob)) //This stops pais from being downloaded twice.
+			to_chat(usr, "<span class='warning'>Error downloading pAI from NT_NET. Please check if the pAI listing is still available.</span>")
+			return
 		if(usr.incapacitated() || isobserver(usr) || !card.Adjacent(usr))
 			return
 		if(istype(card, /obj/item/paicard) && istype(candidate, /datum/pai_save))
@@ -37,7 +40,6 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			card.looking_for_personality = 0
 
 			SSticker.mode.update_cult_icons_removed(card.pai.mind)
-			SSticker.mode.update_rev_icons_removed(card.pai.mind)
 
 			pai_candidates -= candidate
 			usr << browse(null, "window=findPai")

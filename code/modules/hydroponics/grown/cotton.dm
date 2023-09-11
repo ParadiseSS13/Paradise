@@ -1,6 +1,6 @@
 /obj/item/seeds/cotton
 	name = "pack of cotton seeds"
-	desc = "A pack of seeds that'll grow into a cotton plant. Assistants make good free labor if neccesary."
+	desc = "A pack of seeds that'll grow into a cotton plant. Assistants make good free labor if necessary."
 	icon_state = "seed-cotton"
 	species = "cotton"
 	plantname = "Cotton"

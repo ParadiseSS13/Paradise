@@ -87,7 +87,7 @@
 
 /obj/item/clothing/head/collectable/flatcap
 	name = "collectable flat cap"
-	desc = "A Collectible farmer's Flat Cap!"
+	desc = "A Collectable farmer's Flat Cap!"
 	icon_state = "flat_cap"
 	item_state = "detective"
 

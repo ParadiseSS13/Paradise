@@ -6,7 +6,7 @@
 	desc = "A special helmet designed for only the most fashionable of military figureheads."
 	flags_inv = HIDEFACE
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
@@ -29,7 +29,7 @@
 	item_state = "capspacesuit"
 	w_class = WEIGHT_CLASS_BULKY
 	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
-	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
@@ -41,7 +41,7 @@
 	desc = "That's not red paint. That's real blood."
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	vision_flags = SEE_MOBS
@@ -56,27 +56,16 @@
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat,/obj/item/flashlight)
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	flags_inv = HIDESHOES | HIDEJUMPSUIT | HIDETAIL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
-	//NEW SWAT suit
-/obj/item/clothing/suit/space/swat
-	name = "SWAT armor"
-	desc = "Space-proof tactical SWAT armor."
-	icon_state = "heavy"
-	item_state = "swat_suit"
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 450, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
-	strip_delay = 120
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+/obj/item/clothing/suit/space/deathsquad/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer beret"
@@ -103,7 +92,7 @@
 	blood_overlay_type = "coat"
 	flags_inv = 0
 	slowdown = 0
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -152,7 +141,7 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	armor = list(MELEE = 20, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 75, ACID = 150)
+	armor = list(MELEE = 20, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 75, ACID = 150)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	strip_delay = 40
@@ -166,7 +155,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	slowdown = 0
-	armor = list(MELEE = 20, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 75, ACID = 150)
+	armor = list(MELEE = 20, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 75, ACID = 150)
 	strip_delay = 40
 	put_on_delay = 20
 
@@ -195,6 +184,8 @@
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
+	slowdown = 0.25
+	w_class = WEIGHT_CLASS_NORMAL
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -213,7 +204,7 @@
 	icon_state = "spacenew"
 	item_state = "s_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = INFINITY, RAD = 10, FIRE = 50, ACID = 95)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 50, ACID = 95)
 
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
@@ -234,7 +225,7 @@
 	item_state = "s_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = INFINITY, RAD = 10, FIRE = 50, ACID = 95)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 50, ACID = 95)
 	flash_protect = FLASH_PROTECTION_NONE
 
 	sprite_sheets = list(

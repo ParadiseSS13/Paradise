@@ -304,7 +304,7 @@
 			continue
 		if(isanimal(player)) //Poly does not own the shuttle
 			continue
-		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
+		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints/them being golems
 			var/mob/living/carbon/human/H = player
 			if(!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead
 				continue
@@ -316,6 +316,8 @@
 				var/obj/structure/closet/C = H.loc
 				if(C.welded || C.locked)
 					continue
+			if(isgolem(H)) // golems are often used in hijacks, so they really shouldn't all be forced to space themselves before the shuttle docks
+				continue
 		var/special_role = player.mind.special_role
 		if(special_role)
 			// There's a long list of special roles, but almost all of them are antags anyway.
@@ -380,7 +382,7 @@
 */
 		if(SHUTTLE_DOCKED)
 
-			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
+			if(time_left <= 0 && length(SSshuttle.hostile_environments))
 				GLOB.major_announcement.Announce(
 					"Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.",
 					new_title = "Priority Announcement"
@@ -394,7 +396,7 @@
 				for(var/area/shuttle/escape/E in world)
 					SEND_SOUND(E, hyperspace_sound)
 
-			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
+			if(time_left <= 0 && !length(SSshuttle.hostile_environments))
 				//move each escape pod to its corresponding transit dock
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
