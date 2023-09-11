@@ -82,7 +82,7 @@
 
 /obj/item/clothing/gloves/janitor
 	name = "janitorial gloves"
-	desc = "Gloves designed to offer minor protection against messes. They don't feel like rubber."
+	desc = "Gloves designed to offer minor protection against messes. The rubber doesn't feel thick enough to protect you from shocks."
 	icon_state = "janitor"
 	item_state = "janitor"
 	cold_protection = HANDS
