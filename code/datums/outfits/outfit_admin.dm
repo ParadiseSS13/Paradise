@@ -1389,10 +1389,10 @@
 /datum/outfit/admin/enforcer
 	name = "Oblivion Enforcer"
 
-	uniform = /obj/item/clothing/under/color/white
+	uniform = /obj/item/clothing/under/color/white/enforcer
 	shoes = /obj/item/clothing/shoes/white/enforcer
 	back = /obj/item/storage/backpack/satchel
-	id = /obj/item/card/id
+	id = /obj/item/card/id/data
 	//The hood on this gets enabled on the after-equip proc.
 	suit = /obj/item/clothing/suit/hooded/oblivion
 	gloves = /obj/item/clothing/gloves/color/white/supermatter_immune
@@ -1403,7 +1403,7 @@
 	box = /obj/item/storage/box/wizard
 
 	//The spells that the enforcer has.
-	var/list/spell_paths = list(/obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter, /obj/effect/proc_holder/spell/ethereal_jaunt, \
+	var/list/spell_paths = list(/obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter, /obj/effect/proc_holder/spell/ethereal_jaunt,
 										/obj/effect/proc_holder/spell/charge_up/bounce/lightning, /obj/effect/proc_holder/spell/summonitem)
 
 /datum/outfit/admin/enforcer/post_equip(mob/living/carbon/human/H)
