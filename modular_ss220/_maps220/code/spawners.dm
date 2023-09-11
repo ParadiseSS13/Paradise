@@ -32,3 +32,46 @@
 		/obj/item/reagent_containers/food/drinks/cans/synthanol=10,
 		/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,
 		/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70)
+
+/* LOOTDROP */
+/obj/effect/spawner/lootdrop/maintenance
+	icon = 'modular_ss220/_maps220/icons/spawner_icons.dmi'
+
+/obj/effect/spawner/lootdrop/maintenance/three
+	icon_state = "trippleloot"
+
+/obj/effect/spawner/lootdrop/maintenance/five
+	name = "maintenance loot spawner (5 items)"
+	icon_state = "moreloot"
+	lootcount = 5
+
+/obj/effect/spawner/lootdrop/trash
+	name = "trash spawner"
+	icon = 'modular_ss220/_maps220/icons/spawner_icons.dmi'
+	icon_state = "trash"
+	loot = list(
+		/obj/item/trash/bowl,
+		/obj/item/trash/can,
+		/obj/item/trash/candle,
+		/obj/item/trash/candy,
+		/obj/item/trash/cheesie,
+		/obj/item/trash/chips,
+		/obj/item/trash/fried_vox,
+		/obj/item/trash/gum,
+		/obj/item/trash/liquidfood,
+		/obj/item/trash/pistachios,
+		/obj/item/trash/plate,
+		/obj/item/trash/popcorn,
+		/obj/item/trash/raisins,
+		/obj/item/trash/semki,
+		/obj/item/trash/snack_bowl,
+		/obj/item/trash/sosjerky,
+		/obj/item/trash/spacetwinkie,
+		/obj/item/trash/spentcasing,
+		/obj/item/trash/syndi_cakes,
+		/obj/item/trash/tapetrash,
+		/obj/item/trash/tastybread,
+		/obj/item/trash/tray,
+		/obj/item/trash/waffles,
+		""=20
+		)
