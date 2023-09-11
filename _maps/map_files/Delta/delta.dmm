@@ -59702,9 +59702,6 @@
 	dir = 8;
 	name = "Creature Pen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 8
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenosecure";
 	name = "Secure Creature Cell"
@@ -59718,6 +59715,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
@@ -60375,15 +60375,15 @@
 	name = "Creature Pen";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cTt" = (
@@ -60553,7 +60553,9 @@
 	pixel_y = 3;
 	anchored = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "cTG" = (
@@ -63846,9 +63848,6 @@
 	name = "Research Lab Desk";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox{
-	dir = 8
-	},
 /obj/machinery/door/window/classic/normal{
 	dir = 4
 	},
@@ -63859,6 +63858,9 @@
 	name = "Research Desk Shutters"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -91300,6 +91302,7 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Test Chamber"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/machinery/door/poddoor/preopen{
 	name = "Biohazard Shutter";
 	id_tag = "RnDChem"
@@ -91310,7 +91313,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "pWn" = (

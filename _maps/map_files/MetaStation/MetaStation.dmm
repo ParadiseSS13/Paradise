@@ -104,7 +104,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/research{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/misc_lab)
 "acf" = (
@@ -232,13 +234,13 @@
 	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "kitchen_counter";
 	name = "Kitchen Counter Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6607,12 +6609,12 @@
 	pixel_y = 6
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/item/desk_bell{
 	pixel_x = 7;
 	pixel_y = 7;
 	anchored = 1
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "aFy" = (
@@ -19913,7 +19915,9 @@
 	dir = 1;
 	name = "Captain's Bedroom"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/captain,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/captain{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "boL" = (
@@ -20934,7 +20938,9 @@
 "brl" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/brig{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/secondary)
 "brm" = (
@@ -23799,7 +23805,7 @@
 	dir = 2;
 	name = "HoP's Desk"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/hop,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/hop,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bxX" = (
@@ -24099,7 +24105,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/captain,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/captain,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "byA" = (
@@ -24134,7 +24140,7 @@
 	},
 /obj/item/stamp/captain,
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/access/all/command/captain,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/captain,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "byE" = (
@@ -44730,10 +44736,12 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/classic/normal{
 	name = "Kitchen Delivery";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -48731,11 +48739,13 @@
 	opacity = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/machinery/door/window/classic/reversed{
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "daw" = (
@@ -50155,7 +50165,9 @@
 	name = "Containment Pen #1";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "dlq" = (
@@ -50918,7 +50930,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/atmos{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -51605,8 +51619,10 @@
 	name = "Containment Pen #3";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -52760,7 +52776,6 @@
 	name = "Chemistry Desk";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -52774,6 +52789,7 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/chemistry,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellowfull"
@@ -53903,9 +53919,11 @@
 	name = "Desk Door";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/ntrep,
 /obj/machinery/keycard_auth{
 	pixel_x = 24
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/ntrep{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -54606,7 +54624,7 @@
 	dir = 2
 	},
 /obj/effect/turf_decal/siding,
-/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/genetics,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "fwY" = (
@@ -55197,7 +55215,9 @@
 	name = "Containment Pen #8";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "fKW" = (
@@ -56143,7 +56163,9 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/chemistry{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellowfull"
@@ -58687,7 +58709,7 @@
 	name = "Cryo Tank Storage";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58944,7 +58966,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/atmos{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59537,7 +59561,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "hPJ" = (
@@ -59569,7 +59595,9 @@
 	},
 /obj/item/folder/yellow,
 /obj/item/pen,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "hQZ" = (
@@ -60309,7 +60337,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "greenfull"
 	},
@@ -60858,7 +60888,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "atmos";
 	name = "Atmospherics Blast Door"
@@ -60866,6 +60895,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/atmos,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/control)
 "ivR" = (
@@ -61299,13 +61329,13 @@
 	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "kitchen_counter";
 	name = "Kitchen Counter Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -61482,7 +61512,9 @@
 	name = "Containment Pen #4";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 8
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "iHO" = (
@@ -62425,7 +62457,9 @@
 	name = "Mass Driver Control Door";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/tox,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/tox{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -62990,7 +63024,9 @@
 	name = "Containment Pen #3";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 8
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "jAW" = (
@@ -63057,7 +63093,9 @@
 /obj/machinery/conveyor/west{
 	id = "garbage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/maintenance{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "jCd" = (
@@ -63355,7 +63393,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "jGH" = (
@@ -63875,7 +63915,9 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/atmos{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "jQK" = (
@@ -63935,7 +63977,9 @@
 /obj/machinery/conveyor/northeast/ccw{
 	id = "garbage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/maintenance{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "jRX" = (
@@ -64512,9 +64556,11 @@
 	name = "Cryo Tank Storage";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -64753,7 +64799,7 @@
 	name = "Containment Pen #2";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "kqP" = (
@@ -65298,7 +65344,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "kCP" = (
@@ -65900,7 +65946,9 @@
 	id_tag = "roboticsprivacy2";
 	name = "Robotics Shutters"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/robotics{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -66435,13 +66483,13 @@
 	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "kitchen_counter";
 	name = "Kitchen Counter Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -66547,7 +66595,6 @@
 /area/station/engineering/break_room)
 "lcm" = (
 /obj/structure/table/reinforced,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -66559,6 +66606,9 @@
 	dir = 2;
 	id_tag = "kitchen_service";
 	name = "Service Desk Shutter"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
@@ -67213,7 +67263,9 @@
 	dir = 8
 	},
 /obj/item/clothing/mask/muzzle,
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67539,7 +67591,9 @@
 	name = "Containment Pen #8";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "lBu" = (
@@ -68681,7 +68735,6 @@
 	name = "Chemistry Desk";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /obj/item/folder/white{
 	pixel_x = 4;
 	pixel_y = -3
@@ -68696,6 +68749,9 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown";
 	opacity = 0
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/chemistry{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -68716,7 +68772,6 @@
 	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /obj/structure/window/reinforced{
@@ -68727,6 +68782,7 @@
 	id_tag = "kitchen_counter";
 	name = "Kitchen Counter Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -72377,10 +72433,12 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/structure/plasticflaps{
 	opacity = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -72804,7 +72862,9 @@
 	name = "Ore Redemtion Window";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mineral_storage,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/mineral_storage{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "nWG" = (
@@ -73573,8 +73633,10 @@
 	name = "brig shutters"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -75786,7 +75848,7 @@
 	dir = 2;
 	name = "Command Desk"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -76675,13 +76737,13 @@
 	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "kitchen_counter";
 	name = "Kitchen Counter Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -78054,7 +78116,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/tox,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/tox{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -78701,9 +78765,11 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/bar{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -78725,7 +78791,7 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -78820,7 +78886,9 @@
 /obj/machinery/conveyor/northwest/ccw{
 	id = "garbage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/maintenance{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "raV" = (
@@ -79704,7 +79772,9 @@
 	name = "Inner Pipe Access";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/atmos{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79963,7 +80033,9 @@
 	name = "Containment Pen #5";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 8
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "rBn" = (
@@ -81243,7 +81315,9 @@
 	pixel_y = -3
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "greenfull"
 	},
@@ -81739,7 +81813,9 @@
 	dir = 1;
 	name = "Delivery Desk"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "svV" = (
@@ -81937,7 +82013,8 @@
 	dir = 2;
 	name = "delivery door"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "sBN" = (
@@ -82164,13 +82241,13 @@
 	},
 /obj/item/storage/fancy/donut_box,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "kitchen_counter";
 	name = "Kitchen Counter Shutters"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -84179,7 +84256,6 @@
 /area/station/science/explab)
 "tCs" = (
 /obj/structure/table/reinforced,
-/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/machinery/door/window/classic/reversed{
 	name = "Hydroponics Window";
 	dir = 2
@@ -84192,6 +84268,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/service/hydroponics,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "tCw" = (
@@ -84307,7 +84384,9 @@
 	name = "Containment Pen #6";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 8
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "tFb" = (
@@ -84336,11 +84415,13 @@
 	name = "Maximum Security Test Chamber";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
@@ -84443,12 +84524,12 @@
 	},
 /obj/item/folder/white,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/machinery/door/firedoor,
 /obj/item/pen{
 	pixel_x = -3;
 	pixel_y = 5
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -84463,8 +84544,10 @@
 	name = "Containment Pen #6";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -84843,7 +84926,9 @@
 	name = "First-Aid Supplies";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -85000,7 +85085,9 @@
 	name = "Containment Pen #1";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "uak" = (
@@ -85650,9 +85737,11 @@
 	opacity = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/classic/normal{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/general{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -85946,7 +86035,9 @@
 	name = "Containment Pen #7";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "uBl" = (
@@ -86818,7 +86909,9 @@
 	name = "Containment Pen #4";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "uXo" = (
@@ -87078,7 +87171,9 @@
 	dir = 8;
 	name = "Inner Pipe Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/atmos{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -87742,8 +87837,8 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "vtc" = (
@@ -88218,7 +88313,9 @@
 	name = "Containment Pen #5";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "vGi" = (
@@ -88677,7 +88774,7 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/chemistry,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellowfull"
@@ -88903,8 +89000,8 @@
 	},
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -89207,7 +89304,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio{
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "whR" = (
@@ -90209,7 +90308,7 @@
 	dir = 2
 	},
 /obj/item/paper/crumpled,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "wHj" = (
@@ -91155,7 +91254,9 @@
 	name = "Cargo Desk";
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "xfm" = (
@@ -91307,9 +91408,11 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/research{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -92114,7 +92217,9 @@
 	id_tag = "roboticsprivacy";
 	name = "Robotics Shutters"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/robotics{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -93467,7 +93572,9 @@
 	dir = 8;
 	name = "Inner Pipe Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/atmos{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
