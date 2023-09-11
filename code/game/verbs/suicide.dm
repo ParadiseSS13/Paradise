@@ -45,8 +45,8 @@
 		suiciding = TRUE
 		do_suicide()
 		create_log(ATTACK_LOG, "Attempted suicide")
-		if(SSticker.mode.name == "nuclear emergency" || SSticker.mode.name == "wizard")
-			SSblackbox.record_feedback("tally", "TDM_quitouts", 1, "TDM Suicides")
+		if(SSticker.mode.tdm_gamemode)
+			SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Suicides"))
 
 /mob/living/proc/do_suicide()
 	return
