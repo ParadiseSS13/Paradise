@@ -575,6 +575,11 @@
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
 
+	for(var/datum/uplink_item/uplink_item in buyable_items)
+		if(!uplink_item.surplus) // Otherwise we'll just have an element with a weight of 0 in our weighted list
+			continue
+		buyable_items[uplink_item] = uplink_item.surplus
+
 	if(!length(buyable_items)) // UH OH.
 		fucked_shit_up_alert(loc, "[src] spawning failed: had no buyable items on purchase which would have caused an infinite loop, refunding [cost] telecrystals instead. (Original cost of the crate). Report this to coders please.")
 		generate_refund(cost, C)
@@ -587,33 +592,28 @@
 	U.used_TC = cost
 
 	var/datum/uplink_item/I
-	var/danger_counter = 0 // lets make sure we dont get into an infinite loop...
 	while(remaining_TC)
-		if(danger_counter > RECURSION_PANIC_AMOUNT)
-			fucked_shit_up_alert(loc, "[src] spawning failed: approached an infinite loop by cost checking, giving the remaining [remaining_TC] telecrystals instead.")
-			generate_refund(remaining_TC, C)
-			break
-		if(!length(buyable_items))
+		if(!length(buyable_items)) // This realistically should never happen as we should run out of TC first (Plastic bag), but we should check for it anyways
 			fucked_shit_up_alert(loc, "[src] spawning failed: ran out of buyable items while looping, refunding [cost] telecrystals and cancelling crate. (Original cost of the crate). Report this to coders please.")
 			generate_refund(cost, C)
 			bought_items.Cut()
 			break
-		I = pick(buyable_items)
-		if(!I.surplus)
-			buyable_items -= I
-			continue
+
+		I = pickweight(buyable_items)
+
 		if(I.cost > remaining_TC)
-			danger_counter++
 			buyable_items -= I
 			continue
-		if(prob(100 - I.surplus))
-			continue
-		if((I.item in bought_items) && prob(33)) //To prevent people from being flooded with the same thing over and over again.
-			continue
+
 		bought_items += I.item
 		remaining_TC -= I.cost
+
+		if(I.cost > remaining_TC)
+			buyable_items -= I
+
+		buyable_items[I] = buyable_items[I] * 0.66 // To prevent people from getting the same thing over and over again
+
 		itemlog += I.name // To make the name more readable for the log compared to just i.item
-		danger_counter = 0
 
 	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
