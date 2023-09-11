@@ -22,6 +22,7 @@
 	// Whether the door is bolted or not.
 	var/locked = FALSE
 	var/glass = FALSE
+	var/reinforced_glass = FALSE
 	var/welded = FALSE
 	var/normalspeed = TRUE
 	var/auto_close_time = 150
@@ -104,9 +105,6 @@
 			return
 		if(isliving(AM))
 			var/mob/living/M = AM
-			if(world.time - M.last_bumped <= 10)
-				return	//Can bump-open one airlock per second. This is to prevent shock spam.
-			M.last_bumped = world.time
 			if(M.restrained() && !check_access(null))
 				return
 			if(M.mob_size > MOB_SIZE_TINY)
@@ -116,9 +114,6 @@
 	if(ismecha(AM))
 		var/obj/mecha/mecha = AM
 		if(density)
-			if(mecha.occupant)
-				if(world.time - mecha.occupant.last_bumped <= 10)
-					return
 			if(mecha.occupant && allowed(mecha.occupant) || check_access_list(mecha.operation_req_access))
 				if(HAS_TRAIT(src, TRAIT_CMAGGED))
 					cmag_switch(FALSE, mecha.occupant)
@@ -457,6 +452,11 @@
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
+
+/obj/machinery/door/BlockSuperconductivity() // Only heatproof airlocks block heat, currently only varedited doors have this
+	if(heat_proof)
+		return 1
+	return 0
 
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)

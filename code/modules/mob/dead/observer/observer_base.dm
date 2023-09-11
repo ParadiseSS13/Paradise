@@ -258,7 +258,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Move(NewLoc, direct)
 	update_parallax_contents()
 	setDir(direct)
-	ghostimage.setDir(dir)
+	ghostimage.dir = dir
 
 	if(NewLoc)
 		forceMove(NewLoc, direct)
@@ -326,7 +326,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				source.plane = old_plane
 	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
-		src << sound(sound)
+		SEND_SOUND(src, sound(sound))
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
@@ -405,7 +405,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		create_log(MISC_LOG, "DNR Enabled")
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
-			mind.current.med_hud_set_status()
+			mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"

@@ -334,6 +334,11 @@
 	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/tacticool
 
+/datum/gear/uniform/suit/assistantformal
+	display_name = "Assistant's Formal Uniform"
+	description = "Formal attire fit for an Assistant."
+	path = /obj/item/clothing/under/misc/assistantformal
+
 /datum/gear/uniform/suit/redhawaiianshirt
 	display_name = "Red Hawaiian T-Shirt"
 	description = "A nice t-shirt to remind about warm beaches. This one is red."

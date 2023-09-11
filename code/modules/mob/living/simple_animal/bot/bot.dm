@@ -469,7 +469,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 */
 /mob/living/simple_animal/bot/proc/scan(atom/scan_type, atom/old_target, scan_range = DEFAULT_SCAN_RANGE)
 	var/final_result
-	for(var/scan in shuffle(view(scan_range, src))) //Search for something in range!
+	for(var/scan in view(scan_range, src)) //Search for something in range!
 		var/atom/A = scan
 		if(!istype(A, scan_type)) //Check that the thing we found is the type we want!
 			continue //If not, keep searching!
@@ -719,6 +719,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if("home")
 			to_chat(src, "<span class='warning big'>RETURN HOME!</span>")
 		if("ejectpai")
+			return // Do nothing for this
 		else
 			to_chat(src, "<span class='warning'>Unidentified control sequence received: [command]</span>")
 

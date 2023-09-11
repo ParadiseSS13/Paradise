@@ -358,8 +358,8 @@ SUBSYSTEM_DEF(tickets)
 	ticketNum = num
 	ticketState = TICKET_OPEN
 
-	var/list/this_data = list()
 	for(var/client/C in GLOB.admins)
+		var/list/this_data = list()
 		this_data["ckey"] = C.ckey
 		this_data["rank"] = C.holder.rank
 		this_data["afk"] = C.inactivity

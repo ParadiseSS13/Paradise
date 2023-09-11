@@ -36,6 +36,10 @@
 	var/framestackamount = 2
 	var/deconstruction_ready = TRUE
 	var/flipped = FALSE
+	///If this is true, the table will have items slide off it when placed.
+	var/slippery = FALSE
+	/// The minimum level of environment_smash required for simple animals to be able to one-shot this.
+	var/minimum_env_smash = ENVIRONMENT_SMASH_WALLS
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
@@ -120,8 +124,8 @@
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
 	if(ismob(mover))
-		var/mob/M = mover
-		if(M.flying)
+		var/mob/living/M = mover
+		if(M.flying || (IS_HORIZONTAL(M) && HAS_TRAIT(M, TRAIT_CONTORTED_BODY)))
 			return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
@@ -223,7 +227,7 @@
 	if(isrobot(user))
 		return
 
-	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT))
+	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
 		if(user.drop_item())
 			I.Move(loc)
 			var/list/click_params = params2list(params)
@@ -233,9 +237,20 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			item_placed(I)
+			if(slippery)
+				step_away(I, user)
+				visible_message("<span class='warning'>[I] slips right off [src]!</span>")
+				playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
+			else //Don't want slippery moving tables to have the item attached to them if it slides off.
+				item_placed(I)
 	else
 		return ..()
+
+/obj/structure/table/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(. && M.environment_smash >= minimum_env_smash)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] smashes [src]!</span>", "<span class='notice'>You smash [src].</span>")
 
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
 	if(locate(/obj/structure/table) in get_turf(target))
@@ -394,6 +409,14 @@
 	return 1
 
 
+/obj/structure/table/water_act(volume, temperature, source, method)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_OIL_SLICKED))
+		slippery = initial(slippery)
+		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+		REMOVE_TRAIT(src, TRAIT_OIL_SLICKED, "potion")
+
+
 /*
  * Glass Tables
  */
@@ -410,6 +433,7 @@
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 100)
+	minimum_env_smash = ENVIRONMENT_SMASH_STRUCTURES
 	var/list/debris = list()
 	var/shardtype = /obj/item/shard
 
@@ -502,6 +526,7 @@
 	buildstack = /obj/item/stack/sheet/plasmaglass
 	max_integrity = 140
 	shardtype = /obj/item/shard/plasma
+	minimum_env_smash = ENVIRONMENT_SMASH_RWALLS
 
 /obj/structure/table/glass/reinforced
 	name = "reinforced glass table"
@@ -515,6 +540,7 @@
 	deconstruction_ready = FALSE
 	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, RAD = 0, FIRE = 80, ACID = 70)
 	smoothing_groups = list(SMOOTH_GROUP_REINFORCED_TABLES)
+	minimum_env_smash = ENVIRONMENT_SMASH_RWALLS
 	canSmoothWith = list(SMOOTH_GROUP_REINFORCED_TABLES)
 
 /obj/structure/table/glass/reinforced/deconstruction_hints(mob/user) //look, it was either copy paste these 4 procs, or copy paste all of the glass stuff
@@ -857,8 +883,12 @@
 		return 1
 	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
-	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return 1
+	if(istype(mover))
+		if(mover.checkpass(PASSTABLE))
+			return TRUE
+		var/mob/living/living_mover = mover
+		if(istype(living_mover) && IS_HORIZONTAL(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY))
+			return TRUE
 	if(mover.throwing)
 		return 1
 	else

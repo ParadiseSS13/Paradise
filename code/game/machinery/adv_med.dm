@@ -14,6 +14,11 @@
 
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
+	if(occupant)
+		if(occupant.is_dead())
+			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
+		else
+			. += "<span class='notice'>You see [occupant.name] inside.</span>"
 	if(Adjacent(user))
 		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the scanner to place them inside.</span>"
 

@@ -17,7 +17,7 @@
 	can_dismantle_with_welder = FALSE
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
-	heat_resistance = 40000 // Ain't getting through this soon
+	heat_resistance = 20000 // Ain't getting through this soon
 
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
@@ -73,7 +73,7 @@
 		return ..()
 
 /turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/I)
-	if(thermite && I.use_tool(src, user, volume = I.tool_volume))
+	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
 		return TRUE
 	if(!(d_state in list(RWALL_COVER, RWALL_SUPPORT_RODS, RWALL_CUT_COVER)))
@@ -202,7 +202,7 @@
 			dismantle_wall()
 		return TRUE
 
-	if(istype(I, /obj/item/twohanded/required/pyro_claws))
+	if(istype(I, /obj/item/pyro_claws))
 		to_chat(user, "<span class='notice'>You begin to melt the wall...</span>")
 		if(do_after(user, 50 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 2.5 seconds
 			to_chat(user, "<span class='notice'>Your [I] melt the reinforced plating.</span>")

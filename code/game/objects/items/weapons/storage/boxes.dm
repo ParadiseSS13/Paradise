@@ -312,7 +312,7 @@
 /obj/item/storage/box/deathimp/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implanter(src)
+	new /obj/item/implanter/death_alarm (src)
 
 /obj/item/storage/box/tapes
 	name = "Tape Box"
@@ -935,6 +935,15 @@
 	desc = "It's just an ordinary magical box."
 	icon_state = "box_wizard"
 	w_class = WEIGHT_CLASS_GIGANTIC
+
+/obj/item/storage/box/wizard/hardsuit
+	name = "battlemage armour bundle"
+	desc = "This box contains a bundle of Battlemage Armour."
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/hardsuit/populate_contents()
+	new /obj/item/clothing/suit/space/hardsuit/shielded/wizard(src)
+	new /obj/item/clothing/shoes/magboots/wizard(src)
 
 /obj/item/storage/box/breaching
 	name = "breaching charges"

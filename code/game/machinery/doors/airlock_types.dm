@@ -197,8 +197,6 @@
 	DA = new /obj/structure/door_assembly(loc)
 	if(glass)
 		DA.glass = TRUE
-	if(heat_proof)
-		DA.heat_proof_finished = TRUE
 	DA.update_icon()
 	DA.update_name()
 	qdel(src)

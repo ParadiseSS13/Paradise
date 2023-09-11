@@ -40,7 +40,7 @@ emp_act
 		return -1
 
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(!IS_HORIZONTAL(src) && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
+		if(!HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not hulked
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
 			playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 			if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL)) //if it cannot be reflected, it hits the floor. This is the exception to the rule
@@ -59,6 +59,23 @@ emp_act
 				return -1
 			else
 				return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_DEFLECTS_PROJECTILES))
+		add_attack_logs(P.firer, src, "Hit by [P.type], but deflected by something other than martial arts")
+		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+
+		if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL))
+			// Pacifism and unreflectables hitting the ground logic. Copied from above
+			var/turf/T = get_turf(src)
+			P.firer = src
+			T.bullet_act(P)
+			visible_message("<span class='danger'>[src] deflects the projectile into the ground!</span>", "<span class='userdanger'>You deflect the projectile towards the ground beneath your feet!</span>")
+			return FALSE
+
+		visible_message("<span class='danger'>[src] deflects the projectile!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+		P.firer = src
+		P.set_angle(rand(0, 360))
+		return -1
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
@@ -511,7 +528,7 @@ emp_act
 							KnockDown(10 SECONDS)
 							AdjustConfused(30 SECONDS)
 						if(mind && prob(I.force + ((100 - health) / 2)) && src != user && I.damtype == BRUTE)
-							SSticker.mode.remove_revolutionary(mind)
+							SSticker.mode.remove_revolutionary(mind, activate_protection = TRUE)
 
 					if(bloody)//Apply blood
 						if(wear_mask)
@@ -561,7 +578,6 @@ emp_act
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
 				if(prob(I.embed_chance) && !HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
 					var/obj/item/organ/external/L = pick(bodyparts)
 					L.add_embedded_object(I)
 					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
@@ -739,6 +755,22 @@ emp_act
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	dna.species.water_act(src, volume, temperature, source, method)
+	if(method != REAGENT_TOUCH)
+		return
+
+	for(var/obj/O in list(head, wear_suit, back, l_hand, r_hand))
+		O.water_act(src, volume, temperature, source, method)
+	if((head?.flags & THICKMATERIAL) && (wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
+		return
+	for(var/obj/O in list(w_uniform, shoes, belt, gloves, glasses, l_ear, r_ear, wear_id, wear_pda, r_store, l_store, s_store))
+		O.water_act(src, volume, temperature, source, method)
+
+
+
+/mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	return ..()
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))

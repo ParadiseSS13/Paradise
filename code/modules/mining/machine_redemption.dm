@@ -135,18 +135,13 @@
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
-	var/P = 1
-	var/S = 1
-	for(var/sp in component_parts)
-		var/obj/item/stock_parts/SP = sp
-		if(!istype(SP))
-			continue
-		switch(SP.type)
-			if(/obj/item/stock_parts/micro_laser)
-				P = BASE_POINT_MULT + (POINT_MULT_ADD_PER_RATING * SP.rating)
-			if(/obj/item/stock_parts/matter_bin)
-				S = BASE_SHEET_MULT + (SHEET_MULT_ADD_PER_RATING * SP.rating)
-			// Manipulators do nothing
+	var/P = BASE_POINT_MULT
+	var/S = BASE_SHEET_MULT
+	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
+		P += POINT_MULT_ADD_PER_RATING * M.rating
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
+		S += SHEET_MULT_ADD_PER_RATING * M.rating
+		// Manipulators do nothing
 	// Update our values
 	point_upgrade = P
 	sheet_per_ore = S
@@ -257,7 +252,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 
 	// General info
-	data["id"] = inserted_id ? list("name" = "[inserted_id.registered_name] ([inserted_id.assignment])", "points" = inserted_id.mining_points) : null
+	data["id"] = inserted_id ? list("name" = "[inserted_id.registered_name] ([inserted_id.assignment])", "points" = inserted_id.mining_points, "total_points" = inserted_id.total_mining_points) : null
 	data["points"] = points
 	data["disk"] = inserted_disk ? list(
 		"name" = inserted_disk.name,
@@ -305,7 +300,8 @@
 				return
 			if(anyone_claim || (req_access_claim in inserted_id.access))
 				inserted_id.mining_points += points
-				to_chat(usr, "<span class='notice'>[points] points claimed.</span>")
+				inserted_id.total_mining_points += points
+				to_chat(usr, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[inserted_id.total_mining_points] Mining Points</b> this Shift!</span>")
 				points = 0
 			else
 				to_chat(usr, "<span class='warning'>Required access not found.</span>")

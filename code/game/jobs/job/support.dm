@@ -6,25 +6,32 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_supply = 1
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	supervisors = "the captain"
+	department_head = list("Captain")
 	department_account_access = TRUE
 	selection_color = "#e2c59d"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_HEADS_VAULT)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_HEADS_VAULT)
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
+	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
+	exp_map = list(EXP_TYPE_SUPPLY = 1200)
 
 /datum/outfit/job/qm
 	name = "Quartermaster"
 	jobtype = /datum/job/qm
 
 	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
-	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/radio/headset/headset_cargo
+	shoes = /obj/item/clothing/shoes/workboots/mining
+	l_ear = /obj/item/radio/headset/heads/qm
 	glasses = /obj/item/clothing/glasses/sunglasses
+	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	id = /obj/item/card/id/quartermaster
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
+	backpack_contents = list(
+		/obj/item/melee/classic_baton/telescopic = 1
+	)
 
 
 
@@ -36,7 +43,7 @@
 	spawn_positions = 2
 	is_supply = 1
 	supervisors = "the quartermaster"
-	department_head = list("Head of Personnel")
+	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
@@ -62,7 +69,7 @@
 	spawn_positions = 8
 	is_supply = 1
 	supervisors = "the quartermaster"
-	department_head = list("Head of Personnel")
+	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
@@ -164,7 +171,9 @@
 	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
-
+	ADD_TRAIT(H, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
+	var/datum/martial_art/judo/under_siege/bouncer_delight = new
+	bouncer_delight.teach(H)
 
 
 /datum/job/chef
@@ -205,6 +214,7 @@
 		return
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H)
+	ADD_TRAIT(H, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 
 
 /datum/job/hydro
@@ -307,6 +317,7 @@
 		H.dna.default_blocks.Add(GLOB.comicblock)
 	H.check_mutations = TRUE
 	H.add_language("Clownish")
+	H.AddComponent(/datum/component/slippery, H, 8 SECONDS, 100, 0, FALSE, TRUE, "slip", TRUE)
 
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
@@ -380,8 +391,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		H.mind.miming = 1
-
-
+	qdel(H.GetComponent(/datum/component/footstep))
 
 /datum/job/janitor
 	title = "Janitor"

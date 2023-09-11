@@ -122,24 +122,25 @@
 	heart_rate_decrease = 1
 	taste_description = "a safe refuge"
 
+/datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE)
+	if(iscarbon(M))
+		if(method == REAGENT_INGEST && M.bodytemperature < TCRYO)
+			data = "Ingested"
+			if(show_message)
+				to_chat(M, "<span class='warning'>[src] freezes solid as it enters your body!</span>") //Burn damage already happens on ingesting
+	..()
+
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-
-	var/external_temp
-	if(istype(M.loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		var/obj/machinery/atmospherics/unary/cryo_cell/C = M.loc
-		external_temp = C.air_contents.temperature
-	else
-		var/turf/T = get_turf(M)
-		external_temp = T.temperature
-
-	if(external_temp < TCRYO)
+	if(M.bodytemperature < TCRYO && data != "Ingested")
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
 		update_flags |= M.adjustBruteLoss(-12, FALSE)
 		update_flags |= M.adjustFireLoss(-12, FALSE)
-
+		M.Stun(4 SECONDS) //You freeze up, but get good healing. Stops use as a combat drug, or for meming on blobs in space.
+		if(M.stat == CONSCIOUS && prob(25)) //So people know what is going on outside cryo tubes, in the event someone weaponises this.
+			to_chat(M, "<span class='warning'>Your veins and muscles are freezing!</span>")
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ("head")
@@ -536,9 +537,6 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.3
 	overdose_threshold = 35
-	addiction_chance = 1
-	addiction_chance = 10
-	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "stimulation"
 
@@ -654,11 +652,10 @@
 				E.heal_internal_damage(1)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
-				ears.AdjustEarDamage(-1)
-				if(ears.ear_damage < 25 && prob(30))
-					ears.deaf = 0
+				ears.heal_internal_damage(1)
+				if(ears.damage < 25 && prob(30))
+					C.SetDeaf(0)
 		M.AdjustEyeBlurry(-2 SECONDS)
-		update_flags |= M.AdjustEarDamage(-1)
 	if(prob(50))
 		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
 	if(prob(30))
@@ -819,6 +816,86 @@
 					SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 	..()
 
+/datum/reagent/medicine/sanguine_reagent
+	name = "Sanguine Reagent"
+	id = "sanguine_reagent"
+	description = "A deeply crimson almost-gel that can mimic blood, regardless of type."
+	color = "#770101"
+	taste_description = "coppery fuel"
+	harmless = FALSE
+	overdose_threshold = 15
+
+/datum/reagent/medicine/sanguine_reagent/on_mob_life(mob/living/M)
+	if(!ishuman(M))
+		return
+
+	var/mob/living/carbon/human/H = M
+
+	if(NO_BLOOD in H.dna.species.species_traits)
+		return ..()
+
+	if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+		switch(current_cycle)
+			if(1)
+				H.blood_volume += 1
+			if(2 to 25)
+				H.blood_volume += 3
+			else
+				H.blood_volume += 5
+
+	return ..()
+
+/datum/reagent/medicine/sanguine_reagent/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!ishuman(M))
+		return
+	var/mob/living/carbon/human/H = M
+	if(volume < 20)
+		if(prob(10))
+			to_chat(H, "<span class='warning>You cough up some congealed blood.</span>")
+			H.vomit(blood = TRUE, should_confuse = FALSE) //mostly visual
+		else if(prob(10))
+			var/overdose_message = pick("Your vision is tinted red for a moment.", "You can hear your heart beating.")
+			to_chat(H, "<span class='warning'>[overdose_message]</span>")
+	else
+		if(prob(10))
+			to_chat(H, "<span class='danger'>You choke on congealed blood!</span>")
+			H.AdjustLoseBreath(2 SECONDS)
+			H.vomit(blood = TRUE, should_confuse = FALSE)
+		else if(prob(10))
+			var/overdose_message = pick("You're seeing red!", "Your heartbeat thunders in your ears!", "Your veins writhe under your skin!")
+			to_chat(H, "<span class='danger'>[overdose_message]</span>")
+			H.adjustBruteLoss(6)
+			if(H.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
+				H.client.color = "red"
+				addtimer(VARSET_CALLBACK(H.client, color, ""), 6 SECONDS)
+	return list(0, update_flags)
+
+/datum/reagent/medicine/osseous_reagent
+	name = "Osseous Reagent"
+	id = "osseous_reagent"
+	description = "A solution of pinkish gel with white shards floating in it, which is supposedly able to be processed into bone gel."
+	color = "#c9abab"
+	taste_description = "chunky marrow"
+	harmless = FALSE
+	overdose_threshold = 30 //so a single shotgun dart can't cause the tumor effect
+
+/datum/reagent/medicine/osseous_reagent/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/osseous_reagent/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+
+	if(ishuman(M) && prob(5))
+		var/mob/living/carbon/human/H = M
+		if(!H.get_int_organ(/obj/item/organ/internal/bone_tumor))
+			new/obj/item/organ/internal/bone_tumor(H)
+
+	return ..()
+
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	id = "mannitol"
@@ -905,7 +982,9 @@
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
-			M.Stun(6 SECONDS)
+			to_chat(M, "<span class='userdanger'>It feels like every single one of your muscles is cramping at once!</span>")
+			M.emote("scream")
+			M.Weaken(6 SECONDS)
 
 	return ..() | update_flags
 
@@ -933,7 +1012,7 @@
 	M.AdjustStunned(-6 SECONDS)
 	M.AdjustWeakened(-6 SECONDS)
 	M.AdjustKnockDown(-6 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-20*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustStaminaLoss(-40 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
@@ -1333,6 +1412,8 @@
 						H.blood_volume += 10
 					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
+					for(var/obj/item/organ/O as anything in (H.internal_organs + H.bodyparts))
+						O.germ_level = 0
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 					update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)

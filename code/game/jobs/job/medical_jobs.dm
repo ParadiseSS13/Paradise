@@ -18,6 +18,7 @@
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_MEDICAL = 1200)
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/cmo
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Medical), basic job duties, and act professionally (roleplay)."
 
@@ -284,11 +285,12 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_MORGUE)
-	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_MORGUE)
+	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_MORGUE, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_MAILSORTING)
+	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_MORGUE, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_MAILSORTING)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/paramedic
+	important_information = "You are the first responder to medical emergencies outside the sanctity of the Medbay. You can also respond to Lavaland emergencies via the mining shuttle located in Cargo."
 
 /datum/outfit/job/paramedic
 	name = "Paramedic"
@@ -298,13 +300,14 @@
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/soft/blue
 	mask = /obj/item/clothing/mask/cigarette
-	l_ear = /obj/item/radio/headset/headset_med
+	l_ear = /obj/item/radio/headset/headset_med/para
 	id = /obj/item/card/id/paramedic
 	l_pocket = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 	backpack_contents = list(
-		/obj/item/healthanalyzer = 1
-	)
+		/obj/item/healthanalyzer = 1,
+		/obj/item/sensor_device = 1,
+		/obj/item/pinpointer/crew = 1)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med

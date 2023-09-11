@@ -299,6 +299,8 @@ FIRE ALARM
 	if(!working || !report_fire_alarms)
 		return
 	var/area/A = get_area(src)
+	if(!A)
+		return
 	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
 
 /obj/machinery/firealarm/New(location, direction, building)

@@ -2,7 +2,8 @@
 #define TESLA_MINI_POWER 869130
 //Zap constants, speeds up targeting
 #define COIL (ROD + 1)
-#define ROD (RIDE + 1)
+#define ROD (APC + 1)
+#define APC (RIDE + 1)
 #define RIDE (LIVING + 1)
 #define LIVING (MACHINERY + 1)
 #define MACHINERY (BLOB + 1)
@@ -31,8 +32,15 @@
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
-	var/list/shocked_things = list()
 	var/obj/singularity/energy_ball/parent_energy_ball
+	/// Turf where the tesla will move to if it's loose
+	var/turf/target_turf
+	/// Direction we have to go to go towards the target turf
+	var/movement_dir
+	/// Variable that defines whether it has a field generator close enough
+	var/has_close_field = FALSE
+	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
+	var/list/all_possible_areas = list()
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
@@ -45,6 +53,7 @@
 	else
 		// This gets added by the parent call
 		GLOB.poi_list -= src
+	all_possible_areas = findUnrestrictedEventArea()
 
 /obj/singularity/energy_ball/ex_act(severity, target)
 	return
@@ -65,7 +74,6 @@
 		GLOB.poi_list -= src
 
 	QDEL_LIST_CONTENTS(orbiting_balls)
-	shocked_things.Cut()
 	return ..()
 
 /obj/singularity/energy_ball/admin_investigate_setup()
@@ -76,14 +84,12 @@
 /obj/singularity/energy_ball/process()
 	if(!parent_energy_ball)
 		handle_energy()
-
-		move_the_basket_ball(4 + length(orbiting_balls) * 1.5)
+		move_the_basket_ball()
 
 		playsound(loc, 'sound/magic/lightningbolt.ogg', 100, TRUE, extrarange = 30, channel = CHANNEL_ENGINE)
 
 		pixel_x = 0
 		pixel_y = 0
-		shocked_things.Cut(1, length(shocked_things) / 1.3)
 		var/list/shocking_info = list()
 		tesla_zap(src, 3, TESLA_DEFAULT_POWER, shocked_targets = shocking_info)
 
@@ -91,11 +97,8 @@
 		pixel_y = -32
 		for(var/ball in orbiting_balls)
 			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
-			var/list/temp_shock = list()
 			//We zap off the main ball instead of ourselves to make things looks proper
-			tesla_zap(src, range, TESLA_MINI_POWER / 7 * range, shocked_targets = temp_shock)
-			shocking_info += temp_shock
-		shocked_things += shocking_info
+			tesla_zap(src, range, TESLA_MINI_POWER / 7 * range)
 	else
 		energy = 0 // ensure we dont have miniballs of miniballs //But it'll be cool broooooooooooooooo
 
@@ -104,22 +107,39 @@
 	if(length(orbiting_balls))
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
-/obj/singularity/energy_ball/proc/move_the_basket_ball(move_amount)
-	var/list/dirs = GLOB.alldirs.Copy()
-	if(length(shocked_things))
-		for(var/i in 1 to 30)
-			var/atom/real_thing = pick(shocked_things)
-			dirs += get_dir(src, real_thing) //Carry some momentum yeah? Just a bit tho
-	for(var/i in 0 to move_amount)
-		var/move_dir = pick(dirs) //ensures teslas don't just sit around
-		if(target && prob(10))
-			move_dir = get_dir(src,target)
-		var/turf/T = get_step(src, move_dir)
+/obj/singularity/energy_ball/proc/move_the_basket_ball()
+	for(var/i in 1 to length(GLOB.field_generator_fields))
+		var/temp_distance = get_dist(src, GLOB.field_generator_fields[i])
+		if(temp_distance <= 15)
+			has_close_field = TRUE
+			break
+	if(has_close_field)
+		var/turf/T = get_step(src, pick(GLOB.alldirs))
 		if(can_move(T))
 			forceMove(T)
-			setDir(move_dir)
+			has_close_field = FALSE
 			for(var/mob/living/carbon/C in loc)
 				dust_mobs(C)
+		return
+	if(!target_turf)
+		find_the_basket()
+		return
+	for(var/i in 0 to 8)
+		movement_dir = get_dir(get_turf(src), target_turf)
+		forceMove(get_step(src, movement_dir))
+		if(get_turf(src) == target_turf)
+			target_turf = null
+		for(var/mob/living/carbon/C in loc)
+			dust_mobs(C)
+		has_close_field = FALSE
+
+
+/obj/singularity/energy_ball/proc/find_the_basket()
+	var/area/where_to_move = pick(all_possible_areas) // Grabs a random area that isn't restricted
+	var/turf/target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
+	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
+	return
+
 
 /obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
@@ -255,8 +275,8 @@
 	//This also means we have no need to track distance, as the doview() proc does it all for us.
 
 	//Darkness fucks oview up hard. I've tried dview() but it doesn't seem to work
-	//I hate existance
-	for(var/a in typecache_filter_multi_list_exclusion(oview(zap_range + 2, source), things_to_shock, blacklisted_tesla_types))
+	//I hate existance // Range() lets us see through walls, please direct all screaming players to me - DGL
+	for(var/a in typecache_filter_multi_list_exclusion(range(zap_range + 2, source), things_to_shock, blacklisted_tesla_types))
 		var/atom/A = a
 		if(!(zap_flags & ZAP_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A))
 			continue
@@ -274,6 +294,10 @@
 
 		else if(istype(A, /obj/machinery/power/grounding_rod))
 			closest_type = ROD
+			closest_atom = A
+
+		else if(istype(A, /obj/machinery/power/apc))
+			closest_type = APC
 			closest_atom = A
 
 		else if(closest_type >= RIDE)
@@ -357,10 +381,11 @@
 		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_targets)
 		shocked_targets += shocked_copy
 	else
-		tesla_zap(closest_atom, next_range, power, zap_flags, shocked_targets)
+		tesla_zap(closest_atom, next_range, power, zap_flags)
 
 #undef COIL
 #undef ROD
+#undef APC
 #undef RIDE
 #undef LIVING
 #undef MACHINERY

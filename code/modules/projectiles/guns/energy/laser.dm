@@ -195,6 +195,7 @@
 	damage = 10
 	speed = 0.75
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	forced_accuracy = TRUE
 	var/can_knockdown = TRUE
 
 /obj/item/projectile/beam/laser/sniper/Range()
@@ -271,6 +272,10 @@
 
 /obj/item/gun/energy/emitter/cyborg/emp_act()
 	return
+
+/obj/item/gun/energy/emitter/cyborg/proto
+	ammo_type = list(/obj/item/ammo_casing/energy/emitter/cyborg/proto)
+
 
 ////////Laser Tag////////////////////
 

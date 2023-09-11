@@ -209,7 +209,6 @@
 		if(!S.reagents)
 			S.create_reagents(volume)
 		S.reagents.add_reagent("thermite", volume)
-		S.thermite = TRUE
 		if(S.active_hotspot)
 			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
 
@@ -465,3 +464,14 @@
 		M.adjust_fire_stacks(volume / 5)
 		return
 	..()
+
+/datum/reagent/confetti
+	name = "Confetti"
+	id = "confetti"
+	description = "Pure, liquid confetti. Explodes into a colorful bomb when exposed to heat."
+	color = "#500064" // rgb: 80, 0, 100
+	taste_description = "the tears of janitors"
+
+/datum/reagent/confetti/reaction_turf(turf/T, volume)
+	var/confetti = /obj/effect/decal/cleanable/confetti
+	new confetti(T)

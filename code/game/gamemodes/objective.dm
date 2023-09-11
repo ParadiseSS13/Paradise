@@ -129,6 +129,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/M in owners)
 		M.announce_objectives()
 
+// Borgs, brains, AIs, etc count as dead for traitor objectives
+/datum/objective/proc/is_special_dead(mob/target_current, check_silicon = TRUE)
+	if(check_silicon && issilicon(target_current))
+		return TRUE
+	return isbrain(target_current) || istype(target_current, /mob/living/simple_animal/spiderbot)
+
 /datum/objective/assassinate
 	name = "Assassinate"
 	martyr_compatible = 1
@@ -145,7 +151,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(target && target.current)
 		if(target.current.stat == DEAD)
 			return TRUE
-		if(issilicon(target.current) || isbrain(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
+		if(is_special_dead(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 			return TRUE
 		if(!target.current.ckey)
 			return TRUE
@@ -155,15 +161,22 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/mutiny
 	name = "Mutiny"
-	martyr_compatible = 1
+	martyr_compatible = TRUE
 
 /datum/objective/mutiny/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
-		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+		explanation_text = "Assassinate or exile [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
 	return target
+
+/datum/objective/mutiny/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
+	if(!(possible_target in SSticker.mode.get_all_heads()))
+		return TARGET_INVALID_NOTHEAD
 
 /datum/objective/mutiny/check_completion()
 	if(target && target.current)
@@ -178,6 +191,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/mutiny/on_target_cryo()
 	// We don't want revs to get objectives that aren't for heads of staff. Letting
 	// them win or lose based on cryo is silly so we remove the objective.
+	if(team)
+		team.remove_objective_from_team(src)
+		return
 	qdel(src)
 
 /datum/objective/maroon
@@ -198,9 +214,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return TRUE
 		if(!target.current.ckey)
 			return TRUE
-		if(issilicon(target.current))
-			return TRUE
-		if(isbrain(target.current))
+		if(is_special_dead(target.current))
 			return TRUE
 		var/turf/T = get_turf(target.current)
 		if(is_admin_level(T.z))
@@ -261,9 +275,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(target.current)
 		if(target.current.stat == DEAD)
 			return FALSE
-		if(issilicon(target.current))
-			return FALSE
-		if(isbrain(target.current))
+		if(is_special_dead(target.current))
 			return FALSE
 		return TRUE
 	return FALSE
@@ -359,7 +371,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/list/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		// These are mandatory conditions, they should come before the freebie conditions below.
-		if(QDELETED(M.current) || M.current.stat == DEAD || issilicon(M.current) || isbrain(M.current))
+		if(QDELETED(M.current) || M.current.stat == DEAD || is_special_dead(M.current))
 			return FALSE
 
 	if(SSticker.force_ending) // This one isn't their fault, so lets just assume good faith.
@@ -451,22 +463,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				return TRUE
 	return FALSE
 
-/datum/objective/die
-	name = "Die a glorious death"
-	explanation_text = "Die a glorious death."
-	needs_target = FALSE
-
-/datum/objective/die/check_completion()
-	for(var/datum/mind/M in get_owners())
-		if(QDELETED(M.current) || M.current.stat == DEAD || isbrain(M.current))
-			continue
-		if(issilicon(M.current) && !M.is_original_mob(M.current))
-			continue
-		return FALSE // Some owner didn't meet the above criteria.
-	return TRUE
-
-
-
 /datum/objective/survive
 	name = "Survive"
 	explanation_text = "Stay alive until the end."
@@ -474,7 +470,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/survive/check_completion()
 	for(var/datum/mind/M in get_owners())
-		if(QDELETED(M.current) || M.current.stat == DEAD || isbrain(M.current))
+		if(QDELETED(M.current) || M.current.stat == DEAD || is_special_dead(M.current, check_silicon = FALSE))
 			return FALSE
 		if(issilicon(M.current) && !M.is_original_mob(M.current))
 			return FALSE

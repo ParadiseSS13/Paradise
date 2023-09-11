@@ -58,6 +58,7 @@
 	damage = 70
 	weaken = 10 SECONDS
 	armour_penetration_flat = 70
+	forced_accuracy = TRUE
 
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
 	name = "sniper rounds (Antimatter)"
@@ -157,7 +158,6 @@
 	name = "penetrator round"
 	damage = 60
 	forcedodge = -1
-	dismemberment = 0
 	weaken = 0
 
 //toy magazine

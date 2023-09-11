@@ -783,7 +783,7 @@
 						return
 					var/datum/dna2/record/buf = buffers[bufferId]
 					disk.buf = buf.copy()
-					disk.name = "data disk - '[buf.dna.real_name]'"
+					disk.name = "data disk - '[buf.name]'"
 		if("wipeDisk")
 			if(isnull(disk) || disk.read_only)
 				return

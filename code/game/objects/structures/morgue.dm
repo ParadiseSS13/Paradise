@@ -66,7 +66,7 @@
 
 	var/mob/dead/observer/G = M.get_ghost()
 
-	if(M.mind && !M.mind.suicided)
+	if(M.mind && !M.mind.suicided && !M.suiciding)
 		if(M.client)
 			status = REVIVABLE
 			return
@@ -208,7 +208,7 @@
  */
 /obj/structure/m_tray
 	name = "morgue tray"
-	desc = "Apply corpse before closing. May float away in no-gravity."
+	desc = "Apply corpse before closing."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue_tray"
 	density = TRUE
@@ -254,22 +254,28 @@
 	connected = null
 	return ..()
 
-/obj/structure/tray/m_tray/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/m_tray/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return TRUE
-
-	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return TRUE
+	if(istype(mover))
+		if(mover.checkpass(PASSTABLE))
+			return TRUE
+		var/mob/living/our_mover = mover
+		if(istype(our_mover) && IS_HORIZONTAL(our_mover) && HAS_TRAIT(our_mover, TRAIT_CONTORTED_BODY))
+			return TRUE
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
 
 	return FALSE
 
-/obj/structure/tray/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
+
+/obj/structure/m_tray/Process_Spacemove(movement_dir)
+	return TRUE
 
 /*
  * Crematorium
@@ -535,6 +541,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		connected.connected = null
 	connected = null
 	return ..()
+
+/obj/structure/c_tray/Process_Spacemove(movement_dir)
+	return TRUE
 
 // Crematorium switch
 /obj/machinery/crema_switch

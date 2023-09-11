@@ -447,7 +447,7 @@
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.reagents.add_reagent("perfluorodecalin", REAGENTS_METABOLISM)
+		H.reagents.add_reagent("perfluorodecalin", 0.2)
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"
@@ -509,7 +509,7 @@
 
 	// snowflake checks my beloved
 	// this will become tooltype checks I swear
-	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/twohanded/required/chainsaw) && !istype(I, /obj/item/twohanded/chainsaw))
+	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/chainsaw) && !istype(I, /obj/item/butcher_chainsaw))
 		return
 
 	user.visible_message(

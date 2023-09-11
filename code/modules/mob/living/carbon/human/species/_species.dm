@@ -1,6 +1,9 @@
 /datum/species
 	var/name                     // Species name.
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
+	/// Article to use when referring to an individual of the species, if pronunciation is different from expected.
+	/// Because it's unathi's turn to be special snowflakes.
+	var/article_override
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 
 	/// Minimum age this species can have
@@ -167,17 +170,17 @@
 		)
 	var/vision_organ = /obj/item/organ/internal/eyes // If set, this organ is required for vision.
 	var/list/has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
+		"chest" =  list("path" = /obj/item/organ/external/chest, "descriptor" = "chest"),
+		"groin" =  list("path" = /obj/item/organ/external/groin, "descriptor" = "groin"),
+		"head" =   list("path" = /obj/item/organ/external/head, "descriptor" = "head"),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm, "descriptor" = "left arm"),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right, "descriptor" = "right arm"),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg, "descriptor" = "left leg"),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right, "descriptor" = "right leg"),
+		"l_hand" = list("path" = /obj/item/organ/external/hand, "descriptor" = "left hand"),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right, "descriptor" = "right hand"),
+		"l_foot" = list("path" = /obj/item/organ/external/foot, "descriptor" = "left foot"),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right, "descriptor" = "right foot"))
 
 	// Mutant pieces
 	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears
@@ -289,6 +292,10 @@
 
 	if(H.wear_suit)
 		ADD_SLOWDOWN(H.wear_suit.slowdown)
+	if(H.head)
+		ADD_SLOWDOWN(H.head.slowdown)
+	if(H.gloves)
+		ADD_SLOWDOWN(H.gloves.slowdown)
 	if(!H.buckled && H.shoes)
 		ADD_SLOWDOWN(H.shoes.slowdown)
 	if(H.back)
@@ -329,7 +336,7 @@
 			. += (health_deficiency / 75)
 		else
 			if(health_deficiency >= 40)
-				. += (health_deficiency / 25) //Once damage is over 40, you get the harsh formula
+				. += ((health_deficiency / 25) - 1.1) //Once damage is over 40, you get the harsh formula
 			else
 				. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
 
@@ -469,7 +476,7 @@
 		return TRUE
 	if(target.on_fire)
 		user.pat_out(target)
-	else if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
+	else if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH) && target.stat != DEAD)
 		target.help_shake_act(user)
 		return TRUE
 	else
@@ -509,6 +516,8 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
+	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
 	else
@@ -544,7 +553,7 @@
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
-		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp)
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
 							"<span class='userdanger'>[user] has knocked down [target]!</span>")
@@ -556,6 +565,8 @@
 		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
+		return FALSE
+	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 	if(target.absorb_stun(0))
 		target.visible_message("<span class='warning'>[target] is not affected by [user]'s disarm attempt!</span>")
@@ -709,10 +720,6 @@
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_BITE
 
-/datum/unarmed_attack/claws/armalis
-	attack_verb = list("slash", "claw")
-	damage = 6
-
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/H)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
@@ -838,6 +845,12 @@
 				var/obj/item/storage/backpack/B = H.back
 				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
 					return TRUE
+			if(H.back && ismodcontrol(H.back))
+				var/obj/item/mod/control/C = H.back
+				if(C.bag)
+					var/obj/item/storage/backpack/B = C.bag
+					if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+						return TRUE
 			return FALSE
 		if(slot_tie)
 			if(!istype(I, /obj/item/clothing/accessory))
@@ -935,18 +948,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	var/datum/antagonist/vampire/V = H.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V)
-		if(V.get_ability(/datum/vampire_passive/xray))
-			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-			H.see_in_dark += 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(V.get_ability(/datum/vampire_passive/full))
-			H.sight |= SEE_MOBS
-			H.see_in_dark += 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(V.get_ability(/datum/vampire_passive/vision))
-			H.sight |= SEE_MOBS
-			H.see_in_dark += 1 // base of 2, 2+1 is 3
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+		for(var/datum/vampire_passive/vision/buffs in V.powers)
+			H.sight |= buffs.vision_flags
+			H.see_in_dark += buffs.see_in_dark
+			H.lighting_alpha = buffs.lighting_alpha
 
 	// my glasses, I can't see without my glasses
 	if(H.glasses)

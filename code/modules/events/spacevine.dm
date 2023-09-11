@@ -8,7 +8,7 @@
 
 	var/obj/structure/spacevine/SV = new()
 
-	for(var/area/hallway/A in world)
+	for(var/area/station/hallway/A in world)
 		for(var/turf/F in A)
 			if(F.Enter(SV))
 				turfs += F
@@ -211,7 +211,7 @@
 	if(issilicon(crosser))
 		return
 	if(prob(severity) && istype(crosser) && !isvineimmune(crosser))
-		to_chat(crosser, "<span class='alert'>You accidently touch the vine and feel a strange sensation.</span>")
+		to_chat(crosser, "<span class='alert'>You accidentally touch the vine and feel a strange sensation.</span>")
 		crosser.adjustToxLoss(5)
 
 /datum/spacevine_mutation/toxicity/on_eat(obj/structure/spacevine/holder, mob/living/eater)

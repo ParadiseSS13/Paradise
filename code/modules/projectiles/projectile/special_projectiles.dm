@@ -195,8 +195,8 @@
 	color = "#FF6600"
 
 /obj/item/projectile/beam/wormhole/New(obj/item/ammo_casing/energy/wormhole/casing)
-	. = ..()
-	if(casing)
+	..()
+	if(istype(casing))
 		gun = casing.gun
 
 /obj/item/projectile/beam/wormhole/on_hit(atom/target)
@@ -218,6 +218,19 @@
 	..()
 	explosion(target, -1, 0, 1)
 	return TRUE
+
+/obj/item/projectile/bullet/confetti
+	name = "confetti shot"
+	damage = 0
+	range = 3
+
+/obj/item/projectile/bullet/confetti/on_range()
+	confettisize(src, 7, 3)
+	..()
+
+/obj/item/projectile/bullet/confetti/on_hit(atom/target, blocked, hit_zone)
+	confettisize(src, 7, 3)
+	..()
 
 /obj/item/projectile/plasma
 	name = "plasma blast"

@@ -203,9 +203,12 @@
 			disk_name = disk.gene.get_name()
 		if(disk.read_only)
 			disk_name = "[disk_name] (Read Only)"
+		var/can_insert = FALSE
+		if(seed)
+			can_insert = disk.gene?.can_add(seed)
 		data["disk"] = list(
 			"name" = disk_name,
-			"can_insert" = disk.gene?.can_add(seed),
+			"can_insert" = can_insert,
 			"can_extract" = !disk.read_only,
 			"is_core" = istype(disk?.gene, /datum/plant_gene/core)
 		)

@@ -3,12 +3,12 @@
 // How to use it? - Mappers
 //
 // This is a very good power generating mechanism. All you need is a blast furnace with soaring flames and output.
-// Not everything is included yet so the turbine can run out of fuel quiet quickly. The best thing about the turbine is that even
+// Not everything is included yet so the turbine can run out of fuel quite quickly. The best thing about the turbine is that even
 // though something is on fire that passes through it, it won't be on fire as it passes out of it. So the exhaust fumes can still
 // containt unreacted fuel - plasma and oxygen that needs to be filtered out and re-routed back. This of course requires smart piping
 // For a computer to work with the turbine the compressor requires a comp_id matching with the turbine computer's id. This will be
 // subjected to a change in the near future mind you. Right now this method of generating power is a good backup but don't expect it
-// become a main power source unless some work is done. Have fun. At 50k RPM it generates 60k power. So more than one turbine is needed!
+// become a main power source unless some work is done. Have fun.
 //
 // - Numbers
 //
@@ -26,9 +26,14 @@
 #define FAST 2
 #define SLOW 1
 
+//below defines the time between an overheat event and next startup
+#define OVERHEAT_TIME 120 SECONDS
+#define OVERHEAT_THRESHOLD 200 //measured in cycles of 2 seconds
+#define OVERHEAT_MESSAGE "Alert! The gas turbine generator's bearings have overheated. Initiating automatic cooling procedures. Manual restart is required."
+
 /obj/machinery/power/compressor
-	name = "compressor"
-	desc = "The compressor stage of a gas turbine generator."
+	name = "gas turbine compressor"
+	desc = "The compressor stage of a gas turbine generator. A data panel for linking with a to a computer can be accessed with a screwdriver."
 	icon = 'icons/obj/pipes.dmi'
 	icon_state = "compressor"
 	anchored = TRUE
@@ -44,7 +49,12 @@
 	var/capacity = 1e6
 	var/comp_id = 0
 	var/efficiency
-
+	/// value that dertermines the amount of overheat "damage" on the turbine.
+	var/overheat = 0
+	/// This value needs to be zero. It represents seconds since the last overheat event
+	var/last_overheat = 0
+	/// Internal radio, used to alert engineers of turbine trip!
+	var/obj/item/radio/radio
 
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
@@ -64,7 +74,7 @@
 
 /obj/machinery/computer/turbine_computer
 	name = "gas turbine control computer"
-	desc = "A computer to remotely control a gas turbine"
+	desc = "A computer to remotely control a gas turbine. Link it to a turbine via use of a multitool."
 	icon_screen = "turbinecomp"
 	icon_keyboard = "tech_key"
 	circuit = /obj/item/circuitboard/turbine_computer
@@ -93,6 +103,12 @@
 	if(!turbine)
 		stat |= BROKEN
 
+
+	//Radio for screaming about overheats
+	radio = new(src)
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Engineering" = 0))
 
 #define COMPFRICTION 5e5
 #define COMPSTARTERLOAD 2800
@@ -131,8 +147,6 @@
 
 	if(exchange_parts(user, I))
 		return
-
-
 	return ..()
 
 /obj/machinery/power/compressor/crowbar_act(mob/user, obj/item/I)
@@ -143,8 +157,28 @@
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return TRUE
 
+/obj/machinery/power/compressor/multitool_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	if(panel_open)
+		M.set_multitool_buffer(user, src)
+
+
 /obj/machinery/power/compressor/CanAtmosPass(turf/T)
 	return !density
+
+/obj/machinery/power/compressor/proc/trigger_overheat()
+	starter = FALSE
+	last_overheat = world.time
+	overheat -= 50
+	radio.autosay(OVERHEAT_MESSAGE, name, "Engineering", list(z))
+	playsound(src, 'sound/machines/buzz-two.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+
+/obj/machinery/power/compressor/proc/time_until_overheat_done()
+	return max(last_overheat + OVERHEAT_TIME - world.time, 0)
 
 /obj/machinery/power/compressor/process()
 	if(!turbine)
@@ -154,10 +188,18 @@
 	if(!starter)
 		return
 
+	if(rpm_threshold == OVERDRIVE)
+		//UI update here
+		overheat += 2
+		if(overheat >= OVERHEAT_THRESHOLD)
+			trigger_overheat()
+	else if(overheat > 0)
+		overheat -= 2
 	rpm = 0.9* rpm + 0.1 * rpmtarget
 	var/datum/gas_mixture/environment = inturf.return_air()
 
 	// It's a simplified version taking only 1/10 of the moles from the turf nearby. It should be later changed into a better version
+	//2023 note: It works, im not touc
 
 	var/transfer_moles = environment.total_moles()/10
 	//var/transfer_moles = rpm/10000*capacity
@@ -200,12 +242,13 @@
 		return
 	. += image(icon, "comp-o[rpm_threshold]", FLY_LAYER)
 
-// These are crucial to working of a turbine - the stats modify the power output. TurbGenQ modifies how much raw energy can you get from
-// rpms, TurbGenG modifies the shape of the curve - the lower the value the less straight the curve is.
+// These are crucial to working of a turbine - the stats modify the power output.
+// TURBPOWER modifies how much raw energy can you get from rpms,
+// TURBCURVESHAPE modifies the shape of the curve - the lower the value the less straight the curve is.
 
-#define TURBPRES 9000000
-#define TURBGENQ 100000
-#define TURBGENG 0.5
+#define TURBPOWER 500000
+#define TURBCURVESHAPE 0.5
+#define POWER_CURVE_MOD 1.7 // Used to form the turbine power generation curve
 
 /obj/machinery/power/turbine/Initialize(mapload)
 	. = ..()
@@ -253,9 +296,12 @@
 		return
 
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
-	// the TURBGENQ and TURBGENG values
+	// the TURBPOWER and TURBCURVESHAPE values
 
-	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity
+	if(compressor.gas_contained.temperature < 500)
+		lastgen = 0
+	else
+		lastgen = ((compressor.rpm / TURBPOWER) ** TURBCURVESHAPE) * TURBPOWER * productivity * POWER_CURVE_MOD
 
 	produce_direct_power(lastgen)
 
@@ -338,9 +384,15 @@
 
 	switch(action)
 		if("toggle_power")
-			if(compressor?.turbine)
+			var/time_until_done =  compressor.time_until_overheat_done()
+			if(time_until_done)
+				compressor.starter = FALSE
+				to_chat(usr, "<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
+				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+			else if(compressor?.turbine)
 				compressor.starter = !compressor.starter
 				. = TRUE
+				playsound(src, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 
 		if("reconnect")
 			locate_machinery()
@@ -355,17 +407,24 @@
 	spawn(10)
 		locate_machinery()
 
-/obj/machinery/computer/turbine_computer/locate_machinery()
-	compressor = locate(/obj/machinery/power/compressor) in range(5, src)
+/obj/machinery/computer/turbine_computer/proc/disconnect()
+	//this disconnects the computer from the turbine, good for resets.
+	compressor = null
 
 /obj/machinery/computer/turbine_computer/attack_hand(mob/user)
 	. = ..()
 	ui_interact(user)
 
+/obj/machinery/computer/turbine_computer/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	var/obj/item/multitool/M = I
+	compressor = M.buffer
+	to_chat(user, "<span class='notice'>You link [src] to the turbine compressor in [I]'s buffer.</span>")
+
 /obj/machinery/computer/turbine_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "TurbineComputer", name, 400, 150, master_ui, state)
+		ui = new(user, src, ui_key, "TurbineComputer", name, 400, 200, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/turbine_computer/ui_data(mob/user)
@@ -380,6 +439,7 @@
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
 		data["temperature"] = compressor.gas_contained.return_temperature()
+		data["bearing_heat"] = clamp((compressor.overheat / OVERHEAT_THRESHOLD) * 100, 0, 100)
 	return data
 
 /obj/machinery/computer/turbine_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -388,12 +448,20 @@
 
 	switch(action)
 		if("toggle_power")
-			if(compressor?.turbine)
+			var/time_until_done = compressor.time_until_overheat_done()
+			if(time_until_done)
+				compressor.starter = FALSE
+				to_chat(usr, "<span class='alert'>The turbine is overheating, please wait [time_until_done / 10] seconds for cooldown procedures to complete.</span>")
+				playsound(src, 'sound/effects/electheart.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
+				. = TRUE
+			else if(compressor?.turbine)
+				if(!compressor.starter)
+					playsound(compressor, 'sound/mecha/powerup.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 				compressor.starter = !compressor.starter
 				. = TRUE
 
-		if("reconnect")
-			locate_machinery()
+		if("disconnect")
+			disconnect()
 			. = TRUE
 
 /obj/machinery/computer/turbine_computer/process()

@@ -49,9 +49,9 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	var/mutable_appearance/marked_underlay
-	var/obj/item/twohanded/kinetic_crusher/hammer_synced
+	var/obj/item/kinetic_crusher/hammer_synced
 
-/datum/status_effect/crusher_mark/on_creation(mob/living/new_owner, obj/item/twohanded/kinetic_crusher/new_hammer_synced)
+/datum/status_effect/crusher_mark/on_creation(mob/living/new_owner, obj/item/kinetic_crusher/new_hammer_synced)
 	. = ..()
 	if(.)
 		hammer_synced = new_hammer_synced
@@ -203,12 +203,12 @@
 			return
 		if(teleports < 6)
 			to_chat(M, "<span class='warning'>You feel a bit sick!</span>")
-			M.vomit(lost_nutrition = 15, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 15, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(2 SECONDS)
 		else
 			to_chat(M, "<span class='danger'>You feel really sick!</span>")
 			M.adjustBruteLoss(rand(0, teleports * 2))
-			M.vomit(lost_nutrition = 30, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 30, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(6 SECONDS)
 
 /datum/status_effect/pacifism
@@ -222,6 +222,11 @@
 
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
+
+/datum/status_effect/pacifism/batterer
+	id = "pacifism_debuff_batterer"
+	alert_type = null
+	duration = 10 SECONDS
 
 // used to track if hitting someone with a cult dagger/sword should stamina crit.
 /datum/status_effect/cult_stun_mark
@@ -677,6 +682,17 @@
 /datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
 	id = "abssilenced"
 
+/datum/status_effect/transient/deaf
+	id = "deafened"
+
+/datum/status_effect/transient/deaf/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+
+/datum/status_effect/transient/deaf/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+
 /datum/status_effect/transient/no_oxy_heal
 	id = "no_oxy_heal"
 
@@ -879,6 +895,11 @@
 						list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>"),
 						list("<span class='danger'>Your entire body vibrates.</span>")
 			)
+			fake_emote = list(
+						list(),
+						list(),
+						list()
+			)
 		else
 			fake_msg = list(
 						list("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>"),
@@ -925,3 +946,29 @@
 #undef FAKE_FOOD_POISONING
 #undef FAKE_RETRO_VIRUS
 #undef FAKE_TURBERCULOSIS
+
+/datum/status_effect/cryo_beam
+	id = "cryo beam"
+	alert_type = null
+	duration = -1 //Kill it, get out of sight, or be killed. Jump boots are *required*
+	tick_interval = 0.5 SECONDS
+	var/damage = 0.75
+	var/source_UID
+
+/datum/status_effect/cryo_beam/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+
+/datum/status_effect/cryo_beam/tick()
+	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacker = locateUID(source_UID)
+	if(!(owner in view(attacker, 8)))
+		qdel(src)
+		return
+
+	owner.apply_damage(damage, BURN)
+	owner.bodytemperature = max(0, owner.bodytemperature - 20)
+	owner.Beam(attacker.beam, icon_state = "medbeam", time = 0.5 SECONDS)
+	for(var/datum/reagent/R in owner.reagents.reagent_list)
+		owner.reagents.remove_reagent(R.id, 0.75)
+	if(prob(10))
+		to_chat(owner, "<span class='userdanger'>Your blood freezes in your veins, get away!</span>")

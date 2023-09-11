@@ -42,6 +42,8 @@
 			to_chat(user, "<span class='warning'>You need to stay still to pass through [A]!</span>")
 		revert_cast(user)
 		return
+	if(QDELETED(A))
+		return
 
 	user.visible_message("<span class='warning'>[user] briefly opens [A] slightly and passes through!</span>", "<span class='sinister'>You slide through the open crack in [A].</span>")
 	user.forceMove(A.loc) // Move into the turf of the airlock

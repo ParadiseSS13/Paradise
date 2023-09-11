@@ -2022,7 +2022,7 @@
 	status = 2
 	},
 /obj/item/paper{
-	info = "<h3><font color=red>In The Event of Xenobiology Breach: Evacuate staff, Lock down Xenobiology, Notify on-site superiors and/or Central Command immediatly.</h3></b><br><br><h3>Current Xenobiology Containment Level:<u><strike>Secure</strike><i><b> RUN                    </h3></b></i></u>";
+	info = "<h3><font color=red>In The Event of Xenobiology Breach: Evacuate staff, Lock down Xenobiology, Notify on-site superiors and/or Central Command immediately.</h3></b><br><br><h3>Current Xenobiology Containment Level:<u><strike>Secure</strike><i><b> RUN                    </h3></b></i></u>";
 	name = "Evacuation Procedure"
 	},
 /obj/machinery/camera{
@@ -2878,7 +2878,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fC" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	desc = "A plastic potted plant.";
 	pixel_y = 3
 	},
@@ -4943,7 +4943,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "km" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	desc = "A plastic potted plant.";
 	pixel_y = 3
 	},

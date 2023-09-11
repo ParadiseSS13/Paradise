@@ -263,6 +263,10 @@
 	name = "meritous legal medal"
 	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
 
+/obj/item/clothing/accessory/medal/supply
+	name = "stable supply medal"
+	desc = "An award issued by the Quartermaster to supply staff dedicated to being effective."
+
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"
 	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."

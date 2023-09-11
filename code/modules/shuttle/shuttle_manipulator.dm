@@ -22,6 +22,8 @@
 	var/datum/map_template/shuttle/preview_template
 	var/list/templates = list()
 	var/list/shuttle_data = list()
+	anchored = TRUE
+	layer = 5
 
 /obj/machinery/shuttle_manipulator/Initialize(mapload)
 	. = ..()

@@ -82,7 +82,7 @@
 
 	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='[span]'>\"[message]\"</span></span>", hearing_distance = 14)
 	log_say(message, user)
-	for(var/obj/O in oview(14, get_turf(src)))
+	for(var/obj/O in view(14, get_turf(src)))
 		O.hear_talk(user, message_to_multilingual("<span class='[span]'>[message]</span>"))
 
 	for(var/mob/M in get_mobs_in_view(7, src))

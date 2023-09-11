@@ -14,20 +14,23 @@
 									"You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
 
 /datum/event/brand_intelligence/announce()
-	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
+	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.category] vendor.", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
 
 /datum/event/brand_intelligence/start()
-	for(var/obj/machinery/economy/vending/V in GLOB.machines)
-		if(!is_station_level(V.z))
+	var/list/obj/machinery/economy/vending/leaderables = list()
+	for(var/obj/machinery/economy/vending/candidate in GLOB.machines)
+		if(!is_station_level(candidate.z))
 			continue
-		RegisterSignal(V, COMSIG_PARENT_QDELETING, PROC_REF(vendor_destroyed))
-		vendingMachines.Add(V)
+		RegisterSignal(candidate, COMSIG_PARENT_QDELETING, PROC_REF(vendor_destroyed))
+		vendingMachines.Add(candidate)
+		if(candidate.refill_canister)
+			leaderables.Add(candidate)
 
-	if(!length(vendingMachines))
+	if(!length(leaderables))
 		kill()
 		return
 
-	originMachine = pick(vendingMachines)
+	originMachine = pick(leaderables)
 	vendingMachines.Remove(originMachine)
 	originMachine.shut_up = FALSE
 	originMachine.shoot_inventory = TRUE
@@ -53,6 +56,7 @@
 				explosion(upriser.loc, -1, 1, 2, 4, 0)
 				qdel(upriser)
 
+		log_debug("Brand intelligence: The last vendor has been infected.")
 		kill()
 		return
 
@@ -80,6 +84,7 @@
 	if(originMachine)
 		originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
 		originMachine.visible_message("[originMachine] beeps and seems lifeless.")
+	log_debug("Brand intelligence completed early due to origin machine being defeated.")
 	kill()
 
 /datum/event/brand_intelligence/kill()
