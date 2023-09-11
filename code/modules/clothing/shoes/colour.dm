@@ -76,6 +76,11 @@
 	permeability_coefficient = 0.01
 	item_color = "white"
 
+/obj/item/clothing/shoes/white/enforcer
+	name = "hypernobilium weave shoes"
+	desc = "They're surprisingly comfortable and designed to fit under an Oblivion Enforcer's robes."
+	magical = TRUE
+
 /obj/item/clothing/shoes/leather
 	name = "leather shoes"
 	desc = "A sturdy pair of leather shoes."
