@@ -214,6 +214,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+///Immune to the SM / makes you immune to it when worn
+#define TRAIT_SUPERMATTER_IMMUNE "supermatter_immune"
 
 //***** ITEM TRAITS *****//
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
@@ -271,6 +273,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WAS_BATONNED "batonged"
 #define CLOWN_EMAG "clown_emag"
 #define MODSUIT_TRAIT "modsuit_trait"
+#define ENFORCER_GLOVES "enforcer_gloves"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
