@@ -66968,6 +66968,15 @@
 	pixel_x = -3
 	},
 /obj/item/hand_labeler,
+/obj/item/crutches{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/crutches,
+/obj/item/crutches{
+	pixel_x = 2;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -96476,7 +96485,7 @@
 /area/station/maintenance/apmaint)
 "xWf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
