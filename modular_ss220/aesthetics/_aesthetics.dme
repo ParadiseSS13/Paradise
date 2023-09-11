@@ -24,6 +24,7 @@
 #include "piano\code\piano.dm"
 #include "racks\code\racks.dm"
 #include "requests_console\code\requests_console.dm"
+#include "rollerbed\code\rollerbed.dm"
 #include "safe\code\safe.dm"
 #include "shutters\code\shutters.dm"
 #include "soap\code\soap.dm"
