@@ -1,10 +1,9 @@
-// To add a rev to the list of revolutionaries, make sure it's rev (with if(ticker.mode.name == "revolution)),
-// then call ticker.mode:add_revolutionary(_THE_PLAYERS_MIND_)
+// then call SSticker.mode.add_revolutionary(_THE_PLAYERS_MIND_)
 // nothing else needs to be done, as that proc will check if they are a valid target.
 // Just make sure the converter is a head before you call it!
-// To remove a rev (from brainwashing or w/e), call ticker.mode:remove_revolutionary(_THE_PLAYERS_MIND_),
+// To remove a rev (from brainwashing or w/e), call SSticker.mode.remove_revolutionary(_THE_PLAYERS_MIND_),
 // this will also check they're not a head, so it can just be called freely
-// If the game somtimes isn't registering a win properly, then ticker.mode.check_win() isn't being called somewhere.
+// If the game somtimes isn't registering a win properly, then SSticker.mode.check_win() isn't being called somewhere.
 
 #define REV_VICTORY 1
 #define STATION_VICTORY 2
@@ -31,7 +30,7 @@
 ///////////////////////////
 /datum/game_mode/revolution/announce()
 	to_chat(world, "<B>The current game mode is - Revolution!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>")
+	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, QM, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>")
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -243,10 +242,10 @@
 	var/comcount = 0
 	var/revcount = 0
 	var/loycount = 0
-	for(var/datum/mind/M in SSticker.mode:head_revolutionaries)
+	for(var/datum/mind/M in SSticker.mode.head_revolutionaries)
 		if(M.current && M.current.stat != DEAD)
 			foecount++
-	for(var/datum/mind/M in SSticker.mode:revolutionaries)
+	for(var/datum/mind/M in SSticker.mode.revolutionaries)
 		if(M.current && M.current.stat != DEAD)
 			revcount++
 
@@ -284,13 +283,13 @@
 	return dat
 
 /proc/is_revolutionary(mob/living/M)
-	return istype(M) && (M?.mind in SSticker?.mode?.revolutionaries)
+	return istype(M) && M?.mind?.has_antag_datum(/datum/antagonist/rev, FALSE)
 
 /proc/is_headrev(mob/living/M)
-	return istype(M) && (M?.mind in SSticker?.mode?.head_revolutionaries)
+	return istype(M) && M?.mind?.has_antag_datum(/datum/antagonist/rev/head)
 
 /proc/is_any_revolutionary(mob/living/M)
-	return is_revolutionary(M) || is_headrev(M)
+	return istype(M) && M?.mind?.has_antag_datum(/datum/antagonist/rev)
 
 #undef REV_VICTORY
 #undef STATION_VICTORY
