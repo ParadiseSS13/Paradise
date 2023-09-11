@@ -20,11 +20,6 @@
 		return FALSE
 	to_chat(imp_in, "<span class='notice'>Your dusting bio-chip activates!</span>")
 	imp_in.visible_message("<span class = 'warning'>[imp_in] burns up in a flash!</span>")
-	// for(var/obj/item/I in imp_in.contents)
-	// 	if(I == src)
-	// 		continue
-	// 	if(I.flags & NODROP)
-	// 		qdel(I)
 	imp_in.dust()
 
 /obj/item/implant/dust/emp_act(severity)
