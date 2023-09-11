@@ -133,6 +133,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 					break
 				new_commando.mind.key = M.key
 				new_commando.key = M.key
+				M.dust()
 				new_commando.update_icons()
 				break
 	GLOB.send_emergency_team = FALSE
@@ -223,7 +224,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /mob/dead/observer/proc/remove_from_ert_list(ghost)
 	SIGNAL_HANDLER
 	GLOB.response_team_members -= src
-	remove_from_respawnable_list()
 
 /datum/response_team
 	var/list/slots = list(

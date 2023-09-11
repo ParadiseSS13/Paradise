@@ -1991,6 +1991,7 @@
 					var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 					theghost = pick(candidates)
 					P.key = theghost.key
+					theghost.dust()
 					P.master_commander = H
 					P.universal_speak = TRUE
 					P.universal_understand = TRUE
@@ -3454,6 +3455,7 @@
 	hunter_mind.active = TRUE
 	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(GLOB.latejoin))
 	hunter_mind.transfer_to(hunter_mob)
+	C.dust()
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)

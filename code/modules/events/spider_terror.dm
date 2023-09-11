@@ -64,6 +64,7 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
+		M.dust()
 		if(infestation_type != PRINCE_SPIDER)
 			S.forceMove(vent)
 			S.add_ventcrawl(vent)

@@ -324,6 +324,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")
 	owner.current.ghostize(FALSE)
 	owner.current.key = C.key
+	C.dust()
 	return TRUE
 
 /**
