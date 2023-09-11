@@ -18433,15 +18433,6 @@
 	dir = 8
 	},
 /area/station/engineering/atmos)
-"bPt" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 10
-	},
-/obj/effect/landmark/start/atmospheric,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/atmos)
 "bPu" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -19448,7 +19439,6 @@
 	id_tag = "kitchen2"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2;
 	name = "Kitchen";
 	req_access_txt = "28"
 	},
@@ -21216,7 +21206,6 @@
 	req_access_txt = "1"
 	},
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2;
 	name = "Secure Armory";
 	req_access_txt = "3"
 	},
@@ -27405,7 +27394,6 @@
 /area/station/supply/office)
 "cLE" = (
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	id = "Cell 6";
 	name = "Cell 6";
 	req_access_txt = "2"
@@ -29532,7 +29520,6 @@
 	req_access_txt = "57"
 	},
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Desk Door"
 	},
 /obj/item/desk_bell{
@@ -30749,8 +30736,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	req_access_txt = "55";
-	dir = 2
+	req_access_txt = "55"
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
@@ -31346,14 +31332,6 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"del" = (
-/obj/effect/landmark/start/atmospheric,
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
-	dir = 8
-	},
-/area/station/engineering/atmos)
 "deo" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 5
@@ -31623,7 +31601,6 @@
 	dir = 8
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Cryo Tank Storage";
 	req_one_access_txt = "5;32"
 	},
@@ -35320,8 +35297,7 @@
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Chemistry Desk";
-	req_access_txt = "33";
-	dir = 2
+	req_access_txt = "33"
 	},
 /obj/item/desk_bell{
 	pixel_x = 7;
@@ -35662,8 +35638,7 @@
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/window/classic/normal{
 	name = "Public Fridge";
-	req_access_txt = "33";
-	dir = 2
+	req_access_txt = "33"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
@@ -36192,8 +36167,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	req_access_txt = "55";
-	dir = 2
+	req_access_txt = "55"
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
@@ -41601,8 +41575,7 @@
 	},
 /obj/machinery/door/window/classic/reversed{
 	name = "Toxins Launcher";
-	req_access_txt = "7";
-	dir = 2
+	req_access_txt = "7"
 	},
 /obj/machinery/door/window/classic/reversed{
 	dir = 1;
@@ -45056,8 +45029,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	req_access_txt = "55";
-	dir = 2
+	req_access_txt = "55"
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
@@ -48381,8 +48353,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
 	name = "Hydroponics";
-	req_access_txt = "35";
-	dir = 2
+	req_access_txt = "35"
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Kitchen";
@@ -53574,8 +53545,7 @@
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "R&D Desk";
-	req_access_txt = "47";
-	dir = 2
+	req_access_txt = "47"
 	},
 /obj/machinery/door/firedoor,
 /obj/item/paper_bin,
@@ -60186,7 +60156,6 @@
 /area/station/public/sleep)
 "lUn" = (
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	id = "Cell 8";
 	name = "Cell 8";
 	req_access_txt = "2"
@@ -61572,7 +61541,6 @@
 	id_tag = "kitchen2"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Kitchen";
 	req_access_txt = "28"
 	},
@@ -62049,8 +62017,7 @@
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Hydroponics";
-	req_access_txt = "35";
-	dir = 2
+	req_access_txt = "35"
 	},
 /obj/machinery/door/firedoor,
 /obj/item/desk_bell{
@@ -63308,8 +63275,7 @@
 	},
 /obj/machinery/door/window/classic/normal{
 	req_access_txt = "37";
-	name = "Library Desk Door";
-	dir = 2
+	name = "Library Desk Door"
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -63852,7 +63818,6 @@
 	name = "Criminal Delivery Chute"
 	},
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2;
 	name = "Criminal Deposit";
 	req_access_txt = "63"
 	},
@@ -65564,8 +65529,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/window/classic/normal{
-	req_access_txt = "55";
-	dir = 2
+	req_access_txt = "55"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -68987,8 +68951,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	req_access_txt = "55";
-	dir = 2
+	req_access_txt = "55"
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
@@ -69622,7 +69585,6 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/effect/landmark/start/atmospheric,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -72051,8 +72013,7 @@
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Chemistry Desk";
-	req_access_txt = "33";
-	dir = 2
+	req_access_txt = "33"
 	},
 /obj/item/folder/yellow,
 /obj/machinery/door/window/classic/normal{
@@ -72976,7 +72937,6 @@
 	anchored = 1
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Kitchen";
 	req_access_txt = "28"
 	},
@@ -75158,7 +75118,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/computer/aiupload,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Console Access";
 	req_one_access_txt = "16"
 	},
@@ -88368,7 +88327,6 @@
 /area/station/hallway/secondary/entry/south)
 "vvl" = (
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	id = "Cell 7";
 	name = "Cell 7";
 	req_access_txt = "2"
@@ -126560,7 +126518,7 @@ aCP
 bIi
 bIi
 bIi
-bPt
+bVt
 bQs
 bQs
 bQs
@@ -128364,7 +128322,7 @@ fTT
 nAg
 bOo
 ded
-del
+bOo
 gpk
 bUp
 dez

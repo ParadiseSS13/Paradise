@@ -228,9 +228,7 @@
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -3
 	},
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
@@ -4751,16 +4749,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
-"ayE" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 4
-	},
-/obj/effect/landmark/start/atmospheric,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "ayF" = (
 /obj/machinery/mineral/equipment_vendor,
 /turf/simulated/floor/plasteel{
@@ -6603,7 +6591,6 @@
 "aFr" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	dir = 2;
 	name = "Cargo Desk"
 	},
 /obj/item/paper_bin{
@@ -7742,10 +7729,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
-"aIT" = (
-/obj/effect/landmark/start/atmospheric,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "aIU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -23794,7 +23777,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/window{
-	dir = 2;
 	name = "HoP's Desk"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/hop,
@@ -24089,7 +24071,6 @@
 /area/station/command/bridge)
 "byz" = (
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Captain's Desk"
 	},
 /obj/structure/cable/yellow{
@@ -24126,7 +24107,6 @@
 /obj/item/folder/blue,
 /obj/machinery/door/window{
 	base_state = "right";
-	dir = 2;
 	icon_state = "right";
 	name = "Captain's Desk"
 	},
@@ -30796,16 +30776,6 @@
 	icon_state = "darkgrey"
 	},
 /area/station/command/teleporter)
-"bSQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/landmark/start/atmospheric,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/control)
 "bSU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -51071,7 +51041,6 @@
 	dir = 1
 	},
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Permabrig Kitchen"
 	},
 /turf/simulated/floor/plasteel{
@@ -52748,8 +52717,7 @@
 "eDF" = (
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/window/classic/normal{
-	name = "Chemistry Desk";
-	dir = 2
+	name = "Chemistry Desk"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /obj/machinery/door/firedoor,
@@ -54589,8 +54557,7 @@
 /area/station/engineering/control)
 "fwR" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Primate Pen";
-	dir = 2
+	name = "Primate Pen"
 	},
 /obj/effect/turf_decal/siding,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
@@ -58664,8 +58631,7 @@
 	dir = 8
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Cryo Tank Storage";
-	dir = 2
+	name = "Cryo Tank Storage"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/plasteel{
@@ -58697,8 +58663,7 @@
 	},
 /obj/machinery/computer/aiupload,
 /obj/machinery/door/window/classic/reversed{
-	name = "Upload Console Window";
-	dir = 2
+	name = "Upload Console Window"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
@@ -60830,8 +60795,7 @@
 /obj/item/pen,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	name = "Atmospherics Desk";
-	dir = 2
+	name = "Atmospherics Desk"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -61272,9 +61236,7 @@
 "iCb" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/pie,
-/obj/machinery/door/window/classic/normal{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/normal,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
@@ -61940,8 +61902,7 @@
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Hydroponics Window";
-	req_access_txt = "35";
-	dir = 2
+	req_access_txt = "35"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -62962,7 +62923,6 @@
 /area/station/science/xenobiology)
 "jAW" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2;
 	name = "Justice Chamber";
 	req_access_txt = "2"
 	},
@@ -63883,9 +63843,7 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /turf/simulated/floor/plasteel,
@@ -64713,8 +64671,7 @@
 	name = "Xenobio Pen 2 Blast Door"
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Containment Pen #2";
-	dir = 2
+	name = "Containment Pen #2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /turf/simulated/floor/plasteel,
@@ -65252,8 +65209,7 @@
 /area/station/science/research)
 "kCy" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Containment Pen #2";
-	dir = 2
+	name = "Containment Pen #2"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -65409,7 +65365,6 @@
 /obj/item/paper,
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2;
 	name = "Arrivals Security Checkpoint";
 	pixel_y = -8
 	},
@@ -66393,9 +66348,7 @@
 /area/station/engineering/atmos)
 "lae" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
@@ -66893,8 +66846,7 @@
 	req_access_txt = "3"
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Request Window";
-	dir = 2
+	name = "Request Window"
 	},
 /obj/item/pen,
 /obj/item/paper,
@@ -68576,7 +68528,6 @@
 	req_access_txt = "57"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2;
 	name = "Reception Window"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -68670,9 +68621,7 @@
 /area/station/science/research)
 "mbB" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/normal,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
@@ -69729,7 +69678,6 @@
 	req_access_txt = "3"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2;
 	name = "Reception Window"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -70853,7 +70801,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 6
 	},
-/obj/effect/landmark/start/atmospheric,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "naU" = (
@@ -72985,8 +72932,7 @@
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Mass Driver";
-	req_access_txt = "12";
-	dir = 2
+	req_access_txt = "12"
 	},
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -73747,7 +73693,6 @@
 	dir = 4
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "shower"
 	},
 /turf/simulated/floor/plasteel{
@@ -75727,7 +75672,6 @@
 /area/station/medical/morgue)
 "pyA" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2;
 	name = "Command Desk"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
@@ -76615,9 +76559,7 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3
 	},
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
@@ -76903,8 +76845,7 @@
 	},
 /obj/machinery/computer/borgupload,
 /obj/machinery/door/window/classic/normal{
-	name = "Cyborg Upload Console Window";
-	dir = 2
+	name = "Cyborg Upload Console Window"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
@@ -78657,8 +78598,7 @@
 "qYN" = (
 /obj/structure/table/glass,
 /obj/machinery/door/window/classic/normal{
-	name = "First-Aid Supplies";
-	dir = 2
+	name = "First-Aid Supplies"
 	},
 /obj/item/storage/firstaid/fire{
 	pixel_x = 3;
@@ -80289,7 +80229,6 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/landmark/start/atmospheric,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -81876,7 +81815,6 @@
 /obj/structure/plasticflaps,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "delivery door"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
@@ -82101,9 +82039,7 @@
 /area/station/security/brig)
 "sGC" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/normal,
 /obj/item/storage/fancy/donut_box,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
@@ -84119,8 +84055,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/machinery/door/window/classic/reversed{
-	name = "Hydroponics Window";
-	dir = 2
+	name = "Hydroponics Window"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -84372,9 +84307,7 @@
 /area/station/security/brig)
 "tIZ" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/item/paper_bin{
 	pixel_x = 3;
 	pixel_y = 4
@@ -86729,8 +86662,7 @@
 /area/station/hallway/secondary/entry)
 "uWQ" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Court Cell";
-	dir = 2
+	name = "Court Cell"
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -87669,9 +87601,7 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/reversed,
 /obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plasteel,
@@ -88414,7 +88344,6 @@
 	dir = 8
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "MiniSat Walkway Access"
 	},
 /turf/simulated/floor/plasteel{
@@ -88592,8 +88521,7 @@
 	pixel_y = -3
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Chemistry Desk";
-	dir = 2
+	name = "Chemistry Desk"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -88828,9 +88756,7 @@
 /area/station/engineering/atmos/control)
 "vYV" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	dir = 2
-	},
+/obj/machinery/door/window/classic/normal,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
@@ -89378,7 +89304,6 @@
 /obj/item/folder,
 /obj/item/folder,
 /obj/machinery/door/window/classic/normal{
-	dir = 2;
 	name = "windoor"
 	},
 /obj/item/book/manual/wiki/hacking,
@@ -90134,8 +90059,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/reversed{
-	name = "Cargo Desk";
-	dir = 2
+	name = "Cargo Desk"
 	},
 /obj/item/paper/crumpled,
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
@@ -90320,7 +90244,6 @@
 	network = list("SS13","MiniSat")
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "MiniSat Walkway Access"
 	},
 /obj/machinery/light/small{
@@ -134181,7 +134104,7 @@ eib
 ceF
 nqJ
 utC
-bSQ
+sNA
 cmE
 rUK
 tdA
@@ -135479,7 +135402,7 @@ mmB
 aAG
 uTp
 dWq
-ayE
+tCE
 kwm
 uaJ
 hBQ
@@ -136502,7 +136425,7 @@ tUW
 eow
 eSE
 fWW
-aIT
+fWW
 fWW
 fWW
 sGe
@@ -137012,7 +136935,7 @@ nan
 oCC
 kIP
 xTV
-aIT
+fWW
 oNd
 cle
 cJc

@@ -61,7 +61,7 @@
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Atmospheric Technician","Electrician")
-	minimal_player_age = 7
+	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_ENGINEERING = 240)
 	outfit = /datum/outfit/job/engineer
 
@@ -130,15 +130,13 @@
 	selection_color = "#fff5cc"
 	access = list(ACCESS_EVA, ACCESS_MAINTENANCE_TECH, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_MAINTENANCE_TECH, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Reactor Operator")
-	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_ENGINEERING = 600)
 	outfit = /datum/outfit/job/mainttech
 
 //placeholder sprites until we get setup
 /datum/outfit/job/mainttech
 	name = "Maintenence Technician"
-	jobtype = /datum/job/enginetech
+	jobtype = /datum/job/mainttech
 
 	uniform = /obj/item/clothing/under/rank/engineering/mainttech
 	belt = /obj/item/storage/belt/utility/full
