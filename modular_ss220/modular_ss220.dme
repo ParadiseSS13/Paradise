@@ -40,6 +40,7 @@
 #include "gunhud/_gunhud.dme"
 #include "jobs/_jobs.dme"
 #include "keybindings/_keybindings.dme"
+#include "logs/_logs.dme"
 #include "pixel_shift/_pixel_shift.dme"
 #include "radio_sound/radio_sound.dme"
 #include "screentip_change/_screentip_change.dme"
@@ -47,6 +48,7 @@
 #include "text_to_speech/_tts.dme"
 #include "title_screen/_title_screen.dme"
 #include "whitelist/_whitelist.dme"
+
 // --- UNUSED MODS --- //
 
  /*------------------------------------------------------------------
