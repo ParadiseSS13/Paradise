@@ -85,7 +85,7 @@
 	if(++turns_since_scan > 5)
 		turns_since_scan = 0
 
-		// Has a target, but it's not where it was before, and it wasn't picked up by someone.
+		// Check if the target still exists / and is either on a turf or on a human, else lose the target.
 		if(movement_target && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 			movement_target = null
 			stop_automated_movement = FALSE
@@ -615,7 +615,7 @@
 	if(++turns_since_scan > 5)
 		turns_since_scan = 0
 
-		// Has a target, but it's not where it was before, and it wasn't picked up by someone.
+		// Check if the target still exists / and is either on a turf or on a human, else lose the target.
 		if(movement_target && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 			movement_target = null
 			stop_automated_movement = FALSE
