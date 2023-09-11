@@ -365,8 +365,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "holocigaroff"
 	item_state = "cigaroff"
 	var/enabled = FALSE
-	/// Tracks how many cycles the user has been smoking for.
-	var/cycles_smoking = 0
+	/// Tracks if this is the first cycle smoking the cigar.
+	var/has_smoked = FALSE
 
 /obj/item/clothing/mask/holo_cigar/Destroy()
 	. = ..()
@@ -384,7 +384,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		. += "[src] seems to be inactive."
 
 /obj/item/clothing/mask/holo_cigar/process()
-	. = ..()
 	if(!iscarbon(loc))
 		return
 
@@ -392,11 +391,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(C.wear_mask != src)
 		return
 
-	if(cycles_smoking == 0) //this could also be !cycles_smoking, but since 0 is a number this makes more sense imo
+	if(!has_smoked)
 		C.reagents.add_reagent("nicotine", 2)
+		has_smoked = TRUE
 	else
 		C.reagents.add_reagent("nicotine", REAGENTS_METABOLISM)
-	cycles_smoking++
 
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()
@@ -407,7 +406,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar/dropped(mob/user, silent)
 	. = ..()
-	cycles_smoking = 0
+	has_smoked = FALSE
 	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
 		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
 		to_chat(user, "<span class='notice'>You feel less badass.</span>")
