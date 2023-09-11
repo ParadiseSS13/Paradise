@@ -567,6 +567,7 @@
 	crate_value = 625
 
 #define RECURSION_PANIC_AMOUNT 10
+#define LEGACY_TC 5 // How much TC our current value is compared to 2022. Update this any time the value of TC is inflated
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
@@ -593,9 +594,14 @@
 
 	var/datum/uplink_item/I
 	while(remaining_TC)
-		if(!length(buyable_items)) // This realistically should never happen as we should run out of TC first (Plastic bag), but we should check for it anyways
-			fucked_shit_up_alert(loc, "[src] spawning failed: ran out of buyable items while looping, refunding [cost] telecrystals and cancelling crate. (Original cost of the crate). Report this to coders please.")
+		if(remaining_TC < LEGACY_TC)
 			generate_refund(cost, C)
+			message_admins("[src] has refunded [remaining_TC] because it was less than [LEGACY_TC]. [ADMIN_COORDJMP(loc)]")
+			break
+
+		if(!length(buyable_items))
+			fucked_shit_up_alert(loc, "[src] spawning failed: ran out of buyable items while looping, refunding [cost] telecrystals and cancelling crate. (Original cost of the crate). Report this to coders please.")
+			generate_refund(remaining_TC, C)
 			bought_items.Cut()
 			break
 
