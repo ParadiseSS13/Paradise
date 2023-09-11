@@ -1,7 +1,6 @@
 /datum/game_mode/wizard/raginmages
 	name = "ragin' mages"
 	config_tag = "raginmages"
-	tdm_gamemode = TRUE
 	required_players = 20
 	use_huds = TRUE
 	but_wait_theres_more = TRUE
