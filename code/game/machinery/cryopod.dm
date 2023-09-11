@@ -345,7 +345,7 @@
 			var/obj/item/storage/backpack/modstorage/M = I
 			M.forceMove(M.source)
 			continue
-		
+
 		var/preserve = should_preserve_item(I)
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
@@ -587,6 +587,8 @@
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
 					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
 	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
+	if(SSticker.mode.name == "nuclear emergency" || SSticker.mode.name == "wizard")
+		SSblackbox.record_feedback("tally", "TDM_quitouts", 1, "TDM Cryopods")
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
