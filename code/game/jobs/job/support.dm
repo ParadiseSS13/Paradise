@@ -129,7 +129,33 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	mask = /obj/item/clothing/mask/breath
 
+/datum/job/explorer
+	title = "Explorer"
+	flag = JOB_EXPLORER
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 4
+	spawn_positions = 4
+	supervisors = "the quartermaster"
+	department_head = list("Quartermaster")
+	selection_color = "#eeddbe"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
+	alt_titles = list("Spacer", "Surveyor")
+	outfit = /datum/outfit/job/explorer
 
+/datum/outfit/job/explorer
+	name = "Explorer"
+	jobtype = /datum/job/explorer
+	uniform = /obj/item/clothing/under/color/orange
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/workboots
+	glasses = /obj/item/clothing/glasses/welding
+	belt = /obj/item/storage/belt/utility
+	l_pocket = /obj/item/gps
+	id = /obj/item/card/id/explorer
+	backpack = /obj/item/storage/backpack/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	box = /obj/item/storage/box/survival_mining
 
 //Food
 /datum/job/bartender
@@ -478,27 +504,3 @@
 		/obj/item/storage/box/lip_stick = 1,
 		/obj/item/storage/box/barber = 1
 	)
-
-/datum/job/explorer
-	title = "Explorer"
-	flag = JOB_EXPLORER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 4
-	spawn_positions = 4
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	outfit = /datum/outfit/job/explorer
-
-/datum/outfit/job/explorer
-	name = "Explorer"
-	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/color/orange
-	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/workboots
-	glasses = /obj/item/clothing/glasses/welding
-	belt = /obj/item/storage/belt/utility
-	l_pocket = /obj/item/gps
-	id = /obj/item/card/id/explorer

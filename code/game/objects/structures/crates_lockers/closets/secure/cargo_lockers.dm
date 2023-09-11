@@ -35,3 +35,9 @@
 	new /obj/item/reagent_containers/food/drinks/mug/qm(src)
 	new /obj/item/flash(src)
 
+/obj/structure/closet/secure_closet/explorer
+	name = "explorer's locker"
+	req_access = list(ACCESS_EXPEDITION)
+	icon_state = "explorer"
+	open_door_sprite = "mining_door"
+
