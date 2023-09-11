@@ -531,8 +531,8 @@
 					/obj/item/clothing/suit/chef = 50,
 					/obj/item/clothing/suit/chef/classic = 50,
 					/obj/item/clothing/head/chefhat = 50,
-					/obj/item/clothing/head/soft/mime = 30,
-					/obj/item/clothing/head/beret/white = 30,
+					/obj/item/clothing/head/soft/mime = 20,
+					/obj/item/clothing/head/beret/white = 20,
 					/obj/item/clothing/shoes/laceup = 30,
 					/obj/item/clothing/shoes/white = 20,
 					/obj/item/clothing/shoes/black = 20,
@@ -570,7 +570,7 @@
 					/obj/item/clothing/under/misc/sl_suit = 50,
 					/obj/item/clothing/head/that = 20,
 					/obj/item/clothing/head/soft/black = 20,
-					/obj/item/clothing/head/beret/black = 30,
+					/obj/item/clothing/head/beret/black = 20,
 					/obj/item/clothing/suit/blacktrenchcoat = 75,
 					/obj/item/clothing/shoes/laceup = 30,
 					/obj/item/clothing/shoes/black = 20,
@@ -606,7 +606,7 @@
 	contraband = list(/obj/item/toy/figure/crew/botanist = 1)
 	prices = list(/obj/item/clothing/under/rank/civilian/hydroponics = 50,
 					/obj/item/clothing/under/rank/civilian/hydroponics/skirt = 50,
-					/obj/item/clothing/head/beret/hydroponics = 30,
+					/obj/item/clothing/head/beret/hydroponics = 20,
 					/obj/item/reagent_containers/glass/bucket = 15,
 					/obj/item/clothing/suit/apron = 50,
 					/obj/item/clothing/suit/apron/overalls = 50,
@@ -645,7 +645,7 @@
 					/obj/item/clothing/under/rank/civilian/janitor/skirt = 50,
 					/obj/item/clothing/under/rank/civilian/janitor/overalls = 50,
 					/obj/item/clothing/head/soft/purple = 20,
-					/obj/item/clothing/head/beret/janitor = 30,
+					/obj/item/clothing/head/beret/janitor = 20,
 					/obj/item/clothing/accessory/armband/service = 20)
 	refill_canister = /obj/item/vending_refill/janidrobe
 
