@@ -231,7 +231,7 @@
 		data["head_accessory_styles"] = head_accessory_styles
 		data["head_accessory_style"] = head_organ ? head_organ.ha_style : "None"
 
-	if(!isgrey(user) && !ismoth(user) && !isdrask(user))
+	if(!(user.dna.species.bodyflags & BALD))
 		data["change_hair"] = can_change(APPEARANCE_HAIR)
 		if(data["change_hair"])
 			var/list/hair_styles = list()
@@ -239,8 +239,10 @@
 				hair_styles += list(list("hairstyle" = hair_style))
 			data["hair_styles"] = hair_styles
 			data["hair_style"] = head_organ ? head_organ.h_style : "Skinhead"
+		data["change_hair_color"] = can_change(APPEARANCE_HAIR_COLOR)
+		data["change_secondary_hair_color"] = can_change(APPEARANCE_SECONDARY_HAIR_COLOR)
 
-	if(!ismachineperson(user) && !isgrey(user) && !ismoth(user) && !isdrask(user) && !iskidan(user) && !isskrell(user))
+	if(!(user.dna.species.bodyflags & SHAVED))
 		data["change_facial_hair"] = can_change(APPEARANCE_FACIAL_HAIR)
 		if(data["change_facial_hair"])
 			var/list/facial_hair_styles = list()
@@ -248,6 +250,9 @@
 				facial_hair_styles += list(list("facialhairstyle" = facial_hair_style))
 			data["facial_hair_styles"] = facial_hair_styles
 			data["facial_hair_style"] = head_organ ? head_organ.f_style : "Shaved"
+		data["change_facial_hair_color"] = can_change(APPEARANCE_FACIAL_HAIR_COLOR)
+		data["change_secondary_facial_hair_color"] = can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR)
+		data["change_hair_gradient"] = can_change(APPEARANCE_HAIR) && length(valid_hairstyles)
 
 	if(!ismachineperson(user))
 		data["change_head_markings"] = can_change_markings("head")
@@ -258,6 +263,7 @@
 				head_marking_styles += list(list("headmarkingstyle" = head_marking_style))
 			data["head_marking_styles"] = head_marking_styles
 			data["head_marking_style"] = m_style
+		data["change_head_marking_color"] = can_change_markings("head")
 
 	data["change_body_markings"] = can_change_markings("body")
 	if(data["change_body_markings"])
@@ -294,14 +300,8 @@
 		data["alt_head_style"] = head_organ.alt_head
 
 	data["change_head_accessory_color"] = can_change_head_accessory()
-	data["change_hair_color"] = can_change(APPEARANCE_HAIR_COLOR)
-	data["change_secondary_hair_color"] = can_change(APPEARANCE_SECONDARY_HAIR_COLOR)
-	data["change_facial_hair_color"] = can_change(APPEARANCE_FACIAL_HAIR_COLOR)
-	data["change_secondary_facial_hair_color"] = can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR)
-	data["change_head_marking_color"] = can_change_markings("head")
 	data["change_body_marking_color"] = can_change_markings("body")
 	data["change_tail_marking_color"] = can_change_markings("tail")
-	data["change_hair_gradient"] = can_change(APPEARANCE_HAIR) && length(valid_hairstyles)
 
 	return data
 
