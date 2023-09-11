@@ -33,6 +33,9 @@
 /obj/item/clothing/head/beret/black
 	icon_state = "beret_black"
 
+/obj/item/clothing/head/beret/white
+	icon_state = "beret_white"
+
 /obj/item/clothing/head/beret/purple_normal
 	icon_state = "beret_purple_normal"
 

@@ -198,7 +198,7 @@
 	path = /obj/item/clothing/under/rank/civilian/bartender/skirt
 	allowed_roles = list("Bartender")
 
-/datum/gear/uniform/skirt/job/botanist
+/datum/gear/uniform/skirt/job/hydroponics
 	display_name = "Skirt, botanist"
 	path = /obj/item/clothing/under/rank/civilian/hydroponics/skirt
 	allowed_roles = list("Botanist")
@@ -212,6 +212,11 @@
 	display_name = "Skirt, chef"
 	path = /obj/item/clothing/under/rank/civilian/chef/skirt
 	allowed_roles = list("Chef")
+
+/datum/gear/uniform/skirt/job/clown
+	display_name = "Skirt, Clown"
+	path = /obj/item/clothing/under/rank/civilian/clown/skirt
+	allowed_roles = list("Clown")
 
 /datum/gear/uniform/skirt/job/janitor
 	display_name = "Skirt, janitor"

@@ -77,6 +77,11 @@
 	path = /obj/item/clothing/head/soft/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
+/datum/gear/hat/capexplorer
+	display_name = "Expedition cap"
+	path = /obj/item/clothing/head/soft/expedition
+	allowed_roles = list("Explorer")
+
 /datum/gear/hat/capred
 	display_name = "Cap, red"
 	path = /obj/item/clothing/head/soft/red
@@ -141,6 +146,10 @@
 	display_name = "Beret, black"
 	path = /obj/item/clothing/head/beret/black
 
+/datum/gear/hat/beret_white
+	display_name = "Beret, white"
+	path = /obj/item/clothing/head/beret/white
+
 /datum/gear/hat/beret_blue
 	display_name = "Beret, blue"
 	path = /obj/item/clothing/head/beret/blue
@@ -187,6 +196,16 @@
 	display_name = "Beret, atmospherics"
 	path = /obj/item/clothing/head/beret/atmos
 	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+
+/datum/gear/hat/beret_job/explorer
+	display_name = "Beret, expedition"
+	path = /obj/item/clothing/head/beret/expedition
+	allowed_roles = list("Explorer")
+
+/datum/gear/hat/beret_job/hydro
+	display_name = "Beret, botany"
+	path = /obj/item/clothing/head/beret/hydroponics
+	allowed_roles = list("Botanist")
 
 /datum/gear/hat/surgicalcap_purple
 	display_name = "Surgical cap, purple"

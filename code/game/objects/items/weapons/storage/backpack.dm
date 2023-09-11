@@ -131,8 +131,8 @@
 	new /obj/item/gun/projectile/revolver/capgun(src)
 
 /obj/item/storage/backpack/mime
-	name = "Parcel Parceaux"
-	desc = "A silent backpack made for those silent workers. Silence Co."
+	name = "panda backpack"
+	desc = "A panda backpack, given as standard issue to every mime in the galaxy. Why do they like pandas so much?"
 	icon_state = "mimepack"
 	item_state = "mimepack"
 
@@ -175,11 +175,11 @@
 	icon_state = "explorerpack"
 	item_state = "explorerpack"
 
-/obj/item/storage/backpack/botany
-	name = "botany backpack"
+/obj/item/storage/backpack/hydroponics
+	name = "hydroponics backpack"
 	desc = "It's a backpack made of all-natural fibers."
-	icon_state = "botpack"
-	item_state = "botpack"
+	icon_state = "hydropack"
+	item_state = "hydropack"
 
 /obj/item/storage/backpack/chemistry
 	name = "chemistry backpack"
@@ -322,6 +322,12 @@
 	desc = "A green satchel for plant related work."
 	icon_state = "satchel-hyd"
 	item_state = "satchel-hyd"
+
+/obj/item/storage/backpack/satchel_clown
+	name = "Jingles Von Giggleton"
+	desc = "A satchel with extra pockets for all your banana storing needs!"
+	icon_state = "satchel-clown"
+	item_state = "satchel-clown"
 
 /obj/item/storage/backpack/satchel_cap
 	name = "captain's satchel"
@@ -849,7 +855,7 @@
 	item_state = "duffel-hydro"
 
 /obj/item/storage/backpack/duffel/clown
-	name = "smiles von wiggleton"
+	name = "Smiles Von Wiggleton"
 	desc = "A duffelbag designed to hold bananas and bike horns."
 	icon_state = "duffel-clown"
 	item_state = "duffel-clown"

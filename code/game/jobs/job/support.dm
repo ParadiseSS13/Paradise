@@ -244,7 +244,7 @@
 	suit_store = /obj/item/plant_analyzer
 	pda = /obj/item/pda/botanist
 	id = /obj/item/card/id/botanist
-	backpack = /obj/item/storage/backpack/botany
+	backpack = /obj/item/storage/backpack/hydroponics
 	satchel = /obj/item/storage/backpack/satchel_hyd
 	dufflebag = /obj/item/storage/backpack/duffel/hydro
 
@@ -290,7 +290,7 @@
 	implants = list(/obj/item/implant/sad_trombone)
 
 	backpack = /obj/item/storage/backpack/clown
-	satchel = /obj/item/storage/backpack/clown
+	satchel = /obj/item/storage/backpack/satchel_clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -495,7 +495,7 @@
 /datum/outfit/job/explorer
 	name = "Explorer"
 	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/color/orange
+	uniform = /obj/item/clothing/under/rank/civilian/expedition
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/workboots
 	glasses = /obj/item/clothing/glasses/welding

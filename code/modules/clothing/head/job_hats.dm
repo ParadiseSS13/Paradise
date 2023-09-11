@@ -224,6 +224,26 @@
 	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "beret_med"
 
+/obj/item/clothing/head/beret/hop
+	name = "head of personnel's beret"
+	desc = "A blue beret with a red head of personnel insignia emblazoned on it. It gives an air of authority (over service)."
+	icon_state = "beret_hop"
+
+/obj/item/clothing/head/beret/janitor
+	name = "janitorial beret"
+	desc = "A purple beret with a grey janitorial insignia emblazoned on it. It smells like a mix of trash and soap."
+	icon_state = "beret_janitor"
+
+/obj/item/clothing/head/beret/hydroponics
+	name = "hydroponics beret"
+	desc = "A green beret with a blue hydroponics insignia emblazoned on it. Its owner is probably about to commit plant-based war crimes."
+	icon_state = "beret_hydroponics"
+
+/obj/item/clothing/head/beret/expedition
+	name = "expedition beret"
+	desc = "A grey beret with a blue Nanotrasen insignia emblazoned on it. Not much good for space protection, but stylish all the same."
+	icon_state = "beret_explorer"
+
 /obj/item/clothing/head/surgery
 	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."

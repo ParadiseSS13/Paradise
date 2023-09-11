@@ -6,7 +6,10 @@
 
 /obj/structure/closet/secure_closet/clown/populate_contents()
 	new /obj/item/storage/backpack/clown(src)
+	new /obj/item/storage/backpack/satchel_clown(src)
+	new /obj/item/storage/backpack/duffel/clown(src)
 	new /obj/item/clothing/under/rank/civilian/clown(src)
+	new /obj/item/clothing/under/rank/civilian/clown/skirt(src)
 	new /obj/item/clothing/under/rank/civilian/clown/sexy(src)
 	new /obj/item/clothing/shoes/clown_shoes(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -29,6 +32,8 @@
 
 /obj/structure/closet/secure_closet/mime/populate_contents()
 	new /obj/item/clothing/head/beret(src)
+	new /obj/item/clothing/head/beret/black(src)
+	new /obj/item/clothing/head/beret/white(src)
 	new /obj/item/clothing/mask/gas/mime(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/under/rank/civilian/mime(src)

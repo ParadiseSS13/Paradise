@@ -213,3 +213,8 @@
 	display_name = "Armband, science"
 	path = /obj/item/clothing/accessory/armband/science
 	allowed_roles = list("Research Director","Scientist", "Roboticist")
+
+/datum/gear/accessory/armband_job/service
+	display_name = "Armband, service"
+	path = /obj/item/clothing/accessory/armband/service
+	allowed_roles = list("Head of Personnel", "Bartender", "Chef", "Botanist", "Clown", "Mime", "Barber", "Janitor", "Chaplain", "Librarian", "Explorer")

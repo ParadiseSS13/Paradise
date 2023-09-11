@@ -108,15 +108,36 @@
 			SSticker.score.score_clown_abuse++
 	return ..()
 
+/obj/item/clothing/under/rank/civilian/clown/skirt
+	name = "clown skirt"
+	desc = "<i> 'HONK!' </i>"
+	icon_state = "clown_skirt"
+	item_state = "clown_skirt"
+	item_color = "clown_skirt"
+
 /obj/item/clothing/under/rank/civilian/clown/sexy
 	name = "sexy-clown suit"
-	desc = "It makes you look HONKable!"
+	desc = "It makes you want to practice Clown Law!"
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
 	item_color = "sexyclown"
 
 /obj/item/clothing/under/rank/civilian/clown/nodrop
 	flags = NODROP
+
+/obj/item/clothing/under/rank/civilian/expedition
+	name = "expedition jumpsuit"
+	desc = "A grey jumpsuit with Nanotrasen markings for identification and a black safety harness for their space suits."
+	icon_state = "explorer"
+	item_state = "explorer"
+	item_color = "explorer"
+
+/obj/item/clothing/under/rank/civilian/expedition/overalls
+	name = "expedition overalls"
+	desc = "A black set of overalls over a grey turtleneck, designed to protect the wearer from microscopic space debris. Does not protect against larger objects."
+	icon_state = "explorer_overalls"
+	item_state = "explorer_overalls"
+	item_color = "explorer_overalls"
 
 /obj/item/clothing/under/rank/civilian/mime
 	name = "mime's outfit"

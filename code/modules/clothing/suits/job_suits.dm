@@ -92,8 +92,8 @@
 
 //Chef
 /obj/item/clothing/suit/chef
-	name = "chef's apron"
-	desc = "An apron used by a high class chef."
+	name = "chef's jacket"
+	desc = "A jacket used by a high class chef."
 	icon_state = "chef"
 	item_state = "chef"
 	gas_transfer_coefficient = 0.90
@@ -107,7 +107,7 @@
 
 //Chef
 /obj/item/clothing/suit/chef/classic
-	name = "classic chef's apron"
+	name = "chef's apron"
 	desc = "A basic, dull, white chef's apron."
 	icon_state = "apronchef"
 	item_state = "apronchef"
@@ -262,19 +262,26 @@
 	resistance_flags = NONE
 
 //Head of Personnel
-/obj/item/clothing/suit/mantle/armor/head_of_personnel
+/obj/item/clothing/suit/mantle/armor/hop
 	name = "head of personnel's shawl"
 	desc = "An armored shawl for the head of personnel. It's remarkably well kept."
 	icon_state = "hopmantle"
 	item_state = "hopmantle"
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 
+/obj/item/clothing/suit/hopcoat
+	name = "head of personnel's coat"
+	desc = "A big coat for the Head of Personnel who wants to make a fashion statement. Has armour woven within the fabric."
+	icon_state = "hopcoat"
+	item_state = "hopcoat"
+	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+
 //Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
 	name = "\improper Internal Affairs jacket"
 	desc = "A smooth black jacket."
-	icon_state = "ia_jacket_open"
-	item_state = "ia_jacket_open"
+	icon_state = "suitjacket_black"
+	item_state = "suitjacket_black"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0

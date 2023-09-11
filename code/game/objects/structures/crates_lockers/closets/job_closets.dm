@@ -101,7 +101,6 @@
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/cartridge/janitor(src)
 	new /obj/item/cartridge/janitor(src)
-	new /obj/item/storage/bag/garment/janitor(src)
 
 //Paramedic
 

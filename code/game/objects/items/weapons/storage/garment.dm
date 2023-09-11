@@ -53,7 +53,9 @@
 
 /obj/item/storage/bag/garment/head_of_personnel/populate_contents()
 	new /obj/item/clothing/head/hopcap(src)
-	new /obj/item/clothing/suit/mantle/armor/head_of_personnel(src)
+	new /obj/item/clothing/head/beret/hop(src)
+	new /obj/item/clothing/suit/mantle/armor/hop(src)
+	new /obj/item/clothing/suit/hopcoat(src)
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/clothing/under/rank/civilian/hop(src)
 	new /obj/item/clothing/under/rank/civilian/hop/skirt(src)
@@ -269,6 +271,7 @@
 /obj/item/storage/bag/garment/chaplain/populate_contents()
 	new /obj/item/clothing/under/rank/civilian/chaplain(src)
 	new /obj/item/clothing/under/rank/civilian/chaplain/skirt(src)
+	new /obj/item/clothing/head/beret/black(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/suit/hooded/abaya(src)
 	new /obj/item/clothing/suit/hooded/nun(src)
