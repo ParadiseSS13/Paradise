@@ -525,7 +525,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/handheld_mirror
 	name = "Hand Held Mirror"
-	desc = "Change and color your hair on the go."
+	desc = "A pocket sized mirror. Allows you to change all your hair and facial features, from color to style, instantly while in your hand."
 	reference = "HM"
 	item = /obj/item/handheld_mirror
 	cost = 5
