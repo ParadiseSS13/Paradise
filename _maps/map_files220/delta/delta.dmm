@@ -21825,11 +21825,6 @@
 /obj/machinery/ai_status_display,
 /turf/simulated/wall/r_wall,
 /area/engine/break_room)
-"bwS" = (
-/obj/machinery/atmospherics/pipe/simple/visible/universal,
-/turf/simulated/wall/r_wall,
-/turf/simulated/wall/r_wall,
-/area/engine/break_room)
 "bwU" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/wall/r_wall,
@@ -22908,7 +22903,6 @@
 	pixel_y = 2
 	},
 /obj/item/storage/briefcase/inflatable{
-	pixel_y = 0;
 	pixel_x = -2
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -32889,7 +32883,6 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/power/emitter{
 	anchored = 1;
-	dir = 2;
 	state = 2
 	},
 /turf/simulated/floor/plating/airless,
@@ -38459,18 +38452,10 @@
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/sheet/metal/fifty{
-	pixel_y = 0
-	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_y = 0
-	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_y = 0
-	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_y = 0
-	},
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/plating,
 /area/engine/equipmentstorage)
 "csC" = (
@@ -40409,8 +40394,7 @@
 	amount = 50
 	},
 /obj/item/stack/sheet/rglass{
-	amount = 50;
-	pixel_y = 0
+	amount = 50
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
@@ -40434,9 +40418,7 @@
 	pixel_y = 2;
 	pixel_x = 2
 	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_y = 0
-	},
+/obj/item/stack/sheet/metal/fifty,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
 	d1 = 4;
@@ -41750,9 +41732,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/black,
-/obj/item/storage/box/lights/mixed{
-	pixel_y = 0
-	},
+/obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed{
 	pixel_y = -2;
 	pixel_x = -2
@@ -51167,9 +51147,7 @@
 	pixel_y = 2;
 	pixel_x = 2
 	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_y = 0
-	},
+/obj/item/stack/sheet/glass/fifty,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
 	d1 = 4;
@@ -64716,11 +64694,6 @@
 /obj/effect/spawner/wire_splicing/thirty,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"fCy" = (
-/obj/structure/lattice,
-/turf/space,
-/turf/space,
-/area/space/nearstation)
 "fDS" = (
 /obj/machinery/access_button{
 	autolink_id = "stationai_btn_int";
@@ -76555,11 +76528,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central)
-"mCK" = (
-/obj/structure/grille,
-/turf/space,
-/turf/space,
-/area/space/nearstation)
 "mCN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -88172,10 +88140,6 @@
 	icon_state = "vault"
 	},
 /area/bridge)
-"tcx" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/engine/controlroom)
 "tdf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -119952,9 +119916,9 @@ aaa
 aaa
 aaa
 aaa
-fCy
-fCy
-fCy
+abj
+abj
+abj
 aaa
 aAe
 aBV
@@ -120209,9 +120173,9 @@ aaa
 aaa
 aaa
 aaa
-mCK
+dij
 abj
-fCy
+abj
 abj
 aAi
 ayG
@@ -120466,9 +120430,9 @@ aaa
 aaa
 aaa
 aaa
-mCK
+dij
 abj
-fCy
+abj
 aaa
 aAi
 aAi
@@ -120723,9 +120687,9 @@ aaa
 aaa
 aaa
 aaa
-mCK
+dij
 abj
-fCy
+abj
 abj
 aAi
 ayG
@@ -120980,9 +120944,9 @@ aaa
 aaa
 aaa
 abj
-fCy
-fCy
-fCy
+abj
+abj
+abj
 abj
 aAi
 aDC
@@ -121278,7 +121242,7 @@ brD
 btj
 bur
 bvH
-bwS
+bwU
 byq
 bzP
 bBz
@@ -125621,10 +125585,10 @@ aFk
 aGc
 aJG
 atd
-tcx
-tcx
-tcx
-tcx
+atd
+atd
+atd
+atd
 abj
 abj
 aSM
