@@ -254,8 +254,8 @@
 	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
-	weapon_weight = WEIGHT_CLASS_TINY
-	max_mod_capacity = 60
+	w_class = WEIGHT_CLASS_SMALL
+	max_mod_capacity = 65
 	can_bayonet = FALSE
 	can_flashlight = FALSE
 

@@ -63,7 +63,7 @@
 /datum/theft_objective/hand_tele
 	name = "a hand teleporter"
 	typepath = /obj/item/hand_tele
-	protected_jobs = list("Captain", "Research Director", "Chief Engineer")
+	protected_jobs = list("Captain", "Research Director", "Chief Engineer", "Quartermaster", "Explorer")
 	location_override = "Teleporter"
 
 /datum/theft_objective/ai

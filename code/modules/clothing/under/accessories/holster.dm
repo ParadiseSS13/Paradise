@@ -4,7 +4,7 @@
 	icon_state = "holster"
 	item_color = "holster"
 	slot = ACCESSORY_SLOT_UTILITY
-	var/list/holster_allow = list(/obj/item/gun)
+	var/list/holster_allow = list(/obj/item/gun, /obj/item/gun/energy/kinetic_accelerator/pistol)
 	var/obj/item/gun/holstered = null
 	actions_types = list(/datum/action/item_action/accessory/holster)
 	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
