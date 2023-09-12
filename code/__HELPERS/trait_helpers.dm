@@ -207,14 +207,20 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
 #define TRAIT_CONTORTED_BODY	"contorted_body"
 #define TRAIT_DEFLECTS_PROJECTILES "trait_deflects_projectiles"
+#define TRAIT_XENO_INTERACTABLE	"can_be_interacted_with_by_xenos"
+#define TRAIT_DODGE_ALL_OBJECTS "dodges_all_objects" /// Allows a mob to dodge all thrown objects
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+///Immune to the SM / makes you immune to it when worn
+#define TRAIT_SUPERMATTER_IMMUNE "supermatter_immune"
 
 //***** ITEM TRAITS *****//
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
+/// An item that is being wielded.
+#define TRAIT_WIELDED "wielded"
 /// Wires on this will have their titles randomized for those with SHOW_WIRES
 #define TRAIT_OBSCURED_WIRES "obscured_wires"
 /// Forces open doors after a delay specific to the item
@@ -266,6 +272,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WAS_BATONNED "batonged"
 #define CLOWN_EMAG "clown_emag"
 #define MODSUIT_TRAIT "modsuit_trait"
+#define ENFORCER_GLOVES "enforcer_gloves"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

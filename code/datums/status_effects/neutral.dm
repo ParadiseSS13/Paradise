@@ -143,6 +143,56 @@
 
 	return pick(missed_messages)
 
+/// A status effect that can have a certain amount of "bonus" duration added, which extends the duration every tick,
+/// although there is a maximum amount of bonus time that can be active at any given time.
+/datum/status_effect/limited_bonus
+	/// How much extra time has been added
+	var/bonus_time = 0
+	/// How much extra time to apply per tick
+	var/bonus_time_per_tick = 1 SECONDS
+	/// How much maximum bonus time can be active at once
+	var/max_bonus_time = 1 MINUTES
+
+/datum/status_effect/limited_bonus/tick()
+	. = ..()
+	// Sure, we could do some fancy stuff with clamping, and it'd probably be a little cleaner.
+	// This keeps the math simple and easier to use later
+	if(bonus_time > bonus_time_per_tick)
+		duration += bonus_time_per_tick
+		bonus_time -= bonus_time_per_tick
+
+/datum/status_effect/limited_bonus/proc/extend(extra_time)
+	bonus_time = clamp(bonus_time + extra_time, 0, max_bonus_time)
+
+/datum/status_effect/limited_bonus/revivable
+	id = "revivable"
+	alert_type = null
+	status_type = STATUS_EFFECT_UNIQUE
+	duration = BASE_DEFIB_TIME_LIMIT
+
+/datum/status_effect/limited_bonus/revivable/on_apply()
+	. = ..()
+	if(!iscarbon(owner))
+		return FALSE
+
+	RegisterSignal(owner, COMSIG_HUMAN_RECEIVE_CPR, PROC_REF(on_cpr))
+	RegisterSignal(owner, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+
+
+/datum/status_effect/limited_bonus/revivable/proc/on_cpr(mob/living/carbon/human/H, new_seconds)
+	SIGNAL_HANDLER  // COMSIG_HUMAN_RECEIVE_CPR
+	extend(new_seconds)
+
+/datum/status_effect/limited_bonus/revivable/proc/on_revive()
+	SIGNAL_HANDLER  // COMSIG_LIVING_REVIVE
+	qdel(src)
+
+/datum/status_effect/limited_bonus/revivable/on_remove()
+	// Update HUDs once the status effect is deleted to show non-revivability
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living, med_hud_set_status))
+	. = ..()
+
+
 /datum/status_effect/charging
 	id = "charging"
 	alert_type = null

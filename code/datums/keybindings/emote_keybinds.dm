@@ -203,10 +203,6 @@
 	linked_emote = /datum/emote/living/carbon/blink_r
 	name = "Blink (Rapid)"
 
-/datum/keybinding/emote/carbon/clap
-	linked_emote = /datum/emote/living/carbon/clap
-	name = "Clap"
-
 /datum/keybinding/emote/carbon/cross
 	linked_emote = /datum/emote/living/carbon/cross
 	name = "Cross Arms"
@@ -336,6 +332,10 @@
 /datum/keybinding/emote/carbon/human/airguitar
 	linked_emote = /datum/emote/living/carbon/human/airguitar
 	name = "Airguitar"
+
+/datum/keybinding/emote/carbon/human/clap
+	linked_emote = /datum/emote/living/carbon/human/clap
+	name = "Clap"
 
 /datum/keybinding/emote/carbon/human/cry
 	linked_emote = /datum/emote/living/carbon/human/cry

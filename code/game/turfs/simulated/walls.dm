@@ -18,6 +18,7 @@
 	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
 
 	var/global/damage_overlays[8]
+	var/melting = FALSE //TRUE if wall is currently being melted with thermite
 
 	opacity = TRUE
 	density = TRUE
@@ -246,9 +247,8 @@
 	ChangeTurf(/turf/simulated/floor)
 
 /turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
-	var/wait = 20 SECONDS
-	if(speed)
-		wait = speed
+	if(melting)
+		return
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
 
@@ -261,16 +261,39 @@
 	O.density = TRUE
 	O.layer = 5
 
-	src.ChangeTurf(/turf/simulated/floor/plating)
-
-	var/turf/simulated/floor/F = src
-	F.burn_tile()
-	F.icon_state = "plating"
 	if(user)
 		to_chat(user, "<span class='warning'>The thermite starts melting through the wall.</span>")
 
-	spawn(wait)
+	if(speed)
+		melting = TRUE
+		while(speed > 0)
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+			speed = max(0, speed - 1 SECONDS)
+			sleep(1)
+		burn_down()
+		var/turf/simulated/floor/F = src
+		F.burn_tile()
+		F.icon_state = "plating"
 		if(O)	qdel(O)
+		return
+
+	melting = TRUE
+	while(reagents.get_reagent_amount("thermite") > 0)
+		reagents.remove_reagent("thermite", 5)
+		if(damage_cap - damage <= 30)
+			burn_down()
+
+			var/turf/simulated/floor/F = src
+			F.burn_tile()
+			F.icon_state = "plating"
+			break
+		take_damage(30)
+		playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+		sleep(1 SECONDS)
+	if(iswallturf(src))
+		melting = FALSE
+	if(O)
+		qdel(O)
 	return
 
 //Interactions
@@ -345,7 +368,7 @@
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(thermite && I.use_tool(src, user, volume = I.tool_volume))
+	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
 		return
 	if(rotting)
@@ -430,7 +453,7 @@
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 		return TRUE
 
-	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
+	else if(istype(I, /obj/item/pyro_claws))
 		to_chat(user, "<span class='notice'>You begin to melt the wall.</span>")
 
 		if(do_after(user, isdiamond ? 60 * I.toolspeed : 30 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds

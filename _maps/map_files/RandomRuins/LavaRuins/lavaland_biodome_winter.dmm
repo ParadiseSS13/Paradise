@@ -259,7 +259,7 @@
 /turf/simulated/floor/plating/ice/smooth,
 /area/ruin/powered/snow_biodome)
 "cv" = (
-/obj/item/twohanded/required/chainsaw,
+/obj/item/chainsaw,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "dS" = (
@@ -465,7 +465,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/snow_biodome)
 "XR" = (
-/obj/effect/mob_spawn/human/skeleton,
+/obj/effect/mob_spawn/human/corpse/skeleton,
 /turf/simulated/floor/mineral/silver,
 /area/ruin/powered/snow_biodome)
 
