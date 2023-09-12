@@ -210,9 +210,13 @@ GLOBAL_LIST_EMPTY(antagonists)
 		O = new O(explanation_text)
 	O.owner = owner
 
-	objective_holder.add_objective(O, explanation_text, target_override)
+	return objective_holder.add_objective(O, explanation_text, target_override)
 
-// Do we
+// ctodo comment
+/datum/antagonist/proc/remove_antag_objective(datum/objective/O) // currently unused
+	return objective_holder.remove_objective(O, explanation_text, target_override)
+
+// Do we ctodo comment
 /datum/antagonist/proc/has_objectives()
 	. = FALSE
 	var/datum/team/team = get_team()
