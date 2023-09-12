@@ -1568,10 +1568,11 @@
 /datum/mind/proc/announce_objectives(title = TRUE)
 	if(!current)
 		return
+	var/text = ""
 	if(title)
-		to_chat(current, "<span class='notice'>Your current objectives:</span>")
-	for(var/line in splittext(gen_objective_text(), "<br>"))
-		to_chat(current, line)
+		text = "<span class='notice'>Your current objectives:</span>"
+	text += gen_objective_text()
+	to_chat(current, text)
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
