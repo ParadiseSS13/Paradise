@@ -20,7 +20,8 @@
 		/datum/job/captain,
 		/datum/job/hop,
 		/datum/job/nanotrasenrep,
-		/datum/job/judge
+		/datum/job/judge,
+		/datum/job/qm
 	)
 
 /datum/event/bureaucratic_error/announce()
