@@ -71,8 +71,8 @@
 /obj/structure/ghost_bar_cryopod
 	name = "returning sarcophagus"
 	desc = "Returns you back to the world of the dead."
-	icon_state = "coffin_open"
 	icon = 'icons/obj/closet.dmi'
+	icon_state = "coffin_open"
 
 /obj/structure/ghost_bar_cryopod/MouseDrop_T(mob/living/carbon/human/mob_to_delete, mob/living/user)
 	if(!istype(mob_to_delete) || !istype(user) || !Adjacent(user))
