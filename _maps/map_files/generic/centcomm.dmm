@@ -2219,6 +2219,11 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"hU" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/clothing/mask/cigarette/cigar,
+/turf/simulated/floor/carpet/black,
+/area/ghost_bar)
 "hV" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit{
 	dir = 1
@@ -4785,12 +4790,9 @@
 	},
 /area/shuttle/escape)
 "qm" = (
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
-/turf/simulated/floor/wood,
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/storage/box/matches,
+/turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "qn" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
@@ -5319,6 +5321,7 @@
 	id_tag = "emergency_away";
 	name = "Arrival Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "rT" = (
@@ -5465,9 +5468,13 @@
 	},
 /area/centcom/specops)
 "sx" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ghost_bar)
 "sy" = (
 /obj/item/flag/syndi,
 /turf/simulated/floor/wood,
@@ -5556,6 +5563,12 @@
 	icon_state = "bar"
 	},
 /area/tdome/tdomeobserve)
+"sU" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ghost_bar)
 "sV" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -6604,6 +6617,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"wF" = (
+/obj/structure/table/wood,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/obj/item/pen/multi,
+/turf/simulated/floor/wood,
+/area/ghost_bar)
 "wG" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
@@ -6967,6 +6993,15 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/suppy)
+"ya" = (
+/obj/effect/mob_spawn/human/corpse/clown/corpse,
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/space/nearstation)
+"yc" = (
+/obj/structure/table/reinforced,
+/obj/item/lighter/zippo/contractor,
+/turf/simulated/floor/carpet/black,
+/area/ghost_bar)
 "ye" = (
 /obj/structure/signpost,
 /turf/simulated/floor/plating/airless{
@@ -7179,10 +7214,6 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "zz" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/machinery/economy/merch{
 	dir = 1
 	},
@@ -7555,12 +7586,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Bh" = (
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel/dark,
+/obj/structure/table/wood,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ghost_bar)
 "Bj" = (
 /obj/structure/table/reinforced,
@@ -8152,7 +8179,7 @@
 /area/admin)
 "Dw" = (
 /obj/structure/table,
-/obj/machinery/computer/camera_advanced,
+/obj/machinery/computer/security/telescreen,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "Dx" = (
@@ -8547,7 +8574,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "EI" = (
-/obj/machinery/computer/shuttle/ferry/request{
+/obj/machinery/computer/camera_advanced{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -8597,10 +8624,6 @@
 /turf/simulated/floor/carpet,
 /area/centcom/control)
 "EX" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
@@ -9454,9 +9477,9 @@
 /area/shuttle/administration)
 "HZ" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access_txt = "12"
+	name = "Port Asteroid Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "Ia" = (
@@ -9941,6 +9964,10 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
 /area/centcom/specops)
+"JF" = (
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/wood,
+/area/ghost_bar)
 "JG" = (
 /obj/structure/railing,
 /obj/structure/railing{
@@ -9961,6 +9988,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "JJ" = (
@@ -10011,11 +10039,10 @@
 	},
 /area/shuttle/escape)
 "JP" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
+/obj/structure/table/wood,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
 	},
-/turf/simulated/floor/wood,
 /area/ghost_bar)
 "JQ" = (
 /obj/item/lighter{
@@ -10764,6 +10791,10 @@
 /obj/structure/ghost_bar_cryopod,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ghost_bar)
+"Mu" = (
+/obj/item/coin/antagtoken,
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/space/nearstation)
 "Mv" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel{
@@ -11578,6 +11609,7 @@
 	id_tag = "adminshuttle";
 	name = "General Access"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "OV" = (
@@ -11706,9 +11738,7 @@
 "Pp" = (
 /obj/machinery/door/window{
 	dir = 8;
-	name = "Tactical Toilet";
-	opacity = 1;
-	req_access_txt = "150"
+	opacity = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
@@ -12101,9 +12131,9 @@
 /area/shuttle/escape)
 "QM" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access_txt = "12"
+	name = "Port Asteroid Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -12960,6 +12990,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -68305,7 +68336,7 @@ aN
 aN
 aN
 aN
-OK
+ya
 ps
 aN
 aN
@@ -69046,7 +69077,7 @@ aN
 OK
 aN
 aN
-sx
+tL
 ps
 ps
 ps
@@ -69074,7 +69105,7 @@ OK
 OK
 aN
 aN
-OK
+Mu
 OK
 OK
 OK
@@ -69304,7 +69335,7 @@ aN
 aN
 aN
 aN
-sx
+tL
 ps
 ps
 Me
@@ -69843,8 +69874,8 @@ ps
 ps
 Me
 Me
-tC
-NX
+JP
+Bh
 On
 Me
 ps
@@ -70100,8 +70131,8 @@ Me
 Me
 IB
 MM
-tC
-tC
+sx
+sx
 NX
 Me
 ps
@@ -71113,7 +71144,7 @@ Jy
 Jy
 Jy
 Jy
-Jy
+JF
 Ro
 rU
 xV
@@ -72140,7 +72171,7 @@ Jy
 vd
 vd
 vd
-qm
+Jy
 Me
 EX
 Jy
@@ -72151,7 +72182,7 @@ Jy
 Jy
 Jy
 rG
-Wi
+qm
 Jy
 Qq
 ED
@@ -72661,7 +72692,7 @@ Bj
 Bj
 jG
 Bj
-Bj
+yc
 WB
 Jy
 Jy
@@ -72930,7 +72961,7 @@ Dw
 eA
 Me
 tC
-tC
+sU
 Me
 ps
 ps
@@ -73441,7 +73472,7 @@ qH
 Pi
 rU
 rU
-Bh
+rU
 Me
 NX
 Me
@@ -73947,7 +73978,7 @@ Oj
 zj
 fF
 Me
-JP
+Jy
 Jy
 ip
 Jy
@@ -74192,10 +74223,10 @@ ps
 ps
 Me
 zz
-WA
+Jy
 io
 Zq
-yM
+wF
 Bc
 Me
 LG
@@ -74464,7 +74495,7 @@ Me
 tr
 Jy
 rG
-Wi
+hU
 LM
 Me
 aT

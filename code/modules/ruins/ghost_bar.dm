@@ -27,6 +27,7 @@
 	save_to_load.copy_to(H)
 	if(!H.back)
 		equip_item(H, /obj/item/storage/backpack, slot_back)
+	equip_item(H, /obj/item/radio/headset/deadsay, slot_l_ear)
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
 		if(G.slot)
