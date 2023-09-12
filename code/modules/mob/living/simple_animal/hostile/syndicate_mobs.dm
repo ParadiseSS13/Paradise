@@ -257,6 +257,7 @@
 	health = 200
 	melee_block_chance = 40
 	alert_on_shield_breach = TRUE
+	loot = list(/obj/item/sellable/salvage/loot)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
 	. = ..()
@@ -275,6 +276,7 @@
 		icon_living = "syndicate_stormtrooper_shotgun"
 		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
 		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
+		loot = list(/obj/item/sellable/salvage/loot)
 	return INITIALIZE_HINT_LATELOAD
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
@@ -297,6 +299,7 @@
 	speed = 1
 	wander = FALSE
 	alert_on_spacing = FALSE
+	loot = list(/obj/item/sellable/salvage/loot)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
@@ -310,7 +313,7 @@
 	icon_state = "syndicate_space_sword"
 	icon_living = "syndicate_space_sword"
 	speed = 1
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy, /obj/item/sellable/salvage/loot)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
@@ -325,7 +328,7 @@
 	icon_living = "syndicate_smg"
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/c45
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r, /obj/item/sellable/salvage/loot)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
 	icon_state = "syndicate_space_smg"
@@ -334,13 +337,13 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	speed = 1
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r, /obj/item/sellable/salvage/loot)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
-	loot = list()//gonna gibe, no loot.
+	loot = list(/obj/item/sellable/salvage/loot)
 
 /mob/living/simple_animal/hostile/viscerator
 	name = "viscerator"

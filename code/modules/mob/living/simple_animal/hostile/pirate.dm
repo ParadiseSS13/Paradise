@@ -26,7 +26,8 @@
 	unsuitable_atmos_damage = 15
 	speak_emote = list("yarrs")
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
-			/obj/item/melee/energy/sword/pirate)
+			/obj/item/melee/energy/sword/pirate,
+			/obj/item/sellable/salvage/loot)
 	del_on_death = TRUE
 	faction = list("pirate")
 	sentience_type = SENTIENCE_OTHER
@@ -44,4 +45,5 @@
 	minimum_distance = 5
 	projectiletype = /obj/item/projectile/beam
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged,
-				/obj/item/gun/energy/laser)
+				/obj/item/gun/energy/laser,
+				/obj/item/sellable/salvage/loot)

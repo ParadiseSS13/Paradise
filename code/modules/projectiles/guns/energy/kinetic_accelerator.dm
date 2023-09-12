@@ -252,8 +252,8 @@
 /obj/item/gun/energy/kinetic_accelerator/pistol
 	name = "proto-kinetic pistol"
 	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
-	icon_state = "kineticgun"
-	item_state = "kineticgun"
+	icon_state = "kineticgun_p"
+	item_state = "kineticgun_p"
 	w_class = WEIGHT_CLASS_SMALL
 	max_mod_capacity = 65
 	can_bayonet = FALSE
