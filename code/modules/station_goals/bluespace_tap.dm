@@ -294,15 +294,15 @@
 	switch(input_level)
 		if(0)
 			return 0
-		if(1 to 2)
+		if(1 to 3)
 			return 1
-		if(3 to 5)
+		if(4 to 8)
 			return 2
-		if(6 to 7)
+		if(9 to 11)
 			return 3
-		if(8 to 10)
+		if(12 to 15)
 			return 4
-		if(11 to INFINITY)
+		if(16 to INFINITY)
 			return 5
 
 /obj/machinery/power/bluespace_tap/power_change()
