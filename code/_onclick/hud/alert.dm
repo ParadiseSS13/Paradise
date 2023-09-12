@@ -630,7 +630,7 @@ so as to remain in compliance with the most up-to-date laws."
 				var/turf/T = get_turf(target)
 				if(T && isturf(T))
 					if(!istype(G))
-						var/mob/dead/observer/actual_ghost = G.ghostize(1)
+						var/mob/dead/observer/actual_ghost = G.ghostize(TRUE)
 						actual_ghost.forceMove(T)
 						return
 					G.forceMove(T)
