@@ -595,8 +595,8 @@
 	var/datum/uplink_item/I
 	while(remaining_TC)
 		if(remaining_TC < LEGACY_TC)
-			generate_refund(cost, C)
-			message_admins("[src] has refunded [remaining_TC] because it was less than [LEGACY_TC]. [ADMIN_COORDJMP(loc)]")
+			generate_refund(remaining_TC, C)
+			message_admins("[src] has been given [remaining_TC] because it was less than [LEGACY_TC] worth in their [name]. [ADMIN_COORDJMP(get_turf(loc))]")
 			break
 
 		if(!length(buyable_items))
