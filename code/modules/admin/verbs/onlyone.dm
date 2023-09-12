@@ -18,7 +18,7 @@
 		SSticker.mode.traitors += H.mind
 		H.mind.special_role = SPECIAL_ROLE_TRAITOR
 
-		H.mind.add_objective(/datum/objective/hijack)
+		H.mind.add_mind_objective(/datum/objective/hijack)
 
 		to_chat(H, "<B>You are a Highlander. Kill all other Highlanders. There can be only one.</B>")
 		H.mind.announce_objectives(title = FALSE)
@@ -70,7 +70,7 @@
 		SSticker.mode.traitors += H.mind
 		H.mind.special_role = "[H.real_name] Prime"
 
-		H.mind.add_objective(/datum/objective/hijackclone)
+		H.mind.add_mind_objective(/datum/objective/hijackclone)
 
 		to_chat(H, "<B>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</B>")
 		H.mind.announce_objectives(title = FALSE)

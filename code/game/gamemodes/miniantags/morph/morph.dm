@@ -314,8 +314,8 @@
 	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Morph)</span>")
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 	if(give_default_objectives)
-		mind.add_objective(/datum/objective/morph_eat)
-		mind.add_objective(/datum/objective/morph_procreate)
+		mind.add_mind_objective(/datum/objective/morph_eat)
+		mind.add_mind_objective(/datum/objective/morph_procreate)
 		mind.announce_objectives(title = FALSE)
 
 /datum/objective/morph_eat

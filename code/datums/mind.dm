@@ -242,7 +242,7 @@
 	return all_objectives
 
 
-/datum/mind/proc/add_objective(datum/objective/O, remove_from_everything)
+/datum/mind/proc/add_mind_objective(datum/objective/O, remove_from_everything)
 	if(ispath(O))
 		O = new O()
 	if(O.owner)
@@ -760,7 +760,7 @@
 		if(objective)
 			objective.holder.replace_objective(objective, new_objective) // replace it in its old holder
 		else
-			add_objective(new_objective)
+			add_mind_objective(new_objective)
 
 		log_admin("[key_name(usr)] has updated [key_name(current)]'s objectives: [new_objective]")
 		message_admins("[key_name_admin(usr)] has updated [key_name_admin(current)]'s objectives: [new_objective]")
@@ -1662,8 +1662,8 @@
 
 	SSticker.mode.abductors |= src
 
-	add_objective(/datum/objective/stay_hidden)
-	add_objective(/datum/objective/experiment)
+	add_mind_objective(/datum/objective/stay_hidden)
+	add_mind_objective(/datum/objective/experiment)
 
 	var/mob/living/carbon/human/H = current
 

@@ -151,7 +151,7 @@
 
 /datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor,team_number)
 	var/datum/objective/stay_hidden/O = new
-	abductor.add_objective(O)
+	abductor.add_mind_objective(O)
 	abductor.objective_holder.add_objective(team_objectives[team_number]) // this needs to be changed when abductor teams are changed to actual antag teams
 	var/team_name = team_names[team_number]
 
@@ -166,7 +166,7 @@
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
 	var/datum/objective/stay_hidden/O = new
-	abductor.add_objective(O)
+	abductor.add_mind_objective(O)
 	abductor.objective_holder.add_objective(team_objectives[team_number]) // this needs to be changed when abductor teams are changed to actual antag teams
 	var/team_name = team_names[team_number]
 

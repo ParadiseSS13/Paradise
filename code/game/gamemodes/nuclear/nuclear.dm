@@ -236,7 +236,7 @@
 		message_admins("Warning: Operative [key_name_admin(synd_mind.current)] spawned without an ID card!")
 
 /datum/game_mode/proc/forge_syndicate_objectives(datum/mind/syndicate)
-	syndicate.add_objective(/datum/objective/nuclear)
+	syndicate.add_mind_objective(/datum/objective/nuclear)
 
 /datum/game_mode/proc/greet_syndicate(datum/mind/syndicate, you_are=1)
 	SEND_SOUND(syndicate.current, sound('sound/ambience/antag/ops.ogg'))

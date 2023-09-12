@@ -51,8 +51,8 @@
 		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 		if(!vialspawned)
 			SSticker.mode.traitors |= mind
-			mind.add_objective(/datum/objective/slaughter)
-			mind.add_objective(/datum/objective/demon_fluff)
+			mind.add_mind_objective(/datum/objective/slaughter)
+			mind.add_mind_objective(/datum/objective/demon_fluff)
 			mind.announce_objectives(title = FALSE) // vialspawned slaughter demons get their objectives later // ctodo fix to be subtype of this
 		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
 
@@ -149,7 +149,7 @@
 		var/obj/effect/proc_holder/spell/sense_victims/SV = new
 		AddSpell(SV)
 
-		S.mind.add_objective(/datum/objective/cult_slaughter)
+		S.mind.add_mind_objective(/datum/objective/cult_slaughter)
 		S.mind.announce_objectives(title = FALSE)
 
 ////////////////////The Powers

@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(cult_mind.current, CULT_GREETING)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
-		cult_mind.add_objective(/datum/objective/servecult)
+		cult_mind.add_mind_objective(/datum/objective/servecult)
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
@@ -157,7 +157,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			cult_objs.setup()
 		update_cult_icons_added(cult_mind)
 		add_cult_actions(cult_mind)
-		cult_mind.add_objective(/datum/objective/servecult)
+		cult_mind.add_mind_objective(/datum/objective/servecult)
 
 		if(cult_risen)
 			rise(cult_mind.current)

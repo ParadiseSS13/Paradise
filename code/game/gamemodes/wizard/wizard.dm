@@ -78,7 +78,7 @@
 	set_antag_hud(wiz_mind.current, null)
 
 /datum/game_mode/proc/forge_wizard_objectives(datum/mind/wizard)
-	wizard.add_objective(/datum/objective/wizchaos)
+	wizard.add_mind_objective(/datum/objective/wizchaos)
 
 /datum/game_mode/proc/name_wizard(mob/living/carbon/human/wizard_mob)
 	//Allows the wizard to choose a custom name or go with a random one. Spawn 0 so it does not lag the round starting.

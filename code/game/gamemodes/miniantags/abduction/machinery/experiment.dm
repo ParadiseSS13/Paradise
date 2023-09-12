@@ -148,7 +148,7 @@
 
 		var/objtype = pick(subtypesof(/datum/objective/abductee/))
 		var/datum/objective/abductee/O = new objtype()
-		H.mind.add_objective(O)
+		H.mind.add_mind_objective(O)
 		H.mind.announce_objectives() // let the player know they have a new objective
 		SSticker.mode.update_abductor_icons_added(H.mind)
 

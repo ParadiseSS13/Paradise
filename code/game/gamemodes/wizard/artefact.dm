@@ -83,7 +83,7 @@
 		new_objective.owner = M.mind
 		new_objective.target = H.mind
 		new_objective.explanation_text = "Protect [H.real_name], the wizard."
-		M.mind.add_objective(new_objective)
+		M.mind.add_mind_objective(new_objective)
 
 		SSticker.mode.apprentices += M.mind
 		M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
@@ -338,7 +338,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
-					usr.mind.add_objective(hijack_objective)
+					usr.mind.add_mind_objective(hijack_objective)
 					usr.mind.announce_objectives(title = FALSE)
 
 					SSticker.mode.traitors += usr.mind
@@ -349,7 +349,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
-					usr.mind.add_objective(new_objective)
+					usr.mind.add_mind_objective(new_objective)
 					usr.mind.announce_objectives(title = FALSE)
 
 					SSticker.mode.traitors += usr.mind
@@ -405,7 +405,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(evil)
 		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 		hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
-		M.mind.add_objective(hijack_objective)
+		M.mind.add_mind_objective(hijack_objective)
 		M.mind.announce_objectives(title = FALSE)
 
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
@@ -414,7 +414,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
 		new_objective.target = usr.mind
 		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help [usr.p_them()] defend the innocent from the mobs of multiverse clones."
-		M.mind.add_objective(new_objective)
+		M.mind.add_mind_objective(new_objective)
 		M.mind.announce_objectives(title = FALSE)
 
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE

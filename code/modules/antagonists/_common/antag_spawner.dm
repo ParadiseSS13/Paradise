@@ -227,12 +227,12 @@
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to summon you."
-	D.mind.add_objective(KillDaWiz)
+	D.mind.add_mind_objective(KillDaWiz)
 
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
-	D.mind.add_objective(KillDaCrew)
+	D.mind.add_mind_objective(KillDaCrew)
 
 	D.mind.announce_objectives(title = FALSE)
 
@@ -308,12 +308,12 @@
 	KillDaWiz.owner = M.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
-	M.mind.add_objective(KillDaWiz)
+	M.mind.add_mind_objective(KillDaWiz)
 
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
-	M.mind.add_objective(KillDaCrew)
+	M.mind.add_mind_objective(KillDaCrew)
 
 	M.mind.announce_objectives(title = FALSE)
 
@@ -363,11 +363,11 @@
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
-	M.mind.add_objective(KillDaWiz)
+	M.mind.add_mind_objective(KillDaWiz)
 
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
-	M.mind.add_objective(KillDaCrew)
+	M.mind.add_mind_objective(KillDaCrew)
 
 	M.mind.announce_objectives(title = FALSE)

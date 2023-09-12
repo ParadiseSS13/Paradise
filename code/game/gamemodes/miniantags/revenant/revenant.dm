@@ -185,8 +185,8 @@
 	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revenant)</span>")
 
 	SSticker.mode.traitors |= mind //Necessary for announcing
-	mind.add_objective(/datum/objective/revenant)
-	mind.add_objective(/datum/objective/revenantFluff)
+	mind.add_mind_objective(/datum/objective/revenant)
+	mind.add_mind_objective(/datum/objective/revenantFluff)
 	mind.announce_objectives(title = FALSE)
 
 /mob/living/simple_animal/revenant/proc/giveSpells()

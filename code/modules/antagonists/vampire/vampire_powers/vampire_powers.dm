@@ -344,7 +344,7 @@
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.target = M.mind
 	protect_objective.explanation_text = "Protect [M.real_name]."
-	H.mind.add_objective(protect_objective)
+	H.mind.add_mind_objective(protect_objective)
 
 	add_attack_logs(M, H, "Vampire-sired")
 	H.mind.make_vampire()

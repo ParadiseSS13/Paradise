@@ -287,7 +287,7 @@
 			var/datum/objective/O = new
 			O.target = user.mind
 			O.explanation_text = "Serve [user.real_name]."
-			servant_mind.add_objective(O)
+			servant_mind.add_mind_objective(O)
 
 			servant_mind.transfer_to(H)
 
