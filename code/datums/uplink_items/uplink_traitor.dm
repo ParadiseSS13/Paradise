@@ -617,7 +617,7 @@
 		if(I.cost > remaining_TC)
 			buyable_items -= I
 
-		buyable_items[I] = buyable_items[I] * 0.66 // To prevent people from getting the same thing over and over again
+		buyable_items[I] *= 0.66 // To prevent people from getting the same thing over and over again
 
 		itemlog += I.name // To make the name more readable for the log compared to just i.item
 
