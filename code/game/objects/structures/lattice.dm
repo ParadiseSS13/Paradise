@@ -96,6 +96,34 @@
 	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."
 	resistance_flags = INDESTRUCTIBLE
 
+/obj/structure/lattice/lava
+	name = "heatproof support lattice"
+	desc = "A specialized support beam for building across lava. Watch your step."
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'
+	icon_state = "catwalk-0"
+	base_icon_state = "catwalk"
+	number_of_rods = 2
+	color = "#5286b9ff"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
+	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TURF, SMOOTH_GROUP_WINDOW_FULLTILE)
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/lattice/lava/deconstruction_hints(mob/user)
+	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>, but the <i>heat treatment will shatter off</i>.")
+
+/obj/structure/lattice/attackby(obj/item/C, mob/user, params)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	if(istype(C, /obj/item/wirecutters))
+		var/obj/item/wirecutters/W = C
+		playsound(loc, W.usesound, 50, 1)
+		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
+		deconstruct()
+	else
+		var/turf/T = get_turf(src)
+		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
+
 /obj/structure/lattice/catwalk/mining/deconstruction_hints(mob/user)
 	return
 

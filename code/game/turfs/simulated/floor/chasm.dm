@@ -15,7 +15,6 @@
 	var/static/list/forbidden_types = typecacheof(list(
 		/obj/singularity,
 		/obj/docking_port,
-		/obj/structure/lattice,
 		/obj/structure/stone_tile,
 		/obj/item/projectile,
 		/obj/effect/portal,
@@ -205,3 +204,19 @@
 	drop_y = y
 	var/list/target_z = levels_by_trait(SPAWN_RUINS)
 	drop_z = pick(target_z)
+
+/turf/open/lava/attackby(obj/item/C, mob/user, params)
+	..()
+	if(istype(C, /obj/item/stack/rods/lava))
+		var/obj/item/stack/rods/lava/R = C
+		var/obj/structure/lattice/lava/H = locate(/obj/structure/lattice/lava, src)
+		if(H)
+			to_chat(user, "<span class='notice'>There is already a lattice here!</span>")
+			return
+		if(R.use(1))
+			to_chat(user, "<span class='notice'>You construct a lattice.</span>")
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/lava(locate(x, y, z))
+		else
+			to_chat(user, "<span class='notice'>You need one rod to build a heatproof lattice.You need one rod to build a heatproof lattice.</span>")
+		return
