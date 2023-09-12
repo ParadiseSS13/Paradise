@@ -324,7 +324,7 @@
 	needs_target = FALSE
 
 /datum/objective/demon_fluff/New()
-	find_target() // CTODO rework this, god damn
+	find_target()
 	var/targetname = "someone"
 	if(target && target.current)
 		targetname = target.current.real_name

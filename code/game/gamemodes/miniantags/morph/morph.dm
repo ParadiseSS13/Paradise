@@ -321,10 +321,12 @@
 /datum/objective/morph_eat
 	explanation_text = "Eat as many living beings as possible to still the hunger within you."
 	completed = TRUE
+	needs_target = FALSE
 
 /datum/objective/morph_procreate
 	explanation_text = "Split yourself in as many other morphs as possible!"
 	completed = TRUE
+	needs_target = FALSE
 
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST

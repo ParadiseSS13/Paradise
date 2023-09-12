@@ -310,6 +310,7 @@
 		icon_state = icon_idle
 
 /datum/objective/revenant
+	needs_target = FALSE
 	var/targetAmount = 100
 
 /datum/objective/revenant/New()
@@ -329,6 +330,7 @@
 	return TRUE
 
 /datum/objective/revenantFluff
+	needs_target = FALSE
 
 /datum/objective/revenantFluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
