@@ -111,7 +111,7 @@
 
 	return dist
 
-/proc/circle_edge_turfs(center = usr , radius = 3) // Get the turfs on the edge of a circle. Currently only works for radius 3
+/proc/circle_edge_turfs(center = usr, radius = 3) // Get the turfs on the edge of a circle. Currently only works for radius 3
 
 	var/turf/centerturf = get_turf(center)
 	var/list/turfs = new/list()
