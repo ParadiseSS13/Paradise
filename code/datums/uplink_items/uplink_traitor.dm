@@ -572,14 +572,14 @@
 /obj/structure/closet/crate/surplus
 	name = "Surplus crate"
 	var/cost
-	crate_value // This is a redeclare but we ignore for now
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
-	var/obj/structure/closet/crate/surplus/surplus = new(loc, U)
+	var/obj/structure/closet/crate/surplus/surplus = new(loc, U, crate_value)
 	surplus.cost = cost
-	surplus.crate_value = crate_value
+	U.uses -= cost
+	U.used_TC = cost
 
-/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U)
+/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value)
 	. = ..()
 	var/list/temp_uplink_list = get_uplink_items(U)
 	var/list/buyable_items = list()
@@ -599,8 +599,6 @@
 	var/remaining_TC = crate_value
 	var/list/bought_items = list()
 	var/list/itemlog = list()
-	U.uses -= cost
-	U.used_TC = cost
 
 	var/datum/uplink_item/I
 	while(remaining_TC)
