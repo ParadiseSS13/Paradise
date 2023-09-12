@@ -192,7 +192,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	// We don't want revs to get objectives that aren't for heads of staff. Letting
 	// them win or lose based on cryo is silly so we remove the objective.
 	if(team)
-		team.remove_objective_from_team(src)
+		team.remove_team_objective(src)
 		return
 	qdel(src)
 

@@ -74,18 +74,17 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 /**
  * Adds a team objective to each member's matching antag datum.
  */
-/datum/team/proc/add_objective_to_team(datum/objective/O)
+/datum/team/proc/add_team_objective(datum/objective/O)
+	if(ispath(O))
+		O = new O()
 	O.team = src
-	// for(var/datum/mind/M as anything in members)
-	// 	var/datum/antagonist/A = get_antag_datum_from_member(M)
-	// 	A.objectives |= O// ctodo remove this
 	objective_holder.add_objective(O)
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective_from_team)) // ctodo maybe remove this?
+	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_team_objective)) // ctodo maybe remove this?
 
 /**
  * Remove a team objective from each member's matching antag datum.
  */
-/datum/team/proc/remove_objective_from_team(datum/objective/O)
+/datum/team/proc/remove_team_objective(datum/objective/O)
 	// for(var/datum/mind/M as anything in members)
 	// 	var/datum/antagonist/A = get_antag_datum_from_member(M)
 	// 	A.objectives -= O // ctodo remove this
@@ -130,7 +129,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 	var/objective_type = GLOB.admin_objective_list[selected]
 	var/datum/objective/O = new objective_type(team_to_join = src)
 	O.find_target(get_target_excludes()) // Blacklist any team members from being the target.
-	add_objective_to_team(O)
+	add_team_objective(O)
 
 	message_admins("[key_name_admin(user)] added objective [O.type] to the team '[name]'.")
 	log_admin("[key_name(user)] added objective [O.type] to the team '[name]'.")
@@ -145,7 +144,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
  * Allows admins to remove a team objective.
  */
 /datum/team/proc/admin_remove_objective(mob/user, datum/objective/O)
-	remove_objective_from_team(O)
+	remove_team_objective(O)
 	message_admins("[key_name_admin(user)] removed objective [O.type] from the team '[name]'.")
 	log_admin("[key_name(user)] removed objective [O.type] from the team '[name]'.")
 

@@ -38,7 +38,7 @@
 		var/datum/objective/mutiny/rev_obj = new
 		rev_obj.target = head_mind
 		rev_obj.explanation_text = "Assassinate or exile [head_mind.name], the [head_mind.assigned_role]."
-		add_objective_to_team(rev_obj)
+		add_team_objective(rev_obj)
 	sanitize_objectives()
 
 /datum/team/revolution/proc/get_targetted_head_minds()
@@ -49,7 +49,7 @@
 /datum/team/revolution/proc/sanitize_objectives()
 	for(var/datum/objective/mutiny/O in objective_holder.get_objectives())
 		if(!O.target) // revs shouldnt have free objectives
-			remove_objective_from_team(O)
+			remove_team_objective(O)
 			. = TRUE
 
 /datum/team/revolution/proc/check_all_victory()
