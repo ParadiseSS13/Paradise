@@ -777,7 +777,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			for(var/mob/potential_respawnable in GLOB.player_list)
 				if(HAS_TRAIT(potential_respawnable, TRAIT_RESPAWNABLE))
 					respawnable_mobs += potential_respawnable
-			to_chat(usr, jointext(respawnable_mobs, ","))
+			to_chat(usr, jointext(respawnable_mobs, ", "))
 
 /client/proc/cmd_display_del_log()
 	set category = "Debug"
