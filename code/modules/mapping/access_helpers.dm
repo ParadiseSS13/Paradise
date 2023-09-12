@@ -63,7 +63,7 @@
 	icon_state = "access_helper_eng"
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general
-	access = ACCESS_ENGINE
+	access = ACCESS_ENGINEER
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/equipment
 	access = ACCESS_ENGINE_EQUIP
@@ -82,6 +82,12 @@
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos
 	access = ACCESS_ATMOSPHERICS
+
+/obj/effect/mapping_helpers/airlock/access/any/engineering/mainttech
+	access = ACCESS_MAINTENANCE_TECH
+
+/obj/effect/mapping_helpers/airlock/access/any/engineering/enginetech
+	access = ACCESS_CONTROL_ROOM
 
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms
 	access = ACCESS_TCOMSAT

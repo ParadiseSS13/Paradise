@@ -7,7 +7,7 @@
 #define ACCESS_TOX 7
 #define ACCESS_TOX_STORAGE 8
 #define ACCESS_GENETICS 9
-#define ACCESS_ENGINE 10 // Access to station engineer specific areas of the engineering department
+#define ACCESS_ENGINEER 10 // Access to station engineer specific areas of the engineering department
 #define ACCESS_ENGINE_EQUIP 11 //Access to station power control areas (substations, central SMES)
 #define ACCESS_MAINT_TUNNELS 12
 #define ACCESS_EXTERNAL_AIRLOCKS 13
