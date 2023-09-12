@@ -11,7 +11,7 @@
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load
-	if(alert(user, "Would you like to use one of your saved characters in your character creator?",,"Yes", "No") == "Yes")
+	if(alert(user, "Would you like to use one of your saved characters in your character creator?",, "Yes", "No") == "Yes")
 		var/list/our_characters_names = list()
 		var/list/our_character_saves = list()
 		for(var/datum/character_save/saves in user.client.prefs.character_saves)
