@@ -7,7 +7,7 @@
 	important_info = "Don't randomly attack people in the ghost bar, stay inside the ghost bar. You will still be able to roll for ghost roles."
 	description = "Relax, get a beer, watch the station destroy itself and burst into flames."
 	flavour_text = "You are a ghost bar occupant. You've gotten sick of being dead and decided to meet up with some of your fellow haunting brothers. Take a seat, grab a beer, and chat it out."
-	assignedrole = "Ghost bar occupant"
+	assignedrole = "Ghost Bar Occupant"
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load
