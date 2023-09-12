@@ -214,7 +214,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 // ctodo comment
 /datum/antagonist/proc/remove_antag_objective(datum/objective/O) // currently unused
-	return objective_holder.remove_objective(O, explanation_text, target_override)
+	return objective_holder.remove_objective(O)
 
 // Do we ctodo comment
 /datum/antagonist/proc/has_objectives()
