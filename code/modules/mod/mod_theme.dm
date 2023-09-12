@@ -129,7 +129,7 @@
 	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
-		/obj/item/twohanded/fireaxe,
+		/obj/item/fireaxe,
 	)
 	skins = list(
 		"engineering" = list(
@@ -181,7 +181,7 @@
 	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
-		/obj/item/twohanded/fireaxe/,
+		/obj/item/fireaxe/,
 		/obj/item/rpd,
 		/obj/item/t_scanner,
 		/obj/item/analyzer
@@ -239,7 +239,7 @@
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/rcd,
-		/obj/item/twohanded/fireaxe,
+		/obj/item/fireaxe,
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/rpd,
 		/obj/item/t_scanner,
@@ -309,7 +309,7 @@
 		/obj/item/mining_scanner,
 		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/pickaxe,
-		/obj/item/twohanded/kinetic_crusher,
+		/obj/item/kinetic_crusher,
 		/obj/item/stack/ore/plasma,
 		/obj/item/storage/bag/ore,
 		/obj/item/gun/energy/kinetic_accelerator,

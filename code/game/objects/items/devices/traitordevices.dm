@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
 	var/active = FALSE
-	var/range = 12
+	var/range = 15
 
 /obj/item/jammer/Destroy()
 	GLOB.active_jammers -= src

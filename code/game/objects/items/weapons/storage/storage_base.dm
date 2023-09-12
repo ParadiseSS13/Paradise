@@ -205,7 +205,7 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	LAZYADDOR(mobs_viewing, user)
+	LAZYDISTINCTADD(mobs_viewing, user)
 
 /**
   * Hides the current container interface from `user`.
@@ -533,6 +533,8 @@
 		var/obj/item/hand_labeler/labeler = I
 		if(labeler.mode)
 			return FALSE
+	if(user.a_intent != INTENT_HELP && issimulatedturf(loc)) // Stops you from putting your baton in the storage on accident
+		return FALSE
 	. = TRUE //no afterattack
 	if(isrobot(user))
 		return //Robots can't interact with storage items.

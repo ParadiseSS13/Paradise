@@ -203,10 +203,6 @@
 	linked_emote = /datum/emote/living/carbon/blink_r
 	name = "Blink (Rapid)"
 
-/datum/keybinding/emote/carbon/clap
-	linked_emote = /datum/emote/living/carbon/clap
-	name = "Clap"
-
 /datum/keybinding/emote/carbon/cross
 	linked_emote = /datum/emote/living/carbon/cross
 	name = "Cross Arms"
@@ -336,6 +332,10 @@
 /datum/keybinding/emote/carbon/human/airguitar
 	linked_emote = /datum/emote/living/carbon/human/airguitar
 	name = "Airguitar"
+
+/datum/keybinding/emote/carbon/human/clap
+	linked_emote = /datum/emote/living/carbon/human/clap
+	name = "Clap"
 
 /datum/keybinding/emote/carbon/human/cry
 	linked_emote = /datum/emote/living/carbon/human/cry
@@ -509,8 +509,8 @@
 	linked_emote = /datum/emote/living/carbon/human/creak
 	name = "Creak"
 
-/datum/keybinding/emote/carbon/human/squish
-	linked_emote = /datum/emote/living/carbon/human/squish
+/datum/keybinding/emote/carbon/human/slime/squish
+	linked_emote = /datum/emote/living/carbon/human/slime/squish
 	name = "Squish"
 
 /datum/keybinding/emote/carbon/human/howl
@@ -534,11 +534,11 @@
 	name = "Rattle"
 
 /datum/keybinding/emote/carbon/human/bubble
-	linked_emote = /datum/emote/living/carbon/human/bubble
+	linked_emote = /datum/emote/living/carbon/human/slime/bubble
 	name = "Bubble"
 
 /datum/keybinding/emote/carbon/human/pop
-	linked_emote = /datum/emote/living/carbon/human/pop
+	linked_emote = /datum/emote/living/carbon/human/slime/pop
 	name = "Pop"
 
 /datum/keybinding/emote/carbon/human/monkey/can_use(client/C, mob/M)

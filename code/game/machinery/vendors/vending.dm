@@ -155,6 +155,9 @@
 	/// How often slogans will be used by vendors if they're aggressive.
 	var/aggressive_slogan_delay = (1 MINUTES)
 
+	/// The category of this vendor. Used for announcing brand intelligence.
+	var/category = VENDOR_TYPE_GENERIC
+
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
