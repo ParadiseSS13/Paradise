@@ -47,7 +47,7 @@
 			if(2)
 				new_icobase = 'icons/mob/human_races/human_skintones/r_human_chestnut.dmi'
 
-			H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
+		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
 
 
