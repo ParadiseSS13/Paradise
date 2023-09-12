@@ -152,6 +152,12 @@
 			update_flags |= M.adjustOxyLoss(20, FALSE)
 	return list(effect, update_flags)
 
+/datum/reagent/nicotine/handle_addiction(mob/living/M, consumption_rate)
+	if(HAS_TRAIT(M, TRAIT_BADASS))
+		return
+
+	return ..()
+
 // basic antistun chem, removes stuns and stamina, mild downsides
 /datum/reagent/crank
 	name = "Crank"
