@@ -25,28 +25,29 @@
 		7 = "Classic",
 		8 = "Oliver"
 		)
+	reagent_tag = PROCESS_ORG
 
-	/datum/species/human/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for humans We can't have everyone be white.
-		if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-			var/new_icobase = 'icons/mob/human_races/r_human.dmi' //Default White, counts as 1.
-			switch(H.s_tone)
-				if(8)
-					new_icobase = 'icons/mob/human_races/human_skintones/r_human_Oliverandcompany.dmi'
-				if(7)
-					new_icobase = 'icons/mob/human_races/human_skintones/r_human_classic.dmi'
-				if(6)
-					new_icobase = 'icons/mob/human_races/human_skintones/r_human_beige.dmi'
-				if(5)
-					new_icobase = 'icons/mob/human_races/human_skintones/r_human_pale.dmi'
-				if(4)
-					new_icobase = 'icons/mob/human_races/human_skintones/r_human_Olive.dmi'
-				if(3)
-					new_icobase = 'icons/mob/human_races/human_skintones/r_human_Coffee.dmi'
-				if(2)
-					new_icobase = 'icons/mob/human_races/human_skintones/r_human_chestnut.dmi'
+
+/datum/species/human/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for humans We can't have everyone be white.
+	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		var/new_icobase = 'icons/mob/human_races/r_human.dmi' //Default White, counts as 1.
+		switch(H.s_tone)
+			if(8)
+				new_icobase = 'icons/mob/human_races/human_skintones/r_human_Oliverandcompany.dmi'
+			if(7)
+				new_icobase = 'icons/mob/human_races/human_skintones/r_human_classic.dmi'
+			if(6)
+				new_icobase = 'icons/mob/human_races/human_skintones/r_human_beige.dmi'
+			if(5)
+				new_icobase = 'icons/mob/human_races/human_skintones/r_human_pale.dmi'
+			if(4)
+				new_icobase = 'icons/mob/human_races/human_skintones/r_human_Olive.dmi'
+			if(3)
+				new_icobase = 'icons/mob/human_races/human_skintones/r_human_Coffee.dmi'
+			if(2)
+				new_icobase = 'icons/mob/human_races/human_skintones/r_human_chestnut.dmi'
 
 			H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
-	reagent_tag = PROCESS_ORG
-	//Has standard darksight of 2.
+
 
