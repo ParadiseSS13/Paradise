@@ -20,6 +20,7 @@
 // --- OBJECTS --- //
 #include "awaymission_gun/_awaymission_gun.dme"
 #include "barsigns/_barsigns.dme"
+#include "clothing/_clothing.dme"
 #include "devices/_devices.dme"
 #include "food/_food.dme"
 #include "gateway/_gateway.dme"
@@ -41,6 +42,7 @@
 #include "gunhud/_gunhud.dme"
 #include "jobs/_jobs.dme"
 #include "keybindings/_keybindings.dme"
+#include "loadout/_loadout.dme"
 #include "logs/_logs.dme"
 #include "pixel_shift/_pixel_shift.dme"
 #include "radio_sound/radio_sound.dme"
