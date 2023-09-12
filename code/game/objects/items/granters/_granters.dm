@@ -100,6 +100,7 @@
 	to_chat(user, "<span class='notice'>You start reading about [action_name]...</span>")
 
 /obj/item/book/granter/action/on_reading_finished(mob/living/user)
+	SHOULD_CALL_PARENT(TRUE)
 	to_chat(user, "<span class='notice'>You feel like you've got a good handle on [action_name]!</span>")
 	// Action goes on the mind as the user actually learns the thing in your brain
 	var/datum/action/new_action = new granted_action(user.mind || user)
