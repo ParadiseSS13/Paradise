@@ -11,6 +11,10 @@
 /area/bridge/checkpoint/south
 	name = "\improper South Command Checkpoint"
 
+/area/engine/aitransit
+	name = "\improper  AI Satellite Transfer Point"
+	icon_state = "engi"
+
 /* CentCom */
 /area/centcom220
 	name = "\improper ЦК"
