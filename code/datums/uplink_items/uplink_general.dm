@@ -91,10 +91,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
+	U.uses -= max(cost, 0)
+	U.used_TC += cost
+	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
 	if(item)
-		U.uses -= max(cost, 0)
-		U.used_TC += cost
-		SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
 		return new item(loc)
 
 
