@@ -151,29 +151,29 @@
 /datum/antagonist/changeling/give_objectives()
 	var/datum/objective/absorb/absorb = new
 	absorb.gen_amount_goal() // ctodo make this into on find_target
-	add_objective(absorb)
+	add_antag_objective(absorb)
 
 	if(prob(60))
-		add_objective(/datum/objective/steal)
+		add_antag_objective(/datum/objective/steal)
 	else
-		add_objective(/datum/objective/debrain)
+		add_antag_objective(/datum/objective/debrain)
 
 	var/list/active_ais = active_ais()
 	if(length(active_ais) && prob(4)) // Leaving this at a flat chance for now, problems with the num_players() proc due to latejoin antags.
-		add_objective(/datum/objective/destroy)
+		add_antag_objective(/datum/objective/destroy)
 	else
-		var/datum/objective/assassinate/kill_objective = add_objective(/datum/objective/assassinate)
+		var/datum/objective/assassinate/kill_objective = add_antag_objective(/datum/objective/assassinate)
 		var/mob/living/carbon/human/H = kill_objective.target?.current
 
 		if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && H && !HAS_TRAIT(H, TRAIT_GENELESS))
 			var/datum/objective/escape/escape_with_identity/identity_theft = new(assassinate = kill_objective)
-			add_objective(identity_theft)
+			add_antag_objective(identity_theft)
 
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
 		if(prob(70))
-			add_objective(/datum/objective/escape)
+			add_antag_objective(/datum/objective/escape)
 		else
-			add_objective(/datum/objective/escape/escape_with_identity) // If our kill target has no genes, 30% time pick someone else to steal the identity of
+			add_antag_objective(/datum/objective/escape/escape_with_identity) // If our kill target has no genes, 30% time pick someone else to steal the identity of
 
 /datum/antagonist/changeling/process()
 	if(!owner || !owner.current)
