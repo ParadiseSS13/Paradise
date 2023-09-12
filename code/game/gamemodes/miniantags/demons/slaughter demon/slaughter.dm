@@ -53,7 +53,7 @@
 			SSticker.mode.traitors |= mind
 			mind.add_mind_objective(/datum/objective/slaughter)
 			mind.add_mind_objective(/datum/objective/demon_fluff)
-			mind.announce_objectives(title = FALSE) // vialspawned slaughter demons get their objectives later // ctodo fix to be subtype of this
+			mind.announce_objectives(title = FALSE)
 		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
 
 

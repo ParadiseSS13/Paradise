@@ -61,6 +61,8 @@
 		handle_objective(Objective, explanation_text, target_override)
 
 	on_add_callback?.Invoke(objective_owner, Objective)
+
+	RegisterSignal(Objective, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective)) // ctodo maybe remove this?
 	return Objective
 
 /datum/objective_holder/proc/handle_objective(datum/objective/O, explanation_text, mob/target_override) // ctodo, check this is all needed

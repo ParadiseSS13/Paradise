@@ -1565,12 +1565,12 @@
 		else if(A.type == datum_type)
 			return A
 
-/datum/mind/proc/announce_objectives(title = TRUE) // ctodo rework this
+/datum/mind/proc/announce_objectives(title = TRUE)
 	if(!current)
 		return
 	if(title)
 		to_chat(current, "<span class='notice'>Your current objectives:</span>")
-	for(var/line in splittext(gen_objective_text(), "<br>")) // ctodo check this
+	for(var/line in splittext(gen_objective_text(), "<br>"))
 		to_chat(current, line)
 
 /datum/mind/proc/find_syndicate_uplink()

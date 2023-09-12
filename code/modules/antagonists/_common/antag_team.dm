@@ -40,18 +40,14 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
  */
 /datum/team/proc/add_member(datum/mind/new_member)
 	SHOULD_CALL_PARENT(TRUE)
-	// var/datum/antagonist/team_antag = get_antag_datum_from_member(new_member)
 	members |= new_member
-	// team_antag.objectives |= objectives // ctodo remove this
 
 /**
  * Removes `member` from this team.
  */
 /datum/team/proc/remove_member(datum/mind/member)
 	SHOULD_CALL_PARENT(TRUE)
-	// var/datum/antagonist/A = get_antag_datum_from_member(member)
 	members -= member
-	// A.objectives -= objectives // ctodo remove this
 
 /**
  * Adds a new member to this team from a list of players in the round.
@@ -79,7 +75,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 		O = new O()
 	O.team = src
 	objective_holder.add_objective(O)
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_team_objective)) // ctodo maybe remove this?
 
 /**
  * Remove a team objective from each member's matching antag datum.

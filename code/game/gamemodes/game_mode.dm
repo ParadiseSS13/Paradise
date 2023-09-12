@@ -386,9 +386,6 @@
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
-/proc/show_objectives(datum/mind/player) // ctodo remove this
-	player?.announce_objectives()
-
 /proc/get_roletext(role)
 	return role
 

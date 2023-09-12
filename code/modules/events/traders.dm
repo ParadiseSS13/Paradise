@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
 	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
 	to_chat(M, "<span class='notice'>You are about to trade with [station_name()].</span>")
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(show_objectives), M.mind), 25) // ctodo, make this into a mind callback
+	addtimer(CALLBACK(M.mind, TYPE_PROC_REF(/datum/mind, announce_objectives)), 2.5 SECONDS)
 	M.create_log(MISC_LOG, "[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()

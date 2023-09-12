@@ -233,20 +233,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	return . || objective_holder.get_objectives() // ctodo check this works with lists
 
 /**
- * Announces all objectives of this datum, and only this datum.
- */
-/datum/antagonist/proc/announce_objectives() // ctodo rework this/remove
-	return
-// 	if(!length(objectives))
-// 		return FALSE
-// 	to_chat(owner.current, "<span class='notice'>Your current objectives:</span>")
-// 	var/objective_num = 1
-// 	for(var/objective in objectives)
-// 		var/datum/objective/O = objective
-// 		to_chat(owner.current, "<span><B>Objective #[objective_num++]</B>: [O.explanation_text]</span><br>")
-// 	return TRUE
-
-/**
  * Proc called when the datum is given to a mind.
  */
 /datum/antagonist/proc/on_gain()
