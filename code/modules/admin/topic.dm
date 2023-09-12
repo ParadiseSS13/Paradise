@@ -3252,7 +3252,7 @@
 				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
 					if(ACCESS_MAINT_TUNNELS in M.req_access)
 						M.req_access = list()
-						M.req_one_access = list(ACCESS_BRIG,ACCESS_ENGINE)
+						M.req_one_access = list(ACCESS_BRIG, ACCESS_ENGINEER)
 				message_admins("[key_name_admin(usr)] made all maint doors engineering and brig access-only.")
 			if("infinite_sec")
 				var/datum/job/J = SSjobs.GetJob("Security Officer")

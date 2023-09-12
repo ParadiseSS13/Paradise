@@ -57,7 +57,7 @@
 	var/internal_damage = 0 //contains bitflags
 
 	var/list/operation_req_access = list()//required access level for mecha operation
-	var/list/internals_req_access = list(ACCESS_ENGINE,ACCESS_ROBOTICS)//required access level to open cell compartment
+	var/list/internals_req_access = list(ACCESS_ENGINEER, ACCESS_ROBOTICS, ACCESS_CONTROL_ROOM, ACCESS_MAINTENANCE_TECH)//required access level to open cell compartment
 
 	var/obj/structure/mecha_wreckage/wreckage = null  // type that the mecha becomes when destroyed
 

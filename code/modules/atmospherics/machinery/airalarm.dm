@@ -115,7 +115,7 @@
 	locked = FALSE
 	req_access = null
 	custom_name = TRUE
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
+	req_one_access = list(ACCESS_ATMOSPHERICS)
 
 /obj/machinery/alarm/syndicate //general syndicate access
 	report_danger_level = FALSE

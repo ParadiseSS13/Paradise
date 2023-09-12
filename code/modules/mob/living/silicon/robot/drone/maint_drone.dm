@@ -13,7 +13,7 @@
 	lawupdate = FALSE
 	density = FALSE
 	has_camera = FALSE
-	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
+	req_one_access = list(ACCESS_ENGINEER, ACCESS_ROBOTICS)
 	ventcrawler = VENTCRAWLER_ALWAYS
 	magpulse = TRUE
 	mob_size = MOB_SIZE_SMALL

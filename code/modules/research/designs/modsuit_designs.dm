@@ -68,7 +68,7 @@
 	build_path = /obj/item/mod/construction/plating/engineering
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_GOLD = 2000, MAT_PLASMA = 1000)
 	locked = TRUE
-	access_requirement = list(ACCESS_ENGINE)
+	access_requirement = list(ACCESS_ENGINEER)
 
 /datum/design/mod_plating/atmospheric
 	name = "MOD Atmospheric Plating"

@@ -5,7 +5,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	req_access = list(ACCESS_ENGINE)
+	req_access = list(ACCESS_ENGINEER, ACCESS_CONTROL_ROOM, ACCESS_MAINTENANCE_TECH)
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	/// List of accesses currently set

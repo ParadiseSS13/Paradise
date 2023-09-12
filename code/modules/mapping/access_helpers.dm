@@ -281,7 +281,7 @@
 	icon_state = "access_helper_eng"
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general
-	access = ACCESS_ENGINE
+	access = ACCESS_ENGINEER
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/equipment
 	access = ACCESS_ENGINE_EQUIP

@@ -76,7 +76,7 @@
 	icon_state = "access_windoor_eng"
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general
-	access = ACCESS_ENGINE
+	access = ACCESS_ENGINEER
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction
 	access = ACCESS_CONSTRUCTION
@@ -95,6 +95,12 @@
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/tcoms
 	access = ACCESS_TCOMSAT
+
+/obj/effect/mapping_helpers/airlock/access/any/engineering/mainttech
+	access = ACCESS_MAINTENANCE_TECH
+
+/obj/effect/mapping_helpers/airlock/access/any/engineering/enginetech
+	access = ACCESS_CONTROL_ROOM
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/ce
 	access = ACCESS_CE
@@ -285,7 +291,7 @@
 	icon_state = "access_windoor_eng"
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/general
-	access = ACCESS_ENGINE
+	access = ACCESS_ENGINEER
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction
 	access = ACCESS_CONSTRUCTION

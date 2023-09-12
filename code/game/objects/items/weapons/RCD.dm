@@ -27,7 +27,7 @@
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	flags_2 = NO_MAT_REDEMPTION_2
-	req_access = list(ACCESS_ENGINE)
+	req_access = list(ACCESS_ENGINEER, ACCESS_MAINTENANCE_TECH, ACCESS_CONTROL_ROOM)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	/// No ammo warning
