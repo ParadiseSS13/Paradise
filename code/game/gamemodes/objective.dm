@@ -33,6 +33,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/martyr_compatible = FALSE
 
+	var/datum/objective_holder/holder
+
 /datum/objective/New(text, datum/team/team_to_join)
 	GLOB.all_objectives += src
 	if(text)
@@ -575,7 +577,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Absorb DNA"
 	needs_target = FALSE
 
-/datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
+/datum/objective/absorb/proc/gen_amount_goal(lowbound = 6, highbound = 8) // ctodo make this into on find_target
 	target_amount = rand (lowbound,highbound)
 	if(SSticker)
 		var/n_p = 1 //autowin
@@ -710,13 +712,14 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
 
-/datum/objective/trade/proc/choose_target()
-	return
+/datum/objective/trade
+	needs_target = FALSE
+	completed = TRUE
 
-/datum/objective/trade/plasma/choose_target()
+/datum/objective/trade/plasma
 	explanation_text = "Acquire at least 15 sheets of plasma through trade."
 
-/datum/objective/trade/credits/choose_target()
+/datum/objective/trade/credits
 	explanation_text = "Acquire at least 10,000 credits through trade."
 
 //wizard

@@ -50,7 +50,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
 			M.equipOutfit(/datum/outfit/admin/sol_trader)
 			M.dna.species.after_equip_job(null, M)
-			M.mind.objectives += trader_objectives
+			for(var/datum/objective/O in trader_objectives)
+				M.mind.objective_holder.add_objective(O) // traders dont have a team, so we manually have to add this objective to all of their minds, without setting an owner
 			M.mind.offstation_role = TRUE
 			greet_trader(M)
 			success_spawn = TRUE
@@ -63,18 +64,13 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
 	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
 	to_chat(M, "<span class='notice'>You are about to trade with [station_name()].</span>")
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(show_objectives), M.mind), 25)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(show_objectives), M.mind), 25) // ctodo, make this into a mind callback
 	M.create_log(MISC_LOG, "[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()
 
-	var/datum/objective/trade/plasma/P = new /datum/objective/trade/plasma
-	P.choose_target()
-	objs += P
-
-	var/datum/objective/trade/credits/C = new /datum/objective/trade/credits
-	C.choose_target()
-	objs += C
+	objs += new /datum/objective/trade/plasma
+	objs += new /datum/objective/trade/credits
 
 	return objs

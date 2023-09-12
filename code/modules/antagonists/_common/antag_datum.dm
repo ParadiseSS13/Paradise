@@ -18,9 +18,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	/// Should we replace the role-banned player with a ghost?
 	var/replace_banned = TRUE
 	/// List of objectives connected to this datum.
-	var/list/objectives
-	/// A list of strings which contain [targets][/datum/objective/var/target] of the antagonist's objectives. Used to prevent duplicate objectives.
-	var/list/assigned_targets
+	var/datum/objective_holder/objective_holder
 	/// Antagonist datum specific information that appears in the player's notes. Information stored here will be removed when the datum is removed from the player.
 	var/antag_memory
 	/// The special role that will be applied to the owner's `special_role` var. i.e. `SPECIAL_ROLE_TRAITOR`, `SPECIAL_ROLE_VAMPIRE`.
@@ -40,14 +38,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
-	objectives = list()
-	assigned_targets = list()
+	objective_holder = new(src)
 
 /datum/antagonist/Destroy(force, ...)
-	for(var/datum/objective/O as anything in objectives)
-		objectives -= O
-		if(!O.team)
-			qdel(O)
+	qdel(objective_holder)
 	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
 	if(!silent)
@@ -211,62 +205,42 @@ GLOBAL_LIST_EMPTY(antagonists)
  * * explanation_text - the explanation text that will be passed into the objective's `New()` proc
  * * mob/target_override - a target for the objective
  */
-/datum/antagonist/proc/add_objective(objective_type, explanation_text = "", mob/target_override = null)
-	var/datum/objective/O = new objective_type(explanation_text)
+/datum/antagonist/proc/add_objective(datum/objective/O, explanation_text = "", mob/target_override = null)
+	if(ispath(O))
+		O = new O(explanation_text)
 	O.owner = owner
 
-	if(!O.needs_target)
-		objectives += O
-		return O
+	objective_holder.add_objective(O, explanation_text, target_override)
 
-	var/found_valid_target = FALSE
+// Do we
+/datum/antagonist/proc/has_objectives()
+	. = FALSE
+	var/datum/team/team = get_team()
+	if(istype(team))
+		. |= team.objective_holder.has_objectives()
+	return . || objective_holder.has_objectives()
 
-	if(target_override)
-		O.target = target_override
-		found_valid_target = TRUE
-	else
-		var/loops = 5
-		// Steal objectives need snowflake handling here unfortunately.
-		if(istype(O, /datum/objective/steal))
-			var/datum/objective/steal/S = O
-			while(loops--)
-				S.find_target()
-				if(S.steal_target && !("[S.steal_target.name]" in assigned_targets))
-					found_valid_target = TRUE
-					break
-		else
-			while(loops--)
-				O.find_target()
-				if(O.target && !("[O.target]" in assigned_targets))
-					found_valid_target = TRUE
-					break
-
-	if(found_valid_target)
-		// This is its own seperate section in case someone passes a `target_override`.
-		if(istype(O, /datum/objective/steal))
-			var/datum/objective/steal/S = O
-			assigned_targets |= "[S.steal_target.name]"
-		else
-			assigned_targets |= "[O.target]"
-	else
-		O.explanation_text = "Free Objective"
-		O.target = null
-
-	objectives += O
-	return O
+// Do we
+/datum/antagonist/proc/get_objectives()
+	. = list()
+	var/datum/team/team = get_team()
+	if(istype(team))
+		. |= team.objective_holder.get_objectives()
+	return . || objective_holder.get_objectives() // ctodo check this works with lists
 
 /**
  * Announces all objectives of this datum, and only this datum.
  */
-/datum/antagonist/proc/announce_objectives()
-	if(!length(objectives))
-		return FALSE
-	to_chat(owner.current, "<span class='notice'>Your current objectives:</span>")
-	var/objective_num = 1
-	for(var/objective in objectives)
-		var/datum/objective/O = objective
-		to_chat(owner.current, "<span><B>Objective #[objective_num++]</B>: [O.explanation_text]</span><br>")
-	return TRUE
+/datum/antagonist/proc/announce_objectives() // ctodo rework this/remove
+	return
+// 	if(!length(objectives))
+// 		return FALSE
+// 	to_chat(owner.current, "<span class='notice'>Your current objectives:</span>")
+// 	var/objective_num = 1
+// 	for(var/objective in objectives)
+// 		var/datum/objective/O = objective
+// 		to_chat(owner.current, "<span><B>Objective #[objective_num++]</B>: [O.explanation_text]</span><br>")
+// 	return TRUE
 
 /**
  * Proc called when the datum is given to a mind.
@@ -278,7 +252,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		give_objectives()
 	if(!silent)
 		greet()
-		announce_objectives()
+		// announce_objectives() ctodo remove this I think
 	apply_innate_effects()
 	finalize_antag()
 	if(wiki_page_name)
@@ -372,15 +346,15 @@ GLOBAL_LIST_EMPTY(antagonists)
 	report += printplayer(owner)
 
 	var/objectives_complete = TRUE
-	if(owner.objectives.len)
+	if(objective_holder.has_objectives())
 		report += printobjectives(owner)
-		for(var/datum/objective/objective in owner.objectives)
+		for(var/datum/objective/objective in objective_holder.get_objectives())
 			if(!objective.check_completion())
 				objectives_complete = FALSE
 				break
 
-	if(owner.objectives.len == 0 || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
+	if(objectives_complete)
+		report += "<span class='greentext big'>The [name] was successful!</span>" // ctodo, this has issues with having multiple antags
 	else
 		report += "<span class='redtext big'>The [name] has failed!</span>"
 
@@ -397,3 +371,4 @@ GLOBAL_LIST_EMPTY(antagonists)
 // Called when the owner is cryo'd, for when you want things to happen on cryo and not deletion
 /datum/antagonist/proc/on_cryo()
 	return
+

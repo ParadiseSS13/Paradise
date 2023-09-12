@@ -150,9 +150,8 @@
  */
 /datum/antagonist/changeling/give_objectives()
 	var/datum/objective/absorb/absorb = new
-	absorb.gen_amount_goal(6, 8)
-	absorb.owner = owner
-	objectives += absorb
+	absorb.gen_amount_goal() // ctodo make this into on find_target
+	add_objective(absorb)
 
 	if(prob(60))
 		add_objective(/datum/objective/steal)
@@ -168,8 +167,7 @@
 
 		if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && H && !HAS_TRAIT(H, TRAIT_GENELESS))
 			var/datum/objective/escape/escape_with_identity/identity_theft = new(assassinate = kill_objective)
-			identity_theft.owner = owner
-			objectives += identity_theft
+			add_objective(identity_theft)
 
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
 		if(prob(70))
@@ -329,7 +327,7 @@
  * * datum/dna/new_dna - the DNA to store
  */
 /datum/antagonist/changeling/proc/store_dna(datum/dna/new_dna)
-	for(var/datum/objective/escape/escape_with_identity/E in objectives)
+	for(var/datum/objective/escape/escape_with_identity/E in owner.get_all_objectives()) // this should consider all objectives, in case admins reroll it
 		if(E.target_real_name == new_dna.real_name)
 			protected_dna |= new_dna
 			return

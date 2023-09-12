@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(antagonist_teams)
+GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on roundend
 
 /**
  * # Antagonist Team
@@ -11,14 +11,14 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	/// A list of [minds][/datum/mind] who belong to this team.
 	var/list/members
 	/// A list of objectives which all team members share.
-	var/list/objectives
+	var/datum/objective_holder/objective_holder
 	/// Type of antag datum members of this team have. Also given to new members added by admins.
 	var/antag_datum_type
 
 /datum/team/New(list/starting_members)
 	..()
 	members = list()
-	objectives = list()
+	objective_holder = new(src)
 	if(starting_members && !islist(starting_members))
 		starting_members = list(starting_members)
 	for(var/datum/mind/M as anything in starting_members)
@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/Destroy(force = FALSE, ...)
 	for(var/datum/mind/member as anything in members)
 		remove_member(member)
-	QDEL_LIST_CONTENTS(objectives)
+	qdel(objective_holder)
 	members.Cut()
 	GLOB.antagonist_teams -= src
 	return ..()
@@ -40,18 +40,18 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  */
 /datum/team/proc/add_member(datum/mind/new_member)
 	SHOULD_CALL_PARENT(TRUE)
-	var/datum/antagonist/team_antag = get_antag_datum_from_member(new_member)
+	// var/datum/antagonist/team_antag = get_antag_datum_from_member(new_member)
 	members |= new_member
-	team_antag.objectives |= objectives
+	// team_antag.objectives |= objectives // ctodo remove this
 
 /**
  * Removes `member` from this team.
  */
 /datum/team/proc/remove_member(datum/mind/member)
 	SHOULD_CALL_PARENT(TRUE)
-	var/datum/antagonist/A = get_antag_datum_from_member(member)
+	// var/datum/antagonist/A = get_antag_datum_from_member(member)
 	members -= member
-	A.objectives -= objectives
+	// A.objectives -= objectives // ctodo remove this
 
 /**
  * Adds a new member to this team from a list of players in the round.
@@ -76,20 +76,20 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  */
 /datum/team/proc/add_objective_to_team(datum/objective/O)
 	O.team = src
-	for(var/datum/mind/M as anything in members)
-		var/datum/antagonist/A = get_antag_datum_from_member(M)
-		A.objectives |= O
-	objectives |= O
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective_from_team))
+	// for(var/datum/mind/M as anything in members)
+	// 	var/datum/antagonist/A = get_antag_datum_from_member(M)
+	// 	A.objectives |= O// ctodo remove this
+	objective_holder.add_objective(O)
+	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective_from_team)) // ctodo maybe remove this?
 
 /**
  * Remove a team objective from each member's matching antag datum.
  */
 /datum/team/proc/remove_objective_from_team(datum/objective/O)
-	for(var/datum/mind/M as anything in members)
-		var/datum/antagonist/A = get_antag_datum_from_member(M)
-		A.objectives -= O
-	objectives -= O
+	// for(var/datum/mind/M as anything in members)
+	// 	var/datum/antagonist/A = get_antag_datum_from_member(M)
+	// 	A.objectives -= O // ctodo remove this
+	objective_holder.remove_objective(O)
 	if(!QDELETED(O))
 		qdel(O)
 
@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/list/content = list()
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams."
-	for(var/datum/team/T as anything in GLOB.antagonist_teams)
+	for(var/datum/team/T as anything in GLOB.antagonist_teams) // ctodo, make these tabs and just list them all in a horizontal row of buttons, kinda like top of prefs
 		content += "<h3>[T.name] - [T.type]</h3>"
 		content += "<a href='?_src_=holder;team_command=rename_team;team=[T.UID()]'>Rename Team</a>"
 		content += "<a href='?_src_=holder;team_command=delete_team;team=[T.UID()]'>Delete Team</a>"
@@ -216,8 +216,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			// _src_ is T.UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
 			content += "<a href='?_src_=[T.UID()];command=[command]'>[command]</a>"
 		content += "<br><br>Objectives:<br><ol>"
-		for(var/datum/objective/O as anything in T.objectives)
-			content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[T.UID()];objective=[O.UID()]'>Remove</a></li>"
+		for(var/datum/objective/O as anything in T.objective_holder.get_objectives())
+			content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[T.UID()];objective=[O.UID()]'>Remove</a></li>" // ctodo make sure this works
 		content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[T.UID()]'>Add Objective</a><br><br>"
 		content += "Members: <br><ol>"
 		for(var/datum/mind/M as anything in T.members)

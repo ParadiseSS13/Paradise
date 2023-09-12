@@ -345,7 +345,7 @@
 			var/obj/item/storage/backpack/modstorage/M = I
 			M.forceMove(M.source)
 			continue
-		
+
 		var/preserve = should_preserve_item(I)
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
@@ -375,8 +375,7 @@
 
 		SSjobs.FreeRole(job)
 
-		if(occupant.mind.objectives.len)
-			occupant.mind.objectives.Cut()
+		if(occupant.mind.objective_holder.clear())
 			occupant.mind.special_role = null
 		else
 			if(SSticker.mode.name == "AutoTraitor")

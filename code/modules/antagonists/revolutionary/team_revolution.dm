@@ -43,11 +43,11 @@
 
 /datum/team/revolution/proc/get_targetted_head_minds()
 	. = list()
-	for(var/datum/objective/mutiny/O in objectives)
+	for(var/datum/objective/mutiny/O in objective_holder.get_objectives())
 		. |= O.target
 
 /datum/team/revolution/proc/sanitize_objectives()
-	for(var/datum/objective/mutiny/O in objectives)
+	for(var/datum/objective/mutiny/O in objective_holder.get_objectives())
 		if(!O.target) // revs shouldnt have free objectives
 			remove_objective_from_team(O)
 			. = TRUE
@@ -57,7 +57,7 @@
 	check_heads_victory()
 
 /datum/team/revolution/proc/check_rev_victory()
-	for(var/datum/objective/mutiny/objective in objectives)
+	for(var/datum/objective/mutiny/objective in objective_holder.get_objectives())
 		if(!(objective.check_completion()))
 			return FALSE
 
@@ -128,6 +128,6 @@
 		return FALSE
 	if(!ishuman(rev_mind.current))
 		return FALSE
-	if(rev_mind.current.incapacitated() || HAS_TRAIT(rev_mind.current, TRAIT_HANDS_BLOCKED))
+	if(rev_mind.current.incapacitated() || HAS_TRAIT(rev_mind.current, TRAIT_HANDS_BLOCKED)) // todo for someone else, make sure the rev heads on ON STATION
 		return FALSE
 	return TRUE
