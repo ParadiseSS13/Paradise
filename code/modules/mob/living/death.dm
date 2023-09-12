@@ -103,13 +103,13 @@
 	addtimer(CALLBACK(src, inflate_at_end ? PROC_REF(quick_explode_gib) : PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))
 
 /mob/living/proc/inflate_gib() // Plays an animation that makes mobs appear to inflate before finally gibbing
-	addtimer(CALLBACK(src, PROC_REF(gib), null, null, TRUE, TRUE), 25)
+	addtimer(CALLBACK(src, PROC_REF(gib), null, null, TRUE, TRUE), 2.5 SECONDS)
 	var/matrix/M = transform
 	M.Scale(1.8, 1.2)
 	animate(src, time = 40, transform = M, easing = SINE_EASING)
 
 /mob/living/proc/quick_explode_gib()
-	addtimer(CALLBACK(src, PROC_REF(gib), null, null, TRUE, TRUE), 1)
+	addtimer(CALLBACK(src, PROC_REF(gib), null, null, TRUE, TRUE), 0.1 SECONDS)
 	var/matrix/M = transform
 	M.Scale(1.8, 1.2)
 	animate(src, time = 1, transform = M, easing = SINE_EASING)
