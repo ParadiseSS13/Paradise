@@ -128,6 +128,7 @@
 	name = "any set of secret documents of any organization"
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
 	location_override = "the Vault"
+	protected_jobs = list("Quartermaster")
 
 /datum/theft_objective/hypospray
 	name = "the chief medical officer's advanced hypospray"
@@ -157,6 +158,7 @@
 	typepath = /obj/item/nuke_core/plutonium
 	location_override = "the Vault. You can use the box and instructions provided to remove the core, with some extra tools"
 	special_equipment = /obj/item/storage/box/syndie_kit/nuke
+	protected_jobs = list("Quartermaster")
 
 /datum/theft_objective/number
 	var/min=0
