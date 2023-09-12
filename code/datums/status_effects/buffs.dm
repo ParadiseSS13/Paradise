@@ -212,6 +212,8 @@
 /datum/status_effect/vampire_gladiator/on_apply()
 	. = ..()
 	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
+		return
 	ADD_TRAIT(H, TRAIT_NO_BONES, GLADIATOR)
 	ADD_TRAIT(H, TRAIT_STURDY_LIMBS, GLADIATOR)
 	ADD_TRAIT(H, TRAIT_BURN_WOUND_IMMUNE, GLADIATOR)
@@ -221,6 +223,8 @@
 
 /datum/status_effect/vampire_gladiator/on_remove()
 	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
+		return
 	REMOVE_TRAIT(H, TRAIT_NO_BONES, GLADIATOR)
 	REMOVE_TRAIT(H, TRAIT_STURDY_LIMBS, GLADIATOR)
 	REMOVE_TRAIT(H, TRAIT_BURN_WOUND_IMMUNE, GLADIATOR)

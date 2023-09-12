@@ -203,19 +203,19 @@
 		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
 
 #define ARENA_SIZE 3
+
 /obj/effect/proc_holder/spell/vampire/arena
 	name = "Desecrated Duel (150)"
 	desc = "You leap towards someone. Upon landing, you conjure an arena, and within it you will heal brute and burn damage, recover from fatigue faster, and be strengthened against lasting damages. Can be recasted to end the spell early."
-	gain_desc = "You can now leap to a target, creating an arena where you land."
+	gain_desc = "You can now leap to a target and trap them in a conjured arena."
 	required_blood = 150
 	base_cooldown = 30 SECONDS
 	action_icon_state = "duel"
 	should_recharge_after_cast = FALSE
-	/// Is our spell active?
 	var/spell_active = FALSE
 	/// Holds a reference to the timer until either the spell runs out or we recast it
 	var/timer
-	/// Holds a reference to all arena walls so we can qdel them easily with dispell()
+	/// Holds a reference to all arena walls so we can qdel them easily with dispel()
 	var/list/all_temp_walls = list()
 
 /obj/effect/proc_holder/spell/vampire/arena/create_new_targeting()
@@ -229,8 +229,8 @@
 	if(!targets)
 		return
 
-	if(timer) // Recast to dispell the wall and buff early
-		dispell(user)
+	if(timer) // Recast to dispel the wall and buff early
+		dispel(user)
 		return
 
 	// First we leap towards the enemy target
@@ -258,8 +258,8 @@
 
 	user.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	spell_active = TRUE
-	timer = addtimer(CALLBACK(src, PROC_REF(dispell), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(dispell))
+	timer = addtimer(CALLBACK(src, PROC_REF(dispel), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(dispel))
 	arena_checks(get_turf(target), user)
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks(turf/target_turf, mob/living/user)
@@ -276,10 +276,10 @@
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check(mob/living/user)
 	if(QDELETED(user) || user.stat == DEAD)
-		dispell(user)
+		dispel(user)
 		return
 
-/obj/effect/proc_holder/spell/vampire/arena/proc/dispell(mob/living/user)
+/obj/effect/proc_holder/spell/vampire/arena/proc/dispel(mob/living/user)
 	spell_active = FALSE
 	if(timer)
 		deltimer(timer)
