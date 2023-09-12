@@ -165,11 +165,11 @@
 		var/datum/objective/assassinate/kill_objective = add_antag_objective(/datum/objective/assassinate)
 		var/mob/living/carbon/human/H = kill_objective.target?.current
 
-		if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && H && !HAS_TRAIT(H, TRAIT_GENELESS))
+		if(!(locate(/datum/objective/escape) in owner.get_all_objectives(include_team = FALSE)) && H && !HAS_TRAIT(H, TRAIT_GENELESS))
 			var/datum/objective/escape/escape_with_identity/identity_theft = new(assassinate = kill_objective)
 			add_antag_objective(identity_theft)
 
-	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
+	if(!(locate(/datum/objective/escape) in owner.get_all_objectives(include_team = FALSE)))
 		if(prob(70))
 			add_antag_objective(/datum/objective/escape)
 		else

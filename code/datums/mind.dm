@@ -210,21 +210,6 @@
 			return TRUE
 	return FALSE
 
-// /datum/mind/proc/find_objective(datum/objective/O)
-// 	var/list/all_objectives = get_all_objectives()
-// 	if(ispath(O))
-// 		for(var/datum/objective/objective in all_objectives)
-// 			if(istype(objective, O))
-// 				return TRUE
-// 		return FALSE
-// 	objectives.find_objective(O)
-
-// 	for(var/datum/antagonist/A as anything in antag_datums)
-// 		A.objectives.find_objective(O) // Check the antag datum objectives.
-// 		var/datum/team/team = A.get_team()
-// 		team?.objectives.find_objective(O) // Check all of their teams' objectives
-
-
 /**
  * Gets every objective this mind owns, including all of those from any antag datums they have, and returns them as a list.
  */
@@ -574,7 +559,7 @@
 	out += memory
 	out += "<br><a href='?src=[UID()];memory_edit=1'>Edit memory</a><br>"
 	out += "Objectives:<br>"
-	if(!length(get_all_objectives()))
+	if(!has_objectives())
 		out += "EMPTY<br>"
 	else
 		out += gen_objective_text(admin = TRUE)
