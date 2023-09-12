@@ -572,7 +572,7 @@
 /obj/structure/closet/crate/surplus
 	name = "Surplus crate"
 	var/cost
-	var/crate_value
+	crate_value // This is a redeclare but we ignore for now
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/surplus/surplus = new(loc, U)
