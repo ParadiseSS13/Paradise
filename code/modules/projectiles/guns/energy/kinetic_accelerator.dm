@@ -249,6 +249,15 @@
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 
+/obj/item/gun/energy/kinetic_accelerator/pistol
+	name = "proto-kinetic pistol"
+	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
+	icon_state = "kineticgun"
+	item_state = "kineticgun"
+	weapon_weight = WEIGHT_CLASS_TINY
+	max_mod_capacity = 60
+	can_bayonet = FALSE
+	can_flashlight = FALSE
 
 //Modkits
 /obj/item/borg/upgrade/modkit
