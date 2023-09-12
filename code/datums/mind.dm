@@ -254,7 +254,7 @@
 /**
  * Completely remove the given objective from the mind, and include antagdatums/teams if remove_from_everything is true
  */
-/datum/mind/proc/remove_objective(datum/objective/O, remove_from_everything)
+/datum/mind/proc/remove_mind_objective(datum/objective/O, remove_from_everything)
 	objective_holder.remove_objective(O)
 
 	if(!remove_from_everything)
@@ -772,7 +772,7 @@
 
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")
 		message_admins("[key_name_admin(usr)] has removed one of [key_name_admin(current)]'s objectives: [objective]")
-		remove_objective(objective)
+		remove_mind_objective(objective, TRUE)
 
 	else if(href_list["obj_completed"])
 		var/datum/objective/objective = locate(href_list["obj_completed"])

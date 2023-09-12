@@ -124,10 +124,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/post_target_cryo(list/owners)
 	find_target()
 	if(!target)
-		for(var/datum/mind/M in owners)
-			M.remove_objective(src)
-		GLOB.all_objectives -= src
-		qdel(src)
+		holder.remove_objective(src)
+		// even if we have to remove the objective, still announce it
 	for(var/datum/mind/M in owners)
 		M.announce_objectives()
 
