@@ -53,6 +53,8 @@
 	if(ispath(Objective))
 		Objective = new Objective()
 
+	Objective.holder = src
+
 	if(add_to_list)
 		objectives += Objective
 	if(Objective.needs_target && !Objective.target)
