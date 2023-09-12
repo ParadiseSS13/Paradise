@@ -1,5 +1,5 @@
 /obj/effect/mob_spawn/human/alive/ghost_bar
-	name = "ghastly rejuvinator"
+	name = "ghastly rejuvenator"
 	mob_name = "ghost bar occupant"
 	permanent = TRUE
 	icon = 'icons/obj/closet.dmi'
