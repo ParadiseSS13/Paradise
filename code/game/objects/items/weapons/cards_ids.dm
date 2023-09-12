@@ -382,7 +382,7 @@
 
 /obj/item/card/id/syndicate/ghost_bar
 	name = "ghost bar identification card"
-	assignment = "Ghost bar occupant"
+	assignment = "Ghost Bar Occupant"
 	initial_access = list() // This is for show, they don't need actual accesses
 	icon_state = "assistant"
 
