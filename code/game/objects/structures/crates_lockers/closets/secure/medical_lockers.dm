@@ -21,7 +21,6 @@
 	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
 	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
 
-
 /obj/structure/closet/secure_closet/medical2
 	name = "anesthetic locker"
 	desc = "Used to knock people out."
