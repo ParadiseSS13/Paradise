@@ -136,8 +136,8 @@
 	item_state = "cane_nt"
 	needs_permit = FALSE
 
-/obj/item/melee/classic_baton/ntcane/is_crutch()
-	return TRUE
+/obj/item/melee/classic_baton/ntcane/get_crutch_efficiency()
+	return 2
 
 /**
   * # Telescopic Baton

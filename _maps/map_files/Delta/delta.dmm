@@ -59443,6 +59443,7 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
+/obj/item/crutches,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -82944,6 +82945,7 @@
 	name = "Emergency NanoMed";
 	pixel_x = 28
 	},
+/obj/item/crutches,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -90296,6 +90298,7 @@
 	name = "Emergency NanoMed";
 	pixel_x = -25
 	},
+/obj/item/crutches,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
