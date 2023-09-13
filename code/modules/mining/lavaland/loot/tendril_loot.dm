@@ -93,45 +93,7 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
 
-//Potion of Flight: as we do not have the "Angel" species this currently does not work.
-
-/obj/item/reagent_containers/glass/bottle/potion
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "potionflask"
-
-/obj/item/reagent_containers/glass/bottle/potion/flight
-	name = "strange elixir"
-	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
-	list_reagents = list("flightpotion" = 5)
-
-/obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
-	if(reagents.total_volume)
-		icon_state = "potionflask"
-	else
-		icon_state = "potionflask_empty"
-
-/datum/reagent/flightpotion
-	name = "Flight Potion"
-	id = "flightpotion"
-	description = "Strange mutagenic compound of unknown origins."
-	reagent_state = LIQUID
-	color = "#FFEBEB"
-
-/datum/reagent/flightpotion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, reac_volume, show_message = 1)
-	to_chat(M, "<span class='warning'>This item is currently non-functional.</span>")
-	/*if(ishuman(M) && M.stat != DEAD)
-		var/mob/living/carbon/human/H = M
-		if(!ishumanbasic(H) || reac_volume < 5) // implying xenohumans are holy
-			if(method == INGEST && show_message)
-				to_chat(H, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
-			return ..()
-
-		to_chat(H, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
-		H.set_species(/datum/species/angel)
-		playsound(H.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
-		H.adjustBruteLoss(20)
-		H.emote("scream")
-	..()*/
+//Jacob's ladder
 
 /obj/item/jacobs_ladder
 	name = "jacob's ladder"
