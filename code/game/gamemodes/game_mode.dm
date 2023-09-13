@@ -203,7 +203,8 @@
 
 
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
-	return 0
+	if(rev_team)
+		rev_team.check_all_victory()
 
 /datum/game_mode/proc/get_players_for_role(role, override_jobbans=0)
 	var/list/players = list()
@@ -245,6 +246,10 @@
 
 
 /datum/game_mode/proc/latespawn(mob)
+	if(rev_team)
+		rev_team.update_team_objectives()
+		rev_team.process_promotion(REVOLUTION_PROMOTION_OPTIONAL)
+
 
 /*
 /datum/game_mode/proc/check_player_role_pref(role, mob/player)

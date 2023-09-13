@@ -312,7 +312,7 @@
 /obj/item/storage/box/deathimp/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implanter(src)
+	new /obj/item/implanter/death_alarm (src)
 
 /obj/item/storage/box/tapes
 	name = "Tape Box"
