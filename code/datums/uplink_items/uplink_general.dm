@@ -83,6 +83,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refundable = FALSE
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
+	var/uses_special_spawn = FALSE // Our special little snowflakes that have to be spawned in a different way
+
+#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
 
 /datum/uplink_item/proc/spawn_item(turf/loc, obj/item/uplink/U)
 
@@ -94,9 +97,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	U.uses -= max(cost, 0)
 	U.used_TC += cost
 	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
-	if(item)
+	if(item && !uses_special_spawn)
 		return new item(loc)
 
+	return UPLINK_SPECIAL_SPAWNING
 
 /datum/uplink_item/proc/description()
 	if(!desc)
