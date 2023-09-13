@@ -9,6 +9,7 @@
 #define TARGET_INVALID_IS_TARGET	8
 #define TARGET_INVALID_BLACKLISTED	9
 #define TARGET_INVALID_CHANGELING	10
+#define TARGET_INVALID_NOTHEAD		11
 
 //gamemode istype helpers
 #define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))

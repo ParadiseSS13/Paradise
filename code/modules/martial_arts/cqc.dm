@@ -6,8 +6,8 @@
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/chokehold_active = FALSE //Then uses this to determine if the restrain actually goes anywhere
-	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
-														/area/crew_quarters/bar))
+	var/static/list/areas_under_siege = typecacheof(list(/area/station/service/kitchen,
+														/area/station/service/bar))
 
 /datum/martial_art/cqc/under_siege
 	name = "Close Quarters Cooking"
