@@ -122,7 +122,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	else
 		temp_name = "The [name]"
 
-	var/list/to_send = list("<br><b>[temp_name]'s objectives' were:</b>")
+	var/list/to_send = list("<br><b>[temp_name]'s objectives were:</b>")
 	var/obj_count = 1
 	var/team_win = TRUE
 	for(var/datum/objective/objective in objective_holder.get_objectives())
