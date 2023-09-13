@@ -293,7 +293,7 @@
 	if(COOLDOWN_FINISHED(src, shaking_cooldown))
 		shaking = TRUE
 		var/adjective = pick("furiously", "passionately", "with vigor", "with determination", "like a devil", "with care and love", "like there is no tomorrow")
-		user.visible_message("<span class='notice'>\The [user] shakes \the [src] [adjective]!</span>", "<span class='notice'>You shake \the [src] [adjective]!</span>")
+		user.visible_message("<span class='notice'>[user] shakes [src] [adjective]!</span>", "<span class='notice'>You shake [src] [adjective]!</span>")
 		icon_state = "shaker-shake"
 		if(iscarbon(loc))
 			var/mob/living/carbon/M = loc
