@@ -54,6 +54,8 @@
 /obj/item/lighter/proc/attempt_light(mob/living/user)
 	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
 		to_chat(user, "<span class='notice'>You light [src].</span>")
+	else if(HAS_TRAIT(user, TRAIT_BADASS))
+		to_chat(user, "<span class='notice'>[src]'s flames lick your hand as you light it, but you don't flinch.</span>")
 	else
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")

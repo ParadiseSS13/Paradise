@@ -157,6 +157,7 @@
 	desc = "A tiny, highly volatile sliver of a supermatter crystal. Do not handle without protection!"
 	icon_state = "supermatter_sliver"
 	pulseicon = "supermatter_sliver_pulse"
+	w_class = WEIGHT_CLASS_BULKY //can't put it into bags
 	layer = ABOVE_MOB_LAYER + 0.02
 
 /obj/item/nuke_core/supermatter_sliver/process()
@@ -170,7 +171,9 @@
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
 	return
 
-/obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
+/obj/item/nuke_core/supermatter_sliver/can_be_pulled(mob/user) // no drag memes
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
+		return TRUE
 	return FALSE
 
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)
@@ -224,6 +227,8 @@
 
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
 	..()
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
+		return TRUE //yay sliver throwing memes!
 	if(!isliving(user) || user.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
 		return FALSE
 	user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
