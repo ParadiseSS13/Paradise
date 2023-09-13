@@ -62,47 +62,62 @@
 /area/mine/unexplored/cere/orbiting
 	name = "Near Station Asteroids"
 
-/area/mine/lobby
+/area/mine/outpost
 	name = "Mining Station"
+	icon_state = "mining"
 
-/area/mine/storage
-	name = "Mining Station Storage"
-
-/area/mine/production
-	name = "Mining Station Starboard Wing"
-	icon_state = "mining_production"
-
-/area/mine/abandoned
-	name = "Abandoned Mining Station"
-
-/area/mine/comms
-	name = "Mining Station Communications"
-
-/area/mine/living_quarters
-	name = "Mining Station Port Wing"
-	icon_state = "mining_living"
-
-/area/mine/eva
-	name = "Mining Station EVA"
+/area/mine/outpost/airlock
+	name = "Mining Station Airlock"
 	icon_state = "mining_eva"
 
-/area/mine/maintenance
+/area/mine/outpost/cafeteria
+	name = "Mining Station Cafeteria"
+	icon_state = "mining_living"
+
+/area/mine/outpost/catwalk
+	name = "Mining Station Catwalk"
+
+/area/mine/outpost/comms
 	name = "Mining Station Communications"
+	icon_state = "tcomms"
 
-/area/mine/cafeteria
-	name = "Mining station Cafeteria"
+/area/mine/outpost/hallway
+	name = "Mining Station Central Wing"
+	icon_state = "hallC"
 
-/area/mine/hydroponics
-	name = "Mining station Hydroponics"
+/area/mine/outpost/hallway/east
+	name = "Mining Station East Wing"
 
-/area/mine/sleeper
-	name = "Mining station Emergency Sleeper"
+/area/mine/outpost/hallway/west
+	name = "Mining Station West Wing"
 
-/area/mine/north_outpost
-	name = "North Mining Outpost"
+/area/mine/outpost/lockers
+	name = "Mining Station Lockers"
+	icon_state = "locker"
 
-/area/mine/west_outpost
-	name = "West Mining Outpost"
+/area/mine/outpost/storage
+	name = "Mining Station Storage"
+	icon_state = "storage"
+
+/area/mine/outpost/maintenance
+	name = "Mining Station Primary Maintenance"
+	icon_state = "engimaint"
+
+/area/mine/outpost/medbay
+	name = "Mining Station Medbay"
+	icon_state = "medbay"
+
+/area/mine/outpost/mechbay
+	name = "Mining Station Mechbay"
+	icon_state = "mechbay"
+
+/area/mine/outpost/production
+	name = "Mining Station Production Room"
+	icon_state = "mining_production"
+
+/area/mine/outpost/quartermaster
+	name = "Mining Station Quartermaster's Office"
+	icon_state = "qm"
 
 /area/mine/laborcamp
 	name = "Labor Camp"
@@ -112,15 +127,6 @@
 	name = "Labor Camp Security"
 	icon_state = "security"
 	ambientsounds = HIGHSEC_SOUNDS
-
-/area/mine/podbay
-	name = "Mining Podbay"
-
-/area/mine/airlock
-	name = "Mining Airlock"
-
-/area/mine/mechbay
-	name = "Mining Mechbay Storage"
 
 
 /**********************Lavaland Areas**************************/
