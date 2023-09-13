@@ -30,6 +30,9 @@
 		button.desc = desc
 
 /datum/action/Destroy()
+	if(button.linked_keybind)
+		owner.client.active_keybindings[button.linked_keybind.binded_to] -= (button.linked_keybind)
+		QDEL_NULL(button.linked_keybind)
 	if(owner)
 		Remove(owner)
 	if(target)

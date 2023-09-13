@@ -224,3 +224,14 @@
 /datum/keybinding/mob/target/l_foot
 	name = "Target Left Foot"
 	body_part = BODY_ZONE_PRECISE_L_FOOT
+
+/datum/keybinding/mob/trigger_action_button
+	name = "Trigger action button, you shouldn't see this in prefs"
+	var/datum/action/linked_action
+	var/binded_to // these are expected to actually get deleted at some point, to prevent hard deletes we need to know where to remove them from the clients list
+	#warn make sure this doesn't show in the menu
+	category = KB_CATEGORY_UNSORTED
+
+/datum/keybinding/mob/trigger_action_button/down(client/C)
+	. = ..()
+	linked_action.Trigger()

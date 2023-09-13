@@ -3,6 +3,7 @@
 	var/actiontooltipstyle = ""
 	screen_loc = null
 	var/ordered = TRUE
+	var/datum/keybinding/mob/trigger_action_button/linked_keybind
 
 /obj/screen/movable/action_button/MouseDrop(over_object)
 	if(locked && could_be_click_lag()) // in case something bad happend and game realised we dragged our ability instead of pressing it
@@ -32,6 +33,19 @@
 
 /obj/screen/movable/action_button/Click(location,control,params)
 	var/list/modifiers = params2list(params)
+	if(modifiers["ctrl"] && modifiers["shift"])
+		var/keybind_to_set_to = uppertext(input(usr, "What keybind do you want to set this action button to?") as text)
+		if(keybind_to_set_to)
+			if(linked_keybind)
+				usr.client.active_keybindings[linked_keybind.binded_to] -= (linked_keybind)
+				QDEL_NULL(linked_keybind)
+			var/datum/keybinding/mob/trigger_action_button/triggerer = new
+			triggerer.linked_action = linked_action
+			usr.client.active_keybindings[keybind_to_set_to] += list(triggerer)
+			linked_keybind = triggerer
+			triggerer.binded_to = keybind_to_set_to
+			to_chat(usr, "<span class='info'>[src] has been binded to [keybind_to_set_to]!</span>")
+			return TRUE
 	if(modifiers["shift"])
 		if(locked)
 			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
