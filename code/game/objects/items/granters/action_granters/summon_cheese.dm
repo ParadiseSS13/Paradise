@@ -3,7 +3,7 @@
 	desc = "Wonderful! Time for a celebration... Cheese for everyone!"
 	icon_state = "cheese_book"
 	spell_name = "summon cheese"
-	granted_spell = /obj/effect/proc_holder/spell/summon_cheese
+	granted_spell = /obj/effect/proc_holder/spell/aoe/conjure/summon_cheese
 	remarks = list(
 		"Always forward, never back...",
 		"Are these pages... cheese slices?..",
@@ -27,7 +27,7 @@
 	user.put_in_hands(book_cheese)
 	qdel(src)
 
-/obj/effect/proc_holder/spell/summon_cheese
+/obj/effect/proc_holder/spell/aoe/conjure/summon_cheese
 	name = "Summon cheese"
 	desc = "Summon cheesy goodness around you!"
 	base_cooldown = 1 MINUTES
@@ -35,12 +35,7 @@
 	overlay = null
 	action_icon_state = "cheese_wedge"
 	action_background_icon_state = "bg_spell"
-
-/obj/effect/proc_holder/spell/summon_cheese/cast(list/targets, mob/user)
-	for(var/turf/T in view(1))
-		if(T.density)
-			continue
-		new /obj/item/reagent_containers/food/snacks/cheesewedge(T)
-
-/obj/effect/proc_holder/spell/summon_cheese/create_new_targeting()
-	return new /datum/spell_targeting/self
+	summon_type = list(/obj/item/reagent_containers/food/snacks/cheesewedge)
+	summon_amt = 9
+	aoe_range = 1
+	summon_ignore_prev_spawn_points = TRUE
