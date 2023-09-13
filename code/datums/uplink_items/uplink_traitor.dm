@@ -572,7 +572,6 @@
 #define LEGACY_TC 5 // How much TC our current value is compared to 2022. Update this any time the value of TC is inflated
 
 /obj/structure/closet/crate/surplus
-	name = "Surplus crate"
 	var/cost
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
