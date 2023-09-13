@@ -172,7 +172,7 @@
 	if(matter == max_matter)
 		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 		return FALSE
-	matter = clamp((matter + cart.ammoamt), 0, 100)
+	matter = clamp((matter + cart.ammoamt), 0, max_matter)
 	qdel(cart)
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")

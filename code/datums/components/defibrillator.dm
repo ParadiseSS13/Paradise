@@ -92,9 +92,9 @@
 	if(user && !robotic)
 		to_chat(user, "<span class='warning'>You silently [safety ? "disable" : "enable"] [unit]'s safety protocols with the card.")
 
-/datum/component/defib/proc/set_cooldown()
+/datum/component/defib/proc/set_cooldown(how_short)
 	on_cooldown = TRUE
-	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), cooldown)
+	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), how_short)
 
 /datum/component/defib/proc/end_cooldown()
 	on_cooldown = FALSE
@@ -149,6 +149,12 @@
 			to_chat(user, "<span class='notice'>This unit is only designed to work on humanoid lifeforms.</span>")
 		else
 			to_chat(user, "<span class='notice'>The instructions on [defib_ref] don't mention how to defibrillate that...</span>")
+		return
+
+	if(should_cause_harm && combat && heart_attack_chance == 100)
+		combat_fibrillate(user, target)
+		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
+		busy = FALSE
 		return
 
 	if(should_cause_harm)
@@ -212,7 +218,7 @@
 		target.set_heartattack(FALSE)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
-		set_cooldown()
+		set_cooldown(cooldown)
 		user.visible_message("<span class='boldnotice'>[defib_ref] pings: Cardiac arrhythmia corrected.</span>")
 		target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>", "<span class='userdanger'>You feel a jolt, and your heartbeat seems to steady.</span>")
 		playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -237,7 +243,7 @@
 	// Run through some quick failure states after shocking.
 	var/time_dead = world.time - target.timeofdeath
 
-	if(time_dead > DEFIB_TIME_LIMIT)
+	if(!target.is_revivable())
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180)
@@ -274,7 +280,7 @@
 		target.adjustBruteLoss(-heal_amount)
 
 		// Inflict some brain damage scaling with time spent dead
-		var/defib_time_brain_damage = min(100 * time_dead / DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
+		var/defib_time_brain_damage = min(100 * time_dead / BASE_DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
 		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
 			target.setBrainLoss(defib_time_brain_damage)
 
@@ -304,7 +310,7 @@
 		add_attack_logs(user, target, "Revived with [defib_ref]")
 		SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 	SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, defib_success)
-	set_cooldown()
+	set_cooldown(cooldown)
 	busy = FALSE
 
 /**
@@ -328,9 +334,28 @@
 		target.set_heartattack(TRUE)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Stunned with [parent]")
-	set_cooldown()
+	set_cooldown(cooldown)
 	busy = FALSE
-	return
+
+/datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target)
+	if(!istype(target))
+		return
+	busy = TRUE
+	target.adjustStaminaLoss(60)
+	target.emote("gasp")
+	add_attack_logs(user, target, "Stunned with [parent]")
+	target.KnockDown(4 SECONDS)
+	if(IS_HORIZONTAL(target) && HAS_TRAIT(target, TRAIT_HANDS_BLOCKED)) // Weakening exists which doesn't floor you while stunned
+		add_attack_logs(user, target, "Gave a heart attack with [parent]")
+		target.set_heartattack(TRUE)
+		target.visible_message("<span class='danger'>[user] has touched [target] with [parent]!</span>", \
+				"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
+		playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
+		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
+		set_cooldown(cooldown)
+		return
+	target.visible_message("<span class='danger'>[user] touches [target] lightly with [parent]!</span>")
+	set_cooldown(2.5 SECONDS)
 
 /*
  * Pass excess shock from a defibrillation into someone else.

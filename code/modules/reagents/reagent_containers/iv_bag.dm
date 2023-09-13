@@ -75,6 +75,9 @@
 		if(reagents.total_volume < reagents.maximum_volume)
 			injection_target.transfer_blood_to(src, amount_per_transfer_from_this)
 			for(var/datum/reagent/x in injection_target.reagents.reagent_list) // Pull small amounts of reagents from the person while drawing blood
+				var/datum/reagent/R
+				if(R.id in GLOB.blocked_chems)
+					continue
 				injection_target.reagents.trans_to(src, amount_per_transfer_from_this/10)
 			update_icon(UPDATE_OVERLAYS)
 

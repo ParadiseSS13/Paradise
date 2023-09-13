@@ -292,7 +292,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		if(DEADLY_DEEPROCK)
 			var/tempradius = rand(10, 15)
 			var/probmodifer = 43 * tempradius //Yes this is a magic number, it is a magic number that works well.
-			for(var/turf/NT in circlerangeturfs(T, tempradius))
+			for(var/turf/NT in circleviewturfs(T, tempradius))
 				var/distance = (max(get_dist(T, NT), 1)) //Get dist throws -1 if same turf
 				if(prob(min(probmodifer / distance, 100)))
 					if(ismineralturf(NT) || istype(NT, /turf/simulated/floor/plating/asteroid)) //No spawning on lava / other ruins
@@ -302,7 +302,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water = 1, /turf/simulated/floor/plating/asteroid = 1))
 				if(oasis_lake == /turf/simulated/floor/plating/asteroid)
 					new /obj/effect/spawner/oasisrock(T, tempradius)
-				for(var/turf/oasis in circlerangeturfs(T, tempradius))
+				for(var/turf/oasis in circleviewturfs(T, tempradius))
 					oasis.ChangeTurf(oasis_lake, ignore_air = TRUE)
 
 /obj/effect/spawner/oasisrock
@@ -314,7 +314,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	addtimer(CALLBACK(src, PROC_REF(make_rock), radius), 5 SECONDS)
 
 /obj/effect/spawner/oasisrock/proc/make_rock(radius)
-	for(var/turf/oasis in circlerangeturfs(get_turf(src), radius))
+	for(var/turf/oasis in circleviewturfs(get_turf(src), radius))
 		oasis.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic, ignore_air = TRUE)
 	var/list/valid_turfs = RANGE_EDGE_TURFS(radius + 2, src)
 	for(var/mob/M in range(src, radius)) //We don't want mobs inside the ore rock
@@ -358,7 +358,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 				continue
 			if((ismegafauna(randumb) || ismegafauna(thing)) && get_dist(T, thing) <= megafaunarange)
 				return //if there's a megafauna within standard view don't spawn anything at all
-			if(ispath(randumb, /mob/living/simple_animal/hostile/asteroid) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
+			if(ispath(randumb, /obj/effect/landmark/mob_spawner) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
 				return //if the random is a standard mob, avoid spawning if there's another one within 12 tiles
 			if((ispath(randumb, /obj/structure/spawner/lavaland) || istype(thing, /obj/structure/spawner/lavaland)) && get_dist(T, thing) <= 2)
 				return //prevents tendrils spawning in each other's collapse range

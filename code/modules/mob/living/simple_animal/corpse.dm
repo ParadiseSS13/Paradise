@@ -42,11 +42,11 @@
 	id = /obj/item/card/id
 
 
-/obj/effect/mob_spawn/human/clown/corpse
+/obj/effect/mob_spawn/human/corpse/clown/corpse
 	roundstart = TRUE
 	instant = TRUE
 
-/obj/effect/mob_spawn/human/mime/corpse
+/obj/effect/mob_spawn/human/corpse/mime/corpse
 	roundstart = TRUE
 	instant = TRUE
 
@@ -102,7 +102,7 @@
 	name = "Corpse of a Space Wizard"
 	outfit = /datum/outfit/wizardcorpse
 
-/obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
+/obj/effect/mob_spawn/human/corpse/clown/officer/Initialize(mapload)
 	mob_name = "[pick(GLOB.wizard_first)], [pick(GLOB.wizard_second)]"
 	. = ..()
 
