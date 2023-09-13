@@ -173,7 +173,7 @@
 			qdel(src)
 
 /mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
-	mind.wipe_memory()
+	mind.wipe_memory() // someone kill this and give revenants their own minds please
 	SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 	to_chat(src, "<br>")
 	to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")

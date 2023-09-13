@@ -729,4 +729,4 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/wizchaos
 	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
 	needs_target = FALSE
-	completed = 1
+	completed = TRUE

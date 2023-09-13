@@ -226,15 +226,16 @@
 
 	return all_objectives
 
-
+/**
+ * Add an objective to the mind
+ */
 /datum/mind/proc/add_mind_objective(datum/objective/O, remove_from_everything)
 	if(ispath(O))
 		O = new O()
 	if(O.owner)
-		stack_trace("[O], [O.type] was assigned as an objective to [src], but already had an owner: [O.owner]")
+		stack_trace("[O], [O.type] was assigned as an objective to [src] (mind), but already had an owner: [O.owner] (mind)")
 	O.owner = src
 	return objective_holder.add_objective(O)
-
 
 /**
  * Completely remove the given objective from the mind, and include antagdatums/teams if remove_from_everything is true
@@ -248,7 +249,6 @@
 		A.objective_holder.remove_objective(O) // Add all antag datum objectives.
 		var/datum/team/team = A.get_team()
 		team?.objective_holder.remove_objective(O) // Get all of their teams' objectives
-
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
 	. = gamemode
@@ -288,7 +288,7 @@
 			. += "."
 
 		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives flash/cham sec hud)."
-		if(rev.has_antag_objectives()) // if theres anything missing here, we want it to runtime. There should never be a rev without a rev team
+		if(!rev.has_antag_objectives()) // if theres anything missing here, we want it to runtime. There should never be a rev without a rev team
 			. += "<br>Objectives are empty! Unless theres no command, this is likely a bug, please report it! <a href='?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
 	else if(rev)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
