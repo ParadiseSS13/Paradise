@@ -1555,7 +1555,7 @@
 		return
 	var/text = ""
 	if(title)
-		text = "<span class='notice'>Your current objectives:</span>"
+		text = "<span class='notice'>Your current objectives:</span><br/>"
 	text += gen_objective_text()
 	to_chat(current, text)
 

@@ -6,7 +6,7 @@
 	var/datum/objective_owner // mind, antag_datum, or a team
 
 	/// A list of strings which contain [targets][/datum/objective/var/target] of the antagonist's objectives. Used to prevent duplicate objectives.
-	var/list/assigned_targets
+	var/list/assigned_targets = list()
 
 	var/datum/callback/on_add_callback
 	var/datum/callback/on_remove_callback

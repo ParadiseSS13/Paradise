@@ -44,6 +44,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
  */
 /datum/team/proc/add_member(datum/mind/new_member)
 	SHOULD_CALL_PARENT(TRUE)
+	get_antag_datum_from_member() // make sure they have the antag datum
 	members |= new_member
 
 /**
@@ -52,6 +53,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 /datum/team/proc/remove_member(datum/mind/member)
 	SHOULD_CALL_PARENT(TRUE)
 	members -= member
+	var/datum/antagonist/antag = get_antag_datum_from_member(member)
+	if(!QDELETED(antag))
+		qdel(antag)
 
 /**
  * Adds a new member to this team from a list of players in the round.
