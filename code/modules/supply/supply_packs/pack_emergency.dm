@@ -120,10 +120,3 @@
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "emergency flood light"
-
-/datum/supply_packs/emergency/mail_crate
-	name = "Mail crate"
-	contains = list(/obj/structure/closet/crate/mail)
-	containertype = /obj/structure/largecrate
-	cost = 10000 // It should never be bought, but if it somehow is, they can't just print infinite money
-	hidden = TRUE

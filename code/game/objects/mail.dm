@@ -19,6 +19,8 @@
 	return BRUTELOSS
 
 /obj/item/envelope/attack_self(mob/user)
+	if(!user.mind || !user)
+		return
 	if(user.mind.current != recipient.mind.current)
 		to_chat(user, "<span class='warning'>You don't want to open up another person's mail, that's an invasion of their privacy!</span>")
 		return
@@ -35,11 +37,10 @@
 	var/item = pick(possible_contents)
 	new item(src)
 	new /obj/item/stack/spacecash(src, rand(1, 50) * 5)
-	var/list/mind_copy = SSticker.minds.Copy()
-	shuffle(mind_copy)
+	var/list/mind_copy = shuffle(SSticker.minds)
 	for(var/datum/mind/mail_attracted_people in mind_copy)
-		var/turf/T = get_turf(mail_attracted_people)
-		if(mail_attracted_people.offstation_role || !ishuman(mail_attracted_people) || T.z == 1)
+		var/turf/T = get_turf(mail_attracted_people.current)
+		if(mail_attracted_people.offstation_role || !ishuman(mail_attracted_people.current) || T.z == 1)
 			continue
 		if(mail_attracted_people.assigned_role in job_list)
 			recipient = mail_attracted_people.current
