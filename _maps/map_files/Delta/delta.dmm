@@ -491,10 +491,6 @@
 	},
 /area/station/hallway/secondary/entry)
 "afl" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -5861,10 +5857,6 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/southeast,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
 "axB" = (
@@ -82809,11 +82801,6 @@
 	name = "Science Requests Console";
 	pixel_y = -30
 	},
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -82894,11 +82881,6 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -86152,15 +86134,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore)
-"kdL" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/electrical)
 "kep" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -87016,11 +86989,6 @@
 /area/station/security/storage)
 "lpg" = (
 /obj/structure/table/glass,
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_y = -32
-	},
 /obj/machinery/photocopier/faxmachine{
 	department = "Chief Medical Officer's Office"
 	},
@@ -87852,11 +87820,6 @@
 	},
 /area/station/science/research)
 "moy" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -90268,11 +90231,6 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = -25
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -93151,15 +93109,6 @@
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"slM" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/break_room)
 "smh" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
@@ -97813,19 +97762,6 @@
 	icon_state = "bar"
 	},
 /area/station/maintenance/fsmaint)
-"xKH" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
-	},
-/area/station/science/break_room)
 "xKN" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -123324,7 +123260,7 @@ cKb
 cLO
 cMY
 cOG
-kdL
+cOA
 cOG
 cJT
 cIx
@@ -125080,7 +125016,7 @@ buA
 aOk
 bxa
 bOi
-slM
+bzW
 bBI
 bDy
 bFa
@@ -134147,7 +134083,7 @@ dwi
 dwi
 dwi
 wJr
-xKH
+lyD
 uic
 kME
 oyR
