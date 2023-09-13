@@ -161,7 +161,7 @@
 	messages.Add("<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
 	messages.Add("<span class='notice'>Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve.</span>")
 	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)</span>")
-	to_chat(abductor.current, chat_box_green(messages.Join("<br>")))
+	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
 	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor agent")
 
 	abductor.announce_objectives()
@@ -178,7 +178,7 @@
 	messages.Add("<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
 	messages.Add("<span class='notice'>Use your tool and ship consoles to support the agent and retrieve human specimens.</span>")
 	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)</span>")
-	to_chat(abductor.current, chat_box_green(messages.Join("<br>")))
+	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
 	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor scientist")
 
 	abductor.announce_objectives()

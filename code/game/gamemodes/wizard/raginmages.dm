@@ -28,7 +28,7 @@
 		messages.Add("<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Wizard)</span>")
-	to_chat(wizard.current, chat_box_green(messages.Join("<br>")))
+	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
 	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
 
 /datum/game_mode/wizard/raginmages/check_finished()
