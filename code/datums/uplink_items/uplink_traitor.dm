@@ -607,7 +607,7 @@
 	while(remaining_TC)
 		if(danger_counter > RECURSION_PANIC_AMOUNT)
 			fucked_shit_up_alert(loc, "[src] spawning failed: approached an infinite loop by cost checking, giving the remaining [remaining_TC] telecrystals instead.")
-			generate_refund(remaining_TC, C)
+			generate_refund(remaining_TC, loc)
 			break
 
 		if(remaining_TC < LEGACY_TC)
