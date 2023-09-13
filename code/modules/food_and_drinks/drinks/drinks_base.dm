@@ -299,7 +299,7 @@
 			var/mob/living/carbon/M = loc
 			M.update_inv_r_hand()
 			M.update_inv_l_hand()
-		playsound(user, 'sound/items/boston_shaker.ogg', 80, 1)
+		playsound(user, 'sound/items/boston_shaker.ogg', 80, TRUE)
 		COOLDOWN_START(src, shaking_cooldown, 3 SECONDS)
 
 	if(shaking)
