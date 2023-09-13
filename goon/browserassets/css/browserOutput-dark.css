@@ -457,21 +457,21 @@ span.body .coderesponses 		{color: #FF3333;}
 	padding: 15px;
   }
 
-.boxed_message.examine {
+.boxed_message.left_align_text {
 	text-align: left
   }
-.boxed_message.red {
+.boxed_message.red_border {
 	border-color: #aa0000;
   }
 
-.boxed_message.green {
+.boxed_message.green_border {
 	border-color: #00FF00;
   }
 
-.boxed_message.notice {
+.boxed_message.notice_border {
 	border-color: #6685f5;
   }
 
-  .boxed_message_notice.thick {
+  .boxed_message.thick_border {
 	border-width: thick;
   }
