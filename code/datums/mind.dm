@@ -1100,7 +1100,7 @@
 					special_role = SPECIAL_ROLE_NUKEOPS
 					to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 					SSticker.mode.forge_syndicate_objectives(src)
-					SSticker.mode.greet_syndicate(src)
+					SSticker.mode.greet_syndicate(src, FALSE) // False to fix the agent message appearing twice
 					log_admin("[key_name(usr)] has nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has nuke op'd [key_name_admin(current)]")
 			if("lair")
@@ -1587,7 +1587,7 @@
 		assigned_role = SPECIAL_ROLE_NUKEOPS
 		to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 		SSticker.mode.forge_syndicate_objectives(src)
-		SSticker.mode.greet_syndicate(src)
+		SSticker.mode.greet_syndicate(src, FALSE) // False to fix the agent message appearing twice
 
 		current.loc = get_turf(locate("landmark*Syndicate-Spawn"))
 
