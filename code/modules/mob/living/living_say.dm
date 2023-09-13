@@ -211,7 +211,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			message_range = first_piece.speaking.get_talkinto_msg_range(message)
 
 		var/msg
-		if(!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG))
+		if((!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG)) && mind)
 			msg = "<span class='notice'>[src] talks into [used_radios[1]]</span>"
 			var/static/list/special_radio_channels = list("Syndicate", "SyndTeam", "Security", "Procedure", "Command", "Response Team", "Special Ops")
 			if(message_mode in special_radio_channels)
