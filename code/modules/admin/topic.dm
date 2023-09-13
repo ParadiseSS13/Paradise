@@ -1619,6 +1619,13 @@
 			return
 		var/datum/team/team
 		var/datum/mind/member
+		if(href_list["team_command"] == "new_custom_team")
+			message_admins("[key_name_admin(usr)] created a new custom team.")
+			log_admin("[key_name(usr)] created a new custom team.")
+			team = new()
+			team.admin_rename_team(usr)
+			check_teams()
+			return
 		if(href_list["team"])
 			team = locateUID(href_list["team"])
 			if(QDELETED(team))

@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on roundend
+GLOBAL_LIST_EMPTY(antagonist_teams)
 
 #define DEFAULT_TEAM_NAME "Generic Team Name"
 
@@ -78,17 +78,17 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 /**
  * Adds a team objective to each member's matching antag datum.
  */
-/datum/team/proc/add_team_objective(datum/objective/O)
+/datum/team/proc/add_team_objective(datum/objective/O, _explanation_text, mob/target_override)
 	if(ispath(O))
 		O = new O()
 	O.team = src
-	objective_holder.add_objective(O)
+	return objective_holder.add_objective(O, _explanation_text, target_override)
 
 /**
  * Remove a team objective from each member's matching antag datum.
  */
 /datum/team/proc/remove_team_objective(datum/objective/O)
-	objective_holder.remove_objective(O)
+	. = objective_holder.remove_objective(O)
 	if(!QDELETED(O))
 		qdel(O)
 
@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 	if(!length(members))
 		return
 	var/temp_name = name
-	if(temp_name == DEFAULT_TEAM_NAME)
+	if(temp_name == DEFAULT_TEAM_NAME || !temp_name)
 		temp_name = "This team"
 	else
 		temp_name = "The [name]"
@@ -146,11 +146,11 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 				SSblackbox.record_feedback("nested tally", "[initial(blackbox_save_name)]_team_objective", 1, list("[objective.type]", failed))
 
 	if(team_win)
-		to_send += "<br><font color='green'><B>The [temp_name] were successful!</B></font>"
+		to_send += "<font color='green'><B>[temp_name] were successful!</B></font><br/>"
 		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
 			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_team_success", 1, "SUCCESS")
 	else
-		to_send += "<br><font color='red'><B>The [temp_name] failed!</B></font>"
+		to_send += "<font color='red'><B>[temp_name] failed!</B></font><br/>"
 		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
 			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_team_success", 1, "FAIL")
 
@@ -250,7 +250,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 /datum/admins/proc/list_teams()
 	var/list/content = list()
 	if(!length(GLOB.antagonist_teams))
-		content += "There are currently no antag teams."
+		content += "There are currently no antag teams.<br/>"
+	content += "<a href='?_src_=holder;team_command=new_custom_team;'>Create new Team</a>"
 	for(var/datum/team/T as anything in GLOB.antagonist_teams) // with multiple teams, this is going to get messy. It should probably be turned into a tabs-like system
 		content += "<h3>[T.name] - [T.type]</h3>"
 		content += "<a href='?_src_=holder;team_command=rename_team;team=[T.UID()]'>Rename Team</a>"

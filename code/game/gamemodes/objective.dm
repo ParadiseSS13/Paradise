@@ -36,6 +36,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/datum/objective_holder/holder
 
 /datum/objective/New(text, datum/team/team_to_join)
+	. = ..()
+	SHOULD_CALL_PARENT(TRUE)
 	GLOB.all_objectives += src
 	if(text)
 		explanation_text = text
@@ -51,6 +53,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/proc/check_completion()
 	return completed
+
+/datum/objective/proc/found_target()
+	return target
 
 /**
  * Get all owners of the objective, including ones from the objective's team, if it has one.
@@ -488,6 +493,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = 0
 	var/theft_area
 
+/datum/objective/steal/found_target()
+	return steal_target
+
 /datum/objective/steal/proc/get_location()
 	return steal_target.location_override || "an unknown area"
 
@@ -495,6 +503,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/potential = GLOB.potential_theft_objectives.Copy()
 	while(!steal_target && length(potential))
 		var/thefttype = pick_n_take(potential)
+		if(locate(thefttype) in target_blacklist)
+			continue
 		var/datum/theft_objective/O = new thefttype
 		var/has_invalid_owner = FALSE
 		for(var/datum/mind/M in get_owners())

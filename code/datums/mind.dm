@@ -186,6 +186,8 @@
 /datum/mind/proc/gen_objective_text(admin = FALSE)
 	. = ""
 	var/obj_count = 1
+	if(!has_objectives())
+		return "<b>No Objectives.</b><br>"
 
 	// If they don't have any objectives, "" will be returned.
 	for(var/datum/objective/objective in get_all_objectives())
@@ -222,26 +224,27 @@
 		all_objectives += A.objective_holder.get_objectives() // Add all antag datum objectives.
 		if(include_team)
 			var/datum/team/team = A.get_team()
-			all_objectives += team?.objective_holder.get_objectives() // Get all of their teams' objectives
+			if(team) // have to make asure a team exists here, team?. does not work below because it will add the null to the list
+				all_objectives += team.objective_holder.get_objectives() // Get all of their teams' objectives
 
 	return all_objectives
 
 /**
  * Add an objective to the mind
  */
-/datum/mind/proc/add_mind_objective(datum/objective/O, remove_from_everything)
+/datum/mind/proc/add_mind_objective(datum/objective/O, _explanation_text, mob/target_override)
 	if(ispath(O))
 		O = new O()
 	if(O.owner)
-		stack_trace("[O], [O.type] was assigned as an objective to [src] (mind), but already had an owner: [O.owner] (mind)")
+		stack_trace("[O], [O.type] was assigned as an objective to [src] (mind), but already had an owner: [O.owner] (mind). Overriding.")
 	O.owner = src
-	return objective_holder.add_objective(O)
+	return objective_holder.add_objective(O, _explanation_text, target_override)
 
 /**
  * Completely remove the given objective from the mind, and include antagdatums/teams if remove_from_everything is true
  */
 /datum/mind/proc/remove_mind_objective(datum/objective/O, remove_from_everything)
-	objective_holder.remove_objective(O)
+	. = objective_holder.remove_objective(O)
 
 	if(!remove_from_everything)
 		return
@@ -559,10 +562,7 @@
 	out += memory
 	out += "<br><a href='?src=[UID()];memory_edit=1'>Edit memory</a><br>"
 	out += "Objectives:<br>"
-	if(!has_objectives())
-		out += "EMPTY<br>"
-	else
-		out += gen_objective_text(admin = TRUE)
+	out += gen_objective_text(admin = TRUE)
 	out += "<a href='?src=[UID()];obj_add=1'>Add objective</a><br><br>"
 	out += "<a href='?src=[UID()];obj_announce=1'>Announce objectives</a><br><br>"
 	usr << browse(out, "window=edit_memory[src];size=500x500")

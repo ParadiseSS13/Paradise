@@ -205,9 +205,11 @@ GLOBAL_LIST_EMPTY(antagonists)
  * * explanation_text - the explanation text that will be passed into the objective's `New()` proc
  * * mob/target_override - a target for the objective
  */
-/datum/antagonist/proc/add_antag_objective(datum/objective/O, explanation_text = "", mob/target_override = null)
+/datum/antagonist/proc/add_antag_objective(datum/objective/O, explanation_text, mob/target_override)
 	if(ispath(O))
-		O = new O(explanation_text)
+		O = new O()
+	if(O.owner)
+		stack_trace("[O], [O.type] was assigned as an objective to [owner] (mind), but already had an owner: [O.owner] (mind). Overriding.")
 	O.owner = owner
 
 	return objective_holder.add_objective(O, explanation_text, target_override)
