@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/bloodcrawl
 	name = "Blood Crawl"
 	desc = "Use pools of blood to phase out of existence."
-	base_cooldown = 0
+	base_cooldown = 2 SECONDS
 	clothes_req = FALSE
 	cooldown_min = 0
 	should_recharge_after_cast = FALSE
@@ -33,13 +33,15 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/cast(list/targets, mob/living/user)
 	var/atom/target = targets[1]
-	if(phased)
-		if(phasein(target, user))
-			phased = FALSE
-	else
+	if(!phased)
 		if(phaseout(target, user))
 			phased = TRUE
-	cooldown_handler.start_recharge()
+			cooldown_handler.revert_cast()
+	else
+		if(phasein(target, user))
+			phased = FALSE
+			cooldown_handler.start_recharge()
+
 
 //Travel through pools of blood. Slaughter Demon powers for everyone!
 #define BLOODCRAWL     1
@@ -131,24 +133,27 @@
 		playsound(get_turf(L), sound, 100, 1)
 		sleep(3 SECONDS)
 
+	var/mindless = (ishuman(victim) || isrobot(victim))
 	if(!victim)
 		to_chat(L, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
 		return
-
 	if(victim.mind)
 		to_chat(L, "<span class='warning'>You devour [victim]. Your health is fully restored.</span>")
 		L.adjustBruteLoss(-1000)
 		L.adjustFireLoss(-1000)
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
-	else if(ishuman(victim) || isrobot(victim))
-		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence makes their flesh dull and leaves you wanting for more.</span>")
+		return
+	if(mindless)
+		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
 		L.adjustBruteLoss(-50)
-		L.adjustFireLoss(-50)
+		if(isslaughterdemon(L))
+			L.adjustFireLoss(-50)
 	else
 		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
 		L.adjustBruteLoss(-25)
-		L.adjustFireLoss(-25)
+		if(isslaughterdemon(L))
+			L.adjustFireLoss(-25)
 
 	if(isslaughterdemon(L))
 		var/mob/living/simple_animal/demon/slaughter/demon = L
@@ -178,9 +183,6 @@
 
 	if(iscarbon(L) && !block_hands(L))
 		return FALSE
-	if(!do_after(L, 2 SECONDS, target = B))
-		return FALSE
-
 	L.notransform = TRUE
 	INVOKE_ASYNC(src, PROC_REF(async_phase), B, L)
 	return TRUE
