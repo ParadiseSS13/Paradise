@@ -44,7 +44,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
  */
 /datum/team/proc/add_member(datum/mind/new_member)
 	SHOULD_CALL_PARENT(TRUE)
-	get_antag_datum_from_member() // make sure they have the antag datum
+	get_antag_datum_from_member(new_member) // make sure they have the antag datum
 	members |= new_member
 
 /**
