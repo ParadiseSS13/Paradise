@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 			var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
 			current_mode.possible_traitors.Remove(src)
 
-	for(var/datum/objective/O in GLOB.all_objectives)
+	for(var/datum/objective/destroy/O in GLOB.all_objectives)
 		if(O.target != mind)
 			continue
 		O.on_target_cryo()
