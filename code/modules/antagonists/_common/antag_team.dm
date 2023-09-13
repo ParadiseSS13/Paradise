@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 /**
  * Special overrides for teams for target exclusion from objectives.
  */
-/datum/team/proc/on_team_end()
+/datum/team/proc/on_round_end()
 	if(!length(members))
 		return
 	var/temp_name = name
