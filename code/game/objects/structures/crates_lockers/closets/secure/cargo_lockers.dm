@@ -29,7 +29,6 @@
 	new /obj/item/fulton_core(src)
 	new /obj/item/extraction_pack(src)
 	new /obj/item/gps/mining(src)
-	new /obj/item/sensor_device(src)
 	new /obj/item/rcs(src)
 	new /obj/item/destTagger(src)
 	new /obj/item/reagent_containers/food/drinks/mug/qm(src)
