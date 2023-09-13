@@ -110,6 +110,8 @@
 					return TRUE
 	if(!LAZYLEN(current_combos))
 		reset_combos()
+		if(HAS_COMBOS)
+			act(step, user, target)
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
