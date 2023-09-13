@@ -448,7 +448,7 @@ SUBSYSTEM_DEF(jobs)
 	if(job.important_information)
 		L.Add("</b><span class='userdanger' style='width: 80%'>[job.important_information]</span>")
 
-	to_chat(H, chat_box_regular(L.Join("<br>")))
+	to_chat(H, chat_box_green(L.Join("<br>")))
 
 	return H
 
