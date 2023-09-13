@@ -1,6 +1,6 @@
 /obj/item/envelope
 	name ="broken letter"
-	desc = "We just got a letter, we just got a letter, we just got a letter- wonder who its from."
+	desc = "We just got a letter, we just got a letter, we just got a letter -- I wonder who it's from?"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/bureaucracy.dmi'
