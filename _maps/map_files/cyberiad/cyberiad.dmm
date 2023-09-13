@@ -8847,7 +8847,6 @@
 /obj/item/stack/rods,
 /obj/item/airlock_electronics,
 /turf/simulated/floor/plating{
-	dir = 9;
 	icon_regular_floor = "escape"
 	},
 /area/station/maintenance/abandonedbar)
@@ -8871,7 +8870,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating{
-	dir = 5;
 	icon_regular_floor = "escape"
 	},
 /area/station/maintenance/abandonedbar)
@@ -9271,7 +9269,6 @@
 	},
 /obj/item/stack/rods,
 /turf/simulated/floor/plating{
-	dir = 4;
 	icon_regular_floor = "escape"
 	},
 /area/station/maintenance/abandonedbar)
@@ -9602,7 +9599,6 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating{
-	dir = 10;
 	icon_regular_floor = "escape"
 	},
 /area/station/maintenance/abandonedbar)
@@ -40265,9 +40261,7 @@
 "cpS" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "cpU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -41698,9 +41692,7 @@
 "cuA" = (
 /obj/structure/closet/secure_closet/medical1,
 /obj/effect/turf_decal/bot_white,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "cuB" = (
 /obj/machinery/door/firedoor,
@@ -44250,9 +44242,7 @@
 	},
 /obj/item/storage/firstaid/toxin,
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "cCT" = (
 /obj/structure/closet/l3closet/scientist,
@@ -48427,9 +48417,7 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/toxin,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "cQS" = (
 /obj/structure/cable{
@@ -57081,9 +57069,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/economy/vending/medidrobe,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "dOs" = (
 /turf/simulated/wall,
@@ -58266,9 +58252,7 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "epu" = (
 /obj/item/radio/intercom{
@@ -61426,9 +61410,7 @@
 	dir = 1
 	},
 /obj/item/storage/box/monkeycubes,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/science/genetics)
 "fXp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -63260,9 +63242,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "gVs" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -64280,9 +64260,7 @@
 	dir = 4
 	},
 /mob/living/carbon/human/monkey,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/virology)
 "hxA" = (
 /obj/machinery/door/firedoor,
@@ -65801,9 +65779,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/virology)
 "inP" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -67088,9 +67064,7 @@
 	dir = 8
 	},
 /mob/living/carbon/human/monkey,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/virology)
 "jdz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -67927,9 +67901,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "jCu" = (
 /obj/machinery/economy/vending/scidrobe,
@@ -70256,9 +70228,7 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/camera/autoname,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "kQb" = (
 /obj/structure/chair/sofa/bench/left{
@@ -74579,9 +74549,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/virology)
 "nnF" = (
 /obj/machinery/door/airlock/external{
@@ -75153,9 +75121,7 @@
 /obj/item/storage/firstaid/fire,
 /obj/structure/table,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "nCa" = (
 /obj/machinery/conveyor/west{
@@ -76276,9 +76242,7 @@
 	dir = 10
 	},
 /mob/living/carbon/human/monkey,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/virology)
 "oja" = (
 /obj/structure/cable{
@@ -78731,9 +78695,7 @@
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/bot_white,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "pxP" = (
 /obj/structure/cable{
@@ -80641,9 +80603,7 @@
 	},
 /obj/item/storage/firstaid/o2,
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "qxZ" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -87880,9 +87840,7 @@
 "uFn" = (
 /obj/structure/closet/secure_closet/medical3,
 /obj/effect/turf_decal/bot_white,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "uFr" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
