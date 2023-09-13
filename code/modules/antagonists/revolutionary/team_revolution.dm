@@ -31,6 +31,9 @@
 		message_admins("[key_name_admin(user)] added a mutiny objective to the team '[name]', and no target was found, removing.")
 		log_admin("[key_name_admin(user)] added a mutiny objective to the team '[name]', and no target was found, removing.")
 
+/datum/team/revolution/on_round_end()
+	return // for now... show nothing. Add this in when revs is added to midround/dynamic. Not showing it currently because its dependent on rev gamemode
+
 /datum/team/revolution/proc/update_team_objectives()
 	var/list/heads = SSticker.mode.get_all_heads() - get_targetted_head_minds()
 

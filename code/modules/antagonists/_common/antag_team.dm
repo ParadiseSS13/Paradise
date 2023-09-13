@@ -107,7 +107,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 	return members
 
 /**
- * Special overrides for teams for target exclusion from objectives.
+ * Displays the roundend stats for teams
  */
 /datum/team/proc/on_round_end()
 	if(!length(members))
@@ -117,8 +117,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 		temp_name = "This team"
 	else
 		temp_name = "The [name]"
-	var/list/to_send = list()
 
+	var/list/to_send = list("<br><b>[temp_name]'s objectives' were:</b>")
 	var/obj_count = 1
 	var/team_win = TRUE
 	for(var/datum/objective/objective in objective_holder.get_objectives())
@@ -137,18 +137,18 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
 			if(istype(objective, /datum/objective/steal))
 				var/datum/objective/steal/S = objective
-				SSblackbox.record_feedback("nested tally", "[initial(blackbox_save_name)]_steal_objective", 1, list("Steal [S.steal_target]", failed))
+				SSblackbox.record_feedback("nested tally", "[initial(blackbox_save_name)]_team_steal_objective", 1, list("Steal [S.steal_target]", failed))
 			else
-				SSblackbox.record_feedback("nested tally", "[initial(blackbox_save_name)]_objective", 1, list("[objective.type]", failed))
+				SSblackbox.record_feedback("nested tally", "[initial(blackbox_save_name)]_team_objective", 1, list("[objective.type]", failed))
 
 	if(team_win)
-		to_send += "<br><font color='green'><B>The [temp_name] was successful!</B></font>"
+		to_send += "<br><font color='green'><B>The [temp_name] were successful!</B></font>"
 		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
-			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_success", 1, "SUCCESS")
+			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_team_success", 1, "SUCCESS")
 	else
-		to_send += "<br><font color='red'><B>The [temp_name] has failed!</B></font>"
+		to_send += "<br><font color='red'><B>The [temp_name] failed!</B></font>"
 		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
-			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_success", 1, "FAIL")
+			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_team_success", 1, "FAIL")
 
 	to_chat(world, to_send.Join("<br/>"))
 
