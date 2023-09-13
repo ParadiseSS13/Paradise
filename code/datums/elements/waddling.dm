@@ -5,9 +5,9 @@
 	if(!ismovable(target))
 		return ELEMENT_INCOMPATIBLE
 	if(isliving(target))
-		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(LivingWaddle))
+		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(LivingWaddle), override = TRUE)
 	else
-		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(Waddle))
+		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(Waddle), override = TRUE)
 
 /datum/element/waddling/Detach(datum/source, force)
 	. = ..()
