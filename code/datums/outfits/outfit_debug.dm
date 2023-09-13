@@ -23,7 +23,7 @@
 	id = /obj/item/card/id/admin
 	pda = /obj/item/pda/centcom
 
-	internals_slot = slot_s_store //? make sure this is right
+	internals_slot = slot_s_store
 	toggle_helmet = TRUE
 
 	cybernetic_implants = list(
@@ -85,7 +85,8 @@
 
 	prescription_upgradable = FALSE
 	// this is sketchy, i know, but i blame the typecasting system
-	var/list/hudlist = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED)
+	var/list/hudlist = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED) // ctodo refactor this so all huds can use multiple huds
+	// ctodo add the view things to this hud
 	var/xray = FALSE
 
 /obj/item/clothing/glasses/hud/debug/equipped(mob/living/carbon/human/user, slot)
@@ -119,6 +120,7 @@
 	else
 		add_xray(human_user)
 	xray = !xray
+	to_chat(user, "<span class='notice'>You [!xray ? "de" : ""]activate the x-ray setting on [src]</span>") // ctodo test
 	human_user.update_sight()
 
 /obj/item/clothing/glasses/hud/debug/proc/remove_xray(mob/user)
@@ -169,6 +171,17 @@
 	cell_type = /obj/item/stock_parts/cell/infinite
 	scan_time = 1 SECONDS
 	scan_cd = 0 SECONDS
+
+/obj/item/scalpel/laser/manager/debug
+	name = "AVD-CNED IMS"
+	desc = "A wonder of modern medicine. This tool functions as any other sort of surgery tool, and finishes in only a fraction of the time. Hey, how'd you get your hands on this, anyway?"
+	toolspeed = 0.01
+
+/obj/item/scalpel/laser/manager/debug/attack_self(mob/user)
+	. = ..()
+	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
+	to_chat(user, "[src] is now set to toolspeed [toolspeed]")
+	playsound(src, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 
 /obj/item/organ/internal/cyberimp/arm/surgery/advanced
 	name = "AVD-CNED surgical toolset implant"
