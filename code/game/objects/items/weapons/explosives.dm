@@ -71,7 +71,7 @@
 	if(isobserver(AM))
 		to_chat(user, "<span class='warning'>Your hand just phases through [AM]!</span>")
 		return
-	to_chat(user, "<span class='notice'>You start planting [src]. [nadeassembly == null ? "The timer is set to [det_time]..." : ""]</span>")
+	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time]..." : ""]</span>")
 
 	if(do_after(user, 50 * toolspeed, target = AM))
 		if(!user.unEquip(src))
