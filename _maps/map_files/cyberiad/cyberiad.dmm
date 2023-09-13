@@ -12396,12 +12396,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
-"aJw" = (
-/obj/machinery/computer/arcade/orion_trail{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/arcade,
-/area/station/public/arcade)
 "aJz" = (
 /obj/machinery/computer/arcade/battle{
 	dir = 4
@@ -83844,6 +83838,12 @@
 	icon_state = "darkred"
 	},
 /area/station/hallway/secondary/exit)
+"ryd" = (
+/obj/machinery/computer/arcade/recruiter{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "ryo" = (
 /obj/structure/sign/electricshock{
 	pixel_x = -32
@@ -128570,9 +128570,9 @@ aEv
 aFI
 lFV
 xUR
-aJw
-aKK
 fmN
+aKK
+ryd
 tcm
 aPg
 aQt

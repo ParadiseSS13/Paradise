@@ -54574,12 +54574,12 @@
 	},
 /area/station/public/fitness)
 "cFr" = (
-/obj/machinery/computer/arcade/orion_trail{
-	dir = 8
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
+	},
+/obj/machinery/computer/arcade/recruiter{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)

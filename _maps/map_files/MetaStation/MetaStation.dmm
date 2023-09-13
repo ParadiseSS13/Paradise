@@ -82235,6 +82235,12 @@
 /obj/structure/sign/biohazard,
 /turf/simulated/wall,
 /area/station/maintenance/xenobio_north)
+"sJS" = (
+/obj/machinery/computer/arcade/recruiter{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "sKf" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/morphine{
@@ -89869,6 +89875,9 @@
 "wzV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/structure/chair/stool{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -128481,7 +128490,7 @@ aaa
 aaa
 aij
 ajm
-apR
+sJS
 ctw
 aij
 aih
@@ -128994,7 +129003,7 @@ laH
 aaa
 aaa
 aij
-akk
+apR
 apV
 akk
 aij

@@ -83902,6 +83902,12 @@
 "tYz" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/processing)
+"tYE" = (
+/obj/machinery/computer/arcade/recruiter{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "tYS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -125719,7 +125725,7 @@ bca
 bik
 aHc
 aHc
-bca
+tYE
 aKW
 aEF
 aKl
