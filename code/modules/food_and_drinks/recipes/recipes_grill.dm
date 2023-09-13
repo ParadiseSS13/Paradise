@@ -269,3 +269,12 @@
 		/obj/item/reagent_containers/food/snacks/choc_pile
 	)
 	result = /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
+
+/datum/recipe/grill/bbqribs
+	reagents = list("bbqsauce" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/stack/rods
+	)
+	result = /obj/item/reagent_containers/food/snacks/bbqribs
