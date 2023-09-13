@@ -148,6 +148,8 @@
 
 	if(HAS_TRAIT(owner, TRAIT_BURN_WOUND_IMMUNE))
 		limb_flags |= CANNOT_BURN
+	if(HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
+		limb_flags |= CANNOT_INT_BLEED
 
 /obj/item/organ/external/proc/remove_limb_flags()
 	if(!HAS_TRAIT(owner, TRAIT_NO_BONES))
@@ -159,6 +161,8 @@
 
 	if(!HAS_TRAIT(owner, TRAIT_BURN_WOUND_IMMUNE))
 		limb_flags &= ~CANNOT_BURN
+	if(!HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
+		limb_flags &= ~CANNOT_INT_BLEED
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
