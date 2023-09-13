@@ -243,23 +243,13 @@ const Advert = (_properties, context) => {
         />
       }
     >
-      <Flex grow={1} basis={0} mb="5px">
-        <Flex.Item px="5px" width="50%">
-          <UplinkItem i={cats[lucky_numbers[0].cat].items[lucky_numbers[0].item]}/>
-        </Flex.Item>
-        <Flex.Item px="5px" width="50%">
-          <UplinkItem i={cats[lucky_numbers[1].cat].items[lucky_numbers[1].item]}/>
-        </Flex.Item>
-      </Flex>
-      {/* <br/> */}
-      <Flex grow={1} basis={0}>
-        <Flex.Item px="5px" width="50%">
-          <UplinkItem i={cats[lucky_numbers[2].cat].items[lucky_numbers[2].item]}/>
-        </Flex.Item>
-        <Flex.Item px="5px" width="50%">
-          <UplinkItem i={cats[lucky_numbers[3].cat].items[lucky_numbers[3].item]}/>
-        </Flex.Item>
-      </Flex>
+      <Box display="flex" flexWrap="wrap" mb="5px">
+        {lucky_numbers.map((number, index) => (
+          <Flex.Item flexShrink={0} key={index} p="0.5%" width="49%">
+            <UplinkItem grow i={cats[number.cat].items[number.item]}/>
+          </Flex.Item>
+        ))}
+      </Box>
     </Section>
   )
 }
@@ -278,6 +268,8 @@ const UplinkItem = (props, context) => {
       showBottom={showDecription}
       borderRadius="5px"
       buttons={buttons}
+      // flexGrow
+      stretchContents
     >
       {showDecription ? <Box italic>{decodeHtmlEntities(i.desc)}</Box> : null}
     </Section>
