@@ -1,6 +1,7 @@
 /obj/item/envelope
 	name ="broken letter"
 	desc = "We just got a letter, we just got a letter, we just got a letter -- I wonder who it's from?"
+	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/bureaucracy.dmi'
@@ -85,103 +86,105 @@
 /obj/item/envelope/supply
 	icon_state = "mail_sup"
 	possible_contents = list(/obj/item/reagent_containers/hypospray/autoinjector/survival,
-	/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
-	/obj/item/clothing/glasses/meson/gar,
-	/obj/item/stack/marker_beacon/ten,
-	/obj/item/stack/medical/splint,
-	/obj/item/pen/multi/fountain,
-	/obj/item/clothing/mask/cigarette/cigar,
-	/obj/item/stack/wrapping_paper,
-	/obj/item/toy/figure/crew/cargotech,
-	/obj/item/toy/figure/crew/qm,
-	/obj/item/toy/figure/crew/miner)
+							/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+							/obj/item/clothing/glasses/meson/gar,
+							/obj/item/stack/marker_beacon/ten,
+							/obj/item/stack/medical/splint,
+							/obj/item/pen/multi/fountain,
+							/obj/item/clothing/mask/cigarette/cigar,
+							/obj/item/stack/wrapping_paper,
+							/obj/item/toy/figure/crew/cargotech,
+							/obj/item/toy/figure/crew/qm,
+							/obj/item/toy/figure/crew/miner)
 	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner")
 
 /obj/item/envelope/medical
 	icon_state = "mail_med"
 	possible_contents = list(/obj/item/soap,
-	/obj/item/reagent_containers/glass/bottle/morphine,
-	/obj/item/reagent_containers/hypospray/safety,
-	/obj/item/reagent_containers/applicator/brute,
-	/obj/item/reagent_containers/applicator/burn,
-	/obj/item/clothing/glasses/sunglasses,
-	/obj/item/reagent_containers/food/snacks/fortunecookie,
-	/obj/item/scalpel/laser/laser1,
-	/obj/item/toy/figure/crew/cmo,
-	/obj/item/toy/figure/crew/chemist,
-	/obj/item/toy/figure/crew/geneticist,
-	/obj/item/toy/figure/crew/md,
-	/obj/item/toy/figure/crew/virologist)
+							/obj/item/reagent_containers/glass/bottle/morphine,
+							/obj/item/reagent_containers/hypospray/safety,
+							/obj/item/reagent_containers/applicator/brute,
+							/obj/item/reagent_containers/applicator/burn,
+							/obj/item/clothing/glasses/sunglasses,
+							/obj/item/reagent_containers/food/snacks/fortunecookie,
+							/obj/item/scalpel/laser/laser1,
+							/obj/item/toy/figure/crew/cmo,
+							/obj/item/toy/figure/crew/chemist,
+							/obj/item/toy/figure/crew/geneticist,
+							/obj/item/toy/figure/crew/md,
+							/obj/item/toy/figure/crew/virologist)
 	job_list = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Psychologist", "Paramedic")
 
 /obj/item/envelope/engineering
 	icon_state = "mail_eng"
 	possible_contents = list(/obj/item/airlock_electronics,
-	/obj/item/reagent_containers/food/drinks/cans/beer,
-	/obj/item/reagent_containers/food/snacks/candy/confectionery/nougat,
-	/obj/item/mod/module/storage/large_capacity,
-	/obj/item/weldingtool/hugetank,
-	/obj/item/geiger_counter,
-	/obj/item/rcd_ammo,
-	/obj/item/grenade/gas/oxygen,
-	/obj/item/toy/figure/crew/atmos,
-	/obj/item/toy/figure/crew/ce,
-	/obj/item/toy/figure/crew/engineer)
+							/obj/item/reagent_containers/food/drinks/cans/beer,
+							/obj/item/reagent_containers/food/snacks/candy/confectionery/nougat,
+							/obj/item/mod/module/storage/large_capacity,
+							/obj/item/weldingtool/hugetank,
+							/obj/item/geiger_counter,
+							/obj/item/rcd_ammo,
+							/obj/item/grenade/gas/oxygen,
+							/obj/item/toy/figure/crew/atmos,
+							/obj/item/toy/figure/crew/ce,
+							/obj/item/toy/figure/crew/engineer)
 	job_list = list("Chief Engineer", "Station Engineer", "Engine Technician", "Electrician", "Life Support Specialist", "Atmospheric Technician")
 
 /obj/item/envelope/service
 	icon_state = "mail_serv"
 	possible_contents = list(/obj/item/painter,
-	/obj/item/push_broom,
-	/obj/item/gun/energy/floragun,
-	/obj/item/reagent_containers/food/drinks/bottle/fernet,
-	/obj/item/whetstone,
-	/obj/item/reagent_containers/food/drinks/bottle/holywater,
-	/obj/item/stack/ore/tranquillite,
-	/obj/item/stack/ore/bananium,
-	/obj/item/toy/figure/crew/bartender,
-	/obj/item/toy/figure/crew/botanist,
-	/obj/item/toy/figure/crew/chef,
-	/obj/item/toy/figure/crew/clown,
-	/obj/item/toy/figure/crew/hop,
-	/obj/item/toy/figure/crew/chaplain,
-	/obj/item/toy/figure/crew/janitor,
-	/obj/item/toy/figure/crew/librarian,
-	/obj/item/toy/figure/crew/mime)
+							/obj/item/push_broom,
+							/obj/item/gun/energy/floragun,
+							/obj/item/reagent_containers/food/drinks/bottle/fernet,
+							/obj/item/whetstone,
+							/obj/item/reagent_containers/food/drinks/bottle/holywater,
+							/obj/item/stack/ore/tranquillite,
+							/obj/item/stack/ore/bananium,
+							/obj/item/toy/figure/crew/bartender,
+							/obj/item/toy/figure/crew/botanist,
+							/obj/item/toy/figure/crew/chef,
+							/obj/item/toy/figure/crew/clown,
+							/obj/item/toy/figure/crew/hop,
+							/obj/item/toy/figure/crew/chaplain,
+							/obj/item/toy/figure/crew/janitor,
+							/obj/item/toy/figure/crew/librarian,
+							/obj/item/toy/figure/crew/mime)
 	job_list = list("Head of Personnel", "Bartender", "Chef", "Cook", "Culinary Artist", "Butcher", "Botanist", "Hydroponicist", "Botanical Researcher", "Clown", "Mime", "Janitor", "Custodial Technician", "Librarian", "Journalist", "Barber")
 
 /obj/item/envelope/command
 	icon_state = "mail_com"
 	possible_contents = list(/obj/item/flash,
-	/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-	/obj/item/poster/random_official,
-	/obj/item/book/manual/wiki/sop_command,
-	/obj/item/reagent_containers/food/pill/patch/synthflesh,
-	/obj/item/paper_bin/nanotrasen,
-	/obj/item/reagent_containers/food/snacks/spesslaw,
-	/obj/item/clothing/head/collectable/petehat,
-	/obj/item/toy/figure/crew/captain,
-	/obj/item/toy/figure/crew/lawyer,
-	/obj/item/toy/figure/crew/dsquad)
+							/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+							/obj/item/poster/random_official,
+							/obj/item/book/manual/wiki/sop_command,
+							/obj/item/reagent_containers/food/pill/patch/synthflesh,
+							/obj/item/paper_bin/nanotrasen,
+							/obj/item/reagent_containers/food/snacks/spesslaw,
+							/obj/item/clothing/head/collectable/petehat,
+							/obj/item/toy/figure/crew/captain,
+							/obj/item/toy/figure/crew/lawyer,
+							/obj/item/toy/figure/crew/dsquad)
 	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent", "Human Resources Agent")
 
 /obj/item/envelope/misc
 	possible_contents = list(/obj/item/clothing/under/misc/assistantformal,
-	/obj/item/clothing/under/syndicate/tacticool,
-	/obj/item/clothing/shoes/ducky,
-	/obj/item/toy/plushie/orange_fox/grump,
-	/obj/item/multitool,
-	/obj/item/instrument/piano_synth,
-	/obj/item/toy/crayon/spraycan,
-	/obj/item/clothing/head/cakehat,
-	/obj/item/toy/figure/crew/assistant,
-	/obj/item/toy/figure/owl,
-	/obj/item/toy/figure/griffin)
+							/obj/item/clothing/under/syndicate/tacticool,
+							/obj/item/clothing/shoes/ducky,
+							/obj/item/toy/plushie/orange_fox/grump,
+							/obj/item/multitool,
+							/obj/item/instrument/piano_synth,
+							/obj/item/toy/crayon/spraycan,
+							/obj/item/clothing/head/cakehat,
+							/obj/item/toy/figure/crew/assistant,
+							/obj/item/toy/figure/owl,
+							/obj/item/toy/figure/griffin)
 	job_list = list("Assistant", "Explorer")
 
 /obj/item/mail_scanner
 	name = "mail scanner"
-	desc = "Confirms deliveries of mail with clients."
+	force = 0
+	throwforce = 0
+	desc = "Sponsored by Messaging and Intergalactic Letters, this device allows you to log mail deliveries in exchange for financial compensation."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mail_scanner"
 	flags = CONDUCT
@@ -190,15 +193,16 @@
 	origin_tech = "magnets=1"
 	var/obj/item/envelope/saved
 
-/obj/item/mail_scanner/attack()
-	return
+/obj/item/mail_scanner/examine(mob/user)
+	. = ..()
+		. += "<span class='notice'>Scan a letter to log it into the active database, then scan the person you wish to hand the letter to. Correctly scanning the recipient of the letter logged into the active database will add credits to the Supply account.</span>"
 
 /obj/item/mail_scanner/afterattack(atom/A, mob/user)
 	if(istype(A, /obj/item/envelope))
 		var/obj/item/envelope/envelope = A
 		if(envelope.has_been_scanned)
 			to_chat(user, "<span class='warning'>This letter has already been logged to the active database!</span>")
-			playsound(loc, 'sound/machines/deniedbeep.ogg', 50, TRUE)
+			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 		to_chat(user, "<span class='notice'>You add [envelope] to the active database.</span>")
 		playsound(loc, 'sound/mail/mailscanned.ogg', 50, TRUE)
@@ -207,22 +211,22 @@
 	if(isliving(A))
 		var/mob/living/M = A
 		if(!saved)
-			to_chat(user, "<span class='warning'>You have not logged mail to the mail scanner!</span>")
+			to_chat(user, "<span class='warning'>Error: You have not logged mail to the mail scanner!</span>")
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 
 		if(M.stat == DEAD)
-			to_chat(user, "<span class='warning'>You can't deliver mail to a corpse!</span>")
+			to_chat(user, "<span class='warning'>Consent Verification failed: You can't deliver mail to a corpse!</span>")
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 
 		if(M != saved.recipient)
-			to_chat(user, "<span class='warning'>The scanner will not accept confirmation of orders from non clients!</span>")
+			to_chat(user, "<span class='warning'>'Identity Verification failed: Target is not an authorized recipient of this package!</span>")
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 
 		if(!M.client)
-			to_chat(user, "<span class='warning'>The scanner will not accept confirmation of orders from SSD people!</span>")
+			to_chat(user, "<span class='warning'>Consent Verification failed! The scanner will not accept confirmation of orders from SSD people!</span>")
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 
