@@ -33,14 +33,13 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/cast(list/targets, mob/living/user)
 	var/atom/target = targets[1]
-	if(!phased)
-		if(phaseout(target, user))
-			phased = TRUE
-			cooldown_handler.revert_cast()
-	else
+	if(phased)
 		if(phasein(target, user))
 			phased = FALSE
-			cooldown_handler.start_recharge()
+	else
+		if(phaseout(target, user))
+			phased = TRUE
+	cooldown_handler.start_recharge()
 
 
 //Travel through pools of blood. Slaughter Demon powers for everyone!
@@ -147,12 +146,12 @@
 	if(mindless)
 		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
 		L.adjustBruteLoss(-50)
-		if(isslaughterdemon(L))
+		if(!isslaughterdemon(L))
 			L.adjustFireLoss(-50)
 	else
 		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
 		L.adjustBruteLoss(-25)
-		if(isslaughterdemon(L))
+		if(!isslaughterdemon(L))
 			L.adjustFireLoss(-25)
 
 	if(isslaughterdemon(L))
