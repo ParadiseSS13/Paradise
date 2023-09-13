@@ -80,7 +80,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 "q" = (
-/obj/effect/mob_spawn/human/miner/explorer{
+/obj/effect/mob_spawn/human/corpse/miner/explorer{
 	brute_damage = 150;
 	oxy_damage = 50
 	},
