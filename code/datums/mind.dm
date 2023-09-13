@@ -183,7 +183,7 @@
 	else
 		to_chat(recipient, "<i>[output]</i>")
 
-/datum/mind/proc/gen_objective_text(admin = FALSE) // ctodo check this
+/datum/mind/proc/gen_objective_text(admin = FALSE)
 	. = ""
 	var/obj_count = 1
 
@@ -206,7 +206,7 @@
 	if(objective_holder.has_objectives())
 		return TRUE
 	for(var/datum/antagonist/A as anything in antag_datums)
-		if(A.has_objectives()) // this checks teams
+		if(A.has_antag_objectives()) // this checks teams also
 			return TRUE
 	return FALSE
 
@@ -288,7 +288,7 @@
 			. += "."
 
 		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives flash/cham sec hud)."
-		if(rev.has_objectives()) // if theres anything missing here, we want it to runtime. There should never be a rev without a rev team
+		if(rev.has_antag_objectives()) // if theres anything missing here, we want it to runtime. There should never be a rev without a rev team
 			. += "<br>Objectives are empty! Unless theres no command, this is likely a bug, please report it! <a href='?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
 	else if(rev)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
@@ -324,7 +324,7 @@
 	var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
 	if(cling)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
-		if(!cling.objective_holder.has_objectives())
+		if(!cling.has_antag_objectives())
 			. += "<br>Objectives are empty! <a href='?src=[UID()];changeling=autoobjectives'>Randomize!</a>"
 		if(length(cling.absorbed_dna))
 			var/datum/dna/DNA = cling.absorbed_dna[1]
@@ -346,7 +346,7 @@
 		. += "<br>Subclass: <a href='?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
 		if(has_subclass)
 			. += " | Force full power: <a href='?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
-		if(!vamp.has_objectives())
+		if(!vamp.has_antag_objectives())
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];vampire=vampire'>vampire</a>|<b>NO</b>"
@@ -398,7 +398,7 @@
 	if(has_antag_datum(/datum/antagonist/traitor))
 		. += "<b><font color='red'>TRAITOR</font></b>|<a href='?src=[UID()];traitor=clear'>no</a>"
 		var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
-		if(!T.has_objectives())
+		if(!T.has_antag_objectives())
 			. += "<br>Objectives are empty! <a href='?src=[UID()];traitor=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];traitor=traitor'>traitor</a>|<b>NO</b>"

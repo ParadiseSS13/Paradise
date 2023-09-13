@@ -575,7 +575,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Absorb DNA"
 	needs_target = FALSE
 
-/datum/objective/absorb/proc/gen_amount_goal(lowbound = 6, highbound = 8) // ctodo make this into on find_target
+/datum/objective/absorb/New(text, datum/team/team_to_join)
+	. = ..()
+	gen_amount_goal()
+
+/datum/objective/absorb/proc/gen_amount_goal(lowbound = 6, highbound = 8)
 	target_amount = rand (lowbound,highbound)
 	if(SSticker)
 		var/n_p = 1 //autowin

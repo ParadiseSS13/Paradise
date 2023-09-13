@@ -62,7 +62,7 @@
 
 	on_add_callback?.Invoke(objective_owner, Objective)
 
-	RegisterSignal(Objective, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective)) // ctodo maybe remove this?
+	RegisterSignal(Objective, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective))
 	return Objective
 
 /datum/objective_holder/proc/handle_objective(datum/objective/O, explanation_text, mob/target_override) // ctodo, check this is all needed
@@ -106,4 +106,5 @@
 		assigned_targets -= "[S.steal_target]"
 
 	on_remove_callback?.Invoke(objective_owner, O)
-	qdel(O)
+	if(!QDELETED(O))
+		qdel(O)

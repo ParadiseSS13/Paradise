@@ -149,9 +149,7 @@
  * If they have two objectives as well as absorb, they must survive rather than escape.
  */
 /datum/antagonist/changeling/give_objectives()
-	var/datum/objective/absorb/absorb = new
-	absorb.gen_amount_goal() // ctodo make this into on find_target
-	add_antag_objective(absorb)
+	add_antag_objective(/datum/objective/absorb)
 
 	if(prob(60))
 		add_antag_objective(/datum/objective/steal)

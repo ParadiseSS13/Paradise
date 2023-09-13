@@ -212,25 +212,35 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	return objective_holder.add_objective(O, explanation_text, target_override)
 
-// ctodo comment
-/datum/antagonist/proc/remove_antag_objective(datum/objective/O) // currently unused
+/**
+ * Complement to add_antag_objective that removes the objective.
+ * Currently unused.
+ */
+/datum/antagonist/proc/remove_antag_objective(datum/objective/O)
 	return objective_holder.remove_objective(O)
 
-// Do we ctodo comment
-/datum/antagonist/proc/has_objectives()
+/**
+ * Do we have any objectives at all, including from a team.
+ * Faster than get_antag_objectives()
+ */
+/datum/antagonist/proc/has_antag_objectives(include_team = TRUE)
 	. = FALSE
-	var/datum/team/team = get_team()
-	if(istype(team))
-		. |= team.objective_holder.has_objectives()
-	return . || objective_holder.has_objectives()
+	if(include_team)
+		var/datum/team/team = get_team()
+		if(istype(team))
+			. |= team.objective_holder.has_objectives()
+	. |= objective_holder.has_objectives()
 
-// Do we
-/datum/antagonist/proc/get_objectives()
+/**
+ * Get all of this antagonist's objectives, including from the team.
+ */
+/datum/antagonist/proc/get_antag_objectives(include_team = TRUE)
 	. = list()
-	var/datum/team/team = get_team()
-	if(istype(team))
-		. |= team.objective_holder.get_objectives()
-	return . || objective_holder.get_objectives() // ctodo check this works with lists
+	if(include_team)
+		var/datum/team/team = get_team()
+		if(istype(team))
+			. |= team.objective_holder.get_objectives()
+	. |= objective_holder.get_objectives()
 
 /**
  * Proc called when the datum is given to a mind.
@@ -242,7 +252,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		give_objectives()
 	if(!silent)
 		greet()
-		// announce_objectives() ctodo remove this I think
+		owner.announce_objectives()
 	apply_innate_effects()
 	finalize_antag()
 	if(wiki_page_name)
@@ -344,7 +354,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 				break
 
 	if(objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>" // ctodo, this has issues with having multiple antags
+		report += "<span class='greentext big'>The [name] was successful!</span>"
 	else
 		report += "<span class='redtext big'>The [name] has failed!</span>"
 

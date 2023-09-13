@@ -1,5 +1,7 @@
 GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on roundend
 
+#define DEFAULT_TEAM_NAME "Generic Team Name"
+
 /**
  * # Antagonist Team
  *
@@ -7,13 +9,15 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
  */
 /datum/team
 	/// The name of the team.
-	var/name = "Generic Team Name"
+	var/name = DEFAULT_TEAM_NAME
 	/// A list of [minds][/datum/mind] who belong to this team.
-	var/list/members
+	var/list/datum/mind/members
 	/// A list of objectives which all team members share.
 	var/datum/objective_holder/objective_holder
 	/// Type of antag datum members of this team have. Also given to new members added by admins.
 	var/antag_datum_type
+	/// The name to save objective successes under in the blackboxes. Saves nothing if blank.
+	var/blackbox_save_name
 
 /datum/team/New(list/starting_members)
 	..()
@@ -80,9 +84,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
  * Remove a team objective from each member's matching antag datum.
  */
 /datum/team/proc/remove_team_objective(datum/objective/O)
-	// for(var/datum/mind/M as anything in members)
-	// 	var/datum/antagonist/A = get_antag_datum_from_member(M)
-	// 	A.objectives -= O // ctodo remove this
 	objective_holder.remove_objective(O)
 	if(!QDELETED(O))
 		qdel(O)
@@ -98,6 +99,58 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 	// If no matching antag datum was found, give them one.
 	if(antag_datum_type)
 		return member.add_antag_datum(antag_datum_type, src)
+
+/**
+ * Special overrides for teams for target exclusion from objectives.
+ */
+/datum/team/proc/get_target_excludes()
+	return members
+
+/**
+ * Special overrides for teams for target exclusion from objectives.
+ */
+/datum/team/proc/on_team_end()
+	if(!length(members))
+		return
+	var/temp_name = name
+	if(temp_name == DEFAULT_TEAM_NAME)
+		temp_name = "This team"
+	else
+		temp_name = "The [name]"
+	var/list/to_send = list()
+
+	var/obj_count = 1
+	var/team_win = TRUE
+	for(var/datum/objective/objective in objective_holder.get_objectives())
+
+		var/text_to_add = "<b>Objective #[obj_count++]</b>: [objective.explanation_text] "
+		var/failed = "FAIL"
+		if(objective.check_completion())
+			text_to_add += "<font color='green'><b>Success!</b></font>"
+			failed = "SUCCESS"
+		else
+			text_to_add += "<font color='red'>Fail.</font>"
+			team_win = FALSE
+		to_send += text_to_add
+
+		// handle blackbox stuff
+		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
+			if(istype(objective, /datum/objective/steal))
+				var/datum/objective/steal/S = objective
+				SSblackbox.record_feedback("nested tally", "[initial(blackbox_save_name)]_steal_objective", 1, list("Steal [S.steal_target]", failed))
+			else
+				SSblackbox.record_feedback("nested tally", "[initial(blackbox_save_name)]_objective", 1, list("[objective.type]", failed))
+
+	if(team_win)
+		to_send += "<br><font color='green'><B>The [temp_name] was successful!</B></font>"
+		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
+			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_success", 1, "SUCCESS")
+	else
+		to_send += "<br><font color='red'><B>The [temp_name] has failed!</B></font>"
+		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
+			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_success", 1, "FAIL")
+
+	to_chat(world, to_send.Join("<br/>"))
 
 /**
  * Allows admins to send a message to all members of this team.
@@ -128,12 +181,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 
 	message_admins("[key_name_admin(user)] added objective [O.type] to the team '[name]'.")
 	log_admin("[key_name(user)] added objective [O.type] to the team '[name]'.")
-
-/**
- * Special overrides for teams for target exclusion from objectives.
- */
-/datum/team/proc/get_target_excludes()
-	return members
 
 /**
  * Allows admins to remove a team objective.
@@ -200,7 +247,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 	var/list/content = list()
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams."
-	for(var/datum/team/T as anything in GLOB.antagonist_teams) // ctodo, make these tabs and just list them all in a horizontal row of buttons, kinda like top of prefs
+	for(var/datum/team/T as anything in GLOB.antagonist_teams) // with multiple teams, this is going to get messy. It should probably be turned into a tabs-like system
 		content += "<h3>[T.name] - [T.type]</h3>"
 		content += "<a href='?_src_=holder;team_command=rename_team;team=[T.UID()]'>Rename Team</a>"
 		content += "<a href='?_src_=holder;team_command=delete_team;team=[T.UID()]'>Delete Team</a>"
@@ -211,7 +258,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams) // ctodo make sure this prints out on rounde
 			content += "<a href='?_src_=[T.UID()];command=[command]'>[command]</a>"
 		content += "<br><br>Objectives:<br><ol>"
 		for(var/datum/objective/O as anything in T.objective_holder.get_objectives())
-			content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[T.UID()];objective=[O.UID()]'>Remove</a></li>" // ctodo make sure this works
+			content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[T.UID()];objective=[O.UID()]'>Remove</a></li>"
 		content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[T.UID()]'>Add Objective</a><br><br>"
 		content += "Members: <br><ol>"
 		for(var/datum/mind/M as anything in T.members)
