@@ -84,28 +84,19 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 
 	prescription_upgradable = FALSE
-	// this is sketchy, i know, but i blame the typecasting system
-	var/list/hudlist = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED) // ctodo refactor this so all huds can use multiple huds
-	// ctodo add the view things to this hud
+
+	hud_types = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED, DATA_HUD_HYDROPONIC)
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL, EXAMINE_HUD_SKILLS)
+
 	var/xray = FALSE
 
 /obj/item/clothing/glasses/hud/debug/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if(slot != slot_glasses)
-		return
-	for(var/new_hud in hudlist)
-		var/datum/atom_hud/H = GLOB.huds[new_hud]
-		H.add_hud_to(user)
 	if(xray)
 		add_xray(user)
 
 /obj/item/clothing/glasses/hud/debug/dropped(mob/living/carbon/human/user)
 	..()
-	if(user.glasses != src)
-		return
-	for(var/new_hud in hudlist)
-		var/datum/atom_hud/H = GLOB.huds[new_hud]
-		H.remove_hud_from(user)
 	if(xray)
 		remove_xray(user)
 
