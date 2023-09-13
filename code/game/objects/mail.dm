@@ -68,18 +68,18 @@
 /obj/item/envelope/science
 	icon_state = "mail_sci"
 	possible_contents = list(/obj/item/analyzer,
-	/obj/item/assembly/signaler,
-	/obj/item/slime_extract/grey,
-	/obj/item/clothing/mask/gas,
-	/obj/item/reagent_containers/spray/cleaner,
-	/obj/item/clothing/glasses/regular,
-	/obj/item/taperecorder,
-	/obj/item/paicard,
-	/obj/item/toy/figure/crew/borg,
-	/obj/item/toy/figure/crew/geneticist,
-	/obj/item/toy/figure/crew/rd,
-	/obj/item/toy/figure/crew/roboticist,
-	/obj/item/toy/figure/crew/scientist)
+							/obj/item/assembly/signaler,
+							/obj/item/slime_extract/grey,
+							/obj/item/clothing/mask/gas,
+							/obj/item/reagent_containers/spray/cleaner,
+							/obj/item/clothing/glasses/regular,
+							/obj/item/taperecorder,
+							/obj/item/paicard,
+							/obj/item/toy/figure/crew/borg,
+							/obj/item/toy/figure/crew/geneticist,
+							/obj/item/toy/figure/crew/rd,
+							/obj/item/toy/figure/crew/roboticist,
+							/obj/item/toy/figure/crew/scientist)
 	job_list = list("Research Director", "Roboticist", "Geneticist",  "Scientist")
 
 /obj/item/envelope/supply
