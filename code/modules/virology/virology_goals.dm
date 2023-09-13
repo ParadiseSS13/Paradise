@@ -72,16 +72,12 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 	var/datum/reagent/blood/BL = locate() in reagent_list
 	if(BL)
 		if(BL.data && BL.data["viruses"])
-			log_debug("A")
 			for(var/datum/disease/advance/D in BL.data["viruses"])
-				log_debug("B")
 				if(D.symptoms.len < 4) //We want 3 other symptoms alongside the requested one
 					continue
-				log_debug("C!")
 				var/properties = D.GenerateProperties()
-				log_debug("property: [properties[goal_property]]")
-				if(!properties[goal_property] == goal_property_value)
-					log_debug("Skipped!")
+				var/property = properties[goal_property]
+				if(!(property == goal_property_value))
 					continue
 				for(var/datum/symptom/S in D.symptoms)
 					if(S.type == goal_symptom)
