@@ -352,6 +352,14 @@
 	species = list("Plasmaman")
 	surplus = 0
 
+//Human
+/datum/uplink_item/species_restricted/holo_cigar
+	name = "Holo-Cigar"
+	desc = "A holo-cigar imported from the Sol system. The full effects of looking so badass aren't understood yet, but users show an increase in precision while dual-wielding firearms."
+	reference = "SHC"
+	item = /obj/item/clothing/mask/holo_cigar
+	cost = 10
+	species = list("Human")
 
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS

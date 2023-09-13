@@ -21,7 +21,7 @@
 	resistance_flags = FIRE_PROOF
 
 // Spawners
-/obj/effect/mob_spawn/human/spacebase_syndicate
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate
 	name = "Syndicate Researcher sleeper"
 	mob_name = "Syndicate Researcher"
 	roundstart = FALSE
@@ -37,7 +37,7 @@
 	allow_species_pick = TRUE
 	skin_tone = 255
 
-/obj/effect/mob_spawn/human/spacebase_syndicate/Destroy()
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
 	S.setDir(dir)
 	return ..()
