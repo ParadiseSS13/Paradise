@@ -62,9 +62,12 @@
 /area/mine/unexplored/cere/orbiting
 	name = "Near Station Asteroids"
 
+/**********************Outpost areas**************************/
+
 /area/mine/outpost
 	name = "Mining Station"
 	icon_state = "mining"
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/mine/outpost/airlock
 	name = "Mining Station Airlock"
@@ -74,8 +77,9 @@
 	name = "Mining Station Cafeteria"
 	icon_state = "mining_living"
 
-/area/mine/outpost/catwalk
+/area/lavaland/surface/outdoors/outpost/catwalk //subtype of /surface so storms hit there
 	name = "Mining Station Catwalk"
+	icon_state = "mining"
 
 /area/mine/outpost/comms
 	name = "Mining Station Communications"
