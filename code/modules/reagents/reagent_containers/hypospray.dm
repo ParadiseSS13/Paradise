@@ -17,8 +17,12 @@
 	slot_flags = SLOT_BELT
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
+	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
+									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
+									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
+									"mitocholide", "rezadone", "menthol")
 
-/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
@@ -52,11 +56,17 @@
 			reagents.reaction(M, REAGENT_INGEST, 0.1)
 		return TRUE
 
+/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+	return apply(M, user)
+
+/obj/item/reagent_containers/hypospray/attack_self(mob/user)
+	return apply(user, user)
+
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/R in reagents.reagent_list)
-			if(!GLOB.safe_chem_list.Find(R.id))
+			if(!safe_chem_list.Find(R.id))
 				reagents.del_reagent(R.id)
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
@@ -125,6 +135,11 @@
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
+	..()
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+/obj/item/reagent_containers/hypospray/autoinjector/attack_self(mob/user)
 	..()
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE

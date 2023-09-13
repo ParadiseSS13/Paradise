@@ -359,6 +359,9 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
+	if(HAS_TRAIT(M, TRAIT_BADASS))
+		return
+
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
@@ -537,9 +540,6 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.3
 	overdose_threshold = 35
-	addiction_chance = 1
-	addiction_chance = 10
-	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "stimulation"
 
@@ -962,7 +962,6 @@
 	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
 	color = "#C8A5DC"
 	harmless = FALSE
-	can_synth = FALSE
 	taste_description = "<span class='userdanger'>an unstoppable force</span>"
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
@@ -1004,7 +1003,6 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	harmless = FALSE
-	can_synth = FALSE
 
 /datum/reagent/medicine/stimulative_agent/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
@@ -1166,7 +1164,6 @@
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
 	reagent_state = SOLID
 	color = "#555555"
-	can_synth = FALSE
 	taste_description = "bodily perfection"
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
@@ -1366,7 +1363,6 @@
 	description = "Highly advanced nanites equipped with an unknown payload designed to repair a body. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 0.5
-	can_synth = FALSE
 	harmless = FALSE
 	taste_description = "2 minutes of suffering"
 	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
@@ -1436,7 +1432,6 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
 	harmless = FALSE
-	can_synth = FALSE
 
 /datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE

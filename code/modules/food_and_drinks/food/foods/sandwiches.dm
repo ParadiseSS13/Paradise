@@ -60,9 +60,9 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "tofu" = 4)
 
-/obj/item/reagent_containers/food/snacks/roburger
-	name = "roburger"
-	desc = "The lettuce is the only organic component. Beep."
+/obj/item/reagent_containers/food/snacks/hamborger
+	name = "hamborger"
+	desc = "Looking at this makes your flesh feel like a weakness."
 	icon_state = "roburger"
 	filling_color = "#CCCCCC"
 	bitesize = 3
@@ -206,3 +206,57 @@
 	icon_state = "wrap"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("egg" = 1)
+
+/obj/item/reagent_containers/food/snacks/appendixburger
+	name = "appendix burger"
+	desc = "Tastes like appendicitis."
+	icon_state = "appendixburger"
+	list_reagents = list("nutriment" = 2, "protein" = 6, "vitamin" = 6)
+	bitesize = 3
+	tastes = list("bun" = 1, "grass" = 1)
+	filling_color = "#F2B6EA"
+
+/obj/item/reagent_containers/food/snacks/baconburger
+	name = "bacon burger"
+	desc = "The perfect combination of all things American."
+	icon_state = "baconburger"
+	tastes = list("bun" = 1, "bacon" = 1)
+	list_reagents = list("nutriment" = 3, "vitamin" = 2, "protein" = 6)
+	filling_color = "#F2B6EA"
+	bitesize = 3
+
+/obj/item/reagent_containers/food/snacks/bearger
+	name = "bearger"
+	desc = "Best served rawr."
+	icon_state = "bearger"
+	tastes = list("bun" = 1, "meat" = 1, "salmon" = 1)
+	list_reagents = list("nutriment" = 3, "protein" = 6, "vitamin" = 2)
+	filling_color = "#F2B6EA"
+	bitesize = 3
+
+/obj/item/reagent_containers/food/snacks/fivealarmburger
+	name = "five alarm burger"
+	desc = "HOT! HOT!"
+	icon_state = "fivealarmburger"
+	list_reagents = list("nutriment" = 4, "protein" = 6, "condensedcapsaicin" = 5, "capsaicin" = 5)
+	tastes = list("bun" = 1, "extreme heat" = 1)
+	bitesize = 3
+	filling_color = "#F2B6EA"
+
+/obj/item/reagent_containers/food/snacks/mcguffin
+	name = "mcGuffin"
+	desc = "A cheap and greasy imitation of an eggs benedict."
+	icon_state = "mcguffin"
+	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 1)
+	tastes = list("muffin" = 1, "bacon" = 1)
+	bitesize = 3
+	filling_color = "#F2B6EA"
+
+/obj/item/reagent_containers/food/snacks/mcrib
+	name = "mcRib"
+	desc = "An elusive rib shaped burger with limited availablity across the galaxy. Not as good as you remember it."
+	icon_state = "mcrib"
+	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 4, "bbqsauce" = 1)
+	tastes = list("bun" = 1, "pork" = 1, "patty" = 1)
+	bitesize = 3
+	filling_color = "#F2B6EA"

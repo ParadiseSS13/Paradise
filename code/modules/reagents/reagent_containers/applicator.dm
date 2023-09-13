@@ -15,6 +15,7 @@
 	var/applied_amount = 8 // How much it applies
 	var/applying = FALSE // So it can't be spammed.
 	var/measured_health = 0 // Used for measuring health; we don't want this to stop applying once the person's health isn't changing.
+	var/static/list/safe_chem_applicator_list = list("silver_sulfadiazine", "styptic_powder", "synthflesh")
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
 	if(!emagged)
@@ -29,7 +30,7 @@
 	if(!emagged)
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/R in reagents.reagent_list)
-			if(!GLOB.safe_chem_applicator_list.Find(R.id))
+			if(!safe_chem_applicator_list.Find(R.id))
 				reagents.del_reagent(R.id)
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
@@ -62,7 +63,7 @@
 			applicator_bar.icon_state = "app_e"
 	. += applicator_bar
 
-/obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/applicator/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
@@ -93,6 +94,11 @@
 		update_icon()
 		user.changeNext_move(CLICK_CD_MELEE)
 
+/obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
+	return apply(M, user)
+
+/obj/item/reagent_containers/applicator/attack_self(mob/user)
+	return apply(user, user)
 
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE)
 	var/total_applied_amount = applied_amount * multiplier
