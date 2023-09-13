@@ -628,7 +628,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else
 			M.objectives += new_objective
 		M.remove_objective(src)
-	Destroy()
+	
 /datum/objective/steal_five_of_type
 	name = "Steal Five Items"
 	explanation_text = "Steal at least five items!"
