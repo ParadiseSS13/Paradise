@@ -623,7 +623,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		new_objective.owner = M
 		new_objective.find_target()
 		if(!new_objective.target)
-			new_objective.Destroy()
+			qdel(new_objective)
+			continue
 		else
 			M.objectives += new_objective
 		M.remove_objective(src)
