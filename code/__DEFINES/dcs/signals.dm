@@ -311,6 +311,8 @@
 
 ///from base of /mob/Login(): ()
 #define COMSIG_MOB_LOGIN "mob_login"
+///called in human/login
+#define	COMSIG_HUMAN_LOGIN "human_login"
 ///from base of /mob/Logout(): ()
 #define COMSIG_MOB_LOGOUT "mob_logout"
 ///from base of mob/death(): (gibbed)
