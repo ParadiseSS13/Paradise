@@ -23,6 +23,9 @@
 	if(!(type in D.viable_mobtypes))
 		return -1 //for stupid fucking monkies
 
+	if(HAS_TRAIT(src, TRAIT_VIRUSIMMUNE))
+		return FALSE
+
 	return TRUE
 
 
