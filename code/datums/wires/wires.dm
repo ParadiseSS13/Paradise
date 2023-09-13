@@ -480,3 +480,15 @@
 /datum/wires/proc/is_attached(color)
 	if(assemblies[color])
 		return TRUE
+
+/// Use this proc if you want wires to be pulsed on EMP
+/datum/wires/proc/emp_pulse()
+	var/list/possible_wires = shuffle(wires)
+	var/remaining_pulses = 3
+
+	for(var/wire in possible_wires)
+		if(prob(33))
+			pulse(wire)
+			remaining_pulses--
+			if(!remaining_pulses)
+				break

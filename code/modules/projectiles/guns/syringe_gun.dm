@@ -104,7 +104,7 @@
 // at a breakneck pace.
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
-	desc = "A syndicate rapid syringe gun based on an archived NanoTrasen prototype. Capable of storing and filling syringes from an internal reservoir. It has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
+	desc = "A syndicate rapid syringe gun based on an archived Nanotrasen prototype. Capable of storing and filling syringes from an internal reservoir. It has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
 	icon_state = "rapidsyringegun"
 	max_syringes = 14  // full two boxes worth
 	/// Maximum size of the internal reservoir
@@ -315,7 +315,7 @@
 	if(!S)
 		return
 
-	chambered.BB = new S.projectile_type(src)
+	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/pierce_ignore(src)
 	update_loaded_syringe()
 	chambered.BB.name = S.name
 

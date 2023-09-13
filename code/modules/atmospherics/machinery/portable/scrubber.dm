@@ -11,6 +11,7 @@
 	var/volume_rate = 101.325
 	/// Is this scrubber acting on the 3x3 area around it.
 	var/widenet = FALSE
+	pull_speed = 0
 
 /obj/machinery/atmospherics/portable/scrubber/examine(mob/user)
 	. = ..()

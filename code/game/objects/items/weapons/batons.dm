@@ -66,6 +66,9 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
+	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user))
+		to_chat(user, user.mind.martial_art.no_baton_reason)
+		return
 	if(issilicon(target))
 		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
 							"<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
@@ -133,8 +136,8 @@
 	item_state = "cane_nt"
 	needs_permit = FALSE
 
-/obj/item/melee/classic_baton/ntcane/is_crutch()
-	return TRUE
+/obj/item/melee/classic_baton/ntcane/get_crutch_efficiency()
+	return 2
 
 /**
   * # Telescopic Baton

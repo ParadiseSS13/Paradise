@@ -176,34 +176,29 @@
 	if(QDELETED(src) || QDELETED(target))
 		return
 
-	var/list/procs = signal_procs
-	if(!procs)
-		signal_procs = procs = list()
-	if(!procs[target])
-		procs[target] = list()
-	var/list/lookup = target.comp_lookup
-	if(!lookup)
-		target.comp_lookup = lookup = list()
+	var/list/procs = (signal_procs ||= list()) // YES, THIS NEEDS TO BE HERE. DO NOT REPLACE `procs` with `signal_procs` or signals will have a FIT
+	var/list/target_procs = (procs[target] ||= list()) // makes ...[target] a list if its null, then holds a reference to it in target_procs
+	var/list/lookup = (target.comp_lookup ||= list())
 
 	var/list/sig_types = islist(sig_type_or_types) ? sig_type_or_types : list(sig_type_or_types)
 	for(var/sig_type in sig_types)
-		if(!override && procs[target][sig_type])
+		if(!override && target_procs[sig_type])
 			stack_trace("RegisterSignal overrode a signal without having 'override = TRUE' set.\n \
-						src: [src], signal type: [sig_type], target: [target], new proc: [proctype], previous proc: [procs[target][sig_type]].")
+						src: [src], signal type: [sig_type], target: [target], new proc: [proctype], previous proc: [target_procs[sig_type]].")
 
-		procs[target][sig_type] = proctype
+		target_procs[sig_type] = proctype
+		var/list/looked_up = lookup[sig_type]
 
-		if(!lookup[sig_type]) // Nothing has registered here yet
-			lookup[sig_type] = src
-		else if(lookup[sig_type] == src) // We already registered here
+		if(!looked_up) // Nothing has registered here yet
+			looked_up = src
+		else if(looked_up == src) // We already registered here
 			continue
-		else if(!length(lookup[sig_type])) // One other thing registered here
-			lookup[sig_type] = list(lookup[sig_type]=TRUE)
-			lookup[sig_type][src] = TRUE
+		else if(!length(looked_up)) // One other thing registered here
+			looked_up = list((looked_up) = TRUE, (src) = TRUE)
 		else // Many other things have registered here
-			lookup[sig_type][src] = TRUE
+			looked_up[src] = TRUE
 
-	signal_enabled = TRUE
+		lookup[sig_type] = looked_up // Gotta save, otherwise it will break
 
 /**
   * Stop listening to a given signal from target
@@ -236,6 +231,8 @@
 						target.comp_lookup = null
 						break
 			if(0)
+				if(lookup[sig] != src)
+					continue
 				lookup -= sig
 				if(!length(lookup))
 					target.comp_lookup = null
@@ -246,6 +243,11 @@
 	signal_procs[target] -= sig_type_or_types
 	if(!signal_procs[target].len)
 		signal_procs -= target
+
+/// Registers multiple signals to the same proc.
+/datum/proc/RegisterSignals(datum/target, list/signal_types, proctype, override = FALSE)
+	for(var/signal_type in signal_types)
+		RegisterSignal(target, signal_type, proctype, override)
 
 /**
   * Called on a component when a component of the same type was added to the same parent
@@ -311,18 +313,18 @@
 /datum/proc/_SendSignal(sigtype, list/arguments)
 	var/target = comp_lookup[sigtype]
 	if(!length(target))
-		var/datum/C = target
-		if(!C.signal_enabled)
-			return NONE
-		var/proctype = C.signal_procs[src][sigtype]
-		return NONE | CallAsync(C, proctype, arguments)
+		var/datum/listening_datum = target
+		return NONE | CallAsync(listening_datum, listening_datum.signal_procs[src][sigtype], arguments)
+
 	. = NONE
-	for(var/I in target)
-		var/datum/C = I
-		if(!C.signal_enabled)
-			continue
-		var/proctype = C.signal_procs[src][sigtype]
-		. |= CallAsync(C, proctype, arguments)
+	// This exists so that even if one of the signal receivers unregisters the signal,
+	// all the objects that are receiving the signal get the signal this final time.
+	// AKA: No you can't cancel the signal reception of another object by doing an unregister in the same signal.
+	var/list/queued_calls = list()
+	for(var/datum/targets as anything in target)
+		queued_calls[targets] = targets.signal_procs[src][sigtype]
+	for(var/datum/listening_datum as anything in queued_calls)
+		. |= CallAsync(listening_datum, queued_calls[listening_datum], arguments)
 
 // The type arg is casted so initial works, you shouldn't be passing a real instance into this
 /**

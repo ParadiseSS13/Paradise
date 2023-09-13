@@ -196,8 +196,8 @@
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/wormhole/New(obj/item/gun/energy/wormhole_projector/wh)
-	. = ..()
 	gun = wh
+	return ..()
 
 /obj/item/ammo_casing/energy/wormhole/orange
 	projectile_type = /obj/item/projectile/beam/wormhole/orange
@@ -297,6 +297,10 @@
 	e_cost = 350 // about 42 shots on an engineering borg from a borging machine, Reads a lot better than it actually is because people miss shots and often your better abilities require charge as well
 	delay = 1 SECONDS
 
+/obj/item/ammo_casing/energy/emitter/cyborg/proto // needed a slightly weaker ranged option to give to Safety Overriden borgs. The fire rate is about the same as an emitter if you put it on the ground.
+	e_cost = 500
+	delay = 2 SECONDS
+
 /obj/item/ammo_casing/energy/bsg
 	projectile_type = /obj/item/projectile/energy/bsg
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
@@ -355,5 +359,5 @@
 	projectile_type = /obj/item/projectile/beam/silencer
 	muzzle_flash_effect = null
 	select_name = "silencing dissidents"
-	e_cost = 62.5 // 16 shots
+	e_cost = 50 // 16 shots
 	fire_sound = 'sound/weapons/silencer_laser.ogg'

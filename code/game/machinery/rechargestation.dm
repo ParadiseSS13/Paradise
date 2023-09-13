@@ -143,6 +143,7 @@
 		return TRUE
 
 /obj/machinery/recharge_station/proc/process_occupant()
+	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed, repairs)
 	if(isrobot(occupant))
 		var/mob/living/silicon/robot/R = occupant
 		if(R.module)
@@ -153,10 +154,12 @@
 			R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 	else if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
-		if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < NUTRITION_LEVEL_FULL - 1)
-			H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, NUTRITION_LEVEL_FULL - 1))
-		if(repairs)
-			H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+		if(H.get_int_organ(/obj/item/organ/internal/cell))
+			if(H.nutrition < NUTRITION_LEVEL_FULL - 1)
+				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, NUTRITION_LEVEL_FULL - 1))
+			if(repairs)
+				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
@@ -220,8 +223,9 @@
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(!H.get_int_organ(/obj/item/organ/internal/cell))
-			return
+		if(!ismodcontrol(H.back))
+			if(!H.get_int_organ(/obj/item/organ/internal/cell))
+				return
 		can_accept_user = 1
 
 	if(!can_accept_user)

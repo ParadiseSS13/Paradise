@@ -17,9 +17,17 @@
 	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
 	var/pre_maint_all_access
 	area_type = /area
-	protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer,
-	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig,
-	/area/shuttle, /area/survivalpod) //although survivalpods are off-station, creating one on station no longer protects pods on station from the rad storm
+	protected_areas = list(
+		/area/station/maintenance,
+		/area/station/turret_protected/ai_upload,
+		/area/station/turret_protected/ai,
+		/area/station/public/storage/emergency,
+		/area/station/public/storage/emergency/port,
+		/area/station/public/sleep,
+		/area/station/security/brig,
+		/area/shuttle,
+		/area/survivalpod //although survivalpods are off-station, creating one on station no longer protects pods on station from the rad storm
+	)
 	target_trait = STATION_LEVEL
 
 	immunity_type = "rad"

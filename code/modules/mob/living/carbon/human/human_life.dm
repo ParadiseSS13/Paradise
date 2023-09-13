@@ -739,7 +739,7 @@
 		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
-				vomit(20, 0, 1, 0, 1)
+				vomit(20, 0, TRUE, 0, 1)
 				adjustToxLoss(-3)
 				lastpuke = 0
 
@@ -787,7 +787,7 @@
 				break
 
 	for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
-		if(R.heart_rate_increase)
+		if(R.has_heart_rate_increase())
 			if(temp <= PULSE_FAST && temp >= PULSE_NONE)
 				temp++
 				break
@@ -876,7 +876,7 @@
 
 			if(heartbeat >= rate)
 				heartbeat = 0
-				SEND_SOUND(src, sound('sound/effects/electheart.ogg', channel = CHANNEL_HEARTBEAT, volume = 50))
+				SEND_SOUND(src, sound('sound/effects/singlebeat.ogg', channel = CHANNEL_HEARTBEAT, volume = 50))
 			else
 				heartbeat++
 

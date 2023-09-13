@@ -70,17 +70,6 @@
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 
-/obj/structure/closet/crate/necropolis/puzzle
-	name = "puzzling chest"
-
-/obj/structure/closet/crate/necropolis/puzzle/populate_contents()
-	var/loot = rand(1,2)
-	switch(loot)
-		if(1)
-			new /obj/item/soulstone/anybody(src)
-		if(2)
-			new /obj/item/wisp_lantern(src)
-
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disk
 	name = "\improper KA mod disk"
@@ -162,7 +151,7 @@
 	name = "champion's hardsuit"
 	desc = "Voices echo from the hardsuit, driving the user insane. Is not space-proof."
 	icon_state = "hardsuit-berserker"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
 	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	hoodtype = /obj/item/clothing/head/hooded/berserker
 	flags_inv = HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT | HIDETAIL
@@ -279,7 +268,7 @@
 	name = "Berserk"
 	desc = "Increase your movement and melee speed while also increasing your melee armor for a short amount of time."
 
-/datum/action/item_action/berserk_mode/Trigger(trigger_flags)
+/datum/action/item_action/berserk_mode/Trigger(left_click)
 	if(istype(target, /obj/item/clothing/head/hooded/berserker))
 		var/obj/item/clothing/head/hooded/berserker/berzerk = target
 		if(berzerk.berserk_active)

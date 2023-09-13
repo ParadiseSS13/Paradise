@@ -225,10 +225,12 @@
 	invocation_type = "shout"
 	cooldown_min = 100
 	summon_amt = 1
+	delay = 0
 	action_icon_state = "time"
 
 	summon_type = list(/obj/effect/timestop/wizard)
 	aoe_range = 0
+
 
 /obj/effect/proc_holder/spell/aoe/conjure/carp
 	name = "Summon Carp"

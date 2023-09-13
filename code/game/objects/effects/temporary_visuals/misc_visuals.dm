@@ -468,3 +468,33 @@
 	image_plane = GAME_PLANE
 	image_icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
 	image_icon_state = "target_box"
+
+
+/obj/effect/temp_visual/obliteration
+	duration = 2 SECONDS
+
+/obj/effect/temp_visual/obliteration/Initialize(mapload, atom/target)
+	. = ..()
+	if(isobj(target))
+		loc = target.loc
+	icon = target.icon
+	icon_state = target.icon_state
+	alpha = target.alpha
+	dir = target.dir
+	update_icon()
+	var/obj/effect/dusting_anim/dust_effect = new(loc, UID())
+	filters += filter(type = "displace", size = 256, render_source = "*snap[UID()]")
+	animate(src, alpha = 0, time = 2 SECONDS, easing = (EASE_IN | SINE_EASING))
+	QDEL_IN(dust_effect, 20)
+	return TRUE
+
+/obj/effect/temp_visual/obliteration_rays
+	duration = 1.25 SECONDS
+
+/obj/effect/temp_visual/obliteration_rays/Initialize(mapload)
+	. = ..()
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40, "#ffd04f", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+		animate(offset = 0, time = 10 SECONDS)

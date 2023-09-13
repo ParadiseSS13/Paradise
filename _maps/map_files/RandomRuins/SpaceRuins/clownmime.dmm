@@ -18,19 +18,19 @@
 /area/ruin/space/unpowered)
 "f" = (
 /obj/item/broken_bottle,
-/obj/effect/mob_spawn/human/mime/corpse,
+/obj/effect/mob_spawn/human/corpse/mime,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "g" = (
 /obj/item/shard,
-/obj/effect/mob_spawn/human/mime/corpse,
+/obj/effect/mob_spawn/human/corpse/mime,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "h" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/mob_spawn/human/mime/corpse,
+/obj/effect/mob_spawn/human/corpse/mime,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "j" = (
@@ -76,13 +76,13 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "t" = (
-/obj/effect/mob_spawn/human/mime/corpse{
+/obj/effect/mob_spawn/human/corpse/mime{
 	name = "Mime Pilot"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "x" = (
-/obj/effect/mob_spawn/human/clown/corpse,
+/obj/effect/mob_spawn/human/corpse/clown,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "y" = (
@@ -123,7 +123,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "C" = (
-/obj/effect/mob_spawn/human/corpse/clownmili,
+/obj/effect/mob_spawn/human/corpse/clown/soldier,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "D" = (
@@ -151,7 +151,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "H" = (
-/obj/effect/mob_spawn/human/clown/corpse{
+/obj/effect/mob_spawn/human/corpse/clown{
 	name = "Clown Pilot"
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -178,7 +178,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "O" = (
-/obj/effect/mob_spawn/human/corpse/clownoff,
+/obj/effect/mob_spawn/human/corpse/clown/officer,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "P" = (
