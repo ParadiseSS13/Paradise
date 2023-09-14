@@ -200,7 +200,8 @@
 	force = 0
 	throwforce = 0
 	desc = "Sponsored by Messaging and Intergalactic Letters, this device allows you to log mail deliveries in exchange for financial compensation."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/device.dmi'
+	icon_state = "mail_scanner"
 	icon_state = "mail_scanner"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -211,6 +212,9 @@
 /obj/item/mail_scanner/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Scan a letter to log it into the active database, then scan the person you wish to hand the letter to. Correctly scanning the recipient of the letter logged into the active database will add credits to the Supply budget.</span>"
+
+/obj/item/mail_scanner/attack()
+	return
 
 /obj/item/mail_scanner/afterattack(atom/A, mob/user)
 	if(istype(A, /obj/item/envelope))
@@ -241,7 +245,7 @@
 			return
 
 		if(!M.client)
-			to_chat(user, "<span class='warning'>Consent Verification failed! The scanner will not accept confirmation of orders from SSD people!</span>")
+			to_chat(user, "<span class='warning'>Consent Verification failed: The scanner will not accept confirmation of orders from SSD people!</span>")
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 
