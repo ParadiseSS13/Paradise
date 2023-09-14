@@ -19,7 +19,7 @@
 		return ..()
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.AdjustSleeping(-10 SECONDS)
+		C.AdjustSleeping(-15 SECONDS)
 
 /obj/item/slapper/attack_self(mob/user)
 	. = ..()
