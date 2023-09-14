@@ -1,5 +1,5 @@
 /obj/item/envelope
-	name ="broken letter"
+	name = "broken letter"
 	desc = "We just got a letter, we just got a letter, we just got a letter -- I wonder who it's from?"
 	force = 0
 	throwforce = 0
@@ -8,7 +8,7 @@
 	icon_state = "mail_misc"
 	item_state = "paper"
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 
 	var/list/possible_contents = list()
 	var/list/job_list = list()
