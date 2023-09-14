@@ -210,12 +210,17 @@
 /**
  * A quicker version of get_all_objectives() but only for seeing if they have any objectives at all
  */
-/datum/mind/proc/has_objectives()
+/datum/mind/proc/has_objectives(include_team = TRUE)
 	if(objective_holder.has_objectives())
 		return TRUE
 	for(var/datum/antagonist/A as anything in antag_datums)
-		if(A.has_antag_objectives()) // this checks teams also
+		if(A.has_antag_objectives(include_team)) // this checks teams also
 			return TRUE
+	// For custom non-antag role teams
+	if(include_team && LAZYLEN(teams))
+		for(var/datum/team/team as anything in teams)
+			if(team.objective_holder.has_objectives())
+				return TRUE
 	return FALSE
 
 /**

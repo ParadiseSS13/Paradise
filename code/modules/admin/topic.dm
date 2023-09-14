@@ -1618,14 +1618,15 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/datum/team/team
-		var/datum/mind/member
-		if(href_list["team_command"] == "new_custom_team")
+		if(href_list["team_command"] == "new_custom_team") // this needs to be handled before all the other stuff, as the team doesn't exist yet
 			message_admins("[key_name_admin(usr)] created a new custom team.")
 			log_admin("[key_name(usr)] created a new custom team.")
 			team = new()
 			team.admin_rename_team(usr)
 			check_teams()
 			return
+
+		var/datum/mind/member
 		if(href_list["team"])
 			team = locateUID(href_list["team"])
 			if(QDELETED(team))
@@ -1653,6 +1654,8 @@
 				show_player_panel(member.current)
 			if("add_objective")
 				team.admin_add_objective(usr)
+			if("announce_objectives")
+				team.admin_announce_objectives(usr)
 			if("remove_objective")
 				var/datum/objective/O = locateUID(href_list["objective"])
 				if(O)

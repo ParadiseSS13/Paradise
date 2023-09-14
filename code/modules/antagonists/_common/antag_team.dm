@@ -190,6 +190,24 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	log_admin("[key_name(user)] added objective [O.type] to the team '[name]'.")
 
 /**
+ * Allows admins to announce objectives to all team members.
+ */
+/datum/team/proc/admin_announce_objectives(mob/user)
+	// This button is right next to the
+	if(alert(user, "Are you sure you want to announce objectives to all members?", "Are you sure?", "Yes", "No") == "No")
+		return
+
+
+	log_admin("[key_name(usr)] has announced team [src]'s objectives")
+	message_admins("[key_name_admin(usr)] has announced team [src]'s objectives")
+
+	for(var/datum/mind/member in members)
+		if(!member.current || !isliving(member.current))
+			return
+		member.announce_objectives()
+		SEND_SOUND(member.current, sound('sound/ambience/alarm4.ogg'))
+
+/**
  * Allows admins to remove a team objective.
  */
 /datum/team/proc/admin_remove_objective(mob/user, datum/objective/O)
@@ -267,7 +285,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		content += "<br><br>Objectives:<br><ol>"
 		for(var/datum/objective/O as anything in T.objective_holder.get_objectives())
 			content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[T.UID()];objective=[O.UID()]'>Remove</a></li>"
-		content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[T.UID()]'>Add Objective</a><br><br>"
+		content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[T.UID()]'>Add Objective</a><br>"
+		if(T.objective_holder.has_objectives())
+			content += "</ol><a href='?_src_=holder;team_command=announce_objectives;team=[T.UID()]'>Announce Objectives to All Members</a><br><br>"
 		content += "Members: <br><ol>"
 		for(var/datum/mind/M as anything in T.members)
 			content += "<li>[M.name] - <a href='?_src_=holder;team_command=view_member;team=[T.UID()];member=[M.UID()]'>Show Player Panel</a>"
