@@ -1142,6 +1142,7 @@
 /area/mine/outpost/cafeteria)
 "cF" = (
 /obj/effect/spawner/window,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/mine/outpost/cafeteria)
 "cG" = (
@@ -2178,6 +2179,7 @@
 /area/mine/outpost/hallway/east)
 "eG" = (
 /obj/effect/spawner/window,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/mine/outpost/storage)
 "eH" = (
@@ -3594,6 +3596,7 @@
 	},
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -3838,6 +3841,7 @@
 /area/lavaland/surface/outdoors)
 "kf" = (
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/mine/outpost/airlock)
 "kg" = (
@@ -6000,6 +6004,7 @@
 /area/shuttle/siberia)
 "CT" = (
 /obj/effect/spawner/window,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/mine/outpost/medbay)
 "CX" = (
@@ -6232,6 +6237,10 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/lockers)
+"Fi" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall,
+/area/mine/outpost/cafeteria)
 "Fp" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
@@ -7816,6 +7825,7 @@
 /area/mine/laborcamp/security)
 "Yv" = (
 /obj/structure/fans/tiny,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -21044,7 +21054,7 @@ AE
 AE
 AE
 aj
-Nd
+Fi
 cW
 cW
 cW
