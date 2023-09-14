@@ -148,7 +148,7 @@ SUBSYSTEM_DEF(economy)
 		if(!(SSshuttle.supply.z == 1)) // This is ugly but as far as I know there isn't a good way to check if a shuttle is currently travelling
 			return
 		next_mail_delay = 15 MINUTES + world.time
-		SSshuttle.mail_never_fails()
+		SSshuttle.mail_delivery()
 
 /datum/controller/subsystem/economy/proc/record_economy_data()
 	economy_data["totalcash"] += total_space_cash

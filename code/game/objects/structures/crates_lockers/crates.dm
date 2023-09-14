@@ -519,7 +519,8 @@
 										/obj/item/envelope/supply,
 										/obj/item/envelope/medical,
 										/obj/item/envelope/engineering,
-										/obj/item/envelope/service,
+										/obj/item/envelope/bread,
+										/obj/item/envelope/circuses,
 										/obj/item/envelope/command,
 										/obj/item/envelope/misc)
 

@@ -277,7 +277,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	QDEL_LIST_CONTENTS(remove_images)
 
-/datum/controller/subsystem/shuttle/proc/mail_never_fails()
+/datum/controller/subsystem/shuttle/proc/mail_delivery()
 	var/list/shuttle_turfs = list()
 	for(var/obj/machinery/requests_console/console in GLOB.allRequestConsoles)
 		if(console.department != "Cargo Bay")

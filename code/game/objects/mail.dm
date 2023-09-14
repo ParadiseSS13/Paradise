@@ -74,7 +74,7 @@
 							/obj/item/clothing/mask/gas,
 							/obj/item/reagent_containers/spray/cleaner,
 							/obj/item/clothing/glasses/regular,
-							/obj/item/taperecorder,
+							/obj/item/stack/ore/diamond, // Jackpot
 							/obj/item/paicard,
 							/obj/item/toy/figure/crew/borg,
 							/obj/item/toy/figure/crew/geneticist,
@@ -113,7 +113,7 @@
 							/obj/item/toy/figure/crew/geneticist,
 							/obj/item/toy/figure/crew/md,
 							/obj/item/toy/figure/crew/virologist)
-	job_list = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Psychologist", "Paramedic")
+	job_list = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Paramedic")
 
 /obj/item/envelope/engineering
 	icon_state = "mail_eng"
@@ -128,28 +128,41 @@
 							/obj/item/toy/figure/crew/atmos,
 							/obj/item/toy/figure/crew/ce,
 							/obj/item/toy/figure/crew/engineer)
-	job_list = list("Chief Engineer", "Station Engineer", "Engine Technician", "Electrician", "Life Support Specialist", "Atmospheric Technician")
+	job_list = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
-/obj/item/envelope/service
+/obj/item/envelope/bread
 	icon_state = "mail_serv"
 	possible_contents = list(/obj/item/painter,
-							/obj/item/push_broom,
 							/obj/item/gun/energy/floragun,
 							/obj/item/reagent_containers/food/drinks/bottle/fernet,
 							/obj/item/whetstone,
-							/obj/item/reagent_containers/food/drinks/bottle/holywater,
-							/obj/item/stack/ore/tranquillite,
-							/obj/item/stack/ore/bananium,
+							/obj/item/soap/deluxe,
+							/obj/item/stack/tile/disco_light/thirty,
+							/obj/item/paicard,
+							/obj/item/gun/projectile/automatic/toy/pistol,
 							/obj/item/toy/figure/crew/bartender,
 							/obj/item/toy/figure/crew/botanist,
 							/obj/item/toy/figure/crew/chef,
+							/obj/item/toy/figure/crew/janitor,
+							/obj/item/toy/figure/crew/librarian)
+	job_list = list("Bartender", "Chef", "Botanist", "Janitor", "Barber", "Librarian", "Barber")
+
+/obj/item/envelope/circuses
+	icon_state = "mail_serv"
+	possible_contents = list(/obj/item/painter,
+							/obj/item/stack/sheet/mineral/tranquillite/ten,
+							/obj/item/stack/sheet/mineral/bananium/ten,
+							/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
+							/obj/item/gun/throw/piecannon,
+							/obj/item/ammo_box/shotgun/confetti,
+							/obj/item/book/manual/wiki/sop_security,
+							/obj/item/soulstone/anybody/purified/chaplain,
 							/obj/item/toy/figure/crew/clown,
 							/obj/item/toy/figure/crew/hop,
 							/obj/item/toy/figure/crew/chaplain,
-							/obj/item/toy/figure/crew/janitor,
-							/obj/item/toy/figure/crew/librarian,
 							/obj/item/toy/figure/crew/mime)
-	job_list = list("Head of Personnel", "Bartender", "Chef", "Cook", "Culinary Artist", "Butcher", "Botanist", "Hydroponicist", "Botanical Researcher", "Clown", "Mime", "Janitor", "Custodial Technician", "Librarian", "Journalist", "Barber")
+	job_list = list("Clown", "Mime", "Head of Personnel", "Chaplain")
+
 
 /obj/item/envelope/command
 	icon_state = "mail_com"
@@ -164,7 +177,7 @@
 							/obj/item/toy/figure/crew/captain,
 							/obj/item/toy/figure/crew/lawyer,
 							/obj/item/toy/figure/crew/dsquad)
-	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent", "Human Resources Agent")
+	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent")
 
 /obj/item/envelope/misc
 	possible_contents = list(/obj/item/clothing/under/misc/assistantformal,
@@ -179,6 +192,8 @@
 							/obj/item/toy/figure/owl,
 							/obj/item/toy/figure/griffin)
 	job_list = list("Assistant", "Explorer")
+
+	/// Here is where we'll log envelopes.
 
 /obj/item/mail_scanner
 	name = "mail scanner"
@@ -195,7 +210,7 @@
 
 /obj/item/mail_scanner/examine(mob/user)
 	. = ..()
-		. += "<span class='notice'>Scan a letter to log it into the active database, then scan the person you wish to hand the letter to. Correctly scanning the recipient of the letter logged into the active database will add credits to the Supply account.</span>"
+	. += "<span class='notice'>Scan a letter to log it into the active database, then scan the person you wish to hand the letter to. Correctly scanning the recipient of the letter logged into the active database will add credits to the Supply budget.</span>"
 
 /obj/item/mail_scanner/afterattack(atom/A, mob/user)
 	if(istype(A, /obj/item/envelope))
