@@ -23,7 +23,7 @@ export const Uplink = (props, context) => {
   const { act, data } = useBackend(context);
 
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const [searchText, setSearchText] = useLocalState(context, "searchText", "");
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   return (
     <Window theme="syndicate">
@@ -34,9 +34,9 @@ export const Uplink = (props, context) => {
             key="PurchasePage"
             selected={tabIndex === 0}
             onClick={() => {
-                setTabIndex(0);
-                setSearchText("");
-                }}
+              setTabIndex(0);
+              setSearchText('');
+            }}
             icon="shopping-cart"
           >
             Purchase Equipment
@@ -46,8 +46,8 @@ export const Uplink = (props, context) => {
             selected={tabIndex === 1}
             onClick={() => {
               setTabIndex(1);
-              setSearchText("");
-              }}
+              setSearchText('');
+            }}
             icon="user"
           >
             Exploitable Information
@@ -77,30 +77,26 @@ const ItemsPage = (_properties, context) => {
     cats[0].items
   );
 
-  const [searchText, setSearchText] = useLocalState(context, "searchText", "");
-  const SelectEquipment = (cat, searchText = "") => {
-    const EquipmentSearch = createSearch(searchText, item => {
-      let is_hijack = item.hijack_only === 1 ? "|" + "hijack" : ""
-      return (
-        item.name +
-        '|' +
-        item.desc +
-        '|' +
-        item.cost + "tc" +
-        is_hijack);
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const SelectEquipment = (cat, searchText = '') => {
+    const EquipmentSearch = createSearch(searchText, (item) => {
+      let is_hijack = item.hijack_only === 1 ? '|' + 'hijack' : '';
+      return item.name + '|' + item.desc + '|' + item.cost + 'tc' + is_hijack;
     });
     return flow([
-      filter(item => item?.name), // Make sure it has a name
+      filter((item) => item?.name), // Make sure it has a name
       searchText && filter(EquipmentSearch), // Search for anything
-      sortBy(item => item?.name), // Sort by name
+      sortBy((item) => item?.name), // Sort by name
     ])(cat);
   };
   const handleSearch = (value) => {
-    if(value === "") {
+    if (value === '') {
       return setUplinkItems(cats[0].items);
     }
     setSearchText(value);
-    setUplinkItems(SelectEquipment(cats.map(category => category.items).flat(), value));
+    setUplinkItems(
+      SelectEquipment(cats.map((category) => category.items).flat(), value)
+    );
   };
 
   return (
@@ -136,11 +132,11 @@ const ItemsPage = (_properties, context) => {
             {cats.map((c) => (
               <Tabs.Tab
                 key={c}
-                selected={searchText !== "" ? false : c.items === uplinkItems}
+                selected={searchText !== '' ? false : c.items === uplinkItems}
                 onClick={() => {
                   setUplinkItems(c.items);
-                  setSearchText("");
-                  }}
+                  setSearchText('');
+                }}
               >
                 {c.cat}
               </Tabs.Tab>

@@ -127,12 +127,13 @@ const StatusPane = (_properties, context) => {
 const PaymentPane = (properties, context) => {
   const { act, data } = useBackend(context);
   const { accounts } = data;
-  const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
+  const [selectedAccount, setSelectedAccount] = useLocalState(
+    context,
+    'selectedAccount'
+  );
 
-  let accountMap = []
-  accounts.map(account => (
-    accountMap[account.name] = account.account_UID
-  ))
+  let accountMap = [];
+  accounts.map((account) => (accountMap[account.name] = account.account_UID));
 
   return (
     <Section title="Payment">
@@ -140,15 +141,25 @@ const PaymentPane = (properties, context) => {
         mt={0.6}
         width="190px"
         options={accounts.map((account) => account.name)}
-        selected={accounts.filter(account => account.account_UID === selectedAccount)[0]?.name}
-        onSelected={(val) => setSelectedAccount(accountMap[val])} />
-      {accounts.filter(account => account.account_UID === selectedAccount)
-        .map(account => (
+        selected={
+          accounts.filter(
+            (account) => account.account_UID === selectedAccount
+          )[0]?.name
+        }
+        onSelected={(val) => setSelectedAccount(accountMap[val])}
+      />
+      {accounts
+        .filter((account) => account.account_UID === selectedAccount)
+        .map((account) => (
           <LabeledList key={account.account_UID}>
-            <LabeledList.Item label="Account Name">{account.name}</LabeledList.Item>
-            <LabeledList.Item label="Balance">{account.balance}</LabeledList.Item>
+            <LabeledList.Item label="Account Name">
+              {account.name}
+            </LabeledList.Item>
+            <LabeledList.Item label="Balance">
+              {account.balance}
+            </LabeledList.Item>
           </LabeledList>
-      ))}
+        ))}
     </Section>
   );
 };
@@ -182,7 +193,10 @@ const CataloguePane = (_properties, context) => {
   );
 
   const packSearch = createSearch(searchText, (crate) => crate.name);
-  const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
+  const [selectedAccount, setSelectedAccount] = useLocalState(
+    context,
+    'selectedAccount'
+  );
   const cratesToShow = flow([
     filter(
       (pack) =>
@@ -274,35 +288,35 @@ const GetRequestNotice = (_properties, context) => {
   let head_name;
 
   switch (request.department) {
-    case "Engineering":
+    case 'Engineering':
       head_name = 'CE';
       head_color = 'orange';
       break;
-    case "Medical":
+    case 'Medical':
       head_name = 'CMO';
       head_color = 'teal';
       break;
-    case "Science":
+    case 'Science':
       head_name = 'RD';
       head_color = 'purple';
       break;
-    case "Supply":
+    case 'Supply':
       head_name = 'CT'; // cargo tech
       head_color = 'brown';
       break;
-    case "Service":
+    case 'Service':
       head_name = 'HOP';
       head_color = 'olive';
       break;
-    case "Security":
+    case 'Security':
       head_name = 'HOS';
       head_color = 'red';
       break;
-    case "Command":
+    case 'Command':
       head_name = 'CAP';
       head_color = 'blue';
       break;
-    case "Assistant":
+    case 'Assistant':
       head_name = 'Any Head';
       head_color = 'grey';
       break;
@@ -310,32 +324,32 @@ const GetRequestNotice = (_properties, context) => {
 
   return (
     <Flex>
-      <FlexItem mr={1}>
-        Approval Required:
-      </FlexItem>
-      {Boolean(request.req_cargo_approval) &&
+      <FlexItem mr={1}>Approval Required:</FlexItem>
+      {Boolean(request.req_cargo_approval) && (
         <FlexItem mr={1}>
           <Button
-            color='brown'
-            content='QM'
-            icon='user-tie'
+            color="brown"
+            content="QM"
+            icon="user-tie"
             tooltip="This Order requires approval from the QM still"
-            />
+          />
         </FlexItem>
-      }
-      {Boolean(request.req_head_approval) &&
+      )}
+      {Boolean(request.req_head_approval) && (
         <FlexItem>
           <Button
             color={head_color}
             content={head_name}
             disabled={request.req_cargo_approval}
-            icon='user-tie'
-            tooltip={request.req_cargo_approval
-              ? `This Order first requires approval from the QM before the ${head_name} can approve it`
-              : `This Order requires approval from the ${head_name} still`}
-            />
+            icon="user-tie"
+            tooltip={
+              request.req_cargo_approval
+                ? `This Order first requires approval from the QM before the ${head_name} can approve it`
+                : `This Order requires approval from the ${head_name} still`
+            }
+          />
         </FlexItem>
-      }
+      )}
     </Flex>
   );
 };
@@ -352,10 +366,15 @@ const DetailsPane = (_properties, context) => {
             <Table.Row key={r.ordernum} className="Cargo_RequestList">
               <Table.Cell mb={1}>
                 <Box>
-                  Order #{r.ordernum}: {r.supply_type} ({r.cost} credits) for <b>{r.orderedby}</b> with {r.department ? `The ${r.department} Department` : "Their Personal"} Account
+                  Order #{r.ordernum}: {r.supply_type} ({r.cost} credits) for{' '}
+                  <b>{r.orderedby}</b> with{' '}
+                  {r.department
+                    ? `The ${r.department} Department`
+                    : 'Their Personal'}{' '}
+                  Account
                 </Box>
                 <Box italic>Reason: {r.comment}</Box>
-                <GetRequestNotice request={r}/>
+                <GetRequestNotice request={r} />
               </Table.Cell>
               <Table.Cell textAlign="right" pr={1}>
                 <Button
