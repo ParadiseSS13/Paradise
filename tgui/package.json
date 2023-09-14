@@ -10,7 +10,8 @@
     "watch": "cd packages/tgui-dev-server && node --experimental-modules index.js",
     "analyze": "cd packages/tgui && npx webpack --mode=production --env.analyze=1",
     "lint": "eslint packages",
-    "prettier": "prettier --check packages"
+    "prettier": "prettier --check packages",
+    "prettier-write": "prettier --write"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.22.15",
