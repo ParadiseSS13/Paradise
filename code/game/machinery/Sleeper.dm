@@ -122,8 +122,7 @@
 				occupant.transfer_blood_to(beaker, 1)
 				for(var/datum/reagent/R in occupant.reagents.reagent_list)
 					occupant.transfer_blood_to(beaker, 1)
-					var/datum/reagent/G
-					if(G.id in GLOB.blocked_chems)
+					if(R.id in GLOB.blocked_chems)
 						occupant.reagents.remove_reagent(G.id, 3)
 						beaker.reagents.add_reagent("saturated_charcoal", 3)
 						continue
