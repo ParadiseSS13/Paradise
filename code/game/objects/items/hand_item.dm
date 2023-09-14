@@ -17,6 +17,9 @@
 	user.visible_message("<span class='danger'>[user] slaps [M]!</span>", "<span class='notice'>You slap [M]!</span>", "<span class='hear'>You hear a slap.</span>")
 	if(force)
 		return ..()
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		C.AdjustSleeping(-10 SECONDS)
 
 /obj/item/slapper/attack_self(mob/user)
 	. = ..()
