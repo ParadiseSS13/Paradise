@@ -44,8 +44,10 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  */
 /datum/team/proc/add_member(datum/mind/new_member)
 	SHOULD_CALL_PARENT(TRUE)
-	get_antag_datum_from_member(new_member) // make sure they have the antag datum
+	var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
 	members |= new_member
+	if(!antag) // this team has no antag role, we'll add it directly to their mind team
+		LAZYDISTINCTADD(new_member.teams, src)
 
 /**
  * Removes `member` from this team.
@@ -53,6 +55,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/proc/remove_member(datum/mind/member)
 	SHOULD_CALL_PARENT(TRUE)
 	members -= member
+	LAZYREMOVE(member.teams, src)
 	var/datum/antagonist/antag = get_antag_datum_from_member(member)
 	if(!QDELETED(antag))
 		qdel(antag)
