@@ -84,7 +84,7 @@
 	for(var/combo_type in combos)
 		current_combos.Add(new combo_type())
 
-/datum/martial_art/proc/check_combos(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo=TRUE)
+/datum/martial_art/proc/check_combos(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	. = FALSE
 	for(var/thing in current_combos)
 		var/datum/martial_combo/MC = thing
