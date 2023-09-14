@@ -99,6 +99,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(L.lit)
 			light("<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [name] with [L].</span>")
 
+	else if(istype(I, /obj/item/match/unathi))
+		var/obj/item/match/unathi/U = I
+		if(U.lit)
+			playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
+			light("<span class='rose'>[user] spits fire at [user.p_their()] [name], igniting it.</span>")
+			U.matchburnout()
+
 	else if(istype(I, /obj/item/match))
 		var/obj/item/match/M = I
 		if(M.lit)
