@@ -1,3 +1,6 @@
+#define MOVE_ANIMATION_STAGE_ONE 1
+#define MOVE_ANIMATION_STAGE_TWO 2
+
 /obj/structure/transit_tube_pod
 	icon = 'icons/obj/pipes/transit_tube_pod.dmi'
 	icon_state = "pod"
@@ -6,6 +9,12 @@
 	density = TRUE
 	var/moving = FALSE
 	var/datum/gas_mixture/air_contents = new()
+	var/obj/structure/transit_tube/current_tube = null
+	var/next_dir
+	var/next_loc
+	var/enter_delay = 0
+	var/exit_delay
+	var/moving_time = 0
 
 /obj/structure/transit_tube_pod/New(loc)
 	..(loc)
@@ -28,65 +37,62 @@
 		return TRUE
 	else return ..()
 
+/obj/structure/transit_tube_pod/proc/move_animation(stage = MOVE_ANIMATION_STAGE_ONE)
+	if(stage == MOVE_ANIMATION_STAGE_ONE)
+		next_dir = current_tube.get_exit(dir)
+
+		if(!next_dir)
+			return
+		exit_delay = current_tube.exit_delay
+		next_loc = get_step(src, dir)
+		current_tube = null
+		for(var/obj/structure/transit_tube/tube in next_loc)
+			if(tube.has_entrance(next_dir))
+				current_tube = tube
+				break
+
+		if(isnull(current_tube))
+			setDir(next_dir)
+			Move(get_step(loc, dir), dir) // Allow collisions when leaving the tubes.
+			return
+
+		enter_delay = current_tube.enter_delay(src, next_dir)
+		if(enter_delay > 0)
+			addtimer(CALLBACK(src, PROC_REF(move_animation), MOVE_ANIMATION_STAGE_TWO), enter_delay)
+			return
+
+		stage = MOVE_ANIMATION_STAGE_TWO
+
+	if(stage == MOVE_ANIMATION_STAGE_TWO)
+		setDir(next_dir)
+		forceMove(next_loc) // When moving from one tube to another, skip collision and such.
+		density = current_tube.density
+
+		if(current_tube?.should_stop_pod(src, next_dir))
+			current_tube.pod_stopped(src, dir)
+		else
+			addtimer(CALLBACK(src, PROC_REF(move_animation), MOVE_ANIMATION_STAGE_ONE), exit_delay)
+			return
+
+	density = TRUE
+	moving = FALSE
+
+
 /obj/structure/transit_tube_pod/proc/follow_tube(reverse_launch)
 	if(moving)
 		return
 
 	moving = TRUE
 
-	spawn()
-		var/obj/structure/transit_tube/current_tube = null
-		var/next_dir
-		var/next_loc
-		var/last_delay = 0
-		var/exit_delay
+	if(reverse_launch)
+		dir = turn(dir, 180) // Back it up
 
-		if(reverse_launch)
-			dir = turn(dir, 180) // Back it up
+	for(var/obj/structure/transit_tube/tube in loc)
+		if(tube.has_exit(dir))
+			current_tube = tube
+			break
 
-		for(var/obj/structure/transit_tube/tube in loc)
-			if(tube.has_exit(dir))
-				current_tube = tube
-				break
-
-		while(current_tube)
-			next_dir = current_tube.get_exit(dir)
-
-			if(!next_dir)
-				break
-
-			exit_delay = current_tube.exit_delay(src, dir)
-			last_delay += exit_delay
-
-			sleep(exit_delay)
-
-			next_loc = get_step(loc, next_dir)
-
-			current_tube = null
-			for(var/obj/structure/transit_tube/tube in next_loc)
-				if(tube.has_entrance(next_dir))
-					current_tube = tube
-					break
-
-			if(current_tube == null)
-				setDir(next_dir)
-				Move(get_step(loc, dir), dir) // Allow collisions when leaving the tubes.
-				break
-
-			last_delay = current_tube.enter_delay(src, next_dir)
-			sleep(last_delay)
-			setDir(next_dir)
-			forceMove(next_loc) // When moving from one tube to another, skip collision and such.
-			density = current_tube.density
-
-			if(current_tube && current_tube.should_stop_pod(src, next_dir))
-				current_tube.pod_stopped(src, dir)
-				break
-
-		density = TRUE
-
-		moving = FALSE
-
+	move_animation(MOVE_ANIMATION_STAGE_ONE)
 
 // Should I return a copy here? If the caller edits or qdel()s the returned
 //  datum, there might be problems if I don't...
