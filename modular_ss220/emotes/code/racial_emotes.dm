@@ -32,11 +32,15 @@
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_click
 	H.verbs |= /mob/living/carbon/human/proc/emote_clack
+	H.verbs |= /mob/living/carbon/human/proc/emote_waves_k
+	H.verbs |= /mob/living/carbon/human/proc/emote_wiggles
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_click
 	H.verbs -= /mob/living/carbon/human/proc/emote_clack
+	H.verbs -= /mob/living/carbon/human/proc/emote_waves_k
+	H.verbs -= /mob/living/carbon/human/proc/emote_wiggles
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()
