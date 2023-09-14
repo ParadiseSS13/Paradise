@@ -1424,6 +1424,9 @@
 	switch(var_search)
 		if("vars")
 			return FALSE
+	if(!(var_search in GLOB.vars))
+		to_chat(src, "<span class='debug'>GLOB.[var_search] does not exist.</span>")
+		return
 	log_and_message_admins("is debugging the Global Variables controller with the search term \"[var_search]\"")
 	var/result = GLOB.vars[var_search]
 	if(islist(result) || isclient(result) || istype(result, /datum))
