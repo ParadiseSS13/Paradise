@@ -45,3 +45,10 @@
 /mob/living/simple_animal/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
 	return
 
+/mob/living/simple_animal/cockroach/Brad
+	name = "Brad"
+	desc = "Those things really can survive everywhere!"
+	response_help  = "pets"
+	weather_immunities = list("ash")
+	unique_pet = TRUE //mining pet
+	gold_core_spawnable = NO_SPAWN
