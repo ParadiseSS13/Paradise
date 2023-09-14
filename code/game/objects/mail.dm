@@ -22,7 +22,7 @@
 /obj/item/envelope/attack_self(mob/user)
 	if(!user.mind || !user)
 		return
-	if(user.mind.current != recipient.mind.current)
+	if(user.real_name != recipient.real_name)
 		to_chat(user, "<span class='warning'>You don't want to open up another person's mail, that's an invasion of their privacy!</span>")
 		return
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
