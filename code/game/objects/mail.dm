@@ -239,7 +239,7 @@
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 
-		if(M != saved.recipient)
+		if(M != saved.recipient.real_name)
 			to_chat(user, "<span class='warning'>'Identity Verification failed: Target is not an authorized recipient of this package!</span>")
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
