@@ -201,7 +201,7 @@
 					else // This is a new discovery!
 						SSeconomy.discovered_plants[S.type] = S.potency
 						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
-						service_credits += S.rarity / 2 // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+						service_credits += S.rarity / 2 // That's right, no bonus for potency. Send a crappy sample first to "show improvement" later
 						credits_to_deposit += S.rarity / 2
 		qdel(MA)
 		SSeconomy.sold_atoms += "."
