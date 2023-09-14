@@ -42248,10 +42248,16 @@
 	},
 /area/station/medical/storage/secondary)
 "ckC" = (
-/obj/structure/rack,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 2
+/obj/item/crutches{
+	pixel_x = -2;
+	pixel_y = 2
 	},
+/obj/item/crutches,
+/obj/item/crutches{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -42740,10 +42746,8 @@
 	},
 /area/station/medical/storage/secondary)
 "cmr" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -42777,6 +42781,9 @@
 	dir = 4
 	},
 /obj/item/hand_labeler,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -43088,15 +43095,11 @@
 	icon_state = "darkredfull"
 	},
 /area/station/medical/storage/secondary)
-"cnL" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/station/medical/storage/secondary)
 "cnM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -44344,13 +44347,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay2)
-"csa" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/station/medical/storage/secondary)
 "csb" = (
 /obj/structure/table,
 /obj/item/handheld_defibrillator,
@@ -76994,6 +76990,12 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
+"njK" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/station/medical/storage/secondary)
 "nln" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -133509,8 +133511,8 @@ chx
 ciU
 ckB
 clh
-cmr
 cnM
+cmr
 cph
 bNK
 cpS
@@ -133765,9 +133767,9 @@ cfQ
 cou
 bSV
 sBO
-csa
+njK
 cmq
-cnL
+njK
 ciT
 bNK
 ftM

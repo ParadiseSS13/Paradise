@@ -528,7 +528,7 @@
 /obj/structure/mining_bomb/proc/boom(atom/movable/firer)
 	visible_message("<span class='danger'>[src] explodes!</span>")
 	playsound(src, 'sound/magic/magic_missile.ogg', 200, vary = TRUE)
-	for(var/turf/T in circlerangeturfs(src, 2))
+	for(var/turf/T in circleviewturfs(src, 2))
 		if(ismineralturf(T))
 			var/turf/simulated/mineral/mineral_turf = T
 			mineral_turf.gets_drilled(firer)
