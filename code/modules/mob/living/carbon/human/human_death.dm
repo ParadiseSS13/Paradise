@@ -166,3 +166,11 @@
 		update_body()
 		update_mutantrace()
 		UpdateAppearance() // reset hair from DNA
+
+/mob/living/carbon/human/proc/make_nugget(mob/living)
+	for(var/limb in bodyparts)
+		var/obj/item/organ/external/limbs = limb
+		if(limbs.body_part == LEG_RIGHT || limbs.body_part == LEG_LEFT || limbs.body_part == ARM_RIGHT || limbs.body_part == ARM_LEFT)
+			limbs.droplimb()
+	emote("scream")
+	playsound(src, 'sound/misc/desceration-03.ogg', 70)
