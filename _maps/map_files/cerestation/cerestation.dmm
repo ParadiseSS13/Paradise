@@ -59655,6 +59655,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/service/bar)
+"lKQ" = (
+/obj/machinery/computer/arcade/recruiter{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "lKX" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -83902,12 +83908,6 @@
 "tYz" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/processing)
-"tYE" = (
-/obj/machinery/computer/arcade/recruiter{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/arcade,
-/area/station/public/arcade)
 "tYS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -125725,7 +125725,7 @@ bca
 bik
 aHc
 aHc
-tYE
+bca
 aKW
 aEF
 aKl
@@ -125978,7 +125978,7 @@ rAT
 wDs
 tXQ
 aTV
-kra
+lKQ
 kra
 cAW
 aHc

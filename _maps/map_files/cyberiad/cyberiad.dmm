@@ -61660,6 +61660,12 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay2)
+"dJt" = (
+/obj/machinery/computer/arcade/recruiter{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "dKb" = (
 /obj/effect/spawner/random_barrier/obstruction,
 /obj/structure/cable{
@@ -71613,6 +71619,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/chair/stool{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -83839,7 +83848,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "ryd" = (
-/obj/machinery/computer/arcade/recruiter{
+/obj/machinery/computer/arcade/orion_trail{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -128828,7 +128837,7 @@ aFI
 hRq
 aGN
 aJz
-aKK
+dJt
 dwg
 iQP
 ckc

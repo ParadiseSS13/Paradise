@@ -54578,7 +54578,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/machinery/computer/arcade/recruiter{
+/obj/machinery/computer/arcade/orion_trail{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -94447,11 +94447,13 @@
 	},
 /area/station/service/barber)
 "tFf" = (
-/obj/machinery/economy/arcade/claw,
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
 	pixel_x = 24
+	},
+/obj/machinery/computer/arcade/recruiter{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
