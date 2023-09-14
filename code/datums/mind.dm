@@ -54,6 +54,7 @@
 	var/has_been_rev = FALSE
 
 	var/miming = 0 // Mime's vow of silence
+	/// A list of all the antagonist datums that the player is (does not include undatumized antags)
 	var/list/antag_datums
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
@@ -152,7 +153,7 @@
 	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
 
 /datum/mind/proc/store_memory(new_text)
-	memory += "[new_text]<BR>"
+	memory += "[new_text]<br>"
 
 /datum/mind/proc/wipe_memory()
 	memory = null
@@ -160,46 +161,49 @@
 /datum/mind/proc/show_memory(mob/recipient, window = 1)
 	if(!recipient)
 		recipient = current
-	var/output = "<B>[current.real_name]'s Memories:</B><HR>"
-	output += memory
+	var/list/output = list()
+	output.Add("<B>[current.real_name]'s Memories:</B><HR>")
+	output.Add(memory)
 
 	for(var/datum/antagonist/A in antag_datums)
-		output += A.antag_memory
+		output.Add(A.antag_memory)
 
 	if(has_objectives())
-		output += "<HR><B>Objectives:</B><BR>"
-		output += gen_objective_text()
+		output.Add("<HR><B>Objectives:</B>")
+		output.Add(gen_objective_text())
 
 	if(LAZYLEN(job_objectives))
-		output += "<HR><B>Job Objectives:</B><UL>"
+		output.Add("<HR><B>Job Objectives:</B><UL>")
 
 		var/obj_count = 1
 		for(var/datum/job_objective/objective in job_objectives)
-			output += "<LI><B>Task #[obj_count]</B>: [objective.description]</LI>"
+			output.Add("<LI><B>Task #[obj_count]</B>: [objective.description]</LI>")
 			obj_count++
-		output += "</UL>"
+		output.Add("</UL>")
+
+	output = output.Join("<br>")
 	if(window)
 		recipient << browse(output, "window=memory")
 	else
 		to_chat(recipient, "<i>[output]</i>")
 
 /datum/mind/proc/gen_objective_text(admin = FALSE)
-	. = ""
-	var/obj_count = 1
 	if(!has_objectives())
 		return "<b>No Objectives.</b><br>"
 
+	var/list/text = list()
+	var/obj_count = 1
 	// If they don't have any objectives, "" will be returned.
 	for(var/datum/objective/objective in get_all_objectives())
-		. += "<b>Objective #[obj_count++]</b>: [objective.explanation_text]"
-		if(admin)
-			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
-			. += "<a href='?src=[UID()];obj_delete=\ref[objective]'>Delete</a> " // Delete
+		text.Add("<b>Objective #[obj_count++]</b>: [objective.explanation_text][admin ? get_admin_objective_edit(objective) : ""]")
 
-			. += "<a href='?src=[UID()];obj_completed=\ref[objective]'>" // Mark Completed
-			. += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
-			. += "</a>"
-		. += "<br>"
+	return text.Join("<br>")
+
+/datum/mind/proc/get_admin_objective_edit(datum/objective/objective)
+	return " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> \
+			<a href='?src=[UID()];obj_delete=\ref[objective]'>Delete</a> \
+			<a href='?src=[UID()];obj_completed=\ref[objective]'>\
+			<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font></a>"
 
 /**
  * A quicker version of get_all_objectives() but only for seeing if they have any objectives at all
@@ -487,10 +491,10 @@
 		alert("Not before round-start!", "Alert")
 		return
 
-	var/out = "<B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]<br>"
-	out += "Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]<br>"
-	out += "Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a><br>"
-	out += "Factions and special roles:<br>"
+	var/list/out = list("<B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
+	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
+	out.Add("Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a>")
+	out.Add("Factions and special roles:")
 
 	var/list/sections = list(
 		"implant",
@@ -533,39 +537,38 @@
 	*/
 	if(SSticker.mode.config_tag == "traitorchan")
 		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
+			out.Add(sections["traitor"])
 		if(sections["changeling"])
-			out += sections["changeling"] + "<br>"
+			out.Add(sections["changeling"])
 		sections -= "traitor"
 		sections -= "changeling"
 	// Elif technically unnecessary but it makes the following else look better
 	else if(SSticker.mode.config_tag == "traitorvamp")
 		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
+			out.Add(sections["traitor"])
 		if(sections["vampire"])
-			out += sections["vampire"] + "<br>"
+			out.Add(sections["vampire"])
 		sections -= "traitor"
 		sections -= "vampire"
 	else
 		if(sections[SSticker.mode.config_tag])
-			out += sections[SSticker.mode.config_tag] + "<br>"
+			out.Add(sections[SSticker.mode.config_tag])
 		sections -= SSticker.mode.config_tag
 
 	for(var/i in sections)
 		if(sections[i])
-			out += sections[i] + "<br>"
+			out.Add(sections[i])
 
-	out += memory_edit_uplink()
-	out += "<br>"
+	out.Add(memory_edit_uplink())
 
-	out += "<b>Memory:</b><br>"
-	out += memory
-	out += "<br><a href='?src=[UID()];memory_edit=1'>Edit memory</a><br>"
-	out += "Objectives:<br>"
-	out += gen_objective_text(admin = TRUE)
-	out += "<a href='?src=[UID()];obj_add=1'>Add objective</a><br><br>"
-	out += "<a href='?src=[UID()];obj_announce=1'>Announce objectives</a><br><br>"
-	usr << browse(out, "window=edit_memory[src];size=500x500")
+	out.Add("<b>Memory:</b>")
+	out.Add(memory)
+	out.Add("<a href='?src=[UID()];memory_edit=1'>Edit memory</a><br>")
+	out.Add("Objectives:")
+	out.Add(gen_objective_text(admin = TRUE))
+	out.Add("<a href='?src=[UID()];obj_add=1'>Add objective</a><br>")
+	out.Add("<a href='?src=[UID()];obj_announce=1'>Announce objectives</a><br>")
+	usr << browse(out.Join("<br>"), "window=edit_memory[src];size=500x500")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))
@@ -1553,11 +1556,11 @@
 /datum/mind/proc/announce_objectives(title = TRUE)
 	if(!current)
 		return
-	var/text = ""
+	var/list/text = list()
 	if(title)
-		text = "<span class='notice'>Your current objectives:</span><br/>"
-	text += gen_objective_text()
-	to_chat(current, text)
+		text.Add("<span class='notice'>Your current objectives:</span>")
+	text.Add(gen_objective_text())
+	to_chat(current, text.Join("<br>"))
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()

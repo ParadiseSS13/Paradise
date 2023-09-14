@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
 			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_team_success", 1, "FAIL")
 
-	to_chat(world, to_send.Join("<br/>"))
+	to_chat(world, to_send.Join("<br>"))
 
 /**
  * Allows admins to send a message to all members of this team.
