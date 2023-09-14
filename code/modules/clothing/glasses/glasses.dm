@@ -358,20 +358,22 @@
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"
 	desc = "H.C Limited edition."
-	var/punused = null
+	var/punused = FALSE
 	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
 
-/obj/item/clothing/glasses/sunglasses/yeah/attack_self()
-	pun()
+/obj/item/clothing/glasses/sunglasses/yeah/attack_self(mob/user)
+	pun(user)
 
-/obj/item/clothing/glasses/sunglasses/yeah/proc/pun()
-	if(!punused)//one per round
-		punused = 1
-		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
-		usr.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
-	else
-		to_chat(usr, "The moment is gone.")
+/obj/item/clothing/glasses/sunglasses/yeah/proc/pun(mob/user)
+	if(punused) // one per round..
+		to_chat(user, "The moment is gone.")
+		return
 
+	punused = TRUE
+	playsound(loc, 'sound/misc/yeah.ogg', 100, FALSE)
+	user.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
+	if(HAS_TRAIT(user, TRAIT_BADASS)) //unless you're badass
+		addtimer(VARSET_CALLBACK(src, punused, FALSE), 5 MINUTES)
 
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
