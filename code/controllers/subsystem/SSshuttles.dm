@@ -278,15 +278,16 @@ SUBSYSTEM_DEF(shuttle)
 	QDEL_LIST_CONTENTS(remove_images)
 
 /datum/controller/subsystem/shuttle/proc/mail_delivery()
-	var/list/shuttle_turfs = list()
 	for(var/obj/machinery/requests_console/console in GLOB.allRequestConsoles)
 		if(console.department != "Cargo Bay")
 			continue
 		console.createMessage("Messaging and Intergalactic Letters", "New Mail Crates ready to be ordered!", "A new mail crate is able to be shipped alongside your next orders!", RQ_NORMALPRIORITY)
-		for(var/turf/simulated/T in supply.areaInstance)
-			if(T.density)
-				continue
-			shuttle_turfs += T
+
+	var/list/shuttle_turfs = list()
+	for(var/turf/simulated/T in supply.areaInstance)
+		if(T.density)
+			continue
+		shuttle_turfs += T
 	var/turf/spawn_location = pick(shuttle_turfs)
 	new /obj/structure/closet/crate/mail(spawn_location)
 

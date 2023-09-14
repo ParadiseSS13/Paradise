@@ -9,6 +9,7 @@
 	item_state = "paper"
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+
 	var/list/possible_contents = list()
 	var/list/job_list = list()
 	var/mob/living/recipient
@@ -20,7 +21,7 @@
 	return BRUTELOSS
 
 /obj/item/envelope/attack_self(mob/user)
-	if(!user.mind || !user)
+	if(!user?.mind)
 		return
 	if(user.real_name != recipient.real_name)
 		to_chat(user, "<span class='warning'>You don't want to open up another person's mail, that's an invasion of their privacy!</span>")
@@ -48,7 +49,7 @@
 			name = "letter to [recipient.real_name]"
 			return
 	if(!admin_spawned)
-		log_debug("Error: failed to find a new name to assign to [src]!")
+		log_debug("Failed to find a new name to assign to [src]!")
 		qdel(src)
 
 /obj/item/envelope/security
@@ -183,7 +184,7 @@
 	possible_contents = list(/obj/item/clothing/under/misc/assistantformal,
 							/obj/item/clothing/under/syndicate/tacticool,
 							/obj/item/clothing/shoes/ducky,
-							/obj/item/toy/plushie/orange_fox/grump,
+							/obj/item/toy/plushie/orange_fox/grump, // A grumpy plushie for a grumpy tider
 							/obj/item/multitool,
 							/obj/item/instrument/piano_synth,
 							/obj/item/toy/crayon/spraycan,
@@ -193,7 +194,18 @@
 							/obj/item/toy/figure/griffin)
 	job_list = list("Assistant", "Explorer")
 
-	/// Here is where we'll log envelopes.
+
+	/*//////////////////////\/
+	\/	   \\		 //		\/
+	\/	    \\      //		\/
+	\/	     \\    //		\/
+	\/	      \\  //		\/
+	\/	       \\//			\/
+	\/						\/
+	\/		You've got:		\/
+	\/	 	   Mail			\/
+	\/						\/
+	\/\\\\\\\\\\\\\\\\\\\\\\*/
 
 /obj/item/mail_scanner
 	name = "mail scanner"
@@ -256,4 +268,3 @@
 		to_chat(user, "<span class='notice'>Successful delivery acknowledged! [MAIL_DELIVERY_BONUS] credits added to Supply account!</span>")
 		playsound(loc, 'sound/mail/mailapproved.ogg', 50, TRUE)
 		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Messaging and Intergalactic Letters", supress_log = FALSE)
-
