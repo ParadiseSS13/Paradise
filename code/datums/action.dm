@@ -26,8 +26,10 @@
 	button.linked_action = src
 	button.name = name
 	button.actiontooltipstyle = buttontooltipstyle
-	if(desc)
-		button.desc = desc
+	var/list/our_description = list()
+	our_description += desc
+	our_description += button.desc
+	button.desc = our_description.Join(" ")
 
 /datum/action/Destroy()
 	if(button.linked_keybind)
@@ -112,7 +114,6 @@
 		else
 			button.icon = button_icon
 			button.icon_state = background_icon_state
-		button.desc = desc
 
 		ApplyIcon(button)
 		var/obj/effect/proc_holder/spell/S = target
@@ -561,7 +562,10 @@
 	var/obj/effect/proc_holder/spell/S = target
 	S.action = src
 	name = S.name
-	desc = S.desc
+	var/list/our_description = list()
+	our_description += S.desc
+	our_description += button.desc
+	button.desc = our_description.Join(" ")
 	button_icon = S.action_icon
 	button_icon_state = S.action_icon_state
 	background_icon_state = S.action_background_icon_state

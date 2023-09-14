@@ -1,4 +1,5 @@
 /obj/screen/movable/action_button
+	desc = "CTRL-Shift click on this button to bind it to a hotkey."
 	var/datum/action/linked_action
 	var/actiontooltipstyle = ""
 	screen_loc = null
