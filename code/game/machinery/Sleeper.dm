@@ -123,7 +123,7 @@
 				for(var/datum/reagent/R in occupant.reagents.reagent_list)
 					occupant.transfer_blood_to(beaker, 1)
 					if(R.id in GLOB.blocked_chems)
-						occupant.reagents.remove_reagent(G.id, 3)
+						occupant.reagents.remove_reagent(R.id, 3)
 						beaker.reagents.add_reagent("saturated_charcoal", 3)
 						continue
 					occupant.reagents.trans_to(beaker, 3)
