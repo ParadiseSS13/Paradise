@@ -59,7 +59,7 @@
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
 	return !HAS_TRAIT(H, TRAIT_PACIFISM)
 
-/datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo=TRUE)
+/datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	if(!can_use(user))
 		return MARTIAL_ARTS_CANNOT_USE
 	if(combo_timer)
