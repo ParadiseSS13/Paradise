@@ -1681,49 +1681,152 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	..()
 
+
 #define CPR_CHEST_COMPRESSION_ONLY	0.75
 #define CPR_RESCUE_BREATHS			1
+#define CPR_CHEST_COMPRESSION_RESTORATION (2 SECONDS)
+#define CPR_BREATHS_RESTORATION (4 SECONDS)
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
+
+	var/static/list/effective_cpr_messages = list(
+		"You feel like you're able to stave off the inevitable for a little longer.",
+		"You can still see the color in their cheeks."
+	)
+
+	var/static/list/ineffective_cpr_messages = list(
+		"You're starting to feel them stiffen under you, but you keep going.",
+		"Without rescue breaths, they seem to be turning a little blue, but you press on.",
+	)
+
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
-		return
-	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
-		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
 	if(H.receiving_cpr) // To prevent spam stacking
 		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
 		return
+	if(!can_use_hands() || !has_both_hands())
+		to_chat(src, "<span class='warning'>You need two hands available to do CPR!</span>")
+		return
+	if(l_hand || r_hand)
+		to_chat(src, "<span class='warning'>You can't perform effective CPR with your hands full!</span>")
+		return
+
 	H.receiving_cpr = TRUE
 	var/cpr_modifier = get_cpr_mod(H)
-	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
-
-	if(do_mob(src, H, 4 SECONDS))
-		if(H.health <= HEALTH_THRESHOLD_CRIT)
-			H.adjustOxyLoss(-15 * cpr_modifier)
-			H.SetLoseBreath(0)
-			H.AdjustParalysis(-2 SECONDS)
-			H.updatehealth("cpr")
-			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
-
-			if(cpr_modifier == CPR_RESCUE_BREATHS)
-				to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
+	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
+		if(ismachineperson(H) && do_mob(src, H, 4 SECONDS))  // hehe
+			visible_message(
+				"<span class='warning'>[src] bangs [p_their()] head on [H]'s chassis by accident!</span>",
+				"<span class='danger'>You go in for a rescue breath, and bang your head on [H]'s <i>machine</i> chassis. CPR's not going to work.</span>"
+				)
+			playsound(H, 'sound/weapons/ringslam.ogg', 50, TRUE)
+			adjustBruteLossByPart(2, "head")
 			H.receiving_cpr = FALSE
-			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
-			return TRUE
-	else
+			return
+
+		if(HAS_TRAIT(H, TRAIT_FAKEDEATH) || !H.is_revivable())
+			to_chat(src, "<span class='warning'>[H] is already too far gone for CPR...</span>")
+			H.receiving_cpr = FALSE
+			return
+
+		visible_message("<span class='danger'>[src] is trying to perform CPR on [H]'s lifeless body!</span>", "<span class='danger'>You start trying to perform CPR on [H]'s lifeless body!</span>")
+		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD) && H.is_revivable())
+			var/timer_restored
+			if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
+				visible_message("<span class='notice'>[src] gives [H] chest compressions.</span>", "<span class='notice'>You can't make rescue breaths work, so you do your best to give chest compressions.</span>")
+				timer_restored = CPR_CHEST_COMPRESSION_RESTORATION  // without rescue breaths, it won't stave off the death timer forever
+			else
+				visible_message("<span class='notice'>[src] gives [H] chest compressions and rescue breaths.</span>", "<span class='notice'>You give [H] chest compressions and rescue breaths.</span>")
+				timer_restored = CPR_BREATHS_RESTORATION  // this, however, should keep it indefinitely postponed assuming CPR continues
+
+			if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
+				if(prob(25))
+					to_chat(H, "<span class='userdanger'>Your chest burns as you receive unnecessary CPR!</span>")
+				continue
+
+			// this is the amount of time that should get added onto the timer.
+			var/new_time = (timer_restored + H.get_cpr_timer_adjustment(cpr_modifier))
+
+			SEND_SIGNAL(H, COMSIG_HUMAN_RECEIVE_CPR, (new_time SECONDS))
+
+			if(prob(5))
+				if(timer_restored > 4 SECONDS)
+					to_chat(src, pick(effective_cpr_messages))
+				else
+					to_chat(src, pick(ineffective_cpr_messages))
+
+			cpr_try_activate_bomb(H)
+
+
+		if(!H.is_revivable())
+			to_chat(src, "<span class='notice'>You feel [H]'s body is already starting to stiffen beneath you...it's too late for CPR now.</span>")
+		else
+			visible_message("<span class='notice'>[src] stops giving [H] CPR.</span>", "<span class='notice'>You stop giving [H] CPR.</span>")
+
 		H.receiving_cpr = FALSE
-		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
+		return
+
+	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
+	if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
+		to_chat(src, "<span class='warning'>You can't get to [H]'s mouth, so your CPR will be less effective!</span>")
+	while(do_mob(src, H, 4 SECONDS) && H.health <= HEALTH_THRESHOLD_CRIT)
+		H.adjustOxyLoss(-15 * cpr_modifier)
+		H.SetLoseBreath(0)
+		H.AdjustParalysis(-2 SECONDS)
+		H.updatehealth("cpr")
+		visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
+
+		cpr_try_activate_bomb(H)
+
+		if(cpr_modifier == CPR_RESCUE_BREATHS)
+			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
+		add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
+
+	H.receiving_cpr = FALSE
+	visible_message("<span class='notice'>[src] stops performing CPR on [H].</span>", "<span class='notice'>You stop performing CPR on [H].</span>")
+	to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 /mob/living/carbon/human/proc/get_cpr_mod(mob/living/carbon/human/H)
 	if(is_mouth_covered() || H.is_mouth_covered())
 		return CPR_CHEST_COMPRESSION_ONLY
 	if(!H.check_has_mouth() || !check_has_mouth())
 		return CPR_CHEST_COMPRESSION_ONLY
+	if(HAS_TRAIT(src, TRAIT_NOBREATH) || HAS_TRAIT(H, TRAIT_NOBREATH))
+		return CPR_CHEST_COMPRESSION_ONLY
+
+	if(dna?.species.breathid != H.dna?.species.breathid)  // sorry non oxy-breathers
+		to_chat(src, "<span class='warning'>You don't think you'd be able to give [H] very effective rescue breaths...</span>")
+		return CPR_CHEST_COMPRESSION_ONLY
 	return CPR_RESCUE_BREATHS
+
+/// Get the amount of time that this round of CPR should add to the death timer
+/mob/living/carbon/human/proc/get_cpr_timer_adjustment(cpr_mod)
+	var/time_since_original_death = round(world.time - timeofdeath) / 10
+	// this looks good on desmos I guess
+	// goal here is that you'll get some surplus time added regardless of method if you catch them early
+	var/adjustment_time = max(round(-60 * log((12 + time_since_original_death) / 240)), 0)
+	if(cpr_mod == CPR_CHEST_COMPRESSION_ONLY)
+		// you just won't get as much if you're late
+		adjustment_time /= 2
+
+	return adjustment_time
+
+/mob/living/carbon/human/proc/cpr_try_activate_bomb(mob/living/carbon/human/target)
+	var/obj/item/organ/external/chest/org = target.get_organ("chest")
+	if(istype(org) && istype(org.hidden, /obj/item/grenade))
+		var/obj/item/grenade/G = org.hidden
+		if(!G.active && prob(25))
+			to_chat(src, "<span class='notice'>You feel something <i>click</i> under your hands.</span>")
+			add_attack_logs(src, target, "activated an implanted grenade [G] in [target] with CPR.", ATKLOG_MOST)
+			playsound(target.loc, 'sound/weapons/armbomb.ogg', 60, TRUE)
+			G.active = TRUE
+			addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/grenade, prime)), G.det_time)
 
 #undef CPR_CHEST_COMPRESSION_ONLY
 #undef CPR_RESCUE_BREATHS
+#undef CPR_CHEST_COMPRESSION_RESTORATION
+#undef CPR_BREATHS_RESTORATION
 
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms() >= 2)
@@ -1812,15 +1915,19 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(wear_id)
 		var/obj/item/card/id/id = wear_id.GetID()
 		if(istype(id) && id.is_untrackable())
-			return 0
+			return FALSE
 	if(wear_pda)
 		var/obj/item/card/id/id = wear_pda.GetID()
 		if(istype(id) && id.is_untrackable())
-			return 0
+			return FALSE
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)
-			return 0
+			return FALSE
+	if(w_uniform)
+		var/obj/item/clothing/under/uniform = w_uniform
+		if(uniform.blockTracking)
+			return FALSE
 
 	return ..()
 

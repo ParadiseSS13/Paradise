@@ -618,6 +618,8 @@ in the SQL/updates folder.
 
 * All new var/proc names should use the American English spelling of words. This is for consistency with BYOND.
 
+* All mentions of the company "Nanotrasen" should be written as such - 'Nanotrasen'. Use of CamelCase (NanoTrasen) is no longer proper.
+
 * If you are making a PR that adds a config option to change existing behaviour, said config option must default to as close to as current behaviour as possible.
 
 ### Dream Maker Quirks/Tricks
@@ -745,6 +747,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 * [AffectedArc07](https://github.com/AffectedArc07)
 * [Charliminator](https://github.com/hal9000PR)
+* [lewcc](https://github.com/lewcc)
 * [S34N](https://github.com/S34NW)
 
 ---
