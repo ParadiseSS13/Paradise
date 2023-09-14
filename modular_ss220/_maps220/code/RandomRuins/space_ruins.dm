@@ -47,3 +47,12 @@
 	suffix = "infected_ship.dmm"
 	cost = 3
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/convoy_ambush
+	name = "Convoy Ambush"
+	id = "convoy_ambush"
+	description = "I've been waiting for this for twuh years!"
+	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
+	suffix = "convoy_ambush.dmm"
+	cost = 3
+	allow_duplicates = FALSE
