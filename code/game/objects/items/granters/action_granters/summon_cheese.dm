@@ -28,7 +28,7 @@
 	qdel(src)
 
 /obj/effect/proc_holder/spell/aoe/conjure/summon_cheese
-	name = "Summon cheese"
+	name = "Summon Cheese"
 	desc = "Summon cheesy goodness around you!"
 	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
