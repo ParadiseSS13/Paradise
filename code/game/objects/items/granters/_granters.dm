@@ -41,7 +41,7 @@
 	reading = TRUE
 	for(var/i in 1 to pages_to_mastery)
 		if(!turn_page(user))
-			on_reading_stopped()
+			on_reading_stopped(user)
 			reading = FALSE
 			return
 	if(do_after(user, reading_time, src))
