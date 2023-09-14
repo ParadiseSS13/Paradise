@@ -202,7 +202,9 @@
 	desc = "Sponsored by Messaging and Intergalactic Letters, this device allows you to log mail deliveries in exchange for financial compensation."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "mail_scanner"
-	icon_state = "mail_scanner"
+	item_state = "mail_scanner"
+	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -239,7 +241,7 @@
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 
-		if(M != saved.recipient.real_name)
+		if(M.real_name != saved.recipient.real_name)
 			to_chat(user, "<span class='warning'>'Identity Verification failed: Target is not an authorized recipient of this package!</span>")
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
