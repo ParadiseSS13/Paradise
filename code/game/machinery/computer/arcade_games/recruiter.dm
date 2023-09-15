@@ -184,6 +184,7 @@
 	playsound(loc, 'sound/arcade/recruiter_win.ogg', 20)
 	if(emagged)
 		new /obj/item/stamp/chameleon(get_turf(src))
+		prizevend(400)
 		emagged = FALSE
 	else
 		prizevend(50)
