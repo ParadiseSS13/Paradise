@@ -297,7 +297,7 @@
 
 /obj/screen/parallax_layer/random/space_gas/New(view)
 	..()
-	add_atom_colour(SSparallax.random_parallax_color, ADMIN_COLOUR_PRIORITY)
+	add_atom_colour(SSparallax.assign_random_parallax_colour(), ADMIN_COLOUR_PRIORITY)
 
 /obj/screen/parallax_layer/random/asteroids
 	icon_state = "asteroids"

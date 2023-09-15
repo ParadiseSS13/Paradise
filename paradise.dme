@@ -1857,6 +1857,7 @@
 #include "code\modules\lighting\lighting_setup.dm"
 #include "code\modules\lighting\lighting_source.dm"
 #include "code\modules\lighting\lighting_turf.dm"
+#include "code\modules\lighting\starlight.dm"
 #include "code\modules\mapping\access_helpers.dm"
 #include "code\modules\mapping\base_map_datum.dm"
 #include "code\modules\mapping\cerestation.dm"

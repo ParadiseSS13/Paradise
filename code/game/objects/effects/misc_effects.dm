@@ -104,6 +104,9 @@
 	layer = LIGHTING_LAYER
 	blend_mode = BLEND_ADD
 
+/obj/effect/fullbright/starlight
+	plane = STARLIGHT_PLANE
+	transform = matrix(2, 0, 0, 0, 2, 0)
 
 /obj/effect/dummy/lighting_obj
 	name = "lighting fx obj"

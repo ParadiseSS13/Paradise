@@ -1,5 +1,5 @@
 /turf
-	var/dynamic_lighting = TRUE
+	var/fullbright_type = FULLBRIGHT_NONE
 	luminosity           = 1
 
 	var/tmp/lighting_corners_initialised = FALSE

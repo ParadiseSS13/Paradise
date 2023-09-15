@@ -28,9 +28,6 @@
 	myturf.lighting_object = src
 	myturf.luminosity = 0
 
-	for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-		S.update_starlight()
-
 	needs_update = TRUE
 	SSlighting.objects_queue += src
 
@@ -43,7 +40,7 @@
 			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
 		if(isturf(myturf))
 			myturf.lighting_object = null
-			myturf.luminosity = 1
+			myturf.luminosity = initial(myturf.luminosity)
 		myturf = null
 
 		return ..()

@@ -10,6 +10,7 @@
 	sound_environment = SOUND_AREA_ASTEROID
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
+	fullbright_type = FULLBRIGHT_STARLIGHT
 
 /area/asteroid/cave				// -- TLE
 	name = "\improper Asteroid - Underground"

@@ -21,6 +21,7 @@
 	outdoors = TRUE
 	ambientsounds = SPACE_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
+	fullbright_type = FULLBRIGHT_STARLIGHT
 
 /area/space/nearstation
 	icon_state = "space_near"

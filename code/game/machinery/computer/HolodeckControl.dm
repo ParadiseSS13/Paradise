@@ -270,6 +270,8 @@
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 	plane = PLANE_SPACE
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
 
 /turf/simulated/floor/holofloor/space/Initialize(mapload)
 	icon_state = SPACE_ICON_STATE // so realistic

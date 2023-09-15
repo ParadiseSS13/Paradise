@@ -1,6 +1,7 @@
 /area
 	luminosity           = TRUE
 	var/dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	var/fullbright_type = FULLBRIGHT_DEFAULT
 
 /area/proc/set_dynamic_lighting(new_dynamic_lighting = DYNAMIC_LIGHTING_ENABLED)
 	if(new_dynamic_lighting == dynamic_lighting)
@@ -9,13 +10,17 @@
 	dynamic_lighting = new_dynamic_lighting
 
 	if(IS_DYNAMIC_LIGHTING(src))
+		cut_overlay(GLOB.starlight_overlay)
 		cut_overlay(/obj/effect/fullbright)
 		for (var/turf/T in src)
-			if(IS_DYNAMIC_LIGHTING(T))
+			if (!T.fullbright_type)
 				T.lighting_build_overlay()
 
 	else
-		add_overlay(/obj/effect/fullbright)
+		if (fullbright_type == FULLBRIGHT_STARLIGHT)
+			add_overlay(GLOB.starlight_overlay)
+		else
+			add_overlay(GLOB.fullbright_overlay)
 		for (var/turf/T in src)
 			if(T.lighting_object)
 				T.lighting_clear_overlay()

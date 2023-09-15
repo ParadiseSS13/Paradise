@@ -9,6 +9,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	parallax_movedir = NORTH
 	sound_environment = SOUND_ENVIRONMENT_ROOM
+	fullbright_type = FULLBRIGHT_STARLIGHT
 
 /area/shuttle/arrival
 	name = "\improper Arrival Shuttle"
@@ -290,6 +291,8 @@
 /area/shuttle/salvage/transit
 	name = "\improper hyperspace"
 	icon_state = "shuttle"
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
 
 /area/shuttle/supply
 	name = "Supply Shuttle"

@@ -10,7 +10,7 @@
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	fullbright_type = FULLBRIGHT_STARLIGHT
 	intact = FALSE
 
 	var/destination_z
@@ -40,8 +40,8 @@
 		SET_BITFLAG_LIST(canSmoothWith)
 
 	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+	if(IS_DYNAMIC_LIGHTING(A))
+		overlays += GLOB.starlight_overlay
 
 	if (light_power && light_range)
 		update_light()
@@ -63,16 +63,6 @@
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.add_to_transit(src)
 	S.apply_transition(src)
-
-/turf/space/proc/update_starlight()
-	if(GLOB.configuration.general.starlight)
-		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			if(isspaceturf(t))
-				//let's NOT update this that much pls
-				continue
-			set_light(2)
-			return
-		set_light(0)
 
 /turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
 	..()

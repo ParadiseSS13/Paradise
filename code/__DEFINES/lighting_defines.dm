@@ -82,6 +82,10 @@
 #define DYNAMIC_LIGHTING_IFSTARLIGHT 3 //dynamic lighting enabled only if starlight is.
 #define IS_DYNAMIC_LIGHTING(A) A.dynamic_lighting
 
+// Fullbright lighting defines
+#define FULLBRIGHT_NONE 0		//! Do not use fullbright (Only applies to turfs)
+#define FULLBRIGHT_DEFAULT 1	//! Use the default fullbright overlay of just 100% lighting
+#define FULLBRIGHT_STARLIGHT 2	//! Use the starlight brightness overlay
 
 //code assumes higher numbers override lower numbers.
 #define LIGHTING_NO_UPDATE 0
@@ -131,3 +135,17 @@ do { \
 		source.lum_b = 1; \
 	}; \
 } while (FALSE)
+
+GLOBAL_DATUM_INIT(fullbright_overlay, /image, create_fullbright_overlay())
+
+/proc/create_fullbright_overlay()
+	var/image/lighting_effect = new()
+	lighting_effect.appearance = /obj/effect/fullbright
+	return lighting_effect
+
+GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
+
+/proc/create_starlight_overlay()
+	var/image/lighting_effect = new()
+	lighting_effect.appearance = /obj/effect/fullbright/starlight
+	return lighting_effect

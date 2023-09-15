@@ -197,6 +197,8 @@
 	broken_states = list("damaged")
 	smoothing_flags = NONE
 	plane = PLANE_SPACE
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 2
 
 /turf/simulated/floor/fakespace/Initialize(mapload)
 	. = ..()

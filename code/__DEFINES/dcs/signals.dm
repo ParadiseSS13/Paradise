@@ -937,5 +937,5 @@
 #define COMSIG_MOD_WEARER_SET "mod_wearer_set"
 /// Called when the MODsuit wearer is unset.
 #define COMSIG_MOD_WEARER_UNSET "mod_wearer_unset"
-
-
+/// Called when the parallax background changes colour. (new_colour, transition_time)
+#define COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE "!starlight_colour_change"

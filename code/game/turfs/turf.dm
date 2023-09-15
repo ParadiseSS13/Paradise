@@ -75,8 +75,11 @@
 		Entered(AM)
 
 	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+	if(fullbright_type && IS_DYNAMIC_LIGHTING(A))
+		if (fullbright_type == FULLBRIGHT_STARLIGHT)
+			add_overlay(GLOB.starlight_overlay)
+		else
+			add_overlay(GLOB.fullbright_overlay)
 
 	if(light_power && light_range)
 		update_light()
@@ -220,7 +223,7 @@
 
 	set_light(0)
 	var/old_opacity = opacity
-	var/old_dynamic_lighting = dynamic_lighting
+	var/old_fullbright_type = fullbright_type
 	var/old_affecting_lights = affecting_lights
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
@@ -247,17 +250,14 @@
 		lighting_object = old_lighting_object
 		affecting_lights = old_affecting_lights
 		corners = old_corners
-		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
+		if(old_opacity != opacity)
 			reconsider_lights()
 
-		if(dynamic_lighting != old_dynamic_lighting)
-			if(IS_DYNAMIC_LIGHTING(src))
+		if(fullbright_type != old_fullbright_type)
+			if (!fullbright_type)
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
-
-		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			S.update_starlight()
 
 	obscured = old_obscured
 
