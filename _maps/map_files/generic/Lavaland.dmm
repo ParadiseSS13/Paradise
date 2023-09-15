@@ -468,9 +468,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "bp" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
 /obj/machinery/door/airlock/maintenance/external{
 	name = "Catwalk Airlock"
 	},
@@ -3765,17 +3762,11 @@
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "jJ" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_y = 6
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Dinner Room APC";
-	pixel_y = 24
-	},
+/obj/machinery/kitchen_machine/grill,
 /obj/structure/cable{
-	icon_state = "0-4"
+	icon_state = "1-4";
+	d1 = 1;
+	d2 = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -5198,6 +5189,10 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/east)
+"uZ" = (
+/obj/structure/marker_beacon/dock_marker/collision,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "va" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/ore_box,
@@ -5835,6 +5830,13 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/outpost/storage)
+"AO" = (
+/obj/machinery/light_switch{
+	name = "North Switch";
+	pixel_y = 24
+	},
+/turf/simulated/wall,
+/area/mine/outpost/cafeteria)
 "Bg" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
@@ -5853,6 +5855,22 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"Bq" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	name = "North Switch";
+	pixel_y = 24
+	},
+/obj/structure/window/basic{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mine/outpost/cafeteria)
 "BD" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -6211,14 +6229,18 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
 "EL" = (
-/obj/machinery/light_switch{
-	name = "North Switch";
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Dinner Room APC";
 	pixel_y = 24
 	},
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 6
+	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -6260,7 +6282,7 @@
 "FA" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
-/obj/structure/railing/corner{
+/obj/structure/railing{
 	dir = 1
 	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
@@ -7106,6 +7128,19 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
+"PI" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mine/outpost/cafeteria)
 "PK" = (
 /obj/structure/closet/secure_closet/brig/gulag,
 /obj/machinery/flasher{
@@ -7729,13 +7764,6 @@
 /area/mine/laborcamp)
 "Xk" = (
 /obj/machinery/door/window,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -7992,9 +8020,14 @@
 	},
 /area/mine/laborcamp)
 "Zz" = (
-/obj/structure/railing,
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "ZT" = (
@@ -21347,10 +21380,10 @@ AE
 aj
 aj
 ab
-ab
 dy
+EL
 jJ
-eR
+eJ
 cW
 cW
 ge
@@ -21603,12 +21636,12 @@ Bh
 aj
 aj
 ab
-bJ
-bJ
 dy
-EL
+AO
+Bq
+HH
 bN
-eJ
+eR
 cW
 nO
 dT
@@ -21861,7 +21894,7 @@ aj
 aj
 ab
 bJ
-tK
+PI
 Xk
 HH
 bN
@@ -22885,7 +22918,7 @@ ab
 aj
 aj
 Ej
-ab
+aj
 eo
 aj
 bJ
@@ -23137,10 +23170,10 @@ am
 am
 aj
 aj
-AE
-AE
-AE
-AE
+uZ
+aj
+aj
+aj
 FA
 aj
 aj
@@ -23394,12 +23427,12 @@ am
 ai
 aj
 aj
-AE
-AE
-AE
-AE
-Zz
 aj
+aj
+aj
+bt
+Zz
+ef
 aj
 aj
 bJ
@@ -23650,9 +23683,9 @@ am
 ai
 aj
 aj
-ab
 aj
-AE
+aj
+aj
 cw
 cr
 bp
@@ -23909,7 +23942,7 @@ aj
 aj
 aj
 aj
-ab
+aj
 cU
 dH
 HT
