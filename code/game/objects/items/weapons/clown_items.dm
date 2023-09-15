@@ -62,6 +62,23 @@
 				continue
 		M.emote("flip")
 
+/obj/item/bikehorn/bwoinkhorn
+	name = "Central Command bike horn"
+	desc = "A modified bike horn designed to induce sudden dread in its victims. Commonly employed during Emergency Response Party missions."
+	icon_state = "bwoink_horn"
+	item_state = "bwoink_horn"
+	honk_sounds = list("sound/effects/adminhelp.ogg" = 1)
+	attack_verb = list("BWOINKED")
+
+/obj/item/bikehorn/bwoinkhorn/proc/dread(mob/user)
+	var/turf/T = get_turf(src)
+	for(var/mob/living/carbon/M in ohearers(7, T))
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(!H.can_hear())
+				continue
+		to_chat(M, "<span class='warning'>You feel like you're in trouble.</span>")
+
 #define LAUGH_COOLDOWN 30 SECONDS
 #define LAUGH_COOLDOWN_CMAG 10 SECONDS
 

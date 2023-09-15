@@ -1299,7 +1299,7 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/bikehorn = 1,
+		/obj/item/bikehorn/bwoinkhorn = 1,
 		/obj/item/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
