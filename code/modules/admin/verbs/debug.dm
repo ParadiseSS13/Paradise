@@ -864,7 +864,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	// Iterate that target and see whats what
 	for(var/queue_entry in target_queue)
-		var/datum/D = locate(queue_entry[1])
+		var/datum/D = locate(queue_entry[GC_QUEUE_ITEM_REF])
 		if(!istype(D))
 			continue
 
