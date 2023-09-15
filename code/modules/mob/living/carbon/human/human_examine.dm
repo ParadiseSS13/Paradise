@@ -64,7 +64,7 @@
 		if(!article_override)
 			article = starts_with_vowel(displayed_species) ? "an" : "a"
 
-		msg += ", [article]<b><font color='[examine_color]'> [lowertext(displayed_species)] , <b>They are of [height] and [physique].</b>.</font></b>!"
+		msg += ", [article]<b><font color='[examine_color]'> [lowertext(displayed_species)] , <b>[p_they()] are of [height] and [physique].</b>.</font></b>!"
 
 	return msg
 
