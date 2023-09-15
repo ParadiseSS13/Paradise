@@ -23,6 +23,8 @@
 	maxHealth = 600 // 30 laser shots
 	health = 600
 	regen_points_per_hp = 6 // double the normal - IE halved regen speed
+	move_to_delay = 3
+	speed = 0
 	melee_damage_lower = 30
 	melee_damage_upper = 40
 	ventcrawler = 0

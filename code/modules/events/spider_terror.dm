@@ -64,9 +64,8 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
-		if(infestation_type != PRINCE_SPIDER)
-			S.forceMove(vent)
-			S.add_ventcrawl(vent)
+		S.forceMove(vent)
+		S.add_ventcrawl(vent)
 		SEND_SOUND(S, sound('sound/ambience/antag/terrorspider.ogg'))
 		S.give_intro_text()
 		spawncount--
