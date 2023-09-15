@@ -325,3 +325,8 @@
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/laser_pointer/blue = 1
 	)
+/datum/outfit/job/ntinstructor/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(visualsOnly)
+		return
+	H.mind.offstation_role = TRUE
