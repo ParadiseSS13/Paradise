@@ -459,13 +459,13 @@
 	loadout_gear = query.item[48]
 	autohiss_mode = text2num(query.item[49])
 	// Index [50] is the slot
-	physique = query.item[51]
-	height = query.item[52]
-	h_grad_style = query.item[53]
-	h_grad_offset_x = query.item[54] // parsed down below
-	h_grad_colour = query.item[55]
-	h_grad_alpha = query.item[56]
-	var/custom_emotes_tmp = query.item[57]
+	h_grad_style = query.item[51]
+	h_grad_offset_x = query.item[52] // parsed down below
+	h_grad_colour = query.item[53]
+	h_grad_alpha = query.item[54]
+	var/custom_emotes_tmp = query.item[55]
+	physique = query.item[56]
+	height = query.item[57]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
