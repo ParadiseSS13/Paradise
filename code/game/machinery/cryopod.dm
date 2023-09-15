@@ -367,7 +367,7 @@
 			if(O.target != occupant.mind)
 				continue
 			O.on_target_cryo()
-		occupant.mind.remove_all_antag_datums()
+		occupant.mind.remove_all_antag_datums(handle_target_cryo = TRUE) // i wish cryo used signals, this is scuffed
 
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
@@ -741,7 +741,7 @@
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
 		if(P.occupant)
 			continue
-		if((ishuman(person_to_cryo) && istype(get_area(P), /area/crew_quarters/sleep)) || istype(P, /obj/machinery/cryopod/robot))
+		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(free_cryopods.len)

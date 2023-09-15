@@ -213,11 +213,6 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	if(stat == DEAD)
-		if(M != src)
-			M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
-			"<span class='notice'>You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!</span>")
-		return
 	if(health < HEALTH_THRESHOLD_CRIT)
 		return
 	if(src == M && ishuman(src))
@@ -974,13 +969,23 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(do_after(src, breakouttime, 0, target = src))
 			if(I.loc != src || buckled)
 				return
-			visible_message("<span class='danger'>[src] manages to remove [I]!</span>")
-			to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
+			if(istype(I, /obj/item/restraints/handcuffs/twimsts))
+				visible_message("<span class='danger'>[src] manages to eat through [I]!</span>", "<span class='notice'>You successfully eat through [I].</span>")
+			else
+				visible_message("<span class='danger'>[src] manages to remove [I]!</span>", "<span class='notice'>You successfully remove [I].</span>")
 
 			if(I == handcuffed)
-				handcuffed.forceMove(drop_location())
-				handcuffed.dropped(src)
-				handcuffed = null
+				if(istype(I, /obj/item/restraints/handcuffs/twimsts))
+					playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+					if(I.reagents && I.reagents.reagent_list.len)
+						taste(I.reagents)
+						I.reagents.reaction(src, REAGENT_INGEST)
+						I.reagents.trans_to(src, I.reagents.total_volume)
+					qdel(handcuffed)
+				else
+					handcuffed.forceMove(drop_location())
+					handcuffed.dropped(src)
+					handcuffed = null
 				if(buckled && buckled.buckle_requires_restraints)
 					buckled.unbuckle_mob(src)
 				update_handcuffed()

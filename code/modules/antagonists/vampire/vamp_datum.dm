@@ -97,8 +97,8 @@
 	var/datum/hud/hud = mob_override.hud_used
 	if(hud?.vampire_blood_display)
 		hud.remove_vampire_hud()
-	mob_override.dna.species.hunger_type = initial(mob_override.dna.species.hunger_type)
-	mob_override.dna.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
+	mob_override.dna?.species.hunger_type = initial(mob_override.dna.species.hunger_type)
+	mob_override.dna?.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
 	owner.current.alpha = 255
 	REMOVE_TRAITS_IN(owner.current, "vampire")
 
@@ -265,7 +265,7 @@
 	handle_vampire_cloak()
 	if(isspaceturf(get_turf(owner.current)))
 		check_sun()
-	if(istype(get_area(owner.current), /area/chapel) && !get_ability(/datum/vampire_passive/full) && bloodtotal > 0)
+	if(istype(get_area(owner.current), /area/station/service/chapel) && !get_ability(/datum/vampire_passive/full) && bloodtotal > 0)
 		vamp_burn(7)
 	nullified = max(0, nullified - 2)
 
@@ -352,8 +352,8 @@
 		owner.som = new()
 		owner.som.masters += owner
 
-	mob_override.dna.species.hunger_type = "vampire"
-	mob_override.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
+	mob_override.dna?.species.hunger_type = "vampire"
+	mob_override.dna?.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
 
 /datum/hud/proc/remove_vampire_hud()
