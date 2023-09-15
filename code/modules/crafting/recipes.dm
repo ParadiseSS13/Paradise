@@ -64,7 +64,7 @@
 	reqs = list(/obj/item/stack/cable_coil = 5,
 				/obj/item/shard = 1,
 				/obj/item/stack/sheet/cloth = 1)
-	time = 20
+	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
