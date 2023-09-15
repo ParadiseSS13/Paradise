@@ -48,6 +48,8 @@
 		organ_data,
 		rlimb_data,
 		nanotrasen_relation,
+		physique,
+		height,
 		speciesprefs,
 		socks,
 		body_accessory,

@@ -79,6 +79,10 @@
 
 	var/nanotrasen_relation = "Neutral"
 
+	var/physique = "of average build"
+
+	var/height = "of average height"
+
 	// OOC Metadata:
 	var/metadata = ""
 
@@ -176,6 +180,8 @@
 					organ_data=:organlist,
 					rlimb_data=:rlimblist,
 					nanotrasen_relation=:nanotrasen_relation,
+					physique=:physique,
+					height=:height,
 					speciesprefs=:speciesprefs,
 					socks=:socks,
 					body_accessory=:body_accessory,
@@ -233,6 +239,8 @@
 						"organlist" = (organlist ? organlist : ""),
 						"rlimblist" = (rlimblist ? rlimblist : ""),
 						"nanotrasen_relation" = nanotrasen_relation,
+						"physique" = physique,
+						"height" = height,
 						"speciesprefs" = speciesprefs,
 						"socks" = socks,
 						"body_accessory" = (body_accessory ? body_accessory : ""),
@@ -281,7 +289,7 @@
 			sec_record,
 			gen_record,
 			player_alt_titles,
-			disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
+			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
 			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes)
 		VALUES
@@ -308,7 +316,7 @@
 			:sec_record,
 			:gen_record,
 			:playertitlelist,
-			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
+			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, physique, height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
 			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes)
 	"}, list(
@@ -359,6 +367,8 @@
 		"organlist" = (organlist ? organlist : ""),
 		"rlimblist" = (rlimblist ? rlimblist : ""),
 		"nanotrasen_relation" = nanotrasen_relation,
+		"physique" = physique,
+		"height" = height,
 		"speciesprefs" = speciesprefs,
 		"socks" = socks,
 		"body_accessory" = (body_accessory ? body_accessory : ""),
@@ -441,19 +451,21 @@
 	organ_data = params2list(query.item[42])
 	rlimb_data = params2list(query.item[43])
 	nanotrasen_relation = query.item[44]
-	speciesprefs = text2num(query.item[45])
+	physique = query.item[45]
+	height = query.item[46]
+	speciesprefs = text2num(query.item[47])
 
 	//socks
-	socks = query.item[46]
-	body_accessory = query.item[47]
-	loadout_gear = query.item[48]
-	autohiss_mode = text2num(query.item[49])
+	socks = query.item[48]
+	body_accessory = query.item[49]
+	loadout_gear = query.item[50]
+	autohiss_mode = text2num(query.item[51])
 	// Index [50] is the slot
-	h_grad_style = query.item[51]
-	h_grad_offset_x = query.item[52] // parsed down below
-	h_grad_colour = query.item[53]
-	h_grad_alpha = query.item[54]
-	var/custom_emotes_tmp = query.item[55]
+	h_grad_style = query.item[52]
+	h_grad_offset_x = query.item[53] // parsed down below
+	h_grad_colour = query.item[54]
+	h_grad_alpha = query.item[55]
+	var/custom_emotes_tmp = query.item[56]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -473,6 +485,12 @@
 
 	if(isnull(nanotrasen_relation))
 		nanotrasen_relation = initial(nanotrasen_relation)
+
+	if(isnull(physique))
+		physique = initial(physique)
+
+	if(isnull(height))
+		height = initial(height)
 
 	if(isnull(speciesprefs))
 		speciesprefs = initial(speciesprefs)

@@ -157,6 +157,8 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `organ_data` mediumtext NOT NULL,
   `rlimb_data` mediumtext NOT NULL,
   `nanotrasen_relation` varchar(45) NOT NULL,
+  `physique` varchar(45) NOT NULL,
+  `height` varchar(45) NOT NULL,
   `speciesprefs` int(1) NOT NULL,
   `socks` mediumtext NOT NULL,
   `body_accessory` mediumtext NOT NULL,
@@ -167,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
 
 -- Dumping data for table paradise_gamedb.characters: ~0 rows (approximately)
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
-INSERT INTO `characters` (`id`, `ckey`, `slot`, `OOC_Notes`, `real_name`, `name_is_always_random`, `gender`, `age`, `species`, `language`, `hair_red`, `hair_green`, `hair_blue`, `secondary_hair_red`, `secondary_hair_green`, `secondary_hair_blue`, `facial_red`, `facial_green`, `facial_blue`, `secondary_facial_red`, `secondary_facial_green`, `secondary_facial_blue`, `skin_tone`, `skin_red`, `skin_green`, `skin_blue`, `marking_colours`, `head_accessory_red`, `head_accessory_green`, `head_accessory_blue`, `hair_style_name`, `facial_style_name`, `marking_styles`, `head_accessory_style_name`, `alt_head_name`, `eyes_red`, `eyes_green`, `eyes_blue`, `underwear`, `undershirt`, `backbag`, `b_type`, `alternate_option`, `job_support_high`, `job_support_med`, `job_support_low`, `job_medsci_high`, `job_medsci_med`, `job_medsci_low`, `job_engsec_high`, `job_engsec_med`, `job_engsec_low`, `job_karma_high`, `job_karma_med`, `job_karma_low`, `flavor_text`, `med_record`, `sec_record`, `gen_record`, `disabilities`, `player_alt_titles`, `organ_data`, `rlimb_data`, `nanotrasen_relation`, `speciesprefs`, `socks`, `body_accessory`, `gear`, `autohiss`) VALUES
+INSERT INTO `characters` (`id`, `ckey`, `slot`, `OOC_Notes`, `real_name`, `name_is_always_random`, `gender`, `age`, `species`, `language`, `hair_red`, `hair_green`, `hair_blue`, `secondary_hair_red`, `secondary_hair_green`, `secondary_hair_blue`, `facial_red`, `facial_green`, `facial_blue`, `secondary_facial_red`, `secondary_facial_green`, `secondary_facial_blue`, `skin_tone`, `skin_red`, `skin_green`, `skin_blue`, `marking_colours`, `head_accessory_red`, `head_accessory_green`, `head_accessory_blue`, `hair_style_name`, `facial_style_name`, `marking_styles`, `head_accessory_style_name`, `alt_head_name`, `eyes_red`, `eyes_green`, `eyes_blue`, `underwear`, `undershirt`, `backbag`, `b_type`, `alternate_option`, `job_support_high`, `job_support_med`, `job_support_low`, `job_medsci_high`, `job_medsci_med`, `job_medsci_low`, `job_engsec_high`, `job_engsec_med`, `job_engsec_low`, `job_karma_high`, `job_karma_med`, `job_karma_low`, `flavor_text`, `med_record`, `sec_record`, `gen_record`, `disabilities`, `player_alt_titles`, `organ_data`, `rlimb_data`, `nanotrasen_relation`, `physique`, `height`, `speciesprefs`, `socks`, `body_accessory`, `gear`, `autohiss`) VALUES
 	(1, 'AffectedArc07', 1, 'Some notes', 'John Smith', 0, 'male', 25, 'Human', 'None', 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 25, 10, 10, 10, 'head=%23000000&body=%23000000&tail=%23000000', 10, 10, 10, 'Bald', 'Shaved', 'head=None&body=None&tail=None', 'None', 'None', 10, 10, 10, 'Nude', 'Nude', 'Grey Backpack', 'A+', 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'He is short', 'Yes', 'Yes', 'Yes', 0, ' ', ' ', ' ', 'Neutral', 0, 'Nude', ' ', ' ', 0);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 
