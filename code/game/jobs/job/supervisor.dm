@@ -320,7 +320,6 @@
 	)
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/telescopic = 1,
 		/obj/item/pinpointer/crew = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/laser_pointer/blue = 1
