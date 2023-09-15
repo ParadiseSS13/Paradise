@@ -21,8 +21,8 @@
 	var/lip_color = "white"
 
 	var/age = 30		//Player's age (pure fluff)
-	var/height = "of average height"
-	var/physique = "of average build"
+	var/height = "average height"
+	var/physique = "average build"
 
 	var/underwear = "Nude"	//Which underwear the player wants
 	var/undershirt = "Nude"	//Which undershirt the player wants
