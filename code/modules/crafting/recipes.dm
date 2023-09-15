@@ -59,7 +59,7 @@
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/shiv
-	name= "Shiv"
+	name = "Shiv"
 	result = list(/obj/item/kitchen/knife/shiv)
 	reqs = list(/obj/item/stack/cable_coil = 5,
 				/obj/item/shard = 1,
