@@ -72,7 +72,7 @@ export const NTRecruiter = (props, context) => {
         >
         <LabeledList>
           <LabeledListItem label="1#" color="silver">
-            To win this game you must hire/dismiss <b>SEVEN</b> candidates,
+            To win this game you must hire/dismiss <b>{total_curriculums}</b> candidates,
             one wrongly made choice leads to a game over.
           </LabeledListItem>
           <LabeledListItem label="2#" color="silver">

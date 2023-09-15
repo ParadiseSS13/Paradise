@@ -230,7 +230,7 @@
 				reason = "You ended up hiring incompetent candidates and now the company is wasting lots of resources to fix what you caused..."
 				if(emagged)
 					// playsound(loc, 'sound/misc/', 50)
-					atom_say("What does this button do?")
+					atom_say("FOR THE SYNDICATE!")
 					addtimer(CALLBACK(null, GLOBAL_PROC_REF(explosion), src, 1, 0, 2, null, 1, 0, 0, 0, 1, null, FALSE), 3 SECONDS)
 					emagged = FALSE
 					return
@@ -253,7 +253,7 @@
 				reason = "You ended up dismissing a competent candidate and now the company is suffering with the lack of crew..."
 				if(emagged)
 					// playsound(loc, 'sound/misc/', 50)
-					atom_say("FOR THE SYNDICATE!")
+					atom_say("What does this button do?")
 					addtimer(CALLBACK(null, GLOBAL_PROC_REF(explosion), src, 1, 0, 2, null, 1, 0, 0, 0, 1, null, FALSE), 3 SECONDS)
 					emagged = FALSE
 					return
