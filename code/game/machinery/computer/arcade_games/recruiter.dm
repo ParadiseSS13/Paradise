@@ -49,7 +49,7 @@
 	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation, doesn't normally ask for good salaries", "Charged with three counts of aggravated silliness",
 							"Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian",
 							"Has proven knowledge of SOP, but no working experience", "Has worked at Mr Changs",
-							"Spent 8 years as a freelance journalist", "Known as a hero for keeping stations clean during attacks",
+							"Spent 2 years as a freelance journalist", "Known as a hero for keeping stations clean during attacks",
 							"Worked as a bureaucrat for SolGov", "Worked in Donk Corporation's R&D department",
 							"Did work for USSP as an translator", "Took care of Toxins, Xenobiology, Robotics and R&D as a single worker in the Research department",
 							"Served for 4 years as a soldier of the Prospero Order", "Traveled through various systems as an businessman",
@@ -57,7 +57,7 @@
 							"Spent years of their life being a janitor at Clown College", "Was given numerous good reviews for delivering cargo requests on time",
 							"Helped old people cross the holostreet", "Has proven ability to read", "Served 4 years in NT navy",
 							"Properly set station shields before a massive meteor shower", "Previously assisted people as an assistant",
-							"Created golems for the purpose of making them work for the company", "Worked at the space IRS for 5 years",
+							"Created golems for the purpose of making them work for the company", "Worked at the space IRS for 3 years",
 							"Awarded a medal for hosting a fashion contest against the syndicate",
 							"Is certified for EVA repairs", "Known for storing important objects in curious places",
 							"Improved efficiency of Research Outpost by 5.7% through dismissal of underperforming workers", "Skilled in Enterprise Resource Planning",
@@ -81,7 +81,7 @@
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
 										/datum/species/tajaran, /datum/species/kidan, /datum/species/drask,
 										/datum/species/diona, /datum/species/machine, /datum/species/slime,
-										/datum/species/moth)
+										/datum/species/moth, /datum/species/vox)
 	/// Species that are NOT hirable in the eyes of NT
 	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey, /datum/species/nucleation,
 										/datum/species/shadow, /datum/species/skeleton, /datum/species/golem)
@@ -178,7 +178,7 @@
 /obj/machinery/computer/arcade/recruiter/proc/win()
 	game_status = RECRUITER_STATUS_START
 	atom_say("Congratulations recruiter, the company is going to have a productive shift thanks to you.")
-	playsound(loc, 'sound/arcade/recruiter_win.ogg', 30)
+	playsound(loc, 'sound/arcade/recruiter_win.ogg', 20)
 	prizevend(50)
 
 /obj/machinery/computer/arcade/recruiter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -221,7 +221,7 @@
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				reason = "You ended up hiring incompetent candidates and now the company is wasting lots of resources to fix what you caused..."
 				return
-			if(curriculums >= 5)
+			if(curriculums >= 7)
 				win()
 				return
 			curriculums++
@@ -238,7 +238,7 @@
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				reason = "You ended up dismissing a competent candidate and now the company is suffering with the lack of crew..."
 				return
-			if(curriculums >= 5)
+			if(curriculums >= 7)
 				win()
 				return
 			curriculums++

@@ -71,7 +71,7 @@ export const NTRecruiter = (props, context) => {
         >
         <LabeledList>
           <LabeledListItem label="1#" color="silver">
-            To win this game you must hire/dismiss <b>FIVE</b> candidates,
+            To win this game you must hire/dismiss <b>SEVEN</b> candidates,
             one wrongly made choice leads to a game over.
           </LabeledListItem>
           <LabeledListItem label="2#" color="silver">
@@ -186,7 +186,7 @@ export const NTRecruiter = (props, context) => {
             {reason}
           </Flex.Item>
           <Flex.Item color="blue" fontSize="20px" textAlign="center" pt="10px">
-            FINAL SCORE: {cand_curriculum-1}/5
+            FINAL SCORE: {cand_curriculum-1}/7
           </Flex.Item>
           <Flex.Item pt="20px">
             <Button
