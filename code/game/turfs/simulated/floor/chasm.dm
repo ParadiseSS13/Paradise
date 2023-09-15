@@ -15,7 +15,6 @@
 	var/static/list/forbidden_types = typecacheof(list(
 		/obj/singularity,
 		/obj/docking_port,
-		/obj/structure/lattice,
 		/obj/structure/stone_tile,
 		/obj/item/projectile,
 		/obj/effect/portal,
