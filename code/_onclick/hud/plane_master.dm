@@ -115,7 +115,7 @@
 	plane = STARLIGHT_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	///render_relay_plane = LIGHTING_PLANE
-	///blend_mode_override = BLEND_OVERLAY
+	blend_mode = BLEND_ADD
 	color = "#bcdaf7"
 
 /obj/screen/plane_master/starlight/Initialize(mapload)
