@@ -40,7 +40,7 @@
 	return msg
 
 /mob/living/carbon/human/examine_what_am_i(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
-	if(!dna || !height || !physique)
+	if(!dna)
 		return
 
 	var/msg = ""
@@ -64,7 +64,7 @@
 		if(!article_override)
 			article = starts_with_vowel(displayed_species) ? "an" : "a"
 
-		msg += ", [article]<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!"
+		msg += ", [article]<b><font color='[examine_color]'> [lowertext(displayed_species)] , <b>They are of [height] and [physique].</b>.</font></b>!"
 
 	return msg
 
