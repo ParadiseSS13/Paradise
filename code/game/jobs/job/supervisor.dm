@@ -315,9 +315,7 @@
 	glasses =  /obj/item/clothing/glasses/hud/skills/sunglasses
 	//id = /obj/item/card/id/nct // MMTODO - NEEDS ID + SPRITE
 	pda = /obj/item/pda/heads/ntrep
-	implants = list(
-		/obj/item/implant/mindshield
-	)
+	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
 		/obj/item/pinpointer/crew = 1,
