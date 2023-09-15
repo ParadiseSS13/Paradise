@@ -469,7 +469,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "bp" = (
 /obj/machinery/door/airlock/maintenance/external{
-	name = "Catwalk Airlock"
+	name = "Catwalk Access"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/decal/cleanable/dirt,
@@ -761,7 +761,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance/external{
-	name = "Catwalk Airlock"
+	name = "Catwalk Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -783,7 +783,7 @@
 "bS" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/maintenance/external/glass{
-	name = "Catwalk Airlock"
+	name = "Catwalk Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -1182,8 +1182,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Communications"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1314,7 +1315,7 @@
 "cZ" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/multi_tile/glass{
-	name = "Outpost Airlock";
+	name = "Main Airlock";
 	req_access_txt = "54"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -1535,7 +1536,7 @@
 /area/mine/outpost/mechbay)
 "du" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Mining Station Primary Maintenance";
+	name = "Primary Maintenance";
 	req_access_txt = "48"
 	},
 /obj/structure/cable{
@@ -1803,7 +1804,7 @@
 /area/mine/outpost/airlock)
 "dX" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station EVA";
+	name = "EVA Storage";
 	req_access_txt = "54"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1927,7 +1928,7 @@
 /area/mine/outpost/hallway/east)
 "ek" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station Hallway";
+	name = "Hallway";
 	req_access_txt = "48"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2187,7 +2188,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station Hallway";
+	name = "Hallway";
 	req_access_txt = "48"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2344,7 +2345,7 @@
 /area/mine/outpost/storage)
 "eT" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Mining Station Quartermaster's Office"
+	name = "Quartermaster's Office"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
@@ -2454,7 +2455,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station Hallway";
+	name = "Hallway";
 	req_access_txt = "48"
 	},
 /obj/structure/disposalpipe/segment{
@@ -2485,7 +2486,7 @@
 "fd" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external/glass{
-	name = "Mining Shuttle Airlock";
+	name = "Shuttle Airlock";
 	id_tag = "mining_away";
 	req_access_txt = "48"
 	},
@@ -2640,7 +2641,7 @@
 "fs" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
-	name = "Mining Station Storage";
+	name = "Box Storage";
 	req_access_txt = "48"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -3010,7 +3011,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Mining Station Primary Maintenance";
+	name = "Primary Maintenance";
 	req_access_txt = "48"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -3590,7 +3591,7 @@
 /area/lavaland/surface/outdoors)
 "iN" = (
 /obj/machinery/door/airlock/multi_tile/glass{
-	name = "Outpost Airlock";
+	name = "Main Airlock";
 	req_access_txt = "54";
 	dir = 1
 	},
@@ -5290,7 +5291,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /obj/machinery/door/airlock/command/glass{
-	name = "Mining Station Quartermaster's Office"
+	name = "Quartermaster's Office"
 	},
 /obj/effect/mapping_helpers/airlock/polarized,
 /turf/simulated/floor/catwalk,
@@ -5370,7 +5371,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "vQ" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station Hallway";
+	name = "Hallway";
 	req_access_txt = "48"
 	},
 /obj/structure/disposalpipe/segment{
@@ -5651,7 +5652,7 @@
 /area/mine/outpost/mechbay)
 "zj" = (
 /obj/machinery/door/airlock/maintenance/external/glass{
-	name = "Catwalk Airlock"
+	name = "Catwalk Access"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -6619,7 +6620,7 @@
 "Jy" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
-	name = "Mining Station Storage";
+	name = "Box Storage";
 	req_access_txt = "48"
 	},
 /obj/structure/cable{
@@ -7100,7 +7101,7 @@
 /area/mine/outpost/airlock)
 "Pu" = (
 /obj/machinery/door/airlock/mining{
-	name = "Mining Station Lockers";
+	name = "Lockers";
 	req_access_txt = "48"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,

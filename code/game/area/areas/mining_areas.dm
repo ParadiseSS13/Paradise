@@ -108,7 +108,7 @@
 	icon_state = "engimaint"
 
 /area/mine/outpost/medbay
-	name = "Mining Station Medbay"
+	name = "Mining Station Infirmary"
 	icon_state = "medbay"
 
 /area/mine/outpost/mechbay
