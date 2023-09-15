@@ -158,6 +158,9 @@ SUBSYSTEM_DEF(jobs)
 		if(job.admin_only) // No admin positions either.
 			continue
 
+		if(job.mentor_only) // You should need to PICK this role.
+			continue
+
 		if(jobban_isbanned(player, job.title))
 			Debug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 			continue

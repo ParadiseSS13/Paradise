@@ -23,6 +23,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 	var/med[0]
 	var/sci[0]
 	var/ser[0]
+	var/pro[0]
 	var/sup[0]
 	var/bot[0]
 	var/misc[0]
@@ -70,6 +71,12 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 			department = 1
 			if(depthead && ser.len != 1)
 				ser.Swap(1, ser.len)
+
+		if(real_rank in GLOB.procedure_positions)
+			pro[++pro.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			department = 1
+			if(depthead & pro.len != 1)
+				pro.Swap(1, pro.len)
 
 		if(real_rank in GLOB.supply_positions)
 			sup[++sup.len] = list("name" = name, "rank" = rank, "active" = isactive)

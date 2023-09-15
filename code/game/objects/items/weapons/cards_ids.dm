@@ -574,6 +574,8 @@
 									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
 								if("Command")
 									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+								if("Procedure")
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.procedure_positions
 
 						if(!Adjacent(user))
 							return

@@ -1971,7 +1971,7 @@
 		for(var/J in SSjobs.occupations)
 			var/datum/job/job = J
 
-			if(job.admin_only)
+			if(job.admin_only || job.mentor_only)
 				continue
 
 			if(job.hidden_from_job_prefs)

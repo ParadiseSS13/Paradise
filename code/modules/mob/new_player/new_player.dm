@@ -275,6 +275,8 @@
 		return FALSE
 	if(job.admin_only && !check_rights(R_EVENT, FALSE))
 		return FALSE
+	if(job.mentor_only && !check_rights(R_ADMIN|R_MENTOR, FALSE))
+		return FALSE
 	if(job.get_exp_restrictions(client))
 		return FALSE
 

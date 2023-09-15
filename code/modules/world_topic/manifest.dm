@@ -11,6 +11,7 @@
 		"sci" = GLOB.science_positions,
 		"car" = GLOB.supply_positions,
 		"srv" = GLOB.service_positions,
+		"pro" = GLOB.procedure_positions,
 		"ast" = GLOB.assistant_positions,
 		"bot" = GLOB.nonhuman_positions
 	)

@@ -8,3 +8,4 @@
 #define DEPARTMENT_ASSISTANT	"Assistant"
 #define DEPARTMENT_SILICON		"Silicon"
 #define DEPARTMENT_COMMAND		"Command"
+#define DEPARTMENT_PROCEDURE	"Procedure"

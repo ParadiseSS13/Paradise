@@ -76,6 +76,21 @@
 	)
 	head_of_staff = "Captain"
 
+/datum/station_department/procedure
+	department_name = DEPARTMENT_PROCEDURE
+
+	account_starting_balance = DEPARTMENT_BALANCE_LOW
+	account_base_pay = DEPARTMENT_BASE_PAY_LOW
+	account_access = list(ACCESS_CAPTAIN, ACCESS_MAGISTRATE, ACCESS_NTREP)
+	department_roles = list(
+		"Captain",
+		"Nanotrasen Representative",
+		"Magistrate",
+		"Internal Affairs Agent",
+		"Nanotrasen Career Instructor"
+	)
+	head_of_staff = "Captain"
+
 /datum/station_department/security
 	department_name = DEPARTMENT_SECURITY
 
@@ -123,13 +138,11 @@
 		"Chef",
 		"Janitor",
 		"Librarian",
-		"Internal Affairs Agent",
 		"Chaplain",
 		"Clown",
 		"Mime",
 		"Barber",
 		"Magistrate",
-		"Nanotrasen Representative",
 		"Blueshield",
 		"Explorer"
 	)

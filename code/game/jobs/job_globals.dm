@@ -28,6 +28,13 @@ GLOBAL_LIST_INIT(command_head_positions, list(
 	"Quartermaster"
 ))
 
+GLOBAL_LIST_INIT(procedure_positions, list(
+	"Captain",
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Internal Affairs Agent",
+	"Nanotrasen Career Instructor"
+))
 
 GLOBAL_LIST_INIT(engineering_positions, list(
 	"Chief Engineer",

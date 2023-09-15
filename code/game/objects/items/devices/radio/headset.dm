@@ -162,6 +162,13 @@
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
+/obj/item/radio/headset/headset_ntc
+	name = "NT career trainer radio headset"
+	desc = "This is used by your well-taught corporate training team."
+	icon_state = "com_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/headset_nct
+
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
 	desc = "When the engineers wish to chat like girls."
