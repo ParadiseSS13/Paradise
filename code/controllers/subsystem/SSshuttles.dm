@@ -23,6 +23,8 @@ SUBSYSTEM_DEF(shuttle)
 
 	//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply
+	/// Supply shuttle turfs to make mail be put down faster
+	var/static/list/supply_shuttle_turfs = list()
 
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
@@ -283,12 +285,17 @@ SUBSYSTEM_DEF(shuttle)
 			continue
 		console.createMessage("Messaging and Intergalactic Letters", "New Mail Crates ready to be ordered!", "A new mail crate is able to be shipped alongside your next orders!", RQ_NORMALPRIORITY)
 
-	var/list/shuttle_turfs = list()
-	for(var/turf/simulated/T in supply.areaInstance)
-		if(T.density)
-			continue
-		shuttle_turfs += T
-	var/turf/spawn_location = pick(shuttle_turfs)
+	if(!supply_shuttle_turfs)
+		for(var/turf/simulated/T in supply.areaInstance)
+			if(T.density)
+				continue
+			for(var/obj/structure/structure in T.contents)
+				if(structure.density)
+					continue
+			supply_shuttle_turfs += T
+	if(!length(supply_shuttle_turfs)) // In case some nutjob walled the supply shuttle 10 minutes into the round
+		return
+	var/turf/spawn_location = pick(supply_shuttle_turfs)
 	new /obj/structure/closet/crate/mail(spawn_location)
 
 #undef CALL_SHUTTLE_REASON_LENGTH
