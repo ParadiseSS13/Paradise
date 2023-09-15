@@ -17,6 +17,7 @@
 	desc = "Weed out the good from bad employees and build the perfect manifest to work aboard the station."
 	icon_state = "arcade_recruiter"
 	icon_screen = "nanotrasen"
+	light_color = LIGHT_COLOR_WHITE
 	circuit = /obj/item/circuitboard/arcade/recruiter
 	var/candidate_name
 	var/candidate_gender
@@ -27,6 +28,8 @@
 	var/employment_records
 	/// Current "turn" of the game
 	var/curriculums
+	/// Total number of "turns" to win
+	var/total_curriculums = 7
 	/// Which unique candidate is he?
 	var/unique_candidate
 
@@ -179,7 +182,11 @@
 	game_status = RECRUITER_STATUS_START
 	atom_say("Congratulations recruiter, the company is going to have a productive shift thanks to you.")
 	playsound(loc, 'sound/arcade/recruiter_win.ogg', 20)
-	prizevend(50)
+	if(emagged)
+		new /obj/item/stamp/chameleon(get_turf(src))
+		emagged = FALSE
+	else
+		prizevend(50)
 
 /obj/machinery/computer/arcade/recruiter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -200,6 +207,7 @@
 		"cand_records" = employment_records,
 
 		"cand_curriculum" = curriculums,
+		"total_curriculums" = total_curriculums,
 
 		"reason" = reason
 	)
@@ -218,10 +226,16 @@
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(!good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
-				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				reason = "You ended up hiring incompetent candidates and now the company is wasting lots of resources to fix what you caused..."
+				if(emagged)
+					// playsound(loc, 'sound/misc/', 50)
+					atom_say("What does this button do?")
+					addtimer(CALLBACK(null, GLOBAL_PROC_REF(explosion), src, 1, 0, 2, null, 1, 0, 0, 0, 1, null, FALSE), 3 SECONDS)
+					emagged = FALSE
+					return
+				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				return
-			if(curriculums >= 7)
+			if(curriculums >= total_curriculums)
 				win()
 				return
 			curriculums++
@@ -235,10 +249,16 @@
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
-				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				reason = "You ended up dismissing a competent candidate and now the company is suffering with the lack of crew..."
+				if(emagged)
+					// playsound(loc, 'sound/misc/', 50)
+					atom_say("FOR THE SYNDICATE!")
+					addtimer(CALLBACK(null, GLOBAL_PROC_REF(explosion), src, 1, 0, 2, null, 1, 0, 0, 0, 1, null, FALSE), 3 SECONDS)
+					emagged = FALSE
+					return
+				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				return
-			if(curriculums >= 7)
+			if(curriculums >= total_curriculums)
 				win()
 				return
 			curriculums++
@@ -268,6 +288,17 @@
 
 /obj/machinery/computer/arcade/recruiter/attack_hand(mob/user)
 	ui_interact(user)
+
+/obj/machinery/computer/arcade/recruiter/emag_act(mob/user)
+	if(emagged)
+		return
+	if(user)
+		to_chat(user, "<span class='notice'>You override the menu and revert the game to its previous version.</span>")
+		add_hiddenprint(user)
+	name = "NT Recruiter Simulator HARDCODE EDITION"
+	desc = "The version utilized by the company to train real recruiters, comes with realistic consequences and double the applications."
+	total_curriculums = 14
+	emagged = TRUE
 
 #undef PROB_CANDIDATE_ERRORS
 #undef PROB_UNIQUE_CANDIDATE

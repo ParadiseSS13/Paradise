@@ -15,6 +15,7 @@ export const NTRecruiter = (props, context) => {
 	  cand_job,
 	  cand_records,
 	  cand_curriculum,
+    total_curriculums,
     reason,
   } = data;
   if (gamestatus === 0) {
@@ -186,7 +187,7 @@ export const NTRecruiter = (props, context) => {
             {reason}
           </Flex.Item>
           <Flex.Item color="blue" fontSize="20px" textAlign="center" pt="10px">
-            FINAL SCORE: {cand_curriculum-1}/7
+            FINAL SCORE: {cand_curriculum-1}/{total_curriculums}
           </Flex.Item>
           <Flex.Item pt="20px">
             <Button
