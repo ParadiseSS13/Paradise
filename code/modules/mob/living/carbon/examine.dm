@@ -27,10 +27,6 @@
 /mob/living/carbon/proc/examine_what_am_i(skip_jumpsuit, skip_face)
 	return "."
 
-/// Identify descriptors
-/mob/living/carbon/proc/descriptor()
-	return ""
-
 /// Add whatever you want to start the damage block with here.
 /mob/living/carbon/proc/examine_start_damage_block(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
 	return ""
@@ -124,7 +120,6 @@
 
 	// Show what you are
 	msg += examine_what_am_i()
-	msg += descriptor()
 	msg += "\n"
 
 	// All the things wielded/worn that can be reasonably described with a common template:

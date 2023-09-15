@@ -157,8 +157,6 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `organ_data` mediumtext NOT NULL,
   `rlimb_data` mediumtext NOT NULL,
   `nanotrasen_relation` varchar(45) NOT NULL,
-  `physique` varchar(45) NOT NULL,
-  `height` varchar(45) NOT NULL,
   `speciesprefs` int(1) NOT NULL,
   `socks` mediumtext NOT NULL,
   `body_accessory` mediumtext NOT NULL,

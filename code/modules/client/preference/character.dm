@@ -316,7 +316,7 @@
 			:sec_record,
 			:gen_record,
 			:playertitlelist,
-			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, physique, height, :speciesprefs,
+			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
 			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes)
 	"}, list(
@@ -451,21 +451,21 @@
 	organ_data = params2list(query.item[42])
 	rlimb_data = params2list(query.item[43])
 	nanotrasen_relation = query.item[44]
-	physique = query.item[45]
-	height = query.item[46]
-	speciesprefs = text2num(query.item[47])
+	speciesprefs = text2num(query.item[45])
 
 	//socks
-	socks = query.item[48]
-	body_accessory = query.item[49]
-	loadout_gear = query.item[50]
-	autohiss_mode = text2num(query.item[51])
+	socks = query.item[46]
+	body_accessory = query.item[47]
+	loadout_gear = query.item[48]
+	autohiss_mode = text2num(query.item[49])
 	// Index [50] is the slot
-	h_grad_style = query.item[52]
-	h_grad_offset_x = query.item[53] // parsed down below
-	h_grad_colour = query.item[54]
-	h_grad_alpha = query.item[55]
-	var/custom_emotes_tmp = query.item[56]
+	physique = query.item[51]
+	height = query.item[52]
+	h_grad_style = query.item[53]
+	h_grad_offset_x = query.item[54] // parsed down below
+	h_grad_colour = query.item[55]
+	h_grad_alpha = query.item[56]
+	var/custom_emotes_tmp = query.item[57]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
