@@ -26,7 +26,6 @@
 	add_language("Xenomorph")
 	add_language("Hivemind")
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
-	ADD_TRAIT(src, TRAIT_VIRUSIMMUNE, "alien")
 	. = ..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 
@@ -37,9 +36,7 @@
 	return 0
 
 /mob/living/carbon/alien/humanoid/CanContractDisease(datum/disease/D)
-	. = ..()
-	if(HAS_TRAIT(src, TRAIT_VIRUSIMMUNE))
-		return FALSE
+	return FALSE
 
 /mob/living/carbon/alien/humanoid/emp_act(severity)
 	if(r_store) r_store.emp_act(severity)
