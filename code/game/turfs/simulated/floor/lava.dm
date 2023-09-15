@@ -4,7 +4,7 @@
 	gender = PLURAL //"That's some lava."
 	baseturf = /turf/simulated/floor/plating/lava //lava all the way down
 	slowdown = 2
-	light_range = 2
+	light_range = 1
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
 	footstep = FOOTSTEP_LAVA
