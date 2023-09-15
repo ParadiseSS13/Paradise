@@ -288,3 +288,20 @@
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/radio/headset/headset_iaa(src)
 	new /obj/item/radio/headset/headset_iaa(src)
+
+/obj/structure/closet/secure_closet/ntc
+	name = "NT Career Trainer locker"
+	req_access = list(ACCESS_TRAINER)
+	icon_state = "ntr"
+	open_door_sprite = "hop_door"
+	icon_opened = "hop_open"
+
+/obj/structure/closet/secure_closet/ntc/populate_contents()
+	new /obj/item/storage/briefcase(src)
+	new /obj/item/storage/briefcase(src)
+	new /obj/item/radio/headset/headset_ntc(src)
+	new /obj/item/radio/headset/headset_ntc(src)
+	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
+	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
+	new /obj/item/clothing/suit/mantle(src) // MMTODO - NEEDS SPRITE
+	new /obj/item/clothing/suit/mantle(src) // MMTODO - NEEDS SPRITE

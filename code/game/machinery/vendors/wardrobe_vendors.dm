@@ -669,3 +669,30 @@
 					/obj/item/clothing/glasses/sunglasses/big = 30,
 					/obj/item/clothing/accessory/lawyers_badge = 50)
 	refill_canister = /obj/item/vending_refill/lawdrobe
+
+/obj/machinery/economy/vending/traindrobe
+	name = "\improper TrainDrobe"
+	desc = "This wardrobe dispenses the attire of Nanotrasen's finest teaching force."
+	//icon_state = MMTODO - NEEDS SPRITE
+	icon_lightmask = "base_drobe"
+	icon_panel = "drobe"
+	icon_broken = "base_drobe"
+	icon_off = "base_drobe"
+	category = VENDOR_TYPE_CLOTHING
+	ads_list = list("You're gonna LEARN today!")
+	vend_reply = "Thank you for using the LawDrobe!"
+	products = list(
+		/obj/item/clothing/under/rank/centcom/representative = 2, // MMTODO - NEEDS SPRITE + new item
+		/obj/item/clothing/shoes/laceup = 2,
+		/obj/item/clothing/shoes/black = 2,
+		/obj/item/clothing/shoes/brown = 2,
+		/obj/item/clothing/head/beret/sec = 2,
+		/obj/item/clothing/head/beret/med = 2,
+		/obj/item/clothing/head/beret/sci = 2,
+		/obj/item/clothing/head/beret/eng = 2,
+		/obj/item/clothing/head/beret/atmos = 2,
+		/obj/item/clothing/head/beret/black = 2 // Service?
+		// /obj/item/clothing/head/beret/sup // Supply, when its in.
+	)
+	prices = list()
+	refill_canister = /obj/item/vending_refill/traindrobe

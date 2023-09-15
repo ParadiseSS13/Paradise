@@ -73,6 +73,7 @@
 #define ACCESS_MINISAT 75
 #define ACCESS_MINERAL_STOREROOM 76
 #define ACCESS_NETWORK 77
+#define ACCESS_TRAINER 78
 
 #define ACCESS_WEAPONS 99 //Weapon authorization for secbots
 
