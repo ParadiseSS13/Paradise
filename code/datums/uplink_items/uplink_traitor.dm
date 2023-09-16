@@ -649,7 +649,7 @@
 	while(changing_amount >= 1)
 		var/give_amount = min(changing_amount, initial(TC.max_amount))
 		changing_amount -= give_amount
-		new /obj/item/stack/telecrystal(loc, give_amount)
+		new /obj/item/stack/telecrystal(src, give_amount)
 		if(prohibitor > RECURSION_PANIC_AMOUNT) // idk how they got 1000+ tc, dont ask me
 			new /obj/item/stack/telecrystal(loc, changing_amount)
 			// Return of Bogdanoff: doomp it
