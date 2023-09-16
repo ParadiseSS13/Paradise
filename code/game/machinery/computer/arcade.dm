@@ -190,7 +190,7 @@
 				emagged = FALSE
 			else
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
-				var/score = player_hp + player_mp + 15
+				var/score = rand(20, 30)
 				prizevend(score)
 
 	else if(emagged && (turtle >= 4))
@@ -199,8 +199,8 @@
 		playsound(loc, 'sound/arcade/boom.ogg', 50, TRUE)
 		player_hp -= boomamt
 
-	else if((enemy_mp <= 5) && prob(70))
-		var/stealamt = rand(5, 6)
+	else if((enemy_mp <= 5) && (prob(70)))
+		var/stealamt = rand(2,3)
 		temp = "[enemy_name] steals [stealamt] of your power!"
 		playsound(loc, 'sound/arcade/steal.ogg', 50, TRUE)
 		player_mp -= stealamt
