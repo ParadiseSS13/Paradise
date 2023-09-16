@@ -13,8 +13,8 @@
 	#define STATION_CONTACT "Station Contact"
 	// A level dedicated to admin use
 	#define ADMIN_LEVEL "Admin Level"
-	// A level that can be navigated to through space
-	#define REACHABLE "Reachable"
+	// A level that can be navigated to by the crew without admin intervention or the emergency shuttle.
+	#define REACHABLE_BY_CREW "Reachable"
 	// For away missions - used by some consoles
 	#define AWAY_LEVEL "Away"
 	// Allows weather
