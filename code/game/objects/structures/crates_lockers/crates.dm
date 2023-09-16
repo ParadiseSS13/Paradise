@@ -519,3 +519,101 @@
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/card/id/golem(src)
 	new /obj/item/flashlight/lantern(src)
+
+#define RECURSION_PANIC_AMOUNT 10
+#define LEGACY_TC 5 // How much TC our current value is compared to 2022. Update this any time the value of TC is inflated
+
+/obj/structure/closet/crate/surplus
+	var/cost
+
+/datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
+	if(..() != UPLINK_SPECIAL_SPAWNING)
+		return FALSE
+
+	var/obj/structure/closet/crate/surplus/surplus = new(loc, U, crate_value)
+	surplus.cost = cost
+
+/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost)
+	. = ..()
+	var/list/temp_uplink_list = get_uplink_items(U)
+	var/list/buyable_items = list()
+	for(var/category in temp_uplink_list)
+		buyable_items += temp_uplink_list[category]
+
+	for(var/datum/uplink_item/uplink_item in buyable_items)
+		if(!uplink_item.surplus) // Otherwise we'll just have an element with a weight of 0 in our weighted list
+			continue
+		buyable_items[uplink_item] = uplink_item.surplus
+
+	if(!length(buyable_items)) // UH OH.
+		fucked_shit_up_alert(loc, "[src] spawning failed: had no buyable items on purchase which would have caused an infinite loop, refunding [cost] telecrystals instead. (Original cost of the crate). Report this to coders please.")
+		generate_refund(cost, loc)
+		return
+
+	var/remaining_TC = crate_value
+	var/list/bought_items = list()
+	var/list/itemlog = list()
+
+	var/datum/uplink_item/I
+	var/danger_counter = 0 // lets make sure we dont get into an infinite loop...
+	while(remaining_TC)
+		if(danger_counter > RECURSION_PANIC_AMOUNT)
+			fucked_shit_up_alert(loc, "[src] spawning failed: approached an infinite loop by cost checking, giving the remaining [remaining_TC] telecrystals instead.")
+			generate_refund(remaining_TC, loc)
+			break
+
+		if(remaining_TC < LEGACY_TC)
+			generate_refund(remaining_TC, loc)
+			message_admins("[src] has been given [remaining_TC] because it was less than [LEGACY_TC] worth in their [name]")
+			break
+
+		if(!length(buyable_items))
+			fucked_shit_up_alert(loc, "[src] spawning failed: ran out of buyable items while looping, refunding [cost] telecrystals and cancelling crate. (Original cost of the crate). Report this to coders please.")
+			generate_refund(remaining_TC, loc)
+			bought_items.Cut()
+			break
+
+		I = pickweight(buyable_items)
+
+		if(I.cost > remaining_TC)
+			danger_counter++
+			buyable_items -= I
+			continue
+
+		bought_items += I.item
+		remaining_TC -= I.cost
+
+		buyable_items[I] *= 0.66 // To prevent people from getting the same thing over and over again
+
+		itemlog += I.name // To make the name more readable for the log compared to just i.item
+		danger_counter = 0
+
+	U.purchase_log += "<BIG>[bicon(src)]</BIG>"
+	for(var/item in bought_items)
+		var/obj/purchased = new item(src)
+		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
+	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
+
+/obj/structure/closet/crate/surplus/proc/generate_refund(amount)
+	var/changing_amount = amount
+	var/obj/item/stack/telecrystal/TC
+	var/prohibitor = 0
+	while(changing_amount >= 1)
+		var/give_amount = min(changing_amount, initial(TC.max_amount))
+		changing_amount -= give_amount
+		new /obj/item/stack/telecrystal(src, give_amount)
+		if(prohibitor > RECURSION_PANIC_AMOUNT) // idk how they got 1000+ tc, dont ask me
+			new /obj/item/stack/telecrystal(src, changing_amount)
+			// Return of Bogdanoff: doomp it
+			var/turf/T = get_turf(loc)
+			message_admins("While refunding telecrystals, [src] went over the expected limit, for a total of [amount] TC. Expected refund is likely [cost]. [ADMIN_COORDJMP(T)]")
+			break
+		prohibitor++
+
+/obj/structure/closet/crate/surplus/proc/fucked_shit_up_alert(turf/loc, msg) // yeah just fuckin tell everyone, this shit is bad
+	stack_trace(msg)
+	message_admins("[msg] [ADMIN_COORDJMP(loc)]")
+	log_admin(msg)
+
+#undef RECURSION_PANIC_AMOUNT
+#undef LEGACY_TC
