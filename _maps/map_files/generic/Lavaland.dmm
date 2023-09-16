@@ -536,7 +536,12 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance)
 "bv" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/extinguisher_cabinet{
+	name = "custom placement";
+	pixel_x = -5;
+	pixel_y = 30
+	},
+/obj/structure/closet/secure_closet/quartermaster/empty,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "bw" = (
@@ -1289,6 +1294,10 @@
 /obj/structure/sign/poster/ripped{
 	pixel_x = 32
 	},
+/obj/item/cigbutt{
+	pixel_y = 11;
+	pixel_x = -10
+	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
 "cW" = (
@@ -1549,7 +1558,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plating,
-/area/mine/outpost/maintenance)
+/area/mine/outpost/hallway/west)
 "dv" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1707,6 +1716,9 @@
 "dM" = (
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /obj/effect/decal/cleanable/glass,
+/obj/item/gps/ruin{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/airlock)
 "dN" = (
@@ -1774,6 +1786,9 @@
 	c_tag = "Mining Outpost - Central Hallway";
 	dir = 4;
 	network = list("Mining Outpost")
+	},
+/obj/structure/sign/electricshock{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1971,6 +1986,10 @@
 /obj/structure/closet/secure_closet/miner,
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	name = "North Switch";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2231,6 +2250,9 @@
 	pixel_y = 5
 	},
 /obj/item/storage/box/donkpockets,
+/obj/structure/sign/bobross{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -3764,10 +3786,13 @@
 /area/lavaland/surface/outdoors)
 "jJ" = (
 /obj/machinery/kitchen_machine/grill,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Dinner Room APC";
+	pixel_x = -24
+	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -5457,7 +5482,8 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/mining)
 "xt" = (
-/turf/simulated/mineral/volcanic/lava_land_surface,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/mine/outpost/lockers)
 "xx" = (
 /obj/machinery/light/small{
@@ -5484,8 +5510,22 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/mining)
 "xG" = (
-/turf/simulated/mineral/volcanic/lava_land_surface,
-/area/mine/outpost/hallway/east)
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurplecorners"
+	},
+/area/mine/outpost/hallway/west)
 "xM" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -5836,12 +5876,12 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/storage)
 "AO" = (
-/obj/machinery/light_switch{
-	name = "North Switch";
-	pixel_y = 24
+/obj/structure/closet/secure_closet/miner,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
 	},
-/turf/simulated/wall,
-/area/mine/outpost/cafeteria)
+/area/mine/outpost/lockers)
 "Bg" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
@@ -5861,15 +5901,11 @@
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Bq" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	name = "North Switch";
-	pixel_y = 24
-	},
 /obj/structure/window/basic{
 	dir = 4
+	},
+/obj/structure/sink{
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -6108,6 +6144,18 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
+"Do" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/sign/electricshock{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/hallway/west)
 "Dq" = (
 /obj/structure/cable,
 /obj/machinery/power/port_gen/pacman{
@@ -6234,18 +6282,16 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
 "EL" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Dinner Room APC";
-	pixel_y = 24
-	},
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
 	pixel_y = 6
 	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/light_switch{
+	name = "North Switch";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -7139,7 +7185,8 @@
 	},
 /obj/item/radio/intercom{
 	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -7173,15 +7220,8 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Qq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gps/ruin{
-	gpstag = "OUTPOST";
-	pixel_y = 32
-	},
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall,
 /area/mine/outpost/airlock)
 "Qv" = (
 /obj/structure/sign/poster/random{
@@ -7365,16 +7405,12 @@
 	},
 /area/mine/laborcamp)
 "Tn" = (
-/obj/structure/closet/secure_closet/miner,
-/obj/machinery/light_switch{
-	name = "North Switch";
-	pixel_y = 24
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/outpost/lockers)
+/turf/simulated/floor/plating,
+/area/mine/outpost/airlock)
 "Ts" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/tank/air{
@@ -7605,9 +7641,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/structure/sign/kiddieplaque/remembrance{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7800,6 +7833,9 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
+	},
+/obj/structure/sign/kiddieplaque/remembrance{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8036,20 +8072,13 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "ZT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/sign/bobross{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/outpost/hallway/west)
+/obj/item/cigbutt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "ZZ" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
@@ -17792,7 +17821,7 @@ AE
 AE
 aj
 aj
-VA
+ZT
 vZ
 Ry
 Da
@@ -19086,7 +19115,7 @@ sT
 sT
 ga
 gi
-bG
+AO
 Fe
 bC
 sk
@@ -19343,10 +19372,10 @@ Jb
 sT
 gb
 gi
-Tn
+bG
 Wf
 rB
-xt
+rk
 AE
 ab
 aj
@@ -19851,7 +19880,7 @@ Eg
 Dq
 ev
 fe
-fo
+bR
 fD
 bI
 gg
@@ -20365,8 +20394,8 @@ dG
 Pp
 zv
 yr
-dR
-lT
+bR
+Do
 dp
 sT
 fA
@@ -20622,7 +20651,7 @@ dm
 gv
 ez
 dR
-IZ
+bR
 Xu
 dp
 sT
@@ -20872,7 +20901,7 @@ gq
 AE
 AE
 cM
-fo
+cM
 cj
 dI
 dI
@@ -21129,9 +21158,9 @@ AE
 AE
 aj
 SQ
-cW
-cW
-cW
+dy
+dy
+dy
 dr
 Xl
 BT
@@ -21390,9 +21419,9 @@ EL
 jJ
 eJ
 cW
-cW
+dy
 ge
-dR
+fo
 IZ
 lT
 pQ
@@ -21642,12 +21671,12 @@ aj
 aj
 ab
 dy
-AO
+dy
 Bq
 HH
 bN
 eR
-cW
+dy
 nO
 dT
 eU
@@ -22163,7 +22192,7 @@ qv
 qv
 cF
 yq
-fm
+xG
 gd
 gd
 gd
@@ -23447,7 +23476,7 @@ FE
 Cw
 gw
 dy
-ZT
+yq
 eP
 gd
 db
@@ -24473,7 +24502,7 @@ fK
 da
 zN
 IC
-xG
+IC
 IC
 vh
 CT
@@ -24729,7 +24758,7 @@ aN
 bU
 uW
 zN
-Nk
+Dz
 dM
 dW
 eI
@@ -24987,8 +25016,8 @@ YB
 Dz
 Dz
 Qq
-dW
-Ps
+Tn
+de
 vh
 bq
 gN
@@ -25244,7 +25273,7 @@ eO
 BE
 dW
 DA
-de
+Ps
 YS
 vh
 Xb

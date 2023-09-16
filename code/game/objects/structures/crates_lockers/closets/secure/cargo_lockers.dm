@@ -34,3 +34,8 @@
 	new /obj/item/reagent_containers/food/drinks/mug/qm(src)
 	new /obj/item/flash(src)
 
+/obj/structure/closet/secure_closet/quartermaster/empty //used in mining outpost
+	name = "quartermaster's secondary locker"
+
+/obj/structure/closet/secure_closet/quartermaster/empty/populate_contents()
+	return
