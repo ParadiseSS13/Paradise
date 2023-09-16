@@ -701,7 +701,7 @@
 						active_character.nanotrasen_relation = new_relation
 
 				if("physique")
-					var/new_physique = input(user, "Choose your descriptor for how built your character is on glance.", "Character Preference") as null|anything in list("rail thin build", "thin build", "average build", "well-built build", "muscular build", "stout build")
+					var/new_physique = input(user, "Choose your descriptor for how built your character is on glance.", "Character Preference") as null|anything in list("rail thin", "thin", "average build", "well-built", "muscular", "overweight")
 					if(new_physique)
 						active_character.physique = new_physique
 
