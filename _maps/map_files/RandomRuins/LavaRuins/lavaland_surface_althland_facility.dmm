@@ -25,7 +25,7 @@
 	},
 /area/ruin/unpowered)
 "af" = (
-/obj/structure/lattice,
+/obj/structure/lattice/lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "ap" = (
@@ -1721,7 +1721,7 @@
 	},
 /area/ruin/unpowered)
 "PI" = (
-/obj/structure/lattice,
+/obj/structure/lattice/lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/ruin/unpowered)
 "PJ" = (
@@ -2222,7 +2222,7 @@ YN
 YN
 Yd
 Dd
-bT
+af
 bT
 bV
 bV
@@ -2258,7 +2258,7 @@ rf
 Lq
 MY
 Yd
-bT
+af
 bT
 bT
 bT
@@ -3001,7 +3001,7 @@ bT
 af
 af
 ui
-bT
+af
 bT
 ui
 Dp
@@ -3036,7 +3036,7 @@ ui
 ui
 ui
 af
-af
+bT
 ui
 ui
 ui
