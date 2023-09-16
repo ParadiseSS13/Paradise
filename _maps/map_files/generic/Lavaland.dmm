@@ -175,6 +175,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"aC" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "aD" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
@@ -398,6 +404,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"bc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/girder,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
 "be" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -2213,6 +2224,18 @@
 	icon_state = "darkfull"
 	},
 /area/mine/living_quarters)
+"eB" = (
+/obj/effect/landmark/damageturf,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "eC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3451,6 +3474,17 @@
 /mob/living/simple_animal/hostile/megafauna/legion,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"hh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "hj" = (
 /obj/machinery/light{
 	dir = 4
@@ -3460,11 +3494,30 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
+"hn" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "hs" = (
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
+"hu" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
 /area/lavaland/surface/outdoors)
 "hv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3480,6 +3533,18 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp)
+"hw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/obj/machinery/mineral/unloading_machine,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "hz" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -3494,6 +3559,19 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"hF" = (
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/obj/item/stack/ore/bluespace_crystal{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "hH" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -3523,6 +3601,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"hV" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/sign/nosmoking_1{
+	pixel_x = -2;
+	pixel_y = 35
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ia" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "ic" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -3544,6 +3639,23 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"ig" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/electricshock{
+	pixel_x = -31
+	},
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/machinery/economy/vending/assist/free,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "ii" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3557,6 +3669,16 @@
 	icon_state = "darkfull"
 	},
 /area/mine/airlock)
+"in" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "ir" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
@@ -3593,6 +3715,12 @@
 /obj/structure/stone_tile/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"iz" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "iB" = (
 /obj/machinery/mineral/labor_prisoner_shuttle_console{
 	pixel_y = 32
@@ -3613,6 +3741,15 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"iP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/door_assembly/door_assembly_mhatch,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "iX" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -3665,6 +3802,14 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"jj" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "jk" = (
 /obj/structure/stone_tile/center,
 /obj/structure/stone_tile/surrounding_tile,
@@ -3741,6 +3886,28 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"jz" = (
+/obj/structure/girder,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"jC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "jF" = (
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/surrounding_tile{
@@ -3780,6 +3947,10 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
+"jM" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
 "jN" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
@@ -3829,6 +4000,19 @@
 /obj/structure/fluff/drake_statue,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"kh" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
 "kj" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -3861,6 +4045,17 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"kz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "kB" = (
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/surrounding_tile{
@@ -3928,6 +4123,52 @@
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"kT" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/rank/cargo/miner,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"kW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"la" = (
+/obj/structure/grille,
+/obj/item/shard,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"lc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/obj/machinery/mineral/processing_unit,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "le" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -4197,6 +4438,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"mo" = (
+/obj/item/shard,
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "mp" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
@@ -4543,6 +4794,43 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"nn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/mob/living/simple_animal/hostile/asteroid/goliath/beast,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"nq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"nV" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"oa" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "oj" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -4551,6 +4839,37 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp)
+"ok" = (
+/obj/item/pickaxe,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"ol" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"om" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/rack_parts,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "on" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -4573,6 +4892,43 @@
 /obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"oq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/item/stack/sheet/mineral/gold{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"or" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"ot" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
 "oA" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/atmospherics/unary/tank/air{
@@ -4607,12 +4963,31 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"oT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "pa" = (
 /obj/machinery/door/airlock{
 	name = "Mech Bay Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"pk" = (
+/obj/structure/grille,
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "pq" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
@@ -4625,6 +5000,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/mine/laborcamp/security)
+"pE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
 "pQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4642,6 +5023,23 @@
 	icon_state = "darkfull"
 	},
 /area/mine/storage)
+"pS" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/broken{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"qd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
 "qw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt,
@@ -4666,10 +5064,41 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"qE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"qN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/girder,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "qT" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/mine/laborcamp)
+"qV" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "rd" = (
 /obj/structure/closet/secure_closet/brig/gulag,
 /obj/effect/decal/cleanable/dirt,
@@ -4701,6 +5130,39 @@
 	icon_state = "wood-broken"
 	},
 /area/mine/laborcamp)
+"ru" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/machinery/light_construct/small,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"rF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/donkpockets/empty,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"rG" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "rM" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/mineral/titanium,
@@ -4725,6 +5187,21 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/cafeteria)
+"sd" = (
+/obj/structure/marker_beacon/dock_marker,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"so" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "sv" = (
 /obj/machinery/light{
 	dir = 4
@@ -4776,6 +5253,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"sS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/structure/sign/poster/contraband/syndicate_recruitment{
+	pixel_x = -3;
+	pixel_y = 31
+	},
+/obj/item/clothing/under/rank/cargo/miner,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "sT" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -4783,10 +5275,39 @@
 	icon_state = "darkfull"
 	},
 /area/mine/mechbay)
+"sY" = (
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/structure/sign/atmosplaque{
+	desc = "A ruined and partially melted plaque bears words that are now faded and rusted, with some letters missing entirely. It reads: Est...ished by the Althland Mining...ration. In recog...on of the brave...who dared...harness...fiery heart...this world. May the...of our labor...shine as brightly...as the molten rivers...beneath our feet. The date of the facility's establishment at the bottom is obliterated, and the signatures of any founding miners are completely lost to time.";
+	pixel_y = 29;
+	name = "\improper Althland facility plaque"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "tb" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/mining)
+"ti" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "tj" = (
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -4802,6 +5323,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"ts" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
 "tC" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Airlock";
@@ -4849,6 +5377,15 @@
 	icon_state = "darkpurplecorners"
 	},
 /area/mine/storage)
+"tM" = (
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "tT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
@@ -4863,6 +5400,16 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
 /area/mine/laborcamp)
+"ud" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "uf" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -4956,6 +5503,27 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
+"vl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/clothing/mask/gas/explorer,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"vo" = (
+/obj/item/stack/sheet/metal{
+	amount = 5
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "vq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4978,6 +5546,32 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp)
+"vx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/pickaxe,
+/obj/effect/landmark/damageturf,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"vC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/southwest{
+	dir = 5
+	},
+/obj/structure/plasticflaps,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "vI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -5005,6 +5599,17 @@
 	icon_state = "darkfull"
 	},
 /area/mine/airlock)
+"vU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/obj/machinery/conveyor/west,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "vZ" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/beer{
@@ -5025,6 +5630,16 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/cafeteria)
+"wa" = (
+/obj/structure/disposalpipe/broken{
+	dir = 2
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "wg" = (
 /obj/machinery/mineral/equipment_vendor/labor,
 /turf/simulated/floor/plasteel,
@@ -5036,10 +5651,32 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
+"wl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "wt" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/siberia)
+"wA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "wD" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5052,6 +5689,18 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/siberia)
+"wU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mineral/processing_unit_console{
+	pixel_y = 22
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "wY" = (
 /obj/item/clothing/mask/gas/clown_hat,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5097,6 +5746,16 @@
 "xC" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/mining)
+"xL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "xM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -5151,6 +5810,35 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"yB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"yF" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"yK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	amount = 5
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "yR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -5166,6 +5854,34 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"yW" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"zd" = (
+/obj/structure/girder,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"zl" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
+/obj/structure/disposalpipe/broken{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "zo" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
@@ -5174,6 +5890,21 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp)
+"zs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore/plasma,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "zt" = (
 /obj/machinery/door/airlock/glass{
 	name = "Labor Camp Bedroom"
@@ -5202,9 +5933,56 @@
 /obj/structure/lattice/catwalk/mining,
 /turf/simulated/floor/plating,
 /area/lavaland/surface/outdoors)
+"zv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"zx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mech_bay_recharge_port,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "zy" = (
 /turf/simulated/wall,
 /area/mine/mechbay)
+"zB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"zC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "zN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -5222,6 +6000,33 @@
 	icon_state = "darkfull"
 	},
 /area/mine/sleeper)
+"zO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/item/mounted/frame/apc_frame{
+	pixel_x = -3;
+	pixel_y = 28
+	},
+/obj/item/clothing/under/rank/cargo/miner,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"zW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/landmark/damageturf,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "zY" = (
 /obj/structure/chair{
 	dir = 1
@@ -5249,6 +6054,17 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
+"Ah" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/belt/mining/alt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "AB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -5263,9 +6079,76 @@
 "AE" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"AQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"AX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Bc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Bg" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
+"Bk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Bo" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"BA" = (
+/obj/structure/grille,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "BD" = (
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/shower{
@@ -5283,6 +6166,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/airlock)
+"BG" = (
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
 "BH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
@@ -5295,6 +6189,11 @@
 	icon_state = "darkpurplecorners"
 	},
 /area/mine/mechbay)
+"BN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
 "BP" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -5322,6 +6221,14 @@
 	icon_state = "darkfull"
 	},
 /area/mine/living_quarters)
+"BU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
 "Ca" = (
 /obj/machinery/economy/vending/cola/free,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -5335,6 +6242,42 @@
 "Cf" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
+"Cg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/tank/internals/oxygen,
+/obj/item/storage/box/donkpockets/empty,
+/obj/item/storage/box/donkpockets/empty,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Ch" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
+"Cj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/effect/landmark/damageturf,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Cn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5401,6 +6344,46 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
+"CR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west,
+/obj/structure/window/reinforced,
+/obj/item/stack/sheet/mineral/silver,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"CS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"CX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white,
+/obj/structure/sign/poster/ripped{
+	pixel_x = -1;
+	pixel_y = 32
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Dd" = (
 /obj/structure/toilet,
 /obj/effect/decal/cleanable/vomit,
@@ -5426,6 +6409,40 @@
 	icon_state = "wood-broken6"
 	},
 /area/mine/laborcamp)
+"Dh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct/small,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Di" = (
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Dj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Dm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -5444,6 +6461,15 @@
 	icon_state = "darkfull"
 	},
 /area/mine/mechbay)
+"Dt" = (
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
 "Dz" = (
 /turf/simulated/wall,
 /area/mine/airlock)
@@ -5451,11 +6477,27 @@
 /obj/effect/spawner/random_spawners/grille_often,
 /turf/simulated/floor/plating,
 /area/mine/production)
+"DF" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "DT" = (
 /obj/machinery/computer/shuttle/labor/one_way,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"DW" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/sortjunction{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "DX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -5463,6 +6505,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"Ec" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Ee" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Eg" = (
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
@@ -5486,6 +6544,13 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/cafeteria)
+"Et" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ez" = (
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plasteel{
@@ -5493,6 +6558,14 @@
 	icon_state = "darkfull"
 	},
 /area/mine/mechbay)
+"EC" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "EF" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/item/cigbutt,
@@ -5507,6 +6580,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"ES" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore/plasma,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Fe" = (
 /obj/item/roller{
 	pixel_x = -2;
@@ -5525,6 +6610,28 @@
 	icon_state = "wood-broken7"
 	},
 /area/mine/laborcamp)
+"Fs" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"FK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "FO" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -5545,6 +6652,15 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"FQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
 "FW" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
@@ -5554,6 +6670,15 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/siberia)
+"Gg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/door_assembly/door_assembly_mhatch,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Gh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5575,11 +6700,51 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
+"GL" = (
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"GM" = (
+/obj/structure/lattice/lava,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
 "GO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/mine/cafeteria)
+"GP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"GT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Hc" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away";
@@ -5594,12 +6759,64 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"Hl" = (
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"Hn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Hs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/miningcar,
+/obj/item/mounted/frame/apc_frame{
+	pixel_x = -3;
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Ht" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mech_bay_recharge_port,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "HA" = (
 /obj/machinery/atmospherics/binary/pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"HE" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
 "HK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -5617,6 +6834,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp/security)
+"HQ" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "HT" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/bot,
@@ -5626,12 +6850,42 @@
 	icon_state = "darkfull"
 	},
 /area/mine/eva)
+"HU" = (
+/obj/structure/girder,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"HW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Ia" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"Ib" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Il" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5639,6 +6893,30 @@
 /obj/item/trash/sosjerky,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
+"Im" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Io" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/machinery/economy/vending/chinese,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Iv" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -5650,6 +6928,21 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
+"Iw" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"IA" = (
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "IF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -5667,6 +6960,27 @@
 	icon_state = "darkblue"
 	},
 /area/mine/sleeper)
+"IP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/t_scanner/adv_mining_scanner,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"IS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
 "IZ" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/structure/cable{
@@ -5693,6 +7007,20 @@
 	icon_state = "darkfull"
 	},
 /area/mine/mechbay)
+"Jv" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"JA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/smes,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "JC" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -5749,6 +7077,20 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/cafeteria)
+"Kj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Kl" = (
 /obj/structure/table,
 /obj/item/trash/plate,
@@ -5757,6 +7099,20 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp)
+"Kw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "KD" = (
 /obj/structure/barricade/wooden,
 /turf/simulated/mineral/volcanic/lava_land_surface,
@@ -5765,6 +7121,43 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"KG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"KI" = (
+/obj/effect/turf_decal/caution/stand_clear/white,
+/obj/effect/turf_decal/box/white,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"KL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore{
+	pixel_y = -9;
+	pixel_x = -6
+	},
+/obj/effect/landmark/burnturf,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "KR" = (
 /obj/machinery/flasher{
 	id = "gulagshuttleflasher";
@@ -5772,10 +7165,56 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
+"La" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/broken{
+	dir = 2
+	},
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Li" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Lo" = (
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 8
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Lr" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/sleeper)
+"Lu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate/miningcar,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Lz" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
@@ -5815,6 +7254,42 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"LS" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors)
+"LT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Ma" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Mf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
 "Mh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5845,6 +7320,36 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"MJ" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"MT" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"MX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"Nb" = (
+/obj/structure/grille,
+/obj/item/shard,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Ne" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5880,6 +7385,17 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
 /area/mine/airlock)
+"Nm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Nq" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -5920,6 +7436,29 @@
 /obj/item/clothing/mask/balaclava,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"Od" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Of" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Oh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5983,6 +7522,52 @@
 	icon_state = "darkredcorners"
 	},
 /area/mine/laborcamp/security)
+"Ph" = (
+/obj/item/clothing/under/rank/cargo/miner,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Pj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/partial,
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Pp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/ore_box,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Pt" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Pu" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -5990,6 +7575,31 @@
 	icon_state = "darkfull"
 	},
 /area/mine/sleeper)
+"PG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/clothing/shoes/workboots/mining,
+/obj/item/clothing/shoes/workboots/mining,
+/obj/effect/landmark/damageturf,
+/obj/item/mounted/frame/apc_frame{
+	pixel_x = -3;
+	pixel_y = 28
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"PJ" = (
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "PK" = (
 /obj/structure/closet/secure_closet/brig/gulag,
 /obj/machinery/flasher{
@@ -5998,6 +7608,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"PP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor/west,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "PQ" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -6008,6 +7629,21 @@
 "PX" = (
 /turf/simulated/wall,
 /area/mine/laborcamp/security)
+"Qb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Ql" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6025,6 +7661,14 @@
 	icon_state = "darkfull"
 	},
 /area/mine/mechbay)
+"Qy" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "QE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -6044,6 +7688,38 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/cafeteria)
+"QJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"QM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"QN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/structure/door_assembly/door_assembly_mhatch,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "QR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6056,6 +7732,17 @@
 	icon_state = "darkfull"
 	},
 /area/mine/storage)
+"QW" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Rd" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -6076,6 +7763,22 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Rm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Rs" = (
 /obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6090,6 +7793,48 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/eva)
+"RE" = (
+/obj/structure/marker_beacon/dock_marker,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"Sb" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"Se" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/ripped{
+	pixel_x = -1;
+	pixel_y = 32
+	},
+/obj/item/tank/internals/oxygen,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Sh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Ss" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -6106,6 +7851,9 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Su" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
 "SO" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
@@ -6133,6 +7881,21 @@
 	icon_state = "darkfull"
 	},
 /area/mine/storage)
+"Td" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Tk" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Bedroom 1";
@@ -6157,6 +7920,14 @@
 	icon_state = "darkfull"
 	},
 /area/mine/sleeper)
+"Tr" = (
+/obj/machinery/disposal,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Ts" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/tank/air{
@@ -6167,6 +7938,26 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"TB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"TF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"TL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "TN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -6184,6 +7975,18 @@
 	icon_state = "darkfull"
 	},
 /area/mine/mechbay)
+"TS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "TU" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away";
@@ -6204,12 +8007,106 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"Uj" = (
+/obj/item/chair{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/red_rum{
+	pixel_y = 31
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Um" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/structure/sign/poster/official/air2{
+	pixel_y = -32
+	},
+/obj/item/clothing/under/rank/cargo/miner,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"Uv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate/miningcar,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Uy" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
+"UD" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"UJ" = (
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"UK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/air1{
+	pixel_x = 33
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"UM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "UQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/camera{
@@ -6221,6 +8118,17 @@
 	icon_state = "darkfull"
 	},
 /area/mine/airlock)
+"US" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/mecha_wreckage/ripley,
+/obj/effect/turf_decal/box/white,
+/obj/effect/turf_decal/caution/stand_clear/white,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Ve" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -6260,6 +8168,15 @@
 	icon_state = "darkfull"
 	},
 /area/mine/mechbay)
+"Vn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Vt" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Central";
@@ -6293,6 +8210,25 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"VA" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
+"VC" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/gloves/color/brown/cargo,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "VD" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/structure/cable{
@@ -6307,6 +8243,15 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/production)
+"VI" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/rank/cargo/miner,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/lavaland/surface/outdoors)
 "VJ" = (
 /obj/structure/table,
 /obj/item/stack/medical/bruise_pack/advanced,
@@ -6334,6 +8279,15 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"VS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/portable/pump,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "VV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -6351,6 +8305,28 @@
 	icon_state = "darkfull"
 	},
 /area/mine/airlock)
+"VX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/ore_box,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"VY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/obj/machinery/atmospherics/portable/scrubber,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Wi" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
@@ -6388,6 +8364,24 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
+"WF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/shoes/workboots/mining,
+/obj/structure/sign/poster/ripped{
+	pixel_x = -1;
+	pixel_y = 32
+	},
+/obj/machinery/light_construct/small{
+	dir = 8
+	},
+/obj/effect/landmark/burnturf,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "WJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -6397,6 +8391,16 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"WM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "WO" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -6446,10 +8450,58 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"Xt" = (
+/obj/structure/lattice/lava,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/ruin/unpowered)
+"Xv" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"Xw" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"XH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "XI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/mine/living_quarters)
+"XJ" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 8;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"XV" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "XW" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/machinery/light/small{
@@ -6477,6 +8529,22 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/mine/laborcamp/security)
+"Yd" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Yo" = (
+/obj/item/chair,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Yv" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -6493,6 +8561,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"YR" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/disposalpipe/broken{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "YV" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -6519,6 +8594,25 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"Za" = (
+/obj/structure/girder,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Zb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "Zf" = (
 /obj/machinery/sleeper{
 	dir = 2
@@ -6551,6 +8645,29 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp)
+"ZI" = (
+/obj/structure/grille/broken,
+/obj/item/shard,
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
+"ZW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	temperature = 300;
+	oxygen = 14;
+	nitrogen = 23
+	},
+/area/ruin/unpowered)
 "ZZ" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
@@ -42223,40 +44340,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+yF
+yF
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+yF
 ak
 ak
 ak
@@ -42480,40 +44597,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+AE
+AE
+AE
+AE
+Jv
+Jv
+AE
+AE
+AE
+AE
+Jv
+AE
+AE
+AE
+AE
+AE
+Jv
+Jv
+Jv
+Jv
+Ec
+Jv
+Jv
+Jv
+yF
+AE
+AE
+AE
+AE
+yF
+yF
 ak
 ak
 ak
@@ -42737,40 +44854,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+AE
+AE
+AE
+AE
+AE
+aj
+Jv
+yF
+yF
+so
+Jv
+MT
+Jv
+Jv
+aj
+Jv
+Jv
+Jv
+Jv
+Jv
+hu
+hu
+la
+Dt
+GM
+aj
+AE
+AE
+AE
+AE
+AE
+yF
 ak
 ak
 ak
@@ -42994,40 +45111,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+Jv
+Jv
+aj
+aj
+aj
+Jv
+Jv
+Jv
+ia
+Jv
+Jv
+Jv
+aj
+aj
+Jv
+yF
+yF
+Jv
+aC
+Hl
+BG
+nV
+la
+GM
+aj
+aj
+aj
+Jv
+AE
+AE
+yF
 ak
 ak
 ak
@@ -43251,40 +45368,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+Jv
+Jv
+aj
+aj
+MJ
+XV
+Iw
+jM
+jM
+jM
+jM
+jM
+aj
+aj
+Jv
+Jv
+yF
+Jv
+Jv
+jM
+jM
+Vn
+jM
+Su
+jM
+jM
+jM
+Jv
+Jv
+AE
+yF
 ak
 ak
 ak
@@ -43508,40 +45625,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+AE
+AE
+Jv
+aj
+Jv
+yF
+yF
+zl
+jM
+VX
+oq
+Pp
+jM
+Jv
+aj
+aj
+aj
+Jv
+Jv
+Jv
+jM
+Ht
+wl
+zx
+ig
+jC
+JA
+jM
+Jv
+Jv
+Jv
+yF
 ak
 ak
 ak
@@ -43765,40 +45882,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+AE
+AE
+Jv
+aj
+aj
+so
+so
+DF
+Xv
+hn
+Fs
+KL
+jM
+Jv
+Jv
+aj
+aj
+LS
+Jv
+Jv
+jM
+KI
+Zb
+US
+Kw
+CS
+QW
+jM
+Jv
+Jv
+yF
+yF
 ak
 ak
 ak
@@ -44022,40 +46139,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+AE
+Jv
+Jv
+aj
+yF
+iz
+MT
+Jv
+jM
+jM
+TF
+Bo
+jM
+Jv
+Jv
+ts
+ts
+ts
+Jv
+Jv
+jM
+HW
+Ee
+wA
+vl
+kz
+IP
+jM
+Jv
+Jv
+AE
+yF
 ak
 ak
 ak
@@ -44279,40 +46396,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+AE
+Jv
+aj
+aj
+Jv
+ia
+Jv
+GM
+jM
+vC
+Pj
+Hn
+jM
+Jv
+Jv
+Ch
+Ch
+Ch
+Jv
+Jv
+jM
+TF
+GM
+zv
+nn
+ud
+oT
+bc
+Jv
+Jv
+Jv
+yF
 ak
 ak
 ak
@@ -44536,40 +46653,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+aj
+aj
+aj
+Jv
+ia
+aj
+GM
+Xt
+vU
+vx
+jM
+jM
+jM
+Jv
+LS
+aj
+aj
+Jv
+Jv
+Jv
+GM
+GM
+BN
+PG
+Cg
+in
+zd
+Jv
+Jv
+yF
+yF
 ak
 ak
 ak
@@ -44793,40 +46910,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+GM
+jM
+aj
+Jv
+Jv
+aj
+aj
+GL
+CR
+Lo
+Ma
+or
+zW
+DW
+XV
+YR
+aj
+aj
+aj
+aj
+aj
+aj
+GM
+wa
+zB
+Xw
+jM
+aj
+Jv
+AE
+yF
 ak
 ak
 ak
@@ -45050,40 +47167,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+so
+ia
+aj
+GM
+aj
+Jv
+aj
+aj
+aj
+pk
+PP
+Qb
+AQ
+jM
+jM
+hV
+Jv
+Jv
+aj
+aj
+aj
+aj
+GM
+jM
+aj
+GM
+om
+eB
+jM
+aj
+aj
+AE
+yF
 ak
 ak
 ak
@@ -45307,40 +47424,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+so
+ia
+Jv
+aj
+aj
+Jv
+aj
+aj
+aj
+jM
+lc
+Kj
+Uv
+jM
+Jv
+EC
+Et
+Jv
+aj
+aj
+GM
+LS
+GM
+jM
+UK
+qE
+WM
+Nm
+jM
+aj
+aj
+Jv
+yF
 ak
 ak
 ak
@@ -45564,40 +47681,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+Jv
+aj
+aj
+Jv
+Jv
+aj
+aj
+jM
+hF
+LT
+ru
+jM
+Jv
+EC
+ia
+Jv
+Jv
+aj
+aj
+aj
+aj
+HE
+HE
+jM
+TB
+iP
+jM
+aj
+aj
+Jv
+yF
 ak
 ak
 ak
@@ -45821,40 +47938,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+Jv
+Jv
+Jv
+aj
+aj
+yF
+ia
+Jv
+aj
+jM
+kW
+Bc
+Lu
+jM
+ia
+EC
+Jv
+Jv
+Jv
+Jv
+aj
+aj
+aj
+aj
+jM
+Im
+oT
+UM
+jM
+aj
+Jv
+Jv
+yF
 ak
 ak
 ak
@@ -46078,40 +48195,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+Jv
+aj
+aj
+Jv
+MT
+ia
+aj
+jM
+hw
+Td
+ES
+TB
+Jv
+pS
+Jv
+Jv
+Jv
+Jv
+aj
+aj
+aj
+aj
+jM
+TS
+in
+Li
+jM
+aj
+aj
+Jv
+yF
 ak
 ak
 ak
@@ -46335,40 +48452,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+Jv
+aj
+aj
+Jv
+so
+so
+Jv
+jM
+CX
+FK
+ok
+jM
+Jv
+Jv
+Jv
+Jv
+ia
+Jv
+Jv
+aj
+aj
+aj
+jM
+xL
+yB
+zC
+jM
+aj
+aj
+Jv
+yF
 ak
 ak
 ak
@@ -46592,40 +48709,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+Jv
+aj
+aj
+Jv
+yF
+so
+Jv
+jM
+wU
+FK
+Um
+jM
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+aj
+aj
+aj
+jM
+xL
+ti
+Of
+GM
+aj
+Jv
+Jv
+yF
 ak
 ak
 ak
@@ -46849,40 +48966,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+AE
+Jv
+aj
+aj
+Jv
+Jv
+ia
+Jv
+Su
+Hs
+zs
+Dh
+jM
+Jv
+oa
+Jv
+Jv
+Jv
+Jv
+Jv
+aj
+aj
+aj
+jM
+VS
+VY
+GM
+aj
+aj
+jM
+Jv
+yF
 ak
 ak
 ak
@@ -47106,40 +49223,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+Jv
+aj
+aj
+Jv
+Jv
+Jv
+Jv
+jM
+jM
+TB
+jM
+jM
+Jv
+EC
+Jv
+Jv
+ia
+Jv
+Jv
+aj
+aj
+aj
+jM
+jM
+jM
+GM
+aj
+aj
+Jv
+Jv
+yF
 ak
 ak
 ak
@@ -47363,40 +49480,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+Jv
+GM
+aj
+aj
+aj
+yF
+Jv
+ia
+HQ
+Jv
+Jv
+Jv
+Jv
+Yd
+La
+XV
+Iw
+Pt
+Jv
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+jM
+GM
+aj
+Jv
+yF
 ak
 ak
 ak
@@ -47620,40 +49737,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+Jv
+jM
+GM
+aj
+aj
+aj
+aj
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+jM
+Rm
+jM
+Jv
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+Jv
+Jv
+yF
 ak
 ak
 ak
@@ -47877,40 +49994,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+Jv
+Jv
+Jv
+Jv
+Jv
+aj
+aj
+aj
+jM
+aj
+aj
+aj
+Jv
+Jv
+Jv
+Jv
+Jv
+jM
+FK
+jM
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+Jv
+Jv
+Jv
+yF
 ak
 ak
 ak
@@ -48134,40 +50251,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+Jv
+Jv
+ia
+Jv
+aj
+Jv
+aj
+aj
+aj
+aj
+GM
+aj
+aj
+aj
+jM
+jM
+AX
+pE
+Bk
+jM
+la
+UD
+jM
+GM
+IS
+GM
+GM
+jM
+aj
+Jv
+Jv
+Jv
+yF
 ak
 ak
 ak
@@ -48391,40 +50508,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+AE
+Jv
+Jv
+aj
+aj
+jM
+aj
+aj
+GM
+GM
+jM
+GM
+aj
+jM
+Tr
+Od
+ZW
+yW
+jM
+GM
+GM
+qd
+FQ
+IS
+FQ
+MX
+sd
+aj
+aj
+aj
+Jv
+yF
 ak
 ak
 ak
@@ -48648,40 +50765,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+AE
+ia
+Jv
+aj
+FQ
+jM
+jM
+jM
+jM
+GM
+aj
+jM
+jM
+jM
+HE
+Uj
+rF
+Sh
+jM
+aj
+Dj
+FQ
+GM
+GM
+kT
+FQ
+GM
+aj
+aj
+aj
+Jv
+so
 ak
 ak
 ak
@@ -48905,40 +51022,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+Jv
+aj
+MX
+MX
+jM
+WF
+Ah
+jM
+Xt
+rG
+jM
+Cj
+VC
+HE
+sY
+XJ
+in
+QM
+TL
+GP
+QJ
+aj
+aj
+ot
+aj
+GM
+aj
+aj
+aj
+Jv
+so
 ak
 ak
 ak
@@ -49162,40 +51279,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+Jv
+aj
+aj
+aj
+jM
+sS
+hh
+jM
+yK
+Xt
+jM
+Se
+Ph
+Su
+zO
+Yo
+Ib
+jM
+UJ
+TL
+VI
+aj
+FQ
+FQ
+MX
+GM
+aj
+aj
+Jv
+Jv
+yF
 ak
 ak
 ak
@@ -49419,40 +51536,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+Jv
+VA
+aj
+aj
+jM
+jM
+Gg
+jM
+jM
+Za
+jM
+jM
+KG
+Su
+qV
+XH
+GT
+jM
+GM
+aj
+RE
+Mf
+aj
+FQ
+aj
+GM
+aj
+aj
+aj
+Jv
+yF
 ak
 ak
 ak
@@ -49676,40 +51793,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+Jv
+MX
+aj
+aj
+aj
+jz
+GT
+in
+Ib
+in
+Vn
+nq
+Ib
+QN
+TL
+Ib
+IA
+jM
+aj
+kh
+jM
+GM
+GM
+GM
+GM
+jM
+aj
+aj
+Jv
+ia
+yF
 ak
 ak
 ak
@@ -49933,40 +52050,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+Jv
+Jv
+Jv
+MX
+aj
+Sb
+jM
+BU
+qN
+HU
+jM
+jM
+jM
+jM
+jM
+Qy
+Io
+ol
+jM
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+Jv
+Jv
+ia
+yF
 ak
 ak
 ak
@@ -50190,40 +52307,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+Jv
+Jv
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+GM
+GM
+GM
+GM
+jM
+jM
+TB
+Di
+jM
+aj
+Jv
+Jv
+Jv
+aj
+aj
+aj
+aj
+aj
+Jv
+Jv
+ia
+yF
 ak
 ak
 ak
@@ -50447,40 +52564,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+yF
+Jv
+Jv
+Jv
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+jM
+aj
+aj
+aj
+ZI
+jj
+BA
+aj
+Jv
+AE
+AE
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+ia
+yF
 ak
 ak
 ak
@@ -50704,40 +52821,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-al
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+AE
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+Nb
+PJ
+mo
+Jv
+Jv
+AE
+AE
+AE
+Jv
+Jv
+Jv
+Jv
+yF
+yF
+so
+yF
 ak
 ak
 ak
@@ -50961,40 +53078,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+AE
+yF
+so
+so
+ia
+ia
+ia
+ia
+Jv
+Jv
+Jv
+aj
+aj
+aj
+aj
+tM
+vo
+BA
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+ia
+AE
+AE
+yF
+yF
+so
+yF
 ak
 ak
 ak
@@ -51218,40 +53335,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+Jv
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+yF
+so
+yF
 ak
 ak
 ak
@@ -51475,40 +53592,40 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+Jv
+Jv
+Jv
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
+AE
 ak
 ak
 ak

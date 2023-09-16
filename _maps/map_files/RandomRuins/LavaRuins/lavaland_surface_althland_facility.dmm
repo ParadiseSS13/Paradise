@@ -727,7 +727,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/lavaland/surface/outdoors)
 "sv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1720,10 +1720,6 @@
 	nitrogen = 23
 	},
 /area/ruin/unpowered)
-"PI" = (
-/obj/structure/lattice/lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
-/area/ruin/unpowered)
 "PJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -1806,7 +1802,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/lavaland/surface/outdoors)
 "TX" = (
 /obj/structure/disposalpipe/broken{
 	dir = 2
@@ -2458,7 +2454,7 @@ ab
 cb
 bT
 af
-PI
+af
 hP
 zE
 ui
@@ -2546,7 +2542,7 @@ bT
 af
 ui
 bT
-af
+oj
 uM
 gb
 ui
@@ -3071,7 +3067,7 @@ ui
 zp
 vl
 ui
-PI
+af
 TN
 ui
 zG
@@ -3108,7 +3104,7 @@ BX
 ZG
 ui
 su
-PI
+af
 ui
 Fd
 ub
