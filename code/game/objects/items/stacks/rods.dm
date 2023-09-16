@@ -103,9 +103,12 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1000, MAT_TITANIUM=1000, MAT_PLASMA=1000)
-	max_amount = 30
+	max_amount = 50
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	merge_type = /obj/item/stack/rods/lava
 
-/obj/item/stack/rods/lava/thirty
-	amount = 30
+/obj/item/stack/rods/lava/ten
+	amount = 10
+
+/obj/item/stack/rods/lava/fifty
+	amount = 50

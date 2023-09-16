@@ -330,13 +330,3 @@
 	materials = list(MAT_SILVER = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000, MAT_PLASMA = 4000)
 	build_path = /obj/item/clothing/shoes/magboots/gravity
 	category = list("Equipment")
-
-/datum/design/lavarods
-	name = "Heat-proof Iron Rods"
-	desc = "Reinforced, metallic heat-proof rods for construction in extreme environments."
-	id = "lava_rods"
-	req_tech = list("materials" = 5, "magnets" = 5, "engineering" = 5)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_TITANIUM = 1000, MAT_PLASMA = 1000)
-	build_path = /obj/item/stack/rods/lava
-	category = list("Equipment")
