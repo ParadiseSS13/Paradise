@@ -134,3 +134,57 @@
 	minbodytemp = 0
 	wander = FALSE
 
+// Undead
+/mob/living/simple_animal/hostile/undead
+	name = "zombie"
+	icon = 'icons/mob/human.dmi'
+	icon_state = "zombie_s"
+	icon_living = "zombie_s"
+	icon_dead = "zombie_l"
+	mob_biotypes = MOB_UNDEAD | MOB_HUMANOID
+	speak_chance = 0
+	turns_per_move = 10
+	response_help = "gently prods"
+	response_disarm = "shoves"
+	response_harm = "hits"
+	speed = -1
+	maxHealth = 50
+	health = 50
+	faction = list("zombie")
+
+	harm_intent_damage = 10
+	melee_damage_lower = 5
+	melee_damage_upper = 10
+	attacktext = "claws"
+	attack_sound = 'sound/hallucinations/growl1.ogg'
+
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+
+	faction = list("undead")
+	loot = list(/obj/effect/decal/cleanable/blood/gibs)
+	del_on_death = TRUE
+
+//whiteship undead
+/mob/living/simple_animal/hostile/undead/zombie
+	speak = list("RAWR!","Rawr!","GRR!","Growl!")
+	speak_chance = 1
+	speak_emote = list("growls","roars")
+
+	icon_living = "zombie2_s"
+	icon_state = "zombie2_s"
+	maxHealth = 100
+	health = 100
+	speed = 0
+
+/mob/living/simple_animal/hostile/undead/zombie/fast
+	name = "fast zombie"
+	icon = 'icons/mob/human.dmi'
+	icon_living = "zombie_s"
+	icon_state = "zombie_s"
+	maxHealth = 75
+	health = 75
+	melee_damage_lower = 15
+	melee_damage_upper = 30
+	speed = -1
+
