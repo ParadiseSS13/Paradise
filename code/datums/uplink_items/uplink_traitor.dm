@@ -581,7 +581,7 @@
 	var/obj/structure/closet/crate/surplus/surplus = new(loc, U, crate_value)
 	surplus.cost = cost
 
-/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value)
+/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost)
 	. = ..()
 	var/list/temp_uplink_list = get_uplink_items(U)
 	var/list/buyable_items = list()
@@ -651,7 +651,7 @@
 		changing_amount -= give_amount
 		new /obj/item/stack/telecrystal(src, give_amount)
 		if(prohibitor > RECURSION_PANIC_AMOUNT) // idk how they got 1000+ tc, dont ask me
-			new /obj/item/stack/telecrystal(loc, changing_amount)
+			new /obj/item/stack/telecrystal(src, changing_amount)
 			// Return of Bogdanoff: doomp it
 			var/turf/T = get_turf(loc)
 			message_admins("While refunding telecrystals, [src] went over the expected limit, for a total of [amount] TC. Expected refund is likely [cost]. [ADMIN_COORDJMP(T)]")
