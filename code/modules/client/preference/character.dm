@@ -1796,6 +1796,8 @@
 	character.dna.real_name = real_name
 	character.name = character.real_name
 
+	character.physique = physique
+	character.height = height
 	character.flavor_text = flavor_text
 	character.med_record = med_record
 	character.sec_record = sec_record

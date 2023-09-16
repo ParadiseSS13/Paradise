@@ -64,7 +64,7 @@
 		if(!article_override)
 			article = starts_with_vowel(displayed_species) ? "an" : "a"
 
-		msg += ", [height]<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b> with [physique]!"
+		msg += ", \a [height]<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b> with \a [physique] build!"
 	return msg
 
 /mob/living/carbon/human/examine_start_damage_block(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
