@@ -41,6 +41,25 @@
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 
+/obj/effect/mob_spawn/human/corpse/syndicatequartermaster
+	name = "Syndicate Quartermaster"
+	mob_name = "Syndicate Quartermaster"
+	hair_style = "bald"
+	facial_hair_style = "shaved"
+	id_job = "Operative"
+	id_access_list = list(ACCESS_SYNDICATE)
+	outfit = /datum/outfit/syndicatequartermastercorpse
+
+/datum/outfit/syndicatequartermastercorpse
+	name = "Corpse of a Syndicate Quartermaster"
+	uniform = /obj/item/clothing/under/syndicate
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/syndicate
+	back = /obj/item/mod/control/pre_equipped/traitor_elite
+	r_pocket = /obj/item/tank/internals/emergency_oxygen
+	id = /obj/item/card/id
 
 /obj/effect/mob_spawn/human/corpse/clown/corpse
 	roundstart = TRUE
