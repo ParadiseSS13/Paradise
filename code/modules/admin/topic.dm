@@ -2175,8 +2175,12 @@
 				H.KnockDown(15 SECONDS, TRUE)
 				H.Stun(15 SECONDS, TRUE)
 				H.AdjustJitter(40 SECONDS)
-				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 4 SECONDS)
-//			if("Make KFV")
+				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
+			if("Make KFV")
+
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), H ))
+				addtimer(CALLBACK(H, TYPE_PROC_REF(mob/living/carbon/human, make_kfv)), 5 SECONDS)
+
 
 
 		if(logmsg)

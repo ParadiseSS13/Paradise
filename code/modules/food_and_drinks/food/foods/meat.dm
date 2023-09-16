@@ -286,6 +286,9 @@
 	list_reagents = list("nutriment" = 3, "protein" = 5)
 	tastes = list("quills" = 1, "the shoal" = 1)
 
+/obj/item/reagent_containers/food/snacks/fried_vox/smite
+	desc = "This bucket seems different than normal, yaya!"
+
 //////////////////////
 //		Cubes		//
 //////////////////////
