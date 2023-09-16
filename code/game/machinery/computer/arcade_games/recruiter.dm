@@ -184,10 +184,9 @@
 	playsound(loc, 'sound/arcade/recruiter_win.ogg', 20)
 	if(emagged)
 		new /obj/item/stamp/chameleon(get_turf(src))
-		prizevend(400)
+		new /obj/item/clothing/accessory/medal/recruiter(get_turf(src))
 		emagged = FALSE
-	else
-		prizevend(50)
+	prizevend(50)
 
 /obj/machinery/computer/arcade/recruiter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
