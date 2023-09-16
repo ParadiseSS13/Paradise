@@ -29,6 +29,7 @@
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
+	robust_searching = TRUE
 
 ///////////////Sword and shield////////////
 
@@ -238,7 +239,7 @@
 		attack_sound = 'sound/weapons/punch1.ogg'
 		ranged = TRUE
 		rapid = 3
-		retreat_distance = 3
+		retreat_distance = 5
 		minimum_distance = 3
 		melee_block_chance = 0
 		ranged_block_chance = 0
@@ -269,12 +270,13 @@
 		attacktext = "punches"
 		attack_sound = 'sound/weapons/punch1.ogg'
 		ranged = TRUE
-		retreat_distance = 3
-		minimum_distance = 3
+		retreat_distance = 2
+		minimum_distance = 2
 		melee_block_chance = 0
 		ranged_block_chance = 0
 		icon_state = "syndicate_stormtrooper_shotgun"
 		icon_living = "syndicate_stormtrooper_shotgun"
+		speed = 2
 		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
 		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
 		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster, /obj/item/sellable/salvage/loot, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
