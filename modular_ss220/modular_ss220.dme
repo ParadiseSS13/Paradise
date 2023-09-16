@@ -25,6 +25,7 @@
 #include "food/_food.dme"
 #include "gateway/_gateway.dme"
 #include "hydroponics/hydroponics.dme"
+#include "objects/_objects.dme"
 #include "sechailer/sechailer.dme"
 #include "unique_objects/_unique_objects.dme"
 #include "vending/vending.dme"
