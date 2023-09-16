@@ -43,7 +43,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	icon_state = "offcenter"
 	power_state = IDLE_POWER_USE
 
-	//warping vars
+
+	// Warping vars
 	var/list/linked = list()
 	var/ready = FALSE				// Have we got all the parts for a gateway?
 	var/obj/machinery/gateway/centeraway/awaygate = null
@@ -112,8 +113,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		if(!awaygate)
 			to_chat(user, span_notice("Error: No destination found."))
 			return
-	var/wait = world.time - SSticker.round_start_time
-	if(wait > GLOB.configuration.gateway.away_mission_delay)
+	var/wait = GLOB.configuration.gateway.away_mission_delay + SSticker.round_start_time
+	if(wait > world.time)
 		to_chat(user, span_notice("Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes."))
 		return
 
@@ -284,8 +285,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	for(var/obj/item/implant/exile/E in M) // Checking that there is an exile bio-chip in the contents
 		if(E.imp_in == M) // Checking that it's actually implanted vs just in their pocket
 			to_chat(M, span_notice("The station gate has detected your exile bio-chip and is blocking your entry."))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/machinery/gateway/centeraway/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/multitool))
