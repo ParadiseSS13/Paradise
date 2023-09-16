@@ -41,12 +41,12 @@
 /turf/simulated/floor/chasm,
 /area/lavaland/surface/outdoors)
 "ag" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 1
 	},
 /obj/structure/railing,
-/turf/simulated/floor/chasm,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "ah" = (
 /obj/effect/decal/cleanable/dirt,
@@ -80,8 +80,8 @@
 /area/lavaland/surface/outdoors)
 "ak" = (
 /obj/structure/marker_beacon/dock_marker/collision,
-/obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "am" = (
 /obj/effect/decal/cleanable/dirt,
@@ -149,12 +149,12 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered)
 "aw" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/simulated/floor/chasm,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "ax" = (
 /obj/effect/decal/cleanable/dirt,
@@ -279,8 +279,9 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "aZ" = (
-/obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/chasm,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "bi" = (
 /obj/effect/decal/cleanable/dirt,
@@ -330,22 +331,16 @@
 "bo" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/decal/cleanable/dirt,
 /obj/item/chair,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
-"bp" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/marker_beacon/dock_marker/collision,
-/turf/simulated/floor/chasm,
-/area/lavaland/surface/outdoors)
 "bq" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 5
 	},
 /obj/structure/marker_beacon/dock_marker/collision,
-/turf/simulated/floor/chasm,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "br" = (
 /obj/structure/lattice,
@@ -409,12 +404,13 @@
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "bG" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 10
 	},
 /obj/structure/marker_beacon/dock_marker/collision,
-/turf/simulated/floor/chasm,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "bH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -475,11 +471,11 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "bQ" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/simulated/floor/chasm,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "bR" = (
 /turf/simulated/floor/plating/airless,
@@ -774,7 +770,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/off_station/empty_charge{
-	pixel_y = 25
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin)
@@ -937,9 +933,9 @@
 	},
 /area/lavaland/surface/outdoors)
 "xB" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/chasm,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "yb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1147,13 +1143,13 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin)
 "JF" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing/corner,
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/turf/simulated/floor/chasm,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "JG" = (
 /obj/structure/girder/reinforced,
@@ -1233,11 +1229,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
-"Pl" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing,
-/turf/simulated/floor/chasm,
-/area/lavaland/surface/outdoors)
 "PC" = (
 /obj/structure/railing{
 	dir = 8
@@ -1265,11 +1256,12 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "QM" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
 	dir = 6
 	},
-/turf/simulated/floor/chasm,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "QS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1321,12 +1313,11 @@
 /turf/simulated/wall/r_wall,
 /area/ruin)
 "TP" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/turf/simulated/floor/chasm,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "TW" = (
 /obj/structure/railing/corner{
@@ -1657,9 +1648,9 @@ Ei
 Ei
 Ei
 br
-bp
+ak
 ag
-aZ
+mh
 br
 Ow
 br
@@ -1722,7 +1713,7 @@ aB
 aB
 aB
 aB
-ag
+wb
 aB
 aB
 aB
@@ -1818,7 +1809,7 @@ aB
 aB
 aB
 br
-Pl
+sA
 br
 aB
 aB
@@ -2043,7 +2034,7 @@ aB
 aB
 br
 aw
-aZ
+aB
 aB
 aB
 aB
@@ -2074,7 +2065,7 @@ aB
 aB
 aB
 aB
-Pl
+sA
 aB
 aB
 aB
@@ -2138,7 +2129,7 @@ br
 br
 aB
 aB
-aZ
+PM
 aB
 aB
 br
