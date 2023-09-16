@@ -930,6 +930,16 @@
 						if("Slimecore")
 							UI_style = "Operative"
 						if("Operative")
+						// SS220 ADDITION START
+							UI_style = "Vaporwave"
+						if("Vaporwave")
+							UI_style = "Detective"
+						if("Detective")
+							UI_style = "Trasen"
+						if("Trasen")
+							UI_style = "Clockwork"
+						if("Clockwork")
+						// SS220 ADDITION END
 							UI_style = "White"
 						else
 							UI_style = "Midnight"
