@@ -217,9 +217,9 @@
 /area/awaymission/wildwest/wildwest_mines)
 "cq" = (
 /obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
 	sound = "modular_ss220/aesthetics_sounds/sound/creepy/many_whisper2.ogg";
-	triggerer_only = 1;
-	happens_once = 1
+	triggerer_only = 1
 	},
 /turf/simulated/floor{
 	icon_state = "cult"
@@ -347,8 +347,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "dI" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/wildwest/wildwest_mines)
@@ -365,8 +365,8 @@
 /obj/structure/table/holotable/wood,
 /obj/item/book/random,
 /obj/item/clothing/glasses/regular{
-	pixel_y = 9;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 9
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/red,
@@ -396,8 +396,8 @@
 	pixel_y = 14
 	},
 /obj/machinery/door_control{
-	pixel_x = -9;
-	id = "ww_window"
+	id = "ww_window";
+	pixel_x = -9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -429,8 +429,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "en" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/carpet/purple,
 /area/awaymission/wildwest/wildwest_mines)
@@ -499,9 +499,9 @@
 	message = "<span class='cult italic'><b><span class='big'>Ancient walls, monstrous petroglyphs and sweet smell of putrefaction... It's worth turning back before this cursed call takes over your mind completely!</span></b></span>"
 	},
 /obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
 	sound = "modular_ss220/aesthetics_sounds/sound/creepy/many_whisper2.ogg";
-	triggerer_only = 1;
-	happens_once = 1
+	triggerer_only = 1
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wildwest/wildwest_mines)
@@ -661,8 +661,8 @@
 /area/awaymission/wildwest/wildwest_refine)
 "gq" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
@@ -877,8 +877,8 @@
 /area/awaymission/wildwest/wildwest_refine)
 "iy" = (
 /obj/machinery/door_control{
-	pixel_y = 30;
-	id = "ww_door_ext"
+	id = "ww_door_ext";
+	pixel_y = 30
 	},
 /turf/simulated/floor,
 /area/awaymission/wildwest/wildwest_refine)
@@ -946,9 +946,9 @@
 	message = "<span class='cult italic'><b><small><span class='big'>You catch a glimpse of how you begin to move chaotically to the beat of the call!</span></small></b></span>"
 	},
 /obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
 	sound = "modular_ss220/aesthetics_sounds/sound/creepy/many_whisper2.ogg";
-	triggerer_only = 1;
-	happens_once = 1
+	triggerer_only = 1
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wildwest/wildwest_mines)
@@ -1113,8 +1113,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "kx" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/carpet/orange,
 /area/awaymission/wildwest/wildwest_mines)
@@ -1215,8 +1215,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "ln" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
@@ -1513,8 +1513,8 @@
 "oe" = (
 /obj/machinery/hydroponics/soil,
 /obj/structure/flora/corn_stalk{
-	pixel_y = 15;
-	anchored = 1
+	anchored = 1;
+	pixel_y = 15
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
@@ -1580,8 +1580,8 @@
 	pixel_y = 6
 	},
 /obj/machinery/door_control{
-	pixel_x = 7;
 	id = "ww_pod";
+	pixel_x = 7;
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1591,8 +1591,8 @@
 /area/awaymission/wildwest/wildwest_refine)
 "oF" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1601,9 +1601,9 @@
 /area/awaymission/wildwest/wildwest_mines)
 "oH" = (
 /obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
 	sound = "sound/hallucinations/i_see_you1.ogg";
-	triggerer_only = 1;
-	happens_once = 1
+	triggerer_only = 1
 	},
 /turf/simulated/floor{
 	icon_state = "cult"
@@ -1703,16 +1703,16 @@
 	dir = 8
 	},
 /obj/machinery/door_control{
-	pixel_y = -27;
-	id = "ww_hang1"
+	id = "ww_hang1";
+	pixel_y = -27
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
 "pL" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet,
@@ -1863,9 +1863,9 @@
 /area/awaymission/wildwest/wildwest_mines)
 "ri" = (
 /obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
 	sound = "sound/hallucinations/behind_you1.ogg";
-	triggerer_only = 1;
-	happens_once = 1
+	triggerer_only = 1
 	},
 /turf/simulated/floor{
 	icon_state = "cult"
@@ -2063,8 +2063,8 @@
 "th" = (
 /obj/effect/step_trigger/sound_effect{
 	happens_once = 1;
-	triggerer_only = 1;
-	sound = "sound/hallucinations/over_here1.ogg"
+	sound = "sound/hallucinations/over_here1.ogg";
+	triggerer_only = 1
 	},
 /turf/simulated/floor{
 	icon_state = "cult"
@@ -2104,8 +2104,8 @@
 "tB" = (
 /obj/machinery/economy/vending/snack/free,
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
@@ -2140,8 +2140,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "tX" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /mob/living/simple_animal/hostile/syndicate/melee,
 /turf/simulated/floor/carpet/green,
@@ -2162,8 +2162,8 @@
 /obj/structure/table/wood/fancy/red,
 /obj/item/clothing/suit/hooded/cultrobes,
 /obj/item/trash/candle{
-	pixel_y = 1;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 1
 	},
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield,
 /turf/simulated/floor{
@@ -2344,8 +2344,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "vJ" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/carpet/orange,
 /area/awaymission/wildwest/wildwest_mines)
@@ -2359,8 +2359,8 @@
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
@@ -2678,9 +2678,9 @@
 /area/awaymission/wildwest/wildwest_mines)
 "zL" = (
 /obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
 	sound = "modular_ss220/aesthetics_sounds/sound/creepy/many_whisper1.ogg";
-	triggerer_only = 1;
-	happens_once = 1
+	triggerer_only = 1
 	},
 /turf/simulated/floor{
 	icon_state = "cult"
@@ -2818,9 +2818,9 @@
 /area/awaymission/wildwest/wildwest_mines)
 "AU" = (
 /obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
 	sound = "sound/hallucinations/turn_around1.ogg";
-	triggerer_only = 1;
-	happens_once = 1
+	triggerer_only = 1
 	},
 /turf/simulated/floor{
 	icon_state = "cult"
@@ -2828,9 +2828,9 @@
 /area/awaymission/wildwest/wildwest_vault)
 "AV" = (
 /obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
 	sound = "modular_ss220/aesthetics_sounds/sound/creepy/scary_whisper1.ogg";
-	triggerer_only = 1;
-	happens_once = 1
+	triggerer_only = 1
 	},
 /obj/effect/step_trigger/message{
 	message = "<span class='cult italic'><small><b><span class='big'>Has this rock always been here?</span></small></b></span>"
@@ -2960,9 +2960,9 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Cm" = (
 /obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
 	sound = "modular_ss220/aesthetics_sounds/sound/creepy/many_whisper2.ogg";
-	triggerer_only = 1;
-	happens_once = 1
+	triggerer_only = 1
 	},
 /turf/simulated/floor{
 	icon_state = "cultdamage"
@@ -3058,8 +3058,8 @@
 	dir = 4
 	},
 /obj/machinery/door_control{
-	pixel_y = 28;
-	id = "ww_hang1"
+	id = "ww_hang1";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3111,8 +3111,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "DF" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/crate/trashcart,
@@ -3211,8 +3211,8 @@
 	dir = 4
 	},
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
@@ -3398,8 +3398,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Gb" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
@@ -3492,8 +3492,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "GS" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/mine/dnascramble,
 /obj/effect/decal/cleanable/dirt,
@@ -3574,8 +3574,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "HJ" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
@@ -3770,8 +3770,8 @@
 /area/space)
 "JV" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /mob/living/simple_animal/hostile/syndicate/ranged,
 /turf/simulated/floor/carpet/purple,
@@ -3798,8 +3798,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Ku" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
@@ -3821,8 +3821,8 @@
 "KK" = (
 /obj/structure/barricade/sandbags,
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
@@ -3903,8 +3903,8 @@
 	pixel_y = 18
 	},
 /obj/item/trash/raisins{
-	pixel_y = 11;
-	pixel_x = -17
+	pixel_x = -17;
+	pixel_y = 11
 	},
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/blood/old,
@@ -4075,7 +4075,7 @@
 	},
 /area/awaymission/wildwest/wildwest_vault)
 "Ni" = (
-/obj/machinery/wish_granter,
+/obj/machinery/wish_granter_dark,
 /turf/simulated/floor{
 	icon_state = "necro3"
 	},
@@ -4095,8 +4095,8 @@
 /area/awaymission/wildwest/wildwest_refine)
 "Nl" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
@@ -4194,8 +4194,8 @@
 "Os" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
@@ -4325,8 +4325,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "PL" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor,
 /area/awaymission/wildwest/wildwest_refine)
@@ -4458,8 +4458,8 @@
 "QQ" = (
 /obj/effect/landmark/damageturf,
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor,
 /area/awaymission/wildwest/wildwest_refine)
@@ -4587,9 +4587,9 @@
 /area/awaymission/wildwest/wildwest_mines)
 "SO" = (
 /obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
 	sound = "sound/hallucinations/im_here1.ogg";
-	triggerer_only = 1;
-	happens_once = 1
+	triggerer_only = 1
 	},
 /turf/simulated/floor{
 	icon_state = "cult"
@@ -4707,16 +4707,16 @@
 "TQ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor,
 /area/awaymission/wildwest/wildwest_refine)
 "TS" = (
 /obj/machinery/mineral/ore_redemption,
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4777,8 +4777,8 @@
 "Uq" = (
 /obj/item/shard{
 	icon_state = "medium";
-	pixel_y = -10;
-	pixel_x = 16
+	pixel_x = 16;
+	pixel_y = -10
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/wildwest/wildwest_mines)
@@ -4853,8 +4853,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Vj" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/red,
@@ -4907,8 +4907,8 @@
 "VV" = (
 /obj/structure/reagent_dispensers/beerkeg,
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
@@ -4957,8 +4957,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
@@ -5127,8 +5127,8 @@
 /area/awaymission/wildwest/wildwest_mines)
 "YJ" = (
 /obj/machinery/light/small{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/green,
@@ -5155,8 +5155,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard{
 	icon_state = "medium";
-	pixel_y = -10;
-	pixel_x = 16
+	pixel_x = 16;
+	pixel_y = -10
 	},
 /obj/item/shard,
 /turf/simulated/floor/plasteel{

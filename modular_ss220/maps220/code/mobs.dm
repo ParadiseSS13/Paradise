@@ -2,7 +2,7 @@
 /mob/living/simple_animal/hostile/scavengers
 	name = "Scavenger"
 	desc = "One of the many random looters or bandits of the frontiers."
-	icon = 'modular_ss220/_maps220/icons/simple_human.dmi'
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
 	icon_state = "scav"
 	icon_living = "scav"
 	icon_dead = "scavdead"

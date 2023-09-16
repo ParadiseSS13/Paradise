@@ -6,10 +6,9 @@
 // --- MAINTENANCE --- //
 #include "_defines220/_defines220.dme"
 #include "_signals220/_signals220.dme"
-#include "_maps220/_maps220.dme"
 #include "_misc/_misc.dme"
 #include "_span/_span.dme"
-
+#include "maps220/_maps220.dme"
 
 // --- ICONS --- //
 #include "aesthetics/_aesthetics.dme"

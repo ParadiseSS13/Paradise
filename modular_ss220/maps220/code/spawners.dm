@@ -35,7 +35,7 @@
 
 /* LOOTDROP */
 /obj/effect/spawner/lootdrop/maintenance
-	icon = 'modular_ss220/_maps220/icons/spawner_icons.dmi'
+	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
 
 /obj/effect/spawner/lootdrop/maintenance/three
 	icon_state = "trippleloot"
@@ -47,7 +47,7 @@
 
 /obj/effect/spawner/lootdrop/trash
 	name = "trash spawner"
-	icon = 'modular_ss220/_maps220/icons/spawner_icons.dmi'
+	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
 	icon_state = "trash"
 	loot = list(
 		/obj/item/trash/bowl,

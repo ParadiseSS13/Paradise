@@ -1,5 +1,5 @@
 /obj/effect/mapping_helpers
-	icon = 'modular_ss220/_maps220/icons/mapping_helpers.dmi'
+	icon = 'modular_ss220/maps220/icons/mapping_helpers.dmi'
 
 /obj/effect/mapping_helpers/light
 	icon_state = "sunlight_helper"
