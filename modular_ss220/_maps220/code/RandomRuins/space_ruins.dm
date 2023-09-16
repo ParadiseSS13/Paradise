@@ -56,3 +56,13 @@
 	suffix = "convoy_ambush.dmm"
 	cost = 3
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/whiteship
+	name = "NT Medical Ship"
+	id = "whiteship"
+	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
+	suffix = "whiteship.dmm"
+	description = "An old, abandoned NT medical ship. Its computer can navigate to other landmarks within space with ease."
+	allow_duplicates = FALSE 
+	always_place = TRUE 
+	cost = 0 
