@@ -221,6 +221,7 @@
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1"
+	/// The reference to the envelope that is currently stored in the mail scanner. It will be cleared upon confirming a correct delivery
 	var/obj/item/envelope/saved
 
 /obj/item/mail_scanner/examine(mob/user)

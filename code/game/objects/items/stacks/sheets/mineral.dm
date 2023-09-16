@@ -331,6 +331,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/bananium/ten
 	amount = 10
+
 /obj/item/stack/sheet/mineral/bananium/fifty
 	amount = 50
 
