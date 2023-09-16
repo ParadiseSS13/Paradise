@@ -190,7 +190,7 @@
 				emagged = FALSE
 			else
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
-				var/score = player_hp + player_mp + 5
+				var/score = player_hp + player_mp + 15
 				prizevend(score)
 
 	else if(emagged && (turtle >= 4))
@@ -199,8 +199,8 @@
 		playsound(loc, 'sound/arcade/boom.ogg', 50, TRUE)
 		player_hp -= boomamt
 
-	else if((enemy_mp <= 5) && (prob(70)))
-		var/stealamt = rand(2,3)
+	else if((enemy_mp <= 5) && prob(70))
+		var/stealamt = rand(5, 6)
 		temp = "[enemy_name] steals [stealamt] of your power!"
 		playsound(loc, 'sound/arcade/steal.ogg', 50, TRUE)
 		player_mp -= stealamt
@@ -956,7 +956,7 @@
 		message_admins("[key_name_admin(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 		log_game("[key_name(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 	else
-		var/score = alive + round(food/2) + round(fuel/5) + engine + hull + electronics - lings_aboard
+		var/score = 15 * (alive - lings_aboard) + 5 * (engine + hull + electronics)
 		prizevend(score)
 	emagged = FALSE
 	name = "The Orion Trail"
