@@ -34,7 +34,7 @@
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/treat_burns
-	name = "Burns"
+	name = "Treat Severe Burns"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
