@@ -35,9 +35,6 @@
 
 	return 0
 
-/mob/living/carbon/alien/humanoid/CanContractDisease(datum/disease/D)
-	return FALSE
-
 /mob/living/carbon/alien/humanoid/emp_act(severity)
 	if(r_store) r_store.emp_act(severity)
 	if(l_store) l_store.emp_act(severity)
