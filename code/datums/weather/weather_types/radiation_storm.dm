@@ -71,7 +71,7 @@
 
 	status_alarm(FALSE)
 	if(!pre_maint_all_access)
-		GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces. Door access reseting momentarily.", "Anomaly Alert")
+		GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces. Door access resetting momentarily.", "Anomaly Alert")
 		addtimer(CALLBACK(SSweather, GLOBAL_PROC_REF(revoke_maint_all_access)), 10 SECONDS) // Bit of time to get out / break into somewhere.
 	else
 		GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
