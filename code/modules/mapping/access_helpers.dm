@@ -304,6 +304,12 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms
 	access = ACCESS_TCOMSAT
 
+/obj/effect/mapping_helpers/airlock/access/any/engineering/mainttech
+	access = ACCESS_MAINTENANCE_TECH
+
+/obj/effect/mapping_helpers/airlock/access/any/engineering/enginetech
+	access = ACCESS_CONTROL_ROOM
+
 /obj/effect/mapping_helpers/airlock/access/all/engineering/ce
 	access = ACCESS_CE
 
