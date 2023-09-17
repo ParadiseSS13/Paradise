@@ -64,7 +64,7 @@
 	name = "a hand teleporter"
 	typepath = /obj/item/hand_tele
 	protected_jobs = list("Captain", "Research Director", "Chief Engineer")
-	location_override = "AI Satellite, or the Captain's Office"
+	location_override = "the AI Satellite, or the Captain's Office"
 
 /datum/theft_objective/ai
 	name = "a functional AI"

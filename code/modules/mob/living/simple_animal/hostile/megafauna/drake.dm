@@ -591,9 +591,9 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
-	maxHealth = 250
-	health = 250
-	faction = list("neutral")
+	maxHealth = 500
+	health = 500
+	faction = list("carp")
 	desc = "A space carp turned dragon by vile magic.  Has the same ferocity of a space carp, but also a much more enabling body."
 	icon = 'icons/mob/spacedragon.dmi'
 	icon_state = "spacedragon"
@@ -603,14 +603,17 @@ Difficulty: Medium
 	melee_damage_upper = 35
 	melee_damage_lower = 35
 	speed = 0
+	move_to_delay = 3
 	mouse_opacity = MOUSE_OPACITY_ICON
-	loot = list()
+	loot = list(/obj/effect/temp_visual/bsg_kaboom, /obj/effect/temp_visual/emp/cult, )
 	crusher_loot = list()
-	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
+	butcher_results = list(/obj/item/stack/ore/diamond = 10, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	move_force = MOVE_FORCE_NORMAL
 	move_resist = MOVE_FORCE_NORMAL
 	pull_force = MOVE_FORCE_NORMAL
+	internal_gps = /obj/item/gps/internal/carp
 	deathmessage = "screeches as its wings turn to dust and it collapses on the floor, life extinguished."
+	death_sound = 'sound/creatures/spacedragondeath.ogg'
 	attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)
@@ -655,3 +658,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
 	return
+/obj/item/gps/internal/carp
+	icon_state = null
+	gpstag = "Corrupted Signal"
+	desc = "Fish and chips."
+	invisibility = 100

@@ -258,6 +258,7 @@
 	max_mod_capacity = 65
 	can_bayonet = FALSE
 	can_flashlight = FALSE
+	can_holster = TRUE
 
 //Modkits
 /obj/item/borg/upgrade/modkit
@@ -556,7 +557,7 @@
 	modifier = 2
 	denied_type = /obj/item/borg/upgrade/modkit/indoors
 	maximum_of_type = 2
-	cost = 35
+	cost = 0
 
 /obj/item/borg/upgrade/modkit/indoors/modify_projectile(obj/item/projectile/kinetic/K)
 	K.pressure_decrease *= modifier
