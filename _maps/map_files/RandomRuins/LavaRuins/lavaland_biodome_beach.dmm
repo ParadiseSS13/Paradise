@@ -119,9 +119,11 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aw" = (
@@ -166,7 +168,9 @@
 /obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/any/service/bar,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aG" = (

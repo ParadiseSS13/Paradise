@@ -44736,9 +44736,11 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/classic/normal{
 	name = "Kitchen Delivery";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
@@ -48742,7 +48744,9 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
 	dir = 1
 	},
@@ -62005,9 +62009,7 @@
 	name = "Hydroponics Window";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "iSf" = (
@@ -63037,9 +63039,7 @@
 	dir = 2;
 	name = "Justice Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -63917,7 +63917,9 @@
 	name = "Atmospherics Access";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/atmos{
 	dir = 1
 	},
@@ -63968,8 +63970,8 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/service/bar,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "jRP" = (
@@ -69161,8 +69163,12 @@
 /obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "mjP" = (
@@ -72444,9 +72450,11 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/structure/plasticflaps{
 	opacity = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
 	dir = 1
@@ -73110,9 +73118,7 @@
 	name = "Mass Driver";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance,
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
@@ -73643,8 +73649,10 @@
 	id_tag = "Secure Gate";
 	name = "brig shutters"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
@@ -82024,8 +82032,8 @@
 	dir = 2;
 	name = "delivery door"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "sBN" = (
@@ -85748,8 +85756,10 @@
 	opacity = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/classic/normal{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general{
@@ -87848,7 +87858,7 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)

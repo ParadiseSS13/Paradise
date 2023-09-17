@@ -65101,8 +65101,6 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 8;
@@ -65111,6 +65109,12 @@
 /obj/machinery/door/window/classic/reversed{
 	name = "Research Division Delivery";
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -65591,11 +65595,11 @@
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/classic/reversed{
 	dir = 2
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "fWu" = (
@@ -66320,12 +66324,7 @@
 	dir = 2;
 	name = "Anti-Theft Shield"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
-	dir = 2
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/reversed{
 	desc = "You have the public fridge, pal, lube off.";
@@ -66336,6 +66335,7 @@
 	dir = 1
 	},
 /obj/machinery/smartfridge/medbay,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "guQ" = (
@@ -67058,9 +67058,7 @@
 	name = "Containment Pen";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio2";
 	name = "Chamber 2 Containment Blast Doors"
@@ -67394,9 +67392,7 @@
 	id = "Cell 4";
 	name = "Cell 4"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -67811,9 +67807,7 @@
 	dir = 2;
 	name = "Secure Armory"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
 	name = "Secure Armory"
@@ -69355,8 +69349,12 @@
 /obj/machinery/door/window/classic/normal{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "ieI" = (
@@ -70288,9 +70286,7 @@
 	name = "Primate Pen";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/geneticist,
 /turf/simulated/floor/plasteel{
@@ -72155,9 +72151,7 @@
 	dir = 2;
 	name = "Accused"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -72534,9 +72528,7 @@
 	dir = 2;
 	name = "Do Not Revive"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/morgue{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/morgue,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/medical/morgue)
@@ -74334,9 +74326,7 @@
 	name = "Toxins Launcher";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox,
 /obj/machinery/door/window/classic/reversed{
 	dir = 1;
 	name = "Toxins Launcher"
@@ -75028,9 +75018,7 @@
 	dir = 2;
 	name = "Containment Pen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /obj/effect/turf_decal/stripes/full,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
@@ -76031,9 +76019,7 @@
 	name = "Containment Pen";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio3";
 	name = "Chamber 3 Containment Blast Doors"
@@ -76358,8 +76344,12 @@
 	dir = 1;
 	name = "Medical Delivery"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "mKq" = (
@@ -76673,9 +76663,7 @@
 	dir = 2;
 	name = "Medical Reception"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/door/poddoor/preopen{
@@ -79988,8 +79976,12 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "pct" = (
@@ -80348,9 +80340,13 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -81749,8 +81745,6 @@
 /area/station/maintenance/apmaint)
 "qjM" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/mapping_helpers/airlock/access/any/service/janitor,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
@@ -81760,6 +81754,12 @@
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	location = "Janitor"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/janitor{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
@@ -82216,8 +82216,8 @@
 /obj/machinery/door/window/classic/normal{
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
 /turf/simulated/floor/plasteel,
 /area/station/command/meeting_room)
 "qvO" = (
@@ -82547,9 +82547,7 @@
 	name = "Containment Pen";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio4";
 	name = "Chamber 4 Containment Blast Doors"
@@ -82704,9 +82702,13 @@
 	codes_txt = "delivery";
 	location = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
 /obj/machinery/door/window/classic/normal{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -85778,9 +85780,7 @@
 	id = "Cell 2";
 	name = "Cell 2"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -87373,9 +87373,7 @@
 	dir = 2;
 	name = "Body delivery system"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/morgue{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/morgue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -88123,12 +88121,7 @@
 	dir = 2;
 	name = "Chemistry Desk"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
-	dir = 2
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/reversed{
 	desc = "You have the public fridge, pal, lube off.";
@@ -88138,6 +88131,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteyellowfull"
@@ -90108,8 +90102,12 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "vpR" = (
@@ -90456,9 +90454,7 @@
 	name = "Kill Chamber";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio1";
 	name = "Chamber 1 Containment Blast Doors"
@@ -90995,9 +90991,7 @@
 	dir = 2;
 	name = "Security Reception"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -94200,9 +94194,13 @@
 	opacity = 1
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
 /obj/machinery/door/window/classic/normal{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{

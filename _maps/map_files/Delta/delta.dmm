@@ -7050,8 +7050,12 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/service/janitor,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/janitor{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/service/janitor)
 "aAB" = (
@@ -7598,9 +7602,7 @@
 	dir = 2;
 	name = "Bar Door"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -10062,9 +10064,13 @@
 	dir = 4;
 	location = "Bar"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /obj/machinery/door/window/classic/reversed{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/grimy,
@@ -17022,7 +17028,9 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "aXL" = (
@@ -19190,9 +19198,13 @@
 	location = "Kitchen"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/classic/reversed{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -19883,9 +19895,7 @@
 	dir = 2;
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/item/reagent_containers/food/drinks/britcup,
 /obj/item/reagent_containers/food/condiment/saltshaker,
 /obj/machinery/door/firedoor,
@@ -19911,9 +19921,7 @@
 	dir = 2;
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -20062,11 +20070,11 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /obj/machinery/door/window/classic/reversed{
 	dir = 2
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mining,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "bem" = (
@@ -20402,9 +20410,7 @@
 	dir = 2;
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -20424,9 +20430,7 @@
 	dir = 2;
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -21788,9 +21792,7 @@
 	id = "Cell 2";
 	name = "Cell 2"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23408,9 +23410,7 @@
 	dir = 2;
 	name = "Warden's Desk"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
 	name = "Warden's Desk"
@@ -25680,9 +25680,7 @@
 	id = "Cell 3";
 	name = "Cell 3"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -27671,8 +27669,12 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/atmos{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bvT" = (
@@ -35223,9 +35225,7 @@
 	id = "Cell 4";
 	name = "Cell 4"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -43233,9 +43233,7 @@
 	dir = 2;
 	name = "Desk Door"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/command/ntrep{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/ntrep,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -43310,9 +43308,7 @@
 	dir = 2;
 	name = "Desk Door"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/command/blueshield{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/blueshield,
 /obj/machinery/keycard_auth{
 	pixel_x = 24;
 	pixel_y = -2
@@ -47340,11 +47336,11 @@
 	location = "Security"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
 /obj/machinery/door/window/classic/normal{
 	dir = 2
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "cnT" = (
@@ -54322,8 +54318,8 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cEC" = (
@@ -57647,11 +57643,15 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/medical/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
@@ -60554,9 +60554,7 @@
 	pixel_y = 3;
 	anchored = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "cTG" = (
@@ -60693,9 +60691,7 @@
 	dir = 2;
 	name = "Chemistry Desk"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
@@ -60714,12 +60710,8 @@
 	name = "Chemistry Desk";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
-	dir = 2
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "chemdesk1";
@@ -60755,9 +60747,7 @@
 	name = "Medbay Desk";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
@@ -60772,9 +60762,7 @@
 	name = "Medbay Desk";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
@@ -62952,9 +62940,7 @@
 	name = "Medbay Desk";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/yellow,
@@ -72485,11 +72471,11 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/classic/reversed{
 	dir = 2
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "dyR" = (
@@ -86240,9 +86226,7 @@
 	name = "Medbay Desk";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/item/paper_bin,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
@@ -88820,11 +88804,15 @@
 	codes_txt = "delivery";
 	location = "Science"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /obj/machinery/door/window/classic/normal{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/science/break_room)
 "njQ" = (
@@ -89257,9 +89245,7 @@
 	dir = 2;
 	name = "Secure Armory"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
-	dir = 2
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
 	name = "Secure Armory"
@@ -96838,8 +96824,12 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "wjm" = (

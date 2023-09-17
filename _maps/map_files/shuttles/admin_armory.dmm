@@ -229,8 +229,8 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "rA" = (
@@ -473,8 +473,8 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Bq" = (
@@ -651,8 +651,8 @@
 /obj/machinery/door/window/reinforced/reversed{
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Kh" = (
@@ -761,8 +761,8 @@
 /obj/machinery/door/window/reinforced/reversed{
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Pn" = (
