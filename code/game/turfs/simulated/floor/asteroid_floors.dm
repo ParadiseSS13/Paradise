@@ -292,7 +292,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		if(DEADLY_DEEPROCK)
 			var/tempradius = rand(10, 15)
 			var/probmodifer = 43 * tempradius //Yes this is a magic number, it is a magic number that works well.
-			for(var/turf/NT in circlerangeturfs(T, tempradius))
+			for(var/turf/NT in circleviewturfs(T, tempradius))
 				var/distance = (max(get_dist(T, NT), 1)) //Get dist throws -1 if same turf
 				if(prob(min(probmodifer / distance, 100)))
 					if(ismineralturf(NT) || istype(NT, /turf/simulated/floor/plating/asteroid)) //No spawning on lava / other ruins
@@ -302,23 +302,32 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water = 1, /turf/simulated/floor/plating/asteroid = 1))
 				if(oasis_lake == /turf/simulated/floor/plating/asteroid)
 					new /obj/effect/spawner/oasisrock(T, tempradius)
-				for(var/turf/oasis in circlerangeturfs(T, tempradius))
+				for(var/turf/oasis in circleviewturfs(T, tempradius))
 					oasis.ChangeTurf(oasis_lake, ignore_air = TRUE)
 
 /obj/effect/spawner/oasisrock
 	name = "Oasis rock spawner"
+	var/passed_radius
 
 /obj/effect/spawner/oasisrock/Initialize(mapload, radius)
 	. = ..()
+	passed_radius = radius
+	return INITIALIZE_HINT_LATELOAD
 
-	addtimer(CALLBACK(src, PROC_REF(make_rock), radius), 5 SECONDS)
+/obj/effect/spawner/oasisrock/LateInitialize() //Let us try this for a moment.
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(make_rock), passed_radius), 5 SECONDS)
 
 /obj/effect/spawner/oasisrock/proc/make_rock(radius)
-	for(var/turf/oasis in circlerangeturfs(get_turf(src), radius))
+	var/our_turf = get_turf(src)
+	for(var/turf/oasis in circlerangeturfs(our_turf, radius))
 		oasis.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic, ignore_air = TRUE)
-	var/list/valid_turfs = RANGE_EDGE_TURFS(radius + 2, src)
-	for(var/mob/M in range(src, radius)) //We don't want mobs inside the ore rock
-		M.forceMove(pick(valid_turfs))
+	var/list/valid_turfs = circlerangeturfs(our_turf, radius + 1)
+	valid_turfs -= circlerangeturfs(our_turf, radius)
+	for(var/mob/M in circlerange(src, radius)) //We don't want mobs inside the ore rock
+		M.forceMove(pick_n_take(valid_turfs))
+	for(var/obj/structure/spawner/lavaland/O in circlerange(src, radius)) //We don't want tendrils in there either
+		O.forceMove(pick_n_take(valid_turfs))
 	qdel(src)
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFloor(turf/T, monsterprob = 30)
