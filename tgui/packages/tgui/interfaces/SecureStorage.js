@@ -10,7 +10,6 @@ import {
 import { Window } from '../layouts';
 import { TableCell, TableRow } from '../components/Table';
 import { KEY_BACKSPACE, KEY_ENTER, KEY_ESCAPE, KEY_0, KEY_9, KEY_NUMPAD_0, KEY_NUMPAD_9 } from '../hotkeys';
-import { logger } from '../logging';
 
 export const SecureStorage = (props, context) => {
   return (
@@ -25,8 +24,6 @@ export const SecureStorage = (props, context) => {
 const handleKeyCodeEvent = (e, context) => {
   const { act } = useBackend(context);
   const keyCode = window.event ? e.which : e.keyCode;
-
-  logger.log("FUCK FUCK FUCK " + keyCode);
 
   if (keyCode === KEY_ENTER) {
     e.preventDefault();
