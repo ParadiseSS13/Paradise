@@ -730,7 +730,7 @@
 		if(C?.charge)
 			C.use(min(C.charge, power_drain_rate))
 			adjust_charge(min(C.charge, power_drain_rate))
-			visible_message("<span class='notice'>[src] touches [O] and drains its power!</span>", "<span class='notice'>You touch [O] and drain its power!</span>")
+			visible_message("<span class='notice'>[src] touches [O] and drains its power!</span>", "<span class='notice'>You touch [O] and drain it's power!</span>")
 
 /mob/living/simple_animal/demon/pulse_demon/attack_hand(mob/living/carbon/human/M)
 	if(is_under_tile())
