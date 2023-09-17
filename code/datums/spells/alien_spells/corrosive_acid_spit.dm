@@ -20,12 +20,10 @@
 	if(!plasma_check(200, user))
 		to_chat(user, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
 		return
-	if(isliving(target) && target.acid_act(100, 50)) // If we don't do this, naked humans/simplemobs get absolutely nuked
-		visible_message("<span class='alertalien'>[user] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
-		add_attack_logs(user, target, "Applied corrosive acid") // Want this logged
-		user.add_plasma(-200)
-		return ..() // Otherwise it would apply more acid damage afterwards
-	if(target.acid_act(200, 100))
+	var/acid_damage_modifier = 1
+	if(isliving(target))
+		acid_damage_modifier = 0.5
+	if(target.acid_act(200 * acid_damage_modifier, 100 * acid_damage_modifier))
 		visible_message("<span class='alertalien'>[user] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
 		add_attack_logs(user, target, "Applied corrosive acid") // Want this logged
 		user.add_plasma(-200)
