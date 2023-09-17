@@ -432,7 +432,7 @@
 
 	update_glow()
 	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
-		if(!S.action || S.locked || S.cast_cost == 0)
+		if(!S.action || S.locked || !S.cast_cost)
 			continue
 		var/dist = S.cast_cost - orig
 		// only update icon if the amount is actually enough to change a spell's availability
