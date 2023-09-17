@@ -319,7 +319,7 @@
 		/obj/item/storage/box/syndidonkpockets = 1,
 		/obj/item/pen/edagger = 1,
 		/obj/item/door_remote/omni/access_tuner = 1,
-		/obj/item/clothing/glasses/thermal = 1,)
+		/obj/item/clothing/glasses/thermal = 1)
 
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
