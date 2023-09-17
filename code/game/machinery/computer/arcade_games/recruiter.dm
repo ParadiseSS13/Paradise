@@ -95,6 +95,8 @@
 	var/reason
 	/// In which screen are we?
 	var/game_status = RECRUITER_STATUS_START
+	/// Used to stop players from spamming the buttons
+	COOLDOWN_DECLARE(spam_cooldown)
 
 /obj/machinery/computer/arcade/recruiter/proc/generate_candidate()
 	if(prob(PROB_CANDIDATE_ERRORS)) // Species
@@ -220,6 +222,11 @@
 	var/mob/user = ui.user
 	add_fingerprint(user)
 	. = TRUE
+
+	if(!COOLDOWN_FINISHED(src, spam_cooldown))
+		return
+
+	COOLDOWN_START(src, spam_cooldown, 0.4 SECONDS)
 
 	switch(action)
 		if("hire")
