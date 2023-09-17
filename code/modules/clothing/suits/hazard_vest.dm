@@ -62,7 +62,7 @@
 /*MEDICAL*/
 /obj/item/clothing/suit/storage/hazardvest/paramed
 	name = "paramedic's hazard vest"
-	desc = "A high-visibility vest used in work zones. This one belongs to paramedic."
+	desc = "A high-visibility vest used in work zones. This one belongs to paramedic. It's made out of strong material."
 	icon_state = "hazard_paramed"
 	item_state = "hazard_paramed"
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe, /obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen)

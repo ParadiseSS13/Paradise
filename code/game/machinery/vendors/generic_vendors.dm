@@ -272,6 +272,7 @@
 	category = VENDOR_TYPE_CLOTHING
 	products = list(/obj/item/clothing/suit/ianshirt = 2,
 					/obj/item/clothing/under/misc/overalls = 2,
+					/obj/item/clothing/suit/storage/hazardvest = 2,
 					/obj/item/clothing/under/misc/mailman = 1,
 					/obj/item/clothing/under/suit/navy = 2,
 					/obj/item/clothing/under/suit/really_black = 2,
@@ -359,6 +360,7 @@
 
 	prices = list(/obj/item/clothing/under/suit/navy = 75,
 				/obj/item/clothing/under/misc/overalls = 75,
+				/obj/item/clothing/suit/storage/hazardvest = 75,
 				/obj/item/clothing/under/suit/checkered = 125,
 				/obj/item/clothing/under/suit/really_black = 75,
 				/obj/item/clothing/suit/storage/lawyer/blackjacket = 75,
@@ -509,7 +511,6 @@
 					/obj/item/clothing/mask/gas/plaguedoctor = 1,
 					/obj/item/clothing/suit/apron = 1,
 					/obj/item/clothing/under/misc/waiter = 1,
-					/obj/item/clothing/suit/storage/hazardvest = 2,
 					/obj/item/clothing/accessory/cowboyshirt = 1,
 					/obj/item/clothing/accessory/cowboyshirt/navy = 1,
 					/obj/item/clothing/under/costume/pirate = 1,
@@ -623,7 +624,6 @@
 					/obj/item/clothing/mask/gas/plaguedoctor = 50,
 					/obj/item/clothing/suit/apron = 75,
 					/obj/item/clothing/under/misc/waiter = 75,
-					/obj/item/clothing/suit/storage/hazardvest = 75,
 					/obj/item/clothing/accessory/cowboyshirt = 75,
 					/obj/item/clothing/accessory/cowboyshirt/navy = 75,
 					/obj/item/clothing/under/costume/pirate = 100,
