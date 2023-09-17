@@ -425,8 +425,8 @@
 	var/orig = charge
 	charge = min(maxcharge, charge + amount)
 	var/realdelta = charge - orig
-	if(realdelta == 0)
-		return 0
+	if(!realdelta)
+		return FALSE
 	if(realdelta > 0)
 		charge_drained += realdelta
 
