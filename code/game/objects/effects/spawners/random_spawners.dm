@@ -299,7 +299,7 @@
 		/obj/item/storage/box/syndie_kit/camera_bug = 1,
 		/obj/item/gun/projectile/automatic/toy/pistol/riot = 1,
 		/obj/item/flash/cameraflash = 1,
-		/obj/item/storage/box/syndie_kit/bonerepair = 1,)
+		/obj/item/storage/box/syndie_kit/bonerepair = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
 	name = "officer loot"
