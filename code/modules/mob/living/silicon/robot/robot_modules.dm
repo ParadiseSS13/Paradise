@@ -620,7 +620,7 @@
 		/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg,
-		/obj/item/pinpointer/operative
+		/obj/item/pinpointer/operative_nad
 	)
 
 // Sydicate medical cyborg module.

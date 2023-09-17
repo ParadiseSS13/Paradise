@@ -371,6 +371,45 @@
 		else
 			. += "No operatives detected within scanning range."
 
+/obj/item/pinpointer/operative_nad
+	name = "operative pinpointer"
+	desc = "A pinpointer that leads to the first Syndicate operative detected. Also has a mode to point towards the NAD."
+	modes = list(MODE_OPERATIVE, MODE_DISK)
+	var/mob/living/carbon/nearest_op = null
+
+/obj/item/pinpointer/operative_nad/process()
+	switch(mode)
+		if(MODE_DISK)
+			workdisk()
+		if(MODE_OPERATIVE)
+			scan_for_ops()
+			point_at_target(nearest_op, FALSE)
+
+/obj/item/pinpointer/operative_nad/proc/scan_for_ops()
+	if(mode != MODE_OPERATIVE)
+		return
+	nearest_op = null //Resets nearest_op every time it scans
+
+	var/closest_distance = 1000
+	for(var/datum/mind/Mind in SSticker.mode.syndicates)
+		var/mob/M = Mind.current
+		if(!ishuman(M))
+			continue
+		var/current_dist = get_dist(M, get_turf(src))
+		if(current_dist < closest_distance)
+			nearest_op = M
+			closest_distance = current_dist
+
+/obj/item/pinpointer/operative_nad/workbomb()
+	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
+		mode = MODE_SHIP	//Ensures worklocation() continues to work
+		modes = list(MODE_SHIP)
+		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
+		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
+		return		//Get outta here
+	scanbomb()
+	point_at_target(the_s_bomb)
+
 /obj/item/pinpointer/crew
 	name = "crew pinpointer"
 	desc = "A handheld tracking device that points to crew suit sensors."
