@@ -74,7 +74,7 @@
 /obj/item/storage/secure/emag_act(user, weapon)
 	if(!emagged)
 		emagged = TRUE
-		flick_overlay_view(image(icon, src, icon_sparking), src, 0.9 SECONDS) // todo, fix this with duration
+		flick_overlay_view(image(icon, src, icon_sparking), src, 0.9 SECONDS)
 		locked = FALSE
 		update_icon(UPDATE_OVERLAYS)
 		if(istype(weapon, /obj/item/melee/energy/blade))

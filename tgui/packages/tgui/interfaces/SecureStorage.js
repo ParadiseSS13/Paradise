@@ -1,10 +1,9 @@
 import { classes } from 'common/react';
-import { useBackend, useSharedState } from '../backend';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Flex,
-  Grid,
   Section,
   Table,
 } from '../components';
