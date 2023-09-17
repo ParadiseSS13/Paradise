@@ -296,6 +296,8 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 			verbs += /client/proc/ss_breakdown
 			verbs += /client/proc/show_gc_queues
 			verbs += /client/proc/toggle_mctabs
+			verbs += /client/proc/debug_timers
+			verbs += /client/proc/timer_log
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
