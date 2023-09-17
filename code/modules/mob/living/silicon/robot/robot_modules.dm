@@ -620,7 +620,8 @@
 		/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg,
-		/obj/item/pinpointer/operative_nad
+		/obj/item/pinpointer/operative,
+		/obj/item/stack/nanopaste/cyborg/syndicate
 	)
 
 // Sydicate medical cyborg module.
@@ -684,7 +685,8 @@
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg
+		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/stack/nanopaste/cyborg/syndicate
 	)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
 
