@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "build": "eslint packages && cd packages/tgui && npx webpack --mode=production",
-    "watch": "cd packages/tgui-dev-server && node --experimental-modules index.js",
+    "watch": "cd packages/tgui-dev-server && set NODE_OPTIONS=--openssl-legacy-provider --no-experimental-fetch && node --experimental-modules index.js",
     "analyze": "cd packages/tgui && npx webpack --mode=production --env.analyze=1",
     "lint": "eslint packages",
     "prettier": "prettier --check packages",
