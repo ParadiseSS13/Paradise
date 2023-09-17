@@ -989,6 +989,7 @@
 #include "code\game\objects\items\devices\radio\intercom.dm"
 #include "code\game\objects\items\devices\radio\radio_objects.dm"
 #include "code\game\objects\items\granters\_granters.dm"
+#include "code\game\objects\items\granters\action_granters\summon_cheese.dm"
 #include "code\game\objects\items\granters\crafting_granters\_crafting_granter.dm"
 #include "code\game\objects\items\granters\crafting_granters\combat_baking.dm"
 #include "code\game\objects\items\mountable_frames\air_alarm_frame.dm"

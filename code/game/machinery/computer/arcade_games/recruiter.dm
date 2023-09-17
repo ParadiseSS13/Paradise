@@ -30,21 +30,21 @@
 	/// Which unique candidate is he?
 	var/unique_candidate
 
-	var/list/planets = list("Earth", "Mars", "Luna", "Jargon 4", "New Cannan", "Mauna-B", "Ahdomai", "Moghes",
+	var/list/planets = list("Earth", "Mars", "Luna", "Jargon 4", "New Canaan", "Mauna-B", "Ahdomai", "Moghes",
 							"Qerrballak", "Xarxis 5", "Hoorlm", "Aurum", "Boron 2", "Kelune", "Dalstadt")
 	/// Planets with either mispellings or ones that cannot support life
-	var/list/incorrect_planets = list("Eath", "Marks", "Lunao", "Jabon 4", "Old Cannan", "Mauna-P",
+	var/list/incorrect_planets = list("Eath", "Marks", "Lunao", "Jabon 4", "Old Canaan", "Mauna-P",
 									"Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
 
 	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Barber", "Botanist", "Explorer", "Quartermaster",
 						"Station Engineer", "Atmospheric Technician", "Medical Doctor", "Coroner", "Geneticist", "Chaplain", "Librarian",
-						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs")
+						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs Agent")
 	/// Jobs that NT stations dont offer/mispelled
 	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "Brig Physician",
 								"Pod Pilot", "Cremist", "Cluwne", "Work Safety Inspector", "Musician",
 								"Chauffeur", "Teacher", "Maid", "Plumber", "Trader", "Hobo", "NT CEO",
 								"Mime", "Assitant", "Janittor", "Medical", "Generticist", "Baton Officer",
-								"Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs")
+								"Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs Agent")
 
 	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation, doesn't normally ask for good salaries", "Charged with three counts of aggravated silliness",
 							"Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian",
