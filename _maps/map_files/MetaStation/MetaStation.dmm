@@ -3661,6 +3661,14 @@
 "avv" = (
 /turf/simulated/wall,
 /area/station/public/sleep)
+"avx" = (
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/station/service/expedition)
 "avy" = (
 /obj/structure/rack,
 /obj/item/extinguisher,
@@ -10840,6 +10848,12 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/toilet/lockerroom)
+"aRu" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "browncorner"
+	},
+/area/station/service/expedition)
 "aRx" = (
 /obj/structure/closet/wardrobe/orange,
 /turf/simulated/floor/plasteel{
@@ -13325,20 +13339,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "aYr" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
-	},
+/turf/simulated/wall,
 /area/station/service/expedition)
 "aYt" = (
 /obj/structure/disposalpipe/segment,
@@ -25601,6 +25602,8 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/item/hand_tele,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -28605,16 +28608,6 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry)
-"bMC" = (
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "brown"
-	},
-/area/station/service/expedition)
 "bMD" = (
 /obj/structure/table/wood,
 /obj/item/folder,
@@ -29681,7 +29674,6 @@
 	icon_state = "2-8"
 	},
 /obj/item/radio/beacon,
-/obj/item/hand_tele,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "bPy" = (
@@ -66684,15 +66676,8 @@
 	},
 /area/station/science/toxins/launch)
 "lid" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
-	},
+/obj/machinery/power/apc,
+/turf/simulated/wall,
 /area/station/service/expedition)
 "lio" = (
 /turf/simulated/floor/plating/airless,
@@ -66962,9 +66947,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/medbay)
-"lpp" = (
-/turf/simulated/floor/plasteel,
-/area/station/service/expedition)
 "lpJ" = (
 /obj/machinery/disposal,
 /obj/structure/sign/securearea{
@@ -68241,7 +68223,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "lSa" = (
-/turf/simulated/wall,
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "brown"
+	},
 /area/station/service/expedition)
 "lSc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -77419,8 +77408,20 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "qrT" = (
-/obj/machinery/power/apc,
-/turf/simulated/wall,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
 /area/station/service/expedition)
 "qse" = (
 /obj/machinery/hologram/holopad,
@@ -85488,10 +85489,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "uwk" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "browncorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "uws" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -88377,11 +88375,14 @@
 /area/station/security/storage)
 "vSE" = (
 /obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
 /area/station/service/expedition)
 "vSH" = (
 /obj/structure/disposalpipe/segment{
@@ -115491,8 +115492,8 @@ hBM
 evi
 pvu
 uKT
-lSa
-lSa
+aYr
+aYr
 bcI
 bcX
 biN
@@ -115746,7 +115747,7 @@ cDt
 aOA
 htP
 ixX
-lpp
+uwk
 aZD
 aMc
 bTq
@@ -116003,7 +116004,7 @@ oFY
 aOA
 atJ
 rzX
-lpp
+uwk
 oiC
 aEQ
 bTq
@@ -116260,10 +116261,10 @@ bkA
 aOA
 hnI
 aVu
-lpp
+uwk
 rkX
 mXE
-lSa
+aYr
 aFE
 bek
 bfK
@@ -116515,12 +116516,12 @@ lIM
 axg
 lIM
 lIM
-lSa
+aYr
+aRu
 uwk
-lpp
 rkX
 mXE
-lSa
+aYr
 aFE
 bek
 bfK
@@ -116772,10 +116773,10 @@ xJy
 aGy
 xJy
 jaK
-qrT
-bMC
 lid
-aYr
+lSa
+vSE
+qrT
 oWs
 eXm
 bcM
@@ -117032,7 +117033,7 @@ gYO
 bNh
 bNh
 bNh
-vSE
+avx
 bNh
 bNh
 bQF

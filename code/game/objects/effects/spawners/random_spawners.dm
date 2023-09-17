@@ -258,7 +258,6 @@
 		/obj/item/clothing/mask/gas/syndicate = 1,
 		/obj/item/suppressor = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
-		/obj/item/gun/projectile/revolver/fake = 1,
 		/obj/item/storage/box/syndie_kit/space = 1,
 		/obj/item/clothing/shoes/magboots/syndie = 1,)
 
@@ -318,7 +317,6 @@
 		/obj/item/mod/module/stealth = 1,
 		/obj/item/mod/module/power_kick = 1,
 		/obj/item/storage/box/syndidonkpockets = 1,
-		/obj/item/encryptionkey/syndicate = 1,
 		/obj/item/pen/edagger = 1,
 		/obj/item/door_remote/omni/access_tuner = 1,
 		/obj/item/clothing/glasses/thermal = 1,)
@@ -336,7 +334,6 @@
 		/obj/item/gun/medbeam = 1,
 		/obj/item/shield/energy = 1,
 		/obj/item/storage/box/syndie_kit/teleporter = 1,
-		/obj/item/card/id/syndicate = 1,
 		/obj/item/weaponcrafting/gunkit/universal_gun_kit = 1,)
 
 // Layout-affecting spawns
