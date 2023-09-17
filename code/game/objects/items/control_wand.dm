@@ -29,15 +29,19 @@
 	return ..()
 
 /obj/item/door_remote/attack_self(mob/user)
-	switch(mode)
-		if(WAND_OPEN)
-			mode = WAND_BOLT
-		if(WAND_BOLT)
-			mode = WAND_EMERGENCY
-		if(WAND_EMERGENCY)
-			mode = WAND_SPEED
-		if(WAND_SPEED)
-			mode = WAND_OPEN
+	var/list/options = list(WAND_OPEN = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_open"),
+									WAND_BOLT = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_bolt"),
+									WAND_EMERGENCY = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_ea"),
+									WAND_SPEED = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_speed"))
+	var/image/part_image = options[mode]
+	// scuffed, but allows you to easily show whats the currently selected one
+	part_image.underlays += image(icon = 'icons/mob/radial.dmi', icon_state = "radial_slice_focus")
+	var/choice = show_radial_menu(user, src, options)
+	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
+		return
+	if(choice == mode) // they didn't change their choice, don't do the to_chat
+		return
+	mode = choice
 
 	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
 
