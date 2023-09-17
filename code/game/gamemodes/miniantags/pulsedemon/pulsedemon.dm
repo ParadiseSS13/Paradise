@@ -241,13 +241,13 @@
 	if(!mind)
 		return
 	mind.wipe_memory()
-	to_chat(src, "<br>")
-	to_chat(src, "<span class='warning'><font size=3><b>You are a pulse demon.</b></font></span>")
-	to_chat(src, "<b>A being made of pure electrical energy, you travel through the station's wires and infest machinery.</b>")
-	to_chat(src, "<b>Navigate the station's power cables to find power sources to steal from, and hijack APCs to interact with their connected machines.</b>")
-	to_chat(src, "<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise immune to damage.</b>")
-	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Pulse_Demon)</span>")
-
+	var/list/greeting = list(src, "<br>")
+	greeting.Add("<span class='warning'><font size=3><b>You are a pulse demon.</b></font></span>")
+	greeting.Add("<b>A being made of pure electrical energy, you travel through the station's wires and infest machinery.</b>")
+	greeting.Add("<b>Navigate the station's power cables to find power sources to steal from, and hijack APCs to interact with their connected machines.</b>")
+	greeting.Add("<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise immune to damage.</b>")
+	greeting.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Pulse_Demon)</span>")
+	to_chat(src, greeting.Join("<br>"))
 	var/amount_of_objectives = 1
 	var/list/objective_types = list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper)
 	for(var/p in objective_types)
