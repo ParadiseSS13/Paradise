@@ -418,7 +418,7 @@
 			demon.update_controlling_area(TRUE)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/adjust_charge(amount, adjust_max = FALSE)
-	if(amount == 0)
+	if(!amount)
 		return 0
 	if(adjust_max)
 		maxcharge = max(maxcharge, charge + amount)
